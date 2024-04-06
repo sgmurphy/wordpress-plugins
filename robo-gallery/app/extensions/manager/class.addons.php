@@ -32,6 +32,7 @@ class rbsGalleryAddons{
     protected $pluginConfirm = '';
 
     public $view;
+    public $path='';
 
     public function __construct( $postType ){ 
     	

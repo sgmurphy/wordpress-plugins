@@ -18,6 +18,9 @@ class  roboGalleryModuleConfig{
 	private $options_id = null;
 	private $config = array();	
 
+	private $core = null;	
+	private $gallery = null;	
+
 	public function __construct( $core ){
        $this->core = $core;
        $this->gallery = $core->gallery;

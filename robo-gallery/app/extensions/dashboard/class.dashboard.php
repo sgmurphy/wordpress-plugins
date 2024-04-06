@@ -15,7 +15,7 @@ if ( !class_exists( 'rbsGalleryDashboard' ) ){
 
     class rbsGalleryDashboard
     {
-        protected $title = false;
+        protected $title = '';
         protected $config = array();
         
         protected $default_item = array( 
@@ -27,14 +27,16 @@ if ( !class_exists( 'rbsGalleryDashboard' ) ){
 	                    'url' 			=> '',
                 	);
 
-        protected $slug = false;
-        protected $active_content = false;
-        protected $url_external_button1 = false;
-        protected $url_external_button2 = false;
-        protected $active_tab = false;
-        protected $page_name = false;
-        protected $page_menu = false;
-        protected $page_title = false;
+        protected $slug = '';
+        protected $active_content = '';
+        protected $url_external_button1 = '';
+        protected $url_external_button2 = '';
+        protected $active_tab = '';
+        protected $page_name = '';
+        protected $page_menu = '';
+        protected $page_title = '';
+
+        protected $tag = '';
 
         public function __construct()
         {

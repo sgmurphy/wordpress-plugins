@@ -11,7 +11,7 @@ function rbsSCSS_init() {
 		return ;
 	} 
 		
-	require_once ROBO_GALLERY_VENDOR_PATH.'scss/scssphp-1.10.0/scss.inc.php';
+	require_once ROBO_GALLERY_VENDOR_PATH.'scss/scssphp-1.12.1/scss.inc.php';
 }
 
 function rbsSCSS_isLegacyVersion(){

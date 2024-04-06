@@ -1,7 +1,7 @@
 <?php
 /* 
 *      Robo Gallery     
-*      Version: 3.2.14 - 40722
+*      Version: 3.2.21 - 40722
 *      By Robosoft
 *
 *      Contact: https://robogallery.co/ 
@@ -22,11 +22,7 @@ class roboGalleryFieldsAjax{
 
 		if( rbsGalleryUtils::isAdminArea( $allowAjax = true ) ){
 			add_action( $this->pref.'get_images_from_ids', array($this, 'get_images_tags_from_ids') );		
-			//add_action( $this->pref.'get_gallery_json', array($this, 'getGalleryListJson') );		
-    	}
-		//delete_option( 'yo_gallery_fields_voting1' );
-		//delete_option( 'yo_gallery_fields_feedback' );
-		//add_action('wp_ajax_yo_gallery_fields_saveoption', array( $this, 'saveOption') );	    	
+    	} 	
   			
 
 		add_action( 'rest_api_init', function () {
@@ -40,18 +36,14 @@ class roboGalleryFieldsAjax{
   			register_rest_route( 'robogallery/v1', '/images/(?P<ids>[0-9,]+)', array(
     			'methods' => 'GET',
     			'callback' => array($this, 'getImagesUrls' ),
-    			'permission_callback' => '__return_true',
+    			'permission_callback' => array($this, 'checkPermission' ),
   			));
 		});	
 	}
 
-	function getEmptyImagesUrls( WP_REST_Request $request ) {
-		return array();
-	}
-
-	function getImagesUrls( WP_REST_Request $request ) {
+	public  static function getIDsArray( WP_REST_Request $request){
 		$ids = trim($request->get_param( 'ids' ));
-		
+
 		if(!$ids) return array();
 
 		$idsArray = explode(',', $ids);
@@ -62,7 +54,37 @@ class roboGalleryFieldsAjax{
 
   		$returnArray = array();
 		for ($i=0; $i < count($idsArray); $i++) { 
-			$returnArray[] = self::getImage($idsArray[$i]);
+			$returnArray[] = (int) $idsArray[$i];
+		}
+		return $returnArray;
+	}
+
+	function checkPermission( WP_REST_Request $request ) {
+		if ( is_user_logged_in() ) {
+			$ids = self::getIDsArray($request);
+			if(count($ids) ){
+				$allowView = true;
+				for ($i=0; $i < count($ids); $i++) { 
+					if( !current_user_can( 'read', $ids[$i] )){
+						if($allowView) $allowView = false;
+					} 
+				}
+				return $allowView; 
+			}
+		}
+		return false; 
+	}
+
+	function getEmptyImagesUrls( WP_REST_Request $request ) {
+		return array();
+	}
+
+	function getImagesUrls( WP_REST_Request $request ) {
+		$ids = self::getIDsArray($request);
+
+  		$returnArray = array();
+		for ($i=0; $i < count($ids); $i++) { 
+			$returnArray[] = self::getImage($ids[$i]);
 		}
 		return $returnArray;
 	}
@@ -112,18 +134,6 @@ class roboGalleryFieldsAjax{
 		$url = wp_get_attachment_thumb_url( $attachment_id );
 		if( $url ) return '<img data-id="'.$attachment_id.'" src="'.$url.'" />';
 		return '';
-	}	
-
-	public function saveOption(){
-		if(isset($_POST['feedback']) && $_POST['feedback']==1){
-			delete_option( 'yo_gallery_fields_feedback' );
-			add_option( 'yo_gallery_fields_feedback', '1' ); 
-		} else {
-			delete_option( 'yo_gallery_fields_voting1' );
-			add_option( 'yo_gallery_fields_voting1', '1' ); 
-		}
-		echo 'ok';
-		wp_die();
 	}
 
 }

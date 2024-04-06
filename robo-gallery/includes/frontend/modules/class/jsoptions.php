@@ -17,6 +17,9 @@ class  roboGalleryModuleJsOptions{
 	private $options_id = null;
 
 	protected $options 	= array();	
+	
+	protected $core = null;	
+	protected $gallery = null;	
 
 
 	public function __construct( $core ){

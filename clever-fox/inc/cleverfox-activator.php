@@ -216,6 +216,13 @@ class Cleverfox_Activator {
 				require CLEVERFOX_PLUGIN_DIR . 'inc/evita/default-widgets/default-widget.php';
 			}
 			
+			if ( 'Corpex' == $theme->name ){
+				require CLEVERFOX_PLUGIN_DIR . 'inc/corpex/default-pages/upload-media.php';
+				require CLEVERFOX_PLUGIN_DIR . 'inc/corpex/default-pages/home-page.php';
+				require CLEVERFOX_PLUGIN_DIR . 'inc/corpex/default-widgets/default-widget.php';
+				require CLEVERFOX_PLUGIN_DIR . 'inc/corpex/default-pages/default-pages.php';
+			}
+			
 			update_option( 'item_details_page', 'Done' );
 		}
 	}

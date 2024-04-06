@@ -28,6 +28,8 @@ class  roboGalleryModuleHoverV1 extends roboGalleryModuleAbstraction{
 	private $titleHover = '';
 	private $descHover 	= '';
 	
+	private $templateHover 	= '';
+	
 	public function init(){
 		$this->initScss();
 		//$this->core->addEvent('gallery.block.before', array($this, 'initHover'));

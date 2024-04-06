@@ -451,13 +451,13 @@ function msp_masterslider_wrapper_shortcode( $atts, $content = null ) {
 									msp_is_true( $thumbs_arrows ),
 									msp_is_true( $thumbs_hoverchange ),
 									$thumbs_custom_class,
-									$thumbs_align,
-									$thumbs_type,
+									esc_attr( $thumbs_align ),
+									esc_attr( $thumbs_type ),
 									(int)$thumbs_margin,
 									(int)$thumbs_width,
 									(int)$thumbs_height,
 									(int)$thumbs_space,
-									$thumbs_fillmode,
+									esc_attr( $thumbs_fillmode ),
 									$thumbs_hideunder
 								);
 
@@ -1075,7 +1075,7 @@ function msp_masterslider_slide_info_shortcode( $atts, $content = null ) {
      }
 
 	 // create slide info markup
-	 $output = sprintf( '<%1$s class="ms-info%2$s">%3$s</%1$s>', $tag_name, esc_attr( $css_class ), do_shortcode( wp_unslash( $content ) ) )."\n";
+	 $output = sprintf( '<%1$s class="ms-info%2$s">%3$s</%1$s>', esc_attr( $tag_name ), esc_attr( $css_class ), do_shortcode( wp_unslash( $content ) ) )."\n";
 
 	 return apply_filters( 'masterslider_slide_info_shortcode', "\t\t\t\t\t".$output, $args );
 }
@@ -1095,7 +1095,7 @@ function msp_masterslider_slide_flickr_shortcode( $atts, $content = null ) {
 
 	extract( $args );
 
-	$output = sprintf( '<img src="%s" data-src="{{image}}" alt="{{title}}"/>', $src_blank ) . "\n";
+	$output = sprintf( '<img src="%s" data-src="{{image}}" alt="{{title}}"/>', esc_attr( $src_blank ) ) . "\n";
 
 	if( 'yes' == $thumb )
 		$output .= "\t\t\t\t" . '<img class="ms-thumb" src="{{thumb}}" alt="{{title}}"/>';

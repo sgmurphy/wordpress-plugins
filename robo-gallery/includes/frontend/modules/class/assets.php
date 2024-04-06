@@ -31,6 +31,9 @@ class  roboGalleryModuleAssets{
 
 	protected $modulePath 	= null;
 	protected $moduleUrl 	= null;	
+	
+	protected $core = null;	
+	protected $gallery = null;	
 
 
 	public function __construct( $core ){

@@ -2,7 +2,7 @@
 Contributors: samuelaguilera
 Tags: xml-rpc, xml, rpc, pingback, ddos, firewall
 Requires at least: 4.8
-Tested up to: 5.7.2
+Tested up to: 6.5
 Requires PHP: 5.6
 Stable tag: 1.2.2
 License: GPLv2
@@ -21,7 +21,7 @@ This is more friendly than disabling totally XML-RPC, that it's needed by some p
 * No marketing buzz.
 * Maintained and **updated when needed** since 2014.
 * 100% compliant with **WordPress coding standards** which makes it fail safe.
-* **70,000+ active installations** can't be wrong.
+* **60,000+ active installations** can't be wrong.
 
 If you're happy with the plugin [please don't forget to give it a good rating](https://wordpress.org/support/plugin/disable-xml-rpc-pingback/reviews/?filter=5), it will motivate me to keep sharing and improving this plugin (and others).
 
