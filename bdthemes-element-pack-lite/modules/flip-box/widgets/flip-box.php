@@ -1463,7 +1463,7 @@ class Flip_Box extends Module_Base {
 					<div class="bdt-flip-box-layer-inner">
 						<?php if ('image' === $settings['graphic_element'] && !empty($settings['image']['url'])) : ?>
 							<div class="bdt-flip-box-image">
-								<?php echo Group_Control_Image_Size::get_attachment_image_html($settings); ?>
+								<?php echo wp_kses_post(Group_Control_Image_Size::get_attachment_image_html($settings)); ?>
 							</div>
 						<?php elseif ('icon' === $settings['graphic_element'] && !empty($settings['flip_box_icon']['value'])) : ?>
 							<div <?php $this->print_render_attribute_string('icon-wrapper'); ?>>

@@ -5,7 +5,7 @@ Tags:  elementor addons, elementor widget, elementor extensions, elementor addon
 Requires at least: 5.0.0
 Tested up to: 6.5
 Requires PHP: 7.4.0
-Stable tag: 5.5.6
+Stable tag: 5.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
@@ -129,6 +129,14 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.6.0 [7th April 2024] =
+
+* Fixed: Templates Library issue fixed
+* Fixed: Marker icon issue fixed in Open Street Map widget
+* Fixed: Blinking issue fixed in Navbar widget (Thanks to Rosanna Fazio)
+* Fixed: Widget Visibility issue fixed in Toggle widget (Thanks to Tri)
+* Updated: Plugin Security improved
 
 = 5.5.6 [4th April 2024] =
 

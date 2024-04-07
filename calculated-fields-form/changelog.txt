@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.1.63 =
+
+* Fixes an issue estimating the Select2 DropDown fields when they are hidden by default and shown on demand.
+* Modifies how the calculated fields handle the raw fields' values.
+* Modifies the query that reads the entries list (Professional, Developer, and Platinum plugin versions).
+* Fixes a minor issue identifying variations' prices on variable WooCommerce products when there are other variable products on the page (Developer and Platinum plugin versions).
+* Fixes a conflict between reCAPTCHA styles and third-party themes (Developer and Platinum plugin versions).
+
 = 5.1.62 =
 
 * Optimizes the plugin queries.

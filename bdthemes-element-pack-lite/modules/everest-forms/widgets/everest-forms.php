@@ -2065,6 +2065,6 @@ class Everest_Forms extends Module_Base {
 	}
 
 	public function render_plain_content() {
-		echo $this->get_shortcode();
+		echo wp_kses_post($this->get_shortcode());
 	}
 }

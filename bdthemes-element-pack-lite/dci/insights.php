@@ -50,9 +50,9 @@ if (!class_exists('Insights_SDK')) {
 			 * Modal Trigger if not init
 			 * Show Notice Modal
 			 */
-			 if (!$dci_status_db) {
+			if (!$dci_status_db) {
 				$this->notice_modal($params);
-			 	 return;
+				return;
 			}
 
 			/**
@@ -390,7 +390,7 @@ if (!class_exists('Insights_SDK')) {
 			$plugin_icon  = isset($this->params['plugin_icon']) ? $this->params['plugin_icon'] : '';
 
 ?>
-			<div class="dci-global-notice dci-notice-data notice notice-success is-dismissible">
+			<div class="dci-global-notice dci-notice-data notice notice-success is-dismissible <?php echo esc_attr(substr($this->dci_name, 0, -33)); ?>">
 				<div class="dci-global-header bdt-dci-notice-global-header">
 					<?php if (!empty($plugin_icon)) : ?>
 						<div class="bdt-dci-notice-logo">
@@ -399,7 +399,7 @@ if (!class_exists('Insights_SDK')) {
 					<?php endif; ?>
 					<div class="bdt-dci-notice-content">
 						<h3>
-							<?php printf(esc_html( $plugin_title )); ?>
+							<?php printf(wp_kses_post($plugin_title)); ?>
 						</h3>
 						<?php printf(wp_kses_post($plugin_msg)); ?>
 						<p>
@@ -409,7 +409,7 @@ if (!class_exists('Insights_SDK')) {
 						<input type="hidden" name="dci_date_name" value="<?php echo esc_html($this->dci_date_name); ?>">
 						<input type="hidden" name="dci_allow_name" value="<?php echo esc_html($this->dci_allow_name); ?>">
 						<input type="hidden" name="nonce" value="<?php echo esc_html(wp_create_nonce('dci_sdk')); ?>">
-			
+
 						<div class="bdt-dci-notice-button-wrap">
 							<button name="dci_allow_status" value="yes" class="dci-button-allow">
 								Yes, I'd Love To Contribute
@@ -423,7 +423,7 @@ if (!class_exists('Insights_SDK')) {
 						</div>
 					</div>
 				</div>
-						
+
 			</div>
 
 <?php
@@ -447,7 +447,7 @@ if (!class_exists('Insights_SDK')) {
 				wp_die();
 			}
 
-			if ( !current_user_can('manage_options') ) {
+			if (!current_user_can('manage_options')) {
 				wp_send_json(array(
 					'status'	=> 'error',
 					'title'		=> 'Error',

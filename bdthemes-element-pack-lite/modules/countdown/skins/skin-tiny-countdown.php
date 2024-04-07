@@ -82,8 +82,8 @@ class Skin_Tiny_Countdown extends Elementor_Skin_Base {
 		);
 
 		?>
-		<div <?php echo $this->parent->get_render_attribute_string('countdown_wrapper'); ?>>
-			<div <?php echo $this->parent->get_render_attribute_string( 'countdown' ); ?>>
+		<div <?php $this->parent->print_render_attribute_string('countdown_wrapper'); ?>>
+			<div <?php $this->parent->print_render_attribute_string( 'countdown' ); ?>>
 				<?php echo wp_kses_post($string); ?>
 			</div>
 			<?php if ($settings['end_action_type'] == 'message') : ?>

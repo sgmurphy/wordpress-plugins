@@ -479,6 +479,7 @@ body{
 #fbuilder .cff-collapsible>fieldset>legend{cursor:pointer;}
 #fbuilder .cpcaptchalayer,.cp_subbtn{display:none;}
 #fbuilder .captcha img{ cursor:pointer; }
+#fbuilder .cff-recaptcha{overflow: hidden !important;}
 
 #fbuilder .cff-repeater-field .cff-repeater-field-add{margin-right:10px;}
 #fbuilder .cff-repeater-field .cff-repeater-field-btn:not(.cff-repeater-btn-label){

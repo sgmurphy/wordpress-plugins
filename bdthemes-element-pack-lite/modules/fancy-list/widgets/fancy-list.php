@@ -115,9 +115,9 @@ class Fancy_List extends Module_Base {
 		$repeater->add_control(
 			'img',
 			[ 
-				'label'       => esc_html__( 'Image', 'bdthemes-element-pack' ),
-				'type'        => Controls_Manager::MEDIA,
-				'dynamic'     => [ 
+				'label'   => esc_html__( 'Image', 'bdthemes-element-pack' ),
+				'type'    => Controls_Manager::MEDIA,
+				'dynamic' => [ 
 					'active' => true,
 				],
 			]
@@ -945,12 +945,12 @@ class Fancy_List extends Module_Base {
 					?>
 					<li>
 						<?php
-						if ( ! empty( $item['link']['url'] ) ) {
+						if ( ! empty ( $item['link']['url'] ) ) {
 							$link_key = 'link_' . $index;
 
 							$this->add_link_attributes( $link_key, $item['link'] );
 
-							echo '<a class="bdt-fancy-list-wrap" ' . $this->get_render_attribute_string( $link_key ) . '>';
+							echo '<a class="bdt-fancy-list-wrap" ' . wp_kses_post( $this->get_render_attribute_string( $link_key ) ) . '>';
 						} else {
 							echo '<div class="bdt-fancy-list-wrap">';
 						}
@@ -963,12 +963,12 @@ class Fancy_List extends Module_Base {
 								<?php echo '</span></div>';
 							}
 							?>
-							<?php if ( ! empty( $item['img']['url'] ) ) : ?>
+							<?php if ( ! empty ( $item['img']['url'] ) ) : ?>
 								<div class="bdt-fancy-list-img">
 									<?php
 									$thumb_url = $item['img']['url'];
 									if ( $thumb_url ) {
-										print( wp_get_attachment_image(
+										print ( wp_get_attachment_image(
 											$item['img']['id'],
 											'medium',
 											false,
@@ -989,14 +989,14 @@ class Fancy_List extends Module_Base {
 									<?php echo wp_kses_post( $item['text_details'] ); ?>
 								</p>
 							</div>
-							<?php if ( ! empty( $item['list_icon']['value'] ) ) : ?>
+							<?php if ( ! empty ( $item['list_icon']['value'] ) ) : ?>
 								<div class="bdt-fancy-list-icon">
 									<?php Icons_Manager::render_icon( $item['list_icon'], [ 'aria-hidden' => 'true' ] ); ?>
 								</div>
 							<?php endif; ?>
 						</div>
 						<?php
-						if ( ! empty( $item['link']['url'] ) ) :
+						if ( ! empty ( $item['link']['url'] ) ) :
 							?>
 							</a>
 						<?php else : ?>

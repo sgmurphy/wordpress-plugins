@@ -45,7 +45,7 @@ class Skin_Flip extends Elementor_Skin_Base {
         
 
 		?>
-		<div <?php echo $this->parent->get_render_attribute_string( 'skin-flip' ); ?>>
+		<div <?php $this->parent->print_render_attribute_string( 'skin-flip' ); ?>>
 
             <div class="bdt-skin-flip-layer bdt-skin-flip-front" style="background-image: url('<?php echo esc_url($member_image); ?>');">
 				<div class="bdt-skin-flip-layer-overlay">

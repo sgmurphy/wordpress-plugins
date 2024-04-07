@@ -76,6 +76,42 @@ class Advanced_Import {
 	public $plugin_i18n;
 
 	/**
+	 * The admin class object of the plugin.
+	 *
+	 * @since    1.4.1
+	 * @access   public
+	 * @var      object Advanced_Import_Admin    $actions
+	 */
+	public $actions;
+
+	/**
+	 * The admin class object of the plugin.
+	 *
+	 * @since    1.4.1
+	 * @access   public
+	 * @var      object Advanced_Import_Admin    $filters
+	 */
+	public $filters;
+
+	/**
+	 * The admin class object of the plugin.
+	 *
+	 * @since    1.4.1
+	 * @access   public
+	 * @var      object Advanced_Import_Admin    $domain
+	 */
+	public $domain;
+
+	/**
+	 * The admin class object of the plugin.
+	 *
+	 * @since    1.4.1
+	 * @access   public
+	 * @var      object Advanced_Import_Admin    $errors
+	 */
+	public $errors;
+
+	/**
 	 * Main Advanced_Import Instance
 	 *
 	 * Insures that only one instance of Advanced_Import exists in memory at any one

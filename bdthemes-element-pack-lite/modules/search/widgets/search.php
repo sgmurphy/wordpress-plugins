@@ -1564,7 +1564,7 @@ class Search extends Module_Base {
 				<div class="bdt-position-relative">
 					<?php $this->search_icon($settings); ?>
 					<?php if ($settings['search_query']) : ?>
-						<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
+						<input name="post_type" id="post_type" type="hidden" value="<?php echo esc_attr($settings['search_query']); ?>">
 					<?php endif; ?>
 					<input <?php $this->print_render_attribute_string('input'); ?>>
 					<?php $this->search_button(); ?>
@@ -1605,7 +1605,7 @@ class Search extends Module_Base {
 					<div class="bdt-position-relative">
 						<?php $this->add_render_attribute('input', 'class', 'bdt-padding-small'); ?>
 						<?php if ($settings['search_query']) : ?>
-							<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
+							<input name="post_type" id="post_type" type="hidden" value="<?php echo esc_attr($settings['search_query']); ?>">
 						<?php endif; ?>
 						<input <?php $this->print_render_attribute_string('input'); ?> autofocus>
 					</div>
@@ -1643,7 +1643,7 @@ class Search extends Module_Base {
 							<div class="bdt-position-relative">
 								<?php $this->add_render_attribute('input', 'class', 'bdt-padding-small'); ?>
 								<?php if ($settings['search_query']) : ?>
-									<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
+									<input name="post_type" id="post_type" type="hidden" value="<?php echo esc_attr($settings['search_query']); ?>">
 								<?php endif; ?>
 								<input <?php $this->print_render_attribute_string('input'); ?> autofocus>
 							</div>
@@ -1672,7 +1672,7 @@ class Search extends Module_Base {
 							<?php $this->add_render_attribute('input', ['class' => 'bdt-text-center']); ?>
 							<?php $this->search_icon($settings); ?>
 							<?php if ($settings['search_query']) : ?>
-								<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
+								<input name="post_type" id="post_type" type="hidden" value="<?php echo esc_attr($settings['search_query']); ?>">
 							<?php endif; ?>
 							<input <?php $this->print_render_attribute_string('input'); ?> autofocus>
 						</div>

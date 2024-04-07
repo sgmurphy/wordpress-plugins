@@ -29,7 +29,7 @@ class Element_Pack_Elementor_Template_Widget extends WP_Widget {
 
 		if ( ! empty( $instance['title'] ) ) {
 			$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo wp_kses_post($args['before_title'] . $title . $args['after_title']);
 		}
 
 		if ( ! empty( $instance['template_id'] ) && 'publish' === get_post_status( $instance['template_id'] ) ) {

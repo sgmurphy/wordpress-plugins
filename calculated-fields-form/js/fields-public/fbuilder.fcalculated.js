@@ -312,7 +312,8 @@
 						while (_match = field_regexp.exec(eq))
 						{
 							var field = $.fbuilder['forms'][suffix].getItem(_match[1]),
-								v = '';
+								v = '',
+								r;
 							if(field || (_match[3] && _match[3] == '|n'))
 							{
 								if(_match[3] && _match[3] == '|n')
@@ -321,9 +322,10 @@
 								}
 								else
 								{
-									v = field.val((_match[3]) ? ((_match[3] == '|v') ? 'vt' : ((_match[3] == '|r') ? true : false)) : false);
+									r = (_match[3]) ? ((_match[3] == '|v') ? 'vt' : ((_match[3] == '|r') ? true : false)) : false;
+									v = field.val(r);
 									if(typeof v == 'object' && typeof window.JSON != 'undefined') v = JSON.stringify(v);
-									else if($.fbuilder.isNumeric(v)) v = '('+v+')';
+									else if( r !== true && $.fbuilder.isNumeric(v)) v = '('+v+')';
 								}
 							}
 							eq = eq.replace(_match[0], v+''+_match[4]); // Replace the variable name by value

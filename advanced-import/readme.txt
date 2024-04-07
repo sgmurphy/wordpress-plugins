@@ -4,9 +4,9 @@ Contributors: addonspress, codersantosh, acmeit
 Donate link: https://addonspress.com/
 Tags: import, advanced import, demo import, theme import, widget import, customizer import
 Requires at least: 5.0
-Tested up to: 6.2
+Tested up to: 6.5
 Requires PHP: 5.6.20
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -223,6 +223,9 @@ Yes, many themes are using this plugin, for an example, you can look on [CosmosW
 6. The frontend of Opus Blog after Import
 
 == Changelog ==
+
+= 1.4.1 - 2023-04-06 =
+* Updated : Test with WordPress latest version
 
 = 1.4.0 - 2023-04-06 =
 * Added: New hook `advanced_import_force_proceed`

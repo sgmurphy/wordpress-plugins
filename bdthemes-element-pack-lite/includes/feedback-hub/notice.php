@@ -228,7 +228,7 @@ if ( ! class_exists( 'RC_Reviews_Collector' ) ) {
 			$plugin_icon  = isset( $this->params['plugin_icon'] ) ? $this->params['plugin_icon'] : '';
 
 			?>
-				<div class="rc-global-notice notice notice-success is-dismissible">
+				<div class="rc-global-notice notice notice-success is-dismissible <?php echo esc_attr(substr($this->rc_name, 0, -33)); ?>">
 					<div class="rc-global-header">
 						<?php if ( ! empty( $plugin_icon ) ) : ?>
 						<div class="bdt-notice-rc-logo">
@@ -238,7 +238,7 @@ if ( ! class_exists( 'RC_Reviews_Collector' ) ) {
 
 						<div class="bdt-notice-rc-content">
 							<h3>
-								<?php printf( esc_html( $plugin_title ) ); ?>
+								<?php printf( wp_kses_post( $plugin_title ) ); ?>
 							</h3>
 							<?php printf( wp_kses_post( $plugin_msg ) ); ?>
 							<input type="hidden" name="rc_name" value="<?php echo esc_html( $this->rc_name ); ?>">

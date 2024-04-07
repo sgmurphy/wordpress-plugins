@@ -1154,9 +1154,9 @@ class Image_Stack extends Module_Base {
 
 				?>
 
-				<div <?php echo ( $this->get_render_attribute_string( 'stack-item' ) ); ?>>
+				<div <?php $this->print_render_attribute_string( 'stack-item' ); ?>>
 					<?php if ( ! empty( $item['link_url']['url'] ) ) : ?>
-						<a <?php echo ( $this->get_render_attribute_string( 'link-wrap' . $index ) ); ?>>
+						<a <?php $this->print_render_attribute_string( 'link-wrap' . $index ); ?>>
 							<?php $this->render_media( $item ); ?>
 						</a>
 					<?php else : ?>

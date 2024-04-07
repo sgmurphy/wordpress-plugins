@@ -1208,10 +1208,10 @@ class Business_Hours extends Module_Base {
                     <div class="bdt-ep-business-hours-current-time">
                         <?php
                         if($settings['business_hour_style'] == 'default'){
-	                        echo date_i18n( get_option('time_format'), current_time( 'timestamp' ) );
+	                        echo wp_kses_post(date_i18n( get_option('time_format'), current_time( 'timestamp' ) ));
                         }else{
                             $cur_time   =   strtotime($this->set_time_zone());
-	                        echo date_i18n( 'h:i a', $cur_time );
+	                        echo wp_kses_post(date_i18n( 'h:i a', $cur_time ));
                         }
                         ?>
 
@@ -1222,10 +1222,10 @@ class Business_Hours extends Module_Base {
                     <div class="bdt-ep-business-hours-current-date">
                         <?php
                         if($settings['business_hour_style'] == 'default'){
-	                        echo date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) );
+	                        echo wp_kses_post(date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) ));
                         } else {
                             $cur_time   =   strtotime(  $this->set_time_zone()  );
-	                        echo date_i18n( get_option( 'date_format' ), $cur_time );
+	                        echo wp_kses_post(date_i18n( get_option( 'date_format' ), $cur_time ));
                         }
                         ?>
 

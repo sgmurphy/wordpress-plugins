@@ -2,7 +2,7 @@
 Contributors: crmperks, sbazzi
 Tags: contact form 7, contact form 7 database, Elementor forms database, contact form entries, wpforms database
 Requires at least: 3.8
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.3.7
 Version: 1.3.7
 Requires PHP: 5.3
@@ -85,6 +85,7 @@ You can add notes to any contact form entry and you can edit old notes. Also you
 == Want to send data to crm ==
 We have Premium Extensions for 20+ CRMs.[View All CRM Extensions](https://www.crmperks.com/plugin-category/contact-form-plugins/?utm_source=wordpress&utm_medium=directory&utm_campaign=readme)
 
+* [Contact Form Klaviyo Plugin](https://www.crmperks.com/plugins/contact-form-plugins/klaviyo-for-contact-form-7-elementor-wpforms-formidable-and-ninja-forms/?utm_medium=referral&utm_source=wordpress&utm_campaign=Entries+Readme&utm_content=WP)
 * [Contact Form Streak Plugin](https://www.crmperks.com/plugins/contact-form-plugins/contact-form-streak-plugin/?utm_medium=referral&utm_source=wordpress&utm_campaign=Entries+Readme&utm_content=WP)
 * [Contact Form Freshdesk Plugin](https://www.crmperks.com/plugins/contact-form-plugins/contact-form-freshdesk-plugin/?utm_medium=referral&utm_source=wordpress&utm_campaign=Entries+Readme&utm_content=WP)
 * [Contact Form 7 Pardot](https://www.crmperks.com/plugins/contact-form-plugins/contact-form-pardot-plugin/?utm_medium=referral&utm_source=wordpress&utm_campaign=Entries+Readme&utm_content=WP)

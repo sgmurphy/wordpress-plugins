@@ -1306,7 +1306,7 @@ class User_Register extends Module_Base {
 		$settings = $this->get_settings_for_display();
 		$id       = $this->get_id();
 
-		if ( ! empty( $settings['button_size'] ) ) {
+		if ( ! empty ( $settings['button_size'] ) ) {
 			$this->add_render_attribute( 'button', 'class', 'bdt-button-' . $settings['button_size'] );
 		}
 
@@ -1403,7 +1403,7 @@ class User_Register extends Module_Base {
 			]
 		);
 
-		if ( isset( $settings['is_needed_password_input'] ) ) {
+		if ( isset ( $settings['is_needed_password_input'] ) ) {
 			$this->add_render_attribute(
 				[ 
 					'password_input' => [ 
@@ -1433,10 +1433,17 @@ class User_Register extends Module_Base {
 		if ( is_user_logged_in() && ! Element_Pack_Loader::elementor()->editor->is_edit_mode() ) {
 			if ( $settings['show_logged_in_message'] ) {
 				$current_user = wp_get_current_user();
-
-				echo '<div class="bdt-user-register">' .
-					sprintf( esc_html__( 'You are Logged in as %1$s (<a href="%2$s">Logout</a>)', 'bdthemes-element-pack' ), esc_html( $current_user->display_name ), esc_url( wp_logout_url( $current_url ) ) ) .
-					'</div>';
+				?>
+				<div class="bdt-user-register">
+					<?php
+					esc_html_e( 'You are Logged in as', 'bdthemes-element-pack' );
+					echo esc_html( ' ' . $current_user->display_name );
+					?>
+					<a href="<?php echo esc_url( wp_logout_url( $current_url ) ); ?>">
+						<?php echo esc_html_e( 'Logout', 'bdthemes-element-pack' ); ?>
+					</a>
+				</div>
+				<?php
 			}
 
 			return;
@@ -1462,7 +1469,7 @@ class User_Register extends Module_Base {
 			]
 		);
 
-		if ( isset( $settings['password_strength'] ) && 'yes' == $settings['password_strength'] ) {
+		if ( isset ( $settings['password_strength'] ) && 'yes' == $settings['password_strength'] ) {
 			$this->add_render_attribute(
 				[ 
 					'user_register' => [ 
@@ -1496,7 +1503,7 @@ class User_Register extends Module_Base {
 		$id          = $this->get_id();
 		$current_url = remove_query_arg( 'fake_arg' );
 
-		if ( $settings['redirect_after_register'] && ! empty( $settings['redirect_url']['url'] ) ) {
+		if ( $settings['redirect_after_register'] && ! empty ( $settings['redirect_url']['url'] ) ) {
 			$redirect_url = $settings['redirect_url']['url'];
 		} else {
 			$redirect_url = $current_url;
@@ -1529,7 +1536,7 @@ class User_Register extends Module_Base {
 						<?php
 					}
 					echo '<div class="bdt-form-controls">';
-					echo '<input ' . $this->get_render_attribute_string( 'first_name_input' ) . ' required>';
+					echo '<input ' . wp_kses_post( $this->get_render_attribute_string( 'first_name_input' ) ) . ' required>';
 					echo '</div>';
 
 					?>
@@ -1552,7 +1559,7 @@ class User_Register extends Module_Base {
 						<?php
 					}
 					echo '<div class="bdt-form-controls">';
-					echo '<input ' . $this->get_render_attribute_string( 'last_name_input' ) . ' required>';
+					echo '<input ' . wp_kses_post( $this->get_render_attribute_string( 'last_name_input' ) ) . ' required>';
 					echo '</div>';
 
 					?>
@@ -1574,12 +1581,12 @@ class User_Register extends Module_Base {
 					<?php
 				endif;
 				echo '<div class="bdt-form-controls">';
-				echo '<input ' . $this->get_render_attribute_string( 'email_address_input' ) . ' required>';
+				echo '<input ' . wp_kses_post( $this->get_render_attribute_string( 'email_address_input' ) ) . ' required>';
 				echo '</div>';
 				?>
 			</div>
 
-			<?php if ( isset( $settings['is_needed_password_input'] ) ) : ?>
+			<?php if ( isset ( $settings['is_needed_password_input'] ) ) : ?>
 				<?php $is_needed_password_input = 'yes'; ?>
 				<div <?php $this->print_render_attribute_string( 'field-group' ); ?>>
 					<?php
@@ -1596,10 +1603,10 @@ class User_Register extends Module_Base {
 						<?php
 					endif;
 					echo '<div class="bdt-form-controls">';
-					echo '<input ' . $this->get_render_attribute_string( 'password_input' ) . ' required>';
+					echo '<input ' . wp_kses_post( $this->get_render_attribute_string( 'password_input' ) ) . ' required>';
 					echo '</div>';
 
-					if ( isset( $settings['password_strength'] ) && 'yes' == $settings['password_strength'] ) {
+					if ( isset ( $settings['password_strength'] ) && 'yes' == $settings['password_strength'] ) {
 						echo '<div class="bdt-progress bdt-width-1-1"> <div class="bdt-progress-bar" value="0" max="100" style="width:0;"></div> </div>';
 					}
 
@@ -1614,7 +1621,7 @@ class User_Register extends Module_Base {
 					</span>
 				</div>
 			<?php endif; ?>
-			<?php $redirect_after_register = ( $settings['redirect_after_register'] && ! empty( $settings['redirect_url']['url'] ) ) ? $settings['redirect_url']['url'] : ''; ?>
+			<?php $redirect_after_register = ( $settings['redirect_after_register'] && ! empty ( $settings['redirect_url']['url'] ) ) ? $settings['redirect_url']['url'] : ''; ?>
 			<input type="hidden" name="is_password_required" class="is_password_required"
 				value="<?php echo esc_attr( $is_needed_password_input ) ?>" />
 			<input type="hidden" name="redirect_after_register" class="redirect_after_register"
@@ -1623,7 +1630,7 @@ class User_Register extends Module_Base {
 				value="<?php esc_html_e( "We are registering you, please wait...", "bdthemes-element-pack" ); ?>" />
 			<div <?php $this->print_render_attribute_string( 'submit-group' ); ?>>
 				<button type="submit" <?php $this->print_render_attribute_string( 'button' ); ?>>
-					<?php if ( ! empty( $settings['button_text'] ) ) : ?>
+					<?php if ( ! empty ( $settings['button_text'] ) ) : ?>
 						<span>
 							<?php echo wp_kses( $settings['button_text'], element_pack_allow_tags( 'title' ) ); ?>
 						</span>

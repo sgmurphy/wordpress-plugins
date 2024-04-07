@@ -822,13 +822,13 @@ class Svg_Image extends Module_Base {
 	}
 
 	private function has_caption( $settings ) {
-		return ( ! empty( $settings['caption_source'] ) && 'none' !== $settings['caption_source'] );
+		return ( ! empty ( $settings['caption_source'] ) && 'none' !== $settings['caption_source'] );
 	}
 
 	private function get_caption( $settings ) {
 		$caption = '';
 
-		if ( ! empty( $settings['caption_source'] ) ) {
+		if ( ! empty ( $settings['caption_source'] ) ) {
 
 			switch ( $settings['caption_source'] ) {
 				case 'attachment':
@@ -870,31 +870,31 @@ class Svg_Image extends Module_Base {
 
 		if ( $settings['image']['id'] ) {
 			$image = wp_get_attachment_image_src( $settings['image']['id'], 'full' );
-			printf( '<img %3$s src="%1$s" alt="%2$s">', esc_url( $image[0] ), esc_html( get_the_title() ), $this->get_render_attribute_string( 'svg-image' ) );
+			printf( '<img %3$s src="%1$s" alt="%2$s">', esc_url( $image[0] ), esc_html( get_the_title() ), wp_kses_post( $this->get_render_attribute_string( 'svg-image' ) ) );
 		} else {
-			printf( '<img %3$s src="%1$s" alt="%2$s">', esc_url( BDTEP_ASSETS_URL ) . 'images/crane.svg', esc_html( get_the_title() ), $this->get_render_attribute_string( 'svg-image' ) );
+			printf( '<img %3$s src="%1$s" alt="%2$s">', esc_url( BDTEP_ASSETS_URL ) . 'images/crane.svg', esc_html( get_the_title() ), wp_kses_post( $this->get_render_attribute_string( 'svg-image' ) ) );
 		}
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		if ( empty( $settings['image']['url'] ) ) {
+		if ( empty ( $settings['image']['url'] ) ) {
 			return;
 		}
 		$has_caption = $this->has_caption( $settings );
 		$this->add_render_attribute( 'wrapper', 'class', 'elementor-image bdt-svg-image bdt-animation-toggle' );
 
 		if ( true !== is_ep_pro() ) {
-			$parallax_stroke   = 100 - ( isset( $settings['parallax_effects_stroke_value']['size'] ) ? $settings['parallax_effects_stroke_value']['size'] : 0 );
-			$parallax_viewport = ( isset( $settings['parallax_effects_viewport_value']['size'] ) ? $settings['parallax_effects_viewport_value']['size'] : 0.7 );
+			$parallax_stroke   = 100 - ( isset ( $settings['parallax_effects_stroke_value']['size'] ) ? $settings['parallax_effects_stroke_value']['size'] : 0 );
+			$parallax_viewport = ( isset ( $settings['parallax_effects_viewport_value']['size'] ) ? $settings['parallax_effects_viewport_value']['size'] : 0.7 );
 			if ( $settings['svg_parallax_effects_show'] ) {
 				$this->add_render_attribute( 'wrapper', 'bdt-parallax', 'stroke: ' . $parallax_stroke . '%;' );
 				$this->add_render_attribute( 'wrapper', 'bdt-parallax', 'viewport: ' . $parallax_viewport . ';' );
 			}
 		}
 
-		if ( ! empty( $settings['shape'] ) ) {
+		if ( ! empty ( $settings['shape'] ) ) {
 			$this->add_render_attribute( 'wrapper', 'class', 'elementor-image-shape-' . $settings['shape'] );
 		}
 		$link = $this->get_link_url( $settings );
@@ -922,7 +922,7 @@ class Svg_Image extends Module_Base {
 				<?php if ( $link ) : ?>
 					<a <?php $this->print_render_attribute_string( 'link' ); ?>>
 					<?php endif; ?>
-					<?php if ( isset( $settings['svg_image_draw'] ) && 'yes' === $settings['svg_image_draw'] ) {
+					<?php if ( isset ( $settings['svg_image_draw'] ) && 'yes' === $settings['svg_image_draw'] ) {
 						$this->render_svg();
 					} else {
 						$this->render_image();
@@ -933,7 +933,7 @@ class Svg_Image extends Module_Base {
 				<?php
 				if ( $has_caption ) : ?>
 					<figcaption class="widget-image-caption wp-caption-text">
-						<?php echo $this->get_caption( $settings ); ?>
+						<?php echo wp_kses_post( $this->get_caption( $settings ) ); ?>
 					</figcaption>
 				<?php endif; ?>
 				<?php
@@ -952,7 +952,7 @@ class Svg_Image extends Module_Base {
 
 		if ( 'custom' === $settings['link_to'] ) {
 
-			if ( empty( $settings['link']['url'] ) ) {
+			if ( empty ( $settings['link']['url'] ) ) {
 				return false;
 			}
 

@@ -164,6 +164,11 @@ class Notices {
 
 	public static function notice_layout($notice = []) {
 
+		if( isset($notice['html_message']) && ! empty($notice['html_message']) ) {
+			self::new_notice_layout($notice);
+			return;
+		}
+
 	?>
 		<div id="<?php echo esc_attr($notice['id']); ?>" class="<?php echo esc_attr($notice['classes']); ?>" <?php echo esc_attr($notice['data']); ?>>
 			<div class="bdt-notice-wrapper">
@@ -187,6 +192,22 @@ class Notices {
 			</div>
 		</div>
 <?php
+	}
+
+	public static function new_notice_layout( $notice = [] ) {
+
+		?>
+		<div id="<?php echo esc_attr( $notice['id'] ); ?>" class="<?php echo esc_attr( $notice['classes'] ); ?>" <?php echo esc_attr( $notice['data'] ); ?>>
+
+				
+			<?php 
+				echo wp_kses_post( $notice['html_message'] );
+			?>
+			
+
+
+		</div>
+		<?php
 	}
 }
 

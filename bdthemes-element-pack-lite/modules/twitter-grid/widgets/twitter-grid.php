@@ -872,7 +872,7 @@ class Twitter_Grid extends Module_Base {
                                             }
                                             $displayAgo = _x('ago', 'leading space is required', 'bdthemes-element-pack');
                                             // Use to make il8n compliant
-                                            printf(__('%1$s %2$s', 'bdthemes-element-pack'), $timeDisplay, $displayAgo);
+                                            printf(esc_html__('%1$s %2$s', 'bdthemes-element-pack'), wp_kses_post($timeDisplay), wp_kses_post($displayAgo));
                                             ?>
                                         </a>
                                     <?php endif; ?>
@@ -882,17 +882,17 @@ class Twitter_Grid extends Module_Base {
                                         <div class="bdt-twitter-meta-button">
                                             <a href="https://twitter.com/intent/tweet?in_reply_to=<?php echo esc_url($t['tweet_id']); ?>"
                                                data-lang="en" class="bdt-tmb-reply"
-                                               title="<?php _e('Reply', 'bdthemes-element-pack'); ?>" target="_blank">
+                                               title="<?php esc_html_e('Reply', 'bdthemes-element-pack'); ?>" target="_blank">
                                                 <i class="ep-icon-reply" aria-hidden="true"></i>
                                             </a>
                                             <a href="https://twitter.com/intent/retweet?tweet_id=<?php echo esc_url($t['tweet_id']); ?>"
                                                data-lang="en" class="bdt-tmb-retweet"
-                                               title="<?php _e('Retweet', 'bdthemes-element-pack'); ?>" target="_blank">
+                                               title="<?php esc_html_e('Retweet', 'bdthemes-element-pack'); ?>" target="_blank">
                                                 <i class="ep-icon-refresh" aria-hidden="true"></i>
                                             </a>
                                             <a href="https://twitter.com/intent/favorite?tweet_id=<?php echo esc_url($t['tweet_id']); ?>"
                                                data-lang="en" class="bdt-tmb-favorite"
-                                               title="<?php _e('Favourite', 'bdthemes-element-pack'); ?>"
+                                               title="<?php esc_html_e('Favourite', 'bdthemes-element-pack'); ?>"
                                                target="_blank">
                                                 <i class="ep-icon-star" aria-hidden="true"></i>
                                             </a>
@@ -931,7 +931,7 @@ class Twitter_Grid extends Module_Base {
             <div class="bdt-alert-warning" bdt-alert>
                 <a class="bdt-alert-close" bdt-close></a>
                 <?php $ep_setting_url = esc_url(admin_url('admin.php?page=element_pack_options#element_pack_api_settings')); ?>
-                <p><?php printf(__('Please set your twitter API settings from here <a href="%s">element pack settings</a> to show your map correctly.', 'bdthemes-element-pack'), $ep_setting_url); ?></p>
+                <p><?php printf(esc_html__('Please set your twitter API settings from here <a href="%s">element pack settings</a> to show your map correctly.', 'bdthemes-element-pack'), esc_url($ep_setting_url)); ?></p>
             </div>
             <?php
         }

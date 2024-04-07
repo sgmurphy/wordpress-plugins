@@ -79,12 +79,12 @@ class Skin_Thumbnail extends Elementor_Skin_Base {
 
 		 ?>
 	      <div class="swiper-slide">
-	      	<img src="<?php echo esc_url($image_url[0]); ?>" alt="<?php echo get_the_title(); ?>">
+	      	<img src="<?php echo esc_url($image_url[0]); ?>" alt="<?php echo esc_html(get_the_title()); ?>">
 	      </div>
 		  <?php
 	}
 
-	public function render_slider_thumbnail($settings) {		
+	public function render_slider_thumbnail($settings) { 
 
 		$swiper_class = Plugin::$instance->experiments->is_feature_active( 'e_swiper_latest' ) ? 'swiper' : 'swiper-container';
 		$this->add_render_attribute('swiper', 'class', 'swiper-carousel gallery-top ' . $swiper_class);

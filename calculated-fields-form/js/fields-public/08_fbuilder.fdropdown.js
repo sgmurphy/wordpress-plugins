@@ -72,14 +72,21 @@
 
                         $('#'+me.name).after('<span class="cff-select2-container '+me.size+'"></span>');
                         $('#'+me.name).on('change', function(){$(this).valid();});
-                        if('select2' in $.fn)
+                        if('select2' in $.fn) {
                             $('#'+me.name).select2({
                                 'templateResult': formatState,
                                 'templateSelection': formatState,
                                 'dropdownParent':$('#'+me.name).next('.cff-select2-container')
                             });
+							$('#'+me.name).parent().find('.select2-container').addClass(me.size);
+						}
                         else
-                            $(document).ready(function(){if('select2' in $.fn) $('#'+me.name).select2({'dropdownParent':$('#'+me.name).next('.cff-select2-container')});});
+                            $(document).ready(function(){
+								if('select2' in $.fn) {
+									$('#'+me.name).select2({'dropdownParent':$('#'+me.name).next('.cff-select2-container')});
+									$('#'+me.name).parent().find('.select2-container').addClass(me.size);
+								}
+							});
                     }
                 },
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)

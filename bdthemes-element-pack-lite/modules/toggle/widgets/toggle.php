@@ -192,6 +192,7 @@ class Toggle extends Module_Base {
                     'unit' => 'px',
                     'size' => 30,
                 ],
+                'condition'  => ['source' => 'widget'],
             ]
         );
 
@@ -726,7 +727,7 @@ class Toggle extends Module_Base {
                     <div <?php $this->print_render_attribute_string('toggle_content'); ?>>
                         <?php
                         if ('custom' == $settings['source'] and !empty($settings['toggle_content'])) {
-                            echo $this->parse_text_editor($settings['toggle_content']);
+                            $this->print_text_editor($settings['toggle_content']);
                         } elseif ("elementor" == $settings['source'] and !empty($settings['template_id'])) {
                             echo Element_Pack_Loader::elementor()->frontend->get_builder_content_for_display($settings['template_id']);
                             echo element_pack_template_edit_link($settings['template_id']);

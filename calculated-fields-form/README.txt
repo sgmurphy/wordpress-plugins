@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.1.62
+Stable tag: 5.1.63
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,14 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.63 =
+
+* Fixes an issue estimating the Select2 DropDown fields when they are hidden by default and shown on demand.
+* Modifies how the calculated fields handle the raw fields' values.
+* Modifies the query that reads the entries list (Professional, Developer, and Platinum plugin versions).
+* Fixes a minor issue identifying variations' prices on variable WooCommerce products when there are other variable products on the page (Developer and Platinum plugin versions).
+* Fixes a conflict between reCAPTCHA styles and third-party themes (Developer and Platinum plugin versions).
+
 = 5.1.62 =
 
 * Optimizes the plugin queries.
@@ -1048,10 +1056,3 @@ A: Please, follow the steps below:
 = 5.1.58 =
 
 * Prevent conflicts with other distributions of the plugin.
-
-= 1.2.57 =
-
-* Minor changes in the controls' appearance.
-* Implements the resize popup feature.
-* Fixes an issue in Select2 dropdown fields with long choices' texts.
-* Improves the plugin security by sanitizing and escaping the cp_ref_page parameter (Professional, Developer, and Platinum versions). Thanks to Adam Goodlin, Wordfence Customer Support Engineer.

@@ -1244,7 +1244,7 @@ class Testimonial_Grid extends Module_Base {
 
 		?>
 		<p class="bdt-testimonial-grid-address bdt-text-meta bdt-margin-remove">
-			<?php echo get_post_meta( $post_id, 'bdthemes_tm_company_name', true ); ?>
+			<?php echo wp_kses_post(get_post_meta( $post_id, 'bdthemes_tm_company_name', true )); ?>
 		</p>
 		<?php
 	}
@@ -1263,7 +1263,7 @@ class Testimonial_Grid extends Module_Base {
 			if ( has_excerpt() ) {
 				the_excerpt();
 			} else {
-				echo element_pack_custom_excerpt( $this->get_settings_for_display( 'text_limit' ), $strip_shortcode );
+				echo wp_kses_post(element_pack_custom_excerpt( $this->get_settings_for_display( 'text_limit' ), $strip_shortcode ));
 			}
 			?>
 		</div>
@@ -1290,7 +1290,7 @@ class Testimonial_Grid extends Module_Base {
 		}
 
 		?>
-		<a href="<?php echo $review_link; ?>" class="bdt-review-platform bdt-flex-inline"
+		<a href="<?php echo esc_url($review_link); ?>" class="bdt-review-platform bdt-flex-inline"
 			bdt-tooltip="<?php echo esc_html( $platform ); ?>">
 			<i class="ep-icon-<?php echo esc_attr( strtolower( $platform ) ); ?> bdt-platform-icon bdt-flex bdt-flex-middle bdt-flex-center"
 				aria-hidden="true"></i>
@@ -1307,7 +1307,7 @@ class Testimonial_Grid extends Module_Base {
 
 		?>
 		<div class="bdt-testimonial-grid-rating">
-			<ul class="bdt-rating bdt-rating-<?php echo get_post_meta( $post_id, 'bdthemes_tm_rating', true ); ?> bdt-grid bdt-grid-collapse"
+			<ul class="bdt-rating bdt-rating-<?php echo wp_kses_post(get_post_meta( $post_id, 'bdthemes_tm_rating', true )); ?> bdt-grid bdt-grid-collapse"
 				data-bdt-grid>
 				<li class="bdt-rating-item"><i class="ep-icon-star-full" aria-hidden="true"></i></li>
 				<li class="bdt-rating-item"><i class="ep-icon-star-full" aria-hidden="true"></i></li>
@@ -1397,6 +1397,7 @@ class Testimonial_Grid extends Module_Base {
 
 	public function render_loop_item() {
 		$settings = $this->get_settings_for_display();
+		$id	   = $this->get_id();
 
 		// TODO need to delete after v6.5
 		if ( isset( $settings['posts'] ) and $settings['posts_per_page'] == 4 ) {
@@ -1422,7 +1423,7 @@ class Testimonial_Grid extends Module_Base {
 
 
 			?>
-			<div id="bdt-testimonial-grid-<?php echo $this->get_id(); ?>" <?php $this->print_render_attribute_string( 'testimonial-grid' ); ?>>
+			<div id="bdt-testimonial-grid-<?php echo esc_attr($id); ?>" <?php $this->print_render_attribute_string( 'testimonial-grid' ); ?>>
 				<?php
 
 				while ( $wp_query->have_posts() ) :

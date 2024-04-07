@@ -39,6 +39,7 @@
 
 	jQuery(window).on('elementor/frontend/init', function() {
 		elementorFrontend.hooks.addAction( 'frontend/element_ready/bdt-slider.default', widgetSlider );
+		elementorFrontend.hooks.addAction( 'frontend/element_ready/bdt-acf-slider.default', widgetSlider );
 	});
 
 }( jQuery, window.elementorFrontend ) );
