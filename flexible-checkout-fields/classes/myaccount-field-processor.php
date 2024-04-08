@@ -52,7 +52,7 @@ class Flexible_Checkout_Fields_Myaccount_Field_Processor {
 
 					if ( in_array( $field['type'], [ TextareaType::FIELD_TYPE ] ) ) {
 						add_filter( 'woocommerce_process_myaccount_field_' . $key, [ $this, 'sanitize_textarea_value' ] );
-					} else if ( in_array( $field['type'], [ MultiCheckboxType::FIELD_TYPE, MultiSelectType::FIELD_TYPE, FileType::FIELD_TYPE ] ) ) {
+					} elseif ( in_array( $field['type'], [ MultiCheckboxType::FIELD_TYPE, MultiSelectType::FIELD_TYPE, FileType::FIELD_TYPE ] ) ) {
 						add_filter( 'woocommerce_process_myaccount_field_' . $key, [ $this, 'sanitize_array_value' ] );
 					} else {
 						add_filter( 'woocommerce_process_myaccount_field_' . $key, [ $this, 'sanitize_text_value' ] );

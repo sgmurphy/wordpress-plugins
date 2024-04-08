@@ -11,7 +11,7 @@ class Flexible_Checkout_Fields_Field {
 	const FIELD_DEFAULT      = 'default';
 
 	const FIELD_DISPLAY_ON_OPTION_NEW_LINE_BEFORE = 'display_on_option_new_line_before';
-	const FIELD_DISPLAY_ON_OPTION_SHOW_LABEL = 'display_on_option_show_label';
+	const FIELD_DISPLAY_ON_OPTION_SHOW_LABEL      = 'display_on_option_show_label';
 
 	const FIELD_TYPE_EXCLUDE_IN_ADMIN = 'exclude_in_admin';
 	const FIELD_TYPE_EXCLUDE_FOR_USER = 'exclude_for_user';
@@ -20,7 +20,7 @@ class Flexible_Checkout_Fields_Field {
 
 	const FIELD_TYPE_STATE = 'state';
 
-	const DISPLAY_OPTION_STATE_CODE = 'state_code';
+	const DISPLAY_OPTION_STATE_CODE         = 'state_code';
 	const DISPLAY_OPTION_STATE_COMMA_BEFORE = 'state_code_comma_before';
 
 	/**
@@ -67,7 +67,7 @@ class Flexible_Checkout_Fields_Field {
 	 * @param array $field_settings .
 	 */
 	public function add_field_settings( array $field_settings ) {
-		foreach ( $field_settings as $key => $setting  ) {
+		foreach ( $field_settings as $key => $setting ) {
 			$this->field_data[ $key ] = $setting;
 		}
 	}
@@ -109,10 +109,10 @@ class Flexible_Checkout_Fields_Field {
 	 * @return array
 	 */
 	private function get_field_type_settings() {
-		$default_values = array(
+		$default_values = [
 			self::FIELD_TYPE_EXCLUDE_IN_ADMIN => false,
 			self::FIELD_TYPE_EXCLUDE_FOR_USER => false,
-		);
+		];
 		$field_types    = $this->get_field_types_from_plugin();
 		if ( isset( $this->field_data[ self::FIELD_TYPE ] ) && isset( $field_types[ $this->field_data[ self::FIELD_TYPE ] ] ) ) {
 			$field_type_settings = $field_types[ $this->field_data[ self::FIELD_TYPE ] ];
@@ -200,12 +200,10 @@ class Flexible_Checkout_Fields_Field {
 	public function get_display_on_option_show_label() {
 		if ( isset( $this->field_data[ self::FIELD_DISPLAY_ON_OPTION_SHOW_LABEL ] ) ) {
 			return $this->field_data[ self::FIELD_DISPLAY_ON_OPTION_SHOW_LABEL ];
-		} else {
-			if ( $this->is_custom_field() ) {
+		} elseif ( $this->is_custom_field() ) {
 				return '1';
-			} else {
-				return '0';
-			}
+		} else {
+			return '0';
 		}
 	}
 
@@ -253,7 +251,7 @@ class Flexible_Checkout_Fields_Field {
 	public function get_name_for_address_format() {
 		$name = $this->field_data['name'];
 		if ( isset( $this->field_data[ $this->prepare_display_on_option_name( self::DISPLAY_OPTION_STATE_CODE ) ] )
-		    && 1 === intval( $this->field_data[ $this->prepare_display_on_option_name( self::DISPLAY_OPTION_STATE_CODE ) ] )
+			&& 1 === intval( $this->field_data[ $this->prepare_display_on_option_name( self::DISPLAY_OPTION_STATE_CODE ) ] )
 		) {
 			$name = 'state_code';
 		}
@@ -268,5 +266,4 @@ class Flexible_Checkout_Fields_Field {
 		return isset( $this->field_data[ $this->prepare_display_on_option_name( self::DISPLAY_OPTION_STATE_COMMA_BEFORE ) ] )
 			? $this->field_data[ $this->prepare_display_on_option_name( self::DISPLAY_OPTION_STATE_COMMA_BEFORE ) ] : '0';
 	}
-
 }

@@ -1818,7 +1818,11 @@ class Premium_Button extends Widget_Base {
 		if ( isset( $settings['premium_button_event_switcher'] ) ) {
 			$button_event = $settings['premium_button_event_function'];
 			if ( 'yes' === $settings['premium_button_event_switcher'] && ! empty( $button_event ) ) {
-				$this->add_render_attribute( 'button', 'onclick', esc_js( $button_event ) );
+
+                if( Helper_Functions::check_capability( 'unfiltered_html' ) ) {
+                    $this->add_render_attribute( 'button', 'onclick', esc_js( $button_event ) );
+                }
+
 			}
 		}
 

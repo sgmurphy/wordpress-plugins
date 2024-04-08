@@ -15,14 +15,14 @@ use WPDesk\FCF\Free\Settings\Form\EditFieldsForm;
 class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Plugin\AbstractPlugin {
 
 	/** @see validate_checkout method https://github.com/woocommerce/woocommerce/blob/master/includes/class-wc-checkout.php#L719 */
-	const FIELDS_REQUIREMENT_CONTROLLED_BY_WOOCOMMERCE = array(
+	const FIELDS_REQUIREMENT_CONTROLLED_BY_WOOCOMMERCE = [
 		'billing_country',
 		'shipping_country',
 		'billing_state',
 		'shipping_state',
 		'billing_postcode',
 		'shipping_postcode',
-	);
+	];
 
 	/**
 	 * Scripts version.
@@ -31,13 +31,13 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 */
 	private $scripts_version = FLEXIBLE_CHECKOUT_FIELDS_VERSION . '.19';
 
-	protected $fields = array();
+	protected $fields = [];
 
-	public $sections = array();
+	public $sections = [];
 
-	public $all_sections = array();
+	public $all_sections = [];
 
-	public $page_size = array();
+	public $page_size = [];
 
 	public $field_validation;
 
@@ -94,11 +94,11 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 * Init base variables for plugin
 	 */
 	public function init_base_variables() {
-		$this->plugin_url          = $this->plugin_info->get_plugin_url();
-		$this->plugin_path         = $this->plugin_info->get_plugin_dir();
-		$this->template_path       = $this->plugin_info->get_text_domain();
-		$this->settings_url        = admin_url( 'admin.php?page=wc-settings&tab=integration&section=integration-fakturownia' );
-		$this->plugin_namespace    = 'inspire_checkout_fields';
+		$this->plugin_url       = $this->plugin_info->get_plugin_url();
+		$this->plugin_path      = $this->plugin_info->get_plugin_dir();
+		$this->template_path    = $this->plugin_info->get_text_domain();
+		$this->settings_url     = admin_url( 'admin.php?page=wc-settings&tab=integration&section=integration-fakturownia' );
+		$this->plugin_namespace = 'inspire_checkout_fields';
 	}
 
 	/**
@@ -128,48 +128,64 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 		$this->settings = new Flexible_Checkout_Fields_Settings( $this, self::FIELDS_REQUIREMENT_CONTROLLED_BY_WOOCOMMERCE );
 
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 100 );
+		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 100 );
 
-		add_action( 'woocommerce_checkout_fields', array( $this, 'changeCheckoutFields' ), 9999 );
-		add_action( 'woocommerce_checkout_create_order', array( $this, 'updateCheckoutFields' ), 9, 2 );
+		add_action( 'woocommerce_checkout_fields', [ $this, 'changeCheckoutFields' ], 9999 );
+		add_action( 'woocommerce_checkout_create_order', [ $this, 'updateCheckoutFields' ], 9, 2 );
 
-		add_action( 'woocommerce_admin_order_data_after_billing_address', array(
-			$this,
-			'addCustomBillingFieldsToAdmin'
-		) );
-		add_action( 'woocommerce_admin_order_data_after_shipping_address', array(
-			$this,
-			'addCustomShippingFieldsToAdmin'
-		) );
-		add_action( 'woocommerce_admin_order_data_after_shipping_address', array(
-			$this,
-			'addCustomOrderFieldsToAdmin'
-		) );
+		add_action(
+			'woocommerce_admin_order_data_after_billing_address',
+			[
+				$this,
+				'addCustomBillingFieldsToAdmin',
+			]
+		);
+		add_action(
+			'woocommerce_admin_order_data_after_shipping_address',
+			[
+				$this,
+				'addCustomShippingFieldsToAdmin',
+			]
+		);
+		add_action(
+			'woocommerce_admin_order_data_after_shipping_address',
+			[
+				$this,
+				'addCustomOrderFieldsToAdmin',
+			]
+		);
 
-		add_action( 'woocommerce_billing_fields', array( $this, 'addCustomFieldsBillingFields' ), 9999 );
-		add_action( 'woocommerce_shipping_fields', array( $this, 'addCustomFieldsShippingFields' ), 9999 );
-		add_action( 'woocommerce_order_fields', array( $this, 'addCustomFieldsOrderFields' ), 9999 );
+		add_action( 'woocommerce_billing_fields', [ $this, 'addCustomFieldsBillingFields' ], 9999 );
+		add_action( 'woocommerce_shipping_fields', [ $this, 'addCustomFieldsShippingFields' ], 9999 );
+		add_action( 'woocommerce_order_fields', [ $this, 'addCustomFieldsOrderFields' ], 9999 );
 
+		add_action( 'woocommerce_before_checkout_form', [ $this, 'woocommerce_before_checkout_form' ], 10 );
+		add_action(
+			'woocommerce_before_edit_address_form_shipping',
+			[
+				$this,
+				'woocommerce_before_checkout_form',
+			],
+			10
+		);
+		add_action(
+			'woocommerce_before_edit_address_form_billing',
+			[
+				$this,
+				'woocommerce_before_checkout_form',
+			],
+			10
+		);
 
-		add_action( 'woocommerce_before_checkout_form', array( $this, 'woocommerce_before_checkout_form' ), 10 );
-		add_action( 'woocommerce_before_edit_address_form_shipping', array(
-			$this,
-			'woocommerce_before_checkout_form'
-		), 10 );
-		add_action( 'woocommerce_before_edit_address_form_billing', array(
-			$this,
-			'woocommerce_before_checkout_form'
-		), 10 );
+		add_filter( 'flexible_chekout_fields_fields', [ $this, 'getCheckoutFields' ], 10, 2 );
 
-		add_filter( 'flexible_chekout_fields_fields', array( $this, 'getCheckoutFields' ), 10, 2 );
+		add_action( 'woocommerce_default_address_fields', [ $this, 'woocommerce_default_address_fields' ], 9999 );
+		add_filter( 'woocommerce_get_country_locale', [ $this, 'woocommerce_get_country_locale' ], 9999 );
+		add_filter( 'woocommerce_get_country_locale_base', [ $this, 'woocommerce_get_country_locale_base' ], 9999 );
 
-		add_action( 'woocommerce_default_address_fields', array( $this, 'woocommerce_default_address_fields' ), 9999 );
-		add_filter( 'woocommerce_get_country_locale', array( $this, 'woocommerce_get_country_locale' ), 9999 );
-		add_filter( 'woocommerce_get_country_locale_base', array( $this, 'woocommerce_get_country_locale_base' ), 9999 );
+		add_action( 'woocommerce_get_country_locale_default', [ $this, 'woocommerce_get_country_locale_default' ], 11 );
 
-		add_action( 'woocommerce_get_country_locale_default', array( $this, 'woocommerce_get_country_locale_default' ), 11 );
-
-		add_filter( 'woocommerce_screen_ids', array( $this, 'add_woocommerce_screen_ids' ) );
+		add_filter( 'woocommerce_screen_ids', [ $this, 'add_woocommerce_screen_ids' ] );
 
 		new Flexible_Checkout_Fields_Disaplay_Options( $this );
 
@@ -191,9 +207,12 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 		$my_account_edit_address->hooks();
 
 		$plugin = $this;
-		add_filter( 'flexible_checkout_fields', static function() use( $plugin ) {
-			return $plugin;
-		});
+		add_filter(
+			'flexible_checkout_fields',
+			static function () use( $plugin ) {
+				return $plugin;
+			}
+		);
 	}
 
 	/**
@@ -216,7 +235,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 	public function plugins_loaded() {
 		$this->init_fields();
-		//do użycia dla pola miasto, kod pocztowy i stan
+		// do użycia dla pola miasto, kod pocztowy i stan
 		$this->init_sections();
 	}
 
@@ -259,7 +278,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 			$shipping_key = 'shipping_' . $key;
 			$billing_key  = 'billing_' . $key;
 			if ( ( isset( $settings['shipping'][ $shipping_key ] ) && $settings['shipping'][ $shipping_key ]['required'] )
-			     || ( isset( $settings['billing'][ $billing_key ] ) && $settings['billing'][ $billing_key ]['required'] ) ) {
+				|| ( isset( $settings['billing'][ $billing_key ] ) && $settings['billing'][ $billing_key ]['required'] ) ) {
 				$base [ $key ]['required'] = true;
 			}
 		}
@@ -309,29 +328,29 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 * Init sections.
 	 */
 	public function init_sections() {
-		$sections = array(
-			'billing'  => array(
+		$sections = [
+			'billing'  => [
 				'section'        => 'billing',
 				'tab'            => 'fields_billing',
 				'tab_title'      => __( 'Billing', 'flexible-checkout-fields' ),
 				'custom_section' => false,
 				'user_meta'      => true,
-			),
-			'shipping' => array(
+			],
+			'shipping' => [
 				'section'        => 'shipping',
 				'tab'            => 'fields_shipping',
 				'tab_title'      => __( 'Shipping', 'flexible-checkout-fields' ),
 				'custom_section' => false,
 				'user_meta'      => true,
-			),
-			'order'    => array(
+			],
+			'order'    => [
 				'section'        => 'order',
 				'tab'            => 'fields_order',
 				'tab_title'      => __( 'Order', 'flexible-checkout-fields' ),
 				'custom_section' => false,
 				'user_meta'      => false,
-			),
-		);
+			],
+		];
 
 		$all_sections = unserialize( serialize( $sections ) );
 
@@ -393,16 +412,16 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	public function get_settings() {
 		$settings = get_option( EditFieldsForm::SETTINGS_OPTION_NAME, [] );
 		if ( ! is_array( $settings ) ) {
-			$settings = array();
+			$settings = [];
 		}
 
 		return $this->get_settings_for_available_sections( $settings );
 	}
 
 	public function woocommerce_before_checkout_form() {
-		WC()->session->set( 'checkout-fields', array() );
+		WC()->session->set( 'checkout-fields', [] );
 		$settings = $this->get_settings();
-		$args     = array( 'settings' => $settings );
+		$args     = [ 'settings' => $settings ];
 		include $this->plugin_path . '/views/before-checkout-form.php';
 	}
 
@@ -461,9 +480,9 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 		$checkout_field_type = $this->get_fields();
 		if ( ! empty( $settings ) ) {
-			$new = array();
+			$new = [];
 			if ( isset( $fields['account'] ) ) {
-				$new['account'] = array();
+				$new['account'] = [];
 			}
 			$priority = 0;
 			foreach ( $settings as $key => $type ) {
@@ -478,14 +497,14 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 				}
 				if ( $request_type == null || $request_type == $key ) {
 					if ( ! isset( $new[ $key ] ) ) {
-						$new[ $key ] = array();
+						$new[ $key ] = [];
 					}
 					$fields_found = true;
 					foreach ( $type as $field_name => $field ) {
 						if ( apply_filters( 'flexible_checkout_fields_condition', true, $field ) ) {
 							if ( $field['visible'] == 0 or
-							     ( ( isset( $_GET['page'] ) && $_GET['page'] === EditFieldsForm::SETTINGS_OPTION_NAME ) && $field['visible'] == 1 ) || $field['name'] == 'billing_country' || $field['name'] == 'shipping_country' ) {
-								$fcf_field = new Flexible_Checkout_Fields_Field( $field, $this );
+								( ( isset( $_GET['page'] ) && $_GET['page'] === EditFieldsForm::SETTINGS_OPTION_NAME ) && $field['visible'] == 1 ) || $field['name'] == 'billing_country' || $field['name'] == 'shipping_country' ) {
+								$fcf_field    = new Flexible_Checkout_Fields_Field( $field, $this );
 								$custom_field = $fcf_field->is_custom_field();
 								if ( isset( $fields[ $key ][ $field['name'] ] ) ) {
 									$new[ $key ][ $field['name'] ] = $fields[ $key ][ $field['name'] ];
@@ -502,16 +521,14 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 											unset( $new[ $key ][ $field['name'] ]['validate'] );
 										}
 									}
-								} else {
-									if ( isset( $fields[ $key ][ $field['name'] ] ) ) {
+								} elseif ( isset( $fields[ $key ][ $field['name'] ] ) ) {
 										$new[ $key ][ $field['name'] ]['required'] = $fields[ $key ][ $field['name'] ]['required'];
-									}
 								}
 								if ( isset( $field['label'] ) ) {
 									$new[ $key ][ $field['name'] ]['label'] = stripcslashes( wpdesk__( $field['label'], 'flexible-checkout-fields' ) );
 
 									// Support for fields rendered by WooCommerce
-									if ( isset( $field['type'] ) && in_array( $field['type'], array( 'text', 'textarea', 'select' ), true ) ) {
+									if ( isset( $field['type'] ) && in_array( $field['type'], [ 'text', 'textarea', 'select' ], true ) ) {
 										$new[ $key ][ $field['name'] ]['label'] = wp_kses_post( $new[ $key ][ $field['name'] ]['label'] );
 									}
 								}
@@ -524,20 +541,18 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 									$new[ $key ][ $field['name'] ]['class'] = explode( ' ', $field['class'] );
 								}
 								if ( ( $field['name'] == 'billing_country' || $field['name'] == 'shipping_country' ) && $field['visible'] == 1 ) {
-									$new[ $key ][ $field['name'] ]['class'][1] = "inspire_checkout_fields_hide";
+									$new[ $key ][ $field['name'] ]['class'][1] = 'inspire_checkout_fields_hide';
 								}
 								if ( ! $custom_field ) {
 									if ( isset( $field['validation'] ) && $field['validation'] != '' ) {
 										if ( $field['validation'] == 'none' ) {
 											unset( $new[ $key ][ $field['name'] ]['validate'] );
 										} else {
-											$new[ $key ][ $field['name'] ]['validate'] = array( $field['validation'] );
+											$new[ $key ][ $field['name'] ]['validate'] = [ $field['validation'] ];
 										}
 									}
-								} else {
-									if ( isset( $field['validation'] ) && $field['validation'] != 'none' ) {
-										$new[ $key ][ $field['name'] ]['validate'] = array( $field['validation'] );
-									}
+								} elseif ( isset( $field['validation'] ) && $field['validation'] != 'none' ) {
+										$new[ $key ][ $field['name'] ]['validate'] = [ $field['validation'] ];
 								}
 
 								if ( ! empty( $field['type'] ) ) {
@@ -590,7 +605,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 				return $new[ $request_type ];
 			} else {
-				return array();
+				return [];
 			}
 		} else {
 			return $fields;
@@ -609,7 +624,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	private function restore_default_city_validation( array $fields, $request, $request_type ) {
 
 		if ( null === $request ) {
-			$request = array();
+			$request = [];
 		}
 
 		$city    = $request_type . '_city';
@@ -674,7 +689,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 					if ( ! empty( $field['name'] ) ) {
 						if ( ( $field['name'] === 'billing_country' || $field['name'] === 'shipping_country' ) && $field['visible'] == 1 ) {
-							$new[ $key ]['class'][] = "inspire_checkout_fields_hide";
+							$new[ $key ]['class'][] = 'inspire_checkout_fields_hide';
 						}
 					}
 
@@ -699,7 +714,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 			}
 
 			foreach ( $new as $key => $field ) {
-				$priority                += 10;
+				$priority               += 10;
 				$new[ $key ]['priority'] = $priority;
 			}
 
@@ -721,7 +736,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 					$return = [];
 					foreach ( $type as $field ) {
 						if ( ( isset( $field['custom_field'] ) && $field['custom_field'] == 1 )
-						     && ( empty( $field['type'] ) || ( ! empty( $checkout_field_type[ $field['type'] ] ) && empty( $checkout_field_type[ $field['type'] ]['exclude_in_admin'] ) ) )
+							&& ( empty( $field['type'] ) || ( ! empty( $checkout_field_type[ $field['type'] ] ) && empty( $checkout_field_type[ $field['type'] ]['exclude_in_admin'] ) ) )
 						) {
 							if ( $value = wpdesk_get_order_meta( $order, '_' . $field['name'], true ) ) {
 								if ( isset( $field['type'] ) ) {
@@ -851,16 +866,16 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 */
 	public function admin_enqueue_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		if (function_exists('get_current_screen')) {
+		if ( function_exists( 'get_current_screen' ) ) {
 			$current_screen = get_current_screen();
 		}
 
-		$deps = array(
+		$deps = [
 			'jquery',
 			'jquery-ui-sortable',
 			'jquery-ui-tooltip',
 			'jquery-ui-datepicker',
-		);
+		];
 		wp_enqueue_script( 'inspire_checkout_fields_admin_js', trailingslashit( $this->get_plugin_assets_url() ) . 'js/admin' . $suffix . '.js', $deps, $this->scripts_version );
 	}
 
@@ -871,22 +886,22 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		if ( is_checkout() || is_account_page() ) {
 			if ( $this->get_setting_value( 'css_disable' ) != 1 ) {
-				wp_enqueue_style( 'jquery-ui-style', trailingslashit( $this->get_plugin_assets_url() ) . 'css/jquery-ui' . $suffix . '.css', array(), $this->scripts_version );
+				wp_enqueue_style( 'jquery-ui-style', trailingslashit( $this->get_plugin_assets_url() ) . 'css/jquery-ui' . $suffix . '.css', [], $this->scripts_version );
 			}
 
-			wp_enqueue_style( 'inspire_checkout_fields_public_style', trailingslashit( $this->get_plugin_assets_url() ) . 'css/front' . $suffix . '.css', array(), $this->scripts_version );
+			wp_enqueue_style( 'inspire_checkout_fields_public_style', trailingslashit( $this->get_plugin_assets_url() ) . 'css/front' . $suffix . '.css', [], $this->scripts_version );
 		}
 		if ( is_checkout() || is_account_page() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'wp_localize_jquery_ui_datepicker' ), 1000 );
+			add_action( 'wp_enqueue_scripts', [ $this, 'wp_localize_jquery_ui_datepicker' ], 1000 );
 
-			$deps = array(
+			$deps = [
 				'jquery',
 				'jquery-ui-datepicker',
-			);
+			];
 			wp_register_script( 'inspire_checkout_fields_checkout_js', trailingslashit( $this->get_plugin_assets_url() ) . 'js/checkout' . $suffix . '.js', $deps, $this->scripts_version );
-			$translation_array = array(
+			$translation_array = [
 				'uploading' => __( 'Uploading file...', 'flexible-checkout-fields' ),
-			);
+			];
 			wp_localize_script( 'inspire_checkout_fields_checkout_js', 'words', $translation_array );
 			wp_enqueue_script( 'inspire_checkout_fields_checkout_js' );
 			wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -904,7 +919,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 		// Convert the PHP date format into jQuery UI's format.
 		$datepicker_date_format = str_replace(
-			array(
+			[
 				'd',
 				'j',
 				'l',
@@ -914,9 +929,9 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 				'n',
 				'm', // Month.
 				'Y',
-				'y'            // Year.
-			),
-			array(
+				'y',            // Year.
+			],
+			[
 				'dd',
 				'd',
 				'DD',
@@ -926,25 +941,27 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 				'm',
 				'mm',
 				'yy',
-				'y'
-			),
+				'y',
+			],
 			get_option( 'date_format' )
 		);
 
-		$datepicker_defaults = wp_json_encode( array(
-			'closeText'       => __( 'Close' ),
-			'currentText'     => __( 'Today' ),
-			'monthNames'      => array_values( $wp_locale->month ),
-			'monthNamesShort' => array_values( $wp_locale->month_abbrev ),
-			'nextText'        => __( 'Next' ),
-			'prevText'        => __( 'Previous' ),
-			'dayNames'        => array_values( $wp_locale->weekday ),
-			'dayNamesShort'   => array_values( $wp_locale->weekday_abbrev ),
-			'dayNamesMin'     => array_values( $wp_locale->weekday_initial ),
-			'dateFormat'      => $datepicker_date_format,
-			'firstDay'        => absint( get_option( 'start_of_week' ) ),
-			'isRTL'           => $wp_locale->is_rtl(),
-		) );
+		$datepicker_defaults = wp_json_encode(
+			[
+				'closeText'       => __( 'Close' ),
+				'currentText'     => __( 'Today' ),
+				'monthNames'      => array_values( $wp_locale->month ),
+				'monthNamesShort' => array_values( $wp_locale->month_abbrev ),
+				'nextText'        => __( 'Next' ),
+				'prevText'        => __( 'Previous' ),
+				'dayNames'        => array_values( $wp_locale->weekday ),
+				'dayNamesShort'   => array_values( $wp_locale->weekday_abbrev ),
+				'dayNamesMin'     => array_values( $wp_locale->weekday_initial ),
+				'dateFormat'      => $datepicker_date_format,
+				'firstDay'        => absint( get_option( 'start_of_week' ) ),
+				'isRTL'           => $wp_locale->is_rtl(),
+			]
+		);
 
 		wp_add_inline_script( 'jquery-ui-datepicker', "jQuery(document).ready(function(jQuery){jQuery.datepicker.setDefaults({$datepicker_defaults});});" );
 	}
@@ -971,5 +988,4 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 
 		return $plugin_links;
 	}
-
 }

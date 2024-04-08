@@ -402,7 +402,7 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
      */
     public function wple_download_page()
     {
-        $cert = ABSPATH . 'keys/certificate.crt';
+        $cert = WPLE_Trait::wple_cert_directory() . 'certificate.crt';
         $forced_completion = get_option( 'wple_backend' );
         $html = '<div class="download-certs" data-update="' . wp_create_nonce( 'wpledownloadpage' ) . '">';
         $emailattachment = esc_html__( 'Email SSL certs as attachment when SSL is generated / auto renewed.', 'wp-letsencrypt-ssl' );

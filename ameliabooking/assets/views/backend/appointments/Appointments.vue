@@ -1224,11 +1224,9 @@
         if (arr.indexOf('front') !== -1 && arr.indexOf('back') !== -1) {
           return 'am-mixed-appointment'
         }
-
         if (arr.indexOf('front') !== -1 && arr.indexOf('back') < 0) {
           return 'am-front-appointment'
         }
-
         if (arr.indexOf('front') < 0 && arr.indexOf('back') !== -1) {
           return 'am-back-appointment'
         }
@@ -1262,7 +1260,6 @@
         } else if (date === moment().add(1, 'days').format('YYYY-MM-DD')) {
           return this.$root.labels.tomorrow
         }
-
         return this.getFrontedFormattedDate(date)
       },
 
@@ -1320,9 +1317,8 @@
           $this.allDateAppointmentsChecked[dateKey] = (checkedDateAppointmentsCount === $this.appointmentsDay[dateKey].appointments.length)
         })
 
-        this.allAppointmentsChecked = (checkedAllAppointmentsCount === totalAppointmentsCount)
-
         this.toaster = checkedAllAppointmentsCount > 0
+        this.allAppointmentsChecked = (checkedAllAppointmentsCount === totalAppointmentsCount)
       },
 
       selectAllInCategory (id) {

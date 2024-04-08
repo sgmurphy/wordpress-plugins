@@ -3,9 +3,9 @@ Contributors: bdthemes, selimmw, mohammaadfarid, bdkoder, abutalib, maudud, muha
 Donate link: http://bdthemes.com/
 Tags: wordpress slider, elementor addons, slider, image slider, video slider
 Requires at least: 5.0.0
-Tested up to: 6.4.3
+Tested up to: 6.5
 Requires PHP: 7.4.0
-Stable tag: 3.13.7
+Stable tag: 3.14.0
 License: GPL3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Elementor requires at least: 3.0.0
@@ -169,6 +169,11 @@ https://youtu.be/XjFiW5rFrac
 
 
 == Changelog ==
+
+= 3.14.0 [8th April 2024] =
+
+* Added: Thumbs scroll option added in flogia widget
+* Updated: Admin dashboard system improved
 
 = 3.13.7 [28th March 2024] =
 

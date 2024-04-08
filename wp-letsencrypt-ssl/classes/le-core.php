@@ -139,6 +139,41 @@ class WPLE_Core
                 update_option( 'wple_send_usage', 0 );
             }
             
+            $storage = 'WEB';
+            /**
+             * Set certificate storage path
+             * Re-check permission each time
+             * @since 7.1.0
+             */
+            $keys_above_root = dirname( ABSPATH, 1 ) . '/ssl/' . sanitize_file_name( WPLE_Trait::get_root_domain() );
+            
+            if ( file_exists( $keys_above_root ) && is_writable( $keys_above_root ) ) {
+                //already created
+                $storage = 'ROOT';
+                update_option( 'wple_parent_reachable', true );
+            } else {
+                
+                if ( @mkdir( $keys_above_root, 0755, true ) ) {
+                    //directory creation success
+                    $testfile = $keys_above_root . '/testfile';
+                    @file_put_contents( $testfile, 'test123' );
+                    
+                    if ( file_exists( $testfile ) && file_get_contents( $testfile ) == 'test123' ) {
+                        //file creation possible
+                        unlink( $testfile );
+                        update_option( 'wple_parent_reachable', true );
+                        $storage = 'ROOT';
+                    } else {
+                        //file creation not possible
+                        update_option( 'wple_parent_reachable', false );
+                    }
+                
+                } else {
+                    update_option( 'wple_parent_reachable', false );
+                }
+            
+            }
+            
             $PRO = ( wple_fs()->can_use_premium_code__premium_only() ? 'PRO' : '' );
             $PRO .= ( $this->wcard ? ' WILDCARD SSL ' : ' SINGLE DOMAIN SSL ' );
             if ( isset( $_SERVER['GD_PHP_HANDLER'] ) ) {
@@ -148,7 +183,7 @@ class WPLE_Core
                 $PRO .= 'SG ';
             }
             $PRO .= $cpanel;
-            $this->wple_log( '<b>' . WPLE_PLUGIN_VER . ' ' . $PRO . ' - ' . esc_html( site_url() ) . '</b>', 'success', 'w' );
+            $this->wple_log( '<b>' . WPLE_PLUGIN_VER . ' ' . $PRO . ' - ' . esc_html( site_url() ) . ' - ' . esc_html( $storage ) . '</b>', 'success', 'w' );
             $this->wple_log( "Domain covered:\n" . json_encode( $this->domains ) . "\n" );
         }
         
@@ -194,8 +229,16 @@ class WPLE_Core
     protected function wple_create_client()
     {
         try {
-            $keydir = ABSPATH . 'keys/';
+            $keydir = WPLE_Trait::wple_cert_directory();
             $sourceIP = get_option( 'wple_sourceip' );
+            //since 7.1 restore account key from option
+            $acckey_path = $keydir . '__account/private.pem';
+            
+            if ( !file_exists( $acckey_path ) ) {
+                $acckey = ( get_option( 'wple_acc_key' ) ? get_option( 'wple_acc_key' ) : '' );
+                file_put_contents( $acckey_path, preg_replace( '#<br\\s*/?>#i', "", $acckey ) );
+            }
+            
             $this->client = new LEClient(
                 $this->email,
                 LEClient::LE_PRODUCTION,
@@ -306,7 +349,7 @@ class WPLE_Core
             }
             
             delete_option( 'wple_hold_cron' );
-            $cert = ABSPATH . 'keys/certificate.crt';
+            $cert = WPLE_Trait::wple_cert_directory() . 'certificate.crt';
             
             if ( file_exists( $cert ) ) {
                 $this->wple_save_expiry_date();
@@ -323,6 +366,31 @@ class WPLE_Core
             if ( FALSE != ($dlog = get_option( 'wple_send_usage' )) && $dlog ) {
                 $this->wple_send_usage_data();
             }
+            /**
+             * Case: Couldn't store above web root dir
+             * Delete private key and store in option
+             * Delete account key and store in option
+             * @since 7.0.0
+             */
+            
+            if ( !get_option( 'wple_parent_reachable' ) ) {
+                $priv_key = WPLE_Trait::wple_cert_directory() . 'private.pem';
+                $acc_key = WPLE_Trait::wple_cert_directory() . '__account/private.pem';
+                
+                if ( file_exists( $priv_key ) ) {
+                    $priv_key_content = sanitize_textarea_field( file_get_contents( $priv_key ) );
+                    $priv_key_content = nl2br( $priv_key_content );
+                    update_option( 'wple_priv_key', $priv_key_content );
+                    unlink( $priv_key );
+                    $acc_key_content = sanitize_textarea_field( file_get_contents( $acc_key ) );
+                    $acc_key_content = nl2br( $acc_key_content );
+                    update_option( 'wple_acc_key', $acc_key_content );
+                    unlink( $acc_key );
+                    $this->wple_log( "Stored private key as option" );
+                }
+            
+            }
+            
             wp_redirect( admin_url( '/admin.php?page=wp_encryption' ), 302 );
             exit;
         } else {
@@ -376,7 +444,7 @@ class WPLE_Core
      */
     public function wple_save_expiry_date()
     {
-        $certfile = ABSPATH . 'keys/certificate.crt';
+        $certfile = WPLE_Trait::wple_cert_directory() . 'certificate.crt';
         //TODO: expiry saved separately on each mapped site?
         
         if ( file_exists( $certfile ) ) {
@@ -453,7 +521,7 @@ class WPLE_Core
         $handle = curl_init();
         $srvr = array(
             'challenge_folder_exists' => '',
-            'certificate_exists'      => file_exists( ABSPATH . 'keys/certificate.crt' ),
+            'certificate_exists'      => file_exists( WPLE_Trait::wple_cert_directory() . 'certificate.crt' ),
             'server_software'         => $_SERVER['SERVER_SOFTWARE'],
             'http_host'               => site_url(),
             'pro'                     => ( wple_fs()->is__premium_only() ? 'PRO' : 'FREE' ),
@@ -616,17 +684,17 @@ class WPLE_Core
         ///}
         
         if ( get_option( 'wple_email_certs' ) == true ) {
-            $certificate = ABSPATH . 'keys/certificate.crt';
+            $certificate = WPLE_Trait::wple_cert_directory() . 'certificate.crt';
             if ( class_exists( 'ZipArchive' ) ) {
                 
                 if ( file_exists( $certificate ) ) {
                     $this->wple_log( 'Emailing certs as attachment' );
                     $zip = new ZipArchive();
-                    $zip->open( ABSPATH . 'keys/certificates.zip', ZipArchive::CREATE );
+                    $zip->open( WPLE_Trait::wple_cert_directory() . 'certificates.zip', ZipArchive::CREATE );
                     $zip->addFile( $certificate, 'certificate.crt' );
                     $ret = $this->wple_parseCertificate( $certificate );
                     $certexpirydate = date( 'd-m-Y', $ret['validTo_time_t'] );
-                    $pemfile = ABSPATH . 'keys/private.pem';
+                    $pemfile = WPLE_Trait::wple_cert_directory() . 'private.pem';
                     $zip->addFile( $pemfile, 'private.pem' );
                     $cabundle = WPLE_DIR . 'cabundle/ca.crt';
                     // if (file_exists(ABSPATH . 'keys/cabundle.crt')) {
@@ -641,10 +709,10 @@ class WPLE_Core
                             $subject,
                             $body,
                             $headers,
-                            array( ABSPATH . 'keys/certificates.zip' )
+                            array( WPLE_Trait::wple_cert_directory() . 'certificates.zip' )
                         );
                     }
-                    unlink( ABSPATH . 'keys/certificates.zip' );
+                    unlink( WPLE_Trait::wple_cert_directory() . 'certificates.zip' );
                 } else {
                     $this->wple_log( 'Emailing certs skipped as certificate.crt not found.' );
                     if ( function_exists( 'wp_mail' ) ) {

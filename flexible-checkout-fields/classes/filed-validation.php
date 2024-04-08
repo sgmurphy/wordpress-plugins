@@ -5,7 +5,9 @@ use WPDesk\FCF\Free\Field\Type\MultiCheckboxType;
 use WPDesk\FCF\Free\Field\Type\MultiSelectType;
 use WPDesk\FCF\Free\Field\Type\TextareaType;
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 class Flexible_Checkout_Fields_Field_Validation {
 
@@ -27,13 +29,13 @@ class Flexible_Checkout_Fields_Field_Validation {
 	 *
 	 */
 	public function hooks() {
-		add_action( 'woocommerce_after_checkout_validation', array( $this, 'woocommerce_after_checkout_validation_action' ) );
-		add_filter( 'woocommerce_checkout_required_field_notice', array( $this, 'woocommerce_checkout_required_field_notice_filter' ), 10, 2 );
+		add_action( 'woocommerce_after_checkout_validation', [ $this, 'woocommerce_after_checkout_validation_action' ] );
+		add_filter( 'woocommerce_checkout_required_field_notice', [ $this, 'woocommerce_checkout_required_field_notice_filter' ], 10, 2 );
 	}
 
 	public function woocommerce_checkout_required_field_notice_filter( $notice, $field_label ) {
 		$field_label = strip_tags( $field_label );
-		$notice = sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . $field_label . '</strong>' );
+		$notice      = sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . $field_label . '</strong>' );
 		return $notice;
 	}
 
@@ -44,12 +46,12 @@ class Flexible_Checkout_Fields_Field_Validation {
 		foreach ( $data as $field => $value ) {
 			do_action( 'flexible_checkout_fields_validate_' . $field, $value );
 		}
-		$settings = $this->plugin->get_settings();
+		$settings           = $this->plugin->get_settings();
 		$custom_validations = $this->get_custom_validations();
 		foreach ( $settings as $section => $fields ) {
 			foreach ( $fields as $field_key => $field ) {
-				if ( isset( $_POST[$field_key] ) && !empty( $field['validation'] ) && array_key_exists( $field['validation'], $custom_validations ) ) {
-					call_user_func( $custom_validations[$field['validation']]['callback'], $field['label'], sanitize_textarea_field($_POST[$field_key]), $field );
+				if ( isset( $_POST[ $field_key ] ) && ! empty( $field['validation'] ) && array_key_exists( $field['validation'], $custom_validations ) ) {
+					call_user_func( $custom_validations[ $field['validation'] ]['callback'], $field['label'], sanitize_textarea_field( $_POST[ $field_key ] ), $field );
 				}
 				if ( ! ( $field['custom_field'] ?? false ) ) {
 					continue;
@@ -76,7 +78,7 @@ class Flexible_Checkout_Fields_Field_Validation {
 	 * @return array
 	 */
 	public function get_custom_validations( $section = '' ) {
-		return apply_filters( 'flexible_checkout_fields_custom_validation', array(), $section );
+		return apply_filters( 'flexible_checkout_fields_custom_validation', [], $section );
 	}
 
 	/**
@@ -86,13 +88,13 @@ class Flexible_Checkout_Fields_Field_Validation {
 	 * @return array
 	 */
 	public function get_validation_options( $section = '' ) {
-		$validation_options = array(
+		$validation_options = [
 			''      => __( 'Default', 'flexible-checkout-fields' ),
 			'none'  => __( 'None', 'flexible-checkout-fields' ),
 			'email' => __( 'Email', 'flexible-checkout-fields' ),
 			'phone' => __( 'Phone', 'flexible-checkout-fields' ),
-		);
-		if ( in_array( $section, array( 'billing', 'shipping' ), true ) ) {
+		];
+		if ( in_array( $section, [ 'billing', 'shipping' ], true ) ) {
 			$validation_options['postcode'] = __( 'Postcode', 'flexible-checkout-fields' );
 		}
 		$custom_validations = $this->get_custom_validations( $section );
@@ -101,5 +103,4 @@ class Flexible_Checkout_Fields_Field_Validation {
 		}
 		return $validation_options;
 	}
-
 }

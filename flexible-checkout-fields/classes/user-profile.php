@@ -12,11 +12,11 @@
  */
 class Flexible_Checkout_Fields_User_Profile {
 
-	const FIELD_TYPE = 'type';
+	const FIELD_TYPE        = 'type';
 	const FIELD_TYPE_SELECT = 'select';
 
 	const FIELD_TYPE_INSPIRECHECKBOX = 'inspirecheckbox';
-	const FIELD_TYPE_INSPIRERADIO = 'inspireradio';
+	const FIELD_TYPE_INSPIRERADIO    = 'inspireradio';
 
 	const FIELD_COPY_BILLING = 'copy_billing';
 

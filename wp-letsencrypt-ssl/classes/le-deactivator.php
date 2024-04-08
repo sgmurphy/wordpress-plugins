@@ -34,7 +34,7 @@ class WPLE_Deactivator
         //disable ssl forcing
         $opts['force_ssl'] = 0;
         update_option( 'wple_opts', $opts );
-        // retained - wple_opts, wple_show_reminder, wple_send_usage, wple_error, wple_complete, wple_failed_verification, wple_mixed_issues
+        // retained - wple_opts, wple_show_reminder, wple_send_usage, wple_error, wple_complete, wple_failed_verification, wple_mixed_issues, wple_priv_key
         $opts_to_delete = array(
             'wple_backup_suggested',
             'wple_show_review',
@@ -59,7 +59,8 @@ class WPLE_Deactivator
             'wple_failed_verification',
             'wple_sourceip',
             'wple_order_refreshed',
-            'wple_sourceip_enable'
+            'wple_sourceip_enable',
+            'wple_parent_reachable'
         );
         foreach ( $opts_to_delete as $optname ) {
             delete_option( $optname );

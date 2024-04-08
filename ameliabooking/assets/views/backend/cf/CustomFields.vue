@@ -258,8 +258,8 @@
           })
         }).then(response => {
           this.options.entities = response.data.data
-          this.options.settings.general.usedLanguages = response.data.data.settings.general.usedLanguages
           this.languagesData = response.data.data.settings.languages
+          this.options.settings.general.usedLanguages = response.data.data.settings.general.usedLanguages
 
           this.getCustomFields(false)
 

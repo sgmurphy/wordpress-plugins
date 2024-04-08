@@ -1481,4 +1481,22 @@ class Helper_Functions {
 
 		return 'premium-button-' . $settings['premium_button_hover_effect'] . ' ' . $class;
 	}
+
+    /**
+     * Check Capability
+     *
+     * @since 4.10.28
+     * @access public
+     *
+     * @param string $check capability.
+     */
+    public static function check_capability( $capability ) {
+
+        $post_author_id = get_the_author_meta('ID');
+
+        $current_user_can = user_can( $post_author_id, $capability );
+
+        return $current_user_can;
+
+    }
 }

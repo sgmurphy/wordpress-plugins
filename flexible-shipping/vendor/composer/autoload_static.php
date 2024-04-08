@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4673a7a25c48007b93a7db0fb59b2217
+class ComposerStaticInit4cb4ab35887914b4f2b7ad3ccf2d8cb7
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -279,6 +279,7 @@ class ComposerStaticInit4673a7a25c48007b93a7db0fb59b2217
         'FSVendor\\WPDesk\\Logger\\BasicLoggerFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/BasicLoggerFactory.php',
         'FSVendor\\WPDesk\\Logger\\LoggerFacade' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/LoggerFacade.php',
         'FSVendor\\WPDesk\\Logger\\LoggerFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/LoggerFactory.php',
+        'FSVendor\\WPDesk\\Logger\\Processor\\SensitiveDataProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/Processor/SensitiveDataProcessor.php',
         'FSVendor\\WPDesk\\Logger\\Settings' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/Settings.php',
         'FSVendor\\WPDesk\\Logger\\SimpleLoggerFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/SimpleLoggerFactory.php',
         'FSVendor\\WPDesk\\Logger\\WC\\Exception\\WCLoggerAlreadyCaptured' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/WC/Exception/WCLoggerAlreadyCaptured.php',
@@ -644,9 +645,9 @@ class ComposerStaticInit4673a7a25c48007b93a7db0fb59b2217
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4673a7a25c48007b93a7db0fb59b2217::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4673a7a25c48007b93a7db0fb59b2217::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4673a7a25c48007b93a7db0fb59b2217::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4cb4ab35887914b4f2b7ad3ccf2d8cb7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4cb4ab35887914b4f2b7ad3ccf2d8cb7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4cb4ab35887914b4f2b7ad3ccf2d8cb7::$classMap;
 
         }, null, ClassLoader::class);
     }

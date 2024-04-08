@@ -504,7 +504,7 @@ class WPLE_Admin
      */
     public function wple_rateus()
     {
-        $cert = ABSPATH . 'keys/certificate.crt';
+        $cert = WPLE_Trait::wple_cert_directory() . 'certificate.crt';
         
         if ( file_exists( $cert ) ) {
             if ( isset( $_GET['page'] ) && $_GET['page'] == 'wp_encryption' ) {
@@ -735,6 +735,27 @@ class WPLE_Admin
         ) . '. ' . esc_html( "You can also download the cert files to your local computer, right click > open with notepad to view/copy", "wp-letsencrypt-ssl" ) . '</li>
           <li>';
         WPLE_Trait::wple_copy_and_download( $html );
+        $nonroot_instruction = sprintf(
+            __( "If you have root SSH access, edit your server config file and point your SSL paths to %scertificate.crt%s & %sprivate.pem%s files located in %s folder. If you don't have either cPanel or root SSH access, Upgrade to %sPRO%s version for automatic SSL installation and automatic SSL renewal.", 'wp-letsencrypt-ssl' ),
+            '<strong>',
+            '</strong>',
+            '<strong>',
+            '</strong>',
+            '<strong>' . WPLE_Trait::wple_cert_directory() . '</strong>',
+            '<a href="' . admin_url( '/admin.php?page=wp_encryption-pricing&checkout=true&plan_id=8210&plan_name=pro&billing_cycle=annual&pricing_id=7965&currency=usd' ) . '"><strong>',
+            '</strong></a>'
+        );
+        if ( !get_option( 'wple_parent_reachable' ) ) {
+            $nonroot_instruction = sprintf(
+                __( "If you have root SSH access, download certificate.crt & private.pem files from above and upload them onto a secure folder on your server. Then edit your server config file and point the SSL paths to uploaded %scertificate.crt%s & %sprivate.pem%s files. If you don't have either cPanel or root SSH access, Upgrade to %sPRO%s version for automatic SSL installation and automatic SSL renewal.", 'wp-letsencrypt-ssl' ),
+                '<strong>',
+                '</strong>',
+                '<strong>',
+                '</strong>',
+                '<a href="' . admin_url( '/admin.php?page=wp_encryption-pricing&checkout=true&plan_id=8210&plan_name=pro&billing_cycle=annual&pricing_id=7965&currency=usd' ) . '"><strong>',
+                '</strong></a>'
+            );
+        }
         $html .= '</li>
           <li>5. ' . sprintf( __( 'Click on %sInstall certificate%s', 'wp-letsencrypt-ssl' ), '<strong>', '</strong>' ) . '</li>
           <li>6. ' . sprintf( __( 'Please wait few minutes and click on %sEnable HTTPS Now%s button', 'wp-letsencrypt-ssl' ), '<strong>', '</strong>' ) . '</li>
@@ -746,17 +767,7 @@ class WPLE_Admin
             <div class="wple-success-cols wple-three-cols">
               <div>
                 <h3>' . esc_html__( "Don't have cPanel?", 'wp-letsencrypt-ssl' ) . '</h3>
-                <p>' . esc_html__( "cPanel link goes to 404 not found page?. ", 'wp-letsencrypt-ssl' ) . sprintf(
-            __( "If you have root SSH access, edit your server config file and point your SSL paths to %scertificate.crt%s & %sprivate.pem%s files in %skeys/%s folder. If you don't have either cPanel or root SSH access, Upgrade to %sPRO%s version for automatic SSL installation and automatic SSL renewal.", 'wp-letsencrypt-ssl' ),
-            '<strong>',
-            '</strong>',
-            '<strong>',
-            '</strong>',
-            '<strong>',
-            '</strong>',
-            '<a href="' . admin_url( '/admin.php?page=wp_encryption-pricing&checkout=true&plan_id=8210&plan_name=pro&billing_cycle=annual&pricing_id=7965&currency=usd' ) . '"><strong>',
-            '</strong></a>'
-        ) . '<br><br><span style="display:none">' . sprintf( __( 'You can also upgrade to our %sCDN%s plan to avail fully automatic SSL + Fastest CDN + Firewall Security.', 'wp-letsencrypt-ssl' ), '<a href="https://wpencryption.com/cdn-firewall/" target="_blank">', '</a>' ) . '</span></p>
+                <p>' . esc_html__( "cPanel link goes to 404 not found page?. ", 'wp-letsencrypt-ssl' ) . $nonroot_instruction . '<br><br><span style="display:none">' . sprintf( __( 'You can also upgrade to our %sCDN%s plan to avail fully automatic SSL + Fastest CDN + Firewall Security.', 'wp-letsencrypt-ssl' ), '<a href="https://wpencryption.com/cdn-firewall/" target="_blank">', '</a>' ) . '</span></p>
               </div>
               <div>
                 <h3>' . esc_html__( "Test SSL Installation", 'wp-letsencrypt-ssl' ) . '</h3>
@@ -812,7 +823,7 @@ class WPLE_Admin
         if ( $error_code == 1 || $error_code == 400 ) {
             $generic .= '<p class="firepro">' . $thirdparty . ' ' . $firerec . '</p>';
         } else {
-            if ( file_exists( ABSPATH . 'keys/certificate.crt' ) ) {
+            if ( file_exists( WPLE_Trait::wple_cert_directory() . 'certificate.crt' ) ) {
                 $generic .= '<br><br>' . WPLE_Trait::wple_kses( __( 'You already seem to have certificate generated and stored. Please try downloading certs from <strong>Download SSL Certificates</strong> page and open in a text editor like notepad to check if certificate is not empty.', 'wp-letsencrypt-ssl' ) );
             }
         }
@@ -869,7 +880,7 @@ class WPLE_Admin
             if ( !wp_verify_nonce( $_GET['wplereset'], 'restartwple' ) ) {
                 exit( 'No Trespassing Allowed' );
             }
-            $keys = ABSPATH . 'keys/';
+            $keys = WPLE_Trait::wple_cert_directory();
             $files = array(
                 $keys . 'public.pem',
                 $keys . 'private.pem',
@@ -1040,7 +1051,7 @@ class WPLE_Admin
         esc_html_e( 'SAVE MORE THAN $90+ EVERY YEAR IN SSL CERTIFICATE FEE', 'wp-letsencrypt-ssl' );
         ?></h2>
 
-    <h4 class="pricing-intro-subhead">Purchase once and use for lifetime - Trusted Globally by <b>110,000+</b> WordPress Users (Looking for <a href="<?php 
+    <h4 class="pricing-intro-subhead">Purchase once and use for lifetime - Trusted Globally by <b>250,000+</b> WordPress Users (Looking for <a href="<?php 
         echo  admin_url( '/admin.php?page=wp_encryption&gopro=3' ) ;
         ?>">Annual</a> | <a href="<?php 
         echo  admin_url( '/admin.php?page=wp_encryption&gopro=2' ) ;
@@ -1137,7 +1148,7 @@ class WPLE_Admin
         ?>
 
     <h2 class="pricing-intro-head">FLAWLESS SSL SOLUTION FOR LOWEST PRICE EVER <small>(Limited Offer)</small></h2>
-    <h4 class="pricing-intro-subhead">Upgrade to PRO today for <strong>Fully automatic SSL</strong> & get automatic <strong>CDN + Security</strong> for FREE! - Trusted Globally by <b>110,000+</b> WordPress Users <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="A complete bundle worth $360!"></span></h4>
+    <h4 class="pricing-intro-subhead">Upgrade to PRO today for <strong>Fully automatic SSL</strong> & get automatic <strong>CDN + Security</strong> for FREE! - Trusted Globally by <b>250,000+</b> WordPress Users <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="A complete bundle worth $360!"></span></h4>
 
     <div style="text-align:center">
       <img src="<?php 
@@ -1211,7 +1222,6 @@ class WPLE_Admin
     public function wple_success_block( &$html )
     {
         $html .= WPLE_Trait::wple_progress_bar();
-        ///$cert = ABSPATH . 'keys/certificate.crt';
         $leopts = get_option( 'wple_opts' );
         $future = strtotime( $leopts['expiry'] );
         //Future date.

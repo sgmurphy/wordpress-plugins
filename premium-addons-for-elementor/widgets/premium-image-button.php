@@ -1801,7 +1801,11 @@ class Premium_Image_Button extends Widget_Base {
 		if ( isset( $settings['premium_image_button_event_switcher'] ) ) {
 			$image_event = $settings['premium_image_button_event_function'];
 			if ( 'yes' === $settings['premium_image_button_event_switcher'] && ! empty( $image_event ) ) {
-				$this->add_render_attribute( 'button', 'onclick', $image_event );
+
+                if( Helper_Functions::check_capability( 'unfiltered_html' ) ) {
+                    $this->add_render_attribute( 'button', 'onclick', esc_js( $image_event ) );
+                }
+
 			}
 		}
 

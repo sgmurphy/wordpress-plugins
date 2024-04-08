@@ -4,16 +4,21 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 
 	const HOOK_PRIORITY_LAST = 999999;
 
-	const DISPLAY_ON_ADDRESS = 'display_on_address';
+	const DISPLAY_ON_ADDRESS   = 'display_on_address';
 	const DISPLAY_ON_THANK_YOU = 'display_on_thank_you';
-	const DISPLAY_ON_ORDER = 'display_on_order';
-	const DISPLAY_ON_EMAILS = 'display_on_emails';
+	const DISPLAY_ON_ORDER     = 'display_on_order';
+	const DISPLAY_ON_EMAILS    = 'display_on_emails';
 
 	protected $plugin;
 
 	protected $current_address_type = 'shipping';
 
 	protected $in_email_address = false;
+
+	/**
+	 * @var WC_Order
+	 */
+	protected $order = null;
 
 	/**
 	 * Flexible_Checkout_Fields_Disaplay_Options constructor.
@@ -29,30 +34,25 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	 *
 	 */
 	protected function hooks() {
-		add_filter( 'woocommerce_localisation_address_formats', array( $this, 'woocommerce_localisation_address_formats_filter' ), self::HOOK_PRIORITY_LAST );
-		add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'woocommerce_formatted_address_replacements' ), self::HOOK_PRIORITY_LAST, 2 );
-		add_filter( 'woocommerce_order_formatted_billing_address', array( $this, 'woocommerce_order_formatted_billing_address' ), self::HOOK_PRIORITY_LAST, 2 );
-		add_filter( 'woocommerce_order_formatted_shipping_address', array( $this, 'woocommerce_order_formatted_shipping_address' ), self::HOOK_PRIORITY_LAST, 2 );
+		add_filter( 'woocommerce_localisation_address_formats', [ $this, 'woocommerce_localisation_address_formats_filter' ], self::HOOK_PRIORITY_LAST );
+		add_filter( 'woocommerce_formatted_address_replacements', [ $this, 'woocommerce_formatted_address_replacements' ], self::HOOK_PRIORITY_LAST, 2 );
+		add_filter( 'woocommerce_order_formatted_billing_address', [ $this, 'woocommerce_order_formatted_billing_address' ], self::HOOK_PRIORITY_LAST, 2 );
+		add_filter( 'woocommerce_order_formatted_shipping_address', [ $this, 'woocommerce_order_formatted_shipping_address' ], self::HOOK_PRIORITY_LAST, 2 );
 
 		// addresses in my account
-		add_filter( 'woocommerce_my_account_my_address_formatted_address', array( $this, 'woocommerce_my_account_my_address_formatted_address' ), 10, 3 );
+		add_filter( 'woocommerce_my_account_my_address_formatted_address', [ $this, 'woocommerce_my_account_my_address_formatted_address' ], 10, 3 );
 
-		add_action( 'woocommerce_billing_fields', array($this, 'woocommerce_billing_fields'), 19999 );
-		add_action( 'woocommerce_shipping_fields', array($this, 'woocommerce_shipping_fields'), 19999 );
+		add_action( 'woocommerce_billing_fields', [ $this, 'woocommerce_billing_fields' ], 19999 );
+		add_action( 'woocommerce_shipping_fields', [ $this, 'woocommerce_shipping_fields' ], 19999 );
 
-		add_action( 'woocommerce_email_customer_details', array( $this, 'woocommerce_email_customer_details_start' ), 10 );
+		add_action( 'woocommerce_email_customer_details', [ $this, 'woocommerce_email_customer_details_start' ], 10 );
 
-		add_action( 'woocommerce_email_customer_details', array( $this, 'woocommerce_email_customer_details_end' ), 10000 );
+		add_action( 'woocommerce_email_customer_details', [ $this, 'woocommerce_email_customer_details_end' ], 10000 );
 
 		// additional fields
-		add_action( 'woocommerce_thankyou', array( $this, 'additional_information_fields' ), 75 );
-		add_action( 'woocommerce_email_order_meta', array( $this, 'email_additional_information_fields' ), 195 );
-		add_action( 'woocommerce_view_order', array( $this, 'additional_information_fields' ), 195 );
-
-		add_action( 'woocommerce_edit_account_form', array( $this, 'woocommerce_edit_account_form' ) );
-	}
-
-	public function woocommerce_edit_account_form() {
+		add_action( 'woocommerce_thankyou', [ $this, 'additional_information_fields' ], 75 );
+		add_action( 'woocommerce_email_order_meta', [ $this, 'email_additional_information_fields' ], 195 );
+		add_action( 'woocommerce_view_order', [ $this, 'additional_information_fields' ], 195 );
 	}
 
 	public function email_additional_information_fields( $order ) {
@@ -73,9 +73,9 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 		$checkout_field_type = $this->plugin->get_fields();
 
 		if ( ! empty( $settings ) && is_array( $settings ) ) {
-			$return = array();
+			$return = [];
 			foreach ( $settings as $key => $type ) {
-				if ( in_array( $key, array( 'billing', 'shipping' ), true ) ) {
+				if ( in_array( $key, [ 'billing', 'shipping' ], true ) ) {
 					continue;
 				}
 				if ( isset( $type ) && is_array( $type ) ) {
@@ -117,13 +117,13 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	}
 
 	public function woocommerce_my_account_my_address_formatted_address( $address, $customer_id, $address_type ) {
-		$this->current_address_type = $address_type;
+		$this->current_address_type      = $address_type;
 		WC()->countries->address_formats = '';
-		$cf_fields = $this->getCheckoutFields( array(), $address_type );
-		$is_empty_address = $this->check_if_address_is_empty ( $address );
+		$cf_fields                       = $this->getCheckoutFields( [], $address_type );
+		$is_empty_address                = $this->check_if_address_is_empty( $address );
 		foreach ( $cf_fields as $field_key => $field ) {
-			$fcf_field = new Flexible_Checkout_Fields_Field( $field, $this->plugin);
-			if ( !isset( $address[$field['name']] ) ) {
+			$fcf_field = new Flexible_Checkout_Fields_Field( $field, $this->plugin );
+			if ( ! isset( $address[ $field['name'] ] ) ) {
 				$val = '';
 				if ( $fcf_field->is_custom_field() && $fcf_field->get_display_on_option_show_label() === '1' ) {
 					$val .= strip_tags( wpdesk__( $field['label'], 'flexible-checkout-fields' ) ) . ': ';
@@ -136,16 +136,37 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 					$val = '';
 				}
 
-				$address[$field['name']] = $val;
-				$address[$this->replace_only_first(  $address_type . '_', '', $field['name'] )] = $val;
+				$address[ $field['name'] ] = $val;
+				$address[ $this->replace_only_first( $address_type . '_', '', $field['name'] ) ] = $val;
 			}
 		}
 
 		return $address;
 	}
 
-	public function getCheckoutFields( $fields, $request_type = null ) {
-		return $this->plugin->getCheckoutFields( $fields, $request_type );
+	/**
+	 * Get checkout fields for display (after order is created)
+	 *
+	 * @param array<string, array<string,mixed>> $fields
+	 * @param string $section_name (e.g. 'billing').
+	 * @param \WC_Order $order
+	 * @return array<string, array<string,mixed>>
+	 */
+	public function getCheckoutFields( $fields, $section_name = null, $order = null ) {
+		$fields = $this->plugin->getCheckoutFields( $fields, $section_name );
+
+		/**
+		 * Filter checkout fields for display.
+		 *
+		 * @since 4.1.5
+		 *
+		 * @param array<string, array<string,mixed>> $fields
+		 * @param string $section_name
+		 * @param \WC_Order $order
+		 *
+		 * @return array<string, array<string,mixed>>
+		 */
+		return apply_filters( 'flexible_checkout_fields/display/get_checkout_fields', $fields, $section_name, $order );
 	}
 
 	/**
@@ -176,12 +197,12 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	 */
 	private function append_field_to_address_format( $format, $field_key, $field ) {
 		if ( ( $this->is_thankyou_page() || $this->is_in_email() || $this->is_order_page() )
-		     && in_array( $field_key, array( 'billing_phone', 'billing_email' ) )
+			&& in_array( $field_key, [ 'billing_phone', 'billing_email' ] )
 		) {
 			return $format;
 		}
 		$fcf_field = new Flexible_Checkout_Fields_Field( $field, $this->plugin );
-		if ( isset( $field['type'] ) && in_array( $field['type'], array( 'heading', 'info', 'paragraph', 'image' ) ) ) {
+		if ( isset( $field['type'] ) && in_array( $field['type'], [ 'heading', 'info', 'paragraph', 'image' ] ) ) {
 			return $format;
 		}
 		if ( $this->is_field_displayable( $field ) ) {
@@ -196,7 +217,7 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 				$format .= ', ';
 			}
 			$field_name = $fcf_field->get_name_for_address_format();
-			$format .= '{' . $this->replace_only_first( $this->current_address_type . '_', '',  $field_name . '}' );
+			$format    .= '{' . $this->replace_only_first( $this->current_address_type . '_', '', $field_name . '}' );
 		}
 
 		return $format;
@@ -210,16 +231,16 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	 * @return array
 	 */
 	public function woocommerce_localisation_address_formats_filter( $formats ) {
-		$fields = $this->getCheckoutFields( array(), $this->current_address_type );
+		$fields = $this->getCheckoutFields( [], $this->current_address_type, $this->order );
 		if ( empty( $fields ) ) {
 			return $formats;
 		}
 
 		foreach ( $formats as $format_key => $format ) {
 			if ( $this->is_edit_address_page()
-				 || $this->is_order_page()
-				 || $this->is_in_email()
-				 || $this->is_thankyou_page()
+				|| $this->is_order_page()
+				|| $this->is_in_email()
+				|| $this->is_thankyou_page()
 			) {
 				$formats[ $format_key ] = '';
 				foreach ( $fields as $field_key => $field ) {
@@ -310,8 +331,8 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 
 	public function woocommerce_formatted_address_replacements( $fields, $args ) {
 		foreach ( $args as $arg_key => $arg ) {
-			if ( !isset( $fields['{' . $arg_key . '}'] ) ) {
-				$fields['{' . $arg_key . '}'] = $arg;
+			if ( ! isset( $fields[ '{' . $arg_key . '}' ] ) ) {
+				$fields[ '{' . $arg_key . '}' ] = $arg;
 			}
 		}
 
@@ -319,7 +340,8 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	}
 
 	public function woocommerce_order_formatted_billing_address( $fields, $order ) {
-		$this->current_address_type = 'billing';
+		$this->order                     = $order;
+		$this->current_address_type      = 'billing';
 		WC()->countries->address_formats = '';
 		return $this->woocommerce_order_formatted_address( $fields, $order, 'billing' );
 	}
@@ -333,8 +355,7 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	 */
 	public function woocommerce_order_formatted_address( $fields, $order, $address_type ) {
 
-		$cf_fields = $this->getCheckoutFields( array(), $address_type );
-		$checkout_field_type = $this->plugin->get_fields();
+		$cf_fields = $this->getCheckoutFields( [], $address_type, $order );
 
 		foreach ( $cf_fields as $field_key => $field ) {
 			$val = wpdesk_get_order_meta( $order, '_' . $field_key, true );
@@ -343,7 +364,7 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 			}
 
 			$fcf_field = new Flexible_Checkout_Fields_Field( $field, $this->plugin );
-			if ( (isset( $field['custom_field'] ) && $field['custom_field'] == '1')) {
+			if ( ( isset( $field['custom_field'] ) && $field['custom_field'] == '1' ) ) {
 				$val = '';
 				if ( $fcf_field->is_custom_field() && $fcf_field->get_display_on_option_show_label() === '1' ) {
 					$val = strip_tags( wpdesk__( $field['label'], 'flexible-checkout-fields' ) ) . ': ';
@@ -351,14 +372,14 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 
 				$meta_value = wpdesk_get_order_meta( $order, '_' . $field_key, true );
 				$meta_value = apply_filters( 'flexible_checkout_fields_print_value', $meta_value, $field );
-				$val .= $meta_value;
+				$val       .= $meta_value;
 			}
 
-			$val = $this->flexible_invoices_ask_field_integration($val, $field, $field_key, $fields);
+			$val = $this->flexible_invoices_ask_field_integration( $val, $field, $field_key, $fields );
 			$val = wp_kses_post( $val );
 
-			$fields[$field['name']] = $val;
-			$fields[$this->replace_only_first(  $address_type . '_', '', $field['name'] )] = $val;
+			$fields[ $field['name'] ] = $val;
+			$fields[ $this->replace_only_first( $address_type . '_', '', $field['name'] ) ] = $val;
 		}
 
 		return $fields;
@@ -373,10 +394,10 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	 *
 	 * @return string
 	 */
-	private function replace_only_first($needle, $replace, $haystack) {
-		$pos = strpos($haystack, $needle);
-		if ($pos !== false) {
-			return substr_replace($haystack, $replace, $pos, strlen($needle));
+	private function replace_only_first( $needle, $replace, $haystack ) {
+		$pos = strpos( $haystack, $needle );
+		if ( $pos !== false ) {
+			return substr_replace( $haystack, $replace, $pos, strlen( $needle ) );
 		}
 		return $haystack;
 	}
@@ -400,11 +421,11 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 			}
 
 			// wFirma/Fakturownia/iFirma/inFakt ask field integration
-			$supported_ask_fields = array(
+			$supported_ask_fields = [
 				'billing_faktura',
 				'billing_invoice',
-				'billing_rachunek'
-			);
+				'billing_rachunek',
+			];
 			if ( in_array( $field_key, $supported_ask_fields, true ) ) {
 				$wc_meta_key_definitions = apply_filters( 'woocommerce_customer_meta_fields', [] );
 
@@ -440,7 +461,8 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	 * @return array|string
 	 */
 	public function woocommerce_order_formatted_shipping_address( $fields, $order ) {
-		$this->current_address_type = 'shipping';
+		$this->order                     = $order;
+		$this->current_address_type      = 'shipping';
 		WC()->countries->address_formats = '';
 		if ( ! is_array( $fields ) ) {
 			return $fields;
@@ -458,7 +480,7 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 	}
 
 	protected function woocommerce_fields( $fields, $section ) {
-		$cf_fields = $this->getCheckoutFields( array(), $section );
+		$cf_fields = $this->getCheckoutFields( [], $section );
 		foreach ( $cf_fields as $cf_field_key => $cf_field ) {
 			if ( ! $this->is_field_displayable( $cf_field ) ) {
 				unset( $fields[ $cf_field_key ] );
@@ -466,5 +488,4 @@ class Flexible_Checkout_Fields_Disaplay_Options {
 		}
 		return $fields;
 	}
-
 }

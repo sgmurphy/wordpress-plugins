@@ -211,7 +211,7 @@ class WPLE_Trait
         $handle = curl_init();
         $srvr = array(
             'challenge_folder_exists' => '',
-            'certificate_exists'      => file_exists( ABSPATH . 'keys/certificate.crt' ),
+            'certificate_exists'      => file_exists( WPLE_Trait::wple_cert_directory() . 'certificate.crt' ),
             'server_software'         => $_SERVER['SERVER_SOFTWARE'],
             'http_host'               => $_SERVER['HTTP_HOST'],
             'pro'                     => ( wple_fs()->is__premium_only() ? 'PRO' : 'FREE' ),
@@ -945,6 +945,38 @@ class WPLE_Trait
             
             }
         
+        }
+    
+    }
+    
+    /**
+     * Returns cert directory
+     *
+     * @since 7.0.0
+     */
+    public static function wple_cert_directory()
+    {
+        
+        if ( get_option( 'wple_parent_reachable' ) ) {
+            $dir = dirname( ABSPATH, 1 ) . '/ssl/' . sanitize_file_name( WPLE_Trait::get_root_domain() ) . '/';
+        } else {
+            $dir = ABSPATH . 'keys/';
+        }
+        
+        return $dir;
+    }
+    
+    public static function wple_get_private_key()
+    {
+        $keypath = WPLE_Trait::wple_cert_directory();
+        $pkey = get_option( 'wple_priv_key' );
+        
+        if ( file_exists( $keypath . 'private.pem' ) ) {
+            return file_get_contents( $keypath . 'private.pem' );
+        } elseif ( $pkey !== false ) {
+            return preg_replace( '#<br\\s*/?>#i', "", $pkey );
+        } else {
+            return '';
         }
     
     }

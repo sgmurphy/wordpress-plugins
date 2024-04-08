@@ -1545,9 +1545,9 @@
               }
             }
 
-            let packageCustomerId = this.packageCustomer.appointments[0].packageCustomerId
-
             let isSharedCapacity = false
+
+            let packageCustomerId = this.packageCustomer.appointments[0].packageCustomerId
 
             this.packageCustomer.data.forEach((i) => {
               i.bookings.forEach((j) => {
@@ -1759,9 +1759,7 @@
         this.showCoupon = true
 
         let cachedCustomersIds = this.cachedClonedBookings.map(booking => booking.customer).map(customer => customer.id)
-
         let existingCustomersIds = this.clonedBookings.map(booking => booking.customer).map(customer => customer.id)
-
         let missingCustomersIds = []
 
         cachedCustomersIds.forEach((customerId) => {

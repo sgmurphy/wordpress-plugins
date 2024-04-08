@@ -45,5 +45,4 @@ class Flexible_Checkout_Fields_Field_Type_Settings {
 	public function is_pro() {
 		return isset( $this->field_type_settings['pro'] ) ? intval( $this->field_type_settings['pro'] ) === 1 : false;
 	}
-
 }

@@ -6,7 +6,7 @@ Plugin URI: https://popup-builder.com
 Donate link: https://popup-builder.com
 Tags: popup, pop up, wordpress popup, popup maker, exit popup, popup builder, wordpress popup plugin
 Requires at least: 4.2
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.3.3
 Stable tag: 4.2.7
 License: GPLv2 or later

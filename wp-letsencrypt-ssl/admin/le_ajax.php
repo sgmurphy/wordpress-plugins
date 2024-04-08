@@ -294,14 +294,14 @@ class WPLE_Ajax
 
     $ftype = $_GET['gettype'];
     $output = '';
-    $keypath = ABSPATH . 'keys/';
+    $keypath = WPLE_Trait::wple_cert_directory();
 
     switch ($ftype) {
       case 'cert':
         if (file_exists($keypath . 'certificate.crt')) $output = file_get_contents($keypath . 'certificate.crt');
         break;
       case 'key':
-        if (file_exists($keypath . 'private.pem')) $output = file_get_contents($keypath . 'private.pem');
+        $output = WPLE_Trait::wple_get_private_key();
         break;
       case 'cabundle':
         // if (file_exists(ABSPATH . 'keys/cabundle.crt')) {

@@ -72,15 +72,14 @@ class TrackerInitializer implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookab
     public function hooks()
     {
         $this->add_hookable(new \FSVendor\Octolize\Tracker\SenderRegistrator($this->plugin_slug));
-        $opt_in_opt_out = new \FSVendor\WPDesk\Tracker\OptInOptOut($this->plugin_file, $this->plugin_slug, $this->shop_url, $this->plugin_name);
-        $opt_in_opt_out->create_objects();
-        $this->add_hookable($opt_in_opt_out);
         $this->add_hookable(\FSVendor\WPDesk\Tracker\Deactivation\TrackerFactory::createCustomTracker(new \FSVendor\WPDesk\Tracker\Deactivation\PluginData($this->plugin_slug, $this->plugin_file, $this->plugin_name), null, null, null, $this->reasons_factory));
         $tracker_consent = new \FSVendor\WPDesk_Tracker_Persistence_Consent();
         if (!$tracker_consent->is_active()) {
             $this->add_hookable(new \FSVendor\Octolize\Tracker\OptInNotice\OptInNotice($this->plugin_slug, $this->shop_url, $this->should_display));
         }
         $this->hooks_on_hookable_objects();
+        // By returning empty array, we opt out from notice provided by wp-wpdesk-tracker.
+        \add_filter('wpdesk_tracker_notice_screens', fn() => []);
         \add_action('plugins_loaded', [$this, 'init_tracker']);
     }
     /**

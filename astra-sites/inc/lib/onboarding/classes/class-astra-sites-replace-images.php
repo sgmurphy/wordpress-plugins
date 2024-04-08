@@ -97,9 +97,9 @@ class Astra_Sites_Replace_Images {
 		$images = Astra_Sites_ZipWP_Helper::get_business_details('images');
 
 		if ( empty( $images ) ) {
-			wp_send_json_error(
+			wp_send_json_success(
 				array(
-					'data' => 'Image not downloaded!',
+					'data' => 'No images selected to download!',
 					'status'  => true,
 				)
 			);
@@ -108,9 +108,9 @@ class Astra_Sites_Replace_Images {
 		$image = $images[ $index ];
 
 		if( empty( $image ) ){
-			wp_send_json_error(
+			wp_send_json_success(
 				array(
-					'data' => 'Image not downloaded!',
+					'data' => 'No image to download!',
 					'status'  => true,
 				)
 			);

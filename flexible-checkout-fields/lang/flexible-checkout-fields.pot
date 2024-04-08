@@ -2,25 +2,25 @@
 # This file is distributed under the same license as the Flexible Checkout Fields plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Checkout Fields 4.1.4\n"
+"Project-Id-Version: Flexible Checkout Fields 4.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-checkout-fields\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-25T09:56:54+00:00\n"
+"POT-Creation-Date: 2024-04-08T14:19:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: flexible-checkout-fields\n"
 
 #. Plugin Name of the plugin
 #: flexible-checkout-fields.php
-#: classes/settings.php:33
-#: classes/settings.php:36
-#: classes/settings.php:39
-#: classes/settings.php:43
-#: classes/settings.php:47
+#: classes/settings.php:35
+#: classes/settings.php:38
+#: classes/settings.php:41
+#: classes/settings.php:45
+#: classes/settings.php:49
 #: templates/views/admin-page.php:21
 msgid "Flexible Checkout Fields"
 msgstr ""
@@ -49,76 +49,76 @@ msgstr ""
 msgid "Additional Information"
 msgstr ""
 
-#: classes/filed-validation.php:90
+#: classes/filed-validation.php:92
 #: src/Settings/Option/ValidationOption.php:47
 #: src/Settings/Option/ValidationPostcodeOption.php:15
 #: src/Settings/Option/ValidationWcOption.php:15
 msgid "Default"
 msgstr ""
 
-#: classes/filed-validation.php:91
+#: classes/filed-validation.php:93
 #: src/Settings/Option/ValidationPostcodeOption.php:16
 #: src/Settings/Option/ValidationWcOption.php:16
 msgid "None"
 msgstr ""
 
-#: classes/filed-validation.php:92
+#: classes/filed-validation.php:94
 msgid "Email"
 msgstr ""
 
-#: classes/filed-validation.php:93
+#: classes/filed-validation.php:95
 #: src/Field/Type/PhoneType.php:51
 #: src/Settings/Option/ValidationPostcodeOption.php:18
 #: src/Settings/Option/ValidationWcOption.php:18
 msgid "Phone"
 msgstr ""
 
-#: classes/filed-validation.php:96
+#: classes/filed-validation.php:98
 #: src/Settings/Option/ValidationPostcodeOption.php:19
 msgid "Postcode"
 msgstr ""
 
-#: classes/plugin.php:316
+#: classes/plugin.php:335
 #: src/Settings/Menu.php:70
 msgid "Billing"
 msgstr ""
 
-#: classes/plugin.php:323
+#: classes/plugin.php:342
 #: src/Settings/Menu.php:71
 msgid "Shipping"
 msgstr ""
 
-#: classes/plugin.php:330
+#: classes/plugin.php:349
 #: src/Settings/Menu.php:72
 msgid "Order"
 msgstr ""
 
-#: classes/plugin.php:888
+#: classes/plugin.php:903
 msgid "Uploading file..."
 msgstr ""
 
-#: classes/plugin.php:961
+#: classes/plugin.php:978
 msgid "Start here"
 msgstr ""
 
-#: classes/plugin.php:962
+#: classes/plugin.php:979
 #: src/Settings/Menu.php:35
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:198
 msgid "Settings"
 msgstr ""
 
-#: classes/plugin.php:963
+#: classes/plugin.php:980
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:194
 msgid "Docs"
 msgstr ""
 
-#: classes/plugin.php:967
+#: classes/plugin.php:984
 #: src/Settings/Option/LogicAdvOption.php:58
 #: src/Settings/Option/SettingSectionsAdvOption.php:37
 msgid "Upgrade to PRO"
 msgstr ""
 
-#: classes/tracker.php:328
+#: classes/tracker.php:329
 msgid "Opt-in"
 msgstr ""
 
@@ -758,19 +758,19 @@ msgstr ""
 msgid "Grow your business with WP Desk"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:281
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:283
 msgid "Buy now"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:283
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:285
 msgid "Learn more"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:287
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:289
 msgid "Download"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:299
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:301
 msgid "More info"
 msgstr ""
 

@@ -1,3 +1,22 @@
+v2.1.25 - 8-April-2024
+- Fix: Custom permission fix for search category API.
+- Fix: Fixed an issue where the Personalisation of the library was failing.
+
+v2.1.24 - 5-April-2024
+- Fix: Improved parsing mechanism for social media icons to ensure error-free processing.
+
+v2.1.23 - 5-April-2024
+- Fix: Pre-selected images were not displaying.
+
+v2.1.22 - 4-April-2024
+- Improvement: Updated image replacement mechanisms to enhance compatibility with the ZipWP.
+
+v2.1.21 - 3 April-2024
+- New: Added business type selection option in onboarding.
+- Improvement: Using a ZipWP constant instead of a URL to facilitate easy overriding from the WordPress configuration.
+- Improvement: Automatically prefill business details for sites created through ZipWP.
+- Improvement: Moved JSON folder from plugin directory to WP upload folder to address memory issues.
+
 v2.1.20 - 1-April-2024
 - Improvement: Added Compatibility for Rank Match SEO plugin.
 

@@ -26,7 +26,7 @@ class Flexible_Checkout_Fields_Myaccount_Edit_Address {
 	 * Hooks.
 	 */
 	public function hooks() {
-		add_filter( 'woocommerce_address_to_edit', array( $this, 'filter_edit_address_fields' ), 10, 2 );
+		add_filter( 'woocommerce_address_to_edit', [ $this, 'filter_edit_address_fields' ], 10, 2 );
 	}
 
 	/**
@@ -46,5 +46,4 @@ class Flexible_Checkout_Fields_Myaccount_Edit_Address {
 		}
 		return $fields;
 	}
-
 }

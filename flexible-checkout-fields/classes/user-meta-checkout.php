@@ -39,7 +39,7 @@ class Flexible_Checkout_Fields_User_Meta_Checkout {
 	 * Hooks.
 	 */
 	public function hooks() {
-		add_filter( 'woocommerce_checkout_update_user_meta', array( $this, 'update_customer_meta_fields_on_checkout' ), 10, 2 );
+		add_filter( 'woocommerce_checkout_update_user_meta', [ $this, 'update_customer_meta_fields_on_checkout' ], 10, 2 );
 	}
 
 	/**

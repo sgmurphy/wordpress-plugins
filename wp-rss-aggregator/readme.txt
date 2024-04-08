@@ -1,7 +1,7 @@
 === RSS Aggregator - RSS Import, News Feeds, Feed to Post, and Autoblogging ===
 Contributors: RebelCode, jeangalea, markzahra, Mekku, gabygalea
 Plugin URI: https://www.wprssaggregator.com
-Tags: RSS, RSS feed, RSS aggregator, autoblogging, RSS import, autoblog, feed to post, news aggregator, news feeds, YouTube video feeds, rss to post, content curation
+Tags: rss aggregator, news aggregator, autoblogging, feed to post, rss import
 Requires at least: 4.0 or higher
 Tested up to: 6.5
 Requires PHP: 5.4
@@ -224,6 +224,26 @@ Check out our dedicated page on [WordPress hosting](https://www.wprssaggregator.
 = Can I import the full text from any source site? =
 
 In the majority of cases, this is possible using our Feed to Post and Full Text RSS feeds add-ons, both of which are part of our most popular bundle, the [Pro Plan](https://www.wprssaggregator.com/upgrade/?utm_source=wordpress-dot-org&utm_medium=readme&utm_campaign=readme_fulltextfaq).
+
+- - -
+
+= Can I add Twitter (now known as X) RSS feeds to my WordPress site? =
+
+Creating Twitter RSS feeds for your WordPress site involves a few simple steps using third-party services since Twitter no longer offers native RSS feed support. Here’s a quick overview:
+
+1. Select a Third-Party Service: Use an RSS feed generator such as RSS.app or Nitter to create your Twitter RSS feed. These platforms allow you to convert Twitter content into RSS feeds.
+
+2. Generate Your Twitter RSS Feed: Follow the specific instructions on your chosen platform to generate the RSS feed URL for the Twitter content you wish to display.
+
+3. Integrate with WP RSS Aggregator: Once you have your RSS feed URL, use WP RSS Aggregator on your WordPress site to add and configure your new feed source.
+
+For detailed instructions, including step-by-step guidance, please visit [our full article on creating Twitter RSS feeds](https://www.wprssaggregator.com/twitter-rss/).
+
+- - -
+
+= How can I display the latest posts from a Facebook page on my WordPress site? =
+
+To showcase the latest posts from a Facebook page on your WordPress site, you can create an RSS feed for that Facebook page using a third-party service like FetchRSS. Once you have the RSS feed URL, you can easily integrate this feed into your site using WP RSS Aggregator. For a detailed guide on generating the RSS feed and integrating it with WP RSS Aggregator, including step-by-step instructions, visit [our full article on how to create a Facebook RSS feed](https://www.wprssaggregator.com/facebook-rss-feed/).
 
 - - -
 

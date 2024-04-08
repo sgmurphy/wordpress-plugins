@@ -5,7 +5,7 @@ Requires at least: 5.4
 License: GPL3
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 7.0.0
+Stable tag: 7.1.0
 
 Lifetime SSL solution & Security - Install free SSL certificate & enable HTTPS redirect, HTTPS mail, fix SSL errors, SSL score, SSL details & monitoring.
 
@@ -175,15 +175,20 @@ Security is an important subject regarding SSL/TLS certificates, of course. It i
 
 == Changelog ==
 
+= 7.1.0 =
+* Free Version - Store SSL certificate & key in ssl/domain.com/ directory above web root to avoid public access in case htaccess is not supported
+* Store keys as option if root dir access is restricted
+
 = 7.0.0 =
 * PRO - CERT PANEL improvements
 * Free - New Vulnerability scanner & security page
 * Security Headers enforcing via WP hook
 
 = 6.6.0 =
-* Freemius sdk update
 * http file names correction
 * SSL labs scan improvements
+* Freemius SDK update to 2.6.2
+* Fixed issue with http verification file names
 
 = 6.5.0 =
 * PRO - resolved php path issue in crontab

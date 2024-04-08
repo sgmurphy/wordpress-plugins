@@ -132,11 +132,11 @@ class WPLE_Handler
             switch ( $_GET['le'] ) {
                 case '1':
                     $file = uniqid() . '-cert.crt';
-                    file_put_contents( $file, file_get_contents( ABSPATH . 'keys/certificate.crt' ) );
+                    file_put_contents( $file, file_get_contents( WPLE_Trait::wple_cert_directory() . 'certificate.crt' ) );
                     break;
                 case '2':
                     $file = uniqid() . '-key.pem';
-                    file_put_contents( $file, file_get_contents( ABSPATH . 'keys/private.pem' ) );
+                    file_put_contents( $file, WPLE_Trait::wple_get_private_key() );
                     break;
                 case '3':
                     $file = uniqid() . '-cabundle.crt';
