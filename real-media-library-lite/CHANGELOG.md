@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.12 (2024-04-09)
+
+
+### Bug Fixes
+
+* escape output for Gutenberg gallery
+
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.16</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Bug Fixes
+
+* deactivate license domain detection when running WordPress through WP CLI (CU-869482eaf)
+
+
+##### Build Process
+
+* remove minimal translations el fi and fix localization system (CU-861myr2cq)</details>
+
+<details><summary>Dependency updates @devowl-wp/real-utils 1.13.0</summary>
+
+
+**_Purpose of dependency:_** _Create cross-selling ads, about page, rating and newsletter input for WP Real plugins._
+##### Build Process
+
+* remove minimal translations el fi and fix localization system (CU-861myr2cq)
+
+
+##### Features
+
+* translations into Hungarian, Romanian, Greek, Finnish and Slovak (CU-863gr8e97)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.0</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* compatibility with Perfmatters DelayJS functionality and Code on page load scripts (CU-869465a82)
+* implement a mechanism detecting a defect Consent REST API and recommend knowledgebase articles (CU-8693zknc0)
+* use vigenere cipher for obfuscating the REST API URL (CU-8693zknc0)
+
+
+##### Build Process
+
+* remove minimal translations el fi and fix localization system (CU-861myr2cq)
+
+
+##### Features
+
+* translations into Hungarian, Romanian, Greek, Finnish and Slovak (CU-863gr8e97)</details>
+
+<details><summary>Development dependency update @devowl-wp/phpunit-config 0.1.13</summary>
+
+
+**_Purpose of dependency:_** _Predefined functionalities for PHPUnit._
+##### Bug Fixes
+
+* scanner finds Google Maps for MyListing theme when Mapbox instead of Google Maps is used (CU-86947zz6j)</details>
+
+
+
+
+
 ## 4.22.11 (2024-03-22)
 
 

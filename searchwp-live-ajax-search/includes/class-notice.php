@@ -1,6 +1,6 @@
 <?php
 
-use \SearchWP_Live_Search_Settings_Api as Settings_Api;
+use SearchWP_Live_Search_Settings_Api as Settings_Api;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -165,7 +165,7 @@ class SearchWP_Live_Search_Notice {
 		$global = ( $dismissible === self::DISMISS['global'] ) ? 'global-' : '';
 		$slug   = sanitize_key( $args['slug'] );
 
-		++ $uniq_id;
+		++$uniq_id;
 
 		$uniq_id += ( $uniq_id === (int) $slug ) ? 1 : 0;
 
@@ -235,7 +235,6 @@ class SearchWP_Live_Search_Notice {
 	 * @param array  $args    Array of additional arguments. Details in the self::add() method.
 	 *
 	 * @since 1.7.0
-	 *
 	 */
 	public static function warning( $message, $args = [] ) {
 

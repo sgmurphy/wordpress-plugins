@@ -1,5 +1,7 @@
 <?php
 
+use SearchWP_Live_Search_Utils as Utils;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -115,7 +117,11 @@ class SearchWP_Live_Search_Install {
 		}
 
 		// Initial install.
-		wp_safe_redirect( admin_url( 'admin.php?page=searchwp-live-search' ) );
+		if ( Utils::is_searchwp_active() ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=searchwp-forms&tab=live-search' ) );
+		} else {
+			wp_safe_redirect( admin_url( 'admin.php?page=searchwp-live-search' ) );
+		}
 		exit;
 	}
 }

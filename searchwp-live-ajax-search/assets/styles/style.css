@@ -1,7 +1,3 @@
-/* at the very least you must set these two display properties */
-/* this is so you can use CSS animations when toggling results */
-
-
 /* visual styles */
 .searchwp-live-search-results {
 	box-sizing: border-box;
@@ -11,38 +7,84 @@
 	box-shadow: 0 0 2px 0 rgba(30,30,30,0.4);
 	border-radius: 3px;
 	width: 315px;
+	min-width: 315px;
 	min-height: 175px;
 	max-height: 300px;
+}
+
+.searchwp-live-search-result {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding: 10px;
+	border-bottom:1px solid rgba(30,30,30,0.1);
+}
+
+.searchwp-live-search-result:last-child {
+	border-bottom: none;
+}
+
+.searchwp-live-search-result--img {
+	flex-shrink: 0;
+	-ms-flex-preferred-size: 70px;
+	flex-basis: 70px;
+}
+
+.searchwp-live-search-results-container.swp-ls--img-sm .searchwp-live-search-result--img {
+	-ms-flex-preferred-size: 70px;
+	flex-basis: 70px;
+}
+
+.searchwp-live-search-results-container.swp-ls--img-m .searchwp-live-search-result--img {
+	-ms-flex-preferred-size: 110px;
+	flex-basis: 110px;
+}
+
+.searchwp-live-search-results-container.swp-ls--img-l .searchwp-live-search-result--img {
+	-ms-flex-preferred-size: 150px;
+	flex-basis: 150px;
+}
+
+.searchwp-live-search-result--img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: top;
+}
+
+.searchwp-live-search-result--info {
+	flex: 1 1 250px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.searchwp-live-search-result--title {
+	margin-top: 0;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.searchwp-live-search-result--desc {
+	font-size: 0.9em;
+}
+
+.searchwp-live-search-result--ecommerce {
+	margin-left: auto;
+	text-align: end;
+	flex-shrink: 0;
+}
+
+.searchwp-live-search-result--ecommerce *{
+	font-size: 1em;
 }
 
 .searchwp-live-search-no-min-chars .spinner {
 	opacity: 0.3;
 }
 
-.searchwp-live-search-result p {
-	font-size:0.9em;
-	padding:1em;
-	margin:0;
-	border-bottom:1px solid rgba(30,30,30,0.1);
-}
-
 .searchwp-live-search-result--focused {
-	background: #DDD;
-}
-
-.searchwp-live-search-result--focused a {
-	color: #000;
-}
-
-.searchwp-live-search-result:last-of-type p {
-	border-bottom:0;
-}
-
-.searchwp-live-search-result a {
-	display: block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	background: #f7f7f7;
 }
 
 /* Bullet proof Screen Reader Only text */

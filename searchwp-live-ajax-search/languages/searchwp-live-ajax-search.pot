@@ -1,5 +1,6 @@
-# Copyright (C) 2022 SearchWP, LLC
+# Copyright (C) 2024 SearchWP, LLC
 # This file is distributed under the same license as the SearchWP Live Ajax Search plugin.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: SearchWP Live Ajax Search 1.6.3\n"
@@ -9,9 +10,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-27T14:46:15+00:00\n"
+"POT-Creation-Date: 2023-07-31 13:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Domain: searchwp-live-ajax-search\n"
 
 #. Plugin Name of the plugin
@@ -43,8 +44,7 @@ msgstr ""
 msgid "Continue typing"
 msgstr ""
 
-#: includes/class-menu.php:51
-#: includes/class-menu.php:83
+#: includes/class-menu.php:51 includes/class-menu.php:83
 msgid "Live Search"
 msgstr ""
 
@@ -52,8 +52,7 @@ msgstr ""
 msgid "SearchWP"
 msgstr ""
 
-#: includes/class-menu.php:91
-#: includes/class-menu.php:92
+#: includes/class-menu.php:91 includes/class-menu.php:92
 msgid "Upgrade to Pro"
 msgstr ""
 
@@ -74,8 +73,7 @@ msgstr ""
 msgid "Go to SearchWP Settings page"
 msgstr ""
 
-#: includes/class-plugin.php:228
-#: includes/class-settings.php:79
+#: includes/class-plugin.php:228 includes/class-settings.php:79
 #: includes/class-settings.php:343
 msgid "Settings"
 msgstr ""
@@ -213,8 +211,7 @@ msgstr ""
 msgid "WooCommerce & Easy Digital Downloads support"
 msgstr ""
 
-#: includes/class-settings.php:418
-#: includes/class-settings.php:522
+#: includes/class-settings.php:418 includes/class-settings.php:522
 msgid "Get SearchWP Pro Today"
 msgstr ""
 
@@ -222,8 +219,7 @@ msgstr ""
 msgid "Get SearchWP Pro Today and Unlock all the Powerful Features"
 msgstr ""
 
-#: includes/class-settings.php:422
-#: includes/class-settings.php:526
+#: includes/class-settings.php:422 includes/class-settings.php:526
 msgid "<strong>Bonus:</strong> SearchWP Live Ajax Search users get <span class=\"green\">50% off the regular price</span>, automatically applied at checkout!"
 msgstr ""
 
@@ -244,13 +240,11 @@ msgstr ""
 msgid "With SearchWP Pro, you can overcome this obstacle and deliver the best, most relevant search results based on all your content, such as custom fields, ecommerce data, categories, PDF documents, rich media and more!"
 msgstr ""
 
-#: includes/class-widget.php:26
-#: includes/class-widget.php:27
+#: includes/class-widget.php:26 includes/class-widget.php:27
 msgid "SearchWP Live Search"
 msgstr ""
 
-#: includes/class-widget.php:46
-#: includes/class-widget.php:249
+#: includes/class-widget.php:46 includes/class-widget.php:249
 msgid "Search for..."
 msgstr ""
 
@@ -258,8 +252,7 @@ msgstr ""
 msgid "Search for:"
 msgstr ""
 
-#: includes/class-widget.php:72
-#: includes/class-widget.php:175
+#: includes/class-widget.php:72 includes/class-widget.php:175
 msgid "Search"
 msgstr ""
 

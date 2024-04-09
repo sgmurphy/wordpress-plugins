@@ -3,7 +3,7 @@ Contributors: sevenspark, tessawatkinsllc
 Donate link: https://just1voice.com/donate/
 Tags: Contact Form 7, autofill, prepopulate, dynamic form, form field
 Tested up to: 6.5
-Stable tag: 4.4.0
+Stable tag: 4.4.1
 
 Extends Contact Form 7 by adding dynamic form fields that accepts shortcodes to prepopulate form fields with default values and dynamic placeholders.
 
@@ -40,8 +40,6 @@ For over 10 years, DTX only handled `<input type="text" />` and `<input type="hi
 * submit (yes, a submit button where you can have dynamic text!)
 
 The possibilities are endless!
-
-(View Demo)[PREVIEW_URL]
 
 ## WHAT DOES IT DO? ##
 
@@ -390,10 +388,14 @@ Please check out the [FAQ on our website](https://aurisecreative.com/docs/contac
 
 == Upgrade Notice ==
 
-= 4.4.0 =
-Introducing dynamic attributes and the new `dynamic_label` form tag! See [the changelog](https://plugins.trac.wordpress.org/browser/contact-form-7-dynamic-text-extension/trunk/changelog.txt) for more details.
+= 4.4.1 =
+Addressed PHP warnings introduced in version 4.4.0. See [the changelog](https://plugins.trac.wordpress.org/browser/contact-form-7-dynamic-text-extension/trunk/changelog.txt) for more details.
 
 == Changelog ==
+
+= 4.4.1 =
+
+* Fix: Addressed PHP warnings for undefined array keys introduced in version 4.4.0, [see support thread](https://wordpress.org/support/topic/tons-of-errors-in-error_log/)
 
 = 4.4.0 =
 

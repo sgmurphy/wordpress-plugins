@@ -7,37 +7,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Class SearchWP_Live_Search_Relevanssi_Bridge.
- * Written by https://wordpress.org/plugins/daves-wordpress-live-search/.
  *
- * Relevanssi "bridge" class.
- *
- * @since 1.0
+ * @since 1.8.0
  */
 class SearchWP_Live_Search_Relevanssi_Bridge {
 
 	/**
 	 * Hooks.
 	 *
-	 * @since 1.7.0
+	 * @since 1.8.0
 	 */
 	public function hooks() {
 
-		add_action( 'searchwp_live_search_alter_results', [ __CLASS__, 'alter_results' ] );
+		add_filter( 'searchwp_live_search_query_args', [ __CLASS__, 'alter_results' ] );
 	}
 
 	/**
 	 * Alter Live Ajax Search results.
 	 *
-	 * @since 1.0
+	 * @param array $args Arguments.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
 	 */
-	public static function alter_results() {
+	public static function alter_results( $args ) {
 
-		if ( ! function_exists( 'relevanssi_do_query' ) ) {
-			return;
+		if ( is_plugin_active( 'relevanssi/relevanssi.php' ) ) {
+			$args['relevanssi'] = true;
 		}
 
-		global $wp_query;
-
-		relevanssi_do_query( $wp_query );
+		return $args;
 	}
 }

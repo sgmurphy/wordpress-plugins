@@ -3128,7 +3128,7 @@ class WPvivid
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote']) || !isset($_POST['type']) || !is_string($_POST['type'])) {
                 die();
             }
-            $json = sanitize_text_field($_POST['remote']);
+            $json = $_POST['remote'];
             $json = stripslashes($json);
             $remote_options = json_decode($json, true);
             if (is_null($remote_options)) {
@@ -6623,9 +6623,11 @@ class WPvivid
                     }
                 }
 
+                $backup_size=0;
                 $backup_time=$value['create_time'];
                 if(isset($value['backup']['files'])){
                     foreach ($value['backup']['files'] as $file_info){
+                        $backup_size+=$file_info['size'];
                         if(preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}/',$file_info['file_name'],$matches))
                         {
                             $backup_date=$matches[0];
@@ -6640,7 +6642,7 @@ class WPvivid
                             $time=$time_array[0].'-'.$time_array[1].'-'.$time_array[2].' '.$time_array[3].':'.$time_array[4];
                             $backup_time=strtotime($time);
                         }
-                        break;
+                        //break;
                     }
                 }
 
@@ -6698,10 +6700,11 @@ class WPvivid
                 <td class="tablelistcolumn">
                     <div style="float:left;padding:10px 10px 10px 0;">' . $remote_pic_html . '</div>
                 </td>
+               
                 <td class="tablelistcolumn" style="min-width:100px;">
                     <div id="wpvivid_file_part_' .$key . '" style="float:left;padding:10px 10px 10px 0;">
                         <div style="cursor:pointer;" onclick="wpvivid_initialize_download(\'' . $key . '\', \'' . $list_name . '\');" title="'. esc_html__('Prepare to download the backup', 'wpvivid-backuprestore') .'">
-                            <img id="wpvivid_download_btn_' . $key . '" src="' . esc_url(WPVIVID_PLUGIN_URL . '/admin/partials/images/download.png') . '" style="vertical-align:middle;" /><span>' . __('Download', 'wpvivid-backuprestore') . '</span>
+                            <img id="wpvivid_download_btn_' . $key . '" src="' . esc_url(WPVIVID_PLUGIN_URL . '/admin/partials/images/download.png') . '" style="vertical-align:middle;" /><span>' . __('Download', 'wpvivid-backuprestore') . ' (' . esc_html(size_format($backup_size, 2)) . ')' .'</span>
                             <div class="spinner" id="wpvivid_download_loading_' . $key . '" style="float:right;width:auto;height:auto;padding:10px 180px 10px 0;background-position:0 0;"></div>
                         </div>
                     </div>
@@ -6761,9 +6764,11 @@ class WPvivid
                     }
                 }
 
+                $backup_size=0;
                 $backup_time=$value['create_time'];
                 if(isset($value['backup']['files'])){
                     foreach ($value['backup']['files'] as $file_info){
+                        $backup_size+=$file_info['size'];
                         if(preg_match('/[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}/',$file_info['file_name'],$matches))
                         {
                             $backup_date=$matches[0];
@@ -6778,7 +6783,7 @@ class WPvivid
                             $time=$time_array[0].'-'.$time_array[1].'-'.$time_array[2].' '.$time_array[3].':'.$time_array[4];
                             $backup_time=strtotime($time);
                         }
-                        break;
+                        //break;
                     }
                 }
 
@@ -6793,7 +6798,7 @@ class WPvivid
                             <span title="To lock the backup, the backup can only be deleted manually" id="wpvivid_lock_<?php echo esc_attr($key); ?>">
                             <img src="<?php echo esc_url(WPVIVID_PLUGIN_URL . $backup_lock); ?>" name="<?php echo esc_attr($lock_status); ?>" onclick="wpvivid_set_backup_lock('<?php echo esc_js($key); ?>', '<?php echo esc_js($lock_status); ?>');" style="vertical-align:middle; cursor:pointer;"/>
                             </span>
-                                <span style="margin:0;">|</span> <span><?php esc_html_e('Type: ', 'wpvivid-backuprestore'); ?>'</span><span><?php echo esc_html($value['type']); ?></span>
+                                <span style="margin:0;">|</span> <span><?php esc_html_e('Type: ', 'wpvivid-backuprestore'); ?></span><span><?php echo esc_html($value['type']); ?></span>
                                 <span style="margin:0;">|</span> <span title="Backup log"><a href="#" onclick="wpvivid_read_log('wpvivid_view_backup_log', '<?php echo esc_js($key); ?>');"><img src="<?php echo esc_url(WPVIVID_PLUGIN_URL.'/admin/partials/images/Log.png'); ?>" style="vertical-align:middle;cursor:pointer;"/><span style="margin:0;"><?php esc_html_e('Log', 'wpvivid-backuprestore'); ?></span></a></span>
                             </div>
                         </div>
@@ -6835,7 +6840,7 @@ class WPvivid
                     <td class="tablelistcolumn" style="min-width:100px;">
                         <div id="wpvivid_file_part_<?php echo esc_attr($key); ?>" style="float:left;padding:10px 10px 10px 0;">
                             <div style="cursor:pointer;" onclick="wpvivid_initialize_download('<?php echo esc_js($key); ?>', '<?php echo esc_js($list_name); ?>');" title="<?php esc_attr_e('Prepare to download the backup', 'wpvivid-backuprestore'); ?>">
-                                <img id="wpvivid_download_btn_<?php echo esc_attr($key); ?>" src="<?php echo esc_url(WPVIVID_PLUGIN_URL.'/admin/partials/images/download.png'); ?>" style="vertical-align:middle;" /><span><?php esc_html_e('Download', 'wpvivid-backuprestore'); ?></span>
+                                <img id="wpvivid_download_btn_<?php echo esc_attr($key); ?>" src="<?php echo esc_url(WPVIVID_PLUGIN_URL.'/admin/partials/images/download.png'); ?>" style="vertical-align:middle;" /><span><?php esc_html_e('Download', 'wpvivid-backuprestore'); echo ' ('.esc_html(size_format($backup_size, 2)).')'; ?></span>
                                 <div class="spinner" id="wpvivid_download_loading_<?php esc_attr($key); ?>" style="float:right;width:auto;height:auto;padding:10px 180px 10px 0;background-position:0 0;"></div>
                             </div>
                         </div>

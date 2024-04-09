@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class SearchWP_Live_Search_Form.
  *
- * The SearchWP Live Ajax Search search form and it's configuration
+ * The SearchWP Live Ajax Search search-form and it's configuration
  *
  * @since 1.0
  */
@@ -80,7 +80,14 @@ class SearchWP_Live_Search_Form {
 
 		$this->hooks();
 
-		// The configs store all the various configuration arrays that can be used at runtime.
+		/**
+		 * Filter to allow developers to add their own custom configurations.
+		 * The configs store all the various configuration arrays that can be used at runtime.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $configs The default configurations.
+		 */
 		$this->configs = apply_filters( 'searchwp_live_search_configs', $this->configs );
 	}
 
@@ -127,6 +134,11 @@ class SearchWP_Live_Search_Form {
 
 		$this->configs['default']['results']['position'] = $settings_api->get( 'results-pane-position' );
 		$this->configs['default']['results']['width']    = empty( $settings_api->get( 'results-pane-auto-width' ) ) ? 'css' : 'auto';
+
+		$min_chars = $settings_api->get( 'swp-min-chars' );
+		if ( ! empty( $min_chars ) ) {
+			$this->configs['default']['input']['min_chars'] = absint( $min_chars );
+		}
 	}
 
 	/**
@@ -136,9 +148,13 @@ class SearchWP_Live_Search_Form {
 	 */
 	private function dequeue_styles() {
 
-		add_action( 'wp_enqueue_scripts', function () {
-			wp_dequeue_style( 'searchwp-live-search' );
-		}, 20 );
+		add_action(
+			'wp_enqueue_scripts',
+			function () {
+				wp_dequeue_style( 'searchwp-live-search' );
+			},
+			20
+		);
 	}
 
 	/**
@@ -158,15 +174,53 @@ class SearchWP_Live_Search_Form {
 	 */
 	public function gutenberg_integration() {
 
+		/**
+		 * Filter to allow disabling the hijack of search blocks.
+		 *
+		 * @since 1.0
+		 *
+		 * @param bool $apply Whether to apply the hijack.
+		 */
 		if ( ! apply_filters( 'searchwp_live_search_hijack_search_form_block', true ) ) {
             return;
         }
 
+		/**
+		 * Filter to set the default SearchWP search engine for search forms.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $engine The default SearchWP search engine.
+		 */
         $engine = apply_filters( 'searchwp_live_search_get_search_form_engine', 'default' );
+
+		/**
+		 * Filter to set the default config to use for search forms.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $config The default config to use.
+		 */
         $config = apply_filters( 'searchwp_live_search_get_search_form_config', 'default' );
 
         // Allow for block-specific.
+
+		/**
+		 * Filter to set the default SearchWP search engine for search blocks.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $engine The default SearchWP search engine.
+		 */
         $engine = apply_filters( 'searchwp_live_search_get_search_form_engine_blocks', $engine );
+
+		/**
+		 * Filter to set the default config to use for search blocks.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $config The default config to use.
+		 */
         $config = apply_filters( 'searchwp_live_search_get_search_form_config_blocks', $config );
 
         ?>
@@ -201,7 +255,7 @@ class SearchWP_Live_Search_Form {
 		wp_enqueue_script( 'jquery' );
 
 		// If WP is in script debug, or we pass ?script_debug in a URL - set debug to true.
-		$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ) || ( isset( $_GET['script_debug'] ) ) ? '' : '.min';
+		$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ) || ( isset( $_GET['script_debug'] ) ) ? '' : '.min'; // phpcs:ignore WordPress.Security.NonceVerification
 
 		wp_register_script(
 			'swp-live-search-client',
@@ -213,18 +267,25 @@ class SearchWP_Live_Search_Form {
 
 		$ajaxurl = admin_url( 'admin-ajax.php' );
 
-		// Allow a direct search (e.g. avoid admin-ajax.php).
+		/**
+		 * Filter to allow direct search (e.g. avoid admin-ajax.php).
+		 *
+		 * @since 1.7.0
+		 *
+		 * @param bool $direct_search Whether to use direct search.
+		 */
 		if ( apply_filters( 'searchwp_live_search_direct_search', false ) ) {
 			$ajaxurl = SEARCHWP_LIVE_SEARCH_PLUGIN_URL . 'direct.php';
 		}
 
 		// Set up our parameters.
 		$params = [
-			'ajaxurl'             => esc_url( $ajaxurl ),
-			'origin_id'           => get_queried_object_id(),
-			'config'              => $this->configs,
-			'msg_no_config_found' => esc_html__( 'No valid SearchWP Live Search configuration found!', 'searchwp-live-ajax-search' ),
-			'aria_instructions'   => esc_html__( 'When autocomplete results are available use up and down arrows to review and enter to go to the desired page. Touch device users, explore by touch or with swipe gestures.' , 'searchwp-live-ajax-search' ),
+			'ajaxurl'                           => esc_url( $ajaxurl ),
+			'origin_id'                         => get_queried_object_id(),
+			'config'                            => $this->configs,
+			'msg_no_config_found'               => esc_html__( 'No valid SearchWP Live Search configuration found!', 'searchwp-live-ajax-search' ),
+			'aria_instructions'                 => esc_html__( 'When autocomplete results are available use up and down arrows to review and enter to go to the desired page. Touch device users, explore by touch or with swipe gestures.' , 'searchwp-live-ajax-search' ),
+			'searchwp_live_search_client_nonce' => wp_create_nonce( 'searchwp_live_search_client_nonce' ),
 		];
 
 		// We need to JSON encode the configs.
@@ -232,9 +293,141 @@ class SearchWP_Live_Search_Form {
 			'l10n_print_after' => 'searchwp_live_search_params = ' . wp_json_encode( $params ) . ';',
 		];
 
-		// Localize and enqueue the script with all of the variable goodness.
+		// Localize and enqueue the script with all the variable goodness.
 		wp_localize_script( 'swp-live-search-client', 'searchwp_live_search_params', $encoded_data );
 		wp_enqueue_script( 'swp-live-search-client' );
+
+		// Add inline styles.
+		wp_add_inline_style( 'searchwp-live-search', self::get_inline_styles() );
+	}
+
+	/**
+	 * Get inline styles.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return string
+	 */
+	private static function get_inline_styles() {
+
+		$settings = searchwp_live_search()->get( 'Settings_Api' )->get();
+
+		$css_array = [];
+
+		// Title.
+		$title_selector = '.searchwp-live-search-result .searchwp-live-search-result--title a';
+		if ( ! empty( $settings['swp-title-color'] ) ) {
+			self::set_css( $css_array, "{$title_selector}/color", esc_html( $settings['swp-title-color'] ), '/' );
+		}
+		if ( ! empty( $settings['swp-title-font-size'] ) ) {
+			self::set_css( $css_array, "{$title_selector}/font-size", absint( $settings['swp-title-font-size'] ) . 'px', '/' );
+		}
+
+		// E-Commerce Price.
+		$price_selector = '.searchwp-live-search-result .searchwp-live-search-result--price';
+		if ( ! empty( $settings['swp-price-color'] ) ) {
+			self::set_css( $css_array, "{$price_selector}/color", esc_html( $settings['swp-price-color'] ), '/' );
+		}
+		if ( ! empty( $settings['swp-price-font-size'] ) ) {
+			self::set_css( $css_array, "{$price_selector}/font-size", absint( $settings['swp-price-font-size'] ) . 'px', '/' );
+		}
+
+		// E-Commerce Add to Cart.
+		$add_to_cart_selector = '.searchwp-live-search-result .searchwp-live-search-result--add-to-cart .button';
+		if ( ! empty( $settings['swp-add-to-cart-background-color'] ) ) {
+			self::set_css( $css_array, "{$add_to_cart_selector}/background-color", esc_html( $settings['swp-add-to-cart-background-color'] ), '/' );
+		}
+		if ( ! empty( $settings['swp-add-to-cart-font-color'] ) ) {
+			self::set_css( $css_array, "{$add_to_cart_selector}/color", esc_html( $settings['swp-add-to-cart-font-color'] ), '/' );
+		}
+		if ( ! empty( $settings['swp-add-to-cart-font-size'] ) ) {
+			self::set_css( $css_array, "{$add_to_cart_selector}/font-size", absint( $settings['swp-add-to-cart-font-size'] ) . 'px', '/' );
+		}
+
+		return self::css_array_to_css( $css_array );
+	}
+
+	/**
+	 * Set an array item to a given value using "dot" notation.
+	 *
+	 * If no key is given to the method, the entire array will be replaced.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array       $data          The array to modify.
+	 * @param string|null $key           The key to set.
+	 * @param mixed       $value         The value to set.
+	 * @param string      $key_separator The key separator.
+	 *
+	 * @return array
+	 */
+	public static function set_css( &$data, $key, $value, $key_separator = '.' ) {
+
+		if ( is_null( $key ) ) {
+			$data = $value;
+
+			return $data;
+		}
+
+		$keys = explode( $key_separator, $key );
+
+		foreach ( $keys as $i => $_key ) {
+			if ( count( $keys ) === 1 ) {
+				break;
+			}
+
+			unset( $keys[ $i ] );
+
+			// If the key doesn't exist at this depth, we will just create an empty array
+			// to hold the next value, allowing us to create the arrays to hold final
+			// values at the correct depth. Then we'll keep digging into the array.
+			if ( ! isset( $data[ $_key ] ) || ! is_array( $data[ $_key ] ) ) {
+				$data[ $_key ] = [];
+			}
+
+			$data = &$data[ $_key ];
+		}
+
+		$data[ array_shift( $keys ) ] = $value;
+
+		return $data;
+	}
+
+	/**
+	 * Recursive function that generates from a multidimensional array of CSS rules, a valid CSS string.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $rules  CSS rules array.
+	 *   An array of CSS rules in the form of:
+	 *   array('selector'=>array('property' => 'value')). Also supports selector
+	 *   nesting, e.g.,
+	 *   array('selector' => array('selector'=>array('property' => 'value'))).
+	 * @param int   $indent Indentation level.
+	 *
+	 * @return string A CSS string of rules. This is not wrapped in <style> tags.
+	 * @source http://matthewgrasmick.com/article/convert-nested-php-array-css-string
+	 */
+	private static function css_array_to_css( $rules, $indent = 0 ) {
+
+		$css    = '';
+		$prefix = str_repeat( '  ', $indent );
+
+		foreach ( $rules as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$selector   = $key;
+				$properties = $value;
+
+				$css .= $prefix . "$selector {\n";
+				$css .= $prefix . self::css_array_to_css( $properties, $indent + 1 );
+				$css .= $prefix . "}\n";
+			} else {
+				$property = $key;
+				$css     .= $prefix . "$property: $value;\n";
+			}
+		}
+
+		return $css;
 	}
 
 	/**
@@ -255,11 +448,33 @@ class SearchWP_Live_Search_Form {
 	 */
 	public function get_search_form( $html ) {
 
+		/**
+		 * Filter to allow disabling the hijack of get_search_form().
+		 *
+		 * @since 1.0
+		 *
+		 * @param bool $apply Whether to apply the hijack.
+		 */
 		if ( ! apply_filters( 'searchwp_live_search_hijack_get_search_form', true ) ) {
 			return $html;
 		}
 
+		/**
+		 * Filter to allow developers to set the default SearchWP search engine.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $engine The default SearchWP search engine.
+		 */
 		$engine = apply_filters( 'searchwp_live_search_get_search_form_engine', 'default' );
+
+		/**
+		 * Filter to allow developers to set the default config to use.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $config The default config to use.
+		 */
 		$config = apply_filters( 'searchwp_live_search_get_search_form_config', 'default' );
 		// We're going to use 'name="s"' as our anchor for replacement.
 		$html = str_replace( 'name="s"', 'name="s" data-swplive="true" data-swpengine="' . esc_attr( $engine ) . '" data-swpconfig="' . esc_attr( $config ) . '"', $html );
@@ -276,6 +491,13 @@ class SearchWP_Live_Search_Form {
 	 */
 	public function base_styles() {
 
+		/**
+		 * Filter to allow disabling the base styles.
+		 *
+		 * @since 1.0
+		 *
+		 * @param bool $apply Whether to apply the base styles.
+		 */
 		if ( ! apply_filters( 'searchwp_live_search_base_styles', true ) ) {
             return;
         }

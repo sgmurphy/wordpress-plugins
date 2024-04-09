@@ -1,7 +1,7 @@
 <?php
 
-use \SearchWP_Live_Search_Utils as Utils;
-use \SearchWP_Live_Search_Settings_Api as Settings_Api;
+use SearchWP_Live_Search_Utils as Utils;
+use SearchWP_Live_Search_Settings_Api as Settings_Api;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ class SearchWP_Live_Search_Menu {
 	 *
 	 * @since 1.7.0
 	 */
-	const MENU_SLUG = 'searchwp-live-search';
+	const MENU_SLUG = 'searchwp-forms';
 
 	/**
 	 * Hooks.
@@ -51,13 +51,31 @@ class SearchWP_Live_Search_Menu {
 	private static function get_submenu_pages_args_searchwp_disabled() {
 
 		$submenu_pages = [
-			'settings' => [
-				'menu_title' => esc_html__( 'Live Search', 'searchwp-live-ajax-search' ),
+			'forms'     => [
+				'menu_title' => esc_html__( 'Search Forms', 'searchwp-live-ajax-search' ),
 				'menu_slug'  => self::MENU_SLUG,
 				'position'   => 10,
+				'function'   => [ searchwp_live_search()->get( 'SearchFormsView' ), 'render' ],
+			],
+			'algorithm' => [
+				'menu_title' => esc_html__( 'Algorithm', 'searchwp-live-ajax-search' ),
+				'menu_slug'  => 'searchwp-algorithm',
+				'position'   => 20,
+				'function'   => [ searchwp_live_search()->get( 'EnginesPreview' ), 'render' ],
+			],
+			'settings'  => [
+				'menu_title' => esc_html__( 'Settings', 'searchwp-live-ajax-search' ),
+				'menu_slug'  => 'searchwp-live-search',
+				'position'   => 30,
+				'function'   => [ searchwp_live_search()->get( 'Settings' ), 'render_searchwp_disabled' ],
 			],
 		];
 
+		/**
+		 * Filter the submenu pages.
+		 *
+		 * @param array $submenu_pages The submenu pages array.
+		 */
 		$submenu_pages = (array) apply_filters( 'searchwp_live_search_options_submenu_pages', $submenu_pages );
 
 		uasort(
@@ -94,8 +112,14 @@ class SearchWP_Live_Search_Menu {
 
 		$submenu_pages = self::get_submenu_pages_args_searchwp_disabled();
 		$menu_page     = reset( $submenu_pages );
+		$settings      = searchwp_live_search()->get( 'Settings' );
 
-		$settings = searchwp_live_search()->get( 'Settings' );
+		/**
+		 * Filter the menu position.
+		 *
+		 * @param string $menu_position The menu position.
+		 */
+		$menu_position = apply_filters( 'searchwp\admin_menu\position', '58.95' );
 
 		// Default SearchWP top level menu item.
 		add_menu_page(
@@ -103,9 +127,9 @@ class SearchWP_Live_Search_Menu {
 			$page_title,
 			$capability,
 			$menu_page['menu_slug'],
-			[ $settings, 'page_searchwp_disabled' ],
+			$menu_page['function'],
 			'data:image/svg+xml;base64,' . base64_encode( $this->get_dashicon() ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-			apply_filters( 'searchwp\admin_menu\position', '58.95' )
+			$menu_position
 		);
 
 		foreach ( $submenu_pages as $submenu_page ) {

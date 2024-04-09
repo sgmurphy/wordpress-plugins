@@ -4,7 +4,8 @@
   "description": "",
   "main": "assets/javascript/src/searchwp-live-ajax-search.js",
   "scripts": {
-    "watch": "rollup -c -w --environment BUILD:production --context window"
+    "watch": "rollup -c -w --environment BUILD:production --context window",
+    "build:gutenberg": "wp-scripts build --webpack-src-dir=assets/gutenberg/src --output-path=assets/gutenberg/build"
   },
   "author": "",
   "dependencies": {
@@ -13,5 +14,8 @@
     "rollup": "^2.3.4",
     "rollup-plugin-terser": "^7.0.0",
     "spin.js": "^4.1.0"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.19.0"
   }
 }

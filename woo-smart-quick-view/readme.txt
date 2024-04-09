@@ -3,9 +3,9 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, quickview, quick-view
 Requires at least: 4.0
-Tested up to: 6.4
-Version: 4.0.1
-Stable tag: 4.0.1
+Tested up to: 6.5
+Version: 4.0.2
+Stable tag: 4.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,9 @@ Example:
 });`
 
 == Changelog ==
+
+= 4.0.2 =
+* Updated: Search for a custom field
 
 = 4.0.1 =
 * Updated: Compatible with WP 6.4 & Woo 8.7

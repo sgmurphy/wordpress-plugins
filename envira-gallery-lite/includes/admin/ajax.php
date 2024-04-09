@@ -1215,7 +1215,7 @@ function envira_connect() {
 	}
 
 	$option                = get_option( 'envira_gallery' );
-	$option['key']         = $_POST['envira-license-key']; // @codingStandardsIgnoreLine
+	$option['key']         = $key;
 	$option['type']        = isset( $valid_key->type ) ? $valid_key->type : $option['type'];
 	$option['is_expired']  = false;
 	$option['is_disabled'] = false;

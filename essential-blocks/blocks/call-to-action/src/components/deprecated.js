@@ -4,6 +4,7 @@
 import { RichText, useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 
 import attributes from "./attributes";
+const { EBDisplayIcon } = window.EBControls;
 
 const deprecated = [
     {

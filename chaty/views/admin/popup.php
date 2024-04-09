@@ -169,15 +169,15 @@ if (defined('ABSPATH') === false) {
     <div class="upgrade-to-premium bg-white relative overflow-hidden">
         <div class="first-chaty-popup-data">
             <a href="#" class="close-first-popup close-popup">
-                <img src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/x.svg" alt="chaty" />
+                <img src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/x.svg" alt="chaty" />
             </a>
-            <img class="mx-auto max-w-[200px]" src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/agent-list.png" alt="chaty" />
+            <img class="mx-auto max-w-[200px]" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/agent-list.png" alt="chaty" />
             <div class="text-[#49687E] mb-4 mt-2 font-primary text-2xl sm:text-3xl"><?php esc_html_e("👑 Multiple Agents is a Premium Feature", "chaty"); ?></div>
             <div class="text-base text-center font-normal font-primary max-w-[452px] mx-auto text-[#49687E] p-25">
                 Show <b class="font-medium">multiple agents</b> under a single channel. <b class="font-medium">For example</b>, allow visitors to reach for pre-sales info or support with different channels on WhatsApp or any other channel.
             </div>
             <div class="mt-10 relative z-10">
-                <a class="text-white border border-cht-primary bg-cht-primary focus:text-white hover:bg-[#9455e1] ease-linear duration-200 hover:text-white px-10 py-2.5 inline-flex items-center space-x-3 rounded-lg mx-auto text-base font-primary drop-shadow-3xl" target="_blank" href="<?php echo admin_url("admin.php?page=chaty-app-upgrade") ?>">
+                <a class="text-white border border-cht-primary bg-cht-primary focus:text-white hover:bg-[#9455e1] ease-linear duration-200 hover:text-white px-10 py-2.5 inline-flex items-center space-x-3 rounded-lg mx-auto text-base font-primary drop-shadow-3xl" target="_blank" href="<?php echo esc_url(admin_url("admin.php?page=chaty-app-upgrade")) ?>">
                     <?php esc_html_e("Upgrade to Pro", "chaty"); ?>
                     <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
                         <path d="M6.5 12L10.5 8L6.5 4" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
@@ -185,9 +185,9 @@ if (defined('ABSPATH') === false) {
                 </a>
             </div>
 
-            <img class="absolute z-0 left-0 bottom-0" src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/particle.png" alt="chaty" />
-            <img class="absolute z-0 right-0 top-[30%] drop-shadow-xl" src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/particle2.png" alt="chaty" />
-            <img class="absolute z-0 left-5 drop-shadow-xl top-8" src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/particle3.png" alt="chaty" />
+            <img class="absolute z-0 left-0 bottom-0" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/particle.png" alt="chaty" />
+            <img class="absolute z-0 right-0 top-[30%] drop-shadow-xl" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/particle2.png" alt="chaty" />
+            <img class="absolute z-0 left-5 drop-shadow-xl top-8" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/particle3.png" alt="chaty" />
         </div>
     </div>
 </div>
@@ -205,11 +205,11 @@ if (defined('ABSPATH') === false) {
             <div class="chat-view-data">
                 <div class="chat-view-data-left">
                     <div class="chat-view-content">
-                        <img src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/pro-feature.png">
+                        <img src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/pro-feature.png">
                         <div class="view-pro-title"><?php esc_html_e("Upgrade to Pro", "chaty"); ?> 🎉</div>
                         <div class="view-pro-desc"><?php esc_html_e("Enjoy awesome features like chat view, a customized pop-up view. Use the amazing WooCommerce customization to add merge tags like the title, URL, product name, and more. Customize pop-ups for various products, pages, and more!", "chaty"); ?></div>
                         <div class="view-pro-btn">
-                            <a target="_blank" href="<?php echo admin_url("admin.php?page=chaty-app-upgrade") ?>">
+                            <a target="_blank" href="<?php echo esc_url(admin_url("admin.php?page=chaty-app-upgrade")) ?>">
                                 <?php esc_html_e("Upgrade to Pro", "chaty"); ?>
                             </a>
                         </div>
@@ -224,12 +224,12 @@ if (defined('ABSPATH') === false) {
                         <div class="chat-slider">
                             <div class="chat-slides">
                                 <div class="chat-slide chat-slide-1 active" data-slide="1">
-                                    <img src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/chat-view-preview.png" alt="chaty" />
+                                    <img src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/chat-view-preview.png" alt="chaty" />
                                     <span class="text-bottom"><?php esc_html_e("Chat view for all your channels!", "chaty"); ?></span>
                                 </div>
                                 <div class="chat-slide chat-slide-2" data-slide="2">
                                     <span class="text-top"><?php esc_html_e("Customize Pop-ups for product pages!", "chaty"); ?></span>
-                                    <img src="<?php echo CHT_PLUGIN_URL ?>admin/assets/images/woo-commerce-preview.png" alt="chaty" />
+                                    <img src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/woo-commerce-preview.png" alt="chaty" />
                                 </div>
                             </div>
                         </div>

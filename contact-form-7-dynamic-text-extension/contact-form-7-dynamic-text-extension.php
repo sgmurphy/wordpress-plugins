@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Contact Form 7 - Dynamic Text Extension
  * Description: Extends Contact Form 7 by adding dynamic form fields that accepts shortcodes to prepopulate form fields with default values and dynamic placeholders.
- * Version: 4.4.0
+ * Version: 4.4.1
  * Text Domain: contact-form-7-dynamic-text-extension
  * Author: AuRise Creative, SevenSpark
  * Author URI: https://aurisecreative.com
@@ -32,7 +32,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('WPCF7DTX_VERSION', '4.4.0'); // Define current version of DTX
+define('WPCF7DTX_VERSION', '4.4.1'); // Define current version of DTX
 define('WPCF7DTX_MINVERSION', '5.7'); // The minimum version of CF7 required to use mail validator
 defined('WPCF7DTX_DIR') || define('WPCF7DTX_DIR', __DIR__); // Define root directory
 defined('WPCF7DTX_FILE') || define('WPCF7DTX_FILE', __FILE__); // Define root file
@@ -444,10 +444,6 @@ function wpcf7dtx_shortcode_handler($tag)
                             unset($atts[$dynamic_att]); // Remove if invalid
                         }
                         break;
-                    case 'max':
-                    case 'min':
-                        // Do nothing
-                        break;
                     default:
                         if ($atts[$dynamic_att] === '') {
                             unset($atts[$dynamic_att]); // Remove attribute if empty
@@ -458,7 +454,7 @@ function wpcf7dtx_shortcode_handler($tag)
         }
 
         // Validate Min and Max length attributes (should always be numeric)
-        if ($atts['maxlength'] && $atts['minlength'] && intval($atts['maxlength']) < intval($atts['minlength'])) {
+        if (array_key_exists('maxlength', $atts) && $atts['maxlength'] && array_key_exists('minlength', $atts) && $atts['minlength'] && intval($atts['maxlength']) < intval($atts['minlength'])) {
             unset($atts['maxlength'], $atts['minlength']);
         } else {
             /**
@@ -466,7 +462,7 @@ function wpcf7dtx_shortcode_handler($tag)
              *
              * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength
              */
-            if (!is_numeric($atts['maxlength']) || intval($atts['maxlength']) < 0) {
+            if (array_key_exists('maxlength', $atts) && (!is_numeric($atts['maxlength']) || intval($atts['maxlength']) < 0)) {
                 unset($atts['maxlength']);
             }
             /**
@@ -474,13 +470,13 @@ function wpcf7dtx_shortcode_handler($tag)
              *
              * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/minlength
              */
-            if (!is_numeric($atts['minlength']) || intval($atts['minlength']) < 0) {
+            if (array_key_exists('minlength', $atts) && (!is_numeric($atts['minlength']) || intval($atts['minlength']) < 0)) {
                 unset($atts['minlength']);
             }
         }
 
         // Validate Min and Max attributes if numeric
-        if (is_numeric($atts['max']) && is_numeric($atts['min']) && floatval($atts['max']) < floatval($atts['min'])) {
+        if (array_key_exists('max', $atts) && array_key_exists('min', $atts) && is_numeric($atts['max']) && is_numeric($atts['min']) && floatval($atts['max']) < floatval($atts['min'])) {
             unset($atts['max'], $atts['min']);
         }
 

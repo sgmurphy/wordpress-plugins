@@ -684,6 +684,7 @@ class WPvivid_Restore_DB_2
         if($this->skip_table!==false&&$this->skip_table==$sub_task['exec_sql']['current_table'])
         {
             $sub_task['exec_sql']['sql_files'][$sql_file_name]['finished']=1;
+            $sub_task['exec_sql']['current_replace_table_finish']=false;
         }
         else
         {
@@ -692,6 +693,7 @@ class WPvivid_Restore_DB_2
             if($ret_replace_row['finished'])
             {
                 $sub_task['exec_sql']['sql_files'][$sql_file_name]['finished']=1;
+                $sub_task['exec_sql']['current_replace_table_finish']=false;
             }
             else
             {

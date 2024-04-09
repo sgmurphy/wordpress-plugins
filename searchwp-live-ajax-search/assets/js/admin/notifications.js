@@ -1,4 +1,4 @@
-/* global _SEARCHWP */
+/* global _SEARCHWP_LIVE_SEARCH */
 
 ( function($) {
 
@@ -71,8 +71,8 @@
 
             // AJAX call - update option.
             const data = {
-                _ajax_nonce: _SEARCHWP.nonce,
-                action: _SEARCHWP.prefix + 'notification_dismiss',
+                _ajax_nonce: _SEARCHWP_LIVE_SEARCH.nonce,
+                action: _SEARCHWP_LIVE_SEARCH.prefix + 'notification_dismiss',
                 id: $el.data( 'id' ),
             };
 
@@ -100,7 +100,7 @@
          */
         updateNotificationCount: () => {
 
-            const notificationsCount = $( '.searchwp-notifications-panel__notifications' ).children().length;
+            const notificationsCount = $( '.searchwp-notifications-panel__notifications  .searchwp-notifications-notification' ).length;
 
             $( '.searchwp-branding-bar__actions-button-count' ).text( notificationsCount );
             $( '.searchwp-notifications-panel__header span span' ).text( notificationsCount );
@@ -109,7 +109,9 @@
                 return;
             }
 
-            if ( window.location.hash ) {
+			$( '.swp-notifications--empty-notifications-message' ).show();
+
+			if ( window.location.hash ) {
                 window.location.hash = '';
             }
 

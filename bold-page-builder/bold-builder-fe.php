@@ -250,7 +250,7 @@ function bt_bb_fe_init() {
 					'shape'				=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
 				),
 			),
-			/*'bt_bb_row' => array(
+			'bt_bb_row' => array(
 				'edit_box_selector' => '',
 				'params' => array(
 					'column_gap'       => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
@@ -265,7 +265,7 @@ function bt_bb_fe_init() {
 					'column_gap'       => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
 					'row_width'        => array( 'ajax_filter' => array( 'class', 'style' ) ),
 				),
-			),*/
+			),
 			'bt_bb_section' => array(
 				'edit_box_selector' => '',
 				'params' => array(
@@ -295,7 +295,7 @@ function bt_bb_fe_init() {
 					'color_scheme'		=> array( 'ajax_filter' => array( 'class', 'style' ) ), 
 					'icon'				=> array(),
 					'icon_size'			=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
-					'text'				=> array( 'js_handler'  => array( 'target_selector' => '.bt_bb_separator_v2_inner_text', 'type' => 'inner_html_nl2br' ) ),
+					'text'				=> array(), // js_handler not working very well if we want to remove text (text container is not removed)...
 					'text_size'			=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 				),
 			),

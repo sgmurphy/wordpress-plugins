@@ -461,15 +461,6 @@ if (!Array.prototype.includes) {
                         return;
                     }
                 }
-                if (options.gdpr.cookie_law_info_integration_enabled) {
-                    var cli_cookie = Cookies.get('cookieyes-consent');
-                    if (cli_cookie && getCookieYes('analytics') != 'yes') {
-                        return;
-                    }
-                    else if(!cli_cookie){
-                        return;
-                    }
-                }
                 let cm_consent_not_expressed = false;
                 if ( options.gdpr.consent_magic_integration_enabled && window.CS_Data !== undefined && window.CS_Data.cs_refresh_after_consent == 1 ) {
                     if ( Cookies.get( 'cs_viewed_cookie_policy' ) === undefined ) {
@@ -1117,10 +1108,27 @@ if (!Array.prototype.includes) {
                  * Cookie Law Info
                  */
                 if (options.gdpr.cookie_law_info_integration_enabled) {
-                    var cli_cookie = Cookies.get('cookieyes-consent');
+                    var cli_cookie = Cookies.get('cookieyes-consent') ?? Cookies.get('viewed_cookie_policy');
                     if (options.gdpr[pixel + '_prior_consent_enabled']) {
-                        if (cli_cookie && getCookieYes('analytics') === 'yes') {
-                            return true;
+                        if (typeof cli_cookie === 'undefined') return true;
+                        if (cli_cookie && cli_cookie === Cookies.get('cookieyes-consent')) {
+                            if (getCookieYes('analytics') === 'yes') {
+                                return true;
+                            }
+                        } else if (cli_cookie && cli_cookie === Cookies.get('viewed_cookie_policy')) {
+                            if (Cookies.get('viewed_cookie_policy') === 'yes') {
+                                return true;
+                            }
+                        }
+                    } else {
+                        if (cli_cookie && cli_cookie === Cookies.get('cookieyes-consent')) {
+                            if (getCookieYes('analytics') === 'yes') {
+                                return true;
+                            }
+                        } else if (cli_cookie && cli_cookie === Cookies.get('viewed_cookie_policy')) {
+                            if (Cookies.get('viewed_cookie_policy') === 'yes') {
+                                return true;
+                            }
                         }
                     }
                     return false;
@@ -1290,20 +1298,32 @@ if (!Array.prototype.includes) {
                  */
                 if (options.gdpr.cookie_law_info_integration_enabled) {
 
-                    $(document).onFirst('click', '#cookie_action_close_header, .cky-btn-accept', function () {
-                        Utils.manageCookies();
+                    $(document).onFirst('click', '#wt-cli-accept-all-btn,#cookie_action_close_header, .cky-btn-accept', function () {
+                        setTimeout(function (){
+                            var cli_cookie = Cookies.get('cookieyes-consent') ?? Cookies.get('viewed_cookie_policy');
+                            if (typeof cli_cookie !== 'undefined') {
+                                if (cli_cookie === Cookies.get('cookieyes-consent') && getCookieYes('analytics') == 'yes') {
+                                    Utils.manageCookies();
+                                } else if (cli_cookie === Cookies.get('viewed_cookie_policy') && cli_cookie == 'yes') {
+                                    Utils.manageCookies();
+                                }
+                            }
+                        },1000)
                         Facebook.loadPixel();
                         Analytics.loadPixel();
+                        GAds.loadPixel();
                         Pinterest.loadPixel();
                         Bing.loadPixel();
+                        TikTok.loadPixel();
                     });
 
                     $(document).onFirst('click', '#cookie_action_close_header_reject, .cky-btn-reject', function () {
-                        Utils.manageCookies();
                         Facebook.disable();
                         Analytics.disable();
+                        GAds.disable();
                         Pinterest.disable();
                         Bing.disable();
+                        TikTok.disable();
                     });
 
                 }
@@ -2333,7 +2353,21 @@ if (!Array.prototype.includes) {
         }
 
 
-        Utils.manageCookies();
+        if (options.gdpr.cookie_law_info_integration_enabled) {
+            var cli_cookie = Cookies.get('cookieyes-consent') ?? Cookies.get('viewed_cookie_policy');
+
+            if (typeof cli_cookie !== 'undefined') {
+                if (cli_cookie === Cookies.get('cookieyes-consent') && getCookieYes('analytics') == 'yes') {
+                    Utils.manageCookies();
+                } else if (cli_cookie === Cookies.get('viewed_cookie_policy') && cli_cookie == 'yes') {
+                    Utils.manageCookies();
+                }
+            }
+        }
+        else
+        {
+            Utils.manageCookies();
+        }
         Utils.setupGdprCallbacks();
         // page scroll event
         if ( options.dynamicEvents.hasOwnProperty("automatic_event_scroll")
@@ -2848,11 +2882,20 @@ if (pysOptions.gdpr.cookiebot_integration_enabled && typeof Cookiebot !== 'undef
     }
 }
 if (pysOptions.gdpr.cookie_law_info_integration_enabled) {
-    var cli_cookie = Cookies.get('cookieyes-consent');
-    if (cli_cookie && getCookieYes('analytics') != 'yes'){
-        disabled_GDRP_plugin = true;
+    var cli_cookie = Cookies.get('cookieyes-consent') ?? Cookies.get('viewed_cookie_policy');
+
+    if (typeof cli_cookie !== 'undefined') {
+        if (cli_cookie === Cookies.get('cookieyes-consent')) {
+            if (getCookieYes('analytics') !== 'yes') {
+                disabled_GDRP_plugin = true;
+            }
+        } else if (cli_cookie === Cookies.get('viewed_cookie_policy')) {
+            if (Cookies.get('viewed_cookie_policy') !== 'yes') {
+                disabled_GDRP_plugin = true;
+            }
+        }
     }
-    else if(!cli_cookie){
+    else if(typeof Cli_Data !== "undefined" && typeof cli_cookie == 'undefined'){
         disabled_GDRP_plugin = true;
     }
 }
@@ -2873,7 +2916,7 @@ if (pysOptions.ajaxForServerEvent && !Cookies.get('pbid')) {
 
                 if(pysOptions.hasOwnProperty('facebook')) {
                     pysOptions.facebook.advancedMatching = {
-                        ...pysOptions.facebook.advancedMatching,  // распыляем текущие значения advancedMatching
+                        ...pysOptions.facebook.advancedMatching,
                         external_id: res.data.pbid
                     };
                 }

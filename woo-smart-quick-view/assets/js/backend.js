@@ -4,6 +4,7 @@
   $(function() {
     woosq_view_type();
     woosq_button_icon();
+    woosq_init_fields();
 
     $('.woosq_icon_picker').fontIconPicker();
 
@@ -49,6 +50,7 @@
 
     $.post(ajaxurl, data, function(response) {
       $fields.append(response);
+      woosq_init_fields();
       $wrapper.removeClass('woosq-fields-wrapper-loading');
     });
   });
@@ -68,5 +70,11 @@
     } else {
       $('.woosq-show-if-button-icon').hide();
     }
+  }
+
+  function woosq_init_fields() {
+    $('.woosq-field-type-custom_field .woosq-field-name:not(.woosq-field-name-initialized)').
+        selectWoo().
+        addClass('woosq-field-name-initialized');
   }
 })(jQuery);

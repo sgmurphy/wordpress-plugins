@@ -1,9 +1,9 @@
 === SearchWP Live Ajax Search ===
 Contributors: jchristopher, pavloopanasenko
 Tags: search, live, ajax
-Requires at least: 3.9
-Tested up to: 6.2
-Stable tag: 1.7.6
+Requires at least: 4.8
+Tested up to: 6.5
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,13 @@ SearchWP Live Ajax Search uses a filter — <a href="https://searchwp.com/exten
 4. SearchWP Live Ajax Search Widget Advanced
 
 == Changelog ==
+
+= 1.8.0 =
+* Adds Search Forms.
+* Adds support for SearchWP custom search sources.
+* Improves existing and adds new customizations to the Live Ajax Search settings page.
+* Updates translation files.
+* Fixes Settings link location in the plugins list when SearchWP is activated.
 
 = 1.7.6 =
 * Changes settings page appearance and menu structure to work seamlessly with a current version of SearchWP.

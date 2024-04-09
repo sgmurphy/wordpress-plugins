@@ -10,7 +10,7 @@
  * Developer URI:        https://sweetcode.com
  * Text Domain:          woocommerce-google-adwords-conversion-tracking-tag
  * Domain path:          /languages
- * * Version:              1.41.0
+ * * Version:              1.41.1
  *
  * WC requires at least: 3.7
  * WC tested up to:      8.7
@@ -19,7 +19,7 @@
  * License URI:          http://www.gnu.org/licenses/gpl-3.0.html
  *
  **/
-const  PMW_CURRENT_VERSION = '1.41.0' ;
+const  PMW_CURRENT_VERSION = '1.41.1' ;
 // TODO add option checkbox on uninstall and ask if user wants to delete options from db
 
 if ( !defined( 'ABSPATH' ) ) {
@@ -27,24 +27,24 @@ if ( !defined( 'ABSPATH' ) ) {
     // Exit if accessed directly
 }
 
-use  WCPM\Classes\Admin\Admin ;
-use  WCPM\Classes\Admin\Admin_REST ;
-use  WCPM\Classes\Admin\Borlabs ;
-use  WCPM\Classes\Admin\Debug_Info ;
-use  WCPM\Classes\Admin\Environment ;
-use  WCPM\Classes\Admin\LTV ;
-use  WCPM\Classes\Admin\Notifications ;
-use  WCPM\Classes\Admin\Order_Columns ;
-use  WCPM\Classes\Deprecated_Filters ;
-use  WCPM\Classes\Helpers ;
-use  WCPM\Classes\Logger ;
-use  WCPM\Classes\Options ;
-use  WCPM\Classes\Pixels\Pixel_Manager ;
-use  WCPM\Classes\Product ;
-use  WCPM\Classes\Shop ;
-use  WCPM\Classes\Admin\Ask_For_Rating ;
+use  SweetCode\Pixel_Manager\Admin\Admin ;
+use  SweetCode\Pixel_Manager\Admin\Admin_REST ;
+use  SweetCode\Pixel_Manager\Admin\Borlabs ;
+use  SweetCode\Pixel_Manager\Admin\Debug_Info ;
+use  SweetCode\Pixel_Manager\Admin\Environment ;
+use  SweetCode\Pixel_Manager\Admin\LTV ;
+use  SweetCode\Pixel_Manager\Admin\Notifications ;
+use  SweetCode\Pixel_Manager\Admin\Order_Columns ;
+use  SweetCode\Pixel_Manager\Deprecated_Filters ;
+use  SweetCode\Pixel_Manager\Helpers ;
+use  SweetCode\Pixel_Manager\Logger ;
+use  SweetCode\Pixel_Manager\Options ;
+use  SweetCode\Pixel_Manager\Pixels\Pixel_Manager ;
+use  SweetCode\Pixel_Manager\Product ;
+use  SweetCode\Pixel_Manager\Shop ;
+use  SweetCode\Pixel_Manager\Admin\Ask_For_Rating ;
 // autoloader
-require_once 'lib/autoload.php';
+require_once 'autoload.php';
 
 if ( function_exists( 'wpm_fs' ) ) {
     wpm_fs()->set_basename( false, __FILE__ );

@@ -277,27 +277,21 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.8", "essential-blocks")}
+                                    {__("Version: 4.5.9", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("04/04/2024", "essential-blocks")}
+                                        {__("09/04/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Selected image not displaying in editor issue in Advanced Image block",
+                                            "Fixed: Post Grid block templates design conflict",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Post Grid block markup mismatch issue",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Attempt recovery issue in Pricing Table && Slider block",
+                                            "Fixed: Editor error for Call to Action block conflict",
                                             "essential-blocks"
                                         )}
                                     </li>

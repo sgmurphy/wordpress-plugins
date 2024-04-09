@@ -1,5 +1,7 @@
 <?php
 
+use SearchWP\Settings as SearchWP_Settings;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,6 +42,13 @@ class SearchWP_Live_Search_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
+		/**
+		 * Filter the widget title.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $title    The widget title.
+		 */
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		$destination = empty( $instance['destination'] ) ? '' : $instance['destination'];
@@ -48,34 +57,89 @@ class SearchWP_Live_Search_Widget extends WP_Widget {
 		$config      = empty( $instance['config'] ) ? 'default' : $instance['config'];
 
 		echo wp_kses_post( $args['before_widget'] );
+
+		/**
+		 * Action hook before the widget.
+		 *
+		 * @since 1.0
+		 */
 		do_action( 'searchwp_live_search_before_widget' );
 
 		if ( ! empty( $title ) ) {
 			echo wp_kses_post( $args['before_title'] . $title . $args['after_title'] );
 		}
 
-		do_action( 'searchwp_live_search_widget_title', [
-			'before_title' => $args['before_title'],
-			'title'        => $title,
-			'after_title'  => $args['after_title'],
-		] );
+		/**
+		 * Action hook for the widget title.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $args The widget arguments.
+		 */
+		do_action(
+			'searchwp_live_search_widget_title',
+			[
+				'before_title' => $args['before_title'],
+				'title'        => $title,
+				'after_title'  => $args['after_title'],
+			]
+		);
 
+		/**
+		 * Action hook before the form.
+		 *
+		 * @since 1.0
+		 */
+		do_action( 'searchwp_live_search_widget_before_form' );
 		?>
-        <?php do_action( 'searchwp_live_search_widget_before_form' ); ?>
         <form role="search" method="get" class="searchwp-live-search-widget-search-form" action="<?php echo esc_url( $destination ); ?>">
-            <?php do_action( 'searchwp_live_search_widget_before_field' ); ?>
+            <?php
+			/**
+			 * Action hook before the field.
+			 *
+			 * @since 1.0
+			 */
+			do_action( 'searchwp_live_search_widget_before_field' );
+			?>
             <label>
                 <span class="screen-reader-text"><?php esc_html_e( 'Search for:', 'searchwp-live-ajax-search' ); ?></span>
                 <input type="search" class="search-field" placeholder="<?php echo esc_attr( $placeholder ); ?>" value="" name="swpquery" data-swplive="true" data-swpengine="<?php echo esc_attr( $engine ); ?>" data-swpconfig="<?php echo esc_attr( $config ); ?>" title="<?php echo esc_attr( $placeholder ); ?>" autocomplete="off">
             </label>
-            <?php do_action( 'searchwp_live_search_widget_after_field' ); ?>
+            <?php
+			/**
+			 * Action hook after the field.
+			 *
+			 * @since 1.0
+			 */
+			do_action( 'searchwp_live_search_widget_after_field' );
+			?>
             <input type="submit" class="search-submit" value="<?php esc_html_e( 'Search', 'searchwp-live-ajax-search' ); ?>">
-            <?php do_action( 'searchwp_live_search_widget_after_submit' ); ?>
+            <?php
+			/**
+			 * Action hook after submit.
+			 *
+			 * @since 1.0
+			 */
+			do_action( 'searchwp_live_search_widget_after_submit' );
+			?>
         </form>
-        <?php do_action( 'searchwp_live_search_widget_after_form' ); ?>
+        <?php
+		/**
+		 * Action hook after the form.
+		 *
+		 * @since 1.0
+		 */
+		do_action( 'searchwp_live_search_widget_after_form' );
+		?>
 		<?php
 
 		echo wp_kses_post( $args['after_widget'] );
+
+		/**
+		 * Action hook after the widget.
+		 *
+		 * @since 1.0
+		 */
 		do_action( 'searchwp_live_search_after_widget' );
 	}
 
@@ -111,50 +175,7 @@ class SearchWP_Live_Search_Widget extends WP_Widget {
 			return $engines;
 		}
 
-		if ( class_exists( '\\SearchWP\\Settings' ) ) {
-			$engines = $this->form_get_v4_engines();
-		} elseif ( method_exists( 'SearchWP', 'instance' ) ) {
-            $engines = $this->form_get_v3_engines();
-		}
-
-		return $engines;
-	}
-
-	/**
-	 * Get available v3 engines.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @return array
-	 */
-	private function form_get_v3_engines() {
-
-		$engines = [];
-
-		$engines['default'] = esc_html__( 'Default', 'searchwp-live-ajax-search' );
-		$searchwp           = SearchWP::instance();
-		$searchwp_engines   = $searchwp->settings['engines'];
-
-		foreach ( $searchwp_engines as $engine => $engine_settings ) {
-			if ( isset( $engine_settings['searchwp_engine_label'] ) ) {
-				$engines[ $engine ] = $engine_settings['searchwp_engine_label'];
-			}
-		}
-
-		return $engines;
-	}
-
-	/**
-	 * Get available v4 engines.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @return array
-	 */
-	private function form_get_v4_engines() {
-
-		$engines          = [];
-		$searchwp_engines = \SearchWP\Settings::get_engines();
+		$searchwp_engines = SearchWP_Settings::get_engines();
 
 		foreach ( $searchwp_engines as $engine => $engine_settings ) {
 			$engines[ $engine ] = $engine_settings->get_label();

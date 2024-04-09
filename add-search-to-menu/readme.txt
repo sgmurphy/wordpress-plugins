@@ -5,7 +5,7 @@ Tags: search, woocommerce search, image search, ajax search, search shortcode, l
 Requires at least: 3.9
 Tested up to: 6.5
 Requires PHP: 5.2.4
-Stable tag: 5.5.5
+Stable tag: 5.5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,6 +196,10 @@ Yes we do. We try our best to help free users with customisation requests and we
 8. Plugin Settings
 
 == Changelog ==
+
+= 5.5.6 =
+* Fixed - Missing Authorization to Authenticated (Subscriber+) Index Creation
+* Updated - Freemius SDK 2.7.0
 
 = 5.5.5 =
 * Fixed - Synonym word searching was case-sensitive

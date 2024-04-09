@@ -4,13 +4,13 @@
   $(function() {
     woosc_button_icon();
     woosc_button_action();
+    woosc_init_fields();
 
     $('.woosc_color_picker').wpColorPicker();
     $('.woosc_icon_picker').fontIconPicker();
 
     $('.woosc-fields').sortable({
-      handle: '.move',
-      placeholder: 'woosc-field',
+      handle: '.move', placeholder: 'woosc-field',
     });
 
     $('#woosc_settings_cats').selectWoo();
@@ -40,16 +40,14 @@
     var setting = $this.data('setting');
 
     var data = {
-      action: 'woosc_add_field',
-      type: type,
-      field: field,
-      setting: setting,
+      action: 'woosc_add_field', type: type, field: field, setting: setting,
     };
 
     $wrapper.addClass('woosc-fields-wrapper-loading');
 
     $.post(ajaxurl, data, function(response) {
       $fields.append(response);
+      woosc_init_fields();
       $wrapper.removeClass('woosc-fields-wrapper-loading');
     });
   });
@@ -69,5 +67,11 @@
 
     $('.woosc_button_action_hide').hide();
     $('.woosc_button_action_' + action).show();
+  }
+
+  function woosc_init_fields() {
+    $('.woosc-field-type-custom_field .woosc-field-name:not(.woosc-field-name-initialized)').
+        selectWoo().
+        addClass('woosc-field-name-initialized');
   }
 })(jQuery);

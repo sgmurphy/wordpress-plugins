@@ -3,21 +3,21 @@
 Plugin Name: WPC Smart Compare for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Smart products compare for WooCommerce.
-Version: 6.2.2
+Version: 6.2.3
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-compare
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 WC requires at least: 3.0
 WC tested up to: 8.7
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.2' );
+! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.3' );
 ! defined( 'WOOSC_LITE' ) && define( 'WOOSC_LITE', __FILE__ );
 ! defined( 'WOOSC_FILE' ) && define( 'WOOSC_FILE', __FILE__ );
 ! defined( 'WOOSC_URI' ) && define( 'WOOSC_URI', plugin_dir_url( __FILE__ ) );

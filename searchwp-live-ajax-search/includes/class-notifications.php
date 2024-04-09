@@ -1,6 +1,6 @@
 <?php
 
-use \SearchWP_Live_Search_Utils as Utils;
+use SearchWP_Live_Search_Utils as Utils;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -114,7 +114,7 @@ class SearchWP_Live_Search_Notifications {
 			return;
 		}
 
-		if ( ! Utils::is_settings_page() ) {
+		if ( ! Utils::is_swp_live_search_admin_page() ) {
 			return;
 		}
 
@@ -154,10 +154,15 @@ class SearchWP_Live_Search_Notifications {
 			return $submenu_pages;
 		}
 
+		$settings = searchwp_live_search()->get( 'Settings' );
+
+		$menu_slug = 'searchwp-' . $settings::$slug;
+
 		$submenu_pages['notifications'] = [
 			'menu_title' => esc_html__( 'Notifications', 'searchwp-live-ajax-search' ) . '<span style="margin-top: 6px;" class="searchwp-admin-menu-notification-indicator"></span>',
-			'menu_slug'  => SearchWP_Live_Search_Menu::MENU_SLUG . '#notifications',
+			'menu_slug'  => $menu_slug . '#notifications',
 			'position'   => 0,
+			'function'   => [ $settings, 'render_searchwp_disabled' ],
 		];
 
 		return $submenu_pages;
@@ -222,8 +227,7 @@ class SearchWP_Live_Search_Notifications {
                     <span><span><?php echo count( $notifications ); ?></span> Unread Notifications</span>
                     <button type="button" class="components-button has-icon searchwp-notifications-panel__close"
                             aria-label="Close notifications">
-                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                             aria-hidden="true" focusable="false">
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path>
                         </svg>
                     </button>
@@ -235,12 +239,28 @@ class SearchWP_Live_Search_Notifications {
 						self::output_panel_notification_single( $notification );
 					}
 					?>
+					<?php self::output_empty_notifications_message(); ?>
                 </div>
 
             </div>
             <div class="searchwp-notifications-backdrop"></div>
         </div>
 		<?php
+	}
+
+	/**
+     * Output empty notifications message.
+     *
+     * @since 1.8.0
+	 */
+    private static function output_empty_notifications_message() {
+        ?>
+        <div class="swp-notifications--empty-notifications-message"<?php echo self::get_count() ? ' style="display: none;"' : ''; ?>>
+            <img src="<?php echo esc_url( SEARCHWP_LIVE_SEARCH_PLUGIN_URL . 'assets/images/admin/searchwp-finnie.png' ); ?>" alt="SearchWP Finnie">
+            <div class="swp-notifications--great"><?php esc_html_e( 'Fancy meeting you here!', 'searchwp-live-ajax-search' ); ?></div>
+            <div class="swp-notifications--no-new-notifications"><?php esc_html_e( 'You have no new notifications.', 'searchwp-live-ajax-search' ); ?></div>
+        </div>
+        <?php
 	}
 
 	/**
@@ -581,11 +601,11 @@ class SearchWP_Live_Search_Notifications {
 			wp_send_json_error();
 		}
 
-		if ( empty( $_POST['id'] ) ) {
+		if ( empty( $_POST['id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			wp_send_json_error();
 		}
 
-		$id     = sanitize_text_field( wp_unslash( $_POST['id'] ) );
+		$id     = sanitize_text_field( wp_unslash( $_POST['id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 		$option = self::get_option();
 
 		$option['dismissed_ids'][] = $id;

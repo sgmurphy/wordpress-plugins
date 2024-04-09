@@ -1,6 +1,6 @@
 <?php
 
-use \SearchWP_Live_Search_Utils as Utils;
+use SearchWP_Live_Search_Utils as Utils;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,6 +24,9 @@ class SearchWP_Live_Search {
 	public function setup() {
 
 		searchwp_live_search()
+			->incl( 'class-utils.php' );
+
+		searchwp_live_search()
 			->incl( 'class-install.php' )
 			->register( 'Install' )
 			->setup();
@@ -41,8 +44,9 @@ class SearchWP_Live_Search {
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'admin_init', [ $this, 'register_improve_your_search_notice' ] );
 		add_action( 'widgets_init', [ $this, 'register_widget' ] );
+		add_action( 'in_admin_header', [ __CLASS__, 'admin_header' ], 100 );
 
-		add_filter( 'plugin_action_links_' . plugin_basename( SEARCHWP_LIVE_SEARCH_PLUGIN_FILE ), [ $this, 'settings_link' ], 10, 4 );
+		add_filter( 'plugin_action_links_' . plugin_basename( SEARCHWP_LIVE_SEARCH_PLUGIN_FILE ), [ $this, 'settings_link' ] );
 	}
 
 	/**
@@ -55,23 +59,18 @@ class SearchWP_Live_Search {
 		$this->load_textdomain();
 
 		searchwp_live_search()
-			->incl( 'class-utils.php' );
-
-		searchwp_live_search()
 			->incl( 'class-settings.php' )
-			->register( 'Settings' );
+			->register( 'Settings' )
+			->hooks();
 
 		searchwp_live_search()
 			->incl( 'class-notice.php' )
-			->register( 'Notice' );
+			->register( 'Notice' )
+			->hooks();
 
 		searchwp_live_search()
 			->incl( 'class-settings-api.php' )
 			->register( 'Settings_Api' )
-			->init();
-
-		searchwp_live_search()
-			->get( 'Notice' )
 			->hooks();
 
 		searchwp_live_search()
@@ -79,9 +78,22 @@ class SearchWP_Live_Search {
 			->register( 'Notifications' )
 			->init();
 
+		if ( ! Utils::is_searchwp_active() ) {
+
+			searchwp_live_search()
+				->incl( 'SearchForms/Storage.php' )
+				->register( 'Storage' );
+
+			searchwp_live_search()
+				->incl( 'SearchForms/Frontend.php' )
+				->register( 'Frontend' )
+				->init();
+		}
+
 		// if an AJAX request is taking place, it's potentially a search, so we'll want to
 		// prepare for that else we'll prep the environment for the search form itself.
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX &&
+			! empty( $_REQUEST['action'] ) && $_REQUEST['action'] === 'searchwp_live_search' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$this->setup_search_client();
 		} else {
 			$this->setup_search_form();
@@ -127,9 +139,23 @@ class SearchWP_Live_Search {
 	 */
 	public function setup_search_form() {
 
-		searchwp_live_search()
-			->get( 'Settings' )
-			->hooks();
+		if ( ! Utils::is_searchwp_active() ) {
+			searchwp_live_search()
+				->incl( 'SearchForms/SearchFormsView.php' )
+				->register( 'SearchFormsView' );
+
+			searchwp_live_search()
+				->incl( 'Algorithm/EnginesPreview.php' )
+				->register( 'EnginesPreview' );
+
+			searchwp_live_search()
+				->incl( 'ModalForm/ModalFormPreview.php' )
+				->register( 'ModalFormPreview' );
+		}
+
+		SearchWP_Live_Search()
+			->incl( 'class-license.php' )
+			->register( 'License' );
 
 		searchwp_live_search()
 			->incl( 'class-menu.php' )
@@ -140,6 +166,30 @@ class SearchWP_Live_Search {
 			->incl( 'class-form.php' )
 			->register( 'Form' )
 			->setup();
+
+		Utils::register_framework_scripts();
+
+		Utils::register_framework_styles();
+	}
+
+	/**
+	 * Output the SearchWP admin header.
+	 *
+	 * @since 1.8.0
+	 */
+	public static function admin_header() {
+
+		// Bail if SearchWP is active.
+		if ( utils::is_searchwp_active() ) {
+			return;
+		}
+
+		// Bail if we're not on the SearchWP Live Search settings page.
+		if ( ! Utils::is_swp_live_search_admin_page() ) {
+			return;
+		}
+
+		utils::header_searchwp_disabled();
 	}
 
 	/**
@@ -209,14 +259,11 @@ class SearchWP_Live_Search {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param array  $links       Plugin row links.
-	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-	 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
-	 * @param string $context     The plugin context.
+	 * @param array $links Plugin row links.
 	 *
 	 * @return array $links
 	 */
-	public function settings_link( $links, $plugin_file, $plugin_data, $context ) {
+	public function settings_link( $links ) {
 
 		if ( ! Utils::is_searchwp_active() ) {
 			$custom['pro'] = sprintf(
@@ -241,11 +288,22 @@ class SearchWP_Live_Search {
 			);
 		}
 
+		if ( Utils::is_searchwp_active() ) {
+			$settings_url_arg = [
+				'page' => 'searchwp-forms',
+				'tab'  => 'live-search',
+			];
+		} else {
+			$settings_url_arg = [
+				'page' => 'searchwp-live-search',
+			];
+		}
+
 		$custom['settings'] = sprintf(
 			'<a href="%s" aria-label="%s">%s</a>',
 			esc_url(
 				add_query_arg(
-					[ 'page' => 'searchwp-live-search' ],
+					$settings_url_arg,
 					admin_url( 'admin.php' )
 				)
 			),

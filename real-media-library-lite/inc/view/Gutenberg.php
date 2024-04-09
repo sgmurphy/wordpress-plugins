@@ -55,7 +55,7 @@ class Gutenberg
                 continue;
             }
             $src = $src[0];
-            $alt = \get_post_meta($post->id, '_wp_attachment_image_alt', \true);
+            $alt = \get_post_meta($post->ID, '_wp_attachment_image_alt', \true);
             $alt = empty($alt) ? $post->post_title : $alt;
             $caption = $attributes['captions'] ? $post->post_excerpt : '';
             switch ($attributes['linkTo']) {
@@ -67,9 +67,9 @@ class Gutenberg
                     break;
             }
             // Create output
-            $img = '<img src="' . $src . '" alt="' . $alt . '" data-id="' . $post->ID . '" data-link="' . $link . '" class="wp-image-' . $post->ID . '"/>';
-            $img = empty($href) ? $img : '<a href="' . $href . '">' . $img . '</a>';
-            $html .= '<li class="blocks-gallery-item"><figure>' . $img . (empty($caption) ? '' : '<figcaption>' . $caption . '</figcaption>') . '</figure></li>';
+            $img = '<img src="' . \esc_url($src) . '" alt="' . \esc_attr($alt) . '" data-id="' . $post->ID . '" data-link="' . \esc_url($link) . '" class="wp-image-' . $post->ID . '"/>';
+            $img = empty($href) ? $img : '<a href="' . \esc_url($href) . '">' . $img . '</a>';
+            $html .= '<li class="blocks-gallery-item"><figure>' . $img . (empty($caption) ? '' : '<figcaption>' . \esc_html($caption) . '</figcaption>') . '</figure></li>';
         }
         $cssIncludesFile = '/blocks/gallery/style.css';
         $cssAbsolute = ABSPATH . WPINC . $cssIncludesFile;

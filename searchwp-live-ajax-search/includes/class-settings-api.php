@@ -1,6 +1,6 @@
 <?php
 
-use \SearchWP_Live_Search_Utils as Utils;
+use SearchWP_Live_Search_Utils as Utils;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,217 +31,190 @@ class SearchWP_Live_Search_Settings_Api {
 	const CAPABILITY = 'manage_options';
 
 	/**
-	 * Init hook callback.
+	 * Stores the settings.
 	 *
-	 * @since 1.7.0
+	 * @since 1.8.0
+	 *
+	 * @var array Settings.
 	 */
-	public function init() {
+	private $settings = [];
 
-		if ( Utils::is_settings_page() ) {
-			$this->save_settings();
-		}
+	/**
+	 * Hooks.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public function hooks() {
+
+		add_action( 'wp_ajax_' . utils::SEARCHWP_LIVE_SEARCH_PREFIX . 'save_settings',  [ $this, 'save_settings_ajax' ] );
 	}
 
 	/**
-	 * Save settings.
+	 * Save settings AJAX callback.
 	 *
-	 * @since 1.7.0
+	 * @since 1.8.0
 	 */
-	private function save_settings() {
+	public function save_settings_ajax() {
 
-		if ( ! $this->current_user_can_save() ) {
-			return;
+		Utils::check_ajax_permissions();
+
+		if ( ! isset( $_POST['settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			wp_send_json_error();
 		}
 
-		$fields   = $this->get_registered_settings();
-		$settings = get_option( self::OPTION_NAME, [] );
+		$settings = json_decode( sanitize_text_field( wp_unslash( $_POST['settings'] ) ), true ); // phpcs:ignore WordPress.Security.NonceVerification
 
-		foreach ( $fields as $slug => $field ) {
+		$this->set( $settings );
 
-			if ( empty( $field['type'] ) || $field['type'] === 'content' ) {
-				continue;
+		wp_send_json_success();
+	}
+
+	/**
+	 * Validate settings array against expected values.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $dirty_settings Settings to validate.
+	 *
+	 * @return array
+	 */
+	public function validate( $dirty_settings ) {
+
+		return [
+			// General settings.
+			'enable-live-search'               => self::validate_setting( 'enable-live-search', $dirty_settings, 'bool', true ),
+			'include-frontend-css'             => self::validate_setting( 'include-frontend-css', $dirty_settings, 'sanitize_key', 'all' ),
+			'results-pane-position'            => self::validate_setting( 'results-pane-position', $dirty_settings, 'sanitize_key', 'bottom' ),
+			'results-pane-auto-width'          => self::validate_setting( 'results-pane-auto-width', $dirty_settings, 'bool', true ),
+			'hide-announcements'               => self::validate_setting( 'hide-announcements', $dirty_settings, 'bool', false ),
+			// Theme settings.
+			'swp-layout-theme'                 => self::validate_setting( 'swp-layout-theme', $dirty_settings, 'sanitize_key', 'minimal' ),
+			'swp-image-size'                   => self::validate_setting( 'swp-image-size', $dirty_settings, 'sanitize_key', 'none' ),
+			'swp-no-results-message'           => self::validate_setting( 'swp-no-results-message', $dirty_settings, 'sanitize_text_field', 'No results found.' ),
+			'swp-description-enabled'          => self::validate_setting( 'swp-description-enabled', $dirty_settings, 'bool', false ),
+			'swp-results-per-page'             => self::validate_setting( 'swp-results-per-page', $dirty_settings, 'intval', 7 ),
+			'swp-min-chars'                    => self::validate_setting( 'swp-min-chars', $dirty_settings, 'absint', 3 ),
+			'swp-title-color'                  => self::validate_setting( 'swp-title-color', $dirty_settings, 'sanitize_hex_color', '' ),
+			'swp-title-font-size'              => self::validate_setting( 'swp-title-font-size', $dirty_settings, 'absint', 16 ),
+			// eCommerce settings.
+			'swp-price-enabled'                => self::validate_setting( 'swp-price-enabled', $dirty_settings, 'bool', false ),
+			'swp-price-color'                  => self::validate_setting( 'swp-price-color', $dirty_settings, 'sanitize_hex_color', '' ),
+			'swp-price-font-size'              => self::validate_setting( 'swp-price-font-size', $dirty_settings, 'absint', 14 ),
+			'swp-add-to-cart-enabled'          => self::validate_setting( 'swp-add-to-cart-enabled', $dirty_settings, 'bool', false ),
+			'swp-add-to-cart-background-color' => self::validate_setting( 'swp-add-to-cart-background-color', $dirty_settings, 'sanitize_hex_color', '' ),
+			'swp-add-to-cart-font-color'       => self::validate_setting( 'swp-add-to-cart-font-color', $dirty_settings, 'sanitize_hex_color', '' ),
+			'swp-add-to-cart-font-size'        => self::validate_setting( 'swp-add-to-cart-font-size', $dirty_settings, 'absint', 14 ),
+		];
+	}
+
+	/**
+	 * Validate a single setting.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $setting_key           The setting key.
+	 * @param array  $settings              The settings array.
+	 * @param string $sanitization_function The sanitization function to use.
+	 * @param mixed  $default_value         The default value.
+	 *
+	 * @return mixed|null
+	 */
+	private static function validate_setting( $setting_key, $settings, $sanitization_function, $default_value = null ) {
+
+		if ( isset( $settings[ $setting_key ] ) ) {
+			if ( $sanitization_function === 'bool' ) {
+				return filter_var( $settings[ $setting_key ], FILTER_VALIDATE_BOOLEAN );
 			}
 
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-			$value = isset( $_POST[ $slug ] ) ? trim( wp_unslash( $_POST[ $slug ] ) ) : false;
-
-			$value = $this->sanitize_setting( $value, $field['type'] );
-
-			// Add to settings.
-			$settings[ $slug ] = $value;
+			return call_user_func( $sanitization_function, $settings[ $setting_key ] );
 		}
 
-        update_option( self::OPTION_NAME, $settings );
+		return $default_value;
+	}
 
-		SearchWP_Live_Search_Notice::success( esc_html__( 'Settings were successfully saved.', 'searchwp-live-ajax-search' ) );
+	/**
+	 * Getter for settings.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $key Settings key.
+	 *
+	 * @return array
+	 */
+	public function get( $key = null ) {
+
+		if ( empty( $this->settings ) ) {
+			$this->settings = $this->validate( $this->get_option() );
+		}
+
+		if ( ! empty( $key ) ) {
+			return isset( $this->settings[ $key ] ) ? $this->settings[ $key ] : null;
+		}
+
+		return $this->settings;
+	}
+
+	/**
+	 * Setter for settings.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $settings Settings to set.
+	 *
+	 * @return array
+	 */
+	public function set( $settings ) {
+
+		$this->settings = $this->validate( $settings );
+		$this->set_option( $this->settings );
+
+		return $this->settings;
+	}
+
+	/**
+	 * Get settings option.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return mixed Option value.
+	 */
+	public function get_option() {
+
+		return get_option( self::OPTION_NAME );
+	}
+
+	/**
+	 * Set settings option.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param mixed $value Option value.
+	 *
+	 * @return bool
+	 */
+	private function set_option( $value ) {
+
+		return update_option( self::OPTION_NAME, $value );
 	}
 
 	/**
 	 * Get settings capability.
 	 *
-	 * @since 1.7.0
+	 * @since 1.8.0
 	 *
 	 * @return string
 	 */
 	public static function get_capability() {
 
+		/**
+		 * Filter the capability required to manage settings.
+		 *
+		 * @since 1.8.0
+		 *
+		 * @param string $capability Capability.
+		 */
 		return (string) apply_filters( 'searchwp_live_search_settings_capability', self::CAPABILITY );
-	}
-
-	/**
-	 * Check if the current user can save settings.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @return bool
-	 */
-	private function current_user_can_save() {
-
-		// Check nonce and other various security checks.
-		if ( ! isset( $_POST['searchwp-live-search-settings-submit'] ) ) {
-			return false;
-		}
-
-		if ( empty( $_POST['nonce'] ) ) {
-			return false;
-		}
-
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'searchwp-live-search-settings-nonce' ) ) {
-			return false;
-		}
-
-		$capability = self::get_capability();
-
-		if ( ! current_user_can( $capability ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Get the value of a specific SearchWP setting.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $slug    Setting slug.
-	 * @param mixed  $default Default setting value.
-	 *
-	 * @return mixed
-	 */
-	public function get( $slug, $default = null ) {
-
-		$slug     = sanitize_key( $slug );
-		$settings = get_option( self::OPTION_NAME );
-
-		if ( $default === null ) {
-			$registered = $this->get_registered_settings();
-			$default    = isset( $registered[ $slug ]['default'] ) ? $registered[ $slug ]['default'] : $default;
-		}
-
-		return isset( $settings[ $slug ] ) ? wp_unslash( $settings[ $slug ] ) : $default;
-	}
-
-	/**
-	 * Return all the default registered settings fields.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @return array
-	 */
-	public function get_registered_settings() {
-
-		$defaults = [
-			'general-heading'         => [
-				'slug'    => 'general-heading',
-				'content' => '<h3>' . esc_html__( 'General', 'searchwp-live-ajax-search' ) . '</h3>',
-				'type'    => 'content',
-				'class'   => [ 'section-heading' ],
-			],
-			'enable-live-search'      => [
-				'slug'       => 'enable-live-search',
-				'name'       => esc_html__( 'Enable Live Search', 'searchwp-live-ajax-search' ),
-				'desc'       => esc_html__( 'Check this option to automatically enhance your search forms with Live Ajax Search.', 'searchwp-live-ajax-search' ),
-				'type'       => 'checkbox',
-				'default'    => true,
-				'desc_after' => SearchWP_Live_Search_Settings::get_dyk_block_output(),
-			],
-			'results-heading'         => [
-				'slug'    => 'results-heading',
-				'content' => '<h3>' . esc_html__( 'Results', 'searchwp-live-ajax-search' ) . '</h3>',
-				'type'    => 'content',
-				'class'   => [ 'section-heading' ],
-			],
-			'include-frontend-css'    => [
-				'slug'    => 'include-frontend-css',
-				'name'    => esc_html__( 'Include Styling', 'searchwp-live-ajax-search' ),
-				'desc'    => esc_html__( 'Determines which CSS files to load and use for the site. "Positioning and visual styling" is recommended, unless you are experienced with CSS or instructed by support to change settings.', 'searchwp-live-ajax-search' ),
-				'type'    => 'select',
-				'default' => 'all',
-				'options' => [
-					'all'      => esc_html__( 'Positioning and visual styling', 'searchwp-live-ajax-search' ),
-					'position' => esc_html__( 'Positioning styling only', 'searchwp-live-ajax-search' ),
-					'none'     => esc_html__( 'No styling', 'searchwp-live-ajax-search' ),
-				],
-			],
-			'results-pane-position'   => [
-				'slug'    => 'results-pane-position',
-				'name'    => esc_html__( 'Positioning', 'searchwp-live-ajax-search' ),
-				'desc'    => esc_html__( 'Selects where to position the results pane relative to the search form.', 'searchwp-live-ajax-search' ),
-				'type'    => 'select',
-				'default' => 'bottom',
-				'options' => [
-					'bottom' => esc_html__( 'Below the search form', 'searchwp-live-ajax-search' ),
-					'top'    => esc_html__( 'Above the search form', 'searchwp-live-ajax-search' ),
-				],
-			],
-			'results-pane-auto-width' => [
-				'slug'    => 'results-pane-auto-width',
-				'name'    => esc_html__( 'Auto Width', 'searchwp-live-ajax-search' ),
-				'desc'    => esc_html__( 'Check this option to align the results pane width with the search form width.', 'searchwp-live-ajax-search' ),
-				'type'    => 'checkbox',
-				'default' => true,
-			],
-			'misc-heading'            => [
-				'slug'    => 'misc-heading',
-				'content' => '<h3>' . esc_html__( 'Misc', 'searchwp-live-ajax-search' ) . '</h3>',
-				'type'    => 'content',
-				'class'   => [ 'section-heading' ],
-			],
-			'hide-announcements'      => [
-				'slug' => 'hide-announcements',
-				'name' => esc_html__( 'Hide Announcements', 'searchwp-live-ajax-search' ),
-				'desc' => esc_html__( 'Check this option to hide plugin announcements and update details.', 'searchwp-live-ajax-search' ),
-				'type' => 'checkbox',
-			],
-		];
-
-		return apply_filters( 'searchwp_live_search_settings_defaults', $defaults );
-	}
-
-	/**
-	 * Save settings.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param mixed  $value      Value to sanitize.
-	 * @param string $field_type Field type.
-	 *
-	 * @return bool|string
-	 */
-	private function sanitize_setting( $value, $field_type ) {
-
-        switch ( $field_type ) {
-            case 'checkbox':
-                $value = (bool) $value;
-                break;
-
-            case 'select':
-            default:
-                $value = sanitize_text_field( $value );
-                break;
-        }
-
-        return $value;
 	}
 }

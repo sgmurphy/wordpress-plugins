@@ -1,5 +1,8 @@
 <?php
 
+use SearchWP_Live_Search_Utils as Utils;
+use SearchWP\Query as SearchWP_Query;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,15 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0
  */
 class SearchWP_Live_Search_Client {
-
-	/**
-	 * Found posts count.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @var int
-	 */
-	private $found_posts = 0;
 
 	/**
 	 * Equivalent of __construct() — implement our hooks.
@@ -42,12 +36,22 @@ class SearchWP_Live_Search_Client {
 	/**
 	 * Perform a search.
 	 *
-	 * @since 1.0
+	 * @since 1.8.0
 	 */
 	public function search() {
 
-		if ( ! empty( $_REQUEST['swpquery'] ) ) {
-			$this->show_results( $this->search_get_args() );
+		$this->check_ajax_permissions();
+
+		if ( empty( $_REQUEST['swpquery'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			die();
+		}
+
+		$this->set_excerpt_length();
+
+		if ( Utils::is_searchwp_active() ) {
+			$this->show_results_searchwp_active();
+		} else {
+			$this->show_results_searchwp_not_active();
 		}
 
 		// Short circuit to keep the overhead of an admin-ajax.php call to a minimum.
@@ -55,247 +59,144 @@ class SearchWP_Live_Search_Client {
 	}
 
 	/**
-	 * Get search arguments.
+	 * Perform a search using SearchWP.
 	 *
-	 * @since 1.7.0
+	 * @since 1.8.0
 	 *
-	 * @uses sanitize_text_field() to sanitize input
-	 * @uses SearchWP_Live_Search_Client::get_posts_per_page() to retrieve the number of results to return
+	 * @param array $args WP_Query arguments array.
 	 *
-	 * @return array
+	 * @uses SearchWP\Query to retrieve the post IDs
+	 * @uses query_posts() to prep the WordPress environment in its entirety for the template loader
+	 * @uses load_template() to load the proper results template
 	 */
-	private function search_get_args() {
+	private function show_results_searchwp_active( $args = [] ) {
 
-		$query = sanitize_text_field( wp_unslash( $_REQUEST['swpquery'] ) );
+		// Get the SearchWP engine if applicable.
+		$engine = isset( $_REQUEST['swpengine'] ) ? sanitize_key( $_REQUEST['swpengine'] ) : 'default'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		if ( class_exists( 'SearchWP' ) ) {
-			$args = $this->search_get_args_searchwp( $query );
-		} else {
-			$args = $this->search_get_args_native( $query );
-		}
-
-		$args['posts_per_page'] = ( isset( $_REQUEST['posts_per_page'] )
-			? intval( $_REQUEST['posts_per_page'] )
-			: $this->get_posts_per_page() );
-
-		return apply_filters( 'searchwp_live_search_query_args', $args );
-	}
-
-	/**
-	 * Get search arguments for SearchWP.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $query The search query.
-	 *
-	 * @return array
-	 */
-	private function search_get_args_searchwp( $query ) {
-
-		return [
-			'post_type'        => $this->search_get_args_post_type_searchwp(),
-			'post_status'      => 'any', // We're limiting to a pre-set array of post IDs.
-			'post__in'         => $this->search_get_args_post__in_searchwp( $query ),
-			'orderby'          => 'post__in',
-			'suppress_filters' => true,
+		$args = [
+			's'        => $this->get_search_string(),
+			'engine'   => $engine,
+			'fields'   => 'all',
+			'per_page' => $this->get_posts_per_page(),
 		];
+
+		/**
+		 * Filter the search arguments.
+		 *
+		 * @since 1.8.0
+		 *
+		 * @param array $args The search arguments.
+		 */
+		$args = apply_filters( 'searchwp_live_search_searchwp_query_args', $args );
+
+		// Uses SearchWP\Query to retrieve the post IDs.
+		$searchwp_query = new SearchWP_Query( $this->get_search_string(), $args );
+
+		searchwp_live_search()->get( 'Template' )->load_template( $searchwp_query, $args );
 	}
 
 	/**
-	 * Get search arguments for native WordPress search.
+	 * Perform a search using WP_Query.
 	 *
-	 * @since 1.7.0
+	 * @since 1.8.0
 	 *
-	 * @param string $query The search query.
-	 *
-	 * @return array
+	 * @uses query_posts() to prep the WordPress environment in its entirety for the template loader
+	 * @uses load_template() to load the proper results template
 	 */
-	private function search_get_args_native( $query ) {
+	private function show_results_searchwp_not_active() {
 
-		return [
-			's'           => $query,
-			'post_status' => 'publish',
-			'post_type'   => get_post_types(
+		$args = $this->get_wp_query_args();
+
+		// Uses WP_Query to retrieve the post IDs.
+		$wp_query = new WP_Query( $args );
+
+		searchwp_live_search()->get( 'Template' )->load_template( $wp_query, $args );
+	}
+
+	/**
+	 * Get the arguments for a WP_Query search.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return mixed
+	 */
+	private function get_wp_query_args() {
+
+		$args = [
+			's'              => $this->get_search_string(),
+			'post_status'    => 'publish',
+			'post_type'      => get_post_types(
 				[
 					'public'              => true,
 					'exclude_from_search' => false,
 				]
 			),
-		];
-	}
-
-	/**
-	 * Get allowed post types for SearchWP search.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @return array
-	 */
-	private function search_get_args_post_type_searchwp() {
-
-		// Normally we could use 'any' post type because we've already found our IDs
-		// but if you use 'any' WP_Query will still take into consideration exclude_from_search
-		// when we eventually run our query_posts() in $this->show_results() so we're
-		// going to rebuild our array from the engine configuration post types and use that.
-
-		if ( function_exists( 'SWP' ) ) {
-			return SWP()->get_enabled_post_types_across_all_engines();
-		}
-
-		if ( class_exists( '\\SearchWP\\Utils' ) ) {
-			// SearchWP 4.0+.
-			$global_engine_sources = \SearchWP\Utils::get_global_engine_source_names();
-
-			$post_types = [];
-
-			foreach ( $global_engine_sources as $global_engine_source ) {
-				$indicator = 'post' . SEARCHWP_SEPARATOR;
-				if ( $indicator === substr( $global_engine_source, 0, strlen( $indicator ) ) ) {
-					$post_types[] = substr( $global_engine_source, strlen( $indicator ) );
-				}
-			}
-
-			return $post_types;
-		}
-
-		return [];
-	}
-
-	/**
-	 * Get post__in post ids using SearchWP.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $query The search query.
-	 *
-	 * @return array Search results comprised of Post IDs.
-	 */
-	private function search_get_args_post__in_searchwp( $query = '' ) {
-
-		if ( defined( 'SEARCHWP_VERSION' ) && version_compare( SEARCHWP_VERSION, '3.99.0', '>=' ) ) {
-			return $this->search_get_args_post__in_searchwp_v4( $query );
-		}
-
-		if ( class_exists( 'SearchWP' ) && method_exists( 'SearchWP', 'instance' ) ) {
-			return $this->search_get_args_post__in_searchwp_v3( $query );
-		}
-
-		return [ 0 ];
-	}
-
-	/**
-	 * Get post__in post ids using SearchWP v3.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $query The search query.
-	 *
-	 * @return array Search results comprised of Post IDs.
-	 */
-	private function search_get_args_post__in_searchwp_v3( $query ) {
-
-		$searchwp = SearchWP::instance();
-
-		// Set up custom posts per page.
-		add_filter( 'searchwp_posts_per_page', [ $this, 'get_posts_per_page' ] );
-
-		// Prevent loading Post objects, we only want IDs.
-		add_filter( 'searchwp_load_posts', '__return_false' );
-
-		$engine = isset( $_REQUEST['swpengine'] ) ? sanitize_key( $_REQUEST['swpengine'] ) : 'default';
-
-		// Grab our post IDs.
-		$results = $searchwp->search( $engine, $query );
-
-		$this->found_posts = $searchwp->foundPosts;
-
-		// If no results were found we need to force our impossible array.
-		if ( empty( $results ) ) {
-			return [ 0 ];
-		}
-
-		return $results;
-	}
-
-	/**
-	 * Get post__in post ids using SearchWP v4.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $query The search query.
-	 *
-	 * @return array Search results comprised of Post IDs.
-	 */
-	private function search_get_args_post__in_searchwp_v4( $query ) {
-
-		$results = new \SWP_Query( [
-			's'              => $query,
-			'engine'         => isset( $_REQUEST['swpengine'] ) ? sanitize_key( $_REQUEST['swpengine'] ) : 'default',
-			'fields'         => 'ids',
 			'posts_per_page' => $this->get_posts_per_page(),
-		] );
+		];
 
-		$this->found_posts = $results->found_posts;
-
-		// If no results were found we need to force our impossible array.
-		if ( empty( $results->posts ) ) {
-			return [ 0 ];
-		}
-
-		return $results->posts;
+		/**
+		 * Filter the search arguments.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $args The search arguments.
+		 */
+		return apply_filters( 'searchwp_live_search_query_args', $args );
 	}
 
 	/**
-	 * Fire the results query and trigger the template loader.
+	 * Get the search string.
 	 *
-	 * @since 1.0
+	 * @since 1.8.0
 	 *
-	 * @param array $args WP_Query arguments array.
-	 *
-	 * @uses query_posts() to prep the WordPress environment in it's entirety for the template loader
-	 * @uses sanitize_key() to sanitize input
-	 * @uses SearchWP_Live_Search_Template
-	 * @uses SearchWP_Live_Search_Template::get_template_part() to load the proper results template
+	 * @uses sanitize_text_field() to sanitize input
+	 * @return string
 	 */
-	private function show_results( $args = [] ) {
+	private function get_search_string() {
 
-		global $wp_query;
-
-		// We're using query_posts() here because we want to prep the entire environment
-		// for our template loader, allowing the developer to utilize everything they
-		// normally would in a theme template (and reducing support requests).
-		query_posts( $args ); // phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
-
-		// Ensure a proper found_posts count for $wp_query.
-		if ( class_exists( 'SearchWP' ) && ! empty( $this->found_posts ) ) {
-			$wp_query->found_posts = $this->found_posts;
-		}
-
-		do_action( 'searchwp_live_search_alter_results', $args );
-
-		// Optionally pass along the SearchWP engine if applicable.
-		$engine = isset( $_REQUEST['swpengine'] ) ? sanitize_key( $_REQUEST['swpengine'] ) : '';
-
-		// Output the results using the results template.
-		$results = searchwp_live_search()->get( 'Template' );
-
-		$results->get_template_part( 'search-results', $engine );
+		return isset( $_REQUEST['swpquery'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['swpquery'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
 	 * Retrieve the number of items to display.
 	 *
-	 * @since 1.0
+	 * @since 1.8.0
 	 *
 	 * @uses apply_filters to ensure the posts per page can be filterable via searchwp_live_search_posts_per_page
-	 * @uses absint()
 	 *
 	 * @return int $per_page the number of items to display
 	 */
-	public function get_posts_per_page() {
+	private function get_posts_per_page() {
 
-		// The default is 7 posts, but that can be filtered.
-		return absint( apply_filters( 'searchwp_live_search_posts_per_page', 7 ) );
+		$posts_per_page = searchwp_live_search()->get( 'Settings_Api' )->get( 'swp-results-per-page' );
+
+		$posts_per_page = ! empty( $posts_per_page ) ? (int) $posts_per_page : 7;
+
+		/**
+		 * Filter the number of posts to display. The default is 7 posts.
+		 *
+		 * @since 1.0
+		 *
+		 * @param int $per_page The number of posts to display.
+		 */
+		$default_posts_per_page = intval( apply_filters( 'searchwp_live_search_posts_per_page', $posts_per_page ) );
+
+		return isset( $_REQUEST['posts_per_page'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			? intval( $_REQUEST['posts_per_page'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			: $default_posts_per_page;
+	}
+
+	/**
+	 * Check AJAX permissions for the current search.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return void
+	 */
+	public function check_ajax_permissions() {
+
+		check_ajax_referer( 'searchwp_live_search_client_nonce', 'searchwp_live_search_client_nonce', true );
 	}
 
 	/**
@@ -309,13 +210,20 @@ class SearchWP_Live_Search_Client {
 	 */
 	public function control_active_plugins( $plugins ) {
 
+		/**
+		 * Filter to control plugins during search.
+		 *
+		 * @since 1.0
+		 *
+		 * @param bool $applicable Whether to apply the filter.
+		 */
 		$applicable = apply_filters( 'searchwp_live_search_control_plugins_during_search', false );
 
 		if ( ! $applicable || ! is_array( $plugins ) || empty( $plugins ) ) {
 			return $plugins;
 		}
 
-		if ( ! isset( $_REQUEST['swpquery'] ) || empty( $_REQUEST['swpquery'] ) ) {
+		if ( ! isset( $_REQUEST['swpquery'] ) || empty( $_REQUEST['swpquery'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return $plugins;
 		}
 
@@ -327,8 +235,50 @@ class SearchWP_Live_Search_Client {
 			}
 		}
 
+		/**
+		 * Filter the plugins whitelist.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $plugin_whitelist The plugin whitelist.
+		 */
 		$active_plugins = (array) apply_filters( 'searchwp_live_search_plugin_whitelist', $plugin_whitelist );
 
 		return array_values( $active_plugins );
+	}
+
+	/**
+	 * Prevents WordPress from forcing the excerpt length.
+	 * /wp-includes/blocks/post-excerpt.php forces the excerpt_length to 100.
+	 * We need to remove this forced value on the Live Search requests.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @uses apply_filters to ensure the excerpt length can be filterable via searchwp_live_search_excerpt_length
+	 * @uses absint()
+	 *
+	 * @return void
+	 */
+	public function set_excerpt_length() {
+
+		if ( ! isset( $_REQUEST['action'] ) || $_REQUEST['action'] !== 'searchwp_live_search' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		remove_all_filters( 'excerpt_length', PHP_INT_MAX );
+
+		add_filter(
+			'excerpt_length',
+			function ( $length ) {
+				/**
+				 * Filter the excerpt length.
+				 *
+				 * @since 1.8.0
+				 *
+				 * @param int $excerpt_length The excerpt length.
+				 */
+				return apply_filters( 'searchwp_live_search_excerpt_length', $length );
+			}
+		);
 	}
 }
