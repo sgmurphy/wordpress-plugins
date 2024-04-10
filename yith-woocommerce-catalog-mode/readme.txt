@@ -124,6 +124,10 @@ During this transition step, .po and .mo files will be used as always, but in or
 yith-woocommerce-catalog-mode-<WORDPRESS LOCALE>.po
 yith-woocommerce-catalog-mode-<WORDPRESS LOCALE >.mo
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-catalog-mode)
+
 == Screenshots ==
 
 1. This is the settings page of YITH WooCommerce Catalog Mode, you can find it in YITH menu item. You can hide WooCommerce "Add to Cart" buttons and WooCommerce Cart and Checkout pages.

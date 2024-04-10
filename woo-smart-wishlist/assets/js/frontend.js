@@ -34,6 +34,10 @@
     }
   });
 
+  $(document).on('change', '.woosw-switcher-dropdown', function() {
+    window.location = $(this).val();
+  });
+
   $(document).on('woosw_refresh_data', function() {
     woosw_get_data();
   });

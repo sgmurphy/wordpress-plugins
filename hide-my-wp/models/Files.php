@@ -480,7 +480,7 @@ class HMWP_Models_Files
                 exit();
             }
 
-        } elseif (strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getOption('hmwp_login_url') . '/') ||
+        } elseif (strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getOption('hmwp_login_url') . '/')  ||
                   strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getDefault('hmwp_login_url') . '/') ) {
 
 	        add_filter('hmwp_option_hmwp_remove_third_hooks', '__return_true');

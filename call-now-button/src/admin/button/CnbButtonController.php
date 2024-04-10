@@ -12,6 +12,7 @@ use cnb\admin\condition\CnbCondition;
 use cnb\notices\CnbAdminNotices;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
+use WP_Error;
 
 class CnbButtonController {
 
@@ -37,7 +38,8 @@ class CnbButtonController {
 			}
 
 	        // redirect the user to the appropriate page
-            $tab          = filter_input( INPUT_POST, 'tab', @FILTER_SANITIZE_STRING );
+	        $tabName          = filter_input( INPUT_POST, 'tabName', @FILTER_SANITIZE_STRING );
+	        $tabGroup          = filter_input( INPUT_POST, 'tabGroup', @FILTER_SANITIZE_STRING );
             $transient_id = 'cnb-' . wp_generate_uuid4();
             set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
@@ -58,7 +60,8 @@ class CnbButtonController {
                         'type'   => $new_button_type,
                         'id'     => $new_button_id,
                         'tid'    => $transient_id,
-                        'tab'    => $tab
+                        'tabName'    => $tabName,
+                        'tabGroup'    => $tabGroup,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );
@@ -77,8 +80,8 @@ class CnbButtonController {
 	public function create_ajax() {
 		do_action( 'cnb_init', __METHOD__ );
 		/**
-		 * @param $button CnbButton
-		 * @param $actions CnbAction[]
+		 * @param $button CnbButton|WP_Error
+		 * @param $actions (CnbAction|WP_Error)[]
 		 *
 		 * @return void
 		 */
@@ -92,7 +95,8 @@ class CnbButtonController {
 			}
 
 			// redirect the user to the appropriate page
-			$tab          = filter_input( INPUT_POST, 'tab', @FILTER_SANITIZE_STRING );
+			$tabName          = filter_input( INPUT_POST, 'tabName', @FILTER_SANITIZE_STRING );
+			$tabGroup         = filter_input( INPUT_POST, 'tabGroup', @FILTER_SANITIZE_STRING );
 			$transient_id = 'cnb-' . wp_generate_uuid4();
 			set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
@@ -113,7 +117,8 @@ class CnbButtonController {
 						'type'   => $new_button_type,
 						'id'     => $new_button_id,
 						'tid'    => $transient_id,
-						'tab'    => $tab
+						'tabName'    => $tabName,
+						'tabGroup'    => $tabGroup,
 					),
 					$url );
 			do_action( 'cnb_finish' );
@@ -132,9 +137,9 @@ class CnbButtonController {
     public function update() {
         do_action( 'cnb_init', __METHOD__ );
         /**
-         * @param $button CnbButton
-         * @param $actions CnbAction[]
-         * @param $conditions CnbCondition[]
+         * @param $button CnbButton|WP_Error
+         * @param $actions (CnbAction|WP_Error)[]
+         * @param $conditions (CnbCondition|WP_Error)[]
          *
          * @return void
          */
@@ -143,7 +148,8 @@ class CnbButtonController {
             $result = CnbAdminCloud::cnb_update_button_and_conditions( $button, $actions, $conditions );
 
             // redirect the user to the appropriate page
-            $tab          = filter_input( INPUT_POST, 'tab', @FILTER_SANITIZE_STRING );
+	        $tabName          = filter_input( INPUT_POST, 'tabName', @FILTER_SANITIZE_STRING );
+	        $tabGroup          = filter_input( INPUT_POST, 'tabGroup', @FILTER_SANITIZE_STRING );
             $transient_id = 'cnb-' . wp_generate_uuid4();
             set_transient( $transient_id, $result, HOUR_IN_SECONDS );
 
@@ -157,7 +163,8 @@ class CnbButtonController {
                         'type'   => strtolower( $button->type ),
                         'id'     => $button->id,
                         'tid'    => $transient_id,
-                        'tab'    => $tab
+                        'tabName'    => $tabName,
+	                    'tabGroup'   => $tabGroup,
                     ),
                     $url );
             $redirect_url  = esc_url_raw( $redirect_link );
@@ -210,7 +217,7 @@ class CnbButtonController {
                 }
             }
 
-            $button['id']         = isset($button['id']) && $button['id'] !== 'new' ? $button['id'] : null;
+            $button['id']         = isset( $button['id'] ) ? $button['id'] : null;
             $button['actions']    = $processed_actions;
             $button['conditions'] = $processed_conditions;
             $processed_button     = CnbButton::fromObject( $button );

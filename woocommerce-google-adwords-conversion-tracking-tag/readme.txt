@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.41.1
+Stable tag: 1.42.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -291,9 +291,24 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.42.1  =
+*Release date - 10.04.2024*
+
+* Fix: Removed consent update reload triggers for some CMPs, as in some cases the CMPs emit CMP click events on each page load and lead to a reload loop.
+
+= 1.42.0  =
+*Release date - 10.04.2024*
+
+* New: Added support for Microsoft Ads Enhanced Conversions.
+* Tweak: Updated all vendor packages.
+* Fix: Fixed a bug when reading the consent cookie of the free version of the Cookie Compliance CMP (by hu-manity.co).
+* Fix: Fixed a bug when reading the consent cookie of the old versions of the CookieYes CMP.
+* Fix: Fixed a bug that would throw an error if the site_id was not set.
+
 = 1.41.1  =
 *Release date - 09.04.2024*
 
+* Tweak: Added more logging for the GA4 Measurement Protocol purchase event.
 * Tweak: Extended the auto-off delay for HTTP request log feature.
 * Tweak: Enabled the Google Consent Mode as default.
 * Tweak: Removed Google Analytics Universal codes.
@@ -303,11 +318,18 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Added filter to suppress the version info output in the dev console.
 * Tweak: Refactored sections for shop and consent management in the settings page.
 * Tweak: Refactored the entire consent management logic to be more flexible and easier to maintain.
+* Fix: Improved check if VWO is active before trying to fire events.
+* Fix: Fixed pmw_conversion_prevention filter for ACR.
 * Fix: Fixed a bug that could prevent the Google Consent Mode activation.
 
 = 1.41.0  =
 *Release date - 21.03.2024*
 
+* New: Added support for VWO (Visual Website Optimizer).
+* Tweak: Added Snapchat user_phone_number parameter.
+* Tweak: Added more logging for the TikTok pixel.
+* Tweak: Added several Snapchat events for tracking: LOGIN, ADD_TO_WISHLIST, START_CHECKOUT, SEARCH
+* Tweak: Added a fallback to add the timestamp for TikTok EAPI purchase event in case it can't retrieve it from the browser.
 * Tweak: Added more page data output to the wpmDataLayer.
 * Tweak: Workaround for the Astra theme show_variation bug that triggers multiples times on page load on the product page.
 * Tweak: Added safeguard if server requests for fetching product data is missing input data.
@@ -334,15 +356,18 @@ We are committed to ensuring the security of our customers and their data. If yo
 = 1.39.0  =
 *Release date - 19.02.2024*
 
+* New: LinkedIn Ads pixel released
 * Tweak: Added dashboard message for available opportunities.
 * Tweak: Bumped up WooCommerce version compatibility to 8.6
 * Tweak: Updated vendor libraries.
 * Tweak: Removed a few unnecessary parameters.
+* Fix: Fixed a bug that would keep showing the expired license notification even after the message was dismissed.
 
 
 = 1.38.0  =
 *Release date - 12.02.2024*
 
+* New: Taboola pixel released
 * Tweak: Added LTV calculation opportunity to the opportunities tab.
 * Tweak: Added console logging for pixel events across platforms.
 * Tweak: Improved sanitization of settings strings.
@@ -361,6 +386,7 @@ We are committed to ensuring the security of our customers and their data. If yo
 *Release date - 30.01.2024*
 
 * New: Opportunities tab that shows opportunities to improve tracking and marketing performance.
+* Tweak: Added more debug messages for Meta CAPI events.
 * Tweak: Updated the order modal created by the Pixel Manager and added LTV values to it.
 * Tweak: Renamed the setting "order total logic" to "marketing value logic".
 * Tweak: Updated the translation file.
@@ -368,6 +394,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Added an automatic library version checker that shows an error message in the console if the library version is not matching the currently installed plugin version.
 * Tweak: Added a front-end error log output in case the gtag.js library can't be loaded.
 * Tweak: Added a safeguard for calls to as_has_scheduled_action().
+* Fix: Fixed a bug with the explicit consent management front-end function on non-WooCommerce sites.
+* Fix: Safeguard if lazy loading PMW is enabled on a non-WooCommerce site.
 
 = 1.36.0  =
 *Release date - 16.01.2024*
@@ -383,22 +411,28 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Refactored the order item COG retrieval to get the COG value from the order, if available. Otherwise, it will use the current COG value from the product.
 * Tweak: Optimized shortcode trigger for the Meta pixel.
 * Tweak: Reordered the main subsection tabs.
+* Fix: Fixed the Facebook CAPI event handler for custom events injected through shortcodes.
 
 = 1.35.0  =
 *Release date - 19.12.2023*
 
+* New: Enable Google Consent Mode v2.
+* New: Enable for Google TCF support.
 * New: AI support chat bot.
 * Fix: Safeguard for WooCommerce block editors that can cause a fatal error in rare cases.
 
 = 1.34.1  =
 *Release date - 14.12.2023*
 
+* Tweak: Improved console logs in functions_premium and event_listeners_premium
+* Tweak: Added the value for the GA4 add_to_cart, remove_from_cart, add_to_wishlist and begin_checkout events.
 * Tweak: Removed user data output for the free version as it is not required.
 * Tweak: Bumped up WordPress version compatibility to 6.4.
 * Tweak: Bumped up WooCommerce version compatibility to 8.4
 * Tweak: Declare Cart and Checkout Blocks compatibility.
 * Tweak: Updated the Facebook pixel ID validation to allow for longer IDs.
 * Tweak: Updated the jQuery ready event detection to avoid deprecation warnings.
+* Fix: Fixed shortcode trigger for Facebook when CAPI is enabled.
 * Fix: Don't call VarnishPurger's execute_purge() statically as it is not a static function.
 * Fix: Added a safeguard to avoid render issues on empty block-activated cart pages.
 
@@ -406,17 +440,23 @@ We are committed to ensuring the security of our customers and their data. If yo
 *Release date - 10.10.2023*
 
 * New: Added support for WP Consent API.
+* Tweak: Added content IDs to the TikTok PlaceAnOrder event.
+* Tweak: Improved user_id evaluation for the GA4 Measurement Protocol purchase event if the user ID is 0.
+* Tweak: Bumped up the Meta API version to v18.0.
+* Tweak: Added new doc links.
 * Tweak: Bumped up WooCommerce version compatibility to 8.1
 * Tweak: Added more how-to videos.
 * Tweak: Added root: null to the intersection observer options to avoid issues that occur on a small subset of browsers.
 * Tweak: Improve the function to retrieve the productId and quantity on cart content updates.
 * Tweak: Warning if transients are deactivated.
+* Fix: Fixed the timestamp_micros for GA4 Measurement Protocol purchase events.
 * Fix: Fixed the fallback function to retrieve the product ID on product pages that don't use the regular WooCommerce product template.
 * Fix: Added safeguard for pure WP installs and WC is not active.
 
 = 1.33.1  =
 *Release date - 13.09.2023*
 
+* Tweak: Added cart properties to TikTok InitiateCheckout event.
 * Tweak: Added an autodetect algorithm for product template elements which help tracking view_item_list events.
 * Tweak: Added a new begin_checkout CSS trigger for FunnelKit.
 * Tweak: Another fallback to retrieve the product ID in case the ID is saved in the value attribute for custom product pages.
@@ -434,6 +474,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 = 1.33.0  =
 *Release date - 09.08.2023*
 
+* New: Added Outbrain Ads pixel support.
+* New: Added Taboola Ads pixel support.
 * Tweak: Updated vendor libraries.
 * Tweak: Removed an unnecessary API call from the free version on the order view page.
 * Tweak: Bumped up WordPress version compatibility to 6.3
@@ -478,6 +520,7 @@ We are committed to ensuring the security of our customers and their data. If yo
 *Release date - 30.06.2023*
 
 * New: Support for the Real Cookie Banner by devowl.io
+* Tweak: Update Google Ads Enhanced Conversions to use sha256.
 * Tweak: Refactored saving the order status to optimize compatibility with cached nonces on purchase confirmation pages.
 * Tweak: Added filters that can be used to add more selectors for add-to-cart and begin-checkout buttons.
 * Tweak: Enabled sslverify unless on localhost.
@@ -493,4 +536,5 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Safeguard if Lazy Loading is active and the wpmDataLayer was modified by another plugin.
 * Tweak: Added possible solution to prevent Complianz from blocking the Pixel Manager configuration script.
 * Tweak: Bumped up WC version compatibility to 7.8
+* Fix: Updated Reddit advertiser ID validation
 

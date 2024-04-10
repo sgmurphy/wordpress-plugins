@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882
+class ComposerStaticInit4cef5723eae99088620906b990d5d2a7
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -167,6 +167,8 @@ class ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882
         'Stripe\\CustomerSession' => __DIR__ . '/..' . '/stripe/stripe-php/lib/CustomerSession.php',
         'Stripe\\Discount' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Discount.php',
         'Stripe\\Dispute' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Dispute.php',
+        'Stripe\\Entitlements\\ActiveEntitlement' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Entitlements/ActiveEntitlement.php',
+        'Stripe\\Entitlements\\Feature' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Entitlements/Feature.php',
         'Stripe\\EphemeralKey' => __DIR__ . '/..' . '/stripe/stripe-php/lib/EphemeralKey.php',
         'Stripe\\ErrorObject' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ErrorObject.php',
         'Stripe\\Event' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Event.php',
@@ -236,6 +238,7 @@ class ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882
         'Stripe\\PlatformTaxFee' => __DIR__ . '/..' . '/stripe/stripe-php/lib/PlatformTaxFee.php',
         'Stripe\\Price' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Price.php',
         'Stripe\\Product' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Product.php',
+        'Stripe\\ProductFeature' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ProductFeature.php',
         'Stripe\\PromotionCode' => __DIR__ . '/..' . '/stripe/stripe-php/lib/PromotionCode.php',
         'Stripe\\Quote' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Quote.php',
         'Stripe\\Radar\\EarlyFraudWarning' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Radar/EarlyFraudWarning.php',
@@ -282,6 +285,9 @@ class ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882
         'Stripe\\Service\\CustomerService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/CustomerService.php',
         'Stripe\\Service\\CustomerSessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/CustomerSessionService.php',
         'Stripe\\Service\\DisputeService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/DisputeService.php',
+        'Stripe\\Service\\Entitlements\\ActiveEntitlementService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Entitlements/ActiveEntitlementService.php',
+        'Stripe\\Service\\Entitlements\\EntitlementsServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Entitlements/EntitlementsServiceFactory.php',
+        'Stripe\\Service\\Entitlements\\FeatureService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Entitlements/FeatureService.php',
         'Stripe\\Service\\EphemeralKeyService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/EphemeralKeyService.php',
         'Stripe\\Service\\EventService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/EventService.php',
         'Stripe\\Service\\ExchangeRateService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/ExchangeRateService.php',
@@ -540,9 +546,9 @@ class ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4cef5723eae99088620906b990d5d2a7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4cef5723eae99088620906b990d5d2a7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4cef5723eae99088620906b990d5d2a7::$classMap;
 
         }, null, ClassLoader::class);
     }

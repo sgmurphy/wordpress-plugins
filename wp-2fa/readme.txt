@@ -5,7 +5,7 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: 2FA, two-factor authentication, multi step authentication, 2-factor authentication, WordPress authentication, two step authentication
 Requires at least: 5.0
-Tested up to: 6.4.3
+Tested up to: 6.5.2
 Stable tag: 2.6.4
 Requires PHP: 7.2.0
 

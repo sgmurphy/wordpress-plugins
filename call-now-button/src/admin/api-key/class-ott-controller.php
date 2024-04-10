@@ -54,7 +54,7 @@ class OttController {
 		// - the cloud is disabled (for some reason)
 		// Then this re-enables it (and shows a warning that we did that)
 		if ( ! empty( $cnb_options['api_key'] ) && ($this->activation->api_key || $this->activation->ott_key) && $cnb_options['cloud_enabled'] != 1 ) {
-			$notice                      = new CnbNotice('warning', '<p>You have followed a link, but an API key is already present or the token has expired.</p><p>We have enabled <strong>Premium</strong>, but did not change the already present API key.</p>');
+			$notice                      = new CnbNotice('warning', '<p>You have followed an activation link, but the API key is already present. The NowButtons connection has been <strong>(re)activated</strong>.</p>');
 			$this->activation->notices[] = $notice;
 
 			$options                  = array();
@@ -145,8 +145,7 @@ class OttController {
 			}
 
 			$error_details = CnbAdminCloud::cnb_admin_get_error_message_details( $api_key );
-			$message                             = '<p>We could not enable <strong>Premium</strong> with this <em>one-time token</em>.';
-			$message                             .= ' <code>' . esc_html( $this->activation->ott_key ) . '</code> :-(.' . $error_details . '</p>';
+			$message                             = '<p>We could not establish a connection to NowButtons with this <em>one-time token</em>.';
 			$notice                              = new CnbNotice( 'error', $message );
 			$this->activation->notices[]         = $notice;
 

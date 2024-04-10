@@ -87,102 +87,91 @@ class CnbDomainViewEdit {
 		    ),
 			    $url );
         ?>
-        <tr>
-            <th>Plan</th>
-            <td>
-                <code><?php echo esc_html( $domain->type ) ?></code>
-                <input name="domain[renew]" type="hidden" value="<?php echo $domain->renew ? 'true' : 'false' ?>"/>
-                <?php
-                if ( $domain->type === 'PRO' && $domain->status === 'TRIALING' ) {
-                    echo ' (Free trial)';
-                }
-                if ( $cnb_subscription_data && $cnb_subscription_data->invoiceUrl ) {
-	                echo '⚠️<p class="description"><span class="cnb-alert-text"><a class="button button-primary" href="' . esc_url( $payment_link ) . '">Pay now</a> to reactivate Pro features.</span><br>(You have an outstanding invoice. Pro features are disabled until payment is received.)</p> ';
-                } else if ( $domain->type !== 'PRO' && ! empty( $domain->id ) ) {
-                    echo '<p class="description"><a href="' . esc_url( $upgrade_link ) . '">Upgrade</a> to <span class="cnb-pro-badge">Pro</span> to get tons of buttons, more features and extra button types.</p>';
-                }
-                if ( $domain->status === 'TRIALING' && ! empty( $domain->expires ) ) { ?>
-                  <p class="description" id="domain_expires-description">
-                      <?php
-                      switch ($domain->renew) {
-                          case 1:
-                              echo ' Paid subscription is starting on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To cancel your trial please visit the ';
-                              break;
-                          default:
-                              echo ' Your free trial has been cancelled and you are reverted to the free plan on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To stay on the PRO plan go to the ';
-                      }
-                       ?>
-                      <a href="#" onclick="return cnb_goto_billing_portal()">billing portal</a>.
-                  </p>
-                <?php
-                    } ?>
-            </td>
-        </tr>
-        <?php if ( $domain->type === 'PRO' && $domain->status === 'ACTIVE' ) { ?>
-            <tr>
-                <th scope="row">
-                    Auto renew
-                </th>
-                <td>
-            <?php
-            if ( ! empty( $domain->expires ) ) { ?>
-                <input id="cnb-renew" class="cnb_toggle_checkbox" name="domain[renew]" type="checkbox"
-                           value="true" <?php checked( true, $domain->renew ); ?> />
-                <label for="cnb-renew" class="cnb_toggle_label">Toggle</label>
-                <span data-cnb_toggle_state_label="cnb-renew" class="cnb_toggle_state cnb_toggle_false">(Off)</span>
-                <span data-cnb_toggle_state_label="cnb-renew" class="cnb_toggle_state cnb_toggle_true">On</span>
+                <div class="cnb-input-item">
+                    <div class="cnb-flex cnb-flex-gap cnb-flex-align-center">
+                        <label class="cnb_margin_0">Plan</label>
+                        <code><?php echo esc_html( $domain->type ) ?></code>
+                    </div>
+                    <input name="domain[renew]" type="hidden" value="<?php echo $domain->renew ? 'true' : 'false' ?>"/>
+                    <?php
+                    if ( $domain->type === 'PRO' && $domain->status === 'TRIALING' ) {
+                        echo ' (Free trial)';
+                    }
+                    if ( $cnb_subscription_data && $cnb_subscription_data->invoiceUrl ) {
+                        echo '⚠️<p class="description"><span class="cnb-alert-text"><a class="button button-primary" href="' . esc_url( $payment_link ) . '">Pay now</a> to reactivate Pro features.</span><br>(You have an outstanding invoice. Pro features are disabled until payment is received.)</p> ';
+                    } else if ( $domain->type !== 'PRO' && ! empty( $domain->id ) ) {
+                        echo '<p class="description"><a href="' . esc_url( $upgrade_link ) . '">Upgrade</a> to <span class="cnb-pro-badge">Pro</span> to get tons of buttons, more features and extra button types.</p>';
+                    }
+                    if ( $domain->status === 'TRIALING' && ! empty( $domain->expires ) ) { ?>
+                    <p class="description" id="domain_expires-description">
+                        <?php
+                        switch ($domain->renew) {
+                            case 1:
+                                echo ' Paid subscription is starting on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To cancel your trial please visit the ';
+                                break;
+                            default:
+                                echo ' Your free trial has been cancelled and you are reverted to the free plan on ' . esc_html( $this->get_formatted_date( $domain->expires ) ) . '. To stay on the PRO plan go to the ';
+                        }
+                        ?>
+                        <a href="#" onclick="return cnb_goto_billing_portal()">billing portal</a>.
+                    </p>
+                    <?php
+                        } ?>
+                </div>
 
-                <p class="description" id="domain_expires-description">
-                    Your subscription will
-                    <?php echo $domain->renew ? ' renew automatically ' : ' expire '; ?>
-                    on <?php echo esc_html( $this->get_formatted_date( $domain->expires ) ) ?>.
-                </p>
-                <?php } ?>
-                </td>
-            </tr>
+        <?php if ( $domain->type === 'PRO' && $domain->status === 'ACTIVE' ) { ?>
+                <div class="cnb-input-item">
+                    <label>Auto renew</label>
+                    <?php if ( ! empty( $domain->expires ) ) { ?>
+                        <input id="cnb-renew" class="cnb_toggle_checkbox" name="domain[renew]" type="checkbox"
+                                value="true" <?php checked( true, $domain->renew ); ?> />
+                        <label for="cnb-renew" class="cnb_toggle_label">Toggle</label>
+                        <span data-cnb_toggle_state_label="cnb-renew" class="cnb_toggle_state cnb_toggle_false">(Off)</span>
+                        <span data-cnb_toggle_state_label="cnb-renew" class="cnb_toggle_state cnb_toggle_true">On</span>
+
+                        <p class="description" id="domain_expires-description">
+                            Your subscription will
+                            <?php echo $domain->renew ? ' renew automatically ' : ' expire '; ?>
+                            on <?php echo esc_html( $this->get_formatted_date( $domain->expires ) ) ?>.
+                        </p>
+                    <?php } ?>
+                </div>            
         <?php }
-      }
+        }
 
     function render_form_tracking( $domain ) {
         $cnb_utils = new CnbUtils();
-        ?>
-        <tr>
-            <th colspan="2"><h2>Tracking</h2></th>
-        </tr>
-        <tr>
-            <th scope="row"><label for="google_analytics">Google Analytics<label></th>
-            <td>
-                <input type="hidden" name="domain[trackGA]" value="0"/>
-                <input id="google_analytics" class="cnb_toggle_checkbox" name="domain[trackGA]" type="checkbox"
-                       value="true" <?php checked( true, $domain->trackGA ); ?> />
-                <label for="google_analytics" class="cnb_toggle_label">Enable GA tracking</label>
-                <span data-cnb_toggle_state_label="google_analytics" class="cnb_toggle_state cnb_toggle_false">(Click tracking inactive)</span>
-                <span data-cnb_toggle_state_label="google_analytics" class="cnb_toggle_state cnb_toggle_true">Click tracking active</span>
+        ?>       
 
-                <p class="description">
-                    Supports Classic, Universal Analytics and Global site tag (v3 and v4).<br>
+                <div class="cnb-input-item">
+                    <div class="cnb-flex cnb-flex-gap cnb-flex-align-center">
+                        <label for="google_analytics">Google Analytics</label>                            
+                        <input type="hidden" name="domain[trackGA]" value="0"/>
+                        <input id="google_analytics" class="cnb_toggle_checkbox" name="domain[trackGA]" type="checkbox"
+                            value="true" <?php checked( true, $domain->trackGA ); ?> />
+                        <label for="google_analytics" class="cnb_toggle_label">Enable GA tracking</label>
+                    </div>
+                    <p class="description">
                     Using Google Tag Manager? Set up click tracking in GTM. <a
                             href="<?php echo esc_url( $cnb_utils->get_support_url( 'web-app/domains/tracking-button-clicks-gtm/', 'domain-settings-description', 'GA-tracking-with-GTM' ) ) ?>"
                             target="_blank">Here's how...</a>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row"><label for="conversion_tracking">Google Ads conversions</label></th>
-            <td>
-                <input type="hidden" name="domain[trackConversion]" value="0"/>
-                <input id="conversion_tracking" class="cnb_toggle_checkbox" name="domain[trackConversion]"
-                       type="checkbox" value="true" <?php checked( true, $domain->trackConversion ); ?> />
-                <label for="conversion_tracking" class="cnb_toggle_label">Enable Google Ads conversion tracking</label>
-                <span data-cnb_toggle_state_label="conversion_tracking" class="cnb_toggle_state cnb_toggle_false">(Conversion tracking inactive)</span>
-                <span data-cnb_toggle_state_label="conversion_tracking" class="cnb_toggle_state cnb_toggle_true">Conversion tracking active</span>
-
-                <p class="description">Select this option if you want to count clicks on the button as Google Ads
+                    </p>
+                </div>
+        
+                <div class="cnb-input-item">
+                    <div class="cnb-flex cnb-flex-gap cnb-flex-align-center">
+                        <label for="conversion_tracking">Google Ads conversions</label>
+                        <input type="hidden" name="domain[trackConversion]" value="0"/>
+                        <input id="conversion_tracking" class="cnb_toggle_checkbox" name="domain[trackConversion]"
+                            type="checkbox" value="true" <?php checked( true, $domain->trackConversion ); ?> />
+                        <label for="conversion_tracking" class="cnb_toggle_label">Enable Google Ads conversion tracking</label>
+                    </div>
+                    <p class="description">Select this option if you want to count clicks on the button as Google Ads
                     conversions. This option requires the Event snippet to be present on the page. <a
                             href="https://support.google.com/google-ads/answer/6331304" target="_blank">Learn
                         more...</a></p>
-            </td>
-        </tr>
+                </div>
+        
         <?php
     }
 
@@ -199,76 +188,49 @@ class CnbDomainViewEdit {
                 admin_url( 'admin.php' ) );
 
         ?>
-        <tr>
-            <th colspan="2"><h2>Button display</h2></th>
-        </tr>
-        <tr class="zoom">
-            <th scope="row"><label for="cnb_slider">Button size <span id="cnb_slider_value"></span></label></th>
-            <td>
-                <fieldset>
-                    <label class="cnb_slider_value" for="cnb_slider"
-                           onclick="jQuery('#cnb_slider:enabled')[0].stepDown();cnb_update_sliders()">Smaller&nbsp;&laquo;&nbsp;</label>
-                    <input type="range" min="0.7" max="1.3" step="0.1" name="domain[properties][scale]"
-                           value="<?php echo esc_attr( $domain->properties->scale ) ?>" class="slider" id="cnb_slider">
-                    <label class="cnb_slider_value" for="cnb_slider"
-                           onclick="jQuery('#cnb_slider:enabled')[0].stepUp();cnb_update_sliders()">&nbsp;&raquo;&nbsp;Bigger</label>
-                </fieldset>
-            </td>
-        </tr>
-        <tr class="z-index">
-            <th scope="row"><label for="cnb_order_slider">Order (<span id="cnb_order_value"></span>)</label> <a
-                        href="<?php echo esc_url( $cnb_utils->get_support_url( 'wordpress-free/settings/set-order/', 'domain-settings-question-mark', 'Order' ) ) ?>"
-                        target="_blank"
-                        class="cnb-nounderscore">
-                    <span class="dashicons dashicons-editor-help"></span>
-                </a></th>
-            <td>
-                <label class="cnb_slider_value" for="cnb_order_slider"
-                       onclick="jQuery('#cnb_order_slider:enabled')[0].stepDown();cnb_update_sliders()">Backwards&nbsp;&laquo;&nbsp;</label>
-                <input type="range" min="1" max="10" name="domain[properties][zindex]"
-                       value="<?php echo esc_attr( $domain_properties_zindex_order ) ?>" class="slider2"
-                       id="cnb_order_slider"
-                       step="1">
-                <label class="cnb_slider_value" for="cnb_order_slider"
-                       onclick="jQuery('#cnb_order_slider:enabled')[0].stepUp();cnb_update_sliders()">&nbsp;&raquo;&nbsp;Front</label>
-                <p class="description">The default (and recommended) value is all the way to the front so the
-                    button sits on top of everything. <a
-                            href="<?php echo esc_url( $cnb_utils->get_support_url( 'wordpress-free/settings/set-order/', 'domain-settings-question-mark', 'Order' ) ) ?>" target="_blank">Learn
-                        more...</a></p>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row"><label for="domain_properties_allow_multiple_buttons">Multiple buttons per page</label>
-              <?php if ( $domain->type === 'STARTER' ) { ?>
-                <a href="<?php echo esc_url( $upgrade_link ) ?>"><span class="cnb-pro-badge">Pro</span></a>
-              <?php } ?>
-            </th>
-            <td>
-                <input type="hidden" name="domain[properties][allowMultipleButtons]" value="false"/>
-                <input
-                    id="domain_properties_allow_multiple_buttons"
-                    class="cnb_toggle_checkbox"
-                    name="domain[properties][allowMultipleButtons]"
-                    type="checkbox"
-                    value="true"
-                    <?php if ( $domain->type === 'STARTER' ) {
-                    $domain->properties->allowMultipleButtons = false;
-                        ?>disabled="disabled"<?php } ?>
-                    <?php checked( true, $domain->properties->allowMultipleButtons ); ?>
-                />
-                <label for="domain_properties_allow_multiple_buttons" class="cnb_toggle_label">Allow multiple Buttons on
-                    a single page</label>
-                <span data-cnb_toggle_state_label="domain_properties_allow_multiple_buttons"
-                      class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
-                <span data-cnb_toggle_state_label="domain_properties_allow_multiple_buttons"
-                      class="cnb_toggle_state cnb_toggle_true">Enabled</span>
-                <?php if ( $domain->type !== 'STARTER' ) { ?>
-                    <p class="description">
-                        When enabled, more than one button can be displayed on a single page.
-                    </p>
-                <?php } ?>
-            </td>
-        </tr>
+                <div class="cnb-input-item">
+                    <label for="cnb_slider">Button size</label>
+                    <fieldset>
+                        
+                        <input type="range" min="0.7" max="1.3" step="0.1" name="domain[properties][scale]"
+                            value="<?php echo esc_attr( $domain->properties->scale ) ?>" class="slider" id="cnb_slider">
+                            <span id="cnb_slider_value"></span>
+                    </fieldset>
+                </div>
+
+                <div class="cnb-input-item">
+                    <label for="cnb_order_slider">Order</label>
+                    
+                    <input type="range" min="1" max="10" name="domain[properties][zindex]"
+                        value="<?php echo esc_attr( $domain_properties_zindex_order ) ?>" class="slider2"
+                        id="cnb_order_slider"
+                        step="1">
+                        (<span id="cnb_order_value"></span>)
+                    <p class="description">Adjust wether the button sits on top or behind certain elements (e.g. a cookie notice). 10 is on top of everything. Reduce to bring the button to the back.</p>
+                </div>
+
+                <div class="cnb-input-item">
+                    <div class="cnb-flex cnb-flex-gap cnb-flex-align-center">
+                        <label for="domain_properties_allow_multiple_buttons">Multiple buttons per page</label>
+                        <?php if ( $domain->type === 'STARTER' ) { ?>
+                            <a href="<?php echo esc_url( $upgrade_link ) ?>"><span class="cnb-pro-badge">Pro</span></a>
+                        <?php } ?>
+                        <input type="hidden" name="domain[properties][allowMultipleButtons]" value="false"/>
+                        <input
+                            id="domain_properties_allow_multiple_buttons"
+                            class="cnb_toggle_checkbox"
+                            name="domain[properties][allowMultipleButtons]"
+                            type="checkbox"
+                            value="true"
+                            <?php if ( $domain->type === 'STARTER' ) {
+                            $domain->properties->allowMultipleButtons = false;
+                                ?>disabled="disabled"<?php } ?>
+                            <?php checked( true, $domain->properties->allowMultipleButtons ); ?>
+                        />
+                        <label for="domain_properties_allow_multiple_buttons" class="cnb_toggle_label">Allow multiple Buttons on
+                            a single page</label>                        
+                    </div>
+                </div>
         <?php
     }
 
@@ -282,58 +244,62 @@ class CnbDomainViewEdit {
         $show_advanced_view_only = CnbSettingsController::is_advanced_view();
 
         if ( $header ) { ?>
-            <tr>
-                <th colspan="2"><h2>Advanced</h2></th>
-            </tr>
+            <div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
+                <div class="cnb-section-info cnb-top-spacing">
+                    <h3 class="top-0">Advanced</h3>
+                </div>
+                <div class="cnb-section-data cnb-top-spacing">
+                    
         <?php } ?>
-        <tr>
-            <th scope="row"><label for="domain_name">Domain name</label></th>
-            <td>
-                <input type="hidden" name="domain[id]" value="<?php echo esc_attr( $domain->id ) ?>"/>
-                <?php if ( $show_advanced_view_only ) { ?>
-                    <input type="text" id="domain_name" name="domain[name]"
-                           value="<?php echo esc_attr( $domain->name ) ?>"
-                           class="regular-text" <?php if ( ! empty( $domain->id ) ) {
-                        echo 'disabled="disabled"';
-                    } ?> />
-                    <?php if ( ! empty( $domain->id ) ) { ?>
-                        <p class="description">
-                            <strong>Warning</strong>: Changing your domain name means remapping all existing Buttons for
-                            that domain. Please use with caution. <a class="cnb_cursor_pointer"
-                                                                     onclick="return jQuery('#domain_name').prop('disabled', false);">Click
-                                here to change your domain.</a>
-                        </p>
-                    <?php } ?>
-                <?php } else {
-                    echo esc_html( $domain->name );
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row"><label for="domain_timezone">Timezone</label></th>
-            <td>
-                <?php
-                // phpcs:ignore WordPress.Security
-                echo $this->getTimezoneSelect( $domain );
-                ?>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row"><label for="domain_properties_debug">Debug mode</label></th>
-            <td>
-                <input type="hidden" name="domain[properties][debug]" value="false"/>
-                <input id="domain_properties_debug" class="cnb_toggle_checkbox" name="domain[properties][debug]"
-                       type="checkbox" value="true" <?php checked( true, $domain->properties->debug ); ?> />
-                <label for="domain_properties_debug" class="cnb_toggle_label">Enable debugging mode</label>
-                <span data-cnb_toggle_state_label="domain_properties_debug" class="cnb_toggle_state cnb_toggle_false">(Disabled)</span>
-                <span data-cnb_toggle_state_label="domain_properties_debug" class="cnb_toggle_state cnb_toggle_true">Enabled</span>
+            
 
-                <p class="description">
-                    This setting enables debug information in your browser's console, which can help during
-                    troubleshooting.
-                </p>
-            </td>
-        </tr>
+                    <div class="cnb-input-item">
+                        <label for="domain_name">Domain name</label>
+                        <input type="hidden" name="domain[id]" value="<?php echo esc_attr( $domain->id ) ?>"/>
+                        <?php if ( $show_advanced_view_only ) { ?>
+                            <input type="text" id="domain_name" name="domain[name]"
+                                value="<?php echo esc_attr( $domain->name ) ?>"
+                                class="regular-text" <?php if ( ! empty( $domain->id ) ) {
+                                echo 'disabled="disabled"';
+                            } ?> />
+                            <?php if ( ! empty( $domain->id ) ) { ?>
+                                <p class="description">
+                                    <strong>Warning</strong>: Changing your domain name means remapping all existing Buttons for
+                                    that domain. Please use with caution. <a class="cnb_cursor_pointer"
+                                                                            onclick="return jQuery('#domain_name').prop('disabled', false);">Click
+                                        here to change your domain.</a>
+                                </p>
+                            <?php } ?>
+                        <?php } else {
+                            echo esc_html( $domain->name );
+                        } ?>
+                    </div>
+
+                    <div class="cnb-input-item">
+                        <label for="domain_timezone">Timezone</label>
+                        <?php
+                        // phpcs:ignore WordPress.Security
+                        echo $this->getTimezoneSelect( $domain );
+                        ?>
+                    </div>
+
+                    <div class="cnb-input-item">                        
+                        <div class="cnb-flex cnb-flex-gap cnb-flex-align-center">
+                            <label for="domain_properties_debug">Debug mode</label>
+                            <input type="hidden" name="domain[properties][debug]" value="false"/>
+                            <input id="domain_properties_debug" class="cnb_toggle_checkbox" name="domain[properties][debug]"
+                                type="checkbox" value="true" <?php checked( true, $domain->properties->debug ); ?> />
+                            <label for="domain_properties_debug" class="cnb_toggle_label">Enable debugging mode</label>
+                        </div>
+                        <p class="description">
+                            In debug mode, debug info is displayed in the browser console which can help during troubleshooting.
+                        </p>
+                    </div>
+        
+                    
+       
+                    
+        
         <?php
     }
 

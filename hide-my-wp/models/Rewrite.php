@@ -2426,6 +2426,8 @@ class HMWP_Models_Rewrite
 
             }
 
+            //emulate other CMS on request
+            $content = $this->emulateCMS($content);
 
             //Set the replacement action to prevent multiple calls
             $this->_replaced = true;
@@ -2434,6 +2436,61 @@ class HMWP_Models_Rewrite
         return $content;
     }
 
+    /**
+     * Add CMS Emulators for theme detectors
+     *
+     * @param  $content
+     * @return string|string[]|null
+     */
+    public function emulateCMS( $content )
+    {
+        $generator = '';
+        $header = array();
+
+        //emulate other CMS
+        if($emulate = HMWP_Classes_Tools::getOption('hmwp_emulate_cms')) {
+
+            if (strpos($emulate, 'drupal') !== false ) {
+                switch ($emulate){
+                    case 'drupal7':
+                        $generator = 'Drupal 7 (https://www.drupal.org)';
+                        break;
+                    case 'drupal':
+                        $generator = 'Drupal 8 (https://www.drupal.org)';
+                        break;
+                    case 'drupal9':
+                        $generator = 'Drupal 9 (https://www.drupal.org)';
+                        break;
+                    case 'drupal10':
+                        $generator = 'Drupal 10 (https://www.drupal.org)';
+                        break;
+                    default:
+                        $generator = 'Drupal (https://www.drupal.org)';
+                        break;
+                }
+
+                $header['MobileOptimized'] = '<meta name="MobileOptimized" content="width" />';
+                $header['HandheldFriendly'] = '<meta name="HandheldFriendly" content="true" />';
+
+            }elseif (strpos($emulate, 'joomla') !== false ) {
+                switch ($emulate){
+                    case 'joomla1':
+                        $generator = 'Joomla! 1.5 - Open Source Content Management';
+                        break;
+                    default:
+                        $generator = 'Joomla! - Open Source Content Management';
+                        break;
+                }
+
+            }
+
+            $header['generator'] = '<meta name="generator" content="'.apply_filters('hmwp_emulate_cms',$generator).'" />';
+            $header_str = str_replace('$', '\$', join("\n", $header));
+            $content = @preg_replace('/(<head(\s[^>]*|)>)/si', sprintf("$1\n%s", $header_str) . PHP_EOL, $content, 1);
+        }
+
+        return $content;
+    }
 
     /**
      * Rename the paths in URL with the new ones

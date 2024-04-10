@@ -9313,13 +9313,23 @@ function recordTracksPageView(urlPath, params) {
     eventProperties = Object.assign(eventProperties, params);
   }
 
-  // Record all `utm` marketing parameters as event properties on the page view event
+  // Record some query parameters as event properties on the page view event
   // so we can analyze their performance with our analytics tools
   if ( true && window.location) {
     const urlParams = new URL(window.location.href).searchParams;
+
+    // Record all `utm` marketing params.
     const utmParamEntries = urlParams && Array.from(urlParams.entries()).filter(([key]) => key.startsWith('utm_'));
     const utmParams = utmParamEntries ? Object.fromEntries(utmParamEntries) : {};
-    eventProperties = Object.assign(eventProperties, utmParams);
+
+    // Record the 'ref' param.
+    const refParam = urlParams && urlParams.get('ref') ? {
+      ref: urlParams.get('ref')
+    } : {};
+    eventProperties = Object.assign(eventProperties, {
+      ...utmParams,
+      ...refParam
+    });
   }
   recordTracksEvent('calypso_page_view', eventProperties);
 }
@@ -14656,7 +14666,7 @@ module.exports = __webpack_require__.p + "images/product-published-f8461fe85ee7e
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-module.exports = __webpack_require__.p + "images/illo-share-dd7b9072ff61acd7f247.svg";
+module.exports = __webpack_require__.p + "images/illo-share-d04d91232090e41822db.svg";
 
 /***/ }),
 

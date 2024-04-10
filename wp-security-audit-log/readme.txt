@@ -5,7 +5,7 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags:  activity log, security audit log, user tracking, security event log, audit trail, user activity, changelog, history, log, website changes
 Requires at least: 5.0
-Tested up to: 6.4.3
+Tested up to: 6.5.2
 Stable tag: 4.6.4
 Requires PHP: 7.2
 

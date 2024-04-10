@@ -3,7 +3,6 @@
  * Plugin Name: AI Powered Marketing
  * Plugin URI: https://woo.kliken.com/
  * Description: Kliken's all-in-one marketing platform helps business owners reach high-intent customers, surpass your competition and realize significant growth in sales, while decreasing conversion costs.
- * Version: 1.4.2
  * Author: Kliken
  * Author URI: http://kliken.com/
  * Developer: Kliken
@@ -11,12 +10,15 @@
  * Text Domain: kliken-marketing-for-google
  * Domain path: /languages
  *
- * Tested up to: 6.4
+ * Version: 1.4.3
+ * Requires at least: 5.8
+ * Requires PHP: 7.4
+ * Tested up to: 6.5
+ * Requires Plugins: woocommerce
+ * WC requires at least: 6.0
+ * WC tested up to: 8.7
  *
- * WC requires at least: 5.5
- * WC tested up to: 8.0
- *
- * License: GNU General Public License v3.0
+ * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package Kliken Marketing for Google

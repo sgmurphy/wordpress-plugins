@@ -230,6 +230,14 @@ class FormSettings implements Arrayable, Jsonable
      */
     public $designSettingsImageOpacity;
 
+    /* @since 3.7.0
+     * @var string
+     */
+    public $formExcerpt;
+
+    /**
+     * @since 3.7.0 Added formExcerpt
+
     /**
      * @since 3.2.0 Added registrationNotification
      * @since 3.0.0
@@ -326,6 +334,8 @@ class FormSettings implements Arrayable, Jsonable
         $self->designSettingsImageColor = $array['designSettingsImageColor'] ?? '';
 
         $self->designSettingsImageOpacity = $array['designSettingsImageOpacity'] ?? '';
+
+        $self->formExcerpt = $array['formExcerpt'] ?? '';
 
         return $self;
     }

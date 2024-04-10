@@ -291,6 +291,31 @@ class CallNowButton {
             plugins_url('resources/style/call-now-button.css', CNB_PLUGINS_URL_BASE ),
             false,
             CNB_VERSION );
+	    wp_register_style(
+		    CNB_SLUG . '-domain-view-upgrade-overview',
+		    plugins_url('resources/style/domain-view-upgrade-overview.css', CNB_PLUGINS_URL_BASE ),
+		    array(CNB_SLUG . '-styling'),
+		    CNB_VERSION );
+	    wp_register_style(
+		    CNB_SLUG . '-promos',
+		    plugins_url('resources/style/promos.css', CNB_PLUGINS_URL_BASE ),
+		    array(CNB_SLUG . '-styling'),
+		    CNB_VERSION );
+	    wp_register_style(
+		    CNB_SLUG . '-settings',
+		    plugins_url('resources/style/settings.css', CNB_PLUGINS_URL_BASE ),
+		    array(CNB_SLUG . '-styling'),
+		    CNB_VERSION );
+	    wp_register_style(
+		    CNB_SLUG . '-legacy-edit',
+		    plugins_url('resources/style/legacy-edit.css', CNB_PLUGINS_URL_BASE ),
+		    array(CNB_SLUG . '-styling'),
+		    CNB_VERSION );
+	    wp_register_style(
+		    CNB_SLUG . '-getting-started',
+		    plugins_url('resources/style/getting-started.css', CNB_PLUGINS_URL_BASE ),
+		    array(CNB_SLUG . '-styling'),
+		    CNB_VERSION );
         // Original: https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.min.css
         wp_register_style(
             CNB_SLUG . '-jquery-ui',
@@ -375,7 +400,8 @@ class CallNowButton {
 		    plugins_url('resources/js/button-overview.js', CNB_PLUGINS_URL_BASE ),
 		    array( CNB_SLUG . '-call-now-button' ),
 		    CNB_VERSION,
-		    true );        wp_register_script(
+		    true );
+		wp_register_script(
             CNB_SLUG . '-action-edit-scheduler',
             plugins_url('resources/js/action-edit-scheduler.js', CNB_PLUGINS_URL_BASE ),
             array( CNB_SLUG . '-call-now-button' ),
@@ -384,19 +410,29 @@ class CallNowButton {
         wp_register_script(
             CNB_SLUG . '-action-edit-fields',
             plugins_url('resources/js/action-edit-fields.js', CNB_PLUGINS_URL_BASE ),
-            array( CNB_SLUG . '-call-now-button' ),
-            CNB_VERSION,
-            true );
-        wp_register_script(
-            CNB_SLUG . '-action-edit-facebook',
-            plugins_url('resources/js/action-edit-facebook.js', CNB_PLUGINS_URL_BASE ),
-            array( CNB_SLUG . '-call-now-button' ),
+            array(
+				CNB_SLUG . '-call-now-button',
+	            CNB_SLUG . '-action-edit-scheduler',
+	            'jquery-ui-slider', 'jquery-ui-core', 'jquery'
+            ),
             CNB_VERSION,
             true );
 	    wp_register_script(
+		    CNB_SLUG . '-action-edit-chat',
+		    plugins_url('resources/js/action-edit-chat.js', CNB_PLUGINS_URL_BASE ),
+		    array( CNB_SLUG . '-action-edit-fields' ),
+		    CNB_VERSION,
+		    true );
+	    wp_register_script(
+		    CNB_SLUG . '-action-edit-facebook',
+		    plugins_url('resources/js/action-edit-facebook.js', CNB_PLUGINS_URL_BASE ),
+		    array( CNB_SLUG . '-action-edit-fields' ),
+		    CNB_VERSION,
+		    true );
+	    wp_register_script(
 		    CNB_SLUG . '-action-edit-viber',
 		    plugins_url('resources/js/action-edit-viber.js', CNB_PLUGINS_URL_BASE ),
-		    array( CNB_SLUG . '-call-now-button' ),
+		    array( CNB_SLUG . '-action-edit-fields' ),
 		    CNB_VERSION,
 		    true );
         wp_register_script(

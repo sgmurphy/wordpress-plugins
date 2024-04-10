@@ -7,7 +7,7 @@ WC tested up to: 8.7
 WC requires at least: 8.5
 Requires PHP: 7.4
 Requires Plugins: woocommerce
-Stable tag: 4.4.1
+Stable tag: 4.4.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,9 @@ For help setting up and configuring, please refer to our [user guide](https://do
 If you get stuck, you can ask for help in the Plugin Forum.
 
 == Changelog ==
+
+= 4.4.2 - 2024-04-09 =
+* Fix - Cannot retrieve order number on from GET variable.
 
 = 4.4.1 - 2024-03-25 =
 * Tweak - WordPress 6.5 compatibility.

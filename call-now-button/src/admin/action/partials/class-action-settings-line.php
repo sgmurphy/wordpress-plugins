@@ -43,28 +43,36 @@ class ActionSettingsLine {
 			$this->line_message = $action->properties->{'line-message'};
 		}
         ?>
-		<tr class="cnb_advanced_view cnb-action-properties cnb-action-properties-<?php echo esc_attr($this->action_name) ?>">
-			<th scope="row"><label for="cnb-action-properties-line-link-type">Button type</label></th>
-			<td>
-				<select id="cnb-action-properties-line-link-type"
-				        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][line-link-type]">
-					<option value="MESSAGE" <?php selected( $this->line_link_type, 'MESSAGE' ); ?>>
-						Chat
-					</option>
-                    <option value="PROFILE" <?php selected( $this->line_link_type, 'PROFILE' ); ?>>
-                        Profile info
-                    </option>
-				</select>
-			</td>
-		</tr>
-        <tr class="cnb-action-properties cnb-action-properties-<?php echo esc_attr($this->action_name) ?>">
-            <th scope="row"><label for="cnb-action-properties-line-message">Message</label></th>
-            <td>
-                <input placeholder="Optional" type="text" id="cnb-action-properties-line-message"
-                       name="actions[<?php echo esc_attr( $action->id ) ?>][properties][line-message]"
-                       value="<?php echo esc_attr( $this->line_message ) ?>"/>
-            </td>
-        </tr>
+		<section class="cnb_advanced_view cnb-action-properties cnb-action-properties-<?php echo esc_attr($this->action_name) ?>">
+			<hr class="cnb-bottom-spacing" /> 
+			<div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
+				<div class="cnb-section-info cnb-top-spacing">
+					<h3 class="top-0">Line settings</h3>
+				</div>
+				<div class="cnb-section-data cnb-top-spacing">
+
+					<div class="cnb-input-item">
+						<label for="cnb-action-properties-line-link-type">Button type</label>
+						<select id="cnb-action-properties-line-link-type"
+								name="actions[<?php echo esc_attr( $action->id ) ?>][properties][line-link-type]">
+							<option value="MESSAGE" <?php selected( $this->line_link_type, 'MESSAGE' ); ?>>
+								Chat
+							</option>
+							<option value="PROFILE" <?php selected( $this->line_link_type, 'PROFILE' ); ?>>
+								Profile info
+							</option>
+						</select>
+					</div>
+					
+					<div class="cnb-input-item cnb-action-properties cnb-action-properties-<?php echo esc_attr($this->action_name) ?>">
+						<label for="cnb-action-properties-line-message">Message</label>
+						<input placeholder="Optional" type="text" id="cnb-action-properties-line-message"
+							name="actions[<?php echo esc_attr( $action->id ) ?>][properties][line-message]"
+							value="<?php echo esc_attr( $this->line_message ) ?>"/>
+					</div>
+				</div><!-- END .cnb-section-data -->
+			</div><!-- END .cnb-flex -->
+		</section>
 		<?php
 	}
 }

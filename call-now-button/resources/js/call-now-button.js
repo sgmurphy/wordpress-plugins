@@ -1,3 +1,4 @@
+/* global jQuery */
 /**
  * This is used in the legacyEdit and in ButtonEdit
  */
@@ -102,17 +103,18 @@ function cnb_animate_saving() {
 
 			const invalidFields = form.find(':invalid')
 			// Find tab with error and switch to it if found
+			const tabGroup = invalidFields.first().closest('[data-tab-name]').data('tabGroup')
 			const tabName = invalidFields.first().closest('[data-tab-name]').data('tabName')
 			if (tabName) {
-				cnb_switch_tab(tabName)
+				cnb_switch_tab(tabGroup, tabName)
 			}
 			// Collect all errors and create notification
 			invalidFields.each( function(index,node) {
 				const inner = jQuery('<p/>')
-				const notification = jQuery('<div />', {class: "cnb-form-validation-notice notice notice-warning"}).append(inner)
+				const notification = jQuery('<div />', {class: "cnb-form-validation-notice notice notice-call-now-button notice-warning"}).append(inner)
 				const label = node.labels.length > 0 ? node.labels[0].innerText + ': ' : ''
 				inner.text(label + node.validationMessage)
-				notification.insertBefore(form.find('#submit'))
+				notification.insertBefore(form.find('p.submit'))
 			})
 		}
 	})
@@ -158,11 +160,6 @@ function cnb_hide_edit_domain_upgrade_if_advanced() {
 	}
 }
 
-function cnb_hide_on_modal() {
-	jQuery('.cnb_hide_on_modal').hide()
-	jQuery('.cnb_hide_on_modal input').removeAttr('required')
-}
-
 /**
  * Used in admin-header.php
  *
@@ -172,7 +169,7 @@ function cnb_hide_on_modal() {
 function cnb_enable_advanced_view(ele) {
 	window.cnb_show_advanced_view_only_set=1
 	cnb_clean_up_advanced_view()
-	jQuery(ele.parentElement.parentElement).remove()
+	jQuery(ele).closest('.notice-call-now-button').remove();
 	return false
 }
 
@@ -266,6 +263,8 @@ function cnb_button_overview_modal() {
 	jQuery(".cnb_type_selector_item").on('click', function(){
 		jQuery(".cnb_type_selector").removeClass('cnb_type_selector_active')
 		jQuery(this).addClass("cnb_type_selector_active")
+
+		// Update fields
 		const cnbType = jQuery(this).attr("data-cnb-selection")
 		jQuery('#button_type').val(cnbType)
 
@@ -278,8 +277,6 @@ function cnb_button_overview_modal() {
 
 	jQuery(".cnb-button-overview-modal-add-new").on("click", function() {
 		setTimeout(function () {
-			// Ensure that the hidden value input is not required
-			jQuery('#cnb_action_value_input').removeAttr('required')
 			jQuery("input[name='button[name]']").trigger("focus")
 		})
 	})
@@ -293,20 +290,31 @@ function cnb_button_overview_add_new_click() {
 function cnb_init_tabs() {
 	jQuery('a.nav-tab').on('click', (e) => {
 		e.preventDefault()
-		return cnb_switch_tab(jQuery( e.target ).data('tabName'))
+		const tabGroup = jQuery( e.target ).data('tabGroup')
+		const tabName = jQuery( e.target ).data('tabName')
+		return cnb_switch_tab(tabGroup, tabName)
 	})
 }
 
-function cnb_switch_tab(tabName, addToHistory = true) {
-	const tab = jQuery('a.nav-tab[data-tab-name][data-tab-name="' + tabName + '"]')
-	const tabContent = jQuery('table[data-tab-name][data-tab-name="' + tabName + '"], div[data-tab-name][data-tab-name="' + tabName + '"]')
+/**
+ * Can be called by screens to enable a (default) tab
+ *
+ * @param tabGroup {string}
+ * @param tabName {string}
+ * @param addToHistory {boolean}
+ */
+function cnb_switch_tab(tabGroup, tabName, addToHistory = true) {
+	const selector = '[data-tab-name][data-tab-name="' + tabName + '"][data-tab-group="' + tabGroup + '"]'
+	const tab = jQuery('a.nav-tab' + selector)
+	const tabContent = jQuery('section' + selector +', div' + selector)
 
 	// Does tab name exist (if not, don't do anything)
 	if (tab.length === 0) return false
 
 	// Hide all tabs
-	const otherTabs = jQuery('a.nav-tab[data-tab-name][data-tab-name!="' + tabName + '"]')
-	const otherTabsContent = jQuery('table[data-tab-name][data-tab-name!="' + tabName + '"], div[data-tab-name][data-tab-name!="' + tabName + '"]')
+	const notSelector = '[data-tab-name][data-tab-name!="' + tabName + '"][data-tab-group="' + tabGroup + '"]'
+	const otherTabs = jQuery('a.nav-tab' + notSelector)
+	const otherTabsContent = jQuery('section' + notSelector +', div' + notSelector)
 	otherTabs.removeClass('nav-tab-active')
 	otherTabsContent.hide()
 
@@ -315,17 +323,20 @@ function cnb_switch_tab(tabName, addToHistory = true) {
 	tabContent.show()
 
 	// If there is an element keeping track of the tab, update it
-	jQuery('input[name="tab"]').val(tabName)
+	jQuery('input[name="tabName"]').val(tabName)
+	jQuery('input[name="tabGroup"]').val(tabGroup)
 
 	// Push this to URL
 	if (addToHistory) {
 		const url = new URL(window.location)
 		const data = {
 			cnb_switch_tab_event: true,
-			tab_name: tabName
+			tab_group: tabGroup,
+			tab_name: tabName,
 		}
 
-		url.searchParams.set('tab', tabName)
+		url.searchParams.set('tabName', tabName)
+		url.searchParams.set('tabGroup', tabGroup)
 		window.history.pushState(data, '', url)
 	}
 
@@ -334,9 +345,9 @@ function cnb_switch_tab(tabName, addToHistory = true) {
 
 function cnb_switch_tab_from_history_listener() {
 	window.addEventListener('popstate', (event) => {
-		if (event && event.state && event.state.cnb_switch_tab_event && event.state.tab_name) {
+		if (event && event.state && event.state.cnb_switch_tab_event && event.state.tab_group && event.state.tab_name) {
 			// Switch back but do NOT add this action to the history again to prevent loops
-			cnb_switch_tab(event.state.tab_name, false)
+			cnb_switch_tab(event.state.tab_group, event.state.tab_name, false)
 		}
 	})
 }
@@ -419,6 +430,49 @@ function cnb_slide_switcher() {
 	})
 }
 
+/**
+ * Aside functionality (slide over on small screens, tabbed UI on big screens)
+ *
+ */
+function cnb_init_aside() {
+	if (typeof cnb_domain !== 'undefined' && cnb_domain && cnb_domain.type === 'PRO') return
+
+	// JS for the SlideOver (only on small screens)
+	jQuery('aside').prepend('<div class="cnb-aside-background"></div>'); 
+	// Injects slideover open button
+	jQuery('form').after('<button id="cnb-open-aside" class="cnb-slide-over"><span style="transform: rotate(90deg); margin-top:4px" class="dashicons dashicons-unlock"></span> more features!</button>');
+	// Injects slideover close button
+	jQuery('.cnb-aside-body').prepend('<div class="cnb-close-button"><button id="cnb-close-aside"><span class="dashicons dashicons-no-alt"></span></button></div>');
+
+	function closeAside() {
+		jQuery('aside').removeClass('cnb-aside-open');
+		setTimeout(function() {
+			jQuery('.cnb-aside-background').css('inset', 'unset');
+		}, 350);
+	}
+							
+	jQuery('#cnb-open-aside').click(function() {
+		jQuery('aside').addClass('cnb-aside-open');
+		jQuery('.cnb-aside-background').css('inset', '0');
+	});
+
+	jQuery('#cnb-close-aside').click(function() {
+		closeAside();
+	});
+
+	// JS for the aside tabs (only on big screens)
+	jQuery('.cnb-nav-aside').on('click', '.cnb-aside-tab', function(e) {
+		e.preventDefault();
+
+		jQuery('.cnb-aside-tab').removeClass('cnb-aside-tab-active');
+		jQuery(this).addClass('cnb-aside-tab-active');
+
+		const tabName = jQuery(this).data('tab-name');
+		jQuery('.cnb-content-aside-more, .cnb-content-aside-support').removeClass('cnb-content-aside-active');
+		jQuery('.cnb-content-aside-' + tabName).addClass('cnb-content-aside-active');
+	});
+}
+
 jQuery( function() {
 	// Generic
 	cnb_setup_colors()
@@ -432,17 +486,12 @@ jQuery( function() {
 	cnb_setup_toggle_label_clicks()
 	cnb_currency_toggle()
 	cnb_switch_tab_from_history_listener()
+	cnb_init_aside()
 
 	// Allow for tab switching to be dynamic
 	cnb_init_tabs()
 
 	cnb_clean_up_advanced_view()
-
-	// This needs to go AFTER the "advanced_view" check so a modal does not get additional (unneeded) "advanced" items
-	if (typeof cnb_hide_on_modal_set !== 'undefined' && cnb_hide_on_modal_set === 1) {
-		cnb_hide_on_modal()
-	}
-
 	// page: button-edit (conditions tabs)
 
 	cnb_delete_action()

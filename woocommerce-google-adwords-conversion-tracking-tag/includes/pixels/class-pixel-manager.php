@@ -838,8 +838,8 @@ class Pixel_Manager
         if ( Options::is_linkedin_active() ) {
             $data['linkedin'] = $this->get_linkedin_pixel_data();
         }
-        if ( $this->options_obj->bing->uet_tag_id ) {
-            $data['bing'] = $this->get_bing_pixel_data();
+        if ( Options::is_bing_active() ) {
+            $data['bing'] = self::get_bing_pixel_data();
         }
         if ( $this->options_obj->facebook->pixel_id ) {
             $data['facebook'] = $this->get_facebook_pixel_data();
@@ -972,11 +972,12 @@ class Pixel_Manager
         ];
     }
     
-    protected function get_bing_pixel_data()
+    protected static function get_bing_pixel_data()
     {
         return [
-            'uet_tag_id'          => $this->options_obj->bing->uet_tag_id,
-            'dynamic_remarketing' => [
+            'uet_tag_id'           => Options::get_bing_uet_tag_id(),
+            'enhanced_conversions' => Options::is_bing_enhanced_conversions_enabled(),
+            'dynamic_remarketing'  => [
             'id_type' => Product::get_dyn_r_id_type( 'bing' ),
         ],
         ];

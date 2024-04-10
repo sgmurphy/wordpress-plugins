@@ -323,9 +323,16 @@ class Notices
             $result[$url] = [];
             $checker = new SavingConsentViaRestApiEndpointChecker();
             $checker->start();
+            // See https://github.com/WordPress/WordPress/blob/8fbd2fc6f40ea1f2ad746758b7111a66ab134e19/wp-admin/includes/class-wp-site-health.php#L2136-L2137
+            $args['sslverify'] = \apply_filters('https_local_ssl_verify', \false);
             $response = \wp_remote_post($url, $args);
             if (\is_wp_error($response)) {
                 $result[$url][] = $response->get_error_message();
+                $result[$url][] = \sprintf(
+                    // translators:
+                    \__('There seems to be something generally wrong with the REST API of your WordPress instance. Please deactivate Real Cookie Banner and then check under <a href="%s">Tools > Site Health</a> whether errors regarding the REST API are listed there.', RCB_TD),
+                    \admin_url('site-health.php')
+                );
             } else {
                 $result[$url] = $checker->teardown($response['body'], $response['headers']->getAll(), $response['response']['code']);
             }

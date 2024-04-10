@@ -3,21 +3,21 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.4
+Version: 4.8.5
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 WC requires at least: 3.0
 WC tested up to: 8.7
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.4' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.5' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
@@ -810,7 +810,33 @@ if ( ! function_exists( 'woosw_init' ) ) {
 
 					$share_url   = self::get_url( $key, true );
 					$return_html = '<div class="woosw-list">';
+
+					if ( ( self::get_setting( 'enable_multiple', 'no' ) === 'yes' ) && ( $user_id = get_current_user_id() ) && self::can_edit( $key ) ) {
+						$keys = get_user_meta( $user_id, 'woosw_keys', true ) ?: [];
+
+						if ( is_array( $keys ) && ( count( $keys ) > 1 ) ) {
+							// have more than one wishlist
+							$return_html .= '<div class="woosw-switcher">';
+							$return_html .= '<select class="woosw-switcher-dropdown">';
+
+							foreach ( $keys as $k => $wl ) {
+								$products = self::get_ids( $k );
+								$count    = count( $products );
+
+								if ( isset( $wl['type'] ) && ( $wl['type'] === 'primary' ) ) {
+									$return_html .= '<option value="' . esc_url( self::get_url( $k, true ) ) . '" data-key="' . esc_attr( $k ) . '" ' . selected( $key, $k, false ) . '>' . self::localization( 'primary_name', esc_html__( 'Wishlist', 'woo-smart-wishlist' ) ) . ' (' . $count . ')</option>';
+								} else {
+									$return_html .= '<option value="' . esc_url( self::get_url( $k, true ) ) . '" data-key="' . esc_attr( $k ) . '" ' . selected( $key, $k, false ) . '>' . esc_html( ! empty( $wl['name'] ) ? $wl['name'] : $k ) . ' (' . $count . ')</option>';
+								}
+							}
+
+							$return_html .= '</select>';
+							$return_html .= '</div><!-- /woosw-switcher -->';
+						}
+					}
+
 					$return_html .= self::get_items( $key, 'table' );
+
 					$return_html .= '<div class="woosw-actions">';
 
 					if ( self::get_setting( 'page_share', 'yes' ) === 'yes' ) {

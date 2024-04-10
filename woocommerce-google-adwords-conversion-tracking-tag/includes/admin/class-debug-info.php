@@ -28,72 +28,73 @@ class Debug_Info
             $html .= '## Pixel Manager Info ##' . PHP_EOL . PHP_EOL;
             $html .= 'Version: ' . PMW_CURRENT_VERSION . PHP_EOL;
             $tier = ( wpm_fs()->can_use_premium_code__premium_only() ? 'pro' : 'free' );
-            $html .= 'Tier: ' . $tier . PHP_EOL;
-            $html .= 'Distro: ' . PMW_DISTRO . PHP_EOL;
+            $html .= 'Tier:    ' . $tier . PHP_EOL;
+            $html .= 'Distro:  ' . PMW_DISTRO . PHP_EOL;
             $html .= PHP_EOL . '## Freemius ##' . PHP_EOL . PHP_EOL;
             // if Freemius is active, show the debug info
             $html = self::add_freemius_account_details( $html );
-            $html .= 'api.freemius.com : ' . self::try_connect_to_server( 'https://api.freemius.com' ) . PHP_EOL;
-            $html .= 'wp.freemius.com : ' . self::try_connect_to_server( 'https://wp.freemius.com' ) . PHP_EOL;
             $html .= PHP_EOL . '## System Environment ##' . PHP_EOL . PHP_EOL;
-            $html .= 'WordPress version: ' . $wp_version . PHP_EOL;
+            $html .= 'WordPress version:   ' . $wp_version . PHP_EOL;
             if ( Environment::is_woocommerce_active() ) {
                 $html .= 'WooCommerce version: ' . $woocommerce->version . PHP_EOL;
             }
-            $html .= 'PHP version: ' . phpversion() . PHP_EOL;
-            $html .= 'Server max execution time: ' . ini_get( 'max_execution_time' ) . PHP_EOL;
+            $html .= 'PHP version:         ' . phpversion() . PHP_EOL;
+            $html .= PHP_EOL;
+            $html .= 'Server max execution time: ' . ini_get( 'max_execution_time' ) . ' seconds' . PHP_EOL;
             // show the php.ini file that is being used with full path location
             //			$html .= 'php.ini file: ' . php_ini_loaded_file() . PHP_EOL;
-            $html .= 'Freemius SDK version: ' . $fs_active_plugins->newest->version . PHP_EOL;
-            $html .= 'WordPress memory limit: ' . Environment::get_wp_memory_limit() . PHP_EOL;
+            $html .= 'WordPress memory limit:    ' . Environment::get_wp_memory_limit() . PHP_EOL;
             $curl_available = ( Environment::is_curl_active() ? 'yes' : 'no' );
-            $html .= 'curl available: ' . $curl_available . PHP_EOL;
-            $html .= 'wp_remote_get to Cloudflare: ' . self::pmw_remote_get_response( 'https://www.cloudflare.com/cdn-cgi/trace' ) . PHP_EOL;
-            $html .= 'wp_remote_get to Google Analytics API: ' . self::pmw_remote_get_response( 'https://www.google-analytics.com/debug/collect' ) . PHP_EOL;
-            $html .= 'wp_remote_get to Facebook Graph API: ' . self::pmw_remote_get_response( 'https://graph.facebook.com/facebook/picture?redirect=false' ) . PHP_EOL;
-            //        $html           .= 'wp_remote_post to Facebook Graph API: ' . self::wp_remote_get_response('https://graph.facebook.com/') . PHP_EOL;
+            $html .= 'curl available:            ' . $curl_available . PHP_EOL;
             $transients_enabled = ( Environment::is_transients_enabled() ? 'yes' : 'no' );
-            $html .= 'transients enabled: ' . $transients_enabled . PHP_EOL;
+            $html .= 'transients enabled:        ' . $transients_enabled . PHP_EOL;
+            $html .= PHP_EOL;
+            $html .= 'wp_remote_get to Cloudflare:           ' . self::pmw_remote_get_response( 'https://www.cloudflare.com/cdn-cgi/trace' ) . PHP_EOL;
+            $html .= 'wp_remote_get to Google Analytics API: ' . self::pmw_remote_get_response( 'https://www.google-analytics.com/debug/collect' ) . PHP_EOL;
+            $html .= 'wp_remote_get to Facebook Graph API:   ' . self::pmw_remote_get_response( 'https://graph.facebook.com/facebook/picture?redirect=false' ) . PHP_EOL;
+            //        $html           .= 'wp_remote_post to Facebook Graph API: ' . self::wp_remote_get_response('https://graph.facebook.com/') . PHP_EOL;
             $html .= PHP_EOL;
             $multisite_enabled = ( is_multisite() ? 'yes' : 'no' );
-            $html .= 'Multisite enabled: ' . $multisite_enabled . PHP_EOL;
+            $html .= 'Multisite enabled:            ' . $multisite_enabled . PHP_EOL;
             $wp_debug = 'no';
             if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
                 $wp_debug = 'yes';
             }
             $html .= 'WordPress debug mode enabled: ' . $wp_debug . PHP_EOL;
             //        wp_get_current_user();
-            $html .= 'Logged in user login name: ' . $current_user->user_login . PHP_EOL;
-            $html .= 'Logged in user display name: ' . $current_user->display_name . PHP_EOL;
-            $html .= 'hook_suffix: ' . $hook_suffix . PHP_EOL;
+            $html .= 'Logged in user login name:    ' . $current_user->user_login . PHP_EOL;
+            $html .= 'Logged in user display name:  ' . $current_user->display_name . PHP_EOL;
+            $html .= 'hook_suffix:                  ' . $hook_suffix . PHP_EOL;
             $html .= PHP_EOL;
             $html .= 'Hosting provider: ' . Environment::get_hosting_provider() . PHP_EOL;
             
             if ( Environment::is_woocommerce_active() ) {
                 $html .= PHP_EOL . '## WooCommerce ##' . PHP_EOL . PHP_EOL;
                 $html .= 'Default currency: ' . get_woocommerce_currency() . PHP_EOL;
-                $html .= 'Shop URL: ' . get_home_url() . PHP_EOL;
-                $html .= 'Cart URL: ' . wc_get_cart_url() . PHP_EOL;
-                $html .= 'Checkout URL: ' . wc_get_checkout_url() . PHP_EOL;
+                $html .= 'Shop URL:         ' . get_home_url() . PHP_EOL;
+                $html .= 'Cart URL:         ' . wc_get_cart_url() . PHP_EOL;
+                $html .= 'Checkout URL:     ' . wc_get_checkout_url() . PHP_EOL;
+                $html .= PHP_EOL;
                 $html .= 'Purchase confirmation endpoint: ' . wc_get_endpoint_url( 'order-received' ) . PHP_EOL;
                 $order_received_page_url = wc_get_checkout_url() . ltrim( wc_get_endpoint_url( 'order-received' ), '/' );
-                $html .= 'is_order_received_page(): ' . $order_received_page_url . PHP_EOL . PHP_EOL;
+                $html .= 'is_order_received_page():       ' . $order_received_page_url . PHP_EOL . PHP_EOL;
                 
                 if ( Environment::does_one_order_exist() ) {
                     $last_order_url = Environment::get_last_order_url();
-                    $html .= 'Last order URL: ' . $last_order_url . '&nodedupe&pmwloggeron' . PHP_EOL;
+                    $html .= 'Last order URL:   ' . $last_order_url . '&nodedupe&pmwloggeron' . PHP_EOL;
                     $html .= 'Last order email: ' . Environment::get_last_order()->get_billing_email() . PHP_EOL;
+                    $html .= PHP_EOL;
                     $last_order_url_contains_order_received_page_url = ( strpos( Environment::get_last_order_url(), $order_received_page_url ) !== false ? 'yes' : 'no' );
-                    $html .= 'Order received page uses proper is_order_received() url: ' . $last_order_url_contains_order_received_page_url . PHP_EOL;
+                    $html .= 'Purchase confirmation uses is_order_received(): ' . $last_order_url_contains_order_received_page_url . PHP_EOL;
                     $url_response = self::pmw_remote_get_response( $last_order_url );
                     
                     if ( 200 === $url_response ) {
-                        $html .= 'Purchase confirmation page redirect: ' . $url_response . ' (OK)' . PHP_EOL;
+                        $html .= 'Purchase confirmation page redirect:            ' . $url_response . ' (OK)' . PHP_EOL;
                     } elseif ( $url_response >= 300 && $url_response < 400 ) {
-                        $html .= self::show_warning( true ) . 'Purchase confirmation page redirect: ' . $url_response . ' (ERROR)' . PHP_EOL;
-                        $html .= self::show_warning( true ) . 'Redirect URL: ' . self::pmw_get_final_url( Environment::get_last_order_url() ) . PHP_EOL;
+                        $html .= self::show_warning( true ) . 'Purchase confirmation redirect:            ' . $url_response . ' (ERROR)' . PHP_EOL;
+                        $html .= self::show_warning( true ) . 'Redirect URL:                              ' . self::pmw_get_final_url( Environment::get_last_order_url() ) . PHP_EOL;
                     } else {
-                        $html .= 'Purchase confirmation page redirect: ' . $url_response . ' (ERROR)' . PHP_EOL;
+                        $html .= 'Purchase confirmation redirect:            ' . $url_response . ' (ERROR)' . PHP_EOL;
                     }
                 
                 }
@@ -147,7 +148,7 @@ class Debug_Info
             //        $html .= PHP_EOL;
             $html .= PHP_EOL . '## Theme ##' . PHP_EOL . PHP_EOL;
             $is_child_theme = ( is_child_theme() ? 'yes' : 'no' );
-            $html .= 'Is child theme: ' . $is_child_theme . PHP_EOL;
+            $html .= 'Is child theme:      ' . $is_child_theme . PHP_EOL;
             $theme_support = ( current_theme_supports( 'woocommerce' ) ? 'yes' : 'no' );
             $html .= 'WooCommerce support: ' . $theme_support . PHP_EOL;
             $html .= PHP_EOL;
@@ -155,13 +156,13 @@ class Debug_Info
             // the child state correctly
             // https://wordpress.org/support/topic/debug-error-33/
             $theme_description_prefix = ( is_child_theme() && wp_get_theme()->parent() ? 'Child theme ' : 'Theme ' );
-            $html .= $theme_description_prefix . 'Name: ' . wp_get_theme()->get( 'Name' ) . PHP_EOL;
-            $html .= $theme_description_prefix . 'ThemeURI: ' . wp_get_theme()->get( 'ThemeURI' ) . PHP_EOL;
-            $html .= $theme_description_prefix . 'Author: ' . wp_get_theme()->get( 'Author' ) . PHP_EOL;
-            $html .= $theme_description_prefix . 'AuthorURI: ' . wp_get_theme()->get( 'AuthorURI' ) . PHP_EOL;
-            $html .= $theme_description_prefix . 'Version: ' . wp_get_theme()->get( 'Version' ) . PHP_EOL;
-            $html .= $theme_description_prefix . 'Template: ' . wp_get_theme()->get( 'Template' ) . PHP_EOL;
-            $html .= $theme_description_prefix . 'Status: ' . wp_get_theme()->get( 'Status' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'Name:       ' . wp_get_theme()->get( 'Name' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'ThemeURI:   ' . wp_get_theme()->get( 'ThemeURI' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'Author:     ' . wp_get_theme()->get( 'Author' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'AuthorURI:  ' . wp_get_theme()->get( 'AuthorURI' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'Version:    ' . wp_get_theme()->get( 'Version' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'Template:   ' . wp_get_theme()->get( 'Template' ) . PHP_EOL;
+            $html .= $theme_description_prefix . 'Status:     ' . wp_get_theme()->get( 'Status' ) . PHP_EOL;
             $html .= $theme_description_prefix . 'TextDomain: ' . wp_get_theme()->get( 'TextDomain' ) . PHP_EOL;
             $html .= $theme_description_prefix . 'DomainPath: ' . wp_get_theme()->get( 'DomainPath' ) . PHP_EOL;
             $html .= PHP_EOL;
@@ -169,13 +170,13 @@ class Debug_Info
             // the child state correctly
             
             if ( is_child_theme() && wp_get_theme()->parent() ) {
-                $html .= 'Parent theme Name: ' . wp_get_theme()->parent()->get( 'Name' ) . PHP_EOL;
-                $html .= 'Parent theme ThemeURI: ' . wp_get_theme()->parent()->get( 'ThemeURI' ) . PHP_EOL;
-                $html .= 'Parent theme Author: ' . wp_get_theme()->parent()->get( 'Author' ) . PHP_EOL;
-                $html .= 'Parent theme AuthorURI: ' . wp_get_theme()->parent()->get( 'AuthorURI' ) . PHP_EOL;
-                $html .= 'Parent theme Version: ' . wp_get_theme()->parent()->get( 'Version' ) . PHP_EOL;
-                $html .= 'Parent theme Template: ' . wp_get_theme()->parent()->get( 'Template' ) . PHP_EOL;
-                $html .= 'Parent theme Status: ' . wp_get_theme()->parent()->get( 'Status' ) . PHP_EOL;
+                $html .= 'Parent theme Name:       ' . wp_get_theme()->parent()->get( 'Name' ) . PHP_EOL;
+                $html .= 'Parent theme ThemeURI:   ' . wp_get_theme()->parent()->get( 'ThemeURI' ) . PHP_EOL;
+                $html .= 'Parent theme Author:     ' . wp_get_theme()->parent()->get( 'Author' ) . PHP_EOL;
+                $html .= 'Parent theme AuthorURI:  ' . wp_get_theme()->parent()->get( 'AuthorURI' ) . PHP_EOL;
+                $html .= 'Parent theme Version:    ' . wp_get_theme()->parent()->get( 'Version' ) . PHP_EOL;
+                $html .= 'Parent theme Template:   ' . wp_get_theme()->parent()->get( 'Template' ) . PHP_EOL;
+                $html .= 'Parent theme Status:     ' . wp_get_theme()->parent()->get( 'Status' ) . PHP_EOL;
                 $html .= 'Parent theme TextDomain: ' . wp_get_theme()->parent()->get( 'TextDomain' ) . PHP_EOL;
                 $html .= 'Parent theme DomainPath: ' . wp_get_theme()->parent()->get( 'DomainPath' ) . PHP_EOL;
             }
@@ -194,15 +195,26 @@ class Debug_Info
             return $html;
         }
         global  $fs_active_plugins ;
-        $wpm_fs = wpm_fs();
-        if ( method_exists( $wpm_fs, 'get_user' ) ) {
-            $html .= 'Freemius User ID: ' . wpm_fs()->get_user()->id . PHP_EOL;
+        
+        if ( method_exists( wpm_fs(), 'get_user' ) ) {
+            $fs_user = wpm_fs()->get_user();
+            $fs_user_id = ( property_exists( $fs_user, 'id' ) ? $fs_user->id : 'not found' );
+            $html .= 'Freemius User ID:     ' . $fs_user_id . PHP_EOL;
         }
-        if ( method_exists( $wpm_fs, 'get_site' ) ) {
-            $html .= 'Freemius Site ID: ' . wpm_fs()->get_site()->id . PHP_EOL;
+        
+        
+        if ( method_exists( wpm_fs(), 'get_site' ) ) {
+            $fs_site = wpm_fs()->get_site();
+            $fs_site_id = ( property_exists( $fs_site, 'id' ) ? $fs_site->id : 'not found' );
+            $html .= 'Freemius Site ID:     ' . $fs_site_id . PHP_EOL;
         }
-        $html .= 'Freemius SDK active: ' . $fs_active_plugins->newest->version . PHP_EOL;
-        $html .= 'Freemius SDK bundled in plugin: ' . wpm_fs()->version . PHP_EOL;
+        
+        $fs_sdk_bundled_version = ( property_exists( wpm_fs(), 'version' ) ? wpm_fs()->version : 'not found' );
+        $html .= 'Freemius SDK bundled: ' . $fs_sdk_bundled_version . PHP_EOL;
+        $fs_sdk_active_version = ( property_exists( $fs_active_plugins, 'newest' ) && property_exists( $fs_active_plugins->newest, 'version' ) ? $fs_active_plugins->newest->version : 'not found' );
+        $html .= 'Freemius SDK active:  ' . $fs_sdk_active_version . PHP_EOL;
+        $html .= 'api.freemius.com:     ' . self::try_connect_to_server( 'https://api.freemius.com' ) . PHP_EOL;
+        $html .= 'wp.freemius.com:      ' . self::try_connect_to_server( 'https://wp.freemius.com' ) . PHP_EOL;
         return $html;
     }
     

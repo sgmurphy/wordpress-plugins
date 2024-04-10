@@ -73,9 +73,9 @@ class CnbAdminCloud {
      * Since this is only used by the ButtonController (and the update one at that),
      * we ignore notices for Actions and Conditions
      *
-     * @param $button CnbButton
-     * @param $actions CnbAction[]
-     * @param $conditions CnbCondition[]
+     * @param $button CnbButton|WP_Error
+     * @param $actions (CnbAction|WP_Error)[]
+     * @param $conditions (CnbCondition|WP_Error)[]
      *
      * @return array
      */
@@ -95,10 +95,13 @@ class CnbAdminCloud {
             } else if ( $condition->id === '' ) {
                 // 2.2 Create new Conditions
                 $new_conditions[] = self::cnb_create_condition( $ignore_notices, $condition );
-            } else if ( $condition->id !== '' ) {
-                // 2.3 Update existing Conditions
-                $new_conditions[] = self::cnb_update_condition( $ignore_notices, $condition );
-            }
+            } else if ( $condition->matchValue !== null ) {
+		        // 2.3 Update existing Conditions
+		        $new_conditions[] = self::cnb_update_condition( $ignore_notices, $condition );
+	        } else {
+		        // 2.4 No update needed, so pass on received (this happens on `CnbButtonController->update`, has nothing to do with Conditions)
+		        $new_conditions[] = $condition;
+	        }
         }
 
         // 2: Update the Action(s)
@@ -183,9 +186,9 @@ class CnbAdminCloud {
         $cnb_remote = new CnbAppRemote();
         $result = $cnb_remote->update_condition( $condition );
         if ( $result instanceof WP_Error ) {
-            $message = self::cnb_admin_get_error_message( 'update', 'condition', $result );
+            $message = self::cnb_admin_get_error_message( 'update', 'Display Rule', $result );
         } else {
-            $message = self::cnb_admin_get_success_message( 'updated', 'condition', $result->id );
+            $message = self::cnb_admin_get_success_message( 'updated', 'Display rule', $result->id );
         }
         $cnb_cloud_notifications[] = $message;
 
@@ -491,11 +494,7 @@ class CnbAdminCloud {
      * @return CnbNotice A WordPress success notice with all details filled out
      */
     public static function cnb_admin_get_success_message( $verb, $type, $id ) {
-        $advanced    = '';
-        if ( CnbSettingsController::is_advanced_view() ) {
-            $advanced = ' at <strong>' . esc_html( CnbAppRemote::cnb_get_api_base() ) . '</strong>';
-        }
-        $message             = '<p>Your ' . $type . ' <strong>' . esc_html( $id ) . '</strong> has been ' . $verb . $advanced . '</p>';
+        $message             = '<p>The ' . esc_html( $type ) . ' <strong class="cnb_advanced_view">' . esc_html( $id ) . '</strong> has been ' . esc_html( $verb ) . '<span class="cnb_advanced_view"> at <strong>' . esc_html( CnbAppRemote::cnb_get_api_base() ) . '</strong></span></p>';
         $notice              = new CnbNotice( 'success', $message );
         $notice->dismissable = true;
 

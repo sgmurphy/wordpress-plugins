@@ -223,6 +223,22 @@ class CnbAction implements JsonSerializable {
     public function jsonSerialize() {
         return $this->toArray();
     }
+
+	public static function getDefaultAction() {
+		$action = new CnbAction();
+		$action->id          = 'new';
+		$action->actionType  = 'PHONE';
+		$action->actionValue = null;
+		$action->labelText   = null;
+		$action->backgroundColor = '#009900';
+		$action->iconColor = '#FFFFFF';
+		$action->iconEnabled = true;
+		$action->iconText = ( new CnbUtils() )->cnb_actiontype_to_icontext( $action->actionType );
+		$action->iconType = 'DEFAULT';
+		$action->properties  = new CnbActionProperties();
+
+		return $action;
+	}
 }
 
 class CnbActionProperties extends ArrayObject implements JsonSerializable {

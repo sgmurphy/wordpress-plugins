@@ -61,7 +61,7 @@ function cnb_email_activation(form) {
         .done((result) => {
             if (result && result.email) {
                 clearTimeout(takingTooLongTimer)
-                jQuery(form).find('.cnb_email_activation_message').html('<span class="cnb_check_email_message">Check your inbox for an activation email sent to <strong><span class="cnb_email_activation_address"></span></strong>.</span>')
+                jQuery(form).find('.cnb_email_activation_message').html('<div class="cnb_check_email_message mt-1 cnb-block-radius cnb-flex cnb-flex-gap"><span class="dashicons dashicons-buddicons-pm"></span><div><h3 class="top-0 bottom-0">Take a look in your inbox!</h3><p class="bottom-0">Check your inbox for an activation email sent to <strong><span class="cnb_email_activation_address"></span></strong> and hit that <em>Confirmation</em> button!.</p></div></div>')
                 jQuery(form).find('span.cnb_email_activation_address').text(result.email)
             }
 

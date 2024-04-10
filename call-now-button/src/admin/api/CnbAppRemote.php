@@ -220,25 +220,27 @@ class CnbAppRemote {
 
 			return $response;
 		}
-		if ( $response['response']['code'] == 403 ) {
-			if ( $response['response']['message'] == 'Forbidden' && str_contains( $response['body'], 'Access Denied' ) ) {
-				return new WP_Error( 'CNB_API_KEY_INVALID', $response['response']['message'] );
+		$response_code = wp_remote_retrieve_response_code( $response );
+		if ( $response_code == 403 ) {
+			$response_message = wp_remote_retrieve_response_message( $response );
+			if ( $response_message == 'Forbidden' && str_contains( wp_remote_retrieve_body ( $response ), 'Access Denied' ) ) {
+				return new WP_Error( 'CNB_API_KEY_INVALID', $response_message );
 			}
 		}
-		if ( $response['response']['code'] == 404 ) {
-			return new WP_Error( 'CNB_ENTITY_NOT_FOUND', $response['response']['message'] );
+		if ( $response_code == 404 ) {
+			return new WP_Error( 'CNB_ENTITY_NOT_FOUND', wp_remote_retrieve_response_message( $response ) );
 		}
 		// 402 == Payment required
-		if ( $response['response']['code'] == 402 ) {
+		if ( $response_code == 402 ) {
 			$body = json_decode( $response['body'] );
 
-			return new WP_Error( 'CNB_PAYMENT_REQUIRED', $response['response']['message'], $body->message );
+			return new WP_Error( 'CNB_PAYMENT_REQUIRED', wp_remote_retrieve_response_message( $response ), $body->message );
 		}
-		if ( $response['response']['code'] != 200 ) {
-			return new WP_Error( 'CNB_ERROR', $response['response']['message'], $response['body'] );
+		if ( $response_code != 200 ) {
+			return new WP_Error( 'CNB_ERROR', wp_remote_retrieve_response_message( $response ), wp_remote_retrieve_body ( $response ) );
 		}
 
-		return json_decode( $response['body'] );
+		return json_decode( wp_remote_retrieve_body ( $response ) );
 	}
 
 	/**
@@ -959,7 +961,8 @@ class CnbAppRemote {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button-settings',
-					'tab'  => 'account_options',
+					'tabName'  => 'account_options',
+					'tabGroup' => 'settings'
 				),
 				admin_url( 'admin.php' ) );
 

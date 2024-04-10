@@ -43,6 +43,7 @@ Helps optimizing the time spent translating your site with some very useful extr
 * Improved compatibility with other plugins such as [ACF Pro](https://polylang.pro/doc/working-with-acf-pro/).
 * Share the same URL slug for posts or terms across languages.
 * [Translate URL slugs](https://polylang.pro/doc/translating-urls-slugs/) for categories, author bases, custom post types and more...
+* Machine translation with DeepL.
 * Export and import of content in XLIFF format for outsourced professional translation.
 * **Access to a Premium Support for personalized assistance.**
 
@@ -106,7 +107,7 @@ Wherever third party code has been used, credit has been given in the code’s c
 
 = 3.6.1 (2024-04-09) =
 
-* Pro: Fix ACF fields not swown after a post was translated with DeepL
+* Pro: Fix ACF fields not shown after a post was translated with DeepL
 * Remove rewrite when registering the language taxonomy #1457
 * Fix search block not filtered when displayed as button only #1459
 * Fix current language not kept when using switch_to_blog() in multisite #1458

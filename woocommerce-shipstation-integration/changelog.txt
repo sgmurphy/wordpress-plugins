@@ -1,5 +1,8 @@
 *** ShipStation for WooCommerce ***
 
+= 4.4.2 - 2024-04-09 =
+* Fix - Cannot retrieve order number on from GET variable.
+
 = 4.4.1 - 2024-03-25 =
 * Tweak - WordPress 6.5 compatibility.
 

@@ -689,7 +689,7 @@ class Environment {
 	}
 
 	public static function is_hosting_wp_engine() {
-		return !!getenv('IS_WPE');
+		return (bool) getenv('IS_WPE');
 	}
 
 	public static function is_hosting_godaddy_wpaas() {

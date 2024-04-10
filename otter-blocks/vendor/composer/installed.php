@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/otter-blocks',
-        'pretty_version' => '2.6.8',
-        'version' => '2.6.8.0',
+        'pretty_version' => '2.6.9',
+        'version' => '2.6.9.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -11,8 +11,8 @@
     ),
     'versions' => array(
         'codeinwp/otter-blocks' => array(
-            'pretty_version' => '2.6.8',
-            'version' => '2.6.8.0',
+            'pretty_version' => '2.6.9',
+            'version' => '2.6.9.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/themeisle-sdk' => array(
-            'pretty_version' => '3.3.17',
-            'version' => '3.3.17.0',
-            'reference' => 'b5698f21640d0156bd6777aa5c71e0704748755c',
+            'pretty_version' => '3.3.18',
+            'version' => '3.3.18.0',
+            'reference' => '5463d7170ed7b9735223d6715442b8670a477688',
             'type' => 'library',
             'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'masterminds/html5' => array(
-            'pretty_version' => '2.8.1',
-            'version' => '2.8.1.0',
-            'reference' => 'f47dcf3c70c584de14f21143c55d9939631bc6cf',
+            'pretty_version' => '2.9.0',
+            'version' => '2.9.0.0',
+            'reference' => 'f5ac2c0b0a2eefca70b2ce32a5809992227e75a6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../masterminds/html5',
             'aliases' => array(),
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v13.17.0',
-            'version' => '13.17.0.0',
-            'reference' => '24d3d9ed8406e10d24452af44597300173655f69',
+            'pretty_version' => 'v13.18.0',
+            'version' => '13.18.0.0',
+            'reference' => '02abb043b103766f4ed920642ae56ffdc58c7467',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),

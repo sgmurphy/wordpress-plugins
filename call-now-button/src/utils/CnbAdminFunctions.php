@@ -9,17 +9,28 @@ defined( 'ABSPATH' ) || die( '-1' );
 
 class CnbAdminFunctions {
     /**
-     * Get the active tab name (?tab=<name>)
+     * Get the active tab name (?tabName=<name>)
      *
      * @return string
      */
     function get_active_tab_name() {
         $cnb_utils = new CnbUtils();
 
-        return $cnb_utils->get_query_val( 'tab', 'basic_options' );
+        return $cnb_utils->get_query_val( 'tabName' );
     }
 
-    /**
+	/**
+	 * Get the active tab name (?tabGroup=<name>)
+	 *
+	 * @return string
+	 */
+	function get_active_tab_group() {
+		$cnb_utils = new CnbUtils();
+
+		return $cnb_utils->get_query_val( 'tabGroup' );
+	}
+
+	/**
      * Returns the CSS class used for active tabs
      *
      * @param $tab_name string name of tab to check
@@ -86,6 +97,16 @@ class CnbAdminFunctions {
 			'MOBILE_ONLY' => 'Mobile only',
 			'DESKTOP_ONLY' => 'Desktop only',
 			'ALWAYS' => 'All screens'
+		);
+	}
+
+    function get_display_mode_icons() {
+        $mobile_svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="heroicon w-4 h-4"><path d="M7.25 11.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5h-1.5Z" /><path fill-rule="evenodd" d="M6 1a2.5 2.5 0 0 0-2.5 2.5v9A2.5 2.5 0 0 0 6 15h4a2.5 2.5 0 0 0 2.5-2.5v-9A2.5 2.5 0 0 0 10 1H6Zm4 1.5h-.5V3a.5.5 0 0 1-.5.5H7a.5.5 0 0 1-.5-.5v-.5H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Z" clip-rule="evenodd" /></svg>';
+        $desktop_svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="heroicon w-4 h-4"><path fill-rule="evenodd" d="M2 4.25A2.25 2.25 0 0 1 4.25 2h7.5A2.25 2.25 0 0 1 14 4.25v5.5A2.25 2.25 0 0 1 11.75 12h-1.312c.1.128.21.248.328.36a.75.75 0 0 1 .234.545v.345a.75.75 0 0 1-.75.75h-4.5a.75.75 0 0 1-.75-.75v-.345a.75.75 0 0 1 .234-.545c.118-.111.228-.232.328-.36H4.25A2.25 2.25 0 0 1 2 9.75v-5.5Zm2.25-.75a.75.75 0 0 0-.75.75v4.5c0 .414.336.75.75.75h7.5a.75.75 0 0 0 .75-.75v-4.5a.75.75 0 0 0-.75-.75h-7.5Z" clip-rule="evenodd" /></svg>';
+		return array(
+			'MOBILE_ONLY' => $mobile_svg,
+			'DESKTOP_ONLY' => $desktop_svg,
+			'ALWAYS' => $mobile_svg . $desktop_svg
 		);
 	}
 
@@ -177,63 +198,47 @@ class CnbAdminFunctions {
      * @param $color string
      * @param $headline string Assumed to be pre-escaped HTML (or static HTML), so this will not be (re)escaped
      * @param $body string Assumed to be pre-escaped HTML, so this will not be (re)escaped
-     * @param $icon string
      * @param $cta_pretext string Assumed to be pre-escaped HTML, so this will not be (re)escaped
      * @param $cta_button_text string
      * @param $cta_button_link string URL
-     * @param $cta_footer_notice
+     * @param $cta_footer_notice string
      *
      * @return void It <code>echo</code>s html output of the promobox
      */
-    function cnb_promobox( $color, $headline, $body, $icon = 'flag', $cta_pretext = null, $cta_button_text = 'Let\'s go', $cta_button_link = null, $cta_footer_notice = null ) {
+    function cnb_promobox( $color, $headline, $body, $cta_pretext = null, $cta_button_text = 'Let\'s go', $cta_button_link = null, $cta_footer_notice = null ) {
         echo '
-        <div id="cnb_upgrade_box" class="cnb-promobox cnb-promobox-' . esc_attr( $color ) . '">
-            <div class="cnb-promobox-header cnb-promobox-header-' . esc_attr( $color ) . '">
-                <span class="dashicons dashicons-' . esc_attr( $icon ) . '"></span>
-                <h2 class="hndle">' .
-             // phpcs:ignore WordPress.Security
-              $headline
-             . '</h2>
-            </div>
-            <div class="inside">
-                <div class="cnb-promobox-copy">
-                    <div class="cnb_promobox_item">' .
-             // phpcs:ignore WordPress.Security
-             $body
-             . '</div>
-                    <div class="clear"></div>';
-        if ( ! is_null( $cta_button_link ) || $cta_button_text == 'none' ) {
-            echo '
-                    <div class="cnb-promobox-action">
-                        <div class="cnb-promobox-action-left">' .
-                 // phpcs:ignore WordPress.Security
-                 $cta_pretext
-                 . '</div>';
-            if ( $cta_button_text != 'none' && $cta_button_link != 'disabled' ) {
-                echo '
-                        <div class="cnb-promobox-action-right">
-                            <a class="button button-primary button-large" style="user-select: none;" href="' . esc_url( $cta_button_link ) . '">' . esc_html( $cta_button_text ) . '</a>
-                        </div>';
-            } elseif ( $cta_button_link == 'disabled' ) {
-                echo '
-                        <div class="cnb-promobox-action-right">
-                            <button class="button button-primary button-large" disabled>' . esc_html( $cta_button_text ) . '</a>
-                        </div>';
+        <div class="cnb-spacing cnb-block-radius cnb-block-shade cnb-promobox cnb-promobox-' . esc_attr( $color ) . '">';
+            if($headline != '') { 
+                echo '<h2>';
+                    if(!is_null($cta_button_link)) {
+                        echo '<a href="' . esc_url( $cta_button_link ) . '">';
+                    }
+	            // phpcs:ignore WordPress.Security
+                echo $headline;
+                if(!is_null($cta_button_link)) {
+                    echo '</a>';
+                }
+                echo '</h2>';
             }
-            echo '
-                        <div class="clear"></div>';
-            if ( ! is_null( $cta_footer_notice ) ) {
-                echo '<div class="nonessential" style="padding-top: 5px;">' . esc_html( $cta_footer_notice ) . '</div>';
+		    // phpcs:ignore WordPress.Security
+            echo $body;
+            if ( ! is_null( $cta_button_link ) || $cta_button_text == 'none' ) {
+                echo '<div class="cnb-flex cnb-flex-gap cnb-flex-align-center mt-1">
+                        <div class="cnb-pretext cnb-flex-grow">' .
+                    // phpcs:ignore WordPress.Security
+                    $cta_pretext
+                    . '</div><!-- END .cnb-pretext -->';
+                if ( $cta_button_text != 'none' && $cta_button_link != 'disabled' ) {
+                    echo '<a class="button button-primary" style="user-select: none;" href="' . esc_url( $cta_button_link ) . '">' . esc_html( $cta_button_text ) . '</a>';
+                } elseif ( $cta_button_link == 'disabled' ) {
+                    echo '<button class="button button-primary" disabled>' . esc_html( $cta_button_text ) . '</a>';
+                }
+                echo '</div><!-- END .cnb-flex -->';
+                if ( ! is_null( $cta_footer_notice ) ) {
+                    echo '<div class="nonessential" style="padding-top: 5px;">' . esc_html( $cta_footer_notice ) . '</div>';
+                }
             }
-            echo '
-                    </div>
-                    ';
-        }
-        echo '
-                </div>
-            </div>
-        </div>
-    ';
+        echo '</div>';
     }
 
     /**

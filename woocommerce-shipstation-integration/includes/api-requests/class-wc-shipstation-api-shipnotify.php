@@ -197,6 +197,8 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 			$this->log( __( 'Missing SimpleXML extension for parsing ShipStation XML.', 'woocommerce-shipstation-integration' ) );
 		}
 
+		$order_number = isset( $_GET['order_number'] ) ? wc_clean( wp_unslash( $_GET['order_number'] ) ) : '0';
+
 		// Try to parse XML first since it can contain the real OrderID.
 		if ( $can_parse_xml ) {
 			$this->log( __( 'ShipNotify XML: ', 'woocommerce-shipstation-integration' ) . print_r( $shipstation_xml, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r --- Its needed for logging
@@ -208,8 +210,6 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 				$this->log( sprintf( __( 'Cannot parse XML : %s', 'woocommerce-shipstation-integration' ), $e->getMessage() ) );
 				status_header( 500 );
 			}
-
-			$order_number = isset( $_GET['order_number'] ) ? wc_clean( wp_unslash( $_GET['order_number'] ) ) : '0';
 
 			if ( isset( $xml->ShipDate ) ) {
 				$timestamp = strtotime( (string) $xml->ShipDate );

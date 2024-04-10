@@ -794,6 +794,10 @@ class HMWP_Models_Compatibility
 		        HMWP_Classes_Error::setNotification(sprintf(esc_html__("Google reCaptcha V3 is not working with the current login form of %s .", 'hide-my-wp'), 'Ultimate Member plugin'));
 	        }
 
+            if(HMWP_Classes_Tools::getOption('hmwp_mode') <> 'default' && HMWP_Classes_Tools::getOption('prevent_slow_loading') && HMWP_Classes_Tools::getOption('test_frontend')){
+                HMWP_Classes_Error::setNotification(sprintf(esc_html__('Prevent Broken Website option is active. Test the website using a different browser before turning this option off. %s Go to option %s', 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_advanced', true).'" >', '</a>'));
+            }
+
         }
 
     }

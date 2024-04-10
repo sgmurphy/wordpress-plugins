@@ -18,6 +18,7 @@ type GoalTypeOption = {
 };
 
 /**
+ * @since 3.7.0 Added isExcerptEnabled
  * @since 3.0.0
  */
 interface FormBuilderWindowData {
@@ -48,6 +49,7 @@ interface FormBuilderWindowData {
     termsAndConditions: TermsAndConditions;
     goalTypeOptions: GoalTypeOption[];
     nameTitlePrefixes: string[];
+    isExcerptEnabled: boolean;
 }
 
 /**
@@ -62,7 +64,7 @@ declare const window: {
                 [key: string]: Component;
             };
         };
-    }
+    };
 } & Window;
 
 /**

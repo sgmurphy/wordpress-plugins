@@ -21,13 +21,6 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
 	    add_action('admin_init', array($this, 'hmwp_update_trusted_headers'), 99);
         add_shortcode('hmwp_bruteforce', array($this, 'hmwp_bruteforce_shortcode') );
 
-	    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register')) {
-		    add_filter('registration_errors', array($this, 'hmwp_check_registration'), 99, 3);
-	    }
-	    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
-		    add_filter('lostpassword_errors', array($this, 'hmwp_check_lpassword'), 99, 2);
-	    }
-
 	    if (HMWP_Classes_Tools::getOption('brute_use_math')) {
 		    add_action('wp_login_failed', array($this, 'hmwp_failed_attempt'), 99);
 		    add_action('login_form', array($this->model, 'brute_math_form'), 99);
@@ -66,6 +59,16 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
     public function hookFrontinit()
     {
         if (function_exists('is_user_logged_in') && !is_user_logged_in()) {
+
+            //Check BF on register
+            if (HMWP_Classes_Tools::getOption('hmwp_bruteforce_register')) {
+                add_filter('registration_errors', array($this, 'hmwp_check_registration'), 99, 3);
+            }
+
+            //Check BF on Lost Password
+            if (HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
+                add_filter('lostpassword_errors', array($this, 'hmwp_check_lpassword'), 99, 2);
+            }
 
             //Load the Multilanguage
             HMWP_Classes_Tools::loadMultilanguage();

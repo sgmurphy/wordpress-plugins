@@ -561,6 +561,13 @@ body.rtl .woosw-items .woosw-item .woosw-item--note {
   margin: 0;
 }
 
+.woosw-list .woosw-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
 .woosw-list .woosw-actions {
   display: flex;
   align-items: center;

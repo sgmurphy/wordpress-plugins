@@ -202,12 +202,12 @@ class Cnb_Button_List_Table extends WP_List_Table {
                         $button_types   = $adminFunctions->cnb_get_button_types();
 
 	                    $flower = str_contains($item->options->cssClasses, 'cnb-multi-flower');
-                        return $button_types[ $item->type ] . ($flower ? ' (flower)' : '');
+                        return ($flower ? 'Flower' : $button_types[ $item->type ]);
                     default:
                         return esc_html( $item->type );
                 }
             case 'displaymode':
-				$display_modes = $adminFunctions->get_display_modes();
+				$display_modes = $adminFunctions->get_display_mode_icons();
                 switch ( $item->options->displayMode ) {
                     case 'MOBILE_ONLY':
 	                case 'DESKTOP_ONLY':
@@ -228,9 +228,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
      * @noinspection PhpUnused
      */
     function column_actions( $item ) {
-        $cnb_options = get_option( 'cnb' );
-
-        $items     = '';
+	    $items     = '';
         $domain    = '';
         $actionMsg = '';
         $count     = 0;
@@ -241,20 +239,22 @@ class Cnb_Button_List_Table extends WP_List_Table {
         }
 
         if ( $count === 0 ) {
-            $items .= '<em>No action yet</em>';
+            $items .= '<em>No action(s) yet</em>';
         }
 
         // Action detail
         $actions = CnbAdminCloud::cnb_wp_get_actions_for_button( $item );
-        foreach ( $actions as $action ) {
-            $actionValue = ! empty( $action->actionValue ) ? esc_html( $action->actionValue ) : '<em>No value</em>';
-            $actionTypes = ( new CnbAdminFunctions() )->cnb_get_action_types();
-            $actionType  = $actionTypes[ $action->actionType ];
-            $actionMsg   .= esc_html($actionType->name) . ' (' . esc_html($actionValue) . ')<br />';
+
+        if ( $count === 1 ) {
+            foreach ( $actions as $action ) {
+                $actionTypes = ( new CnbAdminFunctions() )->cnb_get_action_types();
+                $actionType  = $actionTypes[ $action->actionType ];
+                $actionMsg   .= esc_html($actionType->name);
+            }
         }
-        $diff = $count - count( $actions );
-        if ( $diff > 0 ) {
-            $actionMsg .= "<em>Plus $diff more...</em><br />";
+
+        if ( $count > 1 ) {
+            $actionMsg .= "$count actions";
         }
 
         // Domain info
@@ -382,10 +382,15 @@ class Cnb_Button_List_Table extends WP_List_Table {
             'cnb_delete_button' );
         $delete_url        = esc_url( $delete_link );
         $actions['delete'] = '<a href="' . $delete_url . '">' . __( 'Delete' ) . '</a>';
+        
+        $inactive_svg = '&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="heroicon w-4 h-4"><path fill-rule="evenodd" d="M3.28 2.22a.75.75 0 0 0-1.06 1.06l10.5 10.5a.75.75 0 1 0 1.06-1.06l-1.322-1.323a7.012 7.012 0 0 0 2.16-3.11.87.87 0 0 0 0-.567A7.003 7.003 0 0 0 4.82 3.76l-1.54-1.54Zm3.196 3.195 1.135 1.136A1.502 1.502 0 0 1 9.45 8.389l1.136 1.135a3 3 0 0 0-4.109-4.109Z" clip-rule="evenodd" /><path d="m7.812 10.994 1.816 1.816A7.003 7.003 0 0 1 1.38 8.28a.87.87 0 0 1 0-.566 6.985 6.985 0 0 1 1.113-2.039l2.513 2.513a3 3 0 0 0 2.806 2.806Z" /></svg>';
 
         $inactive_str = '';
+        $inactive_className = '';
         if ( ! $item->active ) {
             $inactive_str = ' — <span class="post-state">' . __( 'Inactive' ) . '</span>';
+            $inactive_str = $inactive_svg;
+            $inactive_className = ' class="cnb-inactive-button"';
         }
 
         $notices = ValidationMessage::get_validation_notices($item);
@@ -393,7 +398,7 @@ class Cnb_Button_List_Table extends WP_List_Table {
 
         return sprintf(
             '%1$s %2$s',
-            '<strong><a class="row-title" href="' . $edit_url . '">' . esc_html( $item->name ) . '</a>' . $inactive_str . '</strong>',
+            '<strong' . $inactive_className . '><a class="row-title" href="' . $edit_url . '">' . esc_html( $item->name ) . '</a>' . $inactive_str . '</strong>',
             $this->row_actions( $actions )
         );
     }

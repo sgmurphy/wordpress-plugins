@@ -514,9 +514,12 @@ class Admin
         
         if ( wpm_fs()->can_use_premium_code__premium_only() || Options::pro_version_demo_active() ) {
             $this->add_section_advanced_subsection_facebook( $section_ids );
+            
             if ( Environment::is_woocommerce_active() ) {
+                $this->add_section_advanced_subsection_bing( $section_ids );
                 $this->add_section_advanced_subsection_linkedin( $section_ids );
             }
+            
             $this->add_section_advanced_subsection_pinterest( $section_ids );
             $this->add_section_advanced_subsection_snapchat( $section_ids );
             $this->add_section_advanced_subsection_reddit( $section_ids );
@@ -1022,6 +1025,23 @@ class Admin
             'pmw_setting_tiktok_eapi_user_transparency_advanced_matching',
             esc_html__( 'TikTok: Advanced Matching', 'woocommerce-google-adwords-conversion-tracking-tag' ),
             [ $this, 'setting_tiktok_advanced_matching' ],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
+    }
+    
+    public function add_section_advanced_subsection_bing( $section_ids )
+    {
+        $sub_section_ids = [
+            'title' => 'Microsoft',
+            'slug'  => 'microsoft',
+        ];
+        self::add_subsection_div( $section_ids, $sub_section_ids );
+        // Add the field for the Microsoft Enhanced Conversions matching
+        add_settings_field(
+            'plugin_microsoft_enhanced_conversions',
+            esc_html__( 'Microsoft Enhanced Conversions', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ $this, 'option_html_bing_enhanced_conversions' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
@@ -2325,6 +2345,31 @@ class Admin
         
         esc_html_e( 'The Adroll pixel ID looks similar to this:', 'woocommerce-google-adwords-conversion-tracking-tag' );
         echo  '&nbsp;<i>ABCD1EFGHIJKLMN2O3PQR</i>' ;
+    }
+    
+    public function option_html_bing_enhanced_conversions()
+    {
+        // adding the hidden input is a hack to make WordPress save the option with the value zero,
+        // instead of not saving it and remove that array key entirely
+        // https://stackoverflow.com/a/1992745/4688612
+        ?>
+		<label>
+			<input type="hidden" value="0" name='wgact_plugin_options[bing][enhanced_conversions]'>
+			<input type="checkbox" id='plugin_microsoft_enhanced_conversions'
+				   name='wgact_plugin_options[bing][enhanced_conversions]'
+				   value="1" <?php 
+        checked( Options::is_bing_enhanced_conversions_enabled() );
+        ?> <?php 
+        esc_html_e( self::disable_if_demo() );
+        ?> />
+			<?php 
+        esc_html_e( 'Enable Microsoft Enhanced Conversions', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</label>
+		<?php 
+        self::display_status_icon( Options::is_bing_enhanced_conversions_enabled(), Options::is_bing_active(), true );
+        self::get_documentation_html_by_key( 'bing_uet_tag_id' );
+        self::html_pro_feature();
     }
     
     public function option_html_linkedin_partner_id()

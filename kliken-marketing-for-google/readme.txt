@@ -1,16 +1,12 @@
 === AI Powered Marketing ===
 Contributors: sitewit
 Tags: advertising, adwords, analytics, bing, google, leads, marketing, marketing platform, metrics, online advertising, online marketing, plugin, ppc, PPC, google shopping, shopping ads, product ads, ROI, conversions
-Requires at least: 4.4
-Tested up to: 6.4
-Requires PHP: 5.6
-Stable tag: 1.4.2
-WC requires at least: 5.5
-WC tested up to: 8.0
-License: GPLv3 or later License
-URI: http://www.gnu.org/licenses/gpl-3.0.html
+Tested up to: 6.5
+Stable tag: 1.4.3
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Kliken's all-in-one marketing helps businesses reach high-intent customers, beat the competition and see sales growth while lowering conversion costs.
+Kliken's all-in-one marketing helps businesses reach high-intent customers, beat the competition and see sales growth while lowering conversion costs
 
 
 == Description ==
@@ -138,58 +134,5 @@ Google Ads & Marketing for WooCommerce is a contract free service. You can cance
 
 == Changelog ==
 
-= 1.4.2 =
-* Properly escape data used for JavaScript code.
-
-= 1.4.1 =
-* Use our own translations.
-
-= 1.4.0 =
-* Conform to latest coding style from WordPress.
-* Add Facebook Advertising.
-* Better handling of cart change events.
-
-= 1.3.0 =
-* Enable WooCommerce HPOS compatibility.
-* Fix REST endpoints date range issues.
-* Use WooCommerce REST v3.
-
-= 1.2.1 =
-* Fix links.
+= 1.4.3 =
 * Support latest WordPress and WooCommerce version.
-
-= 1.2.0 =
-* Support latest WordPress and WooCommerce version.
-
-= 1.1.0 =
-* Name and text changes.
-* Support latest WordPress and WooCommerce version.
-
-= 1.0.8 =
-* Minor bug fixes.
-
-= 1.0.7 =
-* Minor bug fixes.
-
-= 1.0.6 =
-* Minor bug fixes.
-
-= 1.0.5 =
-* Minor bug fixes.
-
-= 1.0.4 =
-* Minor bug fixes.
-
-= 1.0.3 =
-* Added shopping cart actions and product view support.
-* Minor bug fixes.
-
-= 1.0.2 =
-* Minor bug fixes.
-
-= 1.0.1 =
-* Minor UI improvements.
-* Minor bug fixes.
-
-= 1.0.0 =
-* First release.

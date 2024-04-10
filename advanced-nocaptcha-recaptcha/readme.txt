@@ -5,7 +5,7 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: recaptcha, recaptcha, hcaptcha, cloudflare turnstile, antispam protection, captcha for WooCommerce
 Requires at least: 5.0
-Tested up to: 6.4.3
+Tested up to: 6.5.2
 Stable tag: 2.5.0
 Requires PHP: 7.4.0
 

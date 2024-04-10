@@ -157,6 +157,12 @@ class HMWP_Controllers_Rewrite extends HMWP_Classes_FrontController
         //If not dashboard
         if(!is_admin() && !is_network_admin()) {
 
+            //Load firewall on request for all server types
+            HMWP_Classes_ObjController::getClass('HMWP_Controllers_Firewall')->run();
+            if (HMWP_Classes_Tools::getOption('hmwp_sqlinjection')){
+            }
+
+
             //Check if buffer priority
 	        if(apply_filters('hmwp_priority_buffer', HMWP_Classes_Tools::getOption('hmwp_priorityload'))) {
                 //Starte the buffer

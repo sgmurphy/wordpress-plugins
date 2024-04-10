@@ -1,7 +1,7 @@
 === All in One SEO – Best WordPress SEO Plugin – Easily Improve SEO Rankings & Increase Traffic ===
 Contributors: aioseo, smub, benjaminprojas
 Tags: SEO, Google Search Console, XML Sitemap, meta description, schema
-Tested up to: 6.5
+Tested up to: 6.5.2
 Requires at least: 5.3
 Requires PHP: 7.0
 Stable tag: 4.6.0

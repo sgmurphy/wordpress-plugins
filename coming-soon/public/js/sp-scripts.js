@@ -926,18 +926,18 @@ function seedprod_add_gallery_lightbox(blockId) {
   });
   imgpreview.update();
   jQuery("#sp-" + blockId + " .sp-gallery-tabs a.sp-gallery-tab-title").click(function () {
-    var dataindex = jQuery(this).attr("data-gallery-index");
+    var activeTabIndex = jQuery(this).attr("data-gallery-index");
     jQuery('#sp-' + blockId + ' .sp-gallery-tab-title').removeClass('sp-tab-active');
-    jQuery(this).addClass('sp-tab-active'); //console.log(dataindex);
-
+    jQuery(this).addClass('sp-tab-active');
     jQuery.each(jQuery('#sp-' + blockId + ' .sp-gallery-items'), function (i, v) {
       jQuery(this).removeClass('sp-hidden-items');
-      jQuery(this).removeClass('zoom-in');
+      jQuery(this).removeClass('zoom-in'); // Hide images that do not match the active tab index.
 
-      if (dataindex != 'all') {
-        var indexvalues = jQuery(v).data('tags');
+      if (activeTabIndex !== 'all') {
+        var currentTabIndex = jQuery(v).data('tags');
+        var cleanCurrentTabIndex = currentTabIndex.split(',');
 
-        if (indexvalues.indexOf(dataindex) > -1) {} else {
+        if (!cleanCurrentTabIndex.includes(activeTabIndex)) {
           jQuery(this).addClass('sp-hidden-items');
         }
       }
@@ -948,18 +948,18 @@ function seedprod_add_gallery_lightbox(blockId) {
 
 function seedprod_add_gallery_js(blockId) {
   jQuery("#sp-" + blockId + " .sp-gallery-tabs a.sp-gallery-tab-title").click(function () {
-    var dataindex = jQuery(this).attr("data-gallery-index");
+    var activeTabIndex = jQuery(this).attr("data-gallery-index");
     jQuery('#sp-' + blockId + ' .sp-gallery-tab-title').removeClass('sp-tab-active');
-    jQuery(this).addClass('sp-tab-active'); //console.log(dataindex);
-
+    jQuery(this).addClass('sp-tab-active');
     jQuery.each(jQuery('#sp-' + blockId + ' .sp-gallery-items'), function (i, v) {
       jQuery(this).removeClass('sp-hidden-items');
-      jQuery(this).removeClass('zoom-in');
+      jQuery(this).removeClass('zoom-in'); // Hide images that do not match the active tab index.
 
-      if (dataindex != 'all') {
-        var indexvalues = jQuery(v).data('tags');
+      if (activeTabIndex !== 'all') {
+        var currentTabIndex = jQuery(v).data('tags');
+        var cleanCurrentTabIndex = currentTabIndex.split(',');
 
-        if (indexvalues.indexOf(dataindex) > -1) {} else {
+        if (!cleanCurrentTabIndex.includes(activeTabIndex)) {
           jQuery(this).addClass('sp-hidden-items');
         }
       }

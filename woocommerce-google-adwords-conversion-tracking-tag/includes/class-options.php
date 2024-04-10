@@ -51,7 +51,7 @@ class Options {
 
 	public static function invalidate_cache() {
 		self::$did_init = false;
-		self::$options = null;
+		self::$options  = null;
 	}
 
 	private function __construct() {
@@ -88,7 +88,8 @@ class Options {
 		// default options settings
 		return [
 			'bing'       => [
-				'uet_tag_id' => '',
+				'uet_tag_id'           => '',
+				'enhanced_conversions' => false,
 			],
 			'facebook'   => [
 				'pixel_id'  => '',
@@ -220,7 +221,8 @@ class Options {
 			],
 			'shop'       => [
 				'order_total_logic'             => 0,
-				'cookie_consent_mgmt'           => [ // TODO: Move to the general section
+				// TODO: Move to the general section
+				'cookie_consent_mgmt'           => [
 					'explicit_consent' => false,
 				],
 				'order_deduplication'           => true,
@@ -336,6 +338,14 @@ class Options {
 
 	public static function is_bing_active() {
 		return (bool) self::get_options_obj()->bing->uet_tag_id;
+	}
+
+	public static function get_bing_uet_tag_id() {
+		return self::get_options_obj()->bing->uet_tag_id;
+	}
+
+	public static function is_bing_enhanced_conversions_enabled() {
+		return (bool) self::get_options_obj()->bing->enhanced_conversions;
 	}
 
 	public static function is_snapchat_active() {

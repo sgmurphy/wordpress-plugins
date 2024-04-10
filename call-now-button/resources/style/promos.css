@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'CNB Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../font/cnb.woff") format('woff2');
+}
+.cnb-font-icon i {
+    font-family: 'CNB Icons';
+    outline: none;
+    font-style: normal;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+}
+.cnb-compare-features,
+.cnb-signup-block-fixed .cnb-signup-block {
+    max-width: 800px;
+}
+.benefit-number {
+    /* padding-bottom: 10px; */
+    box-sizing: border-box;
+    min-height: 32px;
+    font-weight: 400
+}
+.benefit-number,
+.cnb-font-icon i,
+.cnb-font-icon span {
+    font-size: 32px;
+}
+.cnb-font-icon .dashicons {
+    width: auto;
+    height: auto;
+    font-size: 26px;
+}
+.benefit-section {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+
+}
+.benefit-box {
+    width: 70px;
+    min-width:70px;
+    height: 80px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    border:3px solid rgba(0,131,0,1);
+    text-align: center;
+    background:
+            rgb(0,170,0);
+    background: linear-gradient(120deg, rgba(0,170,0,0.8533788515406162) 0%, rgba(0,131,0,1) 100%);
+    color:#fff;
+    font-size: 14px;
+    font-weight: 400;
+    text-shadow: -1px -1px 1px rgba(0,0,0,0.3);
+    box-shadow:
+            rgba(50, 50, 50, 0.25) 0px 13px 27px -5px,
+            rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+}
+.wrap.call-now-button-plugin {
+    font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto, Helvetica, Arial,sans-serif;
+}
+@media screen and (max-width:499px) {
+    .benefit-box {
+        margin: 2px;
+    }
+    .cnb-not-on-mobile {
+        display: none;
+    }
+    .cnb-signup-block-fixed h3 {
+        margin-top:0;
+    }
+    .cnb-signup-block-fixed p.nonessential {
+        margin:0;
+    }
+    .cnb-compare-features .cnb-nb-plans th h3 {
+        font-size: 14px;
+    }
+    input.cnb_activation_input_field ~ input[type=submit] {
+        width: 100%;
+    }
+}
+@media screen and (min-width:601px) {
+    .call-now-button-plugin h1 {
+        font-size: 60px;
+        line-height: 1.2;
+        font-weight: 600;
+        margin: 0;
+    }
+    .cnb-compare-features h2 {
+        font-size: 40px;
+        line-height: 1.25;
+        font-weight: 600;
+        margin: 0;
+    }
+    .cnb-compare-features h3 {
+        font-size: 30px;
+        font-weight: 600;
+        margin: 0.5em 0;
+    }
+
+    .cnb-compare-features p,
+    .cnb-compare-features table tbody th {
+        font-size:16.5px;
+        font-weight: 300;
+        line-height:1.4;
+    }
+
+    .cnb-body-content .benefits-section-signup form.cnb-container input[type=text] {
+        max-width: calc(100% - 190px);
+        /* font-size: 26px; */
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+
+    .benefits-section-signup p.nonessential {
+        font-size: 14px;
+        padding-left: 0
+    }
+}
+.cnb-compare-features th h3 {
+    font-size:18px;
+    margin:1em 0;
+}
+.cnb-faq-section {
+    max-width: 800px;
+    padding-bottom:100px;
+}
+.cnb-faq-section h3 {
+    font-size:18px;
+}
+.cnb-faq-section p {
+    font-size:14px;
+}
+.cnb-signup-block-fixed {
+    box-sizing: border-box;
+    position: fixed;
+    padding: 10px;
+    background-color: #f0f0f1;
+    bottom:0;
+    z-index: 99;
+    margin-left:-22px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 50%);
+    border-radius: 5px 5px 0 0;
+}
+
+.cnb-signup-block-fixed {
+    width:calc(100% - 160px);
+}
+.folded .cnb-signup-block-fixed {
+    width:calc(100% - 36px);
+}
+@media only screen and (max-width: 960px) {
+    .auto-fold .cnb-signup-block-fixed {
+        width:calc(100% - 36px);
+    }
+}
+@media screen and (max-width: 782px) {
+    .cnb-signup-block-fixed,
+    .auto-fold .cnb-signup-block-fixed {
+        width:100%;
+        margin-left:0px;
+        left:0;
+    }
+}
+
+.cnb-signup-block > p {
+    margin-top: 0;
+}

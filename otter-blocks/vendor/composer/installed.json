@@ -2,23 +2,23 @@
     "packages": [
         {
             "name": "codeinwp/themeisle-sdk",
-            "version": "3.3.17",
-            "version_normalized": "3.3.17.0",
+            "version": "3.3.18",
+            "version_normalized": "3.3.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-                "reference": "b5698f21640d0156bd6777aa5c71e0704748755c"
+                "reference": "5463d7170ed7b9735223d6715442b8670a477688"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/b5698f21640d0156bd6777aa5c71e0704748755c",
-                "reference": "b5698f21640d0156bd6777aa5c71e0704748755c",
+                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/5463d7170ed7b9735223d6715442b8670a477688",
+                "reference": "5463d7170ed7b9735223d6715442b8670a477688",
                 "shasum": ""
             },
             "require-dev": {
                 "codeinwp/phpcs-ruleset": "dev-main"
             },
-            "time": "2024-04-01T07:35:31+00:00",
+            "time": "2024-04-05T09:47:58+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -39,7 +39,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeinwp/themeisle-sdk/issues",
-                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.3.17"
+                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.3.18"
             },
             "install-path": "../codeinwp/themeisle-sdk"
         },
@@ -93,17 +93,17 @@
         },
         {
             "name": "masterminds/html5",
-            "version": "2.8.1",
-            "version_normalized": "2.8.1.0",
+            "version": "2.9.0",
+            "version_normalized": "2.9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "f47dcf3c70c584de14f21143c55d9939631bc6cf"
+                "reference": "f5ac2c0b0a2eefca70b2ce32a5809992227e75a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/f47dcf3c70c584de14f21143c55d9939631bc6cf",
-                "reference": "f47dcf3c70c584de14f21143c55d9939631bc6cf",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/f5ac2c0b0a2eefca70b2ce32a5809992227e75a6",
+                "reference": "f5ac2c0b0a2eefca70b2ce32a5809992227e75a6",
                 "shasum": ""
             },
             "require": {
@@ -111,9 +111,9 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8"
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8 || ^9"
             },
-            "time": "2023-05-10T11:58:31+00:00",
+            "time": "2024-03-31T07:05:07+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -157,7 +157,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Masterminds/html5-php/issues",
-                "source": "https://github.com/Masterminds/html5-php/tree/2.8.1"
+                "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "install-path": "../masterminds/html5"
         },
@@ -231,17 +231,17 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v13.17.0",
-            "version_normalized": "13.17.0.0",
+            "version": "v13.18.0",
+            "version_normalized": "13.18.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "24d3d9ed8406e10d24452af44597300173655f69"
+                "reference": "02abb043b103766f4ed920642ae56ffdc58c7467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/24d3d9ed8406e10d24452af44597300173655f69",
-                "reference": "24d3d9ed8406e10d24452af44597300173655f69",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/02abb043b103766f4ed920642ae56ffdc58c7467",
+                "reference": "02abb043b103766f4ed920642ae56ffdc58c7467",
                 "shasum": ""
             },
             "require": {
@@ -255,7 +255,7 @@
                 "phpstan/phpstan": "^1.2",
                 "phpunit/phpunit": "^5.7 || ^9.0"
             },
-            "time": "2024-04-04T22:16:10+00:00",
+            "time": "2024-04-09T21:08:04+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -287,7 +287,7 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v13.17.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v13.18.0"
             },
             "install-path": "../stripe/stripe-php"
         },

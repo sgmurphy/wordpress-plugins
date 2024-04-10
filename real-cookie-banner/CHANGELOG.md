@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.7.2 (2024-04-10)
+
+
+### Bug Fixes
+
+* cURL error 60: SSL: no alternative certificate subject name matches target host name (CU-86949561p)
+* show another tip about REST API issues when cURL throws an error (CU-86949561p)
+
+
+<details><summary>Dependency updates @devowl-wp/cookie-consent-management 0.1.8</summary>
+
+
+**_Purpose of dependency:_** _Provide cookie consent management with adapters to your environment_
+##### Bug Fixes
+
+* show another tip about REST API issues when cURL throws an error (CU-86949561p)</details>
+
+<details><summary>Dependency updates @devowl-wp/fast-html-tag 0.10.2</summary>
+
+
+**_Purpose of dependency:_** _Find tags within HTML content and modify it in speed of light_
+##### Bug Fixes
+
+* uppercase <A tag leads to scanner results (CU-869496hwj)</details>
+
+<details><summary>Dependency updates @devowl-wp/headless-content-blocker 0.16.8</summary>
+
+
+**_Purpose of dependency:_** _Block HTML content by URLs and selector syntax_
+##### Bug Fixes
+
+* uppercase <A tag leads to scanner results (CU-869496hwj)
+
+
+##### Testing
+
+* rename test (CU-869496hwj)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.1</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Maintenance
+
+* update stubs (CU-86949561p)</details>
+
+
+
+
+
 ## 4.7.1 (2024-04-09)
 
 

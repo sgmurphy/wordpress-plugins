@@ -406,10 +406,11 @@ class HMWP_Classes_Tools
             'hmwp_disable_xmlrpc' => 1,
             'hmwp_hide_rsd' => 1,
             //
-            'hmwp_sqlinjection' => 0,
+            'hmwp_sqlinjection' => 1,
+            'hmwp_sqlinjection_level' => 1,
             'hmwp_security_header' => 1,
             'hmwp_hide_unsafe_headers' => 1,
-            'hmwp_detectors_block' => 0,
+            'hmwp_detectors_block' => 1,
 
             //PRO
             'hmwp_hide_styleids' => 0,
@@ -2340,8 +2341,13 @@ class HMWP_Classes_Tools
         $bl_items = array();
 
         $bl_blacklisted = array(
-            '35.214.130.0/22',
-            '54.86.50.0/22',
+            '35.214.130.0/22', // detector
+            '54.86.50.0/22', // detector
+            '172.105.48.0/22', // detector
+            '15.235.50.223', // detector
+            '192.185.4.40', // detector
+            '172.105.48.130', // detector
+            '167.99.233.123', // detector
         );
 
         if (HMWP_Classes_Tools::getOption('banlist_ip')) {

@@ -3,7 +3,7 @@ Contributors: divisupreme, kenng87
 Tags: Divi, Divi Module, Divi Page Builder, divi theme, divi builder, Divi Extensions
 Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
-Tested up to: 6.4.3
+Tested up to: 6.5.2
 Requires PHP: 7.4
 Stable tag: 2.5.3
 License: GPLv2

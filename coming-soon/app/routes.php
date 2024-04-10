@@ -75,16 +75,16 @@ function seedprod_lite_create_menus() {
 		'seedprod_lite_setup_page'
 	);
 
-	//if ( 'lite' === SEEDPROD_BUILD ) {
+	// if ( 'lite' === SEEDPROD_BUILD ) {
 		// add_submenu_page(
-		// 	'seedprod_lite',
-		// 	__( 'Templates', 'coming-soon' ),
-		// 	__( 'Templates', 'coming-soon' ),
-		// 	apply_filters( 'seedprod_templates_menu_capability', 'edit_others_posts' ),
-		// 	'seedprod_lite_templates',
-		// 	'seedprod_lite_templates_page'
+		// 'seedprod_lite',
+		// __( 'Templates', 'coming-soon' ),
+		// __( 'Templates', 'coming-soon' ),
+		// apply_filters( 'seedprod_templates_menu_capability', 'edit_others_posts' ),
+		// 'seedprod_lite_templates',
+		// 'seedprod_lite_templates_page'
 		// );
-	//}
+	// }
 
 	add_submenu_page(
 		'seedprod_lite',
@@ -95,7 +95,7 @@ function seedprod_lite_create_menus() {
 		'seedprod_lite_subscribers_page'
 	);
 
-	//if ('lite' === SEEDPROD_BUILD) {
+	// if ('lite' === SEEDPROD_BUILD) {
 		add_submenu_page(
 			'seedprod_lite',
 			__( 'Pop-ups', 'coming-soon' ),
@@ -104,7 +104,7 @@ function seedprod_lite_create_menus() {
 			'seedprod_lite_popup',
 			'seedprod_lite_popup_page'
 		);
-	//}
+	// }
 
 	add_submenu_page(
 		'seedprod_lite',
@@ -399,7 +399,7 @@ function seedprod_lite_redirect_to_site() {
 		exit();
 	}
 
-	//  setup page
+	// setup page
 	if ( isset( $_GET['page'] ) && 'seedprod_lite_setup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['sp_setup_dismiss'] ) ) {
 			// check nonce
@@ -419,7 +419,7 @@ function seedprod_lite_redirect_to_site() {
 		}
 	}
 
-	//  popups
+	// popups
 	if ( isset( $_GET['page'] ) && 'seedprod_lite_popup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( is_plugin_active( 'optinmonster/optin-monster-wp-api.php' ) ) {
 			wp_safe_redirect( 'admin.php?page=optin-monster-dashboard' );

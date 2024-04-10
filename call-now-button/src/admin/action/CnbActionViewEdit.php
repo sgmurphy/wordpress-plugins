@@ -14,7 +14,6 @@ use cnb\utils\CnbAdminFunctions;
 use cnb\CnbHeaderNotices;
 use cnb\notices\CnbAdminNotices;
 use cnb\utils\CnbUtils;
-use stdClass;
 use WP_Locale;
 
 class CnbActionViewEdit {
@@ -43,11 +42,12 @@ class CnbActionViewEdit {
 
     /**
      * @param $button CnbButton
-     * @param $tab string
+     * @param $tabName string
+     * @param $tabGroup string
      *
      * @return string
      */
-    private function create_tab_url( $button, $tab ) {
+    private function create_tab_url( $button, $tabName, $tabGroup ) {
         $url = admin_url( 'admin.php' );
 
         return add_query_arg(
@@ -56,7 +56,8 @@ class CnbActionViewEdit {
                 'action' => 'edit',
                 'type'   => strtolower( $button->type ),
                 'id'     => $button->id,
-                'tab'    => $tab
+                'tabName' => $tabName,
+                'tabGroup' => $tabGroup
             ),
             $url );
     }
@@ -116,289 +117,279 @@ class CnbActionViewEdit {
      * @param $button CnbButton
      * @param $domain CnbDomain
      */
-    private function render_table( $action, $button = null, $domain = null ) {
-        /**
-         * @global WP_Locale $wp_locale WordPress date and time locale object.
-         */
-        global $wp_locale;
+    private function render_table( $action, $button, $domain ) {
 
-        // In case a domain is not passed, we take it from the button
-        $domain = isset( $domain ) ? $domain : ( isset( $button ) ? $button->domain : null );
+        $this->register_preview_data();
+        $this->schedule_scripts_and_styles();
+        $this->render_tab_action_options($action, $button, $domain);
+        $this->render_tab_scheduler($action, $button, $domain, 'actions');
+    }
 
-        $cnb_days_of_week_order = $this->get_order_of_days();
-
-        if ( empty( $action->actionType ) ) {
-            $action->actionType = 'PHONE';
-        }
-        if ( empty( $action->iconText ) ) {
-            $action->iconText = ( new CnbUtils() )->cnb_actiontype_to_icontext( $action->actionType );
-        }
-        if ( empty( $action->iconType ) ) {
-            $action->iconType = 'DEFAULT';
-        }
-
-        $adminFunctions = new CnbAdminFunctions();
-
-        wp_enqueue_style( CNB_SLUG . '-jquery-ui' );
-        wp_enqueue_style( CNB_SLUG . '-client' );
-        wp_enqueue_script( CNB_SLUG . '-timezone-picker-fix' );
-
-        wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( 'jquery-ui-core' );
-        wp_enqueue_script( 'jquery-ui-slider' );
-        wp_enqueue_script( CNB_SLUG . '-action-edit-scheduler' );
-        wp_enqueue_script( CNB_SLUG . '-action-edit-fields' );
-
-        // For the image selector
-        wp_enqueue_media();
-
+    function register_preview_data() {
 	    (new Preview())->register_preview_data();
-        // Uses domain timezone if no timezone can be found
-        $timezone                        = ( isset( $action->schedule ) && ! empty( $action->schedule->timezone ) ) ? $action->schedule->timezone : ( isset( $domain ) ? $domain->timezone : null );
-        $action_tz_different_from_domain = isset( $domain ) && ! empty( $domain->timezone ) && $domain->timezone !== $timezone;
 
-        $timezone_set_correctly = ( new CnbHeaderNotices() )->is_timezone_valid( $domain );
+    }
+    function schedule_scripts_and_styles() {
+	    wp_enqueue_style( CNB_SLUG . '-jquery-ui' );
+	    wp_enqueue_style( CNB_SLUG . '-client' );
+	    wp_enqueue_script( CNB_SLUG . '-timezone-picker-fix' );
 
-        $domain_type = $domain != null && !is_wp_error($domain) ? $domain->type : null;
-        $isPro = $domain_type === 'PRO';
+	    wp_enqueue_script( CNB_SLUG . '-action-edit-fields' );
 
-        $upgrade_link =
-            add_query_arg( array(
-                'page'   => 'call-now-button-domains',
-                'action' => 'upgrade',
-                'id'     => $button->domain->id
-            ),
-                admin_url( 'admin.php' ) );
+	    wp_enqueue_style( CNB_SLUG . '-intl-tel-input' );
+	    wp_enqueue_script( CNB_SLUG . '-intl-tel-input' );
+
+	    // For the image selector
+	    wp_enqueue_media();
+    }
+
+    function render_tab_action_options($action, $button, $domain) {
+	    $domain_type = $domain != null && !is_wp_error($domain) ? $domain->type : null;
+	    $isPro = $domain_type === 'PRO';
+        ?>
+        <section data-tab-name="action_options" data-tab-group="actions" class="form-table">
+            <div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
+                <div class="cnb-section-info ">
+				    <?php if ( ! $button ) { ?>
+                        <h3 class="top-0">Action Settings</h3>
+				    <?php } ?>
+                </div>
+                <div class="cnb-section-data ">
+
+                    <div class="cnb-input-item">
+                        <label for="cnb_action_type">Button action</label>
+                        <select id="cnb_action_type" name="actions[<?php echo esc_attr( $action->id ) ?>][actionType]">
+						    <?php foreach ( ( new CnbAdminFunctions() )->cnb_get_action_types() as $action_type_key => $action_type_value ) { ?>
+                                <option
+                                        value="<?php echo esc_attr( $action_type_key ) ?>"
+								    <?php selected( $action_type_value->type, $action->actionType ) ?>
+								    <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' disabled="disabled"'; } ?>>
+								    <?php echo esc_html( $action_type_value->name ) ?>
+								    <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' (PRO)'; } ?>
+                                </option>
+						    <?php } ?>
+                        </select>
+                        <p class="description cnb-action-properties cnb-action-properties-TALLY"><a target="_blank" href="https://tally.so?ref=callnowbutton&utm_source=callnowbutton&utm_medium=wordpress">Tally</a> is our favorite form tool.</p>
+                    </div>
+
+                    <div class="cnb-input-item cnb-action-value">
+                        <label for="cnb_action_value_input">
+                            <span id="cnb_action_value">Action value</span>
+                        </label>
+                        <input type="text" id="cnb_action_value_input"
+                               name="actions[<?php echo esc_attr( $action->id ) ?>][actionValue]"
+                               value="<?php echo esc_attr( $action->actionValue ) ?>"/>
+                        <p class="description cnb-action-properties cnb-action-properties-MAP">Preview on <a href="#"
+                                                                                                             onclick="cnb_action_update_map_link(this)"
+                                                                                                             target="_blank">Google Maps</a></p>
+                        <p class="description cnb-action-properties cnb-action-properties-TALLY">ID is last part of the share link, e.g. <code>wA74do</code> for <code>https://tally.so/r/wA74do</code>.</p>
+                        <p class="description cnb-action-properties cnb-action-properties-ANCHOR">The anchor can be either a HTML tag name (e.g. <code>body</code>), a name attribute (e.g. a form field) or an ID attribute.</p>
+                        <p class="description cnb-action-properties cnb-action-properties-INTERCOM">E.g. <code>gkeb4bs</code>. See <a
+                                    href="https://www.intercom.com/help/en/articles/3539-where-can-i-find-my-workspace-id-app-id?utm_source=callnowbutton&utm_medium=callnowbutton-plugin"
+                                    target="_blank">this Intercom article</a> on how to find your app ID.</p>
+                        <p class="description cnb-action-properties cnb-action-properties-VIBER cnb-action-properties-viber-pa-chat">For personal chat change <i>Chat type</i> below. </p>
+                    </div>
+
+                    <div class="cnb-input-item cnb-action-properties cnb-action-properties-intl-input">
+                        <label id="cnb_action_value_input_intl_input" for="cnb_action_value_input_whatsapp"></label>
+                        <input type="tel" id="cnb_action_value_input_whatsapp"
+                               name="actions[<?php echo esc_attr( $action->id ) ?>][actionValueWhatsapp]"
+                               value="<?php echo esc_attr( $action->actionValue ) ?>"/>
+                        <p class="description" id="cnb-valid-msg">✓ Valid</p>
+                        <p class="description" id="cnb-error-msg"></p>
+                        <p class="description cnb-action-properties cnb-action-properties-VIBER cnb-action-properties-viber-chat">For Viber Bot change <i>Chat type</i> below.</p>
+                    </div>
+
+				    <?php if ($button->type === 'DOTS') { ?>
+                        <input id="buttonTextField" type="hidden"
+                               name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
+                               value="<?php echo esc_attr( $action->labelText ) ?>"/>
+				    <?php } else { ?>
+
+                        <div class="cnb-input-item button-text">
+                            <label for="buttonTextField">Button label</label>
+                            <input id="buttonTextField" type="text"
+                                   name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
+                                   value="<?php echo esc_attr( $action->labelText ) ?>" maxlength="30" placeholder="Optional"/>
+                        </div>
+				    <?php } ?>
+
+				    <?php $this->render_action_settings($action, $button); ?>
+        </section>
+
+	    <?php
+    }
+
+	/**
+	 * @param $action CnbAction
+	 * @param $button CnbButton
+	 * @param $domain CnbDomain
+     * @param $data_tab_group string either "actions" or "buttons"
+	 *
+	 * @return void
+	 */
+    function render_tab_scheduler($action, $button, $domain, $data_tab_group) {
+	    /**
+	     * @global WP_Locale $wp_locale WordPress date and time locale object.
+	     */
+	    global $wp_locale;
+
+	    $adminFunctions = new CnbAdminFunctions();
+	    $cnb_days_of_week_order = $this->get_order_of_days();
+
+	    // Uses domain timezone if no timezone can be found
+	    $timezone                        = ( isset( $action->schedule ) && ! empty( $action->schedule->timezone ) ) ? $action->schedule->timezone : ( isset( $domain ) ? $domain->timezone : null );
+	    $action_tz_different_from_domain = isset( $domain ) && ! empty( $domain->timezone ) && $domain->timezone !== $timezone;
+
+	    $timezone_set_correctly = ( new CnbHeaderNotices() )->is_timezone_valid( $domain );
+
+	    $upgrade_link =
+		    add_query_arg( array(
+			    'page'   => 'call-now-button-domains',
+			    'action' => 'upgrade',
+			    'id'     => $button->domain->id
+		    ),
+			    admin_url( 'admin.php' ) );
 
         ?>
-        <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][id]"
-               value="<?php if ( $action->id !== null && $action->id !== 'new' ) {
-                   echo esc_attr( $action->id );
-               } ?>"/>
-        <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][delete]"
-               id="cnb_action_<?php echo esc_attr( $action->id ) ?>_delete" value=""/>
-        <table data-tab-name="basic_options"
-               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">
-            <?php if ( ! $button ) { ?>
-                <tr>
-                    <th colspan="2"><h2>Action Settings</h2>
-                    </th>
-                </tr>
-            <?php } ?>
+        <section data-tab-name="scheduler" data-tab-group="<?php echo esc_attr($data_tab_group) ?>" class="form-table">
 
-            <tr class="cnb_hide_on_modal">
-                <th scope="row"><label for="cnb_action_type">Button action</label></th>
-                <td>
-                    <select id="cnb_action_type" name="actions[<?php echo esc_attr( $action->id ) ?>][actionType]">
-                        <?php foreach ( ( new CnbAdminFunctions() )->cnb_get_action_types() as $action_type_key => $action_type_value ) { ?>
-                            <option
-                                    value="<?php echo esc_attr( $action_type_key ) ?>"
-                                <?php selected( $action_type_value->type, $action->actionType ) ?>
-	                            <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' disabled="disabled"'; } ?>>
-	                            <?php echo esc_html( $action_type_value->name ) ?>
-                              <?php if (!$isPro && !in_array($domain_type, $action_type_value->plans)) { echo ' (PRO)'; } ?>
-                            </option>
-                        <?php } ?>
-                    </select>
+            <div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
+                <div class="cnb-section-info cnb-top-spacing">
+                    <h3 class="top-0">Scheduler</h3>
+                </div>
+                <div class="cnb-section-data cnb-top-spacing">
 
-                    <p class="description cnb-action-properties cnb-action-properties-TALLY"><a target="_blank" href="https://tally.so?ref=callnowbutton&utm_source=callnowbutton&utm_medium=wordpress">Tally</a> is our favorite form tool.</p>
-                </td>
-            </tr>
-            <tr class="cnb-action-value cnb_hide_on_modal">
-                <th scope="row">
-                    <label for="cnb_action_value_input">
-                        <span id="cnb_action_value">Action value</span>
-                    </label>
-                </th>
-                <td>
-                    <input type="text" id="cnb_action_value_input"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][actionValue]"
-                           value="<?php echo esc_attr( $action->actionValue ) ?>"/>
-                    <p class="description cnb-action-properties cnb-action-properties-MAP">Preview on <a href="#"
-                                                                                    onclick="cnb_action_update_map_link(this)"
-                                                                                    target="_blank">Google Maps</a></p>
-                    <p class="description cnb-action-properties cnb-action-properties-TALLY">ID is last part of the share link, e.g. <code>wA74do</code> for <code>https://tally.so/r/wA74do</code>.</p>
-                    <p class="description cnb-action-properties cnb-action-properties-ANCHOR">The anchor can be either a HTML tag name (e.g. <code>body</code>), a name attribute (e.g. a form field) or an ID attribute.</p>
-                    <p class="description cnb-action-properties cnb-action-properties-INTERCOM">E.g. <code>gkeb4bs</code>. See <a
-                                href="https://www.intercom.com/help/en/articles/3539-where-can-i-find-my-workspace-id-app-id?utm_source=callnowbutton&utm_medium=callnowbutton-plugin"
-                                target="_blank">this Intercom article</a> on how to find your app ID.</p>
-                    <p class="description cnb-action-properties cnb-action-properties-VIBER cnb-action-properties-viber-pa-chat">For personal chat change <i>Chat type</i> below. </p>
-                </td>
-            </tr>
-            <tr class="cnb-action-properties cnb-action-properties-intl-input">
-                <th scope="row"><label id="cnb_action_value_input_intl_input" for="cnb_action_value_input_whatsapp"></label></th>
-                <td>
-                    <input type="tel" id="cnb_action_value_input_whatsapp"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][actionValueWhatsapp]"
-                           value="<?php echo esc_attr( $action->actionValue ) ?>"/>
-                    <p class="description" id="cnb-valid-msg">✓ Valid</p>
-                    <p class="description" id="cnb-error-msg"></p>
-                    <p class="description cnb-action-properties cnb-action-properties-VIBER cnb-action-properties-viber-chat">For Viber Bot change <i>Chat type</i> below.</p>
-                </td>
-            </tr>
-	        <?php if ($button->type === 'DOTS') { ?>
-        <input id="buttonTextField" type="hidden"
-               name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
-               value="<?php echo esc_attr( $action->labelText ) ?>"/>
-	        <?php } else { ?>
-            <tr class="button-text cnb_hide_on_modal">
-                <th scope="row"><label for="buttonTextField">Button label</label></th>
-                <td>
-                    <input id="buttonTextField" type="text"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][labelText]"
-                           value="<?php echo esc_attr( $action->labelText ) ?>" maxlength="30" placeholder="Optional"/>
-            <?php } ?>
-                </td>
-            </tr>
+                    <div class="cnb-input-item cnb-flex cnb-flex-align-center cnb-flex-gap">
+                        <label>Show at all times</label>
+					    <?php
+					    $showAlwaysValue = $action->id === 'new' || (( isset( $action->schedule ) && ($action->schedule->showAlways === null || $action->schedule->showAlways) ));
 
-            <?php $this->render_action_settings($action, $button); ?>
+					    if ( $timezone_set_correctly ) { ?>
+                            <input name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]" type="hidden"
+                                   value="<?php if ( $button->domain->type === 'STARTER' ) { echo 'true'; } else { echo 'false'; } ?>"/>
+                            <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
+                                   onchange="return cnb_hide_on_show_always();"
+                                   name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
+                                   type="checkbox"
+                                   value="true"
+						           <?php if ( $button->domain->type === 'STARTER' ) {
+						           $showAlwaysValue = true;
+						           ?>disabled="disabled"<?php } ?>
+							    <?php checked( true, $showAlwaysValue ); ?>
+                            />
+                            <label for="actions_schedule_show_always" class="cnb_toggle_label">Toggle</label>
 
-        </table>
-        <table data-tab-name="scheduler"
-               class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>">
-            <tr class="cnb_hide_on_modal">
-                <th></th>
-                <td></td>
-            </tr>
-            <tr class="cnb_hide_on_modal">
-                <th scope="row">Show at all times</th>
-                <td>
-                    <?php
-                    $showAlwaysValue = $action->id === 'new' || (( isset( $action->schedule ) && ($action->schedule->showAlways === null || $action->schedule->showAlways) ));
+					    <?php } else if ( $showAlwaysValue ) { ?>
+                            <p class="description"><span class="dashicons dashicons-warning"></span>The scheduler is
+                                disabled because your timezone is not set correctly yet.</p>
+                            <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
+                                   name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
+                                   type="checkbox" value="true" checked="checked"/>
+					    <?php } else { ?>
+                            <input name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]" type="hidden"
+                                   value="false"/>
+                            <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
+                                   onchange="return cnb_hide_on_show_always();"
+                                   name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
+                                   type="checkbox"
+                                   value="true"/>
+                            <label for="actions_schedule_show_always" class="cnb_toggle_label">Toggle</label>
+                            <span data-cnb_toggle_state_label="actions_schedule_show_always"
+                                  class="cnb_toggle_state cnb_toggle_true">Yes</span>
+                            <span data-cnb_toggle_state_label="actions_schedule_show_always"
+                                  class="cnb_toggle_state cnb_toggle_false">(No)</span>
+                            <p class="description"><span class="dashicons dashicons-warning"></span>Please set your timezone
+                                before making any more changes. See the notice at the top of the page for more information.
+                            </p>
+					    <?php } ?>
+					    <?php if ( $button->domain->type === 'STARTER' ) { ?>
+                            <p class="description">
+                                Scheduling is a <span class="cnb-pro-badge">Pro</span> feature.
+                                <a href="<?php echo esc_url( $upgrade_link ) ?>">Upgrade</a>.
+                            </p>
+					    <?php } ?>
+                    </div>
 
-                    if ( $timezone_set_correctly ) { ?>
-                        <input name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]" type="hidden"
-                               value="<?php if ( $button->domain->type === 'STARTER' ) { echo 'true'; } else { echo 'false'; } ?>"/>
-                        <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
-                               onchange="return cnb_hide_on_show_always();"
-                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
-                               type="checkbox"
-                               value="true"
-                                <?php if ( $button->domain->type === 'STARTER' ) {
-                                    $showAlwaysValue = true;
-                                    ?>disabled="disabled"<?php } ?>
-                                <?php checked( true, $showAlwaysValue ); ?>
-                        />
-                        <label for="actions_schedule_show_always" class="cnb_toggle_label">Toggle</label>
-                        <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_true">Yes</span>
-                        <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_false">(No)</span>
-                    <?php } else if ( $showAlwaysValue ) { ?>
-                        <p class="description"><span class="dashicons dashicons-warning"></span>The scheduler is
-                            disabled because your timezone is not set correctly yet.</p>
-                        <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
-                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
-                               type="checkbox" value="true" checked="checked"/>
-                    <?php } else { ?>
-                        <input name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]" type="hidden"
-                               value="false"/>
-                        <input id="actions_schedule_show_always" class="cnb_toggle_checkbox"
-                               onchange="return cnb_hide_on_show_always();"
-                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][showAlways]"
-                               type="checkbox"
-                               value="true"/>
-                        <label for="actions_schedule_show_always" class="cnb_toggle_label">Toggle</label>
-                        <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_true">Yes</span>
-                        <span data-cnb_toggle_state_label="actions_schedule_show_always"
-                              class="cnb_toggle_state cnb_toggle_false">(No)</span>
-                        <p class="description"><span class="dashicons dashicons-warning"></span>Please set your timezone
-                            before making any more changes. See the notice at the top of the page for more information.
-                        </p>
-                    <?php } ?>
-                    <?php if ( $button->domain->type === 'STARTER' ) { ?>
-                        <p class="description">
-                            Scheduling is a <span class="cnb-pro-badge">Pro</span> feature.
-                            <a href="<?php echo esc_url( $upgrade_link ) ?>">Upgrade</a>.
-                        </p>
-                    <?php } ?>
+                    <div class="cnb-input-item">
+                        <span id="domain-timezone-notice-placeholder"></span>
+                    </div>
 
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="cnb_padding_0">
-                    <span id="domain-timezone-notice-placeholder"></span>
-                </td>
-            </tr>
-            <tr class="cnb_hide_on_show_always">
-                <th>Set days</th>
-                <td>
-                    <?php
-                    foreach ( $cnb_days_of_week_order as $cnb_day_of_week ) {
-                        $api_server_index = $this->wp_locale_day_to_daysofweek_array_index( $cnb_day_of_week );
-                        echo '
-                <input class="cnb_day_selector" id="cnb_weekday_' . esc_attr( $api_server_index ) . '" type="checkbox" name="actions[' . esc_attr( $action->id ) . '][schedule][daysOfWeek][' . esc_attr( $api_server_index ) . ']" value="true" ' . checked( isset( $action->schedule ) && isset( $action->schedule->daysOfWeek ) && isset( $action->schedule->daysOfWeek[ $api_server_index ] ) && $action->schedule->daysOfWeek[ $api_server_index ], true, false ) . '>
-            	  <label title="' . esc_attr( $wp_locale->get_weekday( $cnb_day_of_week ) ) . '" class="cnb_day_selector" for="cnb_weekday_' . esc_attr( $api_server_index ) . '">' . esc_attr( $wp_locale->get_weekday_abbrev( $wp_locale->get_weekday( $cnb_day_of_week ) ) ) . '</label>
-                ';
-                    }
-
-                    ?>
-                </td>
-            </tr>
-            <tr class="cnb_hide_on_show_always">
-                <th><label for="actions_schedule_outside_hours">After hours</label></th>
-                <td>
-                    <input id="actions_schedule_outside_hours" class="cnb_toggle_checkbox"
-                           name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][outsideHours]" type="checkbox"
-                           value="true" <?php checked( true, isset( $action->schedule ) && $action->schedule->outsideHours ); ?> />
-                    <label for="actions_schedule_outside_hours" class="cnb_toggle_label">Toggle</label>
-                    <span data-cnb_toggle_state_label="actions_schedule_outside_hours"
-                          class="cnb_toggle_state cnb_toggle_true">Active</span>
-                    <span data-cnb_toggle_state_label="actions_schedule_outside_hours"
-                          class="cnb_toggle_state cnb_toggle_false">(Off)</span>
-                </td>
-            </tr>
-            <tr class="cnb_hide_on_show_always">
-                <th>Set times</th>
-                <td class="cnb-scheduler-slider">
-                    <p id="cnb-schedule-range-text"></p>
-                    <div id="cnb-schedule-range" style="max-width: 300px"></div>
-                </td>
-            </tr>
-            <tr class="cnb_hide_on_show_always cnb_advanced_view">
-                <th><label for="actions-schedule-start">Start time</label></th>
-                <td><input type="time" name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][start]"
-                           id="actions-schedule-start" value="<?php if ( isset( $action->schedule ) ) {
-                        echo esc_attr( $action->schedule->start );
-                    } ?>"></td>
-            </tr>
-            <tr class="cnb_hide_on_show_always cnb_advanced_view">
-                <th><label for="actions-schedule-stop">End time</label></th>
-                <td><input type="time" name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][stop]"
-                           id="actions-schedule-stop" value="<?php if ( isset( $action->schedule ) ) {
-                        echo esc_attr( $action->schedule->stop );
-                    } ?>"></td>
-            </tr>
-            <tr class="cnb_hide_on_show_always<?php if ( ! $action_tz_different_from_domain ) { ?> cnb_advanced_view<?php } ?>">
-                <th><label for="actions[<?php echo esc_attr( $action->id ) ?>][schedule][timezone]">Timezone</label>
-                </th>
-                <td>
-                    <select name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][timezone]"
-                            id="actions[<?php echo esc_attr( $action->id ) ?>][schedule][timezone]"
-                            class="cnb_timezone_picker">
-                        <?php
-                        // phpcs:ignore WordPress.Security
-                        echo wp_timezone_choice( $timezone );
-                        ?>
-                    </select>
-                    <p class="description" id="domain_timezone-description">
-                        <?php if ( empty( $timezone ) ) { ?>
-                            Please select your timezone.
-                        <?php } else { ?>
-                            Set to <code><?php echo esc_html( $timezone ) ?></code>.
-                        <?php } ?>
-                    </p>
-                    <?php if ( $action_tz_different_from_domain ) { ?>
-                        <div class="notice notice-warning inline">
-                            <p>Be aware that the timezone for this action
-                                (<code><?php echo esc_html( $timezone ) ?></code>) is different from the timezone for
-                                your domain (<code><?php echo esc_html( $domain->timezone ) ?></code>).</p>
+                    <div class="cnb-input-item cnb_hide_on_show_always">
+                        <label class="sr-only">Set days</label>
+                        <div class="cnb-flex cnb-flex-gap">
+						    <?php
+						    foreach ( $cnb_days_of_week_order as $cnb_day_of_week ) {
+							    $api_server_index = $this->wp_locale_day_to_daysofweek_array_index( $cnb_day_of_week );
+							    echo '
+                            <input class="cnb_day_selector" id="cnb_weekday_' . esc_attr( $api_server_index ) . '" type="checkbox" name="actions[' . esc_attr( $action->id ) . '][schedule][daysOfWeek][' . esc_attr( $api_server_index ) . ']" value="true" ' . checked( isset( $action->schedule ) && isset( $action->schedule->daysOfWeek ) && isset( $action->schedule->daysOfWeek[ $api_server_index ] ) && $action->schedule->daysOfWeek[ $api_server_index ], true, false ) . '>
+                            <label title="' . esc_attr( $wp_locale->get_weekday( $cnb_day_of_week ) ) . '" class="cnb_day_selector" for="cnb_weekday_' . esc_attr( $api_server_index ) . '">' . esc_attr( $wp_locale->get_weekday_abbrev( $wp_locale->get_weekday( $cnb_day_of_week ) ) ) . '</label>
+                            ';
+						    } ?>
                         </div>
-                    <?php } ?>
-                </td>
-            </tr>
-        </table>
+                    </div>
+
+                    <div class="cnb-input-item cnb_hide_on_show_always cnb-flex cnb-flex-gap cnb-flex-align-center">
+                        <label for="actions_schedule_outside_hours">After hours</label>
+                        <input id="actions_schedule_outside_hours" class="cnb_toggle_checkbox"
+                               name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][outsideHours]" type="checkbox"
+                               value="true" <?php checked( true, isset( $action->schedule ) && $action->schedule->outsideHours ); ?> />
+                        <label for="actions_schedule_outside_hours" class="cnb_toggle_label">Toggle</label>
+                    </div>
+
+                    <div class="cnb-input-item cnb_hide_on_show_always">
+                        <label class="sr-only">Set times</label>
+                        <div class="cnb-scheduler-slider">
+                            <p id="cnb-schedule-range-text"></p>
+                            <div id="cnb-schedule-range" style="max-width: 300px"></div>
+                        </div>
+                        <p class="description"><em>Blue highlights the time your action is displayed.</em></p>
+                    </div>
+
+                    <div class="cnb-input-item cnb_hide_on_show_always cnb_advanced_view">
+                        <label for="actions-schedule-start">Start time</label>
+                        <input type="time" name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][start]"
+                               id="actions-schedule-start" value="<?php if ( isset( $action->schedule ) ) {
+						    echo esc_attr( $action->schedule->start );
+					    } ?>">
+                    </div>
+
+                    <div class="cnb-input-item cnb_hide_on_show_always cnb_advanced_view">
+                        <label for="actions-schedule-stop">End time</label>
+                        <input type="time" name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][stop]"
+                               id="actions-schedule-stop" value="<?php if ( isset( $action->schedule ) ) {
+						    echo esc_attr( $action->schedule->stop );
+					    } ?>">
+                    </div>
+
+                    <div class="cnb-input-item cnb_hide_on_show_always<?php if ( ! $action_tz_different_from_domain ) { ?> cnb_advanced_view<?php } ?>">
+                        <label for="actions[<?php echo esc_attr( $action->id ) ?>][schedule][timezone]">Timezone</label>
+                        <select name="actions[<?php echo esc_attr( $action->id ) ?>][schedule][timezone]"
+                                id="actions[<?php echo esc_attr( $action->id ) ?>][schedule][timezone]"
+                                class="cnb_timezone_picker">
+						    <?php
+						    // phpcs:ignore WordPress.Security
+						    echo wp_timezone_choice( $timezone );
+						    ?>
+                        </select>
+                        <p class="description" id="domain_timezone-description">
+						    <?php if ( empty( $timezone ) ) { ?>
+                                Please select your timezone.
+						    <?php } else { ?>
+                                Set to <code><?php echo esc_html( $timezone ) ?></code>.
+						    <?php } ?>
+                        </p>
+					    <?php if ( $action_tz_different_from_domain ) { ?>
+                            <div class="notice notice-warning inline">
+                                <p>Be aware that the timezone for this action
+                                    (<code><?php echo esc_html( $timezone ) ?></code>) is different from the timezone for
+                                    your domain (<code><?php echo esc_html( $domain->timezone ) ?></code>).</p>
+                            </div>
+					    <?php } ?>
+                    </div>
+                </div><!-- END .cnb-section-data -->
+            </div><!-- END .cnb-flex -->
+        </section>
         <?php
     }
 
@@ -438,41 +429,59 @@ class CnbActionViewEdit {
      * @param $domain CnbDomain
      */
     public function render_main( $action, $button, $domain = null ) {
-        wp_enqueue_style( CNB_SLUG . '-intl-tel-input' );
-        wp_enqueue_script( CNB_SLUG . '-intl-tel-input' );
-        $bid = ( new CnbUtils() )->get_query_val( 'bid', null );
-        // Set some sane defaults
-        $action->backgroundColor = ! empty( $action->backgroundColor )
-            ? $action->backgroundColor
-            : '#009900';
-        $action->iconColor       = ! empty( $action->iconColor )
-            ? $action->iconColor
-            : '#FFFFFF';
-        /** @noinspection PhpTernaryExpressionCanBeReplacedWithConditionInspection */
-        $action->iconEnabled = isset( $action->iconEnabled )
-            // phpcs:ignore PHPCompatibility.FunctionUse
-            ? boolval( $action->iconEnabled )
-            : true;
-        ?>
-        <input type="hidden" name="bid" value="<?php echo esc_attr( $bid ) ?>"/>
-        <input type="hidden" name="action_id" value="<?php echo esc_attr( $action->id ) ?>"/>
-        <input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'cnb-action-edit' ) ) ?>"/>
-        <?php
+        $domain = $this->get_domain( $button, $domain );
+        $this->render_hidden_action_fields( $action );
         $this->render_table( $action, $button, $domain );
+    }
+
+	/**
+     * In case a domain is not passed, we take it from the button
+	 * @param $button CnbButton
+	 * @param $domain CnbDomain
+	 *
+	 * @return CnbDomain|null
+	 */
+    public function get_domain( $button, $domain ) {
+	    return isset( $domain ) ? $domain : ( isset( $button ) ? $button->domain : null );
+    }
+
+	/**
+	 * @param $action CnbAction
+	 *
+	 * @return void
+	 */
+    public function render_hidden_action_fields( $action ) {
+	    $bid = ( new CnbUtils() )->get_query_val( 'bid', null );
+        ?>
+        <section>
+            <input type="hidden" name="bid" value="<?php echo esc_attr( $bid ) ?>"/>
+            <input type="hidden" name="action_id" value="<?php echo esc_attr( $action->id ) ?>"/>
+            <input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'cnb-action-edit' ) ) ?>"/>
+            <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][id]"
+                   value="<?php if ( $action->id !== null && $action->id !== 'new' ) {
+			           echo esc_attr( $action->id );
+		           } ?>"/>
+            <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][delete]"
+                   id="cnb_action_<?php echo esc_attr( $action->id ) ?>_delete" value=""/>
+        </section>
+	    <?php
+    }
+
+    private function get_action() {
+	    $cnb_remote          = new CnbAppRemote();
+	    $action_id           = filter_input( INPUT_GET, 'id', @FILTER_SANITIZE_STRING );
+
+	    if ( strlen( $action_id ) > 0 && $action_id !== 'new' ) {
+		    return $cnb_remote->get_action( $action_id );
+	    }
+
+	    // If not found, return whatever the current default is
+        return CnbAction::getDefaultAction();
     }
 
     public function render() {
         $cnb_remote          = new CnbAppRemote();
-        $action_id           = filter_input( INPUT_GET, 'id', @FILTER_SANITIZE_STRING );
-        $action              = new CnbAction();
-        $action->id          = 'new';
-        $action->actionType  = 'PHONE';
-        $action->actionValue = null;
-        $action->labelText   = null;
-
-        if ( strlen( $action_id ) > 0 && $action_id !== 'new' ) {
-            $action = $cnb_remote->get_action( $action_id );
-        }
+        $action = $this->get_action();
 
         add_action( 'cnb_header_name', function () use ( $action ) {
             $this->add_header( $action );
@@ -490,6 +499,7 @@ class CnbActionViewEdit {
                 array(
                     'page'   => 'call-now-button',
                     'action' => 'edit',
+                    'type'   => strtolower( $button->type ),
                     'id'     => $bid
                 ),
                 $url );
@@ -508,8 +518,6 @@ class CnbActionViewEdit {
             ),
             $form_action
         );
-
-        $adminFunctions = new CnbAdminFunctions();
 
         wp_enqueue_script( CNB_SLUG . '-action-type-to-icon-text' );
         wp_enqueue_script( CNB_SLUG . '-form-to-json' );
@@ -535,12 +543,12 @@ class CnbActionViewEdit {
                         <h2 class="nav-tab-wrapper">
                             <a href="<?php echo esc_url( $back_to_button_link ); ?>" class="cnb-nav-tab"><span
                                         class="dashicons dashicons-arrow-left-alt"></span></a>
-                            <a data-tab-name="basic_options"
-                               href="<?php echo esc_url( $this->create_tab_url( $button, 'basic_options' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>">Basics</a>
-                            <a data-tab-name="scheduler"
-                               href="<?php echo esc_url( $this->create_tab_url( $button, 'scheduler' ) ) ?>"
-                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>">Scheduling</a>
+                            <a data-tab-name="action_options" data-tab-group="actions"
+                               href="<?php echo esc_url( $this->create_tab_url( $button, 'action_options', 'actions' ) ) ?>"
+                               class="nav-tab">Basics</a>
+                            <a data-tab-name="scheduler" data-tab-group="actions"
+                               href="<?php echo esc_url( $this->create_tab_url( $button, 'scheduler', 'actions' ) ) ?>"
+                               class="nav-tab">Scheduling</a>
                         </h2>
                     <?php } ?>
                     <?php if ( $button ) { ?>

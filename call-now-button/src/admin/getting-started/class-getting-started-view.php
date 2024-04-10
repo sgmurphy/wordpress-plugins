@@ -10,7 +10,7 @@ use cnb\CnbHeaderNotices;
 class GettingStartedView {
     public function render() {
 
-        wp_enqueue_style( CNB_SLUG . '-styling' );
+	    wp_enqueue_style( CNB_SLUG . '-getting-started' );
         wp_enqueue_script( CNB_SLUG . '-premium-activation' );
 
         // Create link to the regular legacy page
@@ -22,33 +22,6 @@ class GettingStartedView {
                 ),
                 $url );
         ?>
-        <style>
-          @font-face {
-            font-family: 'CNB Icons';
-            font-style: normal;
-            font-weight: 400;
-            src: url("<?php echo esc_url(plugins_url('resources/font/cnb.woff', CNB_PLUGINS_URL_BASE)) ?>") format('woff2');
-          }
-          .cnb-font-icon i {
-            font-family: 'CNB Icons';
-            outline: none;
-            font-style: normal;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            -webkit-font-feature-settings: 'liga';
-            font-size:250%;
-          }
-          .action-item {
-            display: inline-block;
-            margin: 10px;
-          }
-        </style>
         <div class="cnb-welcome-page">
           <div class="cnb-welcome-blocks cnb-extra-top">
 

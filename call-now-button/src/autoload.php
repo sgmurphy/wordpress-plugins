@@ -54,6 +54,7 @@ spl_autoload_register(
                 'cnb\\admin\\button\\cnb_button_list_table' => '/admin/button/Cnb_Button_List_Table.php',
                 'cnb\\admin\\button\\cnbbutton' => '/admin/button/CnbButton.php',
                 'cnb\\admin\\button\\cnbbuttoncontroller' => '/admin/button/CnbButtonController.php',
+                'cnb\\admin\\button\\cnbbuttonmodalview' => '/admin/button/CnbButtonModalView.php',
                 'cnb\\admin\\button\\cnbbuttonoptions' => '/admin/button/CnbButton.php',
                 'cnb\\admin\\button\\cnbbuttonrouter' => '/admin/button/CnbButtonRouter.php',
                 'cnb\\admin\\button\\cnbbuttonview' => '/admin/button/CnbButtonView.php',

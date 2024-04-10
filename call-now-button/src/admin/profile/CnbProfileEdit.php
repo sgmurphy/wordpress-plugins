@@ -22,19 +22,15 @@ class CnbProfileEdit {
         do_action( 'cnb_footer' );
     }
 
-    /**
-     * @param $modal boolean
-     *
-     * @return CnbUser|WP_Error
-     */
-    public function render_form( $modal = false ) {
+    public function render_form() {
         $controller = new CnbProfileController();
         $cnb_remote = new CnbAppRemote();
         $cnb_user   = $cnb_remote->get_user();
         if ( is_wp_error( $cnb_user ) ) {
-            return $cnb_user;
+            return;
         }
 
+	    $cnb_countries =                      $controller->get_stripe_countries();
         $cnb_user_stripe_verified             = isset( $cnb_user->taxIds[0]->verification->status ) && $cnb_user->taxIds[0]->verification->status === 'verified';
         $cnb_user_stripe_verification_pending = isset( $cnb_user->taxIds[0]->verification->status ) && $cnb_user->taxIds[0]->verification->status === 'pending';
         ?>
@@ -43,23 +39,18 @@ class CnbProfileEdit {
             <input type="hidden" name="page" value="call-now-button"/>
             <input type="hidden" name="action" value="cnb_profile_edit"/>
             <?php wp_nonce_field( 'cnb-profile-edit' ) ?>
-            <?php
-            // Modal likely means "via domain-upgrade", so we need to send users back there
-            if ( $modal ) { ?><input type="hidden" name="page_source" value="domain-upgrade"/><?php } ?>
-
             <table class="form-table nav-tab-only">
-                <tbody>
-                <?php if ( ! $modal ) { ?>
-                    <tr>
-                        <th colspan="2"><h2>Account owner</h2></th>
-                    </tr>
-                    <tr class="cnb_advanced_view">
-                        <th scope="row"><label for="user_id">ID</label></th>
-                        <td>
-                            <code><?php echo esc_html( $cnb_user->id ) ?></code>
-                        </td>
-                    </tr>
-                <?php } ?>
+            <tbody>
+                <tr>
+                    <th colspan="2"><h2>Account owner</h2></th>
+                </tr>
+                <tr class="cnb_advanced_view">
+                    <th scope="row"><label for="user_id">ID</label></th>
+                    <td>
+                        <code><?php echo esc_html( $cnb_user->id ) ?></code>
+                    </td>
+                </tr>
+
                 <tr>
                     <th scope="row"><label for="user_email">Email</label></th>
                     <td>
@@ -89,16 +80,16 @@ class CnbProfileEdit {
                                class="regular-text ltr cnb_vat_companies_required">
                     </td>
                 </tr>
+
                 <tr>
-                    <th scope="row"><label for="cnb_profile_country">Country<span class="cnb_required">*</span></label>
+                    <th scope="row"><label for="cnb_profile_country">Country</label>
                     </th>
                     <td>
                         <label>
-                            <select id="cnb_profile_country" class="select-menu" name="user[address][country]"
-                                    required="required">
+                            <select id="cnb_profile_country" class="select-menu" name="user[address][country]">
                                 <option value=""></option>
                                 <?php
-                                foreach ( $controller->get_stripe_countries() as $country ) {
+                                foreach ( $cnb_countries as $country ) {
                                     $user_country = '';
                                     if ( isset( $cnb_user->address ) ) {
                                         $user_country = $cnb_user->address->country;
@@ -136,6 +127,7 @@ class CnbProfileEdit {
                                class="regular-text ltr cnb_vat_companies_required cnb_eu_values_only">
                     </td>
                 </tr>
+
                 <tr class="cnb_vat_companies_show" style="display:none">
                     <th scope="row"><label for="user[address][line2]">Building, apartment, etc.</label></th>
                     <td>
@@ -148,7 +140,7 @@ class CnbProfileEdit {
                 <tr>
                     <th scope="row"><label for="user[address][postalCode]"><span class="cnb_ie_only"
                                                                                  style="display:none">Eircode/</span>Zip/Postal
-                            code<span class="cnb_required">*</span></label></th>
+                            code</label></th>
                     <td>
                         <input type="text" id="user[address][postalCode]" name="user[address][postalCode]"
                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->postalCode : '' ) ?>"
@@ -162,7 +154,7 @@ class CnbProfileEdit {
                     <td>
                         <input type="text" id="user[address][city]" name="user[address][city]"
                                value="<?php echo esc_attr( isset( $cnb_user->address ) ? $cnb_user->address->city : '' ) ?>"
-                               required="required" class="regular-text ltr">
+                               class="regular-text ltr">
                     </td>
                 </tr>
 
@@ -175,7 +167,6 @@ class CnbProfileEdit {
                                class="regular-text ltr cnb_us_required cnb_us_values_only">
                     </td>
                 </tr>
-
 
                 <tr class="cnb_vat_companies_show" style="display:none">
                     <th scope="row"><label for="cnb_profile_vat">VAT number<span class="cnb_required">*</span></label>
@@ -205,6 +196,5 @@ class CnbProfileEdit {
             </table>
         </form>
         <?php
-        return $cnb_user;
     }
 }

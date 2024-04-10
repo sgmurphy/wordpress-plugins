@@ -3,6 +3,8 @@
 namespace DevOwl\RealCookieBanner\Vendor\DevOwl\CookieConsentManagement\frontend;
 
 use DevOwl\RealCookieBanner\Vendor\DevOwl\CookieConsentManagement\Utils;
+use Requests_Cookie;
+use Requests_Response_Headers;
 use WpOrg\Requests\Cookie;
 use WpOrg\Requests\Response\Headers;
 /**
@@ -51,7 +53,12 @@ class SavingConsentViaRestApiEndpointChecker
             }
             return $errors;
         }
-        $headersInstance = new Headers();
+        // WordPress backwards-compatibilty 6.1
+        if (\class_exists(Requests_Response_Headers::class)) {
+            $headersInstance = new Requests_Response_Headers();
+        } else {
+            $headersInstance = new Headers();
+        }
         foreach ($headers as $key => $value) {
             $headersInstance[$key] = $value;
         }
@@ -104,7 +111,12 @@ class SavingConsentViaRestApiEndpointChecker
         }
         $cookies = [];
         foreach ($cookieHeaders as $header) {
-            $parsed = Cookie::parse($header, '', null);
+            // WordPress backwards-compatibilty 6.1
+            if (\class_exists(Requests_Cookie::class)) {
+                $parsed = Requests_Cookie::parse($header, '', null);
+            } else {
+                $parsed = Cookie::parse($header, '', null);
+            }
             if (Utils::startsWith($parsed->name, 'real_cookie_banner')) {
                 $cookies[] = $parsed;
             }

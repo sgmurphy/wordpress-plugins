@@ -123,7 +123,8 @@ class CnbConditionController {
                         'action' => 'edit',
                         'id'     => $bid,
                         'tid'    => $transient_id,
-                        'tab'    => 'visibility',
+                        'tabName'    => 'visibility',
+	                    'tabGroup'    => 'buttons'
                     ),
                     $url );
         } else {

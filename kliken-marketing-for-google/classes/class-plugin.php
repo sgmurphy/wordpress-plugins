@@ -198,7 +198,7 @@ class Plugin {
 
 	/**
 	 * Check if the dependencies of the plugin are satisfied.
-	 * Here we need WooCommerce 5.5 or above, to be installed, and active.
+	 * Here we need WooCommerce from the specified version, to be installed, and active.
 	 *
 	 * @throws \Exception Throw an exception if the dependency is not satisfied.
 	 */
@@ -214,7 +214,7 @@ class Plugin {
 			);
 		}
 
-		$required_woo_version = '5.5';
+		$required_woo_version = '6.0';
 		if ( version_compare( wc()->version, $required_woo_version, '<' ) ) {
 			throw new \Exception(
 				sprintf(
