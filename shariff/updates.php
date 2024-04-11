@@ -269,6 +269,43 @@ if ( isset( $shariff3uu['version'] ) && -1 === version_compare( $shariff3uu['ver
 	$shariff3uu['version'] = '4.5.0';
 }
 
+
+/**
+ * Migration < 4.6.13
+ * cleanup the post/pages/custom types
+ */
+if ( isset( $shariff3uu['version'] ) && -1 === version_compare( $shariff3uu['version'], '4.6.13' ) ) {
+        // cleanup the post/pages/custom types options to avoid code confusion with double variables
+        if ( isset( $shariff3uu_basic['add_after']['posts'] ) ) {
+                $shariff3uu_basic['add_after']['post'] = $shariff3uu_basic['add_after']['posts'];
+                unset($shariff3uu_basic['add_after']['posts']);
+        }
+        if ( isset( $shariff3uu_basic['add_after']['posts_blogpage'] ) ) {
+                $shariff3uu_basic['add_after']['blogpage'] = $shariff3uu_basic['add_after']['posts_blogpage'];
+                unset($shariff3uu_basic['add_after']['posts_blogpage']);
+        }
+        if ( isset( $shariff3uu_basic['add_after']['pages'] ) ) {
+                $shariff3uu_basic['add_after']['page'] = $shariff3uu_basic['add_after']['pages'];
+                unset($shariff3uu_basic['add_after']['pages']);
+        }
+
+        if ( isset( $shariff3uu_basic['add_before']['posts'] ) ) {
+                $shariff3uu_basic['add_before']['post'] = $shariff3uu_basic['add_before']['posts'];
+                unset($shariff3uu_basic['add_before']['posts']);
+        }
+        if ( isset( $shariff3uu_basic['add_before']['posts_blogpage'] ) ) {
+                $shariff3uu_basic['add_before']['blogpage'] = $shariff3uu_basic['add_before']['posts_blogpage'];
+                unset($shariff3uu_basic['add_before']['posts_blogpage']);
+        }
+        if ( isset( $shariff3uu_basic['add_before']['pages'] ) ) {
+                $shariff3uu_basic['add_before']['page'] = $shariff3uu_basic['']['pages'];
+                unset($shariff3uu_basic['']['pages']);
+        }
+        // Update version.
+        $shariff3uu['version'] = '4.6.13';
+}
+
+
 /**
  * General tasks we do on every update, like clean up transients and so on.
  */

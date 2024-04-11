@@ -10,6 +10,7 @@ use Vendidero\Germanized\DHL\ShippingProvider\DeutschePost;
 use Vendidero\Germanized\DHL\ShippingProvider\DHL;
 use Vendidero\Germanized\DHL\Api\Internetmarke;
 use Vendidero\Germanized\Shipments\Registry\Container;
+use Vendidero\Germanized\Shipments\Shipment;
 use Vendidero\Germanized\Shipments\ShippingProvider\Helper;
 
 defined( 'ABSPATH' ) || exit;
@@ -24,7 +25,7 @@ class Package {
 	 *
 	 * @var string
 	 */
-	const VERSION = '3.0.6';
+	const VERSION = '3.1.1';
 
 	public static $upload_dir_suffix = '';
 
@@ -65,6 +66,7 @@ class Package {
 
 		// Legacy data store
 		add_filter( 'woocommerce_data_stores', array( __CLASS__, 'register_data_stores' ), 10, 1 );
+		add_filter( 'woocommerce_gzd_shipment_is_shipping_domestic', array( __CLASS__, 'shipping_domestic' ), 10, 2 );
 
 		self::includes();
 		self::define_tables();
@@ -79,6 +81,25 @@ class Package {
 		}
 	}
 
+	/**
+	 * Exclude certain inner-DE shipments (e.g. to Helgoland) from being treated
+	 * as international shipments.
+	 *
+	 * @param boolean $is_shipping_domestic
+	 * @param Shipment $shipment
+	 *
+	 * @return boolean
+	 */
+	public static function shipping_domestic( $is_shipping_domestic, $shipment ) {
+		if ( false === $is_shipping_domestic && in_array( $shipment->get_shipping_provider(), array( 'dhl', 'deutsche_post' ), true ) ) {
+			if ( ! self::is_crossborder_shipment( $shipment->get_country(), $shipment->get_postcode() ) ) {
+				$is_shipping_domestic = true;
+			}
+		}
+
+		return $is_shipping_domestic;
+	}
+
 	public static function load_dependencies_notice() {
 		?>
 		<div class="notice notice-error error">
@@ -88,7 +109,7 @@ class Package {
 	}
 
 	public static function has_dependencies() {
-		return ( class_exists( 'WooCommerce' ) && class_exists( '\Vendidero\Germanized\Shipments\Package' ) && self::base_country_is_supported() && apply_filters( 'woocommerce_gzd_dhl_enabled', true ) );
+		return ( class_exists( 'WooCommerce' ) && class_exists( '\Vendidero\Germanized\Shipments\Package' ) && \Vendidero\Germanized\Shipments\Package::has_dependencies() && self::base_country_is_supported() && apply_filters( 'woocommerce_gzd_dhl_enabled', true ) );
 	}
 
 	public static function has_load_dependencies() {
@@ -323,6 +344,7 @@ class Package {
 
 	public static function install() {
 		self::on_shipments_init();
+
 		Install::install();
 	}
 

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.9.0
+ * Version: 4.9.1
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,8 +12,10 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.9.0' );
+define( 'BT_BB_VERSION', '4.9.1' );
 // VERSION --------------------------------------------------------- \\
+ 
+define( 'BT_BB_FEATURE_ADD_ELEMENTS', false );
  
 /**
  * Enqueue scripts and styles
@@ -174,22 +176,26 @@ function bt_bb_parse_content_admin( $content ) {
 					//$wrap_arr['d0'] .= '<span id="bt_bb_fe_preview_toggler" class="bt_bb_fe_preview_toggler">' . esc_html__( 'Show/hide edit mode UI', 'bold-builder' ) . '</span><span id="bt_bb_fe_save" data-nonce="' . wp_create_nonce( 'bt-bb-fe-save-nonce' ) . '"></span><span id="bt_bb_fe_add_section" data-icon-code="&#xf067" title="' . esc_html__( 'Add Section', 'bold-builder' ) . '"></span>';
 					if ( ! class_exists( 'BoldThemes_BB_Settings' ) || ! BoldThemes_BB_Settings::$custom_content_elements ) { // only with native BB elements
 						if ( ! ( isset( $_GET['bt_bb_fe_preview'] ) && $_GET['bt_bb_fe_preview'] == 'true' ) ) {
-							// $wrap_arr['d0'] .= '<span id="bt_bb_fe_add_section" data-icon-code="&#xf067" title="' . esc_html__( 'Add Section', 'bold-builder' ) . '"></span>';
-							/*$wrap_arr['d0'] .= '<div class="bt_bb_fe_add_template">';
-							$wrap_arr['d0'] .= '<h6>' . esc_html__( 'Add Section/Row/Column(s)', 'bold-builder' ) . '</h6>';
-							$wrap_arr['d0'] .= '<div class="bt_bb_fe_add_template_list">';
-								$wrap_arr['d0'] .= '<div title="1/1"></div>';
-								$wrap_arr['d0'] .= '<div title="1/2+1/2"></div>';
-								$wrap_arr['d0'] .= '<div title="1/3+1/3+1/3"></div>';
-								$wrap_arr['d0'] .= '<div title="1/4+1/4+1/4+1/4"></div>';
-								$wrap_arr['d0'] .= '<div title="1/5+1/5+1/5+1/5+1/5"></div>';
-								$wrap_arr['d0'] .= '<div title="2/3+1/3"></div>';
-								$wrap_arr['d0'] .= '<div title="1/3+2/3"></div>';
-								$wrap_arr['d0'] .= '<div title="3/4+1/4"></div>';
-								$wrap_arr['d0'] .= '<div title="1/4+3/4"></div>';
-								$wrap_arr['d0'] .= '<div title="1/4+2/4+1/4"></div>';
-							$wrap_arr['d0'] .= '</div>';
-							$wrap_arr['d0'] .= '</div>';*/
+							if ( BT_BB_FEATURE_ADD_ELEMENTS ) {
+								$wrap_arr['d0'] .= '<div class="bt_bb_fe_wrap">';
+								$wrap_arr['d0'] .= '<span id="bt_bb_fe_add_elements" title="' . esc_html__( 'Add elements', 'bold-builder' ) . '"></span>';
+								$wrap_arr['d0'] .= '<div class="bt_bb_fe_add_template">';
+								$wrap_arr['d0'] .= '<h6>' . esc_html__( 'Add Section/Row/Column(s)', 'bold-builder' ) . '</h6>';
+								$wrap_arr['d0'] .= '<div class="bt_bb_fe_add_template_list">';
+									$wrap_arr['d0'] .= '<div title="1/1"></div>';
+									$wrap_arr['d0'] .= '<div title="1/2+1/2"></div>';
+									$wrap_arr['d0'] .= '<div title="1/3+1/3+1/3"></div>';
+									$wrap_arr['d0'] .= '<div title="1/4+1/4+1/4+1/4"></div>';
+									$wrap_arr['d0'] .= '<div title="1/5+1/5+1/5+1/5+1/5"></div>';
+									$wrap_arr['d0'] .= '<div title="2/3+1/3"></div>';
+									$wrap_arr['d0'] .= '<div title="1/3+2/3"></div>';
+									$wrap_arr['d0'] .= '<div title="3/4+1/4"></div>';
+									$wrap_arr['d0'] .= '<div title="1/4+3/4"></div>';
+									$wrap_arr['d0'] .= '<div title="1/4+2/4+1/4"></div>';
+								$wrap_arr['d0'] .= '</div>';
+								$wrap_arr['d0'] .= '</div>';
+								$wrap_arr['d0'] .= '</div>';
+							}
 						}
 					}
 					$wrap_arr['d0'] .= '<span id="bt_bb_fe_preview_toggler" class="bt_bb_fe_preview_toggler">' . esc_html__( 'Show/hide edit mode UI', 'bold-builder' ) . '</span>';

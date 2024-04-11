@@ -649,9 +649,11 @@
             });
         });
 
-        $(".field-email").emailautocomplete({
-            domains: ['example.com', "protonmail.com", "yahoo.com", "gmail.com"] //add your own domains
-        });
+        if($(".chaty-contact-form-box .field-email").length) {
+            $(".chaty-contact-form-box .field-email").emailautocomplete({
+                domains: ["protonmail.com", "yahoo.com", "gmail.com"] //add your own domains
+            });
+        }
 
         $(document).on("click", ".email_suggestion i", function (){
             $(this).closest(".chaty-contact-form-box").find(".field-email").val($(this).text()).focus();

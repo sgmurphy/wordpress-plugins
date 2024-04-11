@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: https://wordpress.org/plugins-wp/shariff/
  * Description: Shariff provides share buttons that respect the privacy of your visitors and follow the General Data Protection Regulation (GDPR).
- * Version: 4.6.12
+ * Version: 4.6.13
  * Author: Jan-Peter Lambeck & 3UU
  * Author URI: https://wordpress.org/plugins/shariff/
  * License: MIT
@@ -34,7 +34,7 @@ $shariff3uu = array_merge( $shariff3uu_basic, $shariff3uu_design, $shariff3uu_ad
  */
 function shariff3uu_update() {
 	// Adjust code version.
-	$code_version = '4.6.12';
+	$code_version = '4.6.13';
 
 	// Get basic options.
 	$shariff3uu_basic = (array) get_option( 'shariff3uu_basic' );
@@ -566,13 +566,13 @@ function shariff3uu_posts( $content ) {
 
 	// Disable share buttons on password protected posts if configured in the admin menu.
 	if ( ( 1 === post_password_required( get_the_ID() ) || ! empty( $GLOBALS['post']->post_password ) ) && isset( $shariff3uu['disable_on_protected'] ) && 1 === $shariff3uu['disable_on_protected'] ) {
-		$shariff3uu['add_before']['posts']          = 0;
-		$shariff3uu['add_before']['posts_blogpage'] = 0;
-		$shariff3uu['add_before']['pages']          = 0;
-		$shariff3uu['add_after']['posts']           = 0;
-		$shariff3uu['add_after']['posts_blogpage']  = 0;
-		$shariff3uu['add_after']['pages']           = 0;
-		$shariff3uu['add_after']['custom_type']     = 0;
+		$shariff3uu['add_before']['post']	= 0;
+		$shariff3uu['add_before']['blogpage']	= 0;
+		$shariff3uu['add_before']['page']	= 0;
+		$shariff3uu['add_after']['post']	= 0;
+		$shariff3uu['add_after']['blogpage']	= 0;
+		$shariff3uu['add_after']['page']	= 0;
+		$shariff3uu['add_after']['custom_type']	= 0;
 	}
 
 	// If we want to see it as text - replace the slash.
@@ -585,12 +585,8 @@ function shariff3uu_posts( $content ) {
 		return $content;
 	}
 
-	// Type of current post.
+	// Type of current site.
 	$current_post_type = get_post_type();
-	if ( 'post' === $current_post_type ) {
-		$current_post_type = 'posts';
-	}
-
 	// Prevent php warnings in debug mode.
 	$add_before = 0;
 	$add_after  = 0;
@@ -598,26 +594,18 @@ function shariff3uu_posts( $content ) {
 	// Check if shariff should be added automatically (plugin options).
 	if ( ! is_singular() ) {
 		// On blog page.
-		if ( isset( $shariff3uu['add_before']['posts_blogpage'] ) && 1 === $shariff3uu['add_before']['posts_blogpage'] ) {
+		if ( isset( $shariff3uu['add_before']['blogpage'] ) && 1 === $shariff3uu['add_before']['blogpage'] ) {
 			$add_before = 1;
 		}
-		if ( isset( $shariff3uu['add_after']['posts_blogpage'] ) && 1 === $shariff3uu['add_after']['posts_blogpage'] ) {
+		if ( isset( $shariff3uu['add_after']['blogpage'] ) && 1 === $shariff3uu['add_after']['blogpage'] ) {
 			$add_after = 1;
 		}
-	} elseif ( is_singular( 'post' ) ) {
-		// On single post.
+	} elseif ( is_singular( 'post' ) || is_singular( 'page' ) ) {
+		// On single post or page.
 		if ( isset( $shariff3uu['add_before'][ $current_post_type ] ) && 1 === $shariff3uu['add_before'][ $current_post_type ] ) {
 			$add_before = 1;
 		}
 		if ( isset( $shariff3uu['add_after'][ $current_post_type ] ) && 1 === $shariff3uu['add_after'][ $current_post_type ] ) {
-			$add_after = 1;
-		}
-	} elseif ( is_singular( 'page' ) ) {
-		// On pages.
-		if ( isset( $shariff3uu['add_before']['pages'] ) && 1 === $shariff3uu['add_before']['pages'] ) {
-			$add_before = 1;
-		}
-		if ( isset( $shariff3uu['add_after']['pages'] ) && 1 === $shariff3uu['add_after']['pages'] ) {
 			$add_after = 1;
 		}
 	} else {
@@ -1088,7 +1076,7 @@ function shariff3uu_render( $atts ) {
 
 	// Adds the timestamp for the cache.
 	if ( array_key_exists( 'timestamp', $atts ) ) {
-		$post_timestamp = $atts['timestamp'];
+		$post_timestamp = absint( $atts['timestamp'] );
 	} else {
 		$post_timestamp = absint( get_the_modified_date( 'U' ) );
 	}
@@ -1105,7 +1093,7 @@ function shariff3uu_render( $atts ) {
 	}
 	// Button Stretch.
 	// phpcs:ignore
-	if ( array_key_exists( 'buttonstretch', $atts ) && 1 == $atts['buttonstretch'] ) {
+	if ( array_key_exists( 'buttonstretch', $atts ) && 1 === $atts['buttonstretch'] ) {
 		$output .= ' shariff-buttonstretch';
 	}
 	$output .= '"';
@@ -1119,7 +1107,7 @@ function shariff3uu_render( $atts ) {
 		// Share url.
 		$output .= ' data-url="' . esc_html( $share_url ) . '"';
 		// Timestamp for cache.
-		$output .= ' data-timestamp="' . $post_timestamp . '"';
+		$output .= ' data-timestamp="' . esc_attr( $post_timestamp ) . '"';
 		// Hides share counts when they are zero.
 		if ( isset( $atts['hidezero'] ) && 1 === $atts['hidezero'] ) {
 			$output .= ' data-hidezero="1"';

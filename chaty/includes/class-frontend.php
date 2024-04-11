@@ -387,7 +387,7 @@ class CHT_Frontend extends CHT_Admin_Base
             $response['message'] = "Invalid request, Please try again";
         }//end if
 
-        wp_json_encode($response);
+        echo wp_json_encode($response);
         exit;
 
     }//end chaty_front_form_save_data()

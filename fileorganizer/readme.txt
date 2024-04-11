@@ -4,7 +4,7 @@ Tags: FileOrganizer, file manager, wordpress file manager, file explorer, upload
 Requires at least: 5.5
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -50,8 +50,11 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box, Look
 
 == Changelog ==
 
+= 1.0.7 (Apr 11, 2024) =
+* [Security-Fix] An XSS vulnerability has been fixed. Please upgrade to this version as soon as possible!
+
 = 1.0.6 (Dec 15, 2023) =
-* [Security-fix] There was a nonce leakage in the promo which has been fixed.
+* [Security-fix] There was a privilege check failure which has been fixed.
 
 = 1.0.5 (Nov 29, 2023) =
 * [Task] Tested compatibility with WordPress 6.4. No functional changes made. The plugin is fully compatible with WordPress 6.4.

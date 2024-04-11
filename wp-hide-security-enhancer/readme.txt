@@ -4,7 +4,7 @@ Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
 Tested up to: 6.5
-Stable tag: 2.3.8.1
+Stable tag: 2.3.8.2
 License: GPLv2 or later
 
 Hide WordPress, wp-content, wp-includes, wp-admin, login URL, plugins, themes etc. Block the default URLs. Security Headers etc.
@@ -406,6 +406,9 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.3.8.2 =
+* Disable the filter wph/components/rewrite-default/superglobal_variables_replacements and the ignore for _wp_http_referer as produce issues with specific plugins
 
 = 2.3.8.1 =
 * Fix Too few arguments to function WPH_module_rewrite_default::_array_replacements_recursivelly()

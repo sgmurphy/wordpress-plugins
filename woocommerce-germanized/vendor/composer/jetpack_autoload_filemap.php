@@ -11,11 +11,11 @@ return array(
 		'path'    => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php'
 	),
 	'241d2bc730dc592f76425fee315639b6' => array(
-		'version' => '4.2.1.0',
+		'version' => '4.2.3.0',
 		'path'    => $vendorDir . '/globalcitizen/php-iban/oophp-iban.php'
 	),
 	'ac2da84b5f360a33c0c760ac23936bfb' => array(
-		'version' => '4.2.1.0',
+		'version' => '4.2.3.0',
 		'path'    => $vendorDir . '/globalcitizen/php-iban/php-iban.php'
 	),
 );

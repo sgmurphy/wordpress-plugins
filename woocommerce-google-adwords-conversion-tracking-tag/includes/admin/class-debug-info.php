@@ -23,14 +23,12 @@ class Debug_Info
                 global  $woocommerce ;
             }
             global  $wp_version, $current_user, $hook_suffix ;
-            global  $fs_active_plugins ;
             $html = '### Debug Information ###' . PHP_EOL . PHP_EOL;
             $html .= '## Pixel Manager Info ##' . PHP_EOL . PHP_EOL;
             $html .= 'Version: ' . PMW_CURRENT_VERSION . PHP_EOL;
             $tier = ( wpm_fs()->can_use_premium_code__premium_only() ? 'pro' : 'free' );
             $html .= 'Tier:    ' . $tier . PHP_EOL;
             $html .= 'Distro:  ' . PMW_DISTRO . PHP_EOL;
-            $html .= PHP_EOL . '## Freemius ##' . PHP_EOL . PHP_EOL;
             // if Freemius is active, show the debug info
             $html = self::add_freemius_account_details( $html );
             $html .= PHP_EOL . '## System Environment ##' . PHP_EOL . PHP_EOL;
@@ -191,30 +189,36 @@ class Debug_Info
     
     private static function add_freemius_account_details( $html )
     {
-        if ( !function_exists( 'wpm_fs' ) ) {
+        try {
+            if ( !function_exists( 'wpm_fs' ) ) {
+                return $html;
+            }
+            global  $fs_active_plugins ;
+            $html .= PHP_EOL . '## Freemius ##' . PHP_EOL . PHP_EOL;
+            
+            if ( method_exists( wpm_fs(), 'get_user' ) ) {
+                $fs_user = wpm_fs()->get_user();
+                $fs_user_id = ( is_object( $fs_user ) && property_exists( $fs_user, 'id' ) ? $fs_user->id : 'not found' );
+                $html .= 'Freemius User ID:     ' . $fs_user_id . PHP_EOL;
+            }
+            
+            
+            if ( method_exists( wpm_fs(), 'get_site' ) ) {
+                $fs_site = wpm_fs()->get_site();
+                $fs_site_id = ( is_object( $fs_site ) && property_exists( $fs_site, 'id' ) ? $fs_site->id : 'not found' );
+                $html .= 'Freemius Site ID:     ' . $fs_site_id . PHP_EOL;
+            }
+            
+            $fs_sdk_bundled_version = ( property_exists( wpm_fs(), 'version' ) ? wpm_fs()->version : 'not found' );
+            $html .= 'Freemius SDK bundled: ' . $fs_sdk_bundled_version . PHP_EOL;
+            $fs_sdk_active_version = ( property_exists( $fs_active_plugins, 'newest' ) && property_exists( $fs_active_plugins->newest, 'version' ) ? $fs_active_plugins->newest->version : 'not found' );
+            $html .= 'Freemius SDK active:  ' . $fs_sdk_active_version . PHP_EOL;
+            $html .= 'api.freemius.com:     ' . self::try_connect_to_server( 'https://api.freemius.com' ) . PHP_EOL;
+            $html .= 'wp.freemius.com:      ' . self::try_connect_to_server( 'https://wp.freemius.com' ) . PHP_EOL;
             return $html;
+        } catch ( Exception $e ) {
+            $html .= PHP_EOL . 'Freemius error: ' . $e->getMessage() . PHP_EOL;
         }
-        global  $fs_active_plugins ;
-        
-        if ( method_exists( wpm_fs(), 'get_user' ) ) {
-            $fs_user = wpm_fs()->get_user();
-            $fs_user_id = ( property_exists( $fs_user, 'id' ) ? $fs_user->id : 'not found' );
-            $html .= 'Freemius User ID:     ' . $fs_user_id . PHP_EOL;
-        }
-        
-        
-        if ( method_exists( wpm_fs(), 'get_site' ) ) {
-            $fs_site = wpm_fs()->get_site();
-            $fs_site_id = ( property_exists( $fs_site, 'id' ) ? $fs_site->id : 'not found' );
-            $html .= 'Freemius Site ID:     ' . $fs_site_id . PHP_EOL;
-        }
-        
-        $fs_sdk_bundled_version = ( property_exists( wpm_fs(), 'version' ) ? wpm_fs()->version : 'not found' );
-        $html .= 'Freemius SDK bundled: ' . $fs_sdk_bundled_version . PHP_EOL;
-        $fs_sdk_active_version = ( property_exists( $fs_active_plugins, 'newest' ) && property_exists( $fs_active_plugins->newest, 'version' ) ? $fs_active_plugins->newest->version : 'not found' );
-        $html .= 'Freemius SDK active:  ' . $fs_sdk_active_version . PHP_EOL;
-        $html .= 'api.freemius.com:     ' . self::try_connect_to_server( 'https://api.freemius.com' ) . PHP_EOL;
-        $html .= 'wp.freemius.com:      ' . self::try_connect_to_server( 'https://wp.freemius.com' ) . PHP_EOL;
         return $html;
     }
     

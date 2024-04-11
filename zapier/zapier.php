@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Zapier for WordPress
  * Description:       Zapier enables you to automatically share your posts to social media, create WordPress posts from Mailchimp newsletters, and much more. Visit https://zapier.com/apps/wordpress/integrations for more details.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Zapier
  * Author URI:        https://zapier.com
  * License:           Expat (MIT License)
@@ -174,7 +174,7 @@ class Zapier_Auth
         $rest_api_slug = rest_get_url_prefix();
         $is_valid_rest_api_uri = strpos($_SERVER['REQUEST_URI'], $rest_api_slug);
         $is_valid_token_uri = strpos($_SERVER['REQUEST_URI'], $this->namespace . '/token');
-        $is_zapier_request = $_SERVER['HTTP_USER_AGENT'] === 'Zapier' && isset($_SERVER['HTTP_X_ZAPIER_AUTH']);
+        $is_zapier_request = isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] === 'Zapier' && isset($_SERVER['HTTP_X_ZAPIER_AUTH']);
 
         if ($is_zapier_request && $is_valid_rest_api_uri && !$is_valid_token_uri) {
             $user_id = $this->get_user_from_token();

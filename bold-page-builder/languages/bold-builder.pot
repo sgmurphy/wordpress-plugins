@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-08 20:58+0200\n"
+"POT-Creation-Date: 2024-04-10 22:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,66 +53,74 @@ msgstr ""
 msgid "Switch side"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:115
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:117
 msgid "Find Section"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:120
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:132
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:836
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:122
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:134
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:842
 msgid "Edit"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:121
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:123
 msgid "Edit in back-end editor"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:121
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:123
 msgid "(new tab)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:122
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:124
 msgid "Cut"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:123
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:853
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:922
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:125
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:859
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:928
 msgid "Copy"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:124
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:855
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1406
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:126
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:861
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1412
 msgid "Paste"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:124
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:126
 msgid "(above)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:125
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:841
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:127
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:847
 msgid "Delete"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:167
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:169
 msgid "Edit Footer"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:195
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:181
+msgid "Add elements"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:183
+msgid "Add Section/Row/Column(s)"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:201
 msgid "Show/hide edit mode UI"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:197
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:203
 msgid "Save changes"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:371
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:377
 msgid "Clear"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:372
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:378
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:243
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_custom_menu/bt_bb_custom_menu.php:79
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:274
@@ -128,29 +136,29 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:373
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:379
 msgid "Select Color"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:374
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:380
 msgid "Current Color"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:540
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:546
 msgid "Y/m/d"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:590
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:611
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:596
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:617
 msgid "Bold Builder Settings"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:590
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1267
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:596
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1273
 msgid "Bold Builder"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:613
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:619
 #, php-format
 msgctxt "bold-builder"
 msgid ""
@@ -158,20 +166,20 @@ msgid ""
 "\">Online Documentation</a>."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:613
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:619
 msgctxt "bold-builder"
 msgid "Bold Builder documentation"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:621
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:627
 msgid "Show shortcode tag instead of mapped name"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:622
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:628
 msgid "Show shortcode tags instead of mapped names"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:623
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:629
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:346
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:352
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:227
@@ -191,7 +199,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:624
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:630
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_accordion/bt_bb_accordion.php:111
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:347
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:353
@@ -232,68 +240,68 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:628
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:634
 msgid "Post types"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:629
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:635
 msgid "Post Types"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:647
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:653
 msgid "Color schemes"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:648
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:654
 msgid "Color Schemes"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:656
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:662
 msgid "Tips"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:664
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:670
 msgid "Show Tips"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:669
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:675
 msgid "Slug in URL"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:677
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:683
 msgid ""
 "Use post slug in URL input (when selecting existing content search result)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:682
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:683
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:688
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:689
 msgid "OpenAI API key"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:690
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:691
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:696
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:697
 msgid "OpenAI Model"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:700
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:863
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1411
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:706
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:869
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1417
 msgid "Save"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:834
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:840
 msgid "Toggle"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:835
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:841
 msgid "Add"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:837
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:843
 msgid "Edit Content"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:838
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:844
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:281
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:288
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:289
@@ -301,236 +309,236 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:839
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:845
 msgid "Select parent"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:840
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:846
 msgid "Clone"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:842
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:848
 msgid "Do you really want to delete this Section?"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:843
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:849
 msgid "Layout error!"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:844
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:850
 msgid "Number of columns not equal for all breakpoints!"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:845
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:851
 msgid "Add Element"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:846
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:852
 msgid "Select Layout"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:847
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:853
 msgid "Edit Layout"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:848
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:854
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_cost_calculator_item/bt_bb_cost_calculator_item.php:100
 #: D:/WP/BoldBuilder/trunk/widgets/bb_text_image/init.php:197
 msgid "Select"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:849
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:855
 msgid "Select Images"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:850
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1487
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:856
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1493
 msgid "Submit"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:851
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:857
 msgid "Search"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:852
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:858
 msgid "Search for existing content"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:854
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:860
 msgid "Copy+"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:856
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:862
 msgid "Export"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:857
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:863
 msgid "Import"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:858
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:864
 msgid "Not allowed!"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:859
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:865
 msgid "Manage Clipboard"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:860
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:866
 msgid "Filter..."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:861
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:867
 msgid "Shortcode Mapper"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:862
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:868
 msgid "Insert Mapping"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:864
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:870
 msgid "Switch Editor"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:865
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:871
 msgid "Custom CSS"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:866
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:872
 msgid "Are you sure you want to switch editor?"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:867
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:873
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:304
 msgid "General"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:868
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1397
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1410
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:874
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1403
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1416
 msgid "Preview"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:869
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:875
 msgid "No results found."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:870
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:876
 msgid "Edit in BE editor"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:871
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:877
 msgid "parent"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:872
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:878
 msgid "Or enter image URL..."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:873
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:879
 msgid "Content not saved!"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:875
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:881
 msgid "Previous Tip"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:876
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:882
 msgid "Next Tip"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:881
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:887
 msgid ""
 "Bold Builder tip: Hold CTRL key while moving (dragging) element to quickly "
 "clone it to another location."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:882
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:888
 msgid ""
 "Bold Builder tip: You can edit Bold Builder settings in Settings > Bold "
 "Builder."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:883
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:889
 msgid "Bold Builder tip: Did you know that you can move columns between rows?"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:884
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:890
 msgid ""
 "Bold Builder tip: You can use CTRL key with Copy/Copy+ to cut the element."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:885
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:891
 msgid "Bold Builder tip: Use Copy+ to copy multiple elements to clipboard."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:886
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:892
 msgid ""
 "Bold Builder tip: Hold CTRL key and click Paste on content element toolbar "
 "to paste before the element."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:890
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:896
 msgid "AI"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:891
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:897
 msgid "AI Content Generator"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:892
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:898
 msgid "Generate"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:893
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:899
 msgid "Translate"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:894
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:900
 msgid "Rephrase"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:895
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:901
 msgid "Correct"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:896
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:902
 msgid "Go"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:897
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:903
 msgid "Keywords"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:898
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:904
 msgid "System prompt"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:899
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:905
 msgid "Randomness (temperature)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:900
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:906
 msgid "Desired length (in words)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:901
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:907
 msgid "Language"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:902
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:908
 msgid "English"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:903
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:909
 msgid "Tone"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:905
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:911
 msgid "Default / Same"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:906
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:912
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:245
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_custom_menu/bt_bb_custom_menu.php:81
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:276
@@ -539,200 +547,200 @@ msgstr ""
 msgid "Bold"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:907
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:913
 msgid "Conversational"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:908
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:914
 msgid "Passionate"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:909
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:915
 msgid "Professional"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:910
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:916
 msgid "Witty"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:911
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:917
 msgid "Help"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:912
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:918
 msgid "(leave empty to use length of current content)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:914
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:920
 #, php-format
 msgid "Error. Please check OpenAI settings %1$shere%2$s."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:918
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:924
 msgid "No content!"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:921
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:927
 msgid "Move"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:923
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:929
 msgid "before"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:924
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:930
 msgid "after"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:925
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:931
 msgid "to"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1403
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1409
 msgid "Undo"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1404
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1410
 msgid "Redo"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1408
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1414
 msgid "Clipboard Manager"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1659
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1665
 msgid "Hide element on screens"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1659
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1665
 msgid "Responsive"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1661
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1667
 msgid "≤480px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1662
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1668
 msgid "481-768px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1663
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1669
 msgid "769-992px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1664
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1670
 msgid "993-1200px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1665
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1671
 msgid "1201-1400px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1666
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1672
 msgid ">1400px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1671
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1677
 msgid "Publish date"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1671
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1672
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1677
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1678
 msgid "Fill both the date and time"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1671
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1672
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1673
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1674
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1675
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1682
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1677
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1678
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1679
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1680
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1681
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1688
 msgid "Custom"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1672
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1678
 msgid "Expiry date"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1673
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1679
 msgid "Element ID"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1674
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1680
 msgid "Extra class name(s)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1675
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1681
 msgid "Inline CSS style"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1682
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1688
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:196
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:211
 msgid "Animation"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1684
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1690
 msgid "No Animation"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1685
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1691
 msgid "Fade In"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1686
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1692
 msgid "Move Up"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1687
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1693
 msgid "Move Left"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1688
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1694
 msgid "Move Right"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1689
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1695
 msgid "Move Down"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1690
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1696
 msgid "Zoom In"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1691
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1697
 msgid "Zoom Out"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1692
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1698
 msgid "Fade In / Move Up"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1693
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1699
 msgid "Fade In / Move Left"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1694
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1700
 msgid "Fade In / Move Right"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1695
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1701
 msgid "Fade In / Move Down"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1696
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1702
 msgid "Fade In / Zoom In"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1697
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1703
 msgid "Fade In / Zoom Out"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1919
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1925
 msgid "Sorry, you are not allowed to save Price List element."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:1922
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1928
 msgid "Sorry, you are not allowed to save Raw Content element."
 msgstr ""
 
@@ -2631,40 +2639,40 @@ msgid ""
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:118
-msgid "Map ID (Google API)"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:118
-msgid ""
-"The Google Maps Platform offers <a href=\"https://developers.google.com/maps/"
-"documentation/cloud-customization\" target=\"_blank\">cloud-based maps "
-"styling</a> in the Google Cloud Console. Copy Map ID there and copy here."
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:119
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_leaflet_map/bt_bb_leaflet_map.php:119
 msgid "Zoom"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:119
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:118
 msgid "E.g. 14"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:120
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:119
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_leaflet_map/bt_bb_leaflet_map.php:121
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:200
 msgid "Height"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:120
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:119
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_leaflet_map/bt_bb_leaflet_map.php:121
 msgid "E.g. 250px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:120
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:119
 msgid ""
 "Used for static map or for interactive map without content; static image map "
 "width is 1280px "
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:120
+msgid "Map ID (Google API)"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:120
+msgid ""
+"The Google Maps Platform offers <a href=\"https://developers.google.com/maps/"
+"documentation/cloud-customization\" target=\"_blank\">cloud-based maps "
+"styling</a> in the Google Cloud Console. Copy Map ID there and copy here."
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_google_maps/bt_bb_google_maps.php:121

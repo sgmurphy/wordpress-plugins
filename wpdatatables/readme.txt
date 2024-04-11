@@ -4,9 +4,9 @@ Author URI: https://tmsproducts.io
 Plugin URI: https://wpdatatables.com/
 Tags: table, table builder, datatables, pricing table, chart
 Requires at least: 4.0
-Tested up to: 6.4.3
+Tested up to: 6.5.2
 Requires PHP: 7.4
-Stable tag: 3.4.2.10
+Stable tag: 3.4.2.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,11 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.11 =
+* Refactoring Gutenberg blocks logic.
+* Compatibility with WordPress 6.5.2 approved.
+Other small bug fixes and stability improvements.
 
 = 3.4.2.10 =
 * Fixed issue with empty columns (after last column data) from Excel files.

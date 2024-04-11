@@ -3,7 +3,7 @@ Contributors: wpmonks
 Donate link: https://www.paypal.me/wpmonks
 Tags: Gravity Forms CSS, gravity forms themes, gravity forms styler, Gravity Forms Design, Gravity Forms Multi Column Layouts, Gravity Forms Material Design, Gravity Forms Tooltips
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 4.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

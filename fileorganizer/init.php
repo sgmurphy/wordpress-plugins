@@ -14,7 +14,7 @@ define('FILEORGANIZER_BASE', plugin_basename(FILEORGANIZER_FILE));
 define('FILEORGANIZER_PRO_BASE', 'fileorganizer-pro/fileorganizer-pro.php');
 define('FILEORGANIZER_URL', plugins_url('', FILEORGANIZER_FILE));
 define('FILEORGANIZER_BASE_NAME', basename(FILEORGANIZER_DIR));
-define('FILEORGANIZER_VERSION', '1.0.6');
+define('FILEORGANIZER_VERSION', '1.0.7');
 define('FILEORGANIZER_WP_CONTENT_DIR', defined('WP_CONTENT_FOLDERNAME') ? WP_CONTENT_FOLDERNAME : 'wp-content');
 define('FILEORGANIZER_DEV', file_exists(dirname(__FILE__).'/dev.php') ? 1 : 0);
 define('FILEORGANIZER_API', 'https://api.fileorganizer.net/');
@@ -142,7 +142,7 @@ function fileorganizer_admin_menu() {
 	add_menu_page(__('FILE ORGANIZER'), __('File Organizer'), $capability, 'fileorganizer', 'fileorganizer_page_handler', 'dashicons-category');
 	
 	// Add Settings Page
-	add_submenu_page( 'fileorganizer', __('Settings'), __('Settings'), $manu_capability, 'settings', 'fileorganizer_settings_handler');
+	add_submenu_page( 'fileorganizer', __('Settings'), __('Settings'), $manu_capability, 'fileorganizer-settings', 'fileorganizer_settings_handler');
 	
 	if(defined('FILEORGANIZER_PRO')){
 

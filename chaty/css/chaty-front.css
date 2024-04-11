@@ -1643,3 +1643,9 @@ body .picmo__emojiButton:focus {
 }
 .chaty-whatsapp-input[placeholder]:focus::-webkit-input-placeholder{-webkit-transition:opacity .5s .5s ease;transition:opacity .5s .5s ease;opacity:40% !important;}
 [placeholder]:focus::-webkit-input-placeholder{-webkit-transition:opacity .5s .5s ease;transition:opacity .5s .5s ease;opacity:1 !important;}
+.chaty-outer-forms forms {
+    margin: 0;
+}
+.chaty, .chaty *, .chaty-form, .chaty-form *, .chaty-whatsapp-form, .chaty-whatsapp-form * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}

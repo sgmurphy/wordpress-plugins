@@ -471,31 +471,33 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 	{
 		$settings = $this->get_settings_for_display();
 
-		$eihe_tag = $this->validate_html_tag($settings['eihe_tag']);
 		$icon = $settings['icon'];
 		$icon_order = $settings['icon_order'];
-		$eihe_align = esc_attr($settings['eihe_align']);
+		$eihe_tag = $this->validate_html_tag($settings['eihe_tag']);
+		$eihe_link = esc_url($settings['eihe_link']['url']);
 
-		$target = $settings['eihe_link']['is_external'] ? ' target="_blank"' : '';
-		$nofollow = $settings['eihe_link']['nofollow'] ? ' rel="nofollow"' : '';
+		if (strlen($eihe_link) > 0) {
+			$eiheLinkValue = ['href' => $eihe_link];
 
-		$title 			= wp_kses_post($settings['eihe_title']);
-		$desc 			= wp_kses_post($settings['eihe_description']);
-		$eihe_effect	= esc_attr($settings['eihe_effect']);
-		$eihe_link 		= esc_url($settings['eihe_link']['url']);
+			if ($settings['eihe_link']['is_external']) { $eiheLinkValue['target'] = '_blank'; }
+			if ($settings['eihe_link']['nofollow']) { $eiheLinkValue['rel'] = 'nofollow'; }
 
-		if (strlen($eihe_link) > 0) { ?>
-			<a href="<?php echo $eihe_link; ?>"<?php echo $target.$nofollow; ?>>
-		<?php } ?>
-			<div class="eihe-box <?php echo $eihe_effect . ' eihe_' . $eihe_align; ?>">
+			$this->add_render_attribute('eihe_link', $eiheLinkValue);
+		?>
+			<a <?php echo $this->get_render_attribute_string( 'eihe_link' ); ?>>
+		<?php
+		}
+			$this->add_render_attribute('eihe_box', ['class' => ['eihe-box', esc_attr($settings['eihe_effect']), 'eihe_' . esc_attr($settings['eihe_align'])]]);
+		?>
+			<div <?php echo $this->get_render_attribute_string( 'eihe_box' ); ?>>
 				<?php echo Group_Control_Image_Size::get_attachment_image_html($settings, 'eihe_thumbnail', 'eihe_image'); ?>
 				<div class="eihe-caption">
 					<div class="eihe-title-cover">
 						<?php if($icon_order == 'before' && !empty($icon) && !empty($icon['value'])) { ?><div class="eihe-ileft eihe-icon"><?php Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] ); ?> </div> <?php } ?>
-						<<?php echo $eihe_tag;?> class="eihe-title"><?php echo $title; ?></<?php echo $eihe_tag; ?>>
+						<<?php echo $eihe_tag;?> class="eihe-title"><?php echo wp_kses_post($settings['eihe_title']); ?></<?php echo $eihe_tag; ?>>
 						<?php if($icon_order == 'after' && !empty($icon) && !empty($icon['value'])) { ?><div class="eihe-iright eihe-icon"><?php Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );  ?> </div> <?php } ?>
 					</div>
-					<p><?php echo $desc; ?></p>
+					<p><?php echo wp_kses_post($settings['eihe_description']); ?></p>
 				</div>
 			</div>
 		<?php if (strlen($eihe_link) > 0) { ?>
@@ -508,59 +510,62 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 		?>
 		<#
 
-		var image = {
+		const image = {
 			id: settings.eihe_image.id,
 			url: settings.eihe_image.url,
 			size: settings.eihe_thumbnail_size,
 			dimension: settings.eihe_thumbnail_custom_dimension,
 			model: view.getEditModel()
 		};
-		var image_url = elementor.imagesManager.getImageUrl(image);
-		var icon = settings.icon;
-		var icon_order = settings.icon_order;
+		const image_url = elementor.imagesManager.getImageUrl(image);
+
+		const icon = settings.icon;
+		const icon_order = settings.icon_order;
 		var iconHTML = '';
 
-		var target = settings.eihe_link.is_external ? ' target="_blank"' : '';
-		var nofollow = settings.eihe_link.nofollow ? ' rel="nofollow"' : '';
-
-		var allowed_tags = ['h1','h2','h3','h4','h5','h6','p','span'];
-		
+		const allowed_tags = ['h1','h2','h3','h4','h5','h6','p','span'];
 		var eihe_tag = settings.eihe_tag;
-
 		if ( typeof elementor.helpers.validateHTMLTag === "function" ) { 
 			eihe_tag = elementor.helpers.validateHTMLTag(eihe_tag);
 		} else {
 			eihe_tag = allowed_tags.indexOf(eihe_tag) > -1 ? eihe_tag : 'div';
 		}
 
-		var eihe_title = settings.eihe_title;
-		var eihe_description = settings.eihe_description;
-		var eihe_link = settings.eihe_link.url;
+		const eiheLink = settings.eihe_link.url;
+		if (eiheLink.length > 0) {
+			const eiheLinkValue = { href: eiheLink };
 
-		if (eihe_link.length > 0) { #>
-			<a href="{{{ eihe_link }}}"{{ target }}{{ nofollow }}>
-		<# } #>
-			<div class="eihe-box {{{ settings.eihe_effect }}} eihe_{{{ settings.eihe_align }}}">
-				<img src="{{{ image_url }}}" />
+			if (settings.eihe_link.is_external) { eiheLinkValue.target = '_blank'; }
+			if (settings.eihe_link.nofollow) { eiheLinkValue.rel = 'nofollow'; }
+
+			view.addRenderAttribute('eihe_link', eiheLinkValue);
+		#>
+			<a {{{ view.getRenderAttributeString( 'eihe_link' ) }}}>
+		<#
+		}
+			view.addRenderAttribute('eihe_box', {'class': ['eihe-box', settings.eihe_effect, 'eihe_' + settings.eihe_align]});
+			view.addRenderAttribute('eihe_img', {'src': image_url});
+		#>
+			<div {{{ view.getRenderAttributeString( 'eihe_box' ) }}}>
+				<img {{{ view.getRenderAttributeString( 'eihe_img' ) }}} />
 				<div class="eihe-caption">
 					<div class="eihe-title-cover">
 						<# if(icon && settings.icon.value && icon_order == 'before'){ 
 							iconHTML = elementor.helpers.renderIcon(view, settings.icon, { 'aria-hidden': true }, 'i', 'object' ); #>
 							<div class="eihe-ileft eihe-icon">{{{ iconHTML.value }}}</div>
 						<# } #>
-						<{{{eihe_tag}}} class="eihe-title">{{{ eihe_title }}}</{{{eihe_tag}}}>
+						<{{eihe_tag}} class="eihe-title">{{ settings.eihe_title }}</{{eihe_tag}}>
 						<# if(icon && settings.icon.value && icon_order == 'after'){ 
 							iconHTML = elementor.helpers.renderIcon(view, settings.icon, { 'aria-hidden': true }, 'i', 'object' ); #>
 							<div class="eihe-iright eihe-icon">{{{ iconHTML.value }}}</div>
 						<# } #>
 					</div>
-					<p>{{{ eihe_description }}}</p>
+					<p>{{ settings.eihe_description }}</p>
 				</div>
 			</div>
-		<# if (eihe_link.length > 0) { #>
+		<# if (eiheLink.length > 0) { #>
 			</a>
 		<# } #>
-
 		<?php
 	}
 }

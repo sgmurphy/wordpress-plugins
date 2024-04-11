@@ -470,6 +470,14 @@ function bt_bb_fe_dialog() {
 		echo '</div>';
 	}*/
 	
+	// echo '<div id="bt_bb_fe_add_elements_dialog">';
+		// echo '<div class="bt_bb_add_elements_header">';
+			// echo '<div class="bt_bb_add_elements_header_text">' . esc_html__( 'Add elements', 'bold-builder' ) . '</div>';
+			// echo '<div id="bt_bb_fe_add_elements_close" role="button" title="' . esc_html__( 'Close dialog', 'bold-builder' ) . '"></div>';
+			// echo '<div id="bt_bb_fe_add_elements_switch" role="button" title="' . esc_html__( 'Switch side', 'bold-builder' ) . '"><i class="fa fa-exchange"></i></div>';
+		// echo '</div>';
+	// echo '</div>';
+	
 	echo '<div id="bt_bb_fe_init_mouseover"></div>';
 }
 

@@ -31,7 +31,7 @@
                     add_action( 'wp-hide/modules_components_run/completed', array( $this, '_modules_components_run_completed' ) );
                     
                     
-                    add_filter ( 'wph/components/rewrite-default/superglobal_variables_replacements' , array ( $this, 'do_superglobal_variables_replacements' ), 10, 3 );
+                    //add_filter ( 'wph/components/rewrite-default/superglobal_variables_replacements' , array ( $this, 'do_superglobal_variables_replacements' ), 10, 3 );
                         
                 }
                 

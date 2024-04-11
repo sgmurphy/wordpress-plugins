@@ -4,33 +4,30 @@ Tags: credit card, square, woocommerce, inventory sync
 Requires at least: 6.3
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 4.6.0
+Stable tag: 4.6.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Sync inventory and product data between WooCommerce and Square POS. Securely accept payments via the Square payment gateway.
+Securely accept payments, synchronize sales, and seamlessly manage inventory and product data between WooCommerce and Square POS.
 
 == Description ==
 
-Sync inventory and product data between WooCommerce and Square POS. Securely accept payments via the Square payment gateway.
+This plugin allows you to securely accept payments, synchronize sales, and seamlessly manage inventory and product data between WooCommerce and Square POS.
 
-= Accept credit card payments easily and directly on your store =
+The Square plugin is PCI and SAQ A-level compliant.
 
-The Square plugin extends WooCommerce to allow you to accept payments via Square. Benefit from a **PCI compliant** payment processing option that meets SAQ A levels of compliance.
+= Accept payments anywhere, anytime =
 
-You can also use these advanced features:
+- The Square plugin extends WooCommerce to allow you to accept payments via Square - including support for [Apple Pay®](https://www.apple.com/apple-pay/), [Google Pay](https://www.google.com/payments/solutions/), [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/) and [WooCommerce Pre-Orders](https://woocommerce.com/products/woocommerce-pre-orders/).
+- Recurring customers can save payment methods and use them at checkout.
+- Customize payment forms with automatic formatting, mobile-friendly options, and retina card icons.
 
-- Support for [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/)
-- Support for [WooCommerce Pre-Orders](https://woocommerce.com/products/woocommerce-pre-orders/)
-- Allow customers to save payment methods and use them at checkout
-- Use an enhanced payment form with automatic formatting, mobile-friendly inputs, and retina card icons
+= Manage your business all in one place =
 
-= Sync your product catalog with Square =
+Sync your product and inventory information from WooCommerce to Square, or from Square to WooCommerce — set everything up once, and whenever you make a sale, your inventory automatically updates on both platforms.
 
-You can sync your product data automatically between WooCommerce and Square.
-
-- If you sell mainly online, you can choose WooCommerce as your system of record in your sync settings. This will push the WooCommerce product name, inventory, prices, categories, and images to Square. Note that inventory will still be fetched periodically from Square and you must refresh inventory in WooCommerce before editing.
-- If you sell in multiple locations and online, you can choose Square as your system of record in your sync settings. This will pull product name, inventory, and prices from Square into your WooCommerce catalog. Product images will also be synced if not already set in WooCommerce.
+- If you sell mainly online, set WooCommerce as your system of record so WooCommerce pushes product name, inventory, prices, categories, and images to Square.
+- If you sell in multiple locations and online, set Square as your system of record so Square pushes product name, inventory, prices, categories, and images to WooCommerce.
 
 == Installation ==
 
@@ -62,7 +59,7 @@ Yes! An SSL certificate must be installed on your site to use Square.
 
 = Where can I find documentation? =
 
-For help setting up and configuring the plugin, please refer to our [user guide](https://docs.woocommerce.com/document/woocommerce-square/).
+For help setting up and configuring the plugin, please refer to our [user guide](https://woo.com/document/woocommerce-square/).
 
 = Where can I get support or talk to other users? =
 
@@ -74,6 +71,11 @@ If you get stuck, you can ask for help in the [Plugin Forum](https://wordpress.o
 2. The payment gateway settings.
 
 == Changelog ==
+
+= 4.6.1 - 2024-04-10 =
+* Fix - Problem with connection to Square warning.
+* Update - Refreshed plugin marketing copy in readme file.
+* Update - Replace the middleware URL from `connect.woocommerce.com` to `api.woocommerce.com/integrations`.
 
 = 4.6.0 - 2024-03-27 =
 * Add - Support for buying a Square Gift Card using Cash App Pay.

@@ -5,8 +5,6 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Scheme\Typography;
 use Elementor\Widget_Base;
 use ElementorPro\Plugin;
 use ElementorPro\Modules\ThemeBuilder\Module as ThemeBuilderModule;

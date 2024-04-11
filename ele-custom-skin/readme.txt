@@ -4,7 +4,7 @@ Tags: page-builder, elementor, loop, archive list, post widget, skin, custom, po
 Donate link: https://www.paypal.me/dudaster
 Requires at least: 5.0
 Tested up to: 6.5.2
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,8 +63,12 @@ Add to your template a Post or Post Archive widget and from Skins select Custom 
 
 == Changelog ==
 
+
+= 3.1.9 =
+* Minor fixes.
+
 = 3.1.8 =
-* Replaced depricated code
+* Replaced depricated code.
 
 = 3.1.7 =
 * Fixed erros with Elementor 3.7.

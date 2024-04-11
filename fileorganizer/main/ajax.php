@@ -113,7 +113,45 @@ function fileorganizer_ajax_handler(){
 	$el_config = array(
 		'locale' => 'zh_CN',
 		'debug' => false,
-		'roots' => $config
+		'roots' => $config,
+		'bind' => array(
+			'upload.presave' => function(&$path, &$name, $src, $elfinder, $volume) {
+								
+				// Check if the file is an SVG
+				if(
+					mime_content_type($src) == 'image/svg+xml' ||
+					in_array(pathinfo($name, PATHINFO_EXTENSION), array('svg', 'svgz') )
+				) {
+					$content = file_get_contents($src);
+					
+					$is_xss = '';
+					
+					while(true){
+						$found = fileorganizer_xss_content($content);
+						
+						if(strlen($found) > 0){
+							if( in_array($found, array('svg', 'xml')) ){
+								$content = str_replace($found, '', $content);
+								continue;
+							}
+							
+							$is_xss = $found;
+						}
+						
+						break;
+					}
+					
+					// Unfiltered_html cap needs to be checked
+					if(!current_user_can('unfiltered_html') && strlen($is_xss) > 0 ){
+						return array( 'error' => __('Following not allowed content found ').' : -"'. $is_xss .'" in file '.$name);
+					}
+					
+				}
+				
+				return true;
+			}
+
+		)
 	);
 
 	// Load autoloader
@@ -168,4 +206,63 @@ function fileorganizer_hide_promo(){
 	// Save value in minus
 	update_option('fileorganizer_promo_time', (0 - time()));
 	die('DONE');
+}
+
+// As per the JS specification
+function fileorganizer_unescapeHTML($str){
+	$replace = [
+		'#93' => ']',
+		'#91' => '[',
+		//'#61' => '=',
+		'lt' => '<',
+		'gt' => '>',
+		'quot' => '"',
+		//'amp' => '&',
+		'#39' => '\'',
+		'#92' => '\\'
+	];
+	
+	foreach($replace as $k => $v){
+		$str = str_replace('&'.$k.';', $v, $str);
+	}
+	return $str;
+}
+
+// Check for XSS codes in our shortcodes submitted
+function fileorganizer_xss_content($data){
+	$data = fileorganizer_unescapeHTML($data);
+	$data = preg_split('/\s/', $data);
+	$data = implode('', $data);
+	//echo $data;
+	
+	if(preg_match('/["\']javascript\:/is', $data)){
+		return 'javascript';
+	}
+	
+	if(preg_match('/["\']vbscript\:/is', $data)){
+		return 'vbscript';
+	}
+	
+	if(preg_match('/\-moz\-binding\:/is', $data)){
+		return '-moz-binding';
+	}
+	
+	if(preg_match('/expression\(/is', $data)){
+		return 'expression';
+	}
+	
+	if(preg_match('/\<(iframe|frame|script|style|link|applet|embed|xml|svg|object|layer|ilayer|meta)/is', $data, $matches)){
+		return $matches[1];
+	}
+	
+	// These events not start with on
+	$not_allowed = array('click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'load', 'unload', 'change', 'submit', 'reset', 'select', 'blur', 'focus', 'keydown', 'keypress', 'keyup', 'afterprint', 'beforeprint', 'beforeunload', 'error', 'hashchange', 'message', 'offline', 'online', 'pagehide', 'pageshow', 'popstate', 'resize', 'storage', 'contextmenu', 'input', 'invalid', 'search', 'mousewheel', 'wheel', 'drag', 'dragend', 'dragenter', 'dragleave', 'dragover', 'dragstart', 'drop', 'scroll', 'copy', 'cut', 'paste', 'abort', 'canplay', 'canplaythrough', 'cuechange', 'durationchange', 'emptied', 'ended', 'loadeddata', 'loadedmetadata', 'loadstart', 'pause', 'play', 'playing', 'progress', 'ratechange', 'seeked', 'seeking', 'stalled', 'suspend', 'timeupdate', 'volumechange', 'waiting', 'toggle', 'animationstart', 'animationcancel', 'animationend', 'animationiteration', 'auxclick', 'beforeinput', 'beforematch', 'beforexrselect', 'compositionend', 'compositionstart', 'compositionupdate', 'contentvisibilityautostatechange', 'focusout', 'focusin', 'fullscreenchange', 'fullscreenerror', 'gotpointercapture', 'lostpointercapture', 'mouseenter', 'mouseleave', 'pointercancel', 'pointerdown', 'pointerenter', 'pointerleave', 'pointermove', 'pointerout', 'pointerover', 'pointerrawupdate', 'pointerup', 'scrollend', 'securitypolicyviolation', 'touchcancel', 'touchend', 'touchmove', 'touchstart', 'transitioncancel', 'transitionend', 'transitionrun', 'transitionstart', 'MozMousePixelScroll', 'DOMActivate', 'afterscriptexecute', 'beforescriptexecute', 'DOMMouseScroll', 'willreveal', 'gesturechange', 'gestureend', 'gesturestart', 'mouseforcechanged', 'mouseforcedown', 'mouseforceup', 'mouseforceup');
+	
+	$not_allowed = implode('|', $not_allowed);
+		
+	if(preg_match('/(on|onwebkit)+('.($not_allowed).')=/is', $data, $matches)){
+		return $matches[1]+$matches[2];
+	}
+	
+	return;
 }

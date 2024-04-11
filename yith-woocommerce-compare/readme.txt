@@ -61,6 +61,10 @@ During this transition step, .po and .mo files will be used as always, but in or
 yith-woocommerce-compare-<WORDPRESS LOCALE>.po
 yith-woocommerce-compare-<WORDPRESS LOCALE >.mo
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-compare)
+
 == Screenshots ==
 
 1. The popup with compare table.
