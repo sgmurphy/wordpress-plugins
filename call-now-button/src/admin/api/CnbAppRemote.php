@@ -961,8 +961,7 @@ class CnbAppRemote {
 			add_query_arg(
 				array(
 					'page' => 'call-now-button-settings',
-					'tabName'  => 'account_options',
-					'tabGroup' => 'settings'
+					'tab'  => 'account_options',
 				),
 				admin_url( 'admin.php' ) );
 

@@ -72,7 +72,7 @@ class CnbButton implements JsonSerializable {
      *
      * @return CnbButton
      */
-    public static function getDefaultButton( $domain ) {
+    public static function createDummyButton( $domain = null ) {
         $button                       = new CnbButton();
         $button->id                   = 'new';
         $button->active               = true;
@@ -278,8 +278,8 @@ class CnbButtonOptions implements JsonSerializable {
             'NONE'        => 'None',
             'TADA'        => 'Tada',
             'SHAKE'       => 'Shake',
-            'SONAR_LIGHT' => 'Sonar for dark backgrounds',
-            'SONAR_DARK'  => 'Sonar for light backgrounds'
+            'SONAR_LIGHT' => 'Sonar light (for dark backgrounds)',
+            'SONAR_DARK'  => 'Sonar dark (for light backgrounds)'
         );
     }
 

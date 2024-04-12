@@ -34,7 +34,6 @@ class CnbDomainViewUpgradeOverview {
      * @return void
      */
     function render( $domain ) {
-	    wp_enqueue_style( CNB_SLUG . '-settings' );
 	    wp_enqueue_script( CNB_SLUG . '-tally' );
 	    wp_enqueue_script( CNB_SLUG . '-settings' );
 
@@ -513,6 +512,28 @@ class CnbDomainViewUpgradeOverview {
 
     public function render_pro_feature_comparison() {
         ?>
+        <style>
+            tr.cnb-starter {
+                display: none;
+            }
+
+            td.cnb-starter, th.cnb-starter {
+                display: none;
+            }
+
+            table.cnb-nb-plans tbody th {
+                font-size: 15px;
+                padding: 3px 0;
+            }
+
+            table.cnb-nb-plans tbody th .cnb-tooltip-icon {
+                font-size: 13px;
+            }
+
+            .cnbShowStarterFeatures {
+                cursor: pointer;
+            }
+        </style>
         <div class="cnb-block">
 
             <table class="cnb-nb-plans">

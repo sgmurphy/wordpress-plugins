@@ -99,7 +99,7 @@ class CnbAdminNotices {
                      : ''
                  ) . '>';
             // phpcs:ignore WordPress.Security
-            echo '<div>' . $notice->message . '</div>';
+            echo $notice->message;
             echo '</div>';
         }
     }

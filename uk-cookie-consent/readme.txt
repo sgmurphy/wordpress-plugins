@@ -3,7 +3,7 @@ Contributors: termly, pixeljar, brandondove, nateconley, jeffreyzinn
 Tags: cookie law, cookie consent, gdpr, eu privacy directive, cookie banner, cookie compliance, cookie notice, eu cookie law, cookie notification, cookies, wpml, geo ip
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.2
+Tested up to: 6.5
 Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -22,14 +22,10 @@ class ActionSettingsTally {
      * @return void
      */
     function render_header() { ?>
-        <section class="cnb-action-properties cnb-action-properties-TALLY cnb-settings-section cnb-settings-section-tally">
-            <hr class="cnb-bottom-spacing" /> 
-            <div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
-                <div class="cnb-section-info">
-                    <h3 class="top-0">Tally settings</h3>
-                    <p class="description">Change the presentation of the Tally form inside your window.</p>
-                </div>
-                <div class="cnb-section-data">
+        <tr class="cnb-action-properties cnb-action-properties-TALLY cnb-settings-section cnb-settings-section-tally">
+        <td colspan="2">
+        <h3 class="cnb-settings-section-title" data-cnb-settings-block="tally"><span
+                    class="dashicons dashicons-arrow-right"></span> Tally form settings</h3>
         <?php
     }
 
@@ -39,9 +35,8 @@ class ActionSettingsTally {
      */
     function render_close_header() {
         ?>
-                    </div>
-                </div>
-            </section>
+        </td>
+        </tr>
         <?php
     }
 
@@ -52,64 +47,69 @@ class ActionSettingsTally {
      */
     function render_options( $action ) {
         ?>
-
-
-        <div class="cnb-input-item cnb-action-properties cnb-action-properties-TALLY">
-            <label for="cnb-action-properties-tally-hide-title">Form title</label>
-            <?php
-            $value = '1';
-            if ( isset( $action->properties ) && isset( $action->properties->{'tally-hide-title'} ) ) {
-                $value = $action->properties->{'tally-hide-title'};
-            }
-            ?>
-            <select id="cnb-action-properties-tally-hide-title"
-                    name="actions[<?php echo esc_attr( $action->id ) ?>][properties][tally-hide-title]">
-                <option value="" <?php selected( $value, '' ); ?>>
-                    Show
-                </option>
-                <option value="1" <?php selected( $value, '1' ); ?>>
-                    Hide
-                </option>
-            </select>
-        </div>
-
-        <div class="cnb-input-item cnb-action-properties cnb-action-properties-TALLY cnb_advanced_view">
-            <label for="cnb-action-properties-tally-transparent-background">Form background</label>
-            <?php
-            $value = '';
-            if ( isset( $action->properties ) && isset( $action->properties->{'tally-transparent-background'} ) ) {
-                $value = $action->properties->{'tally-transparent-background'};
-            }
-            ?>
-            <select id="cnb-action-properties-tally-transparent-background"
-                    name="actions[<?php echo esc_attr( $action->id ) ?>][properties][tally-transparent-background]">
-                <option value="" <?php selected( $value, '' ); ?>>
-                    Default background
-                </option>
-                <option value="1" <?php selected( $value, '1' ); ?>>
-                    Transparent background (recommended)
-                </option>
-            </select>
-        </div>
-
-        <div class="cnb-input-item cnb-action-properties cnb-action-properties-TALLY">
-            <label for="cnb-action-properties-tally-align-left">Content alignment</label>
-            <?php
-            $value = '1';
-            if ( isset( $action->properties ) && isset( $action->properties->{'tally-align-left'} ) ) {
-                $value = $action->properties->{'tally-align-left'};
-            }
-            ?>
-            <select id="cnb-action-properties-tally-align-left"
-                    name="actions[<?php echo esc_attr( $action->id ) ?>][properties][tally-align-left]">
-                <option value="" <?php selected( $value, '' ); ?>>
-                    Tally default
-                </option>
-                <option value="1" <?php selected( $value, '1' ); ?>>
-                    Left
-                </option>
-            </select>
-        </div> 
+        <table class="cnb-settings-section-table">
+            <tr class="cnb-action-properties cnb-action-properties-TALLY">
+                <th scope="row"><label for="cnb-action-properties-tally-hide-title">Form title</label></th>
+                <td>
+                    <?php
+                    $value = '1';
+                    if ( isset( $action->properties ) && isset( $action->properties->{'tally-hide-title'} ) ) {
+                        $value = $action->properties->{'tally-hide-title'};
+                    }
+                    ?>
+                    <select id="cnb-action-properties-tally-hide-title"
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][tally-hide-title]">
+                        <option value="" <?php selected( $value, '' ); ?>>
+                            Show
+                        </option>
+                        <option value="1" <?php selected( $value, '1' ); ?>>
+                            Hide
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="cnb-action-properties cnb-action-properties-TALLY cnb_advanced_view">
+                <th scope="row"><label for="cnb-action-properties-tally-transparent-background">Form background</label>
+                </th>
+                <td>
+                    <?php
+                    $value = '';
+                    if ( isset( $action->properties ) && isset( $action->properties->{'tally-transparent-background'} ) ) {
+                        $value = $action->properties->{'tally-transparent-background'};
+                    }
+                    ?>
+                    <select id="cnb-action-properties-tally-transparent-background"
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][tally-transparent-background]">
+                        <option value="" <?php selected( $value, '' ); ?>>
+                            Default background
+                        </option>
+                        <option value="1" <?php selected( $value, '1' ); ?>>
+                            Transparent background (recommended)
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="cnb-action-properties cnb-action-properties-TALLY">
+                <th scope="row"><label for="cnb-action-properties-tally-align-left">Content alignment</label></th>
+                <td>
+                    <?php
+                    $value = '1';
+                    if ( isset( $action->properties ) && isset( $action->properties->{'tally-align-left'} ) ) {
+                        $value = $action->properties->{'tally-align-left'};
+                    }
+                    ?>
+                    <select id="cnb-action-properties-tally-align-left"
+                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][tally-align-left]">
+                        <option value="" <?php selected( $value, '' ); ?>>
+                            Tally default
+                        </option>
+                        <option value="1" <?php selected( $value, '1' ); ?>>
+                            Left
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
         <?php
     }
 }

@@ -140,12 +140,12 @@ class CnbApiKeyActivatedView {
                 <h2>Manage your buttons</h2>
                 <p>
                   <a class="button button-primary" href="%1$s">Create new</a>
-                  <a class="button button-secondary" href="%2$s">Button overview</a>
+                  <a class="button premium-button" href="%2$s">Button overview</a>
                 </p>
               </div>
               <div class="box">
                 <h2>Check your Settings</h2>
-                <p><a class="button button-secondary" href="%3$s">Open settings
+                <p><a class="button premium-button" href="%3$s">Open settings
                   </a></p>
               </div>
             </div>

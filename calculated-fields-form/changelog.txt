@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.1.64 =
+
+* Modifies the predefined forms.
+* Modifies the fields list and improves the fields' access from the list.
+* Allows associate developer notes to the HTML Content fields.
+* Modifies the data source fields to allow accessing the DropDown, Radio Button, and Checkbox choices' texts as conditions (Developer and Platinum plugin version).
+* Modifies the DataTable DS control to allow selecting rows (Developer and Platinum plugin version).
+
 = 5.1.63 =
 
 * Fixes an issue estimating the Select2 DropDown fields when they are hidden by default and shown on demand.

@@ -42,7 +42,7 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 			include_once dirname( $this->plugin_file ) . '/feedback/feedback.html';
 
 			if ( 0 == get_option( 'cff-t-d', 0 ) ) {
-				print '<code style="display:none;"><script>jQuery(document).on("mousedown", "#cp_feedback_deactivatebtn", function(evt){ evt.stopPropagation(); evt.preventDefault(); if( jQuery("[value=\'temporary-deactivation\']:checked").length == 0 && confirm("Do you want to install the Trial plugin distribution instead of deactiving the free one? The Trial distribution offers several features of the Professional version.") ) { window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1"; return false; } else { jQuery("#cp_feedback_deactivatebtn").click(); }});</script></code>';
+				print '<code style="display:none;"><script>jQuery(document).on("mousedown", "#cp_feedback_deactivatebtn", function(evt){ if(typeof cff_trial_flag!="undefined") return; cff_trial_flag=true; evt.stopPropagation(); evt.preventDefault(); if( jQuery("[value=\'temporary-deactivation\']:checked").length == 0 && confirm("Do you want to install the Trial plugin distribution instead of deactiving the free one? The Trial distribution offers several features of the Professional version.") ) { window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1"; return false; } else { jQuery("#cp_feedback_deactivatebtn").click(); }});</script></code>';
 			}
 		} // End feedback_interface
 

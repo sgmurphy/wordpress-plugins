@@ -66,7 +66,7 @@ class B2S_Post_Item {
         $leftJoinWhere = "";
 
         if (!empty($this->searchPostTitle)) {
-            $addSearchPostTitle = $wpdb->prepare(' AND posts.`post_title` LIKE %s', '%' . trim($this->searchPostTitle) . '%');
+            $addSearchPostTitle = $wpdb->prepare(' AND posts.`post_title` LIKE %s', '%' . trim(esc_sql($wpdb->esc_like($this->searchPostTitle))) . '%');
         }
         if ($this->searchAuthorId > 0) {
             $addSearchAuthorId = $wpdb->prepare(' AND posts.`post_author` = %d', $this->searchAuthorId);
@@ -154,7 +154,7 @@ class B2S_Post_Item {
 
             $postTypes = " ";
             if (!empty($this->searchPostType)) {
-                $postTypes .= " posts.`post_type` LIKE '%" . $this->searchPostType . "%' ";
+            	$postTypes .= $wpdb->prepare(' AND posts.`post_type` LIKE %s', '%' . esc_sql($wpdb->esc_like($this->searchPostType)) . '%');
             } else {
                 $post_types = get_post_types(array('public' => true));
                 if (is_array($post_types) && !empty($post_types)) {

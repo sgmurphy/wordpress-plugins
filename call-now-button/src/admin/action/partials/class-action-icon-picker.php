@@ -176,49 +176,49 @@ class ActionIconPicker {
                 admin_url( 'admin.php' ) );
 
         ?>
-        <div class="cnb-input-item">
-            <label for="actions-<?php echo esc_attr( $action->id ) ?>-iconText">Button icon/image</label>
-            <div data-icon-text-target="cnb_action_icon_text" data-icon-type-target="cnb_action_icon_type">
+        <tr class="cnb_hide_on_modal">
+            <th scope="row"><label for="actions-<?php echo esc_attr( $action->id ) ?>-iconText">Button icon/image</label></th>
+            <td data-icon-text-target="cnb_action_icon_text" data-icon-type-target="cnb_action_icon_type">
                 <?php if ( $button->domain->type !== 'STARTER' ) {
-                        $this->render_icon_picker();
-                    }
-                    if ( $button->domain->type === 'STARTER' ) { ?>
-                        <p class="description">
-                            Icon selection and custom images are <span class="cnb-pro-badge">Pro</span> features.
-                            <a href="<?php echo esc_url( $upgrade_link ) ?>">Upgrade</a>.
-                        </p>
-                    <?php } else {
-                        $this->render_image_selector($action, $button);
-                    } ?>
+                    $this->render_icon_picker();
+                }
+                if ( $button->domain->type === 'STARTER' ) { ?>
+                    <p class="description">
+                        Icon selection and custom images are <span class="cnb-pro-badge">Pro</span> features.
+                        <a href="<?php echo esc_url( $upgrade_link ) ?>">Upgrade</a>.
+                    </p>
+                <?php } else {
+                    $this->render_image_selector($action, $button);
+                } ?>
 
-                    <a
-                        href="#"
-                        onclick="return cnb_show_icon_text_advanced(this)"
-                        data-icon-text="cnb_action_icon_text"
-                        data-icon-type="cnb_action_icon_type"
-                        data-description="cnb_action_icon_text_description"
-                        class="cnb_advanced_view button button-secondary">Use a custom icon</a>
-                    <input
-                        type="hidden"
-                        name="actions[<?php echo esc_attr( $action->id ) ?>][iconText]"
-                        value="<?php if ( isset( $action->iconText ) ) {
-                            echo esc_attr( $action->iconText );
-                        } ?>"
-                        id="cnb_action_icon_text"/>
-                    <input
-                        type="hidden"
-                        readonly="readonly"
-                        name="actions[<?php echo esc_attr( $action->id ) ?>][iconType]"
-                        value="<?php if ( isset( $action->iconType ) ) {
-                            echo esc_attr( $action->iconType );
-                        } ?>"
-                        id="cnb_action_icon_type"/>
-                    <p class="description" id="cnb_action_icon_text_description" style="display: none">
-                        You can enter a custom Material Design font code here. Search the full library at <a
-                            href="https://fonts.google.com/icons" target="_blank">Google Fonts</a>.<br/>
-                        The Call Now Button uses the <code>filled</code> version of icons.</p>
-            </div>
-        </div>        
+                <a
+                    href="#"
+                    onclick="return cnb_show_icon_text_advanced(this)"
+                    data-icon-text="cnb_action_icon_text"
+                    data-icon-type="cnb_action_icon_type"
+                    data-description="cnb_action_icon_text_description"
+                    class="cnb_advanced_view">Use a custom icon</a>
+                <input
+                    type="hidden"
+                    name="actions[<?php echo esc_attr( $action->id ) ?>][iconText]"
+                    value="<?php if ( isset( $action->iconText ) ) {
+                        echo esc_attr( $action->iconText );
+                    } ?>"
+                    id="cnb_action_icon_text"/>
+                <input
+                    type="hidden"
+                    readonly="readonly"
+                    name="actions[<?php echo esc_attr( $action->id ) ?>][iconType]"
+                    value="<?php if ( isset( $action->iconType ) ) {
+                        echo esc_attr( $action->iconType );
+                    } ?>"
+                    id="cnb_action_icon_type"/>
+                <p class="description" id="cnb_action_icon_text_description" style="display: none">
+                    You can enter a custom Material Design font code here. Search the full library at <a
+                        href="https://fonts.google.com/icons" target="_blank">Google Fonts</a>.<br/>
+                    The Call Now Button uses the <code>filled</code> version of icons.</p>
+            </td>
+        </tr>
         <?php
     }
 
@@ -238,7 +238,7 @@ class ActionIconPicker {
         <input
                 type='button'
                 class="cnb_select_image button-secondary"
-                value="<?php esc_attr_e( 'Custom image' ); ?>"
+                value="<?php esc_attr_e( 'Select image' ); ?>"
                 <?php if ( $button->domain->type !== 'PRO' ) { ?>disabled="disabled"
                 title="Upgrade to PRO to enable custom images"<?php } ?>
         />
@@ -258,22 +258,32 @@ class ActionIconPicker {
             return;
         } ?>
 
-                <div class="cnb-input-item">
+        <tr>
+            <th scope="row">
+                <label for="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]">
+                    Button color
+                </label>
+            </th>
+            <td>
                 <input name="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]"
-                    id="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]" type="text"
-                    value="<?php echo esc_attr( $action->backgroundColor ) ?>"
-                    class="cnb-color-field" data-default-color="#009900"/>
-                </div>
-
-                <div class="cnb-input-item">
-                <label for="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]">Icon color</label>
+                       id="actions[<?php echo esc_attr( $action->id ) ?>][backgroundColor]" type="text"
+                       value="<?php echo esc_attr( $action->backgroundColor ) ?>"
+                       class="cnb-color-field" data-default-color="#009900"/>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]">
+                    Icon color
+                </label>
+            </th>
+            <td>
                 <input name="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]"
                        id="actions[<?php echo esc_attr( $action->id ) ?>][iconColor]" type="text"
                        value="<?php echo esc_attr( $action->iconColor ) ?>"
                        class="cnb-color-field" data-default-color="#FFFFFF"/>
-                </div>
-        
-        
+            </td>
+        </tr>
         <?php
 
         // Actions on a Single or Multi button are not allowed to hide their Icon.
@@ -281,9 +291,9 @@ class ActionIconPicker {
         if ( $button && ($button->type === 'MULTI' || $button->type === 'DOTS') ) { ?>
             <input name="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]" type="hidden" value="1"/>
         <?php } else { ?>
-
-                <div class="cnb-input-item">
-                    <label></label>
+            <tr>
+                <th scope="row"></th>
+                <td>
                     <input type="hidden" name="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]"
                            id="actions[<?php echo esc_attr( $action->id ) ?>][iconEnabled]" value="0"/>
                     <input id="cnb-action-icon-enabled" class="cnb_toggle_checkbox" type="checkbox"
@@ -295,8 +305,8 @@ class ActionIconPicker {
                           class="cnb_toggle_state cnb_toggle_false">Hide icon</span>
                     <span data-cnb_toggle_state_label="cnb-action-icon-enabled"
                           class="cnb_toggle_state cnb_toggle_true">Show icon</span>
-                </div>
-            
+                </td>
+            </tr>
         <?php
         }
     }

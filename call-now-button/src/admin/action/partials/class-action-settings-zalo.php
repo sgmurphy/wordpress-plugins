@@ -34,30 +34,20 @@ class ActionSettingsZalo {
 			$this->zalo_link_type = $action->properties->{'zalo-link-type'};
 		}
 		?>
-		<section class="cnb-action-properties cnb-action-properties-<?php echo esc_attr($this->action_name) ?>">
-			<hr class="cnb-bottom-spacing" /> 
-			<div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
-				<div class="cnb-section-info cnb-top-spacing">
-					<h3 class="top-0">Zalo settings</h3>
-				</div>
-				<div class="cnb-section-data cnb-top-spacing">
-
-					<div class="cnb-input-item">
-						<label for="cnb-action-properties-zalo-link-type">Button type</label>
-						<select id="cnb-action-properties-zalo-link-type"
-								name="actions[<?php echo esc_attr( $action->id ) ?>][properties][zalo-link-type]">
-							<option value="PERSONAL" <?php selected( $this->zalo_link_type, 'PERSONAL' ); ?>>
-								Personal (use your phone number above)
-							</option>
-							<option value="INVITE" <?php selected( $this->zalo_link_type, 'GROUP' ); ?>>
-								Group (use your group or username above)
-							</option>
-						</select>
-					</div>
-
-				</div><!-- END .cnb-section-data -->
-			</div><!-- END .cnb-flex -->
-		</section>
+		<tr class="cnb-action-properties cnb-action-properties-<?php echo esc_attr($this->action_name) ?>">
+			<th scope="row"><label for="cnb-action-properties-zalo-link-type">Button type</label></th>
+			<td>
+				<select id="cnb-action-properties-zalo-link-type"
+				        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][zalo-link-type]">
+					<option value="PERSONAL" <?php selected( $this->zalo_link_type, 'PERSONAL' ); ?>>
+						Personal (use your phone number above)
+					</option>
+					<option value="INVITE" <?php selected( $this->zalo_link_type, 'GROUP' ); ?>>
+						Group (use your group or username above)
+					</option>
+				</select>
+			</td>
+		</tr>
 		<?php
 	}
 }

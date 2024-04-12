@@ -57,6 +57,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
      * @return array $columns, the array of columns to use with the table
      */
     function get_columns() {
+        $cnb_options = get_option( 'cnb' );
         $columns     = array(
             'cb'          => '<input type="checkbox">',
             'draggable'   => '',
@@ -201,6 +202,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
     }
 
     private function get_data() {
+        $cnb_options = get_option( 'cnb' );
         $cnb_remote = new CnbAppRemote();
         $actions     = array();
         if ( $this->button === null ) {
@@ -372,6 +374,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
      */
     function column_actionType( $item ) {
         $bid = $this->button !== null ? $this->button->id : null;
+        $tab = $this->button !== null ? 'basic_options' : null;
 
         $actions = array();
         // Let's build a link
@@ -383,6 +386,7 @@ class Cnb_Action_List_Table extends WP_List_Table {
                     'action' => 'edit',
                     'id'     => $item->id,
                     'bid'    => $bid,
+                    'tab'    => $tab
                 ),
                 $url );
         $edit_url        = esc_url( $edit_link );

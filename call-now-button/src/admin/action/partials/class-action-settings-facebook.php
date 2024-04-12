@@ -27,15 +27,9 @@ class ActionSettingsFacebook {
      */
     function render_header() {
         ?>
-        <section class="cnb-action-properties cnb-action-properties-FACEBOOK cnb-settings-section cnb-settings-section-facebook">
-            <hr class="cnb-bottom-spacing" /> 
-            <div class="cnb-flex cnb-flex-col-mob cnb-flex-gap">
-                <div class="cnb-section-info">
-                    <h3 class="top-0">Messenger settings</h3>
-                    <p class="description">Keep the conversation on your website with the Chat widget.</p>
-                    <p class="description">Or open the Messenger app instead.</p>
-                </div>
-                <div class="cnb-section-data">
+        <tr class="cnb-action-properties cnb-action-properties-FACEBOOK cnb-settings-section cnb-settings-section-facebook">
+        <td colspan="2">
+        <h3 class="cnb-settings-section-title">Extra Messenger settings</h3>
         <?php
     }
 
@@ -45,9 +39,8 @@ class ActionSettingsFacebook {
      */
     function render_close_header() {
         ?>
-                    </div>
-                </div>
-            </section>
+        </td>
+        </tr>
         <?php
     }
 
@@ -67,10 +60,15 @@ class ActionSettingsFacebook {
                 admin_url( 'admin.php' ) );
 
         ?>
-
-            <div class="cnb-input-item">
-                <label for="cnb-action-facebook-dialog-type">Opens</label>
-                <?php
+        <table class="cnb-settings-section-tables">
+            <tr>
+                <th scope="row">
+                    <label for="cnb-action-facebook-dialog-type">
+                    When clicked...
+                    </label>
+                </th>
+                <td>
+                    <?php
                     $value = isset( $action->properties ) && isset( $action->properties->{'facebook-dialog-type'} ) && $action->properties->{'facebook-dialog-type'}
                         ? $action->properties->{'facebook-dialog-type'}
                         : '';
@@ -81,8 +79,8 @@ class ActionSettingsFacebook {
 
                     <select id="cnb-action-facebook-dialog-type"
                             name="actions[<?php echo esc_attr( $action->id ) ?>][properties][facebook-dialog-type]">
-                        <option value="" <?php selected( $value, '' ); ?>>Messenger app</option>
-                        <option <?php if ($button->domain->type !== 'PRO') { ?>disabled="disabled"<?php } ?> value="widget" <?php selected( $value, 'widget' ); ?>>Messenger Chat widget</option>
+                        <option value="" <?php selected( $value, '' ); ?>>...open external Messenger app</option>
+                        <option <?php if ($button->domain->type !== 'PRO') { ?>disabled="disabled"<?php } ?> value="widget" <?php selected( $value, 'widget' ); ?>>...open Messenger Chat widget</option>
                     </select>
                     <?php if ( $button->domain->type !== 'PRO' ) { ?>
                         <p class="description">
@@ -101,11 +99,14 @@ class ActionSettingsFacebook {
                             <li>Copy the <code>asset_id</code> from the URL (e.g. <code>161246154026360</code>) and enter it in the Page ID field above.</li>
                         </ol>
                     <?php } ?>
-            </div>
-
-            <div class="cnb-input-item cnb-action-facebook-widget">
-                <label for="cnb-action-facebook-widget-default-state">Widget starts</label>
-                <?php $value = isset( $action->properties ) && isset( $action->properties->{'facebook-widget-default-state'} ) && $action->properties->{'facebook-widget-default-state'}
+                </td>
+            </tr>
+            <tr class="cnb-action-facebook-widget">
+                <th scope="row">
+                    <label for="cnb-action-facebook-widget-default-state">Widget starts</label>
+                </th>
+                <td>
+                    <?php $value = isset( $action->properties ) && isset( $action->properties->{'facebook-widget-default-state'} ) && $action->properties->{'facebook-widget-default-state'}
                         ? $action->properties->{'facebook-widget-default-state'}
                         : 'closed';
                     ?>
@@ -114,11 +115,17 @@ class ActionSettingsFacebook {
                         <option value="closed" <?php selected( $value, 'closed' ); ?>>Closed</option>
                         <option value="open" <?php selected( $value, 'open' ); ?>>Open</option>
                     </select>
-            </div>            
-
-            <div class="cnb-input-item cnb-action-facebook-widget">
-                <label for="cnb-action-facebook-widget-app-id">App ID</label>
-                <input id="cnb-action-facebook-widget-app-id" type="text"
+                </td>
+            </tr>
+            <tr class="cnb-action-facebook-widget">
+                <th scope="row">
+                    <label for="cnb-action-facebook-widget-app-id">App ID</label>
+                </th>
+                <td>
+                    <?php $value = isset( $action->properties ) && isset( $action->properties->{'facebook-widget-app-id'} ) && $action->properties->{'facebook-widget-app-id'}
+                        ? $action->properties->{'facebook-widget-app-id'} : '';
+                    ?>
+                    <input id="cnb-action-facebook-widget-app-id" type="text"
                            name="actions[<?php echo esc_attr( $action->id ) ?>][properties][facebook-widget-app-id]"
                            value="<?php echo esc_attr( $value ) ?>" placeholder="Optional"/>
                     <p class="description">If you use an App (instead of the Chat Plugin), enter your App ID below. </p>
@@ -131,7 +138,9 @@ class ActionSettingsFacebook {
                         <li>Under Settings -> Basic: Whitelist your domain using the "App domains" field</li>
 
                     </ol>
-            </div>
+                </td>
+            </tr>
+        </table>
         <?php
     }
 }

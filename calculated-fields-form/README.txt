@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.1.63
+Stable tag: 5.1.64
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,14 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.64 =
+
+* Modifies the predefined forms.
+* Modifies the fields list and improves the fields' access from the list.
+* Allows associate developer notes to the HTML Content fields.
+* Modifies the data source fields to allow accessing the DropDown, Radio Button, and Checkbox choices' texts as conditions (Developer and Platinum plugin version).
+* Modifies the DataTable DS control to allow selecting rows (Developer and Platinum plugin version).
+
 = 5.1.63 =
 
 * Fixes an issue estimating the Select2 DropDown fields when they are hidden by default and shown on demand.
@@ -1052,7 +1060,3 @@ A: Please, follow the steps below:
 * Fixes a minor issue in the Captcha module.
 * Improves the WooCommerce add-on (Developer and Platinum plugin versions).
 * Modifies the SagePay integration (Platinum plugin version).
-
-= 5.1.58 =
-
-* Prevent conflicts with other distributions of the plugin.

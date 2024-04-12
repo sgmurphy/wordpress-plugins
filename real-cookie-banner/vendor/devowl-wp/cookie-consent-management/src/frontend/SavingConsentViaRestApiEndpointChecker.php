@@ -21,6 +21,7 @@ class SavingConsentViaRestApiEndpointChecker
     const ERROR_DIAGNOSTIC_COOKIE_PATH = 'cookiePath';
     const ERROR_DIAGNOSTIC_COOKIE_HTTP_ONLY = 'cookieHttpOnly';
     const ERROR_DIAGNOSTIC_REDIRECT = 'redirect';
+    const ERROR_DIAGNOSTIC_403_FORBIDDEN_HTACCESS_DENY = '403htaccessDeny';
     /**
      * Start time.
      *
@@ -37,27 +38,51 @@ class SavingConsentViaRestApiEndpointChecker
     /**
      * Call this method directly after you do the dummy REST API call.
      *
+     * Additional arguments:
+     *
+     * ```
+     * string       'htaccess'         The content of the .htaccess file for checks when the response receives a 403 Forbidden error
+     * string[]     'internalIps'      An string array of all internal IPs, needed for `htaccess`
+     * ```
+     *
      * @param string $bodyString The response body
      * @param array $headers The response headers
      * @param int $code The response status code
+     * @param array $args Additional arguments
      */
-    public function teardown($bodyString, $headers, $code)
+    public function teardown($bodyString, $headers, $code, $args = [])
     {
         $errors = [];
         //$time = microtime(true) - $this->start;
-        // The response worked
+        // The response did not work
         if ($code < 200 || $code > 299) {
             $errors[] = [self::ERROR_DIAGNOSTIC_ERROR_CODE, $code];
             if (!empty($bodyString)) {
                 $errors[] = [self::ERROR_DIAGNOSTIC_RESPONSE_BODY, $bodyString];
             }
+            // Is the loopback request perhaps blocked by `.htaccess`?
+            // Some customers told me that they have denied the own IP as some plugins are doing too
+            // many loop back requests.
+            $htaccess = $args['htaccess'] ?? \false;
+            $internalIps = $args['internalIps'] ?? \false;
+            if ($code === 403 && \is_string($htaccess) && \is_array($internalIps) && \count($internalIps) > 0) {
+                // Split line by line
+                $htaccess = \explode("\n", $htaccess);
+                foreach ($htaccess as $line) {
+                    foreach ($internalIps as $ip) {
+                        if (\strpos($line, $ip) !== \false) {
+                            $errors[] = [self::ERROR_DIAGNOSTIC_403_FORBIDDEN_HTACCESS_DENY, $line];
+                        }
+                    }
+                }
+            }
             return $errors;
         }
         // WordPress backwards-compatibilty 6.1
-        if (\class_exists(Requests_Response_Headers::class)) {
-            $headersInstance = new Requests_Response_Headers();
-        } else {
+        if (\class_exists(Headers::class)) {
             $headersInstance = new Headers();
+        } else {
+            $headersInstance = new Requests_Response_Headers();
         }
         foreach ($headers as $key => $value) {
             $headersInstance[$key] = $value;
@@ -112,10 +137,10 @@ class SavingConsentViaRestApiEndpointChecker
         $cookies = [];
         foreach ($cookieHeaders as $header) {
             // WordPress backwards-compatibilty 6.1
-            if (\class_exists(Requests_Cookie::class)) {
-                $parsed = Requests_Cookie::parse($header, '', null);
-            } else {
+            if (\class_exists(Cookie::class)) {
                 $parsed = Cookie::parse($header, '', null);
+            } else {
+                $parsed = Requests_Cookie::parse($header, '', null);
             }
             if (Utils::startsWith($parsed->name, 'real_cookie_banner')) {
                 $cookies[] = $parsed;

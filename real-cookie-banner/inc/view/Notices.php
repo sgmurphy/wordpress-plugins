@@ -315,7 +315,11 @@ class Notices
             // Include all cookies except WordPress login cookies
             foreach ($_COOKIE as $key => $value) {
                 // Exclude authentication cookies: https://github.com/WordPress/WordPress/blob/06615abcf77d4e87df3906381f5d362e5eff5943/wp-includes/default-constants.php#L270-L289
-                if (!Utils::startsWith($key, 'wordpress_')) {
+                if (!Utils::startsWith($key, 'wordpress_') && !\in_array($key, [
+                    // Disable existing session as this could lead to errors in loopback requests and lead to the following error:
+                    // cURL error 28: Operation timed out after 1000 milliseconds with 0 bytes received
+                    'PHPSESSID',
+                ], \true)) {
                     $args['cookies'][$key] = $value;
                 }
             }
@@ -334,7 +338,14 @@ class Notices
                     \admin_url('site-health.php')
                 );
             } else {
-                $result[$url] = $checker->teardown($response['body'], $response['headers']->getAll(), $response['response']['code']);
+                // @codeCoverageIgnoreStart
+                if (!\defined('PHPUNIT_FILE')) {
+                    require_once ABSPATH . 'wp-admin/includes/file.php';
+                }
+                // @codeCoverageIgnoreEnd
+                $htaccess = \get_home_path() . '.htaccess';
+                $hostname = \gethostname();
+                $result[$url] = $checker->teardown($response['body'], $response['headers']->getAll(), $response['response']['code'], ['htaccess' => \is_readable($htaccess) ? \file_get_contents($htaccess) : null, 'internalIps' => \is_string($hostname) ? \gethostbynamel($hostname) : \false]);
             }
             $result = [$result, \time()];
             // Add timestamp so we can do this check every x hours
@@ -392,6 +403,12 @@ class Notices
                                     \__('Response of the server contains a <code>Location</code> header, which leads to a redirection of the save request instead of saving. You probably have an <a href="%2$s" target="_blank">incorrect trailing slash configuration in your web server</a>.', RCB_TD),
                                     $error[1],
                                     \__('https://devowl.io/knowledge-base/wordpress-rest-api-does-not-respond/#i-can-read-data-but-not-write', RCB_TD)
+                                );
+                            case SavingConsentViaRestApiEndpointChecker::ERROR_DIAGNOSTIC_403_FORBIDDEN_HTACCESS_DENY:
+                                return \sprintf(
+                                    // translators:
+                                    \__('Since the request returned a <code>403</code> error, it is possible that the IP of your server has been blocked for internal loopback requests. We have checked the <code>.htaccess</code> file and found that the following line could be the trigger for this, which you should check and remove: <code>%s</code>.', RCB_TD),
+                                    $error[1]
                                 );
                             default:
                                 return \json_encode($error);

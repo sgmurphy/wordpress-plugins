@@ -19,8 +19,7 @@ class CnbButtonViewEdit {
      * @param $button CnbButton Used to determine type if available
      */
     function header( $button ) {
-        $type_url = filter_input( INPUT_GET, 'type', @FILTER_SANITIZE_STRING );
-        $type = ($type_url !== null) ? strtoupper( $type_url ) : '';
+        $type = strtoupper( filter_input( INPUT_GET, 'type', @FILTER_SANITIZE_STRING ) );
         $name = 'New Button';
         if ( $button && ! is_wp_error( $button ) ) {
             $type = $button->type;
@@ -33,17 +32,16 @@ class CnbButtonViewEdit {
         $adminFunctions = new CnbAdminFunctions();
         $buttonTypes    = $adminFunctions->cnb_get_button_types();
         $typeName       = $buttonTypes[ $type ];
-        echo '<span class="cnb-edit-subtitle">' . esc_html__( 'Editing ' ) . esc_html( $typeName ) . '</span> <span class="cnb-edit-title">' . esc_html( $name ) . '</span>';
+        echo esc_html__( 'Editing ' ) . esc_html( $typeName ) . ' <span class="cnb_button_name">' . esc_html( $name ) . '</span>';
     }
 
     /**
      * @param $button CnbButton
-     * @param $tabName string
-     * @param $tabGroup string
+     * @param $tab string
      *
      * @return string
      */
-    private function get_tab_url( $button, $tabName, $tabGroup ) {
+    private function get_tab_url( $button, $tab ) {
         $url = admin_url( 'admin.php' );
 
         return add_query_arg(
@@ -52,8 +50,7 @@ class CnbButtonViewEdit {
                 'action' => 'edit',
                 'type'   => strtolower( $button->type ),
                 'id'     => $button->id,
-                'tabName'    => $tabName,
-                'tabGroup'    => $tabGroup,
+                'tab'    => $tab
             ),
             $url );
     }
@@ -63,18 +60,25 @@ class CnbButtonViewEdit {
      * This renders JUST the form (no tabs, preview phone, etc.) and is also used in button-overview for the "Add new" modal.
      *
      * @param $button CnbButton
-     * @param $domain CnbDomain|WP_Error
+     * @param $default_domain CnbDomain|WP_Error
+     * @param $options array (modal_view (boolean), submit_button_text (string)
      *
      * @return void
      */
-    public function render_form( $button, $domain ) {
+    public function render_form( $button, $default_domain, $options = array() ) {
         $adminFunctions = new CnbAdminFunctions();
         $button_edit_table = new Button_Edit_Table();
 
+        $submit_button_text = array_key_exists( 'submit_button_text', $options ) ? $options['submit_button_text'] : '';
+        $hide_on_modal      = array_key_exists( 'modal_view', $options ) && $options['modal_view'] === true;
+        if ( $hide_on_modal ) {
+            echo '<script type="text/javascript">cnb_hide_on_modal_set=1</script>';
+        }
+
         // In case the API isn't working properly
-        if ( ! $domain || is_wp_error( $domain ) ) {
-            $domain     = new CnbDomain();
-            $domain->id = 0;
+        if ( ! $default_domain || is_wp_error( $default_domain ) ) {
+            $default_domain     = new CnbDomain();
+            $default_domain->id = 0;
         }
 
         wp_enqueue_script( 'jquery-ui-sortable' );
@@ -87,43 +91,34 @@ class CnbButtonViewEdit {
         wp_enqueue_script( CNB_SLUG . '-button-edit-icon-color' );
         wp_enqueue_script( CNB_SLUG . '-action-edit' );
         wp_enqueue_script( CNB_SLUG . '-condition-edit' );
-	    wp_enqueue_script( CNB_SLUG . '-action-edit-fields' );
-
-        // Needed for the scheduler
-	    wp_enqueue_style( CNB_SLUG . '-jquery-ui' );
         wp_enqueue_style( CNB_SLUG . '-client' );
-
 	    (new Preview())->register_preview_data();
-
         ?>
-        <form class="cnb-container cnb-validation"
+        <form class="cnb-container <?php if ( ! $hide_on_modal ) { ?>cnb-validation<?php } ?>"
               action="<?php echo esc_url( admin_url( 'admin-post.php' ) ) ?>" method="post">
             <input type="hidden" name="page" value="call-now-button"/>
             <input type="hidden" name="action"
                    value="<?php echo $button->id === 'new' ? 'cnb_create_' . esc_attr( strtolower( $button->type ) ) . '_button' : 'cnb_update_' . esc_attr( strtolower( $button->type ) ) . '_button' ?>"/>
             <input type="hidden" name="_wpnonce_button"
                    value="<?php echo esc_attr( wp_create_nonce( 'cnb-button-edit' ) ) ?>"/>
-            <input type="hidden" name="tabName" value="<?php echo esc_attr( $adminFunctions->get_active_tab_name() ) ?>"/>
-            <input type="hidden" name="tabGroup" value="<?php echo esc_attr( $adminFunctions->get_active_tab_group() ) ?>"/>
+            <input type="hidden" name="tab" value="<?php echo esc_attr( $adminFunctions->get_active_tab_name() ) ?>"/>
 
             <input type="hidden" name="button[id]" value="<?php echo esc_attr( $button->id ) ?>"/>
             <input type="hidden" name="button[type]" value="<?php echo esc_attr( $button->type ) ?>" id="button_type"/>
             <input type="hidden" name="button[active]" value="<?php echo esc_attr( $button->active ) ?>"/>
-            <input type="hidden" name="button[domain]" value="<?php echo esc_attr( $domain->id ) ?>"/>
+            <input type="hidden" name="button[domain]" value="<?php echo esc_attr( $default_domain->id ) ?>"/>
 
             <?php
-            $button_edit_table->render_tab_basic_options($button, $domain);
-            $button_edit_table->render_tab_presentation($button);
+            $button_edit_table->render_tab_basic_options($button, $hide_on_modal, $default_domain);
+            $button_edit_table->render_tab_extra_options($button);
             $button_edit_table->render_tab_visibility($button);
-            if ($button->type === 'SINGLE') {
-	            $button_edit_table->render_tab_scheduler( $button, $domain );
-            }
+            $button_edit_table->render_tab_visibility_condition_table($button, $hide_on_modal);
             ?>
 
-            <?php submit_button(); ?>
+            <?php submit_button( $submit_button_text ); ?>
             <div class="cnb_advanced_view">
                 <p class="description" id="cnb-button-save-inactive-message"><span class="dashicons dashicons-warning"></span> Your button is <code>Inactive</code>, so it will not be visible until set the Button status to <code><strong>Active</strong></code></p>
-                <p class="description" id="cnb-button-save-mobile-only-message"><span class="dashicons dashicons-info"></span> Your button is <code>Mobile only</code>, so it will not be visible on desktop. Change this on the <a onclick="cnb_switch_to_tab('buttons', 'visibility')">Visibility</a> tab.</p>
+                <p class="description" id="cnb-button-save-mobile-only-message"><span class="dashicons dashicons-info"></span> Your button is <code>Mobile only</code>, so it will not be visible on desktop. Change this on the <a onclick="cnb_switch_to_tab('visibility')">Visibility</a> tab.</p>
             </div>
         </form>
         <?php
@@ -154,6 +149,8 @@ class CnbButtonViewEdit {
             $this->header( $button );
         } );
 
+        $adminFunctions = new CnbAdminFunctions();
+
         do_action( 'cnb_header' );
 
         if ( is_wp_error( $button ) ) {
@@ -180,20 +177,24 @@ class CnbButtonViewEdit {
             <div class="cnb-body-column">
                 <div class="cnb-body-content">
                     <h2 class="nav-tab-wrapper">
-                        <a href="<?php echo esc_url( $this->get_tab_url( $button, 'basic_options', 'buttons' ) ) ?>"
-                           class="nav-tab"
-                           data-tab-name="basic_options" data-tab-group="buttons">Basics</a>
-                        <a href="<?php echo esc_url( $this->get_tab_url( $button, 'presentation', 'buttons' ) ) ?>"
-                           class="nav-tab"
-                           data-tab-name="presentation" data-tab-group="buttons">Presentation</a>
-                        <a href="<?php echo esc_url( $this->get_tab_url( $button, 'visibility', 'buttons' ) ) ?>"
-                           class="nav-tab"
-                           data-tab-name="visibility" data-tab-group="buttons">Visibility</a>
-                        <?php if ( $button->type === 'SINGLE' ) { ?>
-                            <a href="<?php echo esc_url( $this->get_tab_url( $button, 'scheduler', 'buttons' ) ) ?>"
-                               class="nav-tab"
-                               data-tab-name="scheduler" data-tab-group="buttons">Schedule</a>
+                        <a href="<?php echo esc_url( $this->get_tab_url( $button, 'basic_options' ) ) ?>"
+                           class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'basic_options' ) ) ?>"
+                           data-tab-name="basic_options">Basics</a>
+                        <?php if ( $button->id !== 'new' ) { ?>
+                            <a href="<?php echo esc_url( $this->get_tab_url( $button, 'extra_options' ) ) ?>"
+                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'extra_options' ) ) ?>"
+                               data-tab-name="extra_options">Presentation</a>
+                            <a href="<?php echo esc_url( $this->get_tab_url( $button, 'visibility' ) ) ?>"
+                               class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'visibility' ) ) ?>"
+                               data-tab-name="visibility">Visibility</a>
+                            <?php if ( $button->type === 'SINGLE' ) { ?>
+                                <a href="<?php echo esc_url( $this->get_tab_url( $button, 'scheduler' ) ) ?>"
+                                   class="nav-tab <?php echo esc_attr( $adminFunctions->is_active_tab( 'scheduler' ) ) ?>"
+                                   data-tab-name="scheduler">Schedule</a>
                             <?php } ?>
+                        <?php } else { ?>
+                            <a class="nav-tab"><i>Additional options available after saving</i></a>
+                        <?php } ?>
                     </h2>
                     <?php $this->render_form( $button, $cnb_domain ); ?>
                 </div> <!-- /cnb-body-content -->

@@ -79,7 +79,7 @@ class CnbHeaderNotices {
         $register_url = $cnb_utils->get_app_url( 'register', 'upgrade-to-premium-options', 'callnowbutton.com' );
         $url          = $cnb_utils->get_app_url( '', 'manual_activation', 'sign-up-for-api' );
 
-        $message = '<h3 class="title cnb-remove-add-new">Establish NowButtons account connection</h3>';
+        $message = '<h3 class="title cnb-remove-add-new">Enable NowButtons cloud features</h3>';
         
         $message .= '<div class="option1-email"><h4>Email activation</h4>';
         $message .= self::cnb_settings_email_activation_input();
@@ -92,7 +92,7 @@ class CnbHeaderNotices {
         $message .= '<ol>';
         $message .= '<li>Login to your <a href="' . esc_url( $url ) . '">NowButtons account</a>. (You can create a (free) account if you don\'t have one yet.)</li>';
         $message .= '<li>Go to your profile info by clicking on the user icon in the top right corner and then click <strong>Create new API key</strong>.</li>';
-        $message .= '<li>Copy the API key that appears, paste it into the field below and click <strong>Store API key</strong>.</li>';
+        $message .= '<li>Copy the API key that appears, paste it into the field below and click <strong>Activate</strong>.</li>';
         $message .= '</ol>';
         $message .= $this->cnb_settings_api_key_input();
         $message .= '</div>';
@@ -140,11 +140,9 @@ class CnbHeaderNotices {
         $terms_url   = $cnb_utils->get_website_url( 'legal/terms/', 'email-activation', 'terms' );
         $privacy_url = $cnb_utils->get_website_url( 'legal/privacy/', 'email-activation', 'privacy' );
         $message     = '<form class="cnb-container cnb_email_activation">';
-        $message     .= '<div class="cnb-flex cnb-flex-gap cnb-flex-col-mob">';
         $message     .= '<input type="text" required="required" class="cnb_activation_input_field" name="cnb_email_activation_address" placeholder="Your email address" /> ';
         $message     .= get_submit_button( __( 'Create account' ), 'primary', 'cnb_email_activation_submit', false );
-        $message     .= '</div>';
-        $message     .= '<div class="cnb_email_activation_message"></div>';
+        $message     .= '<p class="cnb_email_activation_message"></p>';
 
         $message .= '<p class="nonessential">By clicking <u>Create account</u> an account will be created with your email address on nowbuttons.com and you agree to our <a href="' . esc_url( $terms_url ) . '" target="_blank">Terms & Conditions</a> and <a href="' . esc_url( $privacy_url ) . '" target="_blank">Privacy statement</a>.</p>';
         $message .= '</form>';
@@ -156,7 +154,7 @@ class CnbHeaderNotices {
         $message = sprintf( '<form action="%1$s" method="POST" class="cnb-container">', esc_url( admin_url( 'admin-post.php' ) ) );
 	    $message .= '<input type="hidden" name="page" value="call-now-button" />';
 	    $message .= '<input type="hidden" name="action" value="cnb_apikey_validate_and_update" />';
-        $message .= '<div class="cnb-flex cnb-flex-gap cnb-flex-col-mob">';
+        $message .= '<div>';
         $message .= '<input type="text" required="required" class="cnb_activation_input_field" name="api_key" placeholder="Paste API key here"/>';
 	    $message .= '<input type="hidden" name="_wpnonce" value="' . esc_attr( wp_create_nonce( 'cnb_apikey_validate_and_update' ) ) . '"/>';
         $message .= get_submit_button( __( 'Store API key' ), 'primary', 'submit', false );
@@ -365,8 +363,7 @@ class CnbHeaderNotices {
             add_query_arg(
                 array(
                     'page' => 'call-now-button-settings',
-                    'tabName' => 'account_options',
-	                'tabGroup' => 'settings',
+                    'tab' => 'account_options',
                 ),
                 admin_url('admin.php'));
         $redirect_url  = esc_url( $redirect_link );
@@ -394,8 +391,7 @@ class CnbHeaderNotices {
             add_query_arg(
                 array(
                     'page' => 'call-now-button-settings',
-                    'tabName'  => 'advanced_options#domain_timezone',
-	                'tabGroup' => 'settings',
+                    'tab'  => 'advanced_options#domain_timezone',
                 ),
                 $url );
         $redirect_url  = esc_url( $redirect_link );
@@ -426,8 +422,7 @@ class CnbHeaderNotices {
             add_query_arg(
                 array(
                     'page' => 'call-now-button-settings',
-                    'tabName'  => 'advanced_options#domain_timezone',
-                    'tabGroup' => 'settings',
+                    'tab'  => 'advanced_options#domain_timezone',
                 ),
                 $url );
         $redirect_url  = esc_url( $redirect_link );
@@ -456,8 +451,7 @@ class CnbHeaderNotices {
             add_query_arg(
                 array(
                     'page' => 'call-now-button-settings',
-                    'tabName'  => 'advanced_options#domain_properties_debug',
-                    'tabGroup' => 'settings',
+                    'tab'  => 'advanced_options#domain_properties_debug',
                 ),
                 $url );
         $redirect_url  = esc_url( $redirect_link );

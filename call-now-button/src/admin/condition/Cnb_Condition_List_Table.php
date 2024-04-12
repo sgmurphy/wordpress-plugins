@@ -189,8 +189,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
                             array(
                                 'page'   => 'call-now-button',
                                 'action' => 'edit',
-                                'tabName'    => 'visibility',
-                                'tabGroup'    => 'buttons',
+                                'tab'    => 'visibility',
                                 'id'     => $button->id,
                             ),
                             $url );
@@ -273,8 +272,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
 
     private function get_edit_link( $condition ) {
         $bid       = $this->button !== null ? $this->button->id : null;
-        $tabName   = $this->button !== null ? 'visibility' : null;
-		$tabGroup  = $this->button !== null ? 'buttons' : null;
+        $tab       = $this->button !== null ? 'visibility' : null;
         $url       = admin_url( 'admin.php' );
         $edit_link =
             add_query_arg(
@@ -283,8 +281,7 @@ class Cnb_Condition_List_Table extends WP_List_Table {
                     'action' => 'edit',
                     'id'     => $condition->id,
                     'bid'    => $bid,
-                    'tabName'    => $tabName,
-                    'tabGroup'    => $tabGroup,
+                    'tab'    => $tab
                 ),
                 $url );
 

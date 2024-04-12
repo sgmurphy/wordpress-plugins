@@ -27,7 +27,7 @@ class CnbHeader {
         echo '<h1>';
         do_action( 'cnb_header_name' );
         do_action( 'cnb_after_header' );
-        echo '</h1>'; 
+        echo '</h1>';
     }
 
     private function preHeader() {

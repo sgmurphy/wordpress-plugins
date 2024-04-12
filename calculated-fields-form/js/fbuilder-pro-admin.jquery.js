@@ -66,13 +66,22 @@
 	};
 
     $.fbuilder['printFields'] = function(){
-        var h = '<div><b>field name (title) [Exclude from submission]</b></div><hr />', w;
+		var h = '<style>*{font-family:sans-serif;font-size:14px;}.developer-note:not(:empty){font-style:italic;margin-top:5px;display:block;font-size:90%;clear:both;}.developer-note:not(:empty)::before{content: \'Developer note: \';font-weight:bold;}</style><div><b>field name (title) [Exclude from submission]</b></div><hr />',
+			w,
+			o = {};
+
         $.each(window.cff_form.fBuild.getItems(), function(i, item){
-			h += '<div><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];e.scrollIntoView();e.click();">'+item.name+'</a>';
-            if('title' in item) h += ' ('+item.title+')';
-            if('exclude' in item && item.exclude) h += '[EXCLUDED]';
-            h += '</div>';
+			o[item.name] = '<div style="border-bottom:1px solid #F0F0F0;padding:5px 0;"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+item.name+'</a>'+
+						('title' in item ? ' ('+$.fbuilder.htmlEncode(item.title)+')' : '')+
+						('exclude' in item && item.exclude ? '[EXCLUDED]' : '' )+
+						('_developerNotes' in item && ! /^\s*$/.test(item._developerNotes) ? '<span class="developer-note">'+$.fbuilder.htmlEncode(item._developerNotes)+'</span>' : '')+
+						'</div>';
         });
+
+		$('#fieldlist [class *="fieldname"]').each(function(){
+			h += o[this.className.match(/fieldname\d+/)[0]];
+		});
+
         w = window.open("","cff-fieldlist-popup", "width=500,height=300,scrollbars=1,resizable=1,toolbar=0,titlebar=0,menubar=0");
         w.document.title = 'Fields List';
         w.document.body.innerHTML = h;

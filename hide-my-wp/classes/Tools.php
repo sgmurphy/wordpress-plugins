@@ -126,7 +126,7 @@ class HMWP_Classes_Tools
         $plugin_relative_url = trim(preg_replace('/' . str_replace('/', '\/', $homepath) . '/', '', $pluginurl, 1), '/');
         $content_relative_url = trim(preg_replace('/' . str_replace('/', '\/', $homepath) . '/', '', $contenturl, 1), '/');
 
-        if ($safe ) {
+        if ($safe) {
             $keymeta = HMWP_OPTION_SAFE;
         }
 

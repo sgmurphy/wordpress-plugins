@@ -153,15 +153,6 @@ function cnb_update_whatsapp_title_placeholder() {
   cnb_set_whatsapp_title_placeholder()
 }
 
-function cnb_actions_init_tab() {
-    // get tabName from url param "tabName", or default to "action_options"
-    const tabName = new URLSearchParams(window.location.search).get('tabName') || 'action_options'
-    // get tabGroup from url param "tabGroup", or default to "actions"
-    const tabGroup = new URLSearchParams(window.location.search).get('tabGroup') || 'actions'
-
-    cnb_switch_tab(tabGroup, tabName)
-}
-
 jQuery(() => {
     // These 2 set up action handler to process changes on the form
     cnb_clear_default_on_modal()
@@ -173,5 +164,4 @@ jQuery(() => {
     cnb_action_icon_background_image()
     cnb_init_image_select()
     cnb_update_whatsapp_title_placeholder()
-    cnb_actions_init_tab()
 })

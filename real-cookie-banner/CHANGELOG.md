@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.7.3 (2024-04-12)
+
+
+### Bug Fixes
+
+* the newly added notice about REST API shows errors about 403 Forbidden, we added another tip for the cause (CU-86949561p)
+* the newly added notice about REST API shows errors about cURL timeouts (CU-86949561p)
+
+
+<details><summary>Dependency updates @devowl-wp/cookie-consent-management 0.1.9</summary>
+
+
+**_Purpose of dependency:_** _Provide cookie consent management with adapters to your environment_
+##### Bug Fixes
+
+* deprecation warning in PHP log about Requests_Response class (CU-86949561p)
+* the newly added notice about REST API shows errors about 403 Forbidden, we added another tip for the cause (CU-86949561p)</details>
+
+
+
+
+
 ## 4.7.2 (2024-04-10)
 
 

@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 4.0.2
+Version: 4.0.3
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
@@ -17,7 +17,7 @@ WC tested up to: 8.7
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.2' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.3' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -654,7 +654,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Extra CSS class (optional)', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosq_settings[button_class]" value="<?php echo self::get_setting( 'button_class', '' ); ?>"/>
+                                                <input type="text" name="woosq_settings[button_class]" value="<?php echo esc_attr( self::get_setting( 'button_class', '' ) ); ?>"/>
                                                 <span class="description"><?php esc_html_e( 'Add extra CSS class for action button/link, split by one space.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>

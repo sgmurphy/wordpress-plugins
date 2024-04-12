@@ -124,7 +124,7 @@ class CnbButtonView {
             $views        = $wp_list_table->get_views();
             $active_views = isset( $views['active'] ) ? $views['active'] : '';
             if ( false !== strpos( $active_views, '(0)' ) ) {
-                $message = '<p>You have no active buttons!</p>';
+                $message = '<p><span class="dashicons dashicons-info-outline"></span> You have no active buttons!</p>';
                 CnbAdminNotices::get_instance()->warning( $message );
             }
         }
@@ -133,34 +133,26 @@ class CnbButtonView {
         wp_enqueue_script( CNB_SLUG . '-form-bulk-rewrite' );
         do_action( 'cnb_header' );
 
-        
-        echo '<div class="cnb-plugin-content-wrapper">';
+        echo '<div class="cnb-two-column-section">';
+        echo '<div class="cnb-body-column">';
+        echo '<div class="cnb-body-content">';
 
-	    echo '<main>';
-        echo '<form class="cnb_list_event" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" method="post">';
+        echo sprintf( '<form class="cnb_list_event" action="%s" method="post">', esc_url( admin_url( 'admin-post.php' ) ) );
         echo '<input type="hidden" name="page" value="call-now-button-buttons" />';
         echo '<input type="hidden" name="action" value="cnb_buttons_bulk" />';
         $wp_list_table->views();
         $wp_list_table->display();
         echo '</form>';
-        echo '</main>';
+        echo '</div>';
+        echo '</div>';
 
-        echo '
-            <aside>
-                <div class="cnb-aside-body-wrapper">
-                    <div class="cnb-aside-body">
-                        <div class="cnb-content-aside-more cnb-content-aside-active">';
-                            $this->render_promos();
-		echo '			</div>
-                    </div>
-                </div>
-            </aside>';
-
-        echo '</div><!-- END .cnb-plugin-content-wrapper -->';
+        $this->render_promos();
+        echo '</div>';
 
         // Do not add the modal code if something is wrong
         if ( ! is_wp_error( $data ) ) {
-	        ( new CnbButtonModalView() )->render();
+            $this->render_thickbox();
+            $this->render_thickbox_quick_action();
         }
         do_action( 'cnb_footer' );
     }
@@ -169,7 +161,10 @@ class CnbButtonView {
         global $cnb_domain;
         $cnb_utils   = new CnbUtils();
         $upgrade_url = $cnb_utils->get_cnb_domain_upgrade();
+        $support_url = $cnb_utils->get_support_url( '', 'promobox-need-help', 'Help Center' );
+        $faq_url     = $cnb_utils->get_support_url( 'wordpress/#faq', 'promobox-need-help', 'FAQ' );
         if ( isset( $upgrade_url ) && $upgrade_url ) {
+            echo '<div class="cnb-postbox-container cnb-side-column"> <!-- Sidebar promo boxes -->';
             if ( $cnb_domain !== null && ! ( $cnb_domain instanceof WP_Error ) && $cnb_domain->type !== 'PRO' ) {
                 $promoboxes = range( 1, 3 );
                 shuffle( $promoboxes );
@@ -178,20 +173,21 @@ class CnbButtonView {
                 $custom_image          = plugins_url('resources/images/custom-image.jpg', CNB_PLUGINS_URL_BASE );
                 if ( $promoItem == 1 ) {
                     ( new CnbAdminFunctions() )->cnb_promobox(
-	                    'green',
-	                    '',
-	                    '<h4 class="cnb-center">Show a call button during office hours</h4>' .
-	                    '<div class="cnb-center" style="padding: 10px 30px"><img src="' . esc_url( $schedule_illustration ) . '" alt="Upgrade your domain to PRO with an extra discount" style="max-width:300px; width:100%; height:auto;" /></div>' .
-	                    '<h4 class="cnb-center">A mail button when you\'re off.</h4>',
-	                    'Try the <strong>scheduler</strong> 14 days free',
-	                    'Start Trial',
-	                    $upgrade_url
+                        'green',
+                        'Schedule your buttons',
+                        '<h4 class="cnb-center">Show a call button during office hours</h4>' .
+                        '<div class="cnb-center" style="padding: 10px 30px"><img src="' . esc_url( $schedule_illustration ) . '" alt="Upgrade your domain to PRO with an extra discount" style="max-width:300px; width:100%; height:auto;" /></div>' .
+                        '<h4 class="cnb-center">A mail button when you\'re off.</h4>',
+                        'clock',
+                        'Try PRO 14 days free',
+                        'Upgrade',
+                        $upgrade_url
                     );
                 } elseif ( $promoItem == 2 ) {
                     ( new CnbAdminFunctions() )->cnb_promobox(
-	                    'green',
-	                    'PRO includes:',
-	                    '<p>
+                        'green',
+                        'Professional features',
+                        '<p>
                             <span class="dashicons dashicons-yes cnb-green"></span> Button scheduler<br>
                             <span class="dashicons dashicons-yes cnb-green"></span> Multi-action buttons<br>
                             <span class="dashicons dashicons-yes cnb-green"></span> Icon picker & custom images<br>
@@ -200,26 +196,85 @@ class CnbButtonView {
                             <span class="dashicons dashicons-yes cnb-green"></span> Set scroll height for buttons to appear<br>
                             <span class="dashicons dashicons-yes cnb-green"></span> Slide-in content windows<br>
                             <span class="dashicons dashicons-yes cnb-green"></span> Integrate your Intercom chat</p><h3>And much more!</h3>',
-	                    '<strong>Try it 14 days free!</strong>',
-	                    'Start Free Trial',
-	                    $upgrade_url
+                        'performance',
+                        '<strong>Try it 14 days free!</strong>',
+                        'Upgrade',
+                        $upgrade_url
                     );
                 } else {
                     ( new CnbAdminFunctions() )->cnb_promobox(
-	                    'green',
-	                    '',
-	                    '<h4>Unlock more icons...</h4>' .
-	                    '<p>Upgrade to Pro to enable an icon picker for your actions.</p>' .
-	                    '<h4>...or personalize with Custom Images</h4>' .
-	                    '<div class="cnb-center" style="padding: 0 34px"><img src="' . esc_url( $custom_image ) . '" alt="Custom button images" style="max-width:246px; width:100%; height:auto;" /></div>' .
-	                    '<p>With custom images you can add your own image to your buttons. For example a headshot on a contact button.</p>',
-	                    '<strong>Try it 14 days free!</strong>',
-	                    'Start Free Trial',
-	                    $upgrade_url
+                        'green',
+                        'Customize your buttons',
+                        '<h4>Unlock more icons...</h4>' .
+                        '<p>Upgrade to Pro to enable an icon picker for your actions.</p>' .
+                        '<h4>...or personalize with Custom Images</h4>' .
+                        '<div class="cnb-center" style="padding: 0 34px"><img src="' . esc_url( $custom_image ) . '" alt="Custom button images" style="max-width:246px; width:100%; height:auto;" /></div>' .
+                        '<p>With custom images you can add your own image to your buttons. For example a headshot on a contact button.</p>',
+                        'art',
+                        '<strong>Try it 14 days free!</strong>',
+                        'Upgrade',
+                        $upgrade_url
                     );
                 }
             }
+            $support_illustration = plugins_url('resources/images/support.png', CNB_PLUGINS_URL_BASE );
+            ( new CnbAdminFunctions() )->cnb_promobox(
+                'blue',
+                'Need help?',
+                '<p>Please head over to our <strong>Help Center</strong> for all your questions and support needs.</p>
+
+                      <div class="cnb-right" style="padding: 10px 10px 10px 70px"><img src="' . esc_url( $support_illustration ) . '" alt="Our Help Center and support options" style="max-width:300px; width:100%; height:auto;" /></div>',
+                'welcome-learn-more',
+                '',
+                'Open Help Center',
+                $support_url
+            );
+            echo '</div>';
         }
         echo '<br class="clear">';
+    }
+
+    /**
+     * @return void
+     */
+    private function render_thickbox( ) {
+        global $cnb_domain;
+
+        if ( ! $cnb_domain || is_wp_error( $cnb_domain ) ) return;
+
+        add_thickbox();
+        echo '<div id="cnb-add-new-modal" style="display:none;"><div>';
+
+        // Create a dummy button
+        $button = CnbButton::createDummyButton( $cnb_domain );
+
+        $options = array( 'modal_view' => true, 'submit_button_text' => 'Next' );
+        ( new CnbButtonViewEdit() )->render_form( $button, $cnb_domain, $options );
+        echo '</div></div>';
+
+    }
+
+    private function render_thickbox_quick_action() {
+        $cnb_utils = new CnbUtils();
+        $action    = $cnb_utils->get_query_val( 'action', null );
+        if ( $action === 'new' ) {
+            ?>
+            <script>jQuery(function () {
+                    setTimeout(cnb_button_overview_add_new_click);
+                });</script>
+            <?php
+        }
+
+        // Change the click into an actual "onClick" event
+        // But only on the button-overview page and Action is not set or to "new"
+        if ( $action === 'new' || $action === null ) {
+            ?>
+            <script>jQuery(function () {
+                    const ele = jQuery("li.toplevel_page_call-now-button li:contains('Add New') a");
+                    ele.attr('href', '#');
+                    ele.on("click", cnb_button_overview_add_new_click)
+                });</script>
+            <?php
+        }
     }
 }

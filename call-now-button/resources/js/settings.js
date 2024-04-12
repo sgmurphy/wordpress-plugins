@@ -101,20 +101,10 @@ function cnb_user_storage_type() {
     return false
 }
 
-function cnb_settings_init_tab() {
-    // get tabGroup from url param "tabGroup", or default to "buttons"
-    const tabGroup = new URLSearchParams(window.location.search).get('tabGroup') || 'settings'
-    // get tabGroup from url param "tabName", or default to "basic_options"
-    const tabName = new URLSearchParams(window.location.search).get('tabName') || 'basic_options'
-
-    cnb_switch_tab(tabGroup, tabName)
-}
-
 jQuery(() => {
     init_settings();
     cnb_disable_api_key_when_cloud_hosting_is_disabled()
     cnb_ask_for_feedback_disable_cloud()
     cnb_show_tips_when_deactivating()
     add_onclick_cnb_user_storage_type()
-    cnb_settings_init_tab()
 })

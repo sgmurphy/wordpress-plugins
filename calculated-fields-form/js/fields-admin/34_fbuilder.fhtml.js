@@ -11,13 +11,14 @@
 		$.fbuilder.controls['ffields'].prototype,
 		{
 			ftype:"fhtml",
+			_developerNotes:'',
 			fcontent: "",
 			display:function()
 				{
 					let content = $('<div/>').html(this.fcontent).find('script,style').remove().end().html();
 					content = /^\s*$/.test(content) ? '&lt;HTML&gt;' : content;
 
-					return '<div class="fields '+this.name+' '+this.ftype+' fhtml" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('HTML Content')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div>'+content+'<div class="clearer" /></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' fhtml" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('HTML Content')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span>'+content+'<div class="clearer" /></div>';
 				},
 			editItemEvents:function()
 				{
