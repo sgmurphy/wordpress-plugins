@@ -171,6 +171,6 @@ function su_do_attribute( $value ) {
 	$value = str_replace( array( '{', '}' ), array( '[', ']' ), $value );
 	$value = do_shortcode( $value );
 
-	return $value;
+	return esc_attr( $value );
 
 }

@@ -2,9 +2,9 @@
 Contributors: ivole
 Tags: woocommerce, review plugin, review reminder, customer reviews, review for discount
 Requires at least: 4.5
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 5.46.0
+Stable tag: 5.47.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
 
@@ -231,6 +231,10 @@ If you would like to change how reviews are sorted on product pages, it is possi
 
 == Changelog ==
 
+= 5.47.0 =
+* Improvement: cards with additional statistics about review reminders scheduled with WP Cron
+* Improvement: hide empty answers to additional review questions configured as optional
+* Bug fix: vulnerability in Ajax requests
 = 5.46.0 =
 * New feature: compatibility of the customer consent checkbox with the new Checkout block in WooCommerce
 * New feature: tracking if customers open aggregated review forms hosted locally

@@ -283,6 +283,9 @@ class WPCaptcha_Functions extends WPCaptcha
             } else {
                 $secret = $options['captcha_secret_key'];
                 $response = wp_remote_get('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
+                if(is_wp_error($response)){
+                    return new WP_Error('wpcaptcha_recaptchav3_failed', __("<strong>ERROR</strong>: reCAPTCHA verification request failed<br /><br />" . $response->get_error_message(), 'advanced-google-recaptcha'));
+                }
                 $response = json_decode($response['body']);
                 if ($response->success) {
                     return true;
@@ -297,6 +300,9 @@ class WPCaptcha_Functions extends WPCaptcha
                 
                 $secret = $options['captcha_secret_key'];
                 $response = wp_remote_get('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
+                if(is_wp_error($response)){
+                    return new WP_Error('wpcaptcha_recaptchav3_failed', __("<strong>ERROR</strong>: reCAPTCHA verification request failed<br /><br />" . $response->get_error_message(), 'advanced-google-recaptcha'));
+                }
                 $response = json_decode($response['body']);
                 
                 if ($response->success) {

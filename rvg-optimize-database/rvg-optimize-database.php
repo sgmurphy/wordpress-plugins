@@ -7,7 +7,7 @@
 Plugin Name: Optimize Database after Deleting Revisions
 Description: One-click database optimization with precise revision cleanup and flexible scheduling. <a href="https://www.nerdpress.net/announcing-optimize-database/">Now managed by NerdPress!</a>
 Author: NerdPress
-Author URI: https://www..nerdpress.net
+Author URI: https://www.nerdpress.net
 Network: True
 Version: 5.2.2
 */

@@ -1,6 +1,6 @@
 === Optimize Database after Deleting Revisions ===
 Contributors: cageehv, nerdpressteam
-Tags: database, cleanup, delete, revisions, optimize, trash, spam, trashed, database size, scheduler, transients, unused tags
+Tags: database cleanup, delete revisions, optimize database, database size, delete unused tags
 Author URI: https://www.nerdpress.net
 Author: NerdPress
 Requires at least: 2.8
