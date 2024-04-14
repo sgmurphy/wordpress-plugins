@@ -463,7 +463,7 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 			return Utils::validate_html_tag($tag);
 		} else {
 			$allowed_tags = ['h1','h2','h3','h4','h5','h6','p','span'];
-			return in_array(strtolower($tag), $allowed_tags) ? $tag : 'div';
+			return in_array(strtolower($tag), $allowed_tags) ? strtolower($tag) : 'div';
 		}
 	}
 
@@ -474,15 +474,9 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 		$icon = $settings['icon'];
 		$icon_order = $settings['icon_order'];
 		$eihe_tag = $this->validate_html_tag($settings['eihe_tag']);
-		$eihe_link = esc_url($settings['eihe_link']['url']);
 
-		if (strlen($eihe_link) > 0) {
-			$eiheLinkValue = ['href' => $eihe_link];
-
-			if ($settings['eihe_link']['is_external']) { $eiheLinkValue['target'] = '_blank'; }
-			if ($settings['eihe_link']['nofollow']) { $eiheLinkValue['rel'] = 'nofollow'; }
-
-			$this->add_render_attribute('eihe_link', $eiheLinkValue);
+		if(!empty($settings['eihe_link']['url'])) {
+			$this->add_link_attributes('eihe_link', $settings['eihe_link']);
 		?>
 			<a <?php echo $this->get_render_attribute_string( 'eihe_link' ); ?>>
 		<?php
@@ -500,7 +494,7 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 					<p><?php echo wp_kses_post($settings['eihe_description']); ?></p>
 				</div>
 			</div>
-		<?php if (strlen($eihe_link) > 0) { ?>
+		<?php if(!empty($settings['eihe_link']['url'])) { ?>
 			</a>
 		<?php }
 	}
@@ -531,14 +525,8 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 			eihe_tag = allowed_tags.indexOf(eihe_tag) > -1 ? eihe_tag : 'div';
 		}
 
-		const eiheLink = settings.eihe_link.url;
-		if (eiheLink.length > 0) {
-			const eiheLinkValue = { href: eiheLink };
-
-			if (settings.eihe_link.is_external) { eiheLinkValue.target = '_blank'; }
-			if (settings.eihe_link.nofollow) { eiheLinkValue.rel = 'nofollow'; }
-
-			view.addRenderAttribute('eihe_link', eiheLinkValue);
+		if (settings.eihe_link.url != '') {
+			view.addRenderAttribute('eihe_link', settings.eihe_link);
 		#>
 			<a {{{ view.getRenderAttributeString( 'eihe_link' ) }}}>
 		<#
@@ -563,7 +551,7 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 					<p>{{ settings.eihe_description }}</p>
 				</div>
 			</div>
-		<# if (eiheLink.length > 0) { #>
+		<# if (settings.eihe_link.url != '') { #>
 			</a>
 		<# } #>
 		<?php

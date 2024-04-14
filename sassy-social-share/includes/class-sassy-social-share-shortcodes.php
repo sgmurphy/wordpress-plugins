@@ -225,7 +225,7 @@ class Sassy_Social_Share_Shortcodes {
 	        return;
 		}
 		if ( $url && $this->public_class_object->validate_url( $url ) !== false ) {
-			$target_url = $url;
+			$target_url = esc_attr( $url );
 			$post_id = 0;
 		} elseif ( is_front_page() ) {
 			$target_url = esc_url( home_url() );
@@ -235,17 +235,17 @@ class Sassy_Social_Share_Shortcodes {
 			$post_id = 0;
 		} elseif ( isset( $_SERVER['QUERY_STRING'] ) && $_SERVER['QUERY_STRING'] ) {
 			$target_url = esc_url_raw( $this->public_class_object->get_http_protocol() . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] );
-			$post_id = $post -> ID;
-		} elseif ( get_permalink( $post -> ID ) ) {
-			$target_url = get_permalink( $post -> ID );
-			$post_id = $post -> ID;
+			$post_id = $post->ID;
+		} elseif ( get_permalink( $post->ID ) ) {
+			$target_url = get_permalink( $post->ID );
+			$post_id = $post->ID;
 		} else {
 			$target_url = esc_url_raw( $this->public_class_object->get_http_protocol() . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] );
 			$post_id = 0;
 		}
 		$share_count_url = $target_url;
 		if ( $url == '' && is_singular() ) {
-			$share_count_url = get_permalink( $post -> ID );
+			$share_count_url = get_permalink( $post->ID );
 		}
 		$custom_post_url = $this->public_class_object->apply_target_share_url_filter( $target_url, esc_attr( $type ), false );
 		if ( $custom_post_url != $target_url ) {

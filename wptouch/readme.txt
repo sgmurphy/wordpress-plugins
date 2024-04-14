@@ -2,8 +2,8 @@
 Contributors: wptouch, sureswiftcapital, duanestorey, dalemugford, adamdipardo, oxymoron, oddjar
 Tags: mobile, mobile-friendly, responsive, iphone, android, mobile plugin, mobile theme, wptouch, ipad, smartphone, responsive theme, ios
 Requires at least: 4.2
-Stable tag: 4.3.56
-Tested up to: 6.3.1
+Stable tag: 4.3.57
+Tested up to: 6.5.2
 License: GPLv2
 
 With just a few clicks, make your WordPress website mobile-friendly (iPhone, Android, and more). Recommended by Google, it will instantly enable a mobile-friendly version of your website.
@@ -32,6 +32,10 @@ For more information visit [WPtouch.com](http://www.wptouch.com/?utm_campaign=wp
 6. Theme settings
 
 == Changelog ==
+
+= Version 4.3.57 (April 11th, 2024) =
+
+* Minor fixes; WordPress 6.5.2 compatibility
 
 = Version 4.3.55 (October 24th, 2023) =
 

@@ -5,7 +5,7 @@ Author URI: https://www.nerdpress.net
 Author: NerdPress
 Requires at least: 2.8
 Requires PHP: 5.6
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 5.2.2
 Version: 5.2.2
 License: GPLv2 or later
