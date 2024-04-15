@@ -61,6 +61,7 @@
                                         <option value="siteground" <?php selected('siteground', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?>><?php echo esc_html__("SiteGround", 'hide-my-wp') ?></option>
                                         <option value="cloudpanel" <?php selected('cloudpanel', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?> ><?php echo esc_html__("Cloud Panel", 'hide-my-wp') ?></option>
                                         <option value="flywheel" <?php selected('flywheel', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?> ><?php echo esc_html__("Flywheel", 'hide-my-wp') ?></option>
+                                        <option value="local" <?php selected('local', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?> ><?php echo esc_html__("Local by Flywheel", 'hide-my-wp') ?></option>
                                         <option value="inmotion" <?php selected('inmotion', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?> ><?php echo esc_html__("Inmotion", 'hide-my-wp') ?></option>
                                         <option value="wpengine" <?php selected('wpengine', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?> ><?php echo esc_html__("WP Engine", 'hide-my-wp') ?></option>
                                         <option value="bitnami" <?php selected('bitnami', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?> ><?php echo esc_html__("AWS Bitnami", 'hide-my-wp') ?></option>

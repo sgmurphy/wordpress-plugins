@@ -3,13 +3,13 @@ Contributors: bdthemes, selimmw, mohammaadfarid, bdkoder, maudud, abutalib, soha
 Donate link: http://bdthemes.com/
 Tags:  elementor addons, elementor widget, elementor extensions, elementor addon, addons
 Requires at least: 5.0.0
-Tested up to: 6.5
+Tested up to: 6.5.2
 Requires PHP: 7.4.0
-Stable tag: 5.6.0
+Stable tag: 5.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.20.3
+Elementor tested up to: 3.20.4
 
 Best Addon for Elementor WordPress Plugin with 70+ Most Popular Elements that need your everyday website page building.
 
@@ -129,6 +129,13 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.6.1 [15th April 2024] =
+
+* Fixed: API Settings problem fixed (Thanks to Stan Robin)
+* Fixed: Marker icon issue fixed in Open Street Map widget
+* Fixed: Link issue fixed in price list widget
+* Fixed: PHP Fatal error fixed (Thanks to Alex Lim)
 
 = 5.6.0 [7th April 2024] =
 

@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the ElementsKit Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElementsKit Lite 3.1.0\n"
+"Project-Id-Version: ElementsKit Lite 3.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elementskit-lite\n"
-"POT-Creation-Date: 2024-03-31 10:06:43+00:00\n"
+"POT-Creation-Date: 2024-04-15 13:13:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Activating..."
 msgstr ""
 
-#: libs/framework/attr.php:60 modules/onepage-scroll/extend-controls.php:74
+#: libs/framework/attr.php:60 modules/onepage-scroll/extend-controls.php:75
 msgid "ElementsKit Settings"
 msgstr ""
 
@@ -1841,31 +1841,31 @@ msgstr ""
 msgid "Tooltip Text"
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:47 widgets/widget-notice.php:24
+#: modules/onepage-scroll/extend-controls.php:48 widgets/widget-notice.php:24
 msgid "Unlock more possibilities"
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:58
+#: modules/onepage-scroll/extend-controls.php:59
 msgid "Get the"
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:59
+#: modules/onepage-scroll/extend-controls.php:60
 msgid "Pro version"
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:60
+#: modules/onepage-scroll/extend-controls.php:61
 msgid "for more awesome elements and powerful modules."
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:82
+#: modules/onepage-scroll/extend-controls.php:83
 msgid "Enable Onepage Scroll"
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:103
+#: modules/onepage-scroll/extend-controls.php:104
 msgid "ElementsKit Onepage Scroll"
 msgstr ""
 
-#: modules/onepage-scroll/extend-controls.php:112
+#: modules/onepage-scroll/extend-controls.php:113
 msgid "Enable Section"
 msgstr ""
 

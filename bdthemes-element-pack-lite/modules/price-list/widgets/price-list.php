@@ -1,4 +1,5 @@
 <?php
+
 namespace ElementPack\Modules\PriceList\Widgets;
 
 use Elementor\Group_Control_Typography;
@@ -1726,10 +1727,16 @@ class Price_List extends Module_Base {
 
 		if ( $item['link']['url'] ) {
 			$target = $item['link']['is_external'] ? '_blank' : '_self';
-			$this->add_render_attribute( $unique_link_id, 'onclick', "window.open('" . $item['link']['url'] . "', '$target')" );
+			$this->add_render_attribute( $unique_link_id, 'onclick', "window.open('" . esc_url( $item['link']['url'] ) . "', '$target')" );
 		}
 
-		return '<li class="bdt-price-list-item">' . $bdt_has_counter . $bdt_has_badge . '<div ' . $this->get_render_attribute_string( $unique_link_id ) . 'bdt-grid>';
+		?>
+		<li class="bdt-price-list-item">
+			<?php echo wp_kses_post( $bdt_has_counter ); ?>
+			<?php echo wp_kses_post( $bdt_has_badge ); ?>
+			<div <?php $this->print_render_attribute_string( $unique_link_id ); ?> bdt-grid>
+
+				<?php
 	}
 
 
@@ -1741,7 +1748,7 @@ class Price_List extends Module_Base {
 		$settings            = $this->get_settings_for_display();
 		$image_hide_on_setup = '';
 
-		if ( ! empty ( $settings['image_hide_on'] ) ) {
+		if ( ! empty( $settings['image_hide_on'] ) ) {
 			foreach ( $settings['image_hide_on'] as $element ) {
 
 				if ( $element == 'desktop' ) {
@@ -1757,62 +1764,61 @@ class Price_List extends Module_Base {
 		}
 
 		?>
-		<ul class="bdt-price-list">
+				<ul class="bdt-price-list">
 
-			<?php foreach ( $settings['price_list'] as $item ) :
-				echo wp_kses_post( $this->render_item_header( $item ) );
+					<?php foreach ( $settings['price_list'] as $item ) :
+						$this->render_item_header( $item );
 
-				if ( ! empty ( $item['image']['url'] ) ) : ?>
-					<div class="bdt-price-list-image bdt-width-auto <?php echo esc_attr( $image_hide_on_setup ); ?>">
-						<?php $this->render_image( $item, $settings ); ?>
-					</div>
-				<?php endif; ?>
+						if ( ! empty( $item['image']['url'] ) ) : ?>
+							<div class="bdt-price-list-image bdt-width-auto <?php echo esc_attr( $image_hide_on_setup ); ?>">
+								<?php $this->render_image( $item, $settings ); ?>
+							</div>
+						<?php endif; ?>
 
-				<div class="bdt-price-list-text bdt-width-expand">
-					<div>
-						<div class="bdt-price-list-header bdt-grid bdt-grid-small bdt-flex-middle" bdt-grid>
-							<span class="bdt-price-list-title">
-								<?php echo esc_html( $item['title'] ); ?>
-							</span>
+						<div class="bdt-price-list-text bdt-width-expand">
+							<div>
+								<div class="bdt-price-list-header bdt-grid bdt-grid-small bdt-flex-middle" bdt-grid>
+									<span class="bdt-price-list-title">
+										<?php echo esc_html( $item['title'] ); ?>
+									</span>
 
-							<?php if ( 'none' != $settings['separator_style'] ) : ?>
-								<span class="bdt-price-list-separator bdt-width-expand"></span>
+									<?php if ( 'none' != $settings['separator_style'] ) : ?>
+										<span class="bdt-price-list-separator bdt-width-expand"></span>
+									<?php endif; ?>
+
+								</div>
+
+								<?php if ( $item['item_description'] ) : ?>
+									<p class="bdt-price-list-description">
+										<?php echo wp_kses_post( $this->parse_text_editor( $item['item_description'] ) ); ?>
+									</p>
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="bdt-width-auto bdt-flex-inline bdt-flex-middle">
+							<?php if ( $item['old_price'] and $settings['show_old_price'] ) : ?>
+								<span class="bdt-price-list-old-price bdt-flex bdt-flex-middle bdt-flex-center"><del>
+										<?php echo esc_html( $item['old_price'] ); ?>
+									</del></span>
 							<?php endif; ?>
-
+							<span class="bdt-price-list-price bdt-flex bdt-flex-middle bdt-flex-center">
+								<?php echo esc_html( $item['price'] ); ?>
+							</span>
 						</div>
 
-						<?php if ( $item['item_description'] ) : ?>
-							<p class="bdt-price-list-description">
-								<?php echo wp_kses_post( $this->parse_text_editor( $item['item_description'] ) ); ?>
-							</p>
+						<?php if ( ! empty( $settings['cart_icon']['value'] ) ) : ?>
+							<div class="bdt-width-auto bdt-flex-inline">
+								<span class="bdt-price-list-cart-icon">
+									<?php Icons_Manager::render_icon( $settings['cart_icon'], [ 'aria-hidden' => 'true' ] ); ?>
+								</span>
+							</div>
 						<?php endif; ?>
-					</div>
-				</div>
-				<div class="bdt-width-auto bdt-flex-inline bdt-flex-middle">
-					<?php if ( $item['old_price'] and $settings['show_old_price'] ) : ?>
-						<span class="bdt-price-list-old-price bdt-flex bdt-flex-middle bdt-flex-center"><del>
-								<?php echo esc_html( $item['old_price'] ); ?>
-							</del></span>
-					<?php endif; ?>
-					<span class="bdt-price-list-price bdt-flex bdt-flex-middle bdt-flex-center">
-						<?php echo esc_html( $item['price'] ); ?>
-					</span>
-				</div>
 
-				<?php if ( ! empty ( $settings['cart_icon']['value'] ) ) : ?>
-					<div class="bdt-width-auto bdt-flex-inline">
-						<span class="bdt-price-list-cart-icon">
-							<?php Icons_Manager::render_icon( $settings['cart_icon'], [ 'aria-hidden' => 'true' ] ); ?>
-						</span>
-					</div>
-				<?php endif; ?>
+						<?php echo wp_kses_post( $this->render_item_footer() ); ?>
 
-				<?php echo wp_kses_post( $this->render_item_footer() ); ?>
+					<?php endforeach; ?>
 
-			<?php endforeach; ?>
-
-		</ul>
-		<?php
+				</ul>
+				<?php
 	}
-
 }

@@ -1300,6 +1300,21 @@ class HMWP_Classes_Tools
         return (isset($_SERVER['WPENGINE_PHPSESSIONS']));
     }
 
+    /**
+     * Returns true if server is Local by Flywheel
+     *
+     * @return boolean
+     */
+    public static function isLocalFlywheel()
+    {
+
+        //If custom defined
+        if (HMWP_Classes_Tools::getOption('hmwp_server_type') <> 'auto' ) {
+            return (HMWP_Classes_Tools::getOption('hmwp_server_type') == 'local');
+        }
+
+        return false;
+    }
 
     /**
      * Returns true if server is Wpengine

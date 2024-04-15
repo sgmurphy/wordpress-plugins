@@ -59,6 +59,11 @@ $src = esc_attr(plugins_url('newsletter') . '/main/images/automated');
             with a fully configurable scheduling.
         </div>
 
+        <div class="tnp-promo-footer">
+            <a href="?page=newsletter_main_automatedindex" class="button-secondary">Surf some demo panels</a>
+            <a href="https://www.thenewsletterplugin.com/premium?utm_campaign=automated&utm_source=plugin" target="_blank" class="button-primary">Get it</a>
+        </div>
+
         <table class="tnp-promo" scope="layout">
             <tr>
                 <td width="60%">

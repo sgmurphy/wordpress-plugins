@@ -2210,7 +2210,7 @@ class Step_Flow extends Module_Base {
 
             $target = $settings['title_link_url']['is_external'] ? '_blank' : '_self';
 
-            $this->add_render_attribute('step-flow-title', 'onclick', "window.open('" . $settings['title_link_url']['url'] . "', '$target')");
+            $this->add_render_attribute('step-flow-title', 'onclick', "window.open('" . esc_url($settings['title_link_url']['url']) . "', '$target')");
         }
     ?>
 
@@ -2297,7 +2297,7 @@ class Step_Flow extends Module_Base {
 
             $target = $settings['global_link_url']['is_external'] ? '_blank' : '_self';
 
-            $this->add_render_attribute('step-flow', 'onclick', "window.open('" . $settings['global_link_url']['url'] . "', '$target')");
+            $this->add_render_attribute('step-flow', 'onclick', "window.open('" . esc_url($settings['global_link_url']['url']) . "', '$target')");
         }
 
 

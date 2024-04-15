@@ -4,8 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, compare, comparison
 Requires at least: 4.0
 Tested up to: 6.5
-Version: 6.2.3
-Stable tag: 6.2.3
+Version: 6.2.4
+Stable tag: 6.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,9 @@ Example:
 `echo do_shortcode('[woosc id="99"]');`
 
 == Changelog ==
+
+= 6.2.4 =
+* Added: "Remove all" button on the comparison page
 
 = 6.2.3 =
 * Updated: Search for a custom field

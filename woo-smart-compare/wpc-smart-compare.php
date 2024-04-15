@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Compare for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Smart products compare for WooCommerce.
-Version: 6.2.3
+Version: 6.2.4
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-compare
@@ -17,7 +17,7 @@ WC tested up to: 8.7
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.3' );
+! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.4' );
 ! defined( 'WOOSC_LITE' ) && define( 'WOOSC_LITE', __FILE__ );
 ! defined( 'WOOSC_FILE' ) && define( 'WOOSC_FILE', __FILE__ );
 ! defined( 'WOOSC_URI' ) && define( 'WOOSC_URI', plugin_dir_url( __FILE__ ) );
@@ -1719,9 +1719,11 @@ if ( ! function_exists( 'woosc_init' ) ) {
 					}
 
 					if ( ! empty( $products ) ) {
-						$link   = self::get_setting( 'link', 'yes' );
-						$remove = self::get_setting( 'remove', 'yes' ) === 'yes';
-						$fields = self::get_fields( $context );
+						$fields         = self::get_fields( $context );
+						$link           = apply_filters( 'woosc_page_product_link', self::get_setting( 'link', 'yes' ) );
+						$remove         = apply_filters( 'woosc_page_product_remove', self::get_setting( 'remove', 'yes' ) === 'yes' );
+						$remove_all     = apply_filters( 'woosc_page_remove_all', self::get_setting( 'bar_remove', 'no' ) === 'yes' );
+						$table_settings = self::get_setting( 'table_settings', 'yes' ) === 'yes';
 
 						global $post;
 
@@ -1858,12 +1860,19 @@ if ( ! function_exists( 'woosc_init' ) ) {
 
 						$table .= '<table ' . ( $ajax ? 'id="woosc_table"' : '' ) . ' class="' . esc_attr( $table_class ) . '"><thead><tr>';
 
+						$table .= '<th class="th-label">';
+
 						// settings
-						if ( self::get_setting( 'table_settings', 'yes' ) === 'yes' ) {
-							$table .= '<th class="th-label"><a href="#settings" class="woosc-table-settings">' . self::localization( 'table_settings', esc_html__( 'Settings', 'woo-smart-compare' ) ) . '</a></th>';
-						} else {
-							$table .= '<th class="th-label"></th>';
+						if ( ( $context === 'table' ) && $table_settings ) {
+							$table .= '<a href="#settings" class="woosc-table-settings">' . self::localization( 'table_settings', esc_html__( 'Settings', 'woo-smart-compare' ) ) . '</a>';
 						}
+
+						// remove all
+						if ( ( $context === 'page' ) && $remove_all && ! $is_share ) {
+							$table .= '<span class="woosc-remove-all" role="button">' . esc_html( self::localization( 'bar_remove_all', esc_html__( 'Remove all', 'woo-smart-compare' ) ) ) . '</span>';
+						}
+
+						$table .= '</th>';
 
 						foreach ( $products_data as $product_data ) {
 							if ( $product_data['name'] !== '' ) {

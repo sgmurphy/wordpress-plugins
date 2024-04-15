@@ -109,6 +109,8 @@ $list = $wpdb->get_results($query);
 // Move to base 1
 $controls->data['search_page']++;
 
+$lists = $this->get_lists();
+
 ?>
 
 <style>
@@ -182,6 +184,7 @@ $controls->data['search_page']++;
                         <th>Email</th>
                         <th><?php esc_html_e('Name', 'newsletter') ?></th>
                         <th><?php esc_html_e('Status', 'newsletter') ?></th>
+                        <th><?php esc_html_e('Date') ?></th>
                         <th style="white-space: nowrap"><?php $controls->checkbox('show_lists', __('Lists', 'newsletter'), ['onchange'=>'this.form.act.value=\'go\'; this.form.submit()']) ?></th>
                         <th>&nbsp;</th>
 
@@ -198,13 +201,15 @@ $controls->data['search_page']++;
                         <td><?php echo esc_html($s->email); ?></td>
                         <td><?php echo esc_html($s->name); ?> <?php echo esc_html($s->surname); ?></td>
                         <td>
-                          <?php echo $this->get_user_status_label($s, true) ?>
+                          <?php echo $this->get_user_status_label($s, true); ?>
+                        </td>
+                        <td>
+                          <?php echo $controls->print_date(strtotime($s->created)); ?>
                         </td>
 
                             <td>
                                  <?php if (!empty($controls->data['show_lists'])) { ?>
                                 <small><?php
-                                    $lists = $this->get_lists();
                                     foreach ($lists as $item) {
                                         $l = 'list_' . $item->id;
                                         if ($s->$l == 1)

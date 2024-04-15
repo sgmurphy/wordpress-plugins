@@ -58,14 +58,15 @@ class NewsletterMainAdmin extends NewsletterModuleAdmin {
 
     function admin_menu() {
         //$this->add_menu_page('index', __('Dashboard', 'newsletter'));
-        $this->add_admin_page('info', __('Company info', 'newsletter'));
+        $this->add_admin_page('info', esc_html__('Company info', 'newsletter'));
 
         if (current_user_can('administrator')) {
-            $this->add_admin_page('welcome', __('Welcome', 'newsletter'));
+            $this->add_admin_page('welcome', esc_html__('Welcome', 'newsletter'));
             //$this->add_menu_page('main', __('Settings', 'newsletter'));
             // Pages not on menu
-            $this->add_admin_page('design', 'Design System');
             $this->add_admin_page('cover', 'Cover');
+            //$this->add_admin_page('setup', 'Setup');
+            $this->add_admin_page('flow', 'Flow');
         }
     }
 
@@ -154,5 +155,11 @@ class NewsletterMainAdmin extends NewsletterModuleAdmin {
 
     function getTnpExtensions() {
         return Newsletter::instance()->getTnpExtensions();
+    }
+
+    function set_completed_step($step) {
+        $steps = $this->get_option_array('newsletter_main_steps');
+        $steps[$step] = 1;
+        update_option('newsletter_main_steps', $steps);
     }
 }

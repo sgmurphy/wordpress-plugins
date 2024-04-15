@@ -52,6 +52,7 @@ class HMWP_Models_Compatibility_Woocommerce extends HMWP_Models_Compatibility_Ab
 		if(!HMWP_Classes_Tools::getOption('brute_use_captcha_v3')) {
 			add_filter('woocommerce_registration_errors', array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Brute'), 'hmwp_check_registration'), 99, 3);
 		}
+
 		if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
 			add_action('lostpassword_post', array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Brute'), 'hmwp_check_lpassword'), 99, 2);
 		}

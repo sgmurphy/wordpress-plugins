@@ -333,6 +333,19 @@
         location.reload();
       });
 
+  // remove all on page
+  $(document).
+      on('click touch', '.woosc-page .woosc-remove-all', function(e) {
+        e.preventDefault();
+        var r = confirm(woosc_vars.remove_all);
+
+        if (r == true) {
+          woosc_remove_product('all');
+        }
+
+        location.reload();
+      });
+
   // remove on sidebar
   $(document).on('click touch', '.woosc-sidebar-item-remove', function(e) {
     e.preventDefault();

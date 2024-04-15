@@ -61,33 +61,24 @@ class NewsletterEmailsAdmin extends NewsletterModuleAdmin {
     function get_editor_url($email_id, $editor_type) {
         switch ($editor_type) {
             case NewsletterEmails::EDITOR_COMPOSER:
-                return admin_url("admin.php") . '?page=newsletter_emails_composer&id=' . $email_id;
+                return '?page=newsletter_emails_composer&id=' . urlencode($email_id);
             case NewsletterEmails::EDITOR_HTML:
-                return admin_url("admin.php") . '?page=newsletter_emails_editorhtml&id=' . $email_id;
+                return '?page=newsletter_emails_editorhtml&id=' . urlencode($email_id);
             case NewsletterEmails::EDITOR_TINYMCE:
-                return admin_url("admin.php") . '?page=newsletter_emails_editortinymce&id=' . $email_id;
+                return '?page=newsletter_emails_editortinymce&id=' . urlencode($email_id);
         }
     }
 
-    function get_edit_button($email, $only_icon = false) {
+    function get_edit_button($email, $only_icon = true) {
 
         $editor_type = $this->get_editor_type($email);
-        if ($email->status == 'new') {
+        if ($email->status === TNP_Email::STATUS_DRAFT) {
             $edit_url = $this->get_editor_url($email->id, $editor_type);
         } else {
-            $edit_url = 'admin.php?page=newsletter_emails_edit&id=' . $email->id;
+            $edit_url = '?page=newsletter_emails_edit&id=' . urlencode($email->id);
         }
-        switch ($editor_type) {
-            case NewsletterEmails::EDITOR_COMPOSER:
-                $icon_class = 'th-large';
-                break;
-            case NewsletterEmails::EDITOR_HTML:
-                $icon_class = 'code';
-                break;
-            default:
-                $icon_class = 'edit';
-                break;
-        }
+
+        $icon_class = 'edit';
         if ($only_icon) {
             return '<a class="button-primary tnpc-button" href="' . $edit_url . '" title="' . esc_attr__('Edit', 'newsletter') . '">' .
                     '<i class="fas fa-' . $icon_class . '"></i></a>';

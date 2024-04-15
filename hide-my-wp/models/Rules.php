@@ -19,7 +19,17 @@ class HMWP_Models_Rules
     {
         $this->root_path = HMWP_Classes_Tools::getRootPath();
 
-        if (HMWP_Classes_Tools::isNginx() ) {
+        if(HMWP_Classes_Tools::isLocalFlywheel() && HMWP_Classes_Tools::isNginx()) {
+
+            //set the path to the config directory
+            $root_config = realpath(dirname($this->root_path , 2) . '/conf/nginx/includes');
+
+            //check if config directory exists
+            if(is_dir($root_config)){
+                $this->config_file =    str_replace('\\', '/', $root_config) . '/' . 'hidemywp.conf';
+            }
+
+        } elseif (HMWP_Classes_Tools::isNginx() ) {
             $this->config_file = $this->root_path . 'hidemywpghost.conf';
         } elseif (HMWP_Classes_Tools::isIIS() ) {
             $this->config_file = $this->root_path . 'web.config';
@@ -456,11 +466,16 @@ class HMWP_Models_Rules
     {
         $config_file = HMWP_Classes_Tools::getConfigFile();
 
-        $lines = file($config_file);
+        //Initialize WordPress Filesystem
+        $wp_filesystem = HMWP_Classes_ObjController::initFilesystem();
 
-        foreach ( (array)$lines as $line ) {
-            if (preg_match("/ADMIN_COOKIE_PATH/", $line) && !preg_match("/^\/\//", trim($line)) ) {
-                return true;
+        if($wp_filesystem->exists($config_file)) {
+            $lines = file($config_file);
+
+            foreach ((array)$lines as $line) {
+                if (preg_match("/ADMIN_COOKIE_PATH/", $line) && !preg_match("/^\/\//", trim($line))) {
+                    return true;
+                }
             }
         }
 

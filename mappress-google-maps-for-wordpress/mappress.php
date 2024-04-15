@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.89.11
+Version: 2.90.1
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.89.11';
+	const VERSION = '2.90.1';
 
 	static
 		$api,
@@ -678,6 +678,7 @@ class Mappress {
 	static function l10n() {
 		global $post, $is_IE;
 
+		$screen = is_admin() ? get_current_screen() : null;
 		$l10n = array('delete_prompt' => __('Are you sure you want to delete?', 'mappress-google-maps-for-wordpress'));
 
 		// Globals
@@ -693,6 +694,7 @@ class Mappress {
 			'editurl' => admin_url('post.php'),
 			'filterParams' => (class_exists('Mappress_Filter')) ? Mappress_Filter::get_url_params() : array(),
 			'iconsUrl' => (self::$pro) ? Mappress_Icons::$icons_url : null,    
+			'isEditor' => ($post && $post->ID) || ($screen && $screen->base == 'site-editor'),
 			'isIE' => $is_IE,
 			'language' => self::get_language(),
 			'liq' => self::get_api_keys()->liq,
@@ -750,9 +752,18 @@ class Mappress {
 		}
 		$l10n['options']['standardStyles'] = $styles;
 
+		// Send filters with labels (but no values)
+		foreach(self::$options->filters as $type => $filters) {
+			foreach($filters as $atts) {
+				$filter = new Mappress_Filter($atts);
+				$filter->values = null;
+				$l10n['options']['filters'][$type][] = $filter;
+			}
+		}
+
 		// Global settings
-		$options = array('alignment', 'betaPoiFields', 'clustering', 'clusteringOptions', 'country', 'defaultIcon', 'directions', 'directionsList',
-		'directionsPopup', 'directionsServer', 'engine', 'filters', 'filtersPos', 'geocoder', 'geolocate',
+		$options = array('alignment', 'clustering', 'clusteringOptions', 'country', 'defaultIcon', 'directions', 'directionsList',
+		'directionsPopup', 'directionsServer', 'engine', 'filtersOpen', 'filtersPos', 'geocoder', 'geolocate',
 		'highlight', 'highlightIcon', 'iconScale', 'initialOpenInfo', 'layout', 'lines', 'lineOpts',
 		'mashupClick', 'mini', 'poiFields', 'poiList', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
 		'searchBox', 'searchParam', 'searchPlaceholder', 'size', 'sizes', 'sort', 'style', 'thumbHeight', 'thumbWidth', 'thumbs', 'thumbsList', 'thumbsPopup', 

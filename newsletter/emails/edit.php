@@ -287,6 +287,8 @@ if (empty($controls->errors) && ($controls->is_action('send') || $controls->is_a
         if ($controls->is_action('send') && $email['total'] < 20) {
             Newsletter::instance()->hook_newsletter();
         }
+
+        NewsletterMainAdmin::instance()->set_completed_step('first-newsletter');
     }
 }
 
@@ -372,7 +374,7 @@ if ($email['status'] != 'sent') {
 
                         <div style="flex-grow: 1">
                             <?php
-                            if ($email['status'] == 'sending' && $email['send_on'] > time() || $email['status'] == 'sent') {
+                            if ($email['status'] == 'sending' && $email['send_on'] > time() || $email['status'] == 'sent' || $email['status'] == 'error') {
                                 echo $this->format_date($email['send_on']);
                             } else {
                                 $this->show_email_progress_bar($email);

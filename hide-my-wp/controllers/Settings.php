@@ -91,7 +91,14 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 
         if (HMWP_Classes_Tools::isNginx() && HMWP_Classes_Tools::getOption('test_frontend') && HMWP_Classes_Tools::getOption('hmwp_mode') <> 'default' ) {
             $config_file = HMWP_Classes_ObjController::getClass('HMWP_Models_Rules')->getConfFile();
-            HMWP_Classes_Error::setNotification(sprintf(esc_html__("NGINX detected. In case you didn't add the code in the NGINX config already, please add the following line. %s", 'hide-my-wp'), '<br /><br /><code><strong>include ' . $config_file . ';</strong></code> <br /><br /><strong><a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-setup-hide-my-wp-on-nginx-server/" target="_blank" >' . esc_html__("Learn how to setup on Nginx server", 'hide-my-wp') . ' >></a></strong>'), 'notice', false);
+            if(HMWP_Classes_Tools::isLocalFlywheel()){
+                if(strpos($config_file, '/includes/') !== false){
+                    $config_file = substr($config_file, strpos($config_file, '/includes/') + 1);
+                }
+                HMWP_Classes_Error::setNotification(sprintf(esc_html__("Local & NGINX detected. In case you didn't add the code in the NGINX config already, please add the following line. %s", 'hide-my-wp'), '<br /><br /><code><strong>include ' . $config_file . ';</strong></code> <br /><strong><br /><a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-setup-hide-my-wp-on-local-flywheel/" target="_blank">' . esc_html__("Learn how to setup on Local & Nginx", 'hide-my-wp') . ' >></a></strong>'), 'notice', false);
+            }else{
+                HMWP_Classes_Error::setNotification(sprintf(esc_html__("NGINX detected. In case you didn't add the code in the NGINX config already, please add the following line. %s", 'hide-my-wp'), '<br /><br /><code><strong>include ' . $config_file . ';</strong></code> <br /><strong><br /><a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-setup-hide-my-wp-on-nginx-server/" target="_blank">' . esc_html__("Learn how to setup on Nginx server", 'hide-my-wp') . ' >></a></strong>'), 'notice', false);
+            }
         }
 
         //Setting Alerts based on Logout and Error statements

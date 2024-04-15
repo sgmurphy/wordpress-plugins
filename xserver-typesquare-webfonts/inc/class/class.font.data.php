@@ -181,7 +181,7 @@ class TypeSquare_ST_Fonts
         if (isset($param['fonts'])) {
             unset($param['fonts']);
         }
-        if (! isset($param['show_post_form'])) {
+        if (is_array($param) && ! isset($param['show_post_form'])) {
             $param['show_post_form'] = false;
         }
         if (! $param) {
@@ -240,10 +240,12 @@ class TypeSquare_ST_Fonts
     public function show_result($result)
     {
         ?>
-            <div class='notice updated'><ul>
-            <li><?php echo esc_html(__($result)); ?></li>
-            </ul></div>
-        <?php
+<div class='notice updated'>
+    <ul>
+        <li><?php echo esc_html(__($result)); ?></li>
+    </ul>
+</div>
+<?php
     }
 
     public function parse_font_setting_param($current, $param)
@@ -352,15 +354,15 @@ class TypeSquare_ST_Fonts
     {
         $options = array();
         for ($i=1; $i < 20; $i++) {
-            if (isset($_POST["fontlist_fontname${i}"]) && !empty($_POST["fontlist_fontname${i}"] && !empty($_POST["fontlist_cls${i}"]))) {
+            if (isset($_POST["fontlist_fontname{$i}"]) && !empty($_POST["fontlist_fontname{$i}"] && !empty($_POST["fontlist_cls{$i}"]))) {
 
                 $post_cls = array();
-                for ($j=0; $j < count($_POST["fontlist_cls${i}"]); $j++) {
-                    array_push($post_cls, sanitize_post($_POST["fontlist_cls${i}"][$j]));
+                for ($j=0; $j < count($_POST["fontlist_cls{$i}"]); $j++) {
+                    array_push($post_cls, sanitize_post($_POST["fontlist_cls{$i}"][$j]));
                 }
 
                 array_push($options, array(
-                    "fontlist_fontname" => sanitize_post($_POST["fontlist_fontname${i}"]),
+                    "fontlist_fontname" => sanitize_post($_POST["fontlist_fontname{$i}"]),
                     "fontlist_cls" => $post_cls,
                 ));
             }

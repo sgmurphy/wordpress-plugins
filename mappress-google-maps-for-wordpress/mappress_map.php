@@ -220,19 +220,6 @@ class Mappress_Map extends Mappress_Obj {
 	}
 
 	/**
-	* Compare two POIs by title
-	* HTML tags are stripped - until URL is separated from title this is the only way to
-	* sort titles with HTML
-	*
-	* @param mixed $a
-	* @param mixed $b
-	* @return mixed
-	*/
-	static function compare_title($a, $b) {
-		return strcasecmp(strip_tags($a->title), strip_tags($b->title));
-	}
-
-	/**
 	* Delete a map and all of its post assignments
 	*
 	* @param mixed $mapid

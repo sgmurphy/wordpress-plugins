@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder, widgets for Elementor, header footer 
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -650,6 +650,9 @@ Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of W
 
 
 == Changelog ==
+ElementsKit Elementor Addons Version: 3.1.1 (2024-04-15)
+Improved: Onepage scroll module sanitization
+
 ElementsKit Elementor Addons Version: 3.1.0 (2024-03-31)
 Fixed: Contact form 7 widget textarea font size doesn't work
 Fixed: AJAX loading issue on advanced tab and accordion

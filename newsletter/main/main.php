@@ -50,6 +50,10 @@ if (!$controls->is_action()) {
             $this->save_options($controls->data, '', $language);
             $controls->add_toast_saved();
             $this->logger->debug('Main options saved');
+            NewsletterMainAdmin::instance()->set_completed_step('sender');
+            if ($controls->data['scheduler_max'] != 100) {
+                NewsletterMainAdmin::instance()->set_completed_step('delivery-speed');
+            }
         }
 
         delete_transient("tnp_extensions_json");
@@ -257,7 +261,7 @@ if (!empty($return_path)) {
                                 <td>
                                     <?php $controls->text('scheduler_max', 5); ?> (min. 10)
                                     <p class="description">
-                                        <a href="?page=newsletter_system_status#tnp-speed">See the collected statistics</a>
+                                        <a href="?page=newsletter_system_delivery#tnp-speed">See the collected statistics</a>
                                     </p>
                                 </td>
                             </tr>

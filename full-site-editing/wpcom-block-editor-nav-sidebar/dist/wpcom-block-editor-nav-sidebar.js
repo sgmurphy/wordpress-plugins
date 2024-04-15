@@ -3526,7 +3526,7 @@ function loadjQueryDependentScript(url, callback, args) {
 /* harmony export */   JV: () => (/* binding */ DESIGN_FIRST_FLOW),
 /* harmony export */   Xf: () => (/* binding */ START_WRITING_FLOW)
 /* harmony export */ });
-/* unused harmony exports ACCOUNT_FLOW, AI_ASSEMBLER_FLOW, NEWSLETTER_FLOW, NEWSLETTER_POST_SETUP_FLOW, HOSTING_LP_FLOW, NEW_HOSTED_SITE_FLOW, TRANSFERRING_HOSTED_SITE_FLOW, LINK_IN_BIO_FLOW, LINK_IN_BIO_DOMAIN_FLOW, LINK_IN_BIO_TLD_FLOW, LINK_IN_BIO_POST_SETUP_FLOW, CONNECT_DOMAIN_FLOW, VIDEOPRESS_FLOW, VIDEOPRESS_ACCOUNT, VIDEOPRESS_TV_FLOW, VIDEOPRESS_TV_PURCHASE_FLOW, IMPORT_FOCUSED_FLOW, IMPORT_HOSTED_SITE_FLOW, SENSEI_FLOW, ECOMMERCE_FLOW, WOOEXPRESS_FLOW, FREE_FLOW, FREE_POST_SETUP_FLOW, MIGRATION_FLOW, SITE_MIGRATION_FLOW, COPY_SITE_FLOW, BUILD_FLOW, WRITE_FLOW, SITE_SETUP_FLOW, WITH_THEME_FLOW, WITH_THEME_ASSEMBLER_FLOW, ASSEMBLER_FIRST_FLOW, UPDATE_DESIGN_FLOW, DOMAIN_UPSELL_FLOW, DOMAIN_TRANSFER, GOOGLE_TRANSFER, HUNDRED_YEAR_PLAN_FLOW, REBLOGGING_FLOW, isLinkInBioFlow, isNewsletterFlow, isFreeFlow, isNewsletterOrLinkInBioFlow, isTailoredSignupFlow, isHostingSignupFlow, isNewHostedSiteCreationFlow, isTransferringHostedSiteCreationFlow, isAnyHostingFlow, isAnyMigrationFlow, isMigrationFlow, isCopySiteFlow, isWooExpressFlow, isNewSiteMigrationFlow, isBuildFlow, isWriteFlow, isUpdateDesignFlow, isStartWritingFlow, isDesignFirstFlow, isBlogOnboardingFlow, isDomainUpsellFlow, isSiteAssemblerFlow, isWithThemeAssemblerFlow, isWithThemeFlow, isSiteSetupFlow, isSenseiFlow, ecommerceFlowRecurTypes, isVideoPressFlow, isVideoPressTVFlow */
+/* unused harmony exports ACCOUNT_FLOW, AI_ASSEMBLER_FLOW, NEWSLETTER_FLOW, NEWSLETTER_POST_SETUP_FLOW, HOSTING_LP_FLOW, NEW_HOSTED_SITE_FLOW, TRANSFERRING_HOSTED_SITE_FLOW, LINK_IN_BIO_FLOW, LINK_IN_BIO_DOMAIN_FLOW, LINK_IN_BIO_TLD_FLOW, LINK_IN_BIO_POST_SETUP_FLOW, CONNECT_DOMAIN_FLOW, VIDEOPRESS_FLOW, VIDEOPRESS_ACCOUNT, VIDEOPRESS_TV_FLOW, VIDEOPRESS_TV_PURCHASE_FLOW, IMPORT_FOCUSED_FLOW, IMPORT_HOSTED_SITE_FLOW, SENSEI_FLOW, ECOMMERCE_FLOW, ENTREPRENEUR_FLOW, WOOEXPRESS_FLOW, FREE_FLOW, FREE_POST_SETUP_FLOW, MIGRATION_FLOW, SITE_MIGRATION_FLOW, COPY_SITE_FLOW, BUILD_FLOW, WRITE_FLOW, SITE_SETUP_FLOW, WITH_THEME_FLOW, WITH_THEME_ASSEMBLER_FLOW, ASSEMBLER_FIRST_FLOW, UPDATE_DESIGN_FLOW, DOMAIN_UPSELL_FLOW, DOMAIN_TRANSFER, GOOGLE_TRANSFER, HUNDRED_YEAR_PLAN_FLOW, REBLOGGING_FLOW, isLinkInBioFlow, isNewsletterFlow, isFreeFlow, isNewsletterOrLinkInBioFlow, isTailoredSignupFlow, isHostingSignupFlow, isNewHostedSiteCreationFlow, isTransferringHostedSiteCreationFlow, isAnyHostingFlow, isAnyMigrationFlow, isMigrationFlow, isCopySiteFlow, isEntrepreneurFlow, isWooExpressFlow, isNewSiteMigrationFlow, isBuildFlow, isWriteFlow, isUpdateDesignFlow, isStartWritingFlow, isDesignFirstFlow, isBlogOnboardingFlow, isDomainUpsellFlow, isSiteAssemblerFlow, isWithThemeAssemblerFlow, isWithThemeFlow, isSiteSetupFlow, isSenseiFlow, ecommerceFlowRecurTypes, isVideoPressFlow, isVideoPressTVFlow */
 const ACCOUNT_FLOW = 'account';
 const AI_ASSEMBLER_FLOW = 'ai-assembler';
 const NEWSLETTER_FLOW = 'newsletter';
@@ -3547,6 +3547,7 @@ const IMPORT_FOCUSED_FLOW = 'import-focused';
 const IMPORT_HOSTED_SITE_FLOW = 'import-hosted-site';
 const SENSEI_FLOW = 'sensei';
 const ECOMMERCE_FLOW = 'ecommerce';
+const ENTREPRENEUR_FLOW = 'entrepreneur';
 const WOOEXPRESS_FLOW = 'wooexpress';
 const FREE_FLOW = 'free';
 const FREE_POST_SETUP_FLOW = 'free-post-setup';
@@ -3602,6 +3603,9 @@ const isMigrationFlow = flowName => {
 };
 const isCopySiteFlow = flowName => {
   return Boolean(flowName && [COPY_SITE_FLOW].includes(flowName));
+};
+const isEntrepreneurFlow = flowName => {
+  return Boolean(flowName && [ENTREPRENEUR_FLOW].includes(flowName));
 };
 const isWooExpressFlow = flowName => {
   return Boolean(flowName && [WOOEXPRESS_FLOW].includes(flowName));

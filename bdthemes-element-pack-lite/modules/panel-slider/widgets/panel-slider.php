@@ -1046,7 +1046,7 @@ class Panel_Slider extends Module_Base {
 
 							$target = $item['tab_link']['is_external'] ? '_blank' : '_self';
 
-							$this->add_render_attribute( 'panel-slide-item', 'onclick', "window.open('" . $item['tab_link']['url'] . "', '$target')", true );
+							$this->add_render_attribute( 'panel-slide-item', 'onclick', "window.open('" . esc_url( $item['tab_link']['url'] ) . "', '$target')", true );
 						}
 
 						if ( ! isset( $settings['icon'] ) && ! Icons_Manager::is_migration_allowed() ) {

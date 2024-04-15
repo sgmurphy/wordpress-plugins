@@ -10,7 +10,6 @@ class Mappress_Options extends Mappress_Obj {
 		$apiKey,
 		$apiKeyServer,
 		$autodisplay,
-		$betaPoiFields,
 		$betas = false,
 		$clustering = false,
 		$clusteringOptions,
@@ -24,6 +23,7 @@ class Mappress_Options extends Mappress_Obj {
 		$engine = 'leaflet',
 		$filter,					// deprecated
 		$filters = array('poi' => array(), 'post' => array(), 'user' => array()),
+		$filtersOpen = false,
 		$filtersPos = 'top',
 		$footer = true,
 		$geocoder = 'nominatim',

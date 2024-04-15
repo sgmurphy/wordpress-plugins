@@ -1537,7 +1537,7 @@ class Featured_Box extends Module_Base {
 
 			$target = $settings['title_link_url']['is_external'] ? '_blank' : '_self';
 
-			$this->add_render_attribute( 'feature-title', 'onclick', "window.open('" . $settings['title_link_url']['url'] . "', '$target')" );
+			$this->add_render_attribute( 'feature-title', 'onclick', "window.open('" . esc_url($settings['title_link_url']['url']) . "', '$target')" );
 		}
 
 		$this->add_render_attribute( 'feature-sub-title', 'class', 'bdt-ep-featured-box-sub-title' );

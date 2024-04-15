@@ -531,6 +531,12 @@
     display: none !important;
 }
 
+.woosc-page .woosc-remove-all {
+    font-weight: 400;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .woosc-area .woosc-inner .woosc-table .woosc-table-inner .woosc-table-items table tbody tr.tr-hide {
     display: none;
 }

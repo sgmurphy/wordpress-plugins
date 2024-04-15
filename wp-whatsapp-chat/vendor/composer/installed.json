@@ -7,20 +7,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "85d43834740238dc2431ff47ea050befefd1d6b6"
+                "reference": "72ddb643e984e6eb7d2db854fe145be2ead925fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/85d43834740238dc2431ff47ea050befefd1d6b6",
-                "reference": "85d43834740238dc2431ff47ea050befefd1d6b6",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/72ddb643e984e6eb7d2db854fe145be2ead925fd",
+                "reference": "72ddb643e984e6eb7d2db854fe145be2ead925fd",
                 "shasum": ""
             },
             "require": {
-                "automattic/jetpack-constants": "^2.0.0",
+                "automattic/jetpack-constants": "^2.0.1",
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.1.0",
+                "automattic/jetpack-changelogger": "^4.2.1-alpha",
                 "brain/monkey": "2.6.1",
                 "wikimedia/testing-access-wrapper": "^1.0 || ^2.0 || ^3.0",
                 "yoast/phpunit-polyfills": "1.1.0"
@@ -28,7 +28,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-03-04T16:08:41+00:00",
+            "time": "2024-04-12T13:15:35+00:00",
             "default-branch": true,
             "type": "jetpack-library",
             "extra": {
@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-composer-plugin.git",
-                "reference": "831cf8029168044c650936d397571a50c07bd0d9"
+                "reference": "e27cf94e74cabe696ad8daebac794c8b4926afd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-composer-plugin/zipball/831cf8029168044c650936d397571a50c07bd0d9",
-                "reference": "831cf8029168044c650936d397571a50c07bd0d9",
+                "url": "https://api.github.com/repos/Automattic/jetpack-composer-plugin/zipball/e27cf94e74cabe696ad8daebac794c8b4926afd2",
+                "reference": "e27cf94e74cabe696ad8daebac794c8b4926afd2",
                 "shasum": ""
             },
             "require": {
@@ -81,11 +81,11 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.1.0",
+                "automattic/jetpack-changelogger": "^4.2.1-alpha",
                 "composer/composer": "^2.2 || ^2.4",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
-            "time": "2024-01-26T13:51:46+00:00",
+            "time": "2024-04-12T13:14:43+00:00",
             "default-branch": true,
             "type": "composer-plugin",
             "extra": {
@@ -129,26 +129,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-constants.git",
-                "reference": "9c8279371fe3750b31dc42dbca985637293ffbd9"
+                "reference": "74be05e25f6adbe313c0f7b1a12ba2a93a824ed4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/9c8279371fe3750b31dc42dbca985637293ffbd9",
-                "reference": "9c8279371fe3750b31dc42dbca985637293ffbd9",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/74be05e25f6adbe313c0f7b1a12ba2a93a824ed4",
+                "reference": "74be05e25f6adbe313c0f7b1a12ba2a93a824ed4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.1.0",
+                "automattic/jetpack-changelogger": "^4.2.1-alpha",
                 "brain/monkey": "2.6.1",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-01-26T13:51:54+00:00",
+            "time": "2024-04-12T13:14:46+00:00",
             "default-branch": true,
             "type": "jetpack-library",
             "extra": {
