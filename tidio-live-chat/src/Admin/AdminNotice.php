@@ -8,11 +8,8 @@ if (!defined('WPINC')) {
 
 use TidioLiveChat\Admin\Notice\DismissibleNoticeService;
 use TidioLiveChat\Admin\Notice\Exception\NoticeNameIsNotAllowedException;
-use TidioLiveChat\IntegrationState;
 use TidioLiveChat\Translation\ErrorTranslator;
-use TidioLiveChat\Translation\I18n;
 use TidioLiveChat\Utils\QueryParameters;
-use TidioLiveChat\WooCommerceSdk\WooCommerceIntegrationService;
 
 class AdminNotice
 {
@@ -39,7 +36,6 @@ class AdminNotice
     public function load()
     {
         add_action('admin_notices', [$this, 'addAdminErrorNotice']);
-        add_action('admin_notices', [$this, 'addLyroAIChatbotNotice']);
     }
 
     public function addAdminErrorNotice()
@@ -51,14 +47,6 @@ class AdminNotice
         $errorCode = QueryParameters::get('error');
         $errorMessage = $this->errorTranslator->translate($errorCode);
         echo sprintf('<div class="notice notice-error is-dismissible"><p>%s</p></div>', $errorMessage);
-    }
-
-    public function addLyroAIChatbotNotice()
-    {
-        $this->displayDismissibleNotice(
-            __DIR__ . '/Notice/Views/LyroAIChatbotNotice.php',
-            DismissibleNoticeService::LYRO_AI_CHATBOT_NOTICE
-        );
     }
 
     /**

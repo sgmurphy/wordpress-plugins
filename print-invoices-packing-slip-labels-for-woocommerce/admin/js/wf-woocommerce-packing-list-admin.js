@@ -44,7 +44,7 @@
 						$('[name="woocommerce_wf_packinglist_sender_postalcode"]').val(data.postalcode);
 					}else
 					{
-						wf_notify_msg.error(wf_pklist_params.msgs.error);
+						wf_notify_msg.error(wf_pklist_params.msgs.error); 
 					}
 				},
 				error:function()
@@ -290,27 +290,23 @@
 
 var wf_settings_form=
 {
-	Set:function()
+	FormSubmission:function(form_elm)
 	{
-		jQuery('.wf_settings_form').find('[required]').each(function(){
-			jQuery(this).removeAttr('required').attr('data-settings-required','');
-		});
-		jQuery('.wf_settings_form').submit(function(e){
-			e.preventDefault();
-			if(!wf_settings_form.validate(jQuery(this)))
-			{
-				return false;
-			}
-
-			var settings_base=jQuery(this).find('.wf_settings_base').val();
-			var settings_action=jQuery(this).find('.wf_settings_action').val();
-
-			var data=jQuery(this).serialize();
-			var submit_btn=jQuery(this).find('input[type="submit"]');
-			var spinner=submit_btn.siblings('.spinner');
+		if(!wf_settings_form.validate(form_elm))
+		{
+			return false;
+		}
+		proceed_form = true;
+		if( true === proceed_form) {
+			var settings_base	= form_elm.find('.wf_settings_base').val();
+			var settings_action	= form_elm.find('.wf_settings_action').val();
+			var data			= form_elm.serialize();
+			var submit_btn		= form_elm.find('input[type="submit"]');
+			var spinner			= submit_btn.siblings('.spinner');
+			var current_form 	= form_elm;
 			spinner.css({'visibility':'visible'});
 			submit_btn.css({'opacity':'.5','cursor':'default'}).prop('disabled',true);	
-			var current_form = jQuery(this);
+			
 			jQuery.ajax({
 				url:wf_pklist_params.ajaxurl,
 				type:'POST',
@@ -319,20 +315,24 @@ var wf_settings_form=
 				cache: false,
 				success:function(data)
 				{
-					spinner.css({'visibility':'hidden'});
-					submit_btn.css({'opacity':'1','cursor':'pointer'}).prop('disabled',false);
-					if(true === data.status)
-					{
-						if("invoice" === settings_base){
-							jQuery("#reset_invoice_button").show();
-							jQuery('[name=woocommerce_wf_invoice_start_number]').prop("readonly", true).css({'background':'#eee','width':'60%'});
+					setTimeout(function() {
+						spinner.css({'visibility':'hidden'});
+						submit_btn.css({'opacity':'1','cursor':'pointer'}).prop('disabled',false);
+						if(true === data.status)
+						{
+							if("invoice" === settings_base){
+								jQuery("#reset_invoice_button").show();
+								jQuery('[name=woocommerce_wf_invoice_start_number]').prop("readonly", true).css({'background':'#eee','width':'60%'});
+							}
+							
+								wf_notify_msg.success(data.msg);
+						
+							wf_pklist_params.wt_plugin_data = data.saved_data;
+						}else
+						{
+							wf_notify_msg.error(data.msg);
 						}
-						wf_notify_msg.success(data.msg);
-
-					}else
-					{
-						wf_notify_msg.error(data.msg);
-					}
+					}, 2000);
 				},
 				error:function () 
 				{
@@ -341,6 +341,28 @@ var wf_settings_form=
 					wf_notify_msg.error(wf_pklist_params.msgs.settings_error, false);
 				}
 			});
+		}
+	},
+	Set:function()
+	{
+		jQuery('.wf_settings_form').find('[required]').each(function(){
+			jQuery(this).removeAttr('required').attr('data-settings-required','');
+		});
+
+		jQuery('.wt_pklist_update_settings_btn').on('click',function(e) {
+			e.preventDefault();
+			var form_elm 		= jQuery(this).closest('.wf_settings_form');
+			var template_type 	= form_elm.find('.wf_settings_base').val();
+			var proceed 		= true;
+			if ('invoice' === template_type && 'function' === typeof invoiceModuleFormCheck) {
+				if( false === invoiceModuleFormCheck( form_elm )) {
+					proceed = false;
+				}
+			}
+
+			if( true === proceed ) {
+				wf_settings_form.FormSubmission(form_elm);
+			}
 		});
 	},
 	validate:function(form_elm)

@@ -37,7 +37,18 @@
 			return select("core/edit-post").isEditorSidebarOpened();
 		});
 
+		var activeGeneralSidebarName = wd.useSelect(function (select) {
+			return select("core/edit-post").getActiveGeneralSidebarName();
+		});
+
 		var previewDeviceType = wd.useSelect(function (select) {
+			// since version 6.5
+			var editor = select("core/editor");
+
+			if (editor.getDeviceType)
+				return editor.getDeviceType();
+
+			// fallback
 			return select("core/edit-post").__experimentalGetPreviewDeviceType();
 		});
 
@@ -205,8 +216,16 @@
 		}, []);
 
 		we.useEffect(function () {
-			setSettingsVisible(props.isSelected && isEditorSidebarOpened);
-		}, [props.isSelected, isEditorSidebarOpened]);
+			// settings are visible if:
+			// - the block is selected
+			// - the sidebar is opened
+			// - the "block" tab is selected
+			setSettingsVisible(
+				props.isSelected
+				&& isEditorSidebarOpened
+				&& activeGeneralSidebarName === "edit-post/block"
+			);
+		}, [props.isSelected, isEditorSidebarOpened, activeGeneralSidebarName]);
 
 		we.useEffect(function () {
 			if (ucSettings.isInited())

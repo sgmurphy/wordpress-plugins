@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 5.12.5 (2024-04-15) =
+* `[Fixed]` Modification of plugin settings via filters
+
 = 5.12.4 (2024-04-12) =
 * `[Fixed]` Support for changed upload directory path based on absolute path from upload_path option
 * `[Fixed]` UX of plugin settings page

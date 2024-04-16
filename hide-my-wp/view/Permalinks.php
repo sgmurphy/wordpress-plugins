@@ -1120,8 +1120,25 @@
                                     <option value="4" <?php echo selected(4, HMWP_Classes_Tools::getOption('hmwp_sqlinjection_level')) ?>><?php echo esc_html__('8G Firewall', 'hide-my-wp'); ?></option>
                                 </select>
                             </div>
-
                         </div>
+
+                        <?php if (HMWP_Classes_Tools::isApache() || HMWP_Classes_Tools::isLitespeed() ) {?>
+                            <div class="col-sm-12 row border-bottom border-light py-2 mx-3 my-3 hmwp_sqlinjection border-bottom">
+                                <div class="col-sm-4 p-1">
+                                    <div class="font-weight-bold"><?php echo esc_html__('Firewall Location', 'hide-my-wp'); ?>:</div>
+                                    <div class="text-black-50"><?php echo esc_html__('Where to add the firewall rules.', 'hide-my-wp'); ?></div>
+                                </div>
+                                <div class="col-sm-8 p-0 input-group mb-1">
+                                    <select name="hmwp_sqlinjection_location" class="form-control bg-input">
+                                        <option value="onload" <?php echo selected('onload', HMWP_Classes_Tools::getOption('hmwp_sqlinjection_location')) ?>><?php echo esc_html__('On website initialization', 'hide-my-wp'); ?> (<?php echo esc_html__('recommended', 'hide-my-wp'); ?>)</option>
+                                        <option value="file" <?php echo selected('file', HMWP_Classes_Tools::getOption('hmwp_sqlinjection_location')) ?>><?php echo esc_html__('In .htaccess file', 'hide-my-wp'); ?></option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        <?php }else{ ?>
+                            <input type="hidden" name="hmwp_sqlinjection_location" value="onload"/>
+                        <?php }?>
 
                     </div>
                 </div>

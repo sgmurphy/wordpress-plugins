@@ -395,7 +395,7 @@ class MonsterInsights_Notifications {
 			return false;
 		}
 
-		$option = $this->get_option();
+		$option = $this->get_option( false );
 
 		$current_notifications = $option['events'];
 

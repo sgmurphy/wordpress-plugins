@@ -238,10 +238,10 @@ function backuply_page_backup(){
 
 			$fetch_fileindex = get_option('backuply_additional_fileindex');
 			if(empty($fetch_fileindex)){
-				add_option('backuply_additional_fileindex', $tmp_add_to_fileindex);
+				add_option('backuply_additional_fileindex', $tmp_add_to_fileindex, false);
 				$saved = true;
 			}else{
-				update_option('backuply_additional_fileindex', $tmp_add_to_fileindex);
+				update_option('backuply_additional_fileindex', $tmp_add_to_fileindex, false);
 				$saved = true;
 			}
 		}else{

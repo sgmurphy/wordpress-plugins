@@ -1832,10 +1832,7 @@ class UniteCreatorFiltersProcess{
 		$data["uc_filtering_attributes"] = $strAttributes;
 		$data["uc_filtering_addclass"] = $addClass;
 		
-		
 		return($data);
-		
-		
 	}
 	
 	/**
@@ -1875,7 +1872,7 @@ class UniteCreatorFiltersProcess{
 	 * get the base url
 	 */
 	private function getFiltersJSData(){
-		
+				
 		$urlBase = UniteFunctionsUC::getBaseUrl(GlobalsUC::$current_page_url, true);		//strip pagination
 		
 		//include some common url filters
@@ -1913,6 +1910,7 @@ class UniteCreatorFiltersProcess{
 		//get current filters
 		
 		$arrData = array();
+		$arrData["platform"] = GlobalsProviderUC::$renderPlatform;
 		$arrData["urlbase"] = $urlBase;
 		$arrData["urlajax"] = GlobalsUC::$url_ajax_full;
 		$arrData["urlkeys"] = $arrUrlKeys;

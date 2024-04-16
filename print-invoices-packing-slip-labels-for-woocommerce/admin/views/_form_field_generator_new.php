@@ -11,6 +11,7 @@ Class WT_Form_Field_Builder{
 			foreach($settings as $this_setting){
 				if(isset($this_setting['type'])){
 					$row_full_length = array('wt_hr_line','wt_sub_head','wt_plaintext','invoice_number_format');
+					$row_full_length = apply_filters( 'wt_pklist_add_full_length_elements_in_settings', $row_full_length, $base_id );
 					if(in_array($this_setting['type'],$row_full_length)){
 						$html .= $this->{$this_setting["type"]}($this_setting,$base_id);
 					}else{
@@ -151,7 +152,7 @@ Class WT_Form_Field_Builder{
 			}
 		}
 
-		$html = sprintf('<td><input type="checkbox" name="%5$s" value="%1$s" id="%2$s" class="%3$s %6$s" %7$s %4$s> %8$s',
+		$html = sprintf('<td><input type="checkbox" name="%5$s" value="%1$s" id="%2$s" class="%3$s %6$s" %7$s %4$s> <span class="option_label %9$s"> %8$s </span>',
 			$value,
 			esc_attr($id),
 			esc_attr($class),
@@ -159,7 +160,9 @@ Class WT_Form_Field_Builder{
 			$name,
 			$form_toggler_p_class,
 			$form_toggler_register,
-			esc_html($checkbox_label));
+			esc_html($checkbox_label),
+			esc_attr($id).'_option_label'
+		);
 		$html .= sprintf('%1$s</td><td></td>',$this->wt_add_help_text($help_text,$conditional_help_html,$after_form_field));
 		return $html;
 	}
@@ -491,12 +494,10 @@ Class WT_Form_Field_Builder{
 		return $html;
 	}
 
-	public function wt_wc_country_dropdown($args,$base_id){
+	public function wt_wc_country_dropdown($args,$base_id){ 
 		extract($this->verify_the_fields($args));
 		$result = Wf_Woocommerce_Packing_List::get_option($name,$base_id);
 		$result = is_string($result) ? stripslashes($result) : $result;
-		
-		$result=Wf_Woocommerce_Packing_List::get_option('wf_country');
         if( strstr( $result, ':' ))
         {
 			$result = explode( ':', $result );
@@ -664,20 +665,20 @@ Class WT_Form_Field_Builder{
 						<td style="width:35%;">
 							<input type="hidden" id="woocommerce_wf_invoice_number_format" name="woocommerce_wf_invoice_number_format_pdf_fw" value="'.esc_attr($invoice_no_format).'">
 							<div class="choose_date_div">
-								<input type="text" name="woocommerce_wf_invoice_number_prefix_pdf_fw" placeholder="'.__("Prefix","print-invoices-packing-slip-labels-for-woocommerce").'" value="'.esc_attr($prefix).'">
+								<input type="text" name="woocommerce_wf_invoice_number_prefix_pdf_fw" placeholder="'.__("Prefix","print-invoices-packing-slip-labels-for-woocommerce").'" value="'.esc_attr($prefix).'" class="reset_invoice_check_fields" data-field-type="prefix" data-warning-message="'.__('Removing year [Y] from the prefix will disable the annual reset functionality','print-invoices-packing-slip-labels-for-woocommerce').'" autocomplete="off">
 								<img class="choose_date_img" data-target-id="woocommerce_wf_invoice_number_prefix_pdf_fw" src="'.esc_url(WF_PKLIST_PLUGIN_URL . "admin/images/choose_date.png").'">
 								<a class="choose_date_drop_down" data-target-id="woocommerce_wf_invoice_number_prefix_pdf_fw">'.__("Choose date","print-invoices-packing-slip-labels-for-woocommerce").'</a>
 							</div>
 						</td>
-						<td style="width:25%;">
-							<select name="woocommerce_wf_invoice_as_ordernumber_pdf_fw">
+						<td style="width:25%;position:relative;">
+							<select name="woocommerce_wf_invoice_as_ordernumber_pdf_fw" class="reset_invoice_check_fields" data-field-type="number_type" data-warning-message="'.__('Switching to order number will disable the annual reset functionality','print-invoices-packing-slip-labels-for-woocommerce').'">
 								<option value="Yes" '.esc_attr($order_no_selected).'>'.__("Order number","print-invoices-packing-slip-labels-for-woocommerce").'</option>
 								<option value="No" '.esc_attr($custom_no_selected).'>'.__("Custom number","print-invoices-packing-slip-labels-for-woocommerce").'</option>
 							</select>
 						</td>
 						<td style="width:35%;">
 							<div class="choose_date_div">
-								<input type="text" name="woocommerce_wf_invoice_number_postfix_pdf_fw" placeholder="'.__("Suffix","print-invoices-packing-slip-labels-for-woocommerce").'" value="'.esc_attr($suffix).'">
+								<input type="text" name="woocommerce_wf_invoice_number_postfix_pdf_fw" placeholder="'.__("Suffix","print-invoices-packing-slip-labels-for-woocommerce").'" value="'.esc_attr($suffix).'" class="reset_invoice_check_fields" data-field-type="suffix" data-warning-message="'.__('Removing year [Y] from the suffix will disable the annual reset functionality','print-invoices-packing-slip-labels-for-woocommerce').'" autocomplete="off">
 								<img class="choose_date_img" data-target-id="woocommerce_wf_invoice_number_postfix_pdf_fw" src="'.esc_url(WF_PKLIST_PLUGIN_URL . "admin/images/choose_date.png").'">
 								<a class="choose_date_drop_down" data-target-id="woocommerce_wf_invoice_number_postfix_pdf_fw">'.__("Choose date","print-invoices-packing-slip-labels-for-woocommerce").'</a>
 							</div>	
@@ -689,8 +690,8 @@ Class WT_Form_Field_Builder{
 						</td>
 					</tr>
 					<tr class="wc_custom_no_div">
-						<td>
-							<input type="number" name="woocommerce_wf_invoice_start_number_preview_pdf_fw" value="'.esc_attr($invoice_start_number).'" min="0" style="width:40%;">
+						<td style="position:relative;">
+							<input type="number" name="woocommerce_wf_invoice_start_number_preview_pdf_fw" value="'.esc_attr($invoice_start_number).'" min="0" style="width:40%;" class="reset_invoice_check_fields" data-field-type="start_number" data-warning-message="'.__('The latest specified starting number will be used after reset','print-invoices-packing-slip-labels-for-woocommerce').'">
 							<input type="hidden" name="woocommerce_wf_invoice_start_number_pdf_fw" value="'.esc_attr($invoice_start_number).'" min="0" style="width:40%;">
 							<input type="hidden" class="wf_current_invoice_number_pdf_fw" value="'. esc_attr($current_invoice_number_in_db) .'" name="woocommerce_wf_Current_Invoice_number_pdf_fw" class="">
 						</td>

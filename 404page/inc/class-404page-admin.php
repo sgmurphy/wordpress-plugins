@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 if ( !class_exists( 'PP_404Page_Admin' ) ) {
   
-  class PP_404Page_Admin extends PPF08_Admin {
+  class PP_404Page_Admin extends PPF09_Admin {
 
     
     /**
@@ -104,17 +104,6 @@ if ( !class_exists( 'PP_404Page_Admin' ) ) {
             
             )
         
-          ),
-          
-          array(
-        
-            'section'  => 'videos',
-            'order'   => 100,
-            'title'    => esc_html__( 'Explainer Videos', '404page' ),
-            'icon'    => 'videos',
-            'html'     => $this->add_videos(),
-            'nosubmit' => true
-          
           )
           
         )
@@ -154,7 +143,7 @@ if ( !class_exists( 'PP_404Page_Admin' ) ) {
      */
     function admin_404page() {
       
-      echo esc_html__( 'Page to be displayed as 404 page', '404page' ) . '"></a>';
+      echo esc_html__( 'Page to be displayed as 404 page', '404page' );
       
       if ( $this->settings()->get( 'page_id' ) < 0 ) {
         
@@ -245,8 +234,6 @@ if ( !class_exists( 'PP_404Page_Admin' ) ) {
         }
         
       }
-	  
-	  echo '<h2>PLEASE NOTE</h2><p>Development, maintenance and support of this plugin has been retired. You can use this plugin as long as is works for you. Thanks for your understanding.<br />Regards, Peter</p>';
       
     }
     
@@ -373,7 +360,7 @@ if ( !class_exists( 'PP_404Page_Admin' ) ) {
       }
       
       echo '<p class="toggle"><span class="slider"><input type="checkbox" id="404page-method" name="404page_settings[method]" value="CMP"' . checked( 'CMP', $this->settings()->get( 'method' ), false ) . $dis . '/>';
-      echo '<label for="404page-method" class="check"></label></span><span class="caption">' . esc_html__( 'Activate Compatibility Mode', '404page' ) . '&nbsp;<a class="dashicons dashicons-video-alt3" href="https://youtu.be/wqSepDyQeqY" data-lity></a><br />';
+      echo '<label for="404page-method" class="check"></label></span><span class="caption">' . esc_html__( 'Activate Compatibility Mode', '404page' ) . '<br />';
       echo '<span class="dashicons dashicons-info"></span>&nbsp;';
       
       if ( $this->core()->is_native() ) {
@@ -476,38 +463,6 @@ if ( !class_exists( 'PP_404Page_Admin' ) ) {
       
       $this->show( 'manage_options' );
       
-    }
-    
-    
-    /**
-     * create the HTML code for the videos
-     * was show_videos() in previous versions and printed out the HTML
-     *
-     * @since  11.0.0
-     * @access private
-     * @return string HTML code
-     */
-    private function add_videos() {
-      
-      $html = '<div class="pp-404page-videos">';
-     
-      $videos = array(
-        array( 'id' => 'HygoFMwdIuY', 'title' => 'A brief introduction', 'img' => '404page-brief-intro' ),
-        array( 'id' => '9rL9LbYiSJk', 'title' => 'A quick Overview over the Advanced Settings', 'img' => '404page-advanced-settings-quick-overview' ),
-        array( 'id' => '09OOCbFLfnI', 'title' => 'The Advanced Setting "Force 404 error after loading page" explained', 'img' => '404page_advanced_force_404' ),
-        array( 'id' => 'H0EdtFcAGl4', 'title' => 'The Advanced Setting "Disable URL Autocorrecton Guessing" explained', 'img' => '404page_advanced_url_guessing' ),
-        array( 'id' => 'O5xPM0BMZxM', 'title' => 'Send HTTP Status Code 410 for trashed objects', 'img' => '404page_advanced_410_trashed_objects' ),
-        array( 'id' => 'wqSepDyQeqY', 'title' => 'Compatibility Mode explained', 'img' => '404page_advanced_compatibility_mode' )
-      );
-      
-      foreach( $videos as $video ) {
-        
-        $html .= '<a href="' . esc_url( 'https://youtu.be/' . $video['id'] ) . '" title="' . $video['title'] . '" data-lity><div><img src="' . $this->core()->get_asset_url( 'img/videos', $video['img'] . '.png' ) . '" title="' . $video['title'] . '" alt="' . $video['title'] . '"></div></a>';
-        
-      }
-      
-      return $html . '</div>';
-     
     }
     
     

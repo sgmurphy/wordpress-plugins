@@ -3,7 +3,7 @@
   Plugin Name: WP Reset
   Plugin URI: https://wpreset.com/
   Description: Reset the entire site or just selected parts while reserving the option to undo by using snapshots.
-  Version: 2.00
+  Version: 2.01
   Requires at least: 4.0
   Requires PHP: 5.2
   Tested up to: 6.5
@@ -2624,6 +2624,7 @@ class WP_Reset
 
     require_once $this->plugin_dir . 'libs/dumper.php';
 
+    $snapshot_file_uid = md5($this->generate_snapshot_uid(10));
     try {
       $world_dumper = WPR_Shuttle_Dumper::create(array(
         'host' =>     DB_HOST,
@@ -2645,14 +2646,14 @@ class WP_Reset
         fclose($htaccess_file);
       }
 
-      $world_dumper->dump(trailingslashit(WP_CONTENT_DIR) . $this->snapshots_folder . '/wp-reset-snapshot-' . md5($uid) . '.sql.gz', $uid . '_');
+      $world_dumper->dump(trailingslashit(WP_CONTENT_DIR) . $this->snapshots_folder . '/wp-reset-snapshot-' . $snapshot_file_uid . '.sql.gz', $uid . '_');
     } catch (Shuttle_Exception $e) {
       return new WP_Error(1, 'Couldn\'t create snapshot: ' . $e->getMessage());
     }
 
-    do_action('wp_reset_export_snapshot', 'wp-reset-snapshot-' . md5($uid) . '.sql.gz');
+    do_action('wp_reset_export_snapshot', 'wp-reset-snapshot-' . $snapshot_file_uid . '.sql.gz');
 
-    return 'wp-reset-snapshot-' . md5($uid) . '.sql.gz';
+    return 'wp-reset-snapshot-' . $snapshot_file_uid . '.sql.gz';
   } // export_snapshot
 
 
@@ -2981,11 +2982,11 @@ class WP_Reset
 
 
   /**
-   * Generates a unique 6-char snapshot ID; verified non-existing
+   * Generates a unique snapshot ID; verified non-existing
    *
    * @return string
    */
-  function generate_snapshot_uid()
+  function generate_snapshot_uid($length = 6)
   {
     global $wpdb;
     $snapshots = $this->get_snapshots();
@@ -2994,7 +2995,7 @@ class WP_Reset
 
     do {
       $cnt++;
-      $uid = substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz', 6)), 0, 6);
+      $uid = substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz', $length)), 0, $length);
 
       $verify_db = $wpdb->get_col($wpdb->prepare('SHOW TABLES LIKE %s', array('%' . $uid . '%')));
     } while (!empty($verify_db) && isset($snapshots[$uid]) && $cnt < 30);

@@ -72,7 +72,7 @@ function backuply_license_page() {
 									<input type="text" name="bcloud_key" value="'.(!empty($backuply['bcloud_key']) ? esc_attr($backuply['bcloud_key']) : '').'" size="30" placeholder="Your Backuply Cloud Key" style="width:300px;">
 									'.wp_nonce_field('backuply_cloud_form', 'backuply_cloud_nonce').'
 									<input name="save_backuply_cloud_key" class="button button-primary" value="Update Cloud Key" type="submit">
-									<p class="description">Backuply Cloud Key</p>
+									<p class="description">'.__('Backuply Cloud Key works in combination with Backuply License which you get when you buy a plan', 'backuply').'<br>'.__('The key is generated automatically, when you add Backuply Cloud location to a new site, for more info read this', 'backuply').' <a href="https://backuply.com/docs/backuply-cloud/how-to-get-backuply-cloud-key/#lost-backuply-clou-key" target="_blank">docs</a></p>
 								</label>
 							</form>
 							<label>

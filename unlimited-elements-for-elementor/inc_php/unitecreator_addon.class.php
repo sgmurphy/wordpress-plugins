@@ -117,7 +117,9 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 	 * validate test data slot num
 	 */
 	private function validateTestSlot($num){
-
+		
+		UniteFunctionsUC::validateNumeric($num,"test slot");
+		
 		$num = (int)$num;
 		if($num < 0 || $num > 3)
 			UniteFunctionsUC::throwError("Wrong test slot number: $num");
@@ -2600,10 +2602,10 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 		$this->validateInited();
 
 		$this->db->update(GlobalsUC::$table_addons, $arrUpdate, array("id" => $this->id));
-
+		
 		//init the item again from the new record
 		$this->data = array_merge($this->data, $arrUpdate);
-
+	
 		$this->initByDBRecord($this->data);
 		$this->triggerAfterUpdateAction();
 	}
@@ -3402,11 +3404,14 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 
 		$this->validateInited();
 		$this->validateTestSlot($slotNum);
-
+		
+		$slotNum = (int)$slotNum;
+		
 		$slotName = "test_slot" . $slotNum;
 
 		$arrUpdate = array();
 		$arrUpdate[$slotName] = "";
+		
 		$this->updateInDB($arrUpdate);
 	}
 

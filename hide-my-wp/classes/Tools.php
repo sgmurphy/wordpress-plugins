@@ -347,6 +347,7 @@ class HMWP_Classes_Tools
 
             //--secure headers
             'hmwp_sqlinjection' => 0,
+            'hmwp_sqlinjection_location' => 'onload',
             'hmwp_sqlinjection_level' => 1,
             'hmwp_security_header' => 0,
             'hmwp_hide_unsafe_headers' => 0,

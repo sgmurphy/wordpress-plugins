@@ -394,7 +394,7 @@ class MonsterInsights_WP_Emails {
 		}
 
 		// Don't send if email address is invalid.
-		if ( ! is_email( $to ) ) {
+		if ( is_string( $to ) && ! is_email( $to ) ) {
 			return false;
 		}
 

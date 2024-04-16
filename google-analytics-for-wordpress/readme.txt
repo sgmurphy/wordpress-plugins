@@ -3,8 +3,8 @@ Contributors: chriscct7, smub
 Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, Website Analytics
 Requires at least: 5.6.0
-Tested up to: 6.4.3
-Stable tag: 8.25.0
+Tested up to: 6.5.2
+Stable tag: 8.26.0
 Requires PHP: 7.2
 License: GPL v3
 
@@ -119,6 +119,13 @@ MonsterInsights&reg; is a registered trademark of MonsterInsights LLC. When writ
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 8.26.0: April 16, 2024 =
+- New: Added new Exceptions Report
+- New: Added new Google Consent support.
+- Enhancement: We improved the country list in the Funnel Report.
+- Fix: We solved an issue occurring in the plugin onboarding process.
+- Fix: We solved a style issue related to abandoned checkouts in reports.
+
 = 8.25.0: March 05, 2024 =
 - Enhancement: Improved Site Speed report.
 - Fix: We solved an issue related to flag icons.

@@ -4,7 +4,7 @@ Tags: backup, restore, database backup, cloud backup, wordpress backup, migratio
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,12 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 7. **Backup Process** easy to understand backup progress.
 
 == Changelog ==
+
+= 1.3.0 (April 16th 2024) =
+* [Bug-Fix] There was issue downloading Backups for some users that has been fixed.
+* [Bug-Fix] There was an issue connecting to Database when the database was being served over a socket, that has been fixed.
+* [Bug-Fix] There was issue in using Custom Cron for Bcloud users that has been fixed.
+* [Bug-Fix] For some of the OneDrive users there was a error when trying to add the Backup location, that has been fixed.
 
 = 1.2.9 (March 26th 2024) =
 * [Bug-Fix] There was an issue with download for some user because of their WordPress not supporting tar or gz mime types, this has been fixed.

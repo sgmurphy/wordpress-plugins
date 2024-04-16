@@ -74,6 +74,7 @@ class MonsterInsights_Rest_Routes {
 			'is_expired'  => MonsterInsights()->license->site_license_expired(),
 			'expiry_date' => MonsterInsights()->license->get_license_expiry_date(),
 			'is_invalid'  => MonsterInsights()->license->site_license_invalid(),
+			'is_agency'   => MonsterInsights()->license->site_is_agency(),
 		);
 		$network_license = array(
 			'key'         => MonsterInsights()->license->get_network_license_key(),
@@ -82,6 +83,7 @@ class MonsterInsights_Rest_Routes {
 			'is_expired'  => MonsterInsights()->license->network_license_expired(),
 			'expiry_date' => MonsterInsights()->license->get_license_expiry_date(),
 			'is_invalid'  => MonsterInsights()->license->network_license_disabled(),
+			'is_agency'   => MonsterInsights()->license->network_is_agency(),
 		);
 
 		wp_send_json( array(
@@ -665,7 +667,7 @@ class MonsterInsights_Rest_Routes {
 			'slug'      => 'uncanny-automator',
 			'setup_complete'      => (bool) get_option('automator_reporting', false),
 		);
-		
+
 		// Pretty Links
 		$parsed_addons['pretty-link'] = array(
 			'active'    => class_exists( 'PrliBaseController' ),

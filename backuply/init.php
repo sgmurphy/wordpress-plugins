@@ -10,7 +10,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('BACKUPLY_VERSION', '1.2.9');
+define('BACKUPLY_VERSION', '1.3.0');
 define('BACKUPLY_DIR', dirname(BACKUPLY_FILE));
 define('BACKUPLY_URL', plugins_url('', BACKUPLY_FILE));
 define('BACKUPLY_BACKUP_DIR', str_replace('\\' , '/', WP_CONTENT_DIR).'/backuply/');
@@ -119,12 +119,14 @@ function backuply_load_plugin(){
 	$showing_promo = false; // flag for single nag
 	
 	if(is_admin() && current_user_can('install_plugins')){
+		add_filter('upload_mimes', 'backuply_add_mime_types'); // In case tar or gz are not supported
+
 		if(isset($_REQUEST['backuply_trial_promo']) && (int)$_REQUEST['backuply_trial_promo'] == 0 ){
 			if(!wp_verify_nonce(backuply_optreq('security'), 'backuply_trial_nonce')) {
 				die('Security Check Failed');
 			}
 
-			update_option('backuply_hide_trial', (0 - time()));
+			update_option('backuply_hide_trial', (0 - time()), false);
 			die('DONE');
 		}
 
@@ -133,7 +135,7 @@ function backuply_load_plugin(){
 		// It will show one day after install
 		if(empty($trial_time)){
 			$trial_time = time();
-			update_option('backuply_hide_trial', $trial_time);
+			update_option('backuply_hide_trial', $trial_time, false);
 		}
 
 		if($trial_time >= 0 && empty($backuply['bcloud_key']) && $trial_time < (time() - (86400))){
@@ -154,7 +156,7 @@ function backuply_load_plugin(){
 		$holiday_time = get_option('backuply_hide_holiday');
 		if(empty($holiday_time) || (time() - abs($holiday_time)) > 172800){
 			$holiday_time = time();
-			update_option('backuply_hide_holiday', $holiday_time);
+			update_option('backuply_hide_holiday', $holiday_time, false);
 		}
 
 		$time = date('nj');
@@ -170,7 +172,7 @@ function backuply_load_plugin(){
 				die('Security Check Failed');
 			}
 
-			update_option('backuply_hide_holiday', (0 - time()));
+			update_option('backuply_hide_holiday', (0 - time()), false);
 			die('DONE');
 		}
 
@@ -178,7 +180,7 @@ function backuply_load_plugin(){
 		$promo_time = get_option('backuply_promo_time');
 		if(empty($promo_time)){
 			$promo_time = time();
-			update_option('backuply_promo_time', $promo_time);
+			update_option('backuply_promo_time', $promo_time, false);
 		}
 
 		// Are we to show the backuply promo, and it will show up after 7 days of install.
@@ -193,7 +195,7 @@ function backuply_load_plugin(){
 				die('Security Check Failed');
 			}
 
-			update_option('backuply_promo_time', (0 - time()) );
+			update_option('backuply_promo_time', (0 - time()), false);
 			die('DONE');
 		}
 		
@@ -201,7 +203,7 @@ function backuply_load_plugin(){
 		$offer_time = get_option('backuply_offer_time', '');
 		if(empty($offer_time)){
 			$offer_time = time();
-			update_option('backuply_offer_time', $offer_time);
+			update_option('backuply_offer_time', $offer_time, false);
 		}
 
 		// Are we to show the backuply offer, and it will show up after 7 days of install.
@@ -215,7 +217,7 @@ function backuply_load_plugin(){
 				die('Security Check Failed');
 			}
 
-			update_option('backuply_offer_time', (0 - time()) );
+			update_option('backuply_offer_time', (0 - time()), false);
 			die('DONE');
 		}
 	}
@@ -226,7 +228,7 @@ function backuply_load_plugin(){
 	
 	// We want to show it one day after install.
 	if(empty($backup_nag)){
-		update_option('backuply_backup_nag', time() - 518400);
+		update_option('backuply_backup_nag', time() - 518400, false);
 	}
 	
 	if(current_user_can( 'activate_plugins' ) && (time() - $last_backup) >= 604800 && (time() - $backup_nag) >= 604800){
@@ -329,8 +331,6 @@ function backuply_admin_menu(){
 
 // Backuply - Backup Page
 function backuply_settings_page_handle(){
-	add_filter('upload_mimes', 'backuply_add_mime_types'); // In case tar or gz are not supported
-	
 	include_once BACKUPLY_DIR . '/main/settings.php';
 	backuply_page_backup();
 	backuply_page_theme();

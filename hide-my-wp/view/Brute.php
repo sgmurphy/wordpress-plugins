@@ -122,7 +122,7 @@
                                         <div class="small text-black-50"><?php echo sprintf(esc_html__("Secret keys for %sGoogle reCAPTCHA%s.", 'hide-my-wp'), '<a href="https://www.google.com/recaptcha/admin#list" class="text-link" target="_blank">', '</a>'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group">
-                                        <input type="text" class="form-control bg-input" name="brute_captcha_secret_key" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key') ?>"/>
+                                        <input type="password" class="form-control bg-input" name="brute_captcha_secret_key" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key') ?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -230,7 +230,7 @@
                                         <div class="small text-black-50"><?php echo sprintf(esc_html__("Secret keys for %sGoogle reCAPTCHA%s.", 'hide-my-wp'), '<a href="https://www.google.com/recaptcha/admin#list" class="text-link" target="_blank">', '</a>'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group">
-                                        <input type="text" class="form-control bg-input" name="brute_captcha_secret_key_v3" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key_v3') ?>"/>
+                                        <input type="password" class="form-control bg-input" name="brute_captcha_secret_key_v3" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key_v3') ?>"/>
                                     </div>
                                 </div>
 

@@ -598,11 +598,11 @@ class Admin
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
-        // add checkbox for dynamic remarketing
+        // Add info about dynamic remarketing
         add_settings_field(
-            'wpm_plugin_option_gads_dynamic_remarketing',
+            'wpm_plugin_option_dynamic_remarketing',
             esc_html__( 'Dynamic Remarketing', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-            [ $this, 'option_html_google_ads_dynamic_remarketing' ],
+            [ $this, 'option_html_dynamic_remarketing' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
@@ -1185,7 +1185,7 @@ class Admin
             [ __CLASS__, 'plugin_section_consent_management_html' ],
             'wpm_plugin_options_page'
         );
-        // add fields for the Google Consent beta
+        // Add fields for the Google Consent Mode
         add_settings_field(
             'wpm_setting_google_consent_mode_active',
             esc_html__( 'Google Consent Mode v2', 'woocommerce-google-adwords-conversion-tracking-tag' ),
@@ -1269,12 +1269,12 @@ class Admin
                 $section_ids['settings_name']
             );
         }
-        if ( Environment::is_cookie_law_info_active() ) {
-            // add fields for the GDPR Cookie Consent support
+        if ( Environment::is_cookieyes_active() ) {
+            // Add fields for the CookieYes support
             add_settings_field(
-                'wpm_setting_cookie_law_info_support',
-                esc_html__( 'GDPR Cookie Consent Support', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-                [ __CLASS__, 'setting_html_cookie_law_info_support' ],
+                'wpm_setting_cookieyes_support',
+                esc_html__( 'CookieYes Support', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                [ __CLASS__, 'setting_html_cookieyes_support' ],
                 'wpm_plugin_options_page',
                 $section_ids['settings_name']
             );
@@ -3816,9 +3816,9 @@ class Admin
         self::html_pro_feature();
     }
     
-    public static function setting_html_cookie_law_info_support()
+    public static function setting_html_cookieyes_support()
     {
-        esc_html_e( 'GDPR Cookie Consent (by WebToffee) detected. Automatic support is:', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        esc_html_e( 'CookieYes detected. Automatic support is:', 'woocommerce-google-adwords-conversion-tracking-tag' );
         self::display_status_icon( true, true, true );
         self::html_pro_feature();
     }
@@ -4357,7 +4357,7 @@ class Admin
         ?> />
 
 			<?php 
-        esc_html_e( 'Display PMW related information on the order list page', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        esc_html_e( 'Display Pixel Manager related information on the order list page', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
@@ -4609,38 +4609,11 @@ class Admin
     
     }
     
-    public function option_html_google_ads_dynamic_remarketing()
+    public function option_html_dynamic_remarketing()
     {
-        // adding the hidden input is a hack to make WordPress save the option with the value zero,
-        // instead of not saving it and remove that array key entirely
-        // https://stackoverflow.com/a/1992745/4688612
-        ?>
-		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[google][ads][dynamic_remarketing]'>
-			<input type="checkbox" id='wpm_plugin_option_gads_dynamic_remarketing'
-				   name='wgact_plugin_options[google][ads][dynamic_remarketing]'
-				   value="1" <?php 
-        checked( $this->options['google']['ads']['dynamic_remarketing'] );
-        ?> />
-
-			<?php 
-        esc_html_e( 'Enable dynamic remarketing audience collection', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>
-		</label>
-		<?php 
-        self::display_status_icon( $this->options['google']['ads']['dynamic_remarketing'] );
-        ?>
-		<?php 
-        self::get_documentation_html_by_key( 'google_ads_dynamic_remarketing' );
-        self::wistia_video_icon( '7fhtv2s94t' );
-        ?>
-		<p>
-			<span class="dashicons dashicons-info"></span>
-			<?php 
-        esc_html_e( 'You need to choose the correct product identifier setting in order to match the product identifiers in the product feeds.', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>
-		</p>
-		<?php 
+        esc_html_e( 'Dynamic Remarketing is ', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        self::display_status_icon( true );
+        self::get_documentation_html_by_key( 'dynamic_remarketing' );
     }
     
     public static function html_logger_activation()
@@ -4886,7 +4859,7 @@ class Admin
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['general']['variations_output'], $this->options['google']['ads']['dynamic_remarketing'], true );
+        self::display_status_icon( $this->options['general']['variations_output'], true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'variations_output' );

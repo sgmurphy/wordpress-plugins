@@ -3,7 +3,7 @@ Contributors: bradvin, fooplugins
 Donate link: http://fooplugins.com
 Tags: lightbox,modal,popup,images,gallery,media
 Requires at least: 3.5.1
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 2.7.27
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

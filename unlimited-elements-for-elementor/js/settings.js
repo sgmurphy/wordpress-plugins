@@ -27,6 +27,7 @@ function UniteSettingsUC(){
 		isInited: false,
 		customSettingsKey: "custom_setting_type",
 		colorPickerType: null,
+		linkAutocompleteRequest: null,
 		isRepeaterExists: false,
 		disableExcludeSelector:false
 	};
@@ -63,6 +64,7 @@ function UniteSettingsUC(){
 	 * compare control values
 	 */
 	function isInputValuesEqual(controlValue, value) {
+		
 		var isEqual;
 
 		if (jQuery.isArray(value) === true) {
@@ -70,8 +72,21 @@ function UniteSettingsUC(){
 		} else {
 			if (jQuery.isArray(controlValue) === true)
 				isEqual = jQuery.inArray(String(value), controlValue) !== -1;
-			else
-				isEqual = (String(controlValue) === String(value));
+			else{
+							
+				//convert boolean (max change)
+				if(value == "true"){
+					
+					value = g_ucAdmin.strToBool(value);
+					controlValue = g_ucAdmin.strToBool(controlValue);
+					
+					isEqual = (controlValue === value);
+					
+				}else{
+					isEqual = (String(controlValue) === String(value));
+				}
+								
+			}
 		}
 
 		return isEqual;
@@ -230,7 +245,6 @@ function UniteSettingsUC(){
 		switch(type){
 			case "select-multiple":
 			case "multiple_select":  // obj name fix
-
 				type = "multiselect";
 
 				if(objInput.hasClass("select2"))
@@ -238,19 +252,15 @@ function UniteSettingsUC(){
 
 				if(customType)
 					type = customType;
-
 			break;
 			case "select-one":
 				type = "select";
+
 				if(customType)
 					type = customType;
 
 				if(objInput.hasClass("select2"))
 					type = "select2";
-
-			break;
-			case "number":
-				type = "text";
 			break;
 			case "text":
 				if(objInput.hasClass("unite-color-picker"))
@@ -417,7 +427,7 @@ function UniteSettingsUC(){
 			var objInput = jQuery(this);
 
 			// skip hidden/disabled setting
-			if (objInput.closest(".unite-setting-hidden").length > 0)
+			if (objInput.closest(".unite-setting-row").hasClass("unite-setting-hidden") === true)
 				return;
 
 			var name = getInputName(objInput);
@@ -512,6 +522,7 @@ function UniteSettingsUC(){
 			case "select2":
 			case "textarea":
 			case "text":
+			case "number":
 			case "password":
 				if (!name)
 					return;
@@ -691,6 +702,7 @@ function UniteSettingsUC(){
 			case "select2":
 			case "textarea":
 			case "text":
+			case "number":
 			case "password":
 				objInput.val(value);
 
@@ -1832,12 +1844,17 @@ function UniteSettingsUC(){
 				.slideToggle(g_vars.animationDuration);
 		});
 
-		if (objTabs.length > 0)
+		if (objTabs.length > 0) {
 			objTabs.filter(":first").trigger("click");
-		else if (objAccordionTitles.length > 0)
-			objAccordionTitles.filter(":first").trigger("click");
-		else
-			objAccordions.filter(":first").find(".unite-postbox-inside").show();
+		}
+		else {
+			objAccordions.show();
+
+			if (objAccordionTitles.length > 0)
+				objAccordionTitles.filter(":first").trigger("click");
+			else
+				objAccordions.filter(":first").find(".unite-postbox-inside").show();
+		}
 	}
 
 
@@ -2938,8 +2955,18 @@ function UniteSettingsUC(){
 		var objExternal = objWrapper.find(".unite-setting-link-external");
 		var objNofollow = objWrapper.find(".unite-setting-link-nofollow");
 		var objAttributes = objWrapper.find(".unite-setting-link-attributes");
+		var objAutocomplete = objWrapper.find(".unite-setting-link-autocomplete");
+		var objAutocompleteLoader = objAutocomplete.find(".unite-setting-link-autocomplete-loader");
+		var objAutocompleteItems = objAutocomplete.find(".unite-setting-link-autocomplete-items");
+		var funcChangeDebounced = g_ucAdmin.debounce(funcChange);
+		var loadAutocompleteDebounced = g_ucAdmin.debounce(loadAutocomplete);
+
+		objInput.on("input", loadAutocompleteDebounced);
+		objInput.on("focus", loadAutocomplete);
 
 		objToggle.on("click", function () {
+			hideAutocomplete();
+
 			objOptions.stop().slideToggle(g_vars.animationDuration);
 		});
 
@@ -2952,18 +2979,94 @@ function UniteSettingsUC(){
 		});
 
 		objAttributes.on("input", function () {
+			funcChangeDebounced(null, objInput);
+		});
+
+		objAutocomplete.on("click", ".unite-setting-link-autocomplete-item", function () {
+			var url = jQuery(this).data("url");
+
+			hideAutocomplete();
+
+			objInput.val(url);
+
 			funcChange(null, objInput);
 		});
+
+		jQuery(document).on("click", function (event) {
+			var objElement = jQuery(event.target);
+
+			if (objElement.closest(".unite-setting-link-wrapper").length === 1)
+				return;
+
+			hideAutocomplete();
+		});
+
+		function loadAutocomplete() {
+			hideAutocomplete();
+
+			if (g_temp.linkAutocompleteRequest !== null)
+				g_temp.linkAutocompleteRequest.abort();
+
+			var query = objInput.val().trim().toLowerCase();
+
+			if (query.length < 2
+				|| query.indexOf("http:") === 0
+				|| query.indexOf("https:") === 0)
+				return;
+
+			objAutocomplete.show();
+			objAutocompleteLoader.show();
+			objAutocompleteItems.hide();
+
+			g_temp.linkAutocompleteRequest = g_ucAdmin.ajaxRequest("get_link_autocomplete", { query: query }, function (response) {
+				var items = [];
+
+				jQuery(response.results).each(function (index, item) {
+					var objItem = jQuery(
+						"<div class='unite-setting-link-autocomplete-item'>"
+						+ "  <div class='unite-setting-link-autocomplete-item-content'>"
+						+ "    <div class='unite-setting-link-autocomplete-item-label'></div>"
+						+ "    <div class='unite-setting-link-autocomplete-item-value'></div>"
+						+ "  </div>"
+						+ "  <div class='unite-setting-link-autocomplete-item-aside'></div>"
+						+ "</div>",
+					);
+
+					// add leading slash and remove trailing slash
+					var relativeUrl = "/" + g_ucAdmin.urlToRelative(item.url).replace(/\/$/, "");
+
+					objItem.data("url", item.url);
+					objItem.find(".unite-setting-link-autocomplete-item-label").text(item.title);
+					objItem.find(".unite-setting-link-autocomplete-item-value").text(relativeUrl);
+					objItem.find(".unite-setting-link-autocomplete-item-aside").text(item.type);
+
+					items.push(objItem);
+				});
+
+				objAutocompleteItems.empty().append(items).show();
+
+				if (response.results.length === 0)
+					hideAutocomplete();
+			}).always(function () {
+				objAutocompleteLoader.hide();
+			});
+		}
+
+		function hideAutocomplete() {
+			objAutocomplete.hide();
+		}
 	}
 
 	/**
 	 * destroy links
 	 */
 	function destroyLinks() {
+		g_objWrapper.find(".unite-setting-link").off("input").off("focus");
 		g_objWrapper.find(".unite-setting-link-toggle").off("click");
 		g_objWrapper.find(".unite-setting-link-external").off("change");
 		g_objWrapper.find(".unite-setting-link-nofollow").off("change");
 		g_objWrapper.find(".unite-setting-link-attributes").off("input");
+		g_objWrapper.find(".unite-setting-link-autocomplete").off("click");
 	}
 
 	/**
@@ -3528,9 +3631,6 @@ function UniteSettingsUC(){
 		var checkedValue = objWrapper.data("checkedvalue");
 		var uncheckedValue = objWrapper.data("uncheckedvalue");
 
-		checkedValue = g_ucAdmin.strToBool(checkedValue);
-		uncheckedValue = g_ucAdmin.strToBool(uncheckedValue);
-
 		return objWrapper.hasClass("unite-checked") ? checkedValue : uncheckedValue;
 	}
 
@@ -3543,7 +3643,7 @@ function UniteSettingsUC(){
 		checkedValue = g_ucAdmin.strToBool(checkedValue);
 		value = g_ucAdmin.strToBool(value);
 
-		objWrapper.data("value", value).toggleClass("unite-checked", value === checkedValue);
+		objWrapper.toggleClass("unite-checked", value === checkedValue);
 	}
 
 
@@ -3553,9 +3653,10 @@ function UniteSettingsUC(){
 	 * get control action
 	 */
 	function getControlAction(parent, control) {
+				
 		var isEqual = isInputValuesEqual(parent.value, control.value);
 		var action = null;
-
+		
 		switch (control.type) {
 			case "enable":
 			case "disable":
@@ -3574,7 +3675,8 @@ function UniteSettingsUC(){
 					action = "hide";
 			break;
 		}
-
+		
+		
 		return action;
 	}
 
@@ -3582,14 +3684,15 @@ function UniteSettingsUC(){
 	 * get action of multiple parents
 	 */
 	function getControlActionMultiple(parent, control, arrParents) {
+				
 		if (g_temp.cacheValues === null)
 			g_temp.cacheValues = t.getSettingsValues(true);
-
+				
 		var action = null;
 		var mainAction = null;
 		var isShow = null;
 		var isEnable = null;
-
+		
 		jQuery.each(arrParents, function (index, parentID) {
 			if (parentID === parent.id) {
 				action = getControlAction(parent, control);
@@ -3647,6 +3750,7 @@ function UniteSettingsUC(){
 	 * process control setting change
 	 */
 	function processControlSettingChange(objInput) {
+				
 		var allowedTypes = ["select", "select2", "radio", "switcher"];
 		var controlType = getInputType(objInput);
 
@@ -3672,6 +3776,7 @@ function UniteSettingsUC(){
 		};
 
 		jQuery.each(arrChildControls, function (childName, objControl) {
+			
 			var isSap = g_ucAdmin.getVal(objControl, "forsap");
 			var rowID;
 			var objChildInput = null;
@@ -3684,7 +3789,7 @@ function UniteSettingsUC(){
 			}
 
 			var objChildRow = jQuery(rowID);
-
+						
 			if (objChildRow.length === 0)
 				return;
 
@@ -3698,7 +3803,7 @@ function UniteSettingsUC(){
 				action = getControlActionMultiple(objParent, objControl, arrParents);
 			else
 				action = getControlAction(objParent, objControl);
-
+						
 			var isChildRadio = false;
 			var isChildColor = false;
 
@@ -3713,7 +3818,7 @@ function UniteSettingsUC(){
 				case "enable":
 				case "disable":
 					var isDisable = (action === "disable");
-
+					
 					objChildRow.toggleClass("setting-disabled", isDisable);
 
 					if (!objChildInput)
@@ -3736,11 +3841,12 @@ function UniteSettingsUC(){
 				break;
 				case "show":
 				case "hide":
+										
 					var isShow = (action === "show");
 					var isHidden = objChildRow.hasClass("unite-setting-hidden");
-
+					
 					objChildRow.toggleClass("unite-setting-hidden", !isShow);
-
+										
 					if (!objChildInput)
 						return;
 
@@ -3903,7 +4009,7 @@ function UniteSettingsUC(){
 			var objInput = jQuery(this);
 
 			// skip hidden/disabled setting
-			if (objInput.closest(".unite-setting-hidden").length > 0)
+			if (objInput.closest(".unite-setting-row").hasClass("unite-setting-hidden") === true)
 				return;
 
 			var type = getInputType(objInput);
@@ -3968,7 +4074,8 @@ function UniteSettingsUC(){
 		var style = "";
 
 		for (var selector in selectors) {
-			var css = processSelectorReplaces(selectors[selector], replaces);
+			var value = selectors[selector].toLowerCase();
+			var css = processSelectorReplaces(value, replaces);
 
 			style += selector + "{" + css + "}";
 		}
@@ -3981,10 +4088,10 @@ function UniteSettingsUC(){
 	 */
 	function getDimentionsSelectorReplaces(value) {
 		return {
-			"{{TOP}}": value.top + value.unit,
-			"{{RIGHT}}": value.right + value.unit,
-			"{{BOTTOM}}": value.bottom + value.unit,
-			"{{LEFT}}": value.left + value.unit,
+			"{{top}}": value.top + value.unit,
+			"{{right}}": value.right + value.unit,
+			"{{bottom}}": value.bottom + value.unit,
+			"{{left}}": value.left + value.unit,
 		};
 	}
 
@@ -3997,7 +4104,7 @@ function UniteSettingsUC(){
 		if (!value.url)
 			return;
 
-		return { "{{VALUE}}": value.url };
+		return { "{{value}}": value.url };
 	}
 
 	/**
@@ -4008,9 +4115,9 @@ function UniteSettingsUC(){
 			return;
 
 		return {
-			"{{VALUE}}": value.size + value.unit,
-			"{{SIZE}}": value.size,
-			"{{UNIT}}": value.unit,
+			"{{value}}": value.size + value.unit,
+			"{{size}}": value.size,
+			"{{unit}}": value.unit,
 		};
 	}
 
@@ -4034,7 +4141,7 @@ function UniteSettingsUC(){
 				return getRangeSliderSelectorReplaces(value);
 		}
 
-		return { "{{VALUE}}": value };
+		return { "{{value}}": value };
 	}
 
 	/**
@@ -4145,7 +4252,7 @@ function UniteSettingsUC(){
 			var value = objSettings.getSettingsValues();
 			var css = objSettings.getSelectorsCss();
 
-			css = processSelectorReplaces(css, { "{{CURRENT_ITEM}}": ".elementor-repeater-item-" + value._generated_id });
+			css = processSelectorReplaces(css, { "{{current_item}}": ".elementor-repeater-item-" + value._generated_id });
 
 			style += css;
 		});
@@ -4170,7 +4277,7 @@ function UniteSettingsUC(){
 				return;
 
 			// only inputs that have the "value" placeholder are currently supported
-			replaces[selectorPlaceholder] = processSelectorReplaces("{{VALUE}}", inputReplaces);
+			replaces[selectorPlaceholder] = processSelectorReplaces("{{value}}", inputReplaces);
 		}
 
 		return getSelectorsStyle(selectors, replaces);
@@ -4183,7 +4290,7 @@ function UniteSettingsUC(){
 		var css = objWrapper.data("css") || "";
 		var selector = combineSelectors(selectors);
 
-		css = processSelectorReplaces(css, { "{{SELECTOR}}": selector });
+		css = processSelectorReplaces(css, { "{{selector}}": selector });
 
 		return css;
 	}

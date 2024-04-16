@@ -36,6 +36,7 @@ function UEDynamicFilters(){
 		CLASS_REFRESH_SOON: "uc-ajax-refresh-soon",
 		EVENT_SET_HTML_ITEMS: "uc_ajax_sethtml",
 		CLASS_FILTER_INITED:"ucfilters--filter-inited",
+		ATTRIBUTE_URLADD:"ajaxurladd",
 		
 		//grid events
 		
@@ -90,10 +91,12 @@ function UEDynamicFilters(){
 	 */
 	function addUrlParam(url, param, value){
 		
-		if(url.indexOf("?") == -1)
-			url += "?";
-		else
-			url += "&";
+		if(url){
+			if(url.indexOf("?") == -1)
+				url += "?";
+			else
+				url += "&";
+		}
 		
 		if(typeof value == "undefined")
 			url += param;
@@ -429,9 +432,12 @@ function UEDynamicFilters(){
 			return objFilterInArray.attr("id") == filterID;
 		});
 		
-		if(objExistingFilter && objExistingFilter.length)
+		if(objExistingFilter && objExistingFilter.length){
+			
+			trace(arrFilters);
+			
 			throw new Error("Can't bind filter to grid, it's already exists: " + filterID);
-		
+		}
 		 
 		arrFilters.push(objFilter);
 		
@@ -2809,6 +2815,7 @@ function UEDynamicFilters(){
 		var addSyncedGrids = true;
 		var arrAllFiltersData;		//all data gethered for the active filters
 		var arrFiltersForInit = [];
+		var urlAddFromFilters = "";
 		
 		var isGetUrlOnly = getVal(params,"getonly");
 		
@@ -2855,6 +2862,10 @@ function UEDynamicFilters(){
 				trace(objFilter);
 			}
 			
+			var urlAdd = objFilter.attr(g_vars.ATTRIBUTE_URLADD);
+			
+			if(urlAdd)
+				urlAddFromFilters = addUrlParam(urlAddFromFilters, urlAdd);
 			
 			switch(type){
 				case g_types.PAGINATION:
@@ -3284,6 +3295,13 @@ function UEDynamicFilters(){
 			urlAjax += "&ucoffset="+offset;
 			
 			urlFilterString = addUrlParam(urlFilterString, "offset=" + offset);
+		}
+		
+		//add custom additional attributes
+		
+		if(urlAddFromFilters){
+			urlAjax += addUrlParam(urlAjax, urlAddFromFilters);
+			urlFilterString = addUrlParam(urlFilterString, urlAddFromFilters);
 		}
 		
 		//remove the "?" from first

@@ -1331,7 +1331,9 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 
 		$objAddon = $this->initAddonByData($data);
 		$slotNum = UniteFunctionsUC::getVal($data, "slotnum");
-
+		
+		$slotNum = (int)$slotNum;
+		
 		$objAddon->clearTestDataSlot($slotNum);
 	}
 

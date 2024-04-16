@@ -437,7 +437,7 @@ function backuply_get_status($last_log = 0){
 	if(!file_exists($log_file)){
 		$logs[] = 'Something went wrong!|error';
 		delete_option('backuply_status');
-		update_option('backuply_backup_stopped', 1);
+		update_option('backuply_backup_stopped', 1, false);
 		return $logs;
 	}
 	
@@ -801,10 +801,13 @@ function backuply_log($data){
  */
 function backuply_preg_replace($pattern, $file, &$var, $valuenum, $stripslashes = ''){	
 	preg_match($pattern, $file, $matches);
-	if(empty($stripslashes)){
-		$var = trim($matches[$valuenum]);
-	}else{
-		$var = stripslashes(trim($matches[$valuenum]));
+
+	if(!empty($matches) && !empty($matches[$valuenum])){
+		if(empty($stripslashes)){
+			$var = trim($matches[$valuenum]);
+		}else{
+			$var = stripslashes(trim($matches[$valuenum]));
+		}
 	}
 }
 
@@ -1781,7 +1784,7 @@ function backuply_schedule_quota_updation($location){
 			}
 		}
 		
-		update_option('backuply_remote_backup_locs', $info);
+		update_option('backuply_remote_backup_locs', $info, false);
 	}
 
 	backuply_log('Scheduled Quota Update: Fetched Quota updated successfully!');
@@ -1842,11 +1845,11 @@ function backuply_delete_tmp(){
 }
 
 function backuply_add_mime_types($mimes) {
-	
+
     if(!array_key_exists('tar', $mimes)){
         $mimes['tar'] =  'application/x-tar';
     }
-    
+
     if(!array_key_exists('gz|gzip', $mimes) && !array_key_exists('gz', $mimes)){
         $mimes['gz|gzip'] = 'application/x-gzip';
     }

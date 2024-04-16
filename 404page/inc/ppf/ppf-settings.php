@@ -3,17 +3,17 @@
 /**
  * Settings Class
  *
- * Peter's Plugins Foundation 08
+ * Peter's Plugins Foundation 09
  *
- * @package    PPF08
+ * @package    PPF09
  * @author     Peter Raschendorfer
  * @license    GPL2+
  */
  
-if ( !class_exists( 'PPF08_Settings' ) ) {
+if ( !class_exists( 'PPF09_Settings' ) ) {
   
   
-  abstract class PPF08_Settings extends PPF08_SubClass {
+  abstract class PPF09_Settings extends PPF09_SubClass {
   
     /**
      * name of settings in databse (meta_key)

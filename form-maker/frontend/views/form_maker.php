@@ -874,8 +874,13 @@ class FMViewForm_maker {
             $w_first_val = explode('***', $param['w_first_val']);
             if ( $param['w_autofill'] == 'yes' && $wp_username ) {
               $user_display_name = explode(' ', $wp_username);
-              $w_first_val[0] = $user_display_name[0];
-              $w_first_val[1] = isset($user_display_name[1]) ? $user_display_name[1] : $w_first_val[1];
+              $w_first_val[0] = sanitize_text_field($user_display_name[0]);
+              $w_first_val[1] = isset($user_display_name[1]) ? sanitize_text_field($user_display_name[1]) : sanitize_text_field($w_first_val[1]);
+                $w_first_val[0] = str_replace('"', "", $w_first_val[0]);
+                $w_first_val[0] = str_replace("'", "", $w_first_val[0]);
+                $w_first_val[1] = str_replace('"', "", $w_first_val[1]);
+                $w_first_val[1] = str_replace("'", "", $w_first_val[1]);
+
             }
 
             $first_field_id = 'wdform_' . $id1 . '_element_first' . $form_id;
@@ -884,25 +889,25 @@ class FMViewForm_maker {
               $first_field_id = 'wdform_' . $id1 . '_element_title' . $form_id;
               $html .= '<div class="wd-flex wd-flex-column wd-width-10">';
               $html .= '<input type="text" id="wdform_' . $id1 . '_element_title' . $form_id . '" name="wdform_' . $id1 . '_element_title' . $form_id . '" data-value="' . $w_first_val[2]. '" value="' . $w_first_val[2]. '" title="' . $w_title[2] . '" placeholder="' . $w_title[2] . '" />';
-              $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_title' . $form_id . '">' . $w_mini_labels[0] . '</label>';
+              $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_title' . $form_id . '">' . esc_html($w_mini_labels[0]) . '</label>';
               $html .= '</div>';
               $html .= '<div class="wd-flex wd-flex-column wd-name-separator"></div>';
             }
             $html .= '<div class="wd-flex wd-flex-column wd-width-50">';
-            $html .= '<input type="text" class="wd-width-100" id="wdform_' . $id1 . '_element_first' . $form_id . '" name="wdform_' . $id1 . '_element_first' . $form_id . '" data-value="' . $w_first_val[0] . '" value="' . $w_first_val[0] . '" title="' . $w_title[0] . '" placeholder="' . $w_title[0] . '" ' . $param['attributes'] . ' />';
-            $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_first' . $form_id . '">' . $w_mini_labels[1] . '</label>';
+            $html .= '<input type="text" class="wd-width-100" id="wdform_' . $id1 . '_element_first' . $form_id . '" name="wdform_' . $id1 . '_element_first' . $form_id . '" data-value="' . esc_attr($w_first_val[0]) . '" value="' .  esc_attr($w_first_val[0]) . '" title="' . esc_attr($w_title[0]) . '" placeholder="' . esc_attr($w_title[0]) . '" ' . $param['attributes'] . ' />';
+            $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_first' . $form_id . '">' . esc_html($w_mini_labels[1]) . '</label>';
             $html .= '</div>';
             $html .= '<div class="wd-flex wd-flex-column wd-name-separator"></div>';
             $html .= '<div class="wd-flex wd-flex-column wd-width-50">';
-            $html .= '<input type="text" class="wd-width-100" id="wdform_' . $id1 . '_element_last' . $form_id . '" name="wdform_' . $id1 . '_element_last' . $form_id . '" data-value="' . $w_first_val[1] . '" value="' . $w_first_val[1] . '" title="' . $w_title[1] . '" placeholder="' . $w_title[1] . '" ' . $param['attributes'] . ' />';
-            $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_last' . $form_id . '">' . $w_mini_labels[2] . '</label>';
+            $html .= '<input type="text" class="wd-width-100" id="wdform_' . $id1 . '_element_last' . $form_id . '" name="wdform_' . $id1 . '_element_last' . $form_id . '" data-value="' .  esc_attr($w_first_val[1]) . '" value="' .  esc_attr($w_first_val[1]) . '" title="' . esc_attr($w_title[1]) . '" placeholder="' . esc_attr($w_title[1]) . '" ' . $param['attributes'] . ' />';
+            $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_last' . $form_id . '">' . esc_html($w_mini_labels[2]) . '</label>';
             $html .= '</div>';
 
             if ( $w_name_fields[1] == 'yes' ) {
               $html .= '<div class="wd-flex wd-flex-column wd-name-separator"></div>';
               $html .= '<div class="wd-flex wd-flex-column wd-width-50">';
-              $html .= '<input type="text" class="wd-width-100" id="wdform_' . $id1 . '_element_middle' . $form_id . '" name="wdform_' . $id1 . '_element_middle' . $form_id . '" data-value="' . $w_first_val[3] . '" value="' . $w_first_val[3] . '" title="' . $w_title[3] . '" placeholder="' . $w_title[3] . '" />';
-              $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_middle' . $form_id . '">' . $w_mini_labels[3] . '</label>';
+              $html .= '<input type="text" class="wd-width-100" id="wdform_' . $id1 . '_element_middle' . $form_id . '" name="wdform_' . $id1 . '_element_middle' . $form_id . '" data-value="' . esc_attr($w_first_val[3]) . '" value="' . esc_attr($w_first_val[3]) . '" title="' . esc_attr($w_title[3]) . '" placeholder="' . esc_attr($w_title[3]) . '" />';
+              $html .= '<label class="mini_label" for="wdform_' . $id1 . '_element_middle' . $form_id . '">' . esc_html($w_mini_labels[3]) . '</label>';
               $html .= '</div>';
             }
 

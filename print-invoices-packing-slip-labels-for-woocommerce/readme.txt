@@ -1,11 +1,11 @@
 === WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels ===
 Contributors: WebToffee
-Version: 4.4.3
+Version: 4.5.0
 Donate link: https://www.webtoffee.com/plugins/
 Tags: WooCommerce, PDF, invoice, packing slip, print invoice, packing list, shipping label, delivery note, dispatch label, WooCommerce invoice, WooCommerce PDF invoices, order
 Requires at least: 3.0.1
 Tested up to: 6.5
-Stable tag: 4.4.3
+Stable tag: 4.5.0
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -136,8 +136,10 @@ You only have to install the plugin that offers the documents that are required 
 <li> Let your customers pay later by adding 'Pay Now' link to invoice [New]</li>
 <li> Customize invoice number</li>
 <li> Attach credit note to the ‘Refund’ email</li>
+<li> Generate custom reports of invoices, packing slips, and credit notes</li>
 <li> Customize the display of bundled product</li>
 <li> Integrate VAT or any other tax details like GST, ABN to invoices and other documents</li>
+<li> Auto-reset invoice number every year</li>
 <li> Add custom fields to WooCommerce documents</li>
 </ul>
 
@@ -278,6 +280,11 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
 17. Invoice general settings
 
 == Changelog ==
+
+= 4.5.0 2024-04-16 =
+* [New] - Japanese translation added
+* [Tweak] - Pot file refreshed for better translation support
+* [Compatibility] - with WooCommerce PDF Invoices, Packing slips, and Credit notes add-on by Webtoffee version 1.5.0
 
 = 4.4.3 2024-04-05 =
 * [Fix] - Addressed security issues
@@ -954,8 +961,7 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
  
 == Upgrade Notice ==
 
-= 4.4.3 =
-* [Fix] - Addressed security issues
-* [Tweak] - Improved the verification and role capability check
-* [Compatibility] - Tested OK with WordPress v6.5
-* [Compatibility] - Tested OK with WooCommerce v8.7.0
+= 4.5.0 =
+* [New] - Japanese translation added
+* [Tweak] - Pot file refreshed for better translation support
+* [Compatibility] - with WooCommerce PDF Invoices, Packing slips, and Credit notes add-on by Webtoffee version 1.5.0

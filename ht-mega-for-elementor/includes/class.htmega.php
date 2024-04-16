@@ -144,10 +144,10 @@ final class HTMega_Addons_Elementor {
                         <img src="' . $logo_url . '" alt="' . esc_attr__('HT Mega','htmega-addons') . '" style="max-width:85px"/>
                     </div>
                     <div class="hastech-review-notice-content">
-                        <h3>' . esc_html__('Thank you for choosing HT Mega to design your website!','htmega-addons').'</h3>
-                        <p>' . esc_html__('Would you mind doing us a huge favor by providing your feedback on WordPress? Your support helps us spread the word and greatly boosts our motivation.', 'htmega-addons') . '</p>
+                        <h3>' . esc_html__('Hi there! Thanks a lot for choosing HT Mega Elementor Addons to take your WordPress website to the next level.','htmega-addons').'</h3>
+                        <p>' . esc_html__('It would be greatly appreciated if you consider giving us a review in WordPress. These reviews help us improve the plugin further and make it easier for other users to decide when exploring HT Mega Elementor Addons!', 'htmega-addons') . '</p>
                         <div class="hastech-review-notice-action">
-                            <a href="https://wordpress.org/support/plugin/ht-mega-for-elementor/reviews/?filter=5#new-post" class="hastech-notice-close hastech-review-notice button-primary" target="_blank">' . esc_html__('Ok, you deserve it!','htmega-addons') . '</a>
+                            <a href="https://wordpress.org/support/plugin/ht-mega-for-elementor/reviews/?filter=5#new-post" class="hastech-review-notice button-primary" target="_blank">' . esc_html__('Ok, you deserve it!','htmega-addons') . '</a>
                             <span class="dashicons dashicons-calendar"></span>
                             <a href="#" class="hastech-notice-close hastech-review-notice">' . esc_html__('Maybe Later','htmega-addons').'</a>
                             <span class="dashicons dashicons-smiley"></span>

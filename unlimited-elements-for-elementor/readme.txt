@@ -868,6 +868,43 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 == Changelog ==
 
 
+version 1.5.103: 2024-04-16
+
+Plugin Changes:
+
+* Feature: added option to add additional url attributes to post links
+* Feature: improved woo category thumbnail image gether
+* Feature: added option to unite gallery - strip_speed
+* Fix: fixed some widgets editor enable visibility bug
+* Fix: fixed entrance animation run if inside a viewport window
+* Fix: fixed some security issues - escaping some fields output
+
+Widgets Changes:
+
+* Feature: Overlay Carousel (Pro) - Implemented 'Show Dots' option. This new functionality allows users to toggle the visibility of dots within the widget, providing greater control over navigation indicators.
+* Feature: Checkbox Field (Pro) - Implemented 'Checkbox Custom Icon' option. This new functionality allows users to customize the appearance of checkboxes by providing custom icons, enhancing the visual presentation of checkboxes within the widget.
+* Feature: Video Playlist (Pro) - Implemented 'Strip Navigation Speed' option. This new functionality allows users to adjust the speed of navigation within the strip, providing finer control over the scrolling behavior.
+* Feature: Expanding Content Cards (Pro) - Implemented 'Background Image Align' option. This new functionality allows users to specify the alignment of the background image, providing greater control over its positioning within the element.
+* Feature: Post Magazine Grid (Pro) - Implemented 'Meta Date Date Format' option. This new functionality allows users to specify the date format for meta date display, providing customization options for date presentation.
+* Feature: Justified Image Carousel (Pro) - Implemented 'Show Item Title in Lightbox' option. This new functionality allows users to toggle the display of item titles within the lightbox, providing control over the visibility of titles for a better user experience.
+* Feature: Search Filter (Pro) - Implemented 'Custom Links Ending' option. This new functionality allows users to change links in the connected grid to highlight the search phrase.
+* Feature: Load More / Infinite Scroll (Pro) - Implemented 'Connect To Grids Group' option. This new functionality allows users to connect the filter widget to a particular grid widget.
+* Feature: Post Pagination (Free) - Implemented 'Connect To Grids Group' option. This new functionality allows users to connect the filter widget to a particular grid widget.
+* Feature: Content Switcher (Pro) - Introduced option to fire a resize event on tab click, ensuring proper functionality of other widgets inside tab Content Switcher for a smoother and more seamless user experience.
+* Feature: Submit Button (Free) - Implemented 'Show Field Name In Empty Field Error Message' option. This new functionality allows users to include the field name in the empty field error message, providing clearer feedback to users when a required field is left blank.
+* Feature: Side Menu (Pro) - Implemented 'Templates Width' and 'Templates Horizontal Align' options.
+* Change: Unlimited Grid (Pro) - Changed 'Title Spacing' option to 'Title Margin'. This change allows users to add margin in all directions to the title, providing more granular control over its positioning within the widget.
+* Fix: Content Box Hover Text Reveal (Free) - Resolved issue where Overlay Opacity option wasn't working on mobile devices. This fix ensures that the Overlay Opacity option functions correctly across all devices, providing consistent behavior and appearance.
+* Fix: Multi Step Form (Pro) - Fixed Multi Step Error Message not showing when empty and required field was present on active step.
+* Fix: Submit Button (Free) - Fixed Submit Button verification issue when fields with 0 value were parsed as empty.
+* Fix: Slider Field (Pro) - Resolved issue where border radius for focus state differed from regular state. This fix ensures that the border radius remains consistent across different states.
+* Fix: Icon Bullets (Free) - Fixed issue related to Hover Colors not being revealed after item hover.
+* Fix: Team Member Sliding Effect (Pro) - Resolved issue related to global colors usage. This fix ensures that global colors are properly utilized throughout the widget, maintaining consistency and accuracy in color rendering.
+* Fix: Post Magazine Grid (Pro) - Optimized widget HTML. This optimization improves the efficiency and performance of the widget by streamlining the HTML structure and reducing unnecessary code.
+* Fix: Form Fields Widgets: Resolved vulnerability where scripts could be injected under certain widget attributes. This fix ensures that scripts are properly sanitized and prevented from being inserted into widget attributes, mitigating potential security risks.
+
+
+
 version 1.5.101: 2024-04-03
 
 Plugin Changes:

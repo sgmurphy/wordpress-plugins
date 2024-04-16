@@ -182,7 +182,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/general-settings/#maximum-compatibility-mode',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'google_ads_dynamic_remarketing'                         => [
+			'dynamic_remarketing'                         => [
 				'default' => '/docs/wpm/plugin-configuration/dynamic-remarketing',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/dynamic-remarketing/',
 			],

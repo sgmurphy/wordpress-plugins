@@ -1772,36 +1772,127 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			return($arrMetaOutput);
 		}
-
+		
 		/**
-		 * get term meta
+		 * get term meta image id. guess what the image is by the type
 		 */
-		public static function getTermImage($termID, $metaKey){
+		public static function getTermMetaImageID($termID){
 
+			$isAcfActive = UniteCreatorAcfIntegrate::isAcfActive();
+
+			//get iamge from acf if exists
+			
+			if($isAcfActive){
+
+				$objAcf = self::getObjAcfIntegrate();
+				$arrImageIDs = $objAcf->getAcfFieldsImageIDs($termID, "term");
+				
+				//get array of meta image id's
+				
+				if(isset($arrImageIDs["thumbnail_id"]))
+					return($arrImageIDs["thumbnail_id"]);
+				
+				$imageID = UniteFunctionsUC::getArrFirstValue($arrImageIDs);
+				
+				return($imageID);
+			}
+			
+			$arrMeta = self::getTermMeta($termID);
+
+			if(empty($arrMeta))
+				return(null);
+			
+			
+			//guess by name
+				
+			$arrNames = array("thumbnail_id","image","img","thumbnail","thumb");
+			
+			foreach($arrNames as $name){
+				
+				if(!isset($arrMeta[$name]))
+					continue;
+					
+				$imageID = $arrMeta[$name];
+				
+				if(is_numeric($imageID) == false){
+					
+					$arrItem = UniteFunctionsUC::maybeUnserialize($imageID);
+					
+					if(is_array($arrItem))
+						$imageID = UniteFunctionsUC::getVal($arrItem, "id");
+				}
+				
+				
+				if(!empty($imageID) && is_numeric($imageID))
+					return($imageID);
+			}
+			
+			
+			//if not quesing - not continue, they should enter the exact meta key
+			
+			return(null);
+		}
+		
+		/**
+		 * get term image id, or null
+		 * metaKey - some key | debug | woo_cat
+		 */
+		public static function getTermImageID($termID, $metaKey){
+			
 			if(empty($termID) || $termID === "current")
 				$termID = self::getCurrentTermID();
 
 			if(empty($termID))
 				return(null);
 
-		if($metaKey == "debug"){
-			$arrMeta = get_term_meta($termID);
+			if($metaKey == "debug"){
+				$arrMeta = get_term_meta($termID);
+				
+				dmp("term: $termID meta: ");
+	
+				dmp($arrMeta);
+			}
+			
+			// guess the woo category meta key
+			
+			if($metaKey == "woo_cat"){
+				
+				$thumbID = self::getTermMetaImageID($termID);
+				
+				return($thumbID);
+			}
 
-			dmp("term: $termID meta: ");
-
-			dmp($arrMeta);
+			if(empty($metaKey))
+				return (null);
+			
+			$attachmentID = get_term_meta($termID, $metaKey, true);
+			
+			
+			if(!empty($attachmentID) && is_numeric($attachmentID) == false){
+				
+				$arrItem = UniteFunctionsUC::maybeUnserialize($attachmentID);
+				
+				if(is_array($arrItem))
+					$attachmentID = UniteFunctionsUC::getVal($arrItem, "id");
+			}
+			
+			
+			return($attachmentID);
 		}
-
-		if(empty($metaKey))
-			return (null);
-
-		$attachmentID = get_term_meta($termID, $metaKey, true);
-
-		if(empty($attachmentID))
-			return (null);
-
-		$arrImage = self::getAttachmentData($attachmentID);
-
+		
+		
+		/**
+		 * get term meta
+		 */
+		public static function getTermImage($termID, $metaKey){
+			
+			$attachmentID = self::getTermImageID($termID, $metaKey);
+			
+			if(empty($attachmentID))
+				return (null);
+			
+			$arrImage = self::getAttachmentData($attachmentID);
+		
 		return ($arrImage);
 	}
 

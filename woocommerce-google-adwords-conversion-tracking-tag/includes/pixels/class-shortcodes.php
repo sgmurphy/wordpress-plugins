@@ -276,7 +276,7 @@ class Shortcodes {
 
 		<script>
 			wpmFunctionExists("gtag").then(function () {
-					if (wpm.googleConfigConditionsMet("marketing")) gtag("event", "conversion", {"send_to": 'AW-<?php echo esc_js($shortcode_attributes['gads-conversion-id']); ?>/<?php echo esc_js($shortcode_attributes['gads-conversion-label']); ?>'})
+					if (wpm.googleConfigConditionsMet({type: "marketing"})) gtag("event", "conversion", {"send_to": 'AW-<?php echo esc_js($shortcode_attributes['gads-conversion-id']); ?>/<?php echo esc_js($shortcode_attributes['gads-conversion-label']); ?>'})
 				},
 			)
 		</script>

@@ -216,7 +216,7 @@ function backuply_stop_backup() {
 	backuply_ajax_nonce_verify();
 	
 	backuply_status_log('Stopping the Backup', 'info', -1);
-	update_option('backuply_backup_stopped', true);
+	update_option('backuply_backup_stopped', true, false);
 	wp_send_json(array('success' => true));
 }
 
@@ -252,7 +252,7 @@ function backuply_force_stop() {
 	backuply_ajax_nonce_verify();
 	
 	delete_option('backuply_status');
-	update_option('backuply_backup_stopped', true);
+	update_option('backuply_backup_stopped', true, false);
 	
 	if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 		@unlink(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php');
@@ -328,7 +328,7 @@ function backuply_restore_response($is_last = false) {
 	if(!$is_last && !empty($_REQUEST['restore_db']) && !empty($_REQUEST['is_migrating'])){
 		$session_data = array('time' => time(), 'key' => backuply_optreq('sess_key'), 'user_id' => backuply_optreq('user_id'));
 	
-		update_option('backuply_restore_session_key', $session_data);
+		update_option('backuply_restore_session_key', $session_data, false);
 		
 		backuply_status_log('Repairing database serialization', 'info', 78);
 		$clones = ['options' => 'option', 'postmeta' => 'meta', 'commentmeta' => 'meta'];
@@ -407,7 +407,7 @@ Backuply';
 	}
 
 	backuply_status_log('Restore performed successfully.', 'success', 100);
-	update_option('backuply_last_restore', time());
+	update_option('backuply_last_restore', time(), false);
 	backuply_delete_rinfo_on_restore();
 	backuply_copy_log_file(true);
 	backuply_clean_restoration_file();
@@ -656,7 +656,7 @@ function backuply_save_excludes() {
 	}
 	$this_type[$key] = $pattern;
 
-	update_option('backuply_excludes', $backuply['excludes']);
+	update_option('backuply_excludes', $backuply['excludes'], false);
 	
 	wp_send_json(array('success' => true, 'key' => $key));
 	
@@ -683,7 +683,7 @@ function backuply_exclude_rule_delete() {
 	}
 	
 	unset($this_type[$key]);
-	update_option('backuply_excludes', $backuply['excludes']);
+	update_option('backuply_excludes', $backuply['excludes'], false);
 	
 	wp_send_json(array('success' => true));
 }
@@ -875,7 +875,7 @@ function backuply_bcloud_trial(){
 	}
 	
 	if(!defined('BACKUPLY_PRO')){
-		update_option('bcloud_trial_time', time() + 2592000);
+		update_option('bcloud_trial_time', time() + 2592000, false);
 	}
 
 	wp_send_json_success(__('Backuply Cloud has been integrated Successfully, It\'s ready to use now', 'backuply'));

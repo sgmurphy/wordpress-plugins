@@ -9,6 +9,8 @@ Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
+This simple plugin create Drag & Drop or choose Multiple File upload in your Confact Form 7 Forms.
+
 == Description ==
 
 **Drag and Drop Multiple File Uploader** is a simple, straightforward WordPress plugin extension for Contact Form7, which allows the user to upload multiple files using the **drag-and-drop** feature or the common browse-file of your webform.

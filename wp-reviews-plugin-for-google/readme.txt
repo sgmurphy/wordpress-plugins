@@ -3,7 +3,7 @@ Contributors: trustindex
 Donate link: https://www.trustindex.io/prices/
 Tags: google, google places reviews, reviews, widget, google business
 Requires at least: 3.0.1
-Tested up to: 6.4.2
+Tested up to: 6.5.2
 Requires PHP: 5.2
 Stable tag: 11.8.2
 License: GPLv2 or later

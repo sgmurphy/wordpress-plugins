@@ -2546,10 +2546,19 @@ function backuply_mysql_connect($host, $user, $pass, $newlink = false){
 	
 	if(extension_loaded('mysqli')){
 		//echo 'mysqli';
-		//To handle connection if user passes a custom port along with the host as localhost:6446
+		// To handle connection if user passes a custom port along with the host as localhost:6446
 		$exh = explode(':', $host);
 		if(!empty($exh[1])){
-			$sconn = @mysqli_connect($exh[0], $user, $pass, '', $exh[1]);
+			$sock = null;
+			$port = $exh[1];
+			
+			// To handle connection if user passes a socket like localhost:usr/mysql/mysql.sock
+			if(!is_numeric($exh[1])){
+				$sock = $exh[1];
+				$port = null;
+			}
+
+			$sconn = @mysqli_connect($exh[0], $user, $pass, '', $port, $sock);
 		}else{
 			$sconn = @mysqli_connect($host, $user, $pass);
 		}

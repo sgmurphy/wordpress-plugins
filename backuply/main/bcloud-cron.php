@@ -7,6 +7,17 @@ if(!defined('ABSPATH')){
 // Cron for Calling Auto Backup
 add_action('backuply_auto_backup_cron', 'backuply_auto_backup_execute');
 
+// Auto Backup using custom cron
+if(isset($_GET['action'])  && $_GET['action'] == 'backuply_custom_cron'){
+
+	if(!backuply_verify_self(sanitize_text_field(wp_unslash($_REQUEST['backuply_key'])))){
+		backuply_status_log('Security Check Failed', 'error');
+		die();
+	}
+	
+	backuply_auto_backup_execute();
+}
+
 // Adds a Wp-Cron for autobackup
 function backuply_add_auto_backup_schedule($schedule = '') {
 	global $backuply;

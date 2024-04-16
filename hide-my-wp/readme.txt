@@ -288,8 +288,11 @@ Update - Added the required header security for Apache and Nginx
 Update - Added the option to block the theme detectors
 Update - Added the option to block theme detectors crawlers by IP & agent
 Update - Added the option to simulate CMSs like Drupal & Joomla
+Update - Added the option on Apache to insert the firewall rules into .htaccess
 Fixed - Load Firewall on all server types only in frontend to avoid functionality issues in backend
 Fixed - Avoid loading recaptcha on Password reset link
+Fixed - Screen 120dpi display layout
+Fixed - Hide reCaptcha secret key in Settings
 
 = 5.0.29 (19 Mar 2024) =
 Update - Compatibility with WP 6.5

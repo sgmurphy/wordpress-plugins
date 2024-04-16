@@ -14,7 +14,7 @@ $enable_btn=(int) (!isset($enable_save_btn) ? 1 : $enable_save_btn);
 		if(1 === $enable_btn)
 		{
 		?>
-			<input type="submit" name="update_admin_settings_form" value="<?php echo esc_html($settings_button_title); ?>" class="button button-primary wt_pklist_update_settings_btn"/>
+			<input type="submit" name="update_admin_settings_form" value="<?php echo esc_html($settings_button_title); ?>" class="button button-primary wt_pklist_update_settings_btn wt_pklist_update_settings_btn_invoice"/>
 			<span class="spinner" style="margin-top:11px"></span>
 		<?php
 		}

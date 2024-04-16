@@ -754,6 +754,13 @@ class MonsterInsights_SiteNotes_Controller
 
 		return $data;
 	}
+
+	/**
+	 * Create a site note.
+	 */
+	public function create_note( $note_details ) {
+		return $this->db->create( $note_details );
+	}
 }
 
 MonsterInsights_SiteNotes_Controller::get_instance()->run();

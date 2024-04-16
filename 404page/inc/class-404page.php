@@ -23,7 +23,7 @@ if ( ! defined( 'PP_404' ) ) {
 if ( !class_exists( 'PP_404Page' ) ) {
   
   
-  class PP_404Page extends PPF08_Plugin {
+  class PP_404Page extends PPF09_Plugin {
     
     
     /**

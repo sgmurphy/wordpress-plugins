@@ -533,7 +533,14 @@ class Environment {
 		return is_plugin_active('gdpr-cookie-compliance/moove-gdpr.php');
 	}
 
-	public static function is_cookie_law_info_active() {
+	/**
+	 * Check if CookieYes is active
+	 *
+	 * Formerly called Cookie Law Info
+	 *
+	 * @return bool
+	 */
+	public static function is_cookieyes_active() {
 		return is_plugin_active('cookie-law-info/cookie-law-info.php');
 	}
 
@@ -572,7 +579,7 @@ class Environment {
 			self::is_borlabs_cookie_active()
 			|| self::is_complianz_active()
 			|| self::is_cookiebot_active()
-			|| self::is_cookie_law_info_active()
+			|| self::is_cookieyes_active()
 			|| self::is_cookie_notice_active()
 			|| self::is_cookie_script_active()
 			|| self::is_moove_gdpr_active()

@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 class gdrive{
 
 	var $access_token;
@@ -149,7 +150,7 @@ class gdrive{
 			$error[] = 'Google Drive : '.$resp['error'];
 			return false;
 		}
-		
+
 		$op = explode("\r\n", $resp['result']);
 		
 		foreach($op as $ok => $ov){

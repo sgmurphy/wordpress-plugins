@@ -112,6 +112,7 @@ class Wf_Woocommerce_Packing_List_Admin {
 				$dont_show_again = true;
 			}
 		}
+		$wt_pklist_plugin_data = $this->get_wt_pklist_plugin_data();
 		$params=array(
 			'nonces' => array(
 		            'wf_packlist' => wp_create_nonce(WF_PKLIST_PLUGIN_NAME),
@@ -122,6 +123,7 @@ class Wf_Woocommerce_Packing_List_Admin {
 			'print_action_url'=>admin_url('?print_packinglist=true'),
 			'order_meta_autocomplete' => json_encode($order_meta_autocomplete),
 			'is_rtl' => $is_rtl,
+			'wt_plugin_data' => $wt_pklist_plugin_data,
 			'msgs'=>array(
 				'settings_success'=>__('Settings updated.','print-invoices-packing-slip-labels-for-woocommerce'),
 				'all_fields_mandatory'=>__('All fields are mandatory','print-invoices-packing-slip-labels-for-woocommerce'),
@@ -1518,27 +1520,24 @@ class Wf_Woocommerce_Packing_List_Admin {
 	*/
 	public function save_settings()
 	{
-		$out=array(
-			'status'=>false,
-			'msg'=>__('Error', 'print-invoices-packing-slip-labels-for-woocommerce'),
+		$base		= ( isset( $_POST['wf_settings_base'] ) ? sanitize_text_field( $_POST['wf_settings_base'] ) : 'main' );
+		$base_id	= ( "main" === $base ? '' : Wf_Woocommerce_Packing_List::get_module_id( $base ) );
+		$tab_name 	= ( isset( $_POST['wt_tab_name'] ) ? sanitize_text_field( $_POST['wt_tab_name'] ) : "" );
+		$out		= array(
+			'status'	=> false,
+			'msg'		=> __('Error', 'print-invoices-packing-slip-labels-for-woocommerce'),
 		);
 
-		$base=(isset($_POST['wf_settings_base']) ? sanitize_text_field($_POST['wf_settings_base']) : 'main');
-		$base_id=("main" === $base ? '' : Wf_Woocommerce_Packing_List::get_module_id($base));
-		$tab_name = (isset($_POST['wt_tab_name']) ? sanitize_text_field($_POST['wt_tab_name']) : "");
-		if(Wf_Woocommerce_Packing_List_Admin::check_write_access()) 
-    	{
-    		$the_options=Wf_Woocommerce_Packing_List::get_settings($base_id);
-    		$single_checkbox_fields = Wf_Woocommerce_Packing_List::get_single_checkbox_fields($base_id,$tab_name);
-    		$multi_checkbox_fields = Wf_Woocommerce_Packing_List::get_multi_checkbox_fields($base_id,$tab_name);
+		if( Wf_Woocommerce_Packing_List_Admin::check_write_access() ) {
 
-    		//multi select form fields array. (It will not return a $_POST val if it's value is empty so we need to set default value)
-	        $default_val_needed_fields=array();
-
-	        /* this is an internal filter */
-	        $default_val_needed_fields=apply_filters('wt_pklist_intl_alter_multi_select_fields', $default_val_needed_fields, $base_id);
-
-	        $validation_rule=array(				
+    		$the_options				= Wf_Woocommerce_Packing_List::get_settings( $base_id );
+    		$single_checkbox_fields		= Wf_Woocommerce_Packing_List::get_single_checkbox_fields( $base_id, $tab_name );
+    		$multi_checkbox_fields		= Wf_Woocommerce_Packing_List::get_multi_checkbox_fields( $base_id, $tab_name );
+	        
+			//multi select form fields array. (It will not return a $_POST val if it's value is empty so we need to set default value).
+			$default_val_needed_fields	= apply_filters( 'wt_pklist_intl_alter_multi_select_fields', array(), $base_id ); // this is an internal filter.    
+			
+			$validation_rule			= array(				
 				'woocommerce_wf_packinglist_boxes'			=> array( 'type'	=> 'text_arr' ),
 				'woocommerce_wf_packinglist_footer'			=> array( 'type'	=> 'textarea' ),
 				'woocommerce_wf_generate_for_taxstatus'		=> array( 'type'	=> 'text_arr' ),
@@ -1546,25 +1545,25 @@ class Wf_Woocommerce_Packing_List_Admin {
 				'wt_pklist_auto_temp_clear_interval'		=> array( 'type'	=> 'int' ),
 				'wt_pklist_separate_print_button_enable'	=> array( 'type'	=> 'text_arr' ),
 		    ); //this is for plugin settings default. Modules can alter
-	        $validation_rule=apply_filters('wt_pklist_intl_alter_validation_rule', $validation_rule, $base_id);
-
-	       	$run_empty_count = false;
+	        $validation_rule			= apply_filters( 'wt_pklist_intl_alter_validation_rule', $validation_rule, $base_id );
+	       	
+			$run_empty_count 			= false;
 	        //invoice number empty count trigger when changing the order status in invoice settings page
-	        if(isset($_POST['woocommerce_wf_generate_for_orderstatus'])){
-	        	if(is_array($the_options['woocommerce_wf_generate_for_orderstatus']) && is_array($_POST['woocommerce_wf_generate_for_orderstatus'])){
-	        		$find_diff = array_merge (array_diff($the_options['woocommerce_wf_generate_for_orderstatus'], $_POST['woocommerce_wf_generate_for_orderstatus']), array_diff($_POST['woocommerce_wf_generate_for_orderstatus'], $the_options['woocommerce_wf_generate_for_orderstatus']));
-		        	if(!empty($find_diff)){
+	        if ( isset( $_POST['woocommerce_wf_generate_for_orderstatus'] ) ) {
+	        	if ( is_array( $the_options['woocommerce_wf_generate_for_orderstatus'] ) && is_array( $_POST['woocommerce_wf_generate_for_orderstatus'] ) ) {
+	        		$find_diff = array_merge( array_diff( $the_options['woocommerce_wf_generate_for_orderstatus'], $_POST['woocommerce_wf_generate_for_orderstatus'] ), array_diff( $_POST['woocommerce_wf_generate_for_orderstatus'], $the_options['woocommerce_wf_generate_for_orderstatus'] ) );
+		        	if ( !empty( $find_diff ) ) {
 		        		$run_empty_count = true;
 		        	}
 	        	}
 	        }
 
 	        // invoice number empty count trigger when enable or disable the old orders
-	        if(isset($the_options['wf_woocommerce_invoice_prev_install_orders'])){
-	        	$prev_val = isset($_POST['wf_woocommerce_invoice_prev_install_orders']) ? sanitize_text_field($_POST['wf_woocommerce_invoice_prev_install_orders']) : "";
-	        	if(("" !== $prev_val) && ($prev_val !== $the_options['wf_woocommerce_invoice_prev_install_orders'])){
+	        if ( isset( $the_options['wf_woocommerce_invoice_prev_install_orders'] ) ) {
+	        	$prev_val	= isset($_POST['wf_woocommerce_invoice_prev_install_orders']) ? sanitize_text_field($_POST['wf_woocommerce_invoice_prev_install_orders']) : "";
+	        	if ( ( "" !== $prev_val ) && ( $prev_val !== $the_options['wf_woocommerce_invoice_prev_install_orders'] ) ) {
 	        		$run_empty_count = true;
-		        }elseif(("" === $prev_val) && ("No" !== $the_options['wf_woocommerce_invoice_prev_install_orders'])){
+		        } elseif ( ( "" === $prev_val ) && ( "No" !== $the_options['wf_woocommerce_invoice_prev_install_orders'] ) ) {
 	        		$run_empty_count = true;
 		        }
 	        }
@@ -1574,7 +1573,7 @@ class Wf_Woocommerce_Packing_List_Admin {
 			 * To avoid the key conflict with new UI of Invoice number settings in invoice, credit note and proforma invoice number
 			 * The new keys are appended with keyword `_pdf_fw`
 			 */
-			$invoice_number_keys = array(
+			$invoice_number_keys	= array(
 				"woocommerce_wf_invoice_number_format",
 				"woocommerce_wf_Current_Invoice_number",
 				"woocommerce_wf_invoice_start_number",
@@ -1584,71 +1583,67 @@ class Wf_Woocommerce_Packing_List_Admin {
 				"woocommerce_wf_invoice_as_ordernumber",
 			);
 
-	        foreach($the_options as $key => $value) 
-	        {
-				if( in_array( $key, $invoice_number_keys ) ) {
-					$modified_key 	= $key.'_pdf_fw';
+	        foreach ( $the_options as $key => $value ) {
+				if ( in_array( $key, $invoice_number_keys ) ) {
+					$modified_key	= $key.'_pdf_fw';
 					$post_key		= isset( $_POST[$modified_key] ) ? $modified_key :  $key;
-				}else{
-					$post_key = $key;
+				} else {
+					$post_key 		= $key;
 				}
 
-	            if(isset($_POST[$post_key]))
-	            {
-	            	$the_options[$key]=$this->validate_settings_data($_POST[$post_key], $key, $validation_rule);
-	            	if("woocommerce_wf_packinglist_boxes" === $key)
-	            	{
-	            		$the_options[$key]=$this->validate_box_packing_field($_POST[$key]);
+	            if ( isset( $_POST[$post_key] ) ) {
+	            	$the_options[$key]		= $this->validate_settings_data( $_POST[$post_key], $key, $validation_rule );
+	            	
+					if( "woocommerce_wf_packinglist_boxes" === $key ) {
+	            		$the_options[$key]	= $this->validate_box_packing_field( $_POST[$key] );
 	            	}
 
-					if("wt_pklist_auto_temp_clear_interval" === $key && "" === trim($_POST[$key])){
-						$the_options[$key] = 0;
+					if ( "wt_pklist_auto_temp_clear_interval" === $key && "" === trim( $_POST[$key] ) ) {
+						$the_options[$key] 	= 0;
 					}
 
-	            	if(isset($multi_checkbox_fields[$key])){
-	            		$the_options[$key] = apply_filters('wf_module_save_multi_checkbox_fields',$the_options[$key],$key,$multi_checkbox_fields,$base_id);
+	            	if ( isset( $multi_checkbox_fields[$key] ) ) {
+	            		$the_options[$key] 	= apply_filters( 'wf_module_save_multi_checkbox_fields', $the_options[$key], $key, $multi_checkbox_fields, $base_id );
 	            	}
-	            }elseif(array_key_exists($key,$single_checkbox_fields)){
-	            	if(!isset($_POST['update_sequential_number'])){ //since the settings of the invoice are divided into 2
-	            		$the_options[$key] = $single_checkbox_fields[$key]; //if unchecked,PHP will not send the values, so get the unchecked value from the respective modules
+	            } elseif ( array_key_exists( $key, $single_checkbox_fields ) ) {
+	            	if( !isset( $_POST['update_sequential_number'] ) ) { //since the settings of the invoice are divided into 2
+	            		$the_options[$key] 	= $single_checkbox_fields[$key]; //if unchecked,PHP will not send the values, so get the unchecked value from the respective modules
 	            	}
-	            }elseif(array_key_exists($key, $multi_checkbox_fields)){
-		            $the_options[$key] = $multi_checkbox_fields[$key];
-	            }else
-	            {
-	            	if(array_key_exists($key,$default_val_needed_fields))
-	            	{
+	            } elseif ( array_key_exists( $key, $multi_checkbox_fields ) ) {
+		            $the_options[$key] 		= $multi_checkbox_fields[$key];
+	            } else {
+	            	if ( array_key_exists( $key, $default_val_needed_fields ) ) {
 	            		/* Set a hidden field for every multi-select field in the form. This will be used to populate the multi-select field with an empty array when it does not have any value. */
-	            		if(isset($_POST[$key.'_hidden']))
+	            		if ( isset( $_POST[$key.'_hidden'] ) )
 	            		{
-	            			$the_options[$key]=$default_val_needed_fields[$key];
+	            			$the_options[$key]	= $default_val_needed_fields[$key];
 	            		}
 	            	}
 	            }
 	        }
-	        Wf_Woocommerce_Packing_List::update_settings($the_options, $base_id);
 
+	        Wf_Woocommerce_Packing_List::update_settings($the_options, $base_id);
 	        do_action('wf_pklist_intl_after_setting_update', $the_options, $base_id);
 
-	        if(true === $run_empty_count){
+	        if ( true === $run_empty_count ) {
 	        	$this->wt_get_empty_invoice_number_count();
 	        }
 
-	        $out['status']=true;
-	        $out['msg']=__('Settings Updated', 'print-invoices-packing-slip-labels-for-woocommerce');
-	       
+	        $out['status']		= true;
+	        $out['msg']			= __('Settings Updated', 'print-invoices-packing-slip-labels-for-woocommerce');
+			$out['saved_data'] 	= $this->get_wt_pklist_plugin_data( true );
     	}
-		echo json_encode($out);
+		echo json_encode( $out );
 		exit();
 	}
 
 	public static function strip_unwanted_tags($html)
 	{
-		$html=html_entity_decode(stripcslashes($html));
-		$html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
-		$html = preg_replace('#<iframe(.*?)>(.*?)</iframe>#is', '', $html);
-		$html = preg_replace('#<audio(.*?)>(.*?)</audio>#is', '', $html);
-		$html = preg_replace('#<video(.*?)>(.*?)</video>#is', '', $html);
+		$html	= html_entity_decode(stripcslashes($html));
+		$html 	= preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+		$html 	= preg_replace('#<iframe(.*?)>(.*?)</iframe>#is', '', $html);
+		$html 	= preg_replace('#<audio(.*?)>(.*?)</audio>#is', '', $html);
+		$html 	= preg_replace('#<video(.*?)>(.*?)</video>#is', '', $html);
 		return $html;
 	}
 
@@ -1715,99 +1710,52 @@ class Wf_Woocommerce_Packing_List_Admin {
     * Compatible with multi currency and currency switcher plugin
     * 2.7.9 - bug fix - compatible with WC version below 4.1.0
     */
-    public static function wf_display_price($user_currency,$order,$price,$from=""){
-
-    	$order_id=WC()->version<'2.7.0' ? $order->id : $order->get_id();
-    	$price = (float)$price;
-		$negative_price = (0 > $price) ? true : false;
-		$price = abs((float)$price);
-
-    	if(WC()->version<'4.1.0'){
-    		$symbols = self::wf_get_woocommerce_currency_symbols();
-    	}else{
-    		$symbols = get_woocommerce_currency_symbols();
-    	}
-
-    	if(get_option('woocommerce_currency_pos')){
-    		$currency_pos = get_option('woocommerce_currency_pos');
-    	}else{
-    		$currency_pos = "left";
-    	}
-    	
+    public static function wf_display_price( $user_currency, $order, $price, $from="" ) {
+    	$order_id			= WC()->version<'2.7.0' ? $order->id : $order->get_id();
+    	$price 				= (float)$price;
+		$negative_price 	= ( 0 > $price ) ? true : false;
+		$price 				= abs( (float)$price );
+		$symbols			= ( '4.1.0' > WC()->version ) ? self::wf_get_woocommerce_currency_symbols() : get_woocommerce_currency_symbols();
+		$currency_pos		= get_option('woocommerce_currency_pos') ? get_option('woocommerce_currency_pos') : 'left';
     	$wc_currency_symbol = isset( $symbols[ $user_currency ] ) ? $symbols[ $user_currency ] : '';
+		$decimal			= get_option('woocommerce_price_num_decimals') ? wc_get_price_decimals() : 0;
+    	$decimal_sep		= get_option('woocommerce_price_decimal_sep') ? wc_get_price_decimal_separator() : '.';
+		$thousand_sep		= get_option('woocommerce_price_thousand_sep') ? wc_get_price_thousand_separator() : ',';
 
-    	if(get_option('woocommerce_price_num_decimals')){
-    		$decimal = wc_get_price_decimals();
-    	}else{
-    		$decimal = 0;
-    	}
-    	
-    	if(get_option('woocommerce_price_decimal_sep')){
-    		$decimal_sep = wc_get_price_decimal_separator();
-    	}else{
-    		$decimal_sep = ".";
-    	} 
-
-    	if(get_option('woocommerce_price_thousand_sep')){
-    		$thousand_sep = wc_get_price_thousand_separator();
-    	}else{
-    		$thousand_sep = ",";
-    	}
-
-    	if(is_plugin_active('woocommerce-currency-switcher/index.php'))
-		{
-			if(class_exists('WOOCS')){
-				global $WOOCS;
-				$multi_currencies = $WOOCS->get_currencies();
-				$user_selected_currency = $multi_currencies[$user_currency];
-				$currency_symbol = "";
-				if(!empty($user_selected_currency)){
-					if(array_key_exists('position', $user_selected_currency))
-					{
-						$currency_pos = $user_selected_currency["position"];
-					}
-					if(array_key_exists('decimals', $user_selected_currency))
-					{
-						$decimal = $user_selected_currency["decimals"];
-					}
-					if(array_key_exists('symbol',$user_selected_currency))
-					{
-						$wc_currency_symbol = $user_selected_currency["symbol"];
-					}
-				}
+    	if ( is_plugin_active( 'woocommerce-currency-switcher/index.php' ) && class_exists( 'WOOCS' ) ) {
+			global $WOOCS;
+			$multi_currencies		= $WOOCS->get_currencies();
+			$user_selected_currency = $multi_currencies[$user_currency];
+			if ( !empty( $user_selected_currency ) ) {
+				$currency_pos		= isset( $user_selected_currency["position"] ) ? $user_selected_currency["position"] : $currency_pos;
+				$decimal 			= isset( $user_selected_currency["decimals"] ) ? $user_selected_currency["decimals"] : $decimal;
+				$wc_currency_symbol = isset( $user_selected_currency["symbol"] ) ? $user_selected_currency["symbol"] : $$wc_currency_symbol;
 			}
-		}elseif(is_plugin_active('woo-multi-currency/woo-multi-currency.php'))
-		{
-			$wmc_order_info = Wt_Pklist_Common::get_order_meta($order_id,'wmc_order_info',true);
-			if(!empty($wmc_order_info) && is_array($wmc_order_info) && isset($wmc_order_info[$user_currency]))
-			{
-				$currency_pos 	= isset($wmc_order_info[$user_currency]['pos']) ? isset($wmc_order_info[$user_currency]['pos']) : $currency_pos;
-				$decimal 		= isset($wmc_order_info[$user_currency]['decimals']) ? $wmc_order_info[$user_currency]['decimals'] : $decimal;
+		} elseif ( is_plugin_active( 'woo-multi-currency/woo-multi-currency.php' ) ) {
+			$wmc_order_info 		= Wt_Pklist_Common::get_order_meta($order_id,'wmc_order_info',true);
+			
+			if ( !empty( $wmc_order_info ) && is_array( $wmc_order_info ) && isset( $wmc_order_info[$user_currency] ) ) {
+				$currency_pos 		= isset( $wmc_order_info[$user_currency]['pos'] ) ? isset( $wmc_order_info[$user_currency]['pos'] ) : $currency_pos;
+				$decimal 			= isset( $wmc_order_info[$user_currency]['decimals'] ) ? $wmc_order_info[$user_currency]['decimals'] : $decimal;
 			}
 		}
 
-		if("" === trim($decimal)){
-			$decimal = 0;
-		}
-		if("" === trim($decimal_sep)){
-			$decimal_sep = ".";
-		}
-		if("" === trim($thousand_sep)){
-			$thousand_sep = ",";
+		$decimal			= ( "" === trim( $decimal ) ) ? 0 : $decimal;
+		$decimal_sep 		= ( "" === trim( $decimal_sep ) ) ? "." : $decimal_sep;
+		$thousand_sep		= ( "" === trim( $thousand_sep ) ) ? ',' : $thousand_sep;
+		$wc_currency_symbol = apply_filters( 'wt_pklist_alter_currency_symbol', $wc_currency_symbol, $symbols, $user_currency, $order, $price );
+		$currency_pos 		= apply_filters( 'wt_pklist_alter_currency_symbol_position', $currency_pos, $symbols, $wc_currency_symbol, $user_currency, $order, $price );
+		$decimal 			= apply_filters( 'wt_pklist_alter_currency_decimal', $decimal, $wc_currency_symbol, $user_currency, $order, $price );
+		$decimal_sep 		= apply_filters( 'wt_pklist_alter_currency_decimal_seperator', $decimal_sep, $symbols, $wc_currency_symbol, $user_currency, $order, $price );
+    	$thousand_sep 		= apply_filters( 'wt_pklist_alter_currency_thousand_seperator', $thousand_sep, $symbols, $wc_currency_symbol, $user_currency, $order, $price );
+    	$wf_formatted_price = number_format( $price, $decimal, $decimal_sep, $thousand_sep );
+
+    	if( "qrcode" === $from ) {
+			return wp_kses_post( $wf_formatted_price.' '.$user_currency );
 		}
 
-		$wc_currency_symbol = apply_filters('wt_pklist_alter_currency_symbol',$wc_currency_symbol,$symbols,$user_currency,$order,$price);
-
-		$currency_pos = apply_filters('wt_pklist_alter_currency_symbol_position',$currency_pos,$symbols,$wc_currency_symbol,$user_currency,$order,$price);
-		$decimal = apply_filters('wt_pklist_alter_currency_decimal',$decimal,$wc_currency_symbol,$user_currency,$order,$price);
-		$decimal_sep = apply_filters('wt_pklist_alter_currency_decimal_seperator',$decimal_sep,$symbols,$wc_currency_symbol,$user_currency,$order,$price);
-    	$thousand_sep = apply_filters('wt_pklist_alter_currency_thousand_seperator',$thousand_sep,$symbols,$wc_currency_symbol,$user_currency,$order,$price);
-    	$wf_formatted_price = number_format($price,$decimal,$decimal_sep,$thousand_sep);
-    	if("qrcode" === $from){
-			return $wf_formatted_price.' '.$user_currency;
-		}
-		if("" !== trim($wc_currency_symbol)){
-			switch ($currency_pos) {
+		if("" !== trim( $wc_currency_symbol ) ) {
+			switch ( $currency_pos ) {
 				case 'left':
 					$result = $wc_currency_symbol.$wf_formatted_price;
 					break;
@@ -1824,13 +1772,13 @@ class Wf_Woocommerce_Packing_List_Admin {
 					$result = $wc_currency_symbol.$wf_formatted_price;
 					break;
 			}
-		}else{
+		} else {
 			$result = $wf_formatted_price.' '.$user_currency;
 		}
-		$result = (true === $negative_price) ? '-'.$result : $result;
-		$result = apply_filters('wt_pklist_change_currency_format',$result,$symbols,$wc_currency_symbol,$currency_pos,$decimal,$decimal_sep,$thousand_sep,$user_currency,$price,$order);
 
-		return "<span>".$result."</span>";	
+		$result = (true === $negative_price) ? '-'. $result : $result;
+		$result = apply_filters( 'wt_pklist_change_currency_format', $result, $symbols, $wc_currency_symbol, $currency_pos, $decimal, $decimal_sep, $thousand_sep, $user_currency, $price, $order );
+		return "<span>".wp_kses_post( $result )."</span>";	
     }
 
     public static function wf_get_decimal_price($user_currency,$order){
@@ -4822,6 +4770,23 @@ class Wf_Woocommerce_Packing_List_Admin {
 		$screen_ids[] = 'invoice-packing_page_wf_woocommerce_packing_list_shippinglabel';
 		$screen_ids[] = 'invoice-packing_page_wf_woocommerce_packing_list_dispatchlabel'; // Plugin settings page
 		return $screen_ids;
+	}
+
+	public function get_wt_pklist_plugin_data( $from_ajax = false ) {
+		$page_param 			= '';
+		$wt_pklist_plugin_data 	= array(
+			'main'	=> get_option('Wf_Woocommerce_Packing_List'),
+		);
+
+		if( true === $from_ajax ) {
+			$base		= ( isset( $_POST[ 'wf_settings_base' ] ) ? sanitize_text_field( $_POST[ 'wf_settings_base' ] ) : 'main' );
+			$page_param	= ( "main" === $base ? '' : Wf_Woocommerce_Packing_List::get_module_id( $base ) );
+		} else {
+			$page_param = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ): '';
+		}
+
+		$wt_pklist_plugin_data = apply_filters('wt_pklist_get_plugin_data', $wt_pklist_plugin_data, $page_param);
+		return $wt_pklist_plugin_data;
 	}
 
 }

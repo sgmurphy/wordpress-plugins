@@ -180,12 +180,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	/**
 	 * modify terms array for output
 	 */
-	public function modifyArrTermsForOutput($arrTerms, $taxonomy = "", $addCustomFields = false){
-
+	public function modifyArrTermsForOutput($arrTerms, $taxonomy = "", $addCustomFields = false, $postType = null){
+			
 			$isWooCat = false;
-			if($taxonomy == "product_cat" && UniteCreatorWooIntegrate::isWooActive())
+			if( ($taxonomy == "product_cat" || $postType == "product") && UniteCreatorWooIntegrate::isWooActive())
 				$isWooCat = true;
-
+						
 			if(empty($arrTerms))
 				return(array());
 
@@ -196,15 +196,26 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 				$item = array();
 
+				$parentID = UniteFunctionsUC::getVal($arrTerm, "parent_id");
+				
 				$item["index"] = $index;
 				$item["id"] = UniteFunctionsUC::getVal($arrTerm, "term_id");
 				$item["slug"] = UniteFunctionsUC::getVal($arrTerm, "slug");
 				$item["name"] = UniteFunctionsUC::getVal($arrTerm, "name");
 				$item["description"] = UniteFunctionsUC::getVal($arrTerm, "description");
 				$item["link"] = UniteFunctionsUC::getVal($arrTerm, "link");
-				$item["parent_id"] = UniteFunctionsUC::getVal($arrTerm, "parent_id");
+				$item["parent_id"] = $parentID;
 				$item["taxonomy"] = UniteFunctionsUC::getVal($arrTerm, "taxonomy");
-
+				
+				if(!empty($postType))
+					$item["post_type"] = $postType;
+				
+				$classAddParent = "";
+				if(empty($parentID))
+					$classAddParent = "uc-is-parent";
+				
+				$item["class_add_parent"] = $classAddParent;
+				
 				$index++;
 
 				$current = UniteFunctionsUC::getVal($arrTerm, "iscurrent");
@@ -214,7 +225,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 				$item["class_selected"] = "";
 				if($current == true)
 					$item["class_selected"] = "	uc-selected";
-
+				
 				if(isset($arrTerm["count"])){
 
 					if($isWooCat == true){
@@ -226,19 +237,22 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 				}
 
-				//get woo data
+				//get woo data, get term image
+				
 				if($isWooCat == true){
-
-					$thumbID = get_term_meta($item["id"], 'thumbnail_id', true);
+					
+					$thumbID = UniteFunctionsWPUC::getTermImageID($item["id"], "woo_cat");
+					
 					$hasImage = !empty($thumbID);
-
+					
 					$item["has_image"] = $hasImage;
-
+					
 					if(!empty($thumbID))
 						$item = $this->getProcessedParamsValue_image($item, $thumbID, array("name"=>"image"));
-
+					
 				}
-
+				
+				
 				$arrOutput[] = $item;
 			}
 
@@ -246,7 +260,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			if($addCustomFields == true)
 				$arrOutput = $this->addCustomFieldsToTermsArray($arrOutput);
 
-
+			
 			return($arrOutput);
 		}
 
@@ -744,7 +758,14 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$arrData["content"] = $content;
 
 			$link = UniteFunctionsWPUC::getPermalink($post);
-
+			
+			//post link addition
+			
+			$postLinkAdd = UniteFunctionsUC::getPostGetVariable("postlinkadd","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
+			
+			if(!empty($postLinkAdd))
+				$link = UniteFunctionsUC::addUrlParams($link, $postLinkAdd);
+						
 			$arrData["link"] = $link;
 
 			//link attributes
@@ -755,7 +776,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$linkAtrributes = "aria-label=\"{$readMoreText}\" ";
 
 			$arrData["link_attributes"] = $linkAtrributes;
-
+			
 
 			//dynamic popup
 
@@ -3190,22 +3211,8 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			break;
 		}
 		
+	}	
 		
-		if(UniteFunctionsUC::isMaxDebug()){
-			
-			dmp("get gallery title source: $source result: $title");
-			
-			dmp("data: ");
-			dmp($data);
-			
-			dmp("item: ");
-			dmp($item);
-			
-		}
-		
-
-		return($title);
-	}
 
 	/**
 	 * get gallery item data
@@ -3557,14 +3564,8 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			if(empty($urlThumb))
 				$urlThumb = GlobalsUC::$url_no_image_placeholder;
 		}
-		
-		if(UniteFunctionsUC::isMaxDebug()){
-			dmp("image data");
-			dmp($data);
-			dmp("params:");
-			dmp($arrParams);
-		}
-		
+
+
 		$item["image"] = $urlImage;
 		$item["thumb"] = $urlThumb;
 
@@ -3989,9 +3990,9 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 					);
 
 				$postData = $this->getPostDataByObj($item);
-
+				
 				$arrFields = array("id","alias","link","intro","intro_full","excerpt","date","date_modified","image","image_thumb","image_thumb_large");
-
+				
 				foreach($arrFields as $fieldKey){
 
 					if(array_key_exists($fieldKey, $postData) == false)
@@ -4001,7 +4002,6 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 					$newItem[$fieldKey] = $value;
 				}
-
 
 				break;
 				case "terms":
@@ -4423,7 +4423,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	 * get terms data
 	 */
 	public function getWPTermsData($value, $name, $processType, $param, $data){
-
+		
 		$postType = UniteFunctionsUC::getVal($value, $name."_posttype","post");
 		$taxonomy =  UniteFunctionsUC::getVal($value, $name."_taxonomy","category");
 
@@ -4707,9 +4707,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			dmp($args);
 		}
 
-
 		$args = $this->getPostListData_getCustomQueryFilters($args, $value, $name, $data, false);
-
 
 		$term_query = new WP_Term_Query();
 		$arrTermsObjects = $term_query->query( $args );
@@ -4749,7 +4747,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			HelperUC::addDebug("Terms Before Filter:", $arrTermsObjects);
 			HelperUC::addDebug("Exclude by:", $arrExcludeSlugs);
 		}
-
+		
 		if(!empty($arrExcludeSlugs) && is_array($arrExcludeSlugs))
 			$arrTermsObjects = UniteFunctionsWPUC::getTerms_filterBySlugs($arrTermsObjects, $arrExcludeSlugs);
 
@@ -4759,12 +4757,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		$useForListing = UniteFunctionsUC::getVal($param, "use_for_listing");
 		$useForListing = UniteFunctionsUC::strToBool($useForListing);
 
-
 		$arrTerms = UniteFunctionsWPUC::getTermsObjectsData($arrTermsObjects, $taxonomy);
-
-		$arrTerms = $this->modifyArrTermsForOutput($arrTerms, $taxonomy, $useCustomFields);
-
-
+		
+		
+		$arrTerms = $this->modifyArrTermsForOutput($arrTerms, $taxonomy, $useCustomFields, $postType);
+		
+		
 		return($arrTerms);
 	}
 

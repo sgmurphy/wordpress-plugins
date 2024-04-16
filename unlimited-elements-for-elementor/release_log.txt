@@ -1,5 +1,21 @@
 
 
+version 1.5.103:
+
+* Feature: added option to add additional url attributes to post links
+* Feature: improved woo category thumbnail image gether
+* Fix: fixed some widgets editor enable visibility bug
+* Feature: added option to unite gallery - strip_speed
+* Fix: fixed entrance animation run if inside a viewport window
+* Fix: fixed some security issues - escaping some fields output
+
+
+
+version 1.5.102:
+
+* Fix - fixed a small php bug
+
+
 version 1.5.101:
 
 * Feature - added "date time" attribute to items attributes list

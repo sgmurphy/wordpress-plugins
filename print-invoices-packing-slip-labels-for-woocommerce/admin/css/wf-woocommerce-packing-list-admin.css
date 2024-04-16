@@ -55,7 +55,7 @@ a.button.wc-action-button.wc-action-button-wf_pklist_print_document_packinglist_
 .wf_select_multi{width:100%;}
 .wf_select_multi .select2-container{width:100% !important;}
 .wf_settings_form .button {padding:0.3rem 0.75rem; height: auto;}
-.wf-form-table .wf_file_attacher_dv{width:100%; }
+.wf-form-table .wf_file_attacher_dv{width:96%; }
 .wf-form-table .wf_file_attacher_dv input[type="text"]{width:70%; float:left; }
 .wf-form-table .wf_file_attacher_dv input[type="button"]{width:25%; float:right; }
 .wf-form-group{width:100%;}
@@ -309,3 +309,9 @@ td.wt_pklist_dash_btn_row{ border-bottom:solid 1px #efefef; padding:0px; }
 .choose_date_table .date_format_text{color:#6E7681;font-weight: 500;}
 .choose_date_table .date_format_add{color: #3157A6;}
 .choose_date_table .date_format_add .dashicons-plus{font-size: 17px;padding-top: 3px;}
+.reset_invoice_no_blur{cursor: not-allowed;}
+.reset_invoice_no_blur .option_label{opacity: 0.6;}
+.field_warn_outter{ position: absolute; top: 50px;}
+.field_warn_popup{ position: relative; background-color: #FFFFFF; color: #555E6B; padding: 8px 9px 8px 9px; border-radius: 5px; z-index: 9999; box-shadow: 0px 3px 10px 0px #798DA04D; }
+.field_warn_popup1::before { content: ""; position: absolute; border-style: solid; border-width: 0 10px 10px 10px; border-color: transparent transparent #ffcccc transparent; top: -10px; left: 10%;  transform: translateX(-50%); }
+.field_warn_popup_arrow{ content: ""; position: absolute; border-color: transparent transparent #6c2f2f transparent; top: -7px; left: 7%; width: 13px; transform: translateX(0%); height: 13px; transform: rotate(45deg); box-shadow: 0px 3px 10px 0px #798DA04D; }

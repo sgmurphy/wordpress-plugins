@@ -924,9 +924,6 @@ class Pixel_Manager
             'ads_data_redaction' => $this->google->get_google_consent_mode_ads_data_redaction_setting(),
             'url_passthrough'    => $this->google->get_google_consent_mode_url_passthrough_setting(),
         ];
-        if ( $this->options_obj->google->consent_mode->regions ) {
-            $data['consent_mode']['region'] = $this->get_google_consent_regions();
-        }
         if ( $this->options_obj->google->ads->enhanced_conversions ) {
             $data['ads']['enhanced_conversions']['active'] = (bool) $this->options_obj->google->ads->enhanced_conversions;
         }
@@ -1135,30 +1132,6 @@ class Pixel_Manager
         return [
             'account_id' => Options::get_vwo_account_id(),
         ];
-    }
-    
-    protected function get_google_consent_regions()
-    {
-        $regions = $this->options_obj->google->consent_mode->regions;
-        /**
-         * If the user selected the European Union
-         * we have to add all EU country codes,
-         * then remove the 'EU' value.
-         */
-        
-        if ( in_array( 'EU', $regions, true ) ) {
-            $regions = array_merge( $regions, WC()->countries->get_european_union_countries() );
-            unset( $regions[array_search( 'EU', $regions, true )] );
-        }
-        
-        /**
-         * If any manipulation happened beforehand,
-         * make sure to deduplicate the values
-         * and make sure the array starts with a 0 key,
-         * otherwise the JSON output is wrong.
-         */
-        $regions = array_unique( $regions );
-        return array_values( $regions );
     }
     
     protected function add_order_data( $data )
@@ -1628,7 +1601,7 @@ class Pixel_Manager
     
     private function get_general_data()
     {
-        return [
+        $data = [
             'user_logged_in'             => is_user_logged_in(),
             'scroll_tracking_thresholds' => Options::get_scroll_tracking_thresholds(),
             'page_id'                    => get_the_ID(),
@@ -1637,10 +1610,14 @@ class Pixel_Manager
             'active'          => Options::server_2_server_enabled(),
             'ip_exclude_list' => apply_filters( 'pmw_exclude_ips_from_server_2_server_events', [] ),
         ],
-            'cookie_consent_mgmt'        => [
+            'consent_management'         => [
             'explicit_consent' => Options::is_cookie_consent_explicit_consent_active(),
         ],
         ];
+        if ( Options::are_restricted_consent_regions_set() ) {
+            $data['consent_management']['restricted_regions'] = Options::get_restricted_consent_regions();
+        }
+        return $data;
     }
 
 }

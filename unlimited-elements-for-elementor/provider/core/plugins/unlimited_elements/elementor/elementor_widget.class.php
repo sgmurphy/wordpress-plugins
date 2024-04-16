@@ -406,8 +406,10 @@ class UniteCreatorElementorWidget extends Widget_Base {
     				$value = array("url"=>$value);
     		break;
     		case UniteCreatorDialogParam::PARAM_LINK:
-
-    			$value = array("url"=>$value);
+				
+    			if(is_array($value) == false)
+    				$value = array("url"=>$value);
+    			
     		break;
     		case UniteCreatorDialogParam::PARAM_ICON:
 
@@ -2226,7 +2228,7 @@ class UniteCreatorElementorWidget extends Widget_Base {
 
     	$objPagination = new UniteCreatorElementorPagination();
     	$objPagination->addElementorSectionControls($this, $postListParam);
-
+		
     }
 
     /**
@@ -2497,7 +2499,7 @@ class UniteCreatorElementorWidget extends Widget_Base {
 	          		if($type === UniteCreatorDialogParam::PARAM_POSTS_LIST){
 	          			$hasPostsList = true;
 	          			$postListParam = $param;
-
+	
 	          			$showImageSizes = UniteFunctionsUC::getVal($postListParam, "show_image_sizes");
 	          			$showImageSizes = UniteFunctionsUC::strToBool($showImageSizes);
 						
@@ -2598,7 +2600,7 @@ class UniteCreatorElementorWidget extends Widget_Base {
 
           	$forWooCommerce = UniteFunctionsUC::getVal($postListParam, "for_woocommerce_products");
           	$forWooCommerce = UniteFunctionsUC::strToBool($forWooCommerce);
-
+			
           	if($forWooCommerce == true)
           		$labelPosts = esc_html__("Products Query", "unlimited-elements-for-elementor");
 			else
@@ -2653,11 +2655,12 @@ class UniteCreatorElementorWidget extends Widget_Base {
           if($isFontsEnabled == true)
           		$this->addFontControlsUC();
 
-
+		
           //add pagination section if needed
+          
           if($hasPostsList == true){
           		$this->addPaginationControls($postListParam);
-
+			
           }else if($hasListing == true){
 
           	$enablePagination = UniteFunctionsUC::getVal($listingParam, "enable_pagination");
@@ -2672,13 +2675,11 @@ class UniteCreatorElementorWidget extends Widget_Base {
           	$listingName = $listingParam["name"];
 
           	$listingParam["condition"] = array($listingName."_source"=>array("posts","products"));
-
-
+		
           	if($enablePagination == true)
           		$this->addPaginationControls($listingParam);
           }
-
-
+		
           $showMore = false;
           if($hasPostsList == true || $hasListing == true)
           	$showMore = true;
@@ -3766,7 +3767,9 @@ class UniteCreatorElementorWidget extends Widget_Base {
 	    		$this->putAddonNotExistErrorMesssage();
 	    		return(false);
 	    	}
-
+		
+	    	GlobalsProviderUC::$renderPlatform = GlobalsProviderUC::RENDER_PLATFORM_ELEMENTOR;
+	    	
 	    	GlobalsUnlimitedElements::$currentRenderingWidget = $this;
 
 	    	$arrAllSettings = $this->get_settings_for_display();

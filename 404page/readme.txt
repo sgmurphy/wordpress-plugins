@@ -3,7 +3,7 @@ Contributors: petersplugins
 Tags: page, 404, error, error page, 404 page, page not found, page not found error, 404 error page, missing, broken link, template, 404 link, seo, custom 404, custom 404 page, custom 404 error, custom 404 error page, customize 404, customize 404 page, customize 404 error page, classicpress
 Requires at least: 4.0
 Tested up to: 6.3
-Stable tag: 11.4.4
+Stable tag: 11.4.5
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -44,20 +44,6 @@ Different from other similar plugins the 404page plugin **does not create additi
 == Requirements ==
 
 The only requirement for this plugin is that you change the Permalink Structure in ‘Settings’ -> ‘Permalinks’ to anything else but ‘Plain’. This also activates the WordPress 404 error handling.
-
-== Videos ==
-
-[A brief Introduction to the free WordPress Plugin 404page](https://youtu.be/HygoFMwdIuY)
-
-[A quick Overview over the Advanced Settings](https://youtu.be/9rL9LbYiSJk=)
-
-["Force 404 error after loading page" explained](https://youtu.be/09OOCbFLfnI)
-
-["Disable URL Autocorrecton Guessing" explained](https://youtu.be/H0EdtFcAGl4)
-
-["Send HTTP Status Code 410 for trashed objects" explained](https://youtu.be/O5xPM0BMZxM)
-
-["Compatibility Mode" explained](https://youtu.be/wqSepDyQeqY)
 
 == Block & Shortcode ==
 
@@ -110,6 +96,9 @@ The Plugin provides the following functions:
 If you are a theme developer you can add native support for the 404page plugin to your theme for full control.
 
 == Changelog ==
+
+= 11.4.5 (2024-04-16) CLEANUP =
+* Cleanup
 
 = 11.4.4 (2022-10-05) FINAL VERSION =
 * removed all links to webiste

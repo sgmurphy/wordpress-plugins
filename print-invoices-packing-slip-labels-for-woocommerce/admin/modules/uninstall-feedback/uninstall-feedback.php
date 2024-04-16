@@ -359,6 +359,8 @@ class Wf_Woocommerce_Packing_List_Uninstall_Feedback
             'wp_version' => get_bloginfo('version'),
             'wc_version' => (!class_exists( 'WooCommerce' )) ? '' : WC()->version,
             'locale' => get_locale(),
+            'languages' => implode( ",", get_available_languages() ),
+            'theme' => wp_get_theme()->get('Name'),
             'multisite' => is_multisite() ? 'Yes' : 'No',
             'wfinvoice_version' =>$this->current_version,
         );

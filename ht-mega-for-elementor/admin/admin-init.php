@@ -30,7 +30,7 @@ class HTMega_Admin_Setting{
         require_once('include/template-library.php');
         require_once ('include/class.htmega-elementor-template-library.php' );
         require_once ('include/class.library-source.php' );
-        require_once( 'include/class.rating-notice.php' ); // rating notice file
+        require_once( 'include/class.dynamic-notice.php' ); // dynamic notice file
         require_once( HTMEGA_ADDONS_PL_PATH.'includes/class.api.php' );
         if( ! class_exists( 'HTMega_Settings_API' ) ) {
             require_once ( HTMEGA_ADDONS_PL_PATH . '/admin/include/class.settings-api.php' );

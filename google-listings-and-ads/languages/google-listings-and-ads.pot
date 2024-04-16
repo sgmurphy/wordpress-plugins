@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.6.6\n"
+"Project-Id-Version: Google Listings and Ads 2.6.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-09T10:35:18+00:00\n"
+"POT-Creation-Date: 2024-04-16T07:22:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -521,15 +521,15 @@ msgstr ""
 msgid "Error getting account review status"
 msgstr ""
 
-#: src/API/Google/Middleware.php:602
+#: src/API/Google/Middleware.php:603
 msgid "Invalid response getting requesting a new review."
 msgstr ""
 
-#: src/API/Google/Middleware.php:609
+#: src/API/Google/Middleware.php:610
 msgid "A new review has been successfully requested"
 msgstr ""
 
-#: src/API/Google/Middleware.php:616
+#: src/API/Google/Middleware.php:617
 msgid "Error requesting a new review."
 msgstr ""
 

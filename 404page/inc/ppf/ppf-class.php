@@ -3,9 +3,9 @@
 /**
  * Base Class
  *
- * Peter's Plugins Foundation 08
+ * Peter's Plugins Foundation 09
  *
- * @package    PPF08
+ * @package    PPF09
  * @author     Peter Raschendorfer
  * @license    GPL2+
  */
@@ -19,10 +19,10 @@
 }
 
  
-if ( !class_exists( 'PPF08_Class' ) ) {
+if ( !class_exists( 'PPF09_Class' ) ) {
   
   
-  abstract class PPF08_Class {
+  abstract class PPF09_Class {
     
     
     /**

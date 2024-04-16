@@ -9,7 +9,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
-	const SELECTOR_PLACEHOLDER = "{{SELECTOR}}";
+	const SELECTOR_PLACEHOLDER = "{{selector}}";
 
 	/**
 	 * add settings provider types
@@ -2418,7 +2418,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$this->addHr($name."_hr_after_order_dir", $params);
 
 		//allow to modify settings by third party plugins
-		
+
 		do_action("ue_modify_post_list_settings", $this, $name);
 
 
@@ -3008,6 +3008,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$isWooActive = UniteCreatorWooIntegrate::isWooActive();
 		if($isWooActive == true)
 			$arrSource["products"] = __("Products", "unlimited-elements-for-elementor");
+
 
 		if($isForGallery == true){
 			$arrSource["current_post_meta"] = __("Current Post Metafield", "unlimited-elements-for-elementor");

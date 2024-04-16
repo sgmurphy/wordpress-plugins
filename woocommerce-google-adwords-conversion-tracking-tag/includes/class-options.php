@@ -3,7 +3,7 @@
  * Options class
  * https://stackoverflow.com/a/55658771/4688612
  *
- * TODO: in an new db version move cookie_consent_mgmt to the general section
+ * TODO: in an new db version move consent_management to the general section
  * TODO: change ->google->consent_mode->active to ->google->consent_mode->is_active
  */
 
@@ -669,6 +669,32 @@ class Options {
 
 	public static function get_cookie_consent_explicit_consent_input_field_name() {
 		return PMW_DB_OPTIONS_NAME . '[shop][cookie_consent_mgmt][explicit_consent]';
+	}
+
+	public static function are_restricted_consent_regions_set() {
+		return !empty(self::get_options_obj()->google->consent_mode->regions);
+	}
+
+	public static function get_restricted_consent_regions() {
+
+		$regions = self::get_options_obj()->google->consent_mode->regions;
+
+		/**
+		 * If the user selected the European Union,
+		 * we have to add all EU country codes,
+		 * then remove the 'EU' value.
+		 */
+		if (in_array('EU', $regions, true)) {
+			$regions = array_diff(array_merge($regions, WC()->countries->get_european_union_countries()), [ 'EU' ]);
+		}
+
+		/**
+		 * If any manipulation happened beforehand,
+		 * make sure to deduplicate the values
+		 * and make sure the array starts with a 0 key,
+		 * otherwise the JSON output is wrong.
+		 */
+		return array_values(array_unique($regions));
 	}
 
 	public static function is_google_tcf_support_active() {

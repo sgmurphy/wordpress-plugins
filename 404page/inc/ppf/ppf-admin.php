@@ -3,17 +3,17 @@
 /**
  * Admin Class
  *
- * Peter's Plugins Foundation 08
+ * Peter's Plugins Foundation 09
  *
- * @package    PPF08
+ * @package    PPF09
  * @author     Peter Raschendorfer
  * @license    GPL2+
  */
  
-if ( !class_exists( 'PPF08_Admin' ) ) {
+if ( !class_exists( 'PPF09_Admin' ) ) {
   
   
-  abstract class PPF08_Admin extends PPF08_SubClass {
+  abstract class PPF09_Admin extends PPF09_SubClass {
     
     
     /**
@@ -501,7 +501,9 @@ if ( !class_exists( 'PPF08_Admin' ) ) {
       echo '<div class="wrap pp-admin-page-wrapper" id="pp-' . $this->core()->get_plugin_slug() . '-settings"><div class="pp-admin-notice-area"><div class="wp-header-end"></div></div>';
       echo '<div class="pp-admin-page-header">';
       echo $this->_toolbar;
-      echo '<div class="pp-admin-page-title"><h1>' . $this->core()->get_plugin_shortname() . '</h1></div>';
+      echo '<div class="pp-admin-page-title"><h1>' . $this->core()->get_plugin_shortname() . '</h1>';
+	  echo '<p><strong>PLEASE NOTE</strong><br />Development, maintenance and support of this plugin has been retired. You can use this plugin as long as is works for you. Thanks for your understanding.<br />Regards, Peter</p>';
+	  echo '</div>';
       $this->print_setting_sections_nav();
       echo '</div>';
       echo '<div class="pp-admin-page-inner"><form method="POST" action="options.php">';

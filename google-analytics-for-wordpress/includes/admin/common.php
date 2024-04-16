@@ -765,7 +765,7 @@ function monsterinsights_yearinreview_dates()
 	return [
 		'report_year' => $report_year,
 		'next_year' => $next_year,
-		'show_report' => $show_report,
+		'show_report' => apply_filters( 'monsterinsights_yearinreview_show_report', $show_report ),
 	];
 }
 
