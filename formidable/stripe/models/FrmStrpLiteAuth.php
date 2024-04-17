@@ -39,7 +39,7 @@ class FrmStrpLiteAuth {
 			return $html;
 		}
 
-		$atts    = array(
+		$atts = array(
 			'fields' => FrmFieldsHelper::get_form_fields( $form_id ),
 			'entry'  => $details['entry'],
 		);
@@ -57,7 +57,7 @@ class FrmStrpLiteAuth {
 		$intent_is_processing = 'processing' === $intent->status;
 		if ( $intent_is_processing ) {
 			// Append an additional processing message to the end of the success message.
-			$filter = function( $message ) {
+			$filter = function ( $message ) {
 				$stripe_settings = FrmStrpLiteAppHelper::get_settings();
 				$message        .= '<p>' . esc_html( $stripe_settings->settings->processing_message ) . '</p>';
 				return $message;
@@ -171,7 +171,7 @@ class FrmStrpLiteAuth {
 	 */
 	private static function insert_error_message( $message, &$form ) {
 		$add_after = '<fieldset>';
-		$pos = strpos( $form, $add_after );
+		$pos       = strpos( $form, $add_after );
 		if ( $pos !== false ) {
 			$form = substr_replace( $form, $add_after . $message, $pos, strlen( $add_after ) );
 		}
@@ -327,7 +327,7 @@ class FrmStrpLiteAuth {
 				continue;
 			}
 
-			$saved     = FrmStrpLiteAppHelper::call_stripe_helper_class( 'get_intent', $intent_id );
+			$saved = FrmStrpLiteAppHelper::call_stripe_helper_class( 'get_intent', $intent_id );
 			foreach ( $actions as $action ) {
 				if ( $saved->metadata->action != $action->ID ) {
 					continue;
@@ -548,7 +548,7 @@ class FrmStrpLiteAuth {
 		$form = FrmForm::getOne( $form_id );
 
 		foreach ( $actions as $k => $action ) {
-			$amount = self::get_amount_before_submit( compact( 'action', 'form' ) );
+			$amount                                = self::get_amount_before_submit( compact( 'action', 'form' ) );
 			$actions[ $k ]->post_content['amount'] = $amount;
 		}
 	}

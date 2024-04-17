@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.error(response.message);
           return;
         }
-        if (data && data.items.length > 0) {
+        if (data && data.items && data.items.length > 0) {
           const materials = data.items;
           if (ele.querySelector('.lp-skeleton-animation')) {
             ele.querySelector('.lp-skeleton-animation').remove();

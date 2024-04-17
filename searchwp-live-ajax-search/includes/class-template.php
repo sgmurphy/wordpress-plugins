@@ -1,5 +1,7 @@
 <?php
 
+use SearchWP\Utils as SearchWP_Utils;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -140,7 +142,7 @@ class SearchWP_Live_Search_Template {
 
 		$results = $data['query']->posts;
 
-		$data['query_args']['posts__in'] = ! empty( $results ) ? wp_list_pluck( $results, 'ID' ) : [ 0 ];
+		$data['query_args']['post__in'] = ! empty( $results ) ? wp_list_pluck( $results, 'ID' ) : [ 0 ];
 
 		query_posts( $data['query_args'] ); // phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
 
@@ -163,26 +165,45 @@ class SearchWP_Live_Search_Template {
 		global $wp_query;
 
 		$args = [
-			's'              => $data['query_args']['s'],
-			'post_status'    => 'publish',
-			'post_type'      => get_post_types(
-				[
-					'public'              => true,
-					'exclude_from_search' => false,
-				]
-			),
-			'posts_per_page' => $data['query_args']['per_page'],
+			'post_status'      => 'any',
+			'post_type'        => $this->get_engine_post_types(),
+			'posts_per_page'   => $data['query_args']['per_page'],
+			'orderby'          => 'post__in',
+			'suppress_filters' => true,
 		];
 
 		$results = $data['query']->get_results();
 
-		$args['posts__in'] = ! empty( $results ) ? wp_list_pluck( $results, 'ID' ) : [ 0 ];
+		$args['post__in'] = ! empty( $results ) ? wp_list_pluck( $results, 'ID' ) : [ 0 ];
 
 		query_posts( $args ); // phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
 
 		$wp_query->found_posts = $data['query']->found_results;
 
 		load_template( $data['template'], true, false );
+	}
+
+	/**
+	 * Get the post types to query.
+	 *
+	 * @since 1.8.1
+	 *
+	 * @return array
+	 */
+	private function get_engine_post_types() {
+
+		$global_engine_sources = SearchWP_Utils::get_global_engine_source_names();
+
+		$post_types = [];
+
+		foreach ( $global_engine_sources as $global_engine_source ) {
+			$indicator = 'post' . SEARCHWP_SEPARATOR;
+			if ( $indicator === substr( $global_engine_source, 0, strlen( $indicator ) ) ) {
+				$post_types[] = substr( $global_engine_source, strlen( $indicator ) );
+			}
+		}
+
+		return $post_types;
 	}
 
 	/**

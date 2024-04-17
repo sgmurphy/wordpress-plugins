@@ -154,7 +154,7 @@ class FrmApplicationsController {
 	private static function sort_templates( $applications ) {
 		usort(
 			$applications,
-			function( $a, $b ) {
+			function ( $a, $b ) {
 				return strcmp( $a['name'], $b['name'] );
 			}
 		);
@@ -207,9 +207,7 @@ class FrmApplicationsController {
 	 */
 	public static function dequeue_scripts() {
 		if ( 'formidable-applications' === FrmAppHelper::simple_get( 'page', 'sanitize_title' ) ) {
-			// Avoid extra scripts loading on applications index that aren't needed.
-			wp_dequeue_script( 'frm-surveys-admin' );
-			wp_dequeue_script( 'frm-quizzes-form-action' );
+			FrmAppHelper::dequeue_extra_global_scripts();
 		}
 	}
 

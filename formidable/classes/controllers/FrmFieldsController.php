@@ -166,7 +166,7 @@ class FrmFieldsController {
 
 		if ( $ajax_loading && $ajax_this_field ) {
 			$li_classes = self::get_classes_for_builder_field( array(), $display, $field_obj );
-			include( FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/ajax-field-placeholder.php' );
+			include FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/ajax-field-placeholder.php';
 		} else {
 			if ( ! isset( $field ) && is_object( $field_object ) ) {
 				$field_object->parent_form_id = isset( $values['id'] ) ? $values['id'] : $field_object->form_id;
@@ -174,10 +174,10 @@ class FrmFieldsController {
 				$field = FrmFieldsHelper::setup_edit_vars( $field_object );
 			}
 
-			$li_classes = self::get_classes_for_builder_field( $field, $display, $field_obj );
+			$li_classes  = self::get_classes_for_builder_field( $field, $display, $field_obj );
 			$li_classes .= ' ui-state-default widgets-holder-wrap';
 
-			require( FrmAppHelper::plugin_path() . '/classes/views/frm-forms/add_field.php' );
+			require FrmAppHelper::plugin_path() . '/classes/views/frm-forms/add_field.php';
 		}
 	}
 
@@ -244,13 +244,13 @@ class FrmFieldsController {
 		$opts  = explode( "\n", rtrim( $opts, "\n" ) );
 		$opts  = array_map( 'trim', $opts );
 
-		$separate = FrmAppHelper::get_param( 'separate', '', 'post', 'sanitize_text_field' );
+		$separate                = FrmAppHelper::get_param( 'separate', '', 'post', 'sanitize_text_field' );
 		$field['separate_value'] = ( $separate === 'true' );
 
 		if ( $field['separate_value'] ) {
 			foreach ( $opts as $opt_key => $opt ) {
 				if ( strpos( $opt, '|' ) !== false ) {
-					$vals = explode( '|', $opt );
+					$vals             = explode( '|', $opt );
 					$opts[ $opt_key ] = array(
 						'label' => trim( $vals[0] ),
 						'value' => trim( $vals[1] ),
@@ -343,7 +343,7 @@ class FrmFieldsController {
 	 */
 	private static function default_value_types( $field, $atts ) {
 		$types = array(
-			'default_value' => array(
+			'default_value'    => array(
 				'class' => '',
 				'icon'  => 'frm_icon_font frm_text2_icon',
 				'title' => __( 'Default Value (Text)', 'formidable' ),
@@ -351,7 +351,7 @@ class FrmFieldsController {
 					'frmshow' => '#default-value-for-',
 				),
 			),
-			'calc' => array(
+			'calc'             => array(
 				'class' => 'frm_show_upgrade frm_noallow',
 				'title' => __( 'Default Value (Calculation)', 'formidable' ),
 				'icon'  => 'frm_icon_font frm_calculator_icon',
@@ -442,7 +442,15 @@ class FrmFieldsController {
 	 * @param array $field
 	 */
 	public static function show_format_option( $field ) {
-		include( FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/value-format.php' );
+		$attributes          = array();
+		$attributes['class'] = 'frm-has-modal';
+
+		if ( 'phone' === $field['type'] ) {
+			$attributes['id']     = 'frm-phone-field-custom-format-' . $field['id'];
+			$attributes['class'] .= ' frm_hidden';
+		}
+
+		include FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/value-format.php';
 	}
 
 	public static function input_html( $field, $echo = true ) {
@@ -689,13 +697,15 @@ class FrmFieldsController {
 	}
 
 	private static function add_validation_messages( $field, array &$add_html ) {
-		if ( FrmField::is_required( $field ) ) {
+		$field_validation_messages_status = self::get_validation_data_attribute_visibility_info( $field );
+
+		if ( FrmField::is_required( $field ) && ! empty( $field_validation_messages_status['data-reqmsg'] ) ) {
 			$required_message        = FrmFieldsHelper::get_error_msg( $field, 'blank' );
 			$add_html['data-reqmsg'] = 'data-reqmsg="' . esc_attr( $required_message ) . '"';
 			self::maybe_add_html_required( $field, $add_html );
 		}
 
-		if ( ! FrmField::is_option_empty( $field, 'invalid' ) ) {
+		if ( ! FrmField::is_option_empty( $field, 'invalid' ) && ! empty( $field_validation_messages_status['data-invmsg'] ) ) {
 			$invalid_message         = FrmFieldsHelper::get_error_msg( $field, 'invalid' );
 			$add_html['data-invmsg'] = 'data-invmsg="' . esc_attr( $invalid_message ) . '"';
 		}
@@ -703,6 +713,38 @@ class FrmFieldsController {
 		if ( ! empty( $add_html['data-reqmsg'] ) || ! empty( $add_html['data-invmsg'] ) ) {
 			self::maybe_add_error_html_for_js_validation( $field, $add_html );
 		}
+	}
+
+	/**
+	 * Returns an array that contains field validation messages status.
+	 *
+	 * @since 6.9
+	 *
+	 * @param array|object $field
+	 * @return array
+	 */
+	private static function get_validation_data_attribute_visibility_info( $field ) {
+		if ( FrmField::get_field_type( $field ) === 'hidden' ) {
+			$field_validation_data_attributes = array(
+				'data-invmsg' => false,
+				'data-reqmsg' => false,
+			);
+		} else {
+			$field_validation_data_attributes = array(
+				'data-invmsg' => true,
+				'data-reqmsg' => true,
+			);
+		}
+
+		/**
+		 * Allows controlling which field validation messages would be included in the field html.
+		 *
+		 * @since 6.9
+		 *
+		 * @param array $field_validation_messages_status
+		 * @param array|object $field
+		 */
+		return apply_filters( 'frm_field_validation_include_data_attributes', $field_validation_data_attributes, $field );
 	}
 
 	/**

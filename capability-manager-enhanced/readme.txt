@@ -1,4 +1,4 @@
-=== User Role Editor, Access Control, Admin Menus - PublishPress Capabilities ===
+=== PublishPress Capabilities - User Role Editor, Access Permissions, Admin Menus ===
 
 Contributors: publishpress, kevinB, stevejburge, andergmartins, olatechpro
 Author: PublishPress

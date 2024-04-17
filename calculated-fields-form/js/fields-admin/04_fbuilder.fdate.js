@@ -28,6 +28,7 @@
 			minDate:"",
 			maxDate:"",
             invalidDates:"",
+            validDates:"",
             mondayFirstDay:false,
             alwaysVisible:false,
 			minHour:0,
@@ -71,6 +72,7 @@
 							{s:"#sMinDate",e:"change keyup", l:"minDate", x:1},
 							{s:"#sMaxDate",e:"change keyup", l:"maxDate", x:1},
 							{s:"#sInvalidDates",e:"change keyup", l:"invalidDates", x:1},
+							{s:"#sValidDates",e:"change keyup", l:"validDates", x:1},
 							{s:"#sErrorMssg",e:"change keyup", l:"errorMssg", x:1},
 							{s:"#sDefaultDate",e:"change keyup", l:"defaultDate", x:1},
 							{s:"#sShowDropdown",e:"click", l:"showDropdown", f:function(el){
@@ -141,6 +143,8 @@
 					'<label>Min date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: No min Date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nField Name: the name of another date field, Ex: fieldname1\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><input type="text" class="large" name="sMinDate" id="sMinDate" value="'+cff_esc_attr(this.minDate)+'" />'+
 
 					'<label>Max date [<a class="helpfbuilder" text="You can put one of the following type of values into this field:\n\nEmpty: No max Date.\n\nDate: A Fixed date with the same date format indicated in the &quot;Date Format&quot; drop-down field.\n\nField Name: the name of another date field, Ex: fieldname1\n\nNumber: A number of days from today. For example 2 represents two days from today and -1 represents yesterday.\n\nString: A smart text indicating a relative date. Relative dates must contain value (number) and period pairs; valid periods are &quot;y&quot; for years, &quot;m&quot; for months, &quot;w&quot; for weeks, and &quot;d&quot; for days. For example, &quot;+1m +7d&quot; represents one month and seven days from today.">help?</a>]</label><input type="text" class="large" name="sMaxDate" id="sMaxDate" value="'+cff_esc_attr(this.maxDate)+'" />'+
+
+                    '<label>Valid Dates [<a class="helpfbuilder" text="To define some dates as valid, enter the dates with the format: mm/dd/yyyy separated by comma; for example: 12/31/2014,02/20/2014 or by hyphen for intervals; for example: 12/20/2014-12/28/2014 ">help?</a>]</label><input type="text" class="large" name="sValidDates" id="sValidDates" value="'+cff_esc_attr(this.validDates)+'" />'+
 
                     '<label>Invalid Dates [<a class="helpfbuilder" text="To define some dates as invalid, enter the dates with the format: mm/dd/yyyy separated by comma; for example: 12/31/2014,02/20/2014 or by hyphen for intervals; for example: 12/20/2014-12/28/2014 ">help?</a>]</label><input type="text" class="large" name="sInvalidDates" id="sInvalidDates" value="'+cff_esc_attr(this.invalidDates)+'" />'+
 

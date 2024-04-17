@@ -102,7 +102,7 @@ class FrmXMLController {
 			}
 
 			if ( isset( $pages ) && ! empty( $pages ) ) {
-				$post_id = end( $pages );
+				$post_id              = end( $pages );
 				$response['redirect'] = get_permalink( $post_id );
 			}
 		} else {
@@ -163,7 +163,7 @@ class FrmXMLController {
 			return;
 		}
 
-		$selected_xml  = isset( $form['xml'] ) && isset( $form['xml'][ $selected_form ] ) ? $form['xml'][ $selected_form ] : '';
+		$selected_xml = isset( $form['xml'] ) && isset( $form['xml'][ $selected_form ] ) ? $form['xml'][ $selected_form ] : '';
 		if ( empty( $selected_xml ) || strpos( $selected_xml, 'http' ) !== 0 ) {
 			return;
 		}
@@ -197,7 +197,7 @@ class FrmXMLController {
 			return;
 		}
 
-		$form_key = self::get_selected_in_form( $form, 'form' );
+		$form_key  = self::get_selected_in_form( $form, 'form' );
 		$view_keys = self::get_selected_in_form( $form, 'view' );
 
 		$page_ids = array();
@@ -211,7 +211,7 @@ class FrmXMLController {
 				$item_key  = is_array( $view_keys ) ? $view_keys[ $form_key ] : $view_keys;
 				$shortcode = '[display-frm-data id=%1$s filter=limited]';
 			} elseif ( $for === 'form' ) {
-				$item_key = $form_key;
+				$item_key  = $form_key;
 				$shortcode = '[formidable id=%1$s]';
 			} else {
 				$item_key  = self::get_selected_in_form( $form, 'form' );
@@ -302,7 +302,7 @@ class FrmXMLController {
 	 */
 	public static function form( $errors = array(), $message = '' ) {
 		$where = array(
-			'status'         => array( null, '', 'published' ),
+			'status' => array( null, '', 'published' ),
 		);
 		$forms = FrmForm::getAll( $where, 'name' );
 
@@ -344,6 +344,7 @@ class FrmXMLController {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$has_file = ! empty( $_FILES['frm_import_file'] ) && ! empty( $_FILES['frm_import_file']['name'] ) && ! empty( $_FILES['frm_import_file']['size'] ) && (int) $_FILES['frm_import_file']['size'] > 0;
 		if ( ! $has_file ) {
 			$errors[] = __( 'Oops, you didn\'t select a file.', 'formidable' );
@@ -352,7 +353,7 @@ class FrmXMLController {
 			return;
 		}
 
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.NonceVerification.Missing
 		$file = isset( $_FILES['frm_import_file']['tmp_name'] ) ? sanitize_option( 'upload_path', $_FILES['frm_import_file']['tmp_name'] ) : '';
 
 		if ( ! is_uploaded_file( $file ) ) {
@@ -372,7 +373,7 @@ class FrmXMLController {
 		);
 		$export_format = apply_filters( 'frm_export_formats', $export_format );
 
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.NonceVerification.Missing
 		$file_type = sanitize_option( 'upload_path', $_FILES['frm_import_file']['name'] );
 		$file_type = strtolower( pathinfo( $file_type, PATHINFO_EXTENSION ) );
 		if ( 'xml' !== $file_type && isset( $export_format[ $file_type ] ) ) {

@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class FrmFormApi {
 
-	protected $license = '';
-	protected $cache_key = '';
+	protected $license       = '';
+	protected $cache_key     = '';
 	protected $cache_timeout = '+6 hours';
 
 	/**
@@ -353,6 +353,7 @@ class FrmFormApi {
 		} else {
 			delete_option( $this->cache_key );
 		}
+		$this->done_running();
 	}
 
 	/**

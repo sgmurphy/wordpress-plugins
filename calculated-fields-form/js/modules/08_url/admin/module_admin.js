@@ -56,7 +56,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'url' ] = {
 							{
 								"value" : "redirectToURL",
 								"code" : "redirectToURL(",
-								"tip" : "<p>Redirects the user. The operation accepts two parameters: the URL and a plain object for the parameters. <strong>redirectToURL(url, object)</strong> the object is optional.</p>"
+								"tip" : "<p>Redirects the user. The operation accepts three parameters: the URL, a plain object for the parameters, and target. The target parameter is optional. If it is not present the operation uses _self. <strong>redirectToURL(url, object, target)</strong> the object and target are optional.</p>"
 							},
 
 						]

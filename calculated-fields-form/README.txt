@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.1.64
+Stable tag: 5.1.65
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,13 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.65 =
+
+* Increases the precedence of col-xx-xx class names over column#
+* Include a new attribute in the Date controls to allow to restrict dates to a set of valid dates.
+* Modify the User Permissions add-in to integrate the summary attribute with the Multilanguage for Calculated Fields Form plugin (Developer version and Platinum plugin).
+* Modify the server-side equations plugin (developer version and Platinum plugin).
+
 = 5.1.64 =
 
 * Modifies the predefined forms.
@@ -1052,11 +1059,3 @@ A: Please, follow the steps below:
 * Modifies the module that parses the form.
 * Fixes a minor issue with the fields list in the submissions data source settings (Developer and Platinum plugin versions).
 * Modifies the PayPal Checkout integration (Platinum plugin version).
-
-= 5.1.59 =
-
-* Modifies the PDFPAGESNUMBER to use PDF-JS API.
-* Improves JS modules.
-* Fixes a minor issue in the Captcha module.
-* Improves the WooCommerce add-on (Developer and Platinum plugin versions).
-* Modifies the SagePay integration (Platinum plugin version).

@@ -3,7 +3,7 @@ Contributors: wpengine, deliciousbrains, mattshaw
 Tags: search replace, search and replace, update urls, database, search replace database, update database urls, update live url, better search replace, search&replace
 Requires at least: 3.0.1
 Tested up to: 6.4
-Stable tag: 1.4.5
+Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,6 +94,10 @@ More information on moving WordPress can be found [here](http://codex.wordpress.
 2. After running a search/replace dry-run.
 
 == Changelog ==
+
+= 1.4.6 - April 17, 2024 =
+* Changed: Serialized text strings are now only deserialized when containing a match, resulting in faster performance
+* Security: Table names are now escaped when displaying search results
 
 = 1.4.5 - January 18, 2024 =
 * Security: Unserializing an object during search and replace operations now passes `'allowed_classes' => false` to avoid instantiating the object and potentially running malicious code stored in the database (thanks to Wordfence for responsible disclosure on December 18, 2023 followed by development and testing of the fix by WP Engine)

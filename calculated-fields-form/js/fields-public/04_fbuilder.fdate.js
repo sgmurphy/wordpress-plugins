@@ -19,6 +19,7 @@
 			showDropdown:false,
 			dropdownRange:"-10:+10",
             invalidDates:"",
+            validDates:"",
             mondayFirstDay:false,
             alwaysVisible:false,
 			working_dates:[true,true,true,true,true,true,true],
@@ -84,11 +85,24 @@
 						var e = this,
 							w = e.working_dates,
 							i = e.invalidDates,
-							n = ( e.alwaysVisible && e.showDatepicker ) ? $('#'+e.name+'_datepicker_container') : $('#'+e.name+'_date');
+							v = e.validDates,
+							n = ( e.alwaysVisible && e.showDatepicker ) ? $('#'+e.name+'_datepicker_container') : $('#'+e.name+'_date'),
+							isValid = Array.isArray(v) && v.length ? false : true;
 
 						d = d || n.datepicker('getDate');
 
 						if(d === null || !w[d.getDay()]) return false;
+						if(v !== null)
+						{
+							for(var j = 0, h = v.length; j < h; j++)
+							{
+								if(d.getDate() == v[j].getDate() && d.getMonth() == v[j].getMonth() && d.getFullYear() == v[j].getFullYear()) {
+									isValid = true;
+									break;
+								};
+							}
+						}
+						if(!isValid) return false;
 						if(i !== null)
 						{
 							for(var j = 0, h = i.length; j < h; j++)
@@ -138,56 +152,59 @@
 							v = parseInt(v);
 							v = (isNaN(v)) ? max : v;
 							return Math.min(Math.max(v,min),max);
+						},
+						_preprocessDates = function( v ){
+							var	dateRegExp = new RegExp(/^\d{1,2}\/\d{1,2}\/\d{4}$/),
+								counter    = 0,
+								dates      = v.split(','),
+								result     = [];
+
+							for(var i = 0, h = dates.length; i < h; i++)
+							{
+								var range = dates[i].split('-');
+								if(range.length == 2 && range[0].match(dateRegExp) != null && range[1].match(dateRegExp) != null)
+								{
+									var fromD = new Date(range[0]),
+										toD = new Date(range[1]);
+									while(fromD <= toD)
+									{
+										result[counter] = fromD;
+										var tmp = new Date(fromD.valueOf());
+										tmp.setDate(tmp.getDate()+1);
+										fromD = tmp;
+										counter++;
+
+									}
+								}
+								else
+								{
+									for(var j = 0, k = range.length; j < k; j++)
+									{
+										if(range[j].match(dateRegExp) != null)
+										{
+											result[counter] = new Date(range[j]);
+											counter++;
+										}
+									}
+								}
+							}
+							return result;
 						};
 
 					// Date
 					me.dformat		= me.dformat.replace(/\//g, me.dseparator);
-                    me.invalidDates = me.invalidDates.replace(/\s+/g, '');
-					if(me.dropdownRange.indexOf(':') == -1) me.dropdownRange = '-10:+10';
-					if(!/^\s*$/.test(me.invalidDates))
-					{
-						var	dateRegExp = new RegExp(/^\d{1,2}\/\d{1,2}\/\d{4}$/),
-							counter = 0,
-							dates = me.invalidDates.split(',');
-						me.invalidDates = [];
-						for(var i = 0, h = dates.length; i < h; i++)
-						{
-							var range = dates[i].split('-');
-							if(range.length == 2 && range[0].match(dateRegExp) != null && range[1].match(dateRegExp) != null)
-							{
-								var fromD = new Date(range[0]),
-									toD = new Date(range[1]);
-								while(fromD <= toD)
-								{
-									me.invalidDates[counter] = fromD;
-									var tmp = new Date(fromD.valueOf());
-									tmp.setDate(tmp.getDate()+1);
-									fromD = tmp;
-									counter++;
+                    me.invalidDates = _preprocessDates(me.invalidDates.replace(/\s+/g, ''));
+                    me.validDates   = _preprocessDates(me.validDates.replace(/\s+/g, ''));
 
-								}
-							}
-							else
-							{
-								for(var j = 0, k = range.length; j < k; j++)
-								{
-									if(range[j].match(dateRegExp) != null)
-									{
-										me.invalidDates[counter] = new Date(range[j]);
-										counter++;
-									}
-								}
-							}
-						}
-					}
+					if(me.dropdownRange.indexOf(':') == -1) me.dropdownRange = '-10:+10';
 
 					// Time
 					me.minHour 		= _checkValue(me.minHour, 0, 23);
 					me.maxHour 		= _checkValue(me.maxHour, 0, 23);
 					me.minMinute 	= _checkValue(me.minMinute, 0, 59);
 					me.maxMinute 	= _checkValue(me.maxMinute, 0, 59);
-					me.stepHour 	= _checkValue(me.stepHour, 1, Math.max(1, (me.maxHour - me.minHour)+1));
-					me.stepMinute 	= _checkValue(me.stepMinute, 1, Math.max(1, (me.maxMinute - me.minMinute)+1));
+					me.stepHour 	= _checkValue(me.stepHour, 1, Math.max(1, Math.abs(me.maxHour - me.minHour)+1));
+					me.stepMinute 	= _checkValue(me.stepMinute, 1, Math.max(1, Math.abs(me.maxHour-me.minHour)*60+Math.abs(me.maxMinute - me.minMinute)+1));
 
 					// Set handles
 					me._setHndl('minDate');

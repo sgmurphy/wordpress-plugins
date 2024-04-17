@@ -87,6 +87,7 @@ return array(
     'WeDevs\\Dokan\\Install\\Installer' => $baseDir . '/includes/Install/Installer.php',
     'WeDevs\\Dokan\\Order\\Admin\\Hooks' => $baseDir . '/includes/Order/Admin/Hooks.php',
     'WeDevs\\Dokan\\Order\\Admin\\Permissions' => $baseDir . '/includes/Order/Admin/Permissions.php',
+    'WeDevs\\Dokan\\Order\\Ajax' => $baseDir . '/includes/Order/Ajax.php',
     'WeDevs\\Dokan\\Order\\Controller' => $baseDir . '/includes/Order/Controller.php',
     'WeDevs\\Dokan\\Order\\EmailHooks' => $baseDir . '/includes/Order/EmailHooks.php',
     'WeDevs\\Dokan\\Order\\Frontend\\Hooks' => $baseDir . '/includes/Order/Frontend/Hooks.php',

@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.1.65 =
+
+* Increases the precedence of col-xx-xx class names over column#
+* Include a new attribute in the Date controls to allow to restrict dates to a set of valid dates.
+* Modify the User Permissions add-in to integrate the summary attribute with the Multilanguage for Calculated Fields Form plugin (Developer version and Platinum plugin).
+* Modify the server-side equations plugin (developer version and Platinum plugin).
+
 = 5.1.64 =
 
 * Modifies the predefined forms.

@@ -35,8 +35,17 @@
 	};
 
 	// redirectToURL()
-	lib.redirectToURL = lib.redirecttourl = lib.REDIRECTTOURL = function(url, obj){
-		document.location.href = url+( obj ? (url.indexOf('?') === -1 ? '?' : '&')+$.param(obj) : '');
+	lib.redirectToURL = lib.redirecttourl = lib.REDIRECTTOURL = function(url, obj, target){
+		let $ = fbuilderjQuery,
+			a = $('<a></a>');
+
+		target = target || '_self';
+		url += ( obj ? (url.indexOf('?') === -1 ? '?' : '&')+$.param(obj) : '');
+
+		a.attr({'href': url, 'target': target});
+		a.appendTo('body');
+		a[0].click();
+		a.remove();
 	};
 
 	// getURL()

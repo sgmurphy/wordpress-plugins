@@ -66,6 +66,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param data
  * @param functions
  * @since 4.2.5.1
+ * @version 1.0.1
  */
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -254,7 +255,6 @@ document.addEventListener('submit', function (e) {
 
   //window.lpCourseList.searchCourse( e, target );
 });
-const elListenScroll = [];
 let timeOutSearch;
 window.lpCoursesList = (() => {
   const classListCourse = '.lp-list-courses-no-css';
@@ -308,12 +308,11 @@ window.lpCoursesList = (() => {
       }
       // End
 
-      // Scroll to archive element{
-      const optionScroll = {
-        behavior: 'smooth'
-      };
-      elLPTarget.scrollIntoView(optionScroll);
-      window.scrollBy(0, -40);
+      // Scroll to archive element
+      const elLPTargetY = elLPTarget.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elLPTargetY
+      });
       const callBack = {
         success: response => {
           //console.log( 'response', response );

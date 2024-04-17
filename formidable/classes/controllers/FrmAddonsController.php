@@ -53,13 +53,13 @@ class FrmAddonsController {
 		$errors = array();
 
 		if ( isset( $addons['error'] ) ) {
-			$api    = new FrmFormApi();
-			$errors = $api->get_error_from_response( $addons );
+			$api          = new FrmFormApi();
+			$errors       = $api->get_error_from_response( $addons );
 			$license_type = isset( $addons['error']['type'] ) ? $addons['error']['type'] : '';
 			unset( $addons['error'] );
 		}
 
-		$pro = array(
+		$pro    = array(
 			'pro' => array(
 				'title'    => 'Formidable Forms Pro',
 				'slug'     => 'formidable-pro',
@@ -73,7 +73,7 @@ class FrmAddonsController {
 
 		$pricing = FrmAppHelper::admin_upgrade_link( 'addons' );
 
-		include( FrmAppHelper::plugin_path() . '/classes/views/addons/list.php' );
+		include FrmAppHelper::plugin_path() . '/classes/views/addons/list.php';
 	}
 
 	/**
@@ -89,7 +89,7 @@ class FrmAddonsController {
 
 		ksort( $plugins );
 
-		include( FrmAppHelper::plugin_path() . '/classes/views/addons/settings.php' );
+		include FrmAppHelper::plugin_path() . '/classes/views/addons/settings.php';
 	}
 
 	/**
@@ -110,6 +110,19 @@ class FrmAddonsController {
 		}
 
 		return $addons;
+	}
+
+	/**
+	 * Retrieves the count of available addons.
+	 *
+	 * @since 6.9
+	 *
+	 * @return int Count of addons.
+	 */
+	public static function get_addons_count() {
+		$addons = self::get_api_addons();
+
+		return count( $addons );
 	}
 
 	/**
@@ -514,7 +527,7 @@ class FrmAddonsController {
 	 * @param string $plugin The plugin slug.
 	 * @return array|false
 	 */
-	protected static function get_addon( $plugin ) {
+	public static function get_addon( $plugin ) {
 		$addons = self::get_api_addons();
 		self::prepare_addons( $addons );
 		foreach ( $addons as $addon ) {
@@ -704,7 +717,7 @@ class FrmAddonsController {
 		);
 
 		$features = array(
-			'Display Entries' => array(
+			'Display Entries'  => array(
 				array(
 					'label' => 'Display form data with virtually limitless views',
 					'link'  => array(
@@ -756,7 +769,7 @@ class FrmAddonsController {
 					'lite'  => true,
 				),
 			),
-			'Form Building' => array(
+			'Form Building'    => array(
 				array(
 					'label' => 'Save a calculated value into a field',
 					'link'  => array(
@@ -842,7 +855,7 @@ class FrmAddonsController {
 					'lite'  => true,
 				),
 			),
-			'Form Actions' => array(
+			'Form Actions'     => array(
 				array(
 					'label' => 'Conditionally send your email notifications based on values in your form',
 					'link'  => array(
@@ -867,7 +880,7 @@ class FrmAddonsController {
 					'lite'  => true,
 				),
 			),
-			'Form Appearance' => array(
+			'Form Appearance'  => array(
 				array(
 					'label' => 'Create Multiple styles for different forms',
 					'link'  => array(
@@ -899,7 +912,7 @@ class FrmAddonsController {
 			),
 		);
 
-		include( FrmAppHelper::plugin_path() . '/classes/views/addons/upgrade_to_pro.php' );
+		include FrmAppHelper::plugin_path() . '/classes/views/addons/upgrade_to_pro.php';
 	}
 
 	/**
@@ -999,7 +1012,7 @@ class FrmAddonsController {
 	 */
 	protected static function maybe_show_cred_form() {
 		if ( ! function_exists( 'request_filesystem_credentials' ) ) {
-			include_once( ABSPATH . 'wp-admin/includes/file.php' );
+			include_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		// Start output bufferring to catch the filesystem form if credentials are needed.
@@ -1092,7 +1105,7 @@ class FrmAddonsController {
 	 */
 	public static function ajax_activate_addon() {
 		self::process_addon_action(
-			function( $plugin ) {
+			function ( $plugin ) {
 				return self::handle_addon_action( $plugin, 'activate' );
 			},
 			array( 'FrmAddonsController', 'get_addon_activation_response' )
@@ -1117,7 +1130,7 @@ class FrmAddonsController {
 	 */
 	public static function ajax_deactivate_addon() {
 		self::process_addon_action(
-			function( $plugin ) {
+			function ( $plugin ) {
 				return self::handle_addon_action( $plugin, 'deactivate' );
 			}
 		);
@@ -1132,7 +1145,7 @@ class FrmAddonsController {
 	 */
 	public static function ajax_uninstall_addon() {
 		self::process_addon_action(
-			function( $plugin ) {
+			function ( $plugin ) {
 				return self::handle_addon_action( $plugin, 'uninstall' );
 			}
 		);

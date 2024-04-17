@@ -10,6 +10,17 @@ return apply_filters(
 			'type'  => 'text',
 			'std'   => esc_html__( 'Course Filter', 'learnpress' ),
 		),
+		'number_level_category'      => array(
+			'label' => __( 'Level of category to display on Frontend', 'learnpress' ),
+			'type'  => 'number',
+			'std'   => 2,
+			'min'   => 1,
+		),
+		'class_list_courses_target'      => array(
+			'label' => __( 'Class of list courses want to filter', 'learnpress' ),
+			'type'  => 'text',
+			'std'   => '.lp-list-courses-default',
+		),
 		'show_in_rest'      => array(
 			'label' => __( 'Load widget via REST', 'learnpress' ),
 			'type'  => 'checkbox',
@@ -24,11 +35,6 @@ return apply_filters(
 			'label' => __( 'Enable Keyword Search Suggestion', 'learnpress' ),
 			'type'  => 'checkbox',
 			'std'   => 1,
-		),
-		'class_list_courses_target'      => array(
-			'label' => __( 'Class of list courses want to filter', 'learnpress' ),
-			'type'  => 'text',
-			'std'   => '.lp-list-courses-default',
 		),
 		'fields_order'      => array(
 			'label' => '',

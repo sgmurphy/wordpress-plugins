@@ -289,6 +289,12 @@ class FrmEntriesController {
 			$form_id . '_is_draft'   => 'is_draft',
 		);
 
+		if ( ! $form_id ) {
+			$columns[ $form_id . '_user_id' ] = 'user_id';
+			$columns[ $form_id . '_name' ]    = 'name';
+			$columns[ $form_id . '_form_id' ] = 'form_id';
+		}
+
 		foreach ( $fields as $field ) {
 			if ( self::field_supports_sorting( $field ) ) {
 				$columns[ $form_id . '_' . $field->field_key ] = 'meta_' . $field->id;
@@ -389,7 +395,7 @@ class FrmEntriesController {
 
 			if ( empty( $result ) || ! in_array( $col_key, $result, true ) ) {
 				$result[] = $col_key;
-				$i--;
+				--$i;
 			}
 
 			unset( $col_key, $col );
@@ -441,7 +447,7 @@ class FrmEntriesController {
 			$time_to_delete   = FrmAppHelper::human_time_diff( $delete_timestamp, ( isset( $form->options['trash_time'] ) ? ( $form->options['trash_time'] ) : time() ) );
 
 			/* translators: %1$s: Time string */
-			$errors['trash']  = sprintf( __( 'This form is in the trash and is scheduled to be deleted permanently in %s along with any entries.', 'formidable' ), $time_to_delete );
+			$errors['trash'] = sprintf( __( 'This form is in the trash and is scheduled to be deleted permanently in %s along with any entries.', 'formidable' ), $time_to_delete );
 		}
 	}
 
@@ -476,7 +482,7 @@ class FrmEntriesController {
 		$fields = FrmField::get_all_for_form( $entry->form_id, '', 'include' );
 		$form   = FrmForm::getOne( $entry->form_id );
 
-		include( FrmAppHelper::plugin_path() . '/classes/views/frm-entries/show.php' );
+		include FrmAppHelper::plugin_path() . '/classes/views/frm-entries/show.php';
 	}
 
 	/**
@@ -489,9 +495,9 @@ class FrmEntriesController {
 		$permission_error = FrmAppHelper::permission_nonce_error( 'frm_delete_entries', '_wpnonce', -1 );
 		if ( false !== $permission_error ) {
 			$error_args = array(
-				'title'       => __( 'Verification failed', 'formidable' ),
-				'body'        => $permission_error,
-				'cancel_url'  => admin_url( 'admin.php?page=formidable-entries' ),
+				'title'      => __( 'Verification failed', 'formidable' ),
+				'body'       => $permission_error,
+				'cancel_url' => admin_url( 'admin.php?page=formidable-entries' ),
 			);
 			FrmAppController::show_error_modal( $error_args );
 			return;
@@ -708,7 +714,7 @@ class FrmEntriesController {
 			$data = apply_filters( 'frm_sidebar_data', $data, compact( 'entry' ) );
 		}
 
-		include( FrmAppHelper::plugin_path() . '/classes/views/frm-entries/sidebar-shared.php' );
+		include FrmAppHelper::plugin_path() . '/classes/views/frm-entries/sidebar-shared.php';
 	}
 
 	/**

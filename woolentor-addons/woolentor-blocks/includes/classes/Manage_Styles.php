@@ -258,12 +258,6 @@ class Manage_Styles {
             $upload_css_dir_url = trailingslashit( $upload_dir_url['basedir'] );
 			$css_file_path 		= $upload_css_dir_url."woolentor-addons/woolentor-css-{$post_id}.css";
 
-			// File System
-			global $wp_filesystem;
-			if ( ! $wp_filesystem ) {
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			}
-
 			// Reusable Block CSS
 			$reusable_block_css = '';
 			$reusable_id = woolentorBlocks_reusable_id( $post_id );

@@ -119,7 +119,7 @@ class FrmReviews {
 		$this->add_to_inbox( $title, $name, $asked );
 
 		// We have a candidate! Output a review message.
-		include( FrmAppHelper::plugin_path() . '/classes/views/shared/review.php' );
+		include FrmAppHelper::plugin_path() . '/classes/views/shared/review.php';
 	}
 
 	/**
@@ -130,7 +130,7 @@ class FrmReviews {
 	 * @return void
 	 */
 	private function add_to_inbox( $title, $name, $asked ) {
-		$message = new FrmInbox();
+		$message  = new FrmInbox();
 		$requests = $message->get_messages();
 		$key      = $this->inbox_key . ( $asked ? $asked : '' );
 

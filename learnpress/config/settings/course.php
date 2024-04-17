@@ -60,6 +60,14 @@ return apply_filters(
 					'css'               => 'min-width: 50px; width: 50px;',
 				),
 				array(
+					'title'             => esc_html__( 'Include courses in subcategory', 'learnpress' ),
+					'desc'              => esc_html__( 'Show all courses within the subcategory that have not been chosen in the parent category.', 'learnpress' ),
+					'id'                => 'get_courses_of_subcategory',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'css'               => 'min-width: 50px; width: 50px;',
+				),
+				array(
 					'title'   => esc_html__( 'Loading ajax Courses', 'learnpress' ),
 					'desc'    => __( 'On/Off <i>loading ajax courses on the Course Archive page </i>.', 'learnpress' ),
 					'id'      => 'courses_load_ajax',
@@ -247,6 +255,13 @@ return apply_filters(
 					'default' => 12,
 					'type'    => 'number',
 					'desc'    => esc_html__( 'The number of displayed instructors per page (Enter -1 to display all sections).', 'learnpress' ),
+				),
+				array(
+					'title'   => esc_html__( 'Show Admin on list', 'learnpress' ),
+					'id'      => 'show_admin_on_list_instructors',
+					'default' => 'yes',
+					'type'    => 'checkbox',
+					'desc'    => esc_html__( 'Show author Admin on list instructors.', 'learnpress' ),
 				),
 				array(
 					'type' => 'sectionend',

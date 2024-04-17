@@ -55,7 +55,12 @@ function qlwapp_get_timezone_offset( $timezone ) {
 	}
 
 	if ( strpos( $timezone, 'UTC' ) !== false ) {
-		$offset = preg_replace( '/UTC\+?/', '', $timezone ) * 60;
+		$numeric_part = preg_replace( '/UTC\+?/', '', $timezone );
+		if ( is_numeric( $numeric_part ) ) {
+			$offset = (int) $numeric_part * 60;
+		} else {
+			$offset = 0;
+		}
 	} else {
 		$current = timezone_open( $timezone );
 		$utc     = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );

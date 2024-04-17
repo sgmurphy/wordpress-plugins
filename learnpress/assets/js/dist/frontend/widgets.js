@@ -66,6 +66,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param data
  * @param functions
  * @since 4.2.5.1
+ * @version 1.0.1
  */
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -224,7 +225,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function widgetRestAPI() {
-  const widgets = document.querySelectorAll('.learnpress-widget-wrapper');
+  const widgets = document.querySelectorAll('.learnpress-widget-wrapper:not(.loaded)');
   if (!widgets.length) {
     return;
   }
@@ -264,7 +265,10 @@ function widgetRestAPI() {
       error: error => {},
       completed: () => {
         //delete ele.dataset.widget;
-        ele.querySelector('.lp-skeleton-animation').remove();
+        const elSkeleton = ele.querySelector('.lp-skeleton-animation');
+        if (elSkeleton) {
+          elSkeleton.remove();
+        }
       }
     };
 
@@ -272,12 +276,21 @@ function widgetRestAPI() {
     (0,_utils__WEBPACK_IMPORTED_MODULE_0__.lpFetchAPI)(url, paramsFetch, callBack);
   };
   widgets.forEach(ele => {
+    ele.classList.add('loaded');
     if (ele.classList.contains('learnpress-widget-wrapper__restapi')) {
       getResponse(ele);
     }
   });
 }
-document.addEventListener('DOMContentLoaded', function (event) {
+widgetRestAPI();
+
+// Case 2: readystatechange, find all elements with the class '.lp-load-ajax-element' not have class 'loaded'
+document.addEventListener('readystatechange', event => {
+  widgetRestAPI();
+});
+
+// Case 3: DOMContentLoaded, find all elements with the class '.lp-load-ajax-element' not have class 'loaded'
+document.addEventListener('DOMContentLoaded', () => {
   widgetRestAPI();
 });
 })();

@@ -153,7 +153,7 @@ class FrmStylesController {
 			/**
 			 * Update the form data on the "Manage Styles" tab after global settings are saved.
 			 */
-			function() {
+			function () {
 				self::manage_styles();
 			}
 		);
@@ -400,7 +400,7 @@ class FrmStylesController {
 		if ( ! $form_id ) {
 			// TODO: Show a message why a random form is being shown (because no form is assigned to the style).
 			// Fallback to any form.
-			$where = array(
+			$where   = array(
 				'status'         => 'published',
 				// Make sure it's not a repeater.
 				'parent_form_id' => array( null, 0 ),
@@ -419,7 +419,7 @@ class FrmStylesController {
 	private static function disable_admin_page_styling_on_submit_buttons() {
 		add_filter(
 			'frm_submit_button_class',
-			function( $classes ) {
+			function ( $classes ) {
 				$classes[] = 'frm_no_style_button';
 				return $classes;
 			}
@@ -627,13 +627,13 @@ class FrmStylesController {
 	private static function force_form_style( $style ) {
 		add_filter(
 			'frm_add_form_style_class',
-			function( $class ) use ( $style ) {
-				$split = array_filter(
+			function ( $class ) use ( $style ) {
+				$split   = array_filter(
 					explode( ' ', $class ),
 					/**
 					 * @param string $class
 					 */
-					function( $class ) {
+					function ( $class ) {
 						return $class && 0 !== strpos( $class, 'frm_style_' );
 					}
 				);
@@ -711,7 +711,7 @@ class FrmStylesController {
 		}
 
 		parse_str( $query, $parsed_query );
-		$form_id      = ! empty( $parsed_query['form'] ) ? absint( $parsed_query['form'] ) : 0;
+		$form_id = ! empty( $parsed_query['form'] ) ? absint( $parsed_query['form'] ) : 0;
 
 		$style     = new stdClass();
 		$style->ID = end( $ids );
