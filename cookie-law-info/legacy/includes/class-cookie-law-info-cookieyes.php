@@ -76,7 +76,7 @@ if ( ! class_exists( 'Cookie_Law_Info_Cookieyes' ) ) {
 		const WT_CKYES_SCAN_INITIATED          = 201;
 		const WT_CKYES_PWD_RESET_SENT          = 202;
 		const WT_CKYES_EMAIL_VERIFICATION_SENT = 203;
-		const WT_CKYES_ABORT_SUCCESSFULL       = 204;
+		const WT_CKYES_ABORT_SUCCESSFUL       = 204;
 
 		/**
 		 * Initialize CookieYes scanner library
@@ -332,7 +332,7 @@ if ( ! class_exists( 'Cookie_Law_Info_Cookieyes' ) ) {
 					$msg = __( 'A password reset message has been sent to your email address. Click the link in the email to reset your password', 'cookie-law-info' );
 					break;
 				case self::WT_CKYES_EMAIL_VERIFICATION_SENT:
-					$msg = __( 'A email verfication link has been sent to your email address. Click the link in the email to verify your account', 'cookie-law-info' );
+					$msg = __( 'A email verification link has been sent to your email address. Click the link in the email to verify your account', 'cookie-law-info' );
 					break;
 				case self::EC_WT_CKYES_EMAIL_ALREADY_VERIFIED:
 					$msg = __( 'Email has already verified', 'cookie-law-info' );
@@ -661,7 +661,7 @@ if ( ! class_exists( 'Cookie_Law_Info_Cookieyes' ) ) {
 			return $api_response;
 		}
 		/**
-		 * Retreive next scan ID from CookieYes.
+		 * Retrieve next scan ID from CookieYes.
 		 *
 		 * @param int $total_urls Total URLs to be scanned.
 		 * @return array
@@ -816,7 +816,7 @@ if ( ! class_exists( 'Cookie_Law_Info_Cookieyes' ) ) {
 			return $api_response;
 		}
 		/**
-		 * Chane status
+		 * Change status
 		 *
 		 * @param boolean $status current status.
 		 * @return void
@@ -1049,7 +1049,7 @@ if ( ! class_exists( 'Cookie_Law_Info_Cookieyes' ) ) {
 			$response = $this->wt_remote_request( 'POST', $endpoint, false, $token );
 			if ( isset( $response['scan_result'] ) && 'cancelled' === $response['scan_result'] ) {
 				$api_response['status'] = true;
-				$api_response['code']   = self::WT_CKYES_ABORT_SUCCESSFULL;
+				$api_response['code']   = self::WT_CKYES_ABORT_SUCCESSFUL;
 			}
 			return $api_response;
 		}

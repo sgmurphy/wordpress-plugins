@@ -1,11 +1,11 @@
 ﻿=== iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more ===
 Contributors: iubenda
 Donate link:
-Tags: cookie consent, gdpr, cookie banner, rgpd, privacy policy, dsgvo, gdpr compliance, lgpd, ccpa, terms and conditions, cpra, privacy notice
+Tags: privacy policy, terms and conditions, cookie banner, GDPR, CCPA, cookie consent, rgpd, dsgvo, gdpr compliance, lgpd, cpra, privacy notice
 Requires at least: 5.0
 Requires PHP: 7.0.0
 Tested up to: 6.5
-Stable tag: 3.10.2
+Stable tag: 3.10.3
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 The solution for GDPR compliance + more. Get your cookie banner, privacy policy, terms and conditions and handle cookie consent in just one plugin.
@@ -265,6 +265,9 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 * * *
 
 == Changelog ==
+
+= 3.10.3 =
+* Fix: Resolve conflict by updating variable names to prevent interference with Consent Database functionality
 
 = 3.10.2 =
 * Support for WordPress 6.5
@@ -859,6 +862,5 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 
 == Upgrade Notice ==
 
-= 3.10.2 =
-* Support for WordPress 6.5
-* Fix: DNS Lookup Optimization
+= 3.10.3 =
+* Fix: Resolve conflict by updating variable names to prevent interference with Consent Database functionality

@@ -153,7 +153,7 @@ document.addEventListener(
 			{
 				type: "POST",
 				dataType: "json",
-				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 				data : formData,
 				beforeSend: function() {
 					formButton.addClass( "btn-loading" );
@@ -213,7 +213,7 @@ document.addEventListener(
 			{
 				type: "POST",
 				dataType: "json",
-				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 				data : formData,
 				beforeSend: function() {
 					formButton.addClass( "btn-loading" );
@@ -274,12 +274,12 @@ document.addEventListener(
 			{
 				type: "post",
 				dataType: "json",
-				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 				data: {
 					action: "toggle_services",
 					name: serviceName,
 					status: status,
-					iub_nonce: iub_js_vars['iub_toggle_service_nonce']
+					iub_nonce: iubMainVars['iub_toggle_service_nonce']
 				},
 				success: function(response){
 					if (response.status === 'done') {
@@ -342,11 +342,11 @@ document.addEventListener(
 			{
 				type: "post",
 				dataType: "json",
-				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 				data: {
 					action: "save_cons_options",
 					iubenda_consent_solution: iubenda_consent_solution,
-					iub_cons_nonce: iub_js_vars['iub_save_cons_options_nonce']
+					iub_cons_nonce: iubMainVars['iub_save_cons_options_nonce']
 				},
 				beforeSend: function() {
 					formButton.addClass( "btn-loading" );
@@ -359,11 +359,11 @@ document.addEventListener(
 						$.ajax(
 							{
 								type: "post",
-								url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+								url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 								data: {
 									action: "auto_detect_forms",
 									public_api_key: public_api_key,
-									iub_nonce: iub_js_vars['iub_auto_detect_forms_nonce']
+									iub_nonce: iubMainVars['iub_auto_detect_forms_nonce']
 								},
 								success: function(response) {
 									$( "#auto-detect-forms" ).html( response );
@@ -411,11 +411,11 @@ document.addEventListener(
 		$.ajax(
 			{
 				type: "post",
-				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 				data: {
 					action: "auto_detect_forms",
 					public_api_key: public_api_key,
-					iub_nonce: iub_js_vars['iub_auto_detect_forms_nonce']
+					iub_nonce: iubMainVars['iub_auto_detect_forms_nonce']
 				},
 				success: function(result) {
 					auto_detect_parent_div.removeClass( "loader" );
@@ -718,7 +718,7 @@ document.addEventListener(
 			var fields  = {},
 			fieldsTypes = [ 'subject', 'preferences', 'exclude' ];
 
-			if ( iub_js_vars['form_id'] > 0 ) {
+			if ( iubMainVars['form_id'] > 0 ) {
 				// get all fields.
 				fields.all = $( '.subject-fields-select.select-id option:not([value=""])' ).map( function() { return $( this ).val(); } ).get();
 
@@ -833,10 +833,10 @@ document.addEventListener(
 				{
 					type: "post",
 					dataType: "json",
-					url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+					url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 					data : {
 						action: "iubenda_dismiss_general_notice",
-						iub_nonce: iub_js_vars['iub_dismiss_general_notice'],
+						iub_nonce: iubMainVars['iub_dismiss_general_notice'],
 						dismiss_key: $( e.target ).data( 'dismiss-key' )
 					},
 
@@ -908,7 +908,7 @@ document.addEventListener(
 
 		if (alert_div.length && alert_image.length && alert_message.length && alert_div_container.length) {
 			$( alert_div ).addClass( "alert--failure" );
-			$( alert_image ).attr( 'src', iub_js_vars['plugin_url'] + '/assets/images/banner_failure.svg' );
+			$( alert_image ).attr( 'src', iubMainVars['plugin_url'] + '/assets/images/banner_failure.svg' );
 			$( alert_message ).html( alertImageMessage );
 			$( alert_div_container ).fadeIn( 300 );
 		}
@@ -970,12 +970,12 @@ document.addEventListener(
 			{
 				type: "post",
 				dataType: "json",
-				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 				data: {
 					action: "check_frontend_auto_blocking_status",
 					code: code,
 					configuration_type: configurationType,
-					iub_nonce: iub_js_vars['check_frontend_auto_blocking_status'],
+					iub_nonce: iubMainVars['check_frontend_auto_blocking_status'],
 				},
 				success: function(response) {
 					$( '#frontend_auto_blocking' ).prop('checked', response).change()

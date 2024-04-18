@@ -438,12 +438,13 @@
 				}
 			});
 		}
-		//for Divi Filter LoadMore
-		if (jQuery('.divi-filter-archive-loop').length) {
+		//for Divi Filter LoadMore / eael-pagination
+		if (jQuery('.divi-filter-archive-loop, .eael-woo-pagination').length) {
+			var actions = ['divi_filter_loadmore_ajax_handler', 'woo_product_pagination_product'];
 			jQuery( document ).ajaxSend(function( event, jqxhr, settings ) {
 				if (settings.data) {
 					var response = _thisObj.unserializeStr(settings.data);
-					if (response['action'] && response['action'] == 'divi_filter_loadmore_ajax_handler') {
+					if (response['action'] && actions.indexOf(response['action']) != -1) {
 						var s = window.location.search;
 						if (s && s.length > 1) {
 							response['with_wpf_filter'] = s.replace('?','');
@@ -2265,6 +2266,10 @@
 			});
 		}
 		jQuery(window).trigger("fusion-element-render-fusion_woo_product_grid");
+		var $eaPagination = jQuery('.elementor-widget-eicon-woocommerce');
+		if ($eaPagination.length && window.elementorFrontend && window.elementorFrontend.hooks) {
+			window.elementorFrontend.hooks.doAction('frontend/element_ready/eicon-woocommerce.default', $eaPagination, jQuery);
+		}
 	});
 
 	/*WpfFrontendPage.prototype.runReadyList = (function(){

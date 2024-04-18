@@ -4,7 +4,7 @@ Donate link: https://codexpert.io/?utm_source=free-plugins&utm_medium=readme&utm
 Tags: image sizes, multiple image creation, image copy, media file duplicate, image duplicate wordpress, prevent duplicate image, stop creating image sizes, thumbnails, duplicate image
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 4.2.5
+Stable tag: 4.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -70,6 +70,9 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 3. Setup Wizard
 
 == Changelog ==
+
+= 2024-04-17 - 4.3 =
+* [fix] Regeneration stops
 
 = 2024-04-03 - 4.2.5 =
 * [imp] Compatibility tested with WordPress v6.5

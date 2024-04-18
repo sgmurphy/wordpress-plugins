@@ -80,16 +80,31 @@ class Post_Duplicator {
             'comment_status' => $post->comment_status,
             'post_password'  => $post->post_password,
             'post_type'      => $post->post_type,
-            'to_ping'        => $post->to_ping,
             'menu_order'     => $post->menu_order,
         );
 		
 		/*
 		 * insert the post by wp_insert_post() function
 		 */
-        $duplicated_id = wp_insert_post( $duplicate_post_args );
+        $duplicated_id = wp_insert_post( $duplicate_post_args, true );
 
-        if( ! is_wp_error( $duplicated_id ) ) {
+        if( is_wp_error( $duplicated_id ) || empty( $duplicated_id ) ) {
+			
+            add_settings_error(
+                'exad_duplicate',
+                'exad_duplicate',
+                esc_html__( 'Unable to duplicate ' . $post->post_name . '.' ),
+                'error'
+            );
+			
+        } else {
+			
+            add_meta( $duplicated_id );
+			
+            add_post_meta( $duplicated_id, '_edit_last', $current_user->ID );
+			
+            wp_set_post_lock( $duplicated_id );
+			
             $taxonomies = get_object_taxonomies($post->post_type);
             if( ! empty( $taxonomies ) && is_array( $taxonomies ) ) {
                 foreach( $taxonomies as $taxonomy ) {

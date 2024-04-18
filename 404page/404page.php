@@ -8,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name: Smart Custom 404 error page [404page]
  * Description: Custom 404 the easy way! Set any page as custom 404 error page. No coding needed. Works with (almost) every Theme.
- * Version: 11.4.5
+ * Version: 11.4.6
  * Author: Peter Raschendorfer
  * Author URI: https://profiles.wordpress.org/petersplugins/
  * Text Domain: 404page

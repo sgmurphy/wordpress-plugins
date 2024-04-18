@@ -1035,9 +1035,9 @@ function _ckyAddProviderToList(node, cleanedHostname) {
             categories: [categoryName],
             fullPath: false,
         });
-    else if (!provider.isOverriden) {
+    else if (!provider.isOverridden) {
         provider.categories = [categoryName];
-        provider.isOverriden = true;
+        provider.isOverridden = true;
     } else if (!provider.categories.includes(categoryName))
         provider.categories.push(categoryName);
 }
@@ -1140,10 +1140,10 @@ function _ckyAttachNoticeStyles() {
 }
 
 function _ckyFindCheckBoxValue(id = "") {
-    const elemetsToCheck = id
+    const elementsToCheck = id
         ? [`ckySwitch`, `ckyCategoryDirect`]
         : [`ckyCCPAOptOut`];
-    return elemetsToCheck.some((key) => {
+    return elementsToCheck.some((key) => {
         const checkBox = document.getElementById(`${key}${id}`);
         return checkBox && checkBox.checked;
     });

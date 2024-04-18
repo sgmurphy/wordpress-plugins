@@ -90,7 +90,7 @@ class Iubenda_Legal_Block {
 		// Send iub vars from backend to JS file.
 		wp_localize_script(
 			'iubenda-block-editor',
-			'iub_block_js_vars',
+			'iubBlockParams',
 			array(
 				'block_name'                  => 'iubenda/legal-block',
 				'iub_legal_block_shortcode'   => static::IUB_LEGAL_BLOCK_SHORTCODE,

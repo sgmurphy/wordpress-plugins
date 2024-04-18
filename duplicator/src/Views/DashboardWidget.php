@@ -183,7 +183,7 @@ class DashboardWidget
             return '<b>' . esc_html__('No packages have been created yet.', 'duplicator') . '</b>';
         }
 
-        $createdTime = date(get_option('date_format'), strtotime($lastPackage[0]->Created));
+        $createdTime = date_i18n(get_option('date_format'), strtotime($lastPackage[0]->Created));
 
         if ($lastPackage[0]->getPackageLife() > self::LAST_PACKAGE_TIME_WARNING) {
             $timeDiffClass = 'maroon';

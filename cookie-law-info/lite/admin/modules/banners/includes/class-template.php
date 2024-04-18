@@ -47,7 +47,7 @@ class Template {
 	protected $html = '';
 
 	/**
-	 * Template type, by deafult it will be banner
+	 * Template type, by default it will be banner
 	 *
 	 * @var string
 	 */

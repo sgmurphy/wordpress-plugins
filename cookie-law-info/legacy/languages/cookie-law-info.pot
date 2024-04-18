@@ -302,7 +302,7 @@ msgid "Token mismatch"
 msgstr ""
 
 #: legacy/admin/modules/cookie-scaner/classes/class-cookie-law-info-cookie-scanner-ajax.php:390
-msgid "Abort successfull"
+msgid "Abort successful"
 msgstr ""
 
 #: legacy/admin/modules/cookie-scaner/classes/class-cookie-law-info-cookie-scanner-ajax.php:394

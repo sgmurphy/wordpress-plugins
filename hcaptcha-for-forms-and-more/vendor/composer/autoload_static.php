@@ -141,6 +141,7 @@ class ComposerStaticInit52a5f9145f43dbcfa32cada7868c8216
         'HCaptcha\\Settings\\FormsPage' => __DIR__ . '/../..' . '/src/php/Settings/FormsPage.php',
         'HCaptcha\\Settings\\General' => __DIR__ . '/../..' . '/src/php/Settings/General.php',
         'HCaptcha\\Settings\\Integrations' => __DIR__ . '/../..' . '/src/php/Settings/Integrations.php',
+        'HCaptcha\\Settings\\ListPageBase' => __DIR__ . '/../..' . '/src/php/Settings/ListPageBase.php',
         'HCaptcha\\Settings\\PluginSettingsBase' => __DIR__ . '/../..' . '/src/php/Settings/PluginSettingsBase.php',
         'HCaptcha\\Settings\\Settings' => __DIR__ . '/../..' . '/src/php/Settings/Settings.php',
         'HCaptcha\\Settings\\SystemInfo' => __DIR__ . '/../..' . '/src/php/Settings/SystemInfo.php',

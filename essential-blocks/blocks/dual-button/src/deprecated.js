@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { useBlockProps } from "@wordpress/block-editor";
-
+const { EBDisplayIcon } = window.EBControls;
 import attributes from "./attributes";
 
 const deprecated = [

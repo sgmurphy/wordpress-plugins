@@ -3,7 +3,7 @@ Contributors: petersplugins
 Tags: page, 404, error, error page, 404 page, page not found, page not found error, 404 error page, missing, broken link, template, 404 link, seo, custom 404, custom 404 page, custom 404 error, custom 404 error page, customize 404, customize 404 page, customize 404 error page, classicpress
 Requires at least: 4.0
 Tested up to: 6.3
-Stable tag: 11.4.5
+Stable tag: 11.4.6
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,9 @@ The Plugin provides the following functions:
 If you are a theme developer you can add native support for the 404page plugin to your theme for full control.
 
 == Changelog ==
+
+= 11.4.6 (2024-04-17) URGENT BUGFIX =
+* Bugfix after Cleanup
 
 = 11.4.5 (2024-04-16) CLEANUP =
 * Cleanup

@@ -1,3 +1,4 @@
+const { sanitizeURL } = window.EBControls;
 export default function socialLinks({ profilesOnly, icnEffect }) {
     return (
         <ul className="eb-socials">
@@ -5,11 +6,11 @@ export default function socialLinks({ profilesOnly, icnEffect }) {
                 <li key={index}>
                     <a
                         className={`${((icon || " ").match(/fa-([\w\-]+)/i) || [
-                                " ",
-                                " ",
-                            ])[1]
+                            " ",
+                            " ",
+                        ])[1]
                             }-original ${icnEffect || " "}`}
-                        href={link}
+                        href={sanitizeURL(link)}
                         target={linkOpenNewTab ? "_blank" : "_self"}
                         rel="noopener"
                     >

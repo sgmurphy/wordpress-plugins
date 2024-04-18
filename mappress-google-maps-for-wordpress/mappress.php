@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.90.1
+Version: 2.90.2
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.90.1';
+	const VERSION = '2.90.2';
 
 	static
 		$api,
@@ -753,11 +753,13 @@ class Mappress {
 		$l10n['options']['standardStyles'] = $styles;
 
 		// Send filters with labels (but no values)
-		foreach(self::$options->filters as $type => $filters) {
-			foreach($filters as $atts) {
-				$filter = new Mappress_Filter($atts);
-				$filter->values = null;
-				$l10n['options']['filters'][$type][] = $filter;
+		if (self::$pro) {
+			foreach(self::$options->filters as $type => $filters) {
+				foreach($filters as $atts) {
+					$filter = new Mappress_Filter($atts);
+					$filter->values = null;
+					$l10n['options']['filters'][$type][] = $filter;
+				}
 			}
 		}
 

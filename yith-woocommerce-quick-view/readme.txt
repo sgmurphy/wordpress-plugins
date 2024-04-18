@@ -33,6 +33,12 @@ Full documentation is available [here](https://docs.yithemes.com/yith-woocommerc
 2. Upload the plugin folder into the `wp-content/plugins/` directory of your WordPress site.
 3. Activate `YITH WooCommerce Quick View` from Plugins page.
 
+== Frequently Asked Questions ==
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-quick-view)
+
 == Screenshots ==
 
 1. The plugin admin page.

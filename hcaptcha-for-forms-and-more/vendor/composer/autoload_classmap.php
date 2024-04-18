@@ -100,6 +100,7 @@ return array(
     'HCaptcha\\Settings\\FormsPage' => $baseDir . '/src/php/Settings/FormsPage.php',
     'HCaptcha\\Settings\\General' => $baseDir . '/src/php/Settings/General.php',
     'HCaptcha\\Settings\\Integrations' => $baseDir . '/src/php/Settings/Integrations.php',
+    'HCaptcha\\Settings\\ListPageBase' => $baseDir . '/src/php/Settings/ListPageBase.php',
     'HCaptcha\\Settings\\PluginSettingsBase' => $baseDir . '/src/php/Settings/PluginSettingsBase.php',
     'HCaptcha\\Settings\\Settings' => $baseDir . '/src/php/Settings/Settings.php',
     'HCaptcha\\Settings\\SystemInfo' => $baseDir . '/src/php/Settings/SystemInfo.php',

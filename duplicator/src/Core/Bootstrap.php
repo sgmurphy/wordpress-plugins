@@ -359,6 +359,17 @@ class Bootstrap
                 'ajaxurl'                                    => admin_url('admin-ajax.php')
             )
         );
+        wp_localize_script(
+            'dup-global-script',
+            'l10nDupGlobalScript',
+            array(
+                'subscribe'   => esc_html__('Subscribe', 'duplicator'),
+                'subscribed'  => esc_html__('Subscribed &#10003', 'duplicator'),
+                'subscribing' => esc_html__('Subscribing...', 'duplicator'),
+                'fail'        => esc_html__('Failed &#10007', 'duplicator'),
+                'emailFail'   => esc_html__('Email subscription failed with message: ', 'duplicator'),
+            )
+        );
 
         wp_enqueue_script('dup-one-click-upgrade-script', DUPLICATOR_PLUGIN_URL . 'assets/js/one-click-upgrade.js', array('jquery'), DUPLICATOR_VERSION, true);
         wp_localize_script(
@@ -367,6 +378,26 @@ class Bootstrap
             array(
                 'nonce_one_click_upgrade' => wp_create_nonce('duplicator_one_click_upgrade_prepare'),
                 'ajaxurl'                 => admin_url('admin-ajax.php')
+            )
+        );
+
+        wp_enqueue_script('dup-dynamic-help', DUPLICATOR_PLUGIN_URL . 'assets/js/dynamic-help.js', array('jquery'), DUPLICATOR_VERSION, true);
+        wp_localize_script(
+            'dup-dynamic-help',
+            'l10nDupDynamicHelp',
+            array(
+                'failMsg' => esc_html__('Failed to load help content!', 'duplicator')
+            )
+        );
+
+        wp_enqueue_script('dup-duplicator-tooltip', DUPLICATOR_PLUGIN_URL . 'assets/js/duplicator-tooltip.js', array('jquery'), DUPLICATOR_VERSION, true);
+        wp_localize_script(
+            'dup-duplicator-tooltip',
+            'l10nDupTooltip',
+            array(
+                'copy'       => esc_html__('Copy to clipboard', 'duplicator'),
+                'copied'     => esc_html__('copied to clipboard', 'duplicator'),
+                'copyUnable' => esc_html__('Unable to copy', 'duplicator')
             )
         );
 

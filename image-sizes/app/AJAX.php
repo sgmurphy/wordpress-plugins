@@ -82,7 +82,7 @@ class AJAX extends Base {
 			$thumb_dir = dirname( $main_img ) . DIRECTORY_SEPARATOR;
 			foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
 				// For SVG file
-				if ('image/svg+xml' == $old_size_data['mime-type']) {
+				if ( 'image/svg+xml' == $old_size_data['mime-type'] ) {
 					continue;
 				}
 				
@@ -94,7 +94,10 @@ class AJAX extends Base {
 			if ( false !== $main_img && file_exists( $main_img ) ) {
 				$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
 				wp_update_attachment_metadata( $image_id, $new_thumbs );
-				$thumbs_created += count( $new_thumbs['sizes'] );
+
+				if( is_array( $new_thumbs['sizes'] ) ) {
+					$thumbs_created += count( $new_thumbs['sizes'] );
+				}
 			}
 		}
 

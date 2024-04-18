@@ -133,6 +133,16 @@ class WoofiltersWpf extends ModuleWpf {
 		
 		add_filter( 'pre_do_shortcode_tag', array( $this, 'getOtherShortcodeAttr' ), 10, 3 );
 		
+		$actions = array('woo_product_pagination', 'woo_product_pagination_product');
+		if (in_array(ReqWpf::getVar('action', 'post'), $actions) && ReqWpf::getVar('with_wpf_filter', 'post')) {
+			parse_str(ReqWpf::getVar('with_wpf_filter', 'post'), $addParams); 
+			if (is_array($addParams)) {
+				foreach ($addParams as $k => $v) {
+					ReqWpf::setVar($k, urldecode($v), 'get');
+				}
+			}
+		}
+		
 	}
 	
 	public function addFilterAgrsToQuery( $args ) {
@@ -353,6 +363,10 @@ class WoofiltersWpf extends ModuleWpf {
 				if ( empty( $taxQuery['wpf_tax'] ) ) {
 					$this->loadProductsFilter( $query );
 				}
+				if ( ReqWpf::getVar('wpf_count', 'get') ) {
+					$query->set('posts_per_page', (int) ReqWpf::getVar('wpf_count', 'get'));
+				}
+
 			}
 		}
 		if (!$forced && $query->is_search() && $query->is_main_query() && get_query_var('s', false) && $this->isFiltered(false)) {
@@ -1100,6 +1114,17 @@ class WoofiltersWpf extends ModuleWpf {
 						$q->set( $queryVarKey, array() );
 					}
 				}
+			}
+			$hiddenTerm = get_term_by( 'name', 'exclude-from-catalog', 'product_visibility' );
+			if ( $hiddenTerm ) {
+				$taxQ = array('relation' => 'AND');
+				$taxQ[] = array(
+					'taxonomy' => 'product_visibility',
+					'field'    => 'term_taxonomy_id',
+					'terms'    => array( $hiddenTerm->term_taxonomy_id ),
+					'operator' => 'NOT IN',
+				);
+				$q->set('tax_query', $taxQ);
 			}
 		} else {
 			$search = ReqWpf::getVar( 's' );
@@ -3871,6 +3896,13 @@ class WoofiltersWpf extends ModuleWpf {
 					if ( isset( $diviShortCodes[1] ) ) {
 						foreach ( $diviShortCodes[1] as $diviShortCode ) {
 							do_shortcode( $diviShortCode );
+						}
+					}
+				} else if ('Shoptimizer' === $themeName) {
+					preg_match_all( '@(\[elementor-template.*?\])@', $content, $elementorTemplates );
+					if ( isset( $elementorTemplates[1] ) ) {
+						foreach ( $elementorTemplates[1] as $elementorTemplate) {
+							do_shortcode( $elementorTemplate);
 						}
 					}
 				}

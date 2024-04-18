@@ -3201,6 +3201,7 @@ class WoofiltersViewWpf extends ViewWpf {
 	 */
 	public function findTaxonomyIncludeChildrenStatus( $isHideChild, $isExtendParentFiltering, $type ) {
 		$typeWIthotHierarchyList = array(
+			'mul_dropdown',
 			'multi',
 			'buttons',
 			'text',

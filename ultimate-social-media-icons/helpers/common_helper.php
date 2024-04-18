@@ -264,7 +264,7 @@ function sfsi_flat_icon_color( $iconName, $option3 ) {
                 if ( isset( $option3['sfsi_twitter_bgColor'] ) && $option3['sfsi_twitter_bgColor'] != '' ) {
                     $sfsi_icon_bgColor = $option3['sfsi_twitter_bgColor'];
                 } else {
-                    $sfsi_icon_bgColor = '#00ACEC';
+                    $sfsi_icon_bgColor = '#000000';
                 }
             break;
 
@@ -304,7 +304,7 @@ function sfsi_flat_icon_color( $iconName, $option3 ) {
                 if ( isset( $option3['sfsi_ria_bgColor'] ) && $option3['sfsi_ria_bgColor'] != '' ) {
                     $sfsi_icon_bgColor = $option3['sfsi_ria_bgColor'];
                 } else {
-                    $sfsi_icon_bgColor = '';
+                    $sfsi_icon_bgColor = '#10A9A0';
                 }
                 break;
 
@@ -312,7 +312,7 @@ function sfsi_flat_icon_color( $iconName, $option3 ) {
                 if ( isset( $option3['sfsi_inha_bgColor'] ) && $option3['sfsi_inha_bgColor'] != '' ) {
                     $sfsi_icon_bgColor = $option3['sfsi_inha_bgColor'];
                 } else {
-                    $sfsi_icon_bgColor = '';
+                    $sfsi_icon_bgColor = '#348cbc';
                 }
                 break;
 

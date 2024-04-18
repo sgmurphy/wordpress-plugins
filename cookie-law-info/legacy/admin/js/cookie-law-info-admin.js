@@ -205,13 +205,13 @@
 					var vl   = elm.val();
 					var trgt = elm.attr( 'cli_frm_tgl-target' );
 					$( '[cli_frm_tgl-id="' + trgt + '"]' ).hide();
-					var selcted_trget = $( '[cli_frm_tgl-id="' + trgt + '"]' ).filter(
+					var selected_target = $( '[cli_frm_tgl-id="' + trgt + '"]' ).filter(
 						function(){
 							return $( this ).attr( 'cli_frm_tgl-val' ) == vl;
 						}
 					);
-					selcted_trget.show();
-					selcted_trget.find( 'th' ).each(
+					selected_target.show();
+					selected_target.find( 'th' ).each(
 						function(){
 							var prnt    = $( this ).parent( 'tr' );
 							var sub_lvl = 1;

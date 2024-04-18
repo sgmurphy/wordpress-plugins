@@ -1,3 +1,4 @@
+const { sanitizeURL } = window.EBControls;
 export default function socialLinks({ profilesOnly, icnEffect }) {
     return (
         <ul className="eb-socials">
@@ -9,7 +10,7 @@ export default function socialLinks({ profilesOnly, icnEffect }) {
                             " ",
                         ])[1]
                             }-original ${icnEffect || " "}`}
-                        href={link === '#' ? '' : link}
+                        href={link === '#' ? '' : sanitizeURL(link)}
                         target={linkOpenNewTab ? "_blank" : "_self"}
                         rel="noopener"
                         aria-label="social link"

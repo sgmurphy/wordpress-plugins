@@ -72,11 +72,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		jQuery.ajax({
 			type: "POST",
 			dataType: "json",
-			url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+			url: iubMainVars['site_url'] + "/wp-admin/admin-ajax.php",
 			data: {
 				action: "quick_generator_api",
 				payload: payload,
-				iub_nonce: iub_js_vars['iub_quick_generator_callback_nonce']
+				iub_nonce: iubMainVars['iub_quick_generator_callback_nonce']
 			},
 			success: function (result) {
 				if (result.status === 'done') {
@@ -88,7 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			error: function (response) {
 				// if error occurred.
 				jQuery("#alert-div").addClass("alert--failure");
-				jQuery("#alert-image").attr('src', iub_js_vars['plugin_url'] + '/assets/images/banner_failure.svg')
+				jQuery("#alert-image").attr('src', iubMainVars['plugin_url'] + '/assets/images/banner_failure.svg')
 				jQuery("#alert-message").text(response.responseText);
 
 				jQuery("#alert-div").removeClass("hidden");

@@ -64,7 +64,7 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 	 * @return string
 	 */
 	public function render( $attributes ) {
-		if ( $this->should_hide_block() ) {
+		if ( $this->should_hide_block( $attributes ) ) {
 			return '';
 		}
 
@@ -72,7 +72,10 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
-		$platform_poll_data         = $this->get_platform_poll_data( $attributes['pollId'] );
+		$platform_poll_data = null;
+		if ( ! empty( $attributes['pollId'] ) ) {
+			$platform_poll_data = $this->get_platform_poll_data( $attributes['pollId'] );
+		}
 		if ( ! empty( $platform_poll_data ) ) {
 			$attributes['apiPollData'] = $platform_poll_data;
 		}
@@ -88,7 +91,12 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 	 *
 	 * @return bool
 	 */
-	private function should_hide_block() {
+	private function should_hide_block( $attributes ) {
+		$platform_poll_data = $this->get_platform_poll_data( $attributes['pollId'] ?? null );
+		if ( empty( $platform_poll_data ) ) {
+			return true;
+		}
+
 		return ! $this->is_cs_connected();
 	}
 

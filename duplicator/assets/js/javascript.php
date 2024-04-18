@@ -491,6 +491,5 @@ jQuery(document).ready(function($) {
 <script>
     <?php
         require_once(DUPLICATOR_PLUGIN_PATH . '/assets/js/modal-box.js');
-        require_once(DUPLICATOR_PLUGIN_PATH . '/assets/js/dynamic-help.js');
     ?>
 </script>

@@ -139,10 +139,23 @@ class MediaAccessControl
 			$media = get_post($ID);
 			if(!$media) Messages::fullPage('404', esc_attr__( 'Media not found!', WPDM_TEXT_DOMAIN ));
 			$media_meta = wp_get_attachment_metadata($ID);
-			//wpdmdd($media_meta);
-			//wpdmdd($media);
-			$media->path = str_replace(home_url('/'), ABSPATH.'/', $media->guid);
+            //wpdmdd($media_meta);
+            $validFilenames = [basename($media_meta['file'])];
+            foreach($media_meta['sizes'] as $key => $item){
+                $validFilenames[] = $item['file'];
+            }
+
+			$validRelPath = str_replace(basename($media_meta['file']), '', $media_meta['file']);
+            $reqFilename = basename($_REQUEST['wpdmmedia']);
+			//wpdmdd($reqFilename, $validFilenames, $_REQUEST['wpdmmedia'], $validRelPath);
+            if(!in_array($reqFilename, $validFilenames) || substr_count($_REQUEST['wpdmmedia'], $validRelPath) === 0) {
+                wp_die( __('Invalid file path!', 'download-manager') );
+            }
+
+            //wpdmdd($media);
+			$media->path = ABSPATH.$media_meta['file'];
 			$media->filesize = wpdm_file_size($media->path);
+			$upload_dir = wp_upload_dir();
 
 			$access = get_post_meta($media->ID, '__wpdm_media_access', true);
 			if(!is_array($access)) $access = ['public'];
@@ -169,9 +182,10 @@ class MediaAccessControl
 				die();
 			}
 
-			$upload_dir = wp_upload_dir();
-			$file_path = $upload_dir['basedir'].'/'.$_REQUEST['wpdmmedia'];
+			//$upload_dir = wp_upload_dir();
+			$file_path = $upload_dir['basedir'].'/'.__::query_var('wpdmmedia');
 			$file_path = apply_filters("wpdm_media_download", $file_path, $media->ID);
+            //wpdmdd($file_path);
 			FileSystem::downloadFile($file_path, basename($file_path), 10240, 0, array('play' => 1));
 			die();
 		}

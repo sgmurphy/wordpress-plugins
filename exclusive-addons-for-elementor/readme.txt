@@ -1,9 +1,9 @@
 === Exclusive Addons for Elementor ===
-Contributors: exclusiveaddons, timstrifler, madjennsy, mmaumio, atiquehasan, zabid, fahimahmmed100
+Contributors: exclusiveaddons, timstrifler, devjenndivilife, mmaumio, atiquehasan, zabid, fahimahmmed100
 Tags: elementor, elementor Addons, elementor widgets, woocommerce builder, ultimate Addons
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 2.6.9.3
+Stable tag: 2.6.9.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -21,7 +21,7 @@ An easy to use interface with several customizations and unique essential widget
 
 We have filled all the free elements with every option that you can think of. Still need one, please feel free to reach out. Your requests will always be our priority and we’ll try to bring the most upvoted one first. 
 
-[Check out our Roadmaps]https://exclusiveaddons.com/roadmaps/ 
+[Check out our Roadmaps](https://exclusiveaddons.com/roadmaps/)
 
 [Check out our Demos](https://exclusiveaddons.com/)
 
@@ -273,6 +273,11 @@ No, It won't break your existing elements. We put most of our efforts into ensur
 
 
 == Changelog ==
+= 2.6.9.4 - 18/04/2024 =
+- Security improvements
+- Link Anything: Improve URL validation
+- Post Duplicator: Improve functionality
+
 = 2.6.9.3 - 05/04/2024 =
 - Full security improvement
 - Link Anything: fix issue on URL validation

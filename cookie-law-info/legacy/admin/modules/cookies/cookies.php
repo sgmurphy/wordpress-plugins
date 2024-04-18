@@ -305,7 +305,7 @@ class Cookie_Law_Info_Cookies {
 		}
 	}
 	/**
-	 * Register cutsom taxonomy
+	 * Register custom taxonomy
 	 *
 	 * @return void
 	 */

@@ -67,7 +67,7 @@ class Cookie_Law_Info_Uninstall_Feedback {
 				'text'  => __( 'Translation issues', 'cookie-law-info' ),
 				'child' => array(
 					array(
-						'id'          => 'incorrect-misssing-translation',
+						'id'          => 'incorrect-missing-translation',
 						'text'        => __( 'Incorrect/missing translation', 'cookie-law-info' ),
 						'type'        => 'textarea',
 						'placeholder' => __( 'Name the language and specify the string with incorrect translation.', 'cookie-law-info' ),
@@ -124,14 +124,14 @@ class Cookie_Law_Info_Uninstall_Feedback {
 					foreach ( $reasons as $reason ) :
 											$data_type   = ( isset( $reason['type'] ) ? $reason['type'] : '' );
 											$placeholder = ( isset( $reason['placeholder'] ) ? $reason['placeholder'] : '' );
-											$childs      = ( isset( $reason['child'] ) && is_array( $reason['child'] ) ) ? $reason['child'] : array();
+											$children      = ( isset( $reason['child'] ) && is_array( $reason['child'] ) ) ? $reason['child'] : array();
 						?>
 							<li data-type="<?php echo esc_attr( $data_type ); ?>" data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
 								<label><input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>"><?php echo esc_html( $reason['text'] ); ?></label>
-								<?php if ( ! empty( $childs ) ) : ?>
+								<?php if ( ! empty( $children ) ) : ?>
 									<ul class="<?php echo esc_attr( $this->plugin_id ) . '-sub-reasons'; ?>">
 										<?php
-										foreach ( $childs as $child ) :
+										foreach ( $children as $child ) :
 													$data_type   = ( isset( $child['type'] ) ? $child['type'] : '' );
 													$placeholder = ( isset( $child['type'] ) ? $child['placeholder'] : '' );
 											?>
@@ -327,7 +327,7 @@ class Cookie_Law_Info_Uninstall_Feedback {
 			'multisite'                   => is_multisite() ? 'Yes' : 'No',
 			$this->plugin_id . '_version' => $this->current_version,
 		);
-		// Write an action/hook here in webtoffe to recieve the data
+		// Write an action/hook here in webtoffe to receive the data
 		$resp = wp_remote_post(
 			$this->api_url,
 			array(

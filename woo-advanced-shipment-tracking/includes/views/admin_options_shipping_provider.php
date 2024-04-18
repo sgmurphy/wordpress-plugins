@@ -45,10 +45,10 @@ if ( isset( $_GET['open'] ) && 'synch_providers' == $_GET['open'] ) {
 		
 		<?php if ( $total_enable_providers->total_providers > 0 ) { ?>
 			<div class="shipping-carriers-selected-provider-message">
-				<p class="selected_provider_show_notice"><span id="selected_provider_total">0</span> <?php esc_html_e('carriers selected.', 'ast-pro'); ?> <a class="remove_all_shipping_carrier"><?php esc_html_e('Click Here', 'ast-pro'); ?></a> <?php esc_html_e('if you want to select all carriers.', 'ast-pro'); ?></p>
+				<p class="selected_provider_show_notice"><span id="selected_provider_total">0</span> <?php esc_html_e('carriers selected.', 'woo-advanced-shipment-tracking'); ?> <a class="remove_all_shipping_carrier"><?php esc_html_e('Click Here', 'woo-advanced-shipment-tracking'); ?></a> <?php esc_html_e('if you want to select all carriers.', 'woo-advanced-shipment-tracking'); ?></p>
 			</div>
 			<div class="all-shipping-carriers-selected">
-				<p class="all_carriers_selected"><?php esc_html_e('All Carriers Selected.', 'ast-pro'); ?> <a class="remove_selected_shipping_carrier"><?php esc_html_e('Undo', 'ast-pro'); ?></a></p>
+				<p class="all_carriers_selected"><?php esc_html_e('All Carriers Selected.', 'woo-advanced-shipment-tracking'); ?> <a class="remove_selected_shipping_carrier"><?php esc_html_e('Undo', 'woo-advanced-shipment-tracking'); ?></a></p>
 			</div>
 		<?php } ?>
 
@@ -102,7 +102,7 @@ if ( isset( $_GET['open'] ) && 'synch_providers' == $_GET['open'] ) {
 				<div class="menu_devider"></div>
 				<section id="add_customer_carrier_section">	
 					<div class="get_feature_container">
-						<a href="https://www.zorem.com/product/woocommerce-advanced-shipment-tracking/" target="_blank"><span class="get_feature_span"><span class="dashicons dashicons-arrow-up-alt"></span>Get Feature</span></a>
+						<a href="https://www.zorem.com/product/woocommerce-advanced-shipment-tracking/?utm_source=wp-admin&utm_medium=provider-popup&utm_campaign=upgrad-to-pro" target="_blank"><span class="get_feature_span"><span class="dashicons dashicons-arrow-up-alt"></span>Get Feature</span></a>
 						<div>Upgrade to Advanced Shipment Tracking Pro and gain the power to Add Custom Shipping Carriers. Ditch limitations, offer more shipping choices, enhance customer satisfaction, and streamline operations. Elevate your e-commerce game today!</div>
 					</div>
 

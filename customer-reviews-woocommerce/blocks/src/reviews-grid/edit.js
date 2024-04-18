@@ -11,6 +11,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import ProductCategoryControl from '../editor-components/product-category-control';
 import ProductsControl from '../editor-components/products-control';
 import ProductTagControl from '../editor-components/product-tag-control';
+import ReviewTagControl from '../editor-components/review-tag-control';
 import ColorPickerWithLabel from '../editor-components/color-picker-with-label';
 import json from './block.json';
 
@@ -46,8 +47,9 @@ export default function Edit( { attributes, setAttributes } ) {
 					}
 				}
 			}
-		}, 1000 );
-	} );
+		}, 3000 );
+		return () => clearInterval( blockLoadedInterval );
+	}, [attributes] );
 
 	return (
 		<div { ...useBlockProps() }>
@@ -113,6 +115,11 @@ export default function Edit( { attributes, setAttributes } ) {
 						label={ __( 'Show Rating Bars', 'customer-reviews-woocommerce' ) }
 						checked={ attributes.show_summary_bar }
 						onChange={ () => setAttributes( { show_summary_bar: ! attributes.show_summary_bar } ) }
+					/>
+					<ToggleControl
+						label={ __( 'Add Review', 'customer-reviews-woocommerce' ) }
+						checked={ attributes.add_review }
+						onChange={ () => setAttributes( { add_review: ! attributes.add_review } ) }
 					/>
 					<SelectControl
 						label={ __( 'Avatars', 'customer-reviews-woocommerce' ) }
@@ -185,6 +192,18 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( value = [] ) => {
 							const ids = value.map( ( { id } ) => id );
 							setAttributes( { product_tags: ids } );
+						} }
+					/>
+				</PanelBody>
+				<PanelBody title={ __( 'Tags', 'customer-reviews-woocommerce' ) } initialOpen={ false }>
+					<div>
+						{ __( 'Select which tags to show reviews for.', 'customer-reviews-woocommerce' ) }
+					</div>
+					<ReviewTagControl
+						selected={ attributes.tag_ids }
+						onChange={ ( value = [] ) => {
+							const ids = value.map( ( { id } ) => id );
+							setAttributes( { tag_ids: ids } );
 						} }
 					/>
 				</PanelBody>

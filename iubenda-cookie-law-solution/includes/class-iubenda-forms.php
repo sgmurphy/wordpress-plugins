@@ -157,7 +157,7 @@ class Iubenda_Forms {
 
 			wp_localize_script(
 				'iubenda-forms',
-				'iubForms',
+				'iubFormParams',
 				$args
 			);
 

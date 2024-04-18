@@ -20,7 +20,7 @@ class Settings
     }
 
     function Menu(){
-        add_submenu_page('edit.php?post_type=wpdmpro', __( "Settings &lsaquo; Download Manager" , "download-manager" ), __( "Settings" , "download-manager" ), WPDM_ADMIN_CAP, 'settings', array($this, 'UI'));
+        add_submenu_page('edit.php?post_type=wpdmpro', __( "Settings &lsaquo; Download Manager" , "download-manager" ), __( "Settings" , "download-manager" ), WPDM_ADMIN_CAP, 'wpdm-settings', array($this, 'UI'));
     }
 
     function checkSaveSettingsAuth(){

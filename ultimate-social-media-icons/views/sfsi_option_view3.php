@@ -330,7 +330,7 @@ $option3['sfsi_mouseOver_effect_type'] = (isset($option3['sfsi_mouseOver_effect_
                             <img src="<?php echo SFSI_PLUGURL ?>images/icons_theme/flat/flat_twitter.png" alt="" />
                         </span>
                         <span class="sfsi_icon_color_picker">
-                        <input name="sfsi_twitter_bgColor" data-default-color="#00ACEC" id="sfsi_twitter_bgColor" class="sfsi_input_bgColor" type="text" value="<?php echo esc_attr( $sfsi_twitter_bgColor ); ?>" />
+                        <input name="sfsi_twitter_bgColor" data-default-color="#000000" id="sfsi_twitter_bgColor" class="sfsi_input_bgColor" type="text" value="<?php echo esc_attr( $sfsi_twitter_bgColor ); ?>" />
                         </span>
                     </span>
                     <span class="row_2_7 sfsi_icon_bgcolor youtube_section">
@@ -370,7 +370,7 @@ $option3['sfsi_mouseOver_effect_type'] = (isset($option3['sfsi_mouseOver_effect_
                             <img src="<?php echo SFSI_PLUGURL ?>images/icons_theme/flat/flat_ria.png" alt="" />
                         </span>
                         <span class="sfsi_icon_color_picker">
-                        <input name="sfsi_ria_bgColor" data-default-color-custom="" id="sfsi_ria_bgColor" class="sfsi_input_bgColor" type="text" value="<?php echo esc_attr( $sfsi_ria_bgColor ); ?>" />
+                        <input name="sfsi_ria_bgColor" data-default-color="#10A9A0" id="sfsi_ria_bgColor" class="sfsi_input_bgColor" type="text" value="<?php echo esc_attr( $sfsi_ria_bgColor ); ?>" />
                         </span>
                     </span>
                     <span class="row_2_26 sfsi_icon_bgcolor inha_section">
@@ -378,7 +378,7 @@ $option3['sfsi_mouseOver_effect_type'] = (isset($option3['sfsi_mouseOver_effect_
                             <img src="<?php echo SFSI_PLUGURL ?>images/icons_theme/flat/flat_inha.png" alt="" />
                         </span>
                         <span class="sfsi_icon_color_picker">
-                        <input name="sfsi_inha_bgColor" data-default-color-custom="" id="sfsi_inha_bgColor" class="sfsi_input_bgColor" type="text" value="<?php echo esc_attr( $sfsi_inha_bgColor ); ?>" />
+                        <input name="sfsi_inha_bgColor" data-default-color="#348cbc" id="sfsi_inha_bgColor" class="sfsi_input_bgColor" type="text" value="<?php echo esc_attr( $sfsi_inha_bgColor ); ?>" />
                         </span>
                     </span>
                     <span class="row_2_14 sfsi_icon_bgcolor telegram_section">

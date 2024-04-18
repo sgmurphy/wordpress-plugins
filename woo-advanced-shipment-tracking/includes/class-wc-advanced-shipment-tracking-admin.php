@@ -236,7 +236,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				<h1 class="page_heading">
 					<a href="javascript:void(0)"><?php esc_html_e( 'Shipment Tracking', 'woo-advanced-shipment-tracking' ); ?></a> <span class="dashicons dashicons-arrow-right-alt2"></span> <span class="breadcums_page_heading"><?php esc_html_e( 'Settings', 'woo-advanced-shipment-tracking' ); ?></span>
 				</h1>
-				<a href="https://www.zorem.com/product/woocommerce-advanced-shipment-tracking/" target="_blank"><span class="button-primary btn_ast2">UPGRADE TO PRO</span></a>
+				<a href="https://www.zorem.com/product/woocommerce-advanced-shipment-tracking/?utm_source=wp-admin&utm_medium=plugin-setting&utm_campaign=upgrad-to-pro" target="_blank"><span class="button-primary btn_ast2">UPGRADE TO PRO</span></a>
 				<img class="zorem-layout__header-logo" src="<?php echo esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ); ?>assets/images/ast-logo.png">
 			</div>
 			
@@ -1610,25 +1610,11 @@ class WC_Advanced_Shipment_Tracking_Admin {
 					<div class="grid-top">
 						<div class="grid-provider-img">
 							<?php  
-							// $custom_thumb_id = $d_s_p->custom_thumb_id;
 							if ( 1 == $d_s_p->shipping_default ) {
-								$provider_image = $ast_directory . '' . sanitize_title( $d_s_p->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
-								// if ( 0 != $custom_thumb_id ) {
-								// 	$image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
-								// 	$provider_image = $image_attributes[0];
-								// } else {
-								// 	$provider_image = $ast_directory . '' . sanitize_title( $d_s_p->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
-								// }
+								$provider_image = $ast_directory . '' . esc_html( $d_s_p->ts_slug ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
 								echo '<img class="provider-thumb" src="' . esc_url( $provider_image ) . '">';
 							} else { 
-								echo '<img class="provider-thumb" src="' . esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ) . 'assets/images/icon-default.png">';
-								// $image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
-								
-								// if ( 0 != $custom_thumb_id ) { 
-								// 	echo '<img class="provider-thumb" src="' . esc_url( $image_attributes[0] ) . '">';
-								// } else { 
-								// 	echo '<img class="provider-thumb" src="' . esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ) . 'assets/images/icon-default.png">';
-								// }  
+								echo '<img class="provider-thumb" src="' . esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ) . 'assets/images/icon-default.png">';								
 							}
 							?>
 						</div>
@@ -1890,15 +1876,8 @@ class WC_Advanced_Shipment_Tracking_Admin {
 						<div class="grid-left">				
 							<div class="grid-top">
 								<div class="grid-provider-img">
-									<?php  
-									// $custom_thumb_id = $provider->custom_thumb_id;
-									$provider_image = $ast_directory . '' . sanitize_title( $provider->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
-									// if ( 0 != $custom_thumb_id ) {
-									// 	$image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
-									// 	$provider_image = $image_attributes[0];
-									// } else {
-									// 	$provider_image = $ast_directory . '' . sanitize_title( $provider->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
-									// }
+									<?php 
+									$provider_image = $ast_directory . '' . esc_html( $provider->ts_slug ) . '.png?v=' . wc_advanced_shipment_tracking()->version;									
 									echo '<img class="provider-thumb" src="' . esc_url( $provider_image ) . '">';
 									?>
 								</div>
@@ -1909,7 +1888,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 							</div>						
 						</div>
 						<div class="grid-right">
-							<button class="button add_default_provider" type="button" data-id="<?php echo esc_html( $provider->id ); ?>"><?php esc_html_e( 'Add', 'ast-pro' ); ?></button>
+							<button class="button add_default_provider" type="button" data-id="<?php echo esc_html( $provider->id ); ?>"><?php esc_html_e( 'Add', 'woo-advanced-shipment-tracking' ); ?></button>
 						</div>				
 					</div>
 				<?php } ?>
@@ -1917,11 +1896,11 @@ class WC_Advanced_Shipment_Tracking_Admin {
 		<?php
 		} else if ( !empty( $added_provider ) ) {
 			?>
-			<div class="provider_msg"><?php esc_html_e( 'Shipping Carrier Already Added', 'ast-pro' ); ?></div>
+			<div class="provider_msg"><?php esc_html_e( 'Shipping Carrier Already Added', 'woo-advanced-shipment-tracking' ); ?></div>
 			<?php
 		} else {
 			?>
-			<div class="provider_msg"><?php esc_html_e( 'Shipping Carrier Not Found!', 'ast-pro' ); ?></div>
+			<div class="provider_msg"><?php esc_html_e( 'Shipping Carrier Not Found!', 'woo-advanced-shipment-tracking' ); ?></div>
 			<?php
 		}
 		if ( $total_pages > 1 ) {

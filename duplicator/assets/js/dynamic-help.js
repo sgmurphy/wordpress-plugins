@@ -1,4 +1,9 @@
 jQuery(document).ready(function ($) {
+    if (typeof Duplicator === 'undefined') {
+        Duplicator = {};
+        Duplicator.Help = {};
+    }
+    
     Duplicator.Help.Data = null;
 
     Duplicator.Help.isDataLoaded = function() {
@@ -69,7 +74,7 @@ jQuery(document).ready(function ($) {
                 Duplicator.Help.Display();
             },
             error: function (result) {
-                Duplicator.addAdminMessage('Failed to load help content!', 'error');
+                Duplicator.addAdminMessage(l10nDupDynamicHelp.failMsg, 'error');
             },
             complete: function () {
                 Duplicator.Util.ajaxProgressHide();

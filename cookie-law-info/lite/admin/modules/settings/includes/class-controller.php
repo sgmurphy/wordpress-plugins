@@ -331,7 +331,7 @@ class Controller extends Cloud {
 		$data = array();
 		if ( ! $this->get_website_id() ) {
 			return new WP_Error(
-				'cky_invalide_website_id',
+				'cky_invalid_website_id',
 				__( 'Invalid Website ID', 'cookie-law-info' ),
 				array( 'status' => 404 )
 			);

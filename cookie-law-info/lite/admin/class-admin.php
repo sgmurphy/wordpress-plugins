@@ -397,7 +397,7 @@ class Admin {
 	}
 
 	/**
-	 * Redirec the plugin to web app if connected.
+	 * Redirect the plugin to web app if connected.
 	 *
 	 * @return void
 	 */

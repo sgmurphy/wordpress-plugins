@@ -3,13 +3,13 @@ Contributors: webtoffee, cookieyesdev
 Donate link: https://www.cookieyes.com/ 
 Tags: GDPR, CCPA, cookie notice, DSGVO, cookie consent, cookie notice, cookie banner, eu cookie law, cookieyes, eprivacy, gdpr consent
 Requires at least: 5.0.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Easily set up cookie banners or notices and cookie policy pages for GDPR (DSGVO, RGPD) compliance. Also supports CCPA/CPRA and other global and U.S. state privacy laws.
+Easily set up cookie banners or notices and cookie policy page for GDPR (DSGVO, RGPD) compliance. Also supports CCPA/CPRA and other major global laws.
 
 == Description ==
 
@@ -25,7 +25,7 @@ Our cookie plugin ranks among the top WordPress solutions for cookie compliance 
 
 - **Customization**: Customize the cookie notice style so it blends with your existing website: change the colors, fonts, styles, position on the page, and even how it behaves when you click “Accept All”.
 
-- **Automatic scanning**: Single click automatic scanning and categorization of cookies.
+- **Automatic scanning**: Single-click automatic scanning and categorization of cookies.
 
 - **Cookie auto-blocking**: Automatically block non-essential cookies to ensure GDPR compliance.
 
@@ -47,6 +47,9 @@ Our cookie plugin ranks among the top WordPress solutions for cookie compliance 
 
 - **Integration with CookieYes Web App**: Free connection with CookieYes web app to access advanced features (cookie scan, consent log, etc.) and manage all settings from the web app account.
 
+Here is how you can integrate the CookieYes plugin with our web app:
+
+https://www.youtube.com/watch?v=qw2iYti4aZ8
 
 == Additional Features == 
 
@@ -59,14 +62,12 @@ Our cookie plugin ranks among the top WordPress solutions for cookie compliance 
 
 == The CookieYes GDPR Cookie Consent Plugin Uses The Following Cookie Only ==
 
-- cookieyes-consent – CookieYes sets this cookie to remember users' consent preferences so that their preferences are respected on their subsequent visits to this site. It does not collect or store any personal information of the site visitors.
+- "cookieyes-consent" – CookieYes sets this cookie to remember users' consent preferences so that their preferences are respected on their subsequent visits to this site. It does not collect or store any personal information of the site visitors.
 
 
 == Setup Guide ==
 
 Our [WordPress cookie plugin user guide](https://www.cookieyes.com/documentation/install-cookieyes-wordpress-plugin/?utm_source=wordpress&utm_medium=plugin&utm_campaign=wordpress_page&utm_content=l_1&ref=WPCY "Installation and Setup guide") will help you set up the plugin on your website.
-
-https://www.youtube.com/watch?v=qw2iYti4aZ8
 
 
 == Useful links ==
@@ -105,7 +106,7 @@ Please report a bug on the support forum. Make sure to include the following inf
 
 * Your URL (We need it to help you!)
 * WordPress version (found in the bottom right-hand corner of the dashboard)
-* Browser where the issue is observed (e.g. Firefox, Chrome, IE)
+* Browser where the issue is observed (e.g., Firefox, Chrome, IE)
 * Describe the problem. The more information you provide, the faster we can respond.
 
 
@@ -155,22 +156,35 @@ Yes, we provide an easy wizard to customize and generate a GDPR-compliant cookie
 
 = Automatic installation =
 
-The automatic installation is the easiest way to install the plugin. You can install the plugin within your WordPress dashboard from the same browser window.
- 
-From your admin dashboard, go to Plugins > Add New. From the search box, type “GDPR Cookie consent” or just “gdpr” and then search. Click the install button on the GDPR Cookie Consent by CookieYes and then activate the plugin.
+- Go to **Plugins** from your WordPress dashboard and select **Add New Plugin**.
+
+- Search for “CookieYes” and **Install Now**.
+
+- Click **Activate** to enable the plugin.
 
 = Manual installation =
 
-In the manual installation, you will need to download the zip file of the plugin from the plugin page in WordPress.org. You can upload the file directly from your WordPress dashboard, or using an FTP application.
+- Download the CookieYes plugin zip file from the WordPress.org page.
 
-When doing a manual installation
+- Go to **Plugins** from your WordPress dashboard and select **Add New Plugin**.
 
-1.  Upload the plugin folder to the /wp-content/plugins/ directory.
-2.  Activate the plugin through the Plugins menu in WordPress.
+- Click **Upload Plugin** and choose the downloaded zip file.
+
+- Click **Install Now** and after installation, click **Activate Plugin**.
+
+Alternatively, you can upload the zip using the FTP application. Extract the zip file and upload the folder to your **/wp-content/plugins/** directory. Once uploaded, activate the plugin from your WordPress dashboard.
+
+= To connect the plugin to the CookieYes web app: =
+
+**_(Please note that the Web App integration is optional. You can still use the plugin without connecting it to the app.)_**
+
+- After activating the plugin, click **CookieYes** on your WordPress dashboard menu.
+
+- Click **Connect to Web App**. You will be prompted to sign up for a new account or log in if you already have one.
 
 = Plugin updates =
 
-For every update of the plugin, you will be notified of the installed plugins page. You can directly update the plugin from your dashboard. We recommend that you keep the latest version of the plugin so that you can avail yourself of the new functionalities and security features.
+Every time we update the plugin, you will see a notification on the installed plugins page. You can directly update the plugin from the WordPress dashboard. We recommend keeping the plugin updated to avail new functionalities and security features.
 
 
 == Screenshots ==
@@ -186,6 +200,13 @@ For every update of the plugin, you will be notified of the installed plugins pa
 9. Privacy policy generator and cookie policy generator
 
 == Changelog ==
+
+= 3.2.2 =
+
+[Compatibility] – Tested OK with WordPress version 6.5
+[Enhancement] - Cookie banner auto-translation for 40+ languages.
+[Tweak] - Limited the total languages to two for stand-alone plugin.
+[Fix] - Minor bug fixes.
 
 = 3.2.1 =
 
@@ -673,7 +694,9 @@ Tested OK with WordPress version 6.2
 
 == Upgrade Notice ==
 
-= 3.2.1 =
+= 3.2.2 =
 
-[Fix] - Confirmation page missing while connecting to webapp.
-[Enhancement] - Show percentage values in the consent log chart tooltip.
+[Compatibility] – Tested OK with WordPress version 6.5
+[Enhancement] - Cookie banner auto-translation for 40+ languages.
+[Tweak] - Limited the total languages to two for stand-alone plugin.
+[Fix] - Minor bug fixes.

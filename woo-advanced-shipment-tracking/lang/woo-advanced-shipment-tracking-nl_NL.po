@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Advanced Shipment Tracking\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-11 09:34+0000\n"
-"PO-Revision-Date: 2023-12-25 05:27+0000\n"
+"PO-Revision-Date: 2024-03-18 11:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -18,7 +18,11 @@ msgstr ""
 msgid "3plwinner"
 msgstr "3pl winnaar"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1912
+msgid "Add"
+msgstr "Toevoegen"
+
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2183
 msgid "Add API Name alias"
 msgstr "Alias API-naam toevoegen"
 
@@ -48,6 +52,7 @@ msgstr "voeg de [wcast-track-order] shortcode toe aan de geselecteerde pagina."
 msgid "Add Tracking"
 msgstr "Tracking toevoegen"
 
+#: includes/class-wc-advanced-shipment-tracking.php:337
 #: includes/class-wc-advanced-shipment-tracking-settings.php:513
 msgid "Add Tracking - order\t"
 msgstr "Tracking toevoegen - bestellen"
@@ -73,7 +78,11 @@ msgstr "Geavanceerde tracking van zendingen voor WooCommerce"
 msgid "AliExpress Dropshipping"
 msgstr "AliExpress Dropshipping"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1651
+#: includes/views/admin_options_shipping_provider.php:51
+msgid "All Carriers Selected."
+msgstr "Alle vervoerders geselecteerd."
+
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1653
 msgid "API aliases"
 msgstr "API-aliassen"
 
@@ -141,6 +150,10 @@ msgstr "Vervoerders toegevoegd"
 msgid "Carriers Deleted"
 msgstr "Vervoerders verwijderd"
 
+#: includes/views/admin_options_shipping_provider.php:48
+msgid "carriers selected."
+msgstr "vervoerders geselecteerd."
+
 #: includes/views/admin_options_shipping_provider.php:163
 msgid "Carriers Updated"
 msgstr "Vervoerders bijgewerkt"
@@ -189,6 +202,10 @@ msgstr ""
 "Kies welke bestelstatus in uw winkel u wilt weergeven. Voeg het "
 "trackingpictogram toe in het menu Bestelacties."
 
+#: includes/views/admin_options_shipping_provider.php:48
+msgid "Click Here"
+msgstr "Klik hier"
+
 #: includes/class-wc-advanced-shipment-tracking.php:479
 msgid "Completed"
 msgstr "Voltooid"
@@ -219,6 +236,7 @@ msgstr "Donker Lettertype"
 msgid "Data saved successfully."
 msgstr "Gegevens succesvol opgeslagen."
 
+#: includes/class-wc-advanced-shipment-tracking.php:379
 #: includes/class-wc-advanced-shipment-tracking-settings.php:570
 msgid "Date shipped:"
 msgstr "Datum verzonden:"
@@ -227,7 +245,7 @@ msgstr "Datum verzonden:"
 msgid "Dear Systems"
 msgstr "Beste systemen"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1673
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1675
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -267,7 +285,7 @@ msgstr "Sectie verzendstatus weergeven"
 msgid "Download \tsample csv"
 msgstr "Voorbeeld csv downloaden"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1672
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1674
 msgid "Edit"
 msgstr "Bewerking"
 
@@ -311,7 +329,7 @@ msgid "Email type"
 msgstr "E-mailtype"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1602
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1688
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1690
 #: includes/views/admin_options_shipping_provider.php:36
 msgid "Enable Carriers"
 msgstr "Schakel vervoerders in"
@@ -329,11 +347,12 @@ msgstr "Integratie inschakelen"
 msgid "Enable Shipping Carriers"
 msgstr "Schakel vervoerders in"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2072
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2089
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2075
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2092
 msgid "Filter by shipping provider"
 msgstr "Filteren op vervoerder"
 
+#: includes/class-wc-advanced-shipment-tracking.php:388
 #: includes/class-wc-advanced-shipment-tracking-settings.php:580
 msgid "Fulfill Order"
 msgstr "Bestelling vervullen"
@@ -388,6 +407,18 @@ msgstr "Trackingkop verbergen"
 #| msgid "How to import tracking number from CSV files?"
 msgid "How to import \ttracking number from CSV files?"
 msgstr "Hoe een trackingnummer uit CSV-bestanden te importeren?"
+
+#. Author URI of the plugin
+msgid "https://www.zorem.com"
+msgstr "https://www.zorem.com"
+
+#. URI of the plugin
+msgid "https://www.zorem.com/products/woocommerce-advanced-shipment-tracking/"
+msgstr "https://www.zorem.com/products/woocommerce-advanced-shipment-tracking/"
+
+#: includes/views/admin_options_shipping_provider.php:48
+msgid "if you want to select all carriers."
+msgstr "als je alle vervoerders wilt selecteren."
 
 #: includes/views/admin_options_bulk_upload.php:72
 msgid "Import in Progress"
@@ -454,6 +485,12 @@ msgid "Mockup Order"
 msgstr "Mockup-bestelling"
 
 #: includes/class-ast-integration-options.php:59
+#: includes/views/admin_options_addons.php:54
+#: includes/views/admin_options_addons.php:72
+#: includes/views/admin_options_addons.php:90
+#: includes/views/admin_options_addons.php:108
+#: includes/views/admin_options_addons.php:126
+#: includes/views/admin_options_addons.php:144
 msgid "More Info"
 msgstr "Meer informatie"
 
@@ -461,12 +498,9 @@ msgstr "Meer informatie"
 msgid "more info"
 msgstr "meer info"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2183
 msgid "Multiple API names mapping is a pro features"
 msgstr "Het in kaart brengen van meerdere API-namen is een pro-functie"
-
-msgid "New message"
-msgstr "Nieuw bericht"
 
 #: includes/customizer/ast-customizer.php:581
 msgid "Normal"
@@ -515,8 +549,8 @@ msgstr "andere"
 msgid "ParcelForce"
 msgstr "PakketForce"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:915
 #: includes/class-wc-advanced-shipment-tracking.php:495
+#: includes/class-wc-advanced-shipment-tracking-admin.php:915
 #: includes/class-wc-advanced-shipment-tracking-settings.php:282
 #: includes/class-wc-advanced-shipment-tracking-settings.php:314
 #: includes/customizer/ast-customizer.php:131
@@ -660,10 +694,10 @@ msgstr "Instellingen Opgeslagen."
 msgid "Shipment status changed to %s"
 msgstr "De verzendstatus is gewijzigd naar % s"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:195
-#: includes/class-wc-advanced-shipment-tracking-admin.php:237
 #: includes/class-wc-advanced-shipment-tracking.php:142
 #: includes/class-wc-advanced-shipment-tracking.php:233
+#: includes/class-wc-advanced-shipment-tracking-admin.php:195
+#: includes/class-wc-advanced-shipment-tracking-admin.php:237
 msgid "Shipment Tracking"
 msgstr "Track & Trace"
 
@@ -671,13 +705,13 @@ msgstr "Track & Trace"
 msgid "Shipment Tracking API"
 msgstr "API voor het volgen van zendingen"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:573
 #: includes/class-wc-advanced-shipment-tracking.php:479
+#: includes/class-wc-advanced-shipment-tracking-admin.php:573
 #: includes/class-wc-advanced-shipment-tracking-settings.php:438
-#: includes/customizer/ast-customizer.php:127
-#: includes/customizer/ast-customizer.php:353
 #: templates/emails/fluid-tracking-info.php:93
 #: templates/emails/fluid-tracking-info.php:116
+#: includes/customizer/ast-customizer.php:127
+#: includes/customizer/ast-customizer.php:353
 msgid "Shipped"
 msgstr "Verzonden"
 
@@ -708,6 +742,14 @@ msgstr "Verzonden op:"
 msgid "Shipped Order"
 msgstr "Verzonden bestelling"
 
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1920
+msgid "Shipping Carrier Already Added"
+msgstr "Vervoerder al toegevoegd"
+
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1924
+msgid "Shipping Carrier Not Found!"
+msgstr "Vervoerder niet gevonden!"
+
 #: includes/class-wc-advanced-shipment-tracking-admin.php:288
 #: includes/class-wc-advanced-shipment-tracking-admin.php:292
 #: includes/views/admin_options_shipping_provider.php:26
@@ -719,6 +761,8 @@ msgstr "Vervoerders"
 msgid "Shipping carriers database reset successfully."
 msgstr "Database van transporteurs is opnieuw ingesteld."
 
+#: includes/class-wc-advanced-shipment-tracking.php:350
+#: includes/class-wc-advanced-shipment-tracking.php:352
 #: includes/class-wc-advanced-shipment-tracking-settings.php:527
 #: includes/class-wc-advanced-shipment-tracking-settings.php:529
 msgid "Shipping Provider:"
@@ -832,6 +876,7 @@ msgstr ""
 msgid "Tracking Number"
 msgstr "Tracking-Nummer"
 
+#: includes/class-wc-advanced-shipment-tracking.php:346
 #: includes/class-wc-advanced-shipment-tracking-settings.php:523
 msgid "Tracking number:"
 msgstr "Tracking-nummer:"
@@ -844,6 +889,10 @@ msgstr "Tracking-nummer:"
 #: includes/customizer/ast-customizer.php:438
 msgid "Tracking Widget"
 msgstr "Tracking-widget"
+
+#: includes/views/admin_options_shipping_provider.php:51
+msgid "Undo"
+msgstr "Ongedaan maken"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:943
 #: includes/class-wc-advanced-shipment-tracking-settings.php:267
@@ -927,6 +976,8 @@ msgstr "WooCommerce Canada Postverzending"
 msgid "WooCommerce UPS Shipping"
 msgstr "WooCommerce UPS-verzending"
 
+#: includes/class-wc-advanced-shipment-tracking.php:380
+#: includes/class-wc-advanced-shipment-tracking-settings.php:571
 #: includes/class-wc-advanced-shipment-tracking-settings.php:571
 msgid "Y-m-d"
 msgstr "Y-m-d"
@@ -950,3 +1001,7 @@ msgstr "Uw {site_title} bestelling is nu gedeeltelijk verzonden"
 #: includes/class-ast-integration-options.php:110
 msgid "Zenventory"
 msgstr "Zenventaris"
+
+#. Author of the plugin
+msgid "zorem"
+msgstr "zorem"

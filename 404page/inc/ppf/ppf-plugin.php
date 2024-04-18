@@ -11,7 +11,7 @@
  */
 
  
-if ( !class_exists( 'PPF0_Plugin' ) ) {
+if ( !class_exists( 'PPF09_Plugin' ) ) {
   
   abstract class PPF09_Plugin extends PPF09_Class {
     

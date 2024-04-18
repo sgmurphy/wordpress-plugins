@@ -354,7 +354,7 @@ class Controller extends Base_Controller {
 	 *  Return the default settings of a banner.
 	 *
 	 * @param string $type Consent type. Default value "gdpr".
-	 * @return arrray
+	 * @return array
 	 */
 	public static function get_default_configs( $type = 'gdpr' ) {
 		$settings = wp_cache_get( 'default', 'cky_banner_settings_' . $type );

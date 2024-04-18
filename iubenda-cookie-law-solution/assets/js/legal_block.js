@@ -22,7 +22,7 @@
 	);
 
 	blocks.registerBlockType(
-		iub_block_js_vars.block_name,
+		iubBlockParams.block_name,
 		{
 			title: 'Iubenda',
 			icon: iconEl,
@@ -30,7 +30,7 @@
 			attributes: {
 				title: {
 					type: 'string',
-					default: iub_block_js_vars.iub_legal_block_short_title
+					default: iubBlockParams.iub_legal_block_short_title
 				},
 			},
 			edit: function ( props ) {
@@ -66,7 +66,7 @@
 							value: attributes.title,
 						}
 					),
-					el( 'p', {}, '[' + iub_block_js_vars.iub_legal_block_shortcode + ']' ),
+					el( 'p', {}, '[' + iubBlockParams.iub_legal_block_shortcode + ']' ),
 				);
 			},
 		}

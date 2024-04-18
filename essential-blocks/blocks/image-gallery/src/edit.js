@@ -96,10 +96,10 @@ export default function Edit(props) {
         className: classnames(className, `eb-guten-block-main-parent-wrapper`),
     });
 
+
     //Set Image Sources on Change Image/Size
     useEffect(() => {
         const currentSources = [];
-
         images.map((image) => {
             let item = {};
             if (image.sizes && imageSize && imageSize.length > 0) {
@@ -324,9 +324,16 @@ export default function Edit(props) {
                                     {() => (
                                         <MediaUpload
                                             value={images.map((img) => img.id)}
-                                            onSelect={(images) =>
-                                                setAttributes({ images })
-                                            }
+                                            onSelect={(newImages) => {
+                                                const mergedArray = new Map(images.map(item => [item.id, item]));
+                                                newImages.forEach(item => {
+                                                    const correspondingItem = mergedArray.get(item.id);
+                                                    if (correspondingItem) {
+                                                        Object.assign(item, correspondingItem);
+                                                    }
+                                                });
+                                                setAttributes({ images: newImages })
+                                            }}
                                             allowedTypes={["image"]}
                                             multiple
                                             gallery

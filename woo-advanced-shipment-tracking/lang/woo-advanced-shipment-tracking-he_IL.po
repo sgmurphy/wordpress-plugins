@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Advanced Shipment Tracking\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-11 09:34+0000\n"
-"PO-Revision-Date: 2023-12-25 05:26+0000\n"
+"PO-Revision-Date: 2024-03-18 11:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: Hebrew\n"
 "Language: he_IL\n"
@@ -18,7 +18,11 @@ msgstr ""
 msgid "3plwinner"
 msgstr "מנצח 3"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1912
+msgid "Add"
+msgstr "לְהוֹסִיף"
+
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2183
 msgid "Add API Name alias"
 msgstr "הוסף כינוי שם API"
 
@@ -46,6 +50,7 @@ msgstr "הוסף את הקיצור [wcast-track-order] בדף הנבחר."
 msgid "Add Tracking"
 msgstr "הוסף פרטי מעקב"
 
+#: includes/class-wc-advanced-shipment-tracking.php:337
 #: includes/class-wc-advanced-shipment-tracking-settings.php:513
 msgid "Add Tracking - order\t"
 msgstr "הוספת מספר מעקב להזמנה"
@@ -71,7 +76,11 @@ msgstr "מעקב משלוחים מתקדם עבור WooCommerce"
 msgid "AliExpress Dropshipping"
 msgstr "דרופשיפינג של אליאקספרס"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1651
+#: includes/views/admin_options_shipping_provider.php:51
+msgid "All Carriers Selected."
+msgstr "כל הספקים נבחרו."
+
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1653
 msgid "API aliases"
 msgstr "כינויי API"
 
@@ -140,6 +149,10 @@ msgstr "נוספו מובילים"
 msgid "Carriers Deleted"
 msgstr "הספקים נמחקו"
 
+#: includes/views/admin_options_shipping_provider.php:48
+msgid "carriers selected."
+msgstr "ספקים נבחרים."
+
 #: includes/views/admin_options_shipping_provider.php:163
 msgid "Carriers Updated"
 msgstr "הספקים עודכנו"
@@ -190,6 +203,10 @@ msgstr ""
 "בחר איזה סטטוס הזמנה בחנות שלך תרצה להציג הוסף את סמל המעקב בתפריט פעולות "
 "הזמנה."
 
+#: includes/views/admin_options_shipping_provider.php:48
+msgid "Click Here"
+msgstr "לחץ כאן"
+
 #: includes/class-wc-advanced-shipment-tracking.php:479
 msgid "Completed"
 msgstr "הושלם"
@@ -221,6 +238,7 @@ msgstr ""
 msgid "Data saved successfully."
 msgstr "נשמר בהצלחה"
 
+#: includes/class-wc-advanced-shipment-tracking.php:379
 #: includes/class-wc-advanced-shipment-tracking-settings.php:570
 msgid "Date shipped:"
 msgstr "תאריך משלוח:"
@@ -229,7 +247,7 @@ msgstr "תאריך משלוח:"
 msgid "Dear Systems"
 msgstr "מערכות יקרות"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1673
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1675
 msgid "Delete"
 msgstr "לִמְחוֹק"
 
@@ -269,7 +287,7 @@ msgstr "הצג את קטע סטטוס המשלוח"
 msgid "Download \tsample csv"
 msgstr "הורד CSV לדוגמה"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1672
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1674
 msgid "Edit"
 msgstr "לַעֲרוֹך"
 
@@ -313,7 +331,7 @@ msgid "Email type"
 msgstr "סוג דוא\"ל"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1602
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1688
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1690
 #: includes/views/admin_options_shipping_provider.php:36
 msgid "Enable Carriers"
 msgstr "הפעל את הספקים"
@@ -331,11 +349,12 @@ msgstr "אפשר אינטגרציה"
 msgid "Enable Shipping Carriers"
 msgstr "אפשר מובילי משלוח"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2072
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2089
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2075
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2092
 msgid "Filter by shipping provider"
 msgstr "סנן לפי ספק שילוח"
 
+#: includes/class-wc-advanced-shipment-tracking.php:388
 #: includes/class-wc-advanced-shipment-tracking-settings.php:580
 msgid "Fulfill Order"
 msgstr "מילוי הסדר"
@@ -391,6 +410,18 @@ msgstr "הסתר את כותרת המעקב"
 #| msgid "How to import tracking number from CSV files?"
 msgid "How to import \ttracking number from CSV files?"
 msgstr "כיצד לייבא מספר מעקב מקבצי CSV?"
+
+#. Author URI of the plugin
+msgid "https://www.zorem.com"
+msgstr "https://www.zorem.com"
+
+#. URI of the plugin
+msgid "https://www.zorem.com/products/woocommerce-advanced-shipment-tracking/"
+msgstr "https://www.zorem.com/products/woocommerce-advanced-shipment-tracking/"
+
+#: includes/views/admin_options_shipping_provider.php:48
+msgid "if you want to select all carriers."
+msgstr "אם אתה רוצה לבחור את כל הספקים."
 
 #: includes/views/admin_options_bulk_upload.php:72
 msgid "Import in Progress"
@@ -459,6 +490,12 @@ msgid "Mockup Order"
 msgstr "צו מוקוק"
 
 #: includes/class-ast-integration-options.php:59
+#: includes/views/admin_options_addons.php:54
+#: includes/views/admin_options_addons.php:72
+#: includes/views/admin_options_addons.php:90
+#: includes/views/admin_options_addons.php:108
+#: includes/views/admin_options_addons.php:126
+#: includes/views/admin_options_addons.php:144
 msgid "More Info"
 msgstr "עוד מידע"
 
@@ -467,12 +504,9 @@ msgid "more info"
 msgstr ""
 "עוד מידע\n"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2183
 msgid "Multiple API names mapping is a pro features"
 msgstr "מיפוי שמות API מרובים הוא תכונות מקצועיות"
-
-msgid "New message"
-msgstr "הודעה חדשה"
 
 #: includes/customizer/ast-customizer.php:581
 msgid "Normal"
@@ -519,8 +553,8 @@ msgstr "אחר"
 msgid "ParcelForce"
 msgstr "ParcelForce"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:915
 #: includes/class-wc-advanced-shipment-tracking.php:495
+#: includes/class-wc-advanced-shipment-tracking-admin.php:915
 #: includes/class-wc-advanced-shipment-tracking-settings.php:282
 #: includes/class-wc-advanced-shipment-tracking-settings.php:314
 #: includes/customizer/ast-customizer.php:131
@@ -664,10 +698,10 @@ msgstr "הגדרות נשמרו"
 msgid "Shipment status changed to %s"
 msgstr "סטטוס המשלוח השתנה ל-% s"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:195
-#: includes/class-wc-advanced-shipment-tracking-admin.php:237
 #: includes/class-wc-advanced-shipment-tracking.php:142
 #: includes/class-wc-advanced-shipment-tracking.php:233
+#: includes/class-wc-advanced-shipment-tracking-admin.php:195
+#: includes/class-wc-advanced-shipment-tracking-admin.php:237
 msgid "Shipment Tracking"
 msgstr "מעקב משלוחים"
 
@@ -675,13 +709,13 @@ msgstr "מעקב משלוחים"
 msgid "Shipment Tracking API"
 msgstr "ממשק API למעקב אחר משלוחים"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:573
 #: includes/class-wc-advanced-shipment-tracking.php:479
+#: includes/class-wc-advanced-shipment-tracking-admin.php:573
 #: includes/class-wc-advanced-shipment-tracking-settings.php:438
-#: includes/customizer/ast-customizer.php:127
-#: includes/customizer/ast-customizer.php:353
 #: templates/emails/fluid-tracking-info.php:93
 #: templates/emails/fluid-tracking-info.php:116
+#: includes/customizer/ast-customizer.php:127
+#: includes/customizer/ast-customizer.php:353
 msgid "Shipped"
 msgstr "נשלחה"
 
@@ -714,6 +748,14 @@ msgstr "נשלח ב:"
 msgid "Shipped Order"
 msgstr "הזמנה נשלחה"
 
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1920
+msgid "Shipping Carrier Already Added"
+msgstr "מוביל משלוח כבר נוסף"
+
+#: includes/class-wc-advanced-shipment-tracking-admin.php:1924
+msgid "Shipping Carrier Not Found!"
+msgstr "לא נמצא מוביל משלוח!"
+
 #: includes/class-wc-advanced-shipment-tracking-admin.php:288
 #: includes/class-wc-advanced-shipment-tracking-admin.php:292
 #: includes/views/admin_options_shipping_provider.php:26
@@ -725,6 +767,8 @@ msgstr "מובילי משלוח"
 msgid "Shipping carriers database reset successfully."
 msgstr "מסד הנתונים של מובילי המשלוח אופס בהצלחה."
 
+#: includes/class-wc-advanced-shipment-tracking.php:350
+#: includes/class-wc-advanced-shipment-tracking.php:352
 #: includes/class-wc-advanced-shipment-tracking-settings.php:527
 #: includes/class-wc-advanced-shipment-tracking-settings.php:529
 msgid "Shipping Provider:"
@@ -836,6 +880,7 @@ msgstr "פרטי המעקב נמחקו עבור ספק המעקב %1$s עם מס
 msgid "Tracking Number"
 msgstr "מספר מעקב"
 
+#: includes/class-wc-advanced-shipment-tracking.php:346
 #: includes/class-wc-advanced-shipment-tracking-settings.php:523
 msgid "Tracking number:"
 msgstr "מספר מעקב"
@@ -848,6 +893,10 @@ msgstr "מספר מעקב"
 #: includes/customizer/ast-customizer.php:438
 msgid "Tracking Widget"
 msgstr "יישומון מעקב"
+
+#: includes/views/admin_options_shipping_provider.php:51
+msgid "Undo"
+msgstr "לבטל"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:943
 #: includes/class-wc-advanced-shipment-tracking-settings.php:267
@@ -932,6 +981,8 @@ msgstr "WooCommerce Canada Post Shipping"
 msgid "WooCommerce UPS Shipping"
 msgstr "משלוח UPS של WooCommerce"
 
+#: includes/class-wc-advanced-shipment-tracking.php:380
+#: includes/class-wc-advanced-shipment-tracking-settings.php:571
 #: includes/class-wc-advanced-shipment-tracking-settings.php:571
 msgid "Y-m-d"
 msgstr "Y-m-d"
@@ -956,3 +1007,7 @@ msgstr ""
 #: includes/class-ast-integration-options.php:110
 msgid "Zenventory"
 msgstr "Zenventory"
+
+#. Author of the plugin
+msgid "zorem"
+msgstr "זורם"

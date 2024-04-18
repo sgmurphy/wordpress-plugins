@@ -15,7 +15,7 @@ class RM_GIAPI {
 	 *
 	 * @var string
 	 */
-	public $version = '1.1.17';
+	public $version = '1.1.18';
 
 	/**
 	 * Holds the admin menu hook suffix for the "dummy" dashboard.
@@ -672,7 +672,7 @@ class RM_GIAPI {
 			return;
 		}
 
-		$this->menu_hook_suffix = add_submenu_page( 'rank-math', __( 'Instant Indexing', 'fast-indexing-api' ), __( 'Instant Indexing', 'fast-indexing-api' ), apply_filters( 'rank_math/indexing_api/capability', 'manage_options' ), 'instant-indexing', [ $this, 'show_admin_page' ] );
+		$this->menu_hook_suffix = add_submenu_page( 'rank-math', __( 'Instant Indexing', 'fast-indexing-api' ), __( 'Instant Indexing', 'fast-indexing-api' ), apply_filters( 'rank_math/indexing_api/capability', 'rank_math_general' ), 'instant-indexing', [ $this, 'show_admin_page' ] );
 	}
 
 	/**

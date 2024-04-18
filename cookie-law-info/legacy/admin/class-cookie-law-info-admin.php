@@ -75,7 +75,7 @@ class Cookie_Law_Info_Admin {
 	}
 
 	/**
-	 * Store default datas to the database if a first time user
+	 * Store default data to the database if a first time user
 	 *
 	 * @since  2.3.1
 	 * @access public

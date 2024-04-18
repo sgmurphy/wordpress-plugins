@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.7.0\n"
+"Project-Id-Version: Give - Donation Plugin 3.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-10T17:40:20+00:00\n"
+"POT-Creation-Date: 2024-04-17T19:37:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -15959,11 +15959,11 @@ msgstr ""
 msgid "Form migrated from v2 to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:87
+#: src/FormMigration/ServiceProvider.php:88
 msgid "The ID of the form (v2) to migrate to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:111
+#: src/FormMigration/ServiceProvider.php:112
 msgid "The ID of the form (v3) to transfer donations (from v2)."
 msgstr ""
 
@@ -21958,6 +21958,10 @@ msgstr ""
 
 #: build/formBuilderApp.js:13
 msgid "Select a block to edit the settings for that individual block on the Block tab of the editor. Settings will vary depending on the type of block selected."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Want to view the guided tour later? Access this option in the three dots menu above at any time."
 msgstr ""
 
 #: build/formBuilderApp.js:13
