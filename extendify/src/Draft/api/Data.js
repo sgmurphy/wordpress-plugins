@@ -16,7 +16,7 @@ const allowList = [
 ];
 const extraBody = {
 	...Object.fromEntries(
-		Object.entries(window.extDraftData).filter(([key]) =>
+		Object.entries(window.extSharedData).filter(([key]) =>
 			allowList.includes(key),
 		),
 	),

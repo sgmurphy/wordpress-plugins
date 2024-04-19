@@ -1,5 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 import { decodeEntities } from '@wordpress/html-entities';
+import { safeParseJson } from '@assist/lib/parsing';
 
 const { hostname } = window.location;
 let { devbuild, siteTitle, wpLanguage } = window.extSharedData;
@@ -13,7 +14,7 @@ const {
 } = window.extAssistData?.domainsSuggestionSettings || {};
 
 const hasDomains =
-	(window.extAssistData?.resourceData?.domains || [])?.length > 0;
+	(safeParseJson(window.extAssistData.resourceData)?.domains || [])?.length > 0;
 
 const domainByLanguage = (lang, urlList) => {
 	try {

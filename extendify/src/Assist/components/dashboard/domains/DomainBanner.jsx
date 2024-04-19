@@ -5,9 +5,10 @@ import {
 	createDomainUrlLink,
 	deleteDomainCache,
 } from '@assist/lib/domains';
+import { safeParseJson } from '@assist/lib/parsing';
 import { useGlobalStore } from '@assist/state/globals';
 
-const domains = window.extAssistData?.resourceData?.domains || [];
+const domains = safeParseJson(window.extAssistData.resourceData)?.domains || [];
 
 export const DomainBanner = () => {
 	const { dismissBanner } = useGlobalStore();
@@ -15,7 +16,9 @@ export const DomainBanner = () => {
 	if (!domainSearchUrl) return null;
 
 	return (
-		<div className="relative py-5 lg:py-6 px-5 lg:px-8 w-full border border-gray-300 text-base bg-white rounded mb-6 min-h-32 h-full">
+		<div
+			className="relative py-5 lg:py-6 px-5 lg:px-8 w-full border border-gray-300 text-base bg-white rounded mb-6 min-h-32 h-full"
+			data-test="assist-domain-banner-main-domain-module">
 			<button
 				type="button"
 				onClick={() => dismissBanner('domain-banner')}

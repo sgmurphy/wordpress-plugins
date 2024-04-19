@@ -1,6 +1,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import { create } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
+import { safeParseJson } from '@draft/lib/parsing';
 
 const path = '/extendify/v1/draft/user-settings';
 const storage = {
@@ -23,7 +24,7 @@ const startingState = {
 };
 const store = (set) => ({
 	...startingState,
-	...(window.extDraftData?.globalState?.state ?? {}),
+	...safeParseJson(window.extDraftData?.globalState)?.state,
 	updateImageCredits({ remaining, total, refresh }) {
 		set((state) => ({
 			imageCredits: {

@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.5.5
+Version: 1.8.5.6
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.5.5';
+	var $version = '1.8.5.6';
 
 	/**
 	 * Used as prefix for options entry
@@ -290,6 +290,17 @@ class WP_Collapse_O_Matic {
 		$placeholder_arr = array('%(%', '%)%', '%{%', '%}%');
 		$swapout_arr = array('<', '>', '[', ']');
 
+		$allowed_tags = [
+			"div", "span", "p", "li", "ul", "ol", "strong", "b",
+			"em", "i", "u", "h1", "h2", "h3", "h4", "h5", "h6",
+			"blockquote", "a", "img", "tr", "td", "th", "caption", "small", "cite", "q"
+		];
+
+		
+		if(!empty($tag)){
+			$tag = $this->filter_allowed_tags( $tag, $allowed_tags );
+		}
+
 		$title = do_shortcode(str_replace($placeholder_arr, $swapout_arr, $title));
 		if($swaptitle){
 			$swaptitle = do_shortcode(str_replace($placeholder_arr, $swapout_arr, $swaptitle));
@@ -301,17 +312,23 @@ class WP_Collapse_O_Matic {
 			$endwrap = do_shortcode(str_replace($placeholder_arr, $swapout_arr, $endwrap));
 		}
 		//need to check for a few versions, because of new option setting. can be removed after a few revisiosn.
-		if(empty($targtag)){
+		if(!empty($targtag)){
+			$targtag = $this->filter_allowed_tags( $targtag, $allowed_tags );
+		}
+		else{
 			$targtag = 'div';
 		}
+
 		
 		if(!empty($elwraptag)){
 			$ewclass = '';
 			if($elwrapclass){
 				$ewclass = 'class="'.esc_attr($elwrapclass).'"';
 			}
-			$ewo = '<'. esc_attr( $elwraptag ) .' '.$ewclass.'>';
-			$ewc = '</'. esc_attr( $elwraptag ) .'>';
+			$elwraptag = $this->filter_allowed_tags( $elwraptag, $allowed_tags );
+
+			$ewo = '<'. $elwraptag .' '.$ewclass.'>';
+			$ewc = '</'. $elwraptag .'>';
 		}
 
 		$eDiv = '';
@@ -335,7 +352,7 @@ class WP_Collapse_O_Matic {
 				$eDiv = '';
 			}
 			if($excerptpos == 'above-trigger'){
-				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="'.esc_attr($excerptclass).'">' . $excerpt . '</'. esc_attr( $excerpttag ) .'>';
+				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="'.esc_attr($excerptclass).'">'. esc_attr( $excerpt ).'</'. esc_attr( $excerpttag ) .'>';
 			}
 			else{
 				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="collapseomatic_excerpt '.esc_attr($excerptclass).'">'. esc_attr( $excerpt ) .'</'. esc_attr( $excerpttag ) .'>';
@@ -345,7 +362,7 @@ class WP_Collapse_O_Matic {
 				$swapexcerpt = str_replace($placeholder_arr, $swapout_arr, $swapexcerpt);
 				$swapexcerpt = do_shortcode($swapexcerpt);
 				$swapexcerpt = apply_filters( 'colomat_swapexcerpt', $swapexcerpt );
-				$nibble .= '<'. esc_attr( $excerpttag ) .' id="swapexcerpt-'.esc_attr($id).'" style="display:none;">' . $swapexcerpt . '</'. esc_attr( $excerpttag ) .'>';
+				$nibble .= '<'. esc_attr( $excerpttag ) .' id="swapexcerpt-'.esc_attr($id).'" style="display:none;">'. esc_attr( $swapexcerpt ).'</'. esc_attr( $excerpttag ) .'>';
 			}
 		}
 		$altatt = '';
@@ -917,6 +934,20 @@ class WP_Collapse_O_Matic {
 
             // $license_data->license will be either "valid" or "invalid"
             return $license_data->license;
+	}
+
+	/**
+	 * Filter $input to allow only tags from $allowed_tags array
+	 */
+	function filter_allowed_tags( $input, $allowed_tags ) {
+		$pattern = '/\A(' . implode( '|', $allowed_tags ) . ')\Z/';
+		if ( preg_match( $pattern, $input, $matches ) ) {
+			$output = $matches[0];
+		} else {
+			$output = '';
+		}
+
+		return $output;
 	}
 
 } // end class WP_Collapse_O_Matic

@@ -17,7 +17,7 @@ export const RestartLaunchModal = ({ setPage, resetState }) => {
 	const [processing, setProcessing] = useState(false);
 	const initialFocus = useRef(null);
 	const handleExit = () =>
-		(window.location.href = `${window.extOnbData.adminUrl}admin.php?page=extendify-assist`);
+		(window.location.href = `${window.extSharedData.adminUrl}admin.php?page=extendify-assist`);
 
 	const handleOk = async () => {
 		setProcessing(true);

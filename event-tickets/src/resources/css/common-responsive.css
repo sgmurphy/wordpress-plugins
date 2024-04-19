@@ -569,11 +569,22 @@
 			width: auto;
 		}
 
-.tribe-common button.tribe-common-c-btn--small:hover, .tribe-common input[type="button"].tribe-common-c-btn--small:hover, .tribe-common input[type="submit"].tribe-common-c-btn--small:hover, .tribe-common a.tribe-common-c-btn--small:hover {
-				padding: 11px 14px;
-			}
-
-.tribe-common button.tribe-common-c-btn--small:disabled, .tribe-common input[type="button"].tribe-common-c-btn--small:disabled, .tribe-common input[type="submit"].tribe-common-c-btn--small:disabled, .tribe-common a.tribe-common-c-btn--small:disabled {
+.tribe-common button.tribe-common-c-btn--small:active,
+			.tribe-common button.tribe-common-c-btn--small:disabled,
+			.tribe-common button.tribe-common-c-btn--small:focus,
+			.tribe-common button.tribe-common-c-btn--small:hover,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:active,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:disabled,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:focus,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:hover,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:active,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:disabled,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:focus,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:hover,
+			.tribe-common a.tribe-common-c-btn--small:active,
+			.tribe-common a.tribe-common-c-btn--small:disabled,
+			.tribe-common a.tribe-common-c-btn--small:focus,
+			.tribe-common a.tribe-common-c-btn--small:hover {
 				padding: 11px 14px;
 			}
 

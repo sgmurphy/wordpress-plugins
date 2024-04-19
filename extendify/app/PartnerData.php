@@ -5,6 +5,10 @@
 
 namespace Extendify;
 
+defined('ABSPATH') || die('No direct access.');
+
+use Extendify\Shared\Services\Sanitizer;
+
 /**
  * Controller for handling partner settings
  */
@@ -16,7 +20,7 @@ class PartnerData
      *
      * @var string
      */
-    public static $id = 'no-partner';
+    public static $id;
 
     /**
      * The partner logo
@@ -53,6 +57,8 @@ class PartnerData
         'domainTLDs' => ['com', 'net'],
         'stagingSites' => ['wordpress.test'],
         'domainSearchURL' => '',
+        'showDraft' => false,
+        'showChat' => false,
     ];
 
     // phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
@@ -63,24 +69,7 @@ class PartnerData
      */
     public function __construct()
     {
-        if (isset($GLOBALS['extendify_sdk_partner']) && $GLOBALS['extendify_sdk_partner']) {
-            self::$id = $GLOBALS['extendify_sdk_partner'];
-        }
-
-        // Always use the partner ID if set as a constant.
-        if (defined('EXTENDIFY_PARTNER_ID')) {
-            self::$id = constant('EXTENDIFY_PARTNER_ID');
-        }
-
-        // If the plugin has no partner, don't fetch data.
-        if (self::$id === 'no-partner') {
-            return;
-        }
-
-        if (!current_user_can(Config::$requiredCapability)) {
-            return;
-        }
-
+        self::$id = Config::$partnerId;
         $data = self::getPartnerData();
         self::$config['disableRecommendations'] = ($data['disableRecommendations'] ?? self::$config['disableRecommendations']);
         self::$config['showDomainBanner'] = ($data['showDomainBanner'] ?? self::$config['showDomainBanner']);
@@ -93,6 +82,8 @@ class PartnerData
         self::$config['stagingSites'] = array_map('trim', ($data['stagingSites'] ?? self::$config['stagingSites']));
         self::$config['domainSearchURL'] = ($data['domainSearchURL'] ?? self::$config['domainSearchURL']);
         self::$logo = isset($data['logo'][0]['thumbnails']['large']['url']) ? $data['logo'][0]['thumbnails']['large']['url'] : self::$logo;
+        self::$config['showDraft'] = ($data['showDraft'] ?? self::$config['showDraft']);
+        self::$config['showChat'] = ($data['showChat'] ?? self::$config['showChat']);
         self::$name = ($data['Name'] ?? self::$name);
         self::$colors = [
             'backgroundColor' => ($data['backgroundColor'] ?? null),
@@ -109,6 +100,10 @@ class PartnerData
      */
     public static function getPartnerData()
     {
+        if (!self::$id) {
+            return [];
+        }
+
         // If the transient is already set, don't fetch again.
         $transientData = get_transient('extendify_partner_data');
         // Check the secondaryColor as the Launch Command does not add this in some versions.
@@ -118,7 +113,10 @@ class PartnerData
 
         $response = wp_remote_get(
             add_query_arg(
-                ['partner' => self::$id],
+                [
+                    'partner' => self::$id,
+                    'wp_language' => \get_locale(),
+                ],
                 'https://dashboard.extendify.com/api/onboarding/partner-data/'
             ),
             ['headers' => ['Accept' => 'application/json']]
@@ -141,7 +139,12 @@ class PartnerData
         // Transient is used to mark the time, but the data is put into an option,
         // so that in case of network issues, we can still return old data.
         set_transient('extendify_partner_data', $result['data'], (2 * DAY_IN_SECONDS));
-        update_option('extendify_partner_data', $result['data']);
+
+        update_option('extendify_partner_data', array_merge(
+            Sanitizer::sanitizeUnknown($result['data']),
+            ['consentTermsHTML' => \sanitize_text_field(htmlentities(($result['data']['consentTermsHTML'] ?? '')))]
+        ));
+
         return $result['data'];
     }
 
@@ -173,6 +176,7 @@ class PartnerData
             }
         }
 
+        // Partner specific colors.
         foreach ($mapping as $color => $variable) {
             if (isset(self::$colors[$color])) {
                 $cssVariables[$variable] = self::$colors[$color];

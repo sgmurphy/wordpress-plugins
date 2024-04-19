@@ -566,11 +566,22 @@
 			width: auto;
 		}
 
-.tribe-common button.tribe-common-c-btn--small:hover, .tribe-common input[type="button"].tribe-common-c-btn--small:hover, .tribe-common input[type="submit"].tribe-common-c-btn--small:hover, .tribe-common a.tribe-common-c-btn--small:hover {
-				padding: 11px 14px;
-			}
-
-.tribe-common button.tribe-common-c-btn--small:disabled, .tribe-common input[type="button"].tribe-common-c-btn--small:disabled, .tribe-common input[type="submit"].tribe-common-c-btn--small:disabled, .tribe-common a.tribe-common-c-btn--small:disabled {
+.tribe-common button.tribe-common-c-btn--small:active,
+			.tribe-common button.tribe-common-c-btn--small:disabled,
+			.tribe-common button.tribe-common-c-btn--small:focus,
+			.tribe-common button.tribe-common-c-btn--small:hover,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:active,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:disabled,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:focus,
+			.tribe-common input[type="button"].tribe-common-c-btn--small:hover,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:active,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:disabled,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:focus,
+			.tribe-common input[type="submit"].tribe-common-c-btn--small:hover,
+			.tribe-common a.tribe-common-c-btn--small:active,
+			.tribe-common a.tribe-common-c-btn--small:disabled,
+			.tribe-common a.tribe-common-c-btn--small:focus,
+			.tribe-common a.tribe-common-c-btn--small:hover {
 				padding: 11px 14px;
 			}
 
@@ -691,11 +702,15 @@
 	}
 
 .tec-tickets__admin-attendees td {
-		padding: 10px;
+		padding: 12px 10px;
 	}
 
-.tec-tickets__admin-attendees .column-ticket {
-		min-width: 30%;
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees.widefat tbody th.check-column {
+		padding-top: 14px;
+	}
+
+.tec-tickets__admin-attendees .column-primary_info {
+		min-width: 33%;
 	}
 
 .tec-tickets__admin-attendees .fixed .column-security,
@@ -704,16 +719,76 @@
 		width: 10%;
 	}
 
+.tec-tickets__admin-attendees .fixed .column-ticket {
+		width: 18%;
+	}
+
+.tec-tickets__admin-attendees .fixed .column-attendee_event {
+		width: 15%;
+	}
+
 .tec-tickets__admin-attendees .tec-tickets__admin-table-attendees-check-in-button,
 	.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees-undo-check-in-button {
 		height: initial;
 		justify-content: center;
 	}
 
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees-purchaser-email {
+		color: #757575;
+	}
+
 .tec-tickets__admin-attendees .tec-tickets__admin-table-attendees-purchaser-email-link {
 		border-bottom: 1px solid #e0e0e0;
-		color: #50575e;
+		color: #757575;
+		text-transform: lowercase;
 	}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status {
+			background: #e5e5e5;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			border-radius: 4px;
+			color: #777;
+			cursor: inherit !important;
+			display: inline-flex;
+			max-width: 100%;
+			overflow: hidden;
+			padding: 2px 8px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status a {
+				color: #777;
+				text-decoration: none;
+			}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status .dashicons {
+				font-size: 16px;
+				line-height: inherit;
+				margin-right: 2px;
+			}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--completed {
+			background: #c8d7e1;
+			color: #505e68;
+		}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--completed a {
+				color: #505e68;
+			}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--on-hold,
+		.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--cancelled,
+		.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--failed,
+		.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--refunded,
+		.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--not-completed {
+			background: #f8dda7;
+			color: #94660c;
+		}
+
+.tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--on-hold a, .tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--cancelled a, .tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--failed a, .tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--refunded a, .tec-tickets__admin-attendees .tec-tickets__admin-table-attendees .tec-tickets__admin-table-attendees-order-status--not-completed a {
+				color: #94660c;
+			}
 
 .tec-tickets__admin-attendees .tec-tickets__admin-attendees-attendance-container {
 		padding: 20px;
@@ -892,6 +967,48 @@
 		padding-right: var(--tec-spacer-2);
 	}
 
+/**
+ * Event Tickets Admin Attendees - Modal
+ *
+ * @since TBD
+ */
+
+.event-tickets .tribe-dialog__title.tribe-modal__title--attendee-details {
+		margin-bottom: var(--tec-spacer-3);
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-wrapper {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-section {
+		margin-top: var(--tec-spacer-3);
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-qr-image img {
+		border: 1px solid var(--tec-color-border-secondary);
+		border-radius: var(--tec-border-radius-default);
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-attendee-info-row {
+		margin-top: var(--tec-spacer-2);
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-attendee-info-col {
+		margin-top: var(--tec-spacer-2);
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-checkin-info,
+	.event-tickets .tec-tickets__admin-attendees-modal-attendee-info-value {
+		color: var(--tec-color-text-secondary);
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-checkin-info-icon {
+		color: #50b078;
+		line-height: 22px;
+	}
+
 @media (min-width: 768px) {
 
 .tribe-common-c-loader.tribe-tickets-loader__tickets-block,
@@ -926,5 +1043,24 @@
 
 .tec-tickets__admin-attendees .tec-tickets__admin-attendees-overview-ticket-totals {
 			margin: var(--tec-spacer-0) 0 0
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-content {
+			width: calc(var(--tec-grid-width-1-of-8)*6)
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-sidebar {
+			border-left: 1px dashed var(--tec-color-border-secondary);
+			width: calc(var(--tec-grid-width-1-of-8)*2)
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-qr-image img {
+			height: auto;
+			width: 100%
+	}
+
+.event-tickets .tec-tickets__admin-attendees-modal-attendee-info-col {
+			margin-top: 0;
+			width: calc(var(--tec-grid-width-1-of-8)*4)
 	}
 		}

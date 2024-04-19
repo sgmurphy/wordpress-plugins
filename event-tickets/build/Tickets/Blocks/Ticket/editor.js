@@ -6059,7 +6059,7 @@ function* resetTicketsBlock() {
   const hasCreatedTickets = yield Object(external_tribe_modules_reduxSaga_effects_["select"])(selectors_hasCreatedTickets);
   yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["removeTicketBlocks"]()), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketsIsSettingsOpen"](false))]);
   if (!hasCreatedTickets) {
-    const currentMeta = yield Object(external_tribe_modules_reduxSaga_effects_["call"])([Object(external_wp_data_["select"])('core/editor'), 'getCurrentPostAttribute'], 'meta');
+    const currentMeta = yield Object(external_tribe_modules_reduxSaga_effects_["call"])([Object(external_wp_data_["select"])('core/editor'), 'getEditedPostAttribute'], 'meta');
     const newMeta = sagas_objectSpread(sagas_objectSpread({}, currentMeta), {}, {
       [utils["d" /* KEY_TICKET_CAPACITY */]]: ''
     });

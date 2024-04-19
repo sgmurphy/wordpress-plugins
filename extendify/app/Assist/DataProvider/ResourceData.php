@@ -5,10 +5,13 @@
 
 namespace Extendify\Assist\DataProvider;
 
+defined('ABSPATH') || die('No direct access.');
+
 use Extendify\Assist\Controllers\DomainsSuggestionController;
-use Extendify\Http;
-use Extendify\Config;
 use Extendify\Assist\Controllers\RecommendationsController;
+use Extendify\Config;
+use Extendify\Http;
+use Extendify\Shared\Services\Sanitizer;
 
 /**
  * The cache data class.
@@ -141,7 +144,7 @@ class ResourceData
     protected function cacheData($functionName, $data)
     {
         if (!empty($data)) {
-            set_transient('extendify_' . Config::$version . '_' . $functionName, $data, $this->interval);
+            set_transient('extendify_' . Config::$version . '_' . $functionName, Sanitizer::sanitizeArray($data), $this->interval);
         }
     }
 
@@ -228,7 +231,7 @@ class ResourceData
                 'id' => $slug,
                 'completedAt' => gmdate('Y-m-d\TH:i:s.v\Z'),
             ];
-            update_option('extendify_assist_tasks', $data);
+            update_option('extendify_assist_tasks', Sanitizer::sanitizeArray($data));
         }
     }
 

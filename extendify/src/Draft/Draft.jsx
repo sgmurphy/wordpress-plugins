@@ -34,7 +34,7 @@ export const Draft = () => {
 		[],
 	);
 	const { getBlock } = useSelect((select) => select('core/block-editor'), []);
-	const { showAIConsent, userGaveConsent: gaveBefore } = window.extDraftData;
+	const { showAIConsent, userGaveConsent: gaveBefore } = window.extSharedData;
 	// TODO: move to global state
 	const [userGaveConsent, setUserGaveConsent] = useState(gaveBefore === '1');
 	const needsConsent = showAIConsent && !userGaveConsent;
@@ -148,7 +148,7 @@ export const Draft = () => {
 					)}
 				</PanelBody>
 			</Panel>
-			{window.extendifyData?.devbuild && (
+			{window.extSharedData?.devbuild && (
 				<Panel>
 					<PanelBody title="Debug" initialOpen={false}>
 						<label>prompt text:</label>

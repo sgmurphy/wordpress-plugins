@@ -5,10 +5,11 @@ import {
 	deleteDomainCache,
 	domainSearchUrl,
 } from '@assist/lib/domains';
+import { safeParseJson } from '@assist/lib/parsing';
 import { useTasksStore } from '@assist/state/tasks';
 
-const domains = window.extAssistData?.resourceData?.domains || [];
-const assetPath = window.extAssistData.asset_path;
+const domains = safeParseJson(window.extAssistData.resourceData)?.domains || [];
+const assetPath = window.extSharedData.assetPath;
 const backgroundImage = `${assetPath + '/domains-recommendations.png'}`;
 
 export const DomainCard = ({ task }) => {
@@ -36,6 +37,7 @@ export const DomainCard = ({ task }) => {
 	return (
 		<div
 			className="flex w-full h-full bg-right-bottom bg-no-repeat bg-cover"
+			data-test="assist-domain-card-main-domain-module"
 			style={{ backgroundImage: `url(${backgroundImage})` }}>
 			<div className="w-full px-8 md:pl-8 md:pr-0 py-14 lg:mr-24">
 				<div className="title font-semibold	text-2xl md:text-4xl">

@@ -43,6 +43,7 @@ export const Topbar = () => {
 				<button
 					className="text-banner-text fill-banner-text border-0 bg-transparent p-0 m-0 cursor-pointer"
 					type="button"
+					data-test="help-center-toggle-minimize-button"
 					onClick={toggleMinimized}>
 					{isMinimized ? (
 						<>
@@ -67,6 +68,7 @@ export const Topbar = () => {
 				<button
 					className="text-banner-text fill-banner-text border-0 bg-transparent p-0 m-0 cursor-pointer"
 					type="button"
+					data-test="help-center-close-button"
 					onClick={handleClose}>
 					<Icon icon={closeSmall} size={24} />
 					<span className="sr-only">{__('close', 'extendify-local')}</span>

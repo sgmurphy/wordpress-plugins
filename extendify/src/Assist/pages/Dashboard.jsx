@@ -15,10 +15,10 @@ import { Full } from '@assist/pages/layouts/Full';
 import { useGlobalStore } from '@assist/state/globals';
 import { useTasksStore } from '@assist/state/tasks';
 
-const { devbuild } = window.extSharedData;
+const { devbuild, themeSlug } = window.extSharedData;
 const showRecommendations =
 	devbuild || !window.extAssistData.disableRecommendations || false;
-const { themeSlug, launchCompleted } = window.extAssistData;
+const { launchCompleted } = window.extAssistData;
 
 export const Dashboard = () => {
 	const { tasks } = useTasks();

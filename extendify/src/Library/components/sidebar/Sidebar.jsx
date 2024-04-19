@@ -3,9 +3,7 @@ import { extendifyLogo } from '@library/icons/extendify-logo';
 import { CategoryControl } from './CategoryControl';
 import { SiteTypeControl } from './SiteTypeControl';
 
-// import { SourceControl } from './SourceControl'
-
-const { partnerLogo, partnerName } = window.extLibraryData;
+const { partnerLogo, partnerName } = window.extSharedData;
 export const Sidebar = () => {
 	return (
 		<div className="md:w-80 gap-6 flex-shrink-0 hidden md:flex flex-col">

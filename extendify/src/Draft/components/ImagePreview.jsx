@@ -144,7 +144,7 @@ export const ImagePreview = ({
 						disabled={isInserting}>
 						{isInserting
 							? // translators: "Importing image" means the image is being added to the WordPress post editor
-							  __('Importing image...', 'extendify-local')
+								__('Importing image...', 'extendify-local')
 							: __('Use this image', 'extendify-local')}
 					</Button>
 					<Button

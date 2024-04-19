@@ -19,7 +19,6 @@ export const GenerateImageButtons = (CurrentComponents, props) => {
 	const { clientId: blockId, name: name } = props;
 
 	useEffect(() => {
-		if (!window.extDraftData.showDraft) return;
 		if (!supportedBlocks.includes(name)) return;
 
 		const frameSelector = 'iframe[name="editor-canvas"]';
@@ -77,7 +76,6 @@ const ToolbarButtons = ({ name, attributes }) => {
 	const { openGeneralSidebar } = useDispatch(editPostStore);
 
 	useEffect(() => {
-		if (!window.extDraftData.showDraft) return;
 		if (!supportedBlocks.includes(name)) return;
 
 		let placeholder, root, rafInsert, rafOuter, observer;

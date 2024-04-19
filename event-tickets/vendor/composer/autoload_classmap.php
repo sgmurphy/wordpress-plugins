@@ -7,6 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'TEC\\Tickets\\Admin\\Attendees\\Assets' => $baseDir . '/src/Tickets/Admin/Attendees/Assets.php',
+    'TEC\\Tickets\\Admin\\Attendees\\Hooks' => $baseDir . '/src/Tickets/Admin/Attendees/Hooks.php',
+    'TEC\\Tickets\\Admin\\Attendees\\Modal' => $baseDir . '/src/Tickets/Admin/Attendees/Modal.php',
+    'TEC\\Tickets\\Admin\\Attendees\\Page' => $baseDir . '/src/Tickets/Admin/Attendees/Page.php',
+    'TEC\\Tickets\\Admin\\Attendees\\Provider' => $baseDir . '/src/Tickets/Admin/Attendees/Provider.php',
     'TEC\\Tickets\\Admin\\Glance_Items' => $baseDir . '/src/Tickets/Admin/Glance_Items.php',
     'TEC\\Tickets\\Admin\\Hooks' => $baseDir . '/src/Tickets/Admin/Hooks.php',
     'TEC\\Tickets\\Admin\\Panels_Data\\Ticket_Panel_Data' => $baseDir . '/src/Tickets/Admin/Panels_Data/Ticket_Panel_Data.php',

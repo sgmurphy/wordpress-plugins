@@ -36,8 +36,7 @@ class Converter
         }
 
         foreach ($fields as $field) {
-            $field = apply_filters_deprecated(
-                'fluentform_rendering_field_data_' . $field['element'],
+            $field = apply_filters_deprecated('fluentform_rendering_field_data_' . $field['element'],
                 [
                     $field,
                     $form
@@ -1016,6 +1015,12 @@ class Converter
 
     private static function hasSaveAndResume($form)
     {
+        if(!defined('FLUENTFORMPRO')){
+            return false;
+        }
+        if(!version_compare(FLUENTFORMPRO_VERSION,'5.1.13' ,'>=')){
+            return false;
+        }
         $saveAndResume = false;
         $hash = '';
         $form->save_state = false;
@@ -1031,7 +1036,7 @@ class Converter
         }
 
         $draftForm = wpFluent()->table('fluentform_draft_submissions')->where('hash', $hash)->first();
-
+        
         if ($draftForm) {
             $saveAndResume = true;
         }

@@ -27,6 +27,11 @@ class ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'TEC\\Tickets\\Admin\\Attendees\\Assets' => __DIR__ . '/../..' . '/src/Tickets/Admin/Attendees/Assets.php',
+        'TEC\\Tickets\\Admin\\Attendees\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Admin/Attendees/Hooks.php',
+        'TEC\\Tickets\\Admin\\Attendees\\Modal' => __DIR__ . '/../..' . '/src/Tickets/Admin/Attendees/Modal.php',
+        'TEC\\Tickets\\Admin\\Attendees\\Page' => __DIR__ . '/../..' . '/src/Tickets/Admin/Attendees/Page.php',
+        'TEC\\Tickets\\Admin\\Attendees\\Provider' => __DIR__ . '/../..' . '/src/Tickets/Admin/Attendees/Provider.php',
         'TEC\\Tickets\\Admin\\Glance_Items' => __DIR__ . '/../..' . '/src/Tickets/Admin/Glance_Items.php',
         'TEC\\Tickets\\Admin\\Hooks' => __DIR__ . '/../..' . '/src/Tickets/Admin/Hooks.php',
         'TEC\\Tickets\\Admin\\Panels_Data\\Ticket_Panel_Data' => __DIR__ . '/../..' . '/src/Tickets/Admin/Panels_Data/Ticket_Panel_Data.php',

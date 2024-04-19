@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 export default {
 	slug: 'secondary-domain-recommendation',
 	title: __('Domain recommendation', 'extendify-local'),
-	innerTitle: __('Get a new domain', 'extendify-local'),
+	innerTitle: __('Add an additional domain', 'extendify-local'),
 	description: __('Get another domain for your site.', 'extendify-local'),
 	buttonLabels: {
 		completed: __('Register this domain', 'extendify-local'),

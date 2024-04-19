@@ -10,7 +10,6 @@ if (!defined('ABSPATH')) {
 use Extendify\ApiRouter;
 use Extendify\Assist\Controllers\DomainsSuggestionController;
 use Extendify\Assist\Controllers\GlobalsController;
-use Extendify\Assist\Controllers\QuickLinksController;
 use Extendify\Assist\Controllers\RecommendationsController;
 use Extendify\Assist\Controllers\RouterController;
 use Extendify\Assist\Controllers\TasksController;
@@ -55,15 +54,12 @@ use Extendify\Shared\Controllers\UserSettingsController as SharedUserSettingsCon
         ApiRouter::get('/assist/recommendations', [RecommendationsController::class, 'fetchRecommendations']);
         ApiRouter::get('/assist/recommendations-data', [RecommendationsController::class, 'get']);
         ApiRouter::post('/assist/recommendations-data', [RecommendationsController::class, 'store']);
-        ApiRouter::get('/assist/tasks', [TasksController::class, 'fetchTasks']);
         ApiRouter::get('/assist/task-data', [TasksController::class, 'get']);
         ApiRouter::post('/assist/task-data', [TasksController::class, 'store']);
         ApiRouter::post('/assist/router-data', [RouterController::class, 'store']);
         ApiRouter::get('/assist/router-data', [RouterController::class, 'get']);
         ApiRouter::get('/assist/global-data', [GlobalsController::class, 'get']);
         ApiRouter::post('/assist/global-data', [GlobalsController::class, 'store']);
-        ApiRouter::get('/assist/tasks/dependency-completed', [TasksController::class, 'dependencyCompleted']);
-        ApiRouter::get('/assist/quicklinks', [QuickLinksController::class, 'fetchQuickLinks']);
         ApiRouter::post('/assist/delete-domains-recommendations', [DomainsSuggestionController::class, 'deleteCache']);
 
         // Help Center.

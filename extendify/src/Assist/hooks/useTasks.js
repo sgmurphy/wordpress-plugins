@@ -3,6 +3,7 @@ import {
 	showSecondaryDomainTask,
 	domainSearchUrl,
 } from '@assist/lib/domains';
+import { safeParseJson } from '@assist/lib/parsing';
 import addPage from '@assist/tasks/add-page';
 import demoCard from '@assist/tasks/demo-card';
 import domainRecommendation from '@assist/tasks/domain-recommendation';
@@ -21,7 +22,8 @@ import uploadSiteIcon from '@assist/tasks/upload-site-icon';
 
 const activePlugins = window.extSharedData?.activePlugins || [];
 const userGoals =
-	window.extSharedData.userData.userSelectionData?.data?.state?.goals || {};
+	safeParseJson(window.extSharedData.userData.userSelectionData)?.state
+		?.goals || {};
 
 export const useTasks = () => {
 	const tasks = Object.values({

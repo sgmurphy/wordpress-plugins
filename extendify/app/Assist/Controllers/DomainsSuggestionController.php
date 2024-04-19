@@ -5,12 +5,10 @@
 
 namespace Extendify\Assist\Controllers;
 
+defined('ABSPATH') || die('No direct access.');
+
 use Extendify\Config;
 use Extendify\PartnerData;
-
-if (!defined('ABSPATH')) {
-    die('No direct access.');
-}
 
 /**
  * The controller for fetching quick links
@@ -48,7 +46,7 @@ class DomainsSuggestionController
 
         $data = [
             'query' => self::cleanSiteTitle(\get_bloginfo('name')),
-            'devbuild' => \esc_attr(Config::$environment === 'DEVELOPMENT'),
+            'devbuild' => (bool) constant('EXTENDIFY_DEVMODE'),
             'siteId' => \get_option('extendify_site_id', ''),
             'tlds' => \esc_attr(PartnerData::setting('domainTLDs')),
             'partnerId' => \esc_attr(PartnerData::$id),
@@ -70,25 +68,13 @@ class DomainsSuggestionController
     }
 
     /**
-     * Removes emoji from a text.
-     *
-     * @param string $text - The text to clean.
-     * @return string
-     */
-    public static function removeEmoji($text)
-    {
-        return trim(preg_replace('/\p{Extended_Pictographic}/u', '', $text));
-    }
-
-    /**
-     * Clean site title from emoji and punctuation.
+     * Clean site title.
      *
      * @param string $siteTitle - The site title to clean.
      * @return string
      */
     public static function cleanSiteTitle($siteTitle)
     {
-        $siteTitle = self::removeEmoji($siteTitle);
         $siteTitle = html_entity_decode($siteTitle);
         return preg_replace('/[^\p{L}\p{N}\-]+/u', '', $siteTitle);
     }
@@ -101,7 +87,6 @@ class DomainsSuggestionController
      */
     public static function hasValidSiteTitle($siteTitle)
     {
-        $siteTitle = self::removeEmoji($siteTitle);
         return empty(array_filter(self::$blockList, function ($item) use ($siteTitle) {
             // in php 8.0 we can use str_contains.
             return strpos(strtolower($siteTitle), strtolower($item)) !== false;
