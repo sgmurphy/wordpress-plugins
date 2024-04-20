@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) exit;
 
 define('GOSMTP_BASE', plugin_basename(GOSMTP_FILE));
 define('GOSMTP_PRO_BASE', 'gosmtp-pro/gosmtp-pro.php');
-define('GOSMTP_VERSION', '1.0.5');
+define('GOSMTP_VERSION', '1.0.6');
 define('GOSMTP_DIR', dirname(GOSMTP_FILE));
 define('GOSMTP_PRO_DIR', GOSMTP_DIR .'/main/premium');
 define('GOSMTP_SLUG', 'gosmtp');

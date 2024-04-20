@@ -5,7 +5,7 @@ Plugin URI: https://neatma.com
 Contributors: aminnz,neatmarketing
 Description: Simple plugin to disable XML-RPC API and X-Pingback for faster and more secure website.
 Tags: disable xml-rpc, xmlrpc, disable xmlrpc,remove xmlrpc, XML-RPC, pingback, stop brute force attacks
-Tested up to: 6.4
+Tested up to: 6.5
 Requires at least: 5.0
 Author: Neatma
 Author URI: https://neatma.com

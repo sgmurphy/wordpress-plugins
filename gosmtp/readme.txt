@@ -2,11 +2,11 @@
 Contributors: softaculous, pagelayer
 Tags: smtp, wordpress smtp, gmail smtp, sendgrid smtp, aws smtp, gmail, outlook, zoho, aws, postmark, sparkpost, mail, mailer, phpmailer, wp_mail, email, mailgun, sendgrid, gmail, sendinblue, wp smtp, sendlayer
 Requires at least: 5.5
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.0.5
-License: LGPL v2.1
-License URI: http://www.gnu.org/licenses/lgpl-2.1.html
+Stable tag: 1.0.6
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Send emails from your WordPress site using your preferred SMTP provider like Gmail, Outlook, AWS, Zoho, SMTP.com, Sendinblue, Mailgun, Postmark, Sendgrid, Sparkpost, Sendlayer or any custom SMTP provider.
 
@@ -59,6 +59,9 @@ You can resend any email, from the email log wizard. You can also resend multipl
 - Multisite Support
 - Weekly Email Summary
 
+== Credits ==
+GoSMTP's Mailer API connecters are derived from Fluent SMTP [https://wordpress.org/plugins/fluent-smtp/](https://wordpress.org/plugins/fluent-smtp/)
+
 == Frequently Asked Questions ==
 
 Do you have questions related to GoSMTP ? Use the following links :
@@ -78,6 +81,10 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 4. **Email Logs Wizard** check the emails sent with this wizard.
 
 == Changelog ==
+
+= 1.0.6 (April 20, 2023) =
+* [Task] Tested compatibility with WordPress 6.5. The plugin is fully compatible with WordPress 6.5.
+* [Task] Changed the plugins License to GNU GPLv3 or later.
 
 = 1.0.5 (Nov 29, 2023) =
 * [Task] Tested compatibility with WordPress 6.4. The plugin is fully compatible with WordPress 6.4.
