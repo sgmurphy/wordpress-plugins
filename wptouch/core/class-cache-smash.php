@@ -185,7 +185,7 @@ class WPtouchCacheSmash {
 
 	public function get_cache_support_url() {
 		if ( $this->is_w3_plugin_detected() || $this->is_wp_super_cache_detected() ) {
-			return "https://support.wptouch.com/support/solutions/articles/5000537668-configuring-cache-plugins-for-wptouch";
+			return "https://support.wptouch.com/article/583-configuring-cache-plugins-for-wptouch";
 		} else if ( $this->is_wordfence_detected() ) {
 			return "https://support.wptouch.com/support/solutions/articles/5000637442-configuring-wordfence-for-wptouch";
 		}

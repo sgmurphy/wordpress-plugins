@@ -4,7 +4,7 @@ Plugin link: https://bing.com/indexnow
 Tags: seo, crawling
 Requires at least: 5.3
 Tested up to: 6.5
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 Requires PHP: 5.6.20
@@ -15,7 +15,7 @@ pages to supporting search engines.
 
 == Description ==
 
-IndexNow Plugin for WordPress enables automated submission of URLs from WordPress sites to the multiple search engines without the need to register and verify your site with them. Once installed, the plugin will automatically generate and host the API key on your site. It detects page creation/update/ deletion in WordPress and automatically submits the URLs in the background. This ensures that search engines will always have the latest updates about your site.
+IndexNow Plugin for WordPress enables automated submission of URLs from WordPress sites to the multiple search engines without the need to register and verify your site with them. Once installed, the plugin will automatically generate and host the API key on your site. It detects page creation/update/ deletion in WordPress and automatically submits the URLs in the background. This ensures that search engines will always have the latest updates about your site. This plugin submits URLs to a generic end point `https://api.indexnow.org/indexnow` and these URLs are shared to all participating search engines.
 
 Some other handy features included in the plugin:
 
@@ -38,7 +38,7 @@ You just need to install the plugin and set up automatic submission of new pages
 - Log in to WordPress admin panel for your WordPress site. Click on 'Plugins > Add New'. 
 - Search for 'IndexNow Plugin' and install.
 - Once installed, click on 'Activate' to enable plugin. 
-- Go to IndexNow admin page under 'Settings > IndexNow' and click 'Let's Get Started!'.
+- Go to IndexNow admin page and click 'Let's Get Started!'.
 
 == Frequently Asked Questions ==
 
@@ -60,6 +60,9 @@ Indexing of URLs is specific and dependent on each search engine’s rules, plea
 
 
 == Changelog ==
+
+= 1.0.3 =
+* Fix for resubmit button not working.
 
 = 1.0.2 =
 * Allow plugin owners of WordPress site to access Indexing Insights in Bing Webmaster tools.

@@ -254,9 +254,9 @@ class HTMega_Elementor_Widget_Gallery_Justify extends Widget_Base {
                 $('#npgallery<?php echo esc_js( $id ); ?>').imagesLoaded( function() {
                     $('#npgallery<?php echo esc_js( $id ); ?>')[0].style.display='block';
                     $('#npgallery<?php echo esc_js( $id ); ?>').justifiedGallery({
-                        rowHeight: <?php echo esc_js( $settings['row_height'] ); ?>,
+                        rowHeight: <?php echo esc_js( absint( $settings['row_height'] ) ); ?>,
                         maxRowHeight: null,
-                        margins: <?php echo esc_js(  $settings['space_margin'] ); ?>,
+                        margins: <?php echo esc_js( absint( $settings['space_margin'] ) ); ?>,
                         border: 0,
                         rel: 'npgallery<?php echo esc_js( $id ); ?>',
                         lastRow: 'nojustify',

@@ -1,10 +1,10 @@
 === ThumbPress - Stop Generating Unnecessary Thumbnails ===
 Contributors: pluggable, codexpert, mukto90
 Donate link: https://codexpert.io/?utm_source=free-plugins&utm_medium=readme&utm_campaign=image-sizes
-Tags: image sizes, multiple image creation, image copy, media file duplicate, image duplicate wordpress, prevent duplicate image, stop creating image sizes, thumbnails, duplicate image
+Tags: image sizes, multiple image creation, image copy, media file duplicate, image duplicate wordpress
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 4.3
+Stable tag: 4.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,13 +13,15 @@ Stop WordPress from generating unnecessary thumbnails while uploading an image!
 
 == Description ==
 
-When you upload an image using _Media Uploader_, WordPress generates multiple copies/thumbnails of that image. By default, WordPress generates 5 thumbnails-
+When you upload an image using _Media Uploader_, WordPress generates multiple copies/thumbnails of that image. By default, WordPress generates 7 thumbnails-
 
 - Thumbnail
 - Medium
 - Medium-large
 - Large
 - Scaled
+- 1536x1536
+- 2048x2048
 
 But along with this, theme and plugin developers can register their own thumbnails. Although they may be on purpose, but sometimes they remain unused.
 
@@ -27,7 +29,7 @@ Think about it, **unnecessary additional images are eating up your server space*
 
 Sounds like a problem?
 
-This is where our plugin comes into the picture. Just install the plugin and choose which of the imaze sizes you want to prevent from generating.
+This is where our plugin comes into the picture. Just install the plugin and choose which of the thumbnails you want to prevent from generating.
 
 - Works with any plugin and theme.
 - WooCommerce compatible.
@@ -42,7 +44,7 @@ Please [reach out to us](https://help.codexpert.io/?utm_source=free-plugins&utm_
 
 1. Upload `image-sizes` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the **Plugins** menu in WordPress
-3. Go to **Image Sizes** menu from the left and choose which of the sizes you want to prevent from generating.
+3. Go to **ThumbPress** menu from the left and choose which of the sizes you want to prevent from generating.
 
 == Frequently Asked Questions ==
 
@@ -70,6 +72,11 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 3. Setup Wizard
 
 == Changelog ==
+
+= 2024-04-21 - 4.3.1 =
+* [fix] Regenerates image for the first iteration and then stops
+* [fix] `admin.min.js` minification fixed
+* [fix] `admin.min.css` minification fixed
 
 = 2024-04-17 - 4.3 =
 * [fix] Regeneration stops

@@ -65,18 +65,41 @@ if( !function_exists('htmega_get_option') ){
  * return array
  */
 if( !function_exists('htmega_elementor_template') ){
-    function htmega_elementor_template() {
+    function htmega_elementor_template( $args = [] ) {
         if( class_exists('\Elementor\Plugin') ){
-            $templates = \Elementor\Plugin::instance()->templates_manager->get_source( 'local' )->get_items();
-            if ( empty( $templates ) ) {
-                $template_lists = [ '0' => __( 'Do not Saved Templates.', 'htmega-addons' ) ];
-            } else {
-                $template_lists = [ '0' => __( 'Select Template', 'htmega-addons' ) ];
-                foreach ( $templates as $template ) {
-                    $template_lists[ $template['template_id'] ] = $template['title'] . ' (' . $template['type'] . ')';
+
+            $template_instance = \Elementor\Plugin::instance()->templates_manager->get_source( 'local' );
+            
+            $defaults = [
+                'post_type' => 'elementor_library',
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                'meta_query' => [
+                    [
+                        'key' => '_elementor_template_type',
+                        'value' => $template_instance::get_template_types()
+                    ],
+                ],
+            ];
+            $query_args = wp_parse_args( $args, $defaults );
+
+            $templates_query = new \WP_Query( $query_args );
+
+            $templates = [];
+            if ( $templates_query->have_posts() ) {
+                $templates = [ '0' => __( 'Select Template', 'htmega-addons' ) ];
+                foreach ( $templates_query->get_posts() as $post ) {
+                    $templates[$post->ID] = $post->post_title . '(' . $template_instance::get_template_type( $post->ID ). ')';
                 }
+            }else{
+                $templates = [ '0' => __( 'Do not Saved Templates.', 'htmega-addons' ) ];
             }
-            return $template_lists;
+            
+            wp_reset_postdata();
+
+            return $templates;
 
         }else{
             return array( '0' => __( 'Do not Saved Templates.', 'htmega-addons' ) );

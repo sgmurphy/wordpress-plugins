@@ -1,4 +1,4 @@
-=== All-in-One WP Migration ===
+=== All-in-One WP Migration and Backup ===
 Contributors: yani.iliev, bangelov, pimjitsawang
 Tags: migrate, backup, move, transfer, clone
 Requires at least: 3.3
@@ -64,6 +64,7 @@ All-in-One WP Migration supports and syncs seamlessly with top cloud storage ser
 The plugin comes preinstalled on all Bitnami WordPress sites running on AWS, Google Compute Cloud, and Microsoft Azure.
 
 **Case Studies:**
+
 * Small Business Growth: A small online retailer was able to seamlessly migrate to a more robust hosting solution to handle increasing traffic during peak shopping seasons, ensuring smooth customer experiences without downtime.
 * Educational Institutions: A prominent university utilized All-in-One WP Migration to consolidate multiple departmental sites into a single, unified WordPress network, simplifying management and enhancing site security.
 * Government Reliability: Following a directive to improve digital accessibility, a government agency used our plugin to migrate their content to a new, compliant platform without impacting public access to critical information.

@@ -1,4 +1,5 @@
 <?php
+#[AllowDynamicProperties]
 class WPtouchProFour {
 	// Set to true when the user is surfing on a supported mobile device
 	var $is_mobile_device;

@@ -586,7 +586,7 @@ class HTMega_Elementor_Widget_Tooltip extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $id = $this->get_id();
         $this->add_render_attribute( 'htmega_tooltip_attr', 'class', 'htmega-tooltip htmega-tooltip-container-'.esc_attr( $id ) );
-       
+
         ?>
             <div <?php echo $this->get_render_attribute_string( 'htmega_tooltip_attr' ); ?>>
                 <?php
@@ -617,7 +617,7 @@ class HTMega_Elementor_Widget_Tooltip extends Widget_Base {
                         $button_txt = sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'url' ), $button_txt );
                     }
 
-                    echo sprintf('<span data-toggle="tooltip" data-container=".htmega-tooltip-container-%4$s" data-placement="%1$s" title="%2$s">%3$s</span>', esc_attr( $settings['tooltip_dir'] ), htmega_kses_desc( $settings['tooltip_text'] ), $button_txt, esc_attr( $id ) );
+                    echo sprintf('<span data-toggle="tooltip" data-container=".htmega-tooltip-container-%4$s" data-placement="%1$s" title="%2$s">%3$s</span>', esc_attr( $settings['tooltip_dir'] ), htmega_kses_desc( htmlspecialchars( $settings['tooltip_text'] ) ), $button_txt, esc_attr( $id ) );
                 ?>
             </div>
 

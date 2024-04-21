@@ -105,6 +105,10 @@ class WPtouchAddonThemeInstaller {
 			$request = new WP_Http;
 			$data = $request->request( $package );
 
+			if (is_array($data)) {
+				$data = implode(', ', $data);
+			}
+
 			$f = fopen( $temp_name, 'wb' );
 			if ( $f ) {
 				fwrite( $f, $data );
