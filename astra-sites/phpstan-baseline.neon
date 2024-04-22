@@ -1427,12 +1427,12 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:start_error_handler\\(\\)\\.$#"
-			count: 8
+			count: 7
 			path: inc/classes/class-astra-sites.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:stop_error_handler\\(\\)\\.$#"
-			count: 8
+			count: 7
 			path: inc/classes/class-astra-sites.php
 
 		-
@@ -1502,11 +1502,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites\\:\\:after_plugin_activate\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:ai_api_request\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 

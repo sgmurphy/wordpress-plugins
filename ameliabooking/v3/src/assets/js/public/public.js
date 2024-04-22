@@ -17,6 +17,9 @@ import tickets from "../../../store/modules/tickets.js";
 import payment from "../../../store/modules/payment.js";
 import bookableType from "../../../store/modules/bookableType.js";
 import coupon from "../../../store/modules/coupon.js";
+import auth from "../../../store/modules/auth.js";
+import cabinet from "../../../store/modules/cabinet.js";
+import cabinetFilters from "../../../store/modules/cabinetFilters.js"
 
 import {
   provide,
@@ -49,6 +52,10 @@ const EventsListFormWrapper = defineAsyncComponent({
 
 const DialogForms = defineAsyncComponent({
   loader: () => import('../../../views/public/Dialog/DialogForms.vue'),
+})
+
+const CustomerPanelWrapper = defineAsyncComponent({
+  loader: () => import('../../../views/public/Cabinet/CustomerPanel/CustomerPanel.vue'),
 })
 
 if (typeof window.ameliaShortcodeData === 'undefined') {
@@ -178,11 +185,15 @@ function createAmelia(shortcodeData) {
     setup() {
       const baseURLs = reactive(window.wpAmeliaUrls)
       const labels = reactive(window.wpAmeliaLabels)
+      const timeZones = reactive(window.wpAmeliaTimeZones)
+      const timeZone = ref('wpAmeliaTimeZone' in window ? window.wpAmeliaTimeZone[0] : '')
       const localLanguage = ref(window.localeLanguage[0])
       const licence = reactive(useLicence())
       provide('settings', readonly(settings))
       provide('baseUrls', readonly(baseURLs))
       provide('labels', readonly(labels))
+      provide('timeZones', readonly(timeZones))
+      provide('timeZone', readonly(timeZone))
       provide('localLanguage', readonly(localLanguage))
       provide('shortcodeData', readonly(ref(shortcodeData)))
       provide('licence', licence)
@@ -213,6 +224,7 @@ function createAmelia(shortcodeData) {
     .component('CatalogFormWrapper', CatalogFormWrapper)
     .component('EventsListFormWrapper', EventsListFormWrapper)
     .component('DialogForms', DialogForms)
+    .component('CustomerPanelWrapper', CustomerPanelWrapper)
     .use(
       createStore({
         namespaced: true,
@@ -222,8 +234,10 @@ function createAmelia(shortcodeData) {
           labels: reactive(window.wpAmeliaLabels),
           localLanguage: ref(window.localeLanguage[0]),
           baseUrls: reactive(window.wpAmeliaUrls),
+          timeZones: reactive(window.wpAmeliaTimeZones),
+          timeZone: ref('wpAmeliaTimeZone' in window ? window.wpAmeliaTimeZone[0] : ''),
           ready: false,
-          loading: false,
+          loading: true,
           formKey: '',
         }),
 
@@ -285,7 +299,10 @@ function createAmelia(shortcodeData) {
           tickets,
           payment,
           bookableType,
-          coupon
+          coupon,
+          auth,
+          cabinet,
+          cabinetFilters
         },
       })
     )

@@ -36,7 +36,7 @@ if ( ! class_exists( 'YITH_WCAN_Shortcode_Filters' ) ) {
 			}
 
 			// retrieve preset.
-			$preset = YITH_WCAN_Preset_Factory::get_preset( $atts['slug'] );
+			$preset = YITH_WCAN_Presets_Factory::get_preset( $atts['slug'] );
 
 			if ( ! $preset || ! $preset->is_enabled() || ! $preset->get_filters() ) {
 				return false;
@@ -54,7 +54,7 @@ if ( ! class_exists( 'YITH_WCAN_Shortcode_Filters' ) ) {
 		 * @return array Array of configuration.
 		 */
 		public static function get_gutenberg_config() {
-			$presets         = YITH_WCAN_Preset_Factory::list_presets();
+			$presets         = YITH_WCAN_Presets_Factory::list_presets();
 			$presets_options = array_merge(
 				array(
 					'' => _x( 'Choose an option', '[ELEMENTOR] Default preset option', 'yith-woocommerce-ajax-navigation' ),

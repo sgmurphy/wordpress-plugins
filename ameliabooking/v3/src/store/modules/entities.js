@@ -124,7 +124,9 @@ function useStarterEntities (entities) {
   return entities
 }
 
-function setEntities ({ commit, rootState }, entities, types, licence) {
+function setEntities ({ commit, rootState }, entities, types, licence, showHidden) {
+  commit('setShowHidden', showHidden)
+
   let availableTranslationsShort = settings.general.usedLanguages.map(
     key => key.length > 2 ? key.slice(0, 2) : key
   )
@@ -188,7 +190,7 @@ function setEntities ({ commit, rootState }, entities, types, licence) {
           employee.badge = null
         }
 
-        if (employee.status !== 'hidden') {
+        if (showHidden || employee.status !== 'hidden') {
           arr.push(employee)
         }
       })
@@ -198,7 +200,7 @@ function setEntities ({ commit, rootState }, entities, types, licence) {
     if (ent === 'locations') {
       let arr = []
       entities[ent].forEach((location) => {
-        if (location.status !== 'hidden') {
+        if (showHidden || location.status !== 'hidden') {
           arr.push(location)
         }
       })
@@ -238,6 +240,7 @@ export default {
     entitiesRelations: {},
     customFields: [],
     ready: false,
+    showHidden: false,
     originalPreselected: {},
     preselected: {}
   }),
@@ -389,7 +392,7 @@ export default {
       let packagesFiltered = getters.filteredPackagesPreselected()
 
       return packagesFiltered.filter(pack =>
-        pack.status === 'visible'
+        (state.showHidden || pack.status === 'visible')
         && pack.bookable.length
         && pack.available
         && (!data.serviceId ? true :
@@ -427,7 +430,8 @@ export default {
         (!data.providerId ? true :
           state.employees.length ? state.employees.find(i => i.id === data.providerId).serviceList.filter(
             employeeService => {
-              return employeeService.status === 'visible' && isEmployeeServiceLocation(state.entitiesRelations, data.providerId, employeeService.id, location.id)
+              return (state.showHidden || employeeService.status === 'visible') &&
+                isEmployeeServiceLocation(state.entitiesRelations, data.providerId, employeeService.id, location.id)
             }).length > 0 : false
         ) &&
         (!data.serviceId || data.packageId ? true :
@@ -450,7 +454,7 @@ export default {
       return state.employees.filter(employee =>
         employee.serviceList.filter(
           service =>
-            service.status === 'visible' &&
+            (state.showHidden || service.status === 'visible') &&
             // service.maxCapacity >= data.persons &&
             (!data.serviceId ? true : isEmployeeServiceLocation(state.entitiesRelations, employee.id, service.id) && service.id === data.serviceId) &&
             (!data.locationId ? true : isEmployeeServiceLocation(state.entitiesRelations, employee.id, service.id, data.locationId))
@@ -494,6 +498,43 @@ export default {
     getReady (state) {
       return state.ready
     },
+
+    getShowHidden (state) {
+      return state.showHidden
+    },
+
+    getPackageEntities: (state, getters) => (packageId) => {
+      let entities = {services: [], providers: [], locations: [], packages: []}
+      let pack = getters.getPackage(packageId)
+      if (pack) {
+        pack.bookable.forEach(bookable => {
+          entities.services.push(bookable.service.id)
+          let employees = []
+          if (bookable.providers.length > 0) {
+            employees = bookable.providers.map(p => p.id)
+          } else {
+            employees = state.employees.filter(e => e.serviceList.find(s => s.id === bookable.service.id)).map(e => e.id)
+          }
+          entities.providers = entities.providers.concat(employees)
+          let locations = []
+          if (bookable.locations.length > 0) {
+            locations = bookable.locations.map(p => p.id)
+          } else {
+            state.locations.forEach(location =>
+                employees.forEach(e => {
+                  if (isEmployeeServiceLocation(state.entitiesRelations, e, bookable.service.id, location.id)) {
+                    locations.push(location.id)
+                  }
+                })
+            )
+          }
+          entities.locations = entities.locations.concat(locations)
+        })
+
+        entities.packages.push(pack.id)
+      }
+      return entities
+    }
   },
 
   mutations: {
@@ -539,7 +580,7 @@ export default {
             }
           }
 
-          if (!book.service.show || book.service.status !== 'visible') {
+          if (state.showHidden ? false : !book.service.show || book.service.status !== 'visible') {
             isAvailable = false
           }
         })
@@ -562,6 +603,10 @@ export default {
 
     setReady (state, payload) {
       state.ready = payload
+    },
+
+    setShowHidden (state, payload) {
+      state.showHidden = payload
     },
 
     setPreselected (state, payload) {
@@ -596,11 +641,11 @@ export default {
     setPreselectedValues (state) {
       state.originalPreselected = JSON.parse(JSON.stringify(state.preselected))
 
-      state.employees = state.employees.filter(e => e.status === 'visible')
-      state.services = state.services.filter(s => s.status === 'visible' && s.show && state.employees.filter(e => e.serviceList.find(eS => eS.id === s.id)).length)
-      state.locations = state.locations.filter(l => l.status === 'visible')
+      state.employees = state.employees.filter(e => state.showHidden || e.status === 'visible')
+      state.services = state.services.filter(s => (state.showHidden ? true : s.status === 'visible' && s.show) && state.employees.filter(e => e.serviceList.find(eS => eS.id === s.id)).length)
+      state.locations = state.locations.filter(l => state.showHidden || l.status === 'visible')
 
-      if (state.preselected.category.length > 0) {
+      if ('category' in state.preselected && state.preselected.category.length > 0) {
         state.categories = state.categories.filter(c => state.preselected.category.map(id => parseInt(id)).includes(c.id))
         state.services = state.services.filter(s => state.preselected.category.map(id => parseInt(id)).includes(s.categoryId))
         state.employees = state.employees.filter(e => e.serviceList.filter(s => state.preselected.category.map(id => parseInt(id)).includes(s.categoryId)).length > 0)
@@ -611,7 +656,7 @@ export default {
         )
       }
 
-      if (state.preselected.service.length > 0) {
+      if ('service' in state.preselected && state.preselected.service.length > 0) {
         state.services = state.services.filter(s => state.preselected.service.map(id => parseInt(id)).includes(s.id))
         state.categories = state.categories.filter(c => state.services.map(serv => serv.categoryId).includes(c.id))
         state.employees = state.employees.filter(e => e.serviceList.filter(s => state.preselected.service.map(id => parseInt(id)).includes(s.id)).length > 0)
@@ -624,7 +669,7 @@ export default {
         )
       }
 
-      if (state.preselected.employee.length > 0) {
+      if ('employee' in state.preselected && state.preselected.employee.length > 0) {
         state.employees = state.employees.filter(e => state.preselected.employee.map(id => parseInt(id)).includes(e.id))
         if (state.employees.length > 0) {
           state.services = state.services.filter(s => state.employees.filter(e => e.serviceList.filter(serv => serv.id === s.id).length > 0).length > 0)
@@ -640,7 +685,7 @@ export default {
         }
       }
 
-      if (state.preselected.location.length > 0) {
+      if ('location' in state.preselected && state.preselected.location.length > 0) {
         state.locations = state.locations.filter(e => state.preselected.location.map(id => parseInt(id)).includes(e.id))
         state.employees = state.employees.filter(e => e.serviceList.filter(
               s => state.preselected.location
@@ -652,7 +697,7 @@ export default {
         state.categories = state.categories.filter(c => state.services.filter(s => s.categoryId === c.id).length > 0)
       }
 
-      if (state.preselected.package.length > 0) {
+      if ('package' in state.preselected && state.preselected.package.length > 0) {
         state.packages = state.packages.filter(p => state.preselected.package.map(id => parseInt(id)).includes(p.id))
         state.preselected.show = 'packages'
         state.services = state.services.filter(s => state.packages.filter(p => p.bookable.filter(b => b.service.id === s.id).length > 0).length > 0)
@@ -694,7 +739,7 @@ export default {
 
           let entities = JSON.parse(JSON.stringify(window.ameliaAppointmentEntities))
 
-          setEntities({ commit, rootState }, entities, types, payload.licence)
+          setEntities({ commit, rootState }, entities, types, payload.licence, payload.showHidden)
         })
       } else {
         let ameliaApiInterval = setInterval(
@@ -706,7 +751,7 @@ export default {
 
               let entities = JSON.parse(JSON.stringify(window[name]))
 
-              setEntities({ commit, rootState }, entities, types, payload.licence)
+              setEntities({ commit, rootState }, entities, types, payload.licence, payload.showHidden)
             }
           },
           1000

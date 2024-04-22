@@ -32,6 +32,15 @@ if ( ! class_exists( 'YITH_WCAN_Shortcodes' ) ) {
 		 */
 		public static function init() {
 			// init available shortcodes.
+			/**
+			 * APPLY_FILTERS: yith_wcan_shortcodes
+			 *
+			 * List of available shortcodes
+			 *
+			 * @param array $shortcodes List of available shortcodes.
+			 *
+			 * @return array
+			 */
 			self::$available_shortcodes = apply_filters(
 				'yith_wcan_shortcodes',
 				array(

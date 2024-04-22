@@ -2,8 +2,8 @@
 Contributors: daanvm, danielhuesken, davdebcom, dinamiko, inpsyde, l.vangunst, ndijkstra, robin-mollie, wido, carmen222, inpsyde-maticluznar
 Tags: mollie, payments, payment gateway, woocommerce, credit card, apple pay, ideal, bancontact, klarna, sofort, giropay, woocommerce subscriptions 
 Requires at least: 3.8
-Tested up to: 6.4
-Stable tag: 7.5.1
+Tested up to: 6.5
+Stable tag: 7.5.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -184,6 +184,19 @@ Please contact info@mollie.com if you need help installing the Mollie WooCommerc
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 7.5.2 - 22-04-2024 =
+
+* Feature - Support for new payment method Bancomat Pay (beta)
+* Tweak - Reorder gateway settings
+* Fix - Gift Card issuer dropdown replaced by icon HTML when only one giftcard enabled
+* Fix - TypeError merchant capture feature
+* Fix - Type error on Pay for Order page when in3 is active on PHP 8+
+* Fix - Typo in variable/method names
+* Fix - Refresh methods not enabling methods enabled in Mollie
+* Fix - Variable names in strings deprecated in PHP 8.2 (author @vHeemstra)
+* Fix - WC 7.4.1 appends billingEmail to Orders API call due to mismatched filter in Banktransfer.php
+* Fix - Apple Pay button payment is not possible as a guest user when debugging is active
 
 = 7.5.1 - 12-02-2024 =
 

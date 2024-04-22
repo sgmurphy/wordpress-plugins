@@ -2,7 +2,7 @@
 
 /* global globalThis, jQuery, yith_wcan_shortcodes, accounting */
 
-import { $ } from '../config.js';
+import { $ } from '../globals.js';
 
 export default class YITH_WCAN_Reset_Button {
 	// current button

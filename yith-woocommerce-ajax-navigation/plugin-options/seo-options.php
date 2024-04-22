@@ -2,11 +2,20 @@
 /**
  * SEO options
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter\Options
  * @version 4.0.0
  */
 
+/**
+ * APPLY_FILTERS: yith_wcan_panel_seo_options
+ *
+ * Filters Seo panel options.
+ *
+ * @param array $options Panel options.
+ *
+ * @return array
+ */
 return apply_filters(
 	'yith_wcan_panel_seo_options',
 	array(

@@ -24,7 +24,7 @@
     >
       <div class="am-fs__congrats-info-customer">
         <component :is="componentTypes[bookedType]"></component>
-        <div v-if="booked.price > 0 || (booked.price <= 0 && coupon.code)">
+        <div v-if="booked.price > 0 || (booked.price <= 0 && coupon.code)" class="am-fs__congrats-info-payment">
           <span v-if="booked && booked.paymentAmount && getPayment(booked.payments).gateway === 'onSite'">
             {{ amLabels.congrats_total_amount }}:
           </span>
@@ -37,15 +37,15 @@
           </span>
           <span v-else></span>
         </div>
-        <div class="am-fs__congrats-info-customer-border">
+        <div class="am-fs__congrats-info-customer-border am-fs__congrats-info-customer-name">
           <span>{{ amLabels.your_name_colon }}:</span>
           <span>{{ customer.firstName + ' ' + customer.lastName }}</span>
         </div>
-        <div v-if="customer.email">
+        <div v-if="customer.email" class="am-fs__congrats-info-customer-email">
           <span>{{ amLabels.email_address_colon }}:</span>
           <span>{{ customer.email }}</span>
         </div>
-        <div v-if="customer.phone">
+        <div v-if="customer.phone" class="am-fs__congrats-info-customer-phone">
           <span>{{ amLabels.phone_number_colon }}:</span>
           <span>{{ customer.phone }}</span>
         </div>

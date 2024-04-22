@@ -3,7 +3,7 @@
     {{ `${props.labels.event_about_list}:` }}
   </div>
   <div
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-event-date-start"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">
@@ -14,7 +14,7 @@
     </span>
   </div>
   <div
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-event-date-end"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">
@@ -26,7 +26,7 @@
   </div>
   <div
     v-if="props.booked.address"
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-event-location"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">
@@ -38,7 +38,7 @@
   </div>
   <div
     v-if="props.booked.customPricing"
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-event-tickets"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">
@@ -55,7 +55,7 @@
 
   <div
     v-if="ticketVisible"
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-event-tickets"
   >
     <span class="am-congrats__info-item__value collapsable">
       <span

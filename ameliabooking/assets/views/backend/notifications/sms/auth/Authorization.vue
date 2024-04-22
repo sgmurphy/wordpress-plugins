@@ -156,7 +156,7 @@
 
             <!-- Reset Password Button -->
             <el-button size="large" @click="onForgotPassword" type="primary" :loading="loadingForgotPassword">
-              {{ $root.labels.send_recovery_email }}
+              {{ $root.labels.access_link_send }}
             </el-button>
             <!-- /Reset Password Button -->
 
@@ -201,7 +201,7 @@
 
             <!-- Reset Password Password -->
             <el-form-item
-                :label="$root.labels.retype_new_password_colon"
+                :label="$root.labels.new_password_colon_retype"
                 prop="newPasswordReType"
                 :error="errors.newPasswordReType"
             >

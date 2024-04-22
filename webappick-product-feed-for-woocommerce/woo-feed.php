@@ -10,7 +10,7 @@
  * Plugin Name:       CTX Feed
  * Plugin URI:        https://webappick.com/
  * Description:       Easily generate woocommerce product feed for any marketing channel like Google Shopping(Merchant), Facebook Remarketing, Bing, eBay & more. Support 100+ Merchants.
- * Version:           6.4.23
+ * Version:           6.4.24
  * Author:            WebAppick
  * Author URI:        https://webappick.com/
  * License:           GPL v2
@@ -29,6 +29,7 @@
  */
 
 use CTXFeed\V5\API\RestController;
+use CTXFeed\V5\Common\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die(); // If this file is called directly, abort.
@@ -153,7 +154,23 @@ require_once WOO_FEED_FREE_PATH . 'includes/classes/class-woo-feed-webappick-api
 require_once WOO_FEED_FREE_PATH . 'includes/hooks.php';
 require_once WOO_FEED_FREE_PATH . 'includes/log-helper.php';
 require_once WOO_FEED_FREE_PATH . 'includes/helper.php';
-require_once WOO_FEED_FREE_PATH . 'includes/cron-helper.php';
+/**
+ * We've introduced a better system to handle the cron job. You can read more about it here
+ * libs/webappick-product-feed-for-woocommerce/V5/Helper/CronHelper.php
+ * But this feature works only if the WP_CRON is enabled.
+ * That's why we've checked here if the WP_CRON is enabled or not.
+ * If WP_Cron is disabled then initialize old cron system by including the cron-helper.php file.
+ *
+ * Some users are claiming that the new cron system is not working for them. So, we've added a setting to enable/disable the new cron system.
+ * When new cron system is disabled, the old cron system will be initialized.
+ *
+ * @link : https://webappick.atlassian.net/browse/CBT-363
+ *
+ * since 7.3.13
+ */
+if ( ! Helper::should_init_new_cron_system() ) {
+	require_once WOO_FEED_FREE_PATH . 'includes/cron-helper.php';
+}
 
 /**
  * Load filter, sanitizer

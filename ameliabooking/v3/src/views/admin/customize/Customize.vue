@@ -5,26 +5,56 @@
     </template>
 
     <template v-if="pageRenderKey !== 'main' && pageRenderKey !== 'cbf' && pageRenderKey !== 'elf'" #filter>
-      <div class="am-customize__fs-flow" style="justify-content: space-between">
+      <!-- Step by step select for page type -->
+      <div
+        class="am-customize__fs-flow"
+        :class="[{'am-customize__capc-panel': pageRenderKey === 'capc' && pagesType === 'panel'}, {'am-customize__capc-auth': pageRenderKey === 'capc' && pagesType === 'auth'}]"
+        style="justify-content: space-between"
+      >
         <div
-          v-if="!licence.isBasic && !licence.isStarter && !licence.isLite"
+          v-if="!licence.isBasic && !licence.isStarter && !licence.isLite && pageRenderKey !== 'capc'"
           style="display: flex; align-items: center"
         >
           <div class="am-customize__fs-flow__label">
             {{amLabels.steps}}:
           </div>
-          <AmSelect v-model="bookableType" @change="handleClick('menu', 0)">
+          <AmSelect
+            v-model="bookableType"
+            @change="handleClick('menu', 0)"
+          >
             <AmOption value="appointment" :label="amLabels.service_option" />
             <AmOption value="package" :label="amLabels.package_option" />
           </AmSelect>
         </div>
+        <!--/ Step by step select for page type -->
+
+        <!-- Cabinet select for page type -->
+        <div
+          v-if="!licence.isLite && pageRenderKey === 'capc'"
+          style="display: flex; align-items: center"
+        >
+          <div class="am-customize__fs-flow__label">
+            {{amLabels.steps}}:
+          </div>
+          <AmSelect
+            v-model="pagesType"
+            @change="handleClick('menu', 0)"
+          >
+            <AmOption value="panel" label="Panel" />
+            <AmOption value="auth" label="Login" />
+          </AmSelect>
+        </div>
+        <!-- /Cabinet select for page type -->
+
+        <!-- Button that will redirect to Catalog form -->
         <AmButton
-          v-if="urlParams.get('current') !== 'sbsNew'"
+          v-if="urlParams.get('current') !== 'sbsNew' && pageRenderKey !== 'capc'"
           :style="{margin: '0 0 0 auto'}"
           @click="handleClick('menu', 0, urlParams.get('current'))"
         >
           Go Back To Catalog Form
         </AmButton>
+        <!-- /Button that will redirect to Catalog form -->
       </div>
     </template>
 
@@ -57,6 +87,7 @@ import CustomizeMainPage from './navigation/CustomizeMainPage.vue';
 import CustomizeStepNew from "./pages/CustomizeStepNew.vue";
 import CustomizeCatalog from "./pages/CustomizeCatalog.vue";
 import CustomizeEventList from "./pages/CustomizeEventList.vue";
+import CustomizeCustomerPanel from "./pages/CustomizeCustomerPanel.vue";
 
 // * Import form Vue
 import {
@@ -102,6 +133,9 @@ function notify (title, message, type, customClass) {
 
 let bookableType = ref('appointment')
 provide('bookableType', bookableType)
+
+let pagesType = ref('auth')
+provide('pagesType', pagesType)
 
 // * Settings data
 let settings = inject('settings')
@@ -189,6 +223,7 @@ let pagesObject = {
   sbsNew: markRaw(CustomizeStepNew),
   cbf: markRaw(CustomizeCatalog),
   elf: markRaw(CustomizeEventList),
+  capc: markRaw(CustomizeCustomerPanel)
 }
 
 let urlParams = new URLSearchParams(window.location.search)
@@ -422,6 +457,14 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+
+      &.am-customize__capc-panel {
+        max-width: 1024px;
+      }
+
+      &.am-customize__capc-auth {
+        max-width: 400px;
+      }
 
       .am-select-wrapper {
         max-width: 180px;

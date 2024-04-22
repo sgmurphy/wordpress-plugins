@@ -2,12 +2,12 @@
 /**
  * Filter options
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter\Options
  * @version 4.0.0
  */
 
-$supported_taxonomies = YITH_WCAN_Query()->get_supported_taxonomies();
+$supported_taxonomies = YITH_WCAN_Query::instance()->get_supported_taxonomies();
 $taxonomy_options     = array();
 $taxonomy_details     = array();
 
@@ -17,13 +17,32 @@ if ( ! empty( $supported_taxonomies ) ) {
 		$taxonomy_details[ $taxonomy_slug ] = array(
 			'terms_count'     => wp_count_terms( $taxonomy_slug ),
 			'is_attribute'    => 0 === strpos( $taxonomy_slug, 'pa_' ),
+			/**
+			 * APPLY_FILTERS: yith_wcan_taxonomy_supports_images
+			 *
+			 * Filters flag representing whether taxonomy supports images or not.
+			 *
+			 * @param bool   $supports_images Whether taxonomy supports images.
+			 * @param string $taxonomy_slug   Taxonomy slug.
+			 *
+			 * @return bool
+			 */
 			'supports_images' => apply_filters( 'yith_wcan_taxonomy_supports_images', 'product_cat' === $taxonomy_slug, $taxonomy_slug ),
 		);
 	}
 }
 
-$supported_types = YITH_WCAN_Filter_Factory::get_supported_types();
+$supported_types = YITH_WCAN_Filters_Factory::get_supported_types();
 
+/**
+ * APPLY_FILTERS: yith_wcan_panel_filter_options
+ *
+ * Filters "Filter" options.
+ *
+ * @param array $options Filter options.
+ *
+ * @return array
+ */
 return apply_filters(
 	'yith_wcan_panel_filter_options',
 	array_merge(
@@ -40,7 +59,7 @@ return apply_filters(
 				'label'   => _x( 'Filter for', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
 				'type'    => 'select',
 				'class'   => 'wc-enhanced-select filter-type',
-				'options' => YITH_WCAN_Filter_Factory::get_supported_types(),
+				'options' => YITH_WCAN_Filters_Factory::get_supported_types(),
 				'desc'    => _x( 'Select the parameters you wish to filter for', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
 			),
 		) : array(),
@@ -78,7 +97,7 @@ return apply_filters(
 				'label'   => _x( 'Filter type', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
 				'type'    => 'select',
 				'class'   => 'wc-enhanced-select filter-design',
-				'options' => YITH_WCAN_Filter_Factory::get_supported_designs(),
+				'options' => YITH_WCAN_Filters_Factory::get_supported_designs(),
 				'desc'    => _x( 'Select the filter type for this filter', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
 			),
 

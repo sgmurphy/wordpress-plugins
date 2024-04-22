@@ -144,7 +144,7 @@ class B2S_Tools {
         return $userTimes;
     }
 
-    public static function getSupportLink($type = 'howto') {
+    public static function getSupportLink($type = 'howto', $add_slug = '') {
         $lang = substr(B2S_LANGUAGE, 0, 2);
         if ($type == 'howto') {
             return 'https://blog2social.com/docs/' . (($lang == 'en') ? 'blog2social-guide-step-by-step-en.pdf' : 'step-by-step-guide-zu-blog2social.pdf');
@@ -160,7 +160,7 @@ class B2S_Tools {
         }
         if ($type == 'affiliate') {
             $affiliateId = self::getAffiliateId();
-            return 'https://b2s.li/wp-btn-premium/' . (((int) $affiliateId != 0) ? $affiliateId : '');
+            return 'https://b2s.li/wp-btn-premium/' . (((int) $affiliateId != 0) ? $affiliateId : 0) . '/' . ((!empty($add_slug)) ? $add_slug . '/' : '');
         }
         if ($type == 'video_sharing_tiktok') {
             return ($lang == 'en') ? 'https://www.blog2social.com/en/faq/index.php?solution_id=1204' : 'https://www.blog2social.com/de/faq/index.php?solution_id=1201';
@@ -511,13 +511,13 @@ class B2S_Tools {
             return ($lang == 'de') ? 'https://www.blog2social.com/de/faq/content/4/150/de/wie-kann-ich-die-beitragsvorlagen-fuer-meine-social_media_posts-nutzen.html?highlight=beitragsvorlagen' : 'https://www.blog2social.com/en/faq/content/4/152/en/how-to-use-post-templates-for-social-media-posts.html';
         }
         if ($type == "addon_apps") {
-            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=network_app&token='.B2S_PLUGIN_TOKEN;
+            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=network_app&token=' . B2S_PLUGIN_TOKEN;
         }
         if ($type == "addon_post_volume") {
-            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=post_limit_yearly&token='.B2S_PLUGIN_TOKEN;
+            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=post_limit_yearly&token=' . B2S_PLUGIN_TOKEN;
         }
         if ($type == "addon_video") {
-            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=video&token='.B2S_PLUGIN_TOKEN;
+            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=video&token=' . B2S_PLUGIN_TOKEN;
         }
         if ($type == "twitter_threads") {
             return ($lang == "de") ? 'https://www.blog2social.com/de/faq/index.php?solution_id=1149' : 'https://www.blog2social.com/en/faq/index.php?solution_id=1152';

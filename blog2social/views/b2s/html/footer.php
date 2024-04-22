@@ -112,7 +112,17 @@
                     <a target="_blank" href="<?php echo esc_url(B2S_Tools::getSupportLink('affiliate')); ?>" class="btn btn-success center-block"><?php esc_html_e('Upgrade to PRO and above', 'blog2social') ?></a>
                     <br>
                     <center> <?php echo sprintf(__('or <a target="_blank" href="%s">start with free 30-days-trial of Blog2Social Premium</a> (no payment information needed)', 'blog2social'), esc_url('https://service.blog2social.com/trial')); ?> </center>
-                </div>              
+                </div>
+                <div class="modal-body network-humhub">
+                    <b><?php esc_html_e('Discover HumHub, the latest network in Blog2Social!','blog2social') ?></b>
+                    <br>
+                    <?php esc_html_e('Perfect for businesses, organizations, and associations to effectively support internal communication strategies. Secure the PRO or BUSINESS license along with the HumHub add-on and launch into enhanced social media capabilities.', 'blog2social') ?>
+                    <br>
+                    <br>
+                    <a target="_blank" href="<?php echo esc_url(B2S_Tools::getSupportLink('affiliate','network_humhub')); ?>" class="btn btn-success center-block"><?php esc_html_e('Upgrade to PRO and above and Unlock HumHub!', 'blog2social') ?></a>
+                    <br>
+                    <center> <?php echo sprintf(__('or <a target="_blank" href="%s">start with free 30-days-trial of Blog2Social Premium</a> (no payment information needed)', 'blog2social'), esc_url('https://service.blog2social.com/trial')); ?> </center>
+                </div>
             </div>
         </div>
     </div>

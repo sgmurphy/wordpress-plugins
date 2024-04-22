@@ -3,7 +3,7 @@
 Plugin Name: Amelia
 Plugin URI: https://wpamelia.com/
 Description: Amelia is a simple yet powerful automated booking specialist, working 24/7 to make sure your customers can make appointments and events even while you sleep!
-Version: 1.1.2
+Version: 1.1.3
 Author: TMS
 Author URI: https://tmsproducts.io/
 Text Domain: wpamelia
@@ -103,7 +103,7 @@ if (!defined('AMELIA_LOGIN_URL')) {
 
 // Const for Amelia version
 if (!defined('AMELIA_VERSION')) {
-    define('AMELIA_VERSION', '1.1.2');
+    define('AMELIA_VERSION', '1.1.3');
 }
 
 // Const for site URL
@@ -190,7 +190,7 @@ class Plugin
 
         // Const for path root
         if (!defined('AMELIA_LOCALE')) {
-            define('AMELIA_LOCALE', get_locale());
+            define('AMELIA_LOCALE', get_user_locale());
         }
 
         load_plugin_textdomain('wpamelia', false, plugin_basename(__DIR__) . '/languages/' . AMELIA_LOCALE . '/');

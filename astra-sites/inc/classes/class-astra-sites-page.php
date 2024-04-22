@@ -681,7 +681,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 
 			$cron_request['args']['blocking'] = true;
 
-			$result = wp_remote_post( $cron_request['url'], $cron_request['args'] );
+			$result = wp_safe_remote_post( $cron_request['url'], $cron_request['args'] );
 
 			if ( is_wp_error( $result ) ) {
 				return $result;

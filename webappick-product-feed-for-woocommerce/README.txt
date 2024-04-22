@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.23
+Stable tag: 6.4.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -590,6 +590,11 @@ Using pro version:
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.24 (2024-04-22) =
+* Added: Cron job batch feature
+* Updated: Facebook product category list
+* Fixed: Feed import issue
 
 = 6.4.23 (2024-04-16) =
 * Tweak: WooCommerce 8.7.0 compatibility checked.

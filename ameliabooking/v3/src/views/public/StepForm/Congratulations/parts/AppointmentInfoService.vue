@@ -1,25 +1,25 @@
 <template>
-  <div>
+  <div class="am-fs__congrats-info-app-date">
     <span>{{amLabels.congrats_date}}:</span>
     <span>{{ getFrontedFormattedDate(date) }}</span>
   </div>
-  <div>
+  <div  class="am-fs__congrats-info-app-time">
     <span>{{amLabels.congrats_time}}:</span>
     <span>{{ getFrontedFormattedTime(useFormatTime(time)) }}</span>
   </div>
-  <div>
+  <div class="am-fs__congrats-info-app-service">
     <span>{{amLabels.congrats_service}}:</span>
     <span>{{ bookable ? bookable.name : '' }}</span>
   </div>
-  <div>
+  <div class="am-fs__congrats-info-app-employee">
     <span>{{amLabels.congrats_employee}}:</span>
     <span>{{ employee ? employee.firstName + ' ' + employee.lastName : '' }}</span>
   </div>
-  <div v-if="location">
+  <div v-if="location" class="am-fs__congrats-info-app-location">
     <span>{{amLabels.congrats_location}}:</span>
     <span>{{ location.address ? location.address : location.name }}</span>
   </div>
-  <div v-if="booked.data.length > 1">
+  <div v-if="booked.data.length > 1" class="am-fs__congrats-info-app-recurring">
     <span>{{amLabels.recurring}}:</span>
     <span>{{ amLabels.appointment_repeats }} x{{booked.data.length}}</span>
   </div>

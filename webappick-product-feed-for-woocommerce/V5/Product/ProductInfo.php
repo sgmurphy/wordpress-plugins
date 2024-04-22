@@ -1419,10 +1419,12 @@ class ProductInfo {
 	public function yoast_primary_category() {
 		$primary_category = '';
 		$product_id       = CommonHelper::parent_product_id( $this->product );
-		$primary_term_id  = yoast_get_primary_term_id( 'product_cat', $product_id );
-		$term             = get_term( $primary_term_id );
-		if ( ! is_wp_error( $term ) && ! empty( $term ) ) {
-			$primary_category = $term->name;
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$primary_term_id = yoast_get_primary_term_id( 'product_cat', $product_id );
+			$term            = get_term( $primary_term_id );
+			if ( ! is_wp_error( $term ) && ! empty( $term ) ) {
+				$primary_category = $term->name;
+			}
 		}
 
 		return apply_filters( 'woo_feed_filter_product_yoast_primary_category', $primary_category, $this->product, $this->config );
@@ -1504,7 +1506,10 @@ class ProductInfo {
 			$product_id = $this->product->get_parent_id();
 		}
 
-		$yoast_canonical_url = get_post_meta( $product_id, '_yoast_wpseo_canonical', true );
+		$yoast_canonical_url = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_canonical_url = get_post_meta( $product_id, '_yoast_wpseo_canonical', true );
+		}
 
 		return apply_filters( 'woo_feed_filter_product_yoast_canonical_url', $yoast_canonical_url, $this->product, $this->config );
 	}
@@ -1516,7 +1521,11 @@ class ProductInfo {
 	 * @since      8.0.0
 	 */
 	public function yoast_gtin8() {
-		$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin8', $this->product );
+
+		$yoast_gtin8_value = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin8', $this->product );
+		}
 
 		return apply_filters( 'yoast_gtin8_attribute_value', $yoast_gtin8_value, $this->product );
 	}
@@ -1528,7 +1537,10 @@ class ProductInfo {
 	 * @since      8.0.0
 	 */
 	public function yoast_gtin12() {
-		$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin12', $this->product );
+		$yoast_gtin8_value = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin12', $this->product );
+		}
 
 		return apply_filters( 'yoast_gtin12_attribute_value', $yoast_gtin8_value, $this->product );
 	}
@@ -1540,7 +1552,10 @@ class ProductInfo {
 	 * @since      8.0.0
 	 */
 	public function yoast_gtin13() {
-		$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin13', $this->product );
+		$yoast_gtin8_value = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin13', $this->product );
+		}
 
 		return apply_filters( 'yoast_gtin13_attribute_value', $yoast_gtin8_value, $this->product );
 	}
@@ -1552,7 +1567,10 @@ class ProductInfo {
 	 * @since      8.0.0
 	 */
 	public function yoast_gtin14() {
-		$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin14', $this->product );
+		$yoast_gtin8_value = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'gtin14', $this->product );
+		}
 
 		return apply_filters( 'yoast_gtin14_attribute_value', $yoast_gtin8_value, $this->product );
 	}
@@ -1564,7 +1582,10 @@ class ProductInfo {
 	 * @since      8.0.0
 	 */
 	public function yoast_isbn() {
-		$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'isbn', $this->product );
+		$yoast_gtin8_value = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'isbn', $this->product );
+		}
 
 		return apply_filters( 'yoast_isbn_attribute_value', $yoast_gtin8_value, $this->product );
 	}
@@ -1576,7 +1597,10 @@ class ProductInfo {
 	 * @since      8.0.0
 	 */
 	public function yoast_mpn() {
-		$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'mpn', $this->product );
+		$yoast_gtin8_value = '';
+		if ( class_exists( 'WPSEO_Frontend' ) ) {
+			$yoast_gtin8_value = woo_feed_get_yoast_identifiers_value( 'mpn', $this->product );
+		}
 
 		return apply_filters( 'yoast_mpn_attribute_value', $yoast_gtin8_value, $this->product );
 	}
@@ -1839,7 +1863,7 @@ class ProductInfo {
 	 * @since 8.0.0
 	 */
 
-	public function images( $additional_image = '', $separator = ' , ' ) {
+	public function images( $additional_image = '', $separator = ',' ) {
 		$img_urls  = ProductHelper::get_product_gallery( $this->product );
 		$separator = apply_filters( 'woo_feed_filter_category_separator', $separator, $this->product, $this->config );
 

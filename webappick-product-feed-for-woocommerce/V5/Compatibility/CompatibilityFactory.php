@@ -88,11 +88,20 @@ class CompatibilityFactory {
 		 * So, the file name is 'woocommerce_wpmlCompatibility.php' and the class name is 'woocommerce_wpmlCompatibility'.
 		 */
 		$AWDP_Discount = [];
-		if (is_plugin_active('aco-woo-dynamic-pricing/start.php') ){
+		if ( is_plugin_active('aco-woo-dynamic-pricing/start.php' ) ){
 			$AWDP_Discount = [ 'aco-woo-dynamic-pricing/start.php'  => 'AWDP_Discount' ];
 		}else if( is_plugin_active('aco-woo-dynamic-pricing-pro/start.php') ){
 			$AWDP_Discount = [ 'aco-woo-dynamic-pricing-pro/start.php'  => 'AWDP_Discount'];
 		}
+
+		$polylang = [];
+		if ( is_plugin_active('polylang-pro/polylang.php' ) ){
+			$polylang = [ 'polylang-pro/polylang.php' => 'Polylang' ];
+		}else if( is_plugin_active('polylang-wc/polylang-wc.php' ) ){
+//			$polylang = [ 'polylang-wc/polylang-wc.php' => 'polylang-wc'];
+			$polylang = [ 'polylang-wc/polylang-wc.php' => 'Polylang'];
+		}
+
 		$compatible_plugins = [
 			#################################################################################
 			# WooCommerce Dynamic Pricing & Discounts plugins                               #
@@ -175,10 +184,10 @@ class CompatibilityFactory {
 			'translatepress-multilingual/index.php'                                     => 'TRP_Translate_Press',
 			// DONE
 			// https://wordpress.org/plugins/translatepress-multilingual/
-			'polylang/polylang.php'                                                     => 'Polylang',
+//			'polylang-pro/polylang.php'                                                     => 'Polylang',
 			// DONE
 		];
-		$compatible_plugins = array_merge( $compatible_plugins, $AWDP_Discount );
+		$compatible_plugins = array_merge( $compatible_plugins, $AWDP_Discount, $polylang );
 
 		$compatible_plugins_for_free = [
 			#################################################################################

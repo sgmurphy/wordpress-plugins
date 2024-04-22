@@ -1,6 +1,6 @@
 <template>
   <div
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-customer-name"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">
@@ -12,7 +12,7 @@
   </div>
   <div
     v-if="props.customer.email"
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-customer-email"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">
@@ -24,7 +24,7 @@
   </div>
   <div
     v-if="props.customer.phone"
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-customer-phone"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">

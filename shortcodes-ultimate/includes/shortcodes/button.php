@@ -337,7 +337,7 @@ function su_shortcode_button( $atts = null, $content = null ) {
 
 	// Prepare <small> with description
 	$desc = $atts['desc']
-		? '<small style="' . esc_attr( implode( ';', $small_css ) ) . '">' . su_do_attribute( $atts['desc'] ) . '</small>'
+		? '<small style="' . esc_attr( implode( ';', $small_css ) ) . '">' . su_do_attribute( $atts['desc'], true ) . '</small>'
 		: '';
 
 	// Wrap with div if button centered
@@ -394,7 +394,7 @@ function su_shortcode_button( $atts = null, $content = null ) {
 
 	// Prepare title attribute
 	$atts['title'] = $atts['title']
-		? ' title="' . esc_attr( su_do_attribute( $atts['title'] ) ) . '"'
+		? ' title="' . su_do_attribute( $atts['title'] ) . '"'
 		: '';
 
 	// Add ID attribute
@@ -404,6 +404,6 @@ function su_shortcode_button( $atts = null, $content = null ) {
 
 	su_query_asset( 'css', 'su-shortcodes' );
 
-	return $before . '<a href="' . esc_attr( esc_url( su_do_attribute( $atts['url'] ) ) ) . '" class="' . esc_attr( implode( ' ', $classes ) ) . '" style="' . esc_attr( implode( ';', $a_css ) ) . '" target="_' . esc_attr( $atts['target'] ) . '"' . $atts['onclick'] . $atts['rel'] . $atts['title'] . $atts['id'] . $atts['download'] . '><span style="' . esc_attr( implode( ';', $span_css ) ) . '">' . do_shortcode( stripcslashes( $content ) ) . $desc . '</span></a>' . $after;
+	return $before . '<a href="' . esc_url( su_do_attribute( $atts['url'] ) ) . '" class="' . esc_attr( implode( ' ', $classes ) ) . '" style="' . esc_attr( implode( ';', $a_css ) ) . '" target="_' . esc_attr( $atts['target'] ) . '"' . $atts['onclick'] . $atts['rel'] . $atts['title'] . $atts['id'] . $atts['download'] . '><span style="' . esc_attr( implode( ';', $span_css ) ) . '">' . do_shortcode( stripcslashes( $content ) ) . $desc . '</span></a>' . $after;
 
 }

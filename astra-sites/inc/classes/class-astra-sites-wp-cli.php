@@ -684,7 +684,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 					'timeout' => 60,
 				);
 
-				$response = wp_remote_get( $url, $api_args );
+				$response = wp_safe_remote_get( $url, $api_args );
 				if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 					$request_term_data = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -734,7 +734,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 				);
 
 				$success  = false;
-				$response = wp_remote_get( $url, $api_args );
+				$response = wp_safe_remote_get( $url, $api_args );
 				if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 					$all_posts = json_decode( wp_remote_retrieve_body( $response ), true );
 

@@ -763,6 +763,15 @@
               <el-input v-model.trim="settings.stripe.testSecretKey" auto-complete="off"></el-input>
             </el-form-item>
 
+            <!-- Stripe Return URL -->
+            <el-form-item
+              label="Return URL"
+              prop="stripe.returnUrl"
+              style="display: none"
+            >
+              <el-input v-model.trim="settings.stripe.returnUrl" auto-complete="off"></el-input>
+            </el-form-item>
+
           </el-collapse-item>
 
           <LicenceBlock/>

@@ -71,7 +71,7 @@ $item_row_hover_border: #c4cfd3;
 	box-shadow: 0 0 10px 0 rgba(167, 217, 236, 0.4);
 
 	// ro is a div
-	&.yith-toggle-row {
+	&.filter-row {
 		border-radius: 4px;
 		border: 1px solid $item_row_border;
 	}
@@ -401,11 +401,12 @@ $item_row_hover_border: #c4cfd3;
 	}
 
 	// filters row
-	.yith-toggle-row {
+	.filter-row {
 		@include item_row;
 
 		cursor: default;
 		padding: 0;
+		margin: 20px 0;
 		transition: height ease 0.5s;
 		width: 100%;
 
@@ -434,6 +435,10 @@ $item_row_hover_border: #c4cfd3;
 				vertical-align: middle;
 			}
 
+			.filter-actions {
+				float: right;
+			}
+
 			.show-on-hover {
 				@include show_on_hover;
 			}
@@ -446,7 +451,7 @@ $item_row_hover_border: #c4cfd3;
 			.yith-plugin-fw-field-wrapper {
 				float: right;
 				display: inline;
-				margin: 6px 0;
+				margin: 6px 30px 6px 0;
 				width: auto;
 			}
 		}
@@ -666,6 +671,12 @@ $item_row_hover_border: #c4cfd3;
 						z-index: 2;
 					}
 				}
+			}
+
+			.terms-wrapper + .show-more-terms {
+				cursor: pointer;
+				display: inline-block;
+				padding-top: 15px;
 			}
 		}
 	}

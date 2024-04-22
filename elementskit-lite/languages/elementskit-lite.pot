@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the ElementsKit Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElementsKit Lite 3.1.1\n"
+"Project-Id-Version: ElementsKit Lite 3.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elementskit-lite\n"
-"POT-Creation-Date: 2024-04-15 13:13:25+00:00\n"
+"POT-Creation-Date: 2024-04-21 11:16:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -103,18 +103,18 @@ msgstr ""
 msgid "Create a Table First"
 msgstr ""
 
-#: libs/emailkit/emailkit.php:213 libs/forms/pages/template.php:18
+#: libs/emailkit/emailkit.php:212 libs/forms/pages/template.php:18
 #: libs/framework/classes/plugin-status.php:56
 #: libs/our-plugins/our-plugins.php:370
 msgid "Activated"
 msgstr ""
 
-#: libs/emailkit/emailkit.php:216 libs/framework/classes/plugin-status.php:59
+#: libs/emailkit/emailkit.php:215 libs/framework/classes/plugin-status.php:59
 #: libs/our-plugins/our-plugins.php:373
 msgid "Activate Now"
 msgstr ""
 
-#: libs/emailkit/emailkit.php:221 libs/framework/classes/plugin-status.php:64
+#: libs/emailkit/emailkit.php:220 libs/framework/classes/plugin-status.php:64
 #: libs/our-plugins/our-plugins.php:378
 msgid "Install Now"
 msgstr ""

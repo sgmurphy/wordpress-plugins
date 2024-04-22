@@ -614,7 +614,7 @@ export default {
           }
         })
 
-        return this.purchasedPackage.bookable.map(b => b.service).filter(item => availableServicesIds.indexOf(item.id) !== -1)
+        return this.options.entities.services.filter(item => availableServicesIds.indexOf(item.id) !== -1)
       },
 
       showDialogNewPackageAppointment (packageCustomer) {

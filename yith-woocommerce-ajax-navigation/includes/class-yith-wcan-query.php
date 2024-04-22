@@ -76,6 +76,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 */
 		public function __construct() {
 			// prepare query param.
+			/**
+			 * APPLY_FILTERS: yith_wcan_query_param
+			 *
+			 * Filters query string parameter used to determine if filtering is taking place.
+			 *
+			 * @param string $query_param Parameter used as flag.
+			 *
+			 * @return string
+			 */
 			$this->query_param = apply_filters( 'yith_wcan_query_param', $this->query_param );
 
 			// do all pre-flight preparation.
@@ -131,6 +140,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		public function get_supported_labels() {
 			$taxonomies = $this->get_supported_taxonomies();
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_query_supported_labels
+			 *
+			 * Filter list of labels used to describe various type of filters
+			 *
+			 * @param array $labels List of filters' labels
+			 *
+			 * @return array
+			 */
 			$labels = apply_filters( 'yith_wcan_query_supported_labels', wp_list_pluck( $taxonomies, 'label' ) );
 
 			return $labels;
@@ -156,6 +174,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 					}
 				}
 
+				/**
+				 * APPLY_FILTERS: yith_wcan_supported_taxonomies
+				 *
+				 * Allow third party code to filter list of supported taxonomies for filtering action.
+				 *
+				 * @param array $supported List of supported taxonomies.
+				 *
+				 * @return array
+				 */
 				$this->supported_taxonomies = apply_filters( 'yith_wcan_supported_taxonomies', $supported_taxonomies );
 			}
 
@@ -187,6 +214,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 			$query = $this->sanitize_query( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			// unset parameters that aren't related to filters.
+			/**
+			 * APPLY_FILTERS: yith_wcan_query_supported_parameters
+			 *
+			 * Filters the list of query string parameters supported as "filtering query params".
+			 *
+			 * @param array $params Supported parameters.
+			 *
+			 * @return array
+			 */
 			$supported_parameters = apply_filters(
 				'yith_wcan_query_supported_parameters',
 				array_merge(
@@ -229,10 +265,41 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 			 *
 			 * @since 4.1.1
 			 */
+			/**
+			 * APPLY_FILTERS: yith_wcan_query_vars
+			 *
+			 * Allow third party code to filter list of "filtering query vars", as were retrieved by the plugin.
+			 *
+			 * @param array           $query List of query params.
+			 * @param YITH_WCAN_Query $this  Query object.
+			 *
+			 * @return array
+			 */
 			$this->query_vars = did_action( 'wp' ) ? apply_filters( 'yith_wcan_query_vars', $query, $this ) : null;
 
 			// return query.
 			return $query;
+		}
+
+		/**
+		 * Returns value for a specific query_var
+		 * As added bonus, if requested query_var is the slug of a taxonomy, converts it to correct query_string parameter
+		 * Besides, if we're requesting value for a taxonomy, it will split terms into an array.
+		 *
+		 * @param string $query_var Query var to search for.
+		 *
+		 * @return string|string[] Returns value of the query_var, optionally split into an array.
+		 */
+		public function get_query_var( $query_var ) {
+			$taxonomies  = $this->get_supported_taxonomies();
+			$query_vars  = $this->get_query_vars();
+			$is_taxonomy = in_array( $query_var, array_keys( $taxonomies ), true );
+			$query_var   = $is_taxonomy ? str_replace( 'pa_', 'filter_', $query_var ) : $query_var;
+
+			$value = $query_vars[ $query_var ] ?? null;
+			$value = $is_taxonomy && $value ? yith_wcan_separate_terms( $value ) : $value;
+
+			return $value;
 		}
 
 		/**
@@ -297,6 +364,19 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 				foreach ( $terms as $term_slug ) {
 					$term = get_term_by( 'slug', $term_slug, $taxonomy );
 
+					/**
+					 * APPLY_FILTERS: yith_wcan_remove_current_term_from_active_filters
+					 *
+					 * By default plugin removes term from active filters list if we're on that term archive page.
+					 * This filter allows third party code to change this behaviour.
+					 *
+					 * @param bool   $remove    Whether to remove current term.
+					 * @param string $term_slug Current term.
+					 * @param mixed  $qo        Queried object.
+					 * @param string $taxonomy  Taxonomy.
+					 *
+					 * @return bool
+					 */
 					if ( ! $term || apply_filters( 'yith_wcan_remove_current_term_from_active_filters', is_product_taxonomy() && $qo instanceof WP_Term && $qo->taxonomy === $taxonomy && $qo->slug === $term->slug, $term->slug, $qo, $taxonomy ) ) {
 						continue;
 					}
@@ -318,6 +398,17 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 					'values' => $values,
 				);
 			} else {
+				/**
+				 * APPLY_FILTERS: yith_wcan_active_filter
+				 *
+				 * Allow third party code to filter list of active filters.
+				 *
+				 * @param array $active_filter List of active filters.
+				 * @param array $query_vars    List of supported query vars found in query string.
+				 * @param array $labels        Lust of supported labels.
+				 *
+				 * @return array
+				 */
 				$active_filter = apply_filters( 'yith_wcan_active_filter', $active_filter, $filter, $query_vars, $labels );
 			}
 
@@ -367,6 +458,16 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 					$active_filters[] = $active_filter;
 				}
 
+				/**
+				 * APPLY_FILTERS: yith_wcan_active_filter_labels
+				 *
+				 * Allow third party code to filter list of labels for currently active filters.
+				 *
+				 * @param array $active_filters List of active filters.
+				 * @param array $query_vars     List of query vars found in query string.
+				 *
+				 * @return array
+				 */
 				return apply_filters( 'yith_wcan_active_filter_labels', $active_filters, $query_vars );
 			}
 		}
@@ -409,6 +510,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 
 				// create query to retrieve products.
 				$query = new WP_Query(
+					/**
+					 * APPLY_FILTERS: yith_wcan_filtered_products_query
+					 *
+					 * Allow third party code to filter default parameters used to build filtered query.
+					 *
+					 * @param array $query_args Default query arguments.
+					 *
+					 * @return array
+					 */
 					apply_filters(
 						'yith_wcan_filtered_products_query',
 						array(
@@ -448,6 +558,16 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		public function should_filter() {
 			$query_param = isset( $_REQUEST[ $this->get_query_param() ] ) ? intval( wp_unslash( $_REQUEST[ $this->get_query_param() ] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_should_filter
+			 *
+			 * Filters flag used by the plugin to choose whether to apply filters to current query or not.
+			 *
+			 * @param bool            $should_filter Whether plugin should apply filters.
+			 * @param YITH_WCAN_Query $this          Query object.
+			 *
+			 * @return bool
+			 */
 			return apply_filters( 'yith_wcan_should_filter', ! ! $query_param, $this );
 		}
 
@@ -477,6 +597,17 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 				$result = false;
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_should_process_query
+			 *
+			 * Filters flag used by the plugin to choose whether to alter a specific query or not.
+			 *
+			 * @param bool            $should_process Whether plugin should apply changes or not.
+			 * @param WP_Query        $query          Query being tested.
+			 * @param YITH_WCAN_Query $this           Query object.
+			 *
+			 * @return bool
+			 */
 			return apply_filters( 'yith_wcan_should_process_query', $result, $query, $this );
 		}
 
@@ -490,6 +621,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return void
 		 */
 		public function fill_query_vars( &$query ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_query_vars_to_merge
+			 *
+			 * Filters list of query vars to add to the query.
+			 *
+			 * @param array $query_vars List of query vars
+			 *
+			 * @return array
+			 */
 			$query_vars = apply_filters( 'yith_wcan_query_vars_to_merge', $this->get_query_vars() );
 
 			if ( empty( $query_vars ) ) {
@@ -637,6 +777,16 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 				'operator' => 'NOT IN',
 			);
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_product_query_tax_query
+			 *
+			 * Filter tax query parameters in the filtered query.
+			 *
+			 * @param array           $tax_query Tax query parameter.
+			 * @param YITH_WCAN_Query $this      Current query.
+			 *
+			 * @return array
+			 */
 			return array_filter( apply_filters( 'yith_wcan_product_query_tax_query', $this->reduce_tax_query( $tax_query ), $this ) );
 		}
 
@@ -776,6 +926,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return array|bool Query's post__in, or false when no limitation shall be applied.
 		 */
 		public function get_post_in( $post_in = array() ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_query_post_in
+			 *
+			 * Allow third party code filter the list of post ids used by the plugin as post__in query parameter
+			 *
+			 * @param array $post_id List of product ids.
+			 *
+			 * @return array
+			 */
 			return apply_filters( 'yith_wcan_query_post_in', $post_in );
 		}
 
@@ -804,6 +963,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		public function suppress_default_query_vars() {
 			global $wp;
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_suppress_default_query_vars
+			 *
+			 * Whether to remove existing query vars from the query
+			 *
+			 * @param bool $suppress Whether to remove existing query vars from the query.
+			 *
+			 * @return bool
+			 */
 			if ( empty( $wp->request ) && $this->should_filter() && get_option( 'permalink_structure' ) && apply_filters( 'yith_wcan_suppress_default_query_vars', true ) ) {
 				$wp->query_vars = array();
 			}
@@ -820,6 +988,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		public function suppress_default_conditional_tags() {
 			global $wp_query;
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_suppress_default_conditional_tags
+			 *
+			 * Whether to remove existing conditional tags from the query
+			 *
+			 * @param bool $suppress Whether to remove existing conditional tags from the query.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_wcan_suppress_default_conditional_tags', false ) ) {
 				$wp_query->is_tax        = false;
 				$wp_query->is_tag        = false;
@@ -849,6 +1026,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return void
 		 */
 		public function register_products() {
+			/**
+			 * APPLY_FILTERS: yith_wcan_process_filters_intersection
+			 *
+			 * Whether to process intersections between current product list and filter result set
+			 *
+			 * @param bool $process Whether to process intersection.
+			 *
+			 * @return bool
+			 */
 			if ( ! $this->is_filtered() || ! empty( $this->products ) || ! apply_filters( 'yith_wcan_process_filters_intersection', true ) ) {
 				return;
 			}
@@ -902,6 +1088,17 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 				$query_vars
 			);
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_filter_url
+			 *
+			 * Filters url with a specific set of filtering query vars applied
+			 *
+			 * @param string $url        Filter url.
+			 * @param array  $query_vars List of url query vars.
+			 * @param string $merge_mode AND or OR.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_wcan_filter_url', add_query_arg( $params, $base_url ), $query_vars, $merge_mode );
 		}
 
@@ -919,6 +1116,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 				$base_url = home_url( $wp->request );
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_base_filter_url
+			 *
+			 * Filters url used as base for filtering url.
+			 *
+			 * @param string $base_url Filter url.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_wcan_base_filter_url', $base_url );
 		}
 
@@ -930,6 +1136,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return bool
 		 */
 		public function is_filtered() {
+			/**
+			 * APPLY_FILTERS: yith_wcan_is_filtered
+			 *
+			 * Filters flag used to determine if current view is filtered or not.
+			 *
+			 * @param bool $filter Is current view filtered?
+			 *
+			 * @return bool
+			 */
 			return apply_filters( 'yith_wcan_is_filtered', $this->should_filter() && ! empty( $this->get_query_vars() ) );
 		}
 
@@ -1002,6 +1217,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return bool|int Count of matching products, or false on failure
 		 */
 		public function count_query_relevant_term_objects( $taxonomy, $term_id, $auto_exclusive = true ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_process_filters_intersection
+			 *
+			 * Whether to process intersections between current product list and filter result set
+			 *
+			 * @param bool $process Whether to process intersection.
+			 *
+			 * @return bool
+			 */
 			if ( ! apply_filters( 'yith_wcan_process_filters_intersection', true ) ) {
 				return false;
 			}
@@ -1019,6 +1243,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return array Array of post ids that are both query-relevant and bound to term
 		 */
 		public function get_query_relevant_term_objects( $taxonomy, $term_id, $exclude_taxonomy = true ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_process_filters_intersection
+			 *
+			 * Whether to process intersections between current product list and filter result set
+			 *
+			 * @param bool $process Whether to process intersection.
+			 *
+			 * @return bool
+			 */
 			if ( ! apply_filters( 'yith_wcan_process_filters_intersection', true ) ) {
 				return array();
 			}
@@ -1056,7 +1289,19 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 					$products = $this->get_filtered_products();
 				}
 
-				$match = array_intersect( $posts, $products );
+				/**
+				 * APPLY_FILTERS: yith_wcan_query_relevant_term_objects
+				 *
+				 * Filter list of products belonging to specified terms, that match current filters
+				 *
+				 * @param array  $match            Array of matched product ids
+				 * @param string $taxonomy         Taxonomy of the term to check,
+				 * @param int    $term_id          Term id to which products must belong.
+				 * @param bool   $exclude_taxonomy Whether to exclude current taxonomy from applied filters.
+				 *
+				 * @return array
+				 */
+				$match = apply_filters( 'yith_wcan_query_relevant_term_objects', array_intersect( $posts, $products ), $taxonomy, $term_id, $exclude_taxonomy );
 
 				$this->products_per_filter[ $taxonomy ][ $term_id ] = $match;
 
@@ -1082,6 +1327,15 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 			}
 
 			$product_ids_in_stock = wc_get_products(
+			/**
+			 * APPLY_FILTERS: yith_wcan_product_ids_in_stock_args
+			 *
+			 * Filters arguments used to query instock products
+			 *
+			 * @param array $args Query args.
+			 *
+			 * @return array
+			 */
 				apply_filters(
 					'yith_wcan_product_ids_in_stock_args',
 					array(
@@ -1259,6 +1513,18 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return array Filtered array of tax queries.
 		 */
 		public function reduce_tax_query( $tax_queries ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_pre_reduce_tax_query
+			 *
+			 * Allows third party code to hijack plugin's default behaviour when optimizing tax queries array
+			 * By default plugin would merge all queries with same taxonomy/operator/filed/include_children params
+			 * Anyway, third party code can use this filter to submit another version of optimized tax queries array
+			 *
+			 * @param array|bool $result      Optimized list.
+			 * @param array      $tax_queries List to optimize.
+			 *
+			 * @return array|bool
+			 */
 			$pre = apply_filters( 'yith_wcan_pre_reduce_tax_query', false, $tax_queries );
 
 			if ( false !== $pre ) {
@@ -1313,6 +1579,14 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		 * @return YITH_WCAN_Query Query class instance
 		 */
 		public static function instance() {
+			$class = static::class;
+
+			if ( class_exists( "{$class}_Premium" ) ) {
+				return YITH_WCAN_Query_Premium::instance();
+			} elseif ( class_exists( "{$class}_Extended" ) ) {
+				return YITH_WCAN_Query_Extended::instance();
+			}
+
 			if ( is_null( static::$instance ) ) {
 				static::$instance = new static();
 			}
@@ -1329,12 +1603,6 @@ if ( ! function_exists( 'YITH_WCAN_Query' ) ) {
 	 * @return YITH_WCAN_Query
 	 */
 	function YITH_WCAN_Query() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
-		if ( defined( 'YITH_WCAN_PREMIUM' ) ) {
-			return YITH_WCAN_Query_Premium::instance();
-		} elseif ( defined( 'YITH_WCAN_EXTENDED' ) ) {
-			return YITH_WCAN_Query_Extended::instance();
-		}
-
 		return YITH_WCAN_Query::instance();
 	}
 }

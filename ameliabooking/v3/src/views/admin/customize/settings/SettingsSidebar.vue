@@ -8,6 +8,7 @@
     >
       <component :is="settingsComponents[componentKey].component" :sub-step="settingsComponents[componentKey].subStep"></component>
     </SidebarCardTemplate>
+
     <div v-if="settingsComponents[componentKey].globalColors" class="am-cs__global-colors" @click="handleClick('colors')">
       {{amLabels.change_colors}} <span class="am-icon-settings"></span>
     </div>
@@ -68,8 +69,22 @@ import CustomizationEventCustomerInfo from "./parts/CustomizationEventCustomerIn
 import CustomizationEventPayment from "./parts/CustomizationEventPayment.vue";
 import CustomizationEventCongratulations from "./parts/CustomizationEventCongratulations.vue";
 
-// * Plugin Licence
-let licence = inject('licence')
+// Customer panel
+import CustomizationCabinetProfile from "./parts/CustomizationCabinetProfile.vue";
+import CustomizationDeleteProfile from "./parts/CustomizationDeleteProfile.vue";
+import CustomizationCabinetAppointments from "./parts/CustomizationCabinetAppointments.vue";
+import CustomizationCabinetAppointmentReschedule from "./parts/CustomizationCabinetAppointmentReschedule.vue";
+import CustomizationCabinetAppointmentCancel from "./parts/CustomizationCabinetAppointmentCancel.vue";
+import CustomizationCabinetEvents from "./parts/CustomizationCabinetEvents.vue";
+import CustomizationCabinetEventCancel from "./parts/CustomizationCabinetEventCancel.vue";
+import CustomizationCabinetPackagesList from "./parts/CustomizationCabinetPackagesList.vue";
+import CustomizationCabinetPackageAppointments from "./parts/CustomizationCabinetPackageAppointments.vue";
+import CustomizationCabinetAppointmentBook from "./parts/CustomizationCabinetAppointmentBook.vue"
+import CustomizationCabinetPackageCancel from "./parts/CustomizationCabinetPackageCancel.vue";
+import CustomizationCabinetSignIn from "./parts/CustomizationCabinetSignIn.vue";
+import CustomizationCabinetLink from "./parts/CustomizationCabinetLink.vue";
+import CustomizationCabinetLinkSuccess from "./parts/CustomizationCabinetLinkSuccess.vue";
+import CustomizationCabinetSetPass from "./parts/CustomizationCabinetSetPass.vue";
 
 // * Components
 import AmButton from '../../../_components/button/AmButton.vue'
@@ -81,6 +96,9 @@ import {
   inject,
   computed
 } from 'vue'
+
+// * Plugin Licence
+let licence = inject('licence')
 
 // * Labels
 let amLabels = inject('labels')
@@ -393,9 +411,142 @@ let elfSettingsObj = ref({
   }
 })
 
+let capcSettingsObj = ref({
+  menu: {
+    component: markRaw(CustomizationMenu),
+    backBtnVisibility: false
+  },
+  global: {
+    headingText: amLabels.cb_global_settings_heading,
+    component: markRaw(CustomizationGlobal),
+    backBtnVisibility: true
+  },
+  sidebar: {
+    headingText: amLabels.cb_sidebar,
+    component: markRaw(CustomizationSidebar),
+    backBtnVisibility: true
+  },
+  fonts: {
+    headingText: amLabels.fonts,
+    component: markRaw(CustomizationFonts),
+    backBtnVisibility: true
+  },
+  colors: {
+    headingText: amLabels.colors,
+    component: markRaw(CustomizationColors),
+    backBtnVisibility: true
+  },
+  order: {
+    headingText: amLabels.cb_field_order_heading,
+    component: markRaw(CustomizationOrder),
+    backBtnVisibility: true
+  },
+  options: {
+    headingText: amLabels.options,
+    component: markRaw(CustomizationOptions),
+    backBtnVisibility: true
+  },
+  labels: {
+    headingText: amLabels.labels,
+    component: markRaw(CustomizationLabels),
+    backBtnVisibility: true
+  },
+  profile: {
+    headingText: amLabels.csb_cust_profile,
+    component: markRaw(CustomizationCabinetProfile),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  deleteProfile: {
+    headingText: amLabels.delete_profile,
+    component: markRaw(CustomizationDeleteProfile),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  appointments: {
+    headingText: amLabels.csb_cust_appointments,
+    component: markRaw(CustomizationCabinetAppointments),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  rescheduleAppointment: {
+    headingText: amLabels.csb_appointment_reschedule,
+    component: markRaw(CustomizationCabinetAppointmentReschedule),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  cancelAppointment: {
+    headingText: amLabels.csb_appointment_cancel,
+    component: markRaw(CustomizationCabinetAppointmentCancel),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  events: {
+    headingText: amLabels.csb_cust_events,
+    component: markRaw(CustomizationCabinetEvents),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  cancelEvent: {
+    headingText: amLabels.csb_event_cancel,
+    component: markRaw(CustomizationCabinetEventCancel),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  packagesList: {
+    headingText: amLabels.csb_cust_packages_list,
+    component: markRaw(CustomizationCabinetPackagesList),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  packageAppointments: {
+    headingText: amLabels.csb_cust_package_appointments,
+    component: markRaw(CustomizationCabinetPackageAppointments),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  bookAppointment: {
+    headingText: amLabels.csb_appointment_book,
+    component: markRaw(CustomizationCabinetAppointmentBook),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  cancelPackage: {
+    headingText: amLabels.csb_cust_package_cancel,
+    component: markRaw(CustomizationCabinetPackageCancel),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  signIn: {
+    headingText: amLabels.csb_cust_sign_in,
+    component: markRaw(CustomizationCabinetSignIn),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  accessLink: {
+    headingText: amLabels.csb_cust_access_link,
+    component: markRaw(CustomizationCabinetLink),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  accessLinkSuccess: {
+    headingText: amLabels.csb_cust_access_link_success,
+    component: markRaw(CustomizationCabinetLinkSuccess),
+    backBtnVisibility: true,
+    globalColors: true,
+  },
+  setPass: {
+    headingText: amLabels.csb_cust_set_new_pass,
+    component: markRaw(CustomizationCabinetSetPass),
+    backBtnVisibility: true,
+    globalColors: true,
+  }
+})
+
 let settingsComponents = computed(() => {
   if (pageRenderKey.value === 'cbf') return cbfSettingsObj.value
   if (pageRenderKey.value === 'elf') return elfSettingsObj.value
+  if (pageRenderKey.value === 'capc') return capcSettingsObj.value
 
   return sbsNewSettingsObj.value
 })

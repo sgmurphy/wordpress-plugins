@@ -8,7 +8,11 @@
 <script setup>
 
 // * Color Vars
-import { ref, computed, inject } from "vue";
+import {
+  ref,
+  computed,
+  inject
+} from "vue";
 import { useColorTransparency } from "../../../../assets/js/common/colorManipulation";
 
 let amColors = inject('amColors', ref({
@@ -80,6 +84,10 @@ export default {
         transition-delay: 1s;
       }
 
+      * {
+        font-family: var(--am-font-family);
+      }
+
       // Sidebar Step
       &__step {
         background-color: var(--am-c-sb-text-op5);
@@ -118,7 +126,7 @@ export default {
           .el-skeleton {
             .el-skeleton__text {
               --el-skeleton-color: var(--am-c-skeleton-sb-op20);
-              --el-skeleton-to-color: var(--am-c-skeleton-sb-op60);;
+              --el-skeleton-to-color: var(--am-c-skeleton-sb-op60);
             }
             padding: 0;
           }
@@ -291,11 +299,148 @@ export default {
         }
       }
 
+      // Sidebar Step
+      &__page {
+        display: flex;
+        min-height: 40px;
+        background-color: transparent;
+        border-radius: 4px;
+        padding: 8px;
+        margin-bottom: 8px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--am-c-sb-text-op10);
+
+          .am-fs-sb__page-indicator {
+            display: flex;
+          }
+        }
+
+        &.selected {
+          background-color: var(--am-c-sb-text-op10);
+
+          .am-fs-sb__page-indicator {
+            display: flex;
+          }
+        }
+
+        $count: 100;
+        @for $i from 0 through $count {
+          &:nth-child(#{$i + 1}) {
+            animation: 400ms cubic-bezier(.45,1,.4,1.2) #{$i*70}ms am-animation-slide-right;
+            animation-fill-mode: both;
+          }
+        }
+
+        // Sidebar Step Wrapper
+        &-wrapper {
+          padding: 0 8px;
+          overflow-x: hidden;
+
+          // Main Scroll styles
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border-radius: 6px;
+            background: var(--am-c-scroll-op30);
+          }
+
+          &::-webkit-scrollbar-track {
+            border-radius: 6px;
+            background: var(--am-c-scroll-op10);
+          }
+
+          .el-skeleton {
+            .el-skeleton__text {
+              --el-skeleton-color: var(--am-c-skeleton-sb-op20);
+              --el-skeleton-to-color: var(--am-c-skeleton-sb-op60);
+            }
+            padding: 0;
+          }
+        }
+
+        // Sidebar Step Inner
+        &-inner {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          &.am-collapsed {
+            justify-content: center;
+          }
+        }
+
+        // Sidebar Step Icon
+        &-icon {
+          position: relative;
+          width: 24px;
+          height: 20px;
+          font-size: 24px;
+
+          span {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+
+        // Sidebar Step Heading
+        &-heading {
+          font-family: var(--am-font-family);;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.43;
+          margin: 0 auto 0 6px;
+
+          &.fade-enter-active {
+            animation: sidebar-step-selection 1s;
+          }
+
+          &.fade-leave-active {
+            animation: sidebar-step-selection 1s reverse;
+          }
+        }
+
+        &-indicator {
+          //display: flex;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          margin-left: auto;
+
+          &.fade-enter-active {
+            animation: sidebar-step-selection 1s;
+          }
+
+          &.fade-leave-active {
+            animation: sidebar-step-selection 1s reverse;
+          }
+        }
+
+        &-divider {
+          border-top: 1px solid var(--am-c-sb-text-op60);
+          margin: 16px 0;
+        }
+      }
+
       &__footer {
         position: absolute;
         bottom: 16px;
         left: 16px;
         width: calc(100% - 32px);
+
+        .am-fs-sb__page {
+          &-heading {
+            margin-right: auto;
+          }
+        }
       }
 
       &__support {

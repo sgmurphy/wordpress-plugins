@@ -234,6 +234,7 @@ $mandantData = $navbar->getData();
                                         if ($isDraft && isset($draftData) && isset($draftData['b2s'])) {
                                             $tempDraftData = $draftData['b2s'];
                                         }
+                                        
                                         foreach ($mandantData['auth'] as $k => $channelData) {
                                             if ($isDraft && isset($channelData->networkAuthId) && (int) $channelData->networkAuthId > 0 && isset($tempDraftData[$channelData->networkAuthId])) {
                                                 unset($tempDraftData[$channelData->networkAuthId]);

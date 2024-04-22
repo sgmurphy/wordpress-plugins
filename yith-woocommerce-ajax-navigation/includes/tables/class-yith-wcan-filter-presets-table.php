@@ -206,7 +206,6 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Presets_Table' ) ) {
 					),
 				)
 			);
-
 		}
 
 		/**
@@ -287,10 +286,19 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Presets_Table' ) ) {
 			}
 
 			// sets pagination arguments.
+			/**
+			 * APPLY_FILTERS: yith_wcan_filter_presets_per_page
+			 *
+			 * Allow to filter the number of presets to show for each page.
+			 *
+			 * @param int $count Number of items per page.
+			 *
+			 * @return int
+			 */
 			$per_page     = apply_filters( 'yith_wcan_filter_presets_per_page', 20 );
 			$current_page = $this->get_pagenum();
-			$total_items  = YITH_WCAN_Preset_Factory::count_presets( $query_arg );
-			$presets      = YITH_WCAN_Preset_Factory::get_presets(
+			$total_items  = YITH_WCAN_Presets_Factory::count_presets( $query_arg );
+			$presets      = YITH_WCAN_Presets_Factory::get_presets(
 				array_merge(
 					array(
 						'limit'   => $per_page,

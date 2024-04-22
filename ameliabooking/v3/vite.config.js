@@ -60,6 +60,9 @@ export default defineConfig({
           catalogForm: [
             'src/views/public/CatalogForm/CatalogForm.vue',
           ],
+          customerPanel: [
+            'src/views/public/Cabinet/CustomerPanel/CustomerPanel.vue',
+          ],
           customizeForm: [
             'src/views/admin/customize/Customize.vue',
           ],

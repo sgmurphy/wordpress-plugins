@@ -250,11 +250,12 @@ class FormatOutput {
 
 			// when polylang plugin is activated, get parent language post id
 			if ( defined( 'POLYLANG_BASENAME' ) || function_exists( 'PLL' ) ) {
-				$parent_id = woo_feed_pll_get_original_post_id( $id );
+//				$parent_id = woo_feed_pll_get_original_post_id( $id );
+				$parent_id = CommonHelper::woo_feed_pll_get_original_post_id( $id );
 			}
 
 			//get attribute value of parent language post id
-			if ( ! empty( $parent_id ) ) {
+			if ( ! empty( $parent_id ) && empty( $output ) ) {
 				$parentProduct = wc_get_product( $parent_id );
 				$output        = ProductHelper::get_attribute_value_by_type( $this->attribute, $parentProduct, $this->config );
 			}

@@ -1,6 +1,8 @@
 import moment from "moment";
 import {DateTime, Settings, Info} from "luxon";
 import {settings, shortLocale} from "../../../plugins/settings.js";
+import {useCookies} from "vue3-cookies";
+import {useUrlQueryParams} from "./helper";
 
 Settings.defaultLocale = shortLocale
 
@@ -156,6 +158,17 @@ function jsDateFormat () {
   })
 }
 
+function momentDateFormat () {
+  // Fix for Spanish/Catalan "j \d\e F \d\e Y" format
+  if (settings.wordpress.dateFormat === 'j \\d\\e F \\d\\e Y') {
+    return 'd MMMM YYYY'
+  }
+
+  return settings.wordpress.dateFormat.replace(formatRegex.formatEx, function (phpStr) {
+    return formatRegex.formatPHPtoMomentMap[phpStr]
+  })
+}
+
 function getFrontedFormattedTime (time) {
   return DateTime.fromFormat(time, 'HH:mm').toFormat(jsTimeFormat())
 }
@@ -217,6 +230,16 @@ function useSecondsToDuration (seconds, hourLabel, minuteLabel) {
   return (hours ? (hours + hourLabel + ' ') : '') + ' ' + (minutes ? (minutes + minuteLabel) : '')
 }
 
+function useConvertedUtcToLocalDateTime (period) {
+  let utcOffset = moment(period, 'YYYY-MM-DD HH:mm:ss').toDate().getTimezoneOffset()
+
+  if (utcOffset > 0) {
+    return moment.utc(period, 'YYYY-MM-DD HH:mm:ss').subtract(utcOffset, 'minutes').format('YYYY-MM-DD HH:mm:ss')
+  } else {
+    return moment.utc(period, 'YYYY-MM-DD HH:mm:ss').add(-1 * utcOffset, 'minutes').format('YYYY-MM-DD HH:mm:ss')
+  }
+}
+
 function getEventFrontedFormattedDateDay (date) {
   return DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('dd')
 }
@@ -227,6 +250,60 @@ function getEventFrontedFormattedDateMonth (date) {
 
 function getEventFrontedFormattedTime (time) {
   return moment(time, 'HH:mm:ss').format(momentTimeFormat())
+}
+
+function getDatePickerInitRange () {
+  const vueCookies = useCookies()['cookies']
+
+  let ameliaRangePast   = vueCookies.get('ameliaRangePast')
+  let ameliaRangeFuture = vueCookies.get('ameliaRangeFuture')
+
+  if (ameliaRangePast !== null && ameliaRangeFuture !== null) {
+    return [
+      moment().subtract(ameliaRangePast, 'days').toDate(),
+      moment().add(ameliaRangeFuture, 'days').toDate()
+    ]
+  }
+
+  return [
+    moment().toDate(),
+    moment().add(6, 'days').toDate()
+  ]
+}
+
+function setDatePickerSelectedDaysCount (start, end) {
+  const vueCookies = useCookies()['cookies']
+  let currentDate = moment().format('YYYY-MM-DD')
+
+  vueCookies.set('ameliaRangePast', moment(currentDate, 'YYYY-MM-DD').diff(moment(start, 'YYYY-MM-DD'), 'days'))
+  vueCookies.set('ameliaRangeFuture', moment(end, 'YYYY-MM-DD').diff(moment(currentDate, 'YYYY-MM-DD'), 'days'))
+}
+
+function getDateRange (cabinetType) {
+  let queryParams = useUrlQueryParams(window.location.href)
+
+  let start = 'start' in queryParams ? queryParams['start'] : null
+  let end = 'end' in queryParams ? queryParams['end'] : null
+
+  if (start && end) {
+    return [
+      moment(start).toDate(),
+      moment(end).toDate()
+    ]
+  }
+
+  if ('ameliaBooking' in window && 'cabinet' in window['ameliaBooking'] && 'pastDays' in window['ameliaBooking']['cabinet'] && 'futureDays' in window['ameliaBooking']['cabinet']) {
+    return [
+      moment().subtract(window['ameliaBooking']['cabinet']['pastDays'], 'days').toDate(),
+      moment().add(window['ameliaBooking']['cabinet']['futureDays'], 'days').toDate()
+    ]
+  }
+  // if it's customer set date range to numberOfDaysAvailableForBooking
+  if (cabinetType === 'customer') {
+    return [moment().toDate(), moment().add(settings.general.numberOfDaysAvailableForBooking, 'days').toDate()]
+  }
+
+  return getDatePickerInitRange()
 }
 
 export {
@@ -245,7 +322,13 @@ export {
   addSeconds,
   getFirstDayOfWeek,
   useSecondsToDuration,
+  useConvertedUtcToLocalDateTime,
   getEventFrontedFormattedDateDay,
   getEventFrontedFormattedDateMonth,
-  getEventFrontedFormattedTime
+  getEventFrontedFormattedTime,
+  getDatePickerInitRange,
+  jsDateFormat,
+  momentDateFormat,
+  setDatePickerSelectedDaysCount,
+  getDateRange
 }

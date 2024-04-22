@@ -21,7 +21,7 @@
       @country-phone-iso-updated="countryPhoneIsoUpdated"
     />
     <div
-      v-if="props.isWhatsApp && !props.phoneError"
+      v-if="props.isWhatsApp"
       class="am-whatsapp-opt-in-text"
     >
       {{ props.whatsAppLabel }}
@@ -79,7 +79,7 @@ let props = defineProps({
     type: String,
   },
   isWhatsApp: {
-    type: Boolean,
+    type: [Boolean, String, Number],
     default: false
   },
   countryPhoneIso: {
@@ -100,7 +100,7 @@ let { modelValue } = toRefs(props)
 let model = computed({
   get: () => modelValue.value,
   set: (val) => {
-    emits('update:modelValue', val)
+    emits('update:modelValue', val ? val : '')
   }
 })
 

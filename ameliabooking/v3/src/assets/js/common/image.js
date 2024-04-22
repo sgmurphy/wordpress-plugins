@@ -53,5 +53,6 @@ function imageFromText (baseUrls, name, entity = {}, error = false) {
 }
 
 export {
-  usePictureLoad
+  usePictureLoad,
+  getNameInitials
 }

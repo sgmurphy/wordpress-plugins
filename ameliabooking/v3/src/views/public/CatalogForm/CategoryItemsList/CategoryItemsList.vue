@@ -631,17 +631,6 @@ let customizedOptions = computed(() => {
   return customizedDataForm.value.categoryItemsList.options
 })
 
-let preselectedCategories = computed (() => {
-  let categoryArray = Array.isArray(shortcodeData.value.category) ? shortcodeData.value.category : shortcodeData.value.category.split(',')
-  return categoryArray.length
-})
-
-// * Sidebar Menu Visibility
-let sideMenuVisibility = computed(() => {
-  let sidebarByContainer = contentRef.value && contentRef.value.catContainerWidth ? contentRef.value.catContainerWidth > 768 : true
-  return preselectedCategories.value !== 1 && customizedOptions.value.sidebar.visibility && sidebarByContainer
-})
-
 // * Root Settings
 const amSettings = inject('settings')
 
@@ -651,6 +640,19 @@ let store = useStore()
 // * Shortcode
 const shortcodeData = inject('shortcodeData')
 const preselected = computed(() => store.getters['entities/getPreselected'])
+
+let preselectedCategories = computed (() => {
+  let categoryArray = Array.isArray(shortcodeData.value.category) ? shortcodeData.value.category : shortcodeData.value.category.split(',')
+  categoryArray = categoryArray.filter(c => c)
+  return categoryArray.length
+})
+
+
+// * Sidebar Menu Visibility
+let sideMenuVisibility = computed(() => {
+  let sidebarByContainer = contentRef.value && contentRef.value.catContainerWidth ? contentRef.value.catContainerWidth > 768 : true
+  return preselectedCategories.value !== 1 && customizedOptions.value.sidebar.visibility && sidebarByContainer
+})
 
 // * Entities
 let amEntities = inject('amEntities')

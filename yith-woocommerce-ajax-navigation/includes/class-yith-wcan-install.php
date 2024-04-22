@@ -161,7 +161,7 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 		 * @return bool|YITH_WCAN_Preset
 		 */
 		public static function get_default_preset() {
-			return YITH_WCAN_Preset_Factory::get_preset( self::$default_preset_slug );
+			return YITH_WCAN_Presets_Factory::get_preset( self::$default_preset_slug );
 		}
 
 		/**
@@ -235,6 +235,11 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 				update_option( $option, yith_wcan_get_option( $option ) );
 			}
 
+			/**
+			 * DO_ACTION: yith_wcan_did_400_upgrade
+			 *
+			 * Triggered after upgrade to version 4.0.0.
+			 */
 			do_action( 'yith_wcan_did_400_upgrade' );
 		}
 
@@ -246,7 +251,32 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 		 * @return void.
 		 */
 		protected static function do_410_upgrade() {
+			/**
+			 * DO_ACTION: yith_wcan_did_410_upgrade
+			 *
+			 * Triggered after upgrade to version 4.1.0.
+			 */
 			do_action( 'yith_wcan_did_410_upgrade' );
+		}
+
+		/**
+		 * Upgrade options to version 5.0.0
+		 *
+		 * @return void.
+		 */
+		protected static function do_500_upgrade() {
+			// on new installations of version 5.0.0, set yith_wcan_lazy_load_filters option to yes by default.
+			if ( ! self::$stored_version ) {
+				update_option( 'yith_wcan_lazy_load_filters', 'yes' );
+				update_option( 'yith_wcan_paginate_terms', 'yes' );
+			}
+
+			/**
+			 * DO_ACTION: yith_wcan_did_500_upgrade
+			 *
+			 * Triggered after upgrade to version 5.0.0.
+			 */
+			do_action( 'yith_wcan_did_500_upgrade' );
 		}
 
 		/**
@@ -260,6 +290,15 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 			// set taxonomies filters.
 			$filters = array_merge( $filters, self::get_taxonomies_filters() );
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_default_filters
+			 *
+			 * List of filters added to example preset.
+			 *
+			 * @param array $filters Default filters.
+			 *
+			 * @return array
+			 */
 			return apply_filters( 'yith_wcan_default_filters', $filters );
 		}
 
@@ -272,13 +311,22 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 			$filters = array();
 
 			// start with taxonomy filters.
-			$supported_taxonomies = YITH_WCAN_Query()->get_supported_taxonomies();
+			$supported_taxonomies = YITH_WCAN_Query::instance()->get_supported_taxonomies();
 
 			foreach ( $supported_taxonomies as $taxonomy_slug => $taxonomy_object ) {
 				$terms = get_terms(
 					array(
 						'taxonomy'   => $taxonomy_slug,
 						'hide_empty' => true,
+						/**
+						 * APPLY_FILTERS: yith_wcan_max_default_term_count
+						 *
+						 * Maximum number of terms added to filters in example preset.
+						 *
+						 * @param int $terms_count Maximum number of terms.
+						 *
+						 * @return int
+						 */
 						'number'     => apply_filters( 'yith_wcan_max_default_term_count', 20 ),
 					)
 				);

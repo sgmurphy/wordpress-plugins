@@ -123,7 +123,7 @@ function useAppointmentAmountData (store, item, coupon, couponLimit) {
 
       discountAmount = useAppointmentDiscountAmount(employeeService, appointment, coupon)
 
-      appointmentTotalAmount -= discountAmount
+      appointmentTotalAmount = appointmentTotalAmount >= discountAmount ? appointmentTotalAmount - discountAmount : 0
 
       couponLimit--
     }
@@ -380,11 +380,9 @@ function useServices (store) {
 }
 
 function useBusySlots (store) {
-  let cart = store.getters['booking/getAllMultipleAppointments']
+  let cartItem = useCartItem(store)
 
-  let cartIndex = store.getters['booking/getMultipleAppointmentsIndex']
-
-  let activeAppointment = cart[cartIndex].services[cart[cartIndex].serviceId].list[cart[cartIndex].index]
+  let activeAppointment = cartItem.services[cartItem.serviceId].list[cartItem.index]
 
   let busySlots = store.getters['booking/getMultipleAppointmentsOccupied']
 

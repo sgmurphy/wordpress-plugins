@@ -84,7 +84,7 @@ if ( ! class_exists( 'YITH_WCAN_Elementor_Filters' ) ) {
 		 * @access protected
 		 */
 		protected function register_controls() {
-			$presets         = YITH_WCAN_Preset_Factory::list_presets();
+			$presets         = YITH_WCAN_Presets_Factory::list_presets();
 			$presets_options = array_merge(
 				array(
 					'' => _x( 'Choose an option', '[ELEMENTOR] Default preset option', 'yith-woocommerce-ajax-navigation' ),

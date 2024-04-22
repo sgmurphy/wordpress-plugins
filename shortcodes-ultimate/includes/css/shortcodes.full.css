@@ -372,9 +372,7 @@
   -ms-transition-duration: 0s;
   -ms-transform: translate3d(0, 0, 0);
   -ms-transition-timing-function: ease;
-  transition-property: left, top, -webkit-transform;
   transition-property: transform, left, top;
-  transition-property: transform, left, top, -webkit-transform;
   transition-duration: 0s;
   transform: translate3d(0, 0, 0);
   transition-timing-function: ease;
@@ -1383,10 +1381,7 @@
   outline: none;
   border-radius: 50%;
   opacity: 0;
-  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  transition: opacity 0.2s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
-  -webkit-transform: none;
   transform: none;
 }
 
@@ -1401,7 +1396,6 @@
 }
 
 .su-image-carousel button.flickity-prev-next-button:focus {
-  -webkit-transform: scale(1.05);
   transform: scale(1.05);
 }
 
@@ -1428,7 +1422,6 @@
   list-style: none;
   opacity: 0;
   transition: opacity 0.2s ease;
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -1466,7 +1459,6 @@
   height: 10px;
   border-radius: 50%;
   content: '';
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
@@ -2056,9 +2048,7 @@ img {
   -ms-transition-duration: 0s;
   -ms-transform: translate3d(0, 0, 0);
   -ms-transition-timing-function: ease;
-  transition-property: left, top, -webkit-transform;
   transition-property: transform, left, top;
-  transition-property: transform, left, top, -webkit-transform;
   transition-duration: 0s;
   transform: translate3d(0, 0, 0);
   transition-timing-function: ease;
@@ -2698,7 +2688,6 @@ img {
 .su-tooltip-arrow::before {
   visibility: visible;
   content: '';
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 

@@ -2,11 +2,14 @@
 
 /* global globalThis, jQuery, yith_wcan_shortcodes, accounting */
 
-import { $ } from '../config.js';
+import { $ } from '../globals.js';
 
 export default class YITH_WCAN_Dropdown {
 	// current button
 	$originalSelect = null;
+
+	// list of current items.
+	_items = [];
 
 	// main element
 	$_main = null;
@@ -25,6 +28,18 @@ export default class YITH_WCAN_Dropdown {
 
 	// items list
 	$_items = null;
+
+	// whether select should paginate.
+	paginate = false;
+
+	// whether select has more items than those shown.
+	hasMore = false;
+
+	// whether items list needs update.
+	needsRefresh = true;
+
+	// whether select is multiple
+	multiple = false;
 
 	// current page
 	currentPage = 1;
@@ -47,6 +62,7 @@ export default class YITH_WCAN_Dropdown {
 				showSearch: this.$originalSelect.data( 'show_search' ),
 				paginate: this.$originalSelect.data( 'paginate' ),
 				perPage: defaultPerPage ? defaultPerPage : 10,
+				hasMore: false,
 				order: defaultOrder ? defaultOrder : 'ASC',
 				getElements: null,
 				labels: {
@@ -60,7 +76,10 @@ export default class YITH_WCAN_Dropdown {
 				},
 			};
 
+		this.multiple = this.$originalSelect.prop( 'multiple' );
 		this.options = $.extend( defaults, opts );
+		this.paginate = this.options.paginate || false;
+		this.hasMore = this.options.hasMore || false;
 
 		this._hideSelect();
 		this._initTemplate();
@@ -154,8 +173,13 @@ export default class YITH_WCAN_Dropdown {
 		} );
 
 		// search event
-		this.$_search?.on( 'keyup search', () => {
-			self._populateItems();
+		this.$_search?.on( 'keyup search change', () => {
+			this.paginate = false;
+
+			this._populateItems().then( () => {
+				this.needsRefresh = true;
+			} );
+			return false;
 		} );
 
 		// select event
@@ -292,60 +316,83 @@ export default class YITH_WCAN_Dropdown {
 			this.$_search.val( '' );
 		}
 
-		this._populateItems();
+		this._maybePopulateItems();
+	}
+
+	async getItems( search ) {
+		if ( ! this._items.length ) {
+			const $options = this.getOptions();
+
+			$options.each( ( i, el ) => {
+				const t = $( el ),
+					value = t.val(),
+					label = t.html();
+
+				this._items.push( {
+					value,
+					label,
+				} );
+			} );
+		}
+
+		let items = await this.getMatchingElements( search );
+		const perPage = this.paginate ? this.options.perPage : 0;
+
+		if ( perPage && items.length > perPage ) {
+			this.hasMore = true;
+			items = items.slice( 0, perPage );
+		}
+
+		return items;
 	}
 
 	// get elements
-	getMatchingElements( search, limit ) {
-		let matchingElements = [],
-			$options = this.getOptions(),
+	getMatchingElements( search ) {
+		let matchingElements = this._items,
 			promise;
 
 		promise = new Promise( ( resolve ) => {
-			// first of all, search across select option
-			$options.each( function () {
-				const t = $( this ),
-					value = t.val(),
-					label = t.html(),
-					regex = new RegExp( '.*' + search + '.*', 'i' ),
-					show =
-						! search || regex.test( value ) || regex.test( label );
-
-				if ( show ) {
-					matchingElements.push( {
-						value,
-						label,
-					} );
-				}
-			} );
+			matchingElements = search
+				? matchingElements.filter( ( { label, value } ) => {
+						const regex = new RegExp( '.*' + search + '.*', 'i' );
+						return regex.test( value ) || regex.test( label );
+				  } )
+				: matchingElements;
 
 			// then retrieve additional items
 			if ( this.options.getElements ) {
 				// we're expecting key => value pairs
-				this.options
-					.getElements( search )
+				this.options.getElements
+					.call( this, search )
 					.then( ( retrievedElements ) => {
 						if ( retrievedElements ) {
 							// reformat retrieved array
-							retrievedElements = retrievedElements.reduce(
-								( a, v, i ) => {
-									a.push( { label: i, value: v } );
+							retrievedElements = Object.keys(
+								retrievedElements
+							).reduce( ( a, i ) => {
+								if ( !! retrievedElements[ i ].label ) {
+									a.push( retrievedElements[ i ] );
 									return a;
-								},
-								[]
-							);
+								}
+
+								a.push( {
+									label: retrievedElements[ i ],
+									value: i,
+								} );
+								return a;
+							}, [] );
 
 							// merge found results with options
-							matchingElements = $.extend(
-								matchingElements,
-								retrievedElements
-							);
+							matchingElements = [
+								...matchingElements,
+								...retrievedElements,
+							];
 						}
 
-						resolve( this._formatItems( matchingElements, limit ) );
+						resolve( this._formatItems( matchingElements ) );
 					} );
 			} else {
-				resolve( this._formatItems( matchingElements, limit ) );
+				resolve( this._formatItems( matchingElements ) );
 			}
 		} );
 
@@ -353,43 +400,28 @@ export default class YITH_WCAN_Dropdown {
 	}
 
 	// format items as key/value pairs for further processing
-	_formatItems( items, limit ) {
-		let indexes = [],
-			hasMore = false;
+	_formatItems( items ) {
+		let indexes = [];
 
 		// remove duplicates and sort array of results
-		items
-			.filter( ( v ) => {
-				if ( -1 === indexes.indexOf( v.value ) ) {
-					indexes.push( v.value );
-					return true;
+		return items.filter( ( { value, label } ) => {
+			if ( -1 === indexes.indexOf( value ) ) {
+				indexes.push( value );
+
+				// checks if select has a related option.
+				if ( ! this.getOptionByValue( value ).length ) {
+					this.$originalSelect.append(
+						`<option class="filter-item" value="${ value }">${ label }</option>`
+					);
 				}
 
-				return false;
-			} )
-			.sort( ( a, b ) => {
-				const order = this.options.order,
-					mod = order === 'ASC' ? 1 : -1;
+				// add item to final array of elements.
+				return true;
+			}
 
-				if ( a.value < b.value ) {
-					return -1 * mod;
-				} else if ( a.value > b.value ) {
-					return mod;
-				}
-
-				return 0;
-			} );
-
-		// paginate when needed
-		if ( limit ) {
-			hasMore = limit < Object.keys( items ).length;
-			items = items.slice( 0, limit );
-		}
-
-		return {
-			items,
-			hasMore,
-		};
+			// item should not be included in the final set.
+			return false;
+		} );
 	}
 
 	// generate item to append to items list
@@ -420,7 +452,7 @@ export default class YITH_WCAN_Dropdown {
 			'data-title': option.length ? option.data( 'title' ) : '',
 		} );
 
-		if ( this.$originalSelect.prop( 'multiple' ) ) {
+		if ( this.multiple ) {
 			const $checkbox = $( '<input/>', {
 					type: 'checkbox',
 					value,
@@ -439,58 +471,42 @@ export default class YITH_WCAN_Dropdown {
 		return $item;
 	}
 
-	// populate items list
-	_populateItems( page ) {
-		let search = this.$_search?.length ? this.$_search.val() : '',
-			perPage = this.options.paginate ? this.options.perPage : 0,
-			limit;
+	_maybePopulateItems() {
+		if ( ! this.needsRefresh ) {
+			return;
+		}
 
-		page = page ? parseInt( page ) : 1;
-		limit = page * perPage;
+		this._populateItems();
+	}
 
-		this.getMatchingElements( search, limit ).then( ( resultSet ) => {
-			let matchingItems = resultSet.items,
-				items = [],
-				hasMore = false;
+	_populateItems() {
+		const search = this.$_search?.length ? this.$_search.val() : false;
 
-			// remove all previous items
+		return this.getItems( search ).then( ( items ) => {
 			this._emptyItems();
 			this._hideLoadMore();
 
-			if ( ! matchingItems.length ) {
-				items.push(
-					$( '<li/>', { text: this.options.labels.noItemsFound } )
-				);
-
-				this.currentPage = 1;
-			} else {
-				for ( const v of matchingItems ) {
-					if ( v.value === '' ) {
-						items.unshift( this._generateItem( v.value, v.label ) );
-					} else {
-						items.push( this._generateItem( v.value, v.label ) );
-					}
-				}
-
-				this.currentPage = page;
-				hasMore = resultSet.hasMore;
-			}
-
-			this.$_items.append( items );
-
+			this.$_items.append(
+				items.map( ( { label, value } ) =>
+					this._generateItem( value, label )
+				)
+			);
 			this.$originalSelect.trigger( 'yith_wcan_dropdown_updated' );
+			this.needsRefresh = false;
 
-			if ( hasMore ) {
+			if ( this.paginate && this.hasMore ) {
 				this._showLoadMore();
 			}
 		} );
 	}
 
 	// load next page of items
-	loadNextPage() {
-		const page = this.currentPage + 1;
+	async loadNextPage() {
+		this.paginate = false;
 
-		this._populateItems( page );
+		this._populateItems().then( () => {
+			this.hasMore = false;
+		} );
 	}
 
 	// set an item as active
@@ -512,7 +528,8 @@ export default class YITH_WCAN_Dropdown {
 		if ( $option.length ) {
 			$option.prop( 'selected', status );
 
-			this.closeDropdown();
+			( ! yith_wcan_shortcodes.instant_filters && this.multiple ) ||
+				this.closeDropdown();
 			this.updateLabel();
 
 			this.$originalSelect.trigger( 'change', [ true ] );

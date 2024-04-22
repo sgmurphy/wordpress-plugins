@@ -186,10 +186,6 @@ export default {
       return state.appointments[state.appointmentsIndex].services[state.appointments[state.appointmentsIndex].serviceId].slots
     },
 
-    getMultipleAppointmentsIndex (state) {
-      return state.appointmentsIndex
-    },
-
     getMultipleAppointmentsRange (state) {
       let i = state.appointmentsIndex
 
@@ -423,17 +419,19 @@ export default {
     unsetMultipleAppointmentsData (state, payload) {
       let i = state.appointmentsIndex
 
-      state.appointments[i]
-        .services[state.appointments[i].serviceId]
-        .list[payload] = {
-        date: null,
-        time: null,
-        providerId: null,
-        locationId: null,
-        persons: 1,
-        extras: [],
-        duration: null,
-        slots: [],
+      if (payload !== '') {
+        state.appointments[i]
+            .services[state.appointments[i].serviceId]
+            .list[payload] = {
+          date: null,
+          time: null,
+          providerId: null,
+          locationId: null,
+          persons: 1,
+          extras: [],
+          duration: null,
+          slots: [],
+        }
       }
     },
 

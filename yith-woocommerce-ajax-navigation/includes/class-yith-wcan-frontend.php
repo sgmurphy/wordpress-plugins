@@ -80,7 +80,7 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 		 */
 		public function __construct() {
 			// new query object.
-			$this->query = YITH_WCAN_Query();
+			$this->query = YITH_WCAN_Query::instance();
 
 			// Legacy query methods.
 			add_filter( 'woocommerce_layered_nav_link', 'yit_plus_character_hack', 99 );
@@ -138,6 +138,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 			 */
 			global $wp_the_query;
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_use_wp_the_query_object
+			 *
+			 * Whether plugin should use global query or current query.
+			 *
+			 * @param bool $use_wp_the_query Whether to use global query.
+			 *
+			 * @return bool
+			 */
 			return apply_filters( 'yith_wcan_use_wp_the_query_object', true ) ? $wp_the_query->query : $current_wp_query->query;
 		}
 
@@ -155,6 +164,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 			global $wp_query;
 			$queried_object = $wp_query instanceof WP_Query ? $wp_query->get_queried_object() : false;
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_is_search
+			 *
+			 * Allow third party code to filter test flag used to check if we're currently loading the search page
+			 *
+			 * @param bool $is_search Whether to we're currently in the search page.
+			 *
+			 * @return bool
+			 */
 			if ( ! empty( $queried_object ) && ( is_shop() || is_product_taxonomy() || ! apply_filters( 'yith_wcan_is_search', is_search() ) ) ) {
 				$filtered_posts   = array();
 				$queried_post_ids = array();
@@ -223,6 +241,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 					)
 				);
 
+				/**
+				 * APPLY_FILTERS: yith_wcan_hide_out_of_stock_items
+				 *
+				 * Whether to hide out of stock products.
+				 *
+				 * @param bool $hide Whether to hide out of stock products.
+				 *
+				 * @return bool
+				 */
 				$hide_out_of_stock_items = apply_filters( 'yith_wcan_hide_out_of_stock_items', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ? true : false );
 
 				if ( $hide_out_of_stock_items ) {
@@ -233,7 +260,26 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 					);
 				}
 
-				$unfiltered_args              = apply_filters( 'yith_wcan_unfiltered_args', $unfiltered_args );
+				/**
+				 * APPLY_FILTERS: yith_wcan_unfiltered_args
+				 *
+				 * Used to filter query args before retrieving products (legacy).
+				 *
+				 * @param array $args Array of query arguments.
+				 *
+				 * @return array
+				 */
+				$unfiltered_args = apply_filters( 'yith_wcan_unfiltered_args', $unfiltered_args );
+
+				/**
+				 * APPLY_FILTERS: yith_wcan_unfiltered_product_ids
+				 *
+				 * Used to filter products ids matching filters selection (legacy).
+				 *
+				 * @param array $product_ids Array of product ids.
+				 *
+				 * @return array
+				 */
 				$this->unfiltered_product_ids = apply_filters( 'yith_wcan_unfiltered_product_ids', get_posts( $unfiltered_args ), $query, $current_wp_query );
 				$this->filtered_product_ids   = $queried_post_ids;
 
@@ -263,6 +309,16 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 		 */
 		public function layered_nav_query( $filtered_posts = array() ) {
 			global $wp_query;
+
+			/**
+			 * APPLY_FILTERS: yith_wcan_skip_layered_nav_query
+			 *
+			 * Whether to skip processing of layered nav attributes in query creation (legacy).
+			 *
+			 * @param array $skip Array of query arguments.
+			 *
+			 * @return array
+			 */
 			if ( apply_filters( 'yith_wcan_skip_layered_nav_query', false ) ) {
 				return $filtered_posts;
 			}
@@ -324,6 +380,18 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 							}
 
 							// TODO: Increase performance for get_posts().
+							/**
+							 * APPLY_FILTERS: woocommerce_layered_nav_query_post_ids
+							 *
+							 * Used to filter list of product ids matching one of the attributes currently set in layered nav (legacy).
+							 *
+							 * @param array  $post_ids  Array of product ids.
+							 * @param array  $args      Query args.
+							 * @param array  $attribute Current attribute.
+							 * @param string $value     Attribute value.
+							 *
+							 * @return array
+							 */
 							$post_ids = apply_filters( 'woocommerce_layered_nav_query_post_ids', get_posts( $args ), $args, $attribute, $value );
 
 							if ( ! is_wp_error( $post_ids ) ) {
@@ -412,6 +480,18 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 				}
 
 				// TODO: Increase performance for get_posts().
+				/**
+				 * APPLY_FILTERS: woocommerce_layered_nav_query_post_ids
+				 *
+				 * Used to filter list of product ids matching one of the attributes currently set in layered nav (legacy).
+				 *
+				 * @param array  $post_ids  Array of product ids.
+				 * @param array  $args      Query args.
+				 * @param array  $attribute Current attribute.
+				 * @param string $value     Attribute value.
+				 *
+				 * @return array
+				 */
 				$post_ids = apply_filters( 'woocommerce_layered_nav_query_post_ids', get_posts( $args ), $args, $taxonomy, $slug );
 
 				if ( ! is_wp_error( $post_ids ) ) {
@@ -457,7 +537,7 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 				// frontend scripts.
 				wp_register_script( 'jseldom', YITH_WCAN_URL . 'assets/js/jquery.jseldom' . $suffix . '.js', array( 'jquery' ), '0.0.2', true );
 				wp_enqueue_script( 'yith-wcan-script', YITH_WCAN_URL . 'assets/js/yith-wcan-frontend' . $suffix . '.js', array( 'jquery', 'jseldom' ), YITH_WCAN_VERSION, true );
-				wp_localize_script( 'yith-wcan-script', 'yith_wcan', apply_filters( 'yith_wcan_frontend_args', $this->get_main_localize() ) );
+				wp_localize_script( 'yith-wcan-script', 'yith_wcan', $this->get_main_localize() );
 			}
 
 			wp_enqueue_style( 'yith-wcan-shortcodes' );
@@ -479,6 +559,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 		 * @since  1.0
 		 */
 		public function body_class( $classes ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_body_class
+			 *
+			 * Filters body class added by the plugin
+			 *
+			 * @param string $class Body class to add.
+			 *
+			 * @return string
+			 */
 			$classes[] = apply_filters( 'yith_wcan_body_class', 'yith-wcan-free' );
 
 			if ( YITH_WCAN_Query()->is_filtered() || yith_wcan_can_be_displayed() && yit_is_filtered_uri() ) {
@@ -547,35 +636,74 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 			$current_theme    = function_exists( 'wp_get_theme' ) ? wp_get_theme() : null;
 			$current_template = $current_theme instanceof WP_Theme ? $current_theme->get_template() : '';
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_frontend_args
+			 *
+			 * Filters localized data from plugin's frontend script.
+			 *
+			 * @param array $data Localized data.
+			 *
+			 * @return array
+			 */
 			return apply_filters(
-				'yith_wcan_ajax_frontend_classes',
-				array(
-					'container'          => yith_wcan_get_option( 'yith_wcan_ajax_shop_container', '.products' ),
-					'pagination'         => yith_wcan_get_option( 'yith_wcan_ajax_shop_pagination', 'nav.woocommerce-pagination' ),
-					'result_count'       => yith_wcan_get_option( 'yith_wcan_ajax_shop_result_container', '.woocommerce-result-count' ),
-					'wc_price_slider'    => array(
-						'wrapper'   => '.price_slider',
-						'min_price' => '.price_slider_amount #min_price',
-						'max_price' => '.price_slider_amount #max_price',
+				'yith_wcan_frontend_args',
+				array_merge(
+					array(
+						'is_mobile'          => wp_is_mobile(),
+						'scroll_top'         => yith_wcan_get_option( 'yith_wcan_ajax_scroll_top_class', '.yit-wcan-container' ),
+						'scroll_top_mode'    => yith_wcan_get_option( 'yith_wcan_scroll_top_mode', 'mobile' ),
+						'change_browser_url' => 'yes' === yith_wcan_get_option( 'yith_wcan_change_browser_url', 'yes' ) ? true : false,
 					),
-					'is_mobile'          => wp_is_mobile(),
-					'scroll_top'         => yith_wcan_get_option( 'yith_wcan_ajax_scroll_top_class', '.yit-wcan-container' ),
-					'scroll_top_mode'    => yith_wcan_get_option( 'yith_wcan_scroll_top_mode', 'mobile' ),
-					'change_browser_url' => 'yes' === yith_wcan_get_option( 'yith_wcan_change_browser_url', 'yes' ) ? true : false,
-					/* === Avada Theme Support === */
-					'avada'              => array(
-						'is_enabled' => class_exists( 'Avada' ),
-						'sort_count' => 'ul.sort-count.order-dropdown',
+					/**
+					 * APPLY_FILTERS: yith_wcan_ajax_frontend_classes
+					 *
+					 * Filters selectors used by plugin's script at frontend.
+					 *
+					 * @param array $selectors Array of elements selectors.
+					 *
+					 * @return array
+					 */
+					apply_filters(
+						'yith_wcan_ajax_frontend_classes',
+						array(
+							'container'       => yith_wcan_get_option( 'yith_wcan_ajax_shop_container', '.products' ),
+							'pagination'      => yith_wcan_get_option( 'yith_wcan_ajax_shop_pagination', 'nav.woocommerce-pagination' ),
+							'result_count'    => yith_wcan_get_option( 'yith_wcan_ajax_shop_result_container', '.woocommerce-result-count' ),
+							'wc_price_slider' => array(
+								'wrapper'   => '.price_slider',
+								'min_price' => '.price_slider_amount #min_price',
+								'max_price' => '.price_slider_amount #max_price',
+							),
+						)
 					),
-					/* Flatsome Theme Support */
-					'flatsome'           => array(
-						'is_enabled'        => function_exists( 'flatsome_option' ),
-						'lazy_load_enabled' => get_theme_mod( 'lazy_load_images' ),
-					),
-					/* === YooThemes Theme Support === */
-					'yootheme'           => array(
-						'is_enabled' => 'yootheme' === $current_template,
-					),
+					/**
+					 * APPLY_FILTERS: yith_wcan_frontend_theme_support
+					 *
+					 * Filters supports for vaoiurs third party themes.
+					 *
+					 * @param array $theme_support Array of theme support flags.
+					 *
+					 * @return array
+					 */
+					apply_filters(
+						'yith_wcan_frontend_theme_support',
+						array(
+							/* === Avada Theme Support === */
+							'avada'              => array(
+								'is_enabled' => class_exists( 'Avada' ),
+								'sort_count' => 'ul.sort-count.order-dropdown',
+							),
+							/* Flatsome Theme Support */
+							'flatsome'           => array(
+								'is_enabled'        => function_exists( 'flatsome_option' ),
+								'lazy_load_enabled' => get_theme_mod( 'lazy_load_images' ),
+							),
+							/* === YooThemes Theme Support === */
+							'yootheme'           => array(
+								'is_enabled' => 'yootheme' === $current_template,
+							),
+						)
+					)
 				)
 			);
 		}
@@ -589,7 +717,17 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 		protected function get_shortcodes_localize( $context = 'view' ) {
 			$params = array(
 				'query_param'           => YITH_WCAN_Query()->get_query_param(),
+				'query_vars'            => YITH_WCAN_Query()->get_query_vars(),
 				'supported_taxonomies'  => array_keys( YITH_WCAN_Query()->get_supported_taxonomies() ),
+				/**
+				 * APPLY_FILTERS: yith_wcan_content_selector
+				 *
+				 * Filters selector used by identify page content.
+				 *
+				 * @param string $selector Content selector.
+				 *
+				 * @return string
+				 */
 				'content'               => apply_filters( 'yith_wcan_content_selector', '#content' ),
 				'change_browser_url'    => in_array( yith_wcan_get_option( 'yith_wcan_change_browser_url', 'yes' ), array( 'yes', 'custom' ), true ),
 				'instant_filters'       => true,
@@ -605,7 +743,25 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 				'toggles_open_on_modal' => false,
 				'mobile_media_query'    => 991,
 				'base_url'              => $this->get_base_url( is_shop() ? yit_get_woocommerce_layered_nav_link() : '' ),
-				'terms_per_page'        => apply_filters( 'yith_wcan_dropdown_terms_per_page', 10 ),
+				/**
+				 * APPLY_FILTERS: yith_wcan_dropdown_terms_per_page
+				 *
+				 * Filters how many items to show per page in the dropdown.
+				 *
+				 * @param int $items_per_page Number of items per page.
+				 *
+				 * @return int
+				 */
+				'terms_per_page'        => apply_filters( 'yith_wcan_dropdown_terms_per_page', YITH_WCAN_Filters_Factory::get_terms_on_first_loading() ),
+				/**
+				 * APPLY_FILTERS: yith_wcan_shortcodes_script_currency_format
+				 *
+				 * Filters currency format used by scripts at frontend.
+				 *
+				 * @param array $currency_format Array describing currency format.
+				 *
+				 * @return int
+				 */
 				'currency_format'       => apply_filters(
 					'yith_wcan_shortcodes_script_currency_format',
 					array(
@@ -616,14 +772,22 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 						'format'    => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ),
 					)
 				),
+				/**
+				 * APPLY_FILTERS: yith_wcan_shortcodes_script_labels
+				 *
+				 * Filters labels used at frontend by plugin's scripts.
+				 *
+				 * @param array $labels Array of plugin's labels.
+				 *
+				 * @return array
+				 */
 				'labels'                => apply_filters(
 					'yith_wcan_shortcodes_script_labels',
 					array(
 						'empty_option'         => _x( 'All', '[FRONTEND] "All" label shown when no term is selected', 'yith-woocommerce-ajax-navigation' ),
 						'search_placeholder'   => _x( 'Search...', '[FRONTEND] Search placeholder shown in terms dropdown', 'yith-woocommerce-ajax-navigation' ),
 						'no_items'             => _x( 'No item found', '[FRONTEND] Empty items list in the dropdown', 'yith-woocommerce-ajax-navigation' ),
-						// translators: 1. Number of items to show.
-						'show_more'            => _x( 'Show %d more', '[FRONTEND] Show more link on terms dropdown', 'yith-woocommerce-ajax-navigation' ),
+						'show_more'            => _x( 'Show more', '[FRONTEND] Show more link on tax filters', 'yith-woocommerce-ajax-navigation' ),
 						'close'                => _x( 'Close', '[FRONTEND] Alt text for modal close button on mobile', 'yith-woocommerce-ajax-navigation' ),
 						'save'                 => _x( 'Save', '[FRONTEND] Label for filter button, on horizontal layout', 'yith-woocommerce-ajax-navigation' ),
 						'show_results'         => _x( 'Show results', '[FRONTEND] Label for filter button, on mobile modal', 'yith-woocommerce-ajax-navigation' ),
@@ -631,9 +795,26 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 						'clear_all_selections' => _x( 'Clear All', '[FRONTEND] Label for clear selection link, that appears above filter after selection', 'yith-woocommerce-ajax-navigation' ),
 					)
 				),
+				'urls'                  => array(
+					'render_filter' => WC_AJAX::get_endpoint( 'yith_wcan_render_filter' ),
+				),
+				'nonces'                => array(
+					'render_filter'          => wp_create_nonce( 'render_filter' ),
+					'render_remaining_terms' => wp_create_nonce( 'render_remaining_terms' ),
+					'get_filter_terms'       => wp_create_nonce( 'get_filter_terms' ),
+				),
 			);
 
 			if ( 'view' === $context ) {
+				/**
+				 * APPLY_FILTERS: yith_wcan_shortcodes_script_args
+				 *
+				 * Parameters used to localize shortcodes script.
+				 *
+				 * @param array $param Script params.
+				 *
+				 * @return array
+				 */
 				return apply_filters( 'yith_wcan_shortcodes_script_args', $params );
 			}
 
@@ -646,6 +827,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 		 * @return bool|string Custom CSS template, ro false when no content should be output.
 		 */
 		protected function build_custom_css() {
+			/**
+			 * APPLY_FILTERS: yith_wcan_default_accent_color
+			 *
+			 * Filters the default color used in the color picker.
+			 *
+			 * @param string $default_color Default value: '#A7144C'.
+			 *
+			 * @return string
+			 */
 			$default_accent_color = apply_filters( 'yith_wcan_default_accent_color', '#A7144C' );
 
 			$variables = array();
@@ -739,6 +929,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 			// close :root directive.
 			$template .= '}';
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_custom_css
+			 *
+			 * Filters custom css added by the plugin to the page.
+			 *
+			 * @param string $custom_css Custom css.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_wcan_custom_css', $template );
 		}
 
@@ -834,6 +1033,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 			$base_url = preg_replace( '/\?.*/', '', $base_url ); // remove query string.
 			$base_url = trailingslashit( $base_url ); // add trailing slash.
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_base_url
+			 *
+			 * Filters the base url used for filtering.
+			 *
+			 * @param string $base_url Base filtering url.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_wcan_base_url', $base_url );
 		}
 
@@ -846,6 +1054,15 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
 		 * @return array Array of locations.
 		 */
 		public function get_before_product_locations( $offset = 0 ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_before_product_locations
+			 *
+			 * List of hooks and priorities that represents various locations before the list of products.
+			 *
+			 * @param array $locations Array of hooks and priorities.
+			 *
+			 * @return array
+			 */
 			return apply_filters(
 				'yith_wcan_before_product_locations',
 				array(

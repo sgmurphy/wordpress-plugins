@@ -1,4 +1,4 @@
-import {shortLocale} from "../../../plugins/settings.js";
+import {longLocale, shortLocale} from "../../../plugins/settings.js";
 
 function checkTranslations (entity, type) {
   let nameTranslations = type !== '' ? JSON.parse(entity.translations)[type] : JSON.parse(entity.translations)
@@ -13,10 +13,13 @@ function checkTranslations (entity, type) {
   let name = ''
 
   for (let i = 0; i < availableTranslationsShort.length; i++) {
-    if (availableTranslationsShort[i] === shortLocale) {
+    if (longLocale === availableTranslations[i] && nameTranslations[availableTranslations[i]]) {
       name = nameTranslations[availableTranslations[i]]
 
       break
+    }
+    if (availableTranslationsShort[i] === shortLocale && nameTranslations[availableTranslations[i]]) {
+      name = nameTranslations[availableTranslations[i]]
     }
   }
 

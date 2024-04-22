@@ -1060,7 +1060,7 @@
         }
 
         if (badges) {
-          let settingsRoles = this.$root.settings.roles
+          let settingsRoles = this.settings.roles
           settingsRoles.providerBadges.badges = badges
           this.updateSettings({'roles': settingsRoles})
         }

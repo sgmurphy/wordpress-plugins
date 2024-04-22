@@ -2,7 +2,7 @@
 /**
  * Filter preset options
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter\Options
  * @version 4.0.0
  */
@@ -11,6 +11,15 @@ if ( ! defined( 'YITH_WCAN' ) ) {
 	exit;
 } // Exit if accessed directly
 
+/**
+ * APPLY_FILTERS: yith_wcan_panel_filter_preset_options
+ *
+ * Filters "Filter Preset" options.
+ *
+ * @param array $options "Filter Preset" options.
+ *
+ * @return array
+ */
 return apply_filters(
 	'yith_wcan_panel_filter_preset_options',
 	array(
@@ -40,7 +49,7 @@ return apply_filters(
 					'class'                => '',
 					'post_type'            => YITH_WCAN_Presets()->get_post_type(),
 				),
-				YITH_WCAN_Preset_Factory::count_presets() ? array(
+				YITH_WCAN_Presets_Factory::count_presets() ? array(
 					'add_new_button' => _x( 'Add preset', '[Admin] Add Preset button', 'yith-woocommerce-ajax-navigation' ),
 				) : array()
 			),

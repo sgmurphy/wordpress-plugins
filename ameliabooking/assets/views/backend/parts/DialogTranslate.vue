@@ -374,22 +374,24 @@ export default {
 
     this.tickets = tickets
 
-    let badges = JSON.parse(JSON.stringify(this.employeeBadges))
+    if (this.type === 'badges') {
+      let badges = JSON.parse(JSON.stringify(this.employeeBadges))
 
-    badges.forEach(badge => {
-      if (badge.translations) {
-        badge.translations = JSON.parse(badge.translations)
-      } else {
-        badge.translations = {}
-      }
-      this.usedLanguages.forEach(language => {
-        if (!badge.translations[language]) {
-          badge.translations[language] = ''
+      badges.forEach(badge => {
+        if (badge.translations) {
+          badge.translations = JSON.parse(badge.translations)
+        } else {
+          badge.translations = {}
         }
+        this.usedLanguages.forEach(language => {
+          if (!badge.translations[language]) {
+            badge.translations[language] = ''
+          }
+        })
       })
-    })
 
-    this.badges = badges
+      this.badges = badges
+    }
 
     this.allLanguagesKeys = Object.keys(this.allLanguagesData)
   },
@@ -426,9 +428,13 @@ export default {
         ticket.translations = JSON.stringify(ticket.translations)
       })
 
-      this.badges.forEach(badge => {
-        badge.translations = JSON.stringify(badge.translations)
-      })
+      if (this.type === 'badges') {
+        this.badges.forEach(badge => {
+          badge.translations = JSON.stringify(badge.translations)
+        })
+      } else {
+        this.badges = null
+      }
 
       this.$emit('saveDialogTranslate', JSON.stringify(this.translations), this.newLanguages, this.tab, this.options, this.tickets, this.badges)
     },

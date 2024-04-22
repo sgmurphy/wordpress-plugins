@@ -148,6 +148,33 @@ let starterLabelsTreatment = deepMerge(
         ],
       },
     },
+    capc: {
+      appointments: {
+        filter: [
+          'locations_dropdown'
+        ],
+        card: [
+          'pay_now_btn',
+          'paid',
+          'google_meet_link',
+          'zoom_link'
+        ]
+      },
+      events: {
+        filter: [
+          'locations_dropdown'
+        ],
+        card: [
+          'pay_now_btn',
+          'paid',
+          'event_organizer',
+          'google_meet_link',
+          'zoom_link',
+          'event_tickets',
+          'event_ticket'
+        ]
+      }
+    }
   }
 )
 
@@ -316,6 +343,14 @@ let starterOptionsTreatment = deepMerge(
         'eventOrganizer',
       ],
     },
+    capc: {
+      appointments: [
+        'locationsFilter'
+      ],
+      events: [
+        'locationsFilter'
+      ]
+    }
   },
 )
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 12:53+0200\n"
-"PO-Revision-Date: 2024-02-29 17:23+0100\n"
+"POT-Creation-Date: 2024-04-18 11:35+0200\n"
+"PO-Revision-Date: 2024-04-09 13:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: ameliabooking.php\n"
@@ -81,8 +81,8 @@ msgstr ""
 "HTML tagy se mohou ztratit, pokud je možnost aktivována."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:37
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:203
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:204
 msgid "Close"
 msgstr "Zavřít"
 
@@ -101,7 +101,7 @@ msgid "Comma (,)"
 msgstr "Čárka (,)"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:41
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:149
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:150
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -161,7 +161,7 @@ msgstr "Roky"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:55
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1302
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:179
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:180
 msgid "Date"
 msgstr "Datum"
 
@@ -170,7 +170,7 @@ msgid "Delete"
 msgstr "Smazat"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:57
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:233
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:234
 msgid "Description"
 msgstr "Popis"
 
@@ -205,7 +205,7 @@ msgstr "example@mail.com"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:324
 #: src/Infrastructure/WP/Translations/BackendStrings.php:562
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1305
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:182
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:183
 msgid "Employee"
 msgstr "Pracovník"
 
@@ -238,8 +238,8 @@ msgstr "Chyba"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:71
 #: src/Infrastructure/WP/Translations/BackendStrings.php:566
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:175
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:176
 msgid "Event"
 msgstr "Akce"
 
@@ -418,7 +418,7 @@ msgid "No"
 msgstr "Ne"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:111
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:257
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:258
 msgid "There are no results..."
 msgstr "Žádné odpovídající výsledky..."
 
@@ -488,10 +488,10 @@ msgstr "Částečně zaplaceno"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:561
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1288
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1298
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:178
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:205
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:179
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:206
 msgid "Payment"
 msgstr "Platba"
 
@@ -513,7 +513,7 @@ msgstr "Nepotvrzeno"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:132
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1237
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1381
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1384
 msgid "Phone"
 msgstr "Telefon"
 
@@ -548,20 +548,20 @@ msgstr "Prosím zvolte čas"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1267
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1269
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1304
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1430
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:162
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:165
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:181
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:242
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:163
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:166
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:182
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:243
 msgid "Service"
 msgstr "Služba"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:140
 #: src/Infrastructure/WP/Translations/BackendStrings.php:327
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1290
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:173
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:243
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:174
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:244
 msgid "Services"
 msgstr "Služby"
 
@@ -951,7 +951,7 @@ msgstr "Nastavení kupónů tak, aby nerozlišovaly velká a malá písmena"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:232
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1167
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
 msgid "Calendar"
 msgstr "Kalendář"
 
@@ -1331,16 +1331,15 @@ msgid "Create Meetings For Pending Appointments"
 msgstr "Vytvořit meeting pro nepotvrzené rezervace"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:322
-msgid "Check customer's name for existing email when booking"
+#, fuzzy
+msgid "Check customer's name for existing email/phone when booking"
 msgstr "Zkontrolovat, zda rezervující zákazník má uvedenou emailovou adresu"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:323
 msgid ""
-"Enable this option if you don't want to allow \"existing customer\"<br/>to "
-"use different first and last name when booking."
+"Enable this option to ensure that customers using an existing email or phone "
+"number maintain consistent first and last names."
 msgstr ""
-"Zaškrtněte, pokud nechcete, aby existující zákazník použil <br/>jiné jméno a "
-"příjmení při rezervaci."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:328
 msgid "Labels"
@@ -1489,7 +1488,7 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:358
 #: src/Infrastructure/WP/Translations/BackendStrings.php:969
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:172
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:173
 msgid "Payments"
 msgstr "Platby"
 
@@ -2234,7 +2233,7 @@ msgstr "Popis akce"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:536
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1245
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:219
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:220
 msgid "Event Location"
 msgstr "Místo akce"
 
@@ -2251,8 +2250,8 @@ msgid "End time of the event"
 msgstr "Čas konce akce"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:540
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:177
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:178
 msgid "Event ID"
 msgstr "ID akce"
 
@@ -2333,7 +2332,7 @@ msgstr "Telefon:"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:563
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1017
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1268
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:164
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:165
 msgid "Category"
 msgstr "Kategorie"
 
@@ -2749,7 +2748,7 @@ msgid "Hide"
 msgstr "Skrýt"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:712
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
 msgid "Show"
 msgstr "Zobrazit"
 
@@ -2787,8 +2786,8 @@ msgid "Add Resource"
 msgstr "Přidat zdroj"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:743
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1388
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:231
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1391
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:232
 msgid "Categories"
 msgstr "Kategorie"
 
@@ -2904,7 +2903,7 @@ msgid "New Service"
 msgstr "Nová služba"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:771
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1358
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1361
 msgid "+more"
 msgstr "+více"
 
@@ -3007,7 +3006,7 @@ msgstr "Vytvořit nové"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:806
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1235
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1380
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1383
 msgid "Email"
 msgstr "Email"
 
@@ -3025,13 +3024,13 @@ msgstr "Prosím zadejte příjmení"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:809
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1232
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1378
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1381
 msgid "First Name"
 msgstr "Jméno"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:810
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1233
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1379
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1382
 msgid "Last Name"
 msgstr "Příjmení"
 
@@ -3503,7 +3502,7 @@ msgstr "Cena služby"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:996
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1293
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:259
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:260
 msgid "Subtotal"
 msgstr "Mezisoučet"
 
@@ -3651,14 +3650,14 @@ msgstr "Maximální počet míst je"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1041
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1213
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:258
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:259
 msgid "Select Service"
 msgstr "Zvolte službu"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1042
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1204
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:163
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:164
 msgid "Please select service"
 msgstr "Prosím zvolte službu"
 
@@ -3679,7 +3678,7 @@ msgid "Start Time"
 msgstr "Čas začátku"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1048
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:124
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:125
 msgid "Time slot is unavailable"
 msgstr "Časový slot je nedostupný"
 
@@ -4104,7 +4103,7 @@ msgid "Steps"
 msgstr "Kroky"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1214
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1372
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1375
 msgid "Text"
 msgstr "Text"
 
@@ -4190,8 +4189,8 @@ msgid "Phone Input Field"
 msgstr "Vstupní pole telefonu"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1239
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1406
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:241
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1409
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:242
 msgid "Go Back"
 msgstr "Zpět"
 
@@ -4222,7 +4221,7 @@ msgid "From"
 msgstr "Od"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1250
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
 msgid "Free"
 msgstr "Zdarma"
 
@@ -4261,12 +4260,12 @@ msgid "Event Status"
 msgstr "Stav akce"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1260
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:199
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:200
 msgid "Filters"
 msgstr "Filtry"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1261
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:196
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:197
 msgid "Book event"
 msgstr "Rezervovat akci"
 
@@ -4283,8 +4282,8 @@ msgid "Use Global Colors"
 msgstr "Použít globální barvy"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1266
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1349
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:161
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1352
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:162
 msgid "Service Selection"
 msgstr "Výběr služby"
 
@@ -4297,19 +4296,19 @@ msgid "Bringing Anyone With You"
 msgstr "Berete někoho sebou"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1273
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:183
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:218
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:184
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:219
 msgid "Show more"
 msgstr "Zobrazit více"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1274
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:184
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:217
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:185
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:218
 msgid "Show less"
 msgstr "Zobrazit méně"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1276
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:166
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:167
 msgid "Date & Time"
 msgstr "Datum a čas"
 
@@ -4318,24 +4317,24 @@ msgid "All slots are selected"
 msgstr "Všechny termíny jsou vybrány"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1278
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:167
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:206
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:168
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:207
 msgid "Your Information"
 msgstr "Osobní údaje"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1279
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:168
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:169
 msgid "Enter first name"
 msgstr "Zadejte jméno"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1281
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:169
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:170
 msgid "Enter last name"
 msgstr "Zadejte příjmení"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1283
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:170
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:171
 msgid "Enter email"
 msgstr "Zadejte email"
 
@@ -4344,7 +4343,7 @@ msgid "Please enter valid email"
 msgstr "Prosím zadejte platný email"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1285
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:171
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:172
 msgid "Enter phone"
 msgstr "Zadejte telefon"
 
@@ -4353,7 +4352,7 @@ msgid "Please enter phone"
 msgstr "Zadejte prosím telefon"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1289
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:157
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:158
 msgid "Summary"
 msgstr "Souhrn"
 
@@ -4371,32 +4370,32 @@ msgid "Total Amount"
 msgstr "Cena celkem"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1295
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:153
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:154
 msgid "The payment will be done on-site."
 msgstr "Platba bude provedena na místě."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1296
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:176
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:177
 msgid "Appointment ID"
 msgstr "ID rezervace"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1299
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:159
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:160
 msgid "Your Name"
 msgstr "Jméno"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1300
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:150
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:151
 msgid "Email Address"
 msgstr "Email"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1301
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:154
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:155
 msgid "Phone Number"
 msgstr "Telefonní číslo"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1303
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:180
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:181
 msgid "Local Time"
 msgstr "Místní čas"
 
@@ -4424,26 +4423,24 @@ msgstr "Rezervační formulář 1.0"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1311
 msgid ""
-"Redesigned and upgraded Step-by-Step Booking form with a better user "
-"experience, animations, improved speed, and a stand-out design!"
+"Use the upgraded Step-by-Step Booking Form 2.0 for a simplified, direct "
+"booking process on your page. Customize its design and labels to enhance "
+"user experience and meet your business needs."
 msgstr ""
-"Přepracovaný a vylepšený rezervační formulář krok za krokem s lepším "
-"uživatelským zážitkem, animacemi, vylepšenou rychlostí a výjimečným designem!"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1312
 msgid ""
-"Step-by-Step 1.0 Booking, Catalog Booking, Search Booking, Event List and "
-"Event Calendar Bookings."
+"The original booking forms—Step-by-Step, Catalog, Event List, and Event "
+"Calendar—feature basic customization and label changes, serving as the "
+"foundation for our newer versions."
 msgstr ""
-"Rezervační formulář Krok za krokem 1.0, Rezervační katalog, Rezervační "
-"vyhledávání, Seznam akcí a Rezervační kalendář akcí."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1313
 msgid "Primary and state colors"
 msgstr "Hlavní a stavové barvy"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1314
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1361
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1364
 msgid "Sidebar"
 msgstr "Postranní panel"
 
@@ -4512,344 +4509,357 @@ msgid "Secondary Button Text Color"
 msgstr "Barva textu sekundárního tlačítka"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1332
+#, fuzzy
+msgid "Danger Button Background Color"
+msgstr "Barva pozadí primárního tlačítka"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1333
+#, fuzzy
+msgid "Danger Button Text Color"
+msgstr "Barva textu primárního tlačítka"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1334
 msgid "Layout & Inputs"
 msgstr "Rozvržení a vstupy"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1333
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1335
 msgid "Colors"
 msgstr "Barvy"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1334
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1336
 msgid "Fonts"
 msgstr "Písmo"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1335
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1337
 msgid "Order"
 msgstr "Objednávka"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1336
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1338
 msgid "Step Title"
 msgstr "Název kroku"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1337
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1339
 msgid "Footer Buttons"
 msgstr "Tlačítka zápatí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1338
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1340
 msgid "Step Content"
 msgstr "Obsah kroku"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1339
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1382
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1341
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1385
 msgid "Finish Button Type"
 msgstr "Typ tlačítka Dokončit"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1340
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1383
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1342
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1386
 msgid "Panel Button Type"
 msgstr "Typ tlačítka panelu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1341
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1343
 msgid "Summary Segment"
 msgstr "Souhrnný segment"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1342
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1344
 msgid "Payment Segment"
 msgstr "Platební segment"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1343
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1345
 msgid "Heading Title"
 msgstr "Název nadpisu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1344
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1346
 msgid "Sub Steps"
 msgstr "Dílčí kroky"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1347
+#, fuzzy
+msgid "Step Popups"
+msgstr "Kroky"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1350
 msgid "Fonts and colors"
 msgstr "Písma a barvy"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1348
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1351
 msgid "Set up Sidebar visibility and its content"
 msgstr "Nastavení viditelnosti bočního panelu a jeho obsahu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1350
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1353
 msgid "Set up Services, Locations, Employees selection options"
 msgstr "Nastavení možností výběru služeb, míst a pracovníků"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1351
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1354
 msgid "Date & Time Selection"
 msgstr "Výběr data a času"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1352
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1355
 msgid "Set up Calendar layout and Recurring popup options"
 msgstr "Nastavení vzhledu kalendáře a možností opakovaného vyskakovacího okna"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1353
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1356
 msgid "Customer Information"
 msgstr "Informace zákazníka"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1354
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1357
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
 msgid "Field order, mandatory fields, labels and display options"
 msgstr "Pořadí polí, povinná pole, popisky a možnosti zobrazení"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1355
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1358
 msgid "Payment Summary"
 msgstr "Shrnutí platby"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1356
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1359
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
 msgid "Set up labels and buttons"
 msgstr "Nastavení popisků a tlačítek"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1357
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1360
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
 msgid "Set up button types and labels"
 msgstr "Nastavení typů tlačítek a popisků"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1360
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1363
 msgid "Global Settings"
 msgstr "Obecné nastavení"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1362
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1365
 msgid "Section"
 msgstr "Sekce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1363
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1366
 msgid "Field Order"
 msgstr "Objednávka"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1364
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1367
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:95
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:204
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:205
 msgid "Congratulations"
 msgstr "Gratulujeme"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1366
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1369
 msgid "Footer"
 msgstr "Zápatí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1367
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:151
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1370
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:152
 msgid "Get in Touch"
 msgstr "Kontaktujte nás"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1371
 msgid "Collapse Menu"
 msgstr "Sbalit menu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1370
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1373
 msgid "Filled"
 msgstr "Vyplněné"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1371
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1374
 msgid "Plain"
 msgstr "Prostý"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1374
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1377
 msgid "Continue Button Type"
 msgstr "Typ tlačítka Pokračovat"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1375
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1378
 msgid "Calendar Slot End Time"
 msgstr "Čas ukončení slotu kalendáře"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1376
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1379
 msgid "Show Busy Time Slots"
 msgstr "Zobrazit obsazené časové sloty"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1377
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1380
 msgid "Calendar Time Zone"
 msgstr "Časové pásmo kalendáře"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1384
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1387
 msgid "Sidebar Visibility"
 msgstr "Viditelnost postranního panelu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1385
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1388
 msgid "Publish Form"
 msgstr "Zveřejnit formulář"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1387
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:236
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1390
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:237
 msgid "View All"
 msgstr "Zobrazit vše"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1389
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1392
 msgid "Set up categories cards"
 msgstr "Nastavení karet kategorií"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1390
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1393
 msgid "Cards"
 msgstr "Karty"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1391
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1394
 msgid "Card Button Type"
 msgstr "Typ tlačítka karty"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1392
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1395
 msgid "Services Overview"
 msgstr "Přehled služeb"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1393
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1396
 msgid "Set up Services view"
 msgstr "Nastavení zobrazení služeb"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1394
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1397
 msgid "Service Details"
 msgstr "Detaily služby"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1395
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1398
 msgid "Set up Service detailed view"
 msgstr "Nastavení podrobného zobrazení služby"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1396
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1399
 msgid "Booking Form"
 msgstr "Rezervační formulář"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1397
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1400
 msgid "Set options, colors and labels for booking form"
 msgstr "Nastavení možností, barev a popisků rezervačního formuláře"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1399
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1402
 msgid "Catalog Booking Form 2.0"
 msgstr "Katalogový rezervační formulář 2.0"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1400
-msgid ""
-"Modernized Catalog Booking Form 2.0 with better user experience, improved "
-"speed, animation and a stand-out design!"
-msgstr ""
-"Modernizovaný katalogový rezervační formulář 2.0 s lepším uživatelským "
-"zážitkem, vylepšenou rychlostí, animacemi a výjimečným designem!"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1403
+msgid ""
+" Discover the modernized Catalog Booking Form 2.0 that showcases services in "
+"stylish card layouts. Easily add categories and adjust the appearance to "
+"reflect your brand."
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1406
 msgid "Total Number of Services"
 msgstr "Počet služeb celkem"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1404
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1407
 msgid "Back Button"
 msgstr "Tlačítko Zpět"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1405
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1408
 msgid "“Back” Button Type"
 msgstr "Typ tlačítka „Zpět“"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1407
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1410
 msgid "“Book Now” Button Type"
 msgstr "Typ tlačítka „Rezervovat nyní\""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1410
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1413
 msgid "Main Category Button"
 msgstr "Tlačítko Hlavní kategorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1411
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1414
 msgid "Category Card Side Color"
 msgstr "Barva na straně karty kategorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1412
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1415
 msgid "Category Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1416
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1419
 msgid "Filter Menu Button Type"
 msgstr "Typ tlačítka nabídky filtru"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1417
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1419
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1420
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1422
 msgid "Categories Sidebar"
 msgstr "Postranní panel kategorií"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1418
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1421
 msgid "Filters Block"
 msgstr "Blok filtrů"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1420
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1423
 msgid "Page Header"
 msgstr "Záhlaví stránky"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1421
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1424
 msgid "Main Content"
 msgstr "Hlavní obsah"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1422
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1425
 msgid "Service Category"
 msgstr "Kategorie služeb"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1423
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1426
 msgid "Service Duration"
 msgstr "Doba trvání služby"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1424
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:239
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1427
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:240
 msgid "About Service"
 msgstr "O službě"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1425
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1428
 msgid "“Search” option"
 msgstr "Možnost „Hledat“"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1426
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1429
 msgid "Card Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1428
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:237
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:238
 msgid "Search"
 msgstr "Vyhledat"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1429
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:255
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:256
 msgid "Available"
 msgstr "K dispozici"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
 msgid "No results"
 msgstr "Žádné výsledky"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:238
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:239
 msgid "Book Now"
 msgstr "Rezervovat hned"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:240
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:241
 msgid "View all photos"
 msgstr "Zobrazit všechny fotky"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1441
 msgid "Support Heading:"
 msgstr "Nadpis podpory:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1442
 msgid "Company Phone:"
 msgstr "Telefon společnosti:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
 msgid "Company Email:"
 msgstr "Email společnosti:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1446
 msgid "Event List Booking Form 2.0"
 msgstr "Rezervační formulář seznamu akcí 2.0"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1444
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
 msgid ""
-"Modernized Event List Booking Form 2.0 with better user experience, improved "
-"speed, animation and a stand-out design!"
+"The Event List Booking Form 2.0 offers an intuitive and fast booking "
+"experience, with a design that stands out. Customers can effortlessly browse "
+"and book from a list of events."
 msgstr ""
-"Modernizovaný rezervační formulář seznamu akcí 2.0 s lepší uživatelskou "
-"zkušeností, vylepšenou rychlostí, animacemi a výjimečným designem!"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1446
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
 msgid "Events List"
 msgstr "Seznam akcí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
 msgid ""
 "Set up Location, Images, Filters, Capacity, Price, and Status visibility "
 "options"
@@ -4857,393 +4867,393 @@ msgstr ""
 "Nastavení viditelnosti pro lokalitu, obrázky, filtrování, kapacitu, cenu a "
 "stav akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1448
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:109
 msgid "Event Info"
 msgstr "Informace o akci"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
 msgid "Set up Staff, Location, Gallery and other Event information visibility"
 msgstr ""
 "Nastavení viditelnosti pro personál, lokalitu, galerii a další informace"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
 msgid "Customer Info"
 msgstr "Informace o zákazníkovi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:208
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:209
 msgid "Events Available"
 msgstr "Dostupné akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:209
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:210
 msgid "Event Available"
 msgstr "Dostupná akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
 msgid "Page"
 msgstr "Stránka"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:210
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:211
 msgid "Search for Events"
 msgstr "Vyhledat akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
 msgid "Begins"
 msgstr "Začíná"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:211
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:212
 msgid "slot left"
 msgstr "volné místo"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:212
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:213
 msgid "slots left"
 msgstr "volných míst"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:213
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:214
 msgid "Learn more"
 msgstr "Dozvědět se více"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:214
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:215
 msgid "Read more"
 msgstr "Číst více"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
 msgid "About"
 msgstr "O"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:215
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:216
 msgid "Timetable"
 msgstr "Termín"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:207
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:208
 msgid "About Event"
 msgstr "O akci"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:200
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:201
 msgid "Event Starts"
 msgstr "Akce začíná"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:201
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:202
 msgid "Event Ends"
 msgstr "Akce končí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:202
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1481
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:203
 msgid "at"
 msgstr "v"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:216
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1482
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:217
 msgid "How many attendees do you want to book event for?"
 msgstr "Pro kolik účastníků chcete akci rezervovat?"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1482
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1485
 msgid "Step Filters"
 msgstr "Filtrování kroku"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
 msgid "Event Card"
 msgstr "Karta akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1484
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
 msgid "Step Pagination"
 msgstr "Krokové stránkování"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1485
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
 msgid "Event Slots Capacity"
 msgstr "Kapacita slotů akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
 msgid "Filters Button Type"
 msgstr "Typ tlačítka Filtrovat"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
 msgid "Read More Button Type"
 msgstr "Typ tlačítka Přečíst více"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
 msgid "Learn More Button Type"
 msgstr "Typ tlačítka Dozvědět se více"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
 msgid "Event Tab Image"
 msgstr "Obrázek akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
 msgid "Step Header"
 msgstr "Nadpis hlavičky"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1494
 msgid "Step Info Tab"
 msgstr "Karta Informace o akci"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
 msgid "Booking Event Button"
 msgstr "Tlačítko Rezervovat místo"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
 msgid "Finish Button"
 msgstr "Tlačítko Dokončit"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1494
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1497
 msgid "Close Event Button"
 msgstr "Tlačítko Zrušit"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
 msgid "Event Gallery"
 msgstr "Galerie akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
 msgid "Event Description"
 msgstr "Popis akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:174
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1501
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:175
 msgid "person"
 msgstr "osoba"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1502
 msgid "Event Employees"
 msgstr "Pracovníci akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1509
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1512
 msgid "Catalog"
 msgstr "Katalog"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1510
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
 msgid "Choose Category"
 msgstr "Zvolte kategorii"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1511
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
 msgid "Choose Service"
 msgstr "Zvolte službu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1512
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
 msgid "Choose Package"
 msgstr "Zvolte balíček"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
 msgid "Preselect Booking Parameters"
 msgstr "Předvybrat parametry rezervace"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
 msgid "Skip Categories step"
 msgstr "Přeskočit krok Kategorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
 msgid "Insert Amelia Booking Shortcode"
 msgstr "Vložit Amelia shortcode"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
 msgid "Select Catalog View"
 msgstr "Zvolit katalogové zobrazení"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
 msgid "Select Category"
 msgstr "Zvolit kategorii"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
 msgid "Select Employee"
 msgstr "Zvolte pracovníka"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
 msgid "Select Location"
 msgstr "Zvolte místo"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
 msgid "Select Package"
 msgstr "Zvolit balíček"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
 msgid "Select Event"
 msgstr "Zvolit akci"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
 #, fuzzy
 msgid "Select Events"
 msgstr "Zvolit akci"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
 msgid "Select Tag"
 msgstr "Zvolit tag"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
 #, fuzzy
 msgid "Select Tags"
 msgstr "Zvolit tag"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
 msgid "Select View"
 msgstr "Zvolit zobrazení"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
 msgid "Show All"
 msgstr "Zobrazit vše"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
 msgid "Load booking form manually"
 msgstr "Načíst rezervační formulář ručně"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
 msgid ""
 "Add element (button, link...) ID, that will manually load amelia shortcode "
 "content"
 msgstr ""
 "Přidat ID prvku (tlačítko, odkaz...), který načte obsah Amelia shortcode"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
 msgid "Show all categories"
 msgstr "Zobrazit všechny kategorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
 msgid "Show all employees"
 msgstr "Zobrazit všechny pracovníky"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
 msgid "Show all locations"
 msgstr "Zobrazit všechna místa"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
 msgid "Show all services"
 msgstr "Zobrazit všechny služby"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
 msgid "Show all events"
 msgstr "Zobrazit všechny akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
 msgid "Show all packages"
 msgstr "Zobrazit všechny balíčky"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
 msgid "Show all tags"
 msgstr "Zobrazit všechny tagy"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
 msgid "Show catalog of all categories"
 msgstr "Zobrazit katalog všech kategorií"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
 msgid "Show specific category"
 msgstr "Zobrazit konkrétní kategorii"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
 #, fuzzy
 msgid "Show specific categories"
 msgstr "Zobrazit konkrétní kategorii"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
 msgid "Show specific package"
 msgstr "Zobrazit konkrétní balíček"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
 #, fuzzy
 msgid "Show specific packages"
 msgstr "Zobrazit konkrétní balíček"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
 msgid "Show event"
 msgstr "Zobrazit akci"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
 msgid "Show Type"
 msgstr "Zobrazit typ"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
 msgid "List (default)"
 msgstr "Seznam (výchozí)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
 msgid "Show tag"
 msgstr "Zobrazit tag"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
 msgid "Show specific service"
 msgstr "Zobrazit konkrétní službu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
 #, fuzzy
 msgid "Show specific services"
 msgstr "Zobrazit konkrétní službu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
 msgid "Trigger type"
 msgstr "Typ spouštěče"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1554
 msgid "Id"
 msgstr "Id"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
 msgid "Class"
 msgstr "Třída"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
 msgid "Trigger by attribute"
 msgstr "Spustit podle atributu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1554
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
 msgid "Step Booking"
 msgstr "Rezervační formulář krok za krokem"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
 msgid "Catalog Booking"
 msgstr "Rezervace pomocí katalogu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
 msgid "Events List Booking"
 msgstr "Rezervační formulář seznamu akcí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
 msgid "Show recurring events"
 msgstr "Zobrazit opakující se akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
 #, fuzzy
 msgid "Show in Amelia Popup"
 msgstr "s podporou Amelia"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
 msgid "AM - Booking view"
 msgstr "AM - Zobrazení rezervací"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
 msgid "AM - Step Booking"
 msgstr "Formulář rezervací krok za krokem"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
 msgid "AM - Catalog Booking"
 msgstr "AM - Katalogový rezervační formulář"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
 msgid "AM - Catalog view"
 msgstr "AM - Zobrazení katalogu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
 msgid "AM - Events view"
 msgstr "AM - Zobrazení akcí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
 msgid "AM - Events List Booking"
 msgstr "AM - Rezervační formulář seznamu akcí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1570
 msgid "Amelia - Booking view"
 msgstr "Amelia - Zobrazení rezervací"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
 msgid ""
 "Step-By-Step Booking Wizard gives your customers the option to choose "
 "everything about the booking in a few steps"
@@ -5251,11 +5261,11 @@ msgstr ""
 "Rezervační formulář krok za krokem dá zákazníkům možnost vybrat vše k "
 "rezervaci v několika krocích"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1574
 msgid "Amelia - Step-By-Step Booking"
 msgstr "Formulář rezervací krok za krokem"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
 msgid ""
 "Step-by-Step booking view guides the customers through several steps in "
 "order to make their bookings."
@@ -5263,11 +5273,11 @@ msgstr ""
 "Rezervační formulář krok za krokem provede zákazníka rezervací v několika "
 "krocích."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1578
 msgid "Amelia - Catalog Booking"
 msgstr "Amelia - Katalogový rezervační formulář"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1576
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a catalog"
@@ -5275,11 +5285,11 @@ msgstr ""
 "Frontendový rezervační katalog je zkrácený kód, který umožní zobrazit služby "
 "ve formě katalogu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1582
 msgid "Amelia - Catalog view"
 msgstr "Amelia - Zobrazení katalogu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
@@ -5287,12 +5297,12 @@ msgstr ""
 "Front endový rezervační katalog je shortcode který umožní zobrazit vaše "
 "služby jako katalog"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1586
 msgid "Amelia - Events"
 msgstr "Amelia - Akce"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1591
 msgid ""
 "Event Booking is shortcode that gives your customers the option to book one "
 "of the events that you've created on the back-end in a simple event list "
@@ -5301,15 +5311,15 @@ msgstr ""
 "Rezervace akce je shortcode, který umožní rezervovat vámi vytvořené akce v "
 "jednoduchém seznamu."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1590
 msgid "Amelia - Events List"
 msgstr "Amelia - Seznam akcí"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1590
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1593
 msgid "You are using a form that will be outdated soon!"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1609
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1612
 msgid "Recurring Appointments"
 msgstr "Opakované rezervace"
 
@@ -5350,7 +5360,7 @@ msgid "Maximum bookings reached"
 msgstr "Maximální kapacita rezervací naplněna"
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:90
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:198
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:199
 msgid "Capacity:"
 msgstr "Kapacita:"
 
@@ -5398,66 +5408,72 @@ msgid "Oops..."
 msgstr "Sorry…"
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:119
+#, fuzzy
+msgid "Phone already exists with different name. Please check your name."
+msgstr ""
+"Email je již přiřazen k jinému jménu. Prosím zkontrolujte zadané jméno."
+
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:120
 msgid "Price:"
 msgstr "Cena:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:120
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:121
 msgid "service"
 msgstr "služba"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:121
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:122
 msgid "Select Calendar"
 msgstr "Zvolit kalendář"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:122
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:123
 msgid "services"
 msgstr "služby"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:123
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:124
 msgid "Local Time:"
 msgstr "Místní čas:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:125
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:126
 msgid "Total Cost:"
 msgstr "Cena celkem:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:126
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:127
 msgid "Total Number of People:"
 msgstr "Celkový počet osob:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:152
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:153
 msgid "Collapse menu"
 msgstr "Sbalit menu"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:155
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:156
 msgid "Pick date & time:"
 msgstr "Vyberte datum a čas:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:156
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:157
 msgid "Please select"
 msgstr "Prosím zvolte"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:158
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:159
 msgid "Total Amount:"
 msgstr "Cena celkem:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:197
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:198
 msgid "Book this event"
 msgstr "Rezervovat akci"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:232
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:233
 msgid "Category:"
 msgstr "Kategorie:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:234
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:235
 msgid "Info"
 msgstr "Informace"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:235
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:236
 msgid "View More"
 msgstr "Dozvědět se více"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:256
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:257
 msgid "Booking can't be canceled"
 msgstr "Rezervace nemůže být zrušena"
 
@@ -8405,19 +8421,30 @@ msgstr "Rezervace nemůže být zrušena"
 #~ "částka může být vynásobena počtem osob nebo zůstat fixní k celkové ceně "
 #~ "rezervace."
 
-#~ msgid "Remaining of total amount will be paid on site."
+#, fuzzy
+#~| msgid "Remaining of total amount will be paid on site."
+#~ msgid ""
+#~ "Remaining of total amount will be paid on site or through payment link."
 #~ msgstr "Zbývající částka bude zaplacena na místě."
 
+#, fuzzy
+#~| msgid ""
+#~| "Remaining of total amount will be paid on site. Extras are not included "
+#~| "in deposit amount."
 #~ msgid ""
-#~ "Remaining of total amount will be paid on site. Extras are not included "
-#~ "in deposit amount."
+#~ "Remaining of total amount will be paid on site or through payment link. "
+#~ "Extras are not included in deposit amount."
 #~ msgstr ""
 #~ "Zbývající částka bude zaplacena na místě. Doplňky nejsou zahrnuty do "
 #~ "zálohy."
 
+#, fuzzy
+#~| msgid ""
+#~| "Remaining of total amount will be paid on site. Extras are included in "
+#~| "deposit amount."
 #~ msgid ""
-#~ "Remaining of total amount will be paid on site. Extras are included in "
-#~ "deposit amount."
+#~ "Remaining of total amount will be paid on site or through payment link. "
+#~ "Extras are included in deposit amount."
 #~ msgstr ""
 #~ "Zbývající částka bude zaplacena na místě. Doplňky jsou zahrnuty do zálohy."
 
@@ -8748,6 +8775,11 @@ msgstr "Rezervace nemůže být zrušena"
 
 #~ msgid "Every Day until"
 #~ msgstr "Každý den do"
+
+#, fuzzy
+#~| msgid "Input Field"
+#~ msgid "Birthday Input Field"
+#~ msgstr "Vstupní pole"
 
 #~ msgid "Payment Method:"
 #~ msgstr "Platební metoda:"
@@ -9241,6 +9273,14 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "mandatory notice"
 #~ msgstr "povinné oznámení"
 
+#, fuzzy
+#~| msgid "Scheduled After Appointment"
+#~ msgid "Reschedule Appointment"
+#~ msgstr "Naplánováno po termínu"
+
+#~ msgid "Cancel Package"
+#~ msgstr "Zrušit balíček"
+
 #~ msgid "Set up Labels and Buttons"
 #~ msgstr "Nastavení popisků a tlačítek"
 
@@ -9384,9 +9424,6 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "Subtotal:"
 #~ msgstr "Mezisoučet:"
 
-#~ msgid "(Paying now)"
-#~ msgstr "(Platím teď)"
-
 #~ msgid "Left to pay"
 #~ msgstr "Zbývá zaplatit"
 
@@ -9426,6 +9463,355 @@ msgstr "Rezervace nemůže být zrušena"
 #~| msgid "Sort Services:"
 #~ msgid "Total Services Booked"
 #~ msgstr "Setřídit služby:"
+
+#, fuzzy
+#~| msgid "Sidebar"
+#~ msgid "Toggle Sidebar"
+#~ msgstr "Postranní panel"
+
+#~ msgid "Reschedule"
+#~ msgstr "Přeplánovat"
+
+#~ msgid "Google Meet Link"
+#~ msgstr "Odkaz na Google Meet"
+
+#~ msgid "Zoom Link"
+#~ msgstr "Odkaz Zoom"
+
+#~ msgid "My Profile"
+#~ msgstr "Můj profil"
+
+#, fuzzy
+#~| msgid "Your Information"
+#~ msgid "Personal Information"
+#~ msgstr "Osobní údaje"
+
+#, fuzzy
+#~| msgid "Payment refunded successfully"
+#~ msgid "Profile data updated successfully"
+#~ msgstr "Platba byla úspěšně vrácena"
+
+#, fuzzy
+#~| msgid "Your password has been reset successfully"
+#~ msgid "Password changed successfully"
+#~ msgstr "Heslo bylo úspěšně obnoveno"
+
+#~ msgid "Are you sure you want to cancel this appointment?"
+#~ msgstr "Jste si jisti, že chcete zrušit tuto rezervaci?"
+
+#, fuzzy
+#~| msgid "Tickets"
+#~ msgid "Ticket"
+#~ msgstr "Lístky"
+
+#~ msgid "Are you sure you want to cancel your attendance?"
+#~ msgstr "Jste si jisti, že chcete zrušit vaši účast?"
+
+#, fuzzy
+#~| msgid "Appointments to book"
+#~ msgid "Appointments booked"
+#~ msgstr "Rezervace k vytvoření"
+
+#, fuzzy
+#~| msgid "Appointments to book"
+#~ msgid "Appointment booked"
+#~ msgstr "Rezervace k vytvoření"
+
+#~ msgid "Valid Until:"
+#~ msgstr "Platný do:"
+
+#, fuzzy
+#~| msgid "You have appointments for this service"
+#~ msgid "book appointments before the deal expires!"
+#~ msgstr "Máte rezervace pro tuto službu"
+
+#, fuzzy
+#~| msgid "Are you sure you want to delete this package?"
+#~ msgid "Are you sure you want to cancel this package?"
+#~ msgstr "Jste si jisti, že chcete smazat tento balíček?"
+
+#~ msgid "Pay now"
+#~ msgstr "Zaplatit teď"
+
+#~ msgid "Profile deleted"
+#~ msgstr "Profil smazán"
+
+#, fuzzy
+#~| msgid "Go Back"
+#~ msgid "Welcome Back"
+#~ msgstr "Zpět"
+
+#~ msgid "Email or Username"
+#~ msgstr "Email nebo uživatelské jméno"
+
+#, fuzzy
+#~| msgid "Please enter SMTP username"
+#~ msgid "Please enter email or username"
+#~ msgstr "Prosím zadejte SMTP uživatelské jméno"
+
+#, fuzzy
+#~| msgid "Forgot Password?"
+#~ msgid "Forgot your password?"
+#~ msgstr "Zapomenuté heslo?"
+
+#~ msgid "Send Access Link"
+#~ msgstr "Zaslat přístupový odkaz"
+
+#~ msgid ""
+#~ "Enter your account email address and we will send you an access link to "
+#~ "your inbox."
+#~ msgstr ""
+#~ "Zadejte emailovou adresu vašeho účtu a my vám zašleme přístupový odkaz do "
+#~ "emailu."
+
+#, fuzzy
+#~| msgid "Enter your email"
+#~ msgid "Check your email"
+#~ msgstr "Zadejte email"
+
+#, fuzzy
+#~| msgid "Enter email"
+#~ msgid "try different email"
+#~ msgstr "Zadejte email"
+
+#~ msgid "Employee Profile"
+#~ msgstr "Profil pracovníka"
+
+#, fuzzy
+#~| msgid "Appointment price"
+#~ msgid "Appointment Price"
+#~ msgstr "Cena rezervace"
+
+#, fuzzy
+#~| msgid "Redirect URL After Booking"
+#~ msgid "Successfully added booking"
+#~ msgstr "URL po úspěšné rezervaci"
+
+#~ msgid "Purchase is canceled"
+#~ msgstr "Nákup je zrušen"
+
+#, fuzzy
+#~| msgid "Customer Panel"
+#~ msgid "Customer Panel 2.0"
+#~ msgstr "Zákaznický panel"
+
+#, fuzzy
+#~| msgid "Heading Title"
+#~ msgid "Tab Title"
+#~ msgstr "Název nadpisu"
+
+#, fuzzy
+#~| msgid "Collapse menu"
+#~ msgid "Mobile menu"
+#~ msgstr "Sbalit menu"
+
+#, fuzzy
+#~| msgid "Filters Button Type"
+#~ msgid "Delete Button Type"
+#~ msgstr "Typ tlačítka Filtrovat"
+
+#, fuzzy
+#~| msgid "Panel Button Type"
+#~ msgid "Save Changes Button Type"
+#~ msgstr "Typ tlačítka panelu"
+
+#, fuzzy
+#~| msgid "Panel Button Type"
+#~ msgid "Change Password Button Type"
+#~ msgstr "Typ tlačítka panelu"
+
+#, fuzzy
+#~| msgid "Continue Button Type"
+#~ msgid "Close Button Type"
+#~ msgstr "Typ tlačítka Pokračovat"
+
+#, fuzzy
+#~| msgid "Continue Button Type"
+#~ msgid "Confirm Button Type"
+#~ msgstr "Typ tlačítka Pokračovat"
+
+#, fuzzy
+#~| msgid "Panel Button Type"
+#~ msgid "Cancel Button Type"
+#~ msgstr "Typ tlačítka panelu"
+
+#, fuzzy
+#~| msgid "View Message"
+#~ msgid "Step Message"
+#~ msgstr "Zobrazit zprávu"
+
+#, fuzzy
+#~| msgid "Status"
+#~ msgid "Item Status"
+#~ msgstr "Stav"
+
+#, fuzzy
+#~| msgid "Page Header"
+#~ msgid "Page Card"
+#~ msgstr "Záhlaví stránky"
+
+#, fuzzy
+#~| msgid "View Message"
+#~ msgid "Page Messages"
+#~ msgstr "Zobrazit zprávu"
+
+#, fuzzy
+#~| msgid "“Back” Button Type"
+#~ msgid "\"Go Back\" Button Type"
+#~ msgstr "Typ tlačítka „Zpět“"
+
+#, fuzzy
+#~| msgid "Panel Button Type"
+#~ msgid "\"Paying now\" Button Type"
+#~ msgstr "Typ tlačítka panelu"
+
+#, fuzzy
+#~| msgid "“Book Now” Button Type"
+#~ msgid "\"Book Now\" Button Type"
+#~ msgstr "Typ tlačítka „Rezervovat nyní\""
+
+#, fuzzy
+#~| msgid "View Message"
+#~ msgid "Alert Message"
+#~ msgstr "Zobrazit zprávu"
+
+#, fuzzy
+#~| msgid "Step Content"
+#~ msgid "Footer Content"
+#~ msgstr "Obsah kroku"
+
+#, fuzzy
+#~| msgid "Finish Button Type"
+#~ msgid "Sign In Button Type"
+#~ msgstr "Typ tlačítka Dokončit"
+
+#, fuzzy
+#~| msgid "Secondary Button Type"
+#~ msgid "Send Button Type"
+#~ msgstr "Typ sekundárního tlačítka"
+
+#, fuzzy
+#~| msgid "Card Button Type"
+#~ msgid "Set Password Button Type"
+#~ msgstr "Typ tlačítka karty"
+
+#, fuzzy
+#~| msgid "My Profile"
+#~ msgid "Profile"
+#~ msgstr "Můj profil"
+
+#, fuzzy
+#~| msgid "Package Appointments"
+#~ msgid "Packages Appointments"
+#~ msgstr "Balíček termínů"
+
+#, fuzzy
+#~| msgid "Set up visibility and labels"
+#~ msgid "Set up display options and labels"
+#~ msgstr "Nastavení viditelnosti a popisků"
+
+#, fuzzy
+#~| msgid "Search Filters"
+#~ msgid "Service Filter"
+#~ msgstr "Vyhledávací filtry"
+
+#, fuzzy
+#~| msgid "Employee note"
+#~ msgid "Employee Filter"
+#~ msgstr "Poznámka pracovníka"
+
+#, fuzzy
+#~| msgid "Location 1"
+#~ msgid "Location Filter"
+#~ msgstr "Místo 1"
+
+#, fuzzy
+#~| msgid "Package Price"
+#~ msgid "Package Filter"
+#~ msgstr "Cena balíčku"
+
+#, fuzzy
+#~| msgid "Event Title"
+#~ msgid "Event Filter"
+#~ msgstr "Název akce"
+
+#, fuzzy
+#~| msgid "Appointment notes"
+#~ msgid "Appointment Employee"
+#~ msgstr "Poznámky rezervace"
+
+#, fuzzy
+#~| msgid "Organizer"
+#~ msgid "Event Organizer"
+#~ msgstr "Organizátor"
+
+#, fuzzy
+#~| msgid "Set up button types and labels"
+#~ msgid "Set up button type and labels"
+#~ msgstr "Nastavení typů tlačítek a popisků"
+
+#, fuzzy
+#~| msgid "Send Access Link"
+#~ msgid "Access Link"
+#~ msgstr "Zaslat přístupový odkaz"
+
+#, fuzzy
+#~| msgid "Send Access Link"
+#~ msgid "Access Link Success"
+#~ msgstr "Zaslat přístupový odkaz"
+
+#, fuzzy
+#~| msgid "Set up labels and buttons"
+#~ msgid "Set up labels"
+#~ msgstr "Nastavení popisků a tlačítek"
+
+#, fuzzy
+#~| msgid "Set Password"
+#~ msgid "Set New Password"
+#~ msgstr "Nastavit heslo"
+
+#, fuzzy
+#~| msgid "Date of Birth"
+#~ msgid "Enter date of birth"
+#~ msgstr "Datum narození"
+
+#, fuzzy
+#~| msgid "Please enter date"
+#~ msgid "Please enter date of birth"
+#~ msgstr "Prosím zvolte datum"
+
+#~ msgid "Set Password"
+#~ msgstr "Nastavit heslo"
+
+#, fuzzy
+#~| msgid "Please enter new password again"
+#~ msgid "Enter, and re-enter your new password to continue"
+#~ msgstr "Prosím zadejte nové heslo znovu"
+
+#, fuzzy
+#~| msgid "Password"
+#~ msgid "Password Updated!"
+#~ msgstr "Heslo"
+
+#, fuzzy
+#~| msgid "Your password has been reset successfully"
+#~ msgid ""
+#~ "Your password has been changed successfully. Use your new password to log "
+#~ "in."
+#~ msgstr "Heslo bylo úspěšně obnoveno"
+
+#~ msgid "Delete profile"
+#~ msgstr "Smazat profil"
+
+#~ msgid ""
+#~ "Are you sure you want to delete your profile? You will lose access to all "
+#~ "your bookings and access to the customer panel."
+#~ msgstr ""
+#~ "Jste si jisti, že chcete smazat svůj účet? Ztratíte přístup ke všem svým "
+#~ "rezervacím a panelu zákazníka."
+
+#~ msgid "Save Changes"
+#~ msgstr "Uložit změny"
 
 #~ msgid "Step Tickets Tab"
 #~ msgstr "Karta Vstupenky"
@@ -9483,6 +9869,21 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgstr ""
 #~ "Front-endový panel zaměstnance je shortcode který umožní zaměstnancům "
 #~ "upravovat jejich rezervace a profilové informace."
+
+#, fuzzy
+#~| msgid "Choose Placeholder"
+#~ msgid "Choose panel version"
+#~ msgstr "Vybrat zástupný text"
+
+#, fuzzy
+#~| msgid "Version "
+#~ msgid "Old version"
+#~ msgstr "Verze "
+
+#, fuzzy
+#~| msgid "New Event"
+#~ msgid "New version"
+#~ msgstr "Nová akce"
 
 #~ msgid "Amelia Profile Settings"
 #~ msgstr "Amela Nastavení profilu"
@@ -9572,6 +9973,12 @@ msgstr "Rezervace nemůže být zrušena"
 
 #~ msgid "Each:"
 #~ msgstr "Každý:"
+
+#~ msgid "(Paying now)"
+#~ msgstr "(Platím teď)"
+
+#~ msgid "Remaining of total amount will be paid on site."
+#~ msgstr "Zbývající částka bude zaplacena na místě."
 
 #~ msgid "Add Coupon"
 #~ msgstr "Přidat kupon"
@@ -9756,9 +10163,6 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "This package has"
 #~ msgstr "Tento balíček obsahuje"
 
-#~ msgid "Valid Until:"
-#~ msgstr "Platný do:"
-
 #~ msgid "Multiple packages purchased."
 #~ msgstr "Zakoupeno více balíčků."
 
@@ -9821,6 +10225,16 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "This service is available in a Package"
 #~ msgstr "Tato služba je k dispozici v balíčku"
 
+#, fuzzy
+#~| msgid "Current Password:"
+#~ msgid "Current Password"
+#~ msgstr "Současné heslo:"
+
+#, fuzzy
+#~| msgid "Please enter current password"
+#~ msgid "Not match to your current password"
+#~ msgstr "Prosím zadejte současné heslo"
+
 #~ msgid ""
 #~ "To reschedule your appointment, select an available date time from the "
 #~ "calendar, then click Confirm."
@@ -9837,39 +10251,17 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "Booking Opens"
 #~ msgstr "Začátek rezervací"
 
-#~ msgid "Cancel Package"
-#~ msgstr "Zrušit balíček"
-
 #~ msgid "Please choose appointment date"
 #~ msgstr "Prosím zvolte datum rezervace"
 
 #~ msgid "Please choose appointment time"
 #~ msgstr "Prosím zvolte čas rezervace"
 
-#~ msgid "Are you sure you want to cancel this appointment?"
-#~ msgstr "Jste si jisti, že chcete zrušit tuto rezervaci?"
-
-#~ msgid "Are you sure you want to cancel your attendance?"
-#~ msgstr "Jste si jisti, že chcete zrušit vaši účast?"
-
 #~ msgid "Do you want to cancel this purchase?"
 #~ msgstr "Jste si jisti, že chcete smazat tento nákup?"
 
 #~ msgid "Customer Profile "
 #~ msgstr "Profil zákazníka "
-
-#~ msgid "Delete profile"
-#~ msgstr "Smazat profil"
-
-#~ msgid ""
-#~ "Are you sure you want to delete your profile? You will lose access to all "
-#~ "your bookings and access to the customer panel."
-#~ msgstr ""
-#~ "Jste si jisti, že chcete smazat svůj účet? Ztratíte přístup ke všem svým "
-#~ "rezervacím a panelu zákazníka."
-
-#~ msgid "Email or Username"
-#~ msgstr "Email nebo uživatelské jméno"
 
 #~ msgid "Edit Attendees"
 #~ msgstr "Upravit účastníky"
@@ -9902,9 +10294,6 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "Min. Capacity"
 #~ msgstr "Min. kapacita"
 
-#~ msgid "My Profile"
-#~ msgstr "Můj profil"
-
 #~ msgid ""
 #~ "Check this checkbox if you want your customer to<br/>receive an email "
 #~ "about the scheduled appointment."
@@ -9925,9 +10314,6 @@ msgstr "Rezervace nemůže být zrušena"
 
 #~ msgid "appointment slots left to be booked"
 #~ msgstr "zbylá časová okna k rezervaci"
-
-#~ msgid "Purchase is canceled"
-#~ msgstr "Nákup je zrušen"
 
 #~ msgid "Book next appointment"
 #~ msgstr "Provést další rezervaci"
@@ -9953,9 +10339,6 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "Pay"
 #~ msgstr "Zaplatit"
 
-#~ msgid "Pay now"
-#~ msgstr "Zaplatit teď"
-
 #~ msgid "Enable Payment from Link"
 #~ msgstr "Povolit platbu z odkazu"
 
@@ -9965,14 +10348,8 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "Price per Spot"
 #~ msgstr "Cena za místo"
 
-#~ msgid "Profile deleted"
-#~ msgstr "Profil smazán"
-
 #~ msgid "Profile has been updated"
 #~ msgstr "Profil byl aktualizován"
-
-#~ msgid "Employee Profile"
-#~ msgstr "Profil pracovníka"
 
 #~ msgid "Purchased"
 #~ msgstr "Zakoupeno"
@@ -9980,42 +10357,53 @@ msgstr "Rezervace nemůže být zrušena"
 #~ msgid "Email with access link has been sent"
 #~ msgstr "Email s přístupovým odkazem byl odeslán"
 
-#~ msgid "Reschedule"
-#~ msgstr "Přeplánovat"
-
-#~ msgid "Save Changes"
-#~ msgstr "Uložit změny"
-
-#~ msgid "Send Access Link"
-#~ msgstr "Zaslat přístupový odkaz"
-
-#~ msgid ""
-#~ "Enter your account email address and we will send you an access link to "
-#~ "your inbox."
-#~ msgstr ""
-#~ "Zadejte emailovou adresu vašeho účtu a my vám zašleme přístupový odkaz do "
-#~ "emailu."
-
 #~ msgid "You have appointments for this service"
 #~ msgstr "Máte rezervace pro tuto službu"
 
 #~ msgid "You have appointments for"
 #~ msgstr "Máte rezervace pro"
 
-#~ msgid "Set Password"
-#~ msgstr "Nastavit heslo"
-
 #~ msgid "Working Hours"
 #~ msgstr "Pracovní hodiny"
-
-#~ msgid "Zoom Link"
-#~ msgstr "Odkaz Zoom"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Odkazy Zoom"
 
-#~ msgid "Google Meet Link"
-#~ msgstr "Odkaz na Google Meet"
+#~ msgid ""
+#~ "Enable this option if you don't want to allow \"existing customer\"<br/"
+#~ ">to use different first and last name when booking."
+#~ msgstr ""
+#~ "Zaškrtněte, pokud nechcete, aby existující zákazník použil <br/>jiné "
+#~ "jméno a příjmení při rezervaci."
+
+#~ msgid ""
+#~ "Redesigned and upgraded Step-by-Step Booking form with a better user "
+#~ "experience, animations, improved speed, and a stand-out design!"
+#~ msgstr ""
+#~ "Přepracovaný a vylepšený rezervační formulář krok za krokem s lepším "
+#~ "uživatelským zážitkem, animacemi, vylepšenou rychlostí a výjimečným "
+#~ "designem!"
+
+#~ msgid ""
+#~ "Step-by-Step 1.0 Booking, Catalog Booking, Search Booking, Event List and "
+#~ "Event Calendar Bookings."
+#~ msgstr ""
+#~ "Rezervační formulář Krok za krokem 1.0, Rezervační katalog, Rezervační "
+#~ "vyhledávání, Seznam akcí a Rezervační kalendář akcí."
+
+#~ msgid ""
+#~ "Modernized Catalog Booking Form 2.0 with better user experience, improved "
+#~ "speed, animation and a stand-out design!"
+#~ msgstr ""
+#~ "Modernizovaný katalogový rezervační formulář 2.0 s lepším uživatelským "
+#~ "zážitkem, vylepšenou rychlostí, animacemi a výjimečným designem!"
+
+#~ msgid ""
+#~ "Modernized Event List Booking Form 2.0 with better user experience, "
+#~ "improved speed, animation and a stand-out design!"
+#~ msgstr ""
+#~ "Modernizovaný rezervační formulář seznamu akcí 2.0 s lepší uživatelskou "
+#~ "zkušeností, vylepšenou rychlostí, animacemi a výjimečným designem!"
 
 #, fuzzy
 #~| msgid "Available Images"

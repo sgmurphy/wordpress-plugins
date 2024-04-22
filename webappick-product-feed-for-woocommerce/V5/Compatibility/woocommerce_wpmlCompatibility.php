@@ -7,7 +7,9 @@
 
 namespace CTXFeed\V5\Compatibility;
 
+use CTXFeed\V5\Utility\Cache;
 use WCML\MultiCurrency\Geolocation;
+use WCML\MultiCurrency\Settings;
 
 /**
  * Class woocommerce_wpmlCompatibility
@@ -24,7 +26,9 @@ class woocommerce_wpmlCompatibility {
 	/**
 	 * WCMLCurrency constructor.
 	 */
+	private $sitepress_compatibility;
 	public function __construct() {
+		$this->sitepress_compatibility = new SitePressCompatibility();
 
 		add_filter( 'woo_feed_filter_product_regular_price', array( $this, 'wcml_currency_convert' ), 99, 5 );
 		add_filter( 'woo_feed_filter_product_price', array( $this, 'wcml_currency_convert' ), 99, 5 );
@@ -35,6 +39,33 @@ class woocommerce_wpmlCompatibility {
 		), 99, 5 );
 		add_filter( 'woo_feed_filter_product_price_with_tax', array( $this, 'wcml_currency_convert' ), 99, 5 );
 		add_filter( 'woo_feed_filter_product_sale_price_with_tax', array( $this, 'wcml_currency_convert' ), 99, 5 );
+
+		add_action( 'before_woo_feed_get_product_information', function ( $config ) {
+			if ( ! class_exists( 'WCML\MultiCurrency\Settings' ) ) {
+				include_once WP_CONTENT_DIR . '/plugins/woocommerce-multilingual/classes/Multicurrency/Settings.php';
+			}
+			$currency_mode = Settings::getMode();
+			if ( 'by_language' != $currency_mode ) {
+				Cache::set( 'wpml_currency_mode', $currency_mode );
+				global $woocommerce_wpml;
+				$woocommerce_wpml->update_setting( 'currency_mode', 'by_language' );
+			}
+		} );
+
+		add_action( 'ctx_feed_after_save_feed_file', function () {
+			if ( ! class_exists( 'WCML\MultiCurrency\Settings' ) ) {
+				include_once WP_CONTENT_DIR . '/plugins/woocommerce-multilingual/classes/Multicurrency/Settings.php';
+			}
+
+			$currency_mode = Cache::get( 'wpml_currency_mode' );
+			if ( $currency_mode ) {
+				global $woocommerce_wpml;
+				$woocommerce_wpml->update_setting( 'currency_mode', $currency_mode );
+				Cache::delete( 'wpml_currency_mode' );
+			}
+
+		} );
+
 	}
 
 	/**
@@ -57,8 +88,10 @@ class woocommerce_wpmlCompatibility {
 		}
 
 		// If product has custom price, use that instead.
-		if ( get_post_meta( $product->get_id(), '_wcml_custom_prices_status', true ) ) {
-			$custom_price = get_post_meta( $product->get_id(), '_' . $price_type . '_' . $currency , true);
+
+		$original_product_id = $this->sitepress_compatibility->original_post_id( $product->get_id() );
+		if ( get_post_meta( $original_product_id, '_wcml_custom_prices_status', true ) ) {
+			$custom_price = get_post_meta( $original_product_id, '_' . $price_type . '_' . $currency, true );
 			if ( ! empty( $custom_price ) ) {
 				$converted_price = $custom_price;
 			}

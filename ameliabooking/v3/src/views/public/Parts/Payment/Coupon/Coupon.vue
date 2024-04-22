@@ -249,7 +249,7 @@ export default {
       align-items: center;
 
       .am-icon-info-reverse, .am-icon-check {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .am-icon-info-reverse {

@@ -166,7 +166,6 @@ class B2S_AutoPost_Item {
 
             if (current_user_can('administrator')) {
                 global $wpdb;
-                $showSchedLimitInfo = (B2S_PLUGIN_USER_VERSION > 0 && $this->schedLimit <= 0) ? "" : "b2s-info-display-none";
 
                 $blogUserTokenResult = $wpdb->get_results("SELECT token FROM `{$wpdb->prefix}b2s_user`");
                 $blogUserToken = array();
@@ -204,6 +203,9 @@ class B2S_AutoPost_Item {
             }
             $content .= '</div>';
         }
+
+        $showSchedLimitInfo = (B2S_PLUGIN_USER_VERSION > 0 && $this->schedLimit <= 0) ? "" : "b2s-info-display-none";
+
         $content .= '<br>';
         $content .= '<hr>';
         $content .= '</div>';

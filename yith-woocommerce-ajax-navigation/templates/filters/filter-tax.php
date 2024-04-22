@@ -42,5 +42,11 @@ if ( ! defined( 'YITH_WCAN' ) ) {
 		?>
 
 		<?php echo $filter->render_end(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+
+		<?php if ( $filter->has_more_terms() && 'select' !== $filter->get_filter_design() ) : ?>
+			<a class="show-more" role="button">
+				<?php echo esc_html( _x( 'Show more', '[FRONTEND] Show more link on tax filters', 'yith-woocommerce-ajax-navigation' ) ); ?>
+			</a>
+		<?php endif; ?>
 	</div>
 </div>

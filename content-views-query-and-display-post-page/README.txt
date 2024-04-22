@@ -4,7 +4,7 @@ Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display post
 Requires at least: 3.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 3.7.0
+Stable tag: 3.7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -233,6 +233,9 @@ If you encounter any difficulties or if you have questions about Content Views, 
 
 
 == Changelog ==
+
+= 3.7.1 =
+* Improve: Data escaping for security enhancement
 
 = 3.7.0 =
 * New: [Block] Add the Alignment option to "Read More"

@@ -135,7 +135,7 @@
 
             <!-- Re-type New Password -->
             <el-form-item
-                :label="$root.labels.retype_new_password_colon"
+                :label="$root.labels.new_password_colon_retype"
                 prop="newPasswordReType"
                 :error="errors.newPasswordReType"
             >

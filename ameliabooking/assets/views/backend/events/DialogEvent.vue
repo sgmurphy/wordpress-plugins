@@ -690,6 +690,19 @@
           <!-- Pricing -->
           <el-tab-pane :label="$root.labels.pricing" name="pricing">
 
+            <!-- Custom Pricing Warning -->
+            <el-row :style="{wordBreak: 'break-word'}" v-if="(event.id !== 0 && event.bookings.length)">
+              <div class="am-setting">
+                <el-alert
+                  type="warning"
+                  show-icon
+                  title=""
+                  :description="$root.labels.custom_pricing_adjustment"
+                  :closable="false"
+                />
+              </div>
+            </el-row>
+
             <!-- Slots & Price -->
             <div class="am-pricing">
               <el-row :gutter="10" :style="{padding: 0}">
@@ -852,7 +865,11 @@
                   v-if="isCabinet ? !notInLicence() : true"
                   class="am-setting-box am-switch-box"
                   :class="licenceClass()"
-                  :style="{marginTop: '24px', overflow: 'visible'}"
+                  :style="{
+                    marginTop: '24px',
+                    overflow: 'visible',
+                    cursor: ((event.id !== 0 && event.bookings.length) ? 'not-allowed' : 'auto')
+                  }"
               >
                 <!-- Custom Pricing Enabled -->
                 <el-row type="flex" align="middle" :gutter="24">
@@ -866,6 +883,7 @@
                         active-text=""
                         inactive-text=""
                         @change="switchTicketing"
+                        :style="(event.id !== 0 && event.bookings.length) && ({cursor: 'not-allowed', pointerEvents: 'none'})"
                     >
                     </el-switch>
                   </el-col>
@@ -1718,7 +1736,7 @@
             }
           ]
         },
-        defaultEventTab: 'details',
+        defaultEventTab: 'details'
       }
     },
 

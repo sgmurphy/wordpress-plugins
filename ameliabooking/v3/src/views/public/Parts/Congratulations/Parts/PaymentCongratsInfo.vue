@@ -13,7 +13,7 @@
   </div>
   <div
     v-if="props.booked.price > 0 || (props.booked.price <= 0 && props.coupon.code)"
-    class="am-congrats__info-item"
+    class="am-congrats__info-item am-fs__congrats-info-payment"
     :class="responsiveClass"
   >
     <span class="am-congrats__info-item__label">

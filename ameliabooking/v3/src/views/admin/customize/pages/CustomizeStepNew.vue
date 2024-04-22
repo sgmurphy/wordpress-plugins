@@ -523,6 +523,9 @@ onBeforeMount(() => {
   })
   sidebarDataCreator()
   Object.keys(amCustomize.value[pageRenderKey.value]).forEach(step => {
+    // ! Customize ce puci ako se korisnik vrati na predthodnu verziju plugin_a gde ne postoje odradjeni stepovi
+    // ! a u bazi je sacuvan customize sa tim stepovima -- resenje je da se resetuje forma ili da se ubaci u uslov ispod
+    // ! amTranslations[pageRenderKey.value][step]
     if (step !== 'colors' && amCustomize.value[pageRenderKey.value][step].translations) {
       stepKey.value = step
       usePopulateMultiDimensionalObject('labels', amTranslations[pageRenderKey.value][step], savedLabelsImplementation)

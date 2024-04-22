@@ -28,6 +28,7 @@
     "vue-google-autocomplete": "^1.1.4",
     "vue-gtag": "^2.0.1",
     "vue-recaptcha": "^2.0.2",
+    "vue3-cookies": "^1.0.6",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },

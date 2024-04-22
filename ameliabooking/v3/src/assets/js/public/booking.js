@@ -432,6 +432,8 @@ function useBookingError (response, store) {
       message = globalLabels['event_booking_unavailable']
     } else if ('emailError' in response.data && response.data.emailError === true) {
       message = globalLabels['email_exist_error']
+    } else if ('phoneError' in response.data && response.data.phoneError === true) {
+      message = globalLabels['phone_exist_error']
     } else if ('couponUnknown' in response.data && response.data.couponUnknown === true) {
       message = globalLabels['coupon_unknown']
     } else if ('couponInvalid' in response.data && response.data.couponInvalid === true) {

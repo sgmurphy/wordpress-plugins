@@ -42,7 +42,7 @@ if ( ! class_exists( 'YITH_WCAN_Filters_Widget' ) ) {
 		 * @since 4.0.0
 		 */
 		public function form( $instance ) {
-			$presets = YITH_WCAN_Preset_Factory::list_presets();
+			$presets = YITH_WCAN_Presets_Factory::list_presets();
 
 			?>
 			<p>
@@ -81,7 +81,7 @@ if ( ! class_exists( 'YITH_WCAN_Filters_Widget' ) ) {
 			$instance = $old_instance;
 
 			$preset_slug = sanitize_title_with_dashes( $new_instance['preset'] );
-			$presets     = array_keys( YITH_WCAN_Preset_Factory::list_presets() );
+			$presets     = array_keys( YITH_WCAN_Presets_Factory::list_presets() );
 
 			if ( in_array( $preset_slug, $presets, true ) ) {
 				$instance['preset'] = $preset_slug;
@@ -108,7 +108,7 @@ if ( ! class_exists( 'YITH_WCAN_Filters_Widget' ) ) {
 				return;
 			}
 
-			$preset = YITH_WCAN_Preset_Factory::get_preset( $preset_slug );
+			$preset = YITH_WCAN_Presets_Factory::get_preset( $preset_slug );
 
 			if ( ! $preset ) {
 				return;

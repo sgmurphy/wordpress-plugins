@@ -27,6 +27,13 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 		const FILTERS_PER_PAGE = 10;
 
 		/**
+		 * Define how many unpaged terms should be shown for each filter on preset edit page
+		 *
+		 * @const int
+		 */
+		const TERMS_PER_PAGE = 4;
+
+		/**
 		 * Presets post type
 		 *
 		 * @var string $post_type
@@ -69,6 +76,7 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 			// ajax actions.
 			add_action( 'wp_ajax_yith_wcan_load_more_filters', array( $this, 'load_more_filters' ) );
 			add_action( 'wp_ajax_yith_wcan_change_preset_status', array( $this, 'change_preset_status' ) );
+			add_action( 'wp_ajax_yith_wcan_save_preset', array( $this, 'save_preset' ) );
 			add_action( 'wp_ajax_yith_wcan_save_preset_filter', array( $this, 'save_preset_filter' ) );
 			add_action( 'wp_ajax_yith_wcan_delete_preset_filter', array( $this, 'delete_preset_filter' ) );
 		}
@@ -79,6 +87,15 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 		 * @return string
 		 */
 		public function get_post_type() {
+			/**
+			 * APPLY_FILTERS: yith_wcan_presets_post_type
+			 *
+			 * Filters preset post type.
+			 *
+			 * @param string $string Post type.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_wcan_presets_post_type', $this->post_type );
 		}
 
@@ -211,7 +228,7 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 			}
 
 			// retrieve preset layout and save it.
-			$layout = isset( $_POST['preset_layout'] ) && in_array( $_POST['preset_layout'], array_keys( YITH_WCAN_Preset_Factory::get_supported_layouts() ), true ) ? sanitize_text_field( wp_unslash( $_POST['preset_layout'] ) ) : 'default';
+			$layout = isset( $_POST['preset_layout'] ) && in_array( $_POST['preset_layout'], array_keys( YITH_WCAN_Presets_Factory::get_supported_layouts() ), true ) ? sanitize_text_field( wp_unslash( $_POST['preset_layout'] ) ) : 'default';
 			$preset->set_layout( $layout );
 
 			// process filters and save them.
@@ -249,6 +266,14 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 				do_action( 'yith_wcan_save_preset', $preset_id, $preset );
 			}
 
+			if ( wp_doing_ajax() ) {
+				wp_send_json(
+					array(
+						'id' => $preset_id,
+					)
+				);
+			}
+
 			// redirect to edit page.
 			$return_url = YITH_WCAN()->admin->get_panel_url(
 				'filter-preset',
@@ -279,7 +304,7 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 				die;
 			}
 
-			$preset = YITH_WCAN_Preset_Factory::get_preset( $preset );
+			$preset = YITH_WCAN_Presets_Factory::get_preset( $preset );
 
 			if ( ! $preset || ! $preset->current_user_can( 'clone' ) ) {
 				wp_safe_redirect( $return_url );
@@ -312,7 +337,7 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 				die;
 			}
 
-			$preset = YITH_WCAN_Preset_Factory::get_preset( $preset );
+			$preset = YITH_WCAN_Presets_Factory::get_preset( $preset );
 
 			if ( ! $preset || ! $preset->current_user_can( 'delete' ) ) {
 				wp_safe_redirect( $return_url );
@@ -435,7 +460,7 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 
 								$filter = new YITH_WCAN_Filter_Orderby();
 
-								$filter->set_order_options( array_keys( YITH_WCAN_Filter_Factory::get_supported_orders() ) );
+								$filter->set_order_options( array_keys( YITH_WCAN_Filters_Factory::get_supported_orders() ) );
 
 								break;
 							case 'yith-woo-ajax-navigation':
@@ -460,6 +485,16 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 									array(
 										'taxonomy'   => $filter->get_taxonomy(),
 										'hide_empty' => true,
+										/**
+										 * APPLY_FILTERS: yith_wcan_upgrade_terms_limit
+										 *
+										 * Filters number of terms to include when upgrading from old widget to new preset.
+										 * Default is 0, to include all.
+										 *
+										 * @param int $limit Number of terms to include.
+										 *
+										 * @return int
+										 */
 										'number'     => apply_filters( 'yith_wcan_upgrade_terms_limit', 0 ),
 									)
 								);
@@ -601,17 +636,6 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 		 * @return array Cleared data.
 		 */
 		protected function clear_preset_filter( $filter ) {
-			// set missing information.
-			$filter['enabled']              = isset( $filter['enabled'] ) ? 'yes' : 'no';
-			$filter['show_toggle']          = isset( $filter['show_toggle'] ) ? 'yes' : 'no';
-			$filter['show_count']           = isset( $filter['show_count'] ) ? 'yes' : 'no';
-			$filter['show_search']          = isset( $filter['show_search'] ) ? 'yes' : 'no';
-			$filter['multiple']             = isset( $filter['multiple'] ) ? 'yes' : 'no';
-			$filter['show_stock_filter']    = isset( $filter['show_stock_filter'] ) ? 'yes' : 'no';
-			$filter['show_sale_filter']     = isset( $filter['show_sale_filter'] ) ? 'yes' : 'no';
-			$filter['show_featured_filter'] = isset( $filter['show_featured_filter'] ) ? 'yes' : 'no';
-			$filter['customize_terms']      = isset( $filter['customize_terms'] ) ? 'yes' : 'no';
-
 			if ( isset( $filter['terms_order'] ) ) {
 				$filter['terms'] = $this->get_sorted_terms( $filter['terms'], array_map( 'intval', $filter['terms_order'] ) );
 				unset( $filter['terms_order'] );
@@ -667,23 +691,28 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 				die( '-1' );
 			}
 
-			$preset = YITH_WCAN_Preset_Factory::get_preset( $preset );
+			$preset = YITH_WCAN_Presets_Factory::get_preset( $preset );
 
 			if ( ! $preset || ! $preset->current_user_can( 'load_filters' ) ) {
 				die( '-1' );
 			}
 
-			$filters  = $preset->get_raw_filters( 'edit', $page );
+			$filters  = $preset->get_filters( $page );
 			$has_more = $page < $preset->get_pages();
+			$results  = array();
 
-			foreach ( $filters as $filter_id => & $filter ) {
-				$filter['id']        = $filter_id;
-				$filter['preset_id'] = $preset;
+			foreach ( $filters as $filter ) {
+				$results[] = array_merge(
+					$filter->get_data(),
+					array(
+						'terms' => array_values( $filter->get_terms_options( 'edit' ) ),
+					)
+				);
 			}
 
 			wp_send_json(
 				array(
-					'filters'  => array_values( $filters ),
+					'filters'  => $results,
 					'has_more' => $has_more,
 				)
 			);
@@ -706,7 +735,7 @@ if ( ! class_exists( 'YITH_WCAN_Presets' ) ) {
 				die( '-1' );
 			}
 
-			$preset = YITH_WCAN_Preset_Factory::get_preset( $preset );
+			$preset = YITH_WCAN_Presets_Factory::get_preset( $preset );
 
 			if ( ! $preset || ! $preset->current_user_can( 'change_status' ) ) {
 				die( '-1' );

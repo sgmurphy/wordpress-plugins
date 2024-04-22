@@ -34,11 +34,11 @@ class B2S_RePost_Save {
         $this->allowHashTag = $allowHashTag;
         $this->b2sUserLang = $b2sUserLang;
         $this->bestTimes = (!empty($bestTimes)) ? $bestTimes : array();
-        $this->setPreFillText = array(0 => array(6 => 300, 8 => 239, 10 => 442, 16 => 250, 17 => 442, 18 => 800, 20 => 300, 21 => 65000, 38 => 500, 39 => 2000), 1 => array(8 => 1200, 10 => 442, 17 => 442, 19 => 239), 2 => array(8 => 239, 10 => 442, 17 => 442, 19 => 239));
-        $this->setPreFillTextLimit = array(0 => array(6 => 400, 8 => 400, 10 => 500, 18 => 1000, 20 => 400, 16 => false, 21 => 65535, 38 => 500, 39 => 2000), 1 => array(8 => 1200, 10 => 500, 19 => 400), 2 => array(8 => 400, 10 => 500, 19 => 9000));
-        $this->notAllowNetwork = array(4, 11, 14, 16, 18);
+        $this->setPreFillText = array(0 => array(8 => 239, 10 => 442, 16 => 250, 17 => 442, 18 => 800, 20 => 300, 21 => 65000, 38 => 500, 39 => 2000, 42 => 1000, 43 => 279), 1 => array(8 => 1200, 10 => 442, 17 => 442, 19 => 239, 42 => 1000), 2 => array(8 => 239, 10 => 442, 17 => 442, 19 => 239));
+        $this->setPreFillTextLimit = array(0 => array(8 => 400, 10 => 500, 18 => 1000, 20 => 400, 16 => false, 21 => 65535, 38 => 500, 39 => 2000, 42 => 1000, 43 => 279), 1 => array(8 => 1200, 10 => 500, 19 => 400, 42 => 1000), 2 => array(8 => 400, 10 => 500, 19 => 9000));
+        $this->notAllowNetwork = array(4, 6, 11, 14, 16, 18);
         $this->allowHtml = array(4, 11, 14);
-        $this->allowNetworkOnlyImage = array(6, 7, 12, 20, 21);
+        $this->allowNetworkOnlyImage = array(7, 12, 20, 21);
         $this->tosCrossPosting = unserialize(B2S_PLUGIN_NETWORK_CROSSPOSTING_LIMIT);
         $this->linkNoCache = B2S_Tools::getNoCacheData(B2S_PLUGIN_BLOG_USER_ID);
         $this->default_template = (defined('B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT')) ? unserialize(B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT) : false;
@@ -103,7 +103,7 @@ class B2S_RePost_Save {
 
                     if (((int) $value->networkId == 12) && isset($this->optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $this->optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
                         $schedData['url'] = '';
-                    } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 24) && isset($this->optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $this->optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($this->optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $this->optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
+                    } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 24 || (int) $value->networkId == 43) && isset($this->optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $this->optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($this->optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $this->optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
                         $schedData['url'] = '';
                     }
 
@@ -186,7 +186,7 @@ class B2S_RePost_Save {
             }
 
             //PostFormat
-            if (in_array($networkId, array(1, 2, 3, 12, 17, 19, 24))) {
+            if (in_array($networkId, array(1, 2, 3, 12, 17, 19, 24, 43))) {
                 //Get: client settings
                 if (isset($tempOptionPostFormat[$networkId][$networkType]['format']) && ((int) $tempOptionPostFormat[$networkId][$networkType]['format'] === 0 || (int) $tempOptionPostFormat[$networkId][$networkType]['format'] === 1)) {
                     $postData['post_format'] = (int) $tempOptionPostFormat[$networkId][$networkType]['format'];
@@ -267,6 +267,9 @@ class B2S_RePost_Save {
                     }
                     if (!empty($this->url) && $networkId == 38) {
                         $limit = 500 - strlen($this->url);
+                    }
+                    if (!empty($this->url) && $networkId == 43 && $postData['post_format'] == 1) {
+                        $limit = 300 - B2S_Util::getNetwork43UrlLength($this->url);
                     }
                     $postData['content'] = B2S_Util::getExcerpt($postData['content'], 0, $limit);
                 }
@@ -360,11 +363,7 @@ class B2S_RePost_Save {
                     }
                 }
 
-                if ($networkId == 38) {
-                    $postData['content'] = (isset($this->setPreFillText[$networkType][$networkId])) ? B2S_Util::getExcerpt($this->content, (int) $this->setPreFillText[$networkType][$networkId], (isset($this->setPreFillTextLimit[$networkType][$networkId]) ? (int) $this->setPreFillTextLimit[$networkType][$networkId] : false)) : $this->content;
-                    $postData['custom_title'] = strip_tags($this->title);
-                }
-                if ($networkId == 39) {
+                if ($networkId == 38 || $networkId == 39) {
                     $postData['content'] = (isset($this->setPreFillText[$networkType][$networkId])) ? B2S_Util::getExcerpt($this->content, (int) $this->setPreFillText[$networkType][$networkId], (isset($this->setPreFillTextLimit[$networkType][$networkId]) ? (int) $this->setPreFillTextLimit[$networkType][$networkId] : false)) : $this->content;
                     $postData['custom_title'] = strip_tags($this->title);
                 }

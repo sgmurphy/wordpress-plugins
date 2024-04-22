@@ -62,7 +62,7 @@ class B2S_Ship_Navbar {
     public function getItemHtml($data, $draftData = array(), $isVideoView = false) {
 
         if ($isVideoView) {
-            if (!in_array($data->networkId, $this->isVideoNetwork) || (in_array($data->networkId, array(1, 6, 12)) && $data->networkType == 0 )) {
+            if (!in_array($data->networkId, $this->isVideoNetwork) || (in_array($data->networkId, array(1, 6, 12)) && $data->networkType == 0) || (in_array($data->networkId, array(1)) && $data->networkType == 2)) {
                 return;
             }
         } else if (in_array($data->networkId, $this->isVideoNetwork)) {

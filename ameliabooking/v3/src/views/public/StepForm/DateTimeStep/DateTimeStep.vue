@@ -22,7 +22,10 @@
       :time-zone="amCustomize.dateTimeStep.options.timeZoneVisibility.visibility"
       :show-busy-slots="busyTimeSlotsVisibility"
       :label-slots-selected="amLabels.date_time_slots_selected"
-      :remember-slots="false"
+      :fetched-slots="null"
+      :service-id="cartItem ? cartItem.serviceId : 0"
+      :date="date"
+      :slots-params="slotsParams"
     ></Calendar>
 
     <!-- Recurring Appointment -->
@@ -71,12 +74,21 @@ import {ref, provide, inject, computed, onMounted, watchEffect, reactive, watch}
 import AmButton from "../../../_components/button/AmButton.vue";
 import AmSlidePopup from "../../../_components/slide-popup/AmSlidePopup.vue";
 import Calendar from "../../Parts/Calendar.vue";
-import { useAppointmentParams } from "../../../../assets/js/public/slots.js"
+import {
+  useAppointmentParams,
+  useRange,
+  useSelectedDuration,
+  useSelectedDate,
+  useSelectedTime,
+  useDeselectedDate,
+  useSlotsCallback,
+} from "../../../../assets/js/public/slots.js"
 import { useFormattedPrice } from '../../../../assets/js/common/formatting.js'
 import {
   useFillAppointments,
   useDuration,
-  usePaymentError
+  usePaymentError,
+  useBusySlots,
 } from "../../../../assets/js/common/appointments.js";
 import {useCart, useCartItem} from '../../../../assets/js/public/cart'
 import PackagesPopup from "../PakagesStep/parts/PackagesPopup";
@@ -213,8 +225,6 @@ watchEffect(() => {
 
 let loadCounter = ref(0)
 
-provide('slotsParams', slotsParams)
-
 let calendarChangeSideBar = ref(true)
 
 provide('calendarChangeSideBar', calendarChangeSideBar)
@@ -230,6 +240,20 @@ provide('calendarServiceDuration', calendarServiceDuration)
 let calendarServiceDurations = ref([])
 
 provide('calendarServiceDurations', calendarServiceDurations)
+
+provide('useSlotsCallback', useSlotsCallback)
+
+provide('useRange', useRange)
+
+provide('useSelectedDuration', useSelectedDuration)
+
+provide('useBusySlots', useBusySlots)
+
+provide('useSelectedDate', useSelectedDate)
+
+provide('useSelectedTime', useSelectedTime)
+
+provide('useDeselectedDate', useDeselectedDate)
 
 
 /*********

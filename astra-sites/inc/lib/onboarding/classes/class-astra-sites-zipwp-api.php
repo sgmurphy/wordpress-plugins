@@ -547,7 +547,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 1000,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -627,7 +627,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 1000,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -738,7 +738,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 1000,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -843,7 +843,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -910,7 +910,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -988,7 +988,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 
 
@@ -1055,7 +1055,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1133,7 +1133,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1210,7 +1210,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1278,7 +1278,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_get( $api_endpoint, $request_args );
+		$response = wp_safe_remote_get( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1355,7 +1355,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_get( $api_endpoint, $request_args );
+		$response = wp_safe_remote_get( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1420,7 +1420,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_get( $api_endpoint, $request_args );
+		$response = wp_safe_remote_get( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1485,7 +1485,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1557,7 +1557,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_get( $api_endpoint, $request_args );
+		$response = wp_safe_remote_get( $api_endpoint, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
@@ -1650,7 +1650,7 @@ class Astra_Sites_ZipWP_Api {
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
-		$response = wp_remote_get( $api_endpoint, $request_args );
+		$response = wp_safe_remote_get( $api_endpoint, $request_args );
 		if ( is_wp_error( $response ) ) {
 			// There was an error in the request.
 			wp_send_json_error(

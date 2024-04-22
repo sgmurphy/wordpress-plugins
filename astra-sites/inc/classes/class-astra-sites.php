@@ -153,7 +153,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'astra-sites-getting-started-notice' => 'getting_started_notice',
 				'astra-sites-favorite' => 'add_to_favorite',
 				'astra-sites-api-request' => 'api_request',
-				'astra-sites-ai-api-request' => 'ai_api_request',
 				'astra-sites-elementor-api-request' => 'elementor_api_request',
 				'astra-sites-elementor-flush-request' => 'elementor_flush_request',
 				'astra-page-elementor-insert-page' => 'elementor_process_import_for_page',
@@ -364,7 +363,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				'body'    => $arguments,
 			);
 
-			$response = wp_remote_post( $url, $args );
+			$response = wp_safe_remote_post( $url, $args );
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$response = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -405,7 +404,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'type'   => 'astra-sites',
 				),
 			);
-			$result                             = wp_remote_post( $this->search_analytics_url, $args );
+			$result                             = wp_safe_remote_post( $this->search_analytics_url, $args );
 			$response['ast-sites-search-terms'] = wp_remote_retrieve_body( $result );
 
 			return $response;
@@ -535,7 +534,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				wp_send_json_error( __( 'Invalid API URL.', 'astra-sites' ) );
 			}
 
-			$response = wp_remote_get( $api_url );
+			$response = wp_safe_remote_get( $api_url );
 
 			if ( is_wp_error( $response ) ) {
 				wp_send_json_error( wp_remote_retrieve_body( $response ) );
@@ -628,7 +627,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				)
 			);
 
-			$request = wp_remote_get( $api_url, $api_args );
+			$request = wp_safe_remote_get( $api_url, $api_args );
 
 			Astra_Sites_Error_Handler::get_instance()->stop_error_handler();
 
@@ -661,123 +660,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( 200 === $code ) {
 				update_option( 'astra_sites_import_data', $demo_data, 'no' );
 				set_transient( 'astra_sites_current_import_template_type', 'classic', HOUR_IN_SECONDS );
-				wp_send_json_success( $demo_data );
-			}
-
-			$message       = wp_remote_retrieve_body( $request );
-			$response_code = $code;
-
-			if ( 200 !== $code && is_array( $demo_data ) && isset( $demo_data['code'] ) ) {
-				$message = $demo_data['message'];
-			}
-
-			if ( 500 === $code ) {
-				$message = __( 'Internal Server Error.', 'astra-sites' );
-			}
-
-			if ( 200 !== $code && false !== strpos( $message, 'Cloudflare' ) ) {
-				$ip = Astra_Sites_Helper::get_client_ip();
-				/* translators: %s IP address. */
-				$message = sprintf( __( 'Client IP: %1$s </br> Error code: %2$s', 'astra-sites' ), $ip, $code );
-				$code    = 'Cloudflare';
-			}
-
-			wp_send_json_error(
-				array(
-					'message'       => $message,
-					'code'          => $code,
-					'response_code' => $response_code,
-				)
-			);
-		}
-
-		/**
-		 * API Request
-		 *
-		 * @since 4.0.0
-		 */
-		public function ai_api_request() {
-
-			// Verify Nonce.
-			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
-
-			if ( ! current_user_can( 'edit_posts' ) ) {
-				wp_send_json_error();
-			}
-
-			$url = isset( $_POST['url'] ) ? sanitize_text_field( $_POST['url'] ) : '';
-			$uuid = isset( $_POST['uuid'] ) ? sanitize_text_field( $_POST['uuid'] ) : '';
-
-			update_option( 'ast_ai_import_current_url', $url );
-			update_option( 'astra_sites_batch_process_complete', 'no' );
-
-			if ( empty( $url ) ) {
-				wp_send_json_error(
-					array(
-						'message' => __( 'Provided API URL is empty! Please try again!', 'astra-sites' ),
-						'code'    => 'Error',
-					)
-				);
-			}
-
-			$api_args = apply_filters(
-				'astra_sites_api_params', array(
-					'uuid' => $uuid,
-				)
-			);
-
-			$api_url = add_query_arg( $api_args, trailingslashit( $url ) . 'wp-json/zipwp-client/v1/exporter/export' );
-
-			if ( ! astra_sites_is_valid_url( $api_url ) ) {
-				wp_send_json_error(
-					array(
-						/* Translators: %s is API URL. */
-						'message' => sprintf( __( 'Invalid Request URL - %s', 'astra-sites' ), $api_url ),
-						'code'    => 'Error',
-					)
-				);
-			}
-
-			Astra_Sites_Error_Handler::get_instance()->start_error_handler();
-
-			$api_args = apply_filters(
-				'astra_sites_api_args', array(
-					'timeout' => 15,
-				)
-			);
-
-			$request = wp_remote_get( $api_url, $api_args );
-
-			Astra_Sites_Error_Handler::get_instance()->stop_error_handler();
-
-			if ( is_wp_error( $request ) ) {
-				$wp_error_code = $request->get_error_code();
-				switch ( $wp_error_code ) {
-					case 'http_request_not_executed':
-						/* translators: %s Error Message */
-						$message = sprintf( __( 'API Request could not be performed - %s', 'astra-sites' ), $request->get_error_message() );
-						break;
-					case 'http_request_failed':
-					default:
-						/* translators: %s Error Message */
-						$message = sprintf( __( 'API Request has failed - %s', 'astra-sites' ), $request->get_error_message() );
-						break;
-				}
-
-				wp_send_json_error(
-					array(
-						'message'       => $request->get_error_message(),
-						'code'          => 'WP_Error',
-						'response_code' => $wp_error_code,
-					)
-				);
-			}
-
-			$code      = (int) wp_remote_retrieve_response_code( $request );
-			$demo_data = json_decode( wp_remote_retrieve_body( $request ), true );
-
-			if ( 200 === $code ) {
-				update_option( 'astra_sites_import_data', $demo_data, 'no' );
 				wp_send_json_success( $demo_data );
 			}
 
@@ -861,7 +743,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				)
 			);
 
-			$request = wp_remote_get( $api_url, $api_args );
+			$request = wp_safe_remote_get( $api_url, $api_args );
 
 			Astra_Sites_Error_Handler::get_instance()->stop_error_handler();
 
@@ -1072,7 +954,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				wp_send_json_error( __( 'Invalid API URL.', 'astra-sites' ) );
 			}
 
-			$response = wp_remote_get( $api_url );
+			$response = wp_safe_remote_get( $api_url );
 
 			if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
 				wp_send_json_error( wp_remote_retrieve_body( $response ) );
@@ -1152,7 +1034,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$api_url = add_query_arg( $params, $this->pixabay_url );
 
-			$response = wp_remote_get( $api_url );
+			$response = wp_safe_remote_get( $api_url );
 
 			if ( is_wp_error( $response ) ) {
 				wp_send_json_error( wp_remote_retrieve_body( $response ) );
@@ -1790,7 +1672,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'validating'          => __( 'Validating...', 'astra-sites' ),
 					'empty_api_key'       => __( 'Please enter an API key.', 'astra-sites' ),
 					'error_api_key'       => __( 'An error occured with code ', 'astra-sites' ),
-					'_ajax_nonce'         => wp_create_nonce( 'astra-sites' ),
+					'_ajax_nonce'         => current_user_can( 'edit_posts' ) ? wp_create_nonce( 'astra-sites' ) : '',
 				)
 			);
 			wp_localize_script( 'astra-sites-images-common', 'astraImages', $data );
@@ -1850,7 +1732,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'activated'   => __( 'Activated!', 'astra-sites' ),
 					'installing'  => __( 'Installing...', 'astra-sites' ),
 					'ajaxurl'     => esc_url( admin_url( 'admin-ajax.php' ) ),
-					'_ajax_nonce' => wp_create_nonce( 'astra-sites' ),
+					'_ajax_nonce' => current_user_can( 'edit_posts' ) ? wp_create_nonce( 'astra-sites' ) : '',
 				)
 			);
 			wp_localize_script( 'astra-sites-install-theme', 'AstraSitesInstallThemeVars', $data );
@@ -2006,7 +1888,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'getProURL'                          => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
 					'getUpgradeText'                     => __( 'Upgrade', 'astra-sites' ),
 					'getUpgradeURL'                      => esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=wp-dashboard' ),
-					'_ajax_nonce'                        => wp_create_nonce( 'astra-sites' ),
+					'_ajax_nonce'                        => current_user_can( 'edit_posts' ) ? wp_create_nonce( 'astra-sites' ) : '',
 					'requiredPlugins'                    => array(),
 					'syncLibraryStart'                   => '<span class="message">' . esc_html__( 'Syncing template library in the background. The process can take anywhere between 2 to 3 minutes. We will notify you once done.', 'astra-sites' ) . '</span>',
 					'xmlRequiredFilesMissing'            => __( 'Some of the files required during the import process are missing.<br/><br/>Please try again after some time.', 'astra-sites' ),
@@ -2445,7 +2327,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'ajaxurl'                    => esc_url( admin_url( 'admin-ajax.php' ) ),
 					'default_page_builder_sites' => Astra_Sites_Page::get_instance()->get_sites_by_page_builder( 'elementor' ),
 					'ApiURL'                     => $this->api_url,
-					'_ajax_nonce'                => wp_create_nonce( 'astra-sites' ),
+					'_ajax_nonce'                => current_user_can( 'edit_posts' ) ? wp_create_nonce( 'astra-sites' ) : '',
 					'isPro'                      => defined( 'ASTRA_PRO_SITES_NAME' ) ? true : false,
 					'license_msg'                => $license_msg,
 					'isWhiteLabeled'             => Astra_Sites_White_Label::get_instance()->is_white_labeled(),

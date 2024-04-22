@@ -2,7 +2,7 @@
 
 /* global globalThis, jQuery, yith_wcan_shortcodes, accounting */
 
-import { $, $body } from '../config.js';
+import { $, $body, block, unblock } from '../globals.js';
 
 export default class YITH_WCAN_Filter {
 	// currently executing xhr
@@ -99,6 +99,8 @@ export default class YITH_WCAN_Filter {
 			response,
 			filters,
 		] );
+
+		yith_wcan_shortcodes.query_vars = filters;
 	}
 
 	// actions performed after filter
@@ -319,32 +321,12 @@ export default class YITH_WCAN_Filter {
 
 	// block dom elements
 	block( $el ) {
-		if ( typeof $.fn.block === 'undefined' ) {
-			return;
-		}
-
-		let background = '#fff center center no-repeat';
-
-		if ( yith_wcan_shortcodes?.loader ) {
-			background = `url('${ yith_wcan_shortcodes.loader }') ${ background }`;
-		}
-
-		$el.block( {
-			message: null,
-			overlayCSS: {
-				background,
-				opacity: 0.7,
-			},
-		} );
+		return block( $el );
 	}
 
 	// unblock dom elements
 	unblock( $el ) {
-		if ( typeof $.fn.unblock === 'undefined' ) {
-			return;
-		}
-
-		$el.unblock();
+		return unblock( $el );
 	}
 
 	// checks if param is one used by layared nav to filter products.

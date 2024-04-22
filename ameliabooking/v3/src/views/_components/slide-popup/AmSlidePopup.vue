@@ -2,14 +2,21 @@
   <transition duration="550" name="nested">
     <div
       v-show="visibility"
-      class="am-slide-popup__up"
+      class="am-slide-popup__block"
+      :class="`am-position-${position}`"
+      :style="{...cssVars, ...customCss}"
     >
       <div
-        class="am-slide-popup__up-inner"
-        :class="[{'am-slide-popup__up-inner-mobile': checkScreen}, customClass]"
+        v-click-outside="onClickOutside"
+        class="am-slide-popup__block-inner"
+        :class="[
+          {'am-slide-popup__up-inner-mobile': checkScreen},
+          customClass,
+          `am-position-${position}`
+        ]"
       >
         <slot></slot>
-        <div class="am-slide-popup__up-footer">
+        <div class="am-slide-popup__block-footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -18,8 +25,20 @@
 </template>
 
 <script setup>
-import {inject, computed} from 'vue';
-defineProps({
+// * Import from Vue
+import {
+  inject,
+  computed,
+} from 'vue';
+
+// * Import from Libraries
+import { ClickOutside as vClickOutside } from "element-plus";
+
+// * Composables
+import { useColorTransparency } from "../../../assets/js/common/colorManipulation";
+
+// * Components Props
+let props = defineProps({
   visibility: {
     type: Boolean,
     default: false,
@@ -28,11 +47,50 @@ defineProps({
   customClass: {
     type: String,
     default: ''
+  },
+  position: {
+    type: String,
+    default: 'bottom',
+    validator(value) {
+      return ['bottom', 'top', 'left', 'right', 'center'].includes(value)
+    }
+  },
+  closeOutside: {
+    type: Boolean,
+    default: false
+  },
+  customCss: {
+    type: Object,
+    default: () => {}
   }
 })
-// Container Width
+
+// * Compomnets Emits
+let emits = defineEmits(['click-outside', 'update:visibility'])
+
+// * Click outside of menu
+function onClickOutside () {
+  emits('click-outside')
+  if (props.closeOutside) {
+    emits('update:visibility', false)
+  }
+}
+
+// * Container Width
 let cWidth = inject('containerWidth', 0)
 let checkScreen = computed(() => cWidth.value < 460 || (cWidth.value > 560 && cWidth.value - 240 < 460))
+
+// * Components Colors
+let amColors = inject('amColors');
+
+// * Css Variables
+let cssVars = computed(() => {
+  return {
+    '--am-c-spb-bgr': amColors.value.colorMainBgr,
+    '--am-c-spb-text': amColors.value.colorMainText,
+    '--am-c-spb-text-op10': useColorTransparency(amColors.value.colorMainText, 0.1)
+  }
+})
 </script>
 
 <style lang="scss">
@@ -44,12 +102,14 @@ let checkScreen = computed(() => cWidth.value < 460 || (cWidth.value > 560 && cW
     display: block;
     width: 100%;
   }
-  .am-slide-popup__up {
-    $classP: '.am-slide-popup__up';
+
+  .am-slide-popup__block {
+    $classP: '.am-slide-popup__block';
     @extend .am-slide-popup;
     height: 100%;
     padding: 0;
-    background: rgba(4, 8, 11, 0.3);
+    //background: rgba(4, 8, 11, 0.3);
+    background-color: var(--am-c-spb-text-op10);
     z-index: 1000;
 
     &-footer {
@@ -70,11 +130,51 @@ let checkScreen = computed(() => cWidth.value < 460 || (cWidth.value > 560 && cW
 
     &-inner {
       @extend .am-slide-popup;
-      top: auto;
-      bottom: 0;
-      min-height: 100px;
       background: var(--am-c-main-bgr);
       padding: 16px 32px;
+
+      &.am-position-top {
+        top: 0;
+        bottom: auto;
+        left: 0;
+        right: auto;
+        min-height: 100px;
+      }
+
+      &.am-position-right {
+        top: 0;
+        bottom: 0;
+        left: auto;
+        right: 0;
+        width: auto;
+      }
+
+      &.am-position-left {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: auto;
+        width: auto;
+      }
+
+      &.am-position-bottom {
+        top: auto;
+        bottom: 0;
+        right: auto;
+        min-height: 100px;
+      }
+
+      &.am-position-center {
+        top: 50%;
+        bottom: auto;
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, -50%);
+        width: auto;
+        max-width: calc(100% - 32px);
+        height: auto;
+        max-height: calc(100% - 32px);
+      }
 
       &-mobile {
         padding: 16px;
@@ -98,11 +198,44 @@ let checkScreen = computed(() => cWidth.value < 460 || (cWidth.value > 560 && cW
     }
 
     &.nested-enter-from, &.nested-leave-to {
-      transform: translateY(30px);
       opacity: 0;
 
-      #{$classP}-inner {
+      &.am-position-top {
+        transform: translateY(-30px);
+      }
+
+      &.am-position-right {
+        transform: translateX(30px);
+      }
+
+      &.am-position-left {
+        transform: translateX(-30px);
+      }
+
+      &.am-position-bottom, &.am-position-center {
         transform: translateY(30px);
+      }
+
+      #{$classP}-inner {
+        &.am-position-top {
+          transform: translateY(-30px);
+        }
+
+        &.am-position-right {
+          transform: translateX(30px);
+        }
+
+        &.am-position-left {
+          transform: translateX(-30px);
+        }
+
+        &.am-position-bottom {
+          transform: translateY(30px);
+        }
+
+        &.am-position-center {
+          transform: translate(-50%, 50%);
+        }
         /*
           Hack around a Chrome 96 bug in handling nested opacity transitions.
           This is not needed in other browsers or Chrome 99+ where the bug

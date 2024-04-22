@@ -7,19 +7,26 @@
       :id="id"
       ref="amDatePicker"
       v-model="model"
-      type="date"
+      :type="type"
+      :value="value"
       :prefix-icon="prefixIcon"
       :popper-class="popperClass"
       :placeholder="placeholder"
       :clear-icon="clearIcon"
-      clearable
+      :default-value="defaultValue"
+      :clearable="clearable"
       :disabled-date="disabledDate"
+      :value-format="valueFormat"
+      :format="format"
+      :editable="editable"
       class="am-date-picker"
+      :popper-style="cssVars"
       :class="[`am-date-picker--${size}`, {'am-date-picker--disabled': disabled}]"
       @input="(eventValue) => $emit('input', eventValue)"
       @change="(eventValue) => $emit('change', eventValue)"
       @blur="(e) => $emit('blur', e)"
       @focus="(e) => $emit('focus', e)"
+      @calendar-change="(e) => $emit('calendar-change', e)"
     >
       <slot/>
     </el-date-picker>
@@ -31,7 +38,14 @@
 <script setup>
 import AmeliaIconClose from "../icons/IconClose";
 import AmeliaIconCalendar from "../icons/IconCalendar";
-import {computed, ref, toRefs} from "vue";
+import {
+  computed,
+  ref,
+  toRefs,
+  inject
+} from "vue";
+
+import { useColorTransparency } from "../../../assets/js/common/colorManipulation";
 
 /**
  * Component Props
@@ -42,6 +56,26 @@ const props = defineProps({
   },
   modelValue: {
     type: [String, Array, Object, Number],
+  },
+  type: {
+    type: String,
+    default: 'date'
+  },
+  defaultValue: {
+    type: [String, Array, Object, Number],
+  },
+  valueFormat: {
+    type: String
+  },
+  value: {
+    type: [String, Array, Object, Number],
+  },
+  format: {
+    type: String
+  },
+  editable: {
+    type: Boolean,
+    default: true
   },
   disabled: {
     type: Boolean,
@@ -92,7 +126,7 @@ const props = defineProps({
 /**
  * Component Emits
  * */
-const emits = defineEmits(['change', 'input', 'visible-change', 'remove-tag', 'clear', 'blur', 'focus', 'update:modelValue'])
+const emits = defineEmits(['change', 'input', 'visible-change', 'remove-tag', 'clear', 'blur', 'focus', 'calendar-change', 'update:modelValue'])
 
 /**
  * Component model
@@ -110,8 +144,41 @@ let model = computed({
  */
 const amDatePicker = ref(null)
 
+// * Colors block
+let amColors = inject('amColors');
+
 let cssVars = computed(() => {
-  return {}
+  return {
+    '--am-c-primary': amColors.value.colorPrimary,
+    '--am-c-success': amColors.value.colorSuccess,
+    '--am-c-error': amColors.value.colorError,
+    '--am-c-warning': amColors.value.colorWarning,
+    '--am-c-main-bgr': amColors.value.colorMainBgr,
+    '--am-c-main-heading-text': amColors.value.colorMainHeadingText,
+    '--am-c-main-text': amColors.value.colorMainText,
+    '--am-c-sb-bgr': amColors.value.colorSbBgr,
+    '--am-c-sb-text': amColors.value.colorSbText,
+    '--am-c-inp-bgr': amColors.value.colorInpBgr,
+    '--am-c-inp-border': amColors.value.colorInpBorder,
+    '--am-c-inp-text': amColors.value.colorInpText,
+    '--am-c-inp-placeholder': amColors.value.colorInpPlaceHolder,
+    '--am-c-drop-bgr': amColors.value.colorDropBgr,
+    '--am-c-drop-text': amColors.value.colorDropText,
+    '--am-c-drop-text-op10': useColorTransparency(amColors.value.colorDropText, 0.1),
+    '--am-c-drop-text-op50': useColorTransparency(amColors.value.colorDropText, 0.5),
+    '--am-c-drop-text-op80': useColorTransparency(amColors.value.colorDropText, 0.8),
+    '--am-c-drop-border': amColors.value.colorDropBorder,
+    '--am-c-btn-prim': amColors.value.colorBtnPrim,
+    '--am-c-btn-prim-text': amColors.value.colorBtnPrimText,
+    '--am-c-btn-sec': amColors.value.colorBtnSec,
+    '--am-c-btn-sec-text': amColors.value.colorBtnSecText,
+    '--am-c-btn-danger': amColors.value.colorBtnDanger,
+    '--am-c-btn-danger-text': amColors.value.colorBtnDangerText,
+    '--am-c-skeleton-op20': useColorTransparency(amColors.value.colorMainText, 0.2),
+    '--am-c-skeleton-op60': useColorTransparency(amColors.value.colorMainText, 0.6),
+    '--am-c-skeleton-sb-op20': useColorTransparency(amColors.value.colorSbText, 0.2),
+    '--am-c-skeleton-sb-op60': useColorTransparency(amColors.value.colorSbText, 0.6),
+  }
 })
 </script>
 
@@ -129,6 +196,10 @@ let cssVars = computed(() => {
 
     .el-input {
       width: 100%;
+      * {
+        color: var(--am-c-inp-text);
+      }
+
       .el-input__inner {
         outline: none;
         border-radius: 6px;
@@ -144,6 +215,11 @@ let cssVars = computed(() => {
         &::-webkit-input-placeholder {
           color: var(--am-c-inp-placeholder);
         }
+      }
+
+      &__inner {
+        background: var(--am-c-inp-bgr);
+        border: 1px solid var(--am-c-inp-border);
       }
 
       // Size - default / medium / small / mini / micro
@@ -184,13 +260,16 @@ let cssVars = computed(() => {
         }
       }
     }
-
   }
 }
 
 .el-picker-panel {
+  background-color: var(--am-c-drop-bgr);
+  color: var(--am-c-drop-text);
+  border: 1px solid var(--am-c-drop-border);
+
   &__icon-btn:hover {
-    background: transparent;
+    //background: transparent;
     color: var(--am-c-btn-prim)
   }
 
@@ -204,18 +283,31 @@ let cssVars = computed(() => {
     }
     table {
       td.today .el-date-table-cell__text {
-        color: var(--am-c-btn-prim);
+        color: var(--am-c-drop-text);
         &:hover {
-          color: white;
+          //color: white;
         }
       }
       td.current:not(.disabled) .el-date-table-cell__text {
         background: var(--am-c-btn-prim);
       }
       td.available:hover > div > span {
-        background: var(--am-c-btn-prim);
+        background: var(--am-c-drop-text);
         border-radius: 50%;
-        color: white;
+        color: var(--am-c-drop-bgr);
+      }
+      td.in-range > .el-date-table-cell {
+        background-color: var(--am-c-drop-text-op10);
+      }
+      td.in-range:hover > .el-date-table-cell {
+        background-color: var(--am-c-drop-text-op50);
+      }
+      td.end-date .el-date-table-cell__text, td.start-date .el-date-table-cell__text {
+        color: var(--am-c-drop-bgr);
+        background-color: var(--am-c-drop-text-op80);
+      }
+      td.today.start-date .el-date-table-cell__text {
+        color: var(--am-c-drop-bgr);
       }
     }
   }
@@ -239,7 +331,7 @@ let cssVars = computed(() => {
     border-style: initial;
     border-color: initial;
     border-image: initial;
-    background: transparent;
+    //background: transparent;
     outline: none;
 
     &__prev-btn {
@@ -250,7 +342,7 @@ let cssVars = computed(() => {
       float: right;
     }
     &__prev-btn:focus, &__next-btn:focus {
-      background: transparent;
+      //background: transparent;
       outline: none;
     }
   }

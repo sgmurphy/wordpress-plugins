@@ -3,7 +3,7 @@ Contributors: gn_themes
 License: GPLv3
 Donate link: https://getshortcodes.com/pricing/
 Tags: posts, carousel, shortcode, toggle, columns
-Stable tag: 7.1.3
+Stable tag: 7.1.4
 Requires PHP: 5.4
 Requires at least: 5.0
 Tested up to: 6.5
@@ -16,9 +16,9 @@ A comprehensive collection of visual components for your site
 
 ### SHORTCODES ULIMATE - THE #1 SHORTCODES PLUGIN ###
 
-[vimeo http://vimeo.com/507942335]
-
 [Shortcodes Ultimate](https://getshortcodes.com/?utm_campaign=wporg&utm_medium=readme&utm_source=description) is a huge collection of useful elements, that you can use in the post editor, text widgets or even in template files.
+
+[vimeo http://vimeo.com/507942335]
 
 
 = Features =
@@ -54,7 +54,7 @@ A comprehensive collection of visual components for your site
 
 Try Shortcodes Ultimate Pro risk-free for 30 days. You are fully protected by our no questions asked refund policy!
 
-[Learn More](https://getshortcodes.com/pricing/?utm_campaign=wporg&utm_medium=readme&utm_source=try-pro)
+[Upgrade to Pro](https://getshortcodes.com/pricing/?utm_campaign=wporg&utm_medium=readme&utm_source=try-pro)
 
 
 == Installation ==
@@ -139,6 +139,14 @@ Upgrade normally
 
 == Changelog ==
 
+
+
+### 7.1.4
+
+- Fixed issue with nested HTML tags in the following shortcodes: Button, Tab, Spoiler, Quote, Tooltip, and Service
+- Reduced static files size to imporove the loading speeds
+- Enhanced PHP 8 support
+- Minor "under the hood" improvements
 
 
 ### 7.1.3

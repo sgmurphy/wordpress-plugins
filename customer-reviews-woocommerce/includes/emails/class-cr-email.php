@@ -15,6 +15,8 @@ class Ivole_Email {
 	public $to;
 	public $heading;
 	public $subject;
+	public $form_header;
+	public $form_body;
 	public $template_html;
 	public $from;
 	public $from_name;
@@ -363,12 +365,12 @@ class Ivole_Email {
 				}
 			}
 
-			// WPML integration
-			$ivole_language = get_option( 'ivole_language' );
 			if ( has_filter( 'wpml_default_language' ) ) {
 				$site_default_lang = apply_filters('wpml_default_language', NULL );
 				$site_current_lang = apply_filters( 'wpml_current_language', NULL );
 				do_action( 'wpml_switch_language', $site_default_lang );
+				Ivole::remove_class_filter( 'rest_url', 'WPML_URL_Converter_Domain_Strategy', 'convertRestUrlToCurrentDomain', 10 );
+				Ivole::remove_class_filter( 'rest_url', 'WPML_URL_Converter_Subdir_Strategy', 'convertRestUrl', 10 );
 				$callback_url = get_rest_url( null, '/ivole/v1/review' );
 				do_action( 'wpml_switch_language', $site_current_lang );
 			} else {

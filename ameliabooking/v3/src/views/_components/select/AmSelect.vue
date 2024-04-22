@@ -6,7 +6,7 @@
       ref="amSelect"
       v-model="model"
       class="am-select"
-      :class="[`am-select--${size}`, {'am-select--disabled': disabled}]"
+      :class="[`am-select--${size}`, {'am-select--disabled': disabled}, props.customClass]"
       :popper-class="`am-select-popper${popperClass ? ' ' + popperClass : popperClass}`"
       :popper-options="{showArrow: false}"
       :multiple="props.multiple"
@@ -156,6 +156,10 @@ const props = defineProps({
   noDataText: {
     type: String,
     default: 'No data'
+  },
+  customClass: {
+    type: String,
+    default: ''
   },
   popperClass: {
     type: String,

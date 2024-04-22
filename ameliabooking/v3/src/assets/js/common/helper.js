@@ -1,5 +1,9 @@
 import { settings } from "../../../plugins/settings.js"
 
+function useCurrentTimeZone () {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone
+}
+
 function useRemoveUrlParameter (url, parameter) {
   let urlParts = url.split('?')
 
@@ -74,7 +78,15 @@ function useUrlQueryParams (url) {
 
     return queryParams
   }
-  return null
+
+  // ! return null
+  return {}
+}
+
+function useUrlQueryParam (param) {
+  let queryParams = useUrlQueryParams(window.location.href)
+
+  return param in queryParams ? queryParams[param] : null
 }
 
 function useDescriptionVisibility (text) {
@@ -90,6 +102,8 @@ export {
   useSortedDateStrings,
   useUrlParams,
   useUrlQueryParams,
+  useUrlQueryParam,
+  useCurrentTimeZone,
   useSortedTimeStrings,
   useDescriptionVisibility
 }

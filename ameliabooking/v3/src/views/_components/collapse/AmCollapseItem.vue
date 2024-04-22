@@ -13,7 +13,8 @@
       class="am-collapse-item__heading"
       :class="[
         {'am-collapse-item__heading-active' : contentVisibility},
-        {'am-collapse-item__heading-side' : contentVisibility && props.side}
+        {'am-collapse-item__heading-side' : contentVisibility && props.side},
+        props.headingClass
       ]"
       @click="toggleContentHeading"
     >
@@ -56,7 +57,16 @@
 </template>
 
 <script setup>
-import { inject, ref, reactive, computed, useSlots } from 'vue';
+// * Import from Vue
+import {
+  inject,
+  ref,
+  reactive,
+  computed,
+  useSlots
+} from 'vue';
+
+// * Composables
 import { useColorTransparency } from "../../../assets/js/common/colorManipulation";
 
 /**
@@ -85,7 +95,11 @@ let props = defineProps({
   },
   delay: {
     type: Number,
-    default: 0
+    default: 500
+  },
+  headingClass: {
+    type: String,
+    default: ''
   }
 })
 
@@ -135,7 +149,9 @@ function toggleContent () {
   emits('collapseClicked')
   if (partsVisibility.value) {
     setTimeout(() => {
-      collapseHeight.h = `${collapseContent.value.offsetHeight}px`
+      if (collapseContent.value) {
+        collapseHeight.h = `${collapseContent.value.offsetHeight}px`
+      }
       if (contentVisibility.value) closingCollapse()
       contentVisibility.value = !contentVisibility.value
       if (contentVisibility.value) emits('collapseOpen')
@@ -185,7 +201,8 @@ let amColors = inject('amColors', ref({
 }))
 let cssVars = computed(() => {
   return {
-    '--am-c-collapse-text-op80': useColorTransparency(amColors.value.colorMainText, 0.8)
+    '--am-c-collapse-text-op80': useColorTransparency(amColors.value.colorMainText, 0.8),
+    '--am-delay-collapse': `${props.delay}ms`,
   }
 })
 </script>
@@ -249,6 +266,11 @@ $collapseContentHeight: v-bind('collapseHeight.h');
       padding: 16px;
       border: var(--am-combo-collapse-border);
       cursor: var(--am-pointer-collapse);
+      transition-delay: var(--am-delay-collapse);
+
+      &-side {
+        transition-delay: 0ms;
+      }
     }
 
     // Collapse card content

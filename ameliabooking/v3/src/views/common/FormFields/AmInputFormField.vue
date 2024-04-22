@@ -13,8 +13,14 @@
       v-model="model"
       :name="props.itemName"
       :type="props.itemType"
+      :clearable="props.clearable"
+      :read-only="props.readOnly"
+      :show-password="props.showPassword"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
+      :icon-start="props.iconStart"
+      :icon-end="props.iconEnd"
+      @enter="emits('enter')"
     ></AmInput>
   </el-form-item>
 </template>
@@ -61,11 +67,31 @@ let props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  showPassword: {
+    type: Boolean,
+    default: false
+  },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
+  readOnly: {
+    type: Boolean,
+    default: false
+  },
+  iconStart: {
+    type: [String, Object],
+    default: ''
+  },
+  iconEnd: {
+    type: [String, Object],
+    default: ''
   }
 })
 
 // * Define Emits
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'enter'])
 
 // * Component model
 let { modelValue } = toRefs(props)

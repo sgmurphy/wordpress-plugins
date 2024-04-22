@@ -12,8 +12,12 @@
       :existing-date="model"
       :persistent="false"
       :disabled="false"
+      :clearable="props.clearable"
+      :read-only="props.readOnly"
       :week-starts-from-day="props.weekStartsFromDay"
+      :input-placeholder="props.placeholder"
       @selected-date="(dateString) => { selectedDatePickerValue(dateString) }"
+      @clear-date="clearDate"
     />
   </el-form-item>
 </template>
@@ -52,6 +56,18 @@ let props = defineProps({
   weekStartsFromDay: {
     type: [String, Number],
     default: 1
+  },
+  placeholder: {
+    type: String,
+    default: ''
+  },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
+  readOnly: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -76,6 +92,10 @@ defineExpose({
 
 function selectedDatePickerValue (dateString) {
   emits('update:modelValue', moment(dateString, 'YYYY-MM-DD').toDate())
+}
+
+function clearDate () {
+  emits('update:modelValue', '')
 }
 </script>
 

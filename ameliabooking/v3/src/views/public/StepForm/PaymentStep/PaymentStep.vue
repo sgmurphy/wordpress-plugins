@@ -260,9 +260,23 @@ let availablePayments = computed(() => {
       }
     }
 
-    let entity = useCartHasItems(store) === 1 ? store.getters['entities/getBookableFromBookableEntities'](
-      store.getters['booking/getSelection']
-    ) : null
+    let entity = null
+
+    switch (store.getters['booking/getBookableType']) {
+      case ('appointment'):
+        entity = useCartHasItems(store) === 1 ? store.getters['entities/getBookableFromBookableEntities'](
+          store.getters['booking/getSelection']
+        ) : null
+
+        break
+
+      case ('package'):
+        entity = store.getters['entities/getPackage'](
+          store.getters['booking/getPackageId']
+        )
+
+        break
+    }
 
     let entityPayments = entity && entity.settings ? JSON.parse(entity.settings)['payments'] : null
 

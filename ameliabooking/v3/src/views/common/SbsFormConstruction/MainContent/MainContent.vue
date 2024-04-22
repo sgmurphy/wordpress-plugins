@@ -1,5 +1,9 @@
 <template>
-  <div class="am-fs__main" :style="cssVars" :class="[{'am-fs__main-mobile': checkScreen}, responsiveClass]">
+  <div
+    class="am-fs__main"
+    :style="cssVars"
+    :class="responsiveClass"
+  >
     <div class="am-fs__main-inner">
       <slot name="header"></slot>
       <slot name="step"></slot>
@@ -9,15 +13,38 @@
 </template>
 
 <script setup>
-import { ref, computed, inject } from 'vue';
+// * import from Vue
+import {
+  ref,
+  computed,
+  inject
+} from 'vue';
+
+// * Composables
 import { useColorTransparency } from "../../../../assets/js/common/colorManipulation";
 import { useResponsiveClass } from "../../../../assets/js/common/responsive";
 
-// Container Width
-let cWidth = inject('containerWidth', 0)
-let checkScreen = computed(() => cWidth.value < 560 || (cWidth.value > 560 && cWidth.value < 640))
+let props = defineProps({
+  maxWidth: {
+    type: Number,
+    default: 520,
+  },
+  oldResponsive: {
+    type: Boolean,
+    default: true
+  }
+})
 
-let responsiveClass = computed(() => useResponsiveClass(cWidth.value))
+// * Container Width
+let cWidth = inject('containerWidth', 0)
+// am-fs__main-mobile
+let checkScreen = computed(() => {
+  return cWidth.value < 560 || (cWidth.value > 560 && cWidth.value < 640) ? 'am-fs__main-mobile' : ''
+})
+
+let responsiveClass = computed(() => {
+  return props.oldResponsive ? checkScreen.value : useResponsiveClass(cWidth.value)
+})
 
 // * Color Vars
 let amColors = inject('amColors', ref({
@@ -46,6 +73,10 @@ let amColors = inject('amColors', ref({
 // * Css Variables
 let cssVars = computed(() => {
   return {
+    // am - amelia
+    // mw - max width
+    // fsm - form step main
+    '--am-mw-fsm': `${props.maxWidth}px`,
     '--am-c-scroll-op30': useColorTransparency(amColors.value.colorPrimary, 0.3),
     '--am-c-scroll-op10': useColorTransparency(amColors.value.colorPrimary, 0.1),
   }
@@ -56,13 +87,14 @@ let cssVars = computed(() => {
 @mixin step-main-container {
   // am -- amelia
   // fs -- form steps
+  // cap -- cabinet panel
   // Amelia Form Steps
   .am-fs {
 
     // Main Container
     &__main {
       --am-brad-main-default: 0 0.5rem 0.5rem 0;
-      max-width: 520px;
+      max-width: var(--am-mw-fsm);
       width: 100%;
       background-color: var(--am-c-main-bgr);
       border-radius: var(--am-brad-main, var(--am-brad-main-default));
@@ -78,6 +110,14 @@ let cssVars = computed(() => {
         overflow-x: hidden;
         height: 444px;
         padding: 16px 32px;
+
+        &.am-cap {
+          height: calc(100% - 72px);
+        }
+
+        &.am-capi {
+          height: calc(100% - 136px);
+        }
 
         // Main Scroll styles
         &::-webkit-scrollbar {
@@ -97,6 +137,14 @@ let cssVars = computed(() => {
 
       // Mobile
       &-mobile {
+        --am-brad-main: 0.5rem;
+        --am-brad-main-default: 0.5rem;
+        .am-fs__main-content {
+          padding: 16px;
+        }
+      }
+
+      &.am-rw-480 {
         --am-brad-main: 0.5rem;
         --am-brad-main-default: 0.5rem;
         .am-fs__main-content {

@@ -817,6 +817,18 @@ if ( ! function_exists( 'yith_wcan_wp_get_terms' ) ) {
 	function yith_wcan_wp_get_terms( $args ) {
 		global $wp_version;
 
+		/**
+		 * APPLY_FILTERS: pre_yith_wcan_wp_get_terms
+		 *
+		 * Allow third party code to hijack plugin behaviour
+		 * If someone use this filter, plugin will use returned value instead of calling
+		 * get_terms to query database and retrieve matching terms.
+		 *
+		 * @param array|bool $result Default value: false;
+		 * @param array      $args   Query args.
+		 *
+		 * @return array|bool
+		 */
 		$pre_terms = apply_filters( 'pre_yith_wcan_wp_get_terms', false, $args );
 
 		if ( false !== $pre_terms ) {
@@ -844,6 +856,15 @@ if ( ! function_exists( 'yith_wcan_brands_enabled' ) ) {
 	 * @return bool
 	 */
 	function yith_wcan_brands_enabled() {
+		/**
+		 * APPLY_FILTERS: yith_wcan_brands_enabled
+		 *
+		 * Filters flag representing whether brand plugin is active or not.
+		 *
+		 * @param bool $active Whether brands plugin is enabled.
+		 *
+		 * @return bool
+		 */
 		return apply_filters( 'yith_wcan_brands_enabled', defined( 'YITH_WCBR' ) && YITH_WCBR );
 	}
 }
@@ -900,7 +921,7 @@ if ( ! function_exists( 'yith_wcan_get_preset' ) ) {
 	 * @since 4.0.0
 	 */
 	function yith_wcan_get_preset( $preset = array() ) {
-		return YITH_WCAN_Preset_Factory::get_preset( $preset );
+		return YITH_WCAN_Presets_Factory::get_preset( $preset );
 	}
 }
 
@@ -914,7 +935,7 @@ if ( ! function_exists( 'yith_wcan_get_filter' ) ) {
 	 * @since 4.0.0
 	 */
 	function yith_wcan_get_filter( $filter = array() ) {
-		return YITH_WCAN_Filter_Factory::get_filter( $filter );
+		return YITH_WCAN_Filters_Factory::get_filter( $filter );
 	}
 }
 
@@ -931,7 +952,20 @@ if ( ! function_exists( 'yith_wcan_get_template' ) ) {
 	 * @since 4.0.0
 	 */
 	function yith_wcan_get_template( $template, $atts = array(), $echo = true ) {
-		$default_path  = YITH_WCAN_DIR . 'templates/';
+		$default_path = YITH_WCAN_DIR . 'templates/';
+
+		/**
+		 * APPLY_FILTERS: yith_wcan_template_path
+		 *
+		 * Filters path where plugin searches for internal templates.
+		 *
+		 * @param string $path     Template path.
+		 * @param string $template Searched template.
+		 * @param array  $atts     Attributes to use in the template.
+		 * @param bool   $echo     Whether template should be included or printed.
+		 *
+		 * @return string
+		 */
 		$template_path = apply_filters( 'yith_wcan_template_path', WC()->template_path() . 'yith-wcan', $template, $atts, $echo );
 
 		ob_start();
@@ -1034,6 +1068,15 @@ if ( ! function_exists( 'yith_wcan_get_rating_label' ) ) {
 	 * @return string Label for specified rate.
 	 */
 	function yith_wcan_get_rating_label( $rating ) {
+		/**
+		 * APPLY_FILTERS: yith_wcan_rating_label
+		 *
+		 * Filters label used in review filter, for a specific rating value.
+		 *
+		 * @param string $label Label to filter: %s represents specific rating value.
+		 *
+		 * @return string
+		 */
 		// translators: 1. Rating.
 		return apply_filters( 'yith_wcan_rating_label', sprintf( _x( 'Rated %s out of 5', '[FRONTEND] Star rating label', 'yith-woocommerce-ajax-navigation' ), $rating ), $rating );
 	}

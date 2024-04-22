@@ -169,28 +169,29 @@ function handleClick(evt) {
 
 // * Color Vars
 let amColors = inject('amColors', ref({
-    colorPrimary: '#1246D6',
-    colorSuccess: '#019719',
-    colorError: '#B4190F',
-    colorWarning: '#CCA20C',
-    colorMainBgr: '#FFFFFF',
-    colorMainHeadingText: '#33434C',
-    colorMainText: '#1A2C37',
-    colorSbBgr: '#17295A',
-    colorSbText: '#FFFFFF',
-    colorInpBgr: '#FFFFFF',
-    colorInpBorder: '#D1D5D7',
-    colorInpText: '#1A2C37',
-    colorInpPlaceHolder: '#1A2C37',
-    colorDropBgr: '#FFFFFF',
-    colorDropBorder: '#D1D5D7',
-    colorDropText: '#0E1920',
-    colorBtnPrim: '#265CF2',
-    colorBtnPrimText: '#FFFFFF',
-    colorBtnSec: '#1A2C37',
-    colorBtnSecText: '#FFFFFF',
-  })
-)
+  colorPrimary: '#1246D6',
+  colorSuccess: '#019719',
+  colorError: '#B4190F',
+  colorWarning: '#CCA20C',
+  colorMainBgr: '#FFFFFF',
+  colorMainHeadingText: '#33434C',
+  colorMainText: '#1A2C37',
+  colorSbBgr: '#17295A',
+  colorSbText: '#FFFFFF',
+  colorInpBgr: '#FFFFFF',
+  colorInpBorder: '#D1D5D7',
+  colorInpText: '#1A2C37',
+  colorInpPlaceHolder: '#1A2C37',
+  colorDropBgr: '#FFFFFF',
+  colorDropBorder: '#D1D5D7',
+  colorDropText: '#0E1920',
+  colorBtnPrim: '#265CF2',
+  colorBtnPrimText: '#FFFFFF',
+  colorBtnSec: '#1A2C37',
+  colorBtnSecText: '#FFFFFF',
+  colorBtnDanger: '#B4190F',
+  colorBtnDangerText: '#FFFFFF',
+}))
 
 const cssVars = computed(() => {
   let cssVariables = {}
@@ -221,6 +222,16 @@ const cssVars = computed(() => {
       '--am-c-btn-first-op80': useColorTransparency(amColors.value.colorWarning, 0.8),
       '--am-c-btn-first-op30': useColorTransparency(amColors.value.colorWarning, 0.3),
       '--am-c-btn-first-op20': useColorTransparency(amColors.value.colorWarning, 0.1),
+    }
+  }
+
+  if (props.category === 'danger') {
+    cssVariables = {
+      '--am-c-btn-first': amColors.value.colorBtnDanger,
+      '--am-c-btn-second': amColors.value.colorBtnDangerText,
+      '--am-c-btn-first-op80': useColorTransparency(amColors.value.colorBtnDanger, 0.8),
+      '--am-c-btn-first-op30': useColorTransparency(amColors.value.colorBtnDanger, 0.3),
+      '--am-c-btn-first-op20': useColorTransparency(amColors.value.colorBtnDanger, 0.1),
     }
   }
 

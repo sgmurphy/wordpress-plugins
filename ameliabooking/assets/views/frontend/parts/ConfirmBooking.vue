@@ -988,6 +988,7 @@ export default {
       clearValidate: true,
       errors: {
         email: '',
+        phone: '',
         coupon: '',
         stripe: '',
         recaptcha: '',
@@ -1422,6 +1423,7 @@ export default {
 
       this.headerErrorShow = false
       this.errors.email = ''
+      this.errors.phone = ''
       this.errors.coupon = ''
       this.validateFieldsForPayPal()
 
@@ -2100,6 +2102,8 @@ export default {
           this.headerErrorMessage = this.$root.labels.bookings_limit_reached
         } else if ('emailError' in response.data && response.data.emailError === true) {
           this.errors.email = this.$root.labels.email_exist_error
+        } else if ('phoneError' in response.data && response.data.phoneError === true) {
+          this.errors.phone = this.$root.labels.phone_exist_error
         } else if ('couponUnknown' in response.data && response.data.couponUnknown === true) {
           this.errors.coupon = this.$root.labels.coupon_unknown
         } else if ('couponInvalid' in response.data && response.data.couponInvalid === true) {

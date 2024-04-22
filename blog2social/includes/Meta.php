@@ -21,7 +21,7 @@ class B2S_Meta {
         global $post;
         $this->post = $post;
 
-        if (isset($this->post->post_status) && $this->post->post_status == 'publish') {
+        if (isset($this->post->post_status) && $this->post->post_status == 'publish' && isset($this->post->post_password) && empty($this->post->post_password)) {
 
             $this->print = true;
             $post_id = isset($this->post->ID) ? $this->post->ID : 0; //V5.1.0 optimization

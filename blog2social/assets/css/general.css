@@ -7794,12 +7794,12 @@ CSS CheckBOX
     color: #fff;
 }
 
-.btn-vkontakte {
+.btn-vk {
     background-color:  #4c75a3 !important;
     border-color:  #4c75a3 !important;
     color: #fff;
 }
-.btn-vkontakte:hover {
+.btn-vk:hover {
     color: #fff;
 }
 
@@ -7839,12 +7839,12 @@ CSS CheckBOX
     color: #fff;
 }
 
-.btn-ravelry {
+.btn-raverly {
     background-color:  #ee6e62 !important;
     border-color:  #ee6e62 !important;
     color: #fff;
 }
-.btn-ravelry:hover {
+.btn-raverly:hover {
     color: #fff;
 }
 
@@ -7900,13 +7900,37 @@ CSS CheckBOX
 
 }
 
+.btn-skyrock:hover {
+    color: #fff;
+}
+
 .btn-mastodon {
     background-color: #5b49de !important;
     border-color: #5b49de !important;
     color: #fff;
 }
 
-.btn-skyrock:hover {
+.btn-mastodon:hover {
+    color: #fff;
+}
+
+.btn-humhub {
+    background-color: #61c3d1 !important;
+    border-color: #61c3d1 !important;
+    color: #fff;
+}
+
+.btn-humhub:hover {
+    color: #fff;
+}
+
+.btn-bluesky {
+    background-color: #1185fe !important;
+    border-color: #1185fe !important;
+    color: #fff;
+}
+
+.btn-bluesky:hover {
     color: #fff;
 }
 

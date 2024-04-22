@@ -38,12 +38,14 @@ $z-index: 1001; // value is this high since modal must be on top of Proteo's sti
 		width: 10px;
 	}
 
-	&.closed:after {
+	&.closed:after,
+	&:not(.opened):after,
+	&:not(.open):after {
 		@include chevron_closed;
 	}
 
 	&.open:after,
-	&.opened:after{
+	&.opened:after {
 		@include chevron_open;
 	}
 }
@@ -136,11 +138,48 @@ $z-index: 1001; // value is this high since modal must be on top of Proteo's sti
 	}
 }
 
+@mixin placeholder {
+	background-color: $disabled-color!important;
+	border: 0!important;
+	border-radius: $border-radius;
+	box-shadow: none;
+	color: $disabled-color!important;
+	display: block;
+	max-width: 100%!important;
+	opacity: .15;
+	outline: 0!important;
+	overflow: hidden!important;
+	pointer-events: none;
+	position: relative!important;
+	width: auto;
+	z-index: 1;
+
+	&:before {
+		animation: loading__animation 1.5s ease-in-out infinite;
+		background-image: linear-gradient(90deg,$disabled-color,$background-gray,$disabled-color);
+		background-repeat: no-repeat;
+		content: " ";
+		display: block;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		transform: translateX(-100%);
+	}
+
+	@keyframes loading__animation {
+		to {
+			transform:translateX( 100% );
+		}
+	}
+}
+
 @mixin single_column( $columns_number ) {
 	display: inline-block;
 	margin: 0 5px 10px;
 	vertical-align: top;
-	width: calc(#{calc(100 / $columns_number)}% - 10px);
+	width: calc(#{calc( 100 / $columns_number )}% - 10px);
 }
 
 @mixin columns {
@@ -754,6 +793,137 @@ $z-index: 1001; // value is this high since modal must be on top of Proteo's sti
 			margin-bottom: 20px;
 			cursor: pointer;
 		}
+
+		// placeholders
+		&.filter-placeholder {
+			.select-placeholder {
+				height: calc(1.5em + 16px);
+
+				@include placeholder;
+				@include chevron;
+			}
+
+			.slider-placeholder {
+				position: relative;
+
+				.item-placeholder {
+					height: 5px;
+					margin: 45px 0;
+
+					@include placeholder;
+				}
+
+				.irs-handle {
+					border-radius: 100%;
+					border: 4px solid #ebebeb;
+					background-color: #ebebeb;
+					top: calc(50% - 9px);
+					z-index: 2;
+
+					&.from {
+						left: 0;
+					}
+
+					&.to {
+						right: 0;
+					}
+				}
+			}
+
+			.filter-items {
+				margin-bottom: 0;
+				.filter-item {
+					display: flex;
+					align-items: center;
+					margin-bottom: 10px;
+				}
+
+				input {
+					cursor: not-allowed;
+					pointer-events: none;
+					vertical-align: middle;
+				}
+
+				.item-placeholder {
+					height: 1em;
+					vertical-align: middle;
+					cursor: none;
+
+					@include placeholder;
+				}
+			}
+
+			&.checkbox-design,
+			&.radio-design,
+			&.filter-price-range,
+			&.filter-orderby,
+			&.filter-review,
+			&.filter-stock-sale {
+				.item-placeholder {
+					flex: auto;
+					display: inline-block;
+				}
+			}
+
+			&.label-design {
+				.filter-items {
+					font-size: inherit;
+					display: flex;
+					flex-wrap: wrap;
+					column-gap: 5px;
+
+					.filter-item {
+						display: block;
+
+						&:nth-child( 1 ) {
+							width: calc(40% - 5px);
+						}
+
+						&:nth-child( 2 ) {
+							width: calc(25% - 5px);
+						}
+
+						&:nth-child( 3 ) {
+							width: calc(35% - 5px);;
+						}
+
+						&:nth-child( 4 ) {
+							width: calc(30% - 5px);
+						}
+
+						.item-placeholder {
+							height: 2em;
+						}
+					}
+				}
+			}
+
+			&.color-design {
+				.filter-items {
+					.filter-item {
+						border-radius: var( --yith-wcan-color_swatches_border_radius, $border-radius );
+						display: inline-block;
+						height: calc(var( --yith-wcan-color_swatches_size, 45px ) + 4px);
+						margin-right: 15px;
+						vertical-align: middle;
+						width: calc(var( --yith-wcan-color_swatches_size, 45px ) + 4px);
+
+						.item-placeholder {
+							height: 100%;
+						}
+					}
+				}
+			}
+
+			&.text-design {
+				.filter-items {
+					.filter-item {
+						display: block;
+						margin-bottom: 25px;
+					}
+				}
+			}
+		}
 	}
 
 	// custom checkbox/radio
@@ -843,6 +1013,17 @@ $z-index: 1001; // value is this high since modal must be on top of Proteo's sti
 
 		.star-rating {
 			color: $star-color;
+		}
+
+		.yith-wcan-filter.filter-placeholder {
+			span.checkboxbutton,
+			span.radiobutton {
+				&:before {
+					border: 1px solid $disabled-color;
+					background-color: $disabled-color;
+					opacity: .15;
+				}
+			}
 		}
 	}
 
@@ -1060,6 +1241,26 @@ $z-index: 1001; // value is this high since modal must be on top of Proteo's sti
 				.matching-items {
 					a {
 						cursor: pointer;
+					}
+				}
+			}
+
+			&.filter-placeholder {
+				.filter-title {
+					visibility: hidden;
+					height: 0;
+					margin: 0;
+				}
+
+				.filter-content {
+					height: calc(1.5em + 16px);
+					margin-bottom: 10px;
+
+					@include placeholder;
+					@include chevron;
+
+					& * {
+						display: none;
 					}
 				}
 			}

@@ -5,7 +5,7 @@ Tags: auto post, auto publish, social media scheduling, social media calendar, s
 Donate link: https://paypal.me/adenion
 Requires at least: 4.7.0
 Tested up to: 6.5
-Stable tag: 7.4.2
+Stable tag: 7.5.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Blog2Social automatically creates social media posts for your content and auto-p
 
 _Compatible with WooCommerce, Gutenberg Editor, Hummingbird, Bitly, Rebrand.ly, Sniply, WP Automatic Plugin, Page Builder & RSS Importer._
 
-* New: AI Social Media Post Generator and Today's Content Calendar Tips
+* New: Network **Bluesky** and **Humhub** Integration
 
 Download Blog2Social today to make your social media marketing easier than ever for your WordPress site or blog. Blog2Social is a freemium plugin, with a free comprehensive basic version and premium plans offering more advanced features. To ensure compliance with the high quality standards of the new networks’ API rules and community guidelines, some functions of the auto-poster are premium features and not part of the free version. 
 The Blog2Social free version offers you a wide range of features. ([See what’s included in the free version](https://wordpress.org/plugins/blog2social/#faq "Blog2Social Free Features")). 
@@ -27,6 +27,7 @@ To benefit from all the advanced features for automatic sharing and scheduling y
 = Supported Networks = for cross-posting 
 * **Facebook** - Post to your profile, page (Free), and in groups (Premium) 
 * **X (formerly Twitter)** - Post to your X account (Free)
+* **Bluesky** - Post to your Bluesky account (Free)
 * **Google Business Profile** - Post to your Google Business Listing (Premium)
 * **LinkedIn** - Post to your profile (Free) or page (Premium)
 * **XING** - Post to your profile (Free) and page (Premium) 
@@ -49,6 +50,8 @@ To benefit from all the advanced features for automatic sharing and scheduling y
 * **TikTok** - Share your videos on TikTok (Premium + Add-on)
 * **Mastodon** - Post to your Mastodon account (Premium)
 * **Discord** - Post to your Discord servers (Premium)
+* **HumHub** - Post to your profile and space (Premium)
+
 
 = Benefits from using Blog2Social =
 
@@ -265,6 +268,8 @@ To get started with the basics of Blog2Social and maybe find some useful tips an
 
 
 == Changelog ==
+= 7.5.0 =
+Bluesky and HumHub Integration, Facebook Group changes to instant sharing
 = 7.4.2 =
 Usability Optimization
 = 7.4.1 =
@@ -407,6 +412,8 @@ Usability Optimization, Rebrandly integration, url parameter settings
 New Image Posts, Imgur, Animated Gifs and Emojis
 
 == Upgrade Notice ==
+= 7.5.0 =
+Bluesky and HumHub Integration, Facebook Group changes to instant sharing
 = 7.4.2 =
 Usability Optimization
 = 7.4.1 =

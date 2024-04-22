@@ -17,8 +17,8 @@
         <div class="am-dialog-new-customize__content-img">
           <img :src="$root.getUrl + 'public/img/am-update-popup.png'" :alt="$root.labels.whats_new_heading">
         </div>
-        <div class="am-dialog-new-customize__content-heading" v-html=""></div>
-        <div class="am-dialog-new-customize__content-description"></div>
+<!--        <div class="am-dialog-new-customize__content-heading" v-html=""></div>-->
+<!--        <div class="am-dialog-new-customize__content-description"></div>-->
           <!-- <div class="am-dialog-new-customize__content-list">
           <div class="am-dialog-new-customize__content-list__item">
             <img :src="$root.getUrl + 'public/img/am-new-bolt.svg'" alt="Faster Pages">

@@ -425,10 +425,28 @@ class ProductHelper {
 	 * @return string The value of the specified attribute.
 	 * @since 2.2.3
 	 */
-	public static function get_product_attribute( $attr, $product, Config $config ) {
-		// Normalize attribute slug for WooCommerce versions 3.6 and above.
-		if ( \woo_feed_wc_version_check( 3.6 ) ) {
-			$attr = \str_replace( 'pa_', '', $attr );
+	public static function get_product_attribute( $attr, $product, $config ) {
+		$id = $product->get_id();
+
+		if ( woo_feed_wc_version_check( 3.2 ) ) {
+			if ( woo_feed_wc_version_check( 3.6 ) ) {
+				$attr = str_replace( 'pa_', '', $attr );
+			}
+			if ( $product instanceof WC_Product ) {
+				$value = $product->get_attribute( $attr );
+			}
+
+			// if empty get attribute of parent post
+			if ( '' === $value && $product->is_type( 'variation' ) ) {
+				$product = wc_get_product( $product->get_parent_id() );
+				if ( $product instanceof WC_Product ) {
+					$value = $product->get_attribute( $attr );
+				}
+			}
+
+			$getAttribute = $value;
+		} else {
+			$getAttribute = implode( ',', wc_get_product_terms( $id, $attr, array( 'fields' => 'names' ) ) );
 		}
 
 		$value = self::fetch_product_attribute( $attr, $product );
@@ -971,8 +989,11 @@ class ProductHelper {
 			$output .= ( \preg_match( '/^\s/', $prefix_suffix['suffix'] ) ? '' : ' ' ) . $prefix_suffix['suffix'];
 		}
 
-		if ( self::should_strip_prefix_suffix( $attribute ) ) {
-			$output = \str_replace( ' ', '', $output );
+		/**
+		 * Some attributes don't need any space like : link url, image url
+		 */
+		if ( self::should_encode_attribute( $attribute ) ) {
+			$output = \str_replace( ' ', '%20', $output );
 		}
 
 		return $output;
@@ -985,7 +1006,7 @@ class ProductHelper {
 	 *
 	 * @return bool True if the prefix and suffix should be stripped for the given attribute, false otherwise.
 	 */
-	public static function should_strip_prefix_suffix( $attribute ) {
+	public static function should_encode_attribute( $attribute ) {
 		// Validate attribute
 		if ( ! \is_string( $attribute ) ) {
 			// Handle error or invalid input

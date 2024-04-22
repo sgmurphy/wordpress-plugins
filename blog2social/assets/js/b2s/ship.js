@@ -25,6 +25,7 @@ jQuery(window).on("load", function () {
     if (jQuery('#b2sOpenDraftIncompleteModal').val() == '1') {
         jQuery('#b2sDraftIncompleteModal').modal('show');
     }
+
 });
 
 
@@ -675,6 +676,16 @@ jQuery(document).on("click", ".b2s-post-ship-item-full-text", function () {
     });
     return false;
 });
+
+jQuery(document).on("click", ".b2s-post-item-option-share-as-story", function () {
+    if (jQuery(this).prop('checked')) {
+        jQuery('.b2s-post-item-details-item-message-input[data-network-count="' + jQuery(this).attr('data-network-count') + '"][data-network-auth-id="' + jQuery(this).attr('data-network-auth-id') + '"]').hide();
+    } else {
+        jQuery('.b2s-post-item-details-item-message-input[data-network-count="' + jQuery(this).attr('data-network-count') + '"][data-network-auth-id="' + jQuery(this).attr('data-network-auth-id') + '"]').show();
+    }
+    return true;
+});
+
 jQuery(document).on("click", ".b2s-post-ship-item-message-delete", function () {
     var networkAuthId = jQuery(this).attr('data-network-auth-id');
     var networkCountId = jQuery(this).attr('data-network-count');
@@ -928,7 +939,7 @@ jQuery(document).on("click", ".b2s-network-select-btn", function () {
                                 if (jQuery('#b2sBlogPostSchedDate').length > 0) {
                                     today.setTime(jQuery('#b2sBlogPostSchedDate').val());
                                 }
-                                
+
                                 //MaxSchedDate
                                 var maxDate = new Date();
                                 maxDate.setTime(maxSchedDate);
@@ -1778,7 +1789,7 @@ jQuery(document).on("keyup", ".complete_network_url", function () {
     jQuery(this).removeClass("error");
     if (url.length != "0") {
         if (url.indexOf("http://") == -1 && url.indexOf("https://") == -1) {
-            url = "http://" + url;
+            url = "https://" + url;
             jQuery(this).val(url);
         }
     } else if (jQuery(this).hasClass("required_network_url")) {
@@ -3503,7 +3514,7 @@ function networkLimitAll(networkAuthId, networkId, limit) {
     if (typeof url !== typeof undefined && url !== false) {
         if (url.length != "0") {
             if (url.indexOf("http://") == -1 && url.indexOf("https://") == -1) {
-                url = "http://" + url;
+                url = "https://" + url;
                 jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").val(url);
             }
         } else if (jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").hasClass("required_network_url")) {
@@ -3515,7 +3526,6 @@ function networkLimitAll(networkAuthId, networkId, limit) {
     }
 
     if (typeof text !== typeof undefined && text !== false) {
-
 
         var textLength = text.length;
         var newText = text;
@@ -3551,6 +3561,12 @@ function networkLimitAll(networkAuthId, networkId, limit) {
                 limit = limit - url.length;
             }
         }
+        if (networkId == "43" && jQuery('.b2s-post-item-details-post-format[data-network-auth-id="' + networkAuthId + '"]').val() == 1) { //bluesky
+            if (url.length != "0") {
+                limit = limit - getNetwork43UrlLength(url);
+            }
+        }
+
 
         if (textLength >= limit) {
             newText = text.substring(0, limit);
@@ -3561,18 +3577,45 @@ function networkLimitAll(networkAuthId, networkId, limit) {
             var textLength = text.length;
         }
         if (networkId == "38") { //mastodon
-            jQuery(".b2s-post-item-countChar[data-network-count='" + networkCountId + "'][data-network-auth-id='" + networkAuthId + "']").html(textLength + " + " + url.length);
-
+            var mastodonLength = textLength + url.length;
+            jQuery(".b2s-post-item-countChar[data-network-count='" + networkCountId + "'][data-network-auth-id='" + networkAuthId + "']").html(mastodonLength);
+        } else if (networkId == "43" && jQuery('.b2s-post-item-details-post-format[data-network-auth-id="' + networkAuthId + '"]').val() == 1) { //bluesky
+            var blueskyLength = textLength + getNetwork43UrlLength(url);
+            jQuery(".b2s-post-item-countChar[data-network-count='" + networkCountId + "'][data-network-auth-id='" + networkAuthId + "']").html(blueskyLength);
         } else {
             jQuery(".b2s-post-item-countChar[data-network-count='" + networkCountId + "'][data-network-auth-id='" + networkAuthId + "']").html(textLength);
         }
     }
 }
 
+//BlueSky cuts urls after 16 chars into the path
+function getNetwork43UrlLength(url = "") {
+    if (url != "") {
+        var hostLength = 0;
+        var pathLength = 0;
+        var parsedUrl = new URL(url);
+        if (parsedUrl.hostname) {
+            hostLength = parsedUrl.hostname.length;
+        }
+        if (parsedUrl.pathname) {
+            // Exclude the trailing slash if it's the only character in the path
+            if (parsedUrl.pathname === "/") {
+                parsedUrl.pathname = "";
+            }
+            pathLength = parsedUrl.pathname.length;
+            if (pathLength > 16) {
+                pathLength = 16;
+            }
+        }
+        return hostLength + pathLength + 1; // +1 /n
+    }
+    return 0;
+
+}
+
 function networkCount(networkAuthId) {
 
     var twitterLimit = 280;
-    var mastodonLimit = 500;
     var networkCountId = -1; //default;
     if (jQuery(':focus').length > 0) {
         var attr = jQuery(':focus').attr('data-network-count');
@@ -3587,14 +3630,11 @@ function networkCount(networkAuthId) {
     if (typeof url !== typeof undefined && url !== false) {
         if (url.length != "0") {
             if (url.indexOf("http://") == -1 && url.indexOf("https://") == -1) {
-                url = "http://" + url;
+                url = "https://" + url;
                 jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").val(url);
             }
             if (jQuery(".b2s-post-item-details-item-message-input[data-network-auth-id='" + networkAuthId + "']").attr('data-network-id') == "2") { //twitter
                 twitterLimit = twitterLimit - 26;
-            }
-            if (jQuery(".b2s-post-item-details-item-message-input[data-network-auth-id='" + networkAuthId + "']").attr('data-network-id') == "38") { //mastodon
-                mastodonLimit = mastodonLimit - url.length;
             }
         } else if (jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").hasClass("required_network_url")) {
             if (!((jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").attr('data-network-id') == 1 || jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").attr('data-network-id') == 3 || jQuery(".b2s-post-item-details-item-url-input[data-network-auth-id='" + networkAuthId + "']").attr('data-network-id') == 19) && jQuery('.b2s-post-item-details-post-format[data-network-auth-id=' + networkAuthId + ']').val() == 1)) { //Facebook & Linkedin Imagepost don't require Link
@@ -4809,6 +4849,7 @@ jQuery(document).on('change', '.b2s-toastee-toggle', function () {
         jQuery('.b2s-onboarding-toastee-body').hide();
 
     }
-});
+}
+);
 
 

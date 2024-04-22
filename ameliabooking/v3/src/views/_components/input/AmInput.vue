@@ -23,11 +23,14 @@
       :rows="rows"
       :placeholder="placeholder"
       :readonly="readOnly"
+      :show-password="showPassword"
       :validate-event="validateEvent"
       @blur="(e) => $emit('blur', e)"
       @focus="(e) => $emit('focus', e)"
       @change="(currentValue, oldValue) => $emit('change', currentValue, oldValue)"
       @input="(currentValue, oldValue) => $emit('input', currentValue, oldValue)"
+      @keyup.enter="(e) => $emit('enter', e)"
+      @clear="() => emits('clear')"
     >
     </el-input>
   </div>
@@ -102,6 +105,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  showPassword: {
+    type: Boolean,
+    default: false
+  },
   validateEvent: {
     type: Boolean,
     default: true
@@ -111,7 +118,7 @@ const props = defineProps({
 /**
  * Component Emits
  * */
-const emits = defineEmits(['change', 'input', 'visible-change', 'clear', 'blur', 'focus', 'update:modelValue'])
+const emits = defineEmits(['change', 'input', 'visible-change', 'clear', 'blur', 'focus', 'update:modelValue', 'enter'])
 
 /**
  * Component model
@@ -187,6 +194,12 @@ const amInput = ref(null)
         }
 
         &__prefix {
+          &-inner {
+            align-items: center;
+          }
+        }
+
+        &__suffix {
           &-inner {
             align-items: center;
           }

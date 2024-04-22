@@ -188,6 +188,12 @@
             <div class="am-cs-colors__item">
               <span>{{amLabels.secondary_text}}</span> <AmColorPicker v-model="amCustomize[pageRenderKey].colors.colorBtnSecText"></AmColorPicker>
             </div>
+            <div class="am-cs-colors__item">
+              <span>{{amLabels.danger_background}}</span> <AmColorPicker v-model="amCustomize[pageRenderKey].colors.colorBtnDanger"></AmColorPicker>
+            </div>
+            <div class="am-cs-colors__item">
+              <span>{{amLabels.danger_text}}</span> <AmColorPicker v-model="amCustomize[pageRenderKey].colors.colorBtnDangerText"></AmColorPicker>
+            </div>
           </div>
         </template>
       </AmCollapseItem>

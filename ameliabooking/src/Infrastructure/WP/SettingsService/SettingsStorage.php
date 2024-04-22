@@ -287,7 +287,7 @@ class SettingsStorage implements SettingsStorageInterface
                 'timeFormat'  => $this->getSetting('wordpress', 'timeFormat'),
                 'startOfWeek' => (int)$this->getSetting('wordpress', 'startOfWeek'),
                 'timezone'    => $this->getSetting('wordpress', 'timeZoneString'),
-                'locale'      => get_locale()
+                'locale'      => AMELIA_LOCALE
             ],
             'labels'                 => [
                 'enabled' => $this->getSetting('labels', 'enabled')

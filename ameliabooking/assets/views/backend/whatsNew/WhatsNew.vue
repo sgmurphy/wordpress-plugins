@@ -51,7 +51,7 @@
           <div class="am-whats-new-changelog-list">
 
             <p class="am-whats-new-changelog-list-title">{{$root.labels.included_plan_your}}</p>
-            <div class="am-whats-new-changelog-list-item" v-for="(item, index) in getLicencesItems(getThisAndLowerLicences())" :key="item.type + index">
+            <div class="am-whats-new-changelog-list-item" v-for="(item, index) in getLicencesItems(getThisAndLowerLicences())" :key="item.licence + item.type + index">
               <div class="am-whats-new-changelog-list-item-img-holder">
                 <img v-if="item.type" :src="$root.getUrl+`public/img/am-${getIconType(item.type)}.svg`" />
               </div>
@@ -202,28 +202,62 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.4.3',
+         version: '7.5',
          starter: {
-           feature: [],
-           improvement: [],
+           feature: [
+             'Newly redesigned Customer Panel with effortless appointment and event management alongside seamless profile updates'
+           ],
+           improvement: [
+             'Added possibility to filter Employee page by multiple locations',
+             'Extended option “Check customer\'s name for existing email/phone when booking”, to check for existing users by phone number if email is not entered'
+           ],
+           translations: [
+             'Updated German and added Turkish translation'
+           ],
            bugfix: [
-             'Fixed issue on booking form when user is not logged in'
+             'Fixed issue with “Go back” button and missing sidebar on the Catalog Booking form',
+             'Fixed issue with the “Limit events per customer” and events start time on the Congratulations page',
+             'Fixed issue with Manager role and hidden services with coupons',
+             'Fixed issue with customer info in ICS files'
+           ],
+           other: [
+             'Other small bug fixes and stability improvements'
            ]
          },
          basic: {
            feature: [],
            improvement: [],
-           bugfix: []
+           translations: [],
+           bugfix: [
+             'Fixed issue with the custom fields option when exporting attendees',
+             'Fixed issue with translations and their order in case of different language variations',
+             'Fixed issue with UTC time-zones and test notifications',
+             'Fixed issue with forms when default location is not used and “Load Entities on page load” option enabled'
+           ],
+           other: ['Added documentation about WPHooks']
          },
          pro: {
            feature: [],
            improvement: [],
-           bugfix: []
+           translations: [],
+           bugfix: [
+             'Fixed issue with a package payment in the customer panel via WooCommerce Stripe',
+             'Fixed issue with not taking set payment methods for packages into consideration',
+             'Fixed issue with Cart payments when using coupons and notifications not sent'
+           ],
+           other: []
          },
          developer: {
            feature: [],
-           improvement: [],
-           bugfix: []
+           improvement: [
+             'Added option to send multiple locations when retrieving employees by API',
+             'Added a new API call for package slots'
+           ],
+           translations: [],
+           bugfix: [
+             'Fixed issue with updating employee work hours with API'
+           ],
+           other: []
          }
        },
        loading: false
@@ -276,6 +310,7 @@ export default {
        licences.forEach((licence) => {
          this.changelog[licence].feature.forEach((item) => {
            items.push({
+             licence: licence,
              type: 'Feature',
              text: item
            })
@@ -285,7 +320,18 @@ export default {
        licences.forEach((licence) => {
          this.changelog[licence].improvement.forEach((item) => {
            items.push({
+             licence: licence,
              type: 'Improvement',
+             text: item
+           })
+         })
+       })
+
+       licences.forEach((licence) => {
+         this.changelog[licence].translations.forEach((item) => {
+           items.push({
+             licence: licence,
+             type: 'Translations',
              text: item
            })
          })
@@ -294,7 +340,17 @@ export default {
        licences.forEach((licence) => {
          this.changelog[licence].bugfix.forEach((item) => {
            items.push({
+             licence: licence,
              type: 'BugFix',
+             text: item
+           })
+         })
+       })
+
+       licences.forEach((licence) => {
+         this.changelog[licence].other.forEach((item) => {
+           items.push({
+             licence: licence,
              text: item
            })
          })

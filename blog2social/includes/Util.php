@@ -49,16 +49,16 @@ class B2S_Util {
         return $fileSize = round($kbytes / 1024, 0) . 'MB';
     }
 
-    public static function getRemainingVideoVolume($kbytes){
-        if(self::convertKbToGbOneDecimal($kbytes) > 1){
-            return self::convertKbToGbOneDecimal($kbytes) ;
+    public static function getRemainingVideoVolume($kbytes) {
+        if (self::convertKbToGbOneDecimal($kbytes) > 1) {
+            return self::convertKbToGbOneDecimal($kbytes);
         } else {
             return self::convertKbToMb($kbytes);
         }
     }
 
     public static function getUsedPercentOfXy($open, $total) {
-        $usedOf = (100-((100 / $total) * $open));
+        $usedOf = (100 - ((100 / $total) * $open));
         return round($usedOf, 2);
     }
 
@@ -449,6 +449,30 @@ class B2S_Util {
         return $postContent;
     }
 
+    //BlueSky cuts urls after 16 chars into the path
+    public static function getNetwork43UrlLength($url = "") {
+        if (!empty($url)) {
+            $hostlength = 0;
+            $pathlength = 0;
+            $parsedurl = parse_url($url);
+            if (isset($parsedurl["host"]) && !empty($parsedurl["host"])) {
+                $hostlength = strlen($parsedurl["host"]);
+            }
+            if (isset($parsedurl["path"]) && !empty($parsedurl["path"])) {
+                //last slash only counts if more chars follow
+                if ($parsedurl["path"] == "/") {
+                    $parsedurl["path"] = "";
+                }
+                $pathlength = strlen($parsedurl["path"]);
+                if ($pathlength > 16) {
+                    $pathlength = 16;
+                }
+            }
+            return $hostlength + $pathlength + 1; // +1 \n
+        }
+        return 0;
+    }
+
 //Emoji by Schedule + AllowNoNetwork
     public static function remove4byte($content) {
         if (function_exists('iconv')) {
@@ -495,9 +519,9 @@ class B2S_Util {
             $rand = '0' . $rand;
         }
         $hour = substr($rand, 0, 2);
-        $minute = substr($rand, 2, 2);       
-        $timeSlots = array('00','15','30','45');
-        $minuteRound = $timeSlots[($minute % 5)];   
+        $minute = substr($rand, 2, 2);
+        $timeSlots = array('00', '15', '30', '45');
+        $minuteRound = $timeSlots[($minute % 5)];
         return $hour . ':' . $minuteRound;
     }
 

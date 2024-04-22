@@ -53,6 +53,15 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 		 * @return mixed Value of the transient (or value of the specific index inside transient).
 		 */
 		public static function get( $transient, $index = null ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_suppress_cache
+			 *
+			 * Allow third party code to suppress cache handling.
+			 *
+			 * @param bool $suppress_cache Default value: false.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_wcan_suppress_cache', false ) ) {
 				return false;
 			}
@@ -73,6 +82,17 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 				return false;
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_get_transient
+			 *
+			 * Allow third party code to filter values stored in plugin's cache.
+			 *
+			 * @param mixed  $value     Cached value.
+			 * @param string $transient Name of the transient to access.
+			 * @param string $index     Optional name of the index to access inside transient.
+			 *
+			 * @return mixed
+			 */
 			return apply_filters( 'yith_wcan_get_transient', self::$transients[ $transient ]['value'][ $index ], $transient, $index );
 		}
 
@@ -87,6 +107,15 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 		 * @return bool|mixed False on failure, new value otherwise.
 		 */
 		public static function set( $transient, $value, $index = null, $now = false ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_suppress_cache
+			 *
+			 * Allow third party code to suppress cache handling.
+			 *
+			 * @param bool $suppress_cache Default value: false.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_wcan_suppress_cache', false ) ) {
 				return false;
 			}
@@ -122,6 +151,15 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 		 * @return bool False on failure; true otherwise.
 		 */
 		public static function delete( $transient, $now = false ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_suppress_cache
+			 *
+			 * Allow third party code to suppress cache handling.
+			 *
+			 * @param bool $suppress_cache Default value: false.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_wcan_suppress_cache', false ) ) {
 				return false;
 			}
@@ -146,6 +184,15 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 		 * @return void
 		 */
 		public static function update_transients() {
+			/**
+			 * APPLY_FILTERS: yith_wcan_suppress_cache
+			 *
+			 * Allow third party code to suppress cache handling.
+			 *
+			 * @param bool $suppress_cache Default value: false.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_wcan_suppress_cache', false ) ) {
 				return;
 			}
@@ -238,6 +285,7 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 			$transient_array    = array();
 			$builtin_transients = array(
 				'queried_products',
+				'queried_products_or_variations',
 				'object_in_terms',
 				'products_instock',
 			);
@@ -246,7 +294,27 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 				$default_name = "yith_wcan_{$transient}_{$cache_version}{$language_postfix}";
 
 				$transient_array[ $transient ] = array(
-					'name'     => apply_filters( "yith_wcan_{$transient}_name", $default_name ),
+					/**
+					 * APPLY_FILTERS: yith_wcan_$transient_name
+					 *
+					 * Allow third party code to filter option name for builtin transients.
+					 * <code>$transient</code> will be replaced with the id of the cache transient.
+					 *
+					 * @param string $default_name Default transient name.
+					 *
+					 * @return string
+					 */
+					'name' => apply_filters( "yith_wcan_{$transient}_name", $default_name ),
+					/**
+					 * APPLY_FILTERS: yith_wcan_$transient_duration
+					 *
+					 * Allow third party code to filter duration for builtin transients.
+					 * <code>$transient</code> will be replaced with the id of the cache transient.
+					 *
+					 * @param int $transient_duration Default transient duration.
+					 *
+					 * @return int
+					 */
 					'duration' => apply_filters( "yith_wcan_{$transient}_duration", 30 * DAY_IN_SECONDS ),
 				);
 			}
@@ -257,6 +325,15 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 				'duration' => 30 * DAY_IN_SECONDS,
 			);
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_cache_helper_transients
+			 *
+			 * Allow third party code to filter plugin's cached values.
+			 *
+			 * @param array $transient_array Array of cached values.
+			 *
+			 * @return array
+			 */
 			self::$transients = apply_filters( 'yith_wcan_cache_helper_transients', $transient_array );
 		}
 

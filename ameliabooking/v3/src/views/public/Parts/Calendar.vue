@@ -12,6 +12,8 @@
       :nested-item="nested"
       :label-slots-selected="props.labelSlotsSelected"
       :busyness="busyness"
+      :date="props.date"
+      :service-id="props.serviceId"
       @selected-date="setSelectedDate"
       @selected-time="setSelectedTime"
       @changed-month="changeMonth"
@@ -39,19 +41,49 @@
 </template>
 
 <script setup>
-import { ref, provide, inject, computed, watch, nextTick } from "vue";
+// * Import from Vue
+import {
+  ref,
+  provide,
+  inject,
+  computed,
+  watch,
+  nextTick
+} from "vue";
+
+// * Import from vuex
 import { useStore } from "vuex";
-import moment from "moment";
+
+//  * Dedicated component
 import AmAdvancedSlotCalendar from "../../_components/advanced-slot-calendar/AmAdvancedSlotCalendar";
-import { useAvailableSlots, useCalendarEvents, useDuration, useBusySlots } from "../../../assets/js/common/appointments.js";
-import { useCartItem } from "../../../assets/js/public/cart";
-import { useSortedDateStrings } from "../../../assets/js/common/helper";
+
+// * Composables
+import {
+  useCartItem,
+} from "../../../assets/js/public/cart.js";
+import {
+  useCalendarEvents,
+  useDuration,
+} from "../../../assets/js/common/appointments.js";
 import { useAppointmentSlots } from "../../../assets/js/public/slots";
 
+// * Component props
 const props = defineProps({
+  slotsParams: {
+    type: Object,
+    default: () => {}
+  },
   id: {
     type: Number,
     default: 0
+  },
+  serviceId: {
+    type: Number,
+    default: 0
+  },
+  date: {
+    type: String,
+    default: ''
   },
   loadCounter: {
     type: Number,
@@ -77,9 +109,9 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  rememberSlots: {
-    type: Boolean,
-    default: false
+  fetchedSlots: {
+    type: Object,
+    default: () => {}
   },
   inCollapse: {
     type: Boolean,
@@ -103,18 +135,14 @@ let nested = computed(() => {
 
 const store = useStore()
 
-let cartItem = computed(() => useCartItem(store))
-
 let searchStart = ref(null)
 
 let searchEnd = ref(null)
 
 let selectedYearMonth = ref('')
 
-let slotsParams = inject('slotsParams')
-
 function loadSlots (customCallback) {
-  let range = store.getters['booking/getMultipleAppointmentsRange']
+  let range = useRange(store)
 
   if (range) {
     searchStart.value = range.start
@@ -161,6 +189,14 @@ let calendarSlotDuration = inject('calendarSlotDuration')
 
 let calendarServiceDuration = inject('calendarServiceDuration')
 
+let useSlotsCallback = inject('useSlotsCallback')
+let useSelectedDuration = inject('useSelectedDuration')
+let useSelectedDate = inject('useSelectedDate')
+let useBusySlots = inject('useBusySlots')
+let useSelectedTime = inject('useSelectedTime')
+let useDeselectedDate = inject('useDeselectedDate')
+let useRange = inject('useRange')
+
 provide('calendarEvents', calendarEvents)
 
 provide('calendarEventSlots', calendarEventSlots)
@@ -173,8 +209,6 @@ provide('calendarStartDate', calendarStartDate)
 
 provide('calendarChangeSideBar', calendarChangeSideBar)
 
-provide('cartItem', cartItem)
-
 
 /*********
  * Other *
@@ -183,7 +217,9 @@ provide('cartItem', cartItem)
 function setSelectedDuration (value) {
   store.commit('booking/setBookingDuration', value)
 
-  let service = store.getters['entities/getService'](cartItem.value.serviceId)
+  let cartItem = useCartItem(store)
+
+  let service = store.getters['entities/getService'](cartItem.serviceId)
 
   let extrasIds = store.getters['booking/getSelectedExtras'].map(i => i.extraId)
 
@@ -195,14 +231,14 @@ function setSelectedDuration (value) {
 }
 
 function setSelectedDate (value) {
-  store.commit('booking/setMultipleAppointmentsDate', value)
-
-  store.commit('booking/setMultipleAppointmentsRange', {
-    start: searchStart.value,
-    end: searchEnd.value,
-  })
-
-  calendarEventSlots.value = useAvailableSlots(store)
+  calendarEventSlots.value = useSelectedDate(
+    store,
+    value,
+    {
+      start: searchStart.value,
+      end: searchEnd.value,
+    }
+  )
 
   calendarEventBusySlots.value = useBusySlots(store)
 
@@ -212,13 +248,13 @@ function setSelectedDate (value) {
 }
 
 function setSelectedTime (value) {
-  store.commit('booking/setMultipleAppointmentsTime', value)
+  useSelectedTime(store, value)
 
   calendarEventSlot.value = value
 }
 
 function unselectDate () {
-  store.commit('booking/unsetMultipleAppointmentsData', cartItem.value.index)
+  useDeselectedDate(store)
 
   calendarEventSlots.value = []
 
@@ -237,48 +273,35 @@ function renderedMonth (data) {
   searchEnd.value = data.end
 }
 
-function getSlotsCallback (slots, minimumDateTime, maximumDateTime, customCallback) {
+function getSlotsCallback (slots, occupied, minimumDateTime, maximumDateTime, busyness, appCount, lastBookedProviderId, customCallback) {
   calendarMinimumDate.value = minimumDateTime
   calendarMaximumDate.value = maximumDateTime
 
-  let dates = useSortedDateStrings(Object.keys(slots))
-
-  let activeService = cartItem.value.services[cartItem.value.serviceId]
-
   calendarEvents.value = useCalendarEvents(slots)
 
-  if (cartItem.value.index !== '' && activeService.list.length) {
-    calendarStartDate.value = (selectedYearMonth.value ? selectedYearMonth.value + '-01' : (activeService.list[cartItem.value.index].date ? activeService.list[cartItem.value.index].date : (dates.length ? dates[0] : null)))
-    if (!(activeService.list[cartItem.value.index].date in slots)) {
-      store.commit('booking/setMultipleAppointmentsDate', null)
-      store.commit('booking/setMultipleAppointmentsTime', null)
+  let result = useSlotsCallback(
+    store,
+    slots,
+    occupied,
+    minimumDateTime,
+    maximumDateTime,
+    busyness,
+    appCount,
+    lastBookedProviderId,
+    searchStart,
+    searchEnd
+  )
 
-      calendarEventSlot.value = ''
+  if ('calendarStartDate' in result) {
+    calendarStartDate.value = selectedYearMonth.value ? selectedYearMonth.value + '-01' : result.calendarStartDate
+  }
 
-      calendarEventSlots.value = []
+  if ('calendarEventSlot' in result) {
+    calendarEventSlot.value = result.calendarEventSlot
+  }
 
-    } else if (activeService.list.length && !(activeService.list[cartItem.value.index].time in slots[activeService.list[cartItem.value.index].date])) {
-      store.commit('booking/setMultipleAppointmentsTime', null)
-
-      calendarEventSlot.value = ''
-    }
-
-    if (activeService.list.length &&
-      activeService.list[cartItem.value.index].date &&
-      (searchStart.value ? moment(activeService.list[cartItem.value.index].date).isSameOrAfter(searchStart.value) : true) &&
-      (searchEnd.value ? moment(activeService.list[cartItem.value.index].date).isSameOrBefore(searchEnd.value) : true)
-    ) {
-      if (activeService.list[cartItem.value.index].date in activeService.slots) {
-        let availableSlots = useAvailableSlots(store)
-
-        calendarEventSlots.value = availableSlots.length ?
-          availableSlots : Object.keys(activeService.slots[activeService.list[cartItem.value.index].date])
-
-        if (activeService.list[cartItem.value.index].time) {
-          calendarEventSlot.value = activeService.list[cartItem.value.index].time
-        }
-      }
-    }
+  if ('calendarEventSlots' in result) {
+    calendarEventSlots.value = result.calendarEventSlots
   }
 
   nextTick(() => {
@@ -296,15 +319,14 @@ function getSlots (customCallback) {
   emits('loadingSlots', true)
 
   useAppointmentSlots(
-    store,
     Object.assign(
       {
         startDateTime: searchStart.value,
         endDateTime: searchEnd.value,
       },
-      slotsParams.value
+      props.slotsParams
     ),
-    props.rememberSlots,
+    props.fetchedSlots,
     getSlotsCallback,
     customCallback
   )
@@ -318,7 +340,8 @@ function unsetData () {
 
 defineExpose({
   loadSlots,
-  unsetData
+  unsetData,
+  calendarSlotsLoading
 })
 </script>
 

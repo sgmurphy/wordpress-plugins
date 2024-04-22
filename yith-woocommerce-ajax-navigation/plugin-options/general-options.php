@@ -2,16 +2,58 @@
 /**
  * General options
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter\Options
  * @version 4.0.0
  */
 
+/**
+ * APPLY_FILTERS: yith_wcan_panel_general_options
+ *
+ * Filters General panel options.
+ *
+ * @param array $options Panel options.
+ *
+ * @return array
+ */
 return apply_filters(
 	'yith_wcan_panel_general_options',
 	array(
 
 		'general' => array(
+			'general_section_start' => array(
+				'name' => _x( 'General options', '[ADMIN] General settings page', 'yith-woocommerce-ajax-navigation' ),
+				'type' => 'title',
+				'desc' => '',
+				'id'   => 'yith_wcan_general_settings',
+			),
+
+			'lazy_load'         => array(
+				'name'      => _x( 'Lazy filters loading', '[ADMIN] General settings page', 'yith-woocommerce-ajax-navigation' ),
+				'desc'      => _x( 'Choose whether to use lazy loading for the filters in the preset to speed up the initial page loading', '[ADMIN] General settings page', 'yith-woocommerce-ajax-navigation' ),
+				'id'        => 'yith_wcan_lazy_load_filters',
+				'type'      => 'yith-field',
+				'default'   => 'no',
+				'yith-type' => 'onoff',
+			),
+
+			'paginate_terms'    => array(
+				'name'      => _x( 'Paginate terms', '[ADMIN] General settings page', 'yith-woocommerce-ajax-navigation' ),
+				'desc'      => sprintf(
+				// translators: 1. Number of terms shown of first loading.
+					_x( 'When enabled, taxonomy filters won\'t show more than %d terms. If there are more terms available, the system will show a "Load more" link to show the remaining terms', '[ADMIN] General settings page', 'yith-woocommerce-ajax-navigation' ),
+					YITH_WCAN_Filters_Factory::get_terms_on_first_loading(),
+				),
+				'id'        => 'yith_wcan_paginate_terms',
+				'type'      => 'yith-field',
+				'default'   => 'no',
+				'yith-type' => 'onoff',
+			),
+
+			'general_section_end'   => array(
+				'type' => 'sectionend',
+				'id'   => 'yith_wcan_general_settings',
+			),
 
 			'reset_section_start' => array(
 				'name' => _x( 'Reset button', '[ADMIN] General settings page', 'yith-woocommerce-ajax-navigation' ),

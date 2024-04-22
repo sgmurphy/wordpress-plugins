@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 12:53+0200\n"
-"PO-Revision-Date: 2024-02-29 17:21+0100\n"
+"POT-Creation-Date: 2024-04-18 11:35+0200\n"
+"PO-Revision-Date: 2024-04-09 12:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
 "Language: nl_BE\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;gettext;gettext_noop;_\n"
@@ -85,8 +85,8 @@ msgstr ""
 "verloren gaan."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:37
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:203
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:204
 msgid "Close"
 msgstr "Sluit"
 
@@ -105,7 +105,7 @@ msgid "Comma (,)"
 msgstr "Komma (,)"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:41
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:149
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:150
 msgid "Continue"
 msgstr "Ga verder"
 
@@ -170,7 +170,7 @@ msgstr "Jaren"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:55
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1302
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:179
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:180
 msgid "Date"
 msgstr "Datum"
 
@@ -179,7 +179,7 @@ msgid "Delete"
 msgstr "Verwijder"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:57
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:233
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:234
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -214,7 +214,7 @@ msgstr "voorbeeld@mail.com"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:324
 #: src/Infrastructure/WP/Translations/BackendStrings.php:562
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1305
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:182
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:183
 msgid "Employee"
 msgstr "Werknemer"
 
@@ -249,8 +249,8 @@ msgstr "Fout"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:71
 #: src/Infrastructure/WP/Translations/BackendStrings.php:566
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:175
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:176
 msgid "Event"
 msgstr "Evenement"
 
@@ -448,7 +448,7 @@ msgid "No"
 msgstr "Nee"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:111
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:257
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:258
 msgid "There are no results..."
 msgstr "Er zijn geen resultaten..."
 
@@ -522,10 +522,10 @@ msgstr "Gedeeltelijk betaald"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:561
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1288
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1298
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:178
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:205
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:179
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:206
 msgid "Payment"
 msgstr "Betaling"
 
@@ -548,7 +548,7 @@ msgstr "In afwachting"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:132
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1237
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1381
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1384
 msgid "Phone"
 msgstr "Telefoon"
 
@@ -585,20 +585,20 @@ msgstr "Gelieve tijd te selecteren"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1267
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1269
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1304
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1430
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:162
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:165
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:181
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:242
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:163
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:166
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:182
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:243
 msgid "Service"
 msgstr "Dienst"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:140
 #: src/Infrastructure/WP/Translations/BackendStrings.php:327
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1290
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:173
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:243
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:174
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:244
 msgid "Services"
 msgstr "Diensten"
 
@@ -1003,7 +1003,7 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:232
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1167
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -1401,17 +1401,16 @@ msgid "Create Meetings For Pending Appointments"
 msgstr "Meeting voor afspraken in behandeling creëren"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:322
-msgid "Check customer's name for existing email when booking"
+#, fuzzy
+msgid "Check customer's name for existing email/phone when booking"
 msgstr ""
 "Controleer de naam van de klant voor bestaande e-mail tijdens het boeken"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:323
 msgid ""
-"Enable this option if you don't want to allow \"existing customer\"<br/>to "
-"use different first and last name when booking."
+"Enable this option to ensure that customers using an existing email or phone "
+"number maintain consistent first and last names."
 msgstr ""
-"Schakel deze optie in als u niet wilt toestaan dat ' bestaande klant ' <br/> "
-"verschillende voor-en achternaam gebruikt bij het boeken."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:328
 msgid "Labels"
@@ -1565,7 +1564,7 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:358
 #: src/Infrastructure/WP/Translations/BackendStrings.php:969
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:172
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:173
 msgid "Payments"
 msgstr "Betalingen"
 
@@ -2341,7 +2340,7 @@ msgstr "Event beschrijving"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:536
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1245
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:219
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:220
 #, fuzzy
 msgid "Event Location"
 msgstr "Event locatie"
@@ -2359,8 +2358,8 @@ msgid "End time of the event"
 msgstr "Eindtijd event"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:540
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:177
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:178
 #, fuzzy
 msgid "Event ID"
 msgstr "Eventdatum"
@@ -2445,7 +2444,7 @@ msgstr "Telefoon:"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:563
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1017
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1268
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:164
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:165
 msgid "Category"
 msgstr "Categorie"
 
@@ -2878,7 +2877,7 @@ msgid "Hide"
 msgstr "Verberg"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:712
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
 msgid "Show"
 msgstr "Toon"
 
@@ -2917,8 +2916,8 @@ msgid "Add Resource"
 msgstr "Service toevoegen"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:743
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1388
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:231
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1391
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:232
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -3040,7 +3039,7 @@ msgid "New Service"
 msgstr "Nieuwe dienst"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:771
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1358
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1361
 #, fuzzy
 msgid "+more"
 msgstr "+meer"
@@ -3144,7 +3143,7 @@ msgstr "Maak nieuwe"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:806
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1235
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1380
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1383
 msgid "Email"
 msgstr "E-mail"
 
@@ -3162,13 +3161,13 @@ msgstr "Geef de achternaam op"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:809
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1232
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1378
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1381
 msgid "First Name"
 msgstr "Voornaam"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:810
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1233
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1379
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1382
 msgid "Last Name"
 msgstr "Achternaam"
 
@@ -3662,7 +3661,7 @@ msgstr "Serviceprijs"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:996
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1293
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:259
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:260
 msgid "Subtotal"
 msgstr "Subtotaal"
 
@@ -3818,14 +3817,14 @@ msgstr "Maximum aantal plaatsen is"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1041
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1213
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:258
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:259
 msgid "Select Service"
 msgstr "Selecteer Service"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1042
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1204
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:163
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:164
 msgid "Please select service"
 msgstr "Gelieve dienst te selecteren"
 
@@ -3846,7 +3845,7 @@ msgid "Start Time"
 msgstr "Begintijd"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1048
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:124
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:125
 msgid "Time slot is unavailable"
 msgstr "Het tijdsslot is niet beschikbaar"
 
@@ -4303,7 +4302,7 @@ msgid "Steps"
 msgstr "Stappen"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1214
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1372
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1375
 msgid "Text"
 msgstr "Tekst"
 
@@ -4403,8 +4402,8 @@ msgid "Phone Input Field"
 msgstr "Invoerveld telefoon"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1239
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1406
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:241
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1409
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:242
 #, fuzzy
 msgid "Go Back"
 msgstr "Ga terug"
@@ -4438,7 +4437,7 @@ msgid "From"
 msgstr "Van"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1250
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
 msgid "Free"
 msgstr "Gratis"
 
@@ -4481,13 +4480,13 @@ msgid "Event Status"
 msgstr "Event status"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1260
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:199
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:200
 #, fuzzy
 msgid "Filters"
 msgstr "Filters"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1261
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:196
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:197
 #, fuzzy
 msgid "Book event"
 msgstr "Boek event"
@@ -4508,8 +4507,8 @@ msgid "Use Global Colors"
 msgstr "Globale kleuren gebruiken"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1266
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1349
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:161
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1352
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:162
 #, fuzzy
 msgid "Service Selection"
 msgstr "Dienst selectie"
@@ -4525,21 +4524,21 @@ msgid "Bringing Anyone With You"
 msgstr "Iedereen meenemen"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1273
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:183
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:218
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:184
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:219
 #, fuzzy
 msgid "Show more"
 msgstr "Bekijk meer"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1274
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:184
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:217
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:185
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:218
 #, fuzzy
 msgid "Show less"
 msgstr "Toon minder"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1276
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:166
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:167
 #, fuzzy
 msgid "Date & Time"
 msgstr "Datum & tijd"
@@ -4550,27 +4549,27 @@ msgid "All slots are selected"
 msgstr "Alle slots zijn geselecteerd"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1278
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:167
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:206
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:168
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:207
 #, fuzzy
 msgid "Your Information"
 msgstr "Jouw informatie"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1279
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:168
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:169
 #, fuzzy
 msgid "Enter first name"
 msgstr "Voer voornaam in"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1281
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:169
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:170
 #, fuzzy
 msgid "Enter last name"
 msgstr "Voer achternaam in"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1283
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:170
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:171
 #, fuzzy
 msgid "Enter email"
 msgstr "Voer email in"
@@ -4581,7 +4580,7 @@ msgid "Please enter valid email"
 msgstr "Voer een geldig e-mailadres in"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1285
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:171
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:172
 #, fuzzy
 msgid "Enter phone"
 msgstr "Voer telefoon in"
@@ -4592,7 +4591,7 @@ msgid "Please enter phone"
 msgstr "Gelieve telefoon in te voeren"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1289
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:157
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:158
 #, fuzzy
 msgid "Summary"
 msgstr "Samenvatting"
@@ -4614,37 +4613,37 @@ msgid "Total Amount"
 msgstr "Totaalbedrag"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1295
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:153
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:154
 #, fuzzy
 msgid "The payment will be done on-site."
 msgstr "De betaling gebeurt ter plaatse."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1296
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:176
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:177
 #, fuzzy
 msgid "Appointment ID"
 msgstr "Afspraak ID"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1299
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:159
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:160
 #, fuzzy
 msgid "Your Name"
 msgstr "Jouw naam"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1300
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:150
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:151
 #, fuzzy
 msgid "Email Address"
 msgstr "Email adres"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1301
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:154
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:155
 #, fuzzy
 msgid "Phone Number"
 msgstr "Telefoonnummer"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1303
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:180
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:181
 #, fuzzy
 msgid "Local Time"
 msgstr "Lokale tijd"
@@ -4676,23 +4675,18 @@ msgid "Booking Forms 1.0"
 msgstr "Booking Forms 1.0"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1311
-#, fuzzy
 msgid ""
-"Redesigned and upgraded Step-by-Step Booking form with a better user "
-"experience, animations, improved speed, and a stand-out design!"
+"Use the upgraded Step-by-Step Booking Form 2.0 for a simplified, direct "
+"booking process on your page. Customize its design and labels to enhance "
+"user experience and meet your business needs."
 msgstr ""
-"Herontworpen en opgewaardeerd stap-voor-stap reserveringsformulier met een "
-"betere gebruikerservaring, animaties, verbeterde snelheid en een opvallend "
-"ontwerp!"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1312
-#, fuzzy
 msgid ""
-"Step-by-Step 1.0 Booking, Catalog Booking, Search Booking, Event List and "
-"Event Calendar Bookings."
+"The original booking forms—Step-by-Step, Catalog, Event List, and Event "
+"Calendar—feature basic customization and label changes, serving as the "
+"foundation for our newer versions."
 msgstr ""
-"Step-by-Step 1.0 Boeken, Catalogus Boeken, Zoeken Boeken, Evenementenlijst "
-"en Evenementenkalender Boeken."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1313
 #, fuzzy
@@ -4700,7 +4694,7 @@ msgid "Primary and state colors"
 msgstr "Primaire en staatskleuren"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1314
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1361
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1364
 #, fuzzy
 msgid "Sidebar"
 msgstr "Sidebar"
@@ -4783,656 +4777,669 @@ msgstr "Type secundaire knop"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1332
 #, fuzzy
+msgid "Danger Button Background Color"
+msgstr "Primaire achtergrond"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1333
+#, fuzzy
+msgid "Danger Button Text Color"
+msgstr "Primaire kleur"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1334
+#, fuzzy
 msgid "Layout & Inputs"
 msgstr "Layout & Inputs"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1333
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1335
 #, fuzzy
 msgid "Colors"
 msgstr "Kleuren"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1334
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1336
 #, fuzzy
 msgid "Fonts"
 msgstr "Lettertypes"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1335
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1337
 #, fuzzy
 msgid "Order"
 msgstr "Bestelling"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1336
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1338
 #, fuzzy
 msgid "Step Title"
 msgstr "Stap Titel"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1337
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1339
 #, fuzzy
 msgid "Footer Buttons"
 msgstr "Footer knoppen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1338
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1340
 #, fuzzy
 msgid "Step Content"
 msgstr "Stap content"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1339
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1382
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1341
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1385
 #, fuzzy
 msgid "Finish Button Type"
 msgstr "Type knop Voltooien"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1340
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1383
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1342
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1386
 #, fuzzy
 msgid "Panel Button Type"
 msgstr "Type panel knop"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1341
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1343
 #, fuzzy
 msgid "Summary Segment"
 msgstr "Samenvatting Segment"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1342
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1344
 #, fuzzy
 msgid "Payment Segment"
 msgstr "Betalingssegment"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1343
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1345
 #, fuzzy
 msgid "Heading Title"
 msgstr "Heading Titel"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1344
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1346
 #, fuzzy
 msgid "Sub Steps"
 msgstr "Substappen"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1347
 #, fuzzy
+msgid "Step Popups"
+msgstr "Stappen"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1350
+#, fuzzy
 msgid "Fonts and colors"
 msgstr "Lettertypes en kleuren"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1348
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1351
 msgid "Set up Sidebar visibility and its content"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1350
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1353
 #, fuzzy
 msgid "Set up Services, Locations, Employees selection options"
 msgstr "Diensten, locaties, keuzemogelijkheden voor werknemers"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1351
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1354
 msgid "Date & Time Selection"
 msgstr "Datum en Tijd event"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1352
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1355
 #, fuzzy
 msgid "Set up Calendar layout and Recurring popup options"
 msgstr "Agenda-indeling en terugkerende pop-up opties"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1353
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1356
 msgid "Customer Information"
 msgstr "Klantaantekening"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1354
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1357
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
 #, fuzzy
 msgid "Field order, mandatory fields, labels and display options"
 msgstr "Veldvolgorde, labels en weergaveopties"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1355
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1358
 msgid "Payment Summary"
 msgstr "Betaal Geschiedenis"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1356
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1359
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
 #, fuzzy
 msgid "Set up labels and buttons"
 msgstr "Kaarten en buttons"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1357
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1360
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
 msgid "Set up button types and labels"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1360
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1363
 #, fuzzy
 msgid "Global Settings"
 msgstr "Globale instellingen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1362
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1365
 msgid "Section"
 msgstr "Actie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1363
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1366
 #, fuzzy
 msgid "Field Order"
 msgstr "Veldopdracht"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1364
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1367
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:95
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:204
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:205
 msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1366
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1369
 #, fuzzy
 msgid "Footer"
 msgstr "Footer"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1367
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:151
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1370
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:152
 #, fuzzy
 msgid "Get in Touch"
 msgstr "Kom in contact"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1371
 #, fuzzy
 msgid "Collapse Menu"
 msgstr "Menu inklappen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1370
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1373
 #, fuzzy
 msgid "Filled"
 msgstr "Gevuld"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1371
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1374
 #, fuzzy
 msgid "Plain"
 msgstr "Gewoon"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1374
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1377
 #, fuzzy
 msgid "Continue Button Type"
 msgstr "Type knop Doorgaan"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1375
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1378
 #, fuzzy
 msgid "Calendar Slot End Time"
 msgstr "Eindtijd kalenderslot"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1376
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1379
 msgid "Show Busy Time Slots"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1377
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1380
 #, fuzzy
 msgid "Calendar Time Zone"
 msgstr "Kalender tijdzone"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1384
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1387
 #, fuzzy
 msgid "Sidebar Visibility"
 msgstr "Zichtbaarheid Sidebar"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1385
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1388
 #, fuzzy
 msgid "Publish Form"
 msgstr "Formulier publiceren"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1387
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:236
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1390
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:237
 msgid "View All"
 msgstr "Bekijken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1389
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1392
 msgid "Set up categories cards"
 msgstr "Toon alle rubrieken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1390
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1393
 #, fuzzy
 msgid "Cards"
 msgstr "Toon alle rubrieken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1391
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1394
 msgid "Card Button Type"
 msgstr "Radioknoppen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1392
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1395
 msgid "Services Overview"
 msgstr "Service prijs"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1393
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1396
 msgid "Set up Services view"
 msgstr "Sorteer Diensten:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1394
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1397
 msgid "Service Details"
 msgstr "Service details"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1395
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1398
 msgid "Set up Service detailed view"
 msgstr "Service details"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1396
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1399
 msgid "Booking Form"
 msgstr "Boeken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1397
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1400
 msgid "Set options, colors and labels for booking form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1399
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1402
 #, fuzzy
 msgid "Catalog Booking Form 2.0"
 msgstr "Catalogus Boekingsformulier"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1400
-#, fuzzy
-msgid ""
-"Modernized Catalog Booking Form 2.0 with better user experience, improved "
-"speed, animation and a stand-out design!"
-msgstr ""
-"Herontworpen en opgewaardeerd stap-voor-stap reserveringsformulier met een "
-"betere gebruikerservaring, animaties, verbeterde snelheid en een opvallend "
-"ontwerp!"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1403
+msgid ""
+" Discover the modernized Catalog Booking Form 2.0 that showcases services in "
+"stylish card layouts. Easily add categories and adjust the appearance to "
+"reflect your brand."
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1406
 msgid "Total Number of Services"
 msgstr "Totaal aantal personen:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1404
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1407
 msgid "Back Button"
 msgstr "Radioknoppen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1405
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1408
 #, fuzzy
 msgid "“Back” Button Type"
 msgstr "Type panel knop"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1407
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1410
 msgid "“Book Now” Button Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1410
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1413
 msgid "Main Category Button"
 msgstr "Categorie Naam"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1411
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1414
 msgid "Category Card Side Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1412
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1415
 msgid "Category Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1416
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1419
 #, fuzzy
 msgid "Filter Menu Button Type"
 msgstr "Type knop Voltooien"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1417
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1419
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1420
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1422
 msgid "Categories Sidebar"
 msgstr "Categorieën"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1418
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1421
 #, fuzzy
 msgid "Filters Block"
 msgstr "Filters"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1420
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1423
 #, fuzzy
 msgid "Page Header"
 msgstr "Header"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1421
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1424
 #, fuzzy
 msgid "Main Content"
 msgstr "Main Content"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1422
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1425
 msgid "Service Category"
 msgstr "Service categorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1423
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1426
 msgid "Service Duration"
 msgstr "Duurtijd van de dienst"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1424
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:239
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1427
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:240
 msgid "About Service"
 msgstr "Service toevoegen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1425
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1428
 msgid "“Search” option"
 msgstr "Zoek coupons"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1426
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1429
 msgid "Card Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1428
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:237
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:238
 msgid "Search"
 msgstr "Zoeken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1429
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:255
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:256
 msgid "Available"
 msgstr "Beschikbaar"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
 msgid "No results"
 msgstr "resultaten"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:238
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:239
 msgid "Book Now"
 msgstr "Book"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:240
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:241
 msgid "View all photos"
 msgstr "Alle locaties weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1441
 msgid "Support Heading:"
 msgstr "In afwachting"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1442
 msgid "Company Phone:"
 msgstr "Bedrijf telefoon"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
 msgid "Company Email:"
 msgstr "Bedrijfsnaam"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1446
 #, fuzzy
 msgid "Event List Booking Form 2.0"
 msgstr "Boeken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1444
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
 msgid ""
-"Modernized Event List Booking Form 2.0 with better user experience, improved "
-"speed, animation and a stand-out design!"
+"The Event List Booking Form 2.0 offers an intuitive and fast booking "
+"experience, with a design that stands out. Customers can effortlessly browse "
+"and book from a list of events."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1446
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
 #, fuzzy
 msgid "Events List"
 msgstr "Evenementenlijst"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
 msgid ""
 "Set up Location, Images, Filters, Capacity, Price, and Status visibility "
 "options"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1448
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:109
 msgid "Event Info"
 msgstr "Eventinformatie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
 msgid "Set up Staff, Location, Gallery and other Event information visibility"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
 #, fuzzy
 msgid "Customer Info"
 msgstr "Klantaantekening"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:208
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:209
 #, fuzzy
 msgid "Events Available"
 msgstr "Beschikbaar"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:209
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:210
 #, fuzzy
 msgid "Event Available"
 msgstr "Beschikbaar"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
 #, fuzzy
 msgid "Page"
 msgstr "Klantpaneelpagina URL"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:210
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:211
 #, fuzzy
 msgid "Search for Events"
 msgstr "Zoek events…"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
 msgid "Begins"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:211
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:212
 msgid "slot left"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:212
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:213
 msgid "slots left"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:213
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:214
 #, fuzzy
 msgid "Learn more"
 msgstr "Leer meer"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:214
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:215
 #, fuzzy
 msgid "Read more"
 msgstr "Lees meer"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
 msgid "About"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:215
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:216
 #, fuzzy
 msgid "Timetable"
 msgstr "Tijdlijn"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:207
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:208
 #, fuzzy
 msgid "About Event"
 msgstr "Over dit Event"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:200
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:201
 #, fuzzy
 msgid "Event Starts"
 msgstr "Eventdatum"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:201
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:202
 #, fuzzy
 msgid "Event Ends"
 msgstr "Evenementen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:202
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1481
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:203
 msgid "at"
 msgstr "Datum"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:216
-msgid "How many attendees do you want to book event for?"
-msgstr ""
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1482
-#, fuzzy
-msgid "Step Filters"
-msgstr "Zoekfilters"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
-#, fuzzy
-msgid "Event Card"
-msgstr "Eventdatum"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1484
-msgid "Step Pagination"
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:217
+msgid "How many attendees do you want to book event for?"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1485
 #, fuzzy
+msgid "Step Filters"
+msgstr "Zoekfilters"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
+#, fuzzy
+msgid "Event Card"
+msgstr "Eventdatum"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
+msgid "Step Pagination"
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
+#, fuzzy
 msgid "Event Slots Capacity"
 msgstr "Capaciteit"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
 #, fuzzy
 msgid "Filters Button Type"
 msgstr "Radioknoppen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
 #, fuzzy
 msgid "Read More Button Type"
 msgstr "Radioknoppen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
 #, fuzzy
 msgid "Learn More Button Type"
 msgstr "Radioknoppen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
 #, fuzzy
 msgid "Event Tab Image"
 msgstr "Eventnaam"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
 msgid "Step Header"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
-msgid "Step Info Tab"
-msgstr ""
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
-#, fuzzy
-msgid "Booking Event Button"
-msgstr "Reservering start"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
-#, fuzzy
-msgid "Finish Button"
-msgstr "Type knop Voltooien"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1494
-msgid "Close Event Button"
+msgid "Step Info Tab"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1495
 #, fuzzy
+msgid "Booking Event Button"
+msgstr "Reservering start"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
+#, fuzzy
+msgid "Finish Button"
+msgstr "Type knop Voltooien"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1497
+msgid "Close Event Button"
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
+#, fuzzy
 msgid "Event Gallery"
 msgstr "Eventgalerij:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
 msgid "Event Description"
 msgstr "Event omschrijving"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:174
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1501
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:175
 #, fuzzy
 msgid "person"
 msgstr "persoon"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1502
 #, fuzzy
 msgid "Event Employees"
 msgstr "Werknemer bewerken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1509
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1512
 msgid "Catalog"
 msgstr "Catalogus"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1510
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
 #, fuzzy
 msgid "Choose Category"
 msgstr "Kies categorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1511
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
 #, fuzzy
 msgid "Choose Service"
 msgstr "Kies diensten"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1512
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
 #, fuzzy
 msgid "Choose Package"
 msgstr "Kies pakket"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
 msgid "Preselect Booking Parameters"
 msgstr "Preselectie reerveringsparameters"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
 #, fuzzy
 msgid "Skip Categories step"
 msgstr "Categorieën"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
 msgid "Insert Amelia Booking Shortcode"
 msgstr "Voeg Amelia Booking shortcode in"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
 msgid "Select Catalog View"
 msgstr "Catalogusweergave selecteren"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
 msgid "Select Category"
 msgstr "Selecteer Categorie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
 msgid "Select Employee"
 msgstr "Selecteer werknemer"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
 msgid "Select Location"
 msgstr "Selecteer locatie"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
 #, fuzzy
 msgid "Select Package"
 msgstr "Selecteer Pakket"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
 msgid "Select Event"
 msgstr "Selecteer Event"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
 #, fuzzy
 msgid "Select Events"
 msgstr "Selecteer Event"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
 msgid "Select Tag"
 msgstr "Selecteer Tag"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
 #, fuzzy
 msgid "Select Tags"
 msgstr "Selecteer Tag"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
 msgid "Select View"
 msgstr "Selecteer weergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
 #, fuzzy
 msgid "Show All"
 msgstr "Alles tonen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
 #, fuzzy
 msgid "Load booking form manually"
 msgstr "Boekingsformulier handmatig laden"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
 #, fuzzy
 msgid ""
 "Add element (button, link...) ID, that will manually load amelia shortcode "
@@ -5441,157 +5448,157 @@ msgstr ""
 "Voeg element (knop, link...) ID toe, dat amelia shortcode inhoud handmatig "
 "zal laden"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
 msgid "Show all categories"
 msgstr "Toon alle rubrieken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
 msgid "Show all employees"
 msgstr "Toon alle werknemers"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
 msgid "Show all locations"
 msgstr "Alle locaties weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
 msgid "Show all services"
 msgstr "Toon alle diensten"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
 msgid "Show all events"
 msgstr "Toon alle events"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
 msgid "Show all packages"
 msgstr "Toon alle tags"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
 msgid "Show all tags"
 msgstr "Toon alle tags"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
 msgid "Show catalog of all categories"
 msgstr "Toon catalogus van alle rubrieken"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
 msgid "Show specific category"
 msgstr "Specifieke categorie weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
 #, fuzzy
 msgid "Show specific categories"
 msgstr "Specifieke categorie weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
 #, fuzzy
 msgid "Show specific package"
 msgstr "Specifiek pakket tonen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
 #, fuzzy
 msgid "Show specific packages"
 msgstr "Specifieke categorie weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
 msgid "Show event"
 msgstr "Toon event"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
 #, fuzzy
 msgid "Show Type"
 msgstr "Toon type"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
 #, fuzzy
 msgid "List (default)"
 msgstr "Lijst (standaard)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
 msgid "Show tag"
 msgstr "Toon tag"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
 msgid "Show specific service"
 msgstr "Specifieke dienst weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
 #, fuzzy
 msgid "Show specific services"
 msgstr "Specifieke dienst weergeven"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
-msgid "Trigger type"
-msgstr ""
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
-#, fuzzy
-msgid "Id"
-msgstr "ID"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
-msgid "Class"
-msgstr ""
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1553
-msgid "Trigger by attribute"
+msgid "Trigger type"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1554
 #, fuzzy
+msgid "Id"
+msgstr "ID"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
+msgid "Class"
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
+msgid "Trigger by attribute"
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
+#, fuzzy
 msgid "Step Booking"
 msgstr "Step Booking"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
 msgid "Catalog Booking"
 msgstr "Gemiddelde boekingen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
 #, fuzzy
 msgid "Events List Booking"
 msgstr "Event geboekt"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
 msgid "Show recurring events"
 msgstr "Toon terugkerende events"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
 msgid "Show in Amelia Popup"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
 #, fuzzy
 msgid "AM - Booking view"
 msgstr "AM - Boekingsoverzicht"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
 #, fuzzy
 msgid "AM - Step Booking"
 msgstr "AM - Step Booking"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
 msgid "AM - Catalog Booking"
 msgstr "Amelia - Catalogusweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
 #, fuzzy
 msgid "AM - Catalog view"
 msgstr "AM - Catalogusweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
 #, fuzzy
 msgid "AM - Events view"
 msgstr "AM - Evenementenweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
 #, fuzzy
 msgid "AM - Events List Booking"
 msgstr "Amelia - Catalogusweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1570
 msgid "Amelia - Booking view"
 msgstr "Amelia - Boekingsweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
 msgid ""
 "Step-By-Step Booking Wizard gives your customers the option to choose "
 "everything about the booking in a few steps"
@@ -5599,12 +5606,12 @@ msgstr ""
 "De stap-voor-stap boekingswizard geeft jouw klanten de mogelijkheid om in "
 "een paar stappen alles over de boeking te kiezen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1574
 #, fuzzy
 msgid "Amelia - Step-By-Step Booking"
 msgstr "Amelia - Step-By-Step Booking"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
 #, fuzzy
 msgid ""
 "Step-by-Step booking view guides the customers through several steps in "
@@ -5613,11 +5620,11 @@ msgstr ""
 "De stapsgewijze boekingsweergave leidt de klanten door verschillende stappen "
 "om hun boekingen te maken."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1578
 msgid "Amelia - Catalog Booking"
 msgstr "Amelia - Catalogusweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1576
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a catalog"
@@ -5625,11 +5632,11 @@ msgstr ""
 "Front-end boekingscatalogus is een shortcode voor als je jouw service in de "
 "vorm van een catalogus wilt tonen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1582
 msgid "Amelia - Catalog view"
 msgstr "Amelia - Catalogusweergave"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
@@ -5637,12 +5644,12 @@ msgstr ""
 "Front-end boekingscatalogus is een shortcode voor als je jouw service in de "
 "vorm van een catalogus wilt tonen"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1586
 msgid "Amelia - Events"
 msgstr "Amelia - Events"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1591
 msgid ""
 "Event Booking is shortcode that gives your customers the option to book one "
 "of the events that you've created on the back-end in a simple event list "
@@ -5652,16 +5659,16 @@ msgstr ""
 "van de events die je op de back-end hebt gemaakt te boeken in een eenvoudige "
 "weergave van de eventslijst."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1590
 #, fuzzy
 msgid "Amelia - Events List"
 msgstr "Amelia - Events"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1590
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1593
 msgid "You are using a form that will be outdated soon!"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1609
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1612
 msgid "Recurring Appointments"
 msgstr "Afspraken in behandeling"
 
@@ -5706,7 +5713,7 @@ msgid "Maximum bookings reached"
 msgstr "Maximale capaciteit is bereikt"
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:90
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:198
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:199
 msgid "Capacity:"
 msgstr "Capaciteit:"
 
@@ -5755,69 +5762,74 @@ msgid "Oops..."
 msgstr "Oops..."
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:119
+#, fuzzy
+msgid "Phone already exists with different name. Please check your name."
+msgstr "E-mail bestaat al met een andere naam. Gelieve uw naam te controleren."
+
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:120
 msgid "Price:"
 msgstr "Prijs:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:120
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:121
 msgid "service"
 msgstr "dienst"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:121
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:122
 msgid "Select Calendar"
 msgstr "Selecteer kalender"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:122
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:123
 msgid "services"
 msgstr "diensten"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:123
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:124
 msgid "Local Time:"
 msgstr "Uur:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:125
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:126
 msgid "Total Cost:"
 msgstr "Totale kostprijs:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:126
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:127
 #, fuzzy
 msgid "Total Number of People:"
 msgstr "Totaal aantal personen:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:152
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:153
 #, fuzzy
 msgid "Collapse menu"
 msgstr "Menu inklappen"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:155
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:156
 msgid "Pick date & time:"
 msgstr "Kies datum & uur:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:156
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:157
 msgid "Please select"
 msgstr "Selecteer de gewenste"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:158
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:159
 #, fuzzy
 msgid "Total Amount:"
 msgstr "Totaalbedrag:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:197
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:198
 msgid "Book this event"
 msgstr "Event boeken"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:232
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:233
 msgid "Category:"
 msgstr "Categorie:"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:234
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:235
 msgid "Info"
 msgstr "Info"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:235
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:236
 msgid "View More"
 msgstr "Lees meer"
 
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:256
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:257
 msgid "Booking can't be canceled"
 msgstr "Boeking kan niet worden geannuleerd"
 
@@ -8988,21 +9000,22 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ "verblijf vast op de totale boekingsprijs."
 
 #, fuzzy
-#~ msgid "Remaining of total amount will be paid on site."
+#~ msgid ""
+#~ "Remaining of total amount will be paid on site or through payment link."
 #~ msgstr "Het restant van het totaalbedrag wordt ter plaatse betaald."
 
 #, fuzzy
 #~ msgid ""
-#~ "Remaining of total amount will be paid on site. Extras are not included "
-#~ "in deposit amount."
+#~ "Remaining of total amount will be paid on site or through payment link. "
+#~ "Extras are not included in deposit amount."
 #~ msgstr ""
 #~ "Het resterende bedrag wordt ter plaatse betaald. Extra’s zijn niet "
 #~ "inbegrepen in het aanbetalingsbedrag."
 
 #, fuzzy
 #~ msgid ""
-#~ "Remaining of total amount will be paid on site. Extras are included in "
-#~ "deposit amount."
+#~ "Remaining of total amount will be paid on site or through payment link. "
+#~ "Extras are included in deposit amount."
 #~ msgstr ""
 #~ "Het resterende bedrag wordt ter plaatse betaald. Extra’s zijn inbegrepen "
 #~ "in het aanbetalingsbedrag."
@@ -9362,6 +9375,10 @@ msgstr "Boeking kan niet worden geannuleerd"
 #, fuzzy
 #~ msgid "Every Day until"
 #~ msgstr "Elke dag tot"
+
+#, fuzzy
+#~ msgid "Birthday Input Field"
+#~ msgstr "Invoerveld"
 
 #~ msgid "Payment Method:"
 #~ msgstr "Betalingswijze:"
@@ -9972,6 +9989,14 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgstr "Verplicht veld:"
 
 #, fuzzy
+#~| msgid "Scheduled Appointments"
+#~ msgid "Reschedule Appointment"
+#~ msgstr "Geplande afspraken"
+
+#~ msgid "Cancel Package"
+#~ msgstr "Geannuleerd"
+
+#, fuzzy
 #~ msgid "Set up Labels and Buttons"
 #~ msgstr "Kaarten en buttons"
 
@@ -10112,10 +10137,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgstr "Subtotaal:"
 
 #, fuzzy
-#~ msgid "(Paying now)"
-#~ msgstr "(Nu betalen)"
-
-#, fuzzy
 #~ msgid "Left to pay"
 #~ msgstr "Nog te betalen"
 
@@ -10149,6 +10170,321 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~| msgid "Sort Services:"
 #~ msgid "Total Services Booked"
 #~ msgstr "Sorteer Diensten:"
+
+#, fuzzy
+#~ msgid "Toggle Sidebar"
+#~ msgstr "Sidebar"
+
+#~ msgid "Reschedule"
+#~ msgstr "Verplaatsen"
+
+#, fuzzy
+#~ msgid "Google Meet Link"
+#~ msgstr "Google Meet Link"
+
+#, fuzzy
+#~ msgid "Zoom Link"
+#~ msgstr "Zoom Link"
+
+#, fuzzy
+#~ msgid "My Profile"
+#~ msgstr "Mijn profiel"
+
+#, fuzzy
+#~ msgid "Personal Information"
+#~ msgstr "Jouw informatie"
+
+#, fuzzy
+#~| msgid "Your password has been reset successfully"
+#~ msgid "Password changed successfully"
+#~ msgstr "Uw wachtwoord is met succes hersteld"
+
+#~ msgid "Are you sure you want to cancel this appointment?"
+#~ msgstr "Weet je zeker dat je deze afspraak wilt annuleren?"
+
+#, fuzzy
+#~ msgid "Ticket"
+#~ msgstr "Tickets"
+
+#~ msgid "Are you sure you want to cancel your attendance?"
+#~ msgstr "Weet je zeker dat je jouw deelname wilt annuleren?"
+
+#, fuzzy
+#~ msgid "Appointments booked"
+#~ msgstr "Afspraken te boeken"
+
+#, fuzzy
+#~ msgid "Appointment booked"
+#~ msgstr "Afspraken te boeken"
+
+#, fuzzy
+#~ msgid "Valid Until:"
+#~ msgstr "Geldig tot:"
+
+#, fuzzy
+#~ msgid "book appointments before the deal expires!"
+#~ msgstr "U heeft afspraken voor deze dienst"
+
+#, fuzzy
+#~ msgid "Are you sure you want to cancel this package?"
+#~ msgstr "Weet u zeker dat u dit pakket wilt verwijderen?"
+
+#, fuzzy
+#~ msgid "Pay now"
+#~ msgstr "Nu betalen"
+
+#~ msgid "Profile deleted"
+#~ msgstr "Profiel verwijderd"
+
+#, fuzzy
+#~ msgid "Welcome Back"
+#~ msgstr "Ga terug"
+
+#~ msgid "Email or Username"
+#~ msgstr "E-mailadres of Gebruikersnaam"
+
+#, fuzzy
+#~| msgid "Please enter SMTP username"
+#~ msgid "Please enter email or username"
+#~ msgstr "Vul de SMTP gebruikersnaam in"
+
+#, fuzzy
+#~| msgid "Forgot Password?"
+#~ msgid "Forgot your password?"
+#~ msgstr "Wachtwoord vergeten?"
+
+#~ msgid "Send Access Link"
+#~ msgstr "Toegangslink versturen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Enter your account email address and we will send you an access link to "
+#~ "your inbox."
+#~ msgstr ""
+#~ "Voer het e-mailadres van uw account in en wij sturen u een toegangslink "
+#~ "naar uw inbox."
+
+#, fuzzy
+#~| msgid "Enter your email"
+#~ msgid "Check your email"
+#~ msgstr "Voer je e-mailadres in"
+
+#, fuzzy
+#~ msgid "try different email"
+#~ msgstr "Voer email in"
+
+#, fuzzy
+#~ msgid "Employee Profile"
+#~ msgstr "Medewerkersprofiel"
+
+#, fuzzy
+#~| msgid "Appointment price"
+#~ msgid "Appointment Price"
+#~ msgstr "Afspraak prijs"
+
+#, fuzzy
+#~| msgid "Redirect URL After Booking"
+#~ msgid "Successfully added booking"
+#~ msgstr "URL omleiding na boeking"
+
+#, fuzzy
+#~ msgid "Purchase is canceled"
+#~ msgstr "Aankoop is geannuleerd"
+
+#, fuzzy
+#~ msgid "Customer Panel 2.0"
+#~ msgstr "Klantenpanel"
+
+#, fuzzy
+#~ msgid "Tab Title"
+#~ msgstr "Heading Titel"
+
+#, fuzzy
+#~ msgid "Mobile menu"
+#~ msgstr "Menu inklappen"
+
+#, fuzzy
+#~| msgid "Card Button Type"
+#~ msgid "Delete Button Type"
+#~ msgstr "Radioknoppen"
+
+#, fuzzy
+#~ msgid "Save Changes Button Type"
+#~ msgstr "Type panel knop"
+
+#, fuzzy
+#~| msgid "Card Button Type"
+#~ msgid "Change Password Button Type"
+#~ msgstr "Radioknoppen"
+
+#, fuzzy
+#~ msgid "Close Button Type"
+#~ msgstr "Type knop Doorgaan"
+
+#, fuzzy
+#~ msgid "Confirm Button Type"
+#~ msgstr "Type knop Doorgaan"
+
+#, fuzzy
+#~ msgid "Cancel Button Type"
+#~ msgstr "Type panel knop"
+
+#, fuzzy
+#~| msgid "View Message"
+#~ msgid "Step Message"
+#~ msgstr "Bericht bekijken"
+
+#, fuzzy
+#~| msgid "Status"
+#~ msgid "Item Status"
+#~ msgstr "Status"
+
+#, fuzzy
+#~ msgid "Page Card"
+#~ msgstr "Header"
+
+#, fuzzy
+#~| msgid "View Message"
+#~ msgid "Page Messages"
+#~ msgstr "Bericht bekijken"
+
+#, fuzzy
+#~ msgid "\"Go Back\" Button Type"
+#~ msgstr "Type panel knop"
+
+#, fuzzy
+#~ msgid "\"Paying now\" Button Type"
+#~ msgstr "Type panel knop"
+
+#, fuzzy
+#~| msgid "Card Button Type"
+#~ msgid "\"Book Now\" Button Type"
+#~ msgstr "Radioknoppen"
+
+#, fuzzy
+#~| msgid "View Message"
+#~ msgid "Alert Message"
+#~ msgstr "Bericht bekijken"
+
+#, fuzzy
+#~ msgid "Footer Content"
+#~ msgstr "Stap content"
+
+#, fuzzy
+#~ msgid "Sign In Button Type"
+#~ msgstr "Type knop Voltooien"
+
+#, fuzzy
+#~ msgid "Send Button Type"
+#~ msgstr "Type secundaire knop"
+
+#, fuzzy
+#~| msgid "Card Button Type"
+#~ msgid "Set Password Button Type"
+#~ msgstr "Radioknoppen"
+
+#, fuzzy
+#~ msgid "Profile"
+#~ msgstr "Mijn profiel"
+
+#, fuzzy
+#~ msgid "Packages Appointments"
+#~ msgstr "Pakket Afspraken"
+
+#, fuzzy
+#~| msgid "Search Filters"
+#~ msgid "Service Filter"
+#~ msgstr "Zoekfilters"
+
+#, fuzzy
+#~| msgid "Employee note"
+#~ msgid "Employee Filter"
+#~ msgstr "Medewerkersnotitie"
+
+#, fuzzy
+#~ msgid "Location Filter"
+#~ msgstr "Locatie 1"
+
+#, fuzzy
+#~ msgid "Package Filter"
+#~ msgstr "Pakket prijs"
+
+#, fuzzy
+#~| msgid "Event Title"
+#~ msgid "Event Filter"
+#~ msgstr "Event titel"
+
+#, fuzzy
+#~| msgid "Appointment notes"
+#~ msgid "Appointment Employee"
+#~ msgstr "Aantekeningen bij afspraak"
+
+#, fuzzy
+#~ msgid "Event Organizer"
+#~ msgstr "Organisator"
+
+#, fuzzy
+#~| msgid "Send Access Link"
+#~ msgid "Access Link"
+#~ msgstr "Toegangslink versturen"
+
+#, fuzzy
+#~| msgid "Send Access Link"
+#~ msgid "Access Link Success"
+#~ msgstr "Toegangslink versturen"
+
+#, fuzzy
+#~ msgid "Set up labels"
+#~ msgstr "Kaarten en buttons"
+
+#, fuzzy
+#~| msgid "Set Password"
+#~ msgid "Set New Password"
+#~ msgstr "Wachtwoord instellen"
+
+#, fuzzy
+#~| msgid "Date of Birth"
+#~ msgid "Enter date of birth"
+#~ msgstr "Geboortedatum"
+
+#, fuzzy
+#~| msgid "Please enter date"
+#~ msgid "Please enter date of birth"
+#~ msgstr "Vul de datum in"
+
+#~ msgid "Set Password"
+#~ msgstr "Wachtwoord instellen"
+
+#, fuzzy
+#~| msgid "Please enter new password again"
+#~ msgid "Enter, and re-enter your new password to continue"
+#~ msgstr "Voer opnieuw een nieuw wachtwoord in"
+
+#, fuzzy
+#~| msgid "Password"
+#~ msgid "Password Updated!"
+#~ msgstr "Wachtwoord"
+
+#, fuzzy
+#~| msgid "Your password has been reset successfully"
+#~ msgid ""
+#~ "Your password has been changed successfully. Use your new password to log "
+#~ "in."
+#~ msgstr "Uw wachtwoord is met succes hersteld"
+
+#~ msgid "Delete profile"
+#~ msgstr "Verwijder profiel"
+
+#~ msgid ""
+#~ "Are you sure you want to delete your profile? You will lose access to all "
+#~ "your bookings and access to the customer panel."
+#~ msgstr ""
+#~ "Weet je zeker dat je jouw profiel wit verwijderen? Je verliest alle "
+#~ "toegang tot je boekingen en het klantpaneel."
+
+#, fuzzy
+#~ msgid "Save Changes"
+#~ msgstr "Wijzigingen opslaan"
 
 #, fuzzy
 #~| msgid "Customer Phone"
@@ -10214,6 +10550,22 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ "Front-end medewerkerspaneel is een shortcode die uw medewerkers de "
 #~ "mogelijkheid geeft om hun boekingen, werktijden, vrije dagen, toegewezen "
 #~ "diensten en profiel informatie te beheren."
+
+#, fuzzy
+#~ msgid "Choose panel version"
+#~ msgstr "Kies Plaatshouder"
+
+#, fuzzy
+#~ msgid "Old version"
+#~ msgstr ""
+#~ "Kies een formulier dat u wilt aanpassen. Het Step-by-Step 2.0 formulier "
+#~ "is de nieuwe en verbeterde versie die u een beter ontwerp en een betere "
+#~ "gebruikerservaring biedt, evenals een hogere snelheid."
+
+#, fuzzy
+#~| msgid "New Event"
+#~ msgid "New version"
+#~ msgstr "Nieuw Event"
 
 #, fuzzy
 #~ msgid "Amelia Profile Settings"
@@ -10320,6 +10672,14 @@ msgstr "Boeking kan niet worden geannuleerd"
 #, fuzzy
 #~ msgid "Each:"
 #~ msgstr "Elke:"
+
+#, fuzzy
+#~ msgid "(Paying now)"
+#~ msgstr "(Nu betalen)"
+
+#, fuzzy
+#~ msgid "Remaining of total amount will be paid on site."
+#~ msgstr "Het restant van het totaalbedrag wordt ter plaatse betaald."
 
 #~ msgid "Add Coupon"
 #~ msgstr "Kortingsbon Toevoegen"
@@ -10522,10 +10882,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgstr "Dit pakket heeft"
 
 #, fuzzy
-#~ msgid "Valid Until:"
-#~ msgstr "Geldig tot:"
-
-#, fuzzy
 #~ msgid "Multiple packages purchased."
 #~ msgstr "Gekocht pakket"
 
@@ -10597,6 +10953,16 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgid "This service is available in a Package"
 #~ msgstr "Beschikbaar in pakket"
 
+#, fuzzy
+#~| msgid "Current Password:"
+#~ msgid "Current Password"
+#~ msgstr "Huidige ​​wachtwoord:"
+
+#, fuzzy
+#~| msgid "Please enter current password"
+#~ msgid "Not match to your current password"
+#~ msgstr "Vul het huidige wachtwoord in"
+
 #~ msgid ""
 #~ "To reschedule your appointment, select an available date time from the "
 #~ "calendar, then click Confirm."
@@ -10616,9 +10982,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgid "Booking Opens"
 #~ msgstr "Reservering geopend"
 
-#~ msgid "Cancel Package"
-#~ msgstr "Geannuleerd"
-
 #, fuzzy
 #~ msgid "Please choose appointment date"
 #~ msgstr "Kies een afspraakdatum"
@@ -10627,12 +10990,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgid "Please choose appointment time"
 #~ msgstr "Kies een tijdstip van afspraak"
 
-#~ msgid "Are you sure you want to cancel this appointment?"
-#~ msgstr "Weet je zeker dat je deze afspraak wilt annuleren?"
-
-#~ msgid "Are you sure you want to cancel your attendance?"
-#~ msgstr "Weet je zeker dat je jouw deelname wilt annuleren?"
-
 #, fuzzy
 #~ msgid "Do you want to cancel this purchase?"
 #~ msgstr "Wilt u deze aankoop annuleren?"
@@ -10640,19 +10997,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #, fuzzy
 #~ msgid "Customer Profile "
 #~ msgstr "Klantenprofiel "
-
-#~ msgid "Delete profile"
-#~ msgstr "Verwijder profiel"
-
-#~ msgid ""
-#~ "Are you sure you want to delete your profile? You will lose access to all "
-#~ "your bookings and access to the customer panel."
-#~ msgstr ""
-#~ "Weet je zeker dat je jouw profiel wit verwijderen? Je verliest alle "
-#~ "toegang tot je boekingen en het klantpaneel."
-
-#~ msgid "Email or Username"
-#~ msgstr "E-mailadres of Gebruikersnaam"
 
 #, fuzzy
 #~ msgid "Edit Attendees"
@@ -10690,10 +11034,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgid "Min. Capacity"
 #~ msgstr "Min. Capaciteit"
 
-#, fuzzy
-#~ msgid "My Profile"
-#~ msgstr "Mijn profiel"
-
 #~ msgid ""
 #~ "Check this checkbox if you want your customer to<br/>receive an email "
 #~ "about the scheduled appointment."
@@ -10719,10 +11059,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #, fuzzy
 #~ msgid "appointment slots left to be booked"
 #~ msgstr "nog te boeken plaatsen"
-
-#, fuzzy
-#~ msgid "Purchase is canceled"
-#~ msgstr "Aankoop is geannuleerd"
 
 #, fuzzy
 #~ msgid "Book next appointment"
@@ -10752,10 +11088,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgstr "Dag"
 
 #, fuzzy
-#~ msgid "Pay now"
-#~ msgstr "Nu betalen"
-
-#, fuzzy
 #~ msgid "Periods"
 #~ msgstr "Perioden"
 
@@ -10763,16 +11095,9 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgid "Price per Spot"
 #~ msgstr "Prijs per plek"
 
-#~ msgid "Profile deleted"
-#~ msgstr "Profiel verwijderd"
-
 #, fuzzy
 #~ msgid "Profile has been updated"
 #~ msgstr "Profiel is bijgewerkt"
-
-#, fuzzy
-#~ msgid "Employee Profile"
-#~ msgstr "Medewerkersprofiel"
 
 #, fuzzy
 #~ msgid "Purchased"
@@ -10780,24 +11105,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 
 #~ msgid "Email with access link has been sent"
 #~ msgstr "Toegangslink werd via email verstuurd"
-
-#~ msgid "Reschedule"
-#~ msgstr "Verplaatsen"
-
-#, fuzzy
-#~ msgid "Save Changes"
-#~ msgstr "Wijzigingen opslaan"
-
-#~ msgid "Send Access Link"
-#~ msgstr "Toegangslink versturen"
-
-#, fuzzy
-#~ msgid ""
-#~ "Enter your account email address and we will send you an access link to "
-#~ "your inbox."
-#~ msgstr ""
-#~ "Voer het e-mailadres van uw account in en wij sturen u een toegangslink "
-#~ "naar uw inbox."
 
 #, fuzzy
 #~ msgid "You have appointments for this service"
@@ -10807,24 +11114,46 @@ msgstr "Boeking kan niet worden geannuleerd"
 #~ msgid "You have appointments for"
 #~ msgstr "Je hebt afspraken voor"
 
-#~ msgid "Set Password"
-#~ msgstr "Wachtwoord instellen"
-
 #, fuzzy
 #~ msgid "Working Hours"
 #~ msgstr "Werktijden"
 
 #, fuzzy
-#~ msgid "Zoom Link"
-#~ msgstr "Zoom Link"
-
-#, fuzzy
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Links"
 
+#~ msgid ""
+#~ "Enable this option if you don't want to allow \"existing customer\"<br/"
+#~ ">to use different first and last name when booking."
+#~ msgstr ""
+#~ "Schakel deze optie in als u niet wilt toestaan dat ' bestaande klant ' "
+#~ "<br/> verschillende voor-en achternaam gebruikt bij het boeken."
+
 #, fuzzy
-#~ msgid "Google Meet Link"
-#~ msgstr "Google Meet Link"
+#~ msgid ""
+#~ "Redesigned and upgraded Step-by-Step Booking form with a better user "
+#~ "experience, animations, improved speed, and a stand-out design!"
+#~ msgstr ""
+#~ "Herontworpen en opgewaardeerd stap-voor-stap reserveringsformulier met "
+#~ "een betere gebruikerservaring, animaties, verbeterde snelheid en een "
+#~ "opvallend ontwerp!"
+
+#, fuzzy
+#~ msgid ""
+#~ "Step-by-Step 1.0 Booking, Catalog Booking, Search Booking, Event List and "
+#~ "Event Calendar Bookings."
+#~ msgstr ""
+#~ "Step-by-Step 1.0 Boeken, Catalogus Boeken, Zoeken Boeken, "
+#~ "Evenementenlijst en Evenementenkalender Boeken."
+
+#, fuzzy
+#~ msgid ""
+#~ "Modernized Catalog Booking Form 2.0 with better user experience, improved "
+#~ "speed, animation and a stand-out design!"
+#~ msgstr ""
+#~ "Herontworpen en opgewaardeerd stap-voor-stap reserveringsformulier met "
+#~ "een betere gebruikerservaring, animaties, verbeterde snelheid en een "
+#~ "opvallend ontwerp!"
 
 #, fuzzy
 #~| msgid "Available Images"
@@ -10927,9 +11256,6 @@ msgstr "Boeking kan niet worden geannuleerd"
 
 #~ msgid "Total Price:"
 #~ msgstr "Totale prijs:"
-
-#~ msgid "Scheduled Appointments"
-#~ msgstr "Geplande afspraken"
 
 #~ msgid "Select at least one service"
 #~ msgstr "Selecteer ten minste één dienst"

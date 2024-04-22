@@ -294,8 +294,8 @@ class Custom2Template implements TemplateInterface {
 			// Add Prefix and Suffix
 			$prefix = isset( $element['prefix'] ) ? preg_replace( '!\s+!', ' ', $element['prefix'] ) : '';
 			$suffix = isset( $element['suffix'] ) ? preg_replace( '!\s+!', ' ', $element['suffix'] ) : '';
-			$output = $prefix ? $prefix . ' ' . $output : $output;
-			$output = $suffix ? $output . ' ' . $suffix : $output;
+			$output = $prefix ? $prefix . '' . $output : $output;
+			$output = $suffix ? $output . '' . $suffix : $output;
 			// Add CDATA if needed
 			if ( ! empty( $output ) ) {
 				$output = $this->addCDATA( $element['include_cdata'], $output );

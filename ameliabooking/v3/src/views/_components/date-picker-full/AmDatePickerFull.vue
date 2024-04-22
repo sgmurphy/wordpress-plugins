@@ -14,11 +14,15 @@
     <template #reference>
       <AmInput
         v-model="selectedDate"
+        class="am-dp__input"
         :disabled="props.disabled"
         :icon-start="IconCalendar"
-        :read-only="true"
+        :read-only="props.readOnly"
+        :clearable="props.clearable"
         :placeholder="inputPlaceholder"
         @click="selectCalendar"
+        @clear="clearCalendar"
+        @keypress.prevent
       ></AmInput>
     </template>
     <div class="am-dp__wrapper" :style="cssVars">
@@ -93,6 +97,14 @@ const props = defineProps({
   weekStartsFromDay: {
     type: [String, Number],
     default: 1
+  },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
+  readOnly: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -105,6 +117,7 @@ let checkScreen = computed(() => cWidth.value < 560 || (cWidth.value - 240 < 520
 
 const emits = defineEmits([
   'selectedDate',
+  'clearDate'
 ])
 
 const visible = ref(false)
@@ -178,7 +191,6 @@ function calendarDayClassBuilder (data) {
     classCollector.push(`am-dp__${data.view.type}-selected`)
   }
 
-
   return classCollector;
 }
 
@@ -217,6 +229,23 @@ function selectDate (date) {
   if (date) {
     selectedDate.value = getFrontedFormattedDate(moment(date).format('YYYY-MM-DD'))
   }
+}
+
+function clearCalendar () {
+  emits('clearDate')
+  setTimeout(() => {
+    const popCalendar = popCalendarRef.value.getApi()
+    const popCalendarType = popCalendar.currentData.currentViewType
+    let selectedDayClass = `am-dp__${popCalendarType}-selected`
+
+    if (popCalendar.el.querySelectorAll(`.${selectedDayClass}`).length) {
+      for (let i = 0; i < popCalendar.el.querySelectorAll(`.${selectedDayClass}`).length; i++) {
+        popCalendar.el.querySelectorAll(`.${selectedDayClass}`)[i].classList.remove(selectedDayClass)
+      }
+    }
+
+    popCalendar.unselect()
+  }, 200)
 }
 
 // * Color Vars
@@ -637,5 +666,26 @@ $amCalClass: am-dp;
   }
 
   @include am-dp-block;
+}
+
+@mixin am-dp-input-block {
+  .am-dp__input {
+    .am-input__default {
+      i.el-input {
+        &__clear {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+// Public
+.amelia-v2-booking #amelia-container {
+  @include am-dp-input-block;
+}
+
+// Admin
+#amelia-app-backend-new {
+  @include am-dp-input-block;
 }
 </style>

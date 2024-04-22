@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="am-fs__congrats-info-cart">
     <span>{{amLabels.congrats_cart}}:</span>
     <span>{{ cart.length }}</span>
   </div>

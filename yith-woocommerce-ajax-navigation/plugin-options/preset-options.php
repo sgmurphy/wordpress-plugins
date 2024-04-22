@@ -2,11 +2,20 @@
 /**
  * Preset options
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter\Options
  * @version 4.0.0
  */
 
+/**
+ * APPLY_FILTERS: yith_wcan_panel_preset_options
+ *
+ * Filters Preset options.
+ *
+ * @param array $options Preset options.
+ *
+ * @return array
+ */
 return apply_filters(
 	'yith_wcan_panel_preset_options',
 	array(

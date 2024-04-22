@@ -31,7 +31,16 @@ if ( ! class_exists( 'YITH_WCAN_Widgets' ) ) {
 		 * @reutrn void
 		 */
 		public static function init() {
-			// init available shortcodes.
+			// init available widgets.
+			/**
+			 * APPLY_FILTERS: yith_wcan_widgets
+			 *
+			 * List of available widgets
+			 *
+			 * @param array $widgets List of available widgets.
+			 *
+			 * @return array
+			 */
 			self::$available_widgets = apply_filters(
 				'yith_wcan_widgets',
 				array(

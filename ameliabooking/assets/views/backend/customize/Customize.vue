@@ -339,6 +339,7 @@
           </p>
         </div>
         <div class="am-customize-main__form-card__wrapper">
+          <!-- Step by Step -->
           <div class="am-customize-main__form-card">
             <div class="am-customize-main__form-card__content">
               <img :src="`${$root.getUrl}v3/src/assets/img/admin/customize/amelia2-0.png`" alt="Step-by-Step Booking Form 2.0">
@@ -353,6 +354,9 @@
             </div>
             <el-button @click="goToNewCustomize('sbsNew')" type="primary">{{ $root.labels.continue }}</el-button>
           </div>
+          <!-- /Step by Step -->
+
+          <!-- Catalog -->
           <div class="am-customize-main__form-card">
             <div class="am-customize-main__form-card__content">
               <img
@@ -371,6 +375,9 @@
             </div>
             <el-button @click="goToNewCustomize('cbf')" type="primary">{{ $root.labels.continue }}</el-button>
           </div>
+          <!-- /Catalog -->
+
+          <!-- Event List -->
           <div class="am-customize-main__form-card">
             <div class="am-customize-main__form-card__content">
               <img
@@ -389,6 +396,34 @@
             </div>
             <el-button @click="goToNewCustomize('elf')" type="primary">{{ $root.labels.continue }}</el-button>
           </div>
+          <!-- /Event List -->
+
+          <!-- Customer Panel -->
+          <div
+            v-if="!$root.licence.isLite"
+            class="am-customize-main__form-card"
+          >
+            <div class="am-customize-main__form-card__content">
+              <img
+                :src="`${$root.getUrl}v3/src/assets/img/admin/customize/amelia-capc-2-0.png`"
+                :alt="$root.labels.capc_form"
+                class="am-customize-main__form-card__content-img"
+              >
+              <div class="am-customize-main__form-card__heading">
+                <h3>
+                  <span>{{$root.labels.capc_form}}</span>
+                  <span class="am-pill-new">{{$root.labels.new_caps}}</span>
+                </h3>
+                <p>
+                  {{$root.labels.redesigned_capc_form}}
+                </p>
+              </div>
+            </div>
+            <el-button @click="goToNewCustomize('capc')" type="primary">{{ $root.labels.continue }}</el-button>
+          </div>
+          <!-- /Customer Panel -->
+
+          <!-- Old Customize -->
           <div class="am-customize-main__form-card">
             <div class="am-customize-main__form-card__content">
               <img :src="`${$root.getUrl}v3/src/assets/img/admin/customize/amelia1-0.png`" alt="Step-by-Step Booking Form 2.0">
@@ -403,7 +438,10 @@
             </div>
             <el-button @click="hiddenForm = !hiddenForm" type="primary">{{ $root.labels.continue }}</el-button>
           </div>
+          <!-- /Old Customize -->
         </div>
+
+        <!-- Dialog Customize -->
 <!--        <dialog-new-customize :customize-page="true"></dialog-new-customize>-->
       </div>
 
@@ -433,11 +471,11 @@ import eventListForm from './formType/EventListForm'
 import eventCalendarForm from './formType/EventCalendarForm'
 import deepMerge from 'deepmerge'
 import SelectTranslate from '../parts/SelectTranslate'
-//import DialogNewCustomize from '../parts/DialogNewCustomize'
+// import DialogNewCustomize from '../parts/DialogNewCustomize'
 
 export default {
   components: {
-    //DialogNewCustomize,
+    // DialogNewCustomize,
     ElButton,
     PageHeader,
     stepByStepForm,

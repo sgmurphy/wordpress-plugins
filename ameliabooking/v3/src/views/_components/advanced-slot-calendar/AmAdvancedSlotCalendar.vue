@@ -78,7 +78,7 @@
       </div>
       <div class="am-advsc__slots">
         <div
-          v-for="slot in useSortedTimeStrings([...new Set(calendarEventSlots.concat(props.showBusySlots ? calendarEventBusySlots:[]))])"
+          v-for="slot in useSortedTimeStrings([...new Set(calendarEventSlots.concat(props.showBusySlots ? calendarEventBusySlots : []))])"
           :key="slot"
           class="am-advsc__slots-item"
           :class="[
@@ -101,12 +101,15 @@
 </template>
 
 <script setup>
+// * Import Libraries
 import moment from 'moment'
 import '@fullcalendar/core/vdom'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import allLocales from "@fullcalendar/core/locales-all";
+
+// * Import _components
 import AmSelect from '../select/AmSelect.vue';
 import AmOption from '../select/AmOption.vue';
 import AmButtonGroup from '../button/AmButtonGroup';
@@ -114,10 +117,29 @@ import AmButton from '../button/AmButton.vue';
 import AmIconArrowRight from '../icons/IconArrowRight.vue';
 import AmIconArrowLeft from '../icons/IconArrowLeft.vue';
 import AmOptionTemplate1 from '../../_components/select/parts/AmOptionTemplate1.vue';
-import { ref, reactive, onBeforeMount, inject, computed, watch, onMounted } from "vue";
-import { useColorTransparency } from "../../../assets/js/common/colorManipulation";
-import { months, getFrontedFormattedTime, getFrontedFormattedDate, addSeconds, getFirstDayOfWeek, useSecondsToDuration } from "../../../assets/js/common/date";
+
+// * Import from Vue
+import {
+  ref,
+  reactive,
+  onBeforeMount,
+  inject,
+  computed,
+  watch,
+  onMounted
+} from "vue";
+
+// * Composables
+import {
+  months,
+  getFrontedFormattedTime,
+  getFrontedFormattedDate,
+  addSeconds,
+  getFirstDayOfWeek,
+  useSecondsToDuration
+} from "../../../assets/js/common/date";
 import { shortLocale } from "../../../plugins/settings.js";
+import { useColorTransparency } from "../../../assets/js/common/colorManipulation";
 import { useScrollTo } from "../../../assets/js/common/scrollElements.js";
 import { useSortedTimeStrings } from "../../../assets/js/common/helper.js";
 
@@ -153,6 +175,14 @@ const props = defineProps({
   id: {
     type: Number,
     default: 0
+  },
+  serviceId: {
+    type: Number,
+    default: 0
+  },
+  date: {
+    type: String,
+    default: ''
   },
   endTime: {
     type: Boolean,
@@ -295,12 +325,8 @@ const options = ref({
   initialView: props.initialView,
   headerToolbar: false,
   views: {
-    dayGridMonth: {
-
-    },
-    dayGridWeek: {
-
-    }
+    dayGridMonth: {},
+    dayGridWeek: {}
   },
   slotLabelFormat: {
     hour: 'numeric',
@@ -347,27 +373,18 @@ const emits = defineEmits([
 
 let calendarEventSlots = inject('calendarEventSlots')
 
-let calendarEventBusySlots = inject('calendarEventBusySlots')
+let calendarEventBusySlots = inject('calendarEventBusySlots', [])
 
 let calendarEventSlot = inject('calendarEventSlot')
 
-let calendarChangeSideBar = inject('calendarChangeSideBar')
+let calendarChangeSideBar = inject('calendarChangeSideBar', ref({}))
 
 let calendarSlotDuration = inject('calendarSlotDuration')
 
 let calendarServiceDuration = inject('calendarServiceDuration')
 
-let cartItem = inject('cartItem', ref({
-  index: ''
-}))
-
 // * Slots heading
-let slotsHeading = ref(
-  cartItem.value &&
-  cartItem.value.index !== '' &&
-  cartItem.value.services[cartItem.value.serviceId].list[parseInt(cartItem.value.index)].date
-    ? getFrontedFormattedDate(cartItem.value.services[cartItem.value.serviceId].list[parseInt(cartItem.value.index)].date) : ''
-)
+let slotsHeading = ref(props.date ? getFrontedFormattedDate(props.date) : '')
 
 /**
  * Html class builder for calendar header day cell
@@ -415,9 +432,7 @@ function calendarDayClassBuilder (data) {
     classCollector.push(`am-advsc__${data.view.type}-disabled`);
   }
 
-  if (cartItem.value.index !== '' &&
-      cartItem.value.services[cartItem.value.serviceId].list[props.id].date === moment(data.date).format('YYYY-MM-DD')
-  ) {
+  if (props.date && props.date === moment(data.date).format('YYYY-MM-DD')) {
     classCollector.push(`am-advsc__${data.view.type}-selected`)
   }
 
@@ -495,8 +510,8 @@ function calendarDateClick (data) {
       value: ''
     }
     selectedSlot.value = slotsHeading.value ? `${slotsHeading.value}` : ''
-    if (!props.notMultiple && cartItem.value) {
-      selectedSlot.reference = 'package-slot ' + cartItem.value.index + ' ' + cartItem.value.serviceId
+    if (!props.notMultiple && props.date) {
+      selectedSlot.reference = 'package-slot ' + props.id + ' ' + props.serviceId
     }
 
     sidebarDataCollector(selectedSlot)
@@ -549,7 +564,7 @@ function slotSelected (slot) {
     if (calendarChangeSideBar.value) {
       let selectedSlot = {
         reference: 'slot',
-        // position will depends on fields order
+        // position will depend on fields order
         position: 1,
         value: ''
       }
@@ -560,8 +575,8 @@ function slotSelected (slot) {
 
       slotsHeading.value = selectedSlot.value
 
-      if (!props.notMultiple && cartItem.value) {
-        selectedSlot.reference = 'package-slot ' + cartItem.value.index + ' ' + cartItem.value.serviceId
+      if (!props.notMultiple && props.date) {
+        selectedSlot.reference = 'package-slot ' + props.id + ' ' + props.serviceId
       }
 
       sidebarDataCollector(selectedSlot)

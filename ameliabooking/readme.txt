@@ -4,9 +4,9 @@ Author URI: https://tmsproducts.io/
 Tags: appointments, booking, event booking system, booking system, scheduling
 Donate link: https://wpamelia.com/
 Requires at least: 4.5
-Tested up to: 6.4.3
+Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,9 +22,10 @@ Amelia’s booking calendar presents services and events in a perfectly organize
 **Amelia Lite WordPress Booking Plugin** is an excellent solution for companies, individuals, event management agencies, and managers. Our booking system guarantees a comfortable and user-friendly experience.
 
 In addition, the whole booking calendar is designed with a mobile-first approach, and both the admin and customers will experience a booking system that works perfectly across various devices.
-[youtube](https://www.youtube.com/watch?v=hMzGTIjPQOI)
 
-## 📈 A free appointment and event scheduling app gives your business the freedom to grow
+[youtube https://www.youtube.com/watch?v=hMzGTIjPQOI]
+
+A free appointment and event scheduling app gives your business the freedom to grow 📈
 
 - **No more no-shows** with email and SMS reminders and follow-ups.
 - **Reach global customers** with automatically detected time/zones and online meetings and events.
@@ -32,55 +33,39 @@ In addition, the whole booking calendar is designed with a mobile-first approach
 
 Amelia's booking plugin features a new modern, smooth & fast appointment booking form optimized for conversion and ready in a minute.
 
-## Who is the Amelia WordPress Booking Plugin for?
+## WHO IS THE AMELIA WORDPRESS BOOKING PLUGIN FOR?
 
 Many businesses and individuals who depend on stable appointment booking, service booking, or event management and scheduling on their WordPress websites can entirely rely on Amelia's appointment and event booking system.
 
-- 💇🏻‍♀️ **Salons** (hair salons, nail salons, cosmetologists, chiropractors, tattoo artists, piercing studios, tan salons, etc.)
+- [**Salons**](https://wpamelia.com/salon-booking-wordpress/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) (hair salons, nail salons, cosmetologists, chiropractors, tattoo artists, piercing studios, tan salons, etc.)- Features of our booking system salons love are **automated reminders** because their clients show up on time; **payment integrations** because they get paid on time; **Google Calendar synchronization** because it prevents double bookings; and more because running your salon has never been easier than with powerful booking system.
 
-Features of our [booking system salons](https://wpamelia.com/salon-booking-wordpress/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) love are **automated reminders** because their clients show up on time; **payment integrations** because they get paid on time; **Google Calendar synchronization** because it prevents double bookings; and more because running your salon has never been easier than with powerful booking system.
+- [**Consultants**](https://wpamelia.com/wordpress-booking-coaching/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)  (coaches, lawyers, psychologists, bookkeepers)- Features of our appointment booking system consultants love are **recurring appointments** because they always have time for regulars and it offers them financial stability; **group appointments** because they can help more people at once; and **video conferencing tool integrations** because they cater to clients all over the world.
 
-- 💼 **Consultants** (coaches, lawyers, psychologists, bookkeepers)
+- [**Healthcare**](https://wpamelia.com/wordpress-booking-medical/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) (doctors, dentists, nutritionists, homeopaths)- Healthcare service providers love using our WordPress booking plugin, especially features like **custom input fields**, **service packages and promotions**, and **custom schedules for doctors and nurses** because they provide top-notch care to patients without worrying about management.
 
-Features of our appointment [booking system consultants](https://wpamelia.com/wordpress-booking-coaching/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) love are **recurring appointments** because they always have time for regulars and it offers them financial stability; **group appointments** because they can help more people at once; and **video conferencing tool integrations** because they cater to clients all over the world.
+- [**Education**](https://wpamelia.com/wordpress-booking-coaching/) (online tutors, language teachers, private lessons)- Education professionals especially love our scheduling features that allow them to show their **availability calendar** and book **one-on-one and group classes** without having to worry about administrative tasks.
 
-- 🩺 **Healthcare** (doctors, dentists, nutritionists, homeopaths)
+- [ **Fitness & Gyms** ](https://wpamelia.com/wordpress-booking-gyms/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) (yoga classes, personal trainers, dance instructors, online classes)- Fitness specialists and gym staff love our WordPress booking plugin because clients can **book 24/7**, they can offer **discount coupons** with Amelia, and **automate email and text notifications** so clients always show up and get amazing results.
 
-[Healthcare service providers](https://wpamelia.com/wordpress-booking-medical/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) love using our WordPress booking plugin, especially features like **custom input fields**, **service packages and promotions**, and **custom schedules for doctors and nurses** because they provide top-notch care to patients without worrying about management.
+- [**Coaching sessions**](https://wpamelia.com/wordpress-booking-coaching/) (perfect for online classes and online coaching sessions)- Coaches enjoy the power of an easy-to-navigate booking system with features like **virtual sessions, 24/7 booking, high-converting booking forms, secure online payments, and coupon codes** that boost loyalty.
 
-- 📚 **Education** (online tutors, language teachers, private lessons)
+- [**Personal and Professional Services**](https://wpamelia.com/wordpress-booking-photography/) (photographers, cleaning, catering, automotive services and technicians, musicians)- Professional service providers especially love scheduling and availability calendars because clients can book appointments 24/7 and they can **focus on delivering high-quality services**.
 
-Education professionals especially love our scheduling features that allow them to show their **availability calendar** and book **one-on-one and group classes** without having to worry about administrative tasks.
-
-- 🏋🏻 **Fitness & Gyms** (yoga classes, personal trainers, dance instructors, online classes)
-
-[Fitness specialists and gym staff](https://wpamelia.com/wordpress-booking-gyms/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) love our WordPress booking plugin because clients can **book 24/7**, they can offer **discount coupons** with Amelia, and **automate email and text notifications** so clients always show up and get amazing results.
-
-- 🗣️ **Coaching sessions** (perfect for online classes and online coaching sessions)
-
-Coaches enjoy the power of an easy-to-navigate booking system with features like **virtual sessions, 24/7 booking, high-converting booking forms, secure online payments, and coupon codes** that boost loyalty.
-
-- 📷 **Personal and Professional Services** (photographers, cleaning, catering, automotive services and technicians, musicians)
-
-Professional service providers especially love scheduling and availability calendars because clients can book appointments 24/7 and they can **focus on delivering high-quality services**.
-
-- 🎊 **Any Event type**
-
-Event management has never been easier than with our [Event booking WordPress plugin](https://wpamelia.com/wordpress-event-plugin/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) because it’s rich in features like **dynamic ticketing, deposit payments, and recurring events**.
+- [**Any Event type**](https://wpamelia.com/wordpress-event-plugin/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) - Event management has never been easier than with our Event booking WordPress plugin because it’s rich in features like **dynamic ticketing, deposit payments, and recurring events**.
 
 Every event organizer and host praises Amelia for the easy-to-use and intuitive features the plugin offers.
 
-***⚠️ Important note:**  Online payments, integrations, unlimited number of employees, custom notifications, reminders, multilingual support, different ticket options for events and other features are not available in Amelia Lite. If you want to know more about Amelia premium versions, please visit our official [Amelia Booking home page](https://wpamelia.com/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).
+***⚠️ Important note:**  Online payments, integrations, unlimited number of employees, custom notifications, reminders, multilingual support, different ticket options for events and other features are not available in Amelia Lite. If you want to know more about Amelia premium versions, please visit our official [Amelia Booking home page](https://wpamelia.com/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).*
 
-You can also try out Amelia before committing [Amelia Demo](https://wpamelia.com/demos/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).*
+You can also try out Amelia before committing [Amelia Demo](https://wpamelia.com/demos/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).
 
-## 🔗 Useful links
+## USEFUL LINKS 🔗
 
 **[Official Page](https://wpamelia.com/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) || [Amelia Demos](https://wpamelia.com/demos/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) || [Documentation](https://wpamelia.com/documentation/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) || [Youtube](https://www.youtube.com/c/AmeliaWordPressBookingPlugin) || [Instagram](https://www.instagram.com/wpamelia_plugin/) || [Twitter](https://twitter.com/wpameliabooking) || [Facebook](https://www.facebook.com/AmeliaBooking) || [Discord Community](https://discord.com/invite/9xYWJqbXeM) || [Premium Versions](https://wpamelia.com/pricing/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)**
 
-## ❤️ Amelia Lite WordPress Booking Plugin Functionalities our users love:
+## AMELIA LITE BOOKING PLUGIN FEATURES 💫
 
-- Booking forms for online scheduling appointments and events management with a great user interface and user experience your customers will love.
+Booking forms for online scheduling appointments and events management with a great user interface and user experience your customers will love.
 
 You can easily embed appointment booking forms with two shortcodes:
 - **[ameliastepbooking]**
@@ -108,27 +93,15 @@ By choosing one of them, you can choose whether you want to show the booking flo
 
 - Picking a primary between **20+ languages**:
 
-> - Spanish,
-> - German,
-> - Dutch,
-> - Russian,
-> - Romanian,
-> - French,
-> - Finnish,
-> - Italian,
-> - Swedish,
-> - Brazilian Portuguese,
-> - Portuguese,
-> - Greek,
-> - Arabic,
-> - Slovak,
-> - Hungarian,
-> - Danish,
-> - Belgian,
-> - Japanese,
-> - Polish,
-> - Hebrew, and
-> - Chinese translation.
+| A-F | F-J | P-S |
+|------|------|------|
+| Arabic | French | Polish |
+| Belgian | German | Portuguese |
+| Brazilian Portuguese | Greek | Romanian |
+| Chinese translation | Hebrew | Russian |
+| Danish | Hungarian | Slovak |
+| Dutch | Italian | Spanish |
+| Finnish | Japanese | Swedish |
 
 - Setting the redirect URL on which the customers will be redirected after the booking.
 
@@ -140,134 +113,78 @@ By choosing one of them, you can choose whether you want to show the booking flo
 
 - **Easy customization** of the booking form to fit your branding - [How to Customize](https://wpamelia.com/customize-amelia-design-2-0/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)
 
-## What you can find in premium versions of Amelia Appointment and Event Booking Plugin  🚀
+## PREMIUM APPOINTMENT AND EVENT BOOKING FEATURES  🚀
 
-- **⏰ Custom Service Duration**
+- **Custom Service Duration ⏰** - Define a single Service with multiple durations your customers can choose from, define different prices for these durations, and define different prices for those durations per employee.
 
-Define a single Service with multiple durations your customers can choose from, define different prices for these durations, and define different prices for those durations per employee.
+- **Resources 🪑** - Ability to create shared or single resources that limit the bookings, available only in Pro and Elite licenses.
 
-- **🪑 Resources**
+- **Address Custom Fields 📍** - Customers can enter their address which is linked to Google Maps, so it is easier to find the location where you will provide your service.
 
-Ability to create shared or single resources that limit the bookings, available only in Pro and Elite licenses.
+- **Pay via a link 🔗** - A great option for your customers to be able to pay after booking through a link, from mail, or Customer Panel.
 
-- **📍 Address Custom Fields**
+- **Email and SMS scheduled notifications 📥** - Different types of reminders and follow-ups with templates.
 
-Customers can enter their address which is linked to Google Maps, so it is easier to find the location where you will provide your service.
+- **Custom notifications 💌** - Create new templates, multiple reminders or follow-ups for appointments, schedule them at different times, or create a specific message for each service.
 
-- **🔗 Pay via a link**
+- **Recurring appointments 🔁** - Book multiple appointments for the same service that will repeat in a specific time increment.
 
-A great option for your customers to be able to pay after booking through a link, from mail, or Customer Panel.
+- **Custom Fields for the booking forms 🔮** - Create different types of custom fields for the customer to enter during the booking process (special requests, their address, file upload or any question relevant to your business)
 
-- **📥 Email and SMS scheduled notifications**
+- **Integrations 🌐** - Zoom, Google Meet, Google Calendar, Outlook Calendar, Lesson Space, Facebook Pixel and Google Analytics.
 
-Different types of reminders and follow-ups with templates.
+- Accept **online payments 💵** through PayPal, Stripe, WooCommerce, Mollie, and Razorpay.
 
-- **💌 Custom notifications**
+- Search the booking form for Appointments that give you the option to show the available appointments based on the **search criteria** 🔎
 
-Create new templates, multiple reminders or follow-ups for appointments, schedule them at different times, or create a specific message for each service.
+- **Event Calendar 📆** - Booking form that gives you the option to show upcoming events in a monthly calendar view.
 
-- **🔁 Recurring appointments**
+- **Manage multiple employees 👥** - Create the employees’ database, with specific working hours, service schedule, capacity, and price for each, as well as configure the days off and special days.
 
-Book multiple appointments for the same service that will repeat in a specific time increment.
+- **Manage multiple locations 🗺️** - Suitable for businesses that offer their services in multiple locations.
 
-- **🔮 Custom Fields for the booking forms**
+- **Multilingual support 🌍** - Translate the names of services, categories, events, extras, notification templates, etc. into multiple languages that customers can choose on your website.
 
-Create different types of custom fields for the customer to enter during the booking process (special requests, their address, file upload or any question relevant to your business)
+- More **customization 🎨** options to fully adjust your booking experience. Choosing colors, the order of the fields, and which fields will be mandatory.
 
-- 🌐 Integrate with Zoom, Google Meet, Google Calendar, Outlook Calendar, Lesson Space, Facebook Pixel and Google Analytics.
+- **Custom options ⚙️** - Such as group booking, buffer times before and after the appointment, extras, deposit payments, and types of payments for each service and event.
 
-- 💵 Accept **Online payments** through PayPal, Stripe, WooCommerce, Mollie, and Razorpay.
+- **Customers panel** and **Employees panel** - For tracking and managing appointments and events.
 
-- 🔎 Search the booking form for Appointments that give you the option to show the available appointments based on the **search criteria**
+- **Discount coupons 🎟️** - For bookings, creating and sending discount coupons to loyal customers.
 
-- **📆 Event Calendar**
+- **Packages of services 📦** - Creating the packages (bundles) of one or multiple services with a discount available to customers on the booking form.
 
-Booking form that gives you the option to show upcoming events in a monthly calendar view.
+- **Event tickets 🎉** - Create and offer different types of tickets for each event, with different prices.
 
-- **👥 Manage multiple employees**
+- Set up the **minimum** or **maximum** number of attendees for each event .
 
-Create the employees’ database, with specific working hours, service schedule, capacity, and price for each, as well as configure the days off and special days.
+- **WebHooks 🪝**- Connect Amelia with any other application using several different hooks and choosing which data you want to send.
 
-- **🗺️ Manage multiple locations**
+- **WhatsApp integration ✅** - Remind your customers or event attendees with WhatsApp reminders and follow-up messages.
 
-Suitable for businesses that offer their services in multiple locations.
+- **Show busy time slots 🗓️** - Display the availability of time slots, indicating how many slots are already booked.
 
-- **🌍 Multilingual support**
+- **Refund option 💸** - Initiate a refund that will be processed through the online payment provider used to pay for the appointment/event.
 
-Translate the names of services, categories, events, extras, notification templates, etc. into multiple languages that customers can choose on your website.
+- **REST APIs management 👾** - Empowering developers to extend integrations and customize the booking process.
 
-- 🎨 More **customization** options to fully adjust your booking experience.
+- **Cart Feature 🛒** - Streamline your booking process with seamless multiple appointments in a single transaction.
 
-Choosing colors, the order of the fields, and which fields will be mandatory.
+- **Multiple Selections in Shortcode 🛠️**- Enhance flexibility by choosing from various options on a single webpage.
 
-- **🔘 Custom service options**
+- **No-show Customers Tag 🏷️**- Efficiently manage no-show customers on the backend with this tagging feature.
 
-Such as group booking, buffer times before and after the appointment, extras, deposit payments, and types of payments for each service and event.
-
-- **👩🏻👨🏻‍🦰 Customers panel** and **Employees panel**
-
-For tracking and managing appointments and events.
-
-- **🎟️ Discount coupons**
-
-For bookings - creating and sending discount coupons to loyal customers.
-
-- **📦 Packages of services**
-
-Creating the packages (bundles) of one or multiple services with a discount available to customers on the booking form.
-
-- **🎉 Event tickets**
-
-Create and offer different types of tickets for each event, with different prices.
-
-- 🛑 Set up the **minimum** or **maximum** number of attendees for each event.
-
-- **🪝 WebHooks**
-
-Connect Amelia with any other application using several different hooks and choosing which data you want to send.
-
-- **✅ WhatsApp integration**
-
-Remind your customers or event attendees with WhatsApp reminders and follow-up messages.
-
-- **🗓️ Show busy time slots**
-
-Display the availability of time slots, indicating how many slots are already booked.
-
-- **💸 Refund option**
-
-Initiate a refund that will be processed through the online payment provider used to pay for the appointment/event.
-
-- **👾 REST APIs management**
-
-Empowering developers to extend integrations and customize the booking process.
-
-- **🛒 Cart Feature**
-
-Streamline your booking process with seamless multiple appointments in a single transaction.
-
-- **🔄 Multiple Selections in Shortcode**
-
-Enhance flexibility by choosing from various options on a single webpage.
-
-- **🏷️ No-show Customers Tag**
-
-Efficiently manage no-show customers on the backend with this tagging feature.
-
-- **🎖️ Employee Badges**
-
-Elevate your booking experience by customizing badges for your employees.
+- **Employee Badges 🎖️**- Elevate your booking experience by customizing badges for your employees.
 
 
-## How to Configure Amelia Lite Booking System?
+## HOW TO CONFIGURE AMELIA LITE BOOKING SYSTEM?
 
 Configuring Amelia Lite Booking System to receive your first appointment or event booking through WordPress is a 5-minute job.
 
 You can create an online reservation system for events or service appointment booking with just a few simple settings.
 
-Here is how:
-
-## 👇🏻 5 easy steps to set up Amelia Lite Booking System:
+**5 easy steps to set up Amelia Lite Booking System 👇🏻**
 
 1. Go to your WordPress’ admin page, open Amelia -> Services, and add categories and services, as described [here](https://wpamelia.com/services-and-categories/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org).
 
@@ -281,67 +198,46 @@ If on your website, you have different pages for different categories of service
 
 5. Save it and you are ready to receive your first bookings.
 
-> **Note:** You can customize provider details and schedule on the [General Settings](https://wpamelia.com/general-settings/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) page.
+***Note:** You can customize provider details and schedule on the [General Settings](https://wpamelia.com/general-settings/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) page.*
 
 
-##📢 IMPORTANT NEWS!
+## IMPORTANT NEWS! 📢
 
-## In one of our newest versions, we introduced a new, redesigned and improved appointment booking forms.
+### NEW BOOKING FORM ALERT
 
 New appointment scheduling form is smoother, steps load faster and the **conversion rate is higher**.
 
 
-##🏆 What makes new booking form the best on the market:
+### What makes new booking form the best on the market 🏆
 
-- **Modern design**
+- **Modern design** - The design of the new booking form will help you convert more website visitors into customers.
 
-The design of the new booking form will help you convert more website visitors into customers.
+- **Category selection** - Navigation through a list of your services is easier compared to the old booking experience.
 
-- **Category selection**
+- **Smooth and animated step-to-step transition** - A step-to-step transition process is accelerated with modern loaders working from behind.
 
-Navigation through a list of your services is easier compared to the old booking experience.
+- **Contact us option** - If your clients have any questions or concerns, they can contact you using clickable email that is positioned at a visible place.
 
-- **Smooth and animated step-to-step transition**
+- **Sidebar with the selected booking-related details** - Display of the booking process in real-time is presented via sidebar. This is how we differentiate finished and unfinished steps.
 
-A step-to-step transition process is accelerated with modern loaders working from behind.
+- **Larger booking calendar with available and unavailable time slots** - The booking calendar is larger, therefore each customer can easily see the difference between available and unavailable days.
 
-- **Contact us option**
+- **A better summary of the finished booking** - The improved form offers easy tracking of all past bookings recapitulation out of the client dashboard.
 
-If your clients have any questions or concerns, they can contact you using clickable email that is positioned at a visible place.
+- **Simple customization page** - You can effortlessly customize the form to extend where the look and feel match your brand needs.
 
-- **Sidebar with the selected booking-related details**
+- **Improved loading speed** - By adding more up-to-date technology and logic, we’ve managed to speed up the loading process.
 
-Display of the booking process in real-time is presented via sidebar. This is how we differentiate finished and unfinished steps.
+- **Improved conversion rate** - The intuitive, simple, informative, and fast-loading form will give your customers the joy of smooth and effortless booking.
 
-- **Larger booking calendar with available and unavailable time slots**
-
-The booking calendar is larger, therefore each customer can easily see the difference between available and unavailable days.
-
-- **A better summary of the finished booking**
-
-The improved form offers easy tracking of all past bookings recapitulation out of the client dashboard.
-
-- **Simple customization page**
-
-You can effortlessly customize the form to extend where the look and feel match your brand needs.
-
-- **Improved loading speed**
-
-By adding more up-to-date technology and logic, we’ve managed to speed up the loading process.
-
-- **Improved conversion rate**
-
-The intuitive, simple, informative, and fast-loading form will give your customers the joy of smooth and effortless booking.
-
-## New Form vs Old Form
+### New Form vs Old Form
 
 Setting up the new booking form is easier, and the navigation is straightforward. And what's most important, the new and improved Amelia Booking System is inviting and conversion-optimized.
 
 
 ***Note:** The old appointment booking form will be available until the total switch to the new form happens, which the users will be informed about in a timely manner.*
 
-
-##FAQ
+## FAQ
 
 **Do you have a list of all Amelia Booking System shortcodes?**
 
@@ -395,6 +291,13 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.1.3
+* Improvement: Extended option “Check customer's name for existing email/phone when booking”, to check for existing users by phone number if email is not enteredImprovement: Extended option “Check customer's name for existing email/phone when booking”, to check for existing users by phone number if email is not entered
+* Improvement: Added possibility to search users by their phone number
+* Updated German and added Turkish translation
+* BugFix: Fixed issue with “Go back” button and missing sidebar on the Catalog Booking form
+* Other small bug fixes and stability improvements
+
 V1.1.2
 * Small bug fixes and stability improvements
 

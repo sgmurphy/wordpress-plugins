@@ -11,7 +11,7 @@
         @click="handleClick('global')"
       ></AmSettingsCard>
     </div>
-    <div v-if="pageRenderKey === 'sbsNew'" class="am-cs-menu__inner">
+    <div v-if="pageRenderKey === 'sbsNew' || (pageRenderKey === 'capc' && pagesType === 'panel')" class="am-cs-menu__inner">
       <div class="am-cs-menu__inner-header">
         <span class="am-icon-box"></span>
         {{amLabels.cb_section}}
@@ -57,6 +57,8 @@ let licence = inject('licence')
 // * Bookable type
 let bookableType = inject('bookableType')
 
+// * Pages Type
+let pagesType = inject('pagesType')
 let pageRenderKey = inject('pageRenderKey')
 
 function getServiceAppointmentArray () {
@@ -121,8 +123,6 @@ function getServiceAppointmentArray () {
     content: amLabels.cpb_congratulations_content,
     trigger: 'congrats',
   })
-
-
 
   values.forEach((item, index) => {
     item.index = index
@@ -279,11 +279,81 @@ let elfMenuCards = computed(() => {
   return elfMenuArr.value
 })
 
+// * capc - Cabinet Panel Customer, csb - customize sidebar
+let capcPanelMenuArr = ref([
+  {
+    heading: amLabels.csb_cust_profile,
+    content: amLabels.csb_cust_profile_content,
+    trigger: 'profile',
+    index: 0,
+  },
+  {
+    heading: amLabels.csb_cust_appointments,
+    content: amLabels.csb_cust_appointments_content,
+    trigger: 'appointments',
+    index: 1
+  },
+  {
+    heading: amLabels.csb_cust_events,
+    content: amLabels.csb_cust_events_content,
+    trigger: 'events',
+    index: 2
+  },
+  {
+    heading: amLabels.csb_cust_packages_list,
+    content: amLabels.csb_cust_packages_list_content,
+    trigger: 'packagesList',
+    index: 3
+  },
+  {
+    heading: amLabels.csb_cust_package_appointments,
+    content: amLabels.csb_cust_package_appointments_content,
+    trigger: 'packageAppointments',
+    index: 4
+  }
+])
+
+if (licence.isStarter || licence.isBasic) {
+  capcPanelMenuArr.value.splice(3, 2)
+}
+
+let capcAuthMenuArr = ref([
+  {
+    heading: amLabels.csb_cust_sign_in,
+    content: amLabels.csb_cust_sign_in_content,
+    trigger: 'signIn',
+    index: 0,
+  },
+  {
+    heading: amLabels.csb_cust_access_link,
+    content: amLabels.csb_cust_access_link_content,
+    trigger: 'accessLink',
+    index: 1,
+  },
+  {
+    heading: amLabels.csb_cust_access_link_success,
+    content: amLabels.csb_cust_access_link_success_content,
+    trigger: 'accessLinkSuccess',
+    index: 2,
+  },
+  {
+    heading: amLabels.csb_cust_set_new_pass,
+    content: amLabels.csb_cust_set_new_pass_content,
+    trigger: 'setPass',
+    index: 3,
+  }
+])
+
+let capcMenuCards = computed(() => {
+  if (pagesType.value === 'auth') return capcAuthMenuArr.value
+  return capcPanelMenuArr.value
+})
 
 // * Cards in customize sidebar
 let settingsCardArray = computed(() => {
   if (pageRenderKey.value === 'cbf') return cbfMenuCards.value
   if (pageRenderKey.value === 'elf') return elfMenuCards.value
+  if (pageRenderKey.value === 'capc') return capcMenuCards.value
 
   return sbsMenuCards.value
 })

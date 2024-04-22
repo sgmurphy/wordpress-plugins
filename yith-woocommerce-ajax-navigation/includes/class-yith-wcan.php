@@ -86,7 +86,7 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 			// register assets needed both on backend and frontend.
 			add_action( 'init', array( $this, 'register_assets' ) );
 
-			// declare HPOS compatibility
+			// declare HPOS compatibility.
 			add_action( 'before_woocommerce_init', array( $this, 'declare_wc_features_support' ) );
 		}
 
@@ -121,10 +121,9 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 			do_action( 'yith_wcan_before_init' );
 
 			$this->require_files();
-			$this->init();
-
 			$this->load_compatibilities();
-			$this->load_filters();
+
+			$this->init();
 
 			/**
 			 * DO_ACTION: yith_wcan_standby
@@ -141,34 +140,15 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 		 * @since  1.4
 		 */
 		public function require_files() {
-			$required = apply_filters(
-				'yith_wcan_required_files',
-				array(
-					'functions-yith-wcan.php',
-					'class-yith-wcan-cache-helper.php',
-					'class-yith-wcan-query.php',
-					'class-yith-wcan-install.php',
-					'class-yith-wcan-filter.php',
-					'class-yith-wcan-filter-factory.php',
-					'class-yith-wcan-preset.php',
-					'class-yith-wcan-presets.php',
-					'class-yith-wcan-preset-factory.php',
-					'class-yith-wcan-shortcodes.php',
-					'class-yith-wcan-widgets.php',
-					'class-yith-wcan-admin.php',
-					'class-yith-wcan-frontend.php',
-					'data-stores/class-yith-wcan-preset-data-store.php',
-				)
-			);
+			// include autoloader.
+			require_once YITH_WCAN_INC . 'class-yith-wcan-autoloader.php';
 
-			foreach ( $required as $file ) {
-				file_exists( YITH_WCAN_INC . $file ) && require_once YITH_WCAN_INC . $file;
-			}
+			// include plugin-specific functions.
+			require_once YITH_WCAN_INC . 'functions-yith-wcan.php';
 
 			// basic cli support.
-			if ( defined( 'WP_CLI' ) && WP_CLI ) {
-				file_exists( YITH_WCAN_DIR . 'includes/wp-cli/class-yith-wcan-cli-commands.php' ) && require_once YITH_WCAN_DIR . 'includes/wp-cli/class-yith-wcan-cli-commands.php';
-				file_exists( YITH_WCAN_DIR . 'tools/wp-cli/class-yith-wcan-cli-test-commands.php' ) && require_once YITH_WCAN_DIR . 'tools/wp-cli/class-yith-wcan-cli-test-commands.php';
+			if ( defined( 'WP_CLI' ) && WP_CLI && file_exists( YITH_WCAN_DIR . 'tools/wp-cli/class-yith-wcan-cli-test-commands.php' ) ) {
+				 require_once YITH_WCAN_DIR . 'tools/wp-cli/class-yith-wcan-cli-test-commands.php';
 			}
 		}
 
@@ -183,7 +163,10 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 			YITH_WCAN_Install::init();
 
 			// init general classes.
-			YITH_WCAN_Presets();
+			YITH_WCAN_Presets::instance();
+
+			// init ajax handling.
+			YITH_WCAN_Ajax::init();
 
 			// init shortcodes.
 			YITH_WCAN_Shortcodes::init();
@@ -196,26 +179,6 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 				$this->admin = new YITH_WCAN_Admin();
 			} else {
 				$this->frontend = new YITH_WCAN_Frontend();
-			}
-		}
-
-		/**
-		 * Includes supported filter types, for future usage
-		 *
-		 * @return void
-		 * @since 4.0
-		 */
-		public function load_filters() {
-			$supported_types = YITH_WCAN_Filter_Factory::get_supported_types();
-
-			if ( $supported_types ) {
-				foreach ( $supported_types as $type => $label ) {
-					$file_name = str_replace( '_', '-', $type );
-					$file_name = "class-yith-wcan-filter-{$file_name}.php";
-					$file_path = YITH_WCAN_INC . '/filters/' . $file_name;
-
-					file_exists( $file_path ) && require_once $file_path;
-				}
 			}
 		}
 
@@ -352,6 +315,15 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 				);
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_wcan_compatible_plugins
+			 *
+			 * List of compatible plugins
+			 *
+			 * @param array $compatibilities List of compatible plugins.
+			 *
+			 * @return array
+			 */
 			return apply_filters( 'yith_wcan_compatible_plugins', $this->supported_plugins );
 		}
 
@@ -361,17 +333,19 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 		 * @return YITH_WCAN|YITH_WCAN_Premium Main instance
 		 */
 		public static function instance() {
-			if ( class_exists( 'YITH_WCAN_Premium' ) ) {
-				return YITH_WCAN_Premium::instance();
-			} elseif ( class_exists( 'YITH_WCAN_Extended' ) ) {
-				return YITH_WCAN_Extended::instance();
-			} else {
-				if ( is_null( self::$instance ) ) {
-					self::$instance = new self();
-				}
+			$class = static::class;
 
-				return self::$instance;
+			if ( class_exists( "{$class}_Premium" ) ) {
+				return YITH_WCAN_Premium::instance();
+			} elseif ( class_exists( "{$class}_Extended" ) ) {
+				return YITH_WCAN_Extended::instance();
 			}
+
+			if ( is_null( static::$instance ) ) {
+				static::$instance = new static();
+			}
+
+			return static::$instance;
 		}
 	}
 }
