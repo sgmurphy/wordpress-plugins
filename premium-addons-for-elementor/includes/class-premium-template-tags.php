@@ -61,7 +61,7 @@ class Premium_Template_Tags {
 	 * $options is option field of select
 	 *
 	 * @since 1.0.0
-	 * @var integer $page_limit
+	 * @var array $options
 	 */
 	protected $options;
 
@@ -88,7 +88,9 @@ class Premium_Template_Tags {
 		add_action( 'wp_ajax_premium_update_tax', array( $this, 'get_related_tax' ) );
 
 		add_action( 'wp_ajax_pa_acf_options', array( $this, 'get_acf_options' ) );
-		add_action( 'wp_ajax_nopriv_pa_get_acf_options', array( $this, 'get_acf_options' ) );
+
+		add_action( 'wp_ajax_premium_get_search_results', array( $this, 'get_search_results' ) );
+		add_action( 'wp_ajax_nopriv_premium_get_search_results', array( $this, 'get_search_results' ) );
 	}
 
 	/**
@@ -459,7 +461,7 @@ class Premium_Template_Tags {
 	 *
 	 * @return array query args
 	 */
-	public static function get_query_args() {
+	public static function get_query_args( $target_post_type = '' ) {
 
 		$settings = self::$settings;
 
@@ -469,13 +471,28 @@ class Premium_Template_Tags {
 		$post_type = $settings['post_type_filter'];
 		$post_id   = get_the_ID();
 
+		if ( 'main' === $post_type ) {
+
+			global $wp_query;
+
+			$main_query = clone $wp_query;
+
+			return $main_query->query_vars;
+
+		}
+
 		$post_args = array(
-			'post_type'        => $post_type,
+			'post_type'        => ! empty( $target_post_type ) ? $target_post_type : $post_type,
 			'posts_per_page'   => empty( $settings['premium_blog_number_of_posts'] ) ? 9999 : $settings['premium_blog_number_of_posts'],
 			'paged'            => $paged,
 			'post_status'      => 'publish',
 			'suppress_filters' => false,
 		);
+
+		// If select field control option is enabled in AJAX search, then return because we don't want any other post args.
+		if ( ! empty( $target_post_type ) ) {
+			return $post_args;
+		}
 
 		if ( 'related' === $post_type ) {
 			$current_post_type      = get_post_type( $post_id );
@@ -484,6 +501,10 @@ class Premium_Template_Tags {
 
 		$post_args['orderby'] = $settings['premium_blog_order_by'];
 		$post_args['order']   = $settings['premium_blog_order'];
+
+		if ( 'meta_value' === $settings['premium_blog_order_by'] ) {
+			$post_args['meta_key'] = $settings['premium_blog_meta_key'];
+		}
 
 		if ( isset( $settings['posts_from'] ) ) {
 
@@ -597,7 +618,7 @@ class Premium_Template_Tags {
 
 		}
 
-		if ( 0 < $settings['premium_blog_offset'] ) {
+		if ( isset( $settings['premium_blog_offset'] ) && 0 < $settings['premium_blog_offset'] ) {
 
 			/**
 			 * Offset break the pagination. Using WordPress's work around
@@ -608,11 +629,11 @@ class Premium_Template_Tags {
 
 		}
 
-		if ( 'yes' === $settings['ignore_sticky_posts'] ) {
+		if ( isset( $settings['ignore_sticky_posts'] ) && 'yes' === $settings['ignore_sticky_posts'] ) {
 			$excluded_posts = array_merge( $excluded_posts, get_option( 'sticky_posts' ) );
 		}
 
-		if ( 'yes' === $settings['query_exclude_current'] || 'related' === $post_type ) {
+		if ( ( isset( $settings['query_exclude_current'] ) && 'yes' === $settings['query_exclude_current'] ) || 'related' === $post_type ) {
 			array_push( $excluded_posts, $post_id );
 		}
 
@@ -739,6 +760,8 @@ class Premium_Template_Tags {
 		} else {
 			$excerpt = trim( get_the_excerpt() );
 
+			$excerpt = apply_filters( 'pa_post_excerpt', $excerpt, get_the_ID() );
+
 			$words = explode( ' ', $excerpt, $excerpt_length + 1 );
 
 			if ( count( $words ) > $excerpt_length ) {
@@ -763,18 +786,21 @@ class Premium_Template_Tags {
 	 * @since 3.20.9
 	 * @access public
 	 *
-	 * @param string $read_more read more text.
-	 * @param string $post_target  link target value.
-	 * @param string $link_class   link class
+	 * @param string  $read_more read more text.
+	 * @param string  $post_target  link target value.
+	 * @param string  $link_class   link class.
+	 * @param boolean $add_btn_class add elementor button class.
 	 */
-	public static function get_post_excerpt_link( $read_more, $post_target, $link_class_prefix ) {
+	public static function get_post_excerpt_link( $read_more, $post_target, $link_class_prefix, $add_btn_class = true ) {
 
 		if ( empty( $read_more ) ) {
 			return;
 		}
 
+		$button_class = $add_btn_class ? 'elementor-button' : '';
+
 		echo '<div class="' . $link_class_prefix . 'excerpt-link-wrap">';
-			echo '<a href="' . esc_url( get_permalink() ) . '" target="' . esc_attr( $post_target ) . '" class="' . $link_class_prefix . 'excerpt-link elementor-button">';
+			echo '<a href="' . esc_url( get_permalink() ) . '" target="' . esc_attr( $post_target ) . '" class="' . $link_class_prefix . 'excerpt-link ' . $button_class . '">';
 				echo wp_kses_post( $read_more );
 			echo '</a>';
 		echo '</div>';
@@ -980,7 +1006,7 @@ class Premium_Template_Tags {
 
 		// Get post excerpt.
 		if ( 'link' === $options['excerpt_type'] ) :
-			$this->get_post_excerpt_link( $options['excerpt_text'], $options['target'], $options['excerpt_class_prefix'] );
+			$this->get_post_excerpt_link( $options['excerpt_text'], $options['target'], $options['excerpt_class_prefix'], $options['button_class'] );
 		endif;
 
 		?>
@@ -1017,7 +1043,7 @@ class Premium_Template_Tags {
 			'excerpt_text'         => $settings['premium_blog_excerpt_text'],
 			'class'                => 'premium-blog-post-content',
 			'excerpt_class_prefix' => 'premium-blog-',
-			'content_classes'      => array( 'premium-blob-content-inner-wrapper' ),
+			'content_classes'      => array( 'premium-blog-content-inner-wrapper' ),
 		);
 
 		$skin = $settings['premium_blog_skin'];
@@ -1296,7 +1322,7 @@ class Premium_Template_Tags {
 
 		} else {
 
-			$container_class = 'premium-addon-blog' !== $settings['widget_type'] ? $settings['widget_type'] . '__pagination-container' : 'premium-blog-pagination-container';
+			$container_class = 'premium-addon-blog' === $settings['widget_type'] ? 'premium-blog-pagination-container' : $settings['widget_type'] . '__pagination-container';
 			$nav_links       = paginate_links(
 				array(
 					'current'   => $current_page,
@@ -1423,6 +1449,272 @@ class Premium_Template_Tags {
 		$results = ACF_Helper::format_acf_query_result( $query->posts, $query_options );
 
 		wp_send_json_success( wp_json_encode( $results ) );
+	}
+
+	/**
+	 * Get Search Results.
+	 *
+	 * Get search results using AJAX.
+	 *
+	 * @since 4.10.28
+	 * @access public
+	 */
+	public function get_search_results() {
+
+		check_ajax_referer( 'pa-blog-widget-nonce', 'nonce' );
+
+		if ( ! isset( $_POST['page_id'] ) || ! isset( $_POST['widget_id'] ) ) {
+			return;
+		}
+
+		$doc_id   = isset( $_POST['page_id'] ) ? sanitize_text_field( wp_unslash( $_POST['page_id'] ) ) : '';
+		$elem_id  = isset( $_POST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_POST['widget_id'] ) ) : '';
+		$query    = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
+		$page_num = isset( $_POST['page_number'] ) ? sanitize_text_field( wp_unslash( $_POST['page_number'] ) ) : '';
+
+		$elementor = Plugin::$instance;
+		$meta      = $elementor->documents->get( $doc_id )->get_elements_data();
+
+		$widget_data = $this->find_element_recursive( $meta, $elem_id );
+
+		$data = array(
+			'ID'         => '',
+			'posts'      => '',
+			'pagination' => '',
+		);
+
+		if ( null !== $widget_data ) {
+
+			$widget = $elementor->elements_manager->create_element_instance( $widget_data );
+
+			$post_type = isset( $_POST['post_type'] ) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : '';
+
+			$posts = $this->render_search_results( $widget, $query, $post_type );
+
+			$pagination = $this->inner_pagination_render();
+
+			$data['posts'] = $posts;
+
+			$data['pagination'] = $pagination;
+
+			$data['ID'] = $widget->get_id();
+		}
+
+		wp_send_json_success( $data );
+
+	}
+
+	/**
+	 * Render Search Results
+	 *
+	 * @since 4.10.28
+	 * @access public
+	 *
+	 * @param object $widget widget.
+	 * @param string $query query string.
+	 * @param string $post_type post type.
+	 */
+	public function render_search_results( $widget, $search_string, $post_type ) {
+
+		ob_start();
+
+		$settings = $widget->get_settings();
+
+		$settings['widget_id'] = $widget->get_id();
+
+		$widget_name = $widget->get_name();
+
+		$settings['widget_type'] = 'premium-search-form';
+
+		$this->set_widget_settings( $settings );
+
+		$query_string = strtolower( $search_string );
+
+		$query = $this->get_search_query_posts( $query_string, $post_type );
+
+		$posts = $query->posts;
+
+		if ( count( $posts ) ) {
+
+			if ( 'yes' === $settings['show_results_number'] ) {
+				$this->render_results_number( count( $posts ) );
+			}
+
+			echo '<div class="premium-search__posts-wrap">';
+			global $post;
+
+			foreach ( $posts as $post ) {
+				setup_postdata( $post );
+
+				$post_title = strtolower( $post->post_title );
+
+				// if( false !== strpos( $post_title, $query_string ) ) {
+					$this->render_search_posts_layout( $search_string );
+				// }
+
+			}
+
+			wp_reset_postdata();
+
+			echo '</div>';
+
+		} else {
+			$query_notice = $settings['empty_query_text'];
+
+			Helper_Functions::render_empty_query_message( $query_notice );
+		}
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get Search Query Posts
+	 *
+	 * @since 4.10.28
+	 * @access public
+	 *
+	 * @param string $query query string.
+	 *
+	 * @return array query args
+	 */
+	public function get_search_query_posts( $query, $post_type ) {
+
+		$settings = self::$settings;
+
+		$post_args = $this->get_query_args( $post_type );
+
+		$search_args = array(
+			's' => $query,
+		);
+
+		$query_args = wp_parse_args( $post_args, $search_args );
+
+		$query = new \WP_Query( $query_args );
+
+		$total_pages = $query->max_num_pages;
+
+		$this->set_pagination_limit( $total_pages );
+
+		return $query;
+	}
+
+	/**
+	 * Render Results Number
+	 *
+	 * @since 4.10.28
+	 * @access protected
+	 *
+	 * @param string $string query string.
+	 */
+	public function render_results_number( $count ) {
+
+		$settings = self::$settings;
+
+		$results_text = str_replace( '{{number}}', $count, $settings['results_number_text'] );
+
+		?>
+			<div class="premium-search__results-number">
+				<span><?php echo wp_kses_post( sprintf( $results_text, $count ) ); ?></span>
+			</div>
+		<?php
+	}
+
+	/**
+	 * Render Search Posts Layout
+	 *
+	 * @since 4.10.28
+	 * @access protected
+	 *
+	 * @param string $string query string.
+	 */
+	public function render_search_posts_layout( $string ) {
+
+		$settings = self::$settings;
+
+		$post_id = get_the_ID();
+
+		$widget_id = $settings['widget_id'];
+
+		$key = sprintf( 'post_%s_%s', $widget_id, $post_id );
+
+		$render_thumbnail = has_post_thumbnail() && 'yes' === $settings['show_post_thumbnail'];
+
+		$target = 'yes' === $settings['new_tab'] ? '_blank' : '_self';
+
+		?>
+		<div class="premium-search__post-wrap">
+
+			<div class="premium-search__post-inner">
+
+				<?php if ( $render_thumbnail ) : ?>
+					<div class="premium-search__thumbnail-wrap">
+
+						<div class="premium-search__thumbnail">
+							<?php $this->get_post_thumbnail( $target, 'magazine' ); ?>
+						</div>
+
+						<div class="premium-search__overlay">
+							<a class="elementor-icon" href="<?php the_permalink(); ?>" target="<?php echo esc_attr( $target ); ?>" aria-hidden="true">
+								<span><?php esc_html( the_title() ); ?></span>
+							</a>
+						</div>
+
+					</div>
+				<?php endif; ?>
+
+				<div class="premium-search__post-content">
+					<?php
+
+						$boldWord = "<b>$string</b>";
+						$result   = preg_replace( "/($string)/i", $boldWord, ( get_the_title() ) );
+
+						$this->add_render_attribute( $key . '_title', 'class', 'premium-search__post-title' );
+
+						$title_tag = Helper_Functions::validate_html_tag( $settings['premium_blog_title_tag'] );
+
+					?>
+
+					<<?php echo wp_kses_post( $title_tag . ' ' . $this->get_render_attribute_string( $key . '_title' ) ); ?>>
+						<a href="<?php the_permalink(); ?>" target="<?php echo esc_attr( $target ); ?>">
+							<?php echo wp_kses_post( $result ); ?>
+						</a>
+					</<?php echo wp_kses_post( $title_tag ); ?>>
+
+					<?php
+					if ( 'yes' === $settings['show_excerpt'] ) {
+
+						$content_options = array(
+							'excerpt'              => $settings['show_excerpt'],
+							'length'               => $settings['excerpt_length'],
+							'target'               => $target,
+							'source'               => 'excerpt',
+							'excerpt_type'         => $settings['excerpt_type'],
+							'excerpt_text'         => $settings['excerpt_text'],
+							'class'                => 'premium-search__post-excerpt',
+							'excerpt_class_prefix' => 'premium-search-',
+							'content_classes'      => array( 'premium-search__excerpt-wrap' ),
+							'button_class'         => false,
+						);
+
+						do_action( 'pa_search_before_post_content' );
+
+						$this->get_post_content( $content_options );
+
+						do_action( 'pa_search_after_post_content' );
+
+					}
+					?>
+
+				</div>
+
+				<?php if ( 'yes' === $settings['link_box'] ) : ?>
+					<a class="premium-search__link" href="<?php the_permalink(); ?>" target="<?php echo esc_attr( $target ); ?>" aria-hidden="true"></a>
+				<?php endif; ?>
+			</div>
+
+		</div>
+
+		<?php
 	}
 
 
@@ -1876,7 +2168,13 @@ class Premium_Template_Tags {
 					// render the post skin.
 					$item_template_content = $this->get_template_content( $item_template_id, true );
 
-					$item_template_content = ! empty( $item_template_content ) ? '<div class="premium-smart-listing__post-wrapper premium-smart-listing__grid-item" data-total="' . $total . '">' . $item_template_content . '</div>' : '';
+					if ( ! empty( $item_template_content ) ) {
+
+						$this->render_custom_loop_temp( $item_template_id ); // print the loop item's css.
+
+						$item_template_content = '<div class="premium-smart-listing__post-wrapper premium-smart-listing__grid-item" data-total="' . $total . '">' . $item_template_content . '</div>';
+
+					}
 				}
 
 				// we limit what we replace to only one match to render each template correctly.
@@ -2031,21 +2329,22 @@ class Premium_Template_Tags {
 		}
 	}
 
-	public function render_custom_loop_temp() {
+	public function render_custom_loop_temp( $id = false ) {
 
 		$settings = self::$settings;
 
 		$loop_item_id = get_the_ID();
 
 		/** @var LoopDocument $document */
-		$document = PluginPro::elementor()->documents->get( $settings['pa_loop_template_id'] );
+		// $document = PluginPro::elementor()->documents->get( $settings['pa_loop_template_id'] );
+		$document = PluginPro::elementor()->documents->get( $id );
 
 		if ( ! $document ) {
 			return;
 		}
 
-		$this->print_dynamic_css( $loop_item_id, $settings['pa_loop_template_id'] );
-		$document->print_content();
+		$this->print_dynamic_css( $loop_item_id, $id );
+		// $document->print_content();
 	}
 
 	protected function print_dynamic_css( $post_id, $post_id_for_data ) {

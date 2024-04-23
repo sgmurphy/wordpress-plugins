@@ -20,7 +20,7 @@ class aThemes_Testimonials_Skin extends Elementor\Skin_Base {
 		?>
 
 		<div class="testimonials-wrapper">
-			<div class="roll-testimonials <?php echo $this->get_id(); ?>" data-autoplay="5000">
+			<div class="roll-testimonials <?php echo esc_attr( $this->get_id() ); ?>" data-autoplay="5000">
 				<?php foreach ( $settings['testimonials_list'] as $index => $item ) : ?>
 					<div class="customer">
 						<?php if ( $item['image']['url'] ) :

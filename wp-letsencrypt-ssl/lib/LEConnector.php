@@ -2,8 +2,8 @@
 
 namespace WPLEClient;
 
-use  WPLE_Trait ;
-use  WPLEClient\Exceptions\LEConnectorException ;
+use WPLE_Trait;
+use WPLEClient\Exceptions\LEConnectorException;
 /**
  * LetsEncrypt Connector class, containing the functions necessary to sign with JSON Web Key and Key ID, and perform GET, POST and HEAD requests.
  *
@@ -37,20 +37,31 @@ use  WPLEClient\Exceptions\LEConnectorException ;
  * @link       https://github.com/yourivw/LEClient
  * @since      Class available since Release 1.0.0
  */
-class LEConnector
-{
-    public  $baseURL ;
-    public  $accountKeys ;
-    private  $nonce ;
-    public  $keyChange ;
-    public  $newAccount ;
-    public  $newNonce ;
-    public  $newOrder ;
-    public  $revokeCert ;
-    public  $accountURL ;
-    public  $accountDeactivated = false ;
-    private  $log ;
-    private  $sourceIp = false ;
+class LEConnector {
+    public $baseURL;
+
+    public $accountKeys;
+
+    private $nonce;
+
+    public $keyChange;
+
+    public $newAccount;
+
+    public $newNonce;
+
+    public $newOrder;
+
+    public $revokeCert;
+
+    public $accountURL;
+
+    public $accountDeactivated = false;
+
+    private $log;
+
+    private $sourceIp = false;
+
     /**
      * Initiates the LetsEncrypt Connector class.
      *
@@ -63,8 +74,7 @@ class LEConnector
         $baseURL,
         $accountKeys,
         $sourceIp = false
-    )
-    {
+    ) {
         foreach ( $accountKeys as $id => $pky ) {
             $accountKeys[$id] = str_ireplace( ABSPATH . ABSPATH, ABSPATH, $pky );
         }
@@ -75,12 +85,11 @@ class LEConnector
         $this->getLEDirectory();
         $this->getNewNonce();
     }
-    
+
     /**
      * Requests the LetsEncrypt Directory and stores the necessary URLs in this LetsEncrypt Connector instance.
      */
-    private function getLEDirectory()
-    {
+    private function getLEDirectory() {
         $req = $this->get( '/directory' );
         $this->keyChange = $req['body']['keyChange'];
         $this->newAccount = $req['body']['newAccount'];
@@ -88,17 +97,16 @@ class LEConnector
         $this->newOrder = $req['body']['newOrder'];
         $this->revokeCert = $req['body']['revokeCert'];
     }
-    
+
     /**
      * Requests a new nonce from the LetsEncrypt server and stores it in this LetsEncrypt Connector instance.
      */
-    private function getNewNonce()
-    {
+    private function getNewNonce() {
         if ( $this->head( $this->newNonce )['status'] !== 200 ) {
             throw LEConnectorException::NoNewNonceException();
         }
     }
-    
+
     /**
      * Makes a Curl request.
      *
@@ -108,12 +116,11 @@ class LEConnector
      *
      * @return array 	Returns an array with the keys 'request', 'header', 'status' and 'body'.
      */
-    private function request( $method, $URL, $data = null )
-    {
+    private function request( $method, $URL, $data = null ) {
         if ( $this->accountDeactivated ) {
             throw LEConnectorException::AccountDeactivatedException();
         }
-        $headers = array( 'Accept: application/json', 'Content-Type: application/jose+json' );
+        $headers = array('Accept: application/json', 'Content-Type: application/jose+json');
         $requestURL = ( preg_match( '~^http~', $URL ) ? $URL : $this->baseURL . $URL );
         $handle = curl_init();
         curl_setopt( $handle, CURLOPT_URL, $requestURL );
@@ -153,7 +160,6 @@ class LEConnector
             'status'   => $statusCode,
             'body'     => ( $jsonbody === null ? $body : $jsonbody ),
         );
-        
         if ( $this->log instanceof \Psr\Log\LoggerInterface ) {
             $this->log->debug( $method . ' response received', $jsonresponse );
         } elseif ( $this->log >= LEClient::LOG_DEBUG ) {
@@ -166,8 +172,6 @@ class LEConnector
                 }
             }
         }
-        
-        
         if ( preg_match( '~Replay\\-Nonce: (\\S+)~i', $header, $matches ) ) {
             $this->nonce = trim( $matches[1] );
         } else {
@@ -176,8 +180,6 @@ class LEConnector
             }
             // Not expecting a new nonce with GET and HEAD requests.
         }
-        
-        
         if ( ($method == 'POST' or $method == 'GET') and $statusCode !== 200 and $statusCode !== 201 or $method == 'HEAD' and $statusCode !== 200 ) {
             //Ex: Invalid response: 429 (Rate limit for \'/directory\' reached)
             // if ($this->sourceIp !== false && get_option('wple_sourceip_enable') === false) {
@@ -188,10 +190,9 @@ class LEConnector
             throw LEConnectorException::InvalidResponseException( $jsonresponse );
             // }
         }
-        
         return $jsonresponse;
     }
-    
+
     /**
      * Makes a GET request.
      *
@@ -199,11 +200,10 @@ class LEConnector
      *
      * @return array 	Returns an array with the keys 'request', 'header', 'status' and 'body'.
      */
-    public function get( $url )
-    {
+    public function get( $url ) {
         return $this->request( 'GET', $url );
     }
-    
+
     /**
      * Makes a POST request.
      *
@@ -212,11 +212,10 @@ class LEConnector
      *
      * @return array 	Returns an array with the keys 'request', 'header', 'status' and 'body'.
      */
-    public function post( $url, $data = null )
-    {
+    public function post( $url, $data = null ) {
         return $this->request( 'POST', $url, $data );
     }
-    
+
     /**
      * Makes a HEAD request.
      *
@@ -224,11 +223,10 @@ class LEConnector
      *
      * @return array	Returns an array with the keys 'request', 'header', 'status' and 'body'.
      */
-    public function head( $url )
-    {
+    public function head( $url ) {
         return $this->request( 'HEAD', $url );
     }
-    
+
     /**
      * Generates a JSON Web Key signature to attach to the request.
      *
@@ -238,8 +236,7 @@ class LEConnector
      *
      * @return string	Returns a JSON encoded string containing the signature.
      */
-    public function signRequestJWK( $payload, $url, $privateKeyFile = '' )
-    {
+    public function signRequestJWK( $payload, $url, $privateKeyFile = '' ) {
         if ( $privateKeyFile == '' ) {
             $privateKeyFile = $this->accountKeys['private_key'];
         }
@@ -256,10 +253,10 @@ class LEConnector
         $protected = array(
             "alg"   => "RS256",
             "jwk"   => array(
-            "kty" => "RSA",
-            "n"   => LEFunctions::Base64UrlSafeEncode( $details["rsa"]["n"] ),
-            "e"   => LEFunctions::Base64UrlSafeEncode( $details["rsa"]["e"] ),
-        ),
+                "kty" => "RSA",
+                "n"   => LEFunctions::Base64UrlSafeEncode( $details["rsa"]["n"] ),
+                "e"   => LEFunctions::Base64UrlSafeEncode( $details["rsa"]["e"] ),
+            ),
             "nonce" => $this->nonce,
             "url"   => $url,
         );
@@ -279,7 +276,7 @@ class LEConnector
         );
         return json_encode( $data );
     }
-    
+
     /**
      * Generates a Key ID signature to attach to the request.
      *
@@ -295,8 +292,7 @@ class LEConnector
         $kid,
         $url,
         $privateKeyFile = ''
-    )
-    {
+    ) {
         if ( $privateKeyFile == '' ) {
             $privateKeyFile = $this->accountKeys['private_key'];
         }

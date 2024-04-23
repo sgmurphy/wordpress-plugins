@@ -9,7 +9,7 @@
 if ( ! class_exists( 'CPCFF_COMPATIBILITY' ) ) {
 	class CPCFF_COMPATIBILITY {
 
-		private static function init() {
+		private static function init() { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 			return array(
 				array(
 					'plugin' => 'Breeze - WordPress Cache Plugin',
@@ -49,9 +49,9 @@ if ( ! class_exists( 'CPCFF_COMPATIBILITY' ) ) {
 				),
 				array(
 					'plugin' => 'SG Optimizer',
-					'check'	 => 'siteground_optimizer_loader',
+					'check'  => 'siteground_optimizer_loader',
 					'type'   => 'object',
-					'mssg'	 => __( 'There is active the <b>SG Optimizer</b> plugin. If the forms are not visible, please, follows the steps below: <ol><li>Go to the menu option: "SG Optimizer > Frontend"</li><li>Enter in the "JAVASCRIPT" tab</li><li>Select  the jQuer path through the "Exclude from Deferral of Render-blocking JS"</li><li>Purge the "SG Cache"</li></ol> If the issue persists, disable the options: <i>"Minify the HTML Output"</i> and <i>"Minify JavaScript Files"</i> in the <b>SG Optimizer</b> settings, and once more, to purge the website cache.', 'calculated-fields-form' )
+					'mssg'   => __( 'There is active the <b>SG Optimizer</b> plugin. If the forms are not visible, please, follows the steps below: <ol><li>Go to the menu option: "SG Optimizer > Frontend"</li><li>Enter in the "JAVASCRIPT" tab</li><li>Select  the jQuer path through the "Exclude from Deferral of Render-blocking JS"</li><li>Purge the "SG Cache"</li></ol> If the issue persists, disable the options: <i>"Minify the HTML Output"</i> and <i>"Minify JavaScript Files"</i> in the <b>SG Optimizer</b> settings, and once more, to purge the website cache.', 'calculated-fields-form' ),
 				),
 				array(
 					'plugin' => 'Hummingbird',
@@ -62,12 +62,12 @@ if ( ! class_exists( 'CPCFF_COMPATIBILITY' ) ) {
 			);
 		} // End init
 
-		private static function format_warning_mssg( $plugin ) {
+		private static function format_warning_mssg( $plugin ) { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 			return '<div class="cff-compatibility-warning">' . $plugin['mssg'] . '</div>';
 		} // End format_warning_mssg
 
-		public static function warnings() {
-			 $plugins      = self::init();
+		public static function warnings() { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+			$plugins       = self::init();
 			$warning_mssgs = '';
 			foreach ( $plugins as $plugin ) {
 				switch ( $plugin['type'] ) {
@@ -95,6 +95,5 @@ if ( ! class_exists( 'CPCFF_COMPATIBILITY' ) ) {
 			}
 			return $warning_mssgs;
 		} // End blog_id
-
 	} // End CPCFF_COMPATIBILITY
 }

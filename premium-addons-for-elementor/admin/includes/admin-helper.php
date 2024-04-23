@@ -97,6 +97,9 @@ class Admin_Helper {
 		// Register AJAX Hooks for regenerate assets.
 		add_action( 'wp_ajax_pa_clear_cached_assets', array( $this, 'clear_cached_assets' ) );
 
+		// Register AJAX Hooks for clearing saved site cursor.
+		add_action( 'wp_ajax_pa_clear_site_cursor_settings', array( $this, 'clear_site_cursor_settings' ) );
+
 		// Register AJAX Hooks for Newsletter.
 		add_action( 'wp_ajax_subscribe_newsletter', array( $this, 'subscribe_newsletter' ) );
 
@@ -278,11 +281,12 @@ class Admin_Helper {
 
 			$localized_data = array(
 				'settings'               => array(
-					'ajaxurl'          => admin_url( 'admin-ajax.php' ),
-					'nonce'            => wp_create_nonce( 'pa-settings-tab' ),
-					'generate_nonce'   => wp_create_nonce( 'pa-generate-nonce' ),
-					'theme'            => $theme_slug,
-					'isTrackerAllowed' => 'yes' === get_option( 'elementor_allow_tracking', 'no' ) ? true : false,
+					'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+					'nonce'             => wp_create_nonce( 'pa-settings-tab' ),
+					'generate_nonce'    => wp_create_nonce( 'pa-generate-nonce' ),
+					'site_cursor_nonce' => wp_create_nonce( 'pa-site-cursor-nonce' ),
+					'theme'             => $theme_slug,
+					'isTrackerAllowed'  => 'yes' === get_option( 'elementor_allow_tracking', 'no' ) ? true : false,
 				),
 				'premiumRollBackConfirm' => array(
 					'home_url' => home_url(),
@@ -1187,6 +1191,29 @@ class Admin_Helper {
 	}
 
 	/**
+	 * Clear Cached Assets.
+	 *
+	 * Deletes assets options from DB And
+	 * deletes assets files from uploads/premium-addons-for-elementor
+	 * diretory.
+	 *
+	 * @access public
+	 * @since 4.9.3
+	 */
+	public function clear_site_cursor_settings() {
+
+		check_ajax_referer( 'pa-site-cursor-nonce', 'security' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to do this action', 'premium-addons-for-elementor' ) );
+		}
+
+		delete_option( 'pa_site_custom_cursor' );
+
+		wp_send_json_success( 'Site Cursor Settings Cleared' );
+	}
+
+	/**
 	 * Delete Assets Options.
 	 *
 	 * @access public
@@ -1279,11 +1306,11 @@ class Admin_Helper {
 	 */
 	public static function get_used_widgets() {
 
-		$used_widgets    = array();
+		$used_widgets = array();
 		// $tracker_allowed = 'yes' === get_option( 'elementor_allow_tracking' ) ? true : false;
 
 		// if ( ! $tracker_allowed ) {
-		// 	return false;
+		// return false;
 		// }
 
 		if ( class_exists( 'Elementor\Modules\Usage\Module' ) ) {

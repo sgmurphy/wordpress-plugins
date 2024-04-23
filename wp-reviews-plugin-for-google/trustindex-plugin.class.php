@@ -642,7 +642,8 @@ $filePath = __FILE__;
 if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
-$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.8.2", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$className = 'TrustindexPlugin_' . $forcePlatform;
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.3", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -5422,6 +5423,7 @@ $url = str_replace([ '%domain%', '%page_id%', '%25page_id%25' ], [ $domain, $pag
 if ($this->getGoogleType($pageId) === 'shop') {
 $url = 'https://customerreviews.google.com/v/merchant?q=' . $pageId;
 }
+
 return $url;
 }
 private function getGoogleType($pageId)
@@ -5665,7 +5667,7 @@ $content = str_replace('" data-layout-id=', ' '. implode(' ', $classAppends) .'"
 }
 $content = str_replace('" data-layout-id=', '" data-no-translation="true" data-layout-id=', $content);
 if ($dateformat === 'modern') {
-$content = preg_replace('/class="(ti-widget[^\'"]*)" data-layout-id=/', 'class="$1" data-time-locale="'. self::$widget_date_format_locales[ $lang ] .'" data-layout-id=', $content);
+$content = str_replace('" data-layout-id=', '" data-time-locale="'. self::$widget_date_format_locales[ $lang ] .'" data-layout-id=', $content);
 }
 if (!$onlyPreview) {
 if (!wp_style_is('ti-widget-css-' . $this->getShortName(), 'registered')) {

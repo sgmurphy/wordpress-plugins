@@ -1119,7 +1119,7 @@ class Environment {
 		 * We only disable the WooCommerce Google Analytics Integration if both, GA3 and GA4 are active in PMW.
 		 */
 
-		if (Options::is_google_analytics_enabled()) {
+		if (Options::is_google_analytics_active()) {
 			add_filter('woocommerce_ga_disable_tracking', '__return_true');
 		}
 

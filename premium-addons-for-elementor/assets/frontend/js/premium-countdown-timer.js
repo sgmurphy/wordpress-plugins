@@ -29,6 +29,7 @@
                 clockFace: "DailyCounter",
                 countdown: true,
                 timeSeparator: settings.separator || '',
+                language: settings.lang,
                 callbacks: {
                     stop: function () {
 

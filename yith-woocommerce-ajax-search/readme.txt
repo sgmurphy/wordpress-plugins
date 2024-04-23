@@ -5,7 +5,7 @@ Tags: woocommerce search by sku, woocommerce search results, woocommerce search 
 Requires at least: 6.3
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,9 +129,10 @@ You can get more features with the premium version of YITH WooCommerce Ajax Sear
 
 
 = How can I try the full-featured plugin? =
-
 If you want to see a demonstration version of the premium plugin, you can see that in [this page](https://plugins.yithemes.com/yith-woocommerce-ajax-search/). Browse it and try all options available so that you can see how your plugin looks like.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-ajax-search)
 
 == Screenshots ==
 
@@ -142,7 +143,12 @@ If you want to see a demonstration version of the premium plugin, you can see th
 5. Shortcode configuration - submit button tab
 6. Shortcode configuration - search results tab
 7. Search Stats tab
+
 == Changelog ==
+= 2.3.0 - Released on 22 April 2024 =
+* New: support for WooCommerce 8.8
+* Update: YITH plugin framework
+
 = 2.2.0 - Released on 18 March 2024 =
 * New: support for WordPress 6.5
 * New: support for WooCommerce 8.7

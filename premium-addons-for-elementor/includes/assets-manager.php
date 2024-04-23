@@ -72,6 +72,39 @@ class Assets_Manager {
 		add_action( 'wp_footer', array( $this, 'cache_post_assets' ) );
 
 		add_action( 'wp_trash_post', array( $this, 'delete_cached_options' ) );
+
+        add_action( 'elementor/theme/register_locations', [ $this, 'load_asset_per_location' ], 20 );
+	}
+
+    /**
+	 * load_asset_per_location
+	 *
+	 * @param $instance
+	 *
+	 * @return false|void
+	 */
+	public function load_asset_per_location( $instance ) {
+
+		if ( is_admin() || ! ( class_exists( 'ElementorPro\Modules\ThemeBuilder\Module' ) ) ) {
+			return false;
+		}
+
+        if( $this->is_built_with_elementor() ) {
+            return;
+        }
+
+		$locations = $instance->get_locations();
+
+		foreach ( $locations as $location => $settings ) {
+
+			$documents = \ElementorPro\Modules\ThemeBuilder\Module::instance()->get_conditions_manager()->get_documents_for_location( $location );
+			foreach ( $documents as $document ) {
+				$document_id = $document->get_post()->ID;
+
+                $this->set_post_id( $document_id, true );
+
+			}
+		}
 	}
 
 	/**
@@ -80,7 +113,7 @@ class Assets_Manager {
 	 * @access public
 	 * @since 4.6.1
 	 */
-	public function handle_post_save( $post_id ) {
+	public function handle_post_save( $post_id, $data ) {
 
 		if ( wp_doing_cron() ) {
 			return;
@@ -91,6 +124,21 @@ class Assets_Manager {
 		self::remove_files();
 
 		update_option( 'pa_edit_time', strtotime( 'now' ) );
+
+        $pa_elems = $this->extract_pa_elements( $data );
+
+        $type = get_post_type( $post_id );
+
+        //For post/page, elements should be checked on frontend only.
+        if( 'post' === $type || 'page' === $type ) {
+            return;
+        }
+
+        self::$temp_ids[]    = $post_id;
+        self::$temp_elements = array_unique( array_merge( self::$temp_elements, $pa_elems ) );
+
+        update_option( 'pa_elements_' . self::$post_id, self::$temp_elements, false );
+        update_option( 'pa_edit_' . self::$post_id, get_option( 'pa_edit_time' ), false );
 	}
 
 	/**
@@ -124,11 +172,11 @@ class Assets_Manager {
 	 *
 	 * @param int|string $id  post id.
 	 */
-	public function set_post_id( $id = 'default' ) {
+	public function set_post_id( $id = 'default', $force = false ) {
 
 		$post_id = 'default' === $id ? 'pa_assets_' . get_queried_object_id() : 'pa_assets_' . $id;
 
-		if ( null === self::$post_id ) {
+		if ( null === self::$post_id || $force ) {
 			self::$post_id = Helper_Functions::generate_unique_id( $post_id );
 		}
 	}
@@ -236,13 +284,17 @@ class Assets_Manager {
 
 		$is_edit_mode = Helper_Functions::is_edit_mode();
 
-		if ( ! $this->is_built_with_elementor() || $is_edit_mode ) {
+		if ( $is_edit_mode ) {
 			return;
 		}
 
-		$this->set_post_id();
+        if ( $this->is_built_with_elementor() ) {
+            $this->set_post_id();
+            self::$is_updated = self::is_ready_for_generate();
+		} else {
+            self::$is_updated = true;
+        }
 
-		self::$is_updated = self::is_ready_for_generate();
 	}
 
 	/**

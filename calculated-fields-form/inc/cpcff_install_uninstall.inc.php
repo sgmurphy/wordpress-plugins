@@ -37,7 +37,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				self::_db_structure();
 				switch_to_blog( $old_blog );
 			}
-		} // End new_blog
+		} // End new_blog.
 
 		/**
 		 * Creates the database tables and resources in every existent blog on website.
@@ -45,7 +45,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 		 * @param bool $networkwide Multisite installation.
 		 */
 		public static function install( $networkwide ) {
-			// check if it is a network activation - if so, run the activation function for each blog id
+			// check if it is a network activation - if so, run the activation function for each blog id.
 			if (
 				function_exists( 'is_multisite' ) &&
 				is_multisite() &&
@@ -54,7 +54,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				global $wpdb;
 				$old_blog = $wpdb->blogid;
 
-				// Get all blog ids
+				// Get all blog ids.
 				$blogids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
 				foreach ( $blogids as $blog_id ) {
 					switch_to_blog( $blog_id );
@@ -64,12 +64,12 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				return;
 			}
 			self::_db_structure();
-		} //End install
+		} //End install.
 
 		/**
 		 * Creates a backup of the insert_in_database file.
 		 */
-		public static function uninstall() {        } // End uninstall
+		public static function uninstall() {        } // End uninstall.
 
 		/**
 		 * Creates the database tables used by the plugin's core.
@@ -87,7 +87,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 
 			$db_queries = array();
 
-			// Posts table
+			// Posts table.
 			$db_queries[] = 'CREATE TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX . " (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				formid INT NOT NULL,
@@ -100,7 +100,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				UNIQUE KEY id (id)
 				) $charset_collate;";
 
-			// Discounts table
+			// Discounts table.
 			$db_queries[] = 'CREATE TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX . " (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				form_id mediumint(9) NOT NULL DEFAULT 1,
@@ -113,7 +113,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				UNIQUE KEY id (id)
 				) $charset_collate;";
 
-			// CHANGE ROW_FORMAT ONLY ONCE
+			// CHANGE ROW_FORMAT ONLY ONCE.
 			if ( get_option( $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . '_ROW_FORMAT', 0 ) == 0 ) {
 				update_option( $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . '_ROW_FORMAT', 1 );
 				$check_table_exists = $wpdb->get_results( 'SHOW TABLES LIKE "' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . '"' ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -122,7 +122,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				}
 			}
 
-			// Forms structures table
+			// Forms structures table.
 			$db_queries[] = 'CREATE TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . " (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				form_name VARCHAR(250) DEFAULT '' NOT NULL,
@@ -131,6 +131,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				fp_destination_emails TEXT,
 				fp_subject TEXT,
 				fp_inc_additional_info VARCHAR(10) DEFAULT '' NOT NULL,
+				fp_inc_attachments INT(1) DEFAULT 0 NOT NULL,
 				fp_return_page VARCHAR(250) DEFAULT '' NOT NULL,
 				fp_message mediumtext,
 				fp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,
@@ -156,7 +157,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				vs_text_nextbtn VARCHAR(250) DEFAULT '' NOT NULL,
 				vs_all_texts text DEFAULT '' NOT NULL,
 				enable_paypal varchar(10) DEFAULT '' NOT NULL,
-				enable_submit varchar(10) DEFAULT '' NOT NULL,
+				enable_submit varchar(10) DEFAULT 'no' NOT NULL,
 				paypal_notiemails varchar(10) DEFAULT '' NOT NULL,
 				paypal_email varchar(255) DEFAULT '' NOT NULL ,
 				request_cost varchar(255) DEFAULT '' NOT NULL ,
@@ -192,7 +193,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				UNIQUE KEY id (id)
 				) $charset_collate ENGINE=InnoDB ROW_FORMAT=DYNAMIC;";
 
-			// Revisions table
+			// Revisions table.
 			$db_queries[] = 'CREATE TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_REVISIONS_TABLE . " (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				formid mediumint(9) NOT NULL,
@@ -201,14 +202,22 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				UNIQUE KEY id (id)
 				) $charset_collate;";
 
-			dbDelta( $db_queries ); // Running the queries
+			dbDelta( $db_queries ); // Running the queries.
 
-			// Alter table
-            self::_alter_table( $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE, array( 'category' => 'VARCHAR(250)', 'extra' => 'LONGTEXT', 'cu_user_email_bcc_field'=>'VARCHAR(250)' ) );
+			// Alter table.
+			self::_alter_table(
+				$wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE,
+				array(
+					'category'                => 'VARCHAR(250)',
+					'extra'                   => 'LONGTEXT',
+					'cu_user_email_bcc_field' => 'VARCHAR(250)',
+					'fp_inc_attachments'      => 'INT(1) DEFAULT 0 NOT NULL',
+				)
+			);
 
-			// Insert the predefined forms into the forms table
+			// Insert the predefined forms into the forms table.
 			self::_predefined_forms();
-		} // End _db_structure
+		} // End _db_structure.
 
 		private static function _alter_table( $table, $new_columns = array() ) {
 			try {
@@ -230,7 +239,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				}
 			} catch ( Exception $err ) {
 				error_log( $err->getMessage() );}
-		} // End _alter_table
+		} // End _alter_table.
 
 		/**
 		 * Inserts the predefined forms into the Forms table
@@ -270,7 +279,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 					'vs_text_nextbtn'              => 'Next',
 
 					'enable_paypal'                => CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL,
-					'enable_submit'                => '',
+					'enable_submit'                => 'no',
 					'paypal_notiemails'            => '0',
 					'paypal_email'                 => CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_EMAIL,
 					'request_cost'                 => CP_CALCULATEDFIELDSF_DEFAULT_COST,
@@ -320,7 +329,6 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				$values['form_structure'] = CP_CALCULATEDFIELDSF_DEFAULT_form_structure5;
 				$wpdb->insert( $table_name, $values );
 			}
-		} // End _predefined_forms
-
-	} // End class CPCFF_INSTALLER
+		} // End _predefined_forms.
+	} // End class CPCFF_INSTALLER.
 }

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( class_exists( '\Elementor\Widget_Base' ) ) {
 	abstract class QiAddonsForElementor_Elementor_Widget_Base extends \Elementor\Widget_Base {
 		public $object;

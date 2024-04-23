@@ -1387,7 +1387,7 @@ class Cartflows_Helper {
 	/**
 	 * Get CartFlows Global Color Pallet CSS_Vars data.
 	 *
-	 * @since x.x.x.
+	 * @since 2.0.0.
 	 * @return array Array of GCP vars slugs and label,
 	 */
 	public static function get_gcp_vars() {
@@ -1405,7 +1405,7 @@ class Cartflows_Helper {
 	 * @param int $flow_id The current flow ID.
 	 * @return array $gcp_vars Array of generated CSS.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 */
 	public static function generate_gcp_css_style( $flow_id = 0 ) {
 
@@ -1438,7 +1438,7 @@ class Cartflows_Helper {
 	 * @param int $flow_id The current Flow ID.
 	 * @return array $new_color_palette Prepared array of CSS vars.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 */
 	public static function generate_css_var_array( $flow_id = 0 ) {
 

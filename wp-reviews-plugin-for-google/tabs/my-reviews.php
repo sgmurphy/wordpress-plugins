@@ -159,7 +159,7 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.2" />
+<input type="hidden" id="ti-noreg-version" value="11.8.3" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));

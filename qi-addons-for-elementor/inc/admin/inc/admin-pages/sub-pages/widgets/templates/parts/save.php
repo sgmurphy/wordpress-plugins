@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-save-widgets-holder">
 	<div class="qodef-save-success">
 		<p class="qodef-field-description">

@@ -89,7 +89,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 			}
 
 			if ( ! $total_results ) {
-				$need_store_transient = apply_filters('ywcas_store_search_query', true );
+				$need_store_transient = apply_filters( 'ywcas_store_search_query', true );
 				$synonymous           = YITH_WCAS_Data_Index_Tokenizer::get_synonymous( $query_string, $lang );
 				$query_tokens         = $this->get_search_tokens( $synonymous, $lang );
 
@@ -121,8 +121,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 			 * Main Filter to validate all results
 			 */
 			$search_result_data = apply_filters( 'ywcas_search_result_data', array_values( $search_result_data ), $query_string, $post_type, $lang );
-				$total_results      = count( $search_result_data );
-				usort( $search_result_data, fn( $a, $b ) => $b['score'] <=> $a['score'] );
+			$total_results      = count( $search_result_data );
+			usort( $search_result_data, fn( $a, $b ) => $b['score'] <=> $a['score'] );
 
 			if ( $limited ) {
 				$default_settings = ywcas()->settings->get_classic_default_settings();
@@ -239,8 +239,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		/**
 		 * Return the fuzzy query string
 		 *
-		 * @param array  $query_tokens The token list.
-		 * @param string $lang The language.
+		 * @param   array   $query_tokens  The token list.
+		 * @param   string  $lang          The language.
 		 *
 		 * @return string|array
 		 */
@@ -259,7 +259,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 				$token       = substr( $query_token, 0, $this->fuzzy_prefix_length );
 				$token       .= '%';
 
-				$token_results = YITH_WCAS_Data_Index_Token::get_instance()->search_similar_token( $token, $lang, $this->fuzzy_max_tokens );
+				$token_results = YITH_WCAS_Data_Index_Token::get_instance()->search_similar_token( $token, $lang, $this->get_fuzzy_max_tokens() );
 
 
 				$tokens_grouped_by_distance_token = array();
@@ -350,13 +350,13 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		 * Return the search tokens as array ordered from word length
 		 *
 		 * @param   string  $query_string  Query string.
-		 * @param string $lang Language.
+		 * @param   string  $lang          Language.
 		 *
 		 *
 		 * @return array
 		 */
 		public function get_search_tokens( $query_string, $lang ) {
-			$tokens = YITH_WCAS_Data_Index_Tokenizer::tokenize( $query_string, 'search' );
+			$tokens     = YITH_WCAS_Data_Index_Tokenizer::tokenize( $query_string, 'search' );
 			$stop_words = YITH_WCAS_Data_Index_Tokenizer::get_stop_words( $lang );
 			$tokens     = array_diff( $tokens, $stop_words );
 			usort(
@@ -476,7 +476,9 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 							$main_results[ $result['post_parent'] ] = $parent;
 						}
 					} else {
-						$main_results[ $result['post_id'] ] = $result;
+						if ( isset( $result['post_id'] ) ) {
+							$main_results[ $result['post_id'] ] = $result;
+						}
 					}
 				}
 			}
@@ -506,6 +508,15 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 			}
 
 			return YITH_WCAS_Data_Index_Taxonomy::get_instance()->get_taxnomies( $categories );
+		}
+
+		/**
+		 * Return the max fuzzy tokens
+		 *
+		 * @return int
+		 */
+		public function get_fuzzy_max_tokens() {
+			return apply_filters( 'ywcas_max_fuzzy_tokens', $this->fuzzy_max_tokens );
 		}
 	}
 

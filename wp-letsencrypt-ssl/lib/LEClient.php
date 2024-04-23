@@ -43,6 +43,7 @@ class LEClient
   const LE_STAGING = 'https://acme-staging-v02.api.letsencrypt.org';
 
   private $certificateKeys;
+  private $keysdir;
   private $accountKeys;
 
   private $connector;
@@ -70,6 +71,7 @@ class LEClient
   {
     $this->log = $log;
     $this->sourceIp = $sourceIp;
+    $this->keysdir = $certificateKeys;
 
     if (is_bool($acmeURL)) {
       if ($acmeURL === true) $this->baseURL = LEClient::LE_STAGING;
@@ -171,6 +173,6 @@ class LEClient
    */
   public function getOrCreateOrder($basename, $domains, $keyType = 'rsa-2048', $notBefore = '', $notAfter = '')
   {
-    return new LEOrder($this->connector, $this->log, $this->certificateKeys, $basename, $domains, $notBefore, $notAfter, $keyType);
+    return new LEOrder($this->connector, $this->log, $this->certificateKeys, $basename, $domains, $notBefore, $notAfter, $keyType, $this->keysdir);
   }
 }

@@ -4568,3 +4568,6 @@ Feed Instance Popup
 .account-connection-warning.sbc-popup.sbc-popup-medium .sbc-api-form button[type=submit] svg {
     margin-right: 5px;
 }
+.sbc-cta-icon {
+    margin-right: 8px;
+}

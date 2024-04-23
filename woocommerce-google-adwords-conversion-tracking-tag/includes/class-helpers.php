@@ -2,22 +2,20 @@
 
 namespace SweetCode\Pixel_Manager;
 
-use  ActionScheduler_Store ;
-use  libphonenumber\NumberParseException ;
-use  libphonenumber\PhoneNumberFormat ;
-use  libphonenumber\PhoneNumberUtil ;
-use  stdClass ;
-use  WC_Log_Handler_File ;
-use  SweetCode\Pixel_Manager\Admin\Environment ;
-
+use ActionScheduler_Store;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
+use stdClass;
+use WC_Log_Handler_File;
+use SweetCode\Pixel_Manager\Admin\Environment;
 if ( !defined( 'ABSPATH' ) ) {
     exit;
     // Exit if accessed directly
 }
+class Helpers {
+    private static $user_data;
 
-class Helpers
-{
-    private static  $user_data ;
     /**
      * This function takes any of the input types and sanitizes them automatically.
      *
@@ -29,14 +27,12 @@ class Helpers
      *
      * @return mixed
      */
-    public static function get_input_vars( $input_type, $raw = false )
-    {
+    public static function get_input_vars( $input_type, $raw = false ) {
         $data = filter_input_array( $input_type, FILTER_UNSAFE_RAW );
         return self::generic_sanitization( $data, $raw );
     }
-    
-    private static function sanitize_string( $string, $raw = false )
-    {
+
+    private static function sanitize_string( $string, $raw = false ) {
         if ( $raw ) {
             return filter_var( $string, FILTER_UNSAFE_RAW );
         }
@@ -47,10 +43,8 @@ class Helpers
         // https://gist.github.com/alewolf/e9235adeaf26dc024bab4f53825ec6da
         return htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' );
     }
-    
-    public static function generic_sanitization( $input, $raw = false )
-    {
-        
+
+    public static function generic_sanitization( $input, $raw = false ) {
         if ( is_array( $input ) ) {
             $sanitized_array = [];
             foreach ( $input as $key => $value ) {
@@ -58,8 +52,6 @@ class Helpers
             }
             return $sanitized_array;
         }
-        
-        
         if ( is_object( $input ) ) {
             $sanitized_object = new stdClass();
             foreach ( $input as $key => $value ) {
@@ -67,7 +59,6 @@ class Helpers
             }
             return $sanitized_object;
         }
-        
         if ( is_string( $input ) ) {
             return self::sanitize_string( $input, $raw );
         }
@@ -78,10 +69,9 @@ class Helpers
         // If the input is of any other type (e.g., int, float), no sanitization is needed
         return $input;
     }
-    
-    public static function is_allowed_notification_page( $page )
-    {
-        $allowed_pages = [ 'page_wpm', 'index.php', 'dashboard' ];
+
+    public static function is_allowed_notification_page( $page ) {
+        $allowed_pages = ['page_wpm', 'index.php', 'dashboard'];
         foreach ( $allowed_pages as $allowed_page ) {
             if ( strpos( $page, $allowed_page ) !== false ) {
                 return true;
@@ -89,23 +79,20 @@ class Helpers
         }
         return false;
     }
-    
-    public static function is_wc_hpos_enabled()
-    {
+
+    public static function is_wc_hpos_enabled() {
         return class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
     }
-    
-    public static function is_orders_page()
-    {
-        global  $pagenow ;
+
+    public static function is_orders_page() {
+        global $pagenow;
         $_get = self::get_input_vars( INPUT_GET );
         return 'edit.php' === $pagenow && isset( $_get['post_type'] ) && 'shop_order' === $_get['post_type'] || isset( $_get['page'] ) && 'wc-orders' === $_get['page'];
     }
-    
+
     // If is single order page return true
     // TODO Check if it works with HPOS enabled
-    public static function is_edit_order_page()
-    {
+    public static function is_edit_order_page() {
         //		global $pagenow;
         //
         //		$_get = self::get_input_vars(INPUT_GET);
@@ -119,24 +106,20 @@ class Helpers
         //			&& isset($_get['action'])
         //			&& 'edit' === $_get['action'];
     }
-    
-    public static function is_email( $email )
-    {
+
+    public static function is_email( $email ) {
         return filter_var( $email, FILTER_VALIDATE_EMAIL );
     }
-    
-    public static function is_url( $url )
-    {
+
+    public static function is_url( $url ) {
         return filter_var( $url, FILTER_VALIDATE_URL );
     }
-    
-    public static function clean_product_name_for_output( $name )
-    {
+
+    public static function clean_product_name_for_output( $name ) {
         return html_entity_decode( $name, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
     }
-    
-    public static function get_e164_formatted_phone_number( $number, $country )
-    {
+
+    public static function get_e164_formatted_phone_number( $number, $country ) {
         try {
             $phone_util = PhoneNumberUtil::getInstance();
             $number_parsed = $phone_util->parse( $number, $country );
@@ -149,26 +132,21 @@ class Helpers
             return $number;
         }
     }
-    
+
     // https://stackoverflow.com/a/60199374/4688612
-    public static function is_iframe()
-    {
-        
+    public static function is_iframe() {
         if ( isset( $_SERVER['HTTP_SEC_FETCH_DEST'] ) && 'iframe' === $_SERVER['HTTP_SEC_FETCH_DEST'] ) {
             return true;
         } else {
             return false;
         }
-    
     }
-    
-    public static function get_percentage( $counter, $denominator )
-    {
+
+    public static function get_percentage( $counter, $denominator ) {
         return ( $denominator > 0 ? round( $counter / $denominator * 100 ) : 0 );
     }
-    
-    public static function get_user_country_code( $user )
-    {
+
+    public static function get_user_country_code( $user ) {
         // If the country code is set on the user, return it
         if ( isset( $user->billing_country ) ) {
             return $user->billing_country;
@@ -176,12 +154,11 @@ class Helpers
         // Geolocate the user IP and return the country code
         return Geolocation::get_visitor_country();
     }
-    
-    public static function is_dashboard()
-    {
-        global  $pagenow ;
+
+    public static function is_dashboard() {
+        global $pagenow;
         // Don't check for the plugin settings page. Notifications have to be handled there.
-        $allowed_pages = [ 'index.php', 'dashboard' ];
+        $allowed_pages = ['index.php', 'dashboard'];
         foreach ( $allowed_pages as $allowed_page ) {
             if ( strpos( $pagenow, $allowed_page ) !== false ) {
                 return true;
@@ -189,15 +166,14 @@ class Helpers
         }
         return false;
     }
-    
+
     /**
      * Trim a settings page input string by removing all whitespace, newlines, tabs, double quotes, single quotes and backticks.
      *
      * @return string
      * @since 1.27.10
      */
-    public static function trim_string( $string )
-    {
+    public static function trim_string( $string ) {
         $string = trim( $string );
         // Return the string with all newlines, tabs, double quotes, single quotes and backticks removed. Keep spaces within the string.
         $string = preg_replace( '/[\\n\\r\\t"\'`]/', '', $string );
@@ -210,7 +186,7 @@ class Helpers
         // Remove a ; at the end of the string
         return rtrim( $string, ';' );
     }
-    
+
     /**
      * Filter to return the Facebook fbevents.js script URL.
      *
@@ -219,8 +195,7 @@ class Helpers
      * @return string
      * @since 1.30.0
      */
-    public static function get_facebook_fbevents_js_url()
-    {
+    public static function get_facebook_fbevents_js_url() {
         $fbevents_standard_url = 'https://connect.facebook.net/en_US/fbevents.js';
         if ( apply_filters( 'pmw_facebook_fbevents_script_version', '' ) ) {
             return $fbevents_standard_url . '?v=' . apply_filters( 'pmw_facebook_fbevents_script_version', '' );
@@ -230,7 +205,7 @@ class Helpers
         }
         return $fbevents_standard_url;
     }
-    
+
     /**
      * Given a datetime string, return the unix timestamp for the local timezone.
      *
@@ -239,15 +214,13 @@ class Helpers
      *
      * @since 1.30.8
      */
-    public static function datetime_string_to_unix_timestamp_in_local_timezone( $datetime_string )
-    {
+    public static function datetime_string_to_unix_timestamp_in_local_timezone( $datetime_string ) {
         return wp_date( 'U', strtotime( $datetime_string . ' ' . wp_timezone_string() ) );
     }
-    
-    public static function is_admin_page( $page_ids = array() )
-    {
+
+    public static function is_admin_page( $page_ids = [] ) {
         // If no page IDs are given, check if the current page is an admin page
-        if ( empty($page_ids) ) {
+        if ( empty( $page_ids ) ) {
             return false;
         }
         // Check if the current page is an admin page and if it is one of the given page IDs
@@ -257,21 +230,19 @@ class Helpers
         }
         return true;
     }
-    
-    public static function hash_string( $string, $algo = 'sha256' )
-    {
+
+    public static function hash_string( $string, $algo = 'sha256' ) {
         // If the given algorithm is supported, hash the string
         if ( in_array( $algo, hash_algos(), true ) ) {
             return hash( $algo, $string );
         }
         return $string;
     }
-    
-    public static function get_random_ip()
-    {
+
+    public static function get_random_ip() {
         $ip = '';
         // Generate a random IP address
-        for ( $i = 0 ;  $i < 4 ;  $i++ ) {
+        for ($i = 0; $i < 4; $i++) {
             $ip .= rand( 0, 255 );
             if ( $i < 3 ) {
                 $ip .= '.';
@@ -279,7 +250,7 @@ class Helpers
         }
         return $ip;
     }
-    
+
     /**
      * We are controlling the entire output in all formats from here. Why?
      * Because each pixel has different requirements for each data field.
@@ -288,29 +259,24 @@ class Helpers
      *
      * @return array
      */
-    public static function get_user_data( $order = null )
-    {
+    public static function get_user_data( $order = null ) {
         // if the user_data array is already set and not empty, return it
-        if ( !empty(self::$user_data) ) {
+        if ( !empty( self::$user_data ) ) {
             return self::$user_data;
         }
         $data = [];
         $order = ( Environment::is_woocommerce_active() && !$order && Shop::pmw_is_order_received_page() && Shop::pmw_get_current_order() ? Shop::pmw_get_current_order() : $order );
         // If the order is not null get the $current_user from the order
-        
         if ( $order && $order->get_user() ) {
             $current_user = $order->get_user();
         } else {
             $current_user = ( is_user_logged_in() ? wp_get_current_user() : null );
         }
-        
         // If the user is logged in, get the user data
-        
         if ( $current_user ) {
             $data['id']['raw'] = get_current_user_id();
             $data['id']['sha256'] = self::hash_string( $data['id']['raw'] );
         }
-        
         /**
          * Determine the details.
          *
@@ -357,21 +323,18 @@ class Helpers
         self::$user_data = $data;
         return $data;
     }
-    
-    public static function get_user_data_object( $order = null )
-    {
+
+    public static function get_user_data_object( $order = null ) {
         $data = self::get_user_data( $order );
         return json_decode( wp_json_encode( $data ) );
     }
-    
-    private static function get_user_object_roles( $data, $roles )
-    {
+
+    private static function get_user_object_roles( $data, $roles ) {
         $data['roles'] = $roles;
         return $data;
     }
-    
-    private static function get_user_object_email( $data, $email )
-    {
+
+    private static function get_user_object_email( $data, $email ) {
         $email = self::trim_string( $email );
         $email = strtolower( $email );
         $data['email']['raw'] = $email;
@@ -379,9 +342,8 @@ class Helpers
         $data['email']['facebook'] = self::hash_string( $email );
         return $data;
     }
-    
-    private static function get_user_object_first_name( $data, $first_name )
-    {
+
+    private static function get_user_object_first_name( $data, $first_name ) {
         $first_name = self::trim_string( $first_name );
         $data['first_name']['raw'] = $first_name;
         $data['first_name']['sha256'] = self::hash_string( $first_name );
@@ -389,9 +351,8 @@ class Helpers
         $data['first_name']['pinterest'] = self::hash_string( strtolower( $first_name ) );
         return $data;
     }
-    
-    private static function get_user_object_last_name( $data, $last_name )
-    {
+
+    private static function get_user_object_last_name( $data, $last_name ) {
         $last_name = self::trim_string( $last_name );
         $data['last_name']['raw'] = $last_name;
         $data['last_name']['sha256'] = self::hash_string( $last_name );
@@ -399,9 +360,8 @@ class Helpers
         $data['last_name']['pinterest'] = self::hash_string( strtolower( $last_name ) );
         return $data;
     }
-    
-    private static function get_user_object_phone( $data, $phone, $current_user )
-    {
+
+    private static function get_user_object_phone( $data, $phone, $current_user ) {
         $phone = self::trim_string( $phone );
         $data['phone']['raw'] = $phone;
         $data['phone']['e164'] = self::get_e164_formatted_phone_number( strtolower( $phone ), self::get_user_country_code( $current_user ) );
@@ -412,9 +372,8 @@ class Helpers
         $data['phone']['sha256']['snapchat'] = self::hash_string( str_replace( '+', '', $data['phone']['e164'] ) );
         return $data;
     }
-    
-    private static function get_user_object_city( $data, $city )
-    {
+
+    private static function get_user_object_city( $data, $city ) {
         $city = self::trim_string( $city );
         $data['city']['raw'] = $city;
         $data['city']['sha256'] = self::hash_string( $city );
@@ -422,9 +381,8 @@ class Helpers
         $data['city']['pinterest'] = self::hash_string( strtolower( preg_replace( '/[^A-Za-z0-9\\-]/', '', $city ) ) );
         return $data;
     }
-    
-    private static function get_user_object_state( $data, $state )
-    {
+
+    private static function get_user_object_state( $data, $state ) {
         $state = self::trim_string( $state );
         $data['state']['raw'] = $state;
         $data['state']['sha256'] = self::hash_string( $state );
@@ -432,16 +390,15 @@ class Helpers
         $data['state']['pinterest'] = self::hash_string( strtolower( $state ) );
         return $data;
     }
-    
-    private static function get_user_object_postcode( $data, $postcode )
-    {
+
+    private static function get_user_object_postcode( $data, $postcode ) {
         $postcode = self::trim_string( $postcode );
         $data['postcode']['raw'] = $postcode;
         $data['postcode']['facebook'] = strtolower( $postcode );
         $data['postcode']['pinterest'] = self::hash_string( preg_replace( '/[^0-9]/', '', $postcode ) );
         return $data;
     }
-    
+
     /**
      * This function takes a user data array and a country string and adds the country values to the user object.
      *
@@ -454,25 +411,23 @@ class Helpers
      * @return array
      *         The updated user data array with country values added to the user object.
      */
-    private static function get_user_object_country( $data, $country )
-    {
+    private static function get_user_object_country( $data, $country ) {
         $country = self::trim_string( $country );
         $data['country']['raw'] = $country;
         $data['country']['facebook'] = strtolower( $country );
         $data['country']['pinterest'] = self::hash_string( strtolower( $country ) );
         return $data;
     }
-    
+
     /**
      * Filter to define if all s2s requests should be sent blocking
      *
      * @return bool
      */
-    public static function should_all_s2s_requests_be_sent_blocking()
-    {
+    public static function should_all_s2s_requests_be_sent_blocking() {
         return (bool) apply_filters( 'pmw_send_all_s2s_requests_blocking', false ) || Options::is_http_request_logging_enabled();
     }
-    
+
     /**
      * This function takes a number and formats it as a decimal.
      *
@@ -488,13 +443,10 @@ class Helpers
      * @return float | null | string
      *         Returns the formatted decimal number as a string, or false if the input is not a valid number.
      */
-    public static function format_decimal( $number, $dp = false, $trim_zeros = false )
-    {
-        
+    public static function format_decimal( $number, $dp = false, $trim_zeros = false ) {
         if ( function_exists( 'wc_format_decimal' ) ) {
             return wc_format_decimal( $number, $dp, $trim_zeros );
         } else {
-            
             if ( is_string( $number ) ) {
                 // Remove all spaces
                 $number = str_replace( ' ', '', $number );
@@ -502,9 +454,8 @@ class Helpers
                 // $number = preg_replace('/\.{2,}/', '.', $number);
                 $number = preg_replace( '/\\.(?![^.]+$)|[^0-9.-]/', '', $number );
                 // echo $number . PHP_EOL;
-                $number = (double) preg_replace( '/[^0-9\\.\\-]/', '', $number );
+                $number = (float) preg_replace( '/[^0-9\\.\\-]/', '', $number );
             }
-            
             if ( !is_float( $number ) ) {
                 return null;
             }
@@ -512,38 +463,33 @@ class Helpers
                 $number = round( $number, $dp );
             }
             $number = (string) $number;
-            
             if ( $trim_zeros ) {
                 $number = rtrim( $number, '0' );
                 $number = rtrim( $number, '.' );
             }
-            
             return $number;
         }
-    
     }
-    
+
     /**
      * Checks if experimental feature EXPERIMENTAL_PMW is enabled.
      *
      * @return bool
      *        Returns true if EXPERIMENTAL_PMW or PMW_EXPERIMENTS are defined and have a truthy value, otherwise returns false.
      */
-    public static function is_experiment()
-    {
+    public static function is_experiment() {
         return defined( 'EXPERIMENTAL_PMW' ) && EXPERIMENTAL_PMW || defined( 'PMW_EXPERIMENTS' ) && PMW_EXPERIMENTS;
     }
-    
+
     /**
      * This function checks if the WooCommerce compatibility declaration function exists.
      *
      * @return bool
      */
-    public static function does_the_woocommerce_declare_compatibility_function_exist()
-    {
+    public static function does_the_woocommerce_declare_compatibility_function_exist() {
         return class_exists( '\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil' ) && method_exists( '\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil', 'declare_compatibility' );
     }
-    
+
     /**
      * Declare compatibility with a feature for WooCommerce.
      *
@@ -556,14 +502,13 @@ class Helpers
      * @param bool   $positive_compatibility
      *        Optional. Whether to declare positive compatibility or not. Default is true.
      */
-    public static function declare_woocommerce_compatibility( $feature_id, $plugin_file = PMW_PLUGIN_BASENAME, $positive_compatibility = true )
-    {
+    public static function declare_woocommerce_compatibility( $feature_id, $plugin_file = PMW_PLUGIN_BASENAME, $positive_compatibility = true ) {
         if ( !self::does_the_woocommerce_declare_compatibility_function_exist() ) {
             return;
         }
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( $feature_id, $plugin_file, $positive_compatibility );
     }
-    
+
     /**
      * Get the version information of the software.
      *
@@ -574,8 +519,7 @@ class Helpers
      *  - 'distro' : string : The distribution identifier of the software.
      *  - 'beta' : bool : Whether the software is a beta version or not.
      */
-    public static function get_version_info()
-    {
+    public static function get_version_info() {
         return [
             'number'               => PMW_CURRENT_VERSION,
             'pro'                  => wpm_fs()->is__premium_only(),
@@ -585,7 +529,7 @@ class Helpers
             'show'                 => apply_filters( 'pmw_show_version_info', true ),
         ];
     }
-    
+
     /**
      * This function checks if the application is running in beta mode.
      *
@@ -596,8 +540,7 @@ class Helpers
      *
      * @since 1.35.1
      */
-    private static function is_beta()
-    {
+    private static function is_beta() {
         if ( self::is_experiment() ) {
             return true;
         }
@@ -606,14 +549,12 @@ class Helpers
         }
         return false;
     }
-    
-    public static function is_valid_ipv6_address( $ip )
-    {
+
+    public static function is_valid_ipv6_address( $ip ) {
         return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 );
     }
-    
-    public static function is_woocommerce_session_active()
-    {
+
+    public static function is_woocommerce_session_active() {
         // If WC() not available, return false
         if ( !function_exists( 'WC' ) ) {
             return false;
@@ -628,7 +569,7 @@ class Helpers
         }
         return WC()->session->has_session();
     }
-    
+
     /**
      * Check if the WP_DEBUG constant is defined and set to true or false.
      *
@@ -642,11 +583,10 @@ class Helpers
      *
      * @since 1.35.1
      */
-    public static function is_wp_debug_mode_active()
-    {
+    public static function is_wp_debug_mode_active() {
         return defined( 'WP_DEBUG' ) && WP_DEBUG;
     }
-    
+
     /**
      * Checks if the PMW_DEBUG_CONSTANT is defined and true.
      *
@@ -658,11 +598,10 @@ class Helpers
      *
      * @since 1.36.0
      */
-    public static function is_pmw_debug_mode_active()
-    {
+    public static function is_pmw_debug_mode_active() {
         return defined( 'PMW_DEBUG' ) && PMW_DEBUG;
     }
-    
+
     /**
      * Retrieves the file name of the most recent WooCommerce log that starts with a specific source.
      *
@@ -675,27 +614,26 @@ class Helpers
      * @param string $source The source string that the log file name should start with.
      * @return string The file name of the most recent log that starts with $source. If no such log exists, returns an empty string.
      */
-    private static function get_file_name_of_most_recent_wc_log( $source )
-    {
+    private static function get_file_name_of_most_recent_wc_log( $source ) {
         // return if the class WC_Log_Handler_File does not exist
         if ( !class_exists( 'WC_Log_Handler_File' ) ) {
             return '';
         }
         $logs = WC_Log_Handler_File::get_log_files();
-        if ( empty($logs) ) {
+        if ( empty( $logs ) ) {
             return '';
         }
         // If $logs array contains a key that starts with $source . '-' then return the latest in the array
-        $pmw_logs = array_filter( $logs, function ( $key ) use( $source ) {
+        $pmw_logs = array_filter( $logs, function ( $key ) use($source) {
             return strpos( $key, $source . '-' ) === 0;
         }, ARRAY_FILTER_USE_KEY );
-        if ( empty($pmw_logs) ) {
+        if ( empty( $pmw_logs ) ) {
             return '';
         }
         $last_key = array_key_last( $pmw_logs );
         return $pmw_logs[$last_key];
     }
-    
+
     /**
      * Get the link to the most recent log file,
      * for the given slug. The slug must be exactly
@@ -707,26 +645,23 @@ class Helpers
      *
      * @since 1.36.0
      */
-    public static function get_admin_url_link_to_recent_wc_log( $source )
-    {
+    public static function get_admin_url_link_to_recent_wc_log( $source ) {
         $file_name = self::get_file_name_of_most_recent_wc_log( $source );
-        if ( empty($file_name) ) {
+        if ( empty( $file_name ) ) {
             return null;
         }
         return admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . $file_name );
     }
-    
-    public static function get_external_url_to_most_recent_log( $source )
-    {
+
+    public static function get_external_url_to_most_recent_log( $source ) {
         $file_name = self::get_file_name_of_most_recent_wc_log( $source );
-        if ( empty($file_name) ) {
+        if ( empty( $file_name ) ) {
             return null;
         }
         return self::get_url_to_log_dir() . $file_name;
     }
-    
-    private static function get_url_to_log_dir()
-    {
+
+    private static function get_url_to_log_dir() {
         // return if WC_LOG_DIR is not defined
         if ( !defined( 'WC_LOG_DIR' ) ) {
             return '';
@@ -735,7 +670,7 @@ class Helpers
         $wc_log_dir = get_bloginfo( 'url' ) . $wc_log_dir;
         return trailingslashit( $wc_log_dir );
     }
-    
+
     /**
      * Gets all external log file URLs based on a specific source.
      *
@@ -749,11 +684,10 @@ class Helpers
      *
      * @since 1.36.0
      */
-    public static function get_all_external_log_file_urls( $source )
-    {
-        $needles = [ 'fatal-errors', $source ];
+    public static function get_all_external_log_file_urls( $source ) {
+        $needles = ['fatal-errors', $source];
         $logs = WC_Log_Handler_File::get_log_files();
-        $logs = array_filter( $logs, function ( $key ) use( $needles ) {
+        $logs = array_filter( $logs, function ( $key ) use($needles) {
             foreach ( $needles as $needle ) {
                 if ( strpos( $key, $needle . '-' ) === 0 ) {
                     return true;
@@ -764,12 +698,12 @@ class Helpers
         $logs = array_values( array_map( function ( $log ) {
             return self::get_url_to_log_dir() . $log;
         }, $logs ) );
-        if ( empty($logs) ) {
+        if ( empty( $logs ) ) {
             return null;
         }
         return wp_json_encode( $logs );
     }
-    
+
     /**
      * Checks if a scheduled action exists in Action Scheduler.
      *
@@ -790,11 +724,10 @@ class Helpers
      */
     public static function pmw_as_has_scheduled_action(
         $hook,
-        $args = array(),
+        $args = [],
         $group = '',
         $partial_matching = 'off'
-    )
-    {
+    ) {
         // If $partial_matching is true, set it to 'like'
         if ( $partial_matching ) {
             $partial_matching = 'like';
@@ -809,7 +742,7 @@ class Helpers
             'orderby'               => 'none',
         ], 'ids' );
     }
-    
+
     /**
      * This function returns the active states for the Action Scheduler.
      *
@@ -822,26 +755,22 @@ class Helpers
      *
      * @since 1.37.1
      */
-    private static function get_action_scheduler_active_states()
-    {
+    private static function get_action_scheduler_active_states() {
         if ( class_exists( 'ActionScheduler_Store' ) ) {
-            return [ ActionScheduler_Store::STATUS_PENDING, ActionScheduler_Store::STATUS_RUNNING ];
+            return [ActionScheduler_Store::STATUS_PENDING, ActionScheduler_Store::STATUS_RUNNING];
         }
-        return [ 'Pending', 'In-progress' ];
+        return ['Pending', 'In-progress'];
     }
-    
-    public static function can_order_modal_be_shown()
-    {
+
+    public static function can_order_modal_be_shown() {
         return Options::is_ga4_data_api_active() || Options::is_order_level_ltv_calculation_active();
     }
-    
-    public static function get_script_string_allowed_html()
-    {
+
+    public static function get_script_string_allowed_html() {
         return [];
     }
-    
-    public static function get_opening_script_string()
-    {
+
+    public static function get_opening_script_string() {
         $script_string = '';
         $attributes = [];
         // if the Iubenda plugin is active, add the Iubenda attributes
@@ -850,7 +779,7 @@ class Helpers
             $attributes['class'][] = '_iub_cs_skip';
         }
         if ( Environment::is_cookiebot_active() ) {
-            $attributes['data-cookieconsent'] = [ 'ignore' ];
+            $attributes['data-cookieconsent'] = ['ignore'];
         }
         // Build the attribute string
         foreach ( $attributes as $attribute => $values ) {
@@ -858,9 +787,8 @@ class Helpers
         }
         return $script_string;
     }
-    
-    public static function iubenda_script_exception_start()
-    {
+
+    public static function iubenda_script_exception_start() {
         if ( !Environment::is_iubenda_active() ) {
             return;
         }
@@ -869,9 +797,8 @@ class Helpers
 		<!--IUB-COOKIE-BLOCK-SKIP-START-->
 		<?php 
     }
-    
-    public static function iubenda_script_exception_end()
-    {
+
+    public static function iubenda_script_exception_end() {
         if ( !Environment::is_iubenda_active() ) {
             return;
         }

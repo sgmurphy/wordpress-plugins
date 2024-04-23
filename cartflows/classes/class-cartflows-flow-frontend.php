@@ -246,7 +246,7 @@ class Cartflows_Flow_Frontend {
 	 * Update the CartFlows steps link as per the latest UI.
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar WP_Admin_Bar object.
-	 * @since x.x.x
+	 * @since 2.0.0
 	 */
 	public function update_edit_step_menu_link( $wp_admin_bar ) {
 
@@ -279,7 +279,7 @@ class Cartflows_Flow_Frontend {
 	 * Note: Currently the GCP support is added for Elementor and Block Builder.
 	 *
 	 * @param string $css_dependency the CSS file handle as a dependency to add the inline css.
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @return void
 	 */
 	public function enqueue_gcp_color_vars( $css_dependency = '' ) {

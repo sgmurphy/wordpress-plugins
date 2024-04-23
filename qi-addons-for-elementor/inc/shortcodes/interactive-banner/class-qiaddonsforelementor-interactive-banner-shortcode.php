@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_interactive_banner_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -337,6 +342,94 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 					'group'      => esc_html__( 'Spacing Style', 'qi-addons-for-elementor' ),
 				)
 			);
+
+			$show_background_overlay_layouts = array_keys( array_diff_key( $this->get_layouts(), apply_filters( 'qi_addons_for_elementor_filter_interactive_banner_layout_hide_background_style', array() ) ) );
+
+			$this->set_option(
+				array(
+					'field_type' => 'start_controls_tabs',
+					'name'       => 'overlay_style_tabs',
+					'title'      => esc_html__( 'Overlay Start', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+					'dependency' => array(
+						'show' => array(
+							'layout' => array(
+								'values'        => $show_background_overlay_layouts,
+								'default_value' => 'standard',
+							),
+						),
+					),
+				)
+			);
+
+			$this->set_option(
+				array(
+					'field_type' => 'start_controls_tab',
+					'name'       => 'overlay_tab_normal',
+					'title'      => esc_html__( 'Normal', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+				)
+			);
+
+			$this->set_option(
+				array(
+					'field_type' => 'color',
+					'name'       => 'overlay_color',
+					'title'      => esc_html__( 'Overlay Color', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+					'selectors'  => array(
+						'{{WRAPPER}} .qodef-m-image:after' => 'background-color: {{VALUE}};',
+					),
+				)
+			);
+
+			$this->set_option(
+				array(
+					'field_type' => 'end_controls_tab',
+					'name'       => 'overlay_tab_normal_end',
+					'title'      => esc_html__( 'Normal End', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+				)
+			);
+
+			$this->set_option(
+				array(
+					'field_type' => 'start_controls_tab',
+					'name'       => 'overlay_tab_hover',
+					'title'      => esc_html__( 'Hover', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+				)
+			);
+
+			$this->set_option(
+				array(
+					'field_type' => 'color',
+					'name'       => 'overlay_hover_color',
+					'title'      => esc_html__( 'Overlay Hover Color', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+					'selectors'  => array(
+						'{{WRAPPER}} .qodef-qi-interactive-banner:hover .qodef-m-image:after' => 'background-color: {{VALUE}};',
+					),
+				)
+			);
+			$this->set_option(
+				array(
+					'field_type' => 'end_controls_tab',
+					'name'       => 'overlay_tab_hover_end',
+					'title'      => esc_html__( 'Hover End', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+				)
+			);
+
+			$this->set_option(
+				array(
+					'field_type' => 'end_controls_tabs',
+					'name'       => 'overlay_style_tabs_end',
+					'title'      => esc_html__( 'Overlay End', 'qi-addons-for-elementor' ),
+					'group'      => esc_html__( 'Overlay Style', 'qi-addons-for-elementor' ),
+				)
+			);
+
 			$this->map_extra_options();
 		}
 

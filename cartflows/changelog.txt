@@ -1,3 +1,9 @@
+Version 2.0.7 - Tuesday, 23nd April 2024
+- Fix: Unable to display the 100% discount applied on product tab for Checkout page and Order Bump backend setting.
+- Fix: Added the missing coupon option in order bump product tab.
+- Fix: Option added enable/disable toggle for subtitle option for next-step button block of Gutenberg of landing page.
+- Fix: Resolved the deprecated filter sanitize string notice for PHP 8.2 version.
+
 Version 2.0.6 - Thursday, 28th March 2024
 - Improvement: Improved the CSS for 404 page for the admin interface.
 - Fix: Fixed the selection issue with set default product option on the checkout page.

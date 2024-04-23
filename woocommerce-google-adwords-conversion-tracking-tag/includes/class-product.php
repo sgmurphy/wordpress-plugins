@@ -297,7 +297,7 @@ class Product {
 				'variation_id' => $order_item_data['variation_id'],
 				'name'         => $order_item_data['name'],
 				'quantity'     => $order_item_data['quantity'],
-				'price'        => ( new Google(Options::get_options()) )->wpm_get_order_item_price($order_item),
+				'price'        => ( new Google() )->wpm_get_order_item_price($order_item),
 				'subtotal'     => (float) Helpers::format_decimal($order_item_data['subtotal'], 2),
 				'subtotal_tax' => (float) Helpers::format_decimal($order_item_data['subtotal_tax'], 2),
 				'total'        => (float) Helpers::format_decimal($order_item_data['total'], 2),

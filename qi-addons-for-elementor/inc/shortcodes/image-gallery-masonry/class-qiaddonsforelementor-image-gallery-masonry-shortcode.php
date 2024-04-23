@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_image_gallery_masonry_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -245,7 +250,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 				$image['image_link'] = $item['image_link'];
 
 				$images[ $i ] = $image;
-				$i ++;
+				$i++;
 			}
 
 			return $images;

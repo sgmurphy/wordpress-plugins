@@ -70,7 +70,7 @@ class YouTube_License_Tier extends License_Tier
      */
     public function features_list()
     {
-        $features_list = ['basic' => ['channel_feeds', 'favorites_feeds', 'playlist_feeds', 'carousel_feeds', 'combine_feeds', 'single_feeds', 'performance_optimization', 'downtime_prevention_system', 'gbpr_compliant'], 'plus' => ['call_to_actions', 'search_feeds', 'feeds_templates', 'convert_videos_to_cpt'], 'elite' => ['live_feeds', 'video_filtering', 'feed_themes']];
+        $features_list = ['basic' => ['channel_feeds', 'favorites_feeds', 'carousel_feeds', 'combine_feeds', 'performance_optimization', 'downtime_prevention_system', 'gbpr_compliant'], 'plus' => ['call_to_actions', 'search_feeds', 'feeds_templates', 'convert_videos_to_cpt'], 'elite' => ['live_feeds', 'video_filtering', 'feed_themes']];
         $this->plugin_features = $features_list;
     }
     /**

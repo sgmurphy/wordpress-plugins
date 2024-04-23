@@ -351,6 +351,32 @@ class Premium_Countdown extends Widget_Base {
 		);
 
 		$this->add_control(
+			'flip_language',
+			array(
+				'label'     => __( 'Language', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'ar' => __( 'Arabic', 'premium-addons-for-elementor' ),
+					'da' => __( 'Danish', 'premium-addons-for-elementor' ),
+					'de' => __( 'German', 'premium-addons-for-elementor' ),
+					'en' => __( 'English', 'premium-addons-for-elementor' ),
+					'es' => __( 'Spanish', 'premium-addons-for-elementor' ),
+					'fi' => __( 'Finnish', 'premium-addons-for-elementor' ),
+					'fr' => __( 'French', 'premium-addons-for-elementor' ),
+					'it' => __( 'Italian', 'premium-addons-for-elementor' ),
+					'nl' => __( 'Dutch', 'premium-addons-for-elementor' ),
+					'pt' => __( 'Portuguese', 'premium-addons-for-elementor' ),
+					'ru' => __( 'Russian', 'premium-addons-for-elementor' ),
+					'sv' => __( 'Swedish', 'premium-addons-for-elementor' ),
+				),
+				'default'   => 'en',
+				'condition' => array(
+					'style' => 'flipping',
+				),
+			)
+		);
+
+		$this->add_control(
 			'featured_unit',
 			array(
 				'label'     => __( 'Featured Time Unit', 'premium-addons-for-elementor' ),
@@ -1773,6 +1799,7 @@ class Premium_Countdown extends Widget_Base {
 				'separator'  => 'custom' !== $settings['premium_countdown_separator_text'] ? $settings['premium_countdown_separator_text'] : $settings['custom_separator'],
 				'reset'      => $reset,
 				'style'      => $settings['style'],
+				'lang'       => $settings['flip_language'],
 			);
 
 		}
@@ -1800,12 +1827,12 @@ class Premium_Countdown extends Widget_Base {
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'container' ) ); ?>>
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'inner_counter' ) ); ?>></div>
 
-            <?php if( 'text' === $event ) : ?>
+			<?php if ( 'text' === $event ) : ?>
 
-                <div class="premium-countdown-exp-message premium-addons__v-hidden">
-                    <?php $this->print_text_editor( $settings['expiration_text'] ); ?>
-                </div>
-            <?php endif; ?>
+				<div class="premium-countdown-exp-message premium-addons__v-hidden">
+					<?php $this->print_text_editor( $settings['expiration_text'] ); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

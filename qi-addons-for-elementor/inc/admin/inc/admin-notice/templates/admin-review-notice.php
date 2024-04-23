@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-admin-review-notice notice is-dismissible notice-info">
 	<div class="qodef-admin-notice-inner">
 		<h3 class="qodef-admin-notice-title">
@@ -7,9 +14,9 @@
 			<?php echo esc_html__( 'Hi there! It’s now been more than a week since you got your copy of Qi Addons for Elementor. We hope our plugin is proving helpful in your mission to create your beautiful new website. If you can spare a few moments, please let us know what you think of Qi Addons by leaving a rating. We’d love to hear what you think!', 'qi-addons-for-elementor' ); ?>
 		</p>
 		<p class="qodef-admin-notice-submit">
-			<a href="https://wordpress.org/support/plugin/qi-addons-for-elementor/reviews/?filter=5#new-post" target="_blank" rel="noopener noreferrer" class="qodef-review-button qodef-review--review-action qodef-btn qodef-btn-solid"><?php echo esc_html__('Yes, you deserve it', 'qi-addons-for-elementor'); ?></a>
-			<a href="#" class="qodef-review-button qodef-review--maybe-later-action qodef-btn qodef-btn-outlined"><?php echo esc_html__('No, maybe later', 'qi-addons-for-elementor'); ?></a>
-			<a href="#" class="qodef-review-button qodef-review--already-reviewed-action qodef-btn qodef-btn-outlined"><?php echo esc_html__('I already did', 'qi-addons-for-elementor'); ?></a>
+			<a href="https://wordpress.org/support/plugin/qi-addons-for-elementor/reviews/?filter=5#new-post" target="_blank" rel="noopener noreferrer" class="qodef-review-button qodef-review--review-action qodef-btn qodef-btn-solid"><?php echo esc_html__( 'Yes, you deserve it', 'qi-addons-for-elementor' ); ?></a>
+			<a href="#" class="qodef-review-button qodef-review--maybe-later-action qodef-btn qodef-btn-outlined"><?php echo esc_html__( 'No, maybe later', 'qi-addons-for-elementor' ); ?></a>
+			<a href="#" class="qodef-review-button qodef-review--already-reviewed-action qodef-btn qodef-btn-outlined"><?php echo esc_html__( 'I already did', 'qi-addons-for-elementor' ); ?></a>
 		</p>
 		<a class="qodef-admin-notice-dismiss">
 			<svg x="0px" y="0px" width="11px" height="11px" viewBox="0 0 11 11" enable-background="new 0 0 11 11" xml:space="preserve">

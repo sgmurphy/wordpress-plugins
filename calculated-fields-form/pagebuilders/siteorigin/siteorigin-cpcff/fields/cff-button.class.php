@@ -1,4 +1,7 @@
 <?php
+
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+
 /**
  * Class CFF_Button
  */

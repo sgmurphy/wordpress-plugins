@@ -1,13 +1,13 @@
 === All-in-One WP Migration and Backup ===
 Contributors: yani.iliev, bangelov, pimjitsawang
-Tags: migrate, backup, move, transfer, clone
+Tags: backup, transfer, copy, move, clone
 Requires at least: 3.3
 Tested up to: 6.5
 Requires PHP: 5.3
 Stable tag: 7.81
 License: GPLv2 or later
 
-Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
+Backup, transfer, copy, and move a site with 1-click. Quick, easy, and reliable.
 
 == Description ==
 Introduced in 2013 and used by over 60 million websites, All-in-One WP Migration is verifiably one of WordPress' most trusted and utilized plugins for moving websites with absolute ease.

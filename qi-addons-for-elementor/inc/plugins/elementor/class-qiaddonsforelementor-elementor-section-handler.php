@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 class QiAddonsForElementor_Elementor_Section_Handler {
 	private static $instance;
 
@@ -16,6 +21,7 @@ class QiAddonsForElementor_Elementor_Section_Handler {
 	}
 
 	public function enqueue_scripts() {
+		// phpcs:ignore WordPress.WP.EnqueuedResourceParameters
 		wp_enqueue_script( 'qi-addons-for-elementor-elementor', QI_ADDONS_FOR_ELEMENTOR_PLUGINS_URL_PATH . '/elementor/assets/js/elementor.js', array( 'jquery', 'elementor-frontend', 'wp-i18n' ) );
 	}
 }

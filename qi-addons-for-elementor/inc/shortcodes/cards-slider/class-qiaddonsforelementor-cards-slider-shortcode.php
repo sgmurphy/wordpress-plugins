@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_cards_slider_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -126,7 +131,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			);
 			$offset_selectors = array();
 
-			for ( $i = 10; $i > 0; $i -- ) {
+			for ( $i = 10; $i > 0; $i-- ) {
 				$offset_selectors[ '{{WRAPPER}} .qodef-orientation--one-side .qodef-m-card:nth-last-child(' . $i . ')' ] = 'transform: translateX(calc( {{orientation.VALUE}} * ' . ( $i - 1 ) . ' * {{SIZE}}px)) translateY(calc( -1 * ' . ( $i - 1 ) . ' * {{SIZE}}px));';
 			}
 			$this->set_option(

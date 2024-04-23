@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_blog_slider_shortcode' ) ) {
 	/**
 	 * Function that isadding shortcode into shortcodes slider for registration
@@ -433,7 +438,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 
 			$atts['post_type'] = $this->get_post_type();
 
-			// Additional query args
+			// Additional query args.
 			$atts['additional_query_args'] = $this->get_additional_query_args( $atts );
 
 			$atts['unique']         = wp_unique_id();

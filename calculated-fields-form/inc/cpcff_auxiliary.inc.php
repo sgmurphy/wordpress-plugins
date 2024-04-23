@@ -8,6 +8,13 @@
  * @since 1.0.167
  */
 
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeEnd
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentAfterEnd
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+// phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag
 if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 	/**
 	 * Metaclass with miscellaneous operations.
@@ -60,7 +67,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				self::$_wp_id = get_current_blog_id();
 			}
 			return self::$_wp_id;
-		} // End blog_id
+		} // End blog_id.
 
 		/**
 		 * Returns the public URL of the current blog.
@@ -80,7 +87,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				$_site_url = preg_replace( '/^http(s?)\:/i', '', $_site_url );
 			}
 			return $_site_url;
-		} // End site_url
+		} // End site_url.
 
 		/**
 		 * Returns the URL to the WordPress of the current blog.
@@ -96,14 +103,14 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				self::$_wp_url = get_admin_url( $blog );
 			}
 			return rtrim( self::$_wp_url, '/' );
-		} // End wp_url
+		} // End wp_url.
 
 		/**
 		 * Returns the form editor.
 		 */
 		public static function editor_url() {
 			return self::wp_url() . '/admin.php?page=cp_calculated_fields_form&_cpcff_nonce=' . wp_create_nonce( 'cff-form-settings' ) . '&cal=';
-		} // End editor_url
+		} // End editor_url.
 
 		/**
 		 * Returns the URL to the current post url.
@@ -122,7 +129,20 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 
 			self::$_current_url = $protocol . ( isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '' ) . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
 			return self::$_current_url;
-		} // End wp_current_url
+		} // End wp_current_url.
+
+		/** Change the uploaded files directory */
+		public static function upload_dir( $dir ) {
+			if ( empty( $dir ) ) {
+				$dir = wp_upload_dir();
+			}
+
+			$dir['subdir'] = '/calculated-fields-form/uploads' . $dir['subdir'];
+			$dir['path']   = $dir['basedir'] . $dir['subdir'];
+			$dir['url']    = $dir['baseurl'] . $dir['subdir'];
+
+			return $dir;
+		} // End upload_dir.
 
 		/**
 		 * Sanitizes the value received as parameter, supporting the same posts tags
@@ -132,46 +152,64 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @params mixed $v.
 		 * @return sanitized value.
 		 */
-		public static function sanitize( $v ) {
-			$allowed_tags = wp_kses_allowed_html( 'post' );
-			if ( is_array( $allowed_tags ) ) {
-				unset( $allowed_tags['script'] );
+		public static function sanitize( $v, $allow_cff_fields_tags = false ) {
+
+			if ( is_array( $v ) ) {
+				foreach ( $v as $k => $v2 ) {
+					$v[ $k ] = self::sanitize( $v2, $allow_cff_fields_tags );
+				}
+			} else {
+				$allowed_tags = wp_kses_allowed_html( 'post' );
+				if ( is_array( $allowed_tags ) ) {
+					unset( $allowed_tags['script'] );
+				}
+				add_filter(
+					'safecss_filter_attr_allow_css',
+					function ( $allow_css, $css_test_string ) {
+						if ( preg_match( '/rgb(a)?\(/i', $css_test_string ) ) {
+							return true;
+						}
+						return $allow_css;
+					},
+					10,
+					2
+				);
+
+				/* Replaces the <% and %> symbols to prevent field tags from being removed. */
+				if ( $allow_cff_fields_tags ) {
+					$v = str_replace( array( '<%', '%>' ), array( 'cff______%', '%______cff' ), $v );
+				}
+
+				$v = wp_kses( trim( wp_unslash( $v ) ), $allowed_tags );
+
+				/* Recovers the <% and %> symbols. */
+				if ( $allow_cff_fields_tags ) {
+					$v = str_replace( array( 'cff______%', '%______cff' ), array( '<%', '%>' ), $v );
+				}
+
+				// the str_replace is a patch to solve an issue with the data: part in signature fields.
+				// that are removed by wp_kse.
+				$v = str_replace(
+					array( '"image/svg+xml;base64', '"image/png;base64' ),
+					array( '"data:image/svg+xml;base64', '"data:image/png;base64' ),
+					$v
+				);
 			}
-			add_filter(
-				'safecss_filter_attr_allow_css',
-				function( $allow_css, $css_test_string ) {
-					if ( preg_match( '/rgb(a)?\(/i', $css_test_string ) ) {
-						return true;
-					}
-					return $allow_css;
-				},
-				10,
-				2
-			);
-
-			$v = wp_kses( $v, $allowed_tags );
-
-			// the str_replace is a patch to solve an issue with the data: part in signature fields
-			// that are removed by wp_kse.
-			return str_replace(
-				array( '"image/svg+xml;base64', '"image/png;base64' ),
-				array( '"data:image/svg+xml;base64', '"data:image/png;base64' ),
-				$v
-			);
-		} // End sanitize
+			return $v;
+		} // End sanitize.
 
 		/**
 		 * Removes Bom characters.
 		 *
 		 * @since 1.0.179
 		 *
-		 * @param string $str.
+		 * @param string $str text to clean.
 		 * @return string.
 		 */
 		public static function clean_bom( $str ) {
 			$bom = pack( 'H*', 'EFBBBF' );
 			return preg_replace( "/$bom/", '', $str );
-		} // End clean_bom
+		} // End clean_bom.
 
 		/**
 		 * Converts some characters in a JSON string.
@@ -187,7 +225,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				array( ' ', '\n', '' ),
 				$str
 			);
-		} // End clean_json
+		} // End clean_json.
 
 		/**
 		 * Set the hook for cleanning the expired transients
@@ -199,7 +237,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			if ( ! wp_next_scheduled( 'cpcff_clean_transients' ) ) {
 				wp_schedule_event( time() + 5, 'daily', 'cpcff_clean_transients' );
 			}
-		} // End clean_transients_hook
+		} // End clean_transients_hook.
 
 		/**
 		 * Clean the expired transients
@@ -207,13 +245,13 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @since 1.0.281
 		 */
 		public static function clean_transients() {
-			 global $wpdb;
+			global $wpdb;
 			$table = $wpdb->options;
 
-			// get current PHP time, offset by a minute to avoid clashes with other tasks
+			// get current PHP time, offset by a minute to avoid clashes with other tasks.
 			$threshold = time() - MINUTE_IN_SECONDS;
 
-			// delete expired transients, using the paired timeout record to find them
+			// delete expired transients, using the paired timeout record to find them.
 			$sql = "
 				delete from t1, t2
 				using $table t1
@@ -223,7 +261,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			";
 			$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-			// delete orphaned transient expirations
+			// delete orphaned transient expirations.
 			$sql = "
 				delete from $table
 				where option_name like '\_transient\_timeout\_%'
@@ -231,7 +269,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			";
 
 			$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		} // End clean_transients
+		} // End clean_transients.
 
 		/**
 		 * Decodes a JSON string.
@@ -254,7 +292,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			} catch ( Exception $err ) {
 				self::write_log( $err ); }
 			return ( ! empty( $obj ) ) ? $obj : false;
-		} // End unserialize
+		} // End unserialize.
 
 		/**
 		 * Replaces recursively the elements in an array by the elements in another one.
@@ -263,12 +301,12 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 *
 		 * @since 1.0.169
 		 *
-		 * @param array $array1
-		 * @param array $array2
-		 * @return array
+		 * @param array $array1 list to replace.
+		 * @param array $array2 replacement list.
+		 * @return array.
 		 */
 		public static function array_replace_recursive( $array1, $array2 ) {
-			// If the array_replace_recursive function exists, use it
+			// If the array_replace_recursive function exists, use it.
 			if ( function_exists( 'array_replace_recursive' ) ) {
 				return array_replace_recursive( $array1, $array2 );
 			}
@@ -286,7 +324,61 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				}
 			}
 			return $array1;
-		} // End array_replace_recursive
+		} // End array_replace_recursive.
+
+		public static function replace_params_into_url( $url, $params = array() ) {
+			try {
+				if (
+					preg_match( '/^<%from_page%>/i', $url, $match ) &&
+					isset( $params['from_page'] )
+				) {
+					$url   = preg_replace( '/^<%from_page%>/i', $params['from_page'], $url );
+					$parts = explode( '?', $url );
+					$url   = array_shift( $parts );
+					if ( count( $parts ) ) {
+						$url .= '?' . implode( '&', $parts );
+					}
+				}
+
+				$parts = parse_url( $url );
+				if ( ! empty( $parts['query'] ) ) {
+					parse_str( $parts['query'], $query_params );
+					if ( ! empty( $query_params ) ) {
+						foreach ( $query_params as $param_name => $param_value ) {
+							if ( preg_match_all( '/<%([^%]+)%>/i', $param_value, $matches ) ) {
+								foreach ( $matches[1] as $index => $fieldname ) {
+									if ( isset( $params[ $fieldname . '_urls' ] ) ) {
+										$replacement = $params[ $fieldname . '_url' ];
+									} elseif ( isset( $params[ $fieldname ] ) ) {
+										$replacement = $params[ $fieldname ];
+									} else {
+										$replacement = '';
+									}
+									$param_value = str_replace( $matches[0][ $index ], $replacement, $param_value );
+								}
+								$query_params[ $param_name ] = $param_value;
+							}
+						}
+
+						$parts['query'] = http_build_query( $query_params );
+						$url            = ( isset( $parts['scheme'] ) ? "{$parts['scheme']}:" : '' ) .
+								( ( isset( $parts['user'] ) || isset( $parts['host'] ) ) ? '//' : '' ) .
+								( isset( $parts['user'] ) ? "{$parts['user']}" : '' ) .
+								( isset( $parts['pass'] ) ? ":{$parts['pass']}" : '' ) .
+								( isset( $parts['user'] ) ? '@' : '' ) .
+								( isset( $parts['host'] ) ? "{$parts['host']}" : '' ) .
+								( isset( $parts['port'] ) ? ":{$parts['port']}" : '' ) .
+								( isset( $parts['path'] ) ? "{$parts['path']}" : '' ) .
+								( isset( $parts['query'] ) ? "?{$parts['query']}" : '' ) .
+								( isset( $parts['fragment'] ) ? "#{$parts['fragment']}" : '' );
+					}
+				}
+			} catch ( Exception $err ) {
+				error_log( $err->getMessage() );
+			}
+
+			return $url;
+		} // End replace_params_into_url.
 
 		/**
 		 * Applies stripcslashes to the array elements recursively.
@@ -307,7 +399,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			} else {
 				return stripcslashes( $v );
 			}
-		} // End stripcslashes_recursive
+		} // End stripcslashes_recursive.
 
 		public static function stripscript_recursive( $v ) {
 			if ( is_array( $v ) ) {
@@ -318,7 +410,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			} else {
 				return preg_replace( array( '/<\s*script\b.*\bscript\s*>/i', '/<\s*script[^>]*>/i' ), '', $v );
 			}
-		} // End stripscript_recursive
+		} // End stripscript_recursive.
 
 		/**
 		 * Checks if the website is being visited by a crawler.
@@ -335,7 +427,35 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 					preg_match( '/bot|crawl|slurp|spider/i', sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) &&
 					get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false )
 				);
-		} // End is_crawler
+		} // End is_crawler.
+
+		/**
+		 * Checks if the uploaded file is supported by WordPress and it is not a dangerous  file.
+		 *
+		 * Executables and scripts are considered as potencially dangerous files.
+		 *
+		 * @since 1.0.178
+		 *
+		 * @param array $file with the file's name and the temporal name after upload it.
+		 * @return bool.
+		 */
+		public static function check_uploaded_file( $file ) {
+			$filetmp  = $file['tmp_name'];
+			$filename = $file['name'];
+
+			// Get file info.
+			$filetype = wp_check_filetype( basename( $filename ), null );
+
+			// Excluding dangerous files.
+			if (
+				false == $filetype['ext'] ||
+				in_array( $filetype['ext'], array( 'php', 'asp', 'aspx', 'cgi', 'pl', 'perl', 'exe' ) )
+			) {
+				return false;
+			}
+
+			return true;
+		} // End check_uploaded_file.
 
 		/**
 		 * Adds the attribute: property="stylesheet" to the link tag to validate the link tags into the pages' bodies.
@@ -355,7 +475,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				return str_replace( '/>', ' property="stylesheet" />', $tag );
 			}
 			return $tag;
-		} // End complete_link_tag
+		} // End complete_link_tag.
 
 		/**
 		 * Creates a new entry in the PHP Error Logs.
@@ -383,7 +503,482 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			} catch ( Exception $err ) {
 				error_log( $err->getMessage() );
 			}
-		} // End write_log
+		} // End write_log.
 
-	} // End CPCFF_AUXILIARY
+		/**
+		 * Replaces all special tags in a text with the corresponding fields information and submitted data,
+		 * returning an array with final text, and files submitted with the form.
+		 *
+		 * @param array  $fields list of form's fields.
+		 * @param array  $params list of submitted fields and their values.
+		 * @param string $text the text to process replacing the fields tags by their labels and values.
+		 * @param string $summary the summary of submitted data stored in database.
+		 * @param string $format to format the output as plain text or html. Values: html, text.
+		 * @param string $postid database id of submitted data.
+		 *
+		 * @return array with the elements: "text" with the formatted text, "files" with the list of submitted files.
+		 */
+		public static function parsing_fields_on_text( $fields, $params, $text, $summary, $format, $postid ) {
+			$text        = str_replace( array( '&lt;%', '&lt; %', '< %' ), '<%', $text );
+			$text        = str_replace( array( '%&gt;', '% &lt;', '% >' ), '%>', $text );
+			$attachments = array();
+
+			// Remove empty blocks.
+			while ( preg_match( '/<%\s*fieldname(\d+)_block\s*(?:(?!%>).)*%>/', $text, $matches ) ) {
+				$tags   = self::_extract_tags( $matches[0] );
+				$tags   = array_pop( $tags );
+				$tags   = array_pop( $tags );
+				$remove = false;
+				if ( isset( $params[ 'fieldname' . $matches[1] ] ) ) {
+					$tmp_param = $params[ 'fieldname' . $matches[1] ];
+					$value     = is_array( $tmp_param ) ? implode( ',', $tmp_param ) : $tmp_param;
+					$value     = trim( $value );
+
+					if (
+						'' == $value ||
+						! ( is_null( $tags['if_value_is_greater_than'] ) || self::value( $tags['if_value_is_greater_than'] ) < self::value( $value ) ) ||
+						! ( is_null( $tags['if_value_is_greater_than_or_equal_to'] ) || self::value( $tags['if_value_is_greater_than_or_equal_to'] ) <= self::value( $value ) ) ||
+						! ( is_null( $tags['if_value_is_less_than'] ) || self::value( $value ) < self::value( $tags['if_value_is_less_than'] ) ) ||
+						! ( is_null( $tags['if_value_is_less_than_or_equal_to'] ) || self::value( $value ) <= self::value( $tags['if_value_is_less_than_or_equal_to'] ) ) ||
+						! ( is_null( $tags['if_value_is'] ) || $value == $tags['if_value_is'] ) ||
+						! ( is_null( $tags['if_value_is_not'] ) || $value != $tags['if_value_is_not'] ) ||
+						! ( is_null( $tags['if_value_like'] ) || preg_match( '/' . preg_quote( $tags['if_value_like'] ) . '/i', $value ) ) ||
+						! ( is_null( $tags['if_value_unlike'] ) || ! preg_match( '/' . preg_quote( $tags['if_value_unlike'] ) . '/i', $value ) )
+					) {
+						$remove = true;
+					}
+				} else {
+					$remove = true;
+				}
+
+				if ( $remove ) {
+					$from = strpos( $text, $matches[0] );
+					if ( preg_match( '/<%\s*fieldname(' . $matches[1] . ')_endblock\s*%>/', $text, $matches_end ) ) {
+						$length = strpos( $text, $matches_end[0] ) + strlen( $matches_end[0] ) - $from;
+					} else {
+						$length = strlen( $matches[0] );
+					}
+					$text = substr_replace( $text, '', $from, $length );
+				} else {
+					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*fieldname' . $matches[1] . '_endblock\s*%>/' ), '', $text, 1 );
+				}
+			}
+
+			// Remove empty nonblocks.
+			while ( preg_match( '/<%\s*fieldname(\d+)_nonblock\s*%>/', $text, $matches ) ) {
+				$remove = false;
+				if ( isset( $params[ 'fieldname' . $matches[1] ] ) ) {
+					$tmp_param = $params[ 'fieldname' . $matches[1] ];
+					$value     = is_array( $tmp_param ) ? implode( ',', $tmp_param ) : $tmp_param;
+					$value     = trim( $value );
+					if ( '' != $value ) {
+						$remove = true;
+					}
+				}
+
+				if ( $remove ) {
+					$from = strpos( $text, $matches[0] );
+					if ( preg_match( '/<%\s*fieldname(' . $matches[1] . ')_endnonblock\s*%>/', $text, $matches_end ) ) {
+						$length = strpos( $text, $matches_end[0] ) + strlen( $matches_end[0] ) - $from;
+					} else {
+						$length = strlen( $matches[0] );
+					}
+					$text = substr_replace( $text, '', $from, $length );
+				} else {
+					$text = preg_replace( array( '/' . preg_quote( $matches[0] ) . '/', '/<%\s*fieldname' . $matches[1] . '_endnonblock\s*%>/' ), '', $text, 1 );
+				}
+			}
+
+			$tags = self::_extract_tags( $text );
+
+			if ( 'html' == $format ) {
+				$text    = str_replace( "\n", '', $text );
+				$summary = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $summary );
+			}
+
+			// Replace the INFO tags.
+			if ( ! empty( $tags['info'] ) ) {
+				$summary_copy = $summary;
+				do {
+					$tmp          = $summary_copy;
+					$summary_copy = preg_replace(
+						array(
+							"/^[^\n]*:{1,2}\s*\n/",
+							"/\n[^\n]*:{1,2}\s*\n/",
+							"/\n[^\n]*:{1,2}\s*$/",
+						),
+						array(
+							'',
+							"\n",
+							'',
+						),
+						$summary_copy
+					);
+				} while ( $summary_copy <> $tmp );
+
+				foreach ( $tags['info'] as $tagData ) {
+					self::_single_replacement( $tagData, ( ( $tagData['if_not_empty'] ) ? $summary_copy : $summary ), $text );
+				}
+				unset( $tags['info'] );
+			}
+
+			foreach ( $params as $item => $value ) {
+				$value_bk = $value;
+
+				if ( 'submissiondate_mmddyyyy' == $item || 'submissiondate_ddmmyyyy' == $item ) {
+					if ( ! empty( $value ) && is_string( $value ) ) {
+						$value = explode( ' ', $value );
+						$value = $value[0];
+					}
+				}
+
+				if ( isset( $tags[ $item ] ) ) {
+					$label      = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
+					$shortlabel = ( isset( $fields[ $item ] ) && property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
+					$value      = ( ! empty( $value ) || is_numeric( $value ) && 0 == $value ) ? ( ( is_array( $value ) ) ? implode( ', ', $value ) : $value ) : '';
+
+					if ( 'html' == $format ) {
+						$label      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $label );
+						$shortlabel = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $shortlabel );
+						$value      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $value );
+					}
+
+					foreach ( $tags[ $item ] as $tagData ) {
+						if (
+							( is_null( $tagData['if_value_is_greater_than'] ) || self::value( $tagData['if_value_is_greater_than'] ) < self::value( $value ) ) &&
+							( is_null( $tagData['if_value_is_greater_than_or_equal_to'] ) || self::value( $tagData['if_value_is_greater_than_or_equal_to'] ) <= self::value( $value ) ) &&
+							( is_null( $tagData['if_value_is_less_than'] ) || self::value( $value ) < self::value( $tagData['if_value_is_less_than'] ) ) &&
+							( is_null( $tagData['if_value_is_less_than_or_equal_to'] ) || self::value( $value ) <= self::value( $tagData['if_value_is_less_than_or_equal_to'] ) ) &&
+							( is_null( $tagData['if_value_is'] ) || $value == $tagData['if_value_is'] ) &&
+							( is_null( $tagData['if_value_is_not'] ) || $value != $tagData['if_value_is_not'] ) &&
+							( is_null( $tagData['if_value_like'] ) || preg_match( '/' . preg_quote( $tagData['if_value_like'] ) . '/i', $value ) ) &&
+							( is_null( $tagData['if_value_unlike'] ) || ! preg_match( '/' . preg_quote( $tagData['if_value_unlike'] ) . '/i', $value ) ) &&
+							( 0 == $tagData['if_not_empty'] || '' !== $value )
+						) {
+							switch ( $tagData['tag'] ) {
+								case $item:
+									if ( preg_match( '/_url(s?)$/i', $item ) && ! empty( $tagData['in_tag'] ) ) {
+										$value  = preg_split( '/\n+/', $value );
+										$in_tag = strtolower( $tagData['in_tag'] );
+										switch ( $in_tag ) {
+											case 'img':
+											case '<img>':
+												foreach ( $value as $_i => $_url ) {
+													$value[ $_i ] = ( ! empty( $_url ) && @is_array( getimagesize( $_url ) ) ) ? '<img src="' . esc_attr( $_url ) . '">' : $_url;
+												}
+												break;
+											case 'a':
+											case '<a>':
+												foreach ( $value as $_i => $_url ) {
+													$value[ $_i ] = '<a href="' . esc_attr( $_url ) . '">' . $_url . '</a>';
+												}
+												break;
+										}
+										$value = implode( "\n", $value );
+									}
+									self::_single_replacement( $tagData, $label . $tagData['separator'] . $value, $text );
+									break;
+								case $item . '_label':
+									self::_single_replacement( $tagData, $label, $text );
+									break;
+								case $item . '_value':
+									self::_single_replacement( $tagData, $value, $text );
+									break;
+								case $item . '_shortlabel':
+									self::_single_replacement( $tagData, $shortlabel, $text );
+									break;
+							}
+						} else {
+							$text = str_replace( $tagData['node'], '', $text );
+						}
+					}
+					unset( $tags[ $item ] );
+				}
+
+				if ( preg_match( "/_link\b/i", $item ) ) {
+					$attachments = array_merge( $attachments, $value_bk );
+				}
+			}
+
+			// To include the fCommentArea or fSectionBreak.
+			foreach ( $tags as $tag ) {
+				foreach ( $tag as $tagData ) {
+					if ( preg_match( '/fieldname\d+/i', $tagData['tag'], $item ) ) {
+						$item = $item[0];
+
+						if ( isset( $fields[ $item ] ) && ( 'fCommentArea' == $fields[ $item ]->ftype || 'fSectionBreak' == $fields[ $item ]->ftype ) ) {
+							$label      = ( property_exists( $fields[ $item ], 'title' ) ) ? $fields[ $item ]->title : '';
+							$shortlabel = ( property_exists( $fields[ $item ], 'shortlabel' ) ) ? $fields[ $item ]->shortlabel : '';
+							if ( 'html' == $format ) {
+								$label      = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $label );
+								$shortlabel = str_replace( array( '&lt;', '&gt;', '\"', "\'" ), array( '<', '>', '"', "'" ), $shortlabel );
+							}
+
+							switch ( $tagData['tag'] ) {
+								case $item:
+								case $item . '_label':
+								case $item . '_value':
+									self::_single_replacement( $tagData, $label, $text );
+									break;
+								case $item . '_shortlabel':
+									self::_single_replacement( $tagData, $shortlabel, $text );
+									break;
+							}
+							unset( $tags[ $item ] );
+						}
+					} elseif ( preg_match( '/itemnumber/i', $tagData['tag'] ) ) {
+						self::_single_replacement(
+							$tagData,
+							( $postid ? ( ( isset( $tagData['length'] ) && is_numeric( $tagData['length'] ) ) ? sprintf( "%0{$tagData['length']}d", $postid ) : $postid ) : '' ), // phpcs:ignore WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
+							$text
+						);
+					}
+				}
+			}
+
+			self::_array_replacement( $tags, 'formid', ( ( ! empty( $params['formid'] ) ) ? $params['formid'] : '' ), $text );
+			self::_array_replacement( $tags, 'from_page', ( ( ! empty( $params['from_page'] ) ) ? $params['from_page'] : '' ), $text );
+
+			if ( ! empty( $params['formid'] ) ) {
+				$form_obj    = new CPCFF_FORM( $params['formid'] );
+				$thanks_page = $form_obj->get_option( 'fp_return_page', '/', $postid );
+			}
+			self::_array_replacement( $tags, 'thank_you_page', ( ! empty( $thanks_page ) ? $thanks_page : '' ), $text );
+
+			self::_array_replacement( $tags, 'currentdate_mmddyyyy', gmdate( 'm/d/Y' ), $text );
+			self::_array_replacement( $tags, 'currentdate_ddmmyyyy', gmdate( 'd/m/Y' ), $text );
+			self::_array_replacement( $tags, 'currenttime', gmdate( 'H:i:s' ), $text );
+
+			self::_array_replacement( $tags, 'submissiondate_mmddyyyy', ( ( ! empty( $fields['submission_datetime'] ) ) ? gmdate( 'm/d/Y', strtotime( $fields['submission_datetime'] ) ) : '' ), $text );
+			self::_array_replacement( $tags, 'submissiondate_ddmmyyyy', ( ( ! empty( $fields['submission_datetime'] ) ) ? gmdate( 'd/m/Y', strtotime( $fields['submission_datetime'] ) ) : '' ), $text );
+			self::_array_replacement( $tags, 'submissiontime', ( ( ! empty( $fields['submission_datetime'] ) ) ? gmdate( 'H:i:s', strtotime( $fields['submission_datetime'] ) ) : '' ), $text );
+
+			self::_array_replacement( $tags, 'payment_status', ( ( isset( $fields['paid'] ) ) ? ( ( $fields['paid'] * 1 ) ? __( 'Paid', 'calculated-fields-form' ) : __( 'Not Paid', 'calculated-fields-form' ) ) : '' ), $text );
+			self::_array_replacement( $tags, 'ipaddress', ( ( ! empty( $fields['ipaddr'] ) ) ? $fields['ipaddr'] : '' ), $text );
+			self::_array_replacement( $tags, 'form_name', ( ( ! empty( $form_obj ) ) ? $form_obj->get_option( 'form_name', '' ) : '' ), $text );
+
+			$form_title       = '';
+			$form_description = '';
+			if ( ! empty( $form_obj ) ) {
+				$form_structure = $form_obj->get_option( 'form_structure', array() );
+				if (
+					! empty( $form_structure ) &&
+					! empty( $form_structure[1] )
+				) {
+					if ( is_object( $form_structure[1] ) ) {
+						$form_structure[1] = (array) $form_structure[1];
+					}
+					if (
+						! empty( $form_structure[1][0] ) &&
+						is_object( $form_structure[1][0] )
+					) {
+						if ( property_exists( $form_structure[1][0], 'title' ) ) {
+							$form_title = $form_structure[1][0]->title;
+						}
+
+						if ( property_exists( $form_structure[1][0], 'description' ) ) {
+							$form_description = $form_structure[1][0]->description;
+						}
+					}
+				}
+			}
+			self::_array_replacement( $tags, 'form_title', $form_title, $text );
+			self::_array_replacement( $tags, 'form_description', $form_description, $text );
+
+			self::_array_replacement( $tags, 'subscription_id', ( ( ! empty( $params['subscr_id'] ) ) ? $params['subscr_id'] : '' ), $text );
+			self::_array_replacement( $tags, 'transaction_id', ( ( ! empty( $params['txn_id'] ) ) ? $params['txn_id'] : '' ), $text );
+			self::_array_replacement( $tags, 'couponcode', ( ( ! empty( $params['couponcode'] ) ) ? $params['couponcode'] : '' ), $text );
+			self::_array_replacement( $tags, 'coupon', ( ( ! empty( $params['coupon'] ) ) ? $params['coupon'] : '' ), $text );
+
+			foreach ( $tags as $tagArr ) {
+				foreach ( $tagArr as $tagData ) {
+					$text = str_replace( $tagData['node'], '', $text );
+				}
+			}
+
+			if ( 'html' == $format ) {
+				$text = str_replace( "\n", '<br>', $text );
+			}
+
+			return array(
+				'text'  => apply_filters( 'cpcff_custom_tags', $text, $postid ),
+				'files' => $attachments,
+			);
+		} // End parsing_fields_on_text.
+
+		/*********************************** PRIVATE METHODS  ********************************************/
+
+		/**
+		 * Extracts all tags with the format <%...%> from the text.
+		 *
+		 * @since 1.0.181
+		 * @param string $text text that includes the special tags.
+		 * @return array multidimensional associative array, whose index are the tags name,
+		 * and the internal arrays include the elements
+		 *
+		 *      - node, the literal tag.
+		 *      - tag, the tag's name: fieldname#, fieldname#_label, fieldname#_value, info, ...
+		 *      - if_not_empty, determines if the "if_not_empty" restriction is in the special tag or not.
+		 *      - before, the value of "before" attribute in the tag.
+		 *      - after, the value of "after" attribute in the tag.
+		 *      - separator, the value of "separator" attribute in the tag, symbol to separate the field's label and value.
+		 *      - in_tag, used with the fields tags: _url and _urls, the value would be the HTML tag with use the URLs.
+		 */
+		private static function _extract_tags( $text ) {
+			$tags_arr = array();
+
+			if (
+				preg_match_all(
+					"/<%(info|fieldname\d+|fieldname\d+_label|fieldname\d+_block|fieldname\d+_endblock|fieldname\d+_shortlabel|fieldname\d+_value|fieldname\d+_url|fieldname\d+_urls|fieldname\d+_path|fieldname\d+_paths|coupon|couponcode|itemnumber|formid|subscription_id|transaction_id|final_price|payment_option|ipaddress|from_page|form_name|form_title|form_description|thank_you_page|currentdate_mmddyyyy|currentdate_ddmmyyyy|currenttime|submissiondate_mmddyyyy|submissiondate_ddmmyyyy|submissiontime|payment_status)\b(?:(?!%>).)*%>/i",
+					$text,
+					$matches
+				)
+			) {
+				$tag = array();
+				foreach ( $matches[0] as $index => $value ) {
+					$tag['node']         = $value;
+					$tag['tag']          = strtolower( $matches[1][ $index ] );
+					$tag['if_not_empty'] = preg_match( '/if_not_empty/i', $value );
+
+					$tag['if_value_is_greater_than'] = ( preg_match( '/if_value_is_greater_than\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_is_greater_than_or_equal_to'] = ( preg_match( '/if_value_is_greater_than_or_equal_to\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_is_less_than'] = ( preg_match( '/if_value_is_less_than\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_is_less_than_or_equal_to'] = ( preg_match( '/if_value_is_less_than_or_equal_to\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_is'] = ( preg_match( '/if_value_is\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_is_not'] = ( preg_match( '/if_value_is_not\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_like'] = ( preg_match( '/if_value_like\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['if_value_unlike'] = ( preg_match( '/if_value_unlike\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : null;
+
+					$tag['before'] = ( preg_match( '/before\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
+
+					$tag['after'] = ( preg_match( '/after\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
+
+					$tag['separator'] = ( preg_match( '/separator\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? $match[1] : '';
+
+					$tag['in_tag'] = ( preg_match( '/in_tag\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? trim( $match[1] ) : '';
+
+					$tag['callback'] = ( preg_match( '/callback\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? trim( $match[1] ) : '';
+
+					$tag['length'] = ( preg_match( '/length\s*=\s*\{\{((?:(?!\}\}).)*)\}\}/i', $value, $match ) ) ? trim( $match[1] ) : '';
+
+					// The base tag is the index of  $tags_arr, for the tags' names with the structure fieldname#_.
+					// .., the index would be simply fieldname#.
+					$baseTag = ( preg_match( '/(fieldname\d+)_(label|value|shortlabel)/i', $tag['tag'], $match ) ) ? $match[1] : $tag['tag'];
+
+					if ( empty( $tags_arr[ $baseTag ] ) ) {
+						$tags_arr[ $baseTag ] = array();
+					}
+					$tags_arr[ $baseTag ][] = $tag;
+				}
+			}
+			return $tags_arr;
+		} // End _extract_tags.
+
+		/**
+		 * Replaces the special tags in the text by the corresponding replacements
+		 *
+		 * @since 1.0.181
+		 * @param array reference  &$tags multidimensional associative array, whose index are the tags name,
+		 *  and the internal arrays include the elements
+		 *
+		 *       - node, the literal tag.
+		 *       - tag, the tag's name: fieldname#, fieldname#_label, fieldname#_value, info, ...
+		 *       - if_not_empty, determines if the "if_not_empty" restriction is in the special tag or not.
+		 *       - before, the value of "before" attribute in the tag.
+		 *       - after, the value of "after" attribute in the tag.
+		 *       - separator, the value of "separator" attribute in the tag, symbol to separate the field's label and value.
+		 * @param string           $tagName the tag's name: formi, itemnumber, currentdate_mmddyyyy, currentdate_ddmmyyyy,
+		 *                ipaddress, couponcode, etc.
+		 * @param string           $replacement the value uses to replace the special tag into the text.
+		 * @param string reference &$text text to be processed.
+		 * @return void.
+		 */
+		private static function _array_replacement( &$tags, $tagName, $replacement, &$text ) {
+			if ( isset( $tags[ $tagName ] ) ) {
+				foreach ( $tags[ $tagName ] as $tagData ) {
+					self::_date_replacement( $tagData, $replacement );
+					$text = str_replace( $tagData['node'], $tagData['before'] . $replacement . $tagData['after'], $text );
+				}
+				unset( $tags[ $tagName ] );
+			}
+		} // End _array_replacement.
+
+		/**
+		 * Replaces a special tags in the text by the corresponding replacement
+		 *
+		 * @since 1.0.181
+		 * @param array            $tagData associative array with the indexes
+		 *
+		 *                 - node, the literal tag.
+		 *                 - tag, the tag's name: fieldname#, fieldname#_label, fieldname#_value, info, ...
+		 *                 - if_not_empty, determines if the "if_not_empty" restriction is in the special tag or not.
+		 *                 - before, the value of "before" attribute in the tag.
+		 *                 - after, the value of "after" attribute in the tag.
+		 *                 - separator, the value of "separator" attribute in the tag, symbol to separate the field's label and value.
+		 * @param string           $replacement the value uses to replace the special tag into the text.
+		 * @param string reference &$text text to be processed.
+		 * @return void.
+		 */
+		private static function _single_replacement( $tagData, $replacement, &$text ) {
+			$allowed_callbacks = array(
+				// Escape functions.
+				'esc_html',
+				'esc_url',
+				'esc_url_raw',
+				'esc_js',
+				'esc_attr',
+				'esc_textarea',
+
+				// Sanitization functions.
+				'sanitize_email',
+				'sanitize_file_name',
+				'sanitize_html_class',
+				'sanitize_key',
+				'sanitize_meta',
+				'sanitize_mime_type',
+				'sanitize_option',
+				'sanitize_sql_orderby',
+				'sanitize_text_field',
+				'sanitize_title',
+				'sanitize_title_for_query',
+				'sanitize_title_with_dashes',
+				'sanitize_user',
+				'wp_filter_post_kses',
+				'wp_filter_nohtml_kses',
+			);
+
+			if (
+				! empty( $tagData['callback'] ) &&
+				function_exists( $tagData['callback'] ) &&
+				in_array( $tagData['callback'], $allowed_callbacks )
+			) {
+				$replacement = $tagData['callback']( $replacement );
+			}
+
+			self::_date_replacement( $tagData, $replacement );
+
+			$text = str_replace( $tagData['node'], $tagData['before'] . $replacement . $tagData['after'], $text );
+		} // End _single_replacement.
+
+		private static function _date_replacement( $tagData, &$replacement ) {
+			if (
+				isset( $tagData['tag'] ) &&
+				in_array(
+					$tagData['tag'],
+					array( 'currentdate_mmddyyyy', 'currentdate_ddmmyyyy', 'submissiondate_mmddyyyy', 'submissiondate_ddmmyyyy' )
+				)
+			) {
+				if ( ! empty( $tagData['separator'] ) ) {
+					$replacement = str_replace( '/', $tagData['separator'], trim( $replacement, $tagData['separator'] ) );
+				}
+			}
+		} // End _date_replacement.
+	} // End CPCFF_AUXILIARY.
 }

@@ -91,7 +91,7 @@ class Cartflows_Init_Blocks {
 	 * @param WP_Theme_JSON_Data $theme_json_data The Data from the theme.json file.
 	 * @return WP_Theme_JSON_Data $theme_json_data Modified data of theme.json file.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 */
 	public function update_theme_json_file_config( $theme_json_data ) {
 		$theme_json_data_two = $theme_json_data->get_data();
@@ -123,7 +123,7 @@ class Cartflows_Init_Blocks {
 	 *
 	 * Note: Currently the GCP support is added for Elementor and Block Builder.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @return void
 	 */
 	public function add_gcp_vars_to_block_editor() {

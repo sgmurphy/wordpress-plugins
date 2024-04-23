@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-admin-widgets-page">
 	<form class="qodef-widgets-list" id="qi_addons_for_elementor_widgets_framework_ajax_form" data-options-name="qi_addons_for_elementor_widgets">
 		<div class="qodef-admin-widget-header">

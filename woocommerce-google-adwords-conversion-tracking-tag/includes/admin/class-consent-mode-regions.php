@@ -248,6 +248,7 @@ class Consent_Mode_Regions {
 			'GB'    => 'United Kingdom',
 			'US'    => 'United States',
 			'US-CA' => 'United States - California',
+			'US-VA' => 'United States - Virginia',
 			'UM'    => 'United States Minor Outlying Islands',
 			'UY'    => 'Uruguay',
 			'UZ'    => 'Uzbekistan',

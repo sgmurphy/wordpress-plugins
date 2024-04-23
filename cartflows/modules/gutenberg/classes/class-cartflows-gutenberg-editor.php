@@ -51,7 +51,7 @@ class Cartflows_Gutenberg_Editor {
 	 * Function to add the CartFlows flow's Global Color Pallet to block editor's default color pallet.
 	 * This will display the flow's GCP colors in the color component of Gutenberg.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @return void
 	 */
 	public function add_gcp_colors_to_block_default_color_pallet() {

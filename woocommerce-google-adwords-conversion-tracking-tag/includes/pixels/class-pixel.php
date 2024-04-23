@@ -25,8 +25,8 @@ class Pixel {
 	protected $dyn_r_id_type;
 	protected $pixel_name = '';
 
-	public function __construct( $options ) {
-		/*
+	public function __construct() {
+		/**
 		 * Initialize options
 		 */
 		$this->options     = Options::get_options();

@@ -9,6 +9,9 @@
  */
 
 if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
+	/**
+	 * Handles the forms templates.
+	 */
 	class CPCFF_TEMPLATES {
 
 		/**
@@ -80,23 +83,23 @@ if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
 								( function_exists( 'parse_ini_file' ) && ( $ini_array = parse_ini_file( $tpls_dir->path . '/' . $entry . '/config.ini' ) ) != false ) || ( function_exists( 'parse_ini_string' ) && ( $ini_array = parse_ini_string( file_get_contents( $tpls_dir->path . '/' . $entry . '/config.ini' ) ) ) != false ) // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 							) {
 								if ( isset( $ini_array['prefix'] ) && ( $prefix = trim( $ini_array['prefix'] ) ) != '' ) { // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
-									// Url to the CSS file
+									// Url to the CSS file.
 									if ( ! empty( $ini_array['file'] ) ) {
 										$ini_array['file'] = $path['url'] . '/' . $entry . '/' . $ini_array['file'];
 									}
 
-									// Url to the JS file
+									// Url to the JS file.
 									if ( ! empty( $ini_array['js'] ) ) {
 										$ini_array['js'] = $path['url'] . '/' . $entry . '/' . $ini_array['js'];
 									}
 
-									// Url to the thumbnail file
+									// Url to the thumbnail file.
 									if ( ! empty( $ini_array['thumbnail'] ) ) {
 										$ini_array['thumbnail'] = $path['url'] . '/' . $entry . '/' . $ini_array['thumbnail'];
 									}
 
-									// Required attribute to identify the template
-									// and it is used as super-class-name for grouping styles to apply for the template
+									// Required attribute to identify the template.
+									// and it is used as super-class-name for grouping styles to apply for the template.
 									self::$_templates_list[ $prefix ] = $ini_array;
 								}
 							}
@@ -106,7 +109,7 @@ if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
 			}
 
 			return self::$_templates_list;
-		} // End load_templates
+		} // End load_templates.
 
 		/**
 		 * Enqueues or sends to the browser the template's resources (CSS and JS files)
@@ -115,6 +118,7 @@ if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
 		 * Checks if the resources of current template were enqueued previously to prevent to load the resources by duplicated.
 		 * Checks if the resources should be enqueued, or sent to the browser directly.
 		 *
+		 * @param string $template template id.
 		 * @return void.
 		 */
 		public static function enqueue_template_resources( $template ) {
@@ -124,7 +128,7 @@ if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
 			if ( in_array( $template, self::$_enqueued_list ) ) {
 				return;
 			}
-			self::$_enqueued_list[] = $template; // The template's resources were enqueued
+			self::$_enqueued_list[] = $template; // The template's resources were enqueued.
 
 			if ( ! empty( $templates[ $template ] ) ) {
 				$template_info = $templates[ $template ];
@@ -147,7 +151,6 @@ if ( ! class_exists( 'CPCFF_TEMPLATES' ) ) {
 					}
 				}
 			}
-		} // End enqueue_template_resources
-
-	} // End CPCFF_TEMPLATES
+		} // End enqueue_template_resources.
+	} // End CPCFF_TEMPLATES.
 }

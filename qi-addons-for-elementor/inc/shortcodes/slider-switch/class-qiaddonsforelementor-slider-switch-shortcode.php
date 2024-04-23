@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_slider_switch_shortcode' ) ) {
 	/**
 	 * Function that is adding shortcode into shortcodes list for registration
@@ -421,7 +426,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 				$image['item_link'] = $item['item_link'];
 
 				$images[ $i ] = $image;
-				$i ++;
+				$i++;
 			}
 
 			return $images;
@@ -437,7 +442,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 				$image['item_link'] = $item['item_link'];
 
 				$images[ $i ] = $image;
-				$i ++;
+				$i++;
 			}
 
 			return $images;
@@ -462,7 +467,6 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 			$atts['partial_columns']      = 'no';
 
 			$autoplay_delay = $atts['autoplay_delay'] ? $atts['autoplay_delay'] : '';
-
 
 			return $this->get_slider_data( $atts, array( 'autoplayDelay' => $autoplay_delay ) );
 		}

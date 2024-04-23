@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.42.3
+Stable tag: 1.42.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -291,10 +291,23 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.42.4  =
+*Release date - 23.04.2024*
+
+* Tweak: Added Enhanced Conversion data to GA4 Measurement Protocol purchase events.
+* Tweak: Enabled Enhanced Conversions also for GA4.
+* Tweak: Added Virginia to the US states for the explicit consent management.
+* Tweak: On first load CookieYes sets the categories with no values, just empty strings. Not "yes" or "no" like in all subsequent loads. This update handles this case.
+* Tweak: Added a backwards compatibility process for website visitors that have saved a consent status before the latest update.
+* Tweak: Streamlined large parts of the codebase.
+* Tweak: Updated vendor libraries.
+* Fix: Fixed a Microsoft Ads purchase event activation bug.
+* Fix: Fixed a bug that would prevent to fire a view_item event on opening variable products with preselected variations.
+
 = 1.42.3  =
 *Release date - 16.04.2024*
 
-* Tweak: Better browser geo region detection for the consent mode. This is helpful if a website manager requires explicit consent from visitors located California.
+* Tweak: Better browser geo region detection for the consent mode. This is helpful if a website manager requires explicit consent from visitors located in California.
 * Tweak: Block same page events after consent has been removed for various pixels.
 * Fix: Fixed a text output for CookieYes activation status.
 

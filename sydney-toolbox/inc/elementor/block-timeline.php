@@ -328,11 +328,11 @@ class aThemes_Timeline extends Widget_Base {
 								<?php if ( $style == 'style1' ) : ?>
 									<h3><?php echo esc_html( $title ); ?></h3>
 									<?php if ($date) : ?>
-										<span class="timeline-date"><?php echo $date; ?></span>
+										<span class="timeline-date"><?php echo esc_html( $date ); ?></span>
 									<?php endif; ?>	
 								<?php else : ?>
 									<?php if ($date) : ?>
-										<span class="timeline-date"><?php echo $date; ?></span>
+										<span class="timeline-date"><?php echo esc_html( $date ); ?></span>
 									<?php endif; ?>	
 									<h3><?php echo esc_html( $title ); ?></h3>									
 								<?php endif; ?>								
@@ -369,11 +369,11 @@ class aThemes_Timeline extends Widget_Base {
 								<?php if ( $style == 'style1' ) : ?>
 									<h3><?php echo esc_html( $title ); ?></h3>
 									<?php if ( $date ) : ?>
-										<span class="timeline-date"><?php echo $date; ?></span>
+										<span class="timeline-date"><?php echo esc_html( $date ); ?></span>
 									<?php endif; ?>	
 								<?php else : ?>
 									<?php if ( $date ) : ?>
-										<span class="timeline-date"><?php echo $date; ?></span>
+										<span class="timeline-date"><?php echo esc_html( $date ); ?></span>
 									<?php endif; ?>	
 									<h3><?php echo esc_html( $title ); ?></h3>
 								<?php endif; ?>									

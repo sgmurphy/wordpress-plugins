@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-admin-notice notice is-dismissible notice-info">
 	<div class="qodef-admin-notice-inner">
 		<h3 class="qodef-admin-notice-title">

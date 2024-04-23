@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8b4cab266a10bd9f969281bceabb0ee8
+class ComposerStaticInit849b5a221d2e283d22423471339bb812
 {
     public static $files = array (
         'sb_ytf_bbf73f3db644d3dced353b837903e74c' => __DIR__ . '/..' . '/php-di/php-di/src/DI/functions.php',
@@ -72,9 +72,9 @@ class ComposerStaticInit8b4cab266a10bd9f969281bceabb0ee8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8b4cab266a10bd9f969281bceabb0ee8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8b4cab266a10bd9f969281bceabb0ee8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8b4cab266a10bd9f969281bceabb0ee8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit849b5a221d2e283d22423471339bb812::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit849b5a221d2e283d22423471339bb812::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit849b5a221d2e283d22423471339bb812::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -160,7 +160,7 @@ class Cartflows_Global_Checkout {
 	/**
 	 * Decide weather to show the global checkout page or not.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.3
 	 *
 	 * @return bool
 	 */

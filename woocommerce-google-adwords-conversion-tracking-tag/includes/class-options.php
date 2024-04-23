@@ -110,7 +110,7 @@ class Options {
 					'aw_merchant_id'           => '',
 					'product_identifier'       => 0,
 					'google_business_vertical' => 0,
-					'dynamic_remarketing'      => false, // TODO should be moved to a more general section
+					'dynamic_remarketing'      => true, // TODO is always active, can be removed
 					'phone_conversion_number'  => '',
 					'phone_conversion_label'   => '',
 					'enhanced_conversions'     => false,
@@ -312,16 +312,44 @@ class Options {
 			|| self::is_pinterest_apic_active();
 	}
 
+	/**
+	 * Facebook (Meta)
+	 */
+
+	public static function get_facebook_pixel_id() {
+		return self::get_options_obj()->facebook->pixel_id;
+	}
+
 	public static function is_facebook_active() {
-		return (bool) self::get_options_obj()->facebook->pixel_id;
+		return (bool) self::get_facebook_pixel_id();
+	}
+
+	public static function get_facebook_capi_token() {
+		return self::get_options_obj()->facebook->capi->token;
 	}
 
 	public static function is_facebook_capi_enabled() {
-		return self::is_facebook_active() && self::get_options_obj()->facebook->capi->token;
+		return self::is_facebook_active() && self::get_facebook_capi_token();
+	}
+
+	public static function is_facebook_microdata_active() {
+		return (bool) self::get_options_obj()->facebook->microdata;
+	}
+
+	public static function is_facebook_capi_advanced_matching_enabled() {
+		return (bool) self::get_options_obj()->facebook->capi->user_transparency->send_additional_client_identifiers;
+	}
+
+	/**
+	 * TikTok
+	 */
+
+	public static function get_tiktok_pixel_id() {
+		return self::get_options_obj()->tiktok->pixel_id;
 	}
 
 	public static function is_tiktok_active() {
-		return (bool) self::get_options_obj()->tiktok->pixel_id;
+		return (bool) self::get_tiktok_pixel_id();
 	}
 
 	public static function is_tiktok_eapi_enabled() {
@@ -332,12 +360,27 @@ class Options {
 		return self::get_options_obj()->tiktok->pixel_id && self::get_options_obj()->tiktok->eapi->token;
 	}
 
-	public static function is_hotjar_enabled() {
-		return (bool) self::get_options_obj()->hotjar->site_id;
+	public static function is_tiktok_advanced_matching_enabled() {
+		return (bool) self::get_options_obj()->tiktok->advanced_matching;
 	}
 
+	/**
+	 * Hotjar
+	 */
+
+	public static function get_hotjar_site_id() {
+		return self::get_options_obj()->hotjar->site_id;
+	}
+
+	public static function is_hotjar_enabled() {
+		return (bool) self::get_hotjar_site_id();
+	}
+
+	/**
+	 * Microsoft Ads (Bing)
+	 */
 	public static function is_bing_active() {
-		return (bool) self::get_options_obj()->bing->uet_tag_id;
+		return (bool) self::get_bing_uet_tag_id();
 	}
 
 	public static function get_bing_uet_tag_id() {
@@ -348,28 +391,40 @@ class Options {
 		return (bool) self::get_options_obj()->bing->enhanced_conversions;
 	}
 
+	/**
+	 * Snapchat
+	 */
+
+	public static function get_snapchat_pixel_id() {
+		return self::get_options_obj()->snapchat->pixel_id;
+	}
+
 	public static function is_snapchat_active() {
-		return (bool) self::get_options_obj()->snapchat->pixel_id;
+		return (bool) self::get_snapchat_pixel_id();
 	}
 
 	public static function is_snapchat_advanced_matching_enabled() {
 		return (bool) self::get_options_obj()->snapchat->advanced_matching;
 	}
 
-	public static function is_pinterest_active() {
-		return (bool) self::get_options_obj()->pinterest->pixel_id;
+	/**
+	 * Pinterest
+	 */
+
+	public static function get_pinterest_pixel_id() {
+		return self::get_options_obj()->pinterest->pixel_id;
 	}
 
-	public static function is_pinterest_enhanced_match_enabled() {
-		return self::get_options_obj()->pinterest->enhanced_match;
+	public static function is_pinterest_active() {
+		return (bool) self::get_pinterest_pixel_id();
 	}
 
 	public static function get_pinterest_ad_account_id() {
 		return self::get_options_obj()->pinterest->ad_account_id;
 	}
 
-	public static function is_pinterest_ad_account_id_active() {
-		return self::get_options_obj()->pinterest->ad_account_id;
+	public static function is_pinterest_enhanced_match_enabled() {
+		return (bool) self::get_options_obj()->pinterest->enhanced_match;
 	}
 
 	public static function is_pinterest_apic_active() {
@@ -381,26 +436,35 @@ class Options {
 	}
 
 	public static function is_pinterest_advanced_matching_active() {
-		return self::get_options_obj()->pinterest->advanced_matching;
+		return (bool) self::get_options_obj()->pinterest->advanced_matching;
 	}
 
-	public static function is_pinterest_apic_process_anonymous_hits() {
-		return self::get_options_obj()->pinterest->apic->process_anonymous_hits;
+	public static function is_pinterest_apic_process_anonymous_hits_active() {
+		return (bool) self::get_options_obj()->pinterest->apic->process_anonymous_hits;
+	}
+
+	/**
+	 * Twitter
+	 */
+
+	public static function get_twitter_pixel_id() {
+		return self::get_options_obj()->twitter->pixel_id;
 	}
 
 	public static function is_twitter_active() {
-		return (bool) self::get_options_obj()->twitter->pixel_id;
+		return (bool) self::get_twitter_pixel_id();
 	}
 
-	public static function is_google_ads_purchase_conversion_enabled() {
-		if (
-			self::get_options_obj()->google->ads->conversion_id
-			&& self::get_options_obj()->google->ads->conversion_label
-		) {
-			return true;
-		}
+	public static function get_twitter_event_ids() {
+		return self::get_options_obj()->twitter->event_ids;
+	}
 
-		return false;
+	/**
+	 * Google
+	 */
+
+	public static function is_google_ads_purchase_conversion_enabled() {
+		return self::get_options_obj()->google->ads->conversion_id && self::get_options_obj()->google->ads->conversion_label;
 	}
 
 	public static function is_google_ads_active() {
@@ -411,60 +475,129 @@ class Options {
 		return self::get_options_obj()->google->ads->conversion_id;
 	}
 
-	public static function is_google_ads_enhanced_conversions_active() {
-		if (
-			self::is_google_ads_purchase_conversion_enabled()
-			&& self::get_options_obj()->google->ads->enhanced_conversions
-		) {
-			return true;
-		}
+	public static function get_google_ads_conversion_label() {
+		return self::get_options_obj()->google->ads->conversion_label;
+	}
 
-		return false;
+	public static function is_google_ads_conversion_active() {
+		return self::get_google_ads_conversion_id() && self::get_google_ads_conversion_label();
+	}
+
+	public static function is_google_enhanced_conversions_active() {
+		return (bool) self::get_options_obj()->google->ads->enhanced_conversions;
 	}
 
 	public static function is_google_ads_conversion_adjustments_active() {
-		if (
-			self::is_google_ads_purchase_conversion_enabled()
-			&& self::get_options_obj()->google->ads->conversion_adjustments->conversion_name
-		) {
-			return true;
-		}
+		return self::is_google_ads_purchase_conversion_enabled() && self::get_options_obj()->google->ads->conversion_adjustments->conversion_name;
+	}
 
-		return false;
+	public static function is_google_ads_conversion_adjustments_conversion_name_set() {
+		return (bool) self::get_options_obj()->google->ads->conversion_adjustments->conversion_name;
+	}
+
+	public static function get_google_ads_conversion_adjustments_conversion_name() {
+		return self::get_options_obj()->google->ads->conversion_adjustments->conversion_name;
+	}
+
+	public static function get_google_ads_merchant_id() {
+		return (int) self::get_options_obj()->google->ads->aw_merchant_id;
 	}
 
 	public static function is_google_ads_conversion_cart_data_enabled() {
-		if (
-			self::is_google_ads_purchase_conversion_enabled()
-			&& self::get_options_obj()->google->ads->aw_merchant_id
-		) {
-			return true;
-		}
-
-		return false;
+		return self::is_google_ads_purchase_conversion_enabled() && self::get_options_obj()->google->ads->aw_merchant_id;
 	}
 
+	public static function is_google_active() {
+		return self::is_google_ads_active() || self::is_google_analytics_active();
+	}
+
+	public static function get_google_ads_business_vertical_id() {
+		return self::get_options_obj()->google->ads->google_business_vertical;
+	}
+
+	public static function is_ga4_enabled() {
+		return (bool) self::get_ga4_measurement_id();
+	}
+
+	public static function get_ga4_measurement_id() {
+		return self::get_options_obj()->google->analytics->ga4->measurement_id;
+	}
+
+	public static function is_ga4_data_api_active() {
+		return
+			self::get_options_obj()->google->analytics->ga4->data_api->property_id
+			&& !empty(self::get_options_obj()->google->analytics->ga4->data_api->credentials);
+	}
+
+	public static function is_google_analytics_active() {
+		return self::is_ga4_enabled();
+	}
+
+	public static function is_ga4_mp_active() {
+		return self::is_ga4_enabled() && self::get_options_obj()->google->analytics->ga4->api_secret;
+	}
+
+	public static function get_ga4_mp_api_secret() {
+		return self::get_options_obj()->google->analytics->ga4->api_secret;
+	}
+
+	public static function is_google_tcf_support_active() {
+		return (bool) self::get_options_obj()->google->tcf_support;
+	}
+
+	public static function is_google_consent_mode_active() {
+		return (bool) self::get_options_obj()->google->consent_mode->active;
+	}
+
+	public static function is_google_user_id_active() {
+		return (bool) self::get_options_obj()->google->user_id;
+	}
+
+	public static function is_google_link_attribution_active() {
+		return (bool) self::get_options_obj()->google->analytics->link_attribution;
+	}
+
+	public static function get_google_ads_phone_conversion_number() {
+		return self::get_options_obj()->google->ads->phone_conversion_number;
+	}
+
+	public static function get_google_ads_phone_conversion_label() {
+		return self::get_options_obj()->google->ads->phone_conversion_label;
+	}
+
+	public static function is_ga4_page_load_time_tracking_active() {
+		return (bool) self::get_options_obj()->google->analytics->ga4->page_load_time_tracking;
+	}
+
+	/**
+	 * Shop settings
+	 */
+
 	public static function is_dynamic_remarketing_enabled() {
-		return self::get_options_obj()->google->ads->dynamic_remarketing;
+		return true;
 	}
 
 	public static function is_dynamic_remarketing_variations_output_enabled() {
-		return self::get_options_obj()->general->variations_output;
+		return (bool) self::get_options_obj()->general->variations_output;
 	}
 
 	public static function get_subscription_multiplier() {
 		return self::get_options_obj()->shop->subscription_value_multiplier;
 	}
 
+	/**
+	 * General settings
+	 */
+
 	public static function is_lazy_load_pmw_active() {
-		return self::get_options_obj()->general->lazy_load_pmw;
+		return (bool) self::get_options_obj()->general->lazy_load_pmw;
 	}
 
 	/**
 	 * Ensure that lazy loading is only active if the optimizers (VWO, Optimizely, AB Tasty, etc.) allow it.
 	 * The reason is, because optimizers might flicker the page during loading (when test variations are applied).
 	 *
-	 * @return false
+	 * @return bool
 	 */
 	public static function lazy_load_requirements() {
 
@@ -476,6 +609,10 @@ class Options {
 
 		return true;
 	}
+
+	/**
+	 * Adroll
+	 */
 
 	public static function get_adroll_advertiser_id() {
 		return self::get_options_obj()->pixels->adroll->advertiser_id;
@@ -497,19 +634,9 @@ class Options {
 		return self::is_adroll_advertiser_id_set() && self::is_adroll_pixel_id_set();
 	}
 
-	public static function is_ga4_enabled() {
-		return self::get_options_obj()->google->analytics->ga4->measurement_id;
-	}
-
-	public static function is_ga4_data_api_enabled() {
-		return
-			self::get_options_obj()->google->analytics->ga4->data_api->property_id
-			&& !empty(self::get_options_obj()->google->analytics->ga4->data_api->credentials);
-	}
-
-	public static function is_google_analytics_enabled() {
-		return self::is_ga4_enabled();
-	}
+	/**
+	 * LinkedIn
+	 */
 
 	public static function get_linkedin_partner_id() {
 		return self::get_options_obj()->pixels->linkedin->partner_id;
@@ -531,6 +658,10 @@ class Options {
 		return self::get_options_obj()->pixels->linkedin->conversion_ids;
 	}
 
+	/**
+	 * Outbrain
+	 */
+
 	public static function get_outbrain_advertiser_id() {
 		return self::get_options_obj()->pixels->outbrain->advertiser_id;
 	}
@@ -538,6 +669,10 @@ class Options {
 	public static function is_outbrain_active() {
 		return (bool) self::get_outbrain_advertiser_id();
 	}
+
+	/**
+	 * Reddit
+	 */
 
 	public static function get_reddit_advertiser_id() {
 		return self::get_options_obj()->pixels->reddit->advertiser_id;
@@ -548,8 +683,12 @@ class Options {
 	}
 
 	public static function is_reddit_advanced_matching_enabled() {
-		return self::get_options_obj()->pixels->reddit->advanced_matching;
+		return (bool) self::get_options_obj()->pixels->reddit->advanced_matching;
 	}
+
+	/**
+	 * Taboola
+	 */
 
 	public static function get_taboola_account_id() {
 		return self::get_options_obj()->pixels->taboola->account_id;
@@ -558,6 +697,10 @@ class Options {
 	public static function is_taboola_active() {
 		return (bool) self::get_taboola_account_id();
 	}
+
+	/**
+	 * General settings
+	 */
 
 	public static function is_at_least_one_statistics_pixel_active() {
 		return self::is_ga4_enabled()
@@ -580,36 +723,48 @@ class Options {
 			|| self::is_twitter_active();
 	}
 
+	/**
+	 * VWO
+	 */
+
 	public static function get_vwo_account_id() {
 		return self::get_options_obj()->pixels->vwo->account_id;
 	}
 
 	public static function is_vwo_active() {
-		return self::get_options_obj()->pixels->vwo->account_id;
+		return (bool) self::get_vwo_account_id();
 	}
+
+	/**
+	 * Optimizely
+	 */
 
 	public static function get_optimizely_project_id() {
 		return self::get_options_obj()->pixels->optimizely->project_id;
 	}
 
 	public static function is_optimizely_active() {
-		return self::get_options_obj()->pixels->optimizely->project_id;
+		return (bool) self::get_optimizely_project_id();
 	}
+
+	/**
+	 * AB Tasty
+	 */
 
 	public static function get_ab_tasty_account_id() {
 		return self::get_options_obj()->pixels->ab_tasty->account_id;
 	}
 
 	public static function is_ab_tasty_active() {
-		return self::get_options_obj()->pixels->ab_tasty->account_id;
+		return (bool) self::get_ab_tasty_account_id();
 	}
 
 	public static function is_maximum_compatiblity_mode_active() {
-		return self::get_options_obj()->general->maximum_compatibility_mode;
+		return (bool) self::get_options_obj()->general->maximum_compatibility_mode;
 	}
 
 	public static function is_shop_order_list_info_enabled() {
-		return self::get_options_obj()->shop->order_list_info;
+		return (bool) self::get_options_obj()->shop->order_list_info;
 	}
 
 	public static function pro_version_demo_active() {
@@ -640,7 +795,7 @@ class Options {
 	}
 
 	public static function is_http_request_logging_enabled() {
-		return self::get_options_obj()->general->logger->log_http_requests;
+		return (bool) self::get_options_obj()->general->logger->log_http_requests;
 	}
 
 	public static function disable_http_request_logging() {
@@ -697,26 +852,12 @@ class Options {
 		return array_values(array_unique($regions));
 	}
 
-	public static function is_google_tcf_support_active() {
-		return (bool) self::get_options_obj()->google->tcf_support;
-	}
-
-	public static function is_google_consent_mode_active() {
-		return (bool) self::get_options_obj()->google->consent_mode->active;
-	}
-
 	public static function is_order_level_ltv_calculation_active() {
 		return (bool) self::get_options_obj()->shop->ltv->order_calculation->is_active;
 	}
 
 	public static function is_automatic_ltv_recalculation_active() {
 		return (bool) self::get_options_obj()->shop->ltv->automatic_recalculation->is_active;
-	}
-
-	public static function is_ga4_data_api_active() {
-		return
-			self::get_options_obj()->google->analytics->ga4->data_api->property_id
-			&& !empty(self::get_options_obj()->google->analytics->ga4->data_api->credentials);
 	}
 
 	public static function is_order_duplication_prevention_option_active() {

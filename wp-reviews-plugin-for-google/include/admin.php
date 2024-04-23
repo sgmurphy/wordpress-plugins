@@ -101,18 +101,20 @@ $selectedTab = $tabs[0]['slug'];
 <?php echo wp_kses_post(__('For some reason, the <strong>CSS</strong> file required to run the plugin was not loaded.<br />One of your plugins is probably causing the problem.', 'trustindex-plugin')); ?>
 </p>
 </div>
-<script type="text/javascript">
+<?php
+$jsKey = 'trustindex-check-frontend-assets';
+$jsFiles = [];
+foreach ($assetCheckJs as $id => $file) {
+$jsFiles []= [
+'id' => $id,
+'url' => $pluginManagerInstance->get_plugin_file_url($file),
+];
+}
+$jsContent = "
 window.onload = function() {
 let notLoaded = [];
 let loadedCount = 0;
-let jsFiles = [
-<?php foreach ($assetCheckJs as $id => $file): ?>
-{
-url: '<?php echo esc_attr($pluginManagerInstance->get_plugin_file_url($file)); ?>',
-id: '<?php echo esc_attr($id); ?>'
-},
-<?php endforeach; ?>
-];
+let jsFiles = ". wp_json_encode($jsFiles) .";
 let addElement = function(type, url, callback) {
 let element = document.createElement(type);
 if (type === 'script') {
@@ -123,14 +125,14 @@ else {
 element.type = 'text/css';
 element.rel = 'stylesheet';
 element.href = url;
-element.id = '<?php echo esc_html($assetCheckCssId); ?>-css';
+element.id = '". esc_html($assetCheckCssId) ."-css';
 }
 document.head.appendChild(element);
 element.addEventListener('load', function() { callback(true); });
 element.addEventListener('error', function() { callback(false); });
 };
 let isCSSExists = function() {
-let link = document.getElementById('<?php echo esc_html($assetCheckCssId); ?>-css');
+let link = document.getElementById('". esc_html($assetCheckCssId) ."-css');
 return link && Boolean(link.sheet);
 };
 let isJSExists = function(id) {
@@ -150,7 +152,7 @@ warningBox.querySelector('p strong').innerHTML = notLoaded.join(', ');
 }
 }
 if (!isCSSExists()) {
-addElement('link', '<?php echo esc_attr($pluginManagerInstance->get_plugin_file_url($assetCheckCssFile)); ?>', function(success) {
+addElement('link', '". esc_attr($pluginManagerInstance->get_plugin_file_url($assetCheckCssFile)) ."', function(success) {
 loadedCount++;
 if (!success) {
 notLoaded.push('CSS');
@@ -178,7 +180,11 @@ loadedCount++;
 }
 });
 };
-</script>
+";
+wp_register_script($jsKey, false, [], true, [ 'in_footer' => true ]);
+wp_enqueue_script($jsKey);
+wp_add_inline_script($jsKey, $jsContent);
+?>
 <?php endif; ?>
 <div id="trustindex-plugin-settings-page" class="ti-plugin-wrapper ti-toggle-opacity">
 <div class="ti-header-nav">

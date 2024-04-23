@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_image_gallery_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -9,7 +14,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_image_gallery_shortcode' ) 
 	 * @return array
 	 */
 	function qi_addons_for_elementor_add_image_gallery_shortcode( $shortcodes ) {
-		$shortcodes[] = 'QiAddonsForElementor_ImageGallery_Shortcode';
+		$shortcodes[] = 'QiAddonsForElementor_Image_Gallery_Shortcode';
 
 		return $shortcodes;
 	}
@@ -18,7 +23,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_image_gallery_shortcode' ) 
 }
 
 if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
-	class QiAddonsForElementor_ImageGallery_Shortcode extends QiAddonsForElementor_List_Shortcode {
+	class QiAddonsForElementor_Image_Gallery_Shortcode extends QiAddonsForElementor_List_Shortcode {
 
 		public function __construct() {
 			$this->set_extra_options( apply_filters( 'qi_addons_for_elementor_filter_image_gallery_extra_options', array() ) );
@@ -234,6 +239,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 			parent::render( $options );
 			$atts = $this->get_atts();
 
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.rand_rand
 			$atts['unique']         = rand( 0, 999 );
 			$atts['holder_classes'] = $this->get_holder_classes( $atts );
 			$atts['item_classes']   = $this->get_item_classes( $atts );
@@ -293,7 +299,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 
 					$images[ $i ] = $image;
 
-					$i ++;
+					$i++;
 				}
 			}
 

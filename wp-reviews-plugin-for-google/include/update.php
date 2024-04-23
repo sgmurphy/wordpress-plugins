@@ -29,7 +29,7 @@ $wpdb->query('ALTER TABLE `'. $tableName .'` ADD hidden TINYINT(1) NOT NULL DEFA
 if (get_option($this->get_option_name('review-content'))) {
 $contentVersion = get_option($this->get_option_name('content-saved-to'));
 if (!$contentVersion || $contentVersion != $currentVersion) {
-update_option($this->get_option_name('content-saved-to'), $version, false);
+update_option($this->get_option_name('content-saved-to'), $currentVersion, false);
 delete_option($this->get_option_name('review-content'));
 $this->noreg_save_css(true);
 }

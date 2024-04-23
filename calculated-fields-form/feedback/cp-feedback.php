@@ -1,5 +1,12 @@
 <?php
+
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+// phpcs:disable Squiz.Commenting.VariableComment.Missing
+
 if ( ! class_exists( 'CP_FEEDBACK' ) ) {
+	/**
+	 * Get feedback for the plugin deactivation process.
+	 */
 	class CP_FEEDBACK {
 
 		private $feedback_url = 'https://wordpress.dwbooster.com/licensesystem/debug-data.php';
@@ -14,14 +21,14 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 			$this->support_link      = $support_link;
 			$this->full_support_link = $support_link . ( ( strpos( $support_link, '?' ) === false ) ? '?' : '&' ) . 'priority-support=yes';
 
-			// To know when the plugin was installed
+			// To know when the plugin was installed.
 			if ( ! get_option( 'installed_' . $this->plugin_slug, false ) ) {
 				update_option( 'installed_' . $this->plugin_slug, time() );
 			}
-			// Actions and filters
+			// Actions and filters.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 1 );
 			add_action( 'wp_ajax_cp_feedback', array( $this, 'feedback_action' ) );
-		} // End __construct
+		} // End __construct.
 
 		public function enqueue_scripts( $hook ) {
 			if ( 'plugins.php' == $hook ) {
@@ -31,10 +38,10 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 
 				add_action( 'admin_footer', array( $this, 'feedback_interface' ) );
 			}
-		} // End insert_admin_scripts
+		} // End insert_admin_scripts.
 
 		public function feedback_interface() {
-			// Varibles to use into the feedback interface
+			// Varibles to use into the feedback interface.
 			$plugin_slug       = $this->plugin_slug;
 			$support_link      = $this->support_link;
 			$full_support_link = $this->full_support_link;
@@ -42,11 +49,13 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 			include_once dirname( $this->plugin_file ) . '/feedback/feedback.html';
 
 			if ( 0 == get_option( 'cff-t-d', 0 ) ) {
-				print '<code style="display:none;"><script>jQuery(document).on("mousedown", "#cp_feedback_deactivatebtn", function(evt){ if(typeof cff_trial_flag!="undefined") return; cff_trial_flag=true; evt.stopPropagation(); evt.preventDefault(); if( jQuery("[value=\'temporary-deactivation\']:checked").length == 0 && confirm("Do you want to install the Trial plugin distribution instead of deactiving the free one? The Trial distribution offers several features of the Professional version.") ) { window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1"; return false; } else { jQuery("#cp_feedback_deactivatebtn").click(); }});</script></code>';
+				print '<code style="display:none;"><script>jQuery(document).on("mousedown", "#cp_cff_feedback_deactivatebtn", function(evt){ if(typeof cff_trial_flag!="undefined") return; cff_trial_flag=true; evt.stopPropagation(); evt.preventDefault(); if( jQuery("[value=\'temporary-deactivation\']:checked").length == 0 && confirm("Do you want to install the Trial plugin distribution instead of deactiving the free one? The Trial distribution offers several features of the Professional version.") ) { window.location.href="admin.php?page=cp_calculated_fields_form&cff-install-trial=1"; return false; } else { jQuery("#cp_cff_feedback_deactivatebtn").click(); }});</script></code>';
 			}
-		} // End feedback_interface
+		} // End feedback_interface.
 
-		// This function is used only if explicitly accepted (opt-in) by the user
+		/**
+		 * This function is used only if explicitly accepted (opt-in) by the user.
+		 */
 		public function feedback_action() {
 			if (
 				isset( $_POST['feedback_plugin'] ) &&
@@ -77,7 +86,7 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 					$data['url']     = get_site_url( get_current_blog_id() );
 				}
 
-				// Send data
+				// Send data.
 				$response = wp_remote_post(
 					$this->feedback_url,
 					array(
@@ -86,10 +95,8 @@ if ( ! class_exists( 'CP_FEEDBACK' ) ) {
 					)
 				);
 
-				wp_die(); // this is required to terminate immediately and return a proper response
+				wp_die(); // this is required to terminate immediately and return a proper response.
 			}
-
-		} // End feedback_action
-
-	} // End class
+		} // End feedback_action.
+	} // End class.
 }

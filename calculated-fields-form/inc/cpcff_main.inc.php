@@ -6,6 +6,12 @@
  * @since 1.0.170
  */
 
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeEnd
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentAfterEnd
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+// phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTagSquiz.Commenting.FunctionComment.MissingParamTag
+
 if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 	/**
 	 * Class that defines the main actions and filters, and plugin's functionalities.
@@ -87,7 +93,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		/**
 		 * List of nonces for iframe loaded forms
 		 * Instance property.
-		 *
 		 */
 		private $_iframe_nonces;
 
@@ -101,35 +106,34 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_form.inc.php';
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_amp.inc.php';
 
-			// Initializes the $_is_admin property
+			// Initializes the $_is_admin property.
 			$this->_is_admin = is_admin();
 
-			// Initializes the $_plugin_url property
+			// Initializes the $_plugin_url property.
 			$this->_plugin_url = plugin_dir_url( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH );
 
-			// Initialize $_iframe_nonces
+			// Initialize $_iframe_nonces.
 			$this->_iframe_nonces = array();
 
-			// Plugin activation/deactivation
+			// Plugin activation/deactivation.
 			$this->_activate_deactivate();
 
-			// Load the language file
+			// Load the language file.
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
-			// Instanciate the AMP object
+			// Instanciate the AMP object.
 			$this->_amp = new CPCFF_AMP( $this );
 
-			// Run the initialization code
+			// Run the initialization code.
 			add_action( 'init', array( $this, 'init' ), 1 );
 
-			// Run the initialization code of widgets
+			// Run the initialization code of widgets.
 			add_action( 'widgets_init', array( $this, 'widgets_init' ), 1 );
 
-			// Integration with Page Builders
+			// Integration with Page Builders.
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_page_builders.inc.php';
 			CPCFF_PAGE_BUILDERS::run();
-
-		} // End __construct
+		} // End __construct.
 
 		/**
 		 * Returns the instance of the singleton.
@@ -142,7 +146,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				self::$_instance = new self();
 			}
 			return self::$_instance;
-		} // End instance
+		} // End instance.
 
 		/**
 		 * Loads the primary resources, previous to the plugin's initialization
@@ -152,15 +156,15 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return void.
 		 */
 		public function plugins_loaded() {
-			// Fix different troubleshoots
+			// Fix different troubleshoots.
 			$this->troubleshoots();
 
-			// Load the language file
+			// Load the language file.
 			$this->_textdomain();
 
-			// Load controls scripts
+			// Load controls scripts.
 			$this->_load_controls_scrips();
-		} // End plugins_loaded
+		} // End plugins_loaded.
 
 		/**
 		 * Initializes the plugin, runs as soon as possible.
@@ -170,10 +174,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return void.
 		 */
 		public function init() {
-			CPCFF_AUXILIARY::clean_transients_hook(); // Set the hook for clearing the expired transients
+			CPCFF_AUXILIARY::clean_transients_hook(); // Set the hook for clearing the expired transients.
 
 			if ( $this->_is_admin ) {
-				require_once dirname( __FILE__ ) . '/cpcff_openai.inc.php';
+				require_once __DIR__ . '/cpcff_openai.inc.php';
 
 				if (
 					false === ( $CP_CALCULATEDFIELDSF_VERSION = get_option( 'CP_CALCULATEDFIELDSF_VERSION' ) ) || // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
@@ -185,10 +189,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					update_option( 'CP_CALCULATEDFIELDSF_VERSION', CP_CALCULATEDFIELDSF_VERSION );
 				}
 
-				// Update metabox status if corresponds
+				// Update metabox status if corresponds.
 				$this->update_metabox_status();
 
-				// Adds the plugin links in the plugins sections
+				// Adds the plugin links in the plugins sections.
 				add_filter( 'plugin_action_links_' . CP_CALCULATEDFIELDSF_BASE_NAME, array( $this, 'links' ) );
 
 				// Creates the menu entries in the WordPress menu.
@@ -198,12 +202,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				// Displays the shortcode insertion buttons.
 				add_action( 'media_buttons', array( $this, 'media_buttons' ) );
 
-				// Loads the admin resources
+				// Loads the admin resources.
 				add_action( 'admin_enqueue_scripts', array( $this, 'admin_resources' ), 1 );
 			}
 			$this->_define_shortcodes();
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_loader' ) );
-		} // End init
+		} // End init.
 
 		/**
 		 * Registers the widgets.
@@ -219,7 +223,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			if ( ! $this->_is_admin ) {
 				add_filter( 'widget_text', 'do_shortcode' );
 			}
-		} // End widgets_init
+		} // End widgets_init.
 
 		/**
 		 * Adds the plugin's links in the plugins section.
@@ -239,7 +243,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				'<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank">' . __( 'Help' ) . '</a>'
 			);
 			return $links;
-		} // End links
+		} // End links.
 
 		/**
 		 * Prints the buttons for inserting the different shortcodes into the pages/posts contents.
@@ -253,7 +257,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		public function media_buttons() {
 			print '<a href="javascript:cp_calculatedfieldsf_insertForm();" title="' . esc_attr__( 'Insert Calculated Fields Form', 'calculated-fields-form' ) . '"><img src="' . esc_attr( $this->_plugin_url ) . 'images/cp_form.gif" alt="' . esc_attr__( 'Insert Calculated Fields Form', 'calculated-fields-form' ) . '" /></a><a href="javascript:cp_calculatedfieldsf_insertVar();" title="' . esc_attr__( 'Create a JavaScript var from POST, GET, SESSION, or COOKIE var', 'calculated-fields-form' ) . '"><img src="' . esc_attr( $this->_plugin_url ) . 'images/cp_var.gif" alt="' . esc_attr__( 'Create a JavaScript var from POST, GET, SESSION, or COOKIE var', 'calculated-fields-form' ) . '" /></a>';
-		} // End media_buttons
+		} // End media_buttons.
 
 		/**
 		 * Generates the entries in the WordPress menu.
@@ -263,50 +267,49 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function admin_menu() {
 			global $submenu;
 
-			// Settings page
-			add_options_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters('cpcff_forms_edition_capability', 'manage_options'), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
+			// Settings page.
+			add_options_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
 
-			// Menu option
-			add_menu_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters('cpcff_forms_edition_capability', 'manage_options'), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
+			// Menu option.
+			add_menu_page( 'Calculated Fields Form Options', 'Calculated Fields Form', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
 
-			// Submenu options
-			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form', 'All Forms', apply_filters('cpcff_forms_edition_capability', 'manage_options'), "cp_calculated_fields_form", array($this, 'admin_pages') );
+			// Submenu options.
+			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form', 'All Forms', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - New Form', 'Add New', apply_filters('cpcff_forms_edition_capability', 'manage_options'), "cp_calculated_fields_form_sub_new", array($this, 'admin_pages') );
+			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - New Form', 'Add New', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_new', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Troubleshoot Area & General Settings', 'Troubleshoot Area & General Settings', apply_filters('cpcff_forms_edition_capability', 'manage_options'), "cp_calculated_fields_form_sub_troubleshoots_settings", array($this, 'admin_pages') );
+			add_submenu_page( 'cp_calculated_fields_form', 'Calculated Fields Form - Troubleshoot Area & General Settings', 'Troubleshoot Area & General Settings', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_troubleshoots_settings', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Upgrade', 'Upgrade', apply_filters('cpcff_forms_edition_capability', 'manage_options'), 'cp_calculated_fields_form_sub_upgrade', array( $this, 'admin_pages' ) );
+			add_submenu_page( 'cp_calculated_fields_form', 'Upgrade', 'Upgrade', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_upgrade', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Marketplace', 'Marketplace', apply_filters('cpcff_forms_edition_capability', 'manage_options'), 'cp_calculated_fields_form_sub_marketplace', array( $this, 'admin_pages' ) );
+			add_submenu_page( 'cp_calculated_fields_form', 'Marketplace', 'Marketplace', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_marketplace', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Documentation', 'Documentation', apply_filters('cpcff_forms_edition_capability', 'manage_options'), 'cp_calculated_fields_form_sub_documentation', array( $this, 'admin_pages' ) );
+			add_submenu_page( 'cp_calculated_fields_form', 'Documentation', 'Documentation', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_documentation', array( $this, 'admin_pages' ) );
 
-			add_submenu_page( 'cp_calculated_fields_form', 'Online Help', 'Online Help', apply_filters('cpcff_forms_edition_capability', 'manage_options'), 'cp_calculated_fields_form_sub_forum', array( $this, 'admin_pages' ) );
+			add_submenu_page( 'cp_calculated_fields_form', 'Online Help', 'Online Help', apply_filters( 'cpcff_forms_edition_capability', 'manage_options' ), 'cp_calculated_fields_form_sub_forum', array( $this, 'admin_pages' ) );
 
 			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
-			if ( ! empty( $submenu ) && is_array( $submenu ) && ! empty( $submenu["cp_calculated_fields_form"] ) ) {
-				foreach ( $submenu["cp_calculated_fields_form"] as $index => $item ) {
+			if ( ! empty( $submenu ) && is_array( $submenu ) && ! empty( $submenu['cp_calculated_fields_form'] ) ) {
+				foreach ( $submenu['cp_calculated_fields_form'] as $index => $item ) {
 					if ( 'cp_calculated_fields_form_sub_marketplace' == $item[2] ) {
 						if ( isset( $item[4] ) ) {
-							$submenu["cp_calculated_fields_form"][ $index ][4] .= ' calculated-fields-form-submenu-marketplace';
+							$submenu['cp_calculated_fields_form'][ $index ][4] .= ' calculated-fields-form-submenu-marketplace';
 						} else {
-							$submenu["cp_calculated_fields_form"][ $index ][] = 'calculated-fields-form-submenu-marketplace';
+							$submenu['cp_calculated_fields_form'][ $index ][] = 'calculated-fields-form-submenu-marketplace';
 						}
 					}
 
 					if ( 'cp_calculated_fields_form_sub_upgrade' == $item[2] ) {
 						if ( isset( $item[4] ) ) {
-							$submenu["cp_calculated_fields_form"][ $index ][4] .= ' calculated-fields-form-submenu-upgrade';
+							$submenu['cp_calculated_fields_form'][ $index ][4] .= ' calculated-fields-form-submenu-upgrade';
 						} else {
-							$submenu["cp_calculated_fields_form"][ $index ][] = 'calculated-fields-form-submenu-upgrade';
+							$submenu['cp_calculated_fields_form'][ $index ][] = 'calculated-fields-form-submenu-upgrade';
 						}
 					}
 				}
 			}
 			// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
-
-		} // End admin_menu
+		} // End admin_menu.
 
 		public function admin_menu_styles() {
 			$styles = '';
@@ -316,7 +319,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			printf( '<style>%s</style>', $styles );
-		} // End admin_menu_styles
+		} // End admin_menu_styles.
 
 		/**
 		 * Loads the corresponding pages in the WordPress or redirects the user to the external URLs.
@@ -327,11 +330,11 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @since 1.0.181
 		 */
 		public function admin_pages() {
-			 // Settings page of the plugin
+			// Settings page of the plugin.
 			if ( isset( $_GET['cal'] ) && '' != $_GET['cal'] ) {
 				@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int.inc.php';
 			} else {
-				// Redirecting outer website
+				// Redirecting outer website.
 				if ( isset( $_GET['page'] ) && 'cp_calculated_fields_form_sub_upgrade' == $_GET['page'] ) {
 					if ( @wp_redirect( 'https://cff.dwbooster.com/download' ) ) {
 						exit;
@@ -340,7 +343,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					if ( @wp_redirect( 'https://cff.dwbooster.com/documentation' ) ) {
 						exit;
 					}
-				} elseif (isset($_GET["page"]) && $_GET["page"] == 'cp_calculated_fields_form_sub_marketplace') {
+				} elseif ( isset( $_GET['page'] ) && 'cp_calculated_fields_form_sub_marketplace' == $_GET['page'] ) {
 					if ( @wp_redirect( 'https://cff-bundles.dwbooster.com' ) ) {
 						exit;
 					}
@@ -352,7 +355,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					@include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_admin_int_list.inc.php';
 				}
 			}
-		} // End admin_pages
+		} // End admin_pages.
 
 		/**
 		 * Loads the javascript and style files.
@@ -366,18 +369,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return void.
 		 */
 		public function admin_resources( $hook ) {
-			// Checks if it is the plugin's page
+			// Checks if it is the plugin's page.
 			if ( isset( $_GET['page'] ) ) {
-				// Checks if it is to an external page
-				if(
-					'cp_calculated_fields_form_sub_documentation' == $_GET["page"] ||
-					'cp_calculated_fields_form_sub_marketplace' == $_GET["page"] ||
-					'cp_calculated_fields_form_sub_upgrade' == $_GET["page"] ||
-					'cp_calculated_fields_form_sub_forum' == $_GET["page"]
-				)
-				{
+				// Checks if it is to an external page.
+				if (
+					'cp_calculated_fields_form_sub_documentation' == $_GET['page'] ||
+					'cp_calculated_fields_form_sub_marketplace' == $_GET['page'] ||
+					'cp_calculated_fields_form_sub_upgrade' == $_GET['page'] ||
+					'cp_calculated_fields_form_sub_forum' == $_GET['page']
+				) {
 
-					$redirect_url = '';
+					$redirect_url   = '';
 					$cpcff_redirect = array();
 					switch ( $_GET['page'] ) {
 						case 'cp_calculated_fields_form_sub_documentation':
@@ -418,7 +420,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					wp_register_script( 'query-stringify', plugins_url( '/vendors/jQuery.stringify.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 					wp_enqueue_script( 'query-stringify' );
 
-					// ULR to the admin resources
+					// ULR to the admin resources.
 					$admin_resources = admin_url( 'admin.php?page=cp_calculated_fields_form&cp_cff_resources=admin' );
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script', $admin_resources, array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-droppable', 'jquery-ui-button', 'jquery-ui-accordion', 'jquery-ui-datepicker', 'query-stringify' ), CP_CALCULATEDFIELDSF_VERSION );
 
@@ -441,16 +443,16 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 			}
 
-			// Checks if it is a page or post
+			// Checks if it is a page or post.
 			if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
 				wp_enqueue_script( 'cp_calculatedfieldsf_script', plugins_url( '/js/cp_calculatedfieldsf_scripts.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 			}
-		} // End admin_resources
+		} // End admin_resources.
 
 		public function metabox_status( $metabox_id ) {
-			 $statuses = get_option( 'cff-metaboxes-statuses', array() );
+			$statuses = get_option( 'cff-metaboxes-statuses', array() );
 			return ( ! empty( $statuses ) && is_array( $statuses ) && isset( $statuses[ $metabox_id ] ) && 0 == $statuses[ $metabox_id ] ) ? 'cff-metabox-closed' : 'cff-metabox-opened';
-		} // End metabox_status
+		} // End metabox_status.
 
 		private function update_metabox_status() {
 			if (
@@ -471,7 +473,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					update_option( 'cff-metaboxes-statuses', $statuses );
 				}
 			}
-		} // End update_metabox_status
+		} // End update_metabox_status.
 
 		public function form_preview( $atts ) {
 			if ( isset( $atts['shortcode_atts'] ) ) {
@@ -501,8 +503,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				if ( ! empty( $atts['wp_die'] ) ) {
 					wp_die( $message . '<style>body{margin:2em !important;max-width:100% !important;box-shadow:none !important;background:white !important}html{background:white !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
 				} elseif ( ! empty( $atts['page'] ) ) {
-					print '<!DOCTYPE html><html><head profile="http://gmpg.org/xfn/11">'.
-					( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ).
+					print '<!DOCTYPE html><html><head profile="http://gmpg.org/xfn/11">' .
+					( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .
 					'<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>';
 					print $message; // phpcs:ignore WordPress.Security.EscapeOutput
 					print '<style>body>*:not(form){visibility: hidden; width: 0; height: 0;} .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible; width: auto; height: auto;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ) . '</body></html>'; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -512,7 +514,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					exit;
 				}
 			}
-		} // End form_preview
+		} // End form_preview.
 
 		public function enqueue_loader() {
 			global $post;
@@ -520,7 +522,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			if ( ! empty( $post ) && has_shortcode( $post->post_content, 'CP_CALCULATED_FIELDS' ) ) {
 				wp_enqueue_style( 'cpcff_loader', plugins_url( '/css/loader.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 			}
-		} // End enqueue_loader
+		} // End enqueue_loader.
 
 		/**
 		 * Returns the public version of the form wih its resources.
@@ -558,43 +560,40 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 				if ( ! empty( $atts['iframe'] ) ) {
 					if ( ! isset( $this->_iframe_nonces[ $id ] ) ) {
-						$this->_iframe_nonces[ $id ] = wp_create_nonce( 'cff-iframe-nonce-'.$id );
+						$this->_iframe_nonces[ $id ] = wp_create_nonce( 'cff-iframe-nonce-' . $id );
 					}
 
-					$url = CPCFF_AUXILIARY::site_url( true );
+					$url  = CPCFF_AUXILIARY::site_url( true );
 					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff-form=' . $id . '&cff-form-target=_top&_nonce=' . $this->_iframe_nonces[ $id ];
 
-					// The attributes excepting "id", "iframe", and "asynchronous" are converted in javascript variables with global scope
-					if( count( $atts ) > 1 )
-					{
-						foreach( $atts as $i => $v )
-						{
-							if( ! in_array( $i, ['id', 'iframe', 'class' , 'asynchronous'] ) && ! is_numeric( $i ) )
-							{
-								$nV   = ( is_numeric( $v ) ) ? $v : sanitize_text_field( wp_unslash( $v ) ); // Sanitizing the attribute's value
+					// The attributes excepting "id", "iframe", and "asynchronous" are converted in javascript variables with global scope.
+					if ( count( $atts ) > 1 ) {
+						foreach ( $atts as $i => $v ) {
+							if ( ! in_array( $i, array( 'id', 'iframe', 'class', 'asynchronous' ) ) && ! is_numeric( $i ) ) {
+								$nV   = ( is_numeric( $v ) ) ? $v : sanitize_text_field( wp_unslash( $v ) ); // Sanitizing the attribute's value.
 								$url .= '&' . urlencode( $i ) . '=' . urlencode( $nV );
 							}
 						}
 					}
 
 					$iframe_tag = '<iframe ';
-					if ( ! empty( $atts['asynchronous']) ) {
-						$iframe_id = uniqid('cff-iframe-');
-						$iframe_tag	 = '<script>window.addEventListener("load", function(){let el = document.getElementById("' . $iframe_id . '"); if(el) el.setAttribute("src", el.getAttribute("data-cff-src"));});</script>' . $iframe_tag . ' id="' . $iframe_id . '" src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
+					if ( ! empty( $atts['asynchronous'] ) ) {
+						$iframe_id  = uniqid( 'cff-iframe-' );
+						$iframe_tag = '<script>window.addEventListener("load", function(){let el = document.getElementById("' . $iframe_id . '"); if(el) el.setAttribute("src", el.getAttribute("data-cff-src"));});</script>' . $iframe_tag . ' id="' . $iframe_id . '" src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
 					} else {
-						$iframe_tag	 .= ' src="' . esc_attr( $url ) . '"';
+						$iframe_tag .= ' src="' . esc_attr( $url ) . '"';
 					}
-					$iframe_tag	 .= ' style="border:none;width:100%;overflow-y:hidden;" onload="this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;" scrolling="no"></iframe>';
+					$iframe_tag .= ' style="border:none;width:100%;overflow-y:hidden;" onload="this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;" scrolling="no"></iframe>';
 
 					return $iframe_tag;
 				}
 
-				// Initializing the $form_counter
+				// Initializing the $form_counter.
 				if ( ! isset( $GLOBALS['codepeople_form_sequence_number'] ) ) {
 					$GLOBALS['codepeople_form_sequence_number'] = 0;
 				}
-				$GLOBALS['codepeople_form_sequence_number']++;
-				self::$form_counter = $GLOBALS['codepeople_form_sequence_number']; // Current form
+				++$GLOBALS['codepeople_form_sequence_number'];
+				self::$form_counter = $GLOBALS['codepeople_form_sequence_number']; // Current form.
 
 				/**
 				 * Filters applied before generate the form,
@@ -609,21 +608,21 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					define( 'CP_AUTH_INCLUDE', true );
 				}
 
-				$this->_public_resources( $id ); // Load form scripts and other resources
+				$this->_public_resources( $id ); // Load form scripts and other resources.
 
 				/* TO-DO: This method should be analyzed after moving other functions to the main class . */
 				@include CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_public_int.inc.php';
 
 				$content = ob_get_contents();
 
-				// The attributes excepting "id" are converted in javascript variables with a global scope
+				// The attributes excepting "id" are converted in javascript variables with a global scope.
 				if ( count( $atts ) > 1 ) {
 					$content .= '<script>';
 					foreach ( $atts as $i => $v ) {
 						if ( 'id' != $i && 'class' != $i && ! is_numeric( $i ) ) {
-							$nV       = ( is_numeric( $v ) ) ? $v : json_encode( $v ); // Sanitizing the attribute's value
-							if( is_scalar( $i ) ) {
-								$i = preg_replace( '/[^a-z0-9_\-]/i', '', $i );
+							$nV = ( is_numeric( $v ) ) ? $v : json_encode( $v ); // Sanitizing the attribute's value.
+							if ( is_scalar( $i ) ) {
+								$i        = preg_replace( '/[^a-z0-9_\-]/i', '', $i );
 								$content .= 'try{ if( ! ( "cff_var" in window ) )	window["cff_var"] = {}; window["cff_var"]["' . $i . '"]=' . $nV . '; if(typeof ' . $i . '_arr == "undefined") ' . $i . '_arr={}; ' . $i . '_arr["_' . self::$form_counter . '"]=' . $nV . '; }catch( err ){}';
 							}
 						}
@@ -641,7 +640,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			}
 
 			return $content;
-		} // End  public_form
+		} // End  public_form.
 
 		/**
 		 * Creates a javascript variable, from: Post, Get, Session or Cookie or directly.
@@ -660,7 +659,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		public function create_variable_shortcode( $atts ) {
 			if (
-				! CPCFF_AUXILIARY::is_crawler() && // Checks for crawlers or search engine spiders
+				! CPCFF_AUXILIARY::is_crawler() && // Checks for crawlers or search engine spiders.
 				! empty( $atts['name'] ) &&
 				( $var = trim( $atts['name'] ) ) != '' // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 			) {
@@ -677,18 +676,16 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						} elseif ( isset( $atts['default_value'] ) ) {
 							$value = json_encode( $atts['default_value'] );
 						}
-					} else {
-						if ( isset( $_POST[ $var ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-							$value = json_encode( $_POST[ $var ] ); // @codingStandardsIgnoreLine.
-						} elseif ( isset( $_GET[ $var ] ) ) {
-							$value = json_encode( $_GET[ $var ] ); // @codingStandardsIgnoreLine.
-						} elseif ( isset( $_SESSION[ $var ] ) ) {
-							$value = json_encode( $_SESSION[ $var ] );
-						} elseif ( isset( $_COOKIE[ $var ] ) ) {
-							$value = json_encode( sanitize_text_field( wp_unslash( $_COOKIE[ $var ] ) ) );
-						} elseif ( isset( $atts['default_value'] ) ) {
-							$value = json_encode( $atts['default_value'] );
-						}
+					} elseif ( isset( $_POST[ $var ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_POST[ $var ] ) ); // phpcs:ignore
+					} elseif ( isset( $_GET[ $var ] ) ) {
+						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_GET[ $var ] ) ); // phpcs:ignore
+					} elseif ( isset( $_SESSION[ $var ] ) ) {
+						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_SESSION[ $var ] ) ); // phpcs:ignore
+					} elseif ( isset( $_COOKIE[ $var ] ) ) {
+						$value = json_encode( CPCFF_AUXILIARY::sanitize( $_COOKIE[ $var ] ) ); // phpcs:ignore
+					} elseif ( isset( $atts['default_value'] ) ) {
+						$value = json_encode( CPCFF_AUXILIARY::sanitize( $atts['default_value'] ) ); // phpcs:ignore
 					}
 				}
 				if ( isset( $value ) ) {
@@ -698,7 +695,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						<script>
 							try{
 							if( ! ( "cff_var" in window ) )	window["cff_var"] = {};
-							window["cff_var"]["'.$var.'"]='.$value.';
+							window["cff_var"]["' . $var . '"]=' . $value . ';
 							}catch( err ){}
 						</script>
 						';
@@ -706,7 +703,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 			}
 			return '';
-		} // End create_variable_shortcode
+		} // End create_variable_shortcode.
 
 		/**
 		 * Return the list of categories associted with the forms
@@ -714,10 +711,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		public function get_categories( $html = '', &$current = null ) {
 			global $wpdb;
 
-			if ( empty( $this->_categories) )
-				$this->_categories = $wpdb->get_results('SELECT DISTINCT category FROM '.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.' WHERE category IS NOT NULL AND category <> ""', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-
-            if(empty($html)) return $this->_categories;
+			if ( empty( $this->_categories ) ) {
+				$this->_categories = $wpdb->get_results( 'SELECT DISTINCT category FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE category IS NOT NULL AND category <> ""', ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			}
+			if ( empty( $html ) ) {
+				return $this->_categories;
+			}
 
 			$output = '';
 			$flag   = false;
@@ -733,7 +732,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 
 					if ( 'SELECT' == $html ) {
 						$output .= '<option value="' . esc_attr( $category['category'] ) . '" ' . $selected . ' >' . esc_html( $category['category'] ) . '</option>';
-					} else // DATALIST
+					} else // DATALIST.
 					{
 						$output .= '<option value="' . esc_attr( $category['category'] ) . '">';
 					}
@@ -745,7 +744,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			}
 
 			return $output;
-		} // End get_categories
+		} // End get_categories.
 
 		/**
 		 * Returns an instance of the active form
@@ -760,7 +759,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$this->_forms[ $id ] = new CPCFF_FORM( $id );
 			}
 			return $this->_forms[ $id ];
-		} // End get_active_form
+		} // End get_active_form.
 
 		/**
 		 * Creates a new form calling the static method CPCFF_FORM::create_default
@@ -776,7 +775,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$this->_forms[ $form->get_id() ] = $form;
 			}
 			return $form;
-		} // End create_form
+		} // End create_form.
 
 		/**
 		 * Deletes the form.
@@ -793,7 +792,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				unset( $this->_forms[ $id ] );
 			}
 			return $deleted;
-		} // End delete_form
+		} // End delete_form.
 
 		/**
 		 * Clones a form.
@@ -814,7 +813,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				do_action( 'cpcff_clone_form', $id, $cloned_form->get_id() );
 			}
 			return $cloned_form;
-		} // End clone_form
+		} // End clone_form.
 
 		/*********************************** PRIVATE METHODS  ********************************************/
 
@@ -831,7 +830,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			register_activation_hook( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH, array( 'CPCFF_INSTALLER', 'install' ) );
 			register_deactivation_hook( CP_CALCULATEDFIELDSF_MAIN_FILE_PATH, array( 'CPCFF_INSTALLER', 'uninstall' ) );
 			add_action( 'wpmu_new_blog', array( 'CPCFF_INSTALLER', 'new_blog' ), 10, 6 );
-		} // End _activate_deactivate
+		} // End _activate_deactivate.
 
 		/**
 		 * Loads the language file.
@@ -842,7 +841,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		private function _textdomain() {
 			load_plugin_textdomain( 'calculated-fields-form', false, dirname( CP_CALCULATEDFIELDSF_BASE_NAME ) . '/languages/' );
-		} // End _textdomain
+		} // End _textdomain.
 
 		/**
 		 * Loads the controls scripts.
@@ -857,7 +856,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 					error_reporting( E_ERROR | E_PARSE );
 				}
-				// Set the corresponding header
+				// Set the corresponding header.
 				if ( ! headers_sent() ) {
 					header( 'Content-type: application/javascript' );
 				}
@@ -870,7 +869,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				remove_all_actions( 'shutdown' );
 				exit;
 			}
-		} // End _load_controls_scrips
+		} // End _load_controls_scrips.
 
 		/**
 		 * Defines the shortcodes used by the plugin's code:
@@ -881,9 +880,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 * @return void.
 		 */
 		private function _define_shortcodes() {
-			 add_shortcode( 'CP_CALCULATED_FIELDS', array( $this, 'public_form' ) );
+			add_shortcode( 'CP_CALCULATED_FIELDS', array( $this, 'public_form' ) );
 			add_shortcode( 'CP_CALCULATED_FIELDS_VAR', array( $this, 'create_variable_shortcode' ) );
-		} // End _define_shortcodes
+		} // End _define_shortcodes.
 		/**
 		 * Returns a JSON object with the configuration object.
 		 *
@@ -935,7 +934,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				),
 			);
 				return json_encode( $obj );
-		} // End _get_form_configuration
+		} // End _get_form_configuration.
 
 		/**
 		 * Loads the javascript and style files used by the public forms.
@@ -994,11 +993,11 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				// This code won't be used in most cases. This code is for preventing problems in wrong WP themes and conflicts with third party plugins.
 				if ( ! $this->_are_resources_loaded ) {
 					global $wp_version;
-					$this->_are_resources_loaded = true; // Resources loaded
+					$this->_are_resources_loaded = true; // Resources loaded.
 
 					$includes_url = includes_url();
 
-					// Used for compatibility with old versions of WordPress
+					// Used for compatibility with old versions of WordPress.
 					$prefix_ui = ( @file_exists( CP_CALCULATEDFIELDSF_BASE_PATH . '/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js' ) ) ? 'jquery.ui.' : '';
 
 					if ( ! wp_script_is( 'jquery', 'done' ) ) {
@@ -1042,35 +1041,35 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				?></script></pre>
 				<?php
 			}
-		} // End _public_resources
+		} // End _public_resources.
 
 		/** TROUBLESHOOTS SECTION **/
 		public function compatibility_warnings() {
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_compatibility.inc.php';
 			return CPCFF_COMPATIBILITY::warnings();
-		} // End compatibility_warnings
+		} // End compatibility_warnings.
 
 		private function troubleshoots() {
 			if ( ! $this->_is_admin ) {
 				if ( get_option( 'CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN', CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN ) * 1 ) {
-					// Solves a conflict caused by the "Speed Booster Pack" plugin
+					// Solves a conflict caused by the "Speed Booster Pack" plugin.
 					add_filter( 'option_sbp_settings', 'CPCFF_MAIN::speed_booster_pack_troubleshoot' );
 
-					// Solves a conflict caused by the "Autoptimize" plugin
+					// Solves a conflict caused by the "Autoptimize" plugin.
 					if ( class_exists( 'autoptimizeOptionWrapper' ) ) {
 						$GLOBALS['CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING'] = true;
 						add_filter(
 							'cpcff_pre_form',
-							function( $atts ) {
+							function ( $atts ) {
 								add_filter(
 									'autoptimize_js_include_inline',
-									function( $p ) {
+									function ( $p ) {
 										return false;
 									}
 								);
 								add_filter(
 									'autoptimize_filter_js_noptimize',
-									function( $p1, $p2 ) {
+									function ( $p1, $p2 ) {
 										return true;
 									},
 									10,
@@ -1078,7 +1077,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 								);
 								add_filter(
 									'autoptimize_filter_html_noptimize',
-									function( $p1, $p2 ) {
+									function ( $p1, $p2 ) {
 										return true;
 									},
 									10,
@@ -1089,18 +1088,18 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						);
 					}
 
-					// Solves conflicts with "LiteSpeed Cache" plugin
+					// Solves conflicts with "LiteSpeed Cache" plugin.
 					if ( function_exists( 'run_litespeed_cache' ) ) {
 						add_action( 'the_post', 'CPCFF_MAIN::litespeed_control_set_nocache' );
 						add_filter( 'litespeed_optimize_js_excludes', 'CPCFF_MAIN::rocket_exclude_js' );
 					}
 
-					// Solves a conflict caused by the "WP Rocket" plugin
+					// Solves a conflict caused by the "WP Rocket" plugin.
 					add_filter( 'rocket_exclude_js', 'CPCFF_MAIN::rocket_exclude_js' );
 					add_filter( 'rocket_exclude_defer_js', 'CPCFF_MAIN::rocket_exclude_js' );
 					add_filter( 'rocket_delay_js_exclusions', 'CPCFF_MAIN::rocket_exclude_js' );
 
-					// Some "WP Rocket" functions can be use with "WP-Optimize"
+					// Some "WP Rocket" functions can be use with "WP-Optimize".
 					add_filter( 'wp-optimize-minify-blacklist', 'CPCFF_MAIN::rocket_exclude_js' );
 					add_filter( 'wp-optimize-minify-default-exclusions', 'CPCFF_MAIN::rocket_exclude_js' );
 				}
@@ -1108,13 +1107,13 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				add_filter( 'rocket_defer_inline_exclusions', 'CPCFF_MAIN::rocket_exclude_inline_js' );
 				add_filter( 'rocket_delay_js_exclusions', 'CPCFF_MAIN::rocket_exclude_inline_js' );
 
-				// For Breeze conflicts
+				// For Breeze conflicts.
 				if ( defined( 'BREEZE_VERSION' ) ) {
 					add_filter( 'breeze_filter_html_before_minify', 'CPCFF_MAIN::breeze_check_content', 10 );
 					add_filter( 'breeze_html_after_minify', 'CPCFF_MAIN::breeze_return_content', 10 );
 				}
 			}
-		} // End troubleshoots
+		} // End troubleshoots.
 
 		public static function litespeed_control_set_nocache( &$post ) {
 			try {
@@ -1128,14 +1127,14 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			} catch ( Exception $err ) {
 				error_log( $err->getMessage() );}
 			return $post;
-		} // End litespeed_control_set_nocache
+		} // End litespeed_control_set_nocache.
 
 		public static function speed_booster_pack_troubleshoot( $option ) {
 			if ( is_array( $option ) && isset( $option['jquery_to_footer'] ) ) {
 				unset( $option['jquery_to_footer'] );
 			}
 			return $option;
-		} // End speed_booster_pack_troubleshoot
+		} // End speed_booster_pack_troubleshoot.
 
 		public static function rocket_exclude_js( $excluded_js ) {
 			$excluded_js[] = '/jquery.js';
@@ -1149,7 +1148,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			$excluded_js[] = '(.*)/jquery/(.*)';
 			$excluded_js[] = '(.*)/calculated-fields-form/(.*)';
 			return $excluded_js;
-		} // End rocket_exclude_js
+		} // End rocket_exclude_js.
 
 		public static function rocket_exclude_inline_js( $excluded_js = array() ) {
 			$excluded_js[] = 'form_structure_';
@@ -1163,7 +1162,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 			$excluded_js[] = 'doValidate(.*)';
 			$excluded_js[] = 'cp_calculatedfieldsf_fbuilder_config(.*)';
 			return $excluded_js;
-		} // End rocket_exclude_inline_js
+		} // End rocket_exclude_inline_js.
 
 		public static function breeze_check_content( $content ) {
 			if ( strpos( $content, 'form_structure_' ) !== false || strpos( $content, 'cp_calculatedfieldsf_fbuilder_config_' ) !== false ) {
@@ -1171,7 +1170,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$cff_breeze_content_bk = $content;
 			}
 			return $content;
-		} // End breeze_check_content
+		} // End breeze_check_content.
 
 		public static function breeze_return_content( $content ) {
 			global $cff_breeze_content_bk;
@@ -1180,6 +1179,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				unset( $cff_breeze_content_bk );
 			}
 			return $content;
-		} // End breeze_return_content
-	} // End CPCFF_MAIN
+		} // End breeze_return_content.
+	} // End CPCFF_MAIN.
 }

@@ -33,7 +33,7 @@ class SearchWP_Live_Search_Relevanssi_Bridge {
 	 */
 	public static function alter_results( $args ) {
 
-		if ( is_plugin_active( 'relevanssi/relevanssi.php' ) ) {
+		if ( function_exists( 'relevanssi_do_query' ) ) {
 			$args['relevanssi'] = true;
 		}
 

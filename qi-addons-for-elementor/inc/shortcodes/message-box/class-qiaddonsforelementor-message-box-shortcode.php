@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_message_box_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -313,6 +318,5 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 
 			return implode( ' ', $holder_classes );
 		}
-
 	}
 }

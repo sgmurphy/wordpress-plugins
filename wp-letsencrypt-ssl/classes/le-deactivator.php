@@ -24,10 +24,8 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-class WPLE_Deactivator
-{
-    public static function deactivate()
-    {
+class WPLE_Deactivator {
+    public static function deactivate() {
         $opts = ( get_option( 'wple_opts' ) === FALSE ? array(
             'expiry' => '',
         ) : get_option( 'wple_opts' ) );
@@ -83,19 +81,15 @@ class WPLE_Deactivator
             @unlink( WPLE_DEBUGGER . 'debug.log' );
         }
         //clean force https rules in htaccess
-        
         if ( is_writable( ABSPATH . '.htaccess' ) ) {
             $htaccess = file_get_contents( ABSPATH . '.htaccess' );
             $group = "/#\\s?BEGIN\\s?WP_Encryption_Force_SSL.*?#\\s?END\\s?WP_Encryption_Force_SSL/s";
-            
             if ( preg_match( $group, $htaccess ) ) {
                 $modhtaccess = preg_replace( $group, "", $htaccess );
                 //insert_with_markers(ABSPATH . '.htaccess', '', $modhtaccess);
                 file_put_contents( ABSPATH . '.htaccess', $modhtaccess );
             }
-        
         }
-    
     }
 
 }

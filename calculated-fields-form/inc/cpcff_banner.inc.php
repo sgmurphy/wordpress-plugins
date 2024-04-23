@@ -9,7 +9,7 @@ $codepeople_promote_banner_plugins['codepeople-calculated-fields-form'] = array(
 );
 
 if ( ! function_exists( 'codepeople_add_promote_banner' ) ) {
-	function codepeople_add_promote_banner( $wp_admin_bar ) {
+	function codepeople_add_promote_banner( $wp_admin_bar ) { // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 		global $codepeople_promote_banner_plugins;
 		if (
 			empty( $codepeople_promote_banner_plugins ) ||
@@ -19,13 +19,14 @@ if ( ! function_exists( 'codepeople_add_promote_banner' ) ) {
 			return;
 		}
 
-		if ( ! function_exists( 'get_current_screen' ) ) { return; }
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return; }
 		$screen = get_current_screen();
 		if ( 'post' == $screen->post_type || 'page' == $screen->post_type ) {
 			return;
 		}
 
-		// Take action over the banner
+		// Take action over the banner.
 		if ( ! empty( $_POST['codepeople_promote_banner_plugin'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$_codepeople_promote_banner_plugin = sanitize_text_field( wp_unslash( $_POST['codepeople_promote_banner_plugin'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 			if ( ! empty( $codepeople_promote_banner_plugins[ $_codepeople_promote_banner_plugin ] ) ) {

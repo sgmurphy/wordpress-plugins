@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_filter_timeline_layouts_variation_vertical_separated' ) ) {
 	/**
 	 * Function that add variation layout for this module

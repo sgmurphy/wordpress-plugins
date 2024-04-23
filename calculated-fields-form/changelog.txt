@@ -1,5 +1,18 @@
 == Changelog ==
 
+= 5.2.1 =
+
+* Fixes an issue in the new submit button.
+
+= 5.2.0 =
+
+* Includes the notification emails feature in the free plugin distribution.
+* Modifies the button control to include the submit option in the button types list.
+* Improves the sanitization methods.
+* Modifies the shortcode for variables.
+* Improves the method to attach additional files to the notification emails.
+* Modifies the path where storing the uploaded files.
+
 = 5.1.65 =
 
 * Increases the precedence of col-xx-xx class names over column#

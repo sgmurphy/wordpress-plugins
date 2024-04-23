@@ -5,7 +5,7 @@ Requires at least: 5.4
 License: GPL3
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 7.1.0
+Stable tag: 7.2.0
 
 Lifetime SSL solution & Security - Install free SSL certificate & enable HTTPS redirect, HTTPS mail, fix SSL errors, SSL score, SSL details & monitoring.
 
@@ -174,6 +174,14 @@ Security is an important subject regarding SSL/TLS certificates, of course. It i
 6. Mixed Content Scanner to identify insecure contents on HTTPS site
 
 == Changelog ==
+
+= 7.2.0 =
+* ajax plugin activation error fix
+* fixed issue with vulnerability scan setting not saving
+* store last csr for premium install process
+* re-check active ssl before showing short expiry & RF notice
+* mixed content scanner result improved
+* PRO - automatic SSL install for Plesk
 
 = 7.1.0 =
 * Free Version - Store SSL certificate & key in ssl/domain.com/ directory above web root to avoid public access in case htaccess is not supported

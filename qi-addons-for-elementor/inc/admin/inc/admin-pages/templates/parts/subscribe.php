@@ -1,4 +1,11 @@
-<div class="qodef-section-box qodef-section-subscribe <?php echo isset( $class ) ? $class : ''; ?>">
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
+<div class="qodef-section-box qodef-section-subscribe <?php echo isset( $class ) ? esc_attr( $class ) : ''; ?>">
 	<div class="qodef-section-box-content">
 		<h2><?php esc_html_e( 'Qode Newsletter', 'qi-addons-for-elementor' ); ?></h2>
 		<p class="qodef-large"><?php esc_html_e( 'Subscribe to get all our news & updates', 'qi-addons-for-elementor' ); ?></p>

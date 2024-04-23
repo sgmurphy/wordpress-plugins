@@ -137,7 +137,7 @@ class Cartflows_Optin_Markup {
 		/**
 		 * Remove the duplicate email fields when WooCommerce Payments gateway's WooPay option is enabled.
 		 *
-		 * @since x.x.x
+		 * @since 2.0.3
 		 */
 		if ( class_exists( 'WC_Payments' ) && class_exists( 'WC_Payments_Features' ) && WC_Payments_Features::is_woopay_eligible() ) {
 			remove_action( 'woocommerce_cart_loaded_from_session', array( 'WC_Payments', 'init_woopay' ) );

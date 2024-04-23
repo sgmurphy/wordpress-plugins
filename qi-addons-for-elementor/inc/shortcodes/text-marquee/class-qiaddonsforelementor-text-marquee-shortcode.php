@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_text_marquee_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -252,8 +257,8 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			parent::render( $options );
 			$atts = $this->get_atts();
 
-			$atts['holder_classes']   = $this->get_holder_classes( $atts );
-			$atts['items']            = $this->parse_repeater_items( $atts['children'] );
+			$atts['holder_classes'] = $this->get_holder_classes( $atts );
+			$atts['items']          = $this->parse_repeater_items( $atts['children'] );
 
 			return qi_addons_for_elementor_get_template_part( 'shortcodes/text-marquee', 'variations/' . $atts['layout'] . '/templates/' . $atts['layout'], '', $atts );
 		}

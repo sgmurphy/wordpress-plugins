@@ -254,17 +254,17 @@
         },
         {
             "name": "smashballoon\/customizer",
-            "version": "1.5.1",
-            "version_normalized": "1.5.1.0",
+            "version": "1.5.2",
+            "version_normalized": "1.5.2.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:awesomemotive\/sb-customizer.git",
-                "reference": "44c430d034d5881028dba7d4678e89c14a14babb"
+                "reference": "36aba78e1222bbb9fc6374c06d45878e4abe5e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/awesomemotive\/sb-customizer\/zipball\/44c430d034d5881028dba7d4678e89c14a14babb",
-                "reference": "44c430d034d5881028dba7d4678e89c14a14babb",
+                "url": "https:\/\/api.github.com\/repos\/awesomemotive\/sb-customizer\/zipball\/36aba78e1222bbb9fc6374c06d45878e4abe5e48",
+                "reference": "36aba78e1222bbb9fc6374c06d45878e4abe5e48",
                 "shasum": ""
             },
             "require": {
@@ -275,7 +275,7 @@
             "require-dev": {
                 "vlucas\/phpdotenv": "^4.0"
             },
-            "time": "2024-03-13T23:28:57+00:00",
+            "time": "2024-04-22T18:57:01+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -291,7 +291,7 @@
             ],
             "description": "The SmashBalloon customizer library.",
             "support": {
-                "source": "https:\/\/github.com\/awesomemotive\/sb-customizer\/tree\/1.5.1",
+                "source": "https:\/\/github.com\/awesomemotive\/sb-customizer\/tree\/1.5.2",
                 "issues": "https:\/\/github.com\/awesomemotive\/sb-customizer\/issues"
             },
             "install-path": "..\/smashballoon\/customizer"

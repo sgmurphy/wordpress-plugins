@@ -4,7 +4,7 @@ Tags: elementor, elementor addons, elementor widgets, elementor elements, addons
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 1.6.9
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -321,6 +321,11 @@ From wordpress.org
 
 
 == Changelog ==
+
+= 1.7.0 - 23-04-2024 =
+- Improved WordPress coding standards
+- Improved Cross Site Scripting (XSS) vulnerability
+- Added Overlay Style (initial and hover color) for Interactive Banner - From Bottom, Revealing and Standard layouts
 
 = 1.6.9 - 05-03-2024 =
 - Fixed a potential issue that could occur during the plugin activation

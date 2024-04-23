@@ -1,4 +1,8 @@
 <?php
+
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+// phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
+
 namespace Elementor;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -130,13 +134,11 @@ class Elementor_CFF_Widget extends Widget_Base {
 		} else {
 			print do_shortcode( shortcode_unautop( $shortcode ) );
 		}
-
 	} // End render
 
 	public function render_plain_content() {
 		echo esc_html( $this->_get_shortcode() );
 	} // End render_plain_content
-
 } // End ClassElementor_CFF_Widget
 
 class Elementor_CFFV_Widget extends Widget_Shortcode {
@@ -189,9 +191,8 @@ class Elementor_CFFV_Widget extends Widget_Shortcode {
 		add_shortcode( 'CP_CALCULATED_FIELDS_VAR', array( $cff_main, 'create_variable_shortcode' ) );
 		parent::render();
 	} // End render
-
 } // End ClassElementor_CFFV_Widget
 
-// Register the widgets
+// Register the widgets.
 Plugin::instance()->widgets_manager->register( new Elementor_CFF_Widget() );
 Plugin::instance()->widgets_manager->register( new Elementor_CFFV_Widget() );

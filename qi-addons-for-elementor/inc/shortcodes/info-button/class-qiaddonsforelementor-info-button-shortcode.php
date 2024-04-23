@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_info_button_shortcode' ) ) {
 	/**
 	 * Function that isadding shortcode into shortcodes list for registration
@@ -19,10 +24,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_info_button_shortcode' ) ) 
 
 if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 	class QiAddonsForElementor_Info_Button_Shortcode extends QiAddonsForElementor_Shortcode {
-
-		public function __construct() {
-			parent::__construct();
-		}
 
 		public function map_shortcode() {
 			$this->set_shortcode_path( QI_ADDONS_FOR_ELEMENTOR_SHORTCODES_URL_PATH . '/info-button' );
@@ -317,7 +318,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 				)
 			);
 
-			//Icon options
+			// Icon options.
 			$this->set_option(
 				array(
 					'field_type' => 'icons',
@@ -385,7 +386,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 				)
 			);
 
-			//Icon Background Options (only for icon boxed, when filled and outline layout is chosen)
+			// Icon Background Options (only for icon boxed, when filled and outline layout is chosen).
 			$this->set_option(
 				array(
 					'field_type' => 'color',
@@ -517,7 +518,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 					'allowed_dimensions' => array( 'left', 'right' ),
 					'responsive'         => true,
 					'selectors'          => array(
-						'{{WRAPPER}} .qodef-m-icon'   => 'margin: 0 {{RIGHT}}{{UNIT}} 0 {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .qodef-m-icon' => 'margin: 0 {{RIGHT}}{{UNIT}} 0 {{LEFT}}{{UNIT}};',
 					),
 				)
 			);
@@ -531,7 +532,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 				)
 			);
 
-			//Icon Side Border Options (only for icon boxed, when filled and outline layout is chosen)
+			// Icon Side Border Options (only for icon boxed, when filled and outline layout is chosen).
 			$this->set_option(
 				array(
 					'field_type'    => 'select',

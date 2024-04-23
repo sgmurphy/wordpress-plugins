@@ -129,10 +129,10 @@ class YITH_WCAS_Data_Index_Lookup {
 		global $wpdb;
 		$instock = 'yes' === ywcas()->settings->get_hide_out_of_stock() ? array( 1 ) : array( 0, 1 );
 		if ( ! $category ) {
-			$results = $wpdb->get_results( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup WHERE post_id IN(" . implode( ',', $ids ) . ") AND post_type IN('" . implode( "','", $post_type ) . "') AND instock IN('" . implode( "','", $instock ) . "') ORDER BY FIELD(post_id, " . implode( ',', $ids ) . " )", ARRAY_A ); //phpcs:ignore
+			$results = $wpdb->get_results( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup WHERE post_id IN(" . implode( ',', $ids ) . ") AND post_type IN('" . implode( "','", $post_type ) . "') AND instock IN(" . implode( ",", $instock ) . ") ORDER BY FIELD(post_id, " . implode( ',', $ids ) . " )", ARRAY_A ); //phpcs:ignore
 		} else {
 			$results = $wpdb->get_results(
-				"SELECT * FROM $wpdb->yith_wcas_data_index_lookup WHERE parent_category LIKE '%:" . $category . ";%' AND post_id IN('" . implode( '","', $ids ) . "') AND post_type IN('" . implode( "','", $post_type ) . "') AND instock IN('" . implode( "','", $instock ) . "') ORDER BY FIELD(post_id, " . implode( //phpcs:ignore
+				"SELECT * FROM $wpdb->yith_wcas_data_index_lookup WHERE parent_category LIKE '%:" . $category . ";%' AND post_id IN('" . implode( '","', $ids ) . "') AND post_type IN('" . implode( "','", $post_type ) . "') AND instock IN(" . implode( ",", $instock ) . ") ORDER BY FIELD(post_id, " . implode( //phpcs:ignore
 					',',
 					$ids ) . " )", ARRAY_A ); //phpcs:ignore
 		}
@@ -163,8 +163,8 @@ class YITH_WCAS_Data_Index_Lookup {
 	 */
 	public function get_element_by_post_id( $id ) {
 		global $wpdb;
-
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup  WHERE post_id = %d", $id ), ARRAY_A );
+		$instock = 'yes' === ywcas()->settings->get_hide_out_of_stock() ? array( 1 ) : array( 0, 1 );
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup  WHERE post_id = %d AND instock IN(" . implode( ",", $instock ) . ")", $id ), ARRAY_A );
 	}
 
 	/**

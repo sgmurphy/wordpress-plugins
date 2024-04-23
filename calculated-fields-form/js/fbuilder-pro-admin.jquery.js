@@ -1488,6 +1488,25 @@
 		);
 	} );
 
+	$( '.cff-attach-file' ).on( 'click', function(evt) {
+		var field = $(this).closest('tr').find('[type="text"]'),
+			media = wp.media(
+						{
+							title: 'Select file',
+							multiple: false
+						}
+					).on(
+						'select',
+						(function( field ){
+							return function() {
+								var attachment = media.state().get('selection').first().toJSON(),
+									url = attachment.url;
+								field.val( url );
+							};
+						})( field )
+					).open();
+	} );
+
 	// Redirect to the admin list sections
 	$(window).on('load', function(){
 		if ( /cp_calculated_fields_form_sub_addons/i.test(document.location.search) ) {

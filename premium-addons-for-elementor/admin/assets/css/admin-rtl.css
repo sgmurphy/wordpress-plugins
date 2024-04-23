@@ -697,7 +697,8 @@
     text-decoration: none;
 }
 
-.pa-section-info-wrap .pa-btn-regenerate {
+.pa-section-info-wrap .pa-btn-regenerate,
+.pa-section-info-wrap .pa-btn-clear-cusror {
     border: none;
     outline: none;
     margin-left: 5px;
@@ -706,12 +707,24 @@
     cursor: pointer;
 }
 
-.pa-section-info-wrap .pa-btn-regenerate.loading {
+.pa-section-info-wrap .pa-btn-regenerate.loading,
+.pa-section-info-wrap .pa-btn-clear-cusror.loading {
     animation: spin 2s linear infinite;
+}
+
+.pa-section-info-wrap .pa-btn-clear-cusror {
+    color: #252c59;
+    position: relative;
+    z-index: 10;
 }
 
 .pa-section-info-wrap .pa-btn-regenerate i.dashicons {
     color: #474747;
+}
+
+.pa-inline-flex {
+    display: inline-flex;
+    align-items: center;
 }
 
 .pa-section-info-wrap .pa-btn-unused {

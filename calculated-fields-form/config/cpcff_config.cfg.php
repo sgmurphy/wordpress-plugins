@@ -3,7 +3,9 @@
  * Defines the plugin's constants and global variables
  */
 
-// Calculated Fields Form constants and global variables
+// phpcs:disable Generic.NamingConventions.UpperCaseConstantName.ConstantNotUpperCase
+
+// Calculated Fields Form constants and global variables.
 define( 'CP_CFF_PHPVERSION', phpversion() );
 define( 'CP_SCHEME', ( is_ssl() ) ? 'https://' : 'http://' );
 $GLOBALS['CP_CALCULATEDFIELDSF_DEFAULT_DEFER_SCRIPTS_LOADING'] = ( get_option( 'CP_CFF_LOAD_SCRIPTS', '1' ) == '1' ? true : false );
@@ -12,22 +14,22 @@ define( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', 0 );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_use_validation', 'true' );
 define( 'CP_CALCULATEDFIELDSF_OPTIMIZATION_PLUGIN', 1 );
 
-// Forms access:
+// Forms access.
 define( 'CP_CALCULATEDFIELDSF_AMP', 1 );
 define( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', 1 );
 
-// Thank you page cache control
+// Thank you page cache control.
 define( 'CP_CALCULATEDFIELDSF_TYPC', 1 );
 
-// Admin pages
+// Admin pages.
 define( 'CP_CALCULATED_FIELDS_SETTINGS_PAGE', 'cp_calculated_fields_form' );
 define( 'CP_CALCULATED_FIELDS_SETTINGS_PAGE2', 'cp_calculated_fields_form_sub2' );
 define( 'CP_CALCULATED_FIELDS_SETTINGS_PAGE3', 'cp_calculated_fields_form_sub3' );
 
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_template', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_template', 'cp_cff_13' ) );
-define( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', '' ) );
+define( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', 'no' ) );
 
-// Default forms
+// Default forms.
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_form_structure', '[[{"name":"fieldname2","index":0,"title":"Number","predefined":"5","ftype":"fnumber","userhelp":"","csslayout":"","required":false,"size":"medium","min":"","max":"","dformat":"digits","formats":["digits","number"]},{"name":"separator1","index":1,"title":"The field below will show the double of the number above.","userhelp":"","ftype":"fSectionBreak","csslayout":""},{"name":"fieldname1","index":2,"title":"Calculated Value","eq":"fieldname2*2","ftype":"fCalculated","userhelp":"","csslayout":"","predefined":"","required":false,"size":"medium","readonly":true}],[{"title":"Calculated Form","description":"Starting form. Basic calculated fields sample. ","formlayout":"top_aligned", "formtemplate": "' . esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ) . '"}]]' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_form_structure1', '[[{"name":"fieldname5","index":0,"title":"Simple Sum of two numbers","userhelp":"","ftype":"fSectionBreak","csslayout":""},{"name":"fieldname2","index":1,"title":"First Number","userhelp":"","dformat":"number","min":"","max":"","predefined":"3","ftype":"fnumber","csslayout":"","required":false,"size":"small","formats":["digits","number"]},{"name":"fieldname6","index":2,"title":"Second Number","predefined":"2","ftype":"fnumber","userhelp":"","csslayout":"","required":false,"size":"small","min":"","max":"","dformat":"digits","formats":["digits","number"]},{"name":"fieldname4","index":3,"readonly":true,"title":"Sum","predefined":"","userhelp":"Note: Sum of First Number + Second Number","eq":"fieldname2+fieldname6","ftype":"fCalculated","csslayout":"","required":false,"size":"medium"},{"name":"fieldname7","index":4,"title":"Sum of selected fields","userhelp":"","ftype":"fSectionBreak","csslayout":""},{"choices":["Item A: $10","Item B: $20","Item C: $40"],"choiceSelected":[true,true,false],"name":"fieldname8","index":5,"title":"Select/un-select some items","ftype":"fcheck","userhelp":"","csslayout":"","layout":"one_column","required":false},{"name":"fieldname9","index":6,"title":"Sum of selected items","eq":"fieldname8","ftype":"fCalculated","userhelp":"","csslayout":"","predefined":"","required":false,"size":"medium","readonly":false}],[{"title":"Simple Operations","description":"Below you can test two simple and frequent operations.","formlayout":"top_aligned", "formtemplate": "' . esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ) . '"}]]' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_form_structure2', '[[{"name":"fieldname1","index":0,"title":"Check-in","ftype":"fdate","userhelp":"","csslayout":"","predefined":"","size":"medium","required":false,"dformat":"mm/dd/yyyy","showDropdown":false,"dropdownRange":"-10:+10","formats":["mm/dd/yyyy","dd/mm/yyyy"]},{"name":"fieldname2","index":1,"title":"Check-out","ftype":"fdate","userhelp":"","csslayout":"","predefined":"","size":"medium","required":false,"dformat":"mm/dd/yyyy","showDropdown":false,"dropdownRange":"-10:+10","formats":["mm/dd/yyyy","dd/mm/yyyy"]},{"choices":["Parking - $10","Breakfast - $20","Premium Internet Access - $3"],"choiceSelected":[false,false,false],"name":"fieldname3","index":2,"title":"Optional Services","ftype":"fcheck","userhelp":"","csslayout":"","layout":"one_column","required":false,"choicesVal":["10","20","3"]},{"name":"fieldname4","index":3,"title":"","userhelp":"Note: The cost of the optional services are per each night.","ftype":"fSectionBreak","csslayout":""},{"name":"fieldname5","index":4,"title":"Total Cost","eq":"abs(fieldname2-fieldname1) * (fieldname3+50)","userhelp":"The formula is: (checkout - checkin) * (optionals + base rate)<br />Without the optional services the formula would be: (checkout-checkin) * base rate","ftype":"fCalculated","csslayout":"","predefined":"","required":false,"size":"medium","readonly":false}],[{"title":"Calculation with Dates","description":"The form below gives a quote for a stay in a hotel based in the check-in date, check-out date and some optional services. The base rate used is $50 per night.","formlayout":"top_aligned", "formtemplate": "' . esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ) . '"}]]' );
@@ -35,7 +37,7 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_form_structure3', '[[{"name":"fieldname2",
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_form_structure4', '[[{"name":"fieldname1","index":0,"title":"Enter the first day of last menstrual period","ftype":"fdate","userhelp":"","csslayout":"","predefined":"01/01/2013","size":"medium","required":false,"dformat":"mm/dd/yyyy","showDropdown":false,"dropdownRange":"-10:+10","formats":["mm/dd/yyyy","dd/mm/yyyy"]},{"name":"fieldname4","index":1,"title":"","userhelp":"Note: The dates below are approximate calculations. The real date may be slightly different.","ftype":"fSectionBreak","csslayout":""},{"name":"fieldname5","index":2,"title":"Conception Date","eq":"cdate(fieldname1+14)","userhelp":"","ftype":"fCalculated","csslayout":"","predefined":"","required":false,"size":"medium","readonly":false},{"name":"fieldname6","index":3,"title":"Due Date","eq":"cdate(fieldname1+40*7)","ftype":"fCalculated","userhelp":"","csslayout":"","predefined":"","required":false,"size":"medium","readonly":false}],[{"title":"Pregnancy Calculator","description":"The form below calculates the conception date and due date based in the first day of last menstrual period. The calculated values are converted to date again after the calculation.","formlayout":"top_aligned", "formtemplate": "' . esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ) . '"}]]' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_form_structure5', '[[{"form_identifier":"","name":"fieldname16","fieldlayout":"default","shortlabel":"","index":0,"ftype":"fdiv","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","fields":["fieldname13","fieldname15"],"columns":"2","rearrange":0,"title":"div","_developerNotes":"","collapsed":false,"fBuild":{},"parent":""},{"form_identifier":"","name":"fieldname11","fieldlayout":"default","shortlabel":"","index":1,"ftype":"fcurrency","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","title":"Loan Amount","predefined":"20000","predefinedClick":false,"required":false,"exclude":false,"readonly":false,"numberpad":false,"spinner":false,"size":"large","currencySymbol":"$","currencyText":"","thousandSeparator":",","centSeparator":".","noCents":false,"min":"","max":"","step":"","formatDynamically":true,"twoDecimals":true,"fBuild":{},"parent":"fieldname13"},{"form_identifier":"","name":"fieldname12","fieldlayout":"default","shortlabel":"","index":2,"ftype":"fcurrency","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","title":"Residual Value","predefined":"10000","predefinedClick":false,"required":false,"exclude":false,"readonly":false,"numberpad":false,"spinner":false,"size":"large","currencySymbol":"$","currencyText":"","thousandSeparator":",","centSeparator":".","noCents":false,"min":"","max":"","step":"","formatDynamically":true,"twoDecimals":true,"fBuild":{},"parent":"fieldname13"},{"form_identifier":"","name":"fieldname7","fieldlayout":"default","shortlabel":"","index":3,"ftype":"fnumber","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"col-sm-6","title":"Interest Rate %","predefined":"7.5","predefinedClick":false,"required":false,"exclude":false,"readonly":false,"numberpad":false,"spinner":false,"size":"large","prefix":"","postfix":"","thousandSeparator":"","decimalSymbol":".","min":"","max":"","step":"","formatDynamically":true,"dformat":"percent","formats":["digits","number","percent"],"fBuild":{},"parent":"fieldname13"},{"form_identifier":"","name":"fieldname8","fieldlayout":"default","shortlabel":"","index":4,"ftype":"fnumber","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"col-sm-6","title":"Number of Months","predefined":"36","predefinedClick":false,"required":false,"exclude":false,"readonly":false,"numberpad":false,"spinner":false,"size":"large","prefix":"","postfix":"","thousandSeparator":"","decimalSymbol":".","min":"","max":"","step":"","formatDynamically":false,"dformat":"number","formats":["digits","number","percent"],"fBuild":{},"parent":"fieldname13"},{"dependencies":[{"rule":"","complex":false,"fields":[""]}],"form_identifier":"","name":"fieldname4","fieldlayout":"default","shortlabel":"","index":5,"ftype":"fCalculated","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","title":"Monthly Payment","predefined":"","required":false,"exclude":false,"size":"large","eq":"prec((fieldname11*fieldname7/12*pow(1+fieldname7/12,fieldname8)-fieldname12*fieldname7/12)/(pow(1+fieldname7/12,fieldname8)-1),2)","min":"","max":"","suffix":"","prefix":"$","decimalsymbol":".","groupingsymbol":",","readonly":true,"currency":true,"noEvalIfManual":true,"formatDynamically":false,"dynamicEval":true,"hidefield":false,"validate":false,"dformat":"number","fBuild":{},"parent":"fieldname15"},{"dependencies":[{"rule":"","complex":false,"fields":[""]}],"form_identifier":"","name":"fieldname9","fieldlayout":"default","shortlabel":"","index":6,"ftype":"fCalculated","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","title":"Total Payment","predefined":"","required":false,"exclude":false,"size":"large","eq":"prec(fieldname4*fieldname8,2)","min":"","max":"","suffix":"","prefix":"$","decimalsymbol":".","groupingsymbol":",","readonly":true,"currency":true,"noEvalIfManual":true,"formatDynamically":false,"dynamicEval":true,"hidefield":false,"validate":false,"fBuild":{},"parent":"fieldname15"},{"dependencies":[{"rule":"","complex":false,"fields":[""]}],"form_identifier":"","name":"fieldname10","fieldlayout":"default","shortlabel":"","index":7,"ftype":"fCalculated","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","title":"Interest Amount","predefined":"","required":false,"exclude":false,"size":"large","eq":"prec(fieldname12+fieldname9-fieldname11,2)","min":"","max":"","suffix":"","prefix":"$","decimalsymbol":".","groupingsymbol":",","readonly":true,"currency":true,"noEvalIfManual":true,"formatDynamically":false,"dynamicEval":true,"hidefield":false,"validate":false,"fBuild":{},"parent":"fieldname15"},{"form_identifier":"","name":"fieldname13","fieldlayout":"default","shortlabel":"","index":8,"ftype":"ffieldset","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","fields":["fieldname11","fieldname12","fieldname7","fieldname8"],"columns":1,"rearrange":0,"title":"Input","_developerNotes":"","collapsible":false,"defaultCollapsed":true,"collapsed":false,"selfClosing":false,"fBuild":{},"parent":"fieldname16"},{"form_identifier":"","name":"fieldname15","fieldlayout":"default","shortlabel":"","index":9,"ftype":"ffieldset","userhelp":"","audiotutorial":"","userhelpTooltip":false,"tooltipIcon":false,"csslayout":"","fields":["fieldname4","fieldname9","fieldname10"],"columns":1,"rearrange":0,"title":"Results","_developerNotes":"","collapsible":false,"defaultCollapsed":true,"collapsed":false,"selfClosing":false,"fBuild":{},"parent":"fieldname16"}],[{"title":"Lease Calculator","description":"This sample uses a more complex formula for a lease calculator. It includes the \"power\" (pow) and \"precision\" (prec) functions.","formlayout":"top_aligned","formtemplate":"' . esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ) . '","titletag":"H2","textalign":"default","headertextcolor":"","evalequations":1,"evalequations_delay":0,"evalequationsevent":2,"direction":"ltr","loading_animation":0,"autocomplete":1,"persistence":0,"animate_form":0,"animation_effect":"fade","customstyles":""}]]' );
 
-// Email constants
+// Email constants.
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_subject', 'Contact from the blog...' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_inc_additional_info', 'true' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page', CPCFF_AUXILIARY::site_url() . '/' );
@@ -47,7 +49,7 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_subject', 'Confirmation: Message receiv
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_message', "Thank you for your message. We will reply to you as soon as possible.\n\nThis is a copy of the data sent:\n\n<%INFO%>\n\nBest Regards." );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_email_format', 'text' );
 
-// Captcha constants
+// Captcha constants.
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', get_option( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_enable_captcha', 'true' ) );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_width', '180' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_height', '60' );
@@ -61,13 +63,13 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_background', 'ffffff' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_border', '000000' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cv_text_enter_valid_captcha', 'Please enter a valid captcha code.' );
 
-// Payments contstants
+// Payments contstants.
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY_SYMBOL', '$' );
 define( 'CP_CALCULATEDFIELDSF_GBP_CURRENCY_SYMBOL', chr( 163 ) );
 define( 'CP_CALCULATEDFIELDSF_EUR_CURRENCY_SYMBOL_A', 'EUR ' );
 define( 'CP_CALCULATEDFIELDSF_EUR_CURRENCY_SYMBOL_B', chr( 128 ) );
 
-// PayPal constants
+// PayPal constants.
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_ENABLE_PAYPAL', 0 );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_MODE', 'production' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_RECURRENT', '0' );
@@ -79,7 +81,7 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_COST', '25' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_CURRENCY', 'USD' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_PAYPAL_LANGUAGE', 'EN' );
 
-// Database table names
+// Database table names.
 global $wpdb;
 define( 'CP_CALCULATEDFIELDSF_FORMS_TABLE', 'cp_calculated_fields_form_settings' );
 define( 'CP_CALCULATEDFIELDSF_FORMS_REVISIONS_TABLE', 'cp_calculated_fields_form_revision' );
@@ -88,7 +90,7 @@ define( 'CP_CALCULATEDFIELDSF_DISCOUNT_CODES_TABLE_NAME', @$wpdb->prefix . 'cp_c
 define( 'CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME_NO_PREFIX', 'cp_calculated_fields_form_posts' );
 define( 'CP_CALCULATEDFIELDSF_POSTS_TABLE_NAME', @$wpdb->prefix . 'cp_calculated_fields_form_posts' );
 
-// Default texts constants and global variables
+// Default texts constants and global variables.
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_required', 'This field is required.' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_text_is_email', 'Please enter a valid email address.' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_vs_text_datemmddyyyy', 'Please enter a valid date with this format(mm/dd/yyyy)' );
@@ -149,7 +151,7 @@ if ( ! function_exists( 'cpcff_init_constants' ) ) {
 		$domain = ( ! empty( $matches ) ) ? $matches[0] : '';
 
 		if ( ! empty( $current_user_id ) ) {
-			// User emails
+			// User emails.
 			if ( ! defined( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email' ) ) {
 				$user_email = get_the_author_meta( 'user_email', $current_user_id );
 				if ( empty( $user_email ) || ( $pos = strpos( $user_email, $domain ) ) === false ) {
@@ -174,5 +176,5 @@ if ( ! function_exists( 'cpcff_init_constants' ) ) {
 				define( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_from_email );
 			}
 		}
-	} // End cpcff_init_constants
+	} // End cpcff_init_constants.
 }

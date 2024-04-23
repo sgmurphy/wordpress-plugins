@@ -1467,19 +1467,20 @@
 .ctf-extension-single-bullet svg {
     margin-right: 12px;
 }
+
 .sbc-extpp-btns {
     display: grid;
-    grid-template-columns: 49.5% 49.5%;
-    grid-column-gap: 1%;
+    grid-template-columns: 80% 20%;
+    grid-column-gap: 12px;
 }
 .sbc-extpp-btns a {
-    height: 38px;
+    height: 50px;
     cursor: pointer;
     position: relative;
     border-radius: 3px;
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 160%;
     display: flex;
     justify-content: center;
@@ -1491,11 +1492,18 @@
     color: #fff!important;
     cursor: pointer;
 }
-.sbc-btn-grey {
-    background: #F3F4F5!important;
-    color: #141B38!important;
-    border: 1px solid #D0D1D7!important;
+.sbc-btn-green {
+    background: #4A9F36!important;
+    color: #fff!important;
     cursor: pointer;
+    box-shadow: 0px -1px 1px 0px rgba(0, 0, 0, 0.12) inset, 0px 2px 5px 0px rgba(60, 66, 87, 0.05), 0px 1px 1px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+.sbc-btn-grey {
+    border-radius: 4px;
+    border: 1px solid #E6E6EB;
+    background: #F9F9FA;
+    box-shadow: 0px -1px 1px 0px rgba(0, 0, 0, 0.12) inset, 0px 2px 5px 0px rgba(60, 66, 87, 0.05), 0px 1px 1px 0px rgba(0, 0, 0, 0.05);
 }
 #sby-single-videos-upsell-modal .sbc-extpp-head h2 {
     font-style: normal;

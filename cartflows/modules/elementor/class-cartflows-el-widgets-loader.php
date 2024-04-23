@@ -56,7 +56,7 @@ class Cartflows_Widgets_Loader {
 	 *
 	 * Note: Currently the GCP support is added for Elementor and Block Builder.
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @return void
 	 */
 	public function override_flow_level_global_colors_elementor() {

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_faq_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -22,7 +27,6 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 
 		public function __construct() {
 			$this->set_layouts( apply_filters( 'qi_addons_for_elementor_filter_faq_layouts', array() ) );
-
 
 			parent::__construct();
 		}

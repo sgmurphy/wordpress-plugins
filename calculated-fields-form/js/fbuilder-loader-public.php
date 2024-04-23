@@ -7,7 +7,7 @@ if ( empty( $cff_backend_script_generator ) ) {
 	header( 'Content-Type: application/x-javascript; charset=UTF-8' );
 }
 
-ob_start(); // Turn on output buffering
+ob_start(); // Turn on output buffering.
 ?>
 fbuilderjQuery = (typeof fbuilderjQuery != 'undefined' ) ? fbuilderjQuery : jQuery;
 fbuilderjQuery(window).on( 'pageshow', function( event ){ if( typeof event.originalEvent[ 'persisted' ] != 'undefined' && event.originalEvent[ 'persisted' ] ) location.reload(); } );
@@ -20,9 +20,9 @@ fbuilderjQuery.fbuilderjQueryGenerator = function(){
 			$.fbuilder[ 'objName' ] = 'fbuilderjQuery';
 
 <?php
-	// Load Module files
+// Load Module files.
 try {
-	$md            = dir( dirname( __FILE__ ) . '/modules' );
+	$md            = dir( __DIR__ . '/modules' );
 	$modules_files = array();
 	while ( false !== ( $entry = $md->read() ) ) {
 		if ( strlen( $entry ) > 3 && is_dir( $md->path . '/' . $entry ) ) {
@@ -44,10 +44,10 @@ try {
 	error_log( $e->getMessage() );
 }
 
-	// Load Control files
+	// Load Control files.
 	require 'fbuilder-pro-public.jquery.js';
 try {
-	$d              = dir( dirname( __FILE__ ) . '/fields-public' );
+	$d              = dir( __DIR__ . '/fields-public' );
 	$controls_files = array();
 	while ( false !== ( $entry = $d->read() ) ) {
 		if ( strlen( $entry ) > 3 && strtolower( substr( $entry, strlen( $entry ) - 3 ) ) == '.js' ) {
@@ -146,22 +146,22 @@ fbuilderjQuery( document ).on( 'elementor/popup/show', function( event, id, inst
 } );
 <?php
 	$buffered_contents = ob_get_contents();
-	ob_end_clean(); // Clean the output buffer and turn off output buffering
+	ob_end_clean(); // Clean the output buffer and turn off output buffering.
 if ( ! empty( $_REQUEST['min'] ) || ! empty( $cff_script_generator_min ) ) {
 	if ( ! class_exists( 'JSMin' ) ) {
-		require_once rtrim( dirname( __FILE__ ), '/' ) . '/JSMin.php';
+		require_once rtrim( __DIR__, '/' ) . '/JSMin.php';
 	}
 
 	try {
 		$buffered_contents = JSMin::minify( $buffered_contents );
-		$buffered_contents = str_replace( [ ']in ', '\'in ' ], [ '] in ', '\' in ' ], $buffered_contents );
+		$buffered_contents = str_replace( array( ']in ', '\'in ' ), array( '] in ', '\' in ' ), $buffered_contents );
 	} catch ( Exception $err ) {
 		error_log( $err->getMessage() );
 	}
 }
 
 try {
-	$all_js_path = rtrim( dirname( __FILE__ ), '/' ) . '/cache/all.js';
+	$all_js_path = rtrim( __DIR__, '/' ) . '/cache/all.js';
 	@file_put_contents( $all_js_path, $buffered_contents );
 } catch ( Exception $err ) {
 	error_log( $err->getMessage() );

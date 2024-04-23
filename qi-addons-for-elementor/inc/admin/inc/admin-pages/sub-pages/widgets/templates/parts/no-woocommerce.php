@@ -1,4 +1,12 @@
-<?php if ( ! qi_addons_for_elementor_framework_is_installed( 'woocommerce' ) ) { ?>
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
+if ( ! qi_addons_for_elementor_framework_is_installed( 'woocommerce' ) ) {
+	?>
 	<div class="qodef-widgets-section">
 		<div class="qodef-widgets-section-title-holder">
 			<h3 class="qodef-widgets-section-title"><?php esc_html_e( 'WooCommerce', 'qi-addons-for-elementor' ); ?></h3>

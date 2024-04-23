@@ -19,14 +19,8 @@ class Dynamic_Remarketing_Variations_Output extends Opportunity {
 
 	public static function available() {
 
-
 		// At least one paid ads pixel must be enabled
 		if (!Options::is_at_least_one_marketing_pixel_active()) {
-			return false;
-		}
-
-		// Dynamic Remarketing must be disabled
-		if (!Options::is_dynamic_remarketing_enabled()) {
 			return false;
 		}
 

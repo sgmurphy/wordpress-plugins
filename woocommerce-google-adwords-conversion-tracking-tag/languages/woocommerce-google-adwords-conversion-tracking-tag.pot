@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pixel Manager for WooCommerce 1.42.3\n"
+"Project-Id-Version: Pixel Manager for WooCommerce 1.42.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/src\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-16T04:41:46+00:00\n"
+"POT-Creation-Date: 2024-04-23T03:05:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: woocommerce-google-adwords-conversion-tracking-tag\n"
@@ -201,7 +201,6 @@ msgid "Marketing Value Logic"
 msgstr ""
 
 #: includes/admin/class-admin.php:917
-#: includes/admin/opportunities/free/class-dynamic-remarketing-opportunity.php:39
 msgid "Dynamic Remarketing"
 msgstr ""
 
@@ -278,8 +277,8 @@ msgid "Google User ID"
 msgstr ""
 
 #: includes/admin/class-admin.php:1175
-#: includes/admin/opportunities/pro/class-google-ads-enhanced-conversions-opportunity.php:39
-msgid "Google Ads Enhanced Conversions"
+#: includes/admin/opportunities/pro/class-google-enhanced-conversions-opportunity.php:39
+msgid "Google Enhanced Conversions"
 msgstr ""
 
 #: includes/admin/class-admin.php:1190
@@ -660,7 +659,7 @@ msgid "If you want to participate improving the translations of this plugin into
 msgstr ""
 
 #: includes/admin/class-admin.php:2646
-msgid "Chat with our fantastic AI bot Pixie (Pixie knows everything we do!): "
+msgid "Chat with our fantastic AI bot Pixie (Pixie knows everything we do!):"
 msgstr ""
 
 #: includes/admin/class-admin.php:2650
@@ -680,7 +679,7 @@ msgid "(Never post the debug or other sensitive information to the support forum
 msgstr ""
 
 #: includes/admin/class-admin.php:2668
-msgid "Send us an email to the following address: "
+msgid "Send us an email to the following address:"
 msgstr ""
 
 #: includes/admin/class-admin.php:2682
@@ -784,7 +783,7 @@ msgid "The Reddit pixel ID looks similar to this:"
 msgstr ""
 
 #: includes/admin/class-admin.php:3283
-msgid "Enable Snapchat advanced matching"
+msgid "Enable Snapchat Advanced Matching"
 msgstr ""
 
 #: includes/admin/class-admin.php:3301
@@ -924,7 +923,6 @@ msgid "Enable Google Analytics enhanced link attribution"
 msgstr ""
 
 #: includes/admin/class-admin.php:3739
-#: includes/admin/class-admin.php:3765
 msgid "You need to activate at least Google Analytics UA or Google Analytics 4"
 msgstr ""
 
@@ -932,12 +930,16 @@ msgstr ""
 msgid "Enable Google user ID"
 msgstr ""
 
+#: includes/admin/class-admin.php:3765
+msgid "You need to activate GA4 and/or Google Ads"
+msgstr ""
+
 #: includes/admin/class-admin.php:3785
-msgid "Enable Google Ads Enhanced Conversions"
+msgid "Enable Enhanced Conversions for Google Ads and GA4"
 msgstr ""
 
 #: includes/admin/class-admin.php:3795
-msgid "You need to activate Google Ads"
+msgid "You need to activate Google Ads and or GA4"
 msgstr ""
 
 #: includes/admin/class-admin.php:3810
@@ -989,7 +991,7 @@ msgid "GDPR Cookie Compliance (by Moove Agency) detected. Automatic support is:"
 msgstr ""
 
 #: includes/admin/class-admin.php:3939
-msgid "CookieYes detected. Automatic support is:"
+msgid "CookieYes detected. Automatic support is"
 msgstr ""
 
 #: includes/admin/class-admin.php:3945
@@ -1074,7 +1076,7 @@ msgid "The multiplier multiplies the conversion value output for initial subscri
 msgstr ""
 
 #: includes/admin/class-admin.php:4396
-msgid "Enable the lifetime calculation on new orders."
+msgid "Enable the lifetime value calculation on new orders."
 msgstr ""
 
 #: includes/admin/class-admin.php:4419
@@ -1122,7 +1124,7 @@ msgid "Basic order duplication prevention is "
 msgstr ""
 
 #: includes/admin/class-admin.php:4542
-msgid "Dynamic Remarketing is "
+msgid "Dynamic Remarketing is"
 msgstr ""
 
 #: includes/admin/class-admin.php:4559
@@ -1542,39 +1544,23 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: includes/admin/opportunities/free/class-dynamic-remarketing-opportunity.php:44
-msgid "The Pixel Manager detected that at least one paid ads pixel is enabled, but Dynamic Remarketing has yet to be enabled."
-msgstr ""
-
-#: includes/admin/opportunities/free/class-dynamic-remarketing-opportunity.php:48
-msgid "Enabling Dynamic Remarketing output will allow you to collect dynamic audiences (such as general visitors, product viewers, cart abandoners, and buyers) and create dynamic remarketing campaigns."
-msgstr ""
-
-#: includes/admin/opportunities/free/class-dynamic-remarketing-opportunity.php:53
-#: includes/admin/opportunities/free/class-google-ads-conversion-cart-data-opportunity.php:53
-#: includes/admin/opportunities/free/class-ltv-order-level-calculation-opportunity.php:53
-#: includes/admin/opportunities/pro/class-pinterest-enhanced-match-opportunity.php:53
-#: includes/admin/opportunities/pro/class-snapchat-advanced-matching-opportunity.php:53
-msgid "medium"
-msgstr ""
-
-#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:45
+#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:39
 msgid "Dynamic Remarketing Variations Output"
 msgstr ""
 
-#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:50
+#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:44
 msgid "The Pixel Manager detected that at least one paid ads pixel is enabled, Dynamic Remarketing is enabled, but Variations Output has yet to be enabled."
 msgstr ""
 
-#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:54
+#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:48
 msgid "Enabling Dynamic Remarketing Variations Output will allow you to collect more fine-grained, dynamic audiences down to the product variation level."
 msgstr ""
 
-#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:58
+#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:52
 msgid "When enabling this setting, you also need to upload product variations to your catalogs."
 msgstr ""
 
-#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:63
+#: includes/admin/opportunities/free/class-dynamic-remarketing-variations-output-opportunity.php:57
 msgid "low"
 msgstr ""
 
@@ -1588,6 +1574,13 @@ msgstr ""
 
 #: includes/admin/opportunities/free/class-google-ads-conversion-cart-data-opportunity.php:48
 msgid "Enabling Google Ads Conversion Cart Data will improve reporting by including cart item data in your Google Ads conversion reports."
+msgstr ""
+
+#: includes/admin/opportunities/free/class-google-ads-conversion-cart-data-opportunity.php:53
+#: includes/admin/opportunities/free/class-ltv-order-level-calculation-opportunity.php:53
+#: includes/admin/opportunities/pro/class-pinterest-enhanced-match-opportunity.php:53
+#: includes/admin/opportunities/pro/class-snapchat-advanced-matching-opportunity.php:53
+msgid "medium"
 msgstr ""
 
 #: includes/admin/opportunities/free/class-ltv-order-level-calculation-opportunity.php:39
@@ -1615,14 +1608,14 @@ msgid "Enabling Google Ads Conversion Adjustments will improve conversion value 
 msgstr ""
 
 #: includes/admin/opportunities/pro/class-google-ads-conversion-adjustments-opportunity.php:53
-#: includes/admin/opportunities/pro/class-google-ads-enhanced-conversions-opportunity.php:53
+#: includes/admin/opportunities/pro/class-google-enhanced-conversions-opportunity.php:53
 #: includes/admin/opportunities/pro/class-meta-capi-opportunity.php:53
 #: includes/admin/opportunities/pro/class-subscription-multiplier-opportunity.php:58
 msgid "high"
 msgstr ""
 
-#: includes/admin/opportunities/pro/class-google-ads-enhanced-conversions-opportunity.php:44
-msgid "The Pixel Manager detected that Google Ads purchase conversion is enabled, but Google Ads Enhanced Conversions has yet to be enabled."
+#: includes/admin/opportunities/pro/class-google-enhanced-conversions-opportunity.php:44
+msgid "The Pixel Manager detected that Google is enabled, but Enhanced Conversions for Google has yet to be enabled."
 msgstr ""
 
 #: includes/admin/opportunities/pro/class-meta-capi-opportunity.php:39

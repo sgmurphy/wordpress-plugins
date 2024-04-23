@@ -6,6 +6,12 @@
  * for storing user session information.
  */
 
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+// phpcs:disable Squiz.Commenting.VariableComment.Missing
+// phpcs:disable Squiz.Commenting.VariableComment.MissingVar
+
 if ( ! defined( 'CP_COOKIE_NAME' ) ) {
 	define( 'CP_COOKIE_NAME', 'CP5XKN6QLDFWUC' );
 }
@@ -22,10 +28,9 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 		private $session_id;
 		private $expiration;
 		private $cleaned_expired_vars = false;
-		private $expiration_interval  = 86400; // 24 Hours
+		private $expiration_interval  = 86400; // 24 Hours.
 
 		/************** CONSTRUCT **************/
-
 		private function __construct() {
 			if ( ! is_admin() ) {
 				return;
@@ -46,7 +51,6 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 				$this->expiration = $this->expiration_interval;
 				$this->_set_cookie();
 			}
-
 		}
 
 		/************** PRIVATE INSTANCE METHODS **************/
@@ -80,7 +84,7 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 
 		private function _get_var( $name ) {
 			if ( isset( $_SESSION[ $name ] ) ) {
-				return $_SESSION[ $name ];
+				return $_SESSION[ $name ]; // phpcs:ignore
 			}
 			$transient = $this->_get_var_name( $name );
 			return get_transient( $transient );
@@ -119,17 +123,17 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 				if ( ! empty( $options_names ) ) {
 					$options_names = array_map( 'esc_sql', $options_names );
 					$options_names = "'" . implode( "','", $options_names ) . "'";
-					$result        = $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name IN ({$options_names})" ); // @codingStandardsIgnoreLine.
+					$result        = $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name IN ({$options_names})" ); // phpcs:ignore
 
 				}
 			} catch ( Exception $err ) {
 				error_log( $err->getMassage() );
 			}
 		}
+
 		/************** PUBLIC INSTANCE METHODS **************/
 
 		/************** PRIVATE STATIC METHODS **************/
-
 		private static function _get_instance() {
 			if ( ! self::$instance ) {
 				self::$instance = new self();
@@ -138,9 +142,7 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 			return self::$instance;
 		}
 
-
 		/************** PUBLIC STATIC METHODS **************/
-
 		public static function session_start() {
 			$instance = self::_get_instance();
 		}
@@ -165,7 +167,12 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 			$instance->_unset_var( $name );
 		}
 
-		// Special methods for registering and recovering the forms submissions
+		/**
+		 * Special methods for registering and recovering the forms submissions.
+		 *
+		 * @param number $eventid event id.
+		 * @param number $formid form id.
+		 */
 		public static function register_event( $eventid, $formid ) {
 			$cp_cff_form_data = self::get_var( 'cp_cff_form_data' );
 			if ( empty( $cp_cff_form_data ) || ! is_array( $cp_cff_form_data ) ) {
@@ -181,5 +188,5 @@ if ( ! class_exists( 'CP_SESSION' ) ) {
 		public static function registered_events() {
 			return self::get_var( 'cp_cff_form_data' );
 		}
-	} // End clss
+	} // End clss.
 }

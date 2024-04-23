@@ -280,7 +280,7 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 		$script = [
 			'handle'       => 'ywcas-' . $this->block_name . '-block',
 			'path'         => $this->get_block_asset_build_path( $this->block_name ),
-			'dependencies' => [ 'ywcas-blocks', 'accounting' ],
+			'dependencies' => [ 'ywcas-blocks', 'accounting', 'jquery' ],
 		];
 
 		return $key ? $script[ $key ] : $script;
@@ -308,7 +308,7 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 		$script = [
 			'handle'       => 'ywcas-' . $this->block_name . '-block-frontend',
 			'path'         => $this->get_block_asset_build_path( $this->block_name . '-frontend' ),
-			'dependencies' => ['accounting'],
+			'dependencies' => ['accounting','jquery'],
 		];
 
 		return $key ? $script[ $key ] : $script;

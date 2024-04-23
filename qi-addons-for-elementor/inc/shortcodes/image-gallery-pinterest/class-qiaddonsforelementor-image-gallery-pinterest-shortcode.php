@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_image_gallery_pinterest_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -219,6 +224,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 			parent::render( $options );
 			$atts = $this->get_atts();
 
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.rand_rand
 			$atts['unique']         = rand( 0, 999 );
 			$atts['holder_classes'] = $this->get_holder_classes( $atts );
 			$atts['item_classes']   = $this->get_item_classes( $atts );
@@ -279,7 +285,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 					}
 
 					$images[ $i ] = $image;
-					$i ++;
+					$i++;
 				}
 			}
 

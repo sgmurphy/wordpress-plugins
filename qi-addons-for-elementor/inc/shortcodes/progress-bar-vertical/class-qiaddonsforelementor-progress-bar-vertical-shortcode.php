@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_progress_bar_vertical_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -392,7 +397,9 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			$data['data-number']          = ! empty( $atts['number'] ) ? $atts['number'] : '0.00';
 			$data['data-percentage-type'] = $atts['percentage_type'];
 			$data['data-gradient-fill']   = $atts['enable_gradient_fill'];
-			$data['data-rand-id']         = rand();
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.rand_rand
+			$data['data-rand-id'] = rand();
 
 			$data['data-gradient-start'] = ! empty( $atts['gradient_color_start'] ) ? $atts['gradient_color_start'] : '#D9E7FA';
 			$data['data-gradient-end']   = ! empty( $atts['gradient_color_end'] ) ? $atts['gradient_color_end'] : '#FCC4AF';

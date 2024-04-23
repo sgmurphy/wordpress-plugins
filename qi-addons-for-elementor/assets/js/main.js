@@ -46,7 +46,7 @@
 		init: function ( settings ) {
 			this.holder = $( '.qodef-qi-swiper-container' );
 
-			// Allow overriding the default config
+			// Allow overriding the default config.
 			$.extend(
 				this.holder,
 				settings
@@ -67,22 +67,20 @@
 					options
 				);
 
-			//if optimized assets loading option in Elementor is enabled, we need to change swiper call, recommends for Elementor itself
+			// if optimized assets loading option in Elementor is enabled, we need to change swiper call, recommends for Elementor itself.
 			if ( elementorFrontend.config.experimentalFeatures.e_optimized_assets_loading ) {
-				var checkSwiperObject = setInterval( //setinterval is needed here since elementorFrontend.utils property is not available on dom ready, also Elementor docs says to be careful since it is not available
+				// setinterval is needed here since elementorFrontend.utils property is not available on dom ready, also Elementor docs says to be careful since it is not available.
+				var checkSwiperObject = setInterval(
 					function () {
 						if ( 'undefined' !== elementorFrontend.utils.swiper ) {
-
 							const asyncSwiper = elementorFrontend.utils.swiper;
 
 							new asyncSwiper(
 								$currentItem[0],
-								Object.assign(
-									options,
-									events
-								)
+								Object.assign( options, events )
 							).then(
 								( newSwiperInstance ) => {
+									// phpcs:ignore PEAR.Functions.FunctionCallSignature.Indent
 									var $swiper = newSwiperInstance;
 								}
 							);
@@ -208,10 +206,13 @@
 				switch ( disablePartialValue ) {
 					case 1024:
 						slidesPerView1024 = Math.floor( slidesPerView1024 );
+						break;
 					case 768:
 						slidesPerView768 = Math.floor( slidesPerView768 );
+						break;
 					case 680:
 						slidesPerView680 = Math.floor( slidesPerView680 );
+						break;
 					case 480:
 						slidesPerView480 = Math.floor( slidesPerView480 );
 						break;
@@ -233,39 +234,39 @@
 				pagination: { el: pagination, clickable: true },
 				grabCursor: grabCursor,
 				breakpoints: {
-					// when window width is < 481px
+					// when window width is < 481px.
 					0: {
 						slidesPerView: slidesPerView480,
 						spaceBetween: spaceBetweenMobile
 					},
-					// when window width is >= 481px
+					// when window width is >= 481px.
 					481: {
 						slidesPerView: slidesPerView680,
 						spaceBetween: spaceBetweenMobile
 					},
-					// when window width is >= 681px
+					// when window width is >= 681px.
 					681: {
 						slidesPerView: slidesPerView768,
 						spaceBetween: spaceBetweenTablet
 					},
-					// when window width is >= 769px
+					// when window width is >= 769px.
 					769: {
 						slidesPerView: slidesPerView1024,
 						spaceBetween: spaceBetweenTablet
 					},
-					// when window width is >= 1025px
+					// when window width is >= 1025px.
 					1025: {
 						slidesPerView: slidesPerView1366
 					},
-					// when window width is >= 1367px
+					// when window width is >= 1367px.
 					1367: {
 						slidesPerView: slidesPerView1440
 					},
-					// when window width is >= 1441px
+					// when window width is >= 1441px.
 					1441: {
 						slidesPerView: slidesPerView1680
 					},
-					// when window width is >= 1681px
+					// when window width is >= 1681px.
 					1681: {
 						slidesPerView: slidesPerView
 					}
@@ -283,7 +284,7 @@
 
 			for ( var property in dataList ) {
 				if ( dataList.hasOwnProperty( property ) ) {
-					// It's required to be different from data options because da options are all options from shortcode element
+					// It's required to be different from data options because da options are all options from shortcode element.
 					if ( property !== 'options' && typeof dataList[property] !== 'undefined' && dataList[property] !== '' ) {
 						returnValue[property] = dataList[property];
 					}
@@ -370,6 +371,8 @@
 			}
 
 			target = Object( target );
+
+			// phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found
 			for ( var index = 1; index < arguments.length; index++ ) {
 				var source = arguments[index];
 
@@ -407,7 +410,7 @@
 
 				for ( const instance in fsLightboxInstances ) {
 
-					fsLightboxInstances[instance].props.onInit = () => {
+					fsLightboxInstances[instance].props.onInit = function () {
 						var $fsLightboxHolder = fsLightboxInstances[instance].elements.container,
 							$prevHolder       = $fsLightboxHolder.querySelectorAll( '.fslightbox-slide-btn-container-previous > .fslightbox-slide-btn' ),
 							$nextHolder       = $fsLightboxHolder.querySelectorAll( '.fslightbox-slide-btn-container-next > .fslightbox-slide-btn' ),
@@ -418,7 +421,6 @@
 						$closeHolder[0].innerHTML = qodefQiAddonsGlobal.vars.iconClose;
 					};
 				}
-
 			}
 		},
 	};
@@ -477,17 +479,18 @@
 
 	qodefAddonsCore.qodefAppear = qodefAppear;
 
-	var qodefIsInViewport             = {
+	var qodefIsInViewport = {
 		check: function ( $element, callback, onlyOnce ) {
 			if ( $element.length ) {
-				var offset   = typeof $element.data( 'viewport-offset' ) !== 'undefined' ? $element.data( 'viewport-offset' ) : 0.15; // When item is 15% in the viewport
+				// When item is 15% in the viewport.
+				var offset   = typeof $element.data( 'viewport-offset' ) !== 'undefined' ? $element.data( 'viewport-offset' ) : 0.15;
 				var observer = new IntersectionObserver(
 					function ( entries ) {
-						// isIntersecting is true when element and viewport are overlapping
-						// isIntersecting is false when element and viewport don't overlap
+						// isIntersecting is true when element and viewport are overlapping.
+						// isIntersecting is false when element and viewport don't overlap.
 						if ( entries[0].isIntersecting === true ) {
 							callback.call( $element );
-							// Stop watching the element when it's initialize
+							// Stop watching the element when it's initialize.
 							if ( onlyOnce !== false ) {
 								observer.disconnect();
 							}
@@ -495,16 +498,18 @@
 					},
 					{ threshold: [offset] }
 				);
+
 				observer.observe( $element[0] );
 			}
 		},
 	};
+
 	qodefAddonsCore.qodefIsInViewport = qodefIsInViewport;
 
 	/**
 	 * Check element images to loaded
 	 */
-	var qodefWaitForImages             = {
+	var qodefWaitForImages = {
 		check: function ( $element, callback ) {
 			if ( $element.length ) {
 				var images = $element.find( 'img' );
@@ -512,6 +517,7 @@
 				if ( images.length ) {
 					var counter = 0;
 
+					// phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found
 					for ( var index = 0; index < images.length; index++ ) {
 						var img = images[index];
 
@@ -543,6 +549,7 @@
 			}
 		},
 	};
+
 	qodefAddonsCore.qodefWaitForImages = qodefWaitForImages;
 
 	var qodefScroll = {
@@ -555,7 +562,6 @@
 				);
 			}
 
-			// window.onmousewheel = document.onmousewheel = qodefScroll.preventDefaultValue;
 			document.onkeydown = qodefScroll.keyDown;
 		},
 		enable: function () {
@@ -585,18 +591,20 @@
 			}
 		}
 	};
+
 	qodefAddonsCore.qodefScroll = qodefScroll;
 
 	var qodefSwiperElementorCheck = {
 		init: function ( functionName, $currentItem ) {
 			var $swiperAll = $currentItem.find( '.qodef-qi-swiper-container' );
 
-			var checkSwiperObject = setInterval( //setinterval is needed here since elementorFrontend.utils property is not available on dom ready, also Elementor docs says to be careful since it is not available
+			// setinterval is needed here since elementorFrontend.utils property is not available on dom ready, also Elementor docs says to be careful since it is not available.
+			var checkSwiperObject = setInterval(
 				function () {
 					var clearAll = true;
 
 					$swiperAll.each(
-						function() {
+						function () {
 							var $currentSwiper = $( this );
 							if ( typeof $currentSwiper[0].swiper === 'undefined' ) {
 								clearAll = false;
@@ -614,11 +622,11 @@
 	};
 
 	qodefAddonsCore.qodefSwiperElementorCheck = qodefSwiperElementorCheck;
-	
-	//this function is created because wp_is_mobile is no longer detects iPad devices, so we need to make sure the right class is added to body
+
+	// this function is created because wp_is_mobile is no longer detects iPad devices, so we need to make sure the right class is added to body.
 	var qodefIOSTouchClass = {
 		init: function () {
-			if ( qodefIOSTouchClass.iOSCheck() ){
+			if ( qodefIOSTouchClass.iOSCheck() ) {
 				qodefAddonsCore.body.removeClass( 'qodef-qi--touch qodef-qi--no-touch' );
 				qodefAddonsCore.body.addClass( 'qodef-qi--touch' );
 			}
@@ -631,12 +639,12 @@
 					'iPad',
 					'iPhone',
 					'iPod'
-				].includes(navigator.platform)
-				// iPad on iOS 13 detection
-				|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+				].includes( navigator.platform )
+				// iPad on iOS 13 detection.
+				|| (navigator.userAgent.includes( 'Mac' ) && 'ontouchend' in document);
 		}
-	}
-	
+	};
+
 	qodefAddonsCore.qodefIOSTouchClass = qodefIOSTouchClass;
 
 })( jQuery );
@@ -677,7 +685,7 @@
 		init: function ( settings ) {
 			this.holder = $( '.qodef-layout--qi-masonry' );
 
-			// Allow overriding the default config
+			// Allow overriding the default config.
 			$.extend(
 				this.holder,
 				settings
@@ -694,7 +702,7 @@
 		reInit: function ( settings ) {
 			this.holder = $( '.qodef-layout--qi-masonry' );
 
-			// Allow overriding the default config
+			// Allow overriding the default config.
 			$.extend(
 				this.holder,
 				settings
@@ -895,64 +903,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text = {};
-
-	$( document ).ready(
-		function () {
-			qodefAnimatedText.init();
-		}
-	);
-
-	var qodefAnimatedText = {
-		init: function () {
-			this.holder = $( '.qodef-qi-animated-text.qodef--animated-by-letter' );
-
-			if ( this.holder.length ) {
-				this.holder.each(
-					function () {
-						qodefAnimatedText.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function ( $currentItem ) {
-			var $words = $currentItem.find( '.qodef-e-word-holder' );
-
-			$words.each(
-				function () {
-					let $word       = $( this ).text(),
-						$split_word = ''
-
-					for (var i = 0; i < $word.length; i++) {
-						$split_word += '<span class="qodef-e-character">' + $word.charAt( i ) + '</span>';
-					}
-
-					$( this ).html( $split_word );
-				}
-			);
-
-			let $characters = $currentItem.find( '.qodef-e-character' );
-
-			$characters.each(
-				function (index) {
-					let $character         = $( this ),
-						transitionModifier = $currentItem.hasClass( 'qodef--appear-from-left' ) ? 40 : 60,
-						transitionDelay    = (index * transitionModifier) + 'ms';
-
-					$character.css( 'transition-delay', transitionDelay );
-				}
-			);
-		},
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text.qodefAppear       = qodefAddonsCore.qodefAppear;
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text.qodefAnimatedText = qodefAnimatedText;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_accordion = {};
 
 	$( document ).ready(
@@ -972,7 +922,7 @@
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
+		initItem: function ( $currentItem ) {
 			if ( $currentItem.hasClass( 'qodef-behavior--accordion' ) ) {
 				qodefAccordion.initAccordion( $currentItem );
 			}
@@ -1036,64 +986,59 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_before_after = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text = {};
 
 	$( document ).ready(
 		function () {
-			qodefBeforeAfter.init();
+			qodefAnimatedText.init();
 		}
 	);
 
-	var qodefBeforeAfter = {
+	var qodefAnimatedText = {
 		init: function () {
-			this.holder = $( '.qodef-qi-before-after' );
+			this.holder = $( '.qodef-qi-animated-text.qodef--animated-by-letter' );
 
 			if ( this.holder.length ) {
 				this.holder.each(
 					function () {
-						qodefBeforeAfter.initItem( $( this ) );
+						qodefAnimatedText.initItem( $( this ) );
 					}
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
-			var $currentHolder = $currentItem.find( '.qodef-before-after-image-holder' ),
-				offset         = $currentHolder.data( 'offset' ) / 100,
-				orientation    = 'horizontal',
-				dragText       = $currentHolder.siblings( '.qodef-handle-text' ),
-				dragHolder;
+		initItem: function ( $currentItem ) {
+			var $words = $currentItem.find( '.qodef-e-word-holder' );
 
-			if ( $currentHolder.parents( '.qodef-qi-before-after' ).hasClass( 'qodef--vertical' ) ) {
-				orientation = 'vertical';
-			}
-
-
-			qodefAddonsCore.qodefWaitForImages.check(
-				$currentHolder,
+			$words.each(
 				function () {
+					var $word       = $( this ).text(),
+						$wordCount	= $word.length,
+						$split_word = ''
 
-					$currentHolder.css(
-						'visibility',
-						'visible'
-					);
-
-					$currentHolder.twentytwenty(
-						{
-							orientation: orientation,
-							default_offset_pct: offset
-						}
-					);
-
-					if ( dragText.length ) {
-						dragHolder = $currentHolder.find( '.twentytwenty-handle' );
-						dragHolder.prepend( dragText );
+					for (var i = 0; i < $wordCount; i++) {
+						$split_word += '<span class="qodef-e-character">' + $word.charAt( i ) + '</span>';
 					}
+
+					$( this ).html( $split_word );
 				}
 			);
-		}
+
+			var $characters = $currentItem.find( '.qodef-e-character' );
+
+			$characters.each(
+				function (index) {
+					var $character         = $( this ),
+						transitionModifier = $currentItem.hasClass( 'qodef--appear-from-left' ) ? 40 : 60,
+						transitionDelay    = (index * transitionModifier) + 'ms';
+
+					$character.css( 'transition-delay', transitionDelay );
+				}
+			);
+		},
 	};
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_before_after.qodefBeforeAfter = qodefBeforeAfter;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text.qodefAppear       = qodefAddonsCore.qodefAppear;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text.qodefAnimatedText = qodefAnimatedText;
 
 })( jQuery );
 
@@ -1135,7 +1080,6 @@
 		}
 	};
 
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_banner.qodefInitBanner = qodefInitBanner;
 
 })( jQuery );
@@ -1143,375 +1087,63 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action = {};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action.qodefButton = qodefAddonsCore.qodefButton;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_slider = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_before_after = {};
 
 	$( document ).ready(
 		function () {
-			qodefCardsSlider.init();
+			qodefBeforeAfter.init();
 		}
 	);
 
-	var qodefCardsSlider = {
+	var qodefBeforeAfter = {
 		init: function () {
-			this.holder = $( '.qodef-qi-cards-slider' );
+			this.holder = $( '.qodef-qi-before-after' );
 
 			if ( this.holder.length ) {
 				this.holder.each(
 					function () {
-						qodefCardsSlider.initItem( $( this ) );
+						qodefBeforeAfter.initItem( $( this ) );
 					}
 				);
 			}
 		},
-		initItem: function ( $holder ) {
-			qodefCardsSlider.sliderLoop( $holder );
-		},
-		isInView: function ( $holder ) {
-			var offset   = 0.15; // When item is 15% in the viewport
-			var observer = new IntersectionObserver(
-				function ( entries ) {
-					// isIntersecting is true when element and viewport are overlapping
-					// isIntersecting is false when element and viewport don't overlap
-					if ( entries[0].isIntersecting === true ) {
-						$holder.addClass( 'qodef-in-view' );
-					} else {
-						$holder.removeClass( 'qodef-in-view' );
-					}
-				},
-				{ threshold: [offset] }
-			);
-			observer.observe( $holder[0] );
-			document.addEventListener(
-				'visibilitychange',
-				function ( e ) {
-					if ( document.visibilityState === 'visible' ) {
-						$holder.addClass( 'qodef-in-view' );
-					} else {
-						$holder.removeClass( 'qodef-in-view' );
-					}
-				}
-			);
-		},
-		sliderLoop: function ( $holder, isPaused ) {
-			var $cards      = $holder.find( '.qodef-m-card' ),
-				orientation = $holder.data( 'orientation' ),
-				$navNext    = $holder.find( '.qodef--next' ),
-				$navPrev    = $holder.find( '.qodef--prev' ),
-				marginValue,
-				loopInterval;
+		initItem: function ( $currentItem ) {
+			var $currentHolder = $currentItem.find( '.qodef-before-after-image-holder' ),
+				offset         = $currentHolder.data( 'offset' ) / 100,
+				orientation    = 'horizontal',
+				dragText       = $currentHolder.siblings( '.qodef-handle-text' ),
+				dragHolder;
 
-			switch (orientation) {
-				case 'left':
-					marginValue = '-10%';
-					break;
-				case 'right':
-					marginValue = '10%';
-					break;
+			if ( $currentHolder.parents( '.qodef-qi-before-after' ).hasClass( 'qodef--vertical' ) ) {
+				orientation = 'vertical';
 			}
 
-			// function nextItem (){//with opacity
-			// 	var $currentCard = $cards.last(),
-			// 		$lastCard = $cards.first(),
-			// 		$currentImage = $currentCard.find('.qodef-m-bundle-item');
-			//
-			// 	if (!$currentCard.hasClass( 'qodef-out' )){
-			// 		setTimeout(function(){
-			// 			$currentImage.animate({
-			// 					opacity: 0,
-			// 				},
-			// 				300, 'swing')
-			// 		}, 50);
-			// 		$currentCard.addClass( 'qodef-out' ).animate({
-			// 				right: marginValue
-			// 			},
-			// 			350,
-			// 			'swing',
-			// 			function () {
-			// 				$currentImage.animate({
-			// 						opacity: 1,
-			// 					},
-			// 					450, 'swing');
-			// 				// $currentCard.detach();
-			// 				$currentCard.insertBefore( $lastCard ).animate({
-			// 						right: '0'
-			// 					},
-			// 					500,
-			// 					'swing',
-			// 					function () {
-			// 						$currentCard.removeClass( 'qodef-out' );
-			// 					}
-			// 				);
-			// 				$cards = $holder.find( '.qodef-m-card' );
-			// 			}
-			// 		);
-			// 	}
-			// }
-
-			function nextItem() {//without opacity
-				var $currentCard = $cards.last(),
-					$lastCard    = $cards.first();
-
-				if ( ! $currentCard.hasClass( 'qodef-out' ) ) {
-					$currentCard.addClass( 'qodef-out' ).animate(
-						{
-							right: marginValue
-						},
-						350,
-						'swing',
-						function () {
-							$currentCard.detach().insertBefore( $lastCard ).animate(
-								{
-									right: '0%'
-								},
-								450,
-								'swing',
-								function () {
-									setTimeout(
-										function () {
-											$currentCard.removeClass( 'qodef-out' );
-										},
-										10
-									);
-								}
-							);
-							$cards = $holder.find( '.qodef-m-card' );
-						}
-					);
-				}
-			}
-
-			// function nextItem (){//with detach
-			// 	var $currentCard = $cards.last(),
-			// 		$lastCard = $cards.first();
-			//
-			// 	$currentCard.detach();
-			// 	$currentCard.insertBefore( $lastCard );
-			// 	$cards = $holder.find( '.qodef-m-card' );
-			// }
-
-			// function prevItem(){
-			// 	var $currentCard = $cards.last(),
-			// 		$lastCard    = $cards.first(),
-			// 		$lastImage = $lastCard.find('.qodef-m-bundle-item');
-			//
-			// 	if (!$lastCard.hasClass( 'qodef-in' )){
-			// 		$holder.addClass('qodef-backwards');
-			// 		setTimeout(function(){
-			// 			$lastImage.animate({
-			// 					opacity: 0,
-			// 				},
-			// 				300, 'swing')
-			// 		}, 150);
-			// 		$lastCard.addClass( 'qodef-in' ).animate({
-			// 				right: marginValue
-			// 			},
-			// 			450,
-			// 			'swing',
-			// 			function () {
-			// 				$lastImage.animate({
-			// 						opacity: 1,
-			// 					},
-			// 					450, 'swing');
-			// 				$lastCard.insertAfter( $currentCard ).animate({
-			// 						right: '0'
-			// 					},
-			// 					500,
-			// 					'swing',
-			// 					function () {
-			// 						$lastCard.removeClass( 'qodef-in' );
-			// 						$holder.removeClass('qodef-backwards');
-			// 					}
-			// 				);
-			// 				$cards = $holder.find( '.qodef-m-card' );
-			// 			}
-			// 		);
-			// 	}
-			// }//with opacity
-
-			function prevItem() {
-				var $currentCard = $cards.last(),
-					$lastCard    = $cards.first();
-
-				if ( ! $lastCard.hasClass( 'qodef-in' ) ) {
-					$holder.addClass( 'qodef-backwards' );
-					$lastCard.addClass( 'qodef-in' ).animate(
-						{
-							right: marginValue
-						},
-						350,
-						'swing',
-						function () {
-							$lastCard.detach().insertAfter( $currentCard ).animate(
-								{
-									right: '0'
-								},
-								450,
-								'swing',
-								function () {
-									$lastCard.removeClass( 'qodef-in' );
-									$holder.removeClass( 'qodef-backwards' );
-								}
-							);
-							$cards = $holder.find( '.qodef-m-card' );
-						}
-					);
-				}
-			}//without opacity
-
-			loopInterval = setInterval(
+			qodefAddonsCore.qodefWaitForImages.check(
+				$currentHolder,
 				function () {
-					if ( ! isPaused && $holder.hasClass( 'qodef-in-view' ) ) {
-						nextItem();
-					}
-				},
-				3000
-			);
 
-			qodefCardsSlider.isInView( $holder );
+					$currentHolder.css(
+						'visibility',
+						'visible'
+					);
 
-			if ( qodefAddonsCore.windowWidth > 1024 ) {
-				$holder.on(
-					'mouseenter',
-					function () {
-						isPaused = true;
-					}
-				).on(
-					'mouseleave',
-					function () {
-						isPaused = false;
-					}
-				);
-			} else {
-				$holder.on(
-					'touchstart',
-					function () {
-						isPaused = true;
-					}
-				).on(
-					'touchend',
-					function () {
-						setTimeout(
-							function () {
-								isPaused = false;
-							},
-							2000
-						);
-					}
-				);
-			}
-
-			$navNext.on(
-				'click',
-				nextItem
-			);
-
-			$navPrev.on(
-				'click',
-				prevItem
-			);
-		}
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_slider.qodefCardsSlider = qodefCardsSlider;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_gallery = {};
-
-	$( document ).ready(
-		function () {
-			qodefCardsGallery.init();
-		}
-	);
-
-	var qodefCardsGallery = {
-		init: function () {
-			this.holder = $( '.qodef-qi-cards-gallery' );
-
-			if ( this.holder.length ) {
-				this.holder.each(
-					function () {
-						qodefCardsGallery.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function ( $holder ) {
-			var $cards      = $holder.find( '.qodef-m-card' ),
-				orientation = $holder.data( 'orientation' ),
-				marginValue;
-
-			switch (orientation) {
-				case 'left':
-					marginValue = '0 0 0 20%';
-					break;
-				case 'right':
-					marginValue = '0 20% 0 0';
-					break;
-			}
-
-			$( $cards.get().reverse() ).each(
-				function ( e ) {
-					var $card = $( this );
-
-					$card.on(
-						'click',
-						function () {
-							if ( ! $cards.last().is( $card ) ) {
-
-								if ( 'both' === orientation ) {
-									if ( $card.index() % 2 ) {
-										marginValue = '0 0 0 20%';
-									} else {
-										marginValue = '0 0 0 -20%';
-									}
-								}
-
-								$card.addClass( 'qodef-out' ).animate(
-									{
-										// opacity: 0,
-										margin: marginValue
-									},
-									200,
-									'swing',
-									function () {
-										$card.detach();
-										$card.insertAfter( $cards.last() ).animate(
-											{
-												// opacity: 1,
-												margin: '0'
-											},
-											200,
-											'swing',
-											function () {
-												$card.removeClass( 'qodef-out' );
-											}
-										);
-										$cards = $holder.find( '.qodef-m-card' );
-									}
-								);
-								return false;
-							}
+					$currentHolder.twentytwenty(
+						{
+							orientation: orientation,
+							default_offset_pct: offset
 						}
 					);
+
+					if ( dragText.length ) {
+						dragHolder = $currentHolder.find( '.twentytwenty-handle' );
+						dragHolder.prepend( dragText );
+					}
 				}
 			);
-		},
+		}
 	};
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_gallery.qodefCardsGallery = qodefCardsGallery;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_before_after.qodefBeforeAfter = qodefBeforeAfter;
 
 })( jQuery );
 
@@ -1585,6 +1217,295 @@
 (function ( $ ) {
 	'use strict';
 
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action = {};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action.qodefButton = qodefAddonsCore.qodefButton;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_gallery = {};
+
+	$( document ).ready(
+		function () {
+			qodefCardsGallery.init();
+		}
+	);
+
+	var qodefCardsGallery = {
+		init: function () {
+			this.holder = $( '.qodef-qi-cards-gallery' );
+
+			if ( this.holder.length ) {
+				this.holder.each(
+					function () {
+						qodefCardsGallery.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $holder ) {
+			var $cards      = $holder.find( '.qodef-m-card' ),
+				orientation = $holder.data( 'orientation' ),
+				marginValue;
+
+			switch (orientation) {
+				case 'left':
+					marginValue = '0 0 0 20%';
+					break;
+				case 'right':
+					marginValue = '0 20% 0 0';
+					break;
+			}
+
+			$( $cards.get().reverse() ).each(
+				function () {
+					var $card = $( this );
+
+					$card.on(
+						'click',
+						function () {
+							if ( ! $cards.last().is( $card ) ) {
+
+								if ( 'both' === orientation ) {
+									if ( $card.index() % 2 ) {
+										marginValue = '0 0 0 20%';
+									} else {
+										marginValue = '0 0 0 -20%';
+									}
+								}
+
+								$card.addClass( 'qodef-out' ).animate(
+									{
+										margin: marginValue
+									},
+									200,
+									'swing',
+									function () {
+										$card.detach();
+										$card.insertAfter( $cards.last() ).animate(
+											{
+												margin: '0'
+											},
+											200,
+											'swing',
+											function () {
+												$card.removeClass( 'qodef-out' );
+											}
+										);
+										$cards = $holder.find( '.qodef-m-card' );
+									}
+								);
+								return false;
+							}
+						}
+					);
+				}
+			);
+		},
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_gallery.qodefCardsGallery = qodefCardsGallery;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_slider = {};
+
+	$( document ).ready(
+		function () {
+			qodefCardsSlider.init();
+		}
+	);
+
+	var qodefCardsSlider = {
+		init: function () {
+			this.holder = $( '.qodef-qi-cards-slider' );
+
+			if ( this.holder.length ) {
+				this.holder.each(
+					function () {
+						qodefCardsSlider.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $holder ) {
+			qodefCardsSlider.sliderLoop( $holder );
+		},
+		isInView: function ( $holder ) {
+			// When item is 15% in the viewport.
+			var offset   = 0.15;
+			var observer = new IntersectionObserver(
+				function ( entries ) {
+					// isIntersecting is true when element and viewport are overlapping.
+					// isIntersecting is false when element and viewport don't overlap.
+					if ( entries[0].isIntersecting === true ) {
+						$holder.addClass( 'qodef-in-view' );
+					} else {
+						$holder.removeClass( 'qodef-in-view' );
+					}
+				},
+				{ threshold: [offset] }
+			);
+			observer.observe( $holder[0] );
+			document.addEventListener(
+				'visibilitychange',
+				function () {
+					if ( document.visibilityState === 'visible' ) {
+						$holder.addClass( 'qodef-in-view' );
+					} else {
+						$holder.removeClass( 'qodef-in-view' );
+					}
+				}
+			);
+		},
+		sliderLoop: function ( $holder, isPaused ) {
+			var $cards      = $holder.find( '.qodef-m-card' ),
+				orientation = $holder.data( 'orientation' ),
+				$navNext    = $holder.find( '.qodef--next' ),
+				$navPrev    = $holder.find( '.qodef--prev' ),
+				marginValue,
+				loopInterval;
+
+			switch (orientation) {
+				case 'left':
+					marginValue = '-10%';
+					break;
+				case 'right':
+					marginValue = '10%';
+					break;
+			}
+
+			// without opacity.
+			function nextItem() {
+				var $currentCard = $cards.last(),
+					$lastCard    = $cards.first();
+
+				if ( ! $currentCard.hasClass( 'qodef-out' ) ) {
+					$currentCard.addClass( 'qodef-out' ).animate(
+						{
+							right: marginValue
+						},
+						350,
+						'swing',
+						function () {
+							$currentCard.detach().insertBefore( $lastCard ).animate(
+								{
+									right: '0%'
+								},
+								450,
+								'swing',
+								function () {
+									setTimeout(
+										function () {
+											$currentCard.removeClass( 'qodef-out' );
+										},
+										10
+									);
+								}
+							);
+							$cards = $holder.find( '.qodef-m-card' );
+						}
+					);
+				}
+			}
+
+			function prevItem() {
+				var $currentCard = $cards.last(),
+					$lastCard    = $cards.first();
+
+				if ( ! $lastCard.hasClass( 'qodef-in' ) ) {
+					$holder.addClass( 'qodef-backwards' );
+					$lastCard.addClass( 'qodef-in' ).animate(
+						{
+							right: marginValue
+						},
+						350,
+						'swing',
+						function () {
+							$lastCard.detach().insertAfter( $currentCard ).animate(
+								{
+									right: '0'
+								},
+								450,
+								'swing',
+								function () {
+									$lastCard.removeClass( 'qodef-in' );
+									$holder.removeClass( 'qodef-backwards' );
+								}
+							);
+							$cards = $holder.find( '.qodef-m-card' );
+						}
+					);
+				}
+			}
+
+			loopInterval = setInterval(
+				function () {
+					if ( ! isPaused && $holder.hasClass( 'qodef-in-view' ) ) {
+						nextItem();
+					}
+				},
+				3000
+			);
+
+			qodefCardsSlider.isInView( $holder );
+
+			if ( qodefAddonsCore.windowWidth > 1024 ) {
+				$holder.on(
+					'mouseenter',
+					function () {
+						isPaused = true;
+					}
+				).on(
+					'mouseleave',
+					function () {
+						isPaused = false;
+					}
+				);
+			} else {
+				$holder.on(
+					'touchstart',
+					function () {
+						isPaused = true;
+					}
+				).on(
+					'touchend',
+					function () {
+						setTimeout(
+							function () {
+								isPaused = false;
+							},
+							2000
+						);
+					}
+				);
+			}
+
+			$navNext.on(
+				'click',
+				nextItem
+			);
+
+			$navPrev.on(
+				'click',
+				prevItem
+			);
+		}
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_slider.qodefCardsSlider = qodefCardsSlider;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_charts = {};
 
 	$( document ).ready(
@@ -1646,11 +1567,11 @@
 			var legendLabelLineHeight = thisChart.data( 'legend-label-line-height' );
 			var asceptRatio           = thisChart.data( 'aspect-ratio' );
 
-			let patterns         = thisChart.data( 'pattern-images' );
-			let hasPatternImages = false;
-			let chart;
+			var patterns         = thisChart.data( 'pattern-images' );
+			var hasPatternImages = false;
+			var chart;
 
-			let chartOptions = {
+			var chartOptions = {
 				type: type,
 				data: {
 					datasets: [{
@@ -1748,6 +1669,14 @@
 (function ( $ ) {
 	'use strict';
 
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_clients_slider             = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_clients_slider.qodefSwiper = qodefAddonsCore.qodefSwiper;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_countdown = {};
 
 	$( document ).ready(
@@ -1768,7 +1697,7 @@
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
+		initItem: function ( $currentItem ) {
 			var $countdownElement = $currentItem.find( '.qodef-m-date' ),
 				options           = qodefCountdown.generateOptions( $currentItem );
 
@@ -1798,17 +1727,17 @@
 		initCountdown: function ( $countdownElement, options ) {
 			var countDownDate = new Date( options.date ).getTime();
 
-			// Update the count down every 1 second
+			// Update the count down every 1 second.
 			var x = setInterval(
 				function () {
 
-					// Get today's date and time
+					// Get today's date and time.
 					var now = new Date().getTime();
 
-					// Find the distance between now and the count down date
+					// Find the distance between now and the count-down date.
 					var distance = countDownDate - now;
 
-					// Time calculations for days, hours, minutes and seconds
+					// Time calculations for days, hours, minutes and seconds.
 					var months  = Math.floor( distance / (1000 * 60 * 60 * 24 * 30) );
 					var days    = Math.floor( (distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24) );
 					var hours   = Math.floor( (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) );
@@ -1843,7 +1772,7 @@
 					$minutesHolder.find( '.qodef-digit' ).html( minutes );
 					$secondsHolder.find( '.qodef-digit' ).html( seconds );
 
-					// If the count down is finished, write some text
+					// If the count down is finished, write some text.
 					if ( distance < 0 ) {
 						clearInterval( x );
 						$monthsHolder.find( '.qodef-label' ).html( options.monthLabelPlural );
@@ -1936,53 +1865,45 @@
 
 			$counterElement.text( nb_start + settings.txt );
 
-			// Timer
-			// Launches every "settings.delay"
+			// Timer.
+			// Launches every "settings.delay".
 			var counterInterval = setInterval(
 				function () {
-					// Definition of conditions of arrest
+					// Definition of conditions of arrest.
 					if ( nb_end !== null && nb_start >= nb_end ) {
 						return;
 					}
-					// incrementation
+					// incrementation.
 					nb_start = nb_start + settings.step;
-					// Check is ended
+					// Check is ended.
 					if ( nb_start >= nb_end ) {
 						nb_start = nb_end;
 						clearInterval( counterInterval );
 					}
-					// display
+					// display.
 					$counterElement.text( nb_start + settings.txt );
 				},
 				settings.delay
 			);
 
 			var counter = function () {
-				// Definition of conditions of arrest
+				// Definition of conditions of arrest.
 				if ( nb_end !== null && nb_start >= nb_end ) {
 					return;
 				}
-				// incrementation
+				// incrementation.
 				nb_start = nb_start + settings.step;
 
 				if ( nb_start >= nb_end ) {
 					nb_start = nb_end;
 				}
-				// display
+				// display.
 				$counterElement.text( nb_start + settings.txt );
 			};
 		}
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_counter.qodefCounter = qodefCounter;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_clients_slider             = {};
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_clients_slider.qodefSwiper = qodefAddonsCore.qodefSwiper;
 
 })( jQuery );
 
@@ -2010,18 +1931,18 @@
 			}
 		},
 		initItem: function ( $currentItem ) {
-			//setInterval function is because of the duplicate slides which are not available if main swiper is not initialized (mainly - elementor assets loading)
+			// setInterval function is because of the duplicate slides which are not available if main swiper is not initialized (mainly - elementor assets loading).
 			var waitForMainSwiperInit = setInterval(
 				function () {
-					//if main swiper is initialized - go to inner swipers and clearInterval
+					// if main swiper is initialized - go to inner swipers and clearInterval.
 					if ( $currentItem.children( '.qodef-qi-swiper-container' ).hasClass( 'qodef-swiper--initialized' ) ) {
 						const $deviceSliders = $currentItem.find( '.qodef-device-carousel-device .qodef-qi-swiper-container' );
 
 						$deviceSliders.each(
 							function () {
-								let $deviceSlider = $( this );
+								var $deviceSlider = $( this );
 
-								//check if swiper is already initialized - if not, initialize it, if yes - restart autoplay so they are in sync
+								// check if swiper is already initialized - if not, initialize it, if yes - restart autoplay so they are in sync.
 								if ( ! $deviceSlider.hasClass( 'qodef-swiper--initialized' ) ) {
 									qodefAddonsCore.qodefSwiper.initSlider( $deviceSlider );
 								} else {
@@ -2308,17 +2229,8 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_highlight           = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_highlight             = {};
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_highlight.qodefAppear = qodefAddonsCore.qodefAppear;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery_masonry                    = {};
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery_masonry.qodefMasonryLayout = qodefAddonsCore.qodefMasonryLayout;
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery_masonry.qodefLightboxPopup = qodefAddonsCore.qodefLightboxPopup;
 
 })( jQuery );
 
@@ -2336,6 +2248,15 @@
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery                    = {};
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery.qodefLightboxPopup = qodefAddonsCore.qodefLightboxPopup;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery_masonry                    = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery_masonry.qodefMasonryLayout = qodefAddonsCore.qodefMasonryLayout;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_image_gallery_masonry.qodefLightboxPopup = qodefAddonsCore.qodefLightboxPopup;
 
 })( jQuery );
 
@@ -2432,14 +2353,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_item_showcase             = {};
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_item_showcase.qodefAppear = qodefAddonsCore.qodefAppear;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_link_showcase = {};
 
 	$( document ).ready(
@@ -2500,6 +2413,14 @@
 (function ( $ ) {
 	'use strict';
 
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_item_showcase             = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_item_showcase.qodefAppear = qodefAddonsCore.qodefAppear;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_message_box = {};
 
 	$( document ).ready(
@@ -2521,7 +2442,7 @@
 			}
 		},
 		initItem: function ( $currentItem ) {
-			let $boxHolder = $currentItem.closest( '.elementor-element' );
+			var $boxHolder = $currentItem.closest( '.elementor-element' );
 			$boxHolder.addClass( 'q-message-box-holder' );
 
 			$currentItem.find( '.qodef-m-close-icon' ).on(
@@ -2569,7 +2490,7 @@
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
+		initItem: function ( $currentItem ) {
 			qodefParallaxImages.parallaxElements( $currentItem );
 		},
 		parallaxElements: function ( $image ) {
@@ -2616,7 +2537,8 @@
 			var parallaxInstances = $( '.qodef-qi-parallax-images [data-parallax]' );
 
 			if ( parallaxInstances.length ) {
-				ParallaxScroll.init(); //initialzation removed from plugin js file to have it run only on non-touch devices
+				// initialization removed from plugin js file to have it run only on non-touch devices.
+				ParallaxScroll.init();
 			}
 		}
 	};
@@ -2630,8 +2552,8 @@
 				qodefParallaxImages.initParallaxElements();
 
 				setTimeout(
-					function(){
-						if (qodefAddonsCore.body.hasClass( 'e--ua-firefox' )) {
+					function () {
+						if ( qodefAddonsCore.body.hasClass( 'e--ua-firefox' ) ) {
 							qodefParallaxImages.initParallaxElements();
 						}
 					},
@@ -2642,15 +2564,6 @@
 	);
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_parallax_images.qodefParallaxImages = qodefParallaxImages;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_pricing_list = {};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_pricing_list.qodefButton = qodefAddonsCore.qodefButton;
 
 })( jQuery );
 
@@ -2677,7 +2590,7 @@
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
+		initItem: function ( $currentItem ) {
 			qodefAddonsCore.qodefSwiperElementorCheck.init( qodefPreviewSlider.initSwiperReinit, $currentItem );
 		},
 		initSwiperReinit: function ( $currentItem ) {
@@ -2694,15 +2607,17 @@
 				$activeSlide.height()
 			);
 
-			numItemsMain                        = $mainSlider.find( '.swiper-slide' ).length;
-			deviceSliderOptions                 = $deviceSlider[0].swiper.params;
-			deviceSliderOptions['loopedSlides'] = numItemsMain;//real number of slides should be the same on both sides because of controller
+			numItemsMain        = $mainSlider.find( '.swiper-slide' ).length;
+			deviceSliderOptions = $deviceSlider[0].swiper.params;
+
+			// real number of slides should be the same on both sides because of controller.
+			deviceSliderOptions['loopedSlides'] = numItemsMain;
 			deviceSliderOptions ['autoplay']    = 'false';
 
 			$mainSlider[0].swiper.autoplay.stop();
 			$deviceSlider[0].swiper.destroy();
 
-			let $swiperDeviceNew = new Swiper( $deviceSlider[0], Object.assign( deviceSliderOptions ) );
+			var $swiperDeviceNew = new Swiper( $deviceSlider[0], Object.assign( deviceSliderOptions ) );
 
 			$mainSlider[0].swiper.controller.control = $swiperDeviceNew;
 			$mainSlider[0].swiper.controller.by      = 'slide';
@@ -2722,8 +2637,9 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_process            = {};
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_process.qodefAppear = qodefAddonsCore.qodefAppear;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_pricing_list = {};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_pricing_list.qodefButton = qodefAddonsCore.qodefButton;
 
 })( jQuery );
 
@@ -2739,9 +2655,8 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_section_title = {};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_section_title.qodefButton = qodefAddonsCore.qodefButton;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_process             = {};
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_process.qodefAppear = qodefAddonsCore.qodefAppear;
 
 })( jQuery );
 
@@ -2843,7 +2758,7 @@
 			}
 		},
 		checkBar: function ( $container ) {
-			// check if svg is already in container, elementor fix
+			// check if svg is already in container, elementor fix.
 			if ( $container.find( 'svg' ).length ) {
 				return false;
 			}
@@ -2853,122 +2768,6 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_circle.qodefProgressBar = qodefProgressBar;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_slider_switch = {};
-
-	$( document ).ready(
-		function () {
-			qodefSliderSwitch.init();
-		}
-	);
-
-	var qodefSliderSwitch = {
-		init: function () {
-			this.sliders = $( '.qodef-qi-slider-switch' );
-
-			if ( this.sliders.length ) {
-				this.sliders.each(
-					function () {
-						qodefSliderSwitch.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function( $currentItem ) {
-			qodefAddonsCore.qodefSwiperElementorCheck.init( qodefSliderSwitch.initSwiperReinit, $currentItem );
-		},
-		initSwiperReinit: function ( $currentItem ) {
-			var $activeSlide  = $currentItem.find( '.qodef-m-main-slider > .qodef-qi-swiper-container .swiper-slide-active' ),
-				$deviceHolder = $currentItem.find( '.qodef-slider-switch-device-holder' ),
-				$mainSlider   = $currentItem.find( '.qodef-m-main-slider > .qodef-qi-swiper-container' ),
-				$deviceSlider = $currentItem.find( '.qodef-slider-switch-device-holder .qodef-qi-swiper-container' ),
-				$textSlider   = $currentItem.find( '.qodef-m-main-text .qodef-qi-swiper-container' ),
-				deviceSliderOptions,
-				textSliderOptions,
-				numItemsMain,
-				autoplayDelay;
-
-			$deviceHolder.width( $activeSlide.width() );
-			$deviceHolder.css(
-				'top',
-				$activeSlide.height()
-			);
-
-			numItemsMain                        = $mainSlider.find( '.swiper-slide' ).length;
-			deviceSliderOptions                 = $deviceSlider[0].swiper.params;
-			deviceSliderOptions['loopedSlides'] = numItemsMain;//real number of slides should be the same on both sides because of controller
-			deviceSliderOptions['autoplay']     = false;
-			textSliderOptions                   = $textSlider[0].swiper.params;
-			textSliderOptions['grabCursor']     = false;
-			textSliderOptions['loopedSlides']   = numItemsMain;//real number of slides should be the same on both sides because of controller
-			textSliderOptions['autoplay']       = false;
-			textSliderOptions['effect']         = 'fade';
-			textSliderOptions['allowTouchMove'] = false;
-			$textSlider[0].swiper.update();
-
-			// autoplayDelay = $deviceSlider.attr('data-options');
-			autoplayDelay = $deviceSlider.data()['options']['autoplayDelay'];
-
-			var autoplayEnabled = $mainSlider[0].swiper.autoplay.running;
-
-			$mainSlider[0].swiper.autoplay.stop();
-			$deviceSlider[0].swiper.destroy();
-			$textSlider[0].swiper.destroy();
-
-			let $swiperDeviceNew = new Swiper(
-				$deviceSlider[0],
-				Object.assign( deviceSliderOptions )
-			);
-			let $swiperTextNew   = new Swiper(
-				$textSlider[0],
-				Object.assign( textSliderOptions )
-			);
-
-			$mainSlider[0].swiper.controller.control = $swiperDeviceNew;
-			$mainSlider[0].swiper.controller.by      = 'slide';
-			$mainSlider[0].swiper.controller.inverse = true;
-			$swiperDeviceNew.controller.control      = $mainSlider[0].swiper;
-
-			if ( autoplayEnabled ) {
-				if ( autoplayDelay != '' ) {
-					setTimeout(
-						function () {
-							$mainSlider[0].swiper.autoplay.start();
-						},
-						autoplayDelay
-					);
-				} else {
-					$mainSlider[0].swiper.autoplay.start();
-				}
-			}
-
-			$currentItem.addClass( 'qodef--visible' );
-
-			$swiperDeviceNew.on(
-				'slideChange',
-				function () {
-					let index_deviceSlide = $swiperDeviceNew.realIndex;
-					let index_textSlide   = $swiperTextNew.realIndex;
-
-					if ( index_deviceSlide != index_textSlide ) {
-						$swiperTextNew.slideTo(
-							index_deviceSlide,
-							1000,
-							false
-						);
-					}
-				}
-			);
-		}
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_slider_switch.qodefSwiper       = qodefAddonsCore.qodefSwiper;
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_slider_switch.qodefSliderSwitch = qodefSliderSwitch;
 
 })( jQuery );
 
@@ -3083,7 +2882,7 @@
 			}
 		},
 		checkBar: function ( $container ) {
-			// check if svg is already in container, elementor fix
+			// check if svg is already in container, elementor fix.
 			if ( $container.find( 'svg' ).length ) {
 				return false;
 			}
@@ -3154,280 +2953,6 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_horizontal.qodefProgressBar = qodefProgressBar;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_table_of_contents = {};
-
-	$( document ).ready(
-		function () {
-			qodefTableOfContents.init();
-		}
-	);
-
-	var qodefTableOfContents = {
-		init: function () {
-			this.holder = $( '.qodef-qi-table-of-contents' );
-
-			if ( this.holder.length ) {
-				this.holder.each(
-					function () {
-						qodefTableOfContents.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function ( $currentItem ) {
-			var selector       = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-				$contentHolder = $currentItem.find( '.qodef-m-table-content' ),
-				exclude_tags   = typeof $contentHolder.data( 'excluded-tags' ) !== 'undefined' ? $contentHolder.data( 'excluded-tags' ) : '',
-				exclude_cid    = typeof $contentHolder.data( 'excluded-cids' ) !== 'undefined' ? $contentHolder.data( 'excluded-cids' ) : '',
-				listType       = typeof $contentHolder.data( 'type' ) !== 'undefined' ? $contentHolder.data( 'type' ) : 'ul',
-				$contentTable  = $currentItem.find( '.qodef-m-table-content > ' + listType ),
-				ids            = '',
-				$allObjects    = {},
-				$links         = {},
-				$removables    = ['.qodef-e-number', '.qodef-e-mark'],
-				$headings;
-
-			//if only main content set - include elementor class for content
-			if ( $currentItem.hasClass( 'qodef--only-content' ) ) {
-				selector = selector.map(
-					function ( element ) {
-						return '.elementor ' + element
-					}
-				);
-			}
-			//prepare needed headings according to excluded tags and classes and ids
-			$headings = qodefTableOfContents.prepareHeadings( exclude_tags, exclude_cid, selector );
-
-			if ($headings.length) {
-				$headings.each(
-					function (e) {
-						var $this  = $( this ),
-							$title = $this.clone(),
-							$Ids;
-
-						//get ids for check purposes and finalIds that are added to items
-						$Ids = qodefTableOfContents.prepareId( $removables, $title, ids );
-
-						//add ids for check purposes
-						ids += $Ids.id + ';';
-
-						//add finalId and tagname for item - needed for climbing up the tree
-						$allObjects[e] = {
-							id: $Ids.finalID,
-							tag: $this.prop( 'tagName' ).replace( 'H', '' ),
-						};
-
-						//check position of the item if not first
-						if ( e > 0 ) {
-							var currentTag  = $this.prop( 'tagName' ).replace( 'H', '' ),
-								previousTag = $allObjects[e - 1].tag;
-
-							if ( currentTag > previousTag ) {
-								//if tag of current item is higher then previous tag (h4 > h3) then append new ul tag, and set item to it
-								//afterwards set $contentTable variable to current ul used so new items that are equal to it are added to same ul
-								var $previousItem = $contentTable.find( 'a[href=#' + $allObjects[e - 1].id + ']' ).parent();
-
-								$previousItem.append( '<' + listType + '>' );
-								$contentTable = $previousItem.find( listType ).first();
-
-							} else if ( currentTag < previousTag ) {
-								//if tag of current item is lower then previous tag (h2 > h4) then find previous item that has the same tag or lower
-								//afterwards set $contentTable variable to sibling parent, so current item is added to it
-								var siblingID = qodefTableOfContents.findSiblings( currentTag, e, $allObjects ),
-									$sibling  = $contentTable.parents( '.qodef-m-table-content' ).find( 'a[href=#' + siblingID + ']' ).parent();
-
-								$contentTable = $sibling.parents( listType ).first();
-							}
-						}
-
-						//add id attribute to item, and add item title and link to list
-						$this.attr( 'id', $Ids.finalID );
-						$contentTable.append( '<li><a href="#' + $Ids.finalID + '">' + $title.text() + '</a></li>' );
-					}
-				);
-
-				$links = $contentHolder.find( 'li > a' );
-
-				$links.each(
-					function () {
-						$( this ).on(
-							'click',
-							function (e) {
-								e.preventDefault();
-
-								var $this = $( this ),
-									id    = $this.attr( 'href' );
-
-								qodefTableOfContents.animateAnchor( $this, id );
-							}
-						);
-					}
-				);
-			}
-		},
-		prepareHeadings: function( tags, cids, selector ) {
-			var $headings,
-				$toRemove = [],
-				tag_array,
-				cid_array,
-				cid_not   = '';
-
-			//first remove tags from selector
-			if ( 0 < tags.length ) {
-				tag_array = tags.split( ',' );
-
-				for (var i = 0; i < tag_array.length; i++ ) {
-					if ( -1 !== selector.indexOf( tag_array[i] ) ) {
-						selector.splice( selector.indexOf( tag_array[i] ), 1 );
-					}
-				}
-			}
-
-			//prepare class and ids string selectors
-			if ( 0 < cids.length ) {
-				cid_array = cids.split( ',' );
-
-				for (var i = 0; i < cid_array.length; i++ ) {
-					cid_not += ':not(' + cid_array[i] + ')';
-				}
-			}
-
-			//join selectors with exclude_cid selector, glue them together and add exclude_cid to end
-			selector = selector.join( cid_not + ', ' ) + cid_not;
-
-			//create $headings
-			$headings = $( selector );
-
-			//find $headings that have some of the parents classes or ids, and add its index in $toRemove array
-			if ($headings.length) {
-				$headings.each(
-					function ( e ) {
-						var $this = $( this ),
-							add   = true;
-
-						for ( var i = 0; i < cid_array.length; i++ ) {
-							var $parent = $this.parents( cid_array[i] );
-
-							if ( $parent.length ) {
-								$toRemove.push( e );
-								return;
-							}
-						}
-					}
-				);
-			}
-
-			//remove excluded $headings by their index
-			for ( var i = $toRemove.length - 1; i >= 0; i-- ) {
-				$headings.splice( $toRemove[i], 1 );
-			}
-
-			return $headings;
-		},
-		prepareId: function( $removables, $title, ids ) {
-			var $Ids = {};
-
-			//remove items that are in h-tag, but not used for title
-			$removables.forEach(
-				function(e) {
-					var $item = $title.find( e );
-
-					$item.remove();
-				}
-			);
-
-			$Ids.id = $title.text().trim().replaceAll( ' ', '_' ).replaceAll( /[^a-zA-Z_]+/g , '' );
-
-			//calculate finalId depending on whether are same ids
-			if ( 0 !== ids.length ) {
-				//get all ids (separated by ; in ids variable
-				var regExp      = new RegExp( $Ids.id + ';', 'g' ),
-					count       = ids.match( regExp ),
-					countLength = 0;
-
-				//if there are items found, set how many
-				if ( null !== count ) {
-					countLength = count.length;
-				}
-
-				//if there are items with the same title, add '___' string and current count of elements
-				if ( 0 !== countLength ) {
-					countLength += 1;
-					$Ids.finalID = $Ids.id + '____' + countLength;
-				} else {
-					$Ids.finalID = $Ids.id;
-				}
-			} else {
-				$Ids.finalID = $Ids.id;
-			}
-
-			return $Ids;
-		},
-		findSiblings: function( currentTag, currentIndex, $allHeadings ) {
-			if ( 0 === currentIndex ) {
-				return $allHeadings[0].id;
-			} else {
-				var previousIndex = currentIndex - 1;
-
-				if ( $allHeadings[previousIndex].tag > currentTag ) {
-					return qodefTableOfContents.findSiblings( currentTag, previousIndex, $allHeadings );
-				} else {
-					return $allHeadings[previousIndex].id;
-				}
-			}
-		},
-		animateAnchor: function ( $link, id ) {
-			var startPos = window.scrollY,
-				newPos   = $( id ).offset().top,
-				change   = startPos > newPos ? -1 : 1,
-				step     = 50,
-				animationFrameId,
-				admin    = $( '#wpadminbar' );
-
-			if ( admin.length ) {
-				newPos -= admin.height();
-			}
-
-			var startAnimation = function () {
-				if ( startPos === newPos ) {
-					return;
-				}
-
-				if ( Math.abs( startPos - newPos ) <= 100 ) {
-					step = 8;
-				}
-
-				if ( ( -1 === change && startPos < newPos ) || ( 1 === change && startPos > newPos ) ) {
-					startPos = newPos;
-				}
-
-				var ease = qodefTableOfContents.easingFunction( (startPos - newPos) / startPos );
-				$( 'html, body' ).scrollTop( startPos - (startPos - newPos) * ease );
-
-				startPos = startPos + change * step;
-
-				animationFrameId = requestAnimationFrame( startAnimation );
-			};
-			startAnimation();
-			$( window ).one(
-				'wheel touchstart',
-				function () {
-					cancelAnimationFrame( animationFrameId );
-				}
-			);
-		},
-		easingFunction: function ( n ) {
-			return 0 == n ? 0 : Math.pow( 1024, n - 1 );
-		},
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_table_of_contents.qodefTableOfContents = qodefTableOfContents;
 
 })( jQuery );
 
@@ -3567,7 +3092,7 @@
 			}
 		},
 		checkBar: function ( $container ) {
-			// check if svg is already in container, elementor fix
+			// check if svg is already in container, elementor fix.
 			if ( $container.find( 'svg' ).length ) {
 				return false;
 			}
@@ -3638,6 +3163,409 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_vertical.qodefProgressBar = qodefProgressBar;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_section_title = {};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_section_title.qodefButton = qodefAddonsCore.qodefButton;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_slider_switch = {};
+
+	$( document ).ready(
+		function () {
+			qodefSliderSwitch.init();
+		}
+	);
+
+	var qodefSliderSwitch = {
+		init: function () {
+			this.sliders = $( '.qodef-qi-slider-switch' );
+
+			if ( this.sliders.length ) {
+				this.sliders.each(
+					function () {
+						qodefSliderSwitch.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $currentItem ) {
+			qodefAddonsCore.qodefSwiperElementorCheck.init( qodefSliderSwitch.initSwiperReinit, $currentItem );
+		},
+		initSwiperReinit: function ( $currentItem ) {
+			var $activeSlide  = $currentItem.find( '.qodef-m-main-slider > .qodef-qi-swiper-container .swiper-slide-active' ),
+				$deviceHolder = $currentItem.find( '.qodef-slider-switch-device-holder' ),
+				$mainSlider   = $currentItem.find( '.qodef-m-main-slider > .qodef-qi-swiper-container' ),
+				$deviceSlider = $currentItem.find( '.qodef-slider-switch-device-holder .qodef-qi-swiper-container' ),
+				$textSlider   = $currentItem.find( '.qodef-m-main-text .qodef-qi-swiper-container' ),
+				deviceSliderOptions,
+				textSliderOptions,
+				numItemsMain,
+				autoplayDelay;
+
+			$deviceHolder.width( $activeSlide.width() );
+			$deviceHolder.css(
+				'top',
+				$activeSlide.height()
+			);
+
+			numItemsMain        = $mainSlider.find( '.swiper-slide' ).length;
+			deviceSliderOptions = $deviceSlider[0].swiper.params;
+			// real number of slides should be the same on both sides because of controller.
+			deviceSliderOptions['loopedSlides'] = numItemsMain;
+			deviceSliderOptions['autoplay']     = false;
+			textSliderOptions                   = $textSlider[0].swiper.params;
+			textSliderOptions['grabCursor']     = false;
+			// real number of slides should be the same on both sides because of controller.
+			textSliderOptions['loopedSlides']   = numItemsMain;
+			textSliderOptions['autoplay']       = false;
+			textSliderOptions['effect']         = 'fade';
+			textSliderOptions['allowTouchMove'] = false;
+			$textSlider[0].swiper.update();
+
+			autoplayDelay = $deviceSlider.data()['options']['autoplayDelay'];
+
+			var autoplayEnabled = $mainSlider[0].swiper.autoplay.running;
+
+			$mainSlider[0].swiper.autoplay.stop();
+			$deviceSlider[0].swiper.destroy();
+			$textSlider[0].swiper.destroy();
+
+			var $swiperDeviceNew = new Swiper(
+				$deviceSlider[0],
+				Object.assign( deviceSliderOptions )
+			);
+			var $swiperTextNew   = new Swiper(
+				$textSlider[0],
+				Object.assign( textSliderOptions )
+			);
+
+			$mainSlider[0].swiper.controller.control = $swiperDeviceNew;
+			$mainSlider[0].swiper.controller.by      = 'slide';
+			$mainSlider[0].swiper.controller.inverse = true;
+			$swiperDeviceNew.controller.control      = $mainSlider[0].swiper;
+
+			if ( autoplayEnabled ) {
+				if ( autoplayDelay !== '' ) {
+					setTimeout(
+						function () {
+							$mainSlider[0].swiper.autoplay.start();
+						},
+						autoplayDelay
+					);
+				} else {
+					$mainSlider[0].swiper.autoplay.start();
+				}
+			}
+
+			$currentItem.addClass( 'qodef--visible' );
+
+			$swiperDeviceNew.on(
+				'slideChange',
+				function () {
+					var index_deviceSlide = $swiperDeviceNew.realIndex;
+					var index_textSlide   = $swiperTextNew.realIndex;
+
+					if ( index_deviceSlide != index_textSlide ) {
+						$swiperTextNew.slideTo(
+							index_deviceSlide,
+							1000,
+							false
+						);
+					}
+				}
+			);
+		}
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_slider_switch.qodefSwiper       = qodefAddonsCore.qodefSwiper;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_slider_switch.qodefSliderSwitch = qodefSliderSwitch;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_table_of_contents = {};
+
+	$( document ).ready(
+		function () {
+			qodefTableOfContents.init();
+		}
+	);
+
+	var qodefTableOfContents = {
+		init: function () {
+			this.holder = $( '.qodef-qi-table-of-contents' );
+
+			if ( this.holder.length ) {
+				this.holder.each(
+					function () {
+						qodefTableOfContents.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $currentItem ) {
+			var selector       = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+				$contentHolder = $currentItem.find( '.qodef-m-table-content' ),
+				exclude_tags   = typeof $contentHolder.data( 'excluded-tags' ) !== 'undefined' ? $contentHolder.data( 'excluded-tags' ) : '',
+				exclude_cid    = typeof $contentHolder.data( 'excluded-cids' ) !== 'undefined' ? $contentHolder.data( 'excluded-cids' ) : '',
+				listType       = typeof $contentHolder.data( 'type' ) !== 'undefined' ? $contentHolder.data( 'type' ) : 'ul',
+				$contentTable  = $currentItem.find( '.qodef-m-table-content > ' + listType ),
+				ids            = '',
+				$allObjects    = {},
+				$links         = {},
+				$removables    = ['.qodef-e-number', '.qodef-e-mark'],
+				$headings;
+
+			// if only main content set - include elementor class for content.
+			if ( $currentItem.hasClass( 'qodef--only-content' ) ) {
+				selector = selector.map(
+					function ( element ) {
+						return '.elementor ' + element
+					}
+				);
+			}
+			// prepare needed headings according to excluded tags and classes and ids.
+			$headings = qodefTableOfContents.prepareHeadings( exclude_tags, exclude_cid, selector );
+
+			if ($headings.length) {
+				$headings.each(
+					function (e) {
+						var $this  = $( this ),
+							$title = $this.clone(),
+							$Ids;
+
+						// get ids for check purposes and finalIds that are added to items.
+						$Ids = qodefTableOfContents.prepareId( $removables, $title, ids );
+
+						// add ids for check purposes.
+						ids += $Ids.id + ';';
+
+						// add finalId and tagname for item - needed for climbing up the tree.
+						$allObjects[e] = {
+							id: $Ids.finalID,
+							tag: $this.prop( 'tagName' ).replace( 'H', '' ),
+						};
+
+						// check position of the item if not first.
+						if ( e > 0 ) {
+							var currentTag  = $this.prop( 'tagName' ).replace( 'H', '' ),
+								previousTag = $allObjects[e - 1].tag;
+
+							if ( currentTag > previousTag ) {
+								// if tag of current item is higher then previous tag (h4 > h3) then append new ul tag, and set item to it.
+								// afterwards set $contentTable variable to current ul used so new items that are equal to it are added to same ul.
+								var $previousItem = $contentTable.find( 'a[href=#' + $allObjects[e - 1].id + ']' ).parent();
+
+								$previousItem.append( '<' + listType + '>' );
+								$contentTable = $previousItem.find( listType ).first();
+
+							} else if ( currentTag < previousTag ) {
+								// if tag of current item is lower then previous tag (h2 > h4) then find previous item that has the same tag or lower.
+								// afterwards set $contentTable variable to sibling parent, so current item is added to it.
+								var siblingID = qodefTableOfContents.findSiblings( currentTag, e, $allObjects ),
+									$sibling  = $contentTable.parents( '.qodef-m-table-content' ).find( 'a[href=#' + siblingID + ']' ).parent();
+
+								$contentTable = $sibling.parents( listType ).first();
+							}
+						}
+
+						// add id attribute to item, and add item title and link to list.
+						$this.attr( 'id', $Ids.finalID );
+						$contentTable.append( '<li><a href="#' + $Ids.finalID + '">' + $title.text() + '</a></li>' );
+					}
+				);
+
+				$links = $contentHolder.find( 'li > a' );
+
+				$links.each(
+					function () {
+						$( this ).on(
+							'click',
+							function (e) {
+								e.preventDefault();
+
+								var $this = $( this ),
+									id    = $this.attr( 'href' );
+
+								qodefTableOfContents.animateAnchor( $this, id );
+							}
+						);
+					}
+				);
+			}
+		},
+		prepareHeadings: function ( tags, cids, selector ) {
+			var $headings,
+				$toRemove = [],
+				tag_array,
+				cid_array,
+				cid_not   = '';
+
+			// first remove tags from selector.
+			if ( 0 < tags.length ) {
+				tag_array = tags.split( ',' );
+
+				// phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found
+				for ( var i = 0; i < tag_array.length; i++ ) {
+					if ( -1 !== selector.indexOf( tag_array[i] ) ) {
+						selector.splice( selector.indexOf( tag_array[i] ), 1 );
+					}
+				}
+			}
+
+			// prepare class and ids string selectors.
+			if ( 0 < cids.length ) {
+				cid_array = cids.split( ',' );
+
+				// phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found
+				for ( var i = 0; i < cid_array.length; i++ ) {
+					cid_not += ':not(' + cid_array[i] + ')';
+				}
+			}
+
+			// join selectors with exclude_cid selector, glue them together and add exclude_cid to end.
+			selector = selector.join( cid_not + ', ' ) + cid_not;
+
+			// create $headings.
+			$headings = $( selector );
+
+			// find $headings that have some of the parents classes or ids, and add its index in $toRemove array.
+			if ($headings.length) {
+				$headings.each(
+					function ( e ) {
+						var $this = $( this ),
+							add   = true;
+
+						// phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found
+						for ( var i = 0; i < cid_array.length; i++ ) {
+							var $parent = $this.parents( cid_array[i] );
+
+							if ( $parent.length ) {
+								$toRemove.push( e );
+								return;
+							}
+						}
+					}
+				);
+			}
+
+			// remove excluded $headings by their index.
+			for ( var i = $toRemove.length - 1; i >= 0; i-- ) {
+				$headings.splice( $toRemove[i], 1 );
+			}
+
+			return $headings;
+		},
+		prepareId: function ( $removables, $title, ids ) {
+			var $Ids = {};
+
+			// remove items that are in h-tag, but not used for title.
+			$removables.forEach(
+				function ( e ) {
+					var $item = $title.find( e );
+
+					$item.remove();
+				}
+			);
+
+			$Ids.id = $title.text().trim().replaceAll( ' ', '_' ).replaceAll( /[^a-zA-Z_]+/g , '' );
+
+			// calculate finalId depending on whether are same ids.
+			if ( 0 !== ids.length ) {
+				// get all ids (separated by ; in ids variable.
+				var regExp      = new RegExp( $Ids.id + ';', 'g' ),
+					count       = ids.match( regExp ),
+					countLength = 0;
+
+				// if there are items found, set how many.
+				if ( null !== count ) {
+					countLength = count.length;
+				}
+
+				// if there are items with the same title, add '___' string and current count of elements.
+				if ( 0 !== countLength ) {
+					countLength += 1;
+					$Ids.finalID = $Ids.id + '____' + countLength;
+				} else {
+					$Ids.finalID = $Ids.id;
+				}
+			} else {
+				$Ids.finalID = $Ids.id;
+			}
+
+			return $Ids;
+		},
+		findSiblings: function ( currentTag, currentIndex, $allHeadings ) {
+			if ( 0 === currentIndex ) {
+				return $allHeadings[0].id;
+			} else {
+				var previousIndex = currentIndex - 1;
+
+				if ( $allHeadings[previousIndex].tag > currentTag ) {
+					return qodefTableOfContents.findSiblings( currentTag, previousIndex, $allHeadings );
+				} else {
+					return $allHeadings[previousIndex].id;
+				}
+			}
+		},
+		animateAnchor: function ( $link, id ) {
+			var startPos = window.scrollY,
+				newPos   = $( id ).offset().top,
+				change   = startPos > newPos ? -1 : 1,
+				step     = 50,
+				animationFrameId,
+				admin    = $( '#wpadminbar' );
+
+			if ( admin.length ) {
+				newPos -= admin.height();
+			}
+
+			var startAnimation = function () {
+				if ( startPos === newPos ) {
+					return;
+				}
+
+				if ( Math.abs( startPos - newPos ) <= 100 ) {
+					step = 8;
+				}
+
+				if ( ( -1 === change && startPos < newPos ) || ( 1 === change && startPos > newPos ) ) {
+					startPos = newPos;
+				}
+
+				var ease = qodefTableOfContents.easingFunction( (startPos - newPos) / startPos );
+				$( 'html, body' ).scrollTop( startPos - (startPos - newPos) * ease );
+
+				startPos = startPos + change * step;
+
+				animationFrameId = requestAnimationFrame( startAnimation );
+			};
+			startAnimation();
+			$( window ).one(
+				'wheel touchstart',
+				function () {
+					cancelAnimationFrame( animationFrameId );
+				}
+			);
+		},
+		easingFunction: function ( n ) {
+			return 0 == n ? 0 : Math.pow( 1024, n - 1 );
+		},
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_table_of_contents.qodefTableOfContents = qodefTableOfContents;
 
 })( jQuery );
 
@@ -3794,7 +3722,7 @@
 
 				if ( numberOfItems > 1 ) {
 
-					//calculate width for element in dependency of selected number of columns for that stage
+					// calculate width for element in dependency of selected number of columns for that stage.
 					if ( qodefAddonsCore.windowWidth > 1440 ) {
 						width = holderWidth / options.colNum;
 					} else if ( qodefAddonsCore.windowWidth > 1366 ) {
@@ -3811,16 +3739,16 @@
 						width = holderWidth / options.colNum480;
 					}
 
-					//fullwidth of grid is width of element * number of all elements
+					// fullwidth of grid is width of element * number of all elements.
 					fullWidth = width * numberOfItems;
 
-					//set movement step to width of one element
+					// set movement step to width of one element.
 					$currentItem.data(
 						'movement',
 						width
 					);
 
-					//set already moved value to 0 (important for reinit also)
+					// set already moved value to 0 (important for reinit also).
 					$currentItem.data(
 						'moved',
 						0
@@ -3828,7 +3756,6 @@
 
 					$gridHolder.width( fullWidth );
 					$gridHolder.css( 'transform', 'translateX(0)' );
-
 
 					qodefAddonsCore.body.trigger(
 						'qi_addons_for_elementor_trigger_timeline_before_init_movement',
@@ -3854,7 +3781,7 @@
 
 					var currentMovement = parseFloat( $currentItem.data( 'moved' ) );
 
-					// currentMovement is negative if timeline is already moved
+					// currentMovement is negative if timeline is already moved.
 					if ( currentMovement < -1 ) {
 						var newMovement = currentMovement + movement;
 						$grid.css(
@@ -3877,8 +3804,8 @@
 					var currentMovement = parseFloat( $currentItem.data( 'moved' ) );
 
 					// gridWidth - holderWidth + 1(for partial px) is allowed movement,
-					// currentMovement is how much is grid already moved, movement is step for movement
-					// timeline can not move any more to the right if allowed movement is smaller than planned movement for that step
+					// currentMovement is how much is grid already moved, movement is step for movement.
+					// timeline can not move any more to the right if allowed movement is smaller than planned movement for that step.
 					if ( gridWidth - holderWidth + 1 > -currentMovement + movement ) {
 						var newMovement = currentMovement - movement;
 						$grid.css(
@@ -3896,7 +3823,7 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline.qodefTimeline = qodefTimeline;
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline.qodefAppear = qodefAddonsCore.qodefAppear;
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline.qodefAppear   = qodefAddonsCore.qodefAppear;
 
 })( jQuery );
 
@@ -3978,18 +3905,6 @@
 (function ( $ ) {
 	'use strict';
 
-	var shortcode = 'qi_addons_for_elementor_blog_slider';
-
-	qodefAddonsCore.shortcodes[shortcode] = {};
-
-	qodefAddonsCore.shortcodes[shortcode].qodefSwiper        = qodefAddonsCore.qodefSwiper;
-	qodefAddonsCore.shortcodes[shortcode].qodefLightboxPopup = qodefAddonsCore.qodefLightboxPopup;
-	qodefAddonsCore.shortcodes[shortcode].qodefButton        = qodefAddonsCore.qodefButton;
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	var shortcode = 'qi_addons_for_elementor_blog_list';
 
 	qodefAddonsCore.shortcodes[shortcode] = {};
@@ -3998,6 +3913,18 @@
 	qodefAddonsCore.shortcodes[shortcode].qodefMasonryLayout = qodefAddonsCore.qodefMasonryLayout;
 	qodefAddonsCore.shortcodes[shortcode].qodefButton        = qodefAddonsCore.qodefButton;
 
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	var shortcode = 'qi_addons_for_elementor_blog_slider';
+
+	qodefAddonsCore.shortcodes[shortcode] = {};
+
+	qodefAddonsCore.shortcodes[shortcode].qodefSwiper        = qodefAddonsCore.qodefSwiper;
+	qodefAddonsCore.shortcodes[shortcode].qodefLightboxPopup = qodefAddonsCore.qodefLightboxPopup;
+	qodefAddonsCore.shortcodes[shortcode].qodefButton        = qodefAddonsCore.qodefButton;
 })( jQuery );
 
 (function ( $ ) {
@@ -4020,37 +3947,42 @@
 			}
 		},
 		handleNotice: function () {
-			var submitButton = this.noticeHolder.find('.qodef-statistics-button'),
-				nonceHolder = this.noticeHolder.find('#qi-addons-for-elementor-notice-nonce');
+			var submitButton = this.noticeHolder.find( '.qodef-statistics-button' ),
+				nonceHolder  = this.noticeHolder.find( '#qi-addons-for-elementor-notice-nonce' );
 
-			if( submitButton.length ) {
-				submitButton.each( function () {
-					var thisSubmitButton = $(this),
-						noticeAction = thisSubmitButton.hasClass('qodef-statistics--allowed') ? 'allowed' : 'disallowed';
+			if ( submitButton.length ) {
+				submitButton.each(
+					function () {
+						var thisSubmitButton = $( this ),
+							noticeAction     = thisSubmitButton.hasClass( 'qodef-statistics--allowed' ) ? 'allowed' : 'disallowed';
 
-					thisSubmitButton.on( 'click', function ( e ) {
-						e.preventDefault();
+						thisSubmitButton.on(
+							'click',
+							function ( e ) {
+								e.preventDefault();
 
-						$.ajax(
-							{
-								type: 'POST',
-								data: {
-									action: 'qi_addons_for_elementor_notice',
-									notice_action: noticeAction,
-									nonce: nonceHolder.val()
-								},
-								url: ajaxurl,
-								success: function ( data ) {
-									var response = $.parseJSON( data );
+								$.ajax(
+									{
+										type: 'POST',
+										data: {
+											action: 'qi_addons_for_elementor_notice',
+											notice_action: noticeAction,
+											nonce: nonceHolder.val()
+										},
+										url: ajaxurl,
+										success: function ( data ) {
+											var response = $.parseJSON( data );
 
-									if( response.status === 'success' ){
-										qodefNotice.noticeHolder.slideUp('fast');
+											if ( response.status === 'success' ) {
+												qodefNotice.noticeHolder.slideUp( 'fast' );
+											}
+										}
 									}
-								}
+								);
 							}
 						);
-					} )
-				} )
+					}
+				);
 			}
 		}
 	};
@@ -4064,142 +3996,158 @@
 			}
 		},
 		handleReviewNotice: function () {
-			var submitButton = this.noticeHolder.find('.qodef-review-button'),
-				nonceHolder = this.noticeHolder.find('#qi-addons-for-elementor-review-notice-nonce');
+			var submitButton = this.noticeHolder.find( '.qodef-review-button' ),
+				nonceHolder  = this.noticeHolder.find( '#qi-addons-for-elementor-review-notice-nonce' );
 
-			if( submitButton.length ) {
-				submitButton.each( function () {
-					var thisSubmitButton = $(this),
-						reviewAction;
+			if ( submitButton.length ) {
+				submitButton.each(
+					function () {
+						var thisSubmitButton = $( this ),
+							reviewAction;
 
-					thisSubmitButton.on( 'click', function ( e ) {
+						thisSubmitButton.on(
+							'click',
+							function ( e ) {
 
-						if( thisSubmitButton.hasClass( 'qodef-review--already-reviewed-action' ) ) {
-							reviewAction = 'already-reviewed';
-						} else if ( thisSubmitButton.hasClass( 'qodef-review--maybe-later-action' ) ) {
-							reviewAction = 'maybe-later';
-						} else {
-							reviewAction = 'review';
-						}
+								if ( thisSubmitButton.hasClass( 'qodef-review--already-reviewed-action' ) ) {
+									reviewAction = 'already-reviewed';
+								} else if ( thisSubmitButton.hasClass( 'qodef-review--maybe-later-action' ) ) {
+									reviewAction = 'maybe-later';
+								} else {
+									reviewAction = 'review';
+								}
 
-						if( reviewAction !== 'review' ) {
-							e.preventDefault();
+								if ( reviewAction !== 'review' ) {
+									e.preventDefault();
+								}
+
+								$.ajax(
+									{
+										type: 'POST',
+										data: {
+											action: 'qi_addons_for_elementor_review_notice',
+											review_action: reviewAction,
+											nonce: nonceHolder.val()
+										},
+										url: ajaxurl,
+										success: function ( data ) {
+											var response = $.parseJSON( data );
+
+											if ( response.status === 'success' ) {
+												qodefReviewNotice.noticeHolder.slideUp( 'fast' );
+											}
+										}
+									}
+								);
+							}
+						);
+					}
+				);
+			}
+		}
+	};
+
+	var qodefDeactivationModal = {
+		init: function () {
+			this.deactivationLink  = $( '#the-list' ).find( '[data-slug="qi-addons-for-elementor"] span.deactivate a' );
+			this.deactivationModal = $( '#qi-addons-for-elementor-deactivation-modal' );
+
+			if ( this.deactivationLink.length && this.deactivationModal.length ) {
+				this.initModal();
+			}
+		},
+		initModal: function () {
+			this.deactivationLink.on(
+				'click',
+				function ( e ) {
+					e.preventDefault();
+					qodefDeactivationModal.deactivationModal.fadeIn( 'fast' );
+				}
+			);
+
+			this.enableModalCloseFunctionality();
+			this.initSubmitFunctionality();
+			this.initSkipFunctionality();
+		},
+		initSubmitFunctionality: function () {
+			var submitButton = this.deactivationModal.find( '.qodef-deactivation-modal-button-submit' ),
+				skipButton   = this.deactivationModal.find( '.qodef-deactivation-modal-button-skip' ),
+				nonceHolder  = this.deactivationModal.find( '#qi-addons-for-elementor-deactivation-nonce' );
+
+			if ( submitButton.length ) {
+				submitButton.on(
+					'click',
+					function ( e ) {
+						e.preventDefault();
+						submitButton.addClass( 'qodef--processing' );
+						skipButton.addClass( 'qodef--disabled' );
+
+						var reason = qodefDeactivationModal.deactivationModal.find( 'input[name="reason_key"]:checked' ).val(),
+							additionalInfo;
+
+						switch (reason) {
+							case 'found_a_better_plugin':
+								additionalInfo = qodefDeactivationModal.deactivationModal.find( 'input[name="reason_found_a_better_plugin"]' ).val();
+								break;
+							case 'other':
+								additionalInfo = qodefDeactivationModal.deactivationModal.find( 'input[name="reason_other"]' ).val();
+								break;
+							default:
+								additionalInfo = '';
 						}
 
 						$.ajax(
 							{
 								type: 'POST',
 								data: {
-									action: 'qi_addons_for_elementor_review_notice',
-									review_action: reviewAction,
+									action: 'qi_addons_for_elementor_deactivation',
+									reason: reason,
+									additionalInfo: additionalInfo,
 									nonce: nonceHolder.val()
 								},
 								url: ajaxurl,
-								success: function ( data ) {
-									var response = $.parseJSON( data );
-
-									if( response.status === 'success' ){
-										qodefReviewNotice.noticeHolder.slideUp('fast');
-									}
+								success: function () {
+									qodefDeactivationModal.deactivatePlugin();
 								}
 							}
 						);
-					} )
-				} )
-			}
-		}
-	};
-
-	var qodefDeactivationModal = {
-		init: function() {
-			this.deactivationLink = $( '#the-list' ).find( '[data-slug="qi-addons-for-elementor"] span.deactivate a' );
-			this.deactivationModal = $( '#qi-addons-for-elementor-deactivation-modal' );
-
-			if( this.deactivationLink.length && this.deactivationModal.length ) {
-				this.initModal();
-			}
-		},
-		initModal: function () {
-			this.deactivationLink.on( 'click', function (e) {
-				e.preventDefault();
-				qodefDeactivationModal.deactivationModal.fadeIn( 'fast' );
-			} );
-
-			this.enableModalCloseFunctionality();
-			this.initSubmitFunctionality();
-			this.initSkipFunctionality();
-		},
-		initSubmitFunctionality: function() {
-			var submitButton = this.deactivationModal.find( '.qodef-deactivation-modal-button-submit' ),
-				skipButton = this.deactivationModal.find( '.qodef-deactivation-modal-button-skip' ),
-				nonceHolder = this.deactivationModal.find('#qi-addons-for-elementor-deactivation-nonce');
-
-			if( submitButton.length ) {
-				submitButton.on( 'click', function(e) {
-					e.preventDefault();
-					submitButton.addClass( 'qodef--processing' );
-					skipButton.addClass( 'qodef--disabled' );
-
-					var reason = qodefDeactivationModal.deactivationModal.find('input[name="reason_key"]:checked').val(),
-						additionalInfo;
-
-					switch( reason ) {
-						case 'found_a_better_plugin':
-							additionalInfo = qodefDeactivationModal.deactivationModal.find('input[name="reason_found_a_better_plugin"]').val();
-							break;
-						case 'other':
-							additionalInfo = qodefDeactivationModal.deactivationModal.find('input[name="reason_other"]').val();
-							break;
-						default:
-							additionalInfo = '';
 					}
-
-					$.ajax(
-						{
-							type: 'POST',
-							data: {
-								action: 'qi_addons_for_elementor_deactivation',
-								reason: reason,
-								additionalInfo: additionalInfo,
-								nonce: nonceHolder.val()
-							},
-							url: ajaxurl,
-							success: function ( data ) {
-								var response = $.parseJSON( data );
-								qodefDeactivationModal.deactivatePlugin();
-							}
-						}
-					);
-				} )
+				);
 			}
 		},
-		initSkipFunctionality: function() {
+		initSkipFunctionality: function () {
 			var submitButton = this.deactivationModal.find( '.qodef-deactivation-modal-button-submit' ),
-				skipButton = this.deactivationModal.find( '.qodef-deactivation-modal-button-skip' );
+				skipButton   = this.deactivationModal.find( '.qodef-deactivation-modal-button-skip' );
 
-			if( skipButton.length ) {
-				skipButton.on( 'click', function(e) {
-					e.preventDefault();
-					skipButton.addClass( 'qodef--processing' );
-					submitButton.addClass( 'qodef--disabled' );
-					qodefDeactivationModal.deactivatePlugin();
-				} )
+			if ( skipButton.length ) {
+				skipButton.on(
+					'click',
+					function ( e ) {
+						e.preventDefault();
+						skipButton.addClass( 'qodef--processing' );
+						submitButton.addClass( 'qodef--disabled' );
+						qodefDeactivationModal.deactivatePlugin();
+					}
+				);
 			}
 		},
-		deactivatePlugin: function() {
-			location.href = this.deactivationLink.attr('href');
+		deactivatePlugin: function () {
+			location.href = this.deactivationLink.attr( 'href' );
 		},
 		enableModalCloseFunctionality: function () {
 			var closeButton = this.deactivationModal.find( '.qodef-deactivation-modal-close' );
 
-			if( closeButton.length ) {
-				closeButton.on( 'click', function(e) {
-					e.preventDefault();
-					qodefDeactivationModal.deactivationModal.fadeOut( 'fast' );
-				} )
+			if ( closeButton.length ) {
+				closeButton.on(
+					'click',
+					function ( e ) {
+						e.preventDefault();
+						qodefDeactivationModal.deactivationModal.fadeOut( 'fast' );
+					}
+				);
 			}
 		}
-	}
+	};
 
 })( jQuery );
 
@@ -4215,7 +4163,7 @@
 	);
 
 	var changeViewCart = {
-		init: function() {
+		init: function () {
 			this.holder = $( '.qodef-qi-woo-shortcode-add-to-cart' );
 
 			if ( this.holder.length ) {
@@ -4231,18 +4179,19 @@
 
 			$( 'body' ).on(
 				'added_to_cart',
-				function ( e ) {
+				function () {
 					var $viewButton = $currentItem.find( '.added_to_cart:not(.qodef-qi-button)' );
 
 					if ( $viewButton.length ) {
 						var $addButton      = $viewButton.siblings( '.add_to_cart_button' ),
 							classesToRemove = ['button', 'product_type_simple', 'add_to_cart_button', 'ajax_add_to_cart', 'added'],
+							classesCount    = classesToRemove.length,
 							classes         = $addButton.attr( 'class' ),
 							$border         = $addButton.find( '.qodef-m-border' ),
 							$innerBorder    = $addButton.find( '.qodef-m-inner-border' ),
 							$icon           = $addButton.find( '.qodef-m-icon' );
 
-						for ( var i = 0; i < classesToRemove.length; i++ ) {
+						for ( var i = 0; i < classesCount; i++ ) {
 							classes = classes.replace( classesToRemove[i], '' );
 						}
 
@@ -4301,7 +4250,7 @@
 	);
 
 	var changeViewCart = {
-		init: function() {
+		init: function () {
 			this.holder = $( '.qodef-qi-woo-shortcode-product-list' );
 
 			if ( this.holder.length ) {
@@ -4422,7 +4371,7 @@
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
+		initItem: function ( $currentItem ) {
 			if ( $currentItem.hasClass( 'qodef-layout--revealing' ) ) {
 				var $text      = $currentItem.find( '.qodef-m-content-inner > .qodef-m-text' ),
 					$button    = $currentItem.find( '.qodef-m-button' ),
@@ -4463,8 +4412,8 @@
 			var height = 0;
 
 			if ( $items.length ) {
-				//calculate maximum height of half of the element (top and bottom)
-				//and set it on all elements afterwards
+				// calculate maximum height of half of the element (top and bottom).
+				// and set it on all elements afterwards.
 				$items.each(
 					function () {
 						var $thisItem     = $( this ),
@@ -4496,8 +4445,6 @@
 		},
 	};
 
-	// qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline.qodefTimeline = qodefTimeline;
-
 })( jQuery );
 
 (function ( $ ) {
@@ -4520,8 +4467,8 @@
 				$navigation	  = $holder.find( '.qodef-nav-prev, .qodef-nav-next' );
 
 			if ( $items.length ) {
-				//calculate maximum height of top and bottom items separately
-				//and set it on all elements afterwards
+				// calculate maximum height of top and bottom items separately.
+				// and set it on all elements afterwards.
 				$items.each(
 					function () {
 						var $thisItem            = $( this ),
@@ -4579,7 +4526,7 @@
 				);
 			}
 		},
-		initItem: function( $currentItem ) {
+		initItem: function ( $currentItem ) {
 			if ( $currentItem.hasClass( 'qodef-item-layout--info-below-swap' ) ) {
 				var $items = $currentItem.find( '.qodef-grid-item' );
 

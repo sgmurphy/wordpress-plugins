@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-section-box qodef-section-video-tutorials">
 	<div class="qodef-section-box-image">
 		<img src="<?php echo esc_url( QI_ADDONS_FOR_ELEMENTOR_ADMIN_URL_PATH . '/inc/admin-pages/assets/img/video-tutorials.png' ); ?>" alt="<?php esc_attr_e( 'Video Tutorials', 'qi-addons-for-elementor' ); ?>" />

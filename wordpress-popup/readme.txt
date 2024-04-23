@@ -6,7 +6,7 @@ Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
 Tags: marketing, popup, optin, newsletter, subscription form, email, advertise, signup, mailing list, wordpress popup plugin, popup maker, pop-up, opt-in
 Requires at least: 5.2
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.4
 Stable tag: 7.8.4
 

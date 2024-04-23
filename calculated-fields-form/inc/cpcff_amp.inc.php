@@ -6,6 +6,12 @@
  * @since 1.0.230
  */
 
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentBeforeEnd
+// phpcs:disable Squiz.PHP.EmbeddedPhp.ContentAfterEnd
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+// phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag
 if ( ! class_exists( 'CPCFF_AMP' ) ) {
 	/**
 	 * Class that defines the operations to display the foms in AMP pages.
@@ -15,14 +21,14 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 	class CPCFF_AMP {
 
 		/**
-		 * Main plugin object
+		 * @var $_mail_obj Main plugin object
 		 */
 		private $_main_obj;
 
 		public function __construct( $main_obj ) {
 			$this->_main_obj = $main_obj;
 			add_action( 'init', array( $this, 'amp_init' ) ); // for amp pages.
-		} // End __construct
+		} // End __construct.
 
 		/**
 		 * Loads the form's preview in AMP pages.
@@ -40,12 +46,12 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				( ( function_exists( 'is_rtl' ) && is_rtl() ) ? 'dir="rtl"' : '' ) .
 				'>' .
 				'<head>' .
-				( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ).
+				( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .
 				'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' .
 				'<meta name="viewport" content="width=device-width">' .
 				'<title>' . esc_html( $page_title ) . '</title>';
 
-				// Patch for editor preview
+				// Patch for editor preview.
 				if ( empty( $_GET['cff-editor-preview'] ) ) {
 					print '<style>' .
 					'body{background:#FFF;overflow:hidden;margin:0;}' .
@@ -59,7 +65,7 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 					$wp_scripts->reset();
 				}
 				$message = $this->_main_obj->public_form( $atts );
-				// Patch for editor preview
+				// Patch for editor preview.
 				if ( empty( $_GET['cff-editor-preview'] ) ) {
 					$message = preg_replace( '/<form\s+/i', '<form target="_parent" ', $message, 1 );
 					$message = preg_replace(
@@ -87,7 +93,7 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				$message .= ob_get_contents();
 				ob_end_clean();
 
-				// Patch for editor preview
+				// Patch for editor preview.
 				if ( ! empty( $_GET['cff-editor-preview'] ) ) {
 					$message .= '<script type="text/javascript">
 					window.addEventListener("load",
@@ -106,7 +112,7 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				remove_all_actions( 'shutdown' );
 				exit;
 			}
-		} // End amp_init
+		} // End amp_init.
 
 		/**
 		 * Checks if the page is AMP or not
@@ -131,7 +137,7 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				}
 			}
 			return false;
-		} // End is_amp
+		} // End is_amp.
 
 		/**
 		 * Returns an iframe tag for loading the a webpage with the form only, specially useful for AMP pages.
@@ -175,16 +181,16 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 		/**
 		 * Includes the CSS rules for the amp version of form
 		 *
-		 * @param object, template.
+		 * @param object $template form template.
 		 */
 		public function amp_css( $template ) {
 			print '#cff-form-iframe{margin:0;}';
-		} // End amp_css
+		} // End amp_css.
 
 		/**
 		 * Checks if the amp-iframe.js was included, and includes it if not.
 		 *
-		 * @param $data, associative array.
+		 * @param array $data associative array.
 		 * @return $data, associative array.
 		 */
 		public function amp_iframe( $data ) {
@@ -192,7 +198,7 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				$data['amp_component_scripts']['amp-iframe'] = 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js';
 			}
 			return $data;
-		} // End amp_iframe
+		} // End amp_iframe.
 
 		/**
 		 * Converts the URL parameters related with the form in the redirection process required for load the forms into the amp-frames
@@ -216,7 +222,7 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				}
 			}
 			return $attrs;
-		} // End _params_to_attrs
+		} // End _params_to_attrs.
 
 		/**
 		 * Reads the form height from the URL parameter cff-form-height, returns 500 by default.

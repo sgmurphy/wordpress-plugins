@@ -45,6 +45,9 @@ if ( ! function_exists( 'ywcas_get_product_thumbnail_url' ) ) {
 				$thumb_url       = array_shift( $thumb );
 				$wc_thumb['big'] = $thumb_url;
 			}
+		}else {
+			$wc_thumb['small'] = wc_placeholder_img_src( 'thumbnail' );
+			$wc_thumb['big']   = wc_placeholder_img_src();
 		}
 
 		return maybe_serialize( $wc_thumb );
@@ -259,7 +262,7 @@ if ( ! function_exists( 'ywcas_get_default_product_post_type' ) ) {
 	function ywcas_get_default_product_post_type() {
 		$product_types = array(
 			'product',
-			'product_variation'
+			'product_variation',
 		);
 
 		return (array) apply_filters( 'ywcas_product_type_list', $product_types );
@@ -553,12 +556,15 @@ if ( ! function_exists( 'ywcas_is_elementor_editor' ) ) {
 			return Plugin::$instance->editor->is_edit_mode();
 		}
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		return is_admin() && isset( $_REQUEST['action'] ) && in_array(
 				sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ),
 				array(
 					'elementor',
 					'elementor_ajax',
-				) ); //phpcs:ignore
+				),
+				true
+			);
 	}
 }
 
@@ -638,9 +644,13 @@ if ( ! function_exists( 'ywcas_remove_duplicated_results' ) ) {
 	function ywcas_remove_duplicated_results( $results ) {
 		$ids     = array_column( $results, 'post_id' );
 		$ids     = array_unique( $ids );
-		$results = array_filter( $results, function ( $key, $value ) use ( $ids ) {
-			return in_array( $value, array_keys( $ids ) );
-		}, ARRAY_FILTER_USE_BOTH );
+		$results = array_filter(
+			$results,
+			function ( $key, $value ) use ( $ids ) {
+				return in_array( $value, array_keys( $ids ) ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
 
 		return $results;
 	}

@@ -6,7 +6,12 @@
  * @since 1.0.232
  */
 
+// phpcs:disable Squiz.Commenting.VariableComment.MissingVar
+
 if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
+	/**
+	 * Handle the form revisions-history.
+	 */
 	class CPCFF_REVISIONS {
 
 		/**
@@ -37,35 +42,34 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 		/**
 		 * Constructs a CPCFF_REVISIONS object.
 		 *
-		 * @param integer $form_obj instance of CPCFF_FORM
+		 * @param mixed $form_obj instance of CPCFF_FORM.
 		 */
 		public function __construct( $form_obj ) {
 			global $wpdb;
 			$this->_db       = $wpdb;
 			$this->_table    = $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_REVISIONS_TABLE;
 			$this->_form_obj = $form_obj;
-		} // End construct
+		} // End construct.
 
 		/**
 		 * Returns the list of revisions rows in the database as array
 		 */
 		public function revisions_list() {
 			if ( empty( $this->_revisions ) ) {
-				$results            = $this->_db->get_results(
+				$results              = $this->_db->get_results(
 					$this->_db->prepare(
 						'SELECT * FROM ' . $this->_table . ' WHERE formid=%d ORDER BY time DESC',
 						$this->_form_obj->get_id()
 					),
 					ARRAY_A
 				);
-				  $this->_revisions = array();
+					$this->_revisions = array();
 				foreach ( $results as $revision ) {
 					$this->_revisions[ $revision['id'] ] = $revision;
 				}
 			}
 			return $this->_revisions;
-
-		} // End revisions_list
+		} // End revisions_list.
 
 		/**
 		 * Creates a new entry in the revisions table, if there are more than _max revisions remove the older.
@@ -73,7 +77,7 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 		 * @return int returns the revision's id or false if fails.
 		 */
 		public function create_revision() {
-			 $form_data = $this->_form_obj->get_raw_data();
+			$form_data = $this->_form_obj->get_raw_data();
 
 			$data = array(
 				'formid'   => $this->_form_obj->get_id(),
@@ -99,10 +103,12 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 				return $data['id'];
 			}
 			return false;
-		} // End create_revision
+		} // End create_revision.
 
 		/**
-		 * returns the form data unserialized or an empty array
+		 * Returns the form data unserialized or an empty array
+		 *
+		 * @param integer $revision_id revision id.
 		 */
 		public function data( $revision_id ) {
 			$this->revisions_list();
@@ -113,7 +119,7 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 				return unserialize( $this->_revisions[ $revision_id ]['revision'] );
 			}
 			return array();
-		} // End data
+		} // End data.
 
 		/**
 		 * Deletes the list of revisions belonging to the form
@@ -125,7 +131,7 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 				array( '%d' )
 			);
 			$this->_revisions = array();
-		} // End delete_form
+		} // End delete_form.
 
 
 		/*********************************** PRIVATE METHODS  ********************************************/
@@ -134,22 +140,24 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 		 * Deletes the older revisions, leaving only the _max
 		 */
 		private function _delete_older() {
-			$formid = $this->_form_obj->get_id();
+			$formid     = $this->_form_obj->get_id();
 			$revisionid = $this->_db->get_var(
 				$this->_db->prepare(
-					'SELECT id FROM '.$this->_table.' WHERE formid=%d ORDER BY id DESC LIMIT %d,1',
-					$formid,$this->_max
+					'SELECT id FROM ' . $this->_table . ' WHERE formid=%d ORDER BY id DESC LIMIT %d,1',
+					$formid,
+					$this->_max
 				)
 			);
 
 			if ( ! empty( $revisionid ) ) {
 				$this->_db->query(
 					$this->_db->prepare(
-						'DELETE FROM '.$this->_table.' WHERE formid=%d AND id < %d',
-						$formid,$revisionid
+						'DELETE FROM ' . $this->_table . ' WHERE formid=%d AND id < %d',
+						$formid,
+						$revisionid
 					)
 				);
 			}
-		} // End _delete_older
-	} // End CPCFF_REVISIONS
+		} // End _delete_older.
+	} // End CPCFF_REVISIONS.
 }

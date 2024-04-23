@@ -1,5 +1,12 @@
-<?php $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE); ?>
+<?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
+$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+?>
 <div class="<?php echo esc_attr( $item_classes ); ?>">
 	<div class="qodef-e-inner">
 		<div class="qodef-e-inner-holder">
@@ -8,7 +15,10 @@
 			<?php } elseif ( 'yes' === $enable_custom_links && ! empty( $image_link ) ) { ?>
 				<a itemprop="url" href="<?php echo esc_url( $image_link ); ?>" target="<?php echo isset( $custom_links_target ) ? esc_attr( $custom_links_target ) : '_blank'; ?>">
 			<?php } ?>
-				<?php echo qi_addons_for_elementor_get_list_shortcode_item_image( $images_proportion, $image_id, intval( $custom_image_width ), intval( $custom_image_height ) ); ?>
+				<?php
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo qi_addons_for_elementor_get_list_shortcode_item_image( $images_proportion, $image_id, intval( $custom_image_width ), intval( $custom_image_height ) );
+				?>
 			<?php if ( 'yes' === $enable_popup || ( 'yes' === $enable_custom_links && ! empty( $image_link ) ) ) { ?>
 				</a>
 			<?php } ?>

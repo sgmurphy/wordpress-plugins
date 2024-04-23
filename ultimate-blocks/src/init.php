@@ -586,6 +586,7 @@ function ub_include_block_attribute_css() {
 				case 'ub/content-filter-block':
 					$styles = ub_get_spacing_styles($attributes);
 					$prefix           = '#ub-content-filter-' . $attributes['blockID'];
+					$filter_buttons_alignment = isset($attributes['filterButtonAlignment']) ? $attributes['filterButtonAlignment'] : 'left';
 					$blockStylesheets .= $prefix . ' .ub-content-filter-tag{' . PHP_EOL .
 										 'background-color: ' . $attributes['buttonColor'] . ';' . PHP_EOL .
 										 'color: ' . ( $attributes['buttonTextColor'] ?: 'inherit' ) . ';' . PHP_EOL .
@@ -594,7 +595,9 @@ function ub_include_block_attribute_css() {
 										 'background-color: ' . $attributes['activeButtonColor'] . ';' . PHP_EOL .
 										 'color: ' . ( $attributes['activeButtonTextColor'] ?: 'inherit' ) . ';' . PHP_EOL .
 										 '}' . PHP_EOL;
-					$blockStylesheets .= $prefix . '{' . PHP_EOL . $styles . PHP_EOL . "}"; 
+					$blockStylesheets .= $prefix . '{' . PHP_EOL . $styles
+							. '--ub-content-filter-buttons-justification:' . $filter_buttons_alignment . ';' 
+						. PHP_EOL . "}"; 
 					break;
 				case 'ub/content-toggle-block':
 					$styles = ub_get_spacing_styles($attributes);
@@ -1154,7 +1157,6 @@ function ub_include_block_attribute_css() {
 										1 ) . '" d="' . $iconData[2] . '"></path></svg>\');' . PHP_EOL .
 											 '}' .
 											 $prefix . ' li{' . PHP_EOL .
-											 'text-indent: -' . ( 0.4 + $attributes['iconSize'] * 0.1 ) . 'em;' . PHP_EOL .
 											 ( $attributes['fontSize'] > 0 ? 'font-size: ' . ( $attributes['fontSize'] ) . 'px;' . PHP_EOL : '' );
 						if ( $attributes['itemSpacing'] > 0 ) {
 							if ( $attributes['list'] !== '' ) {
@@ -1206,6 +1208,22 @@ function ub_include_block_attribute_css() {
 					}
 
 					break;
+				case 'ub/styled-list-item':
+					$prefix = '#ub-styled-list-item-' . $attributes['blockID'];
+					$iconData = Ultimate_Blocks_IconSet::generate_fontawesome_icon( $attributes['selectedIcon'] );
+					if(!empty($iconData)){
+						$blockStylesheets .= $prefix . '::before{' . PHP_EOL .
+							'top: ' . ( $attributes['iconSize'] >= 5 ? 3 : ( $attributes['iconSize'] < 3 ? 2 : 0 ) ) . 'px !important;
+							height: ' . ( ( 4 + $attributes['iconSize'] ) / 10 ) . 'em !important;
+							width: ' . ( ( 4 + $attributes['iconSize'] ) / 10 ) . 'em !important;
+							background-image:url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' . $iconData[0] . ' ' . $iconData[1]
+									. '"><path fill="%23' . substr( $attributes['iconColor'],
+									1 ) . '" d="' . $iconData[2] . '"></path></svg>\') !important;' . PHP_EOL .
+									'}';
+					}
+
+					break;
+
 				case 'ub/tabbed-content-block':
 					$prefix           = '#ub-tabbed-content-' . $attributes['blockID'];
 					$styles 		   = ub_get_spacing_styles($attributes);

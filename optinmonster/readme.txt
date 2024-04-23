@@ -2,9 +2,9 @@
 Contributors: optinmonster, griffinjt, smub
 Tags: popup, popups, optin, conversion, marketing, newsletter, popup builder, popup maker, email marketing, exit popup, ecommerce, woocommerce, lightbox
 Requires at least: 4.7.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.3
-Stable tag: 2.16.0
+Stable tag: 2.16.1
 License: GNU General Public License v2.0 or later
 
 🤩 Make popups & optin forms to get more email newsletter subscribers, leads, and sales - #1 most popular popup builder plugin! 🚀
@@ -310,6 +310,11 @@ We also recommend <a href="http://www.wpbeginner.com/">WPBeginner</a> for the be
 == Changelog ==
 
 **Most Recent Changes:**
+
+= Popup Builder 2.16.1 =
+* Improved About Us page.
+* Updates and improvements to our Gutenberg block.
+* Various npm package updates used for generating our JavaScript code.
 
 = Popup Builder 2.16.0 =
 * Added integration with Uncanny Automator.

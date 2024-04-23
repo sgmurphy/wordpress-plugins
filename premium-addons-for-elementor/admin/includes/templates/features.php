@@ -88,7 +88,11 @@ $features = $elements['cat-11']['elements'];
 				<div class="pa-section-outer-wrap">
 					<div class="pa-section-info-wrap">
 						<div class="pa-section-info">
-						<h4><?php echo esc_html( __( 'Custom Mouse Cursor', 'premium-addons-for-elementor' ) ); ?></h4>
+						<h4 class = "pa-inline-flex"><?php echo esc_html( __( 'Custom Mouse Cursor', 'premium-addons-for-elementor' ) ); ?>
+							<button type="button" class="pa-btn-clear-cusror pa-inline-flex" title="<?php esc_html_e( 'Clear Site Cursor Settings', 'premium-addons-for-elementor' ); ?>">
+								<i class="dashicons dashicons-image-rotate"></i>
+							</button>
+						</h4>
 							<p><?php echo esc_html( __( 'Change the default mouse cursor with icon, image, or Lottie animation for any Elementor section, container, column, or widget.', 'premium-addons-for-elementor' ) ); ?></p>
 						</div>
 						<?php

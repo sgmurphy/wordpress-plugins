@@ -57,8 +57,7 @@ class SiteOrigin_CFF_Variable_Shortcode extends SiteOrigin_Widget {
 	public function get_style_name( $instance ) {
 		return '';
 	} // End get_style_name
-
 } // End Class SiteOrigin_CFF_Variable_Shortcode
 
-// Registering the widget
+// Registering the widget.
 siteorigin_widget_register( 'siteorigin-cff-variable-shortcode', __FILE__, 'SiteOrigin_CFF_Variable_Shortcode' );

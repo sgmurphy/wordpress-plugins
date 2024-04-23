@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_product_list_variation_info_below_swap' ) ) {
 	/**
 	 * Function that add variation layout for this module
@@ -153,8 +158,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_product_list_options_info_b
 		$info_below_swap_options[] = $title_margin_top;
 		$info_below_swap_options[] = $swap_margin_top;
 		$info_below_swap_options[] = $rating_margin_top;
-//		$info_below_swap_options[] = $price_margin_top;
-//		$info_below_swap_options[] = $button_margin_top; //add it if necessary
 
 		return array_merge( $options, $info_below_swap_options );
 	}

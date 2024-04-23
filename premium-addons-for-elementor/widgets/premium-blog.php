@@ -295,7 +295,7 @@ class Premium_Blog extends Widget_Base {
 			'premium_blog_number_of_posts',
 			array(
 				'label'       => __( 'Posts Per Page', 'premium-addons-for-elementor' ),
-				'description' => __( 'Set the number of per page', 'premium-addons-for-elementor' ),
+				'description' => __( 'Set the number of posts per page', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
 				'min'         => 1,
 				'default'     => 4,
@@ -312,6 +312,8 @@ class Premium_Blog extends Widget_Base {
 		);
 
 		$post_types = Blog_Helper::get_posts_types();
+
+		$post_types['main'] = __( 'Main Query', 'premium-addons-for-elementor' );
 
 		$this->add_control(
 			'post_type_filter',
@@ -402,6 +404,9 @@ class Premium_Blog extends Widget_Base {
 					'author__in'     => __( 'Match Authors', 'premium-addons-for-elementor' ),
 					'author__not_in' => __( 'Exclude Authors', 'premium-addons-for-elementor' ),
 				),
+				'condition'   => array(
+					'post_type_filter!' => 'main',
+				),
 			)
 		);
 
@@ -413,6 +418,9 @@ class Premium_Blog extends Widget_Base {
 				'label_block' => true,
 				'multiple'    => true,
 				'options'     => Blog_Helper::get_authors(),
+				'condition'   => array(
+					'post_type_filter!' => 'main',
+				),
 			)
 		);
 
@@ -427,6 +435,9 @@ class Premium_Blog extends Widget_Base {
 				'options'     => array(
 					'post__in'     => __( 'Match Post', 'premium-addons-for-elementor' ),
 					'post__not_in' => __( 'Exclude Post', 'premium-addons-for-elementor' ),
+				),
+				'condition'   => array(
+					'post_type_filter!' => 'main',
 				),
 			)
 		);
@@ -455,7 +466,7 @@ class Premium_Blog extends Widget_Base {
 				'multiple'           => true,
 				'frontend_available' => true,
 				'condition'          => array(
-					'post_type_filter!' => 'post',
+					'post_type_filter!' => array( 'post', 'main' ),
 				),
 
 			)
@@ -469,6 +480,9 @@ class Premium_Blog extends Widget_Base {
 				'label_on'  => __( 'Yes', 'premium-addons-for-elementor' ),
 				'label_off' => __( 'No', 'premium-addons-for-elementor' ),
 				'default'   => 'yes',
+				'condition' => array(
+					'post_type_filter!' => 'main',
+				),
 			)
 		);
 
@@ -480,6 +494,9 @@ class Premium_Blog extends Widget_Base {
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => '0',
 				'min'         => '0',
+				'condition'   => array(
+					'post_type_filter!' => 'main',
+				),
 			)
 		);
 
@@ -491,6 +508,9 @@ class Premium_Blog extends Widget_Base {
 				'description' => __( 'This option will remove the current post from the query.', 'premium-addons-for-elementor' ),
 				'label_on'    => __( 'Yes', 'premium-addons-for-elementor' ),
 				'label_off'   => __( 'No', 'premium-addons-for-elementor' ),
+				'condition'   => array(
+					'post_type_filter!' => 'main',
+				),
 			)
 		);
 
@@ -512,8 +532,25 @@ class Premium_Blog extends Widget_Base {
 					'rand'          => __( 'Random', 'premium-addons-for-elementor' ),
 					'menu_order'    => __( 'Menu Order', 'premium-addons-for-elementor' ),
 					'comment_count' => __( 'Number of Comments', 'premium-addons-for-elementor' ),
+					'meta_value'    => __( 'Meta Value', 'premium-addons-for-elementor' ),
 				),
 				'default'     => 'date',
+				'condition'   => array(
+					'post_type_filter!' => 'main',
+				),
+			)
+		);
+
+		$this->add_control(
+			'premium_blog_meta_key',
+			array(
+				'label'       => __( 'Meta Value', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'condition'   => array(
+					'post_type_filter!'     => 'main',
+					'premium_blog_order_by' => 'meta_value',
+				),
 			)
 		);
 
@@ -528,6 +565,9 @@ class Premium_Blog extends Widget_Base {
 					'ASC'  => __( 'Ascending', 'premium-addons-for-elementor' ),
 				),
 				'default'     => 'DESC',
+				'condition'   => array(
+					'post_type_filter!' => 'main',
+				),
 			)
 		);
 
@@ -3122,7 +3162,7 @@ class Premium_Blog extends Widget_Base {
 
 			$query_notice = $settings['empty_query_text'];
 
-			$this->get_empty_query_message( $query_notice );
+			Helper_Functions::render_empty_query_message( $query_notice );
 			return;
 		}
 
@@ -3243,29 +3283,6 @@ class Premium_Blog extends Widget_Base {
 				});
 			});
 		</script>
-		<?php
-	}
-
-	/**
-	 * Get Empty Query Message
-	 *
-	 * Written in PHP and used to generate the final HTML when the query is empty
-	 *
-	 * @since 3.20.3
-	 * @access protected
-	 *
-	 * @param string $notice empty query notice.
-	 */
-	protected function get_empty_query_message( $notice ) {
-
-		if ( empty( $notice ) ) {
-			$notice = __( 'The current query has no posts. Please make sure you have published items matching your query.', 'premium-addons-for-elementor' );
-		}
-
-		?>
-		<div class="premium-error-notice">
-			<?php echo wp_kses_post( $notice ); ?>
-		</div>
 		<?php
 	}
 }

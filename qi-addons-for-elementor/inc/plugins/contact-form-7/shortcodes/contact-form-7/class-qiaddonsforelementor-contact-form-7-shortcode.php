@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_contact_form_7_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -788,7 +793,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 
 			add_filter(
 				'qi_addons_for_elementor_cf7_unit_tag',
-				function ( $unit_tag ) use ( $id ) {
+				function () use ( $id ) {
 					return $id;
 				}
 			);
@@ -808,7 +813,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 		private static function generate_unit_tag( $id = 0 ) {
 			static $global_count = 0;
 
-			$global_count += 1;
+			++$global_count;
 
 			if ( in_the_loop() ) {
 				$unit_tag = sprintf(

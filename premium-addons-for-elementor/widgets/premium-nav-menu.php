@@ -1435,7 +1435,6 @@ class Premium_Nav_Menu extends Widget_Base {
 			array(
 				'label'              => __( 'Sticky on Scroll Up', 'premium-addons-for-elementor' ),
 				'type'               => Controls_Manager::SWITCHER,
-				// 'prefix_class' => 'premium-sticky-scroll-',
 				'frontend_available' => true,
 				'render_type'        => 'template',
 				'condition'          => array(
@@ -1525,7 +1524,6 @@ class Premium_Nav_Menu extends Widget_Base {
 				'label'       => __( 'Opened By Default', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'render_type' => 'template',
-				// 'prefix_class' => 'premium-ver-',
 				'condition'   => array(
 					'pa_nav_menu_layout'     => 'ver',
 					'pa_ver_toggle_switcher' => 'yes',
@@ -2304,7 +2302,6 @@ class Premium_Nav_Menu extends Widget_Base {
 				),
 				'label_block' => true,
 				'selectors'   => array(
-					// '{{WRAPPER}}.premium-nav-ver .premium-nav-menu-container, {{WRAPPER}}.premium-nav-ver .premium-ver-toggler' => 'width: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}}.premium-nav-ver .premium-ver-inner-container' => 'width: {{SIZE}}{{UNIT}};',
 				),
 				'condition'   => array(
@@ -3261,7 +3258,6 @@ class Premium_Nav_Menu extends Widget_Base {
 			array(
 				'name'     => 'pa_nav_item_bg',
 				'types'    => array( 'classic', 'gradient' ),
-				// 'selector' => '{{WRAPPER}} .premium-main-nav-menu > .premium-nav-menu-item',
 				'selector' => '{{WRAPPER}} .premium-main-nav-menu > .premium-nav-menu-item > .premium-menu-link',
 			)
 		);
@@ -3596,7 +3592,6 @@ class Premium_Nav_Menu extends Widget_Base {
 					),
 				),
 				'selectors'   => array(
-					// '{{WRAPPER}} .premium-nav-menu-container .premium-sub-menu, {{WRAPPER}} .premium-mobile-menu-container .premium-sub-menu' => 'min-width: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .premium-mobile-menu-container .premium-sub-menu,
                     {{WRAPPER}}.premium-nav-ver .premium-nav-menu-item.menu-item-has-children .premium-sub-menu,
                     {{WRAPPER}}.premium-nav-hor .premium-nav-menu-item.menu-item-has-children .premium-sub-menu' => 'min-width: {{SIZE}}{{UNIT}};',
@@ -4732,7 +4727,7 @@ class Premium_Nav_Menu extends Widget_Base {
 	 * Filters mobile menus.
 	 * Changes the menu id to prevent duplicated ids in the DOM.
 	 *
-	 * @access private.
+	 * @access private
 	 *
 	 * @param string $menu_html desktop menu html.
 	 * @param string $slug menu item id.
@@ -4830,7 +4825,7 @@ class Premium_Nav_Menu extends Widget_Base {
 
 					$html_output .= $this->get_icon_html( $item, 'sub-' );
 
-					$html_output .= $item['text'];
+					$html_output .= esc_html( $item['text'] );
 
 					$html_output .= $this->get_badge_html( $item, 'sub-' );
 
@@ -4841,7 +4836,6 @@ class Premium_Nav_Menu extends Widget_Base {
 					$this->add_render_attribute(
 						'menu-content-item-' . $item['_id'],
 						array(
-							// 'id'    => 'premium-mega-content-' . $item['_id'],
 							'class' => 'premium-mega-content-container',
 						)
 					);
@@ -4913,13 +4907,13 @@ class Premium_Nav_Menu extends Widget_Base {
 
 					$html_output .= $this->get_icon_html( $item );
 
-					$html_output .= $item['text'];
+					$html_output .= esc_html( $item['text'] );
 
 				if ( array_key_exists( $index + 1, $menu_items ) ) {
 					$has_icon = ! empty( $settings['submenu_icon']['value'] );
 
 					if ( 'submenu' === $menu_items[ $index + 1 ]['item_type'] && $has_icon ) {
-						$icon_class   = 'premium-dropdown-icon ' . $settings['submenu_icon']['value'];
+						$icon_class   = 'premium-dropdown-icon ' . esc_attr( $settings['submenu_icon']['value'] );
 						$html_output .= sprintf( '<i class="%1$s"></i>', $icon_class );
 					}
 				}
@@ -4963,15 +4957,15 @@ class Premium_Nav_Menu extends Widget_Base {
 		if ( 'icon' === $item['icon_type'] ) {
 
 			$icon_class = $class . $item['item_icon']['value'];
-			$html      .= sprintf( '<i class="%1$s"></i>', $icon_class );
+			$html      .= sprintf( '<i class="%1$s"></i>', esc_attr( $icon_class ) );
 
 		} elseif ( 'image' === $item['icon_type'] ) {
 
-			$html .= '<img class="' . $class . '" src="' . $item['item_image']['url'] . '" alt="' . Control_Media::get_image_alt( $item['item_image'] ) . '">';
+			$html .= '<img class="' . esc_attr( $class ) . '" src="' . esc_attr( $item['item_image']['url'] ) . '" alt="' . esc_attr( Control_Media::get_image_alt( $item['item_image'] ) ) . '">';
 
 		} else {
 
-			$html .= '<div class="premium-lottie-animation ' . $class . '" data-lottie-url="' . $item['lottie_url'] . '" data-lottie-loop="true"></div>';
+			$html .= '<div class="premium-lottie-animation ' . esc_attr( $class ) . '" data-lottie-url="' . esc_attr( $item['lottie_url'] ) . '" data-lottie-loop="true"></div>';
 
 		}
 
@@ -4997,7 +4991,7 @@ class Premium_Nav_Menu extends Widget_Base {
 
 		$class = 'premium-' . $type . 'item-badge';
 
-		$html = '<span class="' . $class . '">' . wp_kses_post( $item['badge_text'] ) . '</span>';
+		$html = '<span class="' . esc_attr( $class ) . '">' . wp_kses_post( $item['badge_text'] ) . '</span>';
 
 		return $html;
 	}

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_process_shortcode' ) ) {
 	/**
 	 * Function that is adding shortcode into shortcodes list for registration

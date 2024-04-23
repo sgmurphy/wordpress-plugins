@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 abstract class QiAddonsForElementor_Framework_Shortcode {
 	private $shortcode_path;
 	private $base;
@@ -8,7 +13,7 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 	private $category;
 	private $subcategory;
 	private $is_parent = false;
-	private $is_child = false;
+	private $is_child  = false;
 	private $options;
 	private $child_elements;
 	private $parent_elements;
@@ -17,8 +22,8 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 	private $scripts;
 	private $styles;
 	private $documentation = '';
-	private $demo = '';
-	private $video = '';
+	private $demo          = '';
+	private $video         = '';
 
 	public function __construct() {
 		$this->map_shortcode();
@@ -144,14 +149,15 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 
 			$default_options[ $name ] = $default_value;
 
-			//map_responsive option should be set to true if responsive option are needed in shortcode rendering (see in class-qiaddonsforelementor-slider-shortcode.php line 353)
+			// map_responsive option should be set to true if responsive option are needed in shortcode rendering (see in class-qiaddonsforelementor-slider-shortcode.php line 353).
 			if ( isset( $option['map_responsive'] ) && true === $option['map_responsive'] && isset( $option['responsive'] ) && true === $option['responsive'] ) {
 				$default_options[ $name . '_tablet' ] = $default_value;
 				$default_options[ $name . '_mobile' ] = $default_value;
 			}
 		}
 
-		$default_options['object_class_name'] = is_object( $this ) ? get_class( $this ) : ''; // needed for pagination loading items since object is not transferred via data params
+		// needed for pagination loading items since object is not transferred via data params.
+		$default_options['object_class_name'] = is_object( $this ) ? get_class( $this ) : '';
 		$this->option_atts                    = qi_addons_for_elementor_framework_map_shortcode_fields( $default_options, $params );
 	}
 
@@ -345,9 +351,9 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 							if ( in_array( $new_key, $options_to_skip, true ) && array_key_exists( $new_key, $option ) ) {
 								continue;
 							}
-							// Set nested shortcode options group if shortcode is imported inside other shortcode
+							// Set nested shortcode options group if shortcode is imported inside other shortcode.
 							if ( 'nested_group' === $new_key ) {
-								// If shortcode options group exists add nested group label before it, otherwise set nested group for all options
+								// If shortcode options group exists add nested group label before it, otherwise set nested group for all options.
 								if ( ! array_key_exists( 'group', $option ) ) {
 									$option['group'] = $new_value;
 								} else {
@@ -430,13 +436,14 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 			foreach ( $this->get_necessary_styles() as $style_key => $style ) {
 
 				if ( ! $style['registered'] ) {
+					// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 					wp_register_style( $style_key, $style['url'] );
 				}
 			}
 		}
 	}
 
-	public function render( $options, $content = null ) {
+	public function render( $options ) {
 		$this->merge_option_atts( $options );
 		$this->load_assets();
 	}

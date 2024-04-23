@@ -30,10 +30,8 @@ require_once WPLE_DIR . 'classes/le-trait.php';
  *
  * @since 4.7.0
  */
-class WPLE_Subdir_Challenge_Helper
-{
-    public static function show_challenges( $opts )
-    {
+class WPLE_Subdir_Challenge_Helper {
+    public static function show_challenges( $opts ) {
         if ( !array_key_exists( 'challenge_files', $opts ) && !array_key_exists( 'dns_challenges', $opts ) ) {
             return esc_html__( 'Could not retrieve domain verification challenges. Please go back and try again.', 'wp-letsencrypt-ssl' );
         }
@@ -90,10 +88,9 @@ class WPLE_Subdir_Challenge_Helper
         // }
         return $output;
     }
-    
-    public static function HTTP_challenges_block( $challenges, $opts )
-    {
-        if ( !is_array( $challenges ) || empty($challenges) ) {
+
+    public static function HTTP_challenges_block( $challenges, $opts ) {
+        if ( !is_array( $challenges ) || empty( $challenges ) ) {
             return '<div class="wple-flxcenter">HTTP Challenges not available.</div>';
         }
         $list = '<h3>' . esc_html__( 'HTTP Challenges', 'wp-letsencrypt-ssl' ) . '</h3>
@@ -103,11 +100,11 @@ class WPLE_Subdir_Challenge_Helper
     <p><b>Step 1:</b> ' . esc_html__( 'Download HTTP challenge files below', 'wp-letsencrypt-ssl' ) . '</p>';
         $nc = wp_create_nonce( 'subdir_ch' );
         $filesExpected = '';
-        $bareDomain = str_ireplace( array( 'https://', 'http://' ), array( '', '' ), site_url() );
+        $bareDomain = str_ireplace( array('https://', 'http://'), array('', ''), site_url() );
         if ( false !== ($slashpos = stripos( $bareDomain, '/' )) ) {
             $bareDomain = substr( $bareDomain, 0, $slashpos );
         }
-        for ( $i = 0 ;  $i < count( $challenges ) ;  $i++ ) {
+        for ($i = 0; $i < count( $challenges ); $i++) {
             $j = $i + 1;
             $list .= '<a href="?page=wp_encryption&subdir_chfile=' . $j . '&nc=' . $nc . '"><span class="dashicons dashicons-download"></span>&nbsp;' . esc_html__( 'Download File', 'wp-letsencrypt-ssl' ) . ' ' . $j . '</a><br />';
             $filesExpected .= '<div class="wple-http-manual-verify verify-' . esc_attr( $i ) . '"><a href="http://' . trailingslashit( esc_html( $bareDomain ) ) . '.well-known/acme-challenge/' . esc_html( $challenges[$i]['file'] ) . '" target="_blank">' . $j . '. ' . esc_html__( 'Verification File', 'wp-letsencrypt-ssl' ) . '&nbsp;<span class="dashicons dashicons-external"></span></a></div>';
@@ -159,10 +156,9 @@ class WPLE_Subdir_Challenge_Helper
         }
         return $list;
     }
-    
-    public static function DNS_challenges_block( $challenges )
-    {
-        if ( !is_array( $challenges ) || empty($challenges) ) {
+
+    public static function DNS_challenges_block( $challenges ) {
+        if ( !is_array( $challenges ) || empty( $challenges ) ) {
             return '<div class="wple-flxcenter">DNS Challenges not available.</div>';
         }
         $list = '<h3>' . esc_html__( 'DNS Challenges', 'wp-letsencrypt-ssl' ) . '</h3>
@@ -170,8 +166,8 @@ class WPLE_Subdir_Challenge_Helper
     <a href="https://youtu.be/BBQL69PDDrk" target="_blank" class="videolink"><span class="dashicons dashicons-video-alt"></span> ' . esc_html__( 'Video Tutorial', 'wp-letsencrypt-ssl' ) . '</a>
     </span>
     <p><b>Step 1:</b> ' . esc_html__( 'Go to domain DNS manager of your primary domain. Add below TXT records using add TXT record option.', 'wp-letsencrypt-ssl' ) . '</p>';
-        $dmn = str_ireplace( array( 'https://', 'http://', 'www.' ), '', site_url() );
-        for ( $i = 0 ;  $i < count( $challenges ) ;  $i++ ) {
+        $dmn = str_ireplace( array('https://', 'http://', 'www.'), '', site_url() );
+        for ($i = 0; $i < count( $challenges ); $i++) {
             $domain_code = explode( '||', $challenges[$i] );
             $acme = WPLE_Trait::wple_get_acmename( $dmn, $domain_code[0] );
             $list .= '<div class="subdns-item">
@@ -198,17 +194,14 @@ class WPLE_Subdir_Challenge_Helper
         $list .= '</div>';
         return $list;
     }
-    
-    public static function download_challenge_files()
-    {
-        
+
+    public static function download_challenge_files() {
         if ( isset( $_GET['subdir_chfile'] ) ) {
             if ( !wp_verify_nonce( $_GET['nc'], 'subdir_ch' ) || !current_user_can( 'manage_options' ) ) {
                 die( 'Unauthorized request. Please try again.' );
             }
             $opts = get_option( 'wple_opts' );
-            
-            if ( isset( $opts['challenge_files'] ) && !empty($opts['challenge_files']) ) {
+            if ( isset( $opts['challenge_files'] ) && !empty( $opts['challenge_files'] ) ) {
                 $req = intval( $_GET['subdir_chfile'] ) - 1;
                 $ch = $opts['challenge_files'][$req];
                 if ( !isset( $ch ) ) {
@@ -218,28 +211,21 @@ class WPLE_Subdir_Challenge_Helper
             } else {
                 wp_die( 'HTTP challenge files not ready. Please go back and try again.' );
             }
-        
         }
-    
     }
-    
-    private static function compose_challenge_files( $name, $content )
-    {
+
+    private static function compose_challenge_files( $name, $content ) {
         $chfile = sanitize_file_name( $name );
         $first_letter = substr( $name, 0, 1 );
-        
         if ( $first_letter == '_' ) {
             $chfile = '_' . $chfile;
             //there was underscore at beginning
         } else {
-            
             if ( $first_letter == '-' ) {
                 $chfile = '-' . $chfile;
                 //there was a dash at beginning
             }
-        
         }
-        
         file_put_contents( $chfile, sanitize_text_field( $content ) );
         header( 'Content-Description: File Transfer' );
         header( 'Content-Type: text/plain; charset=UTF-8' );

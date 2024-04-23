@@ -28,7 +28,7 @@ use PremiumAddons\Includes\Helper_Functions;
 use PremiumAddons\Includes\Controls\Premium_Post_Filter;
 use PremiumAddons\Includes\Premium_Template_Tags as Posts_Helper;
 
-// PremiumAddonsPro Classes
+// PremiumAddonsPro Classes.
 use PremiumAddonsPro\Includes\Pa_Post_Ticker_Helper as API_Handler;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -3458,7 +3458,6 @@ class Premium_Post_Ticker extends Widget_Base {
 		$show_symbol   = true;
 		$show_price    = 'yes' === $settings['show_price'];
 
-		// $show_symbol      = $is_stock_element || 'yes' === $settings['show_symbol'];
 		$show_change     = 'yes' === $settings['show_change'];
 		$show_change_per = 'yes' === $settings['show_change_per'];
 
@@ -3572,7 +3571,7 @@ class Premium_Post_Ticker extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( false !== $name ) : ?>
-						<span class='premium-post-ticker__symbol-name' title='Name' aria-label='<?php echo esc_attr__( $name, 'premium-addons-for-elementor' ); ?>'><?php echo esc_html( $name ); ?></span>
+						<span class='premium-post-ticker__symbol-name' title='Name' aria-label='<?php echo esc_attr( $name ); ?>'><?php echo esc_html( $name ); ?></span>
 					<?php endif; ?>
 
 					<?php if ( $show_symbol ) : ?>
@@ -3587,26 +3586,26 @@ class Premium_Post_Ticker extends Widget_Base {
 							if ( ! $is_stock_element ) {
 								echo 'Per Ounce'; }
 							?>
-							" aria-label="<?php echo esc_attr__( $price, 'premium-addons-for-elementor' ); ?>"><?php echo $price; ?></span>
+							" aria-label="<?php echo esc_attr( $price ); ?>"><?php echo esc_html( $price ); ?></span>
 						<?php endif; ?>
 
 						<?php if ( $show_change ) : ?>
-							<span class="premium-post-ticker__change <?php echo esc_attr( $dir_cls ); ?>" title="Change" aria-label="<?php echo esc_attr__( $data['change'], 'premium-addons-for-elementor' ); ?>"><?php echo esc_html( $change ); ?></span>
+							<span class="premium-post-ticker__change <?php echo esc_attr( $dir_cls ); ?>" title="Change" aria-label="<?php echo esc_attr( $data['change'] ); ?>"><?php echo esc_html( $change ); ?></span>
 						<?php endif; ?>
 
 						<?php if ( $show_change_per ) : ?>
-						<span class="premium-post-ticker__change-percent <?php echo esc_attr( $dir_cls ); ?>" title="Change Percent" aria-label="<?php echo esc_attr__( $data['percent_change'], 'premium-addons-for-elementor' ); ?>">
+						<span class="premium-post-ticker__change-percent <?php echo esc_attr( $dir_cls ); ?>" title="Change Percent" aria-label="<?php echo esc_attr( $data['percent_change'] ); ?>">
 							<?php
 								echo esc_html( $change_percent . '%' );
 
 							if ( 'arrow' === $change_indicator ) {
 								if ( 0 < $data['change'] ) {
 									?>
-										<i class="<?php echo $settings['arrow_style']; ?>-up" aria-hidden="true"></i>
+										<i class="<?php echo esc_attr( $settings['arrow_style'] ); ?>-up" aria-hidden="true"></i>
 									<?php
 								} elseif ( 0 > $data['change'] ) {
 									?>
-										<i class="<?php echo $settings['arrow_style']; ?>-down" aria-hidden="true"></i>
+										<i class="<?php echo esc_attr( $settings['arrow_style'] ); ?>-down" aria-hidden="true"></i>
 									<?php
 								}
 							}
@@ -3705,7 +3704,8 @@ class Premium_Post_Ticker extends Widget_Base {
 	 * @access private
 	 * @since 2.8.22
 	 *
-	 * @param array $settings  widget settings.
+	 * @param array   $settings  widget settings.
+	 * @param boolean $is_repeater_item is repeater item.
 	 */
 	private function render_ticker_icon( $settings, $is_repeater_item = false ) {
 		$index = $is_repeater_item ? $settings['_id'] : '';
@@ -3871,7 +3871,7 @@ class Premium_Post_Ticker extends Widget_Base {
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'post-wrapper' . $txt_id ) ); ?>>
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'post-title' . $txt_id ) ); ?>>
 					<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'post-link' . $txt_id ) ); ?>>
-						<?php echo $item['text']; ?>
+						<?php echo esc_html( $item['text'] ); ?>
 					</a>
 				</div>
 				<?php
@@ -3977,7 +3977,7 @@ class Premium_Post_Ticker extends Widget_Base {
 			<?php if ( $show_thumbnail ) : ?>
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'thumbnail' . $post_id ) ); ?>>
 					<a href="<?php the_permalink(); ?>" target="<?php echo esc_attr( $link_target ); ?>">
-						<?php echo $thumbnail_html; ?>
+						<?php echo wp_kses_post( $thumbnail_html ); ?>
 					</a>
 				</div>
 			<?php endif; ?>
@@ -3994,7 +3994,7 @@ class Premium_Post_Ticker extends Widget_Base {
 			<div>
 				<<?php echo wp_kses_post( $title_tag . ' ' . $this->get_render_attribute_string( 'post-title' . $post_id ) ); ?>>
 					<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'post-link' . $post_id ) ); ?>>
-						<?php echo $title; ?>
+						<?php echo esc_html( $title ); ?>
 					</a>
 				</<?php echo wp_kses_post( $title_tag ); ?>>
 			</div>

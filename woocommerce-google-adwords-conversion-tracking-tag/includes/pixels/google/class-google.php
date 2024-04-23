@@ -15,8 +15,6 @@ if (!defined('ABSPATH')) {
 
 class Google extends Pixel {
 
-	private $google_ads_conversion_identifiers;
-
 	public function is_ga4_debug_mode_active() {
 
 		$debug_mode = apply_filters_deprecated('wooptpm_enable_ga_4_mp_event_debug_mode', [ false ], '1.13.0', 'pmw_enable_ga_4_mp_event_debug_mode');
@@ -25,11 +23,11 @@ class Google extends Pixel {
 		return apply_filters('pmw_enable_ga_4_mp_event_debug_mode', $debug_mode);
 	}
 
-	public function __construct( $options ) {
+	public function __construct() {
 
-		parent::__construct($options);
+		parent::__construct();
 
-		$this->google_business_vertical = $this->get_google_business_vertical($this->options['google']['ads']['google_business_vertical']);
+		$this->google_business_vertical = $this->get_google_business_vertical_name_by_id(Options::get_google_ads_business_vertical_id());
 
 		$this->pixel_name = 'google';
 	}
@@ -88,72 +86,6 @@ class Google extends Pixel {
 		return apply_filters('pmw_product_id_type_for_google_analytics', $ga_id_type);
 	}
 
-	public function google_active() {
-
-		if ($this->options_obj->google->analytics->universal->property_id) {
-			return true;
-		} elseif ($this->options_obj->google->analytics->ga4->measurement_id) {
-			return true;
-		} elseif ($this->options_obj->google->ads->conversion_id) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function is_google_ads_active() {
-
-		if ($this->options['google']['ads']['conversion_id']) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function is_google_analytics_active() {
-
-		if ($this->is_google_analytics_ua_active() || $this->is_google_analytics_4_active()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function is_google_analytics_ua_active() {
-
-		if ($this->options_obj->google->analytics->universal->property_id) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	protected function is_google_analytics_4_active() {
-
-		if ($this->options_obj->google->analytics->ga4->measurement_id) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function is_google_analytics_4_mp_active() {
-
-		if ($this->options_obj->google->analytics->ga4->measurement_id && $this->options_obj->google->analytics->ga4->api_secret) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function is_google_active() {
-
-		return (
-			Options::is_google_ads_active()
-			|| Options::is_google_analytics_enabled()
-		);
-	}
-
 	public function wpm_get_order_item_price( $order_item ) {
 
 		if (Environment::is_woo_discount_rules_active()) {
@@ -194,7 +126,7 @@ class Google extends Pixel {
 		return $item_details_array;
 	}
 
-	public function get_google_business_vertical( $id ) {
+	public function get_google_business_vertical_name_by_id( $id ) {
 
 		$verticals = [
 			0 => 'retail',
@@ -213,42 +145,24 @@ class Google extends Pixel {
 
 	public function get_google_ads_conversion_ids() {
 
-		$this->google_ads_conversion_identifiers[$this->options['google']['ads']['conversion_id']] = $this->options['google']['ads']['conversion_label'];
+		$google_ads_conversion_identifiers[Options::get_google_ads_conversion_id()] = Options::get_google_ads_conversion_label();
 
-		$this->google_ads_conversion_identifiers = apply_filters_deprecated('wgact_google_ads_conversion_identifiers', [ $this->google_ads_conversion_identifiers ], '1.10.2', 'pmw_google_ads_conversion_identifiers');
-		$this->google_ads_conversion_identifiers = apply_filters_deprecated('wooptpm_google_ads_conversion_identifiers', [ $this->google_ads_conversion_identifiers ], '1.13.0', 'pmw_google_ads_conversion_identifiers');
-		$this->google_ads_conversion_identifiers = apply_filters_deprecated('wpm_google_ads_conversion_identifiers', [ $this->google_ads_conversion_identifiers ], '1.31.2', 'pmw_google_ads_conversion_identifiers');
+		$google_ads_conversion_identifiers = apply_filters_deprecated('wgact_google_ads_conversion_identifiers', [ $google_ads_conversion_identifiers ], '1.10.2', 'pmw_google_ads_conversion_identifiers');
+		$google_ads_conversion_identifiers = apply_filters_deprecated('wooptpm_google_ads_conversion_identifiers', [ $google_ads_conversion_identifiers ], '1.13.0', 'pmw_google_ads_conversion_identifiers');
+		$google_ads_conversion_identifiers = apply_filters_deprecated('wpm_google_ads_conversion_identifiers', [ $google_ads_conversion_identifiers ], '1.31.2', 'pmw_google_ads_conversion_identifiers');
 
-		$this->google_ads_conversion_identifiers = apply_filters('pmw_google_ads_conversion_identifiers', $this->google_ads_conversion_identifiers);
+		$google_ads_conversion_identifiers = apply_filters('pmw_google_ads_conversion_identifiers', $google_ads_conversion_identifiers);
 
 		$formatted_conversion_ids = [];
 
-//		if (Environment_Check::get_instance()->is_woocommerce_active() && Shop::wpm_is_order_received_page()) {
-//		if (Environment_Check::get_instance()->is_woocommerce_active() && Shop::wpm_is_order_received_page()) {
-//			foreach ($this->google_ads_conversion_identifiers as $conversion_id => $conversion_label) {
-//				$conversion_id = $this->extract_google_ads_id($conversion_id);
-//				if ($conversion_id) {
-//					$formatted_conversion_ids['AW-' . $conversion_id] = $conversion_label;
-//				}
-//			}
-//		} else {
-//			foreach ($this->google_ads_conversion_identifiers as $conversion_id => $conversion_label) {
-//				$conversion_id = $this->extract_google_ads_id($conversion_id);
-//				if ($conversion_id) {
-//					$formatted_conversion_ids['AW-' . $conversion_id] = '';
-//				}
-//			}
-//		}
-
 		if (Environment::is_woocommerce_active()) {
-			foreach ($this->google_ads_conversion_identifiers as $conversion_id => $conversion_label) {
+			foreach ($google_ads_conversion_identifiers as $conversion_id => $conversion_label) {
 				$conversion_id = $this->extract_google_ads_id($conversion_id);
 				if ($conversion_id) {
 					$formatted_conversion_ids['AW-' . $conversion_id] = $conversion_label;
 				}
 			}
 		}
-
 
 		return $formatted_conversion_ids;
 	}
@@ -282,7 +196,7 @@ class Google extends Pixel {
 	 * @param $order
 	 * @return array
 	 */
-	public function get_google_ads_enhanced_conversion_data( $order ) {
+	public function get_google_enhanced_conversion_data( $order ) {
 
 		$customer_data = [];
 
@@ -450,7 +364,7 @@ class Google extends Pixel {
 		$user_id = Shop::get_user_id();
 
 		if (
-			$this->options_obj->google->user_id
+			Options::is_google_user_id_active()
 			&& null !== $user_id
 		) {
 			$ga_4_parameters['user_id'] = $user_id;
@@ -466,10 +380,10 @@ class Google extends Pixel {
 
 		$ga_ua_parameters = [
 			'anonymize_ip'     => true, // must be a string for correct output
-			'link_attribution' => (bool) $this->options_obj->google->analytics->link_attribution, // must be a string for correct output
+			'link_attribution' => Options::is_google_link_attribution_active(), // must be a string for correct output
 		];
 
-		if ($this->options_obj->google->user_id && is_user_logged_in()) {
+		if (Options::is_google_user_id_active() && is_user_logged_in()) {
 			$ga_ua_parameters['user_id'] = get_current_user_id();
 		}
 

@@ -171,9 +171,11 @@ class YITH_WCAS_Data_Index_Token {
 	 */
 	public function search_similar_token( $token, $lang, $limited = 500 ) {
 		global $wpdb;
-		$result = $wpdb->get_results( $wpdb->prepare( "SELECT it.token as token, it.frequency as frequency FROM $wpdb->yith_wcas_index_token as it LEFT JOIN $wpdb->yith_wcas_index_relationship ir ON it.token_id = ir.token_id WHERE  ir.source_type LIKE %s AND it.token LIKE %s AND it.lang like %s ORDER BY it.frequency DESC LIMIT %d ", 'product', $token, $lang, $limited ), ARRAY_A );
-		return $result;
-
+		$query = $wpdb->prepare( "SELECT it.token as token, it.frequency as frequency FROM $wpdb->yith_wcas_index_token as it LEFT JOIN $wpdb->yith_wcas_index_relationship ir ON it.token_id = ir.token_id WHERE  ir.source_type LIKE %s AND it.token LIKE %s AND it.lang like %s ORDER BY it.frequency DESC",'product', $token, $lang ) ;
+		if( $limited > 0 ){
+			$query .= $wpdb->prepare(" LIMIT %d", $limited );
+		}
+		return $wpdb->get_results( $query, ARRAY_A );
 	}
 
 	/**

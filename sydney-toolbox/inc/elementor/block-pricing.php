@@ -541,9 +541,9 @@ class aThemes_Pricing_Table extends Widget_Base {
 		<div class="pricing-section style4">
 			<div class="plan-item-inner">
 			<div class="plan-header">
-				<h4><?php echo $settings['name']; ?></h4>
+				<h4><?php echo esc_html( $settings['name'] ); ?></h4>
 				<div class="plan-price">
-					<span><?php echo $settings['currency']; ?></span><?php echo $settings['price']; ?><span>/<?php echo $settings['period']; ?></span>		
+					<span><?php echo esc_html( $settings['currency'] ); ?></span><?php echo esc_html( $settings['price'] ); ?><span>/<?php echo esc_html( $settings['period'] ); ?></span>		
 				</div>	
 			</div>
 
@@ -551,7 +551,7 @@ class aThemes_Pricing_Table extends Widget_Base {
 				<?php foreach ( $settings['features_list'] as $index => $item ) :
 					?>
 					<div class="plan-feature" >
-						<?php echo $item['text']; ?>
+						<?php echo esc_html( $item['text'] ); ?>
 					</div>
 					<?php
 				endforeach;
@@ -574,7 +574,7 @@ class aThemes_Pricing_Table extends Widget_Base {
 			?>
 				<div class="plan-btn">
 				<a <?php echo $this->get_render_attribute_string( 'button' ); ?>>
-					<?php echo $settings['button_text']; ?>
+					<?php echo esc_html( $settings['button_text'] ); ?>
 				</a>	
 				</div>
 			</div>

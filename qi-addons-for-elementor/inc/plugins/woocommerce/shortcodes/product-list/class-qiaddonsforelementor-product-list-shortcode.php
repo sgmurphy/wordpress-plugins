@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_product_list_shortcode' ) ) {
 	/**
 	 * Function that is adding shortcode into shortcodes list for registration
@@ -639,7 +644,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 
 			$atts['post_type'] = $this->get_post_type();
 
-			// Additional query args
+			// Additional query args.
 			$atts['additional_query_args'] = $this->get_additional_query_args( $atts );
 
 			$atts['holder_classes'] = $this->get_holder_classes( $atts );
@@ -661,6 +666,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 						$args['post__in']      = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
 						break;
 					case 'featured':
+						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 						$args['tax_query'] = WC()->query->get_tax_query();
 
 						$args['tax_query'][] = array(
@@ -672,11 +678,13 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 						);
 						break;
 					case 'top_rated':
+						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 						$args['meta_key'] = '_wc_average_rating';
 						$args['order']    = 'DESC';
 						$args['orderby']  = 'meta_value_num';
 						break;
 					case 'best_selling':
+						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 						$args['meta_key'] = 'total_sales';
 						$args['order']    = 'DESC';
 						$args['orderby']  = 'meta_value_num';
@@ -685,6 +693,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 			}
 
 			if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				$args['meta_query']   = array( 'relation' => 'AND' );
 				$args['meta_query'][] = array(
 					'key'   => '_stock_status',

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_product_category_list_variation_info_on_image_boxed' ) ) {
 	/**
 	 * Function that add variation layout for this module

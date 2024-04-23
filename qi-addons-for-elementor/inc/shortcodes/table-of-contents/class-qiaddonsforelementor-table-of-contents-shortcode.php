@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_table_of_contents_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -409,7 +414,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 				foreach ( $excluded_array as $exc ) {
 					$exc = trim( $exc );
 
-					//if class or id used add it to cid part, else add it to tags
+					// If class or id used add it to cid part, else add it to tags.
 					if ( 0 === strpos( $exc, '.' ) || 0 === strpos( $exc, '#' ) ) {
 						$excluded['cid'][] = $exc;
 					} else {

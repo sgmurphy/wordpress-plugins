@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_get_list_shortcode_item_image' ) ) {
 	/**
 	 * Function that generates thumbnail img tag for list shortcodes
@@ -176,27 +181,26 @@ if ( ! function_exists( 'qi_addons_for_elementor_explode_link_custom_attributes'
 			if ( count( $custom_attributes_array ) ) {
 				foreach ( $custom_attributes_array as $attribute ) {
 					$single_attribute = explode( '|', trim( $attribute ) );
-					
+
 					$single_attribute_key = mb_strtolower( $single_attribute[0] );
-					
-					//Leave only allowed characters
+
+					// Leave only allowed characters.
 					preg_match( '/[-_a-z0-9]+/', $single_attribute_key, $single_key_matches );
-					
+
 					if ( empty( $single_key_matches[0] ) ) {
 						continue;
 					}
-					
+
 					$single_attribute_key = $single_key_matches[0];
-					
-					//  Remove unallowed js events
+
+					// Remove unallowed js events.
 					if ( 'on' === substr( $single_attribute_key, 0, 2 ) || 'href' === $single_attribute_key ) {
 						continue;
 					}
-					
+
 					if ( 2 === count( $single_attribute ) ) {
 						$custom_attrs_array[ $single_attribute_key ] = trim( $single_attribute[1] );
 					}
-					
 				}
 			}
 		}
@@ -229,4 +233,3 @@ if ( ! function_exists( 'qi_addons_for_elementor_get_link_attributes' ) ) {
 		return $link_attributes;
 	}
 }
-

@@ -1,11 +1,16 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElementor_Framework_Shortcode {
 	private $post_type;
 	private $post_type_taxonomy;
 	private $post_type_additional_taxonomies = array();
-	private $layouts = array();
-	private $extra_options = array();
+	private $layouts                         = array();
+	private $extra_options                   = array();
 
 	public function __construct() {
 		parent::__construct();
@@ -134,7 +139,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'values'        => 'yes',
 								'default_value' => 'yes',
 							),
-							'slider_loop'                       => array(
+							'slider_loop' => array(
 								'values'        => 'no',
 								'default_value' => 'yes',
 							),
@@ -142,7 +147,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 					),
 					'selectors'  => array(
 						'{{WRAPPER}} .swiper-container-vertical' => 'height: {{SIZE}}{{UNIT}} !important;',
-						'{{WRAPPER}} .swiper-vertical'           => 'height: {{SIZE}}{{UNIT}} !important;',
+						'{{WRAPPER}} .swiper-vertical' => 'height: {{SIZE}}{{UNIT}} !important;',
 					),
 					'group'      => $group,
 				)
@@ -668,7 +673,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -720,7 +725,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -778,7 +783,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -845,7 +850,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						),
 						'size_units' => array( 'px', 'em' ),
 						'responsive' => true,
-						'selectors' => array(
+						'selectors'  => array(
 							'{{WRAPPER}} .qodef-swiper-together-inner > .swiper-button-prev'                                                         => 'margin-right: {{SIZE}}{{UNIT}} !important;',
 							'{{WRAPPER}} .swiper-container-vertical .qodef-swiper-together-nav .qodef-swiper-together-inner > .swiper-button-prev'   => 'margin: 0 0 {{SIZE}}{{UNIT}} 0 !important;',
 							'{{WRAPPER}} .swiper-container-vertical ~ .qodef-swiper-together-nav .qodef-swiper-together-inner > .swiper-button-prev' => 'margin: 0 0 {{SIZE}}{{UNIT}} 0 !important;',
@@ -923,7 +928,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1023,7 +1028,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1055,7 +1060,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1079,7 +1084,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1103,7 +1108,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1127,7 +1132,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1152,7 +1157,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 						'dependency' => array(
 							'relation' => 'or',
 							'hide'     => array(
-								'slider_navigation'          => array(
+								'slider_navigation' => array(
 									'values'        => 'no',
 									'default_value' => '',
 								),
@@ -1818,7 +1823,6 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 		$holder_classes[] = ! empty( $atts['slider_pagination_position'] ) ? 'qodef-pagination--' . $atts['slider_pagination_position'] : '';
 		$holder_classes[] = ! empty( $atts['slider_pagination_alignment'] ) ? 'qodef-pagination-alignment--' . $atts['slider_pagination_alignment'] : '';
 		$holder_classes[] = ! empty( $atts['hide_slider_navigation'] ) ? 'qodef-hide-navigation--' . $atts['hide_slider_navigation'] : '';
-//		$holder_classes[] = ! empty( $atts['enable_focus_in_viewport_vertical'] ) && 'yes' === $atts['enable_focus_in_viewport_vertical'] ? 'qodef--focus-in-viewport' : '';
 		$holder_classes[] = ! empty( $atts['slider_pagination_numbers'] ) && 'yes' === $atts['slider_pagination_numbers'] ? 'qodef--pagination-numbers' : '';
 		$holder_classes[] = isset( $atts['navigation_hover_move'] ) && 'yes' === $atts['navigation_hover_move'] ? 'qodef-navigation--hover-move' : '';
 
@@ -1892,7 +1896,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 			}
 		}
 
-		return json_encode( $data );
+		return wp_json_encode( $data );
 	}
 
 	public function map_query_options( $params = array() ) {
@@ -2088,6 +2092,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 			}
 
 			if ( ! empty( $atts['tax'] ) && ! empty( $taxonomy_values ) ) {
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				$args['tax_query'] = array( array_merge( array( 'taxonomy' => $atts['tax'] ), $taxonomy_values ) );
 			}
 		}
@@ -2106,7 +2111,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 		$exclude_option          = isset( $params['exclude_option'] ) ? $params['exclude_option'] : array();
 		$default_value_title_tag = isset( $params['default_value_title_tag'] ) ? $params['default_value_title_tag'] : 'h5';
 
-		$layout_visibility_field_type = sizeof( $layouts ) > 1 ? 'select' : 'hidden';
+		$layout_visibility_field_type = count( $layouts ) > 1 ? 'select' : 'hidden';
 
 		$default_value = '';
 		if ( ! empty( $layouts ) ) {
@@ -2194,14 +2199,16 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 	public function register_list_scripts() {
 		$scripts = $this->get_scripts();
 
-		$scripts['swiper'] = array( 'registered' => true ); //enqueue swiper for admin
+		// enqueue swiper for admin.
+		$scripts['swiper'] = array( 'registered' => true );
 		$list_scripts      = apply_filters( 'qi_addons_for_elementor_filter_register_slider_shortcode_scripts', isset( $scripts ) ? $scripts : array() );
 
 		$this->set_scripts( $list_scripts );
 	}
 
 	public function load_assets() {
-		wp_enqueue_script( 'swiper' ); //enqueue swiper for frontend
+		// enqueue swiper for frontend.
+		wp_enqueue_script( 'swiper' );
 		do_action( 'qi_addons_for_elementor_action_slider_shortcodes_load_assets', $this->get_atts() );
 	}
 }

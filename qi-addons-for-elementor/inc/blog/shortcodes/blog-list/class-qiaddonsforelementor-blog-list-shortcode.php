@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_blog_list_shortcode' ) ) {
 	/**
 	 * Function that isadding shortcode into shortcodes list for registration
@@ -471,7 +476,7 @@ if ( class_exists( 'QiAddonsForElementor_List_Shortcode' ) ) {
 
 			$atts['post_type'] = $this->get_post_type();
 
-			// Additional query args
+			// Additional query args.
 			$atts['additional_query_args'] = $this->get_additional_query_args( $atts );
 
 			$atts['holder_classes'] = $this->get_holder_classes( $atts );

@@ -2,42 +2,37 @@
 
 namespace SweetCode\Pixel_Manager\Admin;
 
-use  SweetCode\Pixel_Manager\Admin\Opportunities\Opportunities ;
-use  SweetCode\Pixel_Manager\Helpers ;
-
+use SweetCode\Pixel_Manager\Admin\Opportunities\Opportunities;
+use SweetCode\Pixel_Manager\Helpers;
 if ( !defined( 'ABSPATH' ) ) {
     exit;
     // Exit if accessed directly
 }
+class Notifications {
+    private static $instance;
 
-class Notifications
-{
-    private static  $instance ;
-    public static function get_instance()
-    {
+    public static function get_instance() {
         if ( is_null( self::$instance ) ) {
             self::$instance = new self();
         }
         return self::$instance;
     }
-    
-    public function __construct()
-    {
-        add_action( 'admin_enqueue_scripts', [ __CLASS__, 'inject_admin_scripts' ] );
-        add_action( 'admin_enqueue_scripts', [ __CLASS__, 'wpm_admin_css' ] );
+
+    public function __construct() {
+        add_action( 'admin_enqueue_scripts', [__CLASS__, 'inject_admin_scripts'] );
+        add_action( 'admin_enqueue_scripts', [__CLASS__, 'wpm_admin_css'] );
         add_action( 'admin_notices', function () {
             if ( Environment::is_allowed_notification_page() ) {
                 self::opportunities_notification();
             }
         } );
     }
-    
-    public static function inject_admin_scripts()
-    {
+
+    public static function inject_admin_scripts() {
         wp_enqueue_script(
             'pmw-notifications',
             PMW_PLUGIN_DIR_PATH . 'js/admin/notifications.js',
-            [ 'jquery' ],
+            ['jquery'],
             PMW_CURRENT_VERSION,
             true
         );
@@ -46,9 +41,8 @@ class Notifications
             'nonce' => wp_create_nonce( 'wp_rest' ),
         ] );
     }
-    
-    public static function wpm_admin_css( $hook_suffix )
-    {
+
+    public static function wpm_admin_css( $hook_suffix ) {
         // Only output the css on PMW pages and the order page
         //		if (self::is_not_allowed_to_show_pmw_notification()) {
         //			return;
@@ -60,15 +54,13 @@ class Notifications
             PMW_CURRENT_VERSION
         );
     }
-    
+
     // Only show the notification on the dashboard and on the PMW settings page
-    private static function is_not_allowed_to_show_pmw_notification()
-    {
+    private static function is_not_allowed_to_show_pmw_notification() {
         return !self::is_allowed_to_show_pmw_notification();
     }
-    
-    private static function is_allowed_to_show_pmw_notification()
-    {
+
+    private static function is_allowed_to_show_pmw_notification() {
         if ( !self::can_current_page_show_pmw_notification() ) {
             return false;
         }
@@ -79,11 +71,10 @@ class Notifications
         }
         return true;
     }
-    
-    public static function can_current_page_show_pmw_notification()
-    {
-        global  $hook_suffix ;
-        $allowed_pages = [ 'page_wpm', 'index.php', 'dashboard' ];
+
+    public static function can_current_page_show_pmw_notification() {
+        global $hook_suffix;
+        $allowed_pages = ['page_wpm', 'index.php', 'dashboard'];
         /**
          * We can't use in_array because woocommerce_page_wpm
          * is malformed on certain installs, but the substring
@@ -97,9 +88,8 @@ class Notifications
         }
         return false;
     }
-    
-    public static function payment_gateway_accuracy_warning()
-    {
+
+    public static function payment_gateway_accuracy_warning() {
         // Only show the warning on the dashboard and on the PMW settings page
         if ( self::is_not_allowed_to_show_pmw_notification() ) {
             return;
@@ -121,19 +111,18 @@ class Notifications
 		</div>
 		<?php 
     }
-    
+
     public static function plugin_is_incompatible(
         $name,
         $version,
         $slug,
         $link = '',
         $wpm_doc_link = ''
-    )
-    {
+    ) {
         ?>
 		<div
 				class="notice notice-error <?php 
-        echo  esc_js( $slug ) ;
+        echo esc_js( $slug );
         ?>-incompatible-plugin-error"
 		>
 			<p>
@@ -144,16 +133,16 @@ class Notifications
 				</span>
 				<span>
 					<a href="<?php 
-        echo  esc_url( $link ) ;
+        echo esc_url( $link );
         ?>" target="_blank">
 						<?php 
-        echo  esc_js( $name ) ;
+        echo esc_js( $name );
         ?>
 					</a>
 					(<?php 
         esc_html_e( 'Version', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>: <?php 
-        echo  esc_js( $version ) ;
+        echo esc_js( $version );
         ?>)
 				</span>
 				<br>
@@ -170,7 +159,7 @@ class Notifications
         ?>
 				</span><a
 						href="<?php 
-        echo  esc_url( $wpm_doc_link ) ;
+        echo esc_url( $wpm_doc_link );
         ?>"
 						target="_blank">
 					<?php 
@@ -184,12 +173,12 @@ class Notifications
 			<div style="margin-bottom: 10px; display: flex; justify-content: space-between">
 
 				<div id="<?php 
-        echo  esc_js( $slug ) ;
+        echo esc_js( $slug );
         ?>-incompatible-plugin-error-dismissal-button"
 					 class="button incompatible-plugin-error-dismissal-button"
 					 style="white-space:normal;"
 					 data-notification-id="<?php 
-        echo  esc_js( $slug ) ;
+        echo esc_js( $slug );
         ?>">
 					<?php 
         esc_html_e( 'Click here to dismiss this warning forever', 'woocommerce-google-adwords-conversion-tracking-tag' );
@@ -198,7 +187,7 @@ class Notifications
 				<div
 						style="white-space:normal; bottom:0; right: 0; margin-bottom: 0; margin-right: 5px;align-self: flex-end;">
 					<a href="<?php 
-        echo  esc_url( Documentation::get_link( 'the_dismiss_button_doesnt_work_why' ) ) ;
+        echo esc_url( Documentation::get_link( 'the_dismiss_button_doesnt_work_why' ) );
         ?>"
 					   target="_blank">
 						<?php 
@@ -211,9 +200,8 @@ class Notifications
 		</div>
 		<?php 
     }
-    
-    private static function can_show_dashboard_opportunities_message()
-    {
+
+    private static function can_show_dashboard_opportunities_message() {
         $saved_notifications = get_option( PMW_DB_NOTIFICATIONS_NAME );
         if ( isset( $saved_notifications['dashboard-opportunities-message-dismissed'] ) && $saved_notifications['dashboard-opportunities-message-dismissed'] > time() - MONTH_IN_SECONDS * 3 ) {
             return false;
@@ -223,14 +211,12 @@ class Notifications
         }
         return true;
     }
-    
-    private static function cannot_show_dashboard_opportunities_message()
-    {
+
+    private static function cannot_show_dashboard_opportunities_message() {
         return !self::can_show_dashboard_opportunities_message();
     }
-    
-    public static function opportunities_notification()
-    {
+
+    public static function opportunities_notification() {
         if ( self::cannot_show_dashboard_opportunities_message() ) {
             return;
         }
@@ -248,7 +234,7 @@ class Notifications
 				</div>
 
 				<a href="<?php 
-        echo  esc_url_raw( '/wp-admin/admin.php?page=wpm&section=opportunities' ) ;
+        echo esc_url_raw( '/wp-admin/admin.php?page=wpm&section=opportunities' );
         ?>"
 				   style="text-decoration: none;box-shadow: none;">
 					<div id="pmw-purchase-new-license-button" class="button" style="margin: 10px 0 10px 0">
@@ -270,7 +256,7 @@ class Notifications
 				</div>
 				<div class="pmw dismiss-link-info" style="margin-top: auto">
 					<a href="<?php 
-        echo  esc_url( Documentation::get_link( 'the_dismiss_button_doesnt_work_why' ) ) ;
+        echo esc_url( Documentation::get_link( 'the_dismiss_button_doesnt_work_why' ) );
         ?>"
 					   target="_blank">
 						<?php 

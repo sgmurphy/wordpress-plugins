@@ -1,4 +1,13 @@
 <?php
+
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+// phpcs:disable Squiz.Commenting.ClassComment.Missing
+// phpcs:disable Squiz.Commenting.VariableComment.Missing
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+// phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
+
 /**
  * JSMin.php - modified PHP implementation of Douglas Crockford's JSMin.
  *
@@ -53,7 +62,6 @@
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @link http://code.google.com/p/jsmin-php/
  */
-
 class JSMin {
 	const ORD_LF            = 10;
 	const ORD_SPACE         = 32;
@@ -74,7 +82,7 @@ class JSMin {
 	/**
 	 * Minify Javascript.
 	 *
-	 * @param string $js Javascript to be minified
+	 * @param string $js Javascript to be minified.
 	 *
 	 * @return string
 	 */
@@ -84,7 +92,9 @@ class JSMin {
 	}
 
 	/**
-	 * @param string $input
+	 * Construct
+	 *
+	 * @param string $input JS code to minify.
 	 */
 	public function __construct( $input ) {
 		$this->input = $input;
@@ -96,7 +106,7 @@ class JSMin {
 	 * @return string
 	 */
 	public function min() {
-		if ( '' !== $this->output ) { // min already run
+		if ( '' !== $this->output ) { // min already run.
 			return $this->output;
 		}
 
@@ -107,12 +117,12 @@ class JSMin {
 		$this->action( self::ACTION_DELETE_A_B );
 
 		while ( null !== $this->a ) {
-			// determine next command
-			$command = self::ACTION_KEEP_A; // default
+			// determine next command.
+			$command = self::ACTION_KEEP_A; // default.
 			if ( ' ' === $this->a ) {
 				if ( ( '+' === $this->lastByteOut || '-' === $this->lastByteOut ) && $this->b === $this->lastByteOut ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
-					// Don't delete this space. If we do, the addition/subtraction
-					// could be parsed as a post-increment
+					// Don't delete this space. If we do, the addition/subtraction.
+					// could be parsed as a post-increment.
 				} elseif ( ! $this->isAlphaNum( $this->b ) ) {
 					$command = self::ACTION_DELETE_A;
 				}
@@ -146,16 +156,17 @@ class JSMin {
 	 * ACTION_DELETE_A = Copy B to A. Get the next B.
 	 * ACTION_DELETE_A_B = Get the next B.
 	 *
-	 * @param int $command
-	 * @throws JSMin_UnterminatedRegExpException|JSMin_UnterminatedStringException
+	 * @param int $command command id.
+	 * @throws JSMin_UnterminatedRegExpException Possible method error.
+	 * @throws JSMin_UnterminatedStringException Possible method error.
 	 */
 	protected function action( $command ) {
 		// make sure we don't compress "a + ++b" to "a+++b", etc.
 		if ( self::ACTION_DELETE_A_B === $command
 			&& ' ' === $this->b
 			&& ( '+' === $this->a || '-' === $this->a ) ) {
-			// Note: we're at an addition/substraction operator; the inputIndex
-			// will certainly be a valid index
+			// Note: we're at an addition/substraction operator; the inputIndex.
+			// will certainly be a valid index.
 			if ( $this->input[ $this->inputIndex ] === $this->a ) {
 				// This is "+ +" or "- -". Don't delete the space.
 				$command = self::ACTION_KEEP_A;
@@ -163,7 +174,7 @@ class JSMin {
 		}
 
 		switch ( $command ) {
-			case self::ACTION_KEEP_A: // 1
+			case self::ACTION_KEEP_A: // 1.
 				$this->output .= $this->a;
 
 				if ( $this->keptComment ) {
@@ -174,22 +185,22 @@ class JSMin {
 
 				$this->lastByteOut = $this->a;
 
-				// fallthrough intentional
-			case self::ACTION_DELETE_A: // 2
+				// fallthrough intentional.
+			case self::ACTION_DELETE_A: // 2.
 				$this->a = $this->b;
-				if ( "'" === $this->a || '"' === $this->a ) { // string literal
-					$str = $this->a; // in case needed for exception
+				if ( "'" === $this->a || '"' === $this->a ) { // string literal.
+					$str = $this->a; // in case needed for exception.
 					for ( ;; ) {
 						$this->output     .= $this->a;
 						$this->lastByteOut = $this->a;
 
 						$this->a = $this->get();
-						if ( $this->a === $this->b ) { // end quote
+						if ( $this->a === $this->b ) { // end quote.
 							break;
 						}
 						if ( $this->isEOF( $this->a ) ) {
 							throw new JSMin_UnterminatedStringException(
-								"JSMin: Unterminated String at byte {$this->inputIndex}: {$str}"
+								"JSMin: Unterminated String at byte {$this->inputIndex}: {$str}" // phpcs:ignore
 							);
 						}
 						$str .= $this->a;
@@ -203,12 +214,12 @@ class JSMin {
 					}
 				}
 
-				// fallthrough intentional
-			case self::ACTION_DELETE_A_B: // 3
+				// fallthrough intentional.
+			case self::ACTION_DELETE_A_B: // 3.
 				$this->b = $this->next();
 				if ( '/' === $this->b && $this->isRegexpLiteral() ) {
 					$this->output .= $this->a . $this->b;
-					$pattern       = '/'; // keep entire pattern in case we need to report it in the exception
+					$pattern       = '/'; // keep entire pattern in case we need to report it in the exception.
 					for ( ;; ) {
 						$this->a  = $this->get();
 						$pattern .= $this->a;
@@ -228,21 +239,21 @@ class JSMin {
 								if ( $this->isEOF( $this->a ) ) {
 									throw new JSMin_UnterminatedRegExpException(
 										'JSMin: Unterminated set in RegExp at byte '
-											. $this->inputIndex . ": {$pattern}"
+											. $this->inputIndex . ": {$pattern}" // phpcs:ignore
 									);
 								}
 							}
 						}
 
-						if ( '/' === $this->a ) { // end pattern
-							break; // while (true)
+						if ( '/' === $this->a ) { // end pattern.
+							break; // while (true).
 						} elseif ( '\\' === $this->a ) {
 							$this->output .= $this->a;
 							$this->a       = $this->get();
 							$pattern      .= $this->a;
 						} elseif ( $this->isEOF( $this->a ) ) {
 							throw new JSMin_UnterminatedRegExpException(
-								"JSMin: Unterminated RegExp at byte {$this->inputIndex}: {$pattern}"
+								"JSMin: Unterminated RegExp at byte {$this->inputIndex}: {$pattern}" // phpcs:ignore
 							);
 						}
 						$this->output     .= $this->a;
@@ -250,29 +261,31 @@ class JSMin {
 					}
 					$this->b = $this->next();
 				}
-				// end case ACTION_DELETE_A_B
+				// end case ACTION_DELETE_A_B.
 		}
 	}
 
 	/**
+	 * Check regular expressions.
+	 *
 	 * @return bool
 	 */
 	protected function isRegexpLiteral() {
 		if ( false !== strpos( '(,=:[!&|?+-~*{;', $this->a ) ) {
-			// we obviously aren't dividing
+			// we obviously aren't dividing.
 			return true;
 		}
 		if ( ' ' === $this->a || "\n" === $this->a ) {
 			$length = strlen( $this->output );
-			if ( $length < 2 ) { // weird edge case
+			if ( $length < 2 ) { // weird edge case.
 				return true;
 			}
-			// you can't divide a keyword
+			// you can't divide a keyword.
 			if ( preg_match( '/(?:case|else|in|return|typeof)$/', $this->output, $m ) ) {
-				if ( $this->output === $m[0] ) { // odd but could happen
+				if ( $this->output === $m[0] ) { // odd but could happen.
 					return true;
 				}
-				// make sure it's a keyword, not end of an identifier
+				// make sure it's a keyword, not end of an identifier.
 				$charBeforeKeyword = substr( $this->output, $length - strlen( $m[0] ) - 1, 1 );
 				if ( ! $this->isAlphaNum( $charBeforeKeyword ) ) {
 					return true;
@@ -292,7 +305,7 @@ class JSMin {
 		$c               = $this->lookAhead;
 		$this->lookAhead = null;
 		if ( null === $c ) {
-			// getc(stdin)
+			// getc(stdin).
 			if ( $this->inputIndex < $this->inputLength ) {
 				$c                 = $this->input[ $this->inputIndex ];
 				$this->inputIndex += 1;
@@ -300,7 +313,7 @@ class JSMin {
 				$c = null;
 			}
 		}
-        if ( $c === null || ord($c) >= self::ORD_SPACE || $c === "\n" ) {
+		if ( null === $c || ord( $c ) >= self::ORD_SPACE || "\n" === $c ) {
 			return $c;
 		}
 		if ( "\r" === $c ) {
@@ -312,7 +325,7 @@ class JSMin {
 	/**
 	 * Does $a indicate end of input?
 	 *
-	 * @param string $a
+	 * @param string $a text to check.
 	 * @return bool
 	 */
 	protected function isEOF( $a ) {
@@ -332,7 +345,7 @@ class JSMin {
 	/**
 	 * Return true if the character is a letter, digit, underscore, dollar sign, or non-ASCII character.
 	 *
-	 * @param string $c
+	 * @param string $c text to check.
 	 *
 	 * @return bool
 	 */
@@ -348,8 +361,8 @@ class JSMin {
 		while ( true ) {
 			$get      = $this->get();
 			$comment .= $get;
-			if ( ord( $get ) <= self::ORD_LF ) { // end of line reached
-				// if IE conditional comment
+			if ( ord( $get ) <= self::ORD_LF ) { // end of line reached.
+				// if IE conditional comment.
 				if ( preg_match( '/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment ) ) {
 					$this->keptComment .= "/{$comment}";
 				}
@@ -361,7 +374,7 @@ class JSMin {
 	/**
 	 * Consume a multiple line comment from input (possibly retaining it)
 	 *
-	 * @throws JSMin_UnterminatedCommentException
+	 * @throws JSMin_UnterminatedCommentException Possible method error.
 	 */
 	protected function consumeMultipleLineComment() {
 		$this->get();
@@ -369,24 +382,24 @@ class JSMin {
 		for ( ;; ) {
 			$get = $this->get();
 			if ( '*' === $get ) {
-				if ( '/' === $this->peek() ) { // end of comment reached
+				if ( '/' === $this->peek() ) { // end of comment reached.
 					$this->get();
 					if ( 0 === strpos( $comment, '!' ) ) {
-						// preserved by YUI Compressor
+						// preserved by YUI Compressor.
 						if ( ! $this->keptComment ) {
-							// don't prepend a newline if two comments right after one another
+							// don't prepend a newline if two comments right after one another.
 							$this->keptComment = "\n";
 						}
 						$this->keptComment .= '/*!' . substr( $comment, 1 ) . "*/\n";
 					} elseif ( preg_match( '/^@(?:cc_on|if|elif|else|end)\\b/', $comment ) ) {
-						// IE conditional
+						// IE conditional.
 						$this->keptComment .= "/*{$comment}*/";
 					}
 					return;
 				}
 			} elseif ( null === $get ) {
 				throw new JSMin_UnterminatedCommentException(
-					"JSMin: Unterminated comment at byte {$this->inputIndex}: /*{$comment}"
+					"JSMin: Unterminated comment at byte {$this->inputIndex}: /*{$comment}" // phpcs:ignore
 				);
 			}
 			$comment .= $get;

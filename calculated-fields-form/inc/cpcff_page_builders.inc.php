@@ -2,19 +2,20 @@
 /**
  * Main class to interace with the different Content Editors: CPCFF_PAGE_BUILDERS class
  */
+
 if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 	class CPCFF_PAGE_BUILDERS {
 
 		private static $_instance;
 		private $wptexturize_flag = false;
 
-		private function __construct(){}
+		private function __construct() {}
 		private static function instance() {
 			if ( ! isset( self::$_instance ) ) {
 				self::$_instance = new self();
 			}
 			return self::$_instance;
-		} // End instance
+		} // End instance.
 
 		public static function run() {
 			$instance = self::instance();
@@ -25,7 +26,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 		public function init() {
 			$instance = $instance = self::instance(); // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 
-			// Gutenberg editor
+			// Gutenberg editor.
 			add_action( 'enqueue_block_editor_assets', array( $instance, 'gutenberg_editor' ) );
 			add_filter( 'render_block', array( $instance, 'gutenberg_dissable_wptexturize' ), 10, 2 );
 			if (
@@ -37,34 +38,32 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 				die( json_encode( $this->gutenberg_editor_config() ) );
 			}
 
-			// Elementor
+			// Elementor.
 			add_action( 'elementor/widgets/register', array( $instance, 'elementor_editor' ) );
 			add_action( 'elementor/elements/categories_registered', array( $instance, 'elementor_editor_category' ) );
 
-			// Beaver builder
+			// Beaver builder.
 			if ( class_exists( 'FLBuilder' ) ) {
 				include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/beaverbuilder/cff/cff.inc.php';
 				include_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/beaverbuilder/cffvar/cffvar.inc.php';
 			}
 
-			// DIVI
+			// DIVI.
 			add_action( 'et_builder_ready', array( $instance, 'divi_editor' ) );
-
-		} // End init
+		} // End init.
 
 		public function after_setup_theme() {
 			$instance = $instance = self::instance(); // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments
 
-			// SiteOrigin
+			// SiteOrigin.
 			add_filter( 'siteorigin_widgets_widget_folders', array( $instance, 'siteorigin_widgets_collection' ) );
 			add_filter( 'siteorigin_panels_widget_dialog_tabs', array( $instance, 'siteorigin_panels_widget_dialog_tabs' ) );
 
-			// Visual Composer
+			// Visual Composer.
 			add_action( 'vcv:api', array( $instance, 'visualcomposer_editor' ) );
-		} // End after_setup_theme
+		} // End after_setup_theme.
 
 		/**************************** DIVI ****************************/
-
 		public function divi_editor() {
 			if ( class_exists( 'ET_Builder_Module' ) ) {
 				if ( isset( $_GET['et_fb'] ) ) {
@@ -72,7 +71,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 				}
 				require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/divi/cff.pb.php';
 			}
-		} // End divi_editor
+		} // End divi_editor.
 
 		/**************************** GUTENBERG ****************************/
 		private function gutenberg_editor_config() {
@@ -89,7 +88,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 					'required_form' => __( 'Select a form', 'calculated-fields-form' ),
 					'forms'         => __( 'Forms', 'calculated-fields-form' ),
 					'attributes'    => __( 'Additional attributes', 'calculated-fields-form' ),
-					'iframe'	    => __( 'Load form into an iframe', 'calculated-fields-form' ),
+					'iframe'        => __( 'Load form into an iframe', 'calculated-fields-form' ),
 					'edit_form'     => __( 'Edit form', 'calculated-fields-form' ),
 				),
 			);
@@ -101,7 +100,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			}
 
 			return $config;
-		} // End gutenberg_integration_config
+		} // End gutenberg_integration_config.
 
 		/**
 		 * Loads the javascript resources to integrate the plugin with the Gutenberg editor
@@ -111,7 +110,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			wp_enqueue_script( 'cp_calculatedfieldsf_gutenberg_editor', plugins_url( '/pagebuilders/gutenberg/assets/js/gutenberg.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 
 			wp_localize_script( 'cp_calculatedfieldsf_gutenberg_editor', 'cpcff_gutenberg_editor_config', $this->gutenberg_editor_config() );
-		} // End gutenberg_editor
+		} // End gutenberg_editor.
 
 		public function gutenberg_dissable_wptexturize( $block_content, $block ) {
 			if (
@@ -127,13 +126,12 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			}
 
 			return $block_content;
-		} // End gutenberg_dissable_wptexturize
+		} // End gutenberg_dissable_wptexturize.
 
 		/**************************** ELEMENTOR ****************************/
-
 		public function elementor_editor_category() {
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/elementor/elementor_category.pb.php';
-		} // End elementor_editor
+		} // End elementor_editor.
 
 		public function elementor_editor() {
 			if ( is_admin() ) {
@@ -151,38 +149,35 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 				}
 			}
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/elementor/elementor.pb.php';
-		} // End elementor_editor
+		} // End elementor_editor.
 
 		/**************************** SITEORIGIN ****************************/
-
 		public function siteorigin_widgets_collection( $folders ) {
-			 $folders[] = CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/siteorigin/';
+			$folders[] = CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/siteorigin/';
 			return $folders;
-		} // End siteorigin_widgets_collection
+		} // End siteorigin_widgets_collection.
 
 		public function siteorigin_panels_widget_dialog_tabs( $tabs ) {
-			 $tabs[] = array(
-				 'title'  => __( 'Calculated Fields Form', 'calculated-fields-form' ),
-				 'filter' => array(
-					 'groups' => array( 'calculated-fields-form' ),
-				 ),
-			 );
+			$tabs[] = array(
+				'title'  => __( 'Calculated Fields Form', 'calculated-fields-form' ),
+				'filter' => array(
+					'groups' => array( 'calculated-fields-form' ),
+				),
+			);
 
-			 return $tabs;
-		} // End siteorigin_panels_widget_dialog_tabs
+			return $tabs;
+		} // End siteorigin_panels_widget_dialog_tabs.
 
 		/**************************** VISUAL COMPOSER ****************************/
-
 		public function visualcomposer_editor( $api ) {
-			 $elementsToRegister = array( 'CFFForm' );
-			$pluginBaseUrl       = rtrim( plugins_url( '/pagebuilders/visualcomposer/', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), '\\/' );
-			$elementsApi         = $api->elements;
+			$elementsToRegister = array( 'CFFForm' );
+			$pluginBaseUrl      = rtrim( plugins_url( '/pagebuilders/visualcomposer/', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), '\\/' );
+			$elementsApi        = $api->elements;
 			foreach ( $elementsToRegister as $tag ) {
 				$manifestPath   = CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/visualcomposer/' . $tag . '/manifest.json';
 				$elementBaseUrl = $pluginBaseUrl . '/' . $tag;
 				$elementsApi->add( $manifestPath, $elementBaseUrl );
 			}
-		} // End visualcomposer_editor
-
-	} // End CPCFF_PAGE_BUILDERS
+		} // End visualcomposer_editor.
+	} // End CPCFF_PAGE_BUILDERS.
 }

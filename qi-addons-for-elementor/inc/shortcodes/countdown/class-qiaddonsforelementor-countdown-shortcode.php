@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_countdown_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -417,13 +422,13 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 
 			foreach ( $date_formats as $key => $value ) {
 				if ( ! empty( $atts[ $key . '_label' ] ) ) {
-					$data[ 'data-' . $key . '-label' ] = $atts[ $key . '_label' ];
+					$data[ 'data-' . $key . '-label' ] = sanitize_title( $atts[ $key . '_label' ] );
 				} else {
 					$data[ 'data-' . $key . '-label' ] = $value['default'];
 				}
 
 				if ( ! empty( $atts[ $key . '_label_plural' ] ) ) {
-					$data[ 'data-' . $key . '-label-plural' ] = $atts[ $key . '_label_plural' ];
+					$data[ 'data-' . $key . '-label-plural' ] = sanitize_title( $atts[ $key . '_label_plural' ] );
 				} else {
 					$data[ 'data-' . $key . '-label-plural' ] = $value['plural'];
 				}

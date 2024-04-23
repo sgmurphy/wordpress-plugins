@@ -1,7 +1,7 @@
 <?php
 class CFFBeaver extends FLBuilderModule {
 	public function __construct() {
-		 $modules_dir = dirname( __FILE__ ) . '/';
+		 $modules_dir = __DIR__ . '/';
 		$modules_url  = plugins_url( '/', __FILE__ ) . '/';
 
 		parent::__construct(

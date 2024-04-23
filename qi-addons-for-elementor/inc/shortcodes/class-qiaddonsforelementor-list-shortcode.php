@@ -1,11 +1,16 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 abstract class QiAddonsForElementor_List_Shortcode extends QiAddonsForElementor_Framework_Shortcode {
 	private $post_type;
 	private $post_type_taxonomy;
 	private $post_type_additional_taxonomies = array();
-	private $layouts = array();
-	private $extra_options = array();
+	private $layouts                         = array();
+	private $extra_options                   = array();
 
 	public function __construct() {
 		parent::__construct();
@@ -705,7 +710,7 @@ abstract class QiAddonsForElementor_List_Shortcode extends QiAddonsForElementor_
 			$this->map_slider_options( $params );
 		}
 
-		// Include Options
+		// Include Options.
 
 		if ( ! empty( $include_option ) || in_array( 'enable_zigzag', $include_option, true ) ) {
 			$this->set_option(
@@ -1070,6 +1075,7 @@ abstract class QiAddonsForElementor_List_Shortcode extends QiAddonsForElementor_
 			}
 
 			if ( ! empty( $atts['tax'] ) && ! empty( $taxonomy_values ) ) {
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				$args['tax_query'] = array( array_merge( array( 'taxonomy' => $atts['tax'] ), $taxonomy_values ) );
 			}
 		}
@@ -1088,7 +1094,7 @@ abstract class QiAddonsForElementor_List_Shortcode extends QiAddonsForElementor_
 		$exclude_option          = isset( $params['exclude_option'] ) ? $params['exclude_option'] : array();
 		$default_value_title_tag = isset( $params['default_value_title_tag'] ) ? $params['default_value_title_tag'] : 'h5';
 
-		$layout_visibility_field_type = sizeof( $layouts ) > 1 ? 'select' : 'hidden';
+		$layout_visibility_field_type = count( $layouts ) > 1 ? 'select' : 'hidden';
 
 		$default_value = '';
 		if ( ! empty( $layouts ) ) {

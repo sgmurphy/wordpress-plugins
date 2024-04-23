@@ -3,7 +3,7 @@ Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, 
 Tags: blocks, gutenberg blocks, gutenberg, block editor, free
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -150,9 +150,18 @@ That's it. You're done!
 
 == Changelog ==
 
+= 3.1.7 =
+
+* FIX: Advanced heading generated block security checks.
+* FIX: Button (Improved) breaks when select empty icon.
+* FIX: Table of content not getting nested toggle content block.
+* NEW: Alignment control for the filter buttons in content filter block.
+* NEW: Icon Option for individual list item in styled list block.
+* PRO: Fix: Pro features not showing.
+
 = 3.1.6 =
 
-* FIX: Security issue (Thanks to CleanTalk and Dmitrii Ignatyev).
+* FIX: Security issue in heading block.
 * PRO: NEW: Horizontal timeline in the timeline block.
 * PRO: NEW: Block Visibility Extension.
 

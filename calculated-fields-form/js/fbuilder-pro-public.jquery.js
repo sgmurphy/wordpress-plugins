@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.1.65';
+	$.fbuilder['version'] = '5.2.1';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -910,6 +910,92 @@
 					 .attr( 'placeholder', v );
 				}
 		});
+	$.fbuilder['doValidate'] = function(form) {
+		form = $(form);
+
+		let enabling_form = function () {
+				form.validate().settings.ignore = '.ignore,.ignorepb';
+				form.removeData('being-submitted');
+				form.find('.submitbtn-disabled').removeClass('submitbtn-disabled');
+				form.find('.cff-processing-form').remove();
+			},
+			disabling_form = function () {
+				if (form_disabled()) return;
+				form.find('.pbSubmit').addClass('submitbtn-disabled');
+				form.data('being-submitted', 1);
+				form.find('#fbuilder').append('<div class="cff-processing-form"></div>');
+			},
+			form_disabled = function () {
+				return ('undefined' != typeof form.data('being-submitted'));
+			},
+			processing_form = function () {
+				form.find('[name="cp_ref_page"]').val(document.location.href);
+				form.find("[name$='_date'][type='hidden']").each(function () {
+					let v = $(this).val(),
+					name = $(this).attr('name').replace('_date', ''),
+					e = $('[name="' + name + '"]');
+					if (e.length && !$('[id="' + name + '_datepicker_container"]').length) {
+						e.val(String(e.val().replace(v, '')).trim());
+					}
+				});
+				form.find('select option[vt]').each(function () {
+					let e = $(this);
+					e.attr('cff-val-bk', e.val()).val(e.attr('vt'));
+				});
+				form.find('input[vt]').each(function () {
+					let e = $(this);
+					e.attr('cff-val-bk', e.val()).val(e.attr('vt'));
+				});
+				form.find('.cpcff-recordset,.cff-exclude :input,[id^="form_structure_"]')
+					.add(form.find('.ignore')).attr('cff-disabled', 1).prop('disabled', true);
+				disabling_form();
+
+				if (form.attr('target') != undefined && NOT(IN(form.attr('target').toLowerCase(), ['_blank', '_self', '_top', '']))) {
+					$('[name="' + form.prop('target') + '"]').one('load', function () {
+						form.find('[cff-val-bk]').each(function () {
+							let e = $(this);
+							e.val(e.attr('cff-val-bk')).removeAttr('cff-val-bk');
+						});
+						form.find('[cff-disabled]').prop('disabled', false).removeAttr('cff-disabled');
+						if (!/^(\s*|_self|_top|_parent)$/i.test(form.prop('target'))) {
+							enabling_form();
+						}
+						$(document).trigger('cff-form-submitted', form);
+					});
+				}
+				form[0].submit();
+			},
+			form_identifier = form.find('[name="cp_calculatedfieldsf_pform_psequence"]').val();
+
+		if (form_disabled()) return false;
+
+		form.validate().settings.ignore = '.ignore';
+		if (!form.valid()) {
+			let page = $('.cpefb_error:not(.message):not(.ignore):eq(0)').closest('.pbreak').attr('page') * 1;
+			gotopage(page, form);
+			form.trigger('cff-form-validation', false);
+			enabling_form();
+			return false;
+		}
+
+		if (
+			(
+				form_identifier in $.fbuilder.calculator.processing_queue &&
+				$.fbuilder.calculator.processing_queue[form_identifier]) ||
+			$.fbuilder.calculator.thereIsPending(form_identifier)) {
+			$(document).on('equationsQueueEmpty', function (evt, formId) {
+				if (formId == form_identifier) {
+					$(document).off('equationsQueueEmpty');
+					processing_form();
+				}
+			});
+			enabling_form();
+			return false;
+		}
+
+		processing_form();
+		return false;
+	};
 
 	// Read history
 	window.addEventListener('popstate', function(){

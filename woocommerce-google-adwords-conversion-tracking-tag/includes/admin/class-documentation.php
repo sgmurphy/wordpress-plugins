@@ -135,7 +135,7 @@ class Documentation {
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/consent-management/google-consent-mode/',
 			],
 			'restricted_consent_regions'                                 => [
-				'default' => '/docs/wpm/consent-management/google-consent-mode#regions',
+				'default' => '/docs/wpm/consent-management/overview#explicit-consent-regions',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/consent-management/google-consent-mode/#section-3',
 			],
 			'google_analytics_eec'                                   => [
@@ -146,7 +146,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/google-analytics#ga4-api-secret',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/google-analytics/#section-4',
 			],
-			'google_ads_enhanced_conversions'                        => [
+			'google_enhanced_conversions'                        => [
 				'default' => '/docs/wpm/plugin-configuration/google-ads#enhanced-conversions',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/google-ads/#section-5',
 			],
@@ -159,7 +159,7 @@ class Documentation {
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/google-ads/#section-4',
 			],
 			'explicit_consent_mode'                                  => [
-				'default' => '/docs/wpm/consent-management/overview/#explicit-consent-mode',
+				'default' => '//docs/wpm/consent-management/overview#explicit-consent-mode',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/consent-management/overview/#section-1',
 			],
 			'facebook_capi_token'                                    => [
@@ -183,11 +183,11 @@ class Documentation {
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
 			'dynamic_remarketing'                         => [
-				'default' => '/docs/wpm/plugin-configuration/dynamic-remarketing',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#dynamic-remarketing',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/dynamic-remarketing/',
 			],
 			'variations_output'                                      => [
-				'default' => '/docs/wpm/plugin-configuration/dynamic-remarketing',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#dynamic-remarketing',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/dynamic-remarketing/',
 			],
 			'aw_merchant_id'                                         => [
@@ -278,7 +278,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/general-settings#lazy-load-the-pixel-manager',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#lazy-load-the-pixel-manager',
 			],
-			'opportunity_google_ads_enhanced_conversions'            => [
+			'opportunity_google_enhanced_conversions'            => [
 				'default' => '/docs/wpm/opportunities#google-ads-enhanced-conversions',
 				'wcm'     => '',
 			],

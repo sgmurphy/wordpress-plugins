@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-section-box qodef-section-all-qi-addons">
 	<div class="qodef-section-box-content">
 		<h2><?php esc_html_e( 'All Qi Addons', 'qi-addons-for-elementor' ); ?></h2>

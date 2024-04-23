@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_team_member_shortcode' ) ) {
 	/**
 	 * Function that isadding shortcode into shortcodes list for registration

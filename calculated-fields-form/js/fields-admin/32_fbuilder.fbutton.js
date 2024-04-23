@@ -11,7 +11,7 @@
 		$.fbuilder.controls['ffields'].prototype,
 		{
 			ftype:"fButton",
-            sType:"button", // button, reset, calculate, print
+            sType:"button", // submit, button, reset, calculate, print
             sValue:"button",
             sOnclick:"",
             sOnmousedown:"",
@@ -54,7 +54,7 @@
                 },
             _showTypeSettings: function()
                 {
-                    var l = ['calculate', 'print', 'reset', 'button'],
+                    var l = ['submit', 'calculate', 'print', 'reset', 'button'],
                         r  = "", v;
 					for(var i = 0, h = l.length; i < h; i++)
                     {

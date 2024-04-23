@@ -1,3 +1,10 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+?>
 <div class="qodef-widgets-item col-sm-12 col-md-6 <?php echo ( ! $shortcode['active'] ? 'qodef-widgets-item-no-active' : '' ); ?>">
 	<div class="qodef-widgets-item-top">
 		<h4 class="qodef-widgets-title <?php echo ( $shortcode['premium'] ? 'qodef-premium' : '' ); ?>">

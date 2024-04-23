@@ -9,7 +9,7 @@
  * Plugin Name:       Sydney Toolbox
  * Plugin URI:        http://athemes.com/plugins/sydney-toolbox
  * Description:       Registers custom post types and custom fields for the Sydney theme
- * Version:           1.30
+ * Version:           1.31
  * Author:            aThemes
  * Author URI:        http://athemes.com
  * License:           GPL-2.0+

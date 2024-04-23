@@ -41,7 +41,11 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 			add_filter( 'pre_load_script_translations', array( $this, 'script_translations' ), 10, 4 );
 		}
 
-
+		/**
+		 * Register the common assets
+		 *
+		 * @return void
+		 */
 		public function register_assets() {
 			$build_url = YITH_WCAS_ASSETS_URL . '/js/blocks/build/';
 			wp_register_style( 'ywcas-blocks-editor-style', $build_url . 'ywcas-blocks-editor-style.css', [ 'wp-edit-blocks' ], YITH_WCAS_VERSION, 'all' );
@@ -69,6 +73,13 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 
 		}
 
+		/**
+		 * Return the assets data for a file
+		 *
+		 * @param   string  $file_name  The file name.
+		 *
+		 * @return array
+		 */
 		public function get_assets_data( $file_name ) {
 			$file_path = YITH_WCAS_BUILD_BLOCK_PATH . str_replace( '.js', '.asset.php', $file_name );
 
@@ -131,8 +142,8 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 		/**
 		 * Add block category
 		 *
-		 * @param array   $categories Array block categories array.
-		 * @param WP_Post $post Current post.
+		 * @param   array    $categories  Array block categories array.
+		 * @param   WP_Post  $post        Current post.
 		 *
 		 * @return array block categories
 		 */
@@ -153,8 +164,8 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 		/**
 		 * Add data-attributes to blocks when rendered if the block is under the woocommerce/ namespace.
 		 *
-		 * @param string $content Block content.
-		 * @param array  $block Parsed block data.
+		 * @param   string  $content  Block content.
+		 * @param   array   $block    Parsed block data.
 		 *
 		 * @return string
 		 */
@@ -166,7 +177,7 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 			 *
 			 * This hook defines which block namespaces should have block name and attribute `data-` attributes appended on render.
 			 *
-			 * @param array $allowed_namespaces List of namespaces.
+			 * @param   array  $allowed_namespaces  List of namespaces.
 			 *
 			 * @since 5.9.0
 			 *
@@ -178,7 +189,7 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 			 *
 			 * This hook defines which block names should have block name and attribute data- attributes appended on render.
 			 *
-			 * @param array $allowed_namespaces List of namespaces.
+			 * @param   array  $allowed_namespaces  List of namespaces.
 			 *
 			 * @since 5.9.0
 			 *
@@ -215,10 +226,10 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 		 * Create the json translation through the PHP file.
 		 * So, it's possible using normal translations (with PO files) also for JS translations
 		 *
-		 * @param string|null $json_translations Translations.
-		 * @param string      $file The file.
-		 * @param string      $handle The handle.
-		 * @param string      $domain The text-domain.
+		 * @param   string|null  $json_translations  Translations.
+		 * @param   string       $file               The file.
+		 * @param   string       $handle             The handle.
+		 * @param   string       $domain             The text-domain.
 		 *
 		 * @return string|null
 		 */
@@ -285,11 +296,15 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 						'classicDefaultSettings' => ywcas()->settings->get_classic_default_settings(),
 						'popularSearches'        => class_exists( 'YITH_WCAS_Search_History_Premium' ) ? YITH_WCAS_Search_History_Premium::get_instance()->get_popular_searches( ywcas_get_current_language() ) : array(),
 						'historySearches'        => class_exists( 'YITH_WCAS_Search_History_Premium' ) ? YITH_WCAS_Search_History_Premium::get_instance()->get_history( ywcas_get_current_language() ) : array(),
+						/* translators: %1$s is the amount of result %2$s is the query searched. */
 						'singleResultLabel'      => _x( '%1$s result for "%2$s"', '1 result for "shoes"', 'yith-woocommerce-ajax-search' ),
-						'pluralResultLabel'      => _x( '%1$s results for "%2$s"','3 results for "shoes"' ,'yith-woocommerce-ajax-search' ),
-						'fuzzyResults'           => _x( 'Results for "%s"','Results for "shoes"', 'yith-woocommerce-ajax-search' ),
+						/* translators: %1$s is the amount of result %2$s is the query searched. */
+						'pluralResultLabel'      => _x( '%1$s results for "%2$s"', '3 results for "shoes"', 'yith-woocommerce-ajax-search' ),
+						/* translators: %s is the query searched. */
+						'fuzzyResults'           => _x( 'Results for "%s"', 'Results for "shoes"', 'yith-woocommerce-ajax-search' ),
 						'deleteAll'              => __( 'Delete all', 'yith-woocommerce-ajax-search' ),
-						'inCategoryString'       => _x( 'in', 'T-shirts in Woman Clothes', 'yith-woocommerce-ajax-search' )
+						'inCategoryString'       => _x( 'in', 'T-shirts in Woman Clothes', 'yith-woocommerce-ajax-search' ),
+						'mobileBreakPoint'       => apply_filters( 'ywcas_mobile_break_point', '600px' )
 					)
 				);
 		}

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_workflow_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -9,7 +14,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_workflow_shortcode' ) ) {
 	 * @return array
 	 */
 	function qi_addons_for_elementor_add_workflow_shortcode( $shortcodes ) {
-		$shortcodes[] = 'QiAddonsForElementor_Timeline';
+		$shortcodes[] = 'QiAddonsForElementor_Timeline_Shortcode';
 
 		return $shortcodes;
 	}
@@ -18,7 +23,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_workflow_shortcode' ) ) {
 }
 
 if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
-	class QiAddonsForElementor_Timeline extends QiAddonsForElementor_Shortcode {
+	class QiAddonsForElementor_Timeline_Shortcode extends QiAddonsForElementor_Shortcode {
 
 		public function __construct() {
 			$this->set_layouts( apply_filters( 'qi_addons_for_elementor_filter_timeline_layouts', array() ) );
@@ -228,7 +233,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 					'size_units'  => array( 'px', '%', 'em' ),
 					'responsive'  => true,
 					'selectors'   => array(
-						'{{WRAPPER}} .qodef-e-title'                                       => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .qodef-e-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						'{{WRAPPER}} .qodef-reverse-padding .qodef-obverse .qodef-e-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						'{{WRAPPER}} .qodef-reverse-padding .qodef-reverse .qodef-e-title' => 'padding: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
 					),
@@ -331,7 +336,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 					'size_units'  => array( 'px', '%', 'em' ),
 					'responsive'  => true,
 					'selectors'   => array(
-						'{{WRAPPER}} .qodef-e-text'                                       => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .qodef-e-text' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						'{{WRAPPER}} .qodef-reverse-padding .qodef-obverse .qodef-e-text' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 						'{{WRAPPER}} .qodef-reverse-padding .qodef-reverse .qodef-e-text' => 'padding: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
 					),
@@ -856,7 +861,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			$atts['type'] = apply_filters( 'qi_addons_for_elementor_filter_timeline_layouts_type', array() )[ $atts['layout'] ];
 
 			$atts['holder_classes'] = $this->get_holder_classes( $atts );
-			$atts['holder_data']    = json_encode( $this->get_holder_data( $atts ) );
+			$atts['holder_data']    = wp_json_encode( $this->get_holder_data( $atts ) );
 			$atts['items']          = $this->parse_repeater_items( $atts['children'] );
 			$atts['this_shortcode'] = $this;
 

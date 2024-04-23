@@ -24,10 +24,8 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-class WPLE_Activator
-{
-    public static function activate( $networkwide )
-    {
+class WPLE_Activator {
+    public static function activate( $networkwide ) {
         $opts = ( get_option( 'wple_opts' ) === FALSE ? array(
             'expiry' => '',
         ) : get_option( 'wple_opts' ) );
@@ -41,7 +39,7 @@ class WPLE_Activator
         delete_option( 'wple_error' );
         delete_option( 'wple_sectigo' );
         delete_option( 'wple_ssl_screen' );
-        wp_redirect( admin_url( '/admin.php?page=wp_encryption' ), 302 );
+        // wp_redirect(admin_url('/admin.php?page=wp_encryption'), 302); //causes ajax activation error msg
     }
 
 }

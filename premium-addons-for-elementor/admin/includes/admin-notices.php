@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'countdown',
+			'search_form',
 		);
 
-		delete_option( 'offcanvas' );
+		delete_option( 'countdown' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_countdown_notice();
+		$this->get_search_form_notice();
 
 	}
 
@@ -235,22 +235,22 @@ class Admin_Notices {
 
 	/**
 	 *
-	 * Shows admin notice for Countdown widget.
+	 * Shows admin notice for Search Form widget.
 	 *
 	 * @since 4.10.25
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function get_countdown_notice() {
+	public function get_search_form_notice() {
 
-		$option = get_option( 'countdown' );
+		$option = get_option( 'search_form' );
 
 		if ( '1' === $option ) {
 			return;
 		}
 
-		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/countdown-widget-for-elementor-page-builder/', 'countdown-notification', 'wp-dash', 'countdown' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget', 'search-notification', 'wp-dash', 'search' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Premium Countdown widget', 'premium-addons-for-elemetor' ); ?></strong>
-					<?php echo sprintf( __( 'has been rebuilt. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
+					<strong><?php echo __( 'Premium AJAX Search widget', 'premium-addons-for-elemetor' ); ?></strong>
+					<?php echo sprintf( __( 'is now available in Premium Addons for Elementor. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="countdown">
+			<div class="pa-notice-close" data-notice="search">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

@@ -71,8 +71,8 @@
 							var field = $(this),
 								value = field.val(),
 								form  = field.closest('form');
-							$("#cp_feedback_deactivatebtn:visible").val('Submit & Deactivate');
-							$("#cp_feedback_deactivatebtn:visible").html('<span class="ui-button-text">Submit &amp; Deactivate</span>');
+							$("#cp_cff_feedback_deactivatebtn:visible").val('Submit & Deactivate');
+							$("#cp_cff_feedback_deactivatebtn:visible").html('<span class="ui-button-text">Submit &amp; Deactivate</span>');
 							form.find("#cp_feedback_anonymous").show();
 							form.find("#cp_feedback_other,#cp_feedback_otherplugin,#cp_feedback_collect_data").hide();
 							switch(value)
@@ -107,7 +107,7 @@
 							closeOnEscape: true,
 							buttons: [
 								{
-									id: 'cp_feedback_deactivatebtn',
+									id: 'cp_cff_feedback_deactivatebtn',
 									text: "Skip & Deactivate",
 									click: function()
 									{

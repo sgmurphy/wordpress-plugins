@@ -1,8 +1,12 @@
 <?php
-/*
-PHP Captcha by Codepeople.net
-http://www.codepeople.net
-*/
+/**
+ * PHP Captcha by Codepeople.net
+ * http://www.codepeople.net
+ */
+
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+// phpcs:disable WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 
 if ( ! defined( 'WP_DEBUG' ) || true != WP_DEBUG ) {
 	error_reporting( E_ERROR | E_PARSE );
@@ -36,7 +40,9 @@ if ( ! class_exists( 'CP_SESSION' ) && session_id() == '' ) {
 	session_start();
 }
 
-if ( function_exists( 'do_action' ) ) { do_action( 'litespeed_control_set_nocache', 'cff nocache captcha generation' ); }
+if ( function_exists( 'do_action' ) ) {
+	do_action( 'litespeed_control_set_nocache', 'cff nocache captcha generation' );
+}
 
 $_ps = isset( $_GET['ps'] ) ? cff_captcha_sanitize_key( sanitize_text_field( wp_unslash( $_GET['ps'] ) ) ) : '';
 
@@ -47,7 +53,7 @@ if ( isset( $_GET['hdwtest'] ) && 'sessiontest' == $_GET['hdwtest'] ) {
 		} else {
 			$_SESSION['tmpvar'] = 'ok';
 		}
-	} else {
+	} else { // phpcs:ignore Universal.ControlStructures.DisallowLonelyIf.Found
 		if (
 			( class_exists( 'CP_SESSION' ) && CP_SESSION::get_var( 'tmpvar' ) != 'ok' ) ||
 			( ! class_exists( 'CP_SESSION' ) && empty( $_SESSION['tmpvar'] ) )
@@ -64,7 +70,7 @@ if ( isset( $_GET['hdwtest'] ) && 'sessiontest' == $_GET['hdwtest'] ) {
 	exit;
 }
 
-// configuration
+// configuration.
 $imgX = ( ! empty( $_GET['width'] ) && is_numeric( $_GET['width'] ) ) ? intval( $_GET['width'] ) : 180;
 $imgY = ( ! empty( $_GET['height'] ) && is_numeric( $_GET['height'] ) ) ? intval( $_GET['height'] ) : 60;
 
@@ -158,7 +164,7 @@ if ( isset( $_GET['font'] ) ) {
 	}
 }
 
-$font = dirname( __FILE__ ) . '/' . $selected_font; // font
+$font = __DIR__ . '/' . $selected_font; // font.
 
 // Removed @2x, the patch fixes an issue caused by other plugin that includes the @2x in the name of font files.
 $font = str_replace( array( '\\', '@2x' ), array( '/', '' ), $font );

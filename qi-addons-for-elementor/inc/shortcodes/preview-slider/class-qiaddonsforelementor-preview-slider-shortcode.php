@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_preview_slider_shortcode' ) ) {
 	/**
 	 * Function that is adding shortcode into shortcodes list for registration
@@ -196,7 +201,6 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 			$atts['main_slider_attr']   = $this->get_slider_data( $atts );
 			$atts['device_slider_attr'] = $this->generate_device_slider_data( $atts );
 
-
 			$atts['this_shortcode'] = $this;
 
 			return qi_addons_for_elementor_get_template_part( 'shortcodes/preview-slider', 'templates/preview-slider', '', $atts );
@@ -229,7 +233,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 				$image['alt']      = get_post_meta( intval( $item['main_image'] ), '_wp_attachment_image_alt', true );
 
 				$images[ $i ] = $image;
-				$i ++;
+				$i++;
 			}
 
 			return $images;
@@ -244,7 +248,7 @@ if ( class_exists( 'QiAddonsForElementor_Slider_Shortcode' ) ) {
 				$image['alt']      = get_post_meta( intval( $item['device_image'] ), '_wp_attachment_image_alt', true );
 
 				$images[ $i ] = $image;
-				$i ++;
+				$i++;
 			}
 
 			return $images;

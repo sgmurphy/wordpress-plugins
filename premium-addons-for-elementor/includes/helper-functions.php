@@ -835,13 +835,23 @@ class Helper_Functions {
 			return date_default_timezone_get();
 		}
 
-		$location_data = unserialize( rplg_urlopen( 'http://www.geoplugin.net/php.gp?ip=' . $ip_address )['data'] );
+		$location_data = wp_remote_get(
+			'https://api.findip.net/' . $ip_address . '/?token=e21d68c353324af0af206c907e77ff97',
+			array(
+				'timeout'   => 60,
+				'sslverify' => false,
+			)
+		);
 
-		if ( 404 === $location_data['geoplugin_status'] ) {
-			return date_default_timezone_get();
+		if ( is_wp_error( $location_data ) || empty( $location_data ) ) {
+			return date_default_timezone_get(); // localhost.
 		}
 
-		return $location_data['geoplugin_timezone'];
+		$location_data = json_decode( wp_remote_retrieve_body( $location_data ), true );
+
+		$time_zone = strtolower( $location_data['location']['time_zone'] );
+
+		return $time_zone;
 	}
 
 	/**
@@ -1482,21 +1492,45 @@ class Helper_Functions {
 		return 'premium-button-' . $settings['premium_button_hover_effect'] . ' ' . $class;
 	}
 
+
     /**
-     * Check Capability
-     *
-     * @since 4.10.28
-     * @access public
-     *
-     * @param string $check capability.
-     */
-    public static function check_capability( $capability ) {
+	 * Get Empty Query Message
+	 *
+	 * Written in PHP and used to generate the final HTML when the query is empty
+	 *
+	 * @since 4.10.29
+	 * @access protected
+	 *
+	 * @param string $notice empty query notice.
+	 */
+	public static function render_empty_query_message( $notice ) {
 
-        $post_author_id = get_the_author_meta('ID');
+		if ( empty( $notice ) ) {
+			$notice = __( 'The current query has no posts. Please make sure you have published items matching your query.', 'premium-addons-for-elementor' );
+		}
 
-        $current_user_can = user_can( $post_author_id, $capability );
+		?>
+		<div class="premium-error-notice">
+			<?php echo wp_kses_post( $notice ); ?>
+		</div>
+		<?php
+	}
 
-        return $current_user_can;
+	/**
+	 * Check Capability
+	 *
+	 * @since 4.10.28
+	 * @access public
+	 *
+	 * @param string $check capability.
+	 */
+	public static function check_capability( $capability ) {
 
-    }
+		$post_author_id = get_the_author_meta( 'ID' );
+
+		$current_user_can = user_can( $post_author_id, $capability );
+
+		return $current_user_can;
+
+	}
 }

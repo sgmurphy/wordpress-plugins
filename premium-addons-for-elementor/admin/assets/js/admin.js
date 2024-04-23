@@ -207,7 +207,7 @@
                 }
             )
 
-            //Disable unused widgets.
+            // Clear regenerated assets.
             $(".pa-section-info-cta").on(
                 "click",
                 '.pa-btn-regenerate',
@@ -241,6 +241,34 @@
                 }
             );
 
+            // Clear saved site cursor settings.
+            $('.pa-btn-clear-cusror').on('click', function() {
+                var _this = $(this);
+                _this.addClass("loading");
+                console.log('hellooooo');
+                $.ajax(
+                    {
+                        url: settings.ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'pa_clear_site_cursor_settings',
+                            security: settings.site_cursor_nonce,
+                        },
+                        success: function (response) {
+
+                            swal.fire({
+                                title: 'Site Cursor Cleared!',
+                                text: 'Click OK to continue',
+                                type: 'success',
+                                timer: 1500
+                            });
+
+                            _this.removeClass("loading");
+                            console.log(response)
+                        },
+                    }
+                );
+            });
         };
 
         self.handleSearchField = function () {

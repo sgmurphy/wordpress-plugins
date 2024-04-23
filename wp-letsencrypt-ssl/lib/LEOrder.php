@@ -47,6 +47,8 @@ class LEOrder
   private $keyType;
   private $keySize;
 
+  private $keysdir;
+
   public $status;
   public $expires;
   public $identifiers;
@@ -73,11 +75,12 @@ class LEOrder
    * @param string 		$notBefore 			A date string formatted like 0000-00-00T00:00:00Z (yyyy-mm-dd hh:mm:ss) at which the certificate becomes valid.
    * @param string 		$notAfter 			A date string formatted like 0000-00-00T00:00:00Z (yyyy-mm-dd hh:mm:ss) until which the certificate is valid.
    */
-  public function __construct($connector, $log, $certificateKeys, $basename, $domains, $notBefore, $notAfter, $keyType = 'rsa-4096')
+  public function __construct($connector, $log, $certificateKeys, $basename, $domains, $notBefore, $notAfter, $keyType = 'rsa-4096', $keydirectory = '')
   {
     $this->connector = $connector;
     $this->basename = $basename;
     $this->log = $log;
+    $this->keysdir = $keydirectory;
 
     if ($keyType == 'rsa') {
       $this->keyType = 'rsa';
@@ -495,6 +498,7 @@ class LEOrder
     if ($this->status == 'ready') {
       if ($this->allAuthorizationsValid()) {
         if (empty($csr)) $csr = $this->generateCSR();
+        file_put_contents($this->keysdir . 'csr.crt', $csr);
         if (preg_match('~-----BEGIN\sCERTIFICATE\sREQUEST-----(.*)-----END\sCERTIFICATE\sREQUEST-----~s', $csr, $matches)) $csr = $matches[1];
         $csr = trim(LEFunctions::Base64UrlSafeEncode(base64_decode($csr)));
         $sign = $this->connector->signRequestKid(array('csr' => $csr), $this->connector->accountURL, $this->finalizeURL);

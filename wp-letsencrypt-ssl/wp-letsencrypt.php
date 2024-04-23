@@ -7,7 +7,7 @@
  * Plugin Name:       WP Encryption - One Click SSL & Force HTTPS
  * Plugin URI:        https://wpencryption.com
  * Description:       Secure your WordPress site with free SSL certificate and force HTTPS. Enable HTTPS padlock. Just activating this plugin won't help! - Please run the SSL install form of WP Encryption found on left panel.
- * Version:           7.1.0
+ * Version:           7.2.0
  * Author:            WP Encryption SSL HTTPS
  * Author URI:        https://wpencryption.com
  * License:           GNU General Public License v3.0
@@ -34,7 +34,7 @@ if ( !defined( 'ABSPATH' ) ) {
  * Definitions
  */
 if ( !defined( 'WPLE_PLUGIN_VER' ) ) {
-    define( 'WPLE_PLUGIN_VER', '7.1.0' );
+    define( 'WPLE_PLUGIN_VER', '7.2.0' );
 }
 if ( !defined( 'WPLE_BASE' ) ) {
     define( 'WPLE_BASE', plugin_basename( __FILE__ ) );
@@ -65,23 +65,19 @@ if ( !defined( 'WPLE_DEBUGGER' ) ) {
 /**
  * Freemius
  */
-
 if ( function_exists( 'wple_fs' ) ) {
     wple_fs()->set_basename( false, __FILE__ );
 } else {
-    
     if ( !function_exists( 'wple_fs' ) ) {
         // Activate multisite network integration.
         if ( !defined( 'WP_FS__PRODUCT_5090_MULTISITE' ) ) {
             define( 'WP_FS__PRODUCT_5090_MULTISITE', true );
         }
         // Create a helper function for easy SDK access.
-        function wple_fs()
-        {
-            global  $wple_fs ;
+        function wple_fs() {
+            global $wple_fs;
             ///$showpricing = (FALSE !== get_option('wple_no_pricing')) ? false : true;
             $showpricing = true;
-            
             if ( !isset( $wple_fs ) ) {
                 // Include Freemius SDK.
                 require_once dirname( __FILE__ ) . '/freemius/start.php';
@@ -95,34 +91,30 @@ if ( function_exists( 'wple_fs' ) ) {
                     'has_addons'     => false,
                     'has_paid_plans' => true,
                     'menu'           => array(
-                    'slug'    => 'wp_encryption',
-                    'support' => false,
-                    'contact' => false,
-                    'pricing' => $showpricing,
-                ),
+                        'slug'    => 'wp_encryption',
+                        'support' => false,
+                        'contact' => false,
+                        'pricing' => $showpricing,
+                    ),
                     'is_live'        => true,
                 ) );
             }
-            
             return $wple_fs;
         }
-        
+
         // Init Freemius.
         wple_fs();
         // Signal that SDK was initiated.
         do_action( 'wple_fs_loaded' );
     }
-
 }
-
 require_once WPLE_DIR . 'classes/le-trait.php';
 /**
  * Plugin Activator hook
  */
 register_activation_hook( __FILE__, 'wple_activate' );
 if ( !function_exists( 'wple_activate' ) ) {
-    function wple_activate( $networkwide )
-    {
+    function wple_activate(  $networkwide  ) {
         require_once WPLE_DIR . 'classes/le-activator.php';
         WPLE_Activator::activate( $networkwide );
     }
@@ -133,8 +125,7 @@ if ( !function_exists( 'wple_activate' ) ) {
  */
 register_deactivation_hook( __FILE__, 'wple_deactivate' );
 if ( !function_exists( 'wple_deactivate' ) ) {
-    function wple_deactivate()
-    {
+    function wple_deactivate() {
         require_once WPLE_DIR . 'classes/le-deactivator.php';
         WPLE_Deactivator::deactivate();
     }
@@ -163,32 +154,26 @@ new WPLE_ForceSSL();
  */
 require_once WPLE_DIR . 'classes/le-scanner.php';
 new WPLE_Scanner();
-
 if ( function_exists( 'wple_fs' ) && !function_exists( 'wple_fs_custom_connect_message' ) ) {
-    function wple_fs_custom_connect_message( $message )
-    {
+    function wple_fs_custom_connect_message(  $message  ) {
         $current_user = wp_get_current_user();
         return sprintf( esc_html__( 'Howdy %1$s' ) . ',<br>' . __( 'Due to security nature of this plugin, We <b>HIGHLY</b> recommend you opt-in to our security & feature updates notifications, and <a href="https://freemius.com/wordpress/usage-tracking/5090/wp-letsencrypt-ssl/" target="_blank">non-sensitive diagnostic tracking</a> to get BEST support. If you skip this, that\'s okay! <b>WP Encryption</b> will still work just fine.', 'wp-letsencrypt-ssl' ), ucfirst( $current_user->user_nicename ) );
     }
-    
+
     wple_fs()->add_filter( 'connect_message', 'wple_fs_custom_connect_message' );
 }
-
 /**
  * Support forum URL for Premium
  * 
  * @since 5.3.2
  */
-
 if ( wple_fs()->is_premium() && !function_exists( 'wple_premium_forum' ) ) {
-    function wple_premium_forum( $wp_org_support_forum_url )
-    {
+    function wple_premium_forum(  $wp_org_support_forum_url  ) {
         return 'https://gowebsmarty.in/';
     }
-    
+
     wple_fs()->add_filter( 'support_forum_url', 'wple_premium_forum' );
 }
-
 /**
  * Dont show cancel subscription popup
  * 

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_graphs_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -464,7 +469,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 
 			foreach ( $temp as $key => $value ) {
 				if ( is_array( $value ) || is_bool( $value ) ) {
-					$data[ $key ] = json_encode( $value );
+					$data[ $key ] = wp_json_encode( $value );
 				} else {
 					$data[ $key ] = $value;
 				}

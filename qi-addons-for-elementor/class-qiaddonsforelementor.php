@@ -5,16 +5,17 @@
  * Author: Qode Interactive
  * Author URI: https://qodeinteractive.com/
  * Plugin URI: https://qodeinteractive.com/qi-addons-for-elementor/
- * Version: 1.6.9
+ * Version: 1.7.0
  * Text Domain: qi-addons-for-elementor
- * Elementor tested up to: 3.19.4
- * Elementor Pro tested up to: 3.19.3
-*/
+ * Elementor tested up to: 3.21.1
+ * Elementor Pro tested up to: 3.21.0
+ */
+
 if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 	class QiAddonsForElementor {
 		private static $instance;
 
-		function __construct() {
+		public function __construct() {
 			$this->before_init();
 
 			add_action( 'qi_addons_for_elementor_action_framework_load_dependent_plugins', array( $this, 'init' ) );
@@ -28,82 +29,86 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 			return self::$instance;
 		}
 
-		function before_init() {
+		public function before_init() {
+			// constant is defined here because it's not possible to get main plugin file name from constant.php ( it would return 'constant.php' itself ).
+			define( 'QI_ADDONS_FOR_ELEMENTOR_PLUGIN_BASE_FILE', plugin_basename( __FILE__ ) );
 
-			define( 'QI_ADDONS_FOR_ELEMENTOR_PLUGIN_BASE_FILE', plugin_basename( __FILE__ ) ); // constant is defined here because it's not possible to get main plugin file name from constant.php ( it would return 'constant.php' itself )
-			require_once dirname( __FILE__ ) . '/constants.php';
+			require_once __DIR__ . '/constants.php';
 
 			require_once QI_ADDONS_FOR_ELEMENTOR_ADMIN_PATH . '/class-qiaddonsforelementor-framework.php';
 
 			if ( false === boolval( get_option( 'qi_addons_for_elementor_install_date' ) ) ) {
+				// phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 				update_option( 'qi_addons_for_elementor_install_date', current_time( 'timestamp' ) );
 			}
 		}
 
-		function init() {
+		public function init() {
 			$this->require_core();
 
-			// Include plugin assets
+			// Include plugin assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_additional_assets' ), 11 ); // priority 11 is because of swiper initialization bug, this script needs to be loaded after 'elementor-frontend' css ( which is loaded on priority 10 )
+			// priority 11 is because of swiper initialization bug, this script needs to be loaded after 'elementor-frontend' css ( which is loaded on priority 10 ).
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_additional_assets' ), 11 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_inline_style' ), 15 );
 
-			// Make plugin available for translation
+			// Make plugin available for translation.
 			add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ), 15 );
 
-			// Add plugin's body classes
+			// Add plugin's body classes.
 			add_filter( 'body_class', array( $this, 'add_body_classes' ) );
 
-			// Hook to include additional modules when plugin loaded
+			// Hook to include additional modules when plugin loaded.
 			do_action( 'qi_addons_for_elementor_action_plugin_loaded' );
 		}
 
-		function require_core() {
+		public function require_core() {
 			require_once QI_ADDONS_FOR_ELEMENTOR_ABS_PATH . '/helpers/helper.php';
 
-			// Hook to include additional files before modules inclusion
+			// Hook to include additional files before modules inclusion.
 			do_action( 'qi_addons_for_elementor_action_before_include_modules' );
 
 			foreach ( glob( QI_ADDONS_FOR_ELEMENTOR_INC_PATH . '/*/include.php' ) as $module ) {
 				include_once $module;
 			}
 
-			// Hook to include additional files after modules inclusion
+			// Hook to include additional files after modules inclusion.
 			do_action( 'qi_addons_for_elementor_action_after_include_modules' );
 		}
 
-		function enqueue_assets() {
-			// CSS and JS dependency variables
+		public function enqueue_assets() {
+			// CSS and JS dependency variables.
 			$style_dependency_array  = apply_filters( 'qi_addons_for_elementor_filter_style_dependencies', array() );
 			$script_dependency_array = apply_filters( 'qi_addons_for_elementor_filter_script_dependencies', array( 'jquery' ) );
 
-			// Hook to include additional scripts before plugin's main style
+			// Hook to include additional scripts before plugin's main style.
 			do_action( 'qi_addons_for_elementor_action_before_main_css' );
 
-			// Enqueue plugin's main grid style
-			wp_enqueue_style( 'qi-addons-for-elementor-grid-style', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/css/grid.min.css' );
+			// Enqueue plugin's main grid style.
+			wp_enqueue_style( 'qi-addons-for-elementor-grid-style', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/css/grid.min.css', array(), QI_ADDONS_FOR_ELEMENTOR_VERSION );
 
-			// Enqueue plugin's main grid style
-			wp_enqueue_style( 'qi-addons-for-elementor-helper-parts-style', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/css/helper-parts.min.css' );
+			// Enqueue plugin's main grid style.
+			wp_enqueue_style( 'qi-addons-for-elementor-helper-parts-style', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/css/helper-parts.min.css', array(), QI_ADDONS_FOR_ELEMENTOR_VERSION );
 
-			// Enqueue plugin's main style
-			wp_enqueue_style( 'qi-addons-for-elementor-style', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/css/main.min.css', $style_dependency_array );
+			// Enqueue plugin's main style.
+			wp_enqueue_style( 'qi-addons-for-elementor-style', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/css/main.min.css', $style_dependency_array, QI_ADDONS_FOR_ELEMENTOR_VERSION );
 
-			// Hook to include additional scripts after plugin's main style
+			// Hook to include additional scripts after plugin's main style.
 			do_action( 'qi_addons_for_elementor_action_after_main_css' );
 
-			// Enqueue plugin's 3rd party scripts
+			// Enqueue plugin's 3rd party scripts.
 			wp_enqueue_script( 'jquery-ui-core' );
-			wp_register_script( 'fslightbox', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/fslightbox/fslightbox.min.js', '', false, true );
-			wp_register_script( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.js', array( 'jquery' ), false, true );
+			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion
+			wp_register_script( 'fslightbox', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/fslightbox/fslightbox.min.js', array(), false, true );
+			wp_register_script( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.js', array( 'jquery' ), '5.4.5', true );
 
-			// Hook to include additional scripts before plugin's main script
+			// Hook to include additional scripts before plugin's main script.
 			do_action( 'qi_addons_for_elementor_action_before_main_js' );
 
-			// Enqueue plugin's main script
-			wp_enqueue_script( 'qi-addons-for-elementor-script', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/js/main.min.js', $script_dependency_array, false, true );
+			// Enqueue plugin's main script.
+			wp_enqueue_script( 'qi-addons-for-elementor-script', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/js/main.min.js', $script_dependency_array, QI_ADDONS_FOR_ELEMENTOR_VERSION, true );
 
-			// Localize plugin's main script
+			// Localize plugin's main script.
 			$global = apply_filters(
 				'qi_addons_for_elementor_filter_localize_main_js',
 				array(
@@ -122,15 +127,15 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 				)
 			);
 
-			// Hook to include additional scripts after plugin's main script
+			// Hook to include additional scripts after plugin's main script.
 			do_action( 'qi_addons_for_elementor_action_after_main_js' );
 		}
-		
-		function enqueue_additional_assets() {
-			wp_enqueue_style( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.css' );
+
+		public function enqueue_additional_assets() {
+			wp_enqueue_style( 'swiper', QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/plugins/swiper/swiper.min.css', array(), '5.4.5' );
 		}
 
-		function add_inline_style() {
+		public function add_inline_style() {
 			$style = apply_filters( 'qi_addons_for_elementor_filter_add_inline_style', $style = '' );
 
 			if ( ! empty( $style ) ) {
@@ -138,11 +143,11 @@ if ( ! class_exists( 'QiAddonsForElementor' ) ) {
 			}
 		}
 
-		function load_plugin_textdomain() {
+		public function load_plugin_textdomain() {
 			load_plugin_textdomain( 'qi-addons-for-elementor', false, QI_ADDONS_FOR_ELEMENTOR_REL_PATH . '/languages' );
 		}
 
-		function add_body_classes( $classes ) {
+		public function add_body_classes( $classes ) {
 			$classes[] = 'qi-addons-for-elementor-' . QI_ADDONS_FOR_ELEMENTOR_VERSION;
 
 			return $classes;
@@ -158,7 +163,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_activation_trigger' ) ) {
 	 */
 	function qi_addons_for_elementor_activation_trigger() {
 
-		// Hook to add additional code on plugin activation
+		// Hook to add additional code on plugin activation.
 		do_action( 'qi_addons_for_elementor_action_on_activation' );
 	}
 
@@ -171,7 +176,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_deactivation_trigger' ) ) {
 	 */
 	function qi_addons_for_elementor_deactivation_trigger() {
 
-		// Hook to add additional code on plugin deactivation
+		// Hook to add additional code on plugin deactivation.
 		do_action( 'qi_addons_for_elementor_action_on_deactivation' );
 	}
 
@@ -187,7 +192,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_placeholder_image' ) ) {
 		if ( qi_addons_for_elementor_framework_is_installed( 'elementor' ) ) {
 			$placeholder = get_option( 'qi_addons_for_elementor_placeholder_image' );
 
-			// Check if there is already an option and is attachment
+			// Check if there is already an option and is attachment.
 			if ( ! empty( $placeholder ) ) {
 				if ( is_int( $placeholder['id'] ) && wp_attachment_is_image( $placeholder['id'] ) ) {
 					return;
@@ -198,6 +203,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_placeholder_image' ) ) {
 			$source     = QI_ADDONS_FOR_ELEMENTOR_URL_PATH . 'assets/img/placeholder.png';
 			$filename   = 'qi-addons-for-elementor-placeholder.png';
 
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			$image_data = file_get_contents( $source );
 
 			if ( wp_mkdir_p( $upload_dir['path'] ) ) {
@@ -206,6 +212,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_placeholder_image' ) ) {
 				$file = $upload_dir['basedir'] . '/' . $filename;
 			}
 
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 			file_put_contents( $file, $image_data );
 
 			$filetype   = wp_check_filetype( $filename, null );
@@ -259,7 +266,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_admin_notice_content' ) ) {
 	 * Function that display the error message if the requirements are not met
 	 */
 	function qi_addons_for_elementor_admin_notice_content() {
-		echo sprintf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Elementor plugin is required for Qi Addons for Elementor plugin to work properly. Please install/activate it first.', 'qi-addons-for-elementor' ) );
+		printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Elementor plugin is required for Qi Addons for Elementor plugin to work properly. Please install/activate it first.', 'qi-addons-for-elementor' ) );
 
 		if ( function_exists( 'deactivate_plugins' ) ) {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -276,7 +283,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_regenerate_css' ) ) {
 			if ( did_action( 'elementor/loaded' ) ) {
 				update_option( 'qi_addons_for_elementor_regenerate_css', '1' );
 
-				// Automatically purge and regenerate the Elementor CSS cache
+				// Automatically purge and regenerate the Elementor CSS cache.
 				\Elementor\Plugin::instance()->files_manager->clear_cache();
 			}
 		}

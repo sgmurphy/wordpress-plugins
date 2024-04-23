@@ -1,10 +1,12 @@
 <?php
-/*
-Widget Name: Calculated Fields Form Shortcode
-Description: Insert a form on page.
-Documentation: https://cff.dwbooster.com/documentation#insertion-page
-*/
 
+// phpcs:disable Squiz.Commenting.FunctionComment.Missing
+
+/**
+ * Widget Name: Calculated Fields Form Shortcode
+ * Description: Insert a form on page.
+ * Documentation: https://cff.dwbooster.com/documentation#insertion-page
+ */
 class SiteOrigin_CFF_Shortcode extends SiteOrigin_Widget {
 
 	public function __construct() {
@@ -65,8 +67,7 @@ class SiteOrigin_CFF_Shortcode extends SiteOrigin_Widget {
 	public function get_style_name( $instance ) {
 		return '';
 	} // End get_style_name
-
 } // End Class SiteOrigin_CFF_Shortcode
 
-// Registering the widget
+// Registering the widget.
 siteorigin_widget_register( 'siteorigin-cff-shortcode', __FILE__, 'SiteOrigin_CFF_Shortcode' );

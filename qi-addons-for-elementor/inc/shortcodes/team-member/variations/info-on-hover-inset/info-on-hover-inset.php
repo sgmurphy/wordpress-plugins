@@ -173,6 +173,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_team_member_options_info_on
 			),
 			'group'      => esc_html__( 'Content Style', 'qi-addons-for-elementor' ),
 		);
+
 		$content_offset = array(
 			'field_type' => 'slider',
 			'name'       => 'info_on_hover_inset_content_inset',

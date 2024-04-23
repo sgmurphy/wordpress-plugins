@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_interactive_banner_variation_image_switch' ) ) {
 	/**
 	 * Function that add variation layout for this module
@@ -101,4 +106,14 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_interactive_banner_options_
 	}
 
 	add_filter( 'qi_addons_for_elementor_filter_interactive_banner_extra_options', 'qi_addons_for_elementor_add_interactive_banner_options_image_switch' );
+}
+
+if ( ! function_exists( 'qi_addons_for_elementor_interactive_banner_image_switch_hide_option' ) ) {
+	function qi_addons_for_elementor_interactive_banner_image_switch_hide_option( $layouts ) {
+		$layouts['image-switch'] = 'image-switch';
+
+		return $layouts;
+	}
+
+	add_filter( 'qi_addons_for_elementor_filter_interactive_banner_layout_hide_background_style', 'qi_addons_for_elementor_interactive_banner_image_switch_hide_option' );
 }

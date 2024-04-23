@@ -29,7 +29,7 @@
 			elementorFrontend.hooks.addAction(
 				'frontend/element_ready/' + key + '.default',
 				function ( e ) {
-					// Check if object doesn't exist and print the module where is the error
+					// Check if object doesn't exist and print the module where is the error.
 					if ( typeof qodefAddonsCore.shortcodes[key][keyChild] === 'undefined' ) {
 						console.log( keyChild );
 					} else if ( typeof qodefAddonsCore.shortcodes[key][keyChild].initSlider === 'function' && e.find( '.qodef-qi-swiper-container' ).length ) {
@@ -62,26 +62,23 @@
 							categoriesView = panel.categories.view;
 
 						qodeWidgetsPromoHandler = {
-							
 							className: function () {
-									var className = 'elementor-element-wrapper';
-									if (!this.isEditable() ) {
-										className += ' elementor-element--promotion';
-										
-										if ( this.isQodeWidget() ){
-											className += ' qodef-element--promotion';
-										}
+								var className = 'elementor-element-wrapper';
+								if ( ! this.isEditable() ) {
+									className += ' elementor-element--promotion';
+
+									if ( this.isQodeWidget() ) {
+										className += ' qodef-element--promotion';
 									}
-									return className;
+								}
+								return className;
 							},
-							
 							isQodeWidget: function () {
 
 								if ( undefined !== this.model.get( 'name' ) ) {
 									return 0 === this.model.get( 'name' ).indexOf( 'qi_' );
 								}
 							},
-
 							getElementObj: function ( key ) {
 
 								var widgetObj = elementor.config.promotionWidgets.find(
@@ -93,30 +90,25 @@
 								);
 
 								return widgetObj;
-
 							},
-
 							onMouseDown: function () {
-								var actionURL = elementor.config.elementPromotionURL.replace(
-									'%s',
-									this.model.get( 'name' )
-								),
-								title     = this.model.get( 'title' ),
-								content   = sprintf(
-									wp.i18n.__(
-										'Use %s widget and dozens more pro features to extend your toolbox and build sites faster and better.',
-										'qi-addons-for-elementor'
+								var actionURL = elementor.config.elementPromotionURL.replace( '%s', this.model.get( 'name' ) ),
+									title     = this.model.get( 'title' ),
+									content   = sprintf(
+										wp.i18n.__(
+											'Use %s widget and dozens more pro features to extend your toolbox and build sites faster and better.',
+											'qi-addons-for-elementor'
+										),
+										title
 									),
-									title
-								),
-								promotion = elementor.config.promotion.elements;
+									promotion = elementor.config.promotion.elements;
 
 								if ( this.isQodeWidget() ) {
 									var widgetObject = this.getElementObj( this.model.get( 'name' ) );
 									if ( typeof widgetObject.helpUrl !== 'undefined' ) {
 										actionURL = widgetObject.helpUrl;
 									}
-									
+
 									content = sprintf(
 										wp.i18n.__(
 											'The %s comes with advanced professional functionalities and an even smoother website-making experience. %s Upgrade Qi Addons for Elementor %s',
@@ -130,28 +122,20 @@
 
 								elementor.promotion.showDialog(
 									{
-										/* translators: %s: Widget Title. */
-										title: sprintf(
-											wp.i18n.__(
-												'%s Widget',
-												'qi-addons-for-elementor'
-											),
-											title
-										),
+										// translators: %s: Widget Title.
+										title: sprintf( wp.i18n.__( '%s Widget', 'qi-addons-for-elementor' ), title ),
 										content: content,
 										position: {
-											blockStart: '-7'
+											blockStart: '-7',
 										},
 										targetElement: this.el,
 										actionButton: {
-											// eslint-disable-next-line @wordpress/valid-sprintf
 											url: actionURL,
 											text: promotion.action_button.text,
 											classes: promotion.action_button.classes || ['elementor-button', 'go-pro']
 										}
 									}
 								);
-
 							}
 						};
 

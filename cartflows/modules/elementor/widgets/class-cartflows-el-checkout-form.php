@@ -120,7 +120,7 @@ class Cartflows_Checkout_Form extends Widget_Base {
 	/**
 	 * Global Primary Color
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @var string $gcp_primary_theme_color Primary Color.
@@ -131,7 +131,7 @@ class Cartflows_Checkout_Form extends Widget_Base {
 	/**
 	 * Global Primary Text Color
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @var string string $gcp_primary_text_color Primary Text Color.
@@ -142,7 +142,7 @@ class Cartflows_Checkout_Form extends Widget_Base {
 	/**
 	 * Global Secondary Color
 	 *
-	 * @since x.x.x
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @var string $gcp_secondary_theme_color Secondary Color.

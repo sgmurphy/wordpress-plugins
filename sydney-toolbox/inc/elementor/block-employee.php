@@ -343,7 +343,7 @@ class aThemes_Employee extends Widget_Base {
 
 		<?php if ( 'style3' !== $style ) : ?>
 
-		<div class="roll-team type-b <?php echo $style; ?>">
+		<div class="roll-team type-b <?php echo esc_attr( $style ); ?>">
 			<div class="team-item">
 			    <div class="team-inner">
 					<?php
@@ -397,7 +397,7 @@ class aThemes_Employee extends Widget_Base {
 		
 		<?php else : //begin style 3 ?>
 
-		<div class="roll-team type-b <?php echo $style; ?>">
+		<div class="roll-team type-b <?php echo esc_attr( $style ); ?>">
 			<div class="team-item" style="background-image:url(<?php echo esc_url( $settings['image']['url'] ); ?> );">
 				<div class="overlay"></div>
 			    <div class="team-content">

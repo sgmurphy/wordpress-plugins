@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_animated_text_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -183,12 +188,12 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			return implode( ' ', $holder_classes );
 		}
 
-		function str_split_unicode( $str ) {
+		public function str_split_unicode( $str ) {
 			mb_internal_encoding( 'UTF-8' );
 			$str = html_entity_decode( $str, ENT_QUOTES, 'UTF-8' );
 			$len = mb_strlen( $str );
 
-			for ( $i = 0; $i < $len; $i ++ ) {
+			for ( $i = 0; $i < $len; $i++ ) {
 				$result[] = mb_substr( $str, $i, 1, 'UTF-8' );
 			}
 

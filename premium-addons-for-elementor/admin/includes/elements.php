@@ -12,6 +12,13 @@ $elements = array(
 		'icon'     => 'all',
 		'title'    => __( 'All Widgets', 'premium-addons-for-elementor' ),
 		'elements' => array(
+            array(
+				'key'      => 'premium-search-form',
+				'name'     => 'premium-search-form',
+				'title'    => __( 'Search Form', 'premium-addons-for-elementor' ),
+				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+			),
 			array(
 				'key'      => 'premium-notifications',
 				'name'     => 'premium-notifications',
@@ -670,6 +677,13 @@ $elements = array(
 		'icon'     => 'content',
 		'title'    => __( 'Content Widgets', 'premium-addons-for-elementor' ),
 		'elements' => array(
+            array(
+				'key'      => 'premium-search-form',
+				'name'     => 'premium-search-form',
+				'title'    => __( 'Search Form', 'premium-addons-for-elementor' ),
+				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+			),
 			array(
 				'key'      => 'premium-carousel',
 				'name'     => 'premium-carousel-widget',

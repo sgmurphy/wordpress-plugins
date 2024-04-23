@@ -79,10 +79,10 @@
 
 	var qodefSearchWidgets = {
 		init: function () {
-			this.searchField    = $( '.qodef-search-widget-field' );
-			this.adminContent   = $( '.qodef-admin-content' );
-			this.sectionHolder  = $( '.qodef-widgets-section' );
-			this.fieldHolder    = $( '.qodef-widgets-item' );
+			this.searchField   = $( '.qodef-search-widget-field' );
+			this.adminContent  = $( '.qodef-admin-content' );
+			this.sectionHolder = $( '.qodef-widgets-section' );
+			this.fieldHolder   = $( '.qodef-widgets-item' );
 
 			if ( this.searchField.length ) {
 				var searchLoading = this.searchField.next( '.qodef-search-widget-loading' ),
@@ -146,7 +146,7 @@
 
 	var qodefWidgets = {
 		init: function () {
-			this.formHolder    = $( '.qodef-admin-widgets-page' );
+			this.formHolder = $( '.qodef-admin-widgets-page' );
 
 			if ( this.formHolder.length ) {
 				this.saveWidgetsValues( this.formHolder );
@@ -172,9 +172,9 @@
 						$saveResetLoader.addClass( 'qodef-show-loader' );
 						$adminPage.addClass( 'qodef-save-reset-disable' );
 
-						var form          = $( this ),
-							ajaxData      = {
-								action: 'qi_addons_for_elementor_action_framework_save_options'
+						var form     = $( this ),
+							ajaxData = {
+								action: 'qi_addons_for_elementor_action_framework_save_options',
 						};
 
 						$.ajax(
@@ -224,7 +224,6 @@
 					);
 				}
 			);
-
 		},
 		switchControlerValuesByWidget: function ( $adminPage ) {
 			this.optionsForm = $adminPage.find( '#qi_addons_for_elementor_widgets_framework_ajax_form' );
@@ -243,21 +242,12 @@
 
 							$widget.on(
 								'click',
-								function ( e ) {
-									// if( ! $widget.is(':checked') ){
-									// 	$sectionControler.prop('checked', false);
-									// }
+								function () {
 
 									if ( $sectionWidgets.not( ':checked' ).length > 0 ) {
-										$sectionControler.prop(
-											'checked',
-											false
-										);
+										$sectionControler.prop( 'checked', false );
 									} else {
-										$sectionControler.prop(
-											'checked',
-											true
-										);
+										$sectionControler.prop( 'checked', true );
 									}
 								}
 							);
@@ -266,7 +256,6 @@
 					);
 				}
 			);
-
 		},
 		allWidgetsEnabled: function ( $section ) {
 			var $sectionWidgets = $section.find( '.qodef-widgets-item input:checkbox' );
@@ -282,9 +271,7 @@
 			);
 
 			return true;
-
 		}
-
 	};
 
 })( jQuery );

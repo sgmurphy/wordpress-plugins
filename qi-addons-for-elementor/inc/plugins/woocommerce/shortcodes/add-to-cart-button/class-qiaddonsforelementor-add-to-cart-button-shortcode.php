@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_add_to_cart_shortcode' ) ) {
 	/**
 	 * Function that is adding shortcode into shortcodes list for registration
@@ -19,10 +24,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_add_to_cart_shortcode' ) ) 
 
 if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 	class QiAddonsForElementor_Add_To_Cart_Button_Shortcode extends QiAddonsForElementor_Shortcode {
-
-		public function __construct() {
-			parent::__construct();
-		}
 
 		public function map_shortcode() {
 			$this->set_shortcode_path( QI_ADDONS_FOR_ELEMENTOR_PLUGINS_URL_PATH . '/woocommerce/shortcodes/add-to-cart-button' );

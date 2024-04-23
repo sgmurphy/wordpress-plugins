@@ -2,27 +2,23 @@
 
 namespace SweetCode\Pixel_Manager\Admin;
 
-use  Exception ;
-use  SweetCode\Pixel_Manager\Geolocation ;
-use  SweetCode\Pixel_Manager\Logger ;
-use  SweetCode\Pixel_Manager\Pixels\Pixel_Manager ;
-use  SweetCode\Pixel_Manager\Helpers ;
-use  WP_Query ;
-
+use Exception;
+use SweetCode\Pixel_Manager\Geolocation;
+use SweetCode\Pixel_Manager\Logger;
+use SweetCode\Pixel_Manager\Pixels\Pixel_Manager;
+use SweetCode\Pixel_Manager\Helpers;
+use WP_Query;
 if ( !defined( 'ABSPATH' ) ) {
     exit;
     // Exit if accessed directly
 }
-
-class Debug_Info
-{
-    public static function get_debug_info()
-    {
+class Debug_Info {
+    public static function get_debug_info() {
         try {
             if ( Environment::is_woocommerce_active() ) {
-                global  $woocommerce ;
+                global $woocommerce;
             }
-            global  $wp_version, $current_user, $hook_suffix ;
+            global $wp_version, $current_user, $hook_suffix;
             $html = '### Debug Information ###' . PHP_EOL . PHP_EOL;
             $html .= '## Pixel Manager Info ##' . PHP_EOL . PHP_EOL;
             $html .= 'Version: ' . PMW_CURRENT_VERSION . PHP_EOL;
@@ -65,7 +61,6 @@ class Debug_Info
             $html .= 'hook_suffix:                  ' . $hook_suffix . PHP_EOL;
             $html .= PHP_EOL;
             $html .= 'Hosting provider: ' . Environment::get_hosting_provider() . PHP_EOL;
-            
             if ( Environment::is_woocommerce_active() ) {
                 $html .= PHP_EOL . '## WooCommerce ##' . PHP_EOL . PHP_EOL;
                 $html .= 'Default currency: ' . get_woocommerce_currency() . PHP_EOL;
@@ -76,7 +71,6 @@ class Debug_Info
                 $html .= 'Purchase confirmation endpoint: ' . wc_get_endpoint_url( 'order-received' ) . PHP_EOL;
                 $order_received_page_url = wc_get_checkout_url() . ltrim( wc_get_endpoint_url( 'order-received' ), '/' );
                 $html .= 'is_order_received_page():       ' . $order_received_page_url . PHP_EOL . PHP_EOL;
-                
                 if ( Environment::does_one_order_exist() ) {
                     $last_order_url = Environment::get_last_order_url();
                     $html .= 'Last order URL:   ' . $last_order_url . '&nodedupe&pmwloggeron' . PHP_EOL;
@@ -85,7 +79,6 @@ class Debug_Info
                     $last_order_url_contains_order_received_page_url = ( strpos( Environment::get_last_order_url(), $order_received_page_url ) !== false ? 'yes' : 'no' );
                     $html .= 'Purchase confirmation uses is_order_received(): ' . $last_order_url_contains_order_received_page_url . PHP_EOL;
                     $url_response = self::pmw_remote_get_response( $last_order_url );
-                    
                     if ( 200 === $url_response ) {
                         $html .= 'Purchase confirmation page redirect:            ' . $url_response . ' (OK)' . PHP_EOL;
                     } elseif ( $url_response >= 300 && $url_response < 400 ) {
@@ -94,9 +87,7 @@ class Debug_Info
                     } else {
                         $html .= 'Purchase confirmation redirect:            ' . $url_response . ' (ERROR)' . PHP_EOL;
                     }
-                
                 }
-                
                 //        $html                                .= 'wc_get_page_permalink(\'checkout\'): ' . wc_get_page_permalink('checkout') . PHP_EOL;
                 $html .= PHP_EOL . '## WooCommerce Payment Gateways ##' . PHP_EOL . PHP_EOL;
                 $html .= 'Available payment gateways: ' . PHP_EOL;
@@ -129,7 +120,6 @@ class Debug_Info
                 $html .= self::get_gateway_analysis_for_debug_info();
                 $html .= PHP_EOL . 'Purchase confirmation page reached per gateway only active and weighted by frequency:' . PHP_EOL;
                 $html .= self::get_gateway_analysis_weighted_for_debug_info();
-                
                 if ( Environment::is_transients_enabled() ) {
                     // Time it took to run the payment gateway analysis
                     if ( get_transient( 'pmw_tracking_accuracy_analysis_date' ) ) {
@@ -140,9 +130,7 @@ class Debug_Info
                         $html .= 'Time to generate the payment gateway analysis: ' . round( get_transient( 'pmw_tracking_accuracy_analysis_time' ), 2 ) . ' seconds' . PHP_EOL;
                     }
                 }
-            
             }
-            
             //        $html .= PHP_EOL;
             $html .= PHP_EOL . '## Theme ##' . PHP_EOL . PHP_EOL;
             $is_child_theme = ( is_child_theme() ? 'yes' : 'no' );
@@ -166,7 +154,6 @@ class Debug_Info
             $html .= PHP_EOL;
             // using the double check prevents problems with some themes that have not implemented
             // the child state correctly
-            
             if ( is_child_theme() && wp_get_theme()->parent() ) {
                 $html .= 'Parent theme Name:       ' . wp_get_theme()->parent()->get( 'Name' ) . PHP_EOL;
                 $html .= 'Parent theme ThemeURI:   ' . wp_get_theme()->parent()->get( 'ThemeURI' ) . PHP_EOL;
@@ -178,7 +165,6 @@ class Debug_Info
                 $html .= 'Parent theme TextDomain: ' . wp_get_theme()->parent()->get( 'TextDomain' ) . PHP_EOL;
                 $html .= 'Parent theme DomainPath: ' . wp_get_theme()->parent()->get( 'DomainPath' ) . PHP_EOL;
             }
-            
             // TODO maybe add all active plugins
             $html .= PHP_EOL . PHP_EOL . '### End of Information ###';
             return $html;
@@ -186,29 +172,24 @@ class Debug_Info
             return $e->getMessage();
         }
     }
-    
-    private static function add_freemius_account_details( $html )
-    {
+
+    private static function add_freemius_account_details( $html ) {
         try {
             if ( !function_exists( 'wpm_fs' ) ) {
                 return $html;
             }
-            global  $fs_active_plugins ;
+            global $fs_active_plugins;
             $html .= PHP_EOL . '## Freemius ##' . PHP_EOL . PHP_EOL;
-            
             if ( method_exists( wpm_fs(), 'get_user' ) ) {
                 $fs_user = wpm_fs()->get_user();
                 $fs_user_id = ( is_object( $fs_user ) && property_exists( $fs_user, 'id' ) ? $fs_user->id : 'not found' );
                 $html .= 'Freemius User ID:     ' . $fs_user_id . PHP_EOL;
             }
-            
-            
             if ( method_exists( wpm_fs(), 'get_site' ) ) {
                 $fs_site = wpm_fs()->get_site();
                 $fs_site_id = ( is_object( $fs_site ) && property_exists( $fs_site, 'id' ) ? $fs_site->id : 'not found' );
                 $html .= 'Freemius Site ID:     ' . $fs_site_id . PHP_EOL;
             }
-            
             $fs_sdk_bundled_version = ( property_exists( wpm_fs(), 'version' ) ? wpm_fs()->version : 'not found' );
             $html .= 'Freemius SDK bundled: ' . $fs_sdk_bundled_version . PHP_EOL;
             $fs_sdk_active_version = ( property_exists( $fs_active_plugins, 'newest' ) && property_exists( $fs_active_plugins->newest, 'version' ) ? $fs_active_plugins->newest->version : 'not found' );
@@ -221,9 +202,8 @@ class Debug_Info
         }
         return $html;
     }
-    
-    public static function run_tracking_accuracy_analysis()
-    {
+
+    public static function run_tracking_accuracy_analysis() {
         // Start measuring time
         $start_time = microtime( true );
         $maximum_orders_to_analyze = self::get_maximum_orders_to_analyze();
@@ -240,11 +220,9 @@ class Debug_Info
         set_transient( 'pmw_tracking_accuracy_analysis_time', $end_time - $start_time, MONTH_IN_SECONDS );
         delete_transient( 'pmw_tracking_accuracy_analysis_running' );
     }
-    
+
     // If the analysis runs into a timout we lower the amount of orders to analyze.
-    protected static function get_maximum_orders_to_analyze()
-    {
-        
+    protected static function get_maximum_orders_to_analyze() {
         if ( get_transient( 'pmw_tracking_accuracy_analysis_running' ) ) {
             // If available means that last run failed or timed out.
             $last_maximum_orders_to_analyze = ( get_transient( 'pmw_tracking_accuracy_analysis_max_orders' ) ? get_transient( 'pmw_tracking_accuracy_analysis_max_orders' ) : self::get_default_maximum_orders_to_analyse() );
@@ -261,19 +239,17 @@ class Debug_Info
             // Default value
             $maximum_orders_to_analyze = self::get_default_maximum_orders_to_analyse();
         }
-        
-        $maximum_orders_to_analyze = min(
+        $maximum_orders_to_analyze = min( 
             // Use the smaller of the two values. Either the user override or the calculated value.
             apply_filters( 'pmw_tracking_accuracy_analysis_max_order_amount', $maximum_orders_to_analyze ),
             $maximum_orders_to_analyze
-        );
+         );
         set_transient( 'pmw_tracking_accuracy_analysis_running', true );
         set_transient( 'pmw_tracking_accuracy_analysis_max_orders', $maximum_orders_to_analyze );
         return $maximum_orders_to_analyze;
     }
-    
-    protected static function get_default_maximum_orders_to_analyse()
-    {
+
+    protected static function get_default_maximum_orders_to_analyse() {
         /**
          * Make the maximum orders to analyze dependent on the max_execution_time.
          * The smaller it is the less maximum orders we want to analyze to avoid timeouts.
@@ -282,9 +258,8 @@ class Debug_Info
         $max_execution_time = ( ini_get( 'max_execution_time' ) ? ini_get( 'max_execution_time' ) : 30 );
         return max( $max_execution_time * 100, 300 );
     }
-    
-    public static function get_gateway_analysis_for_debug_info()
-    {
+
+    public static function get_gateway_analysis_for_debug_info() {
         if ( !Environment::is_transients_enabled() ) {
             return PHP_EOL . self::return_transients_deactivated_text() . PHP_EOL;
         }
@@ -307,9 +282,8 @@ class Debug_Info
         }
         return $html;
     }
-    
-    public static function get_gateway_analysis_weighted_for_debug_info()
-    {
+
+    public static function get_gateway_analysis_weighted_for_debug_info() {
         if ( !Environment::is_transients_enabled() ) {
             return PHP_EOL . self::return_transients_deactivated_text() . PHP_EOL;
         }
@@ -335,19 +309,17 @@ class Debug_Info
         $html .= PHP_EOL;
         return $html;
     }
-    
-    public static function get_gateway_analysis_array()
-    {
+
+    public static function get_gateway_analysis_array() {
         if ( get_transient( 'pmw_tracking_accuracy_analysis' ) ) {
             return get_transient( 'pmw_tracking_accuracy_analysis' );
         }
         return false;
     }
-    
-    public static function generate_gateway_analysis_array()
-    {
+
+    public static function generate_gateway_analysis_array() {
         $analysis = [];
-        if ( empty(self::get_pmw_tracked_payment_methods()) ) {
+        if ( empty( self::get_pmw_tracked_payment_methods() ) ) {
             self::generate_pmw_tracked_payment_methods();
         }
         foreach ( self::get_pmw_tracked_payment_methods() as $gateway ) {
@@ -363,17 +335,15 @@ class Debug_Info
         }
         set_transient( 'pmw_tracking_accuracy_analysis', $analysis, MONTH_IN_SECONDS );
     }
-    
-    public static function get_gateway_analysis_weighted_array()
-    {
+
+    public static function get_gateway_analysis_weighted_array() {
         if ( get_transient( 'pmw_tracking_accuracy_analysis_weighted' ) ) {
             return get_transient( 'pmw_tracking_accuracy_analysis_weighted' );
         }
         return false;
     }
-    
-    public static function generate_gateway_analysis_weighted_array( $limit )
-    {
+
+    public static function generate_gateway_analysis_weighted_array( $limit ) {
         $analysis = [];
         $enabled_gateways = self::get_enabled_payment_gateways();
         // Prep array with all gateway IDs
@@ -401,14 +371,12 @@ class Debug_Info
         // Analyse all orders
         foreach ( $orders as $order ) {
             // Only analyse orders that were paid with one of the active payment gateways
-            
             if ( in_array( $order->get_payment_method(), $gateway_ids ) ) {
                 $analysis[$order->get_payment_method()]['order_count_total']++;
                 if ( $order->meta_exists( '_wpm_conversion_pixel_fired' ) ) {
                     $analysis[$order->get_payment_method()]['order_count_measured']++;
                 }
             }
-        
         }
         // Calculate percentage for each gateway
         foreach ( $analysis as $gateway_id => $gateway_analysis ) {
@@ -420,9 +388,8 @@ class Debug_Info
         } );
         set_transient( 'pmw_tracking_accuracy_analysis_weighted', $analysis, MONTH_IN_SECONDS );
     }
-    
-    private static function get_count_of_measured_orders( $orders )
-    {
+
+    private static function get_count_of_measured_orders( $orders ) {
         $count = 0;
         foreach ( $orders as $order_id ) {
             $order = wc_get_order( $order_id );
@@ -433,7 +400,7 @@ class Debug_Info
         }
         return $count;
     }
-    
+
     /**
      * Possible way to use a proxy if necessary
      * https://deliciousbrains.com/php-curl-how-wordpress-makes-http-requests/
@@ -443,8 +410,7 @@ class Debug_Info
      *
      * Google and Facebook might block free proxy requests
      */
-    private static function pmw_remote_get_response( $url )
-    {
+    private static function pmw_remote_get_response( $url ) {
         $response = wp_remote_get( $url, [
             'timeout'             => 4,
             'sslverify'           => !Geolocation::is_localhost(),
@@ -452,24 +418,19 @@ class Debug_Info
             'blocking'            => true,
             'redirection'         => 0,
         ] );
-        
         if ( is_wp_error( $response ) ) {
             return self::show_warning( true ) . $response->get_error_message();
         } else {
             $response_code = wp_remote_retrieve_response_code( $response );
-            
             if ( 200 === $response_code ) {
                 return $response_code;
             } else {
                 return self::show_warning( true ) . $response_code;
             }
-        
         }
-    
     }
-    
-    private static function pmw_get_final_url( $url )
-    {
+
+    private static function pmw_get_final_url( $url ) {
         $response = wp_remote_get( $url, [
             'timeout'             => 4,
             'sslverify'           => !Geolocation::is_localhost(),
@@ -477,7 +438,6 @@ class Debug_Info
             'blocking'            => true,
             'redirection'         => 10,
         ] );
-        
         if ( is_wp_error( $response ) ) {
             return $response->get_error_message();
         } else {
@@ -487,20 +447,16 @@ class Debug_Info
             }
             return 'error';
         }
-    
     }
-    
-    private static function show_warning( $test = false )
-    {
-        
+
+    private static function show_warning( $test = false ) {
         if ( $test ) {
             return '❗ ';
         } else {
             return '';
         }
-    
     }
-    
+
     //	private static function try_connect_to_server( $server ) {
     //		if ($socket = @ fsockopen($server, 80)) {
     //			@fclose($socket);
@@ -515,8 +471,7 @@ class Debug_Info
      * @param $server
      * @return string
      */
-    private static function try_connect_to_server( $server )
-    {
+    private static function try_connect_to_server( $server ) {
         $response = wp_remote_get( $server, [
             'timeout'             => 4,
             'sslverify'           => !Geolocation::is_localhost(),
@@ -524,17 +479,14 @@ class Debug_Info
             'blocking'            => true,
             'redirection'         => 0,
         ] );
-        
         if ( is_wp_error( $response ) ) {
             return 'offline';
         } else {
             return 'online';
         }
-    
     }
-    
-    public static function get_enabled_payment_gateways()
-    {
+
+    public static function get_enabled_payment_gateways() {
         $gateways = WC()->payment_gateways->get_available_payment_gateways();
         $enabled_gateways = [];
         if ( $gateways ) {
@@ -546,14 +498,12 @@ class Debug_Info
         }
         return $enabled_gateways;
     }
-    
-    public static function get_payment_gateways()
-    {
+
+    public static function get_payment_gateways() {
         return WC()->payment_gateways->get_available_payment_gateways();
     }
-    
-    private static function get_last_orders_by_gateway_id( $gateway_id, $limit )
-    {
+
+    private static function get_last_orders_by_gateway_id( $gateway_id, $limit ) {
         // Get most recent order IDs in date descending order, filtered by gateway_id.
         //		error_log('get_last_orders_by_gateway_id');
         // TODO include custom order statutes that have been added with a pmw filter
@@ -564,11 +514,11 @@ class Debug_Info
             'orderby'        => 'date',
             'order'          => 'DESC',
             'status'         => [
-            'completed',
-            'processing',
-            'on-hold',
-            'pending'
-        ],
+                'completed',
+                'processing',
+                'on-hold',
+                'pending'
+            ],
             'created_via'    => 'checkout',
             'meta_key'       => '_wpm_process_through_wpm',
             'meta_compare'   => '=',
@@ -576,47 +526,45 @@ class Debug_Info
             'return'         => 'ids',
         ] );
     }
-    
-    private static function get_last_orders_by_gateway_id_pmw_measured_wp_query( $gateway_id, $limit )
-    {
+
+    private static function get_last_orders_by_gateway_id_pmw_measured_wp_query( $gateway_id, $limit ) {
         // Get most recent order IDs in date descending order, filtered by gateway_id.
         // TODO include custom order statutes that have been added with a pmw filter
-        $query = new WP_Query( [
+        $query = new WP_Query([
             'fields'         => 'ids',
             'post_type'      => 'shop_order',
             'posts_per_page' => $limit,
             'post_status'    => [
-            'wc-completed',
-            'wc-processing',
-            'wc-on-hold',
-            'wc-pending'
-        ],
+                'wc-completed',
+                'wc-processing',
+                'wc-on-hold',
+                'wc-pending'
+            ],
             'orderby'        => 'ID',
             'order'          => 'DESC',
-            'meta_query'     => [ [
-            'relation' => 'AND',
-            [
-            'key'     => '_payment_method',
-            'compare' => '=',
-            'value'   => $gateway_id,
-        ],
-            [
-            'key'     => '_wpm_process_through_wpm',
-            'compare' => '=',
-            'value'   => true,
-        ],
-            [
-            'key'     => '_wpm_conversion_pixel_fired',
-            'compare' => '=',
-            'value'   => true,
-        ],
-        ] ],
-        ] );
+            'meta_query'     => [[
+                'relation' => 'AND',
+                [
+                    'key'     => '_payment_method',
+                    'compare' => '=',
+                    'value'   => $gateway_id,
+                ],
+                [
+                    'key'     => '_wpm_process_through_wpm',
+                    'compare' => '=',
+                    'value'   => true,
+                ],
+                [
+                    'key'     => '_wpm_conversion_pixel_fired',
+                    'compare' => '=',
+                    'value'   => true,
+                ],
+            ]],
+        ]);
         return $query->get_posts();
     }
-    
-    private static function get_pmw_tracked_orders( $limit )
-    {
+
+    private static function get_pmw_tracked_orders( $limit ) {
         // Get most recent order IDs in date descending order.
         // TODO include custom order statutes that have been added with a pmw filter
         return wc_get_orders( [
@@ -625,11 +573,11 @@ class Debug_Info
             'orderby'      => 'ID',
             'order'        => 'DESC',
             'status'       => [
-            'completed',
-            'processing',
-            'on-hold',
-            'pending'
-        ],
+                'completed',
+                'processing',
+                'on-hold',
+                'pending'
+            ],
             'created_via'  => 'checkout',
             'meta_key'     => '_wpm_process_through_wpm',
             'meta_value'   => true,
@@ -637,19 +585,18 @@ class Debug_Info
             'return'       => 'objects',
         ] );
     }
-    
-    private static function get_count_of_pmw_tracked_orders_for_one_month()
-    {
+
+    private static function get_count_of_pmw_tracked_orders_for_one_month() {
         return count( wc_get_orders( [
             'type'         => 'shop_order',
             'limit'        => -1,
             'date_created' => '>' . (time() - MONTH_IN_SECONDS),
             'status'       => [
-            'completed',
-            'processing',
-            'on-hold',
-            'pending'
-        ],
+                'completed',
+                'processing',
+                'on-hold',
+                'pending'
+            ],
             'created_via'  => 'checkout',
             'meta_key'     => '_wpm_process_through_wpm',
             'meta_value'   => true,
@@ -657,20 +604,17 @@ class Debug_Info
             'return'       => 'ids',
         ] ) );
     }
-    
+
     // Get payment methods that have been used on all orders directly from database
-    private static function get_pmw_tracked_payment_methods()
-    {
+    private static function get_pmw_tracked_payment_methods() {
         if ( get_transient( 'pmw_tracked_payment_methods' ) ) {
             return get_transient( 'pmw_tracked_payment_methods' );
         }
         return [];
     }
-    
-    private static function generate_pmw_tracked_payment_methods()
-    {
-        global  $wpdb ;
-        
+
+    private static function generate_pmw_tracked_payment_methods() {
+        global $wpdb;
         if ( Helpers::is_wc_hpos_enabled() ) {
             // HPOS tables in use
             $tracked_payment_methods = $wpdb->get_col( "SELECT DISTINCT payment_method FROM {$wpdb->prefix}wc_orders WHERE payment_method <> ''" );
@@ -678,20 +622,17 @@ class Debug_Info
             // Traditional post tables are in use.
             $tracked_payment_methods = $wpdb->get_col( "SELECT DISTINCT meta_value FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '_payment_method' AND meta_value != ''" );
         }
-        
         set_transient( 'pmw_tracked_payment_methods', $tracked_payment_methods, MONTH_IN_SECONDS );
     }
-    
-    public static function tracking_accuracy_loading_message()
-    {
+
+    public static function tracking_accuracy_loading_message() {
         if ( !Environment::is_action_scheduler_active() ) {
             return esc_html__( "The Pixel Manager wasn't able to generate the analysis because the Action Scheduler could not be loaded.", 'woocommerce-google-adwords-conversion-tracking-tag' );
         }
         return __( 'The analysis is being generated. Please check back in 5 minutes.', 'woocommerce-google-adwords-conversion-tracking-tag' );
     }
-    
-    private static function return_transients_deactivated_text()
-    {
+
+    private static function return_transients_deactivated_text() {
         return __( 'Transients are deactivated. Please activate them to use this feature.', 'woocommerce-google-adwords-conversion-tracking-tag' );
     }
 

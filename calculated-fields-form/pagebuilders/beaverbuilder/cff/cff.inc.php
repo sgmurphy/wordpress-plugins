@@ -1,7 +1,7 @@
 <?php
 require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/pagebuilders/beaverbuilder/cff/cff/cff.php';
 
-// Get the forms list
+// Get the forms list.
 global $wpdb;
 $options = array();
 $default = '';

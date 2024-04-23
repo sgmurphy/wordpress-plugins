@@ -3,9 +3,9 @@ Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
-Tested Up To: 6.5
+Tested Up To: 6.5.2
 Requires PHP: 7.0
-Stable Tag: 4.10.28
+Stable Tag: 4.10.30
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -20,13 +20,13 @@ Supercharge your [Elementor Page Builder](https://wordpress.org/plugins/elemento
 ### Useful Links
 [Support](https://my.leap13.com/contact-support/) | [Docs](https://premiumaddons.com/docs/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) | [Video Tutorials](https://www.youtube.com/channel/UCXcJ9BeO2sKKHor7Q9VglTQ) | [Facebook Group](https://facebook.com/groups/premiumAddons) | [Upgrade to Pro](https://premiumaddons.com/pro/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)
 
-### New: Textual Showcase Widget
-Revolutionize the way you present content on your Elementor website. Use it to add texts, images, Lottie animations, icons in a modern way with dozens of options and attractive effects. [Check it out now!](https://premiumaddons.com/elementor-textual-showcase-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
+### New: AJAX Search Form Widget
+The ultimate solution to add a search form widget on Elementor websites. Customize the search results, add pagination or carousel and select between three different neat skins. [Check it out now!](https://premiumaddons.com/elementor-ajax-search-widget/0?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### New: Animated Shape Divider Addon
 Add animated shape dividers for Elementor flexbox containers, sections and columns. You can select between 40+ shape dividers or use a custom SVG code to add your own divider. [Check it out now!](https://premiumaddons.com/elementor-animated-shape-divider-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
-### New: Advanced Media Carousel Widget
+### Advanced Media Carousel Widget
 You can now create carousel using images, videos, Elementor templates to create the carousel you want. Select between four animations and dozens of customization options. [Check it out now!](https://premiumaddons.com/elementor-advanced-carousel-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### TikTok Feed Widget
@@ -52,9 +52,6 @@ Premium Addons is proudly offering you a professional way to manage your website
 
 ### WooCommerce Products Listing widget
 Show off your products in an elegant way using Premium Woo Products Widget that comes with unlimited customization options. [Check the demo page](https://premiumaddons.com/elementor-woocommerce-products/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)
-
-### Floating Effects
-[Floating Animations Global Feature](https://premiumaddons.com/elementor-floating-effects/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) that comes from Premium Addons Free Plugin could be added to any widget including Sections, Inner-Sections. In addition, it could be added to the Elements inside each widget using Custom CSS Selector option.
 
 ### Equal Height Feature
 Now, you can make your columns, widgets or any selector you want the same height with just ONE click using [Equal Height feature](https://premiumaddons.com/docs/elementor-column-equal-height/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) in section settings -> Advanced tab.
@@ -91,6 +88,8 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 ### Content Widgets
 * [**Carousel Widget**](https://premiumaddons.com/carousel-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The best all purpose carousel widget. It can be used to create any kind of carousel you want like: Testimonials Carousel, Client Logos Carousel, and some of our users even used it as Advanced Slider in a combination with other widgets.
 * [**Blog Widget**](https://premiumaddons.com/blog-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Blog Posts Widget comes with a modern style, advanced posts filtering options, and also it allows you to create posts carousel.
+
+* [**AJAX Search Widget**](https://premiumaddons.com/elementor-ajax-search-widget/0?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add search form to your website. It allows to create a custom search query and add post type select field and dozens of customization options.
 
 * [**Smart Post Listing Widget**](https://premiumaddons.com/elementor-smart-post-listing-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create any posts layout you want using this widget. You can use it to create any grid layout to show your posts or any custom post type on your website.
 
@@ -241,6 +240,20 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.30 =
+
+- Fixed: PHP error after v4.10.29.
+
+= 4.10.29 =
+
+- New: Added AJAX Search widget - [here](https://premiumaddons.com/elementor-ajax-search-widget/).
+- Tweak: Added button to refresh Custom Mouse Cursor addon settings in dashboard settings page.
+- Tweak: Added language option for Flip skin in Countdown Timer widget.
+- Tweak: Custom grid CSS improved in Smart Post Listing widget.
+- Tweak: Added option to select HTML tag for Title in Textual Showcase widget.
+- Tweak: Get timezone API changed to improve Display Conditions.
+- Fixed: Slides overlapping issue in Advanced Carousel widget.
 
 = 4.10.28 =
 

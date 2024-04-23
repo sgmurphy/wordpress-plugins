@@ -58,7 +58,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		return $this->template_instance = Premium_Template_Tags::getInstance();
+		$this->template_instance = Premium_Template_Tags::getInstance();
+
+		return $this->template_instance;
 	}
 
 	/**
@@ -281,6 +283,31 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'label'       => __( 'Text', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => array( 'active' => true ),
+				'label_block' => true,
+				'condition'   => array(
+					'item_type' => 'text',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'item_txt_tag',
+			array(
+				'label'       => __( 'HTML Tag', 'premium-addons-for-elementor' ),
+				'description' => __( 'Select an HTML tag for the text.', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'span',
+				'options'     => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
 				'label_block' => true,
 				'condition'   => array(
 					'item_type' => 'text',
@@ -889,6 +916,31 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'label'       => __( 'Text', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => array( 'active' => true ),
+				'label_block' => true,
+				'condition'   => array(
+					'item_type_hov' => 'text',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'item_txt_tag_hov',
+			array(
+				'label'       => __( 'HTML Tag', 'premium-addons-for-elementor' ),
+				'description' => __( 'Select an HTML tag for the text.', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'span',
+				'options'     => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
 				'label_block' => true,
 				'condition'   => array(
 					'item_type_hov' => 'text',
@@ -2167,8 +2219,8 @@ class Premium_Textual_Showcase extends Widget_Base {
 
 					if ( 'svg' === $item['item_type'] ||
 						( 'text' === $item['item_type'] && 'yes' === $item['clipped_bg'] ) ||
-						( 'text' === $item['item_type'] && ! in_array( $item['txt_effect'], array( 'none', 'strikethrough', 'underline' ) ) ) ||
-						( 'text' !== $item['item_type'] && ! in_array( $item['effect'], array( 'none', 'hvr-pulse-grow', 'rotate' ) ) )
+						( 'text' === $item['item_type'] && ! in_array( $item['txt_effect'], array( 'none', 'strikethrough', 'underline' ), true ) ) ||
+						( 'text' !== $item['item_type'] && ! in_array( $item['effect'], array( 'none', 'hvr-pulse-grow', 'rotate' ), true ) )
 					) {
 
 						?>
@@ -2402,7 +2454,10 @@ class Premium_Textual_Showcase extends Widget_Base {
 	 * @param string $elem_type  element type.
 	 */
 	private function render_item_txt( $item, $elem_type ) {
+
 		$effect = $item['txt_effect'];
+
+		$txt_tag = Helper_Functions::validate_html_tag( $item[ 'item_txt_tag' . $elem_type ] );
 
 		$min_mask_cls = empty( $elem_type ) && 'min-mask' === $effect ? 'premium-mask-' . $item['mask_dir'] : '';
 
@@ -2413,7 +2468,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 		$this->add_render_attribute( 'item-content-' . $item['_id'] . $elem_type, 'class', 'pa-txt-sc__item-text ' . $min_mask_cls );
 
 		?>
-			<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'item-content-' . $item['_id'] . $elem_type ) ); ?>> <?php echo esc_html( $item[ 'item_txt' . $elem_type ] ); ?></span>
+			<<?php echo wp_kses_post( $txt_tag . ' ' . $this->get_render_attribute_string( 'item-content-' . $item['_id'] . $elem_type ) ); ?>> <?php echo esc_html( $item[ 'item_txt' . $elem_type ] ); ?></<?php echo wp_kses_post( $txt_tag ); ?>>
 		<?php
 	}
 

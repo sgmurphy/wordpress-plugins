@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_how_to_shortcode' ) ) {
 	/**
 	 * Function that add shortcode into shortcodes list for registration
@@ -19,10 +24,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_how_to_shortcode' ) ) {
 
 if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 	class QiAddonsForElementor_How_To_Shortcode extends QiAddonsForElementor_Shortcode {
-
-		public function __construct() {
-			parent::__construct();
-		}
 
 		public function map_shortcode() {
 			$this->set_shortcode_path( QI_ADDONS_FOR_ELEMENTOR_SHORTCODES_URL_PATH . '/how-to' );

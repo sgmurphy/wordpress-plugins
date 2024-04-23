@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Slider Feed
 Plugin URI: https://cm-wp.com/instagram-slider-widget
-Version: 2.2.0
+Version: 2.2.1
 Description: Shows Instagram, Facebook and YouTube responsive feeds in widgets, posts, pages, or anywhere else using shortcodes
 Author: creativemotion
 Author URI: https://cm-wp.com/

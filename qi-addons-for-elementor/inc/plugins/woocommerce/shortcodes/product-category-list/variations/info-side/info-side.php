@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_addons_for_elementor_add_product_category_list_variation_info_side' ) ) {
 	/**
 	 * Function that add variation layout for this module
@@ -18,7 +23,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_product_category_list_varia
 }
 
 if ( ! function_exists( 'qi_addons_for_elementor_add_product_category_list_options_info_side' ) ) {
-	function qi_addons_for_elementor_add_product_category_list_options_info_side( $options, $this_class ) {
+	function qi_addons_for_elementor_add_product_category_list_options_info_side( $options ) {
 		$info_side = array();
 
 		$title_hover_color = array(
@@ -191,5 +196,5 @@ if ( ! function_exists( 'qi_addons_for_elementor_add_product_category_list_optio
 		return array_merge( $options, $info_side );
 	}
 
-	add_filter( 'qi_addons_for_elementor_filter_product_category_list_extra_options', 'qi_addons_for_elementor_add_product_category_list_options_info_side', 10, 2 );
+	add_filter( 'qi_addons_for_elementor_filter_product_category_list_extra_options', 'qi_addons_for_elementor_add_product_category_list_options_info_side' );
 }

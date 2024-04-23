@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "freemius/wordpress-sdk",
-            "version": "2.7.0",
-            "version_normalized": "2.7.0.0",
+            "version": "2.7.1",
+            "version_normalized": "2.7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "9fc7bd56b1d8f5b1c880eb32a0c2186ac7617d45"
+                "reference": "2dc1a3bdace10d057eac9740e327e7cb359970a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/9fc7bd56b1d8f5b1c880eb32a0c2186ac7617d45",
-                "reference": "9fc7bd56b1d8f5b1c880eb32a0c2186ac7617d45",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/2dc1a3bdace10d057eac9740e327e7cb359970a0",
+                "reference": "2dc1a3bdace10d057eac9740e327e7cb359970a0",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
                 "szepeviktor/phpstan-wordpress": "^1.3",
                 "wp-coding-standards/wpcs": "^2.3"
             },
-            "time": "2024-04-07T06:58:42+00:00",
+            "time": "2024-04-22T10:26:28+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -47,29 +47,32 @@
             ],
             "support": {
                 "issues": "https://github.com/Freemius/wordpress-sdk/issues",
-                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.7.0"
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.7.1"
             },
             "install-path": "../freemius/wordpress-sdk"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.34",
-            "version_normalized": "8.13.34.0",
+            "version": "8.13.35",
+            "version_normalized": "8.13.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "319810672f3f90d810e3cbc0071d0b7b329c2ec8"
+                "reference": "cd52d7b27572ee45d31ca0d61b394638ed9a6bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/319810672f3f90d810e3cbc0071d0b7b329c2ec8",
-                "reference": "319810672f3f90d810e3cbc0071d0b7b329c2ec8",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/cd52d7b27572ee45d31ca0d61b394638ed9a6bae",
+                "reference": "cd52d7b27572ee45d31ca0d61b394638ed9a6bae",
                 "shasum": ""
             },
             "require": {
                 "giggsey/locale": "^1.7|^2.0",
                 "php": ">=5.3.2",
                 "symfony/polyfill-mbstring": "^1.17"
+            },
+            "replace": {
+                "giggsey/libphonenumber-for-php-lite": "self.version"
             },
             "require-dev": {
                 "pear/pear-core-minimal": "^1.9",
@@ -80,7 +83,7 @@
                 "symfony/console": "^2.8|^3.0|^v4.4|^v5.2",
                 "symfony/phpunit-bridge": "^4.2 || ^5"
             },
-            "time": "2024-04-05T09:45:18+00:00",
+            "time": "2024-04-19T12:41:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -128,17 +131,17 @@
         },
         {
             "name": "giggsey/locale",
-            "version": "2.5",
-            "version_normalized": "2.5.0.0",
+            "version": "2.6",
+            "version_normalized": "2.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/Locale.git",
-                "reference": "e6d4540109a01dd2bc7334cdc842d6a6a67cf239"
+                "reference": "37874fa473131247c348059fb7b8985efc18b5ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/e6d4540109a01dd2bc7334cdc842d6a6a67cf239",
-                "reference": "e6d4540109a01dd2bc7334cdc842d6a6a67cf239",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/37874fa473131247c348059fb7b8985efc18b5ea",
+                "reference": "37874fa473131247c348059fb7b8985efc18b5ea",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +160,7 @@
                 "symfony/finder": "^5.0|^6.0",
                 "symfony/process": "^5.0|^6.0"
             },
-            "time": "2023-11-01T17:19:48+00:00",
+            "time": "2024-04-18T19:31:19+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -179,7 +182,7 @@
             "description": "Locale functions required by libphonenumber-for-php",
             "support": {
                 "issues": "https://github.com/giggsey/Locale/issues",
-                "source": "https://github.com/giggsey/Locale/tree/2.5"
+                "source": "https://github.com/giggsey/Locale/tree/2.6"
             },
             "install-path": "../giggsey/locale"
         },

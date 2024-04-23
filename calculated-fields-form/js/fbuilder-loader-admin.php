@@ -11,9 +11,9 @@ fbuilderjQuery.fbuilderjQueryGenerator = function(){
 		$.fbuilder.default_template = '<?php print esc_js( CP_CALCULATEDFIELDSF_DEFAULT_template ); ?>';
 		$.fbuilder[ 'objName' ] = 'fbuilderjQuery';
 <?php
-	// Load Module files
+// Load Module files.
 try {
-	$md            = dir( dirname( __FILE__ ) . '/modules' );
+	$md            = dir( __DIR__ . '/modules' );
 	$modules_files = array();
 	while ( false !== ( $entry = $md->read() ) ) {
 		if ( strlen( $entry ) > 3 && is_dir( $md->path . '/' . $entry ) ) {
@@ -35,10 +35,10 @@ try {
 	error_log( $e->getMessage() );
 }
 
-	// Load Control files
+	// Load Control files.
 	require 'fbuilder-pro-admin.jquery.js';
 try {
-	$d              = dir( dirname( __FILE__ ) . '/fields-admin' );
+	$d              = dir( __DIR__ . '/fields-admin' );
 	$controls_files = array();
 	while ( false !== ( $entry = $d->read() ) ) {
 		if ( strlen( $entry ) > 3 && strtolower( substr( $entry, strlen( $entry ) - 3 ) ) == '.js' ) {
@@ -68,7 +68,7 @@ fbuilderjQuery(window).on('load',function(){
 	if(!fbuilderjQuery('[href*="jquery-ui"]').length)
 	{
 		fbuilderjQuery('body').append(
-            '<link href="<?php print esc_attr( preg_replace( '/[\n\r]/', '', plugins_url( '/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" /><link href="<?php print esc_attr( preg_replace( '/[\n\r]/', '', plugins_url( '/vendors/jquery-ui/jquery-ui-1.12.icon-font.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />'
+			'<link href="<?php print esc_attr( preg_replace( '/[\n\r]/', '', plugins_url( '/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" /><link href="<?php print esc_attr( preg_replace( '/[\n\r]/', '', plugins_url( '/vendors/jquery-ui/jquery-ui-1.12.icon-font.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />'
 		);
 	}
 });

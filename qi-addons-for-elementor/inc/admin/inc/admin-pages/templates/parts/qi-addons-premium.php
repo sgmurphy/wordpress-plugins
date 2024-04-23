@@ -1,15 +1,21 @@
 <?php
-	$button_text = apply_filters( 'qi_addons_for_elementor_filter_welcome_premium_box_link_text', esc_html__( 'Upgrade Now', 'qi-addons-for-elementor' ) );
-	$button_link = apply_filters( 'qi_addons_for_elementor_filter_welcome_premium_box_link', 'https://qodeinteractive.com/pricing/' );
-	$button_link = add_query_arg(
-		array(
-			'utm_source' => 'dash',
-			'utm_medium' => 'qiaddons',
-			'utm_campaign' => 'welcome',
-		),
-		$button_link
-	);
-	?>
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
+$button_text = apply_filters( 'qi_addons_for_elementor_filter_welcome_premium_box_link_text', esc_html__( 'Upgrade Now', 'qi-addons-for-elementor' ) );
+$button_link = apply_filters( 'qi_addons_for_elementor_filter_welcome_premium_box_link', 'https://qodeinteractive.com/pricing/' );
+$button_link = add_query_arg(
+	array(
+		'utm_source'   => 'dash',
+		'utm_medium'   => 'qiaddons',
+		'utm_campaign' => 'welcome',
+	),
+	$button_link
+);
+?>
 <div class="qodef-section-box qodef-section-qi-addons-premium">
 	<div class="qodef-section-box-image">
 		<img src="<?php echo esc_url( QI_ADDONS_FOR_ELEMENTOR_ADMIN_URL_PATH . '/inc/admin-pages/assets/img/qi-addons-premium.png' ); ?>" alt="<?php esc_attr_e( 'Free Demos', 'qi-addons-for-elementor' ); ?>" />
