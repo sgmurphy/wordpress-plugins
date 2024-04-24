@@ -20,7 +20,12 @@ export default function Save({ attributes }) {
         restartTime,
         recurringCountdownEnd,
         preset,
+        showBlockContent
     } = attributes;
+
+    if (!showBlockContent) {
+        return
+    }
 
     return (
         <div {...useBlockProps.save()}>
@@ -39,9 +44,8 @@ export default function Save({ attributes }) {
                         }
                         data-evergreen-recurring={recurringCountdown || false}
                         data-evergreen-restart-time={restartTime || "0"}
-                        data-evergreen-deadline-time={`${
-                            recurringCountdownEnd || 0
-                        }`}
+                        data-evergreen-deadline-time={`${recurringCountdownEnd || 0
+                            }`}
                     >
                         {showDays ? (
                             <div className="box cd-box-day">

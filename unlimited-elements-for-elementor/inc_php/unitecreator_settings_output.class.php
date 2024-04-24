@@ -413,14 +413,15 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			</a>
 			<?php
 		}
-
+		
 		if(empty($error) === false){
 			?>
 			<div class="uc-google-connect-error">
-				<?php echo sprintf(__("Error: %s", "unlimited-elements-for-elementor"), esc_html($error)); ?>
+				<?php echo sprintf(__("Error: %s", "unlimited-elements-for-elementor"), esc_html($error)); //Security Update 1 ?>
 			</div>
 			<?php
 		}
+		
 	}
 
 	/**

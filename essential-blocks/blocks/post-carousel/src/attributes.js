@@ -238,23 +238,23 @@ const attributes = {
     },
     categoryMetaColor: {
         type: "string",
-        default: "var(--eb-global-button-text-color)",
+        default: "var(--eb-global-tertiary-color)",
     },
     categoryMetaHoverColor: {
         type: "string",
-        default: "var(--eb-global-button-text-color)",
+        default: "var(--eb-global-secondary-text-color)",
     },
     categoryMetaDividerColor: {
         type: "string",
-        default: "var(--eb-global-secondary-text-color)",
+        default: "var(--eb-global-tertiary-color)",
     },
     tagMetaColor: {
         type: "string",
-        default: "var(--eb-global-button-text-color)",
+        default: "var(--eb-global-tertiary-color)",
     },
     tagMetaHoverColor: {
         type: "string",
-        default: "var(--eb-global-button-text-color)",
+        default: "var(--eb-global-secondary-text-color)",
     },
     tagMetaBgColor: {
         type: "string",

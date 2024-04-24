@@ -299,7 +299,7 @@ class SBI_About_Us {
 	                'download_plugin' => 'https://downloads.wordpress.org/plugin/coming-soon.zip',
 	                'title' => __( 'SeedProd Website Builder', 'instagram-feed' ),
 	                'description' => __( 'The fastest drag & drop landing page builder for WordPress. Create custom landing pages without writing code, connect a CRM, collect subscribers, and grow an audience. Trusted by 1 million sites.', 'instagram-feed' ),
-	                'icon' => $images_url . 'plugin-seedprod.png',
+	                'icon' => $images_url . 'plugin-seedProd.png',
 	                'installed' => isset( $installed_plugins['coming-soon/coming-soon.php'] ) ? true : false,
 	                'activated' => is_plugin_active('coming-soon/coming-soon.php'),
                 ),

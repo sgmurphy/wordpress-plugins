@@ -5,7 +5,7 @@ Donate link: https://sina-extension.sinaextra.com/
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 3.5.2
+Stable tag: 3.5.3
 License: GPL v3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -272,7 +272,10 @@ Yes. It's totally free. We also have a [PRO](https://sina-extension.sinaextra.co
 
 == Changelog ==
 
-= 3.5.2 - 10-04-2024 =
+= 3.5.3 - 24-04-2024 =
+- Fixed: Fancytext issue
+
+= 3.5.2 - 15-04-2024 =
 - Added: Query String option to Pricing
 - Fixed: Some issues fo Blogpost, Contact Form, Posts Carousel and Review Carousel
 

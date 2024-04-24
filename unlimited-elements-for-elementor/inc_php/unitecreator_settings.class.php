@@ -372,7 +372,6 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	 */
 	public function addFontPanel($arrParamNames, $arrFontsData, $name = null, $options = array()){
 
-		$value = "";
 		$arrParams = array();
 		$arrParams["font_param_names"] = $arrParamNames;
 		if(!empty($options))
@@ -389,10 +388,11 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 	/**
 	 * add gallery setting
 	 */
-	public function addGallery($name, $defualtValue, $text){
+	public function addGallery($name, $defaultValue, $text, $params = array()){
 
-		$this->add($name, $defualtValue, $text, self::TYPE_GALLERY);
+		$params["label_block"] = true;
 
+		$this->add($name, $defaultValue, $text, self::TYPE_GALLERY, $params);
 	}
 
 
@@ -1222,6 +1222,9 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 			case "uc_statictext":
 				$this->addStaticText($title, $name, $extra);
 				$isUpdateValue = false;
+			break;
+			case UniteCreatorDialogParam::PARAM_GALLERY:
+				$this->addGallery($name, $defaultValue, $title, $extra);
 			break;
 			case UniteCreatorDialogParam::PARAM_ICON:
 				$this->addIconPicker($name,$value,$title,$extra);

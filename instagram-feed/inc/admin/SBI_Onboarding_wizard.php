@@ -506,7 +506,7 @@ class SBI_Onboarding_wizard extends SBI_Feed_Builder
 				'description' => __( 'A simple and powerful theme builder, landing page builder, "coming soon" page builder, and maintenance mode notice builder', 'instagram-feed' ),
 				'color'	=> 'blue',
 				'active'	=> true,
-				'icon' => SBI_BUILDER_URL . 'assets/img/seedprod.png'
+				'icon' => SBI_BUILDER_URL . 'assets/img/seedProd.png'
 			],
 			[
 				'plugin' => 'optinmonster',

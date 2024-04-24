@@ -754,22 +754,77 @@ class WpdiscuzDBManager implements WpDiscuzConstants {
 			$order = "DESC";
 		}
 		$ordering = "`count` $order";
-		if ( $orderby === "subscriptions" ) {
-			$ordering = "`scount` $order, `count` DESC";
-		} else if ( $orderby === "following" ) {
-			$ordering = "`ficount` $order, `count` DESC";
-		} else if ( $orderby === "followers" ) {
-			$ordering = "`fwcount` $order, `count` DESC";
-		} else if ( $orderby === "last_activity" ) {
-			$ordering = "`last_date` $order, `count` DESC";
-		}
+//		if ( $orderby === "subscriptions" ) {
+//			$ordering = "`scount` $order, `count` DESC";
+//		} else if ( $orderby === "following" ) {
+//			$ordering = "`ficount` $order, `count` DESC";
+//		} else if ( $orderby === "followers" ) {
+//			$ordering = "`fwcount` $order, `count` DESC";
+//		} else if ( $orderby === "last_activity" ) {
+//			$ordering = "`last_date` $order, `count` DESC";
+//		}
 		$limit  = 6;
 		$offset = $page > 0 ? ( $page - 1 ) * $limit : 0;
 		$limit ++;
 		$notIn = $this->wpdiscuz_comments_types_exclude( 'c' );
-		$sql   = "SELECT `c`.`comment_author_email`, `c`.`comment_author`, COUNT(`c`.`comment_ID`) AS `count`, IFNULL(`s`.`count`, 0) AS `scount`, IFNULL(`fi`.`count`, 0) AS `ficount`, IFNULL(`fw`.`count`, 0) AS `fwcount`, MAX(`c`.`comment_date_gmt`) AS `last_date` FROM `{$this->db->comments}` AS `c` LEFT JOIN (SELECT `email`, COUNT(`email`) AS `count` FROM `{$this->emailNotification}` WHERE `confirm` = 1 GROUP BY `email`) AS `s` ON `s`.`email` LIKE `c`.`comment_author_email` LEFT JOIN (SELECT `follower_email`, COUNT(`follower_email`) AS `count` FROM `{$this->followUsers}` WHERE `confirm` = 1 GROUP BY `follower_email`) AS `fi` ON `fi`.`follower_email` LIKE `c`.`comment_author_email` LEFT JOIN (SELECT `user_email`, COUNT(`user_email`) AS `count` FROM `{$this->followUsers}` WHERE `confirm` = 1 GROUP BY `user_email`) AS `fw` ON `fw`.`user_email` LIKE `c`.`comment_author_email` WHERE `c`.`comment_approved` = '1' $notIn GROUP BY `c`.`comment_author_email`, `c`.`comment_author` ORDER BY $ordering LIMIT $limit OFFSET $offset;";
+//		$sql   = "SELECT
+//    					`c`.`comment_author_email`,
+//    					`c`.`comment_author`,
+//    					COUNT(`c`.`comment_ID`) AS `count`,
+//    					IFNULL(`s`.`count`, 0) AS `scount`,
+//    					IFNULL(`fi`.`count`, 0) AS `ficount`,
+//    					IFNULL(`fw`.`count`, 0) AS `fwcount`,
+//    					MAX(`c`.`comment_date_gmt`) AS `last_date`
+//				 FROM `{$this->db->comments}` AS `c`
+//			     LEFT JOIN (SELECT `email`, COUNT(`email`) AS `count` FROM `{$this->emailNotification}` WHERE `confirm` = 1 GROUP BY `email`) AS `s` ON `s`.`email` LIKE `c`.`comment_author_email`
+//			     LEFT JOIN (SELECT `follower_email`, COUNT(`follower_email`) AS `count` FROM `{$this->followUsers}` WHERE `confirm` = 1 GROUP BY `follower_email`) AS `fi` ON `fi`.`follower_email` LIKE `c`.`comment_author_email`
+//			     LEFT JOIN (SELECT `user_email`, COUNT(`user_email`) AS `count` FROM `{$this->followUsers}` WHERE `confirm` = 1 GROUP BY `user_email`) AS `fw` ON `fw`.`user_email` LIKE `c`.`comment_author_email`
+//				 WHERE `c`.`comment_approved` = '1' $notIn
+//				 GROUP BY `c`.`comment_author_email`, `c`.`comment_author`
+//				 ORDER BY $ordering
+//				 LIMIT $limit OFFSET $offset;";
 
-		return $this->db->get_results( $sql, ARRAY_A );
+		$sqlStatComments = "SELECT `c`.`comment_author_email`, `c`.`comment_author`, COUNT(`c`.`comment_ID`) AS `count`, MAX(`c`.`comment_date_gmt`) AS `last_date` FROM `wp_comments` AS `c` WHERE `c`.`comment_approved` = '1' $notIn GROUP BY `c`.`comment_author_email`, `c`.`comment_author` ORDER BY $ordering LIMIT $limit OFFSET $offset;";
+
+		$statComments = $this->db->get_results( $sqlStatComments, ARRAY_A );
+
+		foreach ( $statComments as $statKey => &$statComment ) {
+			$sqlStatSubscriptions  = "SELECT COUNT(`email`) AS `count` FROM `$this->emailNotification` WHERE `confirm` = 1 AND `email` = %s";
+			$sqlStatSubscriptions  = $this->db->prepare( $sqlStatSubscriptions, $statComment['comment_author_email'] );
+			$statComment['scount'] = $this->db->get_var( $sqlStatSubscriptions );
+
+			$sqlStatFollowing       = "SELECT COUNT(`follower_email`) AS `count` FROM `$this->followUsers` WHERE `confirm` = 1 AND `follower_email` = %s";
+			$sqlStatFollowing       = $this->db->prepare( $sqlStatFollowing, $statComment['comment_author_email'] );
+			$statComment['ficount'] = $this->db->get_var( $sqlStatFollowing );
+
+			$sqlStatFollower        = "SELECT COUNT(`user_email`) AS `count` FROM `$this->followUsers` WHERE `confirm` = 1 AND `user_email` = %s";
+			$sqlStatFollower        = $this->db->prepare( $sqlStatFollower, $statComment['comment_author_email'] );
+			$statComment['fwcount'] = $this->db->get_var( $sqlStatFollower );
+		}
+
+		$sortColumn = 'count';
+		if ( $orderby === "subscriptions" ) {
+			$sortColumn = 'scount';
+		} else if ( $orderby === "following" ) {
+			$sortColumn = 'ficount';
+		} else if ( $orderby === "followers" ) {
+			$sortColumn = 'fwcount';
+		} else if ( $orderby === "last_activity" ) {
+			$sortColumn = 'last_date';
+		}
+
+		$sortArray = array_column( $statComments, $sortColumn );
+		if ( $order === 'ASC' ) {
+			array_multisort( $sortArray, SORT_ASC, $statComments );
+		} else {
+			array_multisort( $sortArray, SORT_DESC, $statComments );
+		}
+
+		return $statComments;
+	}
+
+	private function getStatSubscriptions( $orderby, $order, $page ) {
+
 	}
 
 	public function getMostReactedCommentId( $postId, $cache = true ) {

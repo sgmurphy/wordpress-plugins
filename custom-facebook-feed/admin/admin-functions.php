@@ -529,3 +529,27 @@ function get_connected_accounts_list()
 
     return $connected_accounts;
 }
+
+
+/**
+ * oEmbed Connection App URL
+ *
+ * @return StdClass
+ *
+ * @since 4.0
+ */
+function cffGetOembedConnectionUrl()
+{
+	$admin_url_state = admin_url('admin.php?page=cff-oembeds-manager');
+	$nonce           = wp_create_nonce('cff_con');
+	// If the admin_url isn't returned correctly then use a fallback
+	if ($admin_url_state == '/wp-admin/admin.php?page=cff-oembeds-manager') {
+		$admin_url_state = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+	}
+
+	return array(
+		'connect' => CFF_OEMBED_CONNECT_URL,
+		'cff_con' => $nonce,
+		'stateURL' => $admin_url_state
+	);
+}

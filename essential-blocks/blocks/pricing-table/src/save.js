@@ -35,7 +35,12 @@ const Save = ({ attributes }) => {
         ribbonAlignVertical = "top",
         newWindow,
         showFeatureLine = true,
+        showBlockContent
     } = attributes;
+
+    if (!showBlockContent) {
+        return
+    }
 
     // ribbon Class
     const ribbonClass = showRibbon ? ` featured ${ribbonStyle}` : "";

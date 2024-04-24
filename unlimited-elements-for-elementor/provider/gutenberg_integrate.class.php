@@ -122,18 +122,17 @@ class UniteCreatorGutenbergIntegrate{
 	 * @return string
 	 */
 	public function renderBlock($attributes){
-		
+
 		$data = array(
 			'id' => $attributes['_id'],
+			'root_id' => $attributes['_rootId'],
 			'settings' => json_decode($attributes['data'], true),
 			'selectors' => true,
 		);
-		
-		GlobalsProviderUC::$renderPlatform = GlobalsProviderUC::RENDER_PLATFORM_GUTENBERG;
-		
+
 		$addonsManager = new UniteCreatorAddons();
 		$addonData = $addonsManager->getAddonOutputData($data);
-		
+
 		$conflictingStyles = array('font-awesome');
 		$conflictingScripts = array();
 
@@ -194,9 +193,8 @@ class UniteCreatorGutenbergIntegrate{
 			$addonsType = GlobalsUC::ADDON_TYPE_ELEMENTOR;
 			$addonsManager = new UniteCreatorAddons();
 			$addons = $addonsManager->getArrAddons($addonsOrder, $addonsParams, $addonsType);
-			
+
 			foreach($addons as $addon){
-				
 				$name = GlobalsUnlimitedElements::PLUGIN_NAME . '/' . sanitize_title($addon->getTitle());
 
 				self::$blocks[$name] = array(
@@ -209,6 +207,10 @@ class UniteCreatorGutenbergIntegrate{
 						'_id' => array(
 							'type' => 'string',
 							'default' => $addon->getID(),
+						),
+						'_rootId' => array(
+							'type' => 'string',
+							'default' => '',
 						),
 						'_preview' => array(
 							'type' => 'string',
@@ -233,8 +235,6 @@ class UniteCreatorGutenbergIntegrate{
 					'editor_style_handles' => array('uc_gutenberg_integrate'),
 					'script_handles' => array('jquery'),
 				);
-				
-				
 			}
 		}
 
@@ -249,15 +249,14 @@ class UniteCreatorGutenbergIntegrate{
 	private function getParsedBlocks(){
 
 		$post = get_post();
-		
+
 		$existingBlocks = $this->getBlocks();
 		$parsedBlocks = parse_blocks($post->post_content);
 		$blocks = array();
-		
+
 		foreach($parsedBlocks as $block){
-			
 			$name = $block['blockName'];
-			
+
 			if(empty($existingBlocks[$name]) === false)
 				$blocks[] = array(
 					'name' => $name,

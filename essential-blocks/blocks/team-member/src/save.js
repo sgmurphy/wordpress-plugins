@@ -1,6 +1,10 @@
 import { useBlockProps, RichText } from "@wordpress/block-editor";
 import SocialLinks from "./components/social-links";
 
+const {
+    ImgPlaceholder
+} = window.EBControls;
+
 export default function Save({ attributes }) {
     const {
         blockId,
@@ -11,7 +15,7 @@ export default function Save({ attributes }) {
         showSocials,
         showCSeparator,
         showSSeparator,
-        imageUrl,
+        imageNewUrl,
         profilesOnly,
         socialInImage,
         icnEffect,
@@ -24,7 +28,12 @@ export default function Save({ attributes }) {
         showDesignation,
         hoverPreset,
         isContentOverlay,
+        showBlockContent
     } = attributes;
+
+    if (!showBlockContent) {
+        return
+    }
 
     return (
         <div {...useBlockProps.save()}>
@@ -43,7 +52,7 @@ export default function Save({ attributes }) {
                                 >
                                     <img
                                         className="eb-team-member-avatar"
-                                        src={imageUrl}
+                                        src={imageNewUrl === '' ? ImgPlaceholder : imageNewUrl}
                                         alt={imageAlt ? imageAlt : name}
                                     />
                                 </a>
@@ -52,7 +61,7 @@ export default function Save({ attributes }) {
                             {!avatarURL && (
                                 <img
                                     className="eb-team-member-avatar"
-                                    src={imageUrl}
+                                    src={imageNewUrl === '' ? ImgPlaceholder : imageNewUrl}
                                     alt={imageAlt ? imageAlt : name}
                                 />
                             )}

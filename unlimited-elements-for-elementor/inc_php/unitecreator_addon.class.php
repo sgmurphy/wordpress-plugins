@@ -120,7 +120,8 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 		
 		UniteFunctionsUC::validateNumeric($num,"test slot");
 		
-		$num = (int)$num;
+		$num = (int)$num;	//Security Update 3
+		
 		if($num < 0 || $num > 3)
 			UniteFunctionsUC::throwError("Wrong test slot number: $num");
 	}

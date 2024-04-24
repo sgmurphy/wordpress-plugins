@@ -93,22 +93,30 @@ export default function Edit(props) {
 
         if (contentWrapper.style.display === "block") {
             contentWrapper.style.display = "none";
-            iconWrapper.removeAttribute("class");
-            tabIcon = getIconClass(tabIcon).split(" ");
-            for (let i = 0; i < tabIcon.length; i++) {
-                iconWrapper.classList.add(tabIcon[i]);
+
+            if (iconWrapper.tagName === 'I') {
+                iconWrapper.removeAttribute("class");
+                tabIcon = getIconClass(tabIcon).split(" ");
+                for (let i = 0; i < tabIcon.length; i++) {
+                    iconWrapper.classList.add(tabIcon[i]);
+                }
+                iconWrapper.classList.add("eb-accordion-icon");
             }
-            iconWrapper.classList.add("eb-accordion-icon");
+
         } else {
             contentWrapper.style.display = "block";
             contentWrapper.style.opacity = "1";
-            iconWrapper.removeAttribute("class");
-            expandedIcon = getIconClass(expandedIcon).split(" ");
-            for (let i = 0; i < expandedIcon.length; i++) {
-                iconWrapper.classList.add(expandedIcon[i]);
+            if (iconWrapper.tagName === 'I') {
+                iconWrapper.removeAttribute("class");
+                expandedIcon = getIconClass(expandedIcon).split(" ");
+                for (let i = 0; i < expandedIcon.length; i++) {
+                    iconWrapper.classList.add(expandedIcon[i]);
+                }
+                iconWrapper.classList.add("eb-accordion-icon");
             }
-            iconWrapper.classList.add("eb-accordion-icon");
+
         }
+
     };
 
     return (

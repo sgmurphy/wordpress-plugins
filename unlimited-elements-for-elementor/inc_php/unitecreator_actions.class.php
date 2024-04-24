@@ -404,7 +404,7 @@ class UniteCreatorActions{
 					HelperUC::ajaxResponseData($response);
 				break;
 				case "delete_test_addon_data":
-					
+					//Security Update 3
 					HelperProviderUC::verifyAdminPermission();
 					
 					$addons->deleteTestAddonData($data);
@@ -707,7 +707,7 @@ class UniteCreatorActions{
 					UEGoogleAPIHelper::redirectToSettings($params);
 				break;
 				case "remove_google_connect_data":
-
+					
 					HelperProviderUC::verifyAdminPermission();
 
 					$objServices = new UniteServicesUC();

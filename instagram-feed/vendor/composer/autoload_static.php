@@ -4,8 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f
+class ComposerStaticInit400e59e3162315cdb335db627653a95e
 {
+    public static $files = array (
+        'sb_ig_b1eb330aa001ae4915f07005b4e993c2' => __DIR__ . '/..' . '/smashballoon/framework/Utilities/functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
@@ -13,6 +17,7 @@ class ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f
         ),
         'I' => 
         array (
+            'InstagramFeed\\Vendor\\Smashballoon\\Framework\\' => 44,
             'InstagramFeed\\' => 14,
         ),
     );
@@ -21,6 +26,10 @@ class ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f
         'Smashballoon\\Stubs\\' => 
         array (
             0 => __DIR__ . '/..' . '/smashballoon/stubs/src',
+        ),
+        'InstagramFeed\\Vendor\\Smashballoon\\Framework\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/smashballoon/framework',
         ),
         'InstagramFeed\\' => 
         array (
@@ -35,9 +44,9 @@ class ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit00e0fa9c01940aa4e93cbeaf23c5677f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit400e59e3162315cdb335db627653a95e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit400e59e3162315cdb335db627653a95e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit400e59e3162315cdb335db627653a95e::$classMap;
 
         }, null, ClassLoader::class);
     }

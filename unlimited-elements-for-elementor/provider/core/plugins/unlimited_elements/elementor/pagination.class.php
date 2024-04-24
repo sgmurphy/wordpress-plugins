@@ -577,12 +577,12 @@ class UniteCreatorElementorPagination{
 		
 		//define has more by last post query
 		$foundPosts = GlobalsProviderUC::$lastPostQuery->found_posts;
-		
+			
 		if(empty($foundPosts))
 			return(-1);
 		
 		$numPosts = GlobalsProviderUC::$lastPostQuery->post_count;
-
+		
 		$queryVars = GlobalsProviderUC::$lastPostQuery->query_vars;
 		
 		$offset = UniteFunctionsUC::getVal($queryVars, "offset");
@@ -616,6 +616,7 @@ class UniteCreatorElementorPagination{
 			$nextOffset = $this->getNextOffsetByQuery();
 			
 			$hasMore = $nextOffset >= 0;
+		
 			
 		}else{
 			

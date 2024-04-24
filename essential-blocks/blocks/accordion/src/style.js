@@ -558,7 +558,7 @@ ${displayIcon
 
 
 	.${blockId}.eb-accordion-container .eb-accordion-title-content-wrap{
-		text-align:${titleAlignment || "left"};
+		justify-content:${titleAlignment || "left"};
 		flex:1;
         ${titlePrefixGapDesktop}
 	}

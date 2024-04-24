@@ -568,7 +568,9 @@ class UniteSettingsOutputUCWork extends HtmlOutputBaseUC{
 
 			<div class="unite-setting-image-preview" <?php echo UniteProviderFunctionsUC::escAddParam($previewStyle); ?>>
 				<div class="unite-setting-image-placeholder">
-					<i class="fa fa-plus"></i>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+						<path d="M4.281 10.313V0h1.75v10.313h-1.75ZM0 6.03v-1.75h10.313v1.75H0Z" />
+					</svg>
 				</div>
 				<div class="unite-setting-image-actions">
 					<button class="unite-setting-image-choose unite-setting-button" type="button">
@@ -881,30 +883,60 @@ class UniteSettingsOutputUCWork extends HtmlOutputBaseUC{
 
 
 	/**
-	 * draw galler setting
+	 * draw gallery setting
 	 */
 	protected function drawGallerySetting($setting){
 
-		$value = UniteFunctionsUC::getVal($setting, "value");
+		$id = UniteFunctionsUC::getVal($setting, "id");
+		$name = UniteFunctionsUC::getVal($setting, "name");
+
+		$addHtml = $this->getDefaultAddHtml($setting);
 
 		?>
-				<div id="<?php echo esc_attr($setting["id"])?>" data-settingtype="gallery" class="unite-settings-gallery unite-setting-input-object" data-name="<?php echo esc_attr($setting["name"])?>" >
-						<div class="unite-setting-gallery-wrapper">
-							<div class="unite-setting-gallery-status">
-								<span class="unite-setting-gallery-status-title"></span>
-								<span class="unite-setting-gallery-status-clear-icon" title="Delete All Images"><i class="fa fa-trash"></i></span>
-							</div>
-							<div class="unite-setting-gallery-content">
-								<div class="unite-setting-gallery-thumbnails"></div>
-								<div class="unite-setting-gallery-edit">
-									<span class="unite-setting-gallery-edit-icon" title="Add Images"><i class="fa fa-plus"></i></span>
-								</div>
-							</div>
-						</div>
+		<div
+			id="<?php esc_attr_e($id); ?>"
+			class="unite-setting-gallery unite-setting-input-object"
+			data-settingtype="gallery"
+			data-name="<?php esc_attr_e($name); ?>"
+			<?php echo UniteProviderFunctionsUC::escAddParam($addHtml); ?>
+		>
+			<div
+				class="unite-setting-gallery-header"
+				data-text-none="<?php esc_attr_e("No images selected", "unlimited-elements-for-elementor"); ?>"
+				data-text-one="<?php esc_attr_e("%d image selected", "unlimited-elements-for-elementor"); ?>"
+				data-text-default="<?php esc_attr_e("%d images selected", "unlimited-elements-for-elementor"); ?>"
+			>
+				<?php esc_html_e("No images selected", "unlimited-elements-for-elementor"); ?>
+			</div>
+			<div class="unite-setting-gallery-content">
+				<div class="unite-setting-gallery-empty">
+					<button class="unite-button-primary unite-setting-gallery-add">
+						<?php esc_html_e("Add Images", "unlimited-elements-for-elementor"); ?>
+					</button>
 				</div>
-
+				<div class="unite-setting-gallery-items">
+					<div class="unite-setting-gallery-item">
+						<div class="unite-setting-gallery-image unite-setting-gallery-add">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+								<path d="M4.281 10.313V0h1.75v10.313h-1.75ZM0 6.03v-1.75h10.313v1.75H0Z" />
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="unite-setting-gallery-actions">
+					<button
+						class="unite-setting-gallery-action unite-setting-gallery-clear"
+						data-text="<?php esc_attr_e("Are you sure you want to clear the gallery?", "unlimited-elements-for-elementor"); ?>"
+					>
+						<?php esc_html_e("Clear Gallery", "unlimited-elements-for-elementor"); ?>
+					</button>
+					<button class="unite-setting-gallery-action unite-setting-gallery-edit">
+						<?php esc_html_e("Edit Gallery", "unlimited-elements-for-elementor"); ?>
+					</button>
+				</div>
+			</div>
+		</div>
 		<?php
-
 	}
 
 

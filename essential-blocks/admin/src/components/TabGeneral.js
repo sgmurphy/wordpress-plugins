@@ -277,39 +277,45 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.10", "essential-blocks")}
+                                    {__("Version: 4.5.11", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("18/04/2024", "essential-blocks")}
+                                        {__("24/04/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Global color support in Gradient color control",
+                                            "Added: Browse Template option for multiple blocks",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Post Carousel conflict issue with Spectra theme",
+                                            "Added: Current Post Heading support in Advanced Heading block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Image block issue fix",
+                                            "Fixed: Table of Content block special character issue with URL",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Image Gallery block existing images url issue fix",
+                                            "Fixed: Embedpress not working in Advanced Tab block in eidtor",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Table of Contents block collapsable items not working",
+                                            "Fixed: Accordion block title align not working",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Advanced Heading tag change dones't reflect without reload",
                                             "essential-blocks"
                                         )}
                                     </li>

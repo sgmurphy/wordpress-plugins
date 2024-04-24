@@ -1593,8 +1593,7 @@ class UniteCreatorParamsProcessorWork{
 		$data[$name . "_html_attributes"] = $addHtml;
 		$data[$name . "_full"] = $urlFull;
 		$data[$name . "_noprefix"] = $urlNoPrefix;
-		
-		
+
 		return $data;
 	}
 
@@ -2160,7 +2159,7 @@ class UniteCreatorParamsProcessorWork{
 	 * get item data
 	 */
 	public function getProcessedItemsData($arrItems, $processType, $forTemplate = true, $filterType = null){
-				
+
 		$this->validateInited();
 		self::validateProcessType($processType);
 
@@ -2171,7 +2170,7 @@ class UniteCreatorParamsProcessorWork{
 			return $arrItems;
 
 		$this->setProcessType($processType);
-		
+
 		if(empty($arrItems))
 			return array();
 
@@ -2180,10 +2179,10 @@ class UniteCreatorParamsProcessorWork{
 
 		$arrItemsNew = array();
 		$arrItemParams = $this->addon->getParamsItems();
-				
+
 		if(!empty($arrItemsImageSizes))
 			$arrItemParams = $this->getProcessedItemsData_modifyImageItem($arrItemParams, $arrItemsImageSizes);
-		
+
 		$arrItemParams = $this->initProcessParams($arrItemParams);
 		$numItems = count($arrItems);
 
@@ -2201,8 +2200,7 @@ class UniteCreatorParamsProcessorWork{
 
 			$arrParamsNew = $this->addon->setParamsValuesItems($arrItemValues, $arrItemParams);
 			$item = $this->getProcessedParamsValues($arrParamsNew, $processType, $filterType);
-			
-			
+
 			if($this->isOutputProcessType($processType) === true)
 				$item = $this->processFonts($item, "items", $index);
 
@@ -2247,7 +2245,6 @@ class UniteCreatorParamsProcessorWork{
 				$arrItemsNew[] = $item;
 		}
 
-				
 		return $arrItemsNew;
 	}
 

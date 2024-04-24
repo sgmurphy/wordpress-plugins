@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use InstagramFeed\Helpers\Util;
+
 class SB_Instagram_Display_Elements {
 
 	/**
@@ -337,8 +339,14 @@ class SB_Instagram_Display_Elements {
 	 * @since 6.0
 	 */
 	public static function get_sbi_images_style( $settings ) {
+
+		
 		if ( ! empty( $settings['imagepadding'] ) ) {
-			return ' style="padding: ' . (int) $settings['imagepadding'] . esc_attr( $settings['imagepaddingunit'] ) . ';"';
+			if ( ! is_admin() && Util::sbi_legacy_css_enabled() ) {
+				return ' style="padding: ' . (int) $settings['imagepadding'] . esc_attr( $settings['imagepaddingunit'] ) . ';"';
+			} else {
+				return ' style="gap: ' . (int) $settings['imagepadding'] * 2 . esc_attr( $settings['imagepaddingunit'] ) . ';"';
+			}
 		}
 		return '';
 	}
@@ -620,6 +628,15 @@ class SB_Instagram_Display_Elements {
 				'attr'        => 'data-nummobile',
 				'vue_content' => '$parent.customizerFeedData.settings.nummobile',
 				'php_content' => $settings['nummobile'],
+			)
+		);
+
+		$atts .= self::print_element_attribute(
+			$customizer,
+			array(
+				'attr'        => 'data-item-padding',
+				'vue_content' => '$parent.customizerFeedData.settings.imagepadding',
+				'php_content' => $settings['imagepadding'],
 			)
 		);
 

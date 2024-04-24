@@ -140,6 +140,7 @@ class SBI_Global_Settings {
 		$sbi_settings['disable_js_image_loading'] = !(bool)$advanced['sbi_enable_js_image_loading'];
 		$sbi_settings['disable_admin_notice'] = !(bool)$advanced['enable_admin_notice'];
 		$sbi_settings['enable_email_report'] = (bool)$advanced['enable_email_report'];
+		$sbi_settings['enqueue_legacy_css'] = (bool) $advanced['enqueue_legacy_css'];
 
 		$sbi_settings['email_notification'] = sanitize_text_field( $advanced['email_notification'] );
 		$sbi_settings['email_notification_addresses'] = sanitize_text_field( $advanced['email_notification_addresses'] );
@@ -592,6 +593,9 @@ class SBI_Global_Settings {
 
 		$sb_instagram_posts_manager->remove_all_errors();
 
+		global $sbi_notices;
+		$sbi_notices->remove_notice( 'critical_error' );
+
 		wp_send_json_success();
 	}
 
@@ -618,6 +622,8 @@ class SBI_Global_Settings {
 			wp_send_json_error( array( 'message' => '<div style="margin-top: 10px;">' . esc_html__( 'Unsuccessful. Try visiting our website.', 'instagram-feed' ) . '</div>' ) );
 		}
 
+		global $sbi_notices;
+		$sbi_notices->remove_notice( 'database_create' );
 		wp_send_json_success( array( 'message' => '<div style="margin-top: 10px;">' . esc_html__( 'Success! Try creating a feed and connecting a source.', 'instagram-feed' ) . '</div>' ) );
 	}
 
@@ -878,6 +884,7 @@ class SBI_Global_Settings {
 			'socialWallLinks'   => \InstagramFeed\Builder\SBI_Feed_Builder::get_social_wall_links(),
 			'socialWallActivated' => is_plugin_active( 'social-wall/social-wall.php' ),
 			'genericText'       => \InstagramFeed\Builder\SBI_Feed_Builder::get_generic_text(),
+			'legacyCSSSettings' => Util::sbi_show_legacy_css_settings(),
 			'generalTab'		=> array(
 				'uoInstallNotice' => array(
 					'notice' => __( 'Post to Instagram right from WordPress with Uncanny Automator', 'instagram-feed' ),
@@ -982,6 +989,10 @@ class SBI_Global_Settings {
 				)
 			),
 			'advancedTab'	=> array(
+				'legacyCSSBox' => array(
+					'title' => __( 'Use legacy CSS', 'instagram-feed' ),
+					'helpText' => __( 'This would revert your CSS file for the feed to the file used in version 6.2. Enable this setting if your customizations are not working properly. ', 'instagram-feed' ) . '<a target="_blank" rel="noopener" href="https://smashballoon.com/doc/instagram-css-layout-changes/?utm_source=instagram-pro&utm_medium=settings-advanced&utm_campaign=63changes&utm_content=LearnMore">' . __('Learn More', 'instagram-feed') .'</a>',
+				),
 				'optimizeBox' => array(
 					'title' => __( 'Optimize Images', 'instagram-feed' ),
 					'helpText' => __( 'This will create multiple local copies of images in different sizes. The plugin then displays the smallest version based on the size of the feed.', 'instagram-feed' ),
@@ -1205,6 +1216,7 @@ class SBI_Global_Settings {
 				'sbi_enqueue_js_in_head' => $sbi_settings['enqueue_js_in_head'],
 				'sbi_enqueue_css_in_shortcode' => $sbi_settings['enqueue_css_in_shortcode'],
 				'sbi_enable_js_image_loading' => !$sbi_settings['disable_js_image_loading'],
+				'enqueue_legacy_css' => $sbi_settings['enqueue_legacy_css'],
 
 				'enable_admin_notice' => !$sbi_settings['disable_admin_notice'],
 				'enable_email_report' => $sbi_settings['enable_email_report'],

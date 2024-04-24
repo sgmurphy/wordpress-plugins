@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb685de336030b19caf83b6afa44bd681
 {
+    public static $files = array (
+        'sb_cff_b1eb330aa001ae4915f07005b4e993c2' => __DIR__ . '/..' . '/smashballoon/framework/Utilities/functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Smashballoon\\Framework\\' => 23,
+        ),
         'C' => 
         array (
             'CustomFacebookFeed\\' => 19,
@@ -14,6 +22,10 @@ class ComposerStaticInitb685de336030b19caf83b6afa44bd681
     );
 
     public static $prefixDirsPsr4 = array (
+        'Smashballoon\\Framework\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/smashballoon/framework',
+        ),
         'CustomFacebookFeed\\' => 
         array (
             0 => __DIR__ . '/../..' . '/inc',

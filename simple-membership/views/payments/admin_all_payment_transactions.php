@@ -15,7 +15,8 @@
             <input name="swpm_txn_search" type="text" size="40" value="<?php echo isset($_POST['swpm_txn_search']) ? esc_attr($_POST['swpm_txn_search']) : ''; ?>"/>
             <input type="submit" name="swpm_txn_search_btn" class="button" value="<?php echo SwpmUtils::_('Search'); ?>" />
         </form>
-    </div></div>
+    </div>
+</div>
 
 <?php
 include_once(SIMPLE_WP_MEMBERSHIP_PATH . 'classes/admin-includes/class.swpm-payments-list-table.php');
@@ -24,15 +25,23 @@ $payments_list_table = new SWPMPaymentsListTable();
 
 //Check if an action was performed
 if (isset($_REQUEST['action'])) { //Do list table form row action tasks
-    if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'delete_txn') { //Delete link was clicked for a row in list table
-        $record_id = sanitize_text_field($_REQUEST['id']);
-        $record_id = absint($record_id);
-        check_admin_referer('swpm_delete_txn_'.$record_id);
-        $payments_list_table->delete_record($record_id);
-        $success_msg = '<div id="message" class="updated"><p><strong>';
-        $success_msg .= SwpmUtils::_('The selected entry was deleted!');
-        $success_msg .= '</strong></p></div>';
-        echo $success_msg;
+    switch ($_REQUEST['action']) { 
+        case "delete_txn":
+            //Delete link was clicked for a row in list table
+            $post_id = sanitize_text_field($_REQUEST['id']);
+            $post_id = absint($post_id);
+            check_admin_referer('swpm_delete_txn_'.$post_id);
+
+            $result = $payments_list_table->delete_record($post_id);
+            if ($result) {
+                $success_msg = '<div id="message" class="notice notice-success"><p>';
+                $success_msg .= __('The selected entry was deleted!', 'simple-membership');
+                $success_msg .= '</p></div>';
+                echo $success_msg;
+            }
+            break;
+        default:
+            break;
     }
 }
 

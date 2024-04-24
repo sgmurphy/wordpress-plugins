@@ -33,12 +33,16 @@ class Moove_GDPR_Review {
    * Function which checks when to display the banner
    */
   public static function gdpr_check_review_banner_condition_func( $show_banner = false ){
+ 
     $current_screen         = get_current_screen();
+    $disabled               = false;
+
     if ( 'moove-gdpr' !== $current_screen->parent_base || ! current_user_can( apply_filters( 'gdpr_options_page_cap', 'manage_options' ) ) ) :
-      $show_banner = false;
+      $disabled     = true;
+      $show_banner  = false;
     endif;
 
-    if ( ! $show_banner && is_user_logged_in() ) :
+    if ( ! $disabled && is_user_logged_in() ) :
       $user             = wp_get_current_user();
       $dismiss_stamp_p  = get_user_meta( $user->ID, 'gdpr_cc_dismiss_stamp_p', true );
       
@@ -96,6 +100,7 @@ class Moove_GDPR_Review {
           <span class="gdpr-cc-icon" style="background-image: url('<?php echo moove_gdpr_get_plugin_directory_url() ?>/dist/images/gdpr-cookie-compliance-icon.png')"></span>
 
           <div class="gdpr-ccrn-content">
+            <h3 style="margin-bottom: 10px;"><?php esc_html_e( 'GDPR Cookie Compliance Plugin (CCPA ready)', 'gdpr-cookie-compliance' ); ?></h3>
             <p><?php echo wp_kses_post( sprintf( __( 'Hi, thank you for using our plugin. We would really appreciate if you could take a moment to drop a quick review that will inspire us to keep going.', 'gdpr-cookie-compliance' ), '<strong>', '</strong>', '<br>' ) ); ?></p>
             <div class="gdpr-ccrn-button-wrap">
           
@@ -235,7 +240,7 @@ class Moove_GDPR_Review {
                 console.error(err);
               }
             });
-            $(document).on('click','.gdpr-cc-review-notice .gdpr-ccrn-dismiss', function(e){
+            $(document).on('click','.gdpr-cc-review-notice .gdpr-ccrn-dismiss, .gdpr-cc-review-notice .notice-dismiss', function(e){
               e.preventDefault();
               $(this).closest('.gdpr-cc-notice').slideUp();
               var ajax_url =$(this).closest('.gdpr-cc-notice').attr('data-adminajax');

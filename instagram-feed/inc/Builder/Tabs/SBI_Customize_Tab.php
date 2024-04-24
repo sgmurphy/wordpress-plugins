@@ -321,7 +321,7 @@ class SBI_Customize_Tab{
 				'separator'			=> 'bottom',
 				'strongHeading'		=> 'true',
 				'heading' 			=> __( 'Padding', 'instagram-feed' ),
-				'style'				=> ['#sbi_images' => 'padding:{{value}}px!important;'],
+				'style'				=> ['#sbi_images' => 'gap:calc({{value}}px * 2)!important;'],
 			],
 			[
 				'type' 				=> 'heading',

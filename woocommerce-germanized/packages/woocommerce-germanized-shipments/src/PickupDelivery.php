@@ -76,7 +76,7 @@ class PickupDelivery {
 				'current_location' => null,
 				'required'         => false,
 				'hidden'           => true,
-				'classes'          => array(),
+				'class'            => array(),
 			)
 		);
 
@@ -95,7 +95,7 @@ class PickupDelivery {
 		$args['return'] = true;
 
 		if ( $args['hidden'] ) {
-			$args['classes'][] = 'hidden';
+			$args['class'][] = 'hidden';
 		}
 
 		$field = woocommerce_form_field( $key, $args, $value );
@@ -114,7 +114,7 @@ class PickupDelivery {
 				'required'          => false,
 				'custom_attributes' => array(),
 				'hidden'            => true,
-				'classes'           => array(),
+				'class'             => array(),
 			)
 		);
 
@@ -133,12 +133,12 @@ class PickupDelivery {
 
 		$args['custom_attributes']['data-locations'] = wp_json_encode( $args['custom_attributes']['data-locations'] );
 
-		if ( ! empty( $args['options'] ) ) {
+		if ( count( $args['options'] ) > 1 ) {
 			$args['hidden'] = false;
 		}
 
 		if ( $args['hidden'] ) {
-			$args['classes'][] = 'hidden';
+			$args['class'][] = 'hidden';
 		}
 
 		$field = woocommerce_form_field( $key, $args, $value );
@@ -321,7 +321,7 @@ class PickupDelivery {
 	}
 
 	public static function get_pickup_delivery_cart_args() {
-		$max_weight      = wc()->cart->get_cart_contents_weight();
+		$max_weight      = wc_get_weight( (float) wc()->cart->get_cart_contents_weight(), wc_gzd_get_packaging_weight_unit() );
 		$shipping_method = wc_gzd_get_current_shipping_provider_method();
 		$max_dimensions  = array(
 			'length' => 0.0,
@@ -375,18 +375,18 @@ class PickupDelivery {
 			foreach ( wc()->cart->get_cart() as $values ) {
 				if ( $product = wc_gzd_shipments_get_product( $values['data'] ) ) {
 					if ( $product->has_dimensions() ) {
-						$length = (float) wc_get_dimension( $product->get_shipping_length(), wc_gzd_get_packaging_dimension_unit() );
-						$width  = (float) wc_get_dimension( $product->get_shipping_width(), wc_gzd_get_packaging_dimension_unit() );
-						$height = (float) wc_get_dimension( $product->get_shipping_height(), wc_gzd_get_packaging_dimension_unit() );
+						$length = (float) wc_get_dimension( (float) $product->get_shipping_length(), wc_gzd_get_packaging_dimension_unit() );
+						$width  = (float) wc_get_dimension( (float) $product->get_shipping_width(), wc_gzd_get_packaging_dimension_unit() );
+						$height = (float) wc_get_dimension( (float) $product->get_shipping_height(), wc_gzd_get_packaging_dimension_unit() );
 
 						if ( $length > $max_dimensions['length'] ) {
-							$max_dimensions['length'] = (float) $length;
+							$max_dimensions['length'] = $length;
 						}
 						if ( $width > $max_dimensions['width'] ) {
-							$max_dimensions['width'] = (float) $width;
+							$max_dimensions['width'] = $width;
 						}
 						if ( $height > $max_dimensions['height'] ) {
-							$max_dimensions['height'] = (float) $height;
+							$max_dimensions['height'] = $height;
 						}
 					}
 				}

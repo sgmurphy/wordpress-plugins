@@ -152,7 +152,7 @@ class SWPM_PayPal_Button_Sub_Ajax_Hander {
     public function swpm_onapprove_process_subscription(){
 
 		//Get the data from the request
-		$data = isset( $_POST['data'] ) ? stripslashes_deep( $_POST['data'] ) : array();
+		$data = isset( $_POST['data'] ) ? json_decode( stripslashes_deep( $_POST['data'] ), true ) : array();
 		if ( empty( $data ) ) {
 			wp_send_json(
 				array(
@@ -178,7 +178,8 @@ class SWPM_PayPal_Button_Sub_Ajax_Hander {
 		}
 
 		//Get the transaction data from the request
-		$txn_data = isset( $_POST['txn_data'] ) ? stripslashes_deep( $_POST['txn_data'] ) : array();
+		$txn_data = isset( $_POST['txn_data'] ) ? json_decode( stripslashes_deep( $_POST['txn_data'] ), true ) : array();
+
 		if ( empty( $txn_data ) ) {
 			wp_send_json(
 				array(
@@ -243,6 +244,10 @@ class SWPM_PayPal_Button_Sub_Ajax_Hander {
 		$ipn['gateway'] = 'paypal_subscription_checkout';
 		$ipn['txn_type'] = 'pp_subscription_new';		
 		$ipn['custom'] = isset($data['custom_field']) ? $data['custom_field'] : '';
+
+		//This will save the button ID (in the save_txn_record function) in the swpm_transactions CPT (for a reference to the button used for the payment)
+		$ipn['payment_button_id'] = isset($data['button_id']) ? $data['button_id'] : '';
+
 		$ipn['item_number'] = isset($data['button_id']) ? $data['button_id'] : '';
 		$ipn['item_name'] = isset($data['item_name']) ? $data['item_name'] : '';		
 

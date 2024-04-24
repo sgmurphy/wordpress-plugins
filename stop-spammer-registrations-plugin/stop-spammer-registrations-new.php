@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Stop Spammers
-Plugin URI: https://stopspammers.io/
+Plugin Name: Stop Spam
+Plugin URI: https://www.calculator.io/no-spam/
 Description: Secure your WordPress sites and stop spam dead in its tracks. Designed to secure your website immediately.
 Version: 2024.3
-Author: Trumani
-Author URI: https://stopspammers.io/
+Author: Stop SPAM
+Author URI: https://www.calculator.io/no-spam/
 License: https://www.gnu.org/licenses/gpl.html
 Domain Path: /languages
 Text Domain: stop-spammer-registrations-plugin
@@ -47,7 +47,7 @@ function ss_admin_notice() {
 		}
 	}
 }
-add_action( 'admin_notices', 'ss_admin_notice' );
+//add_action( 'admin_notices', 'ss_admin_notice' );
 
 // dismiss admin notice for users
 function ss_notice_dismissed() {
@@ -1175,7 +1175,7 @@ function ss_check_for_premium() {
 		}
 	}
 }
-add_action( 'admin_init', 'ss_check_for_premium' );
+//add_action( 'admin_init', 'ss_check_for_premium' );
 
 require_once( 'includes/stop-spam-utils.php' );
 
@@ -1323,7 +1323,7 @@ add_action( 'plugins_loaded', 'ss_blocklist_popup', 10, 2 );
 function ss_submit_popup() {
 	if ( isset( $_POST['ss_save_change'] ) and wp_verify_nonce( $_POST['ss_popup_hive'], 'ss_save_hive_settings' ) ) {
 		$options = get_option( 'ss_stop_sp_reg_options' );
-		$options['chkipsync'] = sanitize_text_field( $_POST['chkipsync_modal'] );
+		$options['chkipsync'] = sanitize_text_field( $_POST['chkipsync_modal'] ?? "" );
 		update_option( 'ss_stop_sp_reg_options', $options );
 	}
 }

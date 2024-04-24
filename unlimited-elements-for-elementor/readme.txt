@@ -867,6 +867,42 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+version 1.5.104: 2024-04-24
+
+Plugin Changes:
+
+* Feature: added support for unselect items in sync functionality
+* Feature: added feature - sort terms by parent -> children, and levels number class
+* Fix: fixed some load more issue with dynamic template loop and post lists inside
+* Fix: fixed woo category image not fetched bug
+* Fix: fixed some cases of sticky elementor elements with filters
+* Fix: fixed remote connection with single background parent and remote widget
+
+Widgets Changes:
+
+* Feature: Neon Glowing Button Effect (Pro) - Implemented 'Neon Line Width' option. This new functionality allows users to adjust the width of the neon line effect within the widget, providing finer control over its appearance and visual impact.
+* Feature: Scroll Sequence (Pro) - Introduced 'Hide Add Action Section' debug option, enabling users to match accurate configurations in the backend and frontend.
+* Feature: Team Member Carousel (Pro) - Introduced 'Button Text' option in items, enabling users to set custom button text for each team member for enhanced customization and flexibility.
+* Feature: Overlay Button (Free) - Added 'Icon' option, allowing users to easily add an icon to the button for enhanced visual appeal.
+* Feature: Overlay Button (Free) - Introduced 'Overlay Transition Duration' option, providing users with more control over the duration of overlay transitions for enhanced customization and user experience.
+* Feature: Dropdown Field (Pro) - Added support for 'Dropdown Value (Numeric Values)' in multi-source, enabling users to include numeric dropdown values via Multi Source.
+* Feature: Neon Glowing Button Effect (Pro) - Implemented 'Button Shadow' option. This new functionality allows users to add a shadow effect to buttons within the widget, enhancing their visual appearance and depth.
+* Feature: Mega Menu (Pro) - Implemented 'Mobile Open Menu Animation' option. This new functionality allows users to specify the animation type for opening the menu on mobile devices, enhancing the visual presentation and user experience.
+* Feature: Neon Glowing Button Effect (Pro) - Implemented 'Button Background Color' option. This new functionality allows users to customize the background color of buttons within the widget, enhancing visual design and customization possibilities.
+* Feature: Logo Carousel (Pro) - Implemented support for empty links. This new functionality allows items to become not clickable when empty links are specified, providing more control over the behavior and interaction of items within the widget.
+* Fix: Loop Carousel (Pro) - Corrected spelling mistakes and improved naming conventions, enhancing clarity and consistency.
+* Fix: Flip Box (Free) - Resolved issue where links were not firing for the first click on the back of the Flip Box. This fix ensures that links behave as expected, allowing them to be clicked and activated reliably.
+* Fix: Content Tabs (Free) - Resolved issue where Content Tabs widget couldn't work with Icon Tabs widget on the same page. This fix ensures that both widgets can coexist and function properly together, allowing for seamless integration and improved user experience.
+* Fix: Checkboxes Filter (Pro) - Enhanced Accordion Layout option for the Checkboxes Widget to improve script communication. This improvement optimizes the interaction between scripts, resulting in smoother operation and better performance of the widget.
+* Fix: Loop Grid (Pro) - Implemented additional Masonry layout check to avoid items overlapping over each other. This enhancement ensures that items are properly positioned and do not overlap, maintaining a clean and organized layout within the widget.
+* Fix: Dynamic Post Popup (Pro) - Resolved issue where popups allowed opening links in new tabs while opening the popup. This fix ensures that links within popups behave consistently and do not inadvertently open in new tabs, providing a smoother user experience.
+* Fix: Post Slider (Pro) - Addressed issue where post title typography settings were not applied, ensuring proper functionality and appearance.
+* Fix: Flip Box (Free) - Corrected a typography mistake in options.
+* Fix: Content Slider (Pro) - Resolved conflict caused between Elementor's Motion Effects and the widget due to the same animation library (animate.css), resolving CSS class conflict for smoother animation and functionality.
+* Fix: Fullscreen Menu (Free) - Resolved issue with Opening Item when Clickable Parent option is enabled.
+* Fix: Side Menu (Pro) - Resolved issue where some icons were being reverted. This fix ensures that all icons remain consistent and do not revert unexpectedly.
+* Fix: Rhombus Grid (Pro) - Increased CSS priority for 'Item Background Color Override' option. This adjustment ensures that the specified background color takes precedence over other styles, providing consistent and reliable appearance for the widget items.
+
 
 version 1.5.103: 2024-04-16
 

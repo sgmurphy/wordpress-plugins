@@ -1958,8 +1958,15 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 			}
 
 			//add html
-			if($isAddSelectors == true)
-				$output .= "\n<div id=\"{$this->getWidgetWrapperID()}\">";
+			if($isAddSelectors == true){
+				$id = $this->getWidgetWrapperID();
+				$rootId = UniteFunctionsUC::getVal($params, "root_id");
+
+				if(empty($rootId) === true)
+					$rootId = $this->getWidgetID();
+
+				$output .= "\n<div id=\"" . esc_attr($id) . "\" class=\"ue-widget-root\" data-id=\"" . esc_attr($rootId) . "\">";
+			}
 
 			$output .= "\n\n" . $html;
 

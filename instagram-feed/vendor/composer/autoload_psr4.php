@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Smashballoon\\Stubs\\' => array($vendorDir . '/smashballoon/stubs/src'),
+    'InstagramFeed\\Vendor\\Smashballoon\\Framework\\' => array($vendorDir . '/smashballoon/framework'),
     'InstagramFeed\\' => array($baseDir . '/inc'),
 );

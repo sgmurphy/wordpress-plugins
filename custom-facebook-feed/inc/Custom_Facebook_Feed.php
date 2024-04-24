@@ -24,6 +24,7 @@ use CustomFacebookFeed\Admin\CFF_About_Us;
 use CustomFacebookFeed\Admin\CFF_Support;
 use CustomFacebookFeed\Admin\CFF_Support_Tool;
 use CustomFacebookFeed\Platform_Data;
+use Smashballoon\Framework\Packages\Notification\Notices\SBNotices;
 
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -311,9 +312,11 @@ final class Custom_Facebook_Feed{
 
 			if( !class_exists('CFF_Utils') ) include_once CFF_PLUGIN_DIR. 'inc/CFF_Utils.php';
 
+			require_once CFF_PLUGIN_DIR . 'vendor/autoload.php';
+
 
 			add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ], 10 );
-			add_action( 'init', [ self::$instance, 'init' ], 0 );
+			add_action( 'plugins_loaded', [ self::$instance, 'init' ], 0 );
 
 
 
@@ -361,7 +364,6 @@ final class Custom_Facebook_Feed{
 	 */
 	public function init() {
 		//Load Composer Autoload
-		require_once CFF_PLUGIN_DIR . 'vendor/autoload.php';
 		$this->cff_tracking 				= new CFF_Tracking();
 		$this->cff_oembed 					= new CFF_Oembed();
 		$this->cff_error_reporter			= new CFF_Error_Reporter();
@@ -378,7 +380,9 @@ final class Custom_Facebook_Feed{
 
 		self::$instance->cff_admin_notices		= new CFF_Admin_Notices();
 
-		$this->cff_ppca_check_notice_dismiss();
+		global $cff_notices;
+		$cff_notices = SBNotices::instance('custom-facebook-feed');
+
 		$this->register_assets();
 		$this->group_posts_process();
 
@@ -959,23 +963,6 @@ final class Custom_Facebook_Feed{
 	    echo "\r\n";
 	    echo '</script>';
 	    echo "\r\n";
-	}
-
-
-	/**
-	 * Notice Dismiss
-	 *
-	 * PPCA Check Notice Dismiss
-	 *
-	 * @since 2.19
-	 * @access public
-	 */
-	public function cff_ppca_check_notice_dismiss() {
-	    global $current_user;
-		$user_id = $current_user->ID;
-	    if ( isset($_GET['cff_ppca_check_notice_dismiss']) && '0' == $_GET['cff_ppca_check_notice_dismiss'] ) {
-	    	add_user_meta($user_id, 'cff_ppca_check_notice_dismiss', 'true', true);
-	    }
 	}
 
 

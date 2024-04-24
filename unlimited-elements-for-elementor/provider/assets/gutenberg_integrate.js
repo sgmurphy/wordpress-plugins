@@ -6,12 +6,12 @@
 	var el = we.createElement;
 
 	// trigger block focus in case widget prevents clicks (carousels etc.)
-	jQuery(document).on("click", ".unite-gutenberg-widget-wrapper", function () {
+	jQuery(document).on("click", ".ue-gutenberg-widget-wrapper", function () {
 		jQuery(this).closest("[tabindex]").focus();
 	});
 
 	// prevent link clicks inside widgets
-	jQuery(document).on("click", ".unite-gutenberg-widget-wrapper a", function (event) {
+	jQuery(document).on("click", ".ue-gutenberg-widget-wrapper a", function (event) {
 		event.preventDefault();
 	});
 
@@ -52,8 +52,8 @@
 			return select("core/edit-post").__experimentalGetPreviewDeviceType();
 		});
 
-		var widgetId = "unite-gutenberg-widget-" + blockProps.id;
-		var settingsId = "unite-gutenberg-settings-" + blockProps.id;
+		var widgetId = "ue-gutenberg-widget-" + props.clientId;
+		var settingsId = "ue-gutenberg-settings-" + props.clientId;
 		var settingsTempId = settingsId + "-temp";
 		var settingsErrorId = settingsId + "-error";
 
@@ -122,7 +122,10 @@
 		};
 
 		var saveSettings = function () {
-			props.setAttributes({ data: JSON.stringify(ucSettings.getSettingsValues()) });
+			props.setAttributes({
+				_rootId: ucHelper.getRandomString(5),
+				data: JSON.stringify(ucSettings.getSettingsValues()),
+			});
 		};
 
 		var getSettingsElement = function () {
@@ -187,6 +190,7 @@
 
 			widgetRequestRef.current = g_ucAdmin.ajaxRequest("get_addon_output_data", {
 				id: props.attributes._id,
+				root_id: props.attributes._rootId,
 				settings: getSettings(),
 				selectors: true,
 			}, function (response) {
@@ -264,16 +268,16 @@
 
 		var settings = el(
 			wbe.InspectorControls, {},
-			el("div", { className: "unite-gutenberg-settings-error", id: settingsErrorId }),
+			el("div", { className: "ue-gutenberg-settings-error", id: settingsErrorId }),
 			settingsContent && el("div", { id: settingsId, dangerouslySetInnerHTML: { __html: settingsContent } }),
-			!settingsContent && el("div", { className: "unite-gutenberg-settings-spinner" }, el(wc.Spinner)),
+			!settingsContent && el("div", { className: "ue-gutenberg-settings-spinner" }, el(wc.Spinner)),
 		);
 
 		var widget = el(
-			"div", { className: "unite-gutenberg-widget-wrapper" },
-			widgetContent && el("div", { className: "unite-gutenberg-widget-content", id: widgetId, ref: widgetRef }),
-			widgetContent && el("div", { className: "unite-gutenberg-widget-loader", ref: widgetLoaderRef }, el(wc.Spinner)),
-			!widgetContent && el("div", { className: "unite-gutenberg-widget-placeholder" }, el(wc.Spinner)),
+			"div", { className: "ue-gutenberg-widget-wrapper" },
+			widgetContent && el("div", { className: "ue-gutenberg-widget-content", id: widgetId, ref: widgetRef }),
+			widgetContent && el("div", { className: "ue-gutenberg-widget-loader", ref: widgetLoaderRef }, el(wc.Spinner)),
+			!widgetContent && el("div", { className: "ue-gutenberg-widget-placeholder" }, el(wc.Spinner)),
 		);
 
 		return el("div", blockProps, settings, widget);

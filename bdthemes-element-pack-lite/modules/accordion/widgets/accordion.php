@@ -285,19 +285,19 @@ class Accordion extends Module_Base {
 							"id"                => 'bdt-ep-accordion-' . $this->get_id(),
 							'activeHash'        => $settings['active_hash'],
 							'activeScrollspy'   => $settings['active_scrollspy'],
-							'hashTopOffset'     => isset ( $settings['hash_top_offset']['size'] ) ? $settings['hash_top_offset']['size'] : false,
-							'hashScrollspyTime' => isset ( $settings['hash_scrollspy_time']['size'] ) ? $settings['hash_scrollspy_time']['size'] : false,
+							'hashTopOffset'     => isset( $settings['hash_top_offset']['size'] ) ? $settings['hash_top_offset']['size'] : false,
+							'hashScrollspyTime' => isset( $settings['hash_scrollspy_time']['size'] ) ? $settings['hash_scrollspy_time']['size'] : false,
 						] ),
 					],
 				],
 			]
 		);
 
-		$migrated = isset ( $settings['__fa4_migrated']['accordion_icon'] );
-		$is_new   = empty ( $settings['icon'] ) && Icons_Manager::is_migration_allowed();
+		$migrated = isset( $settings['__fa4_migrated']['accordion_icon'] );
+		$is_new   = empty( $settings['icon'] ) && Icons_Manager::is_migration_allowed();
 
-		$active_migrated = isset ( $settings['__fa4_migrated']['accordion_active_icon'] );
-		$active_is_new   = empty ( $settings['icon_active'] ) && Icons_Manager::is_migration_allowed();
+		$active_migrated = isset( $settings['__fa4_migrated']['accordion_active_icon'] );
+		$active_is_new   = empty( $settings['icon_active'] ) && Icons_Manager::is_migration_allowed();
 
 		if ( $settings['schema_activity'] == 'yes' ) {
 			$this->add_render_attribute( 'accordion', 'itemscope' );
@@ -349,11 +349,9 @@ class Accordion extends Module_Base {
 					?>
 					<div <?php $this->print_render_attribute_string( $item_key ); ?>>
 						<<?php echo esc_attr( Utils::get_valid_html_tag( $settings['title_html_tag'] ) ); ?>
-							<?php $this->print_render_attribute_string( $tab_title_setting_key ); ?>
-							id="
+							<?php $this->print_render_attribute_string( $tab_title_setting_key ); ?> id="
 							<?php echo esc_attr( strtolower( preg_replace( '#[ -]+#', '-', trim( preg_replace( "![^a-z0-9]+!i", " ", esc_attr( $acc_id ) ) ) ) ) ); ?>"
-							data-accordion-index="<?php echo esc_attr( $index ); ?>"
-							data-title="<?php echo esc_attr( strtolower( preg_replace( '#[ -]+#', '-', trim( preg_replace( "![^a-z0-9]+!i", " ", esc_html( $item['tab_title'] ) ) ) ) ) ); ?>">
+							data-accordion-index="<?php echo esc_attr( $index ); ?>" data-title="<?php echo esc_attr( strtolower( preg_replace( '#[ -]+#', '-', trim( preg_replace( "![^a-z0-9]+!i", " ", esc_html( $item['tab_title'] ) ) ) ) ) ); ?>">
 
 							<?php if ( $settings['accordion_icon']['value'] ) : ?>
 								<span class="bdt-ep-accordion-icon bdt-flex-align-<?php echo esc_attr( $settings['icon_align'] ); ?>"
@@ -380,9 +378,9 @@ class Accordion extends Module_Base {
 								</span>
 							<?php endif; ?>
 
-							<span role="heading" class="bdt-ep-title-text bdt-flex bdt-flex-middle">
+							<span role="heading" class="bdt-ep-title-text bdt-display-inline-block" <?php echo ( 'yes' == $settings['schema_activity']) ? 'itemprop="name"' : ''; ?>>
 
-								<?php if ( ! empty ( $item['repeater_icon']['value'] ) and $settings['show_custom_icon'] == 'yes' ) : ?>
+								<?php if ( ! empty( $item['repeater_icon']['value'] ) and $settings['show_custom_icon'] == 'yes' ) : ?>
 									<span class="bdt-ep-accordion-custom-icon">
 										<?php Icons_Manager::render_icon( $item['repeater_icon'], [ 'aria-hidden' => 'true', 'class' => 'fa-fw' ] ); ?>
 									</span>
@@ -393,12 +391,18 @@ class Accordion extends Module_Base {
 						</<?php echo esc_attr( Utils::get_valid_html_tag( $settings['title_html_tag'] ) ); ?>>
 						<div <?php $this->print_render_attribute_string( $tab_content_setting_key ); ?>>
 							<?php
-							if ( 'custom' == $item['source'] and ! empty ( $item['tab_content'] ) ) {
+							if ( 'custom' == $item['source'] and ! empty( $item['tab_content'] ) ) {
+								if ( 'yes' == $settings['schema_activity'] ) {
+									echo '<div itemprop="text">';
+								}
 								echo wp_kses_post( $this->parse_text_editor( $item['tab_content'] ) );
-							} elseif ( "elementor" == $item['source'] and ! empty ( $item['template_id'] ) ) {
+								if ( 'yes' == $settings['schema_activity'] ) {
+									echo '</div>';
+								}
+							} elseif ( "elementor" == $item['source'] and ! empty( $item['template_id'] ) ) {
 								echo Element_Pack_Loader::elementor()->frontend->get_builder_content_for_display( $item['template_id'] );
 								echo element_pack_template_edit_link( $item['template_id'] );
-							} elseif ( 'anywhere' == $item['source'] and ! empty ( $item['anywhere_id'] ) ) {
+							} elseif ( 'anywhere' == $item['source'] and ! empty( $item['anywhere_id'] ) ) {
 								echo Element_Pack_Loader::elementor()->frontend->get_builder_content_for_display( $item['anywhere_id'] );
 								echo element_pack_template_edit_link( $item['anywhere_id'] );
 							}

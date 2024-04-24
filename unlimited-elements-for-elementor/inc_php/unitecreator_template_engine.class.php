@@ -180,8 +180,8 @@ class UniteCreatorTemplateEngineWork{
 	/**
 	 * check the callable for a forbidden function
 	 */
-	private function validateFilterCallable($filter, $callable){
-
+	private function validateFilterCallable($filter, $callable){	//Security Update 2
+		
 		$forbiddenFunctions = array("exec", "eval", "system", "shell_exec", "show_source", "passthru", "pcntl_exec", "proc_open");
 
 		if(is_string($callable) === true && in_array($callable, $forbiddenFunctions) === true)

@@ -239,7 +239,7 @@ class TableOfContents extends Block
                 "level"   => $level,
                 "content" => $value,
                 "text"    => $value,
-                "link"    => preg_match( '/^[A-Za-z0-9\-]+$/', $heading_string ) === 1 ? $heading_string : "eb-table-content-$index"
+                "link"    => preg_match( '/^[A-Za-z0-9\-\_]+$/', $heading_string ) === 1 ? $heading_string : "eb-table-content-$index"
              ];
         }
 

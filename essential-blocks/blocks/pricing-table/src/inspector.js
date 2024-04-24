@@ -158,97 +158,98 @@ const Inspector = ({ attributes, setAttributes }) => {
         setAttributes({ features });
     };
 
-    const handlePricingStyle = (pricingStyle) => {
-        setAttributes({ pricingStyle });
-        switch (pricingStyle) {
-            case "style-1":
-                setAttributes({
-                    showSubtitle: false,
-                    showHeaderIcon: false,
-                    iconColor: "#000000",
-                    iconHoverColor: "#000000",
-                    titleTextColor: "#000000",
-                    priceCurrencyTextColor: "#000000",
-                    priceTextColor: "#000000",
-                    pricingPeriodTextColor: "#999999",
-                    ribbonBackgroundColor: "#00c853",
-                    // ribbonColor: "#7967ff",
-                    btnBgbackgroundColor: "#00c853",
-                });
-                defaultSubtitle ? setAttributes({ showSubtitle: true }) : "";
-                defaultHeaderIcon
-                    ? setAttributes({ showHeaderIcon: true })
-                    : "";
-                defaultTitleLine === undefined
-                    ? setAttributes({ showTitleLine: true })
-                    : "";
-                break;
+    // const handlePricingStyle = (pricingStyle) => {
+    //     setAttributes({ pricingStyle });
+    //     switch (pricingStyle) {
+    //         case "style-1":
+    //             setAttributes({
+    //                 showSubtitle: false,
+    //                 showHeaderIcon: false,
+    //                 iconColor: "#000000",
+    //                 iconHoverColor: "#000000",
+    //                 titleTextColor: "#000000",
+    //                 priceCurrencyTextColor: "#000000",
+    //                 priceTextColor: "#000000",
+    //                 pricingPeriodTextColor: "#999999",
+    //                 ribbonBackgroundColor: "#00c853",
+    //                 // ribbonColor: "#7967ff",
+    //                 btnBgbackgroundColor: "#00c853",
+    //             });
+    //             defaultSubtitle ? setAttributes({ showSubtitle: true }) : "";
+    //             defaultHeaderIcon
+    //                 ? setAttributes({ showHeaderIcon: true })
+    //                 : "";
+    //             defaultTitleLine === undefined
+    //                 ? setAttributes({ showTitleLine: true })
+    //                 : "";
+    //             break;
 
-            case "style-2":
-                setAttributes({
-                    iconColor: "#000000",
-                    iconHoverColor: "#000000",
-                    titleTextColor: "#000000",
-                    priceCurrencyTextColor: "#000000",
-                    priceTextColor: "#000000",
-                    pricingPeriodTextColor: "#999999",
-                    ribbonBackgroundColor: "#00c853",
-                    // ribbonColor: "#7967ff",
-                    btnBgbackgroundColor: "#00c853",
-                });
-                defaultSubtitle === undefined
-                    ? setAttributes({ showSubtitle: true })
-                    : "";
-                defaultHeaderIcon === undefined
-                    ? setAttributes({ showHeaderIcon: true })
-                    : "";
-                defaultTitleLine === undefined
-                    ? setAttributes({ showTitleLine: false })
-                    : "";
-                break;
+    //         case "style-2":
+    //             setAttributes({
+    //                 iconColor: "#000000",
+    //                 iconHoverColor: "#000000",
+    //                 titleTextColor: "#000000",
+    //                 priceCurrencyTextColor: "#000000",
+    //                 priceTextColor: "#000000",
+    //                 pricingPeriodTextColor: "#999999",
+    //                 ribbonBackgroundColor: "#00c853",
+    //                 // ribbonColor: "#7967ff",
+    //                 btnBgbackgroundColor: "#00c853",
+    //             });
+    //             defaultSubtitle === undefined
+    //                 ? setAttributes({ showSubtitle: true })
+    //                 : "";
+    //             defaultHeaderIcon === undefined
+    //                 ? setAttributes({ showHeaderIcon: true })
+    //                 : "";
+    //             defaultTitleLine === undefined
+    //                 ? setAttributes({ showTitleLine: false })
+    //                 : "";
+    //             break;
 
-            case "style-3":
-                setAttributes({
-                    showSubtitle: false,
-                    showHeaderIcon: false,
-                    iconColor: "#000000",
-                    iconHoverColor: "#000000",
-                    titleTextColor: "#000000",
-                    priceCurrencyTextColor: "#000000",
-                    priceTextColor: "#000000",
-                    pricingPeriodTextColor: "#999999",
-                    ribbonBackgroundColor: "#00c853",
-                    // ribbonColor: "#7967ff",
-                    btnBgbackgroundColor: "#00c853",
-                });
-                defaultSubtitle ? setAttributes({ showSubtitle: true }) : "";
-                defaultHeaderIcon
-                    ? setAttributes({ showHeaderIcon: true })
-                    : "";
-                defaultTitleLine === undefined
-                    ? setAttributes({ showTitleLine: true })
-                    : "";
-                break;
-            case "style-4":
-                setAttributes({
-                    iconColor: "#ffffff",
-                    iconHoverColor: "#ffffff",
-                    titleTextColor: "#ffffff",
-                    priceCurrencyTextColor: "#ffffff",
-                    priceTextColor: "#ffffff",
-                    pricingPeriodTextColor: "#ffffff",
-                    ribbonBackgroundColor: "#cc5ae7",
-                    // ribbonColor: "#7967ff",
-                    btnBgbackgroundColor: "#7967ff",
-                });
-                defaultHeaderIcon === undefined
-                    ? setAttributes({ showHeaderIcon: true })
-                    : "";
-                break;
-            default:
-                return false;
-        }
-    };
+    //         case "style-3":
+    //             setAttributes({
+    //                 showSubtitle: false,
+    //                 showHeaderIcon: false,
+    //                 iconColor: "#000000",
+    //                 iconHoverColor: "#000000",
+    //                 titleTextColor: "#000000",
+    //                 priceCurrencyTextColor: "#000000",
+    //                 priceTextColor: "#000000",
+    //                 pricingPeriodTextColor: "#999999",
+    //                 ribbonBackgroundColor: "#00c853",
+    //                 // ribbonColor: "#7967ff",
+    //                 btnBgbackgroundColor: "#00c853",
+    //             });
+    //             defaultSubtitle ? setAttributes({ showSubtitle: true }) : "";
+    //             defaultHeaderIcon
+    //                 ? setAttributes({ showHeaderIcon: true })
+    //                 : "";
+    //             defaultTitleLine === undefined
+    //                 ? setAttributes({ showTitleLine: true })
+    //                 : "";
+    //             break;
+    //         case "style-4":
+    //             setAttributes({
+    //                 iconColor: "#ffffff",
+    //                 iconHoverColor: "#ffffff",
+    //                 titleTextColor: "#ffffff",
+    //                 priceCurrencyTextColor: "#ffffff",
+    //                 priceTextColor: "#ffffff",
+    //                 pricingPeriodTextColor: "#ffffff",
+    //                 ribbonBackgroundColor: "#cc5ae7",
+    //                 // ribbonColor: "#7967ff",
+    //                 btnBgbackgroundColor: "#7967ff",
+    //             });
+    //             defaultHeaderIcon === undefined
+    //                 ? setAttributes({ showHeaderIcon: true })
+    //                 : "";
+    //             break;
+    //         default:
+    //             return false;
+    //     }
+    // };
+
     return (
         <InspectorControls key="controls">
             <div className="eb-panel-control">
@@ -283,7 +284,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                                             "essential-blocks"
                                         )}
                                     >
-                                        <SelectControl
+                                        {/* <SelectControl
                                             label={__(
                                                 "Pricing Preset",
                                                 "essential-blocks"
@@ -310,7 +311,8 @@ const Inspector = ({ attributes, setAttributes }) => {
                                             onChange={(pricingStyle) =>
                                                 handlePricingStyle(pricingStyle)
                                             }
-                                        />
+                                        /> */}
+                                        
                                         <TextControl
                                             label={__(
                                                 "Title",

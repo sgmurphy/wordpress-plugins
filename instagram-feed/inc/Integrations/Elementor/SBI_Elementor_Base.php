@@ -221,9 +221,12 @@ class SBI_Elementor_Base
 			'ajax_url'  => admin_url('admin-ajax.php'),
 		);
 
+		// legacy settings.
+        $path = Util::sbi_legacy_css_enabled() ? 'js/legacy/' : 'js/';
+
 		wp_register_script(
 			'sbiscripts',
-			SBI_PLUGIN_URL . 'js/sbi-scripts.min.js',
+			SBI_PLUGIN_URL . $path . 'sbi-scripts.min.js',
 			array('jquery'),
 			SBIVER,
 			true
@@ -266,9 +269,12 @@ class SBI_Elementor_Base
 	 */
 	public function register_frontend_styles()
 	{
+		// legacy settings
+        $path = Util::sbi_legacy_css_enabled() ? 'css/legacy/' : 'css/';
+
 		wp_register_style(
 			'sbistyles',
-			SBI_PLUGIN_URL . 'css/sbi-styles.min.css',
+			SBI_PLUGIN_URL . $path . 'sbi-styles.min.css',
 			array(),
 			SBIVER
 		);

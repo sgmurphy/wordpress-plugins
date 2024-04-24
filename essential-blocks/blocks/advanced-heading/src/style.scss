@@ -27,6 +27,12 @@
 		font-size: 13px;
 	}
 
+	.eb-ah-title a {
+		color: inherit;
+
+		// &:hover
+	}
+
 	&>* {
 		transition: all 0.3s ease-in-out;
 	}

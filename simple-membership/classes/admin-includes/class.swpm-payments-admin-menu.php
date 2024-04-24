@@ -32,6 +32,12 @@ class SwpmPaymentsAdminMenu {
                 if ($tab == 'edit_button') {//Only show the "edit button" tab when a button is being edited.
                     echo '<a class="nav-tab nav-tab-active" href="#">Edit Button</a>';
                 }
+                if ($tab == 'add_new_txn') {//Only show the "add txn manually" tab when a transaction is being added.
+                    echo '<a class="nav-tab nav-tab-active" href="#">Add Transaction Manually</a>';
+                }                
+                if ($tab == 'edit_txn') {//Only show the "edit txn" tab when a transaction is being edited.
+                    echo '<a class="nav-tab nav-tab-active" href="#">Edit/View Transaction</a>';
+                }
 
                 //Trigger hooks that allows an extension to add extra nav tabs in the payments menu.
                 do_action ('swpm_payments_menu_nav_tabs', $selected);
@@ -86,6 +92,10 @@ class SwpmPaymentsAdminMenu {
                 case 'add_new_txn':
                     include_once(SIMPLE_WP_MEMBERSHIP_PATH . '/views/payments/admin_add_edit_transaction_manually.php');
                     swpm_handle_add_new_txn_manually();
+                    break;
+                case 'edit_txn':
+                    include_once(SIMPLE_WP_MEMBERSHIP_PATH . '/views/payments/admin_edit_transaction.php');
+                    swpm_handle_edit_txn();
                     break;
                 default:
                     include_once(SIMPLE_WP_MEMBERSHIP_PATH . '/views/payments/admin_all_payment_transactions.php');

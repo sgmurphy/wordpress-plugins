@@ -752,13 +752,22 @@ trait Global_Widget_Controls {
 						'title' => __( 'Right', 'bdthemes-element-pack' ),
 						'icon'  => 'eicon-text-align-right',
 					],
+					'justify'    => [ 
+						'title' => __( 'Justify', 'bdthemes-element-pack' ),
+						'icon'  => 'eicon-text-align-justify',
+					],
 				],
-				// 'default'     => is_rtl() ? 'flex-end' : 'flex-start',
 				'default'     => 'flex-start',
 				'toggle'      => false,
 				'label_block' => false,
-				'selectors'   => [ 
-					'{{WRAPPER}} .bdt-ep-title-text' => 'justify-content: {{VALUE}};',
+				'selectors_dictionary' => [
+					'flex-start' => 'text-align: left;',
+					'center' => 'text-align: center;',
+					'flex-end' => 'text-align: right;',
+					'justify' => 'text-align: justify;',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .bdt-ep-title-text' => '{{VALUE}};',
 				],
 			]
 		);
@@ -1405,6 +1414,10 @@ trait Global_Widget_Controls {
 					'right'  => [ 
 						'title' => __( 'Right', 'bdthemes-element-pack' ),
 						'icon'  => 'eicon-text-align-right',
+					],
+					'justify' => [ 
+						'title' => __( 'Justify', 'bdthemes-element-pack' ),
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
 				'selectors' => [ 

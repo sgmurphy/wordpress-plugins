@@ -12,7 +12,9 @@ import { select } from "@wordpress/data";
 
 const {
     duplicateBlockIdFix,
-    DynamicInputValueHandler
+    BrowseTemplate,
+    DynamicInputValueHandler,
+    ImgPlaceholder
 } = window.EBControls;
 
 import classnames from "classnames";
@@ -20,6 +22,8 @@ import classnames from "classnames";
 import Inspector from "./inspector";
 import SocialLinks from "./components/social-links";
 import Style from "./style";
+import { TeamMembersIcon } from "./icon";
+import { Templates } from './templates/templates'
 
 export default function Edit(props) {
     const {
@@ -39,6 +43,7 @@ export default function Edit(props) {
         description,
         showDescs,
         imageUrl,
+        imageNewUrl,
         imageId,
         showSocials,
         socialDetails,
@@ -52,6 +57,7 @@ export default function Edit(props) {
         showDesignation,
         isContentOverlay,
         preset,
+        showBlockContent
     } = attributes;
 
     //
@@ -149,7 +155,7 @@ export default function Edit(props) {
 
     return (
         <>
-            {isSelected && (
+            {isSelected && showBlockContent && (
                 <Inspector
                     attributes={attributes}
                     setAttributes={setAttributes}
@@ -157,191 +163,177 @@ export default function Edit(props) {
             )}
             <div {...blockProps}>
                 <Style {...props} />
-                <div
-                    className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
-                >
-                    <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}  `}>
-                        <div className="eb-team-inner">
-                            <div className="eb-team-member-image">
-                                <MediaUpload
-                                    onSelect={({ id, url }) =>
-                                        setAttributes({
-                                            imageUrl: url,
-                                            imageId: id,
-                                        })
-                                    }
-                                    type="image"
-                                    value={imageId}
-                                    render={({ open }) => {
-                                        if (!imageUrl) {
-                                            return (
-                                                <Button
-                                                    className="eb-infobox-img-btn components-button"
-                                                    label={__(
-                                                        "Upload Image",
-                                                        "essential-blocks"
-                                                    )}
-                                                    icon="format-image"
-                                                    onClick={open}
-                                                />
-                                            );
-                                        } else {
-                                            return (
-                                                <img
-                                                    className="eb-team-member-avatar"
-                                                    alt="member"
-                                                    src={imageUrl}
-                                                />
-                                            );
-                                        }
-                                    }}
-                                />
-                                {socialInImage && showSocials && (
-                                    <SocialLinks
-                                        socialDetails={profilesOnly}
-                                        icnEffect={icnEffect}
-                                        preset={preset}
-                                    />
-                                )}
 
-                                {preset === 'new-preset1' && showDesignation && (
-                                    <DynamicInputValueHandler
-                                        value={jobTitle}
-                                        tagName="h4"
-                                        className="eb-team-member-job-title"
-                                        onChange={(jobTitle) =>
-                                            setAttributes({
-                                                jobTitle,
-                                            })
-                                        }
-                                        readOnly={true}
-                                    />
-                                )}
-                            </div>
-                            <div className="eb-team-member-contents">
-                                {(preset === 'new-preset1' || preset === 'new-preset2' || preset === 'new-preset3') && (
-                                    <div className="eb-team-member-contents-inner">
-                                        <div className="eb-team-member-texts">
+                <BrowseTemplate
+                    {...props}
+                    Icon={TeamMembersIcon}
+                    title={"Team Members"}
+                    description={"Choose a template for the Team Members or start blank."}
+                    patterns={Templates}
+                />
+
+                {showBlockContent && (
+                    <>
+                        <div
+                            className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
+                        >
+                            <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}  `}>
+                                <div className="eb-team-inner">
+                                    <div className="eb-team-member-image">
+                                        <img
+                                            className="eb-team-member-avatar"
+                                            alt="member"
+                                            src={imageNewUrl === '' ? ImgPlaceholder : imageNewUrl}
+                                        />
+
+                                        {socialInImage && showSocials && (
+                                            <SocialLinks
+                                                socialDetails={profilesOnly}
+                                                icnEffect={icnEffect}
+                                                preset={preset}
+                                            />
+                                        )}
+
+                                        {preset === 'new-preset1' && showDesignation && (
                                             <DynamicInputValueHandler
-                                                value={name}
-                                                tagName="h3"
-                                                className="eb-team-member-name"
-                                                onChange={(name) =>
+                                                value={jobTitle}
+                                                tagName="h4"
+                                                className="eb-team-member-job-title"
+                                                onChange={(jobTitle) =>
                                                     setAttributes({
-                                                        name,
+                                                        jobTitle,
                                                     })
                                                 }
                                                 readOnly={true}
                                             />
-                                            {preset != 'new-preset1' && showDesignation && (
-                                                <DynamicInputValueHandler
-                                                    value={jobTitle}
-                                                    tagName="h4"
-                                                    className="eb-team-member-job-title"
-                                                    onChange={(jobTitle) =>
-                                                        setAttributes({
-                                                            jobTitle,
-                                                        })
-                                                    }
-                                                    readOnly={true}
-                                                />
-                                            )}
-                                            {showCSeparator && (
-                                                <hr className="eb-team-member-content-separator" />
-                                            )}
-                                            {showDescs && (
-                                                <DynamicInputValueHandler
-                                                    value={description}
-                                                    tagName="p"
-                                                    className="eb-team-member-description"
-                                                    onChange={(description) =>
-                                                        setAttributes({
-                                                            description,
-                                                        })
-                                                    }
-                                                    readOnly={true}
-                                                />
-                                            )}
-                                        </div>
-                                        {!socialInImage && showSocials && (
-                                            <>
-                                                {showSSeparator && (
-                                                    <hr className="eb-team-member-social-separator" />
+                                        )}
+                                    </div>
+                                    <div className="eb-team-member-contents">
+                                        {(preset === 'new-preset1' || preset === 'new-preset2' || preset === 'new-preset3') && (
+                                            <div className="eb-team-member-contents-inner">
+                                                <div className="eb-team-member-texts">
+                                                    <DynamicInputValueHandler
+                                                        value={name}
+                                                        tagName="h3"
+                                                        className="eb-team-member-name"
+                                                        onChange={(name) =>
+                                                            setAttributes({
+                                                                name,
+                                                            })
+                                                        }
+                                                        readOnly={true}
+                                                    />
+                                                    {preset != 'new-preset1' && showDesignation && (
+                                                        <DynamicInputValueHandler
+                                                            value={jobTitle}
+                                                            tagName="h4"
+                                                            className="eb-team-member-job-title"
+                                                            onChange={(jobTitle) =>
+                                                                setAttributes({
+                                                                    jobTitle,
+                                                                })
+                                                            }
+                                                            readOnly={true}
+                                                        />
+                                                    )}
+                                                    {showCSeparator && (
+                                                        <hr className="eb-team-member-content-separator" />
+                                                    )}
+                                                    {showDescs && (
+                                                        <DynamicInputValueHandler
+                                                            value={description}
+                                                            tagName="p"
+                                                            className="eb-team-member-description"
+                                                            onChange={(description) =>
+                                                                setAttributes({
+                                                                    description,
+                                                                })
+                                                            }
+                                                            readOnly={true}
+                                                        />
+                                                    )}
+                                                </div>
+                                                {!socialInImage && showSocials && (
+                                                    <>
+                                                        {showSSeparator && (
+                                                            <hr className="eb-team-member-social-separator" />
+                                                        )}
+                                                        <SocialLinks
+                                                            socialDetails={profilesOnly}
+                                                            icnEffect={icnEffect}
+                                                            preset={preset}
+                                                        />
+                                                    </>
                                                 )}
-                                                <SocialLinks
-                                                    socialDetails={profilesOnly}
-                                                    icnEffect={icnEffect}
-                                                    preset={preset}
-                                                />
+                                            </div>
+                                        )}
+
+                                        {(preset != 'new-preset1' && preset != 'new-preset2' && preset != 'new-preset3') && (
+                                            <>
+                                                <div className="eb-team-member-texts">
+                                                    <DynamicInputValueHandler
+                                                        value={name}
+                                                        tagName="h3"
+                                                        className="eb-team-member-name"
+                                                        onChange={(name) =>
+                                                            setAttributes({
+                                                                name,
+                                                            })
+                                                        }
+                                                        readOnly={true}
+                                                    />
+                                                    {preset != 'new-preset1' && showDesignation && (
+                                                        <DynamicInputValueHandler
+                                                            value={jobTitle}
+                                                            tagName="h4"
+                                                            className="eb-team-member-job-title"
+                                                            onChange={(jobTitle) =>
+                                                                setAttributes({
+                                                                    jobTitle,
+                                                                })
+                                                            }
+                                                            readOnly={true}
+                                                        />
+                                                    )}
+
+                                                    {showCSeparator && (
+                                                        <hr className="eb-team-member-content-separator" />
+                                                    )}
+
+                                                    {showDescs && (
+                                                        <DynamicInputValueHandler
+                                                            value={description}
+                                                            tagName="p"
+                                                            className="eb-team-member-description"
+                                                            onChange={(description) =>
+                                                                setAttributes({
+                                                                    description,
+                                                                })
+                                                            }
+                                                            readOnly={true}
+                                                        />
+                                                    )}
+                                                </div>
+                                                {!socialInImage && showSocials && (
+                                                    <>
+                                                        {showSSeparator && (
+                                                            <hr className="eb-team-member-social-separator" />
+                                                        )}
+                                                        <SocialLinks
+                                                            socialDetails={profilesOnly}
+                                                            icnEffect={icnEffect}
+                                                            preset={preset}
+                                                        />
+                                                    </>
+                                                )}
                                             </>
                                         )}
                                     </div>
-                                )}
-
-                                {(preset != 'new-preset1' && preset != 'new-preset2' && preset != 'new-preset3') && (
-                                    <>
-                                        <div className="eb-team-member-texts">
-                                            <DynamicInputValueHandler
-                                                value={name}
-                                                tagName="h3"
-                                                className="eb-team-member-name"
-                                                onChange={(name) =>
-                                                    setAttributes({
-                                                        name,
-                                                    })
-                                                }
-                                                readOnly={true}
-                                            />
-                                            {preset != 'new-preset1' && showDesignation && (
-                                                <DynamicInputValueHandler
-                                                    value={jobTitle}
-                                                    tagName="h4"
-                                                    className="eb-team-member-job-title"
-                                                    onChange={(jobTitle) =>
-                                                        setAttributes({
-                                                            jobTitle,
-                                                        })
-                                                    }
-                                                    readOnly={true}
-                                                />
-                                            )}
-
-                                            {showCSeparator && (
-                                                <hr className="eb-team-member-content-separator" />
-                                            )}
-
-                                            {showDescs && (
-                                                <DynamicInputValueHandler
-                                                    value={description}
-                                                    tagName="p"
-                                                    className="eb-team-member-description"
-                                                    onChange={(description) =>
-                                                        setAttributes({
-                                                            description,
-                                                        })
-                                                    }
-                                                    readOnly={true}
-                                                />
-                                            )}
-                                        </div>
-                                        {!socialInImage && showSocials && (
-                                            <>
-                                                {showSSeparator && (
-                                                    <hr className="eb-team-member-social-separator" />
-                                                )}
-                                                <SocialLinks
-                                                    socialDetails={profilesOnly}
-                                                    icnEffect={icnEffect}
-                                                    preset={preset}
-                                                />
-                                            </>
-                                        )}
-                                    </>
-                                )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
         </>
     );

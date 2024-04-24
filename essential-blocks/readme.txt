@@ -4,7 +4,7 @@ Tags: block, gutenberg, blocks, gutenberg blocks, editor, button, post grid, TOC
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 4.5.10
+Stable tag: 4.5.11
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -226,13 +226,20 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 == Changelog ==
 
+= 4.5.11 - 24/04/2024
+- Added: Browse Template option for multiple blocks
+- Added: Current Post Heading support in **Advanced Heading** block
+- Fixed: **Table of Content** block special character issue with URL
+- Fixed: Embedpress not working in **Advanced Tab** block in eidtor
+- Fixed: **Accordion** block title align not working
+- Fixed: **Advanced Heading** tag change dones't reflect without reload
+
 = 4.5.10 - 18/04/2024
 - Added: Global color support in Gradient color control
 - Fixed: **Post Carousel** conflict issue with Spectra theme
 - Fixed: **Advanced Image** block issue fix
 - Fixed: **Image Gallery** block existing images url issue fix
 - Fixed: **Table of Contents** block collapsable items not working
-- Improved: Security enhancement
 
 = 4.5.9 - 09/04/2024
 - Fixed: **Post Grid** block templates design conflict

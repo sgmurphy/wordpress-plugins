@@ -431,14 +431,43 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			return(false);
 		}
-
-		public static function a_______TAXANOMIES_______(){}
-
+		
+		public static function a_______TERMS_______(){}
+		
+		
+		/**
+		 * sort terms by parents by levels parent -> children / parent -> children
+		 */
+		public static function sortTermsByParents($arrTermsObjects, $parent = 0, $level = 0){
+			
+			if(empty($arrTermsObjects))
+				return(array());
+			
+			$arrSorted = array();
+			
+		    foreach ($arrTermsObjects as $term) {
+		    	
+		        if ($term->parent != $parent) 
+		        	continue; 
+		        	
+		        $term->level = $level;
+		        
+	            $arrSorted[] = $term;
+	            
+	            $arrChildren = self::sortTermsByParents($arrTermsObjects, $term->term_id, $level+1 );
+	            $arrSorted = array_merge($arrSorted, $arrChildren);
+		    }
+			
+		    
+			return($arrSorted);
+		}
+		
+		
 		/**
 		 * get term parent ids, including current term id
 		 */
 		public static function getTermParentIDs($objTerm){
-
+			
 			$currentTermID = $objTerm->term_id;
 
 			$cacheKey = "term_".$currentTermID;
@@ -494,7 +523,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$data["slug"] = $term->slug;
 			$data["description"] = $term->description;
 			$data["taxonomy"] = $term->taxonomy;
-
+			
 			if(isset($term->parent))
 				$data["parent_id"] = $term->parent;
 
@@ -508,7 +537,13 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			//get link
 			$link = get_term_link($term);
 			$data["link"] = $link;
-
+			
+			//level (custom attribute after sorting)
+			
+			if(property_exists($term,"level"))			
+				$data["level"] = $term->level;
+			
+			
 			return($data);
 		}
 
@@ -909,6 +944,10 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			return($arrTermIDs);
 		}
+		
+		
+		public static function a_______TAXANOMIES_______(){}
+
 
 
 		/**
@@ -1540,6 +1579,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$arr["term_id"] = __("Term ID", "unlimited-elements-for-elementor");
 			$arr["description"] = __("Description", "unlimited-elements-for-elementor");
 			$arr["parent"] = __("Parent", "unlimited-elements-for-elementor");
+			$arr["parent_children"] = __("Parent and Children", "unlimited-elements-for-elementor");
 			$arr["count"] = __("Count - (number of posts associated)", "unlimited-elements-for-elementor");
 
 			return($arr);
@@ -1777,7 +1817,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 * get term meta image id. guess what the image is by the type
 		 */
 		public static function getTermMetaImageID($termID){
-
+		
 			$isAcfActive = UniteCreatorAcfIntegrate::isAcfActive();
 
 			//get iamge from acf if exists
@@ -1793,8 +1833,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					return($arrImageIDs["thumbnail_id"]);
 				
 				$imageID = UniteFunctionsUC::getArrFirstValue($arrImageIDs);
-				
-				return($imageID);
+								
+				if(!empty($imageID) && is_numeric($imageID))
+					return($imageID);
 			}
 			
 			$arrMeta = self::getTermMeta($termID);
