@@ -137,10 +137,14 @@ class ElementorHelper extends ImportHelper {
 
 		switch ( $element['widgetType'] ) {
 			case 'eael-simple-menu':
-				$element['settings']['eael_simple_menu_menu'] = $this->map_term_ids[ $element['settings']['eael_simple_menu_menu'] ];
+				if (isset($element['settings']['eael_simple_menu_menu']) && isset($this->map_term_ids[ $element['settings']['eael_simple_menu_menu'] ])) {
+					$element['settings']['eael_simple_menu_menu'] = $this->map_term_ids[ $element['settings']['eael_simple_menu_menu'] ];
+				}
 				break;
 			case 'eael-advanced-menu':
-				$element['settings']['eael_advanced_menu_menu'] = $this->map_term_ids[ $element['settings']['eael_advanced_menu_menu'] ];
+				if (isset($element['settings']['eael_advanced_menu_menu']) && isset($this->map_term_ids[ $element['settings']['eael_advanced_menu_menu'] ])) {
+					$element['settings']['eael_advanced_menu_menu'] = $this->map_term_ids[ $element['settings']['eael_advanced_menu_menu'] ];
+				}
 				break;
 		}
 	}

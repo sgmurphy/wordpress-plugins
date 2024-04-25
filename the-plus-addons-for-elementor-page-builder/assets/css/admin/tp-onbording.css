@@ -98,7 +98,7 @@
 
 .tpae-board-pop-inner>.tpae-on-boarding.active {
     display: block;
-    background: linear-gradient(120.39deg,#7248f1 15.43%,#5b3ac1 138.21%);
+    background: linear-gradient(120.39deg,#6660EF 15.43%,#6660EF 138.21%);
     height: 80%
 }
 
@@ -225,7 +225,7 @@
 }
 
 .tpae-select-3>.tpae-select-box.active,.tpae-select-8>.tpae-select-box.active {
-    background-color: #ff844a
+    background-color: #ED4569
 }
 
 .tpae-select-box.active>.select-title {
@@ -315,7 +315,7 @@
     top: 47%;
     width: 40px;
     height: 40px;
-    background-color: #ff844a;
+    background-color: #ED4569;
     border: 0;
     border-radius: 25px;
     cursor: pointer;
@@ -350,7 +350,7 @@
     position: relative;
     width: 16px;
     height: 16px;
-    background: #ff844a;
+    background: #ED4569;
     border-radius: 2px
 }
 
@@ -370,7 +370,7 @@
 }
 
 .tpae-bgwhite-details>input[type=checkbox],.tpae-check-content>input[type=checkbox] {
-    background-color: #ff844a;
+    background-color: #ED4569;
     position: relative;
     border-radius: 2px;
     top: 2px;
@@ -418,7 +418,7 @@
     top: 47%;
     width: 40px;
     height: 40px;
-    background-color: #ff844a;
+    background-color: #ED4569;
     border: 0;
     border-radius: 25px;
     cursor: pointer;
@@ -487,7 +487,7 @@
     bottom: 0;
     width: 150px;
     height: 32px;
-    background-color: #ff844a;
+    background-color: #ED4569;
     border: 0;
     border-radius: 3px;
     color: #fff;
@@ -520,7 +520,7 @@
 .tpae-slider-btns>.tpae-slider-btn.active {
     width: 8.5px;
     height: 8.5px;
-    background-color: #ff844a;
+    background-color: #ED4569;
 }
 
 .tpae-slider-btns>.tpae-slider-btn {
@@ -695,7 +695,7 @@
     color: #fff;
     font-size: 14px;
     line-height: 19px;
-    background-color: #ff844a;
+    background-color: #ED4569;
     border: 0;
     border-radius: 3px;
     letter-spacing: .4px;
@@ -755,7 +755,7 @@
 }
 
 .code-text>.code,.code-text>.offer-code {
-    border: 1px dashed #ff844a;
+    border: 1px dashed #ED4569;
     border-radius: 1px;
     padding: 3px;
     font-size: 13px;
@@ -782,7 +782,7 @@
     justify-content: center;
     width: 145px;
     height: 40px;
-    background-color: #ff844a;
+    background-color: #ED4569;
     border: 0;
     border-radius: 2px;
     color: #fff;
@@ -963,7 +963,7 @@
     justify-content: flex-start;
     width: 12.5%;
     height: 6px;
-    background-color: #ff844a;
+    background-color: #ED4569;
     transition: .7s ease-in-out
 }
 
@@ -991,7 +991,7 @@
 
 .tpae-onboarding-button>.tpae-boarding-proceed:hover {
     transition: all .1s ease;
-    background-color: #ff844a
+    background-color: #ED4569
 }
 
 .tpae-onboarding-button>.tpae-boarding-proceed {

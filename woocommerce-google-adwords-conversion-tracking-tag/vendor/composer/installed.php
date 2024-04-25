@@ -3,7 +3,7 @@
         'name' => 'sweetcode/pixel-manager-for-woocommerce',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '94315e99b72c8a903c208675cf556de94f47f756',
+        'reference' => 'c0588fb8de36800fb4733b8ddeec86791e177a61',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.7.1',
-            'version' => '2.7.1.0',
-            'reference' => '2dc1a3bdace10d057eac9740e327e7cb359970a0',
+            'pretty_version' => '2.7.2',
+            'version' => '2.7.2.0',
+            'reference' => 'eeac5f905746822207729ed0d944c4434ee165ff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),
@@ -55,7 +55,7 @@
         'sweetcode/pixel-manager-for-woocommerce' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '94315e99b72c8a903c208675cf556de94f47f756',
+            'reference' => 'c0588fb8de36800fb4733b8ddeec86791e177a61',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

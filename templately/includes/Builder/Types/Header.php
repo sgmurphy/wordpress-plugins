@@ -25,7 +25,6 @@ class Header extends HeaderFooterBase {
 		return $properties;
 	}
 
-
 	public function import( $elementor_data ) {
 		if ( $this->is_elementor_template() ) {
 			$request = FullSiteImport::get_instance()->get_session_data();

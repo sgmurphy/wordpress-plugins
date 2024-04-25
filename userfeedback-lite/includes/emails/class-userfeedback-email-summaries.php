@@ -50,10 +50,6 @@ class UserFeedback_Email_Summaries {
 		$this->email_options = $options;
 		$this->hooks();
 
-		if ( ! $disable_email_summaries && wp_next_scheduled( 'userfeedback_email_summaries_cron' ) ) {
-			wp_clear_scheduled_hook( 'userfeedback_email_summaries_cron' );
-		}
-
 		if ( ! $disable_email_summaries && ! wp_next_scheduled( 'userfeedback_email_summaries_cron' ) ) {
 			wp_schedule_event( $this->get_first_cron_date(), 'userfeedback_email_summaries_weekly', 'userfeedback_email_summaries_cron' );
 		}
@@ -91,21 +87,6 @@ class UserFeedback_Email_Summaries {
 			// This will load the required dependencies for the WordPress media uploader
 			wp_enqueue_media();
 		}
-	}
-
-	/**
-	 * Check if Email Summaries are enabled in settings.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	protected function is_enabled() {
-		if ( ! isset( $this->is_enabled ) ) {
-			$this->is_enabled = false;
-		}
-
-		return apply_filters( 'userfeedback_emails_summaries_is_enabled', $this->is_enabled );
 	}
 
 	/**
@@ -305,7 +286,10 @@ class UserFeedback_Email_Summaries {
 	 * @since 1.0.0
 	 */
 	public function cron() {
-		if ( ! $this->is_enabled() ) {
+
+        $disable_email_summaries = userfeedback_get_option( 'summaries_disabled' );
+
+		if ( $disable_email_summaries ) {
 			return;
 		}
 
@@ -391,7 +375,17 @@ class UserFeedback_Email_Summaries {
 				esc_html__( 'Below is the total number of survey responses for each active survey from the week of %s ', 'userfeedback' ),
 				date( 'F j, Y', strtotime( $start_date ) ) . ' - ' . date( 'F j, Y', strtotime( $end_date ) )
 			);
-		$args['body']['summaries']        = $this->get_summaries();
+
+        $summaries = $this->get_summaries();
+		$args['body']['summaries']        = $summaries;
+
+        if ( empty( $summaries ) ) {
+            $args['body']['description'] = sprintf(
+                esc_html__( 'No responses were recorded in any of your UserFeedback surveys the week of %s ', 'userfeedback' ),
+                date( 'F j, Y', strtotime( $start_date ) ) . ' - ' . date( 'F j, Y', strtotime( $end_date ) )
+            );
+        }
+
 		$args['body']['settings_tab_url'] = esc_url( admin_url( 'admin.php?page=userfeedback_settings#/email' ) );
 
 		return apply_filters( 'userfeedback_email_summaries_template_args', $args );
@@ -448,7 +442,7 @@ class UserFeedback_Email_Summaries {
 			->group_by( 'survey_id' )
 			->get();
 
-		return array_map(
+        $surveys_with_count = array_map(
 			function( $result ) {
 				return array(
 					'name'      => $result->survey->title,
@@ -457,6 +451,13 @@ class UserFeedback_Email_Summaries {
 			},
 			$responses
 		);
+
+        usort( $surveys_with_count, function ($survey_a, $survey_b) {
+            if ($survey_a['responses'] == $survey_b['responses']) return 0;
+            return ($survey_a['responses'] > $survey_b['responses']) ? -1 : 1;
+        });
+
+        return $surveys_with_count;
 	}
 
 

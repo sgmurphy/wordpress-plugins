@@ -52,7 +52,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/results/views/UserFeedbackSurveyResults.vue:39
 	__( 'Survey Results', 'userfeedback' ),
 
-	// Reference: src/modules/dashboard-widget/UserFeedbackDashboardWidget.vue:103
+	// Reference: src/modules/results/views/UserFeedbackResultsOverview.vue:205
 	_n_noop( '%s Response', '%s Responses', 'userfeedback' ),
 
 	// Reference: src/modules/dashboard-widget/UserFeedbackDashboardWidget.vue:21
@@ -61,32 +61,31 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/dashboard-widget/UserFeedbackDashboardWidget.vue:22
 	__( 'Total Entries by Survey', 'userfeedback' ),
 
-	// Reference: src/modules/dashboard-widget/UserFeedbackDashboardWidget.vue:23
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:185
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:242
 	__( 'Responses', 'userfeedback' ),
 
-	// Reference: src/modules/dashboard-widget/UserFeedbackDashboardWidget.vue:38
+	// Reference: src/modules/results/views/UserFeedbackResultsOverview.vue:30
 	__( 'Last 7 Days', 'userfeedback' ),
 
-	// Reference: src/modules/dashboard-widget/UserFeedbackDashboardWidget.vue:47
+	// Reference: src/modules/results/views/UserFeedbackResultsOverview.vue:31
 	__( 'Last 30 Days', 'userfeedback' ),
 
-	// Reference: src/modules/frontend/UserFeedbackWidget.vue:132
+	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:42
 	__( 'Next', 'userfeedback' ),
 
-	// Reference: src/modules/frontend/UserFeedbackWidget.vue:133
+	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:41
 	__( 'Skip', 'userfeedback' ),
 
-	// Reference: src/modules/frontend/UserFeedbackWidget.vue:134
+	// Reference: src/modules/frontend/UserFeedbackWidget.vue:138
 	__( 'Close', 'userfeedback' ),
 
-	// Reference: src/modules/frontend/UserFeedbackWidget.vue:135
+	// Reference: src/modules/frontend/UserFeedbackWidget.vue:139
 	__( 'UserFeedback logo', 'userfeedback' ),
 
-	// Reference: src/modules/frontend/UserFeedbackWidget.vue:136
+	// Reference: src/modules/surveys/utils/survey-utils.js:27
 	__( 'Thanks for your feedback!', 'userfeedback' ),
 
-	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:40
+	// Reference: src/modules/results/views/UserFeedbackSingleResponse.vue:40
 	__( 'Response #%d', 'userfeedback' ),
 
 	// Reference: src/modules/results/views/UserFeedbackSingleResponse.vue:41
@@ -116,7 +115,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/results/views/UserFeedbackSingleResponse.vue:49
 	__( 'Device:', 'userfeedback' ),
 
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:182
+	// Reference: src/modules/results/views/UserFeedbackSingleResponse.vue:50
 	__( 'Skipped', 'userfeedback' ),
 
 	// Reference: src/modules/results/views/UserFeedbackSingleResponse.vue:51
@@ -177,7 +176,6 @@ $generated_i18n_strings = array(
 	__( 'Day', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:80
-	// Reference: src/plugins/addons/behavior/components/SurveyBehaviorOptions.vue:48
 	__( 'Start Survey Minimized', 'userfeedback' ),
 
 	// Reference: src/plugins/addons/behavior/components/SurveyBehaviorOptions.vue:49
@@ -186,9 +184,11 @@ $generated_i18n_strings = array(
 	// Reference: src/plugins/addons/question-types/components/frontend/QuestionCommentBox.vue:25
 	__( 'Anything to add?', 'userfeedback' ),
 
+	// Reference: src/plugins/addons/question-types/components/admin/builder/question-types/QuestionNps.vue:19
 	// Reference: src/plugins/addons/question-types/components/frontend/WidgetNps.vue:14
 	__( 'Not Likely', 'userfeedback' ),
 
+	// Reference: src/plugins/addons/question-types/components/admin/builder/question-types/QuestionNps.vue:20
 	// Reference: src/plugins/addons/question-types/components/frontend/WidgetNps.vue:15
 	__( 'Extremely Likely', 'userfeedback' ),
 
@@ -207,16 +207,16 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/results/views/UserFeedbackSurveyResults.vue:48
 	__( 'Upgrade to Pro to unlock Export Results. <a target="_blank" rel="noopener" href="%s"><b>Upgrade Now</b></a>', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:57
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:36
 	__( 'Title', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:72
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:72
 	__( 'Status', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:236
 	__( 'Draft', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:232
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:166
 	__( 'Published', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:109
@@ -228,7 +228,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/results/views/UserFeedbackResultsOverview.vue:28
 	__( 'Results Overview', 'userfeedback' ),
 
-	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsAccess.vue:30
+	// Reference: src/modules/results/views/UserFeedbackResultsOverview.vue:32
 	__( 'View Results', 'userfeedback' ),
 
 	// Reference: src/modules/results/views/UserFeedbackResultsOverview.vue:33
@@ -267,24 +267,23 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/utils/builder-steps.js:10
 	__( 'Questions', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/utils/builder-steps.js:14
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:90
 	__( 'Settings', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:49
+	// Reference: src/modules/onboarding/store/onboarding.js:46
+	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsEmail.vue:48
 	__( 'Notifications', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/utils/builder-steps.js:22
+	// Reference: src/modules/onboarding/store/onboarding.js:50
 	__( 'Publish', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/utils/builder-steps.js:6
 	__( 'Setup', 'userfeedback' ),
 
 	// Reference: src/lib/components-plugin/components/table/AdminTableFoot.vue:22
-	// Reference: src/lib/components-plugin/components/table/AdminTableHead.vue:28
 	__( 'Select All', 'userfeedback' ),
 
 	// Reference: src/lib/components-plugin/components/table/AdminTableFoot.vue:23
-	// Reference: src/lib/components-plugin/components/table/AdminTableHead.vue:29
 	__( 'Actions', 'userfeedback' ),
 
 	// Reference: src/lib/components-plugin/components/table/AdminTableNavigation.vue:27
@@ -402,11 +401,9 @@ $generated_i18n_strings = array(
 	__( 'Use the default header image', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsEmail.vue:60
-	// Reference: src/modules/surveys/views/builder/SurveyPreview.vue:27
 	__( 'Upgrade to Pro to unlock advanced branding settings. <a target="_blank" rel="noopener" href="%s"><b>Upgrade Now</b></a>', 'userfeedback' ),
 
-	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsEmail.vue:65
-	// Reference: src/modules/surveys/views/builder/SurveyPreview.vue:32
+	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:82
 	__( 'Please activate the Branding addon to access this feature. <a href="%s"><b>Activate Addon</b></a>', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/builder/SurveyNotifications.vue:18
@@ -415,7 +412,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/views/builder/SurveyNotifications.vue:17
 	__( 'Setup a series of actions that will trigger after a visitor submits a Survey.', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/builder/SurveyNotifications.vue:21
+	// Reference: src/modules/surveys/components/builder/survey-notifications/SurveyNotificationEmail.vue:40
 	__( 'Send Email', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsAccess.vue:13
@@ -469,7 +466,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsGeneral.vue:45
 	__( 'Verify', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonBlock.vue:26
+	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsGeneral.vue:46
 	__( 'Deactivate', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsGeneral.vue:48
@@ -584,7 +581,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/views/settings/UserFeedbackSettingsWidget.vue:57
 	__( 'Upgrade to Pro to unlock advanced survey behavior settings. <a target="_blank" rel="noopener" href="%s"><b>Upgrade Now</b></a>', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/SurveyThankYouMessageCard.vue:53
+	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:86
 	__( 'Please activate the Behavior addon to access this feature. <a href="%s"><b>Activate Addon</b></a>', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/builder/SurveySetup.vue:41
@@ -599,10 +596,9 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/views/builder/SurveySetup.vue:58
 	__( 'Create %s', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/builder/SurveySetup.vue:59
+	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeUpgradeBanner.vue:21
 	__( 'Upgrade to Pro', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonBlock.vue:40
 	// Reference: src/modules/surveys/views/builder/SurveySetup.vue:61
 	__( '%sActivate License%s', 'userfeedback' ),
 
@@ -615,25 +611,22 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/views/builder/SurveySetup.vue:76
 	__( 'Please enter a valid %slicense key%s to enable Pro templates', 'userfeedback' ),
 
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:211
+	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:60
 	__( 'Radio Buttons', 'userfeedback' ),
 
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:219
+	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:66
 	__( 'Email Capture', 'userfeedback' ),
 
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:221
+	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:72
 	__( 'Single Text Field', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:78
-	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:77
 	__( 'Long Answer', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:84
-	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:84
 	__( 'Star Rating - Pro', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:91
-	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:92
 	__( 'Net Promoter Score - Pro', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:33
@@ -642,11 +635,10 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:34
 	__( 'Build', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:35
+	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:62
 	__( 'Preview', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:54
-	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:49
 	__( 'Checkboxes', 'userfeedback' ),
 
 	// Reference: src/components/notifications/UserFeedbackNotifications.vue:17
@@ -739,7 +731,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:106
 	__( 'Match your brand colors on your survey', 'userfeedback' ),
 
-	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:110
+	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeFeatures.vue:41
 	__( 'Device Targeting', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:118
@@ -811,7 +803,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:14
 	__( 'Lite', 'userfeedback' ),
 
-	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:18
+	// Reference: src/modules/onboarding/components/UserFeedbackInstallItem.vue:38
 	__( 'Pro', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:26
@@ -823,7 +815,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:46
 	__( 'Included', 'userfeedback' ),
 
-	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:50
+	// Reference: src/utils/addons.js:11
 	__( 'Question Types', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/about/UserFeedbackAboutLiteVsPro.vue:58
@@ -841,25 +833,25 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:163
 	__( 'Duplicate', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:180
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:118
 	__( 'Delete permanently', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:190
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:131
 	__( 'Restore', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:195
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:136
 	__( 'Delete Permanently', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:209
 	__( 'Make Draft', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:230
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:164
 	__( 'All', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:234
 	__( 'Scheduled', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:238
+	// Reference: src/modules/results/views/UserFeedbackSurveyResponses.vue:168
 	__( 'Trash', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:31
@@ -895,13 +887,13 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/results/components/QuestionStatsCard.vue:213
 	__( 'Checkbox', 'userfeedback' ),
 
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:215
+	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:91
 	__( 'Net Promoter Score', 'userfeedback' ),
 
 	// Reference: src/modules/results/components/QuestionStatsCard.vue:217
 	__( 'Long Text', 'userfeedback' ),
 
-	// Reference: src/modules/results/components/QuestionStatsCard.vue:223
+	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:84
 	__( 'Star Rating', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/addons/UserFeedbackAddons.vue:28
@@ -925,7 +917,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/components/logic/PageLogic.vue:38
 	__( 'Add Page Rule', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/store/builder.js:375
+	// Reference: src/modules/surveys/store/builder.js:373
 	__( 'The Survey can\'t be published: Some questions are missing options.', 'userfeedback' ),
 
 	// Reference: src/modules/settings/store/license.js:102
@@ -938,13 +930,13 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/store/license.js:94
 	__( 'Your license key for UserFeedback has been disabled. Please use a different key.', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/survey-settings/SurveySettingsTargeting.vue:21
+	// Reference: src/utils/addons.js:13
 	__( 'Targeting', 'userfeedback' ),
 
 	// Reference: src/utils/addons.js:15
 	__( 'Templates', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/survey-settings/SurveySettingsBehavior.vue:21
+	// Reference: src/utils/addons.js:7
 	__( 'Behavior', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:73
@@ -998,19 +990,19 @@ $generated_i18n_strings = array(
 	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationItem.vue:23
 	__( 'Dismiss', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:50
+	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:52
 	__( 'Dismiss All', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:45
+	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:47
 	__( 'Inbox', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:46
+	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:48
 	__( 'Dismissed', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:47
+	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:49
 	__( 'View Dismissed', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:48
+	// Reference: src/lib/components-plugin/components/notifications-drawer/NotificationsDrawer.vue:50
 	__( 'Back to Inbox', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/survey-settings/SurveySettingsBehavior.vue:24
@@ -1034,22 +1026,25 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/components/builder/survey-notifications/SurveyNotificationEmail.vue:30
 	__( 'Add at least one Radio, Checkbox, NPS, or Star Rating question to use conditional logic.', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonBlock.vue:30
+	// Reference: src/modules/settings/components/plugins/UserFeedbackInstallButton.vue:47
 	__( 'Activate', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonBlock.vue:33
+	// Reference: src/modules/settings/components/plugins/UserFeedbackInstallButton.vue:48
 	__( 'Install Addon', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonStatus.vue:15
+	// Reference: src/modules/settings/components/plugins/UserFeedbackPluginCrossSale.vue:32
 	__( 'Active', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonStatus.vue:16
+	// Reference: src/modules/settings/components/plugins/UserFeedbackPluginCrossSale.vue:36
 	__( 'Not Active', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonStatus.vue:17
+	// Reference: src/modules/settings/components/plugins/UserFeedbackPluginCrossSale.vue:39
 	__( 'Not Installed', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonBlock.vue:37
+	// Reference: src/modules/settings/components/plugins/UserFeedbackPluginCrossSale.vue:43
 	__( 'Status: ', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/plugins/UserFeedbackPluginCrossSale.vue:44
@@ -1067,7 +1062,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeUpgradeBanner.vue:9
 	__( 'More Survey Templates', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeFeatures.vue:31
+	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeUpgradeBanner.vue:10
 	__( 'Survey Scheduling', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeUpgradeBanner.vue:11
@@ -1094,7 +1089,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeUpgradeBanner.vue:24
 	__( 'per year', 'userfeedback' ),
 
-	// Reference: src/modules/settings/components/plugins/UserFeedbackAddonBlock.vue:38
+	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeUpgradeBanner.vue:25
 	__( 'Upgrade Now', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeHero.vue:15
@@ -1205,28 +1200,28 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:44
 	__( 'Question Title', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:86
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:89
 	__( 'Question', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:88
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:91
 	__( 'Logic', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:89
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:92
 	__( 'Delete Question', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:90
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:93
 	__( 'Are you sure you want to delete this question? <b>This cannot be undone</b>.', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:91
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:94
 	__( 'Cancel', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:92
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:95
 	__( 'Yes, delete', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:95
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:98
 	__( 'Upgrade to Pro to unlock advanced question settings like Required Fields and Comment Boxes. <a target="_blank" rel="noopener" href="%s"><b>Upgrade Now</b></a>', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:100
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:103
 	__( 'Please activate the Question Types addon to access this feature. <a href="%s"><b>Activate Addon</b></a>', 'userfeedback' ),
 
 	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeVideoBlock.vue:9
@@ -1235,7 +1230,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/components/welcome/UserFeedbackWelcomeVideoBlock.vue:10
 	__( 'UserFeedback makes it easy to create surveys in WordPress. You can watch the video tutorial above or read our guide on how create your first survey.', 'userfeedback' ),
 
-	// Reference: src/modules/frontend/components/question-inputs/WidgetText.vue:14
+	// Reference: src/modules/frontend/components/question-inputs/WidgetLongText.vue:14
 	__( 'Type your answer here...', 'userfeedback' ),
 
 	// Reference: src/modules/frontend/components/question-inputs/WidgetEmail.vue:14
@@ -1319,24 +1314,22 @@ $generated_i18n_strings = array(
 	// Reference: src/plugins/addons/behavior/components/SurveySchedulingOptions.vue:45
 	__( 'at', 'userfeedback' ),
 
-	// Reference: src/plugins/addons/branding/components/GlobalBrandingOptions.vue:23
+	// Reference: src/plugins/addons/branding/components/SurveyBrandingOptions.vue:17
 	__( 'Light', 'userfeedback' ),
 
-	// Reference: src/plugins/addons/branding/components/GlobalBrandingOptions.vue:27
+	// Reference: src/plugins/addons/branding/components/SurveyBrandingOptions.vue:21
 	__( 'Dark', 'userfeedback' ),
 
-	// Reference: src/plugins/addons/branding/components/GlobalBrandingOptions.vue:34
+	// Reference: src/plugins/addons/branding/components/SurveyBrandingOptions.vue:28
 	__( 'Color Scheme', 'userfeedback' ),
 
-	// Reference: src/plugins/addons/branding/components/GlobalBrandingOptions.vue:35
+	// Reference: src/plugins/addons/branding/components/SurveyBrandingOptions.vue:29
 	__( 'Widget Color', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:71
-	// Reference: src/plugins/addons/branding/components/GlobalBrandingOptions.vue:36
 	__( 'Text Color', 'userfeedback' ),
 
 	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetPro.vue:72
-	// Reference: src/plugins/addons/branding/components/GlobalBrandingOptions.vue:37
 	__( 'Button Color', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/builder/SurveyBuilderNav.vue:26
@@ -1363,14 +1356,13 @@ $generated_i18n_strings = array(
 	// Reference: src/lib/components-plugin/components/controls/OptionsCreator.vue:35
 	__( 'Possible Answers', 'userfeedback' ),
 
-	// Reference: src/lib/components-plugin/components/controls/OptionsCreator.vue:36
 	// Reference: src/modules/surveys/components/builder/question-types/QuestionRadioOrCheckbox.vue:31
 	__( 'Add Answer', 'userfeedback' ),
 
 	// Reference: src/lib/components-plugin/components/controls/OptionsCreator.vue:37
 	__( 'Remove', 'userfeedback' ),
 
-	// Reference: src/modules/onboarding/components/steps/OnboardingStepFirstSurvey.vue:73
+	// Reference: src/modules/onboarding/store/onboarding.js:38
 	__( 'First Survey', 'userfeedback' ),
 
 	// Reference: src/modules/onboarding/store/onboarding.js:42
@@ -1397,7 +1389,8 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/components/plugins/UserFeedbackInstallButton.vue:44
 	__( 'Deactivating...', 'userfeedback' ),
 
-	// Reference: src/modules/smtp/UserFeedbackSmtp.vue:29
+	// Reference: src/modules/onboarding/components/UserFeedbackInstallItem.vue:35
+	// Reference: src/modules/settings/components/plugins/UserFeedbackInstallButton.vue:45
 	__( 'Installing...', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:45
@@ -1742,7 +1735,7 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/onboarding/UserFeedbackOnboarding.vue:57
 	__( 'WP Mail SMTP', 'userfeedback' ),
 
-	// Reference: src/modules/onboarding/components/steps/OnboardingStepInstallComplete.vue:35
+	// Reference: src/modules/onboarding/UserFeedbackOnboarding.vue:60
 	__( 'All In One SEO Toolkit', 'userfeedback' ),
 
 	// Reference: src/modules/onboarding/UserFeedbackOnboarding.vue:63
@@ -1812,7 +1805,6 @@ $generated_i18n_strings = array(
 	__( 'Uncanny Automator is the best free no-code way to send your UserFeedback responses to anywhere like Google Sheets, Zapier, HubSpot, and more.', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/builder/question-card-tabs/QuestionTabMain.vue:48
-	// Reference: src/modules/surveys/views/builder/SurveyQuestions.vue:37
 	__( 'Net Promoter Pro', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/views/UserFeedbackSurveysIndex.vue:37
@@ -2085,10 +2077,10 @@ $generated_i18n_strings = array(
 	// Reference: src/modules/settings/views/settings/widget/UserFeedbackSettingsWidgetLite.vue:89
 	__( 'Custom Colors', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:103
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:106
 	__( 'Title is required.', 'userfeedback' ),
 
-	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:104
+	// Reference: src/modules/surveys/components/builder/QuestionCard.vue:107
 	__( 'Options are required.', 'userfeedback' ),
 
 	// Reference: src/modules/surveys/components/logic/PageLogic.vue:51

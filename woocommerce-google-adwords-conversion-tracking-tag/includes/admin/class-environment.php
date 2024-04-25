@@ -1091,7 +1091,7 @@ class Environment {
 		 * Disable gtag if Google Ads is active in PMW
 		 */
 
-		if (self::is_pmw_google_ads_active()) {
+		if (Options::is_google_ads_active()) {
 			add_filter('woocommerce_gla_disable_gtag_tracking', '__return_true');
 		}
 
@@ -1099,7 +1099,7 @@ class Environment {
 		 * Facebook for WooCommerce
 		 */
 
-		if (self::is_pmw_facebook_active()) {
+		if (Options::is_facebook_active()) {
 			add_filter('facebook_for_woocommerce_integration_pixel_enabled', '__return_false');
 		}
 
@@ -1107,7 +1107,7 @@ class Environment {
 		 * Pinterest for WooCommerce
 		 */
 
-		if (self::is_pmw_pinterest_active()) {
+		if (Options::is_pinterest_active()) {
 			add_filter('woocommerce_pinterest_disable_tracking', '__return_true');
 		}
 
@@ -1241,11 +1241,8 @@ class Environment {
 	}
 
 	private static function disable_woocommerce_google_ads_dynamic_remarketing() {
-
-		if (self::is_pmw_google_ads_dynamic_remarketing_active()) {
-			// make sure to disable the WGDR plugin in case we use dynamic remarketing in this plugin
-			add_filter('wgdr_third_party_cookie_prevention', '__return_true');
-		}
+		// make sure to disable the WGDR plugin in case we use dynamic remarketing in this plugin
+		add_filter('wgdr_third_party_cookie_prevention', '__return_true');
 	}
 
 	private static function disable_woofunnels_features() {
@@ -1253,32 +1250,32 @@ class Environment {
 		add_filter('option_bwf_gen_config', function ( $options ) {
 
 			// Disable Facebook events output
-			if (self::is_pmw_facebook_active()) {
+			if (Options::is_facebook_active()) {
 				$options['fb_pixel_key'] = '';
 			}
 
 			// Disable Google Analytics events output
-			if (self::is_pmw_google_analytics_active()) {
+			if (Options::is_google_analytics_active()) {
 				$options['ga_key'] = '';
 			}
 
 			// Disable Google Ads events output
-			if (self::is_pmw_google_ads_active()) {
+			if (Options::is_google_ads_active()) {
 				$options['gad_key'] = '';
 			}
 
 			// Disable Pinterest events output
-			if (self::is_pmw_pinterest_active()) {
+			if (Options::is_pinterest_active()) {
 				$options['pint_key'] = '';
 			}
 
 			// Disable TikTok events output
-			if (self::is_pmw_tiktok_active()) {
+			if (Options::is_tiktok_active()) {
 				$options['tiktok_pixel'] = '';
 			}
 
 			// Disable Snapchat events output
-			if (self::is_pmw_snapchat_active()) {
+			if (Options::is_snapchat_active()) {
 				$options['snapchat_pixel'] = '';
 			}
 
@@ -1289,7 +1286,7 @@ class Environment {
 	private static function disable_woo_product_feed_features() {
 
 		// Disable Facebook events output
-		if (self::is_pmw_facebook_active()) {
+		if (Options::is_facebook_active()) {
 			add_filter('option_add_facebook_pixel', function () {
 				return 'no';
 			});
@@ -1300,39 +1297,11 @@ class Environment {
 		}
 
 		// Disable Google Ads events output
-		if (self::is_pmw_google_ads_active()) {
+		if (Options::is_google_ads_active()) {
 			add_filter('option_add_remarketing', function () {
 				return 'no';
 			});
 		}
-	}
-
-	public static function is_pmw_tiktok_active() {
-		return Options::get_options_obj()->tiktok->pixel_id;
-	}
-
-	public static function is_pmw_google_ads_active() {
-		return Options::get_options_obj()->google->ads->conversion_id;
-	}
-
-	public static function is_pmw_google_analytics_active() {
-		return Options::get_options_obj()->google->analytics->universal->property_id || Options::get_options_obj()->google->analytics->ga4->measurement_id;
-	}
-
-	public static function is_pmw_snapchat_active() {
-		return Options::get_options_obj()->snapchat->pixel_id;
-	}
-
-	public static function is_pmw_pinterest_active() {
-		return Options::get_options_obj()->pinterest->pixel_id;
-	}
-
-	public static function is_pmw_facebook_active() {
-		return Options::get_options_obj()->facebook->pixel_id;
-	}
-
-	public static function is_pmw_google_ads_dynamic_remarketing_active() {
-		return !empty(Options::get_options_obj()->google->ads->dynamic_remarketing);
 	}
 
 	public static function enable_compatibility_mode() {
@@ -1482,7 +1451,7 @@ class Environment {
 	}
 
 	public static function compatibility_mode_yoast_seo() {
-		if (self::is_yoast_seo_active() && isset(Options::get_options_obj()->facebook->microdata) && Options::get_options_obj()->facebook->microdata) {
+		if (self::is_yoast_seo_active() && Options::is_facebook_microdata_active()) {
 			add_filter('option_wpseo_social', [ __CLASS__, 'disable_yoast_seo_facebook_social' ]);
 		}
 	}

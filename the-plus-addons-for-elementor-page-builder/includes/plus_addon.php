@@ -413,6 +413,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
   }
 }, 15);
 
+    /**
+	 * Registered widgets.
+	 *
+	 * @since 5.4.1
+	 *
+	 */
+
 function l_registered_widgets(){
 	// widgets class map
 	return apply_filters('theplus/l_registered_widgets', [
@@ -430,36 +437,84 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-age-gate' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/age-gate/plus-age-gate.min.css',
-				],
-				'js' => [
-					
+		'tp-age-gate'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/age-gate/plus-method.css',
+				),
+				'js'  => array(
+
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/age-gate/plus-age-gate.min.js',
-				],
-			],
-		],
-		'tp-blockquote' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/block-quote/plus-block-quote.css',
-				],
-			],
-		],
-		'tp-blog-listout' => [
-			'dependency' => [
-				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/extra/tp-bootstrap-grid.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/blog-list/plus-blog-list.min.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/plus-extra-adv/plus-button-extra.min.css',
-				],
-				'js' => [
+				),
+			),
+		),
+		'tp-ag-method-1'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/age-gate/plus-method-1.css',
+				),
+			),
+		),
+		'tp-ag-method-2'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/age-gate/plus-method-2.css',
+				),
+			),
+		),
+		'tp-ag-method-3'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/age-gate/plus-method-3.css',
+				),
+			),
+		),
+		'tp-blockquote'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/block-quote/plus-block-quote.css',
+				),
+			),
+		),
+		'tp-bq-bl_1'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/block-quote/plus-block-layout1.css',
+				),
+			),
+		),
+		'tp-bq-bl_2'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/block-quote/plus-block-layout2.css',
+				),
+			),
+		),
+		'tp-bq-bl_3' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/block-quote/plus-block-layout3.css',
+				),
+			),
+		),
+		'tp-blog-listout' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/tp-bootstrap-grid.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/blog-list/plus-bloglist-style.css',
+				),
+				'js'  => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/posts-listing/plus-posts-listing.min.js',
-				],
-			],
-		],
+				),
+			),
+		),
+		'tp-bloglistout-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/blog-list/plus-bloglist-style-1.css',
+				),
+			),
+		),
 		'plus-listing-metro' => [
 			'dependency' => [
 				'js' => [
@@ -478,13 +533,174 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-button' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-button.min.css',
-				],
-			],
-		],
+		'tp-button' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style.css',
+				),
+			),
+		),
+		'tp-button-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-1.css',
+				),
+			),
+		),
+		'tp-button-style-2' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-2.css',
+				),
+			),
+		),
+		'tp-button-style-3'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-3.css',
+				),
+			),
+		),
+		'tp-button-style-4'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-4.css',
+				),
+			),
+		),
+		'tp-button-style-5'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-5.css',
+				),
+			),
+		),
+		'tp-button-style-6'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-6.css',
+				),
+			),
+		),
+		'tp-button-style-7'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-7.css',
+				),
+			),
+		),
+		'tp-button-style-8'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-8.css',
+				),
+			),
+		),
+		'tp-button-style-9'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-9.css',
+				),
+			),
+		),
+		'tp-button-style-10'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-10.css',
+				),
+			),
+		),
+		'tp-button-style-11'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-11.css',
+				),
+			),
+		),
+		'tp-button-style-12'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-12.css',
+				),
+			),
+		),
+		'tp-button-style-13'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-13.css',
+				),
+			),
+		),
+		'tp-button-style-14'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-14.css',
+				),
+			),
+		),
+		'tp-button-style-15'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-15.css',
+				),
+			),
+		),
+		'tp-button-style-16'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-16.css',
+				),
+			),
+		),
+		'tp-button-style-17'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-17.css',
+				),
+			),
+		),
+		'tp-button-style-18'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-18.css',
+				),
+			),
+		),
+		'tp-button-style-19'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-19.css',
+				),
+			),
+		),
+		'tp-button-style-20'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-20.css',
+				),
+			),
+		),
+		'tp-button-style-21'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-21.css',
+				),
+			),
+		),
+		'tp-button-style-22'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-22.css',
+				),
+			),
+		),
+		'tp-button-style-24'            => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/tp-button/tp-button-style-24.css',
+				),
+			),
+		),
 		'tp-caldera-forms' => [
 			'dependency' => [
 				'css' => [
@@ -517,21 +733,48 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-countdown' => [
-			'dependency' => [
-				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/countdown/plus-countdown.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/extra/countdown/flipdown.min.css',
-					
-				],
+		'tp-countdown' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/countdown/plus-cd-style.css',
+				),
+				'js'  => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/countdown/plus-countdown.min.js',
+				),
+			),
+		),
+		'tp-countdown-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/countdown/plus-cd-s-1.css',
+				),
 				'js' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/extra/jquery.downCount.js',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/extra/countdown/flipdown.min.js',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/extra/countdown/progressbar.min.js',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/countdown/plus-countdown.min.js',
-				],
-			],
-		],
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/jquery.downCount.js',
+				]
+			),
+		),
+		'tp-countdown-style-2' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/countdown/plus-cd-s-2.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/countdown/flipdown.min.css',
+				),
+				'js'=>[
+				    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/countdown/flipdown.min.js',
+				]
+ 
+			),
+		),
+		'tp-countdown-style-3' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/countdown/plus-cd-s-3.css',
+				),
+				'js' =>[
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/countdown/progressbar.min.js',
+				]
+			),
+		),
 		'tp-dark-mode' => [
 			'dependency' => [
 				'css' => [										
@@ -540,6 +783,38 @@ function l_registered_widgets(){
 				'js' => [
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/extra/darkmode.min.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/darkmode/plus-dark-mode.min.js',
+				],
+			],
+		],
+		'tp-dynamic-categories' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/tp-bootstrap-grid.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/dynamic-categories/plus-dynamic-categories.css',
+				],
+			],
+		],
+		'tp-dynamic-categories-style_1' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/dynamic-categories/dynamic-style-1.css',
+				],
+			],
+		],
+		'tp-dynamic-categories-style_2' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/dynamic-categories/dynamic-style-2.css',
+				],
+			],
+		],
+		'tp-dynamic-categories-style_3' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/dynamic-categories/dynamic-style-3.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/dynamic-category/plus-dynamic-category.min.js',	
 				],
 			],
 		],
@@ -561,21 +836,28 @@ function l_registered_widgets(){
 		'tp-flip-box' => [
 			'dependency' => [
 				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/info-box/plus-info-box.min.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/info-box/plus-infobox-style.css',
 				],
 			],
 		],		
-		'tp-gallery-listout' => [
-			'dependency' => [
-				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/extra/tp-bootstrap-grid.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/gallery-list/plus-gallery-list.min.css',					
-				],
-				'js' => [			
+		'tp-gallery-listout' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/tp-bootstrap-grid.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/gallery-list/plus-gallery-list.css',
+				),
+				'js'  => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/posts-listing/plus-posts-listing.min.js',
-				],
-			],
-		],
+				),
+			),
+		),
+		'tp-gallery-listout-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/gallery-list/plus-gl-style1.css',
+				),
+			),
+		),
 		'tp-gravityt-form' => [
 			'dependency' => [
 				'css' => [
@@ -589,11 +871,53 @@ function l_registered_widgets(){
 		'tp-heading-animation' => [
 			'dependency' => [
 				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/plus-heading-animation.min.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/tp-heading-animation.css',
 				],
 				'js' => [
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/heading-animation/plus-heading-animation.min.js',
 				]
+			],
+		],
+		'tp-heading-animation-style-1' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/heading-animation-style-1.css',
+				],
+			],
+		],
+		'tp-heading-animation-style-2' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/heading-animation-style-2.css',
+				],
+			],
+		],
+		'tp-heading-animation-style-3' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/heading-animation-style-3.css',
+				],
+			],
+		],
+		'tp-heading-animation-style-4' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/heading-animation-style-4.css',
+				],
+			],
+		],
+		'tp-heading-animation-style-5' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/heading-animation-style-5.css',
+				],
+			],
+		],
+		'tp-heading-animation-style-6' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-animation/heading-animation-style-6.css',
+				],
 			],
 		],
 		'tp-header-extras' => [
@@ -606,20 +930,111 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-heading-title' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/heading-title/plus-heading-title.min.css',
-				],
-			],
-		],
-		'tp-info-box' => [
-			'dependency' => [
-				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/info-box/plus-info-box.min.css',
-				],
-			],
-		],
+		'tp-heading-title' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style.css',
+				),
+			),
+		),
+		'tp-heading-title-style_1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-1.css',
+				),
+			),
+		),
+		'tp-heading-title-style_2' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-2.css',
+				),
+			),
+		),
+		'tp-heading-title-style_3' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-3.css',
+				),
+			),
+		),
+		'tp-heading-title-style_4' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-4.css',
+				),
+			),
+		),
+		'tp-heading-title-style_5' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-5.css',
+				),
+			),
+		),
+		'tp-heading-title-style_6' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-6.css',
+				),
+			),
+		),
+		'tp-heading-title-style_7' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-7.css',
+				),
+			),
+		),
+		'tp-heading-title-style_8' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-8.css',
+				),
+			),
+		),
+		'tp-heading-title-style_9' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-9.css',
+				),
+			),
+		),
+		'tp-heading-title-style_10' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-10.css',
+				),
+			),
+		),
+		'tp-heading-title-style_11' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/heading-title/plus-ht-style-11.css',
+				),
+			),
+		),
+		'tp-info-box'                     => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/info-box/plus-infobox-style.css',
+				),
+			),
+		),
+		'tp-info-box-style_1'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/info-box/plus-infobox-style-1.css',
+				),
+			),
+		),
+		'tp-info-box-style_3'             => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/info-box/plus-infobox-style-3.css',
+				),
+			),
+		),
 		'tp-messagebox' => [
 			'dependency' => [
 				'css' => [
@@ -647,16 +1062,30 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-number-counter' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/number-counter/plus-number-counter.css',
-				],
-				'js' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/extra/numscroller.js',
-				],
-			],
-		],
+		'tp-number-counter' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/number-counter/plus-nc.css',
+				),
+				'js'  => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/numscroller.js',
+				),
+			),
+		),
+		'tp-number-counter-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/number-counter/plus-nc-style-1.css',
+				),
+			),
+		),
+		'tp-number-counter-style-2' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/number-counter/plus-nc-style-2.css',
+				),
+			),
+		),
 		'tp-post-featured-image' => [
 			'dependency' => [
 				'css' => [					
@@ -706,21 +1135,21 @@ function l_registered_widgets(){
 		'tp-post-navigation' => [
 			'dependency' => [
 				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/extra/tp-bootstrap-grid.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/extra/tp-bootstrap-grid.css',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/post-navigation/plus-post-navigation.min.css',
 				],				
 			],
 		],
-		'tp-page-scroll' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/page-scroll/plus-page-scroll.min.css',
-				],
-				'js'  => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/page-scroll/plus-page-scroll.min.js',
-				],
-			],
-		],
+		'tp-page-scroll'=> array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/page-scroll/plus-page-scroll.css',
+				),
+				'js'  => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/page-scroll/plus-page-scroll.min.js',
+				),
+			),
+		),
 		'tp-fullpage' => [
 			'dependency' => [
 				'css' => [
@@ -731,17 +1160,23 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-pricing-table' => [
-			'dependency' => [
-				'css' => [					
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/plus-extra-adv/plus-button-extra.min.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/pricing-table/plus-pricing-table.min.css',
-				],
-				'js' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/pricing-table/plus-pricing-table.min.js',
-				],
-			],
-		],
+		'tp-pricing-table' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/pricing-table/plus-pricing-table.css',
+				),
+				'js'  => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/pricing-table/plus-pricing-table.min.js',
+				),
+			),
+		),
+		'tp-pricing-table-style-1'                   => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/pricing-table/plus-pricing-style-1.css',
+				),
+			),
+		),
 		'tp-post-search' => [
 			'dependency' => [
 				'css' => [					
@@ -749,29 +1184,45 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-progress-bar' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/progress-piechart/plus-progress-piechart.min.css',
-				],
-				'js' => [
+		'tp-progress-bar' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/progress-piechart/plus-progress.css',
+				),
+				'js'  => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/jquery.waypoints.min.js',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/extra/circle-progress.js',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/progress-bar/plus-progress-bar.min.js',
-				],
-			],
-		],
-		'tp-scroll-navigation' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/scroll-navigation/plus-scroll-navigation.min.css',
-				],
-				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/progress-bar/plus-progress-bar.min.js',
+				),
+			),
+		),
+		'tp-piechart' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/progress-piechart/plus-piechart.css',
+				),
+				'js'  => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/circle-progress.js',
+				),
+			),
+		),
+		'tp-scroll-navigation' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/scroll-navigation/plus-scroll-navigation.css',
+				),
+				'js'  => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/pagescroll2id.js',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/js/main/scroll-navigation/plus-scroll-navigation.min.js',
-				],
-			],
-		],
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/scroll-navigation/plus-scroll-navigation.min.js',
+				),
+			),
+		),
+		'tp-scroll-navigation-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/scroll-navigation/plus-sn-style-1.css',
+				),
+			),
+		),
 		'tp-social-embed' => [
 			'dependency' => [
 				'css' => [
@@ -779,13 +1230,118 @@ function l_registered_widgets(){
 				],		
 			],
 		],
-		'tp-social-icon' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/social-icon/plus-social-icon.min.css',
-				],				
-			],
-		],
+		'tp-social-icon'                  => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style.css',
+				),
+			),
+		),
+		'tp-social-icon-style-1'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-1.css',
+				),
+			),
+		),
+		'tp-social-icon-style-2'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-2.css',
+				),
+			),
+		),
+		'tp-social-icon-style-3'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-3.css',
+				),
+			),
+		),
+		'tp-social-icon-style-4'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-4.css',
+				),
+			),
+		),
+		'tp-social-icon-style-5'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-5.css',
+				),
+			),
+		),
+		'tp-social-icon-style-6'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-6.css',
+				),
+			),
+		),
+		'tp-social-icon-style-7'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-7.css',
+				),
+			),
+		),
+		'tp-social-icon-style-8'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-8.css',
+				),
+			),
+		),
+		'tp-social-icon-style-9'          => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-9.css',
+				),
+			),
+		),
+		'tp-social-icon-style-10'         => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-10.css',
+				),
+			),
+		),
+		'tp-social-icon-style-11'         => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-11.css',
+				),
+			),
+		),
+		'tp-social-icon-style-12'         => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-12.css',
+				),
+			),
+		),
+		'tp-social-icon-style-13'         => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-13.css',
+				),
+			),
+		),
+		'tp-social-icon-style-14'         => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-14.css',
+				),
+			),
+		),
+		'tp-social-icon-style-15'         => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/social-icon/plus-social-icon-style-15.css',
+				),
+			),
+		),
 		'tp-tabs-tours' => [
 			'dependency' => [
 				'css' => [
@@ -796,44 +1352,121 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'tp-team-member-listout' => [
-			'dependency' => [
-				'css' => [					
+		'tp-team-member-listout' => array(
+			'dependency' => array(
+				'css' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/tp-bootstrap-grid.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/team-member-list/plus-team-member.css',
-				],
-				'js' => [					
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/team-member-list/plus-team-member-style.css',
+				),
+				'js'  => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/posts-listing/plus-posts-listing.min.js',
-				],
-			],
-		],
-		'tp-testimonial-listout' => [
-			'dependency' => [
-				'css' => [
+				),
+			),
+		),
+		'tp-team-member-listout-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/team-member-list/plus-team-member-style-1.css',
+				),
+			),
+		),
+		'tp-carosual-extra' => array(
+			'dependency' => array(
+				'css' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/slick.min.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/tp-bootstrap-grid.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/plus-extra-adv/plus-slick-carousel.min.css',
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/testimonial/plus-testimonial.min.css',
-				],
-				'js' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/imagesloaded.pkgd.min.js',
+				),
+				'js' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/slick.min.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/general/plus-slick-carousel.min.js',
+				),
+			),
+		),
+		'tp-bootstrap-grid' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/tp-bootstrap-grid.css',
+				),
+			),
+		),
+		'tp-testimonial-listout' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/testimonial/plus-testimonial.css',
+				),
+				'js'  => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/imagesloaded.pkgd.min.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/testimonial/plus-testimonial.min.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/posts-listing/plus-posts-listing.min.js',
-				],
-			],
-		],
+				),
+			),
+		),
+		'tp-testimonial-listout-style-1' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/testimonial/plus-ts1.css',
+				),
+			),
+		),
+		'tp-testimonial-listout-style-2' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/testimonial/plus-ts2.css',
+				),
+			),
+		),
+		'tp-testimonial-listout-style-4' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/testimonial/plus-ts4.css',
+				),
+			),
+		),
+		'tp-arrows-style-2' => array(
+			'dependency' => array(
+				'css' => array(
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/arrows/plus-arrows-style-2.css',
+				),
+			),
+        ),
+		'tp-arrows-style' => array(
+		    'dependency' => array(
+				'css' => array(
+				     L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/arrows/plus-arrows-style.css',
+				 ),
+		    ),
+		),
+		'tp-carousel-style-1' => array(
+		     'dependency' => array(
+				'css' => array(
+				     L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/carousel/plus-carousel-style-1.css',
+				 ),
+		    ),
+		),
+		'tp-carousel-style' => array(
+		     'dependency' => array(
+		        'css' => array(
+		            L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/carousel/plus-carousel.css',
+		        ),
+		    ),
+		),
 		'tp-video-player' => [
 			'dependency' => [
 				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/lity.css',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/video-player/plus-video-player.css',
 				],
 				'js' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/lity.min.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/video-player/plus-video-player.min.js',
 				],
+			],
+		],
+		'tp-lity-extra' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/lity.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/lity.min.js',
+				]
 			],
 		],
 		'tp-wp-forms' => [
@@ -863,20 +1496,6 @@ function l_registered_widgets(){
 				],
 			],
 		],
-		'plus-button' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-button.min.css',
-				],
-			],
-		],
-		'plus-button-extra' => [
-			'dependency' => [
-				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/plus-extra-adv/plus-button-extra.min.css',
-				],
-			],
-		],
 		'plus-equal-height' => [
 			'dependency' => [
 				'js' => [
@@ -898,7 +1517,6 @@ function l_registered_widgets(){
 		'plus-backend-editor' => [
 			'dependency' => [
 				'css' => [
-					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-button.min.css',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-content-hover-effect.min.css',
 				],
 				'js' => [

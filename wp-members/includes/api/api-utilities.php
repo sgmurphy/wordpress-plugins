@@ -304,3 +304,37 @@ function wpmem_get_redirect_to( $args = array() ) {
 	}
 	return $redirect_to;
 }
+
+/**
+ * Creates an index file in a directory.
+ * 
+ * @since 3.5.0
+ * 
+ * @param string $path Path to the directory to set an index.php.
+ */
+function wpmem_create_index_file( $path ) {
+	$check_index = trailingslashit( $path ) . 'index.php';
+    if ( ! file_exists( $check_index ) ) {
+		$index = fopen( $check_index, "w" ) or die( "Unable to create index file!" );
+		$txt = "<?php // Silence is golden.";
+		fwrite( $index, $txt );
+		fclose( $index );
+	}
+}
+
+/**
+ * Creates an index file in a directory.
+ * 
+ * @since 3.5.0
+ * 
+ * @param string $path Path to the directory to set an index.php.
+ */
+function wpmem_create_htaccess_file( $path ) {
+	$check_index = trailingslashit( $path ) . '.htaccess';
+    if ( ! file_exists( $check_index ) ) {
+		$index = fopen( $check_index, "w" ) or die( "Unable to create .htaccess file!" );
+		$txt = "Options -Indexes";
+		fwrite( $index, $txt );
+		fclose( $index );
+	}
+}

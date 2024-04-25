@@ -229,7 +229,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 						$v->$k = sanitize_attributes( $v->$k, $k );
 					}
 				} elseif ( is_string( $v ) && ! in_array( $i, array( 'fcontent', 'eq', 'customstyles' ) ) ) {
-					$v = htmlspecialchars_decode( CPCFF_AUXILIARY::sanitize( $v ) );
+					$v = htmlspecialchars_decode( CPCFF_AUXILIARY::sanitize( $v, true, true ) );
 				}
 
 				return $v;

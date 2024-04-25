@@ -42,6 +42,20 @@
         }
     };
 
+    //Set stripes in table rows
+    $.hmwp_setStripe = function (rows){
+        var count = 0;
+        $(rows).each(function (index, row) {
+            $(row).removeClass('odd');
+            if ($(row).is(":visible")) {
+                if (count % 2 == 1) { //odd row
+                    $(row).addClass('odd');
+                }
+                count++;
+            }
+        });
+    }
+
     //Add the loading icon to field
     $.fn.hmwp_loading = function (state) {
         var $this = this;
@@ -295,6 +309,24 @@
                 return false;
             }
         );
+
+        $this.find('.show_task_passed').on('click', function (){
+            $('.task_passed').show();
+            $('.hide_task_passed').show();
+            $(this).hide();
+
+            $.hmwp_setStripe('.table_securitycheck tr');
+        });
+
+        $this.find('.hide_task_passed').on('click', function (){
+            $('.task_passed').hide();
+            $('.show_task_passed').show();
+            $(this).hide();
+
+            $.hmwp_setStripe('.table_securitycheck tr');
+        });
+
+        $.hmwp_setStripe('.table_securitycheck tr');
 
     };
 

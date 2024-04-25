@@ -7,22 +7,30 @@
 
 namespace CTXFeed\V5\Compatibility;
 
+use WOOCS_STARTER;
+
 /**
  * Class WOOCSCompatibility
  *
  * @package CTXFeed\V5\Compatibility
  */
 class WOOCSCompatibility {
-
+	private $woocs;
+	private $is_multiple_allowed;
 	/**
 	 * PolylangCompatibility Constructor.
 	 */
 	public function __construct() {
 		add_action( 'before_woo_feed_generate_batch_data', array( $this, 'switch_currency' ), 10, 1 );
 		add_action( 'after_woo_feed_generate_batch_data', array( $this, 'restore_currency' ), 10, 1 );
-
 		// Add currency suffix to product link.
 		add_filter( 'woo_feed_filter_product_link', array( $this, 'get_product_link_with_suffix' ), 10, 3 );
+
+		add_filter( 'woo_feed_filter_product_price', array( $this, 'get_converted_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_sale_price', array( $this, 'get_converted_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_price_with_tax', array( $this, 'get_converted_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_sale_price_with_tax', array( $this, 'get_converted_price' ), 10, 5 );
+
 	}
 
 	/**
@@ -38,11 +46,23 @@ class WOOCSCompatibility {
 		}
 
 		global $WOOCS;// phpcs:ignore
-		$currency_code = $WOOCS->default_currency;// phpcs:ignore
+		if( !$WOOCS ) {
+			$WOOCS_STARTER = new WOOCS_STARTER();
 
+			$WOOCS = $WOOCS_STARTER->get_actual_obj();
+			if ($WOOCS) {
+				$GLOBALS['WOOCS'] = $WOOCS;
+				add_action('init', array($WOOCS, 'init'), 11);
+			}
+		}
+		$this->woocs = $WOOCS;
+
+		$currency_code = $WOOCS->default_currency;// phpcs:ignore
 		if ( $currency_code !== $config->get_feed_currency() ) {
 			$WOOCS->set_currency( $config->get_feed_currency() );// phpcs:ignore
 		}
+
+		$this->is_multiple_allowed = get_option('woocs_is_multiple_allowed', 0);
 
 		// WooCommerce Out of Stock visibility override
 		if ( !$config->get_outofstock_visibility() ) {
@@ -89,6 +109,24 @@ class WOOCSCompatibility {
 		$link .= $currency_suffix;
 
 		return $link;
+	}
+
+	/**
+	 * Currency Convert for Currency Switcher
+	 *
+	 * @param int                        $price product price.
+	 * @param \WC_Product                $product product object.
+	 * @param \CTXFeed\V5\Utility\Config $config config object.
+	 * @param bool                       $with_tax price with tax or without tax.
+	 * @param string                     $price_type price type regular_price, price, sale_price.
+	 * @return int
+	 */
+	public function get_converted_price( $price, $product, $config, $with_tax, $price_type ) {// phpcs:ignore
+		if( $this->is_multiple_allowed != 1 ){
+			$price = $this->woocs->raw_woocommerce_price($price, $product);
+		}
+
+		return $price;
 	}
 
 

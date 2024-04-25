@@ -403,6 +403,12 @@ textarea {resize: none}
 .form-builder #tabs-2,
 .form-builder #tabs-3{top:37px;bottom:0;left:0;right:0;position:absolute;overflow-y:auto;}
 
+/* @media screen AND (min-width:710px) {
+.form-builder #tabs-1,
+.form-builder #tabs-2,
+.form-builder #tabs-3{overscroll-behavior:contain;}
+} */
+
 .form-builder .dashboardColumn::-webkit-scrollbar,
 .form-builder .dashboardColumn ::-webkit-scrollbar,
 .form-builder #tabs::-webkit-scrollbar,

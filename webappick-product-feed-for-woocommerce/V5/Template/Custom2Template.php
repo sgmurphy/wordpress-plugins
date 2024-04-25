@@ -276,6 +276,7 @@ class Custom2Template implements TemplateInterface {
 				$formatOutput = new OutputCommands( $product, $this->config, $pluginAttribute );
 				$output       = $formatOutput->process_command( $output, $element );
 			}
+			$output = str_replace("&", "&amp;", $output);
 			$p = false;
 		}
 

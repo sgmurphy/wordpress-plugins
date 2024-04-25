@@ -71,8 +71,12 @@
 			o = {};
 
         $.each(window.cff_form.fBuild.getItems(), function(i, item){
+			let t = '';
+			t = ( 'title' in item ) ? String( item.title ).trim() : '';
+			t = ( '' == t && 'shortlabel' in item ) ? String( item.shortlabel ).trim() : t;
+
 			o[item.name] = '<div style="border-bottom:1px solid #F0F0F0;padding:5px 0;"><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];while(e.closest(\'.collapsed\')) e.closest(\'.collapsed\').classList.remove(\'collapsed\');e.scrollIntoView();e.click();">'+item.name+'</a>'+
-						('title' in item ? ' ('+$.fbuilder.htmlEncode(item.title)+')' : '')+
+						('' != t ? ' ('+$.fbuilder.htmlEncode(t)+')' : '')+
 						('exclude' in item && item.exclude ? '[EXCLUDED]' : '' )+
 						('_developerNotes' in item && ! /^\s*$/.test(item._developerNotes) ? '<span class="developer-note">'+$.fbuilder.htmlEncode(item._developerNotes)+'</span>' : '')+
 						'</div>';
@@ -1031,6 +1035,18 @@
 	    }
 
 	    this.fBuild = ffunct;
+
+		// Adjust form builder height on desktop
+		if( 768 <= window.innerWidth || 768 <= screen.width ) {
+			function updateFormBuilderHeight() {
+				let newFormBuilderHeight = window.innerHeight - ( $('#wpadminbar').length ? $('#wpadminbar').outerHeight() : 0 );
+				fbuilderjQuery('.form-builder .ctrlsColumn #tabs,.form-builder .dashboardColumn').height(newFormBuilderHeight);
+			}
+
+			updateFormBuilderHeight();
+			$(window).on( 'resize', updateFormBuilderHeight );
+		}
+
 	    return this;
 	};
 

@@ -3,8 +3,8 @@ Tags: wp smtp,smtp,mail,email,logs,mailer,wp mail,gmail,yahoo,mail smtp,ssl,tls
 Contributors: jack-kitterhing
 License: GPLv3 or later
 Requires at least: 2.7
-Tested up to: 6.3
-Stable tag: 1.2.6
+Tested up to: 6.5
+Stable tag: 1.2.7
 
 WP SMTP can help us to send emails via SMTP instead of the PHP mail() function.
 
@@ -32,6 +32,9 @@ WP SMTP plugin was originally created by BoLiQuan. It is now owned and maintaine
 3. "Dashboard"->"Settings"->"WP SMTP"
 
 == Changelog ==
+
+= 1.2.7 =
+Updated: security improvements.
 
 = 1.2.6 =
 Updated: Plugin author to reflect ownership changes.

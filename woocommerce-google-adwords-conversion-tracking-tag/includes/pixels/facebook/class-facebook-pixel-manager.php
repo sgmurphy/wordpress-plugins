@@ -4,6 +4,7 @@ namespace SweetCode\Pixel_Manager\Pixels\Facebook;
 
 use SweetCode\Pixel_Manager\Http\Facebook_CAPI;
 use SweetCode\Pixel_Manager\Logger;
+use SweetCode\Pixel_Manager\Options;
 use SweetCode\Pixel_Manager\Shop;
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -13,7 +14,7 @@ class Facebook_Pixel_Manager {
     protected $facebook_capi;
 
     public function __construct( $options ) {
-        if ( wpm_fs()->can_use_premium_code__premium_only() && $options['facebook']['capi']['token'] ) {
+        if ( wpm_fs()->can_use_premium_code__premium_only() && Options::is_facebook_capi_enabled() ) {
             $this->facebook_capi = new Facebook_CAPI($options);
             // Save the Facebook session identifiers on the order so that we can use them later when the order gets paid or completed
             // https://woocommerce.github.io/code-reference/files/woocommerce-includes-class-wc-checkout.html#source-view.403

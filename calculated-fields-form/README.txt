@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.1
+Stable tag: 5.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,7 +91,7 @@ For other editors, it is possible to insert the form into the pages via its shor
 You can duplicate a sample form to implement your project, or create a new form from scratch.
 
 > <strong>Calculated Fields Form Commercial</strong><br />
->The free version of the "Calculated Fields Form" plugin includes only basic functionality. Other distributions (<a href="https://cff.dwbooster.com/download" target="_blank">Professional, Developer, and Platinum</a>) are available with advanced functionalities, such as sending notification emails, integration with payment gateways and external services, controls for database's connection (and connection to other data sources), complex operations, and many other features.
+>The free version of the "Calculated Fields Form" plugin includes only basic functionality. Other distributions (<a href="https://cff.dwbooster.com/download" target="_blank">Professional, Developer, and Platinum</a>) are available with advanced functionalities, such as sending notification emails, integration with payment gateways and external services, controls for database's connection (and connection to other data sources), complex operations, and many other features. The commercial plugin versions are <strong>one-time purchase</strong> with <strong>lifetime access</strong> to plugin updates ( <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:bold;">https://cff.dwbooster.com/download</a> )
 
 
 = Features of the Professional version: =
@@ -446,6 +446,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.2 =
+
+* Modifies the fields' lists in dependencies, calculated fields settings, and fields list popup to display the short label if the label is empty.
+* Fixes a minor issue with space characters in the fields' attributes.
+* Adjust the form builder height on desktops.
+* Modifies the HubSpot add-on to support fields' tags in the extra attributes (Platinum plugin version).
+
 = 5.2.1 =
 
 * Fixes an issue in the new submit button.
@@ -481,10 +488,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the query that reads the entries list (Professional, Developer, and Platinum plugin versions).
 * Fixes a minor issue identifying variations' prices on variable WooCommerce products when there are other variable products on the page (Developer and Platinum plugin versions).
 * Fixes a conflict between reCAPTCHA styles and third-party themes (Developer and Platinum plugin versions).
-
-= 5.1.62 =
-
-* Optimizes the plugin queries.
-* Allows entering placeholder in dropdown fields.
-* Modifies the PDF Generator add-on to integrate it with the Multilanguage for Calculated Fields Form complementary plugin.
-* Modifies the user permissions add-on.

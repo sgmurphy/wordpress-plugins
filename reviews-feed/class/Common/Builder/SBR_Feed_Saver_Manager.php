@@ -236,6 +236,7 @@ class SBR_Feed_Saver_Manager
 			$feed_id = absint($_POST['feedID']);
 			$feed_cache = new FeedCache($feed_id, 30000);
 			$feed_cache->clear('posts');
+			$feed_cache->clear('header');
 			$feed = Util::sbr_is_pro() ? new \SmashBalloon\Reviews\Pro\Feed($preview_settings , $feed_id, $feed_cache) : new \SmashBalloon\Reviews\Common\Feed($preview_settings, $feed_id, $feed_cache);
 			$feed->init();
 
@@ -264,10 +265,10 @@ class SBR_Feed_Saver_Manager
 				$preview_settings = SBR_Feed_Saver_Manager::get_feed_settings_by_feed_templates($preview_settings);
 				$return['settings'] = $preview_settings;
 			}
-
 			$return['posts'] = $posts;
-
-
+			$return['sourcesList'] = SBR_Sources::get_sources_list([
+                'id' => !empty($preview_settings['sources']) && isset($preview_settings['sources']) ? $preview_settings['sources'] : [],
+			]);
 
 			echo sbr_json_encode(
 				$return

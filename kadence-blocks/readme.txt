@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, page builder, editor, gutenberg blocks
 Donate link: https://www.kadencewp.com/about-us/
 Requires at least: 6.3
 Tested up to: 6.5
-Stable tag: 3.2.35
+Stable tag: 3.2.36
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -140,7 +140,7 @@ Install the plugin into the `/wp-content/plugins/` folder, and activate it.
 == Frequently Asked Questions ==
 
 = What are Kadence Blocks and how do they enhance my WordPress experience? =
-Kadence Blocks are advanced Gutenberg blocks that extend the capabilities of the WordPress editor. They allow you to create stunning, responsive websites easily. 
+Kadence Blocks are advanced Gutenberg blocks that extend the capabilities of the WordPress editor. They allow you to create stunning, responsive websites easily.
 
 = Is Kadence Blocks free to use? =
 Yes, Kadence Blocks is a robust free plugin that offers a range of custom blocks and tools. There is a Premium addon for those who are looking for even more features. You can see a detailed list outlining what is in [Kadence Blocks vs Kadence Blocks Pro on our site](https://www.kadencewp.com/kadence-blocks/pro/#compare).
@@ -173,6 +173,12 @@ Please report security bugs found in the source code of the Kadence Blocks plugi
 Please report security bugs found in the Kadence Blocks plugin's source code through the Patchstack Vulnerability Disclosure Program https://patchstack.com/database/vdp/kadence-blocks. The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Changelog ==
+
+= 3.2.36 =
+Release Date: April 24th 2024
+* Fix: Custom CSS classes being applied to advanced form fields twice.
+* Fix: Issue with custom colors.
+* Fix: Issue with pattern libraries showing empty categories.
 
 = 3.2.35 =
 Release Date: April 22nd 2024

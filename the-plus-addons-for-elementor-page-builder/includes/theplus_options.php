@@ -15,12 +15,18 @@ class L_Theplus_Elementor_Plugin_Options
      */
     private $key = 'theplus_options';
     
-     /**
-     * Array of metaboxes/fields
+    /**
+     * Array of metaboxes
      * @var array
      */
     protected $option_metabox = array();
-	
+    
+	/**
+     * Array of fields
+     * @var array
+     */
+    protected $fields = array();
+
     /**
      * Options Page title
      * @var string
@@ -459,7 +465,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'demoUrl' => 'https://theplusaddons.com/pluslisting/dynamic-category/',
 				'docUrl' => 'https://docs.posimyth.com/tpae/dynamic-category-widget/',
 				'videoUrl' => 'https://www.youtube.com/embed/Atp_gVyWko8',
-				'tag' => 'pro',
+				'tag' => 'freemium',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M256 224c-79.41 0-192 122.76-192 200.25 0 34.9 26.81 55.75 71.74 55.75 48.84 0 81.09-25.08 120.26-25.08 39.51 0 71.85 25.08 120.26 25.08 44.93 0 71.74-20.85 71.74-55.75C448 346.76 335.41 224 256 224zm120.26 224c-20.3 0-37.81-5.77-56.35-11.88-19.68-6.49-40.02-13.19-63.91-13.19-23.65 0-43.85 6.67-63.39 13.12-18.64 6.15-36.25 11.96-56.87 11.96C96 448 96 430.12 96 424.25 96 361.35 196.19 256 256 256s160 105.35 160 168.25c0 5.87 0 23.75-39.74 23.75zm98.57-286.73c-3.57-.86-7.2-1.27-10.81-1.27-25.85 0-51.62 21-60.74 51.39-10.4 34.65 4.77 68.38 33.89 75.34 3.58.86 7.2 1.27 10.81 1.27 25.85 0 51.62-21 60.74-51.39 10.4-34.65-4.77-68.38-33.89-75.34zm3.24 66.14C472.7 245.3 458.55 256 447.98 256c-1.16 0-2.29-.13-3.37-.39-3.7-.88-6.72-3.32-8.98-7.25-4.13-7.18-4.76-17.55-1.7-27.76 5.37-17.9 19.52-28.6 30.1-28.6 1.16 0 2.29.13 3.37.39 3.7.88 6.72 3.33 8.98 7.25 4.12 7.18 4.76 17.55 1.69 27.77zm-159.51-36.8c3.55.93 7.15 1.38 10.76 1.38 27.84 0 56.22-26.82 66.7-65.25 11.84-43.42-3.64-85.21-34.58-93.36a41.92 41.92 0 0 0-10.76-1.39c-27.84 0-56.22 26.82-66.7 65.26-11.84 43.42 3.64 85.22 34.58 93.36zm-3.71-84.93C322.27 78.48 340.43 64 350.68 64c.91 0 1.77.11 2.61.33 4.13 1.09 7.12 5 8.9 8.09 5.08 8.8 8.52 25.48 2.95 45.91-7.42 27.19-25.57 41.67-35.83 41.67-.91 0-1.77-.11-2.62-.33-4.12-1.08-7.12-4.99-8.9-8.08-5.07-8.81-8.51-25.48-2.94-45.91zM182.68 192c3.61 0 7.21-.45 10.76-1.38 30.94-8.14 46.42-49.94 34.58-93.36C217.54 58.82 189.16 32 161.32 32c-3.61 0-7.21.45-10.76 1.39-30.94 8.14-46.42 49.94-34.58 93.36 10.48 38.43 38.87 65.25 66.7 65.25zM149.8 72.42c1.78-3.09 4.78-7 8.9-8.09.85-.22 1.7-.33 2.61-.33 10.26 0 28.41 14.48 35.83 41.68 5.57 20.43 2.13 37.11-2.95 45.91-1.78 3.09-4.77 7-8.9 8.08-.85.22-1.7.33-2.61.33-10.26 0-28.41-14.48-35.83-41.68-5.57-20.42-2.13-37.1 2.95-45.9zM74.84 286.73c29.12-6.96 44.29-40.69 33.88-75.34C99.6 181 73.83 160 47.98 160c-3.62 0-7.24.41-10.81 1.27-29.12 6.96-44.29 40.69-33.89 75.34C12.4 267 38.18 288 64.02 288c3.62 0 7.24-.41 10.82-1.27zM33.93 227.4c-3.06-10.21-2.43-20.59 1.7-27.76 2.26-3.93 5.28-6.37 8.98-7.25 1.08-.26 2.21-.39 3.37-.39 10.57 0 24.72 10.7 30.09 28.59 3.06 10.21 2.43 20.59-1.7 27.77-2.26 3.93-5.28 6.37-8.98 7.25-1.1.26-2.2.39-3.37.39-10.57 0-24.72-10.7-30.09-28.6z"/></svg>',
 				'keyword' => ['Dynamic Category', 'Category', 'Category Widget', 'Dynamic Category Widget', 'Elementor Dynamic Category', 'Elementor Category Widget', 'Elementor Dynamic Category Widget', 'Dynamic Category Elementor Addon', 'Category Elementor Addon', 'Dynamic Category Plus Addons', 'Category Plus Addons', 'Dynamic Category The Plus Addons', 'Category The Plus Addons'],
 			],
@@ -607,15 +613,6 @@ class L_Theplus_Elementor_Plugin_Options
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"/></svg>',
 				'keyword' => [ 'Message Box', 'Alert Box', 'Notification Box', 'Info Box', 'Callout Box', 'Warning Box', 'Success Box', 'Error Box', 'Message Widget', 'Alert Widget', 'Notification Widget', 'Info Widget', 'Callout Widget', 'Warning Widget', 'Success Widget', 'Error Widget' ],
 			],
-			'tp_instagram' => [
-				'label' => esc_html__('Instagram','tpebl'),
-				'demoUrl' => 'https://theplusaddons.com/widgets/instagram/',
-				'docUrl' => '#doc',
-				'videoUrl' => 'https://www.youtube.com/embed/759q2McMid0',
-				'tag' => 'DEPRECATED',
-				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 448 512"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>',
-				'keyword' => ['instagram','insta feed'],
-			],
 			'tp_wp_bodymovin' => [
 				'label' => esc_html__('LottieFiles Animation','tpebl'),
 				'demoUrl' => 'https://theplusaddons.com/widgets/lottiefiles-animations-elementor/',
@@ -711,7 +708,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'demoUrl' => 'https://theplusaddons.com/widgets/number-counter/',
 				'docUrl' => 'https://docs.posimyth.com/tpae/number-counter-widget/',
 				'videoUrl' => 'https://www.youtube.com/embed/QdlEv0BTkRc',
-				'tag' => 'free',
+				'tag' => 'freemium',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 448 512"><path d="M446.381 182.109l1.429-8c1.313-7.355-4.342-14.109-11.813-14.109h-98.601l20.338-113.891C359.047 38.754 353.392 32 345.92 32h-8.127a12 12 0 0 0-11.813 9.891L304.89 160H177.396l20.338-113.891C199.047 38.754 193.392 32 185.92 32h-8.127a12 12 0 0 0-11.813 9.891L144.89 160H42.003a12 12 0 0 0-11.813 9.891l-1.429 8C27.448 185.246 33.103 192 40.575 192h98.6l-22.857 128H13.432a12 12 0 0 0-11.813 9.891l-1.429 8C-1.123 345.246 4.532 352 12.003 352h98.601L90.266 465.891C88.953 473.246 94.608 480 102.08 480h8.127a12 12 0 0 0 11.813-9.891L143.11 352h127.494l-20.338 113.891C248.953 473.246 254.608 480 262.08 480h8.127a12 12 0 0 0 11.813-9.891L303.11 352h102.886a12 12 0 0 0 11.813-9.891l1.429-8c1.313-7.355-4.342-14.109-11.813-14.109h-98.601l22.857-128h102.886a12 12 0 0 0 11.814-9.891zM276.318 320H148.825l22.857-128h127.494l-22.858 128z"/></svg>',
 				'keyword' => ['Number Counter', 'Counter Widget', 'Number Counter Elementor', 'Elementor Number Counter', 'Counter', 'Number Counter Addon', 'Elementor Counter', 'Elementor Plus Addons Number Counter'],
 			],
@@ -774,7 +771,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'demoUrl' => 'https://theplusaddons.com/blog-builder/#blog-single',
 				'docUrl' => 'https://docs.posimyth.com/tpae/post-navigation/',
 				'videoUrl' => 'https://youtu.be/sU-gLRCZnLs',
-				'tag' => 'pro',
+				'tag' => 'free',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path fill="currentColor" d="M0 168v-16c0-13.255 10.745-24 24-24h360V80c0-21.367 25.899-32.042 40.971-16.971l80 80c9.372 9.373 9.372 24.569 0 33.941l-80 80C409.956 271.982 384 261.456 384 240v-48H24c-13.255 0-24-10.745-24-24zm488 152H128v-48c0-21.314-25.862-32.08-40.971-16.971l-80 80c-9.372 9.373-9.372 24.569 0 33.941l80 80C102.057 463.997 128 453.437 128 432v-48h360c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24z"></path></svg>',
 				'keyword' => ['post previous next'],
 			],
@@ -846,7 +843,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'demoUrl' => 'https://theplusaddons.com/widgets/search-bar',
 				'docUrl' => 'https://docs.posimyth.com/tpae/post-search-bar/',
 				'videoUrl' => 'https://www.youtube.com/embed/3k8sPvQkQvA',
-				'tag' => 'free',
+				'tag' => 'DEPRECATED',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"/></svg>',
 				'keyword' => [ 'Post search bar', 'search bar', 'post search', 'search widget', 'post widget', 'elementor search bar', 'elementor search widget', 'search bar', 'search widget', 'search', 'post search widget', 'post search', 'search addon', 'search elementor addon' ],
 			],
@@ -954,7 +951,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'demoUrl' => 'https://theplusaddons.com/widgets/social-icon/',
 				'docUrl' => 'https://docs.posimyth.com/tpae/social-icon/',
 				'videoUrl' => 'https://www.youtube.com/embed/exz4Ahc-KeA',
-				'tag' => 'free',
+				'tag' => 'freemium',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path d="M566.633 169.37L406.63 9.392C386.626-10.612 352 3.395 352 32.022v72.538C210.132 108.474 88 143.455 88 286.3c0 84.74 49.78 133.742 79.45 155.462 24.196 17.695 58.033-4.917 49.7-34.51C188.286 304.843 225.497 284.074 352 280.54V352c0 28.655 34.654 42.606 54.63 22.63l160.003-160c12.489-12.5 12.489-32.76 0-45.26zM384 352V248.04c-141.718.777-240.762 15.03-197.65 167.96C154.91 393 120 351.28 120 286.3c0-134.037 131.645-149.387 264-150.26V32l160 160-160 160zm37.095 52.186c2.216-1.582 4.298-3.323 6.735-5.584 7.68-7.128 20.17-1.692 20.17 8.787V464c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h172.146c6.612 0 11.954 5.412 11.852 12.04-.084 5.446-4.045 10.087-9.331 11.396-9.462 2.343-18.465 4.974-27.074 7.914-1.25.427-2.555.65-3.876.65H48c-8.837 0-16 7.163-16 16v352c0 8.837 7.163 16 16 16h352c8.837 0 16-7.163 16-16v-50.002c0-3.905 1.916-7.543 5.095-9.812z"/></svg>',
 				'keyword' => [ 'Social', 'Icon', 'Social Icon', 'Social Media Icon', 'Social Media', 'Social Icon Widget', 'Elementor Social Icon' ],
 			],
@@ -977,7 +974,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'keyword' => ['Social Sharing', 'Share Buttons', 'Social Media Sharing', 'Social Icons', 'Social Share', 'Social Share Buttons', 'Share Widget', 'Share Icons', 'Share Buttons Widget'],
 			],
 			'tp_style_list' => [
-				'label' => esc_html__('Style List','tpebl'),
+				'label' => esc_html__('Stylish List','tpebl'),
 				'demoUrl' => 'https://theplusaddons.com/widgets/stylish-list/',
 				'docUrl' => 'https://docs.posimyth.com/tpae/stylish-list-widget/',
 				'videoUrl' => 'https://www.youtube.com/embed/mQuR6xN097w',

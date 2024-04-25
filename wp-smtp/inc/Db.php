@@ -1,4 +1,5 @@
 <?php
+
 namespace WPSMTP;
 
 
@@ -76,12 +77,17 @@ class Db {
 		$where = '';
 		$where_cols = array();
 		$prepare_array = array();
+
 		if ( isset($_GET['search']['value'] ) && ! empty( $_GET['search']['value'] ) ) {
 			$search = sanitize_text_field( $_GET['search']['value'] );
 
 			foreach ( $_GET['columns'] as $key => $col ) {
 				if ( $col['searchable'] && ! empty( $col['data'] ) && $col['data'] !== 'timestamp' ) {
 					$column          = sanitize_text_field( wp_unslash( $col['data'] ) );
+					if ( ! in_array( $column, $this->get_allowed_columns(), true ) ) {
+						// the column is not in the list, moving.
+						continue;
+					}
 					$where_cols[]    = "`{$column}` LIKE %s";
 					$prepare_array[] = '%' . $this->db->esc_like( $search ) . '%';
 				}
@@ -113,23 +119,42 @@ class Db {
 		if ( ! empty( $_GET['order'][0] ) ) {
 			$col_num   = absint( $_GET['order'][0]['column'] );
 			$col_name  = sanitize_text_field( wp_unslash( $_GET['columns'][$col_num]['data'] ) );
-			$order_dir = sanitize_text_field( wp_unslash( $_GET['order'][0]['dir'] ) );
-			$orderby   = "`{$col_name}`";
-			$order     = "{$order_dir}";
+			$order_dir = strtolower( sanitize_text_field( wp_unslash( $_GET['order'][0]['dir'] ) ) );
+			if ( in_array( $order_dir, [
+					'asc',
+					'desc'
+				], true ) && in_array( $col_name, $this->get_allowed_columns(), true ) ) {
+				$orderby = "`{$col_name}`";
+				$order   = "{$order_dir}";
+			}
 		}
 
 		// If there is something to search for we need to add the search query to the query.
 		if ( ! empty( $prepare_array ) ) {
-
 			$sql = $this->db->prepare( "SELECT * from {$this->table} WHERE {$where} ORDER BY {$orderby} {$order} LIMIT {$limit_query};", $prepare_array );
 		} else {
 			$sql = $this->db->prepare( "SELECT * from {$this->table} ORDER BY {$orderby} {$order} LIMIT {$limit_query};", $orderby );
 		}
 
-		error_log( $sql );
-
 		return $this->db->get_results( $sql, ARRAY_A );
 
+	}
+
+	/**
+	 * Retrieve an array of allowed columns for sorting and query in the wp_wpsmtp_logs table.
+	 *
+	 * @return string[]
+	 */
+	private function get_allowed_columns():array {
+		return [
+			'mail_id',
+			'timestamp',
+			'to',
+			'subject',
+			'message',
+			'headers',
+			'error'
+		];
 	}
 
 	public function delete_items( $ids ) {

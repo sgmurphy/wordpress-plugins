@@ -89,6 +89,6 @@
 }
 .tp-messagebox .msg-dismiss-content {
      display: inline-flex;
-     align-items: flex-start;
-     justify-content: flex-end;
+     align-items: center;
+     justify-content: center;
 }

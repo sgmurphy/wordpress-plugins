@@ -261,7 +261,10 @@ class UserFeedback_Frontend
 				$value = null;
 				if ( is_string( $answer['value'] ) ) {
 					$value = sanitize_text_field( $answer['value'] );
-				} elseif (
+				} elseif ( is_numeric( $answer['value'] ) ) {
+					$value = intval( $answer['value'] );
+				}
+				elseif (
 					is_array( $answer['value'] )
 					&& ! empty( $answer['value'] )
 				) {

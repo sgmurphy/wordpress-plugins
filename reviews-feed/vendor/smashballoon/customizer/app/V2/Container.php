@@ -2,10 +2,10 @@
 
 namespace Smashballoon\Customizer\V2;
 
+/** @internal */
 class Container
 {
     public static $container;
-
     /**
      * @return \DI\Container
      */

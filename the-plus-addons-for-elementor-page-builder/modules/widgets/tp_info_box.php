@@ -12,18 +12,13 @@ namespace TheplusAddons\Widgets;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Utils;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Image_Size;
 
-/**
- * Exit if accessed directly.
- * */
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit;// Exit if accessed directly.
 }
 
 /**
@@ -31,11 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class L_ThePlus_Info_Box extends Widget_Base {
 
+	public $tp_doc = L_THEPLUS_Tpdoc;
+
 	/**
 	 * Get Widget Name.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 * @version 5.4.2
 	 */
 	public function get_name() {
 		return 'tp-info-box';
@@ -45,7 +42,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 	 * Get Widget Title.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 * @version 5.4.2
 	 */
 	public function get_title() {
 		return esc_html__( 'Info Box', 'tpebl' );
@@ -55,7 +52,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 	 * Get Widget Icon.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 * @version 5.4.2
 	 */
 	public function get_icon() {
 		return 'fa fa-info-circle theplus_backend_icon';
@@ -65,7 +62,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 	 * Get Widget categories.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 * @version 5.4.2
 	 */
 	public function get_categories() {
 		return array( 'plus-essential' );
@@ -75,17 +72,23 @@ class L_ThePlus_Info_Box extends Widget_Base {
 	 * Get Widget keywords.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 * @version 5.4.2
 	 */
 	public function get_keywords() {
 		return array( 'Info Box', 'Information Box', 'Content Box', 'Text Box', 'Feature Box', 'Icon Box', 'Callout Box', 'Highlight Box', 'Notification Box', 'Alert Box', 'Message Box', 'Card Box', 'Box Widget', 'Box Element', 'Box Container' );
+	}
+
+	public function get_custom_help_url() {
+		$doc_url = $this->tp_doc . 'info-box';
+
+		return esc_url( $doc_url );
 	}
 
 	/**
 	 * Register controls.
 	 *
 	 * @since 1.0.0
-	 * @access protected
+	 * @version 5.4.2
 	 */
 	protected function register_controls() {
 
@@ -105,6 +108,16 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				'options' => array(
 					'single_layout'   => esc_html__( 'Listing', 'tpebl' ),
 					'carousel_layout' => esc_html__( 'Carousel (Pro)', 'tpebl' ),
+				),
+			)
+		);
+		$this->add_control(
+			'how_it_works_single_layout',
+			array(
+				'label'     => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "show-services-box-in-wordpress-using-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> How it works <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array(
+					'info_box_layout' => array( 'single_layout' ),
 				),
 			)
 		);
@@ -157,7 +170,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			'connection_switch',
 			array(
 				'label'     => esc_html__( 'Carousel Anything Connection', 'tpebl' ),
-				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'default'   => 'no',
@@ -262,17 +275,38 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$this->add_control(
 			'image_icon',
 			array(
-				'label'       => esc_html__( 'Select Icon', 'tpebl' ),
-				'type'        => Controls_Manager::SELECT,
-				'description' => esc_html__( 'You can select Icon, Custom Image or SVG using this option.', 'tpebl' ),
-				'default'     => 'icon',
-				'options'     => array(
+				'label'     => esc_html__( 'Select Icon', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'icon',
+				'options'   => array(
 					''      => esc_html__( 'None', 'tpebl' ),
 					'icon'  => esc_html__( 'Icon', 'tpebl' ),
 					'image' => esc_html__( 'Image', 'tpebl' ),
 					'svg'   => esc_html__( 'Svg (PRO)', 'tpebl' ),
 				),
-				'separator'   => 'before',
+				'separator' => 'before',
+				'condition' => array(
+					'info_box_layout' => 'single_layout',
+					'main_style'      => array( 'style_1', 'style_3' ),
+				),
+			)
+		);
+		$this->add_control(
+			'how_it_works_image',
+			array(
+				'label'     => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "create-elementor-image-box/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> How it works <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array(
+					'image_icon' => array( 'image' ),
+				),
+			)
+		);
+		$this->add_control(
+			'img_note',
+			array(
+				'type'        => Controls_Manager::RAW_HTML,
+				'raw'         => '<p class="tp-controller-notice"><i>You can select Icon, Custom Image or SVG using this option.</i></p>',
+				'label_block' => true,
 				'condition'   => array(
 					'info_box_layout' => 'single_layout',
 					'main_style'      => array( 'style_1', 'style_3' ),
@@ -396,7 +430,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			'display_button',
 			array(
 				'label'     => esc_html__( 'Button', 'tpebl' ),
-				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'default'   => 'no',
@@ -656,13 +690,24 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$this->add_control(
 			'full_infobox_switch',
 			array(
-				'label'       => esc_html__( 'Full Infobox Link', 'tpebl' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'label_on'    => esc_html__( 'Enable', 'tpebl' ),
-				'label_off'   => esc_html__( 'Disable', 'tpebl' ),
-				'default'     => 'no',
-				'separator'   => 'before',
-				'description' => esc_html__( 'Note : If you enable this option, There will be only one link for whole infobox. Rest links will be removed.', 'tpebl' ),
+				'label'     => wp_kses_post( "Full Infobox Link <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-link-to-the-info-box-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
+				'label_off' => esc_html__( 'Disable', 'tpebl' ),
+				'default'   => 'no',
+				'separator' => 'before',
+				'condition' => array(
+					'info_box_layout' => 'single_layout',
+					'main_style'      => array( 'style_1', 'style_3' ),
+				),
+			)
+		);
+		$this->add_control(
+			'full_infobox_note',
+			array(
+				'type'        => Controls_Manager::RAW_HTML,
+				'raw'         => '<p class="tp-controller-notice"><i>Note : If you enable this option, There will be only one link for whole infobox. Rest links will be removed.</i></p>',
+				'label_block' => true,
 				'condition'   => array(
 					'info_box_layout' => 'single_layout',
 					'main_style'      => array( 'style_1', 'style_3' ),
@@ -683,7 +728,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
-		/*title style*/
 		$this->start_controls_section(
 			'section_title_styling',
 			array(
@@ -1056,10 +1100,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
-		/**
-		 * Title bottom border
-		 * */
 		$this->start_controls_section(
 			'section_title_border_styling',
 			array(
@@ -1070,12 +1110,19 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$this->add_control(
 			'border_check',
 			array(
-				'label'       => esc_html__( 'Display Border', 'tpebl' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'label_on'    => esc_html__( 'Show', 'tpebl' ),
-				'label_off'   => esc_html__( 'Hide', 'tpebl' ),
-				'default'     => 'yes',
-				'description' => esc_html__( 'By checking up this option you can turn on underline/border under the title.', 'tpebl' ),
+				'label'     => esc_html__( 'Display Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
+				'default'   => 'yes',
+			)
+		);
+		$this->add_control(
+			'border_check_note',
+			array(
+				'type'        => Controls_Manager::RAW_HTML,
+				'raw'         => '<p class="tp-controller-notice"><i>By checking up this option you can turn on underline/border under the title.</i></p>',
+				'label_block' => true,
 			)
 		);
 		$this->add_control(
@@ -1145,10 +1192,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
-
-		/**
-		 * Description style
-		 * */
 		$this->start_controls_section(
 			'section_desc_styling',
 			array(
@@ -1187,9 +1230,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/**
-		 * Background option
-		 * */
 		$this->start_controls_section(
 			'section_bg_option_styling',
 			array(
@@ -1454,9 +1494,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$this->end_controls_tabs();
 		$this->end_controls_section();
 
-		/**
-		 * Button style
-		 * */
 		$this->start_controls_section(
 			'section_button_styling',
 			array(
@@ -1488,7 +1525,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				'selectors'   => array(
 					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .pt-plus-button-wrapper' => 'margin-top: {{SIZE}}{{UNIT}}',
 				),
-				'separator'   => 'after',
 				'condition'   => array(
 					'display_button' => 'yes',
 				),
@@ -1714,9 +1750,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$this->end_controls_tabs();
 		$this->end_controls_section();
 
-		/**
-		 * Svg style
-		 * */
 		$this->start_controls_section(
 			'section_svg_styling',
 			array(
@@ -1739,9 +1772,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/**
-		 * Icon style
-		 * */
 		$this->start_controls_section(
 			'section_icon_styling',
 			array(
@@ -1795,7 +1825,8 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				'render_type' => 'ui',
 				'selectors'   => array(
 					'{{WRAPPER}} .pt_plus_info_box .info-box-inner i.service-icon' => 'font-size: {{SIZE}}{{UNIT}} !important;',
-					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .service-icon i' => 'font-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .service-icon i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .service-icon svg' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .service-icon .icon-image-set' => 'max-width: {{SIZE}}{{UNIT}}',
 				),
 			)
@@ -2275,9 +2306,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/**
-		 * Image Style
-		 * */
 		$this->start_controls_section(
 			'section_image_styling',
 			array(
@@ -2370,9 +2398,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$this->end_controls_tabs();
 		$this->end_controls_section();
 
-		/**
-		 * Pin Text Style
-		 * */
 		$this->start_controls_section(
 			'section_pin_text_styling',
 			array(
@@ -2397,8 +2422,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/**
-		 * Carousel option*/
 		$this->start_controls_section(
 			'section_carousel_options_styling',
 			array(
@@ -2421,9 +2444,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/**
-		 * Extra options
-		 * */
 		$this->start_controls_section(
 			'section_extra_option_styling',
 			array(
@@ -2455,7 +2475,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			'vertical_center',
 			array(
 				'label'     => esc_html__( 'Vertical Center', 'tpebl' ),
-				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'On', 'tpebl' ),
 				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
@@ -2483,7 +2503,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			'messy_column',
 			array(
 				'label'     => esc_html__( 'Messy Columns', 'tpebl' ),
-				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'On', 'tpebl' ),
 				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
@@ -2608,9 +2628,6 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/**
-		 * Plus Extras
-		 * */
 		$this->start_controls_section(
 			'section_plus_extra_adv',
 			array(
@@ -2762,6 +2779,8 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
+
+		include L_THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
 
 	/**
@@ -2770,24 +2789,34 @@ class L_ThePlus_Info_Box extends Widget_Base {
 	 * Written in PHP and HTML.
 	 *
 	 * @since 1.0.0
-	 * @access protected
+	 * @version 5.4.2
 	 */
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
 
-		$info_box_layout = $settings['info_box_layout'];
-		$main_style      = $settings['main_style'];
+		$info_box_layout = ! empty( $settings['info_box_layout'] ) ? $settings['info_box_layout'] : '';
+		$main_style      = ! empty( $settings['main_style'] ) ? $settings['main_style'] : '';
 
-		$hover_class = '';
+		$hover_class       = '';
+		$box_hover_effects = ! empty( $settings['box_hover_effects'] ) ? $settings['box_hover_effects'] : '';
 
-		$box_hover_effects = $settings['box_hover_effects'];
 		if ( 'push' === $box_hover_effects ) {
 			$hover_class .= 'content_hover_push';
 		}
 
-		$animation_effects = $settings['animation_effects'];
-		$animation_delay   = ( ! empty( $settings['animation_delay']['size'] ) ) ? $settings['animation_delay']['size'] : 50;
+		$animation_effects = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : '';
+		$animate_duration  = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
+
+		$animation_delay = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
+
+		$out_duration = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
+		$ani_duration = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
+
+		$out_effect = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : '';
+		$out_delay  = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
+		$out_speed  = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
+
 		if ( 'no-animation' === $animation_effects ) {
 			$animated_class = '';
 			$animation_attr = '';
@@ -2797,22 +2826,41 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
 			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
 
-			if ( 'yes' === $settings['animation_duration_default'] ) {
-				$animate_duration = $settings['animate_duration']['size'];
-				$animation_attr  .= ' data-animate-duration="' . esc_attr( $animate_duration ) . '"';
+			if ( 'yes' === $ani_duration ) {
+				$animation_attr .= ' data-animate-duration="' . esc_attr( $animate_duration ) . '"';
 			}
 
-			if ( ! empty( $settings['animation_out_effects'] ) && 'no-animation' !== $settings['animation_out_effects'] ) {
-				$animation_attr .= ' data-animate-out-type="' . esc_attr( $settings['animation_out_effects'] ) . '" data-animate-out-delay="' . esc_attr( $settings['animation_out_delay']['size'] ) . '"';
-				if ( 'yes' === $settings['animation_out_duration_default'] ) {
-					$animation_attr .= ' data-animate-out-duration="' . esc_attr( $settings['animation_out_duration']['size'] ) . '"';
+			if ( 'no-animation' !== $out_effect ) {
+				$animation_attr .= ' data-animate-out-type="' . esc_attr( $out_effect ) . '" data-animate-out-delay="' . esc_attr( $out_delay ) . '"';
+
+				if ( 'yes' === $out_duration ) {
+					$animation_attr .= ' data-animate-out-duration="' . esc_attr( $out_speed ) . '"';
 				}
 			}
 		}
 
-		$service_title = $description = $service_img = $service_center = $service_align = $service_border = $service_icon_style = $service_space = $serice_box_border = $serice_img_border = $border_right_css = $imge_content = $title_css = $subtitle_css = $output = '';
+		$service_title  = '';
+		$description    = '';
+		$service_img    = '';
+		$service_center = '';
+		$service_align  = '';
+		$service_border = '';
+		$service_space  = '';
 
-		$text_align = $settings['text_align'];
+		$service_icon_style = '';
+		$serice_box_border  = '';
+		$serice_img_border  = '';
+		$border_right_css   = '';
+
+		$imge_content = '';
+		$title_css    = '';
+		$subtitle_css = '';
+		$output       = '';
+
+		$text_align = ! empty( $settings['text_align'] ) ? $settings['text_align'] : '';
+		$box_border = ! empty( $settings['box_border'] ) ? $settings['box_border'] : '';
+		$var_cent   = ! empty( $settings['vertical_center'] ) ? $settings['vertical_center'] : '';
+
 		if ( 'left' === $text_align ) {
 			$service_align = 'text-left';
 		}
@@ -2825,39 +2873,44 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			$service_align = 'text-right';
 		}
 
-		if ( 'yes' === $settings['box_border'] ) {
+		if ( 'yes' === $box_border ) {
 			$serice_box_border = 'service-border-box';
 		}
 
-		if ( 'yes' === $settings['vertical_center'] ) {
+		if ( 'yes' === $var_cent ) {
 			$service_center = 'vertical-center';
 		}
 
-		if ( ! empty( $settings['url_link']['url'] ) ) {
-			$this->add_render_attribute( 'box_link', 'href', $settings['url_link']['url'] );
+		$url_link = ! empty( $settings['url_link'] ) ? $settings['url_link'] : '';
 
-			if ( $settings['url_link']['is_external'] ) {
+		if ( ! empty( $url_link['url'] ) ) {
+			$this->add_render_attribute( 'box_link', 'href', esc_url( $url_link['url'] ) );
+
+			if ( $url_link['is_external'] ) {
 				$this->add_render_attribute( 'box_link', 'target', '_blank' );
 			}
 
-			if ( $settings['url_link']['nofollow'] ) {
+			if ( $url_link['nofollow'] ) {
 				$this->add_render_attribute( 'box_link', 'rel', 'nofollow' );
 			}
 		}
 
-		$image_icon = $settings['image_icon'];
+		$image_icon = ! empty( $settings['image_icon'] ) ? $settings['image_icon'] : '';
+
 		if ( 'image' === $image_icon ) {
 			$image_alt = '';
-			if ( ! empty( $settings['select_image']['url'] ) ) {
-				$image_id = $settings['select_image']['id'];
+			$info_img  = ! empty( $settings['select_image'] ) ? $settings['select_image'] : '';
+
+			$img_src = '';
+			if ( ! empty( $info_img['url'] ) ) {
+				$image_id = $info_img['id'];
 				$img_src  = tp_get_image_rander( $image_id, $settings['select_image_thumbnail_size'], array( 'class' => 'service-img' ) );
-			} else {
-				$img_src = '';
 			}
 
 			$service_a_start = '';
 			$service_a_end   = '';
-			if ( ! empty( $settings['url_link']['url'] ) ) {
+
+			if ( ! empty( $url_link['url'] ) ) {
 				$service_a_start = '<a ' . $this->get_render_attribute_string( 'box_link' ) . ' >';
 				$service_a_end   = '</a>';
 			}
@@ -2865,7 +2918,8 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			$service_img = $service_a_start . $img_src . $service_a_end;
 		}
 
-		$icon_style = $settings['icon_style'];
+		$icon_style = ! empty( $settings['icon_style'] ) ? $settings['icon_style'] : '';
+
 		if ( 'square' === $icon_style && 'icon' === $image_icon ) {
 			$service_icon_style = 'icon-squre';
 		}
@@ -2874,65 +2928,80 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			$service_icon_style = 'icon-rounded';
 		}
 
+		$icon_fstyle = ! empty( $settings['icon_font_style'] ) ? $settings['icon_font_style'] : '';
+
 		if ( 'icon' === $image_icon ) {
 
-			if ( 'font_awesome' === $settings['icon_font_style'] ) {
-				$icons = $settings['icon_fontawesome'];
-			} elseif ( 'font_awesome_5' === $settings['icon_font_style'] ) {
+			if ( 'font_awesome' === $icon_fstyle ) {
+				$icons = ! empty( $settings['icon_fontawesome'] ) ? $settings['icon_fontawesome'] : '';
+			} elseif ( 'font_awesome_5' === $icon_fstyle ) {
 				ob_start();
 				\Elementor\Icons_Manager::render_icon( $settings['icon_fontawesome_5'], array( 'aria-hidden' => 'true' ) );
 				$icons = ob_get_contents();
 				ob_end_clean();
 			} else {
-				$icons       = '';
-				$icons_image = '';
+
+				$icons = '';
 			}
 
 			if ( ! empty( $icons ) ) {
 				$si_bg = tp_bg_lazyLoad( $settings['icon_background_image'], $settings['icon_hover_background_image'] );
-				if ( ! empty( $settings['icon_font_style'] ) && 'font_awesome_5' === $settings['icon_font_style'] ) {
+
+				if ( ! empty( $icon_fstyle ) && 'font_awesome_5' === $icon_fstyle ) {
 					$service_img = '<div class="service-icon-wrap"><span class=" service-icon ' . $si_bg . ' ' . esc_attr( $service_icon_style ) . '">' . $icons . '</span></div>';
 				} else {
 					$service_img = '<div class="service-icon-wrap"><i class=" ' . esc_attr( $icons ) . ' service-icon ' . $si_bg . ' ' . esc_attr( $service_icon_style ) . '"></i></div>';
 				}
 			}
-			if ( ! empty( $icons_image ) ) {
-				$service_img = $icons_image;
-			}
 		}
 
-		if ( 'yes' === $settings['border_check_right'] ) {
+		$border_cright = ! empty( $settings['border_check_right'] ) ? $settings['border_check_right'] : '';
+		if ( 'yes' === $border_cright ) {
 			$serice_img_border = 'service-img-border';
 			$border_right_css  = ' style="';
-			if ( ! empty( $settings['border_right_color'] ) ) {
-				$border_right_css .= 'border-color: ' . esc_attr( $settings['border_right_color'] ) . ';';
+
+			$border_rcolor = ! empty( $settings['border_right_color'] ) ? $settings['border_right_color'] : '';
+
+			if ( ! empty( $border_rcolor ) ) {
+				$border_right_css .= 'border-color: ' . esc_attr( $border_rcolor ) . ';';
 			}
+
 			$border_right_css .= '"';
 		}
 
-		$title_tag = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'div';
-		if ( ! empty( $settings['title'] ) ) {
-			$service_title = '<a ' . $this->get_render_attribute_string( 'box_link' ) . ' ><' . l_theplus_validate_html_tag( $title_tag ) . ' class="service-title "> ' . esc_html( $settings['title'] ) . ' </' . l_theplus_validate_html_tag( $title_tag ) . '></a>';
+		$title_tag  = ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'div';
+		$info_title = ! empty( $settings['title'] ) ? $settings['title'] : '';
+
+		if ( ! empty( $info_title ) ) {
+			$service_title = '<a ' . $this->get_render_attribute_string( 'box_link' ) . ' ><' . l_theplus_validate_html_tag( $title_tag ) . ' class="service-title "> ' . wp_kses_post( $info_title ) . ' </' . l_theplus_validate_html_tag( $title_tag ) . '></a>';
 		}
 
-		$border_check = $settings['border_check'];
+		$border_check = ! empty( $settings['border_check'] ) ? $settings['border_check'] : '';
 		if ( 'yes' === $border_check ) {
 			$service_border = '<div class="service-border"> </div>';
 		}
 
-		$content_desc = $settings['content_desc'];
+		$content_desc = ! empty( $settings['content_desc'] ) ? $settings['content_desc'] : '';
 		if ( ! empty( $content_desc ) ) {
-			$description = '<div class="service-desc"> ' . $content_desc . ' </div>';
+			$description = '<div class="service-desc"> ' . wp_kses_post( $content_desc ) . ' </div>';
 		}
 
 		$the_button = '';
-		if ( 'yes' === $settings['display_button'] ) {
-			if ( ! empty( $settings['button_link']['url'] ) ) {
-				$this->add_render_attribute( 'button', 'href', $settings['button_link']['url'] );
-				if ( $settings['button_link']['is_external'] ) {
+
+		$btn_on = ! empty( $settings['display_button'] ) ? $settings['display_button'] : '';
+
+		if ( 'yes' === $btn_on ) {
+
+			$btn_link = ! empty( $settings['button_link'] ) ? $settings['button_link'] : '';
+
+			if ( ! empty( $btn_link['url'] ) ) {
+				$this->add_render_attribute( 'button', 'href', esc_url( $btn_link['url'] ) );
+
+				if ( $btn_link['is_external'] ) {
 					$this->add_render_attribute( 'button', 'target', '_blank' );
 				}
-				if ( $settings['button_link']['nofollow'] ) {
+
+				if ( $btn_link['nofollow'] ) {
 					$this->add_render_attribute( 'button', 'rel', 'nofollow' );
 				}
 			}
@@ -2940,30 +3009,46 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			$bll_bg = tp_bg_lazyLoad( $settings['button_background_image'], $settings['button_hover_background_image'] );
 			$this->add_render_attribute( 'button', 'class', 'button-link-wrap' . $bll_bg );
 
-			$hbc_bg          = tp_bg_lazyLoad( $settings['icon_background_image'] );
-			$hover_box_class = ( ! empty( $settings['hover_info_button'] ) && 'yes' === $settings['hover_info_button'] ) ? ' hover_box_button' . $hbc_bg : '';
+			$hbc_bg = tp_bg_lazyLoad( $settings['icon_background_image'] );
+
+			$hover_box_class = ! empty( $settings['hover_info_button'] ) && 'yes' === $settings['hover_info_button'] ? ' hover_box_button' . $hbc_bg : '';
 			$this->add_render_attribute( 'button', 'class', $hover_box_class );
 			$this->add_render_attribute( 'button', 'role', 'button' );
 
-			$button_style = $settings['button_style'];
-			$button_text  = $settings['button_text'];
-			$btn_uid      = uniqid( 'btn' );
-			$data_class   = $btn_uid;
-			$data_class  .= ' button-' . $button_style . ' ';
+			$button_style = ! empty( $settings['button_style'] ) ? $settings['button_style'] : '';
+			$button_text  = ! empty( $settings['button_text'] ) ? $settings['button_text'] : '';
 
-			$the_button                          = '<div class="pt-plus-button-wrapper">';
-				$the_button                     .= '<div class="button_parallax">';
-					$the_button                 .= '<div class="ts-button">';
-						$the_button             .= '<div class="pt_plus_button ' . $data_class . '">';
-							$the_button         .= '<div class="animted-content-inner">';
+			$btn_uid = uniqid( 'btn' );
+
+			$data_class = $btn_uid;
+
+			$data_class .= ' button-' . $button_style . ' ';
+
+			$the_button = '<div class="pt-plus-button-wrapper">';
+
+				$the_button .= '<div class="button_parallax">';
+
+					$the_button .= '<div class="ts-button">';
+
+						$the_button .= '<div class="pt_plus_button ' . esc_attr( $data_class ) . '">';
+
+							$the_button .= '<div class="animted-content-inner">';
+
 									$the_button .= '<a ' . $this->get_render_attribute_string( 'button' ) . '>';
-								$the_button     .= $this->render_text();
+
+								$the_button .= $this->render_text();
+
 									$the_button .= '</a>';
-							$the_button         .= '</div>';
-						$the_button             .= '</div>';
-					$the_button                 .= '</div>';
-				$the_button                     .= '</div>';
-			$the_button                         .= '</div>';
+
+							$the_button .= '</div>';
+
+						$the_button .= '</div>';
+
+					$the_button .= '</div>';
+
+				$the_button .= '</div>';
+
+			$the_button .= '</div>';
 		}
 
 		if ( 'single_layout' === $info_box_layout ) {
@@ -2972,37 +3057,55 @@ class L_ThePlus_Info_Box extends Widget_Base {
 
 			if ( 'style_1' === $main_style ) {
 
-				$output     .= '<div class="info-box-bg-box  ' . esc_attr( $serice_box_border ) . ' ' . $ll_bgbox . '">';
+				$output     .= '<div class="info-box-bg-box  ' . esc_attr( $serice_box_border ) . ' ' . esc_attr( $ll_bgbox ) . '">';
 					$output .= '<div class="service-media text-left ' . esc_attr( $service_center ) . ' ">';
 
 				if ( ! empty( $service_img ) ) {
 					$output .= '<div class="m-r-16  ' . esc_attr( $serice_img_border ) . '" ' . $border_right_css . '> ' . $service_img . ' </div>';
 				}
+						$output .= '<div class="service-content ">';
 
-						$output     .= '<div class="service-content ">';
 							$output .= $service_title;
+
 							$output .= $service_border;
+
 							$output .= $description;
+
 							$output .= $the_button;
-						$output     .= '</div>';
-					$output         .= '</div>';
-					$output         .= '<div class="infobox-overlay-color"></div>';
-				$output             .= '</div>';
+
+						$output .= '</div>';
+
+					$output .= '</div>';
+
+					$output .= '<div class="infobox-overlay-color"></div>';
+
+				$output .= '</div>';
 			}
 
 			if ( 'style_3' === $main_style ) {
-				$output             .= '<div class="info-box-bg-box ' . esc_attr( $serice_box_border ) . ' ' . $ll_bgbox . '">';
-					$output         .= '<div class="' . esc_attr( $service_align ) . '">';
-						$output     .= '<div class="service-center  ">';
+				$output .= '<div class="info-box-bg-box ' . esc_attr( $serice_box_border ) . ' ' . esc_attr( $ll_bgbox ) . '">';
+
+					$output .= '<div class="' . esc_attr( $service_align ) . '">';
+
+						$output .= '<div class="service-center">';
+
 							$output .= '<div class="info-icon-content">' . $service_img . '</div>';
+
 							$output .= $service_title;
+
 							$output .= $service_border;
+
 							$output .= $description;
+
 							$output .= $the_button;
+
 							$output .= '</div>';
-					$output         .= '</div>';
-					$output         .= '<div class="infobox-overlay-color"></div>';
-				$output             .= '</div>';
+
+					$output .= '</div>';
+
+					$output .= '<div class="infobox-overlay-color"></div>';
+
+				$output .= '</div>';
 			}
 
 			$output .= '</div>';
@@ -3010,36 +3113,31 @@ class L_ThePlus_Info_Box extends Widget_Base {
 
 		$visiblity_hide = '';
 		if ( ! empty( $settings['responsive_visible_opt'] ) && 'yes' === $settings['responsive_visible_opt'] ) {
-			$visiblity_hide .= ( ( 'yes' !== $settings['desktop_opt'] && empty( $settings['desktop_opt'] ) ) ? 'desktop-hide ' : '' );
-			$visiblity_hide .= ( ( 'yes' !== $settings['tablet_opt'] && empty( $settings['tablet_opt'] ) ) ? 'tablet-hide ' : '' );
-			$visiblity_hide .= ( ( 'yes' !== $settings['mobile_opt'] && empty( $settings['mobile_opt'] ) ) ? 'mobile-hide ' : '' );
+			$visiblity_hide .= ( 'yes' !== $settings['desktop_opt'] && empty( $settings['desktop_opt'] ) ) ? 'hide-desktop ' : '';
+			$visiblity_hide .= ( 'yes' !== $settings['tablet_opt'] && empty( $settings['tablet_opt'] ) ) ? 'hide-tablet ' : '';
+			$visiblity_hide .= ( 'yes' !== $settings['mobile_opt'] && empty( $settings['mobile_opt'] ) ) ? 'hide-mobile ' : '';
 		}
 
 		$uid = uniqid( 'info_box' );
 
-		$info_box          = '<div id="' . $uid . '" class="pt_plus_info_box  ' . esc_attr( $uid ) . ' info-box-' . esc_attr( $main_style ) . ' ' . esc_attr( $animated_class ) . '  ' . esc_attr( $service_space ) . '"  data-id="' . esc_attr( $uid ) . '" ' . $animation_attr . ' ' . $visiblity_hide . '>';
-			$info_box     .= '<div class="post-inner-loop ">';
+		$info_box = '<div id="' . esc_attr( $uid ) . '" class="pt_plus_info_box  ' . esc_attr( $uid ) . ' info-box-' . esc_attr( $main_style ) . ' ' . esc_attr( $animated_class ) . '  ' . esc_attr( $service_space ) . ' ' . $visiblity_hide . ' "  data-id="' . esc_attr( $uid ) . '" ' . $animation_attr . '>';
+
+			$info_box .= '<div class="post-inner-loop ">';
+
 				$info_box .= $output;
-			$info_box     .= '</div>';
-		$info_box         .= '</div>';
+
+			$info_box .= '</div>';
+
+		$info_box .= '</div>';
 
 		echo $info_box;
 	}
 
 	/**
-	 * Load Widget content template
-	 *
-	 * @since 5.3.3
-	 * @access protected
-	 */
-	protected function content_template() {
-	}
-
-	/**
 	 * Used to get render text
 	 *
-	 * @since 5.3.3
-	 * @access protected
+	 * @since 1.0.0
+	 * @version 5.4.2
 	 *
 	 * @return object $response feed object.
 	 */
@@ -3048,13 +3146,14 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		$icons_before = '';
 		$settings     = $this->get_settings_for_display();
 
-		$button_style = $settings['button_style'];
-		$before_after = $settings['before_after'];
-		$button_text  = $settings['button_text'];
+		$button_style = ! empty( $settings['button_style'] ) ? $settings['button_style'] : '';
+		$before_after = ! empty( $settings['before_after'] ) ? $settings['before_after'] : '';
+		$button_text  = ! empty( $settings['button_text'] ) ? $settings['button_text'] : '';
+		$icon_font    = ! empty( $settings['button_icon_style'] ) ? $settings['button_icon_style'] : '';
 
-		if ( 'font_awesome' === $settings['button_icon_style'] ) {
-			$icons = $settings['button_icon'];
-		} elseif ( 'font_awesome_5' === $settings['button_icon_style'] ) {
+		if ( 'font_awesome' === $icon_font ) {
+			$icons = ! empty( $settings['button_icon'] ) ? $settings['button_icon'] : '';
+		} elseif ( 'font_awesome_5' === $icon_font ) {
 			ob_start();
 			\Elementor\Icons_Manager::render_icon( $settings['button_icon_5'], array( 'aria-hidden' => 'true' ) );
 			$icons = ob_get_contents();
@@ -3064,7 +3163,8 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		}
 
 		if ( 'before' === $before_after && ! empty( $icons ) ) {
-			if ( ! empty( $settings['button_icon_style'] ) && 'font_awesome_5' === $settings['button_icon_style'] ) {
+
+			if ( ! empty( $icon_font ) && 'font_awesome_5' === $icon_font ) {
 				$icons_before = '<span class="btn-icon button-before">' . $icons . '</span>';
 			} else {
 				$icons_before = '<i class="btn-icon button-before ' . esc_attr( $icons ) . '"></i>';
@@ -3072,8 +3172,9 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		}
 
 		if ( 'after' === $before_after && ! empty( $icons ) ) {
-			if ( ! empty( $settings['button_icon_style'] ) && 'font_awesome_5' === $settings['button_icon_style'] ) {
-				$icons_after = '<span class="btn-icon button-after">' . $icons . '</span>';
+
+			if ( ! empty( $icon_font ) && 'font_awesome_5' === $icon_font ) {
+				$icons_after = '<span class="btn-icon button-after">' . wp_kses_post( $icons ) . '</span>';
 			} else {
 				$icons_after = '<i class="btn-icon button-after ' . esc_attr( $icons ) . '"></i>';
 			}

@@ -7,7 +7,6 @@ use SweetCode\Pixel_Manager\Admin\Opportunities\Opportunities;
 use SweetCode\Pixel_Manager\Helpers;
 use SweetCode\Pixel_Manager\Logger;
 use SweetCode\Pixel_Manager\Options;
-use SweetCode\Pixel_Manager\Pixels\Google\Google;
 use SweetCode\Pixel_Manager\Pixels\Pixel_Manager;
 use WP_Post;
 if ( !defined( 'ABSPATH' ) ) {
@@ -15,14 +14,6 @@ if ( !defined( 'ABSPATH' ) ) {
     // Exit if accessed directly
 }
 class Admin {
-    public $ip;
-
-    private $options;
-
-    private $plugin_hook;
-
-    private $google;
-
     private static $instance;
 
     public static function get_instance() {
@@ -33,9 +24,6 @@ class Admin {
     }
 
     private function __construct() {
-        $this->options = Options::get_options();
-        $this->plugin_hook = 'woocommerce_page_wpm';
-        $this->google = new Google();
         add_action( 'admin_enqueue_scripts', [$this, 'wpm_admin_scripts'] );
         add_action( 'admin_enqueue_scripts', [$this, 'pmw_edit_order_scripts'] );
         add_action( 'admin_enqueue_scripts', [$this, 'wpm_admin_css'] );
@@ -717,14 +705,6 @@ class Admin {
                 $section_ids['settings_name']
             );
         }
-        // add fields for the Google Analytics link attribution
-        add_settings_field(
-            'wpm_setting_google_analytics_link_attribution',
-            esc_html__( 'Enhanced Link Attribution', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-            [$this, 'setting_html_google_analytics_link_attribution'],
-            'wpm_plugin_options_page',
-            $section_ids['settings_name']
-        );
         if ( wpm_fs()->can_use_premium_code__premium_only() || Options::pro_version_demo_active() ) {
             // add user_id for the Google
             add_settings_field(
@@ -841,7 +821,7 @@ class Admin {
         );
         // This feature is deprecated since 1.25.1
         // We keep it active for users who are currently using it.
-        if ( $this->options['facebook']['microdata'] ) {
+        if ( Options::is_facebook_microdata_active() ) {
             // add fields for Facebook microdata
             add_settings_field(
                 'wpm_setting_facebook_microdata_active',
@@ -1459,11 +1439,14 @@ class Admin {
 
 						<label class="switch" id="pmw-pro-version-demo">
 
-							<input type="hidden" value="0" name='wgact_plugin_options[general][pro_version_demo]'>
-							<input type="checkbox" value="1"
-								   name='wgact_plugin_options[general][pro_version_demo]' <?php 
+							<input type="hidden" value="0" name="wgact_plugin_options[general][pro_version_demo]">
+							<input type="checkbox"
+								   value="1"
+								   name="wgact_plugin_options[general][pro_version_demo]"
+								<?php 
             checked( Options::pro_version_demo_active() );
-            ?> />
+            ?>
+							/>
 
 							<span class="slider round"></span>
 
@@ -2035,13 +2018,17 @@ class Admin {
 
     public function option_html_google_analytics_4_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_analytics_4_measurement_id'
-			   name='wgact_plugin_options[google][analytics][ga4][measurement_id]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['analytics']['ga4']['measurement_id'] );
-        ?>'/>
+		<input class="pmw mono"
+			   id="wpm_plugin_analytics_4_measurement_id"
+			   name="wgact_plugin_options[google][analytics][ga4][measurement_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_ga4_measurement_id() );
+        ?>"
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['analytics']['ga4']['measurement_id'] );
+        self::display_status_icon( Options::is_ga4_enabled() );
         self::get_documentation_html_by_key( 'google_analytics_4_id' );
         self::output_advanced_section_cog_html( 'google' );
         self::wistia_video_icon( 'rcc3qzb25l' );
@@ -2052,12 +2039,17 @@ class Admin {
 
     public function option_html_google_ads_conversion_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_conversion_id' name='wgact_plugin_options[google][ads][conversion_id]'
-			   size='40' type='text' value='<?php 
-        esc_html_e( $this->options['google']['ads']['conversion_id'] );
-        ?>'/>
+		<input class="pmw mono"
+			   id="wpm_plugin_conversion_id"
+			   name="wgact_plugin_options[google][ads][conversion_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_google_ads_conversion_id() );
+        ?>"
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['ads']['conversion_id'] );
+        self::display_status_icon( Options::is_google_ads_active() );
         self::get_documentation_html_by_key( 'google_ads_conversion_id' );
         self::output_advanced_section_cog_html( 'google' );
         self::wistia_video_icon( 'vcuj59kbm6' );
@@ -2069,13 +2061,17 @@ class Admin {
 
     public function option_html_google_ads_conversion_label() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_conversion_label'
-			   name='wgact_plugin_options[google][ads][conversion_label]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['ads']['conversion_label'] );
-        ?>'/>
+		<input class="pmw mono"
+			   id="wpm_plugin_conversion_label"
+			   name="wgact_plugin_options[google][ads][conversion_label]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_google_ads_conversion_label() );
+        ?>"
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['ads']['conversion_label'], $this->options['google']['ads']['conversion_id'] );
+        self::display_status_icon( Options::get_google_ads_conversion_label(), Options::get_google_ads_conversion_id() );
         self::get_documentation_html_by_key( 'google_ads_conversion_label' );
         self::output_advanced_section_cog_html( 'google' );
         self::wistia_video_icon( 'vcuj59kbm6' );
@@ -2083,7 +2079,7 @@ class Admin {
         echo '<br><br>';
         esc_html_e( 'The purchase conversion label looks similar to this:', 'woocommerce-google-adwords-conversion-tracking-tag' );
         echo '&nbsp;<i>Xt19CO3axGAX0vg6X3gM</i>';
-        if ( $this->options['google']['ads']['conversion_label'] && !$this->options['google']['ads']['conversion_id'] ) {
+        if ( Options::get_google_ads_conversion_label() && !Options::get_google_ads_conversion_id() ) {
             echo '<p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'Requires an active Google Ads Conversion ID', 'woocommerce-google-adwords-conversion-tracking-tag' );
         }
@@ -2098,14 +2094,14 @@ class Admin {
 			   size="40"
 			   type="text"
 			   value="<?php 
-        esc_html_e( $this->options['pixels']['vwo']['account_id'] );
+        esc_html_e( Options::get_vwo_account_id() );
         ?>"
 			<?php 
         esc_html_e( self::disable_if_demo() );
         ?>
 		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['vwo']['account_id'], true, true );
+        self::display_status_icon( Options::is_vwo_active(), true, true );
         self::get_documentation_html_by_key( 'vwo_account_id' );
         self::wistia_video_icon( '9besn6q7h0' );
         echo '<br><br>';
@@ -2121,14 +2117,14 @@ class Admin {
 			   size="40"
 			   type="text"
 			   value="<?php 
-        esc_html_e( $this->options['pixels']['optimizely']['project_id'] );
+        esc_html_e( Options::get_optimizely_project_id() );
         ?>"
 			<?php 
         esc_html_e( self::disable_if_demo() );
         ?>
 		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['optimizely']['project_id'], true, true );
+        self::display_status_icon( Options::is_optimizely_active(), true, true );
         self::get_documentation_html_by_key( 'optimizely_project_id' );
         echo '<br><br>';
         esc_html_e( 'The Optimizely project ID looks like this:', 'woocommerce-google-adwords-conversion-tracking-tag' );
@@ -2143,14 +2139,14 @@ class Admin {
 			   size="40"
 			   type="text"
 			   value="<?php 
-        esc_html_e( $this->options['pixels']['ab_tasty']['account_id'] );
+        esc_html_e( Options::get_ab_tasty_account_id() );
         ?>"
 			<?php 
         esc_html_e( self::disable_if_demo() );
         ?>
 		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['ab_tasty']['account_id'], true, true );
+        self::display_status_icon( Options::is_ab_tasty_active(), true, true );
         self::get_documentation_html_by_key( 'ab_tasty_account_id' );
         echo '<br><br>';
         esc_html_e( 'The AB Tasty account ID looks like this:', 'woocommerce-google-adwords-conversion-tracking-tag' );
@@ -2159,12 +2155,17 @@ class Admin {
 
     public function option_html_facebook_pixel_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_facebook_pixel_id' name='wgact_plugin_options[facebook][pixel_id]'
-			   size='40' type='text' value='<?php 
-        esc_html_e( $this->options['facebook']['pixel_id'] );
-        ?>'/>
+		<input class="pmw mono"
+			   id="wpm_plugin_facebook_pixel_id"
+			   name="wgact_plugin_options[facebook][pixel_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_facebook_pixel_id() );
+        ?>"
+		/>
 		<?php 
-        self::display_status_icon( $this->options['facebook']['pixel_id'] );
+        self::display_status_icon( Options::is_facebook_active() );
         self::get_documentation_html_by_key( 'facebook_pixel_id' );
         self::output_advanced_section_cog_html( 'facebook' );
         echo '<br><br>';
@@ -2174,13 +2175,18 @@ class Admin {
 
     public function option_html_adroll_advertiser_id() {
         ?>
-		<input class="pmw mono" id='pmw_adroll_advertiser_id' name='wgact_plugin_options[pixels][adroll][advertiser_id]'
-			   size='40' type='text'
-			   value='<?php 
+		<input class="pmw mono"
+			   id="pmw_adroll_advertiser_id"
+			   name="wgact_plugin_options[pixels][adroll][advertiser_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( Options::get_adroll_advertiser_id() );
-        ?>' <?php 
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::is_adroll_advertiser_id_set(), Options::is_adroll_pixel_id_set() );
         self::get_documentation_html_by_key( 'adroll_advertiser_id' );
@@ -2203,13 +2209,18 @@ class Admin {
 
     public function option_html_adroll_pixel_id() {
         ?>
-		<input class="pmw mono" id='pmw_adroll_pixel_id' name='wgact_plugin_options[pixels][adroll][pixel_id]' size='40'
-			   type='text'
-			   value='<?php 
+		<input class="pmw mono"
+			   id="pmw_adroll_pixel_id"
+			   name="wgact_plugin_options[pixels][adroll][pixel_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( Options::get_adroll_pixel_id() );
-        ?>' <?php 
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::is_adroll_pixel_id_set(), Options::is_adroll_advertiser_id_set() );
         self::get_documentation_html_by_key( 'adroll_pixel_id' );
@@ -2236,14 +2247,18 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[bing][enhanced_conversions]'>
-			<input type="checkbox" id='plugin_microsoft_enhanced_conversions'
-				   name='wgact_plugin_options[bing][enhanced_conversions]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[bing][enhanced_conversions]">
+			<input type="checkbox"
+				   id="plugin_microsoft_enhanced_conversions"
+				   name="wgact_plugin_options[bing][enhanced_conversions]"
+				   value="1"
+				<?php 
         checked( Options::is_bing_enhanced_conversions_enabled() );
-        ?> <?php 
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Microsoft Enhanced Conversions', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -2256,13 +2271,18 @@ class Admin {
 
     public function option_html_linkedin_partner_id() {
         ?>
-		<input class="pmw mono" id='pmw_linkedin_partner_id' name='wgact_plugin_options[pixels][linkedin][partner_id]'
-			   size='40' type='text'
-			   value='<?php 
+		<input class="pmw mono"
+			   id="pmw_linkedin_partner_id"
+			   name="wgact_plugin_options[pixels][linkedin][partner_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( Options::get_linkedin_partner_id() );
-        ?>' <?php 
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_partner_id' );
@@ -2276,138 +2296,162 @@ class Admin {
     }
 
     public function setting_linkedin_search() {
-        $text_length = max( strlen( $this->options['pixels']['linkedin']['conversion_ids']['search'] ), 14 );
+        $text_length = max( strlen( Options::get_linkedin_conversion_id( 'search' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_linkedin_search'
-			   name='wgact_plugin_options[pixels][linkedin][conversion_ids][search]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_linkedin_search"
+			   name="wgact_plugin_options[pixels][linkedin][conversion_ids][search]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['linkedin']['conversion_ids']['search'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_linkedin_conversion_id( 'search' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['linkedin']['conversion_ids']['search'], $this->options['pixels']['linkedin']['partner_id'] );
+        self::display_status_icon( Options::get_linkedin_conversion_id( 'search' ), Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_event_ids' );
         self::wistia_video_icon( 'zrrp8aq4g0' );
         self::html_pro_feature();
     }
 
     public function setting_linkedin_view_content() {
-        $text_length = max( strlen( $this->options['pixels']['linkedin']['conversion_ids']['view_content'] ), 14 );
+        $text_length = max( strlen( Options::get_linkedin_conversion_id( 'view_content' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_linkedin_view_content'
-			   name='wgact_plugin_options[pixels][linkedin][conversion_ids][view_content]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_linkedin_view_content"
+			   name="wgact_plugin_options[pixels][linkedin][conversion_ids][view_content]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['linkedin']['conversion_ids']['view_content'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_linkedin_conversion_id( 'view_content' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['linkedin']['conversion_ids']['view_content'], $this->options['pixels']['linkedin']['partner_id'] );
+        self::display_status_icon( Options::get_linkedin_conversion_id( 'view_content' ), Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_event_ids' );
         self::wistia_video_icon( 'zrrp8aq4g0' );
         self::html_pro_feature();
     }
 
     public function setting_linkedin_add_to_list() {
-        $text_length = max( strlen( $this->options['pixels']['linkedin']['conversion_ids']['add_to_list'] ), 14 );
+        $text_length = max( strlen( Options::get_linkedin_conversion_id( 'add_to_list' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_linkedin_add_to_list'
-			   name='wgact_plugin_options[pixels][linkedin][conversion_ids][add_to_list]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_linkedin_add_to_list"
+			   name="wgact_plugin_options[pixels][linkedin][conversion_ids][add_to_list]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['linkedin']['conversion_ids']['add_to_list'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_linkedin_conversion_id( 'add_to_list' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['linkedin']['conversion_ids']['add_to_list'], $this->options['pixels']['linkedin']['partner_id'] );
+        self::display_status_icon( Options::get_linkedin_conversion_id( 'add_to_list' ), Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_event_ids' );
         self::wistia_video_icon( 'zrrp8aq4g0' );
         self::html_pro_feature();
     }
 
     public function setting_linkedin_add_to_cart() {
-        $text_length = max( strlen( $this->options['pixels']['linkedin']['conversion_ids']['add_to_cart'] ), 14 );
+        $text_length = max( strlen( Options::get_linkedin_conversion_id( 'add_to_cart' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_linkedin_add_to_cart'
-			   name='wgact_plugin_options[pixels][linkedin][conversion_ids][add_to_cart]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_linkedin_add_to_cart"
+			   name="wgact_plugin_options[pixels][linkedin][conversion_ids][add_to_cart]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['linkedin']['conversion_ids']['add_to_cart'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_linkedin_conversion_id( 'add_to_cart' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['linkedin']['conversion_ids']['add_to_cart'], $this->options['pixels']['linkedin']['partner_id'] );
+        self::display_status_icon( Options::get_linkedin_conversion_id( 'add_to_cart' ), Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_event_ids' );
         self::wistia_video_icon( 'zrrp8aq4g0' );
         self::html_pro_feature();
     }
 
     public function setting_linkedin_start_checkout() {
-        $text_length = max( strlen( $this->options['pixels']['linkedin']['conversion_ids']['start_checkout'] ), 14 );
+        $text_length = max( strlen( Options::get_linkedin_conversion_id( 'start_checkout' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_linkedin_start_checkout'
-			   name='wgact_plugin_options[pixels][linkedin][conversion_ids][start_checkout]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_linkedin_start_checkout"
+			   name="wgact_plugin_options[pixels][linkedin][conversion_ids][start_checkout]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['linkedin']['conversion_ids']['start_checkout'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_linkedin_conversion_id( 'start_checkout' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['linkedin']['conversion_ids']['start_checkout'], $this->options['pixels']['linkedin']['partner_id'] );
+        self::display_status_icon( Options::get_linkedin_conversion_id( 'start_checkout' ), Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_event_ids' );
         self::wistia_video_icon( 'zrrp8aq4g0' );
         self::html_pro_feature();
     }
 
     public function setting_linkedin_purchase() {
-        $text_length = max( strlen( $this->options['pixels']['linkedin']['conversion_ids']['purchase'] ), 14 );
+        $text_length = max( strlen( Options::get_linkedin_conversion_id( 'purchase' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_linkedin_purchase'
-			   name='wgact_plugin_options[pixels][linkedin][conversion_ids][purchase]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_linkedin_purchase"
+			   name="wgact_plugin_options[pixels][linkedin][conversion_ids][purchase]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['linkedin']['conversion_ids']['purchase'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_linkedin_conversion_id( 'purchase' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pixels']['linkedin']['conversion_ids']['purchase'], $this->options['pixels']['linkedin']['partner_id'] );
+        self::display_status_icon( Options::get_linkedin_conversion_id( 'purchase' ), Options::is_linkedin_active() );
         self::get_documentation_html_by_key( 'linkedin_event_ids' );
         self::wistia_video_icon( 'zrrp8aq4g0' );
         self::html_pro_feature();
@@ -2415,15 +2459,20 @@ class Admin {
 
     public function option_html_bing_uet_tag_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_bing_uet_tag_id' name='wgact_plugin_options[bing][uet_tag_id]' size='40'
-			   type='text'
-			   value='<?php 
-        esc_html_e( $this->options['bing']['uet_tag_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_plugin_bing_uet_tag_id"
+			   name="wgact_plugin_options[bing][uet_tag_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_bing_uet_tag_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['bing']['uet_tag_id'] );
+        self::display_status_icon( Options::is_bing_active() );
         self::get_documentation_html_by_key( 'bing_uet_tag_id' );
         self::html_pro_feature();
         echo '<br><br>';
@@ -2433,15 +2482,20 @@ class Admin {
 
     public function option_html_twitter_pixel_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_twitter_pixel_id' name='wgact_plugin_options[twitter][pixel_id]'
-			   size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['twitter']['pixel_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_plugin_twitter_pixel_id"
+			   name="wgact_plugin_options[twitter][pixel_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_pixel_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_pixel_id' );
         self::output_advanced_section_cog_html( 'twitter' );
         self::html_pro_feature();
@@ -2451,142 +2505,175 @@ class Admin {
     }
 
     public function setting_twitter_add_to_cart() {
-        $text_length = max( strlen( $this->options['twitter']['event_ids']['add_to_cart'] ), 14 );
+        $text_length = max( strlen( Options::get_twitter_event_id( 'add_to_cart' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_twitter_add_to_cart'
-			   name='wgact_plugin_options[twitter][event_ids][add_to_cart]' size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_add_to_cart"
+			   name="wgact_plugin_options[twitter][event_ids][add_to_cart]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-			   type='text' value='<?php 
-        esc_html_e( $this->options['twitter']['event_ids']['add_to_cart'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'add_to_cart' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['event_ids']['add_to_cart'], $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::get_twitter_event_id( 'add_to_cart' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
 
     public function setting_twitter_add_to_wishlist() {
-        $text_length = max( strlen( $this->options['twitter']['event_ids']['add_to_wishlist'] ), 14 );
+        $text_length = max( strlen( Options::get_twitter_event_id( 'add_to_wishlist' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_twitter_add_to_wishlist'
-			   name='wgact_plugin_options[twitter][event_ids][add_to_wishlist]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_add_to_wishlist"
+			   name="wgact_plugin_options[twitter][event_ids][add_to_wishlist]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['twitter']['event_ids']['add_to_wishlist'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'add_to_wishlist' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['event_ids']['add_to_wishlist'], $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::get_twitter_event_id( 'add_to_wishlist' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
 
     public function setting_twitter_view_content() {
-        $text_length = max( strlen( $this->options['twitter']['event_ids']['view_content'] ), 14 );
+        $text_length = max( strlen( Options::get_twitter_event_id( 'view_content' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_twitter_view_content'
-			   name='wgact_plugin_options[twitter][event_ids][view_content]' size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_view_content"
+			   name="wgact_plugin_options[twitter][event_ids][view_content]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-			   type='text' value='<?php 
-        esc_html_e( $this->options['twitter']['event_ids']['view_content'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'view_content' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['event_ids']['view_content'], $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::get_twitter_event_id( 'view_content' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
 
     public function setting_twitter_search() {
-        $text_length = max( strlen( $this->options['twitter']['event_ids']['search'] ), 14 );
+        $text_length = max( strlen( Options::get_twitter_event_id( 'search' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_twitter_search' name='wgact_plugin_options[twitter][event_ids][search]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_search"
+			   name="wgact_plugin_options[twitter][event_ids][search]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['twitter']['event_ids']['search'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'search' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['event_ids']['search'], $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::get_twitter_event_id( 'search' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
 
     public function setting_twitter_initiate_checkout() {
-        $text_length = max( strlen( $this->options['twitter']['event_ids']['initiate_checkout'] ), 14 );
+        $text_length = max( strlen( Options::get_twitter_event_id( 'initiate_checkout' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_twitter_initiate_checkout'
-			   name='wgact_plugin_options[twitter][event_ids][initiate_checkout]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_initiate_checkout"
+			   name="wgact_plugin_options[twitter][event_ids][initiate_checkout]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['twitter']['event_ids']['initiate_checkout'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'initiate_checkout' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['event_ids']['initiate_checkout'], $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::get_twitter_event_id( 'initiate_checkout' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
 
     public function setting_twitter_purchase() {
-        $text_length = max( strlen( $this->options['twitter']['event_ids']['purchase'] ), 14 );
+        $text_length = max( strlen( Options::get_twitter_event_id( 'purchase' ) ), 14 );
         ?>
-		<input class="pmw mono" id='pmw_setting_twitter_purchase'
-			   name='wgact_plugin_options[twitter][event_ids][purchase]' size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_purchase"
+			   name="wgact_plugin_options[twitter][event_ids][purchase]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-			   type='text' value='<?php 
-        esc_html_e( $this->options['twitter']['event_ids']['purchase'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'purchase' ) );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['twitter']['event_ids']['purchase'], $this->options['twitter']['pixel_id'] );
+        self::display_status_icon( Options::get_twitter_event_id( 'purchase' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
 
     public function option_html_outbrain_advertiser_id() {
         ?>
-		<input class="pmw mono" id='pmw_plugin_outbrain_advertiser_id'
-			   name='wgact_plugin_options[pixels][outbrain][advertiser_id]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['outbrain']['advertiser_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_outbrain_advertiser_id"
+			   name="wgact_plugin_options[pixels][outbrain][advertiser_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_outbrain_advertiser_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::is_outbrain_active() );
         self::get_documentation_html_by_key( 'outbrain_advertiser_id' );
@@ -2600,15 +2687,20 @@ class Admin {
 
     public function option_html_pinterest_pixel_id() {
         ?>
-		<input class="pmw mono" id='pmw_plugin_pinterest_pixel_id' name='wgact_plugin_options[pinterest][pixel_id]'
-			   size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pinterest']['pixel_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_pinterest_pixel_id"
+			   name="wgact_plugin_options[pinterest][pixel_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_pinterest_pixel_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pinterest']['pixel_id'] );
+        self::display_status_icon( Options::is_pinterest_active() );
         self::get_documentation_html_by_key( 'pinterest_pixel_id' );
         self::output_advanced_section_cog_html( 'pinterest' );
         self::html_pro_feature();
@@ -2623,21 +2715,25 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[pinterest][enhanced_match]'>
-			<input type="checkbox" id='wpm_plugin_pinterest_enhanced_match'
-				   name='wgact_plugin_options[pinterest][enhanced_match]'
-				   value="1" <?php 
-        checked( $this->options['pinterest']['enhanced_match'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[pinterest][enhanced_match]">
+			<input type="checkbox"
+				   id="wpm_plugin_pinterest_enhanced_match"
+				   name="wgact_plugin_options[pinterest][enhanced_match]"
+				   value="1"
+				<?php 
+        checked( Options::is_pinterest_enhanced_match_enabled() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 
 			<?php 
         esc_html_e( 'Enable Pinterest enhanced match', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['pinterest']['enhanced_match'], Options::is_pinterest_active(), true );
+        self::display_status_icon( Options::is_pinterest_enhanced_match_enabled(), Options::is_pinterest_active(), true );
         self::get_documentation_html_by_key( 'pinterest_enhanced_match' );
         self::html_pro_feature();
         ?>
@@ -2647,15 +2743,20 @@ class Admin {
 
     public function option_html_snapchat_pixel_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_snapchat_pixel_id' name='wgact_plugin_options[snapchat][pixel_id]'
-			   size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['snapchat']['pixel_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_plugin_snapchat_pixel_id"
+			   name="wgact_plugin_options[snapchat][pixel_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_snapchat_pixel_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['snapchat']['pixel_id'] );
+        self::display_status_icon( Options::is_snapchat_active() );
         self::get_documentation_html_by_key( 'snapchat_pixel_id' );
         self::html_pro_feature();
         echo '<br><br>';
@@ -2665,13 +2766,18 @@ class Admin {
 
     public function option_html_taboola_account_id() {
         ?>
-		<input class="pmw mono" id='pmw_plugin_taboola_account_id'
-			   name='wgact_plugin_options[pixels][taboola][account_id]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['pixels']['taboola']['account_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_taboola_account_id"
+			   name="wgact_plugin_options[pixels][taboola][account_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_taboola_account_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::is_taboola_active() );
         self::get_documentation_html_by_key( 'taboola_account_id' );
@@ -2685,15 +2791,20 @@ class Admin {
 
     public function option_html_tiktok_pixel_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_tiktok_pixel_id' name='wgact_plugin_options[tiktok][pixel_id]' size='40'
-			   type='text'
-			   value='<?php 
-        esc_html_e( $this->options['tiktok']['pixel_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_plugin_tiktok_pixel_id"
+			   name="wgact_plugin_options[tiktok][pixel_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_tiktok_pixel_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['tiktok']['pixel_id'] );
+        self::display_status_icon( Options::is_tiktok_active() );
         self::get_documentation_html_by_key( 'tiktok_pixel_id' );
         self::output_advanced_section_cog_html( 'tiktok' );
         self::html_pro_feature();
@@ -2704,12 +2815,17 @@ class Admin {
 
     public function option_html_hotjar_site_id() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_hotjar_site_id' name='wgact_plugin_options[hotjar][site_id]' size='40'
-			   type='text' value='<?php 
-        esc_html_e( $this->options['hotjar']['site_id'] );
-        ?>'/>
+		<input class="pmw mono"
+			   id="wpm_plugin_hotjar_site_id"
+			   name="wgact_plugin_options[hotjar][site_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_hotjar_site_id() );
+        ?>"
+		/>
 		<?php 
-        self::display_status_icon( $this->options['hotjar']['site_id'] );
+        self::display_status_icon( Options::is_hotjar_enabled() );
         self::get_documentation_html_by_key( 'hotjar_site_id' );
         self::wistia_video_icon( 'z9tjk5eia7' );
         echo '<br><br>';
@@ -2723,13 +2839,18 @@ class Admin {
      */
     public function option_html_reddit_pixel_id() {
         ?>
-		<input class="pmw mono" id='plugin_reddit_pixel_id' name='wgact_plugin_options[pixels][reddit][advertiser_id]'
-			   size='40' type='text'
-			   value='<?php 
+		<input class="pmw mono"
+			   id="plugin_reddit_pixel_id"
+			   name="wgact_plugin_options[pixels][reddit][advertiser_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( Options::get_reddit_advertiser_id() );
-        ?>' <?php 
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::get_reddit_advertiser_id(), true, true );
         ?>
@@ -2762,14 +2883,18 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[snapchat][advanced_matching]'>
-			<input type="checkbox" id='plugin_snapchat_advanced_matching'
-				   name='wgact_plugin_options[snapchat][advanced_matching]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[snapchat][advanced_matching]">
+			<input type="checkbox"
+				   id="plugin_snapchat_advanced_matching"
+				   name="wgact_plugin_options[snapchat][advanced_matching]"
+				   value="1"
+				<?php 
         checked( Options::is_snapchat_advanced_matching_enabled() );
-        ?> <?php 
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Snapchat Advanced Matching', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -2786,14 +2911,18 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[pixels][reddit][advanced_matching]'>
-			<input type="checkbox" id='plugin_reddit_advanced_matching'
-				   name='wgact_plugin_options[pixels][reddit][advanced_matching]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[pixels][reddit][advanced_matching]">
+			<input type="checkbox"
+				   id="plugin_reddit_advanced_matching"
+				   name="wgact_plugin_options[pixels][reddit][advanced_matching]"
+				   value="1"
+				<?php 
         checked( Options::is_reddit_advanced_matching_enabled() );
-        ?> <?php 
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Reddit advanced matching', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -2969,12 +3098,15 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[google][consent_mode][active]'>
-			<input type="checkbox" id='wpm_setting_google_consent_mode_active'
-				   name='wgact_plugin_options[google][consent_mode][active]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[google][consent_mode][active]">
+			<input type="checkbox"
+				   id="wpm_setting_google_consent_mode_active"
+				   name="wgact_plugin_options[google][consent_mode][active]"
+				   value="1"
+				<?php 
         checked( Options::is_google_consent_mode_active() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Google Consent Mode v2 with standard settings', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -3006,7 +3138,10 @@ class Admin {
         ?>"
 				   value="1"
 				<?php 
-        checked( Options::is_cookie_consent_explicit_consent_active() );
+        checked( Options::is_consent_management_explicit_consent_active() );
+        ?>
+				<?php 
+        disabled( Options::consent_management_is_explicit_consent_active_override() );
         ?>
 			/>
 			<?php 
@@ -3014,12 +3149,23 @@ class Admin {
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( Options::is_cookie_consent_explicit_consent_active(), true, true );
+        self::display_status_icon( Options::is_consent_management_explicit_consent_active(), true, true );
+        ?>
+		<?php 
+        if ( Options::consent_management_is_explicit_consent_active_override() ) {
+            ?>
+			<?php 
+            self::html_status_icon_override();
+            ?>
+		<?php 
+        }
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'explicit_consent_mode' );
         ?>
 		<p style="margin-top:10px">
+		<div>
+
 			<?php 
         esc_html_e( 'While the Explicit Consent Mode is active no pixels will be fired until the visitor gives consent.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -3028,6 +3174,7 @@ class Admin {
         esc_html_e( 'With Google Consent Mode enabled, Google will instead use cookieless tracking.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 			<br>
+		</div>
 		<div style="margin-top: 5px">
 			<span class="dashicons dashicons-info"></span>
 			<?php 
@@ -3077,8 +3224,8 @@ class Admin {
             // Rarely Options::get_options_obj()->google->consent_mode->regions is null
             // The reason is a mystery. It happens in very rare cases and can't be reproduced.
             // So we have to check if it is an array before using in_array()
-            if ( is_array( Options::get_options_obj()->google->consent_mode->regions ) ) {
-                esc_html_e( ( in_array( $region_code, Options::get_options_obj()->google->consent_mode->regions ) ? 'selected' : '' ) );
+            if ( is_array( Options::get_restricted_consent_regions_raw() ) ) {
+                esc_html_e( ( in_array( $region_code, Options::get_restricted_consent_regions_raw() ) ? 'selected' : '' ) );
             }
             ?>
 				>
@@ -3100,7 +3247,7 @@ class Admin {
         self::get_documentation_html_by_key( 'restricted_consent_regions' );
         ?>
 		<?php 
-        self::display_status_icon( Options::is_cookie_consent_explicit_consent_active(), true, true );
+        self::display_status_icon( Options::is_consent_management_explicit_consent_active(), true, true );
         ?>
 		<p>
 			<?php 
@@ -3109,7 +3256,7 @@ class Admin {
 			<br>
 		<div style="margin-top: 5px">
 			<?php 
-        if ( !Options::is_cookie_consent_explicit_consent_active() ) {
+        if ( !Options::is_consent_management_explicit_consent_active() ) {
             ?>
 				<span class="dashicons dashicons-info"></span>
 				<?php 
@@ -3134,13 +3281,18 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[google][tcf_support]'>
-			<input type="checkbox" id='setting_google_tcf_support' name='wgact_plugin_options[google][tcf_support]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[google][tcf_support]">
+			<input type="checkbox"
+				   id="setting_google_tcf_support"
+				   name="wgact_plugin_options[google][tcf_support]"
+				   value="1"
+				<?php 
         checked( Options::is_google_tcf_support_active() );
-        ?> <?php 
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Google TCF support', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -3162,19 +3314,24 @@ class Admin {
 
     public function setting_html_google_analytics_4_api_secret() {
         ?>
-		<input class="pmw mono" id='wpm_setting_google_analytics_4_api_secret'
-			   name='wgact_plugin_options[google][analytics][ga4][api_secret]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['analytics']['ga4']['api_secret'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_setting_google_analytics_4_api_secret"
+			   name="wgact_plugin_options[google][analytics][ga4][api_secret]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_ga4_mp_api_secret() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['analytics']['ga4']['api_secret'] );
+        self::display_status_icon( Options::is_ga4_mp_active() );
         self::get_documentation_html_by_key( 'google_analytics_4_api_secret' );
         self::html_pro_feature();
         echo '<br><br>';
-        if ( !$this->options['google']['analytics']['ga4']['measurement_id'] ) {
+        if ( !Options::is_ga4_enabled() ) {
             echo '<p></p><span class="dashicons dashicons-info" style="margin-right: 10px"></span>';
             esc_html_e( 'Google Analytics 4 activation required', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p>';
@@ -3184,42 +3341,45 @@ class Admin {
 
     public function setting_html_ga4_property_id() {
         ?>
-		<input class="pmw mono" id='pmw_setting_ga4_property_id'
-			   name='wgact_plugin_options[google][analytics][ga4][data_api][property_id]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['analytics']['ga4']['data_api']['property_id'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="pmw_setting_ga4_property_id"
+			   name="wgact_plugin_options[google][analytics][ga4][data_api][property_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_ga4_data_api_property_id() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['analytics']['ga4']['data_api']['property_id'], count( $this->options['google']['analytics']['ga4']['data_api']['credentials'] ) > 0 );
+        self::display_status_icon( Options::get_ga4_data_api_property_id(), count( Options::get_ga4_data_api_credentials() ) > 0 );
         self::get_documentation_html_by_key( 'ga4_data_api_property_id' );
         self::html_pro_feature();
-        //		echo '<br><br>';
-        //		if (!$this->options['google']['analytics']['ga4']['measurement_id']) {
-        //			echo '<p></p><span class="dashicons dashicons-info" style="margin-right: 10px"></span>';
-        //			esc_html_e('Google Analytics 4 activation required', 'woocommerce-google-adwords-conversion-tracking-tag');
-        //			echo '</p>';
-        //		}
-        //		esc_html_e('If enabled, purchase and refund events will be sent to Google through the measurement protocol for increased accuracy.', 'woocommerce-google-adwords-conversion-tracking-tag');
     }
 
     public function setting_html_g4_data_api_credentials() {
-        $client_email = ( isset( $this->options['google']['analytics']['ga4']['data_api']['credentials']['client_email'] ) ? $this->options['google']['analytics']['ga4']['data_api']['credentials']['client_email'] : '' );
+        $client_email = ( isset( Options::get_ga4_data_api_credentials()['client_email'] ) ? Options::get_ga4_data_api_credentials()['client_email'] : '' );
         $text_length = max( strlen( $client_email ), 80 );
         ?>
 		<div style="margin-top: 5px">
 
-			<input class="pmw mono" id='pmw_setting_ga4_data_api_client_email'
-				   name='pmw_setting_ga4_data_api_client_email' size='<?php 
+			<input class="pmw mono"
+				   id="pmw_setting_ga4_data_api_client_email"
+				   name="pmw_setting_ga4_data_api_client_email"
+				   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
+        ?>"
+				   type="text"
 				   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" value='<?php 
+        ?>ch"
+				   value="<?php 
         esc_html_e( $client_email );
-        ?>'
-				   disabled/>
+        ?>"
+				   disabled
+			/>
 
 			<script>
 				const pmwCopyGa4ClientEmailToClipboardCA = () => {
@@ -3249,7 +3409,7 @@ class Admin {
 
 
 			<?php 
-        self::display_status_icon( isset( $this->options['google']['analytics']['ga4']['data_api']['credentials']['client_email'] ), $this->options['google']['analytics']['ga4']['data_api']['property_id'] );
+        self::display_status_icon( isset( Options::get_ga4_data_api_credentials()['client_email'] ), Options::get_ga4_data_api_property_id() );
         ?>
 			<?php 
         self::get_documentation_html_by_key( 'ga4_data_api_credentials' );
@@ -3289,7 +3449,7 @@ class Admin {
 
 			<div style="margin-top: 20px">
 				<?php 
-        if ( !$this->options['google']['analytics']['ga4']['data_api']['property_id'] ) {
+        if ( !Options::get_ga4_data_api_property_id() ) {
             ?>
 					<span class="dashicons dashicons-info" style="padding-right: 10px"></span>
 					<?php 
@@ -3333,52 +3493,26 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[google][analytics][ga4][page_load_time_tracking]'>
-			<input type="checkbox" id='pmw_setting_ga4_page_load_time_tracking'
-				   name='wgact_plugin_options[google][analytics][ga4][page_load_time_tracking]'
-				   value="1" <?php 
-        checked( $this->options['google']['analytics']['ga4']['page_load_time_tracking'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[google][analytics][ga4][page_load_time_tracking]">
+			<input type="checkbox"
+				   id="pmw_setting_ga4_page_load_time_tracking"
+				   name="wgact_plugin_options[google][analytics][ga4][page_load_time_tracking]"
+				   value="1"
+				<?php 
+        checked( Options::is_ga4_page_load_time_tracking_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'GA4 page load time tracking.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['google']['analytics']['ga4']['page_load_time_tracking'], true, true );
+        self::display_status_icon( Options::is_ga4_page_load_time_tracking_active(), true, true );
         self::get_documentation_html_by_key( 'ga4_page_load_time_tracking' );
         self::html_pro_feature();
-    }
-
-    public function setting_html_google_analytics_link_attribution() {
-        // adding the hidden input is a hack to make WordPress save the option with the value zero,
-        // instead of not saving it and remove that array key entirely
-        // https://stackoverflow.com/a/1992745/4688612
-        ?>
-		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[google][analytics][link_attribution]'>
-			<input type="checkbox" id='wpm_setting_google_analytics_link_attribution'
-				   name='wgact_plugin_options[google][analytics][link_attribution]'
-				   value="1" <?php 
-        checked( $this->options['google']['analytics']['link_attribution'] );
-        ?> />
-			<?php 
-        esc_html_e( 'Enable Google Analytics enhanced link attribution', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>
-		</label>
-		<?php 
-        self::display_status_icon( $this->options['google']['analytics']['link_attribution'], $this->options['google']['analytics']['universal']['property_id'] || $this->options['google']['analytics']['ga4']['measurement_id'], true );
-        ?>
-		<?php 
-        //        echo self::get_documentation_html('/wgact/?utm_source=woocommerce-plugin&utm_medium=documentation-link&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=google-consent-mode#/consent-mgmt/google-consent-mode');
-        ?>
-		<?php 
-        if ( $this->options['google']['analytics']['link_attribution'] && (!$this->options['google']['analytics']['universal']['property_id'] && !$this->options['google']['analytics']['ga4']['measurement_id']) ) {
-            echo '<p></p><span class="dashicons dashicons-info"></span>';
-            esc_html_e( 'You need to activate at least Google Analytics UA or Google Analytics 4', 'woocommerce-google-adwords-conversion-tracking-tag' );
-            echo '</p><br>';
-        }
     }
 
     public function setting_html_google_user_id() {
@@ -3387,13 +3521,18 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[google][user_id]'>
-			<input type="checkbox" id='wpm_setting_google_user_id' name='wgact_plugin_options[google][user_id]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[google][user_id]">
+			<input type="checkbox"
+				   id="wpm_setting_google_user_id"
+				   name="wgact_plugin_options[google][user_id]"
+				   value="1"
+				<?php 
         checked( Options::is_google_user_id_active() );
-        ?> <?php 
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Google user ID', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -3447,15 +3586,20 @@ class Admin {
 
     public function setting_html_google_ads_phone_conversion_number() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_google_ads_phone_conversion_number'
-			   name='wgact_plugin_options[google][ads][phone_conversion_number]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['ads']['phone_conversion_number'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_plugin_google_ads_phone_conversion_number"
+			   name="wgact_plugin_options[google][ads][phone_conversion_number]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_google_ads_phone_conversion_number() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['ads']['phone_conversion_number'], $this->options['google']['ads']['phone_conversion_label'] && $this->options['google']['ads']['phone_conversion_number'] );
+        self::display_status_icon( Options::get_google_ads_phone_conversion_number(), Options::get_google_ads_phone_conversion_label() && Options::get_google_ads_phone_conversion_number() );
         self::get_documentation_html_by_key( 'google_ads_phone_conversion_number' );
         self::html_pro_feature();
         echo '<br><br>';
@@ -3464,15 +3608,20 @@ class Admin {
 
     public function setting_html_google_ads_phone_conversion_label() {
         ?>
-		<input class="pmw mono" id='wpm_plugin_google_ads_phone_conversion_label'
-			   name='wgact_plugin_options[google][ads][phone_conversion_label]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['ads']['phone_conversion_label'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="wpm_plugin_google_ads_phone_conversion_label"
+			   name="wgact_plugin_options[google][ads][phone_conversion_label]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_google_ads_phone_conversion_label() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['ads']['phone_conversion_label'], $this->options['google']['ads']['phone_conversion_label'] && $this->options['google']['ads']['phone_conversion_number'] );
+        self::display_status_icon( Options::get_google_ads_phone_conversion_label(), Options::get_google_ads_phone_conversion_label() && Options::get_google_ads_phone_conversion_number() );
         self::get_documentation_html_by_key( 'google_ads_phone_conversion_label' );
         self::html_pro_feature();
         echo '<br><br>';
@@ -3481,13 +3630,18 @@ class Admin {
 
     public function setting_html_google_ads_conversion_adjustments_conversion_name() {
         ?>
-		<input class="pmw mono" id='pmw_plugin_google_ads_conversion_adjustments_conversion_name'
-			   name='wgact_plugin_options[google][ads][conversion_adjustments][conversion_name]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['ads']['conversion_adjustments']['conversion_name'] );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_google_ads_conversion_adjustments_conversion_name"
+			   name="wgact_plugin_options[google][ads][conversion_adjustments][conversion_name]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_google_ads_conversion_adjustments_conversion_name() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::display_status_icon( Options::is_google_ads_conversion_adjustments_active(), Options::is_google_ads_active() );
         ?>
@@ -3519,16 +3673,21 @@ class Admin {
         ?>
 		<div style="margin-top: 5px">
 
-			<input class="pmw mono" id='pmw_plugin_google_ads_conversion_adjustments_feed'
-				   name='pmw_plugin_google_ads_conversion_adjustments_feed' size='<?php 
+			<input class="pmw mono"
+				   id="pmw_plugin_google_ads_conversion_adjustments_feed"
+				   name="pmw_plugin_google_ads_conversion_adjustments_feed"
+				   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-				   type='text' style="width:<?php 
+        ?>"
+				   type="text"
+				   style="width:<?php 
         esc_html_e( $text_length );
         ?>ch"
-				   value='<?php 
+				   value="<?php 
         echo esc_url( $feed_url );
-        ?>' disabled/>
+        ?>"
+				   disabled
+			/>
 			<script>
 				const pmwCopyToClipboardCA = () => {
 
@@ -3639,18 +3798,23 @@ class Admin {
 
     public function setting_html_facebook_capi_token() {
         ?>
-		<textarea class="pmw mono" id='wpm_setting_facebook_capi_token'
-				  name='wgact_plugin_options[facebook][capi][token]' cols='60'
-				  rows='5' <?php 
+		<textarea class="pmw mono"
+				  id="wpm_setting_facebook_capi_token"
+				  name="wgact_plugin_options[facebook][capi][token]"
+				  cols="60"
+				  rows="5"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?>><?php 
-        esc_html_e( $this->options['facebook']['capi']['token'] );
-        ?></textarea>
+        ?>>
+			<?php 
+        esc_html_e( Options::get_facebook_capi_token() );
+        ?>
+		</textarea>
 		<?php 
-        self::display_status_icon( $this->options['facebook']['capi']['token'], $this->options['facebook']['pixel_id'] );
+        self::display_status_icon( Options::get_facebook_capi_token(), Options::is_facebook_active() );
         self::get_documentation_html_by_key( 'facebook_capi_token' );
         self::html_pro_feature();
-        if ( !$this->options['facebook']['pixel_id'] ) {
+        if ( !Options::is_facebook_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the Meta (Facebook) pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3662,22 +3826,27 @@ class Admin {
     }
 
     public function setting_html_facebook_capi_test_event_code() {
-        $text_length = max( strlen( $this->options['facebook']['capi']['test_event_code'] ), 9 );
+        $text_length = max( strlen( Options::get_facebook_capi_test_event_code() ), 9 );
         ?>
-		<input class="pmw mono" id='pmw_setting_facebook_capi_test_event_code'
-			   name='wgact_plugin_options[facebook][capi][test_event_code]' size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_facebook_capi_test_event_code"
+			   name="wgact_plugin_options[facebook][capi][test_event_code]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-			   type='text' style="width:<?php 
+        ?>"
+			   type="text"
+			   style="width:<?php 
         esc_html_e( $text_length );
         ?>ch"
-			   value='<?php 
-        esc_html_e( $this->options['facebook']['capi']['test_event_code'] );
-        ?>' <?php 
+			   value="<?php 
+        esc_html_e( Options::get_facebook_capi_test_event_code() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['facebook']['capi']['test_event_code'], $this->options['facebook']['capi']['token'] && $this->options['facebook']['capi']['test_event_code'], true );
+        self::display_status_icon( Options::get_facebook_capi_test_event_code(), Options::get_facebook_capi_token() && Options::get_facebook_capi_test_event_code(), true );
         ?>
 		<?php 
         //		self::get_documentation_html_by_key('facebook_capi_test_event_code');
@@ -3701,23 +3870,27 @@ class Admin {
         ?>
 		<label>
 			<input type="hidden" value="0"
-				   name='wgact_plugin_options[facebook][capi][user_transparency][process_anonymous_hits]'>
-			<input type="checkbox" id='wpm_setting_facebook_capi_user_transparency_process_anonymous_hits'
-				   name='wgact_plugin_options[facebook][capi][user_transparency][process_anonymous_hits]'
-				   value="1" <?php 
-        checked( $this->options['facebook']['capi']['user_transparency']['process_anonymous_hits'] );
-        ?> <?php 
+				   name="wgact_plugin_options[facebook][capi][user_transparency][process_anonymous_hits]">
+			<input type="checkbox"
+				   id="wpm_setting_facebook_capi_user_transparency_process_anonymous_hits"
+				   name="wgact_plugin_options[facebook][capi][user_transparency][process_anonymous_hits]"
+				   value="1"
+				<?php 
+        checked( Options::is_facebook_capi_user_transparency_process_anonymous_hits_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Send CAPI hits for anonymous visitors who likely have blocked the Meta (Facebook) pixel.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['facebook']['capi']['user_transparency']['process_anonymous_hits'], $this->options['facebook']['pixel_id'], true );
+        self::display_status_icon( Options::is_facebook_capi_user_transparency_process_anonymous_hits_active(), Options::is_facebook_active(), true );
         self::get_documentation_html_by_key( 'facebook_capi_user_transparency_process_anonymous_hits' );
         self::html_pro_feature();
-        if ( $this->options['facebook']['capi']['user_transparency']['process_anonymous_hits'] && !$this->options['facebook']['pixel_id'] ) {
+        if ( Options::is_facebook_capi_user_transparency_process_anonymous_hits_active() && !Options::is_facebook_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the Meta (Facebook) pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3731,23 +3904,27 @@ class Admin {
         ?>
 		<label>
 			<input type="hidden" value="0"
-				   name='wgact_plugin_options[facebook][capi][user_transparency][send_additional_client_identifiers]'>
-			<input type="checkbox" id='wpm_setting_facebook_capi_user_transparency_send_additional_client_identifiers'
-				   name='wgact_plugin_options[facebook][capi][user_transparency][send_additional_client_identifiers]'
-				   value="1" <?php 
-        checked( $this->options['facebook']['capi']['user_transparency']['send_additional_client_identifiers'] );
-        ?> <?php 
+				   name="wgact_plugin_options[facebook][capi][user_transparency][send_additional_client_identifiers]">
+			<input type="checkbox"
+				   id="wpm_setting_facebook_capi_user_transparency_send_additional_client_identifiers"
+				   name="wgact_plugin_options[facebook][capi][user_transparency][send_additional_client_identifiers]"
+				   value="1"
+				<?php 
+        checked( Options::is_facebook_capi_advanced_matching_enabled() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Send events with additional visitor identifiers, such as email and phone number, if available.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['facebook']['capi']['user_transparency']['send_additional_client_identifiers'], $this->options['facebook']['pixel_id'], true );
+        self::display_status_icon( Options::is_facebook_capi_advanced_matching_enabled(), Options::is_facebook_active(), true );
         self::get_documentation_html_by_key( 'facebook_advanced_matching' );
         self::html_pro_feature();
-        if ( $this->options['facebook']['capi']['user_transparency']['send_additional_client_identifiers'] && !$this->options['facebook']['pixel_id'] ) {
+        if ( Options::is_facebook_capi_advanced_matching_enabled() && !Options::is_facebook_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the Meta (Facebook) pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3760,23 +3937,27 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[facebook][microdata]'>
-			<input type="checkbox" id='wpm_setting_facebook_microdata_active'
-				   name='wgact_plugin_options[facebook][microdata]'
-				   value="1" <?php 
-        checked( $this->options['facebook']['microdata'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[facebook][microdata]">
+			<input type="checkbox"
+				   id="wpm_setting_facebook_microdata_active"
+				   name="wgact_plugin_options[facebook][microdata]"
+				   value="1"
+				<?php 
+        checked( Options::is_facebook_microdata_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Meta (Facebook) product microdata output', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['facebook']['microdata'], $this->options['facebook']['pixel_id'], true );
+        self::display_status_icon( Options::is_facebook_microdata_active(), Options::is_facebook_active(), true );
         self::get_documentation_html_by_key( 'facebook_microdata' );
         self::html_pro_feature();
-        if ( $this->options['facebook']['microdata'] && !$this->options['facebook']['pixel_id'] ) {
+        if ( Options::is_facebook_microdata_active() && !Options::is_facebook_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the Meta (Facebook) pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3784,41 +3965,50 @@ class Admin {
     }
 
     public function setting_html_pinterest_ad_account_id() {
-        $text_length = max( strlen( $this->options['pinterest']['ad_account_id'] ), 40 );
+        $text_length = max( strlen( Options::get_pinterest_ad_account_id() ), 40 );
         ?>
-		<input class="pmw mono" id='pmw_setting_pinterest_ad_account_id'
-			   name='wgact_plugin_options[pinterest][ad_account_id]' size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_pinterest_ad_account_id"
+			   name="wgact_plugin_options[pinterest][ad_account_id]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-			   type='text' value='<?php 
-        esc_html_e( $this->options['pinterest']['ad_account_id'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_pinterest_ad_account_id() );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['pinterest']['ad_account_id'], $this->options['pinterest']['pixel_id'] );
+        self::display_status_icon( Options::get_pinterest_ad_account_id(), Options::is_pinterest_active() );
         self::get_documentation_html_by_key( 'pinterest_ad_account_id' );
         self::html_pro_feature();
     }
 
     public function setting_html_pinterest_apic_token() {
         ?>
-		<textarea class="pmw mono" id='pmw_setting_pinterest_apic_token'
-				  name='wgact_plugin_options[pinterest][apic][token]' cols='50'
-				  rows='2' <?php 
+		<textarea class="pmw mono"
+				  id="pmw_setting_pinterest_apic_token"
+				  name="wgact_plugin_options[pinterest][apic][token]"
+				  cols="50"
+				  rows="2"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?>><?php 
-        esc_html_e( $this->options['pinterest']['apic']['token'] );
+        ?>>
+			<?php 
+        esc_html_e( Options::get_pinterest_apic_token() );
         ?></textarea>
 
 		<?php 
-        self::display_status_icon( $this->options['pinterest']['apic']['token'], $this->options['pinterest']['pixel_id'] );
+        self::display_status_icon( Options::get_pinterest_apic_token(), Options::is_pinterest_active() );
         self::get_documentation_html_by_key( 'pinterest_apic_token' );
         self::html_pro_feature();
-        if ( !$this->options['pinterest']['pixel_id'] ) {
+        if ( !Options::is_pinterest_active() ) {
             ?>
 			<br><span class="dashicons dashicons-info"></span>
 			<?php 
@@ -3834,23 +4024,27 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[pinterest][apic][process_anonymous_hits]'>
-			<input type="checkbox" id='pmw_setting_pinterest_apic_user_transparency_process_anonymous_hits'
-				   name='wgact_plugin_options[pinterest][apic][process_anonymous_hits]'
-				   value="1" <?php 
-        checked( $this->options['pinterest']['apic']['process_anonymous_hits'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[pinterest][apic][process_anonymous_hits]">
+			<input type="checkbox"
+				   id="pmw_setting_pinterest_apic_user_transparency_process_anonymous_hits"
+				   name="wgact_plugin_options[pinterest][apic][process_anonymous_hits]"
+				   value="1"
+				<?php 
+        checked( Options::is_pinterest_apic_process_anonymous_hits_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Send Events API hits for anonymous visitors who likely have blocked the Pinterest pixel.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['pinterest']['apic']['process_anonymous_hits'], $this->options['pinterest']['pixel_id'] && $this->options['pinterest']['apic']['token'], true );
+        self::display_status_icon( Options::is_pinterest_apic_process_anonymous_hits_active(), Options::is_pinterest_active() && Options::get_pinterest_apic_token(), true );
         self::get_documentation_html_by_key( 'pinterest_apic_process_anonymous_hits' );
         self::html_pro_feature();
-        if ( $this->options['pinterest']['apic']['process_anonymous_hits'] && !$this->options['pinterest']['pixel_id'] ) {
+        if ( Options::is_pinterest_apic_process_anonymous_hits_active() && !Options::is_pinterest_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the Pinterest pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3863,23 +4057,27 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[pinterest][advanced_matching]'>
-			<input type="checkbox" id='pmw_setting_pinterest_user_transparency_advanced_matching'
-				   name='wgact_plugin_options[pinterest][advanced_matching]'
-				   value="1" <?php 
-        checked( $this->options['pinterest']['advanced_matching'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[pinterest][advanced_matching]">
+			<input type="checkbox"
+				   id="pmw_setting_pinterest_user_transparency_advanced_matching"
+				   name="wgact_plugin_options[pinterest][advanced_matching]"
+				   value="1"
+				<?php 
+        checked( Options::is_pinterest_advanced_matching_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Send events with additional visitor identifiers, such as email and phone number, if available.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['pinterest']['advanced_matching'], $this->options['pinterest']['pixel_id'] && $this->options['pinterest']['apic']['token'], true );
+        self::display_status_icon( Options::is_pinterest_advanced_matching_active(), Options::is_pinterest_active() && Options::get_pinterest_apic_token(), true );
         self::get_documentation_html_by_key( 'pinterest_advanced_matching' );
         self::html_pro_feature();
-        if ( $this->options['pinterest']['advanced_matching'] && !$this->options['pinterest']['pixel_id'] ) {
+        if ( Options::is_pinterest_advanced_matching_active() && !Options::is_pinterest_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the Pinterest pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3887,25 +4085,30 @@ class Admin {
     }
 
     public function setting_html_tiktok_eapi_token() {
-        $text_length = max( strlen( $this->options['tiktok']['eapi']['token'] ), 40 );
+        $text_length = max( strlen( Options::get_tiktok_eapi_token() ), 40 );
         ?>
-		<input class="pmw mono" id='pmw_setting_tiktok_eapi_token' name='wgact_plugin_options[tiktok][eapi][token]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_tiktok_eapi_token"
+			   name="wgact_plugin_options[tiktok][eapi][token]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['tiktok']['eapi']['token'] );
-        ?>'
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_tiktok_eapi_token() );
+        ?>"
 			   style="width:<?php 
         esc_html_e( $text_length );
-        ?>ch" <?php 
+        ?>ch"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['tiktok']['eapi']['token'], $this->options['tiktok']['pixel_id'] );
+        self::display_status_icon( Options::get_tiktok_eapi_token(), Options::is_tiktok_active() );
         self::get_documentation_html_by_key( 'tiktok_eapi_token' );
         self::html_pro_feature();
-        if ( !$this->options['tiktok']['pixel_id'] ) {
+        if ( !Options::is_tiktok_active() ) {
             ?>
 			<br><span class="dashicons dashicons-info"></span>
 			<?php 
@@ -3919,22 +4122,27 @@ class Admin {
     }
 
     public function setting_html_tiktok_eapi_test_event_code() {
-        $text_length = max( strlen( $this->options['tiktok']['eapi']['test_event_code'] ), 9 );
+        $text_length = max( strlen( Options::get_tiktok_eapi_test_event_code() ), 9 );
         ?>
-		<input class="pmw mono" id='pmw_setting_tiktok_eapi_test_event_code'
-			   name='wgact_plugin_options[tiktok][eapi][test_event_code]' size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_tiktok_eapi_test_event_code"
+			   name="wgact_plugin_options[tiktok][eapi][test_event_code]"
+			   size="<?php 
         esc_html_e( $text_length );
-        ?>'
-			   type='text' style="width:<?php 
+        ?>"
+			   type="text"
+			   style="width:<?php 
         esc_html_e( $text_length );
         ?>ch"
-			   value='<?php 
-        esc_html_e( $this->options['tiktok']['eapi']['test_event_code'] );
-        ?>' <?php 
+			   value="<?php 
+        esc_html_e( Options::get_tiktok_eapi_test_event_code() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( $this->options['tiktok']['eapi']['test_event_code'], $this->options['tiktok']['eapi']['token'] && $this->options['tiktok']['eapi']['test_event_code'], true );
+        self::display_status_icon( Options::get_tiktok_eapi_test_event_code(), Options::get_tiktok_eapi_token() && Options::get_tiktok_eapi_test_event_code(), true );
         ?>
 
 		<?php 
@@ -3958,23 +4166,27 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[tiktok][eapi][process_anonymous_hits]'>
-			<input type="checkbox" id='pmw_setting_tiktok_eapi_process_anonymous_hits'
-				   name='wgact_plugin_options[tiktok][eapi][process_anonymous_hits]'
-				   value="1" <?php 
-        checked( $this->options['tiktok']['eapi']['process_anonymous_hits'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[tiktok][eapi][process_anonymous_hits]">
+			<input type="checkbox"
+				   id="pmw_setting_tiktok_eapi_process_anonymous_hits"
+				   name="wgact_plugin_options[tiktok][eapi][process_anonymous_hits]"
+				   value="1"
+				<?php 
+        checked( Options::is_tiktok_eapi_process_anonymous_hits_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Send Events API hits for anonymous visitors who likely have blocked the TikTok pixel.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['tiktok']['eapi']['process_anonymous_hits'], $this->options['tiktok']['pixel_id'] && $this->options['tiktok']['eapi']['token'], true );
+        self::display_status_icon( Options::is_tiktok_eapi_process_anonymous_hits_active(), Options::is_tiktok_active() && Options::get_tiktok_eapi_token(), true );
         self::get_documentation_html_by_key( 'tiktok_eapi_process_anonymous_hits' );
         self::html_pro_feature();
-        if ( $this->options['tiktok']['eapi']['process_anonymous_hits'] && !$this->options['tiktok']['pixel_id'] ) {
+        if ( Options::is_tiktok_eapi_process_anonymous_hits_active() && !Options::is_tiktok_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the TikTok pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -3987,23 +4199,27 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[tiktok][advanced_matching]'>
-			<input type="checkbox" id='pmw_setting_tiktok_advanced_matching'
-				   name='wgact_plugin_options[tiktok][advanced_matching]'
-				   value="1" <?php 
-        checked( $this->options['tiktok']['advanced_matching'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[tiktok][advanced_matching]">
+			<input type="checkbox"
+				   id="pmw_setting_tiktok_advanced_matching"
+				   name="wgact_plugin_options[tiktok][advanced_matching]"
+				   value="1"
+				<?php 
+        checked( Options::is_tiktok_advanced_matching_enabled() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Send events with additional visitor identifiers, such as email and phone number, if available.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['tiktok']['advanced_matching'], $this->options['tiktok']['pixel_id'] && $this->options['tiktok']['eapi']['token'], true );
+        self::display_status_icon( Options::is_tiktok_advanced_matching_enabled(), Options::is_tiktok_active() && Options::get_tiktok_eapi_token(), true );
         self::get_documentation_html_by_key( 'tiktok_advanced_matching' );
         self::html_pro_feature();
-        if ( $this->options['tiktok']['advanced_matching'] && !$this->options['tiktok']['pixel_id'] ) {
+        if ( Options::is_tiktok_advanced_matching_enabled() && !Options::is_tiktok_active() ) {
             echo '<p></p><span class="dashicons dashicons-info"></span>';
             esc_html_e( 'You need to activate the TikTok pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
             echo '</p><br>';
@@ -4016,18 +4232,21 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[shop][order_deduplication]'>
-			<input type="checkbox" id='wpm_setting_order_duplication_prevention'
-				   name='wgact_plugin_options[shop][order_deduplication]'
-				   value="1" <?php 
-        checked( $this->options['shop']['order_deduplication'] );
-        ?> />
+			<input type="hidden" value="0" name="wgact_plugin_options[shop][order_deduplication]">
+			<input type="checkbox"
+				   id="wpm_setting_order_duplication_prevention"
+				   name="wgact_plugin_options[shop][order_deduplication]"
+				   value="1"
+				<?php 
+        checked( Options::is_order_duplication_prevention_option_active() );
+        ?>
+			/>
 			<?php 
         $this->get_order_duplication_prevention_text();
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['shop']['order_deduplication'] );
+        self::display_status_icon( Options::is_order_duplication_prevention_option_active() );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'duplication_prevention' );
@@ -4055,12 +4274,15 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[general][maximum_compatibility_mode]'>
-			<input type="checkbox" id='wpm_setting_maximum_compatibility_mode'
-				   name='wgact_plugin_options[general][maximum_compatibility_mode]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[general][maximum_compatibility_mode]">
+			<input type="checkbox"
+				   id="wpm_setting_maximum_compatibility_mode"
+				   name="wgact_plugin_options[general][maximum_compatibility_mode]"
+				   value="1"
+				<?php 
         checked( Options::is_maximum_compatiblity_mode_active() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable the maximum compatibility mode', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -4075,19 +4297,23 @@ class Admin {
         // https://developer.woocommerce.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/
         // https://github.com/woocommerce/selectWoo
         ?>
-		<select id="wpm_setting_disable_tracking_for_user_roles" multiple="multiple"
-				name="wgact_plugin_options[shop][disable_tracking_for][]" style="width:350px; padding-left: 10px"
+		<select id="wpm_setting_disable_tracking_for_user_roles"
+				multiple="multiple"
+				name="wgact_plugin_options[shop][disable_tracking_for][]"
+				style="width:350px; padding-left: 10px"
 				data-placeholder="Choose roles&hellip;" aria-label="Roles"
-				class="wc-enhanced-select" <?php 
+				class="wc-enhanced-select"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?>>
+        ?>
+		>
 			<?php 
         foreach ( get_editable_roles() as $role => $details ) {
             ?>
 				<option value="<?php 
             esc_html_e( $role );
             ?>" <?php 
-            esc_html_e( ( in_array( $role, $this->options['shop']['disable_tracking_for'], true ) ? 'selected' : '' ) );
+            esc_html_e( ( in_array( $role, Options::get_excluded_roles(), true ) ? 'selected' : '' ) );
             ?>><?php 
             esc_html_e( $details['name'] );
             ?></option>
@@ -4119,18 +4345,22 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[shop][order_list_info]'>
-			<input type="checkbox" id='pmw_setting_order_list_info' name='wgact_plugin_options[shop][order_list_info]'
-				   value="1" <?php 
-        checked( $this->options['shop']['order_list_info'] );
-        ?> />
+			<input type="hidden" value="0" name="wgact_plugin_options[shop][order_list_info]">
+			<input type="checkbox"
+				   id="pmw_setting_order_list_info"
+				   name="wgact_plugin_options[shop][order_list_info]"
+				   value="1"
+				<?php 
+        checked( Options::is_shop_order_list_info_enabled() );
+        ?>
+			/>
 
 			<?php 
         esc_html_e( 'Display Pixel Manager related information on the order list page', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['shop']['order_list_info'] );
+        self::display_status_icon( Options::is_shop_order_list_info_enabled() );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'order_list_info' );
@@ -4138,15 +4368,20 @@ class Admin {
 
     public function info_html_scroll_tracker_thresholds() {
         ?>
-		<input class="pmw mono" id='pmw_setting_scroll_tracker_thresholds'
-			   name='wgact_plugin_options[general][scroll_tracker_thresholds]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( implode( ',', $this->options['general']['scroll_tracker_thresholds'] ) );
-        ?>' <?php 
+		<input class="pmw mono"
+			   id="pmw_setting_scroll_tracker_thresholds"
+			   name="wgact_plugin_options[general][scroll_tracker_thresholds]"
+			   size="40"
+			   type="text"
+			   value="<?php 
+        esc_html_e( implode( ',', Options::get_scroll_tracking_thresholds() ) );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
-        self::display_status_icon( !empty( $this->options['general']['scroll_tracker_thresholds'] ), true, true );
+        self::display_status_icon( !empty( Options::get_scroll_tracking_thresholds() ), true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'scroll_tracker_threshold' );
@@ -4163,20 +4398,25 @@ class Admin {
     }
 
     public function html_subscription_value_multiplier() {
-        $field_width = max( strlen( $this->options['shop']['subscription_value_multiplier'] ), 3 );
+        $field_width = max( strlen( Options::get_subscription_multiplier() ), 3 );
         ?>
-		<input class="pmw mono" id='pmw_setting_subscription_value_multiplier'
-			   name='wgact_plugin_options[shop][subscription_value_multiplier]'
-			   size='<?php 
+		<input class="pmw mono"
+			   id="pmw_setting_subscription_value_multiplier"
+			   name="wgact_plugin_options[shop][subscription_value_multiplier]"
+			   size="<?php 
         esc_html_e( $field_width );
-        ?>' type='text' style="width:<?php 
+        ?>"
+			   type="text"
+			   style="width:<?php 
         esc_html_e( $field_width );
         ?>ch"
-			   value='<?php 
-        esc_html_e( $this->options['shop']['subscription_value_multiplier'] );
-        ?>' <?php 
+			   value="<?php 
+        esc_html_e( Options::get_subscription_multiplier() );
+        ?>"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+		/>
 		<?php 
         self::get_documentation_html_by_key( 'subscription_value_multiplier' );
         ?>
@@ -4197,10 +4437,12 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[shop][ltv][order_calculation][is_active]'>
-			<input type="checkbox" id='pmw_setting_ltv_on_orders'
-				   name='wgact_plugin_options[shop][ltv][order_calculation][is_active]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[shop][ltv][order_calculation][is_active]">
+			<input type="checkbox"
+				   id="pmw_setting_ltv_on_orders"
+				   name="wgact_plugin_options[shop][ltv][order_calculation][is_active]"
+				   value="1"
+				<?php 
         checked( Options::is_order_level_ltv_calculation_active() );
         ?>
 			/>
@@ -4222,10 +4464,12 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[shop][ltv][automatic_recalculation][is_active]'>
-			<input type="checkbox" id='pmw_setting_ltv_automatic_recalculation'
-				   name='wgact_plugin_options[shop][ltv][automatic_recalculation][is_active]'
-				   value="1" <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[shop][ltv][automatic_recalculation][is_active]">
+			<input type="checkbox"
+				   id="pmw_setting_ltv_automatic_recalculation"
+				   name="wgact_plugin_options[shop][ltv][automatic_recalculation][is_active]"
+				   value="1"
+				<?php 
         checked( Options::is_automatic_ltv_recalculation_active() );
         ?>
 			/>
@@ -4310,28 +4554,34 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[general][lazy_load_pmw]'>
-			<input type="checkbox" id='pmw_setting_lazy_load_pmw' name='wgact_plugin_options[general][lazy_load_pmw]'
-				   value="1" <?php 
-        checked( $this->options['general']['lazy_load_pmw'] );
-        ?> <?php 
+			<input type="hidden" value="0" name="wgact_plugin_options[general][lazy_load_pmw]">
+			<input type="checkbox"
+				   id="pmw_setting_lazy_load_pmw"
+				   name="wgact_plugin_options[general][lazy_load_pmw]"
+				   value="1"
+				<?php 
+        checked( Options::is_lazy_load_pmw_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 
 			<?php 
         esc_html_e( 'Lazy load the Pixel Manager', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['general']['lazy_load_pmw'], Options::lazy_load_requirements(), true );
+        self::display_status_icon( Options::is_lazy_load_pmw_active(), Options::lazy_load_requirements(), true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'lazy_load_pmw' );
+        ?>
+		<?php 
         self::html_pro_feature();
         ?>
-
 		<?php 
-        if ( $this->options['general']['lazy_load_pmw'] && !Options::lazy_load_requirements() ) {
+        if ( Options::is_lazy_load_pmw_active() && !Options::lazy_load_requirements() ) {
             ?>
 			<p>
 				<span class="dashicons dashicons-info"></span>
@@ -4350,7 +4600,6 @@ class Admin {
         ?>
 		</p>
 
-
 		<?php 
     }
 
@@ -4359,11 +4608,10 @@ class Admin {
     }
 
     private function add_to_cart_requirements_fulfilled() {
-        if ( $this->options['google']['ads']['conversion_id'] && $this->options['google']['ads']['conversion_label'] && $this->options['google']['ads']['aw_merchant_id'] ) {
+        if ( Options::get_google_ads_conversion_id() && Options::get_google_ads_conversion_label() && Options::get_google_ads_merchant_id() ) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public function option_html_dynamic_remarketing() {
@@ -4378,19 +4626,22 @@ class Admin {
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type="hidden" value="0" name='wgact_plugin_options[general][logger][is_active]'>
-			<input type="checkbox" id='wpm_plugin_option_logger'
-				   name='wgact_plugin_options[general][logger][is_active]'
-				   value="1" <?php 
-        checked( Options::get_options()['general']['logger']['is_active'] );
-        ?> />
+			<input type="hidden" value="0" name="wgact_plugin_options[general][logger][is_active]">
+			<input type="checkbox"
+				   id="wpm_plugin_option_logger"
+				   name="wgact_plugin_options[general][logger][is_active]"
+				   value="1"
+				<?php 
+        checked( Options::is_logging_enabled() );
+        ?>
+			/>
 
 			<?php 
         esc_html_e( 'Enable logger', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( Options::get_options()['general']['logger']['is_active'], true, true );
+        self::display_status_icon( Options::is_logging_enabled(), true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'logger_activation' );
@@ -4409,9 +4660,11 @@ class Admin {
             ?>
 				<option value="<?php 
             esc_html_e( $log_level_name );
-            ?>" <?php 
-            selected( $log_level_name, Options::get_options()['general']['logger']['level'] );
-            ?>>
+            ?>"
+					<?php 
+            selected( $log_level_name, Options::get_log_level() );
+            ?>
+				>
 					<?php 
             esc_html_e( $log_level_number . ' - ' . $log_level_name );
             ?>
@@ -4449,7 +4702,7 @@ class Admin {
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( Options::get_options()['general']['logger']['log_http_requests'], true, true );
+        self::display_status_icon( Options::is_http_request_logging_enabled(), true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'log_http_requests' );
@@ -4480,11 +4733,7 @@ class Admin {
         echo esc_url( $admin_url_link_recent_wc_log );
         ?>')"
 			<?php 
-        if ( !$admin_url_link_recent_wc_log ) {
-            ?>
-				disabled
-			<?php 
-        }
+        disabled( !$admin_url_link_recent_wc_log );
         ?>
 		>
 			<?php 
@@ -4516,11 +4765,7 @@ class Admin {
         echo esc_url( $external_url_to_most_recent_log );
         ?>')"
 			<?php 
-        if ( !$external_url_to_most_recent_log ) {
-            ?>
-				disabled
-			<?php 
-        }
+        disabled( !$external_url_to_most_recent_log );
         ?>
 		>
 			<?php 
@@ -4555,11 +4800,7 @@ class Admin {
         esc_html_e( 'Copied!', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>"
 			<?php 
-        if ( !$all_external_log_file_urls ) {
-            ?>
-				disabled
-			<?php 
-        }
+        disabled( !$all_external_log_file_urls );
         ?>
 		>
 			<?php 
@@ -4596,7 +4837,7 @@ class Admin {
 				   name="wgact_plugin_options[general][variations_output]"
 				   value="1"
 				<?php 
-        checked( $this->options['general']['variations_output'] );
+        checked( Options::is_shop_variations_output_active() );
         ?>
 			/>
 			<?php 
@@ -4604,12 +4845,13 @@ class Admin {
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['general']['variations_output'], true, true );
+        self::display_status_icon( Options::is_shop_variations_output_active(), true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'variations_output' );
         ?>
-		<p><span class="dashicons dashicons-info"></span>
+		<p>
+			<span class="dashicons dashicons-info"></span>
 			<?php 
         esc_html_e( 'In order for this to work you need to upload your product feed including product variations and the item_group_id. Disable it, if you choose only to upload the parent product for variable products.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
@@ -4627,7 +4869,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="0"
 					<?php 
-        echo checked( 0, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 0, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4644,7 +4886,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="1"
 					<?php 
-        echo checked( 1, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 1, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4661,7 +4903,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="3"
 					<?php 
-        echo checked( 3, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 3, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4678,7 +4920,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="4"
 					<?php 
-        echo checked( 4, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 4, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4695,7 +4937,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="5"
 					<?php 
-        echo checked( 5, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 5, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4712,7 +4954,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="6"
 					<?php 
-        echo checked( 6, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 6, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4729,7 +4971,7 @@ class Admin {
 					   name="wgact_plugin_options[google][ads][google_business_vertical]"
 					   value="8"
 					<?php 
-        echo checked( 8, $this->options['google']['ads']['google_business_vertical'], false );
+        echo checked( 8, Options::get_google_ads_business_vertical_id(), false );
         ?>
 					<?php 
         esc_html_e( self::disable_if_demo() );
@@ -4758,11 +5000,11 @@ class Admin {
 			   name="wgact_plugin_options[google][ads][aw_merchant_id]"
 			   size="40"
 			   value="<?php 
-        esc_html_e( $this->options['google']['ads']['aw_merchant_id'] );
+        esc_html_e( Options::get_google_ads_merchant_id() );
         ?>"
 		/>
 		<?php 
-        self::display_status_icon( $this->options['google']['ads']['aw_merchant_id'] );
+        self::display_status_icon( Options::get_google_ads_merchant_id() );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'aw_merchant_id' );
@@ -4780,7 +5022,7 @@ class Admin {
 				   name="wgact_plugin_options[google][ads][product_identifier]"
 				   value="0"
 				<?php 
-        echo checked( 0, $this->options['google']['ads']['product_identifier'], false );
+        echo checked( 0, Options::get_google_ads_product_identifier(), false );
         ?>
 			/>
 			<?php 
@@ -4793,7 +5035,7 @@ class Admin {
 				   name="wgact_plugin_options[google][ads][product_identifier]"
 				   value="2"
 				<?php 
-        echo checked( 2, $this->options['google']['ads']['product_identifier'], false );
+        echo checked( 2, Options::get_google_ads_product_identifier(), false );
         ?>
 			/>
 			<?php 
@@ -4807,7 +5049,7 @@ class Admin {
 				   name="wgact_plugin_options[google][ads][product_identifier]"
 				   value="1"
 				<?php 
-        echo checked( 1, $this->options['google']['ads']['product_identifier'], false );
+        echo checked( 1, Options::get_google_ads_product_identifier(), false );
         ?>
 			/>
 			<?php 
@@ -4821,7 +5063,7 @@ class Admin {
 				   name="wgact_plugin_options[google][ads][product_identifier]"
 				   value="3"
 				<?php 
-        echo checked( 3, $this->options['google']['ads']['product_identifier'], false );
+        echo checked( 3, Options::get_google_ads_product_identifier(), false );
         ?>
 			/>
 			<?php 
@@ -4891,6 +5133,14 @@ class Admin {
         ?>
 		<div class="pmw-status-icon partially-active"><?php 
         esc_html_e( 'partially active', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?></div>
+		<?php 
+    }
+
+    private static function html_status_icon_override() {
+        ?>
+		<div class="pmw-status-icon partially-active"><?php 
+        esc_html_e( 'override', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?></div>
 		<?php 
     }

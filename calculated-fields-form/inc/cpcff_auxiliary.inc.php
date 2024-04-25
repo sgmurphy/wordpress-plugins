@@ -152,7 +152,7 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 		 * @params mixed $v.
 		 * @return sanitized value.
 		 */
-		public static function sanitize( $v, $allow_cff_fields_tags = false ) {
+		public static function sanitize( $v, $allow_cff_fields_tags = false, $no_trim = false ) {
 
 			if ( is_array( $v ) ) {
 				foreach ( $v as $k => $v2 ) {
@@ -179,8 +179,12 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				if ( $allow_cff_fields_tags ) {
 					$v = str_replace( array( '<%', '%>' ), array( 'cff______%', '%______cff' ), $v );
 				}
-
-				$v = wp_kses( trim( wp_unslash( $v ) ), $allowed_tags );
+				
+				if ( $no_trim ) {
+					$v = wp_kses( wp_unslash( $v ), $allowed_tags );
+				} else {
+					$v = wp_kses( trim( wp_unslash( $v ) ), $allowed_tags );
+				}
 
 				/* Recovers the <% and %> symbols. */
 				if ( $allow_cff_fields_tags ) {

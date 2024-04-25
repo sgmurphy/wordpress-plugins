@@ -21,8 +21,12 @@ Class L_Plus_Generator {
 
 	private static $tpae_post_type = '';
 	private static $tpae_post_id = '';
-	public $post_assets_object = [];
+	public $post_assets_object = array();
+	public $post_assets_objects = array();
+
 	public $tp_first_load = true;
+
+	public $transient_extensions = array();
 	
 	public function get_caching_option(){
 		if($this->tpae_cache != null ){
@@ -50,7 +54,9 @@ Class L_Plus_Generator {
 
         if (!empty($paths)) {
             foreach ($paths as $path) {
-                $output .= file_get_contents(l_theplus_library()->secure_path_url($path));
+                if ( file_exists( l_theplus_library()->secure_path_url($path) ) ) {
+                	$output .= file_get_contents(l_theplus_library()->secure_path_url($path));
+				}
             }
         }
 		if(!empty($type) && $type=='css'){			
@@ -88,16 +94,12 @@ Class L_Plus_Generator {
 
         // default load js and css
         $js_url = array();
-		$tp_path_get = L_THEPLUS_PATH;
-		if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
-			$tp_path_get = THEPLUS_PATH;
-		}
 
 		if($common === false){
 			$css_url = array();
 		}else{
 			$css_url = array(
-				$tp_path_get . DIRECTORY_SEPARATOR . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css",
+				L_THEPLUS_PATH . DIRECTORY_SEPARATOR . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css",
 			);
 		}
 
@@ -129,14 +131,11 @@ Class L_Plus_Generator {
 		
         // default load js and css
         $js_url = array();
-		$tp_path_get = L_THEPLUS_PATH;
-		if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
-			$tp_path_get = THEPLUS_PATH;
-		}
+
         $css_url = array(
-			$tp_path_get . DIRECTORY_SEPARATOR . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css",
+			L_THEPLUS_PATH . DIRECTORY_SEPARATOR . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css",
         );
-		
+
         // collect library scripts & styles
         $js_url = array_merge($js_url, $this->plus_dependency_widgets($elements, 'js'));
         $css_url = array_merge($css_url, $this->plus_dependency_widgets($elements, 'css'));
@@ -210,11 +209,14 @@ Class L_Plus_Generator {
         return array_unique($paths);
     }
 
-	/*
+	/**
 	 * Update PostMeta / TermMeta Value
+	 * 
 	 * @since 3.2.1
-	 ***/
-	public function update_posts_metadata($post_id = '', $meta_key = '', $update_key= '', $val = ''){
+	 * @version 5.5.0
+	 * 
+	 **/
+	public function update_posts_metadata( $post_id = '', $meta_key = '', $update_key= '', $val = '', $save = '' ){
 		if( $post_id != '' ){
 			$old_value = [];
 			if(is_404() || is_search() || $post_id===0 || !is_numeric($post_id)){
@@ -234,6 +236,10 @@ Class L_Plus_Generator {
 				$old_value = [];
 				$old_value[ $update_key ] = $val;
 			}
+
+			if( !empty( $save ) ){
+                $old_value['update_at'] = get_option('tp_save_update_at');
+            }
 
 			if(is_404() || is_search() || $post_id===0 || !is_numeric($post_id)){
 				update_option( 'theplus-term-'.$post_id.'-widgets', $old_value );
@@ -328,6 +334,8 @@ Class L_Plus_Generator {
      * Generate single post scripts
      *
      * @since 2.0
+	 * @version 5.5.0
+	 * 
      */
     public function generate_scripts_frontend() {
 		
@@ -362,8 +370,7 @@ Class L_Plus_Generator {
 		
 		if($this->get_post_type_post_id()){
 
-			$this->update_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'widgets', $elements);
-			$this->update_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'update_at', get_option('tp_save_update_at'));
+			$this->update_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'widgets', $elements, true);
 			if(!empty(self::$tpae_post_type) && self::$tpae_post_type == 'post'){
 				$this->update_posts_metadata( self::$tpae_post_id, '_elementor_css', 'time', time());
 			}
@@ -493,9 +500,10 @@ Class L_Plus_Generator {
 	
 	}
 	
-	/*
+	/**
 	 * Load enqueue Css and Js
 	 * @since new_version
+	 * @version 5.5.0
 	 */
 	public function enqueue_css_js( $elements = [], $in_footer = false, $load_depend = ['jquery'] ) {
 
@@ -619,7 +627,7 @@ Class L_Plus_Generator {
 		wp_send_json(true);
     }
 
-	/*
+	/**
 	 * Version Vise Clear Cache
 	 * @since 5.4.0
 	 */
@@ -633,56 +641,17 @@ Class L_Plus_Generator {
 			update_option('tp_save_update_at', strtotime('now'), false); //all cache regenerate
 			add_option( $option_name, $versions );
 
-			// Clear Litespeed cache
-			if(method_exists('LiteSpeed_Cache_API', 'purge_all')){
-				LiteSpeed_Cache_API::purge_all();
-			}
-
-			// W3 Total Cache.
-			if ( function_exists( 'w3tc_flush_all' ) ) {
-				w3tc_flush_all();
-			}
-
-			// WP Fastest Cache.
-			if ( ! empty( $GLOBALS['wp_fastest_cache'] ) && method_exists( $GLOBALS['wp_fastest_cache'], 'deleteCache' ) ) {
-				$GLOBALS['wp_fastest_cache']->deleteCache(true);
-			}
-
-			// WP Super Cache
-			if ( function_exists( 'wp_cache_clean_cache' ) ) {
-				global $file_prefix;
-				wp_cache_clean_cache( $file_prefix, true );
-			}
-			
-			$all_clear_cache = array(
-				'W3 Total Cache' => 'w3tc_pgcache_flush',
-				'WP Fastest Cache' => 'wpfc_clear_all_cache',
-				'WP Rocket' => 'rocket_clean_domain',
-				'Cachify' => 'cachify_flush_cache',
-				'Comet Cache' => array('comet_cache', 'clear'),
-				'SG Optimizer' => 'sg_cachepress_purge_cache',
-				'Pantheon' => 'pantheon_wp_clear_edge_all',
-				'Zen Cache' => array('zencache', 'clear'),
-				'Breeze' => array('Breeze_PurgeCache', 'breeze_cache_flush'),
-				'Swift Performance' => array('Swift_Performance_Cache', 'clear_all_cache'),
-				'WP Optimize' => 'wpo_cache_flush',
-			);
-			
-			foreach ($all_clear_cache as $plugin => $method) {
-				if (is_callable($method)) {
-					call_user_func($method);
-				}
-			}
-
-			do_action( 'litespeed_purge_all' );
+			$this->tp_third_patry_cache();
 
 		}else{
-			/* if( !in_array( '5.3.15', $get_version ) ){
+			if( !in_array( '5.5.0', $get_version ) ){
 				l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH); //only remove files
 				update_option('tp_save_update_at', strtotime('now'), false); //all cache regenerate
 				$versions = array_unique( array_merge( $get_version, $versions ) );
 				update_option( $option_name, $versions );
-			} */
+
+				$this->tp_third_patry_cache();
+			}
 		}
 	}
 
@@ -694,7 +663,52 @@ Class L_Plus_Generator {
 	public function pathurl_security($url) {
         return preg_replace(['/^http:/', '/^https:/', '/(?!^)\/\//'], ['', '', '/'], $url);
     }
-	
+
+	public function tp_third_patry_cache(){
+		// Clear Litespeed cache
+		if(method_exists('LiteSpeed_Cache_API', 'purge_all')){
+			LiteSpeed_Cache_API::purge_all();
+		}
+
+		// W3 Total Cache.
+		if ( function_exists( 'w3tc_flush_all' ) ) {
+			w3tc_flush_all();
+		}
+
+		// WP Fastest Cache.
+		if ( ! empty( $GLOBALS['wp_fastest_cache'] ) && method_exists( $GLOBALS['wp_fastest_cache'], 'deleteCache' ) ) {
+			$GLOBALS['wp_fastest_cache']->deleteCache(true);
+		}
+
+		// WP Super Cache
+		if ( function_exists( 'wp_cache_clean_cache' ) ) {
+			global $file_prefix;
+			wp_cache_clean_cache( $file_prefix, true );
+		}
+		
+		$all_clear_cache = array(
+			'W3 Total Cache' => 'w3tc_pgcache_flush',
+			'WP Fastest Cache' => 'wpfc_clear_all_cache',
+			'WP Rocket' => 'rocket_clean_domain',
+			'Cachify' => 'cachify_flush_cache',
+			'Comet Cache' => array('comet_cache', 'clear'),
+			'SG Optimizer' => 'sg_cachepress_purge_cache',
+			'Pantheon' => 'pantheon_wp_clear_edge_all',
+			'Zen Cache' => array('zencache', 'clear'),
+			'Breeze' => array('Breeze_PurgeCache', 'breeze_cache_flush'),
+			'Swift Performance' => array('Swift_Performance_Cache', 'clear_all_cache'),
+			'WP Optimize' => 'wpo_cache_flush',
+		);
+		
+		foreach ($all_clear_cache as $plugin => $method) {
+			if (is_callable($method)) {
+				call_user_func($method);
+			}
+		}
+
+		do_action( 'litespeed_purge_all' );
+	}
+
 	/**
 	 * Add menu in admin bar.
 	 *
@@ -1087,11 +1101,7 @@ Class L_Plus_Generator {
 				$plus_version = $this->get_post_version( $post_id );
 				
 				if(!empty($this->tp_first_load)){
-					$tp_url_get = L_THEPLUS_URL;
-					if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
-						$tp_url_get = THEPLUS_URL;
-					}
-					wp_enqueue_style( 'theplus-general-preload',$this->pathurl_security($tp_url_get . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css"), ['elementor-frontend'], $plus_version );
+					wp_enqueue_style( 'theplus-general-preload',$this->pathurl_security(L_THEPLUS_URL . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css"), ['elementor-frontend'], $plus_version );
 					$this->tp_first_load = false;
 				}
 				if($this->check_css_js_cache_files( $post_type, $preload, 'css', true )){
@@ -1117,9 +1127,11 @@ Class L_Plus_Generator {
 					foreach( $separate_path['css'] as $key => $path ){
 						if(is_readable(l_theplus_library()->secure_path_url($path))){
 							$css_sep_url = str_replace( $tp_path, $tp_url, $path);
+							if ( defined('THEPLUS_VERSION') && defined('THEPLUS_URL') ) {
+								$css_sep_url = str_replace( L_THEPLUS_PATH . DIRECTORY_SEPARATOR, L_THEPLUS_URL, $css_sep_url);
+							}
 							$css_file_key = basename($css_sep_url, ".css");
 							$css_file_key = basename($css_file_key, ".min");
-							
 							wp_enqueue_style('theplus-'.$css_file_key,$this->pathurl_security($css_sep_url),false,$tp_version);
 						}
 					}
@@ -1128,6 +1140,9 @@ Class L_Plus_Generator {
 					foreach( $separate_path['js'] as $key => $path ){
 						if(is_readable(l_theplus_library()->secure_path_url($path))){
 							$js_sep_url = str_replace( $tp_path, $tp_url, $path);
+							if ( defined('THEPLUS_VERSION') && defined('THEPLUS_URL') ) {
+								$js_sep_url = str_replace( L_THEPLUS_PATH . DIRECTORY_SEPARATOR , L_THEPLUS_URL , $js_sep_url);
+							}
 							$js_file_key = basename($js_sep_url, ".js");
 							$js_file_key = basename($js_file_key, ".min");
 							wp_enqueue_script('theplus-'.$js_file_key,$this->pathurl_security($js_sep_url),['jquery'],$tp_version,true);
@@ -1137,7 +1152,6 @@ Class L_Plus_Generator {
 			}
 		}
 	}
-
 	public function init(){
 		$this->l_registered_widgets = l_registered_widgets();
 		

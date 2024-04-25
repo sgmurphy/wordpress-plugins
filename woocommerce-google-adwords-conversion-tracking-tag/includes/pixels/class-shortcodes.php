@@ -15,9 +15,6 @@ class Shortcodes {
 
 	private static $did_init = false;
 
-	protected static $options;
-	protected static $options_obj;
-
 	public static function init() {
 
 		// If already initialized, do nothing
@@ -26,9 +23,6 @@ class Shortcodes {
 		}
 
 		self::$did_init = true;
-
-		self::$options     = Options::get_options();
-		self::$options_obj = Options::get_options_obj();
 
 		add_shortcode('view-item', [ __CLASS__, 'view_item' ]);
 		add_shortcode('conversion-pixel', [ __CLASS__, 'conversion_pixel' ]);
@@ -140,7 +134,7 @@ class Shortcodes {
 				self::should_tracking_event_be_injected($shortcode_attributes, 'facebook')
 				|| self::should_tracking_event_be_injected($shortcode_attributes, 'meta')
 			)
-			&& self::$options_obj->facebook->pixel_id
+			&& Options::is_facebook_active()
 		) {
 			self::conversion_html_facebook($shortcode_attributes);
 		}
@@ -148,7 +142,7 @@ class Shortcodes {
 		// Microsoft Ads
 		if (
 			self::should_tracking_event_be_injected($shortcode_attributes, 'ms-ads')
-			&& self::$options_obj->bing->uet_tag_id
+			&& Options::is_bing_active()
 		) {
 			self::conversion_html_microsoft_ads($shortcode_attributes);
 		}
@@ -164,7 +158,7 @@ class Shortcodes {
 		// Pinterest
 		if (
 			self::should_tracking_event_be_injected($shortcode_attributes, 'pinterest')
-			&& self::$options_obj->pinterest->pixel_id
+			&& Options::is_pinterest_active()
 		) {
 			self::conversion_html_pinterest($shortcode_attributes);
 		}
@@ -180,7 +174,7 @@ class Shortcodes {
 		// Snapchat
 		if (
 			self::should_tracking_event_be_injected($shortcode_attributes, 'snapchat')
-			&& self::$options_obj->snapchat->pixel_id
+			&& Options::is_snapchat_active()
 		) {
 			self::conversion_html_snapchat($shortcode_attributes);
 		}
@@ -196,7 +190,7 @@ class Shortcodes {
 		// TikTok
 		if (
 			self::should_tracking_event_be_injected($shortcode_attributes, 'tiktok')
-			&& self::$options_obj->tiktok->pixel_id
+			&& Options::is_tiktok_active()
 		) {
 			self::conversion_html_tiktok($shortcode_attributes);
 		}
@@ -204,7 +198,7 @@ class Shortcodes {
 		// Twitter
 		if (
 			self::should_tracking_event_be_injected($shortcode_attributes, 'twitter')
-			&& self::$options_obj->twitter->pixel_id
+			&& Options::is_twitter_active()
 		) {
 			self::conversion_html_twitter($shortcode_attributes);
 		}

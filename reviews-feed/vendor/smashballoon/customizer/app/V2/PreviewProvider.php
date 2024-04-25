@@ -2,6 +2,8 @@
 
 namespace Smashballoon\Customizer\V2;
 
-interface PreviewProvider{
+/** @internal */
+interface PreviewProvider
+{
     public function render($attr, $settings);
 }

@@ -16,7 +16,7 @@ class FeedCacheUpdateService extends ServiceProvider {
 
 	const RESULTS_PER_PAGE = 20;
 
-	const RESULTS_PER_CRON_UPDATE = 14;
+	const RESULTS_PER_CRON_UPDATE = 10;
 
 	/**
 	 * @var AuthorizationStatusCheck
@@ -63,7 +63,8 @@ class FeedCacheUpdateService extends ServiceProvider {
 
 		$num = count( $caches );
 		if ( $num === self::RESULTS_PER_CRON_UPDATE ) {
-			wp_schedule_single_event( time() + 120, self::CRON_JOB_ADDITIONAL_BATCH  );
+			// Schedule another batch in 5 minutes if needed
+			wp_schedule_single_event( time() + 300, self::CRON_JOB_ADDITIONAL_BATCH  );
 		}
 	}
 
@@ -79,27 +80,16 @@ class FeedCacheUpdateService extends ServiceProvider {
 			$sql = "
 			SELECT * FROM $feed_cache_table_name;";
 		} else {
-			if ( ! isset( $args['additional_batch'] ) ) {
-				$sql = $wpdb->prepare(
-					"
-					SELECT * FROM $feed_cache_table_name
-					WHERE cron_update = 'yes'
-					ORDER BY last_updated ASC
-					LIMIT %d;",
-					self::RESULTS_PER_CRON_UPDATE
-				);
-			} else {
-				$sql = $wpdb->prepare(
-					"
-					SELECT * FROM $feed_cache_table_name
-					WHERE cron_update = 'yes'
-					AND last_updated < %s
-					ORDER BY last_updated ASC
-					LIMIT %d;",
-					gmdate( 'Y-m-d H:i:s', time() - HOUR_IN_SECONDS ),
-					self::RESULTS_PER_CRON_UPDATE
-				);
-			}
+			$sql = $wpdb->prepare(
+				"
+				SELECT * FROM $feed_cache_table_name
+				WHERE cron_update = 'yes'
+				AND last_updated < %s
+				ORDER BY last_updated ASC
+				LIMIT %d;",
+				gmdate( 'Y-m-d H:i:s', time() - 12 * HOUR_IN_SECONDS ),
+				self::RESULTS_PER_CRON_UPDATE
+			);
 		}
 		return $wpdb->get_results( $sql, ARRAY_A );
 	}

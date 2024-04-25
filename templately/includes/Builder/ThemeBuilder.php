@@ -58,6 +58,8 @@ class ThemeBuilder extends Base {
 		add_filter( 'elementor/document/config', [$this, 'elementor_document_config'], 10, 2 );
 		add_filter( 'elementor/documents/get/post_id', [$this, 'elementor_documents_get_post_id'] );
 
+		add_filter( 'the_content', [$this, 'filter_content'], 10 ,1);
+
 		self::$theme_compatibility  = new ThemeCompatibility();
 		self::$location_manager     = new LocationManager( $this );
 		self::$page_template_module = new PageTemplates();
@@ -190,6 +192,18 @@ class ThemeBuilder extends Base {
 		}
 
 		return $value;
+	}
+
+	public function filter_content( $content ) {
+		if(is_singular()){
+			global $post;
+			if(!empty($post) && $post->post_type === 'templately_library'){
+				if(in_array(get_post_meta($post->ID, '_templately_template_type', true), ['header', 'footer'])){
+					return '';
+				}
+			}
+		}
+		return $content;
 	}
 
 }

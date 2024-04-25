@@ -2,8 +2,8 @@
 Contributors: cbutlerjr
 Tags: membership, registration, login, authentication, restriction
 Requires at least: 4.0
-Tested up to: 6.4
-Stable tag: 3.4.9.3
+Tested up to: 6.5
+Stable tag: 3.4.9.5
 
 License: GPLv3
 
@@ -135,6 +135,15 @@ WP-Members 3.4.9 is a security update. Backup prior to upgrading is recommended,
 = 3.5.0 =
 
 * WP-Members pluggable deprecated for use in theme functions.php (wpmem will be initialized when plugins are loaded).  If you have any WP-Members pluggable functions that load in the theme functions.php, you'll need to move these to another location, such as a custom plugin file.  Keep in mind, pluggable functions are no longer the preferred way of customizing (and have not been for many years) as most customizations, if not all, can be handled by using the plugin's filter and action hooks.
+
+= 3.4.9.5 =
+
+* Fixes a bug in the 3.4.9.4 release in an unannounced filter hook (that will be part of 3.5.0)
+
+= 3.4.9.4 =
+
+* Adds index.php to user upload directories to prevent directory browsing if not specifically disabled elsewhere.
+* Define $woo_connector object variable for PHP 8.2+ with the premium WooCommerce integration extension.
 
 = 3.4.9.3 =
 

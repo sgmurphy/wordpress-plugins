@@ -113,6 +113,25 @@ class HMWP_Models_Rules
     }
 
     /**
+     * Find the regex text in specific file
+     *
+     * @param string $find
+     * @param string $file
+     *
+     * @return bool
+     */
+    public function find( $find, $file ) {
+        $lines = file($file);
+
+        foreach ( (array)$lines as $line ) {
+            if (preg_match("/$find/", $line) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    /**
      * Replace text in file
      *
      * @param $old
@@ -121,54 +140,82 @@ class HMWP_Models_Rules
      *
      * @return bool
      */
-    public function setReplace( $old, $new, $file )
+    public function findReplace( $old, $new, $file )
     {
-        if (!$this->isConfigWritable($file) ) {
-            return false;
-        }
-
-        $found = false;
+        $added = false;
         $lines = file($file);
 
-        foreach ( (array)$lines as $line ) {
-            if (preg_match("/$old/", $line) ) {
-                $found = true;
-                break;
+        //If the line is found
+        if ($new <> '' ) {
+            if ($this->find($old, $file)) {
+                $fd = fopen($file, 'w');
+                foreach ((array)$lines as $line) {
+                    if (!preg_match("/$old/", $line)) {
+                        fputs($fd, $line);
+                    } else {
+                        //add the new line and replace the old line
+                        fputs($fd, $new);
+                        $added = true;
+                    }
+                }
+                fclose($fd);
+            } else {
+                return $this->addLine($new, $file);
             }
         }
 
+        return $added;
+    }
 
-        if ($found ) {
-            $fd = fopen($file, 'w');
-            foreach ( (array)$lines as $line ) {
-                if (!preg_match("/$old/", $line) ) {
-                    fputs($fd, $line);
-                } elseif ($new <> '' ) {
-                    fputs($fd, $new);
-                }
-            }
-            fclose($fd);
-        } elseif ($new <> '' ) {
+    /**
+     * Add the new line in file
+     * @param $new
+     * @param $file
+     *
+     * @return bool
+     */
+    public function addLine( $new, $file ){
+
+        $added = false;
+        $lines = file($file);
+
+        if ($new <> '' ) {
             $fd = fopen($file, 'w');
             foreach ( (array)$lines as $line ) {
                 fputs($fd, $line);
 
-                if (!$found && preg_match('/\$table_prefix/', $line) ) {
+                if (preg_match('/\$table_prefix/', $line) ) {
                     fputs($fd, $new);
-                    $found = true;
+                    $added = true;
                 }
             }
             fclose($fd);
         }
 
-        return $found;
+        return $added;
     }
 
+    /**
+     * Write the rules in the hidemywp conf file
+     *
+     * @param $rules
+     * @param $header
+     *
+     * @return bool
+     */
     public function writeInNginx( $rules, $header = 'HMWP_RULES' )
     {
         return $this->insertWithMarkers($header, $rules);
     }
 
+    /**
+     * Write the rules into htaccess file
+     *
+     * @param $rules
+     * @param $header
+     *
+     * @return bool
+     */
     public function writeInHtaccess( $rules, $header = 'HMWP_RULES' )
     {
         if (HMWP_Classes_Tools::isModeRewrite() ) {
@@ -177,7 +224,6 @@ class HMWP_Models_Rules
 
         return false;
     }
-
 
     /**
      * Inserts an array of strings into a file (.htaccess ), placing it between
@@ -428,7 +474,6 @@ class HMWP_Models_Rules
                 // Prevent -f checks on index.php.
                 if((int)HMWP_Classes_Tools::getOption('hmwp_sqlinjection_level') == 1) {
                     $rules .= "RewriteCond %{THE_REQUEST} etc/passwd [NC,OR]" . PHP_EOL;
-                    $rules .= "RewriteCond %{THE_REQUEST} cgi-bin [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{QUERY_STRING} (\\<|%3C).*object.*(\\>|%3E) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{QUERY_STRING} (<|%3C)([^o]*o)+bject.*(>|%3E) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{QUERY_STRING} (\\<|%3C).*iframe.*(\\>|%3E) [NC,OR]" . PHP_EOL;
@@ -449,7 +494,6 @@ class HMWP_Models_Rules
                     $rules .= "RewriteCond %{HTTP_USER_AGENT} (;|<|>|'|\\\"|\\)|\\(|%0A|%0D|%22|%28|%3C|%3E|%00).*(libwww-perl|wget|python|nikto|curl|scan|java|winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{THE_REQUEST} (\\*|%2a)+(%20+|\\s+|%20+\\s+|\\s+%20+|\\s+%20+\\s+)HTTP(:/|/) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{THE_REQUEST} etc/passwd [NC,OR]" . PHP_EOL;
-                    $rules .= "RewriteCond %{THE_REQUEST} cgi-bin [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{THE_REQUEST} (%0A|%0D|\\r|\\n) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{REQUEST_URI} owssvr\\.dll [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{HTTP_REFERER} (%0A|%0D|%3C|%3E|%00) [NC,OR]" . PHP_EOL;
@@ -664,7 +708,7 @@ class HMWP_Models_Rules
                     $rules .= "RewriteCond %{REQUEST_URI} (/)(filemanager|htdocs|httpdocs|https?|login|mailman|mailto|msoffice|undefined|usage|var|vhosts|webmaster|www)(/) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{REQUEST_URI} (\(null\)|\{\\\$itemURL\}|cast\(0x|echo(.*)kae|etc/passwd|eval\(|null(.*)null|open_basedir|self/environ|\+union\+all\+select) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{REQUEST_URI} (/)(db-?|j-?|my(sql)?-?|setup-?|web-?|wp-?)?(admin-?)?(setup-?)?(conf\b|conf(ig)?)(uration)?(\.?bak|\.inc)?(\.inc|\.old|\.php|\.txt) [NC,OR]" . PHP_EOL;
-                    $rules .= "RewriteCond %{REQUEST_URI} (/)((.*)crlf-?injection|(.*)xss-?protection|__(inc|jsc)|administrator|author-panel|cgi-bin|database|downloader|(db|mysql)-?admin)(/) [NC,OR]" . PHP_EOL;
+                    $rules .= "RewriteCond %{REQUEST_URI} (/)((.*)crlf-?injection|(.*)xss-?protection|__(inc|jsc)|administrator|author-panel|database|downloader|(db|mysql)-?admin)(/) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{REQUEST_URI} (/)(haders|head|hello|helpear|incahe|includes?|indo(sec)?|infos?|install|ioptimizes?|jmail|js|king|kiss|kodox|kro|legion|libsoft)(\.php) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{REQUEST_URI} (/)(awstats|document_root|dologin\.action|error.log|extension/ext|htaccess\.|lib/php|listinfo|phpunit/php|remoteview|server/php|www\.root\.) [NC,OR]" . PHP_EOL;
                     $rules .= "RewriteCond %{REQUEST_URI} (base64_(en|de)code|benchmark|curl_exec|e?chr|eval|function|fwrite|(f|p)open|html|leak|passthru|p?fsockopen|phpinfo)(.*)(\(|%28)(.*)(\)|%29) [NC,OR]" . PHP_EOL;

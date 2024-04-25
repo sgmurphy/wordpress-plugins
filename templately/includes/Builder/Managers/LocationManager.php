@@ -2,11 +2,15 @@
 
 namespace Templately\Builder\Managers;
 
+use EbStyleHandler;
 use Templately\Builder\PageTemplates;
 use Templately\Builder\Source;
 use Templately\Builder\ThemeBuilder;
 use Templately\Builder\Types\BaseTemplate;
 use Templately\Builder\Types\ThemeTemplate;
+use ElementorPro\Modules\ThemeBuilder\Module;
+use Elementor\Core\Files\CSS\Post as Post_CSS;
+use ElementorPro\Plugin;
 
 class LocationManager {
 	/**
@@ -37,6 +41,13 @@ class LocationManager {
 		 * Because it should be run after elementor & woocommerce
 		 */
 		add_filter( 'template_include', [ $this, 'template_include' ], 13 );
+
+		/**
+		 * Priority is 7,
+		 * Because it should run before elementor
+		 */
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 7 );
+		add_action( 'eb_frontend_assets', [ $this, 'enqueue_template_assets' ], 10, 2 );
 	}
 
 	private function set_locations() {
@@ -268,6 +279,89 @@ class LocationManager {
 		}
 
 		return true;
+	}
+
+	public function enqueue_styles() {
+
+		if (
+			$this->get_platform(get_the_ID()) !== 'elementor' ||
+			(
+				class_exists('ElementorPro\Modules\ThemeBuilder\Module') &&
+				Module::is_preview()
+			)
+		) {
+			return;
+		}
+
+
+
+		$locations = $this->get_locations();
+
+		if ( empty( $locations ) ) {
+			return;
+		}
+
+		// if ( ! empty( $this->current_page_template ) ) {
+		// 	$locations = $this->filter_page_template_locations( $locations );
+		// }
+
+		$current_post_id = get_the_ID();
+
+		/** @var Post_CSS[] $css_files */
+		$css_files = [];
+
+		foreach ( $locations as $location => $settings ) {
+			$templates_for_location = $this->builder::$conditions_manager->get_templates_by_location( $location );
+
+			foreach ( $templates_for_location as $document ) {
+				$post_id = $document->get_main_id();
+				// Don't enqueue current post here (let the  preview/frontend components to handle it)
+				if ( $current_post_id !== $post_id ) {
+					$css_file = new Post_CSS( $post_id );
+					$css_files[] = $css_file;
+				}
+			}
+		}
+
+		if ( ! empty( $css_files ) ) {
+			// Enqueue the frontend styles manually also for pages that don't built with Elementor.
+			// Plugin::elementor()->frontend->enqueue_styles();
+
+			// Enqueue after the frontend styles to override them.
+			foreach ( $css_files as $css_file ) {
+				$css_file->enqueue();
+			}
+
+			if(class_exists('ElementorPro\Plugin')){
+				/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder */
+				$theme_builder    = Plugin::instance()->modules_manager->get_modules( 'theme-builder' );
+				$location_manager = $theme_builder->get_locations_manager();
+				remove_action( 'wp_enqueue_scripts', [ $location_manager, 'enqueue_styles' ] );
+			}
+		}
+	}
+
+	public function enqueue_template_assets( $path, $url ) {
+		$using_templately_builder = get_query_var( 'using_templately_template' );
+		if ( $using_templately_builder && function_exists( 'templately' ) ) {
+			$template_locations = [ 'header', 'footer', 'archive', 'single' ];
+			foreach ( $template_locations as $location ) {
+				$template = templately()->theme_builder::$conditions_manager->get_templates_by_location( $location );
+				if ( empty( $template ) ) {
+					return;
+				}
+				$template = array_pop( $template );
+				if ( $template->platform == 'gutenberg' ) {
+					$template = is_array( $template ) ? array_pop( $template ) : $template;
+					if ( ! file_exists( $path . 'eb-style-' . $template->get_main_id() . '.min.css' ) ) {
+						$st   = EbStyleHandler::init();
+						$post = get_post( $template->get_main_id() );
+						$st->eb_write_css_from_content( $post, $post->ID, parse_blocks( $post->post_content ) );
+					}
+					wp_enqueue_style( 'templately-' . $location . '-' . $template->get_main_id(), $url . 'eb-style-' . $template->get_main_id() . '.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
+				}
+			}
+		}
 	}
 
 	/**

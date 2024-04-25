@@ -1049,12 +1049,14 @@ class WPvivid_Uploads_Scanner
             $settings=$element_data['settings'];
             if(isset($settings['image']))
             {
-                if(!in_array($settings['image']['id'],$attachment_added_ids))
+                if(isset($settings['image']['id']))
                 {
-                    $element_image[]=$settings['image']['id'];
-                    $attachment_added_ids[]=$settings['image']['id'];
+                    if(!in_array($settings['image']['id'],$attachment_added_ids))
+                    {
+                        $element_image[]=$settings['image']['id'];
+                        $attachment_added_ids[]=$settings['image']['id'];
+                    }
                 }
-
             }
 
             if(isset($settings['logo_items']))

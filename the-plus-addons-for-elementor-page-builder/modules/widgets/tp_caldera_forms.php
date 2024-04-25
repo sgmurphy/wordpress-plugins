@@ -29,7 +29,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Get Widget Name.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
 	 */
 	public function get_name() {
 		return 'tp-caldera-forms';
@@ -38,7 +38,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Get Widget Title.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
 	 */
 	public function get_title() {
 		return esc_html__( 'Caldera Forms', 'tpebl' );
@@ -47,7 +47,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Get Widget Icon.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
 	 */
 	public function get_icon() {
 		return 'fa fa-envelope-open theplus_backend_icon';
@@ -56,7 +56,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Get Widget categories.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
 	 */
 	public function get_categories() {
 		return array( 'plus-adapted' );
@@ -65,7 +65,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Get Widget keywords.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
 	 */
 	public function get_keywords() {
 		return array( 'Caldera Forms', 'Form builder', 'Form creator', 'Contact form', 'WordPress form', 'Form plugin', 'Form widget', 'Form generator', 'Drag and drop form', 'Form element', 'Elementor form', 'Plus Addons form', 'Caldera form widget' );
@@ -74,7 +74,9 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Register controls.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
+	 *
+	 * @version 5.4.2
 	 */
 	protected function register_controls() {
 
@@ -124,7 +126,6 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .pt_plus_caldera_forms .control-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-				'separator'  => 'after',
 			)
 		);
 		$this->add_group_control(
@@ -1409,7 +1410,6 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .pt_plus_caldera_forms input[type=file],{{WRAPPER}} .pt_plus_caldera_forms .caldera_forms_form .form-control.cf2-file .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-				'separator'  => 'after',
 			)
 		);
 		$this->add_responsive_control(
@@ -1421,7 +1421,6 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .pt_plus_caldera_forms input[type=file],{{WRAPPER}} .pt_plus_caldera_forms .caldera_forms_form .form-control.cf2-file .btn' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-				'separator'  => 'after',
 			)
 		);
 		$this->add_group_control(
@@ -1607,7 +1606,6 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .pt_plus_caldera_forms h2' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
-				'separator'  => 'after',
 			)
 		);
 		$this->add_responsive_control(
@@ -1636,7 +1634,6 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .pt_plus_caldera_forms .caldera-forms-summary-field ul>li' => 'color: {{VALUE}};',
 				),
-				'separator' => 'after',
 			)
 		);
 		$this->end_controls_section();
@@ -1766,7 +1763,6 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 					{{WRAPPER}} .pt_plus_caldera_forms input[type = button],
 					{{WRAPPER}} .pt_plus_caldera_forms input[type = reset]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-				'separator'  => 'before',
 			)
 		);
 		$this->add_responsive_control(
@@ -2602,13 +2598,14 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	/**
 	 * Get Shortcode.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
+	 * @version 5.4.2
 	 */
 	private function get_shortcode() {
 		$settings = $this->get_settings_for_display();
-		$c_form   = ! empty( $settings['caldera_forms'] ) ? $settings['caldera_forms'] : '';
+		$c_form   = ! empty( $settings['caldera_forms'] ) ? $settings['caldera_forms'] : '0';
 
-		if ( ! empty( $c_form ) ) {
+		if ( '0' === $c_form ) {
 			return '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a Caldera Forms', 'tpebl' ) . '</h3>';
 		}
 
@@ -2624,21 +2621,26 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 	}
 
 	/**
-	 * Render.
+	 * Render caldera form.
 	 *
-	 * @since 5.3.5
+	 * @since 1.0.0
+	 * @version 5.4.2
 	 */
 	public function render() {
 		$settings = $this->get_settings_for_display();
 
-			$ani_effects = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : 'no-animation';
-			$animation_delay   = ( ! empty( $settings['animation_delay']['size'] ) ) ? $settings['animation_delay']['size'] : 50;
-			$ani_duration      = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
-			$duration_speed    = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
-			$ani_effect        = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : 'no-animation';
-			$ani_delay         = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
-			$ani_out           = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
-			$duration_size     = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
+		$ani_out = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
+
+		$ani_delay  = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
+		$ani_effect = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : 'no-animation';
+
+		$ani_effects  = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : 'no-animation';
+		$ani_duration = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
+
+		$duration_size  = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
+		$duration_speed = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
+
+		$animation_delay = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
 
 		if ( 'no-animation' === $ani_effects ) {
 			$animated_class = '';
@@ -2662,9 +2664,10 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 			}
 		}
 
-		$output  = '<div class="pt_plus_caldera_forms ' . esc_attr( $animated_class ) . '" ' . esc_attr( $animation_attr ) . '>';
-		$output .= do_shortcode( $this->get_shortcode() );
-		$output .= '</div>';
+		$output      = '<div class="pt_plus_caldera_forms ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+			$output .= do_shortcode( $this->get_shortcode() );
+		$output     .= '</div>';
+
 		echo $output;
 	}
 }

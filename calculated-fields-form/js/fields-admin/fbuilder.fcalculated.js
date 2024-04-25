@@ -278,12 +278,15 @@
 						$.each(o.fields, function(j, v)
 							{
 
-								var opt = '<option value=""></option>';
+								var opt = '<option value=""></option>', t = '';
 								for (var k=0;k<items.length;k++)
 								{
 									if (items[k].name != me.name && items[k].ftype != 'fPageBreak' && items[k].ftype != 'frecordsetds')
 									{
-										opt += '<option value="'+items[k].name+'" '+((items[k].name == v) ? 'selected="SELECTED"' : '')+'>'+items[k].name+((typeof items[k].title != 'undefined') ? ' ('+cff_esc_attr(items[k].title)+')' : '')+'</option>';
+										t = ( 'title' in items[k] ) ? String( items[k].title ).trim() : '';
+										t = ( '' == t && 'shortlabel' in items[k] ) ? String( items[k].shortlabel ).trim() : t;
+
+										opt += '<option value="'+items[k].name+'" '+((items[k].name == v) ? 'selected="SELECTED"' : '')+'>'+items[k].name+('' != t ? ' ('+cff_esc_attr(t)+')' : '')+'</option>';
 									}
 								}
 								r += '<div style="position:relative;" class="cff-dependency-item"><span>If rule is valid show:</span> <select class="cf_dependence_field" i="'+i+'" j="'+j+'" >'+opt+'</select><div class="choice-ctrls"><a class="addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
@@ -413,7 +416,7 @@
 					'<label>Operands <div style="float:right;"><a href="https://cff.dwbooster.com/documentation#modules" target="_blank">Read equation tutorial</a></div></label><div class="groupBox"><select id="sFieldList">';
 
                     var items = this.fBuild.getItems(),
-						invalidFields = { 'fSectionBreak':1, 'fPageBreak':1, 'fsummary':1, 'ffieldset':1, 'fdiv':1, 'fMedia':1, 'fButton':1, 'fhtml':1, 'ffile':1 };
+						invalidFields = { 'fSectionBreak':1, 'fPageBreak':1, 'fsummary':1, 'ffieldset':1, 'fdiv':1, 'fMedia':1, 'fButton':1, 'fhtml':1, 'ffile':1 }, t = '';
 
 					for(var i in items)
 					{
@@ -423,10 +426,13 @@
 							var fName = item['name'],
 								fTitle = item['title'];
 
-							cff_form_fields_list[fName] = {label:fTitle, type:item.ftype};
+							t = ( 'title' in item ) ? String( item.title ).trim() : '';
+							t = ( '' == t && 'shortlabel' in item ) ? String( item.shortlabel ).trim() : t;
+
+							cff_form_fields_list[fName] = {label:t, type:item.ftype};
 
 							fName = fName.replace(/'/g, "\'").replace(/"/g, '\"');
-							out += '<option value="'+cff_esc_attr(fName)+'">'+item['name']+((item['title'] && !/^\s*$/.test(item['title'])) ? '('+cff_esc_attr(item['title'])+')' : '')+'</option>';
+							out += '<option value="'+cff_esc_attr(fName)+'">'+item['name']+(('' != t) ? '('+cff_esc_attr(t)+')' : '')+'</option>';
 						}
 					}
                     out += '</select><input type="button" value="+" class="eq_btn button-secondary" onclick="'+tools+'.setField();" /></div><label>Operators</label><div style="text-align:center;" class="groupBox"><div style="text-align:left;">'+$.fbuilder.controls['fCalculated']['tools'].loadToolbarList()+'<span id="sEqModuleTutorial">'+$.fbuilder.controls['fCalculated']['tools'].loadTutorial(default_toolbar)+'</span></div><div id="sEqButtonsContainer" style="margin-top:10px;">'+$.fbuilder.controls['fCalculated']['tools'].loadToolbar(default_toolbar)+'</div><div id="sEqTipsContainer" style="background-color:#DFEFFF;border:1px solid #C2D7EF;padding:5px;margin:5px;display:none;text-align:left;"></div><div style="padding-top:20px;" class="large"><input type="button" class="button-primary large" onclick="window.open(\'https://cff-bundles.dwbooster.com/?category[]=operations\',\'_blank\');" value="More operations [+]" /></div></div><label>Symbol to display at beginning of calculated field</label><input type="text" name="sPrefix" id="sPrefix" class="large" value="'+cff_esc_attr(me.prefix)+'" /><label><input type="checkbox" id="sCurrency" name="sCurrency" '+((me.currency) ? 'CHECKED' : '')+' /> it is a currency</label><label>Symbol to display at the end of calculated field</label><input type="text" name="sSuffix" id="sSuffix" class="large" value="'+cff_esc_attr(me.suffix)+'" /><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sDecimalSymbol" id="sDecimalSymbol" class="large" value="'+cff_esc_attr(me.decimalsymbol)+'" /><label>Symbol for grouping thousands (Ex: 3,000,000)</label><input type="text" name="sGroupingSymbol" id="sGroupingSymbol" class="large" value="'+cff_esc_attr(me.groupingsymbol)+'" />';

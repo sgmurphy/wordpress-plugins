@@ -5,7 +5,7 @@ use \NitroPack\Url\Url;
 use \NitroPack\SDK\Url\Embedjs;
 
 class NitroPack {
-    const VERSION = '0.55.0';
+    const VERSION = '0.56.0';
     const PAGECACHE_LOCK_EXPIRATION_TIME = 300; // in seconds
     private $dataDir;
     private $cachePath = array('data', 'pagecache');
@@ -163,6 +163,11 @@ class NitroPack {
 
         $this->pageCache = new Pagecache($this->url, $this->userAgent, $this->supportedCookiesFilter(self::getCookies()), $this->config->PageCache->SupportedCookies, $this->isAJAXRequest());
         $this->pageCache->setCookiesProvider([$this, "getPagecacheCookies"]);
+
+        if ($this->config->PageCache->Geot->Status) {
+            $this->pageCache->setGeotVariations($this->config->PageCache->Geot->Variations);
+        }
+
         if ($this->isAJAXRequest() && $this->isAllowedAJAXUrl($this->url) && !empty($_SERVER["HTTP_REFERER"]) && !$this->isAllowedStandaloneAJAXUrl($url)) {
             $refererInfo = new Url($_SERVER["HTTP_REFERER"]);
             $this->pageCache->setReferer($refererInfo->getNormalized());
@@ -497,6 +502,11 @@ class NitroPack {
             // Overwrite the page cache
             $this->pageCache = new Pagecache($this->url, $this->userAgent, $this->supportedCookiesFilter(self::getCookies()), $this->config->PageCache->SupportedCookies, $this->isAJAXRequest());
             $this->pageCache->setCookiesProvider([$this, "getPagecacheCookies"]);
+
+            if ($this->config->PageCache->Geot->Status) {
+                $this->pageCache->setGeotVariations($this->config->PageCache->Geot->Variations);
+            }
+
             if ($this->isAJAXRequest() && $this->isAllowedAJAXUrl($this->url) && !empty($_SERVER["HTTP_REFERER"]) && !$this->isAllowedStandaloneAJAXUrl($url)) {
                 $refererInfo = new Url($_SERVER["HTTP_REFERER"]);
                 $this->pageCache->setReferer($refererInfo->getNormalized());

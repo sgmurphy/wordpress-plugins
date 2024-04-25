@@ -202,16 +202,22 @@ class Google extends Pixel {
 
 		if ($order->get_billing_email()) {
 
-			$email = strtolower($order->get_billing_email());
+			$email = $order->get_billing_email();
+			$email = $this->normalize_for_enhanced_conversions($email);
+			$email = $this->prep_email_for_enhanced_conversions($email);
+			$email = $this->hash_for_enhanced_conversions($email);
 
-			$customer_data['sha256_email_address'] = $this->normalize_and_hash_for_enhanced_conversions($email);
+			$customer_data['sha256_email_address'] = $email;
 		}
 
 		if ($order->get_billing_phone()) {
 
-			$phone_number = Helpers::get_e164_formatted_phone_number((string) $order->get_billing_phone(), (string) $order->get_billing_country());
+			$phone_number = (string) $order->get_billing_phone();
+			$phone_number = Helpers::get_e164_formatted_phone_number($phone_number, (string) $order->get_billing_country());
+			$phone_number = $this->normalize_for_enhanced_conversions($phone_number);
+			$phone_number = $this->hash_for_enhanced_conversions($phone_number);
 
-			$customer_data['sha256_phone_number'] = $this->normalize_and_hash_for_enhanced_conversions($phone_number);
+			$customer_data['sha256_phone_number'] = $phone_number;
 		}
 
 		if ($this->is_shipping_address_set($order)) {
@@ -229,6 +235,7 @@ class Google extends Pixel {
 			}
 
 		} else {
+
 			$billing_address = $this->get_billing_address_details($order);
 
 			if ($this->address_requirements_are_met($billing_address)) {
@@ -255,30 +262,54 @@ class Google extends Pixel {
 
 		if ($order->get_billing_first_name()) {
 
-			$fist_name = (string) $order->get_billing_first_name();
+			$first_name = (string) $order->get_billing_first_name();
+			$first_name = $this->normalize_for_enhanced_conversions($first_name);
+			$first_name = $this->hash_for_enhanced_conversions($first_name);
 
-			$customer_data['sha256_first_name'] = $this->normalize_and_hash_for_enhanced_conversions($fist_name);
+			$customer_data['sha256_first_name'] = $first_name;
 		}
 		if ($order->get_billing_last_name()) {
 
 			$last_name = (string) $order->get_billing_last_name();
+			$last_name = $this->normalize_for_enhanced_conversions($last_name);
+			$last_name = $this->hash_for_enhanced_conversions($last_name);
 
-			$customer_data['sha256_last_name'] = $this->normalize_and_hash_for_enhanced_conversions($last_name);
+			$customer_data['sha256_last_name'] = $last_name;
 		}
 		if ($order->get_billing_address_1()) {
-			$customer_data['street'] = (string) $order->get_billing_address_1();
+
+			$street = (string) $order->get_billing_address_1();
+			$street = $this->normalize_for_enhanced_conversions($street);
+
+			$customer_data['street'] = $street;
 		}
 		if ($order->get_billing_city()) {
-			$customer_data['city'] = (string) $order->get_billing_city();
+
+			$city = (string) $order->get_billing_city();
+			$city = $this->normalize_for_enhanced_conversions($city);
+
+			$customer_data['city'] = $city;
 		}
 		if ($order->get_billing_state()) {
-			$customer_data['region'] = (string) $order->get_billing_state();
+
+			$region = (string) $order->get_billing_state();
+			$region = $this->normalize_for_enhanced_conversions($region);
+
+			$customer_data['region'] = $region;
 		}
 		if ($order->get_billing_postcode()) {
-			$customer_data['postal_code'] = (string) $order->get_billing_postcode();
+
+			$postal_code = (string) $order->get_billing_postcode();
+			$postal_code = $this->normalize_for_enhanced_conversions($postal_code);
+
+			$customer_data['postal_code'] = $postal_code;
 		}
 		if ($order->get_billing_country()) {
-			$customer_data['country'] = (string) $order->get_billing_country();
+
+			$country = (string) $order->get_billing_country();
+			$country = $this->normalize_for_enhanced_conversions($country);
+
+			$customer_data['country'] = $country;
 		}
 
 		return $customer_data;
@@ -290,30 +321,54 @@ class Google extends Pixel {
 
 		if ($order->get_shipping_first_name()) {
 
-			$fist_name = (string) $order->get_shipping_first_name();
+			$first_name = (string) $order->get_shipping_first_name();
+			$first_name = $this->normalize_for_enhanced_conversions($first_name);
+			$first_name = $this->hash_for_enhanced_conversions($first_name);
 
-			$customer_data['sha256_first_name'] = $this->normalize_and_hash_for_enhanced_conversions($fist_name);
+			$customer_data['sha256_first_name'] = $first_name;
 		}
 		if ($order->get_shipping_last_name()) {
 
 			$last_name = (string) $order->get_shipping_last_name();
+			$last_name = $this->normalize_for_enhanced_conversions($last_name);
+			$last_name = $this->hash_for_enhanced_conversions($last_name);
 
-			$customer_data['sha256_last_name'] = $this->normalize_and_hash_for_enhanced_conversions($last_name);
+			$customer_data['sha256_last_name'] = $last_name;
 		}
 		if ($order->get_shipping_address_1()) {
-			$customer_data['street'] = (string) $order->get_shipping_address_1();
+
+			$street = (string) $order->get_shipping_address_1();
+			$street = $this->normalize_for_enhanced_conversions($street);
+
+			$customer_data['street'] = $street;
 		}
 		if ($order->get_shipping_city()) {
-			$customer_data['city'] = (string) $order->get_shipping_city();
+
+			$city = (string) $order->get_shipping_city();
+			$city = $this->normalize_for_enhanced_conversions($city);
+
+			$customer_data['city'] = $city;
 		}
 		if ($order->get_shipping_state()) {
-			$customer_data['region'] = (string) $order->get_shipping_state();
+
+			$region = (string) $order->get_shipping_state();
+			$region = $this->normalize_for_enhanced_conversions($region);
+
+			$customer_data['region'] = $region;
 		}
 		if ($order->get_shipping_postcode()) {
-			$customer_data['postal_code'] = (string) $order->get_shipping_postcode();
+
+			$postal_code = (string) $order->get_shipping_postcode();
+			$postal_code = $this->normalize_for_enhanced_conversions($postal_code);
+
+			$customer_data['postal_code'] = $postal_code;
 		}
 		if ($order->get_shipping_country()) {
-			$customer_data['country'] = (string) $order->get_shipping_country();
+
+			$country = (string) $order->get_shipping_country();
+			$country = $this->normalize_for_enhanced_conversions($country);
+
+			$customer_data['country'] = $country;
 		}
 
 		return $customer_data;
@@ -417,18 +472,51 @@ class Google extends Pixel {
 
 	/**
 	 * Normalize and hash for enhanced conversions
-	 * https://support.google.com/google-ads/answer/12785317
+	 * https://support.google.com/google-ads/answer/13258081
 	 *
 	 * @param $string
 	 *
 	 * @return string
 	 * @since 1.32.0
 	 */
-	private function normalize_and_hash_for_enhanced_conversions( $string ) {
+	private function normalize_for_enhanced_conversions( $string ) {
 
 		$string = Helpers::trim_string($string);
-		$string = strtolower($string);
+		return strtolower($string);
+	}
 
+	/**
+	 * Hash for enhanced conversions
+	 *
+	 * Source: https://support.google.com/google-ads/answer/13258081
+	 *
+	 * @param $string
+	 *
+	 * @return string
+	 * @since 1.42.5
+	 */
+	private function hash_for_enhanced_conversions( $string ) {
 		return Helpers::hash_string($string);
+	}
+
+	/**
+	 * Prepares an email address for enhanced conversions.
+	 *
+	 * @param string $email
+	 *
+	 * @return string
+	 * @since 1.42.5
+	 */
+	private function prep_email_for_enhanced_conversions( $email ) {
+		// If the email is a @gmail or a @googlemail address, we need to remove the dots from the local part.
+
+		$parts = explode('@', $email);
+
+		if (isset($parts[1]) && in_array($parts[1], [ 'gmail.com', 'googlemail.com' ])) {
+			$local_part = str_replace('.', '', $parts[0]);
+			$email      = $local_part . '@' . $parts[1];
+		}
+
+		return $email;
 	}
 }

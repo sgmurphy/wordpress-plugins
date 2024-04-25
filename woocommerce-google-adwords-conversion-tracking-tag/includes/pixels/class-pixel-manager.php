@@ -1487,7 +1487,7 @@ class Pixel_Manager {
                 'ip_exclude_list' => apply_filters( 'pmw_exclude_ips_from_server_2_server_events', [] ),
             ],
             'consent_management'         => [
-                'explicit_consent' => Options::is_cookie_consent_explicit_consent_active(),
+                'explicit_consent' => Options::is_consent_management_explicit_consent_active(),
             ],
         ];
         if ( Options::are_restricted_consent_regions_set() ) {

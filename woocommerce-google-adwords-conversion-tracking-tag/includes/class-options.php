@@ -108,7 +108,7 @@ class Options {
 					'conversion_id'            => '',
 					'conversion_label'         => '',
 					'aw_merchant_id'           => '',
-					'product_identifier'       => 0,
+					'product_identifier'       => 0, // TODO: Move to general section
 					'google_business_vertical' => 0,
 					'dynamic_remarketing'      => true, // TODO is always active, can be removed
 					'phone_conversion_number'  => '',
@@ -305,13 +305,6 @@ class Options {
 		return self::get_options_obj()->db_version;
 	}
 
-	public static function server_2_server_enabled() {
-		return
-			self::is_facebook_capi_enabled()
-			|| self::is_tiktok_eapi_enabled()
-			|| self::is_pinterest_apic_active();
-	}
-
 	/**
 	 * Facebook (Meta)
 	 */
@@ -328,16 +321,24 @@ class Options {
 		return self::get_options_obj()->facebook->capi->token;
 	}
 
+	public static function get_facebook_capi_test_event_code() {
+		return self::get_options_obj()->facebook->capi->test_event_code;
+	}
+
+	public static function is_facebook_capi_user_transparency_process_anonymous_hits_active() {
+		return (bool) self::get_options_obj()->facebook->capi->user_transparency->process_anonymous_hits;
+	}
+
+	public static function is_facebook_capi_advanced_matching_enabled() {
+		return (bool) self::get_options_obj()->facebook->capi->user_transparency->send_additional_client_identifiers;
+	}
+
 	public static function is_facebook_capi_enabled() {
 		return self::is_facebook_active() && self::get_facebook_capi_token();
 	}
 
 	public static function is_facebook_microdata_active() {
 		return (bool) self::get_options_obj()->facebook->microdata;
-	}
-
-	public static function is_facebook_capi_advanced_matching_enabled() {
-		return (bool) self::get_options_obj()->facebook->capi->user_transparency->send_additional_client_identifiers;
 	}
 
 	/**
@@ -348,20 +349,36 @@ class Options {
 		return self::get_options_obj()->tiktok->pixel_id;
 	}
 
+	public static function get_tiktok_eapi_token() {
+		return self::get_options_obj()->tiktok->eapi->token;
+	}
+
+	public static function get_tiktok_eapi_test_event_code() {
+		return self::get_options_obj()->tiktok->eapi->test_event_code;
+	}
+
 	public static function is_tiktok_active() {
 		return (bool) self::get_tiktok_pixel_id();
 	}
 
+	public static function is_tiktok_eapi_test_event_code_set() {
+		return (bool) self::get_tiktok_eapi_test_event_code();
+	}
+
 	public static function is_tiktok_eapi_enabled() {
-		return self::is_tiktok_active() && self::get_options_obj()->tiktok->eapi->token;
+		return self::is_tiktok_active() && self::get_tiktok_eapi_token();
 	}
 
 	public static function is_tiktok_eapi_active() {
-		return self::get_options_obj()->tiktok->pixel_id && self::get_options_obj()->tiktok->eapi->token;
+		return self::is_tiktok_active() && self::is_tiktok_eapi_enabled();
 	}
 
 	public static function is_tiktok_advanced_matching_enabled() {
 		return (bool) self::get_options_obj()->tiktok->advanced_matching;
+	}
+
+	public static function is_tiktok_eapi_process_anonymous_hits_active() {
+		return (bool) self::get_options_obj()->tiktok->eapi->process_anonymous_hits;
 	}
 
 	/**
@@ -379,12 +396,13 @@ class Options {
 	/**
 	 * Microsoft Ads (Bing)
 	 */
-	public static function is_bing_active() {
-		return (bool) self::get_bing_uet_tag_id();
-	}
 
 	public static function get_bing_uet_tag_id() {
 		return self::get_options_obj()->bing->uet_tag_id;
+	}
+
+	public static function is_bing_active() {
+		return (bool) self::get_bing_uet_tag_id();
 	}
 
 	public static function is_bing_enhanced_conversions_enabled() {
@@ -427,12 +445,12 @@ class Options {
 		return (bool) self::get_options_obj()->pinterest->enhanced_match;
 	}
 
-	public static function is_pinterest_apic_active() {
-		return self::get_options_obj()->pinterest->ad_account_id && self::get_options_obj()->pinterest->apic->token;
-	}
-
 	public static function get_pinterest_apic_token() {
 		return self::get_options_obj()->pinterest->apic->token;
+	}
+
+	public static function is_pinterest_apic_active() {
+		return self::get_pinterest_ad_account_id() && self::get_pinterest_apic_token();
 	}
 
 	public static function is_pinterest_advanced_matching_active() {
@@ -459,24 +477,28 @@ class Options {
 		return self::get_options_obj()->twitter->event_ids;
 	}
 
+	public static function get_twitter_event_id( $event ) {
+		return self::get_options_obj()->twitter->event_ids->$event;
+	}
+
 	/**
 	 * Google
 	 */
-
-	public static function is_google_ads_purchase_conversion_enabled() {
-		return self::get_options_obj()->google->ads->conversion_id && self::get_options_obj()->google->ads->conversion_label;
-	}
-
-	public static function is_google_ads_active() {
-		return (bool) self::get_options_obj()->google->ads->conversion_id;
-	}
 
 	public static function get_google_ads_conversion_id() {
 		return self::get_options_obj()->google->ads->conversion_id;
 	}
 
+	public static function is_google_ads_active() {
+		return (bool) self::get_google_ads_conversion_id();
+	}
+
 	public static function get_google_ads_conversion_label() {
 		return self::get_options_obj()->google->ads->conversion_label;
+	}
+
+	public static function is_google_ads_purchase_conversion_enabled() {
+		return self::is_google_ads_active() && self::get_google_ads_conversion_label();
 	}
 
 	public static function is_google_ads_conversion_active() {
@@ -488,15 +510,15 @@ class Options {
 	}
 
 	public static function is_google_ads_conversion_adjustments_active() {
-		return self::is_google_ads_purchase_conversion_enabled() && self::get_options_obj()->google->ads->conversion_adjustments->conversion_name;
-	}
-
-	public static function is_google_ads_conversion_adjustments_conversion_name_set() {
-		return (bool) self::get_options_obj()->google->ads->conversion_adjustments->conversion_name;
+		return self::is_google_ads_purchase_conversion_enabled() && self::is_google_ads_conversion_adjustments_conversion_name_set();
 	}
 
 	public static function get_google_ads_conversion_adjustments_conversion_name() {
 		return self::get_options_obj()->google->ads->conversion_adjustments->conversion_name;
+	}
+
+	public static function is_google_ads_conversion_adjustments_conversion_name_set() {
+		return (bool) self::get_google_ads_conversion_adjustments_conversion_name();
 	}
 
 	public static function get_google_ads_merchant_id() {
@@ -504,7 +526,7 @@ class Options {
 	}
 
 	public static function is_google_ads_conversion_cart_data_enabled() {
-		return self::is_google_ads_purchase_conversion_enabled() && self::get_options_obj()->google->ads->aw_merchant_id;
+		return self::is_google_ads_purchase_conversion_enabled() && self::get_google_ads_merchant_id();
 	}
 
 	public static function is_google_active() {
@@ -515,30 +537,38 @@ class Options {
 		return self::get_options_obj()->google->ads->google_business_vertical;
 	}
 
-	public static function is_ga4_enabled() {
-		return (bool) self::get_ga4_measurement_id();
-	}
-
 	public static function get_ga4_measurement_id() {
 		return self::get_options_obj()->google->analytics->ga4->measurement_id;
 	}
 
+	public static function is_ga4_enabled() {
+		return (bool) self::get_ga4_measurement_id();
+	}
+
+	public static function get_ga4_data_api_property_id() {
+		return self::get_options_obj()->google->analytics->ga4->data_api->property_id;
+	}
+
+	public static function get_ga4_data_api_credentials() {
+		return (array) self::get_options_obj()->google->analytics->ga4->data_api->credentials;
+	}
+
 	public static function is_ga4_data_api_active() {
 		return
-			self::get_options_obj()->google->analytics->ga4->data_api->property_id
-			&& !empty(self::get_options_obj()->google->analytics->ga4->data_api->credentials);
+			self::get_ga4_data_api_property_id()
+			&& !empty(self::get_ga4_data_api_credentials());
 	}
 
 	public static function is_google_analytics_active() {
 		return self::is_ga4_enabled();
 	}
 
-	public static function is_ga4_mp_active() {
-		return self::is_ga4_enabled() && self::get_options_obj()->google->analytics->ga4->api_secret;
-	}
-
 	public static function get_ga4_mp_api_secret() {
 		return self::get_options_obj()->google->analytics->ga4->api_secret;
+	}
+
+	public static function is_ga4_mp_active() {
+		return self::is_ga4_enabled() && self::get_ga4_mp_api_secret();
 	}
 
 	public static function is_google_tcf_support_active() {
@@ -569,45 +599,8 @@ class Options {
 		return (bool) self::get_options_obj()->google->analytics->ga4->page_load_time_tracking;
 	}
 
-	/**
-	 * Shop settings
-	 */
-
-	public static function is_dynamic_remarketing_enabled() {
-		return true;
-	}
-
-	public static function is_dynamic_remarketing_variations_output_enabled() {
-		return (bool) self::get_options_obj()->general->variations_output;
-	}
-
-	public static function get_subscription_multiplier() {
-		return self::get_options_obj()->shop->subscription_value_multiplier;
-	}
-
-	/**
-	 * General settings
-	 */
-
-	public static function is_lazy_load_pmw_active() {
-		return (bool) self::get_options_obj()->general->lazy_load_pmw;
-	}
-
-	/**
-	 * Ensure that lazy loading is only active if the optimizers (VWO, Optimizely, AB Tasty, etc.) allow it.
-	 * The reason is, because optimizers might flicker the page during loading (when test variations are applied).
-	 *
-	 * @return bool
-	 */
-	public static function lazy_load_requirements() {
-
-		// If Google Optimize is active we need to make sure that the Google Optimize anti flicker snippet is active too
-
-//		if (self::is_google_optimize_active() && !self::is_google_optimize_anti_flicker_active()) {
-//			return false;
-//		}
-
-		return true;
+	public static function get_google_ads_product_identifier() {
+		return (int) self::get_options_obj()->google->ads->product_identifier;
 	}
 
 	/**
@@ -618,16 +611,16 @@ class Options {
 		return self::get_options_obj()->pixels->adroll->advertiser_id;
 	}
 
+	public static function is_adroll_advertiser_id_set() {
+		return (bool) self::get_adroll_advertiser_id();
+	}
+
 	public static function get_adroll_pixel_id() {
 		return self::get_options_obj()->pixels->adroll->pixel_id;
 	}
 
-	public static function is_adroll_advertiser_id_set() {
-		return (bool) self::get_options_obj()->pixels->adroll->advertiser_id;
-	}
-
 	public static function is_adroll_pixel_id_set() {
-		return (bool) self::get_options_obj()->pixels->adroll->pixel_id;
+		return (bool) self::get_adroll_pixel_id();
 	}
 
 	public static function is_adroll_active() {
@@ -642,15 +635,11 @@ class Options {
 		return self::get_options_obj()->pixels->linkedin->partner_id;
 	}
 
-	public static function get_linkedin_conversion_id( $event ) {
-		return self::get_options_obj()->pixels->linkedin->conversion_ids->$event;
-	}
-
 	public static function is_linkedin_active() {
-		return (bool) self::get_options_obj()->pixels->linkedin->partner_id;
+		return (bool) self::get_linkedin_partner_id();
 	}
 
-	public static function get_linkedin_conversion_id_for_event( $event ) {
+	public static function get_linkedin_conversion_id( $event ) {
 		return self::get_options_obj()->pixels->linkedin->conversion_ids->$event;
 	}
 
@@ -699,31 +688,6 @@ class Options {
 	}
 
 	/**
-	 * General settings
-	 */
-
-	public static function is_at_least_one_statistics_pixel_active() {
-		return self::is_ga4_enabled()
-			|| self::is_hotjar_enabled()
-			|| self::is_vwo_active();
-	}
-
-	public static function is_at_least_one_marketing_pixel_active() {
-		return self::is_adroll_active()
-			|| self::is_bing_active()
-			|| self::is_facebook_active()
-			|| self::is_google_ads_active()
-			|| self::is_linkedin_active()
-			|| self::is_outbrain_active()
-			|| self::is_pinterest_active()
-			|| self::is_reddit_active()
-			|| self::is_snapchat_active()
-			|| self::is_taboola_active()
-			|| self::is_tiktok_active()
-			|| self::is_twitter_active();
-	}
-
-	/**
 	 * VWO
 	 */
 
@@ -759,12 +723,82 @@ class Options {
 		return (bool) self::get_ab_tasty_account_id();
 	}
 
-	public static function is_maximum_compatiblity_mode_active() {
-		return (bool) self::get_options_obj()->general->maximum_compatibility_mode;
+	/**
+	 * Logger
+	 */
+
+	public static function is_logging_enabled() {
+		return (bool) self::get_options_obj()->general->logger->is_active;
 	}
 
-	public static function is_shop_order_list_info_enabled() {
-		return (bool) self::get_options_obj()->shop->order_list_info;
+	public static function get_log_level() {
+		return self::get_options_obj()->general->logger->level;
+	}
+
+	public static function is_http_request_logging_enabled() {
+		return (bool) self::get_options_obj()->general->logger->log_http_requests;
+	}
+
+	public static function disable_http_request_logging() {
+		self::init();
+		self::$options['general']['logger']['log_http_requests'] = false;
+		update_option(PMW_DB_OPTIONS_NAME, self::$options);
+	}
+
+	/**
+	 * Consent Management
+	 */
+
+	public static function get_restricted_consent_regions_raw() {
+		return self::get_options_obj()->google->consent_mode->regions;
+	}
+
+	public static function are_restricted_consent_regions_set() {
+		return !empty(self::get_options_obj()->google->consent_mode->regions);
+	}
+
+	public static function get_restricted_consent_regions() {
+
+		$regions = self::get_restricted_consent_regions_raw();
+
+		/**
+		 * If the user selected the European Union,
+		 * we have to add all EU country codes,
+		 * then remove the 'EU' value.
+		 */
+		if (in_array('EU', $regions, true)) {
+			$regions = array_diff(array_merge($regions, WC()->countries->get_european_union_countries()), [ 'EU' ]);
+		}
+
+		/**
+		 * If any manipulation happened beforehand,
+		 * make sure to deduplicate the values
+		 * and make sure the array starts with a 0 key,
+		 * otherwise the JSON output is wrong.
+		 */
+		return array_values(array_unique($regions));
+	}
+
+	public static function consent_management_is_explicit_consent_active_override() {
+		return (bool) apply_filters('pmw_consent_management_is_explicit_consent_active', false);
+	}
+
+	public static function is_consent_management_explicit_consent_active() {
+		return
+			self::get_options_obj()->shop->cookie_consent_mgmt->explicit_consent
+			|| self::consent_management_is_explicit_consent_active_override();
+	}
+
+	public static function get_cookie_consent_explicit_consent_input_field_name() {
+		return PMW_DB_OPTIONS_NAME . '[shop][cookie_consent_mgmt][explicit_consent]';
+	}
+
+	/**
+	 * General settings
+	 */
+
+	public static function get_scroll_tracking_thresholds() {
+		return (array) self::get_options_obj()->general->scroll_tracker_thresholds;
 	}
 
 	public static function pro_version_demo_active() {
@@ -786,22 +820,85 @@ class Options {
 		return false;
 	}
 
-	public static function is_logging_enabled() {
-		return (bool) self::get_options_obj()->general->logger->is_active;
+	public static function is_maximum_compatiblity_mode_active() {
+		return (bool) self::get_options_obj()->general->maximum_compatibility_mode;
 	}
 
-	public static function get_log_level() {
-		return self::get_options_obj()->general->logger->level;
+	public static function is_lazy_load_pmw_active() {
+		return (bool) self::get_options_obj()->general->lazy_load_pmw;
 	}
 
-	public static function is_http_request_logging_enabled() {
-		return (bool) self::get_options_obj()->general->logger->log_http_requests;
+	/**
+	 * Ensure that lazy loading is only active if the optimizers (VWO, Optimizely, AB Tasty, etc.) allow it.
+	 * The reason is, because optimizers might flicker the page during loading (when test variations are applied).
+	 *
+	 * @return bool
+	 */
+	public static function lazy_load_requirements() {
+
+		// If Google Optimize is active we need to make sure that the Google Optimize anti flicker snippet is active too
+
+//		if (self::is_google_optimize_active() && !self::is_google_optimize_anti_flicker_active()) {
+//			return false;
+//		}
+
+		return true;
 	}
 
-	public static function disable_http_request_logging() {
-		self::init();
-		self::$options['general']['logger']['log_http_requests'] = false;
-		update_option(PMW_DB_OPTIONS_NAME, self::$options);
+	public static function is_at_least_one_statistics_pixel_active() {
+		return self::is_ga4_enabled()
+			|| self::is_hotjar_enabled()
+			|| self::is_vwo_active();
+	}
+
+	public static function is_at_least_one_marketing_pixel_active() {
+		return self::is_adroll_active()
+			|| self::is_bing_active()
+			|| self::is_facebook_active()
+			|| self::is_google_ads_active()
+			|| self::is_linkedin_active()
+			|| self::is_outbrain_active()
+			|| self::is_pinterest_active()
+			|| self::is_reddit_active()
+			|| self::is_snapchat_active()
+			|| self::is_taboola_active()
+			|| self::is_tiktok_active()
+			|| self::is_twitter_active();
+	}
+
+	public static function server_2_server_enabled() {
+		return
+			self::is_facebook_capi_enabled()
+			|| self::is_tiktok_eapi_enabled()
+			|| self::is_pinterest_apic_active();
+	}
+
+	public static function get_excluded_roles() {
+		return (array) self::get_options_obj()->shop->disable_tracking_for;
+	}
+
+	/**
+	 * Shop settings
+	 */
+
+	public static function is_order_duplication_prevention_option_active() {
+		return (bool) self::get_options_obj()->shop->order_deduplication;
+	}
+
+	public static function is_order_duplication_prevention_option_disabled() {
+		return !self::is_order_duplication_prevention_option_active();
+	}
+
+	public static function is_shop_variations_output_active() {
+		return (bool) self::get_options_obj()->general->variations_output;
+	}
+
+	public static function is_order_level_ltv_calculation_active() {
+		return (bool) self::get_options_obj()->shop->ltv->order_calculation->is_active;
+	}
+
+	public static function is_automatic_ltv_recalculation_active() {
+		return (bool) self::get_options_obj()->shop->ltv->automatic_recalculation->is_active;
 	}
 
 	public static function enable_duplication_prevention() {
@@ -818,61 +915,19 @@ class Options {
 		return PMW_DB_OPTIONS_NAME . '[shop][order_total_logic]';
 	}
 
-	public static function is_cookie_consent_explicit_consent_active() {
-		return (bool) self::get_options_obj()->shop->cookie_consent_mgmt->explicit_consent;
+	public static function is_shop_order_list_info_enabled() {
+		return (bool) self::get_options_obj()->shop->order_list_info;
 	}
 
-	public static function get_cookie_consent_explicit_consent_input_field_name() {
-		return PMW_DB_OPTIONS_NAME . '[shop][cookie_consent_mgmt][explicit_consent]';
+	public static function is_dynamic_remarketing_enabled() {
+		return true;
 	}
 
-	public static function are_restricted_consent_regions_set() {
-		return !empty(self::get_options_obj()->google->consent_mode->regions);
-	}
-
-	public static function get_restricted_consent_regions() {
-
-		$regions = self::get_options_obj()->google->consent_mode->regions;
-
-		/**
-		 * If the user selected the European Union,
-		 * we have to add all EU country codes,
-		 * then remove the 'EU' value.
-		 */
-		if (in_array('EU', $regions, true)) {
-			$regions = array_diff(array_merge($regions, WC()->countries->get_european_union_countries()), [ 'EU' ]);
-		}
-
-		/**
-		 * If any manipulation happened beforehand,
-		 * make sure to deduplicate the values
-		 * and make sure the array starts with a 0 key,
-		 * otherwise the JSON output is wrong.
-		 */
-		return array_values(array_unique($regions));
-	}
-
-	public static function is_order_level_ltv_calculation_active() {
-		return (bool) self::get_options_obj()->shop->ltv->order_calculation->is_active;
-	}
-
-	public static function is_automatic_ltv_recalculation_active() {
-		return (bool) self::get_options_obj()->shop->ltv->automatic_recalculation->is_active;
-	}
-
-	public static function is_order_duplication_prevention_option_active() {
-		return (bool) self::get_options_obj()->shop->order_deduplication;
-	}
-
-	public static function is_order_duplication_prevention_option_disabled() {
-		return !self::is_order_duplication_prevention_option_active();
-	}
-
-	public static function is_shop_variations_output_active() {
+	public static function is_dynamic_remarketing_variations_output_enabled() {
 		return (bool) self::get_options_obj()->general->variations_output;
 	}
 
-	public static function get_scroll_tracking_thresholds() {
-		return (array) self::get_options_obj()->general->scroll_tracker_thresholds;
+	public static function get_subscription_multiplier() {
+		return self::get_options_obj()->shop->subscription_value_multiplier;
 	}
 }

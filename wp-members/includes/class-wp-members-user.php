@@ -61,6 +61,8 @@ class WP_Members_User {
 		if ( 1 == $settings->enable_products ) {
 			add_action( 'user_register', array( $this, 'set_default_product' ), 6 );
 		}
+
+		add_action( 'wpmem_file_uploaded', array( $this, 'check_folder_for_index' ), 10 , 3 );
 	}
 	
 	/**
@@ -1341,5 +1343,19 @@ class WP_Members_User {
 		foreach ( $default_products as $product ) {
 			wpmem_set_user_product( $product, $user_id );
 		}
+	}
+
+	/**
+	 * Checks user file upload folder for an index.php file.
+	 * 
+	 * @since 3.4.9.4
+	 * 
+	 * @param int    $user_id
+	 * @param string $meta_key
+	 * @param string $file_post_id
+	 */
+	public function check_folder_for_index( $user_id, $meta_key, $file_post_id ) {
+		$upload_vars  = wp_upload_dir( null, false );
+		wpmem_create_index_file( $upload_vars['path'] );
 	}
 }

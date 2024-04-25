@@ -91,6 +91,8 @@ class WP_Members_Products {
 	 * }
 	 */
 	public $product_by_id = array();
+
+	public $woo_connector;
 	
 	/**
 	 * Class constructor.

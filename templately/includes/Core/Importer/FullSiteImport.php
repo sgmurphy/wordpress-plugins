@@ -2,7 +2,6 @@
 
 namespace Templately\Core\Importer;
 
-use EbStyleHandler;
 use Exception;
 use Templately\Utils\Base;
 use Templately\Utils\Helper;
@@ -19,6 +18,7 @@ class FullSiteImport extends Base {
 	private $version = '1.0.0';
 
 	public    $session_id;
+	public    $download_key;
 	public    $dir_path;
 	protected $filePath;
 	protected $tmp_dir        = null;
@@ -27,6 +27,7 @@ class FullSiteImport extends Base {
 	public    $request_params = [];
 	protected $documents_data = [];
 	protected $dependency_data = [];
+	private   $is_import_status_handled = false;
 
 	public function __construct() {
 		$this->dev_mode = defined( 'TEMPLATELY_DEV' ) && TEMPLATELY_DEV;
@@ -43,8 +44,6 @@ class FullSiteImport extends Base {
 				return $args;
 			} );
 		}
-		add_action( 'eb_frontend_assets', [ $this, 'enqueue_template_assets' ], 10, 2 );
-		add_filter( 'the_content', [$this, 'filter_content'], 10 ,1);
 	}
 
 	public function import_settings() {
@@ -167,6 +166,7 @@ class FullSiteImport extends Base {
 			 */
 			$this->start_content_import();
 		} catch ( Exception $e ) {
+			$this->handle_import_status('failed', $e->getMessage());
 			$this->sse_message( [
 				'action'   => 'error',
 				'status'   => 'error',
@@ -209,8 +209,8 @@ class FullSiteImport extends Base {
 		$this->sse_log( 'writing_permission_check', __( 'Permission Passed', 'templately' ), 100 );
 	}
 
-	private function get_api_url( $id ): string {
-		return $this->dev_mode ? 'https://app.templately.dev/api/v1/import/pack/' . $id : 'https://app.templately.com/api/v1/import/pack/' . $id;
+	private function get_api_url( $version, $end_point ): string {
+		return $this->dev_mode ? "https://app.templately.dev/api/$version/" . $end_point : "https://app.templately.com/api/$version/" . $end_point;
 	}
 
 	/**
@@ -218,9 +218,10 @@ class FullSiteImport extends Base {
 	 */
 	private function download_zip( $id ) {
 		// $this->sse_log( 'download', __( 'Downloading Template Pack', 'templately' ), 1 );
-		$response = wp_remote_get( $this->get_api_url( $id ), [
+		$response = wp_remote_get( $this->get_api_url( "v2", "import/pack/$id" ), [
 			'timeout' => 30,
 			'headers' => [
+				'Content-Type'     => 'application/json',
 				'Authorization'    => 'Bearer ' . $this->api_key,
 				'x-templately-ip'  => Helper::get_ip(),
 				'x-templately-url' => home_url( '/' )
@@ -229,6 +230,7 @@ class FullSiteImport extends Base {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$content_type  = wp_remote_retrieve_header( $response, 'content-type' );
+		$this->download_key  = wp_remote_retrieve_header( $response, 'download-key' );
 
 		if ( is_wp_error( $response ) ) {
 			$this->throw( __( 'Template pack download failed', 'templately' ) . $response->get_error_message() );
@@ -272,15 +274,22 @@ class FullSiteImport extends Base {
 			$this->throw( __( 'WP_Filesystem cannot be initialized', 'templately' ) );
 		}
 
-		if(defined('TEMPLATELY_ZIP_ARCHIVE') && TEMPLATELY_ZIP_ARCHIVE){
+		$unzip = unzip_file( $this->filePath, $this->dir_path );
+		if ( is_wp_error( $unzip ) ) {
 			$unzip = $this->unzip_file( $this->filePath, $this->dir_path );
-		}
-		else{
-			$unzip = unzip_file( $this->filePath, $this->dir_path );
 		}
 
 		if ( is_wp_error( $unzip ) ) {
-			$this->throw( sprintf( __( 'Unzipping failed: %s', 'templately' ), $unzip->get_error_message() ) );
+			$error = $unzip->get_error_message();
+			if(empty($error)){
+				// Generic error message
+				Helper::log( $unzip );
+				$error_message = sprintf(__("It seems we're experiencing technical difficulties. Please try again or contact <a href='%s' target='_blank'>support</a>.", "templately"), 'https://wpdeveloper.com/support');
+				$this->throw( $error_message );
+			}
+			else{
+				$this->throw( $unzip->get_error_message() );
+			}
 		}
 
 		if ( $unzip ) {
@@ -296,16 +305,24 @@ class FullSiteImport extends Base {
 	 * @return true|WP_Error True on success, WP_Error on failure.
 	 */
 	function unzip_file($file, $to) {
-		$zip = new \ZipArchive;
+		try {
+			$zip = new \ZipArchive;
 
-		$res = $zip->open($file);
-		if ($res === TRUE) {
-			$zip->extractTo($to);
-			$zip->close();
+			$res = $zip->open($file);
+			if ($res === TRUE) {
+				$zip->extractTo($to);
+				$zip->close();
 
-			return true;
+				return true;
+			}
+		} catch (\Throwable $th) {
+			return new \WP_Error('exception_caught', $th->getMessage());
+		}
+
+		if (isset($zip)) {
+			return new \WP_Error('zip_error_' . $zip->status, $zip->getStatusString());
 		} else {
-			return new \WP_Error('Could not unzip file: ' . $zip->getStatusString());
+			return new \WP_Error('unknown_error', '');
 		}
 	}
 
@@ -471,6 +488,8 @@ class FullSiteImport extends Base {
 		$import        = new Import( $this );
 		$imported_data = $import->run();
 
+		$this->handle_import_status('success');
+
 		$this->sse_message( [
 			'type'    => 'complete',
 			'action'  => 'complete',
@@ -531,29 +550,6 @@ class FullSiteImport extends Base {
 		}
 
 		return $link;
-	}
-
-	public function enqueue_template_assets( $path, $url ) {
-		$using_templately_builder = get_query_var( 'using_templately_template' );
-		if ( $using_templately_builder && function_exists( 'templately' ) ) {
-			$template_locations = [ 'header', 'footer', 'archive', 'single' ];
-			foreach ( $template_locations as $location ) {
-				$template = templately()->theme_builder::$conditions_manager->get_templates_by_location( $location );
-				if ( empty( $template ) ) {
-					return;
-				}
-				$template = array_pop( $template );
-				if ( $template->platform == 'gutenberg' ) {
-					$template = is_array( $template ) ? array_pop( $template ) : $template;
-					if ( ! file_exists( $path . 'eb-style-' . $template->get_main_id() . '.min.css' ) ) {
-						$st   = EbStyleHandler::init();
-						$post = get_post( $template->get_main_id() );
-						$st->eb_write_css_from_content( $post, $post->ID, parse_blocks( $post->post_content ) );
-					}
-					wp_enqueue_style( 'templately-' . $location . '-' . $template->get_main_id(), $url . 'eb-style-' . $template->get_main_id() . '.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
-				}
-			}
-		}
 	}
 
 	public function upload_logo() {
@@ -644,6 +640,8 @@ class FullSiteImport extends Base {
 				$error_message = sprintf(__("It seems we're experiencing technical difficulties. Please try again or contact <a href='%s' target='_blank'>support</a>.", "templately"), 'https://wpdeveloper.com/support');
 			}
 
+
+			$this->handle_import_status('failed', $error_message);
 			// Handle the error, e.g. log it or display a message to the user
 			$this->sse_message( [
 				'action'   => 'error',
@@ -659,6 +657,54 @@ class FullSiteImport extends Base {
 		Helper::log( "Shutdown:....." );
 		Helper::log( "connection_status: " . $this->getConnectionStatusText() );
 		Helper::log( $last_error );
+	}
+
+	public function handle_import_status($status, $description = '') {
+		if ($this->is_import_status_handled) {
+			Helper::log("Import status already handled: $status");
+			return null;
+		}
+		$this->is_import_status_handled = $status;
+
+		$download_key = $this->download_key;
+
+		$headers = [
+            'Content-Type'     => 'application/json',
+			'Authorization'    => 'Bearer ' . $this->api_key,
+			'download_key'     => $download_key,
+			'download-key'     => $download_key,
+			'x-templately-ip'  => Helper::get_ip(),
+			'x-templately-url' => home_url( '/' ),
+		];
+
+		$args = [
+			'headers' => $headers,
+		];
+
+
+		if ($status === 'success') {
+			$url          = $this->get_api_url( "v1", 'import/success');
+			$args['body'] = json_encode(['type' => 'pack']);
+			$response     = wp_remote_post($url, $args);
+		} elseif ($status === 'failed') {
+			$url          = $this->get_api_url( "v1", 'import/failed');
+			$args['body'] = json_encode(['type' => 'pack', 'description' => $description ?: "Something Went wrong....."]);
+			$response     = wp_remote_post($url, $args);
+		}
+
+		Helper::log($response);
+
+		if (is_wp_error($response)) {
+			// Handle error
+			Helper::log($response->get_error_message());
+		} else {
+			// Handle success
+			$body = wp_remote_retrieve_body($response);
+			// Do something with $body
+			return $body;
+		}
+
+		return null;
 	}
 
 	protected function getConnectionStatusText() {
@@ -681,17 +727,5 @@ class FullSiteImport extends Base {
 			return $post_type_obj->label;
 		}
 		return null;
-	}
-
-	public function filter_content( $content ) {
-		if(is_singular()){
-			global $post;
-			if(!empty($post) && $post->post_type === 'templately_library'){
-				if(in_array(get_post_meta($post->ID, '_templately_template_type', true), ['header', 'footer'])){
-					return '';
-				}
-			}
-		}
-		return $content;
 	}
 }

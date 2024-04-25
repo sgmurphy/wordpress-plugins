@@ -93,7 +93,7 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.0
-	 * @version 5.3.4
+	 * @version 5.4.2
 	 */
 	protected function register_controls() {
 
@@ -107,7 +107,7 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 		$this->add_control(
 			'content_description',
 			array(
-				'label'       => wp_kses_post( "Description <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "advanced-text-block-elementor?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'       => wp_kses_post( "Description <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "advanced-text-block-elementor?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'        => Controls_Manager::WYSIWYG,
 				'default'     => esc_html__( 'I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'tpebl' ),
 				'placeholder' => esc_html__( 'Type your description here', 'tpebl' ),
@@ -148,14 +148,14 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 		$this->start_controls_section(
 			'extra_section',
 			array(
-				'label' => esc_html__( 'Extra Options', 'tpebl' ),
+				'label' => esc_html__( 'Extra', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 		$this->add_control(
 			'display_count',
 			array(
-				'label'     => wp_kses_post( "Description Limit <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "limit-wordcount-text-widget-elementor?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'theplus' ),
+				'label'     => wp_kses_post( "Description Limit <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "limit-wordcount-text-widget-elementor?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
 				'type'      => Controls_Manager::SWITCHER,
 				'label_on'  => esc_html__( 'Show', 'tpebl' ),
 				'label_off' => esc_html__( 'Hide', 'tpebl' ),
@@ -396,43 +396,53 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 	 * Limit Words.
 	 *
 	 * @since 1.0.0
-	 * @version 5.3.4
+	 * @version 5.4.2
 	 * @param string $text The input string to limit words in.
 	 * @param int    $limit The maximum number of words to allow in the string.
 	 */
 	protected function l_limit_words( $text, $limit ) {
 		$words = explode( ' ', $text );
+
 		return implode( ' ', array_splice( $words, 0, $limit ) );
 	}
 
 	/**
-	 * Render Progress Bar
-	 *
-	 * Written in PHP and HTML.
+	 * Render Progress Bar Written in PHP and HTML.
 	 *
 	 * @since 1.0.0
-	 * @version 5.3.4
+	 * @version 5.4.2
 	 */
 	protected function render() {
-
-		$settings = $this->get_settings_for_display();
-		$limit_on = ! empty( $settings['display_count_by'] ) ? $settings['display_count_by'] : 'char';
-		$dis_count = ! empty( $settings['display_count'] ) ? $settings['display_count'] : '';
-		
+		$settings     = $this->get_settings_for_display();
+		$limit_on     = ! empty( $settings['display_count_by'] ) ? $settings['display_count_by'] : 'char';
+		$dis_count    = ! empty( $settings['display_count'] ) ? $settings['display_count'] : '';
 		$content_desc = ! empty( $settings['content_description'] ) ? ( $settings['content_description'] ) : '';
 
 		$dots  = ! empty( $settings['display_3_dots'] ) ? $settings['display_3_dots'] : '';
 		$count = ! empty( $settings['display_count_input'] ) ? $settings['display_count_input'] : '';
 
+		$ani_effects  = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : 'no-animation';
+		$ani_delay    = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
+		$ani_duration = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
+
+		$due_speed   = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
+		$out_effects = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : 'no-animation';
+		$ani_o_delay = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
+
+		$ani_o_duration = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
+		$o_due_speed    = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
+
 		if ( 'yes' === $dis_count && ! empty( $count ) ) {
 
 			if ( 'char' === $limit_on ) {
 				$description = substr( $content_desc, 0, $count );
+
 				if ( strlen( $content_desc ) > $count && 'yes' === $dots ) {
 					$description .= '...';
 				}
 			} elseif ( 'word' === $limit_on ) {
 				$description = $this->l_limit_words( $content_desc, $count );
+
 				if ( str_word_count( $content_desc ) > $count && 'yes' === $dots ) {
 					$description .= '...';
 				}
@@ -440,15 +450,6 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 		} else {
 			$description = $content_desc;
 		}
-
-		$ani_effects    = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : 'no-animation';
-		$ani_delay      = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
-		$ani_duration   = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
-		$due_speed      = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
-		$out_effects    = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : 'no-animation';
-		$ani_o_delay    = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
-		$ani_o_duration = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
-		$o_due_speed    = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
 
 		if ( 'no-animation' === $ani_effects ) {
 			$animated_class = '';
@@ -474,12 +475,17 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 
 		$text_block = '<div class="pt-plus-text-block-wrapper" >';
 
-			$text_block         .= '<div class="text_block_parallax">';
-				$text_block     .= '<div class="pt_plus_adv_text_block ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+			$text_block .= '<div class="text_block_parallax">';
+
+				$text_block .= '<div class="pt_plus_adv_text_block ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+
 					$text_block .= '<div class="text-content-block">' . wp_kses_post( $description ) . '</div>';
-				$text_block     .= '</div>';
-			$text_block         .= '</div>';
-		$text_block             .= '</div>';
+
+				$text_block .= '</div>';
+
+			$text_block .= '</div>';
+
+		$text_block .= '</div>';
 
 		echo $text_block;
 	}

@@ -118,6 +118,9 @@ class WPvivid
             $this->set_locale();
         }
 
+        add_filter('wpvivid_get_oldest_backup_ids', array($this, 'get_oldest_backup_ids'), 10, 2);
+        add_filter('wpvivid_check_backup_completeness', array($this, 'check_backup_completeness'), 10, 2);
+
 		/*
         include_once WPVIVID_PLUGIN_DIR . '/includes/class-wpvivid-log.php';
         include_once WPVIVID_PLUGIN_DIR . '/includes/class-wpvivid-error-log.php';
@@ -213,9 +216,6 @@ class WPvivid
         add_filter('wpvivid_check_type_database', array($this, 'wpvivid_check_type_database'), 10, 2);
         add_filter('wpvivid_set_mail_subject', array($this, 'set_mail_subject'), 10, 2);
         add_filter('wpvivid_set_mail_body', array($this, 'set_mail_body'), 10, 2);
-
-        add_filter('wpvivid_get_oldest_backup_ids', array($this, 'get_oldest_backup_ids'), 10, 2);
-        add_filter('wpvivid_check_backup_completeness', array($this, 'check_backup_completeness'), 10, 2);
 
         add_filter('wpvivid_get_mainwp_sync_data', array($this, 'get_mainwp_sync_data'), 10);
         //

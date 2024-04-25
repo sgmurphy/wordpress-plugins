@@ -177,23 +177,23 @@
 								<div style="background-color: #fff; font-family: Helvetica,Arial,sans-serif; line-height: 20px; text-align: left; color: #676767; font-size: 14px;"><?php echo esc_html( $description ); ?></div>
 							  </td>
 							</tr>
+                            <?php if ( !empty($summaries) ): ?>
 							<tr>
 							  <td align="left" class="summary-table" style="font-size:0px;padding:10px 25px;padding-top:40px;padding-right:0;padding-left:0;word-break:break-word;">
 								<table cellpadding="0" cellspacing="0" width="100%" border="0" style="color:#000000;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;border:none;">
 								  <tr style="border-bottom: 1px solid #efefef; text-align: left;" align="left">
 									<th class="title" style="font-weight: bold; margin: 0; color: #4e4e4e; padding-bottom: 16px; font-size: 14px;"><?php echo esc_html__( 'Forms', 'userfeedback' ); ?></th>
 									<th class="title" style="font-weight: bold; margin: 0; color: #4e4e4e; padding-bottom: 16px; font-size: 14px;"><?php echo esc_html__( 'Responses', 'userfeedback' ); ?></th>
-								  </tr> 
-								  <?php
-									foreach ( $summaries as $survey ) :
-										?>
-										 <tr>
+								  </tr>
+								  <?php foreach ( $summaries as $survey ) : ?>
+                                 <tr>
 									<td style="color: #676767; font-size: 14px; padding-top: 16px; padding-bottom: 16px;"><?php echo esc_html( $survey['name'] ); ?></td>
 									<td style="color: #4E4E4E; font-weight: bold; font-size: 14px; padding-top: 16px; padding-bottom: 16px;"><?php echo esc_html( $survey['responses'] ); ?></td>
 								  </tr> <?php endforeach; ?>
 								</table>
 							  </td>
 							</tr>
+                            <?php endif; ?>
 						  </tbody>
 						</table>
 					  </td>

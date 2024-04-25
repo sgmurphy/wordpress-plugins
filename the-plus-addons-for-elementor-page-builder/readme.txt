@@ -2,9 +2,9 @@
 Contributors: posimyththemes, nirmalkavaiya, devangvachheta, sagarpatel124
 Tags: Elementor, elementor widgets, elements, elementor addon, elementor templates, elementor widgets, extensions
 Requires at least: 6.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.4.2
+Stable tag: 5.5.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -429,12 +429,78 @@ We have the most advanced caching architecture, Which will never bloat your site
 
 == Changelog ==
 
+= 5.5.1 =
+Fix : Post Content : Condition Improvement
+
+= 5.5.0 =
+Compatibility : Elementor Free & Pro 3.21
+Add : Age Gate : Documentation Link
+Add : Blockquote : Documentation Link
+Add : Button : Documentation Link
+Add : Countdown : Documentation Link
+Add : Contact Form 7 : Controller for color styling of uncheck checkbox
+Add : Dynamic Category Widget
+Add : Dark Mode : Documentation Link
+Add : Header Meta Content : Documentation Link
+Add : Heading Title : Documentation Link
+Add : Info Box : Documentation Link
+Add : Message Box : Documentation Link
+Add : Number Counter : Documentation Link
+Add : Post Navigation Widget
+Compatibility : Heading Title : Margin compatibility with style 5, 7 & 9
+Fix : Age Gate : Security patch (Low Severity)
+Fix : Blockquote : Icon style option css Improvements
+Fix : Blockquote : Icon showing when option is off
+Fix : Button : Security patch (Low Severity)
+Fix : Countdown : Border not working properly for style 2
+Fix : Countdown : Security patch (Low Severity)
+Fix : Contact Form 7 : Checkbox alignment issue fix
+Fix : Flip Box : back side button css Improvements
+Fix : Flip Box : Back button background color not working
+Fix : Heading Title : Sub Title Limit with words not working
+Fix : Heading Animations : Animated text condition Improvements
+Fix : Info Box : Icon css Improvements for border
+Fix : Minor Bug Fixes & Improvements
+Fix : Message Box : Dismiss icon css Improvements
+Fix : Number Counter : Add default color for tooltip option
+Fix : Progress Bar : Title Left Margin not working
+Fix : Pricing Table : Security patch (Low Severity)
+Fix : Video : Add image placeholder for banner image
+Improvement : Age Gate : css style optimize
+Improvement : Blockquote : css style optimize
+Improvement : Button : css style optimize
+Improvement : Blog Listout : css style optimize
+Improvement : Countdown : css style optimize
+Improvement : Gallery Listout : css style optimize
+Improvement : Heading Animation : css style optimize
+Improvement : Heading Title : css style optimize
+Improvement : Info Box : css style optimize
+Improvement : Number Counter : css style optimize
+Improvement : Pricing Table : css style optimize
+Improvement : Progress Bar : css style optimize
+Improvement : Page Scroll : css style optimize
+Improvement : Social Icon : css style optimize
+Improvement : Scroll Navigation : css style optimize
+Improvement : Team Member Listout : css style optimize
+Improvement : Testimonial : css style optimize
+Update : Blockquote : Improve Controller UI
+Update : Countdown : Improve Controller UI
+Update : Dark Mode : Improve Controller UI
+Update : Number Counter : Digit Gradient style condition Improvements
+Update : Page Scroll : Improve Controller UI
+Update : Pricing Table : Improve Controller UI
+Update : Scroll Navigation : Tooltip Display Style controller Improvements
+Update : Tabs/Tours : Improve Controller UI
+Fix : Minor Bug Fixes & Improvements
+
 = 5.4.2 =
-Fix : Clients Listing : Security patch 
-Fix : Team Member Listing : Security patch 
+
+Fix : Clients Listing : Security patch ( low security )
+Fix : Team Member Listing : Security patch ( low security )
 Fix : Minor Bug Fixes & Improvements
 
 = 5.4.1 =
+
 Add : Post Meta : option to select post modify date.
 Fix : Performance : Smart Optimized cache.
 Fix : Header meta content : Security patch (Low Severity)

@@ -203,12 +203,15 @@
 						];
 					$('.dependencies').each(function()
 						{
-							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>';
+							var str = '<option value="" '+(("" == $(this).attr("dvalue"))?"selected":"")+'></option>', t = '';
 							for (var i=0;i<items.length;i++)
                             {
 								if (items[i].name != me.name && items[i].ftype != 'fPageBreak' && items[i].ftype != 'frecordsetds')
                                 {
-									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+((typeof items[ i ].title != 'undefined') ? ' (' + cff_esc_attr(items[i].title) + ')' : '')  +'</option>';
+									t = ( 'title' in items[i] ) ? String( items[i].title ).trim() : '';
+									t = ( '' == t && 'shortlabel' in items[i] ) ? String( items[i].shortlabel ).trim() : t;
+
+									str += '<option value="'+items[i].name+'" '+((items[i].name == $(this).attr("dvalue"))?"selected":"")+'>'+(items[i].name)+(('' != t) ? ' (' + cff_esc_attr(t) + ')' : '')  +'</option>';
                                 }
                             }
 							$(this).html(str);

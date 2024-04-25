@@ -20,9 +20,6 @@ class Validations {
 					'conversion_label' => '',
 				],
 				'analytics'    => [
-					'universal'        => [
-						'property_id' => '',
-					],
 					'ga4'              => [
 						'measurement_id' => '',
 					],
@@ -104,21 +101,6 @@ class Validations {
 			}
 		}
 
-		// validate Google Analytics Universal property ID
-		if (isset($input['google']['analytics']['universal']['property_id'])) {
-
-			// Trim space, newlines and quotes
-			$input['google']['analytics']['universal']['property_id'] = Helpers::trim_string($input['google']['analytics']['universal']['property_id']);
-
-			if (!self::is_google_analytics_universal_property_id($input['google']['analytics']['universal']['property_id'])) {
-				$input['google']['analytics']['universal']['property_id']
-					= Options::get_options_obj()->google->analytics->universal->property_id
-					? Options::get_options_obj()->google->analytics->universal->property_id
-					: '';
-				add_settings_error('wgact_plugin_options', 'invalid-google-analytics-universal-property-id', esc_html__('You have entered an invalid Google Analytics Universal property ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
-			}
-		}
-
 		// validate Google Analytics 4 measurement ID
 		if (isset($input['google']['analytics']['ga4']['measurement_id'])) {
 
@@ -127,8 +109,8 @@ class Validations {
 
 			if (!self::is_google_analytics_4_measurement_id($input['google']['analytics']['ga4']['measurement_id'])) {
 				$input['google']['analytics']['ga4']['measurement_id']
-					= Options::get_options_obj()->google->analytics->ga4->measurement_id
-					? Options::get_options_obj()->google->analytics->ga4->measurement_id
+					= Options::get_ga4_measurement_id()
+					? Options::get_ga4_measurement_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-google-analytics-4-measurement-id', esc_html__('You have entered an invalid Google Analytics 4 measurement ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -142,8 +124,8 @@ class Validations {
 
 			if (!self::is_google_analytics_4_api_secret($input['google']['analytics']['ga4']['api_secret'])) {
 				$input['google']['analytics']['ga4']['api_secret']
-					= Options::get_options_obj()->google->analytics->ga4->api_secret
-					? Options::get_options_obj()->google->analytics->ga4->api_secret
+					= Options::get_ga4_mp_api_secret()
+					? Options::get_ga4_mp_api_secret()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-google-analytics-4-measurement-id', esc_html__('You have entered an invalid Google Analytics 4 API key.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -157,8 +139,8 @@ class Validations {
 
 			if (!self::is_google_analytics_4_property_id($input['google']['analytics']['ga4']['data_api']['property_id'])) {
 				$input['google']['analytics']['ga4']['data_api']['property_id']
-					= Options::get_options_obj()->google->analytics->ga4->data_api->property_id
-					? Options::get_options_obj()->google->analytics->ga4->data_api->property_id
+					= Options::get_ga4_data_api_property_id()
+					? Options::get_ga4_data_api_property_id()
 					: '';
 				add_settings_error(
 					'wgact_plugin_options',
@@ -182,8 +164,8 @@ class Validations {
 
 			if (!self::is_gads_conversion_id($input['google']['ads']['conversion_id'])) {
 				$input['google']['ads']['conversion_id']
-					= Options::get_options_obj()->google->ads->conversion_id
-					? Options::get_options_obj()->google->ads->conversion_id
+					= Options::get_google_ads_conversion_id()
+					? Options::get_google_ads_conversion_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-conversion-id', esc_html__('You have entered an invalid conversion ID. It only contains 8 to 10 digits.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -200,8 +182,8 @@ class Validations {
 
 			if (!self::is_gads_conversion_label($input['google']['ads']['conversion_label'])) {
 				$input['google']['ads']['conversion_label']
-					= Options::get_options_obj()->google->ads->conversion_label
-					? Options::get_options_obj()->google->ads->conversion_label
+					= Options::get_google_ads_conversion_label()
+					? Options::get_google_ads_conversion_label()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-conversion-label', esc_html__('You have entered an invalid Google Ads conversion label.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -215,8 +197,8 @@ class Validations {
 
 			if (!self::is_gads_conversion_label($input['google']['ads']['phone_conversion_label'])) {
 				$input['google']['ads']['phone_conversion_label']
-					= Options::get_options_obj()->google->ads->phone_conversion_label
-					? Options::get_options_obj()->google->ads->phone_conversion_label
+					= Options::get_google_ads_phone_conversion_label()
+					? Options::get_google_ads_phone_conversion_label()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-conversion-label', esc_html__('You have entered an invalid Google Ads conversion label.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -230,25 +212,10 @@ class Validations {
 
 			if (!self::is_gads_aw_merchant_id($input['google']['ads']['aw_merchant_id'])) {
 				$input['google']['ads']['aw_merchant_id']
-					= Options::get_options_obj()->google->ads->aw_merchant_id
-					? Options::get_options_obj()->google->ads->aw_merchant_id
+					= Options::get_google_ads_merchant_id()
+					? Options::get_google_ads_merchant_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-aw-merchant-id', esc_html__('You have entered an invalid merchant ID. It only contains 6 to 12 digits.', 'woocommerce-google-adwords-conversion-tracking-tag'));
-			}
-		}
-
-		// validate Google Optimize container ID
-		if (isset($input['google']['optimize']['container_id'])) {
-
-			// Trim space, newlines and quotes
-			$input['google']['optimize']['container_id'] = Helpers::trim_string($input['google']['optimize']['container_id']);
-
-			if (!self::is_google_optimize_measurement_id($input['google']['optimize']['container_id'])) {
-				$input['google']['optimize']['container_id']
-					= Options::get_options_obj()->google->optimize->container_id
-					? Options::get_options_obj()->google->optimize->container_id
-					: '';
-				add_settings_error('wgact_plugin_options', 'invalid-google-optimize-container-id', esc_html__('You have entered an invalid Google Optimize container ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
 		}
 
@@ -260,8 +227,8 @@ class Validations {
 
 			if (!self::is_facebook_pixel_id($input['facebook']['pixel_id'])) {
 				$input['facebook']['pixel_id']
-					= Options::get_options_obj()->facebook->pixel_id
-					? Options::get_options_obj()->facebook->pixel_id
+					= Options::get_facebook_pixel_id()
+					? Options::get_facebook_pixel_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-facebook-pixel-id', esc_html__('You have entered an invalid Meta (Facebook) pixel ID. It only contains 12 to 22 digits.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -275,8 +242,8 @@ class Validations {
 
 			if (!self::is_facebook_capi_token($input['facebook']['capi']['token'])) {
 				$input['facebook']['capi']['token']
-					= Options::get_options_obj()->facebook->capi->token
-					? Options::get_options_obj()->facebook->capi->token
+					= Options::get_facebook_capi_token()
+					? Options::get_facebook_capi_token()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-facebook-pixel-id', esc_html__('You have entered an invalid Meta (Facebook) CAPI token.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -290,8 +257,8 @@ class Validations {
 
 			if (!self::is_facebook_capi_test_event_code($input['facebook']['capi']['test_event_code'])) {
 				$input['facebook']['capi']['test_event_code']
-					= Options::get_options_obj()->facebook->capi->test_event_code
-					? Options::get_options_obj()->facebook->capi->test_event_code
+					= Options::get_facebook_capi_test_event_code()
+					? Options::get_facebook_capi_test_event_code()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-facebook-capi-test-event-code', esc_html__('You have entered an invalid Meta (Facebook) CAPI test_event_code.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -305,8 +272,8 @@ class Validations {
 
 			if (!self::is_bing_uet_tag_id($input['bing']['uet_tag_id'])) {
 				$input['bing']['uet_tag_id']
-					= Options::get_options_obj()->bing->uet_tag_id
-					? Options::get_options_obj()->bing->uet_tag_id
+					= Options::get_bing_uet_tag_id()
+					? Options::get_bing_uet_tag_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-bing-ads-uet-tag-id', esc_html__('You have entered an invalid Bing Ads UET tag ID. It only contains 7 to 9 digits.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -340,8 +307,8 @@ class Validations {
 
 			if (!self::is_outbrain_account_id($input['pixels']['outbrain']['advertiser_id'])) {
 				$input['pixels']['outbrain']['advertiser_id']
-					= Options::get_options_obj()->pixels->outbrain->advertiser_id
-					? Options::get_options_obj()->pixels->outbrain->advertiser_id
+					= Options::get_outbrain_advertiser_id()
+					? Options::get_outbrain_advertiser_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-outbrain-advertiser-id', esc_html__('You have entered an invalid Outbrain advertiser ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -355,8 +322,8 @@ class Validations {
 
 			if (!self::is_pinterest_ad_account_id($input['pinterest']['ad_account_id'])) {
 				$input['pinterest']['ad_account_id']
-					= Options::get_options_obj()->pinterest->ad_account_id
-					? Options::get_options_obj()->pinterest->ad_account_id
+					= Options::get_pinterest_ad_account_id()
+					? Options::get_pinterest_ad_account_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-pinterest-ad-account-id', esc_html__('You have entered an invalid Pinterest ad account ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -370,8 +337,8 @@ class Validations {
 
 			if (!self::is_pinterest_apic_token($input['pinterest']['apic']['token'])) {
 				$input['pinterest']['apic']['token']
-					= Options::get_options_obj()->pinterest->apic->token
-					? Options::get_options_obj()->pinterest->apic->token
+					= Options::get_pinterest_apic_token()
+					? Options::get_pinterest_apic_token()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-pinterest-apic-token', esc_html__('You have entered an invalid Pinterest API token.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -385,8 +352,8 @@ class Validations {
 
 			if (!self::is_twitter_pixel_id($input['twitter']['pixel_id'])) {
 				$input['twitter']['pixel_id']
-					= Options::get_options_obj()->twitter->pixel_id
-					? Options::get_options_obj()->twitter->pixel_id
+					= Options::get_twitter_pixel_id()
+					? Options::get_twitter_pixel_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-twitter-pixel-id', esc_html__('You have entered an invalid Twitter pixel ID. It only contains 5 to 7 lowercase letters and numbers.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -409,8 +376,8 @@ class Validations {
 
 			if (!self::is_pinterest_pixel_id($input['pinterest']['pixel_id'])) {
 				$input['pinterest']['pixel_id']
-					= Options::get_options_obj()->pinterest->pixel_id
-					? Options::get_options_obj()->pinterest->pixel_id
+					= Options::get_pinterest_pixel_id()
+					? Options::get_pinterest_pixel_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-pinterest-pixel-id', esc_html__('You have entered an invalid Pinterest pixel ID. It only contains 13 digits.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -424,8 +391,8 @@ class Validations {
 
 			if (!self::is_snapchat_pixel_id($input['snapchat']['pixel_id'])) {
 				$input['snapchat']['pixel_id']
-					= Options::get_options_obj()->snapchat->pixel_id
-					? Options::get_options_obj()->snapchat->pixel_id
+					= Options::get_snapchat_pixel_id()
+					? Options::get_snapchat_pixel_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-snapchat-pixel-id', esc_html__('You have entered an invalid Snapchat pixel ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -439,8 +406,8 @@ class Validations {
 
 			if (!self::is_taboola_account_id($input['pixels']['taboola']['account_id'])) {
 				$input['pixels']['taboola']['account_id']
-					= Options::get_options_obj()->pixels->taboola->account_id
-					? Options::get_options_obj()->pixels->taboola->account_id
+					= Options::get_taboola_account_id()
+					? Options::get_taboola_account_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-taboola-account-id', esc_html__('You have entered an invalid Taboola account ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -454,8 +421,8 @@ class Validations {
 
 			if (!self::is_tiktok_pixel_id($input['tiktok']['pixel_id'])) {
 				$input['tiktok']['pixel_id']
-					= Options::get_options_obj()->tiktok->pixel_id
-					? Options::get_options_obj()->tiktok->pixel_id
+					= Options::get_tiktok_pixel_id()
+					? Options::get_tiktok_pixel_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-tiktok-pixel-id', esc_html__('You have entered an invalid TikTok pixel ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -469,8 +436,8 @@ class Validations {
 
 			if (!self::is_tiktok_eapi_access_token($input['tiktok']['eapi']['token'])) {
 				$input['tiktok']['eapi']['token']
-					= Options::get_options_obj()->tiktok->eapi->token
-					? Options::get_options_obj()->tiktok->eapi->token
+					= Options::get_tiktok_eapi_token()
+					? Options::get_tiktok_eapi_token()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-tiktok-eapi-access-token', esc_html__('You have entered an invalid TikTok Events API access token.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -484,8 +451,8 @@ class Validations {
 
 			if (!self::is_tiktok_eapi_test_event_code($input['tiktok']['eapi']['test_event_code'])) {
 				$input['tiktok']['eapi']['test_event_code']
-					= Options::get_options_obj()->tiktok->eapi->test_event_code
-					? Options::get_options_obj()->tiktok->eapi->test_event_code
+					= Options::get_tiktok_eapi_test_event_code()
+					? Options::get_tiktok_eapi_test_event_code()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-tiktok-eapi-test-event-code', esc_html__('You have entered an invalid TikTok EAPI test_event_code.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -499,8 +466,8 @@ class Validations {
 
 			if (!self::is_hotjar_site_id($input['hotjar']['site_id'])) {
 				$input['hotjar']['site_id']
-					= Options::get_options_obj()->hotjar->site_id
-					? Options::get_options_obj()->hotjar->site_id
+					= Options::get_hotjar_site_id()
+					? Options::get_hotjar_site_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-hotjar-site-id', esc_html__('You have entered an invalid Hotjar site ID. It only contains 6 to 9 digits.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -529,8 +496,8 @@ class Validations {
 
 			if (!self::is_vwo_account_id($input['pixels']['vwo']['account_id'])) {
 				$input['pixels']['vwo']['account_id']
-					= Options::get_options_obj()->pixels->vwo->account_id
-					? Options::get_options_obj()->pixels->vwo->account_id
+					= Options::get_vwo_account_id()
+					? Options::get_vwo_account_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-vwo-account-id', esc_html__('You have entered an invalid VWO account ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -544,8 +511,8 @@ class Validations {
 
 			if (!self::is_optimizely_project_id($input['pixels']['optimizely']['project_id'])) {
 				$input['pixels']['optimizely']['project_id']
-					= Options::get_options_obj()->pixels->optimizely->project_id
-					? Options::get_options_obj()->pixels->optimizely->project_id
+					= Options::get_optimizely_project_id()
+					? Options::get_optimizely_project_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-vwo-account-id', esc_html__('You have entered an invalid Optimizely project ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -559,8 +526,8 @@ class Validations {
 
 			if (!self::is_ab_tasty_account_id($input['pixels']['ab_tasty']['account_id'])) {
 				$input['pixels']['ab_tasty']['account_id']
-					= Options::get_options_obj()->pixels->ab_tasty->account_id
-					? Options::get_options_obj()->pixels->ab_tasty->account_id
+					= Options::get_ab_tasty_account_id()
+					? Options::get_ab_tasty_account_id()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-vwo-account-id', esc_html__('You have entered an invalid AB Tasty account ID.', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			}
@@ -588,8 +555,8 @@ class Validations {
 
 			if (!self::is_scroll_tracker_thresholds($scroll_tracker_thresholds)) {
 				$input['general']['scroll_tracker_thresholds']
-					= Options::get_options_obj()->general->scroll_tracker_thresholds
-					? Options::get_options_obj()->general->scroll_tracker_thresholds
+					= Options::get_scroll_tracking_thresholds()
+					? Options::get_scroll_tracking_thresholds()
 					: '';
 				add_settings_error('wgact_plugin_options', 'invalid-scroll-tracker-thresholds', esc_html__('You have entered the Scroll Tracker thresholds in the wrong format. It must be a list of comma separated percentages, like this "25,50,75,100"', 'woocommerce-google-adwords-conversion-tracking-tag'));
 			} elseif ('' !== $scroll_tracker_thresholds) { // If $scroll_tracker_thresholds not empty string error log
@@ -608,8 +575,8 @@ class Validations {
 			if (!self::is_subscription_value_multiplier($input['shop']['subscription_value_multiplier'])) {
 
 				$input['shop']['subscription_value_multiplier']
-					= Options::get_options_obj()->shop->subscription_value_multiplier
-					? Options::get_options_obj()->shop->subscription_value_multiplier
+					= Options::get_subscription_multiplier()
+					? Options::get_subscription_multiplier()
 					: 1;
 
 				add_settings_error('wgact_plugin_options', 'invalid-subscription-value-multiplier', esc_html__('You have entered an invalid subscription value multiplier. It must be a number and at least 1.00', 'woocommerce-google-adwords-conversion-tracking-tag'));
@@ -630,8 +597,8 @@ class Validations {
 			if (!self::is_valid_conversion_adjustments_conversion_name($input['google']['ads']['conversion_adjustments']['conversion_name'])) {
 
 				$input['google']['ads']['conversion_adjustments']['conversion_name']
-					= Options::get_options_obj()->google->ads->conversion_adjustments->conversion_name
-					? Options::get_options_obj()->google->ads->conversion_adjustments->conversion_name
+					= Options::get_google_ads_conversion_adjustments_conversion_name()
+					? Options::get_google_ads_conversion_adjustments_conversion_name()
 					: '';
 
 				add_settings_error('wgact_plugin_options', 'invalid-conversion-adjustments-conversion-name', esc_html__('You have entered an invalid conversion adjustments conversion name. Special characters, quotes and single quotes are not allowed due to security reasons.', 'woocommerce-google-adwords-conversion-tracking-tag'));
@@ -659,8 +626,8 @@ class Validations {
 
 			if (!self::is_twitter_event_id($input['twitter']['event_ids'][$event])) {
 				$input['twitter']['event_ids'][$event]
-					= Options::get_options_obj()->twitter->event_ids->$event
-					? Options::get_options_obj()->twitter->event_ids->$event
+					= Options::get_twitter_event_id($event)
+					? Options::get_twitter_event_id($event)
 					: '';
 				add_settings_error(
 					'wgact_plugin_options',
@@ -774,7 +741,7 @@ class Validations {
 				'analytics' => [
 					'ga4' => [
 						'data_api' => [
-							'credentials' => Options::get_options()['google']['analytics']['ga4']['data_api']['credentials'],
+							'credentials' => Options::get_ga4_data_api_credentials(),
 						],
 					],
 				],
@@ -783,7 +750,7 @@ class Validations {
 
 		// in case the form field input is missing
 //        if (!array_key_exists('google_business_vertical', $input['google']['ads'])) {
-//            $non_form_keys['google']['ads']['google_business_vertical'] = $this->options['google']['ads']['google_business_vertical'];
+//            $non_form_keys['google']['ads']['google_business_vertical'] = Options::get_google_ads_business_vertical_id();
 //        }
 
 		return $non_form_keys;
@@ -956,13 +923,6 @@ class Validations {
 	public static function is_google_optimize_measurement_id( $string ) {
 
 		$re = '/^(GTM|OPT)-[A-Z0-9]{6,8}$/m';
-
-		return self::validate_with_regex($re, $string);
-	}
-
-	public static function is_google_analytics_universal_property_id( $string ) {
-
-		$re = '/^UA-\d{6,10}-\d{1,2}$/m';
 
 		return self::validate_with_regex($re, $string);
 	}

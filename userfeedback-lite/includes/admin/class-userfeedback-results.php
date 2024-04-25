@@ -484,13 +484,6 @@ class UserFeedback_Results {
 				}
 
 			}
-		} else {
-			$query->add_where(
-				array(
-					'status'     => 'publish'
-				),
-				true
-			);
 		}
 
 		$responses = $query->get();

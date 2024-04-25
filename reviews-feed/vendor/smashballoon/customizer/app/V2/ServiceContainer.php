@@ -3,23 +3,18 @@
 namespace Smashballoon\Customizer\V2;
 
 use Smashballoon\Stubs\Services\ServiceProvider;
-
+/** @internal */
 class ServiceContainer extends ServiceProvider
 {
-
     /**
      * @var ServiceProvider[]
      */
-    public $services = [
-        CustomizerBootstrapService::class
-    ];
-
+    public $services = [\Smashballoon\Customizer\V2\CustomizerBootstrapService::class];
     public function register()
     {
-        $container = Container::getInstance();
-
+        $container = \Smashballoon\Customizer\V2\Container::getInstance();
         foreach ($this->services as $service) {
-            ($container->get($service))->register();
+            $container->get($service)->register();
         }
     }
 }

@@ -1,1690 +1,1785 @@
-<?php 
-/*
-Widget Name: Tabs And Tours
-Description: Toggle of a tabs and tours content.
-Author: Theplus
-Author URI: https://posimyth.com
-*/
+<?php
+/**
+ * Widget Name: Tabs And Tours
+ * Description: Toggle of a tabs and tours content.
+ * Author: Theplus
+ * Author URI: https://posimyth.com
+ *
+ * @package ThePlus
+ */
 
 namespace TheplusAddons\Widgets;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Utils;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
-use Elementor\Group_Control_Box_Shadow;
-use Elementor\Group_Control_Image_Size;
 
 use TheplusAddons\L_Theplus_Element_Load;
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
+/**
+ * Class L_ThePlus_Tabs_Tours
+ */
 class L_ThePlus_Tabs_Tours extends Widget_Base {
 
-	public $TpDoc = L_THEPLUS_Tpdoc;
-		
+	/**
+	 * Document Link For Need help.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 * @var tp_doc of the class.
+	 */
+	public $tp_doc = L_THEPLUS_Tpdoc;
+
+	/**
+	 * Get Widget Name.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
 	public function get_name() {
 		return 'tp-tabs-tours';
 	}
 
-    public function get_title() {
-        return esc_html__('Tabs/Tours', 'tpebl');
-    }
-
-    public function get_icon() {
-        return 'fa fa-th-list theplus_backend_icon';
-    }
-
-	public function get_custom_help_url() {
-		$DocUrl =  $this->TpDoc . "tabs-tours";
-		
-		return esc_url($DocUrl);
+	/**
+	 * Get Widget Title.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	public function get_title() {
+		return esc_html__( 'Tabs/Tours', 'tpebl' );
 	}
 
-    public function get_categories() {
-        return array('plus-tabbed');
-    }
-	
+	/**
+	 * Get Widget Icon.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	public function get_icon() {
+		return 'fa fa-th-list theplus_backend_icon';
+	}
+
+	/**
+	 * Get Widget categories.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	public function get_custom_help_url() {
+		$doc_url = $this->tp_doc . 'tabs-tours';
+
+		return esc_url( $doc_url );
+	}
+
+	/**
+	 * Get Widget categories.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	public function get_categories() {
+		return array( 'plus-tabbed' );
+	}
+
+	/**
+	 * Get Widget keywords.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
 	public function get_keywords() {
-        return ['tabs', 'tours', 'Tabs widget', 'Tours widget', 'Elementor Tabs', 'Elementor Tours', ' Elementor Tabs widget', 'Elementor Tours widget', 'Tabs addon', 'Tours addon', 'Elementor Tabs addon', 'Elementor Tours addon'];
-    }
-	
-    protected function register_controls() {
-		
+		return array( 'tabs', 'tours', 'Tabs widget', 'Tours widget', 'Elementor Tabs', 'Elementor Tours', ' Elementor Tabs widget', 'Elementor Tours widget', 'Tabs addon', 'Tours addon', 'Elementor Tabs addon', 'Elementor Tours addon' );
+	}
+
+	/**
+	 * Register controls.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	protected function register_controls() {
+
 		$this->start_controls_section(
 			'content_section',
-			[
+			array(
 				'label' => esc_html__( 'Content', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-			]
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
 		);
 
 		$this->add_control(
 			'how_it_works',
-			[
-				'label' => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "tabs-tours-elementor-widget-settings-overview?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> Learn How it works  <i class='eicon-help-o'></i> </a>", 'tpebl' ),
-				'type' => Controls_Manager::HEADING,
-			]
+			array(
+				'label' => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "tabs-tours-elementor-widget-settings-overview?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> Learn How it works  <i class='eicon-help-o'></i> </a>" ),
+				'type'  => Controls_Manager::HEADING,
+			)
 		);
-		
+
 		$repeater = new \Elementor\Repeater();
 
 		$repeater->add_control(
 			'tab_title',
-			[
-				'label' => esc_html__( 'Title & Content', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => esc_html__( 'Tab Title' , 'tpebl' ),
-				'dynamic' => [
+			array(
+				'label'       => esc_html__( 'Title & Content', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Tab Title', 'tpebl' ),
+				'dynamic'     => array(
 					'active' => true,
-				],
+				),
 				'label_block' => true,
-			]
+			)
 		);
 		$repeater->add_control(
 			'content_source',
-			[
-				'label' => esc_html__( 'Content Source', 'tpebl' ),
-				'type' => Controls_Manager::SELECT,
+			array(
+				'label'   => esc_html__( 'Content Source', 'tpebl' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'content',
-				'options' => [
-					'content'  => esc_html__( 'Content', 'tpebl' ),
+				'options' => array(
+					'content'       => esc_html__( 'Content', 'tpebl' ),
 					'page_template' => esc_html__( 'Page Template (Pro)', 'tpebl' ),
-				],
-			]
+				),
+			)
 		);
 		$repeater->add_control(
 			'tab_content',
-			[
-				'label' => esc_html__( 'Content', 'tpebl' ),
-				'type' => Controls_Manager::WYSIWYG,
-				'default' => esc_html__( 'Content', 'tpebl' ),
+			array(
+				'label'      => esc_html__( 'Content', 'tpebl' ),
+				'type'       => Controls_Manager::WYSIWYG,
+				'default'    => esc_html__( 'Content', 'tpebl' ),
 				'show_label' => false,
-				'dynamic' => ['active'   => true,],
-				'condition'    => [
-					'content_source' => [ 'content' ],
-				],
-			]
+				'dynamic'    => array( 'active' => true ),
+				'condition'  => array(
+					'content_source' => array( 'content' ),
+				),
+			)
 		);
 		$repeater->add_control(
 			'content_template_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'   => ['content_source' => "page_template"],
-			]
-		);		
+				'classes'     => 'plus-pro-version',
+				'condition'   => array( 'content_source' => 'page_template' ),
+			)
+		);
 		$repeater->add_control(
-			'display_icon',[
-				'label' => wp_kses_post( "Show Inner Icon <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "add-icons-to-elementor-tabs?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'tpebl' ),
-				'type'    =>  Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'label_on' => esc_html__( 'Show', 'tpebl' ),
-				'label_off' => esc_html__( 'Hide', 'tpebl' ),	
+			'display_icon',
+			array(
+				'label'     => wp_kses_post( "Show Inner Icon <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-icons-to-elementor-tabs?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'separator' => 'before',
-				'condition'    => [
-					'content_source' => [ 'content' ],
-				],
-			]
+				'condition' => array(
+					'content_source' => array( 'content' ),
+				),
+			)
 		);
 		$repeater->add_control(
 			'icon_style',
-			[
-				'label' => esc_html__( 'Icon Font', 'tpebl' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'font_awesome',
-				'options' => [
-					'font_awesome'  => esc_html__( 'Font Awesome', 'tpebl' ),
-					'icon_mind' => esc_html__( 'Icons Mind (Pro)', 'tpebl' ),
-					'image' => esc_html__( 'Image (Pro)', 'tpebl' ),
-				],
-				'condition' => [
-					'content_source' => [ 'content' ],
-					'display_icon' => 'yes',
-				],
-			]
+			array(
+				'label'     => esc_html__( 'Icon Font', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'font_awesome',
+				'options'   => array(
+					'font_awesome' => esc_html__( 'Font Awesome', 'tpebl' ),
+					'icon_mind'    => esc_html__( 'Icons Mind (Pro)', 'tpebl' ),
+					'image'        => esc_html__( 'Image (Pro)', 'tpebl' ),
+				),
+				'condition' => array(
+					'content_source' => array( 'content' ),
+					'display_icon'   => 'yes',
+				),
+			)
 		);
 		$repeater->add_control(
 			'icon_fontawesome',
-			[
-				'label' => esc_html__( 'Icon Library', 'tpebl' ),
-				'type' => Controls_Manager::ICON,
-				'default' => 'fa fa-plus',
+			array(
+				'label'     => esc_html__( 'Icon Library', 'tpebl' ),
+				'type'      => Controls_Manager::ICON,
+				'default'   => 'fa fa-plus',
 				'separator' => 'before',
-				'condition' => [
-					'content_source' => [ 'content' ],
-					'display_icon' => 'yes',
-					'icon_style' => 'font_awesome',
-				],
-			]
+				'condition' => array(
+					'content_source' => array( 'content' ),
+					'display_icon'   => 'yes',
+					'icon_style'     => 'font_awesome',
+				),
+			)
 		);
 		$repeater->add_control(
 			'icons_mind_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'content_source' => [ 'content' ],
-					'display_icon' => 'yes',
-					'icon_style' => ['icon_mind','image'],
-				],
-			]
-		);		
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'content_source' => array( 'content' ),
+					'display_icon'   => 'yes',
+					'icon_style'     => array( 'icon_mind', 'image' ),
+				),
+			)
+		);
 		$repeater->add_control(
-			'display_icon1',[
-				'label' => wp_kses_post( "Show Outer Icon <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "add-icons-to-elementor-tabs?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'tpebl' ),
-				'type'    =>  Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'label_on' => esc_html__( 'Show', 'tpebl' ),
-				'label_off' => esc_html__( 'Hide', 'tpebl' ),	
+			'display_icon1',
+			array(
+				'label'     => wp_kses_post( "Show Outer Icon <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-icons-to-elementor-tabs?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'separator' => 'before',
-				'condition'    => [
-					'content_source' => [ 'content' ],
-				],
-			]
+				'condition' => array(
+					'content_source' => array( 'content' ),
+				),
+			)
 		);
 		$repeater->add_control(
 			'display_icon1_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'content_source' => [ 'content' ],
-					'display_icon1' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'content_source' => array( 'content' ),
+					'display_icon1'  => array( 'yes' ),
+				),
+			)
 		);
 		$this->add_control(
 			'tabs',
-			[
-				'label' => 'Tab Content',
-				'type' => Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'default' => [
-					[
-						'tab_title' => esc_html__( 'Tab #1', 'tpebl' ),
+			array(
+				'label'       => 'Tab Content',
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => array(
+					array(
+						'tab_title'   => esc_html__( 'Tab #1', 'tpebl' ),
 						'tab_content' => esc_html__( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'tpebl' ),
-					],
-					[
-						'tab_title' => esc_html__( 'Tab #2', 'tpebl' ),
+					),
+					array(
+						'tab_title'   => esc_html__( 'Tab #2', 'tpebl' ),
 						'tab_content' => esc_html__( 'I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'tpebl' ),
-					],
-				],
+					),
+				),
 				'title_field' => '{{{ tab_title }}}',
-			]
+			)
 		);
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'layout_content_section',
-			[
+			array(
 				'label' => esc_html__( 'Layout', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-			]
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
 		);
 		$this->add_control(
 			'tabs_type',
-			[
-				'label' => esc_html__( 'Layout', 'tpebl' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'horizontal',
-				'options' => [
+			array(
+				'label'        => esc_html__( 'Layout', 'tpebl' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'horizontal',
+				'options'      => array(
 					'horizontal' => esc_html__( 'Horizontal', 'tpebl' ),
-					'vertical' => esc_html__( 'Vertical', 'tpebl' ),
-				],
+					'vertical'   => esc_html__( 'Vertical', 'tpebl' ),
+				),
 				'prefix_class' => 'elementor-tabs-view-',
-			]
+			)
 		);
 		$this->add_control(
 			'tabs_align_horizontal',
-			[
-				'label' => esc_html__( 'Navigation Position', 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'top' => [
+			array(
+				'label'       => esc_html__( 'Navigation Position', 'tpebl' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'top'    => array(
 						'title' => esc_html__( 'Top', 'tpebl' ),
-						'icon' => 'eicon-v-align-top',
-					],					
-					'bottom' => [
+						'icon'  => 'eicon-v-align-top',
+					),
+					'bottom' => array(
 						'title' => esc_html__( 'Bottom', 'tpebl' ),
-						'icon' => 'eicon-v-align-bottom',
-					],
-				],
-				'default' => 'top',
+						'icon'  => 'eicon-v-align-bottom',
+					),
+				),
+				'default'     => 'top',
 				'label_block' => false,
-				'condition' => [
-					'tabs_type' => [ 'horizontal' ],
-				],
-			]
+				'condition'   => array(
+					'tabs_type' => array( 'horizontal' ),
+				),
+			)
 		);
 		$this->add_control(
 			'tabs_align_vertical',
-			[
-				'label' => wp_kses_post( "Navigation Position <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "vertical-tabs-in-elementor?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
+			array(
+				'label'       => wp_kses_post( "Navigation Position <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "vertical-tabs-in-elementor?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'left'  => array(
 						'title' => esc_html__( 'Left', 'tpebl' ),
-						'icon' => 'eicon-text-align-left',
-					],					
-					'right' => [
+						'icon'  => 'eicon-text-align-left',
+					),
+					'right' => array(
 						'title' => esc_html__( 'Right', 'tpebl' ),
-						'icon' => 'eicon-text-align-right',
-					],
-				],
-				'default' => 'left',
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'     => 'left',
 				'label_block' => false,
-				'condition'    => [
-					'tabs_type' => [ 'vertical' ],
-				],
-			]
+				'condition'   => array(
+					'tabs_type' => array( 'vertical' ),
+				),
+			)
 		);
 		$this->add_control(
-			'tabs_swiper',[
-				'label'   => esc_html__( 'Swiper Effect', 'tpebl' ),
-				'type'    =>  Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'label_on' => esc_html__( 'On', 'tpebl' ),
+			'tabs_swiper',
+			array(
+				'label'     => esc_html__( 'Swiper Effect', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
 				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'separator' => 'before',
-				'condition'    => [
-					'tabs_type' => [ 'horizontal' ],
-				],
-			]
+				'condition' => array(
+					'tabs_type' => array( 'horizontal' ),
+				),
+			)
 		);
 		$this->add_control(
 			'tabs_swiper_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'tabs_type' => [ 'horizontal' ],
-					'tabs_swiper' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'tabs_type'   => array( 'horizontal' ),
+					'tabs_swiper' => array( 'yes' ),
+				),
+			)
 		);
 		$this->add_control(
 			'on_hover_tabs',
-			[
-				'label' => wp_kses_post( "On Hover Tab <a class='tp-docs-link' href='" . esc_url($this->TpDoc) . "elementor-tab-on-hover?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>", 'tpebl' ),
-				'type' =>  Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'label_on' => esc_html__( 'Enable', 'tpebl' ),
+			array(
+				'label'     => wp_kses_post( "On Hover Tab <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "elementor-tab-on-hover?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'separator' => 'before',
-			]
+			)
 		);
 		$this->add_control(
 			'on_hover_tabs_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'on_hover_tabs' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'on_hover_tabs' => array( 'yes' ),
+				),
+			)
 		);
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_toggle_style_icon',
-			[
+			array(
 				'label' => esc_html__( 'Icon', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
 		);
 		$this->add_responsive_control(
-            'icon_size',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Icon Size', 'tpebl'),
-				'size_units' => [ 'px' ],
-				'range' => [
-					'px' => [
-						'min' => 6,
-						'max' => 200,
+			'icon_size',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => esc_html__( 'Icon Size', 'tpebl' ),
+				'size_units'  => array( 'px' ),
+				'range'       => array(
+					'px' => array(
+						'min'  => 6,
+						'max'  => 200,
 						'step' => 1,
-					],
-				],
-				'default' => [
+					),
+				),
+				'default'     => array(
 					'unit' => 'px',
 					'size' => 15,
-				],
+				),
 				'render_type' => 'ui',
-				'selectors' => [
+				'selectors'   => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap' => 'font-size: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-image' => 'max-width: {{SIZE}}{{UNIT}};',
-				],
-            ]
-        );
+				),
+			)
+		);
 		$this->add_control(
 			'icon_color',
-			[
-				'label' => esc_html__( 'Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap' => 'color: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'icon_active_color',
-			[
-				'label' => esc_html__( 'Active Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Active Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active .tab-icon-wrap' => 'color: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_responsive_control(
 			'icon_space',
-			[
-				'label' => esc_html__( 'Spacing', 'tpebl' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
+			array(
+				'label'     => esc_html__( 'Spacing', 'tpebl' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
 						'min' => 0,
 						'max' => 100,
-					],
-				],
-				'selectors' => [
+					),
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav:not(.full-width-icon) .plus-tab-header .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap' => 'padding-right: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .theplus-tabs-wrapper ul.plus-tabs-nav.full-width-icon .plus-tab-header .tab-icon-wrap' => 'padding-right: 0;padding-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
-			'full_icon',[
-				'label'   => esc_html__( 'Full Width Icon', 'tpebl' ),
-				'type'    =>  Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'label_on' => esc_html__( 'Enable', 'tpebl' ),
-				'label_off' => esc_html__( 'Disable', 'tpebl' ),	
+			'full_icon',
+			array(
+				'label'     => esc_html__( 'Full Width Icon', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
+				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'separator' => 'before',
-			]
+			)
 		);
 		$this->add_control(
 			'full_icon_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'full_icon' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'full_icon' => array( 'yes' ),
+				),
+			)
 		);
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_toggle_style_icon_outer',
-			[
+			array(
 				'label' => esc_html__( 'Outer Icon', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
 		);
 		$this->add_control(
 			'section_toggle_style_icon_outer_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-			]
+				'classes'     => 'plus-pro-version',
+			)
 		);
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_title_style',
-			[
+			array(
 				'label' => esc_html__( 'Tab Title Bar', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
 		);
 		$this->add_responsive_control(
 			'nav_vertical_width',
-			[
-				'label' => esc_html__( 'Navigation Width', 'tpebl' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ '%' , 'px' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 600,
+			array(
+				'label'      => esc_html__( 'Navigation Width', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( '%', 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 600,
 						'step' => 2,
-					],
-					'%' => [
-						'min' => 0,
-						'max' => 100,
+					),
+					'%'  => array(
+						'min'  => 0,
+						'max'  => 100,
 						'step' => 1,
-					],
-				],
-				'default' => [
+					),
+				),
+				'default'    => array(
 					'unit' => '%',
 					'size' => 25,
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}}.elementor-tabs-view-vertical .theplus-tabs-nav-wrapper' => 'width: {{SIZE}}{{UNIT}};',
-				],
-				'condition' => [
+				),
+				'condition'  => array(
 					'tabs_type' => 'vertical',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
 			'nav_vertical_align',
-			[
-				'label' => esc_html__( 'Vertical Alignment', 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'align-top' => [
+			array(
+				'label'       => esc_html__( 'Vertical Alignment', 'tpebl' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'align-top'    => array(
 						'title' => esc_html__( 'Top', 'tpebl' ),
-						'icon' => 'eicon-arrow-up',
-					],
-					'align-center' => [
+						'icon'  => 'eicon-arrow-up',
+					),
+					'align-center' => array(
 						'title' => esc_html__( 'Center', 'tpebl' ),
-						'icon' => 'eicon-text-align-center',
-					],
-					'align-bottom' => [
+						'icon'  => 'eicon-text-align-center',
+					),
+					'align-bottom' => array(
 						'title' => esc_html__( 'Bottom', 'tpebl' ),
-						'icon' => 'eicon-arrow-down',
-					],
-				],
-				'default' => 'align-top',
+						'icon'  => 'eicon-arrow-down',
+					),
+				),
+				'default'     => 'align-top',
 				'label_block' => false,
-				'separator' => 'after',
-				'condition' => [
+				'separator'   => 'after',
+				'condition'   => array(
 					'tabs_type' => 'vertical',
-				],
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[
-				'name' => 'title_typography',
-				'label' => esc_html__( 'Typography', 'tpebl' ),
+			array(
+				'name'     => 'title_typography',
+				'label'    => esc_html__( 'Typography', 'tpebl' ),
 				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title',
-			]
+			)
 		);
 		$this->add_control(
 			'nav_align',
-			[
-				'label' => esc_html__( 'Nav Alignment', 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'text-left' => [
+			array(
+				'label'       => esc_html__( 'Nav Alignment', 'tpebl' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'text-left'   => array(
 						'title' => esc_html__( 'Left', 'tpebl' ),
-						'icon' => 'eicon-text-align-left',
-					],
-					'text-center' => [
+						'icon'  => 'eicon-text-align-left',
+					),
+					'text-center' => array(
 						'title' => esc_html__( 'Center', 'tpebl' ),
-						'icon' => 'eicon-text-align-center',
-					],
-					'text-right' => [
+						'icon'  => 'eicon-text-align-center',
+					),
+					'text-right'  => array(
 						'title' => esc_html__( 'Right', 'tpebl' ),
-						'icon' => 'eicon-text-align-right',
-					],
-				],
-				'default' => 'text-left',
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'     => 'text-left',
 				'label_block' => false,
-			]
+			)
 		);
 		$this->add_control(
 			'nav_full_width',
-			[
-				'label' => esc_html__( 'Nav Full-Width', 'tpebl' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Yes', 'tpebl' ),
+			array(
+				'label'     => esc_html__( 'Nav Full-Width', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Yes', 'tpebl' ),
 				'label_off' => esc_html__( 'No', 'tpebl' ),
-				'default' => 'no',
-			]
+				'default'   => 'no',
+			)
 		);
 		$this->add_control(
 			'nav_full_width_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'nav_full_width' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'nav_full_width' => array( 'yes' ),
+				),
+			)
 		);
 		$this->add_control(
 			'nav_title_display',
-			[
-				'label' => esc_html__( 'Title On/Off', 'tpebl' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'On', 'tpebl' ),
+			array(
+				'label'     => esc_html__( 'Title On/Off', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
 				'label_off' => esc_html__( 'Off', 'tpebl' ),
-				'default' => 'yes',
+				'default'   => 'yes',
 				'separator' => 'after',
-			]
+			)
 		);
 		$this->add_control(
 			'nav_same_width',
-			[
-				'label' => esc_html__( 'Nav Equal Width', 'tpebl' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Yes', 'tpebl' ),
+			array(
+				'label'     => esc_html__( 'Nav Equal Width', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Yes', 'tpebl' ),
 				'label_off' => esc_html__( 'No', 'tpebl' ),
-				'default' => 'no',
-			]
+				'default'   => 'no',
+			)
 		);
 		$this->add_control(
 			'nav_same_width_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition' => [
-					'nav_same_width' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'nav_same_width' => array( 'yes' ),
+				),
+			)
 		);
 		$this->add_control(
 			'nav_color_options',
-			[
-				'label' => esc_html__( 'Title Color Options', 'tpebl' ),
-				'type' => Controls_Manager::HEADING,
+			array(
+				'label'     => esc_html__( 'Title Color Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			]
+			)
 		);
 		$this->start_controls_tabs( 'tabs_title_style' );
 		$this->start_controls_tab(
 			'tab_title_normal',
-			[
+			array(
 				'label' => esc_html__( 'Normal', 'tpebl' ),
-			]
+			)
 		);
 		$this->add_control(
 			'title_color_option',
-			[
-				'label' => esc_html__( 'Title Color', 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'solid' => [
+			array(
+				'label'       => esc_html__( 'Title Color', 'tpebl' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'solid'    => array(
 						'title' => esc_html__( 'Classic', 'tpebl' ),
-						'icon' => 'eicon-paint-brush',
-					],
-					'gradient' => [
+						'icon'  => 'eicon-paint-brush',
+					),
+					'gradient' => array(
 						'title' => esc_html__( 'Gradient', 'tpebl' ),
-						'icon' => 'fa fa-barcode',
-					],
-				],
-				'default' => 'solid',
+						'icon'  => 'eicon-barcode',
+					),
+				),
+				'default'     => 'solid',
 				'label_block' => false,
-			]
+			)
 		);
 		$this->add_control(
 			'title_color',
-			[
-				'label' => esc_html__( 'Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#313131',
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#313131',
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title' => 'color: {{VALUE}}',
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'title_color_option' => 'solid',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
-            'title_gradient_color1',
-            [
-                'label' => esc_html__('Color 1', 'tpebl'),
-                'type' => Controls_Manager::COLOR,
-                'default' => 'orange',
-				'condition' => [
+			'title_gradient_color1',
+			array(
+				'label'     => esc_html__( 'Color 1', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'orange',
+				'condition' => array(
 					'title_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_gradient_color1_control',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Color 1 Location', 'tpebl'),
-				'size_units' => [ '%' ],
-				'default' => [
+			'title_gradient_color1_control',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => esc_html__( 'Color 1 Location', 'tpebl' ),
+				'size_units'  => array( '%' ),
+				'default'     => array(
 					'unit' => '%',
 					'size' => 0,
-				],
+				),
 				'render_type' => 'ui',
-				'condition' => [
+				'condition'   => array(
 					'title_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'     => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_gradient_color2',
-            [
-                'label' => esc_html__('Color 2', 'tpebl'),
-                'type' => Controls_Manager::COLOR,
-                'default' => 'cyan',
-				'condition' => [
+			'title_gradient_color2',
+			array(
+				'label'     => esc_html__( 'Color 2', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'cyan',
+				'condition' => array(
 					'title_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_gradient_color2_control',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Color 2 Location', 'tpebl'),
-				'size_units' => [ '%' ],
-				'default' => [
+			'title_gradient_color2_control',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => esc_html__( 'Color 2 Location', 'tpebl' ),
+				'size_units'  => array( '%' ),
+				'default'     => array(
 					'unit' => '%',
 					'size' => 100,
-					],
+				),
 				'render_type' => 'ui',
-				'condition' => [
+				'condition'   => array(
 					'title_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'     => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_gradient_style', [
-                'type' => Controls_Manager::SELECT,
-                'label' => esc_html__('Gradient Style', 'tpebl'),
-                'default' => 'linear',
-                'options' => l_theplus_get_gradient_styles(),
-				'condition' => [
+			'title_gradient_style',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Gradient Style', 'tpebl' ),
+				'default'   => 'linear',
+				'options'   => l_theplus_get_gradient_styles(),
+				'condition' => array(
 					'title_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_gradient_angle', [
-				'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Gradient Angle', 'tpebl'),
-				'size_units' => [ 'deg' ],
-				'default' => [
+			'title_gradient_angle',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => esc_html__( 'Gradient Angle', 'tpebl' ),
+				'size_units' => array( 'deg' ),
+				'default'    => array(
 					'unit' => 'deg',
 					'size' => 180,
-				],
-				'range' => [
-					'deg' => [
+				),
+				'range'      => array(
+					'deg' => array(
 						'step' => 10,
-					],
-				],
-				'selectors' => [
+					),
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header span:not(.tab-icon-wrap),{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title span:not(.tab-icon-wrap)' => 'background-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}});-webkit-background-clip: text;-webkit-text-fill-color: transparent;',
-				],
-				'condition'    => [
-					'title_color_option' => 'gradient',
-					'title_gradient_style' => ['linear']
-				],
-				'of_type' => 'gradient',
-			]
-        );
+				),
+				'condition'  => array(
+					'title_color_option'   => 'gradient',
+					'title_gradient_style' => array( 'linear' ),
+				),
+				'of_type'    => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_gradient_position', [
-				'type' => Controls_Manager::SELECT,
-				'label' => esc_html__('Position', 'tpebl'),
-				'options' => l_theplus_get_position_options(),
-				'default' => 'center center',
-				'selectors' => [
+			'title_gradient_position',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Position', 'tpebl' ),
+				'options'   => l_theplus_get_position_options(),
+				'default'   => 'center center',
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header span:not(.tab-icon-wrap),{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title span:not(.tab-icon-wrap)' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}});-webkit-background-clip: text;-webkit-text-fill-color: transparent;',
-				],
-				'condition' => [
-					'title_color_option' => 'gradient',
+				),
+				'condition' => array(
+					'title_color_option'   => 'gradient',
 					'title_gradient_style' => 'radial',
-			],
-			'of_type' => 'gradient',
-			]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->end_controls_tab();
 		$this->start_controls_tab(
 			'tab_title_active',
-			[
+			array(
 				'label' => esc_html__( 'Active', 'tpebl' ),
-			]
+			)
 		);
 		$this->add_control(
 			'title_active_color_option',
-			[
-				'label' => esc_html__( 'Title Active Color', 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'solid' => [
+			array(
+				'label'       => esc_html__( 'Title Active Color', 'tpebl' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'solid'    => array(
 						'title' => esc_html__( 'Classic', 'tpebl' ),
-						'icon' => 'eicon-paint-brush',
-					],
-					'gradient' => [
+						'icon'  => 'eicon-paint-brush',
+					),
+					'gradient' => array(
 						'title' => esc_html__( 'Gradient', 'tpebl' ),
-						'icon' => 'fa fa-barcode',
-					],
-				],
-				'default' => 'solid',
+						'icon'  => 'fa fa-barcode',
+					),
+				),
+				'default'     => 'solid',
 				'label_block' => false,
-			]
+			)
 		);
 		$this->add_control(
 			'title_active_color',
-			[
-				'label' => esc_html__( 'Active Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#3351a6',
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Active Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#3351a6',
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active' => 'color: {{VALUE}}',
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'title_active_color_option' => 'solid',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
-            'title_active_gradient_color1',
-            [
-                'label' => esc_html__('Color 1', 'tpebl'),
-                'type' => Controls_Manager::COLOR,
-                'default' => 'orange',
-				'condition' => [
+			'title_active_gradient_color1',
+			array(
+				'label'     => esc_html__( 'Color 1', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'orange',
+				'condition' => array(
 					'title_active_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_active_gradient_color1_control',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Color 1 Location', 'tpebl'),
-				'size_units' => [ '%' ],
-				'default' => [
+			'title_active_gradient_color1_control',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => esc_html__( 'Color 1 Location', 'tpebl' ),
+				'size_units'  => array( '%' ),
+				'default'     => array(
 					'unit' => '%',
 					'size' => 0,
-				],
+				),
 				'render_type' => 'ui',
-				'condition' => [
+				'condition'   => array(
 					'title_active_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'     => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_active_gradient_color2',
-            [
-                'label' => esc_html__('Color 2', 'tpebl'),
-                'type' => Controls_Manager::COLOR,
-                'default' => 'cyan',
-				'condition' => [
+			'title_active_gradient_color2',
+			array(
+				'label'     => esc_html__( 'Color 2', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'cyan',
+				'condition' => array(
 					'title_active_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_active_gradient_color2_control',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Color 2 Location', 'tpebl'),
-				'size_units' => [ '%' ],
-				'default' => [
+			'title_active_gradient_color2_control',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => esc_html__( 'Color 2 Location', 'tpebl' ),
+				'size_units'  => array( '%' ),
+				'default'     => array(
 					'unit' => '%',
 					'size' => 100,
-					],
+				),
 				'render_type' => 'ui',
-				'condition' => [
+				'condition'   => array(
 					'title_active_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'     => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_active_gradient_style', [
-                'type' => Controls_Manager::SELECT,
-                'label' => esc_html__('Gradient Style', 'tpebl'),
-                'default' => 'linear',
-                'options' => l_theplus_get_gradient_styles(),
-				'condition' => [
+			'title_active_gradient_style',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Gradient Style', 'tpebl' ),
+				'default'   => 'linear',
+				'options'   => l_theplus_get_gradient_styles(),
+				'condition' => array(
 					'title_active_color_option' => 'gradient',
-				],
-				'of_type' => 'gradient',
-            ]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_active_gradient_angle', [
-				'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Gradient Angle', 'tpebl'),
-				'size_units' => [ 'deg' ],
-				'default' => [
+			'title_active_gradient_angle',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => esc_html__( 'Gradient Angle', 'tpebl' ),
+				'size_units' => array( 'deg' ),
+				'default'    => array(
 					'unit' => 'deg',
 					'size' => 180,
-				],
-				'range' => [
-					'deg' => [
+				),
+				'range'      => array(
+					'deg' => array(
 						'step' => 10,
-					],
-				],
-				'selectors' => [
+					),
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover span:not(.tab-icon-wrap),{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active span:not(.tab-icon-wrap),{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active span:not(.tab-icon-wrap)' => 'background-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{title_active_gradient_color1.VALUE}} {{title_active_gradient_color1_control.SIZE}}{{title_active_gradient_color1_control.UNIT}}, {{title_active_gradient_color2.VALUE}} {{title_active_gradient_color2_control.SIZE}}{{title_active_gradient_color2_control.UNIT}});-webkit-background-clip: text;-webkit-text-fill-color: transparent;',
-				],
-				'condition'    => [
-					'title_active_color_option' => 'gradient',
-					'title_active_gradient_style' => ['linear']
-				],
-				'of_type' => 'gradient',
-			]
-        );
+				),
+				'condition'  => array(
+					'title_active_color_option'   => 'gradient',
+					'title_active_gradient_style' => array( 'linear' ),
+				),
+				'of_type'    => 'gradient',
+			)
+		);
 		$this->add_control(
-            'title_active_gradient_position', [
-				'type' => Controls_Manager::SELECT,
-				'label' => esc_html__('Position', 'tpebl'),
-				'options' => l_theplus_get_position_options(),
-				'default' => 'center center',
-				'selectors' => [
+			'title_active_gradient_position',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Position', 'tpebl' ),
+				'options'   => l_theplus_get_position_options(),
+				'default'   => 'center center',
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover span:not(.tab-icon-wrap),{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active span:not(.tab-icon-wrap),{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active span:not(.tab-icon-wrap)' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{title_active_gradient_color1.VALUE}} {{title_active_gradient_color1_control.SIZE}}{{title_active_gradient_color1_control.UNIT}}, {{title_active_gradient_color2.VALUE}} {{title_active_gradient_color2_control.SIZE}}{{title_active_gradient_color2_control.UNIT}});-webkit-background-clip: text;-webkit-text-fill-color: transparent;',
-				],
-				'condition' => [
-					'title_active_color_option' => 'gradient',
+				),
+				'condition' => array(
+					'title_active_color_option'   => 'gradient',
 					'title_active_gradient_style' => 'radial',
-			],
-			'of_type' => 'gradient',
-			]
-        );
+				),
+				'of_type'   => 'gradient',
+			)
+		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->end_controls_section();
-		//start underline
+
 		$this->start_controls_section(
 			'section_tab_underline',
-			[
+			array(
 				'label' => esc_html__( 'Underline', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
 		);
 		$this->add_control(
 			'tab_title_underline_display',
-			[
-				'label' => esc_html__( 'Underline', 'tpebl' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Enable', 'tpebl' ),
+			array(
+				'label'     => esc_html__( 'Underline', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
-				'default' => 'no',
-			]
+				'default'   => 'no',
+			)
 		);
 		$this->add_control(
 			'tab_title_underline_display_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition'    => [
-					'tab_title_underline_display' => [ 'yes' ],
-				],
-			]
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'tab_title_underline_display' => array( 'yes' ),
+				),
+			)
 		);
 		$this->end_controls_section();
-		//end underline
+
 		$this->start_controls_section(
 			'section_title_bg_style',
-			[
+			array(
 				'label' => esc_html__( 'Tab Title Bar Background', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
 		);
 		$this->add_responsive_control(
 			'nav_inner_margin',
-			[
-				'label' => esc_html__( 'Nav Inner Margin', 'tpebl' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
-				'selectors' => [
+			array(
+				'label'      => esc_html__( 'Nav Inner Margin', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'nav_inner_padding',
-			[
-				'label' => esc_html__( 'Nav Inner Padding', 'tpebl' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
-				'separator' => 'after',
-				'selectors' => [
+			array(
+				'label'      => esc_html__( 'Nav Inner Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'separator'  => 'after',
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'nav_title_space',
-			[
-				'label' => esc_html__( 'Space Between Navigation', 'tpebl' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px'],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 200,
+			array(
+				'label'      => esc_html__( 'Space Between Navigation', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 200,
 						'step' => 2,
-					],
-				],
-				'default' => [
+					),
+				),
+				'default'    => array(
 					'unit' => 'px',
 					'size' => 15,
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}}.elementor-tabs-view-horizontal .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header' => 'margin-left: {{SIZE}}{{UNIT}};margin-right: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}}.elementor-tabs-view-horizontal .theplus-tabs-wrapper .plus-tabs-nav li:first-child .plus-tab-header' => 'margin-left:0;',
 					'{{WRAPPER}}.elementor-tabs-view-horizontal .theplus-tabs-wrapper .plus-tabs-nav li:last-child .plus-tab-header' => 'margin-right:0;',
 					'{{WRAPPER}}.elementor-tabs-view-vertical .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header' => 'margin-top: {{SIZE}}{{UNIT}};margin-bottom: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}}.elementor-tabs-view-vertical .theplus-tabs-wrapper .plus-tabs-nav li:first-child .plus-tab-header' => 'margin-top:0;',
 					'{{WRAPPER}}.elementor-tabs-view-vertical .theplus-tabs-wrapper .plus-tabs-nav li:last-child .plus-tab-header' => 'margin-bottom:0;',
-					
-				],
-			]
+
+				),
+			)
 		);
 		$this->add_control(
 			'nav_box_border',
-			[
-				'label' => esc_html__( 'Box Border', 'tpebl' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Show', 'tpebl' ),
+			array(
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
 				'label_off' => esc_html__( 'Hide', 'tpebl' ),
-				'default' => 'no',
+				'default'   => 'no',
 				'separator' => 'before',
-			]
+			)
 		);
-		
+
 		$this->add_control(
 			'nav_border_style',
-			[
-				'label' => esc_html__( 'Border Style', 'tpebl' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'solid',
-				'options' => l_theplus_get_border_style(),
-				'selectors'  => [
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => l_theplus_get_border_style(),
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header' => 'border-style: {{VALUE}};',
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'nav_border_width',
-			[
-				'label' => esc_html__( 'Border Width', 'tpebl' ),
-				'type'  => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'default' => [
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
 					'top'    => 1,
 					'right'  => 1,
 					'bottom' => 1,
 					'left'   => 1,
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition' => [
+				),
+				'condition'  => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->start_controls_tabs( 'nav_box_border_style' );
 		$this->start_controls_tab(
 			'nav_border_normal',
-			[
-				'label' => esc_html__( 'Normal', 'tpebl' ),
-				'condition' => [
+			array(
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
+				'condition' => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
 			'nav_border_color',
-			[
-				'label' => esc_html__( 'Border Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#252525',
-				'selectors'  => [
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header' => 'border-color: {{VALUE}};',
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
-		
+
 		$this->add_responsive_control(
 			'nav_border_radius',
-			[
+			array(
 				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition' => [
+				),
+				'condition'  => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->end_controls_tab();
 		$this->start_controls_tab(
 			'nav_border_active',
-			[
-				'label' => esc_html__( 'Active', 'tpebl' ),
-				'condition' => [
+			array(
+				'label'     => esc_html__( 'Active', 'tpebl' ),
+				'condition' => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
 			'nav_border_active_color',
-			[
-				'label' => esc_html__( 'Border Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#252525',
-				'selectors'  => [
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active' => 'border-color: {{VALUE}};',
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'nav_border_active_radius',
-			[
+			array(
 				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition' => [
+				),
+				'condition'  => array(
 					'nav_box_border' => 'yes',
-				],
-			]
+				),
+			)
 		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->start_controls_tabs( 'nav_background_style' );
 		$this->start_controls_tab(
 			'nav_background_normal',
-			[
+			array(
 				'label' => esc_html__( 'Normal', 'tpebl' ),
-			]
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
-				'name'      => 'nav_box_background',
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header',
-				
-			]
+			array(
+				'name'     => 'nav_box_background',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header',
+
+			)
 		);
 		$this->end_controls_tab();
 		$this->start_controls_tab(
 			'nav_background_active',
-			[
+			array(
 				'label' => esc_html__( 'Active', 'tpebl' ),
-			]
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
-				'name'      => 'nav_box_active_background',
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active',
-			]
+			array(
+				'name'     => 'nav_box_active_background',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active',
+			)
 		);
 		$this->end_controls_tab();
-		$this->end_controls_tabs();		
+		$this->end_controls_tabs();
 		$this->end_controls_section();
-		/*title bg style*/
-		/*Tab Nav background style*/
 		$this->start_controls_section(
-            'section_nav_bg_styling',
-            [
-                'label' => esc_html__('Navigation Area Background', 'tpebl'),
-                'tab' => Controls_Manager::TAB_STYLE,
-			]
-        );
+			'section_nav_bg_styling',
+			array(
+				'label' => esc_html__( 'Navigation Area Background', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
 		$this->add_control(
 			'section_nav_bg_styling_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-			]
+				'classes'     => 'plus-pro-version',
+			)
 		);
 		$this->end_controls_section();
-		/*tab Nav background style*/
-		/*desc style*/
 		$this->start_controls_section(
-            'section_desc_styling',
-            [
-                'label' => esc_html__('Content', 'tpebl'),
-                'tab' => Controls_Manager::TAB_STYLE,
-			]
-        );
+			'section_desc_styling',
+			array(
+				'label' => esc_html__( 'Content', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[
-				'name' => 'desc_typography',
-				'label' => esc_html__( 'Typography', 'tpebl' ),
+			array(
+				'name'     => 'desc_typography',
+				'label'    => esc_html__( 'Typography', 'tpebl' ),
 				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper .plus-tab-content .plus-content-editor',
-			]
+			)
 		);
 		$this->add_control(
 			'desc_color',
-			[
-				'label' => esc_html__( 'Desc Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Desc Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper .plus-tab-content .plus-content-editor,{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper .plus-tab-content .plus-content-editor p' => 'color: {{VALUE}}',
-				],
-			]
+				),
+			)
 		);
 		$this->end_controls_section();
 		/*desc style*/
 		$this->start_controls_section(
-		'section_desc_bg_styling',
-            [
-                'label' => esc_html__('Content Background', 'tpebl'),
-                'tab' => Controls_Manager::TAB_STYLE,
-			]
-        );
+			'section_desc_bg_styling',
+			array(
+				'label' => esc_html__( 'Content Background', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
 		$this->add_responsive_control(
 			'content_tab_margin',
-			[
-				'label' => esc_html__( 'Content Margin Space', 'tpebl' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
-				'selectors' => [
+			array(
+				'label'      => esc_html__( 'Content Margin Space', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion.mobile-accordion-tab .theplus-tabs-content-wrapper .plus-tab-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'content_tab_padding',
-			[
-				'label' => esc_html__( 'Content Inner Padding', 'tpebl' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
-				'selectors' => [
+			array(
+				'label'      => esc_html__( 'Content Inner Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion.mobile-accordion-tab .theplus-tabs-content-wrapper .plus-tab-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
 			'content_background_options',
-			[
-				'label' => esc_html__( 'Background Options', 'tpebl' ),
-				'type' => Controls_Manager::HEADING,
+			array(
+				'label'     => esc_html__( 'Background Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			]
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
-				'name'      => 'content_box_background',
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper',
-				
-			]
-		);		
-		$this->end_controls_section();		
+			array(
+				'name'     => 'content_box_background',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper',
+
+			)
+		);
+		$this->end_controls_section();
 		/* Extra option */
 		$this->start_controls_section(
-            'section_extra_options',
-            [
-                'label' => esc_html__('Extra Options', 'tpebl'),
-                'tab' => Controls_Manager::TAB_STYLE,
-			]
-        );
+			'section_extra_options',
+			array(
+				'label' => esc_html__( 'Extra Options', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
 		$this->add_control(
 			'section_extra_pro_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-			]
+				'classes'     => 'plus-pro-version',
+			)
 		);
 		$this->add_control(
 			'tab_nav_responsive',
-			[
-				'label'   => esc_html__( 'Tab Navigation Responsive', 'tpebl' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => '',
-				'options' => [
-					''  => esc_html__( 'None', 'tpebl' ),
-					'nav_full' => esc_html__( 'Full Width (PRO) ', 'tpebl' ),
-					'nav_one' => esc_html__( 'One By One (PRO)', 'tpebl' ),
+			array(
+				'label'       => esc_html__( 'Tab Navigation Responsive', 'tpebl' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '',
+				'options'     => array(
+					''              => esc_html__( 'None', 'tpebl' ),
+					'nav_full'      => esc_html__( 'Full Width (PRO) ', 'tpebl' ),
+					'nav_one'       => esc_html__( 'One By One (PRO)', 'tpebl' ),
 					'tab_accordion' => esc_html__( 'Force Accordion', 'tpebl' ),
-				],
-				'separator' => 'before',
-				'description' => esc_html__('These options are for making your tabs look different in small devices. You can select none, If you want to keep your settings.','tpebl'),
-			]
+				),
+				'separator'   => 'before',
+				'description' => esc_html__( 'These options are for making your tabs look different in small devices. You can select none, If you want to keep your settings.', 'tpebl' ),
+			)
 		);
 		$this->add_control(
 			'tab_nav_responsive_pro_options',
-			[
-				'label' => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
 				'description' => theplus_pro_ver_notice(),
-				'classes' => 'plus-pro-version',
-				'condition' => [
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
 					'tab_nav_responsive!' => 'tab_accordion',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
 			'tab_accordion_options',
-			[
-				'label' => esc_html__( 'Accordion Navigation Options', 'tpebl' ),
-				'type' => \Elementor\Controls_Manager::HEADING,
+			array(
+				'label'     => esc_html__( 'Accordion Navigation Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-				'condition' => [
+				'condition' => array(
 					'tab_nav_responsive' => 'tab_accordion',
-				],
-			]
-		);		
+				),
+			)
+		);
 		$this->start_controls_tabs( 'accordion_background_style' );
 		$this->start_controls_tab(
 			'accordion_background_normal',
-			[
-				'label' => esc_html__( 'Normal', 'tpebl' ),
-				'condition' => [
+			array(
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
+				'condition' => array(
 					'tab_nav_responsive' => 'tab_accordion',
-				],
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
+			array(
 				'name'      => 'accordion_box_background',
-				'types'     => [ 'classic', 'gradient' ],
+				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title',
-				'condition' => [
+				'condition' => array(
 					'tab_nav_responsive' => 'tab_accordion',
-				],
-			]
+				),
+			)
 		);
 		$this->end_controls_tab();
 		$this->start_controls_tab(
 			'accordion_background_active',
-			[
-				'label' => esc_html__( 'Active', 'tpebl' ),
-				'condition' => [
+			array(
+				'label'     => esc_html__( 'Active', 'tpebl' ),
+				'condition' => array(
 					'tab_nav_responsive' => 'tab_accordion',
-				],
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
+			array(
 				'name'      => 'accordion_box_active_background',
-				'types'     => [ 'classic', 'gradient' ],
+				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active',
-				'condition' => [
+				'condition' => array(
 					'tab_nav_responsive' => 'tab_accordion',
-				],
-			]
+				),
+			)
 		);
 		$this->end_controls_tab();
-		$this->end_controls_tabs();		
+		$this->end_controls_tabs();
 		$this->end_controls_section();
-		/* Extra option */
-		/*Adv tab*/
 		$this->start_controls_section(
-            'section_plus_extra_adv',
-            [
-                'label' => esc_html__('Plus Extras', 'tpebl'),
-                'tab' => Controls_Manager::TAB_ADVANCED,
-            ]
-        );
+			'section_plus_extra_adv',
+			array(
+				'label' => esc_html__( 'Plus Extras', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_ADVANCED,
+			)
+		);
 		$this->end_controls_section();
-		/*Adv tab*/
+
 		$this->start_controls_section(
-            'section_animation_styling',
-            [
-                'label' => esc_html__('On Scroll View Animation', 'tpebl'),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
+			'section_animation_styling',
+			array(
+				'label' => esc_html__( 'On Scroll View Animation', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
 		$this->add_control(
 			'animation_effects',
-			[
+			array(
 				'label'   => esc_html__( 'Choose Animation Effect', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'no-animation',
 				'options' => l_theplus_get_animation_options(),
-			]
+			)
 		);
 		$this->add_control(
-            'animation_delay',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Animation Delay', 'tpebl'),
-				'default' => [
+			'animation_delay',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => esc_html__( 'Animation Delay', 'tpebl' ),
+				'default'   => array(
 					'unit' => '',
 					'size' => 50,
-				],
-				'range' => [
-					'' => [
-						'min'	=> 0,
-						'max'	=> 4000,
+				),
+				'range'     => array(
+					'' => array(
+						'min'  => 0,
+						'max'  => 4000,
 						'step' => 15,
-					],
-				],
-				'condition' => [
+					),
+				),
+				'condition' => array(
 					'animation_effects!' => 'no-animation',
-				],
-            ]
-        );
-		$this->add_control(
-            'animation_duration_default',
-            [
-				'label'   => esc_html__( 'Animation Duration', 'tpebl' ),
-				'type'    => Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'condition' => [
-					'animation_effects!' => 'no-animation',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
-            'animate_duration',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Duration Speed', 'tpebl'),
-				'default' => [
+			'animation_duration_default',
+			array(
+				'label'     => esc_html__( 'Animation Duration', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'condition' => array(
+					'animation_effects!' => 'no-animation',
+				),
+			)
+		);
+		$this->add_control(
+			'animate_duration',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => esc_html__( 'Duration Speed', 'tpebl' ),
+				'default'   => array(
 					'unit' => 'px',
 					'size' => 50,
-				],
-				'range' => [
-					'px' => [
-						'min'	=> 100,
-						'max'	=> 10000,
+				),
+				'range'     => array(
+					'px' => array(
+						'min'  => 100,
+						'max'  => 10000,
 						'step' => 100,
-					],
-				],
-				'condition' => [
-					'animation_effects!' => 'no-animation',
+					),
+				),
+				'condition' => array(
+					'animation_effects!'         => 'no-animation',
 					'animation_duration_default' => 'yes',
-				],
-            ]
-        );
+				),
+			)
+		);
 		$this->add_control(
 			'animation_out_effects',
-			[
-				'label'   => esc_html__( 'Out Animation Effect', 'tpebl' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'no-animation',
-				'options' => l_theplus_get_out_animation_options(),
+			array(
+				'label'     => esc_html__( 'Out Animation Effect', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'no-animation',
+				'options'   => l_theplus_get_out_animation_options(),
 				'separator' => 'before',
-				'condition' => [
+				'condition' => array(
 					'animation_effects!' => 'no-animation',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
-            'animation_out_delay',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Out Animation Delay', 'tpebl'),
-				'default' => [
+			'animation_out_delay',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => esc_html__( 'Out Animation Delay', 'tpebl' ),
+				'default'   => array(
 					'unit' => '',
 					'size' => 50,
-				],
-				'range' => [
-					'' => [
-						'min'	=> 0,
-						'max'	=> 4000,
+				),
+				'range'     => array(
+					'' => array(
+						'min'  => 0,
+						'max'  => 4000,
 						'step' => 15,
-					],
-				],
-				'condition' => [
-					'animation_effects!' => 'no-animation',
+					),
+				),
+				'condition' => array(
+					'animation_effects!'     => 'no-animation',
 					'animation_out_effects!' => 'no-animation',
-				],
-            ]
-        );
-		$this->add_control(
-            'animation_out_duration_default',
-            [
-				'label'   => esc_html__( 'Out Animation Duration', 'tpebl' ),
-				'type'    => Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'condition' => [
-					'animation_effects!' => 'no-animation',
-					'animation_out_effects!' => 'no-animation',
-				],
-			]
+				),
+			)
 		);
 		$this->add_control(
-            'animation_out_duration',
-            [
-                'type' => Controls_Manager::SLIDER,
-				'label' => esc_html__('Duration Speed', 'tpebl'),
-				'default' => [
+			'animation_out_duration_default',
+			array(
+				'label'     => esc_html__( 'Out Animation Duration', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'condition' => array(
+					'animation_effects!'     => 'no-animation',
+					'animation_out_effects!' => 'no-animation',
+				),
+			)
+		);
+		$this->add_control(
+			'animation_out_duration',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => esc_html__( 'Duration Speed', 'tpebl' ),
+				'default'   => array(
 					'unit' => 'px',
 					'size' => 50,
-				],
-				'range' => [
-					'px' => [
-						'min'	=> 100,
-						'max'	=> 10000,
+				),
+				'range'     => array(
+					'px' => array(
+						'min'  => 100,
+						'max'  => 10000,
 						'step' => 100,
-					],
-				],
-				'condition' => [
-					'animation_effects!' => 'no-animation',
-					'animation_out_effects!' => 'no-animation',
+					),
+				),
+				'condition' => array(
+					'animation_effects!'             => 'no-animation',
+					'animation_out_effects!'         => 'no-animation',
 					'animation_out_duration_default' => 'yes',
-				],
-            ]
-        );
+				),
+			)
+		);
 		$this->end_controls_section();
 
-		include L_THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
+		include L_THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
-	
-    protected function render() {
-		$settings = $this->get_settings_for_display();
+
+	/**
+	 * Tabs tours render.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	protected function render() {
+		$settings  = $this->get_settings_for_display();
 		$templates = L_Theplus_Element_Load::elementor()->templates_manager->get_source( 'local' )->get_items();
-		
-		$tabs = $this->get_settings_for_display( 'tabs' );
-		$nav_align=$settings["nav_align"];
-		$id_int = substr( $this->get_id_int(), 0, 3 );		
+
+		$tabs               = $this->get_settings_for_display( 'tabs' );
+		$nav_align          = $settings['nav_align'];
+		$id_int             = substr( $this->get_id_int(), 0, 3 );
 		$nav_vertical_align = $settings['nav_vertical_align'];
-		$uid=uniqid("tabs");
-		
-				
-		$animation_effects=$settings["animation_effects"];
-		$animation_delay= (!empty($settings["animation_delay"]["size"])) ? $settings["animation_delay"]["size"] : 50;
-		if($animation_effects=='no-animation'){
+		$uid                = uniqid( 'tabs' );
+
+		$animation_effects = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : '';
+		$animation_delay   = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
+		$ani_duration      = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
+		$animate_duration  = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
+		$out_effect        = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : '';
+		$out_delay         = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
+		$out_duration      = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
+		$out_speed         = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
+
+		if ( 'no-animation' === $animation_effects ) {
 			$animated_class = '';
 			$animation_attr = '';
-		}else{
-			$animate_offset = l_theplus_scroll_animation();
-			$animated_class = 'animate-general';
-			$animation_attr = ' data-animate-type="'.esc_attr($animation_effects).'" data-animate-delay="'.esc_attr($animation_delay).'"';
-			$animation_attr .= ' data-animate-offset="'.esc_attr($animate_offset).'"';
-			if($settings["animation_duration_default"]=='yes'){
-				$animate_duration=$settings["animate_duration"]["size"];
-				$animation_attr .= ' data-animate-duration="'.esc_attr($animate_duration).'"';
+		} else {
+			$animate_offset  = l_theplus_scroll_animation();
+			$animated_class  = 'animate-general';
+			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
+			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
+			if ( 'yes' === $ani_duration ) {
+				$animation_attr .= ' data-animate-duration="' . esc_attr( $animate_duration ) . '"';
 			}
-			if(!empty($settings["animation_out_effects"]) && $settings["animation_out_effects"]!='no-animation'){
-				$animation_attr .= ' data-animate-out-type="'.esc_attr($settings["animation_out_effects"]).'" data-animate-out-delay="'.esc_attr($settings["animation_out_delay"]["size"]).'"';					
-				if($settings["animation_out_duration_default"]=='yes'){						
-					$animation_attr .= ' data-animate-out-duration="'.esc_attr($settings["animation_out_duration"]["size"]).'"';
+			if ( 'no-animation' !== $out_effect ) {
+				$animation_attr .= ' data-animate-out-type="' . esc_attr( $out_effect ) . '" data-animate-out-delay="' . esc_attr( $out_delay ) . '"';
+				if ( 'yes' === $out_duration ) {
+					$animation_attr .= ' data-animate-out-duration="' . esc_attr( $out_speed ) . '"';
 				}
 			}
 		}
-		
-			$tab_nav ='<div class="theplus-tabs-nav-wrapper elementor-tabs-wrapper '.esc_attr($nav_align).' '.esc_attr($nav_vertical_align).' ">';
-				$tab_nav .='<ul class="plus-tabs-nav">';
-				foreach ( $tabs as $index => $item ) :
-					$tab_count = $index + 1;					
-					
-					$tab_title_id = 'elementor-tab-title-' . $id_int . $tab_count;
-					$tab_content_id = 'elementor-tab-content-' . $id_int . $tab_count;
-					
-					$tab_title_setting_key = $this->get_repeater_setting_key( 'tab_title', 'tabs', $index );
-					$tabh_bg = tp_bg_lazyLoad($settings['nav_box_background_image'],$settings['nav_box_active_background_image']);
-					$this->add_render_attribute( $tab_title_setting_key, [
-						'id' => $tab_title_id,
-						'class' => [ 'elementor-tab-title' , 'elementor-tab-desktop-title' , 'plus-tab-header'.$tabh_bg],
-						'data-tab' => $tab_count,
-						'tabindex' => $id_int . $tab_count,
-						'role' => 'tab',
-						'aria-controls' => $tab_content_id,
-					] );
-					
-					$tab_nav .='<li>';
-					$tab_nav .='<div '.$this->get_render_attribute_string( $tab_title_setting_key ).'>';
-					$image_alt='';
-						if ( $item['display_icon']=='yes' ) :
-							$icons=$icon_image='';
-							if($item['icon_style']=='font_awesome'){
-								$icons=$item['icon_fontawesome'];									
-							}
-							if(!empty($icons) || !empty($icon_image)){
-							$tab_nav .='<span class="tab-icon-wrap" aria-hidden="true">';
-								if($item['icon_style']!='image'){
-									$tab_nav .='<i class="tab-icon '.esc_attr( $icons ).'"></i>';
-								}else{
-									$tab_nav .='<img src="'.esc_url($icon_image).'" class="tab-icon tab-icon-image" alt="'.esc_attr($image_alt).'" />';
-								}
-								$tab_nav .='</span>';
-							}
-						endif;
-						if($settings["nav_title_display"]=='yes'){
-							$tab_nav .='<span>'.$item['tab_title'].'</span>';
-						}
-					$tab_nav .='</div>';
-					
-					$tab_nav .='</li>';
-				endforeach;
-				$tab_nav .='</ul>';
-			$tab_nav .='</div>';
-			$tabccon_bg = tp_bg_lazyLoad($settings['content_box_background_image']);
-			$tab_content ='<div class="theplus-tabs-content-wrapper elementor-tabs-content-wrapper '.$tabccon_bg.'">';
-				foreach ( $tabs as $index => $item ) :
-					$tab_count = $index + 1;
-					
-					$tab_content_setting_key = $this->get_repeater_setting_key( 'tab_content', 'tabs', $index );
 
-					$tab_title_mobile_setting_key = $this->get_repeater_setting_key( 'tab_title_mobile', 'tabs', $tab_count );
-					
-					$this->add_render_attribute( $tab_content_setting_key, [
-						'id' => $tab_content_id,
-						'class' => [ 'elementor-tab-content', 'elementor-clearfix','plus-tab-content'],
-						'data-tab' => $tab_count,
-						'role' => 'tabpanel',
-						'aria-labelledby' => $tab_title_id,
-					] );
-					$acmob_bg = tp_bg_lazyLoad($settings['accordion_box_background_image'],$settings['accordion_box_active_background_image']);
-					$this->add_render_attribute( $tab_title_mobile_setting_key, [
-						'class' => [ 'elementor-tab-title', 'elementor-tab-mobile-title',$acmob_bg,$nav_align ],
-						'tabindex' => $id_int . $tab_count,
-						'data-tab' => $tab_count,
-						'role' => 'tab',
-					] );
+		$tab_nav      = '<div class="theplus-tabs-nav-wrapper elementor-tabs-wrapper ' . esc_attr( $nav_align ) . ' ' . esc_attr( $nav_vertical_align ) . ' ">';
+			$tab_nav .= '<ul class="plus-tabs-nav">';
+		foreach ( $tabs as $index => $item ) :
+			$tab_count = $index + 1;
 
-					$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
-					
-					$tab_content .='<div '.$this->get_render_attribute_string( $tab_title_mobile_setting_key ).'>';
-					$image_alt='';
-						if ( $item['display_icon']=='yes' ) :
-							$icons=$icon_image='';
-							if($item['icon_style']=='font_awesome'){
-								$icons=$item['icon_fontawesome'];									
-							}
-							if(!empty($icons) || !empty($icon_image)){
-								$tab_content .='<span class="tab-icon-wrap" aria-hidden="true">';
-									if($item['icon_style']!='image'){
-										$tab_content .='<i class="tab-icon '.esc_attr( $icons ).'"></i>';
-									}else{
-										$tab_content .='<img src="'.esc_url($icon_image).'" class="tab-icon tab-icon-image" alt="'.esc_attr($image_alt).'" />';
-									}
-								$tab_content .='</span>';
-							}
-						endif;
-						$tab_content .='<span>'.$item['tab_title'].'</span>';
-					$tab_content .='</div>';
-					$tab_content .='<div '.$this->get_render_attribute_string( $tab_content_setting_key ).'>';
-						if($item['content_source']=='content' && !empty($item['tab_content'])){
-							$tab_content .='<div class="plus-content-editor">'.$this->parse_text_editor( $item['tab_content'] ).'</div>';
-						}						
-					$tab_content .='</div>';
+			$tab_title_id   = 'elementor-tab-title-' . $id_int . $tab_count;
+			$tab_content_id = 'elementor-tab-content-' . $id_int . $tab_count;
+
+			$tab_title_setting_key = $this->get_repeater_setting_key( 'tab_title', 'tabs', $index );
+			$tabh_bg               = tp_bg_lazyLoad( $settings['nav_box_background_image'], $settings['nav_box_active_background_image'] );
+			$this->add_render_attribute(
+				$tab_title_setting_key,
+				array(
+					'id'            => $tab_title_id,
+					'class'         => array( 'elementor-tab-title', 'elementor-tab-desktop-title', 'plus-tab-header' . $tabh_bg ),
+					'data-tab'      => $tab_count,
+					'tabindex'      => $id_int . $tab_count,
+					'role'          => 'tab',
+					'aria-controls' => $tab_content_id,
+				)
+			);
+
+			$tab_nav  .= '<li>';
+			$tab_nav  .= '<div ' . $this->get_render_attribute_string( $tab_title_setting_key ) . '>';
+			$image_alt = '';
+			$dis_icon  = ! empty( $item['display_icon'] ) ? $item['display_icon'] : '';
+
+			if ( 'yes' === $dis_icon ) :
+				$icons      = '';
+				$icon_image = '';
+
+				$icon_style = ! empty( $item['icon_style'] ) ? $item['icon_style'] : '';
+
+				if ( 'font_awesome' === $icon_style ) {
+
+					$icons = $item['icon_fontawesome'];
+				}
+				if ( ! empty( $icons ) || ! empty( $icon_image ) ) {
+						$tab_nav .= '<span class="tab-icon-wrap" aria-hidden="true">';
+					if ( 'image' !== $icon_style ) {
+						$tab_nav .= '<i class="tab-icon ' . esc_attr( $icons ) . '"></i>';
+					} else {
+						$tab_nav .= '<img src="' . esc_url( $icon_image ) . '" class="tab-icon tab-icon-image" alt="' . esc_attr( $image_alt ) . '" />';
+					}
+						$tab_nav .= '</span>';
+				}
+				endif;
+				$nav_title = ! empty( $settings['nav_title_display'] ) ? $settings['nav_title_display'] : '';
+			if ( 'yes' === $nav_title ) {
+				$tab_nav .= '<span>' . wp_kses_post( $item['tab_title'] ) . '</span>';
+			}
+				$tab_nav .= '</div>';
+
+				$tab_nav .= '</li>';
 				endforeach;
-			$tab_content .='</div>';
-		
-		$default_active='';
-		$default_active .= ' data-tab-default="0"';		
+				$tab_nav .= '</ul>';
+			$tab_nav     .= '</div>';
+			$tabccon_bg   = tp_bg_lazyLoad( $settings['content_box_background_image'] );
+			$tab_content  = '<div class="theplus-tabs-content-wrapper elementor-tabs-content-wrapper ' . $tabccon_bg . '">';
+		foreach ( $tabs as $index => $item ) :
+			$tab_count = $index + 1;
+
+			$tab_content_setting_key = $this->get_repeater_setting_key( 'tab_content', 'tabs', $index );
+
+			$tab_title_mobile_setting_key = $this->get_repeater_setting_key( 'tab_title_mobile', 'tabs', $tab_count );
+
+			$this->add_render_attribute(
+				$tab_content_setting_key,
+				array(
+					'id'              => $tab_content_id,
+					'class'           => array( 'elementor-tab-content', 'elementor-clearfix', 'plus-tab-content' ),
+					'data-tab'        => $tab_count,
+					'role'            => 'tabpanel',
+					'aria-labelledby' => $tab_title_id,
+				)
+			);
+			$acmob_bg = tp_bg_lazyLoad( $settings['accordion_box_background_image'], $settings['accordion_box_active_background_image'] );
+			$this->add_render_attribute(
+				$tab_title_mobile_setting_key,
+				array(
+					'class'    => array( 'elementor-tab-title', 'elementor-tab-mobile-title', $acmob_bg, $nav_align ),
+					'tabindex' => $id_int . $tab_count,
+					'data-tab' => $tab_count,
+					'role'     => 'tab',
+				)
+			);
+
+			$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
+
+			$tab_content .= '<div ' . $this->get_render_attribute_string( $tab_title_mobile_setting_key ) . '>';
+			$image_alt    = '';
+			if ( 'yes' === $dis_icon ) :
+				$icons      = '';
+				$icon_image = '';
+
+				if ( 'font_awesome' === $icon_style ) {
+						$icons = $item['icon_fontawesome'];
+				}
+
+				if ( ! empty( $icons ) || ! empty( $icon_image ) ) {
+						$tab_content .= '<span class="tab-icon-wrap" aria-hidden="true">';
+					if ( 'image' !== $icon_style ) {
+						$tab_content .= '<i class="tab-icon ' . esc_attr( $icons ) . '"></i>';
+					} else {
+						$tab_content .= '<img src="' . esc_url( $icon_image ) . '" class="tab-icon tab-icon-image" alt="' . esc_attr( $image_alt ) . '" />';
+					}
+					$tab_content .= '</span>';
+				}
+						endif;
+				$tab_title    = ! empty( $item['tab_title'] ) ? $item['tab_title'] : '';
+				$tab_content .= '<span>' . wp_kses_post( $tab_title ) . '</span>';
+			$tab_content     .= '</div>';
+			$tab_content     .= '<div ' . $this->get_render_attribute_string( $tab_content_setting_key ) . '>';
+
+			$con_sors = ! empty( $item['content_source'] ) ? $item['content_source'] : '';
+			$tab_con  = ! empty( $item['tab_content'] ) ? $item['tab_content'] : '';
+
+			if ( 'content' === $con_sors && ! empty( $tab_con ) ) {
+				$tab_content .= '<div class="plus-content-editor">' . $this->parse_text_editor( $tab_con ) . '</div>';
+			}
+				$tab_content .= '</div>';
+				endforeach;
+			$tab_content .= '</div>';
+
+		$default_active  = '';
+		$default_active .= ' data-tab-default="0"';
 		$default_active .= ' data-tab-hover="no"';
-		
-		$responsive_class='';
-		if($settings["tab_nav_responsive"]=='tab_accordion'){
-			$responsive_class='mobile-accordion';
-		}
-		
-		$output ='<div class="theplus-tabs-wrapper elementor-tabs '.esc_attr($animated_class).' '.esc_attr($responsive_class).'" id="'.esc_attr($uid).'" data-tabs-id="'.esc_attr($uid).'"  '.$default_active.' '.$animation_attr.' role="tablist">';
-			if($settings["tabs_type"]=='horizontal'){
-				if($settings['tabs_align_horizontal']=='top'){
-					$output .= $tab_nav.$tab_content;
-				}
-				if($settings['tabs_align_horizontal']=='bottom'){
-					$output .= $tab_content.$tab_nav;
-				}
-			}
-			if($settings["tabs_type"]=='vertical'){
-				if($settings['tabs_align_vertical']=='left'){
-					$output .= $tab_nav.$tab_content;
-				}
-				if($settings['tabs_align_vertical']=='right'){
-					$output .= $tab_content.$tab_nav;
-				}
-			}
-		$output .='</div>';
-		echo $output;
-	}
 
-	protected function content_template() {
-	
+		$responsive_class = '';
+		$nav_respon       = ! empty( $settings['tab_nav_responsive'] ) ? $settings['tab_nav_responsive'] : '';
+		if ( 'tab_accordion' === $nav_respon ) {
+			$responsive_class = 'mobile-accordion';
+		}
+
+		$output = '<div class="theplus-tabs-wrapper elementor-tabs ' . esc_attr( $animated_class ) . ' ' . esc_attr( $responsive_class ) . '" id="' . esc_attr( $uid ) . '" data-tabs-id="' . esc_attr( $uid ) . '"  ' . $default_active . ' ' . $animation_attr . ' role="tablist">';
+
+		$tebs_typs = ! empty( $settings['tabs_type'] ) ? $settings['tabs_type'] : '';
+
+		if ( 'horizontal' === $tebs_typs ) {
+			$align_hor = ! empty( $settings['tabs_align_horizontal'] ) ? $settings['tabs_align_horizontal'] : '';
+			if ( 'top' === $align_hor ) {
+				$output .= $tab_nav . $tab_content;
+			}
+			if ( 'bottom' === $align_hor ) {
+				$output .= $tab_content . $tab_nav;
+			}
+		}
+
+		if ( 'vertical' === $tebs_typs ) {
+			$align_ver = ! empty( $settings['tabs_align_vertical'] ) ? $settings['tabs_align_vertical'] : '';
+			if ( 'left' === $align_ver ) {
+				$output .= $tab_nav . $tab_content;
+			}
+			if ( 'right' === $align_ver ) {
+				$output .= $tab_content . $tab_nav;
+			}
+		}
+		$output .= '</div>';
+		echo $output;
 	}
 }

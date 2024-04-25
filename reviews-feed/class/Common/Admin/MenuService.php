@@ -28,12 +28,15 @@ class MenuService extends ServiceProvider
         if ( empty( $notice ) && ! empty( $notifications ) && is_array( $notifications ) ) {
             $notice_bubble = ' <span class="sbr-notice-alert"><span>'.count( $notifications ).'</span></span>';
         }
+        $cap = current_user_can('manage_reviews_feed_options') ? 'manage_reviews_feed_options' : 'manage_options';
+		$cap = apply_filters('sbr_settings_pages_capability', $cap);
+
 
         $menu_title = check_license_valid() ? __('All Feeds', 'reviews-feed') : __('Set up Plugin', 'reviews-feed');
         $page = add_menu_page(
             $menu_title,
             __('Reviews Feed', 'reviews-feed') . $notice . $notice_bubble,
-            'manage_options',
+            $cap,
             SBR_MENU_SLUG
         );
 

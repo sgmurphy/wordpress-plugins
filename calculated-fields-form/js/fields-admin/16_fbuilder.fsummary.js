@@ -46,14 +46,17 @@
 			showSummaryFields: function()
 				{
 					var str = '',
-						items = this.fBuild.getItems();
+						items = this.fBuild.getItems(), t = '';
 
 					str += '<label>Fields to display on summary</label><input type="text" name="sFields" id="sFields" class="large" value="'+cff_esc_attr(this.fields)+'">'+
 					'<label>Select field and press the plus button</label><select name="sSelectedField" id="sSelectedField" class="large">';
 
 					for(var i=0; i<items.length; i++)
 					{
-						str += '<option value="'+items[i].name+'">'+( ( typeof items[i].title != 'undefined' ) ? cff_esc_attr(items[i].title) : '' )+'('+items[i].name+')'+'</option>';
+						t = ( 'title' in items[i] ) ? String( items[i].title ).trim() : '';
+						t = ( '' == t && 'shortlabel' in items[i] ) ? String( items[i].shortlabel ).trim() : t;
+
+						str += '<option value="'+items[i].name+'">'+('' != t ? cff_esc_attr(t)+' ' : '' )+'('+items[i].name+')'+'</option>';
 					}
 					str += '</select><div style="margin-top:10px;"><input type="button" value="Add field +" name="sPlusBtn" id="sPlusBtn" style="padding:3px 10px;" class="button-secondary" /></div>'+
 					'<label>Exclude empty fields: <input type="checkbox" id="sExcludeEmpty" name="sExcludeEmpty" '+((this.exclude_empty) ? 'CHECKED' : '')+'/></label>'+

@@ -12,7 +12,7 @@
  * Text Domain:       permalink-manager
  * Domain Path:       /languages
  * WC requires at least: 3.0.0
- * WC tested up to:      8.6.1
+ * WC tested up to:      8.8.2
  */
 
 // If this file is called directly or plugin is already defined, abort

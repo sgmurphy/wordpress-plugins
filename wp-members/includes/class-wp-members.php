@@ -516,6 +516,7 @@ class WP_Members {
 	public $stop_spam;
 	public $usertrack;
 	public $user_list;
+	public $woo_connector;
 
 	/**
 	 * Plugin initialization function.

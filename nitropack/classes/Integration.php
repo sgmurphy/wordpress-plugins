@@ -34,6 +34,7 @@ class Integration {
         "NitroPack/Integration/Server/Fastly",
         "NitroPack/Integration/Server/Cloudflare",
         "NitroPack/Integration/Server/Sucuri",
+        "NitroPack/Integration/Server/NginxFastCgi",
         "NitroPack/Integration/Plugin/NginxHelper",
         "NitroPack/Integration/Plugin/Cloudflare",
         "NitroPack/Integration/Plugin/ShortPixel",

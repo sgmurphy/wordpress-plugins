@@ -81,7 +81,15 @@ class WP_Members_Forms {
 				case 'radio':
 				case 'membership':
 					if ( 'membership' == $val[3] ) {
-						$val[7] = array( __( 'Choose membership', 'wp-members' ) . '|' );
+						/**
+						 * Filter the membership field dropdown default.
+						 * 
+						 * @since 3.5.0
+						 * 
+						 * @param  string  $default
+						 */
+						$membership_default = apply_filters( 'wpmem_membership_field_default', esc_html__( 'Choose membership', 'wp-members' ) );
+						$val[7] = array( $membership_default . '|' );
 						foreach( $wpmem->membership->products as $membership_key => $membership_value ) {
 							$val[7][] = $membership_value['title'] . '|' . $membership_key;
 						}

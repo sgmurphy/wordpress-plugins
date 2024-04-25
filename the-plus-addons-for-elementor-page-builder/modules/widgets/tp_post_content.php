@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Widget Name: Post Content
  * Description: Post Content
@@ -12,7 +12,6 @@ namespace TheplusAddons\Widgets;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Utils;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
@@ -21,11 +20,8 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 
 use TheplusAddons\L_Theplus_Element_Load;
 
-/**
- * Exit if accessed directly.
- * */
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -37,17 +33,19 @@ class L_ThePlus_Post_Content extends Widget_Base {
 	 * Document Link For Need help.
 	 *
 	 * @since 5.3.3
-	 * @access private
-	 * 
+	 *
+	 * @version 5.4.2
+	 *
 	 * @var TpDoc of the class.
 	 */
-	public $TpDoc = L_THEPLUS_Tpdoc;
-	
+	public $tp_doc = L_THEPLUS_Tpdoc;
+
 	/**
 	 * Get Widget Name.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 *
+	 * @version 5.4.2
 	 */
 	public function get_name() {
 		return 'tp-post-content';
@@ -57,277 +55,283 @@ class L_ThePlus_Post_Content extends Widget_Base {
 	 * Get Widget Title.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 *
+	 * @version 5.4.2
 	 */
-    public function get_title() {
-        return esc_html__('Post Content', 'tpebl');
-    }
+	public function get_title() {
+		return esc_html__( 'Post Content', 'tpebl' );
+	}
 
 	/**
 	 * Get Widget Icon.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 *
+	 * @version 5.4.2
 	 */
-    public function get_icon() {
-        return 'fa fa-file-text-o theplus_backend_icon';
-    }
+	public function get_icon() {
+		return 'fa fa-file-text-o theplus_backend_icon';
+	}
 
 	/**
 	 * Get Widget categories.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 *
+	 * @version 5.4.2
 	 */
-    public function get_categories() {
-        return array('plus-builder');
-    }
+	public function get_categories() {
+		return array( 'plus-builder' );
+	}
 
 	/**
 	 * Get Widget keywords.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 *
+	 * @version 5.4.2
 	 */
 	public function get_keywords() {
-		return [ 'Protected Content', 'Password Protected Content', 'Content Protection', 'Secure Content', 'Restricted Content'];
+		return array( 'Protected Content', 'Password Protected Content', 'Content Protection', 'Secure Content', 'Restricted Content' );
 	}
 
 	/**
 	 * Get Widget Custom Help Url.
 	 *
 	 * @since 1.0.0
-	 * @access public
+	 *
+	 * @version 5.4.2
 	 */
 	public function get_custom_help_url() {
-		$DocUrl = $this->TpDoc . "customize-post-content-in-elementor-blog-post";
+		$doc_url = $this->tp_doc . 'customize-post-content-in-elementor-blog-post';
 
-		return esc_url($DocUrl);
+		return esc_url( $doc_url );
 	}
 
 	/**
 	 * Register controls.
 	 *
 	 * @since 1.0.0
-	 * @access protected
+	 *
+	 * @version 5.4.2
 	 */
-    protected function register_controls() {
-		
+	protected function register_controls() {
+
 		$this->start_controls_section(
 			'content_section',
-			[
+			array(
 				'label' => esc_html__( 'Post Content', 'tpebl' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-			]
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
 		);
 		$this->add_control(
 			'posttype',
-			[
-				'label' => esc_html__( 'Post Types', 'tpebl' ),
-				'type' => Controls_Manager::SELECT,
+			array(
+				'label'   => esc_html__( 'Post Types', 'tpebl' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'singlepage',
-				'options' => [
-					'singlepage' => esc_html__('Single Page', 'tpebl'),
-					'archivepage' => esc_html__('Archive Page', 'tpebl'),
-				],
-			]
+				'options' => array(
+					'singlepage'  => esc_html__( 'Single Page', 'tpebl' ),
+					'archivepage' => esc_html__( 'Archive Page', 'tpebl' ),
+				),
+			)
 		);
 		$this->add_control(
-            'postContentType', [
-                'type' => Controls_Manager::SELECT,
-                'label' => esc_html__('Content Type', 'tpebl'),
-                'default' => 'default',
-                'options' => [
-                    'default' => esc_html__('Full Content', 'tpebl'),
-                    'excerpt' => esc_html__('Excerpt', 'tpebl'),                    
-                ],
-				'condition' => [					
+			'postContentType',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Content Type', 'tpebl' ),
+				'default'   => 'default',
+				'options'   => array(
+					'default' => esc_html__( 'Full Content', 'tpebl' ),
+					'excerpt' => esc_html__( 'Excerpt', 'tpebl' ),
+				),
+				'condition' => array(
 					'posttype' => 'singlepage',
-				],
-            ]
-        );
+				),
+			)
+		);
 		$this->add_control(
-            'postContentEditorType', [
-                'type' => Controls_Manager::SELECT,
-                'label' => esc_html__('Content', 'tpebl'),
-                'default' => 'default',
-                'options' => [
-                    'default' => esc_html__('Elementor', 'tpebl'),
-                    'wordpress' => esc_html__('Wordpress', 'tpebl'),                    
-                ],
-				'condition' => [					
+			'postContentEditorType',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Content', 'tpebl' ),
+				'default'   => 'default',
+				'options'   => array(
+					'default'   => esc_html__( 'Elementor', 'tpebl' ),
+					'wordpress' => esc_html__( 'Wordpress', 'tpebl' ),
+				),
+				'condition' => array(
 					'posttype' => 'singlepage',
-				],
-            ]
-        );	
+				),
+			)
+		);
 		$this->add_responsive_control(
 			'alignment',
-			[
-				'label' => esc_html__( 'Alignment', 'tpebl' ),
-				'type' => Controls_Manager::CHOOSE,
-				'default' => 'flex-start',		
-				'options' => [
-					'flex-start' => [
+			array(
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'default'   => 'flex-start',
+				'options'   => array(
+					'flex-start' => array(
 						'title' => esc_html__( 'Left', 'tpebl' ),
-						'icon' => 'eicon-text-align-left',
-					],
-					'center' => [
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
 						'title' => esc_html__( 'Center', 'tpebl' ),
-						'icon' => 'eicon-text-align-center',
-					],
-					'flex-end' => [
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
 						'title' => esc_html__( 'Right', 'tpebl' ),
-						'icon' => 'eicon-text-align-right',
-					],
-				],				
-				'selectors' => [
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-widget-container' => 'justify-content: {{VALUE}};',
-				],		
+				),
 				'separator' => 'before',
-			]
+			)
 		);
 		$this->end_controls_section();
-		/*Content Section End*/
-		/*Post Excerpts Style*/
 		$this->start_controls_section(
-            'section_excerpts_style',
-            [
-                'label' => esc_html__('Excerpts', 'tpebl'),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
+			'section_excerpts_style',
+			array(
+				'label' => esc_html__( 'Excerpts', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
 		$this->add_responsive_control(
 			'padding',
-			[
-				'label' => esc_html__( 'Padding', 'tpebl' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],				
-				'selectors' => [
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
 					'{{WRAPPER}} > .elementor-widget-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'separator' => 'after',	
-			]
+				),
+				'separator'  => 'after',
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[
-				'name' => 'excerptstypography',
-				'label' => esc_html__( 'Typography', 'tpebl' ),
-				'global' => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY
-				],
-				'selector' => '{{WRAPPER}} > .elementor-widget-container',			
-			]
+			array(
+				'name'     => 'excerptstypography',
+				'label'    => esc_html__( 'Typography', 'tpebl' ),
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector' => '{{WRAPPER}} > .elementor-widget-container',
+			)
 		);
 		$this->start_controls_tabs( 'tabs_excerpts_style' );
 		$this->start_controls_tab(
 			'tab_excerpts_normal',
-			[
-				'label' => esc_html__( 'Normal', 'tpebl' ),				
-			]
+			array(
+				'label' => esc_html__( 'Normal', 'tpebl' ),
+			)
 		);
 		$this->add_control(
 			'NormalColor',
-			[
-				'label' => esc_html__( 'Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '',
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
 					'{{WRAPPER}} > .elementor-widget-container' => 'color: {{VALUE}}',
-				],
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
-				'name'      => 'boxBg',
-				'types'     => [ 'classic', 'gradient' ],
+			array(
+				'name'     => 'boxBg',
+				'types'    => array( 'classic', 'gradient' ),
 				'selector' => '{{WRAPPER}} > .elementor-widget-container',
-			]
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[
-				'name' => 'boxBorder',
-				'label' => esc_html__( 'Border', 'tpebl' ),
+			array(
+				'name'     => 'boxBorder',
+				'label'    => esc_html__( 'Border', 'tpebl' ),
 				'selector' => '{{WRAPPER}} > .elementor-widget-container',
-			]
+			)
 		);
 		$this->add_responsive_control(
 			'boxBorderRadius',
-			[
+			array(
 				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
 					'{{WRAPPER}} > .elementor-widget-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],		
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[
+			array(
 				'name'     => 'boxBoxShadow',
 				'selector' => '{{WRAPPER}} > .elementor-widget-container',
-			]
+			)
 		);
 		$this->end_controls_tab();
 		$this->start_controls_tab(
 			'tab_title_hover',
-			[
+			array(
 				'label' => esc_html__( 'Hover', 'tpebl' ),
-			]
+			)
 		);
 		$this->add_control(
 			'HoverColor',
-			[
-				'label' => esc_html__( 'Color', 'tpebl' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '',
-				'selectors' => [
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
 					'{{WRAPPER}} > .elementor-widget-container:hover:hover' => 'color: {{VALUE}}',
-				],
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
-				'name' => 'boxBgHover',
-				'types' => [ 'classic', 'gradient'],
+			array(
+				'name'     => 'boxBgHover',
+				'types'    => array( 'classic', 'gradient' ),
 				'selector' => '{{WRAPPER}} > .elementor-widget-container:hover:hover',
-			]
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[
-				'name' => 'boxBorderHover',
-				'label' => esc_html__( 'Border', 'tpebl' ),
+			array(
+				'name'     => 'boxBorderHover',
+				'label'    => esc_html__( 'Border', 'tpebl' ),
 				'selector' => '{{WRAPPER}} > .elementor-widget-container:hover:hover',
-			]
+			)
 		);
 		$this->add_responsive_control(
 			'boxBorderRadiusHover',
-			[
+			array(
 				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
 					'{{WRAPPER}} > .elementor-widget-container:hover:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],		
-			]
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[
+			array(
 				'name'     => 'boxBoxShadowHover',
 				'selector' => '{{WRAPPER}} > .elementor-widget-container:hover:hover',
-			]
+			)
 		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->end_controls_section();
-		/*Post Excerpts Style*/
-		include L_THEPLUS_PATH. 'modules/widgets/theplus-needhelp.php';
+
+		include L_THEPLUS_PATH . 'modules/widgets/theplus-needhelp.php';
 	}
 
 	/**
@@ -336,20 +340,26 @@ class L_ThePlus_Post_Content extends Widget_Base {
 	 * Written in PHP and HTML.
 	 *
 	 * @since 1.0.0
-	 * @access protected
+	 *
+	 * @version 5.4.2
+	 *
+	 * @param array|bool $wrapper An optional wrapper for the progress bar.
 	 */
-	protected function render($wrapper = false) {
-		$settings = $this->get_settings_for_display();
-		$posttype = !empty($settings['posttype']) ? $settings['posttype'] : 'singlepage';
-		$postContentType = !empty($settings['postContentType']) ? $settings['postContentType'] : 'default';
+	protected function render( $wrapper = false ) {
+		$settings          = $this->get_settings_for_display();
+		$posttype          = ! empty( $settings['posttype'] ) ? $settings['posttype'] : 'singlepage';
+		$post_content_type = ! empty( $settings['postContentType'] ) ? $settings['postContentType'] : 'default';
 
-		$postContentEditorType = !empty($settings['postContentEditorType']) ? $settings['postContentEditorType'] : 'default';
+		$post_content_editor_type = ! empty( $settings['postContentEditorType'] ) ? $settings['postContentEditorType'] : 'default';
 
-		if(!empty($posttype) && $posttype=='singlepage'){
-			if($postContentType == 'default'){
-				if(!empty($postContentEditorType) && $postContentEditorType=='wordpress'){
+		if ( 'singlepage' === $posttype ) {
+
+			if ( 'default' === $post_content_type ) {
+
+				if ( strtolower( 'WordPress' ) === strtolower( $post_content_editor_type ) ) {
+
 					static $views_ids = array();
-					$post_id = get_the_ID();
+					$post_id          = get_the_ID();
 					if ( ! isset( $post_id ) ) {
 						return '';
 					}
@@ -365,25 +375,25 @@ class L_ThePlus_Post_Content extends Widget_Base {
 					$views_ids[ $post_id ] = true;
 
 					global $current_screen;
-					if ( isset($current_screen) && method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor() ) {
-						$content = wp_strip_all_tags(get_the_content( '',true, $post));
+					if ( isset( $current_screen ) && method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor() ) {
+						$content = wp_strip_all_tags( get_the_content( '', true, $post ) );
 					} else {
-						$post = get_post($post_id);
-						if ( ! $post || 'nxt_builder' == $post->post_type) {
+						$post = get_post( $post_id );
+						if ( ! $post || 'nxt_builder' === $post->post_type ) {
 							return '';
 						}
-						
-						if ( ('publish' !== $post->post_status && 'draft' !== $post->post_status && 'private' !== $post->post_status) || ! empty( $post->post_password ) ) {
+
+						if ( ( 'publish' !== $post->post_status && 'draft' !== $post->post_status && 'private' !== $post->post_status ) || ! empty( $post->post_password ) ) {
 							return '';
 						}
-						
+
 						$content = apply_filters( 'the_content', $post->post_content );
 						echo '<div class="tp-post-content tp-wp-content">' . balanceTags( $content, true ) . '</div>';
 					}
 					unset( $views_ids[ $post_id ] );
-				}else{
-					static $posts = [];
-					$post = get_post();
+				} else {
+					static $posts = array();
+					$post         = get_post();
 
 					if ( post_password_required( $post->ID ) ) {
 						echo get_the_password_form( $post->ID );
@@ -394,20 +404,20 @@ class L_ThePlus_Post_Content extends Widget_Base {
 					}
 
 					$posts[ $post->ID ] = true;
-					$editor = L_Theplus_Element_Load::elementor()->editor;
-					$editmode = $editor->is_edit_mode();
+					$editor             = L_Theplus_Element_Load::elementor()->editor;
+					$editmode           = $editor->is_edit_mode();
 
 					if ( L_Theplus_Element_Load::elementor()->preview->is_preview_mode( $post->ID ) ) {
 						$content = L_Theplus_Element_Load::elementor()->preview->builder_wrapper( '' );
 					} else {
 						$document = L_Theplus_Element_Load::elementor()->documents->get( $post->ID );
 						if ( $document ) {
-							$previewType = $document->get_settings( 'preview_type' );
-							$previewId = $document->get_settings( 'preview_id' );
-	
-							if ( 0 === strpos( $previewType, 'single' ) && ! empty( $previewId ) ) {
-								$post = get_post( $previewId );
-	
+							$preview_type = $document->get_settings( 'preview_type' );
+							$preview_id   = $document->get_settings( 'preview_id' );
+
+							if ( ! empty( $preview_type ) && 0 === strpos( $preview_type, 'single' ) && ! empty( $preview_id ) ) {
+								$post = get_post( $preview_id );
+
 								if ( ! $post ) {
 									return;
 								}
@@ -415,49 +425,48 @@ class L_ThePlus_Post_Content extends Widget_Base {
 						}
 						$editor->set_edit_mode( false );
 						$content = L_Theplus_Element_Load::elementor()->frontend->get_builder_content( $post->ID, true );
-	
-						if (empty($content)) {
+
+						if ( empty( $content ) ) {
 							L_Theplus_Element_Load::elementor()->frontend->remove_content_filter();
 							setup_postdata( $post );
-							
+
 							$content = apply_filters( 'the_content', get_the_content() );
-	
-							wp_link_pages( [
-								'before' => '<div class="page-links elementor-page-links"><span class="page-links-title elementor-page-links-title">' . __( 'Pages:', 'tpebl' ) . '</span>','after' => '</div>','link_before' => '<span>','link_after' => '</span>','pagelink' => '<span class="screen-reader-text">' . __( 'Page', 'tpebl' ) . ' </span>%','separator' => '<span class="screen-reader-text">, </span>',
-							] );
-	
+
+							wp_link_pages(
+								array(
+									'before'      => '<div class="page-links elementor-page-links"><span class="page-links-title elementor-page-links-title">' . __( 'Pages:', 'tpebl' ) . '</span>',
+									'after'       => '</div>',
+									'link_before' => '<span>',
+									'link_after'  => '</span>',
+									'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'tpebl' ) . ' </span>%',
+									'separator'   => '<span class="screen-reader-text">, </span>',
+								)
+							);
+
 							L_Theplus_Element_Load::elementor()->frontend->add_content_filter();
-	
+
 							return;
-						}else{
+						} else {
 							$content = apply_filters( 'the_content', $content );
 						}
-					} 
+					}
 					L_Theplus_Element_Load::elementor()->editor->set_edit_mode( $editmode );
-					
+
 					if ( $wrapper ) {
 						echo '<div class="tp-post-content">' . balanceTags( $content, true ) . '</div>';
 					} else {
 						echo $content;
 					}
 				}
-				
-			}else if($postContentType == 'excerpt'){
-				
+			} elseif ( 'excerpt' === $post_content_type ) {
+
 				the_excerpt( get_the_ID() );
 			}
-		}else if(!empty($posttype) && $posttype=='archivepage'){
+		} elseif ( 'archivepage' === $posttype ) {
+
 			if ( is_category() || is_tag() || is_tax() ) {
 				echo term_description();
 			}
 		}
 	}
-
-	/**
-	 * Load Widget content template
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 */
-    protected function content_template() {}
 }

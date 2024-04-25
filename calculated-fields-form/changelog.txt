@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.2.2 =
+
+* Modifies the fields' lists in dependencies, calculated fields settings, and fields list popup to display the short label if the label is empty.
+* Fixes a minor issue with space characters in the fields' attributes.
+* Adjust the form builder height on desktops.
+* Modifies the HubSpot add-on to support fields' tags in the extra attributes (Platinum plugin version).
+
 = 5.2.1 =
 
 * Fixes an issue in the new submit button.

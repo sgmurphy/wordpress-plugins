@@ -63,7 +63,7 @@
     -o-transition: all 0.3s linear;
     -moz-transition: all 0.3s linear;
     transition: all 0.3s linear;
-    display: block;    
+    display: block;
 }
 .tp-post-comment #comments .comment-meta{
 	margin: 0;

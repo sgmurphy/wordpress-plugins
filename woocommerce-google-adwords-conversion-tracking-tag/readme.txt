@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.42.4
+Stable tag: 1.42.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -290,6 +290,16 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.42.5  =
+*Release date - 25.04.2024*
+
+Tweak: Improved Enhanced Conversions data strings formatting.
+* Tweak: Improved front-end consent state logging.
+* Tweak: Changed event listeners to be more efficient.
+* Tweak: Refactored various parts of the codebase to streamline the code.
+* Tweak: Updated vendor libraries.
+* Fix: Fixed consent event listener loading for Cookiebot and CookieYes.
 
 = 1.42.4  =
 *Release date - 23.04.2024*

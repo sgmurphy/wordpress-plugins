@@ -2,40 +2,35 @@
 # This file is distributed under the same license as the UserFeedback Lite plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: UserFeedback Lite 1.0.14\n"
+"Project-Id-Version: UserFeedback Lite 1.0.15\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/userfeedback\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-20T20:28:20+00:00\n"
+"POT-Creation-Date: 2024-04-25T14:26:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: userfeedback\n"
 
 #. Plugin Name of the plugin
-#: userfeedback.php
 msgid "UserFeedback Lite"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: userfeedback.php
 msgid "https://www.userfeedback.com/lite?utm_source=liteplugin&utm_medium=pluginlist"
 msgstr ""
 
 #. Description of the plugin
-#: userfeedback.php
 msgid "See what your analytics software isn’t telling you with powerful UserFeedback surveys."
 msgstr ""
 
 #. Author of the plugin
-#: userfeedback.php
 msgid "UserFeedback Team"
 msgstr ""
 
 #. Author URI of the plugin
-#: userfeedback.php
 msgid "https://userfeedback.com/lite"
 msgstr ""
 
@@ -61,13 +56,13 @@ msgstr ""
 
 #: includes/admin/admin.php:43
 #: includes/admin/admin.php:44
-#: languages/vue-translations.php:866
+#: languages/vue-translations.php:858
 msgid "Surveys"
 msgstr ""
 
 #: includes/admin/admin.php:53
 #: includes/admin/admin.php:54
-#: languages/vue-translations.php:839
+#: languages/vue-translations.php:831
 #: pro/includes/admin/class-userfeedback-exports.php:192
 msgid "Results"
 msgstr ""
@@ -86,7 +81,7 @@ msgstr ""
 
 #: includes/admin/admin.php:86
 #: includes/admin/admin.php:87
-#: languages/vue-translations.php:1758
+#: languages/vue-translations.php:1751
 msgid "Integrations"
 msgstr ""
 
@@ -97,7 +92,7 @@ msgstr ""
 
 #: includes/admin/admin.php:105
 #: includes/admin/admin.php:106
-#: languages/vue-translations.php:327
+#: languages/vue-translations.php:326
 msgid "About Us"
 msgstr ""
 
@@ -106,7 +101,7 @@ msgstr ""
 #: includes/admin/notifications/class-userfeedback-notification-upgrade-after-10-entries.php:23
 #: includes/admin/notifications/class-userfeedback-notification-upgrade-after-14-days.php:24
 #: includes/admin/notifications/class-userfeedback-notification-upgrade-after-30-days.php:24
-#: languages/vue-translations.php:603
+#: languages/vue-translations.php:600
 msgid "Upgrade to Pro"
 msgstr ""
 
@@ -196,7 +191,7 @@ msgid "Activate Targeting Addon."
 msgstr ""
 
 #: includes/admin/class-userfeedback-metabox.php:259
-#: languages/vue-translations.php:1038
+#: languages/vue-translations.php:1030
 msgid "Activate"
 msgstr ""
 
@@ -482,21 +477,21 @@ msgstr ""
 #. Translators: The link to the UserFeedback website.
 #: includes/class-userfeedback-license.php:223
 #: includes/class-userfeedback-license.php:291
-#: languages/vue-translations.php:936
+#: languages/vue-translations.php:928
 #: pro/includes/admin/licensing/license-actions.php:333
 msgid "Your license key for UserFeedback has expired. %1$sPlease click here to renew your license key.%2$s"
 msgstr ""
 
 #: includes/class-userfeedback-license.php:225
 #: includes/class-userfeedback-license.php:293
-#: languages/vue-translations.php:939
+#: languages/vue-translations.php:931
 #: pro/includes/admin/licensing/license-actions.php:342
 msgid "Your license key for UserFeedback has been disabled. Please use a different key."
 msgstr ""
 
 #: includes/class-userfeedback-license.php:227
 #: includes/class-userfeedback-license.php:295
-#: languages/vue-translations.php:932
+#: languages/vue-translations.php:924
 #: pro/includes/admin/licensing/license-actions.php:323
 msgid "Your license key for UserFeedback is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key."
 msgstr ""
@@ -522,21 +517,25 @@ msgstr ""
 msgid "%s stars"
 msgstr ""
 
-#: includes/emails/class-userfeedback-email-summaries.php:229
+#: includes/emails/class-userfeedback-email-summaries.php:210
 msgid "Weekly UserFeedback Email Summaries"
 msgstr ""
 
 #. Translators: The domain of the site is appended to the subject.
-#: includes/emails/class-userfeedback-email-summaries.php:247
+#: includes/emails/class-userfeedback-email-summaries.php:228
 msgid "UserFeedback Summary - %s"
 msgstr ""
 
-#: includes/emails/class-userfeedback-email-summaries.php:388
+#: includes/emails/class-userfeedback-email-summaries.php:372
 msgid "Hi there!"
 msgstr ""
 
-#: includes/emails/class-userfeedback-email-summaries.php:391
+#: includes/emails/class-userfeedback-email-summaries.php:375
 msgid "Below is the total number of survey responses for each active survey from the week of %s "
+msgstr ""
+
+#: includes/emails/class-userfeedback-email-summaries.php:384
+msgid "No responses were recorded in any of your UserFeedback surveys the week of %s "
 msgstr ""
 
 #: includes/emails/class-userfeedback-wp-emails.php:368
@@ -552,7 +551,7 @@ msgid "You are receiving this UserFeedback survey notification from %1$s. Adjust
 msgstr ""
 
 #: includes/emails/templates/body-response-notification-plain.php:35
-#: includes/emails/templates/body-summaries-plain.php:35
+#: includes/emails/templates/body-summaries-plain.php:38
 msgid "Sent from %s"
 msgstr ""
 
@@ -568,12 +567,12 @@ msgstr ""
 msgid "Sent from "
 msgstr ""
 
-#: includes/emails/templates/body-summaries.php:184
+#: includes/emails/templates/body-summaries.php:185
 msgid "Forms"
 msgstr ""
 
-#: includes/emails/templates/body-summaries.php:185
-#: languages/vue-translations.php:66
+#: includes/emails/templates/body-summaries.php:186
+#: languages/vue-translations.php:65
 #: pro/includes/admin/class-userfeedback-exports.php:114
 #: pro/includes/admin/class-userfeedback-exports.php:146
 msgid "Responses"
@@ -604,12 +603,12 @@ msgid "Survey is not available at the moment."
 msgstr ""
 
 #: includes/helpers.php:426
-#: languages/vue-translations.php:78
+#: languages/vue-translations.php:77
 msgid "Skip"
 msgstr ""
 
 #: includes/helpers.php:427
-#: languages/vue-translations.php:75
+#: languages/vue-translations.php:74
 msgid "Next"
 msgstr ""
 
@@ -956,160 +955,160 @@ msgstr ""
 msgid "Total Entries by Survey"
 msgstr ""
 
-#: languages/vue-translations.php:69
+#: languages/vue-translations.php:68
 msgid "Last 7 Days"
 msgstr ""
 
-#: languages/vue-translations.php:72
+#: languages/vue-translations.php:71
 msgid "Last 30 Days"
 msgstr ""
 
-#: languages/vue-translations.php:81
+#: languages/vue-translations.php:80
 msgid "Close"
 msgstr ""
 
-#: languages/vue-translations.php:84
+#: languages/vue-translations.php:83
 msgid "UserFeedback logo"
 msgstr ""
 
-#: languages/vue-translations.php:87
+#: languages/vue-translations.php:86
 msgid "Thanks for your feedback!"
 msgstr ""
 
-#: languages/vue-translations.php:90
+#: languages/vue-translations.php:89
 msgid "Response #%d"
 msgstr ""
 
-#: languages/vue-translations.php:93
+#: languages/vue-translations.php:92
 msgid "Back to All Responses"
 msgstr ""
 
-#: languages/vue-translations.php:96
+#: languages/vue-translations.php:95
 msgid "Response %d of %d"
 msgstr ""
 
-#: languages/vue-translations.php:99
+#: languages/vue-translations.php:98
 msgid "Response Details"
 msgstr ""
 
-#: languages/vue-translations.php:102
+#: languages/vue-translations.php:101
 msgid "Submitted:"
 msgstr ""
 
-#: languages/vue-translations.php:105
+#: languages/vue-translations.php:104
 msgid "Page Submitted:"
 msgstr ""
 
-#: languages/vue-translations.php:108
+#: languages/vue-translations.php:107
 msgid "User IP:"
 msgstr ""
 
-#: languages/vue-translations.php:111
+#: languages/vue-translations.php:110
 msgid "Browser:"
 msgstr ""
 
-#: languages/vue-translations.php:114
+#: languages/vue-translations.php:113
 msgid "OS:"
 msgstr ""
 
-#: languages/vue-translations.php:117
+#: languages/vue-translations.php:116
 msgid "Device:"
 msgstr ""
 
-#: languages/vue-translations.php:120
+#: languages/vue-translations.php:119
 #: pro/includes/admin/class-userfeedback-exports.php:62
 msgid "Skipped"
 msgstr ""
 
-#: languages/vue-translations.php:123
+#: languages/vue-translations.php:122
 msgid "Comments"
 msgstr ""
 
-#: languages/vue-translations.php:126
+#: languages/vue-translations.php:125
 msgid "Display Timing"
 msgstr ""
 
-#: languages/vue-translations.php:129
+#: languages/vue-translations.php:128
 msgid "Decide when the Survey will appear on the page."
 msgstr ""
 
-#: languages/vue-translations.php:132
+#: languages/vue-translations.php:131
 msgid "Immediately"
 msgstr ""
 
-#: languages/vue-translations.php:135
+#: languages/vue-translations.php:134
 msgid "After a delay of"
 msgstr ""
 
-#: languages/vue-translations.php:138
+#: languages/vue-translations.php:137
 msgid "seconds"
 msgstr ""
 
-#: languages/vue-translations.php:141
+#: languages/vue-translations.php:140
 msgid "When a user is about to abandon the page on Desktop"
 msgstr ""
 
-#: languages/vue-translations.php:144
+#: languages/vue-translations.php:143
 msgid "When a user scrolls halfway down the page"
 msgstr ""
 
-#: languages/vue-translations.php:147
+#: languages/vue-translations.php:146
 msgid "Display Length"
 msgstr ""
 
-#: languages/vue-translations.php:150
+#: languages/vue-translations.php:149
 msgid "Decide how often the Survey will appear to visitors."
 msgstr ""
 
-#: languages/vue-translations.php:153
+#: languages/vue-translations.php:152
 msgid "Always, until UserFeedback survey is completed"
 msgstr ""
 
-#: languages/vue-translations.php:156
+#: languages/vue-translations.php:155
 msgid "Only one time"
 msgstr ""
 
-#: languages/vue-translations.php:159
+#: languages/vue-translations.php:158
 msgid "Always"
 msgstr ""
 
-#: languages/vue-translations.php:162
+#: languages/vue-translations.php:161
 msgid "Survey Run Time"
 msgstr ""
 
-#: languages/vue-translations.php:165
+#: languages/vue-translations.php:164
 msgid "Decide how long the Survey will appear on the designated pages."
 msgstr ""
 
-#: languages/vue-translations.php:168
+#: languages/vue-translations.php:167
 msgid "Indefinitely"
 msgstr ""
 
-#: languages/vue-translations.php:171
+#: languages/vue-translations.php:170
 msgid "Until"
 msgstr ""
 
-#: languages/vue-translations.php:174
+#: languages/vue-translations.php:173
 msgid "Month"
 msgstr ""
 
-#: languages/vue-translations.php:177
+#: languages/vue-translations.php:176
 msgid "Day"
 msgstr ""
 
-#: languages/vue-translations.php:181
+#: languages/vue-translations.php:179
 msgid "Start Survey Minimized"
 msgstr ""
 
-#: languages/vue-translations.php:184
+#: languages/vue-translations.php:182
 msgid "Survey widget will start minimized, instead of automatically opening to the first question when it’s Behavior settings are met."
 msgstr ""
 
-#: languages/vue-translations.php:187
+#: languages/vue-translations.php:185
 msgid "Anything to add?"
 msgstr ""
 
-#: languages/vue-translations.php:190
+#: languages/vue-translations.php:189
 msgid "Not Likely"
 msgstr ""
 
@@ -1218,15 +1217,15 @@ msgstr ""
 msgid "Questions"
 msgstr ""
 
-#: languages/vue-translations.php:274
+#: languages/vue-translations.php:275
 msgid "Notifications"
 msgstr ""
 
-#: languages/vue-translations.php:277
+#: languages/vue-translations.php:278
 msgid "Publish"
 msgstr ""
 
-#: languages/vue-translations.php:280
+#: languages/vue-translations.php:281
 msgid "Setup"
 msgstr ""
 
@@ -1234,2391 +1233,2391 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: languages/vue-translations.php:288
+#: languages/vue-translations.php:287
 msgid "Actions"
 msgstr ""
 
-#: languages/vue-translations.php:291
+#: languages/vue-translations.php:290
 msgid "Select bulk action"
 msgstr ""
 
-#: languages/vue-translations.php:294
+#: languages/vue-translations.php:293
 msgid "Bulk Actions"
 msgstr ""
 
-#: languages/vue-translations.php:297
+#: languages/vue-translations.php:296
 msgid "Apply"
 msgstr ""
 
-#: languages/vue-translations.php:300
+#: languages/vue-translations.php:299
 msgid "%d items"
 msgstr ""
 
-#: languages/vue-translations.php:303
+#: languages/vue-translations.php:302
 msgid "Current Page"
 msgstr ""
 
-#: languages/vue-translations.php:306
+#: languages/vue-translations.php:305
 msgid "First Page"
 msgstr ""
 
-#: languages/vue-translations.php:309
+#: languages/vue-translations.php:308
 msgid "Previous Page"
 msgstr ""
 
-#: languages/vue-translations.php:312
+#: languages/vue-translations.php:311
 msgid "Next Page"
 msgstr ""
 
-#: languages/vue-translations.php:315
+#: languages/vue-translations.php:314
 msgid "Last Page"
 msgstr ""
 
-#: languages/vue-translations.php:318
+#: languages/vue-translations.php:317
 msgid "of"
 msgstr ""
 
-#: languages/vue-translations.php:321
+#: languages/vue-translations.php:320
 msgid "Previous"
 msgstr ""
 
-#: languages/vue-translations.php:324
+#: languages/vue-translations.php:323
 msgid "Select %s"
 msgstr ""
 
-#: languages/vue-translations.php:330
+#: languages/vue-translations.php:329
 msgid "Getting Started"
 msgstr ""
 
-#: languages/vue-translations.php:333
+#: languages/vue-translations.php:332
 msgid "Lite vs Pro"
 msgstr ""
 
-#: languages/vue-translations.php:336
+#: languages/vue-translations.php:335
 msgid "General"
 msgstr ""
 
-#: languages/vue-translations.php:339
+#: languages/vue-translations.php:338
 msgid "Widget"
 msgstr ""
 
-#: languages/vue-translations.php:342
+#: languages/vue-translations.php:341
 msgid "Email"
 msgstr ""
 
-#: languages/vue-translations.php:345
+#: languages/vue-translations.php:344
 msgid "Access"
 msgstr ""
 
-#: languages/vue-translations.php:348
+#: languages/vue-translations.php:347
 msgid "Misc"
 msgstr ""
 
-#: languages/vue-translations.php:351
+#: languages/vue-translations.php:350
 msgid "Save Settings"
 msgstr ""
 
-#: languages/vue-translations.php:354
+#: languages/vue-translations.php:353
 msgid "Settings saved."
 msgstr ""
 
-#: languages/vue-translations.php:357
+#: languages/vue-translations.php:356
 msgid "Please fix errors on this page."
 msgstr ""
 
-#: languages/vue-translations.php:360
+#: languages/vue-translations.php:359
 msgid "Is not"
 msgstr ""
 
-#: languages/vue-translations.php:363
+#: languages/vue-translations.php:362
 msgid "Lower than"
 msgstr ""
 
-#: languages/vue-translations.php:366
+#: languages/vue-translations.php:365
 msgid "Greater than"
 msgstr ""
 
-#: languages/vue-translations.php:369
+#: languages/vue-translations.php:368
 msgid "Includes"
 msgstr ""
 
-#: languages/vue-translations.php:372
+#: languages/vue-translations.php:371
 msgid "Is"
 msgstr ""
 
-#: languages/vue-translations.php:375
+#: languages/vue-translations.php:374
 msgid "Plain"
 msgstr ""
 
-#: languages/vue-translations.php:378
+#: languages/vue-translations.php:377
 msgid "HTML"
 msgstr ""
 
-#: languages/vue-translations.php:381
+#: languages/vue-translations.php:380
 msgid "Recipients"
 msgstr ""
 
-#: languages/vue-translations.php:384
+#: languages/vue-translations.php:383
 msgid "Email addresses added here will automatically be emailed notifications from UserFeedback. Leave blank to skip notifications. </br>Separate multiple notification addresses using a comma."
 msgstr ""
 
-#: languages/vue-translations.php:387
+#: languages/vue-translations.php:386
 msgid "Ex: joe@gmail.com, mike@gmail.com"
 msgstr ""
 
-#: languages/vue-translations.php:390
+#: languages/vue-translations.php:389
 msgid "Template"
 msgstr ""
 
-#: languages/vue-translations.php:393
+#: languages/vue-translations.php:392
 msgid "Header Image"
 msgstr ""
 
-#: languages/vue-translations.php:396
+#: languages/vue-translations.php:395
 msgid "Upload or choose a logo to be displayed at the top of email notifications.</br>Recommended size is 300x100 or smaller for best support on all devices."
 msgstr ""
 
-#: languages/vue-translations.php:399
+#: languages/vue-translations.php:398
 msgid "Choose a different header image"
 msgstr ""
 
-#: languages/vue-translations.php:402
+#: languages/vue-translations.php:401
 msgid "Use the default header image"
 msgstr ""
 
-#: languages/vue-translations.php:406
+#: languages/vue-translations.php:404
 msgid "Upgrade to Pro to unlock advanced branding settings. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:410
+#: languages/vue-translations.php:407
 msgid "Please activate the Branding addon to access this feature. <a href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:413
+#: languages/vue-translations.php:410
 msgid "Workflow"
 msgstr ""
 
-#: languages/vue-translations.php:416
+#: languages/vue-translations.php:413
 msgid "Setup a series of actions that will trigger after a visitor submits a Survey."
 msgstr ""
 
-#: languages/vue-translations.php:419
+#: languages/vue-translations.php:416
 msgid "Send Email"
 msgstr ""
 
-#: languages/vue-translations.php:422
+#: languages/vue-translations.php:419
 msgid "Access Controls"
 msgstr ""
 
-#: languages/vue-translations.php:425
+#: languages/vue-translations.php:422
 msgid "Access controls allows you to manage and customize access to UserFeedback functionality."
 msgstr ""
 
-#: languages/vue-translations.php:428
+#: languages/vue-translations.php:425
 msgid "Can create and edit Surveys"
 msgstr ""
 
-#: languages/vue-translations.php:431
+#: languages/vue-translations.php:428
 msgid "Can view Survey results and responses"
 msgstr ""
 
-#: languages/vue-translations.php:434
+#: languages/vue-translations.php:431
 msgid "Delete Surveys & Responses"
 msgstr ""
 
-#: languages/vue-translations.php:437
+#: languages/vue-translations.php:434
 msgid "Can delete Surveys and Survey Responses"
 msgstr ""
 
-#: languages/vue-translations.php:440
+#: languages/vue-translations.php:437
 msgid "Manage and Customize User Access"
 msgstr ""
 
-#: languages/vue-translations.php:443
+#: languages/vue-translations.php:440
 msgid "<b>By default Administrators and Editors have access.</b></br>Access Controls allows you to manage and customize which user roles have access to UserFeedback functionality."
 msgstr ""
 
-#: languages/vue-translations.php:446
+#: languages/vue-translations.php:443
 msgid "Upgrade to UserFeedback Pro Now"
 msgstr ""
 
-#: languages/vue-translations.php:449
+#: languages/vue-translations.php:446
 msgid "Create & Edit Surveys"
 msgstr ""
 
-#: languages/vue-translations.php:452
+#: languages/vue-translations.php:449
 msgid "Delete Surveys"
 msgstr ""
 
-#: languages/vue-translations.php:455
+#: languages/vue-translations.php:452
 msgid "Delete Responses"
 msgstr ""
 
-#: languages/vue-translations.php:458
+#: languages/vue-translations.php:455
 msgid "License"
 msgstr ""
 
-#: languages/vue-translations.php:461
+#: languages/vue-translations.php:458
 msgid "License Key"
 msgstr ""
 
-#: languages/vue-translations.php:464
+#: languages/vue-translations.php:461
 msgid "Add your UserFeedback license key from the email receipt or account area. %sRetrieve your license key%s."
 msgstr ""
 
-#: languages/vue-translations.php:467
+#: languages/vue-translations.php:464
 msgid "Paste your license key here"
 msgstr ""
 
-#: languages/vue-translations.php:470
+#: languages/vue-translations.php:467
 msgid "Verify"
 msgstr ""
 
-#: languages/vue-translations.php:473
+#: languages/vue-translations.php:470
 msgid "Deactivate"
 msgstr ""
 
-#: languages/vue-translations.php:476
+#: languages/vue-translations.php:473
 msgid "Your license key type for this site is <b>%s</b>."
 msgstr ""
 
-#: languages/vue-translations.php:479
+#: languages/vue-translations.php:476
 msgid "You are using <b>UserFeedback Lite</b> - no license needed! Enjoy! 🙂 </br></br> To unlock more features consider %supgrading to PRO.%s </br></br><i>As a valued UserFeedback Lite user you receive <b><span style=\"color: #4BBB6A;\">50%% off</span></b>, automatically applied at checkout.</i>"
 msgstr ""
 
-#: languages/vue-translations.php:482
+#: languages/vue-translations.php:479
 msgid "Connect"
 msgstr ""
 
-#: languages/vue-translations.php:485
+#: languages/vue-translations.php:482
 msgid "<b>Already purchased?</b> Simply enter your license key below to connect with UserFeedback PRO! %sRetrieve your license key%s."
 msgstr ""
 
-#: languages/vue-translations.php:488
+#: languages/vue-translations.php:485
 msgid "Setup Wizard"
 msgstr ""
 
-#: languages/vue-translations.php:491
+#: languages/vue-translations.php:488
 msgid "Use our configuration wizard to properly setup UserFeedback with just a few clicks."
 msgstr ""
 
-#: languages/vue-translations.php:494
+#: languages/vue-translations.php:491
 msgid "Launch Setup Wizard"
 msgstr ""
 
-#: languages/vue-translations.php:497
+#: languages/vue-translations.php:494
 msgid "Refreshing license..."
 msgstr ""
 
-#: languages/vue-translations.php:500
+#: languages/vue-translations.php:497
 msgid "Success"
 msgstr ""
 
-#: languages/vue-translations.php:503
+#: languages/vue-translations.php:500
 msgid "There was an error refreshing your license"
 msgstr ""
 
-#: languages/vue-translations.php:506
+#: languages/vue-translations.php:503
 msgid "Verifying license..."
 msgstr ""
 
-#: languages/vue-translations.php:509
+#: languages/vue-translations.php:506
 msgid "Please wait..."
 msgstr ""
 
-#: languages/vue-translations.php:512
+#: languages/vue-translations.php:509
 msgid "There was an error unlocking UserFeedback PRO please try again or install manually."
 msgstr ""
 
-#: languages/vue-translations.php:515
+#: languages/vue-translations.php:512
 msgid "Error"
 msgstr ""
 
-#: languages/vue-translations.php:518
+#: languages/vue-translations.php:515
 msgid "Ok"
 msgstr ""
 
-#: languages/vue-translations.php:521
+#: languages/vue-translations.php:518
 msgid "Your Survey was <b>Saved as a Draft.</b>"
 msgstr ""
 
-#: languages/vue-translations.php:524
+#: languages/vue-translations.php:521
 msgid "This Survey has already collected responses. To make changes, please <b><a href=\"%s\">duplicate this Survey</a></b> or <b><a href=\"%s\">create a new one</a></b>"
 msgstr ""
 
-#: languages/vue-translations.php:528
+#: languages/vue-translations.php:525
 msgid "Save"
 msgstr ""
 
-#: languages/vue-translations.php:531
+#: languages/vue-translations.php:528
 msgid "Hide Announcement"
 msgstr ""
 
-#: languages/vue-translations.php:534
+#: languages/vue-translations.php:531
 msgid "Check this if you would like to hide plugin announcements and update details."
 msgstr ""
 
-#: languages/vue-translations.php:537
+#: languages/vue-translations.php:534
 msgid "Allow Usage Tracking"
 msgstr ""
 
-#: languages/vue-translations.php:540
+#: languages/vue-translations.php:537
 msgid "By allowing us to track usage data we can better help you because we know with which WordPress configurations, themes and plugins we should test."
 msgstr ""
 
-#: languages/vue-translations.php:543
+#: languages/vue-translations.php:540
 msgid "Complete documentation on usage tracking is available %shere%s."
 msgstr ""
 
-#: languages/vue-translations.php:546
+#: languages/vue-translations.php:543
 msgid "Disable Email Summaries"
 msgstr ""
 
-#: languages/vue-translations.php:549
+#: languages/vue-translations.php:546
 msgid "Disable Email Summaries weekly delivery. %sView Email Summary Example%s"
 msgstr ""
 
-#: languages/vue-translations.php:552
+#: languages/vue-translations.php:549
 msgid "Bottom Left"
 msgstr ""
 
-#: languages/vue-translations.php:555
+#: languages/vue-translations.php:552
 msgid "Bottom Right"
 msgstr ""
 
-#: languages/vue-translations.php:558
+#: languages/vue-translations.php:555
 msgid "Styles"
 msgstr ""
 
-#: languages/vue-translations.php:561
+#: languages/vue-translations.php:558
 msgid "Widget Colors"
 msgstr ""
 
-#: languages/vue-translations.php:564
+#: languages/vue-translations.php:561
 msgid "Logo"
 msgstr ""
 
-#: languages/vue-translations.php:567
+#: languages/vue-translations.php:564
 msgid "Add the UserFeedback logo"
 msgstr ""
 
-#: languages/vue-translations.php:570
+#: languages/vue-translations.php:567
 msgid "Use Custom Logo"
 msgstr ""
 
-#: languages/vue-translations.php:573
+#: languages/vue-translations.php:570
 msgid "Display"
 msgstr ""
 
-#: languages/vue-translations.php:576
+#: languages/vue-translations.php:573
 msgid "Widget Positioning"
 msgstr ""
 
-#: languages/vue-translations.php:579
+#: languages/vue-translations.php:576
 msgid "Choose a different logo image"
 msgstr ""
 
-#: languages/vue-translations.php:582
+#: languages/vue-translations.php:579
 msgid "Remove logo"
 msgstr ""
 
-#: languages/vue-translations.php:585
+#: languages/vue-translations.php:582
 msgid "Upgrade to Pro to unlock advanced survey behavior settings. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:588
+#: languages/vue-translations.php:585
 msgid "Please activate the Behavior addon to access this feature. <a href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:591
+#: languages/vue-translations.php:588
 msgid "Requires %s%s%s addon"
 msgstr ""
 
-#: languages/vue-translations.php:594
+#: languages/vue-translations.php:591
 msgid "Select a Template"
 msgstr ""
 
-#: languages/vue-translations.php:597
+#: languages/vue-translations.php:594
 msgid "Selected"
 msgstr ""
 
-#: languages/vue-translations.php:600
+#: languages/vue-translations.php:597
 msgid "Create %s"
 msgstr ""
 
-#: languages/vue-translations.php:607
+#: languages/vue-translations.php:603
 msgid "%sActivate License%s"
 msgstr ""
 
-#: languages/vue-translations.php:610
+#: languages/vue-translations.php:606
 msgid "%sActivate Additional Templates Addon%s"
 msgstr ""
 
-#: languages/vue-translations.php:613
+#: languages/vue-translations.php:609
 msgid "%sInstall Additional Templates Addon%s"
 msgstr ""
 
-#: languages/vue-translations.php:616
+#: languages/vue-translations.php:612
 msgid "Please enter a valid %slicense key%s to enable Pro templates"
 msgstr ""
 
-#: languages/vue-translations.php:619
+#: languages/vue-translations.php:615
 msgid "Radio Buttons"
 msgstr ""
 
-#: languages/vue-translations.php:622
+#: languages/vue-translations.php:618
 msgid "Email Capture"
 msgstr ""
 
-#: languages/vue-translations.php:625
+#: languages/vue-translations.php:621
 msgid "Single Text Field"
 msgstr ""
 
-#: languages/vue-translations.php:629
+#: languages/vue-translations.php:624
 msgid "Long Answer"
 msgstr ""
 
-#: languages/vue-translations.php:633
+#: languages/vue-translations.php:627
 msgid "Star Rating - Pro"
 msgstr ""
 
-#: languages/vue-translations.php:637
+#: languages/vue-translations.php:630
 msgid "Net Promoter Score - Pro"
 msgstr ""
 
-#: languages/vue-translations.php:640
+#: languages/vue-translations.php:633
 msgid "Add Question"
 msgstr ""
 
-#: languages/vue-translations.php:643
+#: languages/vue-translations.php:636
 msgid "Build"
 msgstr ""
 
-#: languages/vue-translations.php:646
+#: languages/vue-translations.php:639
 msgid "Preview"
 msgstr ""
 
-#: languages/vue-translations.php:650
+#: languages/vue-translations.php:642
 msgid "Checkboxes"
 msgstr ""
 
-#: languages/vue-translations.php:653
+#: languages/vue-translations.php:645
 msgid "No notifications"
 msgstr ""
 
-#: languages/vue-translations.php:656
+#: languages/vue-translations.php:648
 msgid "All Device Types"
 msgstr ""
 
-#: languages/vue-translations.php:659
+#: languages/vue-translations.php:651
 msgid "Survey will launch <b>after a delay of %d seconds</b>"
 msgstr ""
 
-#: languages/vue-translations.php:662
+#: languages/vue-translations.php:654
 msgid "Survey will launch when a user is <b>about to abandon the page on Desktop</b>"
 msgstr ""
 
-#: languages/vue-translations.php:665
+#: languages/vue-translations.php:657
 msgid "When a user <b>scrolls halfway down</b> the page"
 msgstr ""
 
-#: languages/vue-translations.php:668
+#: languages/vue-translations.php:660
 msgid "Survey will <b>continue to launch</b> until the visitor submits a response"
 msgstr ""
 
-#: languages/vue-translations.php:671
+#: languages/vue-translations.php:663
 msgid "Survey will <b>launch only once</b>, even if the visitor didn't respond"
 msgstr ""
 
-#: languages/vue-translations.php:674
+#: languages/vue-translations.php:666
 msgid "Survey will <b>launch over and over</b>, even if they have responded"
 msgstr ""
 
-#: languages/vue-translations.php:677
+#: languages/vue-translations.php:669
 msgid "Survey will run <b>indefinitely</b>"
 msgstr ""
 
-#: languages/vue-translations.php:680
+#: languages/vue-translations.php:672
 msgid "Survey will run <b>until %s %d</b>"
 msgstr ""
 
-#: languages/vue-translations.php:683
+#: languages/vue-translations.php:675
 msgid "Save as Draft"
 msgstr ""
 
-#: languages/vue-translations.php:686
+#: languages/vue-translations.php:678
 msgid "Save and Schedule"
 msgstr ""
 
-#: languages/vue-translations.php:689
+#: languages/vue-translations.php:681
 msgid "Save and Publish"
 msgstr ""
 
-#: languages/vue-translations.php:692
+#: languages/vue-translations.php:684
 msgid "Summary of %s"
 msgstr ""
 
-#: languages/vue-translations.php:695
+#: languages/vue-translations.php:687
 msgid "<b>%d</b> question"
 msgid_plural "<b>%d</b> questions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: languages/vue-translations.php:698
+#: languages/vue-translations.php:690
 msgid "Survey will be displayed on "
 msgstr ""
 
-#: languages/vue-translations.php:701
+#: languages/vue-translations.php:693
 msgid "Survey Status"
 msgstr ""
 
-#: languages/vue-translations.php:704
+#: languages/vue-translations.php:696
 msgid "Decide the status of this Survey."
 msgstr ""
 
-#: languages/vue-translations.php:707
+#: languages/vue-translations.php:699
 msgid "Upgrade to Pro to unlock Survey Scheduling. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:710
+#: languages/vue-translations.php:702
 msgid "Please activate the Behavior addon to access Survey Scheduling. <a href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:713
+#: languages/vue-translations.php:705
 msgid "Show More"
 msgstr ""
 
-#: languages/vue-translations.php:716
+#: languages/vue-translations.php:708
 msgid "Show Less"
 msgstr ""
 
-#: languages/vue-translations.php:719
+#: languages/vue-translations.php:711
 msgid "Comment Boxes"
 msgstr ""
 
-#: languages/vue-translations.php:722
+#: languages/vue-translations.php:714
 msgid "Automatically ask for more feedback"
 msgstr ""
 
-#: languages/vue-translations.php:725
+#: languages/vue-translations.php:717
 msgid "Prebuilt Templates"
 msgstr ""
 
-#: languages/vue-translations.php:728
+#: languages/vue-translations.php:720
 msgid "Access all templates and download from our growing library"
 msgstr ""
 
-#: languages/vue-translations.php:731
+#: languages/vue-translations.php:723
 msgid "Customize Logo"
 msgstr ""
 
-#: languages/vue-translations.php:734
+#: languages/vue-translations.php:726
 msgid "Add your company's logo to the UserFeedback Survey"
 msgstr ""
 
-#: languages/vue-translations.php:737
+#: languages/vue-translations.php:729
 msgid "Customize Branding"
 msgstr ""
 
-#: languages/vue-translations.php:740
+#: languages/vue-translations.php:732
 msgid "Match your brand colors on your survey"
 msgstr ""
 
-#: languages/vue-translations.php:743
+#: languages/vue-translations.php:735
 msgid "Device Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:746
+#: languages/vue-translations.php:738
 msgid "Target Desktop, Mobile, or Tablet devices"
 msgstr ""
 
-#: languages/vue-translations.php:749
+#: languages/vue-translations.php:741
 msgid "Randomize Answers"
 msgstr ""
 
-#: languages/vue-translations.php:752
+#: languages/vue-translations.php:744
 msgid "Reduce bias with randomized order"
 msgstr ""
 
-#: languages/vue-translations.php:755
+#: languages/vue-translations.php:747
 msgid "Target specific pages"
 msgstr ""
 
-#: languages/vue-translations.php:758
+#: languages/vue-translations.php:750
 msgid "Launch surveys on specific pages"
 msgstr ""
 
-#: languages/vue-translations.php:761
+#: languages/vue-translations.php:753
 msgid "Behavioral Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:764
+#: languages/vue-translations.php:756
 msgid "Choose what users see your surveys"
 msgstr ""
 
-#: languages/vue-translations.php:767
+#: languages/vue-translations.php:759
 msgid "Schedule Surveys"
 msgstr ""
 
-#: languages/vue-translations.php:770
+#: languages/vue-translations.php:762
 msgid "Set start / end times for survey collection"
 msgstr ""
 
-#: languages/vue-translations.php:773
+#: languages/vue-translations.php:765
 msgid "Enhanced Notifications"
 msgstr ""
 
-#: languages/vue-translations.php:776
+#: languages/vue-translations.php:768
 msgid "Choose to send feedback to specific emails based upon survey responses"
 msgstr ""
 
-#: languages/vue-translations.php:779
+#: languages/vue-translations.php:771
 msgid "Export Survey Results"
 msgstr ""
 
-#: languages/vue-translations.php:782
+#: languages/vue-translations.php:774
 msgid "Not Available"
 msgstr ""
 
-#: languages/vue-translations.php:785
+#: languages/vue-translations.php:777
 msgid "Export all survey responses into CSV or XLSX"
 msgstr ""
 
-#: languages/vue-translations.php:788
+#: languages/vue-translations.php:780
 msgid "Customer Support"
 msgstr ""
 
-#: languages/vue-translations.php:791
+#: languages/vue-translations.php:783
 msgid "Limited Support"
 msgstr ""
 
-#: languages/vue-translations.php:794
+#: languages/vue-translations.php:786
 msgid "Full Support"
 msgstr ""
 
-#: languages/vue-translations.php:797
+#: languages/vue-translations.php:789
 msgid "Lite <span style=\"font-weight: lighter;\">vs</span> Pro"
 msgstr ""
 
-#: languages/vue-translations.php:800
+#: languages/vue-translations.php:792
 msgid "Get the most out of UserFeedback by upgrading to Pro and unlocking all the powerful features."
 msgstr ""
 
-#: languages/vue-translations.php:803
+#: languages/vue-translations.php:795
 msgid "%sGet UserFeedback Pro Today and Unlock all the Powerful Features%s"
 msgstr ""
 
-#: languages/vue-translations.php:806
+#: languages/vue-translations.php:798
 msgid "Bonus: UserFeedback Lite users get %s50%% off regular price%s, automatically applied at checkout."
 msgstr ""
 
-#: languages/vue-translations.php:809
+#: languages/vue-translations.php:801
 msgid "Feature"
 msgstr ""
 
-#: languages/vue-translations.php:812
+#: languages/vue-translations.php:804
 msgid "Lite"
 msgstr ""
 
-#: languages/vue-translations.php:815
+#: languages/vue-translations.php:807
 msgid "Pro"
 msgstr ""
 
-#: languages/vue-translations.php:818
+#: languages/vue-translations.php:810
 msgid "Create Unlimited Surveys"
 msgstr ""
 
-#: languages/vue-translations.php:821
+#: languages/vue-translations.php:813
 msgid "Receive Unlimited Responses"
 msgstr ""
 
-#: languages/vue-translations.php:824
+#: languages/vue-translations.php:816
 msgid "Included"
 msgstr ""
 
-#: languages/vue-translations.php:827
+#: languages/vue-translations.php:819
 msgid "Question Types"
 msgstr ""
 
-#: languages/vue-translations.php:830
+#: languages/vue-translations.php:822
 msgid "Access ratings, stars, paragraph fields, text boxes"
 msgstr ""
 
-#: languages/vue-translations.php:833
+#: languages/vue-translations.php:825
 msgid "Shortcode"
 msgstr ""
 
-#: languages/vue-translations.php:836
+#: languages/vue-translations.php:828
 msgid "Edit"
 msgstr ""
 
-#: languages/vue-translations.php:842
+#: languages/vue-translations.php:834
 msgid "Duplicate"
 msgstr ""
 
-#: languages/vue-translations.php:845
+#: languages/vue-translations.php:837
 msgid "Delete permanently"
 msgstr ""
 
-#: languages/vue-translations.php:848
+#: languages/vue-translations.php:840
 msgid "Restore"
 msgstr ""
 
-#: languages/vue-translations.php:851
+#: languages/vue-translations.php:843
 msgid "Delete Permanently"
 msgstr ""
 
-#: languages/vue-translations.php:854
+#: languages/vue-translations.php:846
 msgid "Make Draft"
 msgstr ""
 
-#: languages/vue-translations.php:857
+#: languages/vue-translations.php:849
 msgid "All"
 msgstr ""
 
-#: languages/vue-translations.php:860
+#: languages/vue-translations.php:852
 msgid "Scheduled"
 msgstr ""
 
-#: languages/vue-translations.php:863
+#: languages/vue-translations.php:855
 msgid "Trash"
 msgstr ""
 
-#: languages/vue-translations.php:869
+#: languages/vue-translations.php:861
 msgid "Create New"
 msgstr ""
 
-#: languages/vue-translations.php:872
+#: languages/vue-translations.php:864
 msgid "No Surveys"
 msgstr ""
 
-#: languages/vue-translations.php:875
+#: languages/vue-translations.php:867
 msgid "You currently have no Surveys. Click the button below to create your first Survey."
 msgstr ""
 
-#: languages/vue-translations.php:878
+#: languages/vue-translations.php:870
 msgid "%s Star"
 msgid_plural "%s Stars"
 msgstr[0] ""
 msgstr[1] ""
 
-#: languages/vue-translations.php:881
+#: languages/vue-translations.php:873
 msgid "Answered"
 msgstr ""
 
-#: languages/vue-translations.php:884
+#: languages/vue-translations.php:876
 msgid "Export"
 msgstr ""
 
-#: languages/vue-translations.php:887
+#: languages/vue-translations.php:879
 #: pro/includes/admin/class-userfeedback-exports.php:61
 #: pro/includes/admin/class-userfeedback-exports.php:175
 msgid "Answers"
 msgstr ""
 
-#: languages/vue-translations.php:890
+#: languages/vue-translations.php:882
 #: pro/includes/admin/class-userfeedback-exports.php:176
 msgid "Date"
 msgstr ""
 
-#: languages/vue-translations.php:893
+#: languages/vue-translations.php:885
 msgid "This question has invalid options. You can fix it <a href=\"%s\">here</a>"
 msgstr ""
 
-#: languages/vue-translations.php:896
+#: languages/vue-translations.php:888
 msgid "Checkbox"
 msgstr ""
 
-#: languages/vue-translations.php:899
+#: languages/vue-translations.php:891
 msgid "Net Promoter Score"
 msgstr ""
 
-#: languages/vue-translations.php:902
+#: languages/vue-translations.php:894
 msgid "Long Text"
 msgstr ""
 
-#: languages/vue-translations.php:905
+#: languages/vue-translations.php:897
 msgid "Star Rating"
 msgstr ""
 
-#: languages/vue-translations.php:908
+#: languages/vue-translations.php:900
 msgid "UserFeedback Addons"
 msgstr ""
 
-#: languages/vue-translations.php:911
+#: languages/vue-translations.php:903
 msgid "Search Addons"
 msgstr ""
 
-#: languages/vue-translations.php:914
+#: languages/vue-translations.php:906
 msgid "Please enter a valid %slicense key%s to enable addons"
 msgstr ""
 
-#: languages/vue-translations.php:917
+#: languages/vue-translations.php:909
 msgid "All pages except"
 msgstr ""
 
-#: languages/vue-translations.php:920
+#: languages/vue-translations.php:912
 msgid "Select a Page"
 msgstr ""
 
-#: languages/vue-translations.php:923
+#: languages/vue-translations.php:915
 msgid "Type a page name..."
 msgstr ""
 
-#: languages/vue-translations.php:926
+#: languages/vue-translations.php:918
 msgid "Add Page Rule"
 msgstr ""
 
-#: languages/vue-translations.php:929
+#: languages/vue-translations.php:921
 msgid "The Survey can't be published: Some questions are missing options."
 msgstr ""
 
-#: languages/vue-translations.php:942
+#: languages/vue-translations.php:934
 msgid "Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:945
+#: languages/vue-translations.php:937
 msgid "Templates"
 msgstr ""
 
-#: languages/vue-translations.php:948
+#: languages/vue-translations.php:940
 msgid "Behavior"
 msgstr ""
 
-#: languages/vue-translations.php:951
+#: languages/vue-translations.php:943
 msgid "Branding"
 msgstr ""
 
-#: languages/vue-translations.php:954
+#: languages/vue-translations.php:946
 msgid "Upload Image"
 msgstr ""
 
-#: languages/vue-translations.php:957
+#: languages/vue-translations.php:949
 msgid "Choose another image"
 msgstr ""
 
-#: languages/vue-translations.php:960
+#: languages/vue-translations.php:952
 msgid "Reset"
 msgstr ""
 
-#: languages/vue-translations.php:963
+#: languages/vue-translations.php:955
 msgid "Select or upload image"
 msgstr ""
 
-#: languages/vue-translations.php:966
+#: languages/vue-translations.php:958
 msgid "Set Image"
 msgstr ""
 
-#: languages/vue-translations.php:969
+#: languages/vue-translations.php:961
 msgid "Upgrade to UserFeedback Pro"
 msgstr ""
 
-#: languages/vue-translations.php:972
+#: languages/vue-translations.php:964
 msgid "Unlock advanced targeting rules so that you can: "
 msgstr ""
 
-#: languages/vue-translations.php:975
+#: languages/vue-translations.php:967
 msgid "<b>PLUS</b> upgrading to Pro unlocks many more features like all question types, customized branding, premium templates, and more!"
 msgstr ""
 
-#: languages/vue-translations.php:978
+#: languages/vue-translations.php:970
 msgid "Target specific devices (Desktop, Mobile, Tablet)"
 msgstr ""
 
-#: languages/vue-translations.php:981
+#: languages/vue-translations.php:973
 msgid "Create advanced page rules for display"
 msgstr ""
 
-#: languages/vue-translations.php:984
+#: languages/vue-translations.php:976
 msgid "Customize display behavior (scrolling, abandonment)"
 msgstr ""
 
-#: languages/vue-translations.php:987
+#: languages/vue-translations.php:979
 msgid "Choose which visitors see your survey"
 msgstr ""
 
-#: languages/vue-translations.php:990
+#: languages/vue-translations.php:982
 msgid "Please activate the Targeting addon to access this feature. <a href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:993
+#: languages/vue-translations.php:985
 msgid "Integration"
 msgstr ""
 
-#: languages/vue-translations.php:996
+#: languages/vue-translations.php:988
 msgid "More Integrations Coming Soon"
 msgstr ""
 
-#: languages/vue-translations.php:999
+#: languages/vue-translations.php:991
 msgid "Dismiss"
 msgstr ""
 
-#: languages/vue-translations.php:1002
+#: languages/vue-translations.php:994
 msgid "Dismiss All"
 msgstr ""
 
-#: languages/vue-translations.php:1005
+#: languages/vue-translations.php:997
 msgid "Inbox"
 msgstr ""
 
-#: languages/vue-translations.php:1008
+#: languages/vue-translations.php:1000
 msgid "Dismissed"
 msgstr ""
 
-#: languages/vue-translations.php:1011
+#: languages/vue-translations.php:1003
 msgid "View Dismissed"
 msgstr ""
 
-#: languages/vue-translations.php:1014
+#: languages/vue-translations.php:1006
 msgid "Back to Inbox"
 msgstr ""
 
-#: languages/vue-translations.php:1017
+#: languages/vue-translations.php:1009
 msgid "Please activate the Behavior addon to access this feature. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1020
+#: languages/vue-translations.php:1012
 msgid "Email all new Responses to the specified email addresses:"
 msgstr ""
 
-#: languages/vue-translations.php:1023
+#: languages/vue-translations.php:1015
 msgid "joe@mail.com, karen@mail.com, abed@mail.com"
 msgstr ""
 
-#: languages/vue-translations.php:1026
+#: languages/vue-translations.php:1018
 msgid "Enable Conditional Logic"
 msgstr ""
 
-#: languages/vue-translations.php:1029
+#: languages/vue-translations.php:1021
 msgid "if"
 msgstr ""
 
-#: languages/vue-translations.php:1032
+#: languages/vue-translations.php:1024
 msgid "Upgrade to Pro to unlock conditional e-mails. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1035
+#: languages/vue-translations.php:1027
 msgid "Add at least one Radio, Checkbox, NPS, or Star Rating question to use conditional logic."
 msgstr ""
 
-#: languages/vue-translations.php:1041
+#: languages/vue-translations.php:1033
 msgid "Install Addon"
 msgstr ""
 
-#: languages/vue-translations.php:1044
+#: languages/vue-translations.php:1037
 msgid "Active"
 msgstr ""
 
-#: languages/vue-translations.php:1047
+#: languages/vue-translations.php:1041
 msgid "Not Active"
 msgstr ""
 
-#: languages/vue-translations.php:1050
+#: languages/vue-translations.php:1045
 msgid "Not Installed"
 msgstr ""
 
-#: languages/vue-translations.php:1053
+#: languages/vue-translations.php:1048
 msgid "Status: "
 msgstr ""
 
-#: languages/vue-translations.php:1056
+#: languages/vue-translations.php:1051
 msgid "Install Plugin"
 msgstr ""
 
-#: languages/vue-translations.php:1059
+#: languages/vue-translations.php:1054
 msgid "WPForms is by far the easiest form plugin to use. My clients love it – it’s one of the few plugins they can use without any training. As a developer I appreciate how fast, modern, clean and extensible it is."
 msgstr ""
 
-#: languages/vue-translations.php:1062
+#: languages/vue-translations.php:1057
 msgid "Testimonials"
 msgstr ""
 
-#: languages/vue-translations.php:1065
+#: languages/vue-translations.php:1060
 msgid "Create Your First Survey"
 msgstr ""
 
-#: languages/vue-translations.php:1068
+#: languages/vue-translations.php:1063
 msgid "More Survey Templates"
 msgstr ""
 
-#: languages/vue-translations.php:1071
+#: languages/vue-translations.php:1066
 msgid "Survey Scheduling"
 msgstr ""
 
-#: languages/vue-translations.php:1074
+#: languages/vue-translations.php:1069
 msgid "Conditional Logic"
 msgstr ""
 
-#: languages/vue-translations.php:1077
+#: languages/vue-translations.php:1072
 msgid "Advanced Questions"
 msgstr ""
 
-#: languages/vue-translations.php:1080
+#: languages/vue-translations.php:1075
 msgid "Advanced Display"
 msgstr ""
 
-#: languages/vue-translations.php:1083
+#: languages/vue-translations.php:1078
 msgid "Powerful Addons"
 msgstr ""
 
-#: languages/vue-translations.php:1086
+#: languages/vue-translations.php:1081
 msgid "Advanced Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:1089
+#: languages/vue-translations.php:1084
 msgid "Survey Redirect"
 msgstr ""
 
-#: languages/vue-translations.php:1092
+#: languages/vue-translations.php:1087
 msgid "Upgrade to UserFeedback Pro to unlock additional templates and tons of powerful features."
 msgstr ""
 
-#: languages/vue-translations.php:1095
+#: languages/vue-translations.php:1090
 msgid "per year"
 msgstr ""
 
-#: languages/vue-translations.php:1098
+#: languages/vue-translations.php:1093
 msgid "Upgrade Now"
 msgstr ""
 
-#: languages/vue-translations.php:1101
+#: languages/vue-translations.php:1096
 msgid "Read Our Guide"
 msgstr ""
 
-#: languages/vue-translations.php:1104
+#: languages/vue-translations.php:1099
 msgid "Welcome to UserFeedback!"
 msgstr ""
 
-#: languages/vue-translations.php:1107
+#: languages/vue-translations.php:1102
 msgid "Thank you for choosing UserFeedback - the most powerful and easy-to-use Survery builder on the market."
 msgstr ""
 
-#: languages/vue-translations.php:1110
+#: languages/vue-translations.php:1105
 msgid "Display Message"
 msgstr ""
 
-#: languages/vue-translations.php:1113
+#: languages/vue-translations.php:1108
 msgid "Choose a Page"
 msgstr ""
 
-#: languages/vue-translations.php:1116
+#: languages/vue-translations.php:1111
 msgid "Upgrade to Pro to unlock Custom Thank You Message and redirect on submission. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1119
+#: languages/vue-translations.php:1114
 msgid "Thank You Message"
 msgstr ""
 
-#: languages/vue-translations.php:1122
+#: languages/vue-translations.php:1117
 msgid "When a visitor completes a Survey, you can either display a message within the widget, or send them to a page on your site."
 msgstr ""
 
-#: languages/vue-translations.php:1125
+#: languages/vue-translations.php:1120
 msgid "Display Message in Widget"
 msgstr ""
 
-#: languages/vue-translations.php:1128
+#: languages/vue-translations.php:1123
 msgid "Redirect to a Page"
 msgstr ""
 
-#: languages/vue-translations.php:1131
+#: languages/vue-translations.php:1126
 msgid "Type your Thank You Message here"
 msgstr ""
 
-#: languages/vue-translations.php:1134
+#: languages/vue-translations.php:1129
 msgid "Getting Started with UserFeedback"
 msgstr ""
 
-#: languages/vue-translations.php:1137
+#: languages/vue-translations.php:1132
 msgid "UserFeedback is the easiest and most powerful Survey solution on the market. Get started fast with our pre-designed templates, or create a blank survey and customize it as you see fit.<br/><br/>You may noticed your Surveys page is empty, since there are no forms yet. To create a new Survey, just click the Create New button to launch the Survey Builder. <br/><br/><a href=\"#\" target=\"_blank\">How to Create a New Survey</a><br/><a href=\"#\" target=\"_blank\">How to View Results and Responses</a><br/><a href=\"#\" target=\"_blank\">How to Pause a Survey</a><br/>"
 msgstr ""
 
-#: languages/vue-translations.php:1140
+#: languages/vue-translations.php:1135
 msgid "Powerful Survey Builder"
 msgstr ""
 
-#: languages/vue-translations.php:1143
+#: languages/vue-translations.php:1138
 msgid "Survey Templates"
 msgstr ""
 
-#: languages/vue-translations.php:1146
+#: languages/vue-translations.php:1141
 msgid "Smart Conditional Logic"
 msgstr ""
 
-#: languages/vue-translations.php:1149
+#: languages/vue-translations.php:1144
 msgid "Advanced Display Features"
 msgstr ""
 
-#: languages/vue-translations.php:1152
+#: languages/vue-translations.php:1147
 msgid "Net Promoter Score Template"
 msgstr ""
 
-#: languages/vue-translations.php:1155
+#: languages/vue-translations.php:1150
 msgid "Powerful Addons & Integrations"
 msgstr ""
 
-#: languages/vue-translations.php:1158
+#: languages/vue-translations.php:1153
 msgid "Easily create an amazing form in just a few minutes without writing any code."
 msgstr ""
 
-#: languages/vue-translations.php:1161
+#: languages/vue-translations.php:1156
 msgid "UserFeedback Features & Addons"
 msgstr ""
 
-#: languages/vue-translations.php:1164
+#: languages/vue-translations.php:1159
 msgid "UserFeedback is both easy to use and extremely powerful. We have tons of helpful features that allow us to give you everything you need from a survey builder."
 msgstr ""
 
-#: languages/vue-translations.php:1167
+#: languages/vue-translations.php:1162
 msgid "See All Features"
 msgstr ""
 
-#: languages/vue-translations.php:1170
+#: languages/vue-translations.php:1165
 msgid "How to Choose the Right Question"
 msgstr ""
 
-#: languages/vue-translations.php:1173
+#: languages/vue-translations.php:1168
 msgid "Are you wondering which Question type does what? Maybe too, wondering which Question type is best for getting the right responses from your visitors? In this tutorial we’ll cover all the questions available in UserFeedback."
 msgstr ""
 
-#: languages/vue-translations.php:1176
+#: languages/vue-translations.php:1171
 msgid "Read Documentation"
 msgstr ""
 
-#: languages/vue-translations.php:1179
+#: languages/vue-translations.php:1174
 msgid "Hi there! Welcome to UserFeedback, the easiest way to see what your website users are <i>really</i> thinking. At UserFeedback, we build software that helps you collect visitor feedback in minutes."
 msgstr ""
 
-#: languages/vue-translations.php:1182
+#: languages/vue-translations.php:1177
 msgid "Most website analytics tools only tell you half the story. With UserFeedback, you not only can understand what users are doing, but WHY they are doing it. This helps uncover secrets you can use to get more traffic, increase engagement, and make more sales. <br/><br/> Our goal is to make collecting useful feedback simple and actionable, by asking users for their feedback right when it matters most: When they’re engaging with your website. <br/><br/> UserFeedback is brought to you by Awesome Motive, the same team that’s behind the largest WordPress resource site, <a href=\"https://www.wpbeginner.com/\" target=\"_blank\" rel=\"noopener\">WPBeginner</a></u>, the #1 best Google Analytics WordPress plugin, <a href=\"https://www.monsterinsights.com/\" target=\"_blank\" rel=\"noopener\">MonsterInsights</a>, the most beginner friendly drag & drop wordPress form plugin <a href=\"https://wpforms.com/\" target=\"_blank\" rel=\"noopener\">WPForms</a>, the leading WordPress SEO plugin, <a href=\"https://aioseo.com/\" target=\"_blank\" rel=\"noopener\">All In One SEO</a>, and many more! <br/><br/><br/> Yup, we know a thing or two about building awesome products that customers love."
 msgstr ""
 
-#: languages/vue-translations.php:1185
+#: languages/vue-translations.php:1180
 msgid "The Awesome Motive Team"
 msgstr ""
 
-#: languages/vue-translations.php:1188
+#: languages/vue-translations.php:1183
 msgid "Choose"
 msgstr ""
 
-#: languages/vue-translations.php:1191
+#: languages/vue-translations.php:1186
 msgid "Search..."
 msgstr ""
 
-#: languages/vue-translations.php:1194
+#: languages/vue-translations.php:1189
 msgid "Toggle"
 msgstr ""
 
-#: languages/vue-translations.php:1197
+#: languages/vue-translations.php:1192
 msgid "Single Text"
 msgstr ""
 
-#: languages/vue-translations.php:1200
+#: languages/vue-translations.php:1195
 msgid "Radio"
 msgstr ""
 
-#: languages/vue-translations.php:1203
+#: languages/vue-translations.php:1198
 msgid "NPS"
 msgstr ""
 
-#: languages/vue-translations.php:1206
+#: languages/vue-translations.php:1201
 #: pro/includes/admin/class-userfeedback-exports.php:59
 msgid "Question Title"
 msgstr ""
 
-#: languages/vue-translations.php:1209
+#: languages/vue-translations.php:1204
 msgid "Question"
 msgstr ""
 
-#: languages/vue-translations.php:1212
+#: languages/vue-translations.php:1207
 msgid "Logic"
 msgstr ""
 
-#: languages/vue-translations.php:1215
+#: languages/vue-translations.php:1210
 msgid "Delete Question"
 msgstr ""
 
-#: languages/vue-translations.php:1218
+#: languages/vue-translations.php:1213
 msgid "Are you sure you want to delete this question? <b>This cannot be undone</b>."
 msgstr ""
 
-#: languages/vue-translations.php:1221
+#: languages/vue-translations.php:1216
 msgid "Cancel"
 msgstr ""
 
-#: languages/vue-translations.php:1224
+#: languages/vue-translations.php:1219
 msgid "Yes, delete"
 msgstr ""
 
-#: languages/vue-translations.php:1227
+#: languages/vue-translations.php:1222
 msgid "Upgrade to Pro to unlock advanced question settings like Required Fields and Comment Boxes. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1230
+#: languages/vue-translations.php:1225
 msgid "Please activate the Question Types addon to access this feature. <a href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1233
+#: languages/vue-translations.php:1228
 msgid "Watch a Video Tutorial"
 msgstr ""
 
-#: languages/vue-translations.php:1236
+#: languages/vue-translations.php:1231
 msgid "UserFeedback makes it easy to create surveys in WordPress. You can watch the video tutorial above or read our guide on how create your first survey."
 msgstr ""
 
-#: languages/vue-translations.php:1239
+#: languages/vue-translations.php:1234
 msgid "Type your answer here..."
 msgstr ""
 
-#: languages/vue-translations.php:1242
+#: languages/vue-translations.php:1237
 msgid "Email Address"
 msgstr ""
 
-#: languages/vue-translations.php:1245
+#: languages/vue-translations.php:1240
 msgid "First Name"
 msgstr ""
 
-#: languages/vue-translations.php:1248
+#: languages/vue-translations.php:1243
 msgid "Have the Survey start minimized, instead of automatically opening to a question when first displayed."
 msgstr ""
 
-#: languages/vue-translations.php:1251
+#: languages/vue-translations.php:1246
 msgid "There was an error activating ExactMetrics"
 msgstr ""
 
-#: languages/vue-translations.php:1254
+#: languages/vue-translations.php:1249
 msgid "Installing MonsterInsights..."
 msgstr ""
 
-#: languages/vue-translations.php:1257
+#: languages/vue-translations.php:1252
 msgid "MonsterInsights has been installed successfully!"
 msgstr ""
 
-#: languages/vue-translations.php:1260
+#: languages/vue-translations.php:1255
 msgid "There was an error installing MonsterInsights"
 msgstr ""
 
-#: languages/vue-translations.php:1263
+#: languages/vue-translations.php:1258
 msgid "Installing ExactMetrics..."
 msgstr ""
 
-#: languages/vue-translations.php:1266
+#: languages/vue-translations.php:1261
 msgid "ExactMetrics has been installed successfully!"
 msgstr ""
 
-#: languages/vue-translations.php:1269
+#: languages/vue-translations.php:1264
 msgid "There was an error installing ExactMetrics"
 msgstr ""
 
-#: languages/vue-translations.php:1272
+#: languages/vue-translations.php:1267
 msgid "Tracking"
 msgstr ""
 
-#: languages/vue-translations.php:1275
+#: languages/vue-translations.php:1270
 msgid "Enable Google Analytics Tracking"
 msgstr ""
 
-#: languages/vue-translations.php:1278
+#: languages/vue-translations.php:1273
 msgid "Automatically track the impressions and responses of users with MonsterInsights"
 msgstr ""
 
-#: languages/vue-translations.php:1281
+#: languages/vue-translations.php:1276
 msgid "Automatically track the impressions and responses of users with ExactMetrics"
 msgstr ""
 
-#: languages/vue-translations.php:1284
+#: languages/vue-translations.php:1279
 msgid "Install MonsterInsights"
 msgstr ""
 
-#: languages/vue-translations.php:1287
+#: languages/vue-translations.php:1282
 msgid "Activate MonsterInsights"
 msgstr ""
 
-#: languages/vue-translations.php:1290
+#: languages/vue-translations.php:1285
 msgid "Install ExactMetrics"
 msgstr ""
 
-#: languages/vue-translations.php:1293
+#: languages/vue-translations.php:1288
 msgid "Activate ExactMetrics"
 msgstr ""
 
-#: languages/vue-translations.php:1296
+#: languages/vue-translations.php:1291
 msgid "Activating MonsterInsights..."
 msgstr ""
 
-#: languages/vue-translations.php:1299
+#: languages/vue-translations.php:1294
 msgid "MonsterInsights has been activated!"
 msgstr ""
 
-#: languages/vue-translations.php:1302
+#: languages/vue-translations.php:1297
 msgid "There was an error activating MonsterInsights"
 msgstr ""
 
-#: languages/vue-translations.php:1305
+#: languages/vue-translations.php:1300
 msgid "Activating ExactMetrics..."
 msgstr ""
 
-#: languages/vue-translations.php:1308
+#: languages/vue-translations.php:1303
 msgid "ExactMetrics has been activated!"
 msgstr ""
 
-#: languages/vue-translations.php:1311
+#: languages/vue-translations.php:1306
 msgid "Schedule for Later"
 msgstr ""
 
-#: languages/vue-translations.php:1314
+#: languages/vue-translations.php:1309
 msgid "Setup your Survey to start at a later date and time."
 msgstr ""
 
-#: languages/vue-translations.php:1317
+#: languages/vue-translations.php:1312
 msgid "Choose Date"
 msgstr ""
 
-#: languages/vue-translations.php:1320
+#: languages/vue-translations.php:1315
 msgid "at"
 msgstr ""
 
-#: languages/vue-translations.php:1323
+#: languages/vue-translations.php:1318
 msgid "Light"
 msgstr ""
 
-#: languages/vue-translations.php:1326
+#: languages/vue-translations.php:1321
 msgid "Dark"
 msgstr ""
 
-#: languages/vue-translations.php:1329
+#: languages/vue-translations.php:1324
 msgid "Color Scheme"
 msgstr ""
 
-#: languages/vue-translations.php:1332
+#: languages/vue-translations.php:1327
 msgid "Widget Color"
 msgstr ""
 
-#: languages/vue-translations.php:1336
+#: languages/vue-translations.php:1330
 msgid "Text Color"
 msgstr ""
 
-#: languages/vue-translations.php:1340
+#: languages/vue-translations.php:1333
 msgid "Button Color"
 msgstr ""
 
-#: languages/vue-translations.php:1343
+#: languages/vue-translations.php:1336
 msgid "Back"
 msgstr ""
 
-#: languages/vue-translations.php:1346
+#: languages/vue-translations.php:1339
 msgid "Next Step: %s"
 msgstr ""
 
-#: languages/vue-translations.php:1349
+#: languages/vue-translations.php:1342
 msgid "Apply global styles to all Survey widgets. These styles will be overwritten if adjusted in the individual Survey settings."
 msgstr ""
 
-#: languages/vue-translations.php:1352
+#: languages/vue-translations.php:1345
 msgid "Reset Colors"
 msgstr ""
 
-#: languages/vue-translations.php:1355
+#: languages/vue-translations.php:1348
 msgid "Step %s of %s"
 msgstr ""
 
-#: languages/vue-translations.php:1358
+#: languages/vue-translations.php:1351
 msgid "Exit Setup"
 msgstr ""
 
-#: languages/vue-translations.php:1361
+#: languages/vue-translations.php:1354
 msgid "This will install WP Mail SMTP"
 msgstr ""
 
-#: languages/vue-translations.php:1364
+#: languages/vue-translations.php:1357
 msgid "Possible Answers"
 msgstr ""
 
-#: languages/vue-translations.php:1368
+#: languages/vue-translations.php:1360
 msgid "Add Answer"
 msgstr ""
 
-#: languages/vue-translations.php:1371
+#: languages/vue-translations.php:1363
 msgid "Remove"
 msgstr ""
 
-#: languages/vue-translations.php:1374
+#: languages/vue-translations.php:1366
 msgid "First Survey"
 msgstr ""
 
-#: languages/vue-translations.php:1377
+#: languages/vue-translations.php:1369
 msgid "Features"
 msgstr ""
 
-#: languages/vue-translations.php:1380
+#: languages/vue-translations.php:1372
 msgid "Upgrade and Unlock"
 msgstr ""
 
-#: languages/vue-translations.php:1383
+#: languages/vue-translations.php:1375
 msgid "Show"
 msgstr ""
 
-#: languages/vue-translations.php:1386
+#: languages/vue-translations.php:1378
 msgid "Hide"
 msgstr ""
 
-#: languages/vue-translations.php:1389
+#: languages/vue-translations.php:1381
 msgid "There was an error installing the addon"
 msgstr ""
 
-#: languages/vue-translations.php:1392
+#: languages/vue-translations.php:1384
 msgid "There was an error installing the plugin"
 msgstr ""
 
-#: languages/vue-translations.php:1395
+#: languages/vue-translations.php:1387
 msgid "Activating..."
 msgstr ""
 
-#: languages/vue-translations.php:1398
+#: languages/vue-translations.php:1390
 msgid "Deactivating..."
 msgstr ""
 
-#: languages/vue-translations.php:1401
+#: languages/vue-translations.php:1394
 msgid "Installing..."
 msgstr ""
 
-#: languages/vue-translations.php:1404
+#: languages/vue-translations.php:1397
 msgid "Question Type"
 msgstr ""
 
-#: languages/vue-translations.php:1407
+#: languages/vue-translations.php:1400
 msgid "You may choose to skip a question, or series of questions based on the visitors response to this question."
 msgstr ""
 
-#: languages/vue-translations.php:1410
+#: languages/vue-translations.php:1403
 msgid "Display Logic"
 msgstr ""
 
-#: languages/vue-translations.php:1413
+#: languages/vue-translations.php:1406
 msgid "this question if"
 msgstr ""
 
-#: languages/vue-translations.php:1416
+#: languages/vue-translations.php:1409
 msgid "Add at least one Radio, Checkbox, NPS, or Star Rating question <b>before this question</b> to use conditional logic."
 msgstr ""
 
-#: languages/vue-translations.php:1419
+#: languages/vue-translations.php:1412
 msgid "Welcome to UserFeedback! 🎉 "
 msgstr ""
 
-#: languages/vue-translations.php:1422
+#: languages/vue-translations.php:1415
 msgid "This setup process should only take a couple of minutes."
 msgstr ""
 
-#: languages/vue-translations.php:1425
+#: languages/vue-translations.php:1418
 msgid "With UserFeedback, you can easily gather actionable feedback to unlock more sales and traffic opportunities from your WordPress site."
 msgstr ""
 
-#: languages/vue-translations.php:1428
+#: languages/vue-translations.php:1421
 msgid "Create an unlimited number of UserFeedback surveys anywhere on your website"
 msgstr ""
 
-#: languages/vue-translations.php:1431
+#: languages/vue-translations.php:1424
 msgid "Easily use different types of questions including multiple choice, checkbox, freeform, or star ratings"
 msgstr ""
 
-#: languages/vue-translations.php:1434
+#: languages/vue-translations.php:1427
 msgid "Collect feedback for things like content suggestions, product feedback, or design ideas to increase engagement and sales"
 msgstr ""
 
-#: languages/vue-translations.php:1437
+#: languages/vue-translations.php:1430
 msgid "%sUpgrade Now%s to Unlock These Extra Features!"
 msgstr ""
 
-#: languages/vue-translations.php:1440
+#: languages/vue-translations.php:1433
 msgid "To unlock your selected features, upgrade to UserFeedback Pro"
 msgstr ""
 
-#: languages/vue-translations.php:1443
+#: languages/vue-translations.php:1436
 msgid "Additional Question Types"
 msgstr ""
 
-#: languages/vue-translations.php:1446
+#: languages/vue-translations.php:1439
 msgid "Customized notifications and confirmations"
 msgstr ""
 
-#: languages/vue-translations.php:1449
+#: languages/vue-translations.php:1442
 msgid "Advanced Page and Device Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:1452
+#: languages/vue-translations.php:1445
 msgid "More Question Templates"
 msgstr ""
 
-#: languages/vue-translations.php:1455
+#: languages/vue-translations.php:1448
 msgid "View all responses and export to CSV"
 msgstr ""
 
-#: languages/vue-translations.php:1458
+#: languages/vue-translations.php:1451
 msgid "Upgrade Now & Save 50% →"
 msgstr ""
 
-#: languages/vue-translations.php:1461
+#: languages/vue-translations.php:1454
 msgid "UserFeedback Widget"
 msgstr ""
 
-#: languages/vue-translations.php:1464
+#: languages/vue-translations.php:1457
 msgid "Responses and Reporting"
 msgstr ""
 
-#: languages/vue-translations.php:1467
+#: languages/vue-translations.php:1460
 msgid "Google Analytics Integration"
 msgstr ""
 
-#: languages/vue-translations.php:1470
+#: languages/vue-translations.php:1463
 msgid "Customizable Widget"
 msgstr ""
 
-#: languages/vue-translations.php:1473
+#: languages/vue-translations.php:1466
 msgid "Feedback Export and Full History"
 msgstr ""
 
-#: languages/vue-translations.php:1476
+#: languages/vue-translations.php:1469
 msgid "Advanced Page-Level Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:1479
+#: languages/vue-translations.php:1472
 msgid "Email notifications integration"
 msgstr ""
 
-#: languages/vue-translations.php:1482
+#: languages/vue-translations.php:1475
 msgid "20+ Templates"
 msgstr ""
 
-#: languages/vue-translations.php:1485
+#: languages/vue-translations.php:1478
 msgid "Great! UserFeedback is almost ready to start "
 msgstr ""
 
-#: languages/vue-translations.php:1488
+#: languages/vue-translations.php:1481
 msgid "Start"
 msgstr ""
 
-#: languages/vue-translations.php:1491
+#: languages/vue-translations.php:1484
 msgid "Skip for now"
 msgstr ""
 
-#: languages/vue-translations.php:1494
+#: languages/vue-translations.php:1487
 msgid "Next Step: "
 msgstr ""
 
-#: languages/vue-translations.php:1497
+#: languages/vue-translations.php:1490
 msgid "Exit to dashboard"
 msgstr ""
 
-#: languages/vue-translations.php:1500
+#: languages/vue-translations.php:1493
 msgid "What do you like about this page?"
 msgstr ""
 
-#: languages/vue-translations.php:1503
+#: languages/vue-translations.php:1496
 msgid "What would make this website better?"
 msgstr ""
 
-#: languages/vue-translations.php:1506
+#: languages/vue-translations.php:1499
 msgid "Did you find the information you were looking for on this page? "
 msgstr ""
 
-#: languages/vue-translations.php:1509
+#: languages/vue-translations.php:1502
 msgid "Build your first UserFeedback survey"
 msgstr ""
 
-#: languages/vue-translations.php:1512
+#: languages/vue-translations.php:1505
 msgid "You can easily change or customize these settings later."
 msgstr ""
 
-#: languages/vue-translations.php:1515
+#: languages/vue-translations.php:1508
 msgid "What question do you want to ask your website visitors?"
 msgstr ""
 
-#: languages/vue-translations.php:1518
+#: languages/vue-translations.php:1511
 msgid "Create your own"
 msgstr ""
 
-#: languages/vue-translations.php:1521
+#: languages/vue-translations.php:1514
 msgid "Add the UserFeedback logo to my surveys."
 msgstr ""
 
-#: languages/vue-translations.php:1524
+#: languages/vue-translations.php:1517
 msgid "Customize your notifications"
 msgstr ""
 
-#: languages/vue-translations.php:1527
+#: languages/vue-translations.php:1520
 msgid "Where should we send UserFeedback answers?"
 msgstr ""
 
-#: languages/vue-translations.php:1530
+#: languages/vue-translations.php:1523
 msgid "email@example.com"
 msgstr ""
 
-#: languages/vue-translations.php:1533
+#: languages/vue-translations.php:1526
 msgid "I agree to receive important communications from UserFeedback"
 msgstr ""
 
-#: languages/vue-translations.php:1536
+#: languages/vue-translations.php:1529
 msgid "Help us better understand our users and their website needs"
 msgstr ""
 
-#: languages/vue-translations.php:1539
+#: languages/vue-translations.php:1532
 msgid "By allowing us to track usage data we can better help you because we know which WordPress configurations, themes, and plugins we should test. Complete documentation is available %shere%s."
 msgstr ""
 
-#: languages/vue-translations.php:1542
+#: languages/vue-translations.php:1535
 msgid "Which UserFeedback features would you like to enable?"
 msgstr ""
 
-#: languages/vue-translations.php:1545
+#: languages/vue-translations.php:1538
 msgid "We’ve already selected our recommended features. "
 msgstr ""
 
-#: languages/vue-translations.php:1548
+#: languages/vue-translations.php:1541
 msgid "Create an unlimited number of widgets anywhere on your website."
 msgstr ""
 
-#: languages/vue-translations.php:1551
+#: languages/vue-translations.php:1544
 msgid "View responses in realtime and track feedback trends."
 msgstr ""
 
-#: languages/vue-translations.php:1554
+#: languages/vue-translations.php:1547
 msgid "Easily segment and track which users are responding to your questions with automatic analytics event tracking."
 msgstr ""
 
-#: languages/vue-translations.php:1557
+#: languages/vue-translations.php:1550
 msgid "Email Notifications"
 msgstr ""
 
-#: languages/vue-translations.php:1560
+#: languages/vue-translations.php:1553
 msgid "Ensure you receive feedback instantly with proper email setup and configured from your website."
 msgstr ""
 
-#: languages/vue-translations.php:1563
+#: languages/vue-translations.php:1556
 msgid "Tweak the UserFeedback widget to match the look and feel of your website with custom colors and branding."
 msgstr ""
 
-#: languages/vue-translations.php:1566
+#: languages/vue-translations.php:1559
 msgid "Use stars, NPS, Comment Boxes, and make certain questions required in your UserFeedback widgets to increase the quality of feedback you receive."
 msgstr ""
 
-#: languages/vue-translations.php:1569
+#: languages/vue-translations.php:1562
 msgid "Analyze your responses over time and export them into a spreadsheet for in-depth analysis and decision making."
 msgstr ""
 
-#: languages/vue-translations.php:1572
+#: languages/vue-translations.php:1565
 msgid "Show UserFeedback questions only on certain pages, or if a user has been on the page for a certain amount of time or is using a particular device."
 msgstr ""
 
-#: languages/vue-translations.php:1575
+#: languages/vue-translations.php:1568
 msgid "Get up and running in seconds with premade feedback templates for all types of websites including eCommerce stores, B2B websites, membership sites, customer service, and more."
 msgstr ""
 
-#: languages/vue-translations.php:1578
+#: languages/vue-translations.php:1571
 msgid "Include Field for Name"
 msgstr ""
 
-#: languages/vue-translations.php:1581
+#: languages/vue-translations.php:1574
 msgid "Add a field to allow visitors to include their name alongside their email address."
 msgstr ""
 
-#: languages/vue-translations.php:1584
+#: languages/vue-translations.php:1577
 msgid "Answer"
 msgstr ""
 
-#: languages/vue-translations.php:1587
+#: languages/vue-translations.php:1580
 msgid "Visitors will see a text box to type their answer"
 msgstr ""
 
-#: languages/vue-translations.php:1590
+#: languages/vue-translations.php:1583
 msgid "Successful"
 msgstr ""
 
-#: languages/vue-translations.php:1593
+#: languages/vue-translations.php:1586
 msgid "Set up a series of actions that will trigger after a visitor submits a Survey."
 msgstr ""
 
-#: languages/vue-translations.php:1596
+#: languages/vue-translations.php:1589
 msgid "Copied to Clipboard"
 msgstr ""
 
-#: languages/vue-translations.php:1599
+#: languages/vue-translations.php:1592
 msgid "Upgrade to Pro to unlock Date Ranges. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1602
+#: languages/vue-translations.php:1595
 msgid "Please wait"
 msgstr ""
 
-#: languages/vue-translations.php:1605
+#: languages/vue-translations.php:1598
 msgid "Advanced: (survey will display if all specified conditions are met)"
 msgstr ""
 
-#: languages/vue-translations.php:1608
+#: languages/vue-translations.php:1601
 msgid "is"
 msgstr ""
 
-#: languages/vue-translations.php:1611
+#: languages/vue-translations.php:1604
 msgid "is not"
 msgstr ""
 
-#: languages/vue-translations.php:1614
+#: languages/vue-translations.php:1607
 msgid "User is"
 msgstr ""
 
-#: languages/vue-translations.php:1617
+#: languages/vue-translations.php:1610
 msgid "Type of page"
 msgstr ""
 
-#: languages/vue-translations.php:1620
+#: languages/vue-translations.php:1613
 msgid "Page or Post is"
 msgstr ""
 
-#: languages/vue-translations.php:1623
+#: languages/vue-translations.php:1616
 msgid "Page or Post is not"
 msgstr ""
 
-#: languages/vue-translations.php:1626
+#: languages/vue-translations.php:1619
 msgid "Post type is"
 msgstr ""
 
-#: languages/vue-translations.php:1629
+#: languages/vue-translations.php:1622
 msgid "Post type is not"
 msgstr ""
 
-#: languages/vue-translations.php:1632
+#: languages/vue-translations.php:1625
 msgid "Taxonomy page is"
 msgstr ""
 
-#: languages/vue-translations.php:1635
+#: languages/vue-translations.php:1628
 msgid "Taxonomy page is not"
 msgstr ""
 
-#: languages/vue-translations.php:1638
+#: languages/vue-translations.php:1631
 msgid "Taxonomy term is"
 msgstr ""
 
-#: languages/vue-translations.php:1641
+#: languages/vue-translations.php:1634
 msgid "Taxonomy term is not"
 msgstr ""
 
-#: languages/vue-translations.php:1644
+#: languages/vue-translations.php:1637
 msgid "Referrer is"
 msgstr ""
 
-#: languages/vue-translations.php:1647
+#: languages/vue-translations.php:1640
 msgid "Page url is"
 msgstr ""
 
-#: languages/vue-translations.php:1650
+#: languages/vue-translations.php:1643
 msgid "Page url is not"
 msgstr ""
 
-#: languages/vue-translations.php:1653
+#: languages/vue-translations.php:1646
 msgid "Please select.."
 msgstr ""
 
-#: languages/vue-translations.php:1656
+#: languages/vue-translations.php:1649
 msgid "Type to search..."
 msgstr ""
 
-#: languages/vue-translations.php:1659
+#: languages/vue-translations.php:1652
 msgid "And (add another rule)"
 msgstr ""
 
-#: languages/vue-translations.php:1662
+#: languages/vue-translations.php:1655
 msgid "https://"
 msgstr ""
 
-#: languages/vue-translations.php:1665
+#: languages/vue-translations.php:1658
 msgid "No results found"
 msgstr ""
 
-#: languages/vue-translations.php:1668
+#: languages/vue-translations.php:1661
 msgid "Survey will be displayed "
 msgstr ""
 
-#: languages/vue-translations.php:1671
+#: languages/vue-translations.php:1664
 msgid "<b>on All Pages</b>"
 msgstr ""
 
-#: languages/vue-translations.php:1674
+#: languages/vue-translations.php:1667
 msgid "<b>based upon custom targeting options</b>"
 msgstr ""
 
-#: languages/vue-translations.php:1677
+#: languages/vue-translations.php:1670
 msgid "Or (add another rule)"
 msgstr ""
 
-#: languages/vue-translations.php:1680
+#: languages/vue-translations.php:1673
 msgid "and"
 msgstr ""
 
-#: languages/vue-translations.php:1683
+#: languages/vue-translations.php:1676
 msgid "or"
 msgstr ""
 
-#: languages/vue-translations.php:1686
+#: languages/vue-translations.php:1679
 msgid "Question Settings"
 msgstr ""
 
-#: languages/vue-translations.php:1689
+#: languages/vue-translations.php:1682
 msgid "Making Email Deliverability Easy for WordPress"
 msgstr ""
 
-#: languages/vue-translations.php:1692
+#: languages/vue-translations.php:1685
 msgid "WP Mail SMTP fixes deliverability problems with your WordPress emails and form notifications. It's built by the same folks behind WPForms."
 msgstr ""
 
-#: languages/vue-translations.php:1695
+#: languages/vue-translations.php:1688
 msgid "Improves email deliverability in WordPress."
 msgstr ""
 
-#: languages/vue-translations.php:1698
+#: languages/vue-translations.php:1691
 msgid "Used by 2+ million websites."
 msgstr ""
 
-#: languages/vue-translations.php:1701
+#: languages/vue-translations.php:1694
 msgid "Free mailers: SendLayer, SMTP.com, Sendinblue, Google Workspace / Gmail, Mailgun, Postmark, SendGrid."
 msgstr ""
 
-#: languages/vue-translations.php:1704
+#: languages/vue-translations.php:1697
 msgid "Pro mailers: Amazon SES, Microsoft 365 / Outlook.com, Zoho Mail."
 msgstr ""
 
-#: languages/vue-translations.php:1707
+#: languages/vue-translations.php:1700
 msgid "Install and Activate WP Mail SMTP"
 msgstr ""
 
-#: languages/vue-translations.php:1710
+#: languages/vue-translations.php:1703
 msgid "Install WP Mail SMTP from the WordPress.org plugin repository."
 msgstr ""
 
-#: languages/vue-translations.php:1713
+#: languages/vue-translations.php:1706
 msgid "Activate WP Mail SMTP"
 msgstr ""
 
-#: languages/vue-translations.php:1716
+#: languages/vue-translations.php:1709
 msgid "Install WP Mail SMTP"
 msgstr ""
 
-#: languages/vue-translations.php:1719
+#: languages/vue-translations.php:1712
 msgid "WP Mail SMTP Installed"
 msgstr ""
 
-#: languages/vue-translations.php:1722
+#: languages/vue-translations.php:1715
 msgid "Set Up WP Mail SMTP"
 msgstr ""
 
-#: languages/vue-translations.php:1725
+#: languages/vue-translations.php:1718
 msgid "Select and configure your mailer."
 msgstr ""
 
-#: languages/vue-translations.php:1728
+#: languages/vue-translations.php:1721
 msgid "Open Setup Wizard"
 msgstr ""
 
-#: languages/vue-translations.php:1731
+#: languages/vue-translations.php:1724
 msgid "Custom Device Type"
 msgstr ""
 
-#: languages/vue-translations.php:1734
+#: languages/vue-translations.php:1727
 msgid "Conditional Display"
 msgstr ""
 
-#: languages/vue-translations.php:1737
+#: languages/vue-translations.php:1730
 msgid "Minimized Survey"
 msgstr ""
 
-#: languages/vue-translations.php:1740
+#: languages/vue-translations.php:1733
 msgid "This will install: "
 msgstr ""
 
-#: languages/vue-translations.php:1743
+#: languages/vue-translations.php:1736
 msgid "WP Mail SMTP"
 msgstr ""
 
-#: languages/vue-translations.php:1746
+#: languages/vue-translations.php:1739
 msgid "All In One SEO Toolkit"
 msgstr ""
 
-#: languages/vue-translations.php:1749
+#: languages/vue-translations.php:1742
 msgid "Uncanny Automator"
 msgstr ""
 
-#: languages/vue-translations.php:1752
+#: languages/vue-translations.php:1745
 msgid "Delete"
 msgstr ""
 
-#: languages/vue-translations.php:1755
+#: languages/vue-translations.php:1748
 msgid "Upgrade to Pro to unlock this feature. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1761
+#: languages/vue-translations.php:1754
 msgid "Integrations WIP"
 msgstr ""
 
-#: languages/vue-translations.php:1764
+#: languages/vue-translations.php:1757
 msgid "Unlock limitless possibilities with <br /> <strong>Uncanny Automator</strong>"
 msgstr ""
 
-#: languages/vue-translations.php:1767
+#: languages/vue-translations.php:1760
 msgid "Easily unlock integrations from every UserFeedback survey with<br /> the most popular automation plugin for WordPress."
 msgstr ""
 
-#: languages/vue-translations.php:1770
+#: languages/vue-translations.php:1763
 msgid "Unlock integrations such as..."
 msgstr ""
 
-#: languages/vue-translations.php:1773
+#: languages/vue-translations.php:1766
 msgid "Add a response to a Google Sheet"
 msgstr ""
 
-#: languages/vue-translations.php:1776
+#: languages/vue-translations.php:1769
 msgid "Send your team a Slack message"
 msgstr ""
 
-#: languages/vue-translations.php:1779
+#: languages/vue-translations.php:1772
 msgid "Add a contact to your CRM"
 msgstr ""
 
-#: languages/vue-translations.php:1782
+#: languages/vue-translations.php:1775
 msgid "SMS message yourself"
 msgstr ""
 
-#: languages/vue-translations.php:1785
+#: languages/vue-translations.php:1778
 msgid "Add to your email list"
 msgstr ""
 
-#: languages/vue-translations.php:1788
+#: languages/vue-translations.php:1781
 msgid "and much more!"
 msgstr ""
 
-#: languages/vue-translations.php:1791
+#: languages/vue-translations.php:1784
 msgid "UserFeedback Addons are a PRO feature"
 msgstr ""
 
-#: languages/vue-translations.php:1794
+#: languages/vue-translations.php:1787
 msgid "Please upgrade to PRO to unlock device targeting, complete branding, and more!"
 msgstr ""
 
-#: languages/vue-translations.php:1797
+#: languages/vue-translations.php:1790
 msgid "<a target=\"_blank\" class=\"button user-feedback-button\" rel=\"noopener\" href=\"%s\"><b>Upgrade Now</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1800
+#: languages/vue-translations.php:1793
 msgid "Your license key provides access to updates and addons."
 msgstr ""
 
-#: languages/vue-translations.php:1803
+#: languages/vue-translations.php:1796
 msgid "Verify Key"
 msgstr ""
 
-#: languages/vue-translations.php:1806
+#: languages/vue-translations.php:1799
 msgid "Survey Feedback Automations"
 msgstr ""
 
-#: languages/vue-translations.php:1809
+#: languages/vue-translations.php:1802
 msgid "The best WordPress SEO plugin that works with MonsterInsights to boost your rankings."
 msgstr ""
 
-#: languages/vue-translations.php:1812
+#: languages/vue-translations.php:1805
 msgid "Uncanny Automator is the best free no-code way to send your UserFeedback responses to anywhere like Google Sheets, Zapier, HubSpot, and more."
 msgstr ""
 
-#: languages/vue-translations.php:1816
+#: languages/vue-translations.php:1808
 msgid "Net Promoter Pro"
 msgstr ""
 
-#: languages/vue-translations.php:1819
+#: languages/vue-translations.php:1811
 msgid "Upgrade to Pro and Unlock:"
 msgstr ""
 
-#: languages/vue-translations.php:1822
+#: languages/vue-translations.php:1814
 msgid "All Question Types Like Star Ratings & NPS <span class=\"reg\">&reg;</span>"
 msgstr ""
 
-#: languages/vue-translations.php:1825
+#: languages/vue-translations.php:1817
 msgid "Comment Boxes for Even More Insights"
 msgstr ""
 
-#: languages/vue-translations.php:1828
+#: languages/vue-translations.php:1820
 msgid "Device Targeting for Desktop, Mobile, or Tablet"
 msgstr ""
 
-#: languages/vue-translations.php:1831
+#: languages/vue-translations.php:1823
 msgid "Schedule Feedback Forms"
 msgstr ""
 
-#: languages/vue-translations.php:1834
+#: languages/vue-translations.php:1826
 msgid "20+ Premium Templates"
 msgstr ""
 
-#: languages/vue-translations.php:1837
+#: languages/vue-translations.php:1829
 msgid "Custom Survey Redirects"
 msgstr ""
 
-#: languages/vue-translations.php:1840
+#: languages/vue-translations.php:1832
 msgid "Totally Customizable Branding"
 msgstr ""
 
-#: languages/vue-translations.php:1843
+#: languages/vue-translations.php:1835
 msgid "Page, Post & Taxonomy Targeting"
 msgstr ""
 
-#: languages/vue-translations.php:1846
+#: languages/vue-translations.php:1838
 msgid "Priority Support"
 msgstr ""
 
-#: languages/vue-translations.php:1849
+#: languages/vue-translations.php:1841
 msgid "...And much more!"
 msgstr ""
 
-#: languages/vue-translations.php:1852
+#: languages/vue-translations.php:1844
 msgid "<b>Bonus:</b> UserFeedback Lite Users <b>Save 50%</b> off normal pricing"
 msgstr ""
 
-#: languages/vue-translations.php:1855
+#: languages/vue-translations.php:1847
 msgid "Use Coupon Code: <b>LiteUpgrade</b>"
 msgstr ""
 
-#: languages/vue-translations.php:1858
+#: languages/vue-translations.php:1850
 msgid "Installed"
 msgstr ""
 
-#: languages/vue-translations.php:1861
+#: languages/vue-translations.php:1853
 msgid "Get Started"
 msgstr ""
 
-#: languages/vue-translations.php:1864
+#: languages/vue-translations.php:1856
 msgid "Create Recipe"
 msgstr ""
 
-#: languages/vue-translations.php:1867
+#: languages/vue-translations.php:1859
 msgid "Install Uncanny Automator"
 msgstr ""
 
-#: languages/vue-translations.php:1870
+#: languages/vue-translations.php:1862
 msgid "Activate Uncanny Automator"
 msgstr ""
 
-#: languages/vue-translations.php:1873
+#: languages/vue-translations.php:1865
 msgid "Uncanny Automator Activated"
 msgstr ""
 
-#: languages/vue-translations.php:1876
+#: languages/vue-translations.php:1868
 msgid "Run Setup Wizard"
 msgstr ""
 
-#: languages/vue-translations.php:1879
+#: languages/vue-translations.php:1871
 msgid "Create a Recipe"
 msgstr ""
 
-#: languages/vue-translations.php:1882
+#: languages/vue-translations.php:1874
 msgid "Get UserFeedback Pro and Unlock All The Powerful Features"
 msgstr ""
 
-#: languages/vue-translations.php:1885
+#: languages/vue-translations.php:1877
 msgid "Thanks for being a loyal UserFeedback Lite user. Upgrade to UserFeedback Pro to unlock all of our latest features to help take your feedback to the next level."
 msgstr ""
 
-#: languages/vue-translations.php:1888
+#: languages/vue-translations.php:1880
 msgid "Pro Features:"
 msgstr ""
 
-#: languages/vue-translations.php:1891
+#: languages/vue-translations.php:1883
 msgid "Unlimited surveys"
 msgstr ""
 
-#: languages/vue-translations.php:1894
+#: languages/vue-translations.php:1886
 msgid "Unlimited survey answers & responses"
 msgstr ""
 
-#: languages/vue-translations.php:1897
+#: languages/vue-translations.php:1889
 msgid "All question types like Star Ratings and NPS(&reg)"
 msgstr ""
 
-#: languages/vue-translations.php:1900
+#: languages/vue-translations.php:1892
 msgid "Comment boxes for even more actionable feedback"
 msgstr ""
 
-#: languages/vue-translations.php:1903
+#: languages/vue-translations.php:1895
 msgid "Complete survey customizations like colors, icons, and text to match your branding"
 msgstr ""
 
-#: languages/vue-translations.php:1906
+#: languages/vue-translations.php:1898
 msgid "Device Level Targeting to show on Desktop, Mobile, or Tablet."
 msgstr ""
 
-#: languages/vue-translations.php:1909
+#: languages/vue-translations.php:1901
 msgid "Page or Posts Page Targeting and advanced conditions"
 msgstr ""
 
-#: languages/vue-translations.php:1912
+#: languages/vue-translations.php:1904
 msgid "20+ premium one click templates"
 msgstr ""
 
-#: languages/vue-translations.php:1915
+#: languages/vue-translations.php:1907
 msgid "Survey redirects and completion logic"
 msgstr ""
 
-#: languages/vue-translations.php:1918
+#: languages/vue-translations.php:1910
 msgid "Survey scheduling"
 msgstr ""
 
-#: languages/vue-translations.php:1921
+#: languages/vue-translations.php:1913
 msgid "<a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Get UserFeedback Pro Today and Unlock all the Powerful Features »</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1924
+#: languages/vue-translations.php:1916
 msgid "<b>Bonus:</b> UserFeedback Lite Users get <b class=\"has-text-success\">50% off the regular price</b>, automatically applied at checkout.  "
 msgstr ""
 
-#: languages/vue-translations.php:1927
+#: languages/vue-translations.php:1919
 msgid "Select Survey"
 msgstr ""
 
-#: languages/vue-translations.php:1930
+#: languages/vue-translations.php:1922
 msgid "Icon"
 msgstr ""
 
-#: languages/vue-translations.php:1933
+#: languages/vue-translations.php:1925
 msgid "Icon Color"
 msgstr ""
 
-#: languages/vue-translations.php:1936
+#: languages/vue-translations.php:1928
 msgid "Widget Label"
 msgstr ""
 
-#: languages/vue-translations.php:1939
+#: languages/vue-translations.php:1931
 msgid "Widget Font"
 msgstr ""
 
-#: languages/vue-translations.php:1942
+#: languages/vue-translations.php:1934
 msgid "Widget Position"
 msgstr ""
 
-#: languages/vue-translations.php:1945
+#: languages/vue-translations.php:1937
 msgid "Theme Color"
 msgstr ""
 
-#: languages/vue-translations.php:1948
+#: languages/vue-translations.php:1940
 msgid "Background Color"
 msgstr ""
 
-#: languages/vue-translations.php:1951
+#: languages/vue-translations.php:1943
 msgid "No Logo"
 msgstr ""
 
-#: languages/vue-translations.php:1954
+#: languages/vue-translations.php:1946
 msgid "You must select a custom logo."
 msgstr ""
 
-#: languages/vue-translations.php:1957
+#: languages/vue-translations.php:1949
 msgid "Display UserFeedback Logo"
 msgstr ""
 
-#: languages/vue-translations.php:1960
+#: languages/vue-translations.php:1952
 msgid "%s is a PRO feature"
 msgstr ""
 
-#: languages/vue-translations.php:1963
+#: languages/vue-translations.php:1955
 msgid "We're sorry, the %s is not available on your plan. Please upgrade to the PRO plan to unlock all these awesome features."
 msgstr ""
 
-#: languages/vue-translations.php:1966
+#: languages/vue-translations.php:1958
 msgid "Upgrade to PRO"
 msgstr ""
 
-#: languages/vue-translations.php:1969
+#: languages/vue-translations.php:1961
 msgid "Already purchased?"
 msgstr ""
 
-#: languages/vue-translations.php:1972
+#: languages/vue-translations.php:1964
 msgid "<b>Bonus:</b> UserFeedback Lite users get <span class=\"discount\">50% off</span> regular price,<br>automatically applied at checkout."
 msgstr ""
 
-#: languages/vue-translations.php:1975
+#: languages/vue-translations.php:1967
 msgid "Error..."
 msgstr ""
 
-#: languages/vue-translations.php:1978
+#: languages/vue-translations.php:1970
 msgid "Middle Left"
 msgstr ""
 
-#: languages/vue-translations.php:1981
+#: languages/vue-translations.php:1973
 msgid "Middle Right"
 msgstr ""
 
-#: languages/vue-translations.php:1984
+#: languages/vue-translations.php:1976
 msgid "Please activate the Targeting addon to access this feature. <a target=\"_blank\" rel=\"noopener\" href=\"%s\"><b>Activate Addon</b></a>"
 msgstr ""
 
-#: languages/vue-translations.php:1987
+#: languages/vue-translations.php:1979
 msgid "Conditional Email Logic"
 msgstr ""
 
-#: languages/vue-translations.php:1990
+#: languages/vue-translations.php:1982
 msgid "Font family"
 msgstr ""
 
-#: languages/vue-translations.php:1993
+#: languages/vue-translations.php:1985
 msgid "Font weight"
 msgstr ""
 
-#: languages/vue-translations.php:1996
+#: languages/vue-translations.php:1988
 msgid "Use Theme"
 msgstr ""
 
-#: languages/vue-translations.php:1999
+#: languages/vue-translations.php:1991
 msgid "Use Custom Font"
 msgstr ""
 
-#: languages/vue-translations.php:2002
+#: languages/vue-translations.php:1994
 msgid "Upgrade Required"
 msgstr ""
 
-#: languages/vue-translations.php:2005
+#: languages/vue-translations.php:1997
 msgid "Install Now"
 msgstr ""
 
-#: languages/vue-translations.php:2008
+#: languages/vue-translations.php:2000
 msgid "Custom Close Icon"
 msgstr ""
 
-#: languages/vue-translations.php:2011
+#: languages/vue-translations.php:2003
 msgid "Custom Icon Color"
 msgstr ""
 
-#: languages/vue-translations.php:2014
+#: languages/vue-translations.php:2006
 msgid "Custom Widget Label"
 msgstr ""
 
-#: languages/vue-translations.php:2017
+#: languages/vue-translations.php:2009
 msgid "Custom Widget Font"
 msgstr ""
 
-#: languages/vue-translations.php:2020
+#: languages/vue-translations.php:2012
 msgid "Custom Widget Position"
 msgstr ""
 
-#: languages/vue-translations.php:2023
+#: languages/vue-translations.php:2015
 msgid "Custom Theme Color"
 msgstr ""
 
-#: languages/vue-translations.php:2026
+#: languages/vue-translations.php:2018
 msgid "Custom Logo"
 msgstr ""
 
-#: languages/vue-translations.php:2029
+#: languages/vue-translations.php:2021
 msgid "Select Question Type"
 msgstr ""
 
-#: languages/vue-translations.php:2032
+#: languages/vue-translations.php:2024
 msgid "How would you rate your overall experience?"
 msgstr ""
 
-#: languages/vue-translations.php:2035
+#: languages/vue-translations.php:2027
 msgid "On a scale of 1-10, how likely would you recommend us to a friend or colleague?"
 msgstr ""
 
-#: languages/vue-translations.php:2038
+#: languages/vue-translations.php:2030
 msgid "Automatic Updates"
 msgstr ""
 
-#: languages/vue-translations.php:2041
+#: languages/vue-translations.php:2033
 msgid "<b>Yes (recommended)</b> - Get the latest features, bugfixes, and security updates as they are released."
 msgstr ""
 
-#: languages/vue-translations.php:2044
+#: languages/vue-translations.php:2036
 msgid "<b>Minor only</b> - Get bugfixes and security updates, but not major features."
 msgstr ""
 
-#: languages/vue-translations.php:2047
+#: languages/vue-translations.php:2039
 msgid "<b>None</b> - Manually update everything."
 msgstr ""
 
-#: languages/vue-translations.php:2050
+#: languages/vue-translations.php:2042
 msgid "Footer"
 msgstr ""
 
-#: languages/vue-translations.php:2053
+#: languages/vue-translations.php:2045
 msgid "Skip Text"
 msgstr ""
 
-#: languages/vue-translations.php:2056
+#: languages/vue-translations.php:2048
 msgid "Next Text"
 msgstr ""
 
-#: languages/vue-translations.php:2059
+#: languages/vue-translations.php:2051
 msgid "PRO"
 msgstr ""
 
-#: languages/vue-translations.php:2062
+#: languages/vue-translations.php:2054
 msgid "Survey Customization"
 msgstr ""
 
-#: languages/vue-translations.php:2065
+#: languages/vue-translations.php:2057
 msgid "Completely Customize<br />UserFeedback with Pro."
 msgstr ""
 
-#: languages/vue-translations.php:2068
+#: languages/vue-translations.php:2060
 msgid "Upgrade to pro and unlock customizations like:"
 msgstr ""
 
-#: languages/vue-translations.php:2071
+#: languages/vue-translations.php:2063
 msgid "Survey Position"
 msgstr ""
 
-#: languages/vue-translations.php:2074
+#: languages/vue-translations.php:2066
 msgid "Theme Colors"
 msgstr ""
 
-#: languages/vue-translations.php:2077
+#: languages/vue-translations.php:2069
 msgid "Custom Fonts"
 msgstr ""
 
-#: languages/vue-translations.php:2080
+#: languages/vue-translations.php:2072
 msgid "Customized Logo"
 msgstr ""
 
-#: languages/vue-translations.php:2083
+#: languages/vue-translations.php:2075
 msgid "Customized Icon"
 msgstr ""
 
-#: languages/vue-translations.php:2086
+#: languages/vue-translations.php:2078
 msgid "Custom Colors"
 msgstr ""
 
-#: languages/vue-translations.php:2089
+#: languages/vue-translations.php:2081
 msgid "Title is required."
 msgstr ""
 
-#: languages/vue-translations.php:2092
+#: languages/vue-translations.php:2084
 msgid "Options are required."
 msgstr ""
 
-#: languages/vue-translations.php:2095
+#: languages/vue-translations.php:2087
 msgid "Page url contains"
 msgstr ""
 
-#: languages/vue-translations.php:2098
+#: languages/vue-translations.php:2090
 msgid "Page url not contains"
 msgstr ""
 
-#: languages/vue-translations.php:2101
+#: languages/vue-translations.php:2093
 msgid "Type a string"
 msgstr ""
 
-#: languages/vue-translations.php:2104
+#: languages/vue-translations.php:2096
 msgid "Install Free Plugin"
 msgstr ""
 
-#: languages/vue-translations.php:2107
+#: languages/vue-translations.php:2099
 msgid "Go to "
 msgstr ""
 
-#: languages/vue-translations.php:2110
+#: languages/vue-translations.php:2102
 msgid "<b>Bonus:</b> UserFeedback %s users get <span class=\"discount\">50%% off</span> regular price, <br />automatically applied at checkout."
 msgstr ""
 

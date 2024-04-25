@@ -91,9 +91,14 @@ function wpmem_do_install() {
 			wpmem_upgrade_hidden_transient();
 		}
 
-		// @todo Temp until 3.5.0.
-		update_option( 'wpmem_enable_field_sc', 2 );
+		if ( version_compare( $existing_settings['db_version'], '3.4.9', '<' ) ) {
+			update_option( 'wpmem_enable_field_sc', 2 );
+		}
 
+		if ( version_compare( $existing_settings['db_version'], '3.4.9.4', '<' ) ) {
+			wpmem_update_user_dirs();
+		}
+	
 		// If this is an upgrade, check for correct onboarding.
 		update_option( 'wpmembers_install_state', 'update_pending' );
 	}
@@ -813,7 +818,7 @@ function wpmem_onboarding_init( $action ) {
 			'notice_heading' => __( 'Thank you for updating WP-Members, the original WordPress membership plugin.', 'wp-members' ),
 			'notice_button'  => __( 'Complete the update', 'wp-members' ),
 			'show_release_notes' => true,
-			'release_notes_link' => "https://rocketgeek.com/release-announcements/wp-members-3-4-9-3/",
+			'release_notes_link' => "https://rocketgeek.com/release-announcements/wp-members-3-4-9-4/",
 		),
     );
     $wpmem_onboarding = new RocketGeek_Onboarding_Beta( $settings );
@@ -834,7 +839,7 @@ function wpmem_onboarding_opt_in() {
     // $onboarding_title = ( 'upgrade' == $args['param1'] ) ? __( 'WP-Members Upgrade', 'wp-members' ) : __( "WP-Members New Install", 'wp-members' );
 	$install_state = get_option( 'wpmembers_install_state' );
 	$onboarding_title = ( 'update_pending' == $install_state ) ? __( 'WP-Members Upgrade', 'wp-members' ) : __( "WP-Members New Install", 'wp-members' );
-    $onboarding_release_notes = "https://rocketgeek.com/release-announcements/wp-members-3-4-9-3/";
+    $onboarding_release_notes = "https://rocketgeek.com/release-announcements/wp-members-3-4-9-4/";
     $onboarding_version = $wpmem->version;
 
     $page = ( ! isset( $_POST['step'] ) ) ? 'step_1' : $_POST['step'];
@@ -871,5 +876,34 @@ function wpmem_upgrade_user_search_crud_table() {
 	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "wpmembers_user_search_crud;" );
 	// If the table does not exist, create the table to store the meta keys.
 	$wpdb->query( "CREATE TABLE IF NOT EXISTS " . $wpdb->prefix . "wpmembers_user_search_crud (meta_key VARCHAR(255) NOT NULL);" );
+}
+
+function wpmem_update_user_dirs() {
+
+	$users_to_check = get_users( array( 'fields'=>'ID' ));
+
+	// Get the uploads directory base.
+	$upload_vars  = wp_upload_dir( null, false );
+	$wpmem_base_dir = trailingslashit( trailingslashit( $upload_vars['basedir'] ) . 'wpmembers' );
+	$wpmem_user_files_dir = $wpmem_base_dir . 'user_files/';
+
+	if ( file_exists( $wpmem_user_files_dir ) ) {
+
+		// We need this for the utility functions.
+		include_once 'api/api-utilities.php';
+
+		// Add indexes and htaccess
+		wpmem_create_index_file( $wpmem_base_dir );
+		wpmem_create_index_file( $wpmem_user_files_dir );
+		wpmem_create_htaccess_file( $wpmem_user_files_dir );
+
+		// Loop through users to update user dirs.
+		foreach ( $users_to_check as $user ) {
+			$wpmem_user_dir = $wpmem_user_files_dir . $user;
+			if ( is_dir( $wpmem_user_dir ) ) {
+				wpmem_create_index_file( $wpmem_user_dir );
+			}
+		}
+	}
 }
 // End of file.

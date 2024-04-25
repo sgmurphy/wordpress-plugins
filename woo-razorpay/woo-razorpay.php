@@ -3,8 +3,8 @@
  * Plugin Name: 1 Razorpay: Signup for FREE PG
  * Plugin URI: https://razorpay.com
  * Description: Razorpay Payment Gateway Integration for WooCommerce.Razorpay Welcome Back Offer: New to Razorpay? Sign up to enjoy FREE payments* of INR 2 lakh till March 31st! Transact before January 10th to grab the offer.
- * Version: 4.6.2
- * Stable tag: 4.6.2
+ * Version: 4.6.4
+ * Stable tag: 4.6.4
  * Author: Team Razorpay
  * WC tested up to: 7.9.0
  * Author URI: https://razorpay.com
@@ -1531,7 +1531,6 @@ EOT;
 
             $data = array(
                 'amount'    =>  (int) round($amount * 100),
-                'speed'     => 'optimum',
                 'notes'     =>  array(
                     'reason'                =>  $reason,
                     'order_id'              =>  $orderId,
@@ -1546,8 +1545,7 @@ EOT;
                     ->fetch($paymentId)
                     ->refund($data);
 
-                if (isset($refund) === true and
-                    isset($refund->id) === true)
+                if (isset($refund) === true)
                 {
                     $order->add_order_note(__('Refund Id: ' . $refund->id, 'woocommerce'));
                     /**
@@ -1566,36 +1564,7 @@ EOT;
             }
             catch(Exception $e)
             {
-                rzpLogInfo('Refund failed with error message :- ' . $e->getMessage());
-
-                rzpLogInfo('Refund reinitiated with normal speed.');
-
-                try
-                {
-                    $data['speed'] = 'normal';
-
-                    $refund = $client->payment
-                                    ->fetch($paymentId)
-                                    ->refund($data);
-
-                    if (isset($refund) === true and
-                        isset($refund->id) === true)
-                    {
-                        $order->add_order_note(__('Refund Id: ' . $refund->id, 'woocommerce'));
-
-                        do_action('woo_razorpay_refund_success', $refund->id, $orderId, $refund);
-
-                        rzpLogInfo('Refund ID = ' . $refund->id .
-                                    ' , Refund speed requested = ' . $refund->speed_requested .
-                                    ' , Refund speed processed = ' . $refund->speed_processed);
-                    }
-
-                    return true;
-                }
-                catch(Exception $e)
-                {
-                    return new WP_Error('error', __($e->getMessage(), 'woocommerce'));
-                }
+                return new WP_Error('error', __($e->getMessage(), 'woocommerce'));
             }
         }
 

@@ -11,6 +11,8 @@ Class L_Plus_Library {
 	 * @var   object
 	 */	
 	private static $instance = null;
+
+	// public $tmp_widget = true;
 	
 	public $l_registered_widgets;
     /**
@@ -26,6 +28,8 @@ Class L_Plus_Library {
      * Return saved settings
      *
      * @since 2.0
+	 * 
+	 * @version 5.4.1
      */
     public function get_plus_widget_settings($element = null) {
 		$replace = [
@@ -41,6 +45,7 @@ Class L_Plus_Library {
 			'tp_contact_form_7' => 'tp-contact-form-7',
 			'tp_countdown' => 'tp-countdown',
 			'tp_dark_mode' => 'tp-dark-mode',
+			'tp_dynamic_categories' => 'tp-dynamic-categories',
 			'tp_everest_form' => 'tp-everest-form',
 			'tp_flip_box' => 'tp-flip-box',
 			'tp_gallery_listout' => 'tp-gallery-listout',
@@ -61,6 +66,7 @@ Class L_Plus_Library {
 			'tp_post_meta' => 'tp-post-meta',
 			'tp_post_author' => 'tp-post-author',
 			'tp_post_comment' => 'tp-post-comment',
+			'tp_post_navigation' => 'tp-post-navigation',
 			'tp_page_scroll' => 'tp-page-scroll',
 			'tp_pricing_table' => 'tp-pricing-table',
 			'tp_post_search' => 'tp-post-search',
@@ -87,25 +93,58 @@ Class L_Plus_Library {
 		    return (array_key_exists($val, $replace) ? $replace[$val] : $val);
         }, $elements);
 		
-		if(in_array('tp-number-counter',$elements)){
-			$merge[]= 'tp-draw-svg';
+		if ( in_array( 'tp-number-counter', $elements ) ) {
+			$merge[]= 'tp-number-counter';
+			$merge[]= 'tp-number-counter-style-1';
+			$merge[]= 'tp-number-counter-style-2';
+			$merge[] = 'tp-draw-svg';
 		}
+
 		if(in_array('tp-blog-listout',$elements)){
 			$merge[] = 'plus-listing-masonry';
 			$merge[] = 'plus-listing-metro';
+			$merge[] = 'tp-blog-listout';
+			$merge[] = 'tp-bloglistout-style-1';
 		}
-		if(in_array('tp-gallery-listout',$elements)){
+
+		if(in_array('tp-info-box',$elements)){
+			$merge[] = 'tp-info-box';
+			$merge[] = 'tp-info-box-style_1';
+			$merge[] = 'tp-info-box-style_3';
+		}
+
+		if ( in_array( 'tp-gallery-listout', $elements ) ) {
 			$merge[] = 'plus-listing-masonry';
 			$merge[] = 'plus-listing-metro';
+			$merge[] = 'tp-gallery-listout';
+			$merge[] = 'tp-gallery-listout-style-1';
 		}
+
 		if(in_array('tp-team-member-listout',$elements)){
+			$merge[] = 'tp-team-member-listout';
+			$merge[] = 'tp-team-member-listout-style-1';
 			$merge[] = 'plus-listing-masonry';
 		}
-		if(in_array('tp-testimonial-listout',$elements)){
+
+		if ( in_array( 'tp-testimonial-listout', $elements ) ) {
+			$merge[] = 'tp-testimonial-listout';
+			$merge[] = 'tp-testimonial-listout-style-1';
+			$merge[] = 'tp-testimonial-listout-style-2';
+			$merge[] = 'tp-testimonial-listout-style-3';
+			$merge[] = 'tp-testimonial-listout-style-4';
 			$merge[] = 'plus-listing-masonry';
+			$merge[] = 'tp-arrows-style-2';
+			$merge[] = 'tp-arrows-style';
+			$merge[] = 'tp-carousel-style-1';
+			$merge[] = 'tp-carousel-style';
+
+			$merge[] = 'tp-carosual-extra';
+			$merge[] = 'tp-bootstrap-grid';
 		}
-		if(in_array('tp-page-scroll',$elements)){
+
+		if ( in_array( 'tp-page-scroll', $elements ) ) {
 			$merge[] = 'tp-fullpage';
+			$merge[] = 'tp-fullpage-scroll';
 		}		
 		
 		if(!empty($plus_extras) && in_array('section_scroll_animation',$plus_extras)){
@@ -117,6 +156,130 @@ Class L_Plus_Library {
 		
 		if(tp_has_lazyload()){
 			$merge[] ='plus-lazyLoad';
+		}
+
+		if ( in_array( 'tp-age-gate', $elements ) ) {
+			$merge[] = 'tp-age-gate';
+			$merge[] = 'tp-ag-method-1';
+			$merge[] = 'tp-ag-method-2';
+			$merge[] = 'tp-ag-method-3';
+		}
+
+		if(in_array('tp-blockquote',$elements) ){
+			$merge[] = 'tp-blockquote';
+			$merge[] = 'tp-bq-bl_1';
+			$merge[] = 'tp-bq-bl_2';
+			$merge[] = 'tp-bq-bl_3';
+		}
+
+		if(in_array('tp-countdown',$elements)){
+			$merge[] = 'tp-countdown';
+			$merge[] = 'tp-countdown-style-1';
+			$merge[] = 'tp-countdown-style-2';
+			$merge[] = 'tp-countdown-style-3';
+		}
+
+		if(in_array('tp-heading-title',$elements)){
+			$merge[]= 'tp-heading-title';
+			$merge[]= 'tp-heading-title-style_1';
+			$merge[]= 'tp-heading-title-style_2';
+			$merge[]= 'tp-heading-title-style_3';
+			$merge[]= 'tp-heading-title-style_4';
+			$merge[]= 'tp-heading-title-style_5';
+			$merge[]= 'tp-heading-title-style_6';
+			$merge[]= 'tp-heading-title-style_7';
+			$merge[]= 'tp-heading-title-style_8';
+			$merge[]= 'tp-heading-title-style_9';
+			$merge[]= 'tp-heading-title-style_10';
+			$merge[]= 'tp-heading-title-style_11';
+		}
+
+		if ( in_array( 'tp-progress-bar', $elements ) ) {
+			$merge[]= 'tp-progress-bar';
+			$merge[]= 'tp-piechart';
+		}
+		$tmp_widget = true;
+		$tp_widget = ['tp-button', 'tp-flip-box', 'tp-info-box', 'tp-pricing-table', 'tp-blog-listout'];
+		foreach ($tp_widget as $value) {
+			if(!empty($tmp_widget) && in_array( $value ,$elements)){
+				$merge[]= 'tp-button';
+				$merge[]= 'tp-button-style-1';
+				$merge[]= 'tp-button-style-2';
+				$merge[]= 'tp-button-style-3';
+				$merge[]= 'tp-button-style-4';
+				$merge[]= 'tp-button-style-5';
+				$merge[]= 'tp-button-style-6';
+				$merge[]= 'tp-button-style-7';
+				$merge[]= 'tp-button-style-8';
+				$merge[]= 'tp-button-style-9';
+				$merge[]= 'tp-button-style-10';
+				$merge[]= 'tp-button-style-11';
+				$merge[]= 'tp-button-style-12';
+				$merge[]= 'tp-button-style-13';
+				$merge[]= 'tp-button-style-14';
+				$merge[]= 'tp-button-style-15';
+				$merge[]= 'tp-button-style-16';
+				$merge[]= 'tp-button-style-17';
+				$merge[]= 'tp-button-style-18';
+				$merge[]= 'tp-button-style-19';
+				$merge[]= 'tp-button-style-20';
+				$merge[]= 'tp-button-style-21';
+				$merge[]= 'tp-button-style-22';
+			    $merge[]= 'tp-button-style-24';
+				$tmp_widget = false; 
+			}
+		}
+
+		if(in_array('tp-social-icon',$elements)){
+			$merge[] = 'tp-social-icon';
+			$merge[] = 'tp-social-icon-style-1';
+			$merge[] = 'tp-social-icon-style-2';
+			$merge[] = 'tp-social-icon-style-3';
+			$merge[] = 'tp-social-icon-style-4';
+			$merge[] = 'tp-social-icon-style-5';
+			$merge[] = 'tp-social-icon-style-6';
+			$merge[] = 'tp-social-icon-style-7';
+			$merge[] = 'tp-social-icon-style-8';
+			$merge[] = 'tp-social-icon-style-9';
+			$merge[] = 'tp-social-icon-style-10';
+			$merge[] = 'tp-social-icon-style-11';
+			$merge[] = 'tp-social-icon-style-12';
+			$merge[] = 'tp-social-icon-style-13';
+			$merge[] = 'tp-social-icon-style-14';
+			$merge[] = 'tp-social-icon-style-15';
+		}
+
+		if ( in_array( 'tp-pricing-table', $elements ) ) {
+			$merge[] = 'tp-pricing-table';
+			$merge[] = 'tp-pricing-table-style-1';
+		}
+
+		if ( in_array( 'tp-scroll-navigation', $elements ) ) {
+			$merge[] = 'tp-scroll-navigation';
+			$merge[] = 'tp-scroll-navigation-style-1';
+		}
+
+		if ( in_array( 'tp-video-player', $elements ) ) {
+			$merge[] = 'tp-lity-extra';
+		}
+
+		if ( in_array( 'tp-heading-animation', $elements ) ) {
+			$merge[] = 'tp-heading-animation';
+			$merge[] = 'tp-heading-animation-style-1';
+			$merge[] = 'tp-heading-animation-style-2';
+			$merge[] = 'tp-heading-animation-style-3';
+			$merge[] = 'tp-heading-animation-style-4';
+			$merge[] = 'tp-heading-animation-style-5';
+			$merge[] = 'tp-heading-animation-style-6';
+		}
+
+		if( in_array('tp-dynamic-categories',$elements )){
+			$merge[] = 'plus-listing-masonry';
+			$merge[] = 'plus-listing-metro';
+			$merge[] = 'tp-dynamic-categories';
+			$merge[] = 'tp-dynamic-categories-style_1';
+			$merge[] = 'tp-dynamic-categories-style_2';
+			$merge[] = 'tp-dynamic-categories-style_3';
 		}
 		
 		$result =array_unique($merge);
