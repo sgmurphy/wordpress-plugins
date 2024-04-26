@@ -266,3 +266,15 @@
     -webkit-mask-image: url('icons/google-review.svg');
 	mask-image: url('icons/google-review.svg');
 }
+.eae-testimonial-slider::before{
+    -webkit-mask-image: url('icons/testimonial-slider.svg');
+	mask-image: url('icons/testimonial-slider.svg');
+}
+.eae-woo-products::before{
+    -webkit-mask-image: url('icons/woo-products.svg');
+	mask-image: url('icons/woo-products.svg');
+}
+.eae-woo-category::before{
+    -webkit-mask-image: url('icons/woo-category.svg');
+	mask-image: url('icons/woo-category.svg');
+}

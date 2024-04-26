@@ -98,6 +98,7 @@ class WPML_Compatibility {
 		require_once EAE_PATH . 'wpml/modules/pro/class-wpml-image-hotspot.php';
 		require_once EAE_PATH . 'wpml/modules/pro/class-wpml-image-stack.php';
 		require_once EAE_PATH . 'wpml/modules/pro/class-wpml-info-group.php';
+		require_once EAE_PATH . 'wpml/modules/pro/class-wpml-testimonial-slider.php';
 
 			$widgets = $this->advanced_heading( $widgets );
 			$widgets = $this->add_to_calendar( $widgets );
@@ -119,7 +120,9 @@ class WPML_Compatibility {
 			$widgets = $this->image_stack( $widgets );
 			$widgets = $this->info_group( $widgets );
 			$widgets = $this->coupon_code( $widgets );
+			$widgets = $this->testimonial_slider( $widgets );
 			$widgets = $this->google_review( $widgets );
+			$widgets = $this->woo_category( $widgets );
 		}
 		return $widgets;
 	}
@@ -1015,6 +1018,16 @@ class WPML_Compatibility {
 		return $widgets;
 	}
 
+	private function testimonial_slider( $widgets ){
+		$widgets['eae-testimonial'] = [
+			'conditions' => [ 'widgetType' => 'eae-testimonial' ],
+			'fields'            => [],
+			'integration-class' => '\WTS_EAE\WPML_EAE_Testimonial_Slider',
+		];
+
+		return $widgets;
+	}
+
 	private function coupon_code( $widgets ){
 		$widgets['eae-coupon-code'] = [
 			'conditions' => [ 'widgetType' => 'eae-coupon-code' ],
@@ -1115,6 +1128,19 @@ class WPML_Compatibility {
 			],
 		];
 
+		return $widgets;
+	}
+	private function woo_category( $widgets ){
+		$widgets['eae-woo-category'] = [
+			'conditions' => [ 'widgetType' => 'eae-woo-category' ],
+			'fields'     => [
+				[
+					'field'       => 'btn_text',
+					'type'        => __( 'Woo Category : Button Text', 'wts-eae' ),
+					'editor_type' => 'LINE',
+				],
+			],
+		];
 		return $widgets;
 	}
 

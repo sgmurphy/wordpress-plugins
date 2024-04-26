@@ -4,8 +4,8 @@ Donate link: https://quadlayers.com/products/woocommerce-checkout-manager/
 Tags: checkout field editor, woocommerce checkout field editor, checkout manager, woocommerce checkout manager, checkout field customizer, checkout form editor, checkout form customizer, checkout, WooCommerce checkout, checkout form designer, woocommerce checkout fields, woocommerce checkout addons
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 6.4
-Stable tag: 7.4.6
+Tested up to: 6.5
+Stable tag: 7.4.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 4.7.0
@@ -153,7 +153,10 @@ Your Order data can be reviewed in each order within the default WooCommerce Ord
 
 == Changelog ==
 
-=  7.4.6
+=  7.4.8
+* WooCommerce compatibility
+
+=  7.4.7
 * Fix: Checkout radio files
 
 =  7.4.5

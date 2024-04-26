@@ -28694,28 +28694,32 @@ const fetchArticlesAPI = async (search, locale, sectionName, articles) => {
       });
     }
   }
-  queryString = (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_1__.buildQueryString)({
-    query: search,
-    locale,
-    section: sectionName
-  });
-  if ((0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_2__/* .canAccessWpcomApis */ .IH)()) {
-    searchResultResponse = await (0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Ay)({
-      path: `help/search/wpcom?${queryString}`,
-      apiNamespace: 'wpcom/v2/',
-      apiVersion: '2'
+
+  // If less than 5 tailored articles are returned, fetch search results.
+  if (articlesResponse?.length < 5) {
+    queryString = (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_1__.buildQueryString)({
+      query: search,
+      locale,
+      section: sectionName
     });
-  } else {
-    searchResultResponse = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-      global: true,
-      path: `/help-center/search?${queryString}`
-    });
+    if ((0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_2__/* .canAccessWpcomApis */ .IH)()) {
+      searchResultResponse = await (0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Ay)({
+        path: `help/search/wpcom?${queryString}`,
+        apiNamespace: 'wpcom/v2/',
+        apiVersion: '2'
+      });
+    } else {
+      searchResultResponse = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+        global: true,
+        path: `/help-center/search?${queryString}`
+      });
+    }
+    // Remove articles that are already in the tailored articles.
+    searchResultResponse = filterOutDuplicatedItems(articlesResponse, searchResultResponse);
   }
-  // Remove articles that are already in the tailored articles.
-  const searchResult = filterOutDuplicatedItems(articlesResponse, searchResultResponse);
 
   //Add tailored results first then add search results.
-  const combinedResults = [...articlesResponse, ...searchResult];
+  const combinedResults = [...articlesResponse, ...searchResultResponse];
   return combinedResults.slice(0, 5);
 };
 const useHelpSearchQuery = (search, locale = 'en', queryOptions = {}, sectionName = '', tailoredArticles) => {
@@ -28846,6 +28850,7 @@ const TRACKING_IDS = {
   facebookInit: '823166884443641',
   facebookJetpackInit: '919484458159593',
   facebookAkismetInit: '485349158311379',
+  logRocket: 'fsw5w8/jetpack-logrocket-trial',
   outbrainAdvId: '00f0f5287433c2851cc0cb917c7ff0465e',
   pinterestInit: '2613194105266',
   quantcast: 'p-3Ma3jHaQMB_bS',
@@ -30078,6 +30083,91 @@ async function initializeAnalytics(currentUser, superProps) {
 
 /***/ }),
 
+/***/ 78065:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Du: () => (/* binding */ maybeAddLogRocketScript)
+/* harmony export */ });
+/* unused harmony exports mayWeLoadLogRocketScript, recordLogRocketEvent */
+/* harmony import */ var _automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98948);
+/* harmony import */ var _automattic_calypso_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70696);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2090);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(debug__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ad_tracking_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10228);
+/* harmony import */ var _tracker_buckets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73943);
+
+
+
+
+
+const logRocketDebug = debug__WEBPACK_IMPORTED_MODULE_2___default()('calypso:analytics:logrocket');
+let logRocketScriptLoaded = false;
+function mayWeLoadLogRocketScript() {
+  return _automattic_calypso_config__WEBPACK_IMPORTED_MODULE_1__/* ["default"].isEnabled */ .Ay.isEnabled('logrocket') && (0,_tracker_buckets__WEBPACK_IMPORTED_MODULE_3__/* .mayWeTrackByTracker */ .ct)('logrocket');
+}
+function maybeAddLogRocketScript() {
+  if (logRocketScriptLoaded) {
+    logRocketDebug('LogRocket script already loaded');
+    return;
+  }
+  if (!mayWeLoadLogRocketScript()) {
+    logRocketDebug('Not loading LogRocket script');
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = 'https://cdn.logrocket.io/LogRocket.min.js';
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  script.onload = () => {
+    logRocketDebug('LogRocket script loaded');
+    if (window.LogRocket) {
+      window.LogRocket.init(_ad_tracking_constants__WEBPACK_IMPORTED_MODULE_4__/* .TRACKING_IDS */ .Zw.logRocket, {
+        dom: {
+          // None of the input elements will be recorded or sent to LogRocket
+          // @see https://docs.logrocket.com/reference/dom#sanitize-all-user-input-fields
+          inputSanitizer: true
+        },
+        network: {
+          // Disable recording of network data
+          // @see https://docs.logrocket.com/reference/network#disable-recording-of-network-data
+          isEnabled: false
+        }
+      });
+      maybeIdentifyUser();
+      logRocketScriptLoaded = true;
+    }
+  };
+  script.onerror = () => {
+    logRocketDebug('Error loading LogRocket script');
+  };
+  document.head.appendChild(script);
+}
+function maybeIdentifyUser() {
+  if (!window.LogRocket) {
+    return;
+  }
+  const currentUser = (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_0__/* .getCurrentUser */ .HW)();
+  if (currentUser) {
+    logRocketDebug('maybeIdentifyUser:', currentUser);
+    window.LogRocket.identify(currentUser.hashedPii.ID);
+  }
+}
+function recordLogRocketEvent(name, props) {
+  maybeAddLogRocketScript();
+  if (!window.LogRocket || !name) {
+    return;
+  }
+  logRocketDebug('recordLogRocketEvent:', {
+    name,
+    props
+  });
+  window.LogRocket.track(name, props);
+}
+
+/***/ }),
+
 /***/ 45935:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -30614,8 +30704,8 @@ async function trackAffiliateReferral({
 
 
 
-const allAdTrackers = (/* unused pure expression or super */ null && (['bing', 'floodlight', 'googleAds', 'googleTagManager', 'ga', 'gaEnhancedEcommerce', 'hotjar', 'outbrain', 'pinterest', 'twitter', 'facebook', 'quantcast', 'gemini', 'experian', 'iconMedia', 'linkedin', 'criteo', 'pandora', 'quora', 'adroll', 'parsely', 'clarity', 'reddit']));
-const sessionAdTrackers = ['hotjar'];
+const allAdTrackers = (/* unused pure expression or super */ null && (['bing', 'floodlight', 'googleAds', 'googleTagManager', 'ga', 'gaEnhancedEcommerce', 'hotjar', 'outbrain', 'pinterest', 'twitter', 'facebook', 'quantcast', 'gemini', 'experian', 'iconMedia', 'linkedin', 'logrocket', 'criteo', 'pandora', 'quora', 'adroll', 'parsely', 'clarity', 'reddit']));
+const sessionAdTrackers = ['hotjar', 'logrocket'];
 let Bucket = /*#__PURE__*/function (Bucket) {
   Bucket["ESSENTIAL"] = "essential";
   Bucket["ADVERTISING"] = "advertising";
@@ -30633,6 +30723,7 @@ const AdTrackersBuckets = {
   floodlight: Bucket.ADVERTISING,
   googleAds: Bucket.ADVERTISING,
   googleTagManager: Bucket.ADVERTISING,
+  logrocket: Bucket.ADVERTISING,
   outbrain: Bucket.ADVERTISING,
   pinterest: Bucket.ADVERTISING,
   twitter: Bucket.ADVERTISING,
@@ -37983,13 +38074,15 @@ const recordGooglePageView = (url, title) => recordPageView(url, title, 'ga');
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   X: () => (/* binding */ analyticsMiddleware)
 /* harmony export */ });
-/* harmony import */ var calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6500);
+/* harmony import */ var calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6500);
 /* harmony import */ var calypso_lib_analytics_ga__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37535);
 /* harmony import */ var calypso_lib_analytics_hotjar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18983);
-/* harmony import */ var calypso_lib_analytics_mc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45935);
-/* harmony import */ var calypso_lib_analytics_page_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19004);
-/* harmony import */ var calypso_lib_analytics_tracks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39279);
-/* harmony import */ var calypso_state_action_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(31260);
+/* harmony import */ var calypso_lib_analytics_logrocket__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(78065);
+/* harmony import */ var calypso_lib_analytics_mc__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45935);
+/* harmony import */ var calypso_lib_analytics_page_view__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19004);
+/* harmony import */ var calypso_lib_analytics_tracks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(39279);
+/* harmony import */ var calypso_state_action_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(31260);
+
 
 
 
@@ -38007,14 +38100,14 @@ const eventServices = {
   tracks: ({
     name,
     properties
-  }) => (0,calypso_lib_analytics_tracks__WEBPACK_IMPORTED_MODULE_4__.recordTracksEvent)(name, properties),
+  }) => (0,calypso_lib_analytics_tracks__WEBPACK_IMPORTED_MODULE_5__.recordTracksEvent)(name, properties),
   fb: ({
     name,
     properties
-  }) => (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_5__/* .trackCustomFacebookConversionEvent */ .h)(name, properties),
+  }) => (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .trackCustomFacebookConversionEvent */ .h)(name, properties),
   adwords: ({
     properties
-  }) => (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_5__/* .trackCustomAdWordsRemarketingEvent */ .s)(properties)
+  }) => (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .trackCustomAdWordsRemarketingEvent */ .s)(properties)
 };
 const pageViewServices = {
   ga: ({
@@ -38026,17 +38119,20 @@ const pageViewServices = {
     title,
     options,
     ...params
-  }) => (0,calypso_lib_analytics_page_view__WEBPACK_IMPORTED_MODULE_3__/* .recordPageView */ .e)(url, title, params, options)
+  }) => (0,calypso_lib_analytics_page_view__WEBPACK_IMPORTED_MODULE_4__/* .recordPageView */ .e)(url, title, params, options)
 };
 const loadTrackingTool = trackingTool => {
   if (trackingTool === 'HotJar') {
     (0,calypso_lib_analytics_hotjar__WEBPACK_IMPORTED_MODULE_1__/* .addHotJarScript */ .JT)();
   }
+  if (trackingTool === 'LogRocket') {
+    (0,calypso_lib_analytics_logrocket__WEBPACK_IMPORTED_MODULE_2__/* .maybeAddLogRocketScript */ .Du)();
+  }
 };
 const statBump = ({
   group,
   name
-}) => (0,calypso_lib_analytics_mc__WEBPACK_IMPORTED_MODULE_2__/* .bumpStat */ .v)(group, name);
+}) => (0,calypso_lib_analytics_mc__WEBPACK_IMPORTED_MODULE_3__/* .bumpStat */ .v)(group, name);
 const dispatcher = action => {
   const analyticsMeta = action.meta.analytics;
   analyticsMeta.forEach(({
@@ -38048,22 +38144,22 @@ const dispatcher = action => {
       ...params
     } = payload;
     switch (type) {
-      case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_6__/* .ANALYTICS_EVENT_RECORD */ .C2g:
+      case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_7__/* .ANALYTICS_EVENT_RECORD */ .C2g:
         return eventServices[service]?.(params);
-      case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_6__/* .ANALYTICS_PAGE_VIEW_RECORD */ .zIF:
+      case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_7__/* .ANALYTICS_PAGE_VIEW_RECORD */ .zIF:
         return pageViewServices[service]?.(params);
-      case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_6__/* .ANALYTICS_STAT_BUMP */ .Bpe:
+      case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_7__/* .ANALYTICS_STAT_BUMP */ .Bpe:
         return statBump(params);
     }
   });
 };
 const analyticsMiddleware = () => next => action => {
   switch (action.type) {
-    case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_6__/* .ANALYTICS_TRACKING_ON */ .J7f:
+    case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_7__/* .ANALYTICS_TRACKING_ON */ .J7f:
       loadTrackingTool(action.trackingTool);
       return;
-    case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_6__/* .ANALYTICS_TRACKS_OPT_OUT */ .xEs:
-      (0,calypso_lib_analytics_tracks__WEBPACK_IMPORTED_MODULE_4__.setTracksOptOut)(action.isOptingOut);
+    case calypso_state_action_types__WEBPACK_IMPORTED_MODULE_7__/* .ANALYTICS_TRACKS_OPT_OUT */ .xEs:
+      (0,calypso_lib_analytics_tracks__WEBPACK_IMPORTED_MODULE_5__.setTracksOptOut)(action.isOptingOut);
       return;
     default:
       if (action.meta?.analytics) {
@@ -53155,6 +53251,8 @@ function getFeatureByKey(feature) {
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11421);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(52400);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(49433);
+/* harmony import */ var _plans__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(68242);
+
 
 
 
@@ -53272,9 +53370,7 @@ const getPlanPersonalDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_PERSONAL */ .gA,
-  getTitle: () =>
-  // translators: Starter is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Starter'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanPersonalTitle */ .Sr,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for personal use'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for personal use'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for personal use'),
@@ -53319,9 +53415,7 @@ const getPlanEcommerceDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_ECOMMERCE */ .UQ,
-  getTitle: () =>
-  // translators: Entrepreneur is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Entrepreneur'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanEcommerceTitle */ .iP,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for online stores'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for online stores'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for online stores'),
@@ -53409,9 +53503,7 @@ const getPlanPremiumDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_PREMIUM */ .n4,
-  getTitle: () =>
-  // translators: Explorer is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Explorer'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanPremiumTitle */ .$h,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for freelancers'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for freelancers'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for freelancers'),
@@ -53472,9 +53564,7 @@ const getPlanBusinessDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_BUSINESS */ .e8,
-  getTitle: () =>
-  // translators: Creator is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Creator'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanBusinessTitle */ .gL,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for small businesses'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for small businesses'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for small businesses'),
@@ -54389,6 +54479,39 @@ PLANS_LIST[_constants__WEBPACK_IMPORTED_MODULE_6__/* .PLAN_HOSTING_TRIAL_MONTHLY
   getDescription: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Hosting free trial'),
   getTagline: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Get a taste of unlimited performance and unbeatable uptime')
 };
+
+/***/ }),
+
+/***/ 68242:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   $h: () => (/* binding */ getPlanPremiumTitle),
+/* harmony export */   Sr: () => (/* binding */ getPlanPersonalTitle),
+/* harmony export */   gL: () => (/* binding */ getPlanBusinessTitle),
+/* harmony export */   iP: () => (/* binding */ getPlanEcommerceTitle)
+/* harmony export */ });
+/* harmony import */ var i18n_calypso__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(85744);
+
+
+/**
+ * Extracted functions to avoid Calypso apps from depending on the PLANS_LIST object.
+ * See: p7H4VZ-4S4-p2
+ */
+
+const getPlanPersonalTitle = () =>
+// translators: Starter is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Starter');
+const getPlanPremiumTitle = () =>
+// translators: Explorer is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Explorer');
+const getPlanBusinessTitle = () =>
+// translators: Creator is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Creator');
+const getPlanEcommerceTitle = () =>
+// translators: Entrepreneur is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Entrepreneur');
 
 /***/ }),
 
@@ -58883,6 +59006,7 @@ function createPurchaseObject(purchase) {
     isRefundable: Boolean(purchase.is_refundable),
     isRenewable: Boolean(purchase.is_renewable),
     isRenewal: Boolean(purchase.is_renewal),
+    isWooExpressTrial: Boolean(purchase.is_woo_express_trial),
     meta: purchase.meta,
     ownershipId: Number(purchase.ownership_id),
     priceText: purchase.price_text,
@@ -61302,6 +61426,7 @@ const HelpCenterContactForm = props => {
   const [debouncedSubject] = (0,use_debounce__WEBPACK_IMPORTED_MODULE_25__/* ["default"] */ .A)(subject || '', 500);
   const enableGPTResponse = _automattic_calypso_config__WEBPACK_IMPORTED_MODULE_2__/* ["default"].isEnabled */ .Ay.isEnabled('help/gpt-response') && !(params.get('disable-gpt') === 'true') && !wapuuFlow;
   const showingSearchResults = params.get('show-results') === 'true';
+  const skipResources = params.get('skip-resources') === 'true';
   const showingGPTResponse = enableGPTResponse && params.get('show-gpt') === 'true';
   const redirectToArticle = (0,react__WEBPACK_IMPORTED_MODULE_6__.useCallback)((event, result) => {
     event.preventDefault();
@@ -61360,7 +61485,7 @@ const HelpCenterContactForm = props => {
     });
   }
   function handleCTA() {
-    if (!enableGPTResponse && !showingSearchResults && !wapuuFlow) {
+    if (!enableGPTResponse && !showingSearchResults && !wapuuFlow && !skipResources) {
       params.set('show-results', 'true');
       navigate({
         pathname: '/contact-form',
@@ -61560,7 +61685,7 @@ const HelpCenterContactForm = props => {
   };
   const getCTALabel = () => {
     const showingHelpOrGPTResults = showingSearchResults || showingGPTResponse;
-    if (!showingGPTResponse && !showingSearchResults) {
+    if (!showingGPTResponse && !showingSearchResults && !skipResources) {
       return __('Continue', "full-site-editing");
     }
     if (showingGPTResponse && isFetchingGPTResponse) {
@@ -66290,6 +66415,7 @@ function useHasEnTranslation() {
 /* harmony export */   Ws: () => (/* binding */ localesForPricePlans),
 /* harmony export */   _J: () => (/* binding */ supportSiteLocales),
 /* harmony export */   lW: () => (/* binding */ magnificentNonEnLocales),
+/* harmony export */   mt: () => (/* binding */ localesWithLearn),
 /* harmony export */   rh: () => (/* binding */ jetpackComLocales),
 /* harmony export */   s6: () => (/* binding */ englishLocales)
 /* harmony export */ });
@@ -66306,6 +66432,7 @@ const localesWithBlog = ['en', 'ja', 'es', 'pt', 'fr', 'pt-br'];
 const localesWithGoBlog = ['en', 'pt-br', 'de', 'es', 'fr', 'it'];
 const localesWithPrivacyPolicy = ['en', 'fr', 'de', 'es'];
 const localesWithCookiePolicy = ['en', 'fr', 'de', 'es'];
+const localesWithLearn = ['en', 'es'];
 const localesForPricePlans = ['ar', 'de', 'el', 'es', 'fr', 'he', 'id', 'it', 'ja', 'ko', 'nl', 'pt-br', 'ro', 'ru', 'sv', 'tr', 'zh-cn', 'zh-tw'];
 const localesToSubdomains = {
   'pt-br': 'br',
@@ -66424,6 +66551,7 @@ const urlLocalizationMapping = {
     }
     return prefixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .localesWithGoBlog */ .Cx)(url, localeSlug);
   },
+  'wordpress.com/pricing/': prefixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .localesForPricePlans */ .Ws),
   'wordpress.com/tos/': prefixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW),
   'wordpress.com/wp-admin/': setLocalizedUrlHost('wordpress.com', _locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW),
   'wordpress.com/wp-login.php': setLocalizedUrlHost('wordpress.com', _locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW),
@@ -66467,6 +66595,9 @@ const urlLocalizationMapping = {
   },
   'wordpress.com/start/': (url, localeSlug, isLoggedIn) => {
     return isLoggedIn ? url : suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW)(url, localeSlug);
+  },
+  'wordpress.com/learn/': (url, localeSlug) => {
+    return suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .localesWithLearn */ .mt)(url, localeSlug);
   },
   'wordpress.com/plans/': (url, localeSlug, isLoggedIn) => {
     // if logged in, or url.pathname contains characters after `/plans/`, don't rewrite

@@ -1,6 +1,10 @@
-= 3.6.31 =
+= 3.6.42 =
 
-* Add blueprint
+* Update blueprint
+
+= 3.6.4 =
+
+* Improve font file upload handling
 
 = 3.6.3 =
 

@@ -3,8 +3,8 @@ Contributors: glenwpcoder, yordansoares
 Donate link : http://codedropz.com/donation
 Tags: drag and drop, contact form 7, ajax uploader, multiple file, upload
 Requires at least: 3.0.1
-Tested up to: 6.4
-Stable tag: 1.3.7.7
+Tested up to: 6.5
+Stable tag: 1.3.7.8
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -159,6 +159,10 @@ To install this plugin see below:
 6. Multiple Drag and Drop Fields - Front
 
 == Changelog ==
+
+= 1.3.7.8 =
+- Added "index.php" file to plugin upload directories for security enhancement, especially for servers like Nginx that do not support .htaccess files. This prevents unauthorized access to files. (Thanks to @Wordfence team for reporting the issue)
+- New - Added an option in the admin "Unique Filename" to randomize or generate unique filename.
 
 = 1.3.7.7 =
 - Fixes - js/css enabled as default 'dnd_cf7_load_on_cf7_page' filter

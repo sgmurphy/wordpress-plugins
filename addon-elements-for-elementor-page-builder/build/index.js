@@ -412,7 +412,6 @@ class SwiperBase{
 			}
         });
     }
-
 	after_swiper_load_func(mswiper , wid = '') {		
         if (mswiper.length > 0) {
             mswiper.forEach(function (slider) {
@@ -442,6 +441,7 @@ class SwiperBase{
             mswiper.on('slideChangeTransitionStart', function () {
                 mswiper.$wrapperEl.find('.swiper-slide-duplicate').each(function (element) {
                     const parentDiv = element.closest('.eae-vg-video-container');
+
                     if(parentDiv !== null){
                         let videoWrapper = element.querySelector('.eae-vg-element');
                         videoWrapper.addEventListener('click', function(e){
@@ -458,6 +458,7 @@ class SwiperBase{
                             videoWrapper.append(iframe);
                         });
                     }
+					
 
 
 					// woo products quick view
@@ -473,6 +474,32 @@ class SwiperBase{
                             
                           }
                     }));
+
+					// Testimonial Slider 
+						
+                    const testimonialSlider = element.closest('.eae-testimonial-wrapper');
+					if(testimonialSlider !== null){
+						const breakpoints = parseInt(testimonialSlider.getAttribute('data-stacked'));
+						const imgElements = testimonialSlider.querySelectorAll('.eae-additional-image.eae-preset-2');
+
+						if(testimonialSlider !== null){
+							window.addEventListener("resize", function(){
+								const currentWindowWidth = this.window.innerWidth;
+								if(currentWindowWidth <= breakpoints) {
+									imgElements.forEach(img => {
+										img.style.display = 'none';
+									});
+								}
+								else {
+									imgElements.forEach(img => {
+										img.style.display = 'flex';
+									});
+								}
+							})
+						}
+					}
+					
+                
 					mswiper.init();
 				});					
             });
@@ -2896,6 +2923,76 @@ class SwiperBase{
 
 /***/ }),
 
+/***/ 602:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(377);
+
+(function ($) {
+    $(window).on('elementor/frontend/init', function () {
+        var ModuleHandler = elementorModules.frontend.handlers.Base,
+        TestimonialHandler;
+
+                TestimonialHandler = ModuleHandler.extend({
+                getDefaultSettings: function getDefaultSettings() {
+                    return {
+                        settings: this.getElementSettings(),
+                    };
+                },
+                getDefaultElements: function getDefaultElements(){
+                    
+                    const wId = this.$element.data('id');
+                    const scope = this.$element;
+                    const element = document.querySelector('.elementor-element-' + wId);
+                    const wrapper = element.querySelector('.eae-testimonial-wrapper');
+                    return {
+                        eid: wId,
+                        element: element,
+                        wrapper: wrapper,
+                        scope: scope,
+                    }
+                },
+                onInit: function onInit(){
+                    const { settings } = this.getDefaultSettings();
+                    const { wrapper , scope} = this.getDefaultElements();
+                    let { element } = this.getDefaultElements();
+                    const { eid } = this.getDefaultElements();
+                    const imgElements = wrapper.querySelectorAll('.eae-additional-image.eae-preset-2');
+                    const contentElements = wrapper.querySelectorAll('.eae-ts-content-section');
+                    const breakpoints = parseInt(wrapper.getAttribute('data-stacked'));
+                
+                    if(wrapper.classList.contains('eae-testimonial-slider')){
+                        const outer_wrapper = scope.find('.eae-swiper-outer-wrapper');
+                        const swiper_settings = outer_wrapper.data('swiper-settings');
+                        new _base__WEBPACK_IMPORTED_MODULE_0__/* .SwiperBase */ .w(swiper_settings, eid, scope);
+                    }  
+                    window.addEventListener("resize", function(){
+                        const currentWindowWidth = this.window.innerWidth;
+                        if(currentWindowWidth <= breakpoints) {
+                            imgElements.forEach(img => {
+                                img.style.display = 'none';
+                            });
+                        }
+                        else {
+                            imgElements.forEach(img => {
+                                img.style.display = 'flex';
+                            });
+                        }
+                    })
+                },
+            });
+            elementorFrontend.hooks.addAction('frontend/element_ready/eae-testimonial.default', function ($scope) {	
+                elementorFrontend.elementsHandler.addHandler(TestimonialHandler, {
+                    $element: $scope
+                  });
+            });
+
+        });   
+})(jQuery);
+
+/***/ }),
+
 /***/ 986:
 /***/ (() => {
 
@@ -3490,6 +3587,93 @@ class SwiperBase{
 
 /***/ }),
 
+/***/ 806:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(377);
+
+(function ($) {
+    $(window).on('elementor/frontend/init', function () {
+        var ModuleHandler = elementorModules.frontend.handlers.Base,
+            WooProductsHandler;
+
+            WooProductsHandler = ModuleHandler.extend({
+                getDefaultSettings: function getDefaultSettings() {
+                    return {
+                        settings: this.getElementSettings(),
+                    };
+                },
+                getDefaultElements: function getDefaultElements(){
+                    
+                    const wId = this.$element.data('id');
+                    const scope = this.$element;
+                    const element = document.querySelector('.elementor-element-' + wId);
+                    const wrapper = element.querySelector('.eae-woo-cat-wrapper');
+                    return {
+                        eid: wId,
+                        element: element,
+                        wrapper: wrapper,
+                        scope: scope,
+                    }
+                },
+                onInit: function onInit(){
+                    const { settings } = this.getDefaultSettings();
+                    const { wrapper , scope} = this.getDefaultElements();
+                    let { element } = this.getDefaultElements();
+                    const { eid } = this.getDefaultElements();
+                    let LottieWrapper = wrapper.querySelectorAll('.eae-category-card');
+
+                    if(wrapper.classList.contains('eae-wp-slider')){
+                        const outer_wrapper = scope.find('.eae-swiper-outer-wrapper');
+                        const swiper_settings = outer_wrapper.data('swiper-settings');
+                        new _base__WEBPACK_IMPORTED_MODULE_0__/* .SwiperBase */ .w(swiper_settings, eid, scope);
+                    }  
+                    
+                    window.addEventListener("resize", function(){
+                        let resizeValue = wrapper.getAttribute('data-stacked');
+                        let width = this.window.innerWidth;
+                        if(width <= resizeValue ){
+                            wrapper.classList.add('enable-stacked');
+                        }else{
+                            wrapper.classList.remove('enable-stacked');
+                        }
+                    });
+
+                    LottieWrapper.forEach(data => {
+                        let isLottiePanle = data.querySelector('.eae-lottie');
+                        if (isLottiePanle != null) {
+                            let lottie_data = JSON.parse(isLottiePanle.getAttribute('data-lottie-settings'));
+                            let eae_animation = lottie.loadAnimation({
+                                container: isLottiePanle,
+                                path: lottie_data.url,
+                                renderer: "svg",
+                                loop: lottie_data.loop,
+                            });
+            
+                            if (lottie_data.reverse == true) {
+                                eae_animation.setDirection(-1);
+                            }
+                        }
+                    })
+
+                },
+                onElementChange: function onElementChange(propertyName) {                  
+                        
+                },
+
+            });
+            elementorFrontend.hooks.addAction('frontend/element_ready/eae-woo-category.default', function ($scope) {	
+                elementorFrontend.elementsHandler.addHandler(WooProductsHandler, {
+                    $element: $scope
+                  });
+            });
+
+        });   
+})(jQuery);
+
+/***/ }),
+
 /***/ 123:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
@@ -3664,8 +3848,10 @@ class SwiperBase{
 /******/ 	__webpack_require__(284);
 /******/ 	__webpack_require__(195);
 /******/ 	__webpack_require__(525);
+/******/ 	__webpack_require__(602);
 /******/ 	__webpack_require__(986);
 /******/ 	__webpack_require__(682);
+/******/ 	__webpack_require__(806);
 /******/ 	var __webpack_exports__ = __webpack_require__(123);
 /******/ 	
 /******/ })()

@@ -201,7 +201,7 @@ class Buttons {
 			||
 			$boo_shortcode
 		) {
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-ssba" );
+			wp_enqueue_style( ASSET_PREFIX . "-ssba" );
 
 			// If not shortcode.
 			if ( isset( $atts['widget'] ) && 'Y' === $atts['widget'] && '' === $arr_settings['ssba_widget_text'] ) { // Use widget share text.
@@ -344,8 +344,8 @@ class Buttons {
 			( ( is_home() || is_front_page() ) && isset( $arr_settings['ssba_bar_homepage'] ) && 'Y' === $arr_settings['ssba_bar_homepage'] )
 		) {
 
-			if ( ! wp_style_is( "{$this->plugin->assets_prefix}-ssba", 'enqueued' ) ) {
-				wp_enqueue_style( "{$this->plugin->assets_prefix}-ssba" );
+			if ( ! wp_style_is( ASSET_PREFIX . "-ssba", 'enqueued' ) ) {
+				wp_enqueue_style( ASSET_PREFIX . "-ssba" );
 			}
 
 			$html_share_buttons  = '<div id="ssba-bar-2" class="' . esc_attr( $arr_settings['ssba_bar_position'] ) . ' ssbp-wrap ssbp--theme-' . esc_attr( $arr_settings['ssba_bar_style'] ) . '" >';
@@ -461,7 +461,11 @@ class Buttons {
 		$html_share_buttons = '';
 
 		// Explode saved include list and add to a new array.
-		$arr_selected_ssba = 'Y' === $arr_settings['ssba_new_buttons'] ? explode( ',', $arr_settings['ssba_selected_plus_buttons'] ) : explode( ',', $arr_settings['ssba_selected_buttons'] );
+		if ( 'Y' === $arr_settings['ssba_new_buttons'] ) {
+			$arr_selected_ssba = false === empty( $arr_settings['ssba_selected_plus_buttons'] ) ? explode( ',', $arr_settings['ssba_selected_plus_buttons'] ) : [];
+		} else {
+			$arr_selected_ssba = false === empty( $arr_settings['ssba_selected_buttons'] ) ? explode( ',', $arr_settings['ssba_selected_buttons'] ) : [];
+		}
 
 		// Check if array is not empty.
 		if ( is_array( $arr_selected_ssba ) && '' !== $arr_selected_ssba[0] ) {

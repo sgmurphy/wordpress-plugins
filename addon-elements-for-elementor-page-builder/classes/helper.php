@@ -1657,7 +1657,16 @@ class Helper {
 				'enabled' => true,
 				'type' => 'widget',
 				'pro' => true,
-			]
+			],
+
+			'testimonial' => [
+				'name' => 'Testimonial',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+
+			
 		];
 
 		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
@@ -1667,15 +1676,21 @@ class Helper {
 				'type' => 'widget',
 				'pro' => true,
 			];
+			$modules['woo-category'] = [
+				'name' => 'Woo Category',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			];
 		}
 
 		// check php verison 8.0
 		// if ( version_compare( PHP_VERSION, '8.0.0', '>=' ) ) {
 			$modules['add-to-calendar'] = [
-				'name'=>'Add To Calendar',
-				'enabled'=>true,
-				'type'=>'widget',
-				'pro'=>true
+				'name'=> 'Add To Calendar',
+				'enabled'=> true,
+				'type'=> 'widget',
+				'pro'=> true
 			];
 		// }
 
@@ -2911,7 +2926,6 @@ class Helper {
 		}
 	}
 
-
 	/**
 	 * Check if a value is present in an array, if not apply default value.
 	 *
@@ -3195,6 +3209,4 @@ class Helper {
 			]
 		);
 	}
-	
-
 }

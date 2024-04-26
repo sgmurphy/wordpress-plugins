@@ -573,6 +573,9 @@ class SBI_New_User extends SBI_Notifications {
 				if ( $not_early_in_the_year ) {
 					update_user_meta( $user_id, 'sbi_ignore_bfcm_sale_notice', date( 'Y', sbi_get_current_time() ) );
 				}
+
+				global $sbi_notices;
+				$sbi_notices->remove_notice( 'discount' );
 			}
 		}
 
@@ -587,13 +590,16 @@ class SBI_New_User extends SBI_Notifications {
 				update_user_meta( $user_id, 'sbi_ignore_bfcm_sale_notice', date( 'Y', sbi_get_current_time() ) );
 			}
 			update_user_meta( $user_id, 'sbi_ignore_new_user_sale_notice', 'always' );
+
+			global $sbi_notices;
+			$sbi_notices->remove_notice( 'discount' );
 		}
 
 		if ( isset( $_GET['sbi_dismiss'] ) ) {
-			$notice_dismiss = false;
-			if ( isset( $_GET['sbi_nonce'] ) && wp_verify_nonce( $_GET['sbi_nonce'], 'sbi-review' ) ) {
-				$notice_dismiss = sanitize_text_field( $_GET['sbi_dismiss'] );
-			}
+			$review_nonce 	= isset( $_GET['sbi_nonce'] ) ? wp_verify_nonce( $_GET['sbi_nonce'], 'sbi-review' ) : false;
+			$discount_nonce = isset( $_GET['sbi_nonce'] ) ? wp_verify_nonce( $_GET['sbi_nonce'], 'sbi-discount' ) : false;
+			$notice_dismiss = ($review_nonce || $discount_nonce) ? sanitize_text_field( $_GET['sbi_dismiss'] ) : false;
+
 			if ( 'review' === $notice_dismiss ) {
 				update_option( 'sbi_rating_notice', 'dismissed', false );
 				$sbi_statuses_option['rating_notice_dismissed'] = sbi_get_current_time();
@@ -617,6 +623,9 @@ class SBI_New_User extends SBI_Notifications {
 				}
 
 				update_user_meta( $user_id, 'sbi_ignore_new_user_sale_notice', 'always' );
+
+				global $sbi_notices;
+				$sbi_notices->remove_notice( 'discount' );
 			}
 		}
 	}

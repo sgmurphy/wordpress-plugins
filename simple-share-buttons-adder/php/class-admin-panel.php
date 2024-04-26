@@ -69,14 +69,14 @@ class Admin_Panel {
 	 * Display the admin header.
 	 */
 	public function admin_header() {
-		include_once "{$this->plugin->dir_path}/templates/admin-header.php";
+		include_once DIR_PATH . "/templates/admin-header.php";
 	}
 
 	/**
 	 * Display the admin footer.
 	 */
 	public function admin_footer() {
-		include_once "{$this->plugin->dir_path}/templates/admin-footer.php";
+		include_once DIR_PATH . "/templates/admin-footer.php";
 	}
 
 	/**
@@ -92,8 +92,8 @@ class Admin_Panel {
 		}
 
 		wp_enqueue_script(
-			"{$this->plugin->assets_prefix}-blocks",
-			"{$this->plugin->dir_url}js/blocks.js",
+			ASSET_PREFIX . "-blocks",
+			"/wp-content/plugins/simple-share-buttons-adder/js/blocks.js",
 			array( 'wp-blocks', 'wp-editor', 'wp-element', 'wp-components' ),
 			time(),
 			true
@@ -383,8 +383,8 @@ class Admin_Panel {
 		);
 
 		// Enqueue the styles so preview can update.
-		wp_enqueue_style( "{$this->plugin->assets_prefix}-reenie" );
-		wp_enqueue_style( "{$this->plugin->assets_prefix}-indie" );
+		wp_enqueue_style( ASSET_PREFIX . "-reenie" );
+		wp_enqueue_style( ASSET_PREFIX . "-indie" );
 
 		// Font size.
 		$opts11 = array(
@@ -1694,7 +1694,7 @@ class Admin_Panel {
 		$vendors     = isset( $vendor_data['vendors'] ) ? $vendor_data['vendors'] : array();
 		$purposes    = isset( $vendor_data['purposes'] ) && is_array( $vendor_data['purposes'] ) ? array_column( $vendor_data['purposes'], 'name', 'id' ) : array();
 
-		include_once "{$this->plugin->dir_path}/templates/admin-panel.php";
+		include_once DIR_PATH . "/templates/admin-panel.php";
 	}
 
 	/**
@@ -1856,11 +1856,11 @@ class Admin_Panel {
 	public function get_font_family() {
 		return "@font-face {
 				font-family: 'ssbp';
-				src:url('{$this->plugin->dir_url}fonts/ssbp.eot?xj3ol1');
-				src:url('{$this->plugin->dir_url}fonts/ssbp.eot?#iefixxj3ol1') format('embedded-opentype'),
-					url('{$this->plugin->dir_url}fonts/ssbp.woff?xj3ol1') format('woff'),
-					url('{$this->plugin->dir_url}fonts/ssbp.ttf?xj3ol1') format('truetype'),
-					url('{$this->plugin->dir_url}fonts/ssbp.svg?xj3ol1#ssbp') format('svg');
+				src:url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?xj3ol1');
+				src:url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?#iefixxj3ol1') format('embedded-opentype'),
+					url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.woff?xj3ol1') format('woff'),
+					url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.ttf?xj3ol1') format('truetype'),
+					url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.svg?xj3ol1#ssbp') format('svg');
 				font-weight: normal;
 				font-style: normal;
 

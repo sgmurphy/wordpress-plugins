@@ -6443,6 +6443,8 @@ function getFeatureByKey(feature) {
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1421);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2400);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9433);
+/* harmony import */ var _plans__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8242);
+
 
 
 
@@ -6560,9 +6562,7 @@ const getPlanPersonalDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_PERSONAL */ .gA,
-  getTitle: () =>
-  // translators: Starter is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Starter'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanPersonalTitle */ .Sr,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for personal use'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for personal use'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for personal use'),
@@ -6607,9 +6607,7 @@ const getPlanEcommerceDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_ECOMMERCE */ .UQ,
-  getTitle: () =>
-  // translators: Entrepreneur is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Entrepreneur'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanEcommerceTitle */ .iP,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for online stores'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for online stores'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for online stores'),
@@ -6697,9 +6695,7 @@ const getPlanPremiumDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_PREMIUM */ .n4,
-  getTitle: () =>
-  // translators: Explorer is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Explorer'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanPremiumTitle */ .$h,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for freelancers'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for freelancers'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for freelancers'),
@@ -6760,9 +6756,7 @@ const getPlanBusinessDetails = () => ({
   ...getDotcomPlanDetails(),
   group: _constants__WEBPACK_IMPORTED_MODULE_6__/* .GROUP_WPCOM */ .hz,
   type: _constants__WEBPACK_IMPORTED_MODULE_7__/* .TYPE_BUSINESS */ .e8,
-  getTitle: () =>
-  // translators: Creator is a plan name
-  i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Creator'),
+  getTitle: _plans__WEBPACK_IMPORTED_MODULE_8__/* .getPlanBusinessTitle */ .gL,
   getAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for small businesses'),
   getBlogAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for small businesses'),
   getPortfolioAudience: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Best for small businesses'),
@@ -7677,6 +7671,39 @@ PLANS_LIST[_constants__WEBPACK_IMPORTED_MODULE_6__/* .PLAN_HOSTING_TRIAL_MONTHLY
   getDescription: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Hosting free trial'),
   getTagline: () => i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"].translate */ .Ay.translate('Get a taste of unlimited performance and unbeatable uptime')
 };
+
+/***/ }),
+
+/***/ 8242:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   $h: () => (/* binding */ getPlanPremiumTitle),
+/* harmony export */   Sr: () => (/* binding */ getPlanPersonalTitle),
+/* harmony export */   gL: () => (/* binding */ getPlanBusinessTitle),
+/* harmony export */   iP: () => (/* binding */ getPlanEcommerceTitle)
+/* harmony export */ });
+/* harmony import */ var i18n_calypso__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5744);
+
+
+/**
+ * Extracted functions to avoid Calypso apps from depending on the PLANS_LIST object.
+ * See: p7H4VZ-4S4-p2
+ */
+
+const getPlanPersonalTitle = () =>
+// translators: Starter is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Starter');
+const getPlanPremiumTitle = () =>
+// translators: Explorer is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Explorer');
+const getPlanBusinessTitle = () =>
+// translators: Creator is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Creator');
+const getPlanEcommerceTitle = () =>
+// translators: Entrepreneur is a plan name
+i18n_calypso__WEBPACK_IMPORTED_MODULE_0__/* ["default"].translate */ .Ay.translate('Entrepreneur');
 
 /***/ }),
 

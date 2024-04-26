@@ -68,13 +68,13 @@ class Styles {
 		// Enqueue ST script for ST products.
 		if ( false === empty( get_option( 'ssba_property_id' ) ) ) {
 			wp_dequeue_script( 'ssba-sharethis' );
-			wp_enqueue_script( "{$this->plugin->assets_prefix}-mu" );
+			wp_enqueue_script( ASSET_PREFIX . "-mu" );
 		}
 
 		// Enqueue main script.
-		wp_enqueue_script( "{$this->plugin->assets_prefix}-ssba" );
+		wp_enqueue_script( ASSET_PREFIX . "-ssba" );
 		wp_add_inline_script(
-			"{$this->plugin->assets_prefix}-ssba",
+			ASSET_PREFIX . "-ssba",
 			sprintf(
 				'Main.boot( %s );',
 				wp_json_encode( array() )
@@ -86,12 +86,12 @@ class Styles {
 		// If indie flower font is selected.
 		if ( 'Indie Flower' === $font_family ) {
 			// Font scripts.
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-indie" );
+			wp_enqueue_style( ASSET_PREFIX . "-indie" );
 		}
 
 		if ( 'Reenie Beanie' === $font_family ) {
 			// Font scripts.
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-reenie" );
+			wp_enqueue_style( ASSET_PREFIX . "-reenie" );
 		}
 	}
 
@@ -265,12 +265,12 @@ class Styles {
 				$html_ssba_style .= $arr_settings['ssba_additional_css'];
 			}
 
-			wp_add_inline_style( "{$this->plugin->assets_prefix}-ssba", $html_ssba_style ); // WPCS: XSS ok.
+			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_ssba_style ); // WPCS: XSS ok.
 		} elseif ( false === $this->class_ssba->are_new_buttons_active() ) { // Else use set options.
 			// Use custom styles.
 			$html_ssba_style = $arr_settings['ssba_custom_styles'];
 
-			wp_add_inline_style( "{$this->plugin->assets_prefix}-ssba", $html_ssba_style ); // WPCS: XSS ok.
+			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_ssba_style ); // WPCS: XSS ok.
 		}
 
 		if ( true === $this->class_ssba->are_new_buttons_active() ) {
@@ -331,7 +331,7 @@ class Styles {
 				$html_ssba_style .= $arr_settings['ssba_plus_additional_css'];
 			}
 
-			wp_add_inline_style( "{$this->plugin->assets_prefix}-ssba", $html_ssba_style ); // WPCS: XSS ok.
+			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_ssba_style ); // WPCS: XSS ok.
 		}
 
 		// If ShareBar custom css is enabled, use it.
@@ -387,7 +387,7 @@ class Styles {
 				$html_bar_ssba_style .= $arr_settings['ssba_bar_additional_css'];
 			}
 
-			wp_add_inline_style( "{$this->plugin->assets_prefix}-ssba", $html_bar_ssba_style ); // WPCS: XSS ok.
+			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_bar_ssba_style ); // WPCS: XSS ok.
 		}
 	}
 }

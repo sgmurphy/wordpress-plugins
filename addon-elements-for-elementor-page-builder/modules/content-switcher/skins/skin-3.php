@@ -40,7 +40,7 @@ class Skin_3 extends Skin_Base {
 					if ( $active_sec['index_no'] === 0 ) {
 						echo 'active';}
 					?>
-					" item_id="<?php echo $settings['content_list'][0]['_id']; ?>">
+					" item_id="<?php echo esc_attr($settings['content_list'][0]['_id']); ?>">
 						<?php
 						if ( ! empty( $settings['content_list'][0]['icon'] ) && $settings['content_list'][0]['icon_align'] === 'left' ) {
 							Icons_Manager::render_icon( $settings['content_list'][0]['icon'], [ 'aria-hidden' => 'true' ] );
@@ -63,7 +63,7 @@ class Skin_3 extends Skin_Base {
 					if ( $active_sec['index_no'] === 1 ) {
 						echo 'active';}
 					?>
-					" item_id="<?php echo $settings['content_list'][1]['_id']; ?>">
+					" item_id="<?php echo esc_attr($settings['content_list'][1]['_id']); ?>">
 						<?php
 						if ( ! empty( $settings['content_list'][1]['icon'] ) && $settings['content_list'][1]['icon_align'] === 'left' ) {
 							Icons_Manager::render_icon( $settings['content_list'][1]['icon'], [ 'aria-hidden' => 'true' ] );

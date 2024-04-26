@@ -1360,7 +1360,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 				$image_align = $item['image_align'];
 			}
 			?>
-			<div id="<?php echo $item['_id']; ?>" class="eae-timeline-item elementor-repeater-item-<?php echo $item['_id']; ?> custom-image-style-<?php echo esc_attr($item['tl_custom_image_style']); ?> image-position-<?php echo esc_attr($image_align); ?>">
+			<div id="<?php echo esc_attr($item['_id']); ?>" class="eae-timeline-item elementor-repeater-item-<?php echo esc_attr($item['_id']); ?> custom-image-style-<?php echo esc_attr($item['tl_custom_image_style']); ?> image-position-<?php echo esc_attr($image_align); ?>">
 
 				<div <?php echo $this->parent->get_render_attribute_string( 'meta_wrapper' ); ?>>
 					<?php

@@ -3,7 +3,7 @@ Contributors: smashballoon, craig-at-smash-balloon, am, smub
 Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 4.1
 Tested up to: 6.5
-Stable tag: 6.3
+Stable tag: 6.3.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -343,6 +343,10 @@ If you like our WordPress Instagram plugin, then consider checking out our other
 Visit [WPBeginner](https://wpbeginner.com/?utm_campaign=instagram-free&utm_source=readme&utm_medium=whats-next-links) to learn from our [WordPress Tutorials](https://www.wpbeginner.com/category/wp-tutorials/?utm_campaign=instagram-free&utm_source=readme&utm_medium=whats-next-links) and about the [best WordPress plugins](https://www.wpbeginner.com/category/plugins/?utm_campaign=instagram-free&utm_source=readme&utm_medium=whats-next-links).
 
 == Changelog ==
+= 6.3.1 =
+* Fix: Fixed some admin notices not dismissing as expected. 
+* Fix: Fixed an issue that would cause a fatal error when trying to delete the plugin.
+
 = 6.3 =
 * New: Updated CSS floats to flexbox and grid for better layout support and compatibility with themes. If you have made customizations in form of CSS, JS, or custom feed templates, make sure your feed looks as expected after updating. If you need time to update your customizations, use the "Legacy CSS" setting on the "Advanced" tab to revert the CSS file to version 6.2.
 * New: Improved how images are displayed to support lazy loading.

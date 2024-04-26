@@ -9,7 +9,7 @@
 
 use SimpleShareButtonsAdder\Admin_Bits;
 
-$accept_terms = filter_input( INPUT_GET, 'accept-terms', FILTER_SANITIZE_STRING );
+$accept_terms = filter_input( INPUT_GET, 'accept-terms', FILTER_UNSAFE_RAW );
 
 $arr_settings = get_option( 'ssba_settings' );
 $accepted     = isset( $arr_settings['accepted_sharethis_terms'] ) ? $arr_settings['accepted_sharethis_terms'] : '';

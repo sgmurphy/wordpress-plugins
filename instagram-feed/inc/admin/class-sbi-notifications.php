@@ -806,6 +806,9 @@ class SBI_Notifications {
 			if ( $not_early_in_the_year ) {
 				update_user_meta( get_current_user_id(), 'sbi_ignore_bfcm_sale_notice', date( 'Y', sbi_get_current_time() ) );
 			}
+
+			global $sbi_notices;
+			$sbi_notices->remove_notice( 'discount' );
 		} else {
 			global $sbi_notices;
 			$sbi_notices->remove_notice( $id );

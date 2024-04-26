@@ -49,7 +49,7 @@ class Fields_Conditional {
 				continue;
 			}
 			/**
-			 * Continue if parent dosen't exists
+			 * Continue if parent doesn't exists
 			 */
 			if ( empty( $fields[ $field['conditional_parent_key'] ] ) ) {
 				continue;
@@ -60,7 +60,10 @@ class Fields_Conditional {
 			switch ( $form_action ) {
 				case 'account':
 				case 'save':
-					if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) ) {
+					$is_woocommerce_process_checkout_nonce = isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' );
+					$is_woocommerce_edit_address_nonce     = isset( $_POST['woocommerce-edit-address-nonce'] ) && wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce-edit-address-nonce'] ) ), 'woocommerce-edit_address' );
+					// Check if is checkout or edit address page
+					if ( $is_woocommerce_process_checkout_nonce || $is_woocommerce_edit_address_nonce ) {
 						$is_valid_conditional_field = $this->is_valid_conditional_field( $_POST, $field );
 						if ( ! $is_valid_conditional_field ) {
 							$fields[ $field['key'] ]['required'] = false;
@@ -94,7 +97,7 @@ class Fields_Conditional {
 
 	public function is_valid_conditional_field( $post_data, $field ) {
 		/**
-		 * Don't remove field if parent dosen't exists in the current form posts
+		 * Don't remove field if parent doesn't exists in the current form posts
 		 */
 
 		if ( ! isset( $post_data[ $field['conditional_parent_key'] ] ) ) {

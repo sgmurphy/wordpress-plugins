@@ -151,7 +151,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			<div class="eae-info-circle" data-active-item="1" data-autoplay="<?php echo $this->get_instance_value( 'ic_content_auto_change' ); ?>" data-delay="<?php echo $this->get_instance_value( 'ic_change_duration' ); ?>" style="opacity: 1;">
 				<?php foreach ( $settings['info_circle_items'] as $index => $item ) : ?>
 						<div class="eae-info-circle-item elementor-repeater-item-<?php echo esc_attr($item['_id']); ?>" style="opacity: 1;">
-						<div id="<?php echo esc_attr($item['_id']); ?>" data-id="<?php echo $item['_id']; ?>" class="eae-ic-icon-wrap" style="opacity: 1;">
+						<div id="<?php echo esc_attr($item['_id']); ?>" data-id="<?php echo esc_attr($item['_id']); ?>" class="eae-ic-icon-wrap" style="opacity: 1;">
 							<?php $this->render_icon( $item, $settings ); ?>
 						</div>
 						<div class="eae-info-circle-item__content-wrap">

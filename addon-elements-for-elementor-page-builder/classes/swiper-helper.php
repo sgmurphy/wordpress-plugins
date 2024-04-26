@@ -9,7 +9,7 @@ use Elementor\Plugin as EPlugin;
 
 class Swiper_helper {
 
-	public static function carousel_controls($widget) {
+	public static function carousel_controls($widget, $args = null) {
 
 		$widget->add_control(
 			'loop',
@@ -75,6 +75,10 @@ class Swiper_helper {
 			]
 		);
 
+		$desktop_default = $args['slides_per_view']['desktop'] ?? 3;
+		$tablet_default = $args['slides_per_view']['tablet'] ?? 3;
+		
+		
 		$widget->add_responsive_control(
 			'slide_per_view',
 			[
@@ -82,8 +86,8 @@ class Swiper_helper {
 				'type'               => Controls_Manager::NUMBER,
 				'min'                => 1,
 				'max'                => 100,
-				'default'            => 3,
-				'tablet_default'     => 2,
+				'default'            => $desktop_default,
+				'tablet_default'     => $tablet_default,
 				'mobile_default'     => 1,
 				'condition'          => [
 					'effect' => [ 'slide', 'coverflow' ],
@@ -300,7 +304,7 @@ class Swiper_helper {
 		$widget->add_control(
 			'navigation_arrow_heading',
 			[
-				'label'     => __( 'Prev/Next Navigaton', 'wts-eae' ),
+				'label'     => __( 'Prev/Next Navigation', 'wts-eae' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 
@@ -451,7 +455,7 @@ class Swiper_helper {
 		$widget->end_injection();
 	}
 
-	public static function carousel_style_section($widget) {
+	public static function carousel_style_section($widget, $args = null) {
 
 		$widget->add_control(
 			'heading_style_arrow',
@@ -624,6 +628,12 @@ class Swiper_helper {
 
 		$widget->end_controls_tabs();
 
+		if(isset($args['navigation_icon_size'])){
+			$icon_size = $args['navigation_icon_size'];
+		}else{
+			$icon_size = 50;
+		}
+		
 		$widget->add_responsive_control(
 			'arrow_size',
 			[
@@ -631,7 +641,7 @@ class Swiper_helper {
 				'type'      => Controls_Manager::SLIDER,
 				'default'   =>
 					[
-						'size' => 50,
+						'size' => $icon_size,
 					],
 				'range'     =>
 					[
@@ -828,7 +838,7 @@ class Swiper_helper {
 					'size' => 0,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .eae-post-widget-wrapper' => 'margin-bottom:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eae-swiper-wrapper' => 'margin-bottom:{{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'ptype' => 'bullets',
@@ -975,15 +985,15 @@ class Swiper_helper {
 					[
 						'size' => 5,
 					],
-				'range'     =>
+				'range' =>
 					[
 						'min'  => 1,
 						'max'  => 10,
 						'step' => 1,
 					],
 				'selectors' => [
-					'{{WRAPPER}} .swiper-container-vertical .eae-swiper-scrollbar' => 'width:{{SIZE}}px;',
-					'{{WRAPPER}} .swiper-container-horizontal .eae-swiper-scrollbar' => 'height:{{SIZE}}px;',
+					'{{WRAPPER}} .eae-swiper-scrollbar.swiper-scrollbar-horizontal' => 'width:{{SIZE}}px;',
+					'{{WRAPPER}} .eae-swiper-scrollbar.swiper-scrollbar-horizontal' => 'height:{{SIZE}}px;',
 				],
 				'condition' =>
 					[
@@ -1107,8 +1117,12 @@ class Swiper_helper {
 		);
 	}
 
-	public static function get_swiper_data($settings) {
-
+	public static function get_swiper_data($settings, $wid = null) {
+		// echo $wid;
+		// echo $settings['wid'];
+		// die('dfa');
+		// echo '<pre>';  print_r($settings); echo '</pre>';
+		// die('dfadf');
 		if ( $settings['speed']['size'] ) {
 			$swiper_data['speed'] = $settings['speed']['size'];
 		} else {
@@ -1243,7 +1257,11 @@ class Swiper_helper {
 		$swiper_data['clickable']         = isset( $clickable ) ? $clickable : false;
 		$swiper_data['navigation']        = $settings['navigation_button'];
 		$swiper_data['scrollbar']         = $settings['scrollbar'];
-
+		if(!isset($settings['wid'])){
+			$settings['wid'] = null;
+		}
+		$swiper_data = apply_filters( "eae_swiper_data/{$settings['wid']}", $swiper_data);
+		
 		return $swiper_data;
 	}
 

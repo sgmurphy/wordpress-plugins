@@ -68,11 +68,6 @@ abstract class Plugin_Base {
 	 * Plugin_Base constructor.
 	 */
 	public function __construct() {
-		$location       = $this->locate_plugin();
-		$this->slug     = $location['dir_basename'];
-		$this->dir_path = $location['dir_path'];
-		$this->dir_url  = $location['dir_url'];
-
 		spl_autoload_register( array( $this, 'autoload' ) );
 		$this->add_doc_hooks();
 	}
@@ -125,7 +120,7 @@ abstract class Plugin_Base {
 		}
 
 		$class_name = $matches['class'];
-		$class_path = \trailingslashit( $this->dir_path );
+		$class_path = DIR_PATH;
 
 		if ( $this->autoload_class_dir ) {
 			$class_path .= \trailingslashit( $this->autoload_class_dir );
@@ -136,20 +131,6 @@ abstract class Plugin_Base {
 		if ( is_readable( $class_path ) ) {
 			require_once $class_path;
 		}
-	}
-
-	/**
-	 * Version of plugin_dir_url() which works for plugins installed in the plugins directory,
-	 * and for plugins bundled with themes.
-	 *
-	 * @return array
-	 */
-	public function locate_plugin() {
-		$dir_url      = trailingslashit( plugins_url( '', SSBA_FILE ) );
-		$dir_path     = trailingslashit( dirname( SSBA_FILE ) );
-		$dir_basename = basename( $dir_path );
-
-		return compact( 'dir_url', 'dir_path', 'dir_basename' );
 	}
 
 	/**

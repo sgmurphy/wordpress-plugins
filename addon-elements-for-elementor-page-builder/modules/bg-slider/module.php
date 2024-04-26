@@ -246,38 +246,54 @@ class Module {
 		if ( empty( $slides ) ) {
 			return;
 		}
+		
+		$element_id = $element->get_id(); // Only fetch once and reuse
+		$slides = wp_json_encode($slides); // Properly encode slides for JavaScript
+		$transition = esc_js($settings['eae_slider_transition']);
+		$animation = $settings['eae_slider_animation'];
+		$cover = filter_var($settings['eae_slider_cover'], FILTER_VALIDATE_BOOLEAN);
+		if(!$cover){
+			$cover = 'false';
+		}	
+		$delay = filter_var($settings['eae_slider_cover'], FILTER_VALIDATE_INT);
+		if(!$delay){
+			$delay = 5000;
+		}
+		$timer = filter_var($settings['eae_slider_timer_bar'], FILTER_VALIDATE_BOOLEAN);
+		if(!$timer){
+			$timer = 'false';
+		}
+		// Determine the overlay URL
+		$overlay_base_url = EAE_URL . '/assets/lib/vegas/overlays/';
+		$overlay_file = $settings['eae_custom_overlay_switcher'] === 'yes' ? '00.png' : ($settings['eae_slider_overlay'] ? $settings['eae_slider_overlay'] . '.png' : '00.png');
+		$bgoverlay = $overlay_base_url . $overlay_file;
+	?>
 
-		?>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			var elementSelector = ".elementor-element-<?php echo esc_attr($element_id); ?>";
+			var $element = jQuery(elementSelector);
 
-		<script type="text/javascript">
-			jQuery(document).ready(function () {
-				jQuery(".elementor-element-<?php echo $element->get_id(); ?>").prepend('<div class="eae-section-bs"><div class="eae-section-bs-inner"></div></div>');
-				if ('<?php echo esc_attr($settings['eae_custom_overlay_switcher']); ?>' === 'yes') {
+			// Adding the HTML structure
+			$element.prepend('<div class="eae-section-bs"><div class="eae-section-bs-inner"></div></div>');
 
-					var bgoverlay = '<?php echo EAE_URL . '/assets/lib/vegas/overlays/00.png'; ?>';
-				} else {
-					if ('<?php echo $settings['eae_slider_overlay']; ?>') {
-						var bgoverlay = '<?php echo EAE_URL . 'assets/lib/vegas/overlays/' . $settings['eae_slider_overlay'] . '.png'; ?>';
-					} else {
-						var bgoverlay = '<?php echo EAE_URL . 'assets/lib/vegas/overlays/00.png'; ?>';
-					}
-				}
-
-
-				jQuery(".elementor-element-<?php echo $element->get_id(); ?>").children('.eae-section-bs').children('.eae-section-bs-inner').vegas({
-					slides: <?php echo wp_json_encode( $slides ); ?>,
-					transition: '<?php echo $settings['eae_slider_transition']; ?>',
-					animation: '<?php echo $settings['eae_slider_animation']; ?>',
-					overlay: bgoverlay,
-					cover: <?php echo $settings['eae_slider_cover']; ?>,
-					delay: <?php echo $settings['eae_slider_delay']; ?>,
-					timer: <?php echo $settings['eae_slider_timer_bar']; ?>
-				});
-				if ('<?php echo esc_attr($settings['eae_custom_overlay_switcher']); ?>' === 'yes') {
-					jQuery(".elementor-element-<?php echo $element->get_id(); ?>").children('.eae-section-bs').children('.eae-section-bs-inner').children('.vegas-overlay').css('background-image', '');
-				}
+			// Initialize vegas background slider
+			$element.children('.eae-section-bs').children('.eae-section-bs-inner').vegas({
+				slides: <?php echo $slides; ?>,
+				transition: '<?php echo $transition; ?>',
+				animation: '<?php echo $animation; ?>',
+				overlay: '<?php echo esc_url($bgoverlay); ?>',
+				cover: <?php echo $cover; ?>,
+				delay: <?php echo $delay; ?>,
+				timer: <?php echo $timer; ?>
 			});
-		</script>
+
+			// Clear the overlay if custom overlay switcher is set to 'yes'
+			if ('<?php echo esc_attr($settings['eae_custom_overlay_switcher']); ?>' === 'yes') {
+				$element.find('.vegas-overlay').css('background-image', '');
+			}
+		});
+	</script>
 		<?php
 	}
 

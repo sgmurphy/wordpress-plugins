@@ -95,7 +95,7 @@ class Fields_Filter {
 						$option_key = is_numeric( $option_key ) ? $option_text : $option_key;
 						$option_id  = sanitize_html_class( "{$key}_{$option_key}" );
 						// Remove double quotes from the value
-						$option_value = htmlspecialchars( $option_key, ENT_QUOTES );
+						$option_value = htmlspecialchars( $option_key, ENT_QUOTES, 'UTF-8' );
 
 						// Sanitize $option_id to prevent quotes
 						$field .= '<input type="radio" class="input-checkbox" value="' . esc_attr( $option_value ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $option_id ) . '" ' . checked( $value, $option_text, false ) . ' />';

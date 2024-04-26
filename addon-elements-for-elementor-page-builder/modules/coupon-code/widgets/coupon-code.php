@@ -2507,29 +2507,6 @@ class CouponCode extends EAE_Widget_Base {
                         }   
                     }
                     break;
-                case 'peel':
-                    ?>                   
-                    <div id="fade-out" class="eae-peel-wrapper pl-cp-code peel">
-                        <div class="peel-top eae-top">
-                            <?php Helper::render_icon_html($settings,$this,'peel_front_title_icon','eae-fr-cc-icon');
-                            if(!empty($data['fr_title'])) {?>
-                            <div class="eae-fr-title"> <?php
-                                echo Helper::eae_wp_kses($data['fr_title']); ?>
-                            </div>
-                            <?php } 
-                            if(!empty($data['fr_des'])) { ?>
-                            <div class="eae-fr-des"><?php
-                                echo Helper::eae_wp_kses($data['fr_des']); ?>
-                            </div>
-                            <?php } ?>
-                        </div>
-                       <div class="peel-back eae-back">
-                       </div>
-                        <div class="peel-bottom eae-bottom"> <?php
-                            echo $this->get_prepare_html($data); ?>
-                        </div>
-                  </div> <?php
-                    break;
                 case 'scratch':
                     if(!empty($data['couponCode'])){
                         $this->add_render_attribute('eae-scratch-canvas', 'class', 'eae-coupon-canvas');

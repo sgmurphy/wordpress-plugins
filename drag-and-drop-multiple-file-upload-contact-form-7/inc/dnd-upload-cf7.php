@@ -81,21 +81,34 @@
 		// Create dir
 		$dir = dnd_get_upload_dir();
 		if( isset( $dir['upload_dir'] ) && is_dir( $dir['upload_dir'] ) ) {
-			// Generate .htaccess file`
+			// Generate .htaccess & index.php file`
 			$htaccess_file = path_join( dirname( $dir['upload_dir'] ), '.htaccess' );
+			$dirs = array(
+				dirname( $dir['upload_dir'] ),
+				$dir['upload_dir']
+			);
+
 			if ( ! file_exists( $htaccess_file ) ) {
 				if ( $handle = fopen( $htaccess_file, 'w' ) ) {
 					fwrite( $handle, "Options -Indexes \n <Files *.php> \n deny from all \n </Files>" );
 					fclose( $handle );
 				}
 			}
+
+			foreach( $dirs as $dir ) {
+				if ( ! file_exists( path_join( $dir, 'index.php' ) ) ) {
+					if ( $handle = fopen( path_join( $dir, 'index.php' ), 'w' ) ) {
+						fwrite( $handle, "<?php // Silence is golden." );
+						fclose( $handle );
+					}
+				}
+			}
+
 		}
 
         // fix spam
         if( get_option('drag_n_drop_fix_spam') == 'yes' ) {
-            add_filter('wpcf7_spam', function(){
-                return false;
-            });
+            add_filter('wpcf7_spam', '__return_false');
         }
 	}
 
@@ -894,6 +907,12 @@
 			$filename = wpcf7_antiscript_file_name( $filename );
 		}
 
+		// Randomize filename
+		if( 'yes' == get_option('drag_n_drop_enable_unique_name') ) {
+			$random_name = md5( uniqid( rand(), true ) .'-'. mt_rand() .'-'. time() );
+			$filename = $random_name .'.'. $extension;
+		}
+
 		// Add filter on upload file name
 		$filename = apply_filters( 'wpcf7_upload_file_name', $filename,	$file['name'] );
 
@@ -1139,12 +1158,12 @@
 					</tr>
 				</table>
 
-                <h2><?php _e('Auto Delete Files','drag-and-drop-multiple-file-upload-contact-form-7'); ?></h2>
+                <h2><?php _e('Unique Filename','drag-and-drop-multiple-file-upload-contact-form-7'); ?></h2>
 
 				<table class="form-table">
 					<tr valign="top">
-						<th scope="row"><?php _e('Don\'t delete files','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="checkbox" name="drag_n_drop_disable_auto_delete" value="yes" <?php checked('yes', get_option('drag_n_drop_disable_auto_delete')); ?>> Yes <br><p class="description"><em>The default will automatically delete files 1-2 hours after submissions, if you want to keep files check "Yes" above.</em></p></td>
+						<th scope="row"><?php _e('Randomize','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
+						<td><input type="checkbox" name="drag_n_drop_enable_unique_name" value="yes" <?php checked('yes', get_option('drag_n_drop_enable_unique_name')); ?>> Yes <br><p class="description"><em><?php _e('If checked, it will generate a unique/randomized filename.', 'drag-and-drop-multiple-file-upload-contact-form-7'); ?></em></p></td>
 					</tr>
 				</table>
 
@@ -1248,6 +1267,7 @@
         register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_disable_auto_delete','sanitize_text_field' );
         register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_fix_spam','sanitize_text_field' );
         register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_use_jquery','sanitize_text_field' );
+		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_enable_unique_name','sanitize_text_field' );
 	}
 
     function dnd_upload_cf7_lang() {

@@ -217,6 +217,12 @@ class Plugin {
 					'categories' => '["wts-eae"]',
 				],
 				[
+					'name'		=>	'testimonial',
+					'title'      => __( 'Testimonial Slider', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-testimonial-slider pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
 					'name'       => 'video-box',
 					'title'      => __( 'Video Box', 'wts-eae' ),
 					'icon'       => 'eae-icon eae-video-box pro-widget',
@@ -232,6 +238,12 @@ class Plugin {
 					'name'		=>	'woo-products',
 					'title'      => __( 'Woo Products', 'wts-eae' ),
 					'icon'       => 'eae-icon eae-woo-products pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
+					'name'		=>	'woo-category',
+					'title'      => __( 'Woo Category', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-woo-category pro-widget',
 					'categories' => '["wts-eae"]',
 				]
 			]);

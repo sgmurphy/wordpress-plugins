@@ -126,7 +126,7 @@ class Admin_Bits {
 	 * @param mixed $post Post.
 	 */
 	public function ssba_ajax_hide_review( $post ) {
-		check_ajax_referer( $this->plugin->meta_prefix, 'nonce' );
+		check_ajax_referer( META_PREFIX, 'nonce' );
 
 		update_option( 'ssba-hide-review', true );
 
@@ -139,7 +139,7 @@ class Admin_Bits {
 	 * @action wp_ajax_ssba_ajax_add_creds
 	 */
 	public function ssba_ajax_add_creds() {
-		check_ajax_referer( $this->plugin->meta_prefix, 'nonce' );
+		check_ajax_referer( META_PREFIX, 'nonce' );
 
 		$property_id = filter_input( INPUT_POST, 'propertyId', FILTER_UNSAFE_RAW );
 
@@ -167,18 +167,18 @@ class Admin_Bits {
 	 * @action admin_enqueue_scripts
 	 */
 	public function enqueue_admin_assets( $hook_suffix ) {
-		$current_url = $this->plugin->dir_url . 'buttons/';
+		$current_url = '/wp-content/plugins/simple-share-buttons-adder/buttons/';
 
-		if ( $this->hook_suffix === $hook_suffix ) {
+		if ( 'toplevel_page_simple-share-buttons-adder' === $hook_suffix ) {
 			// All extra scripts needed.
 			wp_enqueue_media();
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script( 'jquery-ui' );
-			wp_enqueue_script( "{$this->plugin->assets_prefix}-bootstrap-js" );
-			wp_enqueue_script( "{$this->plugin->assets_prefix}-colorpicker" );
-			wp_enqueue_script( "{$this->plugin->assets_prefix}-switch" );
-			wp_enqueue_script( "{$this->plugin->assets_prefix}-admin" );
+			wp_enqueue_script( ASSET_PREFIX . "-bootstrap-js" );
+			wp_enqueue_script( ASSET_PREFIX . "-colorpicker" );
+			wp_enqueue_script( ASSET_PREFIX . "-switch" );
+			wp_enqueue_script( ASSET_PREFIX . "-admin" );
 
 			// Get sbba settings.
 			$arr_settings = $this->class_ssba->get_ssba_settings();
@@ -186,7 +186,7 @@ class Admin_Bits {
 			$propertyid   = get_option( 'ssba_property_id' );
 
 			wp_add_inline_script(
-				"{$this->plugin->assets_prefix}-admin",
+				ASSET_PREFIX . "-admin",
 				sprintf(
 					'%s.boot( %s );',
 					__NAMESPACE__,
@@ -194,7 +194,7 @@ class Admin_Bits {
 						array(
 							'site'                   => $current_url,
 							'homeUrl'                => str_replace( array( 'https://', 'http://' ), '', get_home_url() ),
-							'nonce'                  => wp_create_nonce( $this->plugin->meta_prefix ),
+							'nonce'                  => wp_create_nonce( META_PREFIX ),
 							'publisher_purposes'     => ! empty( $arr_settings['ssba_gdpr_config']['publisher_purposes'] ) ? $arr_settings['ssba_gdpr_config']['publisher_purposes'] : false,
 							'publisher_restrictions' => ! empty( $arr_settings['ssba_gdpr_config']['publisher_restrictions'] ) ? $arr_settings['ssba_gdpr_config']['publisher_restrictions'] : false,
 							'token'                  => ! empty( $token ) ? $token : false,
@@ -208,16 +208,16 @@ class Admin_Bits {
 			$custom_css .= ! empty( $arr_settings['ssba_plus_additional_css'] ) ? $arr_settings['ssba_plus_additional_css'] : '';
 			$custom_css .= ! empty( $arr_settings['ssba_bar_additional_css'] ) ? $arr_settings['ssba_bar_additional_css'] : '';
 
-			wp_add_inline_style( "{$this->plugin->assets_prefix}-admin-theme", $custom_css );
+			wp_add_inline_style( ASSET_PREFIX . "-admin-theme", $custom_css );
 
 			// Admin styles.
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-readable" );
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-colorpicker" );
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-switch" );
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-font-awesome" );
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-admin-theme" );
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-admin" );
-			wp_enqueue_style( "{$this->plugin->assets_prefix}-styles" );
+			wp_enqueue_style( ASSET_PREFIX . "-readable" );
+			wp_enqueue_style( ASSET_PREFIX . "-colorpicker" );
+			wp_enqueue_style( ASSET_PREFIX . "-switch" );
+			wp_enqueue_style( ASSET_PREFIX . "-font-awesome" );
+			wp_enqueue_style( ASSET_PREFIX . "-admin-theme" );
+			wp_enqueue_style( ASSET_PREFIX . "-admin" );
+			wp_enqueue_style( ASSET_PREFIX . "-styles" );
 
 			$html_share_buttons_form = '';
 
@@ -250,7 +250,7 @@ class Admin_Bits {
 											border-radius: 0 5px 5px 0; }';
 			}
 
-			wp_add_inline_style( "{$this->plugin->assets_prefix}-admin-theme", $html_share_buttons_form );
+			wp_add_inline_style( ASSET_PREFIX . "-admin-theme", $html_share_buttons_form );
 		}
 	}
 
@@ -262,11 +262,11 @@ class Admin_Bits {
 	private function get_font_family() {
 		return "@font-face {
 				font-family: 'ssbp';
-				src:url('{$this->plugin->dir_url}fonts/ssbp.eot?xj3ol1');
-				src:url('{$this->plugin->dir_url}fonts/ssbp.eot?#iefixxj3ol1') format('embedded-opentype'),
-					url('{$this->plugin->dir_url}fonts/ssbp.woff?xj3ol1') format('woff'),
-					url('{$this->plugin->dir_url}fonts/ssbp.ttf?xj3ol1') format('truetype'),
-					url('{$this->plugin->dir_url}fonts/ssbp.svg?xj3ol1#ssbp') format('svg');
+				src:url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?xj3ol1');
+				src:url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.eot?#iefixxj3ol1') format('embedded-opentype'),
+					url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.woff?xj3ol1') format('woff'),
+					url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.ttf?xj3ol1') format('truetype'),
+					url('/wp-content/plugins/simple-share-buttons-adder/fonts/ssbp.svg?xj3ol1#ssbp') format('svg');
 				font-weight: normal;
 				font-style: normal;
 
@@ -282,7 +282,7 @@ class Admin_Bits {
 	 * @action wp_ajax_dismiss_notice
 	 */
 	public function dismiss_notice() {
-		check_ajax_referer( $this->plugin->meta_prefix, 'nonce' );
+		check_ajax_referer( META_PREFIX, 'nonce' );
 
 		$type = filter_input( INPUT_POST, 'type', FILTER_UNSAFE_RAW );
 		$type = sanitize_text_field( wp_unslash( $type ) );
@@ -316,7 +316,7 @@ class Admin_Bits {
 	 * @action wp_ajax_ssba_ajax_update_gdpr
 	 */
 	public function update_gdpr() {
-		check_ajax_referer( $this->plugin->meta_prefix, 'nonce' );
+		check_ajax_referer( META_PREFIX, 'nonce' );
 
 		$config = filter_input( INPUT_POST, 'config', FILTER_DEFAULT );
 
@@ -362,11 +362,11 @@ class Admin_Bits {
 	 */
 	public function ssba_menu() {
 		// Add menu page.
-		$this->hook_suffix = add_options_page(
+		add_options_page(
 			esc_html__( 'Simple Share Buttons Adder', 'simple-share-buttons-adder' ),
 			esc_html__( 'Simple Share Buttons', 'simple-share-buttons-adder' ),
 			'manage_options',
-			$this->plugin->assets_prefix,
+			ASSET_PREFIX,
 			array( $this, 'ssba_settings' )
 		);
 

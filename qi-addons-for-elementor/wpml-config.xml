@@ -301,6 +301,10 @@
                 <field>button_text</field>
                 <field>link_url>url</field>
             </fields>
+            <fields-in-item items_of="children">
+                <field>item_title</field>
+                <field>item_description</field>
+            </fields-in-item>
         </widget>
         <widget name="qi_addons_for_elementor_interactive_link_showcase">
             <fields>

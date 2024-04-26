@@ -420,15 +420,17 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 				),
 			);
 
+			// Strips all not allowed characters from input.
+			$available_characters = '/[^\w\_\-\'\"]/u';
 			foreach ( $date_formats as $key => $value ) {
 				if ( ! empty( $atts[ $key . '_label' ] ) ) {
-					$data[ 'data-' . $key . '-label' ] = sanitize_title( $atts[ $key . '_label' ] );
+					$data[ 'data-' . $key . '-label' ] = preg_replace( $available_characters, '', $atts[ $key . '_label' ] );
 				} else {
 					$data[ 'data-' . $key . '-label' ] = $value['default'];
 				}
 
 				if ( ! empty( $atts[ $key . '_label_plural' ] ) ) {
-					$data[ 'data-' . $key . '-label-plural' ] = sanitize_title( $atts[ $key . '_label_plural' ] );
+					$data[ 'data-' . $key . '-label-plural' ] = preg_replace( $available_characters, '', $atts[ $key . '_label_plural' ] );
 				} else {
 					$data[ 'data-' . $key . '-label-plural' ] = $value['plural'];
 				}

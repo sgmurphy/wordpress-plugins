@@ -40,10 +40,10 @@ class Database {
 		$this->class_ssba = $class_ssba;
 
 		// Run the activation function upon activation of the plugin.
-		register_activation_hook( $this->plugin->dir_path . '/simple-share-buttons-adder.php', array( $this, 'activate' ) );
+		register_activation_hook( DIR_PATH . '/simple-share-buttons-adder.php', array( $this, 'activate' ) );
 
 		// Register deactivation hook.
-		register_deactivation_hook( $this->plugin->dir_path . '/simple-share-buttons-adder.php', array( $this, 'deactivate' ) );
+		register_deactivation_hook( DIR_PATH . '/simple-share-buttons-adder.php', array( $this, 'deactivate' ) );
 	}
 
 	/**

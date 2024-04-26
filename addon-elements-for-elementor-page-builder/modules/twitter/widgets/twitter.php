@@ -585,26 +585,6 @@ class Twitter extends EAE_Widget_Base {
 
 		switch ( $settings['embed_type'] ) {
 
-			case 'collection':
-				$this->get_collection_html( $settings );
-				break;
-
-			case 'profile':
-				$this->get_profile_html( $settings );
-				break;
-
-			case 'list':
-				$this->get_list_html( $settings );
-				break;
-
-			case 'moments':
-				$this->get_moments_html( $settings );
-				break;
-
-			case 'likes':
-				$this->get_likes_html( $settings );
-				break;
-
 			case 'handle':
 				$this->get_handle_html( $settings );
 				break;
@@ -619,107 +599,6 @@ class Twitter extends EAE_Widget_Base {
 		<?php
 	}
 
-	public function get_collection_html( $settings ) {
-		$this->add_render_attribute( 'collection', 'class', 'twitter-' . $settings['display_mode_collection'] );
-		$this->add_render_attribute( 'collection', 'data-lang', $settings['language'] );
-		$this->add_render_attribute( 'collection', 'data-partner', 'twitter-deck' );
-		$this->add_render_attribute( 'collection', 'href', $settings['url_collection'] );
-
-		if ( $settings['display_mode_collection'] === 'grid' ) {
-			$this->add_render_attribute( 'collection', 'data-limit', $settings['no_of_tweets'] );
-		}
-		if ( $settings['display_mode_collection'] === 'timeline' ) {
-			$this->add_render_attribute( 'collection', 'data-height', $settings['height_collection_timeline']['size'] );
-			$this->add_render_attribute( 'collection', 'data-theme', $settings['theme_collection_timeline'] );
-			$this->add_render_attribute( 'collection', 'data-link-color', $settings['link_color_collection'] );
-
-		}
-
-		?>
-		<a <?php echo $this->get_render_attribute_string( 'collection' ); ?>></a>
-		<?php
-	}
-
-	public function get_profile_html( $settings ) {
-		$this->add_render_attribute( 'profile', 'href', $settings['url_profile'] );
-		$this->add_render_attribute( 'profile', 'data-lang', $settings['language'] );
-		if ( $settings['large_button'] === 'yes' ) {
-			$this->add_render_attribute( 'profile', 'data-size', 'large' );
-		}
-
-		if ( $settings['display_mode_profile'] === 'timeline' ) {
-			$this->add_render_attribute( 'profile', 'class', 'twitter-' . $settings['display_mode_profile'] );
-			$this->add_render_attribute( 'profile', 'data-partner', 'twitter-deck' );
-			$this->add_render_attribute( 'profile', 'data-height', $settings['height_profile_timeline']['size'] );
-			$this->add_render_attribute( 'profile', 'data-theme', $settings['theme_profile_timeline'] );
-			$this->add_render_attribute( 'profile', 'data-link-color', $settings['link_color_profile'] );
-
-		}
-
-		if ( $settings['display_mode_profile'] === 'button' && $settings['button_type'] === 'follow-button' ) {
-			$this->add_render_attribute( 'profile', 'class', 'twitter-' . $settings['button_type'] );
-			if ( $settings['hide_name'] === 'yes' ) {
-				$this->add_render_attribute( 'profile', 'data-show-screen-name', 'false' );
-			}
-			if ( $settings['show_count'] === '' ) {
-				$this->add_render_attribute( 'profile', 'data-show-count', 'false' );
-			}
-		}
-
-		if ( $settings['display_mode_profile'] === 'button' && $settings['button_type'] === 'mention-button' ) {
-			$this->add_render_attribute( 'profile', 'class', 'twitter-' . $settings['button_type'] );
-			$this->add_render_attribute( 'profile', 'data-text', $settings['prefill_text'] );
-			$this->add_render_attribute( 'profile', 'href', $settings['url_profile'] . '?screen_name=' . $settings['screen_name'] );
-
-		}
-
-		?>
-	<a <?php echo $this->get_render_attribute_string( 'profile' ); ?> ></a>
-		<?php
-	}
-
-	public function get_list_html( $settings ) {
-		if ( $settings['embed_type'] === 'list' ) {
-			$this->add_render_attribute( 'list', 'class', 'twitter-timeline' );
-		}
-		$this->add_render_attribute( 'list', 'href', $settings['url_list'] );
-		$this->add_render_attribute( 'list', 'data-height', $settings['height_list']['size'] );
-		$this->add_render_attribute( 'list', 'data-theme', $settings['theme_list'] );
-		$this->add_render_attribute( 'list', 'data-link-color', $settings['link_color_list'] );
-		$this->add_render_attribute( 'list', 'data-lang', $settings['language'] );
-		$this->add_render_attribute( 'list', 'data-partner', 'twitter-deck' );
-		?>
-	<a <?php echo $this->get_render_attribute_string( 'list' ); ?>> </a>
-		<?php
-	}
-
-	public function get_moments_html( $settings ) {
-		if ( $settings['embed_type'] === 'moments' ) {
-			$this->add_render_attribute( 'moments', 'class', 'twitter-moment' );
-		}
-		$this->add_render_attribute( 'moments', 'href', $settings['url_moments'] );
-		$this->add_render_attribute( 'moments', 'data-lang', $settings['language'] );
-		$this->add_render_attribute( 'moments', 'data-partner', 'twitter-deck' );
-		?>
-		<a <?php echo $this->get_render_attribute_string( 'moments' ); ?> > </a>
-		<?php
-	}
-
-	public function get_likes_html( $settings ) {
-		if ( $settings['embed_type'] === 'likes' ) {
-			$this->add_render_attribute( 'likes', 'class', 'twitter-timeline' );
-		}
-		$this->add_render_attribute( 'likes', 'href', $settings['url_likes'] );
-		$this->add_render_attribute( 'likes', 'data-height', $settings['height_list']['size'] );
-		$this->add_render_attribute( 'likes', 'data-theme', $settings['theme_list'] );
-		$this->add_render_attribute( 'likes', 'data-link-color', $settings['link_color_list'] );
-		$this->add_render_attribute( 'likes', 'data-lang', $settings['language'] );
-		$this->add_render_attribute( 'likes', 'data-partner', 'twitter-deck' );
-		?>
-		<a <?php echo $this->get_render_attribute_string( 'likes' ); ?> >Likes</php> </a>
-		<?php
-	}
-
 	public function get_handle_html( $settings ) {
 
 		$this->add_render_attribute( 'handle', 'data-lang', $settings['language'] );
@@ -728,18 +607,20 @@ class Twitter extends EAE_Widget_Base {
 		}
 
 		if ( $settings['display_mode_profile'] === 'timeline' ) {
-			$this->add_render_attribute( 'handle', 'href', 'https://www.twitter.com/' . $settings['username'] );
-			$this->add_render_attribute( 'handle', 'class', 'twitter-' . $settings['display_mode_profile'] );
+			$url = esc_url('https://www.twitter.com/' . $settings['username']);
+			$this->add_render_attribute( 'handle', 'href',  $url);
+			$this->add_render_attribute( 'handle', 'class', 'twitter-' . esc_attr($settings['display_mode_profile']) );
 			$this->add_render_attribute( 'handle', 'data-partner', 'twitter-deck' );
-			$this->add_render_attribute( 'handle', 'data-height', $settings['height_profile_timeline']['size'] );
-			$this->add_render_attribute( 'handle', 'data-theme', $settings['theme_profile_timeline'] );
-			$this->add_render_attribute( 'handle', 'data-link-color', $settings['link_color_profile'] );
+			$this->add_render_attribute( 'handle', 'data-height', ($settings['height_profile_timeline']['size']) );
+			$this->add_render_attribute( 'handle', 'data-theme', esc_attr($settings['theme_profile_timeline']) );
+			$this->add_render_attribute( 'handle', 'data-link-color', esc_attr($settings['link_color_profile']) );
 
 		}
 
 		if ( $settings['display_mode_profile'] === 'button' && $settings['button_type'] === 'follow-button' ) {
-			$this->add_render_attribute( 'handle', 'class', 'twitter-' . $settings['button_type'] );
-			$this->add_render_attribute( 'handle', 'href', 'https://www.twitter.com/' . $settings['username'] );
+			$this->add_render_attribute( 'handle', 'class', esc_attr('twitter-' . $settings['button_type']) );
+			$button_url = esc_url('https://www.twitter.com/' . $settings['username']);
+			$this->add_render_attribute( 'handle', 'href', $button_url );
 			if ( $settings['hide_name'] === 'yes' ) {
 				$this->add_render_attribute( 'handle', 'data-show-screen-name', 'false' );
 			}
@@ -749,9 +630,10 @@ class Twitter extends EAE_Widget_Base {
 		}
 
 		if ( $settings['display_mode_profile'] === 'button' && $settings['button_type'] === 'mention-button' ) {
-			$this->add_render_attribute( 'handle', 'class', 'twitter-' . $settings['button_type'] );
-			$this->add_render_attribute( 'handle', 'data-text', $settings['prefill_text'] );
-			$this->add_render_attribute( 'handle', 'href', 'https://www.twitter.com/intent/tweet ?screen_name=' . $settings['screen_name'] );
+			$this->add_render_attribute( 'handle', 'class', esc_attr('twitter-' . $settings['button_type']) );
+			$this->add_render_attribute( 'handle', 'data-text', esc_attr($settings['prefill_text']) );
+			$mention_button_url = esc_url('https://www.twitter.com/intent/tweet?screen_name=' . $settings['screen_name']);
+			$this->add_render_attribute( 'handle', 'href', $mention_button_url );
 
 		}
 
@@ -763,8 +645,9 @@ class Twitter extends EAE_Widget_Base {
 	public function get_hashtag_html( $settings ) {
 
 		$this->add_render_attribute( 'hashtag', 'class', 'twitter-hashtag-button' );
-		$this->add_render_attribute( 'hashtag', 'href', 'https://twitter.com/intent/tweet?button_hashtag=' . $settings['hashtag'] );
-		$this->add_render_attribute( 'hashtag', 'data-lang', $settings['language'] );
+		$hastag_url = esc_url('https://twitter.com/intent/tweet?button_hashtag=' . $settings['hashtag']);
+		$this->add_render_attribute( 'hashtag', 'href', $hastag_url );
+		$this->add_render_attribute( 'hashtag', 'data-lang', esc_attr($settings['language']) );
 
 		if ( $settings['prefill_text_hashtag'] === 'post_title' ) {
 
@@ -775,12 +658,12 @@ class Twitter extends EAE_Widget_Base {
 			$this->add_render_attribute( 'hashtag', 'data-text', $this->current_post_excerpt() );
 		}
 		if ( $settings['prefill_text_hashtag'] === 'custom' ) {
-			$this->add_render_attribute( 'hashtag', 'data-text', $settings['prefill_custom'] );
+			$this->add_render_attribute( 'hashtag', 'data-text', esc_attr($settings['prefill_custom']) );
 		}
 		if ( $settings['hashtag_large_button'] === 'yes' ) {
 			$this->add_render_attribute( 'hashtag', 'data-size', 'large' );
 		}
-		$this->add_render_attribute( 'hashtag', 'data-url', $settings['hashtag_url'] );
+		$this->add_render_attribute( 'hashtag', 'data-url', esc_url($settings['hashtag_url']) );
 
 		?>
 		<a <?php echo $this->get_render_attribute_string( 'hashtag' ); ?> >Tweet<?php echo esc_html($settings['hashtag']); ?> </a>
