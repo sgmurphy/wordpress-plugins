@@ -1510,7 +1510,6 @@ class Addons_Integration {
 			self::$modules['premium-smart-post-listing'],
 			self::$modules['premium-post-ticker'],
 			self::$modules['premium-notifications'],
-			self::$modules['premium-search-form'],
 		);
 
 		$load_controls = in_array( true, $modules, true );

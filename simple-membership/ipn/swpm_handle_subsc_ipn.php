@@ -1,6 +1,9 @@
 <?php
-
-function swpm_handle_subsc_signup_stand_alone( $ipn_data, $subsc_ref, $unique_ref, $swpm_id = '' ) {
+/* 
+* Note: We are passign the $ipn_data parameter by reference because we try to add the 'member_id' value to it (from our search or when we insert a new record).
+* This is helpful to save the member_id reference in save transaction function later. 
+*/
+function swpm_handle_subsc_signup_stand_alone( &$ipn_data, $subsc_ref, $unique_ref, $swpm_id = '' ) {
 	global $wpdb;
 	$settings         = SwpmSettings::get_instance();
 	$membership_level = $subsc_ref;
@@ -17,7 +20,7 @@ function swpm_handle_subsc_signup_stand_alone( $ipn_data, $subsc_ref, $unique_re
 
 	if ( empty( $swpm_id ) ) {
 		// Lets try to find an existing user profile for this payment.
-		$email    = $ipn_data['payer_email'];
+		$email = $ipn_data['payer_email'];
 		$query_db = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}swpm_members_tbl WHERE email = %s", $email ), OBJECT ); // db call ok; no-cache ok.
 		if ( ! $query_db ) { // try to retrieve the member details based on the unique_ref.
 			swpm_debug_log_subsc( 'Could not find any record using the given email address (' . $email . '). Attempting to query database using the unique reference: ' . $unique_ref, true );
@@ -41,6 +44,9 @@ function swpm_handle_subsc_signup_stand_alone( $ipn_data, $subsc_ref, $unique_re
 	if ( ! empty( $swpm_id ) ) {
 		// This is payment from an existing member/user. Update the existing member account.
 		swpm_debug_log_subsc( 'Modifying the existing membership profile... Member ID: ' . $swpm_id, true );
+
+		//Add the member ID value to the $ipn_data (pass by reference will ensure that we will have it available in our save transaction function).
+		$ipn_data['member_id'] = $swpm_id;
 
 		// Upgrade the member account.
 		$account_state = 'active'; // This is renewal or upgrade of a previously active account. So the status should be set to active.
@@ -127,7 +133,7 @@ function swpm_handle_subsc_signup_stand_alone( $ipn_data, $subsc_ref, $unique_re
 		// create new member account.
 		$default_account_status = $settings->get_value( 'default-account-status-after-payment', 'active' );
 
-		$data              = array();
+		$data = array();
 		$data['user_name'] = '';
 		$data['password']  = '';
 
@@ -155,19 +161,24 @@ function swpm_handle_subsc_signup_stand_alone( $ipn_data, $subsc_ref, $unique_re
 
 		$data = array_filter( $data ); // Remove any null values.
 		$wpdb->insert( "{$wpdb->prefix}swpm_members_tbl", $data ); // Create the member record.
-		$id = $wpdb->insert_id;
-		if ( empty( $id ) ) {
-			swpm_debug_log_subsc( 'Error! Failed to insert a new member record. This request will fail.', false );
+		$member_id = $wpdb->insert_id;
+		if ( empty( $member_id ) ) {
+			swpm_debug_log_subsc( 'Error! Failed to insert a new member record to the database. This request will fail.', false );
 			return;
 		}
 
-		$separator = '?';
-		$url       = $settings->get_value( 'registration-page-url' );
-		if ( strpos( $url, '?' ) !== false ) {
-			$separator = '&';
-		}
+		//Add the member ID value to the $ipn_data (pass by reference will ensure that we will have it available in our save transaction function).
+		$ipn_data['member_id'] = $member_id;
 
-		$reg_url = $url . $separator . 'member_id=' . $id . '&code=' . $md5_code;
+		//Create the signup/registration complete URL for the paid membership.
+		$rego_page_url = $settings->get_value( 'registration-page-url' );
+		$reg_url = add_query_arg(
+			array(
+				'member_id' => $member_id,
+				'code' => $md5_code,
+			),
+			$rego_page_url
+		);		
 		swpm_debug_log_subsc( 'Member signup URL: ' . $reg_url, true );
 
 		$subject = $settings->get_value( 'reg-prompt-complete-mail-subject' );
@@ -179,14 +190,14 @@ function swpm_handle_subsc_signup_stand_alone( $ipn_data, $subsc_ref, $unique_re
 			$body = "Please use the following link to complete your registration. \n {reg_link}";
 		}
 		$from_address = $settings->get_value( 'email-from' );
-		$body         = html_entity_decode( $body );
+		$body = html_entity_decode( $body );
 
 		$additional_args = array( 'reg_link' => $reg_url );
-		$email_body      = SwpmMiscUtils::replace_dynamic_tags( $body, $id, $additional_args );
-		$headers         = 'From: ' . $from_address . "\r\n";
+		$email_body = SwpmMiscUtils::replace_dynamic_tags( $body, $member_id, $additional_args );
+		$headers = 'From: ' . $from_address . "\r\n";
 
-				$subject    = apply_filters( 'swpm_email_complete_registration_subject', $subject );
-				$email_body = apply_filters( 'swpm_email_complete_registration_body', $email_body );
+		$subject = apply_filters( 'swpm_email_complete_registration_subject', $subject );
+		$email_body = apply_filters( 'swpm_email_complete_registration_body', $email_body );
 		if ( empty( $email_body ) ) {
 			swpm_debug_log_subsc( 'Notice: Member signup (prompt to complete registration) email body has been set empty via the filter hook. No email will be sent.', true );
 		} else {
@@ -244,9 +255,11 @@ function swpm_handle_refund_using_parent_txn_id( $ipn_data ){
 }
 
 /*
- * All in one function that can handle notification for refund, cancellation, end of term
- */
+* All in one function that can handle notification for refund, cancellation, end of term
+*/
 function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
+
+	swpm_debug_log_subsc( "Refund/Cancellation Check - Let's see if a member's profile needs to be updated or deactivated.", true );
 
 	global $wpdb;
 
@@ -255,9 +268,6 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 		$customvariables = SwpmTransactions::parse_custom_var( $ipn_data['custom'] );
 		$swpm_id = $customvariables['swpm_id'];
 	}
-
-	swpm_debug_log_subsc( 'Refund/Cancellation check - lets see if a member account needs to be deactivated.', true );
-	// swpm_debug_log_subsc("Parent txn id: " . $ipn_data['parent_txn_id'] . ", Subscr ID: " . $ipn_data['subscr_id'] . ", SWPM ID: " . $swpm_id, true);.
 
 	if ( ! empty( $swpm_id ) ) {
 		// This IPN has the SWPM ID. Retrieve the member record using member ID.
@@ -274,8 +284,9 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 			),
 			OBJECT
 		);
-	} else {
+	} else if ( isset($ipn_data['parent_txn_id']) && !empty($ipn_data['parent_txn_id'] )){
 		// Refund for a one time transaction. Use the parent transaction ID to retrieve the profile.
+		swpm_debug_log_subsc( 'Parent transaction ID is present. Goign to search for member account that might be associated with it. Parent Transaction ID: ' . $ipn_data['parent_txn_id'], true );
 		$subscr_id = $ipn_data['parent_txn_id'];
 		$resultset = $wpdb->get_row(
 			$wpdb->prepare(
@@ -284,6 +295,10 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 			),
 			OBJECT
 		);
+	} else {
+		// No member ID or subscriber ID or parent transaction ID found in the IPN data. Return from here.
+		swpm_debug_log_subsc( 'No member ID or subscriber ID or parent transaction ID found in the IPN data. Nothing to do here.', true );
+		return;
 	}
 
 	if ( $resultset ) {
@@ -343,7 +358,7 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 		$ipn_data['member_id'] = $member_id;
 		do_action( 'swpm_subscription_payment_cancelled', $ipn_data ); 
 	} else {
-		swpm_debug_log_subsc( 'No associated active member record found for this notification.', false );
+		swpm_debug_log_subsc( 'No associated active member record found for this notification. The profile may have been updated/attached to another subscription or transaction.', true );
 		return;
 	}
 }
@@ -351,20 +366,20 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 function swpm_update_member_subscription_start_date_if_applicable( $ipn_data ) {
 	global $wpdb;
 	$email = isset( $ipn_data['payer_email'] ) ? $ipn_data['payer_email'] : '';
-	$subscr_id = $ipn_data['subscr_id'];
+	$subscr_id = isset( $ipn_data['subscr_id'] ) ? $ipn_data['subscr_id'] : '';
 	$account_state = SwpmSettings::get_instance()->get_value( 'default-account-status-after-payment', 'active' );
     $account_state = apply_filters( 'swpm_account_status_for_subscription_start_date_update', $account_state );
 
 	if( empty( $subscr_id ) ) {
-		swpm_debug_log_subsc( 'Subscription ID is empty. A Subscription ID value is required to update the access start date.', false );
+		swpm_debug_log_subsc( 'Subscription ID is empty in the IPN data. A Subscription ID value is required to update the access start date of a profile.', false );
 		return;
 	}
 	swpm_debug_log_subsc( 'Updating the access start date if applicable for this subscription payment. Subscriber ID: ' . $subscr_id . ', Email: ' . $email . ', Account status: ' . $account_state, true );
 
 	// We can also query using the email address or SWPM ID (if present in custom var).
 
-        //Try to find the profile with the given subscr_id. It will exact match subscr_id or match subscr_id|123
-        $query_db = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}swpm_members_tbl WHERE subscr_id = %s OR subscr_id LIKE %s", $subscr_id, $subscr_id.'|%' ), OBJECT );
+    //Try to find the profile with the given subscr_id. It will exact match subscr_id or match subscr_id|123
+    $query_db = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}swpm_members_tbl WHERE subscr_id = %s OR subscr_id LIKE %s", $subscr_id, $subscr_id.'|%' ), OBJECT );
 	if ( $query_db ) {
 		$swpm_id               = $query_db->member_id;
 		$current_primary_level = $query_db->membership_level;

@@ -1371,8 +1371,8 @@ class Premium_Maps extends Widget_Base {
 								<div class='premium-maps-info-website maps-info-item'>
 									<i class='eicon-globe' aria-hidden='true'></i>
 									<p>
-										<a href='<?php echo esc_attr( $pin['pin_website'] ); ?>' target='_blank' rel='nofollow'>
-											<?php echo wp_kses_post( $pin['pin_website'] ); ?>
+										<a href='<?php echo esc_url( $pin['pin_website'] ); ?>' target='_blank' rel='nofollow'>
+											<?php echo esc_url( $pin['pin_website'] ); ?>
 										</a>
 									</p>
 								</div>

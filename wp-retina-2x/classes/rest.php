@@ -58,6 +58,16 @@ class Meow_WR2X_Rest
 			'permission_callback' => array( $this->core, 'can_access_settings' ),
 			'callback' => array( $this, 'rest_check_optimizers' )
 		) );
+		register_rest_route( $this->namespace, '/get_logs', array(
+			'methods' => 'GET',
+			'permission_callback' => array( $this->core, 'can_access_features' ),
+			'callback' => array( $this, 'rest_get_logs' )
+		) );
+		register_rest_route( $this->namespace, '/clear_logs', array(
+			'methods' => 'GET',
+			'permission_callback' => array( $this->core, 'can_access_features' ),
+			'callback' => array( $this, 'rest_clear_logs' )
+		) );
 
 		// STATS & LISTING
 		register_rest_route( $this->namespace, '/stats', array(
@@ -147,6 +157,16 @@ class Meow_WR2X_Rest
 			'callback' => array( $this, 'rest_replace' )
 		) );
   }
+
+  	function rest_get_logs() {
+		$logs = $this->core->get_logs();
+		return new WP_REST_Response( [ 'success' => true, 'data' => $logs ], 200 );
+	}
+
+	function rest_clear_logs() {
+		$this->core->clear_logs();
+		return new WP_REST_Response( [ 'success' => true ], 200 );
+	}
 
 	function check_upload( $tmpfname, $filename ) {
 		if ( !current_user_can( 'upload_files' ) ) {
@@ -736,6 +756,7 @@ class Meow_WR2X_Rest
 			if ($success && $custom_image_size_changes !== null) {
 				$type = $custom_image_size_changes['type'];
 				$values = $custom_image_size_changes['value'];
+				//TODO: Should use core->add_image_sizes instead
 				$this->core->register_custom_image_size(
 					$type,
 					$values['name'],

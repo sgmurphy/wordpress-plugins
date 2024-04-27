@@ -21,12 +21,21 @@ class SwpmTransactions {
 		//Subscription ID
 		$subscr_id = $ipn_data['subscr_id'];
 
-		$txn_data                     = array();
+		//Prepare the transaction data array.
+		$txn_data = array();
 		$txn_data['email']            = $ipn_data['payer_email'];
 		$txn_data['first_name']       = $ipn_data['first_name'];
 		$txn_data['last_name']        = $ipn_data['last_name'];
 		$txn_data['ip_address']       = $ip_address;
-		$txn_data['member_id']        = isset ( $custom_var['swpm_id'] ) ? $custom_var['swpm_id'] : '';
+
+		//Get the member ID. First, get from the custom field (highest priority). If not found, try to get from $ipn_data['member_id'] (When handling IPN we try to set it if we find a reference for it).
+		$txn_data['member_id'] = isset ( $custom_var['swpm_id'] ) ? $custom_var['swpm_id'] : '';
+		if( empty( $txn_data['member_id'] ) ){
+			$txn_data['member_id'] = isset ( $ipn_data['member_id'] ) ? $ipn_data['member_id'] : '';
+		}
+		//SwpmLog::log_simple_debug( 'Member ID value: ' . $txn_data['member_id'], true );
+
+		//Get the membership level reference.
 		$txn_data['membership_level'] = isset ( $custom_var['subsc_ref'] ) ? $custom_var['subsc_ref'] : '';
 
 		$txn_data['txn_date']       = $current_date;
@@ -44,12 +53,13 @@ class SwpmTransactions {
 		}
 
 		$txn_data = array_filter( $txn_data );//Remove any null values.
+		
+		//Save the transaction record to the payments database table (this is for backwards compatibility).
 		$wpdb->insert( $wpdb->prefix . 'swpm_payments_tbl', $txn_data );
 
 		$db_row_id = $wpdb->insert_id;
 
-        /*** Save to the swpm_transactions CPT also ***/
-		//Let's also store the transactions data in swpm_transactions CPT.
+        /*** Save to the swpm_transactions CPT ***/
 		$post = array();
 		$post['post_title']  = '';
 		$post['post_status'] = 'publish';
@@ -72,7 +82,12 @@ class SwpmTransactions {
 				} else {
 					$member_id = $member_record->member_id;
 					$extra_info = SwpmMemberUtils::get_account_extra_info( $member_id );
+					//Check if the extra_info is an array. If not, initialize it as an array before adding the orig_swpm_txn_cpt_id.
+					if (!is_array($extra_info)) {
+						$extra_info = array(); // Initialize as array if not already
+					}					
 					$extra_info['orig_swpm_txn_cpt_id'] = $post_id;
+					//Update the member's extra_info with the orig_swpm_txn_cpt_id.
 					SwpmMemberUtils::update_account_extra_info( $member_id, $extra_info );
 				}
 			}

@@ -5,7 +5,7 @@ Donate link: https://meowapps.com/donation/
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 6.5.4
+Stable tag: 6.5.5
 
 Optimize and manage your images with Perfect Images. Easily replace or regenerate existing images in bulk, set custom sizes, improve performance, create retina versions, and more. Achieve perfect images for your site with ease.
 
@@ -49,6 +49,10 @@ The Pro version adds support for Retina for full-size, support for lazy-loading 
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 6.5.5 (2024/04/27) =
+* Fix: Corrected an issue where "crop" was always set to true.
+* Add: Introduced log reader, log cleaner, and secure anti-traversal for log paths to enhance security and functionality.
 
 = 6.5.4 (2024/03/23) =
 * Fix: Corrected actions for selected items and addressed missing status on entries.

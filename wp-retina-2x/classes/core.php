@@ -196,6 +196,13 @@ class Meow_WR2X_Core {
 	function add_image_sizes() {
 		$custom_image_sizes = $this->get_option( 'custom_image_sizes' );
 		foreach ( $custom_image_sizes as $details ) {
+			
+			if ( in_array( $details['crop'], ['yes', 'no'] ) ) {
+				$details['crop'] = $details['crop'] === 'yes';
+			} else {
+				$details['crop'] = explode( '-', $details['crop'] );
+			}
+
 			add_image_size( $details['name'], $details['width'], $details['height'], $details['crop'] );
 		}
 	}
@@ -1409,19 +1416,50 @@ class Meow_WR2X_Core {
 		return !!$debug;
 	}
 
+	function get_logs() {
+		$log_file_path = $this->get_logs_path();
+
+		if ( !file_exists( $log_file_path ) ) {
+			return "Empty log file.";
+		}
+
+		$content = file_get_contents( $log_file_path );
+		$lines = explode( "\n", $content );
+		$lines = array_filter( $lines );
+		$lines = array_reverse( $lines );
+		$content = implode( "\n", $lines );
+		return $content;
+	}
+
+	function clear_logs() {
+		unlink( $this->get_logs_path() );
+	}
+
 	function get_logs_path() {
-		$path = $this->get_option( 'logs_path' );
-		if ( $path && file_exists( $path ) ) {
-			return $path;
-		}
 		$uploads_dir = wp_upload_dir();
-		$path = trailingslashit( $uploads_dir['basedir'] ) . WR2X_PREFIX . "_" . $this->random_ascii_chars() . ".log";
-		if ( !file_exists( $path ) ) {
-			touch( $path );
+		$uploads_dir_path = trailingslashit( $uploads_dir['basedir'] );
+
+		$path = $this->get_option( 'logs_path' );
+
+		if ( $path && file_exists( $path ) ) {
+			// make sure the path is legal (within the uploads directory with the WR2X_PREFIX and log extension)
+			if ( strpos( $path, $uploads_dir_path ) !== 0 || strpos( $path, WR2X_PREFIX ) === false || substr( $path, -4 ) !== '.log' ) {
+				$path = null;
+			} else {
+				return $path;
+			}
 		}
-		$options = $this->get_all_options();
-		$options['logs_path'] = $path;
-		$this->update_options( $options );
+
+		if ( !$path ) {
+			$path = $uploads_dir_path . WR2X_PREFIX . "_" . $this->random_ascii_chars() . ".log";
+			if ( !file_exists( $path ) ) {
+				touch( $path );
+			}
+			$options = $this->get_all_options();
+			$options['logs_path'] = $path;
+			$this->update_options( $options );
+		}
+
 		return $path;
 	}
 
@@ -1436,7 +1474,7 @@ class Meow_WR2X_Core {
 		}
 		else {
 			fwrite( $fh, "$date: {$data}\n" );
-			error_log( "[PERFECT IMAGES] $data" );
+			//error_log( "[PERFECT IMAGES] $data" );
 		}
 		fclose( $fh );
 		return true;
@@ -2028,12 +2066,14 @@ class Meow_WR2X_Core {
 			}
 			return;
 		}
+
 		if ( in_array( $crop, ['yes', 'no'] ) ) {
 			$crop = $crop === 'yes';
 		} else {
 			$crop = explode( '-', $crop );
 		}
-		add_image_size( $name, $width, $height, $crop );
+
+		add_image_size( $name, $width, $height, false );
 	}
 
 	private function random_ascii_chars( $length = 8 ) {

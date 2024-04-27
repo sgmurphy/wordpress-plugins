@@ -5,7 +5,7 @@ Tags: member, members, members only, membership, memberships, register, WordPres
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 4.4.4
+Stable tag: 4.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,12 @@ Please visit the membership plugin page to view screenshots:
 https://simple-membership-plugin.com/
 
 == Changelog ==
+
+= 4.4.5 =
+- Added a link to the corresponding member profile in the newly added transaction view/edit interface.
+- Added a link to the corresponding membership level in the newly added transaction view/edit interface.
+- Minor PHP compatibility related improvements for PayPal and Stripe checkout.
+- Minor updates to the the debug log messaging for the refund/cancelation process.
 
 = 4.4.4 =
 - Added an option to configure a Cancel URL for Stripe SCA Subscription type buttons.
