@@ -7,6 +7,7 @@ class Mappress_Poi extends Mappress_Obj {
 		$iconid,
 		$images,
 		$kml,
+		$log,
 		$name,
 		$oid,
 		$otype,

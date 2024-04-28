@@ -118,7 +118,7 @@
 	border-top: 1px solid lightgray;
 	display: flex;
 	height: 60px;
-	padding: 0 20px;
+	padding: 0 15px;
 }
 
 
@@ -211,6 +211,14 @@
 	margin-right: 0;
 }
 
+.mapp-pick-bulk-actions {
+	display: flex;
+}
+
+.mapp-pick-bulk-actions input[type='checkbox'] {
+	margin: 0;
+}
+
 .mapp-pick-items  {
 	display: flex;
 	flex: 1;
@@ -221,7 +229,7 @@
 	align-items: center;				
 	border-bottom: 1px solid lightgray;
 	display: flex;
-	padding: 15px 20px;
+	padding: 0 15px;
 	text-overflow: ellipsis;
 }
 
@@ -236,15 +244,49 @@
 
 .mapp-pick-hover {
 	background-color: #f8f8f8;
-}
+}         
 
-.mapp-pick-bulk-actions {
+.mapp-pick-col-main {
+	align-items: center;
+	cursor: pointer;    
 	display: flex;
+	flex: 1;
+	padding: 15px 0;    
 }
 
-.mapp-pick-bulk-actions input[type='checkbox'] {
-	margin: 0;
+.mapp-pick-col-checkbox {  }
+
+.mapp-pick-col-title {
+	flex: 1;
+	overflow: hidden;    
+}       
+	
+.mapp-pick-col-mapid {
+	color: gray;
+	text-decoration: none;
+	width: 100px;
 }
+
+.mapp-pick-col-title {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.mapp-pick-title {
+	font-weight: 600;
+}
+
+.mapp-pick-link {
+	overflow: hidden;     
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}     
+
+.mapp-pick-link.mapp-pick-unattached {
+	color: gray;
+}     
 
 .mapp-pick-col-actions {
 	text-align: right;
@@ -273,44 +315,6 @@
 	background-color: rgba(0,0,0,0.1);
 }
 
-.mapp-pick-col-checkbox {
-	padding-right: 10px;
-}
-
-.mapp-pick-col-title {
-	flex: 1;
-	overflow: hidden;    
-}       
-	
-.mapp-pick-col-mapid {
-	color: gray;
-	cursor: pointer;
-	text-decoration: none;
-	width: 100px;
-}
-
-.mapp-pick-col-title {
-	cursor: pointer;    
-	flex: 1;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.mapp-pick-title {
-	font-weight: 600;
-}
-
-.mapp-pick-link {
-	overflow: hidden;     
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}     
-
-.mapp-pick-link.mapp-pick-unattached {
-	color: gray;
-}     
-
 .mapp-pick-toolbar {
 	display: flex;
 	justify-content: center;
@@ -322,17 +326,13 @@
 	height: 32px;
 }
 
-.mapp-skeleton .mapp-pick-title {
-	height: 1.3em;
-	width: 30em;
+.mapp-skeleton.mapp-pick-item {
+	height: 66.4px;
 }
 
-.mapp-skeleton .mapp-mapid, .mapp-skeleton .mapp-pick-link {
-	height: 1.3em;
-	width: 10em;
-}
-
-.mapp-skeleton .mapp-pick-title, .mapp-skeleton .mapp-mapid, .mapp-skeleton .mapp-pick-link {
+.mapp-skeleton .mapp-pick-col-title {
+	height: 20px;
+	flex: 0.5;
 	background-color: #e2e5e7;
 	background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
 	background-size: 40px 100%;

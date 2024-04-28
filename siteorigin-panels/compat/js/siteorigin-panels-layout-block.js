@@ -42,7 +42,8 @@ var SiteOriginPanelsLayoutBlock = /*#__PURE__*/function (_wp$element$Component) 
       this.isStillMounted = true;
       if (!this.state.panelsInitialized) {
         this.setupPanels();
-      } else if (!this.state.editing && !this.previewInitialized) {
+      }
+      if (!this.previewInitialized) {
         clearTimeout(this.fetchPreviewTimer);
         var current = this;
         this.fetchPreviewTimer = setTimeout(function () {
@@ -196,7 +197,13 @@ var SiteOriginPanelsLayoutBlock = /*#__PURE__*/function (_wp$element$Component) 
           panelsData: JSON.stringify(panelsData)
         }
       }).then(function (preview) {
-        if (_this3.isStillMounted && fetchRequest === _this3.currentFetchRequest && preview) {
+        if (!_this3.isStillMounted) {
+          return;
+        }
+        setTimeout(function () {
+          jQuery(document).trigger('panels_setup_preview');
+        }, 1000);
+        if (fetchRequest === _this3.currentFetchRequest && preview) {
           _this3.setState({
             previewHtml: preview,
             loadingPreview: false,

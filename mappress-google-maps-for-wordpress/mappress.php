@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.90.2
+Version: 2.90.3
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.90.2';
+	const VERSION = '2.90.3';
 
 	static
 		$api,
@@ -767,7 +767,7 @@ class Mappress {
 		$options = array('alignment', 'clustering', 'clusteringOptions', 'country', 'defaultIcon', 'directions', 'directionsList',
 		'directionsPopup', 'directionsServer', 'engine', 'filtersOpen', 'filtersPos', 'geocoder', 'geolocate',
 		'highlight', 'highlightIcon', 'iconScale', 'initialOpenInfo', 'layout', 'lines', 'lineOpts',
-		'mashupClick', 'mini', 'poiFields', 'poiList', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
+		'mashupClick', 'mini', 'poiFields', 'poiList', 'poiListKml', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
 		'searchBox', 'searchParam', 'searchPlaceholder', 'size', 'sizes', 'sort', 'style', 'thumbHeight', 'thumbWidth', 'thumbs', 'thumbsList', 'thumbsPopup', 
 		'tooltips', 'units', 'userLocation', 'webComponent');
 

@@ -3,7 +3,7 @@ Contributors: GamerZ
 Donate link: https://lesterchan.net/site/donation/  
 Tags: sweep, clean, cleanup, clean up, optimize, orphan, unused, duplicated, posts, post meta, comments, comment meta, users, user meta, terms, term meta, term relationships, revisions, auto drafts, transient, database, tables, oembed
 Requires at least: 4.6  
-Tested up to: 6.3  
+Tested up to: 6.5  
 Stable tag: 1.1.8  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
@@ -81,7 +81,6 @@ WP-Sweep Available Items:
 * oembed_postmeta
 
 WP-Sweep is not compatible with the following plugins:
-* [Asgaros Forum](https://wordpress.org/plugins/asgaros-forum/)
 * [Custom Fonts](https://wordpress.org/plugins/custom-fonts/)
 * [Elementor Popup Builder](https://elementor.com/features/popup-builder/)
 * [MailPress](https://wordpress.org/plugins/mailpress/)

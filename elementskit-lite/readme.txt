@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder,  header footer builder, elementor add
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -437,6 +437,10 @@ Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of W
 
 
 == Changelog ==
+ElementsKit Elementor Addons Version: 3.1.3 (2024-04-28)
+Improved: Image accordion widget sanitization
+Fixed: Nav menu widget indicator responsive issue
+
 ElementsKit Elementor Addons Version: 3.1.2 (2024-04-22)
 Fixed: Add new form button compatibility with gravity form
 Fixed: Template select field not working in protected content widget

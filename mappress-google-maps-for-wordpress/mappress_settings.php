@@ -50,6 +50,7 @@ class Mappress_Options extends Mappress_Obj {
 		$mini = 500,
 		$poiFields,
 		$poiList = true,
+		$poiListKml = true,
 		$poiListOpen = true,
 		$poiListPageSize = 20,
 		$poiListViewport = false,
