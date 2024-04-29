@@ -8,7 +8,7 @@ if ( array_key_exists( 'woocommerce/woocommerce.php', $all_plugins ) ) {
 	if( ! array_key_exists( 'woolementor/woolementor.php', $all_plugins ) ){
 		$plugins['woolementor']  = [
 			'label'	=> __( 'CoDesigner (formerly Woolementor)', 'image-sizes' ),
-			'desc'	=> sprintf( __( 'The Best Elementor Addon to Customize WooCommerce. Helps <a href="%s" target="_blank">boost your sales</a> significantly.', 'image-sizes' ), add_query_arg( [ 'utm_campaign' => 'image-sizes_wizard' ], 'https://codexpert.io/codesigner/' ) ),
+			'desc'	=> sprintf( __( 'The Best Elementor Addon to Customize WooCommerce. Helps <a href="%s" target="_blank">boost your sales</a> significantly.', 'image-sizes' ), add_query_arg( [ 'utm_campaign' => 'image-sizes_wizard' ], 'https://codexpert.io/thumbpress/' ) ),
 		];
 	}
 	if( ! array_key_exists( 'wc-affiliate/wc-affiliate.php', $all_plugins ) ){
@@ -38,22 +38,12 @@ if( ! array_key_exists( 'coschool/coschool.php', $all_plugins ) ){
 
 echo '
 <div class="step-three">
-	<h1 class="cx-almost">' . __( 'Installation Complete! 👏', 'image-sizes' ) . '</h1>
-	<p class="cx-wizard-sub">' . __( 'Congrats! You have successfully eliminated the unnecessary thumbnails from your website. 😎', 'image-sizes' ) . '</p>';
-	if( count( $plugins ) > 0 ) {
-		echo '<p class="cx-wizard-sub">'. __( 'Install our top plugins to make your website even better. You can always try them by returning to installation wizard later.', 'image-sizes' ) . '</p>
-			<h2 class="cx-products">' . __( 'Supercharge your site with these plugins 🚀', 'image-sizes' ) . '</h2>';
-	}
-
-	foreach( $plugins as $plugin => $plugin_array ) {
-  		?>
-  		<p>
-  			<input type="checkbox" class="cx-suggestion-checkbox" id="<?php esc_attr_e( $plugin ); ?>" name="<?php esc_attr_e( $plugin ); ?>" value="<?php esc_attr_e( $plugin ); ?>" />
-  			<label class="cx-suggestion-label" for="<?php esc_attr_e( $plugin ); ?>"><?php esc_html_e( $plugin_array['label']  ) ?></label>
-  			<sub class="cx-suggestion-sub"><?php _e( $plugin_array['desc'] ); ?> </sub>
-  		</p>
-  		<?php
-	}
+	<h1 class="cx-almost">' . __( 'Congratulations!👏', 'image-sizes' ) . '</h1>
+	<p class="cx-wizard-sub">' . __( 'You are all set to save more server space and get a blazing-fast website by smartly managing images and thumbnails! 😎', 'image-sizes' ) . '</p>'
+    . 
+    '<p class="cx-wizard-sub">' . __( "We have revamped the plugin with 10 new exciting features and launched a ThumbPress Pro. To celebrate the grand launch, we're offering up to 50% discount on the pro plans to celebrate the launch.", 'image-sizes' ) . '
+	<a class ="cx-claim" target="_blank" href="https://thumbpress.co/pricing">' . __( 'Get Pro Now', 'image-sizes' ) . '</a>
+	</p>';
 	
 echo '
 </div>
@@ -64,7 +54,7 @@ echo '
 ?>
 
 <script type="text/javascript">
-jQuery(document).ready(function($){
+jQuery(document).ready(function($) {
 	$('#complete-btn').on('click', function(event) {        
 		$(".loader_div").show();   
 	});

@@ -98,7 +98,12 @@ class FacebookTemplate {
      * @return string
 	 */
 	public function woo_feed_filter_product_description_callback( $description ) {
-		return substr( $description, 0, 10000 );
+        if( $description !==null  ){
+
+            return substr( $description, 0, 10000 );
+        }
+
+        return $description;
 	}
 
 

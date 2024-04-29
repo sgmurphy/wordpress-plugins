@@ -215,6 +215,8 @@ class Module {
 		}
 	}
 
+	
+
 	public function _before_render( \Elementor\Element_Base $element ) {
 
 		if ( $element->get_name() !== 'section' && $element->get_name() !== 'column' && $element->get_name() !== 'container' ) {
@@ -254,14 +256,19 @@ class Module {
 		$cover = filter_var($settings['eae_slider_cover'], FILTER_VALIDATE_BOOLEAN);
 		if(!$cover){
 			$cover = 'false';
+		}else{
+			$cover = 'true';
 		}	
-		$delay = filter_var($settings['eae_slider_cover'], FILTER_VALIDATE_INT);
+		
+		$delay = filter_var($settings['eae_slider_delay'], FILTER_VALIDATE_INT);
 		if(!$delay){
 			$delay = 5000;
 		}
 		$timer = filter_var($settings['eae_slider_timer_bar'], FILTER_VALIDATE_BOOLEAN);
 		if(!$timer){
 			$timer = 'false';
+		}else{
+			$timer = 'true';
 		}
 		// Determine the overlay URL
 		$overlay_base_url = EAE_URL . '/assets/lib/vegas/overlays/';
@@ -270,6 +277,7 @@ class Module {
 	?>
 
 	<script type="text/javascript">
+		
 		jQuery(document).ready(function ($) {
 			var elementSelector = ".elementor-element-<?php echo esc_attr($element_id); ?>";
 			var $element = jQuery(elementSelector);
@@ -287,6 +295,7 @@ class Module {
 				delay: <?php echo $delay; ?>,
 				timer: <?php echo $timer; ?>
 			});
+			
 
 			// Clear the overlay if custom overlay switcher is set to 'yes'
 			if ('<?php echo esc_attr($settings['eae_custom_overlay_switcher']); ?>' === 'yes') {

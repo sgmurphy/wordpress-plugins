@@ -830,7 +830,7 @@
                 </el-col>
               </el-row>
 
-              <el-row class="am-customize-notifications-combined" v-if="notification.sendTo === 'provider' && entity === 'appointment' && notification.name !== 'customer_cart' && notification.name !== 'provider_cart'">
+              <el-row class="am-customize-notifications-combined" v-if="!notInLicence() && notification.sendTo === 'provider' && entity === 'appointment' && notification.name !== 'customer_cart' && notification.name !== 'provider_cart'">
                 <el-col :span="16">
                   <div class="am-customize-notifications-combined-tooltip">
                     <strong>{{ $root.labels.ph_group_appointment_details }}</strong>

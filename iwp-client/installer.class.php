@@ -562,11 +562,13 @@ class IWP_MMB_Installer extends IWP_MMB_Core
             @wp_update_plugins();
 			$upgrader = new Plugin_Upgrader(new IWP_Updater_TraceableUpdaterSkin());
 			$result = $upgrader->bulk_upgrade(array_keys($plugins));
-			$current = $this->iwp_mmb_get_transient('update_plugins');
+            $current = $this->iwp_mmb_get_transient('update_plugins');
 			if (!empty($result)) {
                 foreach ($result as $plugin_slug => $plugin_info) {
                     $upgrade_msg[$plugin_slug] = $upgrader->skin->get_upgrade_messages();
-                    if (!$plugin_info || is_wp_error($plugin_info)) {
+                    if ( !empty($upgrade_msg[$plugin_slug]) && !empty($upgrade_msg[$plugin_slug][0]) && !empty($upgrade_msg[$plugin_slug][0]['key']) && $upgrade_msg[$plugin_slug][0]['key'] == 'up_to_date') {
+                        $return[$plugin_slug] = array('error' => $upgrade_msg[$plugin_slug][0]['message'], 'error_code' => $upgrade_msg[$plugin_slug][0]['key']);
+                    }elseif (!$plugin_info || is_wp_error($plugin_info)) {
                         $return[$plugin_slug] = array('error' => $this->parse_upgrade_response($upgrader->skin->get_upgrade_messages()), 'error_code' => 'upgrade_plugins_wp_error');
                     } else {
 						if(
@@ -676,7 +678,10 @@ class IWP_MMB_Installer extends IWP_MMB_Core
 			$return = array();
             if (!empty($result)) {
                 foreach ($result as $theme_tmp => $theme_info) {
-					 if (is_wp_error($theme_info) || empty($theme_info)) {
+                    $upgrade_msg[$theme_tmp] = $upgrader->skin->get_upgrade_messages();
+                    if ( !empty($upgrade_msg[$theme_tmp]) && !empty($upgrade_msg[$theme_tmp][0]) && !empty($upgrade_msg[$theme_tmp][0]['key']) && $upgrade_msg[$theme_tmp][0]['key'] == 'up_to_date') {
+                        $return[$theme_tmp] = array('error' => $upgrade_msg[$theme_tmp][0]['message'], 'error_code' => $upgrade_msg[$theme_tmp][0]['key']);
+                    }elseif (is_wp_error($theme_info) || empty($theme_info)) {
                         $return[$theme_tmp] = array('error' => $this->parse_upgrade_response($upgrader->skin->get_upgrade_messages()), 'error_code' => 'upgrade_plugins_wp_error');
                     } else {
 						if(!empty($result[$theme_tmp]) || (isset($current->checked[$theme_tmp]) && version_compare(array_search($theme_tmp, $versions), $current->checked[$theme_tmp], '<') == true)){
@@ -702,7 +707,8 @@ class IWP_MMB_Installer extends IWP_MMB_Core
                     }
                 }
                 return array(
-                    'upgraded' => $return
+                    'upgraded' => $return,
+                    'upgraded_msg' => $upgrade_msg
                 );
             } else
                 return array(

@@ -1101,9 +1101,13 @@ EOF;
 		
 		if (( $auto_login && strlen(trim($username)) && !is_user_logged_in() ) || (isset($this->iwp_mmb_multisite) && $this->iwp_mmb_multisite )) {
 			$signature  = base64_decode($_GET['signature']);
+            $signature_new = '';
+            if (!empty($_GET['signature_new'])) {
+                $signature_new = base64_decode($_GET['signature_new']);
+            }
             $message_id = trim($_GET['message_id']);
             
-            $auth = $this->authenticate_message($where . $message_id, $signature, $message_id);
+            $auth = $this->authenticate_message($where . $message_id, $signature, $signature_new , $message_id);
 			if ($auth === true) {
 				
 				if (!headers_sent())
@@ -1553,7 +1557,7 @@ EOF;
 	    	$sql = "INSERT INTO `$wpdb->options` (option_name,option_value) VALUES (%s,%s) ON DUPLICATE KEY UPDATE option_value = %s";
 	    	$sql = $wpdb->prepare($sql,$option_name,$option_value,$option_value);
 	    	$affected = $wpdb->query($sql);
-	    	if(!$affected){
+	    	if($affected === false){
 		    	global $iwp_backup_core;
 				$iwp_backup_core->log("Failed to update $option_name option and value $option_value");
 				$bt = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);

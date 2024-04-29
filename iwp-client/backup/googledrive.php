@@ -698,10 +698,15 @@ class IWP_MMB_UploadModule_googledrive extends IWP_MMB_UploadModule {
 		}
 
 		# Chunk in units of 2MB
-		$chunk_size = 2097152;
+		// $chunk_size = 2097152;
+		$chunk_size = 1024 * ( 5* 1024 );
 
 		try {
 			while ($existing_size < $size) {
+
+				if($iwp_backup_core->restore_loop_break()){
+					return 'partial';	
+				}
 
 				$end = min($existing_size + $chunk_size, $size);
 
@@ -721,7 +726,11 @@ class IWP_MMB_UploadModule_googledrive extends IWP_MMB_UploadModule {
 				$http_request = $this->client->getIo()->makeRequest($request);
 				$http_response = $http_request->getResponseHttpCode();
 				if (200 == $http_response || 206 == $http_response) {
-					file_put_contents($download_to, $http_request->getResponseBody(), $put_flag);
+					if ($put_flag == null) {
+						file_put_contents($download_to, $http_request->getResponseBody());
+					}else{
+						file_put_contents($download_to, $http_request->getResponseBody(), $put_flag);
+					}
 				} else {
 					$iwp_backup_core->log("Google Drive download: failed: unexpected HTTP response code: ".$http_response);
 					$iwp_backup_core->log(sprintf(__("%s download: failed: file not found", 'iwp_backup_core'), 'Google Drive'), 'error');

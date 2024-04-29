@@ -62,11 +62,26 @@ class Admin extends Base {
 	public function enqueue_scripts() {
 		$min = defined( 'THUMBPRESS_DEBUG' ) && THUMBPRESS_DEBUG ? '' : '.min';
 		
-		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/admin{$min}.css", THUMBPRESS ), '', $this->version, 'all' );
-		wp_enqueue_script( $this->slug, plugins_url( "/assets/js/admin{$min}.js", THUMBPRESS ), [ 'jquery' ], $this->version, true );
-
+		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/admin.min.css", THUMBPRESS ), '', time(), 'all' );
+		// wp_enqueue_style( $this->slug . '-slick', plugins_url( "/assets/slick/slick.css", THUMBPRESS ), '', $this->version, 'all' );
+		wp_enqueue_style( $this->slug . 'dashboard', plugins_url( "/assets/css/settings/dashboard.min.css", THUMBPRESS ), '', time(), 'all' );
+		wp_enqueue_style( $this->slug . 'google-font', "//fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+		
+		// slider
+		// wp_enqueue_style( $this->slug . 'flickty-css', 'https://unpkg.com/flickity@2/dist/flickity.min.css', '', $this->version, 'all' );
+		
+		// wp_enqueue_script($this->slug . "-slick", plugins_url("/assets/slick/slick.min.js", THUMBPRESS), ['jquery'], $this->version, true);
+		wp_enqueue_script($this->slug, plugins_url("/assets/js/admin.min.js", THUMBPRESS), ['jquery'], time(), true);
+		
 	    // wp_enqueue_style( "{$this->slug}-react", plugins_url( 'build/index.css', THUMBPRESS ) );
 	    wp_enqueue_script( "{$this->slug}-react", plugins_url( 'build/index.js', THUMBPRESS ), [ 'wp-element' ], '1.0.0', true );
+		
+		// slider
+		// wp_enqueue_script( $this->slug . 'bridge-js', 'https://cdn.jsdelivr.net/npm/jquery-bridget@3.0.1/jquery-bridget.min.js', ['jquery'], time(), true );
+		// wp_enqueue_script( $this->slug . 'flickty-js', 'https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js', ['jquery'], time(), true );
+		
+	    wp_enqueue_script('wp-pointer');
+	    wp_enqueue_style('wp-pointer');
 
 		$localized = array(
 			'ajaxurl'		=> admin_url( 'admin-ajax.php' ),
@@ -77,39 +92,19 @@ class Admin extends Base {
 			'analyze'		=> __( 'Analyze', 'image-sizes' ),
 			'analyzing'		=> __( 'Analyzing..', 'image-sizes' ),
 			'analyzed'		=> __( 'Analyzed', 'image-sizes' ),
-			'optimize'		=> __( 'Optimize', 'image-sizes' ),
-			'optimizing'	=> __( 'Optimizing..', 'image-sizes' ),
-			'optimized'		=> __( 'Optimized', 'image-sizes' ),
+			'optimize'		=> __( 'Compress', 'image-sizes' ),
+			'optimizing'	=> __( 'Compressing..', 'image-sizes' ),
+			'optimized'		=> __( 'Compressed', 'image-sizes' ),
+			'confirm'		=> esc_html__( 'Are you sure you want to delete this? The data and its associated files will be completely erased. This action cannot be undone!', 'image-sizes' ),
+			'confirm_all'	=> esc_html__( 'Are you sure you want to delete these? The data and their associated files will be completely erased. This action cannot be undone!', 'image-sizes' ),
+			'is_welcome'	=> $this->get_pointers(),
+			'live_chat'		=> get_option( 'thumbpress_live_chat_enabled' ) == 1,
+			'tp_page'		=> isset( $_GET['page'] ) && false !== strpos( $_GET['page'], 'thumbpress' ),
+			'name'			=> get_userdata( get_current_user_id() )->display_name,
+			'email'			=> get_userdata( get_current_user_id() )->user_email,
 		);
 	    wp_localize_script( $this->slug, 'THUMBPRESS', apply_filters( "{$this->slug}-localized", $localized ) );
 	}
-
-	public function set_init_sizes() {
-		update_option( '_image-sizes', Helper::default_image_sizes() );
-	}
-
-	/**
-     * unset image size(s)
-     *
-     * @since 1.0
-     */
-    public function image_sizes( $sizes ){
-        $disables = Helper::get_option( 'prevent_image_sizes', 'disables', [] );
-
-        if( count( $disables ) ) :
-	        foreach( $disables as $disable ){
-	            unset( $sizes[ $disable ] );
-	        }
-        endif;
-        
-        return $sizes;
-    }
-
-    public function big_image_size( $threshold ) {
-    	$disables = Helper::get_option( 'prevent_image_sizes', 'disables', [] );
-
-    	return in_array( 'scaled', $disables ) ? false : $threshold;
-    }
 
 	public function action_links( $links ) {
 		$this->admin_url = admin_url( 'admin.php' );
@@ -133,6 +128,7 @@ class Admin extends Base {
 	public function footer_text( $text ) {
 		if( get_current_screen()->parent_base != $this->slug ) return $text;
 
+		/* translators: %1$s is the plugin name, %2$s is the link to leave a review, %3$s is the rating stars */
 		return sprintf( __( 'If you like <strong>%1$s</strong>, please <a href="%2$s" target="_blank">leave us a %3$s rating</a> on WordPress.org! It\'d motivate and inspire us to make the plugin even better!', 'image-sizes' ), $this->name, "https://wordpress.org/support/plugin/{$this->slug}/reviews/?filter=5#new-post", '⭐⭐⭐⭐⭐' );
 	}
 
@@ -144,17 +140,89 @@ class Admin extends Base {
 	}
 
 	public function admin_notices() {
+
+		if( ! defined( 'THUMBPRESS_PRO' ) ) {
+
+			$current_screen = get_current_screen()->base;
+			$current_time 	= wp_date('U');	
+			$notice_meta 	= get_option( 'thumbpress_pro_notice_recurring_every_week', true );	
+
+			if ( ( $current_screen == 'dashboard' ) && ( $current_time >= $notice_meta )) {
+				
+				printf( '<div id="image-sizes-hide-banner"  class="notice notice-success is-dismissible image-sizes-admin_notice">
+					
+						<form class="image-sizes-banner" method="post">
+							<input type="hidden" value="%1$s" name="">
+							<a href="%3$s" target="_blank"> 
+								<img class="cx-free-banner-img" src="%2$s">
+							</a>
+							<button type="button"  class="notice-dismiss image-sizes-notice"></button>
+						</form>
+									
+				</div>',
+				wp_create_nonce(), 
+				THUMBPRESS_ASSET . '/img/ThumbPress-pro-notice.gif',
+				'https://thumbpress.co/pricing/',
+				);			
+			}
+		}
 		
 		if ( current_user_can( 'manage_options' ) && get_option( "{$this->slug}_setup_done" ) != 1 ) {
 			?>
 			<div class="notice notice-warning cx-notice cx-shadow is-dismissible">
-				<h3><?php _e( 'Congratulations! You\'re almost there.. 🥳' ); ?></h3>
-				<p><?php printf( __( 'Thanks for installing <strong>%1$s</strong>. In order to stop unnecessary image sizes from generating, you need to disable them first.' ), $this->name ); ?></p>
+				<h3>
+					<?php _e( 'Congratulations! You\'re almost there.. 🥳', 'image-sizes' ); ?>
+				</h3>
 				<p>
-					<a class="button button-primary" href="<?php echo add_query_arg( 'page', "{$this->slug}_setup", admin_url( 'admin.php' ) ); ?>"><?php _e( 'Run Setup Wizard', 'image-sizes' ); ?></a>
+					<?php printf( __( 'Thanks for installing <strong>%1$s</strong>. To start managing your images and thumbnails, please complete the setup wizard.' ), 'image-sizes' ); ?>
+				</p>
+				<p>
+					<a class="button button-primary" href="<?php echo add_query_arg( 'page', "{$this->slug}_setup", admin_url( 'admin.php' ) ); ?>">
+						<?php _e( 'Run Setup Wizard', 'image-sizes' ); ?>
+					</a>
 				</p>
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Returns all WP pointers
+	 *
+	 * @return array
+	 */
+	public function get_pointers() {
+		if ( ! defined( 'THUMBPRESS_PRO' ) ) {
+			$current_time 	= wp_date( 'U' );
+			$notice_meta 	= get_option( 'thumbpress_pro_notice_recurring_every_1_month', true );
+
+			if ( $current_time >= $notice_meta ) {
+				$pointers = array(
+					'target' 	=> '#toplevel_page_thumbpress',
+					'edge' 		=> 'left',
+					'align' 	=> 'right',
+					'content' 	=> sprintf(
+						__( '<h3>%1s %2s</h3>
+							<p class="image_sizes-para">🎉 %3s %4s, %5s %6s 
+								</b> 
+								<a class="image_sizes-notice_ahref" href="%7s">
+									<button >%8s</button>
+								</a>
+							</p>', 'images-sizes' ),
+						__( 'ThumbPress Pro', 'images-sizes' ),
+						__( 'Grand Launch', 'images-sizes' ),
+						__( '25%', 'images-sizes' ),
+						__( 'OFF Yearly', 'images-sizes' ),
+						__( '50%', 'images-sizes' ),
+						__( 'OFF Lifetime - Limited-time Only!', 'images-sizes' ),
+						admin_url( 'admin.php?page=thumbpress' ),
+						__( 'Upgrade Now', 'images-sizes' )
+					),
+					'action' 	=> 'image_sizes-pointer-dismiss',
+				);
+
+				return $pointers;
+			}
+		}		
 	}
 }

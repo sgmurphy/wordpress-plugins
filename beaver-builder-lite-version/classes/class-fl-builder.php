@@ -1423,6 +1423,13 @@ final class FLBuilder {
 			'accessory' => isset( $key_shortcuts['responsiveEditing'] ) ? $key_shortcuts['responsiveEditing']['keyLabel'] : null,
 		);
 
+		$tools_view['items'][32] = array(
+			'label'     => __( 'Reverse Responsive Editing', 'fl-builder' ),
+			'type'      => 'event',
+			'eventName' => 'revResponsiveEditing',
+			'accessory' => isset( $key_shortcuts['revResponsiveEditing'] ) ? $key_shortcuts['revResponsiveEditing']['keyLabel'] : null,
+		);
+
 		if ( current_user_can( 'delete_others_posts' ) || FLBuilderModel::user_has_unfiltered_html() ) {
 			$tools_view['items'][40] = array(
 				'type' => 'separator',
@@ -1645,6 +1652,10 @@ final class FLBuilder {
 			'responsiveEditing'       => array(
 				'label'   => _x( 'Toggle Responsive Editing Mode', 'Keyboard action to toggle responsive editing', 'fl-builder' ),
 				'keyCode' => 'r',
+			),
+			'revResponsiveEditing'    => array(
+				'label'   => _x( 'Toggle Responsive Editing Mode in Reverse', 'Keyboard action to toggle responsive editing', 'fl-builder' ),
+				'keyCode' => 'shift+r',
 			),
 			'showGlobalSettings'      => array(
 				'label'   => _x( 'Open Global Settings', 'Keyboard action to open the global settings panel', 'fl-builder' ),

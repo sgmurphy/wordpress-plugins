@@ -7,6 +7,7 @@ import { useStateValue } from '../../../store/store';
 import TemplateInfo from './template-info';
 import DotsLoader from './dots-loader';
 import { siteLogoDefault } from '../../../store/reducer';
+import { __ } from '@wordpress/i18n';
 
 export const ColumnItem = ( { template, isRecommended, position } ) => {
 	const [ , dispatch ] = useStateValue();
@@ -202,7 +203,7 @@ export const ColumnItem = ( { template, isRecommended, position } ) => {
 					>
 						<DotsLoader />
 						<p className="!text-base !font-normal !text-zip-app-heading select-none">
-							Generating preview...
+							{ __( 'Generating preview…', 'astra-sites' ) }
 						</p>
 					</div>
 

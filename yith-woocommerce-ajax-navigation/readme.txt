@@ -19,7 +19,7 @@ A reliable product filtering is what allows your visitors to enjoy and appreciat
 
 After all, if users can’t easily browse your product lists, they can’t easily find what they are looking for. And if they can’t find it, they can’t buy it. It’s easy to understand. :)
 
-With the **YITH WooCommerce Ajax Product filter** and its new *“2021’s massive redesign”*, you can finally tackle the user experience in your WooCommerce powered shop. You can help your customers easily find and filter your products by categories, tags, taxonomy, and all kinds of attributes like sizes, colors, materials, brands, etc.
+With the **YITH WooCommerce Ajax Product filter** its latest massive redesign, you can finally tackle the user experience in your WooCommerce powered shop. You can help your customers easily find and filter your products by categories, tags, taxonomy, and all kinds of attributes like sizes, colors, materials, brands, etc.
 
 You can create unlimited presets and show the filters on standard WooCommerce pages (Shop, Category pages) or custom pages created with Gutenberg or Elementor. You can add your filters anywhere, using the built-in widget, shortcode, or Gutenberg block. In this way, you can create a preset of filters for the shop page, a preset of filters for a specific product category, another preset of filters for a custom page, and so on: no limits and total maximum control.
 
@@ -41,6 +41,7 @@ You can create unlimited presets and show the filters on standard WooCommerce pa
 * Scroll-to-top option in mobile devices and/or desktop
 * SEO options (Activate/deactivate the indexing of the generated URLs in search engines for the filter operation of the plugin) (New!)
 * Beautiful & modern design, suitable for each kind of shop or theme
+* Performance enhancements: lazy load filters and paginate terms in AJAX to reduce initial page loading time (New!)
 
 See it in action here:
 
@@ -64,6 +65,7 @@ With the latest update, we have improved the UX and added significant features t
 * Show filters as a toggle (opened or collapsed by default)
 * Show or hide the count of items
 * Adoptive filtering: choose whether terms not available must be hidden (as in the free version) **or keep them visible but not clickable (only in premium)**
+* **Variations filtering**: make sure variable products are displayed in the filter results only if at least one of the variations matches the current selection, and replace the product image with the one of the variation (New!)
 * Choose to hide empty terms and out of stock products automatically
 * Customize colors and style of filters area through the dedicated “customization” tab (colors, color swatches size, select and checkbox type, etc.)
 * Upload a custom loader

@@ -1,5 +1,6 @@
 <div id="fl-import-export-form" class="fl-settings-form">
 	<h3 class="fl-settings-form-header"><?php _e( 'Import / Export Settings', 'fl-builder' ); ?></h3>
+	<p class="warning"><?php _e( 'Exports completed with versions prior to 2.8.1 are not compatible due to a change in format of export data.', 'fl-builder' ); ?></p>
 	<p>
 		<input class='global_all' type='checkbox' checked name='global_all' /> <?php _e( 'All Settings', 'fl-builder' ); ?>
 		<p class='extra' style='display:none'>

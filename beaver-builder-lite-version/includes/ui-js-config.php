@@ -60,6 +60,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	 * @see fl_builder_outline_panel_enabled
 	 */
 	'showOutlinePanel'           => apply_filters( 'fl_builder_outline_panel_enabled', true ),
+	'unrestricted'               => FLBuilderUserAccess::current_user_can( 'unrestricted_editing' ),
 	'shouldRefreshOnPublish'     => FLBuilder::should_refresh_on_publish(),
 	'googleFontsUrl'             => apply_filters( 'fl_builder_google_fonts_domain', '//fonts.googleapis.com/' ) . 'css?family=',
 	'wp_editor'                  => FLBuilder::get_wp_editor(),

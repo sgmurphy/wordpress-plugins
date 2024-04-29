@@ -3,6 +3,7 @@
 class FLBuilderBoxModule extends FLBuilderModule {
 
 	public function __construct() {
+		global $wp_version;
 		parent::__construct( [
 			'name'            => __( 'Box', 'fl-builder' ),
 			'description'     => __( 'A simple layout container', 'fl-builder' ),
@@ -11,6 +12,7 @@ class FLBuilderBoxModule extends FLBuilderModule {
 			'partial_refresh' => true,
 			'include_wrapper' => false,
 			'accepts'         => 'all',
+			'enabled'         => version_compare( $wp_version, '5.2', '>=' ) && ! function_exists( 'classicpress_version' ),
 		] );
 
 		// Register custom fields.
@@ -27,14 +29,14 @@ class FLBuilderBoxModule extends FLBuilderModule {
 
 		// Support link field attributes
 		if ( '' !== $this->settings->link ) {
-			$attrs['href'] = $this->settings->link;
+			$attrs['href'] = esc_url( $this->settings->link );
 
 			if ( isset( $this->settings->link_target ) ) {
-				$attrs['target'] = $this->settings->link_target;
+				$attrs['target'] = esc_attr( $this->settings->link_target );
 			}
 			$rel = $this->get_rel_attr( 'link' );
 			if ( '' !== $rel ) {
-				$attrs['rel'] = $rel;
+				$attrs['rel'] = esc_attr( $rel );
 			}
 		}
 		return $attrs;

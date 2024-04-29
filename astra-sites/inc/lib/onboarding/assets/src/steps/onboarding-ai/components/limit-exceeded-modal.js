@@ -4,6 +4,7 @@ import { STORE_KEY } from '../store';
 import Modal from './modal';
 import ModalTitle from './modal-title';
 import Button from './button';
+import { __, sprintf } from '@wordpress/i18n';
 
 const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 	const { setLimitExceedModal } = useDispatch( STORE_KEY );
@@ -30,18 +31,26 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 
 	const teamPlanInfo = (
 		<span>
-			Your current active organisation is { teamName }, which is on the{ ' ' }
-			{ planName } plan.
+			{ sprintf(
+				/* translators: %1$s: team name, %2$s: plan name */
+				__(
+					'Your current active organisation is %1$s, which is on the %2$s plan.',
+					'astra-sites'
+				),
+				teamName,
+				planName
+			) }
 		</span>
 	);
 
 	const dailyLimit = (
 		<span className="zw-base-semibold text-app-heading ">
-			{
+			{ sprintf(
+				/* translators: %s: daily limit */
+				__( '%s AI sites', 'astra-sites' ),
 				astraSitesVars?.zip_plans?.plan_data?.limit
 					?.ai_sites_count_daily
-			}{ ' ' }
-			AI sites
+			) }
 		</span>
 	);
 
@@ -53,21 +62,41 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 			{ typeof aiSitesCount === 'number' && aiSitesCount <= 0 ? (
 				<>
 					<br />
-					This plan allows you to generate { dailyLimit } per day, and
-					you have reached this limit.
+					{ sprintf(
+						/* translators: %s: daily limit */
+						__(
+							'This plan allows you to generate %s per day, and you have reached this limit.',
+							'astra-sites'
+						),
+						dailyLimit
+					) }
 					<br />
 					<br />
-					To create more AI websites, you will need to either upgrade
-					your plan or wait until the limit resets.
+					{ __(
+						'To create more AI websites, you will need to either upgrade your plan or wait until the limit resets.',
+						'astra-sites'
+					) }
 				</>
 			) : (
 				<>
-					You have reached the maximum number of sites allowed to be
-					created on { planName } plan.
+					{ sprintf(
+						/* translators: %s: plan name */
+						__(
+							'You have reached the maximum number of sites allowed to be created on %s plan.',
+							'astra-sites'
+						),
+						planName
+					) }
 					<br />
 					<br />
-					Please upgrade the plan for { teamName } in order to create
-					more sites.
+					{ sprintf(
+						/* translators: %s: team name */
+						__(
+							'Please upgrade the plan for %s in order to create more sites.',
+							'astra-sites'
+						),
+						teamName
+					) }
 				</>
 			) }
 		</span>
@@ -92,7 +121,7 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 		>
 			<ModalTitle>
 				<ExclamationTriangleColorfulIcon className="w-6 h-6" />
-				<span>Limit reached</span>
+				<span>{ __( 'Limit reached', 'astra-sites' ) }</span>
 			</ModalTitle>
 			<div className="space-y-8">
 				<div className="text-app-text text-base leading-6">
@@ -119,7 +148,7 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 						);
 					} }
 				>
-					Unlock Full Power
+					{ __( 'Unlock Full Power', 'astra-sites' ) }
 				</Button>
 			</div>
 		</Modal>

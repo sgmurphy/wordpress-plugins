@@ -191,7 +191,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			/**
 			 * Check File System permissions.
 			 */
-			$filesystem_permission = Astra_Sites::get_instance()->filesystem_permission();
+			Astra_Sites::get_instance()->filesystem_permission();
 
 			/**
 			 * Install & Activate Required Plugins.
@@ -539,7 +539,8 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			if ( empty( $this->current_site_data ) ) {
 				// @todo Use Astra_Sites::get_instance()->api_request() instead of below function.
 				$this->current_site_data = Astra_Sites_Importer::get_instance()->get_single_demo( $id );
-				update_option( 'astra_sites_import_data', $this->current_site_data, 'no' );
+				Astra_Sites_File_System::get_instance()->update_demo_data( $this->current_site_data );
+				
 			}
 
 			return $this->current_site_data;

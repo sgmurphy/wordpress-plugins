@@ -37,19 +37,3 @@
             return $default;
         }
     }
-
-   /**
-    * [htmega_fontawesome_icon] FontAwesome List
-    */
-    if(!function_exists('htmega_fontawesome_icon')){
-        function htmega_fontawesome_icon( $library, $pefix ) {
-            $icons = [];
-            if ( !empty( $library ) ) {
-                $icons_list = json_decode( file_get_contents( HTMEGA_MENU_PL_PATH_PRO . 'assets/lib/font-awesome/js/'.$library.'.js' ), true );
-                foreach ( $icons_list['icons'] as $key => $icon ) {
-                    $icons[$key] = $pefix.' fa-'.$icon;
-                }
-            }
-            return apply_filters( 'htmenu_fontawesome_icon_'.$pefix, $icons );
-        }
-    }

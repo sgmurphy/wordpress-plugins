@@ -133,11 +133,11 @@ class FLCalloutModule extends FLBuilderModule {
 		echo '<' . $this->settings->title_tag . ' class="fl-callout-title">';
 
 		if ( ! empty( $this->settings->link ) && 'icon' === $this->settings->image_type ) {
-			echo '<a href="' . esc_url( do_shortcode( $this->settings->link ) ) . '" target="' . $this->settings->link_target . '" ' . $this->get_rel() . ' class="fl-callout-title-link fl-callout-title-text">';
+			echo '<a href="' . esc_url( do_shortcode( $this->settings->link ) ) . '" target="' . esc_attr( $this->settings->link_target ) . '" ' . $this->get_rel() . ' class="fl-callout-title-link fl-callout-title-text">';
 		}
 
 		if ( ! empty( $this->settings->link ) && 'icon' !== $this->settings->image_type ) {
-			echo '<a href="' . esc_url( do_shortcode( $this->settings->link ) ) . '" target="' . $this->settings->link_target . '" ' . $this->get_rel() . ' class="fl-callout-title-link fl-callout-title-text">';
+			echo '<a href="' . esc_url( do_shortcode( $this->settings->link ) ) . '" target="' . esc_attr( $this->settings->link_target ) . '" ' . $this->get_rel() . ' class="fl-callout-title-link fl-callout-title-text">';
 		}
 
 		if ( 'left-title' === $this->settings->icon_position ) {
@@ -200,7 +200,7 @@ class FLCalloutModule extends FLBuilderModule {
 		$html = '';
 
 		if ( 'link' == $this->settings->cta_type ) {
-			$html = '<a href="' . esc_url( do_shortcode( $this->settings->link ) ) . '" ' . $this->get_rel() . ' target="' . $this->settings->link_target . '" class="fl-callout-cta-link">' . $this->settings->cta_text . '</a>';
+			$html = '<a href="' . esc_url( do_shortcode( $this->settings->link ) ) . '" ' . $this->get_rel() . ' target="' . esc_attr( $this->settings->link_target ) . '" class="fl-callout-cta-link">' . $this->settings->cta_text . '</a>';
 		}
 		return $html;
 	}

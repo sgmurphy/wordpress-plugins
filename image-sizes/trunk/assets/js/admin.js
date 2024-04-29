@@ -7,7 +7,28 @@ let thumbpress_modal = ( show = true ) => {
 	}
 }
 
-jQuery(function ($) {
+	jQuery(function ($) {	
+
+	$('.image-sizes-notice').on('click', function(e){
+		e.preventDefault();
+			$('#image-sizes-hide-banner').hide();
+
+		$.ajax({
+			url: THUMBPRESS.ajaxurl,
+			data: {
+				action: "image_sizes-notice-dismiss",
+				_wpnonce: THUMBPRESS.nonce,
+			},
+			type: "POST"			
+		});
+	});
+	
+
+	$('.thumbpress-delete').click(function(e){
+		if(!confirm(THUMBPRESS.confirm)) {
+			e.preventDefault();
+		}
+	});
 
 	$('#image-sizes_report-copy').click(function(e) {
 		e.preventDefault();
@@ -62,58 +83,6 @@ jQuery(function ($) {
 		$("#enabled-counter .counter").text(enabled);
 	}).change();
 
-	var limit = $("#image-sizes_regenerate-thumbs-limit").val();
-
-	$("#image-sizes_regenerate-thumbs-limit").bind("keyup mouseup", function () {
-		limit = $(this).val();
-	});
-
-
-	var offset = 0;
-	var thumbs_deleted = 0;
-	var thumbs_created = 0;
-
-	function regenerate(limit, offset, thumbs_deleted, thumbs_created) {
-		$.ajax({
-			url: THUMBPRESS.ajaxurl,
-			type: "POST",
-			data: {
-				action: "image_sizes-regen-thumbs",
-				offset: offset,
-				limit: limit,
-				thumbs_deleteds: thumbs_deleted,
-				thumbs_createds: thumbs_created,
-				_nonce: THUMBPRESS.nonce,
-			},
-			success: function (res) {
-				if (res.has_image) {
-					var progress = (res.offset / res.total_images_count) * 100;
-					$(".image-sizes-progress-content").text(Math.ceil(progress) + "%").css({ width: progress + "%" });
-
-					regenerate(limit, res.offset, res.thumbs_deleted, res.thumbs_created);
-				} else {
-					$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
-					$(".image-sizes-progress-panel .image-sizes-progress-content").addClass("progress-full");
-				}
-				$("#image_sizes-message").html(res.message).show();
-			},
-			error: function (err) {
-				$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
-			},
-		});
-	}
-
-	// cx-regen-thumbs
-	$("#image_sizes-regen-thumbs").click(function (e) {
-		$("#image_sizes-regen-thumbs").text(THUMBPRESS.regening).attr("disabled", true);
-		$("#image_sizes-message").html("").hide();
-		$(".image-sizes-progress-panel").hide();
-
-		regenerate(limit, offset, thumbs_deleted, thumbs_created);
-
-		$("#image_sizes-message").before('<div class="image-sizes-progress-panel"><div class="image-sizes-progress-content" style="width:0%"><span>0%</span></div></div></div>');
-	});
-
 	// dismiss
 	$(".image_sizes-dismiss").click(function (e) {
 		var $this = $(this);
@@ -143,48 +112,51 @@ jQuery(function ($) {
 		$("#cx-nav-label-image-sizes_optimize").trigger("click");
 	});
 
-	init_draggable($(".draggable-item"));
+	// drag and drop disable thumbnail sizes
+	if($('body').hasClass('thumbpress_page_thumbpress-modules')) {
+		init_draggable($(".draggable-item"));
 
-	$("#sortable2").sortable({
-		connectWith: "#sortable1, #sortable2",
-		items: ".draggable-item, .sortable-item",
-		start: function (event, ui) {
-			$("#sortable1").sortable("enable");
-			$("ul.image_sizes-sortable.disable li input").attr("name", "disables[]");
+		$("#sortable2").sortable({
+			connectWith: "#sortable1, #sortable2",
+			items: ".draggable-item, .sortable-item",
+			start: function (event, ui) {
+				$("#sortable1").sortable("enable");
+				$("ul.image_sizes-sortable.disable li input").attr("name", "disables[]");
+	
+				var _length = $("ul.image_sizes-sortable.disable li").length - 1;
+				$(".image_sizes-default-thumbnails-panel h4 .disables-count").text(
+					_length
+					);
+	
+				var _length = $("ul.image_sizes-sortable.enable li").length;
+				$(".image_sizes-default-thumbnails-panel h4 .enables-count").text(
+					_length
+					);
+			},
+			receive: function (event, ui) {
+				if (ui.item.hasClass("ui-draggable")) {
+					ui.item.draggable("destroy");
+				}
+			},
+		});
 
-			var _length = $("ul.image_sizes-sortable.disable li").length - 1;
-			$(".image_sizes-default-thumbnails-panel h4 .disables-count").text(
-				_length
-				);
-
-			var _length = $("ul.image_sizes-sortable.enable li").length;
-			$(".image_sizes-default-thumbnails-panel h4 .enables-count").text(
-				_length
-				);
-		},
-		receive: function (event, ui) {
-			if (ui.item.hasClass("ui-draggable")) {
-				ui.item.draggable("destroy");
-			}
-		},
-	});
-
-	$("#sortable1").sortable({
-		connectWith: "#sortable1, #sortable2",
-		items: ".draggable-item, .sortable-item",
-		receive: function (event, ui) {
-			$("#sortable1").sortable("disable");
-			var widget = ui.item;
-			init_draggable(widget);
-			$("ul.image_sizes-sortable.enable li input").attr("name", "");
-
-			var _length = $("ul.image_sizes-sortable.disable li").length;
-			$(".image_sizes-default-thumbnails-panel h4 .disables-count").text(_length);
-
-			var _length = $("ul.image_sizes-sortable.enable li").length;
-			$(".image_sizes-default-thumbnails-panel h4 .enables-count").text(_length);
-		},
-	});
+		$("#sortable1").sortable({
+			connectWith: "#sortable1, #sortable2",
+			items: ".draggable-item, .sortable-item",
+			receive: function (event, ui) {
+				$("#sortable1").sortable("disable");
+				var widget = ui.item;
+				init_draggable(widget);
+				$("ul.image_sizes-sortable.enable li input").attr("name", "");
+	
+				var _length = $("ul.image_sizes-sortable.disable li").length;
+				$(".image_sizes-default-thumbnails-panel h4 .disables-count").text(_length);
+	
+				var _length = $("ul.image_sizes-sortable.enable li").length;
+				$(".image_sizes-default-thumbnails-panel h4 .enables-count").text(_length);
+			},
+		});
+	}
 
 	function init_draggable(widget) {
 		widget.draggable({
@@ -197,4 +169,121 @@ jQuery(function ($) {
 			},
 		});
 	}
+
+	// filter widgets - pro or free
+	$('.thumb-filter').click(function(e) {
+		var filter = $(this).data('filter');
+		$('.thumb-filter').removeClass('active');
+		$(this).addClass('active');
+		$('.thumb-widget').hide();
+		$(filter).show();
+	});
+
+	    // activate or deactivate all modules
+    $(".thumb-module-all-active").click(function (e) {
+        if (!$(".thumb-toggle-all-wrap input").is(":checked")) {
+            $('.thumb-settings-modules-container input[type="checkbox"]').each(
+                function () {
+                    if (!$(this).prop("disabled")) {
+                        $(this).prop("checked", true);
+                    }
+                }
+            );
+        } else {
+            $('.thumb-settings-modules-container input[type="checkbox"]').each(
+                function () {
+                    if (!$(this).prop("disabled")) {
+                        $(this).prop("checked", false);
+                    }
+                }
+            );
+        }
+    });
+
+    $.each(THUMBPRESS, function(index, pointer) {
+
+    	if ( index != 'is_welcome' ) return;  
+
+		if(pointer?.target) {
+			$(pointer.target).pointer({
+				content: pointer.content ,
+				pointerWidth: 380,
+				position: {
+					edge: pointer.edge,
+					align: pointer.align
+				},
+				close: function() {
+					$.post(ajaxurl, {
+						notice_name: index,
+						_wpnonce: THUMBPRESS.nonce,
+						action: pointer.action, 
+					});
+				}
+			}).pointer('open');
+		}
+	});
+	// addClass with pointer
+	parent = $('.image_sizes-para').parent();
+	parent.addClass( 'image-sizes-pointer' ) ;
+	 
+
+
+	/**
+	 * Upgrade to pro slider section
+	 */
+	// $('.tp-user-review-wrap').slick({
+	// 	infinite: true,
+	// 	slidesToShow: 3,
+	// 	slidesToScroll: 2,
+	// 	// dots: false,
+	// 	autoplay: true,
+	// 	autoplaySpeed: 3000,
+	// 	arrows: true,
+	// 	responsive: [
+	// 		{
+	// 		  breakpoint: 1400,
+	// 		  settings: {
+	// 			slidesToShow: 3,
+	// 			slidesToScroll: 2,
+	// 			infinite: true,
+	// 			dots: true
+	// 		  }
+	// 		},
+	// 		{
+	// 		  breakpoint: 1080,
+	// 		  settings: {
+	// 			slidesToShow: 2,
+	// 			slidesToScroll: 2
+	// 		  }
+	// 		},
+	// 		{
+	// 		  breakpoint: 780,
+	// 		  settings: {
+	// 			slidesToShow: 1,
+	// 			slidesToScroll: 1
+	// 		  }
+	// 		}
+	// 	  ]
+	// });
+
+	THUMBPRESS.live_chat && THUMBPRESS.tp_page && window.addEventListener('load', function() {
+		window.intercomSettings = {
+			api_base: "https://api-iam.intercom.io",
+			app_id: "x7h9c6di",
+			name: THUMBPRESS.name,
+			email: THUMBPRESS.email
+		};
+
+		// We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/x7h9c6di'
+		(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/x7h9c6di';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+
+		// Add click event listener to each element
+		document.querySelectorAll('.tp-live-chat').forEach(function(element) {
+		    element.addEventListener('click', function(e) {
+		    	e.preventDefault();
+		        Intercom('show');
+		    });
+		});
+	});
 });
+

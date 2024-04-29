@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: ThumbPress
- * Description: Stop generating unnecessary thumbnails and save your server space.
- * Plugin URI: https://pluggable.io/plugin/thumbpress
- * Author: Codexpert, Inc
- * Author URI: https://codexpert.io
- * Version: 4.2.2
+ * Description: A complete image and thumbnail management solution for WordPress.
+ * Plugin URI: https://thumbpress.co/
+ * Author: ThumbPress
+ * Author URI: https://thumbpress.co/
+ * Version: 5.0.1
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Text Domain: image-sizes
@@ -23,7 +23,6 @@
  */
 
 namespace Codexpert\ThumbPress;
-use Codexpert\Plugin\Widget;
 use Codexpert\Plugin\Notice;
 use Pluggable\Marketing\Survey;
 use Pluggable\Marketing\Feature;
@@ -95,6 +94,7 @@ final class Plugin {
 	private function include() {
 		require_once( dirname( __FILE__ ) . '/inc/functions.php' );
 		require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
+		require_once( dirname( __FILE__ ) . '/libraries/action-scheduler/action-scheduler.php' );
 	}
 
 	/**
@@ -115,7 +115,7 @@ final class Plugin {
 		define( 'THUMBPRESS', __FILE__ );
 		define( 'THUMBPRESS_DIR', dirname( THUMBPRESS ) );
 		define( 'THUMBPRESS_ASSET', plugins_url( 'assets', THUMBPRESS ) );
-		define( 'THUMBPRESS_DEBUG', apply_filters( 'image-sizes_debug', Helper::get_option( 'image-sizes_tools', 'enable_debug', false ) ) );
+		define( 'THUMBPRESS_DEBUG', apply_filters( 'image-sizes_debug', Helper::get_option( 'image-sizes_tools', 'enable_debug', true ) ) );
 
 		/**
 		 * The plugin data
@@ -158,14 +158,11 @@ final class Plugin {
 			$admin->action( 'admin_footer', 'upgrade' );
 			$admin->action( 'plugins_loaded', 'i18n' );
 			$admin->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
-			$admin->action( 'admin_head', 'set_init_sizes' );
-			$admin->filter( 'intermediate_image_sizes_advanced', 'image_sizes' );
-			$admin->filter( 'big_image_size_threshold', 'big_image_size', 10, 1 );
 			$admin->filter( "plugin_action_links_{$this->plugin['basename']}", 'action_links' );
 			$admin->filter( 'plugin_row_meta', 'plugin_row_meta', 10, 2 );
 			$admin->action( 'admin_footer_text', 'footer_text' );
 			$admin->action( 'admin_notices', 'admin_notices' );
-
+			
 			/**
 			 * The setup wizard
 			 */
@@ -177,17 +174,10 @@ final class Plugin {
 			 * Settings related hooks
 			 */
 			$settings = new App\Settings( $this->plugin );
-			$settings->action( 'plugins_loaded', 'init_menu' );
+			$settings->action( 'plugins_loaded', 'init_menu', 11 );
 			$settings->filter( 'cx-settings-reset', 'reset' );
+			$settings->action( 'admin_menu', 'admin_menu' );
 
-			/**
-			 * Blog posts from Codexpert blog
-			 * 
-			 * @package Codexpert\Plugin
-			 * 
-			 * @author Codexpert <hi@codexpert.io>
-			 */
-			$widget = new Widget( $this->plugin );
 
 			/**
 			 * Renders different notices
@@ -230,6 +220,12 @@ final class Plugin {
 		endif;
 
 		/**
+		 * Modules related hooks
+		 */
+		$modules = new App\Modules( $this->plugin );
+		$modules->action( 'plugins_loaded', 'init' );
+
+		/**
 		 * Cron facing hooks
 		 */
 		$cron = new App\Cron( $this->plugin );
@@ -240,7 +236,9 @@ final class Plugin {
 		 * AJAX related hooks
 		 */
 		$ajax = new App\AJAX( $this->plugin );
-		$ajax->priv( 'image_sizes-regen-thumbs', 'regen_thumbs' );
+		$ajax->priv( 'image_sizes-notice-dismiss', 'dismiss_notice' );
+		$ajax->priv( 'image_sizes-pointer-dismiss', 'dismiss_pointer' );
+
 	}
 
 	/**

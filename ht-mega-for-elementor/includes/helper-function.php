@@ -96,7 +96,6 @@ if( !function_exists('htmega_elementor_template') ){
             }else{
                 $templates = [ '0' => __( 'Do not Saved Templates.', 'htmega-addons' ) ];
             }
-            
             wp_reset_postdata();
 
             return $templates;

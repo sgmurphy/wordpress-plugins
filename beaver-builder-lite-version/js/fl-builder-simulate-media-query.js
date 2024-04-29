@@ -372,10 +372,14 @@
 					added = false;
 
 					if ( min ) {
-
 						min = parseFloat( min ) * ( min.indexOf( 'em' ) > -1 ? this.getEmPxValue() : 1 );
+					}
+					if ( max ) {
+						max = parseFloat( max ) * ( max.indexOf( 'em' ) > -1 ? this.getEmPxValue() : 1 );
+					}
 
-						if ( this.width >= min ) {
+					if ( min ) {
+						if ( this.width >= min && ( ! max || ( max && this.width <= max ) ) ) {
 							styles.queries.push( {
 								media: 'min',
 								width: min,
@@ -386,10 +390,7 @@
 					}
 
 					if ( max && ! added ) {
-
-						max = parseFloat( max ) * ( max.indexOf( 'em' ) > -1 ? this.getEmPxValue() : 1 );
-
-						if ( this.width <= max ) {
+						if ( this.width <= max && ( ! min || ( min && this.width >= min ) ) ) {
 							styles.queries.push( {
 								media: 'max',
 								width: max,

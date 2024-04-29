@@ -276,7 +276,7 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
     background-color: #1b2025;
 }
 
-.fl-builder-ui-skin--dark .fl-lightbox :not(i):not([class^='ace_']):not(.error):not(.fl-builder-settings-tab-description a):not(.fl-field-description a):not(.fl-builder-service-error):not(.fl-lightbox-header span):not(.fl-switch-group-item):not(.fl-switch-group-item *):not(.fl-builder-button) {
+.fl-builder-ui-skin--dark .fl-lightbox :not(i):not([class^='ace_']):not(.error):not(.fl-builder-settings-tab-description a):not(.fl-field-description a):not(.fl-builder-service-error):not(.fl-lightbox-header span):not(.fl-switch-group-item):not(.fl-switch-group-item *):not(.fl-builder-button):not(.fl-lightbox-message a) {
     color: #a7b1bb !important;
 }
 .fl-builder-ui-skin--dark .fl-builder-button {

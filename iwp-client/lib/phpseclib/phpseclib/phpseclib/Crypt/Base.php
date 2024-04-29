@@ -536,10 +536,8 @@ class Crypt_Base
 
         if (!defined('CRYPT_BASE_USE_REG_INTVAL')) {
             switch (true) {
-                // PHP 5.3, per http://php.net/releases/5_3_0.php, introduced "more consistent float rounding"
-                case version_compare(PHP_VERSION, '5.3.0') >= 0 && (php_uname('m') & "\xDF\xDF\xDF") != 'ARM':
-                // PHP_OS & "\xDF\xDF\xDF" == strtoupper(substr(PHP_OS, 0, 3)), but a lot faster
                 case (PHP_OS & "\xDF\xDF\xDF") === 'WIN':
+                case (php_uname('m') & "\xDF\xDF\xDF") != 'ARM':
                 case PHP_INT_SIZE == 8:
                     define('CRYPT_BASE_USE_REG_INTVAL', true);
                     break;

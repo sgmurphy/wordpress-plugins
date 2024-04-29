@@ -816,6 +816,10 @@ class IWP_MMB_Backup_Core {
 			$expected_bytes_delivered_so_far = true;
 
 			while ($start_offset < $remote_size) {
+				if($this->restore_loop_break()){
+					fclose($fh);
+					return 'partial';	
+				}
 				$headers = array();
 				// If resuming, then move to the end of the file
 
@@ -2109,6 +2113,7 @@ class IWP_MMB_Backup_Core {
 		$this->log($semaphore_log_message);
 		if (!$this->semaphore->lock()) {
 			$this->log('Failed to gain semaphore lock ('.$semaphore.') - another backup of this type is apparently already active - aborting (if this is wrong - i.e. if the other backup crashed without removing the lock, then another can be started after 3 minutes)');
+			$iwp_mmb_core->iwp_delete_option('IWP_running_backupID');
 			return;
 		}
 		
@@ -4092,6 +4097,7 @@ CREATE TABLE $wpdb->signups (
 			$is_downloaded = false;
 
 			$iwp_backup_core->register_wp_http_option_hooks();
+			$download = -1;
 
 			foreach ($services as $service) {
 
@@ -4099,13 +4105,13 @@ CREATE TABLE $wpdb->signups (
 			
 				if ($restore) {
 					$service_description = empty($iwp_backup_core->backup_methods[$service]) ? $service : $iwp_backup_core->backup_methods[$service];
-					$iwp_backup_core->log(__("File is not locally present - needs retrieving from remote storage",'updraftplus')." ($service_description)", 'notice-restore');
+					$iwp_backup_core->log(__("File is not locally present - needs retrieving from remote storage",'InfiniteWP')." ($service_description)", 'notice-restore');
 				}
 
 				$object = $storage_objects_and_ids[$service]['object'];
 
 				if (!$object->supports_feature('multi_options')) { 
-					error_log("UpdraftPlus_Admin::get_remote_file(): Multi options not supported by: ".$service); 
+					error_log("InfiniteWP_Admin::get_remote_file(): Multi options not supported by: ".$service); 
 					continue; 
 				}
 				
@@ -4117,7 +4123,6 @@ CREATE TABLE $wpdb->signups (
 					if (isset($instance_ids[$instance_id])) {
 						$options = $instance_ids[$instance_id];
 					} else {
-						// If we didn't find a instance id match, it could be a new UpdraftPlus upgrade or a wipe settings with the same details entered so try the default options saved.
 						$options = $object->get_options();
 					}
 
@@ -4130,7 +4135,11 @@ CREATE TABLE $wpdb->signups (
 							$iwp_backup_core->log(__("OK", 'InfiniteWP'), 'notice-restore');
 						} else {
 							clearstatcache();
-							$iwp_backup_core->log('Remote fetch was successful (file size: '.round(filesize($fullpath)/1024, 1).' KB)');
+							if ( $download === 'partial') {
+								$iwp_backup_core->log('Remote fetch was partially completed (file size: '.round(filesize($fullpath)/1024, 1).' KB)');	
+							}else {
+								$iwp_backup_core->log('Remote fetch was successful (file size: '.round(filesize($fullpath)/1024, 1).' KB)');
+							}
 						}
 						break 2;
 					} else {
@@ -4145,6 +4154,7 @@ CREATE TABLE $wpdb->signups (
 				}
 			}
 			$iwp_backup_core->register_wp_http_option_hooks(false);
+			return $download;
 		}
 
 	public function get_storage_objects_and_ids($services) {
@@ -4228,7 +4238,7 @@ CREATE TABLE $wpdb->signups (
 				}
 			} else {
 				$iwp_backup_core->log("Automatic backup restoration is not available with the method: $service.");
-				$iwp_backup_core->log("$file: ".sprintf(__("The backup archive for this file could not be found. The remote storage method in use (%s) does not allow us to retrieve files. To perform any restoration using InfiniteWP, you will need to obtain a copy of this file and place it inside UpdraftPlus's working folder", 'InfiniteWP'), $service)." (".$this->prune_iwp_dir_prefix($iwp_backup_core->backups_dir_location()).")", 'error');
+				$iwp_backup_core->log("$file: ".sprintf(__("The backup archive for this file could not be found. The remote storage method in use (%s) does not allow us to retrieve files. To perform any restoration using InfiniteWP", 'InfiniteWP'), $service)." (".$this->prune_iwp_dir_prefix($iwp_backup_core->backups_dir_location()).")", 'error');
 				return false;
 			}
 
@@ -4248,6 +4258,8 @@ CREATE TABLE $wpdb->signups (
 		}
 
 	public function do_iwp_download_backup($params = array()) {
+
+		$GLOBALS['IWP_BACKUP_RESTORE_INIT_TIME'] = microtime(1);
 	
 		@set_time_limit(IWP_SET_TIME_LIMIT);
 		global $iwp_backup_core;
@@ -4339,7 +4351,6 @@ CREATE TABLE $wpdb->signups (
 			$tasks = $this->get_requested_task($timestamp);
 			$tasks['taskResults'] = unserialize($tasks['taskResults']);
 			$backup = $tasks['taskResults']['task_results'][$timestamp];				//darkCode testing purpose
-			$hashValues = $backup['hashValues'];
 			//$backup = $tasks['taskResults'];
 			$requestParams = unserialize($tasks['requestParams']);
 			$args = $requestParams['account_info'];
@@ -4445,16 +4456,16 @@ CREATE TABLE $wpdb->signups (
 				)
 			);
 		
-			$this->get_remote_file($services, $file, $timestamp);
+			$return = $this->get_remote_file($services, $file, $timestamp);
 		}
 
 		// Now, be ready to spool the thing to the browser
-		if (is_file($fullpath) && is_readable($fullpath)) {
-
-			// That message is then picked up by the AJAX listener
+		if (is_file($fullpath) && is_readable($fullpath) && $return !== false) {
+			
 			$iwp_backup_core->jobdata_set('dlfile_'.$timestamp.'_'.$type.'_'.$findex, 'downloaded:'.filesize($fullpath).":$fullpath");
 
 			$result = 'downloaded';
+			// That message is then picked up by the AJAX listener
 			
 		} else {
 
@@ -4839,7 +4850,6 @@ CREATE TABLE $wpdb->signups (
 								$deleted = $remote_obj->delete($file);
 								
 								if (-1 === $deleted) {
-									//echo __('Did not know how to delete from this cloud service.', 'updraftplus');
 								} elseif (false !== $deleted) {
 									$remote_deleted++;
 								}
@@ -5119,5 +5129,16 @@ CREATE TABLE $wpdb->signups (
 			do_action( 'IWP_backup_resume', $cron_data[0], $cron_data[1] );
 		}
 
+	}
+
+	public function restore_loop_break(){
+		$endTime = microtime(true);
+		$timeTaken = $endTime - $GLOBALS['IWP_BACKUP_RESTORE_INIT_TIME'];
+		$cuttOffTime = defined('IWP_RESTORE_LOOP_BREAK_TIME')?IWP_RESTORE_LOOP_BREAK_TIME:25;
+		if($timeTaken > $cuttOffTime){
+			return true;	
+		}
+
+		return false;
 	}
 }

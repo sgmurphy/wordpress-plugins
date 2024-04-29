@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.1.7
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -247,6 +247,24 @@ Once your website is generated, you have complete control over its content and l
 
 == Changelog ==
 
+v4.2.0 - 29-April-2024
+- New: Added custom color palette selection option in AI Builder.
+- New: Added "Features" screen to the Classic Builder onboarding.
+- New: 'Load More' templates option in AI Builder.
+- New: Design Kit - Added language compatibility for personalizing the AI copy.
+- Improvement: Enhanced template search functionality.
+- Improvement: Improved the way Starter Templates store JSON data during the import process to address memory issues.
+- Improvement: Optimized and enhanced code for a better user experience.
+- Improvement: User Interface improvements for the Template Kit library.
+- Improvement: Design Kit - Improved responsive design and UX.
+- Improvement: Classic Templates - Improved responsive design and UX.
+- Improvement: Ability to edit the previous step of AI Onboarding by clicking on the sidebar.
+- Improvement: Now, Upload images are available in a new tab within same screen.
+- Fix: Resolved issue with import for RTL sites.
+- Fix: Design Kit - Fixed an issue where the Design Kit button was not visible on an FSE-based theme.
+- Fix: Design Kit - Fixed an issue where the line height of the Design Kit templates appeared messed up.
+- Fix: Design Kit - Fixed a fatal error caused by unavailable error_log related libraries on the user's server.
+
 v4.1.7 - 22-April-2024
 - Improvement: Hardened the security of the plugin.
 
@@ -325,4 +343,4 @@ v4.0.0 - 03-January-2024
 v3.5.7 - 30-December-2023
 - Fix: Fixed Template Kit library conflict ( 503 Error ) with Gravity Form plugin.
 
-Check out the detailed changelog [here](https://wpastra.com/product/starter-templates-plugin/).
+Check out the detailed changelog [here](https://startertemplates.com/whats-new/).

@@ -91,6 +91,31 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                 ]
             );
 
+            $repeater->add_responsive_control(
+                'column_heading_align',
+                [
+                    'label' => __( 'Alignment', 'htmega-addons' ),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'left' => [
+                            'title' => __( 'Left', 'htmega-addons' ),
+                            'icon' => 'eicon-text-align-left',
+                        ],
+                        'center' => [
+                            'title' => __( 'Center', 'htmega-addons' ),
+                            'icon' => 'eicon-text-align-center',
+                        ],
+                        'right' => [
+                            'title' => __( 'Right', 'htmega-addons' ),
+                            'icon' => 'eicon-text-align-right',
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-table-style {{CURRENT_ITEM}}' => 'text-align: {{VALUE}};',
+                    ],
+                    'default' => '',
+                ]
+            );
            $repeater->add_group_control(
                 Group_Control_Background::get_type(),
                 [
@@ -353,7 +378,20 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                     ]
                 ]
             );
-
+            $repeater_one->add_control(
+                'cell_text_color',
+                [
+                    'label'     => __( 'Color', 'htmega-addons' ),
+                    'type'      => Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-table-style {{CURRENT_ITEM}}' => 'color: {{VALUE}};',
+                    ],
+                    'condition'=>[
+                        'cell_data_type'=>'text',
+                        'field_type'=>'col',
+                    ]
+                ]
+            );
             $repeater_one->add_group_control(
                 Group_Control_Background::get_type(),
                 [
@@ -378,7 +416,34 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                     ]
                 ]
             );
-
+            $repeater_one->add_responsive_control(
+                'column_cell_align',
+                [
+                    'label' => __( 'Alignment', 'htmega-addons' ),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'left' => [
+                            'title' => __( 'Left', 'htmega-addons' ),
+                            'icon' => 'eicon-text-align-left',
+                        ],
+                        'center' => [
+                            'title' => __( 'Center', 'htmega-addons' ),
+                            'icon' => 'eicon-text-align-center',
+                        ],
+                        'right' => [
+                            'title' => __( 'Right', 'htmega-addons' ),
+                            'icon' => 'eicon-text-align-right',
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-table-style {{CURRENT_ITEM}}' => 'text-align: {{VALUE}};',
+                    ],
+                    'default' => '',
+                    'condition'=>[
+                        'field_type'=>'col',
+                    ]
+                ]
+            );
             $this->add_control(
                 'content_list',
                 [

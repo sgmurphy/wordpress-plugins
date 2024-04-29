@@ -29,14 +29,20 @@ class NotificationsManager {
 
 
 	public static function getRemoteNotificationsURL() {
-		$dev_mode = NotificationsManager::isDevMode();
-		$base     = NotificationsManager::$remote_data_url_base;
+		$dev_mode                       = NotificationsManager::isDevMode();
+		$base                           = NotificationsManager::$remote_data_url_base;
+        $start_source                   = get_option("msm_companion_start_source");
+        $companion_activation_time      = get_option('msm_companion_activation_time', "0");
+        $companion_pro_activation_time  = get_option('msm_companion_pro_activation_time', "0");
 
 		$query = array(
-			'theme'      => apply_filters( 'mesmerize_notifications_template_slug', get_template() ),
-			'stylesheet' => apply_filters( 'mesmerize_notifications_stylesheet_slug', get_stylesheet() ),
-			'license'    => urlencode( '' ),
-			'dev_mode'   => $dev_mode ? '1' : '0',
+			'theme'                 => apply_filters( 'mesmerize_notifications_template_slug', get_template() ),
+			'stylesheet'            => apply_filters( 'mesmerize_notifications_stylesheet_slug', get_stylesheet() ),
+			'license'               => urlencode( '' ),
+			'dev_mode'              => $dev_mode ? '1' : '0',
+            'utm_install_source'    => $start_source,
+            'utm_activation_on'     => $companion_activation_time,
+            'utm_pro_activation_on' => $companion_pro_activation_time,
 		);
 
 		$query_string = build_query( $query );
@@ -58,6 +64,9 @@ class NotificationsManager {
 		if ( ! NotificationsManager::isDevMode() ) {
 			$notifications = get_transient( $transientKey );
 		}
+        if ( ! wp_next_scheduled( NotificationsManager::class . '::getRemoteNotifications' ) ) {
+            wp_schedule_event( time(), 'twicedaily', NotificationsManager::class . '::getRemoteNotifications' );
+        }
 
 		if ( ! $notifications ) {
 			add_filter( 'http_request_timeout', array( __CLASS__, 'requestTimeout' ) );

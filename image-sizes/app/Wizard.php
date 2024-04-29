@@ -62,15 +62,15 @@ class Wizard extends Base {
 
 		$this->plugin['steps'] = [
 			'welcome'	=> [
-				'label'			=> __( 'Welcome', 'image_sizes' ),
+				'label'			=> __( 'Welcome', 'image-sizes' ),
 				'template'		=> THUMBPRESS_DIR . '/views/wizard/welcome.php',
 				'prev_text'		=> __( 'Skip for now', 'image-sizes' ),
 				'prev_url'		=> add_query_arg( [ 'page' => 'image-sizes' ], admin_url( 'admin.php' ) ),
-				'next_text'		=> __( 'Get Started..', 'image-sizes' ),
+				'next_text'		=> __( 'Get Started', 'image-sizes' ),
 				'next_url'		=> add_query_arg( [ 'page' => 'image-sizes_setup', 'step' => 'disable-thumbnails' ], admin_url( 'admin.php' ) ),
 			],
 			'disable-thumbnails'	=> [
-				'label'			=> __( 'Disable Thumbnails' ),
+				'label'			=> __( 'Settings' ),
 				'template'		=> THUMBPRESS_DIR . '/views/wizard/disable-thumbnails.php',
 				'action'		=> [ $this, 'save_disabled_thumbnails' ],
 			],
@@ -78,7 +78,7 @@ class Wizard extends Base {
 				'label'			=> __( 'Complete' ),
 				'template'		=> THUMBPRESS_DIR . '/views/wizard/complete.php',
 				'action'		=> [ $this, 'install_plugin' ],
-				'redirect'		=> add_query_arg( [ 'page' => "{$this->slug}" ], admin_url( 'admin.php' ) )
+				'redirect'		=> add_query_arg( [ 'page' => 'thumbpress' ], admin_url( 'admin.php' ) )
 			],
 		];
 
@@ -86,8 +86,12 @@ class Wizard extends Base {
 	}
 
 	public function save_disabled_thumbnails() {
-		if ( isset( $_POST['disables'] ) ) {
-    		update_option ( 'prevent_image_sizes', $this->sanitize( $_POST, 'array' ) );
+
+		$modules = isset( $_POST['modules'] ) ? $_POST['modules'] :  [];
+
+		if( is_array( $modules ) ) {
+			$sanitized_modules = array_map( 'sanitize_text_field', $modules );
+            update_option( 'thumbpress_modules', $modules );
 		}
 	} 
 

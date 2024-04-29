@@ -2,6 +2,7 @@
 namespace Codexpert\ThumbPress\App;
 
 use Codexpert\Plugin\Base;
+use Codexpert\ThumbPress\Helper;
 
 /**
  * if accessed directly, exit.
@@ -12,17 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * @package Plugin
- * @subpackage AJAX
+ * @subpackage Admin
  * @author Codexpert <hi@codexpert.io>
  */
-class AJAX extends Base {
-
+class Ajax extends Base {
 	public $plugin;
 
 	public $slug;
 
 	public $name;
-
+	
 	public $version;
 
 	/**
@@ -35,92 +35,42 @@ class AJAX extends Base {
 		$this->version	= $this->plugin['Version'];
 	}
 
-	/**
-	 * Regenerate thumbnails
-	 *
-	 * @since 3.0
-	 */
-	public function regen_thumbs() {
+	public function dismiss_notice() {
+		$response = [
+			 'status'	=> 0,
+			 'message'	=>__( 'Unauthorized!', 'image-sizes' )
+		];
+
+		if( ! wp_verify_nonce( $_POST['_wpnonce'], $this->slug ) ) {
+		    wp_send_json( $response );
+		}
+
+		$add_24_hours 	= wp_date('U') + WEEK_IN_SECONDS;
+		update_option( 'thumbpress_pro_notice_recurring_every_week', $add_24_hours );
+		
+		$response['status'] 	= 1;
+		$response['message'] 	= __( 'Notice Removed', 'image-sizes' );
+		wp_send_json( $response );
+		
+	}
+
+	public function dismiss_pointer() {
 
 		$response = [
-			'status'	=> 0,
-			'message'	=> __( 'Failed', 'image-sizes' ),
+			 'status'	=> 0,
+			 'message'	=>__( 'Unauthorized!', 'image-sizes' )
 		];
 
-		if( !wp_verify_nonce( $_POST['_nonce'], $this->slug ) ) {
-			$response['message'] = __( 'Unauthorized', 'image-sizes' );
-			wp_send_json( $response );
+		if( ! wp_verify_nonce( $_POST['_wpnonce'], $this->slug ) ) {
+		    wp_send_json( $response );
 		}
 
-		$offset				= $this->sanitize( $_POST['offset'] );
-		$limit				= $this->sanitize( $_POST['limit'] );
-		$thumbs_deleteds	= $this->sanitize( $_POST['thumbs_deleteds'] );
-		$thumbs_createds	= $this->sanitize( $_POST['thumbs_createds'] );
-
-		global $wpdb;
-
-		$images_count = $wpdb->get_results( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%'" );
-		$total_images_count = count( $images_count );
-
-		$images = $wpdb->get_results( $wpdb->prepare( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%'  LIMIT %d OFFSET %d", $limit, $offset ) );
-
-		$offsets = $offset + count( $images );
-
-		$has_image = false;
-		if ( count( $images ) > 0 ) {
-			$has_image = true;
-		}
-
-		$thumbs_created = $thumbs_deleted = 0;
-
-		foreach ( $images as $image ) {
-			$image_id = $image->ID;
-			$main_img = get_attached_file( $image_id );
-
-			// remove old thumbnails first
-			$old_metadata = wp_get_attachment_metadata( $image_id );
-			$thumb_dir = dirname( $main_img ) . DIRECTORY_SEPARATOR;
-			foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
-				// For SVG file
-				if ( 'image/svg+xml' == $old_size_data['mime-type'] ) {
-					continue;
-				}
-				
-				wp_delete_file( $thumb_dir . $old_size_data['file'] );
-				$thumbs_deleted++;
-			}
-
-			// generate new thumbnails
-			if ( false !== $main_img && file_exists( $main_img ) ) {
-				$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
-				wp_update_attachment_metadata( $image_id, $new_thumbs );
-
-				if( is_array( $new_thumbs['sizes'] ) ) {
-					$thumbs_created += count( $new_thumbs['sizes'] );
-				}
-			}
-		}
-
-		$_thumbs_deleteds 	= $thumbs_deleteds + $thumbs_deleted;
-		$_thumbs_createds 	= $thumbs_createds + $thumbs_created;
+		$add_1_month 	= wp_date('U') + MONTH_IN_SECONDS ;
+		update_option( 'thumbpress_pro_notice_recurring_every_1_month', $add_1_month );
 
 		$response['status'] 	= 1;
-		$response['message'] 	= '<p id="cx-processed"><span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>' . sprintf( __( '%d images processed', 'image-sizes' ), $offsets ) . '</p>';
-		$response['message'] 	.= '<p id="cx-removed"><span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>' . sprintf( __( '%d thumbnails removed', 'image-sizes' ), $_thumbs_deleteds ) . '</p>';
-		$response['message'] 	.= '<p id="cx-regenerated"><span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>' . sprintf( __( '%d thumbnails regenerated', 'image-sizes' ), $_thumbs_createds ) . '</p>';
-
-		$response['counter'] 	= [
-			'handled'	=> $offsets,
-			'deleted'	=> $_thumbs_deleteds,
-			'created'	=> $_thumbs_createds,
-		];
-		
-		$response['offset'] 		= $offsets;
-		$response['has_image'] 		= $has_image;
-		$response['thumbs_deleted'] = $_thumbs_deleteds;
-		$response['thumbs_created'] = $_thumbs_createds;
-		$response['total_images_count'] = $total_images_count;
-
+		$response['message'] 	= __( 'Pointer Removed', 'image-sizes' );
 		wp_send_json( $response );
+
 	}
 }

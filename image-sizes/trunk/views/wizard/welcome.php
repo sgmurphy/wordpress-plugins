@@ -7,11 +7,8 @@ $user = wp_get_current_user();
 $user_name = $user->display_name;
 echo '
 <div class="step-one">
-	<h1 class="cx-welcome">' . sprintf( __( 'Hello %s! 🎉', 'image-sizes' ), esc_html( $user_name ) ) .'</h1>
-	<p class="cx-wizard-sub">' . __( 'Thank you for choosing our plugin!', 'image-sizes' ) . '</p>
-	<p class="cx-wizard-sub">' . __( 'You can easily save up your space and make your website faster with', 'image-sizes' ) . '
-		<span class="cx-wizard-sub-span">' . __( 'ThumbPress.', 'image-sizes' ) . '</span>
-	</p>
-	<p class="cx-wizard-sub">' . __( 'This quick installation wizard will let you do it in three steps and less than 30 seconds!', 'image-sizes' ) . '
-	</p>
+	<h1 class="cx-welcome">' . sprintf( __( 'Welcome to ThumbPress Family! 🎉', 'image-sizes' ) ).'</h1>
+	<p class="cx-wizard-sub">' . __( 'Thanks for installing ThumbPress, your one-stop solution for all things image and thumbnail management on the WordPress site.
+    ', 'image-sizes' ) . '</p>
+	<p class="cx-wizard-sub">' . __( 'Please take a minute to complete the initial setup to get the best out of ThumbPress.', 'image-sizes' ) . '</p>
 </div>';

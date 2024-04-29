@@ -152,6 +152,10 @@ class IWP_MMB_ftp_wrapper {
 
 		while ($ret == FTP_MOREDATA) {
 
+			if($iwp_backup_core->restore_loop_break()){
+				return 'partial';	
+			}
+
 			if ($iwp_backup_core) {
 				$file_now_size = filesize($local_file_path);
 				if ($file_now_size - $file_last_size > 524288) {

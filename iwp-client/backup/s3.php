@@ -24,6 +24,7 @@ class IWP_MMB_UploadModule_s3 extends IWP_MMB_UploadModule {
 
 	protected $s3_exception;
 
+	// protected $download_chunk_size = 1024*(1*1024);
 	protected $download_chunk_size = 10485760;
 
 	/**
@@ -71,7 +72,7 @@ class IWP_MMB_UploadModule_s3 extends IWP_MMB_UploadModule {
 		$opts = $this->get_config();
 		// IWP_MMB_S3 is used when not accessing Amazon Web Services
 		$class_to_use = 'IWP_MMB_S3';
-		if (version_compare(PHP_VERSION, '5.3.3', '>=') && !empty($opts['key']) && ('s3' == $opts['key'] || 'updraftvault' == $opts['key']) && (!defined('IWP_S3_OLDLIB') || !IWP_S3_OLDLIB)) {
+		if (version_compare(PHP_VERSION, '5.3.3', '>=') && !empty($opts['key']) && ('s3' == $opts['key']) && (!defined('IWP_S3_OLDLIB') || !IWP_S3_OLDLIB)) {
 			$class_to_use = 'IWP_MMB_S3_Compat';
 		}
 

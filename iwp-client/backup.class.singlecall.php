@@ -1235,7 +1235,7 @@ function delete_task_now($task_name){
 	
 			foreach ($tables as $table) {
 				iwp_mmb_auto_print('backup_db_php_normal');
-				$insert_sql .= "DROP TABLE IF EXISTS $table;";
+				$insert_sql .= "DROP TABLE IF EXISTS `$table`;";
                 $table_descr_query = $wpdb->get_results("SHOW CREATE TABLE `$table`", ARRAY_N);
 				
                 $insert_sql .= "\n\n" . $table_descr_query[0][1] . ";\n\n";
@@ -1311,10 +1311,10 @@ function delete_task_now($task_name){
 			foreach ($tables as $table) {
 			
 				//drop existing table
-				$dump_data    = "DROP TABLE IF EXISTS $table[0];";
+				$dump_data    = "DROP TABLE IF EXISTS `$table[0]`;";
             file_put_contents($file, $dump_data, FILE_APPEND);
 				//create table
-				$create_table = $wpdb->get_row("SHOW CREATE TABLE $table[0]", ARRAY_N);
+				$create_table = $wpdb->get_row("SHOW CREATE TABLE `$table[0]`", ARRAY_N);
             $dump_data = "\n\n" . $create_table[1] . ";\n\n";
             file_put_contents($file, $dump_data, FILE_APPEND);
 
@@ -1331,7 +1331,7 @@ function delete_task_now($task_name){
                 continue;
             }
 				
-				$count = $wpdb->get_var("SELECT count(*) FROM $table[0]");
+				$count = $wpdb->get_var("SELECT count(*) FROM `$table[0]`");
 				if ($count > $max_row_limit)
 					$count = ceil($count / $max_row_limit);
 				else if ($count > 0)            
@@ -1340,12 +1340,12 @@ function delete_task_now($task_name){
 				for ($i = 0; $i < $count; $i++) {
 					iwp_mmb_auto_print('backup_db_php_fail_safe');
 					$low_limit = $i * $max_row_limit;
-					$qry       = "SELECT * FROM $table[0] LIMIT $low_limit, $max_row_limit";
+					$qry       = "SELECT * FROM `$table[0]` LIMIT $low_limit, $max_row_limit";
 					$rows      = $wpdb->get_results($qry, ARRAY_A);
 					if (is_array($rows)) {
 						foreach ($rows as $row) {
 							//insert single row
-                        $dump_data = "INSERT INTO $table[0] VALUES(";
+                        $dump_data = "INSERT INTO `$table[0]` VALUES(";
 							$num_values = count($row);
 							$j          = 1;
 							foreach ($row as $value) {
@@ -1911,15 +1911,20 @@ function delete_task_now($task_name){
         $reqs['serverInfo']['php_architecture']['suggeted'] = '64-bit';
         
         // http Server Software
-	if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
-		$server_software = $_SERVER['SERVER_SOFTWARE'];
-	} else {
-		$server_software = 'Unknown';
-	}
+        if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
+            $server_software = $_SERVER['SERVER_SOFTWARE'];
+        } else {
+            $server_software = 'Unknown';
+        }
         $reqs['serverInfo']['http_server_software']['name'] = 'Http Server Software';
         $reqs['serverInfo']['http_server_software']['status'] = $server_software;
         $reqs['serverInfo']['http_server_software']['pass'] = true;
         $reqs['serverInfo']['http_server_software']['suggeted'] = 'N/A';
+
+        $reqs['serverInfo']['php_sapi']['name'] = 'PHP SAPI';
+        $reqs['serverInfo']['php_sapi']['status'] = PHP_SAPI;
+        $reqs['serverInfo']['php_sapi']['pass'] = true;
+        $reqs['serverInfo']['php_sapi']['suggeted'] = 'N/A';
         
         $reqs['directoryInfo']['status'] = $this->getDirectoryInfo();
         
@@ -2201,13 +2206,20 @@ function ftp_backup($args)
                             );
             } else {
                 if ($ftp_site_folder) {
+					$ftp_remote_folder = rtrim($ftp_remote_folder, '/');
                     $ftp_remote_folder .= '/' . $this->site_name;
                 }
-                $remote_loation = basename($backup_file);
-                $local_location = $backup_file;
                 
                 $sftp->chdir($ftp_remote_folder);
-                $sftp->delete(basename($backup_file));
+				
+				if(!is_array($backup_file)){
+					$temp_backup_file = $backup_file;
+					$backup_file = array();
+					$backup_file[] = $temp_backup_file;
+				}
+				foreach($backup_file as $key => $value){
+					$sftp->delete(basename($value));
+				}
 
             }
             //SFTP library has automatic connection closed. So no need to call seperate connection close function
@@ -3010,6 +3022,11 @@ function ftp_backup($args)
     			$task_results = unserialize($value->taskResults);
                 if(!empty($task_results['task_results'])){
         			$task_res[$value->taskName][$value->historyID] = $task_results['task_results'][$value->historyID];
+                    $requestParams = unserialize($value->requestParams);
+                    $args = $requestParams['account_info'];
+                    if (!empty($args['iwp_ftp']['use_sftp'])) {
+                        $task_res[$value->taskName][$value->historyID]['sftp'] = true;
+                    }
                 }
                 if (!empty($task_results['backhack_status'])) {
         			$task_res[$value->taskName][$value->historyID]['backhack_status'] = $task_results['backhack_status'];

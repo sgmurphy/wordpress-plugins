@@ -10,6 +10,9 @@ use MercadoPago\PP\Sdk\HttpClient\Response;
  *
  * @property string $platform_id
  * @property string $shop_url
+ * @property string $platform_version
+ * @property string $plugin_version
+ * @property string $site_id
  *
  * @package MercadoPago\PP\Sdk\Entity\Identification
  */
@@ -25,6 +28,20 @@ class CreateSellerFunnelBase extends AbstractEntity
      */
     protected $shop_url;
 
+    /**
+     * @var string
+     */
+    protected $platform_version;
+
+    /**
+     * @var string
+     */
+    protected $plugin_version;
+
+    /**
+     * @var string
+     */
+    protected $site_id;
 
     /**
      * Identification constructor.

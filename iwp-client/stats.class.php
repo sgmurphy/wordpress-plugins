@@ -453,7 +453,7 @@ class IWP_MMB_Stats extends IWP_MMB_Core
 		//For WPE
 		$use_cookie = 0;
 		if(defined('WPE_APIKEY')){
-            $stats['wpe-auth']          = md5('wpe_auth_salty_dog|'.WPE_APIKEY);
+            $stats['wpe-auth']          = hash("sha256", 'wpe_auth_salty_dog|'.WPE_APIKEY);
         }
 		
         $stats['client_version']        = IWP_MMB_CLIENT_VERSION;
@@ -472,6 +472,7 @@ class IWP_MMB_Stats extends IWP_MMB_Core
         $stats['site_home']             = get_home_url();
         $stats['site_url']              = get_site_url();
         $stats['SERVER_SOFTWARE']       = $_SERVER['SERVER_SOFTWARE'];
+        $stats['PHP_SAPI']              = PHP_SAPI;
         
         if ( !function_exists('get_filesystem_method') )
             include_once(ABSPATH . 'wp-admin/includes/file.php');

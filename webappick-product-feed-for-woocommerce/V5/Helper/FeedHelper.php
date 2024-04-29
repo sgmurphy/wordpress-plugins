@@ -1824,12 +1824,18 @@ class FeedHelper {
 	 * @return bool
 	 */
 	public static function should_generate_feed_by_ajax() {
+
 		$should_generate_feed_by_ajax = true;
 		if ( is_plugin_active( 'polylang/polylang.php' ) ) {
 			$should_generate_feed_by_ajax = false;
 		}
 
 		if ( is_plugin_active( 'woocommerce-multilingual/wpml-woocommerce.php' ) ) {
+			$should_generate_feed_by_ajax = false;
+		}
+
+		$theme = wp_get_theme(); // gets the current theme
+		if ( 'Woodmart Child' == $theme->name && 'Woodmart' == $theme->parent_theme ) {
 			$should_generate_feed_by_ajax = false;
 		}
 

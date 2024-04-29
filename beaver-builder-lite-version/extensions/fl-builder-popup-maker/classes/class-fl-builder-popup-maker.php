@@ -25,6 +25,7 @@ final class FLBuilderPopupMaker {
 		add_filter( 'pum_popup_is_loadable', __CLASS__ . '::disable_popups_for_frontend_editing' );
 		add_filter( 'pum_popup_content', __CLASS__ . '::render_builder_layout', 10, 2 );
 		add_filter( 'fl_render_content_by_id_can_view', __CLASS__ . '::pum_can_view', 10, 2 );
+		add_filter( 'get_post_metadata', __CLASS__ . '::pum_disabled_overide', 100, 4 );
 	}
 
 	static public function preload_popups() {
@@ -120,6 +121,18 @@ final class FLBuilderPopupMaker {
 			$can_view = true;
 		}
 		return $can_view;
+	}
+
+	/**
+	 * Allow disabled popups to be editible
+	 */
+	static public function pum_disabled_overide( $metadata, $object_id, $meta_key, $single ) {
+		if ( 'enabled' === $meta_key && isset( $_GET['fl_builder'] ) ) {
+			if ( 'popup' === get_post_type( $object_id ) ) {
+				return true;
+			}
+		}
+		return $metadata;
 	}
 }
 

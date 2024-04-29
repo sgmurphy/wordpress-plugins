@@ -1278,7 +1278,7 @@ class Page_Cache extends Module {
 			self::log_msg( 'Page not cached. Asset optimization processing in progress. Sending buffer to user.' );
 			return $buffer;
 		}
-		
+
 		if ( apply_filters( 'wphb_should_cache_exit', false ) ) {
 			// Exit early.
 			return $buffer;
@@ -1460,6 +1460,12 @@ class Page_Cache extends Module {
 	 */
 	private function purge_post_cache( $post_id ) {
 		global $post_trashed, $wphb_cache_config;
+
+		if ( apply_filters( 'wphb_post_cache_purged', false, $post_id ) ) {
+			self::log_msg( 'Cache has been purged already for post id : ' . $post_id );
+
+			return;
+		}
 
 		$replacement = preg_replace( '|https?://[^/]+|i', '', home_url() );
 		$permalink   = trailingslashit( str_replace( home_url(), $replacement, get_permalink( $post_id ) ) );

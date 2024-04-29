@@ -683,7 +683,7 @@ class IWP_MMB_Backup_Multicall extends IWP_MMB_Core
 		$backup_settings_values = $this -> backup_settings_vals;	
 		$backup_settings_values['actual_file_size'] = iwp_mmb_get_file_size($backup_file);
 		update_option('iwp_client_multi_backup_temp_values', $backup_settings_values);
-		if (isset($account_info['iwp_ftp']) && !empty($account_info['iwp_ftp'])) {
+		if (isset($account_info['iwp_ftp']) && !empty($account_info['iwp_ftp']) && $account_info['iwp_ftp']['use_sftp'] != '1' ) {
 			$account_info['iwp_ftp']['backup_file'] = $backup_file;
 			iwp_mmb_print_flush('FTP upload: Start');
 			$ftp_result                             = $this->ftp_backup($historyID, $account_info['iwp_ftp']);
@@ -708,6 +708,35 @@ class IWP_MMB_Backup_Multicall extends IWP_MMB_Core
 				return $ftp_result;
 			}
 		}
+
+		if (isset($account_info['iwp_ftp']) && !empty($account_info['iwp_ftp']) && $account_info['iwp_ftp']['use_sftp'] == '1' ) {
+			$account_info['iwp_ftp']['backup_file'] = $backup_file;
+			iwp_mmb_print_flush('SFTP upload: Start');
+
+			$sftp_result = $this->sftp_backup($historyID, $account_info['iwp_ftp']);
+
+			if(!$sftp_result)
+			{
+				if(!empty($backup_settings_values['del_host_file']) && $backup_settings_values['del_host_file']){
+					$this->unlinkBackupFiles($backup_file);
+				}
+				return array('error' => "Unexpected Error", 'error_code' => "unexpected_error");
+			}
+			else if(is_array($sftp_result) && isset($sftp_result['error'])){
+				if(!empty($backup_settings_values['del_host_file']) && $backup_settings_values['del_host_file']){
+					if($sftp_result['error_code'] !== 'ftp_nb_fput_not_permitted_error'){
+
+						$this->unlinkBackupFiles($backup_file);
+					}
+				}
+				return $sftp_result;
+			}
+			else
+			{
+				return $sftp_result;
+			}
+		}
+
 		
 		if (isset($account_info['iwp_amazon_s3']) && !empty($account_info['iwp_amazon_s3'])) {
 			$account_info['iwp_amazon_s3']['backup_file'] = $backup_file;
@@ -1065,7 +1094,7 @@ class IWP_MMB_Backup_Multicall extends IWP_MMB_Core
 			if ($skipThisTable) {
 				continue;
 			}
-			$count = $wpdb->get_var("SELECT count(*) FROM $table[0]");
+			$count = $wpdb->get_var("SELECT count(*) FROM `".$table[0]."`");
 			$count_field = 1;
 			
 			$table_fields = $wpdb->get_results("SHOW COLUMNS FROM `$table[0]`", ARRAY_A);
@@ -1097,7 +1126,7 @@ class IWP_MMB_Backup_Multicall extends IWP_MMB_Core
 			{            
 				$count = 1;                
 			}
-			$table_structure = $wpdb->get_results("DESCRIBE $table[0]");
+			$table_structure = $wpdb->get_results("DESCRIBE `$table[0]`");
 			$search = array("\x00", "\x0a", "\x0d", "\x1a");
 			$replace = array('\0', '\n', '\r', '\Z');
 			$defs = array();
@@ -1121,7 +1150,7 @@ class IWP_MMB_Backup_Multicall extends IWP_MMB_Core
 				
 				iwp_mmb_auto_print('backup_db_php_fail_safe');
 				$low_limit = $i * $max_row_limit;
-				$qry       = "SELECT * FROM $table[0] LIMIT $low_limit, $max_row_limit";
+				$qry       = "SELECT * FROM `$table[0]` LIMIT $low_limit, $max_row_limit";
 				$rows      = $wpdb->get_results($qry, ARRAY_A);
 				
 				$number_data_types = 'tinyint, smallint, mediumint, bigint, int, decimal, numeric, real, float, double';
@@ -1130,9 +1159,9 @@ class IWP_MMB_Backup_Multicall extends IWP_MMB_Core
 						manual_debug('', 'eachRow', 1000);
 						//insert single row
 						if(($table[0] != $left_out_table))
-						$dump_data = "INSERT INTO $table[0] VALUES(";
+						$dump_data = "INSERT INTO `$table[0]` VALUES(";
 						if(($table[0] == $left_out_table)&&($left_out_count <= $count_field))
-						$dump_data = "INSERT INTO $table[0] VALUES(";
+						$dump_data = "INSERT INTO `$table[0]` VALUES(";
 						$num_values = count($row);
 						$j          = 1;
 						foreach ($row as $key => $value) {
@@ -4198,7 +4227,7 @@ function ftp_backup($historyID,$args = '')
 		}
 		$tempArgs = $args;
         extract($args);
-        //Args: $ftp_username, $ftp_password, $ftp_hostname, $backup_file, $ftp_remote_folder, $ftp_site_folder
+        //Args: $ftp_username, $ftp_password, $ftp_hostname, $backup_file, $ftp_remote_folder, $ftp_site_folderb  
         $port = $ftp_port ? $ftp_port : 21; //default port is 21
         if (!empty($ftp_ssl)) {
             if (function_exists('ftp_ssl_connect')) {
@@ -4289,6 +4318,7 @@ function ftp_backup($historyID,$args = '')
         return $upload;
     }
 	
+	
 	function ftp_multi_upload($conn_id, $remoteFileName, $backup_file, $mode, $historyID, $tempArgs, $current_file_num = 0)
 	{
 		$requestParams = $this->getRequiredData($historyID, "requestParams");
@@ -4353,7 +4383,7 @@ function ftp_backup($historyID,$args = '')
 		if(!$file_size)
 		$file_size = 0;
 		
-		$real_size = filesize($backup_file);
+		$real_size = filesize($backup_file); 
 		//read the parts local file , if it is a second call start reading the file from the left out part which is at the offset of the remote file's filesize.
 		$fp = fopen($backup_file, 'r');
 		fseek($fp,$file_size);
@@ -4457,6 +4487,225 @@ function ftp_backup($historyID,$args = '')
 			return $resArray;
 		}
 	}
+
+	function sftp_backup($historyID,$args = array()){
+		global $iwp_backup_core;
+		$current_file_num = 0;
+		if(empty($args))
+		{
+			
+			$responseParams = $this -> getRequiredData($historyID,"responseParams");
+			
+			if(!$responseParams)
+			return $this->statusLog($this -> hisID, array('stage' => 'UploadbackupFiles', 'status' => 'error', 'statusMsg' => 'FTP Backup failed: Error while fetching table data', 'statusCode' => 'ftp_backup_failed_error_while_fetching_table_data'));
+			
+			$args = $responseParams['ftpArgs'];
+			$current_file_num = $responseParams['current_file_num'];
+		}
+
+		$host = !empty($args['ftp_hostname'])? $args['ftp_hostname']: '';
+		$username = !empty($args['ftp_username'])? $args['ftp_username']: '';
+		$password = !empty($args['ftp_password'])? $args['ftp_password']: '';
+		$remote_folder = !empty($args['ftp_remote_folder'])? $args['ftp_remote_folder']: '';
+		$port = !empty($args['ftp_port'])? $args['ftp_port']: '';
+		$site_folder = !empty($args['ftp_site_folder'])? $args['ftp_site_folder']: '0';
+		$use_sftp = !empty($args['use_sftp'])? $args['use_sftp']: '0';
+		$ftp_passive = !empty($args['ftp_passive'])? $args['ftp_passive']: '0';
+		$backup_file = !empty($args['backup_file'])? $args['backup_file']: array();
+
+		if(!is_array($backup_file)){
+			$temp_backup_file = $backup_file;
+			$backup_file = array();
+			$backup_file[] = $temp_backup_file;
+		}
+
+		$iwp_mmb_plugin_dir = WP_PLUGIN_DIR . '/' . basename(dirname(__FILE__));
+		$path = $iwp_mmb_plugin_dir.'/lib/phpseclib/phpseclib/phpseclib';
+		set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+		include_once('Net/SFTP.php');
+
+		$sftp = new Net_SFTP($host, $port);
+
+		if(!$sftp) {
+			return $this->statusLog($this -> hisID, array('stage' => 'UploadbackupFiles', 'status' => 'error', 'statusMsg' => 'Failed to connect to SFTP host' . $host, 'statusCode' => 'sftp_backup_failed_to_connect_host'));
+		}
+
+		$iwp_backup_core->ensure_phpseclib('Crypt_Blowfish', 'Crypt/Blowfish');
+
+		if (!$sftp->login($username, $password)) {
+			return $this->statusLog($this -> hisID, array('stage' => 'UploadbackupFiles', 'status' => 'error', 'statusMsg' => 'SFTP login faield for '.$username, 'statusCode' => 'sftp_backup_failed_to_login'));
+		}else{
+			if ($site_folder != '0') {
+				$remote_folder = rtrim($remote_folder, '/');
+				$remote_folder .= '/' . $this->site_name;
+			}
+
+			if ( !$sftp->is_dir($remote_folder) ) {
+				$sftp->mkdir($remote_folder,-1,true);
+			}
+			$sftp->chdir($remote_folder);
+		}
+
+		if(is_array($backup_file)){
+			$backup_file_base_name = basename($backup_file[$current_file_num]);
+		}
+		else{
+			$backup_file_base_name = basename($backup_file);
+		}
+
+		$upload = $this->sftp_chunck_upload($sftp, rtrim($remote_folder, '/') . '/' . basename($backup_file_base_name), $backup_file, FTP_BINARY, $historyID, $args, $current_file_num);
+
+		if ($upload === false) {
+            return array(
+                'error' => 'Failed to upload file to SFTP. Please check your specified path.',
+                'partial' => 1, 'error_code' => 'failed_to_upload_file_to_sftp'
+            );
+        }
+        
+        return $upload;
+
+	}
+
+	function sftp_chunck_upload( $sftp, $remote_file, $backup_file, $mode, $historyID, $args, $current_file_num = 0){
+		$requestParams = $this->getRequiredData($historyID, "requestParams");
+		$task_result = $this->getRequiredData($historyID, "taskResults");
+		
+		if(!$remote_file){
+			return array(
+                'error' => 'Failed to upload file to FTP. Please check your specified path.',
+                'partial' => 1, 'error_code' => 'failed_to_upload_file_to_ftp'
+            );
+		}
+
+		$backup_files_base_name = array();
+		if(is_array($backup_file)){
+			foreach($backup_file as $value){
+				$backup_files_base_name[] = basename($value);
+			}
+		}
+		else{
+			$backup_files_base_name = basename($backup_file);
+		}
+
+		$backup_files_count = count($backup_file);
+		
+		if(is_array($backup_file)){
+			$backup_file = $backup_file[$current_file_num];
+		}
+
+		$task_result['task_results'][$historyID]['ftp'] = $backup_files_base_name;
+		$task_result['ftp'] = $backup_files_base_name;
+		$upload_loop_break_time = $requestParams['account_info']['upload_loop_break_time'];			//darkcode changed
+		$del_host_file = $requestParams['args']['del_host_file'];
+		
+		if(!$upload_loop_break_time){
+			$upload_loop_break_time = 25;			//safe
+		}
+		$remote_stat = $sftp->stat($remote_file);
+		$current_remote_size = (is_array($remote_stat) && isset($remote_stat['size']) && $remote_stat['size'] > 0) ? $remote_stat['size'] : 0;
+
+		$file_size = 0;
+		if ($current_remote_size != 0) {
+			echo "size of $remote_file is $current_remote_size bytes\n";
+			$file_size = $current_remote_size;
+		}
+
+		$fp = fopen($backup_file, 'rb');
+		fseek($fp,$file_size);
+
+		if (!empty($requestParams['account_info']['upload_file_block_size'])) {
+			$chunkSize = $requestParams['account_info']['upload_file_block_size'];
+		}else{
+			$chunkSize = 1024 * (1 * 1024);
+		}
+
+
+		$resArray = array (
+		  'status' => 'partiallyCompleted',
+		  'backupParentHID' => $historyID,
+		);
+		$result_arr = array();
+		$result_arr['status'] = 'partiallyCompleted';
+		$result_arr['nextFunc'] = 'sftp_backup';
+		$result_arr['ftpArgs'] = $args;
+		$result_arr['current_file_num'] = $current_file_num;
+		
+		$totalBytesSent = 0;
+		while (!feof($fp)) {
+			
+			$endTime = microtime(true);
+			$timeTaken = $endTime - $this->iwpScriptStartTime;
+			if($timeTaken < $upload_loop_break_time){
+				$chunk = fread($fp, $chunkSize);
+				$upload = $sftp->put($remote_file, $chunk, (NET_SFTP_RESUME | NET_SFTP_RESUME_START));
+				if ($upload === false) {
+                    return array(
+                        'error' => 'Failed to upload file to SFTP',
+                        'partial' => 1,
+						'error_code' => 'sftp_put_error'
+                    );
+                }
+			}else{
+				$result_arr['timeTaken'] = $timeTaken;
+				$result_arr['file_size_written'] = $file_size;
+				$this->statusLog($historyID, array('stage' => 'sftpMultiCall', 'status' => 'completed', 'statusMsg' => 'nextCall being stopped --- ','nextFunc' => 'sftp_backup','task_result' => $task_result, 'responseParams' => $result_arr));
+				break;
+			}
+			$totalBytesSent += strlen($chunk);
+			iwp_mmb_auto_print("sftploop");
+		}
+
+		if (is_resource($fp)) {
+			fclose($fp);
+		}
+
+		$real_size = filesize($backup_file);
+		$remote_stat = $sftp->stat($remote_file);
+		$current_remote_size = (is_array($remote_stat) && isset($remote_stat['size']) && $remote_stat['size'] > 0) ? $remote_stat['size'] : 0;
+
+		if ( $real_size > $current_remote_size) {
+			echo "backup not yet finished";
+			echo "real file size $real_size";
+			echo "\nSFTP file size $current_remote_size";
+			echo "\nUploaded size $totalBytesSent";
+			return $resArray;
+		}
+
+		//this is where the backup call ends completing all the uploads 
+		$current_file_num += 1;
+		$result_arr['timeTaken'] = $timeTaken;
+		$result_arr['file_size_written'] = $file_size;
+		$result_arr['current_file_num'] = $current_file_num;
+		
+		if($current_file_num == $backup_files_count){
+			$result_arr['status'] = 'completed';
+			$result_arr['nextFunc'] = 'sftp_backup_over';
+			unset($task_result['task_results'][$historyID]['server']);
+			$resArray['status'] = 'completed';
+		}else{
+			$result_arr['status'] = 'partiallyCompleted';
+			$resArray['status'] = 'partiallyCompleted';
+		}
+		
+		
+		$this->statusLog($historyID, array('stage' => 'ftpMultiCall', 'status' => 'completed', 'statusMsg' => 'nextCall','nextFunc' => 'ftp_backup','task_result' => $task_result, 'responseParams' => $result_arr));
+
+		$verificationResult = $this -> postUploadVerification($sftp, $backup_file, $remote_file, "sftp");
+		if(!$verificationResult){
+			return $this->statusLog($historyID, array('stage' => 'uploadFTP', 'status' => 'error', 'statusMsg' => 'STP verification failed: File may be corrupted.', 'statusCode' => 'stp_verification_failed_file_maybe_corrupted'));
+		}else{
+			echo "sftp post verifcation success\n";
+		}
+
+		if($del_host_file){
+			@unlink($backup_file);				// darkcode testing purpose
+		}
+			
+		iwp_mmb_print_flush('SFTP upload: End');
+			
+		return $resArray;
+
+	}
 	
 	function get_files_base_name($backup_file)
 	{
@@ -4515,6 +4764,26 @@ function ftp_backup($historyID,$args = '')
 		{
 			ftp_chdir ($obj , dirname($destFile));
 			$ftp_file_size = ftp_size($obj, basename($destFile));
+			if($ftp_file_size > 0)
+			{
+				if((($ftp_file_size >= $size1 && $ftp_file_size <= $actual_file_size) || ($ftp_file_size <= $size2 && $ftp_file_size >= $actual_file_size) || ($ftp_file_size == $actual_file_size)) && ($ftp_file_size != 0))
+				{
+					return true;								
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if($type == "sftp")
+		{
+			$remote_stat = $obj->stat($destFile);
+			$ftp_file_size = (is_array($remote_stat) && isset($remote_stat['size']) && $remote_stat['size'] > 0) ? $remote_stat['size'] : 0;
 			if($ftp_file_size > 0)
 			{
 				if((($ftp_file_size >= $size1 && $ftp_file_size <= $actual_file_size) || ($ftp_file_size <= $size2 && $ftp_file_size >= $actual_file_size) || ($ftp_file_size == $actual_file_size)) && ($ftp_file_size != 0))
@@ -4593,13 +4862,20 @@ function ftp_backup($historyID,$args = '')
                             );
             } else {
                 if ($ftp_site_folder) {
+					$ftp_remote_folder = rtrim($ftp_remote_folder, '/');
                     $ftp_remote_folder .= '/' . $this->site_name;
                 }
-                $remote_loation = basename($backup_file);
-                $local_location = $backup_file;
                 
                 $sftp->chdir($ftp_remote_folder);
-                $sftp->delete(basename($backup_file));
+				
+				if(!is_array($backup_file)){
+					$temp_backup_file = $backup_file;
+					$backup_file = array();
+					$backup_file[] = $temp_backup_file;
+				}
+				foreach($backup_file as $key => $value){
+					$sftp->delete(basename($value));
+				}
 
             }
             //SFTP library has automatic connection closed. So no need to call seperate connection close function

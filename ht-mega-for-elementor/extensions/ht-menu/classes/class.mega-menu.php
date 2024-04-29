@@ -207,7 +207,7 @@ class HTMegaMenu_Elementor {
     public function enqueue_frontend_scripts(){
         
         // CSS File
-        wp_enqueue_style( 'font-awesome-5-all', HTMEGA_ADDONS_PL_URL . 'assets/extensions/ht-menu/css/font-awesome/css/all.min.css' );
+        wp_enqueue_style( 'font-awesome-5-all', ELEMENTOR_ASSETS_URL . '/lib/font-awesome/css/all.min.css' );
         wp_enqueue_style(  'htmega-menu',  HTMEGA_ADDONS_PL_URL . 'assets/extensions/ht-menu/css/mega-menu-style.css', array(), HTMEGA_VERSION );
 
         // JS File

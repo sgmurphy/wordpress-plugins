@@ -3722,9 +3722,11 @@ var BeaverBuilderUI = function BeaverBuilderUI() {
 var registerPanels = function registerPanels() {
   var _getSystemConfig = (0,data__WEBPACK_IMPORTED_MODULE_2__.getSystemConfig)(),
       _getSystemConfig$show = _getSystemConfig.showOutlinePanel,
-      showOutlinePanel = _getSystemConfig$show === void 0 ? true : _getSystemConfig$show;
+      showOutlinePanel = _getSystemConfig$show === void 0 ? true : _getSystemConfig$show,
+      _getSystemConfig$unre = _getSystemConfig.unrestricted,
+      unrestricted = _getSystemConfig$unre === void 0 ? true : _getSystemConfig$unre;
 
-  if (showOutlinePanel) {
+  if (showOutlinePanel && unrestricted) {
     (0,_outline_panel__WEBPACK_IMPORTED_MODULE_8__.registerOutlinePanel)();
   }
 };

@@ -120,7 +120,11 @@
 			}, function ( response ) {
 				switch( response.success ) {
 					case false:
-						alert( 'There was an error :(')
+						if ( 'undefined' != typeof response.data ) {
+							alert( response.data )
+						} else {
+							alert( 'Something went wrong' );
+						}
 						break;
 					case true:
 						alert( 'Success!');

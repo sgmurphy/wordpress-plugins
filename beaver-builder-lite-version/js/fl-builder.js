@@ -1144,6 +1144,13 @@
 				parent  = $(this),
 				submenu = parent.find('.fl-builder-submenu');
 
+			$( '.fl-builder-submenu' ).each( function() {
+				var timeout = $( this ).data( 'timeout' );
+				if ( 'undefined' !== typeof timeout ) {
+					clearTimeout( timeout );
+				}
+			} );
+
 			// remove classes first
 			$('.fl-builder-submenu-right').removeClass('fl-builder-submenu-right');
 			$('.fl-builder-submenu-open').removeClass('fl-builder-submenu-open');
@@ -1169,10 +1176,15 @@
 		 * @param {Object} e The event object.
 		 */
 		_hoverMenuParentMouseLeave: function (e) {
-			// remove classes
-			$('.fl-builder-submenu-right').removeClass('fl-builder-submenu-right');
-			$('.fl-builder-submenu-open').removeClass('fl-builder-submenu-open');
-			$('.fl-row-menu-active').removeClass('fl-row-menu-active');
+			var parent  = $(this);
+			var submenu = parent.find('.fl-builder-submenu');
+			var timeout = setTimeout( function() {
+				$('.fl-builder-submenu-right').removeClass('fl-builder-submenu-right');
+				$('.fl-builder-submenu-open').removeClass('fl-builder-submenu-open');
+				$('.fl-row-menu-active').removeClass('fl-row-menu-active');
+			}, 500 );
+
+			submenu.data( 'timeout', timeout );
 		},
 
 		/**
@@ -5047,8 +5059,8 @@
 				}
 				// A module was dropped into a column group position.
 				else if ( parent.hasClass( 'fl-col-group-drop-target' ) ) {
-					node     = item.closest( '.fl-col-group' );
-					position = item.closest( '.fl-row-content ').find( ' > .fl-col-group' ).index( node );
+					node     = item.closest( '.fl-col-group, .fl-module' );
+					position = item.closest( '.fl-row-content ').find( ' > .fl-col-group, > .fl-module' ).index( node );
 					position = item.closest( '.fl-drop-target-last' ).length ? position + 1 : position;
 					parentId = item.closest( '.fl-row' ).attr( 'data-node' );
 					if ( module.attr( 'data-accepts' ) ) {
@@ -7595,6 +7607,8 @@
 				if ( formType && form.hasClass( 'fl-builder-module-settings' ) ) {
 					defaultVal = FLBuilderSettingsConfig.defaults.modules[ formType ][ fieldName ][0];
 					clone.find('input, textarea, select').val( defaultVal );
+				} else {
+					button.parents( '.fl-field' ).find('input').trigger('change');
 				}
 
 				FLBuilder._renumberFields( clone.closest( '.fl-field' ) );
@@ -7611,13 +7625,14 @@
 		 */
 		_copyFieldClicked: function()
 		{
-			var button      = $(this),
-				row         = button.closest('tr'),
-				clone       = row.clone(),
-				index       = parseInt(row.find('label span.fl-builder-field-index').html(), 10) + 1;
+			var row     = $(this).closest('tr'),
+				parent  = row.parent(),
+				clone   = row.clone(),
+				index   = parseInt(row.find('label span.fl-builder-field-index').html(), 10) + 1;
 
 			clone.find('th label span.fl-builder-field-index').html(index);
 			row.after(clone);
+			parent.find('input').trigger('change');
 			FLBuilder._renumberFields(row.parent());
 			FLBuilder._initMultipleFields();
 			if ( FLBuilder.preview ) {
@@ -8800,7 +8815,7 @@
 						if ( helper ) {
 							helper.init();
 						}
-						FLBuilder._initFormFieldSettingsPreview( lightbox );
+						FLBuilder._initFormFieldSettingsPreview();
 					}
 				},
 			}, function() {
@@ -8839,17 +8854,18 @@
 		 * @method _initFormFieldSettingsPreview
 		 * @param {Object} lightbox
 		 */
-		_initFormFieldSettingsPreview: function( lightbox )
+		_initFormFieldSettingsPreview: function()
 		{
-			var fields = lightbox._node.find( '.fl-field' );
-			var editors = lightbox._node.find( 'textarea.wp-editor-area' );
+			var form = $( '.fl-builder-settings:visible' );
+			var fields = form.find( '.fl-field' );
+			var editors = form.find( 'textarea.wp-editor-area' );
 
+			form.on( 'input', 'input:not([type=hidden]), textarea', FLBuilder._previewFormFieldSettings );
+			form.on( 'change', 'input[type=hidden], select', FLBuilder._previewFormFieldSettings );
 
-			fields.find( 'input:not([type=hidden]), textarea' ).on( 'input', FLBuilder._previewFormFieldSettings );
-			fields.find( 'input[type=hidden], select' ).on( 'change', FLBuilder._previewFormFieldSettings );
+			var shapename = fields.find('input[name=shape_name]');
+			var shapeorig = fields.find('input[name=shape_original]');
 
-			shapename = fields.find('input[name=shape_name]');
-			shapeorig = fields.find('input[name=shape_original]');
 			if ( shapename.length > 0 ) {
 				shapeorig.hide();
 				shapename.on( 'keyup', function() {

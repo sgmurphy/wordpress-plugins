@@ -359,7 +359,7 @@ class IWP_MMB_Helper
     }
     
     
-    function authenticate_message($data = false, $signature = false, $message_id = false)
+    function authenticate_message($data = false, $signature = false, $signature_new = '', $message_id = false)
     {
         if (!$data && !$signature) {
             return array(
@@ -384,7 +384,12 @@ class IWP_MMB_Helper
         }
         
         if (checkOpenSSL() && !$this->get_random_signature()) {
-            $verify = openssl_verify($data, $signature, $pl_key);
+            $verify = 0;
+            if(!empty($signature_new) && defined('OPENSSL_ALGO_SHA256')){
+                $verify = openssl_verify($data, $signature_new, $pl_key, OPENSSL_ALGO_SHA256);
+            }elseif (!empty($signature)) {
+                $verify = openssl_verify($data, $signature, $pl_key);
+            }
             if ($verify == 1) {
                 $message_id = $this->set_client_message_id($message_id);
                 return true;

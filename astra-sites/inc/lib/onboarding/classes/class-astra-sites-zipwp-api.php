@@ -309,6 +309,33 @@ class Astra_Sites_ZipWP_Api {
 				),
 			)
 		);
+		
+		register_rest_route(
+			$namespace,
+			'/all-templates/',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'get_all_templates' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
+					'args' => array(
+						'business_name' => array(
+							'type'     => 'string',
+							'required' => false,
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'per_page' => array(
+							'type'     => 'integer',
+							'required' => false,
+						),
+						'page' => array(
+							'type'     => 'integer',
+							'required' => true,
+						),
+					),
+				),
+			)
+		);
 
 		register_rest_route(
 			$namespace,
@@ -474,6 +501,18 @@ class Astra_Sites_ZipWP_Api {
 							'required' => true,
 						),
 					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/revoke-access/',
+			array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'revoke_access' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 				),
 			)
 		);
@@ -755,7 +794,8 @@ class Astra_Sites_ZipWP_Api {
 			$response_data = json_decode( $response_body, true );
 			if ( $response_body ) {
 				$exported_data = $response_data['data'];
-				update_option( 'astra_sites_import_data', $exported_data, 'no' );
+				$exported_data['astra-site-url'] = $exported_data['host'];
+				Astra_Sites_File_System::get_instance()->update_json_file( 'astra_sites_import_data.json' , $exported_data);
 				set_transient( 'astra_sites_current_import_template_type', 'ai', HOUR_IN_SECONDS );
 				update_option( 'astra_sites_batch_process_complete', 'no' );
 				$host_url = $exported_data['host'] ?? '';
@@ -1253,6 +1293,87 @@ class Astra_Sites_ZipWP_Api {
 			);
 		}
 	}
+	
+	/**
+	 * Get templates by page.
+	 *
+	 * @param \WP_REST_Request $request Full details about the request.
+	 * @return mixed
+	 */
+	public function get_all_templates( $request ) {
+
+		$nonce = $request->get_header( 'X-WP-Nonce' );
+		// Verify the nonce.
+		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
+			wp_send_json_error(
+				array(
+					'data' => __( 'Nonce verification failed.', 'astra-sites' ),
+					'status'  => false,
+
+				)
+			);
+		}
+
+		$per_page = isset( $request['per_page'] ) ? intval( $request['per_page'] ) : 9;
+		$page = isset( $request['page'] ) ? intval( $request['page'] ) : 1;
+
+		$api_endpoint = $this->get_api_domain() . '/all-templates';
+
+		$post_data = array(
+			'business_name' => isset( $request['business_name'] ) ? sanitize_text_field( $request['business_name'] ) : '',
+			'email' => Astra_Sites_ZipWP_Helper::get_zip_user_email(),
+			'per_page' => $per_page,
+			'page' => $page,
+		);
+
+		$request_args = array(
+			'body' => wp_json_encode( $post_data ),
+			'headers' => $this->get_api_headers(),
+			'timeout' => 100,
+		);
+		$response = wp_remote_post( $api_endpoint, $request_args );
+
+		if ( is_wp_error( $response ) ) {
+			// There was an error in the request.
+			wp_send_json_error(
+				array(
+					'data' => 'Failed ' . $response->get_error_message(),
+					'status'  => false,
+
+				)
+			);
+		}
+		$response_code = wp_remote_retrieve_response_code( $response );
+		$response_body = wp_remote_retrieve_body( $response );
+		if ( 200 === $response_code ) {
+			$response_data = json_decode( $response_body, true );
+			if ( $response_data ) {
+				update_option( 'zipwp_selection_templates', $response_data );
+				wp_send_json_success(
+					array(
+						'data' => $response_data,
+						'status'  => true,
+					)
+				);
+			} else {
+				wp_send_json_error(
+					array(
+						'data' => 'Failed ' . $response_data,
+						'status'  => false,
+
+					)
+				);
+			}
+		} else {
+			wp_send_json_error(
+				array(
+					'data' => 'Failed',
+					'status'  => false,
+
+				)
+			);
+		}
+	}
 
 	/**
 	 * Get Categories.
@@ -1681,6 +1802,45 @@ class Astra_Sites_ZipWP_Api {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Revoke access.
+	 *
+	 * @param \WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Response
+	 */
+	public function revoke_access( $request ): WP_REST_Response {
+
+		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = isset( $nonce ) ? sanitize_text_field( $nonce ) : '';
+		// Verify the nonce.
+		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+			wp_send_json_error(
+				array(
+					'data' => __( 'Nonce verification failed.', 'astra-sites' ),
+					'status'  => false,
+
+				)
+			);
+		}
+		
+		$business_details = get_option( 'ast-templates-business-details', false );
+		delete_option( 'ast-block-templates-show-onboarding' );
+		if ( ! $business_details ) {
+			$business_details = array();
+		}
+
+		$business_details['token'] = '';
+		$updated = update_option( 'ast-templates-business-details', $business_details );
+		delete_option( 'zip_ai_settings' );
+		$response = new WP_REST_Response(
+			array(
+				'success' => $updated,
+			)
+		);
+		$response->set_status( 200 );
+		return $response;
 	}
 }
 

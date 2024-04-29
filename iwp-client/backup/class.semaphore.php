@@ -134,7 +134,7 @@ class IWP_MMB_Semaphore {
 	 * @return bool
 	 */
 	public function unlock() {
-		global $wpdb, $iwp_backup_core;
+		global $wpdb, $iwp_backup_core, $iwp_mmb_core;
 
 		// Decrement for the master process.
 		$this->decrement();
@@ -144,7 +144,7 @@ class IWP_MMB_Semaphore {
 			   SET option_name = 'IWP_unlocked_".$this->lock_name."'
 			 WHERE option_name = 'IWP_locked_".$this->lock_name."'
 		");
-		update_option('IWP_backup_status', '0');
+		$iwp_mmb_core->iwp_update_option($option_name = 'IWP_backup_status',$option_value = '0');
 		if ($result == '1') {
 			$iwp_backup_core->log('Semaphore ('.$this->lock_name.') unlocked');
 			return true;

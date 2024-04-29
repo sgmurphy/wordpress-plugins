@@ -88,6 +88,16 @@ var fontSize = wp.template( 'fl-builder-field-unit' )( {
 			min: 10,
 			max: 200,
 			step: 1,
+			em: {
+				min: .1,
+				max: 10,
+				step: .1,
+			},
+			rem: {
+				min: .1,
+				max: 10,
+				step: .1,
+			}
 		},
 	},
 } );

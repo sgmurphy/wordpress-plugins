@@ -5042,7 +5042,7 @@ final class FLBuilderModel {
 	*
 	* @return array
 	*/
-	static public function array_remove_by_values( $haystack, $values, $whitelist = array( 'animation', 'style', 'post_columns' ) ) {
+	static public function array_remove_by_values( $haystack, $values, $whitelist = array( 'animation', 'style', 'post_columns', 0, 1, 3, 4, 5 ) ) {
 		foreach ( $haystack as $key => $value ) {
 			if ( is_array( $value ) ) {
 				$haystack[ $key ] = self::array_remove_by_values( $haystack[ $key ], $values );

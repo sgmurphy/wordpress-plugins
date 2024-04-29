@@ -1,4 +1,4 @@
-import Skeleton from '@mui/lab/Skeleton';
+import { Skeleton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { classNames } from '../../steps/onboarding-ai/helpers';

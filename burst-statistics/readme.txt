@@ -6,7 +6,7 @@ Requires at least: 5.8
 License: GPL2
 Requires PHP: 7.2
 Tested up to: 6.5
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 
 Self-hosted and privacy-friendly analytics for WordPress.
 
@@ -32,7 +32,7 @@ Burst Statistics keeps all data on your server, making it compatible with privac
 = From the creators of Really Simple SSL & Complianz =
 Burst Statistics was created by experienced developers who created [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/) & [Complianz](https://wordpress.org/plugins/complianz-gdpr/), with over 6,000,000 active installs combined. With a proven track record of providing top-notch, user-friendly solutions, you can trust that Burst Statistics meets the same high standards.
 
-Our community speaks for itself: with over 1,000,000 downloads and 100,000 active users, Burst Statistics is a trusted choice for your analytics needs.
+Our community speaks for itself: with over 2,000,000 downloads and 200,000 active users, Burst Statistics is a trusted choice for your analytics needs.
 
 = Make Burst Statistics better! =
 Our team is always working on improving our plugin, and your input as a user can significantly help us in this process. You don’t require any coding or software development knowledge to contribute; simply sharing your ideas or any issues you encounter would help to improve the plugin significantly. Please feel free to contact us via [a support request on the WordPress forums; we welcome any feedback you may have.](https://wordpress.org/support/plugin/burst-statistics/)
@@ -87,6 +87,12 @@ Performance is almost not affected. We have built Burst to be very performant fo
 We value your feedback. You can [submit a support request on the WordPress forums](https://wordpress.org/support/plugin/burst-statistics/), and we will respond promptly.
 
 == Change log ==
+= 1.6.1 =
+* Feature: Email reporting. You can now receive a weekly or monthly email with your website statistics. Add up to 10 email addresses to receive the report.
+* Feature: Reset statistics. You can now reset your statistics to start fresh. This will remove all data from the database. Settings will remain the same.
+* Fix: Issue where the capabilities where not set properly.
+* Fix: Issue where the Dashboard was returning lot's of errors when a user only has view access for Burst Statistics.
+
 = 1.6.0 =
 * Tested up to: WordPress 6.5
 * Feature: (Pro) Tracking of URL parameters and UTM Campaigns. This will allow you to track the performance of your marketing campaigns and see how your site is being used.

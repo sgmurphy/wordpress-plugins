@@ -2,56 +2,82 @@
 namespace Codexpert\ThumbPress;
 use Codexpert\ThumbPress\Helper;
 
-$image_sizes 	= Helper::default_image_sizes();
-$selected_sizes = Helper::get_option( 'prevent_image_sizes', 'disables', [] );
+$modules        = thumbpress_modules();
+$active_modules = get_option( 'thumbpress_modules', [] );
 
 echo '
 <div class="step-two">
-<h1 class="disable-thumbnails">' . __( 'Save Your Space Now 🥳', 'image-sizes' ) . '</h1>
 <p class="cx-wizard-sub">
-	 ' . __( 'By default, WordPress generates these 5 image sizes- <span class= "thumb_size_italic">Thumbnail, Medium, Medium-large, Large and Scaled.</span> Disable the ones which you don’t need. Also, you can disable the additional image sizes using the toggles below - ', 'image-sizes' ) . '
+	 ' . __( 'Please enable/disable the features you want to use. You can always change your settings later based on your needs.', 'image-sizes' ) . '
 </p>
 
 <table class="form-table" id="image_sizes-form-table">
 	<thead>
 		<tr>
-			<th>' . __( 'Disable Thumbnail', 'image-sizes' ) . '</th>
-			<th>' . __( 'Name', 'image-sizes' ) . '</th>
-			<th>' . __( 'Type', 'image-sizes' ) . '</th>
-			<th>' . __( 'Dimension (px)', 'image-sizes' ) . '</th>
+        <th>' . __( 'Name', 'image-sizes' ) . '</th>
+        <th>' . __( 'Type', 'image-sizes' ) . '</th>
+        <th>' . __( 'Enable/Disable', 'image-sizes' ) . '</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr id="row-main-file">
-			<td class="image_sizes-switch-col">
-				<label class="image_sizes-switch">
-				  <input type="checkbox" class="image_sizes-switch-checkbox" disabled>
-				  <span class="image_sizes-slider round"></span>
-				</label>
-			</td>
-			<td>' . __( 'Original Image', 'image-sizes' ) . '</td>
-			<td>' . __( 'original', 'image-sizes' ) . '</td>
-			<td>' . __( 'auto', 'image-sizes' ) . '</td>
-		</tr>
 ';
 
-foreach ( $image_sizes as $id => $size ) {
-	$_checked = in_array( $id, $selected_sizes ) ? 'checked' : '';
+foreach ( $modules as $module ) {
+	global $thumbpress_pro;
+    $type       	= $module['pro'] == 1 ? __( 'Pro', 'image-sizes' ) : __( 'Free', 'image-sizes' );
+    $_checked   	= array_key_exists( $module['id'], $active_modules ) ? 'checked' : '';
+	$activated 		= isset( $thumbpress_pro['license'] ) && $thumbpress_pro['license']->_is_activated();
+ 	$module_class 	= $module['pro'] ? 'pro' : 'free';
+	$disabled 		= $module['pro'] && ! $activated ? 'disabled' : ''; 
+	$module_class 	= $activated && $module['pro'] ? 'pro-active' : $module_class;
 	echo "
-		<tr id='row-". esc_attr( $id ) ."'>
-			<td class='image_sizes-switch-col'>
+		<tr id='row-". esc_attr( $module['id'] ) ." ' class='image-sizes-". esc_attr( $module_class ) ."'>
+			<td>". esc_html( $module['title'] ) ."</td>
+			
+            <td>" . $type . "</td>
+            <td class='image_sizes-switch-col'>
 				<label class='image_sizes-switch'>
-				  <input type='checkbox' class='checkbox check-this check-". esc_attr( $size['type'] ) ." image_sizes-switch-checkbox' name='disables[]' value='". esc_attr( $id ) ."' ". esc_attr( $_checked ) .">
-				  <span class='image_sizes-slider round'></span>
+				  <input ". $disabled ." name='modules[" . $module['id'] . "]' value='on' type='checkbox' " . $_checked . " class='image_sizes-switch-checkbox'>
+				  <span class='image_sizes-slider round'></span> 
 				</label>
 			</td>
-			<td>". esc_html( $id ) ."</td>
-			<td>". esc_html( $size['type'] ) ."</td>
-			<td>". esc_html( $size['width'] ).'x'.esc_html( $size['height'] ) ."</td>
-		</tr>";
+		</td>";
 }
 
 echo '
 	</tbody>
 </table>
 ';
+?>
+
+<div id="thumb-pro-popup" style="display: none;">
+	<button id="thumb-pro-popup-hide" type="button">&times;</button>
+	<h2 class="thumb-pro-popup-title"><?php _e( 'Get this Premium Feature', 'image-sizes' ); ?></h2>
+    <img class="wl-pro-popup-img" src="<?php echo THUMBPRESS_ASSET . '/img/pro-rocket.png'; ?>">
+	<p class="thumb-pro-popup-txt"><?php _e( 'This is a Premium Feature. This feature is only available in <strong>ThumbPress Pro</strong>!', 'image-sizes' ); ?></p>
+	<p class="thumb-pro-popup-txt">
+        <?php _e( 'Make a smart choice today; a <strong>small investment</strong> can lead to a <strong>big boost</strong> in your website performance. Unlock All Premium Features.', 'image-sizes' ); ?>
+    </p>
+	<p>
+        <a id="thumb-pro-popup-btn" href="<?php echo esc_url( 'https://thumbpress.co/pricing/' ); ?>" target="_blank">
+		    <span class="dashicons dashicons-unlock"></span>
+		    <?php _e( 'Unlock Premium Features', 'image-sizes' ); ?>
+	    </a>
+    </p>
+</div>
+
+<script>	
+	jQuery(function ($) {
+		
+		// modules pro popup show
+        $(".cx-wizard-container .image-sizes-pro .image_sizes-switch").click(function (e) {
+			console.log('work');
+            $("#thumb-pro-popup").slideDown("fast");
+        });
+        
+        // modules pro popup hide
+        $("#thumb-pro-popup-hide").click(function (e) {
+            $("#thumb-pro-popup").slideUp("fast");
+        });
+    });
+</script>

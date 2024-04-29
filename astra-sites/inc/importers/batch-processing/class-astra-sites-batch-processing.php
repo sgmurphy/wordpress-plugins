@@ -951,7 +951,6 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			// Add "customizer" in import [queue].
 			$classes[] = Astra_Sites_Batch_Processing_Customizer::get_instance();
-			
 			if ( defined( 'WP_CLI' ) ) {
 				WP_CLI::line( 'Batch Process Started..' );
 				// Process all classes.

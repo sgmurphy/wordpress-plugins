@@ -342,8 +342,7 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                         <div class="alert alert-info m-b-0" role="alert">
                             <i class="wpdt-icon-info-circle-full"></i>
                             <ul>
-                                <li><strong>Improvement:</strong> Refactoring Gutenberg blocks logic.</li>
-                                <li>Compatibility with WordPress 6.5.2 approved.</li>
+                                <li><strong>Improvement:</strong> Added notice when trying to create a chart from Simple tables.</li>
                                 <li>Other small bug fixes and stability improvements</li>
                             </ul>
                         </div>

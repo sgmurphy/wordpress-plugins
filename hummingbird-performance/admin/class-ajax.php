@@ -531,10 +531,12 @@ class AJAX {
 				Performance::set_doing_report( false );
 				wp_send_json_success(
 					array(
-						'finished'        => true,
-						'mobileScore'     => $mobile,
-						'desktopScore'    => $desktop,
-						'HBSmushFeatures' => Utils::get_active_features(),
+						'finished'            => true,
+						'mobileScore'         => $mobile,
+						'desktopScore'        => $desktop,
+						'HBSmushFeatures'     => Utils::get_active_features(),
+						'hbPerformanceMetric' => Utils::get_performance_metric_for_mp(),
+						'aoStatus'            => Utils::is_ao_processing() ? 'incomplete' : 'complete',
 					)
 				);
 			}
@@ -580,10 +582,12 @@ class AJAX {
 
 			wp_send_json_success(
 				array(
-					'finished'        => true,
-					'mobileScore'     => $mobile,
-					'desktopScore'    => $desktop,
-					'HBSmushFeatures' => Utils::get_active_features(),
+					'finished'            => true,
+					'mobileScore'         => $mobile,
+					'desktopScore'        => $desktop,
+					'HBSmushFeatures'     => Utils::get_active_features(),
+					'hbPerformanceMetric' => Utils::get_performance_metric_for_mp(),
+					'aoStatus'            => Utils::is_ao_processing() ? 'incomplete' : 'complete',
 				)
 			);
 		}
@@ -1345,6 +1349,21 @@ class AJAX {
 		Settings::update_setting( 'delay_js_exclusions', $delay_js_exclude, 'minify' );
 		Settings::update_setting( 'delay_js_timeout', $delay_js_timeout, 'minify' );
 
+		// Preload fonts.
+		$prev_font_optimization = Settings::get_setting( 'font_optimization', 'minify' );
+		$prev_font_swap = Settings::get_setting( 'font_swap', 'minify' );
+		$font_optimization      = ! empty( $form['font_optimization'] );
+		$preload_fonts          = $form['preload_fonts'];
+		$preload_fonts          = html_entity_decode( $preload_fonts );
+		$font_swap              = ! empty( $form['font_swap'] );
+		Settings::update_setting( 'font_optimization', $font_optimization, 'minify' );
+		Settings::update_setting( 'preload_fonts', $preload_fonts, 'minify' );
+		Settings::update_setting( 'font_swap', $font_swap, 'minify' );
+
+		// Track font value to MP.
+		$font_optimization_update_type = $prev_font_optimization !== $font_optimization ? ( ! empty( $font_optimization ) ? 'activate' : 'deactivate' ) : '';
+		$font_swap_update_type         = $prev_font_swap !== $font_swap ? ( ! empty( $font_swap ) ? 'activate' : 'deactivate' ) : '';
+
 		// Update Critical CSS option.
 		$critical_css_mode          = $form['critical_css_mode'];
 		$critical_css_option        = ! empty( $form['critical_css_option'] ) && 'critical_css' === $critical_css_mode;
@@ -1443,22 +1462,24 @@ class AJAX {
 
 		wp_send_json_success(
 			array(
-				'delay_js'               => $delay_js,
-				'delay_js_update_type'   => $delay_js_update_type,
-				'is_delay_value_updated' => $is_delay_value_updated,
-				'delay_js_timeout'       => $delay_js_timeout,
-				'delay_js_exclude'       => $delay_js_exclude,
-				'updateType'             => $critical_css_update_type,
-				'isCriticalValueUpdated' => $is_critical_value_updated,
-				'critical_css'           => $critical_css_option,
-				'settingsModified'       => implode( ',', $settings_modified ),
-				'settingsDefault'        => implode( ',', $settings_default ),
-				'mode'                   => $critical_mode,
-				'location'               => $location,
-				'success'                => $status['success'],
-				'message'                => $message,
-				'isStatusTagNeedsUpdate' => $is_status_tag_needs_update,
-				'htmlForStatusTag'       => Utils::get_module( 'critical_css' )->get_html_for_status_tag(),
+				'delay_js'                   => $delay_js,
+				'delay_js_update_type'       => $delay_js_update_type,
+				'is_delay_value_updated'     => $is_delay_value_updated,
+				'delay_js_timeout'           => $delay_js_timeout,
+				'delay_js_exclude'           => $delay_js_exclude,
+				'updateType'                 => $critical_css_update_type,
+				'isCriticalValueUpdated'     => $is_critical_value_updated,
+				'critical_css'               => $critical_css_option,
+				'settingsModified'           => implode( ',', $settings_modified ),
+				'settingsDefault'            => implode( ',', $settings_default ),
+				'mode'                       => $critical_mode,
+				'location'                   => $location,
+				'success'                    => $status['success'],
+				'message'                    => $message,
+				'isStatusTagNeedsUpdate'     => $is_status_tag_needs_update,
+				'htmlForStatusTag'           => Utils::get_module( 'critical_css' )->get_html_for_status_tag(),
+				'fontOptimizationUpdateType' => $font_optimization_update_type,
+				'fontSwapUpdateType'         => $font_swap_update_type,
 			)
 		);
 	}
@@ -1732,6 +1753,11 @@ class AJAX {
 			if ( ! $skip ) {
 				$options['emoji']        = isset( $data['emojis'] ) && 'on' === $data['emojis'];
 				$options['emoji_global'] = isset( $data['emojis_global'] ) && 'on' === $data['emojis_global'];
+			}
+
+			$options['post_revisions'] = '';
+			if ( isset( $data['post_revisions'] ) && $data['post_revisions'] >= 0 ) {
+				$options['post_revisions'] = $data['post_revisions'];
 			}
 
 			$options['prefetch'] = array();

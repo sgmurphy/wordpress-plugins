@@ -33,7 +33,7 @@ const fieldConfig = name => ( {
 	unit_name: data.name + '[][' + name + '][unit]',
 	unit_value: value[name].unit,
 	field: {
-		units: [ 'px', '%', 'em', 'rem', 'vw' ],
+		units: [ 'px', '%', 'em', 'rem', 'vw', 'vh' ],
 		slider: {
 			min: 0,
 			max: 1500,

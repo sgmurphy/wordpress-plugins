@@ -2385,7 +2385,7 @@
   }
 }, {
   "Gelasio": {
-    "variants": ["regular", "italic", "500", "500italic", "600", "600italic", "700", "700italic"],
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
     "fallback": "serif"
   }
 }, {
@@ -3039,7 +3039,22 @@
     "fallback": "cursive"
   }
 }, {
+  "Jacquard 12 Charted": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jacquard 24": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Jacquarda Bastarda 9": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jacquarda Bastarda 9 Charted": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -3056,6 +3071,41 @@
 }, {
   "Jaldi": {
     "variants": ["regular", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 10": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 10 Charted": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 15": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 15 Charted": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 20": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 20 Charted": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 25": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4090,6 +4140,11 @@
   }
 }, {
   "Micro 5": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Micro 5 Charted": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -5534,6 +5589,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Noto Znamenny Musical Notation": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Nova Cut": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -5947,6 +6007,11 @@
   "Plaster": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Platypi": {
+    "variants": ["300", "regular", "500", "600", "700", "800", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
+    "fallback": "serif"
   }
 }, {
   "Play": {
@@ -6822,6 +6887,11 @@
   "Secular One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Sedan": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
   }
 }, {
   "Sedgwick Ave": {

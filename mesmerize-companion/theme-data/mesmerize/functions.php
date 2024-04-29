@@ -172,9 +172,12 @@ function mesmerize_companion_contact_form( $attrs = array() ) {
 		$attrs
 	);
 
+    $decoded_shortcode = html_entity_decode( html_entity_decode($atts['shortcode']) ); // backward compatibility reason
+    $sanitized_shortcode = sanitize_text_field($decoded_shortcode);
+
 	$contact_shortcode = '';
 	if ( $atts['shortcode'] ) {
-		$contact_shortcode = '[' . html_entity_decode( html_entity_decode( $atts['shortcode'] ) ) . ']';
+		$contact_shortcode = '[' . $sanitized_shortcode . ']';
 	}
 	ob_start();
 
@@ -592,7 +595,9 @@ add_action(
 	function ( $companion ) {
 		/** @var \Mesmerize\Companion $companion */
 		$companion->_createFrontPage();
-	}
+
+        mesmerize_save_activation_time();
+    }
 );
 
 
@@ -628,3 +633,22 @@ add_filter(
 	},
 	PHP_INT_MAX
 );
+
+function mesmerize_save_activation_time()
+{
+    if (!is_admin()) {
+        return;
+    }
+
+    if (!get_option('msm_companion_activation_time')) {
+        update_option('msm_companion_activation_time', time());
+    }
+
+    $theme = get_template();
+    $parts = explode('-', $theme);
+    if (count($parts) > 1 && array_pop($parts) === 'pro') {
+        if (!get_option('msm_companion_pro_activation_time')) {
+            update_option('msm_companion_pro_activation_time', time());
+        }
+    }
+}

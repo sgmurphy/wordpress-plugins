@@ -279,7 +279,7 @@ class IWP_MMB_UploadModule_dropbox extends IWP_MMB_UploadModule {
 		}
 
 		$searchpath = '/'.untrailingslashit(apply_filters('IWP_dropbox_modpath', '', $this));
-
+		$iwp_backup_core->log('IWP_dropbox_modpath:'.$searchpath);
 		try {
 			/* Some users could have a large amount of backups, the max search is 1000 entries we should continue to search until there are no more entries to bring back. */
 			$start = 0;
@@ -319,6 +319,7 @@ class IWP_MMB_UploadModule_dropbox extends IWP_MMB_UploadModule {
 			
 			$item = $item->metadata;
 			if (!is_object($item)) continue;
+			if (is_object($item->metadata)) $item = $item->metadata;;
 
 			if ((!isset($item->size) || $item->size > 0)  && $item->{'.tag'} != 'folder' && !empty($item->path_display) && 0 === strpos($item->path_display, $searchpath)) {
 
@@ -398,47 +399,49 @@ class IWP_MMB_UploadModule_dropbox extends IWP_MMB_UploadModule {
 
 		try {
 			$dropbox = $this->bootstrap();
+			$iwp_backup_core->log('Dropbox download: ');
 		} catch (Exception $e) {
 			$iwp_backup_core->log('Dropbox error: '.$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
 			$iwp_backup_core->log('Dropbox error: '.$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')', 'error');
 			return false;
 		}
 		if (false === $dropbox) return false;
-
-		$iwp_backup_dir = $iwp_backup_core->backups_dir_location();
-		$microtime = microtime(true);
-
-		$try_the_other_one = false;
-
-		$ufile = apply_filters('IWP_dropbox_modpath', $file, $this);
-
-		try {
-			$get = $dropbox->getFile($ufile, $iwp_backup_dir.'/'.$file, null, true);
-		} catch (Exception $e) {
-			// TODO: Remove this October 2013 (we stored in the wrong place for a while...)
-			$try_the_other_one = true;
-			$possible_error = $e->getMessage();
-			$iwp_backup_core->log('Dropbox error: '.$e);
-			$get = false;
-		}
-
-		// TODO: Remove this October 2013 (we stored files in the wrong place for a while...)
-		if ($try_the_other_one) {
-			$dropbox_folder = trailingslashit($opts['folder']);
-			try {
-				$get = $dropbox->getFile($dropbox_folder.'/'.$file, $iwp_backup_dir.'/'.$file, null, true);
-				if (isset($get['response']['body'])) {
-					$iwp_backup_core->log("Dropbox: downloaded ".round(strlen($get['response']['body'])/1024,1).' KB');
-				}
-			}  catch (Exception $e) {
-				$iwp_backup_core->log($possible_error, 'error');
-				$iwp_backup_core->log($e->getMessage(), 'error');
-				$get = false;
+		$remote_files = $this->listfiles($file);
+		
+		foreach ($remote_files as $file_info) {
+			if ($file_info['name'] == $file) {
+				return $iwp_backup_core->chunked_download($file, $this, $file_info['size'], apply_filters('iwp_dropbox_downloads_manually_break_up', true), null, 3*1048576);
 			}
 		}
 
-		return $get;
+		$iwp_backup_core->log("$file: file not found in listing of remote directory");
+		
+		return false;
 
+	}
+
+	public function chunked_download($file, $headers, $data, $fh) {
+
+		global $iwp_backup_core;
+
+		$opts = $this->get_options();
+		$storage = $this->get_storage();
+
+		$ufile = apply_filters('IWP_dropbox_modpath', $file, $this);
+
+		$options = array();
+		
+		if (!empty($headers)) $options['headers'] = $headers;
+
+		try {
+			$get = $storage->download($ufile, $fh, $options);
+		} catch (Exception $e) {
+			$iwp_backup_core->log($e);
+			$iwp_backup_core->log($e->getMessage(), 'error');
+			$get = false;
+		}
+		
+		return $get;
 	}
 
 	public function config_print() {

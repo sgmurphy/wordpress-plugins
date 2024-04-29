@@ -41,8 +41,7 @@ final class FLBuilderWPBlocks {
 	 * @return void
 	 */
 	static public function enqueue_block_editor_assets() {
-		global $wp_version;
-		global $post;
+		global $wp_version, $post, $pagenow;
 
 		if ( ! is_object( $post ) ) {
 			return;
@@ -76,6 +75,7 @@ final class FLBuilderWPBlocks {
 				'nonce'        => wp_create_nonce( 'fl_ajax_update' ),
 				'unrestricted' => FLBuilderUserAccess::current_user_can( 'unrestricted_editing' ),
 				'showui'       => apply_filters( 'fl_builder_render_admin_edit_ui', true ),
+				'pagenow'      => $pagenow,
 			),
 			'post'    => array(
 				'id' => $post->ID,

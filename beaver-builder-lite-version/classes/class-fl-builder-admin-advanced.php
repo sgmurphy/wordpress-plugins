@@ -214,6 +214,18 @@ final class FLBuilderAdminAdvanced {
 				'group'       => 'ui',
 				'description' => __( 'Collapse all Settings Window setting sections', 'fl-builder' ),
 			),
+			'theme_colors'           => array(
+				'label'       => __( 'Load Theme Colors', 'fl-builder' ),
+				'default'     => 0,
+				'group'       => 'ui',
+				'description' => __( 'Show Theme colors in color pickers', 'fl-builder' ),
+			),
+			'core_colors'            => array(
+				'label'       => __( 'Load WordPress Colors', 'fl-builder' ),
+				'default'     => 0,
+				'group'       => 'ui',
+				'description' => __( 'Show WordPress Core colors in color pickers', 'fl-builder' ),
+			),
 		);
 		if ( FLBuilderModel::is_white_labeled() ) {
 			unset( $settings['notifications_enabled'] );
@@ -336,6 +348,22 @@ final class FLBuilderAdminAdvanced {
 		add_action( 'after_setup_theme', __CLASS__ . '::register_user_access_settings' );
 		add_action( 'wp_ajax_fl_advanced_submit', array( __CLASS__, 'advanced_submit' ) );
 		self::init_hooks();
+		self::global_styles();
+	}
+
+	/**
+	 * @since 2.8.1
+	 */
+	static public function global_styles() {
+		add_filter( 'fl_builder_global_colors_json', function( $json ) {
+			if ( ! get_option( '_fl_builder_core_colors' ) ) {
+				unset( $json['themeJSON']['color']['palette']['default'] );
+			}
+			if ( ! get_option( '_fl_builder_theme_colors' ) ) {
+				unset( $json['themeJSON']['color']['palette']['theme'] );
+			}
+			return $json;
+		});
 	}
 
 	static public function advanced_submit() {

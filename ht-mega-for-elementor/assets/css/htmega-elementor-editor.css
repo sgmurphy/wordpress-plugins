@@ -26,6 +26,7 @@
 .elementor-control-section_htmega_conditional_display .elementor-panel-heading-title,
 .elementor-control-section_htmega_live_copy_paste .elementor-panel-heading-title {
   width: inherit;
+  text-align: left;
 }
 /* .elementor-control-field select option[value*='pro'] {
   background: #dddddd;

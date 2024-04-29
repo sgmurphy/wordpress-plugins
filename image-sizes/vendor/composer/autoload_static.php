@@ -7,6 +7,18 @@ namespace Composer\Autoload;
 class ComposerStaticInitecf4bbce08226896abe526b205519dcd
 {
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'WebPConvert\\' => 12,
+        ),
+        'I' => 
+        array (
+            'ImageMimeTypeGuesser\\' => 21,
+        ),
+        'E' => 
+        array (
+            'ExecWithFallback\\' => 17,
+        ),
         'C' => 
         array (
             'Codexpert\\ThumbPress\\App\\' => 25,
@@ -16,6 +28,18 @@ class ComposerStaticInitecf4bbce08226896abe526b205519dcd
     );
 
     public static $prefixDirsPsr4 = array (
+        'WebPConvert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/webp-convert/src',
+        ),
+        'ImageMimeTypeGuesser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src',
+        ),
+        'ExecWithFallback\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src',
+        ),
         'Codexpert\\ThumbPress\\App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',

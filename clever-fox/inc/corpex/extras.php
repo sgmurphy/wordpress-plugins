@@ -5,17 +5,12 @@
  * Slider Default
  */
 function corpex_get_slider_default() {
-	 $theme = wp_get_theme() -> name;
-	 if($theme != 'Corpex'){
-		 $slide_image = ['item1.png','item2.png','item3.png'];
-	 }else{
-		 $slide_image = ['slider-img1.jpg','slider-img2.jpg','slider-img3.jpg'];
-	 }
+
 	return apply_filters(
 		'corpex_get_slider_default', json_encode(
 				 array(
 				array(
-					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/'.$slide_image[0]),
+					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/slider-img1.jpg'),
 					'title'           	=> esc_html__( '20 Years Of Successful Business Consulting', 'clever-fox' ),
 					'subtitle'         	=> esc_html__( 'Your Business Innovative Strategies For Success', 'clever-fox' ),
 					'link'	  			=>  esc_html__( '#', 'clever-fox' ),
@@ -26,7 +21,7 @@ function corpex_get_slider_default() {
 					'id'              	=> 'customizer_repeater_slider_001',
 				),
 				array(
-					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/'.$slide_image[1]),
+					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/slider-img2.jpg'),
 					'title'           	=> esc_html__( '20 Years Of Successful Business Consulting', 'clever-fox' ),
 					'subtitle'         	=> esc_html__( 'Your Business Innovative Strategies For Success', 'clever-fox' ),
 					'link'	  			=>  esc_html__( '#', 'clever-fox' ),
@@ -37,7 +32,7 @@ function corpex_get_slider_default() {
 					'id'              => 'customizer_repeater_slider_002',
 				),
 				array(
-					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/'.$slide_image[2]),
+					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/slider-img3.jpg'),
 					'title'           	=> esc_html__( '20 Years Of Successful Business Consulting', 'clever-fox' ),
 					'subtitle'         	=> esc_html__( 'Your Business Innovative Strategies For Success', 'clever-fox' ),
 					'link'	  			=>  esc_html__( '#', 'clever-fox' ),
@@ -286,11 +281,11 @@ if ( ! function_exists( 'corpex_bottom_hdr' ) ) {
 		$tlh_office_hours_title 	= get_theme_mod( 'tlh_office_hours_title',__('Opening Hour:','clever-fox'));
 		$tlh_office_hours 			= get_theme_mod( 'tlh_office_hours',__('Mon-Sat 9:00am To 8:00pm','clever-fox'));
 		
-		
+		$corpex_theme =  wp_get_theme();
 		?>
 		<div class="header-bottom">
             <div class="container">
-                <div class="bg-head-bottom">
+               <?php if($corpex_theme->name == 'Corpex') {echo '<div class="bg-head-bottom">'; } ?>
                     <div class="row">
                         <div class="col-lg-6">
 							<?php 								
@@ -353,7 +348,7 @@ if ( ! function_exists( 'corpex_bottom_hdr' ) ) {
 							<?php endif; ?>
                         </div>
                     </div>
-                </div>
+           <?php if($corpex_theme->name == 'Corpex') {echo '</div>';} ?>
             </div>
         </div>
 	<?php  
@@ -367,24 +362,24 @@ function corpex_get_info_default() {
 			array(
 				array(
 					'icon_value'      => 'fa-users',
-					'title'           => esc_html__( 'Secvices', 'corpex-pro' ),
-					'text'            => esc_html__( 'We Have Trusted Customers', 'corpex-pro' ),
+					'title'           => esc_html__( 'Secvices', 'clever-fox' ),
+					'text'            => esc_html__( 'We Have Trusted Customers', 'clever-fox' ),
 					'link'            => '#',
 					'id'              => 'customizer_repeater_info_001',					
 				),
 				
 				array(
 					'icon_value'      => 'fa-headphones',
-					'title'           => esc_html__( '24/7 Support', 'corpex-pro' ),
-					'text'            => esc_html__( '7097597570', 'corpex-pro' ),
+					'title'           => esc_html__( '24/7 Support', 'clever-fox' ),
+					'text'            => esc_html__( '7097597570', 'clever-fox' ),
 					'link'            => '#',
 					'id'              => 'customizer_repeater_info_002',					
 				),
 				
 				array(
 					'icon_value'      => 'fa-trophy',
-					'title'           => esc_html__( 'Experienced', 'corpex-pro' ),
-					'text'            => esc_html__( '10 Year Of Experience', 'corpex-pro' ),
+					'title'           => esc_html__( 'Experienced', 'clever-fox' ),
+					'text'            => esc_html__( '10 Year Of Experience', 'clever-fox' ),
 					'link'            => '#',
 					'id'              => 'customizer_repeater_info_003',					
 				)
@@ -455,3 +450,175 @@ if ( ! function_exists( 'blog_header_content' ) ){
 	<?php }
 }
 add_action( 'blog_header_content', 'blog_header_content' );
+
+/*
+ *
+ * Team Default
+ */
+ function corpex_get_team_default() {
+	return apply_filters(
+		'corpex_get_team_default', json_encode(
+			array(
+				array(
+					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/team/team-1.jpg'),
+					'title'           => esc_html__( 'Evelyn Rack', 'clever-fox' ),
+					'subtitle'        => esc_html__( 'Developer','clever-fox' ),
+					'id'              => 'customizer_repeater_team_0001',	
+					'social_repeater' => json_encode(
+						array(
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_001',
+								'link' => 'instagram.com',
+								'icon' => 'fa-instagram',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_002',
+								'link' => 'facebook.com',
+								'icon' => 'fa-facebook',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_003',
+								'link' => 'pinterest.com',
+								'icon' => 'fa-pinterest',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_004',
+								'link' => 'twitter.com',
+								'icon' => 'fa-twitter',
+							)
+						)
+					),
+				),
+				array(
+					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/team/team-2.jpg'),
+					'title'           => esc_html__( 'Sophie Baker', 'clever-fox' ),
+					'subtitle'        => esc_html__( 'Designer','clever-fox' ),
+					'id'              => 'customizer_repeater_team_0002',	
+					'social_repeater' => json_encode(
+						array(
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_005',
+								'link' => 'instagram.com',
+								'icon' => 'fa-instagram',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_006',
+								'link' => 'facebook.com',
+								'icon' => 'fa-facebook',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_007',
+								'link' => 'pinterest.com',
+								'icon' => 'fa-pinterest',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_008',
+								'link' => 'twitter.com',
+								'icon' => 'fa-twitter',
+							)
+						)
+					),
+				),
+				array(
+					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/team/team-3.jpg'),
+					'title'           => esc_html__( 'Ava Robinson', 'clever-fox' ),
+					'subtitle'        => esc_html__( 'Marketing','clever-fox' ),
+					'id'              => 'customizer_repeater_team_0003',	
+					'social_repeater' => json_encode(
+						array(
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_009',
+								'link' => 'instagram.com',
+								'icon' => 'fa-instagram',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_010',
+								'link' => 'facebook.com',
+								'icon' => 'fa-facebook',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_011',
+								'link' => 'pinterest.com',
+								'icon' => 'fa-pinterest',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_012',
+								'link' => 'twitter.com',
+								'icon' => 'fa-twitter',
+							)
+						)
+					),
+				),
+				array(
+					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/team/team-4.jpg'),
+					'title'           => esc_html__( 'Benjamin White', 'clever-fox' ),
+					'subtitle'        => esc_html__( 'Sr. Developer','clever-fox' ),
+					'id'              => 'customizer_repeater_team_0004',	
+					'social_repeater' => json_encode(
+						array(
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_013',
+								'link' => 'instagram.com',
+								'icon' => 'fa-instagram',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_014',
+								'link' => 'facebook.com',
+								'icon' => 'fa-facebook',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_015',
+								'link' => 'pinterest.com',
+								'icon' => 'fa-pinterest',
+							),
+							array(
+								'id'   => 'customizer-repeater-social-repeater-team_016',
+								'link' => 'twitter.com',
+								'icon' => 'fa-twitter',
+							)
+						)
+					),
+				)
+				
+			)
+		)
+	);
+}
+
+
+/*
+ *
+ * Testimonial Default
+ */
+ function corpex_get_testimonial_default() {
+	return apply_filters(
+		'corpex_get_testimonial_default', json_encode(
+				 array(
+				array(
+					'image_url'      => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/testimonial/t-1.jpg'),
+					'title'          => esc_html__( 'Mike Williams', 'clever-fox' ),
+					'subtitle'       => esc_html__( 'Marketing Manager', 'clever-fox' ),
+					'subtitle2'      => 'Our Awesome Clients Review <span class="primary_color">For Inspiration</span>',
+					'text'           => esc_html__( 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut tenetur ad earum consequuntur libero incidunt!', 'clever-fox' ),
+					'id'             => 'customizer_repeater_testimonial_001',
+				),
+				array(
+					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/testimonial/t-2.jpg'),
+					'title'          => esc_html__( 'Mike Williams', 'clever-fox' ),
+					'subtitle'       => esc_html__( 'Marketing Manager', 'clever-fox' ),
+					'subtitle2'      => 'Our Awesome Clients Review <span class="primary_color">For Inspiration</span>',
+					'text'           => esc_html__( 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut tenetur ad earum consequuntur libero incidunt!', 'clever-fox' ),
+					'id'              => 'customizer_repeater_testimonial_002',
+				),
+				array(
+					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/testimonial/t-3.jpg'),
+					'title'          => esc_html__( 'Mike Williams', 'clever-fox' ),
+					'subtitle'       => esc_html__( 'Marketing Manager', 'clever-fox' ),
+					'subtitle2'      => 'Our Awesome Clients Review <span class="primary_color">For Inspiration</span>',
+					'text'           => esc_html__( 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut tenetur ad earum consequuntur libero incidunt!', 'clever-fox' ),
+					'id'              => 'customizer_repeater_testimonial_003',
+				),
+			)
+		)
+	);
+}

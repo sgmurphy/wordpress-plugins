@@ -225,6 +225,7 @@ class FLMenuModule extends FLBuilderModule {
 
 		if ( isset( $toggle ) && 'expanded' != $toggle ) {
 
+			ob_start();
 			if ( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
 				$menu_icon = apply_filters( 'fl_builder_mobile_menu_icon', file_get_contents( FL_BUILDER_DIR . 'img/svg/hamburger-menu.svg' ) );
 				echo '<button class="fl-menu-mobile-toggle ' . $toggle . '" aria-label="' . esc_attr( $menu_title ) . '">';
@@ -243,6 +244,7 @@ class FLMenuModule extends FLBuilderModule {
 				echo '<button class="fl-menu-mobile-toggle text"><span class="fl-menu-mobile-toggle-label" aria-label="' . esc_attr( $menu_title ) . '">' . esc_attr( $menu_title ) . '</span></button>';
 
 			}
+			echo apply_filters( 'fl_builder_menu_toggle_button', ob_get_clean(), $this );
 		}
 	}
 

@@ -133,8 +133,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 8. Elementor addon widgets section
 
 == Changelog ==
+= 1.13.5 =
+* Fixed : Issue with Background Slider extension after last release
+
 = 1.13.4 =
-* Fixed : Code structure improved in widgets for better security. 
+* Fixed : Code structure improved in widgets
 
 = 1.13.3 =
 * Fixed : Issue with Timeline widget 

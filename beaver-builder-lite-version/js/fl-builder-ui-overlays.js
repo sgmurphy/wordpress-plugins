@@ -464,7 +464,9 @@
 				}
 
                 // Build the overlay overflow menu if needed.
-                FLBuilder._buildOverlayOverflowMenu( overlay );
+				if ( ! row.hasClass( 'fl-node-has-rules' ) ) {
+					FLBuilder._buildOverlayOverflowMenu( overlay );
+				}
             }
 		},
 
@@ -880,20 +882,35 @@
 			var parentModule = module.parents( '.fl-module' );
 			var layoutDirection = FLBuilder._getNodeLayoutDirection( module );
 
+			// Only continue if a horizontal container and over the last child.
 			if ( ! parentModule.length || 'horizontal' !== layoutDirection ) {
 				return;
 			} else if ( module.next( '.fl-module' ).length ) {
 				return;
 			}
 
+			// Adjust the overlay based on sibling width.
 			var siblings = module.siblings( '.fl-module' );
 			var siblingsWidth = 0;
 
 			siblings.each( function() {
-				siblingsWidth += $( this ).outerWidth();
+				siblingsWidth += $( this ).outerWidth( true );
 			} );
 
-			overlay.width( parentModule.width() - siblingsWidth )
+			overlay.width( parentModule.width() - siblingsWidth );
+
+			// Adjust the overlay if it overflows the parent.
+			var overlayRect = overlay[0].getBoundingClientRect();
+			var parentRect = parentModule[0].getBoundingClientRect();
+
+			if ( overlayRect.right > parentRect.right ) {
+				overlay.width( overlayRect.width - ( overlayRect.right - parentRect.right ) )
+			}
+
+			// Adjust the overlay if it's smaller than the module.
+			if ( overlay.width() < module.width() ) {
+				overlay.width( module.width() )
+			}
 		},
 
 		/**

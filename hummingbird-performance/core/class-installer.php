@@ -196,6 +196,10 @@ class Installer {
 				self::upgrade_3_7_3();
 			}
 
+			if ( version_compare( $version, '3.8.0', '<' ) ) {
+				self::upgrade_3_8_0();
+			}
+
 			update_site_option( 'wphb_version', WPHB_VERSION );
 		}
 	}
@@ -671,6 +675,20 @@ class Installer {
 	 * @return void
 	 */
 	private static function upgrade_3_7_3() {
+		// Summary upgrade modal.
+		add_site_option( 'wphb_show_upgrade_summary', true );
+	}
+
+	/**
+	 * Handle Summary upgrade modal display for font optimization.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @return void
+	 */
+	private static function upgrade_3_8_0() {
+		update_site_option( 'wphb-notice-redis-deprecation-show', 'yes' );
+
 		// Summary upgrade modal.
 		add_site_option( 'wphb_show_upgrade_summary', true );
 	}

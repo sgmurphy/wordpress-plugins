@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 11:35+0200\n"
+"POT-Creation-Date: 2024-04-26 19:19+0200\n"
 "PO-Revision-Date: 2024-04-09 13:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -79,13 +79,13 @@ msgid ""
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:37
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:204
 msgid "Close"
 msgstr "إغلاق"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:38
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1087
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1088
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:91
 msgid "Closed"
 msgstr "مغلق"
@@ -163,7 +163,7 @@ msgid "Years"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:55
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1302
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1303
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:180
 msgid "Date"
 msgstr "التاريخ"
@@ -178,7 +178,7 @@ msgid "Description"
 msgstr "وصف"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:58
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1123
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1124
 msgid "Details"
 msgstr "تفاصيل"
 
@@ -187,7 +187,7 @@ msgid "Disabled"
 msgstr "معاق"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:60
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1194
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1195
 msgid "Duration"
 msgstr "المدة الزمنية"
 
@@ -207,7 +207,7 @@ msgstr "‫example@mail.com"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:64
 #: src/Infrastructure/WP/Translations/BackendStrings.php:324
 #: src/Infrastructure/WP/Translations/BackendStrings.php:562
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1305
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1306
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:183
 msgid "Employee"
 msgstr "الموظف"
@@ -241,7 +241,7 @@ msgstr "خطأ"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:71
 #: src/Infrastructure/WP/Translations/BackendStrings.php:566
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:176
 msgid "Event"
 msgstr "حدث"
@@ -370,7 +370,7 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:100
 #: src/Infrastructure/WP/Translations/BackendStrings.php:564
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1306
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1307
 msgid "Location"
 msgstr "موقع"
 
@@ -488,10 +488,10 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:127
 #: src/Infrastructure/WP/Translations/BackendStrings.php:561
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1288
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1298
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1289
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1299
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:179
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:206
 msgid "Payment"
@@ -514,8 +514,8 @@ msgid "Pending"
 msgstr "قيد الانتظار"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:132
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1237
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1384
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1238
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1385
 msgid "Phone"
 msgstr "موبايل"
 
@@ -529,7 +529,7 @@ msgid "Resources"
 msgstr "تم حذف العملاء"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:135
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1192
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1193
 msgid "Save"
 msgstr "حفظ"
 
@@ -547,11 +547,11 @@ msgstr "يرجى اختيار الوقت"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:139
 #: src/Infrastructure/WP/Translations/BackendStrings.php:326
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1262
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1267
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1269
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1304
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1263
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1268
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1270
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1305
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:163
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:166
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:182
@@ -561,8 +561,8 @@ msgstr "الخدمات"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:140
 #: src/Infrastructure/WP/Translations/BackendStrings.php:327
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1290
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1291
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:174
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:244
 msgid "Services"
@@ -577,7 +577,7 @@ msgid "Showing"
 msgstr "عرض"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:143
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1094
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1095
 msgid "Status"
 msgstr "الحالة"
 
@@ -616,7 +616,7 @@ msgid "Tomorrow"
 msgstr "غدا"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:152
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1169
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1170
 msgid "Total"
 msgstr "مجموع"
 
@@ -737,7 +737,7 @@ msgstr ""
 "الحجز."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:191
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1183
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1184
 msgid "Address"
 msgstr "عنوان"
 
@@ -940,8 +940,8 @@ msgid "Set Coupons to be case insensitive"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:232
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1167
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1168
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
 msgid "Calendar"
 msgstr "تقويم"
 
@@ -2095,7 +2095,7 @@ msgid "Booked Customer (full name, email, phone)"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:512
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1093
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1094
 msgid "Number of people"
 msgstr ""
 
@@ -2193,7 +2193,7 @@ msgid "Event description"
 msgstr "وصف الحدث"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:536
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1245
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1246
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:220
 msgid "Event Location"
 msgstr ""
@@ -2212,7 +2212,7 @@ msgid "End time of the event"
 msgstr "تاريخ الانتهاء"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:540
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:178
 #, fuzzy
 msgid "Event ID"
@@ -2274,7 +2274,7 @@ msgid "Service ID"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:554
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1240
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1241
 msgid "Service name"
 msgstr "اسم الخدمة"
 
@@ -2293,7 +2293,7 @@ msgstr "موبايل:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:563
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1017
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1268
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1269
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:165
 msgid "Category"
 msgstr "التصنيفات"
@@ -2310,12 +2310,12 @@ msgstr ""
 #: src/Infrastructure/WP/Translations/BackendStrings.php:569
 #: src/Infrastructure/WP/Translations/BackendStrings.php:770
 #: src/Infrastructure/WP/Translations/BackendStrings.php:839
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1149
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1150
 msgid "Price"
 msgstr "سعر"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:570
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1086
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1087
 msgid "Pricing"
 msgstr "التسعير"
 
@@ -2438,7 +2438,7 @@ msgid "Text:"
 msgstr "نص:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:615
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1124
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1125
 msgid "Time:"
 msgstr "زمن:"
 
@@ -2610,8 +2610,8 @@ msgstr ""
 "يُظهر إجمالي الإيرادات من المواعيد المدفوعة<br/>في الإطار الزمني المختار."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:665
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1047
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1150
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1048
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1151
 msgid "Time"
 msgstr "زمن"
 
@@ -2709,7 +2709,7 @@ msgid "Hide"
 msgstr "إخفاء"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:712
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
 msgid "Show"
 msgstr "تبين"
 
@@ -2726,7 +2726,7 @@ msgid "Add Category"
 msgstr "إضافة تصنيف"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:738
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1182
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1183
 msgid "Add Extra"
 msgstr "إضافة اضافية"
 
@@ -2747,7 +2747,7 @@ msgid "Add Resource"
 msgstr "اضافة خدمة"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:743
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1391
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1392
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:232
 msgid "Categories"
 msgstr "الأقسام"
@@ -2864,7 +2864,7 @@ msgid "New Service"
 msgstr "خدمة جديدة"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:771
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1361
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1362
 #, fuzzy
 msgid "+more"
 msgstr "شاهد المزيد"
@@ -2965,32 +2965,32 @@ msgid "Create New"
 msgstr "انشاء جديد"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:806
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1235
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1383
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1236
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1384
 msgid "Email"
 msgstr "البريد الالكتروني"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:807
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1280
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1281
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:104
 msgid "Please enter first name"
 msgstr "الرجاء إدخال الاسم الأول"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:808
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1282
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1283
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:105
 msgid "Please enter last name"
 msgstr "الرجاء إدخال الاسم الأخير"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:809
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1232
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1381
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1233
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1382
 msgid "First Name"
 msgstr "الاسم الأول"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:810
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1233
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1382
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1234
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1383
 msgid "Last Name"
 msgstr "الاسم الثاني"
 
@@ -3440,12 +3440,12 @@ msgid "Payment Type"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:995
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1253
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1254
 msgid "Service Price"
 msgstr "سعر الخدمة"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:996
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1293
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1294
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:260
 msgid "Subtotal"
 msgstr "حاصل الجمع"
@@ -3467,7 +3467,7 @@ msgid "Cancel Appointment"
 msgstr "إلغاء التعيين"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1012
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1165
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1166
 msgid "Appointment has been rescheduled"
 msgstr "تم إعادة جدولة موعد"
 
@@ -3508,15 +3508,19 @@ msgid "Create Customer"
 msgstr "إنشاء عميل"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1023
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1198
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1199
 msgid "Custom Fields"
 msgstr "حقول مخصصة"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1025
+msgid "Customer Phone"
+msgstr "هاتف العميل"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1026
 msgid "Customer(s)"
 msgstr "العميل (العملاء)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1026
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1027
 msgid ""
 "Here you can define the number of people that are coming<br/>with this "
 "customer. The number you can choose depends<br/>on the service and employee "
@@ -3525,20 +3529,20 @@ msgstr ""
 "يمكنك هنا تحديد عدد الأشخاص القادمين <br/> مع هذا العميل. يعتمد الرقم الذي "
 "يمكنك اختياره على سعة المختص وقدرته."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1027
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1028
 #, fuzzy
 msgid "Edit Payment Details"
 msgstr "بيانات الدفع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1028
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1029
 msgid "Edit Appointment"
 msgstr "تعديل الموعد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1029
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1030
 msgid "End Time"
 msgstr "نهاية الوقت"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1030
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1031
 msgid ""
 "You can use this option to export appointments in CSV file<br/>for the "
 "selected date range."
@@ -3546,21 +3550,21 @@ msgstr ""
 "يمكنك استخدام هذا الخيار لتصدير المواعيد في ملف CSV <br/> للنطاق الزمني "
 "المحدد."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1031
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1032
 msgid ""
 "You can use this option to export attendees in CSV file<br/>for the selected "
 "event."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1032
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1033
 msgid "New Appointment"
 msgstr "موعد جديد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1033
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1034
 msgid "Notify the attendee(s)"
 msgstr "إخطار العميل (العملاء)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1034
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1035
 msgid ""
 "Check this checkbox if you want your attendee(s) to<br/>receive an email "
 "about the event’s updated information."
@@ -3568,11 +3572,11 @@ msgstr ""
 "حدد مربع الاختيار هذا إذا كنت تريد من عميلك <br/> تلقي بريد إلكتروني حول "
 "الموعد المحدد."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1035
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1036
 msgid "Notify the customer(s)"
 msgstr "إخطار العميل (العملاء)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1036
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1037
 msgid ""
 "Check this checkbox if you want your customer(s) to<br/>receive an email "
 "about the scheduled appointment."
@@ -3580,1659 +3584,1659 @@ msgstr ""
 "حدد مربع الاختيار هذا إذا كنت تريد من عميلك <br/> تلقي بريد إلكتروني حول "
 "الموعد المحدد."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1037
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1038
 msgid "Schedule"
 msgstr "جدول"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1038
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1039
 msgid "Select Customer(s)"
 msgstr "اختر العميل (العملاء)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1039
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1040
 msgid "Please select at least one customer"
 msgstr "يرجى اختيار عميل واحد على الأقل"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1040
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1041
 msgid "Maximum number of places is"
 msgstr "الحد الأقصى لعدد الأماكن هو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1041
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1213
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1042
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1214
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:259
 msgid "Select Service"
 msgstr "اختر الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1042
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1204
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1043
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1205
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:164
 msgid "Please select service"
 msgstr "يرجى اختيار الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1043
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1044
 msgid "Select Service Category"
 msgstr "اختر فئة الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1044
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1045
 msgid "Selected Customers"
 msgstr "العملاء المختارين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1045
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1046
 msgid "This service does not have any extras"
 msgstr "هذه الخدمة لا تحتوي على أي إضافات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1046
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1047
 msgid "Start Time"
 msgstr "وقت البدء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1048
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1049
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:125
 msgid "Time slot is unavailable"
 msgstr "الفاصل الزمني غير متاح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1049
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1050
 msgid "Appointment can't be canceled"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1050
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1051
 msgid "Appointment can't be rescheduled"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1051
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1052
 #, fuzzy
 msgid "WooCommerce"
 msgstr "عذرًا ، حدث خطأ أثناء إضافة الحجز إلى عربة WooCommerce."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1063
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1064
 msgid "Deposit Payment"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1064
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1065
 msgid "Custom Pricing"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1065
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1066
 msgid "Custom Duration and Pricing"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1077
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1078
 msgid "Are you sure you want to delete selected attendee?"
 msgstr "هل أنت متأكد من رغبتك في حذف المشترك المختار؟"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1078
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1079
 msgid "Are you sure you want to delete selected attendees?"
 msgstr "‫هل أنت متأكد من رغبتك في حذف المشتركين المختارين؟"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1079
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1080
 msgid "Are you sure you want to delete this event?"
 msgstr "‫هل أنت متأكد من رغبتك في حذف الحدث؟"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1080
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1081
 msgid "Are you sure you want to duplicate this event?"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1081
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1082
 msgid "Are you sure you want to cancel this event?"
 msgstr "‫هل أنت متأكد من رغبتك في إلغاء هذا الحدث؟"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1082
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1083
 msgid "Are you sure you want to open this event?"
 msgstr "هل أنت متأكد من رغبتك في فتح هذا الحدث؟"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1083
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1084
 msgid "Please cancel the event first before deleting it."
 msgstr "رجاء إلغاء الحدث أولاً قبل حذفه."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1084
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1199
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1085
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1200
 msgid "Customize"
 msgstr "تخصيص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1085
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1086
 #, fuzzy
 msgid "Customer is already added to this event"
 msgstr "لقد تم الحجز بالفعل هذا الموعد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1088
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1247
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1089
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1248
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:92
 msgid "Full"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1089
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1249
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1090
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1250
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:93
 msgid "Upcoming"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1090
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1091
 msgid "Edit Event"
 msgstr "تحرير الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1091
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1092
 msgid "Attendees"
 msgstr "الحضور"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1092
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1093
 msgid "Add Attendee"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1095
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1096
 msgid "Number of tickets"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1096
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1097
 msgid "Edit Attendee"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1097
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1098
 msgid "The price will multiply by the number of people/spots"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1098
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1099
 msgid "Attendee has been saved"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1099
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1100
 msgid "Remove Attendee"
 msgstr "حذف المشارك"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1100
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1101
 msgid "Find Attendees"
 msgstr "إيجاد مشارك"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1101
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1102
 msgid "Attendee have been deleted"
 msgstr "تم حذف المشارك"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1102
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1103
 msgid "Attendees have been deleted"
 msgstr "تم حذف المشاركين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1103
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1104
 msgid "Allow the same customer to book more than once"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1104
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1105
 msgid "Allow bringing more people"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1105
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1106
 msgid "Cancel Event"
 msgstr "إلغاء الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1106
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1107
 msgid "Close Event after certain minimum is reached"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1107
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1108
 msgid "Minimum of attendees"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1108
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1109
 msgid "Minimum of bookings"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1109
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1110
 msgid "One spot is equal to one attendee."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1110
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1111
 msgid "One booking can have multiple attendees/spots in it."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1111
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1112
 msgid "Set Minimum"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1112
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1113
 msgid "Custom Address"
 msgstr "عنوان مخصص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1113
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1114
 msgid "Delete Event"
 msgstr "حذف الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1114
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1115
 msgid "Event has been deleted"
 msgstr "تم حذف الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1115
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1116
 msgid "Duplicate Event"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1116
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1117
 msgid "Name:"
 msgstr "الاسم:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1117
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1118
 msgid "Booking closes:"
 msgstr "إغلاق الحجز:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1118
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1119
 msgid "Booking opens:"
 msgstr "فتح الحجز:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1119
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1120
 msgid "Closes on:"
 msgstr "يغلق في:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1120
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1121
 msgid "Opens on:"
 msgstr "يفتح في:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1121
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1122
 msgid "Booking closes when event starts"
 msgstr "يغلق الحجز عند بدء الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1122
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1123
 msgid "Booking opens immediately"
 msgstr "فتح الحجز مباشرة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1125
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1126
 msgid "Open Event"
 msgstr "حدث مفتوح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1126
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1127
 msgid "Recurring:"
 msgstr "متكرر:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1127
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1128
 #, fuzzy
 msgid "This is a recurring event"
 msgstr "هذا حدث متكرر"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1128
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1129
 msgid "Event has been opened"
 msgstr "تم فتح حجز الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1129
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1130
 msgid "Event has been canceled"
 msgstr "تم إلغاء الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1130
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1131
 msgid "Event has been saved"
 msgstr "تم حفظ الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1131
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1132
 msgid "Search Events..."
 msgstr "بحث في الأحداث..."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1132
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1133
 msgid "Maximum allowed spots"
 msgstr "الحد الأقصى للأماكن المتاحة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1133
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1134
 msgid "Select Address"
 msgstr "اختر المشاركين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1134
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1135
 msgid "Staff"
 msgstr "المختصون"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1135
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1136
 msgid "Organizer"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1136
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1137
 msgid ""
 "Here you can choose the employee that will be added as Organizer of the "
 "Google/Outlook Event. <br>Other employees chosen under the Staff option will "
 "be added as guests."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1137
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1138
 msgid "Dates:"
 msgstr "التواريخ:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1138
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1139
 msgid "Tags"
 msgstr "وسوم"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1139
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1140
 msgid "Select or Create Tag"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1140
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1141
 msgid "Enter Event Name"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1141
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1142
 msgid "Event Gallery:"
 msgstr "معرض الحدث:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1142
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1143
 msgid "Event Colors:"
 msgstr "ألوان الحدث:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1143
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1144
 msgid "Preset Colors"
 msgstr "الألوان الحالية"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1144
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1145
 msgid "Custom Color"
 msgstr "ألوان مخصصة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1145
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1146
 msgid "Show event on site"
 msgstr "أظهر الحدث على الموقع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1146
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1147
 msgid "Booking status has been changed to "
 msgstr "تم تغيير حالة الحدث إلى "
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1147
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1148
 msgid "There are no attendees yet..."
 msgstr "ليس لديك أي مشاركين بعد..."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1148
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1149
 msgid "New Event"
 msgstr "حدث جديد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1151
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1152
 msgid "Maximum capacity is reached"
 msgstr "لقد تم بلوغ الحد الأقصى"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1163
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1164
 msgid "This will change the time of the appointment. Continue?"
 msgstr "هذا سوف يغير وقت الموعد. استمر?"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1164
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1165
 msgid "Appointment can't be moved in past time period"
 msgstr "لا يمكن نقل الموعد في الفترة الزمنية الماضية"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1166
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1167
 msgid "Appointment can't be moved out of employee working hours"
 msgstr "لا يمكن نقل الموعد خارج ساعات عمل المختص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1168
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1169
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:94
 msgid "Confirm"
 msgstr "تأكيد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1181
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1182
 msgid "Add Custom Field"
 msgstr "اضافة حقل"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1184
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1185
 msgid "Are you sure you want to reset your form settings?"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1185
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1186
 msgid "Your current changes will be lost."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1186
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1187
 msgid "Yes, Reset"
 msgstr "إعادة تعيين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1187
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1188
 msgid "No, Cancel"
 msgstr "الغاء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1188
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1189
 msgid "Reset Form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1189
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1190
 msgid "Available in package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1190
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1191
 msgid "Bringing Anyone with You?"
 msgstr "أحضر أحدا معك?"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1191
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1192
 msgid "Buttons"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1193
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1194
 msgid "Default Label"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1195
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1196
 msgid "Checkbox"
 msgstr "مربع اختيار"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1196
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1197
 msgid "Start by clicking the Add Custom Field button"
 msgstr "ابدأ بالنقر فوق الزر \"إضافة حقل مخصص\""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1197
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1198
 msgid "Text Content"
 msgstr "محتوى النص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1200
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1201
 msgid "Font"
 msgstr "الخط"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1201
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1202
 msgid "You don't have any custom fields here yet..."
 msgstr "ليس لديك أي حقول مخصصة هنا حتى الآن ..."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1202
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1203
 msgid "Options"
 msgstr "خيارات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1203
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1204
 msgid "Pick date & time"
 msgstr "اختار التاريخ والوقت"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1205
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1206
 msgid "Primary Color"
 msgstr "لون أصلي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1206
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1207
 msgid "Success Color"
 msgstr "نجاح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1207
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1208
 msgid "Warning Color"
 msgstr "لون أصلي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1208
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1209
 msgid "Error Color"
 msgstr "لون أصلي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1209
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1210
 msgid "Radio Buttons"
 msgstr "أزرار الراديو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1210
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1211
 msgid "Reset"
 msgstr "إعادة تعيين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1211
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1212
 msgid "Selectbox"
 msgstr "حدد مربع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1212
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1213
 msgid "Steps"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1214
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1375
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1215
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1376
 msgid "Text"
 msgstr "نص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1215
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1216
 msgid "Text Area"
 msgstr "منطقة النص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1216
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1217
 msgid "Text Color"
 msgstr "لون الخط"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1217
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1218
 msgid "Placeholder Color"
 msgstr "العناصر النائبة SMS"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1218
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1219
 msgid "Text Color on Background"
 msgstr "لون النص على الخلفية"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1219
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1220
 msgid "Attachment"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1220
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1221
 msgid "Date Picker"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1221
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1222
 msgid "Preview"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1222
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1315
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1223
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1316
 msgid "Background Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1223
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1224
 msgid "Background Gradient Color 1"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1224
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1225
 msgid "Background Gradient Color 2"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1225
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1226
 msgid "Background Gradient Angle"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1226
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1227
 msgid "Input Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1227
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1228
 msgid "Input Text Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1228
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1229
 msgid "Dropdown Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1229
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1230
 msgid "Dropdown Text Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1230
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1231
 msgid "Image Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1231
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1232
 msgid "Repeat this appointment"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1234
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1235
 msgid "Last Name Input Field"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1236
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1237
 msgid "Email Input Field"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1238
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1239
 msgid "Phone Input Field"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1239
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1409
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1240
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1410
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:242
 msgid "Go Back"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1241
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1242
 msgid "Display Field:"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1242
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1243
 msgid "Filterable Field:"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1243
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1244
 #, fuzzy
 msgid "Mandatory Field:"
 msgstr "اضبط رقم الهاتف كحقل إلزامي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1244
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1245
 msgid "Event Type"
 msgstr "نوع الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1246
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1247
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:117
 msgid "Open"
 msgstr "مفتوح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1248
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1249
 msgid "From"
 msgstr "من"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1250
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1251
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
 msgid "Free"
 msgstr "مجاني"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1251
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1252
 msgid "Event Price"
 msgstr "سعر الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1252
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1253
 msgid "Service Badge"
 msgstr "اسم الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1254
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1255
 msgid "Package Name"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1255
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1256
 #, fuzzy
 msgid "Congratulations!"
 msgstr "تهانينا"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1256
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1257
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:79
 msgid "Add to Calendar"
 msgstr "إضافة الى المفكرة(على هاتفك)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1257
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1258
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:110
 msgid "Finish"
 msgstr "انهاء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1258
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1259
 msgid "Step By Step Booking Form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1259
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1260
 msgid "Event Status"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1260
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1261
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:200
 msgid "Filters"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1261
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1262
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:197
 msgid "Book event"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1263
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1264
 msgid "Form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1264
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1265
 msgid "Form Flow"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1265
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1266
 msgid "Use Global Colors"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1266
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1352
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1267
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1353
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:162
 msgid "Service Selection"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1270
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1271
 msgid "No matching data"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1272
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1273
 #, fuzzy
 msgid "Bringing Anyone With You"
 msgstr "أحضر أحدا معك?"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1273
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1274
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:184
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:219
 msgid "Show more"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1274
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1275
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:185
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:218
 msgid "Show less"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1276
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1277
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:167
 #, fuzzy
 msgid "Date & Time"
 msgstr "تاريخ ووقت الانتهاء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1277
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1278
 msgid "All slots are selected"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1278
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1279
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:168
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:207
 msgid "Your Information"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1279
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1280
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:169
 #, fuzzy
 msgid "Enter first name"
 msgstr "الرجاء إدخال الاسم الأول"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1281
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1282
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:170
 #, fuzzy
 msgid "Enter last name"
 msgstr "الرجاء إدخال الاسم الأخير"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1283
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1284
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:171
 #, fuzzy
 msgid "Enter email"
 msgstr "الرجاء إدخال البريد الإلكتروني"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1284
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1285
 msgid "Please enter valid email"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1285
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1286
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:172
 msgid "Enter phone"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1286
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1287
 #, fuzzy
 msgid "Please enter phone"
 msgstr "الرجاء إدخال رقم الهاتف"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1289
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1290
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:158
 msgid "Summary"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1291
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1292
 msgid "Service Subtotal"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1292
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1293
 #, fuzzy
 msgid "people"
 msgstr ""
 "يمكنك هنا تحديد عدد الأشخاص القادمين <br/> مع هذا العميل. يعتمد الرقم الذي "
 "يمكنك اختياره على سعة المختص وقدرته."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1294
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1297
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1295
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1298
 msgid "Total Amount"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1295
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1296
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:154
 msgid "The payment will be done on-site."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1296
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1297
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:177
 msgid "Appointment ID"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1299
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1300
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:160
 msgid "Your Name"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1300
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1301
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:151
 #, fuzzy
 msgid "Email Address"
 msgstr "من فضلك أدخل بريد أليكترونى صحيح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1301
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1302
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:155
 #, fuzzy
 msgid "Phone Number"
 msgstr "اضبط رقم الهاتف كحقل إلزامي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1303
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1304
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:181
 #, fuzzy
 msgid "Local Time"
 msgstr "الوقت:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1307
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1308
 msgid "Choose a Form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1308
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1309
 msgid ""
 "Choose a form you want to customize. The Step-by-Step 2.0 form is the new "
 "and improved version which provides you with better design and user "
 "experience, as well as better speed."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1309
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1310
 msgid "Step-by-Step Booking Form 2.0"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1310
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1311
 msgid "Booking Forms 1.0"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1311
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1312
 msgid ""
 "Use the upgraded Step-by-Step Booking Form 2.0 for a simplified, direct "
 "booking process on your page. Customize its design and labels to enhance "
 "user experience and meet your business needs."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1312
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1313
 msgid ""
 "The original booking forms—Step-by-Step, Catalog, Event List, and Event "
 "Calendar—feature basic customization and label changes, serving as the "
 "foundation for our newer versions."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1313
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1314
 msgid "Primary and state colors"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1314
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1364
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1315
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1365
 msgid "Sidebar"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1316
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1317
 #, fuzzy
 msgid "Content"
 msgstr "لون الخط"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1317
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1318
 msgid "Heading Text Color"
 msgstr "لون الخط"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1318
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1319
 msgid "Content Text Color"
 msgstr "لون الخط"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1319
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1320
 msgid "Input Fields"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1320
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1321
 msgid "Border Color"
 msgstr "الألوان الحالية"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1321
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1322
 msgid "Dropdowns"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1322
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1323
 msgid "Init Cell"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1323
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1324
 msgid "Init Cell Text"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1324
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1325
 msgid "Cell Selected Background"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1325
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1326
 msgid "Cell Selected Text"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1326
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1327
 msgid "Cell Disabled Background"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1327
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1328
 msgid "Cell Disabled Text"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1328
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1329
 msgid "Primary Button Background Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1329
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1330
 msgid "Primary Button Text Color"
 msgstr "لون أصلي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1330
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1331
 msgid "Secondary Button Background Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1331
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1332
 msgid "Secondary Button Text Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1332
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1333
 msgid "Danger Button Background Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1333
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1334
 #, fuzzy
 msgid "Danger Button Text Color"
 msgstr "لون أصلي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1334
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1335
 msgid "Layout & Inputs"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1335
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1336
 msgid "Colors"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1336
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1337
 msgid "Fonts"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1337
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1338
 msgid "Order"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1338
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1339
 msgid "Step Title"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1339
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1340
 msgid "Footer Buttons"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1340
-msgid "Step Content"
-msgstr ""
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1341
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1385
-msgid "Finish Button Type"
+msgid "Step Content"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1342
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1386
-msgid "Panel Button Type"
+msgid "Finish Button Type"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1343
-msgid "Summary Segment"
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1387
+msgid "Panel Button Type"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1344
-msgid "Payment Segment"
+msgid "Summary Segment"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1345
-msgid "Heading Title"
+msgid "Payment Segment"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1346
-msgid "Sub Steps"
+msgid "Heading Title"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1347
+msgid "Sub Steps"
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1348
 msgid "Step Popups"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1350
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1351
 msgid "Fonts and colors"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1351
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1352
 msgid "Set up Sidebar visibility and its content"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1353
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1354
 msgid "Set up Services, Locations, Employees selection options"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1354
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1355
 msgid "Date & Time Selection"
 msgstr "تاريخ ووقت مدة الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1355
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1356
 msgid "Set up Calendar layout and Recurring popup options"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1356
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1357
 msgid "Customer Information"
 msgstr "البريد الإلكتروني للعملاء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1357
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1358
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
 msgid "Field order, mandatory fields, labels and display options"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1358
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1359
 msgid "Payment Summary"
 msgstr "تاريخ الدفع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1359
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1360
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
 msgid "Set up labels and buttons"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1360
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1361
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
 msgid "Set up button types and labels"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1363
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1364
 msgid "Global Settings"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1365
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1366
 msgid "Section"
 msgstr "المستقطع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1366
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1367
 msgid "Field Order"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1367
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:95
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:205
 msgid "Congratulations"
 msgstr "تهانينا"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1369
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1370
 msgid "Footer"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1370
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1371
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:152
 msgid "Get in Touch"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1371
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1372
 msgid "Collapse Menu"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1373
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1374
 msgid "Filled"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1374
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1375
 msgid "Plain"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1377
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1378
 msgid "Continue Button Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1378
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1379
 msgid "Calendar Slot End Time"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1379
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1380
 msgid "Show Busy Time Slots"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1380
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1381
 msgid "Calendar Time Zone"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1387
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1388
 msgid "Sidebar Visibility"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1388
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1389
 msgid "Publish Form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1390
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1391
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:237
 msgid "View All"
 msgstr "رأي"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1392
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1393
 msgid "Set up categories cards"
 msgstr "عرض جميع التصنيفات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1393
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1394
 msgid "Cards"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1394
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1395
 msgid "Card Button Type"
 msgstr "أزرار الراديو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1395
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1396
 msgid "Services Overview"
 msgstr "سعر الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1396
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1397
 msgid "Set up Services view"
 msgstr "ترتيب الخدمات:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1397
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1398
 msgid "Service Details"
 msgstr "تفاصيل الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1398
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1399
 msgid "Set up Service detailed view"
 msgstr "تفاصيل الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1399
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1400
 msgid "Booking Form"
 msgstr "الحجز"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1400
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1401
 msgid "Set options, colors and labels for booking form"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1402
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1403
 msgid "Catalog Booking Form 2.0"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1403
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1404
 msgid ""
 " Discover the modernized Catalog Booking Form 2.0 that showcases services in "
 "stylish card layouts. Easily add categories and adjust the appearance to "
 "reflect your brand."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1406
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1407
 msgid "Total Number of Services"
 msgstr "العدد الإجمالي للأشخاص:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1407
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1408
 msgid "Back Button"
 msgstr "أزرار الراديو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1408
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1409
 msgid "“Back” Button Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1410
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1411
 msgid "“Book Now” Button Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1413
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1414
 msgid "Main Category Button"
 msgstr "اسم التصنيف"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1414
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1415
 msgid "Category Card Side Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1415
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1416
 msgid "Category Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1419
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1420
 msgid "Filter Menu Button Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1420
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1422
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1421
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1423
 msgid "Categories Sidebar"
 msgstr "الأقسام"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1421
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1422
 msgid "Filters Block"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1423
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1424
 msgid "Page Header"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1424
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1425
 msgid "Main Content"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1425
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1426
 msgid "Service Category"
 msgstr "تصنيف الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1426
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1427
 msgid "Service Duration"
 msgstr "مدة الخدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1427
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1428
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:240
 msgid "About Service"
 msgstr "اضافة خدمة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1428
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1429
 msgid "“Search” option"
 msgstr "بحث كوبونات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1429
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1430
 msgid "Card Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:238
 msgid "Search"
 msgstr "بحث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:256
 msgid "Available"
 msgstr "متاح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
 msgid "No results"
 msgstr "النتائج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:239
 msgid "Book Now"
 msgstr "كتاب"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:241
 msgid "View all photos"
 msgstr "عرض جميع المواقع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1441
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1442
 msgid "Support Heading:"
 msgstr "قيد الانتظار"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1442
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
 msgid "Company Phone:"
 msgstr "هاتف الشركة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1444
 msgid "Company Email:"
 msgstr "اسم الشركة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1446
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
 #, fuzzy
 msgid "Event List Booking Form 2.0"
 msgstr "الحجز"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1448
 msgid ""
 "The Event List Booking Form 2.0 offers an intuitive and fast booking "
 "experience, with a design that stands out. Customers can effortlessly browse "
 "and book from a list of events."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
 msgid "Events List"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
 msgid ""
 "Set up Location, Images, Filters, Capacity, Price, and Status visibility "
 "options"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:109
 msgid "Event Info"
 msgstr "معلومات الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
 msgid "Set up Staff, Location, Gallery and other Event information visibility"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
 #, fuzzy
 msgid "Customer Info"
 msgstr "البريد الإلكتروني للعملاء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:209
 #, fuzzy
 msgid "Events Available"
 msgstr "متاح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:210
 #, fuzzy
 msgid "Event Available"
 msgstr "متاح"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
 msgid "Page"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:211
 #, fuzzy
 msgid "Search for Events"
 msgstr "بحث في الأحداث..."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
 msgid "Begins"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:212
 msgid "slot left"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:213
 msgid "slots left"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:214
 #, fuzzy
 msgid "Learn more"
 msgstr "شاهد المزيد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:215
 #, fuzzy
 msgid "Read more"
 msgstr "شاهد المزيد"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
 msgid "About"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:216
 #, fuzzy
 msgid "Timetable"
 msgstr "الجدول الزمني"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:208
 #, fuzzy
 msgid "About Event"
 msgstr "حول هذا الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:201
 #, fuzzy
 msgid "Event Starts"
 msgstr "تاريخ الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1481
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:202
 #, fuzzy
 msgid "Event Ends"
 msgstr "أحداث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1481
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1482
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:203
 msgid "at"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1482
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:217
 msgid "How many attendees do you want to book event for?"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1485
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
 #, fuzzy
 msgid "Step Filters"
 msgstr "بحث المرشحات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
 #, fuzzy
 msgid "Event Card"
 msgstr "تاريخ الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
 msgid "Step Pagination"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
 #, fuzzy
 msgid "Event Slots Capacity"
 msgstr "عدد المشاركين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
 #, fuzzy
 msgid "Filters Button Type"
 msgstr "أزرار الراديو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
 #, fuzzy
 msgid "Read More Button Type"
 msgstr "أزرار الراديو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
 #, fuzzy
 msgid "Learn More Button Type"
 msgstr "أزرار الراديو"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
 #, fuzzy
 msgid "Event Tab Image"
 msgstr "اسم الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1494
 msgid "Step Header"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1494
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
 msgid "Step Info Tab"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
 #, fuzzy
 msgid "Booking Event Button"
 msgstr "بدء الحجز"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1497
 #, fuzzy
 msgid "Finish Button"
 msgstr "انهاء"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1497
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
 msgid "Close Event Button"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
 #, fuzzy
 msgid "Event Gallery"
 msgstr "معرض الحدث:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1500
 msgid "Event Description"
 msgstr "وصف الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1501
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1502
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:175
 #, fuzzy
 msgid "person"
 msgstr "شخص"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1502
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1503
 #, fuzzy
 msgid "Event Employees"
 msgstr "تعديل المختصين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1512
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
 msgid "Catalog"
 msgstr "فهرس"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
 msgid "Choose Category"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
 msgid "Choose Service"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
 msgid "Choose Package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
 msgid "Preselect Booking Parameters"
 msgstr "معلمات الحجز المسبق"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
 #, fuzzy
 msgid "Skip Categories step"
 msgstr "الأقسام"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
 msgid "Insert Amelia Booking Shortcode"
 msgstr "أدخل رمز حجز Amelia"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
 msgid "Select Catalog View"
 msgstr "حدد عرض الكتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
 msgid "Select Category"
 msgstr "اختر الفئة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
 msgid "Select Employee"
 msgstr "اختر الموظف"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
 msgid "Select Location"
 msgstr "اختر موقعا"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
 msgid "Select Package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
 msgid "Select Event"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
 #, fuzzy
 msgid "Select Events"
 msgstr "حذف الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
 msgid "Select Tag"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
 #, fuzzy
 msgid "Select Tags"
 msgstr "اختر الوقت"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
 msgid "Select View"
 msgstr "حدد عرض"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
 msgid "Show All"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
 msgid "Load booking form manually"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
 msgid ""
 "Add element (button, link...) ID, that will manually load amelia shortcode "
 "content"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
 msgid "Show all categories"
 msgstr "عرض جميع التصنيفات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
 msgid "Show all employees"
 msgstr "عرض جميع المختصين"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
 msgid "Show all locations"
 msgstr "عرض جميع المواقع"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
 msgid "Show all services"
 msgstr "عرض جميع الخدمات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
 msgid "Show all events"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
 msgid "Show all packages"
 msgstr "عرض جميع التصنيفات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
 msgid "Show all tags"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
 msgid "Show catalog of all categories"
 msgstr "عرض كتالوج جميع الفئات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
 msgid "Show specific category"
 msgstr "عرض فئة محددة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
 #, fuzzy
 msgid "Show specific categories"
 msgstr "عرض فئة محددة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
 msgid "Show specific package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
 #, fuzzy
 msgid "Show specific packages"
 msgstr "عرض فئة محددة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
 msgid "Show event"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
 msgid "Show Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
 msgid "List (default)"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
 msgid "Show tag"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
 msgid "Show specific service"
 msgstr "عرض خدمة محددة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
 #, fuzzy
 msgid "Show specific services"
 msgstr "عرض خدمة محددة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1554
 msgid "Trigger type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1554
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
 #, fuzzy
 msgid "Id"
 msgstr "تغيير ID مرسل المرسل"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
 msgid "Class"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
 msgid "Trigger by attribute"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
 msgid "Step Booking"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
 msgid "Catalog Booking"
 msgstr "متوسط الحجوزات"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
 #, fuzzy
 msgid "Events List Booking"
 msgstr "تم حجز الحدث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
 msgid "Show recurring events"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
 msgid "Show in Amelia Popup"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
 msgid "AM - Booking view"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
 msgid "AM - Step Booking"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
 msgid "AM - Catalog Booking"
 msgstr "أميليا - واجهة الكتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
 msgid "AM - Catalog view"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
 msgid "AM - Events view"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1569
 #, fuzzy
 msgid "AM - Events List Booking"
 msgstr "أميليا - واجهة الكتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1570
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
 msgid "Amelia - Booking view"
 msgstr "أميليا - واجهة الحجز"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
 msgid ""
 "Step-By-Step Booking Wizard gives your customers the option to choose "
 "everything about the booking in a few steps"
@@ -5240,44 +5244,44 @@ msgstr ""
 "دليل خطوة بخطوة للحجز يعطي عملاءك القدرة على اختيار كل ما يتعلق بالحجز في "
 "خطوات قليلة"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1574
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
 msgid "Amelia - Step-By-Step Booking"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1576
 msgid ""
 "Step-by-Step booking view guides the customers through several steps in "
 "order to make their bookings."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1578
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
 msgid "Amelia - Catalog Booking"
 msgstr "أميليا - واجهة الكتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a catalog"
 msgstr ""
 "كتالوج حجز الواجهة الأمامية هو كود مختصر يمكنك من إظهار الخدمات في شكل كتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1582
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
 msgid "Amelia - Catalog view"
 msgstr "أميليا - واجهة الكتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
 msgstr ""
 "كتالوج حجز الواجهة الأمامية هو كود مختصر يمكنك من إظهار الخدمات في شكل كتالوج"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1586
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
 msgid "Amelia - Events"
 msgstr "أميليا - أحداث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1591
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1592
 msgid ""
 "Event Booking is shortcode that gives your customers the option to book one "
 "of the events that you've created on the back-end in a simple event list "
@@ -5286,16 +5290,16 @@ msgstr ""
 "حجز الأحداث هو كود مختصر  يمكن عملاءك من اختيار واحد من الأحداث التي أضفتها "
 "من الواجهة الخلفية في شكل قائمة بسيطة."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1590
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1591
 #, fuzzy
 msgid "Amelia - Events List"
 msgstr "أميليا - أحداث"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1593
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1594
 msgid "You are using a form that will be outdated soon!"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1612
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1613
 msgid "Recurring Appointments"
 msgstr ""
 
@@ -6782,9 +6786,6 @@ msgstr ""
 
 #~ msgid "Start by clicking the New Appointment button"
 #~ msgstr "ابدأ بالنقر فوق الزر \"موعد جديد\""
-
-#~ msgid "Customer Phone"
-#~ msgstr "هاتف العميل"
 
 #~ msgid "Multiple Emails"
 #~ msgstr "رسائل البريد الإلكتروني المتعددة"

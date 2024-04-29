@@ -1,7 +1,7 @@
 === WordPress Plugin for Google Maps - WP MAPS ===
 Contributors:      flippercode
 Plugin Name:       WP MAPS
-Tags: wordpress org map, map, maps, google maps, wp google maps, google map plugin, wordpress google maps, gdpr google maps, gdpr maps, custom markers, google maps wordpress, google maps embed, custom infowindow, map locations, store locator 
+Tags: google map,google maps,map,maps
 Author URI:        http://profiles.wordpress.org/flippercode/
 Author:            flippercode
 Requires at least: 3.4
@@ -11,7 +11,7 @@ Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easy to use & most advanced google maps plugin for WordPress. Create multiple google maps with custom marker icons, marker categories, custom infowindow messages, images and more. Apply snazzy styles to maps. Integrates the google maps api perfectly for WordPress.
+Advanced Maps plugin for Google Maps. Create multiple maps with custom markers and more.
 
 == Description ==
 

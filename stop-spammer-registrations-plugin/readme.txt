@@ -3,7 +3,7 @@
 Contributors: mcitar, bhadaway
 Tags: spam, security, anti-spam, spam protection, no spam
 Tested up to: 6.5
-Stable tag: 2024.3
+Stable tag: 2024.4
 License: https://www.gnu.org/licenses/gpl.html
 
 Robust WordPress security & spam prevention. Leverage our pre-defined allow/block lists. Adjust configurable security settings on hyphens, periods, too many hits, quick responses, & much more.
@@ -31,16 +31,6 @@ Extremely granular control, so that any variety of website can create a special 
 * Core forms CAPTCHA
 * Mass lookup and disable registered users and pending comments
 * Disable WordPress automated emails
-* Server-level firewall protection (Premium Only)
-* Themed registration/login pages and menu links (Premium Only)
-* WooCommerce and Gravity Forms protection (Premium Only)
-* Brute force login protection (Premium Only)
-* Notification control (Premium Only)
-* Import/export settings (Premium Only)
-* Export log to Excel (Premium Only)
-* Restore default settings (Premium Only)
-* Contact Form 7 protection (Premium Only)
-* Built-in contact form (Premium Only)
 
 We sincerely thank everyone who has contributed to the project through donations, feedback, and bug reporting. Every little bit goes a long way.
 
@@ -64,7 +54,7 @@ Yes. But, you may need to restore visitor IPs: [https://support.cloudflare.com/h
 
 = Can I use Stop Spammers with WooCommerce (and other ecommerce plugins)? =
 
-Yes. But, in some configurations, you may need to go to Stop Spammers > Protection Options > Toggle on the option for "Only Use the Plugin for Standard WordPress Forms" > Save if you're running into any issues. Premium now supports WooCommerce checks.
+Yes. But, in some configurations, you may need to go to Stop Spammers > Protection Options > Toggle on the option for "Only Use the Plugin for Standard WordPress Forms" > Save if you're running into any issues.
 
 = Can I use Stop Spammers with Akismet? =
 
@@ -87,6 +77,10 @@ Toggle off the "Check Credentials on All Login Attempts" option and try again.
 Yes. See: [https://law.stackexchange.com/questions/28603/how-to-satisfy-gdprs-consent-requirement-for-ip-logging](https://law.stackexchange.com/questions/28603/how-to-satisfy-gdprs-consent-requirement-for-ip-logging). Stop Spammers does not collect any data for any other purpose (like marketing or tracking). It is purely for legitimate security purposes only. Additionally, if any of your users ever requested it, all data can be deleted.
 
 == Changelog ==
+
+= 2024.4 =
+* [Notice] Premium has been discontinued
+* [Notice] HiveMind API has been discontinued
 
 = 2024.3 =
 * [Notice] We're making a big push to audit Stop Spammers — now's the time to jump in if you know how to code and can contribute fixes: help@stopspammers.io.

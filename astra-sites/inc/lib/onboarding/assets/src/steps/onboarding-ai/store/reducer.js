@@ -588,6 +588,14 @@ const reducer = ( state = initialState, action ) => {
 				limitExceedModal: action.payload,
 			},
 		};
+	} else if ( action.type === actionTypes.SET_AUTHENTICATION_ERROR_MODAL ) {
+		return {
+			...state,
+			onboardingAI: {
+				...state.onboardingAI,
+				authenticationErrorModal: action.payload,
+			},
+		};
 	} else if ( action.type === actionTypes.SET_CONTINUE_PROGRESS_MODAL ) {
 		return {
 			...state,

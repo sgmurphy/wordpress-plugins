@@ -1,3 +1,56 @@
+<h4>2.8.1.2 - 04/24/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+    <li>Security: Use esc_attr on link target in link fields to prevent XSS (#3353)</li>
+	<li>Fix dimension field styling when there is not a unit option (#3340)</li>
+	<li>Legacy UI: Fix nodes hidden on a breakpoint to be hidden for all breakpoints when in Responsive Editing Mode (#3341)</li>
+	<li>Revert fix for Slideshow module not displaying when using default themes (#2967)</li>
+</ul>
+
+<h4>2.8.1.1 - 04/18/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+    <li>Fix submenu delay closing other menus (#3349)</li>
+</ul>
+
+<h4>2.8.1 - 04/17/2024</h4>
+<strong>Changes</strong>
+<ul>
+    <li>Improved BB Settings Export/Import to use serialization to fix various bugs when importing. Prior exports will not work with the new system. (#3283)</li>
+    <li>Box Module now requires WordPress version 5.2+. Versions below 5.2 will not see the Box Module in the UI (#3226)</li>
+</ul>
+
+<strong>Enhancements</strong>
+<ul>
+    <li>New keyboard shortcut <code>Shift+R</code> to toggle through breakpoints in reverse order (#3159)</li>
+    <li>Menu Module: add new filters <code>fl_builder_menu_toggle_button</code> and <code>fl_builder_menu_toggle_button</code> to the render-toggle-button function allowing manipulation of the nav element for the flyout menu (#2958)</li>
+    <li>Add delay to overlay submenus to ensure they don't close too quickly (#3309)</li>
+	<li>Add <code>vh</code> as a unit to Box Module fields (#3325)</li>
+	<li>Add new toggles in Advanced Settings to include BB Theme and WordPress theme colors to color pickers (#3328)</li>
+</ul>
+
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Fix Row overlay menu icons when the row is at the top of the page and visibility options are used (#2883)</li>
+	<li>Disable the Outline Panel for roles with restricted editing to avoid unauthorized permissions (#2924)</li>
+	<li>Fix the Slideshow Module not displaying when using some default WordPress themes (#2967)</li>
+	<li>Adjust styling for links in our alert modals (#3179)</li>
+	<li>Fix editing Popups created by Pop-Up Maker when the pop-ups are disabled (#3292)</li>
+	<li>Fix linear gradient not working properly when Small Data Mode is enabled (#3285)</li>
+	<li>Fix modules dropped below a Box Module ending up in the wrong place (#3302)</li>
+	<li>Text Editor Module: Adjust styling so the link search box is not covered (#3304)</li>
+	<li>Box Module: Fix overlay on modules that overflow (#3309)</li>
+	<li>Fix Typography font size slider not using the proper steps (#3266)</li>
+	<li>Fix nested form fields not live previewing when added or duplicated (#3336)</li>
+	<li>Fix Rows not appearing in the Saved Tab of the Content Panel when editing a template (#3288)</li>
+	<li>Posts Module: Fix post alignment problem when using scroll pagination (#204)</li>
+</ul>
+
+<strong>Performance</strong>
+<ul>
+	<li>Ensure that JS needed for upgrades/downgrades only loads where needed (#3299)</li>
+</ul>
+
 <h4>2.8.0.7 - 04/01/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

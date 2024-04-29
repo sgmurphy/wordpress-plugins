@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,15 +93,7 @@ By choosing one of them, you can choose whether you want to show the booking flo
 
 - Picking a primary between **20+ languages**:
 
-| A-F | F-J | P-S |
-|------|------|------|
-| Arabic | French | Polish |
-| Belgian | German | Portuguese |
-| Brazilian Portuguese | Greek | Romanian |
-| Chinese translation | Hebrew | Russian |
-| Danish | Hungarian | Slovak |
-| Dutch | Italian | Spanish |
-| Finnish | Japanese | Swedish |
+Arabic, Belgian, Brazilian Portuguese, Chinese translation, Danish, Dutch, Finnish, French, German, Greek, Hebrew, Hungarian, Italian, Japanese, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Swedish,
 
 - Setting the redirect URL on which the customers will be redirected after the booking.
 
@@ -194,7 +186,7 @@ You can create an online reservation system for events or service appointment bo
 
 4. Add Amelia booking plugin shortcode for the desired booking form to one of your posts or pages. For appointments, add **[ameliastepbooking]** or **[ameliacatalogbooking]** shortcode, for events add **[ameliaeventslistbooking]** shortcode.
 
-If on your website, you have different pages for different categories of services or each of your service has a page and you want to show the booking form just for one certain service/category you can use our "Preselect Booking Parameters" option while adding the shortcode to the page or post and select one specific category or service that will be shown for the booking.
+    * If on your website, you have different pages for different categories of services or each of your service has a page and you want to show the booking form just for one certain service/category you can use our "Preselect Booking Parameters" option while adding the shortcode to the page or post and select one specific category or service that will be shown for the booking.
 
 5. Save it and you are ready to receive your first bookings.
 
@@ -288,11 +280,19 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 1. Calendar back-end view
 2. Appointments back-end view
 3. Booking wizard front-end view
+4. Event List 2.0 booking form
+5. Catalog 2.0 booking form
+6. Booking from calendar back-end view
+7. Customization of Step-by-step booking form
 
 
 == Changelog =
+V1.1.4
+* BugFix: Fixed vulnerability issue
+* Other small bug fixes and stability improvements
+
 V1.1.3
-* Improvement: Extended option “Check customer's name for existing email/phone when booking”, to check for existing users by phone number if email is not enteredImprovement: Extended option “Check customer's name for existing email/phone when booking”, to check for existing users by phone number if email is not entered
+* Improvement: Extended option “Check customer's name for existing email/phone when booking”, to check for existing users by phone number if email is not entered
 * Improvement: Added possibility to search users by their phone number
 * Updated German and added Turkish translation
 * BugFix: Fixed issue with “Go back” button and missing sidebar on the Catalog Booking form

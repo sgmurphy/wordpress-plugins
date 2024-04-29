@@ -2225,6 +2225,9 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
 	margin:4px 0;
 	width: 100%;
 }
+.fl-builder--menu > button[data-event="revResponsiveEditing"] {
+	display: none;
+}
 /* @endgroup Admin Panel */
 
 /* @group Publish Actions */
@@ -3237,6 +3240,12 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
 	letter-spacing: normal;
 	line-height: 24px;
 	padding: 30px;
+}
+
+.fl-builder-alert-lightbox .fl-lightbox-message a {
+	color: #21759b;
+	font-size: 16px;
+	text-decoration: underline;
 }
 
 .fl-builder-alert-lightbox.fl-builder-crash-lightbox .fl-lightbox{

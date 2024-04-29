@@ -2,8 +2,8 @@
 Contributors: infinitewp, amritanandh, rajkuppus
 Tags: admin, administration, amazon, api, authentication, automatic, dashboard, dropbox, events, integration, manage, multisite, multiple, notification, performance, s3, security, seo, stats, tracking, infinitewp, updates, backup, restore, iwp, infinite
 Requires at least: 3.1
-Tested up to: 6.4.2
-Stable tag: 1.12.5
+Tested up to: 6.5.2
+Stable tag: 1.13.0
 
 Install this plugin on unlimited sites and manage them all from a central dashboard.
 This plugin communicates with your InfiniteWP Admin Panel.
@@ -47,6 +47,19 @@ Credits: [Vladimir Prelovac](http://prelovac.com/vladimir) for his worker plugin
 5. One-click updates
 
 == Changelog ==
+
+= 1.13.0 - April 29th 2024 =
+* Feature: SFTP support for multicall method backups.
+* Fix: SFTP key-based backup not working for AWS S3.
+* Fix: Openssl verification issue in the red hat server.
+* Fix: PHP Fatal error occurred: Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IF' at line 1.
+* Fix: Code snippet empty responses.
+* Fix: The PHP dump fails when the table name is in the format 'wp_example-1034'.
+* Fix: While running Phoenix backup failed to update the IWP_backup_status option and value 0.
+* Fix: PHP Fatal error occurred: Uncaught TypeError: openssl_verify(): Argument #2 ($signature) must be of type string, array given in /wp-content/plugins/iwp-client/helper.class.php:387 – while adding or re-adding a site on a Red hat server with PHP version 8.3.
+* Fix: WP Engine updated the API key.
+* Fix: The plugin and theme update issue will show as an error (the theme is at the latest version).
+* Fix: '_iwp_redirects' logging in a slow query log for certain users.
 
 = 1.12.5 - Jan 3rd 2024 =
 * Improvement: Plugin update response improved.

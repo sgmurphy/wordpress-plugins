@@ -17,8 +17,13 @@ class HTMega_Admin_Setting{
         if( !is_plugin_active('woolentor-addons/woolentor_addons_elementor.php') ){
             add_action( 'wp_dashboard_setup', [ $this, 'dashboard_widget' ], 9999 );
         }
-     
-		
+        // Upgrade Pro Menu
+        if( !is_plugin_active( 'htmega-pro/htmega_pro.php' ) ) {
+            add_action( 'admin_menu', [$this, 'upgrade_to_pro_menu'], 329 );
+            add_action('admin_head', [ $this, 'admin_menu_item_adjust'] );
+            add_action('admin_head', [ $this, 'enqueue_admin_head_scripts'], 11 );
+        }
+
     }
 
     /*
@@ -65,6 +70,58 @@ class HTMega_Admin_Setting{
 
     }
 
+    /**
+     * [upgrade_to_pro_menu] Admin Menu
+     */
+    public function upgrade_to_pro_menu(){
+        add_submenu_page(
+            'htmega-addons', 
+            esc_html__('Upgrade to Pro', 'htmega-addons'),
+            esc_html__('Upgrade to Pro', 'htmega-addons'), 
+            'manage_options', 
+            'https://wphtmega.com/pricing/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free'
+        );
+    }
+
+    // Add Class For pro Menu Item
+    public function admin_menu_item_adjust(){
+        global $submenu;
+
+		// Check HT Mega Menu page exist or not
+		if ( ! isset( $submenu['htmega-addons'] ) ) {
+			return;
+		}
+
+        $position = key(
+			array_filter( $submenu['htmega-addons'],  
+				static function( $item ) {
+					return strpos( $item[2], 'https://wphtmega.com/pricing/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free' ) !== false;
+				}
+			)
+		);
+
+        if ( isset( $submenu['htmega-addons'][ $position ][4] ) ) {
+			$submenu['htmega-addons'][ $position ][4] .= ' htmega-upgrade-pro';
+		} else {
+			$submenu['htmega-addons'][ $position ][] = 'htmega-upgrade-pro';
+		}
+    }
+
+    // Add Custom scripts for pro menu item
+    public function enqueue_admin_head_scripts() {
+        $styles = '';
+        $scripts = '';
+
+        $styles .= '#adminmenu #toplevel_page_htmega-addons a.htmega-upgrade-pro { font-weight: 600; background-color: #D43A6B; color: #ffffff; display: block; text-align: left;}';
+        $scripts .= 'jQuery(document).ready( function($) {
+			$("#adminmenu #toplevel_page_htmega-addons a.htmega-upgrade-pro").attr("target","_blank");  
+		});';
+		
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		printf( '<style>%s</style>', $styles );
+		printf( '<script>%s</script>', $scripts );
+    }
+    
     /*
     *   Enqueue admin scripts
     */

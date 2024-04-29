@@ -229,9 +229,9 @@ class IWP_MMB_RemoteStorage_sftp extends IWP_MMB_RemoteStorage_Extension {
 
 			$cdcom = empty($this->path) ? '' : "cd ".trailingslashit($this->path)." && ";
 
-			if (false == ($exec = $this->ssh->exec($cdcom."ls -l ${match}*"))) {
+			if (false == ($exec = $this->ssh->exec($cdcom."ls -l ".$match."*"))) {
 				$nosizes = true;
-				$exec = $this->ssh->exec($cdcom."ls -1 ${match}*");
+				$exec = $this->ssh->exec($cdcom."ls -1 ".$match."*");
 			}
 			if (false != $exec) {
 				foreach (explode("\n", $exec) as $str) {
@@ -715,6 +715,10 @@ if (class_exists('IWP_MMB_ftp_wrapper')) {
 			if (false == $ret) return false;
 	
 			while (FTP_MOREDATA == $ret) {
+
+				if($iwp_backup_core->restore_loop_break()){
+					return 'partial';	
+				}
 	
 				if ($iwp_backup_core) {
 					$file_now_size = filesize($local_file_path);

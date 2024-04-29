@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Zapier for WordPress
  * Description:       Zapier enables you to automatically share your posts to social media, create WordPress posts from Mailchimp newsletters, and much more. Visit https://zapier.com/apps/wordpress/integrations for more details.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Zapier
  * Author URI:        https://zapier.com
  * License:           Expat (MIT License)
@@ -99,24 +99,12 @@ class Zapier_Auth
             'callback' => array($this, 'get_custom_type_supports'),
             'permission_callback' => '__return_true'
         ));
-    }
 
-    public function get_custom_type_supports($request)
-    {
-        $type = $request['type'];
-        $types = get_post_types(array());
-
-        if(!in_array($type, $types)) {
-            return new WP_Error(
-                'invalid_post_type',
-                'Invalid post type',
-                array(
-                    'status' => 404,
-                )
-            );
-        }
-        
-        return array('supports' => get_all_post_type_supports($type));
+        register_rest_route($this->namespace, '/roles', array(
+            'methods' => "GET",
+            'callback' => array($this, 'get_roles'),
+            'permission_callback' => '__return_true'
+        ));
     }
 
     public function generate_token($request)
@@ -151,6 +139,55 @@ class Zapier_Auth
         return array(
             'token' => JWT::encode($token, $secret_key),
         );
+    }
+
+    public function get_custom_type_supports($request)
+    {
+
+        if(!is_user_logged_in()) {
+            return new WP_Error(
+                'not_logged_in',
+                'You are not logged in',
+                array(
+                    'status' => 401,
+                )
+            );
+        }
+
+        $type = $request['type'];
+        $types = get_post_types(array());
+
+        if(!in_array($type, $types)) {
+            return new WP_Error(
+                'invalid_post_type',
+                'Invalid post type',
+                array(
+                    'status' => 404,
+                )
+            );
+        }
+        
+        return array('supports' => get_all_post_type_supports($type));
+    }
+
+    public function get_roles()
+    {
+        if(!is_user_logged_in()) {
+            return new WP_Error(
+                'not_logged_in',
+                'You are not logged in',
+                array(
+                    'status' => 401,
+                )
+            );
+        }
+        
+        $roles = array();
+        foreach (wp_roles()->roles as $key => $role) {
+            $roles[] = (array('id' => $key, 'name' => $role['name']));
+        }
+
+        return array('roles' => $roles);
     }
 
     public function get_user_from_token()

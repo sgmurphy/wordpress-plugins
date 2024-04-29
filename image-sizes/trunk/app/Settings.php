@@ -32,7 +32,7 @@ class Settings extends Base {
 	
 	public function init_menu() {
 		
-		$site_config = [
+		$site_config = [    
 			'PHP Version'				=> PHP_VERSION,
 			'WordPress Version' 		=> get_bloginfo( 'version' ),
 			'Memory Limit'				=> defined( 'WP_MEMORY_LIMIT' ) && WP_MEMORY_LIMIT ? WP_MEMORY_LIMIT : 'Not Defined',
@@ -42,58 +42,94 @@ class Settings extends Base {
 		];
 
 		$settings = [
-			'id'            => $this->slug,
+			'id'            => 'thumbpress',
 			'label'         => __( 'ThumbPress', 'image-sizes' ),
 			'title'         => sprintf( '%1$s v%2$s', __( 'ThumbPress', 'image-sizes' ), $this->version ),
-			'header'        => $this->name,
+			'header'        => __( 'ThumbPress', 'image-sizes' ),
 			'icon'			=> 'dashicons-format-image',
 			'position'		=> 12,
 			'sections'      => [
-				'prevent_image_sizes'	=> 	[
-					'id'        => 'prevent_image_sizes',
-					'label'     => __( 'Disable Thumbnails', 'image-sizes' ),
-					'icon'      => 'dashicons-images-alt2',
-					'sticky'	=> false,
-					'content'	=> Helper::get_template( 'disable-sizes', 'views/settings', [ 'image_sizes' => get_option( '_image-sizes', [] ) ] ),
-					'fields'    => []
-				],
-				'image-sizes_regenerate'	=> [
-					'id'        => 'image-sizes_regenerate',
-					'label'     => __( 'Regenerate Thumbnails', 'image-sizes' ),
-					'icon'      => 'dashicons-format-gallery',
-					'hide_form'	=> true,
-					'content'	=> Helper::get_template( 'regenerate-thumbnails', 'views/settings' ),
-					'fields'    => []
-				],
-				'image-sizes_tools'	=> [
-					'id'        => 'image-sizes_tools',
+                'image-sizes_tools'	=> [
+                    'id'        => 'image-sizes_tools',
 					'label'     => __( 'Tools', 'image-sizes' ),
 					'icon'      => 'dashicons-hammer',
-					'sticky'	=> false,
-					'fields'    => [
-						'enable_debug' => [
-							'id'      	=> 'enable_debug',
-							'label'     => __( 'Enable Debug', 'image-sizes' ),
-							'type'      => 'switch',
-							'desc'      => __( 'Enable this if you face any CSS or JS related issues.', 'image-sizes' ),
-							'disabled'  => false,
-						],
-						'report' => [
-							'id'      => 'report',
-							'label'     => __( 'Report', 'image-sizes' ),
-							'type'      => 'textarea',
-							'desc'     	=> '<button id="image-sizes_report-copy" class="button button-primary"><span class="dashicons dashicons-admin-page"></span></button>',
-							'columns'   => 24,
-							'rows'      => 10,
-							'default'   => json_encode( $site_config, JSON_PRETTY_PRINT ),
-							'readonly'  => true,
-						],
-					]
+                    'no_heading'=> true,
+                    'hide_form' => true,
+                    'template'  => THUMBPRESS_DIR . '/views/settings/dashboad.php',
 				],
 			],
 		];
 
 		new Settings_API( apply_filters( 'thumbpress-settings', $settings ) );
+		/**
+		 * Modules menu
+		 */
+		$modules_settings = [
+			'id'            => "thumbpress-modules",
+			'parent'        => 'thumbpress',
+			'label'         => __( 'Modules', 'image-sizes' ),
+			'title'         => __( 'Modules', 'image-sizes' ),
+			'header'        => __( 'Modules', 'image-sizes' ),
+			'icon'      	=> 'dashicons-image-filter',
+			'sections'      => [
+				'thumbpress_modules'	=> [
+					'id'        => 'thumbpress_modules',
+					'label'     => __( 'Modules', 'image-sizes' ),
+					'icon'      => 'dashicons-image-filter',
+					'sticky'	=> false,
+					'page_load'	=> true,
+					'fields'	=> array_map( function( $_module ) {
+						$module = [
+							'id'	=> $_module['id'],
+							'label'	=> $_module['title'],
+							'desc'	=> $_module['desc'],
+							'type'	=> 'switch'
+						];
+
+						return $module;
+					}, thumbpress_modules() ),
+					'template'  => THUMBPRESS_DIR . '/views/settings/modules.php',
+				],           
+			],
+		];
+
+		new Settings_API( apply_filters( 'thumbpress-modules_settings_args', $modules_settings ) );
+
+		if( ! defined( 'THUMBPRESS_PRO' ) ) {
+
+			$upgrade_pro = [
+				'id'            => "upgrade-to-pro",
+				'parent'        => 'thumbpress',
+				'label'         => __( 'Upgrade to Pro', 'image-sizes' ),
+				'title'         => __( 'Upgrade to Pro', 'image-sizes' ),
+				'header'        => __( 'Upgrade to Pro', 'image-sizes' ),
+				'priority'      => 100,
+				'sections'      => [
+					'upgrade-to-pro'=> [
+						'id'        => 'upgrade-to-pro',
+						'label'     => __( 'Tools', 'image-sizes' ),
+						'icon'      => 'dashicons-hammer',
+						'no_heading'=> true,
+						'hide_form' => true,
+						'template'  => THUMBPRESS_DIR . '/views/settings/upgrade-pro.php',
+					],           
+				],
+			];
+
+			new Settings_API( apply_filters( 'submenu_thumbpress_pro', $upgrade_pro ) );
+		}
+
+	}
+
+	public function admin_menu() {
+		add_submenu_page(
+			'thumbpress',
+			__( 'Overview', 'image-sizes' ),
+			__( 'Overview', 'image-sizes' ),
+			'manage_options',
+			'thumbpress',
+			function() {}
+		);
 	}
 
 	public function reset( $option_name ) {

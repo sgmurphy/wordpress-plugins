@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpdatatables\n"
-"POT-Creation-Date: 2024-01-19 12:00+0100\n"
-"PO-Revision-Date: 2024-01-19 12:00+0100\n"
+"POT-Creation-Date: 2024-04-26 14:42+0200\n"
+"PO-Revision-Date: 2024-04-26 14:42+0200\n"
 "Last-Translator: Bostjan Laba <bostjan@neolink.si>\n"
 "Language-Team: wpdatatables <cjbug@yandex.ru>\n"
 "Language: sl_SI\n"
@@ -59,8 +59,8 @@ msgid "wpDataCharts"
 msgstr "wpDataCharts"
 
 #: controllers/wdt_admin.php:52 controllers/wdt_admin.php:53
-#: templates/admin/chart_wizard/chart_wizard.inc.php:34
-#: templates/admin/chart_wizard/chart_wizard.inc.php:35
+#: templates/admin/chart_wizard/chart_wizard.inc.php:36
+#: templates/admin/chart_wizard/chart_wizard.inc.php:37
 #: templates/admin/dashboard/dashboard.inc.php:57
 #: templates/admin/dashboard/dashboard.inc.php:177
 msgid "Create a Chart"
@@ -103,30 +103,30 @@ msgid "Welcome page"
 msgstr "Naslovna stran"
 
 #: controllers/wdt_admin.php:123 controllers/wdt_admin.php:124
-#: controllers/wdt_functions.php:1039
+#: controllers/wdt_functions.php:1054
 msgid "Go Premium"
 msgstr ""
 
 #: controllers/wdt_admin.php:575 controllers/wdt_admin.php:624
 #: controllers/wdt_admin.php:667 controllers/wdt_admin.php:688
-#: controllers/wdt_admin.php:735 controllers/wdt_admin.php:775
-#: controllers/wdt_admin.php:794 controllers/wdt_admin.php:814
-#: controllers/wdt_admin.php:833 controllers/wdt_admin.php:853
-#: controllers/wdt_admin.php:873 controllers/wdt_admin.php:893
-#: controllers/wdt_admin.php:912
+#: controllers/wdt_admin.php:735 controllers/wdt_admin.php:770
+#: controllers/wdt_admin.php:789 controllers/wdt_admin.php:809
+#: controllers/wdt_admin.php:828 controllers/wdt_admin.php:848
+#: controllers/wdt_admin.php:868 controllers/wdt_admin.php:888
+#: controllers/wdt_admin.php:907
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Nimate dovolj pravic za dostop do te strani."
 
-#: controllers/wdt_functions.php:1034
+#: controllers/wdt_functions.php:1049
 msgid "Go to Settings"
 msgstr ""
 
-#: controllers/wdt_functions.php:1063
+#: controllers/wdt_functions.php:1078
 #, php-format
 msgid "By %s"
 msgstr ""
 
-#: controllers/wdt_functions.php:1067
+#: controllers/wdt_functions.php:1082
 msgid "Docs"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Table: "
 msgstr ""
 
-#: integrations/page_builders/avada/class.wdtavadaelements.php:116
+#: integrations/page_builders/avada/class.wdtavadaelements.php:119
 msgid "Chart: "
 msgstr ""
 
@@ -207,15 +207,7 @@ msgstr ""
 msgid "Insert name for export file"
 msgstr ""
 
-#: integrations/page_builders/gutenberg/WpDataChartsGutenbergBlock.php:28
-msgid ""
-"Choose the chart that you’ve just created in the dropdown below, and the "
-"shortcode will be inserted automatically."
-msgstr ""
-"V spustnem meniju izberite grafikon, ki ste ga pravkar ustvarili, in kratka "
-"koda se bo samodejno vstavila."
-
-#: integrations/page_builders/gutenberg/WpDataTablesGutenbergBlock.php:29
+#: integrations/page_builders/gutenberg/WDTGutenbergBlocks.php:148
 msgid ""
 "Choose the table that you’ve just created in the dropdown below, and the "
 "shortcode will be inserted automatically. You are able to provide values for "
@@ -224,6 +216,14 @@ msgstr ""
 "V spustnem meniju spodaj izberite tabelo, ki ste jo pravkar ustvarili, in "
 "kratka koda se bo vstavila samodejno. Lahko določite vrednosti za ograde in "
 "tudi za izvoz datoteke datoteke."
+
+#: integrations/page_builders/gutenberg/WDTGutenbergBlocks.php:164
+msgid ""
+"Choose the chart that you’ve just created in the dropdown below, and the "
+"shortcode will be inserted automatically."
+msgstr ""
+"V spustnem meniju izberite grafikon, ki ste ga pravkar ustvarili, in kratka "
+"koda se bo samodejno vstavila."
 
 #: integrations/page_builders/wpbakery/wdtBakeryBlock.php:15
 msgid "Interactive Responsive Table"
@@ -308,11 +308,11 @@ msgstr "V sistemu še ni wpDataTables."
 msgid "There was an error trying to fetch the table data: "
 msgstr "Pri poskusu pridobivanja podatkov tabele je prišlo do napake:"
 
-#: source/class.wdtconfigcontroller.php:721
+#: source/class.wdtconfigcontroller.php:723
 msgid "Table in data source has no rows."
 msgstr "Tabela v viru podatkov nima vrstic."
 
-#: source/class.wdtconfigcontroller.php:1291
+#: source/class.wdtconfigcontroller.php:1315
 msgid "Select a "
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr "Prebrskaj"
 #: source/class.wdttools.php:230 source/class.wdttools.php:391
 #: templates/admin/browse/chart/duplicate_chart_modal.inc.php:43
 #: templates/admin/browse/table/duplicate_modal.inc.php:61
-#: templates/admin/chart_wizard/chart_wizard.inc.php:40
+#: templates/admin/chart_wizard/chart_wizard.inc.php:42
 #: templates/admin/common/HTMLModal.inc.php:43
 #: templates/admin/common/linkModal.inc.php:139
 #: templates/admin/common/shortcodeModal.inc.php:48
@@ -467,8 +467,8 @@ msgstr "Stolpec je bil odstranjen!"
 msgid "Please select columns that you want to use in table"
 msgstr "Izberite stolpce, ki jih želite uporabiti v tabeli"
 
-#: source/class.wdttools.php:240 source/class.wpdatatable.php:2729
-#: source/class.wpdatatable.php:2816
+#: source/class.wdttools.php:240 source/class.wpdatatable.php:2746
+#: source/class.wpdatatable.php:2833
 #: templates/admin/table-settings/table_settings_block.inc.php:1338
 msgid "Copy"
 msgstr "Kopiraj"
@@ -809,7 +809,7 @@ msgid "Text wrapping"
 msgstr ""
 
 #: source/class.wdttools.php:320
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:296
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:920
 #: templates/admin/table-settings/simple_table_settings_block.inc.php:321
 msgid "Merge cells"
 msgstr ""
@@ -1442,15 +1442,15 @@ msgstr ""
 "Zdaj lahko kopirate kratko kodo tega grafikona in jo prilepite v katero koli "
 "objavo ali stran WP. <br><br> Zdaj lahko končate to vadnico."
 
-#: source/class.wpdatachart.php:1218
+#: source/class.wpdatachart.php:648
 msgid "Only one column can be of type String"
 msgstr "Samo en stolpec je lahko vrste String"
 
-#: source/class.wpdatachart.php:1221
+#: source/class.wpdatachart.php:651
 msgid "You are mixing data types (several date axes and several number)"
 msgstr "Mešate podatkovne vrste (več datumskih osi in več številk)"
 
-#: source/class.wpdatatable.php:1630
+#: source/class.wpdatatable.php:1641
 msgid ""
 "You are trying to load a table of an unknown type. Probably you did not "
 "activate the addon which is required to use this table type."
@@ -1458,47 +1458,47 @@ msgstr ""
 "Poskušate naložiti tabelo neznanega tipa. Verjetno niste aktivirali dodatka, "
 "ki je potreben za uporabo te vrste tabel."
 
-#: source/class.wpdatatable.php:2609 source/class.wpdatatable.php:2612
+#: source/class.wpdatatable.php:2626 source/class.wpdatatable.php:2629
 #: templates/admin/chart_wizard/steps/step3.inc.php:86
 #: templates/admin/table-settings/column_settings_panel.inc.php:611
 #: templates/admin/table-settings/table_settings_block.inc.php:615
 msgid "All"
 msgstr "Vse"
 
-#: source/class.wpdatatable.php:2660
+#: source/class.wpdatatable.php:2677
 #: templates/admin/table-settings/table_settings_block.inc.php:1335
 msgid "Print"
 msgstr "Tiskaj"
 
-#: source/class.wpdatatable.php:2662
+#: source/class.wpdatatable.php:2679
 msgid "Export"
 msgstr "Izvozi"
 
-#: source/class.wpdatatable.php:2665
+#: source/class.wpdatatable.php:2682
 #: templates/admin/table-settings/columns_list_modal.inc.php:12
 msgid "Columns"
 msgstr "Stolpci"
 
-#: source/class.wpdatatable.php:2704 source/class.wpdatatable.php:2789
+#: source/class.wpdatatable.php:2721 source/class.wpdatatable.php:2806
 #: templates/admin/table-settings/table_settings_block.inc.php:1336
 msgid "Excel"
 msgstr "Excel"
 
-#: source/class.wpdatatable.php:2716 source/class.wpdatatable.php:2802
+#: source/class.wpdatatable.php:2733 source/class.wpdatatable.php:2819
 #: templates/admin/table-settings/table_settings_block.inc.php:1337
 msgid "CSV"
 msgstr "CSV"
 
-#: source/class.wpdatatable.php:2740 source/class.wpdatatable.php:2828
+#: source/class.wpdatatable.php:2757 source/class.wpdatatable.php:2845
 #: templates/admin/table-settings/table_settings_block.inc.php:1339
 msgid "PDF"
 msgstr "PDF"
 
-#: source/class.wpdatatable.php:2841
+#: source/class.wpdatatable.php:2858
 msgid "Search table"
 msgstr "Tabela iskanja"
 
-#: source/class.wpdatatable.php:2842
+#: source/class.wpdatatable.php:2859
 msgid "Showing _MENU_ Entries"
 msgstr "Prikazovanje vnosov _MENU_"
 
@@ -1521,7 +1521,7 @@ msgid "NEW"
 msgstr "NOVO"
 
 #: templates/admin/addons/addons.inc.php:54
-#: templates/admin/dashboard/dashboard.inc.php:557
+#: templates/admin/dashboard/dashboard.inc.php:572
 msgid "Forminator Forms integration for wpDataTables"
 msgstr ""
 
@@ -1533,7 +1533,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:62
-#: templates/admin/dashboard/dashboard.inc.php:739
+#: templates/admin/dashboard/dashboard.inc.php:754
 msgid "Free Download"
 msgstr ""
 
@@ -1547,7 +1547,7 @@ msgid "Learn more"
 msgstr "Preberi več"
 
 #: templates/admin/addons/addons.inc.php:79
-#: templates/admin/dashboard/dashboard.inc.php:577
+#: templates/admin/dashboard/dashboard.inc.php:592
 #: templates/admin/system-info/system_info.inc.php:270
 #: templates/admin/system-info/system_info.inc.php:291
 #: templates/admin/system-info/system_info.inc.php:309
@@ -1557,7 +1557,7 @@ msgid "Installed"
 msgstr "Nameščeno"
 
 #: templates/admin/addons/addons.inc.php:94
-#: templates/admin/dashboard/dashboard.inc.php:594
+#: templates/admin/dashboard/dashboard.inc.php:609
 msgid "Master Detail Tables for wpDataTables"
 msgstr "Glavne podrobne tabele za wpDataTables"
 
@@ -1574,7 +1574,7 @@ msgstr ""
 "omogočiti dostop do vseh podrobnosti o določenih vnosih."
 
 #: templates/admin/addons/addons.inc.php:121
-#: templates/admin/dashboard/dashboard.inc.php:621
+#: templates/admin/dashboard/dashboard.inc.php:636
 msgid "Powerful Filters for wpDataTables"
 msgstr "Zmogljivi filtri za wpDataTables"
 
@@ -1589,12 +1589,12 @@ msgstr ""
 "tabele, preden uporabnik določi iskalne vrednosti."
 
 #: templates/admin/addons/addons.inc.php:148
-#: templates/admin/dashboard/dashboard.inc.php:647
+#: templates/admin/dashboard/dashboard.inc.php:662
 msgid "Report Builder"
 msgstr "Graditelj poročil"
 
 #: templates/admin/addons/addons.inc.php:151
-#: templates/admin/dashboard/dashboard.inc.php:651
+#: templates/admin/dashboard/dashboard.inc.php:666
 msgid ""
 "A unique tool that allows you to generate almost any Word DOCX and Excel "
 "XLSX documents filled in with actual data from your database."
@@ -1603,12 +1603,12 @@ msgstr ""
 "DOCX in Excel XLSX, napolnjenih z dejanskimi podatki iz vaše baze podatkov."
 
 #: templates/admin/addons/addons.inc.php:172
-#: templates/admin/dashboard/dashboard.inc.php:674
+#: templates/admin/dashboard/dashboard.inc.php:689
 msgid "Formidable Forms integration for wpDataTables"
 msgstr "Zapletena oblika integracije za wpDataTables"
 
 #: templates/admin/addons/addons.inc.php:175
-#: templates/admin/dashboard/dashboard.inc.php:678
+#: templates/admin/dashboard/dashboard.inc.php:693
 msgid ""
 "Tool that adds \"Formidable Form\" as a new table type and allows you to "
 "create wpDataTables from Formidable Forms entries data."
@@ -1617,12 +1617,12 @@ msgstr ""
 "ustvarjanje wpDataTables iz podatkov vnosov v Formidable Forms."
 
 #: templates/admin/addons/addons.inc.php:194
-#: templates/admin/dashboard/dashboard.inc.php:700
+#: templates/admin/dashboard/dashboard.inc.php:715
 msgid "Gravity Forms integration for wpDataTables"
 msgstr "Gravity Forms integracija za wpDataTables"
 
 #: templates/admin/addons/addons.inc.php:197
-#: templates/admin/dashboard/dashboard.inc.php:704
+#: templates/admin/dashboard/dashboard.inc.php:719
 msgid ""
 "Tool that adds \"Gravity Form\" as a new table type and allows you to create "
 "wpDataTables from Gravity Forms entries data."
@@ -1701,55 +1701,55 @@ msgid "Duplicate database table"
 msgstr "Podvojena tabela baz podatkov"
 
 #: templates/admin/browse/table_list.inc.php:50
-#: templates/admin/chart_wizard/chart_wizard.inc.php:115
+#: templates/admin/chart_wizard/chart_wizard.inc.php:117
 msgid " View Documentation"
 msgstr "Ogled dokumentacije"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:54
+#: templates/admin/chart_wizard/chart_wizard.inc.php:56
 msgid "Chart title & type"
 msgstr "Naslov in vrsta grafikona"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:56
+#: templates/admin/chart_wizard/chart_wizard.inc.php:58
 #: templates/admin/table-settings/table_settings_block.inc.php:69
 msgid "Data source"
 msgstr "Vir podatkov"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:58
+#: templates/admin/chart_wizard/chart_wizard.inc.php:60
 msgid "Data range"
 msgstr "Obseg podatkov"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:60
+#: templates/admin/chart_wizard/chart_wizard.inc.php:62
 msgid "Formatting and preview"
 msgstr "Oblikovanje in predogled"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:62
+#: templates/admin/chart_wizard/chart_wizard.inc.php:64
 msgid "Save and get shortcode"
 msgstr "Shranite in dobite kratko kodo"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:106
+#: templates/admin/chart_wizard/chart_wizard.inc.php:108
 msgid "Browse charts"
 msgstr "Brskanje po grafikonih"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:110
+#: templates/admin/chart_wizard/chart_wizard.inc.php:112
 #: templates/admin/constructor/constructor.inc.php:61
 msgid "Next "
 msgstr "Naslednji"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:112
+#: templates/admin/chart_wizard/chart_wizard.inc.php:114
 #: templates/admin/constructor/constructor.inc.php:63
 msgid " Previous"
 msgstr "Prejšnja"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:139
+#: templates/admin/chart_wizard/chart_wizard.inc.php:141
 #: templates/admin/chart_wizard/steps/step4.inc.php:13
 msgid "Series"
 msgstr "Serije"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:143
+#: templates/admin/chart_wizard/chart_wizard.inc.php:145
 msgid "Label"
 msgstr "Oznaka"
 
-#: templates/admin/chart_wizard/chart_wizard.inc.php:157
+#: templates/admin/chart_wizard/chart_wizard.inc.php:159
 #: templates/admin/settings/tabs/color_and_font_settings.php:680
 #: templates/admin/table-settings/table_settings_block.inc.php:2407
 msgid "Color"
@@ -1844,6 +1844,24 @@ msgstr "Lestvica s svečami"
 #: templates/admin/chart_wizard/steps/charts_pick/google_charts.inc.php:180
 msgid "Waterfall chart"
 msgstr "Shema slapov"
+
+#: templates/admin/chart_wizard/steps/charts_pick/google_charts.inc.php:192
+#, fuzzy
+#| msgid "Line chart"
+msgid "Region Geochart"
+msgstr "Črtni grafikon"
+
+#: templates/admin/chart_wizard/steps/charts_pick/google_charts.inc.php:204
+#, fuzzy
+#| msgid "Bar chart"
+msgid "Marker Geochart"
+msgstr "Stolpični grafikon"
+
+#: templates/admin/chart_wizard/steps/charts_pick/google_charts.inc.php:216
+#, fuzzy
+#| msgid "Pie chart"
+msgid "Text Geochart"
+msgstr "Tortni grafikon"
 
 #: templates/admin/chart_wizard/steps/charts_pick/highcharts.inc.php:26
 msgid "Spline chart"
@@ -1942,6 +1960,22 @@ msgstr ""
 #: templates/admin/chart_wizard/steps/step1.inc.php:53
 #: templates/admin/chart_wizard/steps/step1.inc.php:56
 #: templates/admin/chart_wizard/steps/step1.inc.php:59
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:105
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:120
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:135
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:149
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:272
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:287
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:301
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:315
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:437
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:452
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:497
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:512
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:526
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:570
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:584
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:627
 #: templates/admin/getting-started/getting_started.inc.php:132
 #: templates/admin/getting-started/getting_started.inc.php:144
 #: templates/admin/getting-started/getting_started.inc.php:156
@@ -1974,6 +2008,13 @@ msgstr ""
 #: templates/admin/chart_wizard/steps/step2.inc.php:15
 msgid "Pick a wpDataTable"
 msgstr "Izberite wpDataTable"
+
+#: templates/admin/chart_wizard/steps/step2.inc.php:31
+msgid ""
+"You are trying to use a Simple table to create a chart, which is not "
+"possible at the moment. Please try using any other data table to create a "
+"chart."
+msgstr ""
 
 #: templates/admin/chart_wizard/steps/step3.inc.php:7
 msgid "Columns in the data source"
@@ -2835,7 +2876,7 @@ msgstr ""
 "mogoče le tabele na osnovi SQL."
 
 #: templates/admin/constructor/steps/constructor_1.inc.php:47
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:601
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:340
 #: templates/admin/welcome_page/welcome_page.inc.php:124
 msgid "Create a data table manually"
 msgstr ""
@@ -2885,12 +2926,14 @@ msgid "Table name"
 msgstr "Ime tabele"
 
 #: templates/admin/constructor/steps/constructor_1_0.inc.php:11
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:43
+#, fuzzy
+#| msgid ""
+#| "What is the header of the table that will be visible to the site visitors"
 msgid ""
-"What is the header of the table that will be visible to the site visitors"
+"What is the header of the table that will be visible to the site visitors?"
 msgstr "Kakšna je glava tabele, ki bo vidna obiskovalcem spletnega mesta"
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:24
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:25
 #: templates/admin/table-settings/simple_table_settings_block.inc.php:374
 #: templates/admin/table-settings/table_settings_block.inc.php:489
 #, fuzzy
@@ -2898,11 +2941,11 @@ msgstr "Kakšna je glava tabele, ki bo vidna obiskovalcem spletnega mesta"
 msgid "Table description"
 msgstr "Položaj naslova"
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:26
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:27
 msgid "What is the description of the table? (optional)"
 msgstr ""
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:32
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:33
 #: templates/admin/table-settings/simple_table_settings_block.inc.php:35
 #: templates/admin/table-settings/table_settings_block.inc.php:35
 #, fuzzy
@@ -2910,15 +2953,21 @@ msgstr ""
 msgid "Insert description of your wpDataTable"
 msgstr "Gravity Forms integracija za wpDataTables"
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:41
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:42
 msgid "Number of columns"
 msgstr "Število komentarjev za prikaz: "
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:63
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:44
+#, fuzzy
+#| msgid "Please choose input type for columns that you want to edit"
+msgid "What is the number columns that you need?"
+msgstr "Izberite vrsto vnosa za stolpce, ki jih želite urediti"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:64
 msgid "Number of rows"
 msgstr ""
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:65
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:66
 msgid ""
 "How many columns table will it have? You can also modify it below with + and "
 "x buttons"
@@ -2926,9 +2975,229 @@ msgstr ""
 "Koliko tabel bo imel stolpci? Spodaj jo lahko tudi spremenite s tipkama + in "
 "x"
 
-#: templates/admin/constructor/steps/constructor_1_0.inc.php:87
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:88
 msgid "Generate table"
 msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:95
+msgid "PRICING TABLES TEMPLATES"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:111
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 1"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:126
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 2"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:141
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 3"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:155
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 4"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:168
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:187
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:206
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:225
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:246
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:334
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:353
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:372
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:391
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:420
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:480
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:554
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:611
+#, fuzzy
+#| msgid "Create Table"
+msgid "Create table"
+msgstr "Ustvari tabelo"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:171
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:190
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:209
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:228
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:249
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:337
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:356
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:375
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:394
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:423
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:483
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:557
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:614
+#, fuzzy
+#| msgid "Show title"
+msgid "Show live"
+msgstr "Pokaži naslov "
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:176
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 5"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:195
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 6"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:214
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 7"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:233
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 8"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:254
+#, fuzzy
+#| msgid "Print"
+msgid "Pricing table 9"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:262
+msgid "COMPARISON TABLES TEMPLATES"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:278
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 1"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:293
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 2"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:307
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 3"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:321
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 4"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:342
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 5"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:361
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 6"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:380
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 7"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:399
+#, fuzzy
+#| msgid "Print"
+msgid "Comparison table 8"
+msgstr "Tiskaj"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:407
+msgid "PEDIGREE TABLES TEMPLATES"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:428
+msgid "Pedigree table 1"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:443
+msgid "Pedigree table 2"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:458
+msgid "Pedigree table 3"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:467
+msgid "TABLES WITH MERGED CELLS TEMPLATES"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:488
+msgid "Table with merge cells 1"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:503
+msgid "Table with merge cells 2"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:518
+msgid "Table with merge cells 3"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:532
+msgid "Table with merge cells 4"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:541
+msgid "EMPLOYEE TABLES TEMPLATES"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:562
+#, fuzzy
+#| msgid "Export chart"
+msgid "Employee table 1"
+msgstr "Izvozi grafikon"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:576
+#, fuzzy
+#| msgid "Export chart"
+msgid "Employee table 2"
+msgstr "Izvozi grafikon"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:590
+#, fuzzy
+#| msgid "Export chart"
+msgid "Employee table 3"
+msgstr "Izvozi grafikon"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:598
+msgid "SCHEDULING TABLES TEMPLATES"
+msgstr ""
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:619
+#, fuzzy
+#| msgid "Search table"
+msgid "Scheduling table 1"
+msgstr "Tabela iskanja"
+
+#: templates/admin/constructor/steps/constructor_1_0.inc.php:633
+#, fuzzy
+#| msgid "Search table"
+msgid "Scheduling table 2"
+msgstr "Tabela iskanja"
 
 #: templates/admin/dashboard/dashboard.inc.php:45
 msgid "Welcome to wpDataTables "
@@ -3081,14 +3350,13 @@ msgid "View Comparison"
 msgstr ""
 
 #: templates/admin/dashboard/dashboard.inc.php:372
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:48
 msgid ""
 "Get the most out of wpDataTables by upgrading to Premium and unlocking all "
 "of the powerful features."
 msgstr ""
 
 #: templates/admin/dashboard/dashboard.inc.php:376
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:518
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:236
 #: templates/admin/table-settings/table_settings_block.inc.php:2680
 #, fuzzy
 #| msgid "Displayed header"
@@ -3096,7 +3364,7 @@ msgid "Fixed headers"
 msgstr "Prikazana glava"
 
 #: templates/admin/dashboard/dashboard.inc.php:379
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:539
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:257
 #: templates/admin/table-settings/table_settings_block.inc.php:2574
 #: templates/admin/table-settings/table_settings_block.inc.php:2583
 #, fuzzy
@@ -3105,142 +3373,171 @@ msgid "Fixed columns"
 msgstr "Dodaj stolpec"
 
 #: templates/admin/dashboard/dashboard.inc.php:382
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:299
+#, fuzzy
+#| msgid "If cell value"
+msgid "Transform value"
+msgstr "Če je vrednost celice"
+
+#: templates/admin/dashboard/dashboard.inc.php:385
+#, fuzzy
+#| msgid "Highcharts"
+msgid "Highcharts Stock"
+msgstr "Highcharts"
+
+#: templates/admin/dashboard/dashboard.inc.php:388
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:154
+msgid "Folders/Categories for tables"
+msgstr ""
+
+#: templates/admin/dashboard/dashboard.inc.php:391
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:175
+msgid "Folders/Categories for charts"
+msgstr ""
+
+#: templates/admin/dashboard/dashboard.inc.php:394
+#, fuzzy
+#| msgid "Charts"
+msgid "GeoCharts"
+msgstr "Grafikoni"
+
+#: templates/admin/dashboard/dashboard.inc.php:397
 msgid "Create a table manually"
 msgstr "Ročno ustvarite tabelo"
 
-#: templates/admin/dashboard/dashboard.inc.php:385
+#: templates/admin/dashboard/dashboard.inc.php:400
 #, fuzzy
 #| msgid "Hide on tablets"
 msgid "Update manual tables"
 msgstr "Skrij se v tabletah"
 
-#: templates/admin/dashboard/dashboard.inc.php:388
+#: templates/admin/dashboard/dashboard.inc.php:403
 msgid "Creating tables from Google Spreadsheet"
 msgstr "Ustvarjanje tabel iz Google Spreadsheet-a"
 
-#: templates/admin/dashboard/dashboard.inc.php:391
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:662
+#: templates/admin/dashboard/dashboard.inc.php:406
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:400
 msgid "Creating tables via Google Sheet API"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:394
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:682
+#: templates/admin/dashboard/dashboard.inc.php:409
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:420
 msgid "Creating tables from Private Google Spreadsheet"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:397
+#: templates/admin/dashboard/dashboard.inc.php:412
 msgid "Creating MySQL-based tables from database"
 msgstr "Ustvarjanje tabel, ki temeljijo na MySQL, iz baze podatkov"
 
-#: templates/admin/dashboard/dashboard.inc.php:400
+#: templates/admin/dashboard/dashboard.inc.php:415
 msgid "Creating MySQL-based tables from Wordpress post types"
 msgstr "Ustvarjanje tabel, ki temeljijo na MySQL, iz vrst objav Wordpress"
 
-#: templates/admin/dashboard/dashboard.inc.php:403
+#: templates/admin/dashboard/dashboard.inc.php:418
 msgid "Creating tables where users can see and edit own data"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:406
+#: templates/admin/dashboard/dashboard.inc.php:421
 msgid "Creating table relations (Foreign key)"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:409
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:804
+#: templates/admin/dashboard/dashboard.inc.php:424
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:520
 msgid "Advanced filtering"
 msgstr "Napredno filtriranje"
 
-#: templates/admin/dashboard/dashboard.inc.php:412
+#: templates/admin/dashboard/dashboard.inc.php:427
 msgid "Pre-filtering tables through URL"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:415
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:581
+#: templates/admin/dashboard/dashboard.inc.php:430
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:320
 msgid "Table Customization"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:418
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:743
+#: templates/admin/dashboard/dashboard.inc.php:433
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:480
 #: templates/admin/table-settings/table_settings_block.inc.php:211
 msgid "Server-side processing"
 msgstr "Obdelava na strani strežnika"
 
-#: templates/admin/dashboard/dashboard.inc.php:421
+#: templates/admin/dashboard/dashboard.inc.php:436
 msgid "Multiple databases support (MySQL,MS SQL and PostgreSQL)"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:424
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:824
+#: templates/admin/dashboard/dashboard.inc.php:439
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:540
 msgid "Front-end table editing"
 msgstr "Urejanje mize v sprednjem delu"
 
-#: templates/admin/dashboard/dashboard.inc.php:427
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:844
+#: templates/admin/dashboard/dashboard.inc.php:442
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:560
 msgid "Excel-like editing"
 msgstr "Urejanje v Excelu"
 
-#: templates/admin/dashboard/dashboard.inc.php:430
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:884
+#: templates/admin/dashboard/dashboard.inc.php:445
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:600
 msgid "Creating charts with ApexCharts"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:433
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:864
+#: templates/admin/dashboard/dashboard.inc.php:448
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:580
 msgid "Creating charts with Highcharts"
 msgstr "Ustvarjanje grafikonov z Highchartsi"
 
-#: templates/admin/dashboard/dashboard.inc.php:436
+#: templates/admin/dashboard/dashboard.inc.php:451
 msgid "Export Highcharts data to CSV and XLS files"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:439
+#: templates/admin/dashboard/dashboard.inc.php:454
 msgid "Follow table filtering in charts"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:442
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:944
+#: templates/admin/dashboard/dashboard.inc.php:457
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:640
 #: templates/admin/table-settings/column_settings_panel.inc.php:60
 msgid "Conditional formatting"
 msgstr "Pogojno oblikovanje"
 
-#: templates/admin/dashboard/dashboard.inc.php:445
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:964
+#: templates/admin/dashboard/dashboard.inc.php:460
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:660
 msgid "Calculating Tools"
 msgstr "Orodja za izračun"
 
-#: templates/admin/dashboard/dashboard.inc.php:448
+#: templates/admin/dashboard/dashboard.inc.php:463
 msgid "Formula columns"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:451
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1005
+#: templates/admin/dashboard/dashboard.inc.php:466
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:700
 #, fuzzy
 #| msgid "Column header"
 msgid "Rotate column headers"
 msgstr "Glava stolpca"
 
-#: templates/admin/dashboard/dashboard.inc.php:454
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:984
+#: templates/admin/dashboard/dashboard.inc.php:469
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:680
 #: templates/admin/table-settings/table_settings_block.inc.php:89
 msgid "Placeholders"
 msgstr "Imetniki mest"
 
-#: templates/admin/dashboard/dashboard.inc.php:457
+#: templates/admin/dashboard/dashboard.inc.php:472
 msgid "Premium support"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:461
+#: templates/admin/dashboard/dashboard.inc.php:476
 msgid "Get Premium Today"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:468
+#: templates/admin/dashboard/dashboard.inc.php:483
 msgid "News Blog"
 msgstr "Blog novic"
 
-#: templates/admin/dashboard/dashboard.inc.php:473
+#: templates/admin/dashboard/dashboard.inc.php:488
 msgid "Checkout useful articles from wpdatatables.com"
 msgstr "Oglejte si uporabne članke s spletnega mesta wpdatatables.com"
 
-#: templates/admin/dashboard/dashboard.inc.php:520
+#: templates/admin/dashboard/dashboard.inc.php:535
 msgid ""
 "Never miss notifications about new cool features, promotions,\n"
 "                                    giveaways or freebies – subscribe to our "
@@ -3253,15 +3550,15 @@ msgstr ""
 "                                    približno 1 sporočilo na mesec in nikoli "
 "neželeno!"
 
-#: templates/admin/dashboard/dashboard.inc.php:536
+#: templates/admin/dashboard/dashboard.inc.php:551
 msgid "wpDataTables Addons"
 msgstr "wpDataTables Addons"
 
-#: templates/admin/dashboard/dashboard.inc.php:537
+#: templates/admin/dashboard/dashboard.inc.php:552
 msgid "Premium "
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:540
+#: templates/admin/dashboard/dashboard.inc.php:555
 msgid ""
 "While wpDataTables itself provides quite a large amount of features and "
 "unlimited customisation, flexibility, you can achieve even more with our "
@@ -3271,34 +3568,34 @@ msgstr ""
 "prilagajanje, prilagodljivost, lahko z našimi premium dodatki dosežete še "
 "več."
 
-#: templates/admin/dashboard/dashboard.inc.php:542
+#: templates/admin/dashboard/dashboard.inc.php:557
 msgid ""
 "(except Forminator Forms integration which is free and can be used with Lite "
 "version as well, all others requires wpDataTables Premium version)"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:550
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:74
+#: templates/admin/dashboard/dashboard.inc.php:565
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:73
 msgid "Free"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:561
+#: templates/admin/dashboard/dashboard.inc.php:576
 msgid ""
 "Tool that adds \"Forminator Form\" as a new table type and allows you to "
 "create wpDataTables from Forminator Forms submissions."
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:568
-#: templates/admin/dashboard/dashboard.inc.php:604
-#: templates/admin/dashboard/dashboard.inc.php:631
-#: templates/admin/dashboard/dashboard.inc.php:657
-#: templates/admin/dashboard/dashboard.inc.php:684
-#: templates/admin/dashboard/dashboard.inc.php:710
-#: templates/admin/dashboard/dashboard.inc.php:743
+#: templates/admin/dashboard/dashboard.inc.php:583
+#: templates/admin/dashboard/dashboard.inc.php:619
+#: templates/admin/dashboard/dashboard.inc.php:646
+#: templates/admin/dashboard/dashboard.inc.php:672
+#: templates/admin/dashboard/dashboard.inc.php:699
+#: templates/admin/dashboard/dashboard.inc.php:725
+#: templates/admin/dashboard/dashboard.inc.php:758
 msgid "Learn More"
 msgstr "Preberi več"
 
-#: templates/admin/dashboard/dashboard.inc.php:598
+#: templates/admin/dashboard/dashboard.inc.php:613
 msgid ""
 "A wpDataTables addon which allows showing additional details for a specific "
 "row in a popup or a separate page or post."
@@ -3306,7 +3603,7 @@ msgstr ""
 "Dodatek wpDataTables, ki omogoča prikazovanje dodatnih podrobnosti za "
 "določeno vrstico v pojavnem oknu ali na ločeni strani ali objavi."
 
-#: templates/admin/dashboard/dashboard.inc.php:625
+#: templates/admin/dashboard/dashboard.inc.php:640
 msgid ""
 "An add-on for wpDataTables that provides powerful filtering features: "
 "cascade filtering, applying filters on button click, hide table before "
@@ -3316,32 +3613,32 @@ msgstr ""
 "filtriranje, nanašanje filtrov na klik gumba, skrivanje tabele pred "
 "filtriranjem."
 
-#: templates/admin/dashboard/dashboard.inc.php:721
+#: templates/admin/dashboard/dashboard.inc.php:736
 #, fuzzy
 #| msgid "Need booking plugin?"
 msgid "Need a free booking plugin?"
 msgstr "Potrebujete vtičnik za rezervacije?"
 
-#: templates/admin/dashboard/dashboard.inc.php:730
+#: templates/admin/dashboard/dashboard.inc.php:745
 msgid "Appointments and Events WordPress Booking Plugin"
 msgstr "Sestanki in dogodki WordPress Vtičnik za rezervacijo"
 
-#: templates/admin/dashboard/dashboard.inc.php:736
+#: templates/admin/dashboard/dashboard.inc.php:751
 msgid "Rating: 4.3 - 255 reviews"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:754
+#: templates/admin/dashboard/dashboard.inc.php:769
 #: templates/admin/getting-started/getting_started.inc.php:184
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1041
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1150
 #: templates/admin/support/support.inc.php:78
 #: templates/admin/system-info/system_info.inc.php:534
 #: templates/admin/welcome_page/welcome_page.inc.php:358
 msgid "Made by"
 msgstr "Narejeno v"
 
-#: templates/admin/dashboard/dashboard.inc.php:762
+#: templates/admin/dashboard/dashboard.inc.php:777
 #: templates/admin/getting-started/getting_started.inc.php:192
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1049
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1158
 #: templates/admin/support/support.inc.php:45
 #: templates/admin/support/support.inc.php:86
 #: templates/admin/system-info/system_info.inc.php:542
@@ -3350,9 +3647,9 @@ msgstr "Narejeno v"
 msgid "Documentation"
 msgstr "Dokumentacija"
 
-#: templates/admin/dashboard/dashboard.inc.php:766
+#: templates/admin/dashboard/dashboard.inc.php:781
 #: templates/admin/getting-started/getting_started.inc.php:196
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1053
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1162
 #: templates/admin/support/support.inc.php:24
 #: templates/admin/support/support.inc.php:90
 #: templates/admin/system-info/system_info.inc.php:546
@@ -3487,142 +3784,207 @@ msgstr "Naročnine"
 msgid "Lite vs Premium comparison"
 msgstr "Primerjava Lite proti Premium"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:52
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1033
-msgid "Go Premium Now"
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:48
+msgid ""
+"Get the most out of wpDataTables Premium by using all of the powerful "
+"features."
 msgstr ""
+"Izkoristite vse prednosti wpDataTables Premium z uporabo vseh zmogljivih "
+"funkcij."
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:58
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:50
+msgid "Thanks for choosing wpDataTables Premium"
+msgstr "Hvala za izbiro wpDataTables Premium"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:57
 msgid "Features"
 msgstr "Značilnosti"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:61
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:60
 msgid "Lite"
 msgstr "Lite"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:64
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:122
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:126
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:130
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:63
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:121
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:125
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:129
 msgid "Premium"
 msgstr "Premium"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:70
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:69
 msgid "Licence"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:78
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:77
 msgid "Basic"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:82
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:81
 msgid "Pro"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:86
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:85
 msgid "Dev"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:91
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:90
 msgid "Domain"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:99
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:98
 msgid "1 domain"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:103
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:102
 msgid "3 domains"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:107
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:106
 msgid "Unlimited domains"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:112
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:111
 msgid "Support"
 msgstr "Podpora"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:116
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:115
 msgid "Limited"
 msgstr "Omejeno"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:118
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:117
 msgid "Response time is slow and can be up to 3 business days."
 msgstr "Odzivni čas je počasen in lahko traja do 3 delovne dni."
 
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:134
+#, fuzzy
+#| msgid "Creating charts with Highcharts"
+msgid "Creating charts with Highstock"
+msgstr "Ustvarjanje grafikonov z Highchartsi"
+
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:135
-msgid "Creating tables from Excel files"
-msgstr "Ustvarjanje tabel iz datotek Excela"
-
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:155
-#, fuzzy
-#| msgid "Creating tables from CSV files"
-msgid "Creating data tables from CSV files"
-msgstr "Ustvarjanje tabel iz datotek CSV"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:175
-#, fuzzy
-#| msgid "Creating tables from JSON files"
-msgid "Creating data tables from JSON files"
-msgstr "Ustvarjanje tabel iz datotek JSON"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:195
-#, fuzzy
-#| msgid "Creating tables from JSON files"
-msgid "Creating data tables from Nested JSON data"
-msgstr "Ustvarjanje tabel iz datotek JSON"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:215
-msgid "JSON Authentication"
-msgstr ""
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:216
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:317
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:338
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:519
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:540
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:561
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:622
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:683
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:784
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:885
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:906
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:985
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:176
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:196
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:217
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:237
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:258
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:279
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:300
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:721
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:741
 #: templates/admin/table-settings/table_settings_block.inc.php:93
 #: templates/admin/table-settings/table_settings_block.inc.php:99
 msgid "NEW!"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:236
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:195
+msgid "Standard columns for manual tables"
+msgstr ""
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:216
+msgid "New global time format with seconds"
+msgstr ""
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:278
+msgid "Set the type in database for each column"
+msgstr ""
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:360
+#, fuzzy
+#| msgid "Creating tables from Excel files"
+msgid "Update manual tables from source file"
+msgstr "Ustvarjanje tabel iz datotek Excela"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:380
+#, fuzzy
+#| msgid "Creating tables from Google Spreadsheet"
+msgid "Creating data tables from Google Spreadsheet"
+msgstr "Ustvarjanje tabel iz Google Spreadsheet-a"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:440
+#, fuzzy
+#| msgid "Creating MySQL-based tables from database"
+msgid "Creating MySQL-based data tables from database"
+msgstr "Ustvarjanje tabel, ki temeljijo na MySQL, iz baze podatkov"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:460
+#, fuzzy
+#| msgid "Creating MySQL-based tables from Wordpress post types"
+msgid "Creating MySQL-based data tables from Wordpress post types"
+msgstr "Ustvarjanje tabel, ki temeljijo na MySQL, iz vrst objav Wordpress"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:500
+msgid "Multiple databases support (MySQL, MS SQL and PostgreSQL)"
+msgstr "Podpora več baz podatkov (MySQL, MS SQL in PostgreSQL)"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:620
+#: templates/admin/table-settings/simple_table_settings_block.inc.php:77
+msgid "Responsive"
+msgstr "Odziven"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:720
+msgid "Templates for Simple tables"
+msgstr ""
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:740
+msgid "Full WCAG Compatibility"
+msgstr ""
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:760
+msgid "Creating tables from Excel files"
+msgstr "Ustvarjanje tabel iz datotek Excela"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:780
+#, fuzzy
+#| msgid "Creating tables from CSV files"
+msgid "Creating data tables from CSV files"
+msgstr "Ustvarjanje tabel iz datotek CSV"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:800
+#, fuzzy
+#| msgid "Creating tables from JSON files"
+msgid "Creating data tables from JSON files"
+msgstr "Ustvarjanje tabel iz datotek JSON"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:820
+#, fuzzy
+#| msgid "Creating tables from JSON files"
+msgid "Creating data tables from Nested JSON data"
+msgstr "Ustvarjanje tabel iz datotek JSON"
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:840
+msgid "JSON Authentication"
+msgstr ""
+
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:860
 #, fuzzy
 #| msgid "Creating tables from XML files"
 msgid "Creating data tables from XML files"
 msgstr "Ustvarjanje tabel iz datotek XML"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:256
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:880
 #, fuzzy
 #| msgid "Creating tables from Serialized PHP array"
 msgid "Creating data tables from Serialized PHP array"
 msgstr "Ustvarjanje tabel iz serializiranega niza PHP"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:276
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:900
 msgid "Create a Simple tables"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:316
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:940
 msgid "Caching data"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:337
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:960
 msgid "Auto update caching data"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:358
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:980
 msgid "Column types"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:358
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:980
 #, fuzzy
 #| msgid ""
 #| "Column types <span style=\"font-size: 8px;\">(String, Integer, Float, "
@@ -3633,14 +3995,14 @@ msgstr ""
 "Vrste stolpcev <span style=\"font-size: 8px;\">(niz, celo število, plovec, "
 "datum, datum, čas, slika, povezava URL in e-pošta)</span>"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:378
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1000
 #: templates/admin/table-settings/column_settings_panel.inc.php:47
 #: templates/admin/table-settings/table_settings_block.inc.php:930
 #: templates/admin/table-settings/table_settings_block.inc.php:938
 msgid "Sorting"
 msgstr "Razvrščanje"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:398
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1020
 #: templates/admin/settings/tabs/color_and_font_settings.php:653
 #: templates/admin/table-settings/table_settings_block.inc.php:792
 #: templates/admin/table-settings/table_settings_block.inc.php:800
@@ -3648,80 +4010,31 @@ msgstr "Razvrščanje"
 msgid "Pagination"
 msgstr "Paginiranje (zaznamovanje strani)"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:418
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1040
 msgid "Export table data"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:418
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1040
 msgid "(Export to Excel, CSV, PDF, Copy and Print options))"
 msgstr ""
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:438
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1060
 msgid "Column Customization"
 msgstr "Prilagajanje stolpcev"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:458
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1080
 msgid "Global Table Customization"
 msgstr "Prilagoditev globalne tabele"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:478
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1100
 msgid "Creating Google charts"
 msgstr "Ustvarjanje Google lestvic"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:498
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1120
 msgid "Creating charts with Chart.js"
 msgstr "Ustvarjanje grafikonov s Chart.js"
 
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:560
-#, fuzzy
-#| msgid "If cell value"
-msgid "Transform cell value"
-msgstr "Če je vrednost celice"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:621
-#, fuzzy
-#| msgid "Creating tables from Excel files"
-msgid "Update manual tables from source file"
-msgstr "Ustvarjanje tabel iz datotek Excela"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:642
-#, fuzzy
-#| msgid "Creating tables from Google Spreadsheet"
-msgid "Creating data tables from Google Spreadsheet"
-msgstr "Ustvarjanje tabel iz Google Spreadsheet-a"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:703
-#, fuzzy
-#| msgid "Creating MySQL-based tables from database"
-msgid "Creating MySQL-based data tables from database"
-msgstr "Ustvarjanje tabel, ki temeljijo na MySQL, iz baze podatkov"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:723
-#, fuzzy
-#| msgid "Creating MySQL-based tables from Wordpress post types"
-msgid "Creating MySQL-based data tables from Wordpress post types"
-msgstr "Ustvarjanje tabel, ki temeljijo na MySQL, iz vrst objav Wordpress"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:763
-msgid "Multiple databases support (MySQL, MS SQL and PostgreSQL)"
-msgstr "Podpora več baz podatkov (MySQL, MS SQL in PostgreSQL)"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:783
-msgid "Set the type in database for each column"
-msgstr ""
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:905
-#, fuzzy
-#| msgid "Creating charts with Highcharts"
-msgid "Creating charts with Highcharts Stock"
-msgstr "Ustvarjanje grafikonov z Highchartsi"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:924
-#: templates/admin/table-settings/simple_table_settings_block.inc.php:77
-msgid "Responsive"
-msgstr "Odziven"
-
-#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1027
+#: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1142
 msgid ""
 "* Please note that wpDataTables add-ons are not included in premium version "
 "of plugin."
@@ -3810,8 +4123,8 @@ msgid "Use stable GoogleCharts version"
 msgstr ""
 
 #: templates/admin/settings/tabs/charts.php:9
-#: templates/admin/settings/tabs/charts.php:27
-#: templates/admin/settings/tabs/charts.php:45
+#: templates/admin/settings/tabs/charts.php:26
+#: templates/admin/settings/tabs/charts.php:48
 msgid ""
 "Choose weather to use the chart engine library directly from the CDN (as "
 "they get updated, some features may break), or use the latest version "
@@ -3820,19 +4133,31 @@ msgid ""
 msgstr ""
 
 #: templates/admin/settings/tabs/charts.php:16
-#: templates/admin/settings/tabs/charts.php:34
-#: templates/admin/settings/tabs/charts.php:52
+#: templates/admin/settings/tabs/charts.php:36
+#: templates/admin/settings/tabs/charts.php:59
 #, fuzzy
 #| msgid "Show table title"
 msgid "Use stable version"
 msgstr "Prikaži naslov tabele"
 
-#: templates/admin/settings/tabs/charts.php:24
+#: templates/admin/settings/tabs/charts.php:23
 msgid "Use stable HighChart version"
 msgstr ""
 
-#: templates/admin/settings/tabs/charts.php:42
+#: templates/admin/settings/tabs/charts.php:45
 msgid "Use stable ApexChart version"
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:70
+msgid "Google Maps API key"
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:72
+msgid "Insert Google Maps API key"
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:79
+msgid "Please enter your Google Maps API key"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:18
@@ -7631,22 +7956,22 @@ msgstr ""
 msgid "Please confirm deletion. There is no undo!"
 msgstr "Potrdite brisanje. Razveljavitve ni!"
 
-#: wpdatatables.php:49
+#: wpdatatables.php:48
 #, fuzzy
 #| msgid "Panning"
 msgid "Warning:"
 msgstr "Paniranje"
 
-#: wpdatatables.php:51
+#: wpdatatables.php:50
 msgid ""
 "Your site is running an insecure version of PHP that is no longer supported."
 msgstr ""
 
-#: wpdatatables.php:57
+#: wpdatatables.php:56
 msgid "Note:"
 msgstr ""
 
-#: wpdatatables.php:59
+#: wpdatatables.php:58
 msgid ""
 "The wpDataTables plugin is disabled on your site until you fix the issue."
 msgstr ""
@@ -8888,16 +9213,6 @@ msgstr ""
 #~ "HighCharts, Chart.js ali Google Charts"
 
 #~ msgid ""
-#~ "Get the most out of wpDataTables Premium by using all of the powerful "
-#~ "features."
-#~ msgstr ""
-#~ "Izkoristite vse prednosti wpDataTables Premium z uporabo vseh zmogljivih "
-#~ "funkcij."
-
-#~ msgid "Thanks for choosing wpDataTables Premium"
-#~ msgstr "Hvala za izbiro wpDataTables Premium"
-
-#~ msgid ""
 #~ "Export table data <span style=\"font-size: 8px;\">(Export to Excel, CSV, "
 #~ "PDF, Copy and Print options)</span>"
 #~ msgstr ""
@@ -9254,9 +9569,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Oglejte si naš razdelek s pogostimi vprašanji in poiščite odgovore na "
 #~ "priljubljena vprašanja o funkcionalnosti vtičnikov in še veliko več."
-
-#~ msgid "Please choose input type for columns that you want to edit"
-#~ msgstr "Izberite vrsto vnosa za stolpce, ki jih želite urediti"
 
 #~ msgid "Prev"
 #~ msgstr "Prejšnji"

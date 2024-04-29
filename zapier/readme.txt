@@ -2,9 +2,9 @@
 Contributors: zapier
 Tags: zapier, automation, integration, workflow, dataflow
 Requires at least: 5.5
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: Expat (MIT License)
 License URI: https://spdx.org/licenses/MIT.html
 
@@ -105,3 +105,8 @@ If you have any feature requests, issues, or questions with Zapier for WordPress
 = 1.1.0 =
 
 * Add endpoint to retrieve support fields for custom-type posts.
+
+= 1.2.0 =
+
+* Add endpoint to retrieve user roles.
+* Add session validation for custom endpoints.

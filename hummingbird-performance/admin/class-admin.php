@@ -103,6 +103,8 @@ class Admin {
 		// Filter built-in wpmudev branding script.
 		add_filter( 'wpmudev_whitelabel_plugin_pages', array( $this, 'builtin_wpmudev_branding' ) );
 
+		add_action( 'admin_head', array( $this, 'wphb_style_upgrade_pro_upsell' ) );
+
 		// Triggered when Hummingbird Admin is loaded.
 		do_action( 'wphb_admin_loaded' );
 	}
@@ -453,4 +455,43 @@ class Admin {
 		return $submenu_file;
 	}
 
+	/**
+	 * Apply inline styles to the "Upgrade to Pro" option in the left sidebar menu.
+	 */
+	public function wphb_style_upgrade_pro_upsell() {
+		if ( Utils::is_member() ) {
+			return;
+		}
+
+		global $submenu;
+		$parent_slug = 'wphb';
+		$position    = array_filter(
+			$submenu[ $parent_slug ],
+			function ( $menu_item ) {
+				return false !== strpos( $menu_item[2], 'utm_campaign=hummingbird_submenu_upsell' );
+			}
+		);
+
+		$position = key( $position );
+
+		if ( empty( $position ) ) {
+			return;
+		}
+
+		$submenu[ $parent_slug ][ $position ][] = 'wphb-upgrade-pro-submenu-upsell'; // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
+
+		echo '<style>
+			a.wphb-upgrade-pro-submenu-upsell {
+				background-color: #8d00b1 !important;
+				color: #fff !important;
+				font-weight: 600 !important;
+			}
+		</style>';
+
+		echo '<script>
+				jQuery(function() {
+					jQuery(\'#toplevel_page_wphb ul.wp-submenu li.wphb-upgrade-pro-submenu-upsell a[href^="https://wpmudev.com"]\').attr("target", "_blank");
+				});
+			</script>';
+	}
 }

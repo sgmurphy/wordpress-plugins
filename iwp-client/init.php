@@ -4,7 +4,7 @@ Plugin Name: InfiniteWP - Client
 Plugin URI: http://infinitewp.com/
 Description: This is the client plugin of InfiniteWP that communicates with the InfiniteWP Admin panel.
 Author: Revmakx
-Version: 1.12.5
+Version: 1.13.0
 Author URI: http://www.revmakx.com
 Network: true
 */
@@ -29,7 +29,7 @@ if ( ! defined('ABSPATH') )
     die();
 
 if(!defined('IWP_MMB_CLIENT_VERSION'))
-	define('IWP_MMB_CLIENT_VERSION', '1.12.5');
+	define('IWP_MMB_CLIENT_VERSION', '1.13.0');
 
 if ( !defined('IWP_MMB_XFRAME_COOKIE')){
 	$siteurl = function_exists('get_site_option') ? get_site_option( 'siteurl' ) : get_option('siteurl');
@@ -172,7 +172,8 @@ if( !function_exists ('iwp_mmb_parse_request')) {
 			$request_data 	= iwp_recursive_parse_args( $request_data, $defaults );
 
 			if (isset($GLOBALS['IWP_JSON_COMMUNICATION']) && $GLOBALS['IWP_JSON_COMMUNICATION']) {
-				$signature  = !empty($request_data['signature'])?base64_decode($request_data['signature']): array();
+				$signature  = !empty($request_data['signature'])?base64_decode($request_data['signature']): '';
+				$signature_new  = !empty($request_data['signature_new'])?base64_decode($request_data['signature_new']): '';
 			}else{
 				$signature  = $request_data['signature'];
 			}
@@ -213,6 +214,7 @@ if( !function_exists ('iwp_mmb_parse_request')) {
 				$params['id'] = $id;
 				$params['iwp_action'] = $action;
 				$params['signature'] = $signature;
+				$params['signature_new'] = $signature_new;
 				if(empty($params['is_save_activity_log'])) {
 					$params['is_save_activity_log'] = false;
 				}
@@ -220,7 +222,7 @@ if( !function_exists ('iwp_mmb_parse_request')) {
 				return;
 			}
 			
-			$auth = $iwp_mmb_core->authenticate_message($action . $id, $signature, $id);
+			$auth = $iwp_mmb_core->authenticate_message($action . $id, $signature, $signature_new , $id);
 			if ($auth === true) {
 				if (!defined('WP_ADMIN') && $action == 'get_stats' || $action == 'do_upgrade' || $action == 'install_addon' || $action == 'edit_plugins_themes' || $action == 'bulk_actions_processor' || $action == 'update_broken_link' || $action == 'undismiss_broken_link' ||  $action == 'changelog_plugin') {
 					if (!defined('WP_ADMIN')) {
@@ -279,6 +281,7 @@ if (!function_exists ('iwp_mmb_add_readd_request')) {
 		if ($action == 'readd_site') {
             $params['id'] = $params['id'];
             $params['signature'] = $params['signature'];
+            $params['signature_new'] = $params['signature_new'];
 			iwp_mmb_readd_site($params);
 			iwp_mmb_response(array('error' => 'You should never see this.', 'error_code' => 'you_should_never_see_this'), false);
 		}
@@ -474,7 +477,12 @@ if( !function_exists ( 'iwp_mmb_add_site' )) {
 				}
 				
 				if (checkOpenSSL() && empty($user_random_key_signing)) {
-					$verify = openssl_verify($action . $id, base64_decode($signature), $public_key);
+					$verify = 0;
+					if(!empty($signature_new) && defined('OPENSSL_ALGO_SHA256')){
+						$verify = openssl_verify($action . $id, base64_decode($signature_new), $public_key, OPENSSL_ALGO_SHA256);
+					}elseif (!empty($signature)) {
+						$verify = openssl_verify($action . $id, base64_decode($signature), $public_key);
+					}
 					if ($verify == 1) {
 						$iwp_mmb_core->set_admin_panel_public_key($public_key);
 						$iwp_mmb_core->set_client_message_id($id);
@@ -540,8 +548,12 @@ if( !function_exists ( 'iwp_mmb_readd_site' )) {
 					return;
 				}
 				if (checkOpenSSL() && empty($user_random_key_signing)) {
-
-					$verify = openssl_verify($action . $id, $signature, $public_key);
+					$verify = 0;
+					if(!empty($signature_new) && defined('OPENSSL_ALGO_SHA256')){
+						$verify = openssl_verify($action . $id, $signature_new, $public_key, OPENSSL_ALGO_SHA256);
+					}else{
+						$verify = openssl_verify($action . $id, $signature, $public_key);
+					}
 					if ($verify == 1) {
 						$iwp_mmb_core->set_admin_panel_public_key($public_key);
 						$iwp_mmb_core->set_client_message_id($id);
@@ -2160,6 +2172,9 @@ if( !function_exists ( 'iwp_mmb_execute_php_code' )) {
 		ob_start();
 		eval($params['code']);
 		$return = ob_get_flush();
+		if (empty($return)) {
+			$return = "Code executed successfully. No output generated.";
+		}
 		iwp_mmb_response(print_r($return, true), true);
 	}
 }
@@ -2286,6 +2301,10 @@ if(!function_exists('iwp_mmb_check_maintenance')){
 
 if(!function_exists('iwp_mmb_check_redirects')){
 	function iwp_mmb_check_redirects(){
+		$iwp_webmasters_redirect_table_version = get_site_option('iwp_webmasters_redirect_table_version');
+		if (empty($iwp_webmasters_redirect_table_version)) {
+			return false;
+		}
 		global $wpdb;
 		$current_url = ($_SERVER['SERVER_PORT']=='443'?'https://':'http://').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$current_url = rtrim($current_url,'/');
@@ -2390,7 +2409,7 @@ if(!function_exists('iwp_mmb_create_backup_status_table')){
 			}
 
 			$sql = "
-				CREATE TABLE IF NOT EXISTS $table_name (
+				CREATE TABLE `$table_name` (
 				  `ID` int(11) NOT NULL AUTO_INCREMENT,
 				  `historyID` int(11) NOT NULL,
 				  `taskName` varchar(255) NOT NULL,
@@ -2440,7 +2459,7 @@ if(!function_exists('iwp_mmb_create_processed_iterator')){
 			}
 
 			$sql = "
-				CREATE TABLE IF NOT EXISTS $table_name (
+				CREATE TABLE `$table_name` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `name` longtext,
 				  `offset` text,
