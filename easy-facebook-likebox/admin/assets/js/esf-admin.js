@@ -195,7 +195,7 @@ jQuery( document ).ready(
 					action: 'esf_change_module_status',
 					plugin: plugin,
 					status: status,
-					fta_nonce: fta.nonce,
+					nonce: fta.nonce,
 				};
 
 				jQuery.ajax(
@@ -304,7 +304,7 @@ jQuery( document ).ready(
 
 				var data = {
 					action: 'esf_remove_access_token',
-					fta_nonce: fta.nonce,
+					nonce: fta.nonce,
 				};
 
 				jQuery.ajax(

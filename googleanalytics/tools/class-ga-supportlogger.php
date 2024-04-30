@@ -90,9 +90,9 @@ class Ga_SupportLogger {
 	 * @return string|void
 	 */
 	public static function get_current_url() {
-		$request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING );
+		$request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_UNSAFE_RAW );
 
-		return wp_unslash( $request_uri );
+		return sanitize_text_field( wp_unslash( $request_uri ) );
 	}
 
 	/**
@@ -115,7 +115,7 @@ class Ga_SupportLogger {
 
 		$let_debug_message = '<br> If you are still experiencing the issue after that click <a href="' . $debug_link . '&sdb=true" id="debug-message">here</a>';
 
-		$sdb = filter_input( INPUT_GET, 'sdb', FILTER_SANITIZE_STRING );
+		$sdb = filter_input( INPUT_GET, 'sdb', FILTER_UNSAFE_RAW );
 
 		$debug_help_message = false === empty( $sdb ) ? false : $this->get_debug_help_message( $debug_message );
 

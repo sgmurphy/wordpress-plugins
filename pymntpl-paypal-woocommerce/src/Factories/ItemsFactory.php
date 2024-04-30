@@ -30,7 +30,7 @@ class ItemsFactory extends AbstractFactory {
 			}
 			$qty  = $cart_item['quantity'];
 			$name = $cart_item['data']->get_name();
-			$items->add( $this->get_cart_item( $total, $name, $qty, $cart_item ) );
+			$items->add( $this->get_cart_item( abs( $total ), $name, $qty, $cart_item ) );
 		}
 		if ( 0 < $this->cart->get_fee_total() ) {
 			$fees = $this->cart->get_fees();
@@ -58,11 +58,9 @@ class ItemsFactory extends AbstractFactory {
 	 */
 	public function from_order() {
 		$items = new Collection();
-		$total = 0;
 		foreach ( $this->order->get_items() as $item ) {
 			$item = $this->get_order_item( $item );
 			$items->add( $item );
-			$total = $total + $item->getUnitAmount()->getValue() * $item->getQuantity();
 		}
 		if ( 0 < $this->get_order_total_fees() ) {
 			$items->add( $this->get_order_fees() );

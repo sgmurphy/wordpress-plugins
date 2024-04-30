@@ -65,11 +65,11 @@ if ($emails_with_error) {
 
 <div class="wrap tnp-emails tnp-emails-index" id="tnp-wrap">
 
-    <?php include NEWSLETTER_ADMIN_HEADER ?>
+    <?php include NEWSLETTER_ADMIN_HEADER; ?>
 
     <div id="tnp-heading">
 
-        <h2><?php _e('Newsletters', 'newsletter') ?></h2>
+        <h2><?php esc_html_e('Newsletters', 'newsletter') ?></h2>
 
         <?php include __DIR__ . '/nav.php' ?>
 
@@ -160,6 +160,6 @@ if ($emails_with_error) {
         </form>
     </div>
 
-    <?php include NEWSLETTER_DIR . '/tnp-footer.php'; ?>
+    <?php include NEWSLETTER_ADMIN_FOOTER; ?>
 
 </div>

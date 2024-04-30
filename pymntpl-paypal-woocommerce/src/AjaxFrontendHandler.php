@@ -66,7 +66,7 @@ class AjaxFrontendHandler {
 					$purchase_unit = $paypal_order->getPurchaseUnits()->get( 0 );
 				}
 				$address = $payer ? $payer->getAddress() : null;
-				if ( ! Utils::is_valid_address( $payer->getAddress() ) ) {
+				if ( ! Utils::is_valid_address( $address ) ) {
 					if ( $purchase_unit && isset( $purchase_unit->shipping->address ) ) {
 						$address = $purchase_unit->getShipping()->getAddress();
 					}
@@ -98,7 +98,7 @@ class AjaxFrontendHandler {
 						$data["{$prefix}city"]           = $address->getAdminArea2();
 						$data["{$prefix}{$address_key}"] = $address->getAddressLine1();
 						$data["{$prefix}address_2"]      = $address->getAddressLine2();
-						if ( $processing_checkout && ! empty( $payer->phone->phone_number->national_number ) ) {
+						if ( $processing_checkout && $payer && ! empty( $payer->phone->phone_number->national_number ) ) {
 							$data["{$prefix}phone"] = $payer->phone->phone_number->national_number;
 						}
 					}

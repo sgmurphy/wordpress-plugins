@@ -1934,14 +1934,14 @@ class Model_PDF extends Helper_Abstract_Model {
 	}
 
 	/**
-	 * Clean-up our tmp directory every 24 hours
+	 * Clean-up our tmp directory every 12 hours
 	 *
 	 * @return void
 	 *
 	 * @since 4.0
 	 */
 	public function cleanup_tmp_dir() {
-		$max_file_age  = time() - 24 * 3600; /* Max age is 24 hours old */
+		$max_file_age  = time() - 12 * 3600; /* Max age is 12 hours old */
 		$tmp_directory = $this->data->template_tmp_location;
 
 		if ( is_dir( $tmp_directory ) ) {
@@ -2298,6 +2298,30 @@ class Model_PDF extends Helper_Abstract_Model {
 	}
 
 	/**
+	 * Determine if we should skip Page fields
+	 *
+	 * @param bool     $action
+	 * @param GF_Field $field
+	 * @param array    $entry
+	 * @param array    $form
+	 * @param array    $config
+	 *
+	 * @return bool
+	 *
+	 * @since 6.10.1
+	 */
+	public function field_middle_page( $action, $field, $entry, $form, $config ) {
+		if ( $action === false ) {
+			$show_page_names = $config['meta']['page_names'] ?? false;
+			if ( $show_page_names === false && $field->get_input_type() === 'page' ) {
+				return true;
+			}
+		}
+
+		return $action;
+	}
+
+	/**
 	 * Check if the field is on our blacklist and skip
 	 *
 	 * @param bool           $action
@@ -2427,5 +2451,42 @@ class Model_PDF extends Helper_Abstract_Model {
 		}
 
 		return $fonts;
+	}
+
+	/**
+	 * If the form has page fields, prepare for output in the PDF
+	 *
+	 * @param array $form
+	 *
+	 * @return array
+	 *
+	 * @since 6.10.1
+	 */
+	public function register_page_fields( $form ) {
+		if ( ! isset( $form['pagination']['pages'][0] ) ) {
+			return $form;
+		}
+
+		array_unshift(
+			$form['fields'],
+			new \GF_Field_Page(
+				[
+					'id'         => 0,
+					'formId'     => $form['id'],
+					'pageNumber' => 1,
+					'cssClass'   => $form['firstPageCssClass'] ?? '',
+				]
+			)
+		);
+
+		array_map(
+			function( $item ) use ( $form ) {
+				$item->label   = sprintf( esc_html__( 'Page %d', 'gravity-forms-pdf-extended' ), $item->pageNumber );
+				$item->content = $form['pagination']['pages'][ $item->pageNumber - 1 ] ?? '';
+			},
+			\GFAPI::get_fields_by_type( $form, 'page', true )
+		);
+
+		return $form;
 	}
 }

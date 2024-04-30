@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
     var data = {
       action: 'mif_delete_transient',
       transient_id: transient_id,
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
     /*
     * Making ajax request to save values.
@@ -62,7 +62,7 @@ jQuery(document).ready(function($) {
 
     const data = {
       action: 'mif_clear_all_cache',
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
     /*
     * Making ajax request to save values.
@@ -128,7 +128,7 @@ jQuery(document).ready(function($) {
             const data = {
                 action: 'mif_preload_feed',
                 shortcode: shortcode_html,
-                mif_nonce: mif.nonce,
+                nonce: mif.nonce,
             };
 
             jQuery.ajax({
@@ -171,7 +171,7 @@ jQuery(document).ready(function($) {
       selectedVal: selectedVal,
       skin_id: skin_id,
       page_id: page_id,
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
     /*
     * Making ajax request to save values.
@@ -370,7 +370,7 @@ jQuery(document).ready(function($) {
     const data = {
       action: 'mif_preload_feed',
       shortcode: shortcode_html,
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
 
     jQuery.ajax({
@@ -412,7 +412,7 @@ jQuery(document).ready(function($) {
       action: 'mif_get_moderate_feed',
       user_id: user_id,
       clear_cache: clear_cache,
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
 
     jQuery.ajax({
@@ -473,7 +473,7 @@ jQuery(document).ready(function($) {
       action: 'mif_get_shoppable_feed',
       user_id: user_id,
       clear_cache: clear_cache,
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
 
     jQuery.ajax({
@@ -624,7 +624,7 @@ jQuery(document).ready(function($) {
 
     var data = {
       action: 'mif_remove_access_token',
-      mif_nonce: mif.nonce,
+      nonce: mif.nonce,
     };
 
     jQuery.ajax({

@@ -573,7 +573,7 @@ li#chaty-social-Poptin {
     border-width: 10px 5px 0;
     border-style: solid;
     border-color: #333 transparent transparent;
-    
+
 }
 
 .icon.label-tooltip:after {
@@ -4134,11 +4134,11 @@ html[dir='rtl'] .toast-message:not(.bottom-pos) .active {
 }
 
 @media screen and (max-width: 960px) {
- 
+
     .url-values {
         width: calc(37% - 52px)
     }
-    
+
     .modal-dialog.modal-lg {
         display: none
     }
@@ -4209,7 +4209,7 @@ html[dir='rtl'] .toast-message:not(.bottom-pos) .active {
         flex: auto;
         text-align: left;
     }
-    
+
     .chaty-date-time-option .day-time {
         width: calc(50% - 78px);
         padding-bottom: 0

@@ -95,9 +95,9 @@ class BreakdownFactory extends AbstractFactory {
 	 */
 	protected function get_cart_discount_total() {
 		$incl_tax = $this->display_prices_including_tax();
-		$total    = $this->cart->get_discount_total();
+		$total    = abs( $this->cart->get_discount_total() );
 		if ( 0 < $total ) {
-			$total = $incl_tax ? $total + $this->cart->get_discount_tax() : $total;
+			$total = $incl_tax ? $total + abs( $this->cart->get_discount_tax() ) : $total;
 		}
 
 		// make sure negative fees get added as a discount

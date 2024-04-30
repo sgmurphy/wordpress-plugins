@@ -17,6 +17,7 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
             'PaymentPlugins\\PPCP\\WooCommerceGermanized\\' => 42,
             'PaymentPlugins\\PPCP\\WooCommerceExtraProductOptions\\' => 51,
             'PaymentPlugins\\PPCP\\Stripe\\' => 27,
+            'PaymentPlugins\\PPCP\\SW_WAPF\\' => 28,
             'PaymentPlugins\\PPCP\\MondialRelay\\' => 33,
             'PaymentPlugins\\PPCP\\FunnelKit\\' => 30,
             'PaymentPlugins\\PPCP\\Elementor\\' => 30,
@@ -57,6 +58,10 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
         'PaymentPlugins\\PPCP\\Stripe\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/stripe/src',
+        ),
+        'PaymentPlugins\\PPCP\\SW_WAPF\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/advanced-product-fields-for-woocommerce/src',
         ),
         'PaymentPlugins\\PPCP\\MondialRelay\\' => 
         array (

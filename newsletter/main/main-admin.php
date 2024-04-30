@@ -93,6 +93,14 @@ class NewsletterMainAdmin extends NewsletterModuleAdmin {
             $this->add_admin_page('automatednewsletters', 'Automated newsletters');
             $this->add_admin_page('automatedtemplate', 'Automated template');
         }
+
+        if (NEWSLETTER_DEBUG || !class_exists('NewsletterAutoresponder')) {
+            $this->add_menu_page('autoresponder', 'Autoresponder <span class="tnp-sidemenu-badge">Pro</span>');
+            $this->add_admin_page('autoresponderindex', 'Autoresponder');
+            $this->add_admin_page('autoresponderedit', 'Automated edit');
+            $this->add_admin_page('autorespondermessages', 'Automated newsletters');
+            $this->add_admin_page('autoresponderstatistics', 'Automated template');
+        }
     }
 
     function hook_display_post_states($post_states, $post) {

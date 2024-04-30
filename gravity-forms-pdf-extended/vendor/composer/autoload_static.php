@@ -86,6 +86,7 @@ class ComposerStaticInitGravityPDFPlugin
         'GFPDF\\Helper\\Fields\\Field_Name' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Name.php',
         'GFPDF\\Helper\\Fields\\Field_Number' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Number.php',
         'GFPDF\\Helper\\Fields\\Field_Option' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Option.php',
+        'GFPDF\\Helper\\Fields\\Field_Page' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Page.php',
         'GFPDF\\Helper\\Fields\\Field_Phone' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Phone.php',
         'GFPDF\\Helper\\Fields\\Field_Poll' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Poll.php',
         'GFPDF\\Helper\\Fields\\Field_Post_Category' => __DIR__ . '/../..' . '/src/Helper/Fields/Field_Post_Category.php',

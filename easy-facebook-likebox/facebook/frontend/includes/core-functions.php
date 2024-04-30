@@ -1,8 +1,7 @@
 <?php
 
 if ( !function_exists( 'efbl_time_ago' ) ) {
-    function efbl_time_ago( $date, $granularity = 2 )
-    {
+    function efbl_time_ago(  $date, $granularity = 2  ) {
         $retval = '';
         //Preparing strings to translate
         $date_time_strings = array(
@@ -36,7 +35,6 @@ if ( !function_exists( 'efbl_time_ago' ) ) {
             'second' => 1,
         );
         foreach ( $periods as $key => $value ) {
-            
             if ( $difference >= $value ) {
                 $time = floor( $difference / $value );
                 $difference %= $value;
@@ -44,7 +42,6 @@ if ( !function_exists( 'efbl_time_ago' ) ) {
                 $retval .= ( $time > 1 ? $date_time_strings[$key . 's'] : $date_time_strings[$key] );
                 $granularity--;
             }
-            
             if ( $granularity == '0' ) {
                 break;
             }
@@ -54,10 +51,9 @@ if ( !function_exists( 'efbl_time_ago' ) ) {
 
 }
 if ( !function_exists( 'ecff_stripos_arr' ) ) {
-    function ecff_stripos_arr( $haystack, $needle )
-    {
+    function ecff_stripos_arr(  $haystack, $needle  ) {
         if ( !is_array( $needle ) ) {
-            $needle = array( $needle );
+            $needle = array($needle);
         }
         foreach ( $needle as $what ) {
             if ( ($pos = stripos( $haystack, ltrim( $what ) )) !== false ) {
@@ -69,15 +65,13 @@ if ( !function_exists( 'ecff_stripos_arr' ) ) {
 
 }
 if ( !function_exists( 'ecff_hastags_to_link' ) ) {
-    function ecff_hastags_to_link( $text )
-    {
+    function ecff_hastags_to_link(  $text  ) {
         return preg_replace( '/(^|\\s)#(\\w*[a-zA-Z_]+\\w*)/', '\\1#<a href="https://www.facebook.com/hashtag/\\2" class="eflb-hash" target="_blank">\\2</a>', $text );
     }
 
 }
 if ( !function_exists( 'efbl_parse_url' ) ) {
-    function efbl_parse_url( $url )
-    {
+    function efbl_parse_url(  $url  ) {
         $fb_url = parse_url( $url );
         $fanpage_url = str_replace( '/', '', $fb_url['path'] );
         return $fanpage_url;
@@ -91,8 +85,7 @@ if ( !function_exists( 'efbl_get_locales' ) ) {
      *
      * @return return the list of locales.
      */
-    function efbl_get_locales()
-    {
+    function efbl_get_locales() {
         $locales = array(
             'af_ZA' => 'Afrikaans',
             'ar_AR' => 'Arabic',
@@ -175,22 +168,19 @@ if ( !function_exists( 'efbl_get_locales' ) ) {
 
 }
 if ( !function_exists( 'efbl_check_reaction' ) ) {
-    function efbl_check_reaction( $needle, $array, $filter = null )
-    {
+    function efbl_check_reaction(  $needle, $array, $filter = null  ) {
         $efbl_reaction_count = null;
         $efbl_reaction_array = array();
         if ( $array ) {
             foreach ( $array as $efbl_reaction ) {
                 $efbl_reaction = (array) $efbl_reaction;
-                
                 if ( $needle == $efbl_reaction['type'] ) {
                     $efbl_reaction_count++;
                     $efbl_reaction_array['data'][] = $efbl_reaction;
                 }
-            
             }
         }
-        if ( !empty($efbl_reaction_array) ) {
+        if ( !empty( $efbl_reaction_array ) ) {
             $efbl_reaction_array['total_count'] = $efbl_reaction_count;
         }
         return $efbl_reaction_array;
@@ -198,62 +188,50 @@ if ( !function_exists( 'efbl_check_reaction' ) ) {
 
 }
 if ( !function_exists( 'efbl_get_page_bio' ) ) {
-    function efbl_get_page_bio( $id, $cache_seconds )
-    {
+    function efbl_get_page_bio(  $id, $cache_seconds  ) {
         $efbl_bio_data = array();
         $accesstoken = '';
         $efbl_bio_slug = "efbl_page_bio-{$id}";
         $efbl_bio_data = get_transient( $efbl_bio_slug );
-        
         if ( !$efbl_bio_data || '' == $efbl_bio_data ) {
             $FTA = new Feed_Them_All();
             $fta_settings = $FTA->fta_get_settings();
-            
             if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
                 $pages = $fta_settings['plugins']['facebook']['approved_pages'];
-                
                 if ( isset( $pages[$id] ) ) {
                     $page_exists = $pages[$id];
                 } else {
                     $page_exists = '';
                 }
-                
-                
                 if ( $page_exists ) {
                     $accesstoken = $pages[$id]['access_token'];
                 } else {
                     $accesstoken = $fta_settings['plugins']['facebook']['access_token'];
                 }
-            
             }
-            
             $efbl_bio_url = "https://graph.facebook.com/{$id}?fields=access_token,username,id,name,fan_count,category,about,verification_status&access_token=" . $accesstoken;
             $efbl_bio_data_api = wp_remote_get( $efbl_bio_url );
-            if ( isset( $efbl_bio_data_api ) && !empty($efbl_bio_data_api) ) {
+            if ( isset( $efbl_bio_data_api ) && !empty( $efbl_bio_data_api ) ) {
                 if ( isset( $efbl_bio_data_api['body'] ) ) {
                     $efbl_bio_data = json_decode( $efbl_bio_data_api['body'] );
                 }
             }
-            if ( 200 == $efbl_bio_data_api['response']['code'] && !empty($efbl_bio_data) ) {
+            if ( 200 == $efbl_bio_data_api['response']['code'] && !empty( $efbl_bio_data ) ) {
                 set_transient( $efbl_bio_slug, $efbl_bio_data, $cache_seconds );
             }
         }
-        
         return $efbl_bio_data;
     }
 
 }
 if ( !function_exists( 'efbl_readable_count' ) ) {
-    function efbl_readable_count( $input )
-    {
+    function efbl_readable_count(  $input  ) {
         if ( !$input ) {
             $input = 0;
         }
         $input = number_format( $input );
         $input_count = substr_count( $input, ',' );
-        
         if ( $input_count != '0' ) {
-            
             if ( $input_count == '1' ) {
                 return substr( $input, 0, -4 ) . 'K';
             } elseif ( $input_count == '2' ) {
@@ -263,20 +241,17 @@ if ( !function_exists( 'efbl_readable_count' ) ) {
             } else {
                 return;
             }
-        
         } else {
             if ( !$input ) {
                 $input = '';
             }
             return $input;
         }
-    
     }
 
 }
 if ( !function_exists( 'ecff_makeClickableLinks' ) ) {
-    function ecff_makeClickableLinks( $value, $protocols = array( 'http', 'mail', 'https' ), array $attributes = array() )
-    {
+    function ecff_makeClickableLinks(  $value, $protocols = array('http', 'mail', 'https'), array $attributes = array()  ) {
         // Link attributes
         $attr = '';
         foreach ( $attributes as $key => $val ) {
@@ -284,7 +259,7 @@ if ( !function_exists( 'ecff_makeClickableLinks' ) ) {
         }
         $links = array();
         // Extract existing links and tags
-        $value = preg_replace_callback( '~(<a .*?>.*?</a>|<.*?>)~i', function ( $match ) use( &$links ) {
+        $value = preg_replace_callback( '~(<a .*?>.*?</a>|<.*?>)~i', function ( $match ) use(&$links) {
             return '<' . array_push( $links, $match[1] ) . '>';
         }, $value );
         // Extract text links for each protocol
@@ -292,7 +267,7 @@ if ( !function_exists( 'ecff_makeClickableLinks' ) ) {
             switch ( $protocol ) {
                 case 'http':
                 case 'https':
-                    $value = preg_replace_callback( '~(?:(https?)://([^\\s<]+)|(www\\.[^\\s<]+?\\.[^\\s<]+))(?<![\\.,:])~i', function ( $match ) use( $protocol, &$links, $attr ) {
+                    $value = preg_replace_callback( '~(?:(https?)://([^\\s<]+)|(www\\.[^\\s<]+?\\.[^\\s<]+))(?<![\\.,:])~i', function ( $match ) use($protocol, &$links, $attr) {
                         if ( $match[1] ) {
                             $protocol = $match[1];
                         }
@@ -301,33 +276,31 @@ if ( !function_exists( 'ecff_makeClickableLinks' ) ) {
                     }, $value );
                     break;
                 case 'mail':
-                    $value = preg_replace_callback( '~([^\\s<]+?@[^\\s<]+?\\.[^\\s<]+)(?<![\\.,:])~', function ( $match ) use( &$links, $attr ) {
+                    $value = preg_replace_callback( '~([^\\s<]+?@[^\\s<]+?\\.[^\\s<]+)(?<![\\.,:])~', function ( $match ) use(&$links, $attr) {
                         return '<' . array_push( $links, "<a {$attr} href=\"mailto:{$match[1]}\">{$match[1]}</a>" ) . '>';
                     }, $value );
                     break;
                 case 'twitter':
-                    $value = preg_replace_callback( '~(?<!\\w)[@#](\\w++)~', function ( $match ) use( &$links, $attr ) {
+                    $value = preg_replace_callback( '~(?<!\\w)[@#](\\w++)~', function ( $match ) use(&$links, $attr) {
                         return '<' . array_push( $links, "<a {$attr} href=\"https://twitter.com/" . (( $match[0][0] == '@' ? '' : 'search/%23' )) . $match[1] . "\">{$match[0]}</a>" ) . '>';
                     }, $value );
                     break;
                 default:
-                    $value = preg_replace_callback( '~' . preg_quote( $protocol, '~' ) . '://([^\\s<]+?)(?<![\\.,:])~i', function ( $match ) use( $protocol, &$links, $attr ) {
+                    $value = preg_replace_callback( '~' . preg_quote( $protocol, '~' ) . '://([^\\s<]+?)(?<![\\.,:])~i', function ( $match ) use($protocol, &$links, $attr) {
                         return '<' . array_push( $links, "<a {$attr} href=\"{$protocol}://{$match[1]}\">{$match[1]}</a>" ) . '>';
                     }, $value );
                     break;
             }
         }
         // Insert all link
-        return preg_replace_callback( '/<(\\d+)>/', function ( $match ) use( &$links ) {
+        return preg_replace_callback( '/<(\\d+)>/', function ( $match ) use(&$links) {
             return $links[$match[1] - 1];
         }, $value );
     }
 
 }
 if ( !function_exists( 'efbl_get_page_logo' ) ) {
-    function efbl_get_page_logo( $page_id = null )
-    {
-        
+    function efbl_get_page_logo(  $page_id = null  ) {
         if ( $page_id ) {
             $page_logo_trasneint_name = 'esf_logo_' . $page_id;
             $auth_img_src = get_transient( $page_logo_trasneint_name );
@@ -335,47 +308,36 @@ if ( !function_exists( 'efbl_get_page_logo' ) ) {
             if ( $check_status == 'URL signature expired' ) {
                 $auth_img_src = '';
             }
-            
-            if ( $auth_img_src && !empty($auth_img_src) && !isset( $auth_img_src->error ) ) {
+            if ( $auth_img_src && !empty( $auth_img_src ) && !isset( $auth_img_src->error ) ) {
                 return $auth_img_src;
             } else {
                 $FTA = new Feed_Them_All();
                 $fta_settings = $FTA->fta_get_settings();
-                
                 if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) || isset( $fta_settings['plugins']['facebook']['approved_groups'] ) ) {
                     $pages = $fta_settings['plugins']['facebook']['approved_pages'];
-                    
                     if ( isset( $pages[$page_id] ) ) {
                         $page_exists = $pages[$page_id];
                     } else {
                         $page_exists = '';
                     }
-                    
-                    
                     if ( $page_exists ) {
                         $accesstoken = $pages[$page_id]['access_token'];
                     } else {
                         $accesstoken = $fta_settings['plugins']['facebook']['access_token'];
                     }
-                    
                     $auth_img_src = 'https://graph.facebook.com/' . $page_id . '/picture?type=large&redirect=0&access_token=' . $accesstoken;
                     $auth_img_src = json_decode( jws_fetchUrl( $auth_img_src ) );
-                    
                     if ( isset( $auth_img_src->data->url ) && !isset( $auth_img_src->error ) ) {
                         $auth_img_src = $auth_img_src->data->url;
                         //Store in a transient for 1 month
                         set_transient( $page_logo_trasneint_name, $auth_img_src, 30 * 60 * 60 * 24 );
                         return $auth_img_src;
                     }
-                
                 }
-            
             }
-        
         } else {
             return __( 'Invalid page ID', 'easy-facebook-likebox' );
         }
-    
     }
 
 }
@@ -383,27 +345,22 @@ if ( !function_exists( 'efbl_get_page_logo' ) ) {
 * Return Default page ID
 */
 if ( !function_exists( 'efbl_default_page_id' ) ) {
-    function efbl_default_page_id()
-    {
+    function efbl_default_page_id() {
         $efbl_default_page_id = '';
         $FTA = new Feed_Them_All();
         $fta_settings = $FTA->fta_get_settings();
-        
-        if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($fta_settings['plugins']['facebook']['approved_pages']) ) {
+        if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
             $approved_pages = $fta_settings['plugins']['facebook']['approved_pages'];
             if ( $approved_pages ) {
                 foreach ( $approved_pages as $approved_page ) {
-                    
                     if ( isset( $approved_page['username'] ) ) {
                         $efbl_default_page_id = $approved_page['username'];
                     } else {
                         $efbl_default_page_id = $approved_page['id'];
                     }
-                
                 }
             }
         }
-        
         return $efbl_default_page_id;
     }
 
@@ -412,12 +369,11 @@ if ( !function_exists( 'efbl_default_page_id' ) ) {
 * Return Default skin ID
 */
 if ( !function_exists( 'efbl_default_skin_id' ) ) {
-    function efbl_default_skin_id()
-    {
+    function efbl_default_skin_id() {
         $efbl_default_skin_id = '';
         $FTA = new Feed_Them_All();
         $fta_settings = $FTA->fta_get_settings();
-        if ( isset( $fta_settings['plugins']['facebook']['default_skin_id'] ) && !empty($fta_settings['plugins']['facebook']['default_skin_id']) ) {
+        if ( isset( $fta_settings['plugins']['facebook']['default_skin_id'] ) && !empty( $fta_settings['plugins']['facebook']['default_skin_id'] ) ) {
             $efbl_default_skin_id = $fta_settings['plugins']['facebook']['default_skin_id'];
         }
         return $efbl_default_skin_id;
@@ -431,12 +387,11 @@ if ( !function_exists( 'efbl_demo_page_id' ) ) {
      * @return mixed|string
      * @since 6.2.0
      */
-    function efbl_demo_page_id()
-    {
+    function efbl_demo_page_id() {
         $efbl_demo_page_id = '';
         $FTA = new Feed_Them_All();
         $fta_settings = $FTA->fta_get_settings();
-        if ( isset( $fta_settings['plugins']['facebook']['default_page_id'] ) && !empty($fta_settings['plugins']['facebook']['default_page_id']) ) {
+        if ( isset( $fta_settings['plugins']['facebook']['default_page_id'] ) && !empty( $fta_settings['plugins']['facebook']['default_page_id'] ) ) {
             $efbl_demo_page_id = $fta_settings['plugins']['facebook']['default_page_id'];
         }
         return $efbl_demo_page_id;
@@ -452,18 +407,15 @@ if ( !function_exists( 'efbl_get_cache_seconds' ) ) {
      *
      * @return false|float|int
      */
-    function efbl_get_cache_seconds( $instance )
-    {
+    function efbl_get_cache_seconds(  $instance  ) {
         if ( !isset( $instance ) && !is_array( $instance ) ) {
             return false;
         }
-        
         if ( !isset( $instance['cache_unit'] ) || $instance['cache_unit'] < 1 ) {
             $cache_unit = 1;
         } else {
             $cache_unit = $instance['cache_unit'];
         }
-        
         $cache_duration = 60 * 60 * 24;
         //Calculate the cache time in seconds
         if ( $instance['cache_duration'] == 'minutes' || $instance['cache_duration'] == 'minute' ) {
@@ -489,24 +441,21 @@ if ( !function_exists( 'efbl_get_page_username' ) ) {
      *
      * @return false|float|int
      */
-    function efbl_get_page_username( $page_id )
-    {
-        if ( !isset( $page_id ) && empty($page_id) ) {
+    function efbl_get_page_username(  $page_id  ) {
+        if ( !isset( $page_id ) && empty( $page_id ) ) {
             return false;
         }
         $FTA = new Feed_Them_All();
         $fta_settings = $FTA->fta_get_settings();
-        if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && empty($fta_settings['plugins']['facebook']['approved_pages']) ) {
+        if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && empty( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
             return false;
         }
         $approved_pages = $fta_settings['plugins']['facebook']['approved_pages'];
-        
-        if ( isset( $approved_pages[$page_id]['username'] ) && !empty($approved_pages[$page_id]['username']) ) {
+        if ( isset( $approved_pages[$page_id]['username'] ) && !empty( $approved_pages[$page_id]['username'] ) ) {
             $page_username = $approved_pages[$page_id]['username'];
         } else {
             $page_username = $page_id;
         }
-        
         return $page_username;
     }
 
@@ -520,24 +469,21 @@ if ( !function_exists( 'efbl_get_page_id' ) ) {
      *
      * @return false|float|int
      */
-    function efbl_get_page_id( $page_id )
-    {
-        if ( !isset( $page_id ) && empty($page_id) ) {
+    function efbl_get_page_id(  $page_id  ) {
+        if ( !isset( $page_id ) && empty( $page_id ) ) {
             return false;
         }
         $FTA = new Feed_Them_All();
         $fta_settings = $FTA->fta_get_settings();
-        if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && empty($fta_settings['plugins']['facebook']['approved_pages']) ) {
+        if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && empty( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
             return false;
         }
         $approved_pages = $fta_settings['plugins']['facebook']['approved_pages'];
         foreach ( $approved_pages as $key => $value ) {
-            
             if ( $value['username'] == $page_id ) {
                 $page_id = $key;
                 break;
             }
-        
         }
         return $page_id;
     }
@@ -553,8 +499,7 @@ if ( !function_exists( 'efbl_array_push_assoc' ) ) {
      * @since 6.2.0
      * @return mixed
      */
-    function efbl_array_push_assoc( $array, $key, $value )
-    {
+    function efbl_array_push_assoc(  $array, $key, $value  ) {
         $array[$key] = $value;
         return $array;
     }
@@ -572,8 +517,7 @@ if ( !function_exists( 'efbl_eventdate' ) ) {
      *
      * @return string
      */
-    function efbl_eventdate( $original, $date_format, $custom_date )
-    {
+    function efbl_eventdate(  $original, $date_format, $custom_date  ) {
         switch ( $date_format ) {
             case '2':
                 $print = date_i18n( '<k>F jS, </k>g:ia', $original );
@@ -639,7 +583,7 @@ if ( !function_exists( 'efbl_eventdate' ) ) {
                 $print = date_i18n( '<k>F j, Y, </k>g:ia', $original );
                 break;
         }
-        if ( !empty($custom_date) ) {
+        if ( !empty( $custom_date ) ) {
             $print = date_i18n( $custom_date, $original );
         }
         return $print;
@@ -647,8 +591,7 @@ if ( !function_exists( 'efbl_eventdate' ) ) {
 
 }
 if ( !function_exists( 'efbl_get_albums_list' ) ) {
-    function efbl_get_albums_list( $page_id = '' )
-    {
+    function efbl_get_albums_list(  $page_id = ''  ) {
         if ( !$page_id ) {
             return false;
         }
@@ -663,34 +606,29 @@ if ( !function_exists( 'efbl_get_group_bio' ) ) {
      *
      * @return mixed
      */
-    function efbl_get_group_bio( $id, $cache_seconds )
-    {
+    function efbl_get_group_bio(  $id, $cache_seconds  ) {
         $efbl_bio_data = array();
         $accesstoken = '';
         $efbl_bio_slug = "efbl_group_bio-{$id}";
         $efbl_bio_data = get_transient( $efbl_bio_slug );
-        
         if ( !$efbl_bio_data || '' == $efbl_bio_data ) {
             $FTA = new Feed_Them_All();
             $fta_settings = $FTA->fta_get_settings();
-            
             if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
                 $pages = $fta_settings['plugins']['facebook']['approved_pages'];
                 $accesstoken = $fta_settings['plugins']['facebook']['access_token'];
             }
-            
             $efbl_bio_url = "https://graph.facebook.com/{$id}?fields=member_count,description,name,link,picture&access_token=" . $accesstoken;
             $efbl_bio_data_api = wp_remote_get( $efbl_bio_url );
-            if ( isset( $efbl_bio_data_api ) && !empty($efbl_bio_data_api) ) {
+            if ( isset( $efbl_bio_data_api ) && !empty( $efbl_bio_data_api ) ) {
                 if ( isset( $efbl_bio_data_api['body'] ) ) {
                     $efbl_bio_data = json_decode( $efbl_bio_data_api['body'] );
                 }
             }
-            if ( 200 == $efbl_bio_data_api['response']['code'] && !empty($efbl_bio_data) ) {
+            if ( 200 == $efbl_bio_data_api['response']['code'] && !empty( $efbl_bio_data ) ) {
                 set_transient( $efbl_bio_slug, $efbl_bio_data, $cache_seconds );
             }
         }
-        
         return $efbl_bio_data;
     }
 

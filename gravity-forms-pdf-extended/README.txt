@@ -2,10 +2,10 @@
 Contributors: blue-liquid-designs
 Plugin URI: https://gravitypdf.com/
 Donate link: https://gravitypdf.com/donate-to-plugin/
-Tags: gravityforms, gravity, forms, pdf, automation, attachment, email
+Tags: gravity forms, form, contact form, pdf, email
 Requires at least: 5.3
 Tested up to: 6.5
-Stable tag: 6.10.0
+Stable tag: 6.10.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -106,6 +106,15 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 16. A bunch of paid PDF designs are available, as well as additional functionality.
 
 == Changelog ==
+
+= 6.10.1 =
+* Bug: Resolve PHP error when processing shortcode with invalid entry object
+* Bug: Adhere to conditional logic and exclude CSS class for Page Break fields
+* Bug: In more situations the Gravity PDF settings will be refreshed before the form meta is saved to the database
+* Housekeeping: Run temporary directory cleanup routine twice daily and delete files older than 12 hours
+* Housekeeping: Add gfpdf_system_status_report_items filter for Gravity PDF System Status report details
+* Housekeeping: Update mPDF to latest version
+* Housekeeping: Allow supported HTML in field labels when displayed in PDF
 
 = 6.10.0 =
 * Feature: Add native support for the Legal Signature and Legal Consent form fields added by the Legal Signing for Gravity Forms plugin

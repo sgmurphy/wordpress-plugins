@@ -1,7 +1,7 @@
 === Newsletter - Send awesome emails from WordPress ===
 Tags: newsletter, subscription, email marketing, welcome email, signup forms
 Tested up to: 6.5.2
-Stable tag: 8.3.0
+Stable tag: 8.3.1
 Contributors: satollo,webagile
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -129,6 +129,14 @@ Thank you, The Newsletter Team
 
 == Changelog ==
 
+= 8.3.1 =
+
+* Added email series view on subscriber's edit page
+* Fixed couple of debug notices
+* Fixed layout of the main stats page
+* Fixed time on user list (timezone)
+* Added main title for posts block when used with Automated
+
 = 8.3.0 =
 
 * Reviewed dashboard
@@ -140,7 +148,7 @@ Thank you, The Newsletter Team
 = 8.2.8 =
 
 * Fixed problem on custom fields panel
-* Compatibility check with WP 6.5
+* WP 6.5.0 check
 
 = 8.2.7 =
 

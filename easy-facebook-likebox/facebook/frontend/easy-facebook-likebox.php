@@ -20,8 +20,7 @@
 // Include and instantiate the class.
 require_once 'includes/Mobile_Detect.php';
 $mDetect = new EFBL_Mobile_Detect();
-class Easy_Facebook_Likebox
-{
+class Easy_Facebook_Likebox {
     /**
      * Plugin version, used for cache-busting of style and script file
      * references.
@@ -30,7 +29,8 @@ class Easy_Facebook_Likebox
      *
      * @var     string
      */
-    const  VERSION = '6.5.6' ;
+    const VERSION = '6.5.7';
+
     /**
      *
      * Unique identifier for your plugin.
@@ -44,7 +44,8 @@ class Easy_Facebook_Likebox
      *
      * @var      string
      */
-    protected  $plugin_slug = 'easy-facebook-likebox' ;
+    protected $plugin_slug = 'easy-facebook-likebox';
+
     /**
      * Instance of this class.
      *
@@ -52,7 +53,8 @@ class Easy_Facebook_Likebox
      *
      * @var      object
      */
-    protected static  $instance = null ;
+    protected static $instance = null;
+
     /**
      * Instance of the like box render function
      *
@@ -60,29 +62,29 @@ class Easy_Facebook_Likebox
      *
      * @var      object
      */
-    public  $likebox_instance = 1 ;
+    public $likebox_instance = 1;
+
     /**
      * Initialize the plugin by setting localization and loading public scripts
      * and styles.
      *
      * @since     1.1.0
      */
-    public function __construct()
-    {
+    public function __construct() {
         // Activate plugin when new blog is added
-        add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
+        add_action( 'wpmu_new_blog', array($this, 'activate_new_site') );
         // Load public-facing style sheet and JavaScript.
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-        add_shortcode( 'efb_likebox', array( $this, 'efb_likebox_shortcode' ) );
-        add_shortcode( 'efb_pageplugin', array( $this, 'efb_pageplugin_shortcode' ) );
-        add_shortcode( 'efb_feed', array( $this, 'efb_feed_shortcode' ) );
-        add_action( 'wp_ajax_efbl_generate_popup_html', array( $this, 'efbl_generate_popup_html' ) );
-        add_action( 'wp_ajax_nopriv_efbl_generate_popup_html', array( $this, 'efbl_generate_popup_html' ) );
-        add_action( 'wp_ajax_easy-facebook-likebox-customizer-style', array( $this, 'efbl_load_customizer_css' ) );
-        add_action( 'wp_ajax_nopriv_easy-facebook-likebox-customizer-style', array( $this, 'efbl_load_customizer_css' ) );
+        add_action( 'wp_enqueue_scripts', array($this, 'enqueue_styles') );
+        add_action( 'wp_enqueue_scripts', array($this, 'enqueue_scripts') );
+        add_shortcode( 'efb_likebox', array($this, 'efb_likebox_shortcode') );
+        add_shortcode( 'efb_pageplugin', array($this, 'efb_pageplugin_shortcode') );
+        add_shortcode( 'efb_feed', array($this, 'efb_feed_shortcode') );
+        add_action( 'wp_ajax_efbl_generate_popup_html', array($this, 'efbl_generate_popup_html') );
+        add_action( 'wp_ajax_nopriv_efbl_generate_popup_html', array($this, 'efbl_generate_popup_html') );
+        add_action( 'wp_ajax_easy-facebook-likebox-customizer-style', array($this, 'efbl_load_customizer_css') );
+        add_action( 'wp_ajax_nopriv_easy-facebook-likebox-customizer-style', array($this, 'efbl_load_customizer_css') );
     }
-    
+
     /**
      * Fired when the plugin is activated.
      *
@@ -94,11 +96,8 @@ class Easy_Facebook_Likebox
      * @since    1.1.0
      *
      */
-    public static function activate( $network_wide )
-    {
-        
+    public static function activate( $network_wide ) {
         if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-            
             if ( $network_wide ) {
                 // Get all blog ids
                 $blog_ids = self::get_blog_ids();
@@ -110,13 +109,11 @@ class Easy_Facebook_Likebox
             } else {
                 self::single_activate();
             }
-        
         } else {
             self::single_activate();
         }
-    
     }
-    
+
     /**
      * Fired when the plugin is deactivated.
      *
@@ -127,11 +124,8 @@ class Easy_Facebook_Likebox
      * @since    1.1.0
      *
      */
-    public static function deactivate( $network_wide )
-    {
-        
+    public static function deactivate( $network_wide ) {
         if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-            
             if ( $network_wide ) {
                 // Get all blog ids
                 $blog_ids = self::get_blog_ids();
@@ -143,13 +137,11 @@ class Easy_Facebook_Likebox
             } else {
                 self::single_deactivate();
             }
-        
         } else {
             self::single_deactivate();
         }
-    
     }
-    
+
     /**
      * Fired when a new site is activated with a WPMU environment.
      *
@@ -158,8 +150,7 @@ class Easy_Facebook_Likebox
      * @since    1.1.0
      *
      */
-    public function activate_new_site( $blog_id )
-    {
+    public function activate_new_site( $blog_id ) {
         if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
             return;
         }
@@ -167,7 +158,7 @@ class Easy_Facebook_Likebox
         self::single_activate();
         restore_current_blog();
     }
-    
+
     /**
      * Get all blog ids of blogs in the current network that are:
      * - not archived
@@ -178,21 +169,19 @@ class Easy_Facebook_Likebox
      * @since    1.1.0
      *
      */
-    private static function get_blog_ids()
-    {
-        global  $wpdb ;
+    private static function get_blog_ids() {
+        global $wpdb;
         // get an array of blog ids
         $sql = "SELECT blog_id FROM {$wpdb->blogs}\n\t\t\tWHERE archived = '0' AND spam = '0'\n\t\t\tAND deleted = '0'";
         return $wpdb->get_col( $sql );
     }
-    
+
     /**
      * Fired for each blog when the plugin is activated.
      *
      * @since    1.1.0
      */
-    private static function single_activate()
-    {
+    private static function single_activate() {
         // @TODO: Define activation functionality here
         $install_date = get_option( 'efbl_installDate', false );
         /*
@@ -208,24 +197,22 @@ class Easy_Facebook_Likebox
          */
         update_option( 'efbl_version_type', 'pro' );
     }
-    
+
     /**
      * Fired for each blog when the plugin is deactivated.
      *
      * @since    1.1.0
      */
-    private static function single_deactivate()
-    {
+    private static function single_deactivate() {
         // @TODO: Define deactivation functionality here
     }
-    
+
     /**
      * Register and enqueue public-facing style sheet.
      *
      * @since    1.1.0
      */
-    public function enqueue_styles()
-    {
+    public function enqueue_styles() {
         wp_enqueue_style( $this->plugin_slug . '-custom-fonts', FTA_PLUGIN_URL . 'frontend/assets/css/esf-custom-fonts.css' );
         if ( efl_fs()->is_free_plan() ) {
             wp_enqueue_style(
@@ -248,24 +235,23 @@ class Easy_Facebook_Likebox
             self::VERSION
         );
     }
-    
+
     /**
      * Register and enqueues public-facing JavaScript files.
      *
      * @since    1.1.0
      */
-    public function enqueue_scripts()
-    {
+    public function enqueue_scripts() {
         wp_enqueue_script(
             $this->plugin_slug . '-popup-script',
             plugins_url( 'assets/js/esf-free-popup.min.js', __FILE__ ),
-            array( 'jquery' ),
+            array('jquery'),
             self::VERSION
         );
         wp_enqueue_script(
             $this->plugin_slug . '-public-script',
             plugins_url( 'assets/js/public.js', __FILE__ ),
-            array( 'jquery', $this->plugin_slug . '-popup-script' ),
+            array('jquery', $this->plugin_slug . '-popup-script'),
             self::VERSION
         );
         $efbl_is_fb_pro = false;
@@ -277,34 +263,29 @@ class Easy_Facebook_Likebox
             'efbl_is_fb_pro' => $efbl_is_fb_pro,
         ) );
     }
-    
+
     /*
      * Include customizer style file
      */
-    public function efbl_load_customizer_css()
-    {
+    public function efbl_load_customizer_css() {
         header( 'Content-type: text/css; charset: UTF-8' );
         require EFBL_PLUGIN_DIR . 'frontend/assets/css/easy-facebook-likebox-customizer-style.css.php';
         exit;
     }
-    
-    public function efb_likebox_shortcode( $atts, $content = '' )
-    {
+
+    public function efb_likebox_shortcode( $atts, $content = '' ) {
         return $this->render_fb_page_plugin( $atts );
     }
-    
-    public function efb_pageplugin_shortcode( $atts, $content = '' )
-    {
+
+    public function efb_pageplugin_shortcode( $atts, $content = '' ) {
         return $this->render_fb_page_plugin( $atts );
     }
-    
-    public function efb_feed_shortcode( $atts, $content = '' )
-    {
+
+    public function efb_feed_shortcode( $atts, $content = '' ) {
         return $this->render_fbfeed_box( $atts );
     }
-    
-    public function render_fbfeed_box( $atts )
-    {
+
+    public function render_fbfeed_box( $atts ) {
         $defaults = array(
             'fanpage_id'       => '',
             'accesstoken'      => '',
@@ -323,7 +304,7 @@ class Easy_Facebook_Likebox
             'is_moderate'      => false,
         );
         $instance = wp_parse_args( (array) $atts, $defaults );
-        if ( isset( $atts['other_page_id'] ) && !empty($atts['other_page_id']) ) {
+        if ( isset( $atts['other_page_id'] ) && !empty( $atts['other_page_id'] ) ) {
             $instance['fanpage_id'] = $atts['other_page_id'];
         }
         if ( is_array( $instance['fanpage_id'] ) ) {
@@ -336,27 +317,26 @@ class Easy_Facebook_Likebox
         ob_end_clean();
         return $returner;
     }
-    
+
     /**
      *          This fucntion will render the facebook page plugin
      *
      *
      * @since    4.0
      */
-    public function render_fb_page_plugin( $options )
-    {
+    public function render_fb_page_plugin( $options ) {
         $efbl_tabs = null;
         extract( $options, EXTR_SKIP );
         if ( !isset( $tabs ) ) {
             $tabs = '';
         }
-        if ( empty($fb_appid) ) {
+        if ( empty( $fb_appid ) ) {
             $fb_appid = '395202813876688';
         }
-        if ( empty($locale) ) {
+        if ( empty( $locale ) ) {
             $locale = 'en_US';
         }
-        if ( !empty($locale_other) ) {
+        if ( !empty( $locale_other ) ) {
             $locale = $locale_other;
         }
         $page_name_id = efbl_parse_url( $fanpage_url );
@@ -418,21 +398,20 @@ class Easy_Facebook_Likebox
         $this->likebox_instance++;
         return $returner;
     }
-    
-    function efbl_generate_popup_html()
-    {
+
+    function efbl_generate_popup_html() {
         ob_start();
-        $efbl_templateurl = locate_template( array( 'easy-facebook-likebox/html-free-popup.php' ) );
+        $efbl_templateurl = locate_template( array('easy-facebook-likebox/html-free-popup.php') );
         if ( !$efbl_templateurl ) {
             $efbl_templateurl = EFBL_PLUGIN_DIR . 'frontend/views/html-free-popup.php';
         }
         require $efbl_templateurl;
         $html = ob_get_contents();
         ob_end_clean();
-        echo  $html ;
+        echo $html;
         wp_die();
     }
-    
+
     /**
      * Get posts from Facebook by given ID
      *
@@ -442,9 +421,8 @@ class Easy_Facebook_Likebox
      *
      * @return mixed|void
      */
-    public function query_posts( $page_id = 617177998743210, $instance = array(), $test_mode = false )
-    {
-        if ( !isset( $page_id ) || empty($page_id) ) {
+    public function query_posts( $page_id = 617177998743210, $instance = array(), $test_mode = false ) {
+        if ( !isset( $page_id ) || empty( $page_id ) ) {
             $page_id = 617177998743210;
         }
         extract( $instance );
@@ -452,13 +430,11 @@ class Easy_Facebook_Likebox
         $fta_settings = $FTA->fta_get_settings();
         $fb_settings = $fta_settings['plugins']['facebook'];
         $has_album_data = false;
-        
         if ( isset( $fb_settings['approved_pages'] ) ) {
             $approved_pages = $fb_settings['approved_pages'];
         } else {
             $approved_pages = array();
         }
-        
         $test_mode = apply_filters( 'efbl_disable_cache', $test_mode );
         $page_id = efbl_parse_url( apply_filters( 'efbl_page_id_before_query', $page_id ) );
         $duration = $cache_unit . '-' . substr( $cache_duration, 0, 1 );
@@ -473,7 +449,6 @@ class Easy_Facebook_Likebox
                 }
             }
         }
-        
         if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
         } else {
             if ( !$page_access_token ) {
@@ -487,28 +462,23 @@ class Easy_Facebook_Likebox
                 ) );
             }
         }
-        
         // If page is not authenticated use user access token
-        
-        if ( !isset( $page_access_token ) && empty($page_access_token) ) {
+        if ( !isset( $page_access_token ) && empty( $page_access_token ) ) {
             $public_page = true;
-            
-            if ( isset( $fb_settings['access_token'] ) && !empty($fb_settings['access_token']) ) {
+            if ( isset( $fb_settings['access_token'] ) && !empty( $fb_settings['access_token'] ) ) {
                 $access_token = $fb_settings['access_token'];
             } else {
                 $access_token = '';
             }
-        
         } else {
             $access_token = $page_access_token;
             $public_page = false;
         }
-        
         // If accesstoken is defined in the shortcode use it.
-        if ( isset( $accesstoken ) && !empty($accesstoken) ) {
+        if ( isset( $accesstoken ) && !empty( $accesstoken ) ) {
             $access_token = $accesstoken;
         }
-        if ( empty($access_token) ) {
+        if ( empty( $access_token ) ) {
             return apply_filters( 'efbl_query_posts_return', array(
                 'posts'          => '',
                 'error'          => __( 'No access token found', 'easy-facebook-likebox' ),
@@ -525,16 +495,15 @@ class Easy_Facebook_Likebox
         }
         $page_username = efbl_get_page_username( $page_id );
         $transient_name = 'efbl_posts_' . str_replace( ' ', '', $page_username ) . '-' . $post_limit . '-' . $duration;
-        if ( empty($page_name) ) {
+        if ( empty( $page_name ) ) {
             $page_name = $page_id;
         }
         $is_saved_posts = false;
         $next_post_url = null;
         $posts_json = get_transient( $transient_name );
-        if ( isset( $posts_json ) && !empty($posts_json) ) {
+        if ( isset( $posts_json ) && !empty( $posts_json ) ) {
             $is_saved_posts = true;
         }
-        
         if ( !$posts_json || '' == $posts_json || $test_mode ) {
             $efbl_api_url = add_query_arg( apply_filters( 'efbl_api_url_params', array(
                 'fields'       => 'posts.limit(' . $post_limit . '){place,status_type,full_picture,permalink_url,likes{pic_crop,id,name},comments.limit(30){id,like_count,permalink_url,comments,reactions,comment_count,created_time,message,message_tags,attachment},reactions{id,name,pic_crop,type,link},created_time,story,message,reactions.type(LIKE).limit(0).summary(1).as(like),reactions.type(LOVE).limit(0).summary(1).as(love),reactions.type(HAHA).limit(0).summary(1).as(haha),reactions.type(WOW).limit(0).summary(1).as(wow),reactions.type(SAD).limit(0).summary(1).as(sad),reactions.type(ANGRY).limit(0).summary(1).as(angry),from,message_tags,shares,story_tags,picture,attachments},about,picture{url}',
@@ -543,26 +512,21 @@ class Easy_Facebook_Likebox
             ), $instance ), apply_filters( 'efbl_api_url_base', 'https://graph.facebook.com/v4.0/' . $page_id . '', $instance ) );
             $posts_json = jws_fetchUrl( $efbl_api_url );
             $json_decoded = json_decode( $posts_json );
-            if ( !$test_mode && !empty($json_decoded->posts->data) ) {
+            if ( !$test_mode && !empty( $json_decoded->posts->data ) ) {
                 set_transient( $transient_name, $posts_json, $cache_seconds );
             }
         }
-        
         $json_decoded = json_decode( $posts_json );
-        
         if ( isset( $json_decoded->posts->data ) ) {
             $fbData = $json_decoded->posts->data;
         } else {
             $fbData = null;
         }
-        
-        
         if ( isset( $json_decoded->error ) ) {
             $error = $json_decoded->error->message;
         } else {
             $error = '';
         }
-        
         $returner = apply_filters( 'efbl_query_posts_return', array(
             'posts'          => $fbData,
             'error'          => $error,
@@ -574,7 +538,7 @@ class Easy_Facebook_Likebox
         ) );
         return $returner;
     }
-    
+
     /**
      * Get group feed by ID
      *
@@ -585,9 +549,7 @@ class Easy_Facebook_Likebox
      *
      * @since 6.2.3
      */
-    public function query_group_feed( $group_id, $instance = array() )
-    {
-        
+    public function query_group_feed( $group_id, $instance = array() ) {
         if ( $group_id ) {
             $FTA = new Feed_Them_All();
             $fta_settings = $FTA->fta_get_settings();
@@ -598,15 +560,12 @@ class Easy_Facebook_Likebox
             $group_json_data = get_transient( $transient_name );
             $group_feed = json_decode( $group_json_data );
             $test_mode = false;
-            
             if ( isset( $instance['test_mode'] ) ) {
                 $test_mode = $instance['test_mode'];
             } else {
                 $test_mode = false;
             }
-            
             $error_message = '';
-            
             if ( !$group_json_data ) {
                 $efbl_api_url = add_query_arg( apply_filters( 'efbl_group_feed_api_url_params', array(
                     'fields'       => 'status_type,permalink_url,full_picture,from,created_time,message,message_tags,shares,attachments,picture,story,story_tags,comments,reactions{type,pic_crop,pic,username,picture}',
@@ -616,40 +575,30 @@ class Easy_Facebook_Likebox
                 $group_json_data = jws_fetchUrl( $efbl_api_url );
                 $group_feed = json_decode( $group_json_data );
                 $cache_seconds = efbl_get_cache_seconds( $instance );
-                
-                if ( isset( $group_feed->data ) && !empty($group_feed->data) && !$test_mode ) {
+                if ( isset( $group_feed->data ) && !empty( $group_feed->data ) && !$test_mode ) {
                     set_transient( $transient_name, $group_json_data, $cache_seconds );
                 } else {
-                    
                     if ( isset( $group_feed->error->message ) ) {
                         $error_message = $group_feed->error->message;
                     } else {
                         $error_message = 'group_err_msg_empty';
                     }
-                
                 }
-            
             }
-            
-            
             if ( isset( $group_feed->paging->next ) ) {
                 $next_post_url = $group_feed->paging->next;
             } else {
                 $next_post_url = '';
             }
-            
-            
-            if ( isset( $group_feed->data ) && !empty($group_feed->data) ) {
+            if ( isset( $group_feed->data ) && !empty( $group_feed->data ) ) {
                 $group_feed_data = $group_feed->data;
             } else {
                 $group_feed_data = null;
             }
-        
         } else {
             $group_feed_data = null;
             $error_message = __( 'Please enter a valid Group ID in the shortcode', 'easy-facebook-likebox' );
         }
-        
         return apply_filters( 'efbl_query_group_feed_return', array(
             'posts'          => $group_feed_data,
             'error'          => $error_message,
@@ -661,4 +610,5 @@ class Easy_Facebook_Likebox
     }
 
 }
+
 $efbl = new Easy_Facebook_Likebox();

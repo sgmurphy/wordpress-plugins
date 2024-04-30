@@ -386,7 +386,7 @@ class Ga_Admin {
 		$data['debug_info']  = Ga_SupportLogger::$debug_info;
 
 		// Sanitize error.
-		$error = filter_input( INPUT_GET, 'err', FILTER_SANITIZE_STRING );
+		$error = filter_input( INPUT_GET, 'err', FILTER_UNSAFE_RAW );
 
 		if ( false === empty( $error ) ) {
 			switch ( $error ) {
@@ -679,7 +679,7 @@ class Ga_Admin {
 			);
 		}
 
-		$settings_updated = filter_input( INPUT_GET, 'settings-updated', FILTER_SANITIZE_STRING );
+		$settings_updated = filter_input( INPUT_GET, 'settings-updated', FILTER_UNSAFE_RAW );
 
 		if ( false === empty( $settings_updated ) && Ga_Helper::is_plugin_page() ) {
 			echo wp_kses_post( Ga_Helper::ga_wp_notice( __( 'Settings saved' ), self::NOTICE_SUCCESS ) );
@@ -834,7 +834,7 @@ class Ga_Admin {
 	 * @return false|void
 	 */
 	public static function init_oauth() {
-		$ua_add = filter_input( INPUT_GET, 'ua', FILTER_SANITIZE_STRING );
+		$ua_add = filter_input( INPUT_GET, 'ua', FILTER_UNSAFE_RAW );
 
 		if ( 't' !== $ua_add ) {
 			return false;
@@ -1455,11 +1455,11 @@ class Ga_Admin {
 				$this->token = $client->getAccessToken();
 			} else {
 				// Request authorization from the user.
-				$auth_code = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
+				$auth_code = filter_input( INPUT_GET, 'code', FILTER_UNSAFE_RAW );
 
 				// Exchange authorization code for an access token.
-				if (false === empty($auth_code)) {
-					$access_token = $client->fetchAccessTokenWithAuthCode($auth_code);
+				if ( false === empty( $auth_code ) ) {
+					$access_token = $client->fetchAccessTokenWithAuthCode( sanitize_text_field( wp_unslash( $auth_code ) ) );
 					$client->setAccessToken($access_token);
 
 					// Check to see if there was an error.

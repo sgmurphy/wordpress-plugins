@@ -43,6 +43,24 @@ class CHT_Frontend extends CHT_Admin_Base
     public $hasFont = false;
 
     /**
+     * Whether the font is enabled or not.
+     *
+     * @var    bool $hasFont True if the email field is added, false otherwise.
+     * @since  1.0.0
+     * @access public
+     */
+    public $hasEmail = false;
+
+    /**
+     * Whether the font is enabled or not.
+     *
+     * @var    bool $hasEmoji True if the emoji is enabled, false otherwise.
+     * @since  1.0.0
+     * @access public
+     */
+    public $hasEmoji = false;
+
+    /**
      * Class constructor.
      *
      * Initializes the class properties and sets up the necessary actions and filters.
@@ -602,11 +620,11 @@ class CHT_Frontend extends CHT_Admin_Base
 
             // Widget setting array.
             $setting = [];
-            $setting['cta_type']          = esc_attr($cta_type);
+            $setting['cta_type']          = $this->sanitize_xss($cta_type);
             $setting['cta_body']          = html_entity_decode($cta_body);
             $setting['cta_head']          = $cta_head;
-            $setting['cta_head_bg_color'] = esc_attr($cta_head_bg_color);
-            $setting['cta_head_text_color'] = esc_attr($cta_header_text_color);
+            $setting['cta_head_bg_color'] = $this->sanitize_xss($cta_head_bg_color);
+            $setting['cta_head_text_color'] = $this->sanitize_xss($cta_header_text_color);
             $setting['show_close_button'] = $hasCloseButton;
             $setting['position']          = $position;
             $setting['custom_position']   = 1;
@@ -628,7 +646,7 @@ class CHT_Frontend extends CHT_Admin_Base
             $setting['widget_size']        = $chtWidgetSize;
             $setting['custom_widget_size'] = $chtWidgetSize;
             $setting['is_google_analytics_enabled'] = $analytics;
-            $setting['close_text']       = wp_strip_all_tags(esc_attr($close_text));
+            $setting['close_text']       = wp_strip_all_tags($this->sanitize_xss($close_text));
             $setting['widget_color']     = $bgColor;
             $setting['widget_icon_color'] = "#ffffff";
             $setting['widget_rgb_color'] = $this->getRGBColor($bgColor);
@@ -705,9 +723,15 @@ class CHT_Frontend extends CHT_Admin_Base
                 wp_enqueue_style('chaty-front-css', CHT_PLUGIN_URL."css/chaty-front.min.css", [], CHT_VERSION.$chaty_updated_on);
                 // wp_add_inline_style('chaty-front-css', $chaty_css);
                 wp_enqueue_script("chaty-front-end", CHT_PLUGIN_URL."js/cht-front-script.min.js", [ 'jquery' ], CHT_VERSION.$chaty_updated_on, true);
-                wp_enqueue_script("chaty-mail-check", CHT_PLUGIN_URL."admin/assets/js/mailcheck.js", [ 'jquery' ], CHT_VERSION, true);
-                wp_enqueue_script('chaty-picmo-js', CHT_PLUGIN_URL.'admin/assets/js/picmo-umd.min.js',[ 'jquery' ], CHT_VERSION, true);
-                wp_enqueue_script('chaty-picmo-latest-js', CHT_PLUGIN_URL.'admin/assets/js/picmo-latest-umd.min.js', ['jquery'], CHT_VERSION, true);
+
+                if($this->hasEmail) {
+                    wp_enqueue_script("chaty-mail-check", CHT_PLUGIN_URL . "admin/assets/js/mailcheck.js", ['jquery'], CHT_VERSION, true);
+                }
+
+                if($this->hasEmoji) {
+                    wp_enqueue_script('chaty-picmo-js', CHT_PLUGIN_URL . 'admin/assets/js/picmo-umd.min.js', ['jquery'], CHT_VERSION, true);
+                    wp_enqueue_script('chaty-picmo-latest-js', CHT_PLUGIN_URL . 'admin/assets/js/picmo-latest-umd.min.js', ['jquery'], CHT_VERSION, true);
+                }
                 wp_localize_script('chaty-front-end', 'chaty_settings',  $data);
 
                 if ( version_compare( get_bloginfo( 'version' ), '6.2.3', '>=' ) ) {
@@ -1010,9 +1034,9 @@ class CHT_Frontend extends CHT_Admin_Base
                             // setting for WeChat
                             $url = "javascript:;";
                             if (!empty($value['title'])) {
-                                $value['title'] .= ": ".esc_attr($val);
+                                $value['title'] .= ": ".$this->sanitize_xss($val);
                             } else {
-                                $value['title'] = esc_attr($val);
+                                $value['title'] = $this->sanitize_xss($val);
                             }
 
                             $qr_code = isset($value['qr_code']) ? $value['qr_code'] : "";
@@ -1135,7 +1159,7 @@ class CHT_Frontend extends CHT_Admin_Base
 
                         $svgClass = ($channelType == "contact_us") ? "color-element" : "";
 
-                        $bgColor  = $value['bg_color'];
+                        $bgColor  = $this->validate_color($value['bg_color'], $social['color']);
                         $rgbColor = $this->getRGBColor($value['bg_color']);
                         $url      = htmlspecialchars($url);
 
@@ -1162,6 +1186,7 @@ class CHT_Frontend extends CHT_Admin_Base
 
                                 $fieldSetting = $value['email'];
                                 if (isset($fieldSetting['is_active']) && $fieldSetting['is_active'] == "yes") {
+                                    $this->hasEmail = true;
                                     $contactFields[] = [
                                         "field"       => "email",
                                         "title"       => isset($fieldSetting['field_label'])? $this->sanitize_xss($fieldSetting['field_label']) : esc_html__("Email", "chaty"),
@@ -1196,12 +1221,12 @@ class CHT_Frontend extends CHT_Admin_Base
 
                             if (!empty($contactFields)) {
                                 $contactFormSettings = [
-                                    "button_text_color"  => isset($value['button_text_color']) ? $this->sanitize_xss($value['button_text_color']) : "#ffffff",
-                                    "button_bg_color"    => isset($value['button_bg_color']) ? $this->sanitize_xss($value['button_bg_color']) : "#A886CD",
+                                    "button_text_color"  => $this->validate_color(isset($value['button_text_color']) ? $this->sanitize_xss($value['button_text_color']) : "#ffffff", "#ffffff"),
+                                    "button_bg_color"    => $this->validate_color((isset($value['button_bg_color']) ? $this->sanitize_xss($value['button_bg_color']) : "#A886CD"), "#A886CD"),
                                     "button_text"        => isset($value['button_text']) ? $this->sanitize_xss($value['button_text']) : "Chat",
                                     "contact_form_title" => isset($value['contact_form_title']) ? $this->sanitize_xss($value['contact_form_title']) : "Contact Us",
                                     "contact_form_field_order" => [],
-                                    "title_bg_color" => isset($value['contact_form_title_bg_color'])?esc_attr($value['contact_form_title_bg_color']):"#A886CD"
+                                    "title_bg_color"     => $this->validate_color((isset($value['contact_form_title_bg_color'])?$this->sanitize_xss($value['contact_form_title_bg_color']):"#A886CD"),"#A886CD")
                                 ];
                             } else {
                                 $valid = false;
@@ -1213,16 +1238,23 @@ class CHT_Frontend extends CHT_Admin_Base
                             $preSetMessage      = isset($value['pre_set_message']) ? $this->sanitize_xss($value['pre_set_message']) : "";
                             $isDefaultOpen      = (isset($value['is_default_open'])&&$value['is_default_open'] == "yes") ? 1 : 0;
                             $hasWelcomeMessage  = (isset($value['embedded_window'])&&$value['embedded_window'] == "yes") ? 1 : 0;
+                            $hasEmojiPicker     = $this->sanitize_xss((!isset($value['emoji_picker']) || $value['emoji_picker'] == "yes") ? 1 : 0);
+                            $inputPlaceholder   = $this->sanitize_xss(isset($value['input_placeholder'])?$value['input_placeholder']:esc_html__("Write your message...","chaty"));
                             $embeddedMessage    = isset($value['embedded_message']) ? $value['embedded_message'] : "";
                             $channelAccountType = isset($value['link_type']) ? $this->sanitize_xss($value['link_type']) : "personal";
                             $mailSubject        = isset($value['mail_subject']) ? $this->sanitize_xss($value['mail_subject']) : "";
                             $isUseWebVersion    = (isset($value['use_whatsapp_web']) && $value['use_whatsapp_web'] == "no") ? 0 : 1;
                             $isOpenNewTab       = (isset($value['is_open_new_tab']) && $value['is_open_new_tab'] == 0) ? 0 : 1;
                             $channelType        = isset($value['channel_type']) && !empty($value['channel_type']) ?  $this->sanitize_xss($value['channel_type']) : $social['slug'];
-                            $wp_popup_headline = $this->sanitize_xss((isset($value['wp_popup_headline']) && !empty($value['wp_popup_headline'])) ? $value['wp_popup_headline'] : '');
-                            $wp_popup_head_bg_color = $this->sanitize_xss((isset($value['wp_popup_head_bg_color']) && !empty($value['wp_popup_head_bg_color'])) ? $value['wp_popup_head_bg_color'] : '#4AA485');
-                            $wp_popup_nickname = $this->sanitize_xss((isset($value['wp_popup_nickname']) && !empty($value['wp_popup_nickname'])) ? $value['wp_popup_nickname'] : '');
-                            $wp_popup_profile = $this->sanitize_xss((isset($value['wp_popup_profile']) && !empty($value['wp_popup_profile'])) ? $value['wp_popup_profile'] : '');
+                            $wp_popup_headline  = $this->sanitize_xss((isset($value['wp_popup_headline']) && !empty($value['wp_popup_headline'])) ? $value['wp_popup_headline'] : '');
+                            $wp_popup_head_bg_color = $this->validate_color($this->sanitize_xss((isset($value['wp_popup_head_bg_color']) && !empty($value['wp_popup_head_bg_color'])) ? $value['wp_popup_head_bg_color'] : '#4AA485'), '#4AA485');
+                            $wp_popup_nickname      = $this->sanitize_xss((isset($value['wp_popup_nickname']) && !empty($value['wp_popup_nickname'])) ? $value['wp_popup_nickname'] : '');
+                            $wp_popup_profile       = $this->sanitize_xss((isset($value['wp_popup_profile']) && !empty($value['wp_popup_profile'])) ? $value['wp_popup_profile'] : '');
+
+                            if($hasWelcomeMessage && $hasEmojiPicker) {
+                                $this->hasEmoji = true;
+                            }
+
                             $allowed_html    = [
                                 'a'      => [
                                     'href'  => [],
@@ -1260,6 +1292,8 @@ class CHT_Frontend extends CHT_Admin_Base
                                 "is_open_new_tab"       => $this->sanitize_xss($isOpenNewTab),
                                 "is_default_open"       => $this->sanitize_xss($isDefaultOpen),
                                 "has_welcome_message"   => $this->sanitize_xss($hasWelcomeMessage),
+                                "emoji_picker"          => $this->sanitize_xss($hasEmojiPicker),
+                                "input_placeholder"     => $this->sanitize_xss($inputPlaceholder),
                                 "chat_welcome_message"  => $embeddedMessage,
                                 "wp_popup_headline"     => $wp_popup_headline,
                                 "wp_popup_nickname"     => $wp_popup_nickname,
@@ -1483,6 +1517,29 @@ class CHT_Frontend extends CHT_Admin_Base
         return $ip;
 
     }//end get_user_ipaddress()
+
+
+    /**
+     * Validates a color value and returns it if it matches the given formats.
+     *
+     * @param string $color The color value to validate.
+     * @param string $default_color (optional) The default color value to return if the given color is invalid.
+     * @return string The validated color value, or the default color value if the given color is invalid.
+     */
+    function validate_color($color, $default_color = "") {
+        if( preg_match('/^#[a-f0-9]{6}$/i', $color)) {
+            return $color;
+        } else {
+            $rgbPattern = '/^rgb\((\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*,\s*?){2}\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*\)$/';
+
+            // Check if it's a RGBA color
+            $rgbaPattern = '/^rgba\((\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*,\s*?){3}\s*0*(?:0(\.\d+)?|1(\.0+)?)\s*\)$/';
+            if(preg_match($rgbPattern, $color) || preg_match($rgbaPattern, $color)) {
+                return $color;
+            }
+        }
+        return $default_color;
+    }
 
 
 }//end class

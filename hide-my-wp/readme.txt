@@ -4,7 +4,7 @@ Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.1.01
+Stable tag: 5.1.02
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -282,6 +282,12 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.1.02 (30 Apr 2024) =
+Update - Security Check verifies the firewall against SQL & Script injection and weak usernames
+Update - Font-sizes and layouts
+Update - Add support to MyList theme
+Update - 7g & 8G firewall to match more WP actions and compatibility with more plugins
+
 = 5.1.01 (10 Apr 2024) =
 Update - Added the 8G Firewall filter
 Update - Added the required header security for Apache and Nginx

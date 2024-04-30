@@ -333,7 +333,7 @@ if (!empty($conditionArray)) {
 
 <script>
 jQuery(document).ready(function() {
-    var selectedURL = '<?php echo esc_url(admin_url("admin.php?page=chaty-contact-form-feed&remove_chaty_leads=".wp_create_nonce("remove_chaty_leads")."&action=delete_message&paged={$current}&search=".esc_attr($search)."&chaty_leads=")) ?>';
+    var selectedURL = '<?php echo esc_url(admin_url())."admin.php?page=chaty-contact-form-feed&remove_chaty_leads=".wp_create_nonce("remove_chaty_leads")."&action=delete_message&paged={$current}&search=".esc_attr($search)."&chaty_leads=" ?>';
     jQuery(document).on("click", ".remove-record", function(e) {
         e.preventDefault();
         var redirectRemoveURL = selectedURL + jQuery(this).closest("tr").data("id");

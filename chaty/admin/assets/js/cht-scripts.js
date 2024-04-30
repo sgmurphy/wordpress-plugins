@@ -1730,7 +1730,7 @@ jQuery(document).ready(function () {
         jQuery("#cht_custom_color").val(jQuery(this).val());
         change_custom_preview();
     });
-    jQuery('input[name="cht_color"]:checked').trigger("change");
+    // jQuery('input[name="cht_color"]:checked').trigger("change");
 
     jQuery(document).on("change", "input[name='cht_position']:checked", function(){
         change_custom_preview();
@@ -2101,7 +2101,6 @@ function check_for_chaty_close_button() {
     } else {
         jQuery("#chaty-social-close").hide();
     }
-    change_custom_preview();
     var srtString = "";
     jQuery("#channels-selected-list > li").each(function(){
         if(jQuery(this).attr("data-id") != "undefined" && jQuery(this).attr("data-id") != "") {

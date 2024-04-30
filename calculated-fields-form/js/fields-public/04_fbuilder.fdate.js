@@ -429,7 +429,6 @@
 							d  = re.exec(v),
 							h  = 0,
 							m  = 0,
-							s = me.showDatepicker ? (new Date()).getSeconds() : 0,
 							date;
 
 						if(d)
@@ -445,16 +444,16 @@
 							switch(o.d)
 							{
 								case 'yyyy/dd/mm':
-									date = new Date(d[2], (d[4] * 1 - 1), d[3], h, m, s, 0);
+									date = new Date(d[2], (d[4] * 1 - 1), d[3], h, m, 0, 0);
 								break;
 								case 'yyyy/mm/dd':
-									date = new Date(d[2], (d[3] * 1 - 1), d[4], h, m, s, 0);
+									date = new Date(d[2], (d[3] * 1 - 1), d[4], h, m, 0, 0);
 								break;
 								case 'dd/mm/yyyy':
-									date = new Date(d[4], (d[3] * 1 - 1), d[2], h, m, s, 0);
+									date = new Date(d[4], (d[3] * 1 - 1), d[2], h, m, 0, 0);
 								break;
 								case 'mm/dd/yyyy':
-									date = new Date(d[4], (d[2] * 1 - 1), d[3], h, m, s, 0);
+									date = new Date(d[4], (d[2] * 1 - 1), d[3], h, m, 0, 0);
 								break;
 							}
 

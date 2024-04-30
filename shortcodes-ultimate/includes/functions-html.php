@@ -26,7 +26,7 @@ function su_html_icon( $args ) {
 	);
 
 	if ( ! $args['icon'] ) {
-		return;
+		return '';
 	}
 
 	if ( $args['style'] ) {

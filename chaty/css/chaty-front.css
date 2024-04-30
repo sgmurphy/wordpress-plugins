@@ -854,7 +854,7 @@ button.chaty-whatsapp-button-button:focus, button.chaty-whatsapp-button-button:h
 
 .chaty-whatsapp-field input[type=text] {
     height: 40px !important;
-    line-height: 40px;
+    line-height: normal;
     padding: 0 10px 0 15px;
     font-size: 16px;
     resize: none;
@@ -1518,8 +1518,14 @@ button[type="button"].chaty-wp-emoji-input, button[type="button"].chaty-wp-emoji
     margin: 0 !important;
     outline: none !important;
 }
+.chaty-whatsapp-field:not(.has_emoji) .chaty-wp-emoji-input {
+    display: none !important;
+}
 .chaty-whatsapp-input {
     padding-left: 38px !important;
+}
+.chaty-whatsapp-field:not(.has_emoji) .chaty-whatsapp-input {
+    padding-left: 15px !important;
 }
 .picmo__popupContainer {
     z-index: 1000000;

@@ -6,7 +6,6 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-
 if ( $feed->media_url ) {
     ?>
 
@@ -21,10 +20,10 @@ if ( $feed->media_url ) {
 
 			<span class="esf_insta_feed_fancy_popup esf_insta_grid_box"
 				  style="background-image: url(<?php 
-    echo  esc_url( $thumbnail_url ) ;
+    echo esc_url( $thumbnail_url );
     ?>)">
 				<img style="display: none;" src="<?php 
-    echo  esc_url( $thumbnail_url ) ;
+    echo esc_url( $thumbnail_url );
     ?>">
 
 					<div class="esf-insta-overlay">

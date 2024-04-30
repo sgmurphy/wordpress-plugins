@@ -852,11 +852,11 @@ class TNP_Style {
 
     function echo_css($scale = 1.0) {
         echo 'font-size: ', round($this->font_size * $scale), 'px;';
-        echo 'font-family: ', $this->font_family, ';';
-        echo 'font-weight: ', $this->font_weight, ';';
-        echo 'color: ', $this->font_color, ';';
+        echo 'font-family: ', esc_html($this->font_family), ';';
+        echo 'font-weight: ', esc_html($this->font_weight), ';';
+        echo 'color: ', sanitize_hex_color($this->font_color), ';';
         if (!empty($this->align)) {
-            echo 'text-align: ', $this->align, ';';
+            echo 'text-align: ', esc_html($this->align), ';';
         }
     }
 }

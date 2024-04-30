@@ -222,6 +222,7 @@ $cta_type = "simple-view";
         <?php
         $color = $this->get_current_color();
         $color = empty($color) ? '#A886CD' : $color;
+        $color = $this->validate_color($color, '#A886CD');
         ?>
         <div class="form-horizontal__item chaty-widget-color o-channel <?php echo esc_attr($class) ?>">
             <label class="align-top form-horizontal__item-label font-primary text-cht-gray-150 text-base mb-2 block"><?php esc_html_e('Widget icon color', 'chaty'); ?>:</label>
@@ -288,7 +289,10 @@ $cta_type = "simple-view";
                     </div>
 
                     <button class="color-picker-btn text-cht-gray-150">
-                        <?php $color = !empty($color) ? $color : '#A886CD'; ?>
+                        <?php
+                        $color = !empty($color) ? $color : '#A886CD';
+                        $color = $this->validate_color($color, '#A886CD');
+                        ?>
                         <span class="circle" style="background-color: <?php echo esc_attr($color) ?>"></span>
                         <span class="text">
                             <?php
@@ -419,6 +423,7 @@ $cta_type = "simple-view";
                     <?php
                     $val = get_option("cht_cta_text_color");
                     $val = ($val === false) ? "#333333" : $val;
+                    $val = $this->validate_color($val, "#333333");
                     ?>
                     <div class="form-horizontal__item flex items-center gap-2 flex-center">
                         <label class="form-horizontal__item-label font-primary text-base text-cht-gray-150 block"><?php esc_html_e('Call to action text color', 'chaty');?>:</label>
@@ -431,6 +436,7 @@ $cta_type = "simple-view";
                     <?php
                     $val = get_option("cht_cta_bg_color");
                     $val = ($val === false) ? "#ffffff" : $val;
+                    $val = $this->validate_color($val, "#ffffff");
                     ?>
                     <div class="form-horizontal__item flex items-center gap-2 flex-center">
                         <label class="form-horizontal__item-label font-primary text-cht-gray-150 text-base block"><?php esc_html_e('Call to action background', 'chaty');?>:</label>
@@ -603,6 +609,7 @@ $cta_type = "simple-view";
                 <?php
                 $val = get_option("cht_number_color");
                 $val = ($val === false || empty($val)) ? "#ffffff" : $val;
+                $val = $this->validate_color($val, "#ffffff");
                 ?>
                 <div class="form-horizontal__item flex pending-message-items mr-4 float-left items-center gap-2 <?php echo esc_attr($activeClass) ?>">
                     <label class="form-horizontal__item-label font-primary text-cht-gray-150 text-base"><?php esc_html_e('Number color', 'chaty');?>:</label>
@@ -614,6 +621,7 @@ $cta_type = "simple-view";
                 <?php
                 $val = get_option("cht_number_bg_color");
                 $val = ($val === false || empty($val)) ? "#dd0000" : $val;
+                $val = $this->validate_color($val, "#dd0000");
                 ?>
                 <div class="form-horizontal__item flex pending-message-items float-left items-center gap-2 <?php echo esc_attr($activeClass) ?>">
                     <label class="form-horizontal__item-label font-primary text-cht-gray-150 text-base"><?php esc_html_e('Background color', 'chaty');?>:</label>

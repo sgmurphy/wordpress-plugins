@@ -64,6 +64,11 @@ if ( ! empty( $form_data ) ) {
 		}
 	}
 	$form_data[1]['formid'] = 'cp_calculatedfieldsf_pform_' . CPCFF_MAIN::$form_counter;
+
+	if ( ! defined( 'CFF_AUXILIARY_NONCE' ) ) define( 'CFF_AUXILIARY_NONCE',  wp_create_nonce( 'cff-client-side-auxilary-nonce' ) );
+
+	// Form Heights
+	print $form_obj->get_height( '#' . $form_data[1]['formid'] );
 	?>
 <form name="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" id="<?php echo esc_attr( $form_data[1]['formid'] ); ?>" action="<?php echo esc_attr( ( ( $permalink = get_permalink() ) !== false ) ? $permalink : '?' ); ?>" method="post" enctype="multipart/form-data" onsubmit="return fbuilderjQuery.fbuilder.doValidate(this);" class="cff-form <?php
 if ( ! empty( $form_data[1][0] ) && ! empty( $form_data[1][0]->persistence ) ) {
@@ -85,7 +90,7 @@ if ( isset( $_REQUEST['cff-form-target'] ) ) {
 if ( property_exists( $form_data[1][0], 'direction' ) ) {
 	print ' dir="' . esc_attr( $form_data[1][0]->direction ) . '"';
 }
-?>>
+?> data-nonce="<?php print esc_attr( CFF_AUXILIARY_NONCE ); ?>">
 <input type="hidden" name="cp_calculatedfieldsf_pform_psequence" value="_<?php echo esc_attr( CPCFF_MAIN::$form_counter ); ?>" />
 <input type="hidden" name="cp_calculatedfieldsf_id" value="<?php echo esc_attr( $id ); ?>" />
 <input type="hidden" name="cp_ref_page" value="<?php echo esc_attr( CPCFF_AUXILIARY::site_url() ); ?>" />

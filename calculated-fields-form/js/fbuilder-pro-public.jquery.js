@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.2';
+	$.fbuilder['version'] = '5.2.3';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -805,9 +805,21 @@
 							$(document).on('formReady', 'form#'+this.formId, ( function( opt, fid ){
 								return function(evt,fid2){
 									if ( fid == fid2 ){
+										let f = $('#'+fid);
+										f.css({'height':'auto', 'minHeight':'auto'});
 										$.fbuilder.cpcffLoadDefaults( opt );
-										$(this).attr( 'data-evalequations', opt.evalequations );
+										f.attr( 'data-evalequations', opt.evalequations );
 										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
+										$.post(
+											document.location.href,
+											{
+												'cffaction'     : 'cff_register_height',
+												'form_height'	: f.height(),
+												'screen_width'	: $(window).width(),
+												'form'	 		: f.find('[name="cp_calculatedfieldsf_id"]').val(),
+												'_nonce'		: f.attr('data-nonce') || ''
+											}
+										);
 									}
 								};
 							} )( opt, this.formId ) );

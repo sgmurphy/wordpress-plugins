@@ -1,6 +1,6 @@
 # WP Job Manager
 
-## 2.3.0 - 2024-04-26
+## 2.3.0 - 2024-04-29
 New!
 
 * Job Statistics — enable insights like job listing page views, unique visits and search impressions to be collected and displayed to employers in the jobs dashboard.

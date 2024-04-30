@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.3 =
+
+* Fixes a CLS issue on pages with the CFF forms.
+* Fixes a minor visual issue with the Gutenberg module.
+* Modifies the val method in date/time controls.
+
 = 5.2.2 =
 
 * Modifies the fields' lists in dependencies, calculated fields settings, and fields list popup to display the short label if the label is empty.

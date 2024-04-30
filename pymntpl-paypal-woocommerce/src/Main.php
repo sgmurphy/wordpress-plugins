@@ -355,6 +355,9 @@ class Main {
 		$this->container->register( \PaymentPlugins\PPCP\WooCommerceProductAddons\Package::class, function ( $container ) {
 			return new \PaymentPlugins\PPCP\WooCommerceProductAddons\Package( $container, $this->version );
 		} );
+		$this->container->register( \PaymentPlugins\PPCP\SW_WAPF\Package::class, function ( $container ) {
+			return new \PaymentPlugins\PPCP\SW_WAPF\Package( $container, $this->version );
+		} );
 
 
 		$this->container->register( PackageRegistry::class, function ( $container ) {
@@ -372,7 +375,8 @@ class Main {
 				\PaymentPlugins\PPCP\WooCommerceExtraProductOptions\Package::class,
 				\PaymentPlugins\PPCP\WooCommerceShipStation\Package::class,
 				\PaymentPlugins\PPCP\WooCommerceGermanized\Package::class,
-				\PaymentPlugins\PPCP\WooCommerceProductAddons\Package::class
+				\PaymentPlugins\PPCP\WooCommerceProductAddons\Package::class,
+				\PaymentPlugins\PPCP\SW_WAPF\Package::class
 			] );
 
 			return $package_controller;

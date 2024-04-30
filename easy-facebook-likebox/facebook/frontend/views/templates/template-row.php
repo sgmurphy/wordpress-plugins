@@ -6,7 +6,6 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-
 if ( $is_album_feed ) {
 } else {
     //[ $efbl_feed_width, $efbl_feed_height, $type, $attr ] = getimagesize( $feed_img );
@@ -16,28 +15,24 @@ if ( $is_album_feed ) {
     }
     $efbl_free_popup_type = 'data-imagelink="' . $feed_img . '"';
     $efbl_free_popup_class = null;
-    
-    if ( 'added_video' == $feed_type && !empty($video_source) ) {
+    if ( 'added_video' == $feed_type && !empty( $video_source ) ) {
         $efbl_free_popup_type = 'data-video="' . $video_source . '"';
         $efbl_free_popup_class = 'efbl_popup_video';
     }
-    
-    
     if ( $feed_img ) {
         ?>
 
         <div class="efbl-row-content">
             <div class="efbl-row-wrapper efbl-story-wrapper">
 				<?php 
-        
         if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
             ?>
                     <a class="efbl_feed_fancy_popup efbl-row-box" target="_blank"
                        href="<?php 
-            echo  esc_url( $story->permalink_url ) ;
+            echo esc_url( $story->permalink_url );
             ?>">
                         <img src="<?php 
-            echo  esc_url( $feed_img ) ;
+            echo esc_url( $feed_img );
             ?>">
                         <div class="efbl-overlay">
 
@@ -58,7 +53,7 @@ if ( $is_album_feed ) {
                                    aria-hidden="true"></i>
 								<?php 
             }
-            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty( $story->attachments->data['0']->subattachments->data ) ) {
                 ?>
                                 <i class="icon icon-esf-clone efbl_multimedia"
                                    aria-hidden="true"></i>
@@ -81,10 +76,10 @@ if ( $is_album_feed ) {
             ?>"
                           href="javascript:;"
                           style="background-image: url(<?php 
-            echo  esc_url( $feed_img ) ;
+            echo esc_url( $feed_img );
             ?>)">
                 <img src="<?php 
-            echo  esc_url( $feed_img ) ;
+            echo esc_url( $feed_img );
             ?>">
                 <div class="efbl-overlay">
 
@@ -106,7 +101,7 @@ if ( $is_album_feed ) {
                            aria-hidden="true"></i>
 		                <?php 
             }
-            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty( $story->attachments->data['0']->subattachments->data ) ) {
                 ?>
                         <i class="icon icon-esf-clone efbl_multimedia"
                            aria-hidden="true"></i>
@@ -118,7 +113,6 @@ if ( $is_album_feed ) {
             </span>
 				<?php 
         }
-        
         ?>
 
             </div>
@@ -126,5 +120,4 @@ if ( $is_album_feed ) {
 
 		<?php 
     }
-
 }

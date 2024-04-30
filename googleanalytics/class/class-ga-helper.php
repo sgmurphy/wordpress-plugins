@@ -60,9 +60,8 @@ class Ga_Helper {
 	 * @return integer
 	 */
 	public static function is_plugin_page() {
-		$page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
-
-		$page_split = explode( '/', $page );
+		$page       = filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW );
+		$page_split = explode( '/', sanitize_text_field( wp_unslash( $page ) ) );
 
 		if ( false === empty( $page_split ) && true === isset( $page_split[0] ) ) {
 			return GA_NAME === $page_split[0];
@@ -444,8 +443,8 @@ class Ga_Helper {
 	 * @return mixed
 	 */
 	public static function get_selected_account_data( $assoc = false ) {
-		$data = json_decode( self::get_option( Ga_Admin::GA_SELECTED_ACCOUNT ) );
-		$data = ( false === empty( $data ) && 3 === count( $data ) ) ? $data : false;
+		$data = self::get_option( Ga_Admin::GA_SELECTED_ACCOUNT );
+		$data = ( false === empty( $data ) && 3 === count( $data ) ) ? json_decode( $data ) : false;
 
 		if ( $data ) {
 			if ( $assoc ) {
@@ -714,9 +713,9 @@ class Ga_Helper {
 	 * @return string
 	 */
 	public static function get_account_id() {
-		$account_id = json_decode( self::get_option( Ga_Admin::GA_SELECTED_ACCOUNT ) );
+		$account_id = self::get_option( Ga_Admin::GA_SELECTED_ACCOUNT );
 
-		return ! empty( $account_id[0] ) ? $account_id[0] : '';
+		return false === empty( $account_id ) ? json_decode( $account_id )[0] : '';
 	}
 
 	/**
@@ -865,8 +864,8 @@ class Ga_Helper {
 		$date_range = filter_input_array(
 			INPUT_GET,
 			array(
-				'date_from' => FILTER_SANITIZE_STRING,
-				'date_to'   => FILTER_SANITIZE_STRING,
+				'date_from' => FILTER_UNSAFE_RAW,
+				'date_to'   => FILTER_UNSAFE_RAW,
 			)
 		);
 

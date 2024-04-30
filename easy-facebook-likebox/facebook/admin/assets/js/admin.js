@@ -38,7 +38,7 @@ jQuery( document ).ready(
 				var data = {
 					action: 'efbl_get_albums_list',
 					page_id: this.value,
-					efbl_nonce: efbl.nonce,
+					nonce: efbl.nonce,
 				};
 
 				jQuery.ajax(
@@ -355,7 +355,7 @@ jQuery( document ).ready(
 				const data = {
 					action: 'efbl_preload_feed',
 					shortcode: shortcode_html,
-					efbl_nonce: efbl.nonce,
+					nonce: efbl.nonce,
 				};
 
 				jQuery.ajax(
@@ -392,7 +392,7 @@ jQuery( document ).ready(
 				feed_type: feed_type,
 				page_id: page_id,
 				group_id: group_id,
-				efbl_nonce: efbl.nonce,
+				nonce: efbl.nonce,
 			};
 
 			jQuery.ajax(
@@ -452,7 +452,7 @@ jQuery( document ).ready(
 				const data = {
 					action: 'efbl_save_groups_list',
 					groups_id: groups_id,
-					efbl_nonce: efbl.nonce,
+					nonce: efbl.nonce,
 				};
 
 				jQuery.ajax(
@@ -502,7 +502,7 @@ jQuery( document ).ready(
 					selectedVal: selectedVal,
 					skin_id: skin_id,
 					page_id: page_id,
-					efbl_nonce: efbl.nonce,
+					nonce: efbl.nonce,
 				};
 				/*
 				* Making ajax request to save values.
@@ -704,7 +704,7 @@ jQuery( document ).ready(
 					const data = {
 						action: 'efbl_preload_feed',
 						shortcode: shortcode_html,
-						efbl_nonce: efbl.nonce,
+						nonce: efbl.nonce,
 					};
 
 					jQuery.ajax(
@@ -949,7 +949,7 @@ jQuery( document ).ready(
 					var data = {
 						action: 'efbl_del_trans',
 						efbl_option: efbl_option,
-						efbl_nonce: efbl.nonce,
+						nonce: efbl.nonce,
 					};
 
 					jQuery.ajax(
@@ -1000,7 +1000,7 @@ jQuery( document ).ready(
 
 					var data = {
 						action: 'efbl_clear_all_cache',
-						efbl_nonce: efbl.nonce,
+						nonce: efbl.nonce,
 					};
 
 					jQuery.ajax(

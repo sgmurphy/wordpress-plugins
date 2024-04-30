@@ -6,7 +6,6 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-
 if ( $is_album_feed ) {
 } else {
     $efbl_ver = 'free';
@@ -15,19 +14,15 @@ if ( $is_album_feed ) {
     }
     $efbl_free_popup_type = 'data-imagelink=' . $feed_img . '';
     $efbl_free_popup_class = null;
-    
-    if ( 'added_video' == $feed_type && !empty($video_source) ) {
+    if ( 'added_video' == $feed_type && !empty( $video_source ) ) {
         $efbl_free_popup_type = 'data-video=' . $video_source . '';
         $efbl_free_popup_class = 'efbl_popup_video';
     }
-    
-    
     if ( isset( $story->attachments->data[0]->type ) && $story->attachments->data[0]->type == 'video_inline' && isset( $story->attachments->data[0]->url ) && 'added_video' !== $feed_type ) {
         $video_source = 'https://www.facebook.com/v2.3/plugins/video.php?href=' . $story->attachments->data[0]->url;
         $efbl_free_popup_type = 'data-videolink=' . $video_source . '';
         $efbl_free_popup_class = 'efbl_popup_video';
     }
-    
     ?>
 
 <div class="efbl-fullwidth-skin <?php 
@@ -38,38 +33,35 @@ if ( $is_album_feed ) {
 		<div class="efbl-row">
 
 			<?php 
-    
     if ( $feed_type == 'mobile_status_update' ) {
         ?>
 
 				<?php 
-        
         if ( isset( $story->attachments->data[0]->media->image->src ) ) {
             ?>
 					<div class="efbl-thumbnail-col efbl-col-12">
 
 						<?php 
-            
             if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
                 ?>
 
 							<a href="<?php 
-                echo  admin_url( 'admin-ajax.php' ) ;
+                echo admin_url( 'admin-ajax.php' );
                 ?>?action=efbl_generate_popup_html" 
 												<?php 
                 esc_attr_e( $efbl_free_popup_type );
                 ?>
 							 data-storylink="
 							<?php 
-                echo  esc_url( $story_link ) ;
+                echo esc_url( $story_link );
                 ?>
 							" data-linktext="
 							<?php 
-                echo  __( 'Read full story', 'easy-facebook-likebox' ) ;
+                echo __( 'Read full story', 'easy-facebook-likebox' );
                 ?>
 							" data-caption="
 							<?php 
-                echo  htmlentities( $post_text ) ;
+                echo htmlentities( $post_text );
                 ?>
 							" data-itemnumber="
 							<?php 
@@ -103,7 +95,7 @@ if ( $is_album_feed ) {
 										   aria-hidden="true"></i>
 										<?php 
                 }
-                if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+                if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty( $story->attachments->data['0']->subattachments->data ) ) {
                     ?>
 										<i class="icon icon-esf-clone efbl_multimedia"
 										   aria-hidden="true"></i>
@@ -115,7 +107,7 @@ if ( $is_album_feed ) {
                 esc_attr_e( $story_name );
                 ?>"
 									 src="<?php 
-                echo  esc_url( $story->attachments->data[0]->media->image->src ) ;
+                echo esc_url( $story->attachments->data[0]->media->image->src );
                 ?>"/>
 								<div class="efbl-overlay">
 
@@ -137,7 +129,7 @@ if ( $is_album_feed ) {
 										   aria-hidden="true"></i>
 										<?php 
                 }
-                if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+                if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty( $story->attachments->data['0']->subattachments->data ) ) {
                     ?>
 										<i class="icon icon-esf-clone efbl_multimedia"
 										   aria-hidden="true"></i>
@@ -149,26 +141,22 @@ if ( $is_album_feed ) {
 
 						<?php 
             }
-            
             ?>
 
 					</div>
 				<?php 
         }
-        
         ?>
 
 
 				<div class="efbl-feed-content efbl-col-12">
 					<?php 
-        
         if ( $efbl_skin_values['design']['feed_header'] ) {
             ?>
 
 						<div class="efbl-d-flex">
 
 							<?php 
-            
             if ( $auth_img_src && $efbl_skin_values['design']['feed_header_logo'] ) {
                 ?>
 
@@ -187,13 +175,12 @@ if ( $is_album_feed ) {
                 esc_attr_e( $story_name );
                 ?>"
 											 src="<?php 
-                echo  esc_url( $auth_img_src ) ;
+                echo esc_url( $auth_img_src );
                 ?>"/></a>
 								</div>
 
 							<?php 
             }
-            
             ?>
 
 							<div class="efbl-profile-title">
@@ -226,12 +213,10 @@ if ( $is_album_feed ) {
 
 					<?php 
         }
-        
         ?>
 
 
 					<?php 
-        
         if ( isset( $story->attachments->data[0] ) ) {
             ?>
 
@@ -239,7 +224,7 @@ if ( $is_album_feed ) {
 
 							<p class="efbl_title_link">
 								<a href="<?php 
-            echo  esc_url( $story_link ) ;
+            echo esc_url( $story_link );
             ?>"
 								   rel="nofollow"
 								   target="<?php 
@@ -253,16 +238,14 @@ if ( $is_album_feed ) {
 						</div>
 
 						<?php 
-            
             if ( $post_text ) {
                 ?>
 							<?php 
-                
                 if ( $efbl_skin_values['design']['show_feed_caption'] ) {
                     ?>
 								<p class="description">
 									<span class="efbl-description-wrap"><?php 
-                    echo  wp_kses_post( nl2br( $post_text ) ) ;
+                    echo wp_kses_post( nl2br( $post_text ) );
                     ?></span>
 
 
@@ -274,23 +257,20 @@ if ( $is_album_feed ) {
 
 							<?php 
                 }
-                
                 ?>
 						<?php 
             }
-            
             ?>
 
 					<?php 
         } else {
             ?>
 						<?php 
-            
             if ( $efbl_skin_values['design']['show_feed_caption'] ) {
                 ?>
 							<p class="description">
 								<span class="efbl-description-wrap"><?php 
-                echo  wp_kses_post( nl2br( $post_text ) ) ;
+                echo wp_kses_post( nl2br( $post_text ) );
                 ?></span>
 
 								<?php 
@@ -301,37 +281,30 @@ if ( $is_album_feed ) {
 
 						<?php 
             }
-            
             ?>
 
 					<?php 
         }
-        
         ?>
 
 				</div>
 
 				<?php 
     }
-    
-    
     if ( $feed_type == 'shared_story' ) {
         $efbl_shared_img_col = 12;
-        if ( !isset( $shared_src ) || empty($shared_src) ) {
-            
+        if ( !isset( $shared_src ) || empty( $shared_src ) ) {
             if ( isset( $story->full_picture ) ) {
                 $shared_src = $story->full_picture;
             } else {
                 $shared_src = '';
             }
-        
         }
         $shared_src = $story->attachments->data['0']->media->image->src;
         ?>
 
 
 				<?php 
-        
         if ( $shared_src ) {
             $efbl_shared_img_col = 12;
             ?>
@@ -339,11 +312,10 @@ if ( $is_album_feed ) {
 				<div class="efbl-thumbnail-col efbl-col-12">
 
 					<?php 
-            
             if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
                 ?>
 					<a href="<?php 
-                echo  esc_url( $story->attachments->data['0']->url ) ;
+                echo esc_url( $story->attachments->data['0']->url );
                 ?>"
 					   class="efbl_link_image" rel="nofollow"
 					   target="<?php 
@@ -353,17 +325,15 @@ if ( $is_album_feed ) {
                 esc_attr_e( $story_name );
                 ?>"
 								src="<?php 
-                echo  esc_url( $story->full_picture ) ;
+                echo esc_url( $story->full_picture );
                 ?>"/>
 						<?php 
             }
-            
             ?>
 
 				</div>
 			<?php 
         }
-        
         ?>
 
 				<div class="efbl-feed-content efbl-col-<?php 
@@ -371,14 +341,12 @@ if ( $is_album_feed ) {
         ?>">
 
 					<?php 
-        
         if ( $efbl_skin_values['design']['feed_header'] ) {
             ?>
 
 						<div class="efbl-d-flex">
 
 							<?php 
-            
             if ( $auth_img_src && $efbl_skin_values['design']['feed_header_logo'] ) {
                 ?>
 
@@ -397,13 +365,12 @@ if ( $is_album_feed ) {
                 esc_attr_e( $story_name );
                 ?>"
 											 src="<?php 
-                echo  esc_url( $auth_img_src ) ;
+                echo esc_url( $auth_img_src );
                 ?>"/></a>
 								</div>
 
 							<?php 
             }
-            
             ?>
 
 							<div class="efbl-profile-title">
@@ -436,22 +403,19 @@ if ( $is_album_feed ) {
 
 					<?php 
         }
-        
         ?>
 
 
 					<?php 
-        
         if ( $post_text ) {
             ?>
 
 						<?php 
-            
             if ( $efbl_skin_values['design']['show_feed_caption'] ) {
                 ?>
 							<p class="description">
 								<span class="efbl-description-wrap"><?php 
-                echo  wp_kses_post( nl2br( $post_text ) ) ;
+                echo wp_kses_post( nl2br( $post_text ) );
                 ?></span>
 
 
@@ -464,19 +428,17 @@ if ( $is_album_feed ) {
 
 						<?php 
             }
-            
             ?>
 
 					<?php 
         }
-        
         ?>
 
 					<div class="efbl_link_text">
 
 						<p class="efbl_title_link">
 							<a href="<?php 
-        echo  esc_url( $story->attachments->data['0']->url ) ;
+        echo esc_url( $story->attachments->data['0']->url );
         ?>"
 							   target="<?php 
         esc_attr_e( $link_target );
@@ -487,7 +449,6 @@ if ( $is_album_feed ) {
 							</a>
 						</p>
 						<?php 
-        
         if ( $efbl_skin_values['design']['show_feed_caption'] ) {
             ?>
 
@@ -496,7 +457,6 @@ if ( $is_album_feed ) {
             ?></p>
 						<?php 
         }
-        
         ?>
 					</div>
 
@@ -505,8 +465,6 @@ if ( $is_album_feed ) {
 
 				<?php 
     }
-    
-    
     if ( $feed_type == 'added_photos' || $feed_type == 'added_video' || $filter == 'images' || $filter == 'albums' ) {
         // echo "<pre>"; print_r($story);exit();
         ?>
@@ -515,23 +473,22 @@ if ( $is_album_feed ) {
 				<div class="efbl-thumbnail-col efbl-col-12">
 
 					<?php 
-        
         if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
             ?>
 
 						<a href="<?php 
-            echo  admin_url( 'admin-ajax.php' ) ;
+            echo admin_url( 'admin-ajax.php' );
             ?>?action=efbl_generate_popup_html" <?php 
             esc_attr_e( $efbl_free_popup_type );
             ?>
 						   data-storylink="<?php 
-            echo  esc_url( $story_link ) ;
+            echo esc_url( $story_link );
             ?>"
 						   data-linktext="<?php 
-            echo  __( 'Read full story', 'easy-facebook-likebox' ) ;
+            echo __( 'Read full story', 'easy-facebook-likebox' );
             ?>"
 						   data-caption="<?php 
-            echo  htmlentities( $post_text ) ;
+            echo htmlentities( $post_text );
             ?>"
 						   data-itemnumber="<?php 
             esc_attr_e( $pi );
@@ -542,7 +499,7 @@ if ( $is_album_feed ) {
             esc_attr_e( $pi );
             ?>">
 							<img src="<?php 
-            echo  esc_url( $feed_img ) ;
+            echo esc_url( $feed_img );
             ?>"
 								 class="img-responsive"
 								 alt="<?php 
@@ -568,7 +525,7 @@ if ( $is_album_feed ) {
 									   aria-hidden="true"></i>
 									<?php 
             }
-            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty( $story->attachments->data['0']->subattachments->data ) ) {
                 ?>
 									<i class="icon icon-esf-clone efbl_multimedia"
 									   aria-hidden="true"></i>
@@ -581,7 +538,6 @@ if ( $is_album_feed ) {
 
 					<?php 
         }
-        
         ?>
 
 
@@ -590,14 +546,12 @@ if ( $is_album_feed ) {
 				<div class="efbl-feed-content efbl-col-12">
 
 					<?php 
-        
         if ( $efbl_skin_values['design']['feed_header'] ) {
             ?>
 
 						<div class="efbl-d-flex">
 
 							<?php 
-            
             if ( $auth_img_src && $efbl_skin_values['design']['feed_header_logo'] ) {
                 ?>
 
@@ -616,13 +570,12 @@ if ( $is_album_feed ) {
                 esc_attr_e( $story_name );
                 ?>"
 											 src="<?php 
-                echo  esc_url( $auth_img_src ) ;
+                echo esc_url( $auth_img_src );
                 ?>"/></a>
 								</div>
 
 							<?php 
             }
-            
             ?>
 
 							<div class="efbl-profile-title">
@@ -655,19 +608,17 @@ if ( $is_album_feed ) {
 
 					<?php 
         }
-        
         ?>
 
 
 					<?php 
-        
         if ( $filter == 'videos' ) {
             ?>
 
 						<div class="efbl_videos_data_holder">
 							<h6 class="efbl_videos_title">
 								<a href="https://www.facebook.com<?php 
-            echo  esc_url( $story->permalink_url ) ;
+            echo esc_url( $story->permalink_url );
             ?>"
 								   target="<?php 
             esc_attr_e( $link_target );
@@ -681,20 +632,17 @@ if ( $is_album_feed ) {
 
 					<?php 
         }
-        
         ?>
 
 					<?php 
-        
         if ( $post_text ) {
             ?>
 						<?php 
-            
             if ( $efbl_skin_values['design']['show_feed_caption'] ) {
                 ?>
 							<p class="description">
 								<span class="efbl-description-wrap"><?php 
-                echo  wp_kses_post( nl2br( $post_text ) ) ;
+                echo wp_kses_post( nl2br( $post_text ) );
                 ?></span>
 
 
@@ -707,16 +655,13 @@ if ( $is_album_feed ) {
 
 						<?php 
             }
-            
             ?>
 
 					<?php 
         }
-        
         ?>
 
 					<?php 
-        
         if ( $filter == 'albums' ) {
             ?>
 
@@ -724,7 +669,7 @@ if ( $is_album_feed ) {
 
 							<h6 class="efbl_albums_title">
 								<a href="<?php 
-            echo  esc_url( $story->link ) ;
+            echo esc_url( $story->link );
             ?>"
 								   target="<?php 
             esc_attr_e( $link_target );
@@ -748,49 +693,41 @@ if ( $is_album_feed ) {
 
 					<?php 
         }
-        
         ?>
 
 				</div>
 				<?php 
     }
-    
-    
     if ( $feed_type == 'created_event' || $filter == 'events' ) {
         // premium codition
         ?>
 
 				<?php 
-        
         if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
             ?>
 
 					<?php 
-            
             if ( $story->attachments->data[0]->media->image->src ) {
                 ?>
 					<div class="efbl-col-12">
 
 						<img src="<?php 
-                echo  esc_url( $story->attachments->data[0]->media->image->src ) ;
+                echo esc_url( $story->attachments->data[0]->media->image->src );
                 ?>"/></a>
 
 					</div>
 				<?php 
             }
-            
             ?>
 
 				<div class="efbl-feed-content efbl-col-12">
 					<?php 
-            
             if ( $efbl_skin_values['design']['feed_header'] ) {
                 ?>
 
 						<div class="efbl-d-flex">
 
 							<?php 
-                
                 if ( $auth_img_src && $efbl_skin_values['design']['feed_header_logo'] ) {
                     ?>
 
@@ -809,13 +746,12 @@ if ( $is_album_feed ) {
                     esc_attr_e( $story_name );
                     ?>"
 											 src="<?php 
-                    echo  esc_url( $auth_img_src ) ;
+                    echo esc_url( $auth_img_src );
                     ?>"/></a>
 								</div>
 
 							<?php 
                 }
-                
                 ?>
 
 							<div class="efbl-profile-title">
@@ -848,10 +784,8 @@ if ( $is_album_feed ) {
 
 					<?php 
             }
-            
             ?>
 					<?php 
-            
             if ( $efbl_skin_values['design']['show_feed_caption'] ) {
                 ?>
 						<p class="efbl_link_description"><?php 
@@ -860,32 +794,27 @@ if ( $is_album_feed ) {
 
 					<?php 
             }
-            
             ?>
 				</div>
 
 			<?php 
         }
-        
         ?>
 
 
 			<?php 
     }
-    
     // events conditon
     ?>
 
 
 		</div>
 		<?php 
-    
-    if ( $esf_feed_meta_url = locate_template( array( 'easy-facebook-likebox/html-feed-meta.php' ) ) ) {
+    if ( $esf_feed_meta_url = locate_template( array('easy-facebook-likebox/html-feed-meta.php') ) ) {
         $esf_feed_meta_url = $esf_feed_meta_url;
     } else {
         $esf_feed_meta_url = EFBL_PLUGIN_DIR . 'frontend/views/html-feed-meta.php';
     }
-    
     include $esf_feed_meta_url;
     ?>
 	</div>

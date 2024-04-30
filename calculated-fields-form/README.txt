@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.2
+Stable tag: 5.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.3 =
+
+* Fixes a CLS issue on pages with the CFF forms.
+* Fixes a minor visual issue with the Gutenberg module.
+* Modifies the val method in date/time controls.
+
 = 5.2.2 =
 
 * Modifies the fields' lists in dependencies, calculated fields settings, and fields list popup to display the short label if the label is empty.
@@ -480,11 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Allows associate developer notes to the HTML Content fields.
 * Modifies the data source fields to allow accessing the DropDown, Radio Button, and Checkbox choices' texts as conditions (Developer and Platinum plugin version).
 * Modifies the DataTable DS control to allow selecting rows (Developer and Platinum plugin version).
-
-= 5.1.63 =
-
-* Fixes an issue estimating the Select2 DropDown fields when they are hidden by default and shown on demand.
-* Modifies how the calculated fields handle the raw fields' values.
-* Modifies the query that reads the entries list (Professional, Developer, and Platinum plugin versions).
-* Fixes a minor issue identifying variations' prices on variable WooCommerce products when there are other variable products on the page (Developer and Platinum plugin versions).
-* Fixes a conflict between reCAPTCHA styles and third-party themes (Developer and Platinum plugin versions).

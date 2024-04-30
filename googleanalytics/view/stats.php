@@ -40,7 +40,7 @@ if ( true === is_array( $account_data ) ) {
 	}
 }
 
-$ts              = filter_input( INPUT_GET, 'ts', FILTER_SANITIZE_STRING );
+$ts              = filter_input( INPUT_GET, 'ts', FILTER_UNSAFE_RAW );
 $selected_page   = false === empty( $ts ) ? '' : 'selected';
 $selected_source = false === empty( $ts ) ? 'selected' : '';
 $report_url      = '';
@@ -61,8 +61,8 @@ $send_data                = get_option( 'googleanalytics_send_data' );
 $need_account_demo_enable = array() === $gender_chart && array() === $age_chart;
 
 // Filter GA Action.
-$ga_action = filter_input( INPUT_GET, 'ga_action', FILTER_SANITIZE_STRING );
-$date_range = Ga_Helper::get_date_range_from_request();
+$ga_action       = filter_input( INPUT_GET, 'ga_action', FILTER_UNSAFE_RAW );
+$date_range      = Ga_Helper::get_date_range_from_request();
 $days_in_english = Ga_Helper::get_period_in_days_words( $date_range['from'], $date_range['to'] );
 
 if ( false === $demo_enabled && false === $ga4_demo_enabled ) {

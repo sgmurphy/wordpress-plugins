@@ -274,6 +274,7 @@ jQuery(function()
 												key: 'cpcff_inspector_button_container',
 												style:{
 													paddingTop:'20px',
+													paddingBottom:'20px',
 													display:((cpcff_gutenberg_editor_config.is_admin) ? 'block' : 'none')
 												}
 											},

@@ -66,20 +66,6 @@ $last_post_url = $posts ? get_the_permalink($posts[0]) : null;
                         <?php $controls->wp_editor('bottom_text', ['editor_height' => 150], ['body_background' => '#ccc']); ?>
                     </td>
                 </tr>
-                <!--
-                <tr>
-                    <th>Font color</th>
-                    <td>
-                <?php $controls->color('bottom_color'); ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Background color</th>
-                    <td>
-                <?php $controls->color('bottom_bg'); ?>
-                    </td>
-                </tr>
-                -->
             </table>
 
             <p>

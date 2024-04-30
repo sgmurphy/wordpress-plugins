@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use WC_Order;
 use WC_Product;
 use WC_Product_Variation;
+use WooCommerce\PayPalCommerce\ApiClient\Endpoint\PaymentTokensEndpoint;
 use WooCommerce\PayPalCommerce\ApiClient\Entity\Money;
 use WooCommerce\PayPalCommerce\ApiClient\Entity\PaymentToken;
 use WooCommerce\PayPalCommerce\ApiClient\Factory\PayerFactory;
@@ -33,6 +34,10 @@ use WooCommerce\PayPalCommerce\Button\Helper\ContextTrait;
 use WooCommerce\PayPalCommerce\Button\Helper\MessagesApply;
 use WooCommerce\PayPalCommerce\Onboarding\Environment;
 use WooCommerce\PayPalCommerce\PayLaterBlock\PayLaterBlockModule;
+use WooCommerce\PayPalCommerce\PayLaterWCBlocks\PayLaterWCBlocksModule;
+use WooCommerce\PayPalCommerce\SavePaymentMethods\Endpoint\CreatePaymentToken;
+use WooCommerce\PayPalCommerce\SavePaymentMethods\Endpoint\CreateSetupToken;
+use WooCommerce\PayPalCommerce\SavePaymentMethods\Endpoint\CreatePaymentTokenForGuest;
 use WooCommerce\PayPalCommerce\Session\SessionHandler;
 use WooCommerce\PayPalCommerce\WcSubscriptions\FreeTrialHandlerTrait;
 use WooCommerce\PayPalCommerce\WcSubscriptions\Helper\SubscriptionHelper;
@@ -185,18 +190,32 @@ class SmartButton implements SmartButtonInterface {
 	private $funding_sources_without_redirect;
 
 	/**
-	 * The logger.
-	 *
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
 	 * Session handler.
 	 *
 	 * @var SessionHandler
 	 */
 	private $session_handler;
+
+	/**
+	 * Whether Vault v3 module is enabled.
+	 *
+	 * @var bool
+	 */
+	private $vault_v3_enabled;
+
+	/**
+	 * Payment tokens endpoint.
+	 *
+	 * @var PaymentTokensEndpoint
+	 */
+	private $payment_tokens_endpoint;
+
+	/**
+	 * The logger.
+	 *
+	 * @var LoggerInterface
+	 */
+	private $logger;
 
 	/**
 	 * SmartButton constructor.
@@ -220,6 +239,8 @@ class SmartButton implements SmartButtonInterface {
 	 * @param bool                   $early_validation_enabled Whether to execute WC validation of the checkout form.
 	 * @param array                  $pay_now_contexts The contexts that should have the Pay Now button.
 	 * @param string[]               $funding_sources_without_redirect The sources that do not cause issues about redirecting (on mobile, ...) and sometimes not returning back.
+	 * @param bool                   $vault_v3_enabled Whether Vault v3 module is enabled.
+	 * @param PaymentTokensEndpoint  $payment_tokens_endpoint Payment tokens endpoint.
 	 * @param LoggerInterface        $logger The logger.
 	 */
 	public function __construct(
@@ -242,6 +263,8 @@ class SmartButton implements SmartButtonInterface {
 		bool $early_validation_enabled,
 		array $pay_now_contexts,
 		array $funding_sources_without_redirect,
+		bool $vault_v3_enabled,
+		PaymentTokensEndpoint $payment_tokens_endpoint,
 		LoggerInterface $logger
 	) {
 
@@ -264,7 +287,9 @@ class SmartButton implements SmartButtonInterface {
 		$this->early_validation_enabled          = $early_validation_enabled;
 		$this->pay_now_contexts                  = $pay_now_contexts;
 		$this->funding_sources_without_redirect  = $funding_sources_without_redirect;
+		$this->vault_v3_enabled                  = $vault_v3_enabled;
 		$this->logger                            = $logger;
+		$this->payment_tokens_endpoint           = $payment_tokens_endpoint;
 	}
 
 	/**
@@ -414,7 +439,20 @@ class SmartButton implements SmartButtonInterface {
 			wp_is_block_theme()
 		);
 
-		$get_hook = function ( string $location ) use ( $default_pay_order_hook, $is_block_theme ): ?array {
+		$has_paylater_block =
+			(
+				PayLaterBlockModule::is_block_enabled( $this->settings_status ) &&
+				has_block( 'woocommerce-paypal-payments/paylater-messages' )
+			) ||
+			(
+				PayLaterWCBlocksModule::is_block_enabled( $this->settings_status, $location ) &&
+				(
+					has_block( 'woocommerce-paypal-payments/checkout-paylater-messages' ) ||
+					has_block( 'woocommerce-paypal-payments/cart-paylater-messages' )
+				)
+			);
+
+		$get_hook = function ( string $location ) use ( $default_pay_order_hook, $is_block_theme, $has_paylater_block ): ?array {
 			switch ( $location ) {
 				case 'checkout':
 					return $this->messages_renderer_hook( $location, 'woocommerce_review_order_before_payment', 10 );
@@ -433,11 +471,14 @@ class SmartButton implements SmartButtonInterface {
 						? $this->messages_renderer_block( $location, 'core/navigation', 10 )
 						: $this->messages_renderer_hook( $location, 'loop_start', 20 );
 				default:
-					return null;
+					return $has_paylater_block
+						? $this->messages_renderer_hook( $location, 'ppcp_paylater_message_block', 10 )
+						: null;
 			}
 		};
 
 		$hook = $get_hook( $location );
+
 		if ( ! $hook ) {
 			return false;
 		}
@@ -468,7 +509,7 @@ class SmartButton implements SmartButtonInterface {
 				function () {
 					echo '
 <script>
-document.querySelector("#payment").before(document.querySelector("#ppcp-messages"))
+document.querySelector("#payment").before(document.querySelector(".ppcp-messages"))
 </script>';
 				}
 			);
@@ -577,10 +618,6 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 			return false;
 		}
 
-		if ( in_array( $this->context(), array( 'checkout-block', 'cart-block' ), true ) ) {
-			return false;
-		}
-
 		return $this->should_load_buttons() || $this->should_load_messages() || $this->can_render_dcc();
 	}
 
@@ -631,7 +668,11 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 
 		$messaging_enabled_for_current_location = $this->settings_status->is_pay_later_messaging_enabled_for_location( $location );
 
-		$has_paylater_block = has_block( 'woocommerce-paypal-payments/paylater-messages' ) && PayLaterBlockModule::is_block_enabled( $this->settings_status );
+		$has_paylater_block = PayLaterBlockModule::is_block_enabled( $this->settings_status ) && has_block( 'woocommerce-paypal-payments/paylater-messages' );
+
+		if ( 'cart-block' === $location || 'checkout-block' === $location ) {
+			return true;
+		}
 
 		switch ( $location ) {
 			case 'checkout':
@@ -643,9 +684,6 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 				return $messaging_enabled_for_current_location;
 			case 'block-editor':
 				return true;
-			case 'checkout-block':
-			case 'cart-block':
-				return $has_paylater_block || $this->is_block_editor();
 			default:
 				return $has_paylater_block;
 		}
@@ -765,7 +803,7 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 		 */
 		do_action( "ppcp_before_{$location_hook}_message_wrapper" );
 
-		$messages_placeholder = '<div id="ppcp-messages" data-partner-attribution-id="Woo_PPCP"></div>';
+		$messages_placeholder = '<div class="ppcp-messages" data-partner-attribution-id="Woo_PPCP"></div>';
 
 		if ( is_array( $block_params ) && ( $block_params['blockName'] ?? false ) ) {
 			$this->render_after_block(
@@ -864,7 +902,20 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 
 		$styling_per_location = $this->settings->has( 'pay_later_enable_styling_per_messaging_location' ) && $this->settings->get( 'pay_later_enable_styling_per_messaging_location' );
 		$location             = $styling_per_location ? $location : 'general';
-		$setting_name_prefix  = "pay_later_{$location}_message";
+
+		// Map checkout-block and cart-block message options to checkout and cart options.
+		switch ( $location ) {
+			case 'checkout-block':
+				$location = 'checkout';
+				break;
+			case 'cart-block':
+				$location = 'cart';
+				break;
+			default:
+				break;
+		}
+
+		$setting_name_prefix = "pay_later_{$location}_message";
 
 		$layout        = $this->settings->has( "{$setting_name_prefix}_layout" ) ? $this->settings->get( "{$setting_name_prefix}_layout" ) : 'text';
 		$logo_type     = $this->settings->has( "{$setting_name_prefix}_logo" ) ? $this->settings->get( "{$setting_name_prefix}_logo" ) : 'primary';
@@ -875,7 +926,7 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 		$text_size     = $this->settings->has( "{$setting_name_prefix}_text_size" ) ? $this->settings->get( "{$setting_name_prefix}_text_size" ) : '12';
 
 		return array(
-			'wrapper'   => '#ppcp-messages',
+			'wrapper'   => '.ppcp-messages',
 			'is_hidden' => ! $this->is_pay_later_filter_enabled_for_location( $this->context() ),
 			'block'     => array(
 				'enabled' => PayLaterBlockModule::is_block_enabled( $this->settings_status ),
@@ -1035,45 +1086,59 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 			'redirect'                                => wc_get_checkout_url(),
 			'context'                                 => $this->context(),
 			'ajax'                                    => array(
-				'simulate_cart'        => array(
+				'simulate_cart'                  => array(
 					'endpoint' => \WC_AJAX::get_endpoint( SimulateCartEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( SimulateCartEndpoint::nonce() ),
 				),
-				'change_cart'          => array(
+				'change_cart'                    => array(
 					'endpoint' => \WC_AJAX::get_endpoint( ChangeCartEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( ChangeCartEndpoint::nonce() ),
 				),
-				'create_order'         => array(
+				'create_order'                   => array(
 					'endpoint' => \WC_AJAX::get_endpoint( CreateOrderEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( CreateOrderEndpoint::nonce() ),
 				),
-				'approve_order'        => array(
+				'approve_order'                  => array(
 					'endpoint' => \WC_AJAX::get_endpoint( ApproveOrderEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( ApproveOrderEndpoint::nonce() ),
 				),
-				'approve_subscription' => array(
+				'approve_subscription'           => array(
 					'endpoint' => \WC_AJAX::get_endpoint( ApproveSubscriptionEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( ApproveSubscriptionEndpoint::nonce() ),
 				),
-				'vault_paypal'         => array(
+				'vault_paypal'                   => array(
 					'endpoint' => \WC_AJAX::get_endpoint( StartPayPalVaultingEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( StartPayPalVaultingEndpoint::nonce() ),
 				),
-				'save_checkout_form'   => array(
+				'save_checkout_form'             => array(
 					'endpoint' => \WC_AJAX::get_endpoint( SaveCheckoutFormEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( SaveCheckoutFormEndpoint::nonce() ),
 				),
-				'validate_checkout'    => array(
+				'validate_checkout'              => array(
 					'endpoint' => \WC_AJAX::get_endpoint( ValidateCheckoutEndpoint::ENDPOINT ),
 					'nonce'    => wp_create_nonce( ValidateCheckoutEndpoint::nonce() ),
 				),
-				'cart_script_params'   => array(
+				'cart_script_params'             => array(
 					'endpoint' => \WC_AJAX::get_endpoint( CartScriptParamsEndpoint::ENDPOINT ),
+				),
+				'create_setup_token'             => array(
+					'endpoint' => \WC_AJAX::get_endpoint( CreateSetupToken::ENDPOINT ),
+					'nonce'    => wp_create_nonce( CreateSetupToken::nonce() ),
+				),
+				'create_payment_token'           => array(
+					'endpoint' => \WC_AJAX::get_endpoint( CreatePaymentToken::ENDPOINT ),
+					'nonce'    => wp_create_nonce( CreatePaymentToken::nonce() ),
+				),
+				'create_payment_token_for_guest' => array(
+					'endpoint' => \WC_AJAX::get_endpoint( CreatePaymentTokenForGuest::ENDPOINT ),
+					'nonce'    => wp_create_nonce( CreatePaymentTokenForGuest::nonce() ),
 				),
 			),
 			'cart_contains_subscription'              => $this->subscription_helper->cart_contains_subscription(),
 			'subscription_plan_id'                    => $this->subscription_helper->paypal_subscription_id(),
+			'vault_v3_enabled'                        => $this->vault_v3_enabled,
 			'variable_paypal_subscription_variations' => $this->subscription_helper->variable_paypal_subscription_variations(),
+			'variable_paypal_subscription_variation_from_cart' => $this->subscription_helper->paypal_subscription_variation_from_cart(),
 			'subscription_product_allowed'            => $this->subscription_helper->checkout_subscription_product_allowed(),
 			'locations_with_subscription_product'     => $this->subscription_helper->locations_with_subscription_product(),
 			'enforce_vault'                           => $this->has_subscriptions(),
@@ -1391,9 +1456,45 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 	 * @return array
 	 */
 	private function attributes(): array {
-		return array(
+		$attributes = array(
 			'data-partner-attribution-id' => $this->bn_code_for_context( $this->context() ),
 		);
+
+		$page_type_attribute = $this->page_type_attribute();
+		if ( $page_type_attribute ) {
+			$attributes['data-page-type'] = $page_type_attribute;
+		}
+
+		return $attributes;
+	}
+
+	/**
+	 * Retrieves the value for page type attribute(data-page-type) used for the JS SDK.
+	 *
+	 * @return string
+	 */
+	protected function page_type_attribute(): string {
+		if ( is_search() ) {
+			return 'search-results';
+		}
+
+		switch ( $this->location() ) {
+			case 'product':
+				return 'product-details';
+			case 'shop':
+				return 'product-listing';
+			case 'home':
+				return 'mini-cart';
+			case 'cart-block':
+			case 'cart':
+				return 'cart';
+			case 'checkout-block':
+			case 'checkout':
+			case 'pay-now':
+				return 'checkout';
+			default:
+				return '';
+		}
 	}
 
 	/**
@@ -1904,8 +2005,18 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 	 */
 	private function get_vaulted_paypal_email(): string {
 		try {
-			$tokens = $this->get_payment_tokens();
+			$customer_id = get_user_meta( get_current_user_id(), '_ppcp_target_customer_id', true );
+			if ( $customer_id ) {
+				$customer_tokens = $this->payment_tokens_endpoint->payment_tokens_for_customer( $customer_id );
+				foreach ( $customer_tokens as $token ) {
+					$email_address = $token['payment_source']->properties()->email_address ?? '';
+					if ( $email_address ) {
+						return $email_address;
+					}
+				}
+			}
 
+			$tokens = $this->get_payment_tokens();
 			foreach ( $tokens as $token ) {
 				if ( isset( $token->source()->paypal ) ) {
 					return $token->source()->paypal->payer->email_address;
@@ -1914,6 +2025,7 @@ document.querySelector("#payment").before(document.querySelector("#ppcp-messages
 		} catch ( Exception $exception ) {
 			$this->logger->error( 'Failed to get PayPal vaulted email. ' . $exception->getMessage() );
 		}
+
 		return '';
 	}
 

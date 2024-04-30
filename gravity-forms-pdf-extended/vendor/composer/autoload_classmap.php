@@ -58,6 +58,7 @@ return array(
     'GFPDF\\Helper\\Fields\\Field_Name' => $baseDir . '/src/Helper/Fields/Field_Name.php',
     'GFPDF\\Helper\\Fields\\Field_Number' => $baseDir . '/src/Helper/Fields/Field_Number.php',
     'GFPDF\\Helper\\Fields\\Field_Option' => $baseDir . '/src/Helper/Fields/Field_Option.php',
+    'GFPDF\\Helper\\Fields\\Field_Page' => $baseDir . '/src/Helper/Fields/Field_Page.php',
     'GFPDF\\Helper\\Fields\\Field_Phone' => $baseDir . '/src/Helper/Fields/Field_Phone.php',
     'GFPDF\\Helper\\Fields\\Field_Poll' => $baseDir . '/src/Helper/Fields/Field_Poll.php',
     'GFPDF\\Helper\\Fields\\Field_Post_Category' => $baseDir . '/src/Helper/Fields/Field_Post_Category.php',

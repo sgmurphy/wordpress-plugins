@@ -3,7 +3,7 @@ Contributors: xpeedstudio, ataurr, emranio
 Tags: Form builder, contact form, Elementor contact form, contact form builder, Elementor forms builder, booking form builder, registration form builder, feedback form builder, drag and drop builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 3.8.6
+Stable tag: 3.8.7
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -12,314 +12,200 @@ Metform is the ultimate Elementor forms builder. With this quick contact form bu
 
 == Description ==
 
+MetForm, the drag-and-drop WordPress contact form builder is an addon for [Elementor](https://elementor.com/). This Elementor form builder plugin provides an intuitive real-time form-building experience, allowing anyone of any expertise level to create professionally designed website forms.
 
+It enables the fastest and most secure experience for managing and customizing multiple contact forms - without any code.
 
-MetForm, the drag-and-drop WordPress contact form builder is an addon for [Elementor](https://elementor.com/), that builds any fast and secure contact form on the fly with its drag-and-drop flexibility. It can manage multiple contact forms, and you can customize the multi-step form with an Elementor builder. 
+## The Best Elementor Form Builder Plugin for WordPress Website - Empowering 3,00,000+ Active Users.
 
-MetForm is not only a secure contact form plugin, but it is also a complete drag & drop form builder for Elementor. You can build any fancy contact form in just minutes with this real-time form builder. You don’t even have to be, a programmer or developer. Because it is a perfect drag-and-drop WordPress contact form builder for WordPress beginners. Add as many fields as you want to make any multi-step form and after that, rearrange them according to your needs. 
-
-
-Apart from that, you can manually create survey forms and post-survey forms on your site with a simple drag and drop option. You don’t require any survey widget to build these eCommerce smart survey forms with this Elementor contact form builder. As a result, you can collect customers’ survey feedback to get an idea about your buyers. 
-This free online survey software allows you to embed survey forms anywhere on your site and gather survey feedback. It means you can sell with a survey by acquiring knowledge about your buyers. Moreover, you can discover and work for new business opportunities by using this customer survey feedback. 
-Also, it will save the progress of the form if the internet somehow gets disconnected. Again, your forms will be saved on Google Sheets from where you can save them to Google Drive.
-
-Again, you can customize survey forms as you like by adding custom survey fields and designs to your survey forms. Therefore, you can beautify survey forms that will be more appealing to your customers and encourage your customers to fill up the survey form. This customization option is also 100% user-friendly for WordPress beginners.
-Besides, Metform reinforces Elementor and assists you in making volunteer applications, event forms, loan applications, restaurant reservations, admission forms, newsletter signups, data erasure requests, product order forms, WooCoomerce checkout, subscribe forms, patient forms, suggestion forms, and so many.
-
+Metform reinforces Elementor and assists you in making volunteer applications, event forms, loan applications, restaurant reservations, admission forms, newsletter signups, data erasure requests, product order forms, WooCoomerce checkout, subscribe forms, patient forms, suggestion forms, survey forms, post survey forms, and so many.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/8R4-Q14cu-w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-== Flexibility ==
-MetForm, the contact form builder gives you full flexibility to build any form on the fly with Elementor. For example, you can create a referral form to get referral feedback from your users. This makes MetForm a referral marketing solution. Also, you can collect feedback scores by manually creating a client feedback form where your customers can give scores on your products. As a result, you can find out which products or features, your customers prefer the most. Through this, you will also get an idea of users' journey which help you to unlock new services for providing a better user experience. The exciting part is that MetForm’s lite version offers all these facilities. That’s why the lite version of MetForm becomes beneficial as well. 
+## Flexibility
 
-Want to make any complex form with a lite version of a plugin? or complex style? no problem, you can build any type of form with MetForm’s lite version. If you want to use an image or video under a form and want to show the user, you can do so… using any Elementor addons inside the MetForm builder form without any restrictions.
+MetForm is built with Elementor. Every field is an Elementor widget that can be rearranged by dragging and dropping. If you want to use an image or video under a form and want to show users, you can do so. This free contact form builder ships with a wide range of field input styles to create your brand-matched forms.
 
-MetForm is built with Elementor. Every field is an Elementor widget that can be rearranged by dragging and dropping. Moreover, you will find lots of demos of multi-step, conditional, feedback, event, job application, booking, custom social signup, product registration, etc. forms in this WordPress beginner-friendly form builder. Again, you can collect testimonials through WordPress testimonial forms. 
+Here, the exceptional thing is that you can create groups of your personalized fields and add them in any form with just one click. MetForm lite version is sufficient to create any type of form. For example, creating referral forms to get referral feedback, collecting testimonials through WordPress testimonial forms, and making client feedback forms to collect feedback scores on your products or services.
 
+Moreover, you will find lots of demos of multi-step, conditional, feedback, event, job application, booking, custom social signup, product registration, etc. forms in this WordPress beginner-friendly WordPress contact form builder.
 
+## USEFUL LINKS
 
-###USEFUL LINKS###
 > **[Landing Page + Form Demo](https://products.wpmet.com/metform/)** |  **[Need Support?](http://wpmet.com/support-help/)** | **[Documentation](https://wpmet.com/knowledgebase/metform/)** | **[Video Tutorials](https://www.youtube.com/watch?v=zg1QIouKO_Q&list=PL3t2OjZ6gY8NoB_48DwWKUDRtBEuBOxSc&ab_channel=Wpmet)** |  [ **Buy Pro** ](https://products.wpmet.com/metform/pricing/) | **[Request a Feature](https://wpmet.com/plugin/metform/roadmaps#ideas)**
 
+## Mobile-Friendly and Responsive
 
-Why MetForm is the best form builder solution?
-Well, it allows you to create any beautiful WordPress custom contact forms, feedback forms, subscription forms, quiz forms, calculation forms, quote forms, query forms, survey forms, order forms, booking forms, testimonial forms, social signup forms, or lead generation forms, inquiry forms, donation forms, campaign monitor forms and other types of forms for your site in minutes, not hours! That’s why this form-building software can be called WordPress contact, quote, feedback, subscription, query, and survey form builder. So, you have full flexibility on your own hand by using this form-building software.
-
-== Mobile-Friendly and Responsive ==
 Metform builds with Elementor and it will work with Elementor without any issue. and responsive can be controlled from the Elementor page builder. and Your smart order or any online form will look great on all resolutions and devices: mobile, tablet, and desktop.
 
-Therefore, your users can easily fill up your added smart order or any other online form. Furthermore, through these online forms, you can keep records of your online leads. It will also help you to know more about your online leads. Again, you can build versatile order forms like for eCommerce business, you can build custom t-shirt order forms. You can also make changes to your added custom t-shirt order form any time you want.
+## Embed Anywhere
 
-
-== Embed anywhere ==
 You can use Metform anywhere with Elementor to create an Elementor contact form. Also, you can use it with any editor with a built-in form shortcode. Utilizing the shortcode support for customization is easy.
 
-== Manage Submissions ==
+## Manage Submissions
+
 Your online form submission data can be saved in admin. So, it will send data to the form admin and also send a Confirmation Email to form users.
 
-== File Upload ==
+## File Upload
+
 Want your users to upload files from your online form? no worries we have a file upload option with our Elementor form builder MetForm.
 
-== Export form entries as CSV ==
+## Export Form Entries as CSV
+
 Want to Export form entries as CSV? Yes, you can do that too with the Metform Elementor form builder addon.
 
-== Free HubSpot Integration ==
+## Free HubSpot Integration
+
 Now Free HubSpot integration is also available in MetForm. It ensures flawless customer relationship management. With MetForm HubSpot integration, you can store all the data properly in the HubSpot account and get access to any data in the shortest possible time. 
 
-== Mailchimp Integration ==
+## Mailchimp Integration
+
 You can use MailChimp in your contact form so that, you can collect and send leads from WordPress to MailChimp. Also, create MailChimp signup or lead generation forms and boxes with a custom style and expand your lead list.
 
-== Features ==
-- **Built with Elementor:** With the most powerful Elementor forms builder, create your impressive forms without any experience and professional knowledge with the easiest drag and drop feature. Most importantly, MetForm form builder is a real-time tool, it is budget-friendly and time-saving. We are providing every possible functionality that you want to create a booking form, contact form, or any other form with an Elementor page builder. 
-Learn how to Create a WordPress Booking Form with MetForm 👇
+## **✨**Top Features
+
+- **Built with Elementor:** MetForm is based on Elementor. This means this contact form builder offers an Elementor-like intuitive drag-and-drop workflow and real-time preview of your customizations. And, this budget-friendly email building tool with impressive form-building functionality powered by Elementor Builder has no learning curve. 
+
+So, beginners can easily create a query form to collect reporting and other forms like a contact form or booking form. Learn how to create a WordPress Booking form with MetForm 👇
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/K7YJmNn9nIY?list=PL3t2OjZ6gY8NoB_48DwWKUDRtBEuBOxSc" title="How to Create a WordPress Booking Form with MetForm || Step by Step Guide to Do it Yourself Easily" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-  Sometimes, you might need to build inquiry forms to collect reporting. By using MetForm form builder, you can get inquiry reports and bring inquiry management solutions through inquiry forms.
+- **Elementor Input Fields:** From lead generation to survey forms, or any complex style forms, we have designed **40+ Elementor widgets** fields to build in your preferred style.
 
-- **Elementor Input Fields:** To create your desirable lead generation forms, We have designed a lot of Elementor widgets fields to build your form and any style you want with Text field, Email field, Number field, Date field Time field, Select field, Textarea field, Checkbox field, Radio field, Switcher field, Range slider field, URL field, Password field, Response Message, Opt-in, reCAPTCHA, Rating, File Upload, and many more.
+> <strong>**MetForm Fields**</strong><br />
 
-- **User Confirmation Email:**  A confirmation email can be sent when a user registers or enters their data to confirm their registration. Sending Confirmation Email to form users is a nice way to confirm the submitter. Besides, you can also send emails or notices to your users after the end of the campaign.
+> Text field, Email field, Number field, Date field Time field, Select field, Textarea field, Checkbox field, Radio field, Switcher field, Range slider field, URL field, Password field, Response Message, Opt-in, reCAPTCHA, Rating, File Upload, and many more.
 
-- **Admin Notification Email:** Notify admin after user submission is completed or any type of customer data is processed. Therefore, you can get success order notifications from your customers after each form submission.
+- **User Confirmation Email:** Show a nice gesture to the form submitters by sending a confirmation email after they register or enter their data or at the end of your campaign. 
 
+- **Admin Notification Email:** Notify admin of successful order notifications after users or customers complete a form submission.
 
 - **Saved Entries in the Admin Panel:** Save all the data that users give to fill up the form and display it in the admin panel.
 
 - **Export Entries as CSV:** Export multiple data from your MetForm that the user enters in a single CSV file and downloads in a spreadsheet.
-- **Export to Google Sheets:** The popular Elementor form creator MetForm allows you to export all your users’ personal contacts, databases, and messages on Google Sheets. Therefore, all your users’ personal databases will be saved, secured, and organized in Google Sheets. Besides, you can access this contact form database, any time you need. That’s why you can easily track users’ information with this drag and drop form builder.
 
+- **Export to Google Sheets:** The popular Elementor form creator MetForm allows you to export all your users’ personal contacts, databases, and messages on Google Sheets. 
 
-- **Required Login to Submit the Form:** This feature of the secure contact form, will show all the required fields to fill up the form by giving a simple red star icon and providing an error message if needed.
+- **Required Login to Submit the Form:** Make sure a secured and spam-free contact form by showing the required fields. Notify with a simple red star or an error message when those fields are empty.
 
-- **Capture User Browser Data:** Displays the user’s browsers information like Web browser, Visited URL, Title, Visit Time, Visit Count, User Profile, etc.
+- **Capture User Browser Data:** Displays the user’s browser information like Web browser, Visited URL, Title, Visit Time, Visit Count, User Profile, etc.
 
+- **Hide Form After Submission:** Hide your public Elementor form after the user fills all the necessary fields and hits the submit button.
 
-- **Hide Form After Submission:** Able to hide your public Elementor form after the user fills all the necessary fields and hits on the submit button.
-
-
-- **Limit Total Entries:** Enable limit to the number of submission entries to your Elementor form MetForm. This feature will also give an error message after getting crossed.
-
+- **Limit Total Entries:** Enable limit to the number of submission entries to your Elementor form. This Elementor contact form builder feature will also give an error message after getting crossed.
 
 - **Redirect After Successful Form Submission:** Simply add the desired destination URL and redirect to that page after successfully submitting the form. It is possible with Elementor form maker MetForm.
 
-
-- **MailChimp Integration:** Easily integrates MailChimp to create and manage a mailing list, automated mailing, newsletter, send leads and many other options.
-- **WordPress ZoHo CRM Integration:** Manage customers’ relationships and speed up marketing and sales with the ZoHo integration of our Elementor form builder MetForm. 
-- **HubSpot Integration:** Store all the contacts inside your HubSpot account without having fear of losing them. As a result, you can easily manage your visitors’ or clients’ information.
-- **FluentCRM Integration:** View all the embedding web form submission data inside FluentCRM and manage them for successful email marketing and growth hacking.
-- **HelpScout Integration:** Build a successful bond and manage the relationship with the customers better than ever with the HelpScout form. This contact form's dynamic CRM integration lets you sort all contacts without any ticket or case number. As a result, you can save a lot of time by integrating your WordPress site with HelpScout.
-- **Twilio Integration:** Elementor form builder MetForm helps you to connect with your clients, customers, or visitors via calls or messages. You just have to integrate your WordPress site with Twilio. 
-- **ConvertKit Integration:** Successfully manage all the newsletters by integrating with ConvertKit which is built on the simplest interface. 
-- **ActiveCampaign Integration:** Boost your conversion and sales with ActiveCampaign which MetForm allows you to do. It integrates WordPress with ActiveCampaign by adding new users' information to contact from the ActiveCampaign dashboard. Therefore, your contact list management will be super easy as ActiveCampaign keeps all the form submissions organized.
-- **Aweber Integration:** Simply integrate with Aweber, the email marketing service provider, and build Aweber forms that let you keep in touch with your subscribers. Besides, Aweber form lets you nurture them for a bigger marketing campaign. 
-- **GetResponse Integration:** It is another newsletter integration like others to keep your email marketing list sorted. Elementor form builder MetForm has made it simple for you. 
-- **MailPoet Integration:** Connect your WordPress site with MailPoet to build your simple and easy contact us form with the easiest drag and drop feature.
-
-
-
-- **Slack Integration:** You can redirect all the Elementor form data to integrate with Slack and get the customer information faster.
-
-- **Google reCAPTCHA Integration:** Metform Elementor form builder allows you to integrate Google reCAPTCHA to keep your site safe from unwanted spam and abusive traffic.
-
-
-
-- **Validate required fields:** The multi step form builder helps you to validate your form’s required field and gives an error message if needed to make your form standard and way more professional.
-
+- **Validate required fields:** The multi-step Elementor contact form builder helps you to validate your form’s required field and gives an error message if needed to make your form standard and way more professional.
 
 - **Form submission via AJAX without page refreshes:** Our Elementor contact form maker permits you to submit your contact us simple form without loading your page via AJAX to make it more user-friendly and time-saving. Therefore, online visitors can fill up the form using AJAX without page loading.
 
-
-
 - **Supports multiple-column layout:** Specify multiple-column layouts as many as you would like to display. Simply add the column in just one click with the multi-step form builder.
-
 
 - **Shortcode support:** Add powerful features with a simple Shortcode without any knowledge of technical, complicated, and lengthy code. Now, it's easy to get Shortcode support for customization options.
 
-
 - **Editable successful form submission message:** MetForm Elementor forms builder gives access to edit your successful form submission message so you can personalize your own message.
 
-- **Translation ready:** Our plugin supports multiple languages which means you can easily translate a language into your language.
-- **Top-notch user support:** MetForm is enriched with docs, FAQs, tutorials, and blogs. You will find answers to your problems in these resources. Somehow, if you don’t get your answers and need help, our dedicated support team is always one call away. You will have the experience of the best user support from our team.
+- **Translation ready:** Our WordPress contact form builder plugin supports multiple languages which means you can easily translate a language into your language.
 
+- **Top-notch user support:** MetForm is enriched with docs, FAQs, tutorials, and blogs. You will find answers to your problems in these resources.  And, the support team is one call away from you.
 
+## Our Premium Input fields
 
+- **Phone no Input Field:** Let users select prefix country code from the dropdown.  
 
-== Supported fields==
-- **Form Text Input Field:** Display content, links to your form with different styles.
-- **Email Input Field:** Make sure that the user enters the valid email address to your form with an Email Input field. It ensures the system can send the confirmation email to form users.
-
-- **Number Input Field:** This Input field will ensure that users enter a valid Number with numeric input.
-- **Telephone Input Field:** Allow users to give their valid Telephone number to make connections with this real-time support form builder.
-
-- **Date Input Field:** Use this Input field to select Date from the drop-down calendar for your form to make it more user-friendly.
-- **Time Input Field:** Helps users to pick up their preferred Time from the drop-down timer. Time setting is one of the necessary features of the Elementor form maker Metform.
-- **Select  Input  Field:** Simple drop-down function allows you to select items of your own choice.
-
-- **Multi-Select Input Field:** Select Multiple items from the drop-down at a time. It will reduce the form abandonment rate and boost the completion rate.
-
-- **Textarea:** Helps to add large number of content, review, and comment to your form.
-
-- **Checkbox:** Permit users to select multiple items to your form at a time with Checkbox.
-
-- **Radio Button:** Allow users to select only one exclusive item from the multiple options.
-
-- **Switch Input Field:** Easily control the Yes/No or On/Off toggle Switch checkbox input just like a light switch.
-- **Range Slider:** Set your max or min range value to your form by using a super cool Range slider. All you have to do is just drag both ends until your appropriate value comes.
-
-- **URL Input Field:** Simply add URL to your form using our URL Input Field. It ensures that users input a valid URL to the form field.
-
-- **Password Input Field:** If you want your user to give a strong password, use our Password Input Field. It makes sure that users get a protected password and can be able to change it when needed.
-
-- **First Name (Listing):** Allow users to give their First Name to show them in a listing method on the Mailchimp list.
-
-- **Last Name (Listing):**   Allow users to give their Last Name to show them in a listing method on the Mailchimp list.
-- **Opt-in (Listing):** Use the opt-in field to your form and make your user a subscribed Mailchimp contact the user by clicking the checkbox “Subscribe to our newsletter”.
-
-- **GDPR:** Enable GDPR (General Data Protection Regulation) compliant for your form before collecting user data as it explains how you are usually using the user data to stay safe from the action of law.
-
-- **reCAPTCHA:** Allow you to integrate Google reCAPTCHA to keep your site safe from unwanted spam and abusive traffic.
-- **Simple CAPTCHA:** Protects your site from unwanted bots and spam, and enjoy with simple Flexible CAPTCHA. This amazing CAPTCHA will make your site anti-spam responsive like Google reCAPTCHA does.
-- **Rating:** Helps to get customer reviews and build up a good bond between owner and customer with this real-time online form builder.
-
-- **File Upload:** Permits users to upload important files, images, and attachments to your form.
-
-- **Form Summary:** Provide a summary before subscription to build up good communication with your customer. After that, you also make a subscription form
-
-
-
-==Our Premium Input fields==
-- **Phone no Input Field:** Our premium Phone no Input Field permits the user to select the prefix country code Phone number from the drop-down. You can also select your position, enable or disable the level, and change the Mobile number if you want.
-
-
-- **Image Select Input Field:** Are you looking for a form that allows users to select Images from multiple Images? By using our premium Image Select Input Field, you can upload your image both vertically or horizontally.
-	- Select your Image
-	- Show or hide the label section
-	- Give title, thumbnail, and preview
-	- Select the option value that will store/mail to the desired person
-	- Give option status Active/Disable If want to restrict
-	- Customize Label, input, Place Holder
+- **Image Select Input Field:** Upload images both vertically or horizontally to allow submitters to select one.
 
 - **Toggle Select  Input Field:** With our most powerful Toggle Select, you can activate one section from multiple sections at a time both vertically or horizontally. If you select one section as active, then another section will automatically get deactivated.
-	- Add/Delete section
-	- Show/Hide label
-	- Select Position, Input, label
-	- Give label name and change if needed
-	- Give option value, option status
-	- Customizable Label and Toggle
 
-- **Simple Repeater Input Field:** If you want to use a group of fields several times, you don’t need to create the field again and again. Our simple Repeater has an easy solution for that. All you have to do is just click the “Add” button and the new field will appear automatically. Besides, you can rearrange fields by simply dragging and dropping which is perfect for WordPress beginners with our versatile Elementor form maker Metform.
-	- Add/Delete options
-	- Show/Hide label
-	- Editable position, layout, label name
-	- Enable/Disable icon inside button
-	- Add/Remove button text and button icon
-	- Styleable Repeater label, Field Label, Field input and Button
+- **Simple Repeater Input Field:** Create a group of fields to use in the future within one click.
 
-- **Google Map Location  Input Field:** Do you want to see the location of your user so that you can track the user easily? Elementor contact form creator Metform has a premium Google Map Location field to pinpoint the exact location of your users on your form. It comes with customizable content and styles.
+- **Google Map Location  Input Field:** Let users pinpoint their location in forms.
 
+- **Color Picker Input Field:** Design your form by choosing a color from the color picker.
 
-- **Color Picker Input Field:** Easily select any color from the drop-down color palette to design your form in an eye-catching way. You just have to click on the choosable color and the color will appear accordingly.
-	- Show/Hide label
-	- Editable position, layout, name, placeholder
-	- Required option toggle
-	- Conditional Logic
-	- Styles in label, input, and placeholder
-- **Calculation Fields List:** Do you want to perform calculations among Form Fields to display automatically calculated values? Elementor form builder Metform's premium Calculation Field will help you to perform your calculations and display the results within seconds.
-	- Show / Hide section with simple radio button
-	- Select position with dropdown
-	- Editable level, name, placeholder, help text  section
-	- You can use Prefix before the calculation total to secure payment processing.
+- **Calculation Fields List:** Display automatically calculated values after users perform calculations among Form Fields.
 
-	- Enable or disable the required field
-	- Expression with operation & inputs
-Thus, making a calculation form with our WordPress form plugin is easy and time-saving.
-- **Payment Method  Input Field:** Make the user’s payment policy easy using the payment method on your form. With our contact form maker Metform's Payment Method input field, you can choose your payment gateway for your WordPress forms like Paypal and Stripe. The payment method feature of this free online form builder will help you to secure payment processing more than any other payment gateway.
+- **Payment Method  Input Field:** Select a payment method like Paypal or Stripe and make a user payment policy.
 
-	- Show/Hide label
-	- Editable position, layout, name, placeholder
-	- Payment display option: Vertical/Horizontal
-	- Add/Delete Payment method with this free online form builder.
+- **Signature Input Field:** Get users’ realistic signatures on your form.
 
-	- Required option toggle
-	- Conditional Logic
-	- Styles in label and Image using this online form builder.
-- **Signature Input Field:** Would you like to get users’ realistic signatures on your form before they hit upon the submit button? Metform contact form builder offers you a Signature Input Field which will help you to collect realistic signatures for agreements, low-risk transactions and for other contracts.
-	- Show/Hide label
-	- Editable position, layout, name
-	- Display option: Vertical/Horizontal
-	- Required  option toggle
-	- Conditional Logic
-	- Styles in Input label and toggle
-- **Like-Dislike  Input Field:** It’s really important to get feedback from the user for better improvement. Elementor contact form builder Metform allows users to provide their reaction using like and dislike input fields.
-Counts Like/Dislike number from user
-	- Easy to configure
-	- Editable position, layout, name
-	- Required option toggle
-	- Styles in Input label
+- **Like-Dislike  Input Field:** Allow users to react using like and dislike fields
 
-==Our Premium Features==
-- **Multi-Step Form:** Divide your large form into multiple sections to make it more user-friendly for customers to increase the completion rate. Use our premium and fully customizable Multi-Step Form with many unique features. As a result, you can cut down long forms into multiple steps which are good for marketing and conversion optimization. It will successfully eliminate the form abandonment rate.
-Drag & Drop form builder
-	- Add unlimited step as many as you want to shorten long-form content
+## Our Premium Features
 
-	- Easily understandable functionalities
-	- Enable or disable the Multi-Step Form to optimize long-form content
+- **Multi-Step Form:** Divide your large form into multiple sections to make it more user-friendly for customers to increase the completion rate. 
 
-	- Select your validation type by character length, by word length, or by expression-based.
-	- Select your position, level, help text at your choice
-	- Editable warning message section
-- **Conditional logic:** Give your questions in category-wise. This smart Conditional Logic allows a user to select one category and the given question will appear only for that section otherwise it will remain invisible. Here comes our most unique field “Conditional Logic”.
-	- Enable or Disable Conditional Logic area
-	- Select condition match criteria And/OR
-	- Select action: Show /Hide your field
+- **Conditional logic:** Allows users to select one category and the given question will appear only for that section otherwise it will remain invisible. Here comes our most unique field “Conditional Logic”.
 [ **Conditional logic** ](https://www.youtube.com/watch?v=UDQOCwO7lhI) - [ **Conditional logic demo 1** ](https://products.wpmet.com/metform/pro-demos/conditional-form-1/) -  [ **Conditional logic demo 2** ](https://products.wpmet.com/metform/pro-demos/conditional-form-2/) - [ **Conditional logic demo 3** ](https://products.wpmet.com/metform/pro-demos/conditional-form-3/) -  [ **Conditional logic demo 4** ](https://products.wpmet.com/metform/pro-demos/conditional-form-4/)
 
-- **Calculation:** Do you want to perform calculations among Form Fields to display automatically calculated values? Our premium calculation Field will help you to perform your calculations and display the results within seconds.
-	- Store Entries: Save and Calculate submitted form data
-	- Calculate the form views
+- **Calculation:** Help you to perform your calculations and display the results within seconds in your form.
+
 [ **Calculation video** ](https://www.youtube.com/watch?v=20nsox2cZYc) - [ **Calculation demo 1** ](https://products.wpmet.com/metform/pro-demos/calculation-form-1/) -  [ **Calculation demo 2** ](https://products.wpmet.com/metform/pro-demos/calculation-form-2/)
 
-- **REST API Support:** If you want to get data in different third-party apps that users give input to fill out your form, use our most premium features Rest API Support. You can get form submission data and submission notification to Third Party API URL or Webhook by integrating our Rest API very easily.
-	- Enable/Disable Rest API
-	- Give Rest API URL/Webhook
-	- Select “Get” from the drop-down for requesting data from a specified URL
-	- Select “Post” from the drop-down for sending data from a specified URL
-- **WooCommerce checkout:** It shows you the add to cart product and checkout form on a single page. Also, you can complete orders and payments without leaving the page with this new feature of MetForm.
-- **Auto Populate Field:** This allows you to make additional settings for your form field. For example, you want to add a switch to your service signup form and want to show it enabled whenever someone fills up the form. You can successfully add that to your service signup form by using the Auto Populate field feature of the WordPress Form Plugin.
+- **REST API Support:** Get form submission data and submission notification to Third Party API URL or Webhook by integrating our Rest API very easily.
 
+- **WooCommerce checkout:** Shows you the add to cart product and checkout form on a single page, Also, MetForm enables you to complete orders and payments without leaving the page. 
 
-- **Zapier Integration:** MetForm helps you integrate Zapier with your forms. Zapier integration in your forms allows you to connect with thousands of popular apps without any coding.
-Connect with Gmail, Slack, Mailchimp, and many more. It helps to post Trello cards in WordPress. Also, Zapier integration which is a social connector allows you to connect with thousands of apps and social media.
+- **Auto Populate Field:** Show additional fields after someone fills up the form. 
 
-	- Clickable Enable/Disable Toggle
-	- Enter desired Zapier Webhook
+- **Zapier Integration:** Zapier integration in your forms allows you to connect with thousands of popular apps without any coding.
 
-- **Payment Method:** Get payments from your form. With our WordPress Payment Method features, you can choose your payment gateway like Paypal and Stripe. These payment methods for WordPress make the payment system super easy for beginners.
-	- Redirect to successful URL If passed
-	- Redirect to Failure/Cancel URL If failed
-	- Integrate Paypal with Yes/No toggle
+- **Payment Method:** Choose a payment gateway like Paypal or Stripe to make the payment system super easy for beginners. 
 
 - **Webhook**: [ **Webhook video** ](https://www.youtube.com/watch?v=2NpbK_dybWg)
 
-
 **Migrations are coming soon in these forms. Contact Form 7, Caldera Forms, Ninja Forms, Gravity Forms, fluent forms, wp forms, Forminator & Formidable Form Builder, Everest Forms**
+
+## **✨** MetForm Integrations
+
+**🔷** [MailChimp Integration](https://wpmet.com/doc/integration/): Easily integrates MailChimp to create and manage a mailing list, automated mailing, newsletter, send leads, and many other options.
+
+**🔷** [WordPress ZoHo CRM Integration](https://wpmet.com/doc/zoho/): Manage customers’ relationships and speed up marketing and sales with the ZoHo integration of our Elementor form builder MetForm.  
+
+**🔷** [HubSpot Integration](https://wpmet.com/doc/hubspot-integration/): Store all the contacts inside your HubSpot account without having fear of losing them. As a result, you can easily manage your visitors’ or clients’ information.
+
+**🔷** [FluentCRM Integration](https://wpmet.com/doc/integrate-fluentcrm-with-metform/): View all the embedding web form submission data inside FluentCRM and manage them for successful email marketing and growth hacking. 
+
+**🔷** [HelpScout Integration](https://wpmet.com/doc/helpscout-integration/): Build a successful bond and manage the relationship with the customers better than ever with the HelpScout form. This contact form's dynamic CRM integration lets you sort all contacts without any ticket or case number to save you time.
+
+**🔷** [Twilio Integration](https://wpmet.com/doc/twilio-sms-integration/): Connect with your clients, customers, or visitors via calls or messages with Twilio integration.
+
+**🔷** [ConvertKit Integration](https://wpmet.com/doc/convertkit-integration/): Successfully manage all the newsletters by integrating with ConvertKit which is built on the simplest interface.
+
+**🔷** [ActiveCampaign Integration](https://wpmet.com/doc/activecampaign/): Make a super easy contact list management with ActiveCampaign integration.
+
+**🔷** [Aweber Integration](https://wpmet.com/doc/aweber-integration/): Simply integrate with Aweber, the email marketing service provider, and build Aweber forms that let you keep in touch with your subscribers.  
+
+**🔷** [GetResponse Integration](https://wpmet.com/doc/getresponse-integration/): It is another newsletter integration like others to keep your email marketing list sorted.
+
+**🔷** [MailPoet Integration](https://wpmet.com/doc/mailpoet-integration/): Connect your WordPress site with MailPoet to build your simple and easy contact us form with the easiest drag-and-drop feature.
+
+**🔷** [Zapier Integration](https://wpmet.com/doc/zapier-integration/): Automate workflows by connecting the apps and the services you use.  
+
+**🔷** [Slack Integration](https://wpmet.com/doc/slack-integration/): You can redirect all the Elementor form data to integrate with Slack and get the customer information faster.
+
+**🔷** [Google reCAPTCHA](https://wpmet.com/doc/google-sheet-integration/) Integration: Metform Elementor form builder allows you to integrate Google reCAPTCHA to keep your site safe from unwanted spam and abusive traffic.
+
+**🔷** [reCAPTCHA Integration](https://wpmet.com/doc/recaptcha-integration/): Keep your website safe from spam and abuses using Google reCAPTCHA.
+
+**🔷** [Map Integration](https://wpmet.com/doc/map-integration-with-metform/): Add Google map API key with MetForm- contact form builder to know your customer locations.
+
+**🔷** [SureTriggers Integration](https://wpmet.com/doc/suretriggers-integration/): Bring different websites, applications, software, and WordPress plugins under a single platform.
 
 Learn [How to Install and Activate MetForm](https://www.youtube.com/watch?v=Ft1E1_FNtws&list=PL3t2OjZ6gY8NoB_48DwWKUDRtBEuBOxSc&index=13)
 
-
 ### » DOCUMENTATION AND SUPPORT
-
 
  - 📞 [Contact Our Support](https://wpmet.com/support-ticket-form/)
  - 🙋🏼‍♂️ [Join Our Facebook Community](https://www.facebook.com/groups/wpmet/)
  - 📑 [Check Documentation](https://wpmet.com/doc/metform/)
  - 🔜 [Check Roadmap](https://wpmet.com/plugin/metform/roadmaps/)
 
-
 👉 Rate us on [WordPress](https://wordpress.org/support/plugin/metform/reviews/#new-post)
 
-
 ### 💥 OUR OTHER PLUGINS
+
 If you like using the MetForm form builder, then consider checking out our other products:
 
 ⭕ [ElementsKit](https://wpmet.com/plugin/elementskit/)  The most popular all-in-one addons for Elementor.
@@ -330,18 +216,20 @@ If you like using the MetForm form builder, then consider checking out our other
 
 ⭕ [Wp Social](https://wpmet.com/plugin/wp-social/)  Power your WordPress site by using WP Social. It will assist you in adding a Social Login, Social Counter, and Social Login to your website.
 
-
 ⭕ [Wp FundEngine](https://products.wpmet.com/crowdfunding/)  Now, creating a crowdfunding and donation site with WordPress is easier. WP FundEngine provides you with all the functionalities to ease the processes.
 
-
 ⭕ [Wp Ultimate Review](https://products.wpmet.com/review/)  Check out the quick plugin, and manage and style customer reviews according to your preferences.
-
 
 Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best out of WordPress using our plugins. 
 Check out [Tutorials, Tips & Tricks](https://wpmet.com/blog)! 👌
 
 
-== Changelog == 
+== Changelog ==
+
+Version: 3.8.7 // 2024-04-30
+Fixed: Google font loading issue
+Fixed: Compatibility issue with Gravity Form and Jetpack Boost plugins
+Fixed: Form disappearing if using summary widget 
 
 Version: 3.8.6 // 2024-03-31
 Improved: Security
@@ -928,14 +816,12 @@ Added: widget area to edit and save use from the same page.
 
 
 
-
-
 == Upgrade Notice ==
 Metform 1.3.0-beta1 is a major update. We have reconstructed the form builder's widgets with react and huge optimization for future proof. If you face any issue please contact our support team here https://wpmet.com/support-ticket
 
+== Screenshots ==
+
 == Installation ==
-
-
 
 1. Upload the plugin files to the `/wp-content/plugins/plugin-name directory, or install the form builder plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress

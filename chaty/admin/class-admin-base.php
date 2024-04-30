@@ -959,45 +959,39 @@ class CHT_Admin_Base
 
         if (current_user_can("manage_options")) {
             global $wpdb;
-            $tableName = $wpdb->prefix.'chaty_contact_form_leads';
-
+            $table_name = $wpdb->prefix . 'chaty_contact_form_leads';
             $postData = filter_input_array(INPUT_GET);
-            if (isset($postData['remove_chaty_leads'])) {
-                if (wp_verify_nonce($postData['remove_chaty_leads'], "remove_chaty_leads")) {
-                    if (isset($postData['chaty_leads']) && !empty($postData['chaty_leads'])) {
-                        if (isset($postData['action']) && $postData['action'] == "delete_message") {
-                            $chaty_leads = $postData['chaty_leads'];
-
-                            if (!empty($chaty_leads)) {
-                                if ($chaty_leads == "remove-all") {
-                                    $wpdb->query($wpdb->prepare("TRUNCATE TABLE %s", esc_sql($tableName)));
-                                } else {
-                                    if(!is_array($chaty_leads)) {
-                                        $chaty_leads = explode(",", $chaty_leads);
-                                    }
-                                    foreach($chaty_leads as $id) {
-                                        $wpdb->delete($tableName, ['id' => $id]);
+            if(isset($postData['remove_chaty_leads'])) {
+                if(wp_verify_nonce($postData['remove_chaty_leads'], "remove_chaty_leads")) {
+                    if(isset($postData['chaty_leads']) && !empty($postData['chaty_leads'])) {
+                        if(isset($postData['action']) && $postData['action'] == "delete_message") {
+                            $chatyLeads = esc_attr($postData['chaty_leads']);
+                            if($chatyLeads == "remove-all") {
+                                $wpdb->query("TRUNCATE TABLE {$table_name}");
+                            } else {
+                                $chatyLeads = explode(",", $chatyLeads);
+                                if ($chatyLeads) {
+                                    foreach ($chatyLeads as $chatyLead) {
+                                        $wpdb->delete($table_name, ["id" => esc_sql($chatyLead)]);
                                     }
                                 }
+                            }
 
-                                $paged  = isset($postData['paged']) && !empty($postData['paged']) && is_numeric($postData['paged']) && $postData['paged'] > 0 ? $postData['paged'] : 1;
-                                $search = isset($postData['search']) && !empty($postData['search']) ? $postData['search'] : "";
-                                $url    = admin_url("admin.php?page=chaty-contact-form-feed");
-                                if (intval($paged) > 1) {
-                                    $url .= "&paged=".$paged;
-                                }
-
-                                if (!empty($search)) {
-                                    $url .= "&search=".$search;
-                                }
-
-                                wp_redirect($url);
-                                exit;
-                            }//end if
-                        }//end if
-                    }//end if
-                }//end if
-            }//end if
+                            $paged = isset($postData['paged']) && !empty($postData['paged']) && is_numeric($postData['paged']) && $postData['paged'] > 0 ? $postData['paged'] : 1;
+                            $search = isset($postData['search']) && !empty($postData['search']) ? $postData['search'] : "";
+                            $url = admin_url("admin.php?page=chaty-contact-form-feed");
+                            if (intval($paged) > 1) {
+                                $url .= "&paged=" . $paged;
+                            }
+                            if (!empty($search)) {
+                                $url .= "&search=" . $search;
+                            }
+                            wp_redirect($url);
+                            exit;
+                        }
+                    }
+                }
+            }
 
             $postData = filter_input_array(INPUT_GET);
             if (isset($postData['download_chaty_file']) && $postData['download_chaty_file'] == "chaty_contact_leads" && isset($postData['nonce'])) {
@@ -2462,6 +2456,28 @@ class CHT_Admin_Base
             }
         }
         return $string;
+    }
+
+    /**
+     * Validates a color value and returns it if it matches the given formats.
+     *
+     * @param string $color The color value to validate.
+     * @param string $default_color (optional) The default color value to return if the given color is invalid.
+     * @return string The validated color value, or the default color value if the given color is invalid.
+     */
+    function validate_color($color, $default_color = "") {
+        if( preg_match('/^#[a-f0-9]{6}$/i', $color)) {
+            return $color;
+        } else {
+            $rgbPattern = '/^rgb\((\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*,\s*?){2}\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*\)$/';
+
+            // Check if it's a RGBA color
+            $rgbaPattern = '/^rgba\((\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*,\s*?){3}\s*0*(?:0(\.\d+)?|1(\.0+)?)\s*\)$/';
+            if(preg_match($rgbPattern, $color) || preg_match($rgbaPattern, $color)) {
+                return $color;
+            }
+        }
+        return $default_color;
     }
 
 

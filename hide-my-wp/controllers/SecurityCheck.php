@@ -144,6 +144,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
             'checkVersionDisplayed',
             'checkSSL',
             'checkDBDebug',
+            'checkFirewall'
         );
     }
 
@@ -420,6 +421,15 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __( "WordPress is well-known for its ease of installation. <br/>It's important to hide the wp-admin/install.php and wp-admin/upgrade.php files because there have already been a couple of security issues regarding these files.", 'hide-my-wp' ),
                 'solution' => sprintf( esc_html__( "Rename wp-admin/install.php & wp-admin/upgrade.php files or switch on %s %s > Change Paths > Hide WordPress Common Paths%s", 'hide-my-wp' ), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=core').'" >',  HMWP_Classes_Tools::getOption('hmwp_plugin_menu') , '</a>'),
+                'javascript' => "pro",
+            ),
+            'checkFirewall' => array(
+                'name' => esc_html__( "Firewall against injections is loaded", 'hide-my-wp' ),
+                'value' => false,
+                'valid' => false,
+                'warning' => false,
+                'message' => __( "The most common way to hack a website is by accessing the domain and adding harmful queries in order to reveal information from files and database.<br /> These attacks are made on any website, WordPress or not, and if a call succeeds … it will probably be too late to save the website.", 'hide-my-wp' ),
+                'solution' => sprintf( esc_html__( "Activate the firewall and select the firewall strength that works for your website %s %s > Change Paths > Firewall & Headers %s", 'hide-my-wp' ), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=firewall').'" >',  HMWP_Classes_Tools::getOption('hmwp_plugin_menu') , '</a>'),
                 'javascript' => "pro",
             ),
             'checkVersionDisplayed' => array(
@@ -791,8 +801,8 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
      */
     public function checkAdminUsers()
     {
-        if(!$users = get_users(array('role' => 'administrator', 'login' => 'administrator'))) {
-            $users = get_users(array('role' => 'administrator', 'login' => 'admin'));
+        if(!$users = username_exists('admin')) {
+            $users = username_exists('administrator');
         }
 
         return array(
@@ -1358,6 +1368,17 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
         );
     }
 
+    /**
+     * Check if firewall is activated
+     *
+     * @return array
+     */
+    public function checkFirewall() {
+        return array(
+            'value' => (HMWP_Classes_Tools::getOption('hmwp_sqlinjection') ? esc_html__('Yes') : esc_html__('No')),
+            'valid' => (HMWP_Classes_Tools::getOption('hmwp_sqlinjection')),
+        );
+    }
 
     /**
      * Does WP install.php file exist?

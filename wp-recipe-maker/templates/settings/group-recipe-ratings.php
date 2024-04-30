@@ -253,6 +253,13 @@ $recipe_ratings = array(
 					'default' => '3',
 				),
 				array(
+					'id' => 'user_ratings_text_above_comment',
+					'name' => __( 'Text above input fields', 'wp-recipe-maker' ),
+					'description' => __( 'Optional text to show above the input fields.', 'wp-recipe-maker' ),
+					'type' => 'richTextarea',
+					'default' => '',
+				),
+				array(
 					'id' => 'user_ratings_modal_comment_placeholder',
 					'name' => __( 'Comment Placeholder', 'wp-recipe-maker' ),
 					'type' => 'textarea',
@@ -277,6 +284,172 @@ $recipe_ratings = array(
 					'description' => __( 'Message to show when there was a problem with rating the recipe. Make empty to not show anything.', 'wp-recipe-maker' ),
 					'type' => 'richTextarea',
 					'default' => __( 'There was a problem rating this recipe. Please try again later.', 'wp-recipe-maker' ),
+				),
+			),
+			'dependency' => array(
+				array(
+					'id' => 'features_user_ratings',
+					'value' => true,
+				),
+			),
+		),
+		array(
+			'name' => __( 'User Ratings Requirements', 'wp-recipe-maker' ),
+			'description' => __( 'For the strongest trust signal, and to have ratings show up as reviews in the recipe metadata, we recommend requiring a comment text and visitor details for each comment.', 'wp-recipe-maker' ),
+			'settings' => array(
+				array(
+					'id' => 'user_ratings_require_comment',
+					'name' => __( 'Require Comment Text', 'wp-recipe-maker' ),
+					'description' => __( 'Wether comment text is required to leave a rating', 'wp-recipe-maker' ),
+					'type' => 'toggle',
+					'default' => true,
+				),
+				array(
+					'id' => 'user_ratings_require_name',
+					'name' => __( 'Require Visitor Name', 'wp-recipe-maker' ),
+					'description' => __( 'Wether the name of the visitor is required to leave a rating', 'wp-recipe-maker' ),
+					'type' => 'toggle',
+					'default' => true,
+				),
+				array(
+					'id' => 'user_ratings_require_email',
+					'name' => __( 'Require Visitor Email', 'wp-recipe-maker' ),
+					'description' => __( 'Wether the name of the visitor is required to leave a rating', 'wp-recipe-maker' ),
+					'type' => 'toggle',
+					'default' => true,
+				),
+			),
+			'dependency' => array(
+				array(
+					'id' => 'features_user_ratings',
+					'value' => true,
+				),
+			),
+		),
+		array(
+			'name' => __( 'User Ratings Comment Suggestions', 'wp-recipe-maker' ),
+			'description' => __( 'Make it easier for visitors to leave a comment by giving them suggestions.', 'wp-recipe-maker' ),
+			'settings' => array(
+				array(
+					'id' => 'user_ratings_comment_suggestions_enabled',
+					'name' => __( 'Enable Comment Suggestions', 'wp-recipe-maker' ),
+					'description' => __( 'When to show comment suggestions.', 'wp-recipe-maker' ),
+					'type' => 'dropdown',
+					'options' => array(
+						'never' => __( 'Never', 'wp-recipe-maker' ),
+						'5_star' => __( 'If they want to give 5 stars', 'wp-recipe-maker' ),
+						'4_star' => __( 'If they want to give 4 stars or more', 'wp-recipe-maker' ),
+						'3_star' => __( 'If they want to give 3 stars or more', 'wp-recipe-maker' ),
+						'2_star' => __( 'If they want to give 2 stars or more', 'wp-recipe-maker' ),
+						'always' => __( 'Always', 'wp-recipe-maker' ),
+					),
+					'default' => 'never',
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_text_before',
+					'name' => __( 'Text before suggestions', 'wp-recipe-maker' ),
+					'description' => __( 'Text to display before the list of suggestions.', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => __( 'Let us know what you thought of this recipe:', 'wp-recipe-maker' ),
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_1',
+					'name' => __( 'Comment Suggestion 1', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => __( 'This worked exactly as written, thanks!', 'wp-recipe-maker' ),
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_2',
+					'name' => __( 'Comment Suggestion 2', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => __( 'My family loved this!', 'wp-recipe-maker' ),
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_3',
+					'name' => __( 'Comment Suggestion 3', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => __( 'Thank you for sharing this recipe', 'wp-recipe-maker' ),
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_4',
+					'name' => __( 'Comment Suggestion 4', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => '',
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_5',
+					'name' => __( 'Comment Suggestion 5', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => '',
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_6',
+					'name' => __( 'Comment Suggestion 6', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => '',
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
+				),
+				array(
+					'id' => 'user_ratings_comment_suggestion_text_after',
+					'name' => __( 'Text after suggestions', 'wp-recipe-maker' ),
+					'description' => __( 'Text to display after the list of suggestions, before the comment field.', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => __( 'Or write in your own words:', 'wp-recipe-maker' ),
+					'dependency' => array(
+						array(
+							'id' => 'user_ratings_comment_suggestions_enabled',
+							'value' => 'never',
+							'type' => 'inverse',
+						),
+					),
 				),
 			),
 			'dependency' => array(

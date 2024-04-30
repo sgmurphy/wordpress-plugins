@@ -1,13 +1,11 @@
 <?php
 
-class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
-{
+class Easy_Custom_Facebook_Feed_Widget extends WP_Widget {
     /**
      * Register widget with WordPress.
      */
-    function __construct()
-    {
-        parent::__construct(
+    function __construct() {
+        parent::__construct( 
             'easy_facebook_feed',
             // Base ID
             __( 'Easy Facebook Feed', 'easy-facebook-likebox' ),
@@ -15,9 +13,9 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             array(
                 'description' => __( 'Drag and drop this widget for facebook feed integration', 'easy-facebook-likebox' ),
             )
-        );
+         );
     }
-    
+
     /**
      * Front-end display of widget.
      *
@@ -27,18 +25,17 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
      * @see WP_Widget::widget()
      *
      */
-    public function widget( $args, $instance )
-    {
-        global  $efbl ;
+    public function widget( $args, $instance ) {
+        global $efbl;
         $title = apply_filters( 'widget_title', $instance['title'] );
-        echo  $args['before_widget'] ;
-        if ( !empty($title) ) {
-            echo  $args['before_title'] . $title . $args['after_title'] ;
+        echo $args['before_widget'];
+        if ( !empty( $title ) ) {
+            echo $args['before_title'] . $title . $args['after_title'];
         }
-        echo  $efbl->render_fbfeed_box( $instance ) ;
-        echo  $args['after_widget'] ;
+        echo $efbl->render_fbfeed_box( $instance );
+        echo $args['after_widget'];
     }
-    
+
     /**
      * Back-end widget form.
      *
@@ -47,13 +44,12 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
      * @see WP_Widget::form()
      *
      */
-    public function form( $instance )
-    {
+    public function form( $instance ) {
         /*
          * Getting Main Class
          */
         $FTA = new Feed_Them_All();
-        global  $efbl_skins ;
+        global $efbl_skins;
         /*
          * Getting All Settings
          */
@@ -166,31 +162,30 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'title' ) ;
+        echo $this->get_field_id( 'title' );
         ?>"><?php 
         _e( 'Title:', 'easy-facebook-likebox' );
         ?></label>
 				<input class="widefat"
 						id="<?php 
-        echo  $this->get_field_id( 'title' ) ;
+        echo $this->get_field_id( 'title' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'title' ) ;
+        echo $this->get_field_name( 'title' );
         ?>"
 						type="text" value="<?php 
-        echo  esc_attr( $title ) ;
+        echo esc_attr( $title );
         ?>">
 			</p>
 
 			<p>
 				<?php 
         $efbl_page_options = null;
-        
         if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
             ?>
 					<label style="font-weight: bold;"
 							for="<?php 
-            echo  $this->get_field_id( 'fanpage_id' ) ;
+            echo $this->get_field_id( 'fanpage_id' );
             ?>"><?php 
             _e( 'Select Page:', 'easy-facebook-likebox' );
             ?></label>
@@ -202,10 +197,10 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             }
             ?>  style="width: 100%;"
 							id="<?php 
-            echo  $this->get_field_id( 'fanpage_id' ) ;
+            echo $this->get_field_id( 'fanpage_id' );
             ?>"
 							name="<?php 
-            echo  $this->get_field_name( 'fanpage_id' ) ;
+            echo $this->get_field_name( 'fanpage_id' );
             ?>
 											<?php 
             if ( class_exists( 'Esf_Multifeed_Facebook_Frontend' ) ) {
@@ -215,20 +210,16 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             ?>">
 						<?php 
             foreach ( $fta_settings['plugins']['facebook']['approved_pages'] as $efbl_page ) {
-                
                 if ( isset( $efbl_page['username'] ) ) {
                     $efbl_username = $efbl_page['username'];
                 } else {
                     $efbl_username = $efbl_page['id'];
                 }
-                
-                
                 if ( is_array( $fanpage_id ) ) {
                     $selected = ( in_array( $efbl_username, $fanpage_id ) ? ' selected="selected" ' : '' );
                 } else {
                     $selected = selected( $fanpage_id, $efbl_username, false );
                 }
-                
                 ?>
 							<option value="<?php 
                 esc_attr_e( $efbl_username );
@@ -254,14 +245,13 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             esc_html_e( 'No page found, Please connect your Facebook page with plugin first from authentication tab', 'easy-facebook-likebox' );
             ?>
 							<a href="<?php 
-            echo  esc_url( admin_url( 'admin.php?page=easy-facebook-likebox' ) ) ;
+            echo esc_url( admin_url( 'admin.php?page=easy-facebook-likebox' ) );
             ?>"><?php 
             esc_html_e( 'Yes, take me there', 'easy-facebook-likebox' );
             ?></a>
 						</span>
 					<?php 
         }
-        
         ?>
 
 			</p>
@@ -270,20 +260,20 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'accesstoken' ) ;
+        echo $this->get_field_id( 'accesstoken' );
         ?>"><?php 
         _e( 'Access Token (Optional):', 'easy-facebook-likebox' );
         ?></label>
 				<input class="widefat"
 						id="<?php 
-        echo  $this->get_field_id( 'accesstoken' ) ;
+        echo $this->get_field_id( 'accesstoken' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'accesstoken' ) ;
+        echo $this->get_field_name( 'accesstoken' );
         ?>"
 						type="text"
 						value="<?php 
-        echo  esc_attr( $accesstoken ) ;
+        echo esc_attr( $accesstoken );
         ?>">
 				<br/>
 
@@ -297,17 +287,17 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'filter' ) ;
+        echo $this->get_field_id( 'filter' );
         ?>"><?php 
         _e( 'Filter Posts:', 'easy-facebook-likebox' );
         ?></label>
 				<?php 
-        echo  __( "We're sorry, posts filter is not included in your plan. Please upgrade to premium version to unlock this and all other cool features. ", 'easy-facebook-likebox' ) ;
+        echo __( "We're sorry, posts filter is not included in your plan. Please upgrade to premium version to unlock this and all other cool features. ", 'easy-facebook-likebox' );
         ?>
 					<a href="<?php 
-        echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+        echo esc_url( efl_fs()->get_upgrade_url() );
         ?>"> <?php 
-        echo  __( 'Upgrade to PRO', 'easy-facebook-likebox' ) ;
+        echo __( 'Upgrade to PRO', 'easy-facebook-likebox' );
         ?> </a>
 					<?php 
         ?>
@@ -320,20 +310,19 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'skin_id' ) ;
+        echo $this->get_field_id( 'skin_id' );
         ?>"><?php 
         _e( 'Skin:', 'easy-facebook-likebox' );
         ?></label><br/>
 				<?php 
-        
         if ( isset( $efbl_skins ) ) {
             ?>
 					<select style="width: 100%;"
 							id="<?php 
-            echo  $this->get_field_id( 'skin_id' ) ;
+            echo $this->get_field_id( 'skin_id' );
             ?>"
 							name="<?php 
-            echo  $this->get_field_name( 'skin_id' ) ;
+            echo $this->get_field_name( 'skin_id' );
             ?>">
 
 						<?php 
@@ -353,7 +342,6 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 
 							<?php 
             }
-            
             if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
             } else {
                 ?>
@@ -369,7 +357,6 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
                 ?></option>
 					<?php 
             }
-            
             ?>
 
 					</select>
@@ -380,16 +367,15 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             ?></i>
 					<?php 
         } else {
-            echo  __( 'WHOOPS, No skin found. You can create new skin from Facebook Likebox - FTA > Facebook > Skins tab. ', 'easy-facebook-likebox' ) ;
+            echo __( 'WHOOPS, No skin found. You can create new skin from Facebook Likebox - FTA > Facebook > Skins tab. ', 'easy-facebook-likebox' );
             ?>
 					<a href="<?php 
-            echo  admin_url( 'admin.php?page=easy-facebook-likebox#efbl-skins' ) ;
+            echo admin_url( 'admin.php?page=easy-facebook-likebox#efbl-skins' );
             ?>"> <?php 
-            echo  __( 'Yes, take me there', 'easy-facebook-likebox' ) ;
+            echo __( 'Yes, take me there', 'easy-facebook-likebox' );
             ?> </a>
 					<?php 
         }
-        
         ?>
 			</p>
 
@@ -398,20 +384,20 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'post_limit' ) ;
+        echo $this->get_field_id( 'post_limit' );
         ?>"><?php 
         _e( 'Posts to display:', 'easy-facebook-likebox' );
         ?></label>
 				<input class="widefat"
 						id="<?php 
-        echo  $this->get_field_id( 'post_limit' ) ;
+        echo $this->get_field_id( 'post_limit' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'post_limit' ) ;
+        echo $this->get_field_name( 'post_limit' );
         ?>"
 						type="number" min="1"
 						value="<?php 
-        echo  esc_attr( $post_limit ) ;
+        echo esc_attr( $post_limit );
         ?>"
 						size="5"><br/>
 				<i><?php 
@@ -423,27 +409,26 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'words_limit' ) ;
+        echo $this->get_field_id( 'words_limit' );
         ?>"><?php 
         _e( 'Words limit to show:', 'easy-facebook-likebox' );
         ?></label>
 				<input class="widefat"
 						id="<?php 
-        echo  $this->get_field_id( 'words_limit' ) ;
+        echo $this->get_field_id( 'words_limit' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'words_limit' ) ;
+        echo $this->get_field_name( 'words_limit' );
         ?>"
 						type="number" min="1"
 						value="<?php 
-        echo  esc_attr( $words_limit ) ;
+        echo esc_attr( $words_limit );
         ?>" size="5"><br/>
 				<i><?php 
         _e( 'Define how many words you want to show in feed', 'easy-facebook-likebox' );
         ?></i>
 			</p>
 			<?php 
-        
         if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
         } else {
             ?>
@@ -456,7 +441,7 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             _e( "We're sorry, load more feature is not included in your plan. Please upgrade to premium version to unlock this and all other cool features.", 'easy-facebook-likebox' );
             ?>
 					<a href="<?php 
-            echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+            echo esc_url( efl_fs()->get_upgrade_url() );
             ?>"><?php 
             _e( 'Upgrade to PRO', 'easy-facebook-likebox' );
             ?></a>
@@ -464,11 +449,9 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 
 		<?php 
         }
-        
         ?>
 
 		<?php 
-        
         if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
         } else {
             ?>
@@ -481,7 +464,7 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
             _e( "We're sorry, live stream feature is not included in your plan. Please upgrade to premium version to unlock this and all other cool features.", 'easy-facebook-likebox' );
             ?>
 				<a href="<?php 
-            echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+            echo esc_url( efl_fs()->get_upgrade_url() );
             ?>"><?php 
             _e( 'Upgrade to PRO', 'easy-facebook-likebox' );
             ?></a>
@@ -489,23 +472,22 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 
 		<?php 
         }
-        
         ?>
 
 			<p class="widget-half">
 				<input type="checkbox" class="widefat"
 						id="<?php 
-        echo  $this->get_field_id( 'show_like_box' ) ;
+        echo $this->get_field_id( 'show_like_box' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'show_like_box' ) ;
+        echo $this->get_field_name( 'show_like_box' );
         ?>"
 						value="1" <?php 
         checked( $show_like_box, 1 );
         ?>>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'show_like_box' ) ;
+        echo $this->get_field_id( 'show_like_box' );
         ?>"><?php 
         _e( 'Show like box', 'easy-facebook-likebox' );
         ?></label>
@@ -514,17 +496,17 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p class="widget-half">
 				<input type="checkbox" class="widefat"
 						id="<?php 
-        echo  $this->get_field_id( 'links_new_tab' ) ;
+        echo $this->get_field_id( 'links_new_tab' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'links_new_tab' ) ;
+        echo $this->get_field_name( 'links_new_tab' );
         ?>"
 						value="1" <?php 
         checked( $links_new_tab, 1 );
         ?>>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'links_new_tab' ) ;
+        echo $this->get_field_id( 'links_new_tab' );
         ?>"><?php 
         _e( 'Open links in New tab', 'easy-facebook-likebox' );
         ?></label>
@@ -535,27 +517,27 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
 			<p>
 				<label style="font-weight: bold;"
 						for="<?php 
-        echo  $this->get_field_id( 'cache_unit' ) ;
+        echo $this->get_field_id( 'cache_unit' );
         ?>"><?php 
         _e( 'Check new posts after every:', 'easy-facebook-likebox' );
         ?></label><br/>
 				<input class="half_field"
 						id="<?php 
-        echo  $this->get_field_id( 'cache_unit' ) ;
+        echo $this->get_field_id( 'cache_unit' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'cache_unit' ) ;
+        echo $this->get_field_name( 'cache_unit' );
         ?>"
 						type="number" min="1"
 						value="<?php 
-        echo  esc_attr( $cache_unit ) ;
+        echo esc_attr( $cache_unit );
         ?>" size="5">
 				<select class="half_field"
 						id="<?php 
-        echo  $this->get_field_id( 'cache_duration' ) ;
+        echo $this->get_field_id( 'cache_duration' );
         ?>"
 						name="<?php 
-        echo  $this->get_field_name( 'cache_duration' ) ;
+        echo $this->get_field_name( 'cache_duration' );
         ?>">
 					<option <?php 
         selected( $cache_duration, 'hours', $echo = true );
@@ -590,10 +572,10 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
         if ( is_array( $fanpage_id ) ) {
             $fanpage_id = implode( ',', $fanpage_id );
         }
-        if ( !empty($fb_appid) ) {
+        if ( !empty( $fb_appid ) ) {
             $fb_appid = 'fb_appid="' . $fb_appid . '"';
         }
-        if ( !empty($accesstoken) ) {
+        if ( !empty( $accesstoken ) ) {
             $accesstoken = 'accesstoken="' . $accesstoken . '"';
         }
         $efbl_filter_events = '';
@@ -607,12 +589,12 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
         ?>
 
 			<p style="background:#ddd; padding:5px; "><?php 
-        echo  '[efb_feed fanpage_id="' . $fanpage_id . '" ' . $accesstoken . ' ' . $filter . ' ' . $efbl_filter_events . '  show_like_box="' . $show_like_box . '" load_more="' . $load_more . '" live_stream_only="' . $live_stream_only . '" links_new_tab="' . $links_new_tab . '" post_limit="' . $post_limit . '"  words_limit="' . $words_limit . '"  cache_unit="' . $cache_unit . '" cache_duration="' . $cache_duration . '" ]' ;
+        echo '[efb_feed fanpage_id="' . $fanpage_id . '" ' . $accesstoken . ' ' . $filter . ' ' . $efbl_filter_events . '  show_like_box="' . $show_like_box . '" load_more="' . $load_more . '" live_stream_only="' . $live_stream_only . '" links_new_tab="' . $links_new_tab . '" post_limit="' . $post_limit . '"  words_limit="' . $words_limit . '"  cache_unit="' . $cache_unit . '" cache_duration="' . $cache_duration . '" ]';
         ?></p>
 		</div>
 		<?php 
     }
-    
+
     /**
      * Sanitize widget form values as they are saved.
      *
@@ -623,31 +605,29 @@ class Easy_Custom_Facebook_Feed_Widget extends WP_Widget
      * @see WP_Widget::update()
      *
      */
-    public function update( $new_instance, $old_instance )
-    {
+    public function update( $new_instance, $old_instance ) {
         $instance = array();
-        $instance['title'] = ( !empty($new_instance['title']) ? wp_strip_all_tags( $new_instance['title'] ) : '' );
-        
-        if ( !empty($new_instance['fanpage_id']) ) {
+        $instance['title'] = ( !empty( $new_instance['title'] ) ? wp_strip_all_tags( $new_instance['title'] ) : '' );
+        if ( !empty( $new_instance['fanpage_id'] ) ) {
             $instance['fanpage_id'] = esc_sql( $new_instance['fanpage_id'] );
         } else {
             $instance['fanpage_id'] = '';
         }
-        
-        $instance['fb_appid'] = ( !empty($new_instance['fb_appid']) ? wp_strip_all_tags( $new_instance['fb_appid'] ) : '' );
-        $instance['layout'] = ( !empty($new_instance['layout']) ? wp_strip_all_tags( $new_instance['layout'] ) : '' );
-        $instance['skin_id'] = ( !empty($new_instance['skin_id']) ? wp_strip_all_tags( $new_instance['skin_id'] ) : '' );
-        $instance['post_limit'] = ( !empty($new_instance['post_limit']) ? wp_strip_all_tags( $new_instance['post_limit'] ) : '' );
-        $instance['words_limit'] = ( !empty($new_instance['words_limit']) ? wp_strip_all_tags( $new_instance['words_limit'] ) : '' );
-        $instance['show_logo'] = ( !empty($new_instance['show_logo']) ? wp_strip_all_tags( $new_instance['show_logo'] ) : '' );
-        $instance['show_image'] = ( !empty($new_instance['show_image']) ? wp_strip_all_tags( $new_instance['show_image'] ) : '' );
-        $instance['show_like_box'] = ( !empty($new_instance['show_like_box']) ? wp_strip_all_tags( $new_instance['show_like_box'] ) : '' );
-        $instance['links_new_tab'] = ( !empty($new_instance['links_new_tab']) ? wp_strip_all_tags( $new_instance['links_new_tab'] ) : '' );
-        $instance['accesstoken'] = ( !empty($new_instance['accesstoken']) ? wp_strip_all_tags( $new_instance['accesstoken'] ) : '' );
-        $instance['cache_unit'] = ( !empty($new_instance['cache_unit']) ? wp_strip_all_tags( $new_instance['cache_unit'] ) : '' );
-        $instance['cache_duration'] = ( !empty($new_instance['cache_duration']) ? wp_strip_all_tags( $new_instance['cache_duration'] ) : '' );
+        $instance['fb_appid'] = ( !empty( $new_instance['fb_appid'] ) ? wp_strip_all_tags( $new_instance['fb_appid'] ) : '' );
+        $instance['layout'] = ( !empty( $new_instance['layout'] ) ? wp_strip_all_tags( $new_instance['layout'] ) : '' );
+        $instance['skin_id'] = ( !empty( $new_instance['skin_id'] ) ? wp_strip_all_tags( $new_instance['skin_id'] ) : '' );
+        $instance['post_limit'] = ( !empty( $new_instance['post_limit'] ) ? wp_strip_all_tags( $new_instance['post_limit'] ) : '' );
+        $instance['words_limit'] = ( !empty( $new_instance['words_limit'] ) ? wp_strip_all_tags( $new_instance['words_limit'] ) : '' );
+        $instance['show_logo'] = ( !empty( $new_instance['show_logo'] ) ? wp_strip_all_tags( $new_instance['show_logo'] ) : '' );
+        $instance['show_image'] = ( !empty( $new_instance['show_image'] ) ? wp_strip_all_tags( $new_instance['show_image'] ) : '' );
+        $instance['show_like_box'] = ( !empty( $new_instance['show_like_box'] ) ? wp_strip_all_tags( $new_instance['show_like_box'] ) : '' );
+        $instance['links_new_tab'] = ( !empty( $new_instance['links_new_tab'] ) ? wp_strip_all_tags( $new_instance['links_new_tab'] ) : '' );
+        $instance['accesstoken'] = ( !empty( $new_instance['accesstoken'] ) ? wp_strip_all_tags( $new_instance['accesstoken'] ) : '' );
+        $instance['cache_unit'] = ( !empty( $new_instance['cache_unit'] ) ? wp_strip_all_tags( $new_instance['cache_unit'] ) : '' );
+        $instance['cache_duration'] = ( !empty( $new_instance['cache_duration'] ) ? wp_strip_all_tags( $new_instance['cache_duration'] ) : '' );
         return $instance;
     }
 
 }
+
 //// $Easy_Custom_Facebook_Feed_Widget = new Easy_Custom_Facebook_Feed_Widget();

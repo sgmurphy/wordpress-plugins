@@ -307,7 +307,8 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				$value = $default;
 			} elseif (
 				'fp_attach_static' == $option ||
-				'cu_attach_static' == $option
+				'cu_attach_static' == $option ||
+				'form_height'	   == $option
 			) {
 				if ( isset( $this->_settings['extra'][ $option ] ) ) {
 					$value = $this->_settings['extra'][ $option ];
@@ -346,6 +347,30 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 			return $this->_fields;
 		} // End get_fields.
 
+		public function get_height( $selector ) {
+			$form_heights = $this->get_option( 'form_height', array() );
+			if ( empty( $form_heights ) || ! is_array( $form_heights ) ) {
+				$form_heights = array();
+			}
+
+			$output = '';
+			if ( ! empty( $form_heights ) ) {
+				$output .= '<style>';
+				foreach( $form_heights as $screen_size => $form_height ) {
+					if ( empty( $form_height ) ) continue;
+					switch ( $screen_size ) {
+						case 320 : $output .= '@media (max-width:480px)';  break;
+						case 480 : $output .= '@media (max-width:768px)';  break;
+						case 768 : $output .= '@media (max-width:1024px)'; break;
+						default  : $output .= '@media (min-width:1024px)'; break;
+					}
+					$output .= '{' . $selector . '{min-height:' . $form_height . 'px;}}';
+				}
+				$output .= '</style>';
+			}
+			return $output;
+		} // End get_height.
+
 		public function save_settings( $params ) {
 			global $wpdb, $cpcff_default_texts_array;
 
@@ -355,7 +380,7 @@ if ( ! class_exists( 'CPCFF_FORM' ) ) {
 				}
 			}
 
-			$extra = array();
+			$extra = array( 'form_height' => array() );
 
 			if ( isset( $params['fp_attach_static'] ) ) {
 				$extra['fp_attach_static'] = $params['fp_attach_static'];

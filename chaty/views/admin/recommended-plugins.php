@@ -207,7 +207,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                 $author = wp_kses($plugin['author'], $pluginsAllowedTags);
                 if (! empty($author)) {
                     // translators: %s: Plugin author.
-                    $author = ' <cite>'.sprintf(esc_html__( 'By %s', "folders"), $author).'</cite>';
+                    $author = ' <cite>'.sprintf(esc_html__( 'By %s', "chaty"), $author).'</cite>';
                 }
 
                 $requires_php = isset($plugin['requires_php']) ? $plugin['requires_php'] : null;
@@ -233,7 +233,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                                         // translators: %s: Plugin name and version.
                                         esc_attr(sprintf(esc_html__('Install %s now', 'folders'), $name)),
                                         esc_attr($name),
-                                        esc_html__( 'Install Now', "folders")
+                                        esc_html__( 'Install Now', "chaty")
                                     );
                                 } else {
                                     $action_links[] = sprintf(
@@ -255,7 +255,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                                         // translators: %s: Plugin name and version.
                                         esc_attr(sprintf(esc_html__('Update %s now', 'folders'), $name)),
                                         esc_attr($name),
-                                        esc_html__( 'Update Now', "folders")
+                                        esc_html__( 'Update Now', "chaty")
                                     );
                                 } else {
                                     $action_links[] = sprintf(
@@ -274,7 +274,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                                     esc_html__('Active', 'folders')
                                 );
                             } else if (current_user_can('activate_plugin', $status['file'])) {
-                                $button_text = esc_html__( 'Activate', "folders");
+                                $button_text = esc_html__( 'Activate', "chaty");
                                 // translators: %s: Plugin name.
                                 $button_label = esc_html__('Activate %s', 'folders');
                                 $activate_url = add_query_arg(
@@ -287,7 +287,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                                 );
 
                                 if (is_network_admin()) {
-                                    $button_text = esc_html__( 'Network Activate', "folders");
+                                    $button_text = esc_html__( 'Network Activate', "chaty");
                                     // translators: %s: Plugin name.
                                     $button_label = esc_html__('Network Activate %s', 'folders');
                                     $activate_url = add_query_arg([ 'networkwide' => 1 ], $activate_url);
@@ -317,9 +317,9 @@ if ( $data && ! is_wp_error( $data ) ) {
                     '<a href="%s" class="thickbox open-plugin-details-modal" aria-label="%s" data-title="%s">%s</a>',
                     esc_url($details_link),
                     // translators: %s: Plugin name and version.
-                    esc_attr(sprintf(esc_html__( 'More information about %s', "folders"), $name)),
+                    esc_attr(sprintf(esc_html__( 'More information about %s', "chaty"), $name)),
                     esc_attr($name),
-                    esc_html__( 'More Details', "folders")
+                    esc_html__( 'More Details', "chaty")
                 );
 
                 if (! empty($plugin['icons']['svg'])) {
@@ -353,7 +353,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                             if (current_user_can('update_core') && current_user_can('update_php')) {
                                 printf(
                                 // translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page.
-                                    ' '.esc_html__( '<a href="%1$s">Please update WordPress</a>, and then <a href="%2$s">learn more about updating PHP</a>.', "folders"),
+                                    ' '.esc_html__( '<a href="%1$s">Please update WordPress</a>, and then <a href="%2$s">learn more about updating PHP</a>.', "chaty"),
                                     esc_url(self_admin_url('update-core.php')),
                                     esc_url(wp_get_update_php_url())
                                 );
@@ -361,23 +361,23 @@ if ( $data && ! is_wp_error( $data ) ) {
                             } else if (current_user_can('update_core')) {
                                 printf(
                                 // translators: %s: URL to WordPress Updates screen.
-                                    ' '.esc_html__( '<a href="%s">Please update WordPress</a>.', "folders"),
+                                    ' '.esc_html__( '<a href="%s">Please update WordPress</a>.', "chaty"),
                                     esc_url(self_admin_url('update-core.php'))
                                 );
                             } else if (current_user_can('update_php')) {
                                 printf(
                                 // translators: %s: URL to Update PHP page.
-                                    ' '.esc_html__( '<a href="%s">Learn more about updating PHP</a>.', "folders"),
+                                    ' '.esc_html__( '<a href="%s">Learn more about updating PHP</a>.', "chaty"),
                                     esc_url(wp_get_update_php_url())
                                 );
                                 wp_update_php_annotation('</p><p><em>', '</em>');
                             }//end if
                         } else if (! $compatible_wp) {
-                            esc_html_e('This plugin doesn&#8217;t work with your version of WordPress.', "folders");
+                            esc_html_e('This plugin doesn&#8217;t work with your version of WordPress.', "chaty");
                             if (current_user_can('update_core')) {
                                 printf(
                                 // translators: %s: URL to WordPress Updates screen.
-                                    ' '.esc_html__( '<a href="%s">Please update WordPress</a>.', "folders"),
+                                    ' '.esc_html__( '<a href="%s">Please update WordPress</a>.', "chaty"),
                                     esc_url(self_admin_url('update-core.php'))
                                 );
                             }
@@ -386,7 +386,7 @@ if ( $data && ! is_wp_error( $data ) ) {
                             if (current_user_can('update_php')) {
                                 printf(
                                 // translators: %s: URL to Update PHP page.
-                                    ' '.esc_html__( '<a href="%s">Learn more about updating PHP</a>.', "folders"),
+                                    ' '.esc_html__( '<a href="%s">Learn more about updating PHP</a>.', "chaty"),
                                     esc_url(wp_get_update_php_url())
                                 );
                                 wp_update_php_annotation('</p><p><em>', '</em>');
@@ -431,10 +431,10 @@ if ( $data && ! is_wp_error( $data ) ) {
                             <span class="num-ratings" aria-hidden="true">(<?php echo esc_attr(number_format_i18n($plugin['num_ratings'])); ?>)</span>
                         </div>
                         <div class="column-updated">
-                            <strong><?php esc_html_e('Last Updated:', "folders"); ?></strong>
+                            <strong><?php esc_html_e('Last Updated:', "chaty"); ?></strong>
                             <?php
                             // translators: %s: Human-readable time difference.
-                            printf(esc_html__( '%s ago', "folders"), esc_attr(human_time_diff($last_updated_timestamp)));
+                            printf(esc_html__( '%s ago', "chaty"), esc_attr(human_time_diff($last_updated_timestamp)));
                             ?>
                         </div>
                         <div class="column-downloaded">
@@ -453,17 +453,17 @@ if ( $data && ! is_wp_error( $data ) ) {
                             }
 
                             // translators: %s: Number of installations.
-                            printf(esc_html__( '%s Active Installations', "folders"), esc_attr($active_installs_text));
+                            printf(esc_html__( '%s Active Installations', "chaty"), esc_attr($active_installs_text));
                             ?>
                         </div>
                         <div class="column-compatibility">
                             <?php
                             if (! $tested_wp) {
-                                echo '<span class="compatibility-untested">'.esc_html__( 'Untested with your version of WordPress', "folders").'</span>';
+                                echo '<span class="compatibility-untested">'.esc_html__( 'Untested with your version of WordPress', "chaty").'</span>';
                             } else if (! $compatible_wp) {
-                                echo '<span class="compatibility-incompatible">'.esc_html__( '<strong>Incompatible</strong> with your version of WordPress', "folders").'</span>';
+                                echo '<span class="compatibility-incompatible">'.wp_kses( '<strong>Incompatible</strong> with your version of WordPress', $pluginsAllowedTags).'</span>';
                             } else {
-                                echo '<span class="compatibility-compatible">'.esc_html__( '<strong>Compatible</strong> with your version of WordPress', "folders").'</span>';
+                                echo '<span class="compatibility-compatible">'.wp_kses( '<strong>Compatible</strong> with your version of WordPress', $pluginsAllowedTags).'</span>';
                             }
                             ?>
                         </div>

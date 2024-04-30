@@ -41,7 +41,6 @@ class MetadataWriter implements \GFPDF_Vendor\Psr\Log\LoggerAwareInterface
     {
         $this->writer->object();
         $this->mpdf->MetadataRoot = $this->mpdf->n;
-        $Producer = 'mPDF' . ($this->mpdf->exposeVersion ? ' ' . \GFPDF_Vendor\Mpdf\Mpdf::VERSION : '');
         $z = \date('O');
         // +0200
         $offset = \substr($z, 0, 3) . ':' . \substr($z, 3, 2);
@@ -53,7 +52,7 @@ class MetadataWriter implements \GFPDF_Vendor\Psr\Log\LoggerAwareInterface
         $m .= ' <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="3.1-701">' . "\n";
         $m .= '  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">' . "\n";
         $m .= '   <rdf:Description rdf:about="uuid:' . $uuid . '" xmlns:pdf="http://ns.adobe.com/pdf/1.3/">' . "\n";
-        $m .= '    <pdf:Producer>' . $Producer . '</pdf:Producer>' . "\n";
+        $m .= '    <pdf:Producer>' . $this->getProducerString() . '</pdf:Producer>' . "\n";
         if (!empty($this->mpdf->keywords)) {
             $m .= '    <pdf:Keywords>' . $this->mpdf->keywords . '</pdf:Keywords>' . "\n";
         }
@@ -132,7 +131,7 @@ class MetadataWriter implements \GFPDF_Vendor\Psr\Log\LoggerAwareInterface
     }
     public function writeInfo()
     {
-        $this->writer->write('/Producer ' . $this->writer->utf16BigEndianTextString('mPDF' . ($this->mpdf->exposeVersion ? ' ' . $this->getVersionString() : '')));
+        $this->writer->write('/Producer ' . $this->writer->utf16BigEndianTextString($this->getProducerString()));
         if (!empty($this->mpdf->title)) {
             $this->writer->write('/Title ' . $this->writer->utf16BigEndianTextString($this->mpdf->title));
         }
@@ -695,5 +694,9 @@ class MetadataWriter implements \GFPDF_Vendor\Psr\Log\LoggerAwareInterface
             }
         }
         return $return;
+    }
+    private function getProducerString()
+    {
+        return 'mPDF' . ($this->mpdf->exposeVersion ? ' ' . $this->getVersionString() : '');
     }
 }

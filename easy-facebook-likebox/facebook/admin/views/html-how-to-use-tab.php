@@ -6,13 +6,13 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-global  $efbl_skins ;
+global $efbl_skins;
 $FTA = new Feed_Them_All();
 $fta_settings = $FTA->fta_get_settings();
 $efbl_default_likebox_notice = '';
 ?>
 <div id="efbl-general" class="col s12 efbl_tab_c slideLeft <?php 
-echo  esc_attr( ( $active_tab == 'efbl-general' ? 'active' : '' ) ) ;
+echo esc_attr( ( $active_tab == 'efbl-general' ? 'active' : '' ) );
 ?>">
 	<div class="row">
 		<div class="col s10  efbl_tabs_holder">
@@ -24,7 +24,6 @@ echo  esc_attr( ( $active_tab == 'efbl-general' ? 'active' : '' ) ) ;
 
 							<div class="efbl_default_shortcode_holder col s8">
 								<?php 
-
 if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) || isset( $fta_settings['plugins']['facebook']['approved_groups'] ) ) {
     ?>
 								<h5><?php 
@@ -35,9 +34,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) || isset( $
     ?></p>
 									<?php 
 }
-
-
-if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($fta_settings['plugins']['facebook']['approved_pages']) ) {
+if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty( $fta_settings['plugins']['facebook']['approved_pages'] ) ) {
     $default_page_id = efbl_default_page_id();
     ?>
 									<div class="efbl-use-options">
@@ -50,7 +47,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($
 												[efb_feed fanpage_id="<?php 
     esc_attr_e( $default_page_id );
     ?>" type="page" skin_id="<?php 
-    echo  efbl_default_skin_id() ;
+    echo efbl_default_skin_id();
     ?>" words_limit="25" links_new_tab="1"]
 											</blockquote>
 
@@ -62,7 +59,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($
 											   data-clipboard-text='[efb_feed fanpage_id="<?php 
     esc_attr_e( $default_page_id );
     ?>" type="page" skin_id="<?php 
-    echo  efbl_default_skin_id() ;
+    echo efbl_default_skin_id();
     ?>" words_limit="25" links_new_tab="1"]'
 											   href="javascript:void(0);"><span class="dashicons dashicons-admin-page right"></span>
 											</a>
@@ -71,19 +68,15 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($
 
 								<?php 
 }
-
 ?>
 
 								<?php 
-
-if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty($fta_settings['plugins']['facebook']['approved_groups']) ) {
-    
+if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty( $fta_settings['plugins']['facebook']['approved_groups'] ) ) {
     if ( isset( $fta_settings['plugins']['facebook']['approved_groups'][0]->id ) ) {
         $default_group_id = $fta_settings['plugins']['facebook']['approved_groups'][0]->id;
     } else {
         $default_group_id = '';
     }
-    
     if ( !isset( $default_group_id ) && isset( $fta_settings['plugins']['facebook']['approved_groups'][1]->id ) ) {
         $default_group_id = $fta_settings['plugins']['facebook']['approved_groups'][1]->id;
     }
@@ -98,7 +91,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty(
 											[efb_feed fanpage_id="<?php 
     esc_attr_e( $default_group_id );
     ?>" type="group" skin_id="<?php 
-    echo  efbl_default_skin_id() ;
+    echo efbl_default_skin_id();
     ?>" words_limit="25" links_new_tab="1"]
 										</blockquote>
 
@@ -110,7 +103,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty(
 										   data-clipboard-text='[efb_feed fanpage_id="<?php 
     esc_attr_e( $default_group_id );
     ?>" type="group" skin_id="<?php 
-    echo  efbl_default_skin_id() ;
+    echo efbl_default_skin_id();
     ?>" words_limit="25" links_new_tab="1"]'
 										   href="javascript:void(0);"><span class="dashicons dashicons-admin-page right"></span>
 										</a>
@@ -119,8 +112,6 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty(
 
 									<?php 
 }
-
-
 if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !isset( $fta_settings['plugins']['facebook']['approved_groups'] ) ) {
     ?>
 
@@ -129,7 +120,7 @@ if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !isset(
     esc_html_e( 'It looks like you did not authenticate the plugin. Please go to ', 'easy-facebook-likebox' );
     ?>
 									<a href="<?php 
-    echo  esc_url( admin_url( 'admin.php?page=easy-facebook-likebox' ) ) ;
+    echo esc_url( admin_url( 'admin.php?page=easy-facebook-likebox' ) );
     ?>"><?php 
     esc_html_e( 'Authenticate', 'easy-facebook-likebox' );
     ?></a> <?php 
@@ -139,7 +130,6 @@ if ( !isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !isset(
 
 								<?php 
 }
-
 ?>
 								<div class="efbl-use-options">
 									<h5 class="efbl_more_head"><?php 
@@ -189,20 +179,16 @@ esc_html_e( 'Select Page', 'easy-facebook-likebox' );
 do_action( 'esf_fb_page_attr' );
 ?>>
 												<?php 
-
 if ( $fta_settings['plugins']['facebook']['approved_pages'] ) {
     $i = 0;
     foreach ( $fta_settings['plugins']['facebook']['approved_pages'] as $efbl_page ) {
         $i++;
-        
         if ( $efbl_page['id'] ) {
-            
             if ( isset( $efbl_page['username'] ) ) {
                 $username = $efbl_page['username'];
             } else {
                 $username = $efbl_page['id'];
             }
-            
             if ( $i == 1 ) {
                 $first_page_id = $username;
             }
@@ -211,7 +197,7 @@ if ( $fta_settings['plugins']['facebook']['approved_pages'] ) {
             esc_attr_e( $username );
             ?>"
 																	data-icon="<?php 
-            echo  efbl_get_page_logo( $efbl_page['id'] ) ;
+            echo efbl_get_page_logo( $efbl_page['id'] );
             ?>" 
 																						  <?php 
             if ( $i == 1 ) {
@@ -224,7 +210,6 @@ if ( $fta_settings['plugins']['facebook']['approved_pages'] ) {
 
 															<?php 
         }
-    
     }
 } else {
     ?>
@@ -236,30 +221,26 @@ if ( $fta_settings['plugins']['facebook']['approved_pages'] ) {
 
 													<?php 
 }
-
 ?>
 											</select>
 										</div>
 
 										<div class="input-field col s12 efbl_fields efbl-addon-upgrade-link efbl-page-releated-field">
 											<?php 
-
 if ( !class_exists( 'Esf_Multifeed_Facebook_Frontend' ) ) {
     ?>
 												<a href="<?php 
-    echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+    echo esc_url( efl_fs()->get_upgrade_url() );
     ?>"><?php 
     esc_html_e( 'Multifeed: Display posts from multiple pages in single feed (pro-feature)', 'easy-facebook-likebox' );
     ?></a>
 											<?php 
 }
-
 ?>
 										</div>
 
 										<?php 
-
-if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty($fta_settings['plugins']['facebook']['approved_groups']) ) {
+if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty( $fta_settings['plugins']['facebook']['approved_groups'] ) ) {
     ?>
 											<div class="input-field col s12 efbl_fields efbl-group-id-wrap">
 												<label><?php 
@@ -273,19 +254,17 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty(
     do_action( 'esf_fb_group_attr' );
     ?>>
 													<?php 
-    
     if ( $fta_settings['plugins']['facebook']['approved_groups'] ) {
         $i = 0;
         foreach ( $fta_settings['plugins']['facebook']['approved_groups'] as $efbl_group ) {
             $i++;
-            
             if ( $efbl_group->id ) {
                 ?>
 																<option value="<?php 
                 esc_attr_e( $efbl_group->id );
                 ?>"
 																		data-icon="<?php 
-                echo  efbl_get_page_logo( $efbl_group->id ) ;
+                echo efbl_get_page_logo( $efbl_group->id );
                 ?>" 
 																							  <?php 
                 if ( $i == 1 ) {
@@ -298,7 +277,6 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty(
 
 																<?php 
             }
-        
         }
     } else {
         ?>
@@ -310,13 +288,11 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && !empty(
 
 														<?php 
     }
-    
     ?>
 												</select>
 											</div>
 										<?php 
 }
-
 ?>
 
 										<div class="input-field col s12 efbl_fields">
@@ -390,7 +366,7 @@ if ( isset( $efbl_skins ) ) {
 															 selected <?php 
         }
         ?> data-icon="<?php 
-        echo  get_the_post_thumbnail_url( $efbl_skin['ID'], 'thumbnail' ) ;
+        echo get_the_post_thumbnail_url( $efbl_skin['ID'], 'thumbnail' );
         ?>"><?php 
         esc_html_e( $efbl_skin['title'] );
         ?> | Layout: <?php 
@@ -401,7 +377,6 @@ if ( isset( $efbl_skins ) ) {
 														<?php 
     }
 }
-
 if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
     ?>
 													<option value="free-grid"><?php 
@@ -415,7 +390,6 @@ if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) 
     ?></option>
 												<?php 
 }
-
 ?>
 
 											</select>
@@ -479,7 +453,6 @@ esc_html_e( 'Days', 'easy-facebook-likebox' );
 											</select>
 										</div>
 										<?php 
-
 if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
 } else {
     ?>
@@ -492,7 +465,6 @@ if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_
 											</div>
 										<?php 
 }
-
 ?>
 										<div class="col s6 efbl_fields checkbox-field efbl-page-releated-field">
 											<a href="javascript:void(0)"
@@ -507,7 +479,6 @@ esc_html_e( 'Show Likebox', 'easy-facebook-likebox' );
 ?></label>
 										</div>
 										<?php 
-
 if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
 } else {
     ?>
@@ -520,7 +491,6 @@ if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_
 											</div>
 										<?php 
 }
-
 ?>
 										<div class="col s6 checkbox-field efbl_fields">
 											<a href="javascript:void(0)"
@@ -580,7 +550,7 @@ esc_html_e( 'Click the save button and visit your site to see feeds in widget', 
 ?></li>
 							</ol>
 							<a class="btn" href="<?php 
-echo  esc_url( admin_url( 'widgets.php' ) ) ;
+echo esc_url( admin_url( 'widgets.php' ) );
 ?>"><?php 
 esc_html_e( 'Widgets', 'easy-facebook-likebox' );
 ?>
@@ -649,7 +619,7 @@ esc_html_e( "Access Token provided from Facebook to display your page feeds. If 
 ?>
 									<a target='_blank'
 									   href="<?php 
-echo  esc_url( 'https://easysocialfeed.com/custom-facebook-feed/page-token/' ) ;
+echo esc_url( 'https://easysocialfeed.com/custom-facebook-feed/page-token/' );
 ?>"><?php 
 esc_html_e( 'here', 'easy-facebook-likebox' );
 ?></a>. <?php 
@@ -665,7 +635,7 @@ esc_html_e( 'This step is only required for events filter', 'easy-facebook-likeb
 esc_html_e( 'Other Pages', 'easy-facebook-likebox' );
 ?>
 									<a href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a>
@@ -686,7 +656,7 @@ esc_html_e( "You can display any other public page feed which you don't owns/man
 esc_html_e( 'Filter posts', 'easy-facebook-likebox' );
 ?>
 									<a href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a>
@@ -705,7 +675,7 @@ esc_html_e( 'You can filter page feed by mentioned, events, albums, videos and i
 esc_html_e( 'Events Filter', 'easy-facebook-likebox' );
 ?> <a
 											href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a></span>
@@ -788,7 +758,7 @@ esc_html_e( 'Define cache duration to refresh feeds automatically. Like after sp
 esc_html_e( 'Load More', 'easy-facebook-likebox' );
 ?> <a
 											href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a></span>
@@ -806,7 +776,7 @@ esc_html_e( 'Load More button at the bottom of each feed to infinitely load more
 esc_html_e( 'Show live stream only', 'easy-facebook-likebox' );
 ?> <a
 											href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a></span>

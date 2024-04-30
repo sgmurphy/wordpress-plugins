@@ -102,7 +102,7 @@ if (!isset($controls->data['search_page']) || $controls->data['search_page'] < 0
 if ($controls->data['search_page'] > $last_page)
     $controls->data['search_page'] = $last_page;
 
-$query = "select * from " . NEWSLETTER_USERS_TABLE . ' ' . $where . " order by id desc";
+$query = "select *, unix_timestamp(created) created_at from " . NEWSLETTER_USERS_TABLE . ' ' . $where . " order by id desc";
 $query .= " limit " . ($controls->data['search_page'] * $items_per_page) . "," . $items_per_page;
 $list = $wpdb->get_results($query);
 
@@ -111,6 +111,7 @@ $controls->data['search_page']++;
 
 $lists = $this->get_lists();
 
+$utc = new DateTimeZone('UTC');
 ?>
 
 <style>
@@ -185,7 +186,7 @@ $lists = $this->get_lists();
                         <th><?php esc_html_e('Name', 'newsletter') ?></th>
                         <th><?php esc_html_e('Status', 'newsletter') ?></th>
                         <th><?php esc_html_e('Date') ?></th>
-                        <th style="white-space: nowrap"><?php $controls->checkbox('show_lists', __('Lists', 'newsletter'), ['onchange'=>'this.form.act.value=\'go\'; this.form.submit()']) ?></th>
+                        <th style="white-space: nowrap"><?php $controls->checkbox('show_lists', __('Lists', 'newsletter'), ['onchange' => 'this.form.act.value=\'go\'; this.form.submit()']) ?></th>
                         <th>&nbsp;</th>
 
                         <th>&nbsp;</th>
@@ -201,23 +202,23 @@ $lists = $this->get_lists();
                         <td><?php echo esc_html($s->email); ?></td>
                         <td><?php echo esc_html($s->name); ?> <?php echo esc_html($s->surname); ?></td>
                         <td>
-                          <?php echo $this->get_user_status_label($s, true); ?>
+                            <?php echo $this->get_user_status_label($s, true); ?>
                         </td>
                         <td>
-                          <?php echo $controls->print_date(strtotime($s->created)); ?>
+                            <?php echo $controls->print_date($s->created_at); ?>
                         </td>
 
-                            <td>
-                                 <?php if (!empty($controls->data['show_lists'])) { ?>
+                        <td>
+                            <?php if (!empty($controls->data['show_lists'])) { ?>
                                 <small><?php
-                                    foreach ($lists as $item) {
-                                        $l = 'list_' . $item->id;
-                                        if ($s->$l == 1)
-                                            echo esc_html($item->name) . '<br>';
-                                    }
-                                    ?></small>
+                                foreach ($lists as $item) {
+                                    $l = 'list_' . $item->id;
+                                    if ($s->$l == 1)
+                                        echo esc_html($item->name) . '<br>';
+                                }
+                                ?></small>
                                 <?php } ?>
-                            </td>
+                        </td>
 
                         <td>
                             <?php $controls->button_icon_edit($this->get_admin_page_url('edit') . '&amp;id=' . $s->id) ?>

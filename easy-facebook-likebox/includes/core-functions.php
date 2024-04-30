@@ -253,3 +253,17 @@ if ( ! function_exists( 'esf_sort_by_created_time' ) ) {
 		return $data;
 	}
 }
+
+if( ! function_exists( 'esf_check_ajax_referer' ) ) {
+	/**
+	 * Check ajax referer
+	 *
+	 * @since 6.5.0
+	 */
+	function esf_check_ajax_referer() {
+		if ( ! check_ajax_referer( 'esf-ajax-nonce', 'nonce', false ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( "Nonce not verified or you don't have appropriate permissions", "easy-facebook-likebox" ) );
+		}
+
+	}
+}

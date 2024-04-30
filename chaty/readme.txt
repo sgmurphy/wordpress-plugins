@@ -3,7 +3,7 @@ Contributors: galdub, tomeraharon, premio
 Tags: whatsapp, whatsapp chat, facebook messenger, chat, chat button
 Requires at least: 3.1
 Tested up to: 6.5
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 Plugin URI: https://premio.io/downloads/chaty/
 
 🔥 WhatsApp chat, Facebook Messenger, Telegram, TikTok, Viber, Email, Line, WeChat Phone call, SMS, + 20 chat icons, with a WhatsApp chat pop up 💬
@@ -289,6 +289,13 @@ Yes! You can even decide what chat buttons will show up on each device (desktop/
 
 
 == Changelog ==
+
+= 3.2.3 =
+Option to change the WhatsApp pop up input field
+Close button for WhatsApp pop up bug fixed
+Open widget by default bug fixed
+Custom text block bug fixed (Pro)
+JavaScript input fields bug fixed
 
 = 3.2.2 =
 Widget bugs fixed

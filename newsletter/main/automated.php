@@ -54,6 +54,11 @@ $src = esc_attr(plugins_url('newsletter') . '/main/images/automated');
 
     <div id="tnp-body" >
 
+        <div class="tnp-notice">
+            To activate the Automated addon, insert a valid license on the Newsletter's Settings and
+            go to the Addons panel.
+        </div>
+
         <div class="tnp-promo-intro">
             The Automated addon generates automatically newsletters with fresh content from your site (articles, products, ...)
             with a fully configurable scheduling.

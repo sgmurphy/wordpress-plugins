@@ -132,7 +132,7 @@ if ($controls->is_action('change_status')) {
 
         <?php $controls->show(); ?>
 
-        <p style="font-weight: bold"><?php esc_html_e('Please backup before running maintenance actions.', 'newsletter') ?></p>
+        <div class="tnp-notice"><?php esc_html_e('Please backup before running maintenance actions.', 'newsletter') ?></div>
 
         <?php if (!empty($results)) { ?>
 

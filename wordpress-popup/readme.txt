@@ -187,12 +187,12 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 
 == Changelog ==
 
-= 10.8.4 ( 2024-03-07 ) =
+= 7.8.4 ( 2024-03-07 ) =
 
 - Fix: Security vulnerability
 
 
-= 10.8.3 ( 2024-01-17 ) =
+= 7.8.3 ( 2024-01-17 ) =
 
  - Aligned Pro and Free version numbers to ensure consistency and simplify version management.
  - Enhance: Compatibility with PHP 8.3
@@ -201,7 +201,7 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
  - Fix: Size of summary box logo
 
 
-= 4.8.2 ( 2023-10-03 ) =
+= 7.8.2 ( 2023-10-03 ) =
 
  - Fix: ConstantContact authentification.
  - Fix: Cannot edit or add hyperlink
@@ -213,14 +213,14 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
  - Enhance: Remove mascot images
 
 
-= 4.8.1 ( 2023-08-24 ) =
+= 7.8.1 ( 2023-08-24 ) =
 
 - Enhance: Set up a redirect URL for Hubspot
 - Fix: Issues with Hustle ActiveCampaign integration
 - Fix: Bullet Points are not showing on the success message
 
 
-= 4.8.0 ( 2023-06-27 ) =
+= 7.8.0 ( 2023-06-27 ) =
 
 - Enhance: Require PHP 7.4 as the minimum supported version
 - Enhance: Prevent XSS vulnerability in translations
@@ -231,12 +231,12 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 - Fix: Issue with Close button on iOS
 
 
-= 4.7.1 ( 2023-06-07 ) =
+= 7.7.1 ( 2023-06-07 ) =
 
 - Enhance: Performance improvements.
 
 
-= 4.7.0 ( 2023-04-10 ) =
+= 7.7.0 ( 2023-04-10 ) =
 
 - New: Ability to display modules N times per day/week/month/year
 - New: Make whole module a clickable CTA

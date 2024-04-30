@@ -370,7 +370,22 @@ jQuery(document).ready(function( $ ) {
 			var kitID = kit.data('kit-id'),
 				pagesAttr = kit.data('pages') !== undefined ? kit.data('pages') : false,
 				pagesArray = pagesAttr ? pagesAttr.split(',') : false,
-				singleGrid = $('.wpr-templates-kit-grid.single-grid');
+				singleGrid = $('.wpr-templates-kit-grid.single-grid'),
+				actionButtonsWrap = $('.wpr-templates-kit-single .action-buttons-wrap'),
+				kitIDList = ['magazine-blog-v6', 'personal-blog-v4', 'personal-blog-v3', 'car-repair-v1'];
+
+				if ( kitIDList.includes(kitID) ) {
+					if ( !(actionButtonsWrap.find('.wpr-single-kit-url').length > 0) ) {
+						actionButtonsWrap.append('<a href="https://royal-elementor-addons.com/standalone/'+ kitID +'" class="get-access button wpr-single-kit-url" target="_blank">or Get this Kit only for $7 <span class="dashicons dashicons-external"></span></a>');
+					} else {
+						actionButtonsWrap.find('.wpr-single-kit-url').remove();
+						actionButtonsWrap.append('<a href="https://royal-elementor-addons.com/standalone/'+ kitID +'" class="get-access button wpr-single-kit-url" target="_blank">or Get this Kit only for $7 <span class="dashicons dashicons-external"></span></a>');
+					}
+				} else {
+					if ( actionButtonsWrap.find('.wpr-single-kit-url').length > 0 ) {
+						actionButtonsWrap.find('.wpr-single-kit-url').remove();
+					}
+				}
 
 			// Reset
 			singleGrid.html('');

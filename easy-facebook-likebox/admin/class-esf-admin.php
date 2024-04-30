@@ -174,7 +174,7 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 					'deleting' => __( 'Deleting', 'easy-facebook-likebox' ),
 					'error'    => __( 'Something went wrong!', 'easy-facebook-likebox' ),
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
-					'nonce'    => wp_create_nonce( 'fta-ajax-nonce' ),
+					'nonce'    => wp_create_nonce( 'esf-ajax-nonce' ),
 				)
 			);
 			wp_enqueue_script( 'thickbox' );
@@ -273,17 +273,16 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 		 */
 		function esf_change_module_status() {
 
+			esf_check_ajax_referer();
+
 			$module_name                                       = sanitize_text_field( $_POST['plugin'] );
 			$module_status                                     = sanitize_text_field( $_POST['status'] );
 			$Feed_Them_All                                     = new Feed_Them_All();
 			$esf_settings                                      = $Feed_Them_All->fta_get_settings();
 			$esf_settings['plugins'][ $module_name ]['status'] = $module_status;
-			if ( wp_verify_nonce( $_POST['fta_nonce'], 'fta-ajax-nonce' ) ) {
 
-				if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
-					$status_updated = update_option( 'fta_settings', $esf_settings );
-				}
-			}
+			$status_updated = update_option( 'fta_settings', $esf_settings );
+				
 			if ( $module_status === 'activated' ) {
 				$status = __( ' Activated', 'easy-facebook-likebox' );
 			} else {
@@ -305,35 +304,33 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 		 * @since 1.0.0
 		 */
 		function esf_remove_access_token() {
+
+			esf_check_ajax_referer();
+
 			$Feed_Them_All = new Feed_Them_All();
 			$esf_settings  = $Feed_Them_All->fta_get_settings();
-			if ( wp_verify_nonce( $_POST['fta_nonce'], 'fta-ajax-nonce' ) ) {
 
-				if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
-					$access_token = $esf_settings['plugins']['facebook']['access_token'];
+			$access_token = $esf_settings['plugins']['facebook']['access_token'];
 
-					if ( isset( $esf_settings['plugins']['facebook']['approved_pages'] ) ) {
-						unset( $esf_settings['plugins']['facebook']['approved_pages'] );
-					}
-
-					if ( isset( $esf_settings['plugins']['facebook']['approved_groups'] ) ) {
-						unset( $esf_settings['plugins']['facebook']['approved_groups'] );
-					}
-
-					unset( $esf_settings['plugins']['facebook']['access_token'] );
-					$esf_settings['plugins']['instagram']['selected_type'] = 'personal';
-					$delted_data = update_option( 'fta_settings', $esf_settings );
-
-					$response = wp_remote_request(
-						'https://graph.facebook.com/v4.0/me/permissions?access_token=' . $access_token . '',
-						array(
-							'method' => 'DELETE',
-						)
-					);
-						wp_remote_retrieve_body( $response );
-				}
+			if ( isset( $esf_settings['plugins']['facebook']['approved_pages'] ) ) {
+				unset( $esf_settings['plugins']['facebook']['approved_pages'] );
 			}
 
+			if ( isset( $esf_settings['plugins']['facebook']['approved_groups'] ) ) {
+				unset( $esf_settings['plugins']['facebook']['approved_groups'] );
+			}
+
+			unset( $esf_settings['plugins']['facebook']['access_token'] );
+			$esf_settings['plugins']['instagram']['selected_type'] = 'personal';
+			$delted_data = update_option( 'fta_settings', $esf_settings );
+
+			$response = wp_remote_request(
+				'https://graph.facebook.com/v4.0/me/permissions?access_token=' . $access_token . '',
+					array(
+						'method' => 'DELETE',
+					)
+			);
+			wp_remote_retrieve_body( $response );
 			if ( $delted_data ) {
 				wp_send_json_success( __( 'Deleted', 'easy-facebook-likebox' ) );
 			} else {
@@ -488,13 +485,7 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 		 */
 		public function hide_free_sidebar() {
 
-			if ( ! wp_verify_nonce( $_POST['nonce'], 'fta-ajax-nonce' ) ) {
-				wp_send_json_error( __( 'Nonce not verified! Please try again', 'easy-facebook-likebox' ) );
-			}
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( __( 'You are not allowed to do this!', 'easy-facebook-likebox' ) );
-			}
+			esf_check_ajax_referer();
 
 			$FTA                           = new Feed_Them_All();
 			$fta_settings                  = $FTA->fta_get_settings();

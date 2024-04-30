@@ -1,6 +1,12 @@
 {
     "news": [
         {
+            "date": "2024-04-30",
+            "label": "Blog",
+            "title": "The Art of Engaging: Creative Food Quotes for Food Bloggers",
+            "url": "https://bootstrapped.ventures/food-blogging-captions/"
+        },
+        {
             "date": "2024-04-29",
             "label": "Release",
             "title": "WP Recipe Maker 9.4.0",

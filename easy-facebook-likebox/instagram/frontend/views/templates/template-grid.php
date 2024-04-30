@@ -6,7 +6,6 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-
 if ( $feed->media_url ) {
     ?>
 
@@ -14,22 +13,21 @@ if ( $feed->media_url ) {
 		<div class="esf-insta-grid-wrapper esf-insta-story-wrapper">
 
 			<?php 
-    
     if ( !efl_fs()->is_plan( 'instagram_premium', true ) && !efl_fs()->is_plan( 'combo_premium', true ) ) {
         ?>
 
 				<a class="esf_insta_feed_fancy_popup esf-lazyload esf_insta_grid_box"
 				   href="<?php 
-        echo  esc_url( $permalink ) ;
+        echo esc_url( $permalink );
         ?>"
 				   target="<?php 
         esc_attr_e( $link_target );
         ?>"
                    data-imgsrc="<?php 
-        echo  esc_url( $thumbnail_url ) ;
+        echo esc_url( $thumbnail_url );
         ?>"
 				   style="background-image: url(<?php 
-        echo  esc_url( $thumbnail_url ) ;
+        echo esc_url( $thumbnail_url );
         ?>)">
 
 					<div class="esf-insta-overlay">
@@ -63,7 +61,6 @@ if ( $feed->media_url ) {
 				</a>
 			<?php 
     }
-    
     ?>
 		</div>
 	</div>

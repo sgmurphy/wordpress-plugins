@@ -9,22 +9,18 @@ if ( !defined( 'ABSPATH' ) ) {
 //======================================================================
 // Instagram Skins
 //======================================================================
-
 if ( !class_exists( 'ESF_Insta_Skins' ) ) {
-    class ESF_Insta_Skins
-    {
-        function __construct()
-        {
-            add_action( 'init', array( $this, 'mif_skins_register' ), 20 );
+    class ESF_Insta_Skins {
+        function __construct() {
+            add_action( 'init', array($this, 'mif_skins_register'), 20 );
             $this->mif_skins();
             $this->mif_default_skins();
         }
-        
+
         /*
          * Register skins posttype.
          */
-        public function mif_skins_register()
-        {
+        public function mif_skins_register() {
             $args = array(
                 'public'              => false,
                 'label'               => __( 'MIF Skins', 'easy-facebook-likebox' ),
@@ -36,18 +32,16 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
             );
             register_post_type( 'mif_skins', $args );
         }
-        
+
         /*
          * Register Default skins.
          */
-        public function mif_default_skins()
-        {
+        public function mif_default_skins() {
             $FTA = new Feed_Them_All();
             $fta_settings = $FTA->fta_get_settings();
             $pro_default_skins_added = '';
             $pro_default_skin_added = '';
-            
-            if ( !isset( $fta_settings['plugins']['instagram']['default_skin_id'] ) && empty($fta_settings['plugins']['instagram']['default_skin_id']) ) {
+            if ( !isset( $fta_settings['plugins']['instagram']['default_skin_id'] ) && empty( $fta_settings['plugins']['instagram']['default_skin_id'] ) ) {
                 $mif_new_skins = array(
                     'post_title'   => __( 'Skin - Grid', 'easy-facebook-likebox' ),
                     'post_content' => __( 'This is the demo skin created by Easy Social Feed plugin automatically with default values. You can edit it and change the look & feel of your Feeds.', 'easy-facebook-likebox' ),
@@ -63,9 +57,7 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
                 $fta_settings['plugins']['instagram']['default_skin_id'] = $skin_id;
                 update_option( 'fta_settings', $fta_settings );
             }
-            
-            
-            if ( !isset( $fta_settings['plugins']['instagram']['row_default_skin_id'] ) && empty($fta_settings['plugins']['instagram']['row_default_skin_id']) ) {
+            if ( !isset( $fta_settings['plugins']['instagram']['row_default_skin_id'] ) && empty( $fta_settings['plugins']['instagram']['row_default_skin_id'] ) ) {
                 $efbl_new_skin_row = array(
                     'post_title'   => __( 'Skin - Row', 'easy-facebook-likebox' ),
                     'post_content' => __( 'This is the Row demo skin created by the plugin automatically with default values. You can edit it and change the look & feel of your Feeds.', 'easy-facebook-likebox' ),
@@ -75,21 +67,15 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
                 );
                 // Insert the new post
                 $efbl_new_skin_row_id = wp_insert_post( $efbl_new_skin_row );
-                
                 if ( isset( $efbl_new_skin_row_id ) ) {
                     update_post_meta( $efbl_new_skin_row_id, 'layout', 'row' );
-                    
                     if ( isset( $efbl_new_skin_row_id ) && !is_wp_error( $efbl_new_skin_row_id ) ) {
                         $fta_settings['plugins']['instagram']['row_default_skin_id'] = $efbl_new_skin_row_id;
                         update_option( 'fta_settings', $fta_settings );
                     }
-                
                 }
-            
             }
-            
-            
-            if ( !isset( $fta_settings['plugins']['instagram']['default_page_id'] ) && empty($fta_settings['plugins']['instagram']['default_page_id']) ) {
+            if ( !isset( $fta_settings['plugins']['instagram']['default_page_id'] ) && empty( $fta_settings['plugins']['instagram']['default_page_id'] ) ) {
                 $skin_id = $fta_settings['plugins']['instagram']['default_skin_id'];
                 $user_id = null;
                 $user_id = esf_insta_default_id();
@@ -104,33 +90,29 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
                 $fta_settings['plugins']['instagram']['default_page_id'] = $page_id;
                 update_option( 'fta_settings', $fta_settings );
             }
-        
         }
-        
+
         /*
          * Create skin object which will have all skin data
          */
-        public function mif_skins()
-        {
+        public function mif_skins() {
             $FTA = new Feed_Them_All();
             $fta_settings = $FTA->fta_get_settings();
             $fta_skins = array(
                 'posts_per_page' => 1000,
                 'post_type'      => 'mif_skins',
-                'post_status'    => array( 'publish', 'draft', 'pending' ),
+                'post_status'    => array('publish', 'draft', 'pending'),
                 'order'          => 'ASC',
             );
             $fta_skins = get_posts( $fta_skins );
             /* If any fta_skins are in database. */
-            
-            if ( isset( $fta_skins ) && !empty($fta_skins) ) {
+            if ( isset( $fta_skins ) && !empty( $fta_skins ) ) {
                 $fta_skins_holder = array();
                 foreach ( $fta_skins as $skin ) {
                     $id = $skin->ID;
                     $design_arr = array();
                     $design_arr = get_option( 'mif_skin_' . $id, false );
                     $layout = get_post_meta( $id, 'layout', true );
-                    
                     if ( !$layout ) {
                         $layout = $design_arr['layout_option'];
                         if ( isset( $design_arr['feed_background_color'] ) && $design_arr['feed_background_color'] == 'transparent' ) {
@@ -140,9 +122,8 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
                             $design_arr['feed_meta_data_color'] = '#343a40';
                         }
                     }
-                    
                     $title = $skin->post_title;
-                    if ( empty($title) ) {
+                    if ( empty( $title ) ) {
                         $title = __( 'Skin', 'easy-facebook-likebox' );
                     }
                     $fta_skins_holder[$id] = array(
@@ -156,12 +137,10 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
             } else {
                 return __( 'No skins found.', 'easy-facebook-likebox' );
             }
-            
             $GLOBALS['mif_skins'] = $fta_skins_holder;
         }
-        
-        public function esf_insta_default_skin_settings()
-        {
+
+        public function esf_insta_default_skin_settings() {
             return array(
                 'show_load_more_btn'           => true,
                 'number_of_cols'               => 3,
@@ -194,7 +173,8 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
                 'popup_show_comments'          => true,
             );
         }
-    
+
     }
+
     $GLOBALS['ESF_Insta_Skins'] = new ESF_Insta_Skins();
 }

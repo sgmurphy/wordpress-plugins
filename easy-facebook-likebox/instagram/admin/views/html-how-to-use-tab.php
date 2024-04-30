@@ -6,7 +6,7 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-global  $mif_skins ;
+global $mif_skins;
 if ( isset( $fta_settings['plugins']['instagram']['authenticated_accounts'] ) ) {
     $mif_users = $fta_settings['plugins']['instagram']['authenticated_accounts'];
 }
@@ -15,7 +15,7 @@ if ( isset( $fta_settings['plugins']['facebook']['access_token'] ) ) {
 }
 ?>
 <div id="mif-shortcode" class="mif_tab_c slideLeft <?php 
-echo  ( $active_tab == 'mif-shortcode' ? 'active' : '' ) ;
+echo ( $active_tab == 'mif-shortcode' ? 'active' : '' );
 ?>">
 	<div class="mif-swipe-shortcode_wrap">
 
@@ -26,8 +26,7 @@ esc_html_e( 'How to use this plugin?', 'easy-facebook-likebox' );
 ?></h5>
 
 			<?php 
-
-if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($fta_settings['plugins']['facebook']['approved_pages']) || esf_insta_instagram_type() == 'personal' ) {
+if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty( $fta_settings['plugins']['facebook']['approved_pages'] ) || esf_insta_instagram_type() == 'personal' ) {
     ?>
 
 				<p><?php 
@@ -35,7 +34,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($
     ?></p>
 				<blockquote class="mif-shortcode-block"><div class="mif-shortcode-block-holder"> [my-instagram-feed
 					user_id="<?php 
-    echo  esf_insta_default_id() ;
+    echo esf_insta_default_id();
     ?>"
 					skin_id="<?php 
     esc_attr_e( $fta_settings['plugins']['instagram']['default_skin_id'] );
@@ -48,7 +47,7 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($
     esc_html_e( 'Copy', 'easy-facebook-likebox' );
     ?>"
 					   data-clipboard-text='[my-instagram-feed user_id="<?php 
-    echo  esf_insta_default_id() ;
+    echo esf_insta_default_id();
     ?>" skin_id="<?php 
     esc_attr_e( $fta_settings['plugins']['instagram']['default_skin_id'] );
     ?>" links_new_tab="1"]'
@@ -68,7 +67,6 @@ if ( isset( $fta_settings['plugins']['facebook']['approved_pages'] ) && !empty($
 
 			<?php 
 }
-
 ?>
 
 			<h5><?php 
@@ -89,8 +87,7 @@ do_action( 'esf_insta_page_attr' );
 ?>>
 							<?php 
 $mif_personal_connected_accounts = esf_insta_personal_account();
-
-if ( esf_insta_instagram_type() == 'personal' && !empty($mif_personal_connected_accounts) ) {
+if ( esf_insta_instagram_type() == 'personal' && !empty( $mif_personal_connected_accounts ) ) {
     $i = 0;
     foreach ( $mif_personal_connected_accounts as $personal_id => $mif_personal_connected_account ) {
         $i++;
@@ -110,10 +107,8 @@ if ( esf_insta_instagram_type() == 'personal' && !empty($mif_personal_connected_
 									<?php 
     }
 }
-
 $esf_insta_business_accounts = esf_insta_business_accounts();
 if ( esf_insta_instagram_type() != 'personal' && $esf_insta_business_accounts ) {
-    
     if ( $esf_insta_business_accounts ) {
         $i = 0;
         foreach ( $esf_insta_business_accounts as $mif_insta_single_account ) {
@@ -123,7 +118,7 @@ if ( esf_insta_instagram_type() != 'personal' && $esf_insta_business_accounts ) 
             esc_attr_e( $mif_insta_single_account->id );
             ?>"
 												data-icon="<?php 
-            echo  esc_url( $mif_insta_single_account->profile_picture_url ) ;
+            echo esc_url( $mif_insta_single_account->profile_picture_url );
             ?>" 
 																	  <?php 
             if ( $i == 1 ) {
@@ -144,7 +139,6 @@ if ( esf_insta_instagram_type() != 'personal' && $esf_insta_business_accounts ) 
         ?></option>
 									<?php 
     }
-
 }
 ?>
 
@@ -153,21 +147,18 @@ if ( esf_insta_instagram_type() != 'personal' && $esf_insta_business_accounts ) 
 					</div>
 					<div class="input-field col s12 mif_fields esf-insta-addon-upgrade-link">
 						<?php 
-
 if ( !class_exists( 'Esf_Multifeed_Instagram_Frontend' ) ) {
     ?>
 							<a href="<?php 
-    echo  esc_url( admin_url( 'admin.php?slug=esf-multifeed&page=feed-them-all-addons' ) ) ;
+    echo esc_url( admin_url( 'admin.php?slug=esf-multifeed&page=feed-them-all-addons' ) );
     ?>"><?php 
     esc_html_e( 'Multifeed Add-on: Display photos and videos from multiple accounts (works with hashtag as well) in single feed (pro- addon)', 'easy-facebook-likebox' );
     ?></a>
 						<?php 
 }
-
 ?>
 					</div>
 					<?php 
-
 if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
 } else {
     ?>
@@ -195,7 +186,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
     esc_html_e( 'Upgrade today and get ' . $banner_info['discount'] . ' discount! On the checkout click on "Have a promotional code?" and enter', 'easy-facebook-likebox' );
     ?>
 										<?php 
-    
     if ( $banner_info['coupon'] ) {
         ?>
 											<code><?php 
@@ -203,12 +193,11 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
         ?></code>
 										<?php 
     }
-    
     ?>
 									</p>
 									<hr/>
 									<a href="<?php 
-    echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+    echo esc_url( efl_fs()->get_upgrade_url() );
     ?>"
 									   class=" btn"><span class="dashicons dashicons-unlock"></span><?php 
     esc_html_e( 'Upgrade now', 'easy-facebook-likebox' );
@@ -222,7 +211,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
 
 					<?php 
 }
-
 ?>
 
 					<div class="input-field col s12 mif_fields">
@@ -239,14 +227,13 @@ if ( $mif_skins ) {
         esc_attr_e( $mif_skin['ID'] );
         ?>"
 											data-icon="<?php 
-        echo  get_the_post_thumbnail_url( $mif_skin['ID'], 'thumbnail' ) ;
+        echo get_the_post_thumbnail_url( $mif_skin['ID'], 'thumbnail' );
         ?>"><?php 
         esc_html_e( $mif_skin['title'] );
         ?></option>
 									<?php 
     }
 }
-
 if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
 } else {
     ?>
@@ -264,7 +251,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
     ?></option>
 							<?php 
 }
-
 ?>
 						</select>
 					</div>
@@ -321,7 +307,6 @@ esc_html_e( 'Wrapper Class', 'easy-facebook-likebox' );
 						<input id="mif_wrap_class" type="text">
 					</div>
 					<?php 
-
 if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
 } else {
     ?>
@@ -350,7 +335,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
     esc_html_e( 'Upgrade today and get ' . $banner_info['discount'] . ' discount! On the checkout click on "Have a promotional code?" and enter', 'easy-facebook-likebox' );
     ?>
 									<?php 
-    
     if ( $banner_info['coupon'] ) {
         ?>
 										<code><?php 
@@ -358,12 +342,11 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
         ?></code>
 									<?php 
     }
-    
     ?>
 								</p>
 								<hr/>
 								<a href="<?php 
-    echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+    echo esc_url( efl_fs()->get_upgrade_url() );
     ?>"
 								   class=" btn"><span class="dashicons dashicons-unlock"></span><?php 
     esc_html_e( 'Upgrade now', 'easy-facebook-likebox' );
@@ -377,7 +360,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
 
 					<?php 
 }
-
 ?>
 
 					<div class="col s6 mif_fields esf_insta_checkbox">
@@ -389,7 +371,6 @@ esc_html_e( 'Open links in new tab', 'easy-facebook-likebox' );
 ?></label>
 					</div>
 					<?php 
-
 if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
 } else {
     ?>
@@ -418,7 +399,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
     esc_html_e( 'Upgrade today and get ' . $banner_info['coupon'] . ' discount! On the checkout click on "Have a promotional code?" and enter', 'easy-facebook-likebox' );
     ?>
 										<?php 
-    
     if ( $banner_info['coupon'] ) {
         ?>
 											<code><?php 
@@ -426,12 +406,11 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
         ?></code>
 										<?php 
     }
-    
     ?>
 									</p>
 									<hr/>
 									<a href="<?php 
-    echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+    echo esc_url( efl_fs()->get_upgrade_url() );
     ?>"
 									   class=" btn"><span class="dashicons dashicons-unlock"></span><?php 
     esc_html_e( 'Upgrade now', 'easy-facebook-likebox' );
@@ -445,7 +424,6 @@ if ( efl_fs()->is_plan( 'instagram_premium', true ) or efl_fs()->is_plan( 'combo
 
 					<?php 
 }
-
 ?>
 					<?php 
 ?>
@@ -576,7 +554,7 @@ esc_html_e( 'Define cache duration to refresh feeds automatically. Like after mi
 					<span class="mif_detail_head"><?php 
 esc_html_e( 'Load More', 'easy-facebook-likebox' );
 ?> <a href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a> </span>

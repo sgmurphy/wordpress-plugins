@@ -16,7 +16,7 @@ if (defined('ABSPATH') === false) {
     <h2></h2>
     <div class="chaty-widgetanalytic-body">
         <div class="px-7 py-8 flex-1">
-            <h2 class="chaty-widgetanalytic-heading"><?php esc_html_e("Unlock Chaty <span>Analytics</span> 🚀", "chaty") ?></h2>
+            <h2 class="chaty-widgetanalytic-heading"><?php printf(esc_html__("Unlock Chaty %s 🚀", "chaty"), "<span>".esc_html__("Analytics", "chaty")."</span>") ?></h2>
 
             <div class="flex items-center mt-5 space-x-3">
                 <a class="btn rounded-lg drop-shadow-3xl font-normal" href="<?php echo esc_url($this->getUpgradeMenuItemUrl()); ?>" >
@@ -32,15 +32,15 @@ if (defined('ABSPATH') === false) {
             <ul class="mt-7 flex flex-col space-y-2">
                 <li class="flex items-center py-6 px-7 bg-[#F9FAFB] rounded-md space-x-6 text-cht-gray-150 text-lg font-primary">
                     <img width="42" height="59" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/channel-discover.svg" alt="Channel Discover">
-                    <span class="max-w-[305px]"><?php esc_html_e("<strong>Discover</strong> the most frequently used channels", "chaty") ?></span>
+                    <span class="max-w-[305px]"><?php printf(esc_html__("%s the most frequently used channels", "chaty"), "<strong>".esc_html__("Discover", "chaty")."</strong>") ?></span>
                 </li>
                 <li class="flex items-center py-6 px-7 bg-[#F9FAFB] rounded-md space-x-6 text-cht-gray-150 text-lg font-primary">
                     <img width="42" height="59" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/channel-tracking.svg" alt="Channel Tracking">
-                    <span><?php esc_html_e("Keep <strong>track</strong> of how each widget performs", "chaty") ?></span>
+                    <span><?php printf(esc_html__("Keep %s of how each widget performs", "chaty"), "<strong>".esc_html__("track", "chaty")."</strong>")  ?></span>
                 </li>
                 <li class="flex items-center py-6 px-7 bg-[#F9FAFB] rounded-md space-x-6 text-cht-gray-150 text-lg font-primary">
                     <img width="42" height="59" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>admin/assets/images/channel-analyze.svg" alt="Channel Analyze">
-                    <span><?php esc_html_e("<strong>Analyze</strong> the number of unique clicks and the <strong>click-through rate</strong>", "chaty") ?></span>
+                    <span><?php printf(esc_html__("%s the number of unique clicks and the %s", "chaty"), "<strong>".esc_html__("Analyze", "chaty")."</strong>", "<strong>".esc_html__("click-through rate", "chaty")."</strong>")  ?></span>
                 </li>
             </ul>
 

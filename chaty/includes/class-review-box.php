@@ -578,19 +578,20 @@ class Chaty_Free_Review_Box
 
         <script>
             (function($) {
-                function chatyFreeReview() {
-                    this.prefix     = "<?php echo esc_attr($this->pluginSlug) ?>";
-                    this.reviewLink = "https://wordpress.org/support/plugin/<?php echo esc_attr($this->wpPluginSlug) ?>/reviews/?filter=5";
-                    this.rating     = 5;
+                $(document).ready(function(){
+                    function chatyFreeReview() {
+                        this.prefix     = "<?php echo esc_attr($this->pluginSlug) ?>";
+                        this.reviewLink = "https://wordpress.org/support/plugin/<?php echo esc_attr($this->wpPluginSlug) ?>/reviews/?filter=5";
+                        this.rating     = 5;
 
-                    this.renderRating();
-                    this.bindEvents();
-                }
+                        this.renderRating();
+                        this.bindEvents();
+                    }
 
-                chatyFreeReview.prototype.getSelectors = function() {
-                    return {
-                        body: 'body',
-                        rating: `.${this.prefix}-premio-review-box__default__rating`,
+                    chatyFreeReview.prototype.getSelectors = function() {
+                        return {
+                            body: 'body',
+                            rating: `.${this.prefix}-premio-review-box__default__rating`,
                         reviewBox: `.${this.prefix}-premio-review-box`,
                         feedbackForm: `.${this.prefix}-feedback-popup__form`,
                         reminderPopup: `.${this.prefix}-review-box-popup`,
@@ -639,123 +640,124 @@ class Chaty_Free_Review_Box
                     //close reminder/feedback popup when click outside
                     $(window).on('click', ev => {
                         const $target = $(ev.target);
-                        if(
-                            elements.$reminderPopup.hasClass('open') &&
-                            $target.parents( selectors.reminderPopup ).length === 0
-                        ) {
-                            elements.$reminderPopupDismissBtn.trigger('click');
-                        }
+                    if(
+                        elements.$reminderPopup.hasClass('open') &&
+                        $target.parents( selectors.reminderPopup ).length === 0
+                    ) {
+                        elements.$reminderPopupDismissBtn.trigger('click');
+                    }
 
-                        if(
-                            elements.$feedbackPopup.hasClass('open') &&
-                            $target.parents( selectors.feedbackPopup ).length === 0
-                        ) {
-                            elements.$feedbackDismissBtn.trigger('click');
-                        }
-                    })
-                }
+                    if(
+                        elements.$feedbackPopup.hasClass('open') &&
+                        $target.parents( selectors.feedbackPopup ).length === 0
+                    ) {
+                        elements.$feedbackDismissBtn.trigger('click');
+                    }
+                })
+            }
 
-                chatyFreeReview.prototype.feedbackFormHandler = function(ev) {
-                    ev.preventDefault();
-                    const elements  = this.getElements();
-                    const message   = elements.$feedbackForm.find('#message').val();
-                    const rating     = this.rating;
+            chatyFreeReview.prototype.feedbackFormHandler = function(ev) {
+                ev.preventDefault();
+                const elements  = this.getElements();
+                const message   = elements.$feedbackForm.find('#message').val();
+                const rating     = this.rating;
 
-                    $.ajax({
-                        url: "<?php echo esc_url(admin_url("admin-ajax.php")) ?>",
-                        data: {
-                            action: "<?php echo esc_attr($this->pluginSlug) ?>_review_box_message",
-                            rating: rating,
-                            nonce: "<?php echo esc_attr(wp_create_nonce($this->pluginSlug."_review_box_message")) ?>",
-                            message: message
-                        },
-                        type: "post",
+                $.ajax({
+                    url: "<?php echo esc_url(admin_url("admin-ajax.php")) ?>",
+                    data: {
+                        action: "<?php echo esc_attr($this->pluginSlug) ?>_review_box_message",
+                        rating: rating,
+                        nonce: "<?php echo esc_attr(wp_create_nonce($this->pluginSlug."_review_box_message")) ?>",
+                        message: message
+                    },
+                    type: "post",
+                });
+                elements.$feedbackDismissBtn.trigger('click');
+                elements.$reviewBox.remove();
+                elements.$reminderPopup.remove();
+                // send hide request after submitting feedback form
+                this.sendHideRequest( -1 );
+            }
+
+            chatyFreeReview.prototype.thankYouDismissHandler = function() {
+                const elements = this.getElements();
+                elements.$reviewBox.remove();
+                elements.$reminderPopup.remove();
+                this.sendHideRequest( -1 );
+            }
+
+            chatyFreeReview.prototype.reminderHandler = function(ev) {
+                ev.preventDefault();
+                const dataDays = $(ev.target).data("days");
+                const elements = this.getElements();
+
+                elements.$body.removeClass("has-premio-box");
+                elements.$reminderPopupDismissBtn.trigger('click');
+                elements.$reviewBox.remove();
+                this.sendHideRequest( dataDays );
+            }
+
+            chatyFreeReview.prototype.sendHideRequest = function( dataDays = -1 ) {
+                $.ajax({
+                    url: "<?php echo esc_url(admin_url("admin-ajax.php")) ?>",
+                    data: "action=<?php echo esc_attr($this->pluginSlug) ?>_review_box&days=" + dataDays + "&nonce=<?php echo esc_attr(wp_create_nonce($this->pluginSlug."_review_box")) ?>",
+                    type: "post",
+                });
+            }
+
+            chatyFreeReview.prototype.toggleReminderPopup = function( action = true ) {
+                if( action ) {
+                    this.$reminderPopup.fadeIn(200, function(){
+                        $(this).addClass('open')
                     });
-                    elements.$feedbackDismissBtn.trigger('click');
-                    elements.$reviewBox.remove();
-                    elements.$reminderPopup.remove();
-                    // send hide request after submitting feedback form
-                    this.sendHideRequest( -1 );
+                } else {
+                    this.$reminderPopup.fadeOut(200).removeClass('open');
                 }
+            }
 
-                chatyFreeReview.prototype.thankYouDismissHandler = function() {
-                    const elements = this.getElements();
-                    elements.$reviewBox.remove();
-                    elements.$reminderPopup.remove();
-                    this.sendHideRequest( -1 );
-                }
+            chatyFreeReview.prototype.feedbackToggle = function( action = true ) {
+                const elements = this.getElements();
 
-                chatyFreeReview.prototype.reminderHandler = function(ev) {
-                    ev.preventDefault();
-                    const dataDays = $(ev.target).data("days");
-                    const elements = this.getElements();
-
-                    elements.$body.removeClass("has-premio-box");
-                    elements.$reminderPopupDismissBtn.trigger('click');
-                    elements.$reviewBox.remove();
-                    this.sendHideRequest( dataDays );
-                }
-
-                chatyFreeReview.prototype.sendHideRequest = function( dataDays = -1 ) {
-                    $.ajax({
-                        url: "<?php echo esc_url(admin_url("admin-ajax.php")) ?>",
-                        data: "action=<?php echo esc_attr($this->pluginSlug) ?>_review_box&days=" + dataDays + "&nonce=<?php echo esc_attr(wp_create_nonce($this->pluginSlug."_review_box")) ?>",
-                        type: "post",
+                console.log(action);
+                if( action ) {
+                    console.log(elements.$feedbackPopup);
+                    elements.$feedbackPopup.fadeIn(200, function(){
+                        $(this).addClass('open')
                     });
+                } else {
+                    elements.$rating.starRating('unload');
+                    elements.$reviewBoxDefault.append(`<div class="${this.prefix}-premio-review-box__default__rating"></div>`)
+                    elements.$feedbackPopup.fadeOut(200).removeClass('open');
+                    this.renderRating();
                 }
+            }
 
-                chatyFreeReview.prototype.toggleReminderPopup = function( action = true ) {
-                    if( action ) {
-                        this.$reminderPopup.fadeIn(200, function(){
-                            $(this).addClass('open')
-                        });
+            chatyFreeReview.prototype.renderRating = function() {
+                const self      = this;
+                const elements  = self.getElements();
+                elements.$rating.starRating({
+                    initialRating   : self.rating,
+                    useFullStars    : true,
+                    strokeColor     : '#894A00',
+                    strokeWidth     : 10,
+                    minRating       : 1,
+                    starSize        : 25,
+                    callback( currentRate ) {
+                    if( currentRate !== 5 ) {
+                        self.rating = currentRate;
+                        self.feedbackToggle(true);
                     } else {
-                        this.$reminderPopup.fadeOut(200).removeClass('open');
+                        elements.$reviewBoxDefault.hide();
+                        elements.$reviewBoxThankYou.show();
+                        window.open( self.reviewLink , '_blank');
+                        self.sendHideRequest( -1 );
                     }
                 }
+            })
+            }
 
-                chatyFreeReview.prototype.feedbackToggle = function( action = true ) {
-                    const elements = this.getElements();
-                    console.log(action);
-                    if( action ) {
-                        console.log(elements.$feedbackPopup);
-                        elements.$feedbackPopup.fadeIn(200, function(){
-                            $(this).addClass('open')
-                        });
-                    } else {
-                        elements.$rating.starRating('unload');
-                        elements.$reviewBoxDefault.append(`<div class="${this.prefix}-premio-review-box__default__rating"></div>`)
-                        elements.$feedbackPopup.fadeOut(200).removeClass('open');
-                        this.renderRating();
-                    }
-                }
-
-                chatyFreeReview.prototype.renderRating = function() {
-                    const self      = this;
-                    const elements  = self.getElements();
-                    elements.$rating.starRating({
-                        initialRating   : self.rating,
-                        useFullStars    : true,
-                        strokeColor     : '#894A00',
-                        strokeWidth     : 10,
-                        minRating       : 1,
-                        starSize        : 25,
-                        callback( currentRate ) {
-                            if( currentRate !== 5 ) {
-                                self.rating = currentRate;
-                                self.feedbackToggle(true);
-                            } else {
-                                elements.$reviewBoxDefault.hide();
-                                elements.$reviewBoxThankYou.show();
-                                window.open( self.reviewLink , '_blank');
-                                self.sendHideRequest( -1 );
-                            }
-                        }
-                    })
-                }
-
-                new chatyFreeReview();
-
+            new chatyFreeReview();
+                })
             })( jQuery )
         </script>
         <?php

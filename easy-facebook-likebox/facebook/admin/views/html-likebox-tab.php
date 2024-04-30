@@ -10,7 +10,7 @@ $ESF_Admin = new ESF_Admin();
 $default_page_id = efbl_default_page_id();
 ?>
 <div id="efbl-likebox" class="col s12 efbl_tab_c slideLeft <?php 
-echo  ( $active_tab == 'efbl-likebox' ? 'active' : '' ) ;
+echo ( $active_tab == 'efbl-likebox' ? 'active' : '' );
 ?>">
 	<div id="efbl-likebox-use"
 		 class="tab-content efbl_tab_c_holder">
@@ -307,7 +307,7 @@ esc_html_e( 'Click the save button and visit your site to see likebox in widget'
 ?></li>
 				</ol>
 				<a class=" btn" href="<?php 
-echo  esc_url( admin_url( 'widgets.php' ) ) ;
+echo esc_url( admin_url( 'widgets.php' ) );
 ?>"><?php 
 esc_html_e( 'Widgets', 'easy-facebook-likebox' );
 ?></a>
@@ -341,7 +341,7 @@ esc_html_e( 'Your Facebook fanpage URL. You can find your page URL from browser 
 esc_html_e( 'Tabs', 'easy-facebook-likebox' );
 ?> <a
 								href="<?php 
-echo  esc_url( efl_fs()->get_upgrade_url() ) ;
+echo esc_url( efl_fs()->get_upgrade_url() );
 ?>">(<?php 
 esc_html_e( 'pro', 'easy-facebook-likebox' );
 ?>)</a></span>

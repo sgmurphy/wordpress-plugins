@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Zapier for WordPress
  * Description:       Zapier enables you to automatically share your posts to social media, create WordPress posts from Mailchimp newsletters, and much more. Visit https://zapier.com/apps/wordpress/integrations for more details.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Author:            Zapier
  * Author URI:        https://zapier.com
  * License:           Expat (MIT License)
@@ -12,6 +12,7 @@
 
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 
 class Zapier_Auth_Loader
@@ -137,7 +138,7 @@ class Zapier_Auth
         );
 
         return array(
-            'token' => JWT::encode($token, $secret_key),
+            'token' => JWT::encode($token, $secret_key, 'HS256'),
         );
     }
 
@@ -196,8 +197,7 @@ class Zapier_Auth
             JWT::$leeway = 240; // $leeway in seconds
             $token = JWT::decode(
                 $_SERVER['HTTP_X_ZAPIER_AUTH'],
-                get_option('zapier_secret'),
-                array('HS256')
+                new Key(get_option('zapier_secret'), 'HS256')
             );
 
             if ($token->iss != get_bloginfo('url')) {

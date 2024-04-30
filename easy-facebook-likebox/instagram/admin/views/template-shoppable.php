@@ -6,20 +6,17 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-
 if ( $insta_settings['shoppable'] ) {
     $shoppable_set = $insta_settings['shoppable'];
 } else {
     $shoppable_set = false;
 }
-
 $source = '';
 $custom_url = '';
 $cpt_id = '';
 $selected = '';
 $click_behaviour = '';
 $link_text = '';
-
 if ( $feed->media_url ) {
     ?>
 
@@ -36,12 +33,11 @@ if ( $feed->media_url ) {
     esc_attr_e( $story_id );
     ?>" class="esf_insta_feed_fancy_popup esf_insta_grid_box esf-modal-trigger"
 				  style="background-image: url(<?php 
-    echo  esc_url( $thumbnail_url ) ;
+    echo esc_url( $thumbnail_url );
     ?>)">
 					<div class="esf-insta-overlay">
                         <div class="ei-icon-wrap">
                             <?php 
-    
     if ( $selected ) {
         ?>
                                 <span class="dashicons dashicons-admin-links"></span>
@@ -51,7 +47,6 @@ if ( $feed->media_url ) {
                             <span class="dashicons dashicons-plus"></span>
                             <?php 
     }
-    
     ?>
                         </div>
 					</div>
@@ -73,7 +68,7 @@ if ( $feed->media_url ) {
                 <div class="ei-content-wrap">
                     <div class="ei-shoppable-modal-left">
                         <img src="<?php 
-    echo  esc_url( $thumbnail_url ) ;
+    echo esc_url( $thumbnail_url );
     ?>" />
                     </div>
                     <div class="ei-shoppable-modal-right">
@@ -104,9 +99,9 @@ if ( $feed->media_url ) {
                                         <option <?php 
             selected( $source, $key );
             ?> value="<?php 
-            echo  esc_attr( $key ) ;
+            echo esc_attr( $key );
             ?>"><?php 
-            echo  esc_html( ucfirst( $value ) ) ;
+            echo esc_html( ucfirst( $value ) );
             ?></option>
                                     <?php 
         }
@@ -127,17 +122,16 @@ if ( $feed->media_url ) {
         ?> disabled <?php 
     }
     ?> type="url" value="<?php 
-    echo  esc_url( $custom_url ) ;
+    echo esc_url( $custom_url );
     ?>" class="ei-custom-url" name="custom_url" />
                         </div>
                         <?php 
     if ( $all_post_types ) {
         foreach ( $all_post_types as $post_type ) {
-            
             if ( $cpts[$post_type] ) {
                 ?>
                                 <div class="ei-field-container ei-others-field ei-search ei-search-<?php 
-                echo  esc_attr( $post_type ) ;
+                echo esc_attr( $post_type );
                 ?>" <?php 
                 if ( $source && $source == $post_type ) {
                     ?> style="display: flex" <?php 
@@ -147,14 +141,14 @@ if ( $feed->media_url ) {
                                     <label> <?php 
                 esc_html_e( 'Search for ', 'easy-facebook-likebox' );
                 ?> <?php 
-                echo  esc_attr( $post_type ) ;
+                echo esc_attr( $post_type );
                 ?></label>
                                     <select <?php 
                 if ( $is_free ) {
                     ?> disabled <?php 
                 }
                 ?> class="ei-select2" name="<?php 
-                echo  esc_attr( $post_type ) ;
+                echo esc_attr( $post_type );
                 ?>_id">
 			                            <?php 
                 foreach ( $cpts[$post_type] as $post ) {
@@ -162,9 +156,9 @@ if ( $feed->media_url ) {
                                             <option  <?php 
                     selected( $cpt_id, $post->ID );
                     ?> value="<?php 
-                    echo  esc_attr( $post->ID ) ;
+                    echo esc_attr( $post->ID );
                     ?>"><?php 
-                    echo  esc_html( $post->post_title ) ;
+                    echo esc_html( $post->post_title );
                     ?></option>
                                         <?php 
                 }
@@ -173,7 +167,6 @@ if ( $feed->media_url ) {
                                 </div>
                            <?php 
             }
-        
         }
     }
     ?>
@@ -186,7 +179,7 @@ if ( $feed->media_url ) {
         ?> disabled <?php 
     }
     ?> value="<?php 
-    echo  esc_attr( $link_text ) ;
+    echo esc_attr( $link_text );
     ?>" class="ei-custom-url" name="link_text" />
                             </div>
                             <div class="ei-field-container">
@@ -199,22 +192,22 @@ if ( $feed->media_url ) {
     }
     ?> class="ei-select2" name="click_behaviour">
                                     <option value="0"><?php 
-    echo  esc_html_e( '--Select One--', 'easy-facebook-likebox' ) ;
+    echo esc_html_e( '--Select One--', 'easy-facebook-likebox' );
     ?> </option>
                                     <option  <?php 
     selected( $click_behaviour, 'popup' );
     ?> value="popup"><?php 
-    echo  esc_html_e( 'Popup', 'easy-facebook-likebox' ) ;
+    echo esc_html_e( 'Popup', 'easy-facebook-likebox' );
     ?></option>
                                     <option  <?php 
     selected( $click_behaviour, 'direct_link' );
     ?> value="direct_link"><?php 
-    echo  esc_html_e( 'Direct Link', 'easy-facebook-likebox' ) ;
+    echo esc_html_e( 'Direct Link', 'easy-facebook-likebox' );
     ?></option>
                                 </select>
                             </div>
                             <input type="hidden" name="feed_id" value="<?php 
-    echo  esc_attr( $story_id ) ;
+    echo esc_attr( $story_id );
     ?>">
                             <input type="submit" <?php 
     if ( $is_free ) {

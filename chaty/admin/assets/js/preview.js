@@ -103,6 +103,22 @@ jQuery(document).ready(function(){
         }
     });
 
+    jQuery(document).on("keyup", ".whatsapp-placeholder", function(){
+        jQuery("#csaas_whatsapp_input").attr("placeholder", jQuery(this).val());
+    });
+
+    jQuery(document).on("change", ".whatsapp-placeholder", function(){
+        jQuery("#csaas_whatsapp_input").attr("placeholder", jQuery(this).val());
+    });
+
+    jQuery(document).on("click", ".whatsapp-emoji", function(){
+        if(jQuery(this).is(":checked")) {
+            jQuery(".csaas-whatsapp-field").addClass("has-emoji");
+        } else {
+            jQuery(".csaas-whatsapp-field").removeClass("has-emoji");
+        }
+    });
+
     jQuery(document).on("click", ".csaas-close-button, .csaas-close-agent-list, .whatsapp-form-close-btn", function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -163,6 +179,11 @@ jQuery(document).ready(function(){
                 jQuery(this).closest(".csaas-widget").find(".open-csaas-channel").html(buttonHtml);
             }
         }
+    });
+
+    jQuery(document).on("click", ".csaas-widget.has-single .csaas-i-trigger.single-channel .csaas-cta-close .csaas-cta-button", function(){
+        jQuery(this).closest(".csaas").removeClass("form-open");
+        jQuery(".csaas-outer-forms").removeClass("active");
     });
 
     jQuery(document).on("keyup", "#cht_social_message_Contact_Us_form_title", function(){
@@ -252,7 +273,6 @@ jQuery(window).on("load", function(){
 
 
 function change_custom_preview() {
-
     var socialString = [];
     jQuery("#channels-selected-list > li.chaty-channel").each(function () {
         socialString.push(jQuery(this).attr("data-id"));
@@ -355,6 +375,25 @@ function change_custom_preview() {
         advanceCustomCSS = "";
         var activeChannels = getActiveChannels();
         if(activeChannels) {
+
+            if(activeChannels <= 1 && jQuery("input[name='cta_type']:checked").val() != "chat-view") {
+                jQuery('.chaty-widget-color').addClass('hidden');
+            } else {
+                jQuery('.chaty-widget-color').removeClass('hidden');
+            }
+
+            if(jQuery("#whatsapp_embedded_window_Whatsapp").length && jQuery("#whatsapp_embedded_window_Whatsapp").is(":checked")) {
+                jQuery('.chaty-widget-color').removeClass('hidden');
+            }
+
+            if(jQuery("#upload_qr_code_val-WeChat").length && jQuery("#upload_qr_code_val-WeChat").val() != "") {
+                jQuery('.chaty-widget-color').removeClass('hidden');
+            }
+
+            if(jQuery("#chaty-social-Contact_Us").length) {
+                jQuery('.chaty-widget-color').removeClass('hidden');
+            }
+
             var widgetPosition = getWidgetPosition();
             widgetPosition = (widgetPosition == "right") ? "right" : "left";
             var toolTipPosition = getToolTipPosition();
@@ -404,10 +443,10 @@ function change_custom_preview() {
                     jQuery("#csaas-widget-0 .csaas-i-trigger .csaas-channel a").append("<span class='on-hover-text'>"+ctaText.toHtmlEntities()+"</span>").addClass("has-on-hover");
                 }
 
-                var closeHtml = '<div class="csaas-channel csaas-cta-close csaas-tooltip pos-' + toolTipPosition + '" data-hover="' + + '">' +
+                var closeHtml = '<div class="csaas-channel csaas-cta-close csaas-tooltip pos-' + toolTipPosition + '">' +
                     '<div class="csaas-cta-button"><button type="button">' +
                     '<span class="csaas-svg">' +
-                    '<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="26" cy="26" rx="26" ry="26" fill="' + jQuery("input[name='cht_color']").val() + '"></ellipse><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(18.35 15.6599) scale(0.998038 1.00196) rotate(45)" fill="#fff"></rect><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(37.5056 18.422) scale(0.998038 1.00196) rotate(135)" fill="#fff"></rect></svg>' +
+                    '<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="26" cy="26" rx="26" ry="26" fill="'+ jQuery("input[name='cht_color']:checked").val().toHtmlEntities() +'"></ellipse><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(18.35 15.6599) scale(0.998038 1.00196) rotate(45)" fill="#fff"></rect><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(37.5056 18.422) scale(0.998038 1.00196) rotate(135)" fill="#fff"></rect></svg>' +
                     '</span>' +
                     '<span class="sr-only">Hide csaas</span>' +
                     '</button>' +
@@ -484,10 +523,10 @@ function change_custom_preview() {
                     closeButtonText = htmlDecode(closeButtonText);
                 }
                 /* close button */
-                var closeHtml = '<div class="csaas-channel csaas-cta-close csaas-tooltip '+toolTipPosition+'" data-hover="'+closeButtonText.toHtmlEntities()+'">' +
+                var closeHtml = '<div class="csaas-channel csaas-cta-close '+toolTipPosition+'">' +
                     '<div class="csaas-cta-button"><button type="button">' +
                     '<span class="csaas-svg">' +
-                    '<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="26" cy="26" rx="26" ry="26" fill="'+ jQuery("input[name='cht_color']:checked").val() +'"></ellipse><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(18.35 15.6599) scale(0.998038 1.00196) rotate(45)" fill="white"></rect><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(37.5056 18.422) scale(0.998038 1.00196) rotate(135)" fill="white"></rect></svg>' +
+                    '<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="26" cy="26" rx="26" ry="26" fill="'+ jQuery("input[name='cht_color']:checked").val().toHtmlEntities() +'"></ellipse><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(18.35 15.6599) scale(0.998038 1.00196) rotate(45)" fill="white"></rect><rect width="27.1433" height="3.89857" rx="1.94928" transform="translate(37.5056 18.422) scale(0.998038 1.00196) rotate(135)" fill="white"></rect></svg>' +
                     '</span>' +
                     '</button>' +
                     '</div>' +
@@ -702,12 +741,12 @@ function getCTAWidgetIcon() {
     }
     if(widgetIcon == "chat-image") {
         if(jQuery("#elPreviewImage img").length) {
-            return "<span class='csaas-svg' style='background: "+jQuery("input[name='cht_color']:checked").val()+"'><img id='cta-image' src='"+jQuery("#elPreviewImage img").attr("src")+"' alt='Chaty Widget' /></span>";
+            return "<span class='csaas-svg' style='background: "+jQuery("input[name='cht_color']:checked").val().toHtmlEntities()+"'><img id='cta-image' src='"+jQuery("#elPreviewImage img").attr("src")+"' alt='Chaty Widget' /></span>";
         }
         widgetIcon = 'chat-base';
     }
 
-    return '<span class="csaas-svg">'+getSvgIcon(widgetIcon, jQuery("input[name='cht_color']:checked").val())+"</span>";
+    return '<span class="csaas-svg">'+getSvgIcon(widgetIcon, jQuery("input[name='cht_color']:checked").val().toHtmlEntities())+"</span>";
 }
 function getSvgIcon(iconName, widgetColor) {
     switch(iconName) {
@@ -996,11 +1035,18 @@ function startMakingWhatsAppPopup(channel, widgetId) {
         jQuery("#csaas-form-"+widgetId+"-"+channel+" .csass-whatsapp-input").val(preSetMessage);
     }
     if(isEmpty(jQuery(".chaty-whatsapp-setting-textarea").val())) {
-        console.log(213123);
         jQuery("#csaas-form-"+widgetId+"-"+channel+" .wp-profile-img").remove();
         jQuery("#csaas-form-"+widgetId+"-"+channel+" .csaas-whatsapp-message").remove();
     }
     jQuery("#chaty-form-"+widgetId+"-"+channel).show();
+
+    jQuery("#csaas_whatsapp_input").attr("placeholder", jQuery(".whatsapp-placeholder").val());
+
+    if(jQuery(".whatsapp-emoji").is(":checked")) {
+        jQuery(".csaas-whatsapp-field").addClass("has-emoji");
+    } else {
+        jQuery(".csaas-whatsapp-field").removeClass("has-emoji");
+    }
 }
 
 function isEmpty(varVal) {

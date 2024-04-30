@@ -9,23 +9,19 @@ if ( !defined( 'ABSPATH' ) ) {
 //======================================================================
 // Management of Facebook Skins
 //======================================================================
-
 if ( !class_exists( 'EFBL_SKINS' ) ) {
-    class EFBL_SKINS
-    {
-        function __construct()
-        {
-            add_action( 'init', array( $this, 'efbl_skins_register' ), 20 );
+    class EFBL_SKINS {
+        function __construct() {
+            add_action( 'init', array($this, 'efbl_skins_register'), 20 );
             //on plugin activation
             $this->efbl_default_skins();
-            add_action( 'init', array( $this, 'efbl_skins' ), 30 );
+            add_action( 'init', array($this, 'efbl_skins'), 30 );
         }
-        
+
         /*
          * Register skins post type
          */
-        public function efbl_skins_register()
-        {
+        public function efbl_skins_register() {
             $args = array(
                 'public'              => false,
                 'label'               => __( 'Facebook Skins', 'easy-facebook-likebox' ),
@@ -37,16 +33,14 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
             );
             register_post_type( 'efbl_skins', $args );
         }
-        
+
         /*
          * Add default skins on install
          */
-        public function efbl_default_skins()
-        {
+        public function efbl_default_skins() {
             $FTA = new Feed_Them_All();
             $fta_settings = $FTA->fta_get_settings();
-            
-            if ( !isset( $fta_settings['plugins']['facebook']['default_skin_id'] ) && empty($fta_settings['plugins']['facebook']['default_skin_id']) ) {
+            if ( !isset( $fta_settings['plugins']['facebook']['default_skin_id'] ) && empty( $fta_settings['plugins']['facebook']['default_skin_id'] ) ) {
                 $efbl_new_skins = array(
                     'post_title'   => __( 'Skin - Half Width', 'easy-facebook-likebox' ),
                     'post_content' => __( 'This is the half width demo skin created by plugin automatically with default values. You can edit it and change the look & feel of your Facebook Feeds.', 'easy-facebook-likebox' ),
@@ -84,9 +78,7 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
                 $fta_settings['plugins']['facebook']['default_skin_id'] = $skin_id;
                 update_option( 'fta_settings', $fta_settings );
             }
-            
-            
-            if ( !isset( $fta_settings['plugins']['facebook']['row_default_skin_id'] ) && empty($fta_settings['plugins']['facebook']['row_default_skin_id']) ) {
+            if ( !isset( $fta_settings['plugins']['facebook']['row_default_skin_id'] ) && empty( $fta_settings['plugins']['facebook']['row_default_skin_id'] ) ) {
                 $efbl_new_skin_row = array(
                     'post_title'   => __( 'Skin - Row', 'easy-facebook-likebox' ),
                     'post_content' => __( 'This is the Row demo skin created by the plugin automatically with default values. You can edit it and change the look & feel of your Facebook Feeds.', 'easy-facebook-likebox' ),
@@ -96,21 +88,15 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
                 );
                 // Insert the new post
                 $efbl_new_skin_row_id = wp_insert_post( $efbl_new_skin_row );
-                
                 if ( isset( $efbl_new_skin_row_id ) ) {
                     update_post_meta( $efbl_new_skin_row_id, 'layout', 'row' );
-                    
                     if ( isset( $efbl_new_skin_row_id ) && !is_wp_error( $efbl_new_skin_row_id ) ) {
                         $fta_settings['plugins']['facebook']['row_default_skin_id'] = $efbl_new_skin_row_id;
                         update_option( 'fta_settings', $fta_settings );
                     }
-                
                 }
-            
             }
-            
-            
-            if ( !isset( $fta_settings['plugins']['facebook']['default_page_id'] ) && empty($fta_settings['plugins']['facebook']['default_page_id']) ) {
+            if ( !isset( $fta_settings['plugins']['facebook']['default_page_id'] ) && empty( $fta_settings['plugins']['facebook']['default_page_id'] ) ) {
                 $skin_id = $fta_settings['plugins']['facebook']['default_skin_id'];
                 $efbl_default_page = array(
                     'post_title'   => __( 'Facebook Demo - Customizer', 'easy-facebook-likebox' ),
@@ -123,30 +109,26 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
                 $fta_settings['plugins']['facebook']['default_page_id'] = $page_id;
                 update_option( 'fta_settings', $fta_settings );
             }
-        
         }
-        
+
         /*
          * Create skin object which will have all skin data
          */
-        public function efbl_skins()
-        {
+        public function efbl_skins() {
             $efbl_skins = array(
                 'posts_per_page' => 10,
                 'post_type'      => 'efbl_skins',
-                'post_status'    => array( 'publish', 'draft', 'pending' ),
+                'post_status'    => array('publish', 'draft', 'pending'),
                 'order'          => 'ASC',
             );
             $efbl_skins = get_posts( $efbl_skins );
-            
-            if ( isset( $efbl_skins ) && !empty($efbl_skins) ) {
+            if ( isset( $efbl_skins ) && !empty( $efbl_skins ) ) {
                 $efbl_skins_holder = array();
                 foreach ( $efbl_skins as $skin ) {
                     $id = $skin->ID;
                     $design_arr = array();
                     $design_arr = get_option( 'efbl_skin_' . $id, false );
                     $layout = get_post_meta( $id, 'layout', true );
-                    
                     if ( !$layout ) {
                         $layout = $design_arr['layout_option'];
                         if ( isset( $design_arr['feed_background_color'] ) && $design_arr['feed_background_color'] == 'transparent' ) {
@@ -156,9 +138,8 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
                             $design_arr['feed_meta_data_color'] = '#343a40';
                         }
                     }
-                    
                     $title = $skin->post_title;
-                    if ( empty($title) ) {
+                    if ( empty( $title ) ) {
                         $title = __( 'Skin', 'easy-facebook-likebox' );
                     }
                     $efbl_skins_holder[$id] = array(
@@ -172,12 +153,10 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
             } else {
                 return __( 'No skin found.', 'easy-facebook-likebox' );
             }
-            
             $GLOBALS['efbl_skins'] = $efbl_skins_holder;
         }
-        
-        public function efbl_default_skin_settings()
-        {
+
+        public function efbl_default_skin_settings() {
             return array(
                 'number_of_cols'               => 3,
                 'show_load_more_btn'           => true,
@@ -212,7 +191,8 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
                 'popup_show_comments'          => true,
             );
         }
-    
+
     }
+
     $GLOBALS['EFBL_SKINS'] = new EFBL_SKINS();
 }

@@ -4,6 +4,7 @@
 namespace PaymentPlugins\WooCommerce\PPCP;
 
 
+use PaymentPlugins\PayPalSDK\AbstractObject;
 use PaymentPlugins\PayPalSDK\Exception\ApiException;
 use PaymentPlugins\PayPalSDK\Exception\BadRequestException;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\APISettings;
@@ -64,7 +65,7 @@ class WPPayPalClient extends \PaymentPlugins\PayPalSDK\PayPalClient {
 				'url'         => $this->getRequestUrl( $path ),
 				'method'      => $method,
 				'http_status' => $e->getCode(),
-				'request'     => print_r( $params, true ),
+				'request'     => print_r( $params instanceof AbstractObject ? $params->toArray() : $params, true ),
 				'error'       => $e->getData()
 			], true ) ) );
 

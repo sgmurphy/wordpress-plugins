@@ -5,6 +5,8 @@
 
 defined('ABSPATH') || exit;
 
+wp_enqueue_script('tnp-chart');
+
 $newsletter = Newsletter::instance();
 $mailer = $newsletter->get_mailer();
 

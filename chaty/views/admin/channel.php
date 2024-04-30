@@ -71,7 +71,8 @@ if($social['slug'] == "Twitter" && ($value['bg_color'] == "#1ab2e8" || $value['b
 
 $color = "";
 if (!empty($value['bg_color'])) {
-    $color = "background-color: ".$value['bg_color'];
+    $value['bg_color'] = $this->validate_color($value['bg_color'], $social['color']);
+    $color = "background-color: ".esc_attr($value['bg_color']);
 }
 
 if ($social['slug'] == "Whatsapp") {
@@ -361,7 +362,10 @@ $isAgent = 0;
                         </div>
                     </div>
                     <div class="chaty-setting-col inline-options">
-                        <?php $wp_popup_head_bg_color = isset($value['wp_popup_head_bg_color']) ? $value['wp_popup_head_bg_color'] : "#4AA485" ?>
+                        <?php
+                        $wp_popup_head_bg_color = isset($value['wp_popup_head_bg_color']) ? $value['wp_popup_head_bg_color'] : "#4AA485";
+                        $wp_popup_head_bg_color = $this->validate_color($wp_popup_head_bg_color, "#4AA485");
+                        ?>
                         <label class="font-primary text-base text-cht-gray-150 sm:w-44">
                             <?php esc_html_e("Header Background", "chaty") ?>
                         </label>
@@ -403,6 +407,42 @@ $isAgent = 0;
                                 <input class="img-value" type="hidden" id="wp_popup_profile" name="cht_social_<?php echo esc_attr($social['slug']); ?>[wp_popup_profile]" value="<?php echo esc_attr($wp_popup_profile) ?>">
                             </div>
                         </div>
+                    </div>
+                    <?php $input_placeholder = isset($value['input_placeholder']) ? $value['input_placeholder'] : esc_html__("Write your message...","chaty") ?>
+                    <div class="sm:flex sm:items-center sm:space-x-3 mt-4">
+                        <div class="chaty-setting-col inline-options">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44">
+                                <?php esc_html_e("Text input placeholder", "chaty") ?>
+                            </label>
+                            <div>
+                                <input type="text" class="whatsapp-placeholder" id="input_placeholder_<?php echo esc_attr($social['slug']); ?>" name="cht_social_<?php echo esc_attr($social['slug']); ?>[input_placeholder]" value="<?php echo esc_attr($input_placeholder) ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chaty-setting-col mt-4">
+                        <?php $emoji_picker= isset($value['emoji_picker']) ? $value['emoji_picker'] : "yes"; ?>
+                        <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[emoji_picker]" value="no" >
+                        <label class="chaty-switch text-base font-primary text-cht-gray-150" for="whatsapp_emoji_picker_<?php echo esc_attr($social['slug']); ?>">
+                            <input type="checkbox" class="whatsapp-emoji" name="cht_social_<?php echo esc_attr($social['slug']); ?>[emoji_picker]" id="whatsapp_emoji_picker_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($emoji_picker, "yes") ?> >
+                            <div class="chaty-slider round"></div>
+                            <span class="text-cht-gray-150">
+                                    <?php esc_html_e("Enable emoji picker", "chaty") ?>
+                                </span>
+
+                            <div class="html-tooltip top">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                <span class="tooltip-text top">
+                                        <?php esc_html_e("Allow visitors to pick emoji from the emoji picker and enter them into the message input field", "chaty") ?>
+                                        <img alt="chaty" src="<?php echo esc_url(CHT_PLUGIN_URL) ?>/admin/assets/images/chaty-emoji.png" loading="lazy"/>
+                                    </span>
+                            </div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -648,7 +688,7 @@ $isAgent = 0;
                 <label class="font-primary text-base text-cht-gray-150 sm:w-44"><?php esc_html_e("Icon Appearance", "chaty") ?></label>
                 <div class="flex items-center">
                     <!-- input for custom color -->
-                    <input type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[bg_color]" class="chaty-color-field chaty-bg-color" value="<?php echo esc_attr($value['bg_color']) ?>" />
+                    <input type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[bg_color]" class="chaty-color-field chaty-bg-color" value="<?php echo esc_attr($this->validate_color($value['bg_color'], $social['color'])) ?>" />
 
                     <!-- button to upload custom image -->
                     <div class="pro-features upload-image mx-2">
@@ -722,145 +762,105 @@ $isAgent = 0;
                 <input type="hidden" class="chaty-title" name="cht_social_<?php echo esc_attr($social['slug']); ?>[title]" value="<?php echo esc_attr($value['title']) ?>">
             <?php } ?>
 
-            <div class="Contact_Us-settings advanced-settings">
-                <div class="form-field-setting-col my-3 space-y-4">
-                    <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
-                        <label class="font-primary text-base text-cht-gray-150 sm:w-44"><?php esc_html_e("Contact Form Title", "chaty") ?></label>
-                        <div>
-                            <?php $contactFormTitle = isset($value['contact_form_title']) ? $value['contact_form_title'] : esc_html__("Contact Us", "chaty"); ?>
-                            <input class="chaty-input-text" id="cht_social_message_<?php echo esc_attr($social['slug']); ?>_form_title" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[contact_form_title]" value="<?php echo esc_attr($contactFormTitle) ?>">
-                        </div>
-                    </div>
-                    <?php $field_value = isset($value['contact_form_title_bg_color']) ? $value['contact_form_title_bg_color'] : "#A886CD" ?>
-                    <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
-                        <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="title_bg_color_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Title background color", "chaty") ?></label>
-                        <div>
-                            <input id="title_bg_color_for_<?php echo esc_attr($social['slug']); ?>" class="chaty-color-field button-color" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[contact_form_title_bg_color]" value="<?php echo esc_attr($field_value); ?>" >
-                        </div>
-                    </div>
-                </div>
-                <div class="form-field-setting-col my-3 space-y-4">
-                    <div class="form-field-title"><?php esc_html_e("Submit Button", "chaty") ?></div>
-                    
-                    <?php $fieldValue = isset($value['button_text_color']) ? $value['button_text_color'] : "#ffffff" ?>
-                    <div class="chaty-setting-col flex items-center space-x-3">
-                        <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="button_text_color_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Text color", "chaty") ?></label>
-                        <div>
-                            <input id="button_text_color_for_<?php echo esc_attr($social['slug']); ?>" class="chaty-color-field button-color" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[button_text_color]" value="<?php echo esc_attr($fieldValue); ?>">
-                        </div>
-                    </div>
-
-                    <?php $fieldValue = isset($value['button_bg_color']) ? $value['button_bg_color'] : "#A886CD" ?>
-                    <div class="chaty-setting-col flex items-center space-x-3">
-                        <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="button_bg_color_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Background color", "chaty") ?></label>
-                        <div>
-                            <input id="button_bg_color_for_<?php echo esc_attr($social['slug']); ?>" class="chaty-color-field button-color" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[button_bg_color]" value="<?php echo esc_attr($fieldValue); ?>">
-                        </div>
-                    </div>
-                    
-                    <?php $fieldValue = isset($value['button_text']) ? $value['button_text'] : esc_html__("Chat", "chaty") ?>
-                    <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
-                        <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="button_text_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Button text", "chaty") ?></label>
-                        <div>
-                            <input class="chaty-input-text" id="button_text_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[button_text]" value="<?php echo esc_attr($fieldValue); ?>">
-                        </div>
-                    </div>
-                    <?php $fieldValue = isset($value['thanks_message']) ? $value['thanks_message'] : esc_html__("Your message was sent successfully", "chaty") ?>
-                    <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
-                        <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="thanks_message_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Thank you message", "chaty") ?></label>
-                        <div>
-                            <input class="chaty-input-text" id="thanks_message_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[thanks_message]" value="<?php echo esc_attr($fieldValue); ?>">
-                        </div>
-                    </div>
- 
-                    <?php $fieldValue = isset($value['redirect_action']) ? $value['redirect_action'] : "no" ?>
-                    <div class="chaty-setting-col">
-                        <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[redirect_action]" value="no">
-                        <label class="chaty-switch flex items-center font-primary text-cht-gray-150 text-base" for="redirect_action_<?php echo esc_attr($social['slug']); ?>">
-                            <input type="checkbox" class="chaty-redirect-setting" name="cht_social_<?php echo esc_attr($social['slug']); ?>[redirect_action]" id="redirect_action_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($fieldValue, "yes") ?>>
-                            <div class="chaty-slider round"></div>
-                            <?php esc_html_e("Redirect visitors after submission", "chaty") ?>
-                        </label>
-                    </div>
-                    <div class="redirect_action-settings <?php echo ($fieldValue == "yes") ? "active" : "" ?>">
-                        <?php $fieldValue = isset($value['redirect_link']) ? $value['redirect_link'] : "" ?>
-                        <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3 my-2">
-                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="redirect_link_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Redirect link", "chaty") ?></label>
+            <?php if($social['slug'] == "Contact_Us") {?>
+                <div class="Contact_Us-settings advanced-settings">
+                    <div class="form-field-setting-col my-3 space-y-4">
+                        <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44"><?php esc_html_e("Contact Form Title", "chaty") ?></label>
                             <div>
-                                <input id="redirect_link_for_<?php echo esc_attr($social['slug']); ?>" placeholder="<?php echo esc_url(site_url("/")) ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[redirect_link]" value="<?php echo esc_attr($fieldValue); ?>">
+                                <?php $contactFormTitle = isset($value['contact_form_title']) ? $value['contact_form_title'] : esc_html__("Contact Us", "chaty"); ?>
+                                <input class="chaty-input-text" id="cht_social_message_<?php echo esc_attr($social['slug']); ?>_form_title" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[contact_form_title]" value="<?php echo esc_attr($contactFormTitle) ?>">
                             </div>
                         </div>
-                        <?php $fieldValue = isset($value['link_in_new_tab']) ? $value['link_in_new_tab'] : "no" ?>
-                        <div class="chaty-setting-col sm:flex sm:items-center">
-                            <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[link_in_new_tab]" value="no">
-                            <label class="chaty-switch font-primary text-cht-gray-150" for="link_in_new_tab_<?php echo esc_attr($social['slug']); ?>">
-                                <input type="checkbox" class="chaty-field-setting" name="cht_social_<?php echo esc_attr($social['slug']); ?>[link_in_new_tab]" id="link_in_new_tab_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($fieldValue, "yes") ?>>
+                        <?php
+                        $field_value = isset($value['contact_form_title_bg_color']) ? $value['contact_form_title_bg_color'] : "#A886CD";
+                        $field_value = $this->validate_color($field_value, "#A886CD");
+
+                        ?>
+                        <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="title_bg_color_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Title background color", "chaty") ?></label>
+                            <div>
+                                <input id="title_bg_color_for_<?php echo esc_attr($social['slug']); ?>" class="chaty-color-field button-color" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[contact_form_title_bg_color]" value="<?php echo esc_attr($field_value); ?>" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field-setting-col my-3 space-y-4">
+                        <div class="form-field-title"><?php esc_html_e("Submit Button", "chaty") ?></div>
+
+                        <?php
+                        $fieldValue = isset($value['button_text_color']) ? $value['button_text_color'] : "#ffffff";
+                        $fieldValue = $this->validate_color($fieldValue, "#ffffff");
+                        ?>
+                        <div class="chaty-setting-col flex items-center space-x-3">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="button_text_color_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Text color", "chaty") ?></label>
+                            <div>
+                                <input id="button_text_color_for_<?php echo esc_attr($social['slug']); ?>" class="chaty-color-field button-color" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[button_text_color]" value="<?php echo esc_attr($fieldValue); ?>">
+                            </div>
+                        </div>
+
+                        <?php
+                        $fieldValue = isset($value['button_bg_color']) ? $value['button_bg_color'] : "#A886CD";
+                        $fieldValue = $this->validate_color($fieldValue, "#A886CD");
+                        ?>
+                        <div class="chaty-setting-col flex items-center space-x-3">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="button_bg_color_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Background color", "chaty") ?></label>
+                            <div>
+                                <input id="button_bg_color_for_<?php echo esc_attr($social['slug']); ?>" class="chaty-color-field button-color" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[button_bg_color]" value="<?php echo esc_attr($fieldValue); ?>">
+                            </div>
+                        </div>
+
+                        <?php $fieldValue = isset($value['button_text']) ? $value['button_text'] : esc_html__("Chat", "chaty") ?>
+                        <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="button_text_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Button text", "chaty") ?></label>
+                            <div>
+                                <input class="chaty-input-text" id="button_text_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[button_text]" value="<?php echo esc_attr($fieldValue); ?>">
+                            </div>
+                        </div>
+                        <?php $fieldValue = isset($value['thanks_message']) ? $value['thanks_message'] : esc_html__("Your message was sent successfully", "chaty") ?>
+                        <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
+                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="thanks_message_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Thank you message", "chaty") ?></label>
+                            <div>
+                                <input class="chaty-input-text" id="thanks_message_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[thanks_message]" value="<?php echo esc_attr($fieldValue); ?>">
+                            </div>
+                        </div>
+
+                        <?php $fieldValue = isset($value['redirect_action']) ? $value['redirect_action'] : "no" ?>
+                        <div class="chaty-setting-col">
+                            <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[redirect_action]" value="no">
+                            <label class="chaty-switch flex items-center font-primary text-cht-gray-150 text-base" for="redirect_action_<?php echo esc_attr($social['slug']); ?>">
+                                <input type="checkbox" class="chaty-redirect-setting" name="cht_social_<?php echo esc_attr($social['slug']); ?>[redirect_action]" id="redirect_action_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($fieldValue, "yes") ?>>
                                 <div class="chaty-slider round"></div>
-                                <?php esc_html_e("Open in a new tab", "chaty") ?>
+                                <?php esc_html_e("Redirect visitors after submission", "chaty") ?>
                             </label>
                         </div>
-                    </div>
-
-                    <?php $fieldValue = isset($value['close_form_after']) ? $value['close_form_after'] : "no" ?>
-                    <div class="chaty-setting-col">
-                        <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[close_form_after]" value="no">
-                        <label class="chaty-switch flex items-center font-primary text-cht-gray-150 text-base" for="close_form_after_<?php echo esc_attr($social['slug']); ?>">
-                            <input type="checkbox" class="chaty-close_form_after-setting" name="cht_social_<?php echo esc_attr($social['slug']); ?>[close_form_after]" id="close_form_after_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($fieldValue, "yes") ?>>
-                            <div class="chaty-slider round"></div>
-                            <?php esc_html_e("Close form automatically after submission", "chaty") ?>
-                            <span class="icon label-tooltip inline-message hidden sm:inline-block" data-label="<?php esc_html_e("Close the form automatically after a few seconds based on your choice", "chaty") ?>">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="close_form_after-settings <?php echo ($fieldValue == "yes") ? "active" : "" ?>">
-                        <?php $fieldValue = isset($value['close_form_after_seconds']) ? $value['close_form_after_seconds'] : "3" ?>
-                        <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
-                            <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="close_form_after_seconds_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Close after(Seconds)", "chaty") ?></label>
-                            <div>
-                                <input id="close_form_after_seconds_<?php echo esc_attr($social['slug']); ?>" type="number" min="0" name="cht_social_<?php echo esc_attr($social['slug']); ?>[close_form_after_seconds]" value="<?php echo esc_attr($fieldValue); ?>">
+                        <div class="redirect_action-settings <?php echo ($fieldValue == "yes") ? "active" : "" ?>">
+                            <?php $fieldValue = isset($value['redirect_link']) ? $value['redirect_link'] : "" ?>
+                            <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3 my-2">
+                                <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="redirect_link_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Redirect link", "chaty") ?></label>
+                                <div>
+                                    <input id="redirect_link_for_<?php echo esc_attr($social['slug']); ?>" placeholder="<?php echo esc_url(site_url("/")) ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[redirect_link]" value="<?php echo esc_attr($fieldValue); ?>">
+                                </div>
+                            </div>
+                            <?php $fieldValue = isset($value['link_in_new_tab']) ? $value['link_in_new_tab'] : "no" ?>
+                            <div class="chaty-setting-col sm:flex sm:items-center">
+                                <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[link_in_new_tab]" value="no">
+                                <label class="chaty-switch font-primary text-cht-gray-150" for="link_in_new_tab_<?php echo esc_attr($social['slug']); ?>">
+                                    <input type="checkbox" class="chaty-field-setting" name="cht_social_<?php echo esc_attr($social['slug']); ?>[link_in_new_tab]" id="link_in_new_tab_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($fieldValue, "yes") ?>>
+                                    <div class="chaty-slider round"></div>
+                                    <?php esc_html_e("Open in a new tab", "chaty") ?>
+                                </label>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-field-setting-col my-3 no-margin">
-                    <input type="hidden" value="no"name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_in_email]">
-                    <input type="hidden" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[save_leads_locally]">
-                    <?php $fieldValue = isset($val['save_leads_locally']) ? $val['save_leads_locally'] : "yes" ?>
-                    <div class="chaty-setting-col">
-                        <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base" for="save_leads_locally_<?php echo esc_attr($social['slug']); ?>">
-                            <input type="checkbox" disabled id="save_leads_locally_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[save_leads_locally]" <?php checked($fieldValue, "yes") ?>>
-                            <div class="chaty-slider round"></div>
-                            Save leads to<a href="<?php echo esc_url(admin_url("admin.php?page=chaty-contact-form-feed")) ?>" target="_blank">this site</a>
-                            <div class="html-tooltip hidden sm:inline-block top no-position">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                </span>
-                                <span class="tooltip-text top"><?php echo sprintf(esc_html__("Your leads will be saved in your local database, you'll be able to find them %1\$s here", "chaty"), '<a target="_blank" href="'.esc_url(admin_url("admin.php?page=chaty-contact-form-feed")).'">'.esc_html__("here", "chaty").'</a>') ?></span>
-                            </div>
-                        </label>
-                    </div>
-                    <?php $fieldValue = isset($value['send_leads_in_email']) ? $value['send_leads_in_email'] : "no" ?>
-                    <div class="chaty-setting-col">
-                        <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base no-padding pro-feature" for="save_leads_to_email_<?php echo esc_attr($social['slug']); ?>" class="email-setting full-width font-primary text-cht-gray-150">
-                            <div class="chaty-switch">
-                                <input class="email-setting-field" disabled type="checkbox" id="save_leads_to_email_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_in_email]">
+
+                        <?php $fieldValue = isset($value['close_form_after']) ? $value['close_form_after'] : "no" ?>
+                        <div class="chaty-setting-col">
+                            <input type="hidden" name="cht_social_<?php echo esc_attr($social['slug']); ?>[close_form_after]" value="no">
+                            <label class="chaty-switch flex items-center font-primary text-cht-gray-150 text-base" for="close_form_after_<?php echo esc_attr($social['slug']); ?>">
+                                <input type="checkbox" class="chaty-close_form_after-setting" name="cht_social_<?php echo esc_attr($social['slug']); ?>[close_form_after]" id="close_form_after_<?php echo esc_attr($social['slug']); ?>" value="yes" <?php checked($fieldValue, "yes") ?>>
                                 <div class="chaty-slider round"></div>
-                                <?php esc_html_e('Send leads to your email', 'chaty') ?>
-                            </div>
-                            <div>
-                                <span class="icon label-tooltip" data-label="<?php esc_html_e("Get your leads by email, whenever you get a new email you'll get an email notification", "chaty") ?>">
-                                    <span class="mt-1.5 inline-block">
+                                <?php esc_html_e("Close form automatically after submission", "chaty") ?>
+                                <span class="icon label-tooltip inline-message hidden sm:inline-block" data-label="<?php esc_html_e("Close the form automatically after a few seconds based on your choice", "chaty") ?>">
+                                    <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
                                             <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -868,49 +868,127 @@ $isAgent = 0;
                                         </svg>
                                     </span>
                                 </span>
-                                <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
-                                    <?php esc_html_e('Upgrade to Pro', 'chaty');?>
-                                </a>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="email-settings <?php echo ($fieldValue == "yes") ? "active" : "" ?>">
-                        <div class="chaty-setting-col">
-                            <label for="email_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Email address", "chaty") ?></label>
-                            <div>
-                                <?php $fieldValue = isset($value['email_address']) ? $value['email_address'] : "" ?>
-                                <input id="email_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[email_address]" value="<?php echo esc_attr($fieldValue); ?>">
-                            </div>
+                            </label>
                         </div>
-                        <div class="chaty-setting-col">
-                            <label for="sender_name_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Sender's name", "chaty") ?></label>
-                            <div>
-                                <?php $fieldValue = isset($value['sender_name']) ? $value['sender_name'] : "" ?>
-                                <input id="sender_name_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[sender_name]" value="<?php echo esc_attr($fieldValue); ?>">
-                            </div>
-                        </div>
-                        <div class="chaty-setting-col">
-                            <label for="email_subject_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Email subject", "chaty") ?></label>
-                            <div>
-                                <?php $fieldValue = isset($value['email_subject']) ? $value['email_subject'] : "New lead from Chaty - {name} - {date} {hour}" ?>
-                                <input id="email_subject_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[email_subject]" value="<?php echo esc_attr($fieldValue); ?>">
-                                <div class="mail-merge-tags">
-                                    <span>{name}</span><span>{phone}</span><span>{email}</span><span>{date}</span><span>{hour}</span>
+                        <div class="close_form_after-settings <?php echo ($fieldValue == "yes") ? "active" : "" ?>">
+                            <?php $fieldValue = isset($value['close_form_after_seconds']) ? $value['close_form_after_seconds'] : "3" ?>
+                            <div class="chaty-setting-col sm:flex sm:items-center sm:space-x-3">
+                                <label class="font-primary text-base text-cht-gray-150 sm:w-44" for="close_form_after_seconds_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Close after(Seconds)", "chaty") ?></label>
+                                <div>
+                                    <input id="close_form_after_seconds_<?php echo esc_attr($social['slug']); ?>" type="number" min="0" name="cht_social_<?php echo esc_attr($social['slug']); ?>[close_form_after_seconds]" value="<?php echo esc_attr($fieldValue); ?>">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php $field_value = isset($value['enable_recaptcha']) ? $value['enable_recaptcha'] : "no" ?>
-                    <input type="hidden" value="no" name="cht_social_<?php echo esc_attr($social['slug']); ?>[enable_recaptcha]" >
-                    <div class="chaty-setting-col">
-                        <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base pro-feature" for="enable_recaptcha_<?php echo esc_attr($social['slug']); ?>" class="email-setting full-width font-primary text-cht-gray-150">
-                            <div class="chaty-switch">
-                            <input class="captcha-setting-field" type="checkbox" id="enable_recaptcha_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[enable_recaptcha]" <?php checked($field_value, "yes") ?> disabled>
+                    <div class="form-field-setting-col my-3 no-margin">
+                        <input type="hidden" value="no"name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_in_email]">
+                        <input type="hidden" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[save_leads_locally]">
+                        <?php $fieldValue = isset($val['save_leads_locally']) ? $val['save_leads_locally'] : "yes" ?>
+                        <div class="chaty-setting-col">
+                            <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base" for="save_leads_locally_<?php echo esc_attr($social['slug']); ?>">
+                                <input type="checkbox" disabled id="save_leads_locally_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[save_leads_locally]" <?php checked($fieldValue, "yes") ?>>
                                 <div class="chaty-slider round"></div>
-                                <?php esc_html_e('Enable reCAPTCHA', 'chaty') ?>
+                                Save leads to<a href="<?php echo esc_url(admin_url("admin.php?page=chaty-contact-form-feed")) ?>" target="_blank">this site</a>
+                                <div class="html-tooltip hidden sm:inline-block top no-position">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="tooltip-text top"><?php echo sprintf(esc_html__("Your leads will be saved in your local database, you'll be able to find them %1\$s here", "chaty"), '<a target="_blank" href="'.esc_url(admin_url("admin.php?page=chaty-contact-form-feed")).'">'.esc_html__("here", "chaty").'</a>') ?></span>
+                                </div>
+                            </label>
+                        </div>
+                        <?php $fieldValue = isset($value['send_leads_in_email']) ? $value['send_leads_in_email'] : "no" ?>
+                        <div class="chaty-setting-col">
+                            <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base no-padding pro-feature" for="save_leads_to_email_<?php echo esc_attr($social['slug']); ?>" class="email-setting full-width font-primary text-cht-gray-150">
+                                <div class="chaty-switch">
+                                    <input class="email-setting-field" disabled type="checkbox" id="save_leads_to_email_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_in_email]">
+                                    <div class="chaty-slider round"></div>
+                                    <?php esc_html_e('Send leads to your email', 'chaty') ?>
+                                </div>
+                                <div>
+                                    <span class="icon label-tooltip" data-label="<?php esc_html_e("Get your leads by email, whenever you get a new email you'll get an email notification", "chaty") ?>">
+                                        <span class="mt-1.5 inline-block">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
+                                        <?php esc_html_e('Upgrade to Pro', 'chaty');?>
+                                    </a>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="email-settings <?php echo ($fieldValue == "yes") ? "active" : "" ?>">
+                            <div class="chaty-setting-col">
+                                <label for="email_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Email address", "chaty") ?></label>
+                                <div>
+                                    <?php $fieldValue = isset($value['email_address']) ? $value['email_address'] : "" ?>
+                                    <input id="email_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[email_address]" value="<?php echo esc_attr($fieldValue); ?>">
+                                </div>
+                            </div>
+                            <div class="chaty-setting-col">
+                                <label for="sender_name_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Sender's name", "chaty") ?></label>
+                                <div>
+                                    <?php $fieldValue = isset($value['sender_name']) ? $value['sender_name'] : "" ?>
+                                    <input id="sender_name_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[sender_name]" value="<?php echo esc_attr($fieldValue); ?>">
+                                </div>
+                            </div>
+                            <div class="chaty-setting-col">
+                                <label for="email_subject_for_<?php echo esc_attr($social['slug']); ?>"><?php esc_html_e("Email subject", "chaty") ?></label>
+                                <div>
+                                    <?php $fieldValue = isset($value['email_subject']) ? $value['email_subject'] : "New lead from Chaty - {name} - {date} {hour}" ?>
+                                    <input id="email_subject_for_<?php echo esc_attr($social['slug']); ?>" type="text" name="cht_social_<?php echo esc_attr($social['slug']); ?>[email_subject]" value="<?php echo esc_attr($fieldValue); ?>">
+                                    <div class="mail-merge-tags">
+                                        <span>{name}</span><span>{phone}</span><span>{email}</span><span>{date}</span><span>{hour}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php $field_value = isset($value['enable_recaptcha']) ? $value['enable_recaptcha'] : "no" ?>
+                        <input type="hidden" value="no" name="cht_social_<?php echo esc_attr($social['slug']); ?>[enable_recaptcha]" >
+                        <div class="chaty-setting-col">
+                            <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base pro-feature" for="enable_recaptcha_<?php echo esc_attr($social['slug']); ?>" class="email-setting full-width font-primary text-cht-gray-150">
+                                <div class="chaty-switch">
+                                <input class="captcha-setting-field" type="checkbox" id="enable_recaptcha_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[enable_recaptcha]" <?php checked($field_value, "yes") ?> disabled>
+                                    <div class="chaty-slider round"></div>
+                                    <?php esc_html_e('Enable reCAPTCHA', 'chaty') ?>
+                                    <span class="header-tooltip">
+                                    <span class="header-tooltip-text text-center">
+                                        <?php printf(esc_html__("Click %1\$s to add your website. (please make sure you select V3). After adding your website you'll get your site Key and secret key.", "chaty"), "<a target='_blank' href='https://www.google.com/recaptcha/admin/create'>".esc_html__("here", "chaty")."</a>") ?>
+                                    </span>
+                                    <span class="ml-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                                </div>
+                                <div>
+                                    <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
+                                        <?php esc_html_e('Upgrade to Pro', 'chaty');?>
+                                    </a>
+                                </div>
+                            </label>
+                        </div>
+                        <?php $field_value = isset($value['capture_ip_address']) ? $value['capture_ip_address'] : "no" ?>
+                        <input type="hidden" value="no" name="cht_social_<?php echo esc_attr($social['slug']); ?>[capture_ip_address]" >
+                        <div class="chaty-setting-col">
+                            <label for="capture_ip_address_<?php echo esc_attr($social['slug']); ?>" class="full-width chaty-switch text-base text-cht-gray-150 flex items-center group-custom pro-feature">
+                                <input class="capture-ip-address-field" type="checkbox" id="capture_ip_address_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[capture_ip_address]" <?php checked($field_value, "yes") ?> disabled>
+                                <div class="chaty-slider round"></div>
+                                <?php esc_html_e("Capture IP address", "chaty") ?>
                                 <span class="header-tooltip">
                                 <span class="header-tooltip-text text-center">
-                                    <?php printf(esc_html__("Click %1\$s to add your website. (please make sure you select V3). After adding your website you'll get your site Key and secret key.", "chaty"), "<a target='_blank' href='https://www.google.com/recaptcha/admin/create'>".esc_html__("here", "chaty")."</a>") ?>
+                                    <?php printf(esc_html__("Capture the visitor's IP address when they submit the form.")) ?>
                                 </span>
                                 <span class="ml-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -919,60 +997,33 @@ $isAgent = 0;
                                         <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
                                 </span>
-                            </span>
-                            </div>
-                            <div>
-                                <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
-                                    <?php esc_html_e('Upgrade to Pro', 'chaty');?>
-                                </a>
-                            </div>
-                        </label>
-                    </div>
-                    <?php $field_value = isset($value['capture_ip_address']) ? $value['capture_ip_address'] : "no" ?>
-                    <input type="hidden" value="no" name="cht_social_<?php echo esc_attr($social['slug']); ?>[capture_ip_address]" >
-                    <div class="chaty-setting-col">
-                        <label for="capture_ip_address_<?php echo esc_attr($social['slug']); ?>" class="full-width chaty-switch text-base text-cht-gray-150 flex items-center group-custom pro-feature">
-                            <input class="capture-ip-address-field" type="checkbox" id="capture_ip_address_<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[capture_ip_address]" <?php checked($field_value, "yes") ?> disabled>
-                            <div class="chaty-slider round"></div>
-                            <?php esc_html_e("Capture IP address", "chaty") ?>
-                            <span class="header-tooltip">
-                            <span class="header-tooltip-text text-center">
-                                <?php printf(esc_html__("Capture the visitor's IP address when they submit the form.")) ?>
-                            </span>
-                            <span class="ml-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M8.00004 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8.00004 1.33203C4.31814 1.33203 1.33337 4.3168 1.33337 7.9987C1.33337 11.6806 4.31814 14.6654 8.00004 14.6654Z" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M8 10.6667V8" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M8 5.33203H8.00667" stroke="#72777c" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                            </span>
-                            </span>
-                            <div>
-                                <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
-                                    <?php esc_html_e('Upgrade to Pro', 'chaty');?>
-                                </a>
-                            </div>
-                        </label>
-                    </div>
-                    <?php $field_value = isset($value['send_leads_mailchimp_mailpoet']) ? $value['send_leads_mailchimp_mailpoet'] : "no" ?>
-                    <input type="hidden" value="no" name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_mailchimp_mailpoet]" >
-                    <div class="chaty-setting-col">
-                        <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base pro-feature" for="send_leads_mailchimp_mailpoet<?php echo esc_attr($social['slug']); ?>" class="email-setting full-width font-primary text-cht-gray-150">
-                            <div class="chaty-switch">
-                                <input class="" type="checkbox" id="send_leads_mailchimp_mailpoet<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_mailchimp_mailpoet]" <?php checked($field_value, "yes") ?> disabled>
-                                <div class="chaty-slider round"></div>
-                                <?php esc_html_e('Send leads to Mailchimp/Klaviyo', 'chaty') ?>
-                            </div>
-                            <div>
-                                <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
-                                    <?php esc_html_e('Upgrade to Pro', 'chaty');?>
-                                </a>
-                            </div>
-                        </label>
+                                </span>
+                                <div>
+                                    <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
+                                        <?php esc_html_e('Upgrade to Pro', 'chaty');?>
+                                    </a>
+                                </div>
+                            </label>
+                        </div>
+                        <?php $field_value = isset($value['send_leads_mailchimp_mailpoet']) ? $value['send_leads_mailchimp_mailpoet'] : "no" ?>
+                        <input type="hidden" value="no" name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_mailchimp_mailpoet]" >
+                        <div class="chaty-setting-col">
+                            <label class="text-cht-gray-150 font-primary full-width chaty-switch text-base pro-feature" for="send_leads_mailchimp_mailpoet<?php echo esc_attr($social['slug']); ?>" class="email-setting full-width font-primary text-cht-gray-150">
+                                <div class="chaty-switch">
+                                    <input class="" type="checkbox" id="send_leads_mailchimp_mailpoet<?php echo esc_attr($social['slug']); ?>" value="yes" name="cht_social_<?php echo esc_attr($social['slug']); ?>[send_leads_mailchimp_mailpoet]" <?php checked($field_value, "yes") ?> disabled>
+                                    <div class="chaty-slider round"></div>
+                                    <?php esc_html_e('Send leads to Mailchimp/Klaviyo', 'chaty') ?>
+                                </div>
+                                <div>
+                                    <a class="opacity-0 px-5 py-1.5 group-hover:opacity-100 ml-4 pro-btn bg-cht-primary inline-block rounded-[6px] text-white hover:text-white" target="_blank" href="<?php echo esc_url($this->getUpgradeMenuItemUrl());?>">
+                                        <?php esc_html_e('Upgrade to Pro', 'chaty');?>
+                                    </a>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            <?php } ?>
             <div class="Whatsapp-settings advanced-settings">
                 <?php $preSetMessage = isset($value['pre_set_message']) ? $value['pre_set_message'] : ""; ?>
                 <?php $embedded_window = isset($value['embedded_window']) ? $value['embedded_window'] : "no"; ?>
@@ -1076,7 +1127,10 @@ $isAgent = 0;
                                 </div>
                             </div>
                             <div class="chaty-setting-col inline-options">
-                                <?php $wechat_header_color = isset($value['wechat_header_color']) ? $value['wechat_header_color'] : "#A886CD" ?>
+                                <?php
+                                $wechat_header_color = isset($value['wechat_header_color']) ? $value['wechat_header_color'] : "#A886CD";
+                                $wechat_header_color = $this->validate_color($wechat_header_color, "#A886CD");
+                                ?>
                                 <label class="font-primary text-base text-cht-gray-150 sm:w-44">
                                     <?php esc_html_e("Header Background", "chaty") ?>
                                 </label>

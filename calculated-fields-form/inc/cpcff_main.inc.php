@@ -562,7 +562,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					if ( ! isset( $this->_iframe_nonces[ $id ] ) ) {
 						$this->_iframe_nonces[ $id ] = wp_create_nonce( 'cff-iframe-nonce-' . $id );
 					}
-
+					$form_obj = $this->get_form( $id );
 					$url  = CPCFF_AUXILIARY::site_url( true );
 					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff-form=' . $id . '&cff-form-target=_top&_nonce=' . $this->_iframe_nonces[ $id ];
 
@@ -576,14 +576,19 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						}
 					}
 
-					$iframe_tag = '<iframe ';
+					$iframe_id  = uniqid( 'cff-iframe-' );
+					$iframe_tag = '<iframe ' . ' id="' . $iframe_id . '"';
+
+					if ( ! empty( $form_obj ) ) {
+						$iframe_tag = $form_obj->get_height( '#' . $iframe_id ) . $iframe_tag;
+					}
+
 					if ( ! empty( $atts['asynchronous'] ) ) {
-						$iframe_id  = uniqid( 'cff-iframe-' );
-						$iframe_tag = '<script>window.addEventListener("load", function(){let el = document.getElementById("' . $iframe_id . '"); if(el) el.setAttribute("src", el.getAttribute("data-cff-src"));});</script>' . $iframe_tag . ' id="' . $iframe_id . '" src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
+						$iframe_tag = '<script>window.addEventListener("load", function(){let el = document.getElementById("' . $iframe_id . '"); if(el) el.setAttribute("src", el.getAttribute("data-cff-src"));});</script>' . $iframe_tag . ' src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
 					} else {
 						$iframe_tag .= ' src="' . esc_attr( $url ) . '"';
 					}
-					$iframe_tag .= ' style="border:none;width:100%;overflow-y:hidden;" onload="this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;" scrolling="no"></iframe>';
+					$iframe_tag .= ' style="border:none;width:100%;overflow-y:hidden;" onload="this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;this.style.minHeight=\'auto\';" scrolling="no"></iframe>';
 
 					return $iframe_tag;
 				}

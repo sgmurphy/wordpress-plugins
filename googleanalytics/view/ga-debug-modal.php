@@ -5,7 +5,7 @@
  * @package GoogleAnalytics
  */
 
-$sdb = filter_input( INPUT_GET, 'sdb', FILTER_SANITIZE_STRING );
+$sdb = filter_input( INPUT_GET, 'sdb', FILTER_UNSAFE_RAW );
 
 $debug_info = isset( $debug_info ) ? $debug_info : array();
 $show_modal = false === empty( $sdb ) ? 'style=display:block;' : '';

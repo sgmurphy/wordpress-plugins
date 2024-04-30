@@ -366,7 +366,7 @@ class NewsletterModuleAdmin extends NewsletterModuleBase {
             case TNP_User::STATUS_COMPLAINED: $class = 'complained';
                 break;
         }
-        return '<span class="tnp-status tnp-user-status tnp-user-status--' . $class . '">' . esc_html($label) . '</span>';
+        return '<span class="tnp-status tnp-user-status tnp-user-status--' . esc_attr($class) . '">' . esc_html($label) . '</span>';
     }
 
     /**

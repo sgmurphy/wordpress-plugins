@@ -503,17 +503,17 @@
         },
         {
             "name": "fernleafsystems/wordpress-services",
-            "version": "3.10.5",
-            "version_normalized": "3.10.5.0",
+            "version": "3.10.7",
+            "version_normalized": "3.10.7.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services.git",
-                "reference": "486891142caaafcd7e18a66d39d433207a1f720a"
+                "reference": "5d1fb1e05df428e86a5736ded8c32813520af296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/fernleafsystems%2Fwordpress%2Fwordpress-services/repository/archive.zip?sha=486891142caaafcd7e18a66d39d433207a1f720a",
-                "reference": "486891142caaafcd7e18a66d39d433207a1f720a",
+                "url": "https://gitlab.com/api/v4/projects/fernleafsystems%2Fwordpress%2Fwordpress-services/repository/archive.zip?sha=5d1fb1e05df428e86a5736ded8c32813520af296",
+                "reference": "5d1fb1e05df428e86a5736ded8c32813520af296",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +531,7 @@
                 "soundasleep/html2text": "~0.5.0",
                 "twig/twig": "^1.42"
             },
-            "time": "2024-03-25T10:09:57+00:00",
+            "time": "2024-04-04T08:57:13+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -552,7 +552,7 @@
             "description": "Base WordPress Services provider for all AptoWeb WordPress plugins",
             "support": {
                 "issues": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services/-/issues",
-                "source": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services/-/tree/3.10.5"
+                "source": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services/-/tree/3.10.7"
             },
             "install-path": "../fernleafsystems/wordpress-services"
         },
@@ -2090,23 +2090,23 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.2",
-            "version_normalized": "2.5.2.0",
+            "version": "v2.5.3",
+            "version_normalized": "2.5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66"
+                "reference": "80d075412b557d41002320b96a096ca65aa2c98d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
-                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/80d075412b557d41002320b96a096ca65aa2c98d",
+                "reference": "80d075412b557d41002320b96a096ca65aa2c98d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2022-01-02T09:53:40+00:00",
+            "time": "2023-01-24T14:02:46+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2140,7 +2140,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.2"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.3"
             },
             "funding": [
                 {
@@ -2491,24 +2491,24 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.36",
-            "version_normalized": "5.4.36.0",
+            "version": "v5.4.39",
+            "version_normalized": "5.4.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "4fdf34004f149cc20b2f51d7d119aa500caad975"
+                "reference": "85a554acd7c28522241faf2e97b9541247a0d3d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/4fdf34004f149cc20b2f51d7d119aa500caad975",
-                "reference": "4fdf34004f149cc20b2f51d7d119aa500caad975",
+                "url": "https://api.github.com/repos/symfony/process/zipball/85a554acd7c28522241faf2e97b9541247a0d3d5",
+                "reference": "85a554acd7c28522241faf2e97b9541247a0d3d5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2024-02-12T15:49:53+00:00",
+            "time": "2024-04-18T08:26:06+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2536,7 +2536,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v5.4.36"
+                "source": "https://github.com/symfony/process/tree/v5.4.39"
             },
             "funding": [
                 {
@@ -2556,17 +2556,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v5.4.35",
-            "version_normalized": "5.4.35.0",
+            "version": "v5.4.39",
+            "version_normalized": "5.4.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "77d7d1e46f52827585e65e6cd6f52a2542e59c72"
+                "reference": "0fabede35e3985c4f96089edeeefe8313e15ca3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/77d7d1e46f52827585e65e6cd6f52a2542e59c72",
-                "reference": "77d7d1e46f52827585e65e6cd6f52a2542e59c72",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/0fabede35e3985c4f96089edeeefe8313e15ca3a",
+                "reference": "0fabede35e3985c4f96089edeeefe8313e15ca3a",
                 "shasum": ""
             },
             "require": {
@@ -2605,7 +2605,7 @@
                 "symfony/config": "",
                 "symfony/yaml": ""
             },
-            "time": "2024-01-23T13:51:25+00:00",
+            "time": "2024-04-18T08:26:06+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2636,7 +2636,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.4.35"
+                "source": "https://github.com/symfony/translation/tree/v5.4.39"
             },
             "funding": [
                 {
@@ -2656,17 +2656,17 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v2.5.2",
-            "version_normalized": "2.5.2.0",
+            "version": "v2.5.3",
+            "version_normalized": "2.5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "136b19dd05cdf0709db6537d058bcab6dd6e2dbe"
+                "reference": "b0073a77ac0b7ea55131020e87b1e3af540f4664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/136b19dd05cdf0709db6537d058bcab6dd6e2dbe",
-                "reference": "136b19dd05cdf0709db6537d058bcab6dd6e2dbe",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/b0073a77ac0b7ea55131020e87b1e3af540f4664",
+                "reference": "b0073a77ac0b7ea55131020e87b1e3af540f4664",
                 "shasum": ""
             },
             "require": {
@@ -2675,7 +2675,7 @@
             "suggest": {
                 "symfony/translation-implementation": ""
             },
-            "time": "2022-06-27T16:58:25+00:00",
+            "time": "2024-01-23T13:51:25+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2717,7 +2717,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v2.5.2"
+                "source": "https://github.com/symfony/translation-contracts/tree/v2.5.3"
             },
             "funding": [
                 {

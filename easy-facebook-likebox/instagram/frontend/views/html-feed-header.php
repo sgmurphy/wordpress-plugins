@@ -1,13 +1,12 @@
 <?php
 
-if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error) ) {
+if ( !isset( $esf_insta_user_data->error ) && empty( $esf_insta_user_data->error ) ) {
     do_action( 'esf_insta_before_feed_header', $esf_insta_user_data );
     $stories = '';
     $stories_exists = false;
     $esf_insta_stories_popup_url = '';
     if ( $show_stories ) {
     }
-    
     if ( $mif_instagram_type == 'personal' ) {
         $mif_self_name = $mif_instagram_personal_accounts[$user_id]['username'];
         $mif_self_username = $mif_self_name;
@@ -15,21 +14,17 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
         $mif_self_name = $esf_insta_user_data->name;
         $mif_self_username = $esf_insta_user_data->username;
     }
-    
     $mif_self_name = apply_filters( 'esf_insta_feed_header_name', $mif_self_name, $esf_insta_user_data );
-    
-    if ( $hashtag && !empty($hashtag) ) {
+    if ( $hashtag && !empty( $hashtag ) ) {
         $mif_self_username = 'explore/tags/' . $hashtag;
         $mif_self_name = '#' . $hashtag;
     }
-    
     ?>
 
 	<div class="esf_insta_header">
 		<div class="esf_insta_header_inner_wrap">
 
 			<?php 
-    
     if ( $profile_picture && $mif_values['show_dp'] && !$hashtag ) {
         ?>
 
@@ -42,15 +37,14 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
         ?>">
 
 					<?php 
-        
         if ( $stories_exists ) {
             ?>
 						<a class="esf_insta_stories_popup" href="javascript;"
 						   data-fancybox="esf_insta_stories_popup_<?php 
-            echo  esc_attr( $user_id ) ;
+            echo esc_attr( $user_id );
             ?>"
 						   title="@<?php 
-            echo  esc_attr( $mif_self_name ) ;
+            echo esc_attr( $mif_self_name );
             ?>"
 						   data-type="ajax"
 						   data-src="<?php 
@@ -60,19 +54,18 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
         } else {
             ?>
 						<a href="<?php 
-            echo  esc_url( $this->instagram_url ) ;
+            echo esc_url( $this->instagram_url );
             ?>/<?php 
             esc_attr_e( $mif_self_username );
             ?>"
 						   title="@<?php 
-            echo  esc_attr_e( $mif_self_name ) ;
+            echo esc_attr_e( $mif_self_name );
             ?>"
 						   target="<?php 
             esc_attr_e( $link_target );
             ?>">
 					<?php 
         }
-        
         ?>
 
 							<?php 
@@ -83,11 +76,11 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
         ?>
 
 							<img src="<?php 
-        echo  esc_url( apply_filters( 'esf_insta_feed_header_image', $profile_picture, $esf_insta_user_data ) ) ;
+        echo esc_url( apply_filters( 'esf_insta_feed_header_image', $profile_picture, $esf_insta_user_data ) );
         ?>"/>
 
 							<?php 
-        if ( $hashtag && !empty($hashtag) ) {
+        if ( $hashtag && !empty( $hashtag ) ) {
             ?>
 
 								<span class="esf-insta-hashtag-overlay"><i
@@ -105,13 +98,11 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
 
 				<?php 
     }
-    
     ?>
 			<div class="esf_insta_header_content">
 				<div class="esf_insta_header_meta">
 
 					<?php 
-    
     if ( $mif_self_name ) {
         ?>
 
@@ -123,7 +114,7 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
 
 							<h4>
 								<a href="<?php 
-        echo  esc_url( $this->instagram_url ) ;
+        echo esc_url( $this->instagram_url );
         ?>/<?php 
         esc_attr_e( $mif_self_username );
         ?>"
@@ -147,18 +138,16 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
 
 					<?php 
     }
-    
     ?>
 
 					<?php 
     if ( $mif_instagram_type !== 'personal' && isset( $esf_insta_user_data->followers_count ) && $esf_insta_user_data->followers_count > 0 && !$hashtag ) {
-        
         if ( $mif_values['show_no_of_followers'] ) {
             ?>
 
 							<div class="esf_insta_followers"
 								 title="<?php 
-            echo  __( 'Followers', 'easy-facebook-likebox' ) ;
+            echo __( 'Followers', 'easy-facebook-likebox' );
             ?>">
 
 								<?php 
@@ -167,7 +156,7 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
 
 								<i class="icon icon-esf-user"
 								   aria-hidden="true"></i><?php 
-            echo  esf_insta_readable_count( apply_filters( 'esf_insta_feed_header_followers', $esf_insta_user_data->followers_count, $esf_insta_user_data ) ) ;
+            echo esf_insta_readable_count( apply_filters( 'esf_insta_feed_header_followers', $esf_insta_user_data->followers_count, $esf_insta_user_data ) );
             ?>
 
 								<?php 
@@ -177,7 +166,6 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
 
 							<?php 
         }
-    
     }
     ?>
 
@@ -185,19 +173,17 @@ if ( !isset( $esf_insta_user_data->error ) && empty($esf_insta_user_data->error)
 				</div>
 				<?php 
     if ( $mif_instagram_type !== 'personal' && isset( $esf_insta_user_data->biography ) && !$hashtag ) {
-        
         if ( $mif_values['show_bio'] ) {
             do_action( 'esf_insta_before_feed_header_bio', $esf_insta_user_data );
             ?>
 
 						<p class="esf_insta_bio"><?php 
-            echo  sanitize_text_field( apply_filters( 'esf_insta_feed_header_bio', $esf_insta_user_data->biography, $esf_insta_user_data ) ) ;
+            echo sanitize_text_field( apply_filters( 'esf_insta_feed_header_bio', $esf_insta_user_data->biography, $esf_insta_user_data ) );
             ?></p>
 
 						<?php 
             do_action( 'esf_insta_after_feed_header_bio', $esf_insta_user_data );
         }
-    
     }
     ?>
 			</div>

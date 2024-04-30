@@ -80,7 +80,7 @@ class SamplingHandler extends \GFPDF_Vendor\Monolog\Handler\AbstractHandler impl
      *
      * @return HandlerInterface
      */
-    public function getHandler(array $record = null)
+    public function getHandler(?array $record = null)
     {
         if (!$this->handler instanceof \GFPDF_Vendor\Monolog\Handler\HandlerInterface) {
             $this->handler = ($this->handler)($record, $this);

@@ -2,7 +2,6 @@
 
 do_action( 'esf_insta_before_feed_footer', $esf_insta_feed );
 $combined_atts = $hashtag . '+' . $feeds_per_page . '+' . $caption_words . '+' . $skin_id . '+' . $cache_seconds . '+' . $user_id . '+' . $link_target . '+' . $is_moderate . '+' . $profile_picture;
-
 if ( $mif_instagram_type == 'personal' ) {
     $mif_self_name = $mif_instagram_personal_accounts[$user_id]['username'];
     $mif_self_username = $mif_self_name;
@@ -10,14 +9,11 @@ if ( $mif_instagram_type == 'personal' ) {
     $mif_self_name = $esf_insta_user_data->name;
     $mif_self_username = $esf_insta_user_data->username;
 }
-
-
-if ( $hashtag && !empty($hashtag) ) {
+if ( $hashtag && !empty( $hashtag ) ) {
     $mif_self_username = 'explore/tags/' . $hashtag;
     $mif_self_name = '#' . $hashtag;
 }
-
-if ( isset( $insta_settings['moderated'][$user_id]['ids'] ) && !empty($insta_settings['moderated'][$user_id]['ids']) ) {
+if ( isset( $insta_settings['moderated'][$user_id]['ids'] ) && !empty( $insta_settings['moderated'][$user_id]['ids'] ) ) {
     $i = $feeds_per_page;
 }
 ?>
@@ -30,9 +26,9 @@ if ( isset( $insta_settings['moderated'][$user_id]['ids'] ) && !empty($insta_set
 
 			<div class="esf-insta-follow-btn-wrap">
 				<a href="<?php 
-echo  esc_url( $this->instagram_url ) ;
+echo esc_url( $this->instagram_url );
 ?>/<?php 
-echo  esc_attr_e( $mif_self_username ) ;
+echo esc_attr_e( $mif_self_username );
 ?>"
 				   class="esf-insta-follow-btn" target="<?php 
 esc_attr_e( $link_target );
