@@ -358,11 +358,11 @@ final class L_Theplus_Element_Load {
 			}
 
 			$to_return = array();
-
+	
 			\Elementor\Plugin::$instance->db->iterate_data(
 				$meta_data,
 				function ( $element ) use ( $tp_widgets_list, &$to_return ) {
-					$page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+					$page = ! empty( $_GET['page'] ) ? wp_unslash( $_GET['page'] ) : '';
 
 					if ( 'tpewidpage' === $page ) {
 						if ( ! empty( $element['widgetType'] ) && array_key_exists( str_replace( '-', '_', $element['widgetType'] ), array_flip( $tp_widgets_list ) ) ) {
@@ -398,7 +398,7 @@ final class L_Theplus_Element_Load {
 
 		$message = '';
 
-		$sacaneddatapass = ! empty( $_GET['SacanedDataPass'] ) ?  wp_unslash( $_GET['SacanedDataPass'] ) : '';
+		$sacaneddatapass = ! empty( $_GET['SacanedDataPass'] ) ? wp_unslash( $_GET['SacanedDataPass'] ) : '';
 		if ( isset( $sacaneddatapass ) && ! empty( $sacaneddatapass ) ) {
 			$tp_widgets_list = '';
 

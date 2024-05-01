@@ -457,17 +457,17 @@
         },
         {
             "name": "fernleafsystems/wordpress-plugin-core",
-            "version": "2.4.4",
-            "version_normalized": "2.4.4.0",
+            "version": "2.4.7",
+            "version_normalized": "2.4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/fernleafsystems/wordpress/wordpress-plugin-core.git",
-                "reference": "630edb54c69953bad412b49396331770919b55ae"
+                "reference": "cc45dbed84c5a07388bd4220cabfb5d6532b2308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/fernleafsystems%2Fwordpress%2Fwordpress-plugin-core/repository/archive.zip?sha=630edb54c69953bad412b49396331770919b55ae",
-                "reference": "630edb54c69953bad412b49396331770919b55ae",
+                "url": "https://gitlab.com/api/v4/projects/fernleafsystems%2Fwordpress%2Fwordpress-plugin-core/repository/archive.zip?sha=cc45dbed84c5a07388bd4220cabfb5d6532b2308",
+                "reference": "cc45dbed84c5a07388bd4220cabfb5d6532b2308",
                 "shasum": ""
             },
             "require": {
@@ -476,7 +476,7 @@
                 "nullpunkt/lz-string-php": "^1.3",
                 "php": ">=7.2"
             },
-            "time": "2024-01-11T11:08:04+00:00",
+            "time": "2024-05-01T11:35:14+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -497,7 +497,7 @@
             "description": "AptoWeb Plugin Core",
             "support": {
                 "issues": "https://gitlab.com/fernleafsystems/wordpress/wordpress-plugin-core/-/issues",
-                "source": "https://gitlab.com/fernleafsystems/wordpress/wordpress-plugin-core/-/tree/2.4.4"
+                "source": "https://gitlab.com/fernleafsystems/wordpress/wordpress-plugin-core/-/tree/2.4.7"
             },
             "install-path": "../fernleafsystems/wordpress-plugin-core"
         },

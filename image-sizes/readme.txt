@@ -4,7 +4,7 @@ Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&ut
 Tags: disable thumbnail, image editor, wordpress image, convert to webp, large images
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 5.0
+Stable tag: 5.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,9 +13,7 @@ Disable and Regenerate Thumbnails, Compress Images, Convert Images to WebP, Find
 
 == Description ==
 
-Meet **ThumbPress** - your comprehensive solution for all image and thumbnail management issues on WordPress. 🔥
-
-With ThumbPress, you can easily Disable Thumbnails, Regenerate Thumbnails, Compress Images, Convert Images to WebP, Detect Large Images, Disable Right Click on Images, Social Media Thumbnails, Set Image Upload Limit,  Edit Images, and much more.
+Meet ThumbPress - your comprehensive solution for all image and thumbnail management issues on WordPress. With ThumbPress, you can easily Disable Thumbnails, Regenerate Thumbnails, Compress Images, Convert Images to WebP, Detect Large Images, Disable Right Click on Images, Social Media Thumbnails, Set Image Upload Limit,  Edit Images, and much more.
 
 As you already know, the default WordPress system falls behind in providing an efficient solution for image and thumbnail management. This results in slower site performance and increased server space usage. To solve these issues, site owners often use multiple plugins, which can sometimes worsen the problem.
 
@@ -69,7 +67,7 @@ Disable the right-click function on your website, a simple yet effective way to 
 🔥 [Replace Image with New Version](https://thumbpress.co/modules/replace-image-with-new-version/) [Pro]
 🔥 [Image Editor](https://thumbpress.co/modules/image-editor/) [Pro]
 
-Check out our [Pro Features](https://thumbpress.co/) and [Pricing Plans](https://thumbpress.co/pricing/) here - [https://thumbpress.co/](https://thumbpress.co/)
+Check out our [Pro Features](https://thumbpress.co/) and [Pricing Plans](https://thumbpress.co/pricing/) here - https://thumbpress.co/
 
 #### 🌟 Detect Large Images
 
@@ -100,8 +98,7 @@ Highlight the finest aspects of your images with ThumbPress's array of filters a
 
 1. Upload the plugin to the `/wp-content/plugins/` directory
 2. Activate the plugin through the **Plugins** menu in WordPress
-3. Go to the **ThumbPress** menu from the left and configure your modules.
-4. Enjoy 🌟
+3. Go to the **ThumbPress** menu from the left and choose which of the sizes you want to prevent from generating.
 
 == Screenshots ==
 
@@ -157,8 +154,19 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 
 == Changelog ==
 
+= 2024-05-01 - 5.0.2 =
+* [fix] fixed pinterest thumbnail in social share images module
+* [fix] fixed typographic issues in sereral modules
+* [fix] fixed Setup Wizard skip button URL
+* [fix] fixed some minor issues in Setup Wizard
+* [add] Pinterest pin support added for woocommerce product in social share images module
+* [add] fallback image meta tag added for Twitter card in social share images module
+* [imp] Pinterest pin meta tag updated in social share images module
+* [imp] improved some styles
+
 = 2024-04-29 - 5.0.1 =
 * [fix] JS and CSS minified
+* [fix] Compat tested with WordPress 6.5.2
 
 = 2024-04-29 - 5.0 =
 * [new] 🚀 Introduced modules-

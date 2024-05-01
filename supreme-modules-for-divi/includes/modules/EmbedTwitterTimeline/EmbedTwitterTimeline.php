@@ -4,6 +4,7 @@ class DSM_TwitterEmbeddedTimeline extends ET_Builder_Module {
 
 	public $slug       = 'dsm_embed_twitter_timeline';
 	public $vb_support = 'on';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

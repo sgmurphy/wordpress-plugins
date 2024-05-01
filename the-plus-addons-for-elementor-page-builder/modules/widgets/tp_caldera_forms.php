@@ -93,7 +93,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 				'label'   => esc_html__( 'Select Form', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => '0',
-				'options' => l_theplus_caldera_forms(),
+				'options' => $this->l_theplus_caldera_forms(),
 			)
 		);
 
@@ -2595,31 +2595,7 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 		$this->end_controls_section();
 	}
 
-	/**
-	 * Get Shortcode.
-	 *
-	 * @since 1.0.0
-	 * @version 5.4.2
-	 */
-	private function get_shortcode() {
-		$settings = $this->get_settings_for_display();
-		$c_form   = ! empty( $settings['caldera_forms'] ) ? $settings['caldera_forms'] : '0';
-
-		if ( '0' === $c_form ) {
-			return '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a Caldera Forms', 'tpebl' ) . '</h3>';
-		}
-
-		$attributes = array(
-			'id' => $c_form,
-		);
-		$this->add_render_attribute( 'shortcode', $attributes );
-
-		$shortcode   = array();
-		$shortcode[] = sprintf( '[caldera_form %s]', $this->get_render_attribute_string( 'shortcode' ) );
-
-		return implode( '', $shortcode );
-	}
-
+	
 	/**
 	 * Render caldera form.
 	 *
@@ -2669,5 +2645,56 @@ class L_ThePlus_Caldera_Forms extends Widget_Base {
 		$output     .= '</div>';
 
 		echo $output;
+	}
+
+	/**
+	 * Get Shortcode.
+	 *
+	 * @since 1.0.0
+	 * @version 5.4.2
+	 */
+	private function get_shortcode() {
+		$settings = $this->get_settings_for_display();
+		$c_form   = ! empty( $settings['caldera_forms'] ) ? $settings['caldera_forms'] : '0';
+
+		if ( '0' === $c_form ) {
+			return '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a Caldera Forms', 'tpebl' ) . '</h3>';
+		}
+
+		$attributes = array(
+			'id' => $c_form,
+		);
+		$this->add_render_attribute( 'shortcode', $attributes );
+
+		$shortcode   = array();
+		$shortcode[] = sprintf( '[caldera_form %s]', $this->get_render_attribute_string( 'shortcode' ) );
+
+		return implode( '', $shortcode );
+	}
+
+	/**
+	 * Get caldera form.
+	 *
+	 * @since 1.0.0
+	 * @version 5.5.2
+	 */
+	function l_theplus_caldera_forms() {
+		if ( class_exists( 'Caldera_Forms' ) ) {
+			$caldera_forms = \Caldera_Forms_Forms::get_forms( true, true );
+			$form_options = ['0' => esc_html__( 'Select Form', 'tpebl' )];
+			$form  = [];
+
+			if ( !empty( $caldera_forms ) && !is_wp_error( $caldera_forms ) ) {
+				foreach ( $caldera_forms as $form ) {
+					if ( isset($form['ID']) and isset($form['name'])) {
+						$form_options[$form['ID']] = $form['name'];
+					}   
+				}
+			}
+		} else {
+			$form_options = ['0' => esc_html__( 'Form Not Found!', 'tpebl' ) ];
+		}
+
+		return $form_options;
 	}
 }

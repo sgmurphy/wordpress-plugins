@@ -1465,6 +1465,9 @@ input:checked + .thumb-toggle-slider:before {
 .compat-item {
 	background-color: #ffffff;
 }
+.compat-item .media-types.media-types-required-info {
+    display: none;
+}
 .compat-item::before {
 	content: '';
     width: 150px;
@@ -1479,7 +1482,7 @@ input:checked + .thumb-toggle-slider:before {
 .compat-item .label span {
 	font-size: 13px;
 	font-weight: 500;
-	line-height: 26px;
+	line-height: 16px;
 	text-align: right;
 }
 .compat-item .thumbpress_img_btn {

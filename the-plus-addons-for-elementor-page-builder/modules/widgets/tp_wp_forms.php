@@ -118,7 +118,7 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 				'label'   => esc_html__( 'Select Form', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => '0',
-				'options' => l_theplus_wpforms_forms(),
+				'options' => $this->l_theplus_wpforms_forms(),
 			)
 		);
 		$this->add_control(
@@ -2406,4 +2406,35 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 		$output .= '</div>';
 		echo $output;
 	}
+
+	/**
+	 * Wp Form Render.
+	 *
+	 * @since 1.0.1
+	 * @version 5.5.2
+	 */
+    function l_theplus_wpforms_forms() {
+        $options = array();
+        if ( class_exists( '\WPForms\WPForms' ) ) {
+
+            $args = array(
+                'post_type' => 'wpforms',
+                'posts_per_page' => -1
+            );
+
+            $contact_forms = get_posts( $args );
+
+            if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
+                $options[0] = esc_html__( 'Select a WPForm', 'tpebl' );
+                foreach ( $contact_forms as $post ) {   
+                    $options[ $post->ID ] = $post->post_title;
+                }
+            }
+        } else {
+            $options[0] = esc_html__( 'Create a Form First', 'tpebl' );
+        }
+
+        return $options;
+    }
+
 }

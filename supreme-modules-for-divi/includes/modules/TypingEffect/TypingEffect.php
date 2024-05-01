@@ -17,6 +17,7 @@ class DSM_TypingEffect extends ET_Builder_Module {
 	 * @var $vb_support Visual Builder Support.
 	 */
 	public $vb_support = 'on';
+	public $icon_path;
 	/**
 	 * Module Credits.
 	 *
@@ -741,7 +742,7 @@ class DSM_TypingEffect extends ET_Builder_Module {
 				esc_attr( " data-dsm-typing-delay={$animation_delay}" ),
 				esc_attr( " data-dsm-typing-viewport={$typing_viewport}" ),
 				esc_attr( " data-dsm-typing-repeat={$typing_viewport_repeat}" ),
-				esc_html( $typing_cursor )
+				htmlspecialchars( esc_attr( $typing_cursor ), ENT_QUOTES )
 			);
 		}
 

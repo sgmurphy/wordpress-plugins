@@ -13,13 +13,33 @@
             dismiss: false,
             loop: true,
             counter: 0,
-            mobile: true
-
+            mobile: true,
+            max_notification_count:0
         }, window.pi_notification_runner_setting);
+
+        this.maxNotificationReached = function () {
+            var count = parseInt(sessionStorage.getItem('pisol_sn_counter'));
+            if (count == null) {
+              return false;
+            }
+      
+            if(settings.max_notification_count == 0 || settings.max_notification_count == undefined) return false;
+      
+            if (count >= parseInt(settings.max_notification_count)) {
+              return true;
+            }
+            return false;
+        }
 
         this.getOrders = function () {
             var parent = this;
             var action = 'pisol_live_orders';
+
+            if(parent.maxNotificationReached(parent)){
+                console.log('Max Sales Notification Count Reached');
+                return;
+            }
+            
             jQuery.ajax({
                 type: 'POST',
                 dataType: "json",

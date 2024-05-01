@@ -431,7 +431,8 @@ class Pisol_Sales_Notification_Public {
 			"link_image" => (empty($this->pi_sn_link_image) ? false : true),
 			'audio_alert_enabled' => (empty($this->pi_sn_enable_audio_alert) ? false : true),
 			'audio_url'=> $this->audio_url(),
-			'ajax_url'=>admin_url( 'admin-ajax.php' )
+			'ajax_url'=>admin_url( 'admin-ajax.php' ),
+			'max_notification_count'=> (int)get_option('pi_max_notification_count', 10)
 		);
 		return $setting;
 	}

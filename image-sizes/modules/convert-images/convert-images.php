@@ -54,7 +54,7 @@ class Convert_Images extends Base {
                 ],
 				[
                     'id'       => 'convert-img-one-by-one',
-					'label'    => __( 'Single Image Convertion', 'image-sizes' ),
+					'label'    => __( 'Single Image Conversion', 'image-sizes' ),
 					'desc'     => __( 'Enable this if you want to convert your image to webp one by one.', 'image-sizes' ),
                     'type'     => 'switch',
                     'disabled' => false,
@@ -122,7 +122,7 @@ class Convert_Images extends Base {
 		$html = sprintf( '<button id="thumbpress-pro-convert-image" data-image_id="%1s" class="button thumbpress_img_btn" type="button"><b>%2s</b></button>', $post->ID, __( 'Convert Image', 'image-sizes' ) );
 
 		$form_fields[ 'thumbpress_pro_convert_image' ] = [
-			'label' => sprintf( '%1s', __( 'Convert to Webp', 'image-sizes' ) ),
+			'label' => sprintf( '%1s', __( 'Convert to WebP', 'image-sizes' ) ),
 			'input' => 'html',
 			'html'  => $html,
 		];
@@ -131,7 +131,7 @@ class Convert_Images extends Base {
 	}
 
 	public function convert_all_image() {
-		$images = thumbpress_pro_get_images_by_types( [ 'image/png', 'image/jpeg', 'image/jpg' ], false );
+		$images = thumbpress_get_images_by_types( [ 'image/png', 'image/jpeg', 'image/jpg' ], false );
 
 		foreach( $images as $image ) {
 			$img_id 		= $image->ID;

@@ -2,7 +2,7 @@
 /*
 Plugin Name:Automatic Translate Addon For Loco Translate
 Description:Loco Translate plugin addon to automatic translate plugins and themes translatable string with one click in any language.
-Version:2.4.1
+Version:2.4.2
 License:GPL2
 Text Domain:loco-auto-translate
 Domain Path:languages
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ATLT_FILE', __FILE__ );
 define( 'ATLT_URL', plugin_dir_url( ATLT_FILE ) );
 define( 'ATLT_PATH', plugin_dir_path( ATLT_FILE ) );
-define( 'ATLT_VERSION', '2.4.1' );
+define( 'ATLT_VERSION', '2.4.2' );
 
 /**
  * @package Loco Automatic Translate Addon
@@ -394,6 +394,8 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 					$extraData['dpl_preview']     = 'powered-by-deepl.png';
 					$extraData['yt_preview']      = 'powered-by-yandex.png';
 					$extraData['chatGPT_preview'] = 'powered-by-chatGPT.png';
+					$extraData['extra_class']= is_rtl() ? 'atlt-rtl' : '';
+
 
 					$extraData['loco_settings_url'] = admin_url( 'admin.php?page=loco-config&action=apis' );
 

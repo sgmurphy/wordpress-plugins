@@ -246,6 +246,35 @@ class L_ThePlus_Post_Title extends Widget_Base {
 			)
 		);
 		$this->add_responsive_control(
+			'textAlignment',
+			array(
+				'label'     => esc_html__( 'Text Alignment', 'theplus' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'default'   => 'left',
+				'options'   => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'theplus' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'  => array(
+						'title' => esc_html__( 'Center', 'theplus' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'   => array(
+						'title' => esc_html__( 'Right', 'theplus' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+					'justify' => array(
+						'title' => esc_html__( 'Justify', 'theplus' ),
+						'icon'  => 'eicon-text-align-justify',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .tp-post-title' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
 			'padding',
 			array(
 				'label'      => esc_html__( 'Padding', 'tpebl' ),

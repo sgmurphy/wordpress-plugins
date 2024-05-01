@@ -355,3 +355,22 @@ html.merge-translations:before {
     margin: -12px 160px 5px 0;
   }
 }
+
+/* For RTL dailog */
+div.ui-dialog[aria-describedby="atlt-dialog"].atlt-rtl{
+  left: 50% !important;
+  top: 50%!important;
+  transform: translate(-50%, -50%);
+  right: auto;
+}
+
+
+.atlt_custom_model.atlt-rtl .atlt_actions{
+  right: auto;
+  left: 40px;
+  }
+  
+.atlt_custom_model.atlt-rtl .modal-header .close{
+  right: auto;
+  left: 10px;
+  } 

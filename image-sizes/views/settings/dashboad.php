@@ -191,7 +191,7 @@
         if ( ! $activated ) {
            ?>
             <div class="tp-see-more-btn">
-                <a href="https://thumbpress.co/pricing/"><?php esc_html_e( 'Get ThumbPress Pro', 'image-sizes' ); ?></a>
+                <a href="https://thumbpress.co/"><?php esc_html_e( 'Get ThumbPress Pro', 'image-sizes' ); ?></a>
             </div>
            <?php
         }

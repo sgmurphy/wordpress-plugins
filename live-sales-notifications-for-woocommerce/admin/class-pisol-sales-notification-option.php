@@ -49,6 +49,8 @@ class Class_Pi_Sales_Notification_Option{
 
             array('field'=>'pi_sn_interval_between_popup', 'label'=>__('Time gap between showing of 2 popups (milliseconds)','pisol-sales-notification'),'type'=>'number', 'default'=>6000, 'min'=>1000, 'step'=>50,   'desc'=>__('Once a popup closes then after how much time new popup should open','pisol-sales-notification')),
 
+            array('field'=>'pi_max_notification_count', 'label'=>__('Number of times a popup will be shown to customer in single session'),'type'=>'number', 'default'=> '', 'min'=>0, 'step'=>1,   'desc'=>__('It keeps the count of popup shown to a customer in a single session, if you want to show popup only 3 times then set it to 3, if you want to show it unlimited time then leave it empty, session of the customer end when they close the browser tab')),
+
             
             array('field'=>'title', 'class'=> 'hide-pro bg-primary text-light', 'class_title'=>'text-light font-weight-light h4', 'label'=>__("Other settings",'pisol-sales-notification'), 'type'=>"setting_category"),
 

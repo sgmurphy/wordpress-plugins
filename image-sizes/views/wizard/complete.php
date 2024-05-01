@@ -41,8 +41,8 @@ echo '
 	<h1 class="cx-almost">' . __( 'Congratulations!👏', 'image-sizes' ) . '</h1>
 	<p class="cx-wizard-sub">' . __( 'You are all set to save more server space and get a blazing-fast website by smartly managing images and thumbnails! 😎', 'image-sizes' ) . '</p>'
     . 
-    '<p class="cx-wizard-sub">' . __( "We have revamped the plugin with 10 new exciting features and launched a ThumbPress Pro. To celebrate the grand launch, we're offering up to 50% discount on the pro plans to celebrate the launch.", 'image-sizes' ) . '
-	<a class ="cx-claim" target="_blank" href="https://thumbpress.co/pricing">' . __( 'Get Pro Now', 'image-sizes' ) . '</a>
+    '<p class="cx-wizard-sub">' . __( "We have revamped the plugin with 11 new exciting features and launched a ThumbPress Pro. To celebrate the grand launch, we're offering up to 50% discount on the pro plans to celebrate the launch.", 'image-sizes' ) . '
+	<a class ="cx-claim" target="_blank" href="https://thumbpress.co/">' . __( 'Get Pro Now', 'image-sizes' ) . '</a>
 	</p>';
 	
 echo '

@@ -1,4 +1,4 @@
- === Gallery Plugin for WordPress - Envira Photo Gallery ===
+=== Envira Gallery - Create Stunning Powerful Galleries ===
 Contributors: enviragallery
 Tags: gallery, image gallery, photo gallery, best gallery plugin, wordpress gallery plugin
 Requires at least: 5.5.0
@@ -7,7 +7,7 @@ Requires PHP: 5.6
 Stable tag: 1.8.11
 License: GNU General Public License v2.0 or later
 
-Envira Gallery is the fastest, easiest to use WordPress image gallery plugin. Lightbox with Drag & Drop builder that helps you create beautiful galleries with just a few clicks.
+Envira Gallery is the fastest and most powerful gallery. Our drag & drop builder lets you create beautiful galleries in just a few clicks.
 
 == Description ==
 
@@ -140,7 +140,7 @@ If you like this plugin, then consider checking out our other plugins:
 
 If you like our Envira Gallery plugin, then consider checking out our other projects:
 * <a href="http://soliloquywp.com/" rel="friend" title="Soliloquy">Soliloquy</a> - The Best WordPress Slider Plugin
-* <a href="https://wpforms.com.com/">WP Forms</a> – #1 drag & drop online form builder for WordPress (trusted by 5 million sites).
+* <a href="https://wpforms.com.com/">WP Forms</a> #1 drag & drop online form builder for WordPress (trusted by 5 million sites).
 * <a href="https://optinmonster.com/">OptinMonster</a> - Get more email subscribers with the most popular conversion optimization plugin for WordPress.
 * <a href="https://aioseo.com/">AIOSEO</a> - The original WordPress SEO plugin to help you rank higher in search results (trusted by over 3 million sites).
 * <a href="https://www.monsterinsights.com/">MonsterInsights</a> - See the stats that matter and grow your business with confidence. Best Google Analytics plugin for WordPress.
@@ -406,4 +406,3 @@ Yes, Envira has full translation and localization support via the envira-gallery
 1.8.0
 
 * Added: Enable links in lightbox settings, when lightbox is deactivated.
-

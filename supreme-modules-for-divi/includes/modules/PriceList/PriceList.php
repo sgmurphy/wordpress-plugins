@@ -5,6 +5,7 @@ class DSM_PriceList extends ET_Builder_Module {
 	public $slug       = 'dsm_pricelist';
 	public $vb_support = 'on';
 	public $child_slug = 'dsm_pricelist_child';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

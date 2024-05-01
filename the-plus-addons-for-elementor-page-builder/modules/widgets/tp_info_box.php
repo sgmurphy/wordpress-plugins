@@ -78,6 +78,12 @@ class L_ThePlus_Info_Box extends Widget_Base {
 		return array( 'Info Box', 'Information Box', 'Content Box', 'Text Box', 'Feature Box', 'Icon Box', 'Callout Box', 'Highlight Box', 'Notification Box', 'Alert Box', 'Message Box', 'Card Box', 'Box Widget', 'Box Element', 'Box Container' );
 	}
 
+	/**
+	 * Get custom URL.
+	 *
+	 * @since 1.0.0
+	 * @version 5.4.2
+	 */
 	public function get_custom_help_url() {
 		$doc_url = $this->tp_doc . 'info-box';
 
@@ -1556,7 +1562,26 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				'selector' => '{{WRAPPER}} .pt_plus_button .button-link-wrap',
 			)
 		);
-
+		$this->add_responsive_control(
+			'button_icon_size',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => esc_html__( 'Icon Size', 'theplus' ),
+				'size_units'  => array( 'px' ),
+				'range'       => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 1,
+					),
+				),
+				'render_type' => 'ui',
+				'selectors'   => array(
+					'{{WRAPPER}} .pt_plus_button .button-link-wrap i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .pt_plus_button .button-link-wrap svg' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
 		$this->start_controls_tabs( 'tabs_button_style' );
 
 		$this->start_controls_tab(

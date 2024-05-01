@@ -28,3 +28,38 @@ function thumbpress_generate_webp_file_url( $webp_file_path ) {
     return $webp_file_url;
 }
 endif;
+
+/**
+ * Get images by image types
+ *  
+ * @param array $types array of image types
+ * @return array $image_groups array of image groups by image types
+ */
+if( ! function_exists( 'thumbpress_get_images_by_types' ) ) :
+    function thumbpress_get_images_by_types( $types = [], $sort_by_group = true ) { 
+        $args = array(
+            'post_type'     => 'attachment',
+            'numberposts'   => -1,
+        );
+    
+        $images         = [];
+        $image_types    = $types ? $types : [ 'image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/ico', 'image/svg+xml', 'image/bmp', 'image/webp' ];
+        $attachments    = get_posts( $args );
+    
+        foreach ( $attachments as $key => $attachment ) {
+            $image_type = get_post_mime_type( $attachment->ID );
+    
+            if ( in_array( $image_type, $image_types ) ) {
+                if ( $sort_by_group ) {
+                    $images[$image_type][] = $attachment;
+                }
+                else {
+                    $images[] = $attachment;
+                }
+            }
+        }
+    
+        return $images;
+    }
+    endif;
+    

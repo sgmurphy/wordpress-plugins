@@ -4,6 +4,7 @@ class DSM_Text_Divider extends ET_Builder_Module {
 
 	public $slug       = 'dsm_text_divider';
 	public $vb_support = 'on';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

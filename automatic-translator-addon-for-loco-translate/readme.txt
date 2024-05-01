@@ -3,10 +3,10 @@ Contributors: narinder-singh, satindersingh
 Donate link: https://paypal.me/CoolPlugins/10USD/
 Tags: translate, translation, translator, localization, loco, loco translate, loco addon, google translate, deepl
 Requires at least:5.0
-Tested up to:6.5
+Tested up to:6.5.2
 Requires PHP: 5.6
 Loco Translate Tested Up to: 2.6.7
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -149,6 +149,11 @@ There is no limit. Yes, you can translate unlimited characters without any API k
 4. DeepL Doc Translator (Premium)
 
 == Changelog ==
+<strong>Version 2.4.2 |01/05/2024 </strong>
+<pre>
+Added: Support for Portuguese(Brazil)
+Added: CSS for RTL support
+</pre>
 <strong>Version 2.4.1 |07/02/2024 </strong>
 <pre>
 Fix: Minor bug fixes

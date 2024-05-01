@@ -116,7 +116,7 @@ class L_ThePlus_Everest_form extends Widget_Base {
 				'label'   => esc_html__( 'Select Form', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'none',
-				'options' => l_theplus_get_everest_form_post(),
+				'options' => $this->l_theplus_get_everest_form_post(),
 			)
 		);
 		$this->end_controls_section();
@@ -2093,5 +2093,33 @@ class L_ThePlus_Everest_form extends Widget_Base {
 		$shortcode[] = sprintf( '[everest_form %s]', $this->get_render_attribute_string( 'shortcode' ) );
 
 		return implode( '', $shortcode );
+	}
+
+	/**
+	 * Get Everest Form.
+	 *
+	 * @since 1.0.0
+	 * @version 5.5.2
+	 */
+	function l_theplus_get_everest_form_post() {
+		$EverestForm = [];
+		$ev_form = get_posts('post_type="everest_form"&numberposts=-1');
+		
+		if ( !empty($ev_form) ) {
+			$EverestForm['none'] = esc_html__('No Forms Selected', 'tpebl');
+
+			foreach ($ev_form as $evform) {
+				$GetId = !empty($evform->ID) ? $evform->ID : '';
+				$GetTitle = !empty($evform->post_title) ? $evform->post_title : '';
+
+				if( !empty($GetId) ){
+					$EverestForm[$GetId] = $GetTitle;
+				}
+			}
+		} else {
+			$EverestForm['none'] = esc_html__('No everest forms found', 'tpebl');
+		}
+		
+		return $EverestForm;
 	}
 }

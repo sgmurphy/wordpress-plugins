@@ -5,7 +5,7 @@ Tags: page builder, Gutenberg blocks, WordPress blocks, gutenberg, blocks
 Requires at least: 6.3
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,12 @@ Developers can also apply minor style touch-ups to their themes if necessary. If
 CoBlocks is designed to support the last two major versions of WordPress that are currently released. If you're using one of these versions, you're all set to enjoy everything CoBlocks has to offer!
 
 == Changelog ==
+
+= 3.1.9 / 2024-04-30 =
+# Bug fix
+* Prevent local URLs from loading with events block [#2607](https://github.com/godaddy-wordpress/coblocks/pull/2607)
+* Fix Site Content extension loading outside of editor [#2609](https://github.com/godaddy-wordpress/coblocks/pull/2609)
+* Fix Site Design extension failing dom operations [#2610](https://github.com/godaddy-wordpress/coblocks/pull/2610)
 
 = 3.1.8 / 2024-04-02 =
 # Enhancements

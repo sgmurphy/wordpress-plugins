@@ -317,6 +317,12 @@ Class L_Plus_Library {
             return;
         }
 
+		if(get_option('tpae_backend_cache') === false){
+			add_option('tpae_backend_cache', strtotime('now'),false);
+		}else{
+			update_option('tpae_backend_cache', strtotime('now'),false);
+		}
+
         foreach (scandir($path_url) as $item) {
             if ($item == '.' || $item == '..') {
                 continue;

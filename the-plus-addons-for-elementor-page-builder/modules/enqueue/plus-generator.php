@@ -642,12 +642,11 @@ Class L_Plus_Generator {
 			add_option( $option_name, $versions );
 
 			$this->tp_third_patry_cache();
-
 		}else{
-			if( !in_array( '5.5.0', $get_version ) ){
+			if( ! in_array( '5.5.0', $get_version ) ){
 				l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH); //only remove files
 				update_option('tp_save_update_at', strtotime('now'), false); //all cache regenerate
-				$versions = array_unique( array_merge( $get_version, $versions ) );
+				$versions = array_unique( array_merge( $get_version, ['5.5.0'] ) );
 				update_option( $option_name, $versions );
 
 				$this->tp_third_patry_cache();

@@ -162,7 +162,7 @@ class Admin extends Base {
 				</div>',
 				wp_create_nonce(), 
 				THUMBPRESS_ASSET . '/img/ThumbPress-pro-notice.gif',
-				'https://thumbpress.co/pricing/',
+				'https://thumbpress.co/',
 				);			
 			}
 		}
@@ -174,7 +174,7 @@ class Admin extends Base {
 					<?php _e( 'Congratulations! You\'re almost there.. 🥳', 'image-sizes' ); ?>
 				</h3>
 				<p>
-					<?php printf( __( 'Thanks for installing <strong>%1$s</strong>. To start managing your images and thumbnails, please complete the setup wizard.' ), 'image-sizes' ); ?>
+					<?php printf( __( 'Thanks for installing <strong>ThumbPress</strong>. To start managing your images and thumbnails, please complete the setup wizard.', 'image-sizes' ) ); ?>
 				</p>
 				<p>
 					<a class="button button-primary" href="<?php echo add_query_arg( 'page', "{$this->slug}_setup", admin_url( 'admin.php' ) ); ?>">

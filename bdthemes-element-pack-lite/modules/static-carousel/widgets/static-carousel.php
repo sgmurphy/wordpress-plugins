@@ -325,6 +325,7 @@ class Static_Carousel extends Module_Base
             [
                 'name' => 'thumbnail_size',
                 'default' => 'medium',
+                'exclude' => ['custom'],
                 'condition' => [
                     'show_image' => 'yes'
                 ]

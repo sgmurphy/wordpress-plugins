@@ -2,10 +2,10 @@
 /**
  * Plugin Name: ThumbPress
  * Description: A complete image and thumbnail management solution for WordPress.
- * Plugin URI: https://thumbpress.co/
- * Author: ThumbPress
- * Author URI: https://thumbpress.co/
- * Version: 5.0.1
+ * Plugin URI: https://pluggable.io/plugin/thumbpress
+ * Author: Codexpert, Inc
+ * Author URI: https://codexpert.io
+ * Version: 5.0.2
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Text Domain: image-sizes

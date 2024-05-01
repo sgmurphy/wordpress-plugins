@@ -4,6 +4,7 @@ class DSM_Text_Badges extends ET_Builder_Module {
 
 	public $slug       = 'dsm_text_badges';
 	public $vb_support = 'on';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

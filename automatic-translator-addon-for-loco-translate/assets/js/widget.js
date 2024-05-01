@@ -350,6 +350,7 @@
         //   defaultLang = storage.getValue('lang') || userLang;
         if (window.locoConf.conf != undefined) {
             var defaultcode = window.locoConf.conf.locale.lang ? window.locoConf.conf.locale.lang : null;
+            var region = window.locoConf.conf.locale.region ? window.locoConf.conf.locale.region : null;
         }
         switch (defaultcode) {
             case 'nb':
@@ -365,6 +366,9 @@
         }
         //    defaultLang =  defaultcode;
         if (defaultLang) {
+            if(region === 'BR' && null !== region){
+                defaultLang = defaultLang + "-" + region;
+            }
             select.setValue(defaultLang);
             active = storage.getValue('active');
             if (active || (autoMode && active === undefined)) {

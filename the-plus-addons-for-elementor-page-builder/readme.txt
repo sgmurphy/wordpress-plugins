@@ -4,7 +4,7 @@ Tags: Elementor, elementor widgets, elements, elementor addon, elementor templat
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.5.1
+Stable tag: 5.5.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -428,6 +428,14 @@ We have the most advanced caching architecture, Which will never bloat your site
 12. Unique 22+ Elementor Extensions
 
 == Changelog ==
+
+= 5.5.2 =
+Add : Contact Form 7 : Option to Change checkbox Position
+Add : Info Box : Button Icon size option
+Add : Post Title : Add Text Alignment Option
+Fix : Post Meta : Post Author name compatibility with Nexter Extension Single Page
+Fix : Gravity Form : Condition Improvement
+Fix : Condition Improvement for Caching File generating flow
 
 = 5.5.1 =
 Fix : Post Content : Condition Improvement

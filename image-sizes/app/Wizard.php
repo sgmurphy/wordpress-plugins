@@ -55,7 +55,6 @@ class Wizard extends Base {
 
 		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/wizard.css", THUMBPRESS ), '', $this->version, 'all' );
 		wp_enqueue_style( 'font-awesome-free', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' );
-
 	}
 
 	public function render() {
@@ -65,7 +64,7 @@ class Wizard extends Base {
 				'label'			=> __( 'Welcome', 'image-sizes' ),
 				'template'		=> THUMBPRESS_DIR . '/views/wizard/welcome.php',
 				'prev_text'		=> __( 'Skip for now', 'image-sizes' ),
-				'prev_url'		=> add_query_arg( [ 'page' => 'image-sizes' ], admin_url( 'admin.php' ) ),
+				'prev_url'		=> add_query_arg( [ 'page' => 'thumbpress' ], admin_url( 'admin.php' ) ),
 				'next_text'		=> __( 'Get Started', 'image-sizes' ),
 				'next_url'		=> add_query_arg( [ 'page' => 'image-sizes_setup', 'step' => 'disable-thumbnails' ], admin_url( 'admin.php' ) ),
 			],
@@ -120,6 +119,6 @@ class Wizard extends Base {
 		if ( isset( $_POST['coschool'] ) ) {
 			$upgrader->install( 'https://downloads.wordpress.org/plugin/coschool.latest-stable.zip' );
 			activate_plugin( 'coschool/coschool.php' );
-		}	
+		}
 	}
 }

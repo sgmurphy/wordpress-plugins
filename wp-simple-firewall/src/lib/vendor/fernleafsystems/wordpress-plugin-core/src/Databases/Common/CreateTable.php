@@ -17,7 +17,7 @@ class CreateTable {
 
 	public function buildCreateSQL() :string {
 		return sprintf(
-			'CREATE TABLE `%s` (
+			'CREATE TABLE IF NOT EXISTS `%s` (
                 %s
 			) %s;',
 			$this->schema->table,

@@ -1043,7 +1043,7 @@ ul.image_sizes-sortable.disable li span img.image_sizes-thumbnails-arrow-left {
     width: 166px;
     height: 166px;
     border-radius: 50%;
-    background-color: rgba(245, 0, 44, 0.6);
+    background-color: rgba(7, 91, 254, 0.6);
     filter: blur(100px);
     z-index: -1;
 }

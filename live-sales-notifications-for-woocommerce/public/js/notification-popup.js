@@ -21,10 +21,25 @@
         border_radius: 0,
         link_in_tab: false,
         audio_alert_enabled: false,
-        audio_url: ""
+        audio_url: "",
+        max_notification_count:0
       },
       options
     );
+
+    this.maxNotificationReached = function () {
+      var count = parseInt(sessionStorage.getItem('pisol_sn_counter'));
+      if (count == null) {
+        return false;
+      }
+
+      if(settings.max_notification_count == 0 || settings.max_notification_count == undefined) return false;
+
+      if (count >= parseInt(settings.max_notification_count)) {
+        return true;
+      }
+      return false;
+  }
 
     this.close = function (obj) {
       $(obj.popup).removeClass(settings.animation);
@@ -40,6 +55,12 @@
     }
 
     this.layout = function (obj) {
+
+      if (this.maxNotificationReached()){
+        console.log('Max Sales Notification Count Reached');
+        return;
+      }
+
       var html =
         '<div class="animated pi-popup ' +
         settings.animation +
@@ -62,13 +83,26 @@
       obj.alert();
       if (obj.browser_mobile()) {
         if (settings.mobile) {
+          obj.incrementCounter();
           return $(html).appendTo("body");
         }
         return;
       } else {
+        obj.incrementCounter();
         return $(html).appendTo("body");
       }
 
+    }
+
+    this.incrementCounter = function () {
+      var count = sessionStorage.getItem('pisol_sn_counter');
+
+      if (count == null) {
+        count = 0;
+      }
+
+      count++;
+      sessionStorage.setItem('pisol_sn_counter', count);
     }
 
     this.browser_mobile = function () {

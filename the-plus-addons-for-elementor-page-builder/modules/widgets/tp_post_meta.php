@@ -1569,7 +1569,7 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 					if ( $show_date ) {
 						$date_icon = '';
 						if ( ! empty( $settings['dateIcon'] ) && $settings['dateIcon'] ) {
-									$date_icon = '<i class="' . esc_attr( $settings['dateIcon'] ) . '"></i>';
+							$date_icon = '<i class="' . esc_attr( $settings['dateIcon'] ) . '"></i>';
 						}
 
 						$date_type = ! empty( $item['date_type'] ) ? $item['date_type'] : 'post_published';
@@ -1601,13 +1601,13 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 							ob_end_clean();
 						}
 
-							$cate_display = $settings['cateDisplayNo'];
+						$cate_display = $settings['cateDisplayNo'];
 
-							$cate_style = ! empty( $settings['cateStyle'] ) ? $settings['cateStyle'] : 'style-1';
+						$cate_style = ! empty( $settings['cateStyle'] ) ? $settings['cateStyle'] : 'style-1';
 
-							$category_taxonomies = ! empty( $item['category_taxonomies'] ) ? $item['category_taxonomies'] : 'category';
+						$category_taxonomies = ! empty( $item['category_taxonomies'] ) ? $item['category_taxonomies'] : 'category';
 
-							$txtlode = ! empty( $item['category_taxonomies_load'] ) ? $item['category_taxonomies_load'] : '';
+						$txtlode = ! empty( $item['category_taxonomies_load'] ) ? $item['category_taxonomies_load'] : '';
 
 						if ( 'bypost' === $txtlode ) {
 								$cat_txt = ! empty( $item['category_taxonomies_load_cat_tag'] ) ? $item['category_taxonomies_load_cat_tag'] : '';
@@ -1627,7 +1627,7 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 							);
 						}
 
-								$category_list = '';
+						$category_list = '';
 						if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 							$i = 1;
 							foreach ( $terms as $term ) {
@@ -1637,21 +1637,27 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 								++$i;
 							}
 						}
-								$output .= '<span class="tp-meta-category ' . esc_attr( $cate_style ) . '" ><span class="tp-meta-category-label tp-meta-label">' . $cate_prefix . '</span><span class="tp-meta-category-list">' . $category_list . '</span></span>';
+
+						$output .= '<span class="tp-meta-category ' . esc_attr( $cate_style ) . '" ><span class="tp-meta-category-label tp-meta-label">' . $cate_prefix . '</span><span class="tp-meta-category-list">' . $category_list . '</span></span>';
 					}
 				}
 				if ( 'author' === $sortfield ) {
 
 					if ( 'yes' === $show_author ) {
-						$author_prefix = $settings['authorPrefix'];
-						$author_icon   = ! empty( $settings['authorIcon'] ) ? $settings['authorIcon'] : '';
-						$iconauthor    = '';
+						global $post;
+						$author_id = $post->post_author;
+
+						$author_icon   = ! empty( $settings['authorIcon'] ) ? $settings['authorIcon'] : 'none';
+						$author_prefix = ! empty( $settings['authorPrefix'] ) ? $settings['authorPrefix'] : 'By';
+
+						$iconauthor = '';
 						if ( 'profile' === $author_icon ) {
 							$iconauthor = '<span>' . get_avatar( get_the_author_meta( 'ID' ), 200 ) . '</span>';
-						} elseif ( 'none' === $author_icon ) {
+						} elseif ( 'none' !== $author_icon ) {
 							$iconauthor = '<i class="' . esc_attr( $author_icon ) . '"></i>';
 						}
-						$output .= '<span class="tp-meta-author" ><span class="tp-meta-author-label tp-meta-label" >' . esc_html( $author_prefix ) . '</span><a class="tp-meta-value" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="' . esc_attr__( 'author', 'tpebl' ) . '">' . $iconauthor . esc_html( get_the_author() ) . '</a></span>';
+
+						$output .= '<span class="tp-meta-author" ><span class="tp-meta-author-label tp-meta-label" >' . esc_html( $author_prefix ) . '</span><a class="tp-meta-value" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="' . esc_attr__( 'author', 'theplus' ) . '">' . $iconauthor . get_the_author_meta( 'display_name', $author_id ) . '</a></span>';
 					}
 				}
 
@@ -1659,13 +1665,16 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 					if ( $show_comment ) {
 						$comment_prefix = $settings['commentPrefix'];
 						$comment_icon   = '';
-						$post_ic        = ! empty( $settings['commentIcon'] ) ? $settings['commentIcon'] : '';
+
+						$post_ic = ! empty( $settings['commentIcon'] ) ? $settings['commentIcon'] : '';
 
 						if ( 'none' !== $post_ic ) {
 							$comment_icon = '<i class="' . $post_ic . '"></i>';
 						}
-										$comments_count = wp_count_comments( $post_id );
-										$count          = 0;
+
+						$comments_count = wp_count_comments( $post_id );
+
+						$count = 0;
 						if ( ! empty( $comments_count ) ) {
 							$count = $comments_count->total_comments;
 						}

@@ -4,6 +4,7 @@ class DSM_Lottie extends ET_Builder_Module {
 
 	public $slug       = 'dsm_lottie';
 	public $vb_support = 'on';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

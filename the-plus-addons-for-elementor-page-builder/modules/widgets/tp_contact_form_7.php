@@ -114,7 +114,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 				'label'   => esc_html__( 'Select Form', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'none',
-				'options' => l_theplus_get_contact_form_post(),
+				'options' => $this->l_theplus_get_contact_form_post(),
 			)
 		);
 		$this->add_control(
@@ -803,6 +803,18 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .theplus-contact-form .input__checkbox_btn .toggle-button__icon:after' => 'background: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_control(
+			'icon_position',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => esc_html__( 'Check Box Position', 'theplus' ),
+				'default'   => 'after',
+				'options'   => array(
+					'before'  => esc_html__( 'Before', 'theplus' ),
+					'after' => esc_html__( 'After', 'theplus' ),
 				),
 			)
 		);
@@ -2203,6 +2215,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 		$content_align_tablet = ! empty( $settings['content_align_tablet'] ) ? ' text--tablet' . $settings['content_align_tablet'] : '';
 		$content_align_mobile = ! empty( $settings['content_align_mobile'] ) ? ' text--mobile' . $settings['content_align_mobile'] : '';
 		$animation_effects    = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : '';
+        $icon_position = !empty($settings['icon_position']) ? $settings['icon_position'] : 'after';
 
 		$content_align   = ' text-' . ( ! empty( $settings['content_align'] ) ? $settings['content_align'] : '' );
 		$animation_delay = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
@@ -2237,7 +2250,7 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 			}
 		}
 
-		$output      = '<div class="theplus-contact-form ' . esc_attr( $form_style ) . ' plus-cf7-' . esc_attr( $outer_field_class ) . ' ' . esc_attr( $content_align ) . ' ' . esc_attr( $content_align_tablet ) . ' ' . esc_attr( $content_align_mobile ) . ' ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+		$output      = '<div class="theplus-contact-form ' . esc_attr( $form_style ) . ' plus-cf7-' . esc_attr( $outer_field_class ) . ' ' . esc_attr( $content_align ) . ' ' . esc_attr( $content_align_tablet ) . ' ' . esc_attr( $content_align_mobile ) . ' ' . esc_attr( $animated_class ) . ' ' . esc_attr( $icon_position ) . ' " ' . $animation_attr . '>';
 			$output .= do_shortcode( $this->get_shortcode() );
 		$output     .= '</div>';
 
@@ -2266,5 +2279,34 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 		$shortcode[] = sprintf( '[contact-form-7 %s]', $this->get_render_attribute_string( 'form_shortcode' ) );
 
 		return implode( '', $shortcode );
+	}
+
+	/**
+	 * Get Theplus get contact_form_post.
+	 *
+	 * @since 1.0.0
+	 * @version 5.5.2
+	 */
+	private function l_theplus_get_contact_form_post() {
+		$ContactForms = [];
+
+		$cf7 = get_posts('post_type="wpcf7_contact_form"&numberposts=-1');
+	
+		if ( !empty($cf7) ) {
+			$ContactForms['none'] = esc_html__('No Forms Selected', 'theplus');
+	
+			foreach ($cf7 as $cform) {
+				$GetId = !empty($cform->ID) ? $cform->ID : '';
+				$GetTitle = !empty($cform->post_title) ? $cform->post_title : '';
+	
+				if( !empty($GetId) ){
+					$ContactForms[$GetId] = $GetTitle;
+				}
+			}
+		} else {
+			$ContactForms['none'] = esc_html__('No contact forms found', 'tpebl');
+		}
+	
+		return $ContactForms;
 	}
 }

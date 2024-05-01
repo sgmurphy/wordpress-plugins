@@ -68,7 +68,8 @@ class Social_Share extends Base {
 	}
 
 	public function social_share_images_metabox() {
-		$post_types = ['post', 'page']; 
+		$post_types = ['post', 'page', 'product'];
+
 		add_meta_box(
 			'social_share_images_metabox',
 			__( 'Social Share Image', 'image-sizes' ),
@@ -175,25 +176,16 @@ class Social_Share extends Base {
 
 	public function save_social_share_images_meta( $post_id ) {
 		// Check if nonce is set and verify nonce
-		if ( ! isset( $_POST['thumbpress_social_images_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['thumbpress_social_images_meta_box_nonce'], 'thumbpress_social_metabox_nonce' ) ) {
-			return;
-		}
+		if ( ! isset( $_POST['thumbpress_social_images_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['thumbpress_social_images_meta_box_nonce'], 'thumbpress_social_metabox_nonce' ) ) return;
 
 		// Check if this is an autosave or the user's permissions
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || ! current_user_can( 'edit_post', $post_id ) ) return;
 
-		$meta_fields = [
-			'thumbpress_facebook_image',
-			'thumbpress_linkedin_image',
-			'thumbpress_twitter_image',
-			'thumbpress_pinterest_image'
-		];
+		$meta_fields = ['thumbpress_facebook_image', 'thumbpress_linkedin_image', 'thumbpress_twitter_image', 'thumbpress_pinterest_image'];
 
 		// Update or save meta values
 		foreach ( $meta_fields as $field ) {
-			if ( isset( $_POST[$field] ) && $_POST[$field] != '') {
+			if ( isset( $_POST[$field] ) && $_POST[$field] != '' ) {
 				update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
 			} else {
 				delete_post_meta( $post_id, $field );
@@ -206,7 +198,7 @@ class Social_Share extends Base {
 		$post_url	    = get_permalink();
 		$post_title     = get_the_title();
 		$post_desc      = get_the_excerpt();
-		$site_name      = get_bloginfo('name');
+		$site_name      = get_bloginfo( 'name' );
 		$fb_img         = get_post_meta( $post_id, 'thumbpress_facebook_image', true );
 		$ln_img         = get_post_meta( $post_id, 'thumbpress_linkedin_image', true );
 		$tw_img         = get_post_meta( $post_id, 'thumbpress_twitter_image', true );
@@ -219,71 +211,131 @@ class Social_Share extends Base {
 		// Facebook share image
 		if ( $is_fb_share && $fb_img ) {
 			$fb_img_info    = thubmpress_get_image_info( $fb_img );
-			?>
 
-			<meta property="og:site_name" content="<?php echo esc_html( $site_name ); ?>" />
-			<meta property="og:title" content="<?php echo esc_html( $post_title ); ?>" />
-			<meta property="og:description" content="<?php echo esc_html( $post_desc ); ?>" />
-			<meta property="og:url" content="<?php echo esc_url( $post_url ); ?>" />
-			<meta property="og:image" content="<?php echo esc_url( $fb_img ); ?>" />
-			<meta property="og:image:width" content="<?php echo esc_attr( $fb_img_info['width'] ); ?>" />
-			<meta property="og:image:height" content="<?php echo esc_attr( $fb_img_info['height'] ); ?>" />
-			<meta property="og:image:alt" content="<?php echo esc_attr( $fb_img_info['alt'] ); ?>" />
-			<meta property="og:image:type" content="<?php echo esc_attr( $fb_img_info['type'] ); ?>" />
-
-			<?php
+			printf(
+				'<meta property="og:site_name" content="%1s" />
+				<meta property="og:title" content="%2s" />
+				<meta property="og:description" content="%3s" />
+				<meta property="og:url" content="%4s" />
+				<meta property="og:image" content="%5s" />
+				<meta property="og:image:width" content="%6s" />
+				<meta property="og:image:height" content="%7s" />
+				<meta property="og:image:alt" content="%8s" />
+				<meta property="og:image:type" content="%9s" />',
+				esc_attr( $site_name ),
+				esc_html( $post_title ),
+				esc_html( $post_desc ),
+				esc_url( $post_url ),
+				esc_url( $fb_img ),
+				esc_attr( $fb_img_info['width'] ),
+				esc_attr( $fb_img_info['height'] ),
+				esc_attr( $fb_img_info['alt'] ),
+				esc_attr( $fb_img_info['type'] )
+			);
 		}
 		
 		// Linkedin share image
 		if ( $is_ln_share && $ln_img ) {
 			$ln_img_info    = thubmpress_get_image_info( $ln_img );
-			?>
 
-			<meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>" />
-			<meta property="og:title" content="<?php echo esc_html( $post_title ); ?>" />
-			<meta property="og:description" content="<?php echo esc_html( $post_desc ); ?>" />
-			<meta property="og:url" content="<?php echo esc_url( $post_url ); ?>" />
-			<meta property="og:image" content="<?php echo esc_url( $ln_img ); ?>" />
-			<meta property="og:image:width" content="<?php echo esc_attr( $ln_img_info['width'] ); ?>" />
-			<meta property="og:image:height" content="<?php echo esc_attr( $ln_img_info['height'] ); ?>" />
-			<meta property="og:image:alt" content="<?php echo esc_attr( $ln_img_info['alt'] ); ?>" />
-			<meta property="og:image:type" content="<?php echo esc_attr( $ln_img_info['type'] ); ?>" />
-
-			<?php
+			printf( 
+				'<meta property="og:site_name" content="%1s" />
+				<meta property="og:title" content="%2s" />
+				<meta property="og:description" content="%3s" />
+				<meta property="og:url" content="%4s" />
+				<meta property="og:image" content="%5s" />
+				<meta property="og:image:width" content="%6s" />
+				<meta property="og:image:height" content="%7s" />
+				<meta property="og:image:alt" content="%8s" />
+				<meta property="og:image:type" content="%9s" />',
+				esc_attr( $site_name ),
+				esc_html( $post_title ),
+				esc_html( $post_desc ),
+				esc_url( $post_url ),
+				esc_url( $ln_img ),
+				esc_attr( $ln_img_info['width'] ),
+				esc_attr( $ln_img_info['height'] ),
+				esc_attr( $ln_img_info['alt'] ),
+				esc_attr( $ln_img_info['type'] )
+			);
 		}
 
 		// Twitter share image
 		if ( $is_tw_share && $tw_img ) {
 			$post_author_id = get_post_field( 'post_author', $post_id );
 			$post_author    = get_userdata( $post_author_id );
-			?>
 
-			<meta name="twitter:card" content="summary_large_image" />
-			<meta name="twitter:title" content="<?php echo esc_html( $post_title ); ?>" />
-			<meta name="twitter:description" content="<?php echo esc_html( $post_desc ); ?>" />
-			<meta name="twitter:image" content="<?php echo esc_url( $tw_img ); ?>" />
-			<meta name="twitter:label1" content="Written by" />
-			<meta name="twitter:data1" content="<?php echo esc_html($post_author->display_name); ?>" />
-
-
-			<?php
+			printf(
+				'<meta name="twitter:card" content="summary_large_image" />
+				<meta name="twitter:title" content="%1s" />
+				<meta name="twitter:description" content="%2s" />
+				<meta name="twitter:image" content="%3s" />
+				<meta name="og:image" content="%4s" />
+				<meta name="twitter:label1" content="Written by" />
+				<meta name="twitter:data1" content="%5s" />',
+				esc_html( $post_title ),
+				esc_html( $post_desc ),
+				esc_url( $tw_img ),
+				esc_url( $tw_img ),
+				esc_html( $post_author->display_name )
+			);
 		}
 
 		// Pinterest share image
 		if ( $is_pin_share && $pin_img ) {
 			$post_author_id = get_post_field( 'post_author', $post_id ) ;
 			$post_author    = get_userdata( $post_author_id );
-			?>
+			$post_type 		= get_post_type();
+			
+			if ( in_array( $post_type, ['post', 'page'] ) ) : 
 
-			<meta property="pinterest:name" content="<?php echo esc_html( $post_title ); ?>" />
-			<meta property="pinterest:description" content="<?php echo esc_html( $post_desc ); ?>" />
-			<meta property="pinterest:url" content="<?php echo esc_url( $post_url ); ?>" />
-			<meta property="pinterest:image" content="<?php echo esc_url( $pin_img ); ?>" />
-			<meta property="pinterest:author" content="<?php echo esc_html($post_author->display_name); ?>" />
+				printf( 
+					'<meta property="og:type" content="article" />
+					<meta property="og:title" content="%1s" />
+					<meta property="og:description" content="%2s" />
+					<meta property="og:image" content="%3s" />
+					<meta property="og:url" content="%4s" />
+					<meta property="og:site_name" content="%5s" />
+					<meta property="article:published_time" content="%6s" />
+					<meta property="article:author" content="%7s" />',
+					esc_html( $post_title ),
+					esc_html( $post_desc ),
+					esc_url( $pin_img ),
+					esc_url( $post_url ),
+					esc_attr( $site_name ),
+					esc_attr( get_post_field( 'post_date', $post_id ) ),
+					esc_html( $post_author->display_name )
+				);
 
+			endif;
 
-			<?php
+			if ( $post_type === 'product' ) : 
+				$product 		= wc_get_product( $post_id );
+				$price 			= $product->get_price();
+				$currency 		= get_woocommerce_currency();
+				$is_available 	= $product->is_in_stock();
+
+				printf(
+					'<meta property="og:type" content="product" />
+					<meta property="og:title" content="%1s" />
+					<meta property="og:description" content="%2s" />
+					<meta property="og:image" content="%3s" />
+					<meta property="og:url" content="%4s" />
+					<meta property="og:site_name" content="%5s" />
+					<meta property="product:price:amount" content="%6s" />
+					<meta property="product:price:currency" content="%7s" />
+					<meta property="og:availability" content="%8s" />',
+					esc_html( $post_title ),
+					esc_html( $post_desc ),
+					esc_url( $pin_img ),
+					esc_url( $post_url ),
+					esc_attr( $site_name ),
+					esc_attr( $price ),
+					esc_attr( $currency ),
+					$is_available ? esc_html( 'instock' ) : esc_html( 'outofstock' )
+				);
+
+			endif;
 		}
-
 	}
 }

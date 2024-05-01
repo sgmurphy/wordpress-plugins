@@ -117,7 +117,7 @@ class L_ThePlus_Gravity_Form extends Widget_Base {
 				'label'     => esc_html__( 'Select Form', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '0',
-				'options'   => l_theplus_gravity_form(),
+				'options'   => $this->l_theplus_gravity_form(),
 				'condition' => array(
 					'select' => 'gf_default',
 				),
@@ -128,7 +128,7 @@ class L_ThePlus_Gravity_Form extends Widget_Base {
 			array(
 				'label'     => esc_html__( 'Select Form', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
-				'options'   => l_theplus_gravity_form_using_dm(),
+				'options'   => $this->l_theplus_gravity_form_using_dm(),
 				'condition' => array(
 					'select' => 'gf_dmp',
 				),
@@ -2715,6 +2715,54 @@ class L_ThePlus_Gravity_Form extends Widget_Base {
 	}
 
 	/**
+	 * Render Gravity-Form.
+	 *
+	 * @since 1.0.1
+	 * @version 5.4.2
+	 */
+	public function render() {
+		$settings = $this->get_settings_for_display();
+
+		$animation_delay   = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
+		$animate_duration  = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
+		$animation_effects = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : '';
+
+		$ani_duration = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
+		$out_duration = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
+
+		$out_effect = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : '';
+		$out_delay  = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
+		$out_speed  = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
+
+		if ( 'no-animation' === $animation_effects ) {
+			$animated_class = '';
+			$animation_attr = '';
+		} else {
+			$animate_offset  = l_theplus_scroll_animation();
+			$animated_class  = 'animate-general';
+			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
+			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
+
+			if ( 'yes' === $ani_duration ) {
+				$animation_attr .= ' data-animate-duration="' . esc_attr( $animate_duration ) . '"';
+			}
+
+			if ( 'no-animation' !== $out_effect ) {
+				$animation_attr .= ' data-animate-out-type="' . esc_attr( $out_effect ) . '" data-animate-out-delay="' . esc_attr( $out_delay ) . '"';
+				if ( 'yes' === $out_duration ) {
+					$animation_attr .= ' data-animate-out-duration="' . esc_attr( $out_speed ) . '"';
+				}
+			}
+		}
+
+		$output  = '<div class="pt_plus_gravity_form ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+		$output .= do_shortcode( $this->get_shortcode() );
+		$output .= '</div>';
+
+		echo $output;
+	}
+
+	/**
 	 * Get Shortcode.
 	 *
 	 * @since 1.0.1
@@ -2762,50 +2810,48 @@ class L_ThePlus_Gravity_Form extends Widget_Base {
 	}
 
 	/**
-	 * Render Gravity-Form.
+	 * Gravity form
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.2
 	 */
-	public function render() {
-		$settings = $this->get_settings_for_display();
+	function l_theplus_gravity_form() {
+		if ( class_exists( 'GFCommon' ) ) {
+			$gravity_forms = \RGFormsModel::get_forms( null, 'title' );
+			$g_form_options = ['0' => esc_html__( 'Select Form', 'tpebl' )];
 
-		$animation_delay   = ! empty( $settings['animation_delay']['size'] ) ? $settings['animation_delay']['size'] : 50;
-		$animate_duration  = ! empty( $settings['animate_duration']['size'] ) ? $settings['animate_duration']['size'] : 50;
-		$animation_effects = ! empty( $settings['animation_effects'] ) ? $settings['animation_effects'] : '';
-
-		$ani_duration = ! empty( $settings['animation_duration_default'] ) ? $settings['animation_duration_default'] : '';
-		$out_duration = ! empty( $settings['animation_out_duration_default'] ) ? $settings['animation_out_duration_default'] : '';
-
-		$out_effect = ! empty( $settings['animation_out_effects'] ) ? $settings['animation_out_effects'] : '';
-		$out_delay  = ! empty( $settings['animation_out_delay']['size'] ) ? $settings['animation_out_delay']['size'] : 50;
-		$out_speed  = ! empty( $settings['animation_out_duration']['size'] ) ? $settings['animation_out_duration']['size'] : 50;
-
-		if ( 'no-animation' === $animation_effects ) {
-			$animated_class = '';
-			$animation_attr = '';
-		} else {
-			$animate_offset  = l_theplus_scroll_animation();
-			$animated_class  = 'animate-general';
-			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
-			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
-
-			if ( 'yes' === $ani_duration ) {
-				$animation_attr .= ' data-animate-duration="' . esc_attr( $animate_duration ) . '"';
-			}
-
-			if ( 'no-animation' !== $out_effect ) {
-				$animation_attr .= ' data-animate-out-type="' . esc_attr( $out_effect ) . '" data-animate-out-delay="' . esc_attr( $out_delay ) . '"';
-				if ( 'yes' === $out_duration ) {
-					$animation_attr .= ' data-animate-out-duration="' . esc_attr( $out_speed ) . '"';
+			if ( ! empty( $gravity_forms ) && ! is_wp_error( $gravity_forms ) ) {
+				foreach ( $gravity_forms as $form ) {   
+					$g_form_options[ $form->id ] = $form->title;
 				}
 			}
+		} else {
+			$g_form_options = ['0' => esc_html__( 'Form Not Found!', 'tpebl' ) ];
 		}
 
-		$output  = '<div class="pt_plus_gravity_form ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
-		$output .= do_shortcode( $this->get_shortcode() );
-		$output .= '</div>';
-
-		echo $output;
+		return $g_form_options;
 	}
+
+	/**
+	 * Gravity form using download monitor
+	 *
+	 * @since 1.0.1
+	 * @version 5.5.2
+	 */
+	function l_theplus_gravity_form_using_dm() {
+		$gf_dm = array();
+		$gf_dm_form = get_posts('post_type="dlm_download"&numberposts=-1');
+		$gf_dm = ['0' => esc_html__( 'Select Form', 'tpebl' )];
+
+		if ( !empty($gf_dm_form) ) {
+			foreach ($gf_dm_form as $gfdmform) {
+				$gf_dm[$gfdmform->ID] = $gfdmform->post_title;
+			}
+		} else {
+			$gf_dm[0] = esc_html__('No forms found', 'tpebl');
+		}
+
+		return $gf_dm;
+	}
+
 }

@@ -5,6 +5,7 @@ class DSM_Icon_List extends ET_Builder_Module {
 	public $slug       = 'dsm_icon_list';
 	public $vb_support = 'on';
 	public $child_slug = 'dsm_icon_list_child';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',

@@ -5,11 +5,11 @@ Tags:  elementor addons, elementor widget, elementor extensions, elementor addon
 Requires at least: 5.0.0
 Tested up to: 6.5.2
 Requires PHP: 7.4.0
-Stable tag: 5.6.2
+Stable tag: 5.6.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.21.1
+Elementor tested up to: 3.21.4
 
 Best Addon for Elementor WordPress Plugin with 70+ Most Popular Elements that need your everyday website page building.
 
@@ -256,6 +256,10 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.6.3 [2nd May 2024] =
+
+* Fixed: Equal Height extension issue fixed
 
 = 5.6.2 [24th April 2024] =
 

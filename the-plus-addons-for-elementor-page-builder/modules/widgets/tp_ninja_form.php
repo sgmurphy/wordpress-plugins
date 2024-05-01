@@ -118,7 +118,7 @@ class L_ThePlus_Ninja_form extends Widget_Base {
 				'label'   => esc_html__( 'Select Form', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => '0',
-				'options' => l_theplus_get_ninja_form_post(),
+				'options' => $this->l_theplus_get_ninja_form_post(),
 			)
 		);
 		$this->add_control(
@@ -2138,31 +2138,6 @@ class L_ThePlus_Ninja_form extends Widget_Base {
 	}
 
 	/**
-	 * Ninja Form shortcode.
-	 *
-	 * @version 5.4.2
-	 */
-	private function get_shortcode() {
-		$settings = $this->get_settings_for_display();
-		$c_form   = ! empty( $settings['contact_form'] ) ? $settings['contact_form'] : '';
-
-		if ( ! $c_form ) {
-			return '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a Ninja Form', 'tpebl' ) . '</h3>';
-		}
-
-		$attributes = array(
-			'id' => $c_form,
-		);
-
-		$this->add_render_attribute( 'form_shortcode', $attributes );
-
-		$shortcode   = array();
-		$shortcode[] = sprintf( '[ninja_form %s]', $this->get_render_attribute_string( 'form_shortcode' ) );
-
-		return implode( '', $shortcode );
-	}
-
-	/**
 	 * Ninja Form Render.
 	 *
 	 * @since 1.0.1
@@ -2203,14 +2178,15 @@ class L_ThePlus_Ninja_form extends Widget_Base {
 				}
 			}
 		}
-			$this->add_render_attribute(
-				'contact-form',
-				'class',
-				array(
-					'theplus-contact-form',
-					'theplus-ninja-form',
-				)
-			);
+
+		$this->add_render_attribute(
+			'contact-form',
+			'class',
+			array(
+				'theplus-contact-form',
+				'theplus-ninja-form',
+			)
+		);
 
 		$this->add_render_attribute(
 			'contact-form',
@@ -2220,9 +2196,60 @@ class L_ThePlus_Ninja_form extends Widget_Base {
 			)
 		);
 
-			$output      = '<div class="theplus-ninja-form ' . esc_attr( $form_style ) . ' ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
-				$output .= do_shortcode( $this->get_shortcode() );
-			$output     .= '</div>';
+		$output      = '<div class="theplus-ninja-form ' . esc_attr( $form_style ) . ' ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
+			$output .= do_shortcode( $this->get_shortcode() );
+		$output     .= '</div>';
+
 		echo $output;
+	}
+
+	/**
+	 * Ninja Form shortcode.
+	 *
+	 * @version 5.4.2
+	 */
+	private function get_shortcode() {
+		$settings = $this->get_settings_for_display();
+		$c_form   = ! empty( $settings['contact_form'] ) ? $settings['contact_form'] : '';
+
+		if ( ! $c_form ) {
+			return '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a Ninja Form', 'tpebl' ) . '</h3>';
+		}
+
+		$attributes = array(
+			'id' => $c_form,
+		);
+
+		$this->add_render_attribute( 'form_shortcode', $attributes );
+
+		$shortcode   = array();
+		$shortcode[] = sprintf( '[ninja_form %s]', $this->get_render_attribute_string( 'form_shortcode' ) );
+
+		return implode( '', $shortcode );
+	}
+
+	/**
+	 * Get Ninja Form.
+	 *
+	 * @since 1.0.1
+	 * @version 5.5.2
+	 */
+	function l_theplus_get_ninja_form_post() {
+		$options = array();
+		if ( class_exists( 'Ninja_Forms' ) ) {
+			$contact_forms = Ninja_Forms()->form()->get_forms();
+
+			if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
+
+				$options[0] = esc_html__( 'Select Ninja Form', 'tpebl' );
+
+				foreach ( $contact_forms as $form ) {   
+					$options[ $form->get_id() ] = $form->get_setting( 'title' );
+				}
+			}
+		} else {
+			$options[0] = esc_html__( 'Create a Form First', 'tpebl' );
+		}
+		return $options;
 	}
 }

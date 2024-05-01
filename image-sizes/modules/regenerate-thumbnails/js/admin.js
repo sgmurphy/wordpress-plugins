@@ -43,7 +43,7 @@ jQuery(function ($) {
 	// cx-regen-thumbs
 	$("#image_sizes-regen-thumbs").click(function (e) {
 		$("#image_sizes-regen-thumbs").text(THUMBPRESS.regening).attr("disabled", true);
-		$("#image_sizes-message").html("").hide();
+		$("#image_sizes-message").html("").show();
 		$(".image-sizes-progress-panel").hide();
 		$("#processing-convert").hide();
 

@@ -4,6 +4,7 @@ class DSM_Before_After_Image extends ET_Builder_Module {
 	protected static $rendering = false;
 	public $slug                = 'dsm_before_after_image';
 	public $vb_support          = 'on';
+	public $icon_path;
 
 	protected $module_credits = array(
 		'module_uri' => 'https://divisupreme.com/',
