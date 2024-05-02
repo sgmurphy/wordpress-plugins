@@ -2,6 +2,8 @@
 
 /**
  * Profit Margin calculation class
+ *
+ * TODO: Check out if this should not be a premium class. If yes, also make sure that all activation methods are behind premium checks.
  */
 
 namespace SweetCode\Pixel_Manager;
@@ -9,9 +11,7 @@ namespace SweetCode\Pixel_Manager;
 use WC_Order;
 use WC_Product;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Profit_Margin {
 

@@ -270,7 +270,7 @@
 .wpfFilterWrapper .ui-slider-horizontal {
 	margin-top:20px !important;
 }
-.wpfFilterWrapper input[type=checkbox], input[type=radio] {
+.wpfFilterWrapper input[type=checkbox], .wpfFilterWrapper input[type=radio] {
     clear: none;
     cursor: pointer;
     display: inline-block;

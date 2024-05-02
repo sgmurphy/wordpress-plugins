@@ -5,9 +5,7 @@ namespace SweetCode\Pixel_Manager\Admin;
 use WC_Order;
 use SweetCode\Pixel_Manager\Helpers;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 // https://stackoverflow.com/a/36453587/4688612
 class Order_Columns {

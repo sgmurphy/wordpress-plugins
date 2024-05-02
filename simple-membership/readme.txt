@@ -5,7 +5,7 @@ Tags: member, members, members only, membership, memberships, register, WordPres
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 4.4.5
+Stable tag: 4.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,12 @@ Please visit the membership plugin page to view screenshots:
 https://simple-membership-plugin.com/
 
 == Changelog ==
+
+= 4.4.6 =
+- Various translation related changes to the button configuration admin interface.
+- Generated a new translation POT file for the plugin.
+- Fixed an error with the cancel Stripe subscription shortcode.
+- Added output escaping to the PayPal cancel subscription shortcode.
 
 = 4.4.5 =
 - Added a link to the corresponding member profile in the newly added transaction view/edit interface.

@@ -250,6 +250,10 @@ class Minify_Group {
 	 * @return bool True if the version is valid, false otherwise.
 	 */
 	public function is_valid_enqueue_version( $version ) {
+		if ( empty( $version ) ) {
+			return false;
+		}
+
 		$pattern = '/^\d+\.\d+(\.\d+)?$/';
 
 		// Perform the regular expression match.

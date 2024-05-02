@@ -3,14 +3,13 @@
 namespace SweetCode\Pixel_Manager\Admin;
 
 use ActionScheduler_Versions;
+use SweetCode\Pixel_Manager\Admin\Notifications\Notifications;
 use SweetCode\Pixel_Manager\Geolocation;
 use SweetCode\Pixel_Manager\Helpers;
 use SweetCode\Pixel_Manager\Options;
 use SweetCode\Pixel_Manager\Profit_Margin;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Environment {
 
@@ -61,34 +60,34 @@ class Environment {
 		return !self::is_allowed_notification_page($page);
 	}
 
-	public static function run_incompatible_plugins_checks() {
-
-		$saved_notifications = get_option(PMW_DB_NOTIFICATIONS_NAME);
-
-		foreach (self::get_incompatible_plugins_list() as $plugin) {
-
-			// If the plugin is not active, continue
-			if (!is_plugin_active($plugin['file_location'])) {
-				continue;
-			}
-
-			// If a notification has already been saved for this plugin, continue
-			if (
-				is_array($saved_notifications)
-				&& array_key_exists($plugin['slug'], $saved_notifications)
-			) {
-				continue;
-			}
-
-			Notifications::plugin_is_incompatible(
-				$plugin['name'],
-				$plugin['version'],
-				$plugin['slug'],
-				$plugin['link'],
-				$plugin['pmw_doc_link']
-			);
-		}
-	}
+//	public static function run_incompatible_plugins_checks() {
+//
+//		$saved_notifications = get_option(PMW_DB_NOTIFICATIONS_NAME);
+//
+//		foreach (self::get_incompatible_plugins_list() as $plugin) {
+//
+//			// If the plugin is not active, continue
+//			if (!is_plugin_active($plugin['file_location'])) {
+//				continue;
+//			}
+//
+//			// If a notification has already been saved for this plugin, continue
+//			if (
+//				is_array($saved_notifications)
+//				&& array_key_exists($plugin['slug'], $saved_notifications)
+//			) {
+//				continue;
+//			}
+//
+//			Notifications::plugin_is_incompatible(
+//				$plugin['name'],
+//				$plugin['version'],
+//				$plugin['slug'],
+//				$plugin['link'],
+//				$plugin['pmw_doc_link']
+//			);
+//		}
+//	}
 
 	public static function get_incompatible_plugins_list() {
 		return [

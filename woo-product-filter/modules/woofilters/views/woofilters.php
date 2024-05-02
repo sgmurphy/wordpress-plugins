@@ -1271,7 +1271,7 @@ class WoofiltersViewWpf extends ViewWpf {
 		}
 
 		$onlyNeeded = false;
-		if (empty($includeCategoryId) && !$allProductsFiltering && !empty($allTerms)) {
+		if (empty($includeCategoryId) && !$allProductsFiltering && !empty($allTerms) && empty($args['only_parent'])) {
 			$args['include'] = $allTerms;
 			$onlyNeeded = true;
 		}
@@ -1284,7 +1284,6 @@ class WoofiltersViewWpf extends ViewWpf {
 				}
 			}
 		}
-
 		remove_filter('woocommerce_change_term_counts', array($this, 'notChangeCategoryCount'));
 
 		if (!$productCategory) {

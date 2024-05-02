@@ -7,9 +7,7 @@ use SweetCode\Pixel_Manager\Options;
 use SweetCode\Pixel_Manager\Pixels\Facebook\Facebook;
 use SweetCode\Pixel_Manager\Product;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Shortcodes {
 

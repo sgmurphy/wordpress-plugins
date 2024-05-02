@@ -4,9 +4,7 @@ namespace SweetCode\Pixel_Manager\Admin;
 
 use SweetCode\Pixel_Manager\Options;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Borlabs_Presets {
 

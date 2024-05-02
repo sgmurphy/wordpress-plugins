@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.9.0\n"
+"Project-Id-Version: Give - Donation Plugin 3.10.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-24T15:39:36+00:00\n"
+"POT-Creation-Date: 2024-05-01T19:23:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -370,6 +370,9 @@ msgid "Import Donations"
 msgstr ""
 
 #: includes/admin/admin-actions.php:662
+#: src/DonationForms/V2/DonationFormsAdminPage.php:252
+#: src/Donors/DonorsAdminPage.php:144
+#: src/Subscriptions/SubscriptionsAdminPage.php:109
 msgid "Switch to New View"
 msgstr ""
 
@@ -978,7 +981,7 @@ msgstr ""
 #: includes/admin/payments/view-payment-details.php:717
 #: includes/class-give-scripts.php:252
 #: includes/class-give-scripts.php:303
-#: includes/forms/template.php:1666
+#: includes/forms/template.php:1671
 #: assets/dist/js/admin.js:6138
 #: assets/dist/js/give-admin-donation-forms.js:5872
 #: assets/dist/js/give-admin-donations.js:4630
@@ -1213,7 +1216,7 @@ msgstr ""
 
 #: includes/admin/donors/donors.php:368
 #: includes/admin/import-functions.php:542
-#: includes/forms/template.php:785
+#: includes/forms/template.php:790
 #: build/adminBlocks.js:1
 #: build/donationFormBlock.js:1
 #: build/formBuilderRegistrars.js:1
@@ -1224,8 +1227,8 @@ msgstr ""
 #: includes/admin/import-functions.php:438
 #: includes/admin/tools/export/give-export-donations-exporter.php:183
 #: includes/admin/tools/import/class-give-import-donations.php:501
-#: includes/forms/template.php:816
-#: includes/forms/template.php:832
+#: includes/forms/template.php:821
+#: includes/forms/template.php:837
 #: templates/shortcode-profile-editor.php:52
 #: build/formBuilderRegistrars.js:1
 msgid "First Name"
@@ -1234,8 +1237,8 @@ msgstr ""
 #: includes/admin/donors/donors.php:394
 #: includes/admin/import-functions.php:444
 #: includes/admin/tools/export/give-export-donations-exporter.php:186
-#: includes/forms/template.php:844
-#: includes/forms/template.php:863
+#: includes/forms/template.php:849
+#: includes/forms/template.php:868
 #: templates/shortcode-profile-editor.php:60
 #: build/formBuilderRegistrars.js:1
 msgid "Last Name"
@@ -1389,8 +1392,8 @@ msgstr ""
 #: includes/admin/import-functions.php:476
 #: includes/admin/tools/export/give-export-donations-exporter.php:189
 #: includes/admin/tools/import/class-give-import-donations.php:491
-#: includes/forms/template.php:961
-#: includes/forms/template.php:976
+#: includes/forms/template.php:966
+#: includes/forms/template.php:981
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:127
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:181
 #: src/Receipt/DonationReceipt.php:78
@@ -2157,7 +2160,7 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:210
 #: includes/admin/import-functions.php:183
 #: includes/admin/tools/export/give-export-donations-exporter.php:428
-#: includes/forms/template.php:527
+#: includes/forms/template.php:532
 #: includes/payments/functions.php:1542
 #: build/formBuilderRegistrars.js:1
 msgid "Custom Amount"
@@ -2345,8 +2348,8 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:424
 #: includes/admin/shortcodes/shortcode-give-login.php:24
 #: includes/admin/shortcodes/shortcode-give-login.php:25
-#: includes/forms/template.php:1525
-#: includes/forms/template.php:1662
+#: includes/forms/template.php:1530
+#: includes/forms/template.php:1667
 #: build/formBuilderRegistrars.js:1
 msgid "Login"
 msgstr ""
@@ -2491,8 +2494,8 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:588
 #: includes/admin/settings/class-settings-display.php:295
-#: includes/forms/template.php:1850
 #: includes/forms/template.php:1855
+#: includes/forms/template.php:1860
 #: includes/install.php:357
 #: src/FormMigration/FormMetaDecorator.php:152
 msgid "Agree to Terms?"
@@ -2786,8 +2789,8 @@ msgstr ""
 #: includes/admin/import-functions.php:448
 #: includes/admin/tools/export/give-export-donations-exporter.php:192
 #: includes/admin/tools/export/give-export-donations-functions.php:463
-#: includes/forms/template.php:924
-#: includes/forms/template.php:939
+#: includes/forms/template.php:929
+#: includes/forms/template.php:944
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:39
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:215
 #: templates/shortcode-profile-editor.php:67
@@ -2811,7 +2814,7 @@ msgstr ""
 
 #: includes/admin/import-functions.php:454
 #: includes/admin/tools/export/give-export-donations-exporter.php:195
-#: includes/forms/template.php:1278
+#: includes/forms/template.php:1283
 #: build/formBuilderRegistrars.js:1
 msgid "Address 1"
 msgstr ""
@@ -2826,7 +2829,7 @@ msgstr ""
 #: includes/admin/import-functions.php:457
 #: includes/admin/tools/export/class-batch-export-donors.php:188
 #: includes/admin/tools/export/give-export-donations-exporter.php:196
-#: includes/forms/template.php:1301
+#: includes/forms/template.php:1306
 #: src/Exports/DonorsExport.php:169
 #: build/formBuilderRegistrars.js:1
 msgid "Address 2"
@@ -2835,8 +2838,8 @@ msgstr ""
 #: includes/admin/import-functions.php:458
 #: includes/admin/tools/export/class-batch-export-donors.php:189
 #: includes/admin/tools/export/give-export-donations-exporter.php:197
-#: includes/forms/template.php:1322
-#: includes/forms/template.php:1334
+#: includes/forms/template.php:1327
+#: includes/forms/template.php:1339
 #: src/Exports/DonorsExport.php:170
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:91
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:92
@@ -2853,7 +2856,7 @@ msgstr ""
 #: includes/country-functions.php:502
 #: includes/country-functions.php:552
 #: includes/country-functions.php:810
-#: includes/forms/template.php:1344
+#: includes/forms/template.php:1349
 #: src/Exports/DonorsExport.php:171
 #: build/donationFormRegistrars.js:1
 msgid "State"
@@ -2889,7 +2892,7 @@ msgstr ""
 #: includes/admin/import-functions.php:465
 #: includes/admin/tools/export/class-batch-export-donors.php:192
 #: includes/admin/tools/export/give-export-donations-exporter.php:200
-#: includes/forms/template.php:1253
+#: includes/forms/template.php:1258
 #: src/Exports/DonorsExport.php:173
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:85
 #: src/Framework/FieldsAPI/BillingAddress.php:54
@@ -3433,14 +3436,14 @@ msgstr ""
 #: includes/admin/payments/view-payment-details.php:498
 #: includes/admin/tools/views/html-admin-page-system-info.php:1020
 #: includes/class-give-cli-commands.php:138
-#: includes/forms/template.php:914
+#: includes/forms/template.php:919
 msgid "Yes"
 msgstr ""
 
 #: includes/admin/payments/view-payment-details.php:508
 #: includes/admin/tools/views/html-admin-page-system-info.php:1020
 #: includes/class-give-cli-commands.php:138
-#: includes/forms/template.php:897
+#: includes/forms/template.php:902
 msgid "No"
 msgstr ""
 
@@ -5075,7 +5078,7 @@ msgid "Determines whether the name is visible."
 msgstr ""
 
 #: includes/admin/shortcodes/shortcode-give-donor-wall.php:154
-#: includes/forms/template.php:1948
+#: includes/forms/template.php:1953
 msgid "Donation Total:"
 msgstr ""
 
@@ -12980,18 +12983,18 @@ msgstr ""
 msgid "Ms."
 msgstr ""
 
-#: includes/forms/template.php:425
-#: includes/forms/template.php:452
+#: includes/forms/template.php:430
+#: includes/forms/template.php:457
 msgid "Donation Amount:"
 msgstr ""
 
-#: includes/forms/template.php:616
+#: includes/forms/template.php:621
 msgid "Choose Your Donation Amount"
 msgstr ""
 
-#: includes/forms/template.php:690
-#: includes/forms/template.php:720
-#: includes/forms/template.php:2029
+#: includes/forms/template.php:695
+#: includes/forms/template.php:725
+#: includes/forms/template.php:2034
 #: includes/forms/widget.php:172
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:54
 #: includes/shortcodes.php:649
@@ -13012,53 +13015,53 @@ msgstr ""
 msgid "Donate Now"
 msgstr ""
 
-#: includes/forms/template.php:779
+#: includes/forms/template.php:784
 msgid "Personal Info"
 msgstr ""
 
-#: includes/forms/template.php:789
+#: includes/forms/template.php:794
 msgid "Title is used to personalize your donation record.."
 msgstr ""
 
-#: includes/forms/template.php:823
+#: includes/forms/template.php:828
 msgid "First Name is used to personalize your donation record."
 msgstr ""
 
-#: includes/forms/template.php:851
+#: includes/forms/template.php:856
 msgid "Last Name is used to personalize your donation record."
 msgstr ""
 
-#: includes/forms/template.php:879
+#: includes/forms/template.php:884
 msgid "Is this donation on behalf of a company?"
 msgstr ""
 
-#: includes/forms/template.php:931
+#: includes/forms/template.php:936
 msgid "Donate on behalf of Company"
 msgstr ""
 
-#: includes/forms/template.php:968
+#: includes/forms/template.php:973
 msgid "We will send the donation receipt to this address."
 msgstr ""
 
-#: includes/forms/template.php:1012
+#: includes/forms/template.php:1017
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:52
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:120
 #: build/formBuilderRegistrars.js:1
 msgid "Make this an anonymous donation."
 msgstr ""
 
-#: includes/forms/template.php:1021
+#: includes/forms/template.php:1026
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:53
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:121
 #: build/formBuilderRegistrars.js:1
 msgid "Would you like to prevent your name, image, and comment from being displayed publicly?"
 msgstr ""
 
-#: includes/forms/template.php:1021
+#: includes/forms/template.php:1026
 msgid "Would you like to prevent your name and image from being displayed publicly?"
 msgstr ""
 
-#: includes/forms/template.php:1033
+#: includes/forms/template.php:1038
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:34
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:109
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:224
@@ -13066,23 +13069,23 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: includes/forms/template.php:1037
+#: includes/forms/template.php:1042
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:35
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:110
 #: build/formBuilderRegistrars.js:1
 msgid "Would you like to add a comment to this donation?"
 msgstr ""
 
-#: includes/forms/template.php:1043
+#: includes/forms/template.php:1048
 msgid "Leave a comment"
 msgstr ""
 
-#: includes/forms/template.php:1100
+#: includes/forms/template.php:1105
 #: src/PaymentGateways/Gateways/Stripe/Traits/CreditCardForm.php:31
 msgid "Credit Card Info"
 msgstr ""
 
-#: includes/forms/template.php:1104
+#: includes/forms/template.php:1109
 #: includes/gateways/stripe/includes/payment-methods/class-give-stripe-sepa.php:86
 #: src/PaymentGateways/Gateways/Stripe/Traits/BECSMandateForm.php:29
 #: src/PaymentGateways/Gateways/Stripe/Traits/CreditCardForm.php:40
@@ -13090,149 +13093,149 @@ msgstr ""
 msgid "This is a secure SSL encrypted payment."
 msgstr ""
 
-#: includes/forms/template.php:1109
-#: includes/forms/template.php:1116
+#: includes/forms/template.php:1114
+#: includes/forms/template.php:1121
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:52
 #: src/Helpers/Gateways/Stripe.php:108
 #: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:245
 msgid "Card Number"
 msgstr ""
 
-#: includes/forms/template.php:1111
+#: includes/forms/template.php:1116
 #: includes/gateways/stripe/includes/payment-methods/class-give-stripe-sepa.php:97
 #: src/Helpers/Gateways/Stripe.php:112
 #: src/PaymentGateways/Gateways/Stripe/Traits/SEPAMandateForm.php:43
 msgid "The (typically) 16 digits on the front of your credit card."
 msgstr ""
 
-#: includes/forms/template.php:1122
-#: includes/forms/template.php:1128
+#: includes/forms/template.php:1127
+#: includes/forms/template.php:1133
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:53
 #: src/Helpers/Gateways/Stripe.php:131
 #: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:246
 msgid "CVC"
 msgstr ""
 
-#: includes/forms/template.php:1124
+#: includes/forms/template.php:1129
 #: src/Helpers/Gateways/Stripe.php:135
 msgid "The 3 digit (back) or 4 digit (front) value on your card."
 msgstr ""
 
-#: includes/forms/template.php:1134
-#: includes/forms/template.php:1140
+#: includes/forms/template.php:1139
+#: includes/forms/template.php:1145
 #: src/Helpers/Gateways/Stripe.php:151
 #: src/Helpers/Gateways/Stripe.php:165
 #: build/payPalCommerceGateway.js:1
 msgid "Cardholder Name"
 msgstr ""
 
-#: includes/forms/template.php:1136
+#: includes/forms/template.php:1141
 #: src/Helpers/Gateways/Stripe.php:155
 msgid "The name of the credit card account holder."
 msgstr ""
 
-#: includes/forms/template.php:1155
+#: includes/forms/template.php:1160
 #: src/Helpers/Gateways/Stripe.php:179
 msgid "Expiration"
 msgstr ""
 
-#: includes/forms/template.php:1157
+#: includes/forms/template.php:1162
 #: src/Helpers/Gateways/Stripe.php:183
 msgid "The date your credit card expires, typically on the front of the card."
 msgstr ""
 
-#: includes/forms/template.php:1166
+#: includes/forms/template.php:1171
 msgid "MM / YY"
 msgstr ""
 
-#: includes/forms/template.php:1214
+#: includes/forms/template.php:1219
 #: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:231
 #: src/PaymentGateways/PayPalCommerce/AdvancedCardFields.php:85
 msgid "Billing Details"
 msgstr ""
 
-#: includes/forms/template.php:1258
+#: includes/forms/template.php:1263
 msgid "The country for your billing address."
 msgstr ""
 
-#: includes/forms/template.php:1284
+#: includes/forms/template.php:1289
 msgid "The primary billing address for your credit card."
 msgstr ""
 
-#: includes/forms/template.php:1293
+#: includes/forms/template.php:1298
 msgid "Address line 1"
 msgstr ""
 
-#: includes/forms/template.php:1305
+#: includes/forms/template.php:1310
 msgid "(optional) The suite, apartment number, post office box (etc) associated with your billing address."
 msgstr ""
 
-#: includes/forms/template.php:1314
+#: includes/forms/template.php:1319
 msgid "Address line 2"
 msgstr ""
 
-#: includes/forms/template.php:1326
+#: includes/forms/template.php:1331
 msgid "The city for your billing address."
 msgstr ""
 
-#: includes/forms/template.php:1371
+#: includes/forms/template.php:1376
 msgid "The state, province, or county for your billing address."
 msgstr ""
 
-#: includes/forms/template.php:1399
-#: includes/forms/template.php:1411
+#: includes/forms/template.php:1404
+#: includes/forms/template.php:1416
 msgid "Zip / Postal Code"
 msgstr ""
 
-#: includes/forms/template.php:1401
+#: includes/forms/template.php:1406
 msgid "The zip or postal code for your billing address."
 msgstr ""
 
-#: includes/forms/template.php:1505
+#: includes/forms/template.php:1510
 msgid "Create an account"
 msgstr ""
 
-#: includes/forms/template.php:1506
+#: includes/forms/template.php:1511
 msgid "Create an account on the site to see and manage donation history."
 msgstr ""
 
-#: includes/forms/template.php:1523
+#: includes/forms/template.php:1528
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:52
 msgid "Already have an account?"
 msgstr ""
 
-#: includes/forms/template.php:1594
+#: includes/forms/template.php:1599
 msgid "Log In to Your Account"
 msgstr ""
 
-#: includes/forms/template.php:1596
+#: includes/forms/template.php:1601
 msgid "(optional)"
 msgstr ""
 
-#: includes/forms/template.php:1602
+#: includes/forms/template.php:1607
 msgid "Don't have an account?"
 msgstr ""
 
-#: includes/forms/template.php:1607
+#: includes/forms/template.php:1612
 msgid "Register as a part of your donation &raquo;"
 msgstr ""
 
-#: includes/forms/template.php:1609
+#: includes/forms/template.php:1614
 msgid "Register or donate as a guest &raquo;"
 msgstr ""
 
-#: includes/forms/template.php:1631
+#: includes/forms/template.php:1636
 #: src/Framework/FieldsAPI/Authentication.php:24
 #: templates/shortcode-login.php:34
 #: build/formBuilderRegistrars.js:1
 msgid "Username or Email Address"
 msgstr ""
 
-#: includes/forms/template.php:1640
+#: includes/forms/template.php:1645
 msgid "Your username or email"
 msgstr ""
 
-#: includes/forms/template.php:1646
+#: includes/forms/template.php:1651
 #: src/Framework/FieldsAPI/Authentication.php:28
 #: templates/shortcode-login.php:39
 #: templates/shortcode-register.php:44
@@ -13240,11 +13243,11 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: includes/forms/template.php:1653
+#: includes/forms/template.php:1658
 msgid "Your password"
 msgstr ""
 
-#: includes/forms/template.php:1671
+#: includes/forms/template.php:1676
 #: includes/process-donation.php:1020
 #: templates/shortcode-login.php:52
 #: build/donationFormRegistrars.js:1
@@ -13252,27 +13255,27 @@ msgstr ""
 msgid "Reset Password"
 msgstr ""
 
-#: includes/forms/template.php:1733
+#: includes/forms/template.php:1738
 msgid "Select Payment Method"
 msgstr ""
 
-#: includes/forms/template.php:1866
+#: includes/forms/template.php:1871
 msgid "Please enter valid terms and conditions in <a href=\"%s\">this form's settings</a>."
 msgstr ""
 
-#: includes/forms/template.php:1881
+#: includes/forms/template.php:1886
 msgid "Terms"
 msgstr ""
 
-#: includes/forms/template.php:1902
+#: includes/forms/template.php:1907
 msgid "Show Terms"
 msgstr ""
 
-#: includes/forms/template.php:1904
+#: includes/forms/template.php:1909
 msgid "Hide Terms"
 msgstr ""
 
-#: includes/forms/template.php:2298
+#: includes/forms/template.php:2303
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:121
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:132
 #: includes/gateways/stripe/includes/class-give-stripe-gateway.php:143
@@ -13285,11 +13288,11 @@ msgstr ""
 msgid "Notice:"
 msgstr ""
 
-#: includes/forms/template.php:2298
+#: includes/forms/template.php:2303
 msgid "Test mode is enabled. While in test mode no live donations are processed."
 msgstr ""
 
-#: includes/forms/template.php:2327
+#: includes/forms/template.php:2332
 msgid "Please log in in order to complete your donation."
 msgstr ""
 
@@ -15922,11 +15925,15 @@ msgstr ""
 msgid "Form migrated from v2 to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:88
+#: src/FormMigration/FormMetaDecorator.php:870
+msgid "Subscribe to our newsletter?"
+msgstr ""
+
+#: src/FormMigration/ServiceProvider.php:89
 msgid "The ID of the form (v2) to migrate to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:112
+#: src/FormMigration/ServiceProvider.php:113
 msgid "The ID of the form (v3) to transfer donations (from v2)."
 msgstr ""
 
@@ -16933,68 +16940,68 @@ msgstr ""
 msgid "Supports 3D Secure payments"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:255
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:256
 msgid "Please call a PayPal support representative at %1$s"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:259
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:260
 msgid "Please reach out to PayPal support from your PayPal account Resolution Center"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:265
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:266
 msgid " and relay the following message:"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:282
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:283
 msgid "Warning, your account is not ready to accept donations."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:287
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:288
 msgid "There is an issue with your PayPal account that is preventing you from being able to accept donations."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:296
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:297
 msgid "Greetings!"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:297
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:298
 msgid "I am trying to connect my PayPal account to the GiveWP plugin for WordPress. I have gone through the onboarding process to connect my account, but when I finish I'm given the following message from GiveWP:"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:305
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:306
 msgid "Please help me resolve these account errors so I can begin accepting payments via PayPal on GiveWP."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:329
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:330
 msgid "Re-Check Account Status"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:430
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:431
 msgid "Click to get started!"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:436
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:437
 msgid "Sign up for PayPal"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:449
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:450
 #: src/PaymentGateways/Stripe/Admin/AccountManagerSettingField.php:420
 msgid "Connected"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:458
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:459
 msgid "Connected as Advanced for payments as"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:459
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:460
 msgid "Connected as Standard for payments as"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:461
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:462
 msgid "Connected for payments as"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:475
+#: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:476
 #: src/PaymentGateways/Stripe/Admin/AccountManagerSettingField.php:432
 msgid "Disconnect"
 msgstr ""
@@ -18305,6 +18312,10 @@ msgstr ""
 
 #: src/Promotions/InPluginUpsells/resources/views/payment-gateway.php:11
 msgid "Dramatically reduce the impact of gateway credit card processing fees by providing donors the option to cover that cost regardless of the gateway selected."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/resources/views/payment-gateway.php:18
+msgid "Recover your fees"
 msgstr ""
 
 #: src/Promotions/InPluginUpsells/resources/views/sale-banners.php:24
@@ -20178,6 +20189,11 @@ msgstr ""
 msgid "Need to add in a record for a donation received elsewhere, or reconcile with the payment gateway? Add donation records with the Manual Donations add-on!"
 msgstr ""
 
+#: assets/dist/js/give-admin-donations.js:1798
+#: assets/dist/js/give-admin-donors.js:1144
+msgid "Switch to Legacy View"
+msgstr ""
+
 #: assets/dist/js/give-admin-donors.js:1036
 msgid "Search donors"
 msgstr ""
@@ -20205,10 +20221,6 @@ msgstr ""
 
 #: assets/dist/js/give-admin-donors.js:1122
 msgid " 90% of donors opt to give more to help cover transaction fees when given the opportunity. Give donors that opportunity."
-msgstr ""
-
-#: assets/dist/js/give-admin-donors.js:1144
-msgid "Switch to Legacy View"
 msgstr ""
 
 #: assets/dist/js/give-admin-donors.js:1607
@@ -20858,6 +20870,10 @@ msgstr ""
 
 #: build/adminBlocks.js:1
 msgid "Enable form display to multiple pages."
+msgstr ""
+
+#: build/adminBlocks.js:1
+msgid "Color Settings"
 msgstr ""
 
 #: build/adminBlocks.js:1

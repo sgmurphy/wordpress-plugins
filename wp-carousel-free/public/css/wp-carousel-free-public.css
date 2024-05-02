@@ -332,6 +332,10 @@
 	font-size: 14px;
 }
 
+.theme-storefront .wpcp-carousel-wrapper .star-rating {
+    width: 5.7em;
+}
+
 /*--------------------------------------------------------------
 ## Carousel Navigation
 --------------------------------------------------------------*/

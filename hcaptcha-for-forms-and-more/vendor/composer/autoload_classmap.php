@@ -57,6 +57,7 @@ return array(
     'HCaptcha\\ElementorPro\\Login' => $baseDir . '/src/php/ElementorPro/Login.php',
     'HCaptcha\\EssentialAddons\\Login' => $baseDir . '/src/php/EssentialAddons/Login.php',
     'HCaptcha\\EssentialAddons\\Register' => $baseDir . '/src/php/EssentialAddons/Register.php',
+    'HCaptcha\\EssentialBlocks\\Form' => $baseDir . '/src/php/EssentialBlocks/Form.php',
     'HCaptcha\\FluentForm\\Form' => $baseDir . '/src/php/FluentForm/Form.php',
     'HCaptcha\\FormidableForms\\Form' => $baseDir . '/src/php/FormidableForms/Form.php',
     'HCaptcha\\Forminator\\Form' => $baseDir . '/src/php/Forminator/Form.php',

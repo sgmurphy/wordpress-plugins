@@ -309,11 +309,8 @@ trait Subscriptions {
 		}
 
 		if ( ! empty( trim( $this->statement_descriptor ) ) ) {
-			if ( 'card' === $this->payment_method_types ) {
-				$request['statement_descriptor_suffix'] = $this->statement_descriptor;
-			} else {
-				$request['statement_descriptor'] = $this->statement_descriptor;
-			}
+			$request['statement_descriptor_suffix'] = $this->statement_descriptor;
+			$request['statement_descriptor']        = $this->statement_descriptor;
 		}
 
 		if ( ! empty( $this->capture_method ) ) {

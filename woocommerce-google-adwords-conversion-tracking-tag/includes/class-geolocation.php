@@ -2,9 +2,7 @@
 
 namespace SweetCode\Pixel_Manager;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Geolocation {
 

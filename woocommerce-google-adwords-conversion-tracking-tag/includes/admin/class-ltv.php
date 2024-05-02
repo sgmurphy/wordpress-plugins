@@ -9,9 +9,7 @@ use SweetCode\Pixel_Manager\Logger;
 use SweetCode\Pixel_Manager\Options;
 use SweetCode\Pixel_Manager\Shop;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class LTV {
 

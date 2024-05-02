@@ -2,18 +2,16 @@
 
 namespace SweetCode\Pixel_Manager\Admin;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Documentation {
 
-	public static function get_link( $key = 'default' ) {
+	public static function get_link( $key = 'default', $sweetcode_override = false ) {
 
 		// Change to wcm through gulp for the wcm distribution
 		$doc_host_url = 'default';
 
-		$url = self::get_documentation_host() . self::get_documentation_path($key, $doc_host_url);
+		$url = self::get_documentation_host($sweetcode_override) . self::get_documentation_path($key, $doc_host_url);
 
 		return self::add_utm_parameters($url, $key);
 	}
@@ -31,7 +29,16 @@ class Documentation {
 		return $url;
 	}
 
-	private static function get_documentation_host() {
+	private static function get_documentation_host( $sweetcode_override ) {
+
+		if ($sweetcode_override) {
+			return 'https://sweetcode.com';
+		}
+
+		if ('wcm' === PMW_DISTRO) {
+			return 'https://woocommerce.com';
+		}
+
 		return 'https://sweetcode.com';
 	}
 
@@ -98,7 +105,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/snapchat',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'snapchat_advanced_matching'                                      => [
+			'snapchat_advanced_matching'                             => [
 				'default' => '/docs/wpm/plugin-configuration/snapchat#advanced-matching',
 				'wcm'     => '',
 			],
@@ -118,7 +125,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/tiktok#process-anonymous-hits',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/tiktok/#process-anonymous-hits',
 			],
-			'vwo_account_id'                     => [
+			'vwo_account_id'                                         => [
 				'default' => '/docs/wpm/plugin-configuration/vwo',
 				'wcm'     => '',
 			],
@@ -134,7 +141,7 @@ class Documentation {
 				'default' => '/docs/wpm/consent-management/google-consent-mode',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/consent-management/google-consent-mode/',
 			],
-			'restricted_consent_regions'                                 => [
+			'restricted_consent_regions'                             => [
 				'default' => '/docs/wpm/consent-management/overview#explicit-consent-regions',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/consent-management/google-consent-mode/#section-3',
 			],
@@ -146,7 +153,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/google-analytics#ga4-api-secret',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/google-analytics/#section-4',
 			],
-			'google_enhanced_conversions'                        => [
+			'google_enhanced_conversions'                            => [
 				'default' => '/docs/wpm/plugin-configuration/google-ads#enhanced-conversions',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/google-ads/#section-5',
 			],
@@ -182,7 +189,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/general-settings/#maximum-compatibility-mode',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'dynamic_remarketing'                         => [
+			'dynamic_remarketing'                                    => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#dynamic-remarketing',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/dynamic-remarketing/',
 			],
@@ -230,19 +237,19 @@ class Documentation {
 				'default' => '/docs/wpm/diagnostics#order-list-info',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#order-list-info',
 			],
-			'marketing_value_logic'                                      => [
+			'marketing_value_logic'                                  => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#marketing-value-logic',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'marketing_value_subtotal'                                         => [
+			'marketing_value_subtotal'                               => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-subtotal-default',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'marketing_value_total'                                            => [
+			'marketing_value_total'                                  => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-total',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'marketing_value_profit_margin'                                    => [
+			'marketing_value_profit_margin'                          => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#profit-margin',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#profit-margin',
 			],
@@ -278,7 +285,7 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/general-settings#lazy-load-the-pixel-manager',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#lazy-load-the-pixel-manager',
 			],
-			'opportunity_google_enhanced_conversions'            => [
+			'opportunity_google_enhanced_conversions'                => [
 				'default' => '/docs/wpm/opportunities#google-ads-enhanced-conversions',
 				'wcm'     => '',
 			],
@@ -358,7 +365,7 @@ class Documentation {
 				'default' => '/docs/wpm/developers/logs#accessing-log-files',
 				'wcm'     => '',
 			],
-			'ltv_order_calculation'                                      => [
+			'ltv_order_calculation'                                  => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#active-lifetime-value-calculation',
 				'wcm'     => '',
 			],
@@ -369,6 +376,10 @@ class Documentation {
 			'order_modal_ltv'                                        => [
 				'default' => '/docs/wpm/shop#lifetime-value',
 				'wcm'     => '',
+			],
+			'facebook_microdata_deprecation'                         => [
+				'default' => '/blog/facebook-microdata-for-catalog-deprecation-notice',
+				'wcm'     => '/blog/facebook-microdata-for-catalog-deprecation-notice',
 			],
 		];
 

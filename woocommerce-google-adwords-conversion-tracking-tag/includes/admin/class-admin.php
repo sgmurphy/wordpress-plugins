@@ -3,16 +3,15 @@
 // TODO move script for copying debug info into a proper .js enqueued file, or switch tabs to JavaScript switching and always save all settings at the same time
 namespace SweetCode\Pixel_Manager\Admin;
 
+use SweetCode\Pixel_Manager\Admin\Notifications\Notifications;
 use SweetCode\Pixel_Manager\Admin\Opportunities\Opportunities;
 use SweetCode\Pixel_Manager\Helpers;
 use SweetCode\Pixel_Manager\Logger;
 use SweetCode\Pixel_Manager\Options;
 use SweetCode\Pixel_Manager\Pixels\Pixel_Manager;
 use WP_Post;
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
 class Admin {
     private static $instance;
 
@@ -3805,11 +3804,9 @@ class Admin {
 				  rows="5"
 			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?>>
-			<?php 
+        ?>><?php 
         esc_html_e( Options::get_facebook_capi_token() );
-        ?>
-		</textarea>
+        ?></textarea>
 		<?php 
         self::display_status_icon( Options::get_facebook_capi_token(), Options::is_facebook_active() );
         self::get_documentation_html_by_key( 'facebook_capi_token' );
@@ -3931,6 +3928,7 @@ class Admin {
         }
     }
 
+    // TODO: Added deprecated message on 26.04.2024
     public function setting_html_facebook_microdata() {
         // adding the hidden input is a hack to make WordPress save the option with the value zero,
         // instead of not saving it and remove that array key entirely
@@ -3956,12 +3954,11 @@ class Admin {
 		<?php 
         self::display_status_icon( Options::is_facebook_microdata_active(), Options::is_facebook_active(), true );
         self::get_documentation_html_by_key( 'facebook_microdata' );
+        self::html_status_icon_deprecated();
         self::html_pro_feature();
-        if ( Options::is_facebook_microdata_active() && !Options::is_facebook_active() ) {
-            echo '<p></p><span class="dashicons dashicons-info"></span>';
-            esc_html_e( 'You need to activate the Meta (Facebook) pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
-            echo '</p><br>';
-        }
+        echo '<p></p><span class="dashicons dashicons-info"></span>';
+        esc_html_e( 'The Facebook Microdata feature in the Pixel Manager has been deprecated. Please use a dedicated feed plugin for this purpose. The feature will be removed in a future version.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        echo '</p><br>';
     }
 
     public function setting_html_pinterest_ad_account_id() {
@@ -3999,8 +3996,7 @@ class Admin {
 				  rows="2"
 			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?>>
-			<?php 
+        ?>><?php 
         esc_html_e( Options::get_pinterest_apic_token() );
         ?></textarea>
 
@@ -5145,12 +5141,16 @@ class Admin {
 		<?php 
     }
 
-    private function html_status_icon_decommissioned_and_disabled() {
+    private static function html_status_icon_deprecated() {
         ?>
-		<div class="pmw-status-icon partially-active"><?php 
-        esc_html_e( 'decommissioned and disabled', 'woocommerce-google-adwords-conversion-tracking-tag' );
+		<div class="pmw-status-icon inactive"><?php 
+        esc_html_e( 'deprecated', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?></div>
 		<?php 
+    }
+
+    private static function html_deprecated() {
+        return '<div class="pmw-status-icon inactive">' . esc_html__( 'deprecated', 'woocommerce-google-adwords-conversion-tracking-tag' ) . '</div>';
     }
 
     private static function html_pro_feature() {

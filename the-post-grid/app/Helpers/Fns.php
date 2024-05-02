@@ -1004,6 +1004,27 @@ class Fns {
 		return $dynamicClass;
 	}
 
+	/**
+	 * Print Validated html tags
+	 *
+	 * @param $tag
+	 *
+	 * @return string|null
+	 */
+	public static function print_validated_html_tag( $tag ) {
+		$allowed_html_wrapper_tags = [
+			'h1',
+			'h2',
+			'h3',
+			'h4',
+			'h5',
+			'h6',
+			'p',
+			'div',
+		];
+
+		return in_array( strtolower( $tag ), $allowed_html_wrapper_tags, true ) ? $tag : 'div';
+	}
 
 	/**
 	 * Get Section Title
@@ -1025,8 +1046,8 @@ class Fns {
 		<div class="tpg-widget-heading-wrapper rt-clear heading-<?php echo esc_attr( $data['section_title_style'] ); ?> ">
 			<span class="tpg-widget-heading-line line-left"></span>
 			<?php
-			// Start Section title tag
-			printf( "<%s class='tpg-widget-heading'>", esc_attr( $data['section_title_tag'] ) );
+			// Start Section title tag.
+			printf( "<%s class='tpg-widget-heading'>", esc_attr( self::print_validated_html_tag( $data['section_title_tag'] ) ) );
 			?>
 
 			<?php
@@ -1061,7 +1082,7 @@ class Fns {
 			</a>
 
 		<?php endif; ?>
-			<?php printf( '</%s>', esc_attr( $data['section_title_tag'] ) ); // End Section Title tag ?>
+			<?php printf( '</%s>', esc_attr( self::print_validated_html_tag( $data['section_title_tag'] ) ) ); // End Section Title tag ?>
 			<span class="tpg-widget-heading-line line-right"></span>
 
 			<?php if ( isset( $data['enable_external_link'] ) && 'show' === $data['enable_external_link'] ) : ?>
@@ -3381,11 +3402,11 @@ class Fns {
 			self::get_el_thumb_cat( $data, 'cat-above-title' );
 		}
 
-		printf( '<%s class="entry-title">', esc_attr( $title_tag ) );
+		printf( '<%s class="entry-title">', esc_attr( self::print_validated_html_tag( $title_tag ) ) );
 		self::print_html( $link_start );
 		self::print_html( $title );
 		self::print_html( $link_end );
-		printf( '</%s>', esc_attr( $title_tag ) );
+		printf( '</%s>', esc_attr( self::print_validated_html_tag( $title_tag ) ) );
 		echo '</div>';
 	}
 
@@ -4487,6 +4508,7 @@ class Fns {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 1C0.25 0.585786 0.585786 0.25 1 0.25H8.91667C9.11558 0.25 9.30634 0.329018 9.447 0.46967L16.249 7.27166C16.6836 7.70885 16.9275 8.30023 16.9275 8.91667C16.9275 9.5331 16.6836 10.1245 16.249 10.5617L16.2474 10.5632L10.5715 16.2392C10.5714 16.2393 10.5716 16.2391 10.5715 16.2392C10.3548 16.456 10.0973 16.6283 9.81415 16.7457C9.53089 16.8631 9.22726 16.9235 8.92062 16.9235C8.61399 16.9235 8.31036 16.8631 8.0271 16.7457C7.74398 16.6283 7.48676 16.4563 7.27013 16.2395C7.27002 16.2394 7.27024 16.2397 7.27013 16.2395L0.469979 9.4473C0.329138 9.30663 0.25 9.11573 0.25 8.91667V1ZM1.75 1.75V8.60575L8.33044 15.1785C8.40783 15.256 8.50034 15.3181 8.60151 15.36C8.70267 15.402 8.81111 15.4235 8.92062 15.4235C9.03014 15.4235 9.13858 15.402 9.23974 15.36C9.34091 15.3181 9.43281 15.2566 9.51021 15.1791L15.1852 9.50417C15.1854 9.50398 15.185 9.50435 15.1852 9.50417C15.34 9.34809 15.4275 9.13656 15.4275 8.91667C15.4275 8.69683 15.3406 8.48591 15.1858 8.32984C15.1856 8.32962 15.1861 8.33007 15.1858 8.32984L8.60601 1.75H1.75Z" fill="#444444"/>
 </svg>
 ',
+			'eye'          => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z"/></svg>',
 		];
 
 		if ( isset( $icons[ $name ] ) ) {

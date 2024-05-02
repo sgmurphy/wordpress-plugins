@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.42.5
+Stable tag: 1.42.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -291,10 +291,23 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.42.6  =
+*Release date - 02.05.2024*
+
+* Tweak: Further improved Enhanced Conversions data email formatting for Google addresses.
+* Tweak: For Conversion Adjustments added a safeguard to not send negative adjustment_value in case WooCommerce returns a negative order total. In that case set it to zero.
+* Tweak: Updated Facebook CAPI to use the new API version v19.0
+* Tweak: Improved autoloader.php to better handle premium files.
+* Tweak: Added requests to the GA4 MP debug endpoint while http request logging is active.
+* Tweak: Removed an experiment that should help show purchases in GA4 realtime reports.
+* Tweak: Added a safeguard in case no category array is passed to the $item_details_array for GA4 MP purchase events.
+* Tweak: Refactored various parts of the codebase to streamline the code.
+* Fix: GA4 MP suddenly stopped processing purchase events that are sent with a session_id. This was a documented feature by GA4 to allow purchase events to show in realtime reports. This update removes the session_id from the purchase event to allow GA4 to process the event again.
+
 = 1.42.5  =
 *Release date - 25.04.2024*
 
-Tweak: Improved Enhanced Conversions data strings formatting.
+* Tweak: Improved Enhanced Conversions data strings formatting.
 * Tweak: Improved front-end consent state logging.
 * Tweak: Changed event listeners to be more efficient.
 * Tweak: Refactored various parts of the codebase to streamline the code.

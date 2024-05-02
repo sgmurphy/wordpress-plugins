@@ -8,10 +8,8 @@ use SweetCode\Pixel_Manager\Logger;
 use SweetCode\Pixel_Manager\Pixels\Pixel_Manager;
 use SweetCode\Pixel_Manager\Helpers;
 use WP_Query;
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
 class Debug_Info {
     public static function get_debug_info() {
         try {

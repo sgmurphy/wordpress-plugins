@@ -11,9 +11,7 @@ namespace SweetCode\Pixel_Manager;
 
 use SweetCode\Pixel_Manager\Admin\Environment;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Options {
 
@@ -441,6 +439,7 @@ class Options {
 		return self::get_options_obj()->pinterest->ad_account_id;
 	}
 
+	// https://help.pinterest.com/en/business/article/enhanced-match
 	public static function is_pinterest_enhanced_match_enabled() {
 		return (bool) self::get_options_obj()->pinterest->enhanced_match;
 	}

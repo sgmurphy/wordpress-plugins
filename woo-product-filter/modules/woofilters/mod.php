@@ -2200,6 +2200,9 @@ class WoofiltersWpf extends ModuleWpf {
 				$apply_currency = \Yay_Currency\Helpers\YayCurrencyHelper::detect_current_currency();
 				$price = \Yay_Currency\Helpers\YayCurrencyHelper::calculate_price_by_currency( $raw_price, false, $apply_currency );
 			}
+			if ( $price === $raw_price && function_exists( 'wcml_convert_price' ) ) {
+				$price = wcml_convert_price($raw_price);
+			}
 		}
 
 		return ( false === $dec ? $price : round( $price, $dec ) );

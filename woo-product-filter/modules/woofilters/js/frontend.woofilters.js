@@ -1367,7 +1367,8 @@
 						var requestData =_thisObj.getAjaxRequestData($filtersDataBackend, $queryVars, $filterSettings, $generalSettings, $shortcodeAttr, $woocommerceSettings);
 						wpfDoActionsAfterLoad(_thisObj.filteringId, -1, requestData);
 					}
-					jQuery(location).attr('href', (redirectTerm ? redirectLink : $filterWrapper.data('redirect-page-url')) + '?' + queryString + '&redirect');
+					var redLink = (redirectTerm ? redirectLink : $filterWrapper.data('redirect-page-url'));
+					jQuery(location).attr('href', redLink + (redLink.indexOf('?') == -1 ? '?' : '&') + queryString + '&redirect');
 				}
 			} else {
 				if ($generalSettings && $generalSettings.settings.enable_ajax !== '1') {

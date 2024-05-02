@@ -457,6 +457,8 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 					}
 
 					wc_add_notice( $error . $intent_data['message'], 'error' );
+					/* translators: %1$1s stripe error message.  */
+					Logger::info( sprintf( __( 'Stripe error:  %1$1s', 'checkout-plugins-stripe-woo' ), $error . $intent_data['message'] ) );
 
 					return [
 						'result'      => 'fail',
@@ -582,6 +584,8 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 
 			// translators: %s: payment fail message.
 			wc_add_notice( sprintf( __( 'Payment failed. %s', 'checkout-plugins-stripe-woo' ), Helper::get_localized_messages( $code, $message ) ), 'error' );
+			/* translators: %1$1s order id, %2$2s payment fail message.  */
+			Logger::error( sprintf( __( 'Payment failed for Order id - %1$1s. %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, Helper::get_localized_messages( $code, $message ) ) );
 			$redirect_url = wc_get_checkout_url();
 		}
 		wp_safe_redirect( $redirect_url );

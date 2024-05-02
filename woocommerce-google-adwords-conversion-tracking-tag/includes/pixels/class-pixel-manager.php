@@ -6,42 +6,22 @@ use SweetCode\Pixel_Manager\Admin\Environment;
 use SweetCode\Pixel_Manager\Admin\LTV;
 use SweetCode\Pixel_Manager\Admin\Validations;
 use SweetCode\Pixel_Manager\Data\GA4_Data_API;
+use SweetCode\Pixel_Manager\Pixels\Facebook\Facebook_CAPI;
+use SweetCode\Pixel_Manager\Pixels\Facebook\Facebook_Microdata;
+use SweetCode\Pixel_Manager\Pixels\Google\Google_MP_GA4;
+use SweetCode\Pixel_Manager\Pixels\Google\Google_Helpers;
 use SweetCode\Pixel_Manager\Geolocation;
 use SweetCode\Pixel_Manager\Helpers;
 use SweetCode\Pixel_Manager\Logger;
 use SweetCode\Pixel_Manager\Options;
-use SweetCode\Pixel_Manager\Shop;
 use SweetCode\Pixel_Manager\Product;
-use SweetCode\Pixel_Manager\Http\Facebook_CAPI;
-use SweetCode\Pixel_Manager\Http\Google_MP;
-use SweetCode\Pixel_Manager\Http\Pinterest_APIC;
-use SweetCode\Pixel_Manager\Http\TikTok_EAPI;
-use SweetCode\Pixel_Manager\Pixels\Facebook\Facebook_Microdata;
-use SweetCode\Pixel_Manager\Pixels\Facebook\Facebook_Pixel_Manager;
-use SweetCode\Pixel_Manager\Pixels\Google\Google;
-use SweetCode\Pixel_Manager\Pixels\Google\Google_Pixel_Manager;
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly
-}
+use SweetCode\Pixel_Manager\Shop;
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
 class Pixel_Manager {
-    protected $options;
+    private $rest_namespace = 'pmw/v1';
 
-    protected $options_obj;
-
-    protected $cart;
-
-    protected $google;
-
-    protected $microdata_product_id;
-
-    protected $order;
-
-    protected $rest_namespace = 'pmw/v1';
-
-    protected $gads_conversion_adjustments_route = '/google-ads/conversion-adjustments.csv';
-
-    protected $user_data = [];
+    private $gads_conversion_adjustments_route = '/google-ads/conversion-adjustments.csv';
 
     private static $instance;
 
@@ -57,24 +37,9 @@ class Pixel_Manager {
      */
     private function __construct() {
         /**
-         * Initialize options
-         */
-        $this->options = Options::get_options();
-        $this->options_obj = Options::get_options_obj();
-        if ( function_exists( 'get_woocommerce_currency' ) ) {
-            $this->options_obj->shop->currency = get_woocommerce_currency();
-        }
-        /**
-         * Set a few states
-         */
-        $this->google = new Google();
-        /**
          * Inject optimization scripts
          */
         add_action( 'wp_head', function () {
-            //			if (Options::is_vwo_active()) {
-            //				VWO::inject_script();
-            //			}
             if ( Options::is_ab_tasty_active() ) {
                 AB_Tasty::inject_script();
             }
@@ -92,10 +57,10 @@ class Pixel_Manager {
             add_action( 'litespeed_esi_load-pmw_data_layer', [$this, 'inject_data_layer_through_litespeed_esi'] );
         }
         add_action( 'wp_head', function () {
-            $this->inject_pmw_opening();
+            self::inject_pmw_opening();
             if ( wpm_fs()->can_use_premium_code__premium_only() && Environment::is_woocommerce_active() && is_product() ) {
                 if ( Options::is_facebook_microdata_active() ) {
-                    $this->microdata_product_id = ( new Facebook_Microdata() )->inject_schema( wc_get_product( get_the_ID() ) );
+                    Facebook_Microdata::inject_schema( wc_get_product( get_the_ID() ) );
                 }
             }
             // Add products to data layer from page transient
@@ -111,15 +76,6 @@ class Pixel_Manager {
                 $this->inject_data_layer();
             }
         } );
-        /**
-         * Initialize all pixels
-         */
-        if ( Options::is_google_active() ) {
-            new Google_Pixel_Manager($this->options);
-        }
-        if ( Options::is_facebook_active() ) {
-            new Facebook_Pixel_Manager($this->options);
-        }
         add_action( 'wp_head', function () {
             $this->inject_pmw_closing();
         } );
@@ -157,7 +113,7 @@ class Pixel_Manager {
          */
         if ( did_action( 'wp_body_open' ) ) {
             add_action( 'wp_body_open', function () {
-                $this->inject_body_pixels();
+                self::inject_body_pixels();
             } );
         }
         /**
@@ -482,7 +438,7 @@ class Pixel_Manager {
     public function process_server_to_server_event( $data ) {
         // Send Facebook CAPI event
         if ( isset( $data['facebook'] ) ) {
-            ( new Facebook_CAPI($this->options) )->send_facebook_capi_event( $data['facebook'] );
+            Facebook_CAPI::send_facebook_capi_event( $data['facebook'] );
         }
         // Send Tiktok Events API event
         if ( isset( $data['tiktok'] ) ) {
@@ -521,22 +477,22 @@ class Pixel_Manager {
     public function run_background_processes() {
         if ( wpm_fs()->can_use_premium_code__premium_only() && Environment::is_woocommerce_active() ) {
             if ( is_cart() || is_checkout() ) {
+                if ( Options::is_google_analytics_active() ) {
+                    Google_MP_GA4::pmw_google_analytics_set_session_data();
+                }
                 if ( Options::is_facebook_capi_enabled() ) {
-                    ( new Facebook_CAPI($this->options) )->pmw_facebook_set_session_identifiers();
+                    Facebook_CAPI::pmw_facebook_set_session_identifiers();
                 }
                 if ( Options::is_tiktok_eapi_active() ) {
-                    TikTok_EAPI::get_instance()->set_session_identifiers();
+                    TikTok_EAPI::set_session_identifiers();
                 }
                 if ( Options::is_pinterest_apic_active() ) {
-                    Pinterest_APIC::get_instance()->set_session_identifiers();
-                }
-                if ( Options::is_google_analytics_active() ) {
-                    ( new Google_MP($this->options) )->pmw_google_analytics_set_session_data();
+                    Pinterest_APIC::set_session_identifiers();
                 }
             }
             if ( Shop::pmw_is_order_received_page() ) {
                 if ( Shop::pmw_get_current_order() ) {
-                    ( new Google_Pixel_Manager($this->options) )->save_gclid_in_order__premium_only( Shop::pmw_get_current_order() );
+                    Google_MP_GA4::save_gclid_in_order__premium_only( Shop::pmw_get_current_order() );
                 }
             }
         }
@@ -736,7 +692,7 @@ class Pixel_Manager {
      *
      * @return mixed|void
      */
-    protected function get_data_for_data_layer() {
+    private function get_data_for_data_layer() {
         /**
          * Load and set some defaults.
          */
@@ -775,7 +731,7 @@ class Pixel_Manager {
         return apply_filters( 'pmw_experimental_data_layer', $data );
     }
 
-    protected function get_pixel_data() {
+    private function get_pixel_data() {
         $data = [];
         if ( Options::is_google_active() ) {
             $data['google'] = $this->get_google_pixel_data();
@@ -822,22 +778,22 @@ class Pixel_Manager {
         return $data;
     }
 
-    protected function get_google_pixel_data() {
+    private function get_google_pixel_data() {
         $data = [
             'linker'  => [
-                'settings' => $this->google->get_google_linker_settings(),
+                'settings' => Google_Helpers::get_google_linker_settings(),
             ],
             'user_id' => Options::is_google_user_id_active(),
         ];
         if ( Options::is_google_ads_active() ) {
             $data['ads'] = [
-                'conversion_ids'           => (object) $this->google->get_google_ads_conversion_ids(),
+                'conversion_ids'           => (object) Google_Helpers::get_google_ads_conversion_ids(),
                 'dynamic_remarketing'      => [
                     'status'                      => true,
                     'id_type'                     => Product::get_dyn_r_id_type( 'google_ads' ),
                     'send_events_with_parent_ids' => $this->send_events_with_parent_ids(),
                 ],
-                'google_business_vertical' => $this->google->get_google_business_vertical_name_by_id( Options::get_google_ads_business_vertical_id() ),
+                'google_business_vertical' => Google_Helpers::get_google_business_vertical_name_by_id( Options::get_google_ads_business_vertical_id() ),
                 'phone_conversion_number'  => Options::get_google_ads_phone_conversion_number(),
                 'phone_conversion_label'   => Options::get_google_ads_phone_conversion_label(),
             ];
@@ -846,12 +802,12 @@ class Pixel_Manager {
             $data['analytics'] = [
                 'ga4'     => [
                     'measurement_id'          => Options::get_ga4_measurement_id(),
-                    'parameters'              => (object) $this->google->get_ga4_parameters( Options::get_ga4_measurement_id() ),
+                    'parameters'              => (object) Google_Helpers::get_ga4_parameters( Options::get_ga4_measurement_id() ),
                     'mp_active'               => Options::is_ga4_mp_active() && wpm_fs()->can_use_premium_code__premium_only(),
-                    'debug_mode'              => $this->google->is_ga4_debug_mode_active(),
+                    'debug_mode'              => Google_Helpers::is_ga4_debug_mode_active(),
                     'page_load_time_tracking' => Options::is_ga4_page_load_time_tracking_active(),
                 ],
-                'id_type' => $this->google->get_ga_id_type(),
+                'id_type' => Google_Helpers::get_ga_id_type(),
                 'eec'     => wpm_fs()->can_use_premium_code__premium_only() && Options::is_google_analytics_active(),
             ];
         }
@@ -859,8 +815,8 @@ class Pixel_Manager {
         $data['consent_mode'] = [
             'is_active'          => Options::is_google_consent_mode_active(),
             'wait_for_update'    => 500,
-            'ads_data_redaction' => $this->google->get_google_consent_mode_ads_data_redaction_setting(),
-            'url_passthrough'    => $this->google->get_google_consent_mode_url_passthrough_setting(),
+            'ads_data_redaction' => Google_Helpers::get_google_consent_mode_ads_data_redaction_setting(),
+            'url_passthrough'    => Google_Helpers::get_google_consent_mode_url_passthrough_setting(),
         ];
         if ( Options::is_google_enhanced_conversions_active() ) {
             $data['enhanced_conversions']['is_active'] = Options::is_google_enhanced_conversions_active();
@@ -884,7 +840,7 @@ class Pixel_Manager {
         return apply_filters( 'pmw_send_events_with_parent_ids', $events_with_parent_ids );
     }
 
-    protected function get_adroll_pixel_data() {
+    private function get_adroll_pixel_data() {
         return [
             'advertiser_id'       => Options::get_adroll_advertiser_id(),
             'pixel_id'            => Options::get_adroll_pixel_id(),
@@ -894,7 +850,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected function get_linkedin_pixel_data() {
+    private function get_linkedin_pixel_data() {
         return [
             'partner_id'          => Options::get_linkedin_partner_id(),
             'conversion_ids'      => Options::get_linkedin_conversion_ids(),
@@ -904,7 +860,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected static function get_bing_pixel_data() {
+    private static function get_bing_pixel_data() {
         return [
             'uet_tag_id'           => Options::get_bing_uet_tag_id(),
             'enhanced_conversions' => Options::is_bing_enhanced_conversions_enabled(),
@@ -914,7 +870,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected function get_facebook_pixel_data() {
+    private function get_facebook_pixel_data() {
         $data = [
             'pixel_id'            => Options::get_facebook_pixel_id(),
             'dynamic_remarketing' => [
@@ -928,19 +884,16 @@ class Pixel_Manager {
         if ( apply_filters( 'pmw_facebook_mobile_bridge_app_id', null ) ) {
             $data['mobile_bridge_app_id'] = apply_filters( 'pmw_facebook_mobile_bridge_app_id', null );
         }
-        if ( wpm_fs()->can_use_premium_code__premium_only() && Environment::is_woocommerce_active() && is_product() && Options::is_facebook_microdata_active() ) {
-            $data['microdata_product_id'] = $this->microdata_product_id;
-        }
         return $data;
     }
 
-    protected function get_hotjar_pixel_data() {
+    private function get_hotjar_pixel_data() {
         return [
             'site_id' => Options::get_hotjar_site_id(),
         ];
     }
 
-    protected static function get_outbrain_pixel_data() {
+    private static function get_outbrain_pixel_data() {
         return [
             'advertiser_id'       => Options::get_outbrain_advertiser_id(),
             'dynamic_remarketing' => [
@@ -950,7 +903,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected static function get_outbrain_event_name_mapping() {
+    private static function get_outbrain_event_name_mapping() {
         $mapping = [
             'search'         => 'search',
             'view_content'   => 'content_view',
@@ -961,15 +914,14 @@ class Pixel_Manager {
         return (array) apply_filters( 'pmw_outbrain_event_name_mapping', $mapping );
     }
 
-    protected function get_pinterest_pixel_data() {
+    private function get_pinterest_pixel_data() {
         $data = [
             'pixel_id'            => Options::get_pinterest_pixel_id(),
             'dynamic_remarketing' => [
                 'id_type' => Product::get_dyn_r_id_type( 'pinterest' ),
             ],
-            'advanced_matching'   => (bool) Options::is_pinterest_advanced_matching_active(),
+            'advanced_matching'   => Options::is_pinterest_advanced_matching_active(),
         ];
-        // Add Pinterest Conversion ID if available.
         $enhanced_match = Options::is_pinterest_enhanced_match_enabled();
         $enhanced_match = apply_filters_deprecated(
             'wooptpm_pinterest_enhanced_match',
@@ -987,7 +939,7 @@ class Pixel_Manager {
         return $data;
     }
 
-    protected function get_reddit_pixel_data() {
+    private function get_reddit_pixel_data() {
         return [
             'advertiser_id'       => Options::get_reddit_advertiser_id(),
             'advanced_matching'   => Options::is_reddit_advanced_matching_enabled(),
@@ -997,7 +949,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected function get_snapchat_pixel_data() {
+    private function get_snapchat_pixel_data() {
         return [
             'pixel_id'            => Options::get_snapchat_pixel_id(),
             'dynamic_remarketing' => [
@@ -1007,7 +959,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected static function get_taboola_pixel_data() {
+    private static function get_taboola_pixel_data() {
         return [
             'account_id'          => (int) Options::get_taboola_account_id(),
             'dynamic_remarketing' => [
@@ -1017,7 +969,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected static function get_taboola_event_name_mapping() {
+    private static function get_taboola_event_name_mapping() {
         $mapping = [
             'search'          => 'search',
             'view_content'    => 'view_content',
@@ -1029,7 +981,7 @@ class Pixel_Manager {
         return (array) apply_filters( 'pmw_taboola_event_name_mapping', $mapping );
     }
 
-    protected function get_tiktok_pixel_data() {
+    private function get_tiktok_pixel_data() {
         return [
             'pixel_id'            => Options::get_tiktok_pixel_id(),
             'dynamic_remarketing' => [
@@ -1040,7 +992,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected function get_twitter_pixel_data() {
+    private function get_twitter_pixel_data() {
         return [
             'pixel_id'            => Options::get_twitter_pixel_id(),
             'dynamic_remarketing' => [
@@ -1056,7 +1008,7 @@ class Pixel_Manager {
         ];
     }
 
-    protected function add_order_data( $data ) {
+    private function add_order_data( $data ) {
         if ( !Shop::pmw_is_order_received_page() ) {
             return array_merge( $data, [] );
         }
@@ -1069,7 +1021,7 @@ class Pixel_Manager {
         return array_merge( $data, $this->get_order_data( Shop::pmw_get_current_order() ) );
     }
 
-    protected function get_order_data( $order ) {
+    private function get_order_data( $order ) {
         $data = [];
         if ( $order ) {
             $data['order'] = [
@@ -1089,7 +1041,7 @@ class Pixel_Manager {
                 'coupon'           => implode( ',', $order->get_coupon_codes() ),
                 'aw_merchant_id'   => ( Options::get_google_ads_merchant_id() ? Options::get_google_ads_merchant_id() : '' ),
                 'aw_feed_country'  => (string) Geolocation::get_visitor_country(),
-                'aw_feed_language' => (string) $this->google->get_gmc_language(),
+                'aw_feed_language' => Google_Helpers::get_gmc_language(),
                 'new_customer'     => Shop::is_new_customer( $order ),
                 'quantity'         => (int) count( Product::pmw_get_order_items( $order ) ),
                 'items'            => Product::get_front_end_order_items( $order ),
@@ -1135,7 +1087,7 @@ class Pixel_Manager {
         return $data;
     }
 
-    protected function get_order_products( $order ) {
+    private function get_order_products( $order ) {
         $order_products = [];
         foreach ( (array) Product::pmw_get_order_items( $order ) as $order_item ) {
             $order_item_data = $order_item->get_data();
@@ -1148,7 +1100,7 @@ class Pixel_Manager {
         return $order_products;
     }
 
-    protected function get_product_data( $product_id ) {
+    private function get_product_data( $product_id ) {
         $product = wc_get_product( $product_id );
         if ( Product::is_not_wc_product( $product ) ) {
             Product::log_problematic_product_id( $product_id );
@@ -1170,7 +1122,7 @@ class Pixel_Manager {
         return $data;
     }
 
-    public function inject_pmw_opening() {
+    private static function inject_pmw_opening() {
         echo PHP_EOL . '<!-- START Pixel Manager for WooCommerce -->' . PHP_EOL;
     }
 
@@ -1357,7 +1309,7 @@ class Pixel_Manager {
         );
     }
 
-    protected function move_pmw_script_to_footer() {
+    private function move_pmw_script_to_footer() {
         $move_pmw_script_to_footer_active = apply_filters_deprecated(
             'wpm_experimental_move_wpm_script_to_footer',
             [false],
@@ -1382,8 +1334,8 @@ class Pixel_Manager {
         // nothing to do
     }
 
-    private function inject_body_pixels() {
-        //        $this->google_pixel_manager->inject_google_optimize_anti_flicker_snippet();
+    private static function inject_body_pixels() {
+        //        do something
     }
 
     private function get_shop_data() {
@@ -1472,7 +1424,7 @@ class Pixel_Manager {
         return $data;
     }
 
-    protected function get_page_number() {
+    private function get_page_number() {
         return ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
     }
 

@@ -2,9 +2,7 @@
 
 namespace SweetCode\Pixel_Manager\Admin\Opportunities;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 /**
  * Abstract class Opportunity

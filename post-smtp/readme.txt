@@ -1,7 +1,7 @@
 === Post SMTP – The Complete WP SMTP Plugin with Email Logs and Mobile app for email Failure Notifications ===
 Plugin URI: https://postmansmtp.com/
 Contributors: wpexpertsio
-Tags: smtp, wordpress smtp, wp_mail, gmail smtp, post smtp, email,  email log, office 365, mailgun, wp smtp, sendgrid, brevo, microsoft 365, amazon ses, sendinblue
+Tags: smtp, gmail smtp, email,  email logs, office 365
 Requires at least: 5.6.0
 Tested up to: 6.5.2
 Stable tag: 2.9.1

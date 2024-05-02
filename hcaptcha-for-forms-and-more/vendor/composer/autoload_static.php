@@ -98,6 +98,7 @@ class ComposerStaticInit52a5f9145f43dbcfa32cada7868c8216
         'HCaptcha\\ElementorPro\\Login' => __DIR__ . '/../..' . '/src/php/ElementorPro/Login.php',
         'HCaptcha\\EssentialAddons\\Login' => __DIR__ . '/../..' . '/src/php/EssentialAddons/Login.php',
         'HCaptcha\\EssentialAddons\\Register' => __DIR__ . '/../..' . '/src/php/EssentialAddons/Register.php',
+        'HCaptcha\\EssentialBlocks\\Form' => __DIR__ . '/../..' . '/src/php/EssentialBlocks/Form.php',
         'HCaptcha\\FluentForm\\Form' => __DIR__ . '/../..' . '/src/php/FluentForm/Form.php',
         'HCaptcha\\FormidableForms\\Form' => __DIR__ . '/../..' . '/src/php/FormidableForms/Form.php',
         'HCaptcha\\Forminator\\Form' => __DIR__ . '/../..' . '/src/php/Forminator/Form.php',

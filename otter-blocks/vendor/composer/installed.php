@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/otter-blocks',
-        'pretty_version' => '2.6.11',
-        'version' => '2.6.11.0',
+        'pretty_version' => '2.6.12',
+        'version' => '2.6.12.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -11,8 +11,8 @@
     ),
     'versions' => array(
         'codeinwp/otter-blocks' => array(
-            'pretty_version' => '2.6.11',
-            'version' => '2.6.11.0',
+            'pretty_version' => '2.6.12',
+            'version' => '2.6.12.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',

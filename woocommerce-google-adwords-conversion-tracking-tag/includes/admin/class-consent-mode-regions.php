@@ -2,9 +2,7 @@
 
 namespace SweetCode\Pixel_Manager\Admin;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Consent_Mode_Regions {
 

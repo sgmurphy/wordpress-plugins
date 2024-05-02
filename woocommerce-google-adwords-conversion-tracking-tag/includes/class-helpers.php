@@ -9,10 +9,8 @@ use libphonenumber\PhoneNumberUtil;
 use stdClass;
 use WC_Log_Handler_File;
 use SweetCode\Pixel_Manager\Admin\Environment;
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
 class Helpers {
     private static $user_data;
 

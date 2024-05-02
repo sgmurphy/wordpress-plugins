@@ -8,12 +8,9 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 // Create a helper function for easy SDK access.
-
 if ( !function_exists( 'sugb_fs' ) ) {
-    function sugb_fs()
-    {
-        global  $sugb_fs ;
-        
+    function sugb_fs() {
+        global $sugb_fs;
         if ( !isset( $sugb_fs ) ) {
             // Activate multisite network integration.
             if ( !defined( 'WP_FS__PRODUCT_1748_MULTISITE' ) ) {
@@ -34,7 +31,7 @@ if ( !function_exists( 'sugb_fs' ) ) {
             // admin URLs will be broken. This is a temporary fix.
             $menu_slug = 'options-general.php';
             if ( is_multisite() && is_main_site() && is_plugin_active_for_network( plugin_basename( STACKABLE_FILE ) ) ) {
-                if ( !empty($_SERVER) && isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/admin.php' ) !== false ) {
+                if ( !empty( $_SERVER ) && isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/admin.php' ) !== false ) {
                     $menu_slug = 'admin.php';
                 }
             }
@@ -48,24 +45,23 @@ if ( !function_exists( 'sugb_fs' ) ) {
                 'has_paid_plans' => true,
                 'navigation'     => 'tabs',
                 'menu'           => array(
-                'slug'        => 'stackable',
-                'first-path'  => $first_path,
-                'account'     => true,
-                'pricing'     => true,
-                'contact'     => true,
-                'support'     => false,
-                'affiliation' => false,
-                'parent'      => array(
-                'slug' => $menu_slug,
-            ),
-            ),
+                    'slug'        => 'stackable',
+                    'first-path'  => $first_path,
+                    'account'     => true,
+                    'pricing'     => true,
+                    'contact'     => true,
+                    'support'     => false,
+                    'affiliation' => false,
+                    'parent'      => array(
+                        'slug' => $menu_slug,
+                    ),
+                ),
                 'is_live'        => true,
             ) );
         }
-        
         return $sugb_fs;
     }
-    
+
     // Init Freemius.
     sugb_fs();
     // Disable some Freemius features.
@@ -79,11 +75,11 @@ if ( !function_exists( 'sugb_fs' ) ) {
     sugb_fs()->add_filter(
         'show_admin_notice',
         function ( $show, $message ) {
-        if ( in_array( $message['id'], array( 'license_activated', 'premium_activated', 'connect_account' ) ) ) {
-            return false;
-        }
-        return $show;
-    },
+            if ( in_array( $message['id'], array('license_activated', 'premium_activated', 'connect_account') ) ) {
+                return false;
+            }
+            return $show;
+        },
         10,
         2
     );

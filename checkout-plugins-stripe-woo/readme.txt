@@ -3,7 +3,7 @@ Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,9 @@ We understand the need for a quality product backed by dedicated support that ca
 4. Express Checkout Button on Checkout Page
 
 == Changelog ==
+
+= 1.8.1 - THURSDAY, 2nd May 2024 =
+* Improvement: Modified the statement descriptor param for card payments as per the guidelines by stripe.
 
 = 1.8.0 - THURSDAY, 28TH March 2024 =
 * New: WooCommerce Gutenberg checkout block support for SEPA payment gateway.

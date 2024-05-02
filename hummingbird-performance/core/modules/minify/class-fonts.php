@@ -52,6 +52,10 @@ class Fonts {
 	 * @return bool
 	 */
 	public function is_preload_enabled() {
+		if ( is_feed() ) {
+			return false;
+		}
+
 		$options = Settings::get_settings( 'minify' );
 
 		return $this->is_minify_enabled() && $options['font_optimization'];

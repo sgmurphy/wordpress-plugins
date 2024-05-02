@@ -315,7 +315,8 @@ a.advanced-section-link {
     box-sizing: content-box;
 }
 
-.pmw.opportunity-card {
+.pmw .opportunity-card,
+.pmw .notification-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -332,7 +333,8 @@ a.advanced-section-link {
     box-shadow: 0 0 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 2px 0 rgb(0 0 0 / 20%);
 }
 
-.pmw.opportunity-card-top {
+.pmw .opportunity-card-top,
+.pmw .notification-card-top {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -342,18 +344,40 @@ a.advanced-section-link {
     margin-bottom: 6px;
 }
 
-.pmw.opportunity-card-top-right {
+.pmw .opportunity-card-top-right,
+.pmw .notification-card-top-right {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.pmw.opportunity-card-top-impact {
+.pmw .opportunity-card-top-impact,
+.pmw .notification-card-top-impact {
     margin-left: 2px;
     margin-right: 2px;
 }
 
-.pmw.opportunity-card-top-impact-level {
+.pmw .notification-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.pmw .notification-top {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pmw .notification-dismiss-cross {
+    font-size: 20px;
+}
+
+.pmw .opportunity-card-top-impact-level,
+.pmw .notification-card-top-impact-level {
     margin-left: 2px;
     margin-right: 2px;
     padding: 4px 10px;
@@ -361,14 +385,17 @@ a.advanced-section-link {
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
+    color: #2271b1;
 }
 
-.pmw.opportunity-card-middle {
+.pmw .opportunity-card-middle,
+.pmw .notification-card-middle {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.pmw.opportunity-card-bottom {
+.pmw .opportunity-card-bottom,
+.pmw .notification-card-bottom {
     /*display:flex;*/
     /*flex-direction:row;*/
     /*justify-content:space-between;*/
@@ -380,18 +407,22 @@ a.advanced-section-link {
     justify-content: flex-end;
     display: flex;
     flex-direction: row;
+
 }
 
-.pmw.opportunity-card-button-link {
+.pmw .opportunity-card-button-link,
+.pmw .notification-card-button-link {
     text-decoration: none;
     box-shadow: none;
 }
 
-.pmw.opportunity-card-hr {
+.pmw .opportunity-card-hr,
+.pmw .notification-card-hr {
     margin: 0 0 0 0;
 }
 
-.pmw.opportunity-card-bottom-button {
+.pmw .opportunity-card-bottom-button,
+.pmw .notification-card-bottom-button {
     margin-left: 2px;
     margin-right: 2px;
     padding: 4px 10px;
@@ -411,6 +442,22 @@ a.advanced-section-link {
     font-size: 0.8em;
 }
 
+/*.pmw .wistia_embed {*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    text-decoration: none;*/
+/*    vertical-align: top;*/
+/*}*/
+
+.pmw .notification-video-link {
+    /*position: relative;*/
+    min-width: 36px;
+}
+
+.pmw .dashicons-video-alt3 {
+    font-size: 36px;
+    margin-top: -4px;
+}
 
 .pmw.dev-banner {
     /*border: 2px solid blue;*/

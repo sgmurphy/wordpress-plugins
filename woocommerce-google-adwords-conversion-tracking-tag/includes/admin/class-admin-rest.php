@@ -2,13 +2,12 @@
 
 namespace SweetCode\Pixel_Manager\Admin;
 
+use SweetCode\Pixel_Manager\Admin\Notifications\Notifications;
 use SweetCode\Pixel_Manager\Admin\Opportunities\Opportunities;
 use SweetCode\Pixel_Manager\Helpers;
 use SweetCode\Pixel_Manager\Logger;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Admin_REST {
 
@@ -49,6 +48,11 @@ class Admin_REST {
 
 				if ('dismiss_opportunity' === $data['type']) {
 					Opportunities::dismiss_opportunity($data['id']);
+					wp_send_json_success();
+				}
+
+				if ('dismiss_notification' === $data['type']) {
+					Notifications::dismiss_notification($data['id']);
 					wp_send_json_success();
 				}
 

@@ -1,6 +1,6 @@
 === Hummingbird - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript ===
 Plugin Name: Hummingbird - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript
-Version: 3.8.0
+Version: 3.8.1
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
@@ -8,7 +8,7 @@ Tags: cache, critical css, javascript delay, minify css, defer css javascript, p
 Requires at least: 5.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.8.0
+Stable tag: 3.8.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -203,6 +203,10 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 4. Use suggestions to make improvements and speed up your site.
 
 == Changelog ==
+
+= 3.8.1 ( 2024-05-02 ) =
+- Fix: Font optimization causes issue with RSS feeds
+- Fix: PHP errors and warnings
 
 = 3.8.0 ( 2024-04-29 ) =
 - New: Load local fonts early with font preloading

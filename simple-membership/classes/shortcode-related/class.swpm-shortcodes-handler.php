@@ -39,8 +39,8 @@ class SwpmShortcodesHandler {
 			return '<p class="swpm-red-box">Error! You must specify a button ID with this shortcode. Check the usage documentation.</p>';
 		}
 
-                //Sanitize the arguments.
-                $args = array_map( 'esc_attr', $args );
+		//Add a quick escaping to the shortcode arguments.
+		$args = array_map( 'esc_attr', $args );
                         
 		$button_id = $id;
 		//$button = get_post($button_id); //Retrieve the CPT for this button
@@ -231,7 +231,7 @@ class SwpmShortcodesHandler {
 			if ( empty( $css_class ) ) {
 				$link_css_class = '';
 			} else {
-				$link_css_class = ' class="' . $css_class . '"';
+				$link_css_class = ' class="' . sanitize_html_class($css_class) . '"';
 			}
 
 			//Set the default anchor text (if one is provided via the shortcode).
@@ -243,12 +243,12 @@ class SwpmShortcodesHandler {
 			$sandbox_enabled = $settings->get_value( 'enable-sandbox-testing' );
 			if ( $sandbox_enabled ) {
 				//Sandbox mode
-				$output .= '<a href="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" _fcksavedurl="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" '. $window_target . esc_attr($link_css_class) .'>';
+				$output .= '<a href="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" _fcksavedurl="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" '. esc_js($window_target) . esc_attr($link_css_class) .'>';
 				$output .= esc_attr($anchor_text);
 				$output .= '</a>';
 			} else {
 				//Live mode
-				$output .= '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" _fcksavedurl="https://www.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" '.$window_target . esc_attr($link_css_class) .'>';
+				$output .= '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" _fcksavedurl="https://www.paypal.com/cgi-bin/webscr?cmd=_subscr-find&alias=' . esc_attr($merchant_id) . '" '. esc_js($window_target) . esc_attr($link_css_class) .'>';
 				$output .= esc_attr($anchor_text);
 				$output .= '</a>';
 			}
@@ -324,7 +324,7 @@ class SwpmShortcodesHandler {
 				$output .= '<div class="swpm-sub-name">'. esc_attr($subscription['plan']).'</div>';
 				if( isset ( $subscription['is_attached_to_profile'] ) && $subscription['is_attached_to_profile'] == 'yes'  ){
 					//This subscription is attached to the profile currently. Show a message.
-					$output .= '<div class="swpm-sub-attached-to-profile">'. __('Currently providing your membership access.', 'simple-membership').'</div>';
+					$output .= '<div class="swpm-sub-attached-to-profile">'. __('Currently used for your membership access.', 'simple-membership').'</div>';
 				}
 				$output .= '</td>';
 

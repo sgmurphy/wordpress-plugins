@@ -1,12 +1,14 @@
 === Jeg Elementor Kit ===
 Contributors: Jegtheme
-Tags: elementor, element, addon, widget, extension, blog, post, elementor addon, elementor widget, elementor extension, elementor element, blog post, landing page, template, template kit
+Tags: elementor, elements, addons, widgets, templates
 Requires at least: 5.0
 Tested up to: 6.5.2
 Requires PHP: 7.0
 Stable tag: 2.6.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+Additional widgets for Elementor page builder. It has 40 highly customizable widgets.
 
 == Description ==
 

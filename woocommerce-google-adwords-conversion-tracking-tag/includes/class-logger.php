@@ -4,9 +4,7 @@ namespace SweetCode\Pixel_Manager;
 
 use SweetCode\Pixel_Manager\Admin\Environment;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 /**
  * Logger class responsible for logging activities

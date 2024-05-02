@@ -5,10 +5,8 @@ namespace SweetCode\Pixel_Manager;
 use SweetCode\Pixel_Manager\Admin\Documentation;
 use SweetCode\Pixel_Manager\Admin\Environment;
 use SweetCode\Pixel_Manager\Options;
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
 class Shop {
     private static $clv_orders_by_billing_email;
 

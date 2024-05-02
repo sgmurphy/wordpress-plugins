@@ -148,8 +148,8 @@ class WP_Carousel_Free_Shortcode {
 			$column_mobile         = isset( $column_number['mobile'] ) && ! empty( $column_number['mobile'] ) ? $column_number['mobile'] : $old_column_mobile;
 			$is_auto_play          = isset( $shortcode_data['wpcp_carousel_auto_play'] ) ? $shortcode_data['wpcp_carousel_auto_play'] : true;
 			$auto_play             = $is_auto_play ? 'true' : 'false';
-			$autoplay_speed        = isset( $shortcode_data['carousel_auto_play_speed'] ) && is_string( $shortcode_data['carousel_auto_play_speed'] ) ? $shortcode_data['carousel_auto_play_speed'] : '3000';
-			$speed                 = isset( $shortcode_data['standard_carousel_scroll_speed'] ) && is_string( $shortcode_data['standard_carousel_scroll_speed'] ) ? $shortcode_data['standard_carousel_scroll_speed'] : '600';
+			$autoplay_speed        = isset( $shortcode_data['carousel_auto_play_speed'] ) && is_numeric( $shortcode_data['carousel_auto_play_speed'] ) ? $shortcode_data['carousel_auto_play_speed'] : '3000';
+			$speed                 = isset( $shortcode_data['standard_carousel_scroll_speed'] ) && is_numeric( $shortcode_data['standard_carousel_scroll_speed'] ) ? $shortcode_data['standard_carousel_scroll_speed'] : '600';
 			$is_infinite           = isset( $shortcode_data['carousel_infinite'] ) ? $shortcode_data['carousel_infinite'] : '';
 			$infinite              = $is_infinite ? 'true' : 'false';
 			$is_pause_on_hover     = isset( $shortcode_data['carousel_pause_on_hover'] ) ? $shortcode_data['carousel_pause_on_hover'] : '';

@@ -10,7 +10,7 @@
  * Developer URI:        https://sweetcode.com
  * Text Domain:          woocommerce-google-adwords-conversion-tracking-tag
  * Domain path:          /languages
- * * Version:              1.42.5
+ * * Version:              1.42.6
  *
  * WC requires at least: 3.7
  * WC tested up to:      8.8
@@ -19,19 +19,17 @@
  * License URI:          http://www.gnu.org/licenses/gpl-3.0.html
  *
  **/
-const PMW_CURRENT_VERSION = '1.42.5';
+const PMW_CURRENT_VERSION = '1.42.6';
 // TODO add option checkbox on uninstall and ask if user wants to delete options from db
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly
 use SweetCode\Pixel_Manager\Admin\Admin;
 use SweetCode\Pixel_Manager\Admin\Admin_REST;
 use SweetCode\Pixel_Manager\Admin\Borlabs;
 use SweetCode\Pixel_Manager\Admin\Debug_Info;
 use SweetCode\Pixel_Manager\Admin\Environment;
 use SweetCode\Pixel_Manager\Admin\LTV;
-use SweetCode\Pixel_Manager\Admin\Notifications;
+use SweetCode\Pixel_Manager\Admin\Notifications\Notifications;
 use SweetCode\Pixel_Manager\Admin\Order_Columns;
 use SweetCode\Pixel_Manager\Deprecated_Filters;
 use SweetCode\Pixel_Manager\Helpers;
@@ -407,8 +405,10 @@ if ( function_exists( 'wpm_fs' ) ) {
             //			Environment::run_checks();
             /**
              * Check for incompatible plugins
+             *
+             * TODO: Re-enable this check with the new notification system
              */
-            Environment::run_incompatible_plugins_checks();
+            //			Environment::run_incompatible_plugins_checks();
             /**
              * Show admin notices
              */

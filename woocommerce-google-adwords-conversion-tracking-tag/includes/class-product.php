@@ -3,11 +3,9 @@
 namespace SweetCode\Pixel_Manager;
 
 use SweetCode\Pixel_Manager\Admin\Environment;
-use SweetCode\Pixel_Manager\Pixels\Google\Google;
+use SweetCode\Pixel_Manager\Pixels\Google\Google_Helpers;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 class Product {
 
@@ -141,13 +139,13 @@ class Product {
 				Logger::debug('Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.');
 			}
 
-			$product_details['variant']     = self::get_formatted_variant_text($product);
-			$product_details['category']    = self::get_product_category($product->get_parent_id());
+			$product_details['variant']      = self::get_formatted_variant_text($product);
+			$product_details['category']     = self::get_product_category($product->get_parent_id());
 			$product_details['is_variation'] = true;
 		} else { // It's not a variation, so get the fields for a regular product
 
-			$product_details['name']        = Helpers::clean_product_name_for_output((string) $product->get_name());
-			$product_details['category']    = self::get_product_category($product->get_id());
+			$product_details['name']         = Helpers::clean_product_name_for_output((string) $product->get_name());
+			$product_details['category']     = self::get_product_category($product->get_id());
 			$product_details['is_variation'] = false;
 		}
 
@@ -297,7 +295,7 @@ class Product {
 				'variation_id' => $order_item_data['variation_id'],
 				'name'         => $order_item_data['name'],
 				'quantity'     => $order_item_data['quantity'],
-				'price'        => ( new Google() )->wpm_get_order_item_price($order_item),
+				'price'        => Google_Helpers::pmw_get_order_item_price($order_item),
 				'subtotal'     => (float) Helpers::format_decimal($order_item_data['subtotal'], 2),
 				'subtotal_tax' => (float) Helpers::format_decimal($order_item_data['subtotal_tax'], 2),
 				'total'        => (float) Helpers::format_decimal($order_item_data['total'], 2),

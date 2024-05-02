@@ -463,25 +463,8 @@ class Admin {
 			return;
 		}
 
-		global $submenu;
-		$parent_slug = 'wphb';
-		$position    = array_filter(
-			$submenu[ $parent_slug ],
-			function ( $menu_item ) {
-				return false !== strpos( $menu_item[2], 'utm_campaign=hummingbird_submenu_upsell' );
-			}
-		);
-
-		$position = key( $position );
-
-		if ( empty( $position ) ) {
-			return;
-		}
-
-		$submenu[ $parent_slug ][ $position ][] = 'wphb-upgrade-pro-submenu-upsell'; // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
-
 		echo '<style>
-			a.wphb-upgrade-pro-submenu-upsell {
+			#toplevel_page_wphb ul.wp-submenu li:last-child a[href^="https://wpmudev.com"] {
 				background-color: #8d00b1 !important;
 				color: #fff !important;
 				font-weight: 600 !important;
@@ -490,7 +473,7 @@ class Admin {
 
 		echo '<script>
 				jQuery(function() {
-					jQuery(\'#toplevel_page_wphb ul.wp-submenu li.wphb-upgrade-pro-submenu-upsell a[href^="https://wpmudev.com"]\').attr("target", "_blank");
+					jQuery(\'#toplevel_page_wphb ul.wp-submenu li:last-child a[href^="https://wpmudev.com"]\').attr("target", "_blank");
 				});
 			</script>';
 	}

@@ -6,9 +6,7 @@ use SweetCode\Pixel_Manager\Admin\Documentation;
 use SweetCode\Pixel_Manager\Admin\Opportunities\Opportunity;
 use SweetCode\Pixel_Manager\Options;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 /**
  * Opportunity: LTV calculation
