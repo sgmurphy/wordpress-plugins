@@ -40,6 +40,7 @@ function wpa_add_honeypot_field(){
 	jQuery('form#ast-commentform').append(wpa_hidden_field); // Astra Comment Form
 	jQuery('form#fl-comment-form').append(wpa_hidden_field); // Beaver Builder Theme Form
 	jQuery('form.comment-form').append(wpa_hidden_field);
+	jQuery('form#edd-reviews-form').append(wpa_hidden_field); // EDD REVIEWS	
 
 	jQuery('form.wpcf7-form').append(wpa_hidden_field); // CONTACT FORM 7
 	jQuery('form.wpforms-form').append(wpa_hidden_field); // WPFFORMS
@@ -72,6 +73,8 @@ function wpa_add_honeypot_field(){
 	jQuery('form#loginform').append(wpa_hidden_field);	// SPECTRA LOGIN FORM
 	jQuery('form#edd_login_form').append(wpa_hidden_field);	// EDD LOGIN FORM
 	jQuery('form.uwp-login-form').append(wpa_hidden_field);	// USER WP LOGIN FORM
+	
+	
 }
 
 function wpa_add_test_block(){

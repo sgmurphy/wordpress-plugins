@@ -237,7 +237,7 @@ class HMWP_Models_Menu
             ),
             'hmwp_advanced' => array(
                 array(
-                    'title' => esc_html__("Safe URL", 'hide-my-wp'),
+                    'title' => esc_html__("Rollback Settings", 'hide-my-wp'),
                     'tab' =>'rollback',
                 ),
                 array(

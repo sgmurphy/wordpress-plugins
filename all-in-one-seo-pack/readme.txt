@@ -1,10 +1,10 @@
 === All in One SEO – Best WordPress SEO Plugin – Easily Improve SEO Rankings & Increase Traffic ===
 Contributors: aioseo, smub, benjaminprojas
 Tags: SEO, Google Search Console, XML Sitemap, meta description, schema
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Requires at least: 5.3
 Requires PHP: 7.0
-Stable tag: 4.6.1.1
+Stable tag: 4.6.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -16,7 +16,7 @@ The original WordPress SEO plugin. Improve your WordPress SEO rankings and traff
 
 All in One SEO is the original WordPress SEO plugin started in 2007. Today, over 3 million website owners and SEO experts use AIOSEO for higher SEO rankings.
 
-Our users consistently rate [AIOSEO](https://aioseo.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteplugin 'All in One SEO for WordPress') as the most comprehensive WordPress SEO plugin and marketing toolkit. It's the fastest way to optimize WordPress SEO settings, add schema markup, create XML sitemap, add local SEO, track SEO keyword rankings, automate internal linking, perform SEO audits, add Author SEO (EEAT), monitor SEO revisions, connect Google search console, and basically everything a SEO Pro would use to rank higher in search engines.
+Our users consistently rate [AIOSEO](https://aioseo.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteplugin 'All in One SEO for WordPress') as the most comprehensive WordPress SEO plugin and marketing toolkit. It's the fastest way to optimize WordPress SEO settings, add schema markup, create XML sitemap, add local SEO, track SEO keyword rankings, automate internal linking, perform SEO audits, add Author SEO (EEAT), monitor SEO revisions, connect Google search console, and basically everything a SEO Pro would use to rank higher in search engines. 
 
 We have AI SEO features that helps you optimize SEO rankings using ChatGPT (OpenAI) and artificial intelligence.
 
@@ -34,13 +34,13 @@ AIOSEO is leading the innovation in WordPress SEO space, and our SEO features wi
 * **Easy SEO Setup Wizard**
 Our SEO setup wizard optimizes your website's SEO settings based on your unique industry needs in less than 5 minutes.
 
-* **Smart Schema Markup (aka Rich Snippets)**
+* **Smart Schema Markup (aka Rich Snippets)** 
 Get better click through rate (CTR) and Google rich featured snippets using advanced SEO schema markups like FAQ schema, product schema, recipe schema markup, and dozens more using our custom [Schema Generator](https://aioseo.com/features/rich-snippets-schema/?utm_source=wprepo&utm_medium=link&utm_campaign=liteplugin 'Schema Generator').
 
-* **AI Title and Description Generator**
+* **AI Title and Description Generator** 
 Save time by automatically generating SEO titles and meta descriptions using OpenAI ChatGPT.
 
-* **Unlimited SEO Keywords**
+* **Unlimited SEO Keywords** 
 Optimize for unlimited SEO keywords using our SEO content analyzer. Our TruSEO score gives you detailed content & readability analysis, so you can get higher SEO rankings.
 
 * **Google Keyword Rank Tracking**
@@ -227,9 +227,14 @@ AIOSEO&reg; is a registered trademark of Semper Plugins LLC. When writing about 
 
 == Changelog ==
 
+**New in Version 4.6.2**
+
+* New: Automatic Site Verification & Sitemap Submission to Google Search Console - You can now automatically verify & connect your site with Google Search Console and submit your sitemaps in just a few clicks!
+* Fixed: Plugin conflict with Divi addon modules that sometimes causes a fatal error when editing a post.
+
 **New in Version 4.6.1.1**
 
-* Fixed: Conflict with MonsterInsights Dimensions addon.
+* Fixed: Conflict with MonsterInsights Dimensions Addon.
 
 **New in Version 4.6.1**
 
@@ -352,16 +357,6 @@ AIOSEO&reg; is a registered trademark of Semper Plugins LLC. When writing about 
 * Fixed: Redirection plugins are no longer marked as conflicting when AIOSEO Redirects isn’t installed.
 * Fixed: AIOSEO Details column on post list page would sometimes load unnecessarily.
 
-**New in Version 4.5.4**
-
-* New: Author SEO (E-E-A-T) Addon - Optimize your site for Google's E-E-A-T ranking factor by proving your writer's expertise through author schema markup and new UI elements.
-* Fixed: Plugin conflict where post content sometimes disappeared in the post editor when using AIOSEO, Avada and the Classic Editor.
-* Fixed: Taxonomy title smart tag not outputting proper value when archive page has no posts.
-
-**New in Version 4.5.3.1**
-
-* Fixed: AIOSEO Settings modal sometimes opening in Divi visual editor when user performs unrelated action.
-
 **See our [changelog on aioseo.com](https://aioseo.com/changelog/?utm_source=wprepo&utm_medium=link&utm_campaign=liteplugin) for previous releases.**
 
 == Frequently Asked Questions ==
@@ -443,6 +438,6 @@ Additionally, AIOSEO can also provide you with data on the most frequently used 
 
 == Upgrade Notice ==
 
-= 4.6.1.1 =
+= 4.6.2 =
 
 This update adds major improvements and bug fixes.

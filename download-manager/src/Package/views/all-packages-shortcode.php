@@ -11,7 +11,7 @@ $cols = explode("|", $cols);
 $colheads = explode("|", $colheads);
 foreach ($cols as $index => &$col){
    $col = explode(",", $col);
-   $colheads[$index] = !isset($colheads[$index])?$col[0]:$colheads[$index];
+   $colheads[$index] = !isset($colheads[$index])?esc_attr($col[0]):esc_attr($colheads[$index]);
 }
 
 $column_positions = array();
@@ -199,7 +199,7 @@ if(isset($params['jstable']) && $params['jstable']==1):
                     $_colhead = explode("::", $colhead);
                     $width = (isset($_colhead[1]))?"width: {$_colhead[1]} !important;max-width: {$_colhead[1]} !important;":"";
                     ?>
-                <th style="<?php echo $width; ?>"  id="<?php echo $cols[$ix][0]; ?>" class="<?php if($ix > 0) echo 'hidden-sm hidden-xs'; ?>"><?php _e($_colhead[0],'download-manager'); ?></th>
+                <th style="<?php echo esc_attr($width); ?>"  id="<?php echo esc_attr($cols[$ix][0]); ?>" class="<?php if($ix > 0) echo 'hidden-sm hidden-xs'; ?>"><?php esc_attr__($_colhead[0],'download-manager'); ?></th>
                 <?php } ?>
 
             </tr>

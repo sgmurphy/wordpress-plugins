@@ -160,7 +160,7 @@ if (!defined('ABSPATH')) die();
                         <input type="hidden" name="__meida" value="<?php echo $__hash; ?>">
                         <input type="hidden" name="action" value="wpdm_media_pass">
                         <div  class="input-group">
-                            <input name="__pswd" required="required" id="__pwd" autocomplete="off" placeholder="<?php echo __( "Media Password", "download-manager" ); ?>" class="form-control" type="password">
+                            <input name="__pswd" autofocus="autofocus" autocomplete="new-password" required="required" id="__pwd" placeholder="<?php echo __( "Media Password", "download-manager" ); ?>" class="form-control" type="password">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit"><?php echo __( "Download", "download-manager" ); ?></button>
                             </div>

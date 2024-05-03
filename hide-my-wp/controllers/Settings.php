@@ -702,7 +702,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             $message .= esc_html__("Admin URL", 'hide-my-wp') . ': ' . admin_url() . PHP_EOL;
             $message .= esc_html__("Login URL", 'hide-my-wp') . ': '  . site_url(HMWP_Classes_Tools::$options['hmwp_login_url']) . PHP_EOL;
             $message .= $line;
-            $message .= esc_html__("Note: If you can't login to your site, just access this URL", 'hide-my-wp') . ':' . PHP_EOL . PHP_EOL;
+            $message .= esc_html__("Note: If you can`t login to your site, just access this URL", 'hide-my-wp') . ':' . PHP_EOL . PHP_EOL;
             $message .= site_url() . "/wp-login.php?" . HMWP_Classes_Tools::getOption('hmwp_disable_name') . "=" . HMWP_Classes_Tools::$options['hmwp_disable'] . PHP_EOL . PHP_EOL;
             $message .= $line;
             $message .= esc_html__("Best regards", 'hide-my-wp') . ',' . PHP_EOL;

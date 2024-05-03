@@ -2047,7 +2047,7 @@ class HMWP_Classes_Tools
         $message .= esc_html__("Admin URL", 'hide-my-wp') . ': ' . admin_url() . "\n";
         $message .= esc_html__("Login URL", 'hide-my-wp') . ': '  . site_url(self::$options['hmwp_login_url']) . "\n";
         $message .= $line;
-        $message .= esc_html__("Note: If you can't login to your site, just access this URL", 'hide-my-wp') . ':' . "\n";
+        $message .= esc_html__("Note: If you can`t login to your site, just access this URL", 'hide-my-wp') . ':' . "\n";
         $message .= site_url() . "/wp-login.php?" . self::getOption('hmwp_disable_name') . "=" . self::$options['hmwp_disable'] . "\n\n";
         $message .= $line;
         $message .= esc_html__("Best regards", 'hide-my-wp') . ',' . "\n";

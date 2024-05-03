@@ -9,7 +9,7 @@
                     <input type="hidden" name="action" value="hmwp_advsettings"/>
 
                     <div id="rollback" class="card col-sm-12 p-0 m-0 tab-panel tab-panel-first">
-                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Custom Safe URL', 'hide-my-wp'); ?></h3>
+                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Rollback Settings', 'hide-my-wp'); ?></h3>
                         <div class="card-body">
 
                             <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -69,7 +69,7 @@
                                     </select>
 
                                     <div class="p-1 text-left">
-                                        <div class="text-black-50"><?php echo esc_html__('Choose the type of Nginx server you are using to get the most suitable configuration for your server.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50"><?php echo esc_html__('Choose the type of server you are using to get the most suitable configuration for your server.', 'hide-my-wp'); ?></div>
                                         <div class="text-danger"><?php echo esc_html__('Only change this option if the plugin fails to identify the server type correctly.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>

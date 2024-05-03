@@ -387,6 +387,11 @@ body .wp-block-group.is-layout-flex.is-content-justification-space-between {
   height: auto;
 }
 
+/* Product Filter */
+[class*="woolentorblock-"] .woolentor_slider_range .ui-slider-handle.ui-state-default.ui-corner-all{
+  top: -0.5em;
+}
+
 /* Cart table */
 .woocommerce-page .woolentor_block_cart_table table.shop_table .variation dt {
   float: none;

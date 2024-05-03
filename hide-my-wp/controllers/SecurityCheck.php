@@ -200,7 +200,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'value' => false,
                 'valid' => false,
                 'warning' => false,
-                'message' => __("Using an old version of PHP makes your site slow and prone to hacker attacks due to known vulnerabilities that exist in versions of PHP that are no longer maintained. <br /><br />You need <strong>PHP 7.0</strong> or higher for your website.", 'hide-my-wp'),
+                'message' => __("Using an old version of PHP makes your site slow and prone to hacker attacks due to known vulnerabilities that exist in versions of PHP that are no longer maintained. <br /><br />You need <strong>PHP 7.4</strong> or higher for your website.", 'hide-my-wp'),
                 'solution' => esc_html__("Email your hosting company and tell them you'd like to switch to a newer version of PHP or move your site to a better hosting company.", 'hide-my-wp'),
             ),
             'checkMysql' => array(
@@ -338,15 +338,6 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'solution' => sprintf(esc_html__("Even if the default paths are protected by %s after customization, we recommend setting the correct permissions for all directories and files on your website, use File Manager or FTP to check and change the permissions. %sRead more%s", 'hide-my-wp'), HMWP_Classes_Tools::getOption('hmwp_plugin_name'), '<a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-change-file-permissions-in-wordpress/" target="_blank">', '</a>'),
                 'javascript' => "pro",
             ),
-            'checkConfigChmod' => array(
-                'name' => esc_html__("/wp-config.php file is writable", 'hide-my-wp'),
-                'value' => false,
-                'valid' => false,
-                'warning' => false,
-                'message' => __("One of the most important files in your WordPress installation is the wp-config.php file. <br />This file is located in the root directory of your WordPress installation, and contains your website's base configuration details, such as database connection information.", 'hide-my-wp'),
-                'solution' => sprintf(esc_html__("Try setting chmod to %s0600%s or %s0640%s and if the website works normally that's the best one to use.", 'hide-my-wp'), '<a href="https://wordpress.org/support/article/changing-file-permissions/" target="_blank">', '</a>', '<a href="https://wordpress.org/support/article/changing-file-permissions/" target="_blank">', '</a>'),
-                'javascript' => "pro",
-            ),
             'checkDbPassword' => array(
                 'name' => esc_html__("WordPress Database Password", 'hide-my-wp'),
                 'value' => false,
@@ -397,7 +388,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'solution' => sprintf(esc_html__("Change the wp-login from %s %s > Change Paths > Custom login URL%s and Switch on %s %s > Brute Force Protection%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=newlogin').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a><br />', '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_brute#tab=brute').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a>'),
             ),
             'checkConfig' => array(
-                'name' => esc_html__("wp-config.php & wp-config-sample.php files are accessible ", 'hide-my-wp'),
+                'name' => esc_html__("wp-config.php & wp-config-sample.php files are accessible", 'hide-my-wp'),
                 'value' => false,
                 'valid' => false,
                 'warning' => false,
@@ -406,7 +397,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'javascript' => "pro",
             ),
             'checkReadme' => array(
-                'name' => esc_html__("readme.html file is accessible ", 'hide-my-wp'),
+                'name' => esc_html__("readme.html file is accessible", 'hide-my-wp'),
                 'value' => false,
                 'valid' => false,
                 'warning' => false,
@@ -415,7 +406,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'javascript' => "pro",
             ),
             'checkInstall' => array(
-                'name' => esc_html__( "install.php & upgrade.php files are accessible ", 'hide-my-wp' ),
+                'name' => esc_html__( "install.php & upgrade.php files are accessible", 'hide-my-wp' ),
                 'value' => false,
                 'valid' => false,
                 'warning' => false,
@@ -483,7 +474,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'javascript' => "pro",
             ),
             'checkUploadsBrowsable' => array(
-                'name' => sprintf(esc_html__("Folder %s is browsable ", 'hide-my-wp'), HMWP_Classes_Tools::$default['hmwp_upload_url']),
+                'name' => sprintf(esc_html__("Folder %s is browsable", 'hide-my-wp'), HMWP_Classes_Tools::$default['hmwp_upload_url']),
                 'value' => false,
                 'valid' => false,
                 'warning' => false,
@@ -492,7 +483,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'javascript' => "pro",
             ),
             'checkWLW' => array(
-                'name' => esc_html__("Windows Live Writer is on ", 'hide-my-wp'),
+                'name' => esc_html__("Windows Live Writer is on", 'hide-my-wp'),
                 'value' => false,
                 'valid' => false,
                 'warning' => false,
@@ -1127,82 +1118,14 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
             if (!empty($age) ) {
                 $diff = time() - $age;
 
-
-
                 return array(
-                    'value' => (($diff > (DAY_IN_SECONDS * $old)) ? sprintf(esc_html__('%s since last update', 'hide-my-wp'), $this->timeElapsed($age)) : esc_html__('Updated', 'hide-my-wp')),
+                    'value' => (($diff > (DAY_IN_SECONDS * $old)) ? sprintf(esc_html__('%s days since last update', 'hide-my-wp'), $diff) : esc_html__('Updated', 'hide-my-wp')),
                     'valid' => ($diff <= (DAY_IN_SECONDS * $old)),
                 );
             }
         }
 
         return false;
-    }
-
-    /**
-     * Get the redable time elapsed string
-     *
-     * @param int $time
-     * @param bool $ago
-     *
-     * @return string
-     * @since 7.0
-     *
-     */
-    public function timeElapsed( $time, $ago = false ) {
-
-        if ( is_numeric( $time ) ) {
-
-            if ( $ago ) {
-                $etime = $this->gtmTimestamp() - $time;
-            } else {
-                $etime = $time - $this->gtmTimestamp();
-            }
-
-            if ( $etime < 1 ) {
-                return esc_html__( 'Expired', 'hide-my-wp' );
-            }
-
-            $a = array(
-                // 365 * 24 * 60 * 60 => 'year',
-                // 30 * 24 * 60 * 60 => 'month',
-                24 * 60 * 60 => 'day',
-                60 * 60      => 'hour',
-                60           => 'minute',
-                1            => 'second',
-            );
-
-            $a_plural = array(
-                'year'   => 'years',
-                'month'  => 'months',
-                'day'    => 'days',
-                'hour'   => 'hours',
-                'minute' => 'minutes',
-                'second' => 'seconds',
-            );
-
-            foreach ( $a as $secs => $str ) {
-                $d = $etime / $secs;
-
-                if ( $d >= 1 ) {
-                    $r = round( $d );
-
-                    $time_string = ( $r > 1 ) ? $a_plural[ $str ] : $str;
-
-                    if ( $ago ) {
-                        return sprintf( esc_html__('%d %s ago', 'hide-my-wp'), $r, $time_string );
-                    } else {
-                        return sprintf( esc_html__('%d %s remaining', 'hide-my-wp'), $r, $time_string );
-                    }
-                }
-            }
-
-            return __( 'Expired', 'hide-my-wp' );
-        } else {
-
-            return ! empty( $expiry_options[ $time ] ) ? $this->expires[ $time ]['label'] : '';
-        }
-
     }
 
     /**

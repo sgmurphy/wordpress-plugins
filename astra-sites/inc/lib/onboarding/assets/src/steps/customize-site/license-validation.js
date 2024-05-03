@@ -120,9 +120,7 @@ const LicenseValidation = ( param ) => {
 						</h4>
 					</div>
 					<p>
-						{ ! alreadyPurchasedClicked
-							? accessLinkOutput
-							: ' ' }
+						{ ! alreadyPurchasedClicked ? accessLinkOutput : ' ' }
 					</p>
 				</div>
 				{ alreadyPurchasedClicked && ! validateLicenseStatus && (

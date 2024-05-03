@@ -46,7 +46,7 @@ function wpa_save_settings(){
 }
 
 function wpa_save_stats($wp_system, $data){
-	$currentStats 	= json_decode(get_option('wpa_stats'), true);
+	$currentStats = json_decode(get_option('wpa_stats'), true) ?? array();
 	$timeArray 		= array('today','week','month');	
 
 	if (!array_key_exists($wp_system,$currentStats)){

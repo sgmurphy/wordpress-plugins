@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, tarekht, aslamhasi
 Tags: Elementor, WooCommerce, WooCommerce Elementor, WooCommerce Builder, WooCommerce Product, Woo Builder, Variation Swatches, woocommerce blocks, Product Slider, Product Compare, Wishlist, Product Filter
 Requires at least: 4.7
 Tested up to: 6.5
-Stable tag: 2.8.7
+Stable tag: 2.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1103,6 +1103,15 @@ Elementor Pro is not required. But you can use ShopLentor with Elementor free & 
 
 == Changelog ==
 
+= Version: 2.8.8 - Date: 02-05-2024 =
+* Added : Option To Hide or Show Buyer Name in Sale Notification Module.
+* Added : Product Fiter Gutenberg Block.
+* Added : Archive Catalog Ordering Gutenberg Block.
+* Added : Archive Result Count.
+* Solved : Ajax Search Widget style issue.
+* Solved : Product price color issue in Product curvy widget.
+* Compatibility : Latest WordPress and WooCommerce version.
+
 = Version: 2.8.6 - Date: 17-04-2024 =
 * Solved : Product class conflict issue with WoodMart theme.
 * Solved : QR Code Height and Width issue in product QR code addon.
@@ -1680,26 +1689,6 @@ Elementor Pro is not required. But you can use ShopLentor with Elementor free & 
 * Product video description issue solved.
 * Solved quick view problem with ocean WP theme.
 * Minor bug fixed.
-
-= Version: 1.8.2 - Date: 2021-02-03 =
-* Capability with ever compare and wishsuite plugins.
-* Added category before border hide option in universal layout.
-* Increase sale badge style option.
-* Template wise class added in the body for template global style option.
-* Reduce API call.
-* Minor bug fixed.
-
-= Version: 1.8.1 - Date: 2021-02-03 =
-* Fixed Repeater field console error issue.
-* Minor bug fixed.
-
-= Version: 1.8.0 - Date: 2021-01-9 =
-* Fixed product shortcode issue.
-
-= Version: 1.7.9 - Date: 2021-01-7 =
-* Fixed archive page broken issue.
-* Fixed search results page issue.
-* Fixed product ordering issue on the shop page.
 
 == Installation ==
 This section describes how to install the ShopLentor - WooCommerce Addons for Elementor Page Builder plugin and get it working.

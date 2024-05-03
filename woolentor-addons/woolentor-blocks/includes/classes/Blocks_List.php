@@ -232,6 +232,30 @@ class Blocks_List {
                 'server_side_render' => true,
                 'type'   => 'shop',
                 'active' => true,
+            ],
+            'archive_result_count' => [
+                'title'  => __('Archive Result Count','woolentor'),
+                'name'   => 'woolentor/archive-result-count',
+                'server_side_render' => true,
+                'type'   => 'shop',
+                'active' => true,
+            ],
+            'archive_catalog_ordering' => [
+                'title'  => __('Archive Catalog Ordering','woolentor'),
+                'name'   => 'woolentor/archive-catalog-ordering',
+                'server_side_render' => true,
+                'type'   => 'shop',
+                'active' => true,
+            ],
+            'product_filter' => [
+                'title'  => __('Product Filter','woolentor'),
+                'name'   => 'woolentor/product-filter',
+                'server_side_render' => true,
+                'type'   => 'shop',
+                'active' => true,
+                'enqueue_assets' => function(){
+                    wp_enqueue_script('jquery-ui-slider');
+                }
             ]
             
         ];

@@ -334,7 +334,7 @@ if (function_exists('wp_roles') ) {
                                     <label for="hmwp_hide_version"><?php echo esc_html__('Hide Version from Images, CSS and JS in WordPress', 'hide-my-wp'); ?>
                                         <a href="<?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_website') ?>/kb/activate-security-tweaks/#hide_wordpress_version" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Hide all versions from the end of any Image, CSS and JavaScript files", 'hide-my-wp'); ?></div>
+                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Hide all versions from the end of any Image, CSS and JavaScript files.", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>

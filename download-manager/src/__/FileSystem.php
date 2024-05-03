@@ -935,14 +935,17 @@ class FileSystem
         return $this->absPath($file);
     }
 
-	function allowedPath($absPath)
-	{
-		if(!$absPath) return false;
-		$absPath = str_replace("\\", "/", $absPath);
-		$upload_dir = str_replace("\\", "/", UPLOAD_DIR);
-		$asset_root = str_replace("\\", "/", AssetManager::root());
-		$allowedPathCheck = apply_filters("wpdm_allowed_path_check", true);
-		if(substr_count($absPath, $upload_dir) || substr_count($absPath, $asset_root) || !$allowedPathCheck) return true;
+	function allowedPath( $absPath ) {
+		if ( ! $absPath ) return false;
+		$absPath          = str_replace( "\\", "/", $absPath );
+		$upload_dir       = str_replace( "\\", "/", UPLOAD_DIR );
+		$upload_dir_real  = realpath($upload_dir);
+		$asset_root       = str_replace( "\\", "/", AssetManager::root() );
+		$allowedPathCheck = apply_filters( "wpdm_allowed_path_check", true );
+		if ( substr_count( $absPath, $upload_dir ) || substr_count( $absPath, $upload_dir_real ) || substr_count( $absPath, $asset_root ) || ! $allowedPathCheck ) {
+			return true;
+		}
+
 		return false;
 	}
 }

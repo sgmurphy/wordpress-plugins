@@ -61,7 +61,7 @@
                                 <div class="col-sm-12 p-0 switch switch-sm">
                                     <input type="checkbox" id="hmwp_bruteforce_lostpassword" name="hmwp_bruteforce_lostpassword" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword') ? 'checked="checked"' : '') ?> value="1"/>
                                     <label for="hmwp_bruteforce_lostpassword"><?php echo esc_html__('Lost Password Form Protection', 'hide-my-wp'); ?></label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection on lost password form.', 'hide-my-wp'); ?></div>
+                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection on lost password forms.', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                     <div class="col-sm-12 p-0 switch switch-sm">
                                         <input type="checkbox" id="hmwp_bruteforce_register" name="hmwp_bruteforce_register" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_bruteforce_register"><?php echo esc_html__('Sign Up Form Protection', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection on sign up form.', 'hide-my-wp'); ?></div>
+                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection on sign up forms.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>

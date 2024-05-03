@@ -406,6 +406,24 @@ class Woolentor_Admin_Fields {
                         'type'    => 'element',
                         'default' => 'on'
                     ),
+                    array(
+                        'name'    => 'product_filter',
+                        'label'   => esc_html__( 'Product Filter', 'woolentor' ),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
+                    array(
+                        'name'    => 'archive_result_count',
+                        'label'   => esc_html__( 'Archive Result Count', 'woolentor' ),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
+                    array(
+                        'name'    => 'archive_catalog_ordering',
+                        'label'   => esc_html__( 'Archive Catalog Ordering', 'woolentor' ),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
 
                     array(
                         'name'      => 'single_blocks_heading',
@@ -1800,11 +1818,20 @@ class Woolentor_Admin_Fields {
                                 'class'   => 'element_section_title_area',
                             ),
                             array(
+                                'name'  => 'show_buyer_name',
+                                'label' => esc_html__( 'Show Buyer Name', 'woolentor' ),
+                                'desc'  => esc_html__( 'You can display / hide Buyer Name from here.', 'woolentor' ),
+                                'type'  => 'checkbox',
+                                'default' => 'off',
+                                'condition' => array( 'notification_content_type', '==', 'actual' ),
+                                'class'   => 'woolentor-action-field-left',
+                            ),
+                            array(
                                 'name'  => 'show_city',
                                 'label' => esc_html__( 'Show City', 'woolentor' ),
-                                'desc'  => esc_html__( 'You can display / hide city from here.', 'woolentor-pro' ),
+                                'desc'  => esc_html__( 'You can display / hide city from here.', 'woolentor' ),
                                 'type'  => 'checkbox',
-                                'default' => 'on',
+                                'default' => 'off',
                                 'condition' => array( 'notification_content_type', '==', 'actual' ),
                                 'class'   => 'woolentor-action-field-left',
                             ),
@@ -1813,7 +1840,7 @@ class Woolentor_Admin_Fields {
                                 'label' => esc_html__( 'Show State', 'woolentor' ),
                                 'desc'  => esc_html__( 'You can display / hide state from here.', 'woolentor' ),
                                 'type'  => 'checkbox',
-                                'default' => 'on',
+                                'default' => 'off',
                                 'condition' => array( 'notification_content_type', '==', 'actual' ),
                                 'class'   => 'woolentor-action-field-left',
                             ),
@@ -1822,7 +1849,7 @@ class Woolentor_Admin_Fields {
                                 'label' => esc_html__( 'Show Country', 'woolentor' ),
                                 'desc'  => esc_html__( 'You can display / hide country from here.', 'woolentor' ),
                                 'type'  => 'checkbox',
-                                'default' => 'on',
+                                'default' => 'off',
                                 'condition' => array( 'notification_content_type', '==', 'actual' ),
                                 'class'   => 'woolentor-action-field-left',
                             ),

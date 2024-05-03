@@ -2,11 +2,6 @@
 
 // wp_login_form([]);
 
-$redirect_to_url = apply_filters(
-	'blocksy:account:modal:login:redirect_to',
-	$current_url
-);
-
 $forgot_password_inline = apply_filters(
 	'blocksy:account:modal:login:forgot-password-inline',
 	true
@@ -84,8 +79,6 @@ if (! $forgot_password_inline) {
 				</path>
 			</svg>
 		</button>
-
-		<input type="hidden" name="redirect_to" value="<?php echo $redirect_to_url ?>">
 	</p>
 
 	<?php do_action('blocksy:account:modal:login:end'); ?>

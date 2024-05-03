@@ -3403,6 +3403,7 @@ span.woolentor-order-item-title .product-thumbnail {
 .woolentor_archive_catalog_ordering form.woocommerce-ordering select {
   background-color: transparent;
   width: 100%;
+  max-width: 100%;
 }
 .elementor-widget-wl-product-add-to-cart .stock:not(.available-on-backorder),
 .elementor-widget-wl-product-add-to-cart .ast-stock-detail {
@@ -3470,7 +3471,7 @@ span.woolentor-order-item-title .product-thumbnail {
   padding-left: 15px;
 }
 .wlnotification_content {
-  flex: 0 0 75%;
+  flex: 0 0 70%;
 }
 .imageright .wlnotification_content {
   text-align: right;

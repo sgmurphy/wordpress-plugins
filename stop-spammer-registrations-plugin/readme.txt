@@ -1,12 +1,16 @@
 === Anti-Spam: Spam Protection | Block Spam Users, Comments, Forms ===
 
 Contributors: mcitar, bhadaway
+Donate link: https://calmestghost.com/donate
 Tags: spam, security, anti-spam, spam protection, no spam
 Tested up to: 6.5
-Stable tag: 2024.4
-License: https://www.gnu.org/licenses/gpl.html
+Requires at least: 3.0
+Requires PHP: 5.0
+Stable tag: 2024.5
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl.html
 
-Robust WordPress security & spam prevention. Leverage our pre-defined allow/block lists. Adjust configurable security settings on hyphens, periods, too many hits, quick responses, & much more.
+Robust security and spam prevention. Leverage our pre-defined allow/block lists. Adjust configurable settings on too many hits, quick responses, etc.
 
 == Description ==
 
@@ -77,6 +81,9 @@ Toggle off the "Check Credentials on All Login Attempts" option and try again.
 Yes. See: [https://law.stackexchange.com/questions/28603/how-to-satisfy-gdprs-consent-requirement-for-ip-logging](https://law.stackexchange.com/questions/28603/how-to-satisfy-gdprs-consent-requirement-for-ip-logging). Stop Spammers does not collect any data for any other purpose (like marketing or tracking). It is purely for legitimate security purposes only. Additionally, if any of your users ever requested it, all data can be deleted.
 
 == Changelog ==
+
+= 2024.5 =
+* [Enhanced] Security
 
 = 2024.4 =
 * [Notice] Premium has been discontinued

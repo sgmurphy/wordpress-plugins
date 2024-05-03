@@ -318,6 +318,10 @@ class HMWP_Models_Brute
                 //Log the block IP on the server
                 HMWP_Classes_ObjController::getClass('HMWP_Models_Log')->hmwp_log_actions('block_ip', array('ip' => $ip));
 
+                if(!function_exists('wp_redirect')){
+                    include_once ABSPATH . WPINC . '/pluggable.php';
+                }
+
                 wp_redirect(home_url());
                 exit();
             } else {

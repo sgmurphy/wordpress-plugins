@@ -152,8 +152,7 @@ class ConditionsManager {
 		return $rules;
 	}
 
-	public function humanize_conditions($conditions) {
-		
+	public function humanize_conditions($conditions) {		
 		if (isset($conditions['conditions'])) {
 			$conditions = $conditions['conditions'];
 		}
@@ -300,12 +299,19 @@ class ConditionsManager {
 
 	private function find_rule_descriptor($rule) {
 		$all = $this->get_all_rules();
+		$user_roles = $this->get_user_roles_rules();
 
 		foreach ($all as $rules_group) {
 			foreach ($rules_group['rules'] as $single_rule) {
 				if ($single_rule['id'] === $rule) {
 					return $single_rule;
 				}
+			}
+		}
+
+		foreach ($user_roles as $single_rule) {
+			if ($single_rule['id'] === $rule) {
+				return $single_rule;
 			}
 		}
 

@@ -88,7 +88,6 @@ class Plugin {
 		$this->demo = new DemoInstall();
 		$this->dynamic_css = new DynamicCss();
 
-		$this->account_auth = new AccountAuth();
 
 		new CustomizerOptionsManager();
 	}
@@ -140,6 +139,8 @@ class Plugin {
 		new OpenGraphMetaData();
 		new SvgHandling();
 
+		$this->account_auth = new AccountAuth();
+
 		if (defined('WP_CLI') && WP_CLI) {
 			$this->cli = new Cli();
 		}
@@ -166,6 +167,7 @@ class Plugin {
 	 * @access private
 	 */
 	private function __construct() {
+		require_once BLOCKSY_PATH . '/framework/helpers/request.php';
 		require_once BLOCKSY_PATH . '/framework/helpers/helpers.php';
 		require_once BLOCKSY_PATH . '/framework/helpers/exts.php';
 
