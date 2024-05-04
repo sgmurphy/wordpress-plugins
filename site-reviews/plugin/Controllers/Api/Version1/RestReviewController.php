@@ -28,6 +28,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function create_item($request)
@@ -50,6 +51,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function create_item_permissions_check($request)
@@ -75,6 +77,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function delete_item($request)
@@ -101,6 +104,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function delete_item_permissions_check($request)
@@ -129,6 +133,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function get_item($request)
@@ -143,6 +148,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function get_item_permissions_check($request)
@@ -172,6 +178,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function get_items($request)
@@ -200,6 +207,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function get_items_permissions_check($request)
@@ -219,8 +227,9 @@ class RestReviewController extends \WP_REST_Controller
     }
 
     /**
-     * @param Review $review
+     * @param Review           $review
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response
      */
     public function prepare_item_for_response($review, $request)
@@ -252,7 +261,7 @@ class RestReviewController extends \WP_REST_Controller
      */
     public function register_routes()
     {
-        register_rest_route($this->namespace, '/'.$this->rest_base, [
+        register_rest_route($this->namespace, "/{$this->rest_base}", [
             [
                 'args' => $this->get_collection_params(),
                 'callback' => [$this, 'get_items'],
@@ -266,7 +275,7 @@ class RestReviewController extends \WP_REST_Controller
             ],
             'schema' => [$this, 'get_public_item_schema'],
         ]);
-        register_rest_route($this->namespace, '/'.$this->rest_base.'/(?P<id>[\d]+)', [
+        register_rest_route($this->namespace, "/{$this->rest_base}".'/(?P<id>[\d]+)', [
             [
                 'args' => [
                     'context' => $this->get_context_param(['default' => 'view']),
@@ -305,6 +314,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function update_item($request)
@@ -325,6 +335,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function update_item_permissions_check($request)
@@ -351,6 +362,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return bool
      */
     protected function check_assign_terms_permission($request)
@@ -369,6 +381,7 @@ class RestReviewController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function forceDeleteItem($request)
@@ -460,20 +473,20 @@ class RestReviewController extends \WP_REST_Controller
             ],
             'version-history' => [
                 'count' => $revisionCount,
-                'href' => rest_url(trailingslashit($base).$review->ID.'/revisions'),
+                'href' => rest_url(trailingslashit($base)."{$review->ID}/revisions"),
             ],
         ];
         if ($revisionCount > 0) {
             $lastRevision = array_shift($revisions);
             $links['predecessor-version'] = [
-                'href' => rest_url(trailingslashit($base).$review->ID.'/revisions/'.$lastRevision),
+                'href' => rest_url(trailingslashit($base)."{$review->ID}/revisions/{$lastRevision}"),
                 'id' => $lastRevision,
             ];
         }
         if (!empty($review->user_id)) {
             $links['author'] = [
                 'embeddable' => true,
-                'href' => rest_url('wp/v2/users/'.$review->user_id),
+                'href' => rest_url("wp/v2/users/{$review->user_id}"),
             ];
         }
         if (post_type_supports(glsr()->post_type, 'comments')) {

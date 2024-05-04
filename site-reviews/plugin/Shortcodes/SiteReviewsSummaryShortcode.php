@@ -16,11 +16,7 @@ class SiteReviewsSummaryShortcode extends Shortcode
      */
     protected $ratings;
 
-    /**
-     * @return string
-     * @todo add return type hint and remove $args in v7.0
-     */
-    public function buildTemplate(array $args = [])
+    public function buildTemplate(): string
     {
         $this->ratings = glsr(RatingManager::class)->ratings($this->args);
         $this->debug(['ratings' => $this->ratings]);
@@ -45,11 +41,11 @@ class SiteReviewsSummaryShortcode extends Shortcode
     {
         $args = $this->args;
         $className = Helper::buildClassName(['summary', $tag, 'tag'], 'Modules\Html\Tags');
-        $className = glsr()->filterString('summary/tag/'.$tag, $className, $this);
+        $className = glsr()->filterString("summary/tag/{$tag}", $className, $this);
         $field = class_exists($className)
             ? glsr($className, compact('tag', 'args'))->handleFor('summary', null, $this->ratings)
             : '';
-        return glsr()->filterString('summary/build/'.$tag, $field, $this->ratings, $this);
+        return glsr()->filterString("summary/build/{$tag}", $field, $this->ratings, $this);
     }
 
     protected function generateSchema(): void
@@ -69,10 +65,7 @@ class SiteReviewsSummaryShortcode extends Shortcode
         return glsr(Sanitizer::class)->sanitizeAttrClass($classes);
     }
 
-    /**
-     * @return array
-     */
-    protected function hideOptions()
+    protected function hideOptions(): array
     {
         return [
             'rating' => _x('Hide the rating', 'admin-text', 'site-reviews'),

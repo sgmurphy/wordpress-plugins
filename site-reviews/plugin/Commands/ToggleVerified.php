@@ -2,36 +2,36 @@
 
 namespace GeminiLabs\SiteReviews\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
-use GeminiLabs\SiteReviews\Database\Query;
 use GeminiLabs\SiteReviews\Database\ReviewManager;
 use GeminiLabs\SiteReviews\Defaults\ToggleVerifiedDefaults;
 use GeminiLabs\SiteReviews\Modules\Notice;
+use GeminiLabs\SiteReviews\Request;
+use GeminiLabs\SiteReviews\Review;
 
-class ToggleVerified implements Contract
+class ToggleVerified extends AbstractCommand
 {
-    public $isVerified;
-    public $review;
+    public bool $isVerified;
+    public Review $review;
 
-    public function __construct(array $input)
+    public function __construct(Request $request)
     {
-        $args = glsr()->args(glsr(ToggleVerifiedDefaults::class)->restrict($input));
-        $this->review = glsr(Query::class)->review($args->id);
-        $this->isVerified = $args->verified >= 0
-            ? wp_validate_boolean($args->verified)
-            : !$this->review->is_verified;
+        $args = glsr(ToggleVerifiedDefaults::class)->restrict($request->toArray());
+        $review = glsr(ReviewManager::class)->get($args['post_id']);
+        $this->isVerified = $args['verified'] >= 0 ? wp_validate_boolean($args['verified']) : !$review->is_verified;
+        $this->review = $review;
     }
 
-    /**
-     * @return bool
-     */
-    public function handle()
+    public function handle(): void
     {
         if (!glsr()->can('edit_post', $this->review->ID)) {
-            return wp_validate_boolean($this->review->is_verified);
+            $this->isVerified = wp_validate_boolean($this->review->is_verified);
+            $this->fail();
+            return;
         }
         if (!glsr()->filterBool('verification/enabled', false)) {
-            return wp_validate_boolean($this->review->is_verified);
+            $this->isVerified = wp_validate_boolean($this->review->is_verified);
+            $this->fail();
+            return;
         }
         if ($this->isVerified !== $this->review->is_verified) {
             glsr(ReviewManager::class)->updateRating($this->review->ID, [
@@ -42,6 +42,13 @@ class ToggleVerified implements Contract
                 : _x('Review unverified.', 'admin-text', 'site-reviews');
             glsr(Notice::class)->addSuccess($notice);
         }
-        return $this->isVerified;
+    }
+
+    public function response(): array
+    {
+        return [
+            'notices' => glsr(Notice::class)->get(),
+            'value' => (int) $this->isVerified,
+        ];
     }
 }

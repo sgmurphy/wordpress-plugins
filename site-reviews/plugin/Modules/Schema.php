@@ -6,25 +6,15 @@ use GeminiLabs\SiteReviews\Database\OptionManager;
 use GeminiLabs\SiteReviews\Database\RatingManager;
 use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
+use GeminiLabs\SiteReviews\Modules\Schema\BaseType;
 use GeminiLabs\SiteReviews\Modules\Schema\UnknownType;
 use GeminiLabs\SiteReviews\Review;
 
 class Schema
 {
-    /**
-     * @var array
-     */
-    protected $args;
-
-    /**
-     * @var array
-     */
-    protected $keyValues = [];
-
-    /**
-     * @var array|null
-     */
-    protected $ratingCounts;
+    protected array $args;
+    protected array $keyValues = [];
+    protected array $ratingCounts;
 
     /**
      * @var \GeminiLabs\SiteReviews\Reviews|array
@@ -32,9 +22,9 @@ class Schema
     protected $reviews;
 
     /**
-     * @return array
+     * @param \GeminiLabs\SiteReviews\Reviews|array $reviews
      */
-    public function build(array $args = [], $reviews = [])
+    public function build(array $args = [], $reviews = []): array
     {
         $this->args = $args;
         $this->reviews = $reviews;
@@ -52,16 +42,12 @@ class Schema
         return $schema;
     }
 
-    /**
-     * @param array|null $args
-     * @return array
-     */
-    public function buildSummary($args = null, array $ratings = [])
+    public function buildSummary(array $args = [], array $ratings = []): array
     {
-        if (is_array($args)) {
+        if (!empty($args)) {
             $this->args = $args;
         }
-        $buildSummary = Helper::buildMethodName($this->getSchemaOptionValue('type'), 'buildSummaryFor');
+        $buildSummary = Helper::buildMethodName('buildSummaryFor', $this->getSchemaOptionValue('type'));
         $count = array_sum($this->getRatingCounts($ratings));
         if (!glsr()->filterBool('schema/is-empty', empty($count))) {
             $schema = Helper::ifTrue(method_exists($this, $buildSummary),
@@ -76,35 +62,27 @@ class Schema
                     ->worstRating(glsr()->constant('MIN_RATING', Rating::class))
             );
             $schema = $schema->toArray();
-            return glsr()->filterArray('schema/'.$schema['@type'], $schema, $args);
+            $type = $schema['@type'];
+            return glsr()->filterArray("schema/{$type}", $schema, $args);
         }
         return [];
     }
 
-    /**
-     * @return mixed
-     */
-    public function buildSummaryForCustom()
+    public function buildSummaryForCustom(): BaseType
     {
         return $this->buildSchemaValues($this->getSchemaType(), [
             'description', 'identifier', 'image', 'name', 'url',
         ]);
     }
 
-    /**
-     * @return mixed
-     */
-    public function buildSummaryForLocalBusiness()
+    public function buildSummaryForLocalBusiness(): BaseType
     {
         return $this->buildSchemaValues($this->buildSummaryForCustom(), [
             'address', 'priceRange', 'telephone',
         ]);
     }
 
-    /**
-     * @return mixed
-     */
-    public function buildSummaryForProduct()
+    public function buildSummaryForProduct(): BaseType
     {
         $offerType = $this->getSchemaOption('offerType', 'AggregateOffer');
         $offers = $this->buildSchemaValues($this->getSchemaType($offerType), [
@@ -119,15 +97,12 @@ class Schema
         });
     }
 
-    /**
-     * @return void
-     */
-    public function render()
+    public function render(): void
     {
         if ($schemas = glsr()->retrieve('schemas', [])) {
             printf('<script type="application/ld+json" class="%s-schema">%s</script>',
                 glsr()->id,
-                json_encode(
+                (string) wp_json_encode(
                     glsr()->filterArray('schema/all', $schemas),
                     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
                 )
@@ -135,10 +110,7 @@ class Schema
         }
     }
 
-    /**
-     * @return void
-     */
-    public function store(array $schema)
+    public function store(array $schema): void
     {
         if (!empty($schema)) {
             $schemas = Arr::consolidate(glsr()->retrieve('schemas'));
@@ -148,11 +120,7 @@ class Schema
         }
     }
 
-    /**
-     * @param Review $review
-     * @return array
-     */
-    protected function buildReview($review)
+    protected function buildReview(Review $review): array
     {
         $schema = $this->getSchemaType('Review')
             ->doIf(!in_array('title', $this->args['hide']), function ($schema) use ($review) {
@@ -163,7 +131,7 @@ class Schema
             })
             ->datePublished(new \DateTime($review->date))
             ->author($this->getSchemaType('Person')->name($review->author()))
-            // ->url($this->getSchemaOptionValue('url').'#review-'.$review->ID)
+            // ->url($this->getSchemaOptionValue('url')."#review-{$review->ID}")
             ->itemReviewed($this->getSchemaType()->name($this->getSchemaOptionValue('name')));
         if (!empty($review->rating)) {
             $schema->reviewRating(
@@ -176,10 +144,7 @@ class Schema
         return glsr()->filterArray('schema/review', $schema->toArray(), $review, $this->args);
     }
 
-    /**
-     * @return array
-     */
-    protected function buildReviews()
+    protected function buildReviews(): array
     {
         $reviews = [];
         foreach ($this->reviews as $review) {
@@ -192,11 +157,7 @@ class Schema
         return $reviews;
     }
 
-    /**
-     * @param mixed $schema
-     * @return mixed
-     */
-    protected function buildSchemaValues($schema, array $values = [])
+    protected function buildSchemaValues(BaseType $schema, array $values = []): BaseType
     {
         foreach ($values as $value) {
             $option = $this->getSchemaOptionValue($value);
@@ -207,12 +168,9 @@ class Schema
         return $schema;
     }
 
-    /**
-     * @return array
-     */
-    protected function getRatingCounts(array $ratings = [])
+    protected function getRatingCounts(array $ratings = []): array
     {
-        if (!isset($this->ratingCounts)) {
+        if (empty($this->ratingCounts)) {
             $this->ratingCounts = Helper::ifTrue(!empty($ratings), $ratings, function () {
                 return glsr(RatingManager::class)->ratings($this->args);
             });
@@ -220,37 +178,25 @@ class Schema
         return $this->ratingCounts;
     }
 
-    /**
-     * @return int|float
-     */
-    protected function getRatingValue()
+    protected function getRatingValue(): float
     {
-        return glsr(Rating::class)->average($this->getRatingCounts());
+        return (float) glsr(Rating::class)->average($this->getRatingCounts());
     }
 
-    /**
-     * @param string $option
-     * @param string $fallback
-     * @return string
-     */
-    protected function getSchemaOption($option, $fallback)
+    protected function getSchemaOption(string $option, string $fallback): string
     {
         $option = strtolower($option);
-        if ($schemaOption = trim((string) get_post_meta(intval(get_the_ID()), 'schema_'.$option, true))) {
+        if ($schemaOption = trim((string) get_post_meta(intval(get_the_ID()), "schema_{$option}", true))) {
             return $schemaOption;
         }
-        $setting = glsr(OptionManager::class)->get('settings.schema.'.$option);
+        $setting = glsr(OptionManager::class)->get("settings.schema.{$option}");
         if (is_array($setting)) {
             return $this->getSchemaOptionDefault($setting, $fallback);
         }
         return Helper::ifEmpty($setting, $fallback, $strict = true);
     }
 
-    /**
-     * @param string $fallback
-     * @return string
-     */
-    protected function getSchemaOptionDefault(array $setting, $fallback)
+    protected function getSchemaOptionDefault(array $setting, string $fallback): string
     {
         $setting = wp_parse_args($setting, [
             'custom' => '',
@@ -262,12 +208,7 @@ class Schema
         );
     }
 
-    /**
-     * @param string $option
-     * @param string $fallback
-     * @return string
-     */
-    protected function getSchemaOptionValue($option, $fallback = 'post')
+    protected function getSchemaOptionValue(string $option, string $fallback = 'post'): string
     {
         if (array_key_exists($option, $this->keyValues)) {
             return (string) $this->keyValues[$option];
@@ -276,37 +217,26 @@ class Schema
         if ($value !== $fallback) {
             return $this->setAndGetKeyValue($option, $value);
         }
-        $method = Helper::buildMethodName($option, 'getThing');
-        if (method_exists($this, $method)) {
-            return $this->setAndGetKeyValue($option, $this->$method());
+        $method = Helper::buildMethodName('getThing', $option);
+        if (!method_exists($this, $method)) {
+            return '';
         }
-        return '';
+        return $this->setAndGetKeyValue($option, $this->$method());
     }
 
-    /**
-     * @param string|null $type
-     * @return mixed
-     */
-    protected function getSchemaType($type = null)
+    protected function getSchemaType(?string $type = null): BaseType
     {
         if (!is_string($type)) {
             $type = $this->getSchemaOption('type', 'LocalBusiness');
         }
         $className = Helper::buildClassName($type, 'Modules\Schema');
         return Helper::ifTrue(class_exists($className),
-            function () use ($className) {
-                return new $className();
-            },
-            function () use ($type) {
-                return new UnknownType($type);
-            }
+            fn () => new $className(),
+            fn () => new UnknownType($type)
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function getThingDescription()
+    protected function getThingDescription(): string
     {
         if (is_archive()) {
             $text = get_the_archive_description();
@@ -331,10 +261,7 @@ class Schema
         return '';
     }
 
-    /**
-     * @return string
-     */
-    protected function getThingImage()
+    protected function getThingImage(): string
     {
         if (is_singular()) {
             return (string) get_the_post_thumbnail_url(null, 'large');
@@ -344,10 +271,7 @@ class Schema
         return '';
     }
 
-    /**
-     * @return string
-     */
-    protected function getThingName()
+    protected function getThingName(): string
     {
         if (is_archive()) {
             return wp_strip_all_tags(get_the_archive_title());
@@ -358,10 +282,7 @@ class Schema
         return '';
     }
 
-    /**
-     * @return string
-     */
-    protected function getThingUrl()
+    protected function getThingUrl(): string
     {
         $queried = get_queried_object();
         if (is_singular()) {
@@ -383,12 +304,7 @@ class Schema
         return '';
     }
 
-    /**
-     * @param string $option
-     * @param string $value
-     * @return string
-     */
-    protected function setAndGetKeyValue($option, $value)
+    protected function setAndGetKeyValue(string $option, string $value): string
     {
         $this->keyValues[$option] = $value;
         return $value;

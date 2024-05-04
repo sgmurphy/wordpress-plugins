@@ -2,16 +2,14 @@
 
 namespace GeminiLabs\SiteReviews\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
 use GeminiLabs\SiteReviews\Defaults\PostTypeColumnDefaults;
 use GeminiLabs\SiteReviews\Defaults\PostTypeDefaults;
 use GeminiLabs\SiteReviews\Defaults\PostTypeLabelDefaults;
-use GeminiLabs\SiteReviews\Modules\Html\Builder;
 
-class RegisterPostType implements Contract
+class RegisterPostType extends AbstractCommand
 {
-    public $args;
-    public $columns;
+    public array $args = [];
+    public array $columns = [];
 
     public function __construct(array $input = [])
     {
@@ -22,10 +20,7 @@ class RegisterPostType implements Contract
         $this->columns = glsr(PostTypeColumnDefaults::class)->defaults();
     }
 
-    /**
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         register_post_type(glsr()->post_type, $this->args);
         $this->setColumns();
@@ -43,14 +38,12 @@ class RegisterPostType implements Contract
             $this->columns = array_combine($keys, $this->columns);
         }
         if (array_key_exists('is_pinned', $this->columns)) {
-            $this->columns['is_pinned'] = glsr(Builder::class)->span('<span>'.$this->columns['is_pinned'].'</span>',
-                ['class' => 'pinned-icon']
-            );
+            $pinnedValue = $this->columns['is_pinned'];
+            $this->columns['is_pinned'] = sprintf('<span class="pinned-icon"><span>%s</span></span>', $pinnedValue);
         }
         if (array_key_exists('is_verified', $this->columns)) {
-            $this->columns['is_verified'] = glsr(Builder::class)->span('<span>'.$this->columns['is_verified'].'</span>',
-                ['class' => 'verified-icon']
-            );
+            $verifiedValue = $this->columns['is_verified'];
+            $this->columns['is_verified'] = sprintf('<span class="verified-icon"><span>%s</span></span>', $verifiedValue);
         }
         if (count(glsr()->retrieveAs('array', 'review_types')) < 2) {
             unset($this->columns['type']);

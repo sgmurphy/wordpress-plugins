@@ -13,18 +13,16 @@ class ReviewsDefaults extends DefaultsAbstract
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'terms' => 'string',
     ];
 
     /**
      * The values that should be constrained after sanitization is run.
      * This is done after $casts and $sanitize.
-     * @var array
      */
-    public $enums = [
+    public array $enums = [
         'order' => ['asc', 'desc'],
         'orderby' => [
             'author',
@@ -45,9 +43,8 @@ class ReviewsDefaults extends DefaultsAbstract
      * The keys that should be mapped to other keys.
      * Keys are mapped before the values are normalized and sanitized.
      * Note: Mapped keys should not be included in the defaults!
-     * @var array
      */
-    public $mapped = [
+    public array $mapped = [
         'assigned_to' => 'assigned_posts',
         'author_id' => 'user__in',
         'category' => 'assigned_terms',
@@ -61,21 +58,21 @@ class ReviewsDefaults extends DefaultsAbstract
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'assigned_posts' => 'post-ids',
         'assigned_posts_types' => 'array-string',
         'assigned_terms' => 'term-ids',
         'assigned_users' => 'user-ids',
         'content' => 'text-multiline',
         'email' => 'email',
-        'ip_address' => 'text',
+        'integration' => 'slug',
+        'ip_address' => 'ip-address',
         'offset' => 'min:0',
         'order' => 'name',
         'orderby' => 'name',
         'page' => 'min:1',
-        'per_page' => 'min:1',
+        'per_page' => 'min:-1', // -1 means unlimited
         'post__in' => 'array-int',
         'post__not_in' => 'array-int',
         'rating' => 'rating',
@@ -86,10 +83,7 @@ class ReviewsDefaults extends DefaultsAbstract
         'user__not_in' => 'user-ids',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'assigned_posts' => '',
@@ -99,6 +93,7 @@ class ReviewsDefaults extends DefaultsAbstract
             'content' => '',
             'date' => '', // can be an array or string
             'email' => '',
+            'integration' => '', // the slug of the integration querying the reviews
             'ip_address' => '',
             'offset' => 0,
             'order' => 'desc',
@@ -119,9 +114,8 @@ class ReviewsDefaults extends DefaultsAbstract
 
     /**
      * Normalize provided values, this always runs first.
-     * @return array
      */
-    protected function normalize(array $values = [])
+    protected function normalize(array $values = []): array
     {
         if ($postIds = Arr::getAs('array', $values, 'assigned_posts')) {
             $values['assigned_posts_types'] = [];
@@ -140,11 +134,11 @@ class ReviewsDefaults extends DefaultsAbstract
 
     /**
      * Finalize provided values, this always runs last.
-     * @return array
      */
-    protected function finalize(array $values = [])
+    protected function finalize(array $values = []): array
     {
-        $values['assigned_posts'] = glsr(Multilingual::class)->getPostIds($values['assigned_posts']);
+        $values['assigned_posts'] = glsr(Multilingual::class)->getPostIdsForAllLanguages($values['assigned_posts']);
+        $values['assigned_terms'] = glsr(Multilingual::class)->getTermIdsForAllLanguages($values['assigned_terms']);
         $values['date'] = $this->finalizeDate($values['date']);
         $values['order'] = $this->finalizeOrder($values['order']);
         $values['orderby'] = $this->finalizeOrderby($values['orderby']);

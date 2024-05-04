@@ -8,11 +8,10 @@ use GeminiLabs\SiteReviews\Database\Tables;
 
 class TableRatings extends AbstractTable
 {
-    public $name = 'ratings';
+    public string $name = 'ratings';
 
     public function addForeignConstraints(): void
     {
-        glsr(Database::class)->deleteInvalidReviews();
         $this->addForeignConstraint('review_id', $this->table('posts'), 'ID');
     }
 
@@ -21,8 +20,22 @@ class TableRatings extends AbstractTable
         $this->dropForeignConstraint('review_id', $this->table('posts'));
     }
 
+    public function removeInvalidRows(): void
+    {
+        $type = glsr()->post_type;
+        glsr(Database::class)->dbSafeQuery(
+            glsr(Query::class)->sql("
+                DELETE t
+                FROM {$this->tablename} AS t
+                LEFT JOIN table|posts AS p ON (p.ID = t.review_id)
+                WHERE (p.post_type IS NULL OR p.post_type != '{$type}')
+            ")
+        );
+    }
+
     /**
      * WordPress codex says there must be two spaces between PRIMARY KEY and the key definition.
+     *
      * @see https://codex.wordpress.org/Creating_Tables_with_Plugins
      */
     public function structure(): string

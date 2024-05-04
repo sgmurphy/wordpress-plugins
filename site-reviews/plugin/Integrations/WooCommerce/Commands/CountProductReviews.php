@@ -2,29 +2,30 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\WooCommerce\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
+use GeminiLabs\SiteReviews\Commands\AbstractCommand;
 use GeminiLabs\SiteReviews\Database;
 use GeminiLabs\SiteReviews\Database\Query;
 use GeminiLabs\SiteReviews\Request;
 
-class CountProductReviews implements Contract
+class CountProductReviews extends AbstractCommand
 {
     public const PER_PAGE = 25;
 
+    /** @var Request */
     public $request;
+    public int $total = 0;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    public function handle()
+    public function handle(): void
     {
-        $query = glsr(Query::class);
-        $sql = $query->sql("
+        $sql = glsr(Query::class)->sql("
             SELECT COUNT(DISTINCT c.comment_ID)
-            FROM {$query->table('comments')} AS c
-            INNER JOIN {$query->table('commentmeta')} AS cm ON c.comment_ID = cm.comment_id
+            FROM table|comments AS c
+            INNER JOIN table|commentmeta AS cm ON (cm.comment_id = c.comment_ID)
             WHERE 1=1
             AND c.comment_type = 'review'
             AND c.comment_approved IN ('0','1')
@@ -32,17 +33,21 @@ class CountProductReviews implements Contract
             AND cm.meta_key = 'rating'
             AND NOT EXISTS (
                 SELECT NULL
-                FROM {$query->table('commentmeta')} AS cm2
+                FROM table|commentmeta AS cm2
                 WHERE 1=1
                 AND cm2.comment_id = c.comment_ID
                 AND cm2.meta_key = 'imported'
             )
         ");
-        $total = (int) glsr(Database::class)->dbGetVar($sql);
+        $this->total = (int) glsr(Database::class)->dbGetVar($sql);
+    }
+
+    public function response(): array
+    {
         return [
             'notice' => esc_html_x('Imported %d Product Reviews', 'admin-text', 'site-reviews'),
-            'pages' => (int) ceil($total / static::PER_PAGE),
-            'total' => $total,
+            'pages' => (int) ceil($this->total / static::PER_PAGE),
+            'total' => $this->total,
         ];
     }
 }

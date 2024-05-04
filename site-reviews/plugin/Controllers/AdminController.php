@@ -9,7 +9,6 @@ use GeminiLabs\SiteReviews\Commands\ImportRatings;
 use GeminiLabs\SiteReviews\Commands\RegisterTinymcePopups;
 use GeminiLabs\SiteReviews\Commands\TogglePinned;
 use GeminiLabs\SiteReviews\Commands\ToggleStatus;
-use GeminiLabs\SiteReviews\Commands\ToggleVerified;
 use GeminiLabs\SiteReviews\Database;
 use GeminiLabs\SiteReviews\Defaults\ColumnFilterbyDefaults;
 use GeminiLabs\SiteReviews\Helpers\Arr;
@@ -24,7 +23,7 @@ use GeminiLabs\SiteReviews\Modules\Sanitizer;
 use GeminiLabs\SiteReviews\Modules\Translation;
 use GeminiLabs\SiteReviews\Request;
 
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
     /**
      * @action site-reviews/route/get/admin/approve
@@ -33,18 +32,20 @@ class AdminController extends Controller
     {
         $postId = Arr::get($request->data, 0);
         $review = glsr_get_review($postId);
-        if ($review->isValid() && $this->execute(new ApproveReview($review))) {
-            glsr(Notice::class)->store(); // because of the redirect
+        if ($review->isValid()) {
+            $command = $this->execute(new ApproveReview($review));
+            if ($command->successful()) {
+                glsr(Notice::class)->store(); // because of the redirect
+            }
         }
         wp_redirect(glsr_admin_url());
         exit;
     }
 
     /**
-     * @param array $data
-     * @action in_plugin_update_message-{plugin_basename}
+     * @action in_plugin_update_message-{glsr()->basename}
      */
-    public function displayUpdateWarning($data): void
+    public function displayUpdateWarning(array $data): void
     {
         $version = Arr::get($data, 'new_version');
         $parts = explode('.', $version);
@@ -55,19 +56,17 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action admin_enqueue_scripts
      */
-    public function enqueueAssets()
+    public function enqueueAssets(): void
     {
         $this->execute(new EnqueueAdminAssets());
     }
 
     /**
-     * @return array
      * @filter plugin_action_links_site-reviews/site-reviews.php
      */
-    public function filterActionLinks(array $links)
+    public function filterActionLinks(array $links): array
     {
         if (glsr()->hasPermission('settings')) {
             $links['settings'] = glsr(Builder::class)->a([
@@ -85,38 +84,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @param array $items
-     * @return array
-     * @filter dashboard_glance_items
-     */
-    public function filterDashboardGlanceItems($items)
-    {
-        $postCount = wp_count_posts(glsr()->post_type);
-        if (empty($postCount->publish)) {
-            return $items;
-        }
-        $text = _nx('%s Review', '%s Reviews', $postCount->publish, 'admin-text', 'site-reviews');
-        $text = sprintf($text, number_format_i18n($postCount->publish));
-        $items = Arr::consolidate($items);
-        if (glsr()->can('edit_posts')) {
-            $items[] = glsr(Builder::class)->a($text, [
-                'class' => 'glsr-review-count',
-                'href' => glsr_admin_url(),
-            ]);
-        } else {
-            $items[] = glsr(Builder::class)->span($text, [
-                'class' => 'glsr-review-count',
-            ]);
-        }
-        return $items;
-    }
-
-    /**
-     * @param array $args
-     * @return array
      * @filter export_args
      */
-    public function filterExportArgs($args)
+    public function filterExportArgs(array $args): array
     {
         if (in_array(Arr::get($args, 'content'), ['all', glsr()->post_type])) {
             $this->execute(new ExportRatings(glsr()->args($args)));
@@ -125,14 +95,12 @@ class AdminController extends Controller
     }
 
     /**
-     * @param bool $showButton
-     * @return bool
      * @filter screen_options_show_submit
      */
-    public function filterScreenOptionsButton($showButton)
+    public function filterScreenOptionsButton(bool $showButton): bool
     {
         global $post_type_object, $title, $typenow;
-        if (!Str::startsWith($typenow, glsr()->post_type)) {
+        if (!str_starts_with($typenow, glsr()->post_type)) {
             return $showButton;
         }
         $submit = get_submit_button(_x('Apply', 'admin-text', 'site-reviews'), 'primary', 'screen-options-apply', false);
@@ -150,92 +118,101 @@ class AdminController extends Controller
     }
 
     /**
-     * @param array $plugins
-     * @return array
      * @filter mce_external_plugins
      */
-    public function filterTinymcePlugins($plugins)
+    public function filterTinymcePlugins(array $plugins): array
     {
         if (glsr()->can('edit_posts')) {
-            $plugins = Arr::consolidate($plugins);
             $plugins['glsr_shortcode'] = glsr()->url('assets/scripts/mce-plugin.js');
         }
         return $plugins;
     }
 
     /**
-     * @return void
      * @action admin_init
      */
-    public function onActivation()
+    public function onActivation(): void
     {
         if (empty(get_option(glsr()->prefix.'activated'))) {
-            glsr(Install::class)->run();
+            glsr(Install::class)->run(); // this hard-resets role permissions
             glsr(Migrate::class)->run();
             update_option(glsr()->prefix.'activated', true);
+            glsr()->action('activated');
         }
     }
 
     /**
-     * @return void
+     * @action deactivate_{glsr()->basename}
+     */
+    public function onDeactivation(bool $isNetworkDeactivation): void
+    {
+        glsr(Install::class)->deactivate($isNetworkDeactivation);
+    }
+
+    /**
      * @action import_end
      */
-    public function onImportEnd()
+    public function onImportEnd(): void
     {
         $this->execute(new ImportRatings());
     }
 
     /**
-     * @return void
      * @action admin_head
      */
-    public function printInlineStyle()
+    public function printInlineStyle(): void
     {
         echo '<style type="text/css">a[href="edit.php?post_type=site-review&page='.Str::dashCase(glsr()->prefix).'addons"]:not(.current),a[href="edit.php?post_type=site-review&page='.Str::dashCase(glsr()->prefix).'addons"]:focus,a[href="edit.php?post_type=site-review&page='.Str::dashCase(glsr()->prefix).'addons"]:hover{color:#F6E05E!important;}</style>';
     }
 
     /**
-     * @return void
      * @action admin_init
      */
-    public function registerTinymcePopups()
+    public function registerTinymcePopups(): void
     {
-        $this->execute(new RegisterTinymcePopups([
-            'site_reviews' => _x('Latest Reviews', 'admin-text', 'site-reviews'),
-            'site_review' => _x('Single Review', 'admin-text', 'site-reviews'),
-            'site_reviews_form' => _x('Review Form', 'admin-text', 'site-reviews'),
-            'site_reviews_summary' => _x('Rating Summary', 'admin-text', 'site-reviews'),
-        ]));
+        $this->execute(new RegisterTinymcePopups());
     }
 
     /**
-     * @return void
      * @action in_admin_header
      */
-    public function renderPageHeader()
+    public function renderPageHeader(): void
     {
-        global $post_type_object, $title, $typenow;
-        if (!Str::startsWith($typenow, glsr()->post_type)) {
+        global $post_type_object, $title;
+        if (!$this->isReviewAdminScreen()) {
             return;
         }
+        $buttons = [];
         $screen = glsr_current_screen();
+        if (glsr()->post_type === $screen->post_type && !glsr(License::class)->isLicensed()) {
+            $buttons['premium'] = [
+                'class' => 'components-button is-primary glsr-try-premium',
+                'href' => 'https://niftyplugins.com/plugins/site-reviews-premium/',
+                'target' => '_blank',
+                'text' => _x('Try Premium', 'admin-text', 'site-reviews'),
+            ];
+        }
+        if (in_array($screen->base, ['edit', 'post'])) {
+            $buttons['new'] = [
+                'class' => 'components-button is-secondary glsr-new-post',
+                'data-new' => '',
+                'href' => admin_url("post-new.php?post_type={$screen->post_type}"),
+                'text' => Arr::get($post_type_object, 'labels.add_new'),
+            ];
+        }
+        $buttons = glsr()->filterArray('page-header/buttons', $buttons);
         glsr()->render('views/partials/page-header', [
-            'hasNewButton' => in_array($screen->base, ['edit', 'post']),
-            'hasPremiumButton' => !glsr(License::class)->isLicensed(),
-            'hasScreenOptions' => in_array($screen->base, ['edit', 'edit-tags']),
+            'buttons' => $buttons,
+            'hasScreenOptions' => in_array($screen->base, ['edit', 'edit-tags', 'post']),
             'logo' => file_get_contents(glsr()->path('assets/images/mascot.svg')),
-            'newText' => Arr::get($post_type_object, 'labels.add_new'),
-            'newUrl' => admin_url('post-new.php?post_type='.$typenow),
             'title' => esc_html($title),
         ]);
     }
 
     /**
-     * @param string $editorId
-     * @return void
      * @action media_buttons
      */
-    public function renderTinymceButton($editorId)
+    public function renderTinymceButton(string $editorId): void
     {
         $allowedEditors = glsr()->filterArray('tinymce/editor-ids', ['content'], $editorId);
         if ('post' !== glsr_current_screen()->base || !in_array($editorId, $allowedEditors)) {
@@ -254,25 +231,29 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action admin_init
      */
-    public function scheduleMigration()
+    public function scheduleMigration(): void
     {
-        if ($this->isReviewAdminScreen()
-            && !defined('GLSR_UNIT_TESTS')
-            && !glsr(Queue::class)->isPending('queue/migration')) {
-            if (glsr(Migrate::class)->isMigrationNeeded() || glsr(Database::class)->isMigrationNeeded()) {
-                glsr(Queue::class)->once(time() + MINUTE_IN_SECONDS, 'queue/migration');
-            }
+        if (defined('GLSR_UNIT_TESTS')) {
+            return;
         }
+        if (!$this->isReviewAdminScreen()) {
+            return;
+        }
+        if (glsr(Queue::class)->isPending('queue/migration')) {
+            return;
+        }
+        if (!glsr(Migrate::class)->isMigrationNeeded() && !glsr(Database::class)->isMigrationNeeded()) {
+            return;
+        }
+        glsr(Queue::class)->once(time() + MINUTE_IN_SECONDS, 'queue/migration');
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/filter-assigned_post
      */
-    public function searchAssignedPostsAjax(Request $request)
+    public function searchAssignedPostsAjax(Request $request): void
     {
         $search = glsr(Sanitizer::class)->sanitizeText($request->search);
         $results = glsr(Database::class)->searchAssignedPosts($search)->results();
@@ -282,10 +263,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/filter-assigned_user
      */
-    public function searchAssignedUsersAjax(Request $request)
+    public function searchAssignedUsersAjax(Request $request): void
     {
         $search = glsr(Sanitizer::class)->sanitizeText($request->search);
         $results = glsr(Database::class)->searchAssignedUsers($search)->results();
@@ -298,10 +278,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/filter-author
      */
-    public function searchAuthorsAjax(Request $request)
+    public function searchAuthorsAjax(Request $request): void
     {
         $search = glsr(Sanitizer::class)->sanitizeText($request->search);
         $results = glsr(Database::class)->searchUsers($search)->results();
@@ -314,10 +293,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/search-posts
      */
-    public function searchPostsAjax(Request $request)
+    public function searchPostsAjax(Request $request): void
     {
         $search = glsr(Sanitizer::class)->sanitizeText($request->search);
         $results = glsr(Database::class)->searchPosts($search)->render();
@@ -328,10 +306,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/search-strings
      */
-    public function searchStringsAjax(Request $request)
+    public function searchStringsAjax(Request $request): void
     {
         $search = glsr(Sanitizer::class)->sanitizeText($request->search);
         $exclude = Arr::consolidate($request->exclude);
@@ -347,10 +324,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/search-users
      */
-    public function searchUsersAjax(Request $request)
+    public function searchUsersAjax(Request $request): void
     {
         $search = glsr(Sanitizer::class)->sanitizeText($request->search);
         $results = glsr(Database::class)->searchUsers($search)->render();
@@ -361,10 +337,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/toggle-filters
      */
-    public function toggleFiltersAjax(Request $request)
+    public function toggleFiltersAjax(Request $request): void
     {
         if ($userId = get_current_user_id()) {
             $filters = array_keys(glsr(ColumnFilterbyDefaults::class)->defaults());
@@ -376,42 +351,21 @@ class AdminController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/toggle-pinned
      */
-    public function togglePinnedAjax(Request $request)
+    public function togglePinnedAjax(Request $request): void
     {
-        $command = new TogglePinned($request->toArray());
-        $result = $this->execute($command);
-        glsr()->action('cache/flush', $command->review);
-        wp_send_json_success([
-            'notices' => glsr(Notice::class)->get(),
-            'pinned' => $result,
-        ]);
+        $command = $this->execute(new TogglePinned($request));
+        glsr()->action('cache/flush', $command->review); // @phpstan-ignore-line
+        wp_send_json_success($command->response());
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/toggle-status
      */
-    public function toggleStatusAjax(Request $request)
+    public function toggleStatusAjax(Request $request): void
     {
-        $result = $this->execute(new ToggleStatus($request->toArray()));
-        wp_send_json_success($result);
-    }
-
-    /**
-     * @return void
-     * @action site-reviews/route/ajax/toggle-verified
-     */
-    public function toggleVerifiedAjax(Request $request)
-    {
-        $command = new ToggleVerified($request->toArray());
-        $result = $this->execute($command);
-        glsr()->action('cache/flush', $command->review);
-        wp_send_json_success([
-            'notices' => glsr(Notice::class)->get(),
-            'verified' => $result,
-        ]);
+        $command = $this->execute(new ToggleStatus($request));
+        wp_send_json_success($command->response());
     }
 }

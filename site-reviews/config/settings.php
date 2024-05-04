@@ -55,7 +55,7 @@ return [ // order is intentional
         'type' => 'yes_no',
     ],
     'settings.general.request_verification_message' => [
-        'default' => glsr('Modules\Html\Template')->build('templates/verify-review'),
+        'default' => glsr()->build('templates/verify-review'),
         'depends_on' => [
             'settings.general.request_verification' => ['yes'],
         ],
@@ -65,7 +65,7 @@ return [ // order is intentional
         'tags' => glsr('Modules\Html\TemplateTags')->filteredTags([
             'exclude' => ['admin_email', 'approve_url', 'edit_url', 'review_link', 'verified_date'],
         ]),
-        'tooltip' => _x('To restore the default text, save an empty template.', 'admin-text', 'site-reviews'),
+        'tooltip' => _x('The verification email sent to the reviewer when a review is submitted. To restore the default text, save an empty template.', 'admin-text', 'site-reviews'),
         'type' => 'code',
     ],
     'settings.general.require.approval' => [
@@ -136,6 +136,7 @@ return [ // order is intentional
     'settings.general.multilingual' => [
         'class' => 'regular-text',
         'default' => '',
+        'description' => _x('If you are assigning reviews to your pages, this integration will tell Site Reviews to assign reviews to all languages of the assigned page instead of only the page the review was submitted on.', 'admin-text', 'site-reviews'),
         'label' => _x('Multilingual', 'admin-text', 'site-reviews'),
         'options' => [
             '' => _x('No Integration', 'admin-text', 'site-reviews'),
@@ -143,7 +144,7 @@ return [ // order is intentional
             'wpml' => _x('Integrate with WPML', 'admin-text', 'site-reviews'),
         ],
         'sanitizer' => 'text',
-        'tooltip' => _x('Integrate with a multilingual plugin to calculate the combined ratings for all languages of a page; and if you are assigning reviews to your pages, display reviews assigned to all languages of that page.', 'admin-text', 'site-reviews'),
+        'tooltip' => _x('If you are assigning reviews to your pages, this integration will tell Site Reviews to assign reviews to all languages of the assigned page instead of only the page the review was submitted on.', 'admin-text', 'site-reviews'),
         'type' => 'select',
     ],
     'settings.general.notifications' => [
@@ -170,7 +171,7 @@ return [ // order is intentional
         'tooltip' => sprintf(_x('To send notifications to a Discord channel, %s and then paste the URL in the field.', 'admin-text', 'site-reviews'),
             '<a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">'._x('create a webhook', 'admin-text', 'site-reviews').'</a>'
         ),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.general.notification_slack' => [
         'default' => '',
@@ -182,7 +183,7 @@ return [ // order is intentional
         'tooltip' => sprintf(_x('To send notifications to a Slack channel, %s and then paste the URL in the field.', 'admin-text', 'site-reviews'),
             '<a href="https://api.slack.com/incoming-webhooks" target="_blank">'._x('create an Incoming Webhook', 'admin-text', 'site-reviews').'</a>'
         ),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.general.notification_from' => [
         'default' => '',
@@ -207,12 +208,12 @@ return [ // order is intentional
         'type' => 'text',
     ],
     'settings.general.notification_message' => [
-        'default' => glsr('Modules\Html\Template')->build('templates/notification'),
+        'default' => glsr()->build('templates/notification'),
         'depends_on' => [
             'settings.general.notifications' => ['admin', 'author', 'custom'],
         ],
         'label' => _x('Notification Template', 'admin-text', 'site-reviews'),
-        'rows' => 10,
+        'rows' => 9,
         'sanitizer' => 'text-html',
         'tags' => glsr('Modules\Html\TemplateTags')->filteredTags([
             'exclude' => ['admin_email', 'review_link', 'verified_date', 'verify_url'],
@@ -432,6 +433,7 @@ return [ // order is intentional
             'rankmath' => _x('RankMath Pro', 'plugin name (admin-text)', 'site-reviews'),
             'saswp' => _x('Schema & Structured Data for WP & AMP', 'plugin name (admin-text)', 'site-reviews'),
             'schema_pro' => _x('Schema Pro', 'plugin name (admin-text)', 'site-reviews'),
+            'seopress' => _x('SEOPress', 'plugin name (admin-text)', 'site-reviews'),
         ],
         'sanitizer' => 'text',
         'tooltip' => _x('Integrate Site Reviews with a third-party schema plugin?', 'admin-text', 'site-reviews'),
@@ -816,7 +818,7 @@ return [ // order is intentional
         'label' => _x('Site Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('<a href="https://friendlycaptcha.com/signup" target="_blank">Friendly Captcha</a> is privacy-first Schrems II and GDPR compliant anti-bot solution.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.friendlycaptcha.secret' => [
         'default' => '',
@@ -826,7 +828,7 @@ return [ // order is intentional
         'label' => _x('API Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('<a href="https://friendlycaptcha.com/signup" target="_blank">Friendly Captcha</a> is privacy-first Schrems II and GDPR compliant anti-bot solution.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.hcaptcha.key' => [
         'default' => '',
@@ -836,7 +838,7 @@ return [ // order is intentional
         'label' => _x('Site Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('hCaptcha is an anti-bot solution that protects user privacy. It is the most popular reCAPTCHA alternative. To use it, you will need to <a href="https://dashboard.hcaptcha.com/" target="_blank">sign up</a> for an API key pair for your site.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.hcaptcha.secret' => [
         'default' => '',
@@ -846,7 +848,7 @@ return [ // order is intentional
         'label' => _x('Secret Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('hCaptcha is an anti-bot solution that protects user privacy. It is the most popular reCAPTCHA alternative. To use it, you will need to <a href="https://dashboard.hcaptcha.com/" target="_blank">sign up</a> for an API key pair for your site.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.recaptcha.key' => [
         'default' => '',
@@ -856,7 +858,7 @@ return [ // order is intentional
         'label' => _x('Site Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('reCAPTCHA v2 Invisible is a free anti-spam service from Google. To use it, you will need to <a href="https://www.google.com/recaptcha/admin" target="_blank">sign up</a> for an API key pair for your site.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.recaptcha.secret' => [
         'default' => '',
@@ -866,7 +868,7 @@ return [ // order is intentional
         'label' => _x('Secret Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('reCAPTCHA v2 Invisible is a free anti-spam service from Google. To use it, you will need to <a href="https://www.google.com/recaptcha/admin" target="_blank">sign up</a> for an API key pair for your site.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.recaptcha_v3.key' => [
         'default' => '',
@@ -876,7 +878,7 @@ return [ // order is intentional
         'label' => _x('Site Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('reCAPTCHA v3 is a free anti-spam service from Google. To use it, you will need to <a href="https://www.google.com/recaptcha/admin" target="_blank">sign up</a> for an API key pair for your site.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.recaptcha_v3.secret' => [
         'default' => '',
@@ -886,7 +888,7 @@ return [ // order is intentional
         'label' => _x('Secret Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('reCAPTCHA v3 is a free anti-spam service from Google. To use it, you will need to <a href="https://www.google.com/recaptcha/admin" target="_blank">sign up</a> for an API key pair for your site.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.recaptcha_v3.threshold' => [
         'default' => 0.5,
@@ -910,7 +912,7 @@ return [ // order is intentional
         'label' => _x('Site Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('Turnstile is Cloudflare’s privacy-first CAPTCHA alternative. To use it, you will need to <a href="https://dash.cloudflare.com/?to=/:account/turnstile" target="_blank">obtain</a> a site key and a secret key.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.turnstile.secret' => [
         'default' => '',
@@ -920,7 +922,7 @@ return [ // order is intentional
         'label' => _x('Secret Key', 'admin-text', 'site-reviews'),
         'sanitizer' => 'text',
         'tooltip' => _x('Turnstile is Cloudflare’s privacy-first CAPTCHA alternative. To use it, you will need to <a href="https://dash.cloudflare.com/?to=/:account/turnstile" target="_blank">obtain</a> a site key and a secret key.', 'admin-text', 'site-reviews'),
-        'type' => 'text',
+        'type' => 'secret',
     ],
     'settings.forms.captcha.position' => [
         'class' => 'regular-text',

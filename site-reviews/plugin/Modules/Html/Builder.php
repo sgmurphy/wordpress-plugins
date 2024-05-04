@@ -2,6 +2,9 @@
 
 namespace GeminiLabs\SiteReviews\Modules\Html;
 
+use GeminiLabs\SiteReviews\Arguments;
+use GeminiLabs\SiteReviews\Contracts\BuilderContract;
+use GeminiLabs\SiteReviews\Contracts\FieldContract;
 use GeminiLabs\SiteReviews\Defaults\FieldDefaults;
 use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
@@ -9,38 +12,40 @@ use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
 
 /**
- * This class generates raw HTML tags without additional DOM markup.
+ * This class generates HTML tags without additional DOM markup.
  *
  * @method string a(string|array ...$params)
  * @method string button(string|array ...$params)
  * @method string div(string|array ...$params)
+ * @method string form(string|array ...$params)
+ * @method string h1(string|array ...$params)
+ * @method string h2(string|array ...$params)
+ * @method string h3(string|array ...$params)
+ * @method string h4(string|array ...$params)
+ * @method string h5(string|array ...$params)
+ * @method string h6(string|array ...$params)
  * @method string i(string|array ...$params)
  * @method string img(string|array ...$params)
  * @method string input(string|array ...$params)
- * @method string li(string|array ...$params)
  * @method string label(string|array ...$params)
+ * @method string li(string|array ...$params)
+ * @method string nav(string|array ...$params)
+ * @method string ol(string|array ...$params)
+ * @method string optgroup(string|array ...$params)
  * @method string option(string|array ...$params)
  * @method string p(string|array ...$params)
+ * @method string pre(string|array ...$params)
+ * @method string section(string|array ...$params)
  * @method string select(string|array ...$params)
  * @method string small(string|array ...$params)
  * @method string span(string|array ...$params)
  * @method string textarea(string|array ...$params)
  * @method string ul(string|array ...$params)
  */
-class Builder
+class Builder implements BuilderContract
 {
-    public const INPUT_TYPES = [
-        'checkbox', 'date', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month',
-        'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time',
-        'url', 'week',
-    ];
-
-    public const TAGS_FORM = [
+    public const TAGS_FIELD = [
         'input', 'select', 'textarea',
-    ];
-
-    public const TAGS_SINGLE = [
-        'img',
     ];
 
     public const TAGS_STRUCTURE = [
@@ -52,373 +57,252 @@ class Builder
         'p', 'pre', 'small', 'span',
     ];
 
-    /**
-     * @var \GeminiLabs\SiteReviews\Arguments
-     */
-    public $args;
+    public const TAGS_VOID = [
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source',
+        'track', 'wbr',
+    ];
+
+    protected Arguments $args;
+
+    protected string $tag;
 
     /**
-     * @var bool
+     * This creates a new Builder instance to build an element.
      */
-    public $render = false;
-
-    /**
-     * @var string
-     */
-    public $tag;
-
-    /**
-     * @var string
-     */
-    public $type;
-
-    /**
-     * @param string $method
-     * @param array $methodArgs
-     * @return string|void
-     */
-    public function __call($method, $methodArgs)
+    public function __call(string $method, array $arguments): string
     {
-        $instance = new static();
-        $args = call_user_func_array([$instance, 'prepareArgs'], $methodArgs);
+        if (!is_array($args = array_shift($arguments))) {
+            $text = Cast::toString($args);
+            $args = Arr::consolidate(array_shift($arguments));
+            $args['text'] = $text;
+        }
+        if (empty($method)) {
+            return '';
+        }
         $tag = Str::dashCase($method);
-        $result = $instance->build($tag, $args);
-        if (!$instance->render) {
-            return $result;
-        }
-        echo $result;
+        return (new static())->build($tag, $args);
+    }
+
+    public function args(): Arguments
+    {
+        return $this->args ??= new Arguments();
     }
 
     /**
-     * @param string $property
-     * @param mixed $value
-     * @return void
+     * This uses the existing Builder instance to build an element
+     * and overwrites existing tag and arguments
+     * with the passed arguments.
      */
-    public function __set($property, $value)
+    public function build(string $tag, array $args = []): string
     {
-        $method = Helper::buildMethodName($property, 'set');
-        if (method_exists($this, $method)) {
-            call_user_func([$this, $method], $value);
-        }
-    }
-
-    /**
-     * @return string
-     */
-    public function build($tag, array $args = [])
-    {
-        $this->setArgs($args, $tag);
-        $this->setTag($tag);
-        glsr()->action('builder', $this);
-        $result = $this->isHtmlTag($this->tag)
-            ? $this->buildElement()
-            : $this->buildCustom($tag);
-        return glsr()->filterString('builder/result', $result, $this);
-    }
-
-    /**
-     * @return void|string
-     */
-    public function buildClosingTag()
-    {
-        return '</'.$this->tag.'>';
-    }
-
-    /**
-     * @param string $tag
-     * @return void|string
-     */
-    public function buildCustom($tag)
-    {
-        if (class_exists($className = $this->getFieldClassName($tag))) {
-            return (new $className($this))->build();
-        }
-        glsr_log()->error("Field [$className] missing.");
-    }
-
-    /**
-     * @return string
-     */
-    public function buildDefaultElement($text = '')
-    {
-        $text = Helper::ifEmpty($text, $this->args->text, $strict = true);
-        return $this->buildOpeningTag().$text.$this->buildClosingTag();
-    }
-
-    /**
-     * @return void|string
-     */
-    public function buildElement()
-    {
-        if (in_array($this->tag, static::TAGS_SINGLE)) {
-            return $this->buildOpeningTag();
-        }
-        if (in_array($this->tag, static::TAGS_FORM)) {
-            return $this->buildFormElement();
-        }
-        return $this->buildDefaultElement();
-    }
-
-    /**
-     * @return void|string
-     */
-    public function buildFormElement()
-    {
-        $method = Helper::buildMethodName($this->tag, 'buildForm');
-        return $this->$method();
-    }
-
-    /**
-     * @return void|string
-     */
-    public function buildOpeningTag()
-    {
-        $attributes = glsr(Attributes::class)->{$this->tag}($this->args->toArray())->toString();
-        return '<'.trim($this->tag.' '.$attributes).'>';
-    }
-
-    /**
-     * @return string
-     */
-    public function raw(array $field)
-    {
-        unset($field['label']);
-        return $this->{$field['type']}($field);
-    }
-
-    /**
-     * @param array $args
-     * @param string $type
-     * @return void
-     */
-    public function setArgs($args = [], $type = '')
-    {
-        $args = Arr::consolidate($args);
-        if (!empty($args)) {
-            $args = $this->normalize($args, $type);
-            $options = glsr()->args($args)->options;
+        if (in_array($tag, static::TAGS_FIELD)) {
             $args = glsr(FieldDefaults::class)->merge($args);
-            if (is_array($options)) {
-                // Merging reindexes the options array, this may not be desirable
-                // if the array is indexed so here we restore the original options array.
-                // It's a messy hack, but it will have to do for now.
-                $args['options'] = $options;
-            }
         }
-        $args = glsr()->filterArray('builder/'.$type.'/args', $args, $this);
-        $this->args = glsr()->args($args);
+        $args = glsr()->filterArray("builder/{$tag}/args", $args, $this);
+        $this->args = new Arguments($args);
+        $this->tag = $tag;
+        return $this->process();
     }
 
     /**
-     * @param bool $bool
-     * @return void
+     * This uses the Field's builder instance/build method to build the element.
      */
-    public function setRender($bool)
+    public function buildField(FieldContract $field): string
     {
-        $this->render = Cast::toBool($bool);
+        return $field->build();
     }
 
-    /**
-     * @param string $tag
-     * @return void
-     */
-    public function setTag($tag)
+    public function field(array $args): FieldContract
     {
-        $tag = Cast::toString($tag);
-        $this->tag = Helper::ifTrue(in_array($tag, static::INPUT_TYPES), 'input', $tag);
+        return new Field($args);
     }
 
-    /**
-     * @return string|void
-     */
-    protected function buildFormInput()
+    public function set(string $key, $value): void
     {
-        if (!in_array($this->args->type, ['checkbox', 'radio'])) {
-            return $this->buildFormLabel().$this->buildOpeningTag();
+        $this->args()->set($key, $value);
+    }
+
+    public function tag(): string
+    {
+        return $this->tag ??= '';
+    }
+
+    protected function buildElement(): string
+    {
+        $text = $this->args()->text;
+        return $this->buildTagStart().$text.$this->buildTagEnd();
+    }
+
+    protected function buildFieldElement(): string
+    {
+        $method = Helper::buildMethodName('build', 'field', $this->tag(), 'element');
+        return call_user_func([$this, $method]);
+    }
+
+    protected function buildFieldInputChoice(): string
+    {
+        $text = $this->args()->text ?: $this->args()->label;
+        if (empty($text)) {
+            return $this->buildVoidElement();
         }
-        return empty($this->args->options)
-            ? $this->buildFormInputChoice()
-            : $this->buildFormInputChoices();
+        return $this->label([
+            'for' => $this->args()->id,
+            'text' => "{$this->buildVoidElement()} {$text}",
+        ]);
     }
 
-    /**
-     * @return string|void
-     */
-    protected function buildFormInputChoice()
-    {
-        if ($label = Helper::ifEmpty($this->args->text, $this->args->label)) {
-            return $this->buildFormLabel([
-                'text' => $this->buildOpeningTag().' '.$label,
-            ]);
-        }
-        return $this->buildOpeningTag();
-    }
-
-    /**
-     * @return string|void
-     */
-    protected function buildFormInputChoices()
+    protected function buildFieldInputChoices(): string
     {
         $index = 0;
-        return array_reduce(array_keys($this->args->options), function ($carry, $value) use (&$index) {
+        $values = array_keys($this->args()->options);
+        return array_reduce($values, function ($carry, $value) use (&$index) {
             return $carry.$this->input([
-                'checked' => in_array($value, $this->args->cast('value', 'array')),
-                'class' => $this->args->class,
-                'disabled' => $this->args->disabled,
+                'checked' => in_array($value, $this->args()->cast('value', 'array')),
+                'class' => $this->args()->class,
+                'disabled' => $this->args()->disabled,
                 'id' => $this->indexedId(++$index),
-                'label' => $this->args->options[$value],
-                'name' => $this->args->name,
-                'required' => $this->args->required,
-                'tabindex' => $this->args->tabindex,
-                'type' => $this->args->type,
+                'label' => $this->args()->options[$value],
+                'name' => $this->args()->name,
+                'required' => $this->args()->required,
+                'tabindex' => $this->args()->tabindex,
+                'type' => $this->args()->type,
                 'value' => $value,
             ]);
-        });
+        }, '');
     }
 
-    /**
-     * @return void|string
-     */
-    protected function buildFormLabel(array $customArgs = [])
+    protected function buildFieldInputElement(): string
     {
-        if (!empty($this->args->label) && 'hidden' !== $this->args->type) {
-            return $this->label(wp_parse_args($customArgs, [
-                'for' => $this->args->id,
-                'text' => $this->args->label,
-            ]));
+        if (!in_array($this->args()->type, ['checkbox', 'radio'])) {
+            return $this->buildFieldLabel().$this->buildVoidElement();
         }
-    }
-
-    /**
-     * @return string|void
-     */
-    protected function buildFormSelect()
-    {
-        return $this->buildFormLabel().$this->buildDefaultElement($this->buildFormSelectOptions());
-    }
-
-    /**
-     * @return string|void
-     */
-    protected function buildFormSelectOptions()
-    {
-        $options = $this->args->cast('options', 'array');
-        if ($this->args->placeholder) {
-            $options = Arr::prepend($options, $this->args->placeholder, '');
+        if (empty($this->args()->options)) {
+            return $this->buildFieldInputChoice();
         }
-        return array_reduce(array_keys($options), function ($carry, $key) use ($options) {
-            $value = $options[$key];
-            if (is_array($value)) {
-                // if the option is an array and has a title and value key
-                // then treat the option as a string with a title attribute
-                if (array_diff(array_keys($value), ['title', 'value'])) {
-                    return $carry.$this->buildFormSelectOptGroup($value, $key);
-                }
-                $title = $options[$key]['title'];
-                $value = $options[$key]['value'];
-            }
-            return $carry.$this->option([
-                'selected' => $this->args->cast('value', 'string') === Cast::toString($key),
-                'text' => $value,
-                'title' => $title ?? '',
-                'value' => $key,
-            ]);
-        });
+        return $this->buildFieldInputChoices();
     }
 
-    /**
-     * @return string
-     */
-    protected function buildFormSelectOptGroup($options, $label)
+    protected function buildFieldLabel(): string
     {
-        $children = array_reduce(array_keys($options), function ($carry, $key) use ($options) {
-            $option = $options[$key];
-            if (wp_is_numeric_array($option)) {
-                $option = Arr::getAs('string', $options[$key], 0);
-                $title = Arr::getAs('string', $options[$key], 1);
-            }
-            return $carry.glsr(Builder::class)->option([
-                'selected' => $this->args->cast('value', 'string') === Cast::toString($key),
-                'text' => $option,
-                'title' => $title ?? '',
-                'value' => $key,
-            ]);
-        });
-        return glsr(Builder::class)->optgroup([
+        if ('hidden' === $this->args()->type) {
+            return '';
+        }
+        if (empty($this->args()->label)) {
+            return '';
+        }
+        return $this->label([
+            'for' => $this->args()->id,
+            'text' => $this->args()->label,
+        ]);
+    }
+
+    protected function buildFieldSelectElement(): string
+    {
+        $options = $this->buildFieldSelectOptions();
+        $select = $this->buildTagStart().$options.$this->buildTagEnd();
+        return $this->buildFieldLabel().$select;
+    }
+
+    protected function buildFieldSelectOptgroup(array $options, string $label): string
+    {
+        $values = array_keys($options);
+        $children = array_reduce($values, fn ($carry, $value) => $carry.$this->buildFieldSelectOption([
+            'text' => $options[$value],
+            'value' => $value,
+        ]), '');
+        return $this->optgroup([
             'label' => $label,
             'text' => $children,
         ]);
     }
 
-    /**
-     * @return string|void
-     */
-    protected function buildFormTextarea()
+    protected function buildFieldSelectOption(array $args): string
     {
-        return $this->buildFormLabel().$this->buildDefaultElement(
-            esc_html($this->args->cast('value', 'string'))
-        );
-    }
-
-    /**
-     * @return string
-     */
-    protected function indexedId($index)
-    {
-        return Helper::ifTrue(count($this->args->options) > 1,
-            $this->args->id.'-'.$index,
-            $this->args->id
-        );
-    }
-
-    /**
-     * @param string $tag
-     * @return bool
-     */
-    protected function isHtmlTag($tag)
-    {
-        return in_array($tag, array_merge(
-            static::TAGS_FORM,
-            static::TAGS_SINGLE,
-            static::TAGS_STRUCTURE,
-            static::TAGS_TEXT
-        ));
-    }
-
-    /**
-     * @param string $tag
-     * @return string
-     */
-    protected function getFieldClassName($tag)
-    {
-        $className = Helper::buildClassName($tag, __NAMESPACE__.'\Fields');
-        return glsr()->filterString('builder/field/'.$tag, $className);
-    }
-
-    /**
-     * @return array
-     */
-    protected function normalize(array $args, $type)
-    {
-        if (class_exists($className = $this->getFieldClassName($type))) {
-            $args = $className::merge($args);
+        $selected = in_array($args['value'] ?? null, $this->args()->cast('value', 'array'));
+        $args = wp_parse_args($args, [
+            'selected' => $selected,
+            'text' => '',
+            'value' => '',
+        ]);
+        if (!is_array($args['text'])) {
+            return $this->option($args);
         }
-        return $args;
+        // If $args['text'] is an array and has a title and text key then create an option tag
+        // with a title attribute to provide accessibility when the text is made up of symbols.
+        if (Arr::compare(array_keys($args['text']), ['text', 'title'])) {
+            return $this->option(wp_parse_args($args['text'], $args));
+        }
+        return '';
     }
 
-    /**
-     * @param string|array ...$params
-     * @return array
-     */
-    protected function prepareArgs(...$params)
+    protected function buildFieldSelectOptions(): string
     {
-        if (is_array($parameter1 = array_shift($params))) {
-            return $parameter1;
+        $options = $this->args()->options;
+        if ($this->args()->placeholder) {
+            $options = Arr::prepend($options, $this->args()->placeholder, '');
         }
-        $parameter2 = Arr::consolidate(array_shift($params));
-        if (is_scalar($parameter1)) {
-            $parameter2['text'] = $parameter1;
+        $values = array_keys($options);
+        return array_reduce($values, function ($carry, $value) use ($options) {
+            $option = $this->buildFieldSelectOption([
+                'text' => $options[$value],
+                'value' => $value,
+            ]);
+            if (empty($option)) {
+                return $carry.$this->buildFieldSelectOptgroup($options[$value], $value);
+            }
+            return $carry.$option;
+        }, '');
+    }
+
+    protected function buildFieldTextareaElement(): string
+    {
+        $text = esc_html($this->args()->cast('value', 'string'));
+        $textarea = $this->buildTagStart().$text.$this->buildTagEnd();
+        return $this->buildFieldLabel().$textarea;
+    }
+
+    protected function buildTagEnd(): string
+    {
+        if (in_array($this->tag(), static::TAGS_VOID)) {
+            return '';
         }
-        return $parameter2;
+        return "</{$this->tag()}>";
+    }
+
+    protected function buildTagStart(): string
+    {
+        $attributes = glsr(Attributes::class)->{$this->tag()}($this->args()->toArray())->toString();
+        $tag = trim("{$this->tag()} {$attributes}");
+        if (in_array($this->tag(), static::TAGS_VOID)) {
+            return "<{$tag} />";
+        }
+        return "<{$tag}>";
+    }
+
+    protected function buildVoidElement(): string
+    {
+        return $this->buildTagStart();
+    }
+
+    protected function indexedId(int $index): string
+    {
+        if (!empty($this->args()->id)) {
+            return "{$this->args()->id}-{$index}";
+        }
+        return $this->args()->id;
+    }
+
+    protected function process(): string
+    {
+        glsr()->action('builder', $this); // This hook is used in PublicController to add styled classes
+        if (in_array($this->tag(), static::TAGS_FIELD)) { // check this first
+            $result = $this->buildFieldElement();
+        } elseif (in_array($this->tag(), static::TAGS_VOID)) {
+            $result = $this->buildVoidElement();
+        } else {
+            $result = $this->buildElement();
+        }
+        $result = glsr()->filterString('builder/result', $result, $this);
+        return $result;
     }
 }

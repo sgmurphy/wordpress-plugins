@@ -9,9 +9,8 @@ class SiteReviewsDefaults extends DefaultsAbstract
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'debug' => 'bool',
         'pagination' => 'string',
         'schema' => 'bool',
@@ -21,18 +20,18 @@ class SiteReviewsDefaults extends DefaultsAbstract
     /**
      * The values that should be constrained after sanitization is run.
      * This is done after $casts and $sanitize.
-     * @var array
      */
-    public $enums = [
+    public array $enums = [
         'pagination' => ['ajax', 'loadmore', '1', 'true'],
         'terms' => ['0', 'false', '1', 'true'],
     ];
 
     /**
      * The values that should be guarded.
+     *
      * @var string[]
      */
-    public $guarded = [
+    public array $guarded = [
         'fallback', 'title',
     ];
 
@@ -40,9 +39,8 @@ class SiteReviewsDefaults extends DefaultsAbstract
      * The keys that should be mapped to other keys.
      * Keys are mapped before the values are normalized and sanitized.
      * Note: Mapped keys should not be included in the defaults!
-     * @var array
      */
-    public $mapped = [
+    public array $mapped = [
         'assigned_to' => 'assigned_posts',
         'category' => 'assigned_terms',
         'count' => 'display', // @deprecated in v4.1.0
@@ -53,9 +51,8 @@ class SiteReviewsDefaults extends DefaultsAbstract
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'class' => 'attr-class',
         'display' => 'min:1',
         'fallback' => 'text-post',
@@ -69,10 +66,7 @@ class SiteReviewsDefaults extends DefaultsAbstract
         'type' => 'slug',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'assigned_posts' => '',
@@ -98,9 +92,8 @@ class SiteReviewsDefaults extends DefaultsAbstract
 
     /**
      * Normalize provided values, this always runs first.
-     * @return array
      */
-    protected function normalize(array $values = [])
+    protected function normalize(array $values = []): array
     {
         foreach ($this->mapped as $old => $new) {
             if ('custom' === Arr::get($values, $old)) {

@@ -2,6 +2,8 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\WooCommerce\Widgets;
 
+use GeminiLabs\SiteReviews\Database;
+use GeminiLabs\SiteReviews\Database\Query;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Modules\Rating;
@@ -12,6 +14,7 @@ class WidgetRatingFilter extends \WC_Widget_Rating_Filter
     /**
      * @param array $args
      * @param array $instance
+     *
      * @return void
      */
     public function widget($args, $instance)
@@ -53,7 +56,9 @@ class WidgetRatingFilter extends \WC_Widget_Rating_Filter
             $link = apply_filters('woocommerce_rating_filter_link', $link);
             $countHtml = apply_filters('woocommerce_rating_filter_count', "({$count})", $count, $rating);
             $countHtml = wp_kses($countHtml, ['em' => [], 'span' => [], 'strong' => []]);
-            $starsHtml = glsr_star_rating($rating, $count, ['theme' => glsr_get_option('addons.woocommerce.style')]);
+            $starsHtml = glsr_star_rating($rating, $count, [
+                'theme' => glsr_get_option('addons.woocommerce.style'),
+            ]);
             $filters[] = glsr()->args([
                 'classes' => esc_attr('wc-layered-nav-rating'.($isFiltered ? ' chosen' : '')),
                 'count' => $countHtml,
@@ -83,12 +88,11 @@ class WidgetRatingFilter extends \WC_Widget_Rating_Filter
      */
     protected function productAverages()
     {
-        global $wpdb;
-        $products = $wpdb->get_results("
+        $sql = glsr(Query::class)->sql("
             SELECT apt.post_id AS product_id, ROUND(AVG(r.rating)) AS average
-            FROM {$wpdb->prefix}glsr_ratings AS r 
-            INNER JOIN {$wpdb->prefix}glsr_assigned_posts AS apt ON r.ID = apt.rating_id
-            INNER JOIN {$wpdb->posts} AS p ON (apt.post_id = p.ID AND p.post_type IN ('product'))
+            FROM table|ratings AS r 
+            INNER JOIN table|assigned_posts AS apt ON (apt.rating_id = r.ID)
+            INNER JOIN table|posts AS p ON (p.ID = apt.post_id AND p.post_type IN ('product'))
             WHERE 1=1 
             AND apt.is_published = 1 
             AND r.is_approved = 1 
@@ -96,6 +100,7 @@ class WidgetRatingFilter extends \WC_Widget_Rating_Filter
             AND r.type = 'local'
             GROUP BY apt.post_id
         ");
+        $products = glsr(Database::class)->dbGetResults($sql);
         $averages = array_reverse(glsr(Rating::class)->emptyArray(), true); // preserve keys
         foreach ($products as $product) {
             ++$averages[$product->average];

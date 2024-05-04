@@ -20,6 +20,7 @@ class Avatar
      * @var int
      */
     public $size;
+
     /**
      * @var string
      */
@@ -35,7 +36,7 @@ class Avatar
     {
         $url = '';
         if (in_array($this->type, ['custom', 'initials', 'none', 'pixels'])) {
-            $method = Helper::buildMethodName($this->type, 'generate');
+            $method = Helper::buildMethodName('generate', $this->type);
             if (method_exists($this, $method)) {
                 $url = call_user_func([$this, $method], $review);
             }
@@ -119,9 +120,10 @@ class Avatar
     protected function isUrlOnline(string $url): bool
     {
         $key = md5(strtolower($url));
-        $status = glsr(Cache::class)->get($key, 'avatar', function () use ($url) {
-            return Helper::remoteStatusCheck($url);
-        }, HOUR_IN_SECONDS);
+        $status = glsr(Cache::class)->get($key, 'avatar',
+            fn () => Helper::remoteStatusCheck($url),
+            HOUR_IN_SECONDS
+        );
         return 200 === $status;
     }
 

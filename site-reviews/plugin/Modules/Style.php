@@ -2,14 +2,13 @@
 
 namespace GeminiLabs\SiteReviews\Modules;
 
+use GeminiLabs\SiteReviews\Contracts\FieldContract;
 use GeminiLabs\SiteReviews\Defaults\PaginationDefaults;
 use GeminiLabs\SiteReviews\Defaults\StyleClassesDefaults;
 use GeminiLabs\SiteReviews\Defaults\StyleValidationDefaults;
 use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
-use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
-use GeminiLabs\SiteReviews\Modules\Html\Builder;
 
 /**
  * @method string classes(string $key)
@@ -21,6 +20,7 @@ class Style
 {
     /**
      * The properties that are accessible.
+     *
      * @var array
      */
     protected $accessible = [
@@ -29,6 +29,7 @@ class Style
 
     /**
      * The methods that are callable.
+     *
      * @var array
      */
     protected $callable = [
@@ -62,7 +63,7 @@ class Style
             return;
         }
         $key = Arr::get($args, 0);
-        if (Str::startsWith($method, 'default')) {
+        if (str_starts_with($method, 'default')) {
             $className = Helper::buildClassName(['style', $property, 'defaults'], 'Defaults');
             return glsr()->args(glsr($className)->defaults())->$key;
         }
@@ -77,7 +78,7 @@ class Style
         if (!isset($this->$property)) {
             $style = glsr_get_option('general.style', 'default');
             $config = shortcode_atts(array_fill_keys(['classes', 'pagination', 'validation'], []),
-                glsr()->config('styles/'.$style)
+                glsr()->config("styles/{$style}")
             );
             $this->classes = glsr(StyleClassesDefaults::class)->restrict($config['classes']);
             $this->pagination = glsr(PaginationDefaults::class)->restrict($config['pagination']);
@@ -87,11 +88,15 @@ class Style
         return $this->$property;
     }
 
-    public function modifyField(Builder $instance): void
+    public function fieldClass(FieldContract $field): string
     {
-        if ($this->isPublicInstance($instance)) {
-            call_user_func_array([$this, 'customize'], [$instance]);
+        if (!array_key_exists($field->tag(), $this->__get('classes'))) {
+            return $field->class;
         }
+        $key = "{$field->tag()}_{$field->type}";
+        $fallback = Arr::get($this->classes, $field->tag());
+        $class = Arr::getAs('string', $this->classes, $key, $fallback);
+        return trim("{$class} {$field->class}");
     }
 
     /**
@@ -104,7 +109,8 @@ class Style
 
     public function styleClasses(): string
     {
-        $classes = glsr()->filterString('style', 'glsr glsr-'.$this->__get('style'));
+        $style = $this->__get('style');
+        $classes = glsr()->filterString('style', "glsr glsr-{$style}");
         return glsr(Sanitizer::class)->sanitizeAttrClass($classes);
     }
 
@@ -150,26 +156,12 @@ class Style
         return $view;
     }
 
-    /**
-     * Add custom form classes.
-     */
-    protected function customize(Builder $instance): void
-    {
-        if (array_key_exists($instance->tag, $this->__get('classes'))) {
-            $key = $instance->tag.'_'.$instance->args->type;
-            $classes = Arr::get($this->classes, $key, Arr::get($this->classes, $instance->tag));
-            $classes = trim($instance->args->class.' '.$classes);
-            $classes = implode(' ', Arr::unique(explode(' ', $classes))); // remove duplicate classes
-            $instance->args->class = $classes;
-            glsr()->action('customize/'.$this->style, $instance);
-        }
-    }
-
     protected function generatePossibleViews(string $view): array
     {
         $basename = basename($view);
         $basepath = rtrim($view, $basename);
-        $customPath = 'views/styles/'.$this->__get('style').'/';
+        $style = $this->__get('style');
+        $customPath = "views/styles/{$style}/";
         $parts = explode('_', $basename);
         $views = [
             $customPath.$basename, // styled view
@@ -179,11 +171,5 @@ class Style
         ];
         $views = glsr()->filterArray('style/views', $views, $view);
         return array_filter($views);
-    }
-
-    protected function isPublicInstance(Builder $instance): bool
-    {
-        $args = glsr()->args($instance->args)->merge(['is_raw' => false]);
-        return !glsr()->isAdmin() && !Cast::toBool($args->is_raw);
     }
 }

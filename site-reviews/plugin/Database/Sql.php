@@ -8,25 +8,16 @@ use GeminiLabs\SiteReviews\Helpers\Str;
 
 trait Sql
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     public $args;
 
-    /**
-     * @var \wpdb
-     */
-    public $db;
+    public \wpdb $db;
 
-    /**
-     * @param string $clause
-     * @return array
-     */
-    public function clauses($clause, array $values = [])
+    public function clauses(string $clause, array $values = []): array
     {
         $prefix = Str::restrictTo('and,join', $clause);
         foreach ($this->args as $key => $value) {
-            $method = Helper::buildMethodName($key, 'clause-'.$prefix);
+            $method = Helper::buildMethodName('clause', $prefix, $key);
             if (!method_exists($this, $method) || Helper::isEmpty($value)) {
                 continue;
             }
@@ -37,18 +28,12 @@ trait Sql
         return $values;
     }
 
-    /**
-     * @return string
-     */
-    public function escFieldsForInsert(array $fields)
+    public function escFieldsForInsert(array $fields): string
     {
         return sprintf('(`%s`)', implode('`,`', $fields));
     }
 
-    /**
-     * @return string
-     */
-    public function escValuesForInsert(array $values)
+    public function escValuesForInsert(array $values): string
     {
         $values = array_values(
             array_map('\GeminiLabs\SiteReviews\Helpers\Cast::toString', array_map('esc_sql', $values))
@@ -57,32 +42,38 @@ trait Sql
     }
 
     /**
-     * @param string $statement
-     * @return string
+     * @param string|int ...$args Additional parameters will be passed to $wpdb->prepare()
      */
-    public function sql($statement)
+    public function sql(string $statement, ...$args): string
     {
         $handle = $this->sqlHandle();
-        $statement = glsr()->filterString('database/sql/'.$handle, $statement);
-        glsr()->action('database/sql/'.$handle, $statement);
+        // Allow the following syntax:
+        // - ALTER TABLE table|<table_name>
+        // - FROM table|<table_name>
+        // - JOIN table|<table_name>
+        // - UPDATE table|<table_name>
+        $statement = preg_replace_callback('/(ALTER TABLE|FROM|JOIN|UPDATE)(\s+)(table\|)([^\s]+)/',
+            fn ($m) => $m[1].$m[2].glsr(Tables::class)->table($m[4]),
+            $statement
+        );
+        if (!empty($args)) {
+            $statement = $this->db->prepare($statement, ...$args);
+        }
+        $statement = preg_replace('/ {12}/', '', $statement);
+        $statement = glsr()->filterString("database/sql/{$handle}", $statement);
+        glsr()->action("database/sql/{$handle}", $statement);
         glsr()->action('database/sql', $statement, $handle);
         return $statement;
     }
 
-    /**
-     * @return string
-     */
-    public function sqlJoin()
+    public function sqlJoin(): string
     {
         $join = $this->clauses('join');
         $join = glsr()->filterArrayUnique('query/sql/join', $join, $this->sqlHandle(), $this);
         return implode(' ', $join);
     }
 
-    /**
-     * @return string
-     */
-    public function sqlLimit()
+    public function sqlLimit(): string
     {
         $limit = Helper::ifTrue($this->args['per_page'] > 0,
             $this->db->prepare('LIMIT %d', $this->args['per_page'])
@@ -90,10 +81,7 @@ trait Sql
         return glsr()->filterString('query/sql/limit', $limit, $this->sqlHandle(), $this);
     }
 
-    /**
-     * @return string
-     */
-    public function sqlOffset()
+    public function sqlOffset(): string
     {
         $offsetBy = (($this->args['page'] - 1) * $this->args['per_page']) + $this->args['offset'];
         $offset = Helper::ifTrue($offsetBy > 0,
@@ -102,10 +90,7 @@ trait Sql
         return glsr()->filterString('query/sql/offset', $offset, $this->sqlHandle(), $this);
     }
 
-    /**
-     * @return string|void
-     */
-    public function sqlOrderBy()
+    public function sqlOrderBy(): string
     {
         $values = [
             'random' => 'RAND()',
@@ -120,15 +105,13 @@ trait Sql
             $orderedby[] = $values[$orderby];
         }
         $orderedby = glsr()->filterArrayUnique('query/sql/order-by', $orderedby, $this->sqlHandle(), $this);
-        if (!empty($orderedby)) {
-            return 'ORDER BY '.implode(', ', $orderedby);
+        if (empty($orderedby)) {
+            return '';
         }
+        return 'ORDER BY '.implode(', ', $orderedby);
     }
 
-    /**
-     * @return string
-     */
-    public function sqlWhere()
+    public function sqlWhere(): string
     {
         $and = $this->clauses('and');
         $and = glsr()->filterArrayUnique('query/sql/and', $and, $this->sqlHandle(), $this);
@@ -136,58 +119,32 @@ trait Sql
         return 'WHERE 1=1 '.implode(' ', $and);
     }
 
-    /**
-     * @return string
-     */
-    public function table($table)
-    {
-        return glsr(Tables::class)->table($table);
-    }
-
-    /**
-     * @return string
-     */
-    protected function clauseAndAssignedPosts()
+    protected function clauseAndAssignedPosts(): string
     {
         return $this->clauseIfValueNotEmpty('(apt.post_id IN (%s) AND apt.is_published = 1)', $this->args['assigned_posts']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndAssignedPostsTypes()
+    protected function clauseAndAssignedPostsTypes(): string
     {
         return $this->clauseIfValueNotEmpty('apt.is_published = 1', $this->args['assigned_posts_types']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndAssignedTerms()
+    protected function clauseAndAssignedTerms(): string
     {
         return $this->clauseIfValueNotEmpty('(att.term_id IN (%s))', $this->args['assigned_terms']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndAssignedUsers()
+    protected function clauseAndAssignedUsers(): string
     {
         return $this->clauseIfValueNotEmpty('(aut.user_id IN (%s))', $this->args['assigned_users']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndContent()
+    protected function clauseAndContent(): string
     {
         return $this->clauseIfValueNotEmpty('AND p.post_content = %s', $this->args['content']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndDate()
+    protected function clauseAndDate(): string
     {
         $clauses = [];
         $date = $this->args['date'];
@@ -208,42 +165,27 @@ trait Sql
         return '';
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndEmail()
+    protected function clauseAndEmail(): string
     {
         return $this->clauseIfValueNotEmpty('AND r.email = %s', $this->args['email']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndIpAddress()
+    protected function clauseAndIpAddress(): string
     {
         return $this->clauseIfValueNotEmpty('AND r.ip_address = %s', $this->args['ip_address']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndPostIn()
+    protected function clauseAndPostIn(): string
     {
         return $this->clauseIfValueNotEmpty('AND r.review_id IN (%s)', $this->args['post__in']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndPostNotIn()
+    protected function clauseAndPostNotIn(): string
     {
         return $this->clauseIfValueNotEmpty('AND r.review_id NOT IN (%s)', $this->args['post__not_in']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndRating()
+    protected function clauseAndRating(): string
     {
         $column = $this->isCustomRatingField() ? 'pm.meta_value' : 'r.rating';
         return (string) Helper::ifTrue($this->args['rating'] > 0,
@@ -251,20 +193,14 @@ trait Sql
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndRatingField()
+    protected function clauseAndRatingField(): string
     {
         return (string) Helper::ifTrue($this->isCustomRatingField(),
             $this->db->prepare('AND pm.meta_key = %s', sprintf('_custom_%s', $this->args['rating_field']))
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndStatus()
+    protected function clauseAndStatus(): string
     {
         if (-1 !== $this->args['status']) {
             return $this->clauseIfValueNotEmpty('AND r.is_approved = %d', $this->args['status']);
@@ -272,10 +208,7 @@ trait Sql
         return "AND p.post_status IN ('pending','publish')";
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndTerms()
+    protected function clauseAndTerms(): string
     {
         if (-1 !== $this->args['terms']) {
             return $this->clauseIfValueNotEmpty('AND r.terms = %d', $this->args['terms']);
@@ -283,37 +216,25 @@ trait Sql
         return '';
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndType()
+    protected function clauseAndType(): string
     {
         return $this->clauseIfValueNotEmpty('AND r.type = %s', $this->args['type']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndUserIn()
+    protected function clauseAndUserIn(): string
     {
         return $this->clauseIfValueNotEmpty('AND p.post_author IN (%s)', $this->args['user__in']);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseAndUserNotIn()
+    protected function clauseAndUserNotIn(): string
     {
         return $this->clauseIfValueNotEmpty('AND p.post_author NOT IN (%s)', $this->args['user__not_in']);
     }
 
     /**
-     * @param string $clause
      * @param array|int|string $value
-     * @param bool $prepare
-     * @return string
      */
-    protected function clauseIfValueNotEmpty($clause, $value, $prepare = true)
+    protected function clauseIfValueNotEmpty(string $clause, $value, bool $prepare = true): string
     {
         if (Helper::isEmpty($value)) {
             return '';
@@ -328,25 +249,19 @@ trait Sql
         return $this->db->prepare($clause, $value);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinAssignedPosts()
+    protected function clauseJoinAssignedPosts(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "{$this->joinMethod()} {$this->table('assigned_posts')} AS apt ON r.ID = apt.rating_id",
+            "{$this->joinMethod()} table|assigned_posts AS apt ON (apt.rating_id = r.ID)",
             $this->args['assigned_posts'],
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinAssignedPostsTypes()
+    protected function clauseJoinAssignedPostsTypes(): string
     {
-        $clause1 = "{$this->joinMethod()} {$this->table('assigned_posts')} AS apt ON r.ID = apt.rating_id";
-        $clause2 = "INNER JOIN {$this->table('posts')} AS pt ON (apt.post_id = pt.ID AND pt.post_type IN ('%s'))";
+        $clause1 = "{$this->joinMethod()} table|assigned_posts AS apt ON (apt.rating_id = r.ID)";
+        $clause2 = "INNER JOIN table|posts AS pt ON (pt.ID = apt.post_id AND pt.post_type IN ('%s'))";
         $values = Arr::unique($this->args['assigned_posts_types']);
         $values = array_map('esc_sql', $values);
         $values = array_filter($values, 'is_string'); // for phpstan
@@ -354,134 +269,97 @@ trait Sql
         return sprintf(sprintf('%s %s', $clause1, $clause2), $values);
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinAssignedTerms()
+    protected function clauseJoinAssignedTerms(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "{$this->joinMethod()} {$this->table('assigned_terms')} AS att ON r.ID = att.rating_id",
+            "{$this->joinMethod()} table|assigned_terms AS att ON (att.rating_id = r.ID)",
             $this->args['assigned_terms'],
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinAssignedUsers()
+    protected function clauseJoinAssignedUsers(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "{$this->joinMethod()} {$this->table('assigned_users')} AS aut ON r.ID = aut.rating_id",
+            "{$this->joinMethod()} table|assigned_users AS aut ON (aut.rating_id = r.ID)",
             $this->args['assigned_users'],
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinContent()
+    protected function clauseJoinContent(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID",
+            "INNER JOIN table|posts AS p ON (p.ID = r.review_id)",
             $this->args['content'],
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinDate()
+    protected function clauseJoinDate(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID",
+            "INNER JOIN table|posts AS p ON (p.ID = r.review_id)",
             array_filter($this->args['date']),
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinUserIn()
+    protected function clauseJoinUserIn(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID",
+            "INNER JOIN table|posts AS p ON (p.ID = r.review_id)",
             $this->args['user__in'],
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinUserNotIn()
+    protected function clauseJoinUserNotIn(): string
     {
         return $this->clauseIfValueNotEmpty(
-            "INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID",
+            "INNER JOIN table|posts AS p ON (p.ID = r.review_id)",
             $this->args['user__not_in'],
             $prepare = false
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinOrderBy()
+    protected function clauseJoinOrderBy(): string
     {
-        return (string) Helper::ifTrue(Str::startsWith($this->args['orderby'], 'p.'),
-            "INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID"
+        return (string) Helper::ifTrue(str_starts_with($this->args['orderby'], 'p.'),
+            "INNER JOIN table|posts AS p ON (p.ID = r.review_id)"
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinRatingField()
+    protected function clauseJoinRatingField(): string
     {
         return (string) Helper::ifTrue($this->isCustomRatingField(),
-            "INNER JOIN {$this->db->postmeta} AS pm ON r.review_id = pm.post_id"
+            "INNER JOIN table|postmeta AS pm ON (pm.post_id = r.review_id)"
         );
     }
 
-    /**
-     * @return string
-     */
-    protected function clauseJoinStatus()
+    protected function clauseJoinStatus(): string
     {
         return (string) Helper::ifTrue(-1 === $this->args['status'],
-            "INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID"
+            "INNER JOIN table|posts AS p ON (p.ID = r.review_id)"
         );
     }
 
-    /**
-     * @return bool
-     */
-    protected function isCustomRatingField()
+    protected function isCustomRatingField(): bool
     {
         return 'rating' !== $this->args['rating_field'] && !empty($this->args['rating_field']);
     }
 
-    /**
-     * Used to determine the join method used in review assignments.
-     * @return string
-     */
-    protected function joinMethod()
+    protected function joinMethod(): string
     {
         $joins = ['loose' => 'LEFT JOIN', 'strict' => 'INNER JOIN'];
         return Arr::get($joins, glsr_get_option('reviews.assignment', 'strict'), 'INNER JOIN');
     }
 
-    /**
-     * @return array
-     */
-    protected function normalizeAndClauses(array $and)
+    protected function normalizeAndClauses(array $and): array
     {
         $clauses = [];
         foreach ($and as $key => $value) {
-            if (Str::startsWith($key, 'assigned_')) {
+            if (str_starts_with($key, 'assigned_')) {
                 $clauses[] = $value;
                 unset($and[$key]);
             }
@@ -495,19 +373,12 @@ trait Sql
         return $and;
     }
 
-    /**
-     * @return string
-     */
-    protected function ratingColumn()
+    protected function ratingColumn(): string
     {
         return Helper::ifTrue($this->isCustomRatingField(), 'pm.meta_value', 'r.rating');
     }
 
-    /**
-     * @param int $depth
-     * @return string
-     */
-    protected function sqlHandle($depth = 2)
+    protected function sqlHandle(int $depth = 2): string
     {
         return Str::dashCase(Arr::get((new \Exception())->getTrace(), $depth.'.function'));
     }

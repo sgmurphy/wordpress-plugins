@@ -7,15 +7,8 @@ use GeminiLabs\SiteReviews\Helpers\Arr;
 
 class Gatekeeper
 {
-    /**
-     * @var array
-     */
-    public $errors;
-
-    /**
-     * @var array
-     */
-    public $dependencies;
+    public array $dependencies;
+    public array $errors;
 
     public function __construct(array $dependencies)
     {
@@ -118,7 +111,7 @@ class Gatekeeper
         $this->dependencies = $results;
     }
 
-    protected function pluginData($plugin): array
+    protected function pluginData(string $plugin): array
     {
         $plugins = $this->isPluginInstalled($plugin)
             ? $this->plugins()

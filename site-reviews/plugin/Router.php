@@ -2,13 +2,15 @@
 
 namespace GeminiLabs\SiteReviews;
 
-use GeminiLabs\SiteReviews\Helper;
+use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Notice;
 
 class Router
 {
+    use HookProxy;
+
     /**
-     * @action wp_ajax_glsr_action
+     * @action wp_ajax_glsr_admin_action
      */
     public function routeAdminAjaxRequest(): void
     {
@@ -22,6 +24,7 @@ class Router
 
     /**
      * A routed admin GET request will look like this: /wp-admin/?glsr_=.
+     *
      * @action admin_init
      */
     public function routeAdminGetRequest(): void
@@ -49,7 +52,8 @@ class Router
     }
 
     /**
-     * @action wp_ajax_nopriv_glsr_action
+     * @action wp_ajax_glsr_public_action
+     * @action wp_ajax_nopriv_glsr_public_action
      */
     public function routePublicAjaxRequest(): void
     {
@@ -63,6 +67,7 @@ class Router
 
     /**
      * A routed public GET request will look like this: ?glsr_=.
+     *
      * @action parse_request
      */
     public function routePublicGetRequest(): void
@@ -146,8 +151,8 @@ class Router
             return true;
         }
         $ipAddress = Helper::getIpAddress();
-        $hash = substr(wp_hash($ipAddress), 0, 13);
-        $lock = glsr()->prefix.$hash;
+        $hash = Str::hash($ipAddress, 13);
+        $lock = Str::prefix($hash, glsr()->prefix);
         if (get_transient($lock)) {
             return false; // is parallel request
         }
@@ -203,11 +208,15 @@ class Router
         if ('submit-review' === $request->_action) {
             $data['message'] = __('The form could not be submitted. Please notify the site administrator.', 'site-reviews');
         }
-        if (glsr()->isAdmin()) {
-            glsr(Notice::class)->addError(_x('There was an error (try reloading the page).', 'admin-text', 'site-reviews')." <code>{$error}</code>");
+        if (glsr()->prefix.'admin_action' === Helper::filterInput('action')) {
+            $message = _x('There was an error', 'admin-text', 'site-reviews');
+            $advice = sprintf(
+                _x('Try %s the page.', 'try reloading the page (admin-text)', 'site-reviews'),
+                sprintf('<a href="javascript:location.reload()">%s</a>', _x('reloading', '(admin-text) e.g. try reloading the page', 'site-reviews')),
+            );
+            glsr(Notice::class)->addError("{$message}: <code>{$error}</code>, {$advice}");
             $data['notices'] = glsr(Notice::class)->get();
         }
-        glsr_log($error);
         if (429 !== $errCode) {
             glsr_log()->debug($request->toArray());
         }
@@ -218,15 +227,12 @@ class Router
     {
         return glsr()->filterArray('router/admin/unguarded-actions', [
             'dismiss-notice',
-            'fetch-paged-reviews',
-            'verified-review',
         ]);
     }
 
     protected function unguardedPublicActions(): array
     {
         return glsr()->filterArray('router/public/unguarded-actions', [
-            'dismiss-notice',
             'fetch-paged-reviews',
             'submit-review',
             'verified-review',

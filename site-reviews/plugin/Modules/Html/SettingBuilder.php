@@ -2,103 +2,58 @@
 
 namespace GeminiLabs\SiteReviews\Modules\Html;
 
-use GeminiLabs\SiteReviews\Helper;
+use GeminiLabs\SiteReviews\Contracts\FieldContract;
 
 class SettingBuilder extends Builder
 {
-    /**
-     * @return void|string
-     */
-    public function buildFormElement()
+    public function field(array $args): FieldContract
     {
-        $method = Helper::buildMethodName($this->tag, 'buildForm');
-        return $this->$method().$this->buildAfter().$this->buildFieldDescription();
+        return new SettingField($args);
     }
 
-    /**
-     * @return string|void
-     */
-    protected function buildAfter()
-    {
-        if (!empty($this->args->after)) {
-            return '&nbsp;'.$this->args->after;
-        }
-    }
-
-    /**
-     * @return string|void
-     */
-    protected function buildFieldDescription()
-    {
-        if (!empty($this->args->description)) {
-            return $this->p([
-                'class' => 'description',
-                'text' => $this->args->description,
-            ]);
-        }
-    }
-
-    /**
-     * @return string|void
-     */
-    protected function buildFormInputChoices()
+    protected function buildFieldInputChoices(): string
     {
         $fields = [];
         $index = 0;
-        foreach ($this->args->options as $value => $label) {
+        foreach ($this->args()->options as $value => $label) {
             $fields[] = $this->input([
-                'checked' => in_array($value, $this->args->cast('value', 'array')),
-                'id' => Helper::ifTrue(!empty($this->args->id), $this->args->id.'-'.++$index),
+                'checked' => in_array($value, $this->args()->cast('value', 'array')),
+                'disabled' => $this->args()->disabled,
+                'id' => $this->indexedId(++$index),
                 'label' => $label,
-                'name' => $this->args->name,
-                'type' => $this->args->type,
+                'name' => $this->args()->name,
+                'required' => $this->args()->required,
+                'tabindex' => $this->args()->tabindex,
+                'type' => $this->args()->type,
                 'value' => $value,
             ]);
         }
         return $this->div([
-            'class' => $this->args->class,
+            'class' => $this->args()->class,
             'text' => implode('<br>', $fields),
         ]);
     }
 
-    /**
-     * @return string|void
-     */
-    protected function buildFormTextarea()
+    protected function buildFieldTextareaElement(): string
     {
-        $textarea = $this->buildFormLabel().$this->buildDefaultElement(
-            esc_html($this->args->cast('value', 'string'))
-        );
-        if (empty($this->args->tags)) {
-            return $textarea;
+        $element = parent::buildFieldTextareaElement();
+        if (empty($this->args()->tags)) {
+            return $element;
         }
-        $buttons = [];
-        foreach ($this->args->tags as $tag => $label) {
-            $buttons[] = $this->input([
-                'class' => 'button button-small',
-                'data-tag' => $tag,
-                'type' => 'button',
-                'value' => $label,
-            ]);
-        }
+        $tags = array_keys($this->args()->tags);
+        $buttons = array_reduce($tags, fn ($carry, $tag) => $carry.$this->input([
+            'class' => 'button button-small',
+            'data-tag' => esc_attr($tag),
+            'type' => 'button',
+            'value' => esc_attr($this->args()->tags[$tag]),
+        ]), '');
         $toolbar = $this->div([
             'class' => 'quicktags-toolbar',
-            'text' => implode('', $buttons),
+            'text' => $buttons,
         ]);
         return $this->div([
             'class' => 'glsr-template-editor',
-            'text' => $textarea.$toolbar,
+            'text' => $element.$toolbar,
         ]);
-    }
-
-    /**
-     * @return array
-     */
-    protected function normalize(array $args, $type)
-    {
-        if (class_exists($className = $this->getFieldClassName($type))) {
-            $args = $className::merge($args, 'setting');
-        }
-        return $args;
     }
 }

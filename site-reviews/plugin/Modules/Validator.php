@@ -4,6 +4,7 @@ namespace GeminiLabs\SiteReviews\Modules;
 
 use GeminiLabs\SiteReviews\Defaults\ValidationStringsDefaults;
 use GeminiLabs\SiteReviews\Helper;
+use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Validator\ValidationRules;
 
@@ -21,24 +22,28 @@ class Validator
 
     /**
      * The data under validation.
+     *
      * @var array
      */
     protected $data = [];
 
     /**
      * The failed validation rules.
+     *
      * @var array
      */
     protected $failedRules = [];
 
     /**
      * The rules to be applied to the data.
+     *
      * @var array
      */
     protected $rules = [];
 
     /**
      * The size related validation rules.
+     *
      * @var array
      */
     protected $sizeRules = [
@@ -47,6 +52,7 @@ class Validator
 
     /**
      * The validation rules that imply the field is required.
+     *
      * @var array
      */
     protected $implicitRules = [
@@ -55,6 +61,7 @@ class Validator
 
     /**
      * The numeric related validation rules.
+     *
      * @var array
      */
     protected $numericRules = [
@@ -63,12 +70,12 @@ class Validator
 
     /**
      * Run the validator's rules against its data.
-     * @param mixed $data
-     * @return array
+     *
+     * @throws \BadMethodCallException
      */
-    public function validate($data, array $rules = [])
+    public function validate(array $data, array $rules = []): array
     {
-        $this->normalizeData($data);
+        $this->data = $data;
         $this->setRules($rules);
         foreach ($this->rules as $attribute => $rules) {
             foreach ($rules as $rule) {
@@ -83,19 +90,17 @@ class Validator
 
     /**
      * Validate a given attribute against a rule.
-     * @param string $attribute
-     * @param string $rule
-     * @return void
+     *
      * @throws \BadMethodCallException
      */
-    public function validateAttribute($attribute, $rule)
+    public function validateAttribute(string $attribute, string $rule): void
     {
         [$rule, $parameters] = $this->parseRule($rule);
         if ('' === $rule) {
             return;
         }
         $value = $this->getValue($attribute);
-        $method = Helper::buildMethodName($rule, 'validate');
+        $method = Helper::buildMethodName('validate', $rule);
         if (!method_exists($this, $method)) {
             throw new \BadMethodCallException("Method [$method] does not exist.");
         }
@@ -106,11 +111,8 @@ class Validator
 
     /**
      * Add an error message to the validator's collection of errors.
-     * @param string $attribute
-     * @param string $rule
-     * @return void
      */
-    protected function addError($attribute, $rule, array $parameters)
+    protected function addError(string $attribute, string $rule, array $parameters): void
     {
         $message = $this->getMessage($attribute, $rule, $parameters);
         $this->errors[$attribute][] = $message;
@@ -118,11 +120,8 @@ class Validator
 
     /**
      * Add a failed rule and error message to the collection.
-     * @param string $attribute
-     * @param string $rule
-     * @return void
      */
-    protected function addFailure($attribute, $rule, array $parameters)
+    protected function addFailure(string $attribute, string $rule, array $parameters): void
     {
         $this->addError($attribute, $rule, $parameters);
         $this->failedRules[$attribute][$rule] = $parameters;
@@ -130,23 +129,17 @@ class Validator
 
     /**
      * Get the data type of the given attribute.
-     * @param string $attribute
-     * @return string
      */
-    protected function getAttributeType($attribute)
+    protected function getAttributeType(string $attribute): string
     {
-        return !$this->hasRule($attribute, $this->numericRules)
-            ? 'length'
-            : '';
+        $type = $this->hasRule($attribute, $this->numericRules) ? '' : 'length';
+        return glsr()->filterString("validation/type/{$attribute}", $type, $attribute);
     }
 
     /**
      * Get the validation message for an attribute and rule.
-     * @param string $attribute
-     * @param string $rule
-     * @return string|null
      */
-    protected function getMessage($attribute, $rule, array $parameters)
+    protected function getMessage(string $attribute, string $rule, array $parameters): ?string
     {
         if (in_array($rule, $this->sizeRules)) {
             return $this->getSizeMessage($attribute, $rule, $parameters);
@@ -157,14 +150,11 @@ class Validator
 
     /**
      * Get a rule and its parameters for a given attribute.
-     * @param string $attribute
-     * @param string|array $rules
-     * @return array|void|null
      */
-    protected function getRule($attribute, $rules)
+    protected function getRule(string $attribute, array $rules): ?array
     {
         if (!array_key_exists($attribute, $this->rules)) {
-            return;
+            return null;
         }
         $rules = (array) $rules;
         foreach ($this->rules[$attribute] as $rule) {
@@ -173,32 +163,33 @@ class Validator
                 return [$rule, $parameters];
             }
         }
+        return null;
     }
 
     /**
      * Get the size of an attribute.
-     * @param string $attribute
+     *
      * @param mixed $value
-     * @return mixed
      */
-    protected function getSize($attribute, $value)
+    protected function getSize(string $attribute, $value): int
     {
         $hasNumeric = $this->hasRule($attribute, $this->numericRules);
         if (is_numeric($value) && $hasNumeric) {
-            return $value;
-        } elseif (is_array($value)) {
+            return (int) $value;
+        }
+        if (is_array($value)) {
             return count($value);
         }
-        return mb_strlen($value);
+        if (is_array($json = json_decode($value))) {
+            return count($json);
+        }
+        return mb_strlen((string) $value);
     }
 
     /**
      * Get the proper error message for an attribute and size rule.
-     * @param string $attribute
-     * @param string $rule
-     * @return string|null
      */
-    protected function getSizeMessage($attribute, $rule, array $parameters)
+    protected function getSizeMessage(string $attribute, string $rule, array $parameters): string
     {
         $type = $this->getAttributeType($attribute);
         $lowerRule = Str::snakeCase($rule.$type);
@@ -207,46 +198,26 @@ class Validator
 
     /**
      * Get the value of a given attribute.
-     * @param string $attribute
+     *
      * @return mixed
      */
-    protected function getValue($attribute)
+    protected function getValue(string $attribute)
     {
-        if (isset($this->data[$attribute])) {
-            return $this->data[$attribute];
-        }
+        return $this->data[$attribute] ?? '';
     }
 
     /**
      * Determine if the given attribute has a rule in the given set.
-     * @param string $attribute
-     * @param string|array $rules
-     * @return bool
      */
-    protected function hasRule($attribute, $rules)
+    protected function hasRule(string $attribute, array $rules): bool
     {
         return !is_null($this->getRule($attribute, $rules));
     }
 
     /**
-     * Normalize the provided data to an array.
-     * @param mixed $data
-     * @return void
-     */
-    protected function normalizeData($data)
-    {
-        $this->data = is_object($data)
-            ? get_object_vars($data)
-            : $data;
-    }
-
-    /**
      * Parse a parameter list.
-     * @param string $rule
-     * @param string $parameter
-     * @return array
      */
-    protected function parseParameters($rule, $parameter)
+    protected function parseParameters(string $rule, string $parameter): array
     {
         return 'regex' === strtolower($rule)
             ? [$parameter]
@@ -255,13 +226,11 @@ class Validator
 
     /**
      * Extract the rule name and parameters from a rule.
-     * @param string $rule
-     * @return array
      */
-    protected function parseRule($rule)
+    protected function parseRule(string $rule): array
     {
         $parameters = [];
-        if (Str::contains($rule, ':')) {
+        if (str_contains($rule, ':')) {
             [$rule, $parameter] = explode(':', $rule, 2);
             $parameters = $this->parseParameters($rule, $parameter);
         }
@@ -271,14 +240,12 @@ class Validator
 
     /**
      * Set the validation rules.
-     * @return void
      */
-    protected function setRules(array $rules)
+    protected function setRules(array $rules): void
     {
         foreach ($rules as $key => $rule) {
-            $validationRules = is_string($rule)
-                ? explode('|', $rule)
-                : $rule;
+            $validationRules = is_string($rule) ? explode('|', $rule) : $rule;
+            $validationRules = array_filter(Arr::consolidate($validationRules));
             // unset rules if the attribute is not required and the value is an empty string
             if (empty(array_intersect(['accepted', 'required'], $validationRules)) && '' === $this->getValue($key)) {
                 $validationRules = [];
@@ -290,10 +257,8 @@ class Validator
 
     /**
      * Check if we should stop further validations on a given attribute.
-     * @param string $attribute
-     * @return bool
      */
-    protected function shouldStopValidating($attribute)
+    protected function shouldStopValidating(string $attribute): bool
     {
         return $this->hasRule($attribute, $this->implicitRules)
             && isset($this->failedRules[$attribute])
@@ -302,15 +267,11 @@ class Validator
 
     /**
      * Returns a translated message for the attribute.
-     * @param string $key
-     * @return void|string
      */
-    protected function translator($key, array $parameters)
+    protected function translator($key, array $parameters): string
     {
         $strings = glsr(ValidationStringsDefaults::class)->defaults();
-        if (isset($strings[$key])) {
-            return $this->replace($strings[$key], $parameters);
-        }
-        return 'error';
+        $string = $strings[$key] ?? 'error';
+        return $this->replace($string, $parameters);
     }
 }

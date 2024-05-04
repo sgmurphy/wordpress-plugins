@@ -6,11 +6,7 @@ use GeminiLabs\SiteReviews\Helpers\Str;
 
 class Role
 {
-    /**
-     * @param string $role
-     * @return void
-     */
-    public function addCapabilities($role)
+    public function addCapabilities(string $role): void
     {
         $roles = $this->roles();
         $wpRole = get_role($role);
@@ -23,21 +19,16 @@ class Role
     }
 
     /**
-     * @param string $capability
      * @param mixed ...$args
-     * @return bool
      */
-    public function can($capability, ...$args)
+    public function can(string $capability, ...$args): bool
     {
         return in_array($capability, $this->capabilities())
             ? current_user_can($this->capability($capability), ...$args)
             : current_user_can($capability, ...$args);
     }
 
-    /**
-     * @return array
-     */
-    public function capabilities()
+    public function capabilities(): array
     {
         $capabilities = [
             'create_posts',
@@ -66,36 +57,25 @@ class Role
         return glsr()->filterArray('capabilities', $capabilities);
     }
 
-    /**
-     * @param string $capability
-     * @return string
-     */
-    public function capability($capability)
+    public function capability(string $capability): string
     {
-        if (Str::contains($capability, 'post')) {
+        if (str_contains($capability, 'post')) {
             return str_replace('post', glsr()->post_type, $capability);
         }
-        if (Str::contains($capability, 'terms')) {
+        if (str_contains($capability, 'terms')) {
             return str_replace('terms', glsr()->post_type.'_terms', $capability);
         }
         return $capability;
     }
 
-    /**
-     * @return void
-     */
-    public function hardResetAll()
+    public function hardResetAll(): void
     {
         $roles = array_keys($this->roles());
         array_walk($roles, [$this, 'removeCapabilities']);
         array_walk($roles, [$this, 'addCapabilities']);
     }
 
-    /**
-     * @param string $role
-     * @return void
-     */
-    public function removeCapabilities($role)
+    public function removeCapabilities(string $role): void
     {
         $wpRole = get_role($role);
         if (empty($wpRole) || 'administrator' === $role) { // do not remove from administrator role
@@ -106,19 +86,13 @@ class Role
         }
     }
 
-    /**
-     * @return void
-     */
-    public function resetAll()
+    public function resetAll(): void
     {
         $roles = array_keys($this->roles());
         array_walk($roles, [$this, 'addCapabilities']);
     }
 
-    /**
-     * @return array
-     */
-    public function roles()
+    public function roles(): array
     {
         $roles = [
             'administrator' => [

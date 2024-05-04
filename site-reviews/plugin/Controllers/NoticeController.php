@@ -6,7 +6,7 @@ use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Modules\Sanitizer;
 use GeminiLabs\SiteReviews\Request;
 
-class NoticeController extends Controller
+class NoticeController extends AbstractController
 {
     /**
      * @action current_screen
@@ -19,7 +19,7 @@ class NoticeController extends Controller
         if ('activate' !== $action || 'notice' !== $trigger || empty($plugin)) {
             return;
         }
-        check_admin_referer('activate-plugin_'.$plugin);
+        check_admin_referer("activate-plugin_{$plugin}");
         $result = activate_plugin($plugin, '', is_network_admin(), true);
         if (is_wp_error($result)) {
             wp_die($result->get_error_message());

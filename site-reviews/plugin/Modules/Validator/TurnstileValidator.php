@@ -6,18 +6,25 @@ use GeminiLabs\SiteReviews\Modules\Captcha;
 
 class TurnstileValidator extends CaptchaValidator
 {
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return glsr(Captcha::class)->isEnabled('turnstile');
     }
 
-    /**
-     * @return array
-     */
-    protected function errorCodes()
+    protected function data(): array
+    {
+        return [
+            'remoteip' => $this->request->ip_address,
+            'response' => $this->token(),
+            'secret' => glsr_get_option('forms.turnstile.secret'),
+            // The sitekey does not need to be sent in the request, but it's here
+            // so we can return a better error response to the form.
+            // @see CaptchaValidator::verifyToken()
+            'sitekey' => glsr_get_option('forms.turnstile.key'),
+        ];
+    }
+
+    protected function errorCodes(): array
     {
         return [
             'bad-request' => 'The request was rejected because it was malformed.',
@@ -31,10 +38,7 @@ class TurnstileValidator extends CaptchaValidator
         ];
     }
 
-    /**
-     * @return array
-     */
-    protected function errors(array $errors)
+    protected function errors(array $errors): array
     {
         if (empty(glsr_get_option('forms.turnstile.key'))) {
             $errors[] = 'sitekey_missing';
@@ -42,35 +46,13 @@ class TurnstileValidator extends CaptchaValidator
         return parent::errors($errors);
     }
 
-    /**
-     * @return array
-     */
-    protected function request()
-    {
-        return [
-            'remoteip' => $this->request->ip_address,
-            'response' => $this->token(),
-            'secret' => glsr_get_option('forms.turnstile.secret'),
-            // The sitekey does not need to be sent in the request, but it's here
-            // so we can return a better error response to the form.
-            // @see CaptchaValidator::verifyToken()
-            'sitekey' => glsr_get_option('forms.turnstile.key'),
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    protected function siteverifyUrl()
+    protected function siteverifyUrl(): string
     {
         return 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
     }
 
-    /**
-     * @return string
-     */
-    protected function token()
+    protected function token(): string
     {
-        return $this->request['_turnstile'];
+        return $this->request['_turnstile'] ?? '';
     }
 }

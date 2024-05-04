@@ -2,6 +2,7 @@
 
 namespace GeminiLabs\SiteReviews\Widgets;
 
+use GeminiLabs\SiteReviews\Contracts\ShortcodeContract;
 use GeminiLabs\SiteReviews\Database;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsSummaryShortcode;
@@ -10,6 +11,7 @@ class SiteReviewsSummaryWidget extends Widget
 {
     /**
      * @param array $instance
+     *
      * @return string
      */
     public function form($instance)
@@ -57,26 +59,17 @@ class SiteReviewsSummaryWidget extends Widget
         return ''; // WP_Widget::form should return a string
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function shortcode()
+    protected function shortcode(): ShortcodeContract
     {
         return glsr(SiteReviewsSummaryShortcode::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function widgetDescription()
+    protected function widgetDescription(): string
     {
         return _x('Site Reviews: Display a summary of your reviews.', 'admin-text', 'site-reviews');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function widgetName()
+    protected function widgetName(): string
     {
         return _x('Summary of Reviews', 'admin-text', 'site-reviews');
     }

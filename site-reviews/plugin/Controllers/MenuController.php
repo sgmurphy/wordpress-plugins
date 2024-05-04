@@ -11,17 +11,15 @@ use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Console;
 use GeminiLabs\SiteReviews\Modules\Html\Builder;
-use GeminiLabs\SiteReviews\Modules\Html\Settings;
-use GeminiLabs\SiteReviews\Modules\Html\Template;
+use GeminiLabs\SiteReviews\Modules\Html\SettingForm;
 use GeminiLabs\SiteReviews\Modules\Notice;
 
-class MenuController extends Controller
+class MenuController extends AbstractController
 {
     /**
-     * @return void
      * @action admin_menu
      */
-    public function registerMenuCount()
+    public function registerMenuCount(): void
     {
         global $menu, $typenow;
         foreach ($menu as $key => $value) {
@@ -33,9 +31,9 @@ class MenuController extends Controller
                 'class' => 'unapproved-count',
             ]);
             $awaitingModeration = glsr(Builder::class)->span($pendingCount, [
-                'class' => 'awaiting-mod count-'.$postCount->pending,
+                'class' => "awaiting-mod count-{$postCount->pending}",
             ]);
-            $menu[$key][0] .= ' '.$awaitingModeration;
+            $menu[$key][0] .= " {$awaitingModeration}";
             if (glsr()->post_type === $typenow) {
                 $menu[$key][4] .= ' current';
             }
@@ -44,10 +42,9 @@ class MenuController extends Controller
     }
 
     /**
-     * @return void
      * @action admin_menu
      */
-    public function registerSubMenus()
+    public function registerSubMenus(): void
     {
         $pages = $this->parseWithFilter('submenu/pages', [
             'settings' => _x('Settings', 'admin-text', 'site-reviews'),
@@ -56,7 +53,7 @@ class MenuController extends Controller
             'documentation' => _x('Help & Support', 'admin-text', 'site-reviews'),
         ]);
         foreach ($pages as $slug => $title) {
-            $method = Helper::buildMethodName('render-'.$slug.'-menu');
+            $method = Helper::buildMethodName('render', $slug, 'menu', 'callback');
             if (!method_exists($this, $method)) {
                 continue;
             }
@@ -71,10 +68,10 @@ class MenuController extends Controller
     /**
      * We don't use admin_menu because it breaks the privilege check which runs
      * after the admin_menu hook is triggered in wp-admin/includes/menu.php.
-     * @return void
+     *
      * @action admin_init
      */
-    public function removeSubMenu()
+    public function removeSubMenu(): void
     {
         if (!function_exists('remove_submenu_page')) {
             require_once ABSPATH.'wp-admin/includes/plugin.php';
@@ -86,11 +83,9 @@ class MenuController extends Controller
     }
 
     /**
-     * @return void
-     * @see $this->registerSubMenus()
-     * @callback add_submenu_page
+     * @see registerSubMenus
      */
-    public function renderAddonsMenu()
+    public function renderAddonsMenuCallback(): void
     {
         $addons = [];
         $data = glsr(Api::class)->get('addons')->data();
@@ -100,16 +95,13 @@ class MenuController extends Controller
         }
         $this->renderPage('addons', [
             'addons' => $addons,
-            'template' => glsr(Template::class),
         ]);
     }
 
     /**
-     * @return void
-     * @see $this->registerSubMenus()
-     * @callback add_submenu_page
+     * @see registerSubMenus
      */
-    public function renderDocumentationMenu()
+    public function renderDocumentationMenuCallback(): void
     {
         $tabs = $this->parseWithFilter('documentation/tabs', [
             'support' => _x('Support', 'admin-text', 'site-reviews'),
@@ -121,9 +113,7 @@ class MenuController extends Controller
             'addons' => _x('Addons', 'admin-text', 'site-reviews'),
         ]);
         $addons = glsr()->filterArray('addon/documentation', []);
-        uksort($addons, function ($a, $b) {
-            return strnatcasecmp(glsr($a)->name, glsr($b)->name);
-        });
+        uksort($addons, fn ($a, $b) => strnatcasecmp(glsr($a)->name, glsr($b)->name));
         if (empty($addons)) {
             unset($tabs['addons']);
         }
@@ -134,11 +124,9 @@ class MenuController extends Controller
     }
 
     /**
-     * @return void
-     * @see $this->registerSubMenus()
-     * @callback add_submenu_page
+     * @see registerSubMenus
      */
-    public function renderSettingsMenu()
+    public function renderSettingsMenuCallback(): void
     {
         $tabs = $this->parseWithFilter('settings/tabs', [ // order is intentional
             'general' => _x('General', 'admin-text', 'site-reviews'),
@@ -149,24 +137,22 @@ class MenuController extends Controller
             'addons' => _x('Addons', 'admin-text', 'site-reviews'),
             'licenses' => _x('Licenses', 'admin-text', 'site-reviews'),
         ]);
-        if (empty(Arr::get(glsr()->defaults, 'settings.addons'))) {
+        if (empty(Arr::get(glsr()->defaults(), 'settings.addons'))) {
             unset($tabs['addons']);
         }
-        if (empty(Arr::get(glsr()->defaults, 'settings.licenses'))) {
+        if (empty(Arr::get(glsr()->defaults(), 'settings.licenses'))) {
             unset($tabs['licenses']);
         }
         $this->renderPage('settings', [
-            'settings' => glsr(Settings::class),
+            'fields' => glsr(SettingForm::class, ['groups' => $tabs])->build(),
             'tabs' => $tabs,
         ]);
     }
 
     /**
-     * @return void
-     * @see $this->registerSubMenus()
-     * @callback add_submenu_page
+     * @see registerSubMenus
      */
-    public function renderToolsMenu()
+    public function renderToolsMenuCallback(): void
     {
         $tabs = $this->parseWithFilter('tools/tabs', [
             'general' => _x('General', 'admin-text', 'site-reviews'),
@@ -192,38 +178,29 @@ class MenuController extends Controller
                 'services' => glsr()->filterArray('addon/sync/services', []),
             ],
             'tabs' => $tabs,
-            'template' => glsr(Template::class),
         ]);
     }
 
     /**
-     * @return void
      * @action admin_init
      */
-    public function setCustomPermissions()
+    public function setCustomPermissions(): void
     {
         foreach (wp_roles()->roles as $role => $value) {
             wp_roles()->remove_cap($role, 'create_'.glsr()->post_type);
         }
     }
 
-    /**
-     * @return string
-     */
-    protected function getNotices()
+    protected function getNotices(): string
     {
         return glsr(Builder::class)->div(glsr(Notice::class)->get(), [
             'id' => 'glsr-notices',
         ]);
     }
 
-    /**
-     * @param string $hookSuffix
-     * @return array
-     */
-    protected function parseWithFilter($hookSuffix, array $args = [])
+    protected function parseWithFilter(string $hookSuffix, array $args = []): array
     {
-        if (Str::endsWith($hookSuffix, '/tabs')) {
+        if (str_ends_with($hookSuffix, '/tabs')) {
             $page = str_replace('/tabs', '', $hookSuffix);
             foreach ($args as $tab => $title) {
                 if (!glsr()->hasPermission($page, $tab)) {
@@ -231,17 +208,13 @@ class MenuController extends Controller
                 }
             }
         }
-        return glsr()->filterArray('addon/'.$hookSuffix, $args);
+        return glsr()->filterArray("addon/{$hookSuffix}", $args);
     }
 
-    /**
-     * @param string $page
-     * @return void
-     */
-    protected function renderPage($page, array $data = [])
+    protected function renderPage(string $page, array $data = []): void
     {
         $data['http_referer'] = (string) wp_get_referer();
         $data['notices'] = $this->getNotices();
-        glsr()->render('pages/'.$page.'/index', $data);
+        glsr()->render("pages/{$page}/index", $data);
     }
 }

@@ -6,6 +6,17 @@ use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Modules\Schema\Exceptions\InvalidProperty;
 
+/**
+ * @method static author($author)
+ * @method static bestRating($bestRating)
+ * @method static datePublished($datePublished)
+ * @method static itemReviewed($itemReviewed)
+ * @method static name($name)
+ * @method static ratingValue($ratingValue)
+ * @method static reviewCount($reviewCount)
+ * @method static reviewRating($reviewRating)
+ * @method static worstRating($worstRating)
+ */
 abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 {
     /**
@@ -30,6 +41,7 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param string $method
+     *
      * @return static
      */
     public function __call($method, array $arguments)
@@ -85,7 +97,8 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param string $property
-     * @param mixed $default
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public function getProperty($property, $default = null)
@@ -102,8 +115,9 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
     }
 
     /**
-     * @param bool $condition
+     * @param bool  $condition
      * @param mixed $callback
+     *
      * @return static
      */
     public function doIf($condition, $callback)
@@ -125,6 +139,7 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param mixed $offset
+     *
      * @return bool
      */
     #[\ReturnTypeWillChange]
@@ -135,6 +150,7 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param string $offset
+     *
      * @return mixed
      */
     #[\ReturnTypeWillChange]
@@ -145,7 +161,8 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param string $offset
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return void
      */
     #[\ReturnTypeWillChange]
@@ -156,6 +173,7 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param string $offset
+     *
      * @return void
      */
     #[\ReturnTypeWillChange]
@@ -166,14 +184,15 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param string $property
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return static
      */
     public function setProperty($property, $value)
     {
         if (!in_array($property, $this->allowed)
             && 'UnknownType' != (new \ReflectionClass($this))->getShortName()) {
-            glsr_log()->warning($this->getType().' does not allow the "'.$property.'" property');
+            glsr_log()->warning("{$this->getType()} does not allow the \"{$property}\" property");
             return $this;
         }
         if (!Helper::isEmpty($value)) {
@@ -204,12 +223,13 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
     public function toScript()
     {
         return sprintf('<script type="application/ld+json">%s</script>',
-            json_encode($this->toArray(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+            (string) wp_json_encode($this->toArray(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
         );
     }
 
     /**
      * @param array|null $parents
+     *
      * @return array
      */
     protected function getParents($parents = null)
@@ -254,6 +274,7 @@ abstract class BaseType implements \ArrayAccess, \JsonSerializable, Type
 
     /**
      * @param mixed $property
+     *
      * @return array|string
      */
     protected function serializeProperty($property)

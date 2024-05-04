@@ -33,7 +33,7 @@ class Text
 
     /**
      * @param string $nameFormat  first|first_initial|last_initial|initials
-     * @param string $initialType  period|period_space|space
+     * @param string $initialType period|period_space|space
      */
     public static function name(?string $name, string $nameFormat = '', string $initialType = 'space'): string
     {
@@ -57,7 +57,7 @@ class Text
             'first' => $firstName,
             'first_initial' => $firstNameInitial.$lastName,
             'last' => $lastName,
-            'last_initial' => $firstName.' '.$lastNameInitial,
+            'last_initial' => "{$firstName} {$lastNameInitial}",
         ];
         return trim((string) Arr::get($nameFormats, $nameFormat, $name));
     }
@@ -75,7 +75,7 @@ class Text
         $text = convert_chars($text); // converts lone & characters into &#038;
         $text = convert_invalid_entities($text); // convert invalid Unicode references range to valid range.
         $text = convert_smilies($text); // convert text smilies to emojis.
-        $text = html_entity_decode($text);
+        $text = wp_specialchars_decode($text);
         return $text;
     }
 
@@ -92,12 +92,10 @@ class Text
     public static function wordCount(?string $text): int
     {
         $text = wp_strip_all_tags((string) $text, true);
-        if (!extension_loaded('intl')) {
+        $iterator = static::iterator($text);
+        if (empty($iterator)) {
             return count(preg_split('/[^\p{L}\p{N}\']+/u', $text));
         }
-        $text = \Normalizer::normalize($text);
-        $iterator = \IntlRuleBasedBreakIterator::createWordInstance('');
-        $iterator->setText($text);
         $wordCount = 0;
         foreach ($iterator->getPartsIterator() as $part) {
             if (\IntlBreakIterator::WORD_NONE !== $iterator->getRuleStatus()) {
@@ -109,17 +107,16 @@ class Text
 
     public static function words(?string $text, int $limit = 0): string
     {
-        $stringLength = extension_loaded('intl')
-            ? static::excerptIntlSplit((string) $text, $limit)
-            : static::excerptSplit((string) $text, $limit);
+        $stringLength = static::excerptIntlSplit((string) $text, $limit);
         return mb_substr((string) $text, 0, $stringLength);
     }
 
     protected static function excerptIntlSplit(string $text, int $limit): int
     {
-        $text = \Normalizer::normalize($text);
-        $iterator = \IntlRuleBasedBreakIterator::createWordInstance('');
-        $iterator->setText($text);
+        $iterator = static::iterator($text);
+        if (empty($iterator)) {
+            return static::excerptSplit((string) $text, $limit);
+        }
         $stringLength = 0;
         $wordCount = 0;
         foreach ($iterator->getPartsIterator() as $part) {
@@ -179,6 +176,27 @@ class Text
             ]);
         }
         return $paragraphs;
+    }
+
+    /**
+     * @return \IntlRuleBasedBreakIterator|null
+     */
+    protected static function iterator(string $text)
+    {
+        if (extension_loaded('intl')) {
+            $iterator = \IntlRuleBasedBreakIterator::createWordInstance('');
+        }
+        if (empty($iterator)) {
+            return null;
+        }
+        $normalizedText = \Normalizer::normalize($text);
+        if (empty($normalizedText)) {
+            return null;
+        }
+        if (!$iterator->setText($normalizedText)) {
+            return null;
+        }
+        return $iterator;
     }
 
     protected static function replaceTags(string $text): array

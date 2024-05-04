@@ -2,24 +2,21 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\Elementor;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * Fix Star Rating control when review form is used inside an Elementor Pro Popup.
-     * @param string $script
-     * @return string
+     *
      * @filter site-reviews/enqueue/public/inline-script/after
      */
-    public function filterElementorPublicInlineScript($script)
+    public function filterElementorPublicInlineScript(string $script): string
     {
         if (defined('ELEMENTOR_VERSION')) {
             $script .= 'function glsr_init_elementor(){GLSR.Event.trigger("site-reviews/init")}"undefined"!==typeof jQuery&&(';
-            if (defined('ELEMENTOR_PRO_VERSION') && 0 > version_compare('2.7.0', ELEMENTOR_PRO_VERSION)) {
-                $script .= 'jQuery(document).on("elementor/popup/show",glsr_init_elementor),';
-            }
             $script .= 'jQuery(window).on("elementor/frontend/init",function(){';
+            $script .= 'elementorFrontend.elements.$window.on("elementor/popup/show",glsr_init_elementor);';
             $script .= 'elementorFrontend.hooks.addAction("frontend/element_ready/site_review.default",glsr_init_elementor);';
             $script .= 'elementorFrontend.hooks.addAction("frontend/element_ready/site_reviews.default",glsr_init_elementor);';
             $script .= 'elementorFrontend.hooks.addAction("frontend/element_ready/site_reviews_form.default",glsr_init_elementor);';
@@ -30,10 +27,10 @@ class Controller extends BaseController
 
     /**
      * Fix Star Rating CSS class prefix in the Elementor editor.
-     * @return array
+     *
      * @filter site-reviews/defaults/star-rating/defaults
      */
-    public function filterElementorStarRatingDefaults(array $defaults)
+    public function filterElementorStarRatingDefaults(array $defaults): array
     {
         if ('elementor' === filter_input(INPUT_GET, 'action')) {
             $defaults['prefix'] = 'glsr-';
@@ -53,10 +50,10 @@ class Controller extends BaseController
 
     /**
      * @param $manager \Elementor\Elements_Manager
-     * @return void
+     *
      * @action elementor/elements/categories_registered
      */
-    public function registerElementorCategory($manager)
+    public function registerElementorCategory($manager): void
     {
         $manager->add_category(glsr()->id, [
             'title' => glsr()->name,
@@ -66,10 +63,10 @@ class Controller extends BaseController
 
     /**
      * @param $manager \Elementor\Widgets_Manager
-     * @return void
+     *
      * @action elementor/widgets/register
      */
-    public function registerElementorWidgets($manager)
+    public function registerElementorWidgets($manager): void
     {
         $manager->register(new ElementorFormWidget());
         $manager->register(new ElementorReviewsWidget());
@@ -80,7 +77,7 @@ class Controller extends BaseController
     /**
      * @action elementor/editor/after_enqueue_styles
      */
-    public function registerInlineStyles()
+    public function registerInlineStyles(): void
     {
         wp_add_inline_style('elementor-editor', "
             .eicon-glsr-review::before,.eicon-glsr-reviews::before {

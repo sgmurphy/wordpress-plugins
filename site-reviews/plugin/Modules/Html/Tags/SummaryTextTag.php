@@ -6,23 +6,18 @@ use GeminiLabs\SiteReviews\Modules\Rating;
 
 class SummaryTextTag extends SummaryTag
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function handle($value = null)
+    protected function handle(): string
     {
-        if (!$this->isHidden()) {
-            return $this->wrap($this->text(), 'span');
+        if ($this->isHidden()) {
+            return '';
         }
+        return $this->wrap($this->value(), 'span');
     }
 
-    /**
-     * @return string
-     */
-    protected function text()
+    protected function value(): string
     {
         $max = glsr()->constant('MAX_RATING', Rating::class);
-        $num = (int) array_sum($this->ratings);
+        $num = glsr(Rating::class)->totalCount($this->ratings);
         $rating = glsr(Rating::class)->average($this->ratings);
         $rating = glsr(Rating::class)->format($rating);
         $text = $this->args->text;

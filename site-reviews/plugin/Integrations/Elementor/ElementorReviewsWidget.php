@@ -2,6 +2,7 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\Elementor;
 
+use Elementor\Controls_Manager;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Modules\Rating;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsShortcode;
@@ -32,7 +33,7 @@ class ElementorReviewsWidget extends ElementorWidget
         return _x('Latest Reviews', 'admin-text', 'site-reviews');
     }
 
-    protected function settings_basic()
+    protected function settings_basic(): array
     {
         $options = [
             'assigned_posts' => [
@@ -40,7 +41,7 @@ class ElementorReviewsWidget extends ElementorWidget
                 'label' => _x('Limit Reviews to an Assigned Page', 'admin-text', 'site-reviews'),
                 'label_block' => true,
                 'options' => $this->assigned_posts_options(),
-                'type' => \Elementor\Controls_Manager::SELECT2,
+                'type' => Controls_Manager::SELECT2,
             ],
             'assigned_posts_custom' => [
                 'condition' => ['assigned_posts' => 'custom'],
@@ -48,7 +49,7 @@ class ElementorReviewsWidget extends ElementorWidget
                 'label_block' => true,
                 'placeholder' => _x('Enter the Post IDs', 'admin-text', 'site-reviews'),
                 'show_label' => false,
-                'type' => \Elementor\Controls_Manager::TEXT,
+                'type' => Controls_Manager::TEXT,
             ],
             'assigned_terms' => [
                 'default' => '',
@@ -56,14 +57,14 @@ class ElementorReviewsWidget extends ElementorWidget
                 'label_block' => true,
                 'multiple' => true,
                 'options' => $this->assigned_terms_options(),
-                'type' => \Elementor\Controls_Manager::SELECT2,
+                'type' => Controls_Manager::SELECT2,
             ],
             'assigned_users' => [
                 'default' => '',
                 'label' => _x('Limit Reviews to an Assigned User', 'admin-text', 'site-reviews'),
                 'label_block' => true,
                 'options' => $this->assigned_users_options(),
-                'type' => \Elementor\Controls_Manager::SELECT2,
+                'type' => Controls_Manager::SELECT2,
             ],
             'assigned_users_custom' => [
                 'condition' => ['assigned_users' => 'custom'],
@@ -71,7 +72,7 @@ class ElementorReviewsWidget extends ElementorWidget
                 'label_block' => true,
                 'placeholder' => _x('Enter the User IDs', 'admin-text', 'site-reviews'),
                 'show_label' => false,
-                'type' => \Elementor\Controls_Manager::TEXT,
+                'type' => Controls_Manager::TEXT,
             ],
             'terms' => [
                 'default' => '',
@@ -81,39 +82,39 @@ class ElementorReviewsWidget extends ElementorWidget
                     'true' => _x('Terms were accepted', 'admin-text', 'site-reviews'),
                     'false' => _x('Terms were not accepted', 'admin-text', 'site-reviews'),
                 ],
-                'type' => \Elementor\Controls_Manager::SELECT2,
+                'type' => Controls_Manager::SELECT2,
             ],
             'type' => $this->get_review_types(),
             'pagination' => [
                 'default' => '',
-                'label' => _x('Enable Pagination', 'admin-text', 'site-reviews'),
+                'label' => _x('Pagination Type', 'admin-text', 'site-reviews'),
                 'options' => [
                     '' => [
                         'icon' => 'eicon eicon-close',
-                        'title' => _x('No', 'admin-text', 'site-reviews'),
+                        'title' => esc_attr_x('No Pagination', 'admin-text', 'site-reviews'),
                     ],
                     'loadmore' => [
                         'icon' => 'eicon eicon-spinner',
-                        'title' => _x('Yes (AJAX load more)', 'admin-text', 'site-reviews'),
+                        'title' => esc_attr_x('Load More Button', 'admin-text', 'site-reviews'),
                     ],
                     'ajax' => [
                         'icon' => 'eicon eicon-spinner',
-                        'title' => _x('Yes (AJAX pagination)', 'admin-text', 'site-reviews'),
+                        'title' => esc_attr_x('Pagination (AJAX)', 'admin-text', 'site-reviews'),
                     ],
                     'true' => [
                         'icon' => 'eicon eicon-redo',
-                        'title' => _x('Yes (page reload)', 'admin-text', 'site-reviews'),
+                        'title' => esc_attr_x('Pagination (with page reload)', 'admin-text', 'site-reviews'),
                     ],
                 ],
                 'separator' => 'before',
-                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'type' => Controls_Manager::CHOOSE,
             ],
             'display' => [
                 'default' => 10,
                 'label' => _x('Reviews Per Page', 'admin-text', 'site-reviews'),
                 'max' => 50,
                 'min' => 1,
-                'type' => \Elementor\Controls_Manager::NUMBER,
+                'type' => Controls_Manager::NUMBER,
             ],
             'rating' => [
                 'default' => 0,
@@ -121,26 +122,130 @@ class ElementorReviewsWidget extends ElementorWidget
                 'max' => Cast::toInt(glsr()->constant('MAX_RATING', Rating::class)),
                 'min' => Cast::toInt(glsr()->constant('MIN_RATING', Rating::class)),
                 'separator' => 'before',
-                'type' => \Elementor\Controls_Manager::NUMBER,
+                'type' => Controls_Manager::NUMBER,
             ],
             'schema' => [
                 'description' => _x('The schema should only be enabled once per page.', 'admin-text', 'site-reviews'),
                 'label' => _x('Enable the schema?', 'admin-text', 'site-reviews'),
                 'return_value' => 'true',
                 'separator' => 'before',
-                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'type' => Controls_Manager::SWITCHER,
             ],
         ];
         $hideOptions = $this->get_shortcode_instance()->getHideOptions();
         foreach ($hideOptions as $key => $label) {
             $separator = $key === key(array_slice($hideOptions, 0, 1)) ? 'before' : 'default';
-            $options['hide-'.$key] = [
+            $options["hide-{$key}"] = [
                 'label' => $label,
                 'separator' => $separator,
                 'return_value' => '1',
-                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'type' => Controls_Manager::SWITCHER,
             ];
         }
         return $options;
+    }
+
+    protected function settings_layout(): array
+    {
+        return [
+            'layout_alert' => [
+                'condition' => [
+                    'theme!' => '',
+                ],
+                'content' => esc_html_x('This widget is using the layout style of the custom theme selected in the widget\'s Content settings.', 'admin-text', 'site-reviews'),
+                'type' => Controls_Manager::ALERT,
+            ],
+            'alignment' => [
+                'default' => 'start',
+                'is_responsive' => true,
+                'label' => esc_html_x('Alignment', 'admin-text', 'site-reviews'),
+                'options' => [
+                    'start' => [
+                        'title' => esc_html_x('Start', 'admin-text', 'site-reviews'),
+                        'icon' => 'eicon-flex eicon-align-start-h',
+                    ],
+                    'center' => [
+                        'title' => esc_html_x('Center', 'admin-text', 'site-reviews'),
+                        'icon' => 'eicon-flex eicon-align-center-h',
+                    ],
+                    'end' => [
+                        'title' => esc_html_x('End', 'admin-text', 'site-reviews'),
+                        'icon' => 'eicon-flex eicon-align-end-h',
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .glsr:not([data-theme]) .glsr-review' => 'text-align: {{VALUE}}; justify-content: {{VALUE}};',
+                    '{{WRAPPER}} .glsr:not([data-theme]) .glsr-review .glsr-review-actions' => 'justify-content: {{VALUE}};',
+                    '{{WRAPPER}} .glsr:not([data-theme]) .glsr-review .glsr-review-date' => 'flex: inherit;',
+                ],
+                'type' => Controls_Manager::CHOOSE,
+            ],
+            'spacing' => [
+                'default' => [
+                    'unit' => 'em',
+                    'size' => 2,
+                ],
+                'is_responsive' => true,
+                'label' => esc_html_x('Review Spacing', 'admin-text', 'site-reviews'),
+                'range' => [
+                    'em' => [
+                        'min' => 0,
+                        'max' => 4,
+                        'step' => 0.125,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .glsr-reviews' => '--glsr-gap-xl: {{SIZE}}{{UNIT}};',
+                ],
+                'size_units' => $this->set_custom_size_unit(['em']),
+                'type' => Controls_Manager::SLIDER,
+            ],
+        ];
+    }
+
+    protected function settings_rating(): array
+    {
+        return [
+            'rating_alert' => [
+                'condition' => [
+                    'theme!' => '',
+                ],
+                'content' => esc_html_x('This widget is using the rating style of the custom theme selected in the widget\'s Content settings.', 'admin-text', 'site-reviews'),
+                'type' => Controls_Manager::ALERT,
+            ],
+            'rating_color' => [
+                'condition' => [
+                    'theme' => '',
+                ],
+                'label' => esc_html_x('Color', 'admin-text', 'site-reviews'),
+                'selectors' => [
+                    '{{WRAPPER}} .glsr:not([data-theme]) .glsr-review .glsr-star' => 'background: {{VALUE}} !important;',
+                ],
+                'type' => Controls_Manager::COLOR,
+            ],
+            'rating_size' => [
+                'condition' => [
+                    'theme' => '',
+                ],
+                'default' => [
+                    'unit' => 'em',
+                    'size' => 1.25,
+                ],
+                'is_responsive' => true,
+                'label' => esc_html_x('Star Size', 'admin-text', 'site-reviews'),
+                'range' => [
+                    'em' => [
+                        'min' => 0.25,
+                        'max' => 2.25,
+                        'step' => 0.125,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .glsr:not([data-theme]) .glsr-review .glsr-star' => '--glsr-review-star: {{SIZE}}{{UNIT}};',
+                ],
+                'size_units' => $this->set_custom_size_unit(['em']),
+                'type' => Controls_Manager::SLIDER,
+            ],
+        ];
     }
 }

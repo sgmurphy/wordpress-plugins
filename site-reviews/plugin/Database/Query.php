@@ -25,50 +25,33 @@ class Query
         $this->db = $wpdb;
     }
 
-    /**
-     * @return array
-     */
-    public function export(array $args = [])
+    public function export(array $args = []): array
     {
         $this->setArgs($args);
         return glsr(Database::class)->dbGetResults($this->queryExport(), ARRAY_A);
     }
 
-    /**
-     * @param int $postId
-     * @return bool
-     */
-    public function hasRevisions($postId)
+    public function hasRevisions(int $postId): bool
     {
         return (int) glsr(Database::class)->dbGetVar($this->queryHasRevisions($postId)) > 0;
     }
 
-    /**
-     * @return array
-     */
-    public function import(array $args = [])
+    public function import(array $args = []): array
     {
         $this->setArgs($args);
         return glsr(Database::class)->dbGetResults($this->queryImport(), ARRAY_A);
     }
 
-    /**
-     * @return array
-     */
-    public function ratings(array $args = [])
+    public function ratings(array $args = []): array
     {
         $this->setArgs($args, $unset = ['orderby']);
         $results = glsr(Database::class)->dbGetResults($this->queryRatings(), ARRAY_A);
         return $this->normalizeRatings($results);
     }
 
-    /**
-     * @param string $metaType
-     * @return array
-     */
-    public function ratingsFor($metaType, array $args = [])
+    public function ratingsFor(string $metaType, array $args = []): array
     {
-        $method = Helper::buildMethodName($metaType, 'queryRatingsFor');
+        $method = Helper::buildMethodName('queryRatingsFor', $metaType);
         if (!method_exists($this, $method)) {
             return [];
         }
@@ -77,15 +60,12 @@ class Query
         return $this->normalizeRatingsByAssignedId($results);
     }
 
-    /**
-     * @param int $postId
-     */
-    public function review($postId, bool $bypassCache = false): Review
+    public function review(int $postId, bool $bypassCache = false): Review
     {
         $reviewId = Cast::toInt($postId);
-        $review = Helper::ifTrue($bypassCache, null, function () use ($reviewId) {
-            return glsr(Cache::class)->get($reviewId, 'reviews');
-        });
+        $review = Helper::ifTrue($bypassCache, null,
+            fn () => glsr(Cache::class)->get($reviewId, 'reviews')
+        );
         if (!$review instanceof Review) {
             $result = glsr(Database::class)->dbGetRow($this->queryReviews($reviewId), ARRAY_A);
             $review = new Review($result);
@@ -97,18 +77,24 @@ class Query
         return $review;
     }
 
-    /**
-     * @return array
-     */
-    public function reviews(array $args = [], array $postIds = [])
+    public function reviewIds(array $args = []): array
     {
         $this->setArgs($args);
-        if (empty($postIds)) {
+        $postIds = glsr(Database::class)->dbGetCol($this->queryReviewIds());
+        return array_map('intval', $postIds);
+    }
+
+    public function reviews(array $args = [], array $postIds = []): array
+    {
+        if (!empty($postIds)) {
+            $this->setArgs($args);
+            $reviewIds = Arr::uniqueInt(Cast::toArray($postIds));
+        } else {
             // We previously used a subquery here, but MariaDB doesn't support LIMIT in subqueries
             // https://mariadb.com/kb/en/subquery-limitations/
-            $postIds = glsr(Database::class)->dbGetCol($this->queryReviewIds());
+            $reviewIds = $this->reviewIds($args);
         }
-        $reviewIds = implode(',', Arr::uniqueInt(Cast::toArray($postIds)));
+        $reviewIds = implode(',', $reviewIds);
         $reviewIds = Str::fallback($reviewIds, '0'); // if there are no review IDs, default to 0
         $reviews = glsr(Database::class)->dbGetResults($this->queryReviews($reviewIds), ARRAY_A);
         foreach ($reviews as &$review) {
@@ -119,19 +105,12 @@ class Query
         return $reviews;
     }
 
-    /**
-     * @param int $postId
-     * @return array
-     */
-    public function revisionIds($postId)
+    public function revisionIds(int $postId): array
     {
         return glsr(Database::class)->dbGetCol($this->queryRevisionIds($postId));
     }
 
-    /**
-     * @return void
-     */
-    public function setArgs(array $args = [], array $unset = [])
+    public function setArgs(array $args = [], array $unset = []): void
     {
         $args = glsr(ReviewsDefaults::class)->restrict($args);
         foreach ($unset as $key) {
@@ -140,10 +119,7 @@ class Query
         $this->args = $args;
     }
 
-    /**
-     * @return int
-     */
-    public function totalReviews(array $args = [], array $reviews = [])
+    public function totalReviews(array $args = [], array $reviews = []): int
     {
         $this->setArgs($args, $unset = ['orderby']);
         if (empty($this->sqlLimit()) && !empty($reviews)) {
@@ -152,10 +128,7 @@ class Query
         return (int) glsr(Database::class)->dbGetVar($this->queryTotalReviews());
     }
 
-    /**
-     * @return array
-     */
-    protected function normalizeRatings(array $ratings = [])
+    protected function normalizeRatings(array $ratings = []): array
     {
         $normalized = [];
         foreach ($ratings as $result) {
@@ -168,10 +141,7 @@ class Query
         return $normalized;
     }
 
-    /**
-     * @return array
-     */
-    protected function normalizeRatingsByAssignedId(array $ratings = [])
+    protected function normalizeRatingsByAssignedId(array $ratings = []): array
     {
         $normalized = [];
         foreach ($ratings as $result) {
@@ -185,18 +155,15 @@ class Query
         return array_map([$this, 'normalizeRatings'], $normalized);
     }
 
-    /**
-     * @return string
-     */
-    protected function queryExport()
+    protected function queryExport(): string
     {
         return $this->sql("
             SELECT r.*,
                 GROUP_CONCAT(DISTINCT apt.post_id) AS post_ids,
                 GROUP_CONCAT(DISTINCT aut.user_id) AS user_ids
-            FROM {$this->table('ratings')} AS r
-            LEFT JOIN {$this->table('assigned_posts')} AS apt ON r.ID = apt.rating_id
-            LEFT JOIN {$this->table('assigned_users')} AS aut ON r.ID = aut.rating_id
+            FROM table|ratings AS r
+            LEFT JOIN table|assigned_posts AS apt ON (apt.rating_id = r.ID)
+            LEFT JOIN table|assigned_users AS aut ON (aut.rating_id = r.ID)
             GROUP BY r.ID
             ORDER BY r.ID
             {$this->sqlLimit()}
@@ -204,57 +171,47 @@ class Query
         ");
     }
 
-    /**
-     * @return string
-     */
-    protected function queryHasRevisions($reviewId)
+    protected function queryHasRevisions(int $reviewId): string
     {
-        return $this->sql($this->db->prepare("
-            SELECT COUNT(*) 
-            FROM {$this->db->posts}
+        $sql = "
+            SELECT COUNT(*)
+            FROM table|posts
             WHERE post_type = 'revision' AND post_parent = %d
-        ", $reviewId));
+        ";
+        return $this->sql($sql, $reviewId);
     }
 
-    /**
-     * @return string
-     */
-    protected function queryImport()
+    protected function queryImport(): string
     {
-        return $this->sql($this->db->prepare("
+        $sql = "
             SELECT m.post_id, m.meta_value
-            FROM {$this->db->postmeta} AS m
-            INNER JOIN {$this->db->posts} AS p ON m.post_id = p.ID
+            FROM table|postmeta AS m
+            INNER JOIN table|posts AS p ON (p.ID = m.post_id)
             WHERE p.post_type = %s AND m.meta_key = %s
             ORDER BY m.meta_id
             {$this->sqlLimit()}
             {$this->sqlOffset()}
-        ", glsr()->post_type, glsr()->export_key));
+        ";
+        return $this->sql($sql, glsr()->post_type, glsr()->export_key);
     }
 
-    /**
-     * @return string
-     */
-    protected function queryRatings()
+    protected function queryRatings(): string
     {
         return $this->sql("
             SELECT {$this->ratingColumn()} AS rating, r.type, COUNT(DISTINCT r.ID) AS count
-            FROM {$this->table('ratings')} AS r
+            FROM table|ratings AS r
             {$this->sqlJoin()}
             {$this->sqlWhere()}
             GROUP BY r.type, {$this->ratingColumn()}
         ");
     }
 
-    /**
-     * @return string
-     */
-    public function queryRatingsForPostmeta()
+    public function queryRatingsForPostmeta(): string
     {
         return $this->sql("
             SELECT apt.post_id AS ID, {$this->ratingColumn()} AS rating, r.type, COUNT(DISTINCT r.ID) AS count
-            FROM {$this->table('ratings')} AS r
-            INNER JOIN {$this->table('assigned_posts')} AS apt ON r.ID = apt.rating_id
+            FROM table|ratings AS r
+            INNER JOIN table|assigned_posts AS apt ON (apt.rating_id = r.ID)
             WHERE 1=1
             {$this->clauseAndStatus()}
             {$this->clauseAndType()}
@@ -262,15 +219,12 @@ class Query
         ");
     }
 
-    /**
-     * @return string
-     */
-    protected function queryRatingsForTermmeta()
+    protected function queryRatingsForTermmeta(): string
     {
         return $this->sql("
             SELECT att.term_id AS ID, {$this->ratingColumn()} AS rating, r.type, COUNT(DISTINCT r.ID) AS count
-            FROM {$this->table('ratings')} AS r
-            INNER JOIN {$this->table('assigned_terms')} AS att ON r.ID = att.rating_id
+            FROM table|ratings AS r
+            INNER JOIN table|assigned_terms AS att ON (att.rating_id = r.ID)
             WHERE 1=1
             {$this->clauseAndStatus()}
             {$this->clauseAndType()}
@@ -278,15 +232,12 @@ class Query
         ");
     }
 
-    /**
-     * @return string
-     */
-    protected function queryRatingsForUsermeta()
+    protected function queryRatingsForUsermeta(): string
     {
         return $this->sql("
             SELECT aut.user_id AS ID, {$this->ratingColumn()} AS rating, r.type, COUNT(DISTINCT r.ID) AS count
-            FROM {$this->table('ratings')} AS r
-            INNER JOIN {$this->table('assigned_users')} AS aut ON r.ID = aut.rating_id
+            FROM table|ratings AS r
+            INNER JOIN table|assigned_users AS aut ON (aut.rating_id = r.ID)
             WHERE 1=1
             {$this->clauseAndStatus()}
             {$this->clauseAndType()}
@@ -294,14 +245,11 @@ class Query
         ");
     }
 
-    /**
-     * @return string
-     */
-    protected function queryReviewIds()
+    protected function queryReviewIds(): string
     {
         return $this->sql("
             SELECT r.review_id
-            FROM {$this->table('ratings')} AS r
+            FROM table|ratings AS r
             {$this->sqlJoin()}
             {$this->sqlWhere()}
             GROUP BY r.review_id
@@ -313,9 +261,8 @@ class Query
 
     /**
      * @param int|string $reviewIds
-     * @return string
      */
-    protected function queryReviews($reviewIds)
+    protected function queryReviews($reviewIds): string
     {
         $orderBy = !empty($this->args['order']) ? $this->sqlOrderBy() : '';
         $postType = glsr()->post_type;
@@ -331,37 +278,32 @@ class Query
                 GROUP_CONCAT(DISTINCT apt.post_id) AS post_ids,
                 GROUP_CONCAT(DISTINCT att.term_id) AS term_ids,
                 GROUP_CONCAT(DISTINCT aut.user_id) AS user_ids
-            FROM {$this->table('ratings')} AS r
-            INNER JOIN {$this->db->posts} AS p ON r.review_id = p.ID
-            LEFT JOIN {$this->table('assigned_posts')} AS apt ON r.ID = apt.rating_id
-            LEFT JOIN {$this->table('assigned_terms')} AS att ON r.ID = att.rating_id
-            LEFT JOIN {$this->table('assigned_users')} AS aut ON r.ID = aut.rating_id
+            FROM table|ratings AS r
+            INNER JOIN table|posts AS p ON (p.ID = r.review_id)
+            LEFT JOIN table|assigned_posts AS apt ON (apt.rating_id = r.ID)
+            LEFT JOIN table|assigned_terms AS att ON (att.rating_id = r.ID)
+            LEFT JOIN table|assigned_users AS aut ON (aut.rating_id = r.ID)
             WHERE r.review_id IN ({$reviewIds}) AND p.post_type = '{$postType}'
             GROUP BY r.ID
             {$orderBy}
         ");
     }
 
-    /**
-     * @return string
-     */
-    protected function queryRevisionIds($reviewId)
+    protected function queryRevisionIds(int $reviewId): string
     {
-        return $this->sql($this->db->prepare("
+        $sql = "
             SELECT ID
-            FROM {$this->db->posts}
+            FROM table|posts
             WHERE post_type = 'revision' AND post_parent = %d
-        ", $reviewId));
+        ";
+        return $this->sql($sql, $reviewId);
     }
 
-    /**
-     * @return string
-     */
-    protected function queryTotalReviews()
+    protected function queryTotalReviews(): string
     {
         return $this->sql("
             SELECT COUNT(DISTINCT r.ID) AS count
-            FROM {$this->table('ratings')} AS r
+            FROM table|ratings AS r
             {$this->sqlJoin()}
             {$this->sqlWhere()}
         ");

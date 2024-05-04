@@ -10,7 +10,7 @@ use GeminiLabs\SiteReviews\Modules\Multilingual;
 use GeminiLabs\SiteReviews\Modules\Notice;
 use GeminiLabs\SiteReviews\Modules\Sanitizer;
 
-class SettingsController extends Controller
+class SettingsController extends AbstractController
 {
     /**
      * @action admin_init
@@ -18,19 +18,20 @@ class SettingsController extends Controller
     public function registerSettings(): void
     {
         register_setting(glsr()->id, OptionManager::databaseKey(), [
-            'default' => glsr()->defaults,
-            'sanitize_callback' => [$this, 'sanitizeSettings'],
+            'default' => glsr()->defaults(),
+            'sanitize_callback' => [$this, 'sanitizeSettingsCallback'],
             'type' => 'array',
         ]);
     }
 
     /**
      * @param mixed $input
-     * @callback register_setting
+     *
+     * @see registerSettings
      */
-    public function sanitizeSettings($input): array
+    public function sanitizeSettingsCallback($input): array
     {
-        OptionManager::flushCache(); // remove settings from object cache before updating
+        OptionManager::flushSettingsCache(); // remove settings from object cache before updating
         $settings = Arr::consolidate($input);
         if (1 === count($settings) && array_key_exists('settings', $settings)) {
             $options = array_replace_recursive(glsr(OptionManager::class)->all(), $input);
@@ -55,7 +56,7 @@ class SettingsController extends Controller
         $values = Arr::flatten($options);
         $sanitizers = wp_list_pluck(glsr()->settings(), 'sanitizer');
         $options = (new Sanitizer($values, $sanitizers))->run();
-        return Arr::convertFromDotNotation($options);
+        return Arr::unflatten($options);
     }
 
     protected function sanitizeForms(array $options, array $input): array
@@ -65,7 +66,7 @@ class SettingsController extends Controller
         $multiFields = ['limit_assignments', 'required'];
         foreach ($multiFields as $name) {
             $defaultValue = Arr::get($inputForm, $name, []);
-            $options = Arr::set($options, $key.'.'.$name, $defaultValue);
+            $options = Arr::set($options, "{$key}.{$name}", $defaultValue);
         }
         return $options;
     }
@@ -78,11 +79,11 @@ class SettingsController extends Controller
             $options = Arr::set($options, $key.'.multilingual', '');
         }
         if ('' === trim(Arr::get($inputForm, 'notification_message'))) {
-            $defaultValue = Arr::get(glsr()->defaults, $key.'.notification_message');
+            $defaultValue = Arr::get(glsr()->defaults(), $key.'.notification_message');
             $options = Arr::set($options, $key.'.notification_message', $defaultValue);
         }
         if ('' === trim(Arr::get($inputForm, 'request_verification_message'))) {
-            $defaultValue = Arr::get(glsr()->defaults, $key.'.request_verification_message');
+            $defaultValue = Arr::get(glsr()->defaults(), $key.'.request_verification_message');
             $options = Arr::set($options, $key.'.request_verification_message', $defaultValue);
         }
         $defaultValue = Arr::get($inputForm, 'notifications', []);
@@ -151,7 +152,7 @@ class SettingsController extends Controller
     protected function verifyLicense(string $license, string $addonId): string
     {
         if (empty(glsr()->updated[$addonId])) {
-            glsr_log()->error('Unknown addon: '.$addonId);
+            glsr_log()->error("Unknown addon: {$addonId}");
             glsr(Notice::class)->addError(_x('A license you entered could not be verified for the selected addon.', 'admin-text', 'site-reviews'));
             return '';
         }
@@ -159,7 +160,7 @@ class SettingsController extends Controller
             $addon = glsr()->updated[$addonId];
             $updater = new Updater($addon['updateUrl'], $addon['file'], $addonId, compact('license'));
             if (!$updater->isLicenseValid()) {
-                throw new LicenseException('Invalid license: '.$license.' ('.$addonId.')');
+                throw new LicenseException("Invalid license: {$license} ({$addonId})");
             }
         } catch (LicenseException $e) {
             $license = '';

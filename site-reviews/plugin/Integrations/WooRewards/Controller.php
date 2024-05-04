@@ -2,18 +2,18 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\WooRewards;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
-use GeminiLabs\SiteReviews\Database\Query;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
+use GeminiLabs\SiteReviews\Database\ReviewManager;
 use GeminiLabs\SiteReviews\Review;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * @action site-reviews/review/approved
      */
     public function onApprovedReview(Review $review): void
     {
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         $this->processPoints($review);
     }
 
@@ -22,16 +22,13 @@ class Controller extends BaseController
      */
     public function onCreatedReview(Review $review): void
     {
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         if ($review->is_approved) {
             $this->processPoints($review);
         }
     }
 
-    /**
-     * @return \WP_Comment
-     */
-    protected function fakeComment(int $postId, Review $review)
+    protected function fakeComment(int $postId, Review $review): \WP_Comment
     {
         return new \WP_Comment((object) [ // @phpstan-ignore-line
             'comment_approved' => $review->is_approved,
@@ -44,14 +41,13 @@ class Controller extends BaseController
 
     /**
      * This allows us to invoke a protected method.
+     *
      * @return mixed
      */
     protected function invoke(string $method, array $args = [])
     {
         $event = glsr()->retrieve('\LWS\WOOREWARDS\Events\ProductReview');
-        $fn = function () use ($method, $args) {
-            return $this->$method(...$args);
-        };
+        $fn = fn () => $this->$method(...$args);
         return $fn->bindTo($event, $event)();
     }
 

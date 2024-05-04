@@ -4,43 +4,30 @@ namespace GeminiLabs\SiteReviews\Helpers;
 
 class Url
 {
-    /**
-     * @param string $path
-     * @return string
-     */
-    public static function home($path = '')
+    public static function home(string $path = ''): string
     {
         return trailingslashit(network_home_url($path));
     }
 
-    /**
-     * @param string $url
-     * @return string
-     */
-    public static function path($url)
+    public static function path(string $url): string
     {
-        return untrailingslashit(parse_url($url, PHP_URL_PATH));
+        return untrailingslashit(wp_parse_url($url, PHP_URL_PATH));
     }
 
-    /**
-     * @param string $url
-     * @return array
-     */
-    public static function queries($url)
+    public static function queries(?string $url): array
     {
         $queries = [];
-        $str = (string) parse_url((string) $url, PHP_URL_QUERY);
+        $str = (string) wp_parse_url((string) $url, PHP_URL_QUERY);
         parse_str($str, $queries);
         return $queries;
     }
 
     /**
-     * @param string $url
-     * @param string $param
-     * @param string|int $fallback
-     * @return string
+     * @param string|int|null $fallback
+     *
+     * @return mixed
      */
-    public static function query($url, $param, $fallback = null)
+    public static function query(string $url, string $param, $fallback = null)
     {
         return Arr::get(static::queries($url), $param, $fallback);
     }

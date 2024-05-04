@@ -6,24 +6,15 @@ use GeminiLabs\SiteReviews\Helper;
 
 class Str
 {
-    /**
-     * @param string $string
-     * @return string
-     */
-    public static function camelCase($string)
+    public static function camelCase(string $string): string
     {
         $string = ucwords(str_replace(['-', '_'], ' ', trim($string)));
         return str_replace(' ', '', $string);
     }
 
-    /**
-     * @param string $haystack
-     * @param string|string[] $needles
-     * @return bool
-     */
-    public static function contains($haystack, $needles)
+    public static function contains(string $haystack, array $needles): bool
     {
-        $needles = array_filter(Cast::toArray($needles), Helper::class.'::isNotEmpty');
+        $needles = array_filter($needles, Helper::class.'::isNotEmpty');
         foreach ($needles as $needle) {
             if ('' !== $needle && str_contains($haystack, $needle)) {
                 return true;
@@ -33,45 +24,40 @@ class Str
     }
 
     /**
-     * @param string $path
-     * @param string $prefix
-     * @return string
+     * Returns an unsanitized id attribute.
      */
-    public static function convertPathToId($path, $prefix = '')
+    public static function convertNameToId(string $string, string $prefix = ''): string
     {
-        return str_replace(['[', ']'], ['-', ''], static::convertPathToName($path, $prefix));
+        $string = preg_replace('/[^a-z\d\[_]+/', '[', strtolower($string));
+        $parts = explode('[', $string);
+        $parts = array_filter([$prefix, ...$parts]);
+        return implode('-', $parts);
     }
 
-    /**
-     * @param string $path
-     * @param string $prefix
-     * @return string
-     */
-    public static function convertPathToName($path, $prefix = '')
+    public static function convertNameToPath(string $name): string
+    {
+        $parts = preg_split('/\[|\]/', $name);
+        $parts = array_values(array_filter($parts));
+        return implode('.', $parts);
+    }
+
+    public static function convertPathToName(string $path, string $prefix = ''): string
     {
         $levels = explode('.', $path);
-        return array_reduce($levels, function ($result, $value) {
-            return $result .= '['.$value.']';
+        $levels = array_filter($levels);
+        return array_reduce($levels, function ($carry, $value) {
+            return empty($carry) ? $value : "{$carry}[{$value}]";
         }, $prefix);
     }
 
-    /**
-     * @param string $string
-     * @return string
-     */
-    public static function dashCase($string)
+    public static function dashCase(string $string): string
     {
         return str_replace('_', '-', static::snakeCase($string));
     }
 
-    /**
-     * @param string $haystack
-     * @param string|string[] $needles
-     * @return bool
-     */
-    public static function endsWith($haystack, $needles)
+    public static function endsWith(string $haystack, array $needles): bool
     {
-        $needles = array_filter(Cast::toArray($needles), Helper::class.'::isNotEmpty');
+        $needles = array_filter($needles, Helper::class.'::isNotEmpty');
         foreach ($needles as $needle) {
             if ('' !== (string) $needle && str_ends_with((string) $haystack, (string) $needle)) {
                 return true;
@@ -82,35 +68,28 @@ class Str
 
     /**
      * @param mixed $value
-     * @param string $fallback
-     * @return string
      */
-    public static function fallback($value, $fallback)
+    public static function fallback($value, string $fallback): string
     {
         return is_scalar($value) && '' !== trim($value)
             ? Cast::toString($value)
             : Cast::toString($fallback);
     }
 
-    /**
-     * @param bool $quoted
-     * @return string
-     */
-    public static function join(array $values, $quoted = false)
+    public static function hash(string $value, int $maxLength = 32): string
+    {
+        require_once ABSPATH.WPINC.'/pluggable.php';
+        return substr(wp_hash($value, 'nonce'), 0, max(8, $maxLength));
+    }
+
+    public static function join(array $values, bool $quoted = false): string
     {
         return $quoted
             ? "'".implode("','", $values)."'"
             : implode(', ', $values);
     }
 
-    /**
-     * @param string $string
-     * @param int $preserveStart
-     * @param int $preserveEnd
-     * @param int $maxLength
-     * @return string
-     */
-    public static function mask($string, $preserveStart = 0, $preserveEnd = 0, $maxLength = 13)
+    public static function mask(string $string, int $preserveStart = 0, int $preserveEnd = 0, int $maxLength = 13): string
     {
         $encoding = 'UTF-8';
         if (empty($string)) {
@@ -127,23 +106,14 @@ class Str
         return $start.str_repeat(mb_substr('*', 0, 1, $encoding), $segmentLen).$end;
     }
 
-    /**
-     * @return string
-     */
-    public static function naturalJoin(array $values)
+    public static function naturalJoin(array $values): string
     {
         $and = __('and', 'site-reviews');
-        $values[] = implode(' '.$and.' ', array_splice($values, -2));
+        $values[] = implode(" {$and} ", array_splice($values, -2));
         return implode(', ', $values);
     }
 
-    /**
-     * @param string $string
-     * @param string $prefix
-     * @param string|null $trim
-     * @return string
-     */
-    public static function prefix($string, $prefix, $trim = null)
+    public static function prefix(string $string, string $prefix, ?string $trim = null): string
     {
         if ('' === $string) {
             return $string;
@@ -154,47 +124,27 @@ class Str
         return $prefix.trim(static::removePrefix($string, $trim));
     }
 
-    /**
-     * @param int $length
-     * @return string
-     */
-    public static function random($length = 8)
+    public static function random(int $length = 8): string
     {
         $text = base64_encode(wp_generate_password());
         return substr(str_replace(['/', '+', '='], '', $text), 0, $length);
     }
 
-    /**
-     * @param string $string
-     * @param string $prefix
-     * @return string
-     */
-    public static function removePrefix($string, $prefix)
+    public static function removePrefix(string $string, string $prefix): string
     {
-        return static::startsWith($string, $prefix)
+        return str_starts_with($string, $prefix)
             ? substr($string, strlen($prefix))
             : $string;
     }
 
-    /**
-     * @param string $string
-     * @param string $suffix
-     * @return string
-     */
-    public static function removeSuffix($string, $suffix)
+    public static function removeSuffix(string $string, string $suffix): string
     {
-        return static::endsWith($string, $suffix)
+        return str_ends_with($string, $suffix)
             ? substr($string, 0, strrpos($string, $suffix))
             : $string;
     }
 
-    /**
-     * @param string $search
-     * @param string $replace
-     * @param string $subject
-     * @return string
-     */
-    public static function replaceFirst($search, $replace, $subject)
+    public static function replaceFirst(string $search, string $replace, string $subject): string
     {
         if ('' === $search) {
             return $subject;
@@ -206,13 +156,7 @@ class Str
         return $subject;
     }
 
-    /**
-     * @param string $search
-     * @param string $replace
-     * @param string $subject
-     * @return string
-     */
-    public static function replaceLast($search, $replace, $subject)
+    public static function replaceLast(string $search, string $replace, string $subject): string
     {
         $position = strrpos($subject, $search);
         if ('' !== $search && false !== $position) {
@@ -223,12 +167,8 @@ class Str
 
     /**
      * @param string|string[] $restrictions
-     * @param string $value
-     * @param string $fallback
-     * @param bool $strict
-     * @return string
      */
-    public static function restrictTo($restrictions, $value, $fallback = '', $strict = false)
+    public static function restrictTo($restrictions, string $value, string $fallback = '', bool $strict = false): string
     {
         $needle = $value;
         $haystack = Cast::toArray($restrictions);
@@ -241,11 +181,7 @@ class Str
             : $fallback;
     }
 
-    /**
-     * @param string $string
-     * @return string
-     */
-    public static function snakeCase($string)
+    public static function snakeCase(string $string): string
     {
         if (!ctype_lower($string)) {
             $string = preg_replace('/\s+/u', '', $string);
@@ -255,14 +191,9 @@ class Str
         return str_replace('-', '_', $string);
     }
 
-    /**
-     * @param string $haystack
-     * @param string|string[] $needles
-     * @return bool
-     */
-    public static function startsWith($haystack, $needles)
+    public static function startsWith(string $haystack, array $needles): bool
     {
-        $needles = array_filter(Cast::toArray($needles), '\GeminiLabs\SiteReviews\Helper::isNotEmpty');
+        $needles = array_filter($needles, '\GeminiLabs\SiteReviews\Helper::isNotEmpty');
         foreach ($needles as $needle) {
             if ('' !== (string) $needle && str_starts_with((string) $haystack, (string) $needle)) {
                 return true;
@@ -271,36 +202,21 @@ class Str
         return false;
     }
 
-    /**
-     * @param string $string
-     * @param string $suffix
-     * @return string
-     */
-    public static function suffix($string, $suffix)
+    public static function suffix(string $string, string $suffix): string
     {
-        if (!static::endsWith($string, $suffix)) {
+        if (!str_ends_with($string, $suffix)) {
             return $string.$suffix;
         }
         return $string;
     }
 
-    /**
-     * @param string $string
-     * @return string
-     */
-    public static function titleCase($string)
+    public static function titleCase(string $string): string
     {
         $value = str_replace(['-', '_'], ' ', $string);
         return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
     }
 
-    /**
-     * @param string $value
-     * @param int $length
-     * @param string $end
-     * @return string
-     */
-    public static function truncate($value, $length, $end = '')
+    public static function truncate(string $value, int $length, string $end = ''): string
     {
         return mb_strwidth($value, 'UTF-8') > $length
             ? mb_substr($value, 0, $length, 'UTF-8').$end

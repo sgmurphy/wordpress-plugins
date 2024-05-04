@@ -2,50 +2,57 @@
 
 namespace GeminiLabs\SiteReviews\Defaults;
 
-use GeminiLabs\SiteReviews\Helpers\Arr;
+use GeminiLabs\SiteReviews\Modules\Rating;
 
 class StarRatingDefaults extends DefaultsAbstract
 {
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'args' => 'array',
-        'prefix' => 'string',
         'rating' => 'float',
     ];
 
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'reviews' => 'min:0',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'args' => [],
-            'prefix' => glsr()->isAdmin() ? '' : 'glsr-',
+            'max_rating' => 0,
+            'num_empty' => 0,
+            'num_full' => 0,
+            'num_half' => 0,
             'rating' => 0,
             'reviews' => 0,
         ];
     }
 
     /**
-     * Normalize provided values, this always runs first.
-     * @return array
+     * Finalize provided values, this always runs last.
      */
-    protected function normalize(array $values = [])
+    protected function finalize(array $values = []): array
     {
-        $values['rating'] = sprintf('%g', Arr::get($values, 'rating', 0));
+        $rating = $values['rating'] ?? 0;
+        $reviews = $values['reviews'] ?? 0;
+        $maxRating = glsr()->constant('MAX_RATING', Rating::class);
+        $numFull = intval(floor($rating));
+        $numHalf = intval(ceil($rating - $numFull));
+        $numEmpty = max(0, $maxRating - $numFull - $numHalf);
+        $values['num_empty'] = $numEmpty;
+        $values['num_full'] = $numFull;
+        $values['num_half'] = $numHalf;
+        if (0 === $reviews && 0 === $numHalf) {
+            $values['rating'] = $numFull; // integer
+        }
         return $values;
     }
 }

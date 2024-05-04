@@ -2,7 +2,6 @@
 
 namespace GeminiLabs\SiteReviews\Database;
 
-use GeminiLabs\SiteReviews\Controllers\TranslationController;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 
@@ -17,11 +16,7 @@ class Cache
         }
     }
 
-    /**
-     * @param \Closure|null $callback
-     * @return mixed
-     */
-    public function get(string $key, string $group, $callback = null, int $expire = 0)
+    public function get(string $key, string $group, ?\Closure $callback = null, int $expire = 0)
     {
         $group = glsr()->prefix.$group;
         $value = wp_cache_get($key, $group);
@@ -31,31 +26,6 @@ class Cache
             }
         }
         return $value;
-    }
-
-    public function getCloudflareIps(): array
-    {
-        if (false !== ($ipAddresses = get_transient(glsr()->prefix.'cloudflare_ips'))) {
-            return Cast::toArray($ipAddresses);
-        }
-        $ipAddresses = array_fill_keys(['v4', 'v6'], []);
-        foreach (array_keys($ipAddresses) as $version) {
-            $url = 'https://www.cloudflare.com/ips-'.$version;
-            $response = wp_remote_get($url);
-            if (is_wp_error($response)) {
-                glsr_log()->error($response->get_error_message());
-                continue;
-            }
-            if ('200' != ($statusCode = wp_remote_retrieve_response_code($response))) {
-                glsr_log()->error(sprintf('Unable to connect to %s [%s]', $url, $statusCode));
-                continue;
-            }
-            $ipAddresses[$version] = array_filter(
-                (array) preg_split('/\R/', wp_remote_retrieve_body($response))
-            );
-        }
-        set_transient(glsr()->prefix.'cloudflare_ips', $ipAddresses, WEEK_IN_SECONDS);
-        return $ipAddresses;
     }
 
     public function getPluginVersions(): array
@@ -88,6 +58,7 @@ class Cache
             return [];
         }
         $versions = Arr::consolidate(Arr::get($response, 'versions'));
+        ksort($versions, \SORT_NATURAL);
         unset($versions['trunk']);
         $versions = array_keys(array_reverse($versions));
         $index = array_search(glsr()->version, $versions);
@@ -112,26 +83,22 @@ class Cache
     public function getSystemInfo(): array
     {
         if (false === ($data = get_transient(glsr()->prefix.'system_info'))) {
-            add_filter('gettext_default', [glsr(TranslationController::class), 'filterEnglishTranslation'], 10, 2);
+            $callback = fn ($translation, $single) => $single;
+            add_filter('gettext_default', $callback, 10, 2);
             try { // prevent badly made migration plugins from breaking Site Reviews...
                 $data = \WP_Debug_Data::debug_data(); // get the WordPress debug data in English
                 set_transient(glsr()->prefix.'system_info', $data, 12 * HOUR_IN_SECONDS);
             } catch (\TypeError $error) {
                 $data = [];
             }
-            remove_filter('gettext_default', [glsr(TranslationController::class), 'filterEnglishTranslation'], 10);
+            remove_filter('gettext_default', $callback, 10);
         }
         return Arr::consolidate($data);
     }
 
-    /**
-     * @param mixed $value
-     * @return mixed
-     */
-    public function store(string $key, string $group, $value, int $expire = 0)
+    public function store(string $key, string $group, $value, int $expire = 0): void
     {
         $group = glsr()->prefix.$group;
         wp_cache_set($key, $value, $group, $expire);
-        return $value;
     }
 }

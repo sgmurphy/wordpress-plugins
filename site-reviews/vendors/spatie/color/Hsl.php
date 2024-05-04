@@ -2,154 +2,122 @@
 
 namespace GeminiLabs\Spatie\Color;
 
-class Hsl extends Color
+class Hsl implements Color
 {
+    use Analysis, Manipulate;
+
     /** @var float */
     protected $hue;
     protected $saturation;
     protected $lightness;
 
-    /**
-     * @param float $hue
-     * @param float $saturation
-     * @param float $lightness
-     */
-    public function __construct($hue, $saturation, $lightness)
+    public function __construct(float $hue, float $saturation, float $lightness)
     {
         Validate::hslValue($saturation, 'saturation');
         Validate::hslValue($lightness, 'lightness');
+
         $this->hue = $hue;
         $this->saturation = $saturation;
         $this->lightness = $lightness;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function fromString($string)
+    public static function fromString(string $string)
     {
         Validate::hslColorString($string);
+
         $matches = null;
         preg_match('/hsl\( *(-?\d{1,3}) *, *(\d{1,3})%? *, *(\d{1,3})%? *\)/i', $string, $matches);
+
         return new static($matches[1], $matches[2], $matches[3]);
     }
 
-    /**
-     * @return float
-     */
-    public function hue()
+    public function hue(): float
     {
         return $this->hue;
     }
 
-    /**
-     * @return float
-     */
-    public function saturation()
+    public function saturation(): float
     {
         return $this->saturation;
     }
 
-    /**
-     * @return float
-     */
-    public function lightness()
+    public function lightness(): float
     {
         return $this->lightness;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function red()
+    public function red(): int
     {
         return Convert::hslValueToRgb($this->hue, $this->saturation, $this->lightness)[0];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function green()
+    public function green(): int
     {
         return Convert::hslValueToRgb($this->hue, $this->saturation, $this->lightness)[1];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function blue()
+    public function blue(): int
     {
         return Convert::hslValueToRgb($this->hue, $this->saturation, $this->lightness)[2];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toCIELab()
+    public function toCIELab(): CIELab
     {
         return $this->toRgb()->toCIELab();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toHex()
+    public function toCmyk(): Cmyk
+    {
+        return $this->toRgb()->toCmyk();
+    }
+
+    public function toHex(string $alpha = 'ff'): Hex
     {
         return new Hex(
             Convert::rgbChannelToHexChannel($this->red()),
             Convert::rgbChannelToHexChannel($this->green()),
-            Convert::rgbChannelToHexChannel($this->blue())
+            Convert::rgbChannelToHexChannel($this->blue()),
+            $alpha
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toHsl()
+    public function toHsb(): Hsb
+    {
+        return $this->toRgb()->toHsb();
+    }
+
+    public function toHsl(): self
     {
         return new self($this->hue(), $this->saturation(), $this->lightness());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toHsla($alpha = 1)
+    public function toHsla(float $alpha = 1): Hsla
     {
         return new Hsla($this->hue(), $this->saturation(), $this->lightness(), $alpha);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toRgb()
+    public function toRgb(): Rgb
     {
         return new Rgb($this->red(), $this->green(), $this->blue());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toRgba($alpha = 1)
+    public function toRgba(float $alpha = 1): Rgba
     {
         return new Rgba($this->red(), $this->green(), $this->blue(), $alpha);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toXyz()
+    public function toXyz(): Xyz
     {
         return $this->toRgb()->toXyz();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __toString()
+    public function __toString(): string
     {
         $hue = round($this->hue);
         $saturation = round($this->saturation);
         $lightness = round($this->lightness);
+
         return "hsl({$hue},{$saturation}%,{$lightness}%)";
     }
 }
+

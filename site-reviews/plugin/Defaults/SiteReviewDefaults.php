@@ -9,27 +9,26 @@ class SiteReviewDefaults extends DefaultsAbstract
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'debug' => 'bool',
         'post_id' => 'int',
     ];
 
     /**
      * The values that should be guarded.
+     *
      * @var string[]
      */
-    public $guarded = [
+    public array $guarded = [
         'fallback', 'title',
     ];
 
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'class' => 'attr-class',
         'fallback' => 'text-post',
         'hide' => 'array-string',
@@ -37,10 +36,7 @@ class SiteReviewDefaults extends DefaultsAbstract
         'title' => 'text',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'class' => '',
@@ -55,9 +51,8 @@ class SiteReviewDefaults extends DefaultsAbstract
 
     /**
      * Normalize provided values, this always runs first.
-     * @return array
      */
-    protected function normalize(array $args = [])
+    protected function normalize(array $args = []): array
     {
         if (empty($args['post_id'])) {
             $postIds = get_posts([

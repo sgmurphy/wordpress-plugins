@@ -5,77 +5,38 @@ namespace GeminiLabs\SiteReviews\Tinymce;
 use GeminiLabs\SiteReviews\Database;
 use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
+use GeminiLabs\SiteReviews\Helpers\Str;
 
 abstract class TinymceGenerator
 {
-    /**
-     * @var array
-     */
-    public $properties;
+    public array $properties = [];
+    public string $tag = '';
+    protected array $errors = [];
+    protected array $required = [];
 
-    /**
-     * @var string
-     */
-    public $tag;
+    abstract public function fields(): array;
 
-    /**
-     * @var array
-     */
-    protected $errors = [];
-
-    /**
-     * @var array
-     */
-    protected $required = [];
-
-    /**
-     * @return array
-     */
-    abstract public function fields();
-
-    /**
-     * @param string $tag
-     * @return static
-     */
-    public function register($tag, array $args)
+    public function register(): void
     {
-        $this->tag = $tag;
-        $this->properties = wp_parse_args($args, [
+        $tinymce = (new \ReflectionClass($this))->getShortName();
+        $tinymce = Str::snakeCase($tinymce);
+        $tinymce = str_replace('_tinymce', '', $tinymce);
+        $this->tag = $tinymce;
+        $this->properties = [
             'btn_close' => _x('Close', 'admin-text', 'site-reviews'),
             'btn_okay' => _x('Insert Shortcode', 'admin-text', 'site-reviews'),
             'errors' => $this->errors,
             'fields' => $this->getFields(),
-            'label' => '['.$tag.']',
+            'label' => $this->title(),
             'required' => $this->required,
-            'title' => _x('Shortcode', 'admin-text', 'site-reviews'),
-        ]);
-        return $this;
+            'title' => $this->title(),
+        ];
+        glsr()->append('mce', $this->properties, $tinymce);
     }
 
-    /**
-     * @return array
-     */
-    protected function generateFields(array $fields)
-    {
-        $generatedFields = array_map(function ($field) {
-            if (empty($field)) {
-                return;
-            }
-            $field = $this->normalize($field);
-            $method = Helper::buildMethodName($field['type'], 'normalize');
-            if (!method_exists($this, $method)) {
-                return;
-            }
-            return $this->$method($field);
-        }, $fields);
-        return array_values(array_filter($generatedFields));
-    }
+    abstract public function title(): string;
 
-    /**
-     * @param string $tooltip
-     * @return array
-     */
-    protected function getCategories($tooltip = '')
+    protected function fieldCategories(string $tooltip = ''): array
     {
         $terms = glsr(Database::class)->terms();
         if (empty($terms)) {
@@ -90,10 +51,36 @@ abstract class TinymceGenerator
         ];
     }
 
-    /**
-     * @return array
-     */
-    protected function getFields()
+    protected function fieldTypes(string $tooltip = ''): array
+    {
+        if (count($options = glsr()->retrieveAs('array', 'review_types')) < 2) {
+            return [];
+        }
+        return [
+            'label' => _x('Type', 'admin-text', 'site-reviews'),
+            'name' => 'type',
+            'options' => $options,
+            'tooltip' => $tooltip,
+            'type' => 'listbox',
+        ];
+    }
+
+    protected function generateFields(array $fields): array
+    {
+        $generatedFields = array_map(function ($field) {
+            if (empty($field)) {
+                return;
+            }
+            $type = Arr::getAs('string', $field, 'type');
+            $method = Helper::buildMethodName('normalize', $type);
+            if (method_exists($this, $method)) {
+                return call_user_func([$this, $method], $field);
+            }
+        }, $fields);
+        return array_values(array_filter($generatedFields));
+    }
+
+    protected function getFields(): array
     {
         $fields = $this->generateFields($this->fields());
         if (!empty($this->errors)) {
@@ -110,10 +97,7 @@ abstract class TinymceGenerator
             : $this->errors;
     }
 
-    /**
-     * @return array
-     */
-    protected function getHideOptions()
+    protected function hideOptions(): array
     {
         $classname = str_replace('Tinymce\\', 'Shortcodes\\', get_class($this));
         $classname = str_replace('Tinymce', 'Shortcode', $classname);
@@ -121,7 +105,7 @@ abstract class TinymceGenerator
         $options = [];
         foreach ($hideOptions as $name => $tooltip) {
             $options[] = [
-                'name' => 'hide_'.$name,
+                'name' => "hide_{$name}",
                 'text' => $name,
                 'tooltip' => $tooltip,
                 'type' => 'checkbox',
@@ -130,41 +114,18 @@ abstract class TinymceGenerator
         return $options;
     }
 
-    /**
-     * @param string $tooltip
-     * @return array
-     */
-    protected function getTypes($tooltip = '')
+    protected function normalize(array $field, array $defaults): array
     {
-        if (count($reviewTypes = glsr()->retrieveAs('array', 'review_types')) < 2) {
+        if (!$this->validate($field)) {
             return [];
         }
-        return [
-            'label' => _x('Type', 'admin-text', 'site-reviews'),
-            'name' => 'type',
-            'options' => $reviewTypes,
-            'tooltip' => $tooltip,
-            'type' => 'listbox',
-        ];
+        $field = shortcode_atts($defaults, $field);
+        return array_filter($field, fn ($value) => '' !== $value);
     }
 
-    /**
-     * @return array
-     */
-    protected function normalize(array $field)
+    protected function normalizeCheckbox(array $field): array
     {
-        return wp_parse_args($field, [
-            'items' => [],
-            'type' => '',
-        ]);
-    }
-
-    /**
-     * @return void|array
-     */
-    protected function normalizeCheckbox(array $field)
-    {
-        return $this->normalizeField($field, [
+        return $this->normalize($field, [
             'checked' => false,
             'label' => '',
             'minHeight' => '',
@@ -177,36 +138,17 @@ abstract class TinymceGenerator
         ]);
     }
 
-    /**
-     * @return void|array
-     */
-    protected function normalizeContainer(array $field)
+    protected function normalizeContainer(array $field): array
     {
-        if (!array_key_exists('html', $field) && !array_key_exists('items', $field)) {
-            return;
+        if (!array_key_exists('html', $field) && array_key_exists('items', $field)) {
+            $field['items'] = $this->generateFields($field['items']);
         }
-        $field['items'] = $this->generateFields($field['items']);
         return $field;
     }
 
-    /**
-     * @return void|array
-     */
-    protected function normalizeField(array $field, array $defaults)
+    protected function normalizeListbox(array $field): array
     {
-        if ($this->validate($field)) {
-            return array_filter(shortcode_atts($defaults, $field), function ($value) {
-                return '' !== $value;
-            });
-        }
-    }
-
-    /**
-     * @return void|array
-     */
-    protected function normalizeListbox(array $field)
-    {
-        $listbox = $this->normalizeField($field, [
+        $listbox = $this->normalize($field, [
             'label' => '',
             'minWidth' => '',
             'name' => false,
@@ -216,8 +158,8 @@ abstract class TinymceGenerator
             'type' => '',
             'value' => '',
         ]);
-        if (!is_array($listbox)) {
-            return;
+        if (empty($listbox)) {
+            return [];
         }
         if (!array_key_exists('', $listbox['options'])) {
             $listbox['options'] = Arr::prepend($listbox['options'], $listbox['placeholder'], '');
@@ -231,38 +173,9 @@ abstract class TinymceGenerator
         return $listbox;
     }
 
-    /**
-     * @return void|array
-     */
-    protected function normalizePost(array $field)
+    protected function normalizeTextbox(array $field): array
     {
-        if (!is_array($field['query_args'])) {
-            $field['query_args'] = [];
-        }
-        $posts = get_posts(wp_parse_args($field['query_args'], [
-            'order' => 'ASC',
-            'orderby' => 'title',
-            'post_type' => 'post',
-            'posts_per_page' => 30,
-        ]));
-        if (!empty($posts)) {
-            $options = [];
-            foreach ($posts as $post) {
-                $options[$post->ID] = esc_html($post->post_title);
-            }
-            $field['options'] = $options;
-            $field['type'] = 'listbox';
-            return $this->normalizeListbox($field);
-        }
-        $this->validate($field);
-    }
-
-    /**
-     * @return void|array
-     */
-    protected function normalizeTextbox(array $field)
-    {
-        return $this->normalizeField($field, [
+        return $this->normalize($field, [
             'hidden' => false,
             'label' => '',
             'maxLength' => '',
@@ -278,10 +191,7 @@ abstract class TinymceGenerator
         ]);
     }
 
-    /**
-     * @return bool
-     */
-    protected function validate(array $field)
+    protected function validate(array $field): bool
     {
         $args = shortcode_atts([
             'label' => '',
@@ -294,10 +204,7 @@ abstract class TinymceGenerator
         return $this->validateErrors($args) && $this->validateRequired($args);
     }
 
-    /**
-     * @return bool
-     */
-    protected function validateErrors(array $args)
+    protected function validateErrors(array $args): bool
     {
         if (!isset($args['required']['error'])) {
             return true;
@@ -309,10 +216,7 @@ abstract class TinymceGenerator
         return false;
     }
 
-    /**
-     * @return bool
-     */
-    protected function validateRequired(array $args)
+    protected function validateRequired(array $args): bool
     {
         if (false == $args['required']) {
             return true;

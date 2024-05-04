@@ -2,35 +2,43 @@
 
 namespace GeminiLabs\SiteReviews\Controllers;
 
+use GeminiLabs\SiteReviews\Database;
+use GeminiLabs\SiteReviews\Database\Query;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 
-class TaxonomyController extends Controller
+class TaxonomyController extends AbstractController
 {
     public const PRIORITY_META_KEY = 'term_priority';
 
     /**
-     * @param array $columns
-     * @return array
+     * @param string[] $columns
+     *
+     * @return string[]
+     *
      * @filter manage_edit-{glsr()->taxonomy}_columns
      */
-    public function filterColumns($columns)
+    public function filterColumns(array $columns): array
     {
         if ($this->termPriorityEnabled()) {
             $columns[static::PRIORITY_META_KEY] = _x('Priority', 'admin-text', 'site-reviews');
+            $columns['term_id'] = _x('TID', 'admin-text', 'site-reviews');
+            $columns['term_taxonomy_id'] = _x('TTID', 'admin-text', 'site-reviews');
         }
         return $columns;
     }
 
     /**
-     * @param string $value
-     * @param string $column
-     * @param int $termId
-     * @return string
      * @filter manage_{glsr()->taxonomy}_custom_column
      */
-    public function filterColumnValue($value, $column, $termId)
+    public function filterColumnValue(string $value, string $column, int $termId): string
     {
+        if ('term_id' === $column) {
+            return (string) $termId;
+        }
+        if ('term_taxonomy_id' === $column) {
+            return (string) get_term_by('term_id', $termId, glsr()->taxonomy)->term_taxonomy_id;
+        }
         if (static::PRIORITY_META_KEY !== $column || !$this->termPriorityEnabled()) {
             return $value;
         }
@@ -38,12 +46,31 @@ class TaxonomyController extends Controller
     }
 
     /**
+     * @param string[] $hidden
+     *
+     * @return string[]
+     *
+     * @filter default_hidden_columns
+     */
+    public function filterDefaultHiddenColumns(array $hidden, \WP_Screen $screen): array
+    {
+        if ('edit-'.glsr()->taxonomy !== Arr::get($screen, 'id')) {
+            return $hidden;
+        }
+        return array_unique(array_merge($hidden, [
+            'term_id',
+            'term_taxonomy_id',
+        ]));
+    }
+
+    /**
      * @param string[] $actions
-     * @param \WP_Term $term
-     * @return array
+     *
+     * @return string[]
+     *
      * @filter {glsr()->taxonomy}_row_actions
      */
-    public function filterRowActions($actions, $term)
+    public function filterRowActions(array $actions, \WP_Term $term): array
     {
         $action = ['id' => sprintf('<span>ID: %d</span>', $term->term_id)];
         return array_merge($action, $actions);
@@ -52,11 +79,12 @@ class TaxonomyController extends Controller
     /**
      * @param string[] $clauses
      * @param string[] $taxonomies
-     * @param array $args
-     * @return array
+     *
+     * @return string[]
+     *
      * @filter terms_clauses
      */
-    public function filterTermsClauses($clauses, $taxonomies, $args)
+    public function filterTermsClauses(array $clauses, array $taxonomies, array $args): array
     {
         if (is_admin()) {
             return $clauses;
@@ -75,7 +103,7 @@ class TaxonomyController extends Controller
         $meta->get_sql('term', 't', 'term_id');
         if (empty($meta->get_clauses())) {
             global $wpdb;
-            $clauses['join'] .= $wpdb->prepare(" LEFT JOIN {$wpdb->termmeta} AS tm ON (t.term_id = tm.term_id AND tm.meta_key = %s) ", static::PRIORITY_META_KEY);
+            $clauses['join'] .= $wpdb->prepare(" LEFT JOIN {$wpdb->termmeta} AS tm ON (tm.term_id = t.term_id AND tm.meta_key = %s) ", static::PRIORITY_META_KEY);
             $clauses['where'] .= $wpdb->prepare(" AND (tm.term_id IS NULL OR tm.meta_key = %s) ", static::PRIORITY_META_KEY);
             $clauses['orderby'] = str_replace('ORDER BY', 'ORDER BY tm.meta_value DESC, ', $clauses['orderby']);
         }
@@ -95,10 +123,9 @@ class TaxonomyController extends Controller
     }
 
     /**
-     * @param \WP_Term $term
      * @action {glsr()->taxonomy}_edit_form_fields
      */
-    public function renderEditFields($term): void
+    public function renderEditFields(\WP_Term $term): void
     {
         if ($this->termPriorityEnabled()) {
             glsr()->render('views/partials/taxonomy/edit-term_priority', [
@@ -109,12 +136,9 @@ class TaxonomyController extends Controller
     }
 
     /**
-     * @param string $column
-     * @param string $type
-     * @param string $taxonomy
      * @action quick_edit_custom_box
      */
-    public function renderQuickEditFields($column, $type, $taxonomy): void
+    public function renderQuickEditFields(string $column, string $type, string $taxonomy): void
     {
         if ('edit-tags' !== $type || $taxonomy !== glsr()->taxonomy || static::PRIORITY_META_KEY !== $column) {
             return;
@@ -128,11 +152,10 @@ class TaxonomyController extends Controller
 
     /**
      * @param string[] $metaIds
-     * @param int $termId
-     * @param string $metaKey
+     *
      * @action deleted_term_meta
      */
-    public function termPriorityDeleted($metaIds, $termId, $metaKey): void
+    public function termPriorityDeleted(array $metaIds, int $termId, string $metaKey): void
     {
         $term = get_term((int) $termId, glsr()->taxonomy);
         if (is_a($term, \WP_Term::class) && static::PRIORITY_META_KEY === $metaKey) {
@@ -141,20 +164,16 @@ class TaxonomyController extends Controller
     }
 
     /**
-     * @param int $termId
-     * @param int $ttId
-     * @param array $args
      * @action edit_{glsr()->taxonomy}
      */
-    public function termPriorityUpdated($termId, $ttId, $args): void
+    public function termPriorityUpdated(int $termId, int $ttId, array $args): void
     {
         if (!$this->termPriorityEnabled()) {
             return;
         }
         $value = Arr::getAs('int', $args, static::PRIORITY_META_KEY);
         if (0 === $value) {
-            delete_term_meta($termId, static::PRIORITY_META_KEY);
-            // transient deleted with "deleted_term_meta" hook
+            delete_term_meta($termId, static::PRIORITY_META_KEY); // transient deleted with "deleted_term_meta" hook
         } else {
             update_term_meta($termId, static::PRIORITY_META_KEY, $value);
             delete_transient(glsr()->prefix.static::PRIORITY_META_KEY);
@@ -175,14 +194,16 @@ class TaxonomyController extends Controller
     {
         $result = get_transient(glsr()->prefix.static::PRIORITY_META_KEY);
         if (false === $result) {
-            global $wpdb;
-            $result = (int) $wpdb->get_var($wpdb->prepare("
+            $sql = "
                 SELECT COUNT(*) 
-                FROM {$wpdb->termmeta} AS tm
-                INNER JOIN {$wpdb->term_taxonomy} AS tt ON tm.term_id = tt.term_id
+                FROM table|termmeta AS tm
+                INNER JOIN table|term_taxonomy AS tt ON (tt.term_id = tm.term_id)
                 WHERE tt.taxonomy = %s
                 AND meta_key = %s
-            ", glsr()->taxonomy, static::PRIORITY_META_KEY));
+            ";
+            $result = (int) glsr(Database::class)->dbGetVar(
+                glsr(Query::class)->sql($sql, glsr()->taxonomy, static::PRIORITY_META_KEY)
+            );
             set_transient(glsr()->prefix.static::PRIORITY_META_KEY, $result);
         }
         return (int) $result > 0;

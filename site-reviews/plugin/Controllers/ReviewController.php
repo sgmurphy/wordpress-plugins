@@ -20,39 +20,24 @@ use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Metaboxes\ResponseMetabox;
+use GeminiLabs\SiteReviews\Modules\Avatar;
 use GeminiLabs\SiteReviews\Modules\Html\ReviewHtml;
 use GeminiLabs\SiteReviews\Modules\Queue;
+use GeminiLabs\SiteReviews\Request;
 use GeminiLabs\SiteReviews\Review;
 
-class ReviewController extends Controller
+class ReviewController extends AbstractController
 {
     /**
-     * Fallback action if ajax is not working for any reason
-     * @action admin_action_approve
-     */
-    public function approve(): void
-    {
-        if (glsr()->id === filter_input(INPUT_GET, 'plugin')) {
-            check_admin_referer('approve-review_'.($postId = $this->getPostId()));
-            $this->execute(new ToggleStatus([
-                'post_id' => $postId,
-                'status' => 'publish',
-            ]));
-            wp_safe_redirect(wp_get_referer());
-            exit;
-        }
-    }
-
-    /**
-     * @param array $posts
-     * @return array
+     * @param \WP_Post[] $posts
+     *
+     * @return \WP_Post[]
+     *
      * @filter the_posts
      */
-    public function filterPostsToCacheReviews($posts)
+    public function filterPostsToCacheReviews(array $posts): array
     {
-        $reviews = array_filter((array) $posts, function ($post) {
-            return glsr()->post_type === $post->post_type;
-        });
+        $reviews = array_filter($posts, fn ($post) => glsr()->post_type === $post->post_type);
         if ($postIds = wp_list_pluck($reviews, 'ID')) {
             glsr(Query::class)->reviews([], $postIds); // this caches the associated Review objects
         }
@@ -60,12 +45,9 @@ class ReviewController extends Controller
     }
 
     /**
-     * @param array $data
-     * @param array $sanitized
-     * @return array
      * @filter wp_insert_post_data
      */
-    public function filterReviewPostData($data, $sanitized)
+    public function filterReviewPostData(array $data, array $sanitized): array
     {
         if (empty($sanitized['ID']) || empty($sanitized['action']) || glsr()->post_type !== Arr::get($sanitized, 'post_type')) {
             return $data;
@@ -122,18 +104,18 @@ class ReviewController extends Controller
     /**
      * Triggered when one or more categories are added or removed from a review.
      *
-     * @param int $postId
-     * @param array $terms
-     * @param array $newTTIds
-     * @param string $taxonomy
-     * @param bool $append
-     * @param array $oldTTIds
      * @action set_object_terms
      */
-    public function onAfterChangeAssignedTerms($postId, $terms, $newTTIds, $taxonomy, $append, $oldTTIds): void
-    {
+    public function onAfterChangeAssignedTerms(
+        int $postId,
+        array $terms,
+        array $newTTIds,
+        string $taxonomy,
+        bool $append,
+        array $oldTTIds
+    ): void {
         if (Review::isReview($postId)) {
-            $review = glsr(Query::class)->review($postId);
+            $review = glsr(ReviewManager::class)->get($postId);
             $diff = $this->getAssignedDiffs($oldTTIds, $newTTIds);
             $this->execute(new UnassignTerms($review, $diff['old']));
             $this->execute(new AssignTerms($review, $diff['new']));
@@ -143,12 +125,9 @@ class ReviewController extends Controller
     /**
      * Triggered when a post status changes or when a review is approved|unapproved|trashed.
      *
-     * @param string $new
-     * @param string $old
-     * @param \WP_Post $post
      * @action transition_post_status
      */
-    public function onAfterChangeStatus($new, $old, $post): void
+    public function onAfterChangeStatus(string $new, string $old, \WP_Post $post): void
     {
         if (in_array($old, ['new', $new])) {
             return;
@@ -180,7 +159,26 @@ class ReviewController extends Controller
     }
 
     /**
+     * Fallback action if ajax is not working for any reason.
+     *
+     * @action admin_action_approve
+     */
+    public function onApprove(): void
+    {
+        if (glsr()->id === filter_input(INPUT_GET, 'plugin')) {
+            check_admin_referer('approve-review_'.($postId = $this->getPostId()));
+            $this->execute(new ToggleStatus(new Request([
+                'post_id' => $postId,
+                'status' => 'publish',
+            ])));
+            wp_safe_redirect(wp_get_referer());
+            exit;
+        }
+    }
+
+    /**
      * Triggered when a review's assigned post IDs are updated.
+     *
      * @action site-reviews/review/updated/post_ids
      */
     public function onChangeAssignedPosts(Review $review, array $postIds = []): void
@@ -193,10 +191,9 @@ class ReviewController extends Controller
     /**
      * Triggered when a review's assigned users IDs are updated.
      *
-     * @return void
      * @action site-reviews/review/updated/user_ids
      */
-    public function onChangeAssignedUsers(Review $review, array $userIds = [])
+    public function onChangeAssignedUsers(Review $review, array $userIds = []): void
     {
         $diff = $this->getAssignedDiffs($review->assigned_users, $userIds);
         $this->execute(new UnassignUsers($review, $diff['old']));
@@ -205,6 +202,7 @@ class ReviewController extends Controller
 
     /**
      * Triggered after a review is created.
+     *
      * @action site-reviews/review/created
      */
     public function onCreatedReview(Review $review, CreateReview $command): void
@@ -215,6 +213,7 @@ class ReviewController extends Controller
 
     /**
      * Triggered when a review is created.
+     *
      * @action site-reviews/review/create
      */
     public function onCreateReview(int $postId, CreateReview $command): void
@@ -243,58 +242,58 @@ class ReviewController extends Controller
             glsr(Database::class)->metaSet($postId, 'response_by', $values->response_by); // @phpstan-ignore-line
         }
         foreach ($values->custom as $key => $value) {
-            glsr(Database::class)->metaSet($postId, 'custom_'.$key, $value);
+            glsr(Database::class)->metaSet($postId, "custom_{$key}", $value);
         }
     }
 
     /**
      * Triggered when a review or other post type is deleted and the posts table uses the MyISAM engine.
-     * @param int $postId
-     * @param \WP_Post $post
+     *
      * @action deleted_post
      */
-    public function onDeletePost($postId, $post): void
+    public function onDeletePost(int $postId, \WP_Post $post): void
     {
         if (glsr()->post_type === $post->post_type) {
-            $this->onDeleteReview((int) $postId);
+            $this->onDeleteReview($postId);
             return;
         }
-        $reviews = glsr(Query::class)->reviews([
+        $reviewIds = glsr(Query::class)->reviewIds([
             'assigned_posts' => $postId,
             'per_page' => -1,
             'status' => 'all',
         ]);
         if (glsr(Database::class)->delete('assigned_posts', ['post_id' => $postId])) {
-            array_walk($reviews, function ($review) {
-                glsr(Cache::class)->delete($review->ID, 'reviews');
+            array_walk($reviewIds, function ($reviewId) {
+                glsr(Cache::class)->delete($reviewId, 'reviews');
             });
         }
     }
 
     /**
      * Triggered when a review is deleted and the posts table uses the MyISAM engine.
+     *
      * @see $this->onDeletePost()
      */
     public function onDeleteReview(int $reviewId): void
     {
-        glsr(ReviewManager::class)->delete($reviewId);
+        glsr(ReviewManager::class)->deleteRating($reviewId);
     }
 
     /**
      * Triggered when a user is deleted and the users table uses the MyISAM engine.
-     * @param int $userId
+     *
      * @action deleted_user
      */
-    public function onDeleteUser($userId = 0): void
+    public function onDeleteUser(int $userId = 0): void
     {
-        $reviews = glsr(Query::class)->reviews([
+        $reviewIds = glsr(Query::class)->reviewIds([
             'assigned_users' => $userId,
             'per_page' => -1,
             'status' => 'all',
         ]);
         if (glsr(Database::class)->delete('assigned_users', ['user_id' => $userId])) {
-            array_walk($reviews, function ($review) {
-                glsr(Cache::class)->delete($review->ID, 'reviews');
+            array_walk($reviewIds, function ($reviewId) {
+                glsr(Cache::class)->delete($reviewId, 'reviews');
             });
         }
     }
@@ -303,12 +302,10 @@ class ReviewController extends Controller
      * Triggered when a review is edited or trashed.
      * It's unnecessary to trigger a term recount as this is done by the set_object_terms hook
      * We need to use "post_updated" to support revisions (vs "save_post").
-     * @param int $postId
-     * @param \WP_Post $post
-     * @param \WP_Post $oldPost
+     *
      * @action post_updated
      */
-    public function onEditReview($postId, $post, $oldPost): void
+    public function onEditReview(int $postId, \WP_Post $post, \WP_Post $oldPost): void
     {
         if (!glsr()->can('edit_posts') || !$this->isEditedReview($post, $oldPost)) {
             return;
@@ -319,11 +316,30 @@ class ReviewController extends Controller
         if (!in_array(glsr_current_screen()->base, ['edit', 'post'])) {
             return; // only trigger this action from the Site Reviews edit/post screens
         }
-        $review = glsr(Query::class)->review($postId);
+        $review = glsr(ReviewManager::class)->get($postId);
         if ('edit' === glsr_current_screen()->base) {
             $this->bulkUpdateReview($review, $oldPost);
         } else {
             $this->updateReview($review, $oldPost);
+        }
+    }
+
+    /**
+     * Fallback action if ajax is not working for any reason.
+     *
+     * @action admin_action_unapprove
+     */
+    public function onUnapprove(): void
+    {
+        if (glsr()->id === filter_input(INPUT_GET, 'plugin')) {
+            $postId = $this->getPostId();
+            check_admin_referer("unapprove-review_{$postId}");
+            $this->execute(new ToggleStatus(new Request([
+                'post_id' => $postId,
+                'status' => 'publish',
+            ])));
+            wp_safe_redirect(wp_get_referer());
+            exit;
         }
     }
 
@@ -344,23 +360,6 @@ class ReviewController extends Controller
         glsr(Queue::class)->async('queue/notification', ['review_id' => $review->ID]);
     }
 
-    /**
-     * Fallback action if ajax is not working for any reason
-     * @action admin_action_unapprove
-     */
-    public function unapprove(): void
-    {
-        if (glsr()->id === filter_input(INPUT_GET, 'plugin')) {
-            check_admin_referer('unapprove-review_'.($postId = $this->getPostId()));
-            $this->execute(new ToggleStatus([
-                'post_id' => $postId,
-                'status' => 'pending',
-            ]));
-            wp_safe_redirect(wp_get_referer());
-            exit;
-        }
-    }
-
     protected function bulkUpdateReview(Review $review, \WP_Post $oldPost): void
     {
         if ($assignedPostIds = filter_input(INPUT_GET, 'post_ids', FILTER_SANITIZE_NUMBER_INT, FILTER_FORCE_ARRAY)) {
@@ -369,7 +368,7 @@ class ReviewController extends Controller
         if ($assignedUserIds = filter_input(INPUT_GET, 'user_ids', FILTER_SANITIZE_NUMBER_INT, FILTER_FORCE_ARRAY)) {
             glsr()->action('review/updated/user_ids', $review, Cast::toArray($assignedUserIds)); // trigger a recount of assigned users
         }
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         glsr()->action('review/updated', $review, [], $oldPost); // pass an empty array since review values are unchanged
     }
 
@@ -389,11 +388,7 @@ class ReviewController extends Controller
         ];
     }
 
-    /**
-     * @param \WP_Post $post
-     * @param \WP_Post $oldPost
-     */
-    protected function isEditedReview($post, $oldPost): bool
+    protected function isEditedReview(\WP_Post $post, \WP_Post $oldPost): bool
     {
         if (glsr()->post_type !== $post->post_type) {
             return false;
@@ -402,7 +397,21 @@ class ReviewController extends Controller
             return false; // trashed posts cannot be edited
         }
         $input = 'edit' === glsr_current_screen()->base ? INPUT_GET : INPUT_POST;
-        return 'glsr_action' !== filter_input($input, 'action'); // abort if not a proper post update (i.e. approve/unapprove)
+        return filter_input($input, 'action') !== glsr()->prefix.'admin_action'; // abort if not a proper post update (i.e. approve/unapprove)
+    }
+
+    protected function refreshAvatar(array $data, Review $review): string
+    {
+        $avatarUrl = Cast::toString($data['avatar'] ?? '');
+        if ($review->author === ($data['name'] ?? false)) {
+            return $avatarUrl;
+        }
+        $url = preg_replace('/(.*)\/site-reviews\/avatars\/[\p{L&}]+\.svg$/u', '', $avatarUrl);
+        if (empty($url)) { // only update the initials fallback avatar
+            $review->set('author', $data['name'] ?? '');
+            $avatarUrl = glsr(Avatar::class)->generateInitials($review);
+        }
+        return $avatarUrl;
     }
 
     protected function updateReview(Review $review, \WP_Post $oldPost): void
@@ -416,6 +425,7 @@ class ReviewController extends Controller
         $data = Helper::filterInputArray(glsr()->id);
         $data = wp_parse_args($data, $customDefaults); // this ensures we save all empty custom values
         if (Arr::get($data, 'is_editing_review')) {
+            $data['avatar'] = $this->refreshAvatar($data, $review);
             $data['rating'] = Arr::get($data, 'rating');
             $data['terms'] = Arr::get($data, 'terms', 0);
             if (!glsr()->filterBool('verification/enabled', false)) {
@@ -424,7 +434,7 @@ class ReviewController extends Controller
             glsr(ReviewManager::class)->updateRating($review->ID, $data); // values are sanitized here
             glsr(ReviewManager::class)->updateCustom($review->ID, $data); // values are sanitized here
         }
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         glsr()->action('review/updated', $review, $data, $oldPost);
     }
 }

@@ -2,16 +2,17 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\SchemaPro;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Modules\Schema;
 use GeminiLabs\SiteReviews\Modules\SchemaParser;
 use GeminiLabs\SiteReviews\Review;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * @param array $data
+     *
      * @filter wp_schema_pro_schema_article
      * @filter wp_schema_pro_schema_book
      * @filter wp_schema_pro_schema_course
@@ -49,7 +50,7 @@ class Controller extends BaseController
     /**
      * @action site-reviews/review/created
      */
-    public function onReviewCreated(Review $review)
+    public function onReviewCreated(Review $review): void
     {
         foreach ($review->assigned_posts as $postId) {
             delete_post_meta($postId, BSF_AIOSRS_PRO_CACHE_KEY);

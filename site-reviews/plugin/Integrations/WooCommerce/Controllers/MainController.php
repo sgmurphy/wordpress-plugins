@@ -2,38 +2,43 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\WooCommerce\Controllers;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Integrations\WooCommerce\Elementor\Widgets\ProductRating;
 use GeminiLabs\SiteReviews\Integrations\WooCommerce\Widgets\WidgetRatingFilter;
 use GeminiLabs\SiteReviews\Integrations\WooCommerce\Widgets\WidgetRecentReviews;
 use GeminiLabs\SiteReviews\Review;
 
-class MainController extends BaseController
+class MainController extends AbstractController
 {
     public const VERIFIED_META_KEY = '_verified';
 
     /**
      * @filter site-reviews/enqueue/public/inline-styles
      */
-    public function filterInlineStyles(string $style): string
+    public function filterInlineStyles(string $css): string
     {
-        $style .= 'ul.glsr li a{display:flex;justify-content:space-between;}'; // fix rating filter widget
-        $style .= '.glsr.woocommerce-product-rating{align-items:center;display:inline-flex;gap:.5em;}.glsr.woocommerce-product-rating .woocommerce-review-link{top:-1px!important;}'; // fix product title rating position
-        if ('black' === glsr_get_option('addons.woocommerce.style')) {
-            $style .= '.glsr:not([data-theme]) .glsr-bar-background-percent{color:#212121!important;}';
+        $css .= 'ul.glsr li a{display:flex;justify-content:space-between;}'; // fix rating filter widget
+        $css .= '.glsr.woocommerce-product-rating{align-items:center;display:inline-flex;gap:.5em;}.glsr.woocommerce-product-rating .woocommerce-review-link{top:-1px!important;}'; // fix product title rating position
+        $style = glsr_get_option('addons.woocommerce.style');
+        if ('black' === $style) {
+            $css .= '.glsr:not([data-theme]) .glsr-bar-background-percent{--glsr-bar-bg:#212121;}';
+            $css .= '.glsr:not([data-theme]) .glsr-star{background:#212121!important;}';
         }
-        if ('woocommerce' === glsr_get_option('addons.woocommerce.style')) {
-            $style .= '.glsr:not([data-theme]) .glsr-bar-background-percent{color:#96588A!important;}';
+        if ('woocommerce' === $style) {
+            $css .= '.glsr:not([data-theme]) .glsr-bar-background-percent{--glsr-bar-bg:#96588A;}';
+            $css .= '.glsr:not([data-theme]) .glsr-star{background:#96588A!important;}';
         }
-        return $style;
+        return $css;
     }
 
     /**
      * @param string $status
      * @param string $postType
      * @param string $commentType
+     *
      * @return string
+     *
      * @filter get_default_comment_status
      */
     public function filterProductCommentStatus($status, $postType, $commentType)
@@ -45,9 +50,11 @@ class MainController extends BaseController
     }
 
     /**
-     * @param array $settings
+     * @param array  $settings
      * @param string $section
+     *
      * @return array
+     *
      * @filter woocommerce_get_settings_products
      */
     public function filterProductSettings($settings, $section)
@@ -79,6 +86,7 @@ class MainController extends BaseController
 
     /**
      * @return string
+     *
      * @filter option_woocommerce_enable_review_rating
      * @filter option_woocommerce_review_rating_required
      */
@@ -89,6 +97,7 @@ class MainController extends BaseController
 
     /**
      * @return \WC_Product|false
+     *
      * @filter site-reviews/review/call/product
      */
     public function filterReviewProductMethod(Review $review)
@@ -101,6 +110,7 @@ class MainController extends BaseController
 
     /**
      * @param \GeminiLabs\SiteReviews\Modules\Html\Tags\ReviewAuthorTag $tag
+     *
      * @filter site-reviews/review/value/author
      */
     public function filterReviewAuthorTagValue(string $value, $tag): string
@@ -110,20 +120,6 @@ class MainController extends BaseController
             $value = sprintf('%s <em class="woocommerce-review__verified verified">(%s)</em>', $value, $text);
         }
         return $value;
-    }
-
-    /**
-     * @filter site-reviews/config/inline-styles
-     */
-    public function filterStarImages(array $config): array
-    {
-        $style = glsr_get_option('addons.woocommerce.style');
-        if (in_array($style, ['black', 'woocommerce'])) {
-            $config[':star-empty'] = glsr()->url('assets/images/stars/'.$style.'/star-empty.svg');
-            $config[':star-full'] = glsr()->url('assets/images/stars/'.$style.'/star-full.svg');
-            $config[':star-half'] = glsr()->url('assets/images/stars/'.$style.'/star-half.svg');
-        }
-        return $config;
     }
 
     /**
@@ -162,7 +158,9 @@ class MainController extends BaseController
 
     /**
      * @param array $args
+     *
      * @return array
+     *
      * @action woocommerce_register_post_type_product
      */
     public function removeWoocommerceReviews($args)
@@ -187,12 +185,14 @@ class MainController extends BaseController
 
     /**
      * @return void|bool
+     *
      * @see $this->hasVerifiedOwner()
+     *
      * @action site-reviews/review/created
      */
     public function verifyProductOwner(Review $review)
     {
-        $review = glsr_get_review($review->ID); // load a fresh instance of the review
+        $review->refresh(); // refresh the review first!
         $verified = false;
         foreach ($review->assigned_posts as $postId) {
             if ('product' === get_post_type($postId)) {

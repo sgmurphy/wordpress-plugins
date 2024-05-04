@@ -9,17 +9,17 @@ class SiteReviewsFormDefaults extends DefaultsAbstract
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'debug' => 'bool',
     ];
 
     /**
      * The values that should be guarded.
+     *
      * @var string[]
      */
-    public $guarded = [
+    public array $guarded = [
         'description', 'title',
     ];
 
@@ -27,9 +27,8 @@ class SiteReviewsFormDefaults extends DefaultsAbstract
      * The keys that should be mapped to other keys.
      * Keys are mapped before the values are normalized and sanitized.
      * Note: Mapped keys should not be included in the defaults!
-     * @var array
      */
-    public $mapped = [
+    public array $mapped = [
         'assign_to' => 'assigned_posts',
         'category' => 'assigned_terms',
         'user' => 'assigned_users',
@@ -38,9 +37,8 @@ class SiteReviewsFormDefaults extends DefaultsAbstract
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'class' => 'attr-class',
         'description' => 'text',
         'hide' => 'array-string',
@@ -49,10 +47,7 @@ class SiteReviewsFormDefaults extends DefaultsAbstract
         'title' => 'text',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'assigned_posts' => '',
@@ -71,9 +66,8 @@ class SiteReviewsFormDefaults extends DefaultsAbstract
 
     /**
      * Finalize provided values, this always runs last.
-     * @return array
      */
-    protected function finalize(array $values = [])
+    protected function finalize(array $values = []): array
     {
         $values['form_id'] = $values['id']; // used for the validation session key and to generate the honeypot hash
         return $values;
@@ -81,9 +75,8 @@ class SiteReviewsFormDefaults extends DefaultsAbstract
 
     /**
      * Normalize provided values, this always runs first.
-     * @return array
      */
-    protected function normalize(array $values = [])
+    protected function normalize(array $values = []): array
     {
         foreach ($this->mapped as $old => $new) {
             if ('custom' === Arr::get($values, $old)) {

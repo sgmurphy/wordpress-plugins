@@ -14,32 +14,17 @@ use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsShortcode;
  * @property string $content
  * @property string $date
  * @property string $author
- * @property int $rating
+ * @property int    $rating
  * @property string $response
  * @property string $title
- * etc.
  */
 class ReviewHtml extends \ArrayObject
 {
-    /**
-     * @var array
-     */
-    public $args;
+    public array $args;
+    public array $context;
+    public Review $review;
 
-    /**
-     * @var array
-     */
-    public $context;
-
-    /**
-     * @var Review
-     */
-    public $review;
-
-    /**
-     * @var array
-     */
-    protected $attributes;
+    protected array $attributes = [];
 
     public function __construct(Review $review, array $args = [])
     {
@@ -49,10 +34,7 @@ class ReviewHtml extends \ArrayObject
         parent::__construct($this->context, \ArrayObject::STD_PROP_LIST | \ArrayObject::ARRAY_AS_PROPS);
     }
 
-    /**
-     * @return string|void
-     */
-    public function __toString()
+    public function __toString(): string
     {
         if (empty($this->context)) {
             return '';
@@ -85,11 +67,11 @@ class ReviewHtml extends \ArrayObject
     {
         $args = $this->args;
         $className = Helper::buildClassName(['review', $tag, 'tag'], 'Modules\Html\Tags');
-        $className = glsr()->filterString('review/tag/'.$tag, $className, $this);
+        $className = glsr()->filterString("review/tag/{$tag}", $className, $this);
         $field = class_exists($className)
             ? glsr($className, compact('tag', 'args'))->handleFor('review', $value, $review)
             : Cast::toString($value, false);
-        return glsr()->filterString('review/build/tag/'.$tag, $field, $value, $review, $this);
+        return glsr()->filterString("review/build/tag/{$tag}", $field, $value, $review, $this);
     }
 
     public function buildTemplateTags(Review $review): array
@@ -101,8 +83,9 @@ class ReviewHtml extends \ArrayObject
             'assigned_terms' => $review->assigned_terms,
             'assigned_users' => $review->assigned_users,
         ]);
-        $templateTags['assigned'] = json_encode($assignedTag);
-        foreach ($review as $key => $value) {
+        $templateTags['assigned'] = wp_json_encode($assignedTag);
+        $values = $review->toArray();
+        foreach ($values as $key => $value) {
             $tag = $this->normalizeTemplateTag($key);
             $templateTags[$tag] = $this->buildTemplateTag($review, $tag, $value);
         }
@@ -110,7 +93,8 @@ class ReviewHtml extends \ArrayObject
     }
 
     /**
-     * @param mixed $key
+     * @param string $key
+     *
      * @return mixed
      */
     #[\ReturnTypeWillChange]

@@ -2,60 +2,49 @@
 
 namespace GeminiLabs\SiteReviews\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
 use GeminiLabs\SiteReviews\Database\OptionManager;
+use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Modules\Migrate;
 use GeminiLabs\SiteReviews\Modules\Notice;
 use GeminiLabs\SiteReviews\Upload;
 
-class ImportSettings extends Upload implements Contract
+class ImportSettings extends AbstractCommand
 {
-    /**
-     * @return void
-     */
-    public function handle()
+    use Upload;
+
+    public function handle(): void
     {
-        if (!glsr()->hasPermission('settings')) {
-            glsr(Notice::class)->addError(
-                _x('You do not have permission to import settings.', 'admin-text', 'site-reviews')
-            );
+        $this->fail();
+        if (!$file = $this->getImportFile('application/json')) {
             return;
         }
-        if (!$this->validateUpload() || !$this->validateExtension('.json')) {
-            glsr(Notice::class)->addWarning(
-                _x('The import file is not a valid JSON file.', 'admin-text', 'site-reviews')
-            );
+        if (!$data = $this->getImportFileData($file)) {
             return;
         }
-        if ($this->import()) {
-            glsr(Notice::class)->addSuccess(
-                _x('Settings imported.', 'admin-text', 'site-reviews')
-            );
+        if (!$this->import($data)) {
+            return;
         }
+        $this->pass();
+        glsr(Notice::class)->addSuccess(
+            _x('Settings imported.', 'admin-text', 'site-reviews')
+        );
     }
 
-    /**
-     * @return bool
-     */
-    protected function import()
+    protected function import(array $data): bool
     {
-        $settings = json_decode(file_get_contents($this->file()->tmp_name), true);
-        if (!empty($settings)) {
-            if (isset($settings['version'])) { // don't import version
-                $settings['version'] = glsr(OptionManager::class)->get('version');
-            }
-            if (isset($settings['version_upgraded_from'])) { // don't import version_upgraded_from
-                $settings['version_upgraded_from'] = glsr(OptionManager::class)->get('version_upgraded_from');
-            }
-            glsr(OptionManager::class)->set(
-                glsr(OptionManager::class)->normalize($settings)
-            );
-            glsr(Migrate::class)->runAll(); // migrate the imported settings
-            return true;
+        if (empty($data)) {
+            return false;
         }
-        glsr(Notice::class)->addWarning(
-            _x('There were no settings found to import.', 'admin-text', 'site-reviews')
-        );
-        return false;
+        if (isset($data['version'])) { // don't import version
+            $data['version'] = glsr(OptionManager::class)->get('version');
+        }
+        if (isset($data['version_upgraded_from'])) { // don't import version_upgraded_from
+            $data['version_upgraded_from'] = glsr(OptionManager::class)->get('version_upgraded_from');
+        }
+        $settings = glsr(OptionManager::class)->normalize($data);
+        glsr(OptionManager::class)->replace($settings);
+        glsr()->action('import/settings/extra', Arr::consolidate($data['extra'] ?? [])); // allow addons to import additional data
+        glsr(Migrate::class)->runAll(); // migrate the imported settings
+        return true;
     }
 }

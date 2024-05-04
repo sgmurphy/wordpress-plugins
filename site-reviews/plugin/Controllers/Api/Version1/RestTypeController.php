@@ -12,6 +12,7 @@ class RestTypeController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response|\WP_Error
      */
     public function get_items($request)
@@ -29,6 +30,7 @@ class RestTypeController extends \WP_REST_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function get_items_permissions_check($request)
@@ -47,7 +49,7 @@ class RestTypeController extends \WP_REST_Controller
      */
     public function register_routes()
     {
-        register_rest_route($this->namespace, '/'.$this->rest_base, [
+        register_rest_route($this->namespace, "/{$this->rest_base}", [
             [
                 'callback' => [$this, 'get_items'],
                 'methods' => \WP_REST_Server::READABLE,

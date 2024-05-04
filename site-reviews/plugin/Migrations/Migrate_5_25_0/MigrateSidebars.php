@@ -85,18 +85,18 @@ class MigrateSidebars implements MigrateContract
     protected function migrateUserMeta()
     {
         $postType = glsr()->post_type;
-        $metaKey = 'meta-box-order_'.$postType;
+        $metaKey = "meta-box-order_{$postType}";
         $metaOrder = [
             'side' => [
                 'submitdiv',
-                $postType.'-categorydiv',
-                $postType.'-postsdiv',
-                $postType.'-usersdiv',
-                $postType.'-authordiv',
+                "{$postType}-categorydiv",
+                "{$postType}-postsdiv",
+                "{$postType}-usersdiv",
+                "{$postType}-authordiv",
             ],
             'normal' => [
-                $postType.'-responsediv',
-                $postType.'-detailsdiv',
+                "{$postType}-responsediv",
+                "{$postType}-detailsdiv",
             ],
             'advanced' => [],
         ];
@@ -115,6 +115,7 @@ class MigrateSidebars implements MigrateContract
 
     /**
      * @param mixed $option
+     *
      * @return string|array
      */
     protected function migrateWidgetData($option)
@@ -141,7 +142,7 @@ class MigrateSidebars implements MigrateContract
             'site-reviews-summary',
         ];
         foreach ($widgets as $widget) {
-            $oldWidget = 'widget_'.glsr()->id.'_'.$widget;
+            $oldWidget = 'widget_'.glsr()->id."_{$widget}";
             $newWidget = 'widget_'.glsr()->prefix.$widget;
             if ($option = get_option($oldWidget)) {
                 update_option($newWidget, $this->migrateWidgetData($option));
@@ -163,14 +164,13 @@ class MigrateSidebars implements MigrateContract
     }
 
     /**
-     * @param array $sidebars
      * @return array
      */
     protected function updateWidgetNames(array $sidebars)
     {
         array_walk($sidebars, function (&$widgets) {
             array_walk($widgets, function (&$widget) {
-                if (Str::startsWith($widget, glsr()->id.'_')) {
+                if (str_starts_with($widget, glsr()->id.'_')) {
                     $widget = Str::replaceFirst(glsr()->id.'_', glsr()->prefix, $widget);
                 }
             });
@@ -188,7 +188,7 @@ class MigrateSidebars implements MigrateContract
         $widgets = call_user_func_array('array_merge', $sidebars);
         $widgets = Arr::consolidate($widgets); // ensure this is an array in case call_user_func_array() errors
         foreach ($widgets as $widget) {
-            if (Str::startsWith($widget, glsr()->id.'_')) {
+            if (str_starts_with($widget, glsr()->id.'_')) {
                 return true;
             }
         }

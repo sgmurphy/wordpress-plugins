@@ -18,17 +18,18 @@ class Hooks implements HooksContract
                 continue;
             }
             try {
-                $hooks = sprintf('\GeminiLabs\SiteReviews\Hooks\%s', $fileinfo->getBasename('.php'));
+                $hooks = "GeminiLabs\SiteReviews\Hooks\\{$fileinfo->getBasename('.php')}";
                 $reflect = new \ReflectionClass($hooks);
                 if ($reflect->isInstantiable()) {
                     glsr()->singleton($hooks); // make singleton
                     glsr($hooks)->run();
+                    glsr($hooks)->runDeferred();
                 }
             } catch (\ReflectionException $e) {
                 glsr_log()->error($e->getMessage());
             }
         }
-        add_action('plugins_loaded', [$this, 'runIntegrations'], 100); // run after all addons have loaded
+        $this->runIntegrations();
     }
 
     public function runIntegrations(): void
@@ -43,11 +44,14 @@ class Hooks implements HooksContract
                 continue;
             }
             try {
-                $hooks = sprintf('\GeminiLabs\SiteReviews\Integrations\%s\Hooks', $fileinfo->getBasename());
+                $hooks = "GeminiLabs\SiteReviews\Integrations\\{$fileinfo->getBasename()}\Hooks";
                 $reflect = new \ReflectionClass($hooks);
                 if ($reflect->isInstantiable()) {
                     glsr()->singleton($hooks);
-                    glsr($hooks)->run();
+                    add_action('plugins_loaded', function () use ($hooks) {
+                        glsr($hooks)->run();
+                    }, 100); // run integrations late
+                    glsr($hooks)->runDeferred();
                 }
             } catch (\ReflectionException $e) {
                 glsr_log()->error($e->getMessage());

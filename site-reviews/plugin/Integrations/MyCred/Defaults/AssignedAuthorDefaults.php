@@ -9,19 +9,15 @@ class AssignedAuthorDefaults extends DefaultsAbstract
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'log' => 'text',
         'log_deduction' => 'text',
         'points' => 'numeric',
         'points_deduction' => 'numeric',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'log' => '%plural% for getting a review on %link_with_title%',

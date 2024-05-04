@@ -16,15 +16,16 @@ class Hooks extends AbstractHooks
     {
         $this->hook(Controller::class, [
             ['declareHposCompatibility', 'before_woocommerce_init'],
-            ['filterSettings', 'site-reviews/addon/settings'],
+            ['filterSettings', 'site-reviews/settings'],
             ['filterSettingsCallback', 'site-reviews/settings/sanitize', 10, 2],
             ['filterSubsubsub', 'site-reviews/addon/subsubsub'],
             ['renderNotice', 'admin_init'],
-            ['renderSettings', 'site-reviews/addon/settings/woocommerce'],
+            ['renderSettings', 'site-reviews/settings/woocommerce'],
         ]);
         $this->hook(ImportController::class, [
             ['filterTools', 'site-reviews/tools/general'],
             ['importProductReviewsAjax', 'site-reviews/route/ajax/import-product-reviews'],
+            ['migrateProductRatingsAjax', 'site-reviews/route/ajax/migrate-product-ratings'],
         ]);
         if ($this->isEnabled()) {
             $this->hook(ExperimentsController::class, $this->experimentalHooks());
@@ -36,7 +37,7 @@ class Hooks extends AbstractHooks
 
     protected function experimentalHooks(): array
     {
-        if ('yes' !== glsr_get_option('addons.woocommerce.wp_comments')) {
+        if ('yes' !== $this->option('addons.woocommerce.wp_comments')) {
             return [];
         }
         return [
@@ -47,7 +48,7 @@ class Hooks extends AbstractHooks
 
     protected function isEnabled(): bool
     {
-        return glsr_get_option('addons.woocommerce.enabled', false, 'bool')
+        return 'yes' === $this->option('addons.woocommerce.enabled')
             && 'yes' === get_option('woocommerce_enable_reviews', 'yes')
             && class_exists('WooCommerce')
             && function_exists('WC');
@@ -67,7 +68,6 @@ class Hooks extends AbstractHooks
             ['filterRatingOption', 'option_woocommerce_review_rating_required'],
             ['filterReviewAuthorTagValue', 'site-reviews/review/value/author', 10, 2],
             ['filterReviewProductMethod', 'site-reviews/review/call/product'],
-            ['filterStarImages', 'site-reviews/config/inline-styles', 20],
             ['hasVerifiedOwner', 'site-reviews/review/call/hasVerifiedOwner'],
             ['registerElementorWidgets', 'elementor/widgets/register', 20],
             ['registerWidgets', 'widgets_init', 20],
@@ -96,6 +96,7 @@ class Hooks extends AbstractHooks
             ['filterWoocommerceTemplate', 'wc_get_template', 20, 2],
             ['modifyProductQuery', 'pre_get_posts'],
             ['printInlineStyle', 'admin_head'],
+            ['registerMetaboxes', 'add_meta_boxes_product', 20],
             ['renderBulkEditField', 'bulk_edit_custom_box', 10, 2],
             ['renderLoopRating', 'site-reviews/woocommerce/render/loop/rating', 5],
             ['renderProductDataPanel', 'woocommerce_product_data_panels'],
@@ -103,6 +104,7 @@ class Hooks extends AbstractHooks
             ['renderReviews', 'site-reviews/woocommerce/render/product/reviews'],
             ['renderTitleRating', 'woocommerce_single_product_summary'],
             ['updateProductData', 'woocommerce_admin_process_product_object'],
+            ['updateProductRatingCounts', 'site-reviews/ratings/count/post', 10, 2],
         ];
     }
 

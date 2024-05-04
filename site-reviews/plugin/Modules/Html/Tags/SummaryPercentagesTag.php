@@ -7,20 +7,45 @@ use GeminiLabs\SiteReviews\Modules\Rating;
 
 class SummaryPercentagesTag extends SummaryTag
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function handle($value = null)
+    protected function handle(): string
     {
-        if (!$this->isHidden()) {
-            return $this->wrap($this->percentages());
+        if ($this->isHidden()) {
+            return '';
         }
+        return $this->wrap($this->value());
     }
 
-    /**
-     * @return void|string
-     */
-    protected function percentages()
+    protected function ratingBar(int $level, array $percentages): string
+    {
+        $background = glsr(Builder::class)->span([
+            'class' => 'glsr-bar-background-percent',
+            'style' => "width:{$percentages[$level]}",
+        ]);
+        return glsr(Builder::class)->span([
+            'class' => 'glsr-bar-background',
+            'text' => $background,
+        ]);
+    }
+
+    protected function ratingInfo(int $level, array $percentages): string
+    {
+        $count = glsr()->filterString('summary/counts', $percentages[$level], $this->ratings[$level]);
+        return glsr(Builder::class)->span([
+            'class' => 'glsr-bar-percent',
+            'text' => $count,
+        ]);
+    }
+
+    protected function ratingLabel(int $level): string
+    {
+        $label = $this->args->get("labels.{$level}");
+        return glsr(Builder::class)->span([
+            'class' => 'glsr-bar-label',
+            'text' => $label,
+        ]);
+    }
+
+    protected function value(): string
     {
         $percentages = preg_filter('/$/', '%', glsr(Rating::class)->percentages($this->ratings));
         $ratingRange = range(glsr()->constant('MAX_RATING', Rating::class), 1);
@@ -38,48 +63,6 @@ class SummaryPercentagesTag extends SummaryTag
                 'data-level' => $level,
                 'text' => $value,
             ]);
-        });
-    }
-
-    /**
-     * @param int $level
-     * @return string
-     */
-    protected function ratingBar($level, array $percentages)
-    {
-        $background = glsr(Builder::class)->span([
-            'class' => 'glsr-bar-background-percent',
-            'style' => 'width:'.$percentages[$level],
-        ]);
-        return glsr(Builder::class)->span([
-            'class' => 'glsr-bar-background',
-            'text' => $background,
-        ]);
-    }
-
-    /**
-     * @param int $level
-     * @return string
-     */
-    protected function ratingInfo($level, array $percentages)
-    {
-        $count = glsr()->filterString('summary/counts', $percentages[$level], $this->ratings[$level]);
-        return glsr(Builder::class)->span([
-            'class' => 'glsr-bar-percent',
-            'text' => $count,
-        ]);
-    }
-
-    /**
-     * @param int $level
-     * @return string
-     */
-    protected function ratingLabel($level)
-    {
-        $label = $this->args->get('labels.'.$level);
-        return glsr(Builder::class)->span([
-            'class' => 'glsr-bar-label',
-            'text' => $label,
-        ]);
+        }, '');
     }
 }

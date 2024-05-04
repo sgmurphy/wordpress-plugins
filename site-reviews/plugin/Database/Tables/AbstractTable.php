@@ -9,54 +9,32 @@ use GeminiLabs\SiteReviews\Helpers\Str;
 
 abstract class AbstractTable
 {
-    /**
-     * @var \wpdb
-     */
-    public $db;
-    /**
-     * @var string
-     */
-    public $dbname;
-    /**
-     * @var string
-     */
-    public $dbprefix;
-    /**
-     * @var string
-     */
-    public $name = '';
-    /**
-     * @var string
-     */
-    public $tablename = '';
-
-    abstract public function addForeignConstraints(): void;
-
-    abstract public function dropForeignConstraints(): void;
-
-    /**
-     * WordPress codex says there must be two spaces between PRIMARY KEY and the key definition.
-     * @see https://codex.wordpress.org/Creating_Tables_with_Plugins
-     */
-    abstract public function structure(): string;
+    public string $database;
+    public \wpdb $db;
+    public string $name = '';
+    public string $prefix;
+    public string $tablename;
 
     public function __construct()
     {
         require_once ABSPATH.'wp-admin/includes/upgrade.php'; // used for dbDelta()
         global $wpdb;
+        $this->database = $wpdb->dbname ?: \DB_NAME;
         $this->db = $wpdb;
-        $this->dbname = $wpdb->dbname;
-        $this->dbprefix = $wpdb->get_blog_prefix();
-        $this->tablename = sprintf('%s%s%s', $this->dbprefix, glsr()->prefix, $this->name);
+        $this->prefix = $wpdb->get_blog_prefix();
+        $this->tablename = $wpdb->get_blog_prefix().glsr()->prefix.$this->name;
     }
 
     public function addForeignConstraint(string $column, string $foreignTable, string $foreignColumn): bool
     {
+        if (!glsr(Tables::class)->isInnodb($foreignTable)) {
+            return false;
+        }
         $constraint = $this->foreignConstraint($column);
         if ($this->foreignConstraintExists($constraint, $foreignTable)) {
             return false;
         }
-        $this->deleteOrphanedRows($column, $foreignTable, $foreignColumn);
+        $this->removeInvalidRows();
         return (bool) glsr(Database::class)->dbQuery(glsr(Query::class)->sql("
             ALTER TABLE {$this->tablename}
             ADD CONSTRAINT {$constraint}
@@ -66,6 +44,8 @@ abstract class AbstractTable
         "));
     }
 
+    abstract public function addForeignConstraints(): void;
+
     public function create(): bool
     {
         if ($this->exists()) {
@@ -74,16 +54,6 @@ abstract class AbstractTable
         dbDelta($this->structure());
         glsr(Database::class)->logErrors();
         return true;
-    }
-
-    public function deleteOrphanedRows(string $column, string $foreignTable, string $foreignColumn): void
-    {
-        glsr(Database::class)->dbQuery(glsr(Query::class)->sql("
-            DELETE t
-            FROM {$this->tablename} AS t
-            LEFT JOIN {$foreignTable} AS ft ON t.{$column} = ft.{$foreignColumn}
-            WHERE ft.{$foreignColumn} IS NULL
-        "));
     }
 
     public function dropForeignConstraint(string $column, string $foreignTable): bool
@@ -97,10 +67,11 @@ abstract class AbstractTable
         ");
     }
 
+    abstract public function dropForeignConstraints(): void;
+
     public function exists(): bool
     {
-        $query = $this->db->prepare('SHOW TABLES LIKE %s', $this->db->esc_like($this->tablename));
-        return $this->tablename === $this->db->get_var($query);
+        return glsr(Tables::class)->tableExists($this->tablename);
     }
 
     public function foreignConstraint(string $column): string
@@ -108,30 +79,46 @@ abstract class AbstractTable
         $constraint = Str::prefix($column, glsr()->prefix.$this->name.'_');
         $constraint = Str::suffix($constraint, '_foreign');
         if (is_multisite() && $this->db->blogid > 1) {
-            return Str::suffix($constraint, '_'.$this->db->blogid);
+            return Str::suffix($constraint, "_{$this->db->blogid}");
         }
         return $constraint;
     }
 
     public function foreignConstraintExists(string $constraint, string $foreignTable = ''): bool
     {
-        if (!empty($foreignTable) && !glsr(Tables::class)->isInnodb($foreignTable)) {
-            glsr_log()->debug("Cannot check for a foreign constraint because [{$foreignTable}] does not use the InnoDB engine.");
-            return true; // we cannot create foreign contraints on MyISAM tables
+        if (!glsr(Tables::class)->tableExists($foreignTable)) {
+            return false;
+        }
+        if (!glsr(Tables::class)->isInnodb($foreignTable)) {
+            return false;
         }
         $constraints = $this->db->get_col("
             SELECT CONSTRAINT_NAME
             FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS
-            WHERE CONSTRAINT_SCHEMA = '{$this->dbname}'
+            WHERE CONSTRAINT_SCHEMA = '{$this->database}'
         ");
         return in_array($constraint, $constraints);
     }
 
+    public function name(bool $prefixName = false): string
+    {
+        if (!$prefixName) {
+            return $this->name;
+        }
+        return Str::prefix($this->name, glsr()->prefix);
+    }
+
+    abstract public function removeInvalidRows(): void;
+
+    /**
+     * WordPress codex says there must be two spaces between PRIMARY KEY and the key definition.
+     *
+     * @see https://codex.wordpress.org/Creating_Tables_with_Plugins
+     */
+    abstract public function structure(): string;
+
     public function table(string $name = ''): string
     {
-        if (empty($name)) {
-            $name = $this->name;
-        }
-        return glsr(Tables::class)->table($name);
+        return glsr(Tables::class)->table($name ?: $this->name);
     }
 }

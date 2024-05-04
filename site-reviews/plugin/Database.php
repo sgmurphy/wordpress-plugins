@@ -13,213 +13,119 @@ use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Sanitizer;
 
-/**
- * @property array $mappedDeprecatedMethods
- */
 class Database
 {
     use Deprecated;
 
-    protected $db;
+    protected \wpdb $db;
 
     public function __construct()
     {
         global $wpdb;
         $this->db = $wpdb;
-        $this->mappedDeprecatedMethods = [
-            'get' => 'meta',
-            'getTerms' => 'terms',
-            'set' => 'metaSet',
-        ];
     }
 
     /**
      * Use this before bulk insert (see: $this->finishTransaction()).
-     * @param string $table
-     * @return void
      */
-    public function beginTransaction($table)
+    public function beginTransaction(string $table): void
     {
-        $sql = glsr(Tables::class)->isInnodb($table)
-            ? 'START TRANSACTION;'
-            : 'SET autocommit = 0;';
-        $this->dbQuery($sql);
+        if (glsr(Tables::class)->isSqlite()) {
+            $this->dbQuery("BEGIN TRANSACTION;");
+        } elseif (glsr(Tables::class)->isInnodb($table)) {
+            $this->dbQuery("START TRANSACTION;");
+        } elseif (glsr(Tables::class)->isMyisam($table)) {
+            $this->dbQuery("SET autocommit = 0;");
+        }
     }
 
-    /**
-     * @param string $sql
-     * @return array
-     */
-    public function dbGetCol($sql)
+    public function dbGetCol(string $sql): array
     {
         return $this->logErrors($this->db->get_col($sql));
     }
 
     /**
-     * @param string $sql
-     * @param string $output
+     * Query result in format specified by $output or null on failure.
+     *
      * @return array|object|null
      */
-    public function dbGetResults($sql, $output = 'OBJECT')
+    public function dbGetResults(string $sql, string $output = 'OBJECT')
     {
         $output = Str::restrictTo(['ARRAY_A', 'ARRAY_N', 'OBJECT', 'OBJECT_K'], $output, OBJECT);
         return $this->logErrors($this->db->get_results($sql, $output));
     }
 
     /**
-     * @param string $sql
-     * @param string $output
+     * Query result in format specified by $output or null on failure.
+     *
      * @return array|object|void|null
      */
-    public function dbGetRow($sql, $output)
+    public function dbGetRow(string $sql, string $output)
     {
         $output = Str::restrictTo(['ARRAY_A', 'ARRAY_N', 'OBJECT'], $output, OBJECT);
         return $this->logErrors($this->db->get_row($sql, $output));
     }
 
     /**
-     * @param string $sql
-     * @return string|null
+     * Query result as string, or null on failure.
      */
-    public function dbGetVar($sql)
+    public function dbGetVar(string $sql): ?string
     {
         return $this->logErrors($this->db->get_var($sql));
     }
 
     /**
-     * @param string $sql
+     * True for CREATE, ALTER, TRUNCATE and DROP queries.
+     * Number of rows affected/selected for all other queries.
+     * False on error.
+     *
      * @return int|bool
      */
-    public function dbQuery($sql)
+    public function dbQuery(string $sql)
     {
         return $this->logErrors($this->db->query($sql));
     }
 
     /**
-     * @param string $sql
+     * True for CREATE, ALTER, TRUNCATE and DROP queries.
+     * Number of rows affected/selected for all other queries.
+     * False on error.
+     *
      * @return int|bool
      */
-    public function dbSafeQuery($sql)
+    public function dbSafeQuery(string $sql)
     {
-        $this->db->query("SET GLOBAL foreign_key_checks = 0");
+        if (glsr(Tables::class)->isSqlite()) {
+            return $this->dbQuery($sql);
+        }
+        $this->db->query('SET foreign_key_checks = 0');
         $result = $this->logErrors($this->db->query($sql));
-        $this->db->query("SET GLOBAL foreign_key_checks = 1");
+        $this->db->query('SET foreign_key_checks = 1');
         return $result;
     }
 
     /**
-     * @param string $table
+     * Number of rows deleted. False on error.
+     *
      * @return int|false
      */
-    public function delete($table, array $where)
+    public function delete(string $table, array $where)
     {
-        $result = $this->db->delete(glsr(Query::class)->table($table), $where);
+        $result = $this->db->delete(glsr(Tables::class)->table($table), $where);
         glsr(Query::class)->sql($this->db->last_query); // for logging use only
         return $this->logErrors($result);
     }
 
     /**
-     * @return int|bool
-     */
-    public function deleteInvalidFields()
-    {
-        return $this->dbSafeQuery(
-            glsr(Query::class)->sql(sprintf("
-                DELETE f
-                FROM %s AS f
-                LEFT JOIN %s AS r ON f.rating_id = r.ID
-                WHERE (r.ID IS NULL)
-            ",
-                glsr(Query::class)->table('fields'),
-                glsr(Query::class)->table('ratings')
-            ))
-        );
-    }
-
-    /**
-     * @return int|bool
-     */
-    public function deleteInvalidPostAssignments()
-    {
-        return $this->dbSafeQuery(
-            glsr(Query::class)->sql(sprintf("
-                DELETE ap
-                FROM %s AS ap
-                LEFT JOIN %s AS r ON ap.rating_id = r.ID
-                LEFT JOIN {$this->db->posts} AS p ON ap.post_id = p.ID
-                WHERE (r.ID IS NULL OR p.ID IS NULL)
-            ",
-                glsr(Query::class)->table('assigned_posts'),
-                glsr(Query::class)->table('ratings')
-            ))
-        );
-    }
-
-    /**
-     * @return int|bool
-     */
-    public function deleteInvalidReviews()
-    {
-        return $this->dbSafeQuery(
-            glsr(Query::class)->sql(sprintf("
-                DELETE r
-                FROM %s AS r
-                LEFT JOIN {$this->db->posts} AS p ON r.review_id = p.ID
-                WHERE (p.post_type IS NULL OR p.post_type != '%s')
-            ",
-                glsr(Query::class)->table('ratings'),
-                glsr()->post_type
-            ))
-        );
-    }
-
-    /**
-     * @return int|bool
-     */
-    public function deleteInvalidTermAssignments()
-    {
-        return $this->dbSafeQuery(
-            glsr(Query::class)->sql(sprintf("
-                DELETE at
-                FROM %s AS at
-                LEFT JOIN %s AS r ON at.rating_id = r.ID
-                LEFT JOIN {$this->db->term_taxonomy} AS tt ON at.term_id = tt.term_id
-                WHERE (r.ID IS NULL OR tt.term_id IS NULL) OR tt.taxonomy != '%s'
-            ",
-                glsr(Query::class)->table('assigned_terms'),
-                glsr(Query::class)->table('ratings'),
-                glsr()->taxonomy
-            ))
-        );
-    }
-
-    /**
-     * @return int|bool
-     */
-    public function deleteInvalidUserAssignments()
-    {
-        return $this->dbSafeQuery(
-            glsr(Query::class)->sql(sprintf("
-                DELETE au
-                FROM %s AS au
-                LEFT JOIN %s AS r ON au.rating_id = r.ID
-                LEFT JOIN {$this->db->users} AS u ON au.user_id = u.ID
-                WHERE (r.ID IS NULL OR u.ID IS NULL)
-            ",
-                glsr(Query::class)->table('assigned_users'),
-                glsr(Query::class)->table('ratings')
-            ))
-        );
-    }
-
-    /**
+     * Number of rows deleted. False on error.
+     *
      * @param string|string[] $keys
-     * @param string $table
-     * @return int|bool
+     *
+     * @return int|false
      */
-    public function deleteMeta($keys, $table = 'postmeta')
+    public function deleteMeta($keys, string $table = 'postmeta')
     {
-        $table = glsr(Query::class)->table($table);
+        $table = glsr(Tables::class)->table($table);
         $metaKeys = glsr(Query::class)->escValuesForInsert(Arr::convertFromString($keys));
         $sql = glsr(Query::class)->sql("
             DELETE FROM {$table} WHERE meta_key IN {$metaKeys}
@@ -229,37 +135,44 @@ class Database
 
     /**
      * Use this after bulk insert (see: $this->beginTransaction()).
-     * @param string $table
-     * @return void
      */
-    public function finishTransaction($table)
+    public function finishTransaction(string $table): void
     {
-        $sql = glsr(Tables::class)->isInnodb($table)
-            ? 'COMMIT;'
-            : 'SET autocommit = 1;';
-        $this->dbQuery($sql);
+        if (glsr(Tables::class)->isSqlite()) {
+            $this->dbQuery("COMMIT;");
+        } elseif (glsr(Tables::class)->isInnodb($table)) {
+            $this->dbQuery("COMMIT;");
+        } elseif (glsr(Tables::class)->isMyisam($table)) {
+            $this->dbQuery("SET autocommit = 1;");
+        }
     }
 
     /**
-     * @param string $table
-     * @return int|bool
-     */
-    public function insert($table, array $data)
-    {
-        $this->db->insert_id = 0;
-        $table = glsr(Query::class)->table($table);
-        $fields = glsr(Query::class)->escFieldsForInsert(array_keys($data));
-        $values = glsr(Query::class)->escValuesForInsert($data);
-        $sql = glsr(Query::class)->sql("INSERT IGNORE INTO {$table} {$fields} VALUES {$values}");
-        $result = $this->dbQuery($sql);
-        return empty($result) ? false : $result;
-    }
-
-    /**
-     * @param string $table
+     * Number of rows inserted. False on error.
+     *
      * @return int|false
      */
-    public function insertBulk($table, array $values, array $fields)
+    public function insert(string $table, array $data)
+    {
+        $this->db->insert_id = 0;
+        $table = glsr(Tables::class)->table($table);
+        $fields = glsr(Query::class)->escFieldsForInsert(array_keys($data));
+        $values = glsr(Query::class)->escValuesForInsert($data);
+        if (glsr(Tables::class)->isSqlite()) {
+            $sql = glsr(Query::class)->sql("INSERT OR IGNORE INTO {$table} {$fields} VALUES {$values}");
+        } else {
+            $sql = glsr(Query::class)->sql("INSERT IGNORE INTO {$table} {$fields} VALUES {$values}");
+        }
+        $result = $this->dbQuery($sql);
+        return $result;
+    }
+
+    /**
+     * Number of rows inserted. False on error.
+     *
+     * @return int|false
+     */
+    public function insertBulk(string $table, array $values, array $fields)
     {
         $this->db->insert_id = 0;
         $data = [];
@@ -270,30 +183,31 @@ class Database
                 $data[] = glsr(Query::class)->escValuesForInsert($value);
             }
         }
-        $table = glsr(Query::class)->table($table);
+        $table = glsr(Tables::class)->table($table);
         $fields = glsr(Query::class)->escFieldsForInsert($fields);
         $values = implode(',', $data);
-        $sql = glsr(Query::class)->sql("INSERT IGNORE INTO {$table} {$fields} VALUES {$values}");
+        if (glsr(Tables::class)->isSqlite()) {
+            $sql = glsr(Query::class)->sql("INSERT OR IGNORE INTO {$table} {$fields} VALUES {$values}");
+        } else {
+            $sql = glsr(Query::class)->sql("INSERT IGNORE INTO {$table} {$fields} VALUES {$values}");
+        }
         return $this->dbQuery($sql);
     }
 
-    /**
-     * @return bool
-     */
-    public function isMigrationNeeded()
+    public function isMigrationNeeded(): bool
     {
-        $table = glsr(Query::class)->table('ratings');
         $postTypes = wp_count_posts(glsr()->post_type);
         $postCount = Arr::get($postTypes, 'publish');
         if (empty($postCount)) {
             return false;
         }
-        $sql = glsr(Query::class)->sql("SELECT COUNT(*) FROM {$table} WHERE is_approved = 1");
+        $sql = glsr(Query::class)->sql("SELECT COUNT(*) FROM table|ratings WHERE is_approved = 1");
         return empty($this->dbGetVar($sql));
     }
 
     /**
      * @param mixed $result
+     *
      * @return mixed
      */
     public function logErrors($result = null)
@@ -306,12 +220,14 @@ class Database
     }
 
     /**
-     * @param int $postId
-     * @param string $key
-     * @param bool $single
+     * An array of values if $single is false.
+     * The value of the meta field if $single is true.
+     * False for an invalid $post_id (non-numeric, zero, or negative value).
+     * An empty string if a valid but non-existing post ID is passed.
+     *
      * @return mixed
      */
-    public function meta($postId, $key, $single = true)
+    public function meta(int $postId, string $key, bool $single = true)
     {
         $key = Str::prefix($key, '_');
         $postId = Cast::toInt($postId);
@@ -319,58 +235,42 @@ class Database
     }
 
     /**
-     * @param int $postId
-     * @param string $key
+     * The new meta field ID if a field with the given key didn't exist and was therefore added.
+     * True on successful update. False on failure or if the value passed to the function
+     * is the same as the one that is already in the database.
+     *
      * @param mixed $value
+     *
      * @return int|bool
      */
-    public function metaSet($postId, $key, $value)
+    public function metaSet(int $postId, string $key, $value)
     {
         $key = Str::prefix($key, '_');
         $postId = Cast::toInt($postId);
         return update_metadata('post', $postId, $key, $value); // update_metadata works with revisions
     }
 
-    /**
-     * @param string $searchTerm
-     * @return SearchAssignedPosts
-     */
-    public function searchAssignedPosts($searchTerm)
+    public function searchAssignedPosts(string $searchTerm): SearchAssignedPosts
     {
         return glsr(SearchAssignedPosts::class)->search($searchTerm);
     }
 
-    /**
-     * @param string $searchTerm
-     * @return SearchAssignedUsers
-     */
-    public function searchAssignedUsers($searchTerm)
+    public function searchAssignedUsers(string $searchTerm): SearchAssignedUsers
     {
         return glsr(SearchAssignedUsers::class)->search($searchTerm);
     }
 
-    /**
-     * @param string $searchTerm
-     * @return SearchPosts
-     */
-    public function searchPosts($searchTerm)
+    public function searchPosts(string $searchTerm): SearchPosts
     {
         return glsr(SearchPosts::class)->search($searchTerm);
     }
 
-    /**
-     * @param string $searchTerm
-     * @return SearchUsers
-     */
-    public function searchUsers($searchTerm)
+    public function searchUsers(string $searchTerm): SearchUsers
     {
         return glsr(SearchUsers::class)->search($searchTerm);
     }
 
-    /**
-     * @return array
-     */
-    public function terms(array $args = [])
+    public function terms(array $args = []): array
     {
         $args = wp_parse_args($args, [
             'count' => false,
@@ -388,20 +288,18 @@ class Database
     }
 
     /**
-     * @param string $table
-     * @return int|bool
+     * Number of rows updated. False on error.
+     *
+     * @return int|false
      */
-    public function update($table, array $data, array $where)
+    public function update(string $table, array $data, array $where)
     {
-        $result = $this->db->update(glsr(Query::class)->table($table), $data, $where);
+        $result = $this->db->update(glsr(Tables::class)->table($table), $data, $where);
         glsr(Query::class)->sql($this->db->last_query); // for logging use only
         return $this->logErrors($result);
     }
 
-    /**
-     * @return array
-     */
-    public function users(array $args = [])
+    public function users(array $args = []): array
     {
         $args = wp_parse_args($args, [
             'fields' => ['ID', 'display_name'],
@@ -416,19 +314,13 @@ class Database
         return $users;
     }
 
-    /**
-     * @param string $compareToVersion
-     * @return bool|string
-     */
-    public function version($compareToVersion = null)
+    public function version(): string
     {
         $dbVersion = Cast::toString(get_option(glsr()->prefix.'db_version'));
         if (version_compare($dbVersion, Application::DB_VERSION, '>')) { // version should never be higher than plugin database version
-            update_option(glsr()->prefix.'db_version', '1.0');
+            update_option(glsr()->prefix.'db_version', '1.0'); // setting it to a low version will trigger the plugin migration
             $dbVersion = '1.0';
         }
-        return isset($compareToVersion)
-            ? version_compare($dbVersion, Cast::toString($compareToVersion), '>=')
-            : $dbVersion;
+        return $dbVersion;
     }
 }

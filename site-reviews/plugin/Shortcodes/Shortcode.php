@@ -16,50 +16,14 @@ use GeminiLabs\SiteReviews\Modules\Style;
 
 abstract class Shortcode implements ShortcodeContract
 {
-    /**
-     * @var array
-     */
-    public $args;
-
-    /**
-     * @var string
-     */
-    public $debug;
-
-    /**
-     * @var string
-     */
-    public $shortcode;
-
-    /**
-     * @var string
-     */
-    public $type;
+    public array $args = [];
+    public string $debug = '';
+    public string $shortcode = '';
+    public string $type = '';
 
     public function __construct()
     {
-        $this->args = [];
         $this->shortcode = $this->shortcodeTag();
-    }
-
-    /**
-     * @todo remove in v7.0
-     */
-    public function __call($method, $args)
-    {
-        if ('normalizeAtts' === $method) { // @compat for < 6.6.0
-            call_user_func_array([$this, 'normalize'], $args);
-            return glsr()->args($this->args);
-        }
-        throw new \BadMethodCallException("Method [$method] does not exist.");
-    }
-
-    /**
-     * @todo remove in v7.0
-     */
-    public function __get($parameter)
-    {
-        // @compat provides backwards compatibility for unsupported addons
     }
 
     public function attributes(array $values, string $source = 'function'): array
@@ -73,15 +37,15 @@ abstract class Shortcode implements ShortcodeContract
         ]);
         unset($attributes['data-id']);
         unset($attributes['data-form_id']);
-        $attributes = glsr()->filterArray('shortcode/'.$this->shortcode.'/attributes', $attributes, $this);
+        $attributes = glsr()->filterArray("shortcode/{$this->shortcode}/attributes", $attributes, $this);
         $attributes = array_map('esc_attr', $attributes);
         return $attributes;
     }
 
-    public function build(array $args = [], string $type = 'shortcode'): string
+    public function build($args = [], string $type = 'shortcode'): string
     {
         $this->normalize($args, $type);
-        $template = $this->buildTemplate($this->args); // @compat remove parameter usage in v7.0
+        $template = $this->buildTemplate();
         $attributes = $this->attributes($this->args, $type);
         $html = glsr(Builder::class)->div($template, $attributes);
         return sprintf('%s%s', $this->debug, $html);
@@ -103,6 +67,13 @@ abstract class Shortcode implements ShortcodeContract
         return $this->build(wp_parse_args($args), 'shortcode');
     }
 
+    public function defaults(): DefaultsAbstract
+    {
+        $classname = str_replace('Shortcodes\\', 'Defaults\\', get_class($this));
+        $classname = str_replace('Shortcode', 'Defaults', $classname);
+        return glsr($classname);
+    }
+
     public function getDisplayOptions(): array
     {
         $options = $this->displayOptions();
@@ -115,7 +86,10 @@ abstract class Shortcode implements ShortcodeContract
         return glsr()->filterArray('shortcode/hide-options', $options, $this->shortcode, $this);
     }
 
-    public function normalize(array $args, string $type = ''): self
+    /**
+     * @return static
+     */
+    public function normalize(array $args, string $type = '')
     {
         if (!empty($type)) {
             $this->type = $type;
@@ -124,13 +98,24 @@ abstract class Shortcode implements ShortcodeContract
         $args = glsr()->filterArray('shortcode/args', $args, $this->shortcode);
         $args = $this->defaults()->unguardedRestrict($args);
         foreach ($args as $key => &$value) {
-            $method = Helper::buildMethodName($key, 'normalize');
+            $method = Helper::buildMethodName('normalize', $key);
             if (method_exists($this, $method)) {
                 $value = call_user_func([$this, $method], $value, $args);
             }
         }
         $this->args = $args;
         return $this;
+    }
+
+    public function register(): void
+    {
+        if (!function_exists('add_shortcode')) {
+            return;
+        }
+        $shortcode = (new \ReflectionClass($this))->getShortName();
+        $shortcode = Str::snakeCase($shortcode);
+        $shortcode = str_replace('_shortcode', '', $shortcode);
+        add_shortcode($shortcode, [$this, 'buildShortcode']);
     }
 
     protected function debug(array $data = []): void
@@ -148,25 +133,12 @@ abstract class Shortcode implements ShortcodeContract
         $this->debug = ob_get_clean();
     }
 
-    protected function defaults(): DefaultsAbstract
-    {
-        $classname = str_replace('Shortcodes\\', 'Defaults\\', get_class($this));
-        $classname = str_replace('Shortcode', 'Defaults', $classname);
-        return glsr($classname);
-    }
-
-    /**
-     * @return array
-     */
-    protected function displayOptions()
+    protected function displayOptions(): array
     {
         return [];
     }
 
-    /**
-     * @return array
-     */
-    protected function hideOptions()
+    protected function hideOptions(): array
     {
         return [];
     }
@@ -184,7 +156,7 @@ abstract class Shortcode implements ShortcodeContract
             }
         }
         $values = glsr(Sanitizer::class)->sanitizePostIds($values);
-        $values = glsr(Multilingual::class)->getPostIds($values);
+        $values = glsr(Multilingual::class)->getPostIdsForAllLanguages($values);
         $values = array_merge($values, $postTypes);
         return implode(',', $values);
     }
@@ -194,7 +166,9 @@ abstract class Shortcode implements ShortcodeContract
      */
     protected function normalizeAssignedTerms($value): string
     {
-        return implode(',', glsr(Sanitizer::class)->sanitizeTermIds($value));
+        $values = glsr(Sanitizer::class)->sanitizeTermIds($value);
+        $values = glsr(Multilingual::class)->getTermIdsForAllLanguages($values);
+        return implode(',', $values);
     }
 
     /**
@@ -202,7 +176,8 @@ abstract class Shortcode implements ShortcodeContract
      */
     protected function normalizeAssignedUsers($value): string
     {
-        return implode(',', glsr(Sanitizer::class)->sanitizeUserIds($value));
+        $values = glsr(Sanitizer::class)->sanitizeUserIds($value);
+        return implode(',', $values);
     }
 
     /**
@@ -211,9 +186,9 @@ abstract class Shortcode implements ShortcodeContract
     protected function normalizeHide($value): array
     {
         $hideKeys = array_keys($this->getHideOptions());
-        return array_filter(Cast::toArray($value), function ($value) use ($hideKeys) {
-            return in_array($value, $hideKeys);
-        });
+        return array_filter(Cast::toArray($value),
+            fn ($value) => in_array($value, $hideKeys)
+        );
     }
 
     /**

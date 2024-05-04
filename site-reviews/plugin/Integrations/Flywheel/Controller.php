@@ -2,16 +2,18 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\Flywheel;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * Adds a warning notice to the Flywheel Migrations page.
+     *
      * @action toplevel_page_flywheel
+     *
      * @see https://wordpress.org/plugins/flywheel-migrations/
      */
-    public function renderNotice()
+    public function renderNotice(): void
     {
         global $pagenow;
         if ('admin.php' === $pagenow) {

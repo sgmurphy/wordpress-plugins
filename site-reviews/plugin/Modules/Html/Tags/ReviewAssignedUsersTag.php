@@ -7,18 +7,12 @@ use GeminiLabs\SiteReviews\Modules\Sanitizer;
 
 class ReviewAssignedUsersTag extends ReviewTag
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function handle($value = null)
+    protected function handle(): string
     {
-        return $this->wrap($value, 'span');
+        return $this->wrap($this->value(), 'span');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function value($value = null)
+    protected function value(): string
     {
         $displayNames = wp_list_pluck($this->review->assignedUsers(), 'display_name');
         if (empty($displayNames)) {

@@ -3,18 +3,18 @@
 namespace GeminiLabs\SiteReviews\Integrations\Cache;
 
 use GeminiLabs\SiteReviews\Commands\CreateReview;
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
 use GeminiLabs\SiteReviews\Database\Cache;
 use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Review;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * @action site-reviews/review/created
      */
-    public function flushAfterCreated(Review $review, CreateReview $command)
+    public function flushAfterCreated(Review $review, CreateReview $command): void
     {
         if ($review->is_approved) {
             glsr_log()->debug('cache::flush_after_review_created');
@@ -105,7 +105,11 @@ class Controller extends BaseController
 
     protected function flushCache(array $postIds = []): void
     {
-        glsr_log('cache::flushing')->debug($postIds);
+        if (empty($postIds)) {
+            glsr_log('cache::flushing [all]');
+        } else {
+            glsr_log('cache::flushing ['.implode(', ', $postIds).']');
+        }
         $this->purgeEnduranceCache($postIds);
         $this->purgeHummingbirdCache($postIds);
         $this->purgeLitespeedCache($postIds);
@@ -122,7 +126,7 @@ class Controller extends BaseController
     /**
      * @see https://github.com/bluehost/endurance-page-cache/
      */
-    protected function purgeEnduranceCache(array $postIds = [])
+    protected function purgeEnduranceCache(array $postIds = []): void
     {
         // This is a sloppy plugin, the only option we have is to purge the entire cache...
         do_action('epc_purge');
@@ -131,7 +135,7 @@ class Controller extends BaseController
     /**
      * @see https://premium.wpmudev.org/docs/api-plugin-development/hummingbird-api-docs/#action-wphb_clear_page_cache
      */
-    protected function purgeHummingbirdCache(array $postIds = [])
+    protected function purgeHummingbirdCache(array $postIds = []): void
     {
         if (empty($postIds)) {
             do_action('wphb_clear_page_cache');
@@ -144,7 +148,7 @@ class Controller extends BaseController
     /**
      * @see https://wordpress.org/plugins/litespeed-cache/
      */
-    protected function purgeLitespeedCache(array $postIds = [])
+    protected function purgeLitespeedCache(array $postIds = []): void
     {
         if (empty($postIds)) {
             do_action('litespeed_purge_all');
@@ -157,7 +161,7 @@ class Controller extends BaseController
     /**
      * @see https://nitropack.io/
      */
-    protected function purgeNitropackCache(array $postIds = [])
+    protected function purgeNitropackCache(array $postIds = []): void
     {
         if (!function_exists('nitropack_invalidate') || !function_exists('nitropack_get_cacheable_object_types')) {
             return;
@@ -175,7 +179,7 @@ class Controller extends BaseController
             $postType = $post->post_type ?? 'post';
             $postTitle = $post->post_title ?? '';
             if (in_array($postType, $cacheableTypes)) {
-                nitropack_invalidate(null, 'single:'.$postId, sprintf('Invalidating "%s" after creating/updating/deleting an assigned review', $postTitle));
+                nitropack_invalidate(null, "single:{$postId}", sprintf('Invalidating "%s" after creating/updating/deleting an assigned review', $postTitle));
             }
         }
     }
@@ -183,7 +187,7 @@ class Controller extends BaseController
     /**
      * @see https://wordpress.org/plugins/sg-cachepress/
      */
-    protected function purgeSiteGroundCache(array $postIds = [])
+    protected function purgeSiteGroundCache(array $postIds = []): void
     {
         if (function_exists('sg_cachepress_purge_everything') && empty($postIds)) {
             sg_cachepress_purge_everything();
@@ -198,7 +202,7 @@ class Controller extends BaseController
     /**
      * @see https://swiftperformance.io/
      */
-    protected function purgeSwiftPerformanceCache(array $postIds = [])
+    protected function purgeSwiftPerformanceCache(array $postIds = []): void
     {
         if (!class_exists('Swift_Performance_Cache')) {
             return;
@@ -213,7 +217,7 @@ class Controller extends BaseController
     /**
      * @see https://wordpress.org/plugins/w3-total-cache/
      */
-    protected function purgeW3TotalCache(array $postIds = [])
+    protected function purgeW3TotalCache(array $postIds = []): void
     {
         if (function_exists('w3tc_flush_all') && empty($postIds)) {
             w3tc_flush_all();
@@ -228,7 +232,7 @@ class Controller extends BaseController
     /**
      * @see https://www.wpfastestcache.com/
      */
-    protected function purgeWPFastestCache(array $postIds = [])
+    protected function purgeWPFastestCache(array $postIds = []): void
     {
         if (empty($postIds)) {
             do_action('wpfc_clear_all_cache');
@@ -241,7 +245,7 @@ class Controller extends BaseController
     /**
      * @see https://getwpo.com/documentation/#Purging-the-cache-from-an-other-plugin-or-theme
      */
-    protected function purgeWPOptimizeCache(array $postIds = [])
+    protected function purgeWPOptimizeCache(array $postIds = []): void
     {
         if (function_exists('WP_Optimize') && empty($postIds)) {
             WP_Optimize()->get_page_cache()->purge();
@@ -256,7 +260,7 @@ class Controller extends BaseController
     /**
      * @see https://docs.wp-rocket.me/article/93-rocketcleanpost
      */
-    protected function purgeWPRocketCache(array $postIds = [])
+    protected function purgeWPRocketCache(array $postIds = []): void
     {
         if (function_exists('rocket_clean_home') && empty($postIds)) {
             rocket_clean_home();
@@ -271,7 +275,7 @@ class Controller extends BaseController
     /**
      * @see https://wordpress.org/plugins/wp-super-cache/
      */
-    protected function purgeWPSuperCache(array $postIds = [])
+    protected function purgeWPSuperCache(array $postIds = []): void
     {
         if (function_exists('wp_cache_clear_cache') && empty($postIds)) {
             wp_cache_clear_cache();

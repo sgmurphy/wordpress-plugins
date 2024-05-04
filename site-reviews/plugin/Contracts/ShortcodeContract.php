@@ -2,6 +2,12 @@
 
 namespace GeminiLabs\SiteReviews\Contracts;
 
+/**
+ * @property array  $args
+ * @property string $debug
+ * @property string $shortcode
+ * @property string $type
+ */
 interface ShortcodeContract
 {
     public function build(array $args = [], string $type = 'shortcode'): string;
@@ -16,13 +22,14 @@ interface ShortcodeContract
      */
     public function buildShortcode($args = []): string;
 
-    /**
-     * @return string
-     * @todo add return type hint and remove $args in v7.0
-     */
-    public function buildTemplate(array $args = []);
+    public function buildTemplate(): string;
 
     public function getDisplayOptions(): array;
 
     public function getHideOptions(): array;
+
+    /**
+     * @return static
+     */
+    public function normalize(array $args, string $type = '');
 }

@@ -2,32 +2,28 @@
 
 namespace GeminiLabs\SiteReviews\Blocks;
 
+use GeminiLabs\SiteReviews\Contracts\PluginContract;
+use GeminiLabs\SiteReviews\Contracts\ShortcodeContract;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
+use GeminiLabs\SiteReviews\Helpers\Str;
 
 abstract class Block
 {
-    /**
-     * @return \GeminiLabs\SiteReviews\Application|\GeminiLabs\SiteReviews\Addons\Addon
-     */
-    public function app()
+    public function app(): PluginContract
     {
         return glsr();
     }
 
-    /**
-     * @return array
-     */
-    public function attributes()
+    public function attributes(): array
     {
         return [];
     }
 
     /**
      * Triggered on render in block editor.
-     * @return array
      */
-    public function normalize(array $attributes)
+    public function normalize(array $attributes): array
     {
         $hide = array_flip(Cast::toArray($attributes['hide']));
         unset($hide['if_empty']);
@@ -37,11 +33,7 @@ abstract class Block
         return $attributes;
     }
 
-    /**
-     * @param string $assignType
-     * @return array
-     */
-    public function normalizeAssignment(array $attributes, $assignType)
+    public function normalizeAssignment(array $attributes, string $assignType): array
     {
         if ('post_id' === Arr::get($attributes, $assignType)) {
             $attributes[$assignType] = $attributes['post_id'];
@@ -53,33 +45,26 @@ abstract class Block
         return $attributes;
     }
 
-    /**
-     * @return void
-     */
-    public function register($block)
+    public function register(): void
     {
         if (!function_exists('register_block_type')) {
             return;
         }
-        register_block_type(glsr()->id.'/'.$block, [
-            'attributes' => $this->app()->filterArray('block/'.$block.'/attributes', $this->attributes()),
-            'editor_script' => $this->app()->id.'/blocks',
-            'editor_style' => $this->app()->id.'/blocks',
+        $block = (new \ReflectionClass($this))->getShortName();
+        $block = Str::snakeCase($block);
+        $block = str_replace(['_block', 'site_reviews_', 'site_'], '', $block);
+        register_block_type(glsr()->id."/{$block}", [
+            'attributes' => $this->app()->filterArray("block/{$block}/attributes", $this->attributes()),
+            'editor_script' => "{$this->app()->id}/blocks",
+            'editor_style' => "{$this->app()->id}/blocks",
             'render_callback' => [$this, 'render'],
             'style' => $this->app()->id,
         ]);
     }
 
-    /**
-     * @return void
-     */
-    abstract public function render(array $attributes);
+    abstract public function render(array $attributes): string;
 
-    /**
-     * @param mixed $shortcode
-     * @return bool
-     */
-    protected function hasVisibleFields($shortcode, array $attributes)
+    protected function hasVisibleFields(ShortcodeContract $shortcode, array $attributes): bool
     {
         $shortcode->normalize($attributes);
         $defaults = $shortcode->getHideOptions();

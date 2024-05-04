@@ -4,20 +4,14 @@ namespace GeminiLabs\SiteReviews\Controllers\ListTableColumns;
 
 use GeminiLabs\SiteReviews\Modules\Rating;
 
-class ColumnFilterRating extends ColumnFilter
+class ColumnFilterRating extends AbstractColumnFilter
 {
-    /**
-     * @return string
-     */
-    public function label()
+    public function label(): string
     {
         return _x('Filter by rating', 'admin-text', 'site-reviews');
     }
 
-    /**
-     * @return array
-     */
-    public function options()
+    public function options(): array
     {
         $options = [];
         $max = glsr()->constant('MAX_RATING', Rating::class);
@@ -25,34 +19,25 @@ class ColumnFilterRating extends ColumnFilter
             $empty = $max - $rating;
             $title = _x('%s star rating', 'admin-text', 'site-reviews');
             $options[$rating] = [
+                'text' => str_repeat('★', $rating).str_repeat('☆', $empty),
                 'title' => sprintf($title, $rating),
-                'value' => str_repeat('★', $rating).str_repeat('☆', $empty),
             ];
         }
         return $options;
     }
 
-    /**
-     * @return string
-     */
-    public function placeholder()
+    public function placeholder(): string
     {
         return _x('Any rating', 'admin-text', 'site-reviews');
     }
 
-    /**
-     * @return string
-     */
-    public function title()
+    public function title(): string
     {
         return _x('Rating', 'admin-text', 'site-reviews');
     }
 
-    /**
-     * @return string|int
-     */
-    public function value()
+    public function value(): string
     {
-        return filter_input(INPUT_GET, $this->name(), FILTER_SANITIZE_NUMBER_INT);
+        return (string) filter_input(INPUT_GET, $this->name(), FILTER_SANITIZE_NUMBER_INT);
     }
 }

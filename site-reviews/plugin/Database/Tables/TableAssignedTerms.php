@@ -8,11 +8,10 @@ use GeminiLabs\SiteReviews\Database\Tables;
 
 class TableAssignedTerms extends AbstractTable
 {
-    public $name = 'assigned_terms';
+    public string $name = 'assigned_terms';
 
     public function addForeignConstraints(): void
     {
-        glsr(Database::class)->deleteInvalidTermAssignments();
         $this->addForeignConstraint('rating_id', $this->table('ratings'), 'ID');
         $this->addForeignConstraint('term_id', $this->table('terms'), 'term_id');
     }
@@ -23,8 +22,23 @@ class TableAssignedTerms extends AbstractTable
         $this->dropForeignConstraint('term_id', $this->table('terms'));
     }
 
+    public function removeInvalidRows(): void
+    {
+        $taxonomy = glsr()->taxonomy;
+        glsr(Database::class)->dbSafeQuery(
+            glsr(Query::class)->sql("
+                DELETE t
+                FROM {$this->tablename} AS t
+                LEFT JOIN table|ratings AS r ON (r.ID = t.rating_id)
+                LEFT JOIN table|term_taxonomy AS tt ON (tt.term_id = t.term_id)
+                WHERE (r.ID IS NULL OR tt.term_id IS NULL) OR tt.taxonomy != '{$taxonomy}'
+            ")
+        );
+    }
+
     /**
      * WordPress codex says there must be two spaces between PRIMARY KEY and the key definition.
+     *
      * @see https://codex.wordpress.org/Creating_Tables_with_Plugins
      */
     public function structure(): string

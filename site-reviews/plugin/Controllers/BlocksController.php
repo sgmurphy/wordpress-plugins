@@ -7,31 +7,30 @@ use GeminiLabs\SiteReviews\Commands\RegisterBlocks;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Modules\Style;
 
-class BlocksController extends Controller
+class BlocksController extends AbstractController
 {
     /**
-     * @param array $blockTypes
-     * @param \WP_Post|\WP_Block_Editor_Context $context
-     * @return array
+     * @param bool|string[] $blockTypes
+     *
+     * @return bool|string[]
+     *
      * @filter allowed_block_types_all
      */
-    public function filterAllowedBlockTypes($blockTypes, $context)
+    public function filterAllowedBlockTypes($blockTypes, \WP_Block_Editor_Context $context)
     {
-        $fallback = Arr::get($context, 'post_type'); // @compat <5.8
-        $postType = Arr::get($context, 'post.post_type', $fallback);
+        $postType = Arr::get($context, 'post.post_type');
         return glsr()->post_type !== $postType
             ? $blockTypes
             : [];
     }
 
     /**
-     * @param array $categories
-     * @return array
+     * @param array[] $categories
+     *
      * @filter block_categories_all
      */
-    public function filterBlockCategories($categories)
+    public function filterBlockCategories(array $categories): array
     {
-        $categories = Arr::consolidate($categories);
         $categories[] = [
             'icon' => null,
             'slug' => glsr()->id,
@@ -41,23 +40,17 @@ class BlocksController extends Controller
     }
 
     /**
-     * @param bool $bool
-     * @param string $postType
-     * @return bool
      * @filter use_block_editor_for_post_type
      */
-    public function filterUseBlockEditor($bool, $postType)
+    public function filterUseBlockEditor(bool $useBlockEditor, string $postType): bool
     {
-        return glsr()->post_type === $postType
-            ? false
-            : $bool;
+        return glsr()->post_type !== $postType ? $useBlockEditor : false;
     }
 
     /**
-     * @return void
      * @action init
      */
-    public function registerAssets()
+    public function registerAssets(): void
     {
         global $pagenow;
         wp_register_style(
@@ -67,42 +60,36 @@ class BlocksController extends Controller
             glsr()->version
         );
         wp_add_inline_style(glsr()->id.'/blocks', (new EnqueuePublicAssets())->inlineStyles());
-        wp_register_script(
-            glsr()->id.'/blocks',
-            glsr()->url('assets/scripts/'.glsr()->id.'-blocks.js'),
-            [
-                glsr()->id.'/admin',
-                'wp-block-editor',
-                'wp-blocks',
-                'wp-i18n',
-                'wp-element',
-            ],
-            glsr()->version
-        );
+        $handle = glsr()->id.'/blocks';
+        $url = glsr()->url('assets/scripts/'.glsr()->id.'-blocks.js');
+        $deps = [
+            glsr()->id.'/admin',
+            'wp-block-editor',
+            'wp-blocks',
+            'wp-i18n',
+            'wp-element',
+        ];
+        wp_register_script($handle, $url, $deps, glsr()->version, [
+            'strategy' => 'defer',
+        ]);
     }
 
     /**
-     * @return void
      * @action init
      */
-    public function registerBlocks()
+    public function registerBlocks(): void
     {
-        $this->execute(new RegisterBlocks([
-            'site_review',
-            'site_reviews',
-            'site_reviews_form',
-            'site_reviews_summary',
-        ]));
+        $this->execute(new RegisterBlocks());
     }
 
     /**
-     * @param array  $types
-     * @return array
+     * @param string[] $widgets
+     *
      * @filter widget_types_to_hide_from_legacy_widget_block
      */
-    public function replaceLegacyWidgets($types)
+    public function removeLegacyWidgets(array $widgets): array
     {
-        // array_push($types, 'glsr_site-reviews', 'glsr_site-reviews-form', 'glsr_site-reviews-summary');
-        return $types;
+        array_push($widgets, 'glsr_site-review', 'glsr_site-reviews', 'glsr_site-reviews-form', 'glsr_site-reviews-summary');
+        return $widgets;
     }
 }

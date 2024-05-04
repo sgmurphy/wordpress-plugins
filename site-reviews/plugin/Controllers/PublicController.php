@@ -4,13 +4,14 @@ namespace GeminiLabs\SiteReviews\Controllers;
 
 use GeminiLabs\SiteReviews\Commands\CreateReview;
 use GeminiLabs\SiteReviews\Commands\EnqueuePublicAssets;
+use GeminiLabs\SiteReviews\Contracts\BuilderContract;
 use GeminiLabs\SiteReviews\Modules\Html\Builder;
 use GeminiLabs\SiteReviews\Modules\Schema;
 use GeminiLabs\SiteReviews\Modules\Style;
 use GeminiLabs\SiteReviews\Request;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsShortcode;
 
-class PublicController extends Controller
+class PublicController extends AbstractController
 {
     /**
      * @action wp_enqueue_scripts
@@ -25,7 +26,7 @@ class PublicController extends Controller
      */
     public function fetchPagedReviewsAjax(Request $request): void
     {
-        glsr()->store(glsr()->paged_handle, $request);
+        glsr()->store(glsr()->paged_handle, $request->toArray());
         $html = glsr(SiteReviewsShortcode::class)
             ->normalize($request->cast('atts', 'array'))
             ->buildReviewsHtml();
@@ -34,38 +35,6 @@ class PublicController extends Controller
             'reviews' => $html->getReviews(),
         ];
         wp_send_json_success($response);
-    }
-
-    /**
-     * @param string $tag
-     * @param string $handle
-     * @param string $src
-     * @return string
-     * @filter script_loader_tag
-     */
-    public function filterEnqueuedScriptTags($tag, $handle, $src)
-    {
-        $async = [
-            glsr()->id.'/turnstile',
-        ];
-        $defer = [
-            glsr()->id.'/hcaptcha',
-            glsr()->id.'/google-recaptcha',
-            glsr()->id.'/turnstile',
-        ];
-        if (in_array($handle, glsr()->filterArray('async-scripts', $async))) {
-            $tag = str_replace(' src=', ' async src=', $tag);
-        }
-        if (in_array($handle, glsr()->filterArray('defer-scripts', $defer))) {
-            $tag = str_replace(' src=', ' defer src=', $tag);
-        }
-        if (glsr()->id.'/friendlycaptcha-module' === $handle) {
-            $tag = sprintf('<script type="module" src="%s" async defer></script>', esc_url($src));
-        }
-        if (glsr()->id.'/friendlycaptcha-nomodule' === $handle) {
-            $tag = sprintf('<script nomodule src="%s" async defer></script>', esc_url($src));
-        }
-        return $tag;
     }
 
     /**
@@ -87,17 +56,6 @@ class PublicController extends Controller
     }
 
     /**
-     * @action site-reviews/builder
-     */
-    public function modifyBuilder(Builder $builder): void
-    {
-        $reflection = new \ReflectionClass($builder);
-        if ('Builder' === $reflection->getShortName()) { // only modify public fields
-            call_user_func_array([glsr(Style::class), 'modifyField'], [$builder]);
-        }
-    }
-
-    /**
      * @action wp_footer
      */
     public function renderSchema(): void
@@ -113,7 +71,7 @@ class PublicController extends Controller
     public function submitReview(Request $request): void
     {
         $command = $this->execute(new CreateReview($request));
-        if ($command->success()) {
+        if ($command->successful()) {
             wp_safe_redirect($command->referer()); // @todo add review ID to referer?
             exit;
         }
@@ -125,7 +83,7 @@ class PublicController extends Controller
     public function submitReviewAjax(Request $request): void
     {
         $command = $this->execute(new CreateReview($request));
-        if ($command->success()) {
+        if ($command->successful()) {
             wp_send_json_success($command->response());
         }
         wp_send_json_error($command->response());

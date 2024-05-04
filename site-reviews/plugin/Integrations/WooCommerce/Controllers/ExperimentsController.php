@@ -4,17 +4,22 @@ namespace GeminiLabs\SiteReviews\Integrations\WooCommerce\Controllers;
 
 use GeminiLabs\SiteReviews\Arguments;
 use GeminiLabs\SiteReviews\Helpers\Arr;
+use GeminiLabs\SiteReviews\HookProxy;
 use GeminiLabs\SiteReviews\Review;
 use GeminiLabs\SiteReviews\Reviews;
 
 class ExperimentsController
 {
+    use HookProxy;
+
     /**
-     * @param mixed $value
-     * @param int $objectId
+     * @param mixed  $value
+     * @param int    $objectId
      * @param string $metaKey
-     * @param bool $single
+     * @param bool   $single
+     *
      * @return mixed
+     *
      * @filter get_comment_metadata
      */
     public function filterProductCommentMeta($value, $objectId, $metaKey, $single)
@@ -28,16 +33,15 @@ class ExperimentsController
     }
 
     /**
-     * @param mixed $data
+     * @param mixed             $data
      * @param \WP_Comment_Query $query
+     *
      * @return mixed
+     *
      * @filter comments_pre_query
      */
     public function filterProductCommentsQuery($data, $query)
     {
-        if ('yes' !== glsr_get_option('addons.woocommerce.wp_comments')) {
-            return $data;
-        }
         $vars = glsr()->args($query->query_vars);
         $isProductQuery = 'review' === $vars->type || ('product' === $vars->post_type || 'product' === get_post_type($vars->post_id));
         if (!$isProductQuery) {

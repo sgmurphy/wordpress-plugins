@@ -7,90 +7,85 @@ use GeminiLabs\SiteReviews\Commands\RegisterPostType;
 use GeminiLabs\SiteReviews\Commands\RegisterShortcodes;
 use GeminiLabs\SiteReviews\Commands\RegisterTaxonomy;
 use GeminiLabs\SiteReviews\Commands\RegisterWidgets;
-use GeminiLabs\SiteReviews\Database\Query;
+use GeminiLabs\SiteReviews\Database\OptionManager;
+use GeminiLabs\SiteReviews\Database\Tables;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Install;
 
-class MainController extends Controller
+class MainController extends AbstractController
 {
     /**
-     * @return bool
-     * @filter site-reviews/devmode
-     */
-    public function filterDevmode()
-    {
-        $parts = explode('.', parse_url(get_home_url(), PHP_URL_HOST));
-        $tld = end($parts);
-        return 'test' === $tld;
-    }
-
-    /**
-     * switch_to_blog() was run before this hook was triggered.
-     * @param array $tables
-     * @return array
+     * switch_to_blog() has run before this hook is triggered.
+     *
      * @see http://developer.wordpress.org/reference/functions/wp_uninitialize_site/
-     * @filter wpmu_drop_tables
+     *
+     * @param string[] $tables
+     *
+     * @return string[]
+     *
+     * @filter wpmu_drop_tables:999
      */
-    public function filterDropTables($tables)
+    public function filterDropTables(array $tables): array
     {
-        $customTables = [ // order is intentional
-            glsr()->prefix.'ratings' => glsr(Query::class)->table('ratings'),
-            glsr()->prefix.'assigned_posts' => glsr(Query::class)->table('assigned_posts'),
-            glsr()->prefix.'assigned_terms' => glsr(Query::class)->table('assigned_terms'),
-            glsr()->prefix.'assigned_users' => glsr(Query::class)->table('assigned_users'),
-        ];
-        foreach ($customTables as $key => $table) {
-            $tables = Arr::prepend($tables, $table, $key); // Custom tables have foreign indexes so they must be removed first!
+        // Custom tables have foreign indexes so they must be removed first!
+        foreach (glsr(Tables::class)->tables() as $classname) {
+            $table = glsr($classname);
+            $tables = Arr::prepend($tables, $table->tablename, $table->name($prefixName = true));
         }
         return $tables;
     }
 
     /**
-     * This cannot be done before plugins_loaded as it uses the gettext functions.
-     * @return void
-     * @action init
+     * @action wp_initialize_site:999
      */
-    public function initDefaults()
+    public function installOnNewSite(\WP_Site $site): void
     {
-        glsr()->initDefaults();
-    }
-
-    /**
-     * @param \WP_Site $site
-     * @return void
-     * @action wp_insert_site
-     */
-    public function installOnNewSite($site)
-    {
-        if (is_plugin_active_for_network(plugin_basename(glsr()->file))) {
+        if (is_plugin_active_for_network(glsr()->basename)) {
             glsr(Install::class)->runOnSite($site->blog_id);
         }
     }
 
     /**
-     * @return void
+     * @param ?string $data We are not enforcing the type because the "wp_footer" hook does not have a parameter
+     *
      * @action admin_footer
      * @action wp_footer
      */
-    public function logOnce()
+    public function logOnce($data = ''): void
     {
-        glsr_log()->logOnce();
+        if ('update.php' !== $data) {
+            glsr_log()->logOnce();
+        }
     }
 
     /**
-     * @return void
+     * Initialize the Application settings config and defaults.
+     * Check addons for updates and add license field to settings.
+     *
+     * @action init:5
+     */
+    public function onInit(): void
+    {
+        $defaults = glsr()->defaults();
+        glsr()->action('addon/update', glsr());
+        glsr(OptionManager::class)->mergeDefaults($defaults);
+        glsr(OptionManager::class)->updateVersion();
+    }
+
+    /**
      * @action plugins_loaded
      */
-    public function registerAddons()
+    public function registerAddons(): void
     {
         glsr()->action('addon/register', glsr());
     }
 
     /**
-     * @return void
-     * @action init
+     * Languages are loaded before "init" because the setting config uses translated strings.
+     *
+     * @action after_setup_theme
      */
-    public function registerLanguages()
+    public function registerLanguages(): void
     {
         load_plugin_textdomain(glsr()->id, false,
             trailingslashit(plugin_basename(glsr()->path()).'/'.glsr()->languages)
@@ -98,30 +93,27 @@ class MainController extends Controller
     }
 
     /**
-     * @return void
      * @action init
      */
-    public function registerPostMeta()
+    public function registerPostMeta(): void
     {
         $this->execute(new RegisterPostMeta());
     }
 
     /**
-     * @return void
      * @action init
      */
-    public function registerPostType()
+    public function registerPostType(): void
     {
         $this->execute(new RegisterPostType());
     }
 
     /**
-     * @return void
-     * @action plugins_loaded
+     * @action init
      */
-    public function registerReviewTypes()
+    public function registerReviewTypes(): void
     {
-        $types = glsr()->filterArray('addon/types', []);
+        $types = glsr()->filterArray('review/types', []);
         $types = wp_parse_args($types, [
             'local' => _x('Local Review', 'admin-text', 'site-reviews'),
         ]);
@@ -129,43 +121,26 @@ class MainController extends Controller
     }
 
     /**
-     * @return void
      * @action init
      */
-    public function registerShortcodes()
+    public function registerShortcodes(): void
     {
-        $this->execute(new RegisterShortcodes([
-            'site_review',
-            'site_reviews',
-            'site_reviews_form',
-            'site_reviews_summary',
-        ]));
+        $this->execute(new RegisterShortcodes());
     }
 
     /**
-     * @return void
      * @action init
      */
-    public function registerTaxonomy()
+    public function registerTaxonomy(): void
     {
         $this->execute(new RegisterTaxonomy());
     }
 
     /**
-     * @return void
      * @action widgets_init
      */
-    public function registerWidgets()
+    public function registerWidgets(): void
     {
         $this->execute(new RegisterWidgets());
-    }
-
-    /**
-     * @return void
-     * @action init
-     */
-    public function updateAddons()
-    {
-        glsr()->action('addon/update', glsr());
     }
 }

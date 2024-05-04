@@ -4,16 +4,13 @@ namespace GeminiLabs\SiteReviews\Defaults;
 
 class PostTypeColumnDefaults extends DefaultsAbstract
 {
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'cb' => '',
             'title' => '',
-            'category' => '',
-            'assigned_posts' => _x('Assigned Posts', 'siteadmin-text', 'site-reviews'),
+            'category' => _x('Categories', 'admin-text', 'site-reviews'),
+            'assigned_posts' => _x('Assigned Posts', 'admin-text', 'site-reviews'),
             'assigned_users' => _x('Assigned Users', 'admin-text', 'site-reviews'),
             'author_name' => _x('Name', 'admin-text', 'site-reviews'),
             'author_email' => _x('Email', 'admin-text', 'site-reviews'),

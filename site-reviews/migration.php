@@ -6,10 +6,12 @@ defined('ABSPATH') || exit;
 
 /**
  * @return array
+ *
  * @since 5.9
  */
-function glsr_migration_5_9_db_version_1_1(array $values) {
-    if (!glsr(Database::class)->version('1.1')) {
+function glsr_migration_5_9_db_version_1_1(array $values)
+{
+    if (version_compare(glsr(Database::class)->version(), '1.1', '<')) {
         unset($values['terms']);
     }
     return $values;

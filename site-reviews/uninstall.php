@@ -3,7 +3,7 @@
 defined('WP_UNINSTALL_PLUGIN') || die;
 
 function glsr_uninstall() {
-    $settings = get_option('site_reviews_v6');
+    $settings = get_option('site_reviews_v7');
     $uninstall = isset($settings['settings']['general']['delete_data_on_uninstall'])
         ? $settings['settings']['general']['delete_data_on_uninstall']
         : '';
@@ -19,7 +19,7 @@ function glsr_uninstall() {
     delete_transient('glsr_remote_post_test');
     delete_transient('glsr_system_info');
     // finally, flush the cache
-    if (wp_cache_supports('flush_group')) {
+    if (function_exists('wp_cache_supports') && wp_cache_supports('flush_group')) {
         wp_cache_flush_group('options');
         wp_cache_flush_group('reviews');
     } else {
@@ -40,6 +40,9 @@ function glsr_uninstall_all_cleanup() {
     // delete any remaining options
     $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '%glsr_%'");
     $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'site-review-category%'");
+    if (defined('DB_ENGINE') && 'sqlite' === DB_ENGINE) {
+        return;
+    }
     // optimise affected database tables
     $wpdb->query("OPTIMIZE TABLE {$wpdb->options}");
     $wpdb->query("OPTIMIZE TABLE {$wpdb->postmeta}");
@@ -67,17 +70,17 @@ function glsr_uninstall_all_delete_reviews() {
     $wpdb->query("
         DELETE p, pr, tr, pm
         FROM {$wpdb->posts} p
-        LEFT JOIN {$wpdb->posts} pr ON (p.ID = pr.post_parent AND pr.post_type = 'revision')
-        LEFT JOIN {$wpdb->term_relationships} tr ON (p.ID = tr.object_id)
-        LEFT JOIN {$wpdb->postmeta} pm ON (p.ID = pm.post_id)
+        LEFT JOIN {$wpdb->posts} pr ON (pr.post_parent = p.ID AND pr.post_type = 'revision')
+        LEFT JOIN {$wpdb->term_relationships} tr ON (tr.object_id = p.ID)
+        LEFT JOIN {$wpdb->postmeta} pm ON (pm.post_id = p.ID)
         WHERE p.post_type = 'site-review'
     ");
     // delete all review categories
     $wpdb->query("
         DELETE tt, t, tm
         FROM {$wpdb->term_taxonomy} tt
-        LEFT JOIN {$wpdb->terms} t ON (tt.term_id = t.term_id)
-        LEFT JOIN {$wpdb->termmeta} tm ON (tt.term_id = tm.term_id)
+        LEFT JOIN {$wpdb->terms} t ON (t.term_id = tt.term_id)
+        LEFT JOIN {$wpdb->termmeta} tm ON (tm.term_id = tt.term_id)
         WHERE tt.taxonomy = 'site-review-category'
     ");
     // delete all assigned_posts meta
@@ -107,6 +110,7 @@ function glsr_uninstall_minimal() {
         'site_reviews_v4', // v4 settings
         'site_reviews_v5', // v5 settings
         'site_reviews_v6', // v6 settings
+        'site_reviews_v7', // v7 settings
         'theme_mods_site-reviews',
         'widget_glsr_site-reviews',
         'widget_glsr_site-reviews-form',
@@ -121,6 +125,9 @@ function glsr_uninstall_minimal() {
 
 function glsr_uninstall_minimal_drop_foreign_keys() {
     global $wpdb;
+    if (defined('DB_ENGINE') && 'sqlite' === DB_ENGINE) {
+        return;
+    }
     $constraints = $wpdb->get_results("
         SELECT CONSTRAINT_NAME, TABLE_NAME
         FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS
@@ -154,7 +161,7 @@ if (!function_exists('get_sites')) {
     global $wpdb;
     $siteIds = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
 } else {
-    $siteIds = get_sites(['fields' => 'ids']);
+    $siteIds = get_sites(['count' => false, 'fields' => 'ids']);
 }
 foreach ($siteIds as $siteId) {
     switch_to_blog($siteId);

@@ -47,7 +47,7 @@ abstract class AbstractNotice
     {
         $notices = glsr()->retrieveAs('array', 'notices');
         if (!$this->isIntroverted() || ($this->isIntroverted() && empty($notices))) { // @phpstan-ignore-line
-            glsr()->render('partials/notices/'.$this->key, $this->data());
+            glsr()->render("partials/notices/{$this->key}", $this->data());
         }
     }
 
@@ -72,9 +72,9 @@ abstract class AbstractNotice
 
     protected function futureTime(): int
     {
-        $time = !glsr(Migrate::class)->isMigrationNeeded()
-            ? glsr(OptionManager::class)->get('last_migration_run', time())
-            : time();
+        $time = glsr(Migrate::class)->isMigrationNeeded()
+            ? time() // now
+            : glsr(Migrate::class)->lastRun();
         return $time + WEEK_IN_SECONDS;
     }
 
@@ -113,7 +113,7 @@ abstract class AbstractNotice
 
     protected function isNoticeScreen(): bool
     {
-        return Str::startsWith(glsr_current_screen()->post_type, glsr()->post_type);
+        return str_starts_with(glsr_current_screen()->post_type, glsr()->post_type);
     }
 
     protected function storedVersion(): string

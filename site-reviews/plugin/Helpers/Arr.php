@@ -7,10 +7,7 @@ use GeminiLabs\SiteReviews\Helper;
 
 class Arr
 {
-    /**
-     * @return bool
-     */
-    public static function compare(array $arr1, array $arr2)
+    public static function compare(array $arr1, array $arr2): bool
     {
         sort($arr1);
         sort($arr2);
@@ -18,14 +15,12 @@ class Arr
     }
 
     /**
-     * Returns an empty array by default if value is scalar.
      * @param mixed $value
-     * @return array
      */
-    public static function consolidate($value, array $fallback = [])
+    public static function consolidate($value, array $fallback = []): array
     {
         if ($value instanceof Arguments) {
-            return $value->toArray();
+            return $value->getArrayCopy(); // This ensures we don't convert array values.
         }
         if (is_object($value)) {
             $values = get_object_vars($value);
@@ -35,23 +30,10 @@ class Arr
     }
 
     /**
-     * @return array
-     */
-    public static function convertFromDotNotation(array $array)
-    {
-        $results = [];
-        foreach ($array as $path => $value) {
-            $results = static::set($results, $path, $value);
-        }
-        return $results;
-    }
-
-    /**
      * @param mixed $value
      * @param mixed $callback
-     * @return array
      */
-    public static function convertFromString($value, $callback = null)
+    public static function convertFromString($value, $callback = null): array
     {
         if (is_scalar($value)) {
             $value = array_map('trim', explode(',', Cast::toString($value)));
@@ -60,20 +42,15 @@ class Arr
         return static::reindex(array_filter((array) $value, $callback));
     }
 
-    /**
-     * @param bool $flattenValue
-     * @param string $prefix
-     * @return array
-     */
-    public static function flatten(array $array, $flattenValue = false, $prefix = '')
+    public static function flatten(array $array, bool $flattenValue = false, string $prefix = ''): array
     {
         $result = [];
         foreach ($array as $key => $value) {
-            $newKey = ltrim($prefix.'.'.$key, '.');
+            $newKey = ltrim("{$prefix}.{$key}", '.');
             if (static::isIndexedAndFlat($value)) {
-                $value = Helper::ifTrue(!$flattenValue, $value, function () use ($value) {
-                    return '['.implode(', ', $value).']';
-                });
+                $value = Helper::ifTrue(!$flattenValue, $value,
+                    fn () => '['.implode(', ', $value).']'
+                );
             } elseif (is_array($value)) {
                 $result = array_merge($result, static::flatten($value, $flattenValue, $newKey));
                 continue;
@@ -85,9 +62,11 @@ class Arr
 
     /**
      * Get a value from an array of values using a dot-notation path as reference.
-     * @param mixed $data
+     *
+     * @param mixed      $data
      * @param string|int $path
-     * @param mixed $fallback
+     * @param mixed      $fallback
+     *
      * @return mixed
      */
     public static function get($data, $path = '', $fallback = '')
@@ -111,9 +90,10 @@ class Arr
     }
 
     /**
-     * @param mixed $data
+     * @param mixed      $data
      * @param string|int $path
-     * @param mixed $fallback
+     * @param mixed      $fallback
+     *
      * @return mixed
      */
     public static function getAs(string $cast, $data, $path = '', $fallback = '')
@@ -123,28 +103,24 @@ class Arr
 
     /**
      * @param string|int $key
-     * @return array
      */
-    public static function insertAfter($key, array $array, array $insert)
+    public static function insertAfter($key, array $array, array $insert): array
     {
         return static::insert($array, $insert, $key, 'after');
     }
 
     /**
      * @param string|int $key
-     * @return array
      */
-    public static function insertBefore($key, array $array, array $insert)
+    public static function insertBefore($key, array $array, array $insert): array
     {
         return static::insert($array, $insert, $key, 'before');
     }
 
     /**
      * @param string|int $key
-     * @param string $position
-     * @return array
      */
-    public static function insert(array $array, array $insert, $key, $position = 'before')
+    public static function insert(array $array, array $insert, $key, string $position = 'before'): array
     {
         $keyPosition = array_search($key, array_keys($array));
         if (false !== $keyPosition) {
@@ -161,9 +137,8 @@ class Arr
 
     /**
      * @param mixed $array
-     * @return bool
      */
-    public static function isIndexedAndFlat($array)
+    public static function isIndexedAndFlat($array): bool
     {
         if (!is_array($array) || array_filter($array, 'is_array')) {
             return false;
@@ -171,11 +146,7 @@ class Arr
         return wp_is_numeric_array($array);
     }
 
-    /**
-     * @param bool $prefixed
-     * @return array
-     */
-    public static function prefixKeys(array $values, $prefix = '_', $prefixed = true)
+    public static function prefixKeys(array $values, string $prefix = '_', bool $prefixed = true): array
     {
         $trim = Helper::ifTrue($prefixed, $prefix, '');
         $prefixed = [];
@@ -190,12 +161,10 @@ class Arr
     }
 
     /**
-     * @param array $array
      * @param mixed $value
      * @param mixed $key
-     * @return array
      */
-    public static function prepend($array, $value, $key = null)
+    public static function prepend(array $array, $value, $key = null): array
     {
         if (!is_null($key)) {
             return [$key => $value] + $array;
@@ -204,22 +173,17 @@ class Arr
         return $array;
     }
 
-    /**
-     * @param mixed $array
-     * @return array
-     */
-    public static function reindex($array)
+    public static function reindex(array $array): array
     {
         return static::isIndexedAndFlat($array) ? array_values($array) : $array;
     }
 
     /**
      * Unset a value from an array of values using a dot-notation path as reference.
+     *
      * @param mixed $data
-     * @param string $path
-     * @return array
      */
-    public static function remove($data, $path = '')
+    public static function remove($data, string $path = ''): array
     {
         $data = static::consolidate($data);
         $keys = explode('.', $path);
@@ -234,28 +198,32 @@ class Arr
         return $data;
     }
 
-    /**
-     * @return array
-     */
-    public static function removeEmptyValues(array $array)
+    public static function removeEmptyValues(array $array): array
     {
         $result = [];
         foreach ($array as $key => $value) {
             if (Helper::isEmpty($value)) {
                 continue;
             }
-            $result[$key] = Helper::ifTrue(!is_array($value), $value, function () use ($value) {
-                return static::removeEmptyValues($value);
-            });
+            $result[$key] = Helper::ifTrue(!is_array($value), $value,
+                fn () => static::removeEmptyValues($value)
+            );
         }
         return $result;
     }
 
+    public static function restrictKeys(array $array, array $allowedKeys): array
+    {
+        return array_intersect_key($array, array_fill_keys($allowedKeys, ''));
+    }
+
     /**
      * Search a multidimensional array by key value.
-     * @param mixed $needle
-     * @param array $haystack
+     *
+     * @param mixed      $needle
+     * @param array      $haystack
      * @param int|string $key
+     *
      * @return array|iterable|false
      */
     public static function searchByKey($needle, $haystack, $key)
@@ -272,12 +240,11 @@ class Arr
 
     /**
      * Set a value to an array of values using a dot-notation path as reference.
+     *
      * @param mixed $data
-     * @param string $path
      * @param mixed $value
-     * @return array
      */
-    public static function set($data, $path, $value)
+    public static function set($data, string $path, $value): array
     {
         $token = strtok($path, '.');
         $ref = &$data;
@@ -294,37 +261,38 @@ class Arr
         return $data;
     }
 
-    /**
-     * @return array
-     */
-    public static function unique(array $values)
+    public static function unflatten(array $array): array
     {
-        return Helper::ifTrue(!static::isIndexedAndFlat($values), $values, function () use ($values) {
-            return array_filter(array_unique($values)); // we do not want to reindex the array!
-        });
+        $results = [];
+        foreach ($array as $path => $value) {
+            $results = static::set($results, $path, $value);
+        }
+        return $results;
+    }
+
+    public static function unique(array $values): array
+    {
+        return Helper::ifTrue(!static::isIndexedAndFlat($values), $values,
+            fn () => array_filter(array_unique($values)) // we do not want to reindex the array!
+        );
     }
 
     /**
      * This reindexes the array!
+     *
      * @param array|string $values
-     * @return array
      */
-    public static function uniqueInt($values, $absint = true)
+    public static function uniqueInt($values, bool $absint = true): array
     {
         $values = array_filter(static::convertFromString($values), 'is_numeric');
         $values = array_map('intval', $values);
         if ($absint) {
-            $values = array_filter($values, function ($value) {
-                return $value > 0;
-            });
+            $values = array_filter($values, fn ($value) => $value > 0);
         }
         return array_values(array_unique($values));
     }
 
-    /**
-     * @return array
-     */
-    public static function unprefixKeys(array $values, $prefix = '_')
+    public static function unprefixKeys(array $values, string $prefix = '_'): array
     {
         return static::prefixKeys($values, $prefix, false);
     }

@@ -5,11 +5,14 @@ namespace GeminiLabs\SiteReviews\Overrides;
 use GeminiLabs\SiteReviews\Database;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
+use GeminiLabs\SiteReviews\Modules\Html\Builder;
+use GeminiLabs\SiteReviews\Modules\Notice;
 
 class ReviewsListTable extends \WP_Posts_List_Table
 {
     /**
      * @param \WP_Post $post
+     *
      * @return void
      */
     public function column_title($post)
@@ -17,7 +20,15 @@ class ReviewsListTable extends \WP_Posts_List_Table
         if (glsr()->can('respond_to_post', $post->ID)) {
             $this->renderInlineData($post);
         }
+        ob_start();
         parent::column_title($post);
+        $value = ob_get_clean();
+        $value = str_replace(
+            ['<strong>', '</strong>'],
+            ['<div class="review-title"><strong>', '</strong></div>'],
+            $value
+        );
+        echo $value;
     }
 
     /**
@@ -34,6 +45,17 @@ class ReviewsListTable extends \WP_Posts_List_Table
             'screen_id' => esc_attr($this->screen->id),
             'taxonomy' => get_taxonomy(glsr()->taxonomy),
         ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function views()
+    {
+        echo glsr(Builder::class)->div(glsr(Notice::class)->get(), [
+            'id' => 'glsr-notices',
+        ]);
+        parent::views();
     }
 
     protected function getAdditionalFieldsets()

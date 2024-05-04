@@ -79,8 +79,8 @@ class Migrate_3_0_0 implements MigrateContract
         $this->migrateNotificationSettings();
         $this->migrateRecaptchaSettings();
         $this->migrateRequiredSettings();
-        $oldSettings = Arr::convertFromDotNotation($this->oldSettings);
-        $newSettings = Arr::convertFromDotNotation($this->newSettings);
+        $oldSettings = Arr::unflatten($this->oldSettings);
+        $newSettings = Arr::unflatten($this->newSettings);
         if (isset($oldSettings['settings']['strings']) && is_array($oldSettings['settings']['strings'])) {
             $newSettings['settings']['strings'] = $oldSettings['settings']['strings'];
         }
@@ -139,7 +139,7 @@ class Migrate_3_0_0 implements MigrateContract
             $this->newSettings['settings.submissions.recaptcha.integration'] = 'all';
         }
         if ('invisible-recaptcha' === $this->oldSettings['settings.reviews-form.recaptcha.integration']) {
-            $recaptcha = wp_parse_args((array) get_site_option('ic-settings', [], false), $recaptcha);
+            $recaptcha = wp_parse_args((array) get_site_option('ic-settings', []), $recaptcha);
         }
         $this->newSettings['settings.submissions.recaptcha.key'] = $recaptcha['SiteKey'];
         $this->newSettings['settings.submissions.recaptcha.secret'] = $recaptcha['SecretKey'];

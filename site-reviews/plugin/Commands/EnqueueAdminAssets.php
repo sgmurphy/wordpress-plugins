@@ -2,51 +2,54 @@
 
 namespace GeminiLabs\SiteReviews\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
 use GeminiLabs\SiteReviews\Controllers\ListTableColumns\ColumnFilterAssignedPost;
 use GeminiLabs\SiteReviews\Controllers\ListTableColumns\ColumnFilterAssignedUser;
 use GeminiLabs\SiteReviews\Controllers\ListTableColumns\ColumnFilterAuthor;
-use GeminiLabs\SiteReviews\Helpers\Str;
+use GeminiLabs\SiteReviews\Defaults\PointerDefaults;
 use GeminiLabs\SiteReviews\Modules\Rating;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsFormShortcode;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewShortcode;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsShortcode;
 use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsSummaryShortcode;
 
-class EnqueueAdminAssets implements Contract
+class EnqueueAdminAssets extends AbstractCommand
 {
-    public $pointers;
+    public array $pointers;
 
     public function __construct()
     {
-        $this->pointers = $this->generatePointers([[
-            'content' => _x('You can pin exceptional reviews so that they are always shown first.', 'admin-text', 'site-reviews'),
-            'id' => 'glsr-pointer-pinned',
-            'position' => [
-                'edge' => 'right',
-                'align' => 'middle',
+        $this->generatePointers([
+            [
+                'content' => _x('You can pin exceptional reviews so that they are always shown first.', 'admin-text', 'site-reviews'),
+                'id' => 'glsr-pointer-pinned',
+                'target' => '#misc-pub-pinned',
+                'title' => _x('Pin Your Reviews', 'admin-text', 'site-reviews'),
             ],
-            'screen' => glsr()->post_type,
-            'target' => '#misc-pub-pinned',
-            'title' => _x('Pin Your Reviews', 'admin-text', 'site-reviews'),
-        ]]);
+        ]);
     }
 
-    /**
-     * @return void
-     */
-    public function handle()
+    public function enqueueScripts(): void
     {
-        $this->enqueueAssets();
+        if (!empty($this->pointers)) {
+            wp_enqueue_script('wp-pointer');
+        }
+        wp_enqueue_script(
+            glsr()->id.'/admin',
+            glsr()->url('assets/scripts/'.glsr()->id.'-admin.js'),
+            $this->getDependencies(),
+            glsr()->version,
+            [
+                'strategy' => 'defer',
+            ]
+        );
+        wp_add_inline_script(glsr()->id.'/admin', $this->inlineScript(), 'before');
+        wp_add_inline_script(glsr()->id.'/admin', glsr()->filterString('enqueue/admin/inline-script/after', ''));
     }
 
-    /**
-     * @return void
-     */
-    public function enqueueAssets()
+    public function enqueueStyles(): void
     {
-        if (!$this->isCurrentScreen()) {
-            return;
+        if (!empty($this->pointers)) {
+            wp_enqueue_style('wp-pointer');
         }
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_style(
@@ -55,28 +58,23 @@ class EnqueueAdminAssets implements Contract
             ['wp-list-reusable-blocks'], // load the :root admin theme colors
             glsr()->version
         );
-        wp_enqueue_script(
-            glsr()->id.'/admin',
-            glsr()->url('assets/scripts/'.glsr()->id.'-admin.js'),
-            $this->getDependencies(),
-            glsr()->version,
-            false
-        );
-        if (!empty($this->pointers)) {
-            wp_enqueue_style('wp-pointer');
-            wp_enqueue_script('wp-pointer');
-        }
-        wp_add_inline_script(glsr()->id.'/admin', $this->inlineScript(), 'before');
-        wp_add_inline_script(glsr()->id.'/admin', glsr()->filterString('enqueue/admin/inline-script/after', ''));
+        wp_add_inline_style(glsr()->id.'/admin', $this->inlineStyles());
     }
 
-    /**
-     * @return string
-     */
-    public function inlineScript()
+    public function handle(): void
+    {
+        if (!$this->isCurrentScreen()) {
+            $this->fail();
+            return;
+        }
+        $this->enqueueStyles();
+        $this->enqueueScripts();
+    }
+
+    public function inlineScript(): string
     {
         $variables = [
-            'action' => glsr()->prefix.'action',
+            'action' => glsr()->prefix.'admin_action',
             'addons' => [],
             'addonsurl' => glsr_admin_url('addons'),
             'ajaxurl' => admin_url('admin-ajax.php'),
@@ -140,24 +138,23 @@ class EnqueueAdminAssets implements Contract
         return $this->buildInlineScript($variables);
     }
 
-    /**
-     * @return string
-     */
-    protected function buildInlineScript(array $variables)
+    public function inlineStyles(): string
+    {
+        return glsr()->filterString('enqueue/admin/inline-styles', '');
+    }
+
+    protected function buildInlineScript(array $variables): string
     {
         $script = 'window.hasOwnProperty("GLSR")||(window.GLSR={});';
         foreach ($variables as $key => $value) {
-            $script .= sprintf('GLSR.%s=%s;', $key, json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            $script .= sprintf('GLSR.%s=%s;', $key, (string) wp_json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
         }
         $pattern = '/\"([a-zA-Z]+)\"(:[{\[\"])/'; // remove unnecessary quotes surrounding object keys
         $optimizedScript = preg_replace($pattern, '$1$2', $script);
         return glsr()->filterString('enqueue/admin/inline-script', $optimizedScript, $script, $variables);
     }
 
-    /**
-     * @return array
-     */
-    protected function getDependencies()
+    protected function getDependencies(): array
     {
         $dependencies = glsr()->filterArray('enqueue/admin/dependencies', []);
         $dependencies = array_merge($dependencies, [
@@ -166,15 +163,12 @@ class EnqueueAdminAssets implements Contract
         return $dependencies;
     }
 
-    /**
-     * @return array
-     */
-    protected function generatePointer(array $pointer)
+    protected function generatePointer(array $pointer): array
     {
         return [
             'id' => $pointer['id'],
             'options' => [
-                'content' => '<h3>'.$pointer['title'].'</h3><p>'.$pointer['content'].'</p>',
+                'content' => "<h3>{$pointer['title']}</h3>".wpautop($pointer['content']),
                 'position' => $pointer['position'],
             ],
             'screen' => $pointer['screen'],
@@ -183,30 +177,31 @@ class EnqueueAdminAssets implements Contract
     }
 
     /**
-     * @return array
+     * @param array[] $args
      */
-    protected function generatePointers(array $pointers)
+    protected function generatePointers(array $args): void
     {
-        $dismissedPointers = get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true);
-        $dismissedPointers = explode(',', (string) $dismissedPointers);
-        $generatedPointers = [];
-        foreach ($pointers as $pointer) {
-            if ($pointer['screen'] != glsr_current_screen()->id) {
+        $dismissed = get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true);
+        $dismissed = explode(',', (string) $dismissed);
+        $pointers = [];
+        foreach ($args as $pointer) {
+            $pointer = glsr(PointerDefaults::class)->restrict($pointer);
+            if ($pointer['screen'] !== glsr_current_screen()->id) {
                 continue;
             }
-            if (in_array($pointer['id'], $dismissedPointers)) {
+            if (in_array($pointer['id'], $dismissed)) {
                 continue;
             }
-            $generatedPointers[] = $this->generatePointer($pointer);
+            $pointers[] = $this->generatePointer($pointer);
         }
-        return $generatedPointers;
+        $this->pointers = $pointers;
     }
 
-    /**
-     * @return bool
-     */
-    protected function isCurrentScreen()
+    protected function isCurrentScreen(): bool
     {
+        if (is_customize_preview()) {
+            return false; // don't load assets in the Customizer preview
+        }
         $screen = glsr_current_screen();
         $screenIds = [
             'customize',
@@ -216,22 +211,21 @@ class EnqueueAdminAssets implements Contract
             'site-editor',
             'widgets',
         ];
-        return Str::startsWith($screen->post_type, glsr()->post_type)
+        if ('admin' === $screen->base && str_starts_with(filter_input(INPUT_GET, 'import'), glsr()->post_type)) {
+            return true;
+        }
+        return str_starts_with($screen->post_type, glsr()->post_type)
             || in_array($screen->id, $screenIds)
             || 'post' === $screen->base;
     }
 
-    /**
-     * @return array
-     */
-    protected function localizeShortcodes()
+    protected function localizeShortcodes(): array
     {
         $variables = [];
         foreach (glsr()->retrieveAs('array', 'mce', []) as $tag => $args) {
-            if (empty($args['required'])) {
-                continue;
+            if (!empty($args['required'])) {
+                $variables[$tag] = $args['required'];
             }
-            $variables[$tag] = $args['required'];
         }
         return $variables;
     }

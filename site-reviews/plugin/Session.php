@@ -6,39 +6,34 @@ use GeminiLabs\SiteReviews\Helpers\Arr;
 
 trait Session
 {
-    /**
-     * @var array
-     */
-    protected $session = [];
+    protected array $session = [];
 
-    /**
-     * @return Arguments
-     */
-    public function session()
+    public function session(): Arguments
     {
         return glsr()->args($this->session);
     }
 
-    /**
-     * @return void
-     */
-    public function sessionClear()
+    public function sessionClear(): void
     {
         $this->session = [];
     }
 
     /**
+     * @param mixed $fallback
+     *
      * @return mixed
      */
-    public function sessionGet($key, $fallback = '')
+    public function sessionGet(string $key, $fallback = '')
     {
         return Arr::get($this->session, $key, $fallback);
     }
 
     /**
+     * @param mixed $fallback
+     *
      * @return mixed
      */
-    public function sessionPluck($key, $fallback = '')
+    public function sessionPluck(string $key, $fallback = '')
     {
         $value = $this->sessionGet($key, $fallback);
         unset($this->session[$key]);
@@ -46,9 +41,9 @@ trait Session
     }
 
     /**
-     * @return void
+     * @param mixed $value
      */
-    public function sessionSet($key, $value)
+    public function sessionSet(string $key, $value): void
     {
         $this->session[$key] = $value;
     }

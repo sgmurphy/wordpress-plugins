@@ -8,9 +8,14 @@
         </button>
     </h3>
     <div id="faq-plugin-templates" class="inside">
+        <div class="glsr-notice-inline components-notice is-warning">
+            <p class="components-notice__content">
+                Make sure to use these template files in a <a href="https://wpengine.com/resources/create-child-theme-wordpress/#The_Plugin_Method" target="_blank">child theme</a> to prevent changes from being overwritten when your parent theme is updated.
+            </p>
+        </div>
         <p>Site Reviews uses a custom templating system which makes it easy to customize the HTML of the widgets and shortcodes to meet your needs.</p>
         <ol>
-            <li>Create a folder in your theme called "site-reviews".</li>
+            <li>Create a folder in your child theme called "site-reviews".</li>
             <li>Copy the template files that you would like to customise from <code>/wp-content/plugins/site-reviews/templates/</code> into this new folder, keeping the subdirectories the same.</li>
             <li>Open the template files that you copied over in a text editor and make your changes.</li>
         </ol>
@@ -25,7 +30,8 @@
 ├── form                        This folder contains the template files for the form fields
 │   ├── field-description.php   This template displays the form field description.
 │   ├── field-errors.php        This template displays the form field validation errors.
-│   ├── field.php               This template displays a form field.
+│   ├── field-label.php         This template displays the form field label.
+│   ├── field.php               This template displays the form field element.
 │   ├── field_{type}.php        To target a specific field type, duplicate the field.php file and append the type with an underscore (i.e. field_email.php, field_textarea.php)
 │   ├── response.php            This template displays the form submission response
 │   ├── submit-button.php       This template displays the submit button

@@ -10,14 +10,14 @@ class AdminHooks extends AbstractHooks
     {
         $this->hook(AdminController::class, [
             ['approveReview', 'site-reviews/route/get/admin/approve'],
-            ['displayUpdateWarning', 'in_plugin_update_message-'.$this->basename],
+            ['displayUpdateWarning', "in_plugin_update_message-{$this->basename}"],
             ['enqueueAssets', 'admin_enqueue_scripts'],
-            ['filterActionLinks', 'plugin_action_links_'.$this->basename],
-            ['filterDashboardGlanceItems', 'dashboard_glance_items'],
+            ['filterActionLinks', "plugin_action_links_{$this->basename}"],
             ['filterExportArgs', 'export_args', 11],
             ['filterScreenOptionsButton', 'screen_options_show_submit', 20],
             ['filterTinymcePlugins', 'mce_external_plugins', 15],
             ['onActivation', 'admin_init'],
+            ['onDeactivation', "deactivate_{$this->basename}"],
             ['onImportEnd', 'import_end'],
             ['printInlineStyle', 'admin_head'],
             ['registerTinymcePopups', 'admin_init'],
@@ -33,7 +33,6 @@ class AdminHooks extends AbstractHooks
             ['toggleFiltersAjax', 'site-reviews/route/ajax/toggle-filters'],
             ['togglePinnedAjax', 'site-reviews/route/ajax/toggle-pinned'],
             ['toggleStatusAjax', 'site-reviews/route/ajax/toggle-status'],
-            ['toggleVerifiedAjax', 'site-reviews/route/ajax/toggle-verified'],
         ]);
     }
 }

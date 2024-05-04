@@ -3,13 +3,21 @@
 namespace GeminiLabs\SiteReviews;
 
 use GeminiLabs\SiteReviews\Helpers\Arr;
+use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Modules\Encryption;
 
 class Request extends Arguments
 {
+    public function decrypt(string $key): string
+    {
+        $value = glsr(Encryption::class)->decrypt($this->cast($key, 'string'));
+        return Cast::toString($value);
+    }
+
     /**
      * @param mixed $key
      * @param mixed $fallback
+     *
      * @return mixed
      */
     public function get($key, $fallback = null)
@@ -23,9 +31,10 @@ class Request extends Arguments
 
     /**
      * @return static
+     *
      * @todo support array values
      */
-    public static function inputGet()
+    public static function inputGet(): Request
     {
         $values = [];
         if ($token = filter_input(INPUT_GET, glsr()->prefix)) {
@@ -38,10 +47,11 @@ class Request extends Arguments
     /**
      * @return static
      */
-    public static function inputPost()
+    public static function inputPost(): Request
     {
+        $action = Helper::filterInput('action');
         $values = Helper::filterInputArray(glsr()->id);
-        if (Helper::filterInput('action') === glsr()->prefix.'action') {
+        if (in_array($action, [glsr()->prefix.'admin_action', glsr()->prefix.'public_action'])) {
             $values['_ajax_request'] = true;
         }
         if ('submit-review' === Helper::filterInput('_action', $values)) {

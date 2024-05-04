@@ -4,17 +4,16 @@ namespace GeminiLabs\SiteReviews\Modules\Html\Tags;
 
 class ReviewTitleTag extends ReviewTag
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function handle($value = null)
+    protected function handle(): string
     {
-        if (!$this->isHidden()) {
-            $title = trim($value);
-            if (empty($title)) {
-                $title = __('No Title', 'site-reviews');
-            }
-            return $this->wrap($title, 'h4');
+        if ($this->isHidden()) {
+            return '';
         }
+        return $this->wrap($this->value(), 'h4');
+    }
+
+    protected function value(): string
+    {
+        return $this->value ?: __('No Title', 'site-reviews');
     }
 }

@@ -11,6 +11,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 {
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|bool
      */
     public function batch_items_permissions_check($request)
@@ -20,6 +21,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|\WP_REST_Response
      */
     public function create_item($request)
@@ -50,6 +52,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|bool
      */
     public function create_item_permissions_check($request)
@@ -59,6 +62,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|\WP_REST_Response
      */
     public function delete_item($request)
@@ -86,7 +90,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
                 return new \WP_Error('woocommerce_rest_already_trashed', __('The object has already been trashed.', 'woocommerce'), ['status' => 410]);
             }
             $result = wp_trash_post($review->ID);
-            $review = glsr_get_review($review->ID);
+            $review->refresh(); // refresh the review!
             $response = $this->prepare_item_for_response($review, $request);
         }
         if (!$result) {
@@ -98,6 +102,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|bool
      */
     public function delete_item_permissions_check($request)
@@ -107,6 +112,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|bool
      */
     public function get_item_permissions_check($request)
@@ -116,6 +122,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|\WP_REST_Response
      */
     public function get_items($request)
@@ -157,6 +164,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|bool
      */
     public function get_items_permissions_check($request)
@@ -165,8 +173,9 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
     }
 
     /**
-     * @param Review $review
+     * @param Review           $review
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response $response
      */
     public function prepare_item_for_response($review, $request) // @phpstan-ignore-line
@@ -200,6 +209,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|\WP_REST_Response
      */
     public function update_item($request)
@@ -220,7 +230,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
         }
         // update rating entry
         glsr(ReviewManager::class)->update($review->ID, $this->prepare_item_for_database($request));
-        $review = glsr_get_review($review->ID);
+        $review->refresh(); // refresh the review!
         glsr()->action('woocommerce/rest-api/insert_product_review', $review, $request, false);
         $updateAdditionalFields = $this->update_additional_fields_for_object($review, $request);
         if (is_wp_error($updateAdditionalFields)) {
@@ -233,6 +243,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_Error|bool
      */
     public function update_item_permissions_check($request)
@@ -242,7 +253,8 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param string $context
-     * @param int $reviewId
+     * @param int    $reviewId
+     *
      * @return bool
      */
     protected function checkPermissionForProductReview($context = 'read', $reviewId = 0)
@@ -268,8 +280,9 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
     }
 
     /**
-     * @param string $action
+     * @param string           $action
      * @param \WP_REST_Request $request
+     *
      * @return bool|\WP_Error
      */
     protected function checkPermissions($action, $request)
@@ -300,6 +313,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param int $id
+     *
      * @return Review|\WP_Error
      */
     protected function get_review($id)
@@ -319,6 +333,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return array
      */
     protected function prepare_item_for_database($request)
@@ -342,6 +357,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return array|\WP_Error
      */
     protected function prepare_item_for_update($request)
@@ -378,26 +394,28 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param Review $review
+     *
      * @return array
      */
     protected function prepare_links($review) // @phpstan-ignore-line
     {
         $links = [
             'self' => [
-                'href' => rest_url(sprintf('/%s/%s/%d', $this->namespace, $this->rest_base, $review->ID)),
+                'href' => rest_url("/{$this->namespace}/{$this->rest_base}/{$review->ID}"),
             ],
             'collection' => [
-                'href' => rest_url(sprintf('/%s/%s', $this->namespace, $this->rest_base)),
+                'href' => rest_url("/{$this->namespace}/{$this->rest_base}"),
             ],
         ];
         if (!empty($review->assigned_posts)) {
+            $postId = Arr::get($review->assigned_posts, 0);
             $links['up'] = [
-                'href' => rest_url(sprintf('/%s/products/%d', $this->namespace, Arr::get($review->assigned_posts, 0))),
+                'href' => rest_url("/{$this->namespace}/products/{$postId}"),
             ];
         }
         if (0 !== $review->author_id) {
             $links['reviewer'] = [
-                'href' => rest_url('wp/v2/users/'.$review->author_id),
+                'href' => rest_url("wp/v2/users/{$review->author_id}"),
                 'embeddable' => true,
             ];
         }
@@ -406,6 +424,7 @@ class ProductReviewsController extends \WC_REST_Product_Reviews_Controller
 
     /**
      * @param string|int $status
+     *
      * @return string
      */
     protected function prepare_status_response($status)

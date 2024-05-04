@@ -25,11 +25,12 @@ class SanitizeUserName extends StringSanitizer
      * \p{M} = any character intended to be combined with another character (e.g. accents, umlauts, enclosing boxes, etc.).
      * \p{N} = any kind of numeric character in any script.
      * \p{Pf} = any kind of closing quote.
+     *
      * @see https://www.regular-expressions.info/unicode.html
      */
     protected function sanitizeDisplayName(string $value): string
     {
-        $value = html_entity_decode($value);
+        $value = wp_specialchars_decode($value);
         $value = wp_strip_all_tags($value);
         $value = $this->kses($value);
         $value = preg_replace('/%([a-fA-F0-9][a-fA-F0-9])/', '', $value); // Remove percent-encoded characters.

@@ -2,21 +2,21 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\WLPR;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
-use GeminiLabs\SiteReviews\Database\Query;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
+use GeminiLabs\SiteReviews\Database\ReviewManager;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Review;
 use Wlpr\App\Helpers\Loyalty;
 use Wlpr\App\Models\PointAction;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * @action site-reviews/review/approved
      */
     public function onApprovedReview(Review $review): void
     {
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         $this->maybeEarnPoints($review);
     }
 
@@ -25,7 +25,7 @@ class Controller extends BaseController
      */
     public function onCreatedReview(Review $review): void
     {
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         if ($review->is_approved) {
             $this->maybeEarnPoints($review);
         }

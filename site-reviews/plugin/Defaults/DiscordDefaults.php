@@ -9,18 +9,14 @@ class DiscordDefaults extends DefaultsAbstract
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'assigned_links' => 'string',
         'color' => 'string',
         'header' => 'string',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'assigned_links' => '',
@@ -29,10 +25,7 @@ class DiscordDefaults extends DefaultsAbstract
         ];
     }
 
-    /**
-     * @return array
-     */
-    protected function finalize(array $values = [])
+    protected function finalize(array $values = []): array
     {
         $color = Color::new($values['color']);
         if (is_wp_error($color)) {

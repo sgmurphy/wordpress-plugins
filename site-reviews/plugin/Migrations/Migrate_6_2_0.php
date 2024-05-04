@@ -20,6 +20,9 @@ class Migrate_6_2_0 implements MigrateContract
     public function migrateAddonWoocommerce(): void
     {
         $settings = Arr::consolidate(get_option(OptionManager::databaseKey(6)));
+        if (empty($settings)) {
+            return;
+        }
         if (empty($settings['settings']['addons']['woocommerce'])) {
             return;
         }
@@ -31,6 +34,5 @@ class Migrate_6_2_0 implements MigrateContract
         unset($woocommerce['experiment']);
         $settings['settings']['addons']['woocommerce'] = $woocommerce;
         update_option(OptionManager::databaseKey(6), $settings);
-        glsr(OptionManager::class)->reset();
     }
 }

@@ -9,10 +9,11 @@ use GeminiLabs\SiteReviews\Helpers\Str;
 /**
  * @property string $id
  * @property string $name
- * @method array filterArray($hook, ...$args)
- * @method bool filterBool($hook, ...$args)
- * @method float filterFloat($hook, ...$args)
- * @method int filterInt($hook, ...$args)
+ *
+ * @method array  filterArray($hook, ...$args)
+ * @method bool   filterBool($hook, ...$args)
+ * @method float  filterFloat($hook, ...$args)
+ * @method int    filterInt($hook, ...$args)
  * @method object filterObject($hook, ...$args)
  * @method string filterString($hook, ...$args)
  */
@@ -23,15 +24,18 @@ trait Plugin
      */
     protected static $instance;
 
+    protected $basename;
     protected $file;
     protected $languages;
     protected $testedTo;
+    protected $uri;
     protected $version;
 
     public function __call($method, $args)
     {
-        $isFilter = Str::startsWith($method, 'filter');
-        $to = Helper::buildMethodName(Str::removePrefix($method, 'filter'), 'to');
+        $isFilter = str_starts_with($method, 'filter');
+        $cast = Str::removePrefix($method, 'filter');
+        $to = Helper::buildMethodName('to', $cast);
         if ($isFilter && method_exists(Cast::class, $to)) {
             $filtered = call_user_func_array([$this, 'filter'], $args);
             return Cast::$to($filtered);
@@ -43,10 +47,12 @@ trait Plugin
     {
         $file = wp_normalize_path((new \ReflectionClass($this))->getFileName());
         $this->file = str_replace('plugin/Application', $this->id, $file);
+        $this->basename = plugin_basename($this->file);
         $plugin = get_file_data($this->file, [
             'languages' => 'Domain Path',
             'name' => 'Plugin Name',
             'testedTo' => 'Tested up to',
+            'uri' => 'Plugin URI',
             'version' => 'Version',
         ], 'plugin');
         array_walk($plugin, function ($value, $key) {
@@ -72,89 +78,74 @@ trait Plugin
     }
 
     /**
-     * @param string $hook
      * @param mixed ...$args
-     * @return void
      */
-    public function action($hook, ...$args)
+    public function action(string $hook, ...$args): void
     {
-        do_action_ref_array($this->id.'/'.$hook, $args);
+        do_action("{$this->id}/action", $hook, $args);
+        do_action_ref_array("{$this->id}/{$hook}", $args);
     }
 
     /**
      * @param mixed $args
-     * @return Arguments
      */
-    public function args($args = [])
+    public function args($args = []): Arguments
     {
         return new Arguments($args);
     }
 
-    /**
-     * @param string $view
-     * @return string
-     */
-    public function build($view, array $data = [])
+    public function build(string $view, array $data = []): string
     {
         ob_start();
         $this->render($view, $data);
         return trim(ob_get_clean());
     }
 
-    /**
-     * @return void
-     */
-    public function catchFatalError()
+    public function catchFatalError(): void
     {
         $error = error_get_last();
-        if (E_ERROR === Arr::get($error, 'type') && Str::contains(Arr::get($error, 'message'), $this->path())) {
+        if (E_ERROR === Arr::get($error, 'type') && str_contains(Arr::get($error, 'message'), $this->path())) {
             glsr_log()->error($error['message']);
         }
     }
 
-    /**
-     * @param string $name
-     * @param bool $filtered
-     * @return array
-     */
-    public function config($name, $filtered = true)
+    public function config(string $name, bool $filtered = true): array
     {
-        $path = $this->filterString('config', 'config/'.$name.'.php');
+        $path = $this->filterString('config', "config/{$name}.php");
         $configFile = $this->path($path);
         $config = file_exists($configFile)
             ? include $configFile
             : [];
-        return $filtered
-            ? $this->filterArray('config/'.$name, $config)
-            : $config;
+        $config = Arr::consolidate($config);
+        // Don't filter the settings config!
+        // They can be filtered with the "site-reviews/settings" filter hook
+        if ($filtered && !Str::contains($name, ['integrations', 'settings'])) {
+            $config = $this->filterArray("config/{$name}", $config);
+        }
+        return $config;
     }
 
     /**
-     * @param string $property
-     * @return string
+     * @return mixed
      */
-    public function constant($property, $className = 'static')
+    public function constant(string $property, string $className = 'static')
     {
         $property = strtoupper($property);
-        $constant = $className.'::'.$property;
+        $constant = "{$className}::{$property}";
         return defined($constant)
-            ? $this->filterString('const/'.$property, constant($constant))
+            ? $this->filterString("const/{$property}", constant($constant))
             : '';
     }
 
-    /**
-     * @param string $view
-     * @return string
-     */
-    public function file($view)
+    public function file(string $view): string
     {
         $view .= '.php';
         $filePaths = [];
-        if (Str::startsWith($view, 'templates/')) {
+        if (str_starts_with($view, 'templates/')) {
             $filePaths[] = $this->themePath(Str::removePrefix($view, 'templates/'));
         }
         $filePaths[] = $this->path($view);
-        $filePaths[] = $this->path('views/'.$view);
+        $filePaths[] = $this->path("views/{$view}");
         foreach ($filePaths as $file) {
             if (file_exists($file)) {
                 return $file;
@@ -164,23 +155,22 @@ trait Plugin
     }
 
     /**
-     * @param string $hook
      * @param mixed ...$args
+     *
      * @return mixed
      */
-    public function filter($hook, ...$args)
+    public function filter(string $hook, ...$args)
     {
-        return apply_filters_ref_array($this->id.'/'.$hook, $args);
+        do_action("{$this->id}/filter", $hook, $args);
+        return apply_filters_ref_array("{$this->id}/{$hook}", $args);
     }
 
     /**
-     * @param string $hook
      * @param mixed ...$args
-     * @return array
      */
-    public function filterArrayUnique($hook, ...$args)
+    public function filterArrayUnique(string $hook, ...$args): array
     {
-        $filtered = apply_filters_ref_array($this->id.'/'.$hook, $args);
+        $filtered = apply_filters_ref_array("{$this->id}/{$hook}", $args);
         return array_unique(array_filter(Cast::toArray($filtered)));
     }
 
@@ -196,10 +186,16 @@ trait Plugin
     }
 
     /**
-     * @param string $file
-     * @return string
+     * @param mixed $fallback
+     *
+     * @return mixed
      */
-    public function path($file = '', $realpath = true)
+    public function option(string $path = '', $fallback = '', string $cast = '')
+    {
+        return glsr_get_option($path, $fallback, $cast);
+    }
+
+    public function path(string $file = '', bool $realpath = true): string
     {
         $path = plugin_dir_path($this->file);
         if (!$realpath) {
@@ -209,11 +205,7 @@ trait Plugin
         return $this->filterString('path', $path, $file);
     }
 
-    /**
-     * @param string $view
-     * @return void
-     */
-    public function render($view, array $data = [])
+    public function render(string $view, array $data = []): void
     {
         $view = $this->filterString('render/view', $view, $data);
         $file = $this->filterString('views/file', $this->file($view), $view, $data);
@@ -221,55 +213,41 @@ trait Plugin
             glsr_log()->error(sprintf('File not found: (%s) %s', $view, $file));
             return;
         }
-        $data = $this->filterArray('views/data', $data, $view);
+        $data = $this->filterArray('views/data', $data, $view, $file);
         extract($data);
         include $file;
     }
 
     /**
      * @param mixed $args
-     * @return Request
      */
-    public function request($args = [])
+    public function request($args = []): Request
     {
         return new Request($args);
     }
 
     /**
-     * @param string $className
      * @return mixed|false
      */
-    public function runIf($className, ...$args)
+    public function runIf(string $className, ...$args)
     {
         return class_exists($className)
             ? call_user_func_array([glsr($className), 'handle'], $args)
             : false;
     }
 
-    /**
-     * @param string $file
-     * @return string
-     */
-    public function themePath($file = '')
+    public function themePath(string $file = ''): string
     {
         return get_stylesheet_directory().'/'.$this->id.'/'.ltrim(trim($file), '/');
     }
 
-    /**
-     * @param string $path
-     * @return string
-     */
-    public function url($path = '')
+    public function url(string $path = ''): string
     {
         $url = esc_url(plugin_dir_url($this->file).ltrim(trim($path), '/'));
         return $this->filterString('url', $url, $path);
     }
 
-    /**
-     * @param string $versionLevel
-     * @return string
-     */
-    public function version($versionLevel = '')
+    public function version(string $versionLevel = ''): string
     {
         $pattern = '/^v?(\d{1,5})(\.\d++)?(\.\d++)?(.+)?$/i';
         preg_match($pattern, $this->version, $matches);

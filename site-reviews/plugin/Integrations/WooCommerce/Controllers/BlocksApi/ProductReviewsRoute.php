@@ -9,7 +9,6 @@ use GeminiLabs\SiteReviews\Helpers\Arr;
 class ProductReviewsRoute extends Route
 {
     /**
-     * @param \WP_REST_Request $request
      * @return \WP_REST_Response
      */
     protected function get_route_response(\WP_REST_Request $request)
@@ -18,7 +17,7 @@ class ProductReviewsRoute extends Route
             'assigned_posts' => Arr::uniqueInt($request['product_id']),
             'offset' => $request['offset'],
             'order' => $request['order'], // asc|desc
-            'orderby' => $request['orderby'], // rating|date_gmt
+            'orderby' => $request['orderby'], // rating|date|date_gmt
             'per_page' => $request['per_page'],
         ];
         if ($categoryIds = Arr::uniqueInt($request['category_id'])) {
@@ -36,6 +35,7 @@ class ProductReviewsRoute extends Route
         if (empty($args['assigned_posts'])) {
             $args['assigned_posts'] = 'product';
         }
+        $args['integration'] = 'woocommerce';
         $results = glsr_get_reviews($args);
         $reviews = [];
         foreach ($results->reviews as $review) {
@@ -49,6 +49,7 @@ class ProductReviewsRoute extends Route
 
     /**
      * @param string $param
+     *
      * @return string
      */
     protected function normalize_query_param($param)

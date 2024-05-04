@@ -3,7 +3,6 @@
 namespace GeminiLabs\SiteReviews\Migrations;
 
 use GeminiLabs\SiteReviews\Contracts\MigrateContract;
-use GeminiLabs\SiteReviews\Database\DefaultsManager;
 use GeminiLabs\SiteReviews\Database\OptionManager;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Str;
@@ -27,7 +26,7 @@ class Migrate_6_1_0 implements MigrateContract
         if (6 !== (int) glsr()->version('major')) {
             return;
         }
-        $defaults = glsr()->filterArray('get/defaults', glsr(DefaultsManager::class)->get());
+        $defaults = Arr::unflatten(glsr()->defaults());
         $settings = Arr::consolidate(get_option(OptionManager::databaseKey(6)));
         if (empty($defaults['settings']) || empty($settings['settings'])) {
             return;
@@ -45,9 +44,8 @@ class Migrate_6_1_0 implements MigrateContract
             }
         }
         if (!empty($cleanSettings)) {
-            $settings['settings'] = Arr::convertFromDotNotation($cleanSettings);
+            $settings['settings'] = Arr::unflatten($cleanSettings);
             update_option(OptionManager::databaseKey(6), $settings);
-            glsr(OptionManager::class)->reset();
         }
     }
 }

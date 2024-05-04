@@ -2,7 +2,6 @@
 
 namespace GeminiLabs\SiteReviews\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
 use GeminiLabs\SiteReviews\Database\OptionManager;
 use GeminiLabs\SiteReviews\Defaults\ValidationStringsDefaults;
 use GeminiLabs\SiteReviews\Modules\Assets\AssetCss;
@@ -10,55 +9,56 @@ use GeminiLabs\SiteReviews\Modules\Assets\AssetJs;
 use GeminiLabs\SiteReviews\Modules\Captcha;
 use GeminiLabs\SiteReviews\Modules\Style;
 
-class EnqueuePublicAssets implements Contract
+class EnqueuePublicAssets extends AbstractCommand
 {
-    /**
-     * @return void
-     */
-    public function handle()
+    public function enqueueScripts(): void
     {
-        $this->enqueueAssets();
+        if (!glsr()->filterBool('assets/js', true)) {
+            return;
+        }
+        $dependencies = glsr()->filterArray('enqueue/public/dependencies', []);
+        wp_enqueue_script(glsr()->id, glsr(AssetJs::class)->url(), $dependencies, glsr(AssetJs::class)->version(), [
+            'in_footer' => true,
+            'strategy' => 'defer',
+        ]);
+        wp_add_inline_script(glsr()->id, $this->inlineScript(), 'before');
+        wp_add_inline_script(glsr()->id, glsr()->filterString('enqueue/public/inline-script/after', ''));
+        glsr(AssetJs::class)->optimize();
     }
 
-    /**
-     * @return void
-     */
-    public function enqueueAssets()
+    public function enqueueStyles(): void
     {
-        if (glsr()->filterBool('assets/css', true)) {
-            // ensure block styles are loaded on post types with blocks disabled
-            $blocks = \WP_Block_Type_Registry::get_instance();
-            if ($blocks->is_registered('core/button')) {
-                // $blocks->get_registered('core/button')->style_handles;
-                wp_enqueue_style('wp-block-button');
-            }
-            if ($blocks->is_registered('core/search')) {
-                // $blocks->get_registered('core/search')->style_handles;
-                wp_enqueue_style('wp-block-search');
-            }
-            wp_enqueue_style(glsr()->id, glsr(AssetCss::class)->url(), [], glsr(AssetCss::class)->version());
-            wp_add_inline_style(glsr()->id, $this->inlineStyles());
-            glsr(AssetCss::class)->optimize();
+        if (!glsr()->filterBool('assets/css', true)) {
+            return;
         }
-        if (glsr()->filterBool('assets/js', true)) {
-            $dependencies = glsr()->filterArray('enqueue/public/dependencies', []);
-            wp_enqueue_script(glsr()->id, glsr(AssetJs::class)->url(), $dependencies, glsr(AssetJs::class)->version(), true);
-            wp_add_inline_script(glsr()->id, $this->inlineScript(), 'before');
-            wp_add_inline_script(glsr()->id, glsr()->filterString('enqueue/public/inline-script/after', ''));
-            glsr(AssetJs::class)->optimize();
+        // ensure block styles are loaded on post types with blocks disabled
+        $blocks = \WP_Block_Type_Registry::get_instance();
+        if ($blocks->is_registered('core/button')) {
+            // $blocks->get_registered('core/button')->style_handles;
+            wp_enqueue_style('wp-block-button');
         }
+        if ($blocks->is_registered('core/search')) {
+            // $blocks->get_registered('core/search')->style_handles;
+            wp_enqueue_style('wp-block-search');
+        }
+        wp_enqueue_style(glsr()->id, glsr(AssetCss::class)->url(), [], glsr(AssetCss::class)->version());
+        wp_add_inline_style(glsr()->id, $this->inlineStyles());
+        glsr(AssetCss::class)->optimize();
     }
 
-    /**
-     * @return string
-     */
-    public function inlineScript()
+    public function handle(): void
+    {
+        $this->enqueueStyles();
+        $this->enqueueScripts();
+    }
+
+    public function inlineScript(): string
     {
         $urlparameter = glsr(OptionManager::class)->getBool('settings.reviews.pagination.url_parameter')
             ? glsr()->constant('PAGED_QUERY_VAR')
             : false;
         $variables = [
-            'action' => glsr()->prefix.'action',
+            'action' => glsr()->prefix.'public_action',
             'addons' => [],
             'ajaxpagination' => $this->getFixedSelectorsForPagination(),
             'ajaxurl' => admin_url('admin-ajax.php'),
@@ -89,15 +89,12 @@ class EnqueuePublicAssets implements Contract
         return $this->buildInlineScript($variables);
     }
 
-    /**
-     * @return string|void
-     */
-    public function inlineStyles()
+    public function inlineStyles(): string
     {
         $inlineStylesheetPath = glsr()->path('assets/styles/inline-styles.css');
         if (!file_exists($inlineStylesheetPath)) {
-            glsr_log()->error('Inline stylesheet is missing: '.$inlineStylesheetPath);
-            return;
+            glsr_log()->error("Inline stylesheet is missing: {$inlineStylesheetPath}");
+            return '';
         }
         $inlineStylesheetValues = glsr()->config('inline-styles');
         $stylesheet = str_replace(
@@ -108,24 +105,18 @@ class EnqueuePublicAssets implements Contract
         return glsr()->filterString('enqueue/public/inline-styles', $stylesheet);
     }
 
-    /**
-     * @return string
-     */
-    protected function buildInlineScript(array $variables)
+    protected function buildInlineScript(array $variables): string
     {
         $script = 'window.hasOwnProperty("GLSR")||(window.GLSR={Event:{on:()=>{}}});';
         foreach ($variables as $key => $value) {
-            $script .= sprintf('GLSR.%s=%s;', $key, json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            $script .= sprintf('GLSR.%s=%s;', $key, (string) wp_json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
         }
         $pattern = '/\"([a-zA-Z]+)\"(:[{\[\"])/'; // remove unnecessary quotes surrounding object keys
         $optimizedScript = preg_replace($pattern, '$1$2', $script);
         return glsr()->filterString('enqueue/public/inline-script', $optimizedScript, $script, $variables);
     }
 
-    /**
-     * @return array
-     */
-    protected function getFixedSelectorsForPagination()
+    protected function getFixedSelectorsForPagination(): array
     {
         $selectors = ['#wpadminbar', '.site-navigation-fixed'];
         return glsr()->filterArray('enqueue/public/localize/ajax-pagination', $selectors);

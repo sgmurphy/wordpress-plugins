@@ -3,41 +3,42 @@
 namespace GeminiLabs\SiteReviews;
 
 use GeminiLabs\SiteReviews\Addons\Updater;
-use GeminiLabs\SiteReviews\Database\DefaultsManager;
+use GeminiLabs\SiteReviews\Contracts\PluginContract;
 use GeminiLabs\SiteReviews\Database\OptionManager;
 use GeminiLabs\SiteReviews\Defaults\PermissionDefaults;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Modules\Migrate;
 
 /**
- * @property array $addons
- * @property string $capability
- * @property string $cron_event
- * @property array $db_version
- * @property array $defaults
- * @property string $export_key
- * @property string $file
- * @property string $id
- * @property string $languages
- * @property string $name
- * @property string $paged_handle
- * @property string $paged_query_var
- * @property string $post_type
- * @property string $prefix
- * @property array $session
- * @property \GeminiLabs\SiteReviews\Arguments $storage
- * @property string $taxonomy
- * @property array $updated
- * @property string $version
- * @property string $testedTo;
+ * @property array     $addons
+ * @property string    $basename
+ * @property string    $capability
+ * @property string    $cron_event
+ * @property array     $db_version
+ * @property array     $defaults
+ * @property string    $export_key
+ * @property string    $file
+ * @property string    $id
+ * @property string    $languages
+ * @property string    $name
+ * @property string    $paged_handle
+ * @property string    $paged_query_var
+ * @property string    $post_type
+ * @property string    $prefix
+ * @property array     $session
+ * @property Arguments $storage
+ * @property string    $taxonomy
+ * @property array     $updated
+ * @property string    $version
+ * @property string    $testedTo;
  */
-final class Application extends Container
+final class Application extends Container implements PluginContract
 {
     use Plugin;
     use Session;
     use Storage;
 
-    public const DB_VERSION = '1.2';
+    public const DB_VERSION = '1.3';
     public const EXPORT_KEY = '_glsr_export';
     public const ID = 'site-reviews';
     public const PAGED_HANDLE = 'pagination_request';
@@ -46,66 +47,46 @@ final class Application extends Container
     public const PREFIX = 'glsr_';
     public const TAXONOMY = 'site-review-category';
 
-    /**
-     * @var array
-     */
-    protected $addons = [];
+    protected array $addons = [];
+    protected array $defaults;
+    protected string $name;
+    protected array $settings;
+    protected array $updated = [];
 
-    /**
-     * @var array
-     */
-    protected $defaults;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * @var array
-     */
-    protected $updated = [];
-
-    /**
-     * @param string $addonId
-     * @return false|\GeminiLabs\SiteReviews\Addons\Addon
-     */
-    public function addon($addonId)
+    public function addon(string $addonId)
     {
-        return $this->addons[$addonId] ?? false;
+        return $this->addons[$addonId] ?? null;
     }
 
     /**
-     * @param string $capability
      * @param mixed ...$args
-     * @return bool
      */
-    public function can($capability, ...$args)
+    public function can(string $capability, ...$args): bool
     {
         return $this->make(Role::class)->can($capability, ...$args);
     }
 
     /**
-     * @param bool $networkDeactivating
-     * @return void
-     * @callback register_deactivation_hook
+     * The default plugin settings.
+     * This is first triggered on "init:5" in MainController::onInit.
      */
-    public function deactivate($networkDeactivating)
+    public function defaults(): array
     {
-        $this->make(Install::class)->deactivate($networkDeactivating);
+        if (empty($this->defaults)) {
+            $settings = $this->settings();
+            $defaults = array_combine(array_keys($settings), wp_list_pluck($settings, 'default'));
+            $defaults = wp_parse_args($defaults, [
+                'version' => '',
+                'version_upgraded_from' => '0.0.0',
+            ]);
+            $defaults = Arr::unflatten($defaults);
+            $defaults = $this->filterArray('settings/defaults', $defaults);
+            $this->defaults = $defaults;
+        }
+        return $this->defaults;
     }
 
-    /**
-     * @param string $page
-     * @param string $tab
-     * @return string
-     */
-    public function getPermission($page = '', $tab = 'index')
+    public function getPermission(string $page = '', string $tab = 'index'): string
     {
         $fallback = 'edit_posts';
         $permissions = $this->make(PermissionDefaults::class)->defaults();
@@ -119,22 +100,19 @@ final class Application extends Container
         return $this->make(Role::class)->capability($capability);
     }
 
-    /**
-     * @param string $page
-     * @param string $tab
-     * @return bool
-     */
-    public function hasPermission($page = '', $tab = 'index')
+    public function hasPermission(string $page = '', string $tab = 'index'): bool
     {
         $isAdminScreen = is_admin() || is_network_admin();
         return !$isAdminScreen || $this->can($this->getPermission($page, $tab));
     }
 
     /**
-     * @return void
+     * This is the entry point to the plugin, it runs before "plugins_loaded".
+     * If this is a new major version, settings are copied over here and a migration is run.
      */
-    public function init()
+    public function init(): void
     {
+        $migrate = false;
         // Ensure the custom database tables exist, this is needed in cases
         // where the plugin has been updated instead of activated.
         if (empty(get_option(static::PREFIX.'db_version'))) {
@@ -142,47 +120,34 @@ final class Application extends Container
         }
         // If this is a new major version, copy over the previous version settings
         if (empty(get_option(OptionManager::databaseKey()))) {
-            if ($settings = $this->make(OptionManager::class)->previous()) {
-                update_option(OptionManager::databaseKey(), $settings);
+            $previous = $this->make(OptionManager::class)->previous();
+            if (!empty($previous)) {
+                update_option(OptionManager::databaseKey(), $previous);
+                $migrate = true;
             }
         }
         // Force an immediate plugin migration on database version upgrades
-        if (static::DB_VERSION !== get_option(static::PREFIX.'db_version')) {
-            $migrate = $this->make(Migrate::class);
-            add_action('plugins_loaded', [$migrate, 'run'], 1); // use plugins_loaded!
+        if (static::DB_VERSION !== get_option(static::PREFIX.'db_version') || $migrate) {
+            add_action('init', [$this->make(Migrate::class), 'run'], 1);
         }
         $this->make(Hooks::class)->run();
     }
 
-    /**
-     * The setting defaults (these are not the saved settings!).
-     * @return void
-     */
-    public function initDefaults()
-    {
-        if (empty($this->defaults)) {
-            $defaults = $this->make(DefaultsManager::class)->get();
-            $this->defaults = $this->filterArray('get/defaults', $defaults);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         $isAdminScreen = is_admin() || is_network_admin();
         return $isAdminScreen && !wp_doing_ajax();
     }
 
     /**
-     * @param object|string $addon
-     * @return void
+     * This is triggered on init:5 by $this->settings().
+     *
+     * @param PluginContract|string $addon
      */
-    public function license($addon)
+    public function license($addon): void
     {
         try {
-            $settings = $this->settings(); // populate the initial settings
+            $settings = $this->settings();
             $reflection = new \ReflectionClass($addon);
             $id = $reflection->getConstant('ID');
             $licensed = $reflection->getConstant('LICENSED');
@@ -191,15 +156,14 @@ final class Application extends Container
                 return;
             }
             $license = [
-                'settings.licenses.'.$id => [
-                    'class' => 'glsr-license-key regular-text',
+                "settings.licenses.{$id}" => [
                     'default' => '',
                     'label' => $name,
                     'sanitizer' => 'text',
                     'tooltip' => sprintf(_x('Enter the license key here. Your license can be found on the %s page of your Nifty Plugins account.', 'License Keys (admin-text)', 'site-reviews'),
                         sprintf('<a href="https://niftyplugins.com/account/license-keys/" target="_blank">%s</a>', _x('License Keys', 'admin-text', 'site-reviews'))
                     ),
-                    'type' => 'text',
+                    'type' => 'secret',
                 ],
             ];
             $this->settings = array_merge($license, $settings);
@@ -209,10 +173,11 @@ final class Application extends Container
     }
 
     /**
-     * @param string|object $addon
-     * @return void
+     * This is triggered on "plugins_loaded" by "site-reviews/addon/register".
+     *
+     * @param PluginContract|string $addon
      */
-    public function register($addon)
+    public function register($addon): void
     {
         $retired = [ // @compat these addons have been retired
             'site-reviews-gamipress',
@@ -225,7 +190,7 @@ final class Application extends Container
             if (in_array($addon::ID, $retired)) {
                 $this->append('retired', $addon);
             } elseif (in_array($addon::ID, $premium)
-                && !str_starts_with($reflection->getNamespaceName(), 'GeminiLabs\SiteReviewsPremium')) {
+                && !str_starts_with($reflection->getNamespaceName(), 'GeminiLabs\SiteReviews\Premium')) {
                 $this->append('site-reviews-premium', $addon);
             } else {
                 $this->addons[$addon::ID] = $addon;
@@ -240,37 +205,44 @@ final class Application extends Container
     }
 
     /**
-     * The settings config (these are not the saved settings!).
-     * @return array
+     * The plugin settings configuration.
+     * This is first triggered on "init:5" by MainController::onInit.
+     * 
+     * @return mixed
      */
-    public function settings()
+    public function settings(string $path = '')
     {
         if (empty($this->settings)) {
             $settings = $this->config('settings');
-            $settings = $this->filterArray('addon/settings', $settings);
+            $settings = $this->filterArray('settings', $settings);
             array_walk($settings, function (&$setting) {
                 $setting = wp_parse_args($setting, [
                     'default' => '',
-                    'sanitizer' => '',
+                    'sanitizer' => 'text',
                 ]);
             });
-            $this->settings = $settings;
+            $this->settings = $settings; // do this before adding license settings!
+            array_walk($this->addons, fn ($addon) => $this->license($addon));
         }
-        return $this->settings;
+        if (empty($path)) {
+            return $this->settings;
+        }
+        $settings = Arr::unflatten($this->settings);
+        return Arr::get($settings, $path);
     }
 
     /**
-     * @param object|string $addon
-     * @param string $file
-     * @return void
+     * This is triggered on "init:5" by "site-reviews/addon/update" in MainController::onInit.
+     *
+     * @param PluginContract|string $addon
      */
-    public function update($addon, $file)
+    public function update($addon, string $file): void
     {
-        if (!current_user_can('manage_options') && !(defined('DOING_CRON') && DOING_CRON)) {
+        if (!current_user_can('manage_options') && !wp_doing_cron()) {
             return;
         }
         if (!file_exists($file)) {
-            glsr_log()->error("Add-on does not exist: $file")->debug($addon);
+            glsr_log()->error("Addon does not exist: $file")->debug($addon);
         }
         try {
             $reflection = new \ReflectionClass($addon);
@@ -278,8 +250,7 @@ final class Application extends Container
             $licensed = $reflection->getConstant('LICENSED');
             $updateUrl = $reflection->getConstant('UPDATE_URL');
             if ($addonId && $updateUrl && !array_key_exists($addonId, $this->updated)) {
-                $this->license($addon);
-                $license = glsr_get_option('licenses.'.$addonId);
+                $license = glsr_get_option("licenses.{$addonId}");
                 $updater = new Updater($updateUrl, $file, $addonId, compact('license'));
                 $updater->init();
                 $this->updated[$addonId] = compact('file', 'licensed', 'updateUrl'); // store details for license verification in settings

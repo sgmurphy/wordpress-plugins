@@ -7,10 +7,7 @@ use GeminiLabs\SiteReviews\Shortcodes\SiteReviewsShortcode;
 
 class SiteReviewsBlock extends Block
 {
-    /**
-     * @return array
-     */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'assigned_to' => [
@@ -80,10 +77,7 @@ class SiteReviewsBlock extends Block
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function render(array $attributes)
+    public function render(array $attributes): string
     {
         $attributes['class'] = $attributes['className'];
         $shortcode = glsr(SiteReviewsShortcode::class);
@@ -99,10 +93,7 @@ class SiteReviewsBlock extends Block
         return $shortcode->buildBlock($attributes);
     }
 
-    /**
-     * @return void
-     */
-    protected function filterInterpolation()
+    protected function filterInterpolation(): void
     {
         add_filter('site-reviews/interpolate/reviews', function ($context) {
             $context['class'] = 'block-editor-warning';

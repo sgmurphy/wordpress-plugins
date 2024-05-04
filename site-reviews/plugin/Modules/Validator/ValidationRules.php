@@ -2,45 +2,18 @@
 
 namespace GeminiLabs\SiteReviews\Modules\Validator;
 
-use GeminiLabs\SiteReviews\Helpers\Str;
-
 /**
  * @see \Illuminate\Validation\Validator (5.3)
  */
 trait ValidationRules
 {
     /**
-     * Get the size of an attribute.
-     * @param string $attribute
-     * @param mixed $value
-     * @return mixed
-     */
-    abstract protected function getSize($attribute, $value);
-
-    /**
-     * Replace all placeholders.
-     * @param string $message
-     * @return string
-     */
-    protected function replace($message, array $parameters)
-    {
-        if (!Str::contains($message, '%s')) {
-            return $message;
-        }
-        return preg_replace_callback('/(%s)/', function () use (&$parameters) {
-            foreach ($parameters as $key => $value) {
-                return array_shift($parameters);
-            }
-        }, $message);
-    }
-
-    /**
      * Validate that an attribute value was "accepted".
      * This validation rule implies the attribute is "required".
+     *
      * @param mixed $value
-     * @return bool
      */
-    public function validateAccepted($value)
+    public function validateAccepted($value): bool
     {
         $acceptable = ['yes', 'on', '1', 1, true, 'true'];
         return $this->validateRequired($value) && in_array($value, $acceptable, true);
@@ -48,11 +21,12 @@ trait ValidationRules
 
     /**
      * Validate the size of an attribute is between a set of values.
-     * @param string $attribute
+     *
      * @param mixed $value
-     * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
-    public function validateBetween($value, $attribute, array $parameters)
+    public function validateBetween($value, string $attribute, array $parameters): bool
     {
         $this->requireParameterCount(2, $parameters, 'between');
         $size = $this->getSize($attribute, $value);
@@ -61,21 +35,22 @@ trait ValidationRules
 
     /**
      * Validate that an attribute value is a valid e-mail address.
+     *
      * @param mixed $value
-     * @return bool
      */
-    public function validateEmail($value)
+    public function validateEmail($value): bool
     {
         return false !== filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
     /**
      * Validate the size of an attribute is less than a maximum value.
-     * @param string $attribute
+     *
      * @param mixed $value
-     * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
-    public function validateMax($value, $attribute, array $parameters)
+    public function validateMax($value, string $attribute, array $parameters): bool
     {
         $this->requireParameterCount(1, $parameters, 'max');
         return $this->getSize($attribute, $value) <= $parameters[0];
@@ -83,11 +58,12 @@ trait ValidationRules
 
     /**
      * Validate the size of an attribute is greater than a minimum value.
-     * @param string $attribute
+     *
      * @param mixed $value
-     * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
-    public function validateMin($value, $attribute, array $parameters)
+    public function validateMin($value, string $attribute, array $parameters): bool
     {
         $this->requireParameterCount(1, $parameters, 'min');
         return $this->getSize($attribute, $value) >= $parameters[0];
@@ -95,21 +71,22 @@ trait ValidationRules
 
     /**
      * Validate that an attribute is numeric.
+     *
      * @param mixed $value
-     * @return bool
      */
-    public function validateNumber($value)
+    public function validateNumber($value): bool
     {
         return is_numeric($value);
     }
 
     /**
      * Validate that an attribute passes a regular expression check.
-     * @param string $attribute
+     *
      * @param mixed $value
-     * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
-    public function validateRegex($value, $attribute, array $parameters)
+    public function validateRegex($value, string $attribute, array $parameters): bool
     {
         if (!is_string($value) && !is_numeric($value)) {
             return false;
@@ -120,24 +97,29 @@ trait ValidationRules
 
     /**
      * Validate that a required attribute exists.
+     *
      * @param mixed $value
-     * @return bool
      */
-    public function validateRequired($value)
+    public function validateRequired($value): bool
     {
-        return is_null($value)
-            || (is_string($value) && in_array(trim($value), ['', '[]']))
-            || (is_array($value) && empty($value))
-            ? false
-            : true;
+        if (is_null($value)) {
+            return false;
+        }
+        if (is_string($value) && in_array(trim($value), ['', '[]'])) {
+            return false;
+        }
+        if (is_countable($value) && count($value) < 1) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * Validate that a value is a valid(ish) telephone number.
+     *
      * @param mixed $value
-     * @return bool
      */
-    public function validateTel($value)
+    public function validateTel($value): bool
     {
         if (!is_string($value) && !is_numeric($value)) {
             return false;
@@ -149,10 +131,10 @@ trait ValidationRules
 
     /**
      * Validate that a value is a valid URL.
-     * @param  mixed  $value
-     * @return bool
+     *
+     * @param mixed $value
      */
-    public function validateUrl($value)
+    public function validateUrl($value): bool
     {
         if (!is_string($value)) {
             return false;
@@ -175,13 +157,33 @@ trait ValidationRules
     }
 
     /**
+     * Get the size of an attribute.
+     *
+     * @param mixed $value
+     */
+    abstract protected function getSize(string $attribute, $value): int;
+
+    /**
+     * Replace all placeholders.
+     */
+    protected function replace(string $message, array $parameters): string
+    {
+        if (!str_contains($message, '%s')) {
+            return $message;
+        }
+        return preg_replace_callback('/(%s)/', function () use (&$parameters) {
+            foreach ($parameters as $key => $value) {
+                return array_shift($parameters);
+            }
+        }, $message);
+    }
+
+    /**
      * Require a certain number of parameters to be present.
-     * @param int $count
-     * @param string $rule
-     * @return void
+     *
      * @throws \InvalidArgumentException
      */
-    protected function requireParameterCount($count, array $parameters, $rule)
+    protected function requireParameterCount(int $count, array $parameters, string $rule): void
     {
         if (count($parameters) < $count) {
             throw new \InvalidArgumentException("Validation rule $rule requires at least $count parameters.");

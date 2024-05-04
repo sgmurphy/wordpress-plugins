@@ -9,21 +9,19 @@ class MainHooks extends AbstractHooks
     public function run(): void
     {
         $this->hook(MainController::class, [
-            ['filterDevmode', 'site-reviews/devmode', 1],
             ['filterDropTables', 'wpmu_drop_tables', 999], // run last
-            ['initDefaults', 'init', 2], // run after updateAddons!
-            ['installOnNewSite', 'wp_insert_site'],
+            ['installOnNewSite', 'wp_initialize_site', 999], // run last
             ['logOnce', 'admin_footer'],
             ['logOnce', 'wp_footer'],
+            ['onInit', 'init', 5], // run after possible init:1 migration
             ['registerAddons', 'plugins_loaded'],
-            ['registerLanguages', 'init', -10], // do this first
+            ['registerLanguages', 'after_setup_theme'],
             ['registerPostMeta', 'init'],
-            ['registerPostType', 'init', 8],
-            ['registerReviewTypes', 'init', 7],
+            ['registerPostType', 'init'],
+            ['registerReviewTypes', 'init'],
             ['registerShortcodes', 'init'],
             ['registerTaxonomy', 'init'],
             ['registerWidgets', 'widgets_init'],
-            ['updateAddons', 'init', 1],
         ]);
     }
 }

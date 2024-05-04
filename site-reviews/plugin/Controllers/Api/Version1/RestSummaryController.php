@@ -36,6 +36,7 @@ class RestSummaryController extends RestReviewController
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return \WP_REST_Response
      */
     public function get_items($request)
@@ -51,6 +52,7 @@ class RestSummaryController extends RestReviewController
 
     /**
      * @param \WP_REST_Request $request
+     *
      * @return true|\WP_Error
      */
     public function get_items_permissions_check($request)
@@ -69,7 +71,7 @@ class RestSummaryController extends RestReviewController
      */
     public function register_routes()
     {
-        register_rest_route($this->namespace, '/'.$this->rest_base, [
+        register_rest_route($this->namespace, "/{$this->rest_base}", [
             [
                 'args' => $this->get_collection_params(),
                 'callback' => [$this, 'get_items'],

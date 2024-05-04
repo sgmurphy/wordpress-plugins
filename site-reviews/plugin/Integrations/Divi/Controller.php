@@ -2,22 +2,25 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\Divi;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
-use GeminiLabs\SiteReviews\Modules\Html\Builder;
+use GeminiLabs\SiteReviews\Contracts\BuilderContract;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
+use GeminiLabs\SiteReviews\Helpers\Arr;
+use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Modules\Paginate;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * Fix compatibility with the Divi Dynamic CSS option.
-     * @param array $shortcodes
+     *
+     * @param array  $shortcodes
      * @param string $content
-     * @return array
+     *
      * @filter et_dynamic_assets_modules_atf
      */
-    public function filterDynamicAssets($shortcodes, $content)
+    public function filterDynamicAssets($shortcodes, $content): array
     {
-        if (1 === preg_match('/site_reviews/', $content)) {
+        if (1 === preg_match('/site_reviews/', Cast::toString($content))) {
             add_filter('et_required_module_assets', function ($assets) {
                 $assets[] = 'et_pb_contact_form';
                 $assets[] = 'et_pb_gallery';
@@ -25,14 +28,15 @@ class Controller extends BaseController
                 return array_values(array_unique($assets));
             });
         }
-        return $shortcodes;
+        return Arr::consolidate($shortcodes);
     }
 
     /**
      * @see filterPaginationLinks
+     *
      * @filter site-reviews/paginate_link
      */
-    public function filterPaginationLink(array $link, array $args, Builder $builder): array
+    public function filterPaginationLink(array $link, array $args, BuilderContract $builder): array
     {
         if ('current' === $link['type']) {
             $args['class'] = 'active';
@@ -69,10 +73,9 @@ class Controller extends BaseController
     }
 
     /**
-     * @return void
      * @action divi_extensions_init
      */
-    public function registerDiviModules()
+    public function registerDiviModules(): void
     {
         // new DiviFormWidget();
         // new DiviReviewsWidget();

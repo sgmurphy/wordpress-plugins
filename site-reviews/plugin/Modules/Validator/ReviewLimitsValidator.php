@@ -6,41 +6,27 @@ use GeminiLabs\SiteReviews\Helper;
 
 class ReviewLimitsValidator extends ValidatorAbstract
 {
-    /**
-     * @return string
-     */
-    public function filterSqlClauseOperator()
+    public function filterSqlClauseOperator(): string
     {
         return 'AND';
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
-        $method = Helper::buildMethodName((string) glsr_get_option('forms.limit'), 'validateBy');
+        $method = Helper::buildMethodName('validateBy', (string) glsr_get_option('forms.limit'));
         return method_exists($this, $method)
             ? call_user_func([$this, $method])
             : true;
     }
 
-    /**
-     * @return void
-     */
-    public function performValidation()
+    public function performValidation(): void
     {
         if (!$this->isValid()) {
             $this->setErrors(__('You have already submitted a review.', 'site-reviews'));
         }
     }
 
-    /**
-     * @param string $value
-     * @param string $whitelist
-     * @return bool
-     */
-    protected function isWhitelisted($value, $whitelist)
+    protected function isWhitelisted(string $value, string $whitelist): bool
     {
         if (empty($whitelist)) {
             return false;
@@ -49,10 +35,7 @@ class ReviewLimitsValidator extends ValidatorAbstract
         return in_array($value, $values);
     }
 
-    /**
-     * @return array
-     */
-    protected function normalizeArgs(array $args)
+    protected function normalizeArgs(array $args): array
     {
         $assignments = glsr_get_option('forms.limit_assignments', ['assigned_posts'], 'array'); // assigned_posts is the default
         $limitToDays = max(0, glsr_get_option('forms.limit_time', 0, 'int'));
@@ -75,52 +58,40 @@ class ReviewLimitsValidator extends ValidatorAbstract
         return $args;
     }
 
-    /**
-     * @return bool
-     */
-    protected function validateByEmail()
+    protected function validateByEmail(): bool
     {
-        glsr_log()->debug('Email is: '.$this->request->email);
+        glsr_log()->debug("Email is: {$this->request->email}");
         return $this->validateLimit('email', $this->request->email, [
             'email' => $this->request->email,
         ]);
     }
 
-    /**
-     * @return bool
-     */
-    protected function validateByIpAddress()
+    protected function validateByIpAddress(): bool
     {
-        glsr_log()->debug('IP Address is: '.$this->request->ip_address);
+        glsr_log()->debug("IP Address is: {$this->request->ip_address}");
         return $this->validateLimit('ip_address', $this->request->ip_address, [
             'ip_address' => $this->request->ip_address,
         ]);
     }
 
-    /**
-     * @return bool
-     */
-    protected function validateByUsername()
+    protected function validateByUsername(): bool
     {
         $user = wp_get_current_user();
         if (!$user->exists()) {
             return true;
         }
-        glsr_log()->debug('Username is: '.$user->user_login);
+        glsr_log()->debug("Username is: {$user->user_login}");
         return $this->validateLimit('username', $user->user_login, [
             'user__in' => $user->ID,
         ]);
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     * @return bool
-     */
-    protected function validateLimit($key, $value, array $args)
+    protected function validateLimit(string $key, string $value, array $args): bool
     {
-        if (empty($value)
-            || $this->isWhitelisted($value, glsr_get_option('forms.limit_whitelist.'.$key))) {
+        if (empty($value)) {
+            return true;
+        }
+        if ($this->isWhitelisted($value, glsr_get_option("forms.limit_whitelist.{$key}"))) {
             return true;
         }
         add_filter('query/sql/clause/operator', [$this, 'filterSqlClauseOperator'], 20);

@@ -5,7 +5,7 @@ namespace GeminiLabs\SiteReviews\Controllers;
 use GeminiLabs\SiteReviews\Commands\DeactivatePlugin;
 use GeminiLabs\SiteReviews\Request;
 
-class DeactivationController extends Controller
+class DeactivationController extends AbstractController
 {
     /**
      * @action admin_enqueue_scripts
@@ -22,16 +22,15 @@ class DeactivationController extends Controller
             ['wp-list-reusable-blocks'], // load the :root admin theme colors
             glsr()->version
         );
-        wp_enqueue_script(
-            glsr()->id.'/deactivate-plugin',
-            glsr()->url('assets/scripts/deactivate-plugin.js'),
-            ['backbone', 'underscore'],
-            glsr()->version,
-            true
-        );
+        $handle = glsr()->id.'/deactivate-plugin';
+        $url = glsr()->url('assets/scripts/deactivate-plugin.js');
+        wp_enqueue_script($handle, $url, ['backbone', 'underscore'], glsr()->version, [
+            'in_footer' => true,
+            'strategy' => 'defer',
+        ]);
         wp_localize_script(glsr()->id.'/deactivate-plugin', '_glsr_deactivate', [
             'ajax' => [
-                'action' => glsr()->prefix.'action',
+                'action' => glsr()->prefix.'admin_action',
                 'nonce' => wp_create_nonce('deactivate'),
                 'prefix' => glsr()->id,
             ],

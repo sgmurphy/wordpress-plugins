@@ -2,7 +2,6 @@
 
 namespace GeminiLabs\SiteReviews;
 
-use GeminiLabs\SiteReviews\Database\Cache;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
@@ -13,10 +12,8 @@ class Helper
 {
     /**
      * @param array|string $name
-     * @param string $path
-     * @return string
      */
-    public static function buildClassName($name, $path = '')
+    public static function buildClassName($name, string $path = ''): string
     {
         if (is_array($name)) {
             $name = implode('-', $name);
@@ -28,38 +25,27 @@ class Helper
             : $className;
     }
 
-    public static function buildMethodName(string $name, string $prefix = '', string $suffix = ''): string
+    public static function buildMethodName(string ...$name): string
     {
-        return lcfirst(Str::camelCase(sprintf('%s-%s-%s', $prefix, $name, $suffix)));
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    public static function buildPropertyName($name)
-    {
-        return static::buildMethodName($name);
+        $name = implode('-', $name);
+        return lcfirst(Str::camelCase($name));
     }
 
     /**
      * @param int|string $version1
      * @param int|string $version2
-     * @param string $operator
-     * @return bool
      */
-    public static function compareVersions($version1, $version2, $operator = '=')
+    public static function compareVersions($version1, $version2, string $operator = '='): bool
     {
         $version1 = implode('.', array_pad(explode('.', $version1), 3, 0));
         $version2 = implode('.', array_pad(explode('.', $version2), 3, 0));
-        return version_compare($version1, $version2, $operator);
+        return version_compare($version1, $version2, $operator ?: '=');
     }
 
     /**
-     * @param string $key
      * @return mixed
      */
-    public static function filterInput($key, array $request = [])
+    public static function filterInput(string $key, array $request = [])
     {
         if (isset($request[$key])) {
             return $request[$key];
@@ -71,11 +57,7 @@ class Helper
         return $variable;
     }
 
-    /**
-     * @param string $key
-     * @return array
-     */
-    public static function filterInputArray($key)
+    public static function filterInputArray(string $key): array
     {
         $variable = filter_input(INPUT_POST, $key, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         if (empty($variable) && !empty($_POST[$key]) && is_array($_POST[$key])) {
@@ -84,23 +66,32 @@ class Helper
         return Cast::toArray($variable);
     }
 
-    /**
-     * @return string
-     */
-    public static function getIpAddress()
+    public static function getIpAddress(): string
     {
+        $setting = glsr()->args(get_option(glsr()->prefix.'ip_proxy'));
+        $proxyHeader = $setting->sanitize('proxy_http_header', 'id');
+        $trustedProxies = $setting->sanitize('trusted_proxies', 'text-multiline');
+        $trustedProxies = explode("\n", $trustedProxies);
         $whitelist = [];
-        $isUsingCloudflare = !empty(filter_input(INPUT_SERVER, 'CF-Connecting-IP'));
-        if (glsr()->filterBool('whip/whitelist/cloudflare', $isUsingCloudflare)) {
-            $cloudflareIps = glsr(Cache::class)->getCloudflareIps();
-            $whitelist[Whip::CLOUDFLARE_HEADERS] = [Whip::IPV4 => $cloudflareIps['v4']];
-            if (defined('AF_INET6')) {
-                $whitelist[Whip::CLOUDFLARE_HEADERS][Whip::IPV6] = $cloudflareIps['v6'];
-            }
+        if (!empty($proxyHeader)) {
+            $ipv4 = array_filter($trustedProxies, function ($range) {
+                [$ip] = explode('/', $range);
+                return !empty(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4));
+            });
+            $ipv6 = array_filter($trustedProxies, function ($range) {
+                [$ip] = explode('/', $range);
+                return !empty(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
+            });
+            $whitelist[$proxyHeader] = [
+                Whip::IPV4 => $ipv4,
+                Whip::IPV6 => $ipv6,
+            ];
         }
         $whitelist = glsr()->filterArray('whip/whitelist', $whitelist);
-        $methods = glsr()->filterInt('whip/methods', Whip::ALL_METHODS);
-        $whip = new Whip($methods, $whitelist);
+        $whip = new Whip(Whip::REMOTE_ADDR | Whip::CUSTOM_HEADERS, $whitelist);
+        if (!empty($proxyHeader)) {
+            $whip->addCustomHeader($proxyHeader);
+        }
         glsr()->action('whip', $whip);
         if (false !== ($clientAddress = $whip->getValidIpAddress())) {
             return (string) $clientAddress;
@@ -109,12 +100,7 @@ class Helper
         return 'unknown';
     }
 
-    /**
-     * @param string $fromUrl
-     * @param int $fallback
-     * @return int
-     */
-    public static function getPageNumber($fromUrl = null, $fallback = 1)
+    public static function getPageNumber(?string $fromUrl = null, ?int $fallback = 1): int
     {
         $pagedQueryVar = glsr()->constant('PAGED_QUERY_VAR');
         $pageNum = empty($fromUrl)
@@ -128,9 +114,8 @@ class Helper
 
     /**
      * @param mixed $post
-     * @return int
      */
-    public static function getPostId($post)
+    public static function getPostId($post): int
     {
         if (is_numeric($post) || $post instanceof \WP_Post) {
             $post = get_post($post);
@@ -163,9 +148,8 @@ class Helper
 
     /**
      * @param mixed $term
-     * @return int
      */
-    public static function getTermTaxonomyId($term)
+    public static function getTermTaxonomyId($term): int
     {
         if ($term instanceof \WP_Term) {
             return $term->term_id;
@@ -179,9 +163,8 @@ class Helper
 
     /**
      * @param mixed $user
-     * @return int
      */
-    public static function getUserId($user)
+    public static function getUserId($user): int
     {
         if ($user instanceof \WP_User) {
             return $user->ID;
@@ -220,6 +203,7 @@ class Helper
     /**
      * @param mixed $value
      * @param mixed $fallback
+     *
      * @return mixed
      */
     public static function ifEmpty($value, $fallback, $strict = false)
@@ -229,23 +213,22 @@ class Helper
     }
 
     /**
-     * @param bool $condition
      * @param mixed $ifTrue
      * @param mixed $ifFalse
+     *
      * @return mixed
      */
-    public static function ifTrue($condition, $ifTrue, $ifFalse = null)
+    public static function ifTrue(bool $condition, $ifTrue, $ifFalse = null)
     {
         return $condition ? static::runClosure($ifTrue) : static::runClosure($ifFalse);
     }
 
     /**
-     * @param mixed $value
+     * @param mixed      $value
      * @param string|int $min
      * @param string|int $max
-     * @return bool
      */
-    public static function inRange($value, $min, $max)
+    public static function inRange($value, $min, $max): bool
     {
         $inRange = filter_var($value, FILTER_VALIDATE_INT, ['options' => [
             'min_range' => intval($min),
@@ -256,9 +239,8 @@ class Helper
 
     /**
      * @param mixed $value
-     * @return bool
      */
-    public static function isEmpty($value)
+    public static function isEmpty($value): bool
     {
         if (is_string($value)) {
             return '' === trim($value);
@@ -269,9 +251,8 @@ class Helper
     /**
      * @param int|string $value
      * @param int|string $compareWithValue
-     * @return bool
      */
-    public static function isGreaterThan($value, $compareWithValue)
+    public static function isGreaterThan($value, $compareWithValue): bool
     {
         return static::compareVersions($value, $compareWithValue, '>');
     }
@@ -279,9 +260,8 @@ class Helper
     /**
      * @param int|string $value
      * @param int|string $compareWithValue
-     * @return bool
      */
-    public static function isGreaterThanOrEqual($value, $compareWithValue)
+    public static function isGreaterThanOrEqual($value, $compareWithValue): bool
     {
         return static::compareVersions($value, $compareWithValue, '>=');
     }
@@ -289,9 +269,8 @@ class Helper
     /**
      * @param int|string $value
      * @param int|string $compareWithValue
-     * @return bool
      */
-    public static function isLessThan($value, $compareWithValue)
+    public static function isLessThan($value, $compareWithValue): bool
     {
         return static::compareVersions($value, $compareWithValue, '<');
     }
@@ -299,9 +278,8 @@ class Helper
     /**
      * @param int|string $value
      * @param int|string $compareWithValue
-     * @return bool
      */
-    public static function isLessThanOrEqual($value, $compareWithValue)
+    public static function isLessThanOrEqual($value, $compareWithValue): bool
     {
         return static::compareVersions($value, $compareWithValue, '<=');
     }
@@ -321,18 +299,16 @@ class Helper
 
     /**
      * @param mixed $value
-     * @return bool
      */
-    public static function isNotEmpty($value)
+    public static function isNotEmpty($value): bool
     {
         return !static::isEmpty($value);
     }
 
     /**
-     * @param string $url
      * @return int|false
      */
-    public static function remoteStatusCheck($url)
+    public static function remoteStatusCheck(string $url)
     {
         $response = wp_safe_remote_head($url, [
             'sslverify' => !static::isLocalServer(),
@@ -345,6 +321,7 @@ class Helper
 
     /**
      * @param mixed $value
+     *
      * @return mixed
      */
     public static function runClosure($value)

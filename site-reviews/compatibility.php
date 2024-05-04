@@ -2,17 +2,28 @@
 
 use GeminiLabs\SiteReviews\Application;
 use GeminiLabs\SiteReviews\Compatibility;
-use GeminiLabs\SiteReviews\Modules\Html\Builder;
+use GeminiLabs\SiteReviews\Contracts\BuilderContract;
 use GeminiLabs\SiteReviews\Modules\Paginate;
 
 defined('ABSPATH') || exit;
+
+/**
+ * Classic Editor
+ * @return array
+ * @see https://wordpress.org/plugins/classic-editor/
+ */
+add_action('edit_form_top', function ($post) {
+    if (class_exists('Classic_Editor') && glsr()->post_type === get_post_type($post)) {
+        remove_action('edit_form_top', ['Classic_Editor', 'remember_classic_editor']);
+    }
+}, 0);
 
 /**
  * Bootstrap pagination
  * @return array
  * @filter site-reviews/paginate_link
  */
-function glsr_filter_bootstrap_pagination_link(array $link, array $args, Builder $builder) {
+function glsr_filter_bootstrap_pagination_link(array $link, array $args, BuilderContract $builder) {
     $args['class'] = 'page-link';
     if ('current' === $link['type']) {
         $class = 'page-item active';
@@ -94,21 +105,6 @@ add_action('plugins_loaded', function () {
 });
 
 /**
- * Exclude the CAPTCHA scripts from being defered
- * @param array $scriptHandles
- * @return array
- * @see https://wordpress.org/plugins/speed-booster-pack/
- */
-add_filter('sbp_exclude_defer_scripts', function ($scriptHandles) {
-    $scriptHandles[] = glsr()->id.'/hcaptcha';
-    $scriptHandles[] = glsr()->id.'/friendlycaptcha-module';
-    $scriptHandles[] = glsr()->id.'/friendlycaptcha-nomodule';
-    $scriptHandles[] = glsr()->id.'/google-recaptcha';
-    $scriptHandles[] = glsr()->id.'/turnstile';
-    return array_keys(array_flip($scriptHandles));
-});
-
-/**
  * Fix to display all reviews when sorting by rank
  * @param array $query
  * @return array
@@ -149,22 +145,19 @@ function glsr_is_ninja_forms_compatible() {
         && method_exists('Ninja_Forms', 'get_setting')
         && method_exists('NF_Display_Render', 'enqueue_styles_display');
 }
-add_action('enqueue_block_editor_assets', function () {
+function glsr_load_ninja_forms_css() {
     if ('ninja_forms' === glsr_get_option('general.style') && glsr_is_ninja_forms_compatible()) {
         NF_Display_Render::enqueue_styles_display(Ninja_Forms::$url.'assets/css/');
     }
-});
+}
+add_action('enqueue_block_editor_assets', 'glsr_load_ninja_forms_css');
+add_action('wp_enqueue_scripts', 'glsr_load_ninja_forms_css');
 add_filter('site-reviews/config/styles/ninja_forms', function ($config) {
     if (glsr_is_ninja_forms_compatible()) {
         $formClass = 'nf-style-'.Ninja_Forms()->get_setting('opinionated_styles');
         $config = glsr_set($config, 'classes.form', $formClass);
     }
     return $config;
-});
-add_action('site-reviews/customize/ninja_forms', function () {
-    if (glsr_is_ninja_forms_compatible()) {
-        NF_Display_Render::enqueue_styles_display(Ninja_Forms::$url.'assets/css/');
-    }
 });
 
 /**
@@ -192,7 +185,8 @@ add_filter('tcb_post_types', function ($blacklist) {
 });
 
 /**
- * This will check updates for any addons which do not yet use the "site-reviews/addon/update" hook
+ * This is run on wp_loaded.
+ * Checks for updates for outdated addons which don't use the "site-reviews/addon/update" hook
  * @param \GeminiLabs\SiteReviews\Application $app
  */
 add_action('site-reviews/addon/update', function ($app) {
@@ -215,7 +209,7 @@ add_action('site-reviews/addon/update', function ($app) {
             // Fail silently
         }
     }
-});
+}, 20);
 
 /**
  * This disables OptimizePress v2 assets an notices on Site Reviews admin pages

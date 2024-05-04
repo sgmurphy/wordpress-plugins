@@ -3,9 +3,8 @@
 namespace GeminiLabs\SiteReviews\Controllers;
 
 use GeminiLabs\SiteReviews\Controllers\ListTableColumns\ColumnValueType;
-use GeminiLabs\SiteReviews\Database\Query;
+use GeminiLabs\SiteReviews\Database\ReviewManager;
 use GeminiLabs\SiteReviews\Defaults\UpdatedMessageDefaults;
-use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Html\Template;
 use GeminiLabs\SiteReviews\Modules\Notice;
@@ -13,14 +12,12 @@ use GeminiLabs\SiteReviews\Modules\Sanitizer;
 use GeminiLabs\SiteReviews\Request;
 use GeminiLabs\SiteReviews\Review;
 
-class EditorController extends Controller
+class EditorController extends AbstractController
 {
     /**
-     * @param array $settings
-     * @return array
      * @filter wp_editor_settings
      */
-    public function filterEditorSettings($settings)
+    public function filterEditorSettings(array $settings): array
     {
         if ($this->isReviewEditor()) {
             $settings = [
@@ -30,33 +27,28 @@ class EditorController extends Controller
                 'tinymce' => false,
             ];
         }
-        return Arr::consolidate($settings);
+        return $settings;
     }
 
     /**
      * Modify the WP_Editor html to allow autosizing without breaking the `editor-expand` script.
-     * @param string $html
-     * @return string
+     *
      * @filter the_editor
      */
-    public function filterEditorTextarea($html)
+    public function filterEditorTextarea(string $output): string
     {
         if ($this->isReviewEditor()) {
-            $html = str_replace('<textarea', '<div id="ed_toolbar"></div><textarea', $html);
+            $output = str_replace('<textarea', '<div id="ed_toolbar"></div><textarea', $output);
         }
-        return $html;
+        return $output;
     }
 
     /**
-     * @param bool $protected
-     * @param string $metaKey
-     * @param string $metaType
-     * @return bool
      * @filter is_protected_meta
      */
-    public function filterIsProtectedMeta($protected, $metaKey, $metaType)
+    public function filterIsProtectedMeta(bool $protected, string $metaKey, string $metaType): bool
     {
-        if ('post' === $metaType && Str::startsWith($metaKey, '_custom_,_'.glsr()->prefix)) {
+        if ('post' === $metaType && Str::startsWith($metaKey, ['_custom_', '_'.glsr()->prefix])) {
             if ('delete-meta' === filter_input(INPUT_POST, 'action')) {
                 return false; // allow delete but not update
             }
@@ -68,11 +60,11 @@ class EditorController extends Controller
     }
 
     /**
-     * @param array $messages
-     * @return array
+     * @param array[] $messages
+     *
      * @filter post_updated_messages
      */
-    public function filterUpdateMessages($messages)
+    public function filterUpdateMessages(array $messages): array
     {
         $post = get_post();
         if (!$post instanceof \WP_Post) {
@@ -84,15 +76,14 @@ class EditorController extends Controller
             $restored = sprintf($strings['restored'], $revisionTitle);
         }
         $scheduled_date = date_i18n('M j, Y @ H:i', strtotime($post->post_date));
-        $messages = Arr::consolidate($messages);
         $messages[glsr()->post_type] = [
-             1 => $strings['updated'],
-             4 => $strings['updated'],
-             5 => $restored,
-             6 => $strings['published'],
-             7 => $strings['saved'],
-             8 => $strings['submitted'],
-             9 => sprintf($strings['scheduled'], '<strong>'.$scheduled_date.'</strong>'),
+            1 => $strings['updated'],
+            4 => $strings['updated'],
+            5 => $restored,
+            6 => $strings['published'],
+            7 => $strings['saved'],
+            8 => $strings['submitted'],
+            9 => sprintf($strings['scheduled'], "<strong>{$scheduled_date}</strong>"),
             10 => $strings['draft_updated'],
             50 => $strings['approved'],
             51 => $strings['unapproved'],
@@ -102,14 +93,13 @@ class EditorController extends Controller
     }
 
     /**
-     * @return void
      * @action site-reviews/route/ajax/mce-shortcode
      */
-    public function mceShortcodeAjax(Request $request)
+    public function mceShortcodeAjax(Request $request): void
     {
         $shortcode = glsr(Sanitizer::class)->sanitizeText($request->shortcode);
         $response = false;
-        if ($data = glsr()->retrieve('mce.'.$shortcode, false)) {
+        if ($data = glsr()->retrieve("mce.{$shortcode}", false)) {
             if (!empty($data['errors'])) {
                 $data['btn_okay'] = [esc_attr_x('Okay', 'admin-text', 'site-reviews')];
             }
@@ -125,11 +115,9 @@ class EditorController extends Controller
     }
 
     /**
-     * @param \WP_Post $post
-     * @return void
      * @action edit_form_top
      */
-    public function renderReviewNotice($post)
+    public function renderReviewNotice(\WP_Post $post): void
     {
         if (!$this->isReviewEditor()) {
             return;
@@ -137,7 +125,7 @@ class EditorController extends Controller
         if (Review::isReview($post) && !Review::isEditable($post)) {
             glsr(Notice::class)->addWarning(sprintf(
                 _x('Publicly responding to third-party %s reviews is disabled.', 'admin-text', 'site-reviews'),
-                glsr(ColumnValueType::class)->handle(glsr(Query::class)->review($post->ID))
+                glsr(ColumnValueType::class)->handle(glsr(ReviewManager::class)->get($post->ID))
             ));
             glsr(Template::class)->render('partials/editor/notice', [
                 'context' => [
@@ -145,23 +133,5 @@ class EditorController extends Controller
                 ],
             ]);
         }
-    }
-
-    /**
-     * @param int $postId
-     * @param int $messageIndex
-     * @return void
-     */
-    protected function redirect($postId, $messageIndex)
-    {
-        $referer = wp_get_referer();
-        $hasReferer = !$referer
-            || Str::contains($referer, 'post.php')
-            || Str::contains($referer, 'post-new.php');
-        $redirectUri = $hasReferer
-            ? remove_query_arg(['deleted', 'ids', 'trashed', 'untrashed'], $referer)
-            : get_edit_post_link($postId);
-        wp_safe_redirect(add_query_arg(['message' => $messageIndex], $redirectUri));
-        exit;
     }
 }

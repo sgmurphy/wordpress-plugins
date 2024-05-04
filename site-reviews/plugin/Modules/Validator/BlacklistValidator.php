@@ -6,10 +6,7 @@ use GeminiLabs\SiteReviews\Database\OptionManager;
 
 class BlacklistValidator extends ValidatorAbstract
 {
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         $target = implode("\n", array_filter([
             $this->request->name,
@@ -22,10 +19,7 @@ class BlacklistValidator extends ValidatorAbstract
         return glsr()->filterBool('validate/blacklist', $isValid, $target, $this->request);
     }
 
-    /**
-     * @return void
-     */
-    public function performValidation()
+    public function performValidation(): void
     {
         if (!$this->isValid()) {
             if ('reject' !== glsr_get_option('forms.blacklist.action')) {
@@ -39,21 +33,14 @@ class BlacklistValidator extends ValidatorAbstract
         }
     }
 
-    /**
-     * @return string
-     */
-    protected function blacklist()
+    protected function blacklist(): string
     {
         return 'comments' === glsr_get_option('forms.blacklist.integration')
-            ? trim(glsr(OptionManager::class)->getWP('disallowed_keys'))
+            ? trim(glsr(OptionManager::class)->wp('disallowed_keys'))
             : trim(glsr_get_option('forms.blacklist.entries'));
     }
 
-    /**
-     * @param string $target
-     * @return bool
-     */
-    protected function validateBlacklist($target)
+    protected function validateBlacklist(string $target): bool
     {
         if (empty($blacklist = $this->blacklist())) {
             return true;
@@ -64,7 +51,7 @@ class BlacklistValidator extends ValidatorAbstract
             if (empty($line) || 256 < strlen($line)) {
                 continue;
             }
-            $pattern = sprintf('#%s#i', preg_quote($line, '#'));
+            $pattern = sprintf('#%s#iu', preg_quote($line, '#'));
             if (preg_match($pattern, $target)) {
                 return false;
             }

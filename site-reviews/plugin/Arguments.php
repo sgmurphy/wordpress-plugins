@@ -21,20 +21,17 @@ class Arguments extends \ArrayObject
         parent::__construct($args, \ArrayObject::STD_PROP_LIST | \ArrayObject::ARRAY_AS_PROPS);
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return serialize($this->toArray());
     }
 
     /**
      * @param mixed $key
-     * @param string $cast
+     *
      * @return mixed
      */
-    public function cast($key, $cast)
+    public function cast($key, string $cast)
     {
         return Cast::to($cast, $this->get($key));
     }
@@ -42,6 +39,7 @@ class Arguments extends \ArrayObject
     /**
      * @param mixed $key
      * @param mixed $fallback
+     *
      * @return mixed
      */
     public function get($key, $fallback = null)
@@ -52,10 +50,7 @@ class Arguments extends \ArrayObject
             : $value;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->getArrayCopy());
     }
@@ -72,6 +67,7 @@ class Arguments extends \ArrayObject
 
     /**
      * @param mixed $key
+     *
      * @return mixed
      */
     #[\ReturnTypeWillChange]
@@ -82,10 +78,9 @@ class Arguments extends \ArrayObject
 
     /**
      * @param mixed $key
-     * @return void
      */
     #[\ReturnTypeWillChange]
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         $storage = $this->getArrayCopy();
         unset($storage[$key]);
@@ -93,11 +88,20 @@ class Arguments extends \ArrayObject
     }
 
     /**
+     * @return self
+     */
+    public function replace(array $data = [])
+    {
+        $this->exchangeArray($data);
+        return $this;
+    }
+
+    /**
      * @param mixed $key
-     * @param string $sanitizer
+     *
      * @return mixed
      */
-    public function sanitize($key, $sanitizer)
+    public function sanitize($key, string $sanitizer)
     {
         $sanitizers = ['key' => $sanitizer];
         $values = ['key' => $this->get($key)];
@@ -106,22 +110,19 @@ class Arguments extends \ArrayObject
     }
 
     /**
-     * @param string $path
      * @param mixed $value
-     * @return void
      */
-    public function set($path, $value)
+    public function set(string $path, $value): void
     {
         $storage = Arr::set($this->getArrayCopy(), $path, $value);
         $this->exchangeArray($storage);
     }
 
     /**
-     * @param string|array $args Optional parameter that can be used to change the output
-     * @return array
+     * @param array $args Optional parameter that can be used to change the output
      */
-    public function toArray($args = [])
+    public function toArray(array $args = []): array
     {
-        return $this->getArrayCopy();
+        return Cast::toArrayDeep($this->getArrayCopy());
     }
 }

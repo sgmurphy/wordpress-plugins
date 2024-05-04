@@ -2,12 +2,12 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\WooCommerce\Controllers;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
 use GeminiLabs\SiteReviews\Gatekeeper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Modules\Html\Template;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
      * @action before_woocommerce_init
@@ -20,11 +20,11 @@ class Controller extends BaseController
     }
 
     /**
-     * @filter site-reviews/addon/settings
+     * @filter site-reviews/settings
      */
     public function filterSettings(array $settings): array
     {
-        return array_merge(glsr()->config('woocommerce'), $settings);
+        return array_merge(glsr()->config('integrations/woocommerce'), $settings);
     }
 
     /**
@@ -42,7 +42,7 @@ class Controller extends BaseController
             'summary' => 'site_reviews_summary',
         ];
         foreach ($shortcodes as $key => $shortcode) {
-            $path = 'settings.addons.woocommerce.'.$key;
+            $path = "settings.addons.woocommerce.{$key}";
             $value = Arr::get($input, $path);
             if (1 !== preg_match("/^\[{$shortcode}(\s[^\]]*\]|\])$/", $value)) {
                 continue;
@@ -75,7 +75,7 @@ class Controller extends BaseController
     }
 
     /**
-     * @action site-reviews/addon/settings/woocommerce
+     * @action site-reviews/settings/woocommerce
      */
     public function renderSettings(string $rows): void
     {

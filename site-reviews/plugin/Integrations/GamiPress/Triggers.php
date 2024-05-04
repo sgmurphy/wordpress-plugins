@@ -11,82 +11,53 @@ use GeminiLabs\SiteReviews\Review;
 
 class Triggers
 {
-    /**
-     * @param string|array $keys
-     * @return array
-     */
-    public function by($keys)
+    public function by(string $key): array
     {
-        $keys = Arr::convertFromString($keys);
-        $keys = array_map(function ($key) {
-            return Str::removePrefix($key, '/');
-        }, $keys);
-        return array_values(array_filter(array_keys($this->triggers()), function ($trigger) use ($keys) {
-            return Str::contains($trigger, $keys);
-        }));
+        $key = Str::removePrefix($key, '/');
+        $triggers = array_keys($this->triggers());
+        $triggers = array_filter($triggers, fn ($trigger) => str_contains($trigger, $key));
+        return array_values($triggers);
     }
 
-    /**
-     * @return array
-     */
-    public function byPostId()
+    public function byPostId(): array
     {
         return $this->by('post_id');
     }
 
-    /**
-     * @return array
-     */
-    public function byPostType()
+    public function byPostType(): array
     {
         return $this->by('post_type');
     }
 
-    /**
-     * @return array
-     */
-    public function byUserId()
+    public function byUserId(): array
     {
         return $this->by('user_id');
     }
 
-    /**
-     * @return array
-     */
-    public function byUserRole()
+    public function byUserRole(): array
     {
         return $this->by('user_role');
     }
 
-    /**
-     * @param string $trigger
-     * @param string $fallback
-     * @return string
-     */
-    public function label($trigger, Arguments $requirements, $fallback = '')
+    public function label(string $trigger, Arguments $requirements, string $fallback = ''): string
     {
-        $label = Arr::getAs('string', $this->triggers(), $trigger.'.label_'.$requirements->rating_condition);
+        $label = Arr::getAs('string', $this->triggers(), "{$trigger}.label_{$requirements->rating_condition}");
         if (empty($label)) {
             return $fallback;
         }
-        if (Str::contains($label, '%d') && !Str::contains($label, '%s')) {
+        if (str_contains($label, '%d') && !str_contains($label, '%s')) {
             return sprintf($label, $requirements->rating);
         }
         foreach (['post_id', 'post_type', 'user_id', 'user_role'] as $key) {
-            $method = Helper::buildMethodName($key, 'labelFor');
-            if (Str::contains($trigger, '/'.$key) && method_exists($this, $method)) {
+            $method = Helper::buildMethodName('labelFor', $key);
+            if (str_contains($trigger, "/{$key}") && method_exists($this, $method)) {
                 return call_user_func([$this, $method], $label, $requirements, $fallback);
             }
         }
         return $label;
     }
 
-    /**
-     * @param string $label
-     * @param string $fallback
-     * @return string
-     */
-    public function labelForPostId($label, Arguments $requirements, $fallback = '')
+    public function labelForPostId(string $label, Arguments $requirements, string $fallback = ''): string
     {
         if ($title = get_the_title($requirements->post_id)) {
             return sprintf($label, $title, $requirements->rating);
@@ -94,12 +65,7 @@ class Triggers
         return $fallback;
     }
 
-    /**
-     * @param string $label
-     * @param string $fallback
-     * @return string
-     */
-    public function labelForPostType($label, Arguments $requirements, $fallback = '')
+    public function labelForPostType(string $label, Arguments $requirements, string $fallback = ''): string
     {
         if ($type = Arr::get(get_post_type_object($requirements->post_type), 'labels.singular_name')) {
             return sprintf($label, $type, $requirements->rating);
@@ -107,12 +73,7 @@ class Triggers
         return $fallback;
     }
 
-    /**
-     * @param string $label
-     * @param string $fallback
-     * @return string
-     */
-    public function labelForUserId($label, Arguments $requirements, $fallback = '')
+    public function labelForUserId(string $label, Arguments $requirements, string $fallback = ''): string
     {
         if ($user = get_user_by('id', $requirements->user_id)) {
             $displayName = glsr(Sanitizer::class)->sanitizeUserName($user->display_name);
@@ -121,12 +82,7 @@ class Triggers
         return $fallback;
     }
 
-    /**
-     * @param string $label
-     * @param string $fallback
-     * @return string
-     */
-    public function labelForUserRole($label, Arguments $requirements, $fallback = '')
+    public function labelForUserRole(string $label, Arguments $requirements, string $fallback = ''): string
     {
         if ($role = Arr::get(wp_roles()->get_names(), $requirements->user_role)) {
             return sprintf($label, $role, $requirements->rating);
@@ -134,18 +90,12 @@ class Triggers
         return $fallback;
     }
 
-    /**
-     * @return array
-     */
-    public function labels()
+    public function labels(): array
     {
-        return array_map(function ($strings) { return $strings['label']; }, $this->triggers());
+        return array_map(fn ($strings) => $strings['label'], $this->triggers());
     }
 
-    /**
-     * @return array
-     */
-    public function triggers()
+    public function triggers(): array
     {
         return [ // order is intentional
             // Assigned User: Received review assigned to the user

@@ -3,38 +3,29 @@
 namespace GeminiLabs\SiteReviews\Modules;
 
 use GeminiLabs\SiteReviews\Helpers\Cast;
-use GeminiLabs\SiteReviews\Modules\Html\Builder;
+use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Html\Field;
 
 class Honeypot
 {
-    /**
-     * @param string $formId
-     * @return string
-     */
-    public function build($formId)
+    public function build(string $formId): string
     {
-        $honeypot = new Field([
+        $field = new Field([
             'class' => 'glsr-input glsr-input-text',
             'label' => esc_html__('Your review', 'site-reviews'),
             'name' => $this->hash($formId),
             'type' => 'text',
         ]);
-        $honeypot->id = $honeypot->id.'-'.$formId;
-        return glsr(Builder::class)->div([
+        $field->id = "{$field->id}-{$formId}";
+        return $field->builder()->div([
             'class' => glsr(Style::class)->classes('field'),
             'style' => 'display:none;',
-            'text' => $honeypot->getFieldLabel().$honeypot->getField(),
+            'text' => $field->buildFieldLabel().$field->buildFieldElement(),
         ]);
     }
 
-    /**
-     * @param string $formId
-     * @return string
-     */
-    public function hash($formId)
+    public function hash(string $formId): string
     {
-        require_once ABSPATH.WPINC.'/pluggable.php';
         if (is_array($formId)) { // @phpstan-ignore-line
             glsr_log()
                 ->warning('Honeypot expects the submitted form ID to be a string, an array was passed instead.')
@@ -43,15 +34,10 @@ class Honeypot
             $formId = array_shift($formId);
         }
         $formId = Cast::toString($formId);
-        return substr(wp_hash($formId, 'nonce'), -12, 8);
+        return Str::hash($formId, 8);
     }
 
-    /**
-     * @param string $hash
-     * @param string $formId
-     * @return bool
-     */
-    public function verify($hash, $formId)
+    public function verify(string $hash, string $formId): bool
     {
         return hash_equals($this->hash($formId), $hash);
     }

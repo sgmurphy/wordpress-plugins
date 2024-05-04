@@ -11,6 +11,7 @@ use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
+use GeminiLabs\SiteReviews\Modules\Migrate;
 
 class SystemInfo
 {
@@ -46,7 +47,7 @@ class SystemInfo
             'settings',
         ];
         return trim(array_reduce($keys, function ($carry, $key) {
-            $method = Helper::buildMethodName($key, 'get');
+            $method = Helper::buildMethodName('get', $key);
             if (!method_exists($this, $method)) {
                 return $carry;
             }
@@ -54,9 +55,10 @@ class SystemInfo
             if (empty(Arr::get($details, 'values'))) {
                 return $carry;
             }
-            $hook = 'system/'.Str::dashCase($key);
+            $section = Str::dashCase($key);
             $title = strtoupper(Arr::get($details, 'title'));
-            $values = glsr()->filterArray($hook, Arr::get($details, 'values'));
+            $values = Arr::get($details, 'values');
+            $values = glsr()->filterArray("system-info/section/{$section}", $values);
             return $carry.$this->implode($title, $values);
         }));
     }
@@ -64,20 +66,24 @@ class SystemInfo
     public function getActionScheduler(): array
     {
         $counts = glsr(Queue::class)->actionCounts();
+        $counts = shortcode_atts(array_fill_keys(['complete', 'pending', 'failed'], []), $counts);
         $values = [];
         foreach ($counts as $key => $value) {
-            $label = sprintf('Action (%s)', $key);
+            $label = sprintf('Actions (%s)', $key);
+            $value = wp_parse_args($value, array_fill_keys(['count', 'latest', 'oldest'], 0));
             if ($value['count'] > 1) {
                 $values[$label] = sprintf('%s (latest: %s, oldest: %s)',
                     $value['count'],
                     $value['latest'],
                     $value['oldest']
                 );
-            } else {
+            } elseif (!empty($value['latest'])) {
                 $values[$label] = sprintf('%s (latest: %s)',
                     $value['count'],
                     $value['latest']
                 );
+            } else {
+                $values[$label] = $value['count'];
             }
         }
         $values['Data Store'] = get_class(\ActionScheduler_Store::instance());
@@ -128,20 +134,28 @@ class SystemInfo
 
     public function getDatabase(): array
     {
-        $engines = glsr(Tables::class)->tableEngines($removeDBPrefix = true);
-        foreach ($engines as $engine => $tables) {
-            $engines[$engine] = sprintf('%s (%s)', $engine, implode('|', $tables));
-        }
-        return [
-            'title' => 'Database Details',
-            'values' => [
+        if (glsr(Tables::class)->isSqlite()) {
+            $values = [
+                'Database Engine' => $this->value('wp-database.db_engine'),
+                'Database Version' => $this->value('wp-database.database_version'),
+            ];
+        } else {
+            $engines = glsr(Tables::class)->tableEngines($removePrefix = true);
+            foreach ($engines as $engine => $tables) {
+                $engines[$engine] = sprintf('%s (%s)', $engine, implode('|', $tables));
+            }
+            $values = [
                 'Charset' => $this->value('wp-database.database_charset'),
                 'Collation' => $this->value('wp-database.database_collate'),
                 'Extension' => $this->value('wp-database.extension'),
                 'Table Engines' => implode(', ', $engines),
                 'Version (client)' => $this->value('wp-database.client_version'),
                 'Version (server)' => $this->value('wp-database.server_version'),
-            ],
+            ];
+        }
+        return [
+            'title' => 'Database Details',
+            'values' => $values,
         ];
     }
 
@@ -181,9 +195,9 @@ class SystemInfo
                 'Console Level' => glsr(Console::class)->humanLevel(),
                 'Console Size' => glsr(Console::class)->humanSize(),
                 'Database Version' => (string) get_option(glsr()->prefix.'db_version'),
-                'Last Migration Run' => glsr(Date::class)->localized(glsr(OptionManager::class)->get('last_migration_run'), 'unknown'),
+                'Last Migration Run' => glsr(Date::class)->localized(glsr(Migrate::class)->lastRun(), 'unknown'),
                 'Merged Assets' => implode('/', Helper::ifEmpty($merged, ['No'])),
-                'Network Activated' => Helper::ifTrue(is_plugin_active_for_network(plugin_basename(glsr()->file)), 'Yes', 'No'),
+                'Network Activated' => Helper::ifTrue(is_plugin_active_for_network(glsr()->basename), 'Yes', 'No'),
                 'Version' => sprintf('%s (%s)', glsr()->version, glsr(OptionManager::class)->get('version_upgraded_from')),
             ],
         ];
@@ -241,7 +255,7 @@ class SystemInfo
         ksort($settings);
         $details = [];
         foreach ($settings as $key => $value) {
-            if (Str::startsWith($key, 'strings') && Str::endsWith($key, 'id')) {
+            if (str_starts_with($key, 'strings') && str_ends_with($key, 'id')) {
                 continue;
             }
             $value = htmlspecialchars(trim(preg_replace('/\s\s+/u', '\\n', $value)), ENT_QUOTES, 'UTF-8');
@@ -342,7 +356,7 @@ class SystemInfo
 
     protected function implode(string $title, array $details): string
     {
-        $strings = ['['.$title.']'];
+        $strings = ["[{$title}]"];
         $padding = max(static::PAD, ...array_map(function ($key) {
             return mb_strlen(html_entity_decode($key, ENT_HTML5), 'UTF-8');
         }, array_keys($details)));
@@ -366,9 +380,9 @@ class SystemInfo
     {
         return defined($key)
             || filter_input(INPUT_SERVER, $key)
-            || Str::contains(filter_input(INPUT_SERVER, 'SERVER_NAME'), $key)
-            || Str::contains(DB_HOST, $key)
-            || (function_exists('php_uname') && Str::contains(php_uname(), $key))
+            || str_contains((string) filter_input(INPUT_SERVER, 'SERVER_NAME'), $key)
+            || str_contains(DB_HOST, $key)
+            || (function_exists('php_uname') && str_contains(php_uname(), $key))
             || ('WPE_APIKEY' === $key && function_exists('is_wpe')); // WP Engine
     }
 
@@ -382,32 +396,15 @@ class SystemInfo
 
     protected function purgeSensitiveData(array $settings): array
     {
-        $keys = glsr()->filterArray('addon/system-info/purge', [
-            'licenses.' => 8,
-            'forms.friendlycaptcha.key' => 0,
-            'forms.friendlycaptcha.secret' => 0,
-            'forms.hcaptcha.key' => 0,
-            'forms.hcaptcha.secret' => 0,
-            'forms.recaptcha.key' => 0,
-            'forms.recaptcha.secret' => 0,
-            'forms.recaptcha_v3.key' => 0,
-            'forms.recaptcha_v3.secret' => 0,
-            'forms.turnstile.key' => 0,
-            'forms.turnstile.secret' => 0,
-        ]);
-        array_walk($settings, function (&$value, $setting) use ($keys) {
-            foreach ($keys as $key => $preserve) {
-                if (!is_string($key)) { // @compat for older addons
-                    $key = $preserve;
-                    $preserve = 0;
-                }
-                if (Str::startsWith($setting, $key) && !empty($value)) {
-                    $preserve = Cast::toInt($preserve);
-                    $value = Str::mask($value, 0, $preserve, 13);
-                    break;
-                }
+        $config = glsr()->settings();
+        $config = array_filter($config, fn ($field) => 'secret' === ($field['type'] ?? ''));
+        $keys = array_keys($config);
+        $keys = array_map(fn ($key) => Str::removePrefix($key, 'settings.'), $keys);
+        foreach ($settings as $key => &$value) {
+            if (in_array($key, $keys)) {
+                $value = Str::mask($value, 0, 8, 24);
             }
-        });
+        }
         return $settings;
     }
 
@@ -433,11 +430,14 @@ class SystemInfo
     protected function reviewCounts(): array
     {
         $reviews = array_filter((array) wp_count_posts(glsr()->post_type));
-        $counts = array_sum($reviews);
-        foreach ($reviews as $status => &$num) {
-            $num = sprintf('%s: %d', $status, $num);
+        $results = array_sum($reviews);
+        if (0 < $results) {
+            foreach ($reviews as $status => &$num) {
+                $num = sprintf('%s: %d', $status, $num);
+            }
+            $details = implode(', ', $reviews);
+            $results = "{$results} ({$details})";
         }
-        $results = $counts.' ('.implode(', ', $reviews).')';
         return ['Reviews' => $results];
     }
 

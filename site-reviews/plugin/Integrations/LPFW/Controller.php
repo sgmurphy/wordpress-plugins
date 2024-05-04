@@ -2,18 +2,21 @@
 
 namespace GeminiLabs\SiteReviews\Integrations\LPFW;
 
-use GeminiLabs\SiteReviews\Controllers\Controller as BaseController;
-use GeminiLabs\SiteReviews\Database\Query;
+use GeminiLabs\SiteReviews\Controllers\AbstractController;
+use GeminiLabs\SiteReviews\Database\ReviewManager;
+use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Review;
 
-class Controller extends BaseController
+class Controller extends AbstractController
 {
     /**
-     * @return array
+     * @param array $types
+     *
      * @filter lpfw_get_point_earn_source_types
      */
-    public function filterEarnPointTypes(array $types = [])
+    public function filterEarnPointTypes($types = []): array
     {
+        $types = Arr::consolidate($types);
         $types['product_review'] = [
             'name' => _x('Leaving a product review', '(loyalty-program-for-woocommerce) admin-text', 'site-reviews'),
             'slug' => 'product_review',
@@ -33,7 +36,7 @@ class Controller extends BaseController
      */
     public function onApprovedReview(Review $review): void
     {
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         $this->maybeEarnPoints($review);
     }
 
@@ -42,7 +45,7 @@ class Controller extends BaseController
      */
     public function onCreatedReview(Review $review): void
     {
-        $review = glsr(Query::class)->review($review->ID); // get a fresh copy of the review
+        $review = glsr(ReviewManager::class)->get($review->ID); // get a fresh copy of the review
         if ($review->is_approved) {
             $this->maybeEarnPoints($review);
         }
@@ -50,6 +53,7 @@ class Controller extends BaseController
 
     /**
      * @param int $reviewId
+     *
      * @see $this->filterEarnPointTypes()
      */
     public function productUrl($reviewId): string

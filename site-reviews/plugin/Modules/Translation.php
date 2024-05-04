@@ -5,7 +5,6 @@ namespace GeminiLabs\SiteReviews\Modules;
 use GeminiLabs\Sepia\PoParser\Parser;
 use GeminiLabs\SiteReviews\Database\OptionManager;
 use GeminiLabs\SiteReviews\Helpers\Arr;
-use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Html\Template;
 
 class Translation
@@ -13,21 +12,14 @@ class Translation
     public const CONTEXT_ADMIN_KEY = 'admin-text';
     public const SEARCH_THRESHOLD = 3;
 
-    /**
-     * @var array|null
-     */
-    protected $entries;
+    protected array $entries = [];
 
-    /**
-     * @var array
-     */
-    protected $results;
+    protected array $results = [];
 
     /**
      * Returns all saved custom strings with translation context.
-     * @return array
      */
-    public function all()
+    public function all(): array
     {
         $strings = $this->strings();
         $entries = $this->filter($strings, $this->entries())->results();
@@ -39,12 +31,9 @@ class Translation
         return $strings;
     }
 
-    /**
-     * @return array
-     */
-    public function entries()
+    public function entries(): array
     {
-        if (!isset($this->entries)) {
+        if (empty($this->entries)) {
             $potFile = glsr()->path(glsr()->languages.'/'.glsr()->id.'.pot');
             $entries = $this->extractEntriesFromPotFile($potFile, glsr()->id);
             $entries = glsr()->filterArray('translation/entries', $entries);
@@ -54,26 +43,19 @@ class Translation
     }
 
     /**
-     * @param array|null $entriesToExclude
-     * @param array|null $entries
      * @return static
      */
-    public function exclude($entriesToExclude = null, $entries = null)
+    public function exclude(?array $entriesToExclude = null, ?array $entries = null)
     {
         return $this->filter($entriesToExclude, $entries, false);
     }
 
-    /**
-     * @param string $potFile
-     * @param string $domain
-     * @return array
-     */
-    public function extractEntriesFromPotFile($potFile, $domain, array $entries = [])
+    public function extractEntriesFromPotFile(string $potFile, string $domain, array $entries = []): array
     {
         try {
             $potEntries = $this->normalize(Parser::parseFile($potFile)->getEntries());
             foreach ($potEntries as $key => $entry) {
-                if (Str::contains(Arr::get($entry, 'msgctxt'), static::CONTEXT_ADMIN_KEY)) {
+                if (str_contains(Arr::get($entry, 'msgctxt'), static::CONTEXT_ADMIN_KEY)) {
                     continue;
                 }
                 $entry['domain'] = $domain; // the text-domain of the entry
@@ -86,12 +68,9 @@ class Translation
     }
 
     /**
-     * @param array|null $filterWith
-     * @param array|null $entries
-     * @param bool $intersect
      * @return static
      */
-    public function filter($filterWith = null, $entries = null, $intersect = true)
+    public function filter(?array $filterWith = null, ?array $entries = null, bool $intersect = true)
     {
         if (!is_array($entries)) {
             $entries = $this->results;
@@ -114,32 +93,24 @@ class Translation
         );
     }
 
-    /**
-     * @param string $template
-     * @return string
-     */
-    public function render($template, array $entry)
+    public function render(string $template, array $entry): string
     {
-        $data = array_combine(
-            array_map(function ($key) { return 'data.'.$key; }, array_keys($entry)),
-            $entry
-        );
+        $data = array_combine(array_map(fn ($key) => "data.{$key}", array_keys($entry)), $entry);
         $data['data.class'] = '';
         $data['data.error'] = '';
         if ($this->isInvalid($entry)) {
             $data['data.class'] = 'is-invalid';
             $data['data.error'] = _x('This custom translation is no longer valid as the original text has been changed or removed.', 'admin-text', 'site-reviews');
         }
-        return glsr(Template::class)->build('partials/strings/'.$template, [
+        return glsr(Template::class)->build("partials/strings/{$template}", [
             'context' => array_map('esc_html', $data),
         ]);
     }
 
     /**
      * Returns a rendered string of all saved custom strings with translation context.
-     * @return string
      */
-    public function renderAll()
+    public function renderAll(): string
     {
         $rendered = '';
         foreach ($this->all() as $index => $entry) {
@@ -150,11 +121,7 @@ class Translation
         return $rendered;
     }
 
-    /**
-     * @param bool $resetAfterRender
-     * @return string
-     */
-    public function renderResults($resetAfterRender = true)
+    public function renderResults(bool $resetAfterRender = true): string
     {
         $rendered = '';
         foreach ($this->results as $id => $entry) {
@@ -169,7 +136,7 @@ class Translation
                 : $data['s1'];
             $rendered .= $this->render('result', [
                 'domain' => $this->getEntryString($entry, 'domain'),
-                'entry' => json_encode($data, JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+                'entry' => wp_json_encode($data, JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
                 'text' => wp_strip_all_tags($text),
             ]);
         }
@@ -179,18 +146,12 @@ class Translation
         return $rendered;
     }
 
-    /**
-     * @return void
-     */
-    public function reset()
+    public function reset(): void
     {
         $this->results = [];
     }
 
-    /**
-     * @return array
-     */
-    public function results()
+    public function results(): array
     {
         $results = $this->results;
         $this->reset();
@@ -198,10 +159,9 @@ class Translation
     }
 
     /**
-     * @param string $needle
      * @return static
      */
-    public function search($needle = '')
+    public function search(string $needle = '')
     {
         $this->reset();
         $needle = trim(strtolower($needle));
@@ -212,7 +172,7 @@ class Translation
                 if (in_array($needle, [$single, $plural])) {
                     $this->results[$key] = $entry;
                 }
-            } elseif (Str::contains(sprintf('%s %s', $single, $plural), $needle)) {
+            } elseif (str_contains(sprintf('%s %s', $single, $plural), $needle)) {
                 $this->results[$key] = $entry;
             }
         }
@@ -221,33 +181,27 @@ class Translation
 
     /**
      * Store the strings to avoid unnecessary loops.
-     * @return array
      */
-    public function strings()
+    public function strings(): array
     {
         static $strings;
         if (empty($strings)) {
-            $settings = glsr(OptionManager::class)->get('settings.strings');
-            $strings = $this->normalizeSettings(Arr::consolidate($settings));
+            // we need to bypass the filter hooks because this is run before the settings are initiated
+            $settings = get_option(OptionManager::databaseKey());
+            $strings = Arr::getAs('array', $settings, 'settings.strings');
+            $strings = $this->normalizeStrings($strings);
         }
         return $strings;
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    protected function getEntryString(array $entry, $key)
+    protected function getEntryString(array $entry, string $key): string
     {
         return isset($entry[$key])
             ? implode('', (array) $entry[$key])
             : '';
     }
 
-    /**
-     * @return array
-     */
-    protected function normalize(array $entries)
+    protected function normalize(array $entries): array
     {
         $keys = [
             'msgctxt', 'msgid', 'msgid_plural', 'msgstr', 'msgstr[0]', 'msgstr[1]',
@@ -260,11 +214,7 @@ class Translation
         return $entries;
     }
 
-    /**
-     * @param string $key
-     * @return array
-     */
-    protected function normalizeEntryString(array $entry, $key)
+    protected function normalizeEntryString(array $entry, string $key): array
     {
         if (isset($entry[$key])) {
             $entry[$key] = $this->getEntryString($entry, $key);
@@ -272,10 +222,7 @@ class Translation
         return $entry;
     }
 
-    /**
-     * @return array
-     */
-    protected function normalizeSettings(array $strings)
+    protected function normalizeStrings(array $strings): array
     {
         $defaultString = array_fill_keys(['id', 's1', 's2', 'p1', 'p2'], '');
         $strings = array_filter($strings, 'is_array');
@@ -283,8 +230,6 @@ class Translation
             $string['type'] = isset($string['p1']) ? 'plural' : 'single';
             $string = wp_parse_args($string, $defaultString);
         }
-        return array_filter($strings, function ($string) {
-            return !empty($string['id']);
-        });
+        return array_filter($strings, fn ($string) => !empty($string['id']));
     }
 }

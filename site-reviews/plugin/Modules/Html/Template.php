@@ -2,54 +2,37 @@
 
 namespace GeminiLabs\SiteReviews\Modules\Html;
 
-use GeminiLabs\SiteReviews\Contracts\TemplateContract as Contract;
+use GeminiLabs\SiteReviews\Contracts\PluginContract;
+use GeminiLabs\SiteReviews\Contracts\TemplateContract;
 use GeminiLabs\SiteReviews\Helpers\Arr;
 
-class Template implements Contract
+class Template implements TemplateContract
 {
-    /**
-     * @return \GeminiLabs\SiteReviews\Application|\GeminiLabs\SiteReviews\Addons\Addon
-     */
-    public function app()
+    public function app(): PluginContract
     {
         return glsr();
     }
 
-    /**
-     * @param string $templatePath
-     * @return string
-     */
-    public function build($templatePath, array $data = [])
+    public function build(string $templatePath, array $data = []): string
     {
         $data = $this->normalize($data);
         $path = str_replace('templates/', '', $templatePath);
         $template = $this->app()->build($templatePath, $data);
-        $template = $this->app()->filterString('build/template/'.$path, $template, $data);
+        $template = $this->app()->filterString("build/template/{$path}", $template, $data);
         $template = $this->interpolate($template, $path, $data);
         $template = $this->app()->filterString('rendered/template', $template, $templatePath, $data);
-        $template = $this->app()->filterString('rendered/template/'.$path, $template, $data);
+        $template = $this->app()->filterString("rendered/template/{$path}", $template, $data);
         return trim($template);
     }
 
-    /**
-     * Interpolate context values into template placeholders.
-     * @param string $template
-     * @param string $templatePath
-     * @return string
-     */
-    public function interpolate($template, $templatePath, array $data = [])
+    public function interpolate(string $template, string $templatePath, array $data = []): string
     {
         $context = $this->normalizeContext(Arr::get($data, 'context', []));
-        $context = $this->app()->filterArray('interpolate/'.$templatePath, $context, $template, $data);
+        $context = $this->app()->filterArray("interpolate/{$templatePath}", $context, $template, $data);
         return $this->interpolateContext($template, $context);
     }
 
-    /**
-     * Interpolate context values into template placeholders.
-     * @param string $text
-     * @return string
-     */
-    public function interpolateContext($text, array $context = [])
+    public function interpolateContext(string $text, array $context = []): string
     {
         foreach ($context as $key => $value) {
             $text = strtr(
@@ -60,20 +43,12 @@ class Template implements Contract
         return trim($text);
     }
 
-    /**
-     * @param string $templatePath
-     * @return void
-     */
-    public function render($templatePath, array $data = [])
+    public function render(string $templatePath, array $data = []): void
     {
         echo $this->build($templatePath, $data);
     }
 
-    /**
-     * @param string $templatePath
-     * @return void
-     */
-    public function renderMultiple($templatePath, array $dataArr)
+    public function renderMultiple(string $templatePath, array $dataArr): void
     {
         foreach ($dataArr as $data) {
             if (is_array($data)) {
@@ -82,10 +57,7 @@ class Template implements Contract
         }
     }
 
-    /**
-     * @return array
-     */
-    protected function normalize(array $data)
+    protected function normalize(array $data): array
     {
         $arrayKeys = ['context', 'globals'];
         $data = wp_parse_args($data, array_fill_keys($arrayKeys, []));
@@ -97,17 +69,10 @@ class Template implements Contract
         return $data;
     }
 
-    /**
-     * @return array
-     */
-    protected function normalizeContext(array $context)
+    protected function normalizeContext(array $context): array
     {
         $context = Arr::flatten($context);
-        $context = array_filter($context, function ($value) {
-            return !is_array($value) && !is_object($value);
-        });
-        return array_map(function ($value) {
-            return (string) $value;
-        }, $context);
+        $context = array_filter($context, fn ($value) => !is_array($value) && !is_object($value));
+        return array_map(fn ($value) => (string) $value, $context);
     }
 }

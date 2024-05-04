@@ -2,6 +2,7 @@
 
 namespace GeminiLabs\SiteReviews\Modules\Html\Tags;
 
+use GeminiLabs\SiteReviews\Arguments;
 use GeminiLabs\SiteReviews\Contracts\TagContract;
 use GeminiLabs\SiteReviews\Helper;
 use GeminiLabs\SiteReviews\Helpers\Cast;
@@ -9,24 +10,12 @@ use GeminiLabs\SiteReviews\Modules\Html\Builder;
 
 abstract class Tag implements TagContract
 {
-    /**
-     * @var \GeminiLabs\SiteReviews\Arguments
-     */
-    public $args;
-
-    /**
-     * @var string
-     */
-    public $for;
-
-    /**
-     * @var string
-     */
-    public $tag;
-
-    /**
-     * @var mixed
-     */
+    public Arguments $args;
+    public string $for = '';
+    public string $tag;
+    /** @var mixed */
+    public $value;
+    /** @var mixed */
     public $with;
 
     public function __construct($tag, array $args = [])
@@ -36,24 +25,21 @@ abstract class Tag implements TagContract
     }
 
     /**
-     * @param string|null $value
-     * @param string|null $with
-     * @return string|void
+     * @param mixed $value
+     * @param mixed $with
      */
-    public function handleFor($for, $value = null, $with = null)
+    public function handleFor(string $for, $value = null, $with = null): string
     {
         $this->for = $for;
-        if ($this->validate($with)) {
-            $this->with = $with;
-            return $this->handle($this->value($value));
+        if (!$this->validate($with)) {
+            return '';
         }
+        $this->value = trim(Cast::toString($value, false));
+        $this->with = $with;
+        return $this->handle();
     }
 
-    /**
-     * @param string $path
-     * @return bool
-     */
-    public function isEnabled($path)
+    public function isEnabled(string $path): bool
     {
         if ($this->isRaw() || glsr()->retrieveAs('bool', 'api', false)) {
             return true;
@@ -61,38 +47,26 @@ abstract class Tag implements TagContract
         return glsr_get_option($path, true, 'bool');
     }
 
-    /**
-     * @param string $path
-     * @return bool
-     */
-    public function isHidden($path = '')
+    public function isHidden(string $path = ''): bool
     {
-        $isHidden = in_array($this->hideOption(), $this->args->hide);
+        $isHidden = in_array($this->hideOption(), $this->args->cast('hide', 'array'));
         return ($isHidden && !$this->isRaw()) || !$this->isEnabled($path);
     }
 
-    /**
-     * @return bool
-     */
-    public function isRaw()
+    public function isRaw(): bool
     {
         return Cast::toBool($this->args->raw);
     }
 
-    /**
-     * @param string $value
-     * @param string $wrapWith
-     * @return string
-     */
-    public function wrap($value, $wrapWith = null)
+    public function wrap(string $value, ?string $wrapWith = null): string
     {
         $rawValue = $value;
-        $value = glsr()->filterString($this->for.'/value/'.$this->tag, $value, $this);
+        $value = glsr()->filterString("{$this->for}/value/{$this->tag}", $value, $this);
         if (Helper::isNotEmpty($value)) {
             if (!empty($wrapWith)) {
                 $value = $this->wrapValue($wrapWith, $value);
             }
-            $value = glsr()->filterString($this->for.'/wrapped', $value, $rawValue, $this);
+            $value = glsr()->filterString("{$this->for}/wrapped", $value, $rawValue, $this);
             if (!$this->isRaw()) {
                 $value = glsr(Builder::class)->div([
                     'class' => sprintf('glsr-%s-%s', $this->for, $this->tag),
@@ -100,50 +74,33 @@ abstract class Tag implements TagContract
                 ]);
             }
         }
-        return glsr()->filterString($this->for.'/wrap/'.$this->tag, $value, $rawValue, $this);
+        return glsr()->filterString("{$this->for}/wrap/{$this->tag}", $value, $rawValue, $this);
     }
 
-    /**
-     * @param string $value
-     * @return mixed
-     */
-    protected function handle($value = null)
+    protected function handle(): string
     {
-        return $value;
+        return $this->value();
     }
 
-    /**
-     * @return string
-     */
-    protected function hideOption()
+    protected function hideOption(): string
     {
         return $this->tag;
     }
 
     /**
      * @param mixed $with
-     * @return bool
      */
-    protected function validate($with)
+    protected function validate($with): bool
     {
         return true;
     }
 
-    /**
-     * @param mixed $value
-     * @return string
-     */
-    protected function value($value = null)
+    protected function value(): string
     {
-        return $value;
+        return $this->value;
     }
 
-    /**
-     * @param string $value
-     * @param string $tag
-     * @return string
-     */
-    protected function wrapValue($tag, $value)
+    protected function wrapValue(string $tag, string $value): string
     {
         return glsr(Builder::class)->$tag([
             'class' => 'glsr-tag-value',

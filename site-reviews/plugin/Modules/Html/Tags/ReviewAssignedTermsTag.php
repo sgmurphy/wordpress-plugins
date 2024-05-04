@@ -6,18 +6,12 @@ use GeminiLabs\SiteReviews\Helpers\Str;
 
 class ReviewAssignedTermsTag extends ReviewTag
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function handle($value = null)
+    protected function handle(): string
     {
-        return $this->wrap($value, 'span');
+        return $this->wrap($this->value(), 'span');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function value($value = null)
+    protected function value(): string
     {
         $terms = wp_list_pluck($this->review->assignedTerms(), 'name');
         return !empty($terms)

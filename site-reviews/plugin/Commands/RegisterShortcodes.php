@@ -2,30 +2,27 @@
 
 namespace GeminiLabs\SiteReviews\Commands;
 
-use GeminiLabs\SiteReviews\Contracts\CommandContract as Contract;
 use GeminiLabs\SiteReviews\Helper;
 
-class RegisterShortcodes implements Contract
+class RegisterShortcodes extends AbstractCommand
 {
-    public $shortcodes;
-
-    public function __construct($input)
+    public function handle(): void
     {
-        $this->shortcodes = $input;
-    }
-
-    /**
-     * @return void
-     */
-    public function handle()
-    {
-        foreach ($this->shortcodes as $shortcode) {
-            $shortcodeClass = Helper::buildClassName([$shortcode, 'shortcode'], 'Shortcodes');
-            if (!class_exists($shortcodeClass)) {
-                glsr_log()->error(sprintf('Shortcode class missing (%s)', $shortcodeClass));
+        $dir = glsr()->path('plugin/Shortcodes');
+        if (!is_dir($dir)) {
+            $this->fail();
+            return;
+        }
+        $iterator = new \DirectoryIterator($dir);
+        foreach ($iterator as $fileinfo) {
+            if ('file' !== $fileinfo->getType()) {
                 continue;
             }
-            add_shortcode($shortcode, [glsr($shortcodeClass), 'buildShortcode']);
+            $className = str_replace('.php', '', $fileinfo->getFilename());
+            $shortcodeClass = Helper::buildClassName($className, 'Shortcodes');
+            if (class_exists($shortcodeClass) && !(new \ReflectionClass($shortcodeClass))->isAbstract()) {
+                glsr($shortcodeClass)->register();
+            }
         }
     }
 }

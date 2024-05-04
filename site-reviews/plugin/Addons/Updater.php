@@ -8,42 +8,15 @@ use GeminiLabs\SiteReviews\Helpers\Url;
 
 class Updater
 {
-    /**
-     * @var string
-     */
-    protected $addonId;
+    protected string $addonId = '';
+    protected string $apiUrl = '';
+    protected array $data = [];
+    protected bool $forceCheck = false;
+    protected bool $isReady = false;
+    protected string $status = '';
+    protected string $plugin = '';
 
-    /**
-     * @var string
-     */
-    protected $apiUrl;
-    /**
-     * @var array
-     */
-    protected $data;
-    /**
-     * @var bool
-     */
-    protected $forceCheck = false;
-    /**
-     * @var bool
-     */
-    protected $isReady = false;
-    /**
-     * @var string
-     */
-    protected $status;
-    /**
-     * @var string
-     */
-    protected $plugin;
-
-    /**
-     * @param string $apiUrl
-     * @param string $file
-     * @param string $addonId
-     */
-    public function __construct($apiUrl, $file, $addonId, array $data = [])
+    public function __construct(string $apiUrl, string $file, string $addonId, array $data = [])
     {
         if (!file_exists($file)) {
             return;
@@ -65,41 +38,34 @@ class Updater
         }
     }
 
-    /**
-     * @return object
-     */
-    public function activateLicense(array $data = [])
+    public function activateLicense(array $data = []): \stdClass
     {
         return $this->request('activate_license', $data);
     }
 
-    /**
-     * @return object
-     */
-    public function checkLicense(array $data = [])
+    public function checkLicense(array $data = []): \stdClass
     {
         return $this->request('check_license', $data);
     }
 
-    /**
-     * @return object
-     */
-    public function deactivateLicense(array $data = [])
+    public function deactivateLicense(array $data = []): \stdClass
     {
         return $this->request('deactivate_license', $data);
     }
 
     /**
      * @param false|object|array $result
-     * @param string $action
-     * @param object $args
+     * @param string             $action
+     * @param object             $args
+     *
      * @return mixed
+     *
      * @filter plugins_api
      */
     public function filterPluginUpdateDetails($result, $action, $args)
     {
-        if ('plugin_information' != $action
-            || Arr::get($this->data, 'TextDomain') != Arr::get($args, 'slug')) {
+        if ('plugin_information' !== $action
+            || Arr::get($this->data, 'TextDomain') !== Arr::get($args, 'slug')) {
             return $result;
         }
         if ($updateInfo = $this->getPluginUpdate($this->forceCheck)) {
@@ -110,7 +76,9 @@ class Updater
 
     /**
      * @param object $transient
+     *
      * @return object
+     *
      * @filter pre_set_site_transient_update_plugins
      */
     public function filterPluginUpdates($transient)
@@ -121,31 +89,22 @@ class Updater
         return $transient;
     }
 
-    /**
-     * @return object
-     */
-    public function getLatestVersion(array $data = [])
+    public function getLatestVersion(array $data = []): \stdClass
     {
         return $this->request('get_version', $data);
     }
 
-    /**
-     * @return void
-     */
-    public function init()
+    public function init(): void
     {
         if ($this->isReady) {
             add_filter('plugins_api', [$this, 'filterPluginUpdateDetails'], 10, 3);
             add_filter('pre_set_site_transient_update_plugins', [$this, 'filterPluginUpdates'], 999);
             add_action('load-update-core.php', [$this, 'onForceUpdateCheck'], 9);
-            add_action('in_plugin_update_message-'.$this->plugin, [$this, 'renderLicenseMissingLink']);
+            add_action("in_plugin_update_message-{$this->plugin}", [$this, 'renderLicenseMissingLink']);
         }
     }
 
-    /**
-     * @return bool
-     */
-    public function isLicenseValid()
+    public function isLicenseValid(): bool
     {
         if (empty($this->status)) {
             $result = $this->checkLicense();
@@ -156,10 +115,9 @@ class Updater
     }
 
     /**
-     * @return void
      * @action load-update-core.php
      */
-    public function onForceUpdateCheck()
+    public function onForceUpdateCheck(): void
     {
         if (!filter_input(INPUT_GET, 'force-check')) {
             return;
@@ -172,10 +130,9 @@ class Updater
     }
 
     /**
-     * @return void
      * @action in_plugin_update_message-{$this->plugin}
      */
-    public function renderLicenseMissingLink()
+    public function renderLicenseMissingLink(): void
     {
         if (!$this->isLicenseValid()) {
             glsr()->render('partials/addons/license-missing');
@@ -191,10 +148,9 @@ class Updater
     }
 
     /**
-     * @param bool $force
      * @return false|object
      */
-    protected function getPluginUpdate($force = false)
+    protected function getPluginUpdate(bool $force = false)
     {
         $version = $this->getCachedVersion();
         if (false === $version || false !== $force) {
@@ -208,10 +164,7 @@ class Updater
         return $version;
     }
 
-    /**
-     * @return string
-     */
-    protected function getTransientName()
+    protected function getTransientName(): string
     {
         return glsr()->prefix.md5(Arr::get($this->data, 'TextDomain'));
     }
@@ -219,6 +172,7 @@ class Updater
     /**
      * @param object $transient
      * @param object $updateInfo
+     *
      * @return object
      */
     protected function modifyPluginUpdates($transient, $updateInfo)
@@ -246,6 +200,7 @@ class Updater
 
     /**
      * @param object $updateInfo
+     *
      * @return object
      */
     protected function modifyUpdateDetails($updateInfo)
@@ -262,13 +217,14 @@ class Updater
 
     /**
      * @param \WP_Error|array $response
+     *
      * @return object
      */
     protected function normalizeResponse($response)
     {
         $body = wp_remote_retrieve_body($response);
-        if ($data = json_decode($body)) {
-            $data = array_map('maybe_unserialize', (array) $data);
+        if ($data = json_decode($body, true)) {
+            $data = array_map('maybe_unserialize', $data);
             return (object) $data;
         }
         $error = is_wp_error($response)
@@ -279,6 +235,7 @@ class Updater
 
     /**
      * @param string $action activate_license|check_license|deactivate_license|get_version
+     *
      * @return object
      */
     protected function request($action, array $data = [])
@@ -304,9 +261,8 @@ class Updater
 
     /**
      * @param object $version
-     * @return void
      */
-    protected function setCachedVersion($version)
+    protected function setCachedVersion($version): void
     {
         if (!isset($version->error)) {
             set_transient($this->getTransientName(), $version, 15 * MINUTE_IN_SECONDS);

@@ -7,9 +7,8 @@ class RatingDefaults extends DefaultsAbstract
     /**
      * The values that should be cast before sanitization is run.
      * This is done before $sanitize and $enums.
-     * @var array
      */
-    public $casts = [
+    public array $casts = [
         'ID' => 'int',
         'is_approved' => 'bool',
         'is_pinned' => 'bool',
@@ -20,21 +19,21 @@ class RatingDefaults extends DefaultsAbstract
 
     /**
      * The values that should be guarded.
+     *
      * @var string[]
      */
-    public $guarded = [
+    public array $guarded = [
         'ID',
     ];
 
     /**
      * The values that should be sanitized.
      * This is done after $casts and before $enums.
-     * @var array
      */
-    public $sanitize = [
+    public array $sanitize = [
         'avatar' => 'url',
         'email' => 'email',
-        'ip_address' => 'text',
+        'ip_address' => 'ip-address',
         'name' => 'text',
         'rating' => 'rating',
         'score' => 'min:0',
@@ -42,10 +41,7 @@ class RatingDefaults extends DefaultsAbstract
         'url' => 'url',
     ];
 
-    /**
-     * @return array
-     */
-    protected function defaults()
+    protected function defaults(): array
     {
         return [
             'avatar' => '',

@@ -8,7 +8,7 @@ use GeminiLabs\SiteReviews\Helpers\Arr;
 use GeminiLabs\SiteReviews\Helpers\Cast;
 use GeminiLabs\SiteReviews\Helpers\Str;
 use GeminiLabs\SiteReviews\Modules\Date;
-use GeminiLabs\SiteReviews\Modules\Multilingual;
+use GeminiLabs\SiteReviews\Modules\Html\Builder;
 use GeminiLabs\SiteReviews\Modules\Rating;
 use GeminiLabs\SiteReviews\Modules\Sanitizer;
 use GeminiLabs\SiteReviews\Review;
@@ -23,7 +23,7 @@ class TemplateTags
         throw new \BadMethodCallException("Method [$method] does not exist.");
     }
 
-    public function filteredTags(array $args): array
+    public function filteredTags(array $args = []): array
     {
         $exclude = Arr::consolidate(Arr::get($args, 'exclude'));
         $include = Arr::consolidate(Arr::get($args, 'include'));
@@ -69,15 +69,11 @@ class TemplateTags
     public function tagReviewAssignedLinks(Review $review, string $format = '<a href="%s">%s</a>'): string
     {
         $links = [];
-        foreach ($review->assigned_posts as $postId) {
-            $postId = glsr(Multilingual::class)->getPostId(Helper::getPostId($postId));
-            if (!empty($postId) && !array_key_exists($postId, $links)) {
-                $title = get_the_title($postId);
-                if (empty(trim($title))) {
-                    $title = __('(no title)', 'site-reviews');
-                }
-                $links[$postId] = sprintf($format, (string) get_the_permalink($postId), $title);
-            }
+        $posts = $review->assignedPosts();
+        foreach ($posts as $post) {
+            $title = trim(get_the_title($post->ID));
+            $title = $title ?: $post->post_name ?: $post->ID;
+            $links[$post->ID] = sprintf($format, (string) get_the_permalink($post->ID), $title);
         }
         return Str::naturalJoin($links);
     }
@@ -85,20 +81,16 @@ class TemplateTags
     public function tagReviewAssignedPosts(Review $review): string
     {
         $posts = $review->assignedPosts();
-        $titles = wp_list_pluck($posts, 'post_title');
-        array_walk($titles, function (&$title) {
-            if (empty(trim($title))) {
-                $title = __('(no title)', 'site-reviews');
-            }
-        });
+        $titles = wp_list_pluck($posts, 'post_title', 'ID');
+        $titles = array_map(fn ($title) => trim($title) ?: __('(no title)', 'site-reviews'), $titles);
         return Str::naturalJoin($titles);
     }
 
     public function tagReviewAssignedTerms(Review $review): string
     {
         $terms = $review->assignedTerms();
-        $termNames = array_filter(wp_list_pluck($terms, 'name'));
-        return Str::naturalJoin($termNames);
+        $names = array_filter(wp_list_pluck($terms, 'name', 'term_taxonomy_id'));
+        return Str::naturalJoin($names);
     }
 
     public function tagReviewAssignedUsers(Review $review): string
@@ -141,10 +133,7 @@ class TemplateTags
         return (string) $review->ip_address;
     }
 
-    /**
-     * @compat
-     */
-    public function tagReviewLink(Review $review): string
+    public function tagReviewLink(Review $review): string // @compat v6
     {
         return glsr(Builder::class)->a([
             'href' => $review->editUrl(),
@@ -179,12 +168,18 @@ class TemplateTags
         $tags = $this->filteredTags($args);
         array_walk($tags, function (&$content, $tag) use ($review) {
             $content = ''; // remove the tag description first!
-            $method = Helper::buildMethodName($tag, 'tag');
+            $method = Helper::buildMethodName('tag', $tag);
             if (method_exists($this, $method)) {
                 $content = call_user_func([$this, $method], $review);
             }
-            $content = glsr()->filterString('notification/tag/'.$tag, $content, $review);
+            $content = glsr()->filterString("notification/tag/{$tag}", $content, $review);
         });
+        if (array_key_exists('edit_url', $tags)) {
+            $tags['review_link'] = glsr(Builder::class)->a([ // @compat v6
+                'href' => esc_url($tags['edit_url']),
+                'text' => __('Edit Review', 'site-reviews'),
+            ]);
+        }
         return $tags;
     }
 
