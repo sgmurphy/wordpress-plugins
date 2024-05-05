@@ -5,7 +5,7 @@ Tags: wordpress slider, elementor addons, slider, image slider, video slider
 Requires at least: 5.0.0
 Tested up to: 6.5.2
 Requires PHP: 7.4.0
-Stable tag: 3.14.4
+Stable tag: 3.14.5
 License: GPL3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Elementor requires at least: 3.0.0
@@ -142,6 +142,8 @@ Feel free to [Contact us](https://bdthemes.com/support/) 💌 or check our widge
 
 == Check out our other Addons 👑 ==
 
+* **[ZoloBlocks](https://wordpress.org/plugins/zoloblocks/)** 🆕☀️ - Mind-blowing dynamic block plugin for Gutenberg with powerful and advanced features offering greater web design experience.
+
 * **[Element Pack](https://wordpress.org/plugins/bdthemes-element-pack-lite/)** - Element Pack Lite Build responsive website from scratch with an all-rounder package for Elementor
 
 * **[Ultimate Post Kit](https://wordpress.org/plugins/ultimate-post-kit/)** - Best blogging addon for building quality blogging website with fine-tuned features and widgets.
@@ -169,6 +171,10 @@ https://youtu.be/XjFiW5rFrac
 
 
 == Changelog ==
+
+= 3.14.5 [5th May 2024] =
+
+* Added: Navigation horizontal offset added in flogia widget
 
 = 3.14.4 [2nd May 2024] =
 

@@ -444,9 +444,13 @@ class Pixel_Manager {
         if ( isset( $data['tiktok'] ) ) {
             TikTok_EAPI::send_tiktok_eapi_event( $data['tiktok'] );
         }
-        // Send Tiktok Events API event
+        // Send Pinterest APIC event
         if ( isset( $data['pinterest'] ) ) {
             Pinterest_APIC::send_pinterest_apic_event( $data['pinterest'] );
+        }
+        // Send Snapchat CAPI event
+        if ( isset( $data['snapchat'] ) ) {
+            Snapchat_CAPI::send_snapchat_capi_event( $data['snapchat'] );
         }
     }
 

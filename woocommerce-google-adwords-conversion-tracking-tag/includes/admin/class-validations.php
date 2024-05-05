@@ -396,6 +396,21 @@ class Validations {
 			}
 		}
 
+		// validate Snapchat CAPI token
+		if (isset($input['snapchat']['capi']['token'])) {
+
+			// Trim space, newlines and quotes
+			$input['snapchat']['capi']['token'] = Helpers::trim_string($input['snapchat']['capi']['token']);
+
+			if (!self::is_snapchat_capi_token($input['snapchat']['capi']['token'])) {
+				$input['snapchat']['capi']['token']
+					= Options::get_snapchat_capi_token()
+					? Options::get_snapchat_capi_token()
+					: '';
+				add_settings_error('wgact_plugin_options', 'invalid-snapchat-capi-token', esc_html__('You have entered an invalid Snapchat CAPI token.', 'woocommerce-google-adwords-conversion-tracking-tag'));
+			}
+		}
+
 		// validate Taboola account ID
 		if (isset($input['pixels']['taboola']['account_id'])) {
 
@@ -1020,6 +1035,13 @@ class Validations {
 	public static function is_snapchat_pixel_id( $string ) {
 
 		$re = '/^[a-z0-9\-]*$/m';
+
+		return self::validate_with_regex($re, $string);
+	}
+
+	public static function is_snapchat_capi_token( $string ) {
+
+		$re = '/^[a-zA-Z0-9\.\-_]{200,600}$/m';
 
 		return self::validate_with_regex($re, $string);
 	}

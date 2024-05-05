@@ -454,7 +454,7 @@ a.advanced-section-link {
     min-width: 36px;
 }
 
-.pmw .dashicons-video-alt3 {
+.pmw.notification .dashicons-video-alt3 {
     font-size: 36px;
     margin-top: -4px;
 }

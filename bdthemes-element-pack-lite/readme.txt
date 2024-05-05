@@ -213,6 +213,8 @@ Feel free to [Contact us](https://bdthemes.com/support/) 💌 or check our widge
 
 == Check out our other Addons 👑 ==
 
+* **[ZoloBlocks](https://wordpress.org/plugins/zoloblocks/)** 🆕☀️ - Mind-blowing dynamic block plugin for Gutenberg with powerful and advanced features offering greater web design experience.
+
 * **[Prime Slider](https://wordpress.org/plugins/bdthemes-prime-slider-lite/)** - The revolutionary slider builder addon with next-gen superb interface.
 
 * **[Ultimate Post Kit](https://wordpress.org/plugins/ultimate-post-kit/)** - Best blogging addon for building quality blogging website with fine-tuned features and widgets.

@@ -26,9 +26,7 @@ class Product {
 				continue;
 			}
 
-			$dyn_r_ids           = self::get_dyn_r_ids($product);
-			$product_id_compiled = $dyn_r_ids[self::get_dyn_r_id_type($pixel_name)];
-			$order_items_array[] = $product_id_compiled;
+			$order_items_array[] = self::get_dyn_r_id_for_product_by_pixel_name($product, $pixel_name);
 		}
 
 		return $order_items_array;
@@ -69,25 +67,60 @@ class Product {
 		return apply_filters('pmw_product_ids', $dyn_r_ids, $product);
 	}
 
+	/**
+	 * Get the dynamic remarketing ID for the product by the pixel name.
+	 *
+	 * @param $product
+	 * @param $pixel_name
+	 * @return mixed
+	 */
+	public static function get_dyn_r_id_for_product_by_pixel_name( $product, $pixel_name ) {
+
+		$dyn_r_ids = self::get_dyn_r_ids($product);
+
+		return $dyn_r_ids[self::get_dyn_r_id_type($pixel_name)];
+	}
+
+	/**
+	 * Get the dyn_r_id type for the pixel.
+	 *
+	 * @param $pixel_name
+	 * @return string
+	 * @since 1.42.7
+	 */
 	public static function get_dyn_r_id_type( $pixel_name ) {
 
-		$dyn_r_id_type = '';
-
-		if (0 == Options::get_options_obj()->google->ads->product_identifier) {
-			$dyn_r_id_type = 'post_id';
-		} elseif (1 == Options::get_options_obj()->google->ads->product_identifier) {
-			$dyn_r_id_type = 'gpf';
-		} elseif (2 == Options::get_options_obj()->google->ads->product_identifier) {
-			$dyn_r_id_type = 'sku';
-		} elseif (3 == Options::get_options_obj()->google->ads->product_identifier) {
-			$dyn_r_id_type = 'gla';
-		}
+		$dyn_r_id_type = self::get_product_identifier_from_settings();
 
 		// If you want to change the dyn_r_id type programmatically
 		$dyn_r_id_type = apply_filters_deprecated('wooptpm_product_id_type_for_' . $pixel_name, [ $dyn_r_id_type ], '1.13.0', 'pmw_product_id_type_for_');
 		$dyn_r_id_type = apply_filters_deprecated('wpm_product_id_type_for_' . $pixel_name, [ $dyn_r_id_type ], '1.31.2', 'pmw_product_id_type_for_');
 
 		return apply_filters('pmw_product_id_type_for_' . $pixel_name, $dyn_r_id_type);
+	}
+
+	/**
+	 * Get the product identifier from the settings.
+	 *
+	 * @return string
+	 * @since 1.42.7
+	 */
+	private static function get_product_identifier_from_settings() {
+
+		$product_identifier = Options::get_options_obj()->google->ads->product_identifier;
+
+		switch ($product_identifier) {
+			case 0:
+				return 'post_id';
+			case 1:
+				return 'gpf';
+			case 2:
+				return 'sku';
+			case 3:
+				return 'gla';
+			default:
+				return 'post_id';
+		}
 	}
 
 	public static function log_problematic_product_id( $product_id = 0 ) {

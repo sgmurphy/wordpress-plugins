@@ -2264,9 +2264,9 @@ abstract class elFinderVolumeDriver
         if (!$dir['write'] || !$this->allowCreate($path, $name, true)) {
             return $this->setError(elFinder::ERROR_PERM_DENIED);
         }
-        if (substr($name, 0, 1) === '/' || substr($name, 0, 1) === '\\') {
-            return $this->setError(elFinder::ERROR_INVALID_DIRNAME);
-        }
+        // if (substr($name, 0, 1) === '/' || substr($name, 0, 1) === '\\') {
+        //     return $this->setError(elFinder::ERROR_INVALID_DIRNAME);
+        // }
 
         $dst = $this->joinPathCE($path, $name);
         $stat = $this->isNameExists($dst);
@@ -2303,9 +2303,9 @@ abstract class elFinderVolumeDriver
         if (!$this->nameAccepted($name, false)) {
             return $this->setError(elFinder::ERROR_INVALID_NAME);
         }
-        if (substr($name, 0, 1) === '/' || substr($name, 0, 1) === '\\') {
-            return $this->setError(elFinder::ERROR_INVALID_DIRNAME);
-        }
+        // if (substr($name, 0, 1) === '/' || substr($name, 0, 1) === '\\') {
+        //     return $this->setError(elFinder::ERROR_INVALID_DIRNAME);
+        // }
 
         $mimeByName = $this->mimetype($name, true);
         if ($mimeByName && !$this->allowPutMime($mimeByName)) {
@@ -3481,7 +3481,7 @@ abstract class elFinderVolumeDriver
 		} else {
 			$custom_temp_path = WP_CONTENT_DIR.'/temp';
 			if (!is_dir($custom_temp_path)) {
-				mkdir($custom_temp_path, 0777, true);
+				mkdir($custom_temp_path, 0755, true);
 			}
 			return $custom_temp_path;
 		}

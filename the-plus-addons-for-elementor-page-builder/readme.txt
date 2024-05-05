@@ -2,7 +2,7 @@
 Contributors: posimyththemes, nirmalkavaiya, devangvachheta, sagarpatel124
 Tags: elementor, elementor widgets, elementor addons, elementor templates, widgets for elementor
 Requires at least: 5.7.0
-Tested up to: 6.3
+Tested up to: 6.5
 Requires PHP: 5.6
 Stable tag: 5.2.15
 License: GPLv3

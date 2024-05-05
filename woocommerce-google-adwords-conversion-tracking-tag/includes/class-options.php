@@ -159,6 +159,9 @@ class Options {
 			'snapchat'   => [
 				'pixel_id'          => '',
 				'advanced_matching' => false,
+				'capi' 			=> [
+					'token'             => '',
+				],
 			],
 			'tiktok'     => [
 				'pixel_id'          => '',
@@ -421,6 +424,14 @@ class Options {
 
 	public static function is_snapchat_advanced_matching_enabled() {
 		return (bool) self::get_options_obj()->snapchat->advanced_matching;
+	}
+
+	public static function get_snapchat_capi_token() {
+		return self::get_options_obj()->snapchat->capi->token;
+	}
+
+	public static function is_snapchat_capi_enabled() {
+		return self::is_snapchat_active() && self::get_snapchat_capi_token();
 	}
 
 	/**
@@ -869,7 +880,8 @@ class Options {
 		return
 			self::is_facebook_capi_enabled()
 			|| self::is_tiktok_eapi_enabled()
-			|| self::is_pinterest_apic_active();
+			|| self::is_pinterest_apic_active()
+			|| self::is_snapchat_capi_enabled();
 	}
 
 	public static function get_excluded_roles() {

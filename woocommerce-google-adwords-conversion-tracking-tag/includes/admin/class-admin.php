@@ -886,6 +886,16 @@ class Admin {
             'slug'  => 'snapchat',
         ];
         self::add_subsection_div( $section_ids, $sub_section_ids );
+        if ( Helpers::is_experiment() ) {
+            // Add the field for the Snapchat CAPI token
+            add_settings_field(
+                'plugin_snapchat_capi_token',
+                esc_html__( 'Snapchat CAPI token', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                [$this, 'option_html_snapchat_capi_token'],
+                'wpm_plugin_options_page',
+                $section_ids['settings_name']
+            );
+        }
         // Add the field for the Snapchat advanced matching
         add_settings_field(
             'plugin_snapchat_advanced_matching',
@@ -1364,8 +1374,8 @@ class Admin {
 			 box-shadow: 0 1px 1px rgb(0 0 0 / 4%);">
 			<p>
 				<?php 
-        esc_html_e( 'It looks like you are using some sort of ad or script blocker in your browser which is blocking the script and CSS files of this plugin.
-                    In order for the plugin to work properly you need to disable the script blocker.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        esc_html_e( 'It looks like you are using some sort of ad- or script-blocker in your browser which is blocking the script and CSS files of this plugin.
+                    In order for the plugin to work properly you need to disable the script blocker in your browser.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 			</p>
 			<p>
@@ -2873,6 +2883,42 @@ class Admin {
         echo '&nbsp;<i>t2_gvnawxpb</i>';
         ?>
 		</p>
+		<?php 
+    }
+
+    public function option_html_snapchat_capi_token() {
+        ?>
+		<textarea class="pmw mono"
+				  id="plugin_snapchat_capi_token"
+				  name="wgact_plugin_options[snapchat][capi][token]"
+				  cols="60"
+				  rows="6"
+			<?php 
+        esc_html_e( self::disable_if_demo() );
+        ?>><?php 
+        esc_html_e( Options::get_snapchat_capi_token() );
+        ?></textarea>
+		<?php 
+        self::display_status_icon( Options::get_snapchat_capi_token(), Options::is_snapchat_active() );
+        ?>
+		<?php 
+        self::get_documentation_html_by_key( 'snapchat_capi_token' );
+        ?>
+		<?php 
+        self::html_pro_feature();
+        ?>
+		<?php 
+        if ( !Options::is_snapchat_active() ) {
+            ?>
+			<p>
+				<span class="dashicons dashicons-info"></span>
+				<?php 
+            esc_html_e( 'You need to activate the Snapchat pixel', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			</p>
+		<?php 
+        }
+        ?>
 		<?php 
     }
 

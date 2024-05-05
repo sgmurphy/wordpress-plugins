@@ -7,6 +7,7 @@ use SweetCode\Pixel_Manager\Admin\Notifications\Notifications;
 use SweetCode\Pixel_Manager\Geolocation;
 use SweetCode\Pixel_Manager\Helpers;
 use SweetCode\Pixel_Manager\Options;
+use SweetCode\Pixel_Manager\Product;
 use SweetCode\Pixel_Manager\Profit_Margin;
 
 defined('ABSPATH') || exit; // Exit if accessed directly
@@ -1099,7 +1100,15 @@ class Environment {
 		 */
 
 		if (Options::is_facebook_active()) {
+
+			// Disable the Facebook Pixel in the Facebook for WooCommerce plugin
 			add_filter('facebook_for_woocommerce_integration_pixel_enabled', '__return_false');
+
+			// Override the product identifier uploaded by the Facebook for WooCommerce plugin
+			// to the Facebook catalog with the PMW product identifier
+			add_filter('wc_facebook_fb_retailer_id', function ( $fb_retailer_id, $product ) {
+				return Product::get_dyn_r_id_for_product_by_pixel_name($product, 'facebook');
+			});
 		}
 
 		/**

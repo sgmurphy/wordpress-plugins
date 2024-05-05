@@ -185,6 +185,70 @@ class Helpers {
         return rtrim( $string, ';' );
     }
 
+    private static function normalize_for_snapchat( $string ) {
+        // to lower case
+        $string = strtolower( $string );
+        // remove punctuation
+        $string = self::remove_punctuation( $string );
+        return $string;
+    }
+
+    /**
+     * Remove punctuation from a string.
+     *
+     * @param string $string
+     * @return string
+     *
+     * @since 1.42.7
+     */
+    public static function remove_punctuation( $string ) {
+        return str_replace( [
+            '.',
+            ',',
+            ';',
+            ':',
+            '!',
+            '?',
+            '(',
+            ')',
+            '[',
+            ']',
+            '{',
+            '}',
+            '<',
+            '>',
+            '/',
+            '\\',
+            '|',
+            '@',
+            '#',
+            '$',
+            '%',
+            '^',
+            '&',
+            '*',
+            '+',
+            '=',
+            '~',
+            '`',
+            '"',
+            "'"
+        ], '', $string );
+    }
+
+    private static function normalize_google_email_address( $email ) {
+        // If the email address is a @gmail.com or @googlemail.com address, remove dots and plus signs in the first part of the email address
+        if ( preg_match( '/@gmail.com$/', $email ) || preg_match( '/@googlemail.com$/', $email ) ) {
+            $email_parts = explode( '@', $email );
+            // remove all dots in the first part
+            $email_parts[0] = str_replace( '.', '', $email_parts[0] );
+            // remove all plus signs in the first part
+            $email_parts[0] = str_replace( '+', '', $email_parts[0] );
+            $email = implode( '@', $email_parts );
+        }
+        return $email;
+    }
+
     /**
      * Filter to return the Facebook fbevents.js script URL.
      *
@@ -335,6 +399,7 @@ class Helpers {
     private static function get_user_object_email( $data, $email ) {
         $email = self::trim_string( $email );
         $email = strtolower( $email );
+        //		$email = self::normalize_google_email_address($email);
         $data['email']['raw'] = $email;
         $data['email']['sha256'] = self::hash_string( $email );
         $data['email']['facebook'] = self::hash_string( $email );
@@ -347,6 +412,7 @@ class Helpers {
         $data['first_name']['sha256'] = self::hash_string( $first_name );
         $data['first_name']['facebook'] = strtolower( $first_name );
         $data['first_name']['pinterest'] = self::hash_string( strtolower( $first_name ) );
+        $data['first_name']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $first_name ) );
         return $data;
     }
 
@@ -356,6 +422,7 @@ class Helpers {
         $data['last_name']['sha256'] = self::hash_string( $last_name );
         $data['last_name']['facebook'] = strtolower( $last_name );
         $data['last_name']['pinterest'] = self::hash_string( strtolower( $last_name ) );
+        $data['last_name']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $last_name ) );
         return $data;
     }
 
@@ -377,6 +444,7 @@ class Helpers {
         $data['city']['sha256'] = self::hash_string( $city );
         $data['city']['facebook'] = strtolower( $city );
         $data['city']['pinterest'] = self::hash_string( strtolower( preg_replace( '/[^A-Za-z0-9\\-]/', '', $city ) ) );
+        $data['city']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $city ) );
         return $data;
     }
 
@@ -386,12 +454,14 @@ class Helpers {
         $data['state']['sha256'] = self::hash_string( $state );
         $data['state']['facebook'] = preg_replace( '/[a-zA-Z]{2}-/', '', strtolower( $state ) );
         $data['state']['pinterest'] = self::hash_string( strtolower( $state ) );
+        $data['state']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $state ) );
         return $data;
     }
 
     private static function get_user_object_postcode( $data, $postcode ) {
         $postcode = self::trim_string( $postcode );
         $data['postcode']['raw'] = $postcode;
+        $data['postcode']['sha256'] = self::hash_string( $postcode );
         $data['postcode']['facebook'] = strtolower( $postcode );
         $data['postcode']['pinterest'] = self::hash_string( preg_replace( '/[^0-9]/', '', $postcode ) );
         return $data;
@@ -401,19 +471,15 @@ class Helpers {
      * This function takes a user data array and a country string and adds the country values to the user object.
      *
      * @param array  $data
-     *        The user data array.
-     *
      * @param string $country
-     *        The country string to be added to the user object.
-     *
      * @return array
-     *         The updated user data array with country values added to the user object.
      */
     private static function get_user_object_country( $data, $country ) {
         $country = self::trim_string( $country );
         $data['country']['raw'] = $country;
         $data['country']['facebook'] = strtolower( $country );
         $data['country']['pinterest'] = self::hash_string( strtolower( $country ) );
+        $data['country']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $country ) );
         return $data;
     }
 
