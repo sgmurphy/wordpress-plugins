@@ -392,11 +392,11 @@ class TNP_Composer {
 
         $defaults = [
             $prefix . '_url' => '#',
-            $prefix . '_font_family' => $composer['button_font_family'],
-            $prefix . '_font_color' => $composer['button_font_color'],
-            $prefix . '_font_weight' => $composer['button_font_weight'],
-            $prefix . '_font_size' => $composer['button_font_size'],
-            $prefix . '_background' => $composer['button_background_color'],
+            $prefix . '_font_family' => $composer['button_font_family'] ?? 'sans-serif',
+            $prefix . '_font_color' => $composer['button_font_color'] ?? '#000',
+            $prefix . '_font_weight' => $composer['button_font_weight'] ?? 'normal',
+            $prefix . '_font_size' => $composer['button_font_size'] ?? '16',
+            $prefix . '_background' => $composer['button_background_color'] ?? '',
             $prefix . '_border_radius' => '5',
             $prefix . '_align' => 'center',
             $prefix . '_width' => 'auto'

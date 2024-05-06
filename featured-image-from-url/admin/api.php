@@ -857,7 +857,14 @@ function fifu_api_list_all_media_library(WP_REST_Request $request) {
 }
 
 function fifu_metadata_counter_api(WP_REST_Request $request) {
-    return fifu_db_count_urls_without_metadata();
+    $transient = filter_var($request['transient'], FILTER_VALIDATE_BOOLEAN);
+    if ($transient) {
+        $total = get_transient('fifu_metadata_counter');
+    } else {
+        $total = fifu_db_count_urls_without_metadata();
+        set_transient('fifu_metadata_counter', $total, 0);
+    }
+    return $total;
 }
 
 function fifu_enable_fake_api(WP_REST_Request $request) {

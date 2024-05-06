@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 abstract class FrmFieldType {
 
 	/**
-	 * @var object|array|int
+	 * @var array|int|object
 	 * @since 3.0
 	 */
 	protected $field;
@@ -88,7 +88,7 @@ abstract class FrmFieldType {
 	private static $should_hide_draft_fields;
 
 	/**
-	 * @param object|array|int $field
+	 * @param array|int|object $field
 	 * @param string           $type
 	 */
 	public function __construct( $field = 0, $type = '' ) {
@@ -143,7 +143,7 @@ abstract class FrmFieldType {
 	/**
 	 * @param string $column
 	 *
-	 * @return string|array
+	 * @return array|string
 	 */
 	public function get_field_column( $column ) {
 		$field_val = '';
@@ -299,6 +299,10 @@ DEFAULT_HTML;
 		return '';
 	}
 
+	/**
+	 * @param string $name
+	 * @return string
+	 */
 	protected function builder_text_field( $name = '' ) {
 		$read_only = FrmField::get_option( $this->field, 'read_only' );
 
@@ -409,6 +413,7 @@ DEFAULT_HTML;
 	 * @since 4.0
 	 *
 	 * @param array $args Includes 'field', 'display', and 'values'.
+	 * @return void
 	 */
 	public function show_primary_options( $args ) {
 		do_action( 'frm_' . $args['field']['type'] . '_primary_field_options', $args );
@@ -589,6 +594,9 @@ DEFAULT_HTML;
 
 	/**
 	 * @since 4.02.01
+	 *
+	 * @param array $args
+	 * @return void
 	 */
 	protected function field_choices_heading( $args ) {
 		$all_field_types = array_merge( FrmField::pro_field_selection(), FrmField::field_selection() );
@@ -608,6 +616,9 @@ DEFAULT_HTML;
 
 	/**
 	 * @since 4.04
+	 *
+	 * @param array $args
+	 * @return void
 	 */
 	protected function field_choices_heading_attrs( $args ) {
 		return;
@@ -617,6 +628,9 @@ DEFAULT_HTML;
 	 * Show settings above the multiple options settings.
 	 *
 	 * @since 4.06
+	 *
+	 * @param array $args
+	 * @return void
 	 */
 	protected function show_priority_field_choices( $args = array() ) {
 		return;
@@ -626,7 +640,9 @@ DEFAULT_HTML;
 	 * This is called for any fields with set options (radio, checkbox, select, dynamic, lookup).
 	 *
 	 * @since 4.0
+	 *
 	 * @param array $args Includes 'field', 'display', and 'values'.
+	 * @return void
 	 */
 	public function show_extra_field_choices( $args ) {
 		return;
@@ -636,7 +652,9 @@ DEFAULT_HTML;
 	 * This is called right after the default value settings.
 	 *
 	 * @since 4.0
+	 *
 	 * @param array $args - Includes 'field', 'display'.
+	 * @return void
 	 */
 	public function show_after_default( $args ) {
 		return;
@@ -674,7 +692,6 @@ DEFAULT_HTML;
 	 * New field
 	 */
 	public function get_new_field_defaults() {
-		$frm_settings = FrmAppHelper::get_settings();
 		$field        = array(
 			'name'          => $this->get_new_field_name(),
 			'description'   => '',
@@ -1010,6 +1027,8 @@ DEFAULT_HTML;
 	}
 
 	/**
+	 * @param array $args
+	 * @param array $shortcode_atts
 	 * @return string
 	 */
 	public function front_field_input( $args, $shortcode_atts ) {
@@ -1146,7 +1165,7 @@ DEFAULT_HTML;
 
 		if ( isset( $values['combo_name'] ) ) {
 			$options  = $options[ $values['combo_name'] ];
-			$selected = ( is_array( $selected ) && isset( $selected[ $values['combo_name'] ] ) ) ? $selected[ $values['combo_name'] ] : '';
+			$selected = is_array( $selected ) && isset( $selected[ $values['combo_name'] ] ) ? $selected[ $values['combo_name'] ] : '';
 		}
 
 		$input = $this->select_tag( $values );
@@ -1228,6 +1247,10 @@ DEFAULT_HTML;
 	 * Link input to field description for screen readers
 	 *
 	 * @since 3.0
+	 *
+	 * @param array  $args
+	 * @param string $input_html
+	 * @return void
 	 */
 	protected function add_aria_description( $args, &$input_html ) {
 		$aria_describedby_exists = preg_match_all( '/aria-describedby=\"([^\"]*)\"/', $input_html, $matches ) === 1;
@@ -1258,7 +1281,7 @@ DEFAULT_HTML;
 			}
 		}
 
-		if ( $this->get_field_column( 'description' ) !== '' ) {
+		if ( $this->get_field_column( 'description' ) !== '' && ! in_array( 'frm_desc_' . $args['html_id'], $describedby, true ) ) {
 			if ( ! $error_comes_first ) {
 				array_unshift( $describedby, 'frm_desc_' . $args['html_id'] );
 			} else {
@@ -1361,6 +1384,11 @@ DEFAULT_HTML;
 		$frm_validated_unique_values[ $field_id ][] = $value;
 	}
 
+	/**
+	 * @param array|string $value
+	 * @param array        $atts
+	 * @return array|string
+	 */
 	public function get_value_to_save( $value, $atts ) {
 		return $value;
 	}
@@ -1368,9 +1396,9 @@ DEFAULT_HTML;
 	/**
 	 * Prepare value last thing before saving in the db
 	 *
-	 * @param string|array $value
+	 * @param array|string $value
 	 *
-	 * @return string|array|float|integer
+	 * @return array|float|int|string
 	 */
 	public function set_value_before_save( $value ) {
 		return $value;
@@ -1379,8 +1407,7 @@ DEFAULT_HTML;
 	/** Prepare value for display **/
 
 	/**
-	 *
-	 * @param string|array $value
+	 * @param array|string $value
 	 * @param array        $atts
 	 *
 	 * @return string
@@ -1454,7 +1481,7 @@ DEFAULT_HTML;
 	 *
 	 * @since 6.8
 	 *
-	 * @param string|int $user_id
+	 * @param int|string $user_id
 	 * @return bool
 	 */
 	private function user_id_is_privileged( $user_id ) {
@@ -1511,7 +1538,7 @@ DEFAULT_HTML;
 	 *
 	 * @since 3.0
 	 *
-	 * @param string|array $value
+	 * @param array|string $value
 	 * @param array        $atts {
 	 *     Details about the field to show.
 	 *

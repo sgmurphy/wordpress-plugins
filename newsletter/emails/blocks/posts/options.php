@@ -50,7 +50,7 @@ if (class_exists('NewsletterExtensions')) {
 
         <?php $fields->text('main_title', __('Title', 'newsletter')) ?>
         <?php $fields->font('main_title_font', false, ['family_default' => true, 'size_default' => true, 'weight_default' => true]) ?>
-        <?php $fields->align() ?>
+        <?php $fields->align('main_title_align') ?>
     </div>
 <?php } ?>
 

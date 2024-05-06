@@ -986,7 +986,11 @@ class ProductHelper {
 
 		$output = ( empty( $prefix_suffix['prefix'] ) ? '' : $prefix_suffix['prefix'] ) . $output;
 		if ( ! empty( $prefix_suffix['suffix'] ) ) {
-			$output .= ( \preg_match( '/^\s/', $prefix_suffix['suffix'] ) ? '' : ' ' ) . $prefix_suffix['suffix'];
+			if ( self::should_encode_attribute( $attribute ) ) {
+				$output .= ( \preg_match( '/^\s/', $prefix_suffix['suffix'] ) ? '' : '' ) . $prefix_suffix['suffix'];
+			}else{
+				$output .= ( \preg_match( '/^\s/', $prefix_suffix['suffix'] ) ? '' : ' ' ) . $prefix_suffix['suffix'];
+			}
 		}
 
 		/**

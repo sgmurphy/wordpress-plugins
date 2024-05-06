@@ -679,7 +679,9 @@ class Status {
 		if ( ! empty( $feed_data ) and is_array( $feed_data ) ) {
 			foreach ( $feed_data as $key => $data ) {
 				$feed_info   = maybe_unserialize( get_option( $data['option_name'] ) );
-				$feed_urls[] = $feed_info['url'];
+				if(isset($feed_info['url'])) {
+					$feed_urls[] = $feed_info['url'];
+				}
 			}
 		}
 

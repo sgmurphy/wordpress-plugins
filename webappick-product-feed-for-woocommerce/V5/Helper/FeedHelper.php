@@ -579,13 +579,13 @@ class FeedHelper {
 		foreach ( $feed_lists as $feed ) {
 			$item = self::prepare_item_for_response( $feed );
 			// Skip invalid feed structure
-
-			if ( apply_filters( 'woo_feed_should_apply_validate_feed_structure', 0 ) && ! self::validate_feed_structure( $item ) ) {
+			if ( ! self::validate_feed_structure( $item ) ) {
 				continue;
 			}
-//			if ( ! self::validate_feed_structure( $item ) ) {
-//				continue;
-//			}
+			if ( apply_filters( 'woo_feed_should_apply_validate_feed_structure', false ) && ! self::validate_feed_structure( $item, 'full' ) ) {
+				continue;
+			}
+
 			if ( $status ) {
 				if ( \is_object( $item['option_value'] ) ) {
 					$lists[] = $item;
@@ -611,10 +611,11 @@ class FeedHelper {
 	 * Validates the structure of a feed option.
 	 *
 	 * @param $feed
+	 * @param $validation_type
 	 *
 	 * @return bool
 	 */
-	public static function validate_feed_structure( $feed ) {
+	public static function validate_feed_structure( $feed, $validation_type = 'partial' ) {
 		// Define the nested structure of required keys
 		$required_structure = [
 			'option_id'    => 'scalar',
@@ -697,8 +698,16 @@ class FeedHelper {
 			],
 			'autoload'     => 'scalar',
 		];
+		$is_valid = false;
+		if( $validation_type == 'partial' ) {
+			if(isset($feed['option_value'], $feed['option_name'],$feed['option_value']['feedrules'], $feed['option_value']['feedrules']['provider'], $feed['option_value']['feedrules']['feedType'] ) && $feed['option_value']['feedrules']['provider'] && $feed['option_value']['feedrules']['feedType'] ) {
+				$is_valid = true;
+			}
+		}else{
+			$is_valid =  self::validate_structure( $feed, $required_structure );
+		}
 
-		$is_valid =  self::validate_structure( $feed, $required_structure );
+
 
 		return apply_filters( 'woo_feed_validate_feed_structure', $is_valid, $feed, $required_structure );
 	}

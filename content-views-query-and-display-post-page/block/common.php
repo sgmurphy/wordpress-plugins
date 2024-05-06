@@ -797,7 +797,7 @@ class ContentViews_Block_Common {
 	public static function get_site_license() {
 		$license = null;
 		if ( is_multisite() ) {
-			$blog_ids = PT_Content_Views::get_blog_ids();
+			$blog_ids = PT_Content_Views::get_blog_ids( 101 );
 			foreach ( $blog_ids as $blog_id ) {
 				switch_to_blog( $blog_id );
 				$b_license = PT_CV_Functions::get_option_value( 'license_key' );

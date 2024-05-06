@@ -16,6 +16,7 @@ $defaults = array(
     'font_size' => '',
     'font_color' => '',
 
+    'main_title' => '',
     'main_title_weight' => '',
     'main_title_font_family' => '',
     'main_title_font_size' => '',

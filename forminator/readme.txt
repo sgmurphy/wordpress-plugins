@@ -1,13 +1,13 @@
 === Forminator - Contact Form, Payment Form & Custom Form Builder ===
 Plugin Name: Forminator - Contact Form, Payment Form & Custom Form Builder
-Version: 1.29.3
+Version: 1.30.2
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
 Tags: forms, contact form, wordpress form plugin, payment form, custom form, form builder, paypal form wordpress, form maker, quiz, quiz builder, order form, stripe payments, paypal payments, stripe form, paypal form
 Requires at least: 5.2
 Tested up to: 6.5
-Stable tag: 1.29.3
+Stable tag: 1.30.2
 Requires PHP: 7.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -222,6 +222,38 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 9. Allow simple drag and drop multi-file uploads for users.
 
 == Changelog ==
+
+= 1.30.2 ( 2024-04-30 ) =
+
+ - Fix: Temporarily support deprecated classes for integrations
+
+
+= 1.30.1 ( 2024-04-09 ) =
+
+ - Fix: Backward compatibility with Complianz plugin
+
+
+= 1.30.0 ( 2024-04-08 ) =
+
+ - New Feature: Integration with MailerLite
+ - Enhancement: Refactoring of all integrations
+ - Enhancement: Twitter rebranding
+ - Enhancement: UX improvements for Forminator addons
+ - Security Fix: Cross-Site Scripting (XSS) vulnerability
+ - Security Fix: SQL injection vulnerability
+ - Fix: Aweber integration not connecting when an identifier is added
+ - Fix: Replaced h4 tags with label tags for field labels
+ - Fix: HTML field displays 'undefined' if a field used inside HTML content is deleted
+ - Fix: Filter not functioning correctly for Draft/Complete form status during Export Submissions
+ - Fix: Sort Order filter not applied correctly during Export Submissions
+ - Fix: Submission Status in the submissions filter box not clearing
+ - Fix: Irrelevant submission status filter for quizzes on the Submissions page
+ - Fix: Black border appears when opening accordion on the Submissions page
+ - Fix: Disabling Paypal shipping address option not functioning
+ - Fix: Personality quiz returning incorrect personality in case of a tie in results
+ - Fix: Paginated form cannot be submitted if there is a Consent field on one of the pages and Draft is used
+ - Fix: Textarea label overlaps the default value when using the Material preset on forms
+ - Fix: Color issue on input fields in Safari
 
 = 1.29.3 ( 2024-04-08 ) =
 

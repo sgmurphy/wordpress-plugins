@@ -6,6 +6,7 @@ use FluentForm\Framework\Helpers\ArrayHelper;
 use FluentForm\App\Modules\Component\Component;
 use FluentForm\App\Services\FormBuilder\Components\DateTime;
 use FluentForm\App\Modules\Form\FormFieldsParser;
+use FluentFormPro\classes\DraftSubmissionsManager;
 
 class Converter
 {
@@ -1015,12 +1016,19 @@ class Converter
 
     private static function hasSaveAndResume($form)
     {
-        if(!defined('FLUENTFORMPRO')){
+        if (!defined('FLUENTFORMPRO')){
             return false;
         }
-        if(!version_compare(FLUENTFORMPRO_VERSION,'5.1.13' ,'>=')){
+
+        if (!version_compare(FLUENTFORMPRO_VERSION,'5.1.13' ,'>=')){
             return false;
         }
+
+        $perStepSave = ArrayHelper::get($form->settings, 'conv_form_per_step_save');
+        if (!$perStepSave) {
+            return false;
+        }
+
         $saveAndResume = false;
         $hash = '';
         $form->save_state = false;
@@ -1035,8 +1043,10 @@ class Converter
             $hash = ArrayHelper::get($_COOKIE, $cookieName, wp_generate_uuid4());
         }
 
+        DraftSubmissionsManager::migrate();
+
         $draftForm = wpFluent()->table('fluentform_draft_submissions')->where('hash', $hash)->first();
-        
+
         if ($draftForm) {
             $saveAndResume = true;
         }

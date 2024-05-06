@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.42.7
+Stable tag: 1.42.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -290,6 +290,11 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.42.8  =
+*Release date - 06.05.2024*
+
+* Fix: Fixed a bug with a filter for the Facebook for WooCommerce plugin that matches the product ID with the catalog ID.
 
 = 1.42.7  =
 *Release date - 05.05.2024*

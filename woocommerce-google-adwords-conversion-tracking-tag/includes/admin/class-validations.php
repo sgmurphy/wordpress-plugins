@@ -3,6 +3,7 @@
 namespace SweetCode\Pixel_Manager\Admin;
 
 use SweetCode\Pixel_Manager\Helpers;
+use SweetCode\Pixel_Manager\Logger;
 use SweetCode\Pixel_Manager\Options;
 
 defined('ABSPATH') || exit; // Exit if accessed directly
@@ -549,33 +550,38 @@ class Validations {
 		// Sanitize and validate scroll tracker thresholds
 		if (isset($input['general']['scroll_tracker_thresholds'])) {
 
-			$scroll_tracker_thresholds = $input['general']['scroll_tracker_thresholds'];
+			if (is_string($input['general']['scroll_tracker_thresholds'])) {
 
-			// remove all spaces
-			$scroll_tracker_thresholds = str_replace(' ', '', $scroll_tracker_thresholds);
+				$scroll_tracker_thresholds = $input['general']['scroll_tracker_thresholds'];
 
-			// remove leading and trailing commas
-			$scroll_tracker_thresholds = trim($scroll_tracker_thresholds, ',');
+				// remove all spaces
+				$scroll_tracker_thresholds = str_replace(' ', '', $scroll_tracker_thresholds);
 
-			// remove duplicate commas and replace with single comma
-			$scroll_tracker_thresholds = preg_replace('/,+/', ',', $scroll_tracker_thresholds);
+				// remove leading and trailing commas
+				$scroll_tracker_thresholds = trim($scroll_tracker_thresholds, ',');
 
-			// remove quotes
-			$scroll_tracker_thresholds = str_replace('"', '', $scroll_tracker_thresholds);
+				// remove duplicate commas and replace with single comma
+				$scroll_tracker_thresholds = preg_replace('/,+/', ',', $scroll_tracker_thresholds);
 
-			// remove single quotes
-			$scroll_tracker_thresholds = str_replace("'", '', $scroll_tracker_thresholds);
+				// remove quotes
+				$scroll_tracker_thresholds = str_replace('"', '', $scroll_tracker_thresholds);
 
-			if (!self::is_scroll_tracker_thresholds($scroll_tracker_thresholds)) {
-				$input['general']['scroll_tracker_thresholds']
-					= Options::get_scroll_tracking_thresholds()
-					? Options::get_scroll_tracking_thresholds()
-					: '';
-				add_settings_error('wgact_plugin_options', 'invalid-scroll-tracker-thresholds', esc_html__('You have entered the Scroll Tracker thresholds in the wrong format. It must be a list of comma separated percentages, like this "25,50,75,100"', 'woocommerce-google-adwords-conversion-tracking-tag'));
-			} elseif ('' !== $scroll_tracker_thresholds) { // If $scroll_tracker_thresholds not empty string error log
-				$input['general']['scroll_tracker_thresholds'] = explode(',', $scroll_tracker_thresholds);
+				// remove single quotes
+				$scroll_tracker_thresholds = str_replace("'", '', $scroll_tracker_thresholds);
+
+				if (!self::is_scroll_tracker_thresholds($scroll_tracker_thresholds)) {
+					$input['general']['scroll_tracker_thresholds']
+						= Options::get_scroll_tracking_thresholds()
+						? Options::get_scroll_tracking_thresholds()
+						: '';
+					add_settings_error('wgact_plugin_options', 'invalid-scroll-tracker-thresholds', esc_html__('You have entered the Scroll Tracker thresholds in the wrong format. It must be a list of comma separated percentages, like this "25,50,75,100"', 'woocommerce-google-adwords-conversion-tracking-tag'));
+				} elseif ('' !== $scroll_tracker_thresholds) { // If $scroll_tracker_thresholds not empty string
+					$input['general']['scroll_tracker_thresholds'] = explode(',', $scroll_tracker_thresholds);
+				} else {
+					$input['general']['scroll_tracker_thresholds'] = [];
+				}
 			} else {
-				$input['general']['scroll_tracker_thresholds'] = [];
+				Logger::debug('Scroll Tracker Thresholds is not a string: ' . print_r($input['general']['scroll_tracker_thresholds'], true));
 			}
 		}
 

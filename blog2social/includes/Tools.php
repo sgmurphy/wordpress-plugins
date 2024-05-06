@@ -63,6 +63,7 @@ class B2S_Tools {
                         }
                     }
                 }
+                
                 if (!defined('B2S_PLUGIN_ALLOWED_USER_APPS')) {
                     define('B2S_PLUGIN_ALLOWED_USER_APPS', serialize($network_quantities));
                     $tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS'] = serialize($network_quantities);
@@ -180,6 +181,11 @@ class B2S_Tools {
         if ($type == 'privacy_policy') {
             return 'https://www.blog2social.com/' . (($lang == 'en') ? 'en/privacy-policy' : 'de/datenschutz');
         }
+
+        if ($type == 'pinterest_app_tos_spam') {
+            return 'https://developers.pinterest.com/docs/reference/spam/';
+        }
+
         if ($type == 'userTimeSettings') {
             return ($lang == 'en') ? 'https://www.blog2social.com/en/faq/index.php?action=artikel&cat=5&id=32&artlang=en' : 'https://www.blog2social.com/de/faq/index.php?action=artikel&cat=5&id=43&artlang=de';
         }
@@ -195,6 +201,10 @@ class B2S_Tools {
         //Twitter own app since V7.2.0
         if ($type == 'deprecated_auth_network_2') {
             return $lang == 'en' ? 'https://www.blog2social.com/en/faq/index.php?solution_id=1145' : 'https://www.blog2social.com/de/faq/index.php?solution_id=1007';
+        }
+        //TOS Pinterest own app since V7.5.1
+        if ($type == 'network_app_is_trial') {
+            return $lang == 'en' ? 'https://www.blog2social.com/en/faq/index.php?solution_id=1019' : 'https://www.blog2social.com/de/faq/index.php?solution_id=1022';
         }
         //TOS Facebook 072018
         //BTN: read more  Facebook
@@ -504,8 +514,8 @@ class B2S_Tools {
         if ($type == "twitter_faq") {
             return ($lang == 'de') ? 'https://www.blog2social.com/de/faq/index.php?solution_id=1007' : 'https://www.blog2social.com/en/faq/index.php?solution_id=1145';
         }
-        if ($type == "twitter_faq") {
-            return ($lang == 'de') ? 'https://www.blog2social.com/de/faq/index.php?solution_id=1007' : 'https://www.blog2social.com/en/faq/index.php?solution_id=1145';
+        if ($type == "pinterest_faq") {
+            return ($lang == 'de') ? 'https://www.blog2social.com/de/faq/index.php?solution_id=1022' : 'https://www.blog2social.com/en/faq/index.php?solution_id=1019';
         }
         if ($type == "post_templates") {
             return ($lang == 'de') ? 'https://www.blog2social.com/de/faq/content/4/150/de/wie-kann-ich-die-beitragsvorlagen-fuer-meine-social_media_posts-nutzen.html?highlight=beitragsvorlagen' : 'https://www.blog2social.com/en/faq/content/4/152/en/how-to-use-post-templates-for-social-media-posts.html';

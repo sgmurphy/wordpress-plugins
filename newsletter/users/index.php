@@ -140,26 +140,17 @@ $utc = new DateTimeZone('UTC');
             <div class="tnp-users-search">
                 <?php $controls->text('search_text', 45, __('Search by ID, email, name', 'newsletter')); ?>
 
-                <?php _e('filter by', 'newsletter') ?>:
                 <?php
-                $controls->select('search_status', ['' => __('Any', 'newsletter'), 'T' => __('Test subscribers', 'newsletter'), 'C' => TNP_User::get_status_label('C'),
+                $controls->select('search_status', ['' => __('Any status', 'newsletter'), 'T' => __('Test subscribers', 'newsletter'), 'C' => TNP_User::get_status_label('C'),
                     'S' => TNP_User::get_status_label('S'), 'U' => TNP_User::get_status_label('U'), 'B' => TNP_User::get_status_label('B'), 'P' => TNP_User::get_status_label('P')]);
                 ?>
-                <?php $controls->lists_select('search_list', '-'); ?>
+                <?php $controls->lists_select('search_list', __('Any list', 'newsletter')); ?>
 
                 <?php $controls->button('search', __('Search', 'newsletter')); ?>
                 <?php if ($where != "where 1=1") { ?>
                     <?php $controls->btn('reset', __('Reset Filters', 'newsletter'), ['tertiary' => true]); ?>
                 <?php } ?>
-                <!--
-                <br>
-                <?php $controls->checkbox('show_preferences', __('Show lists', 'newsletter')); ?>
-                -->
             </div>
-
-            <?php if (false && $filtered) { ?>
-                <p><?php _e('The list below is filtered.', 'newsletter') ?></p>
-            <?php } ?>
 
             <div class="tnp-paginator">
 
@@ -169,7 +160,7 @@ $utc = new DateTimeZone('UTC');
                 <?php $controls->btn('next', '›', ['tertiary' => true]); ?>
                 <?php $controls->btn('last', '»', ['tertiary' => true]); ?>
 
-                <?php echo $count ?> <?php _e('subscriber(s) found', 'newsletter') ?>
+                <?php echo $count ?> <?php esc_html_e('subscriber(s) found', 'newsletter') ?>
 
                 <?php $controls->btn_link('?page=newsletter_users_new', __('Add new', 'newsletter')); ?>
                 <?php $controls->btn('delete_selected', __('Delete selected', 'newsletter'), ['tertiary' => true]); ?>
@@ -180,15 +171,14 @@ $utc = new DateTimeZone('UTC');
             <table class="widefat">
                 <thead>
                     <tr>
-                        <td class="check-column"><input type="checkbox" onchange="jQuery('input.tnp-selector').prop('checked', this.checked)"></th>
+                        <th class="check-column"><input type="checkbox" onchange="jQuery('input.tnp-selector').prop('checked', this.checked)"></th>
                         <th>Id</th>
-                        <th>Email</th>
+                        <th><?php esc_html_e('Email', 'newsletter') ?></th>
                         <th><?php esc_html_e('Name', 'newsletter') ?></th>
                         <th><?php esc_html_e('Status', 'newsletter') ?></th>
                         <th><?php esc_html_e('Date') ?></th>
                         <th style="white-space: nowrap"><?php $controls->checkbox('show_lists', __('Lists', 'newsletter'), ['onchange' => 'this.form.act.value=\'go\'; this.form.submit()']) ?></th>
                         <th>&nbsp;</th>
-
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -196,9 +186,9 @@ $utc = new DateTimeZone('UTC');
                 <?php foreach ($list as $s) { ?>
                     <tr>
                         <th scope="row" class="check-column">
-                            <input class="tnp-selector" type="checkbox" name="ids[]" value="<?php echo $s->id; ?>">
+                            <input class="tnp-selector" type="checkbox" name="ids[]" value="<?php echo (int) $s->id; ?>">
                         </th>
-                        <td><?php echo $s->id; ?></td>
+                        <td><?php echo (int) $s->id; ?></td>
                         <td><?php echo esc_html($s->email); ?></td>
                         <td><?php echo esc_html($s->name); ?> <?php echo esc_html($s->surname); ?></td>
                         <td>
@@ -211,17 +201,17 @@ $utc = new DateTimeZone('UTC');
                         <td>
                             <?php if (!empty($controls->data['show_lists'])) { ?>
                                 <small><?php
-                                foreach ($lists as $item) {
-                                    $l = 'list_' . $item->id;
-                                    if ($s->$l == 1)
-                                        echo esc_html($item->name) . '<br>';
-                                }
-                                ?></small>
-                                <?php } ?>
+                                    foreach ($lists as $item) {
+                                        $l = 'list_' . $item->id;
+                                        if ($s->$l == 1)
+                                            echo esc_html($item->name) . '<br>';
+                                    }
+                                    ?></small>
+                            <?php } ?>
                         </td>
 
                         <td>
-                            <?php $controls->button_icon_edit($this->get_admin_page_url('edit') . '&amp;id=' . $s->id) ?>
+                            <?php $controls->button_icon_edit($this->get_admin_page_url('edit') . '&amp;id=' . ((int) $s->id)) ?>
                         </td>
                         <td style="white-space: nowrap">
 

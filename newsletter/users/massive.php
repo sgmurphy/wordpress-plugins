@@ -314,8 +314,6 @@ if ($controls->is_action('change_status')) {
                             </td>
                         </tr>
 
-
-
                     </table>
                 </div>
 

@@ -1108,7 +1108,7 @@ class Environment {
 			// to the Facebook catalog with the PMW product identifier
 			add_filter('wc_facebook_fb_retailer_id', function ( $fb_retailer_id, $product ) {
 				return Product::get_dyn_r_id_for_product_by_pixel_name($product, 'facebook');
-			});
+			}, 10, 2);
 		}
 
 		/**

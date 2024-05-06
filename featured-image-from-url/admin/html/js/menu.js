@@ -9,9 +9,8 @@ jQuery(document).ready(function () {
     jQuery('div.wrap div.header-box div#message').hide();
     jQuery('div.wrap div.header-box div.updated').remove();
 
-    setTimeout(function () {
-        setInterval(updateMetadataCounter, 3000);
-    }, 2000);
+    updateMetadataCounter(false);
+    var metaIntervalId = null;
 });
 
 var restUrl = fifu_get_rest_url();
@@ -140,13 +139,16 @@ function fifu_fake_js() {
         async: true,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
+            if (toggle == "toggleon") {
+                updateMetadataCounter(false);
+                metaIntervalId = setInterval(updateMetadataCounter.bind(null, true), 3000);
+            }
         },
         success: function (data) {
             setTimeout(function () {
                 if (toggle == "toggleoff")
                     jQuery('#tabs-top').unblock();
             }, 1000);
-            jQuery("#countdown").load(location.href + " #countdown");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
@@ -187,8 +189,8 @@ function fifu_run_clean_js() {
             setTimeout(function () {
                 jQuery("#fifu_toggle_data_clean").attr('class', 'toggleoff');
                 jQuery("#fifu_toggle_fake").attr('class', 'toggleoff');
-                jQuery("#countdown").load(location.href + " #countdown");
                 jQuery('#tabs-top').unblock();
+                updateMetadataCounter(false);
             }, 1000);
         },
         timeout: 0
@@ -255,9 +257,12 @@ function fifu_get_sizes($, att_id) {
     return;
 }
 
-function updateMetadataCounter() {
+function updateMetadataCounter(transient) {
     jQuery.ajax({
         url: `${restUrl}featured-image-from-url/v2/metadata_counter_api/`,
+        data: {
+            "transient": transient,
+        },
         method: 'POST',
         async: true,
         beforeSend: function (xhr) {
@@ -269,6 +274,9 @@ function updateMetadataCounter() {
             let metadataCounterValue = parseInt(jQuery('#image_metadata_counter').text().trim());
             if (metadataCounterValue === 0 && jQuery('#fifu_toggle_fake').hasClass('toggleon') && jQuery('#fifu_toggle_data_clean').hasClass('toggleoff')) {
                 jQuery('#tabs-top').unblock();
+                if (typeof metaIntervalId !== 'undefined') {
+                    clearInterval(metaIntervalId);
+                }
             }
         },
         error: function (xhr, status, error) {

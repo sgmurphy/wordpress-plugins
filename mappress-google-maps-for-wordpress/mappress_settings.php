@@ -39,6 +39,7 @@ class Mappress_Options extends Mappress_Obj {
 		$lines,
 		$lineOpts = array('color' => 'blue', 'weight' => 3, 'opacity' => 1.0),
 		$liq, 
+		$menuControl = true,
 		$mapbox,
 		$mapboxStyles = array(),	// deprecated
 		$mashupBody = 'poi',

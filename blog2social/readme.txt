@@ -5,7 +5,7 @@ Tags: auto post, auto publish, social media scheduling, social media calendar, s
 Donate link: https://paypal.me/adenion
 Requires at least: 4.7.0
 Tested up to: 6.5
-Stable tag: 7.5.0
+Stable tag: 7.5.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -268,6 +268,8 @@ To get started with the basics of Blog2Social and maybe find some useful tips an
 
 
 == Changelog ==
+= 7.5.1 =
+Usability Optimization
 = 7.5.0 =
 Bluesky and HumHub Integration, Facebook Group changes to instant sharing
 = 7.4.2 =
@@ -412,6 +414,8 @@ Usability Optimization, Rebrandly integration, url parameter settings
 New Image Posts, Imgur, Animated Gifs and Emojis
 
 == Upgrade Notice ==
+= 7.5.1 =
+Usability Optimization
 = 7.5.0 =
 Bluesky and HumHub Integration, Facebook Group changes to instant sharing
 = 7.4.2 =

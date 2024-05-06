@@ -806,7 +806,7 @@ if ( !class_exists( 'PT_CV_Html' ) ) {
 			if ( $type == 'normal' || $style == 'regular' ) {
 				$extra_data		 = apply_filters( PT_CV_PREFIX_ . 'pagination_data', '' );
 				$ul_class		 = implode( ' ', array( PT_CV_PREFIX . 'pagination', PT_CV_PREFIX . $type, 'pagination' ) );
-				$pagination_btn	 = sprintf( '<ul class="%s" data-totalpages="%s" data-currentpage="%s" data-sid="%s" data-unid="%s" %s>%s</ul>', $ul_class, esc_attr( $max_num_pages ), esc_attr( $current_page ), esc_attr( $sid ), esc_attr( $cv_unique_id ), $extra_data, PT_CV_Functions::pagination_links( $max_num_pages, $current_page ) );
+				$pagination_btn	 = sprintf( '<ul class="%s" data-totalpages="%s" data-currentpage="%s" data-sid="%s" data-unid="%s" %s>%s</ul>', esc_attr( $ul_class ), esc_attr( $max_num_pages ), esc_attr( $current_page ), esc_attr( $sid ), esc_attr( $cv_unique_id ), $extra_data, PT_CV_Functions::pagination_links( $max_num_pages, $current_page ) );
 			} else {
 				$pagination_btn = apply_filters( PT_CV_PREFIX_ . 'btn_more_html', $pagination_btn, $max_num_pages, $sid );
 			}

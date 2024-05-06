@@ -154,7 +154,7 @@ class B2S_Post_Item {
 
             $postTypes = " ";
             if (!empty($this->searchPostType)) {
-                $postTypes .= $wpdb->prepare(' AND posts.`post_type` LIKE %s', '%' . esc_sql($wpdb->esc_like($this->searchPostType)) . '%');
+                $postTypes .= $wpdb->prepare(' posts.`post_type` LIKE %s', '%' . esc_sql($wpdb->esc_like($this->searchPostType)) . '%');
             } else {
                 $post_types = get_post_types(array('public' => true));
                 if (is_array($post_types) && !empty($post_types)) {

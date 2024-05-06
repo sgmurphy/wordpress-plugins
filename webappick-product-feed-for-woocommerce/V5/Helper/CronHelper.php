@@ -236,7 +236,9 @@ class CronHelper { // phpcs:ignore
 	public static function get_cron_hook_name( $feed_name, $is_single_hook = false ) {
 		$feed_name = str_replace( 'wf_feed_', '', $feed_name );
 		$feed_name = str_replace( 'wf_config', '', $feed_name );
-
+		if(!isset(self::$settings['single_feed_hook_prefix'])) {
+			self::set_cron_settings();
+		}
 		if ( $is_single_hook ) {
 			if ( strpos( $feed_name, self::$settings['single_feed_hook_prefix'] ) === false ) {
 				$hook_name = self::$settings['single_feed_hook_prefix'] . $feed_name;
@@ -352,6 +354,11 @@ class CronHelper { // phpcs:ignore
 			'total_offset'     => count( $cron_batched_ids ) - 1,
 			'parent_hook_name' => $batch_data['hook_name'],
 		);
+
+
+		if (!isset(self::$settings['sub_feed_body_prefix'])) {
+			self::set_cron_settings();
+		}
 
 		foreach ( $cron_batched_ids as $index => $batch_ids ) {
 			$current_batch_name                = $feed_name . '_' . $index;

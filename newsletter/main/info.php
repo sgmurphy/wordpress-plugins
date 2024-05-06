@@ -52,7 +52,7 @@ if (!$controls->is_action()) {
                         <table class="form-table">
                             <tr>
                                 <th>
-                                    <?php _e('Logo', 'newsletter') ?><br>
+                                    <?php esc_html_e('Logo', 'newsletter') ?><br>
                                 </th>
                                 <td style="cursor: pointer">
                                     <?php $controls->media('header_logo', 'medium'); ?>

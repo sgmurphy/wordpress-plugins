@@ -2,9 +2,9 @@
 Contributors: pt-guy
 Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display posts, post list, post slider, post accordion, gutenberg, blocks, category post, news, magazine, portfolio, latest posts, related posts
 Requires at least: 3.3
-Tested up to: 6.5
+Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 3.7.1
+Stable tag: 3.7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -233,6 +233,10 @@ If you encounter any difficulties or if you have questions about Content Views, 
 
 
 == Changelog ==
+
+= 3.7.2 =
+* Fix: prevent issue in a multisite network when getting blog ids
+* Improve: Escaping pagination output for security enhancement
 
 = 3.7.1 =
 * Improve: Data escaping for security enhancement

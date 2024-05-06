@@ -1588,6 +1588,13 @@ jQuery(document).on('click', '.b2s-network-add-page-info-btn', function () {
     return false;
 });
 
+
+jQuery(document).on('click', '.b2s-network-add-app-info-btn', function () {
+    jQuery('#b2sNetworkAddAppInfoModal').modal('show');
+    return false;
+});
+
+
 jQuery(document).on('click', '.b2s-network-add-group-info-btn', function () {
     jQuery('#b2sNetworkAddGroupInfoModal').modal('show');
     var b2sAuthUrl = jQuery(this).data('b2s-auth-url');

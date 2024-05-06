@@ -236,14 +236,6 @@ img {
     top: 30px;
 }
 
-.wpr-templates-kit-grid .grid-item[data-price="pro"][data-type="standalone"]:before {
-  content: 'Standalone Kit';
-}
-
-.button.wpr-single-kit-url {
-  margin-left: 5px;
-}
-
 .wpr-templates-kit-grid .grid-item[data-expert="true"]:after {
   content: 'Expert';
   background: red;

@@ -291,6 +291,8 @@ __("Mini width");
 __("Width (px) to use map/list toggle buttons");
 __("Scroll wheel zoom");
 __("Enable map zoom with mouse scroll wheel");
+__("Map controls");
+__("Map menu");
 __("POIs");
 __("Open first POI");
 __("Open first POI when a map is displayed");

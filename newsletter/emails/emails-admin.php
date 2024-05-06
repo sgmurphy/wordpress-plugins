@@ -51,6 +51,9 @@ class NewsletterEmailsAdmin extends NewsletterModuleAdmin {
         $this->add_admin_page('editortinymce', 'TinyMCE Editor');
         $this->add_admin_page('presets', 'Presets');
         $this->add_admin_page('presets-edit', 'Presets');
+
+        $this->add_admin_page('automated', 'Automated');
+        $this->add_admin_page('autoresponder', 'Autoresponder');
     }
 
     function get_preset_content($preset_id) {

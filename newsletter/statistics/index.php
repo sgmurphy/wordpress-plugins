@@ -72,7 +72,10 @@ if (empty($emails)) {
 
         <?php $controls->show() ?>
 
-        <p>More details, including Automated and Autoresponder newsletter statistics are available with the <a href="https://www.thenewsletterplugin.com/reports?utm_source=reports&utm_campaign=plugin" target="_blank">Reports Addon</a>.</p>
+        <p>
+            Full details, including Automated and Autoresponder newsletter statistics are available with the
+            <a href="https://www.thenewsletterplugin.com/reports?utm_source=statistics&utm_campaign=plugin" target="_blank">Reports Addon</a>.
+        </p>
 
         <div class="tnp-cards-container">
 
@@ -110,7 +113,7 @@ if (empty($emails)) {
                     var open_config = {
                         type: 'line',
                         data: {
-                            labels: <?php echo json_encode($overview_labels) ?>,
+                            labels: <?php echo wp_json_encode($overview_labels) ?>,
                             datasets: [
                                 {
                                     label: "Open",
@@ -120,7 +123,7 @@ if (empty($emails)) {
                                     borderColor: "#2980b9",
                                     //pointBorderColor: "#27AE60",
                                     pointBackgroundColor: "#2980b9",
-                                    data: <?php echo json_encode($overview_open_rate) ?>
+                                    data: <?php echo wp_json_encode($overview_open_rate) ?>
                                 }
                             ]
                         },
@@ -167,7 +170,7 @@ if (empty($emails)) {
                     var click_config = {
                         type: 'line',
                         data: {
-                            labels: <?php echo json_encode($overview_labels) ?>,
+                            labels: <?php echo wp_json_encode($overview_labels) ?>,
                             datasets: [
 
                                 {
@@ -178,7 +181,7 @@ if (empty($emails)) {
                                     borderColor: "#2980b9",
                                     pointBorderColor: "#2980b9",
                                     pointBackgroundColor: "#2980b9",
-                                    data: <?php echo json_encode($overview_click_rate) ?>,
+                                    data: <?php echo wp_json_encode($overview_click_rate) ?>,
                                 }
                             ]
                         },
@@ -207,9 +210,6 @@ if (empty($emails)) {
                         eventsLineChart = new Chart("tnp-clicks-chart-canvas", click_config);
                     });
                 </script>
-
-
-
 
             </div>
         </div>

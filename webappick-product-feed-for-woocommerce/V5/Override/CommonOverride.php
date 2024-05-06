@@ -77,8 +77,13 @@ class CommonOverride {
 	 * @return mixed
 	 */
 	public function woo_feed_prepare_item_for_response_callback( $item, $actual_value_from_db ) {
-
-		$parsed_rules = FeedHelper::parse_feed_rules( $item['option_value']['feedrules'] );
+		$parsed_rules = [];
+		if(isset($item['option_value'], $item['option_value']['feedrules'])) {
+			$parsed_rules = FeedHelper::parse_feed_rules( $item['option_value']['feedrules'] );
+		}else{
+			$parsed_rules = FeedHelper::parse_feed_rules( [] );
+			$item['option_value'] = [ 'feedrules' => []];
+		}
 
 		$item['option_value']['feedrules'] = $parsed_rules;
 

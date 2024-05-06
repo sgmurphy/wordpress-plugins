@@ -249,7 +249,6 @@ $advanced = !empty($controls->data['advanced']);
 
             </div>
 
-
             <p>
                 <?php $controls->button_save() ?>
             </p>

@@ -682,6 +682,27 @@ $networkData = $networkItem->getData();
     </div>
 </div>
 
+<div class="modal fade" id="b2sNetworkAddAppInfoModal" tabindex="-1" role="dialog" aria-labelledby="b2sNetworkAddAppInfoModal" aria-hidden="true" data-backdrop="false"  style="display:none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="b2s-modal-close close" data-modal-name="#b2sNetworkAddAppInfoModal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><?php esc_html_e('Add APP', 'blog2social') ?></h4>
+            </div>
+            <div class="modal-body">
+                <?php echo sprintf(__('To comply with <a href="%s" target="_blank">Pinterest\'s policies and API guidelines</a>, Pinterest integration is exclusively available in our premium versions. Now available in Smart, Pro and Business licenses.', 'blog2social'), esc_url(B2S_Tools::getSupportLink('pinterest_app_tos_spam'))); ?>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-default pull-left" target="_blank" href="<?php echo esc_url(B2S_Tools::getSupportLink('pinterest_faq')); ?>"><?php esc_html_e('How to connect Pinterest with Blog2Social', 'blog2social'); ?></a>
+                <?php if (B2S_PLUGIN_USER_VERSION >= 1) { ?>
+                    <a class="btn btn-primary pull-right" href="admin.php?page=blog2social-user-apps"><?php esc_html_e('Continue', 'blog2social'); ?></a>
+                <?php } ?>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="b2sNetworkAddGroupInfoModal" tabindex="-1" role="dialog" aria-labelledby="b2sNetworkAddGroupInfoModal" aria-hidden="true" data-backdrop="false"  style="display:none;">
     <div class="modal-dialog">
         <div class="modal-content">

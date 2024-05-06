@@ -217,7 +217,7 @@
 }
 
 .tnp-card-icon-filter-remove {
-    background-image: url('./images/filter-remove.svg');
+    /*background-image: url('./images/filter-remove.svg');*/
 }
 
 .tnp-card-icon-mouse {
@@ -225,15 +225,15 @@
 }
 
 .tnp-card-icon-business-contact {
-    background-image: url('./images/business-contact-85.svg');
+    /*background-image: url('./images/business-contact-85.svg');*/
 }
 
 .tnp-card-icon-preview {
-    background-image: url('./images/preview.svg');
+    /*background-image: url('./images/preview.svg');*/
 }
 
 .tnp-card-icon-rabbit {
-    background-image: url('./images/rabbit.svg');
+    /*background-image: url('./images/rabbit.svg');*/
 }
 
 /* Fix for third party plugins */

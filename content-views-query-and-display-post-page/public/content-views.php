@@ -171,14 +171,14 @@ class PT_Content_Views {
 	 *
 	 * @return   array|false    The blog ids, false if no matches.
 	 */
-	public static function get_blog_ids() {
+	public static function get_blog_ids( $limits = null ) {
 
 		global $wpdb;
-
+		$limit	 = $limits ? 'LIMIT ' . intval( $limits ) : '';
 		// Get an array of blog ids
 		$sql = "SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0'
-			AND deleted = '0'";
+			AND deleted = '0' $limit";
 
 		return $wpdb->get_col( $sql );
 	}

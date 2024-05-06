@@ -41,7 +41,7 @@ class B2S_Loader {
         define('B2S_PLUGIN_SCHED_DEFAULT_TIMES_INFO', serialize(array(1 => array(0 => array(8, 13)), 2 => array(0 => array(9, 14)), 3 => array(0 => array(10, 12)), 4 => array(0 => array(20, 22)), 6 => array(0 => array(12, 15)), 7 => array(0 => array(7, 9), 1 => array(17, 19)), 9 => array(0 => array(8, 10), 1 => array(11, 13), 2 => array(16, 19)), 11 => array(0 => array(8, 10)), 12 => array(0 => array(10, 12)), 14 => array(0 => array(6, 8)), 15 => array(0 => array(6, 8)), 16 => array(0 => array(16, 19)), 17 => array(0 => array(21, 1)), 18 => array(0 => array(13, 14)), 19 => array(0 => array(7, 10)), 24 => array(0 => array(10, 12), 1 => array(17, 19)), 32 => array(0 => array(15, 21)), 36 => array(0 => array(14, 17)), 42 => array(0 => array(10, 16)), 43 => array(0 => array(9, 14)))));
         define('B2S_PLUGIN_NETWORK_ALLOW_PROFILE', serialize(array(1, 2, 3, 4, 7, 9, 11, 14, 15, 16, 17, 18, 19, 21, 24, 25, 26, 27, 32, 35, 36, 37, 38, 39, 42, 43)));
         define('B2S_PLUGIN_NETWORK_ALLOW_PAGE', serialize(array(1, 3, 6, 12, 17, 19, 42)));
-        define('B2S_PLUGIN_NETWORK_ALLOW_GROUP', serialize(array(1, 11, 17)));
+        define('B2S_PLUGIN_NETWORK_ALLOW_GROUP', serialize(array(11, 17)));
         define('B2S_PLUGIN_NETWORK_SUPPORT_VIDEO', serialize(array(1, 2, 3, 6, 12, 32, 35, 36, 38, 39)));
         define('B2S_PLUGIN_NETWORK_SUPPORT_SOCIAL', serialize(array(1, 2, 3, 4, 6, 7, 9, 11, 12, 14, 15, 16, 17, 18, 19, 21, 24, 25, 26, 27, 37, 38, 39, 42, 43)));
         define('B2S_PLUGIN_NETWORK_CROSSPOSTING_LIMIT', serialize(array(19 => array(2 => 3)))); //2=group
@@ -49,7 +49,7 @@ class B2S_Loader {
         define('B2S_PLUGIN_AUTO_POST_LIMIT', serialize(array(0 => 0, 1 => 25, 2 => 50, 3 => 100, 4 => 100)));
         define('B2S_PLUGIN_RE_POST_LIMIT', serialize(array(0 => 0, 1 => 25, 2 => 50, 3 => 100, 4 => 100)));
         define('B2S_PLUGIN_NETWORK_OAUTH', serialize(array(1, 2, 3, 4, 6, 7, 8, 11, 15, 17, 18, 21, 25, 32, 35, 36, 37, 38, 39, 42, 43)));
-        define('B2S_PLUGIN_USER_APP_NETWORKS', serialize(array(2)));
+        define('B2S_PLUGIN_USER_APP_NETWORKS', serialize(array(2,6)));
         define('B2S_PLUGIN_DEFAULT_USER_APP_QUANTITY', serialize(array(0 => 1, 1 => 1, 2 => 3, 3 => 5)));
 
         define('B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT', serialize(array(
@@ -1188,6 +1188,7 @@ class B2S_Loader {
             'SERVICE_LIMIT' => esc_html__("The post limit for your Twitter API App has been reached. Please check the settings of your API app in your developer account and consider an upgrade if necessary.", "blog2social"),
             'NETWORK_APP_ACCOUNT_PERMISSON' => esc_html__('An issue with your API App has been detected. Please check the settings for your API App on your developer account of the respective social platform.', 'blog2social'),
             'NETWORK_APP_RIGHT' => esc_html__('Your network app does not have permission for this action. Please check your network app settings in your network developer portal.', 'blog2social'),
+            'NETWORK_APP_RIGHT_IS_TRIAL' => sprintf(__('Your network apps with Trial access may not create posts. Please check your network app settings in your network developer portal and upgrade your app. Please read also the following <a target="_blank" href="%s">guide</a>.', 'blog2social'),esc_url(B2S_Tools::getSupportLink('network_app_is_trial'))),
             'LICENCE_RATE_DAILY_LIMIT' => esc_html__('Your daily posting limit has been reached. Please try again tomorrow or upgrade your version.', 'blog2social'), //since 7.3.5
             'LICENCE_RATE_LIMIT' => esc_html__('Your posting limit has been reached. Please upgrade your version or order an additional posting contingent for your premium version.', 'blog2social'), //since 7.3.5
             'LICENCE_NETWORK_UNLOOK' => esc_html__('Your network activation has expired. Please unlook this network for your licence.', 'blog2social')))); //since 7.5.0

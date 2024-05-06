@@ -33,6 +33,11 @@ if (!$controls->is_action()) {
                 $controls->data['scheduler_max'] = 12;
             }
 
+            $controls->data['max_per_second'] = (int) $controls->data['max_per_second'];
+            if ($controls->data['max_per_second'] <= 0) {
+                $controls->data['max_per_second'] = 0;
+            }
+
             if (!$this->is_email($controls->data['reply_to'], true)) {
                 $controls->errors .= __('Reply to email is not correct.', 'newsletter') . '<br>';
             } else {
@@ -265,6 +270,18 @@ if (!empty($return_path)) {
                                     </p>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <th>
+                                    <?php esc_html_e('Max emails per second', 'newsletter') ?>
+                                    <?php $controls->field_help('https://www.thenewsletterplugin.com/documentation/installation/newsletter-configuration/#speed') ?>
+                                </th>
+                                <td>
+                                    <?php $controls->text('max_per_second', 5); ?>
+                                    <span class="description"><?php esc_html_e('0 for unlimited', 'newsletter') ?></span>
+                                </td>
+                            </tr>
+
                         </table>
 
                         <?php do_action('newsletter_panel_main_speed', $controls) ?>

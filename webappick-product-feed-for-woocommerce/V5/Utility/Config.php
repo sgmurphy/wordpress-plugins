@@ -463,11 +463,11 @@ class Config {// phpcs:ignore
 				$number_format['thousand_separator'] = apply_filters( 'ctx_feed_number_format_thousand_separator', $this->config['thousand_separator'], $this->config );
 			}
 
-			if ( isset( $this->config['decimals'] ) && $this->config['decimals'] ) {
+			if ( isset( $this->config['decimals'] ) ) {
 				if ( is_numeric( $this->config['decimals'] ) ) {
 					$decimals = absint( $this->config['decimals'] );
 				} else {
-					$decimals = 0;
+					$decimals = $number_format['decimals'];
 				}
 
 				$number_format['decimals'] = apply_filters( 'ctx_feed_number_format_decimals', $decimals, $this->config );
@@ -737,7 +737,7 @@ class Config {// phpcs:ignore
 	 */
 	public
 	function get_feed_url() {
-		if ( ! empty( $this->feed_info['option_value']['url'] ) ) {
+		if ( isset($this->feed_info['option_value']['url']) && ! empty( $this->feed_info['option_value']['url'] ) ) {
 			return $this->feed_info['option_value']['url'];
 		}
 

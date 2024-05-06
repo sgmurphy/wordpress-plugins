@@ -48,7 +48,7 @@ class FifuDb {
         if ($length && $length['length'] >= $this->MAX_URL_LENGTH)
             return;
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             ALTER TABLE " . $this->posts . "
             MODIFY COLUMN guid VARCHAR(" . $this->MAX_URL_LENGTH . ")"
         );
@@ -57,7 +57,7 @@ class FifuDb {
     /* wordpress upgrade */
 
     function fix_guid() {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             UPDATE " . $this->posts . " p 
             INNER JOIN " . $this->postmeta . " pm ON (
                 pm.post_id = p.id 
@@ -75,7 +75,7 @@ class FifuDb {
     function insert_attachment_meta_url($ids, $is_ctgr) {
         $ctgr_sql = $is_ctgr ? "AND p.post_name LIKE 'fifu-category%'" : "";
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO " . $this->postmeta . " (post_id, meta_key, meta_value) (
                 SELECT p.id, '_wp_attached_file', p.guid
                 FROM " . $this->posts . " p LEFT OUTER JOIN " . $this->postmeta . " b ON p.id = b.post_id AND meta_key = '_wp_attached_file'
@@ -110,7 +110,7 @@ class FifuDb {
 
         $ctgr_sql = $is_ctgr ? "AND p.post_name LIKE 'fifu-category%'" : "";
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO " . $this->postmeta . " (post_id, meta_key, meta_value) (
                 SELECT p.id, '_wp_attachment_image_alt', p.post_title 
                 FROM " . $this->posts . " p LEFT OUTER JOIN " . $this->postmeta . " b ON p.id = b.post_id AND meta_key = '_wp_attachment_image_alt'
@@ -127,7 +127,7 @@ class FifuDb {
     function insert_thumbnail_id($ids, $is_ctgr) {
         $ctgr_sql = $is_ctgr ? "AND p.post_name LIKE 'fifu-category%'" : "";
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO " . $this->postmeta . " (post_id, meta_key, meta_value) (
                 SELECT p.post_parent, '_thumbnail_id', p.id 
                 FROM " . $this->posts . " p LEFT OUTER JOIN " . $this->postmeta . " b ON p.post_parent = b.post_id AND meta_key = '_thumbnail_id'
@@ -143,7 +143,7 @@ class FifuDb {
     function insert_thumbnail_id_ctgr($ids, $is_ctgr) {
         $ctgr_sql = $is_ctgr ? "AND p.post_name LIKE 'fifu-category%'" : "";
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO {$this->termmeta} (term_id, meta_key, meta_value) (
                 SELECT p.post_parent, 'thumbnail_id', p.id 
                 FROM {$this->posts} p LEFT OUTER JOIN {$this->termmeta} b ON p.post_parent = b.term_id AND meta_key = 'thumbnail_id'
@@ -444,7 +444,7 @@ class FifuDb {
     }
 
     function insert_default_thumbnail_id($value) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO " . $this->postmeta . " (post_id, meta_key, meta_value)
             VALUES " . $value
         );
@@ -453,7 +453,7 @@ class FifuDb {
     // clean metadata
 
     function delete_thumbnail_ids($ids) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key = '_thumbnail_id' 
             AND meta_value IN (" . $ids . ")"
@@ -461,7 +461,7 @@ class FifuDb {
     }
 
     function delete_thumbnail_ids_category($ids) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->termmeta . " 
             WHERE meta_key = 'thumbnail_id' 
             AND term_id IN (" . $ids . ")"
@@ -469,7 +469,7 @@ class FifuDb {
     }
 
     function delete_thumbnail_ids_category_without_attachment() {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->termmeta . " 
             WHERE meta_key = 'thumbnail_id' 
             AND NOT EXISTS (
@@ -481,7 +481,7 @@ class FifuDb {
     }
 
     function delete_invalid_thumbnail_ids($ids) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key = '_thumbnail_id' 
             AND post_id IN (" . $ids . ") 
@@ -496,7 +496,7 @@ class FifuDb {
     function delete_fake_thumbnail_id($ids) {
         $att_id = get_option('fifu_fake_attach_id');
         if ($att_id) {
-            $this->wpdb->get_results("
+            $this->wpdb->query("
                 DELETE FROM " . $this->postmeta . " 
                 WHERE meta_key = '_thumbnail_id' 
                 AND post_id IN (" . $ids . ") 
@@ -506,7 +506,7 @@ class FifuDb {
     }
 
     function delete_attachments($ids) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->posts . " 
             WHERE id IN (" . $ids . ")
             AND post_type = 'attachment'
@@ -515,7 +515,7 @@ class FifuDb {
     }
 
     function delete_attachment_meta_url_and_alt($ids) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key IN ('_wp_attached_file', '_wp_attachment_image_alt', '_wp_attachment_metadata')
             AND post_id IN (" . $ids . ")
@@ -529,7 +529,7 @@ class FifuDb {
     }
 
     function delete_attachment_meta_url($ids) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key = '_wp_attached_file' 
             AND post_id IN (" . $ids . ")"
@@ -538,7 +538,7 @@ class FifuDb {
 
     function delete_thumbnail_id_without_attachment() {
         if (fifu_is_multisite_global_media_active()) {
-            $this->wpdb->get_results("
+            $this->wpdb->query("
                 DELETE FROM " . $this->postmeta . " 
                 WHERE meta_key = '_thumbnail_id' 
                 AND meta_value NOT LIKE '100000%' 
@@ -551,7 +551,7 @@ class FifuDb {
             return;
         }
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key = '_thumbnail_id' 
             AND NOT EXISTS (
@@ -563,7 +563,7 @@ class FifuDb {
     }
 
     function delete_attachment_meta_without_attachment() {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key IN ('_wp_attached_file', '_wp_attachment_image_alt', '_wp_attachment_metadata') 
             AND NOT EXISTS (
@@ -575,7 +575,7 @@ class FifuDb {
     }
 
     function delete_empty_urls_category() {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->termmeta . " 
             WHERE meta_key = 'fifu_image_url'
             AND (
@@ -586,7 +586,7 @@ class FifuDb {
     }
 
     function delete_empty_urls() {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key = 'fifu_image_url'
             AND (
@@ -602,12 +602,12 @@ class FifuDb {
         $value = '-1';
         $value = $fake_attach_id ? $value . ',' . $fake_attach_id : $value;
         $value = $default_attach_id ? $value . ',' . $default_attach_id : $value;
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key IN ('_thumbnail_id', '_product_image_gallery')
             AND meta_value IN (" . $value . ")"
         );
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " 
             WHERE meta_key = 'fifu_image_dimension'"
         );
@@ -1076,7 +1076,7 @@ class FifuDb {
         }
 
         $md5 = md5($url);
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO {$this->fifu_invalid_media_su} (md5, attempts) 
             VALUES ('{$md5}', 1)"
         );
@@ -1084,7 +1084,7 @@ class FifuDb {
 
     function update_invalid_media_su($url) {
         $md5 = md5($url);
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             UPDATE {$this->fifu_invalid_media_su} 
             SET attempts = attempts + 1
             WHERE md5 = '{$md5}'"
@@ -1103,7 +1103,7 @@ class FifuDb {
 
     function delete_invalid_media_su($url) {
         $md5 = md5($url);
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->fifu_invalid_media_su . " 
             WHERE md5 = '{$md5}'"
         );
@@ -1146,13 +1146,13 @@ class FifuDb {
     /* insert attachment */
 
     function insert_attachment_by($value) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO " . $this->posts . " (post_author, guid, post_title, post_mime_type, post_type, post_status, post_parent, post_date, post_date_gmt, post_modified, post_modified_gmt, post_content, post_excerpt, to_ping, pinged, post_content_filtered) 
             VALUES " . str_replace('\\', '', $value));
     }
 
     function insert_ctgr_attachment_by($value) {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO " . $this->posts . " (post_author, guid, post_title, post_mime_type, post_type, post_status, post_parent, post_date, post_date_gmt, post_modified, post_modified_gmt, post_content, post_excerpt, to_ping, pinged, post_content_filtered, post_name) 
             VALUES " . str_replace('\\', '', $value));
     }
@@ -1283,7 +1283,7 @@ class FifuDb {
     /* dimensions: clean all */
 
     function clean_dimensions_all() {
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM " . $this->postmeta . " pm            
             WHERE pm.meta_key = '_wp_attachment_metadata'
             AND EXISTS (
@@ -1469,7 +1469,7 @@ class FifuDb {
     function delete_all() {
         sleep(3);
         if (fifu_is_on('fifu_run_delete_all') && get_option('fifu_run_delete_all_time') && FIFU_DELETE_ALL_URLS) {
-            $this->wpdb->get_results("
+            $this->wpdb->query("
                 DELETE FROM " . $this->postmeta . " 
                 WHERE meta_key LIKE 'fifu_%'"
             );
@@ -1491,7 +1491,7 @@ class FifuDb {
 
     function prepare_meta_in() {
         // post (cpt)
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO {$this->fifu_meta_in} (post_ids, type)
             SELECT GROUP_CONCAT(DISTINCT a.post_id ORDER BY a.post_id SEPARATOR ','), 'post'
             FROM {$this->postmeta} AS a
@@ -1507,7 +1507,7 @@ class FifuDb {
         );
 
         // term (woocommerce category)
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             INSERT INTO {$this->fifu_meta_in} (post_ids, type)
             SELECT GROUP_CONCAT(DISTINCT a.term_id ORDER BY a.term_id SEPARATOR ','), 'term'
             FROM {$this->termmeta} AS a
@@ -1578,10 +1578,12 @@ class FifuDb {
         $this->insert_attachment_meta_url($ids, false);
         $this->insert_attachment_meta_alt($ids, false);
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM {$this->fifu_meta_in}
             WHERE id = {$id}"
         );
+
+        set_transient('fifu_metadata_counter', get_transient('fifu_metadata_counter') - count($post_ids), 0);
 
         return true;
     }
@@ -1617,10 +1619,12 @@ class FifuDb {
         $this->insert_attachment_meta_url($ids, true);
         $this->insert_attachment_meta_alt($ids, true);
 
-        $this->wpdb->get_results("
+        $this->wpdb->query("
             DELETE FROM {$this->fifu_meta_in}
             WHERE id = {$id}"
         );
+
+        set_transient('fifu_metadata_counter', get_transient('fifu_metadata_counter') - count($term_ids), 0);
 
         return true;
     }
