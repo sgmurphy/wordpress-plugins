@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 4.0.3
+Version: 4.0.4
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
@@ -12,12 +12,12 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.7
+WC tested up to: 8.8
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.3' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.4' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -214,7 +214,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function cart_item_link( $link, $cart_item ) {
-					if ( ! empty( $link ) && ( strpos( $link, '#woosq-' ) === false ) ) {
+					if ( ! empty( $link ) && ( ! str_contains( $link, '#woosq-' ) ) ) {
 						if ( ( isset( $GLOBALS['woosq_mini_cart'] ) && ( self::get_setting( 'mini_cart', 'yes' ) === 'yes' ) ) || ( ! isset( $GLOBALS['woosq_mini_cart'] ) && ( self::get_setting( 'cart', 'yes' ) === 'yes' ) ) ) {
 							// mini-cart & cart
 							return $link . '#woosq-' . ( ! empty( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : $cart_item['product_id'] );
@@ -225,7 +225,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function loop_product_link( $link, $product ) {
-					if ( ! empty( $link ) && ( strpos( $link, '#woosq-' ) === false ) ) {
+					if ( ! empty( $link ) && ( ! str_contains( $link, '#woosq-' ) ) ) {
 						return $link . '#woosq-' . $product->get_id();
 					}
 
@@ -240,10 +240,9 @@ if ( ! function_exists( 'woosq_init' ) ) {
 					}
 
 					global $post, $product;
-					$product_id = absint( sanitize_key( $_REQUEST['product_id'] ) );
-					$product    = wc_get_product( $product_id );
+					$product_id = absint( sanitize_key( $_REQUEST['product_id'] ?? 0 ) );
 
-					if ( $product ) {
+					if ( $product = wc_get_product( $product_id ) ) {
 						$post = get_post( $product_id );
 						setup_postdata( $post );
 						$thumb_ids = [];
@@ -549,7 +548,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function admin_menu_content() {
-					$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'settings';
+					$active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
 					?>
                     <div class="wpclever_settings_page wrap">
                         <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Smart Quick View', 'woo-smart-quick-view' ) . ' ' . esc_html( WOOSQ_VERSION ) . ' ' . ( defined( 'WOOSQ_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'woo-smart-quick-view' ) . '</span>' : '' ); ?></h1>
@@ -624,37 +623,41 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Button type', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[button_type]">
-                                                    <option value="button" <?php selected( $button_type, 'button' ); ?>><?php esc_html_e( 'Button', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="link" <?php selected( $button_type, 'link' ); ?>><?php esc_html_e( 'Link', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[button_type]">
+                                                        <option value="button" <?php selected( $button_type, 'button' ); ?>><?php esc_html_e( 'Button', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="link" <?php selected( $button_type, 'link' ); ?>><?php esc_html_e( 'Link', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use icon', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[button_icon]" class="woosq_button_icon">
-                                                    <option value="left" <?php selected( $button_icon, 'left' ); ?>><?php esc_html_e( 'Icon on the left', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="right" <?php selected( $button_icon, 'right' ); ?>><?php esc_html_e( 'Icon on the right', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="only" <?php selected( $button_icon, 'only' ); ?>><?php esc_html_e( 'Icon only', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $button_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label>
+                                                    <select name="woosq_settings[button_icon]" class="woosq_button_icon">
+                                                        <option value="left" <?php selected( $button_icon, 'left' ); ?>><?php esc_html_e( 'Icon on the left', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="right" <?php selected( $button_icon, 'right' ); ?>><?php esc_html_e( 'Icon on the right', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="only" <?php selected( $button_icon, 'only' ); ?>><?php esc_html_e( 'Icon only', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $button_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosq-show-if-button-icon">
                                             <th><?php esc_html_e( 'Icon', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[button_normal_icon]" class="woosq_icon_picker">
-													<?php for ( $i = 1; $i <= 64; $i ++ ) {
-														echo '<option value="woosq-icon-' . $i . '" ' . selected( $button_normal_icon, 'woosq-icon-' . $i, false ) . '>woosq-icon-' . $i . '</option>';
-													} ?>
-                                                </select>
+                                                <label>
+                                                    <select name="woosq_settings[button_normal_icon]" class="woosq_icon_picker">
+														<?php for ( $i = 1; $i <= 64; $i ++ ) {
+															echo '<option value="woosq-icon-' . $i . '" ' . selected( $button_normal_icon, 'woosq-icon-' . $i, false ) . '>woosq-icon-' . $i . '</option>';
+														} ?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Extra CSS class (optional)', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosq_settings[button_class]" value="<?php echo esc_attr( self::get_setting( 'button_class', '' ) ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosq_settings[button_class]" value="<?php echo esc_attr( self::get_setting( 'button_class', '' ) ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'Add extra CSS class for action button/link, split by one space.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
@@ -673,17 +676,18 @@ if ( ! function_exists( 'woosq_init' ) ) {
 													'0'                  => esc_html__( 'None (hide it)', 'woo-smart-quick-view' ),
 												] );
 												?>
-                                                <select name="woosq_settings[button_position]" <?php echo esc_attr( $position !== 'default' ? 'disabled' : '' ); ?>>
-													<?php
-													if ( $position === 'default' ) {
-														$position = self::get_setting( 'button_position', apply_filters( 'woosq_button_position_default', 'after_add_to_cart' ) );
-													}
+                                                <label>
+                                                    <select name="woosq_settings[button_position]" <?php echo esc_attr( $position !== 'default' ? 'disabled' : '' ); ?>>
+														<?php
+														if ( $position === 'default' ) {
+															$position = self::get_setting( 'button_position', apply_filters( 'woosq_button_position_default', 'after_add_to_cart' ) );
+														}
 
-													foreach ( $positions as $k => $p ) {
-														echo '<option value="' . esc_attr( $k ) . '" ' . ( ( $k === $position ) || ( empty( $position ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
-													}
-													?>
-                                                </select>
+														foreach ( $positions as $k => $p ) {
+															echo '<option value="' . esc_attr( $k ) . '" ' . ( ( $k === $position ) || ( empty( $position ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
+														}
+														?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -695,82 +699,82 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'View type', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[view]" class="woosq_view">
-                                                    <option value="popup" <?php selected( $view, 'popup' ); ?>><?php esc_html_e( 'Popup', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="sidebar" <?php selected( $view, 'sidebar' ); ?>><?php esc_html_e( 'Sidebar', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[view]" class="woosq_view">
+                                                        <option value="popup" <?php selected( $view, 'popup' ); ?>><?php esc_html_e( 'Popup', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="sidebar" <?php selected( $view, 'sidebar' ); ?>><?php esc_html_e( 'Sidebar', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosq_view_type woosq_view_type_popup">
                                             <th scope="row"><?php esc_html_e( 'Popup effect', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[effect]">
-                                                    <option value="mfp-fade" <?php selected( $effect, 'mfp-fade' ); ?>><?php esc_html_e( 'Fade', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-zoom-in" <?php selected( $effect, 'mfp-zoom-in' ); ?>><?php esc_html_e( 'Zoom in', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-zoom-out" <?php selected( $effect, 'mfp-zoom-out' ); ?>><?php esc_html_e( 'Zoom out', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-newspaper" <?php selected( $effect, 'mfp-newspaper' ); ?>><?php esc_html_e( 'Newspaper', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-move-horizontal" <?php selected( $effect, 'mfp-move-horizontal' ); ?>><?php esc_html_e( 'Move horizontal', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-move-from-top" <?php selected( $effect, 'mfp-move-from-top' ); ?>><?php esc_html_e( 'Move from top', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-3d-unfold" <?php selected( $effect, 'mfp-3d-unfold' ); ?>><?php esc_html_e( '3d unfold', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="mfp-slide-bottom" <?php selected( $effect, 'mfp-slide-bottom' ); ?>><?php esc_html_e( 'Slide bottom', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[effect]">
+                                                        <option value="mfp-fade" <?php selected( $effect, 'mfp-fade' ); ?>><?php esc_html_e( 'Fade', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-zoom-in" <?php selected( $effect, 'mfp-zoom-in' ); ?>><?php esc_html_e( 'Zoom in', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-zoom-out" <?php selected( $effect, 'mfp-zoom-out' ); ?>><?php esc_html_e( 'Zoom out', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-newspaper" <?php selected( $effect, 'mfp-newspaper' ); ?>><?php esc_html_e( 'Newspaper', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-move-horizontal" <?php selected( $effect, 'mfp-move-horizontal' ); ?>><?php esc_html_e( 'Move horizontal', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-move-from-top" <?php selected( $effect, 'mfp-move-from-top' ); ?>><?php esc_html_e( 'Move from top', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-3d-unfold" <?php selected( $effect, 'mfp-3d-unfold' ); ?>><?php esc_html_e( '3d unfold', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="mfp-slide-bottom" <?php selected( $effect, 'mfp-slide-bottom' ); ?>><?php esc_html_e( 'Slide bottom', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosq_view_type woosq_view_type_popup">
                                             <th><?php esc_html_e( 'Enable next/previous', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[next_prev]">
-                                                    <option value="yes" <?php selected( $next_prev, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $next_prev, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[next_prev]">
+                                                        <option value="yes" <?php selected( $next_prev, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $next_prev, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable the next/previous button to navigate to other products.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr class="woosq_view_type woosq_view_type_sidebar">
                                             <th><?php esc_html_e( 'Sidebar position', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[sidebar_position]">
-                                                    <option value="01" <?php selected( $sidebar_position, '01' ); ?>><?php esc_html_e( 'Right', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="02" <?php selected( $sidebar_position, '02' ); ?>><?php esc_html_e( 'Left', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[sidebar_position]">
+                                                        <option value="01" <?php selected( $sidebar_position, '01' ); ?>><?php esc_html_e( 'Right', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="02" <?php selected( $sidebar_position, '02' ); ?>><?php esc_html_e( 'Left', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosq_view_type woosq_view_type_sidebar">
                                             <th><?php esc_html_e( 'Sidebar heading', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[sidebar_heading]">
-                                                    <option value="yes" <?php selected( $sidebar_heading, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $sidebar_heading, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[sidebar_heading]">
+                                                        <option value="yes" <?php selected( $sidebar_heading, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $sidebar_heading, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Back to close', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[back_to_close]">
-                                                    <option value="yes" <?php selected( $back_to_close, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $back_to_close, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[back_to_close]">
+                                                        <option value="yes" <?php selected( $back_to_close, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $back_to_close, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Close the popup when pressing on the browser\'s back button.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Auto close', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[auto_close]">
-                                                    <option value="yes" <?php selected( $auto_close, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $auto_close, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[auto_close]">
+                                                        <option value="yes" <?php selected( $auto_close, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $auto_close, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Auto close the popup after adding a product to the cart.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use perfect-scrollbar', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[perfect_scrollbar]">
-                                                    <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[perfect_scrollbar]">
+                                                        <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php printf( /* translators: link */ esc_html__( 'Read more about %s.', 'woo-smart-quick-view' ), '<a href="https://github.com/mdbootstrap/perfect-scrollbar" target="_blank">perfect-scrollbar</a>' ); ?></span>
                                             </td>
                                         </tr>
@@ -802,30 +806,30 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Enable for archive', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[loop]">
-                                                    <option value="yes" <?php selected( $loop, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $loop, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[loop]">
+                                                        <option value="yes" <?php selected( $loop, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $loop, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable quick view for products on shop/archive page.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Enable for mini-cart', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[mini_cart]">
-                                                    <option value="yes" <?php selected( $mini_cart, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $mini_cart, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[mini_cart]">
+                                                        <option value="yes" <?php selected( $mini_cart, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $mini_cart, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable quick view for products on mini-cart.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Enable for cart page', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[cart]">
-                                                    <option value="yes" <?php selected( $cart, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="no" <?php selected( $cart, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[cart]">
+                                                        <option value="yes" <?php selected( $cart, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="no" <?php selected( $cart, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable quick view for products on the cart page.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
@@ -840,11 +844,11 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Images', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[content_image]">
-                                                    <option value="all" <?php selected( $content_image, 'all' ); ?>><?php esc_html_e( 'Product image & Product gallery images', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="product_image" <?php selected( $content_image, 'product_image' ); ?>><?php esc_html_e( 'Product image', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="product_gallery" <?php selected( $content_image, 'product_gallery' ); ?>><?php esc_html_e( 'Product gallery images', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[content_image]">
+                                                        <option value="all" <?php selected( $content_image, 'all' ); ?>><?php esc_html_e( 'Product image & Product gallery images', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="product_image" <?php selected( $content_image, 'product_image' ); ?>><?php esc_html_e( 'Product image', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="product_gallery" <?php selected( $content_image, 'product_gallery' ); ?>><?php esc_html_e( 'Product gallery images', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -881,11 +885,11 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Product images effect', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[content_image_lightbox]">
-                                                    <option value="no" <?php selected( $content_image_lightbox, 'no' ); ?>><?php esc_html_e( 'None', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="yes" <?php selected( $content_image_lightbox, 'yes' ); ?>><?php esc_html_e( 'Lightbox', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="zoom" <?php selected( $content_image_lightbox, 'zoom' ); ?>><?php esc_html_e( 'Zoom', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[content_image_lightbox]">
+                                                        <option value="no" <?php selected( $content_image_lightbox, 'no' ); ?>><?php esc_html_e( 'None', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="yes" <?php selected( $content_image_lightbox, 'yes' ); ?>><?php esc_html_e( 'Lightbox', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="zoom" <?php selected( $content_image_lightbox, 'zoom' ); ?>><?php esc_html_e( 'Zoom', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -946,36 +950,36 @@ if ( ! function_exists( 'woosq_init' ) ) {
 														?>
                                                     </div>
                                                     <div class="woosq-fields-more">
-                                                        <select class="woosq-field-types">
-															<?php
-															// default fields
-															if ( ! empty( self::$fields ) ) {
-																echo '<optgroup label="' . esc_attr__( 'Default', 'woo-smart-quick-view' ) . '">';
+                                                        <label> <select class="woosq-field-types">
+																<?php
+																// default fields
+																if ( ! empty( self::$fields ) ) {
+																	echo '<optgroup label="' . esc_attr__( 'Default', 'woo-smart-quick-view' ) . '">';
 
-																foreach ( self::$fields as $fk => $fv ) {
-																	echo '<option value="' . esc_attr( $fk ) . '" data-type="default">' . esc_html( $fv ) . '</option>';
+																	foreach ( self::$fields as $fk => $fv ) {
+																		echo '<option value="' . esc_attr( $fk ) . '" data-type="default">' . esc_html( $fv ) . '</option>';
+																	}
+
+																	echo '</optgroup>';
 																}
 
-																echo '</optgroup>';
-															}
+																// attributes
+																if ( $wc_attributes = wc_get_attribute_taxonomies() ) {
+																	echo '<optgroup label="' . esc_attr__( 'Attributes', 'woo-smart-quick-view' ) . '">';
 
-															// attributes
-															if ( $wc_attributes = wc_get_attribute_taxonomies() ) {
-																echo '<optgroup label="' . esc_attr__( 'Attributes', 'woo-smart-quick-view' ) . '">';
+																	foreach ( $wc_attributes as $wc_attribute ) {
+																		echo '<option value="' . esc_attr( urlencode( 'pa_' . $wc_attribute->attribute_name ) ) . '" data-type="attribute">' . esc_html( $wc_attribute->attribute_label ) . '</option>';
+																	}
 
-																foreach ( $wc_attributes as $wc_attribute ) {
-																	echo '<option value="' . esc_attr( urlencode( 'pa_' . $wc_attribute->attribute_name ) ) . '" data-type="attribute">' . esc_html( $wc_attribute->attribute_label ) . '</option>';
+																	echo '</optgroup>';
 																}
-
-																echo '</optgroup>';
-															}
-															?>
-                                                            <optgroup label="<?php esc_attr_e( 'Custom', 'woo-smart-quick-view' ); ?>">
-                                                                <option value="custom_field" data-type="custom_field"><?php esc_html_e( 'Custom field', 'woo-smart-quick-view' ); ?></option>
-                                                                <option value="custom_attribute" data-type="custom_attribute"><?php esc_html_e( 'Custom attribute', 'woo-smart-quick-view' ); ?></option>
-                                                                <option value="text" data-type="text"><?php esc_html_e( 'Custom text/shortcode', 'woo-smart-quick-view' ); ?></option>
-                                                            </optgroup>
-                                                        </select>
+																?>
+                                                                <optgroup label="<?php esc_attr_e( 'Custom', 'woo-smart-quick-view' ); ?>">
+                                                                    <option value="custom_field" data-type="custom_field"><?php esc_html_e( 'Custom field', 'woo-smart-quick-view' ); ?></option>
+                                                                    <option value="custom_attribute" data-type="custom_attribute"><?php esc_html_e( 'Custom attribute', 'woo-smart-quick-view' ); ?></option>
+                                                                    <option value="text" data-type="text"><?php esc_html_e( 'Custom text/shortcode', 'woo-smart-quick-view' ); ?></option>
+                                                                </optgroup>
+                                                            </select> </label>
                                                         <button type="button" class="button woosq-field-add" data-setting="fields"><?php esc_html_e( '+ Add', 'woo-smart-quick-view' ); ?></button>
                                                     </div>
                                                 </div>
@@ -984,10 +988,10 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Add to cart button', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[add_to_cart_button]">
-                                                    <option value="archive" <?php selected( $add_to_cart_button, 'archive' ); ?>><?php esc_html_e( 'Like archive page', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="single" <?php selected( $add_to_cart_button, 'single' ); ?>><?php esc_html_e( 'Like single page', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[add_to_cart_button]">
+                                                        <option value="archive" <?php selected( $add_to_cart_button, 'archive' ); ?>><?php esc_html_e( 'Like archive page', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="single" <?php selected( $add_to_cart_button, 'single' ); ?>><?php esc_html_e( 'Like single page', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Choose the functionally for the add to cart button.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
@@ -1024,10 +1028,10 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'View details button', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <select name="woosq_settings[content_view_details_button]">
-                                                    <option value="no" <?php selected( $view_details_button, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
-                                                    <option value="yes" <?php selected( $view_details_button, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosq_settings[content_view_details_button]">
+                                                        <option value="no" <?php selected( $view_details_button, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="yes" <?php selected( $view_details_button, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1065,37 +1069,49 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Button text', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosq_localization[button]" value="<?php echo esc_attr( self::localization( 'button' ) ); ?>" placeholder="<?php esc_attr_e( 'Quick view', 'woo-smart-quick-view' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosq_localization[button]" value="<?php echo esc_attr( self::localization( 'button' ) ); ?>" placeholder="<?php esc_attr_e( 'Quick view', 'woo-smart-quick-view' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Close', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosq_localization[close]" value="<?php echo esc_attr( self::localization( 'close' ) ); ?>" placeholder="<?php esc_attr_e( 'Close (Esc)', 'woo-smart-quick-view' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosq_localization[close]" value="<?php echo esc_attr( self::localization( 'close' ) ); ?>" placeholder="<?php esc_attr_e( 'Close (Esc)', 'woo-smart-quick-view' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Next', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosq_localization[next]" value="<?php echo esc_attr( self::localization( 'next' ) ); ?>" placeholder="<?php esc_attr_e( 'Next (Right arrow key)', 'woo-smart-quick-view' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosq_localization[next]" value="<?php echo esc_attr( self::localization( 'next' ) ); ?>" placeholder="<?php esc_attr_e( 'Next (Right arrow key)', 'woo-smart-quick-view' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Previous', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosq_localization[prev]" value="<?php echo esc_attr( self::localization( 'prev' ) ); ?>" placeholder="<?php esc_attr_e( 'Previous (Left arrow key)', 'woo-smart-quick-view' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosq_localization[prev]" value="<?php echo esc_attr( self::localization( 'prev' ) ); ?>" placeholder="<?php esc_attr_e( 'Previous (Left arrow key)', 'woo-smart-quick-view' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Suggested products', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosq_localization[related_products]" value="<?php echo esc_attr( self::localization( 'related_products' ) ); ?>" placeholder="<?php esc_attr_e( 'You may also like&hellip;', 'woo-smart-quick-view' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosq_localization[related_products]" value="<?php echo esc_attr( self::localization( 'related_products' ) ); ?>" placeholder="<?php esc_attr_e( 'You may also like&hellip;', 'woo-smart-quick-view' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'View details text', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosq_localization[view_details]" value="<?php echo esc_attr( self::localization( 'view_details' ) ); ?>" placeholder="<?php esc_attr_e( 'View product details', 'woo-smart-quick-view' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosq_localization[view_details]" value="<?php echo esc_attr( self::localization( 'view_details' ) ); ?>" placeholder="<?php esc_attr_e( 'View product details', 'woo-smart-quick-view' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="submit">
@@ -1125,7 +1141,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function admin_enqueue_scripts( $hook ) {
-					if ( strpos( $hook, 'woosq' ) !== false ) {
+					if ( str_contains( $hook, 'woosq' ) ) {
 						wp_enqueue_style( 'woosq-backend', WOOSQ_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOSQ_VERSION );
 
 						add_thickbox();
@@ -1223,7 +1239,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 								'duration' => 120,
 								'magnify'  => 1
 							] ) ) ),
-							'quick_view'              => isset( $_REQUEST['quick-view'] ) ? absint( sanitize_key( $_REQUEST['quick-view'] ) ) : 0,
+							'quick_view'              => absint( sanitize_key( $_REQUEST['quick-view'] ?? 0 ) ),
 						]
 					);
 				}
@@ -1343,16 +1359,16 @@ if ( ! function_exists( 'woosq_init' ) ) {
 						die( 'Permissions check failed!' );
 					}
 
-					$type    = isset( $_POST['type'] ) ? sanitize_key( $_POST['type'] ) : '';
-					$field   = isset( $_POST['field'] ) ? sanitize_text_field( urldecode( $_POST['field'] ) ) : '';
-					$setting = isset( $_POST['setting'] ) ? sanitize_key( $_POST['setting'] ) : '';
+					$type    = sanitize_key( $_POST['type'] ?? '' );
+					$field   = sanitize_text_field( urldecode( $_POST['field'] ?? '' ) );
+					$setting = sanitize_key( $_POST['setting'] ?? '' );
 
 					if ( ! empty( $type ) && ! empty( $field ) && ! empty( $setting ) ) {
 						if ( ( $type === 'attribute' ) && ( $field === 'all' ) ) {
 							// all attributes
 							if ( $taxonomies = get_object_taxonomies( 'product', 'objects' ) ) {
 								foreach ( $taxonomies as $taxonomy ) {
-									if ( substr( $taxonomy->name, 0, 3 ) === 'pa_' ) {
+									if ( str_starts_with( $taxonomy->name, 'pa_' ) ) {
 										$key = self::generate_key();
 										self::field_html( $key, wc_attribute_label( $taxonomy->name ), $type, $taxonomy->name );
 									}

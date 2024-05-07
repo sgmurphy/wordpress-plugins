@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.5
+Version: 4.8.6
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
@@ -12,12 +12,12 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.7
+WC tested up to: 8.8
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.5' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.6' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
@@ -168,7 +168,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 
 				function init() {
 					// get key
-					$key = isset( $_COOKIE['woosw_key'] ) ? sanitize_text_field( $_COOKIE['woosw_key'] ) : '#';
+					$key = sanitize_text_field( $_COOKIE['woosw_key'] ?? '#' );
 
 					// get products
 					self::$products = self::get_ids( $key );
@@ -531,9 +531,9 @@ if ( ! function_exists( 'woosw_init' ) ) {
 						}
 					}
 
-					$note       = trim( isset( $_POST['note'] ) ? sanitize_text_field( $_POST['note'] ) : '' );
-					$key        = isset( $_POST['key'] ) ? sanitize_text_field( $_POST['key'] ) : '';
-					$product_id = isset( $_POST['product_id'] ) ? (int) sanitize_text_field( $_POST['product_id'] ) : 0;
+					$note       = trim( sanitize_text_field( $_POST['note'] ?? '' ) );
+					$key        = sanitize_text_field( $_POST['key'] ?? '' );
+					$product_id = absint( sanitize_text_field( $_POST['product_id'] ?? 0 ) );
 					$products   = self::get_ids( $key );
 
 					if ( isset( $products[ $product_id ] ) ) {
@@ -662,7 +662,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					}
 
 					$return   = [];
-					$key      = trim( isset( $_POST['key'] ) ? sanitize_text_field( $_POST['key'] ) : '' );
+					$key      = trim( sanitize_text_field( $_POST['key'] ?? '' ) );
 					$products = self::get_ids( $key );
 					$count    = count( $products );
 
@@ -899,7 +899,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 				}
 
 				function admin_menu_content() {
-					$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'settings';
+					$active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
 					?>
                     <div class="wpclever_settings_page wrap">
                         <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Smart Wishlist', 'woo-smart-wishlist' ) . ' ' . esc_html( WOOSW_VERSION ) . ' ' . ( defined( 'WOOSW_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'woo-smart-wishlist' ) . '</span>' : '' ); ?></h1>
@@ -975,19 +975,19 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Disable for unauthenticated users', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[disable_unauthenticated]">
-                                                    <option value="yes" <?php selected( $disable_unauthenticated, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $disable_unauthenticated, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[disable_unauthenticated]">
+                                                        <option value="yes" <?php selected( $disable_unauthenticated, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $disable_unauthenticated, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Auto remove', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[auto_remove]">
-                                                    <option value="yes" <?php selected( $auto_remove, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $auto_remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[auto_remove]">
+                                                        <option value="yes" <?php selected( $auto_remove, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $auto_remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Auto remove product from the wishlist after adding to the cart.', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
@@ -1002,17 +1002,19 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Enable', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[enable_multiple]">
-                                                    <option value="yes" <?php selected( $enable_multiple, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $enable_multiple, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[enable_multiple]">
+                                                        <option value="yes" <?php selected( $enable_multiple, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $enable_multiple, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable/disable multiple wishlist.', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Maximum wishlists per user', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="number" min="1" max="100" name="woosw_settings[maximum_wishlists]" value="<?php echo esc_attr( self::get_setting( 'maximum_wishlists', '5' ) ); ?>"/>
+                                                <label>
+                                                    <input type="number" min="1" max="100" name="woosw_settings[maximum_wishlists]" value="<?php echo esc_attr( self::get_setting( 'maximum_wishlists', '5' ) ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1026,91 +1028,98 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Type', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_type]">
-                                                    <option value="button" <?php selected( $button_type, 'button' ); ?>><?php esc_html_e( 'Button', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="link" <?php selected( $button_type, 'link' ); ?>><?php esc_html_e( 'Link', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[button_type]">
+                                                        <option value="button" <?php selected( $button_type, 'button' ); ?>><?php esc_html_e( 'Button', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="link" <?php selected( $button_type, 'link' ); ?>><?php esc_html_e( 'Link', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use icon', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_icon]" class="woosw_button_icon">
-                                                    <option value="left" <?php selected( $button_icon, 'left' ); ?>><?php esc_html_e( 'Icon on the left', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="right" <?php selected( $button_icon, 'right' ); ?>><?php esc_html_e( 'Icon on the right', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="only" <?php selected( $button_icon, 'only' ); ?>><?php esc_html_e( 'Icon only', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $button_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label>
+                                                    <select name="woosw_settings[button_icon]" class="woosw_button_icon">
+                                                        <option value="left" <?php selected( $button_icon, 'left' ); ?>><?php esc_html_e( 'Icon on the left', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="right" <?php selected( $button_icon, 'right' ); ?>><?php esc_html_e( 'Icon on the right', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="only" <?php selected( $button_icon, 'only' ); ?>><?php esc_html_e( 'Icon only', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $button_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosw-show-if-button-icon">
                                             <th><?php esc_html_e( 'Normal icon', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_normal_icon]" class="woosw_icon_picker">
-													<?php for ( $i = 1; $i <= 41; $i ++ ) {
-														echo '<option value="woosw-icon-' . $i . '" ' . selected( $button_normal_icon, 'woosw-icon-' . $i, false ) . '>woosw-icon-' . $i . '</option>';
-													} ?>
-                                                </select>
+                                                <label>
+                                                    <select name="woosw_settings[button_normal_icon]" class="woosw_icon_picker">
+														<?php for ( $i = 1; $i <= 41; $i ++ ) {
+															echo '<option value="woosw-icon-' . $i . '" ' . selected( $button_normal_icon, 'woosw-icon-' . $i, false ) . '>woosw-icon-' . $i . '</option>';
+														} ?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosw-show-if-button-icon">
                                             <th><?php esc_html_e( 'Added icon', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_added_icon]" class="woosw_icon_picker">
-													<?php for ( $i = 1; $i <= 41; $i ++ ) {
-														echo '<option value="woosw-icon-' . $i . '" ' . selected( $button_added_icon, 'woosw-icon-' . $i, false ) . '>woosw-icon-' . $i . '</option>';
-													} ?>
-                                                </select>
+                                                <label>
+                                                    <select name="woosw_settings[button_added_icon]" class="woosw_icon_picker">
+														<?php for ( $i = 1; $i <= 41; $i ++ ) {
+															echo '<option value="woosw-icon-' . $i . '" ' . selected( $button_added_icon, 'woosw-icon-' . $i, false ) . '>woosw-icon-' . $i . '</option>';
+														} ?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosw-show-if-button-icon">
                                             <th><?php esc_html_e( 'Loading icon', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_loading_icon]" class="woosw_icon_picker">
-													<?php for ( $i = 1; $i <= 41; $i ++ ) {
-														echo '<option value="woosw-icon-' . $i . '" ' . selected( $button_loading_icon, 'woosw-icon-' . $i, false ) . '>woosw-icon-' . $i . '</option>';
-													} ?>
-                                                </select>
+                                                <label>
+                                                    <select name="woosw_settings[button_loading_icon]" class="woosw_icon_picker">
+														<?php for ( $i = 1; $i <= 41; $i ++ ) {
+															echo '<option value="woosw-icon-' . $i . '" ' . selected( $button_loading_icon, 'woosw-icon-' . $i, false ) . '>woosw-icon-' . $i . '</option>';
+														} ?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Action', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_action]" class="woosw_button_action">
-                                                    <option value="message" <?php selected( $button_action, 'message' ); ?>><?php esc_html_e( 'Show message', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="list" <?php selected( $button_action, 'list' ); ?>><?php esc_html_e( 'Open wishlist popup', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $button_action, 'no' ); ?>><?php esc_html_e( 'Add to wishlist solely', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label>
+                                                    <select name="woosw_settings[button_action]" class="woosw_button_action">
+                                                        <option value="message" <?php selected( $button_action, 'message' ); ?>><?php esc_html_e( 'Show message', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="list" <?php selected( $button_action, 'list' ); ?>><?php esc_html_e( 'Open wishlist popup', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $button_action, 'no' ); ?>><?php esc_html_e( 'Add to wishlist solely', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Action triggered by clicking on the wishlist button.', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr class="woosw_button_action_hide woosw_button_action_message">
                                             <th scope="row"><?php esc_html_e( 'Message position', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[message_position]">
-                                                    <option value="right-top" <?php selected( $message_position, 'right-top' ); ?>><?php esc_html_e( 'right-top', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="right-bottom" <?php selected( $message_position, 'right-bottom' ); ?>><?php esc_html_e( 'right-bottom', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="fluid-top" <?php selected( $message_position, 'fluid-top' ); ?>><?php esc_html_e( 'center-top', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="fluid-bottom" <?php selected( $message_position, 'fluid-bottom' ); ?>><?php esc_html_e( 'center-bottom', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="left-top" <?php selected( $message_position, 'left-top' ); ?>><?php esc_html_e( 'left-top', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="left-bottom" <?php selected( $message_position, 'left-bottom' ); ?>><?php esc_html_e( 'left-bottom', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[message_position]">
+                                                        <option value="right-top" <?php selected( $message_position, 'right-top' ); ?>><?php esc_html_e( 'right-top', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="right-bottom" <?php selected( $message_position, 'right-bottom' ); ?>><?php esc_html_e( 'right-bottom', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="fluid-top" <?php selected( $message_position, 'fluid-top' ); ?>><?php esc_html_e( 'center-top', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="fluid-bottom" <?php selected( $message_position, 'fluid-bottom' ); ?>><?php esc_html_e( 'center-bottom', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="left-top" <?php selected( $message_position, 'left-top' ); ?>><?php esc_html_e( 'left-top', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="left-bottom" <?php selected( $message_position, 'left-bottom' ); ?>><?php esc_html_e( 'left-bottom', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Action (added)', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[button_action_added]">
-                                                    <option value="popup" <?php selected( $button_action_added, 'popup' ); ?>><?php esc_html_e( 'Open wishlist popup', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="page" <?php selected( $button_action_added, 'page' ); ?>><?php esc_html_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[button_action_added]">
+                                                        <option value="popup" <?php selected( $button_action_added, 'popup' ); ?>><?php esc_html_e( 'Open wishlist popup', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="page" <?php selected( $button_action_added, 'page' ); ?>><?php esc_html_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <p class="description"><?php esc_html_e( 'Action triggered by clicking on the wishlist button after adding an item to the wishlist.', 'woo-smart-wishlist' ); ?></p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Extra class (optional)', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_settings[button_class]" class="regular-text" value="<?php echo esc_attr( self::get_setting( 'button_class', '' ) ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_settings[button_class]" class="regular-text" value="<?php echo esc_attr( self::get_setting( 'button_class', '' ) ); ?>"/>
+                                                </label>
                                                 <p class="description"><?php esc_html_e( 'Add extra class for action button/link, split by one space.', 'woo-smart-wishlist' ); ?></p>
                                             </td>
                                         </tr>
@@ -1129,17 +1138,18 @@ if ( ! function_exists( 'woosw_init' ) ) {
 													'0'                  => esc_html__( 'None (hide it)', 'woo-smart-wishlist' ),
 												] );
 												?>
-                                                <select name="woosw_settings[button_position_archive]" <?php echo( $position_archive !== 'default' ? 'disabled' : '' ); ?>>
-													<?php
-													if ( $position_archive === 'default' ) {
-														$position_archive = self::get_setting( 'button_position_archive', apply_filters( 'woosw_button_position_archive_default', 'after_add_to_cart' ) );
-													}
+                                                <label>
+                                                    <select name="woosw_settings[button_position_archive]" <?php echo( $position_archive !== 'default' ? 'disabled' : '' ); ?>>
+														<?php
+														if ( $position_archive === 'default' ) {
+															$position_archive = self::get_setting( 'button_position_archive', apply_filters( 'woosw_button_position_archive_default', 'after_add_to_cart' ) );
+														}
 
-													foreach ( $positions_archive as $k => $p ) {
-														echo '<option value="' . esc_attr( $k ) . '" ' . ( ( $k === $position_archive ) || ( empty( $position_archive ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
-													}
-													?>
-                                                </select>
+														foreach ( $positions_archive as $k => $p ) {
+															echo '<option value="' . esc_attr( $k ) . '" ' . ( ( $k === $position_archive ) || ( empty( $position_archive ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
+														}
+														?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1158,17 +1168,18 @@ if ( ! function_exists( 'woosw_init' ) ) {
 													'0'  => esc_html__( 'None (hide it)', 'woo-smart-wishlist' ),
 												] );
 												?>
-                                                <select name="woosw_settings[button_position_single]" <?php echo( $position_single !== 'default' ? 'disabled' : '' ); ?>>
-													<?php
-													if ( $position_single === 'default' ) {
-														$position_single = self::get_setting( 'button_position_single', apply_filters( 'woosw_button_position_single_default', '31' ) );
-													}
+                                                <label>
+                                                    <select name="woosw_settings[button_position_single]" <?php echo( $position_single !== 'default' ? 'disabled' : '' ); ?>>
+														<?php
+														if ( $position_single === 'default' ) {
+															$position_single = self::get_setting( 'button_position_single', apply_filters( 'woosw_button_position_single_default', '31' ) );
+														}
 
-													foreach ( $positions_single as $k => $p ) {
-														echo '<option value="' . esc_attr( $k ) . '" ' . ( ( strval( $k ) === strval( $position_single ) ) || ( $k === $position_single ) || ( empty( $position_single ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
-													}
-													?>
-                                                </select>
+														foreach ( $positions_single as $k => $p ) {
+															echo '<option value="' . esc_attr( $k ) . '" ' . ( ( strval( $k ) === strval( $position_single ) ) || ( $k === $position_single ) || ( empty( $position_single ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
+														}
+														?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1215,20 +1226,20 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Position', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[popup_position]">
-                                                    <option value="center" <?php selected( $popup_position, 'center' ); ?>><?php esc_html_e( 'Center', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="right" <?php selected( $popup_position, 'right' ); ?>><?php esc_html_e( 'Right', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="left" <?php selected( $popup_position, 'left' ); ?>><?php esc_html_e( 'Left', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[popup_position]">
+                                                        <option value="center" <?php selected( $popup_position, 'center' ); ?>><?php esc_html_e( 'Center', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="right" <?php selected( $popup_position, 'right' ); ?>><?php esc_html_e( 'Right', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="left" <?php selected( $popup_position, 'left' ); ?>><?php esc_html_e( 'Left', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use perfect-scrollbar', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[perfect_scrollbar]">
-                                                    <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[perfect_scrollbar]">
+                                                        <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php printf( /* translators: link */ esc_html__( 'Read more about %s', 'woo-smart-wishlist' ), '<a href="https://github.com/mdbootstrap/perfect-scrollbar" target="_blank">perfect-scrollbar</a>' ); ?></span>
                                             </td>
                                         </tr>
@@ -1236,19 +1247,21 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                             <th scope="row"><?php esc_html_e( 'Color', 'woo-smart-wishlist' ); ?></th>
                                             <td>
 												<?php $color_default = apply_filters( 'woosw_color_default', '#5fbd74' ); ?>
-                                                <input type="text" name="woosw_settings[color]" class="woosw_color_picker" value="<?php echo esc_attr( self::get_setting( 'color', $color_default ) ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_settings[color]" class="woosw_color_picker" value="<?php echo esc_attr( self::get_setting( 'color', $color_default ) ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php printf( /* translators: color */ esc_html__( 'Choose the color, default %s', 'woo-smart-wishlist' ), '<code>' . $color_default . '</code>' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Link to individual product', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[link]">
-                                                    <option value="yes" <?php selected( $link, 'yes' ); ?>><?php esc_html_e( 'Yes, open in the same tab', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="yes_blank" <?php selected( $link, 'yes_blank' ); ?>><?php esc_html_e( 'Yes, open in the new tab', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="yes_popup" <?php selected( $link, 'yes_popup' ); ?>><?php esc_html_e( 'Yes, open quick view popup', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $link, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[link]">
+                                                        <option value="yes" <?php selected( $link, 'yes' ); ?>><?php esc_html_e( 'Yes, open in the same tab', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="yes_blank" <?php selected( $link, 'yes_blank' ); ?>><?php esc_html_e( 'Yes, open in the new tab', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="yes_popup" <?php selected( $link, 'yes_popup' ); ?>><?php esc_html_e( 'Yes, open quick view popup', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $link, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <p class="description">If you choose "Open quick view popup", please install
                                                     <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> to make it work.
                                                 </p>
@@ -1257,22 +1270,22 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Show price change', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[show_price_change]">
-                                                    <option value="no" <?php selected( $show_price_change, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="increase" <?php selected( $show_price_change, 'increase' ); ?>><?php esc_html_e( 'Increase only', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="decrease" <?php selected( $show_price_change, 'decrease' ); ?>><?php esc_html_e( 'Decrease only', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="both" <?php selected( $show_price_change, 'both' ); ?>><?php esc_html_e( 'Both increase and decrease', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[show_price_change]">
+                                                        <option value="no" <?php selected( $show_price_change, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="increase" <?php selected( $show_price_change, 'increase' ); ?>><?php esc_html_e( 'Increase only', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="decrease" <?php selected( $show_price_change, 'decrease' ); ?>><?php esc_html_e( 'Decrease only', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="both" <?php selected( $show_price_change, 'both' ); ?>><?php esc_html_e( 'Both increase and decrease', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show price change since a product was added.', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use notes', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[use_note]">
-                                                    <option value="yes" <?php selected( $use_note, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $use_note, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[use_note]">
+                                                        <option value="yes" <?php selected( $use_note, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $use_note, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable/disable the notes feature. Allow the wishlist owner to add notes for each product.', 'woo-smart-wishlist' ); ?></span>
                                                 <p class="description" style="color: #c9356e">
                                                     This feature is only available on the Premium Version. Click
@@ -1283,27 +1296,29 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Show notes publicly', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[show_note]">
-                                                    <option value="yes" <?php selected( $show_note, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $show_note, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[show_note]">
+                                                        <option value="yes" <?php selected( $show_note, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $show_note, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show notes on each product for all visitors. The wishlist owner always can view/add/edit their notes.', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Empty wishlist button', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[empty_button]">
-                                                    <option value="yes" <?php selected( $empty_button, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $empty_button, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[empty_button]">
+                                                        <option value="yes" <?php selected( $empty_button, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $empty_button, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show empty wishlist button on the popup?', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Continue shopping link', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="url" name="woosw_settings[continue_url]" value="<?php echo esc_attr( self::get_setting( 'continue_url' ) ); ?>" class="regular-text code"/>
+                                                <label>
+                                                    <input type="url" name="woosw_settings[continue_url]" value="<?php echo esc_attr( self::get_setting( 'continue_url' ) ); ?>" class="regular-text code"/>
+                                                </label>
                                                 <p class="description"><?php esc_html_e( 'By default, the wishlist popup will only be closed when customers click on the "Continue Shopping" button.', 'woo-smart-wishlist' ); ?></p>
                                             </td>
                                         </tr>
@@ -1311,7 +1326,9 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                             <th><?php esc_html_e( 'Suggested products', 'woo-smart-wishlist' ); ?></th>
                                             <td>
                                                 <p><?php esc_html_e( 'Show suggested products below products list.', 'woo-smart-wishlist' ); ?> <?php esc_html_e( 'Limit', 'woo-smart-wishlist' ); ?>
-                                                    <input type="number" min="0" step="1" name="woosw_settings[suggested_limit]" value="<?php echo esc_attr( $suggested_limit ); ?>" style="width: 60px"/>
+                                                    <label>
+                                                        <input type="number" min="0" step="1" name="woosw_settings[suggested_limit]" value="<?php echo esc_attr( $suggested_limit ); ?>" style="width: 60px"/>
+                                                    </label>
                                                 </p>
                                                 <ul>
                                                     <li>
@@ -1358,20 +1375,20 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Share buttons', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[page_share]">
-                                                    <option value="yes" <?php selected( $page_share, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $page_share, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[page_share]">
+                                                        <option value="yes" <?php selected( $page_share, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $page_share, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable share buttons on the wishlist page?', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use icon', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[page_icon]">
-                                                    <option value="yes" <?php selected( $page_icon, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $page_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[page_icon]">
+                                                        <option value="yes" <?php selected( $page_icon, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $page_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1384,7 +1401,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 													$share_items = [];
 												}
 												?>
-                                                <select name="woosw_settings[page_items][]" id='woosw_page_items' multiple>
+                                                <label for='woosw_page_items'></label><select name="woosw_settings[page_items][]" id='woosw_page_items' multiple>
                                                     <option value="facebook" <?php echo esc_attr( in_array( 'facebook', $share_items ) ? 'selected' : '' ); ?>><?php esc_html_e( 'Facebook', 'woo-smart-wishlist' ); ?></option>
                                                     <option value="twitter" <?php echo esc_attr( in_array( 'twitter', $share_items ) ? 'selected' : '' ); ?>><?php esc_html_e( 'Twitter', 'woo-smart-wishlist' ); ?></option>
                                                     <option value="pinterest" <?php echo esc_attr( in_array( 'pinterest', $share_items ) ? 'selected' : '' ); ?>><?php esc_html_e( 'Pinterest', 'woo-smart-wishlist' ); ?></option>
@@ -1395,20 +1412,20 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Copy link', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[page_copy]">
-                                                    <option value="yes" <?php selected( $page_copy, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $page_copy, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[page_copy]">
+                                                        <option value="yes" <?php selected( $page_copy, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $page_copy, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable copy wishlist link to share?', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Add Wishlist page to My Account', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[page_myaccount]">
-                                                    <option value="yes" <?php selected( $page_myaccount, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="no" <?php selected( $page_myaccount, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[page_myaccount]">
+                                                        <option value="yes" <?php selected( $page_myaccount, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $page_myaccount, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1448,10 +1465,10 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Action', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <select name="woosw_settings[menu_action]">
-                                                    <option value="open_page" <?php selected( $menu_action, 'open_page' ); ?>><?php esc_html_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?></option>
-                                                    <option value="open_popup" <?php selected( $menu_action, 'open_popup' ); ?>><?php esc_html_e( 'Open wishlist popup', 'woo-smart-wishlist' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosw_settings[menu_action]">
+                                                        <option value="open_page" <?php selected( $menu_action, 'open_page' ); ?>><?php esc_html_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="open_popup" <?php selected( $menu_action, 'open_popup' ); ?>><?php esc_html_e( 'Open wishlist popup', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Action when clicking on the "wishlist menu".', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
@@ -1490,73 +1507,97 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Button text', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[button]" value="<?php echo esc_attr( self::localization( 'button' ) ); ?>" placeholder="<?php esc_attr_e( 'Add to wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[button]" value="<?php echo esc_attr( self::localization( 'button' ) ); ?>" placeholder="<?php esc_attr_e( 'Add to wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Button text (added)', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[button_added]" value="<?php echo esc_attr( self::localization( 'button_added' ) ); ?>" placeholder="<?php esc_attr_e( 'Browse wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[button_added]" value="<?php echo esc_attr( self::localization( 'button_added' ) ); ?>" placeholder="<?php esc_attr_e( 'Browse wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Wishlist popup heading', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[popup_heading]" value="<?php echo esc_attr( self::localization( 'popup_heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[popup_heading]" value="<?php echo esc_attr( self::localization( 'popup_heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Empty wishlist button', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[empty_button]" value="<?php echo esc_attr( self::localization( 'empty_button' ) ); ?>" placeholder="<?php esc_attr_e( 'remove all', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[empty_button]" value="<?php echo esc_attr( self::localization( 'empty_button' ) ); ?>" placeholder="<?php esc_attr_e( 'remove all', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Add note', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[add_note]" value="<?php echo esc_attr( self::localization( 'add_note' ) ); ?>" placeholder="<?php esc_attr_e( 'Add note', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[add_note]" value="<?php echo esc_attr( self::localization( 'add_note' ) ); ?>" placeholder="<?php esc_attr_e( 'Add note', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Save note', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[save_note]" value="<?php echo esc_attr( self::localization( 'save_note' ) ); ?>" placeholder="<?php esc_attr_e( 'Save', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[save_note]" value="<?php echo esc_attr( self::localization( 'save_note' ) ); ?>" placeholder="<?php esc_attr_e( 'Save', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Price increase', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[price_increase]" value="<?php echo esc_attr( self::localization( 'price_increase' ) ); ?>" placeholder="<?php esc_attr_e( 'Increase {percentage} since added', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[price_increase]" value="<?php echo esc_attr( self::localization( 'price_increase' ) ); ?>" placeholder="<?php esc_attr_e( 'Increase {percentage} since added', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Price decrease', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[price_decrease]" value="<?php echo esc_attr( self::localization( 'price_decrease' ) ); ?>" placeholder="<?php esc_attr_e( 'Decrease {percentage} since added', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[price_decrease]" value="<?php echo esc_attr( self::localization( 'price_decrease' ) ); ?>" placeholder="<?php esc_attr_e( 'Decrease {percentage} since added', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[open_page]" value="<?php echo esc_attr( self::localization( 'open_page' ) ); ?>" placeholder="<?php esc_attr_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[open_page]" value="<?php echo esc_attr( self::localization( 'open_page' ) ); ?>" placeholder="<?php esc_attr_e( 'Open wishlist page', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Continue shopping', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[continue]" value="<?php echo esc_attr( self::localization( 'continue' ) ); ?>" placeholder="<?php esc_attr_e( 'Continue shopping', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[continue]" value="<?php echo esc_attr( self::localization( 'continue' ) ); ?>" placeholder="<?php esc_attr_e( 'Continue shopping', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Suggested', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[suggested]" value="<?php echo esc_attr( self::localization( 'suggested' ) ); ?>" placeholder="<?php esc_attr_e( 'You may be interested in&hellip;', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[suggested]" value="<?php echo esc_attr( self::localization( 'suggested' ) ); ?>" placeholder="<?php esc_attr_e( 'You may be interested in&hellip;', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Menu item label', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[menu_label]" value="<?php echo esc_attr( self::localization( 'menu_label' ) ); ?>" placeholder="<?php esc_attr_e( 'Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[menu_label]" value="<?php echo esc_attr( self::localization( 'menu_label' ) ); ?>" placeholder="<?php esc_attr_e( 'Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1566,43 +1607,57 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Primary wishlist name', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[primary_name]" class="regular-text" value="<?php echo esc_attr( self::localization( 'primary_name' ) ); ?>" placeholder="<?php esc_attr_e( 'Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[primary_name]" class="regular-text" value="<?php echo esc_attr( self::localization( 'primary_name' ) ); ?>" placeholder="<?php esc_attr_e( 'Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Manage wishlists', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[manage_wishlists]" class="regular-text" value="<?php echo esc_attr( self::localization( 'manage_wishlists' ) ); ?>" placeholder="<?php esc_attr_e( 'Manage wishlists', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[manage_wishlists]" class="regular-text" value="<?php echo esc_attr( self::localization( 'manage_wishlists' ) ); ?>" placeholder="<?php esc_attr_e( 'Manage wishlists', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Set default', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[set_default]" class="regular-text" value="<?php echo esc_attr( self::localization( 'set_default' ) ); ?>" placeholder="<?php esc_attr_e( 'set default', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[set_default]" class="regular-text" value="<?php echo esc_attr( self::localization( 'set_default' ) ); ?>" placeholder="<?php esc_attr_e( 'set default', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Default', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[is_default]" class="regular-text" value="<?php echo esc_attr( self::localization( 'is_default' ) ); ?>" placeholder="<?php esc_attr_e( 'default', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[is_default]" class="regular-text" value="<?php echo esc_attr( self::localization( 'is_default' ) ); ?>" placeholder="<?php esc_attr_e( 'default', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Delete', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[delete]" class="regular-text" value="<?php echo esc_attr( self::localization( 'delete' ) ); ?>" placeholder="<?php esc_attr_e( 'delete', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[delete]" class="regular-text" value="<?php echo esc_attr( self::localization( 'delete' ) ); ?>" placeholder="<?php esc_attr_e( 'delete', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Wishlist name placeholder', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[placeholder_name]" class="regular-text" value="<?php echo esc_attr( self::localization( 'placeholder_name' ) ); ?>" placeholder="<?php esc_attr_e( 'New Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[placeholder_name]" class="regular-text" value="<?php echo esc_attr( self::localization( 'placeholder_name' ) ); ?>" placeholder="<?php esc_attr_e( 'New Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Add new wishlist', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" name="woosw_localization[add_wishlist]" class="regular-text" value="<?php echo esc_attr( self::localization( 'add_wishlist' ) ); ?>" placeholder="<?php esc_attr_e( 'Add New Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" name="woosw_localization[add_wishlist]" class="regular-text" value="<?php echo esc_attr( self::localization( 'add_wishlist' ) ); ?>" placeholder="<?php esc_attr_e( 'Add New Wishlist', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1612,67 +1667,89 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Added to the wishlist', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[added_message]" value="<?php echo esc_attr( self::localization( 'added_message' ) ); ?>" placeholder="<?php esc_attr_e( '{name} has been added to Wishlist.', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[added_message]" value="<?php echo esc_attr( self::localization( 'added_message' ) ); ?>" placeholder="<?php esc_attr_e( '{name} has been added to Wishlist.', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Already in the wishlist', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[already_message]" value="<?php echo esc_attr( self::localization( 'already_message' ) ); ?>" placeholder="<?php esc_attr_e( '{name} is already in the Wishlist.', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[already_message]" value="<?php echo esc_attr( self::localization( 'already_message' ) ); ?>" placeholder="<?php esc_attr_e( '{name} is already in the Wishlist.', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Removed from wishlist', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[removed_message]" value="<?php echo esc_attr( self::localization( 'removed_message' ) ); ?>" placeholder="<?php esc_attr_e( 'Product has been removed from the Wishlist.', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[removed_message]" value="<?php echo esc_attr( self::localization( 'removed_message' ) ); ?>" placeholder="<?php esc_attr_e( 'Product has been removed from the Wishlist.', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Empty wishlist confirm', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[empty_confirm]" value="<?php echo esc_attr( self::localization( 'empty_confirm' ) ); ?>" placeholder="<?php esc_attr_e( 'This action cannot be undone. Are you sure?', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[empty_confirm]" value="<?php echo esc_attr( self::localization( 'empty_confirm' ) ); ?>" placeholder="<?php esc_attr_e( 'This action cannot be undone. Are you sure?', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Empty wishlist notice', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[empty_notice]" value="<?php echo esc_attr( self::localization( 'empty_notice' ) ); ?>" placeholder="<?php esc_attr_e( 'All products have been removed from the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[empty_notice]" value="<?php echo esc_attr( self::localization( 'empty_notice' ) ); ?>" placeholder="<?php esc_attr_e( 'All products have been removed from the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Empty wishlist', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[empty_message]" value="<?php echo esc_attr( self::localization( 'empty_message' ) ); ?>" placeholder="<?php esc_attr_e( 'There are no products on the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[empty_message]" value="<?php echo esc_attr( self::localization( 'empty_message' ) ); ?>" placeholder="<?php esc_attr_e( 'There are no products on the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Delete wishlist confirm', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[delete_confirm]" value="<?php echo esc_attr( self::localization( 'delete_confirm' ) ); ?>" placeholder="<?php esc_attr_e( 'This action cannot be undone. Are you sure?', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[delete_confirm]" value="<?php echo esc_attr( self::localization( 'delete_confirm' ) ); ?>" placeholder="<?php esc_attr_e( 'This action cannot be undone. Are you sure?', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Product does not exist', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[not_exist_message]" value="<?php echo esc_attr( self::localization( 'not_exist_message' ) ); ?>" placeholder="<?php esc_attr_e( 'The product does not exist on the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[not_exist_message]" value="<?php echo esc_attr( self::localization( 'not_exist_message' ) ); ?>" placeholder="<?php esc_attr_e( 'The product does not exist on the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Need to login', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[login_message]" value="<?php echo esc_attr( self::localization( 'login_message' ) ); ?>" placeholder="<?php esc_attr_e( 'Please log in to use the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[login_message]" value="<?php echo esc_attr( self::localization( 'login_message' ) ); ?>" placeholder="<?php esc_attr_e( 'Please log in to use the Wishlist!', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Copied wishlist link', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[copied]" value="<?php echo esc_attr( self::localization( 'copied' ) ); ?>" placeholder="<?php esc_html_e( 'Copied the wishlist link:', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[copied]" value="<?php echo esc_attr( self::localization( 'copied' ) ); ?>" placeholder="<?php esc_html_e( 'Copied the wishlist link:', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Have an error', 'woo-smart-wishlist' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosw_localization[error_message]" value="<?php echo esc_attr( self::localization( 'error_message' ) ); ?>" placeholder="<?php esc_attr_e( 'Have an error, please try again!', 'woo-smart-wishlist' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosw_localization[error_message]" value="<?php echo esc_attr( self::localization( 'error_message' ) ); ?>" placeholder="<?php esc_attr_e( 'Have an error, please try again!', 'woo-smart-wishlist' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="submit">
@@ -2264,7 +2341,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                         <tr <?php echo( is_array( $keys ) && ( count( $keys ) < (int) $max ) ? '' : 'class="woosw-disable"' ); ?>>
                                             <td colspan="100%">
                                                 <div class="woosw-new-wishlist">
-                                                    <input type="text" id="woosw_wishlist_name" placeholder="<?php echo esc_attr( self::localization( 'placeholder_name', esc_html__( 'New Wishlist', 'woo-smart-wishlist' ) ) ); ?>"/>
+                                                    <label for="woosw_wishlist_name"></label><input type="text" id="woosw_wishlist_name" placeholder="<?php echo esc_attr( self::localization( 'placeholder_name', esc_html__( 'New Wishlist', 'woo-smart-wishlist' ) ) ); ?>"/>
                                                     <input type="button" id="woosw_add_wishlist" value="<?php echo esc_attr( self::localization( 'add_wishlist', esc_html__( 'Add New Wishlist', 'woo-smart-wishlist' ) ) ); ?>"/>
                                                 </div>
                                             </td>
@@ -2521,9 +2598,9 @@ if ( ! function_exists( 'woosw_init' ) ) {
 							echo '</div><!-- /woosw-quickview-item -->';
 						}
 					} elseif ( isset( $_POST['pid'] ) ) {
-						$pid      = (int) sanitize_text_field( $_POST['pid'] );
-						$per_page = (int) apply_filters( 'woosw_quickview_per_page', 10 );
-						$page     = isset( $_POST['page'] ) ? abs( (int) $_POST['page'] ) : 1;
+						$pid      = absint( sanitize_text_field( $_POST['pid'] ) );
+						$per_page = absint( apply_filters( 'woosw_quickview_per_page', 10 ) );
+						$page     = absint( $_POST['page'] ?? 1 );
 						$offset   = ( $page - 1 ) * $per_page;
 						$total    = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM `' . $wpdb->prefix . 'options` WHERE `option_name` LIKE "%woosw_list_%" AND `option_value` LIKE "%s"', '%i:' . $pid . ';%' ) );
 						$keys     = $wpdb->get_results( $wpdb->prepare( 'SELECT option_name FROM `' . $wpdb->prefix . 'options` WHERE `option_name` LIKE "%woosw_list_%" AND `option_value` LIKE "%s" limit ' . $per_page . ' offset ' . $offset, '%i:' . $pid . ';%' ) );
@@ -2593,7 +2670,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 
 						if ( $user = get_user_by( 'id', $user_id ) ) {
 							echo '<div class="woosw-quickview-item">';
-							echo '<div class="woosw-quickview-item-image"><img src="' . esc_url( get_avatar_url( $user_id ) ) . '" /></div>';
+							echo '<div class="woosw-quickview-item-image"><img src="' . esc_url( get_avatar_url( $user_id ) ) . '"  alt=""/></div>';
 							echo '<div class="woosw-quickview-item-info">';
 							echo '<div class="woosw-quickview-item-title"><a href="' . get_edit_user_link( $user_id ) . '" target="_blank">' . $user->user_login . '</a></div>';
 							echo '<div class="woosw-quickview-item-data">' . $user->user_email . '</div>';
@@ -2668,7 +2745,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 						$secure   = apply_filters( 'woosw_cookie_secure', wc_site_is_https() && is_ssl() );
 						$httponly = apply_filters( 'woosw_cookie_httponly', false );
 
-						if ( isset( $_COOKIE['woosw_key'] ) && ! empty( $_COOKIE['woosw_key'] ) ) {
+						if ( ! empty( $_COOKIE['woosw_key'] ) ) {
 							wc_setcookie( 'woosw_key_ori', trim( sanitize_text_field( $_COOKIE['woosw_key'] ) ), time() + 604800, $secure, $httponly );
 						}
 
@@ -2680,7 +2757,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					$secure   = apply_filters( 'woosw_cookie_secure', wc_site_is_https() && is_ssl() );
 					$httponly = apply_filters( 'woosw_cookie_httponly', false );
 
-					if ( isset( $_COOKIE['woosw_key_ori'] ) && ! empty( $_COOKIE['woosw_key_ori'] ) ) {
+					if ( ! empty( $_COOKIE['woosw_key_ori'] ) ) {
 						wc_setcookie( 'woosw_key', trim( sanitize_text_field( $_COOKIE['woosw_key_ori'] ) ), time() + 604800, $secure, $httponly );
 					} else {
 						wc_setcookie( 'woosw_key_ori', '', time() + 604800, $secure, $httponly );

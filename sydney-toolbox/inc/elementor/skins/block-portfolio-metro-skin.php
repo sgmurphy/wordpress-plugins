@@ -142,7 +142,7 @@ class aThemes_Portfolio_Ext_Metro_Skin extends Elementor\Skin_Base {
 								</div>
 								<?php endif; ?>	
 								<?php if ( $settings['show_title'] ) {
-										the_title( '<' . esc_attr( $settings['title_tag'] ) . ' class="project-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></' . esc_attr( $settings['title_tag'] ) . '>' );
+										the_title( '<' . tag_escape( $settings['title_tag'] ) . ' class="project-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></' . tag_escape( $settings['title_tag'] ) . '>' );
 									}
 								?>
 								<?php if ( 'yes' == $settings['show_excerpt'] ) {

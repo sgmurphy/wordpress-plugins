@@ -3,23 +3,27 @@
  * Creative Mail by Newfold Digital
  *
  * @package CreativeMail
- */
-/**
+ *
  * Plugin Name: Creative Mail by Newfold Digital
  * Plugin URI: https://wordpress.org/plugins/creative-mail-by-constant-contact/
  * Description: Free email marketing designed specifically for WordPress, Jetpack and WooCommerce. Send newsletters, promotions, updates and transactional e-commerce emails. Simple and easy, powered by Newfold Digital’s rock solid reliability.
  * Author: Newfold Digital
- * Version: 1.6.8
+ * Version: 1.6.9
  * Author URI: https://newfold.com/
  * WC requires at least: 3.6.0
  */
 use CreativeMail\CreativeMail;
 use CreativeMail\Blocks\LoadBlock;
 
+// Load all the required files.
+if ( file_exists(__DIR__ . '/vendor/autoload.php') ) {
+    include_once __DIR__ . '/vendor/autoload.php';
+}
+
+define('CE4WP_PLUGIN_VERSION', '1.6.9');
 define('CE4WP_PLUGIN_DIR', __DIR__ . '/');
 define('CE4WP_PLUGIN_URL', plugin_dir_url(__FILE__) . '/');
 define('CE4WP_PLUGIN_FILE', __FILE__);
-define('CE4WP_PLUGIN_VERSION', '1.6.8');
 define('CE4WP_INSTANCE_UUID_KEY', 'ce4wp_instance_uuid');
 define('CE4WP_INSTANCE_HANDSHAKE_TOKEN', 'ce4wp_handshake_token');
 define('CE4WP_INSTANCE_HANDSHAKE_EXPIRATION', 'ce4wp_handshake_expiration');
@@ -54,11 +58,6 @@ function _load_ce4wp_plugin() {
 
 	if ( null != $creativemail ) {
 		return true;
-	}
-
-	// Load all the required files.
-	if ( file_exists(__DIR__ . '/vendor/autoload.php') ) {
-		include_once __DIR__ . '/vendor/autoload.php';
 	}
 
 	$creativemail = CreativeMail::get_instance();

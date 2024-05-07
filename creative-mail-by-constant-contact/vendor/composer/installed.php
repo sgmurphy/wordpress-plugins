@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'newfold-labs/wp-plugin-creativ-email',
-        'pretty_version' => 'v1.6.8',
-        'version' => '1.6.8.0',
-        'reference' => '218ea784167ac48e3724eb99b20460a3f06d3ef7',
+        'pretty_version' => '1.6.9',
+        'version' => '1.6.9.0',
+        'reference' => '4772c9daf62bfe5e2a3ede2b90aaf36d863a3754',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'newfold-labs/wp-plugin-creativ-email' => array(
-            'pretty_version' => 'v1.6.8',
-            'version' => '1.6.8.0',
-            'reference' => '218ea784167ac48e3724eb99b20460a3f06d3ef7',
+            'pretty_version' => '1.6.9',
+            'version' => '1.6.9.0',
+            'reference' => '4772c9daf62bfe5e2a3ede2b90aaf36d863a3754',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -65,9 +65,9 @@
             'dev_requirement' => false,
         ),
         'psr/log' => array(
-            'pretty_version' => '3.0.0',
-            'version' => '3.0.0.0',
-            'reference' => 'fe5ea303b0887d5caefd3d431c3e61ad47037001',
+            'pretty_version' => '1.1.4',
+            'version' => '1.1.4.0',
+            'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/log',
             'aliases' => array(),

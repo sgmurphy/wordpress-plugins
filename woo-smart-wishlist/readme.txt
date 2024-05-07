@@ -1,11 +1,11 @@
 === WPC Smart Wishlist for WooCommerce ===
 Contributors: wpclever
 Donate link: https://wpclever.net
-Tags: woocommerce, wpc, wishlist, waitlist
+Tags: woocommerce, wpc, wishlist, wait-list
 Requires at least: 4.0
 Tested up to: 6.5
-Version: 4.8.5
-Stable tag: 4.8.5
+Version: 4.8.6
+Stable tag: 4.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,10 @@ Example:
 `echo do_shortcode('[woosw id="99"]');`
 
 == Changelog ==
+
+= 4.8.6 =
+* Updated: Optimized the code
+* Updated: Compatible with WP 6.5 & Woo 8.8
 
 = 4.8.5 =
 * Added: Dropdown to switch between owned wishlist

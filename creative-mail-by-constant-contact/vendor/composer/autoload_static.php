@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2
+class ComposerStaticInitcd34e511a5990716856487eba8d6264c
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -25,12 +25,6 @@ class ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2
         ),
         'C' => 
         array (
-            'CreativeMail\\Modules\\' => 21,
-            'CreativeMail\\Models\\' => 20,
-            'CreativeMail\\Managers\\' => 22,
-            'CreativeMail\\Integrations\\' => 26,
-            'CreativeMail\\Helpers\\' => 21,
-            'CreativeMail\\Constants\\' => 23,
             'CreativeMail\\Blocks\\' => 20,
             'CreativeMail\\' => 13,
         ),
@@ -39,7 +33,7 @@ class ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2
     public static $prefixDirsPsr4 = array (
         'Psr\\Log\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/log/src',
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'Monolog\\' => 
         array (
@@ -52,30 +46,6 @@ class ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2
         'Defuse\\Crypto\\' => 
         array (
             0 => __DIR__ . '/..' . '/defuse/php-encryption/src',
-        ),
-        'CreativeMail\\Modules\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/modules',
-        ),
-        'CreativeMail\\Models\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/models',
-        ),
-        'CreativeMail\\Managers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/managers',
-        ),
-        'CreativeMail\\Integrations\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/integrations',
-        ),
-        'CreativeMail\\Helpers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/helpers',
-        ),
-        'CreativeMail\\Constants\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/constants',
         ),
         'CreativeMail\\Blocks\\' => 
         array (
@@ -300,14 +270,17 @@ class ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Test\\TestCase' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Test/TestCase.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
-        'Psr\\Log\\AbstractLogger' => __DIR__ . '/..' . '/psr/log/src/AbstractLogger.php',
-        'Psr\\Log\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/log/src/InvalidArgumentException.php',
-        'Psr\\Log\\LogLevel' => __DIR__ . '/..' . '/psr/log/src/LogLevel.php',
-        'Psr\\Log\\LoggerAwareInterface' => __DIR__ . '/..' . '/psr/log/src/LoggerAwareInterface.php',
-        'Psr\\Log\\LoggerAwareTrait' => __DIR__ . '/..' . '/psr/log/src/LoggerAwareTrait.php',
-        'Psr\\Log\\LoggerInterface' => __DIR__ . '/..' . '/psr/log/src/LoggerInterface.php',
-        'Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/src/LoggerTrait.php',
-        'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/src/NullLogger.php',
+        'Psr\\Log\\AbstractLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/AbstractLogger.php',
+        'Psr\\Log\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/log/Psr/Log/InvalidArgumentException.php',
+        'Psr\\Log\\LogLevel' => __DIR__ . '/..' . '/psr/log/Psr/Log/LogLevel.php',
+        'Psr\\Log\\LoggerAwareInterface' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerAwareInterface.php',
+        'Psr\\Log\\LoggerAwareTrait' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerAwareTrait.php',
+        'Psr\\Log\\LoggerInterface' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerInterface.php',
+        'Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerTrait.php',
+        'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/NullLogger.php',
+        'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/DummyTest.php',
+        'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
+        'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
         'WP_Async_Request' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
         'WP_Background_Process' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
     );
@@ -315,9 +288,9 @@ class ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcb7da3079f0581f36dc03b708d1986c2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcd34e511a5990716856487eba8d6264c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcd34e511a5990716856487eba8d6264c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcd34e511a5990716856487eba8d6264c::$classMap;
 
         }, null, ClassLoader::class);
     }

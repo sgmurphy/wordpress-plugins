@@ -1125,7 +1125,7 @@ class WCP_Folders
                         if (!isset($_REQUEST[$post_type])) {
                             ?>
                             <script>
-                                window.location = '<?php echo esc_url(admin_url()).".edit.php?post_type=".esc_attr($typenow)."&".esc_attr($post_type)."=".esc_attr($last_status) ?>';
+                                window.location = '<?php echo esc_url(admin_url())."edit.php?post_type=".esc_attr($typenow)."&".esc_attr($post_type)."=".esc_attr($last_status) ?>';
                             </script>
                             <?php
                             exit;

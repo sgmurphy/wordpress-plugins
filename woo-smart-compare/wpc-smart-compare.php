@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Compare for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Smart products compare for WooCommerce.
-Version: 6.2.4
+Version: 6.2.5
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-compare
@@ -12,12 +12,12 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.7
+WC tested up to: 8.8
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.4' );
+! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.5' );
 ! defined( 'WOOSC_LITE' ) && define( 'WOOSC_LITE', __FILE__ );
 ! defined( 'WOOSC_FILE' ) && define( 'WOOSC_FILE', __FILE__ );
 ! defined( 'WOOSC_URI' ) && define( 'WOOSC_URI', plugin_dir_url( __FILE__ ) );
@@ -326,7 +326,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 				}
 
 				function admin_enqueue_scripts( $hook ) {
-					if ( strpos( $hook, 'woosc' ) ) {
+					if ( str_contains( $hook, 'woosc' ) ) {
 						wp_enqueue_style( 'wp-color-picker' );
 						wp_enqueue_style( 'fonticonpicker', WOOSC_URI . 'assets/libs/fonticonpicker/css/jquery.fonticonpicker.css' );
 						wp_enqueue_script( 'fonticonpicker', WOOSC_URI . 'assets/libs/fonticonpicker/js/jquery.fonticonpicker.min.js', [ 'jquery' ] );
@@ -392,7 +392,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 
 				function admin_menu_content() {
 					add_thickbox();
-					$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'settings';
+					$active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
 					?>
                     <div class="wpclever_settings_page wrap">
                         <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Smart Compare', 'woo-smart-compare' ) . ' ' . esc_html( WOOSC_VERSION ) . ' ' . ( defined( 'WOOSC_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'woo-smart-compare' ) . '</span>' : '' ); ?></h1>
@@ -476,56 +476,58 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Disable for unauthenticated users', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[disable_unauthenticated]">
-                                                    <option value="yes" <?php selected( $disable_unauthenticated, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $disable_unauthenticated, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[disable_unauthenticated]">
+                                                        <option value="yes" <?php selected( $disable_unauthenticated, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $disable_unauthenticated, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Product adding', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[adding]">
-                                                    <option value="prepend" <?php selected( $adding, 'prepend' ); ?>><?php esc_html_e( 'Prepend', 'woo-smart-compare' ); ?></option>
-                                                    <option value="append" <?php selected( $adding, 'append' ); ?>><?php esc_html_e( 'Append', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[adding]">
+                                                        <option value="prepend" <?php selected( $adding, 'prepend' ); ?>><?php esc_html_e( 'Prepend', 'woo-smart-compare' ); ?></option>
+                                                        <option value="append" <?php selected( $adding, 'append' ); ?>><?php esc_html_e( 'Append', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'The new product will be added to the first or last of the list?', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Hide on cart & checkout page', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[hide_checkout]">
-                                                    <option value="yes" <?php selected( $hide_checkout, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $hide_checkout, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[hide_checkout]">
+                                                        <option value="yes" <?php selected( $hide_checkout, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $hide_checkout, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Hide the comparison table and comparison bar on the cart & checkout page?', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Hide if empty', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[hide_empty]">
-                                                    <option value="yes" <?php selected( $hide_empty, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $hide_empty, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[hide_empty]">
+                                                        <option value="yes" <?php selected( $hide_empty, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $hide_empty, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Hide the comparison table and comparison bar if haven\'t any product.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Compare variations', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[variations]">
-                                                    <option value="yes" <?php selected( $variations, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $variations, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[variations]">
+                                                        <option value="yes" <?php selected( $variations, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $variations, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Compare selected variation instead of the main variable product.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Limit', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="number" min="1" max="100" step="1" name="woosc_settings[limit]" value="<?php echo self::get_setting( 'limit', '100' ); ?>"/>
+                                                <label>
+                                                    <input type="number" min="1" max="100" step="1" name="woosc_settings[limit]" value="<?php echo self::get_setting( 'limit', '100' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'The maximum of products can be added to the comparison table.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -550,73 +552,79 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Type', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[button_type]">
-                                                    <option value="button" <?php selected( $button_type, 'button' ); ?>><?php esc_html_e( 'Button', 'woo-smart-compare' ); ?></option>
-                                                    <option value="link" <?php selected( $button_type, 'link' ); ?>><?php esc_html_e( 'Link', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[button_type]">
+                                                        <option value="button" <?php selected( $button_type, 'button' ); ?>><?php esc_html_e( 'Button', 'woo-smart-compare' ); ?></option>
+                                                        <option value="link" <?php selected( $button_type, 'link' ); ?>><?php esc_html_e( 'Link', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use icon', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[button_icon]" class="woosc_button_icon">
-                                                    <option value="left" <?php selected( $button_icon, 'left' ); ?>><?php esc_html_e( 'Icon on the left', 'woo-smart-compare' ); ?></option>
-                                                    <option value="right" <?php selected( $button_icon, 'right' ); ?>><?php esc_html_e( 'Icon on the right', 'woo-smart-compare' ); ?></option>
-                                                    <option value="only" <?php selected( $button_icon, 'only' ); ?>><?php esc_html_e( 'Icon only', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $button_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label>
+                                                    <select name="woosc_settings[button_icon]" class="woosc_button_icon">
+                                                        <option value="left" <?php selected( $button_icon, 'left' ); ?>><?php esc_html_e( 'Icon on the left', 'woo-smart-compare' ); ?></option>
+                                                        <option value="right" <?php selected( $button_icon, 'right' ); ?>><?php esc_html_e( 'Icon on the right', 'woo-smart-compare' ); ?></option>
+                                                        <option value="only" <?php selected( $button_icon, 'only' ); ?>><?php esc_html_e( 'Icon only', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $button_icon, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosc-show-if-button-icon">
                                             <th><?php esc_html_e( 'Normal icon', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[button_normal_icon]" class="woosc_icon_picker">
-													<?php for ( $i = 1; $i <= 79; $i ++ ) {
-														echo '<option value="woosc-icon-' . $i . '" ' . selected( $button_normal_icon, 'woosc-icon-' . $i, false ) . '>woosc-icon-' . $i . '</option>';
-													} ?>
-                                                </select>
+                                                <label>
+                                                    <select name="woosc_settings[button_normal_icon]" class="woosc_icon_picker">
+														<?php for ( $i = 1; $i <= 79; $i ++ ) {
+															echo '<option value="woosc-icon-' . $i . '" ' . selected( $button_normal_icon, 'woosc-icon-' . $i, false ) . '>woosc-icon-' . $i . '</option>';
+														} ?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="woosc-show-if-button-icon">
                                             <th><?php esc_html_e( 'Added icon', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[button_added_icon]" class="woosc_icon_picker">
-													<?php for ( $i = 1; $i <= 79; $i ++ ) {
-														echo '<option value="woosc-icon-' . $i . '" ' . selected( $button_added_icon, 'woosc-icon-' . $i, false ) . '>woosc-icon-' . $i . '</option>';
-													} ?>
-                                                </select>
+                                                <label>
+                                                    <select name="woosc_settings[button_added_icon]" class="woosc_icon_picker">
+														<?php for ( $i = 1; $i <= 79; $i ++ ) {
+															echo '<option value="woosc-icon-' . $i . '" ' . selected( $button_added_icon, 'woosc-icon-' . $i, false ) . '>woosc-icon-' . $i . '</option>';
+														} ?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Action', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[button_action]" class="woosc_button_action">
-                                                    <option value="show_bar" <?php selected( $button_action, 'show_bar' ); ?>><?php esc_html_e( 'Open comparison bar', 'woo-smart-compare' ); ?></option>
-                                                    <option value="show_table" <?php selected( $button_action, 'show_table' ); ?>><?php esc_html_e( 'Open comparison table', 'woo-smart-compare' ); ?></option>
-                                                    <option value="show_sidebar" <?php selected( $button_action, 'show_sidebar' ); ?>><?php esc_html_e( 'Open comparison sidebar', 'woo-smart-compare' ); ?></option>
-                                                    <option value="show_message" <?php selected( $button_action, 'show_message' ); ?>><?php esc_html_e( 'Show message', 'woo-smart-compare' ); ?></option>
-                                                    <option value="none" <?php selected( $button_action, 'none' ); ?>><?php esc_html_e( 'Add to compare solely', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label>
+                                                    <select name="woosc_settings[button_action]" class="woosc_button_action">
+                                                        <option value="show_bar" <?php selected( $button_action, 'show_bar' ); ?>><?php esc_html_e( 'Open comparison bar', 'woo-smart-compare' ); ?></option>
+                                                        <option value="show_table" <?php selected( $button_action, 'show_table' ); ?>><?php esc_html_e( 'Open comparison table', 'woo-smart-compare' ); ?></option>
+                                                        <option value="show_sidebar" <?php selected( $button_action, 'show_sidebar' ); ?>><?php esc_html_e( 'Open comparison sidebar', 'woo-smart-compare' ); ?></option>
+                                                        <option value="show_message" <?php selected( $button_action, 'show_message' ); ?>><?php esc_html_e( 'Show message', 'woo-smart-compare' ); ?></option>
+                                                        <option value="none" <?php selected( $button_action, 'none' ); ?>><?php esc_html_e( 'Add to compare solely', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Action triggered by clicking on the compare button.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr class="woosc_button_action_hide woosc_button_action_show_message">
                                             <th scope="row"><?php esc_html_e( 'Message position', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[message_position]">
-                                                    <option value="right-top" <?php selected( $message_position, 'right-top' ); ?>><?php esc_html_e( 'right-top', 'woo-smart-compare' ); ?></option>
-                                                    <option value="right-bottom" <?php selected( $message_position, 'right-bottom' ); ?>><?php esc_html_e( 'right-bottom', 'woo-smart-compare' ); ?></option>
-                                                    <option value="fluid-top" <?php selected( $message_position, 'fluid-top' ); ?>><?php esc_html_e( 'center-top', 'woo-smart-compare' ); ?></option>
-                                                    <option value="fluid-bottom" <?php selected( $message_position, 'fluid-bottom' ); ?>><?php esc_html_e( 'center-bottom', 'woo-smart-compare' ); ?></option>
-                                                    <option value="left-top" <?php selected( $message_position, 'left-top' ); ?>><?php esc_html_e( 'left-top', 'woo-smart-compare' ); ?></option>
-                                                    <option value="left-bottom" <?php selected( $message_position, 'left-bottom' ); ?>><?php esc_html_e( 'left-bottom', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[message_position]">
+                                                        <option value="right-top" <?php selected( $message_position, 'right-top' ); ?>><?php esc_html_e( 'right-top', 'woo-smart-compare' ); ?></option>
+                                                        <option value="right-bottom" <?php selected( $message_position, 'right-bottom' ); ?>><?php esc_html_e( 'right-bottom', 'woo-smart-compare' ); ?></option>
+                                                        <option value="fluid-top" <?php selected( $message_position, 'fluid-top' ); ?>><?php esc_html_e( 'center-top', 'woo-smart-compare' ); ?></option>
+                                                        <option value="fluid-bottom" <?php selected( $message_position, 'fluid-bottom' ); ?>><?php esc_html_e( 'center-bottom', 'woo-smart-compare' ); ?></option>
+                                                        <option value="left-top" <?php selected( $message_position, 'left-top' ); ?>><?php esc_html_e( 'left-top', 'woo-smart-compare' ); ?></option>
+                                                        <option value="left-bottom" <?php selected( $message_position, 'left-bottom' ); ?>><?php esc_html_e( 'left-bottom', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Extra class (optional)', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_settings[button_class]" value="<?php echo self::get_setting( 'button_class', '' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_settings[button_class]" value="<?php echo self::get_setting( 'button_class', '' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'Add extra class for action button/link, split by one space.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -635,17 +643,18 @@ if ( ! function_exists( 'woosc_init' ) ) {
 													'0'                  => esc_html__( 'None (hide it)', 'woo-smart-compare' ),
 												] );
 												?>
-                                                <select name="woosc_settings[button_archive]" <?php echo esc_attr( $btn_a !== 'default' ? 'disabled' : '' ); ?>>
-													<?php
-													if ( $btn_a === 'default' ) {
-														$btn_a = self::get_setting( 'button_archive', apply_filters( 'woosc_button_position_archive_default', 'after_add_to_cart' ) );
-													}
+                                                <label>
+                                                    <select name="woosc_settings[button_archive]" <?php echo esc_attr( $btn_a !== 'default' ? 'disabled' : '' ); ?>>
+														<?php
+														if ( $btn_a === 'default' ) {
+															$btn_a = self::get_setting( 'button_archive', apply_filters( 'woosc_button_position_archive_default', 'after_add_to_cart' ) );
+														}
 
-													foreach ( $pos_a as $k => $p ) {
-														echo '<option value="' . esc_attr( $k ) . '" ' . ( ( strval( $k ) === strval( $btn_a ) ) || ( $k === $btn_a ) || ( empty( $btn_a ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
-													}
-													?>
-                                                </select>
+														foreach ( $pos_a as $k => $p ) {
+															echo '<option value="' . esc_attr( $k ) . '" ' . ( ( strval( $k ) === strval( $btn_a ) ) || ( $k === $btn_a ) || ( empty( $btn_a ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
+														}
+														?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -664,17 +673,18 @@ if ( ! function_exists( 'woosc_init' ) ) {
 													'0'  => esc_html__( 'None (hide it)', 'woo-smart-compare' ),
 												] );
 												?>
-                                                <select name="woosc_settings[button_single]" <?php echo esc_attr( $btn_s !== 'default' ? 'disabled' : '' ); ?>>
-													<?php
-													if ( $btn_s === 'default' ) {
-														$btn_s = self::get_setting( 'button_single', apply_filters( 'woosc_button_position_single_default', '31' ) );
-													}
+                                                <label>
+                                                    <select name="woosc_settings[button_single]" <?php echo esc_attr( $btn_s !== 'default' ? 'disabled' : '' ); ?>>
+														<?php
+														if ( $btn_s === 'default' ) {
+															$btn_s = self::get_setting( 'button_single', apply_filters( 'woosc_button_position_single_default', '31' ) );
+														}
 
-													foreach ( $pos_s as $k => $p ) {
-														echo '<option value="' . esc_attr( $k ) . '" ' . ( ( strval( $k ) === strval( $btn_s ) ) || ( $k === $btn_s ) || ( empty( $btn_s ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
-													}
-													?>
-                                                </select>
+														foreach ( $pos_s as $k => $p ) {
+															echo '<option value="' . esc_attr( $k ) . '" ' . ( ( strval( $k ) === strval( $btn_s ) ) || ( $k === $btn_s ) || ( empty( $btn_s ) && empty( $k ) ) ? 'selected' : '' ) . '>' . esc_html( $p ) . '</option>';
+														}
+														?>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -711,10 +721,10 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Remove when clicking again', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[click_again]">
-                                                    <option value="yes" <?php selected( $click_again, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $click_again, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[click_again]">
+                                                        <option value="yes" <?php selected( $click_again, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $click_again, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Do you want to remove product when clicking again?', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -727,10 +737,10 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Position', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[sidebar_position]">
-                                                    <option value="right" <?php selected( $sidebar_position, 'right' ); ?>><?php esc_html_e( 'Right', 'woo-smart-compare' ); ?></option>
-                                                    <option value="left" <?php selected( $sidebar_position, 'left' ); ?>><?php esc_html_e( 'Left', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[sidebar_position]">
+                                                        <option value="right" <?php selected( $sidebar_position, 'right' ); ?>><?php esc_html_e( 'Right', 'woo-smart-compare' ); ?></option>
+                                                        <option value="left" <?php selected( $sidebar_position, 'left' ); ?>><?php esc_html_e( 'Left', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -788,37 +798,37 @@ if ( ! function_exists( 'woosc_init' ) ) {
 														?>
                                                     </div>
                                                     <div class="woosc-fields-more">
-                                                        <select class="woosc-field-types">
-															<?php
-															// default fields
-															if ( ! empty( self::$fields ) ) {
-																echo '<optgroup label="' . esc_attr__( 'Default', 'woo-smart-compare' ) . '">';
+                                                        <label> <select class="woosc-field-types">
+																<?php
+																// default fields
+																if ( ! empty( self::$fields ) ) {
+																	echo '<optgroup label="' . esc_attr__( 'Default', 'woo-smart-compare' ) . '">';
 
-																foreach ( self::$fields as $fk => $fv ) {
-																	echo '<option value="' . esc_attr( $fk ) . '" data-type="default">' . esc_html( $fv ) . '</option>';
+																	foreach ( self::$fields as $fk => $fv ) {
+																		echo '<option value="' . esc_attr( $fk ) . '" data-type="default">' . esc_html( $fv ) . '</option>';
+																	}
+
+																	echo '</optgroup>';
 																}
 
-																echo '</optgroup>';
-															}
+																// attributes
+																if ( $wc_attributes = wc_get_attribute_taxonomies() ) {
+																	echo '<optgroup label="' . esc_attr__( 'Attributes', 'woo-smart-compare' ) . '">';
+																	echo '<option value="all" data-type="attribute" disabled>' . esc_html__( 'All attributes', 'woo-smart-compare' ) . '</option>';
 
-															// attributes
-															if ( $wc_attributes = wc_get_attribute_taxonomies() ) {
-																echo '<optgroup label="' . esc_attr__( 'Attributes', 'woo-smart-compare' ) . '">';
-																echo '<option value="all" data-type="attribute" disabled>' . esc_html__( 'All attributes', 'woo-smart-compare' ) . '</option>';
+																	foreach ( $wc_attributes as $wc_attribute ) {
+																		echo '<option value="' . esc_attr( urlencode( 'pa_' . $wc_attribute->attribute_name ) ) . '" data-type="attribute" disabled>' . esc_html( $wc_attribute->attribute_label ) . '</option>';
+																	}
 
-																foreach ( $wc_attributes as $wc_attribute ) {
-																	echo '<option value="' . esc_attr( urlencode( 'pa_' . $wc_attribute->attribute_name ) ) . '" data-type="attribute" disabled>' . esc_html( $wc_attribute->attribute_label ) . '</option>';
+																	echo '</optgroup>';
 																}
-
-																echo '</optgroup>';
-															}
-															?>
-                                                            <optgroup label="<?php esc_attr_e( 'Custom', 'woo-smart-compare' ); ?>">
-                                                                <option value="custom_field" data-type="custom_field" disabled><?php esc_html_e( 'Custom field', 'woo-smart-compare' ); ?></option>
-                                                                <option value="custom_attribute" data-type="custom_attribute" disabled><?php esc_html_e( 'Custom attribute', 'woo-smart-compare' ); ?></option>
-                                                                <option value="shortcode" data-type="shortcode"><?php esc_html_e( 'Custom text/shortcode', 'woo-smart-compare' ); ?></option>
-                                                            </optgroup>
-                                                        </select>
+																?>
+                                                                <optgroup label="<?php esc_attr_e( 'Custom', 'woo-smart-compare' ); ?>">
+                                                                    <option value="custom_field" data-type="custom_field" disabled><?php esc_html_e( 'Custom field', 'woo-smart-compare' ); ?></option>
+                                                                    <option value="custom_attribute" data-type="custom_attribute" disabled><?php esc_html_e( 'Custom attribute', 'woo-smart-compare' ); ?></option>
+                                                                    <option value="shortcode" data-type="shortcode"><?php esc_html_e( 'Custom text/shortcode', 'woo-smart-compare' ); ?></option>
+                                                                </optgroup>
+                                                            </select> </label>
                                                         <button type="button" class="button woosc-field-add" data-setting="fields6"><?php esc_html_e( '+ Add', 'woo-smart-compare' ); ?></button>
                                                     </div>
                                                     <span class="description" style="color: #c9356e">
@@ -855,21 +865,21 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Link to individual product', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[link]">
-                                                    <option value="yes" <?php selected( $link, 'yes' ); ?>><?php esc_html_e( 'Yes, open in the same tab', 'woo-smart-compare' ); ?></option>
-                                                    <option value="yes_blank" <?php selected( $link, 'yes_blank' ); ?>><?php esc_html_e( 'Yes, open in the new tab', 'woo-smart-compare' ); ?></option>
-                                                    <option value="yes_popup" <?php selected( $link, 'yes_popup' ); ?>><?php esc_html_e( 'Yes, open quick view popup', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $link, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select> <span class="description">If you choose "Open quick view popup", please install <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> to make it work.</span>
+                                                <label> <select name="woosc_settings[link]">
+                                                        <option value="yes" <?php selected( $link, 'yes' ); ?>><?php esc_html_e( 'Yes, open in the same tab', 'woo-smart-compare' ); ?></option>
+                                                        <option value="yes_blank" <?php selected( $link, 'yes_blank' ); ?>><?php esc_html_e( 'Yes, open in the new tab', 'woo-smart-compare' ); ?></option>
+                                                        <option value="yes_popup" <?php selected( $link, 'yes_popup' ); ?>><?php esc_html_e( 'Yes, open quick view popup', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $link, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label> <span class="description">If you choose "Open quick view popup", please install <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> to make it work.</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( '"Settings" button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[table_settings]">
-                                                    <option value="yes" <?php selected( $table_settings, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $table_settings, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[table_settings]">
+                                                        <option value="yes" <?php selected( $table_settings, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $table_settings, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show the settings popup to customize fields (show/ hide / rearrange).', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -892,50 +902,50 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( '"Remove" button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[remove]">
-                                                    <option value="yes" <?php selected( $remove, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[remove]">
+                                                        <option value="yes" <?php selected( $remove, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show remove button beside product name.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Freeze first column', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[freeze_column]">
-                                                    <option value="yes" <?php selected( $freeze_column, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $freeze_column, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[freeze_column]">
+                                                        <option value="yes" <?php selected( $freeze_column, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $freeze_column, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Freeze the first column (fields and attributes title) when scrolling horizontally.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Freeze first row', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[freeze_row]">
-                                                    <option value="yes" <?php selected( $freeze_row, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $freeze_row, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[freeze_row]">
+                                                        <option value="yes" <?php selected( $freeze_row, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $freeze_row, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Freeze the first row (product name) when scrolling vertically.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Use perfect-scrollbar', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[perfect_scrollbar]">
-                                                    <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[perfect_scrollbar]">
+                                                        <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php printf( /* translators: link */ esc_html__( 'Read more about %s', 'woo-smart-compare' ), '<a href="https://github.com/mdbootstrap/perfect-scrollbar" target="_blank">perfect-scrollbar</a>' ); ?>.</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Close button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[close_button]">
-                                                    <option value="yes" <?php selected( $close_button, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $close_button, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[close_button]">
+                                                        <option value="yes" <?php selected( $close_button, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $close_button, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Enable the close button at top-right conner of comparison table?', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -948,64 +958,68 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Open immediately', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="checkbox" name="woosc_settings[open_bar_immediately]" value="yes" <?php echo esc_attr( self::get_setting( 'open_bar_immediately', 'no' ) === 'yes' ? 'checked' : '' ); ?>/>
+                                                <label>
+                                                    <input type="checkbox" name="woosc_settings[open_bar_immediately]" value="yes" <?php echo esc_attr( self::get_setting( 'open_bar_immediately', 'no' ) === 'yes' ? 'checked' : '' ); ?>/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'Check it if you want to open the comparison bar immediately on page loaded.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Bubble', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_bubble]">
-                                                    <option value="yes" <?php selected( $bar_bubble, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $bar_bubble, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_bubble]">
+                                                        <option value="yes" <?php selected( $bar_bubble, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $bar_bubble, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Use the bubble instead of a fully comparison bar.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( '"Print" button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_print]">
-                                                    <option value="yes" <?php selected( $bar_print, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $bar_print, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_print]">
+                                                        <option value="yes" <?php selected( $bar_print, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $bar_print, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show the print button.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( '"Share" button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_share]">
-                                                    <option value="yes" <?php selected( $bar_share, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $bar_share, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_share]">
+                                                        <option value="yes" <?php selected( $bar_share, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $bar_share, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Show the share button.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( '"Add more" button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_add]">
-                                                    <option value="yes" <?php selected( $bar_add, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $bar_add, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_add]">
+                                                        <option value="yes" <?php selected( $bar_add, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $bar_add, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Add the button to search product and add to compare list immediately.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( '"Add more" count', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="number" min="1" max="100" name="woosc_settings[search_count]" value="<?php echo self::get_setting( 'search_count', 10 ); ?>"/>
+                                                <label>
+                                                    <input type="number" min="1" max="100" name="woosc_settings[search_count]" value="<?php echo self::get_setting( 'search_count', 10 ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'The result count of search function when clicking on "Add more" button.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( '"Remove all" button', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_remove]">
-                                                    <option value="yes" <?php selected( $bar_remove, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $bar_remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_remove]">
+                                                        <option value="yes" <?php selected( $bar_remove, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $bar_remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Add the button to remove all products from compare immediately.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -1013,7 +1027,9 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                             <th scope="row"><?php esc_html_e( 'Background color', 'woo-smart-compare' ); ?></th>
                                             <td>
 												<?php $bar_bg_color_default = apply_filters( 'woosc_bar_bg_color_default', '#292a30' ); ?>
-                                                <input type="text" class="woosc_color_picker" name="woosc_settings[bar_bg_color]" value="<?php echo self::get_setting( 'bar_bg_color', $bar_bg_color_default ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="woosc_color_picker" name="woosc_settings[bar_bg_color]" value="<?php echo self::get_setting( 'bar_bg_color', $bar_bg_color_default ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php printf( /* translators: color */ esc_html__( 'Choose the background color for the comparison bar, default %s', 'woo-smart-compare' ), '<code>' . $bar_bg_color_default . '</code>' ); ?></span>
                                             </td>
                                         </tr>
@@ -1021,36 +1037,38 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                             <th scope="row"><?php esc_html_e( 'Button color', 'woo-smart-compare' ); ?></th>
                                             <td>
 												<?php $bar_btn_color_default = apply_filters( 'woosc_bar_btn_color_default', '#00a0d2' ); ?>
-                                                <input type="text" class="woosc_color_picker" name="woosc_settings[bar_btn_color]" value="<?php echo self::get_setting( 'bar_btn_color', $bar_btn_color_default ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="woosc_color_picker" name="woosc_settings[bar_btn_color]" value="<?php echo self::get_setting( 'bar_btn_color', $bar_btn_color_default ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php printf( /* translators: color */ esc_html__( 'Choose the color for the button on comparison bar, default %s', 'woo-smart-compare' ), '<code>' . $bar_btn_color_default . '</code>' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Position', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_pos]">
-                                                    <option value="bottom" <?php selected( $bar_pos, 'bottom' ); ?>><?php esc_html_e( 'Bottom', 'woo-smart-compare' ); ?></option>
-                                                    <option value="top" <?php selected( $bar_pos, 'top' ); ?>><?php esc_html_e( 'Top', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_pos]">
+                                                        <option value="bottom" <?php selected( $bar_pos, 'bottom' ); ?>><?php esc_html_e( 'Bottom', 'woo-smart-compare' ); ?></option>
+                                                        <option value="top" <?php selected( $bar_pos, 'top' ); ?>><?php esc_html_e( 'Top', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Align', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[bar_align]">
-                                                    <option value="right" <?php selected( $bar_align, 'right' ); ?>><?php esc_html_e( 'Right', 'woo-smart-compare' ); ?></option>
-                                                    <option value="left" <?php selected( $bar_align, 'left' ); ?>><?php esc_html_e( 'Left', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[bar_align]">
+                                                        <option value="right" <?php selected( $bar_align, 'right' ); ?>><?php esc_html_e( 'Right', 'woo-smart-compare' ); ?></option>
+                                                        <option value="left" <?php selected( $bar_align, 'left' ); ?>><?php esc_html_e( 'Left', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Click outside to hide', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[click_outside]">
-                                                    <option value="yes" <?php selected( $click_outside, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="yes_empty" <?php selected( $click_outside, 'yes_empty' ); ?>><?php esc_html_e( 'Yes if empty', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $click_outside, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[click_outside]">
+                                                        <option value="yes" <?php selected( $click_outside, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="yes_empty" <?php selected( $click_outside, 'yes_empty' ); ?>><?php esc_html_e( 'Yes if empty', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $click_outside, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1062,29 +1080,29 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Enable', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[quick_table_enable]">
-                                                    <option value="yes" <?php selected( $quick_table_enable, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $quick_table_enable, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select> <span class="description">Enable this to display the quick comparison table with related products on single product pages. You can customize the list of related products using our <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=wpc-custom-related-products&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Custom Related Products">WPC Custom Related Products</a> plugin.</span>
+                                                <label> <select name="woosc_settings[quick_table_enable]">
+                                                        <option value="yes" <?php selected( $quick_table_enable, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $quick_table_enable, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label> <span class="description">Enable this to display the quick comparison table with related products on single product pages. You can customize the list of related products using our <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=wpc-custom-related-products&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Custom Related Products">WPC Custom Related Products</a> plugin.</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Position', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[quick_table_position]">
-                                                    <option value="above_related" <?php selected( $quick_table_position, 'above_related' ); ?>><?php esc_html_e( 'Above related', 'woo-smart-compare' ); ?></option>
-                                                    <option value="under_related" <?php selected( $quick_table_position, 'under_related' ); ?>><?php esc_html_e( 'Under related', 'woo-smart-compare' ); ?></option>
-                                                    <option value="replace_related" <?php selected( $quick_table_position, 'replace_related' ); ?>><?php esc_html_e( 'Replace related', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[quick_table_position]">
+                                                        <option value="above_related" <?php selected( $quick_table_position, 'above_related' ); ?>><?php esc_html_e( 'Above related', 'woo-smart-compare' ); ?></option>
+                                                        <option value="under_related" <?php selected( $quick_table_position, 'under_related' ); ?>><?php esc_html_e( 'Under related', 'woo-smart-compare' ); ?></option>
+                                                        <option value="replace_related" <?php selected( $quick_table_position, 'replace_related' ); ?>><?php esc_html_e( 'Replace related', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Label column', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[quick_table_label]">
-                                                    <option value="yes" <?php selected( $quick_table_label, 'yes' ); ?>><?php esc_html_e( 'Show', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $quick_table_label, 'no' ); ?>><?php esc_html_e( 'Hide', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[quick_table_label]">
+                                                        <option value="yes" <?php selected( $quick_table_label, 'yes' ); ?>><?php esc_html_e( 'Show', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $quick_table_label, 'no' ); ?>><?php esc_html_e( 'Hide', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1136,37 +1154,37 @@ if ( ! function_exists( 'woosc_init' ) ) {
 														?>
                                                     </div>
                                                     <div class="woosc-fields-more">
-                                                        <select class="woosc-field-types">
-															<?php
-															// default fields
-															if ( ! empty( self::$fields ) ) {
-																echo '<optgroup label="' . esc_attr__( 'Default', 'woo-smart-compare' ) . '">';
+                                                        <label> <select class="woosc-field-types">
+																<?php
+																// default fields
+																if ( ! empty( self::$fields ) ) {
+																	echo '<optgroup label="' . esc_attr__( 'Default', 'woo-smart-compare' ) . '">';
 
-																foreach ( self::$fields as $fk => $fv ) {
-																	echo '<option value="' . esc_attr( $fk ) . '" data-type="default">' . esc_html( $fv ) . '</option>';
+																	foreach ( self::$fields as $fk => $fv ) {
+																		echo '<option value="' . esc_attr( $fk ) . '" data-type="default">' . esc_html( $fv ) . '</option>';
+																	}
+
+																	echo '</optgroup>';
 																}
 
-																echo '</optgroup>';
-															}
+																// attributes
+																if ( $wc_attributes = wc_get_attribute_taxonomies() ) {
+																	echo '<optgroup label="' . esc_attr__( 'Attributes', 'woo-smart-compare' ) . '">';
+																	echo '<option value="all" data-type="attribute" disabled>' . esc_html__( 'All attributes', 'woo-smart-compare' ) . '</option>';
 
-															// attributes
-															if ( $wc_attributes = wc_get_attribute_taxonomies() ) {
-																echo '<optgroup label="' . esc_attr__( 'Attributes', 'woo-smart-compare' ) . '">';
-																echo '<option value="all" data-type="attribute" disabled>' . esc_html__( 'All attributes', 'woo-smart-compare' ) . '</option>';
+																	foreach ( $wc_attributes as $wc_attribute ) {
+																		echo '<option value="' . esc_attr( urlencode( 'pa_' . $wc_attribute->attribute_name ) ) . '" data-type="attribute" disabled>' . esc_html( $wc_attribute->attribute_label ) . '</option>';
+																	}
 
-																foreach ( $wc_attributes as $wc_attribute ) {
-																	echo '<option value="' . esc_attr( urlencode( 'pa_' . $wc_attribute->attribute_name ) ) . '" data-type="attribute" disabled>' . esc_html( $wc_attribute->attribute_label ) . '</option>';
+																	echo '</optgroup>';
 																}
-
-																echo '</optgroup>';
-															}
-															?>
-                                                            <optgroup label="<?php esc_attr_e( 'Custom', 'woo-smart-compare' ); ?>">
-                                                                <option value="custom_field" data-type="custom_field" disabled><?php esc_html_e( 'Custom field', 'woo-smart-compare' ); ?></option>
-                                                                <option value="custom_attribute" data-type="custom_attribute" disabled><?php esc_html_e( 'Custom attribute', 'woo-smart-compare' ); ?></option>
-                                                                <option value="shortcode" data-type="shortcode"><?php esc_html_e( 'Custom text/shortcode', 'woo-smart-compare' ); ?></option>
-                                                            </optgroup>
-                                                        </select>
+																?>
+                                                                <optgroup label="<?php esc_attr_e( 'Custom', 'woo-smart-compare' ); ?>">
+                                                                    <option value="custom_field" data-type="custom_field" disabled><?php esc_html_e( 'Custom field', 'woo-smart-compare' ); ?></option>
+                                                                    <option value="custom_attribute" data-type="custom_attribute" disabled><?php esc_html_e( 'Custom attribute', 'woo-smart-compare' ); ?></option>
+                                                                    <option value="shortcode" data-type="shortcode"><?php esc_html_e( 'Custom text/shortcode', 'woo-smart-compare' ); ?></option>
+                                                                </optgroup>
+                                                            </select> </label>
                                                         <button type="button" class="button woosc-field-add" data-setting="quick_fields6"><?php esc_html_e( '+ Add', 'woo-smart-compare' ); ?></button>
                                                     </div>
                                                     <span class="description" style="color: #c9356e">
@@ -1211,27 +1229,29 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Action', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[menu_action]">
-                                                    <option value="open_page" <?php selected( $menu_action, 'open_page' ); ?>><?php esc_html_e( 'Open comparison page', 'woo-smart-compare' ); ?></option>
-                                                    <option value="open_popup" <?php selected( $menu_action, 'open_popup' ); ?>><?php esc_html_e( 'Open comparison table', 'woo-smart-compare' ); ?></option>
-                                                    <option value="open_sidebar" <?php selected( $menu_action, 'open_sidebar' ); ?>><?php esc_html_e( 'Open comparison sidebar', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[menu_action]">
+                                                        <option value="open_page" <?php selected( $menu_action, 'open_page' ); ?>><?php esc_html_e( 'Open comparison page', 'woo-smart-compare' ); ?></option>
+                                                        <option value="open_popup" <?php selected( $menu_action, 'open_popup' ); ?>><?php esc_html_e( 'Open comparison table', 'woo-smart-compare' ); ?></option>
+                                                        <option value="open_sidebar" <?php selected( $menu_action, 'open_sidebar' ); ?>><?php esc_html_e( 'Open comparison sidebar', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Action when clicking on the "compare menu".', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Add Comparison page to My Account', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[page_myaccount]">
-                                                    <option value="yes" <?php selected( $page_myaccount, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
-                                                    <option value="no" <?php selected( $page_myaccount, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[page_myaccount]">
+                                                        <option value="yes" <?php selected( $page_myaccount, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $page_myaccount, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Custom menu', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_settings[open_button]" value="<?php echo self::get_setting( 'open_button', '' ); ?>" placeholder="<?php esc_html_e( 'button class or id', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_settings[open_button]" value="<?php echo self::get_setting( 'open_button', '' ); ?>" placeholder="<?php esc_html_e( 'button class or id', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php printf( /* translators: selector */ esc_html__( 'Example %1$s or %2$s', 'woo-smart-compare' ), '<code>.open-compare-btn</code>', '<code>#open-compare-btn</code>' ); ?></span>
                                                 <p class="description"><?php esc_html_e( 'The class or id of the menu, when clicking on this menu the comparison page or comparison table will be opened.', 'woo-smart-compare' ); ?></p>
                                             </td>
@@ -1239,11 +1259,11 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Custom menu action', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <select name="woosc_settings[open_button_action]">
-                                                    <option value="open_page" <?php selected( $open_button_action, 'open_page' ); ?>><?php esc_html_e( 'Open comparison page', 'woo-smart-compare' ); ?></option>
-                                                    <option value="open_popup" <?php selected( $open_button_action, 'open_popup' ); ?>><?php esc_html_e( 'Open comparison table', 'woo-smart-compare' ); ?></option>
-                                                    <option value="open_sidebar" <?php selected( $open_button_action, 'open_sidebar' ); ?>><?php esc_html_e( 'Open comparison sidebar', 'woo-smart-compare' ); ?></option>
-                                                </select>
+                                                <label> <select name="woosc_settings[open_button_action]">
+                                                        <option value="open_page" <?php selected( $open_button_action, 'open_page' ); ?>><?php esc_html_e( 'Open comparison page', 'woo-smart-compare' ); ?></option>
+                                                        <option value="open_popup" <?php selected( $open_button_action, 'open_popup' ); ?>><?php esc_html_e( 'Open comparison table', 'woo-smart-compare' ); ?></option>
+                                                        <option value="open_sidebar" <?php selected( $open_button_action, 'open_sidebar' ); ?>><?php esc_html_e( 'Open comparison sidebar', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Action when clicking on the "custom menu".', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -1282,13 +1302,17 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Need to login', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[login]" value="<?php echo esc_attr( self::localization( 'login' ) ); ?>" placeholder="<?php esc_attr_e( 'Please log in to use the product comparison!', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[login]" value="<?php echo esc_attr( self::localization( 'login' ) ); ?>" placeholder="<?php esc_attr_e( 'Please log in to use the product comparison!', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Limit notice', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[limit]" value="<?php echo esc_attr( self::localization( 'limit' ) ); ?>" placeholder="<?php esc_attr_e( 'You can add a maximum of {limit} products to the comparison table.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[limit]" value="<?php echo esc_attr( self::localization( 'limit' ) ); ?>" placeholder="<?php esc_attr_e( 'You can add a maximum of {limit} products to the comparison table.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'The notice when reaching the limit. Use {limit} to show the number.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -1299,21 +1323,27 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Added', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[message_added]" value="<?php echo esc_attr( self::localization( 'message_added' ) ); ?>" placeholder="<?php esc_attr_e( '{name} has been added to Compare list.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[message_added]" value="<?php echo esc_attr( self::localization( 'message_added' ) ); ?>" placeholder="<?php esc_attr_e( '{name} has been added to Compare list.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'Use {name} for product name.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Removed', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[message_removed]" value="<?php echo esc_attr( self::localization( 'message_removed' ) ); ?>" placeholder="<?php esc_attr_e( '{name} has been removed from the Compare list.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[message_removed]" value="<?php echo esc_attr( self::localization( 'message_removed' ) ); ?>" placeholder="<?php esc_attr_e( '{name} has been removed from the Compare list.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'Use {name} for product name.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Exists', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[message_exists]" value="<?php echo esc_attr( self::localization( 'message_exists' ) ); ?>" placeholder="<?php esc_attr_e( '{name} is already in the Compare list.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[message_exists]" value="<?php echo esc_attr( self::localization( 'message_exists' ) ); ?>" placeholder="<?php esc_attr_e( '{name} is already in the Compare list.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                                 <span class="description"><?php esc_html_e( 'Use {name} for product name.', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
@@ -1324,13 +1354,17 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Button text', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[button]" value="<?php echo esc_attr( self::localization( 'button' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[button]" value="<?php echo esc_attr( self::localization( 'button' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Button (added) text', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[button_added]" value="<?php echo esc_attr( self::localization( 'button_added' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[button_added]" value="<?php echo esc_attr( self::localization( 'button_added' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1340,43 +1374,57 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Remove', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[table_remove]" value="<?php echo esc_attr( self::localization( 'table_remove' ) ); ?>" placeholder="<?php esc_attr_e( 'remove', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[table_remove]" value="<?php echo esc_attr( self::localization( 'table_remove' ) ); ?>" placeholder="<?php esc_attr_e( 'remove', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Close', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[table_close]" value="<?php echo esc_attr( self::localization( 'table_close' ) ); ?>" placeholder="<?php esc_attr_e( 'Close', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[table_close]" value="<?php echo esc_attr( self::localization( 'table_close' ) ); ?>" placeholder="<?php esc_attr_e( 'Close', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Empty', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[table_empty]" value="<?php echo esc_attr( self::localization( 'table_empty' ) ); ?>" placeholder="<?php esc_attr_e( 'No product is added to the comparison table.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[table_empty]" value="<?php echo esc_attr( self::localization( 'table_empty' ) ); ?>" placeholder="<?php esc_attr_e( 'No product is added to the comparison table.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Settings', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[table_settings]" value="<?php echo esc_attr( self::localization( 'table_settings' ) ); ?>" placeholder="<?php esc_attr_e( 'Settings', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[table_settings]" value="<?php echo esc_attr( self::localization( 'table_settings' ) ); ?>" placeholder="<?php esc_attr_e( 'Settings', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Hide similarities', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[hide_similarities]" value="<?php echo esc_attr( self::localization( 'hide_similarities' ) ); ?>" placeholder="<?php esc_attr_e( 'Hide similarities', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[hide_similarities]" value="<?php echo esc_attr( self::localization( 'hide_similarities' ) ); ?>" placeholder="<?php esc_attr_e( 'Hide similarities', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Highlight differences', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[highlight_differences]" value="<?php echo esc_attr( self::localization( 'highlight_differences' ) ); ?>" placeholder="<?php esc_attr_e( 'Highlight differences', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[highlight_differences]" value="<?php echo esc_attr( self::localization( 'highlight_differences' ) ); ?>" placeholder="<?php esc_attr_e( 'Highlight differences', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Select fields description', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_select_fields_desc]" value="<?php echo esc_attr( self::localization( 'bar_select_fields_desc' ) ); ?>" placeholder="<?php esc_attr_e( 'Select the fields to be shown. Others will be hidden. Drag and drop to rearrange the order.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_select_fields_desc]" value="<?php echo esc_attr( self::localization( 'bar_select_fields_desc' ) ); ?>" placeholder="<?php esc_attr_e( 'Select the fields to be shown. Others will be hidden. Drag and drop to rearrange the order.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1386,31 +1434,41 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Heading', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[sidebar_heading]" value="<?php echo esc_attr( self::localization( 'sidebar_heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[sidebar_heading]" value="<?php echo esc_attr( self::localization( 'sidebar_heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Close', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[sidebar_close]" value="<?php echo esc_attr( self::localization( 'sidebar_close' ) ); ?>" placeholder="<?php esc_attr_e( 'Close', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[sidebar_close]" value="<?php echo esc_attr( self::localization( 'sidebar_close' ) ); ?>" placeholder="<?php esc_attr_e( 'Close', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Remove', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[sidebar_remove]" value="<?php echo esc_attr( self::localization( 'sidebar_remove' ) ); ?>" placeholder="<?php esc_attr_e( 'Remove', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[sidebar_remove]" value="<?php echo esc_attr( self::localization( 'sidebar_remove' ) ); ?>" placeholder="<?php esc_attr_e( 'Remove', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Button text', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[sidebar_button]" value="<?php echo esc_attr( self::localization( 'sidebar_button' ) ); ?>" placeholder="<?php esc_attr_e( 'Let\'s Compare!', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[sidebar_button]" value="<?php echo esc_attr( self::localization( 'sidebar_button' ) ); ?>" placeholder="<?php esc_attr_e( 'Let\'s Compare!', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Continue shopping', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[sidebar_continue]" value="<?php echo esc_attr( self::localization( 'sidebar_continue' ) ); ?>" placeholder="<?php esc_attr_e( 'Continue shopping', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[sidebar_continue]" value="<?php echo esc_attr( self::localization( 'sidebar_continue' ) ); ?>" placeholder="<?php esc_attr_e( 'Continue shopping', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1420,81 +1478,107 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Button text', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_button]" value="<?php echo esc_attr( self::localization( 'bar_button' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_button]" value="<?php echo esc_attr( self::localization( 'bar_button' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Add product', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_add]" value="<?php echo esc_attr( self::localization( 'bar_add' ) ); ?>" placeholder="<?php esc_attr_e( 'Add product', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_add]" value="<?php echo esc_attr( self::localization( 'bar_add' ) ); ?>" placeholder="<?php esc_attr_e( 'Add product', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Search placeholder', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_search_placeholder]" value="<?php echo esc_attr( self::localization( 'bar_search_placeholder' ) ); ?>" placeholder="<?php esc_attr_e( 'Type any keyword to search...', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_search_placeholder]" value="<?php echo esc_attr( self::localization( 'bar_search_placeholder' ) ); ?>" placeholder="<?php esc_attr_e( 'Type any keyword to search...', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'No results', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_search_no_results]" value="<?php echo esc_attr( self::localization( 'bar_search_no_results' ) ); ?>" placeholder="<?php /* translators: keyword */
-												esc_attr_e( 'No results found for "%s"', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_search_no_results]" value="<?php echo esc_attr( self::localization( 'bar_search_no_results' ) ); ?>" placeholder="<?php /* translators: keyword */
+													esc_attr_e( 'No results found for "%s"', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Remove', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_remove]" value="<?php echo esc_attr( self::localization( 'bar_remove' ) ); ?>" placeholder="<?php esc_attr_e( 'Remove', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_remove]" value="<?php echo esc_attr( self::localization( 'bar_remove' ) ); ?>" placeholder="<?php esc_attr_e( 'Remove', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Remove all', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_remove_all]" value="<?php echo esc_attr( self::localization( 'bar_remove_all' ) ); ?>" placeholder="<?php esc_attr_e( 'Remove all', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_remove_all]" value="<?php echo esc_attr( self::localization( 'bar_remove_all' ) ); ?>" placeholder="<?php esc_attr_e( 'Remove all', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Remove all confirmation', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_remove_all_confirmation]" value="<?php echo esc_attr( self::localization( 'bar_remove_all_confirmation' ) ); ?>" placeholder="<?php esc_attr_e( 'Do you want to remove all products from the compare?', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_remove_all_confirmation]" value="<?php echo esc_attr( self::localization( 'bar_remove_all_confirmation' ) ); ?>" placeholder="<?php esc_attr_e( 'Do you want to remove all products from the compare?', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Print', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_print]" value="<?php echo esc_attr( self::localization( 'bar_print' ) ); ?>" placeholder="<?php esc_attr_e( 'Print', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_print]" value="<?php echo esc_attr( self::localization( 'bar_print' ) ); ?>" placeholder="<?php esc_attr_e( 'Print', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Share', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_share]" value="<?php echo esc_attr( self::localization( 'bar_share' ) ); ?>" placeholder="<?php esc_attr_e( 'Share', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_share]" value="<?php echo esc_attr( self::localization( 'bar_share' ) ); ?>" placeholder="<?php esc_attr_e( 'Share', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Share description', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[share_description]" value="<?php echo esc_attr( self::localization( 'share_description' ) ); ?>" placeholder="<?php esc_attr_e( 'Share link was generated! Now you can copy below link to share.', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[share_description]" value="<?php echo esc_attr( self::localization( 'share_description' ) ); ?>" placeholder="<?php esc_attr_e( 'Share link was generated! Now you can copy below link to share.', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Share on', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[share_on]" value="<?php echo esc_attr( self::localization( 'share_on' ) ); ?>" placeholder="<?php esc_attr_e( 'Share on:', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[share_on]" value="<?php echo esc_attr( self::localization( 'share_on' ) ); ?>" placeholder="<?php esc_attr_e( 'Share on:', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Share link was copied', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[share_copied]" value="<?php echo esc_attr( self::localization( 'share_copied' ) ); ?>" placeholder="<?php /* translators: link */
-												esc_attr_e( 'Share link %s was copied to clipboard!', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[share_copied]" value="<?php echo esc_attr( self::localization( 'share_copied' ) ); ?>" placeholder="<?php /* translators: link */
+													esc_attr_e( 'Share link %s was copied to clipboard!', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Click outside', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[bar_click_outside]" value="<?php echo esc_attr( self::localization( 'bar_click_outside' ) ); ?>" placeholder="<?php esc_attr_e( 'Click outside to hide the comparison bar', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[bar_click_outside]" value="<?php echo esc_attr( self::localization( 'bar_click_outside' ) ); ?>" placeholder="<?php esc_attr_e( 'Click outside to hide the comparison bar', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1504,7 +1588,9 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Heading', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[quick_table_heading]" value="<?php echo esc_attr( self::localization( 'quick_table_heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Quick Comparison', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[quick_table_heading]" value="<?php echo esc_attr( self::localization( 'quick_table_heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Quick Comparison', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1514,79 +1600,105 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Name', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_name]" value="<?php echo esc_attr( self::localization( 'field_name' ) ); ?>" placeholder="<?php esc_attr_e( 'Name', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_name]" value="<?php echo esc_attr( self::localization( 'field_name' ) ); ?>" placeholder="<?php esc_attr_e( 'Name', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Image', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_image]" value="<?php echo esc_attr( self::localization( 'field_image' ) ); ?>" placeholder="<?php esc_attr_e( 'Image', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_image]" value="<?php echo esc_attr( self::localization( 'field_image' ) ); ?>" placeholder="<?php esc_attr_e( 'Image', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'SKU', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_sku]" value="<?php echo esc_attr( self::localization( 'field_sku' ) ); ?>" placeholder="<?php esc_attr_e( 'SKU', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_sku]" value="<?php echo esc_attr( self::localization( 'field_sku' ) ); ?>" placeholder="<?php esc_attr_e( 'SKU', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Rating', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_rating]" value="<?php echo esc_attr( self::localization( 'field_rating' ) ); ?>" placeholder="<?php esc_attr_e( 'Rating', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_rating]" value="<?php echo esc_attr( self::localization( 'field_rating' ) ); ?>" placeholder="<?php esc_attr_e( 'Rating', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Price', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_price]" value="<?php echo esc_attr( self::localization( 'field_price' ) ); ?>" placeholder="<?php esc_attr_e( 'Price', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_price]" value="<?php echo esc_attr( self::localization( 'field_price' ) ); ?>" placeholder="<?php esc_attr_e( 'Price', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Stock', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_stock]" value="<?php echo esc_attr( self::localization( 'field_stock' ) ); ?>" placeholder="<?php esc_attr_e( 'Stock', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_stock]" value="<?php echo esc_attr( self::localization( 'field_stock' ) ); ?>" placeholder="<?php esc_attr_e( 'Stock', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Availability', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_availability]" value="<?php echo esc_attr( self::localization( 'field_availability' ) ); ?>" placeholder="<?php esc_attr_e( 'Availability', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_availability]" value="<?php echo esc_attr( self::localization( 'field_availability' ) ); ?>" placeholder="<?php esc_attr_e( 'Availability', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Add to cart', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_add_to_cart]" value="<?php echo esc_attr( self::localization( 'field_add_to_cart' ) ); ?>" placeholder="<?php esc_attr_e( 'Add to cart', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_add_to_cart]" value="<?php echo esc_attr( self::localization( 'field_add_to_cart' ) ); ?>" placeholder="<?php esc_attr_e( 'Add to cart', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Description', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_description]" value="<?php echo esc_attr( self::localization( 'field_description' ) ); ?>" placeholder="<?php esc_attr_e( 'Description', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_description]" value="<?php echo esc_attr( self::localization( 'field_description' ) ); ?>" placeholder="<?php esc_attr_e( 'Description', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Content', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_content]" value="<?php echo esc_attr( self::localization( 'field_content' ) ); ?>" placeholder="<?php esc_attr_e( 'Content', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_content]" value="<?php echo esc_attr( self::localization( 'field_content' ) ); ?>" placeholder="<?php esc_attr_e( 'Content', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Weight', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_weight]" value="<?php echo esc_attr( self::localization( 'field_weight' ) ); ?>" placeholder="<?php esc_attr_e( 'Weight', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_weight]" value="<?php echo esc_attr( self::localization( 'field_weight' ) ); ?>" placeholder="<?php esc_attr_e( 'Weight', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Dimensions', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_dimensions]" value="<?php echo esc_attr( self::localization( 'field_dimensions' ) ); ?>" placeholder="<?php esc_attr_e( 'Dimensions', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_dimensions]" value="<?php echo esc_attr( self::localization( 'field_dimensions' ) ); ?>" placeholder="<?php esc_attr_e( 'Dimensions', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th><?php esc_html_e( 'Additional information', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[field_additional]" value="<?php echo esc_attr( self::localization( 'field_additional' ) ); ?>" placeholder="<?php esc_attr_e( 'Additional information', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[field_additional]" value="<?php echo esc_attr( self::localization( 'field_additional' ) ); ?>" placeholder="<?php esc_attr_e( 'Additional information', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1596,7 +1708,9 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                         <tr>
                                             <th><?php esc_html_e( 'Menu item label', 'woo-smart-compare' ); ?></th>
                                             <td>
-                                                <input type="text" class="regular-text" name="woosc_localization[menu]" value="<?php echo esc_attr( self::localization( 'menu' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                <label>
+                                                    <input type="text" class="regular-text" name="woosc_localization[menu]" value="<?php echo esc_attr( self::localization( 'menu' ) ); ?>" placeholder="<?php esc_attr_e( 'Compare', 'woo-smart-compare' ); ?>"/>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr class="submit">
@@ -1981,8 +2095,8 @@ if ( ! function_exists( 'woosc_init' ) ) {
 						return false;
 					}
 
-					$product_id = absint( isset( $_REQUEST['add_to_compare'] ) ? $_REQUEST['add_to_compare'] : 0 );
-					$product_id = absint( isset( $_REQUEST['add-to-compare'] ) ? $_REQUEST['add-to-compare'] : $product_id );
+					$product_id = absint( $_REQUEST['add_to_compare'] ?? 0 );
+					$product_id = absint( $_REQUEST['add-to-compare'] ?? $product_id );
 
 					if ( ! $product_id ) {
 						return false;
@@ -2122,7 +2236,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 								<?php echo self::localization( 'share_description', esc_html__( 'Share link was generated! Now you can copy below link to share.', 'woo-smart-compare' ) ); ?>
                             </div>
                             <div class="woosc-share-link">
-                                <input type="url" id="woosc_copy_url" value="<?php echo esc_url( $url ); ?>" readonly/>
+                                <label for="woosc_copy_url"></label><input type="url" id="woosc_copy_url" value="<?php echo esc_url( $url ); ?>" readonly/>
                             </div>
 							<?php
 							echo self::share_links( urlencode( $url ) );
@@ -2273,7 +2387,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
                                     <div class="woosc-popup-content-inner">
                                         <div class="woosc-popup-close"></div>
                                         <div class="woosc-search-input">
-                                            <input type="search" id="woosc_search_input" placeholder="<?php echo esc_attr( self::localization( 'bar_search_placeholder', esc_html__( 'Type any keyword to search...', 'woo-smart-compare' ) ) ); ?>"/>
+                                            <label for="woosc_search_input"></label><input type="search" id="woosc_search_input" placeholder="<?php echo esc_attr( self::localization( 'bar_search_placeholder', esc_html__( 'Type any keyword to search...', 'woo-smart-compare' ) ) ); ?>"/>
                                         </div>
                                         <div class="woosc-search-result"></div>
                                     </div>
@@ -2596,16 +2710,16 @@ if ( ! function_exists( 'woosc_init' ) ) {
 				}
 
 				function ajax_add_field() {
-					$type    = isset( $_POST['type'] ) ? sanitize_key( $_POST['type'] ) : '';
-					$field   = isset( $_POST['field'] ) ? sanitize_text_field( urldecode( $_POST['field'] ) ) : '';
-					$setting = isset( $_POST['setting'] ) ? sanitize_key( $_POST['setting'] ) : '';
+					$type    = sanitize_key( $_POST['type'] ?? '' );
+					$field   = sanitize_text_field( urldecode( $_POST['field'] ?? '' ) );
+					$setting = sanitize_key( $_POST['setting'] ?? '' );
 
 					if ( ! empty( $type ) && ! empty( $field ) && ! empty( $setting ) ) {
 						if ( ( $type === 'attribute' ) && ( $field === 'all' ) ) {
 							// all attributes
 							if ( $taxonomies = get_object_taxonomies( 'product', 'objects' ) ) {
 								foreach ( $taxonomies as $taxonomy ) {
-									if ( substr( $taxonomy->name, 0, 3 ) === 'pa_' ) {
+									if ( str_starts_with( $taxonomy->name, 'pa_' ) ) {
 										$key = self::generate_key( 4, true );
 										self::field_html( $key, $setting, $type, $taxonomy->name, wc_attribute_label( $taxonomy->name ) );
 									}
@@ -2832,8 +2946,8 @@ if ( ! function_exists( 'woosc_init' ) ) {
 										foreach ( $custom_fields as $custom_field ) {
 											if ( ! empty( $custom_field ) ) {
 												$custom_field_arr   = explode( '|', $custom_field );
-												$custom_field_name  = isset( $custom_field_arr[0] ) ? trim( $custom_field_arr[0] ) : '';
-												$custom_field_label = isset( $custom_field_arr[1] ) ? trim( $custom_field_arr[1] ) : $custom_field_name;
+												$custom_field_name  = trim( $custom_field_arr[0] ?? '' );
+												$custom_field_label = trim( $custom_field_arr[1] ?? $custom_field_name );
 
 												if ( ! empty( $custom_field_name ) ) {
 													$sk_cf = self::generate_key( 4, true );
@@ -2900,8 +3014,8 @@ if ( ! function_exists( 'woosc_init' ) ) {
 										foreach ( $custom_fields as $custom_field ) {
 											if ( ! empty( $custom_field ) ) {
 												$custom_field_arr   = explode( '|', $custom_field );
-												$custom_field_name  = isset( $custom_field_arr[0] ) ? trim( $custom_field_arr[0] ) : '';
-												$custom_field_label = isset( $custom_field_arr[1] ) ? trim( $custom_field_arr[1] ) : $custom_field_name;
+												$custom_field_name  = trim( $custom_field_arr[0] ?? '' );
+												$custom_field_label = trim( $custom_field_arr[1] ?? $custom_field_name );
 
 												if ( ! empty( $custom_field_name ) ) {
 													$sk_cf = self::generate_key( 4, true );

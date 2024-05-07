@@ -1,9 +1,9 @@
 === File Manager Pro - Filester ===
 Contributors: ninjateam
 Donate link: https://codecanyon.net/item/media-folders-manager-for-wordpress/21715379
-Tags: file manager, wordpress file manager, wp file manager, file manager pro, document management, real media library, wp media manager, wp media manager
+Tags: file manager, wordpress file manager, wp file manager, files, download plugin
 Requires at least: 3.0
-Tested up to: 6.4.2
+Tested up to: 6.5.2
 Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,7 @@ With Filester - File Manager Pro, you can copy, paste, create an archive, downlo
 
 This file manager plugin is dedicated to boosting your productivity in managing WordPress. All necessary file operations are fully provided and tested on a variety of servers and browsers.
 
-Another thing you will appreciate about it is the **clean and compact UI/UX** to make the editing and transferring of directory files and folders **extra faster**.
+Another thing you will appreciate about it is the clean and compact UI/UX, which makes editing and transferring directory files and folders extra fast.
 
 **Did you know?**
 More than [700,000 WordPress websites](https://www.wordfence.com/blog/2020/09/millions-of-sites-targeted-in-file-manager-vulnerability-attacks/) were attacked during September 2020.
@@ -30,15 +30,15 @@ Filester poses no risk to you, so rest assured! 🤗
 
 ###⚡️ FEATURES
 
-- **Drag & drop interface:** easily move and arrange files
-- **Smart context menu:** right-click on any files to make operations
-- **Manage files and folders:** copy, move, upload, create folder/file, rename, duplicate, etc.
+- **Drag & drop interface:** Easily move and arrange files
+- **Smart context menu:** Right-click on any files to make operations
+- **Manage files and folders:** Copy, move, upload, create folder/file, rename, duplicate, etc.
 - **Built-in advanced code editor:** Integrated development environment ACE Editor, CodeMirror, CKEditor, TinyMCE, and others
-- **Flexible configuration:** access rights, uploadable file types/extensions, maximum file size limit, and more
+- **Flexible configuration:** Access rights, uploadable file types/extensions, maximum file size limit, and more
 - **Create/extract archives:** .zip, .rar, .xz, .tar, .gzip
 - **Great UI/UX design:** Clean, high-quality & productivity-driven 
-- **User authority settings:** file extensions to be locked, file visibility, root path access, .htaccess file 
-- **Edit media files:** using Photopea, TUI Image Editor
+- **User authority settings:** File extensions to be locked, file visibility, root path access, .htaccess file 
+- **Edit media files:** Using Photopea & TUI Image Editor
 - **Multiple languages supported:** English, German, Spanish, Italian, French, Japanese, etc.
 - **RTL supported:** Hebrew, Arabic, Persian, Kurdish, etc.
 
@@ -58,9 +58,13 @@ Filester poses no risk to you, so rest assured! 🤗
 
 Filester plugin helps you easily manage WordPress files so that you don’t have to access directories via FTP or cPanel. 
 
-This plugin creates a new menu **File Manager** in your WordPress dashboard. From then on, you can view all server files, configuration files, and media files on your current WordPress website.
+This plugin creates a new menu **File Manager** in your WordPress dashboard. From then on, you can view all server files, configuration, and media files on your current WordPress website.
 
 You can edit, copy, upload/download files/folders to your server from File Manager section. This toolbar is similar to the settings in an FTP client. It allows you to preview, edit, upload, download, duplicate and delete files or folders.
+
+With Filester, it's easy to modify the auto-update mechanism with each new version of WordPress. You can quickly **search for specific text or code** within your WordPress files and replace it efficiently.
+
+With built-in code editors, you can edit code files with syntax highlighting and code completion features for themes, plugins, and custom code snippets. It takes one click to download a plugin's **ZIP file** to your local storage. It helps track changes made to files and revert to previous versions if needed.
 
 All webmasters can also [download WordPress media library](https://ninjateam.org/download-wordpress-media-library/) using Filester download options as well.
 
@@ -68,12 +72,15 @@ All webmasters can also [download WordPress media library](https://ninjateam.org
 
 Filester works seamlessly with all major WordPress themes, page builders, and website builders.
 
-Like Filester? Don't forget to check out its sister plugin: [WP media manager called FileBird](https://wordpress.org/plugins/filebird/).
+💙 **Like Filester?** [Share your experience](https://wordpress.org/support/plugin/filester/reviews/?filter=5) and empower other users to manage WordPress like a pro.
 
+👉 Check out NinjaTeam [WordPress tutorials](https://ninjateam.org/category/tutorials/).
+
+= CREDIT =
 Big thanks to elFinder - open-source file manager for web.
 
 == Installation ==
-Manual installation is easy and takes fewer than one minute.
+Manual installation is easy and takes less than one minute.
 
 1. Download the plugin from wordpress.org, unpack it and upload the **[Filester]** folder to your **wp-content/plugins/** directory.
 2. Activate the plugin through the ‘Plugins‘ menu in WordPress.
@@ -82,7 +89,7 @@ Manual installation is easy and takes fewer than one minute.
 You’re done. Enjoy.
 
 == Frequently Asked Questions ==
-= Is it compatible with WordPress 5? = 
+= Is it compatible with WordPress 6? = 
 Definitely yes! We’re always up-to-date to give you the best experience in using our plugin.
 
 = Do all folders work the same way as they do in FTP client? =

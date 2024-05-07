@@ -1265,6 +1265,12 @@ class WoofiltersWpf extends ModuleWpf {
 		// allow show subcategories only if nothing is selected
 		if ( $this->isFiltered( false ) ) {
 			remove_filter( 'woocommerce_product_loop_start', 'woocommerce_maybe_show_product_subcategories' );
+			
+			//compatibility with Product Table for WooCommerce by CodeAstrology (WooproductTable)
+			if (!empty($q->get('wpt_query_type'))) {
+				$q->set('suppress_filters', 0);
+			}
+
 		}
 	}
 
@@ -1424,12 +1430,24 @@ class WoofiltersWpf extends ModuleWpf {
 	public function addSKUOrderDesc( $args ) {
 		return $this->addSKUOrder($args, 'DESC');
 	}
+	public function isProductQuery( $postType ) {
+		if (empty($postType) || is_null($postType)) {
+			return false;
+		}
+		if ('product' == $postType) {
+			return true;
+		}
+		if ( is_array( $postType ) && in_array( 'product', $postType ) ) {
+			return true;
+		}
+		return false;
+	}
 
 	public function loadProductsFilterForProductGrid( $q ) {
 		$action = ReqWpf::getVar('action');
 		$ignore = array('woocommerce_load_variations', 'woocommerce_do_ajax_product_export', 'phone-orders-for-woocommerce');
 				
-		if ( 'product' == $q->get( 'post_type' ) && ( is_null($action) || empty($action) || !in_array($action, $ignore ) ) ) {
+		if ( $this->isProductQuery($q->get( 'post_type' )) && ( is_null($action) || empty($action) || !in_array($action, $ignore ) ) ) {
 			global $paged;
 			remove_filter( 'pre_get_posts', array( $this, 'loadProductsFilterForProductGrid' ), 999 );
 			if ( '' !== $this->mainWCQueryFiltered ) {
@@ -2201,7 +2219,10 @@ class WoofiltersWpf extends ModuleWpf {
 				$price = \Yay_Currency\Helpers\YayCurrencyHelper::calculate_price_by_currency( $raw_price, false, $apply_currency );
 			}
 			if ( $price === $raw_price && function_exists( 'wcml_convert_price' ) ) {
-				$price = wcml_convert_price($raw_price);
+				global $woocommerce_wpml;
+				if (!empty($woocommerce_wpml) && !empty($woocommerce_wpml->multi_currency) && !is_null($woocommerce_wpml->multi_currency)) {
+					$price = wcml_convert_price($raw_price);
+				}
 			}
 		}
 

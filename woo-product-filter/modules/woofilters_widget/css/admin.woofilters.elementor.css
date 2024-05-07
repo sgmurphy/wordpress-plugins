@@ -2,10 +2,10 @@
 [class*="__f_options"] .elementor-control-input-wrapper{
 	width: 100%;
 }
-#elementor-panel .clear {
+#elementor-panel .woobewoo-plugin .clear {
 	width: 100%;
 }
-#elementor-panel .clear:after {
+#elementor-panel .woobewoo-plugin .clear:after {
 	content: '';
 	display: table;
 	width: 100%;

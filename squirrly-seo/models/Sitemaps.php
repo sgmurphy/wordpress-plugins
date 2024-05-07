@@ -206,7 +206,7 @@ class SQ_Models_Sitemaps extends SQ_Models_Abstract_Seo
 			                        $posts[] = $this->_getXml($post);
 		                        }
 	                        }
-							
+
 	                        //always add the current post ID as processed
 	                        $post_ids[] = $currentpost->ID;
                         }

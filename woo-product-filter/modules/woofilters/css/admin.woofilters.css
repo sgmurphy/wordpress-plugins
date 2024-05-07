@@ -399,10 +399,10 @@ table thead th{
 	height: 33px;
 	vertical-align: unset;
 }
-label{
+.woobewoo-plugin label{
 	margin-bottom: 6px;
 }
-input[type=checkbox]{
+.woobewoo-plugin input[type=checkbox]{
 	margin: 0px;
 }
 .wpfCheckColumns label{

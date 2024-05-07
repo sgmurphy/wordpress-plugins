@@ -520,15 +520,6 @@ class WCP_Folder_Plugins
                 'total_folders'     => 0,
                 'total_attachments' => 0,
                 'is_exists'         => 0,
-            ],
-            'media_library_categories' => [
-                'name'              => 'Media Library Categories',
-                'taxonomy'          => 'category',
-                'folders'           => [],
-                'attachments'       => [],
-                'total_folders'     => 0,
-                'total_attachments' => 0,
-                'is_exists'         => 0,
             ]
         ];
         $DS      = DIRECTORY_SEPARATOR;
@@ -536,7 +527,15 @@ class WCP_Folder_Plugins
         if (is_dir($dirName)) {
             $settings = get_option("wpmlc_settings");
             $category = isset($settings['wpmediacategory_taxonomy'])&&!empty($settings['wpmediacategory_taxonomy'])?$settings['wpmediacategory_taxonomy']:'category';
-            $this->plugins['media_library_categories']['category'] = esc_attr($category);
+            $this->plugins['media_library_categories'] = [
+                'name'              => 'Media Library Categories',
+                'taxonomy'          => $category,
+                'folders'           => [],
+                'attachments'       => [],
+                'total_folders'     => 0,
+                'total_attachments' => 0,
+                'is_exists'         => 0,
+            ];
         }
 
         $post_types       = get_post_types([]);
