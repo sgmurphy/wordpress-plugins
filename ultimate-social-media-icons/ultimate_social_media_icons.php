@@ -7,7 +7,7 @@ Author URI: https://inisev.com
 Plugin URI: https://ultimatelysocial.com
 Text Domain: ultimate-social-media-icons
 Domain Path: /languages
-Version: 2.9.0
+Version: 2.9.1
 License: GPLv2 or later
 */
 require_once 'analyst/main.php';
@@ -54,7 +54,7 @@ sfsi_error_reporting();
 
 global $wpdb;
 /* define the Root for URL and Document */
-define( 'SFSI_PLUGIN_VERSION', '2.9.0' );
+define( 'SFSI_PLUGIN_VERSION', '2.9.1' );
 define( 'SFSI_DOCROOT', dirname( __FILE__ ) );
 
 define( 'SFSI_PLUGURL', plugin_dir_url( __FILE__ ) );
@@ -403,7 +403,7 @@ function sfsi_processfurther(ref) {
     var feed_id = '<?php echo $sfsi_feediid ?>';
     var feedtype = 8;
     var email = jQuery(ref).find('input[name="email"]').val();
-    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var filter = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if ((email != "Enter your email") && (filter.test(email))) {
         if (feedtype == "8") {
             var url = "<?php echo $url; ?>" + feed_id + "/" + feedtype;

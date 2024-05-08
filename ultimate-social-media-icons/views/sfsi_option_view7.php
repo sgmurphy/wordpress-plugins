@@ -61,7 +61,7 @@ $option7['sfsi_Shown_pop'] 				= (isset($option7['sfsi_Shown_pop'])) ? sanitize_
 			<div style="text-align:right;">
 				<form method="post" class="sfsi_premiumNoticeDismiss" style="padding-bottom:8px;">
 					<input type="hidden" name="sfsi-banner-popups" value="true">
-					<input type="submit" name="dismiss" value="Dismiss" />
+					<input type="submit" name="dismiss" value="<?php _e('Dismiss','ultimate-social-media-icons') ?>" />
 
 				</form>
 			</div>

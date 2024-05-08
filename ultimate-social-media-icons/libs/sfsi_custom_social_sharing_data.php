@@ -134,7 +134,7 @@ function sfsi_social_media_metabox( $post ) { ?>
                 <img src="<?php echo esc_url(SFSI_PLUGURL."images/no-image.jpg"); ?>" alt="no image" />
             </div>
             <div class="imgUploadBtn"><input readonly disable type="button" class="button sfsi-post-meta-btn"
-                    value="Add Picture" /></div>
+                    value="<?php _e( 'Add Picture', 'ultimate-social-media-icons'); ?>" /></div>
         </div>
 
         <!--********************************** Image for Social Networks (Facebook, LinkedIn & Twitter) CLOSES ***********************************************-->

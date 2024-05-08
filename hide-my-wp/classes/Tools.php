@@ -765,9 +765,9 @@ class HMWP_Classes_Tools
             return false;
         }
 
-        //Only if the user login can be verified
+        //make sure the function is loaded
         if (!function_exists('is_user_logged_in')) {
-            return false;
+            include_once ABSPATH . WPINC . '/pluggable.php';
         }
 
         if(!isset($_SERVER['REQUEST_URI'])) {
@@ -2288,7 +2288,9 @@ class HMWP_Classes_Tools
         );
 
         if (filter_var(home_url(), FILTER_VALIDATE_URL) !== FALSE && strpos(home_url(), '.') !== false) {
-            $wl_jetpack[] = '127.0.0.1';
+            if(!self::isLocalFlywheel()){
+                $wl_jetpack[] = '127.0.0.1';
+            }
         }
 
         if (HMWP_Classes_Tools::getOption('whitelist_ip')) {

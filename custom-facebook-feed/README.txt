@@ -12,7 +12,7 @@ Formerly "Custom Facebook Feed". Display completely customizable Facebook feeds 
 
 == Description ==
 
-Display Facebook posts on your WordPress site. **Completely customizable**, **responsive**, **search engine crawlable**, and **GDPR compliant** Facebook feeds. Display **unlimited Facebook feeds** from your **Facebook page**, and completely match the look and feel of your site with tons of customization options! Automatically powers any Facebook oEmbeds on your site.
+Display Facebook posts on your WordPress site in an attractive feed. **Completely customizable**, **responsive**, **search engine crawlable**, and **GDPR compliant** feeds. Automatically powers any Facebook oEmbeds on your site.
 
 *"The perfect Facebook plugin with amazing support! What else do you want? Get it!"* - [JoeJeffries](http://wordpress.org/support/topic/you-dont-already-have-this?facebook)
 
@@ -22,34 +22,34 @@ Display Facebook posts on your WordPress site. **Completely customizable**, **re
 
 ### Features
 **NEW: Now Supports Facebook oEmbeds**
-With WordPress removing support for Facebook oEmbeds, the plugin will now automatically power any Facebook embeds on your site preventing them from breaking. No developer app required.
+WordPress is no longer able to support Facebook oEmbeds without the use of a plugin. Install Custom Facebook Feeds on your website to support oEmbeds. No developer app required.
 
 **Super Simple to Set Up**
 One of our main priorities has always been to make our Facebook plugin as easy as possible to setup and use. Get up and running in less than 1 minute with our signature quick setup - no Facebook Developer App required.
 
 **Display Feeds from Your Facebook Page**
-Use the plugin to display Facebook feeds from a page that you are an admin of.
+Use the plugin to display Facebook feeds from a Facebook page that you are an admin of.
 
 **Completely Customizable**
-By default the feed will adopt the styles of your WordPress theme, but your feeds can be completely customized to look however you like using our visual feed customizer - with tons of options to customize every part of your posts and feed.
+By default the feed will adopt the styles of your WordPress theme, but your feeds can be completely customized to look however you like using our visual feed customizer - with tons of options to customize every part of your feed.
 
 **Elementor and Divi Ready**
 Custom Facebook Feeds has a built-in Elementor and Divi block for easy page building. Simply launch your Elementor or Divi builder and find the related Custom Facebook Feed block in the sidebar like any other block.
 
 **SEO Friendly**
-The feed content is crawlable by search engines adding SEO value to your site, while other Facebook plugins embed the feed using iframes which are not crawlable.
+The Facebook feed content is crawlable by search engines adding SEO value to your site. This is unlike other Facebook plugins embed the feed using iframes which are not crawlable.
 
 **GDPR Compliant**
 Automatically integrates with many of the popular GDPR cookie consent plugins and includes a 1-click easy GDPR setting.
 
 **Responsive and Mobile Optimized**
-Feed layouts look great on any screen size and in any container width.
+The plugin layouts look great on any screen size and in any container width.
 
-**Unlimited Feeds from Unlimited Different Pages**
-We don't limit how many Facebook feeds you can display on your site. Just use the shortcode to embed as many feeds as you like into pages, posts or widgets anywhere on your site.
+**Unlimited Feeds from Unlimited Different Facebook Pages**
+We don't limit how many Facebook feeds you can display on your site. With the use of a shortcode or block you can insert a feed into posts or widgets anywhere on your site.
 
 **Built for Speed**
-Built-in caching means that your Facebook feeds load lightning fast. Set your own caching time - check for new Facebook posts every few seconds, minutes, hours or days. You decide.
+Built-in caching means that your Facebook feeds load lightning fast. Set how long the cache lasts until the feed updates again.
 
 **Like Box Widget and Visual Header**
 Include the official Facebook Like Box widget at the top or bottom of your Facebook feed and display a beautiful visual header with your Facebook page or cover photo, profile picture, bio, and number of likes.
@@ -72,7 +72,7 @@ In order to maintain the free version of the Custom Facebook Feed plugin on an o
 * **Improve your SEO** as all of that quality keyword-rich Facebook content from posts and Facebook comments is directly embedded into your website
 * Display your Facebook content your way to perfectly match your website's style
 * **No Coding Required** - choose from tons of built-in customization options to create a truly unique feed of your Facebook content.
-* The Custom Facebook Feed plugin is **updated regularly** with new features, bug-fixes and API changes
+* The Custom Facebook Feed plugin is **updated regularly** with new features, bug-fixes and Facebook API changes
 * Support is quick and effective
 * We're dedicated to providing the **most customizable**, **robust** and **well supported** Facebook feed plugin in the world!
 
@@ -83,7 +83,7 @@ Once you've installed the plugin there are only a few steps to get up and runnin
 1) Use the button on the 'Facebook Feed' settings page to log into your Facebook account and authorize the plugin.
 2) Save the plugin settings and add the `[custom-facebook-feed]` shortcode to any page, post, or widget where you want the Facebook feed to be displayed.
 
-That's it!  You can then customize the feed as needed using the settings on the Facebook Feed > Customize page.
+That's it!  You can then customize the Facebook feed as needed using the settings on the Facebook Feed > Customize page.
 
 For full step-by-step setup directions with screenshots, see [here](https://smashballoon.com/custom-facebook-feed/docs/free/?utm_campaign=facebook-free-readme&utm_source=howto&utm_medium=setup "Custom Facebook Feed Free Setup Doc").
 
@@ -91,21 +91,13 @@ For full step-by-step setup directions with screenshots, see [here](https://smas
 
 Customer support is a huge deal to us. We pride ourselves on always providing quick, effective, and courteous support to all of our users. If you're having an issue using the Custom Facebook Feed plugin then just let us know and we'll be there to help as soon as possible.  You can either open a ticket on the support forum on [WordPress.org](https://wordpress.org/support/plugin/custom-facebook-feed/ "Custom Facebook Feed Free support forum"), or directly on the Custom Facebook Feed section of [our website](https://smashballoon.com/custom-facebook-feed/support/ "Custom Facebook Feed website support form").  We also have a large collection of help documentation and FAQs [on our website](https://smashballoon.com/custom-facebook-feed/faq/ "Custom Facebook Feed support FAQs") for all common issues related to the Custom Facebook Feed plugin.
 
-### Who's behind this plugin?
-
-We're Smash Balloon; a fun-loving WordPress plugin development company birthed into existence in early 2013. We specialize in creating social media plugins that are not only intuitive and simple to use, but also designed to integrate seamlessly into your website and allow you to display your social media content in powerful and unique ways. Over 1 million awesome people have decided to actively use our free plugins, which is an incredible honor that we don't take lightly. This compels us to try to provide the quickest and most effective customer support that we can, blowing users away with the best customer service they've ever experienced.
-
-To find out more about the team, see [here](https://smashballoon.com/about/?utm_campaign=facebook-free-readme&utm_source=who&utm_medium=about "Team Smash Balloon").
-
-Check out our other free plugins for [Instagram](https://wordpress.org/plugins/instagram-feed "Instagram Feed free plugin"), [Twitter](https://wordpress.org/plugins/custom-twitter-feeds/ "Custom Twitter Feeds free plugin"), and [YouTube](https://wordpress.org/plugins/feeds-for-youtube/ "Feeds for YouTube free plugin").
-
 == Installation ==
 
 1. Install the Custom Facebook Feed either via the WordPress plugin directory, or by uploading the files to your web server (in the `/wp-content/plugins/` directory).
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Navigate to the 'Facebook Feed' settings page to configure your feed.
-4. Use the shortcode `[custom-facebook-feed feed=1]` in your page, post or widget to display your feed.
-5. You can display multiple feeds of different pages by specifying a Feed ID directly in the shortcode: `[custom-facebook-feed feed-2]`.
+4. Use the shortcode `[custom-facebook-feed]` in your page, post or widget to display your feed.
+5. You can display multiple feeds of different Facebook pages by specifying a Page ID directly in the shortcode: `[custom-facebook-feed id=smashballoon num=5]`.
 
 == Frequently Asked Questions ==
 
@@ -113,21 +105,21 @@ For a full list of FAQs and help with troubleshooting please visit the **[FAQ & 
 
 = Are there any limitations on which Facebook page feeds I can display? =
 
-The Facebook feed you're trying to display has to be from a publicly accessible page. This means that you can't display the feed from your own personal Facebook profile. This is to do with Facebook's privacy policies. You can't display a non-public page publicly.
+The Facebook feed you're trying to display has to be from a publicly accessible Facebook page. This means that you can't display the feed from your own personal Facebook profile. This is to do with Facebook's privacy policies. You can't display a non-public Facebook feed publicly.
 
-If your Facebook page has any restrictions on it (age, for example) then it means that people have to be signed into Facebook in order to view your page. This isn't desirable for most pages as it means that it isn't accessible by people who don't have a Facebook account and that your Facebook page can't be crawled and indexed by search engines.
+If your Facebook page has any restrictions on it (age, for example) then it means that people have to be signed into Facebook in order to view your page. This isn't desirable for most Facebook pages as it means that it isn't accessible by people who don't have a Facebook account and that your Facebook page can't be crawled and indexed by search engines.
 
-An easy way to determine whether your Facebook page is set to public is to sign out of your Facebook account and try to visit your page. If Facebook forces you to sign in to view your page then it isn't public. You can change your page to public in your page settings simply by removing any age or location restrictions you have on it ([screenshot](https://smashballoon.com/wp-content/uploads/2013/06/facebook-page-restrictions.png)), which will then allow the plugin to access and display your feed.
+An easy way to determine whether your Facebook page is set to public is to sign out of your Facebook account and try to visit your page. If Facebook forces you to sign in to view your page then it isn't public. You can change your Facebook page to public in your Facebook page settings simply by removing any age or location restrictions you have on it ([screenshot](https://smashballoon.com/wp-content/uploads/2013/06/facebook-page-restrictions.png)), which will then allow the Custom Facebook Feed plugin to access and display your feed.
 
 = Can I display feeds from multiple Facebook pages? =
 
-Yep! Create as many feeds as you like from different pages. Just click "Add New" to create a new feed and then embed it anywhere on your site.
+Yep! Create as many feeds as you like from different Facebook pages. Just click "Add New" to create a new feed and then embed it anywhere on your site.
 
 = Can I display feeds from a Facebook Group? =
 
 As of April of 2024 the plugin is no longer able to display posts from a Facebook group. This is due to changes on Facebook's end.
 
-= Can I display the feed from a personal profile? =
+= Can I display the feed from a personal Facebook profile? =
 
 Due to Facebook's privacy policy you're not able to use the plugin to display all of your posts from a personal profile, only from a public page, as posts from a personal profile are protected for privacy reasons. You may have limited success in displaying certain posts from a personal profile but most posts are not able to be displayed.
 
@@ -137,71 +129,59 @@ Once you've done so, the plugin will be able to retrieve and display all of your
 
 = Does the plugin work with Facebook oEmbeds? =
 
-In version 2.5, support was added to allow the plugin to power your oEmbeds as official support for these is no longer available in WordPress core. Just connect your account on the oEmbeds settings page inside the plugin and the plugin will power all Facebook embeds on your site, old and new. No developer app or account required.
+Yes. Support was added to allow the plugin to power your Facebook oEmbeds as official support for these is no longer available in WordPress core. Just connect your account on the oEmbeds settings page inside the plugin and the plugin will power all Facebook embeds on your site, old and new. No developer app or account required.
 
-= Can I show photos and videos in my feed? =
+= Can I show photos and videos in my Custom Facebook feed? =
 
 This free plugin only allows you to display text from your Facebook posts. To display photos and videos in your feed you would need to upgrade to the Pro version of the plugin. Try out a demo of the Pro version on the [Custom Facebook Feed website](https://smashballoon.com/custom-facebook-feed/demo/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=media "Custom Facebook Feed Demo"), and find out more about the Pro version [here](https://smashballoon.com/custom-facebook-feed/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=pro "Custom Facebook Feed Pro"). [Click here](https://smashballoon.com/differences-between-the-free-version-and-pro-version-of-the-custom-facebook-feed-plugin/ "Differences between free and Pro version of Custom Facebook Feed plugin") for a full list of all differences between the free version and Pro version.
 
-= Can I show the comments, shares and likes associated with each post? =
+= Can I show the comments, shares and likes associated with each Facebook post? =
 
 This is a feature of the [Pro version of the plugin](https://smashballoon.com/custom-facebook-feed/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=comments "Custom Facebook Feed Pro"). To display comments, shares and likes you would need to upgrade from the free version to the Pro version.
 
 = Is the content of my Custom Facebook Feed crawlable by search engines? =
 
-It sure is. Unlike other plugins which use iframes to embed your feed into your page once it's loaded, the Custom Facebook Feed uses PHP to embed your Facebook feed content directly into your page. This adds dynamic, search engine crawlable content to your site.
+It sure is. Unlike other Facebook plugins which use iframes to embed your feed into your page once it's loaded, the Custom Facebook Feed uses PHP to embed your Facebook feed content directly into your page. This adds dynamic, search engine crawlable content to your site.
 
 = How do I embed the Custom Facebook Feed directly into a WordPress page template? =
 
-You can embed your feed directly into a template file by using the WordPress [do_shortcode](http://codex.wordpress.org/Function_Reference/do_shortcode "WordPress.org do_shortcode reference") function: `<?php echo do_shortcode('[custom-facebook-feed]'); ?>`.
+You can embed your Facebook feed directly into a template file by using the WordPress [do_shortcode](http://codex.wordpress.org/Function_Reference/do_shortcode "WordPress.org do_shortcode reference") function: `<?php echo do_shortcode('[custom-facebook-feed]'); ?>`.
 
-= My feed posts are not showing up, or all I can see is the Facebook Like box but no posts =
+= My Facebook feed posts are not showing up, or all I can see is the Facebook Like box but no posts =
 
-Please refer to [this FAQ](https://smashballoon.com/facebook-feed-doesnt-show-can-see-like-box-posts-gives/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=errors "My posts are not showing up, or all I can see is the Facebook Like box but no posts") for potential solutions on how to resolve this issue.
+Please refer to [this FAQ](https://smashballoon.com/facebook-feed-doesnt-show-can-see-like-box-posts-gives/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=errors "My Facebook feed posts are not showing up, or all I can see is the Facebook Like box but no posts") for potential solutions on how to resolve this issue.
 
-= Changing the font in your feed and using Google Fonts =
+= Changing the font in your Facebook feed and using Google Fonts =
 
 Please refer to [this FAQ](https://smashballoon.com/changing-the-font-in-your-facebook-feed-using-google-fonts/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=fonts "Changing the font in your Facebook feed and using Google Fonts") for directions on how to use Google fonts in your Facebook posts.
 
-= Can I display my posts horizontally or in multiple columns? =
+= Can I display my Facebook posts horizontally or in multiple columns? =
 
 Please refer to [this FAQ](https://smashballoon.com/can-display-facebook-post-horizontally-multiple-columns/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=horizontal "Can I display my Facebook posts horizontally or in multiple columns?") for directions on how to display your Facebook posts in multiple columns.
 
-= My feed appears to have stopped updating / working =
+= My Facebook feed appears to have stopped updating / working =
 
-If your Facebook feed doesn't appear to be showing the most recent posts then the most likely explanation is that the recent posts in your feed may be shared from a user's personal profile. Facebook's privacy policy doesn't allow posts that you share from personal profiles to be shared outside of Facebook as the posts don't technically belong to your page, they belong to the user who posted it to their personal Facebook profile. There's an example of a post shared from a user's personal profile [here](https://smashballoon.com/wp-content/uploads/2014/11/sharing-photo-facebook-profile.jpg "Example of Facebook post shared from personal profile").
+If your Facebook feed doesn't appear to be showing the most recent Facebook posts then the most likely explanation is that the recent posts in your feed may be shared from a user's personal profile. Facebook's privacy policy doesn't allow posts that you share from personal Facebook profiles to be shared outside of Facebook as the posts don't technically belong to your Facebook page, they belong to the user who posted it to their personal Facebook profile. There's an example of a post shared from a user's personal Facebook profile [here](https://smashballoon.com/wp-content/uploads/2014/11/sharing-photo-facebook-profile.jpg "Example of Facebook post shared from personal profile").
 
-Please note, this isn't a limitation of our plugin, it's a restriction which Meta (Facebook) places on its content in order to protect the privacy of their users.
+Please note, this isn't a limitation of our plugin, it's a restriction which Meta (Facebook) places on it's content in order to protect the privacy of their Facebook users.
 
 **Potential solutions**
 
-* You could re-post the Facebook post to your own page rather than just sharing it on your page. If you do this, then the content now originates from your Facebook page and will be displayed in the Facebook feed on your website.
+* You could re-post the Facebook post to your page rather than sharing it to your Facebook page. If you re-post the content as your own post on your Facebook page then the content now originates from your Facebook page and will be displayed in the Facebook feed on your website.
 
-* If you were to share a post from another page or public source, rather than sharing it from someone's personal Facebook profile, then it would show up in your feed outside of Facebook, but by default any posts that originate from a personal profile are protected by Facebook's privacy policy and is the private content of that profile owner.
+* If you were to share a post from another Facebook page or public source, rather than sharing it from someone's personal Facebook profile, then it would show up in your feed outside of Facebook, but by default any posts that originate from a personal Facebook profile are protected by Facebook's privacy policy and is the private content of that Facebook profile owner.
 
 = I'm receiving an error message when trying to display my Facebook posts =
 
 Please refer to our [Error Message Reference page](https://smashballoon.com/custom-facebook-feed/docs/errors/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=errors "I'm receiving an error message when trying to display my Facebook posts") for information on how to resolve common error messages.
 
-= The Custom Facebook Feed shortcode options aren't working =
+= Creating a Masonry grid layout from your Facebook posts =
 
-The most common causes of this are:
+Please refer to [this FAQ](https://smashballoon.com/creating-a-masonry-grid-layout-from-your-facebook-posts/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=masonry "Creating a Masonry grid layout from your Facebook posts") for directions on how to create a Masonry grid layout from your Facebook feed posts.
 
-1) There's HTML tags within the [custom-facebook-feed] shortcode which are preventing it from working correctly
+= Avatar pictures aren't showing up in my feed =
 
-If you copied and pasted the shortcode into the Visual editor on your WordPress page/post editor then it may have inadvertently included some HTML tags from the page that you copied it from. The easiest way to check this is to view the 'Text' view in your WordPress editor and see whether there are any stray HTML tags in the shortcode itself.
-
-2) The shortcode includes curly single quote characters
-
-If your shortcode includes single quotes then check that they are the standard single quotes and not the curly kind.
-
-3) Typo in the shortcode option
-
-Ensure that there aren't any spelling errors in the shortcode options that you're using and that the format is consistent with that demonstrated on the [Shortcode Options reference page](https://smashballoon.com/custom-facebook-feed/docs/shortcodes/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=shortcode "The shortcode options aren't working").
-
-= Facebook avatar pictures aren't showing up in my feed =
-
-The most common reason for this is that an add-on or extension you have installed in your web browser is blocking the pictures being loaded from Facebook. Try checking to see whether you have any add-ons or extensions installed in your browser and, if so, try disabling them to see whether that solves the problem and displays the pictures from Facebook.
+The most common reason for this is that an add-on or extension you have installed in your web browser is blocking the pictures being loaded from Facebook. Try checking to see whether you have any add-ons or extensions installed in your browser and, if so, try disabling them to see whether that solves the problem.
 
 == Other Notes ==
 
@@ -212,10 +192,10 @@ The most common reason for this is that an add-on or extension you have installe
 
 == Screenshots ==
 
-1. By default the Facebook feed inherits your theme's default styles and the feed is completely responsive
+1. By default the Facebook feed inherits your theme's default styles and the Facebook feed is completely responsive
 2. Completely customize the way your Facebook feed looks to perfectly match your site
-3. Use custom CSS to customize every part of the feed
-4. Display Facebook events in your feed
+3. Use custom CSS to customize every part of the Facebook feed
+4. Display Facebook events in your Facebook feed
 5. Configuring the Custom Facebook Feed plugin
 6. General Facebook Feed options - Custom Facebook Feed Layout and Style page
 7. Facebook Feed Typography options - Custom Facebook Feed Layout and Style page

@@ -203,7 +203,8 @@ class HMWP_Controllers_Rewrite extends HMWP_Classes_FrontController
         }
 
         //hide the URLs from admin and login
-        add_action('init', array($this->model, 'hideUrls'));
+        //load the hook on plugins_loaded to prevent any wp redirect
+        add_action('plugins_loaded', array($this->model, 'hideUrls'));
 
     }
 

@@ -93,6 +93,7 @@ class AdminController
                  && absint( $_GET['id'] )
         ) {
             $_POST = array_map( 'stripslashes_deep', $_POST );
+
             $form_id = absint( $_GET['id'] );
 
             $query = $wpdb->prepare(

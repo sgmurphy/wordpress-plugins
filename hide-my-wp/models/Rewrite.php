@@ -1513,21 +1513,23 @@ class HMWP_Models_Rewrite
         do_action('hmwp_login_init');
     }
 
-	/**
-	 * Hook the login page and check if the user is already logged in
-	 *
-	 * @return string
-	 */
-	public function dashboard_redirect()
-	{
-		global $current_user;
-		//If the user is already logged in
-		if ((!isset( $_REQUEST['action'] ) || $_REQUEST['action'] == 'login') && isset($current_user->ID) && $current_user->ID > 0) {
-			//redirect to admin dashboard
-			wp_redirect(apply_filters('hmwp_url_login_redirect', admin_url()));
-			exit();
-		}
-	}
+    /**
+     * Hook the login page and check if the user is already logged in
+     *
+     * @return void
+     */
+    public function dashboard_redirect()
+    {
+        global $current_user;
+        //If the user is already logged in
+        if (!HMWP_Classes_Tools::getValue('nordt') &&
+            (!isset( $_REQUEST['action'] ) || $_REQUEST['action'] == 'login') &&
+            isset($current_user->ID) && $current_user->ID > 0) {
+            //redirect to admin dashboard
+            wp_redirect(apply_filters('hmwp_url_login_redirect', admin_url()));
+            exit();
+        }
+    }
 
     /**
      * Change the password confirm URL with the new URL

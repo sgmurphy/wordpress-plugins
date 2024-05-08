@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress
 * Plugin URI: https://loginpress.pro/?utm_source=loginpress-lite&utm_medium=plugin-inside&utm_campaign=pro-upgrade&utm_content=plugin_uri
 * Description: LoginPress is the best <code>wp-login</code> Login Page Customizer plugin by <a href="https://wpbrigade.com/?utm_source=loginpress-lite">WPBrigade</a> which allows you to completely change the layout of login, register and forgot password forms.
-* Version: 3.0.6
+* Version: 3.0.7
 * Author: LoginPress
 * Author URI: https://loginpress.pro/?utm_source=loginpress-lite
 * Text Domain: loginpress
@@ -22,7 +22,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 		/**
 		* @var string
 		*/
-		public $version = '3.0.6';
+		public $version = '3.0.7';
 
 		/**
 		* @var The single instance of the class
@@ -95,7 +95,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 				include_once( LOGINPRESS_DIR_PATH . 'include/privacy-policy.php' );
 			}
 
-			$login_with_email = isset( $loginpress_setting['login_order'] ) ?  $loginpress_setting['login_order'] : '';
+			$login_with_email = isset( $loginpress_setting['login_order'] ) ?  $loginpress_setting['login_order'] : 'default';
 			if ( 'default' != $login_with_email ) {
 				include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-login-order.php' );
 				new LoginPress_Login_Order();
@@ -105,7 +105,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 			if ( 'off' != $enable_reg_pass_field ) {
 				include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-custom-password.php' );
 				new LoginPress_Custom_Password();
-			}
+			}	
 			$loginpress_password_reset_time_limit = isset( $loginpress_setting['loginpress_password_reset_time_limit'] ) ?  $loginpress_setting['loginpress_password_reset_time_limit'] : 'off';
 			if ( 'off' != $loginpress_password_reset_time_limit ) {
 				include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-force-reset-pass.php' );

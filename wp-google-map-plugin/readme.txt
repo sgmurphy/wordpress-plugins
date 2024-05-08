@@ -1,17 +1,17 @@
-=== WordPress Plugin for Google Maps - WP MAPS ===
+=== WP Maps - Display Google Maps Perfectly with Ease ===
 Contributors:      flippercode
 Plugin Name:       WP MAPS
 Tags: google map,google maps,map,maps
 Author URI:        http://profiles.wordpress.org/flippercode/
 Author:            flippercode
 Requires at least: 3.4
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Stable tag: 4.5.8
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Advanced Maps plugin for Google Maps. Create multiple maps with custom markers and more.
+Show Google Maps on your site with WP Maps. Enjoy easy settings for unlimited maps and precise locations.
 
 == Description ==
 

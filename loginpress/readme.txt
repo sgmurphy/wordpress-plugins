@@ -1,11 +1,11 @@
-=== LoginPress | Custom Login Page Customizer ===
+=== LoginPress | wp-login Custom Login Page Customizer ===
 Requires at least: 4.0
 Tested up to: 6.5
 Contributors: WPBrigade, hiddenpearls, AbdulWahab610
 Donate link: https://loginpress.pro/pricing/?utm_source=loginpress-lite
 Author URI: https://wpbrigade.com/?utm_source=loginpress-lite&utm_medium=author-url-link
 Tags: wp-login, login, login customizer, custom login, wordpress login,
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,7 @@ LoginPress plugin is built using The Customizer API which is getting popular for
 
 > Multilingual & Translatable
 > WPML Compatible
+
 
 **LoginPress Addons:**
 
@@ -221,6 +222,11 @@ Please visit <a target="_blank" rel="friend" href="https://loginpress.pro?utm_so
 23. Custom Login page (Company theme) Example #23 with Captcha [Pro feature](https://loginpress.pro?utm_source=loginpress-lite&utm_medium=screenshots&utm_campaign=pro-upgrade)
 
 == Changelog ==
+
+= 3.0.7 – 2024-05-08 =
+* Bugfix: Resolved PHP warning for Login Order.
+* Bugfix: Set's the default Login Order value.
+* Bugfix: Focus on LoginPress panel in customizer for FireFox Browser.
 
 = 3.0.6 – 2024-03-20 =
 * Bugfix: Resolved PHP warning in TAV-notification.
@@ -733,5 +739,5 @@ Please visit <a target="_blank" rel="friend" href="https://loginpress.pro?utm_so
 
 == Upgrade Notice ==
 
-= 3.0.6 =
-* Upgrade carefully. New Feature Release and Compatible with 6.5
+= 3.0.7 =
+* minor bugfix release for login page.

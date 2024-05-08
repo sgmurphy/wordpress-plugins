@@ -2091,8 +2091,8 @@
 		$("<style type='text/css' id='loginpress-scbg-position'></style>").appendTo(loginpress_find('head'));
 		$("<style type='text/css' id='loginpress-scbg-size'></style>").appendTo(loginpress_find('head'));
 		$("<style type='text/css' id='loginpress-scbg-repeat'></style>").appendTo(loginpress_find('head'));
-
-		if ( loginpress_script.autoFocusPanel ) { // Auto Focus on LoginPress Panel // 1.2.0
+		// Fix Firefox focus issue.
+		if (loginpress_script.autoFocusPanel && !(navigator.userAgent.toLowerCase().indexOf('firefox') > -1 )  ) { // Auto Focus on LoginPress Panel // 1.2.0
 			wp.customize.panel("loginpress_panel").focus();
 		}
 

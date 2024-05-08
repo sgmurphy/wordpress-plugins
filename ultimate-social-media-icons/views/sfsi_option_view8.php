@@ -729,7 +729,7 @@ $option8['sfsi_form_button_background'] = (isset($option8['sfsi_form_button_back
 
         <?php $nonce = wp_create_nonce("update_step8"); ?>
 
-        <a href="javascript:;" id="sfsi_save8" title="Save" data-nonce="<?php echo $nonce; ?>">Save</a>
+        <a href="javascript:;" id="sfsi_save8" title="Save" data-nonce="<?php echo $nonce; ?>"><?php _e('Save', 'ultimate-social-media-icons')?></a>
 
     </div>
 

@@ -419,7 +419,7 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
     <div class="row ria_section">
         <h2 class="sfsicls_ria"><?php _e( 'RateItAll', 'ultimate-social-media-icons' ); ?></h2>
         <div class="inr_cont">
-            <p><?php _e('When clicked on it, users will get directed to your page on ', 'ultimate-social-media-plus');
+            <p><?php _e('When clicked on it, users will get directed to your page on ', 'ultimate-social-media-icons');
                 echo '<a href="https://rateitall.com/">RateItAll.</a>' ?>
             </p>
             <p class="radio_section fb_url  cus_link instagram_space"><label><?php _e( 'URL:', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_ria_pageUrl" type="text" value="<?php echo (isset($option2['sfsi_ria_pageUrl']) && $option2['sfsi_ria_pageUrl'] != '') ?  esc_attr($option2['sfsi_ria_pageUrl']) : ''; ?>" placeholder="http://" class="add" /></p>
@@ -431,7 +431,7 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
     <div class="row inha_section">
         <h2 class="sfsicls_inha"><?php _e( 'IncreasingHappiness', 'ultimate-social-media-icons' ); ?></h2>
         <div class="inr_cont">
-            <p><?php _e('When clicked on it, users get taken to your profile page on ', 'ultimate-social-media-plus');
+            <p><?php _e('When clicked on it, users get taken to your profile page on ', 'ultimate-social-media-icons');
                 echo '<a href="https://increasinghappiness.org/">IncreasingHappiness.org.</a>' ?>
             </p>
             <p class="radio_section fb_url  cus_link instagram_space"><label><?php _e( 'URL:', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_inha_pageUrl" type="text" value="<?php echo (isset($option2['sfsi_inha_pageUrl']) && $option2['sfsi_inha_pageUrl'] != '') ?  esc_attr($option2['sfsi_inha_pageUrl']) : ''; ?>" placeholder="http://" class="add" /></p>

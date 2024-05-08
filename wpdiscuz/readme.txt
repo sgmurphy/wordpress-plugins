@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 7.6.18
+Stable tag: 7.6.19
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -189,6 +189,12 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 
 Please don't forget delete all caches and purge CDN after the update.
 
+= Comments - wpDiscuz v7.6.19 - 08.05.2024 =
+
+* Fixed: Issue with date difference logic
+* Fixed: Vulnerability in the shortcode [wpdiscuz-feedback]
+* Fixed: Deprecated function call "bp_core_get_user_domain"
+
 = Comments - wpDiscuz v7.6.18 - 24.04.2024 =
 
 * Fixed: Timout error on dashboard statistics page when comments count are too many
@@ -292,10 +298,3 @@ Please don't forget delete all caches and purge CDN after the update.
 * Added: A new hook "wpdiscuz_confirm_email_content" to allow to change the content of confirmation email
 * Added: Nofollow, noindex on internal anchors to prevent google crawling
 * Fixed: Comment reply text max length is issue on reply forms
-
-= Comments - wpDiscuz v7.6.0 - 26.04.2023 =
-
-* Added: Support of Telegram login
-* Added: Support of Gutenberg blocks
-* Added: New hook ('wpdiscuz_comment_form_args') on comment form attributes
-* Fixed: Line breaks in textarea custom field

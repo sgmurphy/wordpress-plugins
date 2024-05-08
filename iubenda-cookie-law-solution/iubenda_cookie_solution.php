@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.10.3
+ * Version: 3.10.4
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.10.3
+ * @version 3.10.4
  */
 class iubenda {
 // phpcs:enable
@@ -138,7 +138,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.10.3';
+	public $version = '3.10.4';
 
 	/**
 	 * Plugin activation info.
@@ -1172,11 +1172,14 @@ class iubenda {
 	}
 
 	/**
-	 * Domain info helper function.
+	 * Extracts the domain name from a given URL.
 	 *
-	 * @param type $domainb domainb.
+	 * This function parses the URL and extracts the domain name
+	 * from it, excluding any subdomains and top-level domain (TLD).
 	 *
-	 * @return type
+	 * @param   string $domainb  The URL from which to extract the domain name.
+	 *
+	 * @return string The extracted domain name.
 	 */
 	public function domain( $domainb ) {
 		$bits = explode( '/', $domainb );
@@ -1195,7 +1198,7 @@ class iubenda {
 		$idy  = 0;
 		while ( $idy < $idz ) {
 			unset( $bits[ $idy ] );
-			++$idz;
+			++$idy;
 		}
 		$part = array();
 		foreach ( $bits as $bit ) {

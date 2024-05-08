@@ -2327,8 +2327,8 @@ class LoginPress_Entities {
 			return new WP_Error( '', '' );
 		}
 		// If Logout message is set and not empty then remove the default logout message from WordPress.
-		if ( isset( $this->loginpress_key ) && array_key_exists( 'logout_message', $this->loginpress_key ) && ! empty( $this->loginpress_key['logout_message'] ) ) {
-			if ( isset( $_GET['loggedout'] ) && TRUE == $_GET['loggedout'] && isset( $errors->errors['loggedout'] ) ) {
+		if ( isset( $this->loginpress_key ) && is_array( $this->loginpress_key ) && array_key_exists( 'logout_message', $this->loginpress_key ) && ! empty( $this->loginpress_key['logout_message'] ) ) {
+			if ( isset( $_GET['loggedout'] ) && true == $_GET['loggedout'] && isset( $errors->errors['loggedout'] ) ) {
 				unset( $errors->errors['loggedout'] );
 			}
 		}

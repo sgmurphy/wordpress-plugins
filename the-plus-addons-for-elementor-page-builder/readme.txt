@@ -363,6 +363,10 @@ We do not load any extra files, which will reduce your backend performance. But,
 
 We have the most advanced caching architecture, Which will never bloat your site. Know more about our caching architecture. We have some tricks and suggestions to improve frontend performance. 
 
+**How can I report security bugs?**
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/the-plus-addons-for-elementor-page-builder)
+
 == Screenshots ==
 1. 120+ Advanced Elementor Widgets & Extensions
 2. Horizontal & Vertical Mega Menu Builder

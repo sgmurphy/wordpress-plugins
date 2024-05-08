@@ -16,7 +16,7 @@
                     </form>
                 </div>
                 <div class="text-center" style="display: inline-block; margin-right: 5px;">
-                    <button type="button" class="btn rounded-0 btn-default btn-lg text-white px-4 login_test hmwp_modal" data-remote="<?php echo esc_url(site_url() . '/' . HMWP_Classes_Tools::getOption('hmwp_login_url')) ?>" data-target="#frontend_test_modal" ><?php echo esc_html__('Login Test', 'hide-my-wp'); ?></button>
+                    <button type="button" class="btn rounded-0 btn-default btn-lg text-white px-4 login_test hmwp_modal" data-remote="<?php echo esc_url(site_url() . '/' . HMWP_Classes_Tools::getOption('hmwp_login_url') . '?nordt=1') ?>" data-target="#frontend_test_modal" ><?php echo esc_html__('Login Test', 'hide-my-wp'); ?></button>
                 </div>
             </div>
             <div id="hmwp_frontendcheck_content" class="my-3"></div>

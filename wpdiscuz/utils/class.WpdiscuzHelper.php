@@ -131,7 +131,7 @@ class WpdiscuzHelper implements WpDiscuzConstants {
         if ($datetime) {
             $search = ["[number]", "[time_unit]", "[adjective]"];
             $replace = [];
-            $now = new DateTime();
+            $now = new DateTime(gmdate('Y-m-d H:i:s'));
             $ago = new DateTime($datetime);
             $diff = $now->diff($ago);
             if ($diff->y) {
@@ -980,7 +980,7 @@ class WpdiscuzHelper implements WpDiscuzConstants {
                     if (class_exists("UM_API")) {
                         $user_link = um_user_profile_url($user["u_id"]);
                     } else if (class_exists("BuddyPress")) {
-                        $user_link = bp_core_get_user_domain($user["u_id"]);
+                        $user_link = self::getBPUserUrl($user["u_id"]);
                     } else {
                         $user_link = get_author_posts_url($user["u_id"]);
                     }
@@ -1408,7 +1408,7 @@ class WpdiscuzHelper implements WpDiscuzConstants {
     public function getProfileUrl($profile_url, $user) {
         if ($this->options->login["enableProfileURLs"] && $user) {
             if (class_exists("BuddyPress")) {
-                $profile_url = bp_core_get_user_domain($user->ID);
+                $profile_url = self::getBPUserUrl($user->ID);
             } else if (class_exists("UM_API") || class_exists("UM")) {
                 um_fetch_user($user->ID);
                 $profile_url = um_user_profile_url();
@@ -1837,6 +1837,10 @@ class WpdiscuzHelper implements WpDiscuzConstants {
     public function updatePostAuthorsTrs($post_id) {
         set_transient(self::TRS_POSTS_AUTHORS, null);
         $this->dbManager->getPostsAuthors();
+    }
+
+    public static function getBPUserUrl($user_id) {
+        return function_exists('bp_members_get_user_url') ? bp_members_get_user_url($user_id) : bp_core_get_user_domain($user_id);
     }
 
 }

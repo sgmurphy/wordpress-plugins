@@ -2,7 +2,7 @@
 /*
  * Plugin Name: wpDiscuz
  * Description: #1 WordPress Comment Plugin. Innovative, modern and feature-rich comment system to supercharge your website comment section.
- * Version: 7.6.18
+ * Version: 7.6.19
  * Author: gVectors Team
  * Author URI: https://gvectors.com/
  * Plugin URI: https://wpdiscuz.com/
@@ -2310,7 +2310,7 @@ class WpdiscuzCore implements WpDiscuzConstants {
 				"opened"   => 0
 			], $atts, self::WPDISCUZ_FEEDBACK_SHORTCODE );
 			if ( $atts["id"] && $atts["question"] && ( $inline_form = $this->dbManager->getFeedbackFormByUid( $post->ID, $atts["id"] ) ) ) {
-				$content = "<div class='wpd-inline-shortcode wpd-inline-" . ( $inline_form->opened && $this->form->isUserCanComment( WpdiscuzHelper::getCurrentUser(), $post->ID ) ? "opened" : "closed" ) . "' id='wpd-inline-" . $inline_form->id . "'>" . html_entity_decode( $content );
+				$content = "<div class='wpd-inline-shortcode wpd-inline-" . ( $inline_form->opened && $this->form->isUserCanComment( WpdiscuzHelper::getCurrentUser(), $post->ID ) ? "opened" : "closed" ) . "' id='wpd-inline-" . $inline_form->id . "'>" . wp_kses_post(html_entity_decode( $content ));
 				$content .= "<div class='wpd-inline-icon-wrapper'>";
 				$content .= "<svg class='wpd-inline-icon" . ( $this->options->inline["inlineFeedbackAttractionType"] === "blink" ? " wpd-ignored" : "" ) . "' xmlns='https://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path class='wpd-inline-icon-first' d='M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/><path class='wpd-inline-icon-second' d='M0 0h24v24H0z' /></svg>";
 				$args    = [
