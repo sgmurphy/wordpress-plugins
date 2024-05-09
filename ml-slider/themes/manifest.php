@@ -6,6 +6,30 @@
  * The type should be free, premium, or bonus
  */
 return array(
+    'bitono' => array(
+        'folder' => 'bitono',
+        'title' => 'Bitono',
+        'type' => 'free',
+        'supports' => array( 'flex' ),
+        'tags' => array(),
+        'description' => __('Bitono is a minimalist theme with a 2-color scheme. Recommended for Image, External Image and Post feed slides.', 'ml-slider'),
+    ),
+    'databold' => array(
+        'folder' => 'databold',
+        'title' => 'Databold',
+        'type' => 'free',
+        'supports' => array( 'flex' ),
+        'tags' => array(),
+        'description' => __('Databold is a minimalist theme recommended for Image, External Image and Post feed slides.', 'ml-slider')
+    ),
+    'draxler' => array(
+        'folder' => 'draxler',
+        'title' => 'Draxler',
+        'type' => 'free',
+        'supports' => array( 'flex' ),
+        'tags' => array(),
+        'description' => __('Draxler is a minimalist theme.', 'ml-slider')
+    ),
     'cubic' => array(
         'folder' => 'cubic',
         'title' => 'Cubic',

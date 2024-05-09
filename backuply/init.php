@@ -10,7 +10,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('BACKUPLY_VERSION', '1.3.0');
+define('BACKUPLY_VERSION', '1.3.1');
 define('BACKUPLY_DIR', dirname(BACKUPLY_FILE));
 define('BACKUPLY_URL', plugins_url('', BACKUPLY_FILE));
 define('BACKUPLY_BACKUP_DIR', str_replace('\\' , '/', WP_CONTENT_DIR).'/backuply/');
@@ -150,7 +150,7 @@ function backuply_load_plugin(){
 	}
 	
 	// Are we pro ?
-	if(is_admin() && !defined('BACKUPLY_PRO') && current_user_can('install_plugins')) {
+	if(is_admin() && !defined('BACKUPLY_PRO') && current_user_can('install_plugins')){
 
 		// The holiday promo time
 		$holiday_time = get_option('backuply_hide_holiday');
@@ -207,7 +207,7 @@ function backuply_load_plugin(){
 		}
 
 		// Are we to show the backuply offer, and it will show up after 7 days of install.
-		if(empty($showing_promo) && !empty($offer_time) && ($offer_time > 0  || abs($offer_time + time()) > 15780000) && $offer_time  < time() - (7 * 86400) && get_option('backuply_last_restore')){
+		if(empty($showing_promo) && !empty($offer_time) && ($offer_time > 0  || abs($offer_time + time()) > 15780000) && $offer_time  < time() - (7 * 86400) && !empty($_GET['page']) && strpos(backuply_optget('page'), 'backuply') !== FALSE){
 			add_action('admin_notices', 'backuply_offer_handler');
 		}
 		
@@ -222,19 +222,50 @@ function backuply_load_plugin(){
 		}
 	}
 	
-	// Backup notice for user to backup the if its been a week user took a backup
-	$last_backup = get_option('backuply_last_backup');
-	$backup_nag = get_option('backuply_backup_nag');
 	
-	// We want to show it one day after install.
-	if(empty($backup_nag)){
-		update_option('backuply_backup_nag', time() - 518400, false);
+	if(is_admin() && current_user_can('activate_plugins')){
+		// Backup notice for user to backup the if its been a week user took a backup
+		$last_backup = get_option('backuply_last_backup');
+		$backup_nag = get_option('backuply_backup_nag');
+		
+		// We want to show it one day after install.
+		if(empty($backup_nag)){
+			update_option('backuply_backup_nag', time() - 518400, false);
+		}
+		
+		if((time() - $last_backup) >= 604800 && (time() - $backup_nag) >= 604800){
+			add_action('admin_notices', 'backuply_backup_nag');
+		}
+		
+		// Are we to disable the license notice for 2 months.
+		if(isset($_REQUEST['backuply_license_notice']) && (int)$_REQUEST['backuply_license_notice'] == 0 ){
+			if(!wp_verify_nonce(backuply_optreq('security'), 'backuply_promo_nonce')) {
+				die('Security Check Failed');
+			}
+
+			update_option('backuply_license_notice', (0 - time()), false);
+			die('DONE');
+		}
+		
+		$backuply_license_notice = get_option('backuply_license_notice', 0);
+		
+		if(empty($backuply_license_notice)){
+			$backuply_license_notice = time();
+			update_option('backuply_license_notice', $backuply_license_notice);
+		}
+
+		// Here we are making sure that we have license is there and Cloud trial has ended and if dismissed it does not shows for next 2 months.
+		if(!empty($backuply['license']) && !empty($backuply['license']['expires']) && isset($_GET['page']) && strpos($_GET['page'], 'backuply') !== FALSE && get_option('bcloud_trial_time', 0) <= 0 && ($backuply_license_notice > 0 || (abs($backuply_license_notice) + MONTH_IN_SECONDS * 2) < time())){
+			$current_timestamp = time();
+			$expiration_timestamp = strtotime($backuply['license']['expires']);
+			$timediff = $expiration_timestamp - $current_timestamp;
+
+			if($timediff <= WEEK_IN_SECONDS){
+				add_action('admin_notices', 'backuply_license_renew');
+			}
+		}
 	}
-	
-	if(current_user_can( 'activate_plugins' ) && (time() - $last_backup) >= 604800 && (time() - $backup_nag) >= 604800){
-		add_action('admin_notices', 'backuply_backup_nag');
-	}
-	
+
 	// Cron for Backing Up Files/Database
 	add_action('backuply_backup_cron', 'backuply_backup_execute');
 	
@@ -471,6 +502,14 @@ function backuply_holiday_promo(){
 	include_once(BACKUPLY_DIR.'/main/promo.php');
 	
 	backuply_holiday_offers();
+}
+
+function backuply_license_renew(){
+	if(!function_exists('backuply_check_expires')){
+		include_once BACKUPLY_DIR.'/main/promo.php';
+	}
+	
+	backuply_check_expires();
 }
 
 function backuply_free_trial_promo(){

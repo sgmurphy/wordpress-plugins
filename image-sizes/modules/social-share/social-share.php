@@ -194,6 +194,10 @@ class Social_Share extends Base {
 	}
 
 	public function show_social_share_images() {
+		// Check if single post
+		if ( ! is_singular( 'post' ) && ! is_singular( 'page' ) && ! is_singular( 'product' ) ) return;
+
+		// Get post data
 		$post_id        = get_the_ID();
 		$post_url	    = get_permalink();
 		$post_title     = get_the_title();
@@ -212,52 +216,56 @@ class Social_Share extends Base {
 		if ( $is_fb_share && $fb_img ) {
 			$fb_img_info    = thubmpress_get_image_info( $fb_img );
 
-			printf(
-				'<meta property="og:site_name" content="%1s" />
-				<meta property="og:title" content="%2s" />
-				<meta property="og:description" content="%3s" />
-				<meta property="og:url" content="%4s" />
-				<meta property="og:image" content="%5s" />
-				<meta property="og:image:width" content="%6s" />
-				<meta property="og:image:height" content="%7s" />
-				<meta property="og:image:alt" content="%8s" />
-				<meta property="og:image:type" content="%9s" />',
-				esc_attr( $site_name ),
-				esc_html( $post_title ),
-				esc_html( $post_desc ),
-				esc_url( $post_url ),
-				esc_url( $fb_img ),
-				esc_attr( $fb_img_info['width'] ),
-				esc_attr( $fb_img_info['height'] ),
-				esc_attr( $fb_img_info['alt'] ),
-				esc_attr( $fb_img_info['type'] )
-			);
+			if ( empty( $fb_img_info ) && is_array( $fb_img_info ) && in_array( ['width' , 'height', 'alt', 'type'], $fb_img_info ) ) {
+				printf(
+					'<meta property="og:site_name" content="%1s" />
+					<meta property="og:title" content="%2s" />
+					<meta property="og:description" content="%3s" />
+					<meta property="og:url" content="%4s" />
+					<meta property="og:image" content="%5s" />
+					<meta property="og:image:width" content="%6s" />
+					<meta property="og:image:height" content="%7s" />
+					<meta property="og:image:alt" content="%8s" />
+					<meta property="og:image:type" content="%9s" />',
+					esc_attr( $site_name ),
+					esc_html( $post_title ),
+					esc_html( $post_desc ),
+					esc_url( $post_url ),
+					esc_url( $fb_img ),
+					esc_attr( $fb_img_info['width'] ),
+					esc_attr( $fb_img_info['height'] ),
+					esc_attr( $fb_img_info['alt'] ),
+					esc_attr( $fb_img_info['type'] )
+				);
+			}
 		}
 		
 		// Linkedin share image
 		if ( $is_ln_share && $ln_img ) {
 			$ln_img_info    = thubmpress_get_image_info( $ln_img );
 
-			printf( 
-				'<meta property="og:site_name" content="%1s" />
-				<meta property="og:title" content="%2s" />
-				<meta property="og:description" content="%3s" />
-				<meta property="og:url" content="%4s" />
-				<meta property="og:image" content="%5s" />
-				<meta property="og:image:width" content="%6s" />
-				<meta property="og:image:height" content="%7s" />
-				<meta property="og:image:alt" content="%8s" />
-				<meta property="og:image:type" content="%9s" />',
-				esc_attr( $site_name ),
-				esc_html( $post_title ),
-				esc_html( $post_desc ),
-				esc_url( $post_url ),
-				esc_url( $ln_img ),
-				esc_attr( $ln_img_info['width'] ),
-				esc_attr( $ln_img_info['height'] ),
-				esc_attr( $ln_img_info['alt'] ),
-				esc_attr( $ln_img_info['type'] )
-			);
+			if ( empty( $ln_img_info ) && is_array( $ln_img_info ) && in_array( ['width' , 'height', 'alt', 'type'], $ln_img_info ) ) {
+				printf( 
+					'<meta property="og:site_name" content="%1s" />
+					<meta property="og:title" content="%2s" />
+					<meta property="og:description" content="%3s" />
+					<meta property="og:url" content="%4s" />
+					<meta property="og:image" content="%5s" />
+					<meta property="og:image:width" content="%6s" />
+					<meta property="og:image:height" content="%7s" />
+					<meta property="og:image:alt" content="%8s" />
+					<meta property="og:image:type" content="%9s" />',
+					esc_attr( $site_name ),
+					esc_html( $post_title ),
+					esc_html( $post_desc ),
+					esc_url( $post_url ),
+					esc_url( $ln_img ),
+					esc_attr( $ln_img_info['width'] ),
+					esc_attr( $ln_img_info['height'] ),
+					esc_attr( $ln_img_info['alt'] ),
+					esc_attr( $ln_img_info['type'] )
+				);
+			}
 		}
 
 		// Twitter share image

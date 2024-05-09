@@ -1589,6 +1589,11 @@ class softtar{
 							touch($v_header['filename']);
 							clearstatcache();
 							$v_dest_file = fopen($v_header['filename'], "wb");
+
+							if($v_dest_file == 0){
+								usleep(500);
+								$v_dest_file = fopen($v_header['filename'], "wb");
+							}
 						}
 
 						if($v_dest_file == 0){
@@ -3050,6 +3055,13 @@ function updating_config_file(){
 		return false;
 	}
 	
+	// wp-config.php is required to be writable, especially in case of migration
+	// so that the database values could be updated to the new one.
+	if(!is_writable($data['softpath'] . '/wp-config.php')){
+		$old_permission = fileperms($data['softpath'] . '/wp-config.php');
+		chmod($data['softpath'] . '/wp-config.php', 0644);
+	}
+	
 	if(!is_writable($data['softpath'] . '/wp-config.php')){
 		backuply_log('Updating Wp-Config File: wp-config.php is not writable!');
 		return false;
@@ -3075,6 +3087,11 @@ function updating_config_file(){
 	}
 
 	file_put_contents($data['softpath'] . '/wp-config.php', $config_cont);
+	
+	// Restoring the older permission of the wp-config.php file.
+	if(isset($old_permission) && is_numeric($old_permission)){
+		chmod($data['softpath'] . '/wp-config.php', $old_permission);
+	}
 	
 	return true;
 }

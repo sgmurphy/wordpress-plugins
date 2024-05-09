@@ -575,7 +575,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PRICE_POSITIONS", function() { return PRICE_POSITIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TICKET_LABELS", function() { return TICKET_LABELS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SALE_PRICE_LABELS", function() { return SALE_PRICE_LABELS; });
-var _window, _window$tribe_editor_, _window$tribe_editor_2, _window2, _window2$tribe_editor, _window2$tribe_editor2;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IS_FREE_TC_TICKET_ALLOWED", function() { return IS_FREE_TC_TICKET_ALLOWED; });
+var _window, _window$tribe_editor_, _window$tribe_editor_2, _window2, _window2$tribe_editor, _window2$tribe_editor2, _window3, _window3$tribe_editor, _window3$tribe_editor2, _window3$tribe_editor3;
 const TC = 'tribe-commerce';
 const EDD = 'edd';
 const WOO = 'woo';
@@ -620,6 +621,9 @@ const PRICE_POSITIONS = [PREFIX, SUFFIX];
 // eslint-disable-next-line no-undef
 const TICKET_LABELS = (_window = window) === null || _window === void 0 ? void 0 : (_window$tribe_editor_ = _window.tribe_editor_config) === null || _window$tribe_editor_ === void 0 ? void 0 : (_window$tribe_editor_2 = _window$tribe_editor_.tickets) === null || _window$tribe_editor_2 === void 0 ? void 0 : _window$tribe_editor_2.ticketLabels;
 const SALE_PRICE_LABELS = (_window2 = window) === null || _window2 === void 0 ? void 0 : (_window2$tribe_editor = _window2.tribe_editor_config) === null || _window2$tribe_editor === void 0 ? void 0 : (_window2$tribe_editor2 = _window2$tribe_editor.tickets) === null || _window2$tribe_editor2 === void 0 ? void 0 : _window2$tribe_editor2.salePrice;
+
+// eslint-disable-next-line max-len
+const IS_FREE_TC_TICKET_ALLOWED = (_window3 = window) === null || _window3 === void 0 ? void 0 : (_window3$tribe_editor = _window3.tribe_editor_config) === null || _window3$tribe_editor === void 0 ? void 0 : (_window3$tribe_editor2 = _window3$tribe_editor.tickets) === null || _window3$tribe_editor2 === void 0 ? void 0 : (_window3$tribe_editor3 = _window3$tribe_editor2.commerce) === null || _window3$tribe_editor3 === void 0 ? void 0 : _window3$tribe_editor3.isFreeTicketAllowed;
 
 /***/ }),
 
@@ -1787,7 +1791,8 @@ const {
   UNLIMITED,
   INDEPENDENT,
   SHARED,
-  TICKET_TYPES
+  TICKET_TYPES,
+  IS_FREE_TC_TICKET_ALLOWED
 } = constants;
 const {
   tickets: ticketsConfig,
@@ -1983,7 +1988,16 @@ const isTempTitleValid = Object(external_tribe_modules_reselect_["createSelector
 const isTempCapacityValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempCapacity], capacity => external_lodash_trim_default()(capacity) !== '' && !isNaN(capacity) && capacity > 0);
 const isTempSharedCapacityValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketsTempSharedCapacity], capacity => external_lodash_trim_default()(capacity) !== '' && !isNaN(capacity) && capacity > 0);
 const isZeroPriceValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempPrice, getTicketsProvider], (price, provider) => {
-  return 0 < parseInt(price, 10) || ![constants["TC_CLASS"], constants["TICKETS_COMMERCE_MODULE_CLASS"]].includes(provider);
+  if (0 < parseInt(price, 10)) {
+    return true;
+  }
+  if (constants["TC_CLASS"] === provider) {
+    return false;
+  }
+  if (constants["TICKETS_COMMERCE_MODULE_CLASS"] === provider) {
+    return IS_FREE_TC_TICKET_ALLOWED;
+  }
+  return true;
 });
 const isTicketValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempCapacityType, isTempTitleValid, isTempCapacityValid, isTempSharedCapacityValid, isZeroPriceValid], (capacityType, titleValid, capacityValid, sharedCapacityValid, zeroPriceValid) => {
   if (capacityType === TICKET_TYPES[UNLIMITED]) {

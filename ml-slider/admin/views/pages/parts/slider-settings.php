@@ -333,6 +333,12 @@
             'helptext' => esc_html__(
                 "Transition between slides automatically",
                 "ml-slider"
+            ),
+            'dependencies' => array(
+                array(
+                    'show' => 'loop', // Show Loop
+                    'when' => true // When Auto play is true
+                )
             )
         ),
         'loop' => array(
@@ -340,7 +346,7 @@
             'type' => 'select',
             'label' => __("Loop", "ml-slider"),
             'class' => 'option flex',
-            'helptext' => __('Choose whether the slides loop or stop on a specific slide. The slides will loop infinitely if you choose "Continuously" and the "Slide" effect.', 'ml-slider'),
+            'helptext' => __('If you choose "Continuously", the slides will loop infinitely. If you choose "Stop on first slide", the slideshow will stop on the first slide after showing all the items. If you choose "Stop on last slide", the slides will stop on the last slide.', 'ml-slider'),
             'value' => $this->slider->get_setting('loop'),
             'options' => array(
                 'continuously' => array('label' => __("Continuously", "ml-slider"), 'class' => ''),
@@ -432,6 +438,12 @@
             'helptext' => esc_html__(
                 "Infinite loop of slides when Carousel Mode is enabled. This option disables arrows and navigation.",
                 "ml-slider"
+            ),
+            'dependencies' => array(
+                array(
+                    'show' => 'autoPlay', // Show autoplay
+                    'when' => false // When infinte loop is false
+                )
             )
         ),
         'carouselMargin' => array(
@@ -501,19 +513,6 @@
                 "ml-slider"
             )
         ),
-        'keyboard' => array(
-            'priority' => 75,
-            'type' => 'checkbox',
-            'label' => esc_html__("Keyboard Controls", "ml-slider"),
-            'class' => 'option flex',
-            'checked' => 'true' == $this->slider->get_setting(
-                'keyboard'
-            ) ? 'checked' : '',
-            'helptext' => esc_html__(
-                "Use arrow keys to get to the next slide",
-                "ml-slider"
-            )
-        ),
         'touch' => array(
             'priority' => 80,
             'type' => 'checkbox',
@@ -528,7 +527,7 @@
             )
         ),
         'delay' => array(
-            'priority' => 80,
+            'priority' => 85,
             'type' => 'number',
             'size' => 3,
             'min' => 500,
@@ -568,7 +567,7 @@
             )
         ),
         'direction' => array(
-            'priority' => 130,
+            'priority' => 95,
             'type' => 'select',
             'label' => esc_html__("Slide direction", "ml-slider"),
             'class' => 'option flex',
@@ -595,7 +594,7 @@
             )
         ),
         'easing' => array(
-            'priority' => 140,
+            'priority' => 100,
             'type' => 'select',
             'label' => esc_html__("Easing", "ml-slider"),
             'class' => 'option flex',
@@ -605,6 +604,51 @@
             ),
             'value' => $this->slider->get_setting('easing'),
             'options' => $this->get_easing_options()
+        ),
+        'accessibilityOptions' => array(
+            'priority' => 101,
+            'type' => 'highlight',
+            'value' => esc_html__( 'Accessibility Options', 'ml-slider' ),
+            'topspacing' => true
+        ),
+        'keyboard' => array(
+            'priority' => 102,
+            'type' => 'checkbox',
+            'label' => esc_html__("Keyboard Controls", "ml-slider"),
+            'class' => 'option coin flex nivo responsive',
+            'checked' => 'true' == $this->slider->get_setting(
+                'keyboard'
+            ) ? 'checked' : '',
+            'helptext' => esc_html__(
+                "Use arrow keys to get to the next slide.",
+                "ml-slider"
+            )
+        ),
+        'ariaLive' => array(
+            'priority' => 103,
+            'type' => 'checkbox',
+            'label' => esc_html__("ARIA Live", "ml-slider"),
+            'class' => 'option flex',
+            'checked' => $this->slider->get_setting(
+                'ariaLive'
+            ) == 'true' ? 'checked' : '',
+            'helptext' => esc_html__(
+                "If Autoplay is enabled, this causes screen readers to announce that the slides are changing.",
+                "ml-slider"
+            )
+        ),
+        'tabIndex' => array(
+            'priority' => 103,
+            'type' => 'checkbox',
+            'label' => esc_html__("Tabindex for navigation", "ml-slider"),
+            'class' => 'option flex',
+            'checked' => $this->slider->get_setting(
+                'tabIndex'
+            ) == 'true' ? 'checked' : '',
+            'helptext' => esc_html__(
+                "This helps make the slideshow navigation more accessible.",
+                "ml-slider"
+            )
         ),
         'developerOptions' => array(
             'priority' => 195,
@@ -663,7 +707,7 @@
                 "Delay adding the flexslider class to the slideshow",
                 "ml-slider"
             )
-        )
+        )   
     );
     $aFields = apply_filters('metaslider_advanced_settings', $aFields, $this->slider);
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

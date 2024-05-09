@@ -552,7 +552,7 @@ class L_ThePlus_Meeting_Scheduler extends Widget_Base {
 				if ( ! empty( $xai_pagename ) ) {
 					$xai_output .= '/' . $xai_pagename;
 				}
-				$output .= '<script type="text/javascript" src="https://x.ai/embed/xdotai-embed.js" id="xdotaiEmbed" data-page="/' . $xai_uname . $xai_output . '" data-height data-width data-element async></script>';
+				$output .= '<script type="text/javascript" src="https://x.ai/embed/xdotai-embed.js" id="xdotaiEmbed" data-page="/' . esc_attr( $xai_uname ) . esc_attr( $xai_output ) . '" data-height data-width data-element async></script>';
 			}
 		}
 

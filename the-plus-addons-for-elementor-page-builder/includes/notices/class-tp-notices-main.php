@@ -114,7 +114,7 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 			}
 
 			if ( is_admin() && current_user_can( 'install_plugins' ) ) {
-				include L_THEPLUS_PATH . 'includes/notices/class-tp-tpag-install-notice.php';
+				// include L_THEPLUS_PATH . 'includes/notices/class-tp-tpag-install-notice.php';
 			}
 		}
 	}

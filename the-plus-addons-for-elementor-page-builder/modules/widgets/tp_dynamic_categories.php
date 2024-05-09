@@ -49,7 +49,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 	 * @version 5.4.2
 	 */
 	public function get_title() {
-		return esc_html__( 'Dynamic Categories', 'theplus' );
+		return esc_html__( 'Dynamic Categories', 'tpebl' );
 	}
 
 	/**
@@ -104,27 +104,27 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			array(
-				'label' => esc_html__( 'Content Layout', 'theplus' ),
+				'label' => esc_html__( 'Content Layout', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 		$this->add_control(
 			'style',
 			array(
-				'label'   => esc_html__( 'Style', 'theplus' ),
+				'label'   => esc_html__( 'Style', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'style_1',
 				'options' => array(
-					'style_1' => esc_html__( 'Style-1', 'theplus' ),
-					'style_2' => esc_html__( 'Style-2', 'theplus' ),
-					'style_3' => esc_html__( 'Style-3', 'theplus' ),
+					'style_1' => esc_html__( 'Style-1', 'tpebl' ),
+					'style_2' => esc_html__( 'Style-2', 'tpebl' ),
+					'style_3' => esc_html__( 'Style-3', 'tpebl' ),
 				),
 			)
 		);
 		$this->add_control(
 			'layout',
 			array(
-				'label'   => esc_html__( 'Layout', 'theplus' ),
+				'label'   => esc_html__( 'Layout', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'grid',
 				'options' => array(
@@ -151,7 +151,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'post_taxonomies',
 			array(
-				'label'     => esc_html__( 'Taxonomies', 'theplus' ),
+				'label'     => esc_html__( 'Taxonomies', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => l_theplus_get_post_taxonomies(),
 				'default'   => 'category',
@@ -165,7 +165,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'content_align_section',
 			array(
-				'label'     => esc_html__( 'Content Alignment', 'theplus' ),
+				'label'     => esc_html__( 'Content Alignment', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_CONTENT,
 				'condition' => array(
 					'style!' => 'style_3',
@@ -175,19 +175,19 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'text_alignment_st1',
 			array(
-				'label'     => esc_html__( 'Alignment', 'theplus' ),
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Top', 'theplus' ),
+						'title' => esc_html__( 'Top', 'tpebl' ),
 						'icon'  => 'eicon-v-align-top',
 					),
 					'center'     => array(
-						'title' => esc_html__( 'Center', 'theplus' ),
+						'title' => esc_html__( 'Center', 'tpebl' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
-						'title' => esc_html__( 'Bottom', 'theplus' ),
+						'title' => esc_html__( 'Bottom', 'tpebl' ),
 						'icon'  => 'eicon-v-align-bottom',
 					),
 				),
@@ -204,19 +204,19 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'text_alignment_st2',
 			array(
-				'label'     => esc_html__( 'Alignment', 'theplus' ),
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'left'   => array(
-						'title' => esc_html__( 'Left', 'theplus' ),
+						'title' => esc_html__( 'Left', 'tpebl' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => esc_html__( 'Center', 'theplus' ),
+						'title' => esc_html__( 'Center', 'tpebl' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
-						'title' => esc_html__( 'Right', 'theplus' ),
+						'title' => esc_html__( 'Right', 'tpebl' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -233,19 +233,19 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'align_offset',
 			array(
-				'label'     => esc_html__( 'Offset', 'theplus' ),
+				'label'     => esc_html__( 'Offset', 'tpebl' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'flex-start' => array(
-						'title' => esc_html__( 'Left', 'theplus' ),
+						'title' => esc_html__( 'Left', 'tpebl' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center'     => array(
-						'title' => esc_html__( 'Center', 'theplus' ),
+						'title' => esc_html__( 'Center', 'tpebl' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'flex-end'   => array(
-						'title' => esc_html__( 'Right', 'theplus' ),
+						'title' => esc_html__( 'Right', 'tpebl' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -261,14 +261,14 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'content_source_section',
 			array(
-				'label' => esc_html__( 'Content Source', 'theplus' ),
+				'label' => esc_html__( 'Content Source', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 		$this->add_control(
 			'hide_empty',
 			array(
-				'label'        => esc_html__( 'Hide Empty', 'theplus' ),
+				'label'        => esc_html__( 'Hide Empty', 'tpebl' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -277,7 +277,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'hide_sub_cat',
 			array(
-				'label'        => esc_html__( 'Hide Sub Categories', 'theplus' ),
+				'label'        => esc_html__( 'Hide Sub Categories', 'tpebl' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'no',
 				'return_value' => 'yes',
@@ -286,7 +286,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'post_category',
 			array(
-				'label'       => esc_html__( 'Include Terms ID', 'theplus' ),
+				'label'       => esc_html__( 'Include Terms ID', 'tpebl' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'label_block' => true,
 				'placeholder' => 'Use Terms Id,if you want to use multiple id so use comma as separator.',
@@ -295,7 +295,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'post_category_exc',
 			array(
-				'label'       => esc_html__( 'Exclude Terms ID', 'theplus' ),
+				'label'       => esc_html__( 'Exclude Terms ID', 'tpebl' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'label_block' => true,
 				'placeholder' => 'Use Terms Id,if you want to use multiple id so use comma as separator.',
@@ -304,7 +304,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'display_posts',
 			array(
-				'label'     => esc_html__( 'Maximum Categories Display', 'theplus' ),
+				'label'     => esc_html__( 'Maximum Categories Display', 'tpebl' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 1,
 				'max'       => 200,
@@ -316,19 +316,19 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'post_offset',
 			array(
-				'label'       => esc_html__( 'Offset Categories', 'theplus' ),
+				'label'       => esc_html__( 'Offset Categories', 'tpebl' ),
 				'type'        => Controls_Manager::NUMBER,
 				'min'         => 0,
 				'max'         => 50,
 				'step'        => 1,
 				'default'     => '',
-				'description' => esc_html__( 'Hide categories from the beginning of listing.', 'theplus' ),
+				'description' => esc_html__( 'Hide categories from the beginning of listing.', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'post_order_by',
 			array(
-				'label'     => esc_html__( 'Order By', 'theplus' ),
+				'label'     => esc_html__( 'Order By', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'date',
 				'separator' => 'before',
@@ -338,7 +338,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'post_order',
 			array(
-				'label'   => esc_html__( 'Order', 'theplus' ),
+				'label'   => esc_html__( 'Order', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'DESC',
 				'options' => l_theplus_order_arr(),
@@ -347,10 +347,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'hide_pro_count',
 			array(
-				'label'     => esc_html__( 'Display Product Count', 'theplus' ),
+				'label'     => esc_html__( 'Display Product Count', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Enable', 'theplus' ),
-				'label_off' => esc_html__( 'Disable', 'theplus' ),
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
+				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'separator' => 'before',
 				'default'   => 'yes',
 			)
@@ -358,10 +358,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'display_description',
 			array(
-				'label'     => esc_html__( 'Display Description', 'theplus' ),
+				'label'     => esc_html__( 'Display Description', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Enable', 'theplus' ),
-				'label_off' => esc_html__( 'Disable', 'theplus' ),
+				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
+				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'separator' => 'before',
 				'default'   => 'no',
 				'condition' => array(
@@ -372,10 +372,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'desc_text_limit',
 			array(
-				'label'     => esc_html__( 'Display Description Limit', 'theplus' ),
+				'label'     => esc_html__( 'Display Description Limit', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => 'no',
 				'condition' => array(
 					'style!'              => 'style_3',
@@ -387,11 +387,11 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			'display_description_by',
 			array(
 				'type'      => Controls_Manager::SELECT,
-				'label'     => esc_html__( 'Limit on', 'theplus' ),
+				'label'     => esc_html__( 'Limit on', 'tpebl' ),
 				'default'   => 'char',
 				'options'   => array(
-					'char' => esc_html__( 'Character', 'theplus' ),
-					'word' => esc_html__( 'Word', 'theplus' ),
+					'char' => esc_html__( 'Character', 'tpebl' ),
+					'word' => esc_html__( 'Word', 'tpebl' ),
 				),
 				'condition' => array(
 					'style!'              => 'style_3',
@@ -403,7 +403,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'display_description_input',
 			array(
-				'label'     => esc_html__( 'Description Count', 'theplus' ),
+				'label'     => esc_html__( 'Description Count', 'tpebl' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 1,
 				'max'       => 1000,
@@ -418,10 +418,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'display_title_3_dots',
 			array(
-				'label'     => esc_html__( 'Display Dots', 'theplus' ),
+				'label'     => esc_html__( 'Display Dots', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => 'yes',
 				'condition' => array(
 					'style!'              => 'style_3',
@@ -433,10 +433,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'display_thumbnail',
 			array(
-				'label'     => esc_html__( 'Display Image Size', 'theplus' ),
+				'label'     => esc_html__( 'Display Image Size', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			)
@@ -457,11 +457,11 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'on_hover_bg_image',
 			array(
-				'label'        => esc_html__( 'On Hover Background Image', 'theplus' ),
+				'label'        => esc_html__( 'On Hover Background Image', 'tpebl' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'no',
-				'label_on'     => esc_html__( 'Enable', 'theplus' ),
-				'label_off'    => esc_html__( 'Disable', 'theplus' ),
+				'label_on'     => esc_html__( 'Enable', 'tpebl' ),
+				'label_off'    => esc_html__( 'Disable', 'tpebl' ),
 				'return_value' => 'yes',
 				'condition'    => array(
 					'style' => 'style_3',
@@ -471,7 +471,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'hide_parent_cat',
 			array(
-				'label'        => esc_html__( 'Hide Parent Categories', 'theplus' ),
+				'label'        => esc_html__( 'Hide Parent Categories', 'tpebl' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'no',
 				'separator'    => 'before',
@@ -483,7 +483,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'columns_section',
 			array(
-				'label'     => esc_html__( 'Columns Manage', 'theplus' ),
+				'label'     => esc_html__( 'Columns Manage', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_CONTENT,
 				'condition' => array(
 					'layout!' => array( 'carousel' ),
@@ -493,7 +493,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'desktop_column',
 			array(
-				'label'     => esc_html__( 'Desktop Column', 'theplus' ),
+				'label'     => esc_html__( 'Desktop Column', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '3',
 				'options'   => l_theplus_get_columns_list(),
@@ -505,7 +505,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'tablet_column',
 			array(
-				'label'     => esc_html__( 'Tablet Column', 'theplus' ),
+				'label'     => esc_html__( 'Tablet Column', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '4',
 				'options'   => l_theplus_get_columns_list(),
@@ -517,7 +517,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'mobile_column',
 			array(
-				'label'     => esc_html__( 'Mobile Column', 'theplus' ),
+				'label'     => esc_html__( 'Mobile Column', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '6',
 				'options'   => l_theplus_get_columns_list(),
@@ -529,7 +529,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'metro_column',
 			array(
-				'label'     => esc_html__( 'Metro Column', 'theplus' ),
+				'label'     => esc_html__( 'Metro Column', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => '3',
 				'options'   => array(
@@ -546,7 +546,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'metro_style_3',
 			array(
-				'label'     => esc_html__( 'Metro Style', 'theplus' ),
+				'label'     => esc_html__( 'Metro Style', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'style-1',
 				'options'   => l_theplus_get_style_list( 1 ),
@@ -559,7 +559,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'columns_gap',
 			array(
-				'label'      => esc_html__( 'Columns Gap/Space Between', 'theplus' ),
+				'label'      => esc_html__( 'Columns Gap/Space Between', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'em' ),
 				'default'    => array(
@@ -582,7 +582,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			array(
-				'label' => esc_html__( 'Title', 'theplus' ),
+				'label' => esc_html__( 'Title', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -590,7 +590,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_typography',
-				'label'    => esc_html__( 'Typography', 'theplus' ),
+				'label'    => esc_html__( 'Typography', 'tpebl' ),
 				'global'   => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
@@ -601,13 +601,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_title_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'title_color',
 			array(
-				'label'     => esc_html__( 'Title Color', 'theplus' ),
+				'label'     => esc_html__( 'Title Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -619,7 +619,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name'     => 'title_shadow',
-				'label'    => esc_html__( 'Text Shadow', 'theplus' ),
+				'label'    => esc_html__( 'Text Shadow', 'tpebl' ),
 				'selector' => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-hover-cat-name,{{WRAPPER}} .dynamic-cat-list .pt-dynamic-hover-cat-name a',
 			)
 		);
@@ -627,13 +627,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_title_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'title_hover_color',
 			array(
-				'label'     => esc_html__( 'Title Color', 'theplus' ),
+				'label'     => esc_html__( 'Title Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -645,7 +645,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name'     => 'title_shadow_h',
-				'label'    => esc_html__( 'Text Shadow', 'theplus' ),
+				'label'    => esc_html__( 'Text Shadow', 'tpebl' ),
 				'selector' => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-name,{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-name a',
 			)
 		);
@@ -654,10 +654,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'title_bg',
 			array(
-				'label'     => esc_html__( 'Title Background', 'theplus' ),
+				'label'     => esc_html__( 'Title Background', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'On', 'theplus' ),
-				'label_off' => esc_html__( 'Off', 'theplus' ),
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
+				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			)
@@ -665,7 +665,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'title_bg_padding',
 			array(
-				'label'      => esc_html__( 'Padding', 'theplus' ),
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px' ),
 				'selectors'  => array(
@@ -688,7 +688,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_title_bg_n',
 			array(
-				'label'     => esc_html__( 'Normal', 'theplus' ),
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
 				'condition' => array(
 					'title_bg' => 'yes',
 				),
@@ -698,7 +698,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'title_background',
-				'label'     => esc_html__( 'Background', 'theplus' ),
+				'label'     => esc_html__( 'Background', 'tpebl' ),
 				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-name',
 				'condition' => array(
@@ -710,7 +710,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'title_bg_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-name',
 				'condition' => array(
 					'title_bg' => 'yes',
@@ -720,7 +720,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'title_bg_border_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -735,7 +735,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'title_bg_shadow',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-name',
 				'condition' => array(
 					'title_bg' => 'yes',
@@ -746,7 +746,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_title_bg_h',
 			array(
-				'label'     => esc_html__( 'Hover', 'theplus' ),
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
 				'condition' => array(
 					'title_bg' => 'yes',
 				),
@@ -756,7 +756,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'title_background_h',
-				'label'     => esc_html__( 'Background', 'theplus' ),
+				'label'     => esc_html__( 'Background', 'tpebl' ),
 				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-name',
 				'condition' => array(
@@ -768,7 +768,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'title_bg_border_h',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-name',
 				'condition' => array(
 					'title_bg' => 'yes',
@@ -778,7 +778,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'title_bg_border_radius_h',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -793,7 +793,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'title_bg_shadow_h',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-name',
 				'condition' => array(
 					'title_bg' => 'yes',
@@ -805,10 +805,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'title_underline',
 			array(
-				'label'     => esc_html__( 'Title Underline', 'theplus' ),
+				'label'     => esc_html__( 'Title Underline', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'On', 'theplus' ),
-				'label_off' => esc_html__( 'Off', 'theplus' ),
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
+				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			)
@@ -817,7 +817,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			't_underline_top_offset',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Top Offset', 'theplus' ),
+				'label'       => esc_html__( 'Top Offset', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -846,7 +846,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_t_underline_n',
 			array(
-				'label'     => esc_html__( 'Normal', 'theplus' ),
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
 				'condition' => array(
 					'title_underline' => 'yes',
 				),
@@ -856,7 +856,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			't_underline_height',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Height', 'theplus' ),
+				'label'       => esc_html__( 'Height', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -878,7 +878,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			't_underline_size',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Size', 'theplus' ),
+				'label'       => esc_html__( 'Size', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -903,7 +903,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			't_underline_color',
 			array(
-				'label'     => esc_html__( 'Color', 'theplus' ),
+				'label'     => esc_html__( 'Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#313131',
 				'selectors' => array(
@@ -918,7 +918,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_t_underline_h',
 			array(
-				'label'     => esc_html__( 'Hover', 'theplus' ),
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
 				'condition' => array(
 					'title_underline' => 'yes',
 				),
@@ -928,7 +928,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			't_underline_size_h',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Size', 'theplus' ),
+				'label'       => esc_html__( 'Size', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -953,7 +953,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			't_underline_color_h',
 			array(
-				'label'     => esc_html__( 'Color', 'theplus' ),
+				'label'     => esc_html__( 'Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-name:after' => 'background-color: {{VALUE}};',
@@ -970,14 +970,14 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'section_count_style',
 			array(
-				'label' => esc_html__( 'Product Count', 'theplus' ),
+				'label' => esc_html__( 'Product Count', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->add_responsive_control(
 			'count_padding',
 			array(
-				'label'      => esc_html__( 'Padding', 'theplus' ),
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px' ),
 				'selectors'  => array(
@@ -993,7 +993,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			'count_extra_text',
 			array(
 				'type'        => Controls_Manager::TEXT,
-				'label'       => esc_html__( 'Product Count After Text', 'theplus' ),
+				'label'       => esc_html__( 'Product Count After Text', 'tpebl' ),
 				'label_block' => true,
 				'dynamic'     => array(
 					'active' => true,
@@ -1004,7 +1004,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			'count_width_height_opt',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Width and Height', 'theplus' ),
+				'label'       => esc_html__( 'Width and Height', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -1026,7 +1026,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			'count_top_bottom',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Top/Bottom Offset', 'theplus' ),
+				'label'       => esc_html__( 'Top/Bottom Offset', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -1048,7 +1048,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			'count_left_right',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Left/Right Offset', 'theplus' ),
+				'label'       => esc_html__( 'Left/Right Offset', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -1071,7 +1071,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'count_typography',
-				'label'    => esc_html__( 'Typography', 'theplus' ),
+				'label'    => esc_html__( 'Typography', 'tpebl' ),
 				'global'   => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
@@ -1082,13 +1082,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_count_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'count_color',
 			array(
-				'label'     => esc_html__( 'Count Color', 'theplus' ),
+				'label'     => esc_html__( 'Count Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -1099,7 +1099,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'count_opacity',
 			array(
-				'label'     => esc_html__( 'Opacity', 'theplus' ),
+				'label'     => esc_html__( 'Opacity', 'tpebl' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 1,
@@ -1115,10 +1115,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'count_transform',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .pt-dynamic-wrapper.style_2 .pt-dynamic-hover-content-inner .pt-dynamic-hover-cat-count' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
 				),
@@ -1130,10 +1130,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'count_bg_switch',
 			array(
-				'label'     => esc_html__( 'Background Option', 'theplus' ),
+				'label'     => esc_html__( 'Background Option', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'On', 'theplus' ),
-				'label_off' => esc_html__( 'Off', 'theplus' ),
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
+				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
 				'condition' => array(
 					'style' => 'style_1',
@@ -1145,7 +1145,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'count_bg_n',
-				'label'     => esc_html__( 'Background', 'theplus' ),
+				'label'     => esc_html__( 'Background', 'tpebl' ),
 				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .pt-dynamic-wrapper .pt-dynamic-hover-cat-count',
 				'condition' => array(
@@ -1157,7 +1157,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'count_border_n',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .pt-dynamic-wrapper .pt-dynamic-hover-cat-count',
 				'condition' => array(
 					'count_bg_switch' => 'yes',
@@ -1167,7 +1167,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'count_border_radius_n',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1183,7 +1183,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'wcp_count_shadow_n',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-count',
 				'condition' => array(
 					'count_bg_switch' => 'yes',
@@ -1194,13 +1194,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_count_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'count_hover_color',
 			array(
-				'label'     => esc_html__( 'Count Color', 'theplus' ),
+				'label'     => esc_html__( 'Count Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -1211,7 +1211,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'count_opacity_h',
 			array(
-				'label'     => esc_html__( 'Opacity', 'theplus' ),
+				'label'     => esc_html__( 'Opacity', 'tpebl' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 1,
@@ -1227,10 +1227,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'count_transform_h',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .pt-dynamic-wrapper.style_2:hover .pt-dynamic-hover-content-inner .pt-dynamic-hover-cat-count' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
 				),
@@ -1243,7 +1243,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'count_bg_h',
-				'label'     => esc_html__( 'Background', 'theplus' ),
+				'label'     => esc_html__( 'Background', 'tpebl' ),
 				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-count',
 				'separator' => 'before',
@@ -1255,7 +1255,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'count_border_h',
 			array(
-				'label'     => esc_html__( 'Border Color', 'theplus' ),
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -1271,7 +1271,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'count_h_shadow',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-count',
 				'condition' => array(
 					'count_bg_switch' => 'yes',
@@ -1285,7 +1285,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'section_description_style',
 			array(
-				'label'     => esc_html__( 'Description Style', 'theplus' ),
+				'label'     => esc_html__( 'Description Style', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'style!'              => 'style_3',
@@ -1296,7 +1296,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'desc_margin',
 			array(
-				'label'      => esc_html__( 'Margin', 'theplus' ),
+				'label'      => esc_html__( 'Margin', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px' ),
 				'selectors'  => array(
@@ -1308,23 +1308,23 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'description_alignment_st',
 			array(
-				'label'     => esc_html__( 'Text Alignment', 'theplus' ),
+				'label'     => esc_html__( 'Text Alignment', 'tpebl' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'left'    => array(
-						'title' => esc_html__( 'Left', 'theplus' ),
+						'title' => esc_html__( 'Left', 'tpebl' ),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center'  => array(
-						'title' => esc_html__( 'Center', 'theplus' ),
+						'title' => esc_html__( 'Center', 'tpebl' ),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'right'   => array(
-						'title' => esc_html__( 'Right', 'theplus' ),
+						'title' => esc_html__( 'Right', 'tpebl' ),
 						'icon'  => 'eicon-text-align-right',
 					),
 					'justify' => array(
-						'title' => esc_html__( 'Justify', 'theplus' ),
+						'title' => esc_html__( 'Justify', 'tpebl' ),
 						'icon'  => 'eicon-text-align-justify',
 					),
 				),
@@ -1339,7 +1339,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'desc_typography',
-				'label'    => esc_html__( 'Typography', 'theplus' ),
+				'label'    => esc_html__( 'Typography', 'tpebl' ),
 				'global'   => array(
 					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
@@ -1350,13 +1350,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_desc_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'desc_color',
 			array(
-				'label'     => esc_html__( 'Color', 'theplus' ),
+				'label'     => esc_html__( 'Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -1367,7 +1367,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'desc_opacity',
 			array(
-				'label'     => esc_html__( 'Opacity', 'theplus' ),
+				'label'     => esc_html__( 'Opacity', 'tpebl' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 1,
@@ -1384,13 +1384,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_desc_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'desc_color_h',
 			array(
-				'label'     => esc_html__( 'Color', 'theplus' ),
+				'label'     => esc_html__( 'Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -1401,7 +1401,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'desc_opacity_h',
 			array(
-				'label'     => esc_html__( 'Opacity', 'theplus' ),
+				'label'     => esc_html__( 'Opacity', 'tpebl' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 1,
@@ -1419,10 +1419,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'desc_bg',
 			array(
-				'label'     => esc_html__( 'Description Background', 'theplus' ),
+				'label'     => esc_html__( 'Description Background', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'On', 'theplus' ),
-				'label_off' => esc_html__( 'Off', 'theplus' ),
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
+				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			)
@@ -1430,7 +1430,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'desc_bg_padding',
 			array(
-				'label'      => esc_html__( 'Padding', 'theplus' ),
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px' ),
 				'selectors'  => array(
@@ -1453,7 +1453,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_desc_bg_n',
 			array(
-				'label'     => esc_html__( 'Normal', 'theplus' ),
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
 				'condition' => array(
 					'desc_bg' => 'yes',
 				),
@@ -1463,7 +1463,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'desc_background',
-				'label'     => esc_html__( 'Background', 'theplus' ),
+				'label'     => esc_html__( 'Background', 'tpebl' ),
 				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-desc',
 				'condition' => array(
@@ -1475,7 +1475,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'desc_bg_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-desc',
 				'condition' => array(
 					'desc_bg' => 'yes',
@@ -1485,7 +1485,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'desc_bg_border_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1500,7 +1500,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'desc_bg_shadow',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-cat-desc',
 				'condition' => array(
 					'desc_bg' => 'yes',
@@ -1511,7 +1511,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_desc_bg_h',
 			array(
-				'label'     => esc_html__( 'Hover', 'theplus' ),
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
 				'condition' => array(
 					'desc_bg' => 'yes',
 				),
@@ -1521,7 +1521,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'      => 'desc_background_h',
-				'label'     => esc_html__( 'Background', 'theplus' ),
+				'label'     => esc_html__( 'Background', 'tpebl' ),
 				'types'     => array( 'classic', 'gradient' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-desc',
 				'condition' => array(
@@ -1533,7 +1533,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'desc_bg_border_h',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-desc',
 				'condition' => array(
 					'desc_bg' => 'yes',
@@ -1543,7 +1543,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'desc_bg_border_radius_h',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1558,7 +1558,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'      => 'desc_bg_shadow_h',
-				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'label'     => esc_html__( 'Box Shadow', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-cat-desc',
 				'condition' => array(
 					'desc_bg' => 'yes',
@@ -1572,7 +1572,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'section_content_loop_style3',
 			array(
-				'label'     => esc_html__( 'Content Loop', 'theplus' ),
+				'label'     => esc_html__( 'Content Loop', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'style' => 'style_3',
@@ -1582,7 +1582,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_st3_padding',
 			array(
-				'label'      => esc_html__( 'Padding', 'theplus' ),
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
@@ -1594,7 +1594,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_cl_st3_n',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_group_control(
@@ -1612,7 +1612,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_st3_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .pt-dynamic-wrapper.style_3 .pt-dynamic-content a',
 				'separator' => 'before',
 			)
@@ -1620,7 +1620,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_st3_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1639,7 +1639,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_cl_st3_h',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_group_control(
@@ -1657,7 +1657,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_st3_border_h',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .pt-dynamic-wrapper.style_3 .pt-dynamic-content a:hover',
 				'separator' => 'before',
 			)
@@ -1665,7 +1665,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_st3_radius_h',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1687,7 +1687,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'section_content_loop_style',
 			array(
-				'label'     => esc_html__( 'Content Loop', 'theplus' ),
+				'label'     => esc_html__( 'Content Loop', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'style!' => 'style_3',
@@ -1698,13 +1698,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_content_loop_n',
 			array(
-				'label' => esc_html__( 'Normal', 'theplus' ),
+				'label' => esc_html__( 'Normal', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'cl_bg_ol_color',
 			array(
-				'label'     => esc_html__( 'Whole Overlay Color', 'theplus' ),
+				'label'     => esc_html__( 'Whole Overlay Color', 'tpebl' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-content' => 'background-color: {{VALUE}};',
@@ -1715,10 +1715,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_hover_content_swich',
 			array(
-				'label'     => esc_html__( 'Hover Content Only', 'theplus' ),
+				'label'     => esc_html__( 'Hover Content Only', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Disable', 'theplus' ),
-				'label_off' => esc_html__( 'Enable', 'theplus' ),
+				'label_on'  => esc_html__( 'Disable', 'tpebl' ),
+				'label_off' => esc_html__( 'Enable', 'tpebl' ),
 				'default'   => 'no',
 				'condition' => array(
 					'style' => 'style_1',
@@ -1729,7 +1729,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper',
 				'condition' => array(
 					'cl_hover_content_swich!' => 'yes',
@@ -1739,7 +1739,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_border_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1754,7 +1754,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_border_hc',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .extra-wcc-inn',
 				'condition' => array(
 					'cl_hover_content_swich' => 'yes',
@@ -1764,7 +1764,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_border_radius_hc',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1778,10 +1778,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper img,					
 					{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-content' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
@@ -1795,10 +1795,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform_m',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .dynamic-cat-bg-image-metro' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
 				),
@@ -1811,7 +1811,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'transition_duration',
 			array(
-				'label'     => esc_html__( 'Transition Duration', 'theplus' ),
+				'label'     => esc_html__( 'Transition Duration', 'tpebl' ),
 				'type'      => Controls_Manager::SLIDER,
 				'default'   => array(
 					'size' => 0.5,
@@ -1835,7 +1835,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'transition_duration_m',
 			array(
-				'label'     => esc_html__( 'Transition Duration', 'theplus' ),
+				'label'     => esc_html__( 'Transition Duration', 'tpebl' ),
 				'type'      => Controls_Manager::SLIDER,
 				'default'   => array(
 					'size' => 0.5,
@@ -1901,13 +1901,13 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_content_loop_h',
 			array(
-				'label' => esc_html__( 'Hover', 'theplus' ),
+				'label' => esc_html__( 'Hover', 'tpebl' ),
 			)
 		);
 		$this->add_control(
 			'cl_bg_ol_color_h',
 			array(
-				'label'     => esc_html__( 'Whole Overlay Color', 'theplus' ),
+				'label'     => esc_html__( 'Whole Overlay Color', 'tpebl' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-content' => 'background-color: {{VALUE}};',
@@ -1919,7 +1919,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_border_h',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover',
 				'condition' => array(
 					'cl_hover_content_swich!' => 'yes',
@@ -1929,7 +1929,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_border_radius_h',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1945,7 +1945,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_border_h_hc',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .extra-wcc-inn',
 				'condition' => array(
 					'cl_hover_content_swich' => 'yes',
@@ -1955,7 +1955,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_border_radius_h_hc',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -1970,20 +1970,20 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform_swich',
 			array(
-				'label'     => esc_html__( 'With Content Transform', 'theplus' ),
+				'label'     => esc_html__( 'With Content Transform', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Disable', 'theplus' ),
-				'label_off' => esc_html__( 'Enable', 'theplus' ),
+				'label_on'  => esc_html__( 'Disable', 'tpebl' ),
+				'label_off' => esc_html__( 'Enable', 'tpebl' ),
 				'default'   => 'no',
 			)
 		);
 		$this->add_control(
 			'cl_transform_h',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover img' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
 				),
@@ -1996,10 +1996,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform_h_m',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .dynamic-cat-bg-image-metro' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
 				),
@@ -2012,10 +2012,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform_h_all',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover img,
 					{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-content' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
@@ -2030,10 +2030,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform_h_all_m',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .dynamic-cat-bg-image-metro,
 					{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .dynamic-cat-bg-image-metro .pt-dynamic-hover-content' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
@@ -2048,10 +2048,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_transform_h_all_hc',
 			array(
-				'label'       => esc_html__( 'Transform css', 'theplus' ),
+				'label'       => esc_html__( 'Transform css', 'tpebl' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'theplus' ),
+				'placeholder' => esc_html__( 'rotate(10deg) scale(1.1)', 'tpebl' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .extra-wcc-inn' => 'transform: {{VALUE}};-ms-transform: {{VALUE}};-moz-transform: {{VALUE}};-webkit-transform: {{VALUE}};transform-style: preserve-3d;-ms-transform-style: preserve-3d;-moz-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;',
 				),
@@ -2109,7 +2109,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_inner_heading',
 			array(
-				'label'     => esc_html__( 'Inner Content Option', 'theplus' ),
+				'label'     => esc_html__( 'Inner Content Option', 'tpebl' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -2117,16 +2117,16 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_inner_switch',
 			array(
-				'label'     => esc_html__( 'Inner Content Option', 'theplus' ),
+				'label'     => esc_html__( 'Inner Content Option', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'theplus' ),
-				'label_off' => esc_html__( 'No', 'theplus' ),
+				'label_on'  => esc_html__( 'Yes', 'tpebl' ),
+				'label_off' => esc_html__( 'No', 'tpebl' ),
 			)
 		);
 		$this->add_responsive_control(
 			'cl_outer_padding',
 			array(
-				'label'      => esc_html__( 'Outer Padding', 'theplus' ),
+				'label'      => esc_html__( 'Outer Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px' ),
 				'default'    => array(
@@ -2146,7 +2146,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_inner_padding',
 			array(
-				'label'      => esc_html__( 'Inner Padding', 'theplus' ),
+				'label'      => esc_html__( 'Inner Padding', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px' ),
 				'default'    => array(
@@ -2166,7 +2166,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_inner_bg_color',
 			array(
-				'label'     => esc_html__( 'Background Color', 'theplus' ),
+				'label'     => esc_html__( 'Background Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255,255,255,0.70)',
 				'selectors' => array(
@@ -2181,7 +2181,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'cl_inner_h_bg_color',
 			array(
-				'label'     => esc_html__( 'Hover Background Color', 'theplus' ),
+				'label'     => esc_html__( 'Hover Background Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-content-inner' => 'background-color: {{VALUE}};',
@@ -2196,7 +2196,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'      => 'cl_inner_border',
-				'label'     => esc_html__( 'Border', 'theplus' ),
+				'label'     => esc_html__( 'Border', 'tpebl' ),
 				'selector'  => '{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper .pt-dynamic-hover-content-inner',
 				'condition' => array(
 					'cl_inner_switch' => 'yes',
@@ -2205,7 +2205,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		);$this->add_control(
 			'cl_inner_border_h',
 			array(
-				'label'     => esc_html__( 'Hover Border Color', 'theplus' ),
+				'label'     => esc_html__( 'Hover Border Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper:hover .pt-dynamic-hover-content-inner' => 'border-color: {{VALUE}};',
@@ -2219,7 +2219,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_responsive_control(
 			'cl_inner_border_radius',
 			array(
-				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
@@ -2235,19 +2235,19 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->start_controls_section(
 			'section_extra_options_styling',
 			array(
-				'label' => esc_html__( 'Extra Options', 'theplus' ),
+				'label' => esc_html__( 'Extra Options', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->add_control(
 			'overflow_hidden_opt',
 			array(
-				'label'     => esc_html__( 'Overflow', 'theplus' ),
+				'label'     => esc_html__( 'Overflow', 'tpebl' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'hidden',
 				'options'   => array(
-					'hidden'  => esc_html__( 'Hidden', 'theplus' ),
-					'visible' => esc_html__( 'Visible', 'theplus' ),
+					'hidden'  => esc_html__( 'Hidden', 'tpebl' ),
+					'visible' => esc_html__( 'Visible', 'tpebl' ),
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper.style_1,{{WRAPPER}} .dynamic-cat-list .pt-dynamic-wrapper.style_2' => 'overflow:{{VALUE}} !important;',
@@ -2273,11 +2273,11 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'plus_mouse_move_parallax',
 			array(
-				'label'       => esc_html__( 'Mouse Move Parallax', 'theplus' ),
+				'label'       => esc_html__( 'Mouse Move Parallax', 'tpebl' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'label_on'    => esc_html__( 'Yes', 'theplus' ),
-				'label_off'   => esc_html__( 'No', 'theplus' ),
-				'description' => esc_html__( 'This effect will be parallax on scroll effect. It will move image as you scroll your page.', 'theplus' ),
+				'label_on'    => esc_html__( 'Yes', 'tpebl' ),
+				'label_off'   => esc_html__( 'No', 'tpebl' ),
+				'description' => esc_html__( 'This effect will be parallax on scroll effect. It will move image as you scroll your page.', 'tpebl' ),
 				'separator'   => 'before',
 			)
 		);
@@ -2297,10 +2297,10 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$this->add_control(
 			'messy_column',
 			array(
-				'label'     => esc_html__( 'Messy Columns', 'theplus' ),
+				'label'     => esc_html__( 'Messy Columns', 'tpebl' ),
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'On', 'theplus' ),
-				'label_off' => esc_html__( 'Off', 'theplus' ),
+				'label_on'  => esc_html__( 'On', 'tpebl' ),
+				'label_off' => esc_html__( 'Off', 'tpebl' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			)
@@ -2413,7 +2413,7 @@ class L_ThePlus_Dynamic_Categories extends Widget_Base {
 		$tablet_ij          = '';
 
 		if ( ! $dynamic_categories ) {
-			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Terms are not found', 'theplus' ) . '</h3>';
+			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Terms are not found', 'tpebl' ) . '</h3>';
 		} elseif ( 'carousel' === $layout ) {
 			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'This Style Premium Version', 'tpebl' ) . '</h3>';
 			echo $output;

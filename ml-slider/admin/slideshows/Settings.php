@@ -70,7 +70,7 @@ class MetaSlider_Slideshow_Settings
             'sDelay' => 30,
             'opacity' => 0.7,
             'titleSpeed' => 500,
-            'effect' => 'random',
+            'effect' => 'slide',
             'navigation' => true,
             'links' => true,
             'hoverPause' => true,
@@ -106,6 +106,8 @@ class MetaSlider_Slideshow_Settings
             'mobileNavigation_tablet' => false,
             'mobileNavigation_laptop' => false,
             'mobileNavigation_desktop' => false,
+            'ariaLive' => false,
+            'tabIndex' => false
         );
         $defaults = apply_filters('metaslider_default_parameters', $defaults);
         $overrides = get_option('metaslider_default_settings');

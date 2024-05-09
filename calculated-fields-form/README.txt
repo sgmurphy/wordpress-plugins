@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.3
+Stable tag: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.4 =
+
+* Allows to assign developer notes to the calculated fields.
+* Assign a top margin to the button controls to align the form fields.
+* Modifies the Calculated Fields Form Gutenberg block to make it responsive.
+* Modifies the export forms and CSV files modules to prevent third-party plugin warnings and notices messages affecting the files generated (Professional, Developer, and Platinum versions).
+* Prevents accidental deletion of submissions by modifying the position of the Delete All submissions button in the entries section (Professional, Developer, and Platinum versions).
+
 = 5.2.3 =
 
 * Fixes a CLS issue on pages with the CFF forms.
@@ -478,11 +486,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Include a new attribute in the Date controls to allow to restrict dates to a set of valid dates.
 * Modify the User Permissions add-in to integrate the summary attribute with the Multilanguage for Calculated Fields Form plugin (Developer version and Platinum plugin).
 * Modify the server-side equations plugin (developer version and Platinum plugin).
-
-= 5.1.64 =
-
-* Modifies the predefined forms.
-* Modifies the fields list and improves the fields' access from the list.
-* Allows associate developer notes to the HTML Content fields.
-* Modifies the data source fields to allow accessing the DropDown, Radio Button, and Checkbox choices' texts as conditions (Developer and Platinum plugin version).
-* Modifies the DataTable DS control to allow selecting rows (Developer and Platinum plugin version).

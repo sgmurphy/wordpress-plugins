@@ -141,7 +141,9 @@ class MetaSlider
             'mobileNavigation_smartphone' => false,
             'mobileNavigation_tablet' => false,
             'mobileNavigation_laptop' => false,
-            'mobileNavigation_desktop' => false
+            'mobileNavigation_desktop' => false,
+            'ariaLive' => false,
+            'tabIndex' => false
         );
         return apply_filters('metaslider_default_parameters', $params);
     }
@@ -239,6 +241,18 @@ class MetaSlider
      */
     public function render_admin_slides()
     {
+        if ( ! count( $this->slides )  && ! isset( $_GET['metaslider_add_sample_slides'] )) {
+            ?>
+            <p id="add-first-slide-notice" style="display: flex;">
+                <span>
+                    <?php _e( 'Click the "Add Slide" button to create your slideshow', 'ml-slider' ) ?>
+                </span>
+            </p>
+            <?php
+
+            return;
+        }
+        
         foreach ($this->slides as $slide) {
             echo $slide; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
@@ -408,9 +422,8 @@ class MetaSlider
 
         if($keyboard == "on") {
             $script .= "\n jQuery(document).ready(function($) {";
-            $script .= "\n $('.metaslider').attr('tabindex', '1');";
-            $script .= "\n $('a').attr('tabindex' , '-1');";
-            $script .= "\n     $(document).on('keyup.slider', function(e) {";
+            $script .= "\n $('.metaslider').attr('tabindex', '0');";
+            $script .= "\n $(document).on('keyup.slider', function(e) {";
             if($type == "responsive") {          
                 $script .= "\n      if (e.keyCode == 37) {";
                 $script .= "\n          $('.prev').trigger('click');";
@@ -572,10 +585,10 @@ class MetaSlider
     public function get_breakpoints()
     {
         $slideshow_defaults = '';
-        $smartphone = '480';
-        $tablet = '768';
-        $laptop = '1024';
-        $desktop = '1440';
+        $smartphone = 480;
+        $tablet = 768;
+        $laptop = 1024;
+        $desktop = 1440;
 
         if (is_multisite() && $settings = get_site_option('metaslider_default_settings')) {
             $slideshow_defaults = $settings;

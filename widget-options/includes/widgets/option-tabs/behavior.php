@@ -75,13 +75,25 @@ if (!function_exists('widgetopts_tabcontent_behavior')) :
                 <ul style="margin-top: 10px;" class="extended-widget-opts-settings-tabnav-ul">
                     <?php if ('activate' == $widget_options['hide_title']) { ?>
                         <li class="extended-widget-opts-settings-tab-title">
-                            <a href="#extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-title" title="<?php _e('Misc', 'widget-options'); ?>"><?php _e('Misc', 'widget-options'); ?></a>
+                            <a style="padding: 5px !important;" href="#extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-title" title="<?php _e('Widget Title', 'widget-options'); ?>"><?php _e('Widget Title', 'widget-options'); ?></a>
                         </li>
                     <?php } ?>
 
+
+                    <li class="extended-widget-opts-settings-tab-links">
+                        <a style="padding: 5px !important;" href="#extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-links" title="<?php _e('Link Widget', 'widget-options'); ?>"><?php _e('Link Widget', 'widget-options'); ?></a>
+                    </li>
+
+
+
+                    <li class="extended-widget-opts-settings-tab-fixed">
+                        <a style="padding: 5px !important;" href="#extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-fixed" title="<?php _e('Fixed Widget', 'widget-options'); ?>"><?php _e('Fixed Widget', 'widget-options'); ?></a>
+                    </li>
+
+
                     <?php if ('activate' == $widget_options['classes']) { ?>
                         <li class="extended-widget-opts-settings-tab-class">
-                            <a href="#extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-class" title="<?php _e('Class & ID', 'widget-options'); ?>"><?php _e('Class & ID', 'widget-options'); ?></a>
+                            <a style="padding: 5px !important;" href="#extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-class" title="<?php _e('Class & ID', 'widget-options'); ?>"><?php _e('Class & ID', 'widget-options'); ?></a>
                         </li>
                     <?php } ?>
                     <div class="extended-widget-opts-clearfix"></div>
@@ -102,6 +114,88 @@ if (!function_exists('widgetopts_tabcontent_behavior')) :
                         </div>
                     </div><!--  end title tab content -->
                 <?php } ?>
+
+                <!--  start links tab content -->
+                <div id="extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-links" class="extended-widget-opts-settings-tabcontent extended-widget-opts-inner-tabcontent">
+                    <div class="widget-opts-title">
+                        <div class="widgetopts-widget-opts-wrapper disabled-section">
+                            <div class="extended-widget-opts-demo-warning">
+                                <p class="widgetopts-unlock-features">
+                                    <span class="dashicons dashicons-lock"></span><br>
+                                    Unlock all Features<br>
+                                    <a href="https://widget-options.com/?utm_source=wordpressadmin&amp;utm_medium=widgettabs&amp;utm_campaign=widgetoptsprotab" class="button-primary" target="_blank">Learn More</a>
+                                </p>
+                            </div>
+
+                            <div class="idgetopts-links-widget-opts">
+                                <p class="widgetopts-subtitle"><?php _e('Link Widget', 'widget-options'); ?></p>
+                                <table class="form-table">
+                                    <tbody>
+                                        <tr valign="top">
+                                            <td scope="row"><strong><?php _e('Link:', 'widget-options'); ?></strong></td>
+                                            <td><input type="text" class="widefat" disabled name="pro[class][link]" value="" /></td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <td scope="row">&nbsp;</td>
+                                            <td>
+                                                <input type="checkbox" disabled id="opts-class-target-<?php echo $args['id']; ?>" name="pro[class][target]" value="1" />
+                                                <label class="opts-label-small" for="opts-class-target-<?php echo $args['id']; ?>"><?php _e('Open to new tab', 'widget-options'); ?></label>
+                                            </td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <td scope="row">&nbsp;</td>
+                                            <td>
+                                                <input type="checkbox" disabled id="opts-class-nofollow-<?php echo $args['id']; ?>" name="pro[class][nofollow]" value="1" />
+                                                <label class="opts-label-small" for="opts-class-nofollow-<?php echo $args['id']; ?>"><?php _e('rel="nofollow"', 'widget-options'); ?></label>
+                                            </td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <td scope="row">&nbsp;</td>
+                                            <td>
+                                                <input type="checkbox" disabled id="opts-class-totitle-<?php echo $args['id']; ?>" name="pro[class][link_title]" value="1" />
+                                                <label class="opts-label-small" for="opts-class-totitle-<?php echo $args['id']; ?>"><?php _e('Apply to title only', 'widget-options'); ?></label>
+                                            </td>
+                                        </tr>
+                                        <tr valign="top">
+                                            <td scope="row">&nbsp;</td>
+                                            <td>
+                                                <input type="checkbox" disabled id="opts-class-http-<?php echo $args['id']; ?>" name="pro[class][http]" value="1" />
+                                                <label class="opts-label-small" for="opts-class-http-<?php echo $args['id']; ?>"><?php _e('Do not add http', 'widget-options'); ?></label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!--  end links tab content -->
+
+                <!--  start fixed tab content -->
+                <div id="extended-widget-opts-settings-tab-<?php echo $args['id']; ?>-fixed" class="extended-widget-opts-settings-tabcontent extended-widget-opts-inner-tabcontent">
+                    <div class="widget-opts-title">
+                        <div class="widgetopts-widget-opts-wrapper disabled-section">
+                            <div class="extended-widget-opts-demo-warning">
+                                <p class="widgetopts-unlock-features">
+                                    <span class="dashicons dashicons-lock"></span><br>
+                                    Unlock all Features<br>
+                                    <a href="https://widget-options.com/?utm_source=wordpressadmin&amp;utm_medium=widgettabs&amp;utm_campaign=widgetoptsprotab" class="button-primary" target="_blank">Learn More</a>
+                                </p>
+                            </div>
+
+
+                            <div class="widgetopts-fixed-widget-opts" style="min-height: 204px;">
+
+                                <p class="widgetopts-subtitle"><?php _e('Fixed Widget', 'widget-options'); ?></p>
+                                <p>
+                                    <input type="checkbox" disabled name="pro[class][fixed]" id="opts-class-fixed-<?php echo $args['id']; ?>" value="1" />
+                                    <label for="opts-class-fixed-<?php echo $args['id']; ?>"><?php _e('Check to fixed widget on scroll', 'widget-options'); ?></label>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!--  end fixed tab content -->
 
                 <?php if ('activate' == $widget_options['classes']) { ?>
                     <!--  start class tab content -->

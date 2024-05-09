@@ -154,6 +154,18 @@ jQuery(document).ready( function() {
 				//alert(response);
 			});
 		});
+		
+		$("#backuply_license_notice .backuply_promo-close").click(function(){
+			var data;
+			
+			// Hide it
+			$("#backuply_license_notice").hide();
+			
+			// Save this preference
+			$.post("'.admin_url('?backuply_license_notice=0').'&security='.wp_create_nonce('backuply_promo_nonce').'", data, function(response) {
+				//alert(response);
+			});
+		});
 	})(jQuery);
 });
 </script>';
@@ -397,3 +409,42 @@ function backuply_regular_offer(){
 	</div>';
 
 }
+
+function backuply_check_expires(){
+	global $backuply;
+
+	$current_timestamp = time();
+	$expiration_timestamp = strtotime($backuply['license']['expires']);
+	$time_diff = $expiration_timestamp - $current_timestamp;
+	
+	// Renew link
+	$backuply_user_license = $backuply['license']['license'];
+	$backuply_user_plan = $backuply['license']['plan'];
+	$backuply_renew_url = 'https://www.softaculous.com/clients?ca=backuply_buy&plan=' . $backuply_user_plan . '&license=' . $backuply_user_license;
+
+	if($time_diff > 0 && $time_diff <= WEEK_IN_SECONDS){
+		$human_time = human_time_diff($current_timestamp, $expiration_timestamp);
+
+		echo '<div class="notice notice-error" id="backuply_license_notice">
+		<a class="backuply_promo-close" href="javascript:" aria-label="Dismiss this Notice">
+			<span class="dashicons dashicons-dismiss"></span> '.esc_html__('Dismiss for 60 days', 'backuply').'
+		</a>
+		<p>' . sprintf(esc_html__('Alert : Your license will expire in %s. Renew to keep getting updates!', 'backuply'), esc_html($human_time)).'
+		<a href="' . esc_url($backuply_renew_url) . '" target="_blank">' . esc_html__('Click here to renew', 'backuply') . '</a>
+		</p>
+		</div>';
+
+	} else if($time_diff <= 0){
+		echo '<div class="notice notice-error" id="backuply_license_notice">
+		<a class="backuply_promo-close" href="javascript:" aria-label="Dismiss this Notice">
+			<span class="dashicons dashicons-dismiss"></span> '.esc_html__('Dismiss for 60 days', 'backuply').'
+		</a>
+		<p>' . esc_html__('Alert: Your license has expired. Please renew immediately to keep getting updates ', 'backuply').'
+		<a href="' . esc_url($backuply_renew_url) . '" target="_blank">' . esc_html__('Click here to renew', 'backuply') . '</a></p>
+		</div>';
+	}
+
+} 
+
+
+

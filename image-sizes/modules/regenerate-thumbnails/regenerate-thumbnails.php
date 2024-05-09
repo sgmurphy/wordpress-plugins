@@ -60,7 +60,7 @@ class Regenerate_Thumbnails extends Base {
 			'message'	=> __( 'Failed', 'image-sizes' ),
 		];
 
-		if( !wp_verify_nonce( $_POST['_nonce'], $this->slug ) ) {
+		if( ! wp_verify_nonce( $_POST['_nonce'], $this->slug ) ) {
 			$response['message'] = __( 'Unauthorized', 'image-sizes' );
 			wp_send_json( $response );
 		}
@@ -86,12 +86,17 @@ class Regenerate_Thumbnails extends Base {
 		$thumbs_created 	= $thumbs_deleted = 0;
 
 		foreach ( $images as $image ) {
-			$image_id = $image->ID;
-			$main_img = get_attached_file( $image_id );
+			$image_id 		= $image->ID;
+			$main_img 		= get_attached_file( $image_id );
+			$file_info 		= pathinfo( $main_img );
+			$extension 		= strtolower( $file_info['extension'] );
+			$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
 
 			// remove old thumbnails first
-			$old_metadata = wp_get_attachment_metadata( $image_id );
-			$thumb_dir = dirname( $main_img ) . DIRECTORY_SEPARATOR;
+			$old_metadata 	= wp_get_attachment_metadata( $image_id );
+			$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
+			
+			
 			foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
 				// For SVG file
 				if ('image/svg+xml' == $old_size_data['mime-type']) {
@@ -101,11 +106,22 @@ class Regenerate_Thumbnails extends Base {
 				wp_delete_file( $thumb_dir . $old_size_data['file'] );
 				$thumbs_deleted++;
 			}
+			//delete scaled image
+			if ( strpos( $file_info['basename'], "-scaled.{$extension}" ) !== false ) {
+				wp_delete_file( $thumb_dir . $file_info['basename'] );
+				$thumbs_deleted++;
+			}
 
 			// generate new thumbnails
 			if ( false !== $main_img && file_exists( $main_img ) ) {
 				$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
+
 				wp_update_attachment_metadata( $image_id, $new_thumbs );
+
+				$updated_metadata 	= wp_get_attachment_metadata( $image_id );
+				$file_path 			= $updated_metadata['file'];
+				
+				update_post_meta( $image_id, '_wp_attached_file', $file_path );
 				$thumbs_created += count( $new_thumbs['sizes'] );
 			}
 		}
@@ -165,12 +181,15 @@ class Regenerate_Thumbnails extends Base {
 		$images = $wpdb->get_results( $wpdb->prepare( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%' " ) );
 		if ( count( $images ) > 0 ) {
 			foreach ( $images as $image ) {
-				$image_id = $image->ID;
-				$main_img = get_attached_file( $image_id );
+				$image_id 		= $image->ID;
+				$main_img 		= get_attached_file( $image_id );
+				$file_info 		= pathinfo( $main_img );
+				$extension 		= strtolower( $file_info['extension'] );
+				$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
 	
 				// remove old thumbnails first
-				$old_metadata = wp_get_attachment_metadata( $image_id );
-				$thumb_dir = dirname( $main_img ) . DIRECTORY_SEPARATOR;
+				$old_metadata 	= wp_get_attachment_metadata( $image_id );
+				$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
 				foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
 					// For SVG file
 					if ('image/svg+xml' == $old_size_data['mime-type']) {
@@ -180,11 +199,23 @@ class Regenerate_Thumbnails extends Base {
 					wp_delete_file( $thumb_dir . $old_size_data['file'] );
 					$thumbs_deleted++;
 				}
+
+				if ( strpos( $file_info['basename'], "-scaled.{$extension}" ) !== false ) {
+					wp_delete_file( $thumb_dir . $file_info['basename'] );
+					$thumbs_deleted++;
+				}
 	
 				// generate new thumbnails
 				if ( false !== $main_img && file_exists( $main_img ) ) {
 					$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
+					
 					wp_update_attachment_metadata( $image_id, $new_thumbs );
+
+					$updated_metadata 	= wp_get_attachment_metadata( $image_id );
+					$file_path 			= $updated_metadata['file'];
+	
+					update_post_meta( $image_id, '_wp_attached_file', $file_path );
+
 					$thumbs_created += count( $new_thumbs['sizes'] );
 				}
 			}

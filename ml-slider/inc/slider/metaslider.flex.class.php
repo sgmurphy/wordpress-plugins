@@ -30,6 +30,7 @@ class MetaFlexSlider extends MetaSlider
 
         add_filter('metaslider_flex_slider_parameters', array( $this, 'enable_carousel_mode' ), 10, 2);
         add_filter('metaslider_flex_slider_parameters', array( $this, 'manage_easing' ), 10, 2);
+        add_filter('metaslider_flex_slider_parameters', array( $this, 'manage_tabindex' ), 99, 3);
 
         if(metaslider_pro_is_active() == false) {
             add_filter('metaslider_flex_slider_parameters', array( $this, 'metaslider_flex_loop'), 99, 3);
@@ -38,7 +39,7 @@ class MetaFlexSlider extends MetaSlider
         if( metaslider_pro_is_active() ) {
             add_filter( 'metaslider_flex_slider_parameters', array( $this, 'custom_delay_per_slide' ), 10, 3 );
         }
-        
+
         add_filter('metaslider_css', array( $this, 'get_carousel_css' ), 11, 3);
         add_filter('metaslider_css', array( $this, 'hide_for_mobile' ), 11, 3);
         add_filter('metaslider_css_classes', array( $this, 'remove_bottom_margin' ), 11, 3);
@@ -127,7 +128,8 @@ class MetaFlexSlider extends MetaSlider
             $options = $advancedSettings->build_custom_delay_js(
                 $options,
                 $settings,
-                $get_slides->posts
+                $get_slides->posts,
+                $slider_id
             );
         }
 
@@ -295,13 +297,23 @@ class MetaFlexSlider extends MetaSlider
     protected function get_html()
     {
         $class = $this->get_setting('noConflict') == 'true' ? "" : ' class="flexslider"';
+
+        //accessibility option
+        if ($this->get_setting('ariaLive') == 'true' && $this->get_setting('autoPlay') == 'false') {
+            $aria_live = " aria-live='polite'";
+        } elseif ($this->get_setting('ariaLive') == 'true' && $this->get_setting('autoPlay') == 'true') {
+            $aria_live = " aria-live='off'";
+        } else {
+            $aria_live = '';
+        }
+        
         $return_value = '';
         if($this->check_mobile_settings() == true) {
             $return_value .= '<div id="temp_' . $this->get_identifier() . '" class="flexslider">';
-            $return_value .= "<ul aria-live=\"polite\" class=\"slides\"></ul></div>";
+            $return_value .= "<ul" . $aria_live . " class='slides'></ul></div>";
         }
         $return_value .= '<div id="' . $this->get_identifier() . '"' . $class . '>';
-        $return_value .= "\n            <ul aria-live=\"polite\" class=\"slides\">";
+        $return_value .= "\n            <ul" . $aria_live . " class='slides'>";
 
         foreach ($this->slides as $slide) {
             // backwards compatibility with older versions of MetaSlider Pro (< v2.0)
@@ -380,4 +392,43 @@ class MetaFlexSlider extends MetaSlider
 
         return $js;
     }
+
+    /**
+     * Add JavaScript for tabindex
+     *
+     * @param array $options SLide options
+     * @param integer $slider_id Slider ID
+     * @param array $settings Slide settings
+     * @return array
+     */
+    public function manage_tabindex($options, $slider_id, $settings)
+    {
+        if (isset($settings['tabIndex']) && 'true' == $settings['tabIndex']) {
+            $options['start'] = isset($options['start']) ? $options['start'] : array();
+            $options['start'] = array_merge(
+                $options['start'],
+                array(
+                    "
+                    $('#metaslider_" . $slider_id . " .flex-control-nav').attr('role', 'tablist');
+                    $('#metaslider_" . $slider_id . " .flex-control-nav a:not(.flex-active)').attr('tabindex', '-1');
+                    "
+                )
+            );
+
+            $options['after'] = isset($options['after']) ? $options['after'] : array();
+            $options['after'] = array_merge(
+                $options['after'],
+                array(
+                    "
+                    $('#metaslider_" . $slider_id . " .flex-control-nav a.flex-active').removeAttr('tabindex');
+                    $('#metaslider_" . $slider_id . " .flex-control-nav a:not(.flex-active)').attr('tabindex', '-1');
+                    "
+                )
+            );
+        }
+
+        return $options;
+    }
 }
+
+//class="flex-control-nav flex-control-paging"

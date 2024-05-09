@@ -1,9 +1,9 @@
 === Visual Footer Credit Remover ===
 Contributors: Joe Bill
-Donate link: https://www.paypal.com/donate?hosted_button_id=DL9KLWPEZWZSL
+Donate link: https://upwerd.com
 Tags: footer, credit, change, modify, replace, remove, link, HTML, text, remove footer credit
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 6.5
 License: GPLv2 or later
 
 Remove or replace footer credit of any WordPress theme with the click of a mouse.
@@ -36,3 +36,6 @@ Remove or replace the footer credit of any WordPress theme with the click of a m
 
 = 1.2 =
 * Fixed bug with using text editor
+
+= 1.3 =
+* Security fixes with escaping content

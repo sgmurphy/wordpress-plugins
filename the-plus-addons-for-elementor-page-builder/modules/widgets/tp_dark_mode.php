@@ -934,11 +934,11 @@ class L_ThePlus_Dark_Mode extends Widget_Base {
 				$system_items = $kit->get_settings_for_display( 'system_colors' );
 				$custom_items = $kit->get_settings_for_display( 'custom_colors' );
 
-				if ( ! empty( $system_items ) ) {
+				if ( ! $system_items ) {
 					$system_items = array();
 				}
 
-				if ( ! empty( $custom_items ) ) {
+				if ( ! $custom_items ) {
 					$custom_items = array();
 				}
 

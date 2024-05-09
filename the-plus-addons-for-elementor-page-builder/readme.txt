@@ -1,10 +1,10 @@
 === The Plus Addons for Elementor - Elementor Addons, Page Templates, Widgets, Mega Menu, WooCommerce ===
 Contributors: posimyththemes, nirmalkavaiya, devangvachheta, sagarpatel124
 Tags: elementor, elementor widgets, elementor addons, elementor templates, widgets for elementor
-Requires at least: 5.7.0
+Requires at least: 6.0
 Tested up to: 6.5
-Requires PHP: 5.6
-Stable tag: 5.2.15
+Requires PHP: 7.0
+Stable tag: 5.5.3
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -383,9 +383,20 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 5.2.15 =
-Add : Deprecated : Elementor Widget Disabled
-Fix : Minor bug fixes & Improvements
+= 5.5.3 =
+Add : Syntax Highlighter Widget
+Fix : Button : Security Patch ( Low security )
+Fix : Dark Mode : Global color Condition Improvement
+Fix : Meeting schedular : Security Patch ( Low security )
+Fix : Minor Bug Fixes & Performance Improvements
+
+= 5.5.2 =
+Add : Info Box : Button Icon size option
+Add : Post Title : Add Text Alignment Option
+Fix : Post Meta : Post Author name compatibility with Nexter Extension Single Page
+Add : Contact Form 7 : Option to Change checkbox Position
+Fix : Gravity Form : Condition Improvement
+Fix : Condition Improvement for Caching File generating flow
 
 == Upgrade Notice ==
 

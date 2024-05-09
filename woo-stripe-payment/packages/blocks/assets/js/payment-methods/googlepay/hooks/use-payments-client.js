@@ -107,7 +107,9 @@ export const usePaymentsClient = (
                     onClick: handleClick,
                     ...getData('buttonStyle')
                 });
-
+                if (getData('buttonShape') === 'rect') {
+                    button.querySelector('button')?.classList?.remove('new_style');
+                }
                 setButton(button);
             }
         } catch (err) {

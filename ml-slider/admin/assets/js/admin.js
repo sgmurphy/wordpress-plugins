@@ -1,6 +1,7 @@
 window.jQuery(function ($) {
 
     const APP = window.metaslider.app ? window.metaslider.app.MetaSlider : null
+
     /**
      * Event listening to media library edits
      */
@@ -790,6 +791,15 @@ window.jQuery(function ($) {
         });
     });
 
+    /**
+     * Hide 'Click the "Add Slide" button to create your slideshow' notice
+     * 
+     * @since 2.37
+     */
+    var hideNoSlidesNotice = function () {
+        $('#add-first-slide-notice').hide();
+    }
+
     // helptext tooltips
     var addTooltips = function () {
         $('.tipsy-tooltip').tipsy({className: 'msTipsy', live: false, delayIn: 500, html: true, gravity: 'e'});
@@ -807,6 +817,7 @@ window.jQuery(function ($) {
                 for (const mutation of mutationsList) {
                     if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                         addTooltips();
+                        hideNoSlidesNotice();
                     }
                 }
             }
@@ -1082,7 +1093,7 @@ window.jQuery(function ($) {
             console.log(container.find(":nth-child(" + count + ")"));
         }, 2000);
     });
-    
+
 });
 
 /**

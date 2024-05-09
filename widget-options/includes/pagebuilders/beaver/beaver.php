@@ -329,28 +329,28 @@ if (!class_exists('WP_Widget_Options_Beaver')) :
 				// Use minified libraries if SCRIPT_DEBUG is turned off
 				$suffix  = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 
-				wp_enqueue_style('widgetopts-beaver-css', $css_dir . 'beaver-widgetopts.css', array(), null);
-				wp_enqueue_style('widgetopts-beaver-select2-css', $css_dir . 'select2.min.css', array(), null);
+				wp_enqueue_style('widgetopts-beaver-css', $css_dir . 'beaver-widgetopts.css', array(), WIDGETOPTS_VERSION);
+				wp_enqueue_style('widgetopts-beaver-select2-css', $css_dir . 'select2.min.css', array(), WIDGETOPTS_VERSION);
 
 				wp_enqueue_script(
 					'beaver-widgetopts',
 					$js_dir . 'jquery.widgetopts.beaver' . $suffix . '.js',
 					array('jquery'),
-					'',
+					WIDGETOPTS_VERSION,
 					true
 				);
 				wp_enqueue_script(
 					'beaver-widgetopts-select2',
 					$js_dir . 'select2.min.js',
 					array('jquery', 'beaver-widgetopts'),
-					'',
+					WIDGETOPTS_VERSION,
 					true
 				);
 				wp_enqueue_script(
 					'beaver-widgetopts-s2',
 					$js_dir . 'select2-settings' . $suffix . '.js',
 					array('jquery', 'beaver-widgetopts'),
-					'',
+					WIDGETOPTS_VERSION,
 					true
 				);
 			}
@@ -412,7 +412,7 @@ if (!class_exists('WP_Widget_Options_Beaver')) :
 		?>
 			<select name="<?php echo $name;
 							if (isset($field['multi-select'])) echo '[]'; ?>" class="widgetopts-select2 <?php echo $field['class']; ?>" <?php if (isset($field['multi-select'])) echo 'multiple ';
-																																							echo $attributes; ?> placeholder="<?php _e('Click to search or select', 'widget-options'); ?>">
+																																		echo $attributes; ?> placeholder="<?php _e('Click to search or select', 'widget-options'); ?>">
 				<option></option>
 				<?php
 				foreach ($options as $option_key => $option_val) :

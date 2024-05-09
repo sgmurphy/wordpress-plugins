@@ -4,6 +4,7 @@
   font-weight: 400;
   src: url(flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
 }
+.ui-datepicker:empty{display:none;}
 /** BTTN ICONS **/
 .cff-button-drag::before{font-family:'Material Icons';font-weight:normal;font-size:1em;background:transparent !important;margin-right:10px;}
 .ctrlsColumn .itemForm::before{font-family:'Material Icons';font-weight: normal;float:left;margin-left:-5px;font-size:13px;}
@@ -401,7 +402,7 @@ textarea {resize: none}
 .form-builder #tabs{height:800px;width:100%;overflow:hidden;position:relative;}
 .form-builder #tabs-1,
 .form-builder #tabs-2,
-.form-builder #tabs-3{top:37px;bottom:0;left:0;right:0;position:absolute;overflow-y:auto;}
+.form-builder #tabs-3{top:37px;bottom:0;left:0;right:0;position:absolute;overflow-y:auto;overflow-x:hidden;}
 
 /* @media screen AND (min-width:710px) {
 .form-builder #tabs-1,

@@ -1,14 +1,14 @@
 === Plugin for Google Reviews ===
 Contributors: richplugins
 Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
-Tags: google, reviews, google reviews, rating, widget, block, reviews plugin, google map, testimonials, google places reviews
+Tags: Google reviews, reviews, slider, testimonials, Google business
 Requires at least: 3.0.1
-Tested up to: 6.4
-Stable tag: 3.6.1
+Tested up to: 6.5
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Official way to show Google Reviews on WordPress site without Google crawling and other unofficial methods. Boost user trust and sales on your website!
+Official way to show Google Reviews on WordPress without Google crawling and other unofficial methods. Boost user trust and sales with this plugin!
 
 == Description ==
 
@@ -103,6 +103,14 @@ To find out more about who we are and what we do, here are some useful links:
 * Test-feature: weekly reviews auto-updates
 
 == Changelog ==
+
+= 3.7 =
+* Initial Google connection page
+* Performance improve: async CSS loading
+* Update to WordPress 6.5
+
+= 3.6.2 =
+* Bugfix: js resize error if reviews is hidden for slider layout
 
 = 3.6.1 =
 * Bugfix: twice CSS file in Remove Unused CSS safelist for WP Rocket plugin

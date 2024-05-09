@@ -2,9 +2,9 @@
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
 Tags: slideshow, slider, image slider, carousel, gallery, flex slider, wordpress slider, nivoslider, rotating banner, image sliders, slide show, responsive slideshow, seo slideshow, unsplash, post sliders, video sliders, YouTube sliders, Vimeo sliders, HTML sliders, external URL sliders, layer sliders, best WordPress slider, best slider, best slideshow, best carousel, easy slider, easy slideshow, flex slider, woocommerce slider, woocommerce slideshow, video slider, video captions, video subtitles
 Requires at least: 5.0
-Stable tag: 3.70.2
+Stable tag: 3.80.0
 Requires PHP: 7.0
-Tested up to: 6.5
+Tested up to: 6.5.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -316,6 +316,25 @@ Yes, you can build Elementor slides and Beaver Builder slideshows. You can creat
 
 The format is based on [Keep a Changelog recommendations](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+= [3.80.0] - 09 May, 2024 =
+
+* ADDED: Accessibility label for links, #621;
+* ADDED: Opt-in accessilibity improvements, #950;
+* ADDED: New Themes, #1032;
+* ADDED: Add nl2br() support to image caption, #1017;
+* ADDED: Add a Link tab, #1057;
+* FIXED: Consistency when saving breakpoints, #957;
+* FIXED: Tab Index issues, #977;
+* FIXED: Stop two loading texts appearing together, #1035;
+* FIXED: Slideshow links appears for each duplicate slideshow, #1036;
+* FIXED: Caption links being modified, #1034;
+* FIXED: Stop on First Slide is broken, #994;
+* FIXED: Arkitekt theme and Post Feed, #1018;
+* FIXED: Single quotes are converted to &#039; and inverted slash added to all single and double quotes, #1014;
+* CHANGED: Autoplay when "loop continuously" is enabled, #1023; 
+* CHANGED: Make 'slide' option default for new slideshows, #978;
+* REMOVED: babel-preset-es2015 and babel-preset-stage-2 packages, #988;
 
 = [3.70.2] - 10 Apr, 2024 =
 

@@ -473,7 +473,7 @@ function grw_connection($, el, platform, authcode) {
         connect_btn.innerHTML = 'Please wait...';
         connect_btn.disabled = true;
 
-        grw_connect_ajax($, el, {id: id, lang: lang, platform: platform, local_img: true}, authcode, 1);
+        grw_connect_ajax($, el, {id: id, lang: lang, platform: platform, local_img: false}, authcode, 1);
         return false;
     });
 }

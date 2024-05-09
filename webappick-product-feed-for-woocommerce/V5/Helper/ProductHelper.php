@@ -130,6 +130,11 @@ class ProductHelper {
 		$attachment_ids = [];
 
 		if ( $product->is_type( 'variation' ) ) {
+			$theme = wp_get_theme(); // gets the current theme
+//			if ( 'Woodmart Child' == $theme->name || 'Twenty Twelve' == $theme->parent_theme ) {
+//				// if you're here Twenty Twelve is the active theme or is
+//				// the current theme's parent theme
+//			}
 			if ( class_exists( 'Woo_Variation_Gallery' ) ) {
 				/**
 				 * Get Variation Additional Images for "Additional Variation Images Gallery for WooCommerce"
@@ -170,12 +175,29 @@ class ProductHelper {
 				} else {
 					$attachment_ids = \explode( ',', \get_post_meta( $var_id, 'wd_additional_variation_images_data', true ) );
 				}
+			} elseif ( 'Woodmart Child' == $theme->name ) {
+				/**
+				 * Get Variation Additional Images for "Woodmart Child Theme -> Variation Gallery Images Feature"
+				 *
+				 * @theme WOODMART
+				 * @link  https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492
+				 */
+				$var_id    = $product->get_id();
+				$parent_id = $product->get_parent_id();
+
+				$variation_obj = \get_post_meta( $parent_id, 'woodmart_variation_gallery_data', true );
+				if ( isset( $variation_obj, $variation_obj[ $var_id ] ) ) {
+					$attachment_ids = \explode( ',', $variation_obj[ $var_id ] );
+				} else {
+					$attachment_ids = \explode( ',', \get_post_meta( $var_id, 'wd_additional_variation_images_data', true ) );
+				}
 			} else {
 				/**
 				 * If any Variation Gallery Image plugin not installed then get Variable Product Additional Image Ids .
 				 */
 				$attachment_ids = \wc_get_product( $product->get_parent_id() )->get_gallery_image_ids();
 			}
+
 		}
 
 		/**

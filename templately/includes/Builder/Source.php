@@ -70,7 +70,9 @@ class Source {
 			case 'template_type':
 				$types = $this->builder::$templates_manager->get_template_types();
 				$type  = get_post_meta( $post_id, self::TYPE_META_KEY, true );
-				echo call_user_func( [ $types[ $type ], 'get_title' ] );
+				if(isset($types[ $type ])){
+					echo call_user_func( [ $types[ $type ], 'get_title' ] );
+				}
 				break;
 			case 'template_platform':
 				echo get_post_meta( $post_id, self::PLATFORM_META_KEY, true );

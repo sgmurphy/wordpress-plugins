@@ -4,7 +4,7 @@ Tags: translation, language, multilingual, l10n, i18n
 Requires at least: 5.2
 Requires PHP: 5.6.20
 Tested up to: 6.5.3
-Stable tag: 2.6.8
+Stable tag: 2.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,11 @@ We don't collect your data or snoop on you. See the [plugin privacy notice](http
 
 
 == Changelog ==
+
+= 2.6.9 =
+* Rolled back load helper changes
+* Moved debug messages to action hooks
+* String debugger improvements
 
 = 2.6.8 =
 * Added string debugger
@@ -520,7 +525,7 @@ We don't collect your data or snoop on you. See the [plugin privacy notice](http
 
 == Upgrade Notice ==
 
-= 2.6.8 =
+= 2.6.9 =
 * Various improvements and bug fixes
 
 

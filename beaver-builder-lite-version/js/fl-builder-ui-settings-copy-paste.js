@@ -86,6 +86,7 @@
 			} else {
 				// settings panel is closed
 				settings = FLBuilderSettingsConfig.nodes[nodeId];
+				settings = FLBuilderSettingsCopyPaste._copySettingsEncoded( type, settings );
 			}
 
 			// filter style
@@ -147,6 +148,37 @@
 				.addClass('fl-quick-paste-active');
 
 			return this._getClipboard();
+		},
+
+		_copySettingsEncoded: function( type, settings ) {
+			if ( ! FLBuilderSettingsConfig.modules[ type ] ) {
+				return settings;
+			}
+
+			settings = { ...settings };
+			var tabs = FLBuilderSettingsConfig.modules[type].tabs;
+
+			for ( var tab in tabs ) {
+				if ( ! tabs[ tab ].sections ) {
+					continue;
+				}
+
+				for ( var section in tabs[ tab ].sections  ) {
+					if ( ! tabs[ tab ].sections[ section ].fields ) {
+						continue;
+					}
+
+					for ( var field in tabs[ tab ].sections[ section ].fields ) {
+						var config = tabs[ tab ].sections[ section ].fields[ field ];
+
+						if ( 'form' === config.type && settings[ field ] && ( false === config.multiple || "undefined" === typeof config.multiple ) ) {
+							settings[ field ] = JSON.stringify( settings[ field ] );
+						}
+					}
+				}
+			}
+
+			return settings;
 		},
 
 		_importSettings: function (type, nodeId, data) {

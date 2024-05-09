@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.4 =
+
+* Allows to assign developer notes to the calculated fields.
+* Assign a top margin to the button controls to align the form fields.
+* Modifies the Calculated Fields Form Gutenberg block to make it responsive.
+* Modifies the export forms and CSV files modules to prevent third-party plugin warnings and notices messages affecting the files generated (Professional, Developer, and Platinum versions).
+* Prevents accidental deletion of submissions by modifying the position of the Delete All submissions button in the entries section (Professional, Developer, and Platinum versions).
+
 = 5.2.3 =
 
 * Fixes a CLS issue on pages with the CFF forms.

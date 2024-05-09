@@ -11,8 +11,8 @@ $rel      = $module->get_rel();
 $caption  = $module->get_caption();
 
 ?>
-<div class="fl-photo<?php echo ( ! empty( $settings->crop ) ) ? ' fl-photo-crop-' . $settings->crop : ''; ?> fl-photo-align-<?php echo $settings->align; ?>"<?php FLBuilder::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"' ); ?>>
-	<div class="fl-photo-content fl-photo-img-<?php echo $filetype; ?>">
+<div class="fl-photo<?php echo ( ! empty( $settings->crop ) ) ? ' fl-photo-crop-' . sanitize_html_class( $settings->crop ) : ''; ?> fl-photo-align-<?php echo sanitize_html_class( $settings->align ); ?>"<?php FLBuilder::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"' ); ?>>
+	<div class="fl-photo-content fl-photo-img-<?php echo sanitize_html_class( $filetype ); ?>">
 		<?php if ( ! empty( $link ) ) : ?>
 		<a href="<?php echo $link; ?>" target="<?php echo esc_attr( $settings->link_url_target ); ?>"<?php echo $rel; ?> itemprop="url">
 		<?php endif; ?>

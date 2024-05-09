@@ -72,5 +72,5 @@ function widgetopts_settings_page_and_post_block()
 	</li>
 <?php
 }
-add_action('widgetopts_module_cards', 'widgetopts_settings_page_and_post_block', 68);
+add_action('widgetopts_module_cards', 'widgetopts_settings_page_and_post_block', 11);
 ?>

@@ -1,10 +1,10 @@
-=== ThumbPress - A Complete WordPress Thumbnail and Image Management Solution ===
+=== ThumbPress - Disable & Regenerate Thumbnails, Limit Image Size, Convert to WebP & More ===
 Contributors: pluggable, codexpert, thumbpressco, mukto90
 Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&utm_campaign=image-sizes
-Tags: disable thumbnail, image editor, wordpress image, convert to webp, large images
+Tags: image sizes, multiple image creation, image copy, media file duplicate, image duplicate wordpress
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 5.0.2
+Stable tag: 5.1.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,13 +13,18 @@ Disable and Regenerate Thumbnails, Compress Images, Convert Images to WebP, Find
 
 == Description ==
 
-Meet ThumbPress - your comprehensive solution for all image and thumbnail management issues on WordPress. With ThumbPress, you can easily Disable Thumbnails, Regenerate Thumbnails, Compress Images, Convert Images to WebP, Detect Large Images, Disable Right Click on Images, Social Media Thumbnails, Set Image Upload Limit,  Edit Images, and much more.
+How many images do you have on your WordPress site? Can’t count, right? 
+Managing those images is harder than counting them. ThumbPress makes this easier than ever. 
+Check out the exciting features below and connect with us on the following details: 
 
-As you already know, the default WordPress system falls behind in providing an efficient solution for image and thumbnail management. This results in slower site performance and increased server space usage. To solve these issues, site owners often use multiple plugins, which can sometimes worsen the problem.
+Follow us on [Facebook](https://www.facebook.com/ThumbPressCo/)
+Follow us on [Twitter](https://twitter.com/ThumbPressCo/)
+Follow us on [LinkedIn](https://www.linkedin.com/company/thumbpress/)
 
-And that’s where ThumbPress comes in! We developed this all-in-one plugin to tackle all your image and thumbnail challenges, help you save more server space, and ultimately, ensure your website runs at lightning speed. 
 
-### 👉 All ThumbPress WordPress Image Management Features
+Get the [Pro Version](https://thumbpress.co/) with all powerful features 💪
+
+### 👉 All ThumbPress Features to Supercharge Your WordPress Image Management
 
 💥 Disable Thumbnails
 💥 Regenerate Thumbnails
@@ -33,31 +38,39 @@ And that’s where ThumbPress comes in! We developed this all-in-one plugin to t
 💥 Convert Images into WebP
 💥 Disable Right Click on Image
 
-Here are some of the key features of the ThumbPress plugin for WordPress Image Management - 
+Here are some of the key features of the ThumbPress plugin for WordPress Image Management –
 
-#### 🚀 Social Media Thumbnails  
+#### 🚀 Disable Thumbnails
+
+When you upload an image using _Media Uploader_, WordPress generates multiple copies/thumbnails of that image. By default, WordPress generates 5 thumbnails: 
+- Thumbnail
+- Medium
+- Medium-large
+- Large
+- Scaled
+Along with this, your themes and plugins add more thumbnails and most of these thumbnails remain unused. 
+The result? **Unnecessary additional images eat up your server space** and **slow down your site**!
+This is where the Disable feature comes into the picture. Just install the plugin and choose which of the image sizes you want to prevent from generating.
+
+#### 🚀 Regenerate Thumbnails
+
+Regenerate previously deleted thumbnails at any moment, regardless of their size. No more worrying about lost thumbnails — our solution guarantees swift restoration, keeping your site’s visual appeal flawless and consistent.
+
+#### 🚀 Social Media Thumbnails
 
 ThumbPress enables you to assign unique thumbnails for various social media platforms, ensuring that an image intended for Facebook remains uncropped when shared on Twitter or LinkedIn. You have the ability to upload distinct thumbnails for each social media site.
 
 #### 🚀 Image Upload Limit
 
-Set a maximum limit for image upload size and resolution to ensure faster loading times. Our feature allows you to customize these parameters according to your website requirements and prevent oversized images from slowing down your site. 
-
-#### 🚀 Disable Thumbnails
-
-Delete and disable WordPress thumbnail generation for all uploaded images and clean up your WordPress Media Library. With ThumbPress, you can streamline this process to improve page load speeds and overall site performance with just a few clicks.
-
-#### 🚀 Regenerate Thumbnails
-
-Regenerate previously deleted thumbnails at any moment, regardless of their size. No more worrying about lost thumbnails — our solution guarantees swift restoration, keeping your site's visual appeal flawless and consistent. 
+Set a maximum limit for image upload size and resolution to ensure faster loading times. Our feature allows you to customize these parameters according to your website requirements and prevent oversized images from slowing down your site.
 
 #### 🚀 Convert Images into WebP
 
-Convert images to WebP format directly from the dashboard and upgrade your website's performance without sacrificing image quality. This advanced function ensures your images remain crisp and clear while reducing file size compared to traditional formats.
+Convert images to WebP format directly from the dashboard and upgrade your website’s performance without sacrificing image quality. This advanced function ensures your images remain crisp and clear while reducing file size compared to traditional formats.
 
-#### 🚀Disable Right Click on Image
+#### 🚀 Disable Right Click on Image
 
-Disable the right-click function on your website, a simple yet effective way to deter visitors from downloading or copying your images and thumbnails. It's a preventive measure that adds an extra layer of protection to your digital assets and keeps your visuals exclusive to your site.
+Disable the right-click function on your website, a simple yet effective way to deter visitors from downloading or copying your images and thumbnails. It’s a preventive measure that adds an extra layer of protection to your digital assets and keeps your visuals exclusive to your site.
 
 ### 👉 ThumbPress Pro Features
 
@@ -71,23 +84,23 @@ Check out our [Pro Features](https://thumbpress.co/) and [Pricing Plans](https:/
 
 #### 🌟 Detect Large Images
 
-Find and compress oversized images, or delete them entirely to get back valuable server space. It's a great way to improve user experience by speeding up your site's loading time and streamlining media files directly on the WordPress dashboard.
+Find and compress oversized images, or delete them entirely to get back valuable server space. It’s a great way to improve user experience by speeding up your site’s loading time and streamlining media files directly on the WordPress dashboard.
 
 #### 🌟 Detect Unused Images
 
-Find unused images on WordPress and delete them using ThumbPress to free up valuable server space. Keep your digital space tidy and optimize our site's loading time with our comprehensive WordPress image management solution.
+Find unused images on WordPress and delete them using ThumbPress to free up valuable server space. Keep your digital space tidy and optimize our site’s loading time with our comprehensive WordPress image management solution.
 
 #### 🌟 Compress Images
 
-Optimize and reduce your image size by compressing them directly from the dashboard using ThumbPress. Our built-in image compressor tailors images to meet your site's specific demands without compromising on file or visual quality. 
+Optimize and reduce your image size by compressing them directly from the dashboard using ThumbPress. Our built-in image compressor tailors images to meet your site’s specific demands without compromising on file or visual quality.
 
 #### 🌟 Replace Image with New Version
 
-Update your website's images to newer versions without altering their existing links to ensure your content remains fresh and up-to-date. It's the perfect solution for maintaining visual relevance without the hassle of manual link updates. 
+Update your website’s images to newer versions without altering their existing links to ensure your content remains fresh and up-to-date. It’s the perfect solution for maintaining visual relevance without the hassle of manual link updates.
 
 #### 🌟 Image Editor
 
-Highlight the finest aspects of your images with ThumbPress's array of filters and adjustments. From adjusting brightness and contrast to applying artistic filters, this feature allows you to present your visuals in the most captivating way possible.
+Highlight the finest aspects of your images with ThumbPress’s array of filters and adjustments. From adjusting brightness and contrast to applying artistic filters, this feature allows you to present your visuals in the most captivating way possible.
 
 
 ### Notes
@@ -154,7 +167,28 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 
 == Changelog ==
 
-= 2024-05-01 - 5.0.2 =
+= v5.1.0.2 – 2024-05-09 =
+- [imp] code structure improved
+- [fix] sub-menu text changed
+- [fix] replace images issue fixed
+- [fix] convert all images issue fixed
+- [fix] convert images scaled issue fixed
+- [fix] delete original image after conversion issue fixed
+- [add] get image from attached file with scaled name function added
+- [imp] code cleaned and image mime type updated
+- [fix] action scheduler table issue fixed
+- [imp] check action scheduler table function updated
+- [add] create action scheduler tables if missing
+- [imp] check action table before activation and delete option table data
+- [imp] plugin settings slug changed
+- [fix] dashboard pointer issue solved
+- [imp] dashboard banner logic updated
+- [add] social share image single post check added
+- [add] social share image extra check added to avoid warning
+- [fix] scaled image regenerate issue fixed
+- [fix] scaled image thumbnail regenerate in background issue fixed
+
+= v5.0.2 – 2024-05-01 =
 * [fix] fixed pinterest thumbnail in social share images module
 * [fix] fixed typographic issues in sereral modules
 * [fix] fixed Setup Wizard skip button URL
@@ -164,12 +198,12 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 * [imp] Pinterest pin meta tag updated in social share images module
 * [imp] improved some styles
 
-= 2024-04-29 - 5.0.1 =
+= v5.0.1 – 2024-04-29 =
 * [fix] JS and CSS minified
 * [fix] Compat tested with WordPress 6.5.2
 
-= 2024-04-29 - 5.0 =
-* [new] 🚀 Introduced modules-
+= v5.0 – 2024-04-29 =
+* [new] #### 🚀 Introduced modules-
 	- Detect Unused Images
 	- Set Image Upload Limit
 	- Detect Large Images
@@ -180,32 +214,32 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 	- Convert Images into WebP
 	- Disable Right Click on Image
 
-= 2024-04-21 – 4.3.1 =
+= v4.3.1 – 2024-04-21 =
 * [fix] Regenerates image for the first iteration and then stops
 * [fix] admin.min.js minification fixed
 * [fix] admin.min.css minification fixed
 
-= 2024-04-17 – 4.3 =
+= v4.3 – 2024-04-17 =
 * [fix] Regeneration stops
 
-= 2024-04-03 – 4.2.5 =
+= v4.2.5 – 2024-04-03 =
 * [imp] Compatibility tested with WordPress v6.5
 
-= 2024-02-20 – 4.2.4 =
+= v4.2.4 – 2024-02-20 =
 * [fix] Settings not saved issue fixed
 * [rem] Unnecessary src folder removed
 
-= 2024-02-12 – 4.2.3 =
+= v4.2.3 – 2024-02-12 =
 * [fix] The plugin does not have a valid header error fixed
 * [fix] JS error fixed
 
-= 2024-02-08 – 4.2.2 =
+= v4.2.2 – 2024-02-08 =
 * [fix] Compatibility tested with WordPress 6.4.3
 
-= 2024-01-31 – 4.2.1 =
+= v4.2.1 – 2024-01-31 =
 * [fix] Invalid header issue fixed
 
-= 2024-01-25 - 4.2 =
+= v4.2 – 2024-01-25 =
 * [fix] Compatibility tested and fixed with PHP 8
 * [rem] Footer credit removed
 

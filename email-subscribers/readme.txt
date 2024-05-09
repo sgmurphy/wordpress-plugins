@@ -5,8 +5,8 @@ Author URI: https://www.icegram.com/
 Tags: email marketing, email subscribers, newsletters, autoresponders, email automation
 Requires at least: 3.9
 Tested up to: 6.5.2
-Requires PHP: 5.6
-Stable tag: 5.7.19
+Requires PHP: 7.0
+Stable tag: 5.7.20
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,11 +438,17 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.19 =
+= 5.7.20 =
 
-* Improvements: Added option to navigate to the linked campaign from the report page
+* Improvements: Settings page UI improvements
+* Fix: Security vulnerabilities including SQL injection, PHP object injection, and missing authorization checks - CVE-2024-4010 [Thanks to Wordfence team]
 
 == Changelog ==
+
+**5.7.20 (09.05.2024)**
+
+* Improvements: Settings page UI improvements
+* Fix: Security vulnerabilities including SQL injection, PHP object injection, and missing authorization checks - CVE-2024-4010 [Thanks to Wordfence team]
 
 **5.7.19 (24.04.2024)**
 

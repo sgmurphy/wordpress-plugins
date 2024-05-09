@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.3';
+	$.fbuilder['version'] = '5.2.4';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -282,7 +282,7 @@
 		{
 			var $ = fbuilderjQuery,
 				id = o.identifier.replace(/[^\d]/g, ''),
-				item, data, formObj, f;
+				item, data, formObj, f, _eval_equations;
 
 			if(id in cpcff_default)
 			{
@@ -290,6 +290,7 @@
 				id = '_'+id;
 				formObj = $.fbuilder['forms'][id];
 				f = $('#'+formObj['formId']);
+				_eval_equations = f.attr('data-evalequations') || o.evalequations;
 				f.attr('data-evalequations',0);
 				for( var fieldId in data )
 				{
@@ -297,7 +298,7 @@
 					try{ if('setVal' in item) item.setVal(data[fieldId], true, true); $('[name*="'+item.name+'"]').trigger('trigger_ds'); }
 					catch(err){}
 				}
-				f.attr('data-evalequations', o.evalequations);
+				f.attr('data-evalequations', _eval_equations);
 				$.fbuilder.showHideDep({'formIdentifier' : o.identifier});
 				f.trigger('cff-loaded-defaults');
 			}
@@ -808,7 +809,8 @@
 										let f = $('#'+fid);
 										f.css({'height':'auto', 'minHeight':'auto'});
 										$.fbuilder.cpcffLoadDefaults( opt );
-										f.attr( 'data-evalequations', opt.evalequations );
+										if(f.attr( 'data-evalequations') == undefined)
+											f.attr( 'data-evalequations', opt.evalequations );
 										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
 										$.post(
 											document.location.href,

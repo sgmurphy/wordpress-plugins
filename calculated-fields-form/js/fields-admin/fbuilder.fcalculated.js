@@ -14,6 +14,7 @@
 		{
 			title:"Untitled",
 			ftype:"fCalculated",
+			_developerNotes:'',
 			predefined:"",
 			required:false,
 			exclude:false,
@@ -44,7 +45,7 @@
 				{
 					this.init();
 					var affectedFields = $.fbuilder.checkDeletedFields(this.eq);
-					return '<div class="fields '+this.name+' '+this.ftype+(affectedFields != '' ? ' cff-error' : '')+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel(affectedFields)+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+(affectedFields != '' ? ' cff-error' : '')+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel(affectedFields)+'"><span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

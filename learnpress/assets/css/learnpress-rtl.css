@@ -2246,6 +2246,7 @@ div.order-recover input[type=text] {
   width: 100%;
   border-spacing: 0;
   border: 0.5px solid #ccc;
+  margin-bottom: 10px;
 }
 .learn-press-profile-course__progress .lp_profile_course_progress__item img {
   width: 100%;

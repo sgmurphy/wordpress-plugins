@@ -112,8 +112,6 @@
 }
 .lp-form-course-filter__content .lp-course-filter__field {
   position: relative;
-  padding-right: 10%;
-  line-height: 2rem;
   display: flex;
   align-items: center;
   gap: 10px;

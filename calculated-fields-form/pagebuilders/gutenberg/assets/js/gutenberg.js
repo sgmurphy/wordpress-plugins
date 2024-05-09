@@ -142,7 +142,7 @@ jQuery(function()
 										key: 'cpcff_form_iframe',
 										src: cpcff_gutenberg_editor_config['url']+generate_url_params(),
 										height: '0',
-										width: '500',
+										width: '100%',
 										scrolling: 'no'
 									}
 								)

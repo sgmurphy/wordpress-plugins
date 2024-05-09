@@ -95,6 +95,8 @@ class MetaSlider_Slideshows
         $last_modified_settings['printJs'] = true;
         $last_modified_settings['printCss'] = true;
         $last_modified_settings['noConflict'] = true;
+        $last_modified_settings['effect'] = 'slide';
+
         
         /* Make sure we set a default theme if available - Pro set '_theme_default' 
          * to bypass $last_modified_settings['theme'] that takes the last saved theme configuration 
@@ -144,7 +146,7 @@ class MetaSlider_Slideshows
         $old_settings = get_post_meta($slideshow_id, 'ml-slider_settings', true);
 
         // convert submitted checkbox values from 'on' or 'off' to boolean values
-        $checkboxes = apply_filters("metaslider_checkbox_settings", array('noConflict', 'fullWidth', 'hoverPause', 'links', 'reverse', 'random', 'printCss', 'printJs', 'smoothHeight', 'center', 'carouselMode', 'autoPlay', 'firstSlideFadeIn', 'responsive_thumbs', 'keyboard', 'touch', 'infiniteLoop',  'mobileArrows_smartphone', 'mobileArrows_tablet','mobileArrows_laptop', 'mobileArrows_desktop', 'mobileNavigation_smartphone', 'mobileNavigation_tablet', 'mobileNavigation_laptop', 'mobileNavigation_desktop'));
+        $checkboxes = apply_filters("metaslider_checkbox_settings", array('noConflict', 'fullWidth', 'hoverPause', 'links', 'reverse', 'random', 'printCss', 'printJs', 'smoothHeight', 'center', 'carouselMode', 'autoPlay', 'firstSlideFadeIn', 'responsive_thumbs', 'keyboard', 'touch', 'infiniteLoop',  'mobileArrows_smartphone', 'mobileArrows_tablet','mobileArrows_laptop', 'mobileArrows_desktop', 'mobileNavigation_smartphone', 'mobileNavigation_tablet', 'mobileNavigation_laptop', 'mobileNavigation_desktop', 'ariaLive', 'tabIndex'));
 
         foreach ($checkboxes as $checkbox) {
             $new_settings[$checkbox] = (isset($new_settings[$checkbox]) && 'on' == $new_settings[$checkbox]) ? 'true' : 'false';

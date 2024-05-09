@@ -216,7 +216,7 @@
                 <h3><?php _e( '100% Hassle-Free Money Back Guarantee!', 'image-sizes' ); ?></h3>
                 <p>
                     <?php 
-                        _e( 'We\'re confident that you\'ll love using ThumbPress. However, if within the next 14 days, you feel 
+                        _e( 'We\'re confident that you\'ll love using ThumbPress. However, if within the next 30 days, you feel 
                         that ThumbPress isn\'t the best fit for your needs, simply reach out and we\'ll refund your money in full, 
                         no questions asked!', 'image-sizes' ); 
                     ?>

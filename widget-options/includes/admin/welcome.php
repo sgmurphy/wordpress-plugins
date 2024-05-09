@@ -32,7 +32,7 @@ if (!class_exists('WIDGETOPS_Welcome')) {
 			if (!isset($_GET['page']) || 'widget-opts-getting-started' != $_GET['page'])
 				return;
 
-			wp_enqueue_style('extended-widget-opts-welcome', plugins_url('../assets/css/welcome.css', dirname(__FILE__)), array(), null);
+			wp_enqueue_style('extended-widget-opts-welcome', plugins_url('../assets/css/welcome.css', dirname(__FILE__)), array(), WIDGETOPTS_VERSION);
 		}
 
 		function screen_page()

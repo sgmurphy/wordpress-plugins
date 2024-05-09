@@ -98,14 +98,14 @@ body{
 #fbuilder .col-xs-8,
 #fbuilder .col-xs-9,
 #fbuilder .col-xs-10,
-#fbuilder .col-xs-11{float:left; clear: none !important; }
-#fbuilder .col-xs-12{float:none; clear: both; }
+#fbuilder .col-xs-11{float:left; clear: none !important;}
+#fbuilder .col-xs-12{float:none; clear: both;}
 
 #fbuilder .col-xs-1 {width: 8.33333333% !important;}
 #fbuilder .col-xs-2 {width: 16.66666667% !important;}
 #fbuilder .col-xs-3 {width: 25% !important;}
 #fbuilder .col-xs-4 {width: 33.33333333% !important;}
-#fbuilder .col-xs-5 {width: 41.66666667% !important; }
+#fbuilder .col-xs-5 {width: 41.66666667% !important;}
 #fbuilder .col-xs-6 {width: 50% !important;}
 #fbuilder .col-xs-7 {width: 58.33333333% !important;}
 #fbuilder .col-xs-8 {width: 66.66666667% !important;}
@@ -400,7 +400,7 @@ body{
 #fbuilder .one_column label,
 #fbuilder .two_column label,
 #fbuilder .three_column label,
-#fbuilder .side_by_side label{ width:100% !important; }
+#fbuilder .side_by_side label{width:100% !important;}
 
 #fbuilder .left_aligned .section_breaks.fields label,
 #fbuilder .left_aligned .comment_area.fields label,
@@ -423,7 +423,7 @@ body{
 
 #fbuilder .cpefb_error.message:empty{display:none !important;}
 
-.ui-datepicker{ z-index:99999 !important;min-width:280px;max-width:320px;}
+.ui-datepicker{z-index:99999 !important;min-width:280px;max-width:320px;}
 .ui-datepicker *{font-size:14px !important;}
 #fbuilder .ui-datepicker select.ui-datepicker-month,
 #fbuilder .ui-datepicker select.ui-datepicker-year{width:45% !important;min-height:auto !important;padding:initial !important; margin:initial !important;}
@@ -451,8 +451,8 @@ body{
 #fbuilder .uh_phone input{text-align:center;width:100%}
 #fbuilder .uh_phone select{width:100%}
 #fbuilder .uh_phone .l{font-size:80%;}
-#fbuilder .cpp_form { text-align:left;}
-*[dir="rtl"] #fbuilder .cpp_form { text-align:right;}
+#fbuilder .cpp_form {text-align:left;}
+*[dir="rtl"] #fbuilder .cpp_form {text-align:right;}
 #fbuilder .pbreak{display:none;}
 #fbuilder .pbreak.pb0{display:block;}
 #fbuilder .pbPrevious,
@@ -478,7 +478,7 @@ body{
 #fbuilder .cff-collapsible.cff-collapsed>fieldset>legend::after{transform:rotate(0deg);}
 #fbuilder .cff-collapsible>fieldset>legend{cursor:pointer;}
 #fbuilder .cpcaptchalayer,.cp_subbtn{display:none;}
-#fbuilder .captcha img{ cursor:pointer; }
+#fbuilder .captcha img{cursor:pointer;}
 #fbuilder .cff-recaptcha{overflow: hidden !important;}
 
 #fbuilder .cff-repeater-field .cff-repeater-field-add{margin-right:10px;}
@@ -528,8 +528,8 @@ body{
 #fbuilder .slider-type-left-component{width:50%;padding-right:10px;clear:none;float:left;margin-left:-10px;}
 #fbuilder .slider-type-right-component{width:50%;padding-left:10px;clear:none;float:right;margin-right:-10px;}
 #fbuilder .slider-type-center-component{margin-left:-10px;margin-right:-10px;}
-#fbuilder .dfield.slider-container{ padding-left: 10px !important; padding-right: 10px !important; padding-top:5px;}
-#fbuilder .dfield .slider{ margin-bottom:5px; overflow:visible;}
+#fbuilder .dfield.slider-container{padding-left: 10px !important; padding-right: 10px !important; padding-top:5px;}
+#fbuilder .dfield .slider{margin-bottom:5px; overflow:visible;}
 #fbuilder .dfield .slider .ui-slider-handle::before,
 #fbuilder .dfield .slider .ui-slider-handle::after{display:none;}
 #fbuilder .corner-captions{position:relative;}
@@ -572,13 +572,13 @@ body{
     padding:0;
 }
 
-#fbuilder  .cff-summary-title:after{ content: ': '; }
-
+#fbuilder  .cff-summary-title:after{content: ': ';}
+#fbuilder  .cff-button-field input{margin-top:5px;}
 #fbuilder .ignore,
 #fbuilder .ignorefield,
-#fbuilder .hide{ display:none; }
-#fbuilder .hide-strong{ display:none !important; }
-#fbuilder .clear{ clear:both; }
+#fbuilder .hide{display:none;}
+#fbuilder .hide-strong{display:none !important;}
+#fbuilder .clear{clear:both;}
 
 @keyframes cff-fade{from{opacity:1.0;} 50%{opacity:0.5;} to{opacity:1.0;}}
 @-webkit-keyframes cff-fade{from{opacity:1.0;} 50%{opacity:0.5;} to{opacity:1.0;}}
@@ -597,7 +597,7 @@ body{
 	#fbuilder .pbSubmit,
 	#fbuilder .captcha{
 		display: none !important;
-    }
+}
 	/* #fbuilder .pbreak{display: block;} */
     .cff-no-print{display:none !important;visibility:hidden;height:0px;}
     .cff-print{display:block !important;visibility:visible;}

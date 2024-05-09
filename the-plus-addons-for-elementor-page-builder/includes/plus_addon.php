@@ -1342,6 +1342,100 @@ function l_registered_widgets(){
 				),
 			),
 		),
+		'tp-syntax-highlighter' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-syntax-highlighter.css',
+				],
+			],
+		],
+		'tp-syntax-highlighter-icons' => [
+			'dependency' => [
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/tp-copy-dow-icons.js',
+				],
+			],
+		],
+		'prism_default' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-default-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-default.js',
+				],
+			],
+		],
+		'prism_coy' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-copy-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-coy.js',
+				],
+			],
+		],
+		'prism_dark' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-dark-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-dark.js',
+				],
+			],
+		],
+		'prism_funky' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-funky-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-funky.js',
+				],
+			],
+		],
+		'prism_okaidia' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-okaidia-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-okaidia.js',
+				],
+			],
+		],
+		'prism_solarizedlight' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-solarized.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-solarizedlight.js',
+				],
+			],
+		],
+		'prism_tomorrownight' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-tomorrow-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-tomorrownight.js',
+				],
+			],
+		],
+		'prism_twilight' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/syntax-highlighter/plus-twilight-theme.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/syntax-highlighter/prism-twilight.js',
+				],
+			],
+		],
 		'tp-tabs-tours' => [
 			'dependency' => [
 				'css' => [
@@ -1483,6 +1577,27 @@ function l_registered_widgets(){
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/velocity/velocity.min.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/velocity/velocity.ui.js',
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/general/plus-animation-load.min.js',
+				],
+			],
+		],
+		'plus-alignmnet-effect' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-alignmnet.css',
+				],
+			],
+		],
+		'plus-widget-error' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-widget-error.css',
+				],
+			],
+		],
+		'plus-responsive-visibility' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR .  'assets/css/main/plus-extra-adv/plus-responsive-visibility.css',
 				],
 			],
 		],

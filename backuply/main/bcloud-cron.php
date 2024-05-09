@@ -91,7 +91,7 @@ function backuply_backup_rotation() {
 }
 
 function backuply_bcloud_oldest_backup($a, $b) {
-	return $a->btime > $b->btime;
+	return (int) $a->btime - (int) $b->btime;
 }
 
 // Returns backups based on location

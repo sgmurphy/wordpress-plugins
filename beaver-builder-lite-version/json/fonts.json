@@ -1089,6 +1089,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Briem Hand": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "cursive"
+  }
+}, {
   "Bruno Ace": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -2284,6 +2289,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Freeman": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Fresca": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -3049,6 +3059,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Jacquard 24 Charted": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Jacquarda Bastarda 9": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -3069,8 +3084,23 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Jaini": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jaini Purva": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Jaldi": {
     "variants": ["regular", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jaro": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {
@@ -3105,6 +3135,11 @@
   }
 }, {
   "Jersey 25": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Jersey 25 Charted": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -3556,7 +3591,7 @@
 }, {
   "Lekton": {
     "variants": ["regular", "italic", "700"],
-    "fallback": "sans-serif"
+    "fallback": "monospace"
   }
 }, {
   "Lemon": {
@@ -6054,6 +6089,11 @@
     "fallback": "serif"
   }
 }, {
+  "Poetsen One": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Poiret One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -6269,6 +6309,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Radio Canada Big": {
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Radley": {
     "variants": ["regular", "italic"],
     "fallback": "serif"
@@ -6392,6 +6437,16 @@
   "Reddit Mono": {
     "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "monospace"
+  }
+}, {
+  "Reddit Sans": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Reddit Sans Condensed": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
   }
 }, {
   "Redressed": {
@@ -6891,6 +6946,11 @@
 }, {
   "Sedan": {
     "variants": ["regular", "italic"],
+    "fallback": "serif"
+  }
+}, {
+  "Sedan SC": {
+    "variants": ["regular"],
     "fallback": "serif"
   }
 }, {
@@ -7469,6 +7529,11 @@
     "fallback": "serif"
   }
 }, {
+  "Teachers": {
+    "variants": ["regular", "500", "600", "700", "800", "italic", "500italic", "600italic", "700italic", "800italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Teko": {
     "variants": ["300", "regular", "500", "600", "700"],
     "fallback": "sans-serif"
@@ -7686,6 +7751,16 @@
 }, {
   "Ubuntu Mono": {
     "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "monospace"
+  }
+}, {
+  "Ubuntu Sans": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Ubuntu Sans Mono": {
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
     "fallback": "monospace"
   }
 }, {

@@ -503,6 +503,14 @@
       "type": "string",
       "default": "px"
     },
+    "maxWidthTabletUnit": {
+      "type": "string",
+      "default": ""
+    },
+    "maxWidthMobileUnit": {
+      "type": "string",
+      "default": ""
+    },
     "height": {
       "type": "array",
       "default": [

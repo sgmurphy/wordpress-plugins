@@ -74,6 +74,7 @@ Class L_Plus_Library {
 			'tp_scroll_navigation' => 'tp-scroll-navigation',
 			'tp_social_embed' => 'tp-social-embed',
 			'tp_social_icon' => 'tp-social-icon',
+			'tp_syntax_highlighter' => 'tp-syntax-highlighter',
 			'tp_tabs_tours' => 'tp-tabs-tours',
 			'tp_team_member_listout' => 'tp-team-member-listout',
 			'tp_testimonial_listout' => 'tp-testimonial-listout',
@@ -93,10 +94,15 @@ Class L_Plus_Library {
 		    return (array_key_exists($val, $replace) ? $replace[$val] : $val);
         }, $elements);
 		
+
+		if( ! empty( $elements ) ){
+			$merge[] = 'plus-alignmnet-effect';
+		}
+
 		if ( in_array( 'tp-number-counter', $elements ) ) {
-			$merge[]= 'tp-number-counter';
-			$merge[]= 'tp-number-counter-style-1';
-			$merge[]= 'tp-number-counter-style-2';
+			$merge[] = 'tp-number-counter';
+			$merge[] = 'tp-number-counter-style-1';
+			$merge[] = 'tp-number-counter-style-2';
 			$merge[] = 'tp-draw-svg';
 		}
 
@@ -107,10 +113,15 @@ Class L_Plus_Library {
 			$merge[] = 'tp-bloglistout-style-1';
 		}
 
+		if(in_array('tp-flip-box',$elements)){
+			$merge[] = 'plus-responsive-visibility';
+		}
+
 		if(in_array('tp-info-box',$elements)){
 			$merge[] = 'tp-info-box';
 			$merge[] = 'tp-info-box-style_1';
 			$merge[] = 'tp-info-box-style_3';
+			$merge[] = 'plus-responsive-visibility';
 		}
 
 		if ( in_array( 'tp-gallery-listout', $elements ) ) {
@@ -145,6 +156,7 @@ Class L_Plus_Library {
 		if ( in_array( 'tp-page-scroll', $elements ) ) {
 			$merge[] = 'tp-fullpage';
 			$merge[] = 'tp-fullpage-scroll';
+			$merge[] = 'plus-widget-error';
 		}		
 		
 		if(!empty($plus_extras) && in_array('section_scroll_animation',$plus_extras)){
@@ -156,6 +168,19 @@ Class L_Plus_Library {
 		
 		if(tp_has_lazyload()){
 			$merge[] ='plus-lazyLoad';
+		}
+
+		if(in_array('tp-syntax-highlighter',$elements)){
+			$merge[] = 'tp-syntax-highlighter';
+			$merge[] = 'tp-syntax-highlighter-icons';
+			$merge[] = 'prism_default';
+			$merge[] = 'prism_coy';
+			$merge[] = 'prism_dark';
+			$merge[] = 'prism_funky';
+			$merge[] = 'prism_okaidia';
+			$merge[] = 'prism_solarizedlight';
+			$merge[] = 'prism_tomorrownight';
+			$merge[] = 'prism_twilight';
 		}
 
 		if ( in_array( 'tp-age-gate', $elements ) ) {

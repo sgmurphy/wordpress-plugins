@@ -100,9 +100,9 @@ class Settings extends Base {
 			$upgrade_pro = [
 				'id'            => "upgrade-to-pro",
 				'parent'        => 'thumbpress',
-				'label'         => __( 'Upgrade to Pro', 'image-sizes' ),
-				'title'         => __( 'Upgrade to Pro', 'image-sizes' ),
-				'header'        => __( 'Upgrade to Pro', 'image-sizes' ),
+				'label'         => __( 'Pro Features', 'image-sizes' ),
+				'title'         => __( 'Pro Features', 'image-sizes' ),
+				'header'        => __( 'Pro Features', 'image-sizes' ),
 				'priority'      => 100,
 				'sections'      => [
 					'upgrade-to-pro'=> [

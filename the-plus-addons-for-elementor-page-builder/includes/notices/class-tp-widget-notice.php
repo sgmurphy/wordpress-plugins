@@ -136,8 +136,8 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 		 * @access public
 		 */
 		public function l_theplus_elementor_cache_notice(){
-			if ( is_admin() && defined( 'THEPLUS_VERSION' ) && version_compare( THEPLUS_VERSION, '5.5.1', '<' ) ) {
-				echo '<div class="notice notice-error tp-update-notice is-dismissible"><p>' . esc_html__( 'This is major Version Release. That is required to have latest version of The Plus Addons for Elementor Pro 5.5.1 Install Latest version Now.', 'tpebl' ) . '</p></div>';
+			if ( is_admin() && defined( 'THEPLUS_VERSION' ) && version_compare( THEPLUS_VERSION, '5.5.3', '<' ) ) {
+				echo '<div class="notice notice-error tp-update-notice is-dismissible"><p>' . esc_html__( 'This is major Version Release. That is required to have latest version of The Plus Addons for Elementor Pro 5.5.3 Install Latest version Now.', 'tpebl' ) . '</p></div>';
 			}
 		}
 

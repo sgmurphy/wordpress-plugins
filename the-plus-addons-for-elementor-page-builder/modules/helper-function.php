@@ -48,7 +48,7 @@ function l_theplus_get_post_taxonomies() {
  * */
 function tp_senitize_js_input( $input ) {
 
-	$input = preg_replace('/on\w+=/', '', $input);
+	$input = preg_replace('/(on|hr)\w+=/', '', $input);
 
 	return $input;
 }

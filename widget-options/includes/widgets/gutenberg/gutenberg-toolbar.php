@@ -64,9 +64,9 @@ add_action('rest_api_init', function () {
 		// Modify the show_instance_in_rest option for each registered widget type
 		foreach ($wp_widget_factory->widgets as $widget) {
 			if (isset($widget->widget_options) && is_array($widget->widget_options)) {
-				if (stristr($widget->id, 'tribe-widget-events-list')) {
-					$widget->widget_options['show_instance_in_rest'] = true;
-				}
+				// if (stristr($widget->id, 'tribe-widget-events-list')) {
+				$widget->widget_options['show_instance_in_rest'] = true;
+				// }
 			}
 		}
 	}
@@ -83,6 +83,16 @@ add_filter('register_block_type_args', function ($args, $name) {
 		$args['attributes']['extended_widget_opts'] = array(
 			'type' => 'string',
 			'default' => json_encode((object)[])
+		);
+	} else if (stripos($name, 'jetpack') !== false) {
+		$args['attributes']['extended_widget_opts_block'] = array(
+			'type' => 'object',
+			// 'default' => (object)[]
+		);
+
+		$args['attributes']['extended_widget_opts'] = array(
+			'type' => 'object',
+			// 'default' => (object)[]
 		);
 	} else {
 		//if block type is not luckywp/tableofcontents use type object
@@ -708,7 +718,11 @@ function blockopts_filter_before_display($block_content, $parsed_block, $obj)
 					if (!eval($display_logic)) {
 						return false;
 					}
-				} catch (ParseError $e) {
+				} catch (\Exception $e) {
+					return false;
+				} catch (\Error $e) {
+					return false;
+				} catch (\Throwable $e) {
 					return false;
 				}
 			}
@@ -1029,15 +1043,15 @@ function widgetopts_ajax_roles_search_block()
 
 	$term = isset($_POST['term']) && !empty($_POST['term']) ? $_POST['term'] : '';
 
-	$roles = wp_roles()->roles;
+	$roles = get_editable_roles();
 	if (!empty($roles)) {
 		foreach ($roles as $role_name => $role_info) {
-			if ((!empty($term) && stristr($role_name, $term) !== false) || stristr($role_name, $role_info['name']) !== false) {
-				$response['results'][] = [
-					'id' => $role_name,
-					'text' => $role_info['name']
-				];
-			}
+			// if ((!empty($term) && stristr($role_name, $term) !== false) || stristr($role_name, $role_info['name']) !== false) {
+			$response['results'][] = [
+				'id' => $role_name,
+				'text' => $role_info['name']
+			];
+			// }
 		}
 	}
 

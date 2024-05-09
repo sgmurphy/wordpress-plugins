@@ -832,7 +832,7 @@ function backuply_license(){
 		return;
 	}
 
-	$resp = wp_remote_get(BACKUPLY_API.'/license.php?license='.$license, array('timeout' => 30));
+	$resp = wp_remote_get(BACKUPLY_API.'/license.php?license='.$license.'&url='.rawurlencode(esc_url_raw(home_url())), array('timeout' => 30));
 
 	if(is_array($resp)){
 		$json = json_decode($resp['body'], true);
@@ -862,7 +862,7 @@ function backuply_load_license(){
 	global $backuply;
 	
 	// Load license
-	$backuply['license'] = get_option('backuply_license');
+	$backuply['license'] = get_option('backuply_license', []);
 
 	if(empty($backuply['license']['last_update'])){
 		$backuply['license']['last_update'] = time() - 86600;
@@ -1839,9 +1839,7 @@ function backuply_delete_tmp(){
 				}
 			}
 		}
-
 	}
-
 }
 
 function backuply_add_mime_types($mimes) {
@@ -1855,4 +1853,14 @@ function backuply_add_mime_types($mimes) {
     }
 
     return $mimes;
+}
+
+function backuply_sanitize_filename($filename){
+	$filename = sanitize_file_name($filename);
+	// We need to remove "_" as sanitize_file_name adds it if the file 
+	// have more than 2 extensions, which in our case happens sometimes, if the 
+	// URL of the website, has a sub domain or has TLD as .co.in or similar.
+	$filename = str_replace('_.', '.', $filename);
+
+	return $filename;
 }

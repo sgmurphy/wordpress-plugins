@@ -144,6 +144,7 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 				'tp_scroll_navigation' => '\TheplusAddons\Widgets\L_ThePlus_Scroll_Navigation',
 				'tp_social_icon' => '\TheplusAddons\Widgets\L_ThePlus_Social_Icon',
 				'tp_social_embed' => '\TheplusAddons\Widgets\L_ThePlus_Social_Embed',
+				'tp_syntax_highlighter' => '\TheplusAddons\Widgets\L_ThePlus_Syntax_Highlighter',
 				'tp_tabs_tours' => '\TheplusAddons\Widgets\L_ThePlus_Tabs_Tours',
 				'tp_team_member_listout' => '\TheplusAddons\Widgets\L_ThePlus_Team_Member_ListOut',
 				'tp_testimonial_listout' => '\TheplusAddons\Widgets\L_ThePlus_Testimonial_ListOut',

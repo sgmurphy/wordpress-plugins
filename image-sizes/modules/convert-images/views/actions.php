@@ -6,13 +6,13 @@
 	<div class="image_sizes-detect">
 		<div id="info-icon" class="info-icon">
 			<img class="info-img" src="<?php echo esc_url( plugins_url( 'modules/convert-images/img/info.png', THUMBPRESS ) ); ?>">
-			<p><?php echo esc_html__("Alert! Please note that all the images on your website will be converted to WebP format and you cannot undo this action later. Do not take this action unless you're sure about it. If you want to convert a specific image, you can do it from media library."); ?></p>
+			<p><?php echo esc_html__( "Alert! Please note that all the images on your website will be converted to WebP format and you cannot undo this action later. Do not take this action unless you're sure about it. If you want to convert a specific image, you can do it from media library." ); ?></p>
 		</div>
 		<div class="image_sizes-detect-panel">
 			<h3>
 				<?php _e( 'Convert All Existing Images on Your Website', 'image-sizes' ); ?>
 			</h3>
-			<button id="thumbpress-pro-convert-all" class="image-sizes-detect-button button button-hero button-primary" type="button"><?php echo esc_html__( 'Convert All', 'thumbpress-pro' ); ?></button>
+			<button id="thumbpress-convert-all" class="image-sizes-detect-button button button-hero button-primary" type="button"><?php echo esc_html__( 'Convert All', 'image-sizes' ); ?></button>
 		</div>
 	</div>
 

@@ -69,8 +69,9 @@ class Builder_Page {
 
         ?>
         <div class="grw-builder">
+            <?php wp_nonce_field('grw_wpnonce', 'grw_nonce');
+            if ($feed_inited) { ?>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php?action=' . Post_Types::FEED_POST_TYPE . '_save')); ?>">
-                <?php wp_nonce_field('grw_wpnonce', 'grw_nonce'); ?>
                 <input type="hidden" id="grw_post_id" name="<?php echo Post_Types::FEED_POST_TYPE; ?>[post_id]" value="<?php echo esc_attr($feed_id); ?>">
                 <input type="hidden" id="grw_current_url" name="<?php echo Post_Types::FEED_POST_TYPE; ?>[current_url]" value="<?php echo home_url($_SERVER['REQUEST_URI']); ?>">
                 <div class="grw-builder-workspace">
@@ -81,8 +82,8 @@ class Builder_Page {
                         <div class="grw-toolbar-control">
                             <?php if ($feed_inited) { ?>
                             <label>
-                                <span id="grw_sc_msg">Shortcode </span>
-                                <input id="grw_sc" type="text" value="[grw id=<?php echo esc_attr($feed_id); ?>]" data-grw-shortcode="[grw id=<?php echo esc_attr($feed_id); ?>]" onclick="this.select(); document.execCommand('copy'); window.grw_sc_msg.innerHTML = 'Shortcode Copied! ';" readonly/>
+                                <span id="grw_sc_msg">Copy Shortcode </span>
+                                <input id="grw_sc" type="text" value="[grw id=<?php echo esc_attr($feed_id); ?>]" data-grw-shortcode="[grw id=<?php echo esc_attr($feed_id); ?>]" onclick="this.select(); document.execCommand('copy'); window.grw_sc_msg.innerHTML = 'Shortcode Copied! Paste on page. ';" readonly/>
                             </label>
                             <div class="grw-toolbar-options">
                                 <label title="Sometimes, you need to use this shortcode in PHP, for instance in header.php or footer.php files, in this case use this option"><input type="checkbox" onclick="var el = window.grw_sc; if (this.checked) { el.value = '&lt;?php echo do_shortcode( \'' + el.getAttribute('data-grw-shortcode') + '\' ); ?&gt;'; } else { el.value = el.getAttribute('data-grw-shortcode'); } el.select();document.execCommand('copy'); window.grw_sc_msg.innerHTML = 'Shortcode Copied! ';"/>Use in PHP</label>
@@ -94,19 +95,19 @@ class Builder_Page {
                     <div class="grw-builder-preview">
                         <textarea id="grw-builder-connection" name="<?php echo Post_Types::FEED_POST_TYPE; ?>[content]" style="display:none"><?php echo $feed_content; ?></textarea>
                         <div id="grw_collection_preview">
-                        <?php
-                        if ($feed_inited) {
-                            echo $this->view->render($feed_id, $businesses, $reviews, $options, true);
-                        } else {
-                            ?>To show reviews in this preview, firstly connect it on the right menu (CONNECT GOOGLE) and click
-                            '<b>Save & Update</b>' button. Then you can use this created widget on a sidebar or through a shortcode.<?php
-                        }
-                        ?>
+                            <?php echo $this->view->render($feed_id, $businesses, $reviews, $options, true); ?>
                         </div>
                     </div>
                 </div>
                 <div id="grw-builder-option" class="grw-builder-options"></div>
             </form>
+            <?php } else { ?>
+                <div style="max-width:640px;padding:1rem 1rem 0;margin: auto">
+                    <p style="font-size:16px;">Please start typing your Google Business Profile name or location, then select your business from the drop-down list.</p>
+                    <p style="font-size:16px;">Alternatively, you can find your <b>Place ID</b> by <a href="<?php echo admin_url('admin.php?page=grw-support&grw_tab=fig#place_id'); ?>" target="_blank">this instruction</a> and paste here to connect.</p>
+                </div>
+                <iframe src="https://app.richplugins.com/gpidc" style="width:100%;height:400px"></iframe>
+            <?php } ?>
         </div>
 
         <?php if (!$rate_us) { ?>
@@ -153,6 +154,25 @@ class Builder_Page {
 
         <script>
             jQuery(document).ready(function($) {
+
+                window.onmessage = function(e) {
+                    if (e.origin !== 'https://app.richplugins.com') return;
+                    if (e.data) {
+                        let data = e.data;
+                        jQuery.post(ajaxurl, {
+                            pid       : data.pid,
+                            lang      : data.lang,
+                            token     : data.token,
+                            action    : 'grw_connect',
+                            grw_nonce : jQuery('#grw_nonce').val()
+                        }, function(res) {
+                            if (res.status == 'success') {
+                                window.location.href = '<?php echo admin_url('admin.php?page=grw-builder&' . Post_Types::FEED_POST_TYPE . '_id='); ?>' + res.result.feed_id + '&grw_feed_new=1';
+                            }
+                        });
+                    }
+                };
+
                 function grw_builder_init_listener(attempts) {
                     if (!window.grw_builder_init) {
                         if (attempts > 0) {
@@ -171,7 +191,11 @@ class Builder_Page {
             });
         </script>
         <style>
-            .update-nag { display: none; }
+            .grw-admin .update-nag,
+            .grw-admin .wp-heading-inline,
+            .grw-admin #posts-filter {
+                display: none!important;
+            }
         </style>
         <?php
     }

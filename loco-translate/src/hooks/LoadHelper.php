@@ -54,16 +54,15 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
              ->add('plugins/', loco_constant('WP_PLUGIN_DIR') )
              ->add('plugins/', loco_constant('WPMU_PLUGIN_DIR') )
         ;
-        // Any text domains loaded prematurely won't be customizable, but we can force them to reload.
+        // Text domains loaded prematurely won't be customizable, unless explicitly loaded later.
+        // Use the loco_unload_early_textdomain filter to force unloading. Not doing so may fire loco_unseen_textdomain later.
         global $l10n;
         if( $l10n && is_array($l10n) ){
             foreach( $l10n as $domain => $value ){
-                if( ! $value instanceof NOOP_Translations && apply_filters('loco_unload_premature_domain',true,$domain) ){
+                if( apply_filters('loco_unload_early_textdomain',false,$domain,$value) ){
                     unload_textdomain($domain);
                     unset($GLOBALS['l10n_unloaded'][$domain]);
-                    if( WP_DEBUG ){
-                        Loco_error_Debug::trace('Text domain loaded prematurely, unloaded "%s"',$domain);
-                    }
+                    do_action('loco_unloaded_textdomain',$domain);
                 }
             }
         }
@@ -136,7 +135,7 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
 
     /**
      * `unload_textdomain` action callback.
-     * Lets us release lock so that custom file may be loaded again (hopefully for another locale)
+     * Lets us release the lock, so that the custom file may be loaded again (hopefully for another locale)
      * @param string $domain
      * @return void
      */
@@ -191,40 +190,12 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
 
 
     /**
-     * Handle the early JIT loading issue. This is only done when WP_DEBUG is on.
+     * Alert to the early JIT loading issue for any text domain queried before we've seen it be loaded. 
      */
-    private function handle_unloaded_domain( $domain ){
+    private function handle_unseen_textdomain( $domain ){
         if( ! array_key_exists($domain,$this->seen) ){
             $this->seen[$domain] = true;
-            $locale = determine_locale();
-            if( 'en_US' !== $locale ){
-                if( is_textdomain_loaded($domain) ){
-                    $message = sprintf('The "%s" text domain was loaded before Loco Translate could start',$domain);
-                }
-                else {
-                    $message = sprintf('The "%s" text domain isn\'t loaded. "%s" translations may fail',$domain,$locale);
-                }
-                Loco_error_Debug::trace($message);
-                // establish who called the translation function
-                $breakable = false;
-                $stack = debug_backtrace(0);
-                foreach( $stack as $i => $callee ){
-                    if( '/wp-includes/l10n.php' === substr($callee['file'],-21) ){
-                        $breakable = true;
-                    }
-                    else if( $breakable ){
-                        $args = trim( json_encode($callee['args'],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES), '[]' );
-                        $debug = new Loco_error_Debug( sprintf('> %s(%s) called', $callee['function'], $args ) );
-                        $debug->setCallee($i, $stack )->log();
-                        break;
-                    }
-                }
-                /*/ visible notice on our admin screens only
-                $screen = function_exists('get_current_screen') ? get_current_screen() : null;
-                if( $screen instanceof WP_Screen && 'loco-translate' === substr($screen->id,0,14) ){
-                    Loco_error_AdminNotices::debug($message.'. Check error log for [Loco.debug]');
-                }*/
-            }
+            do_action('loco_unseen_textdomain',$domain);
         }
     }
 
@@ -233,7 +204,7 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
      * `gettext` filter callback. Enabled only in Debug mode.
      */
     public function debug_gettext( $translation = '', $text = '', $domain = '' ){
-        $this->handle_unloaded_domain($domain?:'default');
+        $this->handle_unseen_textdomain($domain?:'default');
         return $translation;
     }
 
@@ -242,7 +213,7 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
      * `ngettext` filter callback. Enabled only in Debug mode.
      */
     public function debug_ngettext( $translation = '', $single = '', $plural = '', $number = 0, $domain = '' ){
-        $this->handle_unloaded_domain($domain?:'default');
+        $this->handle_unseen_textdomain($domain?:'default');
         return $translation;
     }
 
@@ -251,7 +222,7 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
      * `gettext_with_context` filter callback. Enabled only in Debug mode.
      */
     public function debug_gettext_with_context( $translation = '', $text = '', $context = '', $domain = '' ){
-        $this->handle_unloaded_domain($domain?:'default');
+        $this->handle_unseen_textdomain($domain?:'default');
         return $translation;
     }
 
@@ -260,7 +231,7 @@ class Loco_hooks_LoadHelper extends Loco_hooks_Hookable {
      * `ngettext_with_context` filter callback. Enabled only in Debug mode.
      */
     public function debug_ngettext_with_context( $translation = '', $single = '', $plural = '', $number = 0, $context = '', $domain = '' ){
-        $this->handle_unloaded_domain($domain?:'default');
+        $this->handle_unseen_textdomain($domain?:'default');
         return $translation;
     }
 

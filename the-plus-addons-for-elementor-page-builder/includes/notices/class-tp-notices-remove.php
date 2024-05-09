@@ -66,6 +66,7 @@ if ( ! class_exists( 'Tp_Notices_Remove' ) ) {
 		public function __construct() {
 			$this->tp_black_friday_2023();
 			$this->tp_widget_notice();
+			$this->tp_tpag_install_notice();
 		}
 
 		/**

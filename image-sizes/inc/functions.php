@@ -124,12 +124,12 @@ if ( ! function_exists('thumbpress_get_last_action_status_by_module_name') ) :
 endif;
 
 if ( ! function_exists( 'thubmpress_get_image_info' ) ) :
-    function thubmpress_get_image_info( $image_url ) {
+function thubmpress_get_image_info( $image_url ) {
     $image_info = [];
     $image_id   = attachment_url_to_postid( $image_url );
 
     if ( $image_id ) {
-        $image_meta = wp_get_attachment_metadata( $image_id );
+        $image_meta             = wp_get_attachment_metadata( $image_id );
         $image_info['width']    = isset( $image_meta['width'] ) ? $image_meta['width'] : 0;
         $image_info['height']   = isset( $image_meta['height'] ) ? $image_meta['height'] : 0;
         $image_info['alt']      = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
@@ -139,5 +139,42 @@ if ( ! function_exists( 'thubmpress_get_image_info' ) ) :
     }
 
     return false;
+}
+endif;
+
+if ( ! function_exists( 'thumbpress_check_action_tables' ) ) :
+function thumbpress_check_action_tables() {
+    global $wpdb;
+
+    $log_schema_table       = $wpdb->prefix . 'actionscheduler_logs';
+    $store_schema_tables    = [
+        $wpdb->prefix . 'actionscheduler_actions',
+        $wpdb->prefix . 'actionscheduler_claims',
+        $wpdb->prefix . 'actionscheduler_groups'
+    ];
+    
+    $tables_exists = [
+        'store_table_missing' => false,
+        'log_table_missing'   => false
+    ];
+    
+    // check if store tables exists
+    foreach ( $store_schema_tables as $table_name ) {
+        $table_exists = $wpdb->get_var( "SHOW TABLES LIKE ' $table_name '" ) === $table_name;
+        
+        if ( ! $table_exists ) {
+            $tables_exists['store_table_missing'] = true;
+            break;
+        }
     }
+
+    // check if log table exists
+    $log_table_exists = $wpdb->get_var( "SHOW TABLES LIKE ' $log_schema_table '" ) === $log_schema_table;
+
+    if ( ! $log_table_exists ) {
+        $tables_exists['log_table_missing'] = true;
+    }
+
+    return $tables_exists;
+}
 endif;

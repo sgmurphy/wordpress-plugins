@@ -12,7 +12,7 @@ Formerly "Instagram Feed". Display clean, customizable, and responsive Instagram
 
 == Description ==
 
-Display Instagram posts from your Instagram accounts, either in the same single feed or in multiple different ones.
+Display Instagram posts from your Instagram accounts, either in the same single feed or in multiple different ones. The perfect Instagram gallery plugin for your WordPress site.
 
 https://www.youtube.com/watch?v=517rApIqzbw
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Plugin Name: Widget Options
  * Plugin URI: https://widget-options.com/
  * Description: Additional Widget and Block options for better widget and block control. Turn Widget Options into an even more flexible widget and block area manager. Upgrade to <strong><a href="http://widget-options.com/" target="_blank" >Widget Options Extended</a></strong> today!
- * Version: 4.0.5.1
+ * Version: 4.0.6
  * Author: Widget Options Team
  * Author URI: https://widget-options.com/
  * Text Domain: widget-options
@@ -91,7 +92,7 @@ if (!class_exists('WP_Widget_Options')) :
 
 			// Plugin version.
 			if (!defined('WIDGETOPTS_VERSION')) {
-				define('WIDGETOPTS_VERSION', '4.0.5.1');
+				define('WIDGETOPTS_VERSION', '4.0.6');
 			}
 
 			// Plugin Folder Path.

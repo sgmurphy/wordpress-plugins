@@ -2,9 +2,9 @@
 Contributors: marketingfire
 Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
-Tested up to: 6.4.3
+Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 4.0.5.1
+Stable tag: 4.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,16 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 
 == Changelog ==
 
+= 4.0.6 =
+
+* Fixed: Compatibility issue with The Event Calendar plugin
+* Fixed: Conflict with jetpack slideshow and jetpack forms
+* Fixed: Widget visibility per user roles when using shortcodes
+* Fixed: Compatibility with eCommerce Product Catalog for WordPress plugin
+* Fixed: PHP Warning: Attempt to read property "taxonomy" on null
+* Fixed: PHP Warning: Attempt to read property "term_id" on null
+* Added: missing cache buster in $ver argument for styles and scripts
+
 = 4.0.5.1 =
 
 * Fixed: Notification about the new features
@@ -211,27 +221,27 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 
 = 4.0.4 =
 
-* Fixed: All widgets showing in “customize” view
+* Fixed: All widgets showing in “customize” view.
 
 = 4.0.3 =
 
-* Fixed: WP Customizer saving issue
+* Fixed: WP Customizer saving issue.
 
 = 4.0.2 =
 
 * Improved: Widget Options for Kadence Block compatibility.
-* Fixed: Visibility of Product Category Taxonomy for YITH AJAX Filter Preset
-* Fixed: Missing Add Block button
+* Fixed: Visibility of Product Category Taxonomy for YITH AJAX Filter Preset.
+* Fixed: Missing Add Block button.
 
 = 4.0.1 =
 
-* Improved: Added UI to enable and disable Widget Options in posts, pages, and other custom post types gutenberg blocks
+* Improved: Added UI to enable and disable Widget Options in posts, pages, and other custom post types gutenberg blocks.
 * Fixed: PHP Warning - Undefined array key "content"
 * Fixed: WP_Block_Type_Registry::register error
 
 = 4.0.0 =
 
-* Widget Options is now a Gutenberg Block-Enabled plugin
+* Widget Options is now a Gutenberg Block-Enabled plugin.
 * Improved: Compatibility with WP 6.3 and 6.4
 * Improved: User Interface
 * Improved: Error Handling

@@ -2132,6 +2132,10 @@ input[type="checkbox"]:focus,
   border-left-width: 4px;
 }
 
+.ctx-border-r {
+  border-right-width: 1px;
+}
+
 .ctx-border-r-0 {
   border-right-width: 0px;
 }
@@ -2428,6 +2432,10 @@ input[type="checkbox"]:focus,
 
 .\!ctx-p-0 {
   padding: 0px !important;
+}
+
+.ctx-p-1 {
+  padding: 0.25rem;
 }
 
 .ctx-p-2 {
@@ -3306,6 +3314,36 @@ img {
   vertical-align: unset;
 }
 
+.ctx-removable-item {
+  background: #f2f9fc;
+  border: 1px solid #c9e6f2;
+  border-radius: 2px;
+  color: #08c;
+  display: inline-block;
+  margin: 2px;
+  vertical-align: middle;
+}
+
+.ctx-removable-item span:first-child {
+  border-right: 1px solid #c9e6f2;
+  cursor: pointer;
+  padding: 2px 5px 4px;
+}
+
+.ctx-removable-item span {
+  display: inline-block;
+  vertical-align: top;
+  border-right: 2px solid #c9e6f2;
+}
+
+.ctx-removable-item p {
+  margin-right: 4px;
+  vertical-align: sub;
+  width: 24px;
+  display: inline-block;
+  padding-left: 7px;
+}
+
 .marker\:ctx-text-gray-500 *::marker {
   color: rgb(107 114 128 );
 }
@@ -3880,6 +3918,10 @@ img {
         align-items: center;
   }
 
+  .sm\:ctx-gap-1 {
+    gap: 0.25rem;
+  }
+
   .sm\:ctx-gap-4 {
     gap: 1rem;
   }
@@ -4039,6 +4081,10 @@ img {
     margin-right: 0.25rem;
   }
 
+  .lg\:ctx-mr-10 {
+    margin-right: 2.5rem;
+  }
+
   .lg\:ctx-mt-0 {
     margin-top: 0px;
   }
@@ -4061,6 +4107,10 @@ img {
 
   .lg\:ctx-w-28 {
     width: 7rem;
+  }
+
+  .lg\:ctx-w-32 {
+    width: 8rem;
   }
 
   .lg\:ctx-w-40 {

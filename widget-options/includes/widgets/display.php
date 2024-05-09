@@ -56,39 +56,66 @@ if (!function_exists('widgetopts_display_callback')) :
         if ($widget_options['devices'] == 'activate' && isset($opts['devices']) && !empty($opts['devices'])) {
 
             //for mobile and tablet
-            if (wp_is_mobile() || widgetopts_is_mobile()) {
+            if (wp_is_mobile() || widgetopts_is_mobile() || widgetopts_is_tablet()) {
                 //mobile
-                if (!widgetopts_is_tablet()) {
-                    if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
-                        if (isset($opts['devices']['mobile']) && $opts['devices']['mobile'] == '1') {
-                            $hidden = true;
-                        }
-                    } else if ($opts['devices']['options'] == 'show') {
-                        if (!isset($opts['devices']['mobile']) || empty($opts['devices']['mobile'])) {
-                            $hidden = true;
-                        }
-                    }
+                // if (!widgetopts_is_tablet()) {
+                //     if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
+                //         if (isset($opts['devices']['mobile']) && $opts['devices']['mobile'] == '1') {
+                //             $hidden = true;
+                //         }
+                //     } else if ($opts['devices']['options'] == 'show') {
+                //         if (!isset($opts['devices']['mobile']) || empty($opts['devices']['mobile'])) {
+                //             $hidden = true;
+                //         }
+                //     }
 
-                    $hidden = apply_filters('widget_options_devices_mobile', $hidden);
-                    if ($hidden) {
-                        return false;
-                    }
-                } else {
-                    //tablet
-                    if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
-                        if (isset($opts['devices']['tablet']) && $opts['devices']['tablet'] == '1') {
-                            $hidden = true;
-                        }
-                    } else if ($opts['devices']['options'] == 'show') {
-                        if (!isset($opts['devices']['tablet']) || empty($opts['devices']['tablet'])) {
-                            $hidden = true;
-                        }
-                    }
+                //     $hidden = apply_filters('widget_options_devices_mobile', $hidden);
+                //     if ($hidden) {
+                //         return false;
+                //     }
+                // } else {
+                //     //tablet
+                //     if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
+                //         if (isset($opts['devices']['tablet']) && $opts['devices']['tablet'] == '1') {
+                //             $hidden = true;
+                //         }
+                //     } else if ($opts['devices']['options'] == 'show') {
+                //         if (!isset($opts['devices']['tablet']) || empty($opts['devices']['tablet'])) {
+                //             $hidden = true;
+                //         }
+                //     }
 
-                    $hidden = apply_filters('widget_options_devices_tablet', $hidden);
-                    if ($hidden) {
-                        return false;
+                //     $hidden = apply_filters('widget_options_devices_tablet', $hidden);
+                //     if ($hidden) {
+                //         return false;
+                //     }
+                // }
+
+                //for a time being filter
+                if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
+                    //if both tablet and mobile are set then hide the widget
+                    if (
+                        isset($opts['devices']['mobile']) && $opts['devices']['mobile'] == '1' &&
+                        isset($opts['devices']['tablet']) && $opts['devices']['tablet'] == '1'
+                    ) {
+                        $hidden = true;
+                    } else {
+                        //else do nothing and css will make the final decision
                     }
+                } else if ($opts['devices']['options'] == 'show') {
+                    //if both tablet and mobile are set then hide the widget
+                    if ((!isset($opts['devices']['mobile']) || empty($opts['devices']['mobile'])) &&
+                        (!isset($opts['devices']['tablet']) || empty($opts['devices']['tablet']))
+                    ) {
+                        $hidden = true;
+                    } else {
+                        //else do nothing and css will make the final decision
+                    }
+                }
+
+                $hidden = apply_filters('widget_options_devices_mobile', $hidden);
+                if ($hidden) {
+                    return false;
                 }
             } else {
                 //for desktop
@@ -230,9 +257,9 @@ if (!function_exists('widgetopts_display_callback')) :
                     $visibility['taxonomies'] = array();
                 }
 
-                if ($visibility_opts == 'hide' && (array_key_exists($term->taxonomy, $visibility['taxonomies']) || ($is_misc && is_archive() && isset($visibility['misc']['archives'])))) {
+                if ($visibility_opts == 'hide' && (!is_null($term) && isset($term->taxonomy) && (array_key_exists($term->taxonomy, $visibility['taxonomies'])) || ($is_misc && is_archive() && isset($visibility['misc']['archives'])))) {
                     $hidden = true; //hide if exists on hidden pages
-                } elseif ($visibility_opts == 'show' && !array_key_exists($term->taxonomy, $visibility['taxonomies']) && !($is_misc && is_archive() && isset($visibility['misc']['archives']))) {
+                } elseif ($visibility_opts == 'show' && !(!is_null($term) && isset($term->taxonomy) && array_key_exists($term->taxonomy, $visibility['taxonomies'])) && !($is_misc && is_archive() && isset($visibility['misc']['archives']))) {
                     $hidden = true; //hide if doesn't exists on visible pages
                 }
 
@@ -570,7 +597,7 @@ if (!function_exists('widgetopts_remove_title')) :
         if ('activate' == $widget_options['hide_title'] && is_array($instance) && !empty($instance)) {
             foreach ($instance as $key => $value) {
                 if (substr($key, 0, 20) == 'extended_widget_opts') {
-                    $opts       = (isset($instance[$key])) ? $instance[$key] : array();
+                    $opts       = (isset($instance[$key])) ? (array)$instance[$key] : array();
 
                     if (isset($opts['class']) && isset($opts['class']['title']) && '1' == $opts['class']['title']) {
                         return;

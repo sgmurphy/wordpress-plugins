@@ -642,11 +642,12 @@ Class L_Plus_Generator {
 			add_option( $option_name, $versions );
 
 			$this->tp_third_patry_cache();
+
 		}else{
-			if( ! in_array( '5.5.0', $get_version ) ){
+			if( ! in_array( '5.5.3', $get_version ) ){
 				l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH); //only remove files
 				update_option('tp_save_update_at', strtotime('now'), false); //all cache regenerate
-				$versions = array_unique( array_merge( $get_version, ['5.5.0'] ) );
+				$versions = array_unique( array_merge( $get_version, ['5.5.3'] ) );
 				update_option( $option_name, $versions );
 
 				$this->tp_third_patry_cache();
@@ -777,11 +778,9 @@ Class L_Plus_Generator {
 	 * @since 1.0.0
 	 */
 	public function plus_purge_clear_print_style() {
-		if((is_admin_bar_showing())){
-		?>
-			<style>#wpadminbar .theplus-purge-clear > .ab-item:before {content: '';background-image: url(<?php echo L_THEPLUS_URL . '/assets/images/theplus-logo-small.png'; ?>) !important;background-size: 20px !important;background-position: center;width: 20px;height: 20px;background-repeat: no-repeat;top: 50%;transform: translateY(-50%);}</style>
-		<?php
-		}
+		if((is_admin_bar_showing())){ ?>
+			<style>#wpadminbar .theplus-purge-clear > .ab-item:before {content: '';background-image: url(<?php echo L_THEPLUS_URL . '/assets/images/theplus-logo-small.png'; ?>) !important;background-size: 20px !important;background-position: center;width: 20px;height: 20px;background-repeat: no-repeat;top: 50%;transform: translateY(-50%);} @media (max-width:660px){ #wpadminbar {position: fixed;} }</style>
+		<?php }
 	}
 	
 	/**

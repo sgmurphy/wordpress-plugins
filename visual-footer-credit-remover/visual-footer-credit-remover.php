@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Visual Footer Credit Remover
-Version: 1.2
+Version: 1.3
 Plugin URI: https://upwerd.com/visual-footer-credit-remover
 Description: Visually remove or replace footer credits
 Author: Upwerd LLC
@@ -34,7 +34,7 @@ function jabvfcr_options_page() {
 	<button class="button js-open-inspector mt2">Open Visual Editor</button>
 	<div class="js-inspector inspector">
 		<div class="site-preview">
-			<iframe class="js-site-preview-iframe" src="<?php echo get_site_url() ?>?jabvfcr_inspector=1"></iframe>
+			<iframe class="js-site-preview-iframe" src="<?php echo esc_url(get_site_url()) ?>?jabvfcr_inspector=1"></iframe>
 		</div>
 		<div class="right-panel">
 			<div class="top-bar">
@@ -55,7 +55,7 @@ function jabvfcr_options_page() {
 						<a href="#" class="js-toggle-advanced-options toggle-advanced-options">Advanced Options</a>
 						<div class="js-advanced-options advanced-options mt1">
 							<strong>Selector: </strong>
-							<input type="text" class="js-selector selector regular-text" name="selector" value="<?php echo $selector ?>"/>
+							<input type="text" class="js-selector selector regular-text" name="selector" value="<?php echo esc_attr($selector) ?>"/>
 							<div class="invalid dn">Please enter a valid selector.</div><br/>
 							<div class="mt1 mb1">
 								<strong>Manipulation: </strong><br/>
@@ -75,7 +75,7 @@ function jabvfcr_options_page() {
 			</form>
 		</div>
 	</div>
-	<img alt="loading" class="loading js-loading-screen" src="<?php echo plugins_url( 'loader.gif', __FILE__ ) ?>"/>
+	<img alt="loading" class="loading js-loading-screen" src="<?php echo esc_url(plugins_url( 'loader.gif', __FILE__ )) ?>"/>
 	<div class="overlay js-loading-screen"></div>
 </div>
 		
@@ -93,9 +93,9 @@ function jabvfcr_script() {
 		?>
 		<script>
 			var jabvfcr = {
-				selector: "<?php echo $selector ?>",
-				manipulation: "<?php echo $manipulation; ?>",
-				html: "<?php echo preg_replace("/[\n\r]/","",str_replace('"', '\"', $html)) ?>"
+				selector: "<?php echo esc_attr($selector) ?>",
+				manipulation: "<?php echo esc_attr($manipulation); ?>",
+				html: "<?php echo wp_kses_data(preg_replace("/[\n\r]/","",str_replace('"', '\"', $html))) ?>"
 			};
 		</script>
 		<?php

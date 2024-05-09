@@ -3,10 +3,10 @@ Contributors: dangoodman
 Tags: woocommerce, weight-based shipping, table rate shipping
 Requires PHP: 7.2
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 6.5
 WC requires at least: 5.0
-WC tested up to: 8.7
-Stable tag: 5.9.0
+WC tested up to: 8.8
+Stable tag: 5.9.1
 
 
 Simple yet flexible weight-based shipping for WooCommerce
@@ -55,6 +55,10 @@ See <a href="https://wordpress.org/plugins/weight-based-shipping-for-woocommerce
 
 
 == Changelog ==
+
+= 5.9.1 =
+* Tested with WordPress 6.5, WooCommerce 8.8.
+* WBS6 preview: minor fix of the Save button visibility
 
 = 5.9.0 =
 * Prevent running with unsupported PHP, WordPress, or WooCommerce versions.

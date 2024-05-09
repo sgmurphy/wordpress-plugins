@@ -285,5 +285,28 @@ let thumbpress_modal = ( show = true ) => {
 		    });
 		});
 	});
+
+	$(document).on('click', '.image_sizes-notice_ahref', function (e) {
+	    e.preventDefault();
+	    var redirecturl = $('a[class=image_sizes-notice_ahref]').attr('href');
+
+	    $.ajax({
+	        url: THUMBPRESS.ajaxurl,
+	        type: "POST",
+	        data: {
+	            action: "image_sizes-pointer-dismiss",
+	            _wpnonce: THUMBPRESS.nonce,
+	        },
+	        success: function (res) {
+	            $('.image-sizes-pointer').hide();
+	            console.log(res);
+	            window.location.href = redirecturl;
+	        },
+	        error: function (err) {
+	            console.log(err);
+	        },
+	    });
+	});
+
 });
 

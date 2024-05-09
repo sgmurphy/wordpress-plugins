@@ -26,11 +26,11 @@ class Convert_Images extends Base {
 		$this->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
         $this->filter( 'wp_handle_upload', 'convert_image_on_upload' );
 		$this->filter( 'attachment_fields_to_edit', 'display_convert_image_btn', 10, 2 );
-		$this->action( 'thumbpress-pro_convert_all_image', 'convert_all_image' );
+		$this->action( 'thumbpress_convert_all_image', 'convert_all_image' );
 
 		// Ajax Hooks
-		$this->priv( 'thumbpress-pro_convert_single_image', 'convert_single_image' );
-		$this->priv( 'thumbpress-pro_schedule_image_conversion', 'schedule_image_conversion' );
+		$this->priv( 'thumbpress_convert_single_image', 'convert_single_image' );
+		$this->priv( 'thumbpress_schedule_image_conversion', 'schedule_image_conversion' );
 
 		// Stop regenerating thumbnails
 		$this->filter( 'intermediate_image_sizes_advanced', 'image-sizes' );
@@ -73,8 +73,8 @@ class Convert_Images extends Base {
 			'title'         => __( 'Convert to WebP', 'image-sizes' ),
 			'header'        => __( 'Convert to WebP', 'image-sizes' ),
 			'sections'      => [
-				'thumbpress_pro_convert_images'	=> [
-					'id'        => 'thumbpress_pro_convert_images',
+				'thumbpress_convert_images'	=> [
+					'id'        => 'thumbpress_convert_images',
 					'label'     => __( 'Convert to WebP', 'image-sizes' ),
 					'icon'      => 'dashicons-image-rotate-left',
 					'sticky'	=> false,
@@ -85,7 +85,7 @@ class Convert_Images extends Base {
 			]
 		];
 
-		new Settings_API( apply_filters( 'thumbpress-pro_convert_images_actions_menu', $actions_menu ) );
+		new Settings_API( apply_filters( 'thumbpress_convert_images_actions_menu', $actions_menu ) );
 	}
 
 	public function enqueue_scripts() {
@@ -100,7 +100,7 @@ class Convert_Images extends Base {
 		$original_img_path 	= $file_info['file'];
 		$webp_file_path 	= thumbpress_convert_image_to_webp( $original_img_path );
 
-		if( ! $webp_file_path ) $file_info;
+		if( ! $webp_file_path ) return $file_info;
 
 		$webp_file_url 	    = thumbpress_generate_webp_file_url( $webp_file_path );
 
@@ -119,9 +119,9 @@ class Convert_Images extends Base {
 
 		if( ! Helper::get_option( 'convert-images', 'convert-img-one-by-one', false ) ) return $form_fields;
 
-		$html = sprintf( '<button id="thumbpress-pro-convert-image" data-image_id="%1s" class="button thumbpress_img_btn" type="button"><b>%2s</b></button>', $post->ID, __( 'Convert Image', 'image-sizes' ) );
+		$html = sprintf( '<button id="thumbpress-convert-image" data-image_id="%1s" class="button thumbpress_img_btn" type="button"><b>%2s</b></button>', $post->ID, __( 'Convert Image', 'image-sizes' ) );
 
-		$form_fields[ 'thumbpress_pro_convert_image' ] = [
+		$form_fields[ 'thumbpress_convert_image' ] = [
 			'label' => sprintf( '%1s', __( 'Convert to WebP', 'image-sizes' ) ),
 			'input' => 'html',
 			'html'  => $html,
@@ -135,46 +135,70 @@ class Convert_Images extends Base {
 
 		foreach( $images as $image ) {
 			$img_id 		= $image->ID;
-			$img_file_path 	= get_attached_file( $img_id );
-			$webp_file_path = thumbpress_convert_image_to_webp( $img_file_path );
+			$main_img 		= get_attached_file( $img_id );
+			$file_info 		= pathinfo( $main_img );
+			$extension 		= strtolower( $file_info['extension'] );
+			$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
+			$webp_file_path = thumbpress_convert_image_to_webp( $main_img );
+
+			// remove old thumbnails first
+			$old_metadata 	= wp_get_attachment_metadata( $img_id );
+			$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
+			
+			foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
+				// For SVG file
+				if ( 'image/svg+xml' == $old_size_data['mime-type'] ) {
+					continue;
+				}
+				
+				// delete thumbnails
+				wp_delete_file( $thumb_dir . $old_size_data['file'] );
+			}
+
+			//check scaled image
+			if ( strpos( $file_info['basename'], "-scaled.{$extension}" ) !== false ) {
+				// delete scaled image
+				wp_delete_file( $thumb_dir . $file_info['basename'] );
+
+				// delete original image
+				wp_delete_file( $thumb_dir . str_replace( "-scaled.{$extension}", ".{$extension}", $file_info['basename'] ) );
+			}
+			else {
+				// delete original image
+				$_main_img 		= get_attached_file( $img_id );
+				wp_delete_file( $_main_img );
+			}
 
 			/**
 			 * Skip to the next image if conversion fails 
 			 */
-
 			if ( ! $webp_file_path ) {
-				continue; 
+				continue;
 			}
-
-			$webp_file_url = thumbpress_generate_webp_file_url( $webp_file_path );
 
 			/**
 			 * Load the Regenerate Thumbnails library 
 			 */
 			require_once ABSPATH . 'wp-admin/includes/image.php';
 
-			$webp_metadata = wp_generate_attachment_metadata( $img_id, $webp_file_path );
+			$webp_metadata 		= wp_generate_attachment_metadata( $img_id, $webp_file_path );
 
-			if ( ! empty( $webp_metadata ) ) {
-				global $wpdb;
+			update_attached_file( $img_id, $webp_file_path );
+			wp_update_attachment_metadata( $img_id, $webp_metadata );
 
-				$rows_affected = $wpdb->query( $wpdb->prepare(
-					"UPDATE $wpdb->posts 
-					SET guid = %s, post_mime_type = %s 
-					WHERE ID = %d",
-					$webp_file_url,
-					'image/webp',
-					$img_id
-				) );
+			$updated_metadata 	= wp_get_attachment_metadata( $img_id );
+			$file_path 			= $updated_metadata['file'];
+			
+			update_post_meta( $img_id, '_wp_attached_file', $file_path );
 
-				if ( $rows_affected !== false && $rows_affected > 0 ) {
-					update_attached_file( $img_id, $webp_file_path );
-					wp_update_attachment_metadata( $img_id, $webp_metadata );
+			// Update mime type
+			$image_data = array(
+				'ID'           		=> $img_id,
+				'post_mime_type' 	=> 'image/webp',
+			);
 
-					// delete original image
-					unlink( $img_file_path );
-				}
-			}
+			// Update the post into the database
+			wp_update_post( $image_data );
 		}
 	}
 
@@ -190,54 +214,76 @@ class Convert_Images extends Base {
 		}
 
 		$img_id 		= $_POST['image_id'];
-		$img_file_path 	= get_attached_file( $img_id );
-		$webp_file_path = thumbpress_convert_image_to_webp( $img_file_path );
+		$main_img 		= get_attached_file( $img_id );
+		$file_info 		= pathinfo( $main_img );
+		$extension 		= strtolower( $file_info['extension'] );
+		$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
+		$webp_file_path = thumbpress_convert_image_to_webp( $main_img );
 
-		if( ! $webp_file_path ) {
+		// remove old thumbnails first
+		$old_metadata 	= wp_get_attachment_metadata( $img_id );
+		$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
+		
+		foreach ( $old_metadata['sizes'] as $old_size => $old_size_data ) {
+			// For SVG file
+			if ( 'image/svg+xml' == $old_size_data['mime-type'] ) {
+				continue;
+			}
+			
+			// delete thumbnails
+			wp_delete_file( $thumb_dir . $old_size_data['file'] );
+		}
+
+		//check scaled image
+		if ( strpos( $file_info['basename'], "-scaled.{$extension}" ) !== false ) {
+			// delete scaled image
+			wp_delete_file( $thumb_dir . $file_info['basename'] );
+
+			// delete original image
+			wp_delete_file( $thumb_dir . str_replace( "-scaled.{$extension}", ".{$extension}", $file_info['basename'] ) );
+		}
+		else {
+			// delete original image
+			$_main_img 		= get_attached_file( $img_id );
+			wp_delete_file( $_main_img );
+		}
+
+		if ( ! $webp_file_path ) {
 			$response['message'] = __( 'Failed to convert image', 'image-sizes' );
 			wp_send_json_error( $response );
 		}
-
-		$webp_file_url 	= thumbpress_generate_webp_file_url( $webp_file_path );
 
 		// Load the Regenerate Thumbnails library
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
 		$webp_metadata 	= wp_generate_attachment_metadata( $img_id, $webp_file_path );
 
-		if( ! empty( $webp_metadata ) ) {
-			global $wpdb;
-
-			$rows_affected = $wpdb->query( $wpdb->prepare(
-				"UPDATE $wpdb->posts 
-				SET guid = %s, post_mime_type = %s 
-				WHERE ID = %d",
-				$webp_file_url,
-				'image/webp',
-				$img_id
-			) );
-
-			if ( $rows_affected !== false && $rows_affected > 0 ) {
-				update_attached_file( $img_id, $webp_file_path );
-				wp_update_attachment_metadata( $img_id, $webp_metadata );
-
-				// delete original image
-				unlink( $img_file_path );
-
-				$response['status'] 	= 1;
-				$response['message'] 	= __( 'Success', 'image-sizes' );
-
-				wp_send_json( $response );
-			}
-			else {
-				$response['message'] 	= __( 'Failed to update post', 'image-sizes' );
-				wp_send_json_error( $response );
-			}
-		}
-		else {
-			$response['message'] 		= __( 'Failed to update attachment metadata', 'image-sizes' );
+		if ( empty( $webp_metadata ) ) {
+			$response['message'] = __( 'Failed to update attachment metadata', 'image-sizes' );
 			wp_send_json_error( $response );
 		}
+
+		update_attached_file( $img_id, $webp_file_path );
+		wp_update_attachment_metadata( $img_id, $webp_metadata );
+
+		$updated_metadata 	= wp_get_attachment_metadata( $img_id );
+		$file_path 			= $updated_metadata['file'];
+		
+		update_post_meta( $img_id, '_wp_attached_file', $file_path );
+
+		// Update mime type
+		$image_data = array(
+			'ID'           		=> $img_id,
+			'post_mime_type' 	=> 'image/webp',
+		);
+
+		// Update the post into the database
+		wp_update_post( $image_data );
+
+		$response['status'] 	= 1;
+		$response['message'] 	= __( 'Success', 'image-sizes' );
+		wp_send_json_success( $response );
+	
 	}
 
 	public function schedule_image_conversion() {
@@ -251,7 +297,7 @@ class Convert_Images extends Base {
 			wp_send_json_error( $response );
 		}
 
-		$action_id = as_schedule_single_action( wp_date( 'U' ) + 5, 'thumbpress-pro_convert_all_image' );
+		$action_id = as_schedule_single_action( wp_date( 'U' ) + 5, 'thumbpress_convert_all_image' );
 
 		thumbpress_add_schedule_log( $this->id, $action_id );
 
