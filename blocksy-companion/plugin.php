@@ -88,8 +88,9 @@ class Plugin {
 		$this->demo = new DemoInstall();
 		$this->dynamic_css = new DynamicCss();
 
-
 		new CustomizerOptionsManager();
+
+		new ConditionsManagerAPI();
 	}
 
 	public function early_init() {
@@ -313,23 +314,8 @@ class Plugin {
 			true
 		);
 
-		$conditions_manager = new ConditionsManager();
-
 		$localize = array_merge(
 			[
-				'all_condition_rules' => $conditions_manager->get_all_rules(),
-				'singular_condition_rules' => $conditions_manager->get_all_rules([
-					'filter' => 'singular'
-				]),
-				'archive_condition_rules' => $conditions_manager->get_all_rules([
-					'filter' => 'archive'
-				]),
-				'product_tabs_rules' => $conditions_manager->get_all_rules([
-					'filter' => 'product_tabs'
-				]),
-				'maintenance_mode_rules' => $conditions_manager->get_all_rules([
-					'filter' => 'maintenance-mode'
-				]),
 				'ajax_url' => admin_url('admin-ajax.php'),
 				'rest_url' => get_rest_url(),
 			]

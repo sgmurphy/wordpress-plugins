@@ -704,10 +704,10 @@ window.eml = window.eml || { l10n: {} };
                 if ( ! _.isUndefined( $messages ) )
                 {
                     $messages.each( function() {
-                        messagesOuterHeight += $(this).outerHeight( true );
+                        if ( ! $(this).hasClass( 'update-nag' ) ) {
+                            messagesOuterHeight += $(this).outerHeight( true );
+                        }
                     });
-
-                    messagesOuterHeight = messagesOuterHeight ? messagesOuterHeight - 15 : 0;
                 }
 
                 browserView.$el.css( 'top', toolbar.$el.outerHeight() + messagesOuterHeight + 15 + 'px' );
@@ -1079,7 +1079,7 @@ window.eml = window.eml || { l10n: {} };
 
             var selection = this.controller.state().get( 'selection' ),
                 attachments = this.attachmentsWrapper || this.attachments,
-                shift = this.sidebarWidth;
+                shift = this.sidebarWidth || 0;
 
 
             if ( selection.length ) {

@@ -241,6 +241,7 @@ if ( ! function_exists( 'wpuxss_eml_ajax_query_attachments_args' ) ) {
             }
         }
 
+
         $eml_query = array_intersect_key( $eml_query, array_flip( $keys ) );
         $query = array_merge( $query, $eml_query );
 
@@ -249,7 +250,7 @@ if ( ! function_exists( 'wpuxss_eml_ajax_query_attachments_args' ) ) {
 
         foreach ( $processed_taxonomies as $taxonomy_name => $params ) {
 
-            if ( ! array_key_exists( $taxonomy_name, $wpuxss_eml_taxonomies ) ) {
+            if ( ! isset( $wpuxss_eml_taxonomies[$taxonomy_name] ) ) {
                 continue;
             }
 
@@ -277,14 +278,39 @@ if ( ! function_exists( 'wpuxss_eml_ajax_query_attachments_args' ) ) {
                             'include_children' => (bool) $wpuxss_eml_lib_options['include_children']
                         );
                     }
-                    elseif ( 'in' === $query[$taxonomy_name] || 'not_in' === $query[$taxonomy_name] ) {
+                    else {
 
-                        $operator = ( 'in' === $query[$taxonomy_name] ) ? 'EXISTS' : 'NOT EXISTS';
+                        if ( 'in' === $query[$taxonomy_name] || 'not_in' === $query[$taxonomy_name] ) {
 
-                        $tax_query[] = array(
-                            'taxonomy' => $taxonomy_name,
-                            'operator' => $operator
-                        );
+                            $operator = ( 'in' === $query[$taxonomy_name] ) ? 'EXISTS' : 'NOT EXISTS';
+
+                            $tax_query[] = array(
+                                'taxonomy' => $taxonomy_name,
+                                'operator' => $operator
+                            );
+                        }
+                        else {
+
+                            $operator  = 'IN';
+
+                            if ( str_contains( $query[$taxonomy_name], '+' ) ) {
+                                $terms = explode( '+', $query[$taxonomy_name] );
+                                $operator = 'AND';
+                            }
+                            else {
+                                $terms = explode( ',', $query[$taxonomy_name] );
+                            }
+
+                            $field = ctype_digit( implode( '', $terms ) ) ? 'term_id' : 'slug';
+
+                            $tax_query[] = array(
+                                'taxonomy'         => $taxonomy_name,
+                                'field'            => $field,
+                                'terms'            => (array) $terms,
+                                'operator'         => $operator,
+                                'include_children' => (bool) $wpuxss_eml_lib_options['include_children']
+                            );
+                        }
                     }
 
                     unset( $query[$taxonomy_name] );
@@ -497,6 +523,10 @@ if ( ! function_exists( 'wpuxss_eml_parse_tax_query' ) ) {
 
     function wpuxss_eml_parse_tax_query( $query ) {
 
+        if ( is_admin() ) {
+            return;
+        }
+
         if ( ! $query->is_main_query() ) {
             return;
         }
@@ -534,13 +564,12 @@ if ( ! function_exists( 'wpuxss_eml_backend_parse_tax_query' ) ) {
 
     function wpuxss_eml_backend_parse_tax_query( $query ) {
 
-        global $current_screen;
-
-
         if ( ! is_admin() ) {
             return;
         }
 
+
+        global $current_screen;
 
         if ( ! isset( $current_screen ) || 'upload' !== $current_screen->base ) {
             return;

@@ -204,9 +204,9 @@ class Admin_Bits {
 				)
 			);
 
-			$custom_css  = ! empty( $arr_settings['ssba_additional_css'] ) ? $arr_settings['ssba_additional_css'] : '';
-			$custom_css .= ! empty( $arr_settings['ssba_plus_additional_css'] ) ? $arr_settings['ssba_plus_additional_css'] : '';
-			$custom_css .= ! empty( $arr_settings['ssba_bar_additional_css'] ) ? $arr_settings['ssba_bar_additional_css'] : '';
+			$custom_css  = ! empty( $arr_settings['ssba_additional_css'] ) ? esc_html( $arr_settings['ssba_additional_css'] ) : '';
+			$custom_css .= ! empty( $arr_settings['ssba_plus_additional_css'] ) ? esc_html( $arr_settings['ssba_plus_additional_css'] ) : '';
+			$custom_css .= ! empty( $arr_settings['ssba_bar_additional_css'] ) ? esc_html( $arr_settings['ssba_bar_additional_css'] ) : '';
 
 			wp_add_inline_style( ASSET_PREFIX . "-admin-theme", $custom_css );
 
@@ -456,7 +456,7 @@ class Admin_Bits {
 				'ssba_padding'                 => $ssba_post['ssba_padding'],
 				'ssba_before_or_after'         => $ssba_post['ssba_before_or_after'],
 				'ssba_before_or_after_plus'    => $ssba_post['ssba_before_or_after_plus'],
-				'ssba_additional_css'          => $ssba_post['ssba_additional_css'],
+				'ssba_additional_css'          => esc_html($ssba_post['ssba_additional_css']),
 				'ssba_custom_styles'           => $ssba_post['ssba_custom_styles'],
 				'ssba_custom_styles_enabled'   => $ssba_post['ssba_custom_styles_enabled'],
 				'ssba_email_message'           => stripslashes_deep( $ssba_post['ssba_email_message'] ),
@@ -475,7 +475,7 @@ class Admin_Bits {
 				'ssba_default_pinterest'       => ( isset( $ssba_post['ssba_default_pinterest'] ) ? $ssba_post['ssba_default_pinterest'] : 'N' ),
 				'ssba_pinterest_featured'      => ( isset( $ssba_post['ssba_pinterest_featured'] ) ? $ssba_post['ssba_pinterest_featured'] : 'N' ),
 				'ssba_content_priority'        => ( isset( $ssba_post['ssba_content_priority'] ) ? $ssba_post['ssba_content_priority'] : 'N' ),
-				'ssba_plus_additional_css'     => $ssba_post['ssba_plus_additional_css'],
+				'ssba_plus_additional_css'     => esc_html( $ssba_post['ssba_plus_additional_css'] ),
 				'ssba_plus_email_message'      => stripslashes_deep( $ssba_post['ssba_plus_email_message'] ),
 				'ssba_plus_twitter_text'       => stripslashes_deep( $ssba_post['ssba_plus_twitter_text'] ),
 				'ssba_plus_buffer_text'        => stripslashes_deep( $ssba_post['ssba_plus_buffer_text'] ),
@@ -491,7 +491,7 @@ class Admin_Bits {
 				'ssba_plus_rel_nofollow'       => ( isset( $ssba_post['ssba_plus_rel_nofollow'] ) ? $ssba_post['ssba_plus_rel_nofollow'] : 'N' ),
 				'ssba_plus_default_pinterest'  => ( isset( $ssba_post['ssba_plus_default_pinterest'] ) ? $ssba_post['ssba_plus_default_pinterest'] : 'N' ),
 				'ssba_plus_pinterest_featured' => ( isset( $ssba_post['ssba_plus_pinterest_featured'] ) ? $ssba_post['ssba_plus_pinterest_featured'] : 'N' ),
-				'ssba_bar_additional_css'      => $ssba_post['ssba_bar_additional_css'],
+				'ssba_bar_additional_css'      => esc_html( $ssba_post['ssba_bar_additional_css'] ),
 				'ssba_bar_email_message'       => stripslashes_deep( $ssba_post['ssba_bar_email_message'] ),
 				'ssba_bar_twitter_text'        => stripslashes_deep( $ssba_post['ssba_bar_twitter_text'] ),
 				'ssba_bar_buffer_text'         => stripslashes_deep( $ssba_post['ssba_bar_buffer_text'] ),

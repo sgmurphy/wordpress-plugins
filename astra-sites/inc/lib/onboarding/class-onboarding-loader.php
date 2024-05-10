@@ -54,7 +54,7 @@ class Intelligent_Starter_Templates_Loader {
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-reporting.php';
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-zipwp-helper.php';
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-zipwp-integration.php';
-		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-replace-images.php';
+		// require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-replace-images.php';
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-zipwp-api.php';
 
 		// Admin Menu.
@@ -155,7 +155,7 @@ class Intelligent_Starter_Templates_Loader {
 		wp_register_script(
 			'starter-templates-onboarding',
 			INTELLIGENT_TEMPLATES_URI . 'assets/dist/onboarding/main.js',
-			array_merge( $asset['dependencies'] ),
+			array_merge( $asset['dependencies'], array('updates') ),
 			$asset['version'],
 			true
 		);
@@ -163,7 +163,7 @@ class Intelligent_Starter_Templates_Loader {
 		$partner_id = apply_filters( 'zipwp_partner_url_param', '' );
 		$zipwp_auth = array(
 			'screen_url'   => ZIPWP_APP,
-			'redirect_url' => admin_url( 'themes.php?page=starter-templates' ),
+			'redirect_url' => admin_url( 'themes.php?page=ai-builder' ),
 		);
 
 		if( !empty( $partner_id ) ) {

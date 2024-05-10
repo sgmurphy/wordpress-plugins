@@ -2,9 +2,9 @@
 Contributors: sharethis, scottstorebloom, scottmweaver
 Tags: share buttons, social buttons, facebook, twitter, google+, share, share links, stumble upon, linkedin, pinterest, yummly, vk, flattr, viber
 Requires at least: 5.9
-Tested up to: 6.5.2
-Stable tag: 8.5.0
-Version: 8.5.0
+Tested up to: 6.5.3
+Stable tag: 8.5.1
+Version: 8.5.1
 License: GPLv2 or later
 
 A simple plugin that enables you to add share buttons to all of your posts and/or pages.
@@ -66,6 +66,9 @@ Please visit the <a href="https://wordpress.org/support/plugin/simple-share-butt
 4. An example of the buttons shown below page content using the "Ribbon" theme.
 
 == Changelog ==
+
+= 8.5.1 =
+* add escaping to additional css outputs.
 
 = 8.5.0 =
 * Fix all PHP 8.2 deprecated errors.

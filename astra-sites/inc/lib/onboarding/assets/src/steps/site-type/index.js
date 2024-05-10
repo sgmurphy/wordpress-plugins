@@ -13,6 +13,7 @@ import { STORE_KEY } from '../onboarding-ai/store';
 import LimitExceedModal from '../onboarding-ai/components/limit-exceeded-modal';
 import { WandIcon } from '../ui/icons';
 import './style.scss';
+import { removeLocalStorageItem } from '../onboarding-ai/helpers';
 
 const SiteType = () => {
 	const [ { builder, currentIndex }, dispatch ] = useStateValue();
@@ -88,11 +89,11 @@ const SiteType = () => {
 			return;
 		}
 
-		dispatch( {
-			type: 'set',
-			currentIndex: 1,
-			builder: 'ai-builder',
-		} );
+		// dispatch( {
+		// 	type: 'set',
+		// 	currentIndex: 1,
+		// 	builder: 'ai-builder',
+		// } );
 		const content = new FormData();
 		content.append( 'action', 'astra-sites-change-page-builder' );
 		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
@@ -101,6 +102,9 @@ const SiteType = () => {
 			method: 'post',
 			body: content,
 		} );
+
+		window.location.href =
+			astraSitesVars.adminURL + 'themes.php?page=ai-builder';
 	};
 
 	useEffect( () => {
@@ -191,8 +195,11 @@ const SiteType = () => {
 												builder === 'ai-builder'
 													? 'gutenberg'
 													: builder,
-											currentIndex: 3,
+											currentIndex: 2,
 										} );
+										removeLocalStorageItem(
+											'st-scroll-position'
+										);
 									} }
 								>
 									<span>Build with Templates</span>{ ' ' }

@@ -2,9 +2,9 @@
 Contributors: webbistro
 Tags: media library, media folders, media taxonomies, media gallery, mime types
 Requires at least: 6.0
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 2.8.14
+Stable tag: 2.8.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ This plugin would be handy for those who need to manage a lot of media files.
 
 **Handy for those who need to manage a lot of media files.**
 
-[Known Issues / Support](https://wpuxsolutions.com/support) | [Changelog](https://wpuxsolutions.com/documents/enhanced-media-library/changelog) | [DOCs](https://wpuxsolutions.com/documents/enhanced-media-library) | [FAQs](https://wpuxsolutions.com/documents/enhanced-media-library/faqs-2) | [Premium Features](https://wpuxsolutions.com/plugins/enhanced-media-library-pro)
+[Known Issues :: Support](https://wpuxsolutions.com/support) | [Changelog](https://wpuxsolutions.com/documents/enhanced-media-library/changelog) | [Usage Guide :: How to](https://wpuxsolutions.com/documents/enhanced-media-library) | [FAQs](https://wpuxsolutions.com/documents/enhanced-media-library/faqs-2) | [Premium Features](https://wpuxsolutions.com/plugins/enhanced-media-library-pro)
 
 ### Categorize by Anything! ###
 
@@ -110,7 +110,6 @@ Support is free for both versions of the plugin. "PRO"-users do not have priorit
 * [Justified Gallery](https://wordpress.org/plugins/justified-gallery/)
 * [Meow Gallery](https://wordpress.org/plugins/meow-gallery/)
 * [Meow Lightbox](https://wordpress.org/plugins/meow-lightbox/)
-* [Slick Slider](https://wordpress.org/plugins/slick-slider/)
 * [MetaSlider](https://wordpress.org/plugins/ml-slider/)
 * [Responsive Lightbox & Gallery](https://wordpress.org/plugins/responsive-lightbox/)
 * [Compress JPEG & PNG Images](https://wordpress.org/plugins/tiny-compress-images/) (TinyPNG)
@@ -130,8 +129,6 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 * [PRO version: more details](https://wpuxsolutions.com/plugins/enhanced-media-library-pro)
 * [Documentation](https://www.wpuxsolutions.com/documents/enhanced-media-library)
 * [FAQs](https://www.wpuxsolutions.com/documents/enhanced-media-library/faqs)
-* [Contribute to Translation](https://www.wpuxsolutions.com/l10n/projects/enhanced-media-library)
-
 
 
 ## Installation ##
@@ -148,7 +145,7 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 
 ## Frequently Asked Questions ##
 
-> [FAQs](https://www.wpuxsolutions.com/documents/enhanced-media-library/faqs/) | [Documentation](https://www.wpuxsolutions.com/documents/enhanced-media-library/)
+> [FAQs](https://www.wpuxsolutions.com/documents/enhanced-media-library/faqs-2/) | [Documentation](https://www.wpuxsolutions.com/documents/enhanced-media-library/)
 
 
 
@@ -180,21 +177,42 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 
 ## Changelog ##
 
-### 2.8.14 ###
-*Release Date - April 30, 2024*
+### 2.8.15 ###
+*Release Date - May 10, 2024*
 
 = SECURITY UPDATE =
 * A security issue related to MIME types upload fixed. Please update to the latest version on all your websites.
 
 = Improvements =
-* Divi Builder compatibility ensured on uploading font files
-*Note: Font files are allowed for upload with Divi Builder even if you haven't added them with the EML settings because Divi adds its own allowed file types.*
+* Gallery / playlist shortcodes improved for better compatibility with other plugins  
+* `AND` logic withing a single taxonomy implemented for `[gallery]` and `[playlist]` shortcodes
+
+***Examples:***
+
+`[gallery media_category="california+flowers" genre="landscape"]`
+*— Displays images having **both** categories "california" **AND** "flowers" AND also from the genre "landscape"*
+
+`[gallery media_category="flowers,mosses" genre="garden"]`
+*— Displays imager **either** from "flowers" **OR** "mosses" category AND also from the genre "garden"*
+
+= Bugfixes =
+* Layout issues fixed for the **media popup** with the `Infinite scrolling` option enabled
+* `Fatal Error – Too Few Arguments to function` fixed for two plugins: "cred-frontend-editor" and AJAX Thumbnail Rebuild
+* Minor CSS fixes
 
 = Thank you! =
 For being EML users for so many years.
 * *This update has been issued in Ukraine under everyday missile attacks.*
 * *Please do not buy into ruzzian lies and propaganda. This aggression is unprovoked, illegal, and unfair. The people of Ukraine have all the right to live peacefully without ungrounded ruzzian claims and crimes committed.* 
 * *Support Ukraine. We are badly in need of weapons for defense.*
+
+
+### 2.8.14 ###
+*Release Date - April 30, 2024*
+
+= Improvements =
+* Divi Builder compatibility ensured on uploading font files
+*Note: Font files are allowed for upload with Divi Builder even if you haven't added them with the EML settings because Divi adds its own allowed file types.*
 
 
 ### 2.8.13 ###

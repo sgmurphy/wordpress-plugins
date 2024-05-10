@@ -437,7 +437,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 				<div class="section-left">
 					<div class="search-form">
 						<?php
-						$categories = Astra_Sites::get_instance()->get_api_option( 'astra-sites-all-site-categories' );
+						$categories = Astra_Sites_File_System::get_instance()->get_json_file_content( 'astra-sites-all-site-categories.json' );
 						if ( ! empty( $categories ) ) {
 							?>
 						<div id="astra-sites__category-filter" class="dropdown-check-list" tabindex="100">

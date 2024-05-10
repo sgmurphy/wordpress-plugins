@@ -27,7 +27,22 @@ if (! $forgot_password_inline) {
 	<p>
 		<label for="user_pass"><?php echo __('Password', 'blocksy-companion') ?></label>
 		<span class="account-password-input">
-			<input type="password" name="pwd" id="user_pass" class="input" value="" size="20" autocomplete="current-password" spellcheck="false">
+			<?php
+				echo blocksy_html_tag(
+					'input',
+					apply_filters('blocksy:account:modal:login:password:attr', [
+						'type' => 'password',
+						'name' => 'pwd',
+						'id' => 'user_pass',
+						'class' => 'input',
+						'value' => '',
+						'size' => '20',
+						'autocomplete' => 'current-password',
+						'spellcheck' => 'false'
+					])
+				);
+			?>
+
 			<span class="show-password-input"></span>
 		</span>
 	</p>

@@ -154,7 +154,7 @@ add_filter( 'upload_mimes', 'wpuxss_eml_upload_mimes', 10, 2 );
 
 if ( ! function_exists( 'wpuxss_eml_upload_mimes' ) ) {
 
-    function wpuxss_eml_upload_mimes( $types, $user ) {
+    function wpuxss_eml_upload_mimes( $types, $user = null ) {
 
         foreach ( get_option( 'wpuxss_eml_mimes', array() ) as $ext => $type_array ) {
 
@@ -333,7 +333,7 @@ if ( ! function_exists( 'wpuxss_eml_check_filetype_and_ext' ) ) {
  *  @created  12/2021
  */
 
-add_filter( 'wp_generate_attachment_metadata', function( $metadata, $attachment_id, $context ) {
+add_filter( 'wp_generate_attachment_metadata', function( $metadata, $attachment_id, $context = '' ) {
 
     if ( get_post_mime_type( $attachment_id ) == 'image/svg+xml' ) {
         $svg_path = get_attached_file( $attachment_id );

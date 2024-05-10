@@ -57,7 +57,7 @@ a.eml-pro {
 /* == ui-dialog Styles == */
 
 .eml-dialog-modal {
-    /*z-index: 300000 !important;*/
+   z-index: 300000 !important; /* important for the media popups */
 }
 .eml-dialog-modal,
 .eml-dialog-modal p{

@@ -300,10 +300,10 @@ class Notices
     public function checkSavingConsentViaRestApiEndpointWorkingHtml()
     {
         if (!General::getInstance()->isBannerActive()) {
-            return '';
+            return null;
         }
         $result = $this->getStates()->get(self::NOTICE_CHECK_SAVING_CONSENT_VIA_REST_API_ENDPOINT_WORKING, \false);
-        $args = ['body' => ['dummy' => \true, 'buttonClicked' => 'main_all', 'decision' => [2 => [3]], 'gcmConsent' => ['ad_storage'], 'tcfString' => 'TCFSTRING=='], 'cookies' => [], 'headers' => [], 'redirection' => 0, 'timeout' => 10];
+        $args = ['body' => ['dummy' => \true, 'buttonClicked' => 'main_all', 'decision' => [2 => [3]], 'gcmConsent' => ['ad_storage'], 'tcfString' => 'TCFSTRING=='], 'cookies' => [], 'headers' => [], 'redirection' => 0, 'timeout' => 20];
         if (!\is_array($result) || \time() > $result[1] + 60 * 30) {
             $result = [];
             $consentEndpoint = UtilsService::getNamespace($this) . '/consent';
@@ -321,7 +321,7 @@ class Notices
                     'PHPSESSID',
                 ], \true)) {
                     // Check for array, as a cookie with `[]` indicates an array, example: `test[]`
-                    $args['cookies'][$key] = \is_array($value) ? \array_map('urlencode', $value) : \urlencode($value);
+                    $args['cookies'][$key] = \is_array($value) ? \rawurlencode_deep($value) : \urlencode($value);
                 }
             }
             $url = \rest_url($consentEndpoint);

@@ -101,8 +101,8 @@ class RequestRemoteUrl {
 			'user_agent_type' => 'as-is'
 		]);
 
-		if ($args['user_agent'] === 'wp') {
-			$args['user-agent'] = 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url');
+		if ($args['user_agent_type'] === 'wp') {
+			$args['user_agent'] = 'WordPress/' . get_bloginfo('version') . '; ' . get_bloginfo('url');
 		}
 
 		set_time_limit(300);

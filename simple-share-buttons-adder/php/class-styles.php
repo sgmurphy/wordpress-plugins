@@ -262,7 +262,7 @@ class Styles {
 			// If there's any additional css.
 			if ( '' !== $arr_settings['ssba_additional_css'] ) {
 				// Add the additional CSS.
-				$html_ssba_style .= $arr_settings['ssba_additional_css'];
+				$html_ssba_style .= esc_html( $arr_settings['ssba_additional_css'] );
 			}
 
 			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_ssba_style ); // WPCS: XSS ok.
@@ -328,7 +328,7 @@ class Styles {
 						}';
 
 			if ( '' !== $arr_settings['ssba_plus_additional_css'] && 'Y' === $arr_settings['ssba_new_buttons'] ) {
-				$html_ssba_style .= $arr_settings['ssba_plus_additional_css'];
+				$html_ssba_style .= esc_html( $arr_settings['ssba_plus_additional_css'] );
 			}
 
 			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_ssba_style ); // WPCS: XSS ok.
@@ -384,7 +384,7 @@ class Styles {
 			// If there's any additional css.
 			if ( '' !== $arr_settings['ssba_bar_additional_css'] ) {
 				// Add the additional CSS.
-				$html_bar_ssba_style .= $arr_settings['ssba_bar_additional_css'];
+				$html_bar_ssba_style .= esc_html( $arr_settings['ssba_bar_additional_css'] );
 			}
 
 			wp_add_inline_style( ASSET_PREFIX . "-ssba", $html_bar_ssba_style ); // WPCS: XSS ok.

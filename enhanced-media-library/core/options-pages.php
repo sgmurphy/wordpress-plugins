@@ -2767,7 +2767,7 @@ if ( ! function_exists( 'wpuxss_eml_plugin_row_meta' ) ) {
 /**
  *  wpuxss_eml_maybe_new_notice
  *
- *  Asks the remote and write down a notice to the database
+ *  Asks the remote and records a notice to the database
  * 
  *  @since    2.8.10
  *  @created  2024/03
@@ -2847,11 +2847,10 @@ if ( ! function_exists( 'wpuxss_eml_maybe_new_notice' ) ) {
         }
 
 
-        // determine admin screens to show a notice
+        // admin screens to show a notice
         $screens = isset( $notice['screens'] ) && is_array( $notice['screens'] ) 
                  ? $notice['screens'] 
                  : array();
-
 
         if ( ! empty( $screens ) ) {
 
@@ -2882,9 +2881,21 @@ if ( ! function_exists( 'wpuxss_eml_maybe_new_notice' ) ) {
                 }
             }
         }
+
+
+        // show to free, pro, multisite, all of them?
+        $for     = isset( $notice['for'] ) && is_array( $notice['for'] ) 
+                 ? $notice['for'] 
+                 : array();
+
+        if ( ! empty( $for ) ) {
+            $for = array_map( 'sanitize_text_field', $for );
+        }
         
 
         $notice['screens'] = $screens;
+        $notice['for']     = $for;
+
 
         $notice['message'] = wp_kses(
             $notice['message'],
@@ -2913,6 +2924,7 @@ if ( ! function_exists( 'wpuxss_eml_maybe_new_notice' ) ) {
             $notices[$current_id]['message'] = $notice['message'];
             $notices[$current_id]['version'] = $notice['version'];
             $notices[$current_id]['screens'] = $notice['screens'];
+            $notices[$current_id]['for']     = $notice['for'];
             $notices['current'] = $current_id;
 
             update_site_option( 'wpuxss_eml_notices', $notices );
@@ -2988,6 +3000,25 @@ if ( ! function_exists( 'wpuxss_eml_admin_notice' ) ) {
         }
 
 
+        if (    ! empty( $notice['for'] ) ) {
+
+            // a notice for free users only
+            if ( in_array( 'free', $notice['for'] ) && EML_PRO ) {
+                return;
+            }
+
+            // a notice for pro users only
+            if ( in_array( 'pro', $notice['for'] ) && ! EML_PRO ) {
+                return;
+            }
+
+            // a notice for multisite users only
+            if ( in_array( 'multisite', $notice['for'] ) && ! is_multisite() ) {
+                return;
+            }
+        }
+
+
         if (    ! isset( $notice['screens'] ) || 
                 ! in_array( $current_screen->base, $notice['screens'] ) 
             ) {
@@ -3027,7 +3058,7 @@ if ( ! function_exists( 'wpuxss_eml_admin_notice' ) ) {
 /**
  *  wpuxss_eml_admin_notice_dismiss
  *
- *  Assigns a notice dismissed mark with a user
+ *  Associates a dismissed notice mark with a user
  * 
  *  @since    2.8.10
  *  @created  2024/04

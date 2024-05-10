@@ -1171,7 +1171,7 @@ class Admin_Panel {
 			'name'       => 'ssba_additional_css',
 			'label'      => 'Additional CSS',
 			'tooltip'    => 'Add your own additional CSS if you wish',
-			'value'      => isset( $arr_settings['ssba_additional_css'] ) ? $arr_settings['ssba_additional_css'] : '',
+			'value'      => isset( $arr_settings['ssba_additional_css'] ) ? esc_html( $arr_settings['ssba_additional_css'] ) : '',
 		);
 
 		// Additional css for plus.
@@ -1183,7 +1183,7 @@ class Admin_Panel {
 			'name'       => 'ssba_plus_additional_css',
 			'label'      => 'Additional CSS',
 			'tooltip'    => 'Add your own additional CSS if you wish',
-			'value'      => isset( $arr_settings['ssba_plus_additional_css'] ) ? $arr_settings['ssba_plus_additional_css'] : '',
+			'value'      => isset( $arr_settings['ssba_plus_additional_css'] ) ? esc_html( $arr_settings['ssba_plus_additional_css'] ) : '',
 		);
 
 		// Additional css for share.

@@ -5,7 +5,7 @@ Requires PHP: 7.0
 Tested up to: 6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 2.0.45
+Stable tag: 2.0.47
 
 == Description ==
 
@@ -52,6 +52,12 @@ Program. The Patchstack team help validate, triage and handle any security
 vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/blocksy-companion)
 
 == Changelog ==
+2.0.47: 2024-05-10
+- Improvement: General fixes and improvements
+
+2.0.46: 2024-05-09
+- Improvement: Sanitize all SVG images upon upload into media gallery
+
 2.0.45: 2024-05-03
 - Improvement: General fixes and improvements
 

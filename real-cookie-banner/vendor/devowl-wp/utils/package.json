@@ -1,6 +1,6 @@
 {
     "name": "@devowl-wp/utils",
-    "version": "1.19.1",
+    "version": "1.19.3",
     "private": true,
     "description": "Utility functionality for all your WordPress plugins.",
     "homepage": "https://devowl.io",
@@ -86,7 +86,7 @@
         "vendor"
     ],
     "dependencies": {
-        "@devowl-wp/api": "^0.5.20",
+        "@devowl-wp/api": "^0.5.21",
         "@wordpress/i18n": "~4.0.0",
         "core-js": "~3.29.0",
         "deepmerge": "~4.3.0",

@@ -5,9 +5,9 @@ if ( ! defined( 'ABSPATH' ) )
 
 
 
-add_filter( 'shortcode_atts_gallery', 'wpuxss_eml_shortcode_atts', 10, 3 );
-add_filter( 'shortcode_atts_playlist', 'wpuxss_eml_shortcode_atts', 10, 3 );
-add_filter( 'shortcode_atts_slideshow', 'wpuxss_eml_shortcode_atts', 10, 3 );
+add_filter( 'shortcode_atts_gallery', 'wpuxss_eml_shortcode_atts', 10, 4 );
+add_filter( 'shortcode_atts_playlist', 'wpuxss_eml_shortcode_atts', 10, 4 );
+add_filter( 'shortcode_atts_slideshow', 'wpuxss_eml_shortcode_atts', 10, 4 );
 
 
 
@@ -20,16 +20,28 @@ add_filter( 'shortcode_atts_slideshow', 'wpuxss_eml_shortcode_atts', 10, 3 );
 
 if ( ! function_exists( 'wpuxss_eml_shortcode_atts' ) ) {
 
-    function wpuxss_eml_shortcode_atts( $output, $defaults = array(), $atts ) {
+    function wpuxss_eml_shortcode_atts( $output, $defaults = array(), $atts = array(), $shortcode = '' ) {
 
         $wpuxss_eml_lib_options = get_option( 'wpuxss_eml_lib_options', array() );
+
+
+        // 3rd-party plugins can send string as a 3rd param
+        if ( is_string( $atts ) || empty( $atts ) ) {
+            // $shortcode = $atts;  // at the moment we do not use $shortcode anywhere
+            $atts = $output;
+        }
+
 
         $custom_query = false;
         $id = isset( $atts['id'] ) ? intval( $atts['id'] ) : 0;
         unset( $atts['id'] );
         unset( $defaults['id'] );
 
-        $atts = array_merge( $defaults, $atts );
+
+        // 3rd-party plugin sends null
+        if ( $defaults ) {
+            $atts = array_merge( $defaults, $atts );
+        }
 
 
         if ( ! empty( $atts['monthnum'] ) && ! empty( $atts['year'] ) ) {
@@ -38,20 +50,27 @@ if ( ! function_exists( 'wpuxss_eml_shortcode_atts' ) ) {
 
 
         $tax_query = array();
+        $operator  = 'IN';
 
         foreach ( get_taxonomies_for_attachments( 'names' ) as $taxonomy ) {
 
             if ( ! empty( $atts[$taxonomy] ) ) {
 
-                $terms = explode( ',', $atts[$taxonomy] );
+                if ( str_contains( $atts[$taxonomy], '+' ) ) {
+                    $terms = explode( '+', $atts[$taxonomy] );
+                    $operator = 'AND';
+                }
+                else {
+                    $terms = explode( ',', $atts[$taxonomy] );
+                }
 
                 $field = ctype_digit( implode( '', $terms ) ) ? 'term_id' : 'slug';
 
                 $tax_query[] = array(
-                    'taxonomy' => $taxonomy,
-                    'field' => $field,
-                    'terms' => $terms,
-                    'operator' => 'IN',
+                    'taxonomy'         => $taxonomy,
+                    'field'            => $field,
+                    'terms'            => $terms,
+                    'operator'         => $operator,
                     'include_children' => (bool) $wpuxss_eml_lib_options['include_children']
                 );
 
@@ -108,7 +127,7 @@ if ( ! function_exists( 'wpuxss_eml_shortcode_atts' ) ) {
             'post_mime_type' => $mime_type,
             'order' => $atts['order'],
             'orderby' => $atts['orderby'],
-            'posts_per_page' => $posts_per_page, // @TODO: add pagination
+            'posts_per_page' => $posts_per_page, // @todo :: add pagination
         );
 
 

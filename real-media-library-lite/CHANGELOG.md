@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.15 (2024-05-10)
+
+**Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.
+
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.19</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Bug Fixes
+
+* delete checkboxes for privacy policy and only print an information for this (CU-861mrzwar)</details>
+
+<details><summary>Dependency updates @devowl-wp/real-utils 1.13.3</summary>
+
+
+**_Purpose of dependency:_** _Create cross-selling ads, about page, rating and newsletter input for WP Real plugins._
+##### Bug Fixes
+
+* delete checkboxes for privacy policy and only print an information for this (CU-861mrzwar)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.3</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* do not show admin notice about REST API issues in update admin screen (CU-8694hc398)
+* too many requests to license.devowl.io announcements endpoint (CU-86939q6ce)</details>
+
+
+
+
+
+## 4.22.14 (2024-04-25) (not released)
+
+**Note:** This version of the package has not (yet) been released publicly. This happens if changes have been made in dependencies that do not affect this package (e.g. changes for the development of the package). The changes will be rolled out with the next official update.
+
+**Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.
+
+
+<details><summary>Development dependency update @devowl-wp/api 0.5.21</summary>
+
+
+**_Purpose of dependency:_** _Shared typings for all Node.js backends and frontends._
+##### Bug Fixes
+
+* introducing password login in rcb (CU-86936my3v)
+
+
+##### Refactoring
+
+* introduce user base interfaces (CU-86936my3v)</details>
+
+
+
+
+
+## 4.22.13 (2024-04-10) (not released)
+
+**Note:** This version of the package has not (yet) been released publicly. This happens if changes have been made in dependencies that do not affect this package (e.g. changes for the development of the package). The changes will be rolled out with the next official update.
+
+**Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.
+
+
+<details><summary>Dependency updates @devowl-wp/utils 1.19.1</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Maintenance
+
+* update stubs (CU-86949561p)</details>
+
+
+
+
+
 ## 4.22.12 (2024-04-09)
 
 

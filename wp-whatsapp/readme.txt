@@ -4,7 +4,7 @@ Donate link: https://codecanyon.net/item/whatsapp-chat-wordpress/22800580
 Tags: whatsapp, whatsapp chat, woocommerce whatsapp, click to chat, whatsapp business, whats app, wame, wp social chat, join chat, wp whatsapp
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 3.6.4
+Stable tag: 3.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,9 @@ Definitely yes! The pro version comes with cutting edge features and performance
 3. WhatsApp Gutenberg Block Demo
 
 == Changelog ==
+
+= May 10, 2024 – Version 3.6.5 =
+- Fixed: CleanTalk security report
 
 = Mar 28, 2024 – Version 3.6.4 =
 - Fixed: Wordfence bug report

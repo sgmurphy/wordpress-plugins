@@ -214,7 +214,7 @@ class Plugin extends AbstractPlugin
             // [Plugin Comp] SeoPress
             'SEOPRESS_DATA',
             // [Plugin Comp] https://codecanyon.net/item/superfly-responsive-wordpress-menu-plugin/8012790
-            'SFM_template',
+            '/var SFM_template/m',
             // [Plugin Comp] Surecart
             '/window\\.surecartComponents\\s*=/m',
             '/window\\.SureCartAffiliatesConfig\\s*=/m',
@@ -287,6 +287,8 @@ class Plugin extends AbstractPlugin
         $scriptInlineJsonBlocker = $cb->addPlugin(ScriptInlineJsonBlocker::class);
         $scriptInlineJsonBlocker->addSchema('wp.i18n.setLocaleData', '/(wp\\.i18n\\.setLocaleData\\(\\s*localeData,\\s*domain\\s*\\);\\s*}\\s*\\)\\s*\\(\\s*"[^"]+",\\s*)(.*)(\\)\\s*;\\s*<\\/script>)/m', '</script>');
         $scriptInlineJsonBlocker->addSchema('jetMenuMobileWidgetRenderData', '/(window\\.jetMenuMobileWidgetRenderData[^=]+=)(.*)(;)$/m');
+        // [Plugin Comp] https://wordpress.org/plugins/ays-chatgpt-assistant/
+        $scriptInlineJsonBlocker->addSchema('AysChatGPTChatSettings', '/(var\\s*AysChatGPTChatSettings[^=]+=)(.*)(;)$/ms');
         /**
          * Legal opinion: With `dns-prefetch`, only the DNS server specified by the website visitor
          * is requested and not, for example, Google Fonts. Consequently, data is only passed

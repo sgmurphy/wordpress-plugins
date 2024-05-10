@@ -343,24 +343,26 @@ class Stla_Admin_Fetch_Content_Area {
 
 						}
 
-						foreach ( $field['inputs'] as  $sub_field ) {
+						if ( ! empty( $field['inputs'] ) ) {
+							foreach ( $field['inputs'] as  $sub_field ) {
 
-							$is_hidden    = ! empty( $sub_field['isHidden'] ) ? $sub_field['isHidden'] : false;
-							$sub_field_id = floatval( $sub_field['id'] );
+								$is_hidden    = ! empty( $sub_field['isHidden'] ) ? $sub_field['isHidden'] : false;
+								$sub_field_id = floatval( $sub_field['id'] );
 
-							// state field id is only set if its not international ( then it will be dropdown)
-							// country field id will always be dropdown.. skip loop in both cases
-							// name prefix is always dropdown, so ignored.
-							if ( $state_field_id === $sub_field_id || $country_field_id === $sub_field_id || $name_prefix_id === $sub_field_id ) {
-								continue;
-							}
+								// state field id is only set if its not international ( then it will be dropdown)
+								// country field id will always be dropdown.. skip loop in both cases
+								// name prefix is always dropdown, so ignored.
+								if ( $state_field_id === $sub_field_id || $country_field_id === $sub_field_id || $name_prefix_id === $sub_field_id ) {
+									continue;
+								}
 
-							if ( ! $is_hidden && ! isset( $child_input['choices'] ) ) {
-								$field_labels[] = array(
-									'id'    => $sub_field_id,
-									'label' => $sub_field['label'],
-								);
+								if ( ! $is_hidden && ! isset( $child_input['choices'] ) ) {
+									$field_labels[] = array(
+										'id'    => $sub_field_id,
+										'label' => $sub_field['label'],
+									);
 
+								}
 							}
 						}
 					}

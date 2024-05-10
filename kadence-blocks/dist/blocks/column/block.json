@@ -255,7 +255,16 @@
       "default": ""
     },
     "templateLock": {
-      "type": "string"
+      "type": [
+        "string",
+        "boolean"
+      ],
+      "enum": [
+        "all",
+        "insert",
+        "contentOnly",
+        false
+      ]
     },
     "direction": {
       "type": "array",
