@@ -81,7 +81,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                         </div>
                     </div>
                     <?php wp_nonce_field('add-edit-post-type'); ?>
-                    <?php submit_button(null, 'primary', 'submit2', false); ?>
+                    <?php submit_button('', 'primary', 'submit2', false); ?>
                 </form>
             </div>
             <?php $this->scripts(); ?>

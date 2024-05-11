@@ -86,7 +86,7 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_Ad
                         </div>
                     </div>
                     <?php wp_nonce_field('add-edit-taxonomies'); ?>
-                    <?php submit_button(null, 'primary', 'submit2', false); ?>
+                    <?php submit_button('', 'primary', 'submit2', false); ?>
                 </form>
             </div>
             <?php $this->scripts(); ?>

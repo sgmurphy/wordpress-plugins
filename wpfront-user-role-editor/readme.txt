@@ -3,9 +3,9 @@ Contributors: syammohanm
 Donate link: https://wpfront.com/donate/
 Tags: WordPress user role editor, user role editor, role editor, user role, role, WordPress user roles, user roles, roles, user roles editor, roles editor, role manager, roles manager, manage roles, manage role, capability, permission, role, security, user, capability editor, capability manager, custom post types, custom post type permissions, custom post type capabilities, post type permissions, post type capabilities, menu editor, role menu, role menu editor, multisite roles, multisite role editor, multisite user roles, import roles, export roles
 Requires at least: 5.1
-Tested up to: 6.5
+Tested up to: 6.5.3
 Requires PHP: 7.0
-Stable tag: 4.0
+Stable tag: 4.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,6 +89,10 @@ This plugin doesn't collect any personal information. For more information pleas
 19. Widget permissions
 
 == Changelog ==
+
+= 4.1.1 =
+* Bug fix - Comment capabilities.
+* Bug fix - Export roles.
 
 = 4.1.0 =
 * Security issue fixes.
@@ -293,6 +297,9 @@ This plugin doesn't collect any personal information. For more information pleas
 * Initial release.
 
 == Upgrade Notice ==
+
+= 4.1.1 =
+* Bug fixes.
 
 = 4.1.0 =
 * Security issue fixes.

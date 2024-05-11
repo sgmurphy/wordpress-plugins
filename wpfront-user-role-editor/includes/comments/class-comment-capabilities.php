@@ -165,7 +165,15 @@ if (!class_exists('\WPFront\URE\Comments\WPFront_User_Role_Editor_Comment_Capabi
          */
         protected function translate_to_capability($post_type_obj)
         {
-            return "moderate_{$post_type_obj->capability_type}_comments";
+            $cap_type = $post_type_obj->capability_type;
+            if(is_array($post_type_obj->capability_type)) { //@phpstan-ignore-line
+                $cap_type = $post_type_obj->capability_type[0];
+                if(count($post_type_obj->capability_type) > 1) {
+                    $cap_type = $post_type_obj->capability_type[1];
+                }
+            }
+
+            return "moderate_{$cap_type}_comments";
         }
 
         /**

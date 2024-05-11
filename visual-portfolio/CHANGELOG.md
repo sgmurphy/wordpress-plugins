@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 > v3 Migration Guide – <https://visualportfolio.co/docs/troubleshooting/migration-to-v3/>
 
+= 3.3.4 - May 11, 2024 =
+
+* fixed dynamic selector block options rendering on the frontend.
+
+= 3.3.3 - May 11, 2024 =
+
+* fixed custom title tag XSS vulnerability (properly escape the custom tag and prevent using non-predefined values)
+
 = 3.3.2 - Apr 30, 2024 =
 
 * **Free + Pro:**
