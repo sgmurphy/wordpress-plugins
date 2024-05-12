@@ -3,7 +3,7 @@
  * Plugin Name: Supreme Modules Lite - Divi Theme, Extra Theme and Divi Builder
  * Plugin URI:  https://divisupreme.com/supreme-modules-lite-for-divi/
  * Description: Divi Supreme enhances the experience and features found on Divi and extend with custom creative modules to help you build amazing websites.
- * Version:     2.5.4
+ * Version:     2.5.5
  * Author:      Supreme Modules
  * Author URI:  https://divisupreme.com/about-us/
  * License:     GPL2
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'DSM_VERSION' ) ) {
-	define( 'DSM_VERSION', '2.5.4' );
+	define( 'DSM_VERSION', '2.5.5' );
 }
 if ( ! defined( 'DSM_SHORTCODE' ) ) {
 	define( 'DSM_SHORTCODE', 'divi_shortcode' );
@@ -91,7 +91,7 @@ if ( version_compare( PHP_VERSION, '5.6', '<' ) ) {
 		 * @since 1.0.0
 		 */
 		function dsm_admin_notice__php_version_error() {
-			echo sprintf(
+			printf(
 				'<div class="notice notice-error"><p>Goodness! Either you do not have Divi installed or your PHP version is either too old or not recommended to use Divi Supreme! We are not going to load anything on your WordPress unless you update your PHP. Do you know by using Divi Supreme, you can create even more stunning and amazing site with it? Learn more about the WordPress requirements <a href="%1$s" target="_blank">here</a>. Current PHP version is: %2$s Recommended PHP version: 7 and above.</p></div>',
 				esc_url( 'https://wordpress.org/about/requirements/' ),
 				PHP_VERSION

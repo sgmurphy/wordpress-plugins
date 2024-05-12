@@ -277,45 +277,57 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.11", "essential-blocks")}
+                                    {__("Version: 4.5.12", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("24/04/2024", "essential-blocks")}
+                                        {__("09/05/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Browse Template option for multiple blocks",
+                                            "Added: Add option to enable/disable icons in Pricing Table block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Current Post Heading support in Advanced Heading block",
+                                            "Added: Read more button style option Post Carousel block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Table of Content block special character issue with URL",
+                                            "Added: Add dropdown submenu feature in Advanced Navigation block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Embedpress not working in Advanced Tab block in eidtor",
+                                            "Added: Option to Disable EB Pattern library from editor panel",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Accordion block title align not working",
+                                            "Fixed: Accordion block style conflict with inner Accordion block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Heading tag change dones't reflect without reload",
+                                            "Fixed: Accordion block hover color issue",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: RSVP form default template issue in Form block",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Advanced Image dynamic featured image not showing in frontend",
                                             "essential-blocks"
                                         )}
                                     </li>

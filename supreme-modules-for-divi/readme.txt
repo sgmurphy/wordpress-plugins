@@ -3,9 +3,9 @@ Contributors: divisupreme, kenng87
 Tags: Divi, Divi Module, Divi Page Builder, divi theme, divi builder, Divi Extensions
 Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ This is a common question that we get asked here every now and then which is why
 
 
 == Changelog ==
+= 2.5.5 – 12.05.2024 =
+* Fixed: Deprecated: Implicit conversion from float
+
 = 2.5.4 – 01.05.2024 =
 * Fixed: Doesn’t properly sanitize it’s Cursor Character data attribute in it’s Divi Supreme Typing Effect Module. - Vulnerable to DOM-Based Cross-Site Scripting via the ‘typing_cursor’ parameter. Thanks to webbernaut.
 * Enhanced: Now fully compatible with PHP 8.2, including the removal of all deprecated PHP warning notices related to PHP 8.2.

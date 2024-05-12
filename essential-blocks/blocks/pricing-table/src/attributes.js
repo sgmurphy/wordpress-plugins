@@ -321,6 +321,10 @@ const attributes = {
         type: "boolean",
         default: true,
     },
+    showFeatureIcon: {
+        type: "boolean",
+        default: true,
+    },
     pricingTopBgColor: {
         type: "string",
         default: "#7967ff",

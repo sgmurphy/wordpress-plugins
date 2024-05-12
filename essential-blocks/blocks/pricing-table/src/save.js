@@ -35,7 +35,8 @@ const Save = ({ attributes }) => {
         ribbonAlignVertical = "top",
         newWindow,
         showFeatureLine = true,
-        showBlockContent
+        showBlockContent,
+        showFeatureIcon
     } = attributes;
 
     if (!showBlockContent) {
@@ -132,22 +133,26 @@ const Save = ({ attributes }) => {
                                                                 >
                                                                     {clickable && link ? (
                                                                         <a href={link}>
-                                                                            <EBDisplayIcon
-                                                                                className={`eb-pricebox-icon`}
-                                                                                icon={icon}
-                                                                                style={{ color: color }}
-                                                                            />
+                                                                            {showFeatureIcon && (
+                                                                                <EBDisplayIcon
+                                                                                    className={`eb-pricebox-icon`}
+                                                                                    icon={icon}
+                                                                                    style={{ color: color }}
+                                                                                />
+                                                                            )}
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {text}
                                                                             </span>
                                                                         </a>
                                                                     ) : (
                                                                         <>
-                                                                            <EBDisplayIcon
-                                                                                className={`eb-pricebox-icon`}
-                                                                                icon={icon}
-                                                                                style={{ color: color }}
-                                                                            />
+                                                                            {showFeatureIcon && (
+                                                                                <EBDisplayIcon
+                                                                                    className={`eb-pricebox-icon`}
+                                                                                    icon={icon}
+                                                                                    style={{ color: color }}
+                                                                                />
+                                                                            )}
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {text}
                                                                             </span>
@@ -253,22 +258,26 @@ const Save = ({ attributes }) => {
                                                         >
                                                             {clickable && link ? (
                                                                 <a href={link}>
-                                                                    <EBDisplayIcon
-                                                                        className={`eb-pricebox-icon`}
-                                                                        icon={icon}
-                                                                        style={{ color: color }}
-                                                                    />
+                                                                    {showFeatureIcon && (
+                                                                        <EBDisplayIcon
+                                                                            className={`eb-pricebox-icon`}
+                                                                            icon={icon}
+                                                                            style={{ color: color }}
+                                                                        />
+                                                                    )}
                                                                     <span className="eb-pricebox-feature-text">
                                                                         {text}
                                                                     </span>
                                                                 </a>
                                                             ) : (
                                                                 <>
-                                                                    <EBDisplayIcon
-                                                                        className={`eb-pricebox-icon`}
-                                                                        icon={icon}
-                                                                        style={{ color: color }}
-                                                                    />
+                                                                    {showFeatureIcon && (
+                                                                        <EBDisplayIcon
+                                                                            className={`eb-pricebox-icon`}
+                                                                            icon={icon}
+                                                                            style={{ color: color }}
+                                                                        />
+                                                                    )}
                                                                     <span className="eb-pricebox-feature-text">
                                                                         {text}
                                                                     </span>

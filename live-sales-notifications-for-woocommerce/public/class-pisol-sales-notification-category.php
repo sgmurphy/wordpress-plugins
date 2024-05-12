@@ -45,14 +45,21 @@ class pi_sn_selected_category{
 
   function getProducts(){
     $categories = self::getSelectedCategories();
-    $products = array();
-    foreach($categories as $category){
-      $products_list = self::getProductFromCategory((int)$category);
-      if(is_array($products_list)){
-      $products = array_merge($products, $products_list);
+    $cache_key = 'cat_products_' . md5(serialize($categories)); 
+    $products = get_transient($cache_key);
+    
+    if (false === $products) {
+      $products = array();
+      foreach($categories as $category){
+        $products_list = self::getProductFromCategory((int)$category);
+        if(is_array($products_list)){
+        $products = array_merge($products, $products_list);
+        }
       }
+      $products = array_unique($products);
+      set_transient($cache_key, $products, DAY_IN_SECONDS * 2);
     }
-    $products = array_unique($products);
+    
     shuffle($products);
     $products = array_map("wc_get_product",$products);
     return ($products);

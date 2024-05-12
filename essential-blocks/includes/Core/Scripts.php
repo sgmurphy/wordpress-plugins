@@ -90,8 +90,11 @@ class Scripts
             $editor_scripts_deps[  ] = 'essential-blocks-global-styles';
 
             //templately-installer
-            wpdev_essential_blocks()->assets->register( 'templately-installer', '../lib/templately-installer/dist/index.js' );
-            $editor_scripts_deps[  ] = 'essential-blocks-templately-installer';
+            $show_pattern_library = get_option( ESSENTIAL_BLOCKS_HIDE_PATTERN_LIBRARY );
+            if ( ! $show_pattern_library ) {
+                wpdev_essential_blocks()->assets->register( 'templately-installer', '../lib/templately-installer/dist/index.js' );
+                $editor_scripts_deps[  ] = 'essential-blocks-templately-installer';
+            }
         }
 
         wpdev_essential_blocks()->assets->register( 'editor-script', '../dist/index.js', $editor_scripts_deps );

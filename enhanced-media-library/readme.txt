@@ -1,4 +1,4 @@
-=== Enhanced Media Library ===
+=== Enhanced Media Library PRO ===
 Contributors: webbistro
 Tags: media library, media folders, media taxonomies, media gallery, mime types
 Requires at least: 6.0
@@ -184,8 +184,8 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 * A security issue related to MIME types upload fixed. Please update to the latest version on all your websites.
 
 = Improvements =
-* Gallery / playlist shortcodes improved for better compatibility with other plugins  
-* `AND` logic withing a single taxonomy implemented for `[gallery]` and `[playlist]` shortcodes
+* Gallery / playlist shortcodes improved for better compatibility with other plugins 
+* `AND` logic within a single taxonomy implemented for `[gallery]` and `[playlist]` shortcodes
 
 ***Examples:***
 
@@ -194,6 +194,8 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 
 `[gallery media_category="flowers,mosses" genre="garden"]`
 *— Displays imager **either** from "flowers" **OR** "mosses" category AND also from the genre "garden"*
+
+*Note: For performance it's better to use IDs instead of slugs in the gallery shortcodes.*
 
 = Bugfixes =
 * Layout issues fixed for the **media popup** with the `Infinite scrolling` option enabled

@@ -55,6 +55,7 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
 
             add_action( 'wp_ajax_save_eb_admin_options', [ $this, 'save' ] );
             add_action( 'wp_ajax_get_eb_admin_options', [ $this, 'get' ] );
+            add_action( 'wp_ajax_hide_pattern_library', [ $this, 'hide_pattern_library' ] );
             add_action( 'wp_ajax_reset_eb_admin_options', [ $this, 'reset' ] );
             add_action( 'wp_ajax_get_eb_admin_templates', [ $this, 'templates' ] );
             add_action( 'wp_ajax_get_eb_admin_template_count', [ $this, 'template_count' ] );
@@ -501,6 +502,26 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
                 }
             } else {
                 wp_send_json_error( __( 'Something went wrong regarding getting options data.', 'essential-blocks' ) );
+            }
+        }
+
+        /**
+         * AJAX Get function for set hide pattern library in editor
+         */
+        public function hide_pattern_library()
+        {
+            if ( ! isset( $_POST[ 'admin_nonce' ] ) || ! wp_verify_nonce( sanitize_key( $_POST[ 'admin_nonce' ] ), 'admin-nonce' ) ) {
+                wp_send_json_error( __( 'Nonce Error', 'essential-blocks' ) );
+            }
+            if ( ! current_user_can( 'edit_posts' ) ) {
+                wp_send_json_error( __( 'You are not authorized to save this!', 'essential-blocks' ) );
+            }
+
+            $save = update_option( ESSENTIAL_BLOCKS_HIDE_PATTERN_LIBRARY, true );
+            if ( $save ) {
+                wp_send_json_success( __( 'Settings Updated Successfully', 'essential-blocks' ) );
+            } else {
+                wp_send_json_error( __( 'Couldn\'t Save Settings Data', 'essential-blocks' ) );
             }
         }
 

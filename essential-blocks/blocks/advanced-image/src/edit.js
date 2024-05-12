@@ -304,8 +304,8 @@ export default function Edit(props) {
             // style={{
             //     height: !!aspectRatio && '100%',
             //     width: !!aspectRatio && '100%',
-            //     ...borderProps.style,
-            //     ...shadowProps.style,
+            //     // ...borderProps.style,
+            //     // ...shadowProps.style,
             // }}
             >
                 {content}
@@ -636,7 +636,7 @@ export default function Edit(props) {
                             )}
                         </>
 
-                        {((imgSource === 'custom' && urls.length > 0) || (imgSource === 'featured-img' && featuredImage != 0)) && (
+                        {((imgSource === 'custom' && urls.length > 0) || (imgSource === 'featured-img' && typeof imagePostId == 'number' && featuredImage != 0)) && (
                             <>
                                 <BlockControls>
                                     <ToolbarGroup>
@@ -768,12 +768,17 @@ export default function Edit(props) {
                             </>
                         )}
 
-                        {imgSource === 'featured-img' && !featuredImage && (
+                        {imgSource === 'featured-img' && typeof imagePostId == 'number' && !featuredImage && (
                             <NoticeComponent
                                 Icon={AdvancedImageIcon}
                                 title={"Advanced Image"}
                                 description={postFeaturedImage}
                             />
+                        )}
+                        {imgSource === 'featured-img' && typeof imagePostId == 'string' && (
+                            <div className="feature-image-placeholder">
+                                <img src={EssentialBlocksLocalize?.eb_plugins_url + "assets/images/user.jpg"} alt='featured image' />
+                            </div>
                         )}
                     </>
                 )}

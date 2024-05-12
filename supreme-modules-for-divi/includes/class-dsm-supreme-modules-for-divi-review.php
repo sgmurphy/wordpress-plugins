@@ -64,44 +64,50 @@ if ( ! class_exists( 'Dsm_Supreme_Modules_For_Divi_Review' ) ) :
 		 * Seconds to words.
 		 */
 		public function seconds_to_words( $seconds ) {
-			// Get the years
-			$years = ( intval( $seconds ) / YEAR_IN_SECONDS ) % 100;
+			// Get the years.
+			$years = round( $seconds / YEAR_IN_SECONDS ) % 100;
 			if ( $years > 1 ) {
+				// translators: %s: Number of years.
 				return sprintf( __( '%s years', $this->slug ), $years );
 			} elseif ( $years > 0 ) {
 				return __( 'a year', $this->slug );
 			}
-			// Get the weeks
-			$weeks = ( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
+			// Get the weeks.
+			$weeks = round( $seconds / WEEK_IN_SECONDS ) % 52;
 			if ( $weeks > 1 ) {
+				// translators: %s: Number of weeks.
 				return sprintf( __( '%s weeks', $this->slug ), $weeks );
 			} elseif ( $weeks > 0 ) {
 				return __( 'a week', $this->slug );
 			}
-			// Get the days
-			$days = ( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
+			// Get the days.
+			$days = round( $seconds / DAY_IN_SECONDS ) % 7;
 			if ( $days > 1 ) {
+				// translators: %s: Number of days.
 				return sprintf( __( '%s days', $this->slug ), $days );
 			} elseif ( $days > 0 ) {
 				return __( 'a day', $this->slug );
 			}
-			// Get the hours
-			$hours = ( intval( $seconds ) / HOUR_IN_SECONDS ) % 24;
+			// Get the hours.
+			$hours = round( $seconds / HOUR_IN_SECONDS ) % 24;
 			if ( $hours > 1 ) {
+				// translators: %s: Number of hours.
 				return sprintf( __( '%s hours', $this->slug ), $hours );
 			} elseif ( $hours > 0 ) {
 				return __( 'an hour', $this->slug );
 			}
-			// Get the minutes
-			$minutes = ( intval( $seconds ) / MINUTE_IN_SECONDS ) % 60;
+			// Get the minutes.
+			$minutes = round( $seconds / MINUTE_IN_SECONDS ) % 60;
 			if ( $minutes > 1 ) {
+				// translators: %s: Number of minutes.
 				return sprintf( __( '%s minutes', $this->slug ), $minutes );
 			} elseif ( $minutes > 0 ) {
 				return __( 'a minute', $this->slug );
 			}
-			// Get the seconds
-			$seconds = intval( $seconds ) % 60;
+			// Get the seconds.
+			$seconds = round( $seconds ) % 60;
 			if ( $seconds > 1 ) {
+				// translators: %s: Number of seconds.
 				return sprintf( __( '%s seconds', $this->slug ), $seconds );
 			} elseif ( $seconds > 0 ) {
 				return __( 'a second', $this->slug );
@@ -155,7 +161,6 @@ if ( ! class_exists( 'Dsm_Supreme_Modules_For_Divi_Review' ) ) :
 			</div>';
 
 			}
-
 		}
 
 		/**
@@ -181,8 +186,6 @@ if ( ! class_exists( 'Dsm_Supreme_Modules_For_Divi_Review' ) ) :
 			}
 
 			add_site_option( $this->nobug_option, true );
-
 		}
-
 	}
 endif;

@@ -3,7 +3,7 @@
 Plugin Name: Gravity Booster ( Style & Layouts )
 Plugin URI:  http://wpmonks.com/styles-layouts-gravity-forms
 Description: Create beautiful styles for your gravity forms
-Version:     5.1
+Version:     5.2
 Author:      Sushil Kumar
 Author URI:  http://wpmonks.com/
 License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GF_STLA_DIR', WP_PLUGIN_DIR . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_URL', plugins_url() . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_STORE_URL', 'https://wpmonks.com' );
-define( 'GF_STLA_VERSION', '5.1' );
+define( 'GF_STLA_VERSION', '5.2' );
 
 if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include_once GF_STLA_DIR . '/admin-menu/EDD_SL_Plugin_Updater.php';
@@ -90,10 +90,15 @@ class Gravity_customizer_admin {
 		wp_enqueue_script( 'stla-admin-gravity-booster', GF_STLA_URL . '/build/index.js', $addons_info['dependencies'], $asset_file['version'], true );
 
 		// Generate a nonce
-		$nonce   = wp_create_nonce( 'stla_gravity_booster_nonce' );
+		$nonce = wp_create_nonce( 'stla_gravity_booster_nonce' );
+
 		$form_id = 0;
 		if ( ! empty( $_GET['formId'] ) ) {
 			$form_id = $_GET['formId'];
+		}
+		$panel_id = 'styler';
+		if ( ! empty( $_GET['panelId'] ) ) {
+			$panel_id = $_GET['panelId'];
 		}
 
 		$customizer_url = $this->_set_customizer_url( $form_id );
@@ -104,6 +109,7 @@ class Gravity_customizer_admin {
 			array(
 				'nonce'         => $nonce,
 				'formId'        => $form_id,
+				'panelId'       => $panel_id,
 				'status'        => $addons_info['status'],
 				'version'       => $addons_info['version'],
 				'customizerUrl' => $customizer_url,

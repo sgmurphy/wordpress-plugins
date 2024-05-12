@@ -29,7 +29,7 @@ use EssentialBlocks\Integrations\PluginInstaller;
 final class Plugin
 {
     use HasSingletone;
-    public $version = '4.5.11';
+    public $version = '4.5.12';
 
     public $admin;
     /**
@@ -207,6 +207,9 @@ final class Plugin
         //Table Name constants
         global $wpdb;
         $this->define( 'ESSENTIAL_BLOCKS_FORM_SETTINGS_TABLE', $wpdb->prefix . 'eb_form_settings' );
+
+        //Settings Key Constants
+        $this->define( 'ESSENTIAL_BLOCKS_HIDE_PATTERN_LIBRARY', 'eb_hide_pattern_library' );
     }
 
     /**

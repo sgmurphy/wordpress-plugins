@@ -12,9 +12,6 @@ import classnames from "classnames";
 import Inspector from "./inspector";
 import Style from "./style";
 
-
-
-
 const { duplicateBlockIdFix, EBDisplayIcon, getIconClass, DynamicInputValueHandler, getBlockParentClientId } = window.EBControls;
 
 export default function Edit(props) {
@@ -67,13 +64,13 @@ export default function Edit(props) {
         const parentTitlePrefixIcon = getParentBlock?.attributes?.titlePrefixIcon;
         const parentTitleSuffixIcon = getParentBlock?.attributes?.titleSuffixIcon;
 
-        if (getParentBlockId) {
-            setAttributes({
-                parentBlockId: getParentBlockId,
-                // titlePrefixIcon: parentTitlePrefixIcon,
-                // titleSuffixIcon: parentTitleSuffixIcon,
-            });
-        }
+        // if (getParentBlockId) {
+        //     setAttributes({
+        //         parentBlockId: getParentBlockId,
+        //         // titlePrefixIcon: parentTitlePrefixIcon,
+        //         // titleSuffixIcon: parentTitleSuffixIcon,
+        //     });
+        // }
 
     }, []);
 
@@ -130,19 +127,19 @@ export default function Edit(props) {
                     data-clickable={clickable}
                 >
                     <div
-                        className={`eb-accordion-title-wrapper`}
+                        className={`eb-accordion-title-wrapper eb-accordion-title-wrapper-${parentBlockId}`}
                         onClick={handleSlidingOfAccordion}
                         ref={accordionTitle}
                         data-tab-icon={inheritedTabIcon}
                         data-expanded-icon={inheritedExpandedIcon}
                     >
                         {inheritedDisplayIcon && (
-                            <span className="eb-accordion-icon-wrapper">
-                                <EBDisplayIcon icon={inheritedTabIcon} />
+                            <span className={`eb-accordion-icon-wrapper eb-accordion-icon-wrapper-${parentBlockId}`}>
+                                <EBDisplayIcon icon={inheritedTabIcon} className="eb-accordion-icon" />
                             </span>
                         )}
 
-                        <div className="eb-accordion-title-content-wrap">
+                        <div className={`eb-accordion-title-content-wrap title-content-${parentBlockId}`}>
                             {titlePrefixType !== 'none' && (
                                 <>
                                     {titlePrefixType === 'text' && titlePrefixText && (
@@ -274,7 +271,7 @@ export default function Edit(props) {
                         </div>
                     </div>
                     <div
-                        className="eb-accordion-content-wrapper"
+                        className={`eb-accordion-content-wrapper eb-accordion-content-wrapper-${parentBlockId}`}
                         style={{ display: "none" }}
                     >
                         <div className="eb-accordion-content">

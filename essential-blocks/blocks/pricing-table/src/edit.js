@@ -69,7 +69,8 @@ const edit = (props) => {
         ribbonAlignVertical,
         showFeatureLine,
         showRibbon,
-        showBlockContent
+        showBlockContent,
+        showFeatureIcon
     } = attributes;
 
     // this useEffect is for creating an unique id for each block's unique className by a random unique number
@@ -297,10 +298,12 @@ const edit = (props) => {
                                                                                         link
                                                                                     }
                                                                                 >
-                                                                                    <EBDisplayIcon
-                                                                                        className={`eb-pricebox-icon`}
-                                                                                        icon={icon}
-                                                                                    />
+                                                                                    {showFeatureIcon && (
+                                                                                        <EBDisplayIcon
+                                                                                            className={`eb-pricebox-icon`}
+                                                                                            icon={icon}
+                                                                                        />
+                                                                                    )}
                                                                                     <span className="eb-pricebox-feature-text">
                                                                                         {
                                                                                             text
@@ -309,10 +312,12 @@ const edit = (props) => {
                                                                                 </a>
                                                                             ) : (
                                                                                 <>
-                                                                                    <EBDisplayIcon
-                                                                                        className={`eb-pricebox-icon`}
-                                                                                        icon={icon}
-                                                                                    />
+                                                                                    {showFeatureIcon && (
+                                                                                        <EBDisplayIcon
+                                                                                            className={`eb-pricebox-icon`}
+                                                                                            icon={icon}
+                                                                                        />
+                                                                                    )}
                                                                                     <span className="eb-pricebox-feature-text">
                                                                                         {
                                                                                             text
@@ -497,11 +502,14 @@ const edit = (props) => {
                                                                                     link
                                                                                 }
                                                                             >
-                                                                                <EBDisplayIcon
-                                                                                    className={`eb-pricebox-icon`}
-                                                                                    icon={icon}
-                                                                                    style={{ color: color }}
-                                                                                />
+                                                                                {showFeatureIcon && (
+                                                                                    <EBDisplayIcon
+                                                                                        className={`eb-pricebox-icon`}
+                                                                                        icon={icon}
+                                                                                        style={{ color: color }}
+                                                                                    />
+                                                                                )}
+
                                                                                 <span className="eb-pricebox-feature-text">
                                                                                     {
                                                                                         text
@@ -510,11 +518,14 @@ const edit = (props) => {
                                                                             </a>
                                                                         ) : (
                                                                             <>
-                                                                                <EBDisplayIcon
-                                                                                    className={`eb-pricebox-icon`}
-                                                                                    icon={icon}
-                                                                                    style={{ color: color }}
-                                                                                />
+                                                                                {showFeatureIcon && (
+                                                                                    <EBDisplayIcon
+                                                                                        className={`eb-pricebox-icon`}
+                                                                                        icon={icon}
+                                                                                        style={{ color: color }}
+                                                                                    />
+                                                                                )}
+
                                                                                 <span className="eb-pricebox-feature-text">
                                                                                     {
                                                                                         text

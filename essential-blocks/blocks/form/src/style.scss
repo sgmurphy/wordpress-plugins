@@ -459,6 +459,9 @@
 			transition: ease-in-out 0.3s;
 			cursor: pointer;
 
+			// for Shapely theme
+			line-height: normal;
+
 			.eb-form-submit-loader {
 				display: none;
 				height: 1.4em;

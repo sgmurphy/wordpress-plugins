@@ -135,6 +135,7 @@ const Inspector = ({ attributes, setAttributes }) => {
         newWindow,
         showFeatureLine,
         pricingTopBgColor,
+        showFeatureIcon
     } = attributes;
 
     const resRequiredProps = {
@@ -312,7 +313,7 @@ const Inspector = ({ attributes, setAttributes }) => {
                                                 handlePricingStyle(pricingStyle)
                                             }
                                         /> */}
-                                        
+
                                         <TextControl
                                             label={__(
                                                 "Title",
@@ -510,10 +511,22 @@ const Inspector = ({ attributes, setAttributes }) => {
                                                         });
                                                     }}
                                                 />
+                                                <ToggleControl
+                                                    label={__("Show Icon?")}
+                                                    checked={showFeatureIcon}
+                                                    onChange={() => {
+                                                        setAttributes({
+                                                            showFeatureIcon: !showFeatureIcon,
+                                                        });
+                                                    }}
+                                                />
 
                                                 <SortableFeatures
                                                     features={
                                                         attributes.features
+                                                    }
+                                                    featureIcon={
+                                                        attributes.showFeatureIcon
                                                     }
                                                     setAttributes={
                                                         setAttributes
@@ -1299,18 +1312,21 @@ const Inspector = ({ attributes, setAttributes }) => {
                                                 })
                                             }
                                         />
-                                        <ResponsiveRangeController
-                                            baseLabel={__(
-                                                "Icon Size",
-                                                "essential-blocks"
-                                            )}
-                                            controlName={featuresIconSize}
-                                            resRequiredProps={resRequiredProps}
-                                            min={0}
-                                            max={50}
-                                            step={1}
-                                            noUnits
-                                        />
+                                        {showFeatureIcon && (
+                                            <ResponsiveRangeController
+                                                baseLabel={__(
+                                                    "Icon Size",
+                                                    "essential-blocks"
+                                                )}
+                                                controlName={featuresIconSize}
+                                                resRequiredProps={resRequiredProps}
+                                                min={0}
+                                                max={50}
+                                                step={1}
+                                                noUnits
+                                            />
+                                        )}
+
                                         <TypographyDropdown
                                             baseLabel={__(
                                                 "Typography",
