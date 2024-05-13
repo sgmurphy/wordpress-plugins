@@ -35,6 +35,8 @@
 </template>
 
 <script setup>
+import moment from "moment";
+
 // * import from Vue
 import {
   ref,
@@ -161,13 +163,32 @@ function filterPackages () {
   let servicesFilter = store.getters['cabinetFilters/getServices']
   let providersFilter = store.getters['cabinetFilters/getProviders']
   let locationsFilter = store.getters['cabinetFilters/getLocations']
-  purchases.value = Object.fromEntries(Object.entries(allPurchases.value).filter(([key, value]) => {
-    let entities = store.getters['entities/getPackageEntities'](value.packageData.id)
+  purchases.value = allPurchases.value.filter((item) => {
+    let entities = store.getters['entities/getPackageEntities'](item[1].packageData.id)
     return (servicesFilter.length === 0 || servicesFilter.filter(s => entities.services.includes(s)).length > 0) &&
       (providersFilter.length === 0 || providersFilter.filter(p => entities.providers.includes(p)).length > 0) &&
       (locationsFilter.length === 0 || locationsFilter.filter(l => entities.locations.includes(l)).length > 0) &&
         (packagesFilter.length === 0 || packagesFilter.filter(p => entities.packages.includes(p)).length > 0)
-  }))
+  })
+}
+
+function purchasedCount (data, id, type) {
+  let count = 0
+
+  Object.keys(data).forEach((serviceId) => {
+    if (id === null || parseInt(id) === parseInt(serviceId)) {
+      count += data[serviceId].purchaseData[type]
+    }
+  })
+
+  return count
+}
+
+function packagesSlotsCalculation (data) {
+  let notBooked = purchasedCount(data.services, null, 'count')
+  let capacity = purchasedCount(data.services, null, 'total')
+
+  return (capacity - notBooked) === capacity
 }
 
 function getPackagesAppointments (passedData) {
@@ -189,7 +210,7 @@ function getPackagesAppointments (passedData) {
       )
     )
   ).then((response) => {
-    let purchasesItems = []
+    let purchasesItems = {}
 
     response.data.data.availablePackageBookings.forEach((item) => {
       item.packages.forEach((packageItem) => {
@@ -209,6 +230,9 @@ function getPackagesAppointments (passedData) {
                     status: bookingItem.status,
                     type: 'package',
                     payments: bookingItem.payments,
+                    sharedCapacity: bookingItem.sharedCapacity,
+                    sharedTotal: bookingItem.total,
+                    sharedCount: bookingItem.count,
                     discount: 0,
                     color: pack.color,
                     pictureFullPath: pack.pictureFullPath,
@@ -262,8 +286,24 @@ function getPackagesAppointments (passedData) {
       })
     })
 
-    purchases.value = purchasesItems
-    allPurchases.value = purchasesItems
+    let packCanceled = Object.entries(purchasesItems).filter(item => item[1].packageData.status === 'canceled')
+    let packFull = Object.entries(purchasesItems).filter(item => {
+      return item[1].packageData.status !== 'canceled'
+        && packagesSlotsCalculation(item[1])
+    })
+    let packUnlimited = Object.entries(purchasesItems).filter(item => {
+      return item[1].packageData.status !== 'canceled'
+        && !packagesSlotsCalculation(item[1])
+        && item[1].packageData.end === null
+    })
+    let packExpire = Object.entries(purchasesItems).filter(item => {
+      return item[1].packageData.status !== 'canceled'
+        && !packagesSlotsCalculation(item[1])
+        && item[1].packageData.end !== null
+    }).sort((a, b) => moment(a[1].packageData.end, 'YYYY-MM-DD HH:mm:ss').diff(moment(b[1].packageData.end, 'YYYY-MM-DD HH:mm:ss'), 'minutes'))
+
+    purchases.value = [...packExpire, ...packUnlimited, ...packFull, ...packCanceled]
+    allPurchases.value = [...packExpire, ...packUnlimited, ...packFull, ...packCanceled]
 
     let filterEmpty = !(params.packages.length || params.services.length || params.providers.length || params.locations.length)
 
@@ -272,8 +312,8 @@ function getPackagesAppointments (passedData) {
       let providerIds = []
       let locationIds = []
       let packagesIds = []
-      Object.values(purchases.value).forEach(pack => {
-        let entities = store.getters['entities/getPackageEntities'](pack.packageData.id)
+     purchases.value.forEach(pack => {
+        let entities = store.getters['entities/getPackageEntities'](pack[1].packageData.id)
         serviceIds = serviceIds.concat(entities.services)
         providerIds = providerIds.concat(entities.providers)
         locationIds = locationIds.concat(entities.locations)
@@ -343,7 +383,7 @@ let packagePages = computed(() => {
     item: {
       template: markRaw(PackageAppointmentsList),
       props: {
-        data: purchases.value[selectedPackageCustomerId.value],
+        data: selectedPackageCustomerId.value ? purchases.value.find(p => p[0] === selectedPackageCustomerId.value)[1] : {},
         responsiveClass: responsiveClass.value,
         pageWidth: pageWidth.value,
       },

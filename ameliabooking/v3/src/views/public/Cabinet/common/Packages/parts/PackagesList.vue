@@ -1,11 +1,11 @@
 <template>
-  <template v-if="Object.keys(props.packages).length">
+  <template v-if="props.packages.length">
     <div
-      v-for="customerId in Object.keys(props.packages)"
-      :key="customerId"
+      v-for="pack in props.packages"
+      :key="pack[0]"
       :style="cssVars"
       class="am-sc"
-      :class="{'am-sc__canceled': props.packages[customerId].packageData.status === 'canceled'}"
+      :class="{'am-sc__canceled': pack[1].packageData.status === 'canceled'}"
     >
       <div
         class="am-sc__top"
@@ -13,13 +13,13 @@
       >
         <div class="am-sc__top-left">
           <div class="am-sc__name">
-            {{ props.packages[customerId].packageData.name }}
+            {{ pack[1].packageData.name }}
           </div>
           <div
-            v-if="props.packages[customerId].packageData.end"
+            v-if="pack[1].packageData.end"
             class="am-sc__date"
           >
-            {{ amLabels.package_book_expire}} {{ getFrontedFormattedDate(props.packages[customerId].packageData.end.split(' ')[0]) }}
+            {{ amLabels.package_book_expire}} {{ getFrontedFormattedDate(pack[1].packageData.end.split(' ')[0]) }}
           </div>
           <div v-else class="am-sc__date">
             {{ `${amLabels.package_book_expiration} ${amLabels.package_book_unlimited}` }}
@@ -28,20 +28,20 @@
         <div
           class="am-sc__top-right"
           :class="responsiveClass"
-          @click="selectId(customerId)"
+          @click="selectId(pack[0])"
         >
           <div class="am-sc__capacity">
-            {{ packagesSlotsCalculation(props.packages, customerId) }}
+            {{ packagesSlotsCalculation(pack[1]) }}
           </div>
           <div class="am-sc__btn">
             <span class="am-icon-arrow-right"></span>
           </div>
         </div>
       </div>
-      <template v-if="props.packages[customerId].packageData.end && props.packages[customerId].packageData.status !== 'canceled'">
-        <div v-if="expirationDate(props.packages[customerId].packageData.end.split(' ')[0]) > 0" class="am-sc__bottom">
+      <template v-if="pack[1].packageData.end && pack[1].packageData.status !== 'canceled'">
+        <div v-if="expirationDate(pack[1].packageData.end.split(' ')[0]) > 0" class="am-sc__bottom">
         <span class="am-sc__expiration">
-          <span class="am-icon-triangle-info"></span> {{ `${amLabels.package_deal_expire_in} ${expirationDate(props.packages[customerId].packageData.end.split(' ')[0])} ${amLabels.expires_days}, ${amLabels.appointments_deal_expire}` }}
+          <span class="am-icon-triangle-info"></span> {{ `${amLabels.package_deal_expire_in} ${expirationDate(pack[1].packageData.end.split(' ')[0])} ${amLabels.expires_days}, ${amLabels.appointments_deal_expire}` }}
         </span>
         </div>
       </template>
@@ -115,11 +115,11 @@ function bookedNumberText (numb) {
   return numb === 1 ? amLabels.value.appointment_booked : amLabels.value.appointments_booked
 }
 
-function packagesSlotsCalculation(data, id) {
-  let notBooked = purchasedCount(data[id].services, null, 'count')
-  let capacity = purchasedCount(data[id].services, null, 'total')
+function packagesSlotsCalculation(data) {
+  let notBooked = data.packageData.sharedCapacity ? data.packageData.sharedCount : purchasedCount(data.services, null, 'count')
+  let slotsCapacity = data.packageData.sharedCapacity ? data.packageData.sharedTotal : purchasedCount(data.services, null, 'total')
 
-  return `${capacity - notBooked}/${capacity} ${bookedNumberText(capacity - notBooked)}`
+  return `${slotsCapacity - notBooked}/${slotsCapacity} ${bookedNumberText(slotsCapacity - notBooked)}`
 }
 
 /**

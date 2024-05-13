@@ -2,7 +2,7 @@
   <Content
     wrapper-class="am-fcil"
     form-class="am-fcil__main"
-    content-class="am-fcil__wrapper"
+    :content-class="`am-fcil__wrapper ${customizeOptions.pageScroll.visibility ? '' : 'no-scroll'}`"
     :style="cssVars"
   >
     <template #header>
@@ -1063,6 +1063,11 @@ export default {
       flex-wrap: wrap;
       justify-content: center;
       padding: 0 16px 16px;
+
+      &.no-scroll {
+        max-height: unset;
+        overflow-x: unset;
+      }
     }
 
     &__item {

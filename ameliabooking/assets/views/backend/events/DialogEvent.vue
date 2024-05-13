@@ -1648,6 +1648,10 @@
             value: 'fourth'
           },
           {
+            label: this.$root.labels.recurring_date_fifth,
+            value: 'fifth'
+          },
+          {
             label: this.$root.labels.recurring_date_last,
             value: 'last'
           }

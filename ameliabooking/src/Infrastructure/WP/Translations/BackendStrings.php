@@ -1428,6 +1428,7 @@ class BackendStrings
             'service_about'                      => __('About Service', 'wpamelia'),
             'cil_filter_input'                   => __('“Search” option', 'wpamelia'),
             'cli_item_color'                     => __('Card Color', 'wpamelia'),
+            'page_scroll_visibility'             => __('Page Scroll Visibility', 'wpamelia'),
 
             'filter_input'                       => __('Search', 'wpamelia'),
             'available'                          => __('Available', 'wpamelia'),

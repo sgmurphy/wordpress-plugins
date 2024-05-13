@@ -25,7 +25,7 @@ final class Plugin {
 
     public function version()
     {
-        return '3.8.7';
+        return '3.8.8';
     }
 
     public function package_type()
@@ -304,9 +304,8 @@ final class Plugin {
         ]
         )
         ->call();
-
     
-        if( !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') ) {
+        if( !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') && \MetForm\Utils\Util::get_settings( 'metform_user_consent_for_banner', 'yes' ) == 'yes') {
             
             $current_theme = '';
 

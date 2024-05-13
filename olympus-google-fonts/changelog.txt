@@ -1,3 +1,7 @@
+= 3.6.51 =
+
+* Fix implicit conversion deprecation
+
 = 3.6.42 =
 
 * Update blueprint
@@ -5,6 +9,10 @@
 = 3.6.4 =
 
 * Improve font file upload handling
+
+= 3.6.31 =
+
+* Add blueprint
 
 = 3.6.3 =
 

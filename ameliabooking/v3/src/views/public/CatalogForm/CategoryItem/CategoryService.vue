@@ -6,7 +6,7 @@
       wrapper-class="am-fcis"
       form-class="am-fcis__form"
       heading-class="am-fcis__header"
-      content-class="am-fcis__content"
+      :content-class="`am-fcis__content ${scrollVisibility ? '' : 'no-scroll'}`"
       :style="cssVars"
     >
       <template #header>
@@ -573,6 +573,12 @@ let customizedOptions = computed(() => {
   return customizedDataForm.value.categoryService.options
 })
 
+let scrollVisibility = computed(() => {
+  if (!('pageScroll' in customizedOptions.value)) return true
+
+  return customizedOptions.value.pageScroll.visibility
+})
+
 // * Booking Type (appointment, booking)
 let itemType = inject('itemType')
 
@@ -743,7 +749,6 @@ function selectServicePackage(pack) {
 }
 
 // * Shortcode
-const shortcodeData = inject('shortcodeData')
 const preselected = computed(() => store.getters['entities/getPreselected'])
 
 let stepName = ref('')
@@ -945,6 +950,13 @@ export default {
 
         &-bottom {
           padding: 0 0 16px;
+        }
+      }
+
+      &__content {
+        &.no-scroll {
+          max-height: unset;
+          overflow-x: unset;
         }
       }
 

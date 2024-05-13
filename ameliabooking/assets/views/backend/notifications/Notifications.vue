@@ -232,7 +232,18 @@
         this.$http.get(
           `${this.$root.getAjaxUrl}/notifications`
         ).then(response => {
-          this.notifications = response.data.data.notifications
+          let notifications = response.data.data.notifications
+
+          notifications.forEach((notification) => {
+            if (notification.type === 'email') {
+              notification.textMode = notification.content.startsWith('<!-- Content -->')
+
+              notification.content = notification.content.replace('<!-- Content -->', '')
+            }
+          })
+
+          this.notifications = notifications
+
           if (response.data.data.whatsAppTemplates) {
             this.whatsAppTemplates = response.data.data.whatsAppTemplates
           }

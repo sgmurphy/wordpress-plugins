@@ -267,6 +267,15 @@ class Meow_WR2X_Engine {
 		$this->core->log("* GENERATE WEBP FOR ATTACHMENT '{$meta['file']}'");
 		$this->core->log( "Full-Size is {$original_basename}." );
 
+		//before doing each size, create a webp version of the original file
+		if( $this->core->get_option( 'webp_full_size' ) ) {
+			$random_suffix = substr( md5( uniqid( rand(), true ) ), 0, 8 );
+			$sizes['webp_full_size_' . $random_suffix] = array( 'width' => $meta['width'], 'height' => $meta['height'], 'webp' => true );
+			$meta['sizes']['webp_full_size_' . $random_suffix]['file'] = $original_basename;
+		}
+		
+		
+
 		foreach ( $sizes as $name => $attr ) {
 			$normal_file = "";
 			if ( !$attr['webp'] ) {

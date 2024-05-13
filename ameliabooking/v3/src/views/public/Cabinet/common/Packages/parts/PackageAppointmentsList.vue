@@ -53,7 +53,7 @@
             v-if="Object.keys(props.data.services).length > 1"
             class="am-cappa__capacity"
           >
-            {{ packagesSlotsCalculation(props.data.services) }}
+            {{ packagesSlotsCalculation(props.data) }}
           </div>
         </div>
       </div>
@@ -123,8 +123,11 @@
                 <div class="am-cappa__service-name">
                   {{ props.data.services[selectedServiceId].purchaseData.name }}
                 </div>
-                <div class="am-cappa__service-capacity">
-                  {{ packagesSlotsCalculation(props.data.services, selectedServiceId) }}
+                <div
+                  v-if="!props.data.packageData.sharedCapacity"
+                  class="am-cappa__service-capacity"
+                >
+                  {{ packagesSlotsCalculation(props.data, selectedServiceId) }}
                 </div>
               </div>
             </div>
@@ -273,6 +276,7 @@ let employees = computed(() => {
     if (selectedLocation.value) {
       Object.keys(relations).forEach((employeeId) => {
         if (
+          targetAppointment.value &&
           targetAppointment.value.serviceId in relations[employeeId] &&
           relations[employeeId][parseInt(targetAppointment.value.serviceId)].indexOf(selectedLocation.value) !== -1
         ) {
@@ -416,8 +420,8 @@ function bookedNumberText (numb) {
 }
 
 function packagesSlotsCalculation(data, id = null) {
-  let notBooked = getPurchasedCount(data, id, 'count')
-  let capacity = getPurchasedCount(data, id, 'total')
+  let notBooked = data.packageData.sharedCapacity ? data.packageData.sharedCount : getPurchasedCount(data.services, id, 'count')
+  let capacity = data.packageData.sharedCapacity ? data.packageData.sharedTotal : getPurchasedCount(data.services, id, 'total')
 
   return `${capacity - notBooked}/${capacity} ${bookedNumberText(capacity - notBooked)}`
 }

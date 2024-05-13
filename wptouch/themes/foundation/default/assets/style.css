@@ -748,6 +748,14 @@ ul.dots li.active,
 	font-style: normal;
 }
 
+.sharing-options .reddit-btn:before {
+	content: '\f281';
+	margin-right: 5px;
+	font-family: 'wptouch-icons';
+	font-weight: normal;
+	font-style: normal;
+}
+
 .sharing-options .google-btn:before {
 	content: '\e81c';
 	margin-right: 5px;
@@ -767,6 +775,7 @@ ul.dots li.active,
 .rtl .sharing-options .sms-btn:before,
 .rtl .sharing-options .facebook-btn:before,
 .rtl .sharing-options .twitter-btn:before,
+.rtl .sharing-options .reddit-btn:before,
 .rtl .sharing-options .google-btn:before,
 .rtl .sharing-options .pinterest-btn:before,
 .rtl .sharing-options .email-btn:before {
@@ -783,6 +792,14 @@ ul.dots li.active,
 
 .rtl .sharing-options .twitter-btn:after {
 	content: '\e81b';
+	margin-left: 5px;
+	font-family: 'wptouch-icons';
+	font-weight: normal;
+	font-style: normal;
+}
+
+.rtl .sharing-options .reddit-btn:after {
+	content: '\f281';
 	margin-left: 5px;
 	font-family: 'wptouch-icons';
 	font-weight: normal;
@@ -836,6 +853,10 @@ ul.dots li.active,
 
 .sharing-options.style-vibrant .twitter-btn {
 	background-color: #8cc1db;
+}
+
+.sharing-options.style-vibrant .reddit-btn {
+	background-color: #d93900;
 }
 
 .sharing-options.style-vibrant .google-btn {

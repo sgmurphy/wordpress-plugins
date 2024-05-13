@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 19:19+0200\n"
-"PO-Revision-Date: 2024-04-09 12:52+0200\n"
+"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"PO-Revision-Date: 2024-04-24 14:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
 "Language: he_IL\n"
@@ -49,14 +49,12 @@ msgid "Approved"
 msgstr "מאושר"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:31
-#, fuzzy
 msgid "Attendee"
-msgstr "האירוע בוטל על ידי המשתתף"
+msgstr "משתתף"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:32
-#, fuzzy
 msgid "Booked"
-msgstr "הזמן פגישה"
+msgstr "הוזמן"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:33
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:88
@@ -79,7 +77,7 @@ msgid ""
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:37
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:204
 msgid "Close"
 msgstr "סגור"
@@ -104,9 +102,8 @@ msgid "Continue"
 msgstr "המשך"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:42
-#, fuzzy
 msgid "Coupon code"
-msgstr "קופון"
+msgstr "קוד קופון"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:43
 #: src/Infrastructure/WP/Translations/BackendStrings.php:560
@@ -122,9 +119,8 @@ msgid "Hour"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:46
-#, fuzzy
 msgid "Hours"
-msgstr "שעות עבודה וימי חופש"
+msgstr "שעות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:47
 msgid "Day"
@@ -151,13 +147,12 @@ msgid "Months"
 msgstr "חודשים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:53
-#, fuzzy
 msgid "Year"
-msgstr "מחזור שנתי"
+msgstr "שנה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:54
 msgid "Years"
-msgstr ""
+msgstr "שנים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:55
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1303
@@ -215,14 +210,12 @@ msgid "Employees"
 msgstr "עובדים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:66
-#, fuzzy
 msgid "Employee Badge"
-msgstr "כתובת מייל של מבצע העבודה"
+msgstr "תוית נותן שירות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:67
-#, fuzzy
 msgid "Employee Badges"
-msgstr "עובדים"
+msgstr "תוויות נותני שירות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:68
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:103
@@ -240,7 +233,7 @@ msgstr "שגיאה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:71
 #: src/Infrastructure/WP/Translations/BackendStrings.php:566
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:176
 msgid "Event"
 msgstr "אירוע"
@@ -259,9 +252,8 @@ msgid "Extras"
 msgstr "תוספות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:75
-#, fuzzy
 msgid "Extras total price"
-msgstr "סה\"כ מחיר"
+msgstr "סה\"כ מחיר לתוספות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:76
 msgid "Google Calendar"
@@ -297,19 +289,16 @@ msgid "Interested in unlocking this feature?"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:84
-#, fuzzy
 msgid "Available from Starter license"
-msgstr "תמונות זמינות"
+msgstr "Available from Starter license"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:85
-#, fuzzy
 msgid "Available from Standard license"
-msgstr "תמונות זמינות"
+msgstr "Available from Standard license"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:86
-#, fuzzy
 msgid "Available from Pro license"
-msgstr "תמונות זמינות"
+msgstr "Available from Pro license"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:87
 msgid "Available in Elite licence"
@@ -386,9 +375,8 @@ msgid "min"
 msgstr "דקות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:104
-#, fuzzy
 msgid "Measurement ID"
-msgstr "Payment ID"
+msgstr "מזהה מדידה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:105
 msgid "Name"
@@ -472,9 +460,8 @@ msgid "out of"
 msgstr "מִתוֹך"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:124
-#, fuzzy
 msgid "Packages"
-msgstr "הצג את כל התוויות"
+msgstr "חבילות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:125
 msgid "Paid"
@@ -488,8 +475,8 @@ msgstr ""
 #: src/Infrastructure/WP/Translations/BackendStrings.php:561
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1289
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1299
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:179
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:206
 msgid "Payment"
@@ -522,9 +509,8 @@ msgid "Rejected"
 msgstr "נדחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:134
-#, fuzzy
 msgid "Resources"
-msgstr "הלקוח נמחק"
+msgstr "משאבים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:135
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1193
@@ -532,9 +518,8 @@ msgid "Save"
 msgstr "שמור"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:136
-#, fuzzy
 msgid "Select badge"
-msgstr "בחר תויות"
+msgstr "בחר תוית"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:137
 msgid "Please select date"
@@ -550,7 +535,7 @@ msgstr "אנא בחר זמן"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1268
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1270
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1305
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:163
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:166
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:182
@@ -561,7 +546,7 @@ msgstr "שירות"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:140
 #: src/Infrastructure/WP/Translations/BackendStrings.php:327
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1291
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:174
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:244
 msgid "Services"
@@ -598,9 +583,8 @@ msgid "HTML Mode"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:148
-#, fuzzy
 msgid "Tag"
-msgstr "בחר או צור תג"
+msgstr "תג"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:149
 msgid "to"
@@ -621,11 +605,11 @@ msgstr "סה\"כ"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:153
 msgid "Translate"
-msgstr ""
+msgstr "תרגם"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:154
 msgid "Translation"
-msgstr ""
+msgstr "תרגום"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:155
 msgid "View"
@@ -840,9 +824,8 @@ msgid "API keys"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:212
-#, fuzzy
 msgid "Use this setting to manage API keys for Amelia endpoints"
-msgstr "השתמש בהגדרות אלה כדי לנהל הזמנות ב frontend"
+msgstr "Use this setting to manage API keys for Amelia endpoints"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:213
 msgid "Click 'Generate' to get your API key"
@@ -861,14 +844,12 @@ msgid "Use these settings to manage frontend bookings"
 msgstr "השתמש בהגדרות אלה כדי לנהל הזמנות ב frontend"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:217
-#, fuzzy
 msgid "Redirect URL for Successfully Approved Booking"
-msgstr "Redirect URL After Booking"
+msgstr "כתובת אתר להפניה מחדש להזמנה שאושרה בהצלחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:218
-#, fuzzy
 msgid "Redirect URL for Unsuccessfully Approved Booking"
-msgstr "Redirect URL After Booking"
+msgstr "כתובת אתר להפניה מחדש עבור הזמנה שאושרה שלא בהצלחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:219
 msgid "Automatically create Amelia Customer user"
@@ -937,7 +918,7 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:232
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1168
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
 msgid "Calendar"
 msgstr "לוח שנה"
 
@@ -981,17 +962,15 @@ msgid ""
 msgstr "השתמש בהגדרות אלה כדי להגדיר תמונה, שם, כתובת, טלפון ואתר של החברה שלך"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:241
-#, fuzzy
 msgid "Cart"
-msgstr "מצטערים, אירעה שגיאה במהלך הוספת ההזמנה לעגלת WooCommerce."
+msgstr "עגלת קניות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:242
-#, fuzzy
 msgid ""
 "If this option is enabled, customers will be able to book multiple services "
 "in a single booking process."
 msgstr ""
-"אם אפשרות זו מושבתת, הלקוחות שלך לא יוכלו להזמין פגישות חוזרות בו זמנית."
+"אם אפשרות זו מופעלת, לקוחות יוכלו להזמין מספר שירותים בתהליך הזמנה אחד."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:243
 #: src/Infrastructure/WP/Translations/BackendStrings.php:959
@@ -1003,9 +982,8 @@ msgid "Enable No-show tag"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:245
-#, fuzzy
 msgid "Enable this option if you want to see which Customers were a No-show"
-msgstr "הפעל אפשרות זו אם אתה רוצה שהלקוחות שלך יקבלו דוא\"ל על האירוע."
+msgstr "אפשר אפשרות זו אם ברצונך לראות אילו לקוחות לא הופיעו"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:246
 msgid "Enable Google Meet"
@@ -1024,14 +1002,12 @@ msgid "Google Analytics"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:250
-#, fuzzy
 msgid "Generate"
-msgstr "כללי"
+msgstr "יצירה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:251
-#, fuzzy
 msgid "Employee selection logic"
-msgstr "כתובת מייל של מבצע העבודה"
+msgstr "לוגיקה בחירת עובדים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:252
 msgid "Random"
@@ -1042,9 +1018,8 @@ msgid "Currency"
 msgstr "מטבע"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:254
-#, fuzzy
 msgid "Customize Page"
-msgstr "התאמה אישית"
+msgstr "התאמה אישית לעמוד"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:255
 msgid "Add Event's Attendees"
@@ -1067,14 +1042,12 @@ msgid "All appointments will be scheduled with the<br/>status you choose here."
 msgstr "כל הפגישות יתוזמנו בסטטוס <br/> שתבחר כאן."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:260
-#, fuzzy
 msgid "Default items per page for Frontend"
-msgstr "ברירת מחדל למספר פריטים לעמוד"
+msgstr "פריטי ברירת מחדל לכל עמוד עבור Frontend"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:261
-#, fuzzy
 msgid "Default items per page for Backend"
-msgstr "ברירת מחדל למספר פריטים לעמוד"
+msgstr "פריטי ברירת מחדל לכל עמוד עבור Backend"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:262
 msgid "Default page on back-end"
@@ -1313,9 +1286,8 @@ msgid "Create Meetings For Pending Appointments"
 msgstr "צור פגישות, לפגישות ממתינות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:322
-#, fuzzy
 msgid "Check customer's name for existing email/phone when booking"
-msgstr "בדוק את שם הלקוח אם יש דוא\"ל קיים בעת ביצוע ההזמנה"
+msgstr "בדוק את שם הלקוח עבור דוא\"ל/טלפון קיים בעת ההזמנה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:323
 msgid ""
@@ -1505,14 +1477,12 @@ msgid "Purchase code"
 msgstr "Purchase code"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
-#, fuzzy
 msgid "Provider Details"
-msgstr "פרטי השירות"
+msgstr "פרטי הספק"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:369
-#, fuzzy
 msgid "Use this setting to configure provider details"
-msgstr "השתמש בהגדרות אלה כדי לנהל הזמנות ב frontend"
+msgstr "השתמש בהגדרה זו כדי להגדיר את פרטי הספק"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:370
 msgid "Enable Google reCAPTCHA"
@@ -1527,9 +1497,8 @@ msgstr ""
 "booking forms"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:372
-#, fuzzy
 msgid "Redirect URLs"
-msgstr "Redirect URI"
+msgstr "הפניות לאתרים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:373
 msgid "Redirect URL After Booking"
@@ -1557,14 +1526,12 @@ msgid "Include Buffer time in Outlook events"
 msgstr "Include Buffer time in Outlook events"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:379
-#, fuzzy
 msgid "Redirect URL for Successfully Rejected Booking"
-msgstr "Redirect URL After Booking"
+msgstr "כתובת אתר להפניה מחדש עבור הזמנה שנדחתה בהצלחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:380
-#, fuzzy
 msgid "Redirect URL for Unsuccessfully Rejected Booking"
-msgstr "Redirect URL After Booking"
+msgstr "כתובת אתר להפניה מחדש עבור הזמנה שלא נדחתה בהצלחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:381
 msgid "Require password for login"
@@ -1633,9 +1600,8 @@ msgid "Credit minimum to send reminder"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:395
-#, fuzzy
 msgid "Send to e-mail"
-msgstr "שלח טסט דואר אלקטרוני"
+msgstr "נשלח ל דואר אלקטרוני"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:396
 msgid "Sender Email"
@@ -1765,18 +1731,16 @@ msgid "View Payments Settings"
 msgstr "צפה בהגדרות תשלום"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
 msgid "View Provider Details Settings"
-msgstr "צפה בהגדרות כלליות"
+msgstr "הצג את הגדרות פרטי הספק"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
 msgstr "צפה בהגדרות תפקיד"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:426
-#, fuzzy
 msgid "View API keys Settings"
-msgstr "צפה בהגדרות תפקיד"
+msgstr "View API keys Settings"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:427
 msgid "Website"
@@ -1940,9 +1904,8 @@ msgstr "אחר"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:475
 #: src/Infrastructure/WP/Translations/BackendStrings.php:558
-#, fuzzy
 msgid "Cart Purchase"
-msgstr "Purchase code"
+msgstr "עגלת קניות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:476
 #: src/Infrastructure/WP/Translations/BackendStrings.php:575
@@ -2096,9 +2059,8 @@ msgstr "לקוח שהזמין (שם מלא, דוא\"ל, טלפון)"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:512
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1094
-#, fuzzy
 msgid "Number of people"
-msgstr "המחיר יוכפל במספר האנשים"
+msgstr "מספר האנשים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:513
 msgid "Category ID"
@@ -2125,9 +2087,8 @@ msgid "Company website"
 msgstr "אתר החברה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:519
-#, fuzzy
 msgid "Company email"
-msgstr "שם החברה"
+msgstr "מייל החברה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:520
 msgid "Customer email"
@@ -2212,11 +2173,10 @@ msgid "End time of the event"
 msgstr "שעת סיום האירוע"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:540
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:178
-#, fuzzy
 msgid "Event ID"
-msgstr "תאריך האירוע"
+msgstr "מזהה האירוע"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:541
 msgid "Event name"
@@ -2298,9 +2258,8 @@ msgid "Category"
 msgstr "קטגוריה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:567
-#, fuzzy
 msgid "Extra"
-msgstr "תוספת:"
+msgstr "תוספת"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:568
 msgid "Placeholder Copied"
@@ -2480,27 +2439,28 @@ msgid ""
 "Messages sent through WhatsApp are without a reply option, so we advise "
 "setting the “Auto-Reply” message"
 msgstr ""
+"הודעות שנשלחות דרך WhatsApp הן ללא אפשרות תשובה, לכן אנו ממליצים להגדיר את "
+"הודעת תשובה אוטומטית"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:625
 msgid "WhatsApp Webhook Verify Token"
-msgstr ""
+msgstr "WhatsApp Webhook Verify Token"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:626
 msgid "WhatsApp Auto-reply message"
-msgstr ""
+msgstr "הודעת תשובה אוטומטית של WhatsApp"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:627
 msgid "WhatsApp Business Account ID"
-msgstr ""
+msgstr "מזהה חשבון עסקי של WhatsApp"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:628
 msgid "Default language"
-msgstr ""
+msgstr "ברירת מחדל שפה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:629
-#, fuzzy
 msgid "WhatsApp Notifications"
-msgstr "התראת מייל"
+msgstr "התראת ווצאפ"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:630
 msgid "Enable WhatsApp Notifications"
@@ -2563,9 +2523,8 @@ msgid "Dashboard"
 msgstr "לוח ראשי"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:655
-#, fuzzy
 msgid "Grab Yours"
-msgstr "שעות הפסקה"
+msgstr "תפוס את שלך"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:656
 msgid "New"
@@ -2708,7 +2667,7 @@ msgid "Hide"
 msgstr "הסתר"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:712
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
 msgid "Show"
 msgstr "הצג"
 
@@ -2808,9 +2767,8 @@ msgid "Are you sure you want to show this service?"
 msgstr "האם אתה בטוח שברצונך להציג שירות זה?"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:757
-#, fuzzy
 msgid "Are you sure you want to delete this category?"
-msgstr "האם אתה בטוח שברצונך למחוק קטגוריה זו"
+msgstr "האם אתה בטוח שברצונך למחוק קטגוריה זו?"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:758
 msgid "Are you sure you want to duplicate this category?"
@@ -2864,7 +2822,6 @@ msgstr "שירות חדש"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:771
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1362
-#, fuzzy
 msgid "+more"
 msgstr "הצג עוד"
 
@@ -3049,9 +3006,8 @@ msgid "Capacity"
 msgstr "קיבולת"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:832
-#, fuzzy
 msgid "Provider Settings"
-msgstr "הגדרת תפקידים"
+msgstr "הגדרות ספק"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:833
 msgid "Employee has been saved"
@@ -3123,11 +3079,8 @@ msgid "Search Customers..."
 msgstr "חפש לקוחות..."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:863
-#, fuzzy
 msgid "Created On"
-msgstr ""
-"הזמנת אירועים היא קיצור הדרך שנותן ללקוחות שלך אפשרות להזמין אחד מהאירועים "
-"שיצרת בקצה האחורי בתצוגת רשימת אירועים פשוטה."
+msgstr "נוצר ב"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:864
 msgid "Date of Birth"
@@ -3275,9 +3228,8 @@ msgid "Take a look at how our clients use Amelia"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:921
-#, fuzzy
 msgid "Read Success Stories"
-msgstr "בוצע בהצלחה"
+msgstr "למד סיפורי הצלחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:922
 msgid "Have questions?"
@@ -3296,26 +3248,22 @@ msgid "Most used Premium features"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:926
-#, fuzzy
 msgid "Online Payments"
-msgstr "תשלומים"
+msgstr "תשלומים מקוונים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:927
-#, fuzzy
 msgid "Packages of services"
-msgstr "PayPal Service"
+msgstr "חבילות שירותים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:928
-#, fuzzy
 msgid "Google Calendar Sync"
-msgstr "יומן גוגל"
+msgstr "סנכרון יומן גוגל"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:929
 msgid "Zoom/Google Meet"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:930
-#, fuzzy
 msgid "Custom Service Duration"
 msgstr "משך זמן השירות"
 
@@ -3384,9 +3332,8 @@ msgid "Payment date"
 msgstr "תאריך התשלום"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:968
-#, fuzzy
 msgid "Payment created"
-msgstr "תאריך התשלום"
+msgstr "תשלום נוצר"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:970
 msgid "payments"
@@ -3535,9 +3482,8 @@ msgstr ""
 "תלוי <br/> בכושר השירות וביכולת העובד."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1028
-#, fuzzy
 msgid "Edit Payment Details"
-msgstr "פרטי התשלום"
+msgstr "ערוך פרטי התשלום"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1029
 msgid "Edit Appointment"
@@ -3609,7 +3555,7 @@ msgstr "המספר המרבי של המקומות הוא"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1042
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1214
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:259
 msgid "Select Service"
 msgstr "בחר שירות"
@@ -3650,9 +3596,8 @@ msgid "Appointment can't be rescheduled"
 msgstr "לא ניתן לתאם מחדש את הפגישה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1052
-#, fuzzy
 msgid "WooCommerce"
-msgstr "מצטערים, אירעה שגיאה במהלך הוספת ההזמנה לעגלת WooCommerce."
+msgstr "WooCommerce"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1064
 msgid "Deposit Payment"
@@ -3700,16 +3645,14 @@ msgid "Customize"
 msgstr "התאמה אישית"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1086
-#, fuzzy
 msgid "Customer is already added to this event"
-msgstr "כבר הזמנת פגישה זו"
+msgstr "לקוח כבר הזמין אירוע זה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1089
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1248
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:92
-#, fuzzy
 msgid "Full"
-msgstr "לקוח שהזמין (שם מלא, דוא\"ל, טלפון)"
+msgstr "מלא"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1090
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1250
@@ -3850,7 +3793,6 @@ msgid "Recurring:"
 msgstr "מַחזוֹרִי:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1128
-#, fuzzy
 msgid "This is a recurring event"
 msgstr "זה אירוע חוזר"
 
@@ -4163,9 +4105,8 @@ msgid "Filterable Field:"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1244
-#, fuzzy
 msgid "Mandatory Field:"
-msgstr "הגדר טלפון כשדה חובה"
+msgstr "שדה חובה:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1245
 msgid "Event Type"
@@ -4181,7 +4122,7 @@ msgid "From"
 msgstr "מ"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1251
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
 msgid "Free"
 msgstr "זמין"
 
@@ -4198,9 +4139,8 @@ msgid "Package Name"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1256
-#, fuzzy
 msgid "Congratulations!"
-msgstr "בְּשָׁעָה טוֹבָה וּמוּצלַחַת"
+msgstr "בְּשָׁעָה טוֹבָה וּמוּצלַחַת!"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1257
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:79
@@ -4231,9 +4171,8 @@ msgid "Book event"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1264
-#, fuzzy
 msgid "Form"
-msgstr "הסתר את סמל המטבע בטופס ההזמנה"
+msgstr "טופס"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1265
 msgid "Form Flow"
@@ -4254,9 +4193,8 @@ msgid "No matching data"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1273
-#, fuzzy
 msgid "Bringing Anyone With You"
-msgstr "מביא איתך מישהו?"
+msgstr "מביא איתך מישהו"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1274
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:184
@@ -4272,36 +4210,32 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1277
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:167
-#, fuzzy
 msgid "Date & Time"
-msgstr "תאריך ושעת סיום האירוע"
+msgstr "תאריך ושעה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1278
 msgid "All slots are selected"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1279
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:168
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:207
 msgid "Your Information"
-msgstr ""
+msgstr "פרטי ההזמנה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1280
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:169
-#, fuzzy
 msgid "Enter first name"
 msgstr "הכנס שם פרטי"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1282
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:170
-#, fuzzy
 msgid "Enter last name"
 msgstr "הכנס שם משפחה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1284
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:171
-#, fuzzy
 msgid "Enter email"
 msgstr "בבקשה הכנס כתובת מייל"
 
@@ -4315,7 +4249,6 @@ msgid "Enter phone"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1287
-#, fuzzy
 msgid "Please enter phone"
 msgstr "בבקשה הכנס מספר טלפון"
 
@@ -4329,9 +4262,8 @@ msgid "Service Subtotal"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1293
-#, fuzzy
 msgid "people"
-msgstr "המחיר יוכפל במספר האנשים"
+msgstr "אנשים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1295
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1298
@@ -4355,21 +4287,18 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1301
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:151
-#, fuzzy
 msgid "Email Address"
-msgstr "הכנס כתובת מייל מאומתת"
+msgstr "כתובת מייל"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1302
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:155
-#, fuzzy
 msgid "Phone Number"
-msgstr "הגדר טלפון כשדה חובה"
+msgstr "מספר טלפון"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1304
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:181
-#, fuzzy
 msgid "Local Time"
-msgstr "זמן מקומי:"
+msgstr "זמן מקומי"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1308
 msgid "Choose a Form"
@@ -4414,9 +4343,8 @@ msgid "Sidebar"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1317
-#, fuzzy
 msgid "Content"
-msgstr "צבע טקסט"
+msgstr "תוֹכֶן"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1318
 msgid "Heading Text Color"
@@ -4483,9 +4411,8 @@ msgid "Danger Button Background Color"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1334
-#, fuzzy
 msgid "Danger Button Text Color"
-msgstr "צבע ראשי"
+msgstr "צבע טקסט לחצן סכנה"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1335
 msgid "Layout & Inputs"
@@ -4570,7 +4497,7 @@ msgid "Customer Information"
 msgstr "הערות הלקוח"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1358
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
 msgid "Field order, mandatory fields, labels and display options"
 msgstr ""
 
@@ -4579,12 +4506,12 @@ msgid "Payment Summary"
 msgstr "היסטוריית תשלומים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1360
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
 msgid "Set up labels and buttons"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1361
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
 msgid "Set up button types and labels"
 msgstr ""
 
@@ -4601,8 +4528,8 @@ msgid "Field Order"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1368
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:95
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:205
 msgid "Congratulations"
@@ -4676,7 +4603,7 @@ msgstr "מחיר השירות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1397
 msgid "Set up Services view"
-msgstr "מיין שירותים:"
+msgstr "מיין שירותים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1398
 msgid "Service Details"
@@ -4707,7 +4634,7 @@ msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1407
 msgid "Total Number of Services"
-msgstr "המספר הכולל של אנשים:"
+msgstr "המספר הכולל של שירותים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1408
 msgid "Back Button"
@@ -4763,7 +4690,7 @@ msgid "Service Duration"
 msgstr "משך זמן השירות"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1428
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:240
 msgid "About Service"
 msgstr "הוסף שירות"
@@ -4776,475 +4703,446 @@ msgstr "חפש קופונים"
 msgid "Card Color"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
+msgid "Page Scroll Visibility"
+msgstr ""
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:238
 msgid "Search"
 msgstr "חפש"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:256
 msgid "Available"
 msgstr "זמין"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
 msgid "No results"
 msgstr "תוצאות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:239
 msgid "Book Now"
 msgstr "הזמן"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1441
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:241
 msgid "View all photos"
 msgstr "הצג את כל המקומות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1442
-msgid "Support Heading:"
-msgstr "ממתין"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1443
-msgid "Company Phone:"
-msgstr "טלפון החברה"
+msgid "Support Heading:"
+msgstr "תמיכה:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1444
-msgid "Company Email:"
-msgstr "שם החברה"
+msgid "Company Phone:"
+msgstr "טלפון החברה:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
-#, fuzzy
-msgid "Event List Booking Form 2.0"
-msgstr "הזמנה"
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1445
+msgid "Company Email:"
+msgstr "מייל החברה:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1448
+msgid "Event List Booking Form 2.0"
+msgstr "רשימת אירועים טופס הזמנה 2.0"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
 msgid ""
 "The Event List Booking Form 2.0 offers an intuitive and fast booking "
 "experience, with a design that stands out. Customers can effortlessly browse "
 "and book from a list of events."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
 msgid "Events List"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
 msgid ""
 "Set up Location, Images, Filters, Capacity, Price, and Status visibility "
 "options"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:109
 msgid "Event Info"
 msgstr "פרטי האירוע"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
 msgid "Set up Staff, Location, Gallery and other Event information visibility"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
-#, fuzzy
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
 msgid "Customer Info"
-msgstr "הערות הלקוח"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:209
-#, fuzzy
-msgid "Events Available"
-msgstr "זמין"
+msgstr "פרטי הלקוח"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1462
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:210
-#, fuzzy
-msgid "Event Available"
-msgstr "זמין"
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:209
+msgid "Events Available"
+msgstr "אירועים זמינים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1463
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:210
+msgid "Event Available"
+msgstr "אירוע זמין"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
 msgid "Page"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:211
-#, fuzzy
-msgid "Search for Events"
-msgstr "חפש אירוע..."
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1465
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:211
+msgid "Search for Events"
+msgstr "חפש אירועים"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
 msgid "Begins"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:212
 msgid "slot left"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:213
 msgid "slots left"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:214
-#, fuzzy
-msgid "Learn more"
-msgstr "הצג עוד"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1469
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:215
-#, fuzzy
-msgid "Read more"
-msgstr "הצג עוד"
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:214
+msgid "Learn more"
+msgstr "למד עוד"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:215
+msgid "Read more"
+msgstr "קרא עוד"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
 msgid "About"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:216
-#, fuzzy
 msgid "Timetable"
-msgstr "ציר הזמן"
+msgstr "לוח זמנים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:208
-#, fuzzy
 msgid "About Event"
 msgstr "על האירוע הזה"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:201
-#, fuzzy
-msgid "Event Starts"
-msgstr "תאריך האירוע"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1481
-#: src/Infrastructure/WP/Translations/FrontendStrings.php:202
-#, fuzzy
-msgid "Event Ends"
-msgstr "אירועים"
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:201
+msgid "Event Starts"
+msgstr "אירוע מתחיל"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1482
+#: src/Infrastructure/WP/Translations/FrontendStrings.php:202
+msgid "Event Ends"
+msgstr "אירוע מסתיים"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:203
 msgid "at"
 msgstr "ב"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1484
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:217
 msgid "How many attendees do you want to book event for?"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
-#, fuzzy
-msgid "Step Filters"
-msgstr "פילטרים לחיפוש"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1487
-#, fuzzy
-msgid "Event Card"
-msgstr "תאריך האירוע"
+msgid "Step Filters"
+msgstr "שלב פילטרים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1488
+msgid "Event Card"
+msgstr "כרטסת האירוע"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
 msgid "Step Pagination"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
-#, fuzzy
-msgid "Event Slots Capacity"
-msgstr "קיבולת"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1490
-#, fuzzy
-msgid "Filters Button Type"
-msgstr "כפתורי רדיו"
+msgid "Event Slots Capacity"
+msgstr "קיבולת מקומות לאירוע"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1491
-#, fuzzy
-msgid "Read More Button Type"
-msgstr "כפתורי רדיו"
+msgid "Filters Button Type"
+msgstr "פילטר סוג לחצן"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1492
-#, fuzzy
-msgid "Learn More Button Type"
-msgstr "כפתורי רדיו"
+msgid "Read More Button Type"
+msgstr "למידע נוסף סוג לחצן"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1493
-#, fuzzy
-msgid "Event Tab Image"
-msgstr "שם האירוע"
+msgid "Learn More Button Type"
+msgstr "למידע נוסף סוגי לחצים"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1494
+msgid "Event Tab Image"
+msgstr "תמונה של כרטיסיית האירוע"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
 msgid "Step Header"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
 msgid "Step Info Tab"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
-#, fuzzy
-msgid "Booking Event Button"
-msgstr "התחלת ההזמנה"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1497
-#, fuzzy
-msgid "Finish Button"
-msgstr "הסתיים"
+msgid "Booking Event Button"
+msgstr "כפתור הזמנת אירוע"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1498
+msgid "Finish Button"
+msgstr "כפתור סיום"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
 msgid "Close Event Button"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
-#, fuzzy
-msgid "Event Gallery"
-msgstr "גלריית אירוע:"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1500
+msgid "Event Gallery"
+msgstr "גלריית אירוע"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1501
 msgid "Event Description"
 msgstr "תיאור האירוע"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1502
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1503
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:175
-#, fuzzy
 msgid "person"
 msgstr "אדם"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1503
-#, fuzzy
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1504
 msgid "Event Employees"
-msgstr "ערוך עובד"
+msgstr "עובדי אירועים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
 msgid "Catalog"
 msgstr "קטלוג"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
 msgid "Choose Category"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
 msgid "Choose Service"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
 msgid "Choose Package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
 msgid "Preselect Booking Parameters"
 msgstr "בחר פרמטרי הזמנה מראש"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
-#, fuzzy
-msgid "Skip Categories step"
-msgstr "קטגוריות"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1519
+msgid "Skip Categories step"
+msgstr "דלג על שלב הקטגוריות"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
 msgid "Insert Amelia Booking Shortcode"
 msgstr "הכנס קוד מקוצר עבור הזמנה"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
 msgid "Select Catalog View"
 msgstr "בחר תצוגת קטלוג"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
 msgid "Select Category"
 msgstr "בחר קטגוריה"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
 msgid "Select Employee"
 msgstr "בחר עובד"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
 msgid "Select Location"
 msgstr "בחר מיקום"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
 msgid "Select Package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
 msgid "Select Event"
 msgstr "בחר אירוע"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
-#, fuzzy
-msgid "Select Events"
-msgstr "בחר אירוע"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1528
+msgid "Select Events"
+msgstr "בחר אירועים"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
 msgid "Select Tag"
 msgstr "בחר תויות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
-#, fuzzy
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
 msgid "Select Tags"
 msgstr "בחר תויות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
 msgid "Select View"
 msgstr "בחר תצוגה"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
-#, fuzzy
-msgid "Show All"
-msgstr "הצג את כל התוויות"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1533
+msgid "Show All"
+msgstr "הצג הכל"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
 msgid "Load booking form manually"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
 msgid ""
 "Add element (button, link...) ID, that will manually load amelia shortcode "
 "content"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
 msgid "Show all categories"
 msgstr "הצג את כל הקטגוריות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
 msgid "Show all employees"
 msgstr "הצג את כל העובדים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
 msgid "Show all locations"
 msgstr "הצג את כל המקומות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
 msgid "Show all services"
 msgstr "הצג את כל השירותים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
 msgid "Show all events"
 msgstr "הצג את כל האירועים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
 msgid "Show all packages"
 msgstr "הצג את כל התוויות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
 msgid "Show all tags"
 msgstr "הצג את כל התוויות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
 msgid "Show catalog of all categories"
 msgstr "הצג קטלוג של כל הקטגוריות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
 msgid "Show specific category"
 msgstr "הצג קטוגוריה ספציפית"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
-#, fuzzy
-msgid "Show specific categories"
-msgstr "הצג קטוגוריה ספציפית"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1545
+msgid "Show specific categories"
+msgstr "הצג קטוגוריות ספציפיות"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
 msgid "Show specific package"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
-#, fuzzy
-msgid "Show specific packages"
-msgstr "הצג קטוגוריה ספציפית"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1547
+msgid "Show specific packages"
+msgstr "הצג חבילות ספציפיות"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
 msgid "Show event"
 msgstr "הצג אירוע"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
 msgid "Show Type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
 msgid "List (default)"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
 msgid "Show tag"
 msgstr "הצג תווית"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
 msgid "Show specific service"
 msgstr "הצג שירות ספציפי"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
-#, fuzzy
-msgid "Show specific services"
-msgstr "הצג שירות ספציפי"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1554
+msgid "Show specific services"
+msgstr "הצג שירותים ספציפים"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
 msgid "Trigger type"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
-#, fuzzy
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
 msgid "Id"
 msgstr "ID"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
 msgid "Class"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
 msgid "Trigger by attribute"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
 msgid "Step Booking"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
 msgid "Catalog Booking"
 msgstr "ממוצע הזמנות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
-#, fuzzy
-msgid "Events List Booking"
-msgstr "האירוע נקבע"
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1561
+msgid "Events List Booking"
+msgstr "הזמנת רשימת אירועים"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
 msgid "Show recurring events"
 msgstr "הצג אירועים חוזרים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
 msgid "Show in Amelia Popup"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
 msgid "AM - Booking view"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
 msgid "AM - Step Booking"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
 msgid "AM - Catalog Booking"
 msgstr "אמיליה - תצוגת קטלוג"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
 msgid "AM - Catalog view"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1569
 msgid "AM - Events view"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1569
-#, fuzzy
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1570
 msgid "AM - Events List Booking"
-msgstr "אמיליה - תצוגת קטלוג"
+msgstr "אמיליה - הזמנה רשימת אירועים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
 msgid "Amelia - Booking view"
 msgstr "אמיליה - תצוגת הזמנות"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1573
 msgid ""
 "Step-By-Step Booking Wizard gives your customers the option to choose "
 "everything about the booking in a few steps"
@@ -5252,21 +5150,21 @@ msgstr ""
 "Step-By-Step Booking Wizard gives your customers the option to choose "
 "everything about the booking in a few steps"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
-msgid "Amelia - Step-By-Step Booking"
-msgstr ""
-
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1576
+msgid "Amelia - Step-By-Step Booking"
+msgstr "הזמנה שלב אחר שלב"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1577
 msgid ""
 "Step-by-Step booking view guides the customers through several steps in "
 "order to make their bookings."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
 msgid "Amelia - Catalog Booking"
 msgstr "אמיליה - תצוגת קטלוג"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1581
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a catalog"
@@ -5274,11 +5172,11 @@ msgstr ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
 msgid "Amelia - Catalog view"
 msgstr "אמיליה - תצוגת קטלוג"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1585
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
@@ -5286,12 +5184,12 @@ msgstr ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
 msgid "Amelia - Events"
 msgstr "אמיליה - אירועים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1592
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1589
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1593
 msgid ""
 "Event Booking is shortcode that gives your customers the option to book one "
 "of the events that you've created on the back-end in a simple event list "
@@ -5300,16 +5198,15 @@ msgstr ""
 "הזמנת אירועים היא קיצור הדרך שנותן ללקוחות שלך אפשרות להזמין אחד מהאירועים "
 "שיצרת בקצה האחורי בתצוגת רשימת אירועים פשוטה."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1591
-#, fuzzy
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1592
 msgid "Amelia - Events List"
-msgstr "אמיליה - אירועים"
+msgstr "אמיליה - רשימת אירועים"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1594
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1595
 msgid "You are using a form that will be outdated soon!"
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1613
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1614
 msgid "Recurring Appointments"
 msgstr "פגישות חוזרות"
 
@@ -5328,9 +5225,8 @@ msgid "Add services"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:83
-#, fuzzy
 msgid "employees."
-msgstr "עובדים"
+msgstr "עובדים."
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:84
 msgid "Back"
@@ -5396,9 +5292,8 @@ msgid "Oops..."
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:119
-#, fuzzy
 msgid "Phone already exists with different name. Please check your name."
-msgstr "הדוא\"ל כבר קיים עם שם אחר. אנא בדוק את שמך."
+msgstr "הטלפון כבר קיים עם שם אחר. אנא בדוק את שמך."
 
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:120
 msgid "Price:"
@@ -5470,31 +5365,24 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "All Locations"
 #~ msgstr "כל המיקומים"
 
-#, fuzzy
 #~ msgid "All Packages"
-#~ msgstr "הצג את כל התוויות"
+#~ msgstr "כל החבילות"
 
 #~ msgid "All events"
 #~ msgstr "כל האירועים"
 
-#, fuzzy
-#~| msgid "Border Color"
 #~ msgid "Badge Color"
-#~ msgstr "צבעים מוגדרים מראש"
+#~ msgstr "צבע תוית"
 
-#, fuzzy
-#~| msgid "Label"
 #~ msgid "Badge Label"
-#~ msgstr "תווית"
+#~ msgstr "תווית תג"
 
 #~ msgid "Booking"
 #~ msgstr "הזמנה"
 
-#, fuzzy
 #~ msgid "Canceled By Admin"
 #~ msgstr "האירוע בוטל על ידי המנהל"
 
-#, fuzzy
 #~ msgid "Canceled By Attendee"
 #~ msgstr "האירוע בוטל על ידי המשתתף"
 
@@ -5504,45 +5392,38 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Semicolon (;)"
 #~ msgstr "נקודה פסיק"
 
-#, fuzzy
 #~ msgid "Coupon"
-#~ msgstr "השובר שהזנת אינו תקף"
+#~ msgstr "שובר"
 
 #~ msgid "The coupon you entered is not valid"
 #~ msgstr "השובר שהזנת אינו תקף"
 
-#, fuzzy
-#~| msgid "Create New"
 #~ msgid "Create New Badge"
-#~ msgstr "צור חדש"
+#~ msgstr "צור תוית חדשה"
 
-#, fuzzy
-#~| msgid "You have already booked this appointment"
 #~ msgid "Customer has already booked this appointment"
-#~ msgstr "כבר הזמנת פגישה זו"
+#~ msgstr "הלקוח כבר הזמין את הפגישה הזו"
 
 #~ msgid "Specific Date"
 #~ msgstr "תאריך ספציפי"
 
-#, fuzzy
 #~ msgid "Expired"
-#~ msgstr "קוד הרכישה אינו חוקי או שפג תוקפו"
+#~ msgstr "פג תוקף"
 
 #~ msgid "Discount (%)"
 #~ msgstr "הנחה(%)"
 
+#~ msgid "Expiration date"
+#~ msgstr "תאריך תפוגה"
+
 #~ msgid "New Space"
 #~ msgstr "שירות חדש"
 
-#, fuzzy
-#~| msgid "Package Badge"
 #~ msgid "Manage Badges"
-#~ msgstr "ממוצע הזמנות"
+#~ msgstr "ניהול תגים"
 
-#, fuzzy
-#~| msgid "Enable Employee Panel"
 #~ msgid "Manage Employee Badges"
-#~ msgstr "אפשר פאנל עובדים"
+#~ msgstr "ניהול תגי עובדים"
 
 #~ msgid "You don't have any employees here yet..."
 #~ msgstr "אין לך עדיין עובדים כאן ..."
@@ -5550,9 +5431,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Here you can enable/disable On-Site payments for this service"
 #~ msgstr "כאן תוכלו להפעיל / לבטל תשלומים באתר עבור שירות זה"
 
-#, fuzzy
 #~ msgid "Package"
-#~ msgstr "ממוצע הזמנות"
+#~ msgstr "חבילה"
 
 #~ msgid ""
 #~ "Here you can select which payment methods will be available.<br/>If you "
@@ -5607,13 +5487,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Yearly"
 #~ msgstr "שנתי"
 
-#, fuzzy
 #~ msgid "Rescheduled"
-#~ msgstr "לא ניתן לתאם מחדש את הפגישה"
+#~ msgstr "נקבע מחדש"
 
-#, fuzzy
 #~ msgid "Resource"
-#~ msgstr "שירות נמחק"
+#~ msgstr "משאב"
 
 #~ msgid "This field is required"
 #~ msgstr "שדה חובה"
@@ -5645,16 +5523,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Unlimited"
 #~ msgstr "ללא הגבלה"
 
-#, fuzzy
-#~| msgid "New Catalog 2.0 Booking Form"
 #~ msgid "New Event List 2.0 Booking Form"
-#~ msgstr "ממוצע הזמנות"
+#~ msgstr "חדש רשימת אירועים טופס הזמנה 2.0"
 
 #~ msgid "Close forever"
-#~ msgstr "נסגר ב:"
+#~ msgstr "נסגר ב"
 
 #~ msgid "Yes, Sure!"
-#~ msgstr "אפס"
+#~ msgstr "כן,בוודאי!"
 
 #~ msgid "Plugin has been activated"
 #~ msgstr "התוסף הופעל"
@@ -5687,15 +5563,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "CodeCanyon Purchase Code"
 #~ msgstr "קוד רכישה של CodeCanyon"
 
-#, fuzzy
-#~| msgid "Event price"
 #~ msgid "Highest price"
-#~ msgstr "מחיר האירוע"
+#~ msgstr "מחיר הגבוה"
 
-#, fuzzy
-#~| msgid "Event price"
 #~ msgid "Lowest price"
-#~ msgstr "מחיר האירוע"
+#~ msgstr "מחיר הנמוך"
 
 #~ msgid "Add/edit custom fields"
 #~ msgstr "הוסף /ערוך שדה בהתאמה אישית"
@@ -5811,9 +5683,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "סדר היום של הפגישה שיוצג בזום. <br/> תוכלו למצוא מצייני מיקום זמינים בדף "
 #~ "ההודעות."
 
-#, fuzzy
 #~ msgid "API key"
-#~ msgstr "Please enter Mailgun API key"
+#~ msgstr "API key"
 
 #~ msgid "Google Calendar Settings"
 #~ msgstr "הגדרות יומן גוגל"
@@ -5844,9 +5715,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Label"
 #~ msgstr "תווית"
 
-#, fuzzy
 #~ msgid "Are you sure you want to delete this Event"
-#~ msgstr "האם אתה בטוח שברצונך למחוק אירוע זה?"
+#~ msgstr "האם אתה בטוח שברצונך למחוק אירוע זה"
 
 #~ msgid ""
 #~ "This is the path in your application that users are redirected to "
@@ -5866,10 +5736,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "Click here to see how to obtain<br/>Outlook Application (client) ID and "
 #~ "Secret"
 
-#, fuzzy
-#~| msgid "Limit appointments per customer"
 #~ msgid "Limit appointments per employee"
-#~ msgstr "מחיר הפגישה"
+#~ msgstr "הגבלת פגישות לעובד"
 
 #~ msgid "Appointment date and time"
 #~ msgstr "תאריך הפגישה"
@@ -5938,9 +5806,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "6 months"
 #~ msgstr "6 חודשים"
 
-#, fuzzy
 #~ msgid "Number of appointments"
-#~ msgstr "סה\"כ פגישות"
+#~ msgstr "מספר פגישות"
 
 #~ msgid ""
 #~ "Maximum number of events returned on one result page.<br/>It is "
@@ -6028,14 +5895,10 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Please enter secret"
 #~ msgstr "Please enter secret"
 
-#, fuzzy
-#~| msgid ""
-#~| "Customer will be redirected to this URL once he schedules the "
-#~| "appointment."
 #~ msgid ""
 #~ "Customer will be redirected to this URL once he schedules the appointment "
 #~ "or package."
-#~ msgstr "הלקוח יופנה לכתובת אתר זו לאחר שיזמן את הפגישה."
+#~ msgstr "הלקוח יופנה לכתובת אתר זו לאחר שיזמן את הפגישה או החבילה."
 
 #~ msgid ""
 #~ "Enable this option if you want to remove busy slots in<br/>Google "
@@ -6183,12 +6046,10 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgstr "Test Secret Key"
 
 #~ msgid "Time frame"
-#~ msgstr "טווח הזמן:"
+#~ msgstr "טווח הזמן"
 
-#, fuzzy
-#~| msgid "Event name"
 #~ msgid "Event Parameter"
-#~ msgstr "שם האירוע"
+#~ msgstr "האירוע"
 
 #~ msgid "2 Way Sync"
 #~ msgstr "2 Way Sync"
@@ -6221,16 +6082,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "Here you can choose the product that will be used for WooCommerce "
 #~ "integration."
 
-#, fuzzy
 #~ msgid "Completed"
-#~ msgstr "לא ניתן להשלים את התשלום הזה"
+#~ msgstr "הושלם"
 
 #~ msgid "Failed"
 #~ msgstr "נכשל"
 
-#, fuzzy
 #~ msgid "Booking Status"
-#~ msgstr "סטטוס ההזמנה שונה ל- "
+#~ msgstr "סטטוס ההזמנה"
 
 #~ msgid "Web Hooks Settings"
 #~ msgstr "Web Hooks Settings"
@@ -6274,10 +6133,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "WP Role"
 #~ msgstr "WP Role"
 
-#, fuzzy
-#~| msgid "Create New"
 #~ msgid "What's New"
-#~ msgstr "צור חדש"
+#~ msgstr "מה חדש"
 
 #~ msgid "Accepted"
 #~ msgstr "מקובל"
@@ -6311,9 +6168,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Details Changed"
 #~ msgstr "פרטים"
 
-#, fuzzy
 #~ msgid "Duplicate of "
-#~ msgstr "שכפל"
+#~ msgstr "שכפול של "
 
 #~ msgid "Email Placeholders"
 #~ msgstr "Email Placeholders"
@@ -6336,9 +6192,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Notification has not been saved"
 #~ msgstr "ההתראות לא נשמרו"
 
-#, fuzzy
 #~ msgid "Appointment status"
-#~ msgstr "סטטוס הפגישה שונה ל "
+#~ msgstr "סטטוס הפגישה"
 
 #~ msgid "Paddle"
 #~ msgstr "מָשׁוֹט"
@@ -6376,15 +6231,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Cancel Appointment Link"
 #~ msgstr "ביטול, קישור לפגישה"
 
-#, fuzzy
-#~| msgid "Approved Appointments"
 #~ msgid "Approve Appointment Link"
-#~ msgstr "פגישות שאושרו"
+#~ msgstr "לינק פגישות שאושרו"
 
-#, fuzzy
-#~| msgid "Cancel Appointment Link"
 #~ msgid "Reject Appointment Link"
-#~ msgstr "ביטול, קישור לפגישה"
+#~ msgstr "קישור לדחיית פגישה"
 
 #~ msgid "Initial Date of the appointment"
 #~ msgstr "תאריך הפגישה"
@@ -6407,10 +6258,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Payment link for WooCommerce"
 #~ msgstr "Enable integration with WooCommerce"
 
-#, fuzzy
-#~| msgid "Group appointment details"
 #~ msgid "Cart appointments details"
-#~ msgstr "פגישה קבוצתית"
+#~ msgstr "פרטי פגישות בעגלה"
 
 #~ msgid "Used Coupon"
 #~ msgstr "קופונים בשימוש"
@@ -6445,15 +6294,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Initial End time of the event"
 #~ msgstr "שעת סיום האירוע"
 
-#, fuzzy
-#~| msgid "Select the Extras you'd like"
 #~ msgid "Selected extras details"
-#~ msgstr "בחר את התוספות שתרצה"
+#~ msgstr "פרטי תוספות נבחרות"
 
-#, fuzzy
-#~| msgid "Group appointment details"
 #~ msgid "Cart appointments details placeholder set up"
-#~ msgstr "פגישה קבוצתית"
+#~ msgstr "פרטי פגישות בעגלה הגדרת מציין מיקום"
 
 #~ msgid "Group appointment details"
 #~ msgstr "פגישה קבוצתית"
@@ -6470,9 +6315,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Location phone"
 #~ msgstr "טלפון מקום האירוע"
 
-#, fuzzy
 #~ msgid "Package duration"
-#~ msgstr "במשך"
+#~ msgstr "משך החבילה"
 
 #~ msgid "Recurring appointments details"
 #~ msgstr "פרטי פגישות חוזרות"
@@ -6507,17 +6351,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Date & Time periods of the event with Google Meet join links"
 #~ msgstr "תקופות תאריך ושעה של האירוע עם קישורי זום הצטרפות"
 
-#, fuzzy
 #~ msgid "Custom fields"
 #~ msgstr "שדות בהתאמה אישית"
 
-#, fuzzy
 #~ msgid "Placeholder"
-#~ msgstr "SMS Placeholders"
+#~ msgstr "מציין מקום"
 
-#, fuzzy
 #~ msgid "Placeholders"
-#~ msgstr "</> הצג מצייני מיקום בדוא\"ל"
+#~ msgstr "מצייני מקום"
 
 #~ msgid "Prepared"
 #~ msgstr "מתכונן"
@@ -6594,10 +6435,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "View Message"
 #~ msgstr "הצג הודעה"
 
-#, fuzzy
-#~| msgid "Add Image"
 #~ msgid "Image:"
-#~ msgstr "הוסף תמונה"
+#~ msgstr "תמונה:"
 
 #~ msgid "Average Bookings"
 #~ msgstr "ממוצע הזמנות"
@@ -6803,7 +6642,7 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "If you disable this option the price will be the same<br/>regardless of "
 #~ "how many customers book in the group appointment."
 #~ msgstr ""
-#~ " אם תשבית אפשרות זו המחיר יהיה זהה<br/>ללא קשר למספר הלקוחות שמזמינים "
+#~ "אם תשבית אפשרות זו המחיר יהיה זהה<br/>ללא קשר למספר הלקוחות שמזמינים "
 #~ "בפגישה הקבוצתית."
 
 #~ msgid "New Package Booking"
@@ -6834,9 +6673,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Allow customers to choose employee on the customer panel"
 #~ msgstr "אפשר ללקוחות לראות משתתפים אחרים"
 
-#, fuzzy
 #~ msgid "to be booked"
-#~ msgstr "האירוע נקבע"
+#~ msgstr "להזמנה"
 
 #~ msgid ""
 #~ "Enable this option if you want to count resource quantity usage for each "
@@ -6876,13 +6714,13 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgstr "כמות מקסימלית"
 
 #~ msgid "Resources have been deleted"
-#~ msgstr "הלקוח נמחק"
+#~ msgstr "משאבים נמחקו"
 
 #~ msgid "Resources have not been deleted"
-#~ msgstr "הקופונים לא נמחקו"
+#~ msgstr "משאבים לא נמחקו"
 
 #~ msgid "A number of appointments included in the package."
-#~ msgstr "מספר הפגישות עם הקופון המיושם הוא"
+#~ msgstr "מספר פגישות כלולים בחבילה."
 
 #~ msgid "Search for a Resource..."
 #~ msgstr "חפש מיקומים."
@@ -7071,15 +6909,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Customers could not be deleted because of the future bookings"
 #~ msgstr "לא ניתן היה למחוק לקוחות בגלל פגישות עתידיות"
 
-#, fuzzy
-#~| msgid "Need Help"
 #~ msgid "Need Help?"
-#~ msgstr "צריך עזרה"
+#~ msgstr "צריך עזרה?"
 
-#, fuzzy
-#~| msgid "Amelia - Catalog view"
 #~ msgid "Amelia Changelog"
-#~ msgstr "אמיליה - תצוגת קטלוג"
+#~ msgstr "אמיליה - תצוגת שינויים"
 
 #~ msgid "Code"
 #~ msgstr "Code"
@@ -7223,18 +7057,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Used"
 #~ msgstr "בשימוש"
 
-#, fuzzy
-#~| msgid "Are you sure you want to delete this payment?"
 #~ msgid "Are you sure you want to refund this payment?"
-#~ msgstr "האם אתה בטוח שברצונך למחוק את התשלום הזה?"
+#~ msgstr "האם אתה בטוח שברצונך להחזיר תשלום זה?"
 
 #~ msgid "Payment has not been deleted"
 #~ msgstr "התשלום לא נמחק"
 
-#, fuzzy
-#~| msgid "Payment date"
 #~ msgid "Payment refund failed"
-#~ msgstr "תאריך התשלום"
+#~ msgstr "החזר התשלום נכשל"
 
 #~ msgid "Payments have not been deleted"
 #~ msgstr "התשלומים לא נמחקו"
@@ -7284,7 +7114,6 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Select Payment Method for link"
 #~ msgstr "ברירת מחדל לאמצעי תשלום"
 
-#, fuzzy
 #~ msgid "Booking is unavailable"
 #~ msgstr "משבצת זמן אינה זמינה"
 
@@ -7395,10 +7224,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Add Option"
 #~ msgstr "הוסף אפשרויות"
 
-#, fuzzy
-#~| msgid "Select Location"
 #~ msgid "Google/Outlook Location"
-#~ msgstr "בחר מיקום"
+#~ msgstr "מיקום Google/Outlook"
 
 #~ msgid "All services"
 #~ msgstr "כל השירותים"
@@ -7406,32 +7233,26 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Any Employee"
 #~ msgstr "כל עובד"
 
-#, fuzzy
 #~ msgid "text"
 #~ msgstr "טקסט"
 
 #~ msgid "Person"
 #~ msgstr "אדם"
 
-#, fuzzy
 #~ msgid "People"
-#~ msgstr "המחיר יוכפל במספר האנשים"
+#~ msgstr "אנשים"
 
-#, fuzzy
 #~ msgid "Qty"
-#~ msgstr "כמות:"
+#~ msgstr "כמות"
 
 #~ msgid "Colors & Fonts"
 #~ msgstr "צבעים & גופנים"
 
-#, fuzzy
-#~| msgid "Location Input Field"
 #~ msgid "Coupon Input Field"
-#~ msgstr "שם המקום"
+#~ msgstr "שדה קלט קופון"
 
-#, fuzzy
 #~ msgid "Custom Field"
-#~ msgstr "שדה מותאם אישית התווסף"
+#~ msgstr "שדה מותאם אישית"
 
 #~ msgid "Custom field has been added"
 #~ msgstr "שדה מותאם אישית התווסף"
@@ -7466,15 +7287,12 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "You can edit or delete each appointment"
 #~ msgstr "ניתן לערוך או למחוק כל פגישה"
 
-#, fuzzy
-#~| msgid "Employee Input Field"
 #~ msgid "Birthday Input Field"
-#~ msgstr "הערות של מבצע העבודה"
+#~ msgstr "שדה קלט יום הולדת"
 
 #~ msgid "Payment Method:"
 #~ msgstr "אמצעי תשלום:"
 
-#, fuzzy
 #~ msgid "On-Site"
 #~ msgstr "באתר"
 
@@ -7484,9 +7302,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Credit or debit card:"
 #~ msgstr "כרטיס אשראי או חיוב:"
 
-#, fuzzy
 #~ msgid "Package:"
-#~ msgstr "ממוצע הזמנות"
+#~ msgstr "חבילה:"
 
 #~ msgid "About this Event"
 #~ msgstr "על האירוע הזה"
@@ -7503,7 +7320,6 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Description:"
 #~ msgstr "תיאור:"
 
-#, fuzzy
 #~ msgid "weeks"
 #~ msgstr "שבועות"
 
@@ -7517,57 +7333,45 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Spots capacity"
 #~ msgstr "קיבולת"
 
-#, fuzzy
 #~ msgid "Book now"
-#~ msgstr "הזמן"
+#~ msgstr "הזמן עכשיו"
 
 #~ msgid "Event Day"
 #~ msgstr "תאריך האירוע"
 
-#, fuzzy
 #~ msgid "Schedule:"
-#~ msgstr "לוח זמנים"
+#~ msgstr "לוח זמנים:"
 
 #~ msgid "Bringing anyone with you?"
 #~ msgstr "מביא איתך מישהו?"
 
-#, fuzzy
 #~ msgid "day"
 #~ msgstr "יום"
 
-#, fuzzy
 #~ msgid "days"
 #~ msgstr "ימים"
 
-#, fuzzy
 #~ msgid "week"
 #~ msgstr "שבוע"
 
-#, fuzzy
 #~ msgid "month"
 #~ msgstr "חודש"
 
-#, fuzzy
 #~ msgid "months"
 #~ msgstr "חודשים"
 
-#, fuzzy
 #~ msgid "Date and Time"
-#~ msgstr "בחר תאריך ושעה"
+#~ msgstr "תאריך ושעה"
 
-#, fuzzy
 #~ msgid "Recurring Appointment"
-#~ msgstr "קבע פגישה חוזרת"
+#~ msgstr "פגישה חוזרת"
 
-#, fuzzy
 #~ msgid "Repeat every"
-#~ msgstr "מחזור שנתי"
+#~ msgstr "חזור כל"
 
-#, fuzzy
 #~ msgid "Repeat on"
-#~ msgstr "חזור:"
+#~ msgstr "חזור על"
 
-#, fuzzy
 #~ msgid "Specific date"
 #~ msgstr "תאריך ספציפי"
 
@@ -7586,9 +7390,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Last"
 #~ msgstr "אחרון"
 
-#, fuzzy
 #~ msgid "Select Date"
-#~ msgstr "אנא בחר יום"
+#~ msgstr "בחר יום"
 
 #~ msgid "Every"
 #~ msgstr "כל"
@@ -7599,62 +7402,44 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "from"
 #~ msgstr "מ"
 
-#, fuzzy
 #~ msgid "Customer Panel"
-#~ msgstr "אפשר פנל לקוחות"
+#~ msgstr "פנל לקוחות"
 
-#, fuzzy
 #~ msgid "NEW"
 #~ msgstr "חדש"
 
-#, fuzzy
 #~ msgid "Primary"
-#~ msgstr "צבע ראשי"
+#~ msgstr "ראשי"
 
-#, fuzzy
 #~ msgid "Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתורים"
 
-#, fuzzy
-#~| msgid "Book Now"
 #~ msgid "Book another"
-#~ msgstr "הזמן"
+#~ msgstr "הזמן אחר"
 
-#, fuzzy
-#~| msgid "View more"
 #~ msgid "View Cart"
-#~ msgstr "הצג עוד"
+#~ msgstr "הצג עגלה"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Cancel Cart Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "בטל עגלה סוג כפתור"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Book Another Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "הזמן אחר סוג כפתור"
 
 #~ msgid "Extras Selection"
 #~ msgstr "אנא בחר פעולה"
 
-#, fuzzy
-#~| msgid "Extras Selection"
 #~ msgid "Cart Selection"
-#~ msgstr "אנא בחר פעולה"
+#~ msgstr "בחירת עגלה"
 
-#, fuzzy
-#~| msgid "Event description"
 #~ msgid "Cart description"
-#~ msgstr "תיאור האירוע"
+#~ msgstr "תיאור העגלה"
 
 #~ msgid "placeholder"
-#~ msgstr "SMS Placeholders"
+#~ msgstr "sMS Placeholders"
 
-#, fuzzy
-#~| msgid "Scheduled After Appointment"
 #~ msgid "Reschedule Appointment"
-#~ msgstr "מתוזמן לאחר הפגישה"
+#~ msgstr "קבע תור מחדש"
 
 #~ msgid "Cancel Package"
 #~ msgstr "בוטל"
@@ -7662,10 +7447,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Booked Appointments Preview"
 #~ msgstr "הזמן פגישה"
 
-#, fuzzy
-#~| msgid "Employee Input Field"
 #~ msgid "Service Input Field"
-#~ msgstr "הערות של מבצע העבודה"
+#~ msgstr "שדה קלט שירות"
 
 #~ msgid "Location Input Field"
 #~ msgstr "שם המקום"
@@ -7679,9 +7462,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Popup Heading"
 #~ msgstr "ממתין"
 
-#, fuzzy
 #~ msgid "Card"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "כרטסת"
 
 #~ msgid "Total Number of Packages"
 #~ msgstr "מספר המשתתפים"
@@ -7725,9 +7507,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "View Employees"
 #~ msgstr "עובד חדש"
 
-#, fuzzy
 #~ msgid "In Package"
-#~ msgstr "ממוצע הזמנות"
+#~ msgstr "בחבילה"
 
 #~ msgid "View More Packages"
 #~ msgstr "הצג עוד"
@@ -7747,20 +7528,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Recurring Appointments:"
 #~ msgstr "פגישות חוזרות:"
 
-#, fuzzy
-#~| msgid "Event Title"
 #~ msgid "Event Tickets"
-#~ msgstr "כותרת האירוע"
+#~ msgstr "כרטיסים לאירועים"
 
-#, fuzzy
-#~| msgid "Select Time"
 #~ msgid "Select Tickets"
-#~ msgstr "בחר זמן"
+#~ msgstr "בחר כרטיסים"
 
-#, fuzzy
-#~| msgid "Event Type"
 #~ msgid "Ticket Types"
-#~ msgstr "סוג אירוע"
+#~ msgstr "סוגי כרטיסים"
 
 #~ msgid "Coupon Limit Reached"
 #~ msgstr "הגבלת קופון הושגה"
@@ -7768,18 +7543,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Number of appointments with applied coupon is"
 #~ msgstr "מספר הפגישות עם הקופון המיושם הוא"
 
-#, fuzzy
-#~| msgid "Sort Services:"
 #~ msgid "Total Services Booked"
-#~ msgstr "מיין שירותים:"
+#~ msgstr "סך כל השירותים שהוזמנו"
 
-#, fuzzy
-#~| msgid "Categories Sidebar"
 #~ msgid "Toggle Sidebar"
-#~ msgstr "קטגוריות"
+#~ msgstr "החלף את הסרגל הצידי"
 
 #~ msgid "Reschedule"
-#~ msgstr "תוזמן מחדש"
+#~ msgstr "תזמן מחדש"
 
 #~ msgid "Zoom Link"
 #~ msgstr "לינק לזום"
@@ -7787,46 +7558,32 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "My Profile"
 #~ msgstr "הפרופיל שלי"
 
-#, fuzzy
-#~| msgid "Customer Information"
 #~ msgid "Personal Information"
-#~ msgstr "הערות הלקוח"
+#~ msgstr "פרטים אישיים"
 
-#, fuzzy
-#~| msgid "Your password has been reset successfully"
 #~ msgid "Password changed successfully"
-#~ msgstr "סיסמתך אופסה בהצלחה"
+#~ msgstr "סיסמה אופסה בהצלחה"
 
 #~ msgid "Are you sure you want to cancel this appointment?"
 #~ msgstr "האם אתה בטוח שברצונך לבטל פגישה זו?"
 
-#, fuzzy
-#~| msgid "Event Type"
 #~ msgid "Ticket"
-#~ msgstr "סוג אירוע"
+#~ msgstr "כרטיס"
 
 #~ msgid "Are you sure you want to cancel your attendance?"
 #~ msgstr "האם אתה בטוח שברצונך לבטל את ההשתתפות שלך?"
 
-#, fuzzy
-#~| msgid "Appointment notes"
 #~ msgid "Appointments booked"
-#~ msgstr "הערות לפגישה"
+#~ msgstr "פגישות נקבעו"
 
-#, fuzzy
-#~| msgid "Appointment notes"
 #~ msgid "Appointment booked"
-#~ msgstr "הערות לפגישה"
+#~ msgstr "פגישה נקבעה"
 
-#, fuzzy
-#~| msgid "You have appointments for this service"
 #~ msgid "book appointments before the deal expires!"
-#~ msgstr "יש לך פגישות לשירות זה"
+#~ msgstr "הזמינו פגישות לפני תום הדיל!"
 
-#, fuzzy
-#~| msgid "Are you sure you want to cancel this event?"
 #~ msgid "Are you sure you want to cancel this package?"
-#~ msgstr "האם אתה בטוח שברצונך לבטל את האירוע הזה?"
+#~ msgstr "האם אתה בטוח שברצונך לבטל את החבילה הזאת?"
 
 #~ msgid "Profile deleted"
 #~ msgstr "הפרופיל נמחק"
@@ -7834,227 +7591,145 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Email or Username"
 #~ msgstr "דוא\"ל או שם משתמש"
 
-#, fuzzy
-#~| msgid "Please enter SMTP username"
 #~ msgid "Please enter email or username"
-#~ msgstr "Please enter SMTP username"
+#~ msgstr "הכנס מייל או שם משתמש"
 
-#, fuzzy
-#~| msgid "Forgot Password?"
 #~ msgid "Forgot your password?"
 #~ msgstr "שכחת סיסמה?"
 
 #~ msgid "Send Access Link"
 #~ msgstr "שלח קישור גישה"
 
-#, fuzzy
-#~| msgid "Enter your email"
 #~ msgid "Check your email"
-#~ msgstr "הכנס את האימייל שלך"
+#~ msgstr "בדוק את האימייל שלך"
 
-#, fuzzy
 #~ msgid "try different email"
-#~ msgstr "בבקשה הכנס כתובת מייל"
+#~ msgstr "נסה כתובת מייל אחרת"
 
 #~ msgid "Employee Profile"
 #~ msgstr "פרופיל עובד"
 
-#, fuzzy
-#~| msgid "Appointment price"
 #~ msgid "Appointment Price"
 #~ msgstr "מחיר הפגישה"
 
-#, fuzzy
-#~| msgid "Redirect URL After Booking"
 #~ msgid "Successfully added booking"
-#~ msgstr "Redirect URL After Booking"
+#~ msgstr "הזמנה נוספה בהצלחה"
 
-#, fuzzy
 #~ msgid "Customer Panel 2.0"
-#~ msgstr "אפשר פנל לקוחות"
+#~ msgstr "Customer Panel 2.0"
 
-#, fuzzy
-#~| msgid "Event Title"
 #~ msgid "Tab Title"
-#~ msgstr "כותרת האירוע"
+#~ msgstr "כותרת"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Delete Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "מחק סוג כפתור"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Save Changes Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "שמור שינויים סוג כפתור"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Change Password Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור שנה סיסמה"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Close Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור סגירה"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Confirm Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "אשר סוג כפתור"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Cancel Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "ביטול סוג לחצן"
 
-#, fuzzy
-#~| msgid "View Message"
 #~ msgid "Step Message"
-#~ msgstr "הצג הודעה"
+#~ msgstr "הודעת התקדמות"
 
-#, fuzzy
-#~| msgid "Status"
 #~ msgid "Item Status"
-#~ msgstr "סטטוס"
+#~ msgstr "סטטוס פריט"
 
-#, fuzzy
-#~| msgid "Package Category"
 #~ msgid "Page Card"
-#~ msgstr "קטגוריה חדשה"
+#~ msgstr "דף כרטיסיה"
 
-#, fuzzy
-#~| msgid "View Message"
 #~ msgid "Page Messages"
-#~ msgstr "הצג הודעה"
+#~ msgstr "דף הודעות"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "\"Go Back\" Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור \"חזור אחורה\""
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "\"Paying now\" Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור שלם עכשיו"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "\"Book Now\" Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור הזמן עכשיו"
 
-#, fuzzy
-#~| msgid "View Message"
 #~ msgid "Alert Message"
-#~ msgstr "הצג הודעה"
+#~ msgstr "הודעת אזהרה"
 
-#, fuzzy
-#~| msgid "Text Content"
 #~ msgid "Footer Content"
-#~ msgstr "תוכן טקסט"
+#~ msgstr "תוכן באזור תחתון"
 
-#, fuzzy
 #~ msgid "Sign In Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור התחבר"
 
-#, fuzzy
 #~ msgid "Send Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור שלח"
 
-#, fuzzy
-#~| msgid "Card Button Type"
 #~ msgid "Set Password Button Type"
-#~ msgstr "כפתורי רדיו"
+#~ msgstr "סוג כפתור קבע סיסמה"
 
-#, fuzzy
-#~| msgid "My Profile"
 #~ msgid "Profile"
-#~ msgstr "הפרופיל שלי"
+#~ msgstr "פרופיל"
 
-#, fuzzy
-#~| msgid "Cancel Appointment"
 #~ msgid "Packages Appointments"
-#~ msgstr "בטל פגישה"
+#~ msgstr "פגישות בחבילה"
 
-#, fuzzy
-#~| msgid "Search Filters"
 #~ msgid "Service Filter"
-#~ msgstr "פילטרים לחיפוש"
+#~ msgstr "סינון שירות"
 
-#, fuzzy
-#~| msgid "Employee note"
 #~ msgid "Employee Filter"
-#~ msgstr "הערות של מבצע העבודה"
+#~ msgstr "סינון נותן שירות"
 
-#, fuzzy
-#~| msgid "Location name"
 #~ msgid "Location Filter"
-#~ msgstr "שם המקום"
+#~ msgstr "סינון מקום"
 
-#, fuzzy
-#~| msgid "Package Category"
 #~ msgid "Package Filter"
-#~ msgstr "קטגוריה חדשה"
+#~ msgstr "סינון חבילה"
 
-#, fuzzy
-#~| msgid "Event Title"
 #~ msgid "Event Filter"
-#~ msgstr "כותרת האירוע"
+#~ msgstr "סינון אירוע"
 
-#, fuzzy
-#~| msgid "Appointment notes"
 #~ msgid "Appointment Employee"
-#~ msgstr "הערות לפגישה"
+#~ msgstr "פגישות לעובד"
 
-#, fuzzy
-#~| msgid "Event Price"
-#~ msgid "Event Organizer"
-#~ msgstr "מחיר האירוע"
-
-#, fuzzy
-#~| msgid "Send Access Link"
 #~ msgid "Access Link"
-#~ msgstr "שלח קישור גישה"
+#~ msgstr "קישור גישה"
 
-#, fuzzy
-#~| msgid "Send Access Link"
 #~ msgid "Access Link Success"
-#~ msgstr "שלח קישור גישה"
+#~ msgstr "גישה לקישור הצליחה"
 
-#, fuzzy
-#~| msgid "Set Password"
+#~ msgid "Set up labels"
+#~ msgstr "הגדר תויות"
+
 #~ msgid "Set New Password"
-#~ msgstr "הגדר סיסמה"
+#~ msgstr "הגדר סיסמה חדשה"
 
-#, fuzzy
-#~| msgid "Date of Birth"
 #~ msgid "Enter date of birth"
-#~ msgstr "תאריך לידה"
+#~ msgstr "הכנס תאריך לידה"
 
-#, fuzzy
-#~| msgid "Please enter date"
 #~ msgid "Please enter date of birth"
-#~ msgstr "הכנס יום בבקשה"
+#~ msgstr "הכנס יום הולדת בבקשה"
 
 #~ msgid "Set Password"
 #~ msgstr "הגדר סיסמה"
 
-#, fuzzy
-#~| msgid "Please enter new password again"
 #~ msgid "Enter, and re-enter your new password to continue"
-#~ msgstr "אנא הכנס שוב סיסמה חדשה"
+#~ msgstr "היכנס והזן מחדש את הסיסמה החדשה שלך כדי להמשיך"
 
-#, fuzzy
-#~| msgid "Password"
 #~ msgid "Password Updated!"
-#~ msgstr "סיסמה"
+#~ msgstr "סיסמה עודכנה!"
 
-#, fuzzy
-#~| msgid "Your password has been reset successfully"
 #~ msgid ""
 #~ "Your password has been changed successfully. Use your new password to log "
 #~ "in."
-#~ msgstr "סיסמתך אופסה בהצלחה"
+#~ msgstr "סיסמתך אופסה בהצלחה, השתמש בסיסמה החדשה להתחבר."
 
 #~ msgid "Delete profile"
 #~ msgstr "מחק פרופיל"
@@ -8069,15 +7744,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Save Changes"
 #~ msgstr "שמירת שינויים"
 
-#, fuzzy
-#~| msgid "Customer Panel Access"
 #~ msgid "Customer Panel Button"
-#~ msgstr "גישה לפאנל לקוחות"
+#~ msgstr "כפתור לפאנל לקוחות"
 
-#, fuzzy
-#~| msgid "Segments:"
 #~ msgid "Coupon Segment"
-#~ msgstr "Segments:"
+#~ msgstr "Coupon Segment"
+
+#~ msgid "Notice: Please select at least one panel."
+#~ msgstr "שים לב: אנא בחר חלונית אחת לפחות."
 
 #~ msgid "Preselect Current Date"
 #~ msgstr "בחר בתאריך הנוכחי מראש"
@@ -8115,13 +7789,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "פאנל עובדים קדמי הוא קוד מקוצר המעניק לעובדים שלך אפשרות לנהל את ההזמנות "
 #~ "שלהם, שעות העבודה, ימי החופשה, השירותים שהוקצו להם ומידע על הפרופיל."
 
-#, fuzzy
-#~| msgid "New Event"
 #~ msgid "New version"
-#~ msgstr "אירוע חדש"
+#~ msgstr "גרסה חדשה"
 
 #~ msgid "Automatically create Amelia Customers from WP Users "
-#~ msgstr "צור באופן אוטומטי משתמש לקוח אמיליה"
+#~ msgstr "צור באופן אוטומטי משתמש לקוח אמיליה "
 
 #~ msgid "Create Amelia Customers"
 #~ msgstr "צור לקוח"
@@ -8142,9 +7814,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "until"
 #~ msgstr "עד"
 
-#, fuzzy
 #~ msgid "Each:"
-#~ msgstr "ניתן לערוך או למחוק כל פגישה"
+#~ msgstr "כל:"
 
 #~ msgid "Add Coupon"
 #~ msgstr "הוסף קופון"
@@ -8210,6 +7881,9 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "Sorry, there was an error processing your payment. Please try again later."
 #~ msgstr "מצטערים, אירעה שגיאה בעיבוד התשלום שלך. בבקשה נסה שוב מאוחר יותר."
 
+#~ msgid "Payment error"
+#~ msgstr "בעיה בתשלום"
+
 #~ msgid ""
 #~ "Sorry, there was an error creating a payment link. Please try again later."
 #~ msgstr "מצטערים, אירעה שגיאה בעיבוד התשלום שלך. בבקשה נסה שוב מאוחר יותר."
@@ -8231,6 +7905,9 @@ msgstr "לא ניתן לבטל את ההזמנה"
 
 #~ msgid "Sorry, there was an error while adding booking to WooCommerce cart."
 #~ msgstr "מצטערים, אירעה שגיאה במהלך הוספת ההזמנה לעגלת WooCommerce."
+
+#~ msgid "Join Google Meeting"
+#~ msgstr "הצטרף לפגישת גוגל"
 
 #~ msgid "Appointment Date:"
 #~ msgstr "תאריך הפגישה:"
@@ -8280,12 +7957,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Extra:"
 #~ msgstr "תוספת:"
 
-#, fuzzy
 #~ msgid "Save "
-#~ msgstr "שמור"
+#~ msgstr "חסוך "
 
 #~ msgid "Appointments from the first package expire on:"
-#~ msgstr "הערות לפגישה"
+#~ msgstr "תוקפם של פגישות מהחבילה הראשונה יפוגו בתאריך:"
 
 #~ msgid "Qty:"
 #~ msgstr "כמות:"
@@ -8293,10 +7969,8 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Do you want to delete this appointment?"
 #~ msgstr "האם ברצונך למחוק פגישה זו?"
 
-#, fuzzy
-#~| msgid "Subtotal"
 #~ msgid "Event Subtotal"
-#~ msgstr "סה\"כ"
+#~ msgstr "סיכום ביניים של האירוע"
 
 #~ msgid "Show from date"
 #~ msgstr "הצג מהתאריך"
@@ -8307,15 +7981,11 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ msgid "Buffer Time"
 #~ msgstr "זמן מרווח"
 
-#, fuzzy
-#~| msgid "Current Password:"
 #~ msgid "Current Password"
-#~ msgstr "סיסמה נוכחית:"
+#~ msgstr "סיסמה נוכחית"
 
-#, fuzzy
-#~| msgid "Please enter current password"
 #~ msgid "Not match to your current password"
-#~ msgstr "הכנס סיסמה נוכחית"
+#~ msgstr "לא תואם לסיסמה הנוכחית שלך"
 
 #~ msgid ""
 #~ "To reschedule your appointment, select an available date time from the "
@@ -8360,16 +8030,14 @@ msgstr "לא ניתן לבטל את ההזמנה"
 #~ "סמן את תיבת הסימון הזו אם אתה רוצה שהלקוח שלך <br/> יקבל דוא\"ל לגבי "
 #~ "הפגישה המתוכננת."
 
-#, fuzzy
 #~ msgid "Appointments in this service"
-#~ msgstr "יש לך פגישות לשירות זה"
+#~ msgstr "פגישות לשירות זה"
 
 #~ msgid "Appointments in this package"
 #~ msgstr "הערות לפגישה"
 
-#, fuzzy
 #~ msgid "Booked Appointments"
-#~ msgstr "הזמן פגישה"
+#~ msgstr "פגישות שהוזמנו"
 
 #~ msgid "Pay"
 #~ msgstr "יום"
@@ -8397,6 +8065,9 @@ msgstr "לא ניתן לבטל את ההזמנה"
 
 #~ msgid "Zoom Links"
 #~ msgstr "לינקים לזום"
+
+#~ msgid "Event Organizer"
+#~ msgstr "מארגן האירוע"
 
 #~ msgid ""
 #~ "Enable this option if you don't want to allow \"existing customer\"<br/"

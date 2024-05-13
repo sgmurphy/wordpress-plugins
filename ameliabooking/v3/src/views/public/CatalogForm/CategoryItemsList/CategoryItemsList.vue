@@ -4,7 +4,7 @@
     ref="contentRef"
     :wrapper-class="`am-fcil ${pageWidth < 481 ? 'am-mobile' : ''}`"
     :form-class="`am-fcil__main ${pageWidth < 481 ? 'am-mobile' : ''}`"
-    :content-class="`am-fcil__wrapper ${pageWidth < 481 ? 'am-mobile' : ''}`"
+    :content-class="`am-fcil__wrapper ${pageWidth < 481 ? 'am-mobile' : ''} ${scrollVisibility ? '' : 'no-scroll'}`"
     :style="cssVars"
   >
     <template #header>
@@ -629,6 +629,12 @@ let customizedDataForm = inject('customizedDataForm')
 // * Customized options
 let customizedOptions = computed(() => {
   return customizedDataForm.value.categoryItemsList.options
+})
+
+let scrollVisibility = computed(() => {
+  if (!('pageScroll' in customizedOptions.value)) return true
+
+  return customizedOptions.value.pageScroll.visibility
 })
 
 // * Root Settings
@@ -1296,6 +1302,11 @@ export default {
 
       &.am-mobile {
         padding: 0;
+      }
+
+      &.no-scroll {
+        max-height: unset;
+        overflow-x: unset;
       }
     }
 

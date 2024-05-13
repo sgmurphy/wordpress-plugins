@@ -25,8 +25,7 @@
 // * Import from Vue
 import {
   computed,
-  inject,
-  onBeforeMount
+  inject
 } from 'vue'
 
 // * Component properties
@@ -77,7 +76,22 @@ const adminTimeZone = inject('timeZone')
 const timeZones = inject('timeZones')
 
 function returnToDefault () {
-  store.commit('cabinet/setTimeZone', useCurrentTimeZone())
+  let initialTimeZone
+  if (!amSettings.general.showClientTimeZone) {
+    initialTimeZone = adminTimeZone.value
+  } else {
+    initialTimeZone = useCurrentTimeZone()
+  }
+
+  vueCookies.set(
+    'ameliaUserTimeZone',
+    initialTimeZone,
+    amSettings.roles[cabinetType.value + 'Cabinet']['tokenValidTime']
+  )
+
+  bookingsCounterChanger()
+
+  store.commit('cabinet/setTimeZone', initialTimeZone)
 }
 
 function timeZoneChanged (selection) {
@@ -89,20 +103,6 @@ function timeZoneChanged (selection) {
 
   bookingsCounterChanger()
 }
-
-onBeforeMount(() => {
-  if (!amSettings.general.showClientTimeZone) {
-    let initialTimeZone = adminTimeZone.value
-
-    if (vueCookies.get('ameliaUserTimeZone')) {
-      initialTimeZone = vueCookies.get('ameliaUserTimeZone')
-    }
-
-    store.commit('cabinet/setTimeZone', initialTimeZone)
-  }
-
-  if (!store.getters['cabinet/getTimeZone']) store.commit('cabinet/setTimeZone', useCurrentTimeZone())
-})
 </script>
 
 <style lang="scss">

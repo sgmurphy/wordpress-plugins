@@ -1,4 +1,4 @@
-=== Enhanced Media Library PRO ===
+=== Enhanced Media Library ===
 Contributors: webbistro
 Tags: media library, media folders, media taxonomies, media gallery, mime types
 Requires at least: 6.0

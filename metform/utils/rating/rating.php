@@ -214,11 +214,9 @@ if(!class_exists('Wpmet\Libs\Rating')) {
 			}
 		}
 
-
 		private function action_on_fire() {
 			return true;
 		}
-
 
 		public function set_installation_date() {
 			add_option($this->text_domain . '_install_date', date('Y-m-d h:i:s'));
@@ -295,7 +293,6 @@ if(!class_exists('Wpmet\Libs\Rating')) {
 
 			}
 
-
 			$wpmet_libs_execution_container['rating'] = __FILE__;
 
 			$install_date  = get_option($this->text_domain . '_install_date');
@@ -306,11 +303,8 @@ if(!class_exists('Wpmet\Libs\Rating')) {
 
 			if(abs($diff_interval) >= $this->days) {
 
-				
-
-				$message = "Hello! Seems like you have used {$this->plugin_name} to build this website — Thanks a lot! <br>
-                            Could you please do us a <b>big favor</b> and give it a <b>5-star</b> rating on WordPress? 
-                            This would boost our motivation and help other users make a comfortable decision while choosing the {$this->plugin_name}";
+				$message = "Enjoying MetForm and all its functionality+simplicity? 😃<br>
+				Do share your feedback with us… a <strong>5⭐ review</strong> would motivate us to <strong>build even better for you!</strong> 🥳";
 
 				LibsNotice::instance($this->text_domain, '_plugin_rating_msg_used_in_day')
 				          ->set_message($message)
@@ -353,7 +347,6 @@ if(!class_exists('Wpmet\Libs\Rating')) {
 			}
 		}
 
-
 		/**
 		 *---------------------------------------------------------
 		 *  When user will click @notGoodEnough button
@@ -361,7 +354,6 @@ if(!class_exists('Wpmet\Libs\Rating')) {
 		 *  for next asking time
 		 *---------------------------------------------------------
 		 */
-
 
 		public static function ask_me_later_message() {
 			if(empty( $_REQUEST['_wpnonce'] ) || !isset($_POST['plugin_name']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])),'wpmet_rating_never_show_message')){

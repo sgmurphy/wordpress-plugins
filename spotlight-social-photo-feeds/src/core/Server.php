@@ -47,10 +47,15 @@ class Server
 
     public function getFeedMedia(array $options = [], ?int $from = 0, int $num = null): array
     {
-        // Check if numPosts is not a responsive value first
-        $num = !is_array($options['numPosts'] ?? null) ? $options['numPosts'] : $num;
-        // Otherwise get the desktop value, defaulting to 9
-        $num = $num ?? ($options['numPosts']['desktop'] ?? 9);
+        if (is_array($options['numPosts'] ?? null)) {
+            $num = max(
+                $options['numPosts']['desktop'] ?? 9,
+                $options['numPosts']['tablet'] ?? 9,
+                $options['numPosts']['phone'] ?? 9,
+            );
+        } else {
+            $num = intval($options['numPosts']) ?? 9;
+        }
 
         // Get media and total
         $feed = $this->feedManager->createFeed($options);

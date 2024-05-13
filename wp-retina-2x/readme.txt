@@ -5,7 +5,7 @@ Donate link: https://meowapps.com/donation/
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 6.5.5
+Stable tag: 6.5.6
 
 Optimize and manage your images with Perfect Images. Easily replace or regenerate existing images in bulk, set custom sizes, improve performance, create retina versions, and more. Achieve perfect images for your site with ease.
 
@@ -50,6 +50,14 @@ The Pro version adds support for Retina for full-size, support for lazy-loading 
 
 == Changelog ==
 
+= 6.5.6 (2024/05/13) =
+* Add: Import / Export Settings functionality.
+* Update: Enhanced button readability in actions by reducing text.
+* Update: User Interface improvements for Full Size image handling.
+* Add: Automatic building of Full-Size Webp images.
+* Optimization: Optimized image handling by fetching only the mime type.
+* ✨ If you enjoy this plugin, please share some love by [writing a little review here](https://wordpress.org/support/plugin/wp-retina-2x/reviews/?rate=5#new-post). Don't hesitate to drop a few remarks and feature requests with the review. Thank you! 💖
+
 = 6.5.5 (2024/04/27) =
 * Fix: Corrected an issue where "crop" was always set to true.
 * Add: Introduced log reader, log cleaner, and secure anti-traversal for log paths to enhance security and functionality.
@@ -57,7 +65,6 @@ The Pro version adds support for Retina for full-size, support for lazy-loading 
 = 6.5.4 (2024/03/23) =
 * Fix: Corrected actions for selected items and addressed missing status on entries.
 * Update: Deprecated string variables for improved code quality.
-* ✨ If you enjoy this plugin, please share some love by [writing a little review here](https://wordpress.org/support/plugin/wp-retina-2x/reviews/?rate=5#new-post). Don't hesitate to drop a few remarks and feature requests with the review. Thank you! 💖
 
 = 6.5.3 (2024/03/16) =
 * Fix: Issue in Regenerate Entries.

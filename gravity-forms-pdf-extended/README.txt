@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravity forms, form, contact form, pdf, email
 Requires at least: 5.3
 Tested up to: 6.5
-Stable tag: 6.10.1
+Stable tag: 6.10.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -106,6 +106,9 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 16. A bunch of paid PDF designs are available, as well as additional functionality.
 
 == Changelog ==
+
+= 6.10.2 =
+* Bug: Hydrate Nested Forms with Gravity Wiz Populate Anything data
 
 = 6.10.1 =
 * Bug: Resolve PHP error when processing shortcode with invalid entry object

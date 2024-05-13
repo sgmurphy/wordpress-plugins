@@ -151,6 +151,16 @@ store.commit('bookableType/setType', 'event')
 let ameliaContainer = ref(null)
 let dialogContainer = ref(null)
 
+// * Events array
+let events = computed(() => store.getters['eventEntities/getEvents'])
+
+function useEvents (hookModifiedEvents) {
+  store.commit(
+      'eventEntities/setEvents',
+      hookModifiedEvents
+  )
+}
+
 // * Plugin wrapper width
 let containerWidth = ref(0)
 provide('containerWidth', containerWidth)
@@ -330,7 +340,11 @@ onMounted(() => {
     'amelia-v2-booking-' + shortcodeData.value.counter
   ).classList.add('amelia-v2-booking-' + shortcodeData.value.counter + '-loaded')
 
-  useAction(store, {}, 'ViewContent', 'event', null, null)
+  watch(ready, (current) => {
+    if(current) {
+      useAction(store, {events, useEvents}, 'ViewContent', 'event', null, null)
+    }
+  })
 
   nextTick(() => {
     if(ameliaContainer.value) {

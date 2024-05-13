@@ -436,6 +436,7 @@ class Meow_WR2X_Rest
 				INNER JOIN $wpdb->postmeta pm ON pm.post_id = p.ID
 				WHERE post_type = 'attachment'
 				AND pm.meta_key = '_wp_attachment_metadata'
+				AND p.post_mime_type LIKE 'image/%%'
 				$whereIsIn
 				GROUP BY p.ID
 				$orderSql
@@ -450,6 +451,7 @@ class Meow_WR2X_Rest
 				INNER JOIN $wpdb->postmeta pm ON pm.post_id = p.ID
 				WHERE post_type = 'attachment'
 				AND pm.meta_key = '_wp_attachment_metadata'
+				AND p.post_mime_type LIKE 'image/%%'
 				$whereIsIn
 				AND p.post_title LIKE %s
 				GROUP BY p.ID

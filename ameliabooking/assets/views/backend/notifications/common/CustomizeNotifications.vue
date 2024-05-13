@@ -663,14 +663,14 @@
                       <el-button
                         size="mini"
                         :type="textMode ? 'default' : 'primary'"
-                        @click="textModeChanged('notificationContent', 'notificationContentText', null)"
+                        @click="changeTextMode"
                       >
                         {{ $root.labels.text_mode }}
                       </el-button>
                       <el-button
                         size="mini"
                         :type="textMode ? 'primary' : 'default'"
-                        @click="textModeChanged('notificationContent', 'notificationContentText', null)"
+                        @click="changeTextMode"
                       >
                         {{ $root.labels.html_mode }}
                       </el-button>
@@ -1352,8 +1352,27 @@
         this.notification.minimumTimeBeforeBooking = val ? {amount: 1, period: 'days'} : null
       },
 
+      changeTextMode () {
+        this.textModeChanged('notificationContent', 'notificationContentText', null)
+
+        this.notification.textMode = this.textMode
+      },
+
       changeLanguage () {
-        this.textMode = false
+        if (this.textMode && this.selectedLanguage && this.notification.translations) {
+          let translations = JSON.parse(this.notification.translations)
+
+          if (translations['content'] && translations['content'][this.selectedLanguage]) {
+            this.notificationContentText = this.process(
+              translations['content'][this.selectedLanguage].replace('<!-- Content -->', '').replace(/(\r\n|\n|\r)/gm, '')
+            )
+          }
+        } else if (this.textMode && !this.selectedLanguage) {
+          this.notificationContentText = this.process(
+            this.notificationContent.replace('<!-- Content -->', '').replace(/(\r\n|\n|\r)/gm, '')
+          )
+        }
+
         this.testNotification.language = this.selectedLanguage
       },
 
@@ -1845,6 +1864,8 @@
           this.testNotification.type = 'package'
         }
 
+        this.textMode = this.notification.textMode
+
         this.notificationContentText = this.process(
           this.notificationContent.replace('<!-- Content -->', '').replace(/(\r\n|\n|\r)/gm, '')
         )
@@ -1871,10 +1892,23 @@
 
       callInsert (notification) {
         this.fetchedUpdate = false
-        this.form.post(`${this.$root.getAjaxUrl}/notifications`, notification
+
+        let content = notification.content
+
+        if (notification.type === 'email') {
+          content = notification.textMode ? '<!-- Content -->' + notification.content : notification.content.replace('<!-- Content -->', '')
+        }
+
+        this.form.post(`${this.$root.getAjaxUrl}/notifications`, Object.assign({}, notification, {content: content})
         ).then((response) => {
           if (response.data.update) {
             this.notification.content = response.data.notification.content
+
+            if (this.notification.type === 'email') {
+              this.notification.textMode = response.data.notification.content.startsWith('<!-- Content -->')
+
+              this.notification.content = response.data.notification.content.replace('<!-- Content -->', '')
+            }
           }
           this.fetchedUpdate = true
           notification.id = response.data.id
@@ -1915,13 +1949,25 @@
             if (!this.minimumTimeEnabled) {
               this.notification.minimumTimeBeforeBooking = null
             }
+            let content = this.notification.content
+
+            if (this.notification.type === 'email') {
+              content = this.notification.textMode ? '<!-- Content -->' + this.notification.content : this.notification.content.replace('<!-- Content -->', '')
+            }
             this.form.post(
-              `${this.$root.getAjaxUrl}/notifications/${this.notification.id}`, this.notification
+              `${this.$root.getAjaxUrl}/notifications/${this.notification.id}`, Object.assign({}, this.notification, {content: content})
             ).then((response) => {
               if (response.data.update) {
                 this.notification.content = response.data.notification.content
               }
               this.notification = response.data.notification
+
+              if (this.notification.type === 'email') {
+                this.notification.textMode = response.data.notification.content.startsWith('<!-- Content -->')
+
+                this.notification.content = response.data.notification.content.replace('<!-- Content -->', '')
+              }
+
               this.notification.minimumTimeBeforeBooking = this.notification.minimumTimeBeforeBooking ? JSON.parse(this.notification.minimumTimeBeforeBooking) : null
               this.setCustomNotificationFields()
               let index = this.notifications.map(n => n.id).indexOf(this.notification.id)

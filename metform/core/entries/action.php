@@ -1008,6 +1008,13 @@ class Action
          // need to require WordPress wp_handle_upload function
          require_once ABSPATH . 'wp-admin/includes/file.php';
 
+
+         
+         // Filter to modify upload directory
+         add_filter('upload_dir', [$this, 'modify_metform_upload_dir']);
+
+        // remove_filter('upload_dir', [$this, 'modify_metform_upload_dir']);
+
         $files = $file_data[$input_name];
         $total_files = (isset($file_data[$input_name]['name']) && is_array($file_data[$input_name]['name'])) ? count($file_data[$input_name]['name']) : 0;
         $failed = false;
@@ -1047,6 +1054,76 @@ class Action
             $this->file_upload_info[$input_name] = $uploaded_info;
             $this->response->status = 1;
         } 
+    }
+    
+    /**
+     * Modify default upload directory for upload metform entires
+     */
+
+    public function modify_metform_upload_dir($upload_dir) {
+        $custom_upload_folder = 'metform-uploads';
+    
+        // Initialize WordPress filesystem
+        global $wp_filesystem;
+        if (empty($wp_filesystem)) {
+            require_once ABSPATH . '/wp-admin/includes/file.php';
+            WP_Filesystem();
+        }
+    
+        // Setup paths
+        $upload_path = $upload_dir['basedir'] . '/' . $custom_upload_folder;
+        $upload_url = $upload_dir['baseurl'] . '/' . $custom_upload_folder;
+    
+        $upload_dir['path'] = $upload_path;
+        $upload_dir['url'] = $upload_url;
+        $upload_dir['subdir'] = '/' . $custom_upload_folder;
+    
+        // Create directory if it doesn't exist
+        if (!$wp_filesystem->is_dir($upload_path)) {
+            $wp_filesystem->mkdir($upload_path);
+        }
+    
+        // Create index.php file for folder protection
+        $index_file = $upload_path . '/index.php';
+        if (!$wp_filesystem->exists($index_file)) {
+            $wp_filesystem->put_contents($index_file, '<?php // Silence is golden.');
+        }
+    
+        // Create .htaccess file for additional security rules
+        $htaccess_file = $upload_path . '/.htaccess';
+        if (!$wp_filesystem->exists($htaccess_file)) {
+            $rules = '# Disable parsing of PHP for some server configurations to modify rules use metform_upload_root_htaccess_rules filter hook.
+    <Files *>
+        SetHandler none
+        SetHandler default-handler
+        Options -ExecCGI
+        Options -Indexes
+        RemoveHandler .cgi .php .php3 .php4 .php5 .phtml .pl .py .pyc .pyo
+    </Files>
+    <IfModule mod_php5.c>
+        php_flag engine off
+    </IfModule>
+    <IfModule headers_module>
+        Header set X-Robots-Tag "noindex"
+    </IfModule>';
+    
+         /**
+		 * A filter to allow the htaccess rules
+		 *
+		 * @since 3.8.7
+		 *
+		 * @param mixed $rules The Rules of what to parse or not to parse
+		 */
+		$rules = apply_filters( 'metform_upload_root_htaccess_rules', $rules );
+		if ( ! empty( $rules ) ) {
+            if(!function_exists('insert_with_markers')){
+				require_once( ABSPATH . 'wp-admin/includes/misc.php' );
+			}
+			insert_with_markers( $htaccess_file, 'MetForm', $rules );
+		}
+        }
+    
+        return $upload_dir;
     }
     
     private function get_redirect_url_params(){

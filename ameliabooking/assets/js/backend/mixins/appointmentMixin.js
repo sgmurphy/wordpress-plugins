@@ -372,6 +372,9 @@ export default {
       this.appointment.selectedPeriod = ''
       this.appointment.dateTimeSlots = []
       this.appointment.calendarTimeSlots = []
+      if (this.appointment.bookings[0].packageCustomerService) {
+        this.appointment.bookings[0].payments = []
+      }
       setTimeout(() => {
         this.dialogAppointment = true
       }, 300)

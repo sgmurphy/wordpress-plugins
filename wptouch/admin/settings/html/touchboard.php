@@ -14,7 +14,7 @@
 			<li><a href="//wptouch.s3.amazonaws.com/docs/WPtouch%20User%20Guide.pdf"><?php _e( 'WPtouch User Guide', 'wptouch-pro' ); ?></a></li>
 			<li><a href="//wptouch.s3.amazonaws.com/WPtouch%20-%20Make%20Your%20Website%20Mobile-Friendly.pdf"><?php _e( 'Mobile-Friendly Guide', 'wptouch-pro' ); ?></a></li>
 			<?php } ?>
-			<li><a href="//www.twitter.com/wptouch" target="_blank"><i class="wptouch-icon-twitter"></i> <?php _e( 'WPtouch on Twitter', 'wptouch-pro' ); ?> </a></li>
+			<!-- <li><a href="//www.twitter.com/wptouch" target="_blank"><i class="wptouch-icon-twitter"></i> <?php _e( 'WPtouch on Twitter', 'wptouch-pro' ); ?> </a></li> -->
 
 			<?php if ( false && defined( 'WPTOUCH_IS_FREE' ) ) { ?>
 				<li><a href="//www.wptouch.com/themes/?utm_campaign=touchboard&utm_source=<?php echo WPTOUCH_UTM_SOURCE; ?>&utm_medium=web"><?php _e( 'Look at Pro Themes', 'wptouch-pro' ); ?></a></li>

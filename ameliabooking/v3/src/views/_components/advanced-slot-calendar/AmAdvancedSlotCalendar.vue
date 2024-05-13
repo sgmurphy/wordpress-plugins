@@ -561,32 +561,31 @@ const { sidebarDataCollector } = inject('sidebarStepsFunctions', {
 
 // * Click on slot
 function slotSelected (slot) {
-    if (calendarChangeSideBar.value) {
-      let selectedSlot = {
-        reference: 'slot',
-        // position will depend on fields order
-        position: 1,
-        value: ''
-      }
-
-      selectedSlot.value = !slotsHeading.value.includes(' - ') ?
-        slotsHeading.value + ' - ' + getFrontedFormattedTime(slot) :
-        slotsHeading.value.split(' - ')[0] + ' - ' + getFrontedFormattedTime(slot)
-
-      slotsHeading.value = selectedSlot.value
-
-      if (!props.notMultiple && props.date) {
-        selectedSlot.reference = 'package-slot ' + props.id + ' ' + props.serviceId
-      }
-
-      sidebarDataCollector(selectedSlot)
-
+  if (calendarChangeSideBar.value) {
+    let selectedSlot = {
+      reference: 'slot',
+      // position will depend on fields order
+      position: 1,
+      value: ''
     }
 
-    calendarEventSlot.value = slot
+    selectedSlot.value = !slotsHeading.value.includes(' - ') ?
+      slotsHeading.value + ' - ' + getFrontedFormattedTime(slot) :
+      slotsHeading.value.split(' - ')[0] + ' - ' + getFrontedFormattedTime(slot)
 
-    emits('selectedTime', slot)
+    slotsHeading.value = selectedSlot.value
 
+    if (!props.notMultiple && props.date) {
+      selectedSlot.reference = 'package-slot ' + props.id + ' ' + props.serviceId
+    }
+
+    sidebarDataCollector(selectedSlot)
+
+  }
+
+  calendarEventSlot.value = slot
+
+  emits('selectedTime', slot)
 }
 
 window.addEventListener('resize', resize);

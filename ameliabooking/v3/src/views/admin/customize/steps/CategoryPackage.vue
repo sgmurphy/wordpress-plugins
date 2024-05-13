@@ -3,7 +3,7 @@
     wrapper-class="am-fcip"
     form-class="am-fcip__form"
     heading-class="am-fcip__header"
-    content-class="am-fcip__content"
+    :content-class="`am-fcip__content ${customizeOptions.pageScroll.visibility ? '' : 'no-scroll'}`"
     :style="cssVars"
   >
     <template #header>
@@ -633,6 +633,13 @@ export default {
 
         &-bottom {
           padding: 0 0 16px;
+        }
+      }
+
+      &__content {
+        &.no-scroll {
+          max-height: unset;
+          overflow-x: unset;
         }
       }
 

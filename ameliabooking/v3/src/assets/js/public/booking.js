@@ -878,6 +878,7 @@ function useCreateBookingSuccess (store, response, callback) {
   if (typeof callback !== 'undefined') {
     callback()
   }
+
 }
 
 function useCreateBookingError (store, response, callback) {

@@ -553,6 +553,10 @@ let defaultCustomizeSettings = {
           buttonType: 'filled',
           typeOptions: ['filled', 'plain', 'text']
         },
+        pageScroll: {
+          name: globalLabels.page_scroll_visibility,
+          visibility: true
+        }
       },
       translations: null
     },
@@ -632,6 +636,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.package_services_list,
           visibility: true
         },
+        pageScroll: {
+          name: globalLabels.page_scroll_visibility,
+          visibility: true
+        }
       },
       translations: null
     },
@@ -683,6 +691,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.package_services_list,
           visibility: true
         },
+        pageScroll: {
+          name: globalLabels.page_scroll_visibility,
+          visibility: true
+        }
       },
       translations: null,
     }

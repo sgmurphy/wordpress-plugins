@@ -202,23 +202,18 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.5',
+         version: '7.5.1',
          starter: {
-           feature: [
-             'Newly redesigned Customer Panel with effortless appointment and event management alongside seamless profile updates'
-           ],
+           feature: [],
            improvement: [
-             'Added possibility to filter Employee page by multiple locations',
-             'Extended option “Check customer\'s name for existing email/phone when booking”, to check for existing users by phone number if email is not entered'
+             'Added option on Customize page to remove scroll from Catalog 2.0 booking form'
            ],
            translations: [
-             'Updated German and added Turkish translation'
+             'Updated Dutch and Hebrew languages\n'
            ],
            bugfix: [
-             'Fixed issue with “Go back” button and missing sidebar on the Catalog Booking form',
-             'Fixed issue with the “Limit events per customer” and events start time on the Congratulations page',
-             'Fixed issue with Manager role and hidden services with coupons',
-             'Fixed issue with customer info in ICS files'
+             'Fixed issue with HTML notifications and \'quill\' editor',
+             'Fixed issue with time slots when timezone is hidden on the new customer panel'
            ],
            other: [
              'Other small bug fixes and stability improvements'
@@ -226,37 +221,32 @@ export default {
          },
          basic: {
            feature: [],
-           improvement: [],
-           translations: [],
-           bugfix: [
-             'Fixed issue with the custom fields option when exporting attendees',
-             'Fixed issue with translations and their order in case of different language variations',
-             'Fixed issue with UTC time-zones and test notifications',
-             'Fixed issue with forms when default location is not used and “Load Entities on page load” option enabled'
+           improvement: [
+             'Added \'Fifth\' as a recurrence option for the Monthly recurring events'
            ],
-           other: ['Added documentation about WPHooks']
+           translations: [],
+           bugfix:[],
+           other: []
          },
          pro: {
            feature: [],
-           improvement: [],
+           improvement: [
+             'Added sorting option for services within packages',
+             'Implemented sorting of packages by validation date on Customer Panel 2.0'
+           ],
            translations: [],
            bugfix: [
-             'Fixed issue with a package payment in the customer panel via WooCommerce Stripe',
-             'Fixed issue with not taking set payment methods for packages into consideration',
-             'Fixed issue with Cart payments when using coupons and notifications not sent'
+             'Fixed issue with notifications and google sync when duplicating appointment from package'
            ],
            other: []
          },
          developer: {
            feature: [],
            improvement: [
-             'Added option to send multiple locations when retrieving employees by API',
-             'Added a new API call for package slots'
+             'Improved API bookings logic'
            ],
            translations: [],
-           bugfix: [
-             'Fixed issue with updating employee work hours with API'
-           ],
+           bugfix: [],
            other: []
          }
        },

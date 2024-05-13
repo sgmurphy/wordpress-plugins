@@ -40,9 +40,8 @@
         </AmAlert>
 
         <!-- Packages filters -->
-        <template v-if="props.appointment && !props.appointment.id">
+        <template v-if="filterFormVisibility">
           <el-form
-            v-if="(props.employees.length || props.locations.length) && (props.customizedOptions.employee.visibility || props.customizedOptions.location.visibility)"
             ref="packageFormRef"
             class="am-csd__filter-wrapper"
             :rules="rules"
@@ -54,8 +53,8 @@
               :class="responsiveClass"
             >
               <el-form-item
-                v-if="props.employees.length && props.customizedOptions.employee.visibility"
-                :class="responsiveClass"
+                v-if="props.employees.length && employeeVisibility && props.customizedOptions.employee.visibility"
+                :class="[{'am-csd__filter-full': !(props.locations.length && locationVisibility && props.customizedOptions.location.visibility)}, responsiveClass]"
                 :label="`${amLabels.package_appointment_employee}:`"
                 :prop="'employee'"
               >
@@ -91,8 +90,8 @@
               </el-form-item>
 
               <el-form-item
-                v-if="props.locations.length && props.customizedOptions.location.visibility"
-                :class="responsiveClass"
+                v-if="props.locations.length && locationVisibility && props.customizedOptions.location.visibility"
+                :class="[{'am-csd__filter-full': !(props.employees.length && employeeVisibility && props.customizedOptions.employee.visibility)}, responsiveClass]"
                 :label="`${amLabels.package_appointment_location}:`"
                 :prop="'location'"
               >
@@ -198,6 +197,7 @@ import { useColorTransparency } from "../../../../../assets/js/common/colorManip
 import { useSortedDateStrings } from "../../../../../assets/js/common/helper.js";
 import { useScrollTo } from "../../../../../assets/js/common/scrollElements";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
+import {useCreateBookingSuccess} from "../../../../../assets/js/public/booking";
 
 // * Vars
 let store = useStore()
@@ -347,11 +347,21 @@ let packageFormData = ref({
   location: null
 })
 
+let employeeVisibility = ref(true)
+let locationVisibility = ref(true)
+
+let filterFormVisibility = computed(() => {
+  return (props.appointment && !props.appointment.id)
+    && (props.employees.length || props.locations.length)
+    && (props.customizedOptions.employee.visibility || props.customizedOptions.location.visibility)
+    && (employeeVisibility.value || locationVisibility.value)
+})
+
 let packageFormRef = ref(null)
 
 // * Form validation rules
 let rules = computed(() => {
-  if (props.appointment && !props.appointment.id) {
+  if (filterFormVisibility.value) {
     return {
       employee: [
         {
@@ -394,7 +404,10 @@ let slotsProps = computed(() => {
 })
 
 function changeFilter() {
-  packageFormRef.value.clearValidate()
+  if (packageFormRef.value) {
+    packageFormRef.value.clearValidate()
+  }
+
   slotsAreLoading.value = true
   loadCounter.value++
 
@@ -408,13 +421,31 @@ function selectEmployee (val) {
 }
 
 function closeDialog () {
-  if ((props.appointment && !props.appointment.id) && (props.employees.length || props.locations.length) && (props.customizedOptions.employee.visibility || props.customizedOptions.location.visibility)) {
+  if (filterFormVisibility.value) {
     packageFormData.value.employee = null
     packageFormData.value.location = null
+    employeeVisibility.value = true
+    locationVisibility.value = true
     changeFilter()
   }
   emits('close')
 }
+
+watch(popupReady, (newVal) => {
+  if (newVal && props.employees.length === 1) {
+    packageFormData.value.employee = props.employees[0].id
+    employeeVisibility.value = false
+  }
+
+  if (newVal && props.locations.length === 1) {
+    packageFormData.value.location = props.locations[0].id
+    locationVisibility.value = false
+  }
+
+  if (newVal && (props.locations.length === 1 || props.employees.length === 1)) {
+    changeFilter()
+  }
+})
 
 let rescheduleRef = ref()
 provide('formWrapper', rescheduleRef)
@@ -425,7 +456,7 @@ let calendarSlotDuration = computed(() => {
 
 provide('calendarSlotDuration', calendarSlotDuration)
 
-let calendarChangeSideBar = ref(false)
+let calendarChangeSideBar = ref(true)
 
 provide('calendarChangeSideBar', calendarChangeSideBar)
 
@@ -533,8 +564,9 @@ function packageBookingApp () {
     '/bookings',
     data,
     useAuthorizationHeaderObject(store)
-  ).then(() => {
+  ).then((response) => {
     calendarRef.value.calendarSlotsLoading = false
+    useCreateBookingSuccess(store, response)
     emits('success', {message: amLabels.value.booking_added_success})
   }).catch((error) => {
     calendarRef.value.calendarSlotsLoading = false
@@ -569,7 +601,7 @@ function packageBookingApp () {
 }
 
 function addPackageBooking () {
-  if (!((props.employees.length || props.locations.length) && (props.customizedOptions.employee.visibility || props.customizedOptions.location.visibility))) {
+  if (!filterFormVisibility.value) {
     packageBookingApp()
   } else {
     packageFormRef.value.validate((valid) => {
@@ -801,8 +833,6 @@ export default {
       }
     }
 
-    &__inner {}
-
     &__header {
       display: flex;
       align-items: center;
@@ -909,7 +939,7 @@ export default {
         &-item{
           width: calc(50% - 12px);
 
-          &.am-csd__filter-item-full {
+          &.am-csd__filter-full {
             width: 100%;
           }
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 19:19+0200\n"
-"PO-Revision-Date: 2024-04-09 12:49+0200\n"
+"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"PO-Revision-Date: 2024-04-24 14:31+0200\n"
 "Last-Translator: TOLGA ALTAŞ\n"
 "Language-Team: Türkçe\n"
 "Language: tr_TR\n"
@@ -80,7 +80,7 @@ msgstr ""
 "kaybolabilir."
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:37
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:204
 msgid "Close"
 msgstr "Kapat"
@@ -236,7 +236,7 @@ msgstr "Hata"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:71
 #: src/Infrastructure/WP/Translations/BackendStrings.php:566
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:176
 msgid "Event"
 msgstr "Etkinlik"
@@ -482,8 +482,8 @@ msgstr "Kısmen Ödenmiş"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:561
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1289
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1299
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:179
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:206
 msgid "Payment"
@@ -542,7 +542,7 @@ msgstr "Lütfen zamanı seçin"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1268
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1270
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1305
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:163
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:166
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:182
@@ -553,7 +553,7 @@ msgstr "Hizmet"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:140
 #: src/Infrastructure/WP/Translations/BackendStrings.php:327
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1291
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1435
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:174
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:244
 msgid "Services"
@@ -946,7 +946,7 @@ msgstr "Kuponları büyük/küçük harf duyarsız olarak ayarla"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:232
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1168
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
 msgid "Calendar"
 msgstr "Takvim"
 
@@ -2243,7 +2243,7 @@ msgid "End time of the event"
 msgstr "Etkinliğin bitiş saati"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:540
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1473
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:178
 msgid "Event ID"
 msgstr "Etkinlik Kimliği"
@@ -2745,7 +2745,7 @@ msgid "Hide"
 msgstr "Gizle"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:712
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
 msgid "Show"
 msgstr "Göster"
 
@@ -3664,7 +3664,7 @@ msgstr "Maksimum Lokasyon sayısı:"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1042
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1214
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:259
 msgid "Select Service"
 msgstr "Hizmet Seçin"
@@ -4235,7 +4235,7 @@ msgid "From"
 msgstr "Den"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1251
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
 msgid "Free"
 msgstr "Ücretsiz"
 
@@ -4331,7 +4331,7 @@ msgid "All slots are selected"
 msgstr "Tüm alanlar seçildi"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1279
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1471
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1472
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:168
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:207
 msgid "Your Information"
@@ -4616,7 +4616,7 @@ msgid "Customer Information"
 msgstr "Müşteri Bilgileri"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1358
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1456
 msgid "Field order, mandatory fields, labels and display options"
 msgstr "Alan sırası, zorunlu alanlar, etiketler ve görüntüleme seçenekleri"
 
@@ -4625,12 +4625,12 @@ msgid "Payment Summary"
 msgstr "Ödeme Özeti"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1360
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1457
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
 msgid "Set up labels and buttons"
 msgstr "Etiketleri ve düğmeleri ayarla"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1361
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1460
 msgid "Set up button types and labels"
 msgstr "Düğme tiplerini ve etiketleri ayarla"
 
@@ -4647,8 +4647,8 @@ msgid "Field Order"
 msgstr "Saha Düzeni"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1368
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1458
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1478
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1459
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:95
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:205
 msgid "Congratulations"
@@ -4811,7 +4811,7 @@ msgid "Service Duration"
 msgstr "Hizmet Süresi"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:1428
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:240
 msgid "About Service"
 msgstr "Hizmet Hakkında"
@@ -4825,58 +4825,63 @@ msgstr "“Ara“ seçeneği"
 msgid "Card Color"
 msgstr "Kart Rengi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1432
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1431
+#, fuzzy
+msgid "Page Scroll Visibility"
+msgstr "Kenar Çubuğu Görünürlüğü"
+
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:238
 msgid "Search"
 msgstr "Ara"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1433
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1434
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:256
 msgid "Available"
 msgstr "Müsait"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1436
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1437
 msgid "No results"
 msgstr "Sonuçlar"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1438
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1439
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:239
 msgid "Book Now"
 msgstr "Rezervasyon"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1440
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1441
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:241
 msgid "View all photos"
 msgstr "Tüm fotoğrafları göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1442
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
 msgid "Support Heading:"
 msgstr "Destek Başlığı:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1443
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1444
 msgid "Company Phone:"
 msgstr "Şirket Telefonu:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1444
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1445
 msgid "Company Email:"
 msgstr "Şirket E-posta:"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1447
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1448
 msgid "Event List Booking Form 2.0"
 msgstr "Etkinlik Listesi Rezervasyon Formu 2.0"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1448
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1449
 msgid ""
 "The Event List Booking Form 2.0 offers an intuitive and fast booking "
 "experience, with a design that stands out. Customers can effortlessly browse "
 "and book from a list of events."
 msgstr ""
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1450
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
 msgid "Events List"
 msgstr "Etkinlik Listesi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1451
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
 msgid ""
 "Set up Location, Images, Filters, Capacity, Price, and Status visibility "
 "options"
@@ -4884,244 +4889,244 @@ msgstr ""
 "Konum, Resimler, Filtreler, Kapasite, Fiyat ve Durum görünürlük "
 "seçeneklerini ayarlayın"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1452
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:109
 msgid "Event Info"
 msgstr "Etkinlik Bilgisi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1453
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
 msgid "Set up Staff, Location, Gallery and other Event information visibility"
 msgstr ""
 "Personel, Konum, Galeri ve diğer Etkinlik bilgilerinin görünürlüğünü ayarla"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1454
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1455
 msgid "Customer Info"
 msgstr "Müşteri Bilgileri"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1461
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:209
 msgid "Events Available"
 msgstr "Mevcut Etkinlik"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1462
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:210
 msgid "Event Available"
 msgstr "Etkinlik Mevcut"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1463
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
 msgid "Page"
 msgstr "Sayfa"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1464
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:211
 msgid "Search for Events"
 msgstr "Etkinlik Ara"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1465
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
 msgid "Begins"
 msgstr "Başlangıç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1466
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:212
 msgid "slot left"
 msgstr "yer kaldı"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1467
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:213
 msgid "slots left"
 msgstr "yer kaldı"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1468
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:214
 msgid "Learn more"
 msgstr "Daha Fazla"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1469
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1470
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:215
 msgid "Read more"
 msgstr "Devamını oku"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1474
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1475
 msgid "About"
 msgstr "Hakkında"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1476
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1477
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:216
 msgid "Timetable"
 msgstr "Çizelge"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1479
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:208
 msgid "About Event"
 msgstr "Etkinlik Hakkında"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1480
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1481
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:201
 msgid "Event Starts"
 msgstr "Etkinlik Başlangıcı"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1481
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1482
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:202
 msgid "Event Ends"
 msgstr "Etkinlik Bitişi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1482
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:203
 msgid "at"
 msgstr "Tarih"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1483
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1484
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:217
 msgid "How many attendees do you want to book event for?"
 msgstr "Kaç katılımcı için etkinlikte yer ayırtmak istiyorsunuz?"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1486
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
 msgid "Step Filters"
 msgstr "Adım Filtreleri"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1487
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
 msgid "Event Card"
 msgstr "Etkinlik Kartı"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1488
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
 msgid "Step Pagination"
 msgstr "Adım Sayfalama"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1489
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
 msgid "Event Slots Capacity"
 msgstr "Etkinlik Yuvaları Kapasitesi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1490
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
 msgid "Filters Button Type"
 msgstr "Filtreler Düğme Tipi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1491
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
 msgid "Read More Button Type"
 msgstr "Daha Fazla Oku Düğme Tipi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1492
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
 msgid "Learn More Button Type"
 msgstr "Daha Fazla Öğren Düğme Tipi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1493
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1494
 msgid "Event Tab Image"
 msgstr "Etkinlik Sekmesi Görüntüsü"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1494
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
 msgid "Step Header"
 msgstr "Adım Başlığı"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1495
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
 msgid "Step Info Tab"
 msgstr "Adım Bilgi Sekmesi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1496
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1497
 msgid "Booking Event Button"
 msgstr "Yer ayırt düğme"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1497
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
 msgid "Finish Button"
 msgstr "Bitir Düğmesi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1498
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
 msgid "Close Event Button"
 msgstr "Olay Düğmesini Kapat"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1499
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1500
 msgid "Event Gallery"
 msgstr "Etkinlik Galerisi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1500
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1501
 msgid "Event Description"
 msgstr "Olay Açıklaması"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1502
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1503
 #: src/Infrastructure/WP/Translations/FrontendStrings.php:175
 msgid "person"
 msgstr "kişi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1503
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1504
 msgid "Event Employees"
 msgstr "Etkinlik Çalışanları"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1513
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
 msgid "Catalog"
 msgstr "Katalog"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1514
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
 msgid "Choose Category"
 msgstr "Kategori Seçin"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1515
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
 msgid "Choose Service"
 msgstr "Hizmeti Seçin"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1516
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
 msgid "Choose Package"
 msgstr "Paket Seçin"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1517
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
 msgid "Preselect Booking Parameters"
 msgstr "Rezervasyon Parametrelerini Önceden Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1518
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
 msgid "Skip Categories step"
 msgstr "Kategoriler adımını atla"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1519
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
 msgid "Insert Amelia Booking Shortcode"
 msgstr "Amelia Rezervasyon Kısa Kodunu Ekle"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1520
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
 msgid "Select Catalog View"
 msgstr "Katalog Görünümü Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1521
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
 msgid "Select Category"
 msgstr "Kategori Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1522
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
 msgid "Select Employee"
 msgstr "Çalışan Seçin"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1523
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
 msgid "Select Location"
 msgstr "Konum Seçin"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1524
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1525
 msgid "Select Package"
 msgstr "Paket Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1526
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
 msgid "Select Event"
 msgstr "Etkinlik Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1527
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
 msgid "Select Events"
 msgstr "Etkinlikleri Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1528
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
 msgid "Select Tag"
 msgstr "Etiket Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1529
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
 msgid "Select Tags"
 msgstr "Etiketleri Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1530
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1531
 msgid "Select View"
 msgstr "Görünüm Seç"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1532
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
 msgid "Show All"
 msgstr "Tümünü Göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1533
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
 msgid "Load booking form manually"
 msgstr "Rezervasyon formunu manuel yükle"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1534
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
 msgid ""
 "Add element (button, link...) ID, that will manually load amelia shortcode "
 "content"
@@ -5129,143 +5134,143 @@ msgstr ""
 "Öğeye Kimlik ekle (düğme, bağlantı...) , bu Amelia kısa koddaki elementi "
 "tetikler"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1535
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
 msgid "Show all categories"
 msgstr "Tüm kategorileri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1536
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
 msgid "Show all employees"
 msgstr "Tüm çalışanları göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1537
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
 msgid "Show all locations"
 msgstr "Tüm konumları göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1538
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
 msgid "Show all services"
 msgstr "Tüm hizmetleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1539
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
 msgid "Show all events"
 msgstr "Tüm etkinlikleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1540
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
 msgid "Show all packages"
 msgstr "Tüm paketleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1541
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
 msgid "Show all tags"
 msgstr "Tüm etiketleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1542
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
 msgid "Show catalog of all categories"
 msgstr "Tüm kategorilerin kataloğunu göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1543
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
 msgid "Show specific category"
 msgstr "Belirli bir kategoriyi göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1544
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
 msgid "Show specific categories"
 msgstr "Belirli kategorileri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1545
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
 msgid "Show specific package"
 msgstr "Belirli bir paketi göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1546
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
 msgid "Show specific packages"
 msgstr "Belirli paketleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1547
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
 msgid "Show event"
 msgstr "Etkinliği göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1548
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
 msgid "Show Type"
 msgstr "Gösterim Tipi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1549
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1550
 msgid "List (default)"
 msgstr "Liste (varsayılan)"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1551
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
 msgid "Show tag"
 msgstr "Etiketi göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1552
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
 msgid "Show specific service"
 msgstr "Belirli bir hizmeti göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1553
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1554
 msgid "Show specific services"
 msgstr "Belirli hizmetleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1554
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
 msgid "Trigger type"
 msgstr "Tetikleme tipi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1555
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
 msgid "Id"
 msgstr "Kimlik"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1556
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
 msgid "Class"
 msgstr "Sınıf"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1557
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
 msgid "Trigger by attribute"
 msgstr "Özellikle tetikle"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1558
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
 msgid "Step Booking"
 msgstr "Adım Rezervasyonu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1559
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
 msgid "Catalog Booking"
 msgstr "Katalog Rezervasyonu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1560
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
 msgid "Events List Booking"
 msgstr "Etkinlik Listesi Rezervasyonu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1561
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
 msgid "Show recurring events"
 msgstr "Tekrarlayan etkinlikleri göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1562
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1563
 msgid "Show in Amelia Popup"
 msgstr "Amelia Popup'ta göster"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1564
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
 msgid "AM - Booking view"
 msgstr "AM - Rezervasyon görünümü"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1565
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
 msgid "AM - Step Booking"
 msgstr "AM - Adım Rezervasyon"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1566
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
 msgid "AM - Catalog Booking"
 msgstr "AM - Katalog Rezervasyonu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1567
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
 msgid "AM - Catalog view"
 msgstr "AM - Katalog görünümü"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1568
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1569
 msgid "AM - Events view"
 msgstr "AM - Etkinlikler görünümü"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1569
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1570
 msgid "AM - Events List Booking"
 msgstr "AM - Etkinlik Listesi Rezervasyonu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1571
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
 msgid "Amelia - Booking view"
 msgstr "Amelia - Rezervasyon manzarası"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1572
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1573
 msgid ""
 "Step-By-Step Booking Wizard gives your customers the option to choose "
 "everything about the booking in a few steps"
@@ -5273,11 +5278,11 @@ msgstr ""
 "Adım Adım Rezervasyon Sihirbazı, müşterilerinize rezervasyonla ilgili her "
 "şeyi birkaç adımda seçme seçeneği sunar"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1575
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1576
 msgid "Amelia - Step-By-Step Booking"
 msgstr "Amelia - Adım Adım Rezervasyon"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1576
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1577
 msgid ""
 "Step-by-Step booking view guides the customers through several steps in "
 "order to make their bookings."
@@ -5285,11 +5290,11 @@ msgstr ""
 "Adım Adım rezervasyon görünümü, müşterilere rezervasyonlarını yapabilmeleri "
 "için birkaç adımda rehberlik eder."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1579
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
 msgid "Amelia - Catalog Booking"
 msgstr "Amelia - Katalog Rezervasyonu"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1580
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1581
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a catalog"
@@ -5297,11 +5302,11 @@ msgstr ""
 "Hizmetinizi bir katalog biçiminde göstermek istediğinizde Ön Uç Rezervasyon "
 "Kataloğu kısa koddur"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1583
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
 msgid "Amelia - Catalog view"
 msgstr "Amelia - Katalog görünümü"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1584
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1585
 msgid ""
 "Front-end Booking Catalog is shortcode when you want to show your service in "
 "a form of a cataloge"
@@ -5309,12 +5314,12 @@ msgstr ""
 "Hizmetinizi bir katalog biçiminde göstermek istediğinizde Ön Uç Rezervasyon "
 "Kataloğu kısa koddur"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1587
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
 msgid "Amelia - Events"
 msgstr "Amelia - Etkinlikler"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1588
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1592
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1589
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1593
 msgid ""
 "Event Booking is shortcode that gives your customers the option to book one "
 "of the events that you've created on the back-end in a simple event list "
@@ -5324,15 +5329,15 @@ msgstr ""
 "etkinliklerden birini basit bir etkinlik listesi görünümünde rezerve etme "
 "seçeneği sunan kısa koddur."
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1591
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1592
 msgid "Amelia - Events List"
 msgstr "Amelia - Etkinlik Listesi"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1594
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1595
 msgid "You are using a form that will be outdated soon!"
 msgstr "Yakında güncelliğini yitirecek bir form kullanıyorsunuz!"
 
-#: src/Infrastructure/WP/Translations/BackendStrings.php:1613
+#: src/Infrastructure/WP/Translations/BackendStrings.php:1614
 msgid "Recurring Appointments"
 msgstr "Yinelenen Randevular"
 
@@ -8165,15 +8170,6 @@ msgstr "Rezervasyon iptal edilemez"
 #~ msgid "Version "
 #~ msgstr "Sürüm"
 
-#~ msgid ""
-#~ "We are thrilled to announce the latest release of Amelia, packed with bug "
-#~ "fixes that enhance your user experience. Here is what you can expect from "
-#~ "this update: "
-#~ msgstr ""
-#~ "Amelia'nın kullanıcı deneyiminizi geliştiren hata düzeltmeleriyle dolu en "
-#~ "son sürümünü duyurmaktan büyük heyecan duyuyoruz. Bu güncellemeden "
-#~ "bekleyebileceğiniz şeyler şunlardır:"
-
 #~ msgid "See Previous Versions"
 #~ msgstr "Önceki Sürümleri Gör"
 
@@ -9847,11 +9843,6 @@ msgstr "Rezervasyon iptal edilemez"
 #~ msgstr "Randevu notları"
 
 #, fuzzy
-#~| msgid "Organizer"
-#~ msgid "Event Organizer"
-#~ msgstr "Organizatör"
-
-#, fuzzy
 #~| msgid "Set up button types and labels"
 #~ msgid "Set up button type and labels"
 #~ msgstr "Düğme tiplerini ve etiketleri ayarla"
@@ -10484,6 +10475,20 @@ msgstr "Rezervasyon iptal edilemez"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Bağlantıları"
+
+#~ msgid ""
+#~ "We are thrilled to announce the latest release of Amelia, packed with bug "
+#~ "fixes that enhance your user experience. Here is what you can expect from "
+#~ "this update: "
+#~ msgstr ""
+#~ "Amelia'nın kullanıcı deneyiminizi geliştiren hata düzeltmeleriyle dolu en "
+#~ "son sürümünü duyurmaktan büyük heyecan duyuyoruz. Bu güncellemeden "
+#~ "bekleyebileceğiniz şeyler şunlardır:"
+
+#, fuzzy
+#~| msgid "Organizer"
+#~ msgid "Event Organizer"
+#~ msgstr "Organizatör"
 
 #~ msgid ""
 #~ "Enable this option if you don't want to allow \"existing customer\"<br/"

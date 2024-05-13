@@ -5,7 +5,7 @@
     wrapper-class="am-fcip"
     form-class="am-fcip__form"
     heading-class="am-fcip__header"
-    content-class="am-fcip__content"
+    :content-class="`am-fcip__content ${scrollVisibility ? '' : 'no-scroll'}`"
     :style="cssVars"
   >
     <template v-if="preselected.package.length !== 1" #header>
@@ -446,6 +446,12 @@ let customizedOptions = computed(() => {
   return customizedDataForm.value.categoryPackage.options
 })
 
+let scrollVisibility = computed(() => {
+  if (!('pageScroll' in customizedOptions.value)) return true
+
+  return customizedOptions.value.pageScroll.visibility
+})
+
 // * Booking Type (appointment, booking)
 let itemType = inject('itemType')
 
@@ -781,6 +787,13 @@ export default {
 
         &-bottom {
           padding: 0 0 16px;
+        }
+      }
+
+      &__content {
+        &.no-scroll {
+          max-height: unset;
+          overflow-x: unset;
         }
       }
 

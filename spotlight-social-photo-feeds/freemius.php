@@ -2,11 +2,9 @@
 
 if ( !function_exists( 'sliFreemius' ) ) {
     // Create a helper function for easy SDK access.
-    function sliFreemius()
-    {
+    function sliFreemius() {
         /* @var $sliFreemius Freemius */
-        global  $sliFreemius ;
-        
+        global $sliFreemius;
         if ( !isset( $sliFreemius ) ) {
             // Include Freemius SDK.
             require_once dirname( __FILE__ ) . '/vendor/freemius/wordpress-sdk/start.php';
@@ -22,12 +20,12 @@ if ( !function_exists( 'sliFreemius' ) ) {
                     'is_org_compliant' => true,
                     'has_affiliation'  => 'selected',
                     'menu'             => [
-                    'slug'        => 'spotlight-instagram',
-                    'pricing'     => true,
-                    'support'     => false,
-                    'contact'     => true,
-                    'affiliation' => false,
-                ],
+                        'slug'        => 'spotlight-instagram',
+                        'pricing'     => true,
+                        'support'     => false,
+                        'contact'     => true,
+                        'affiliation' => false,
+                    ],
                     'is_live'          => true,
                 ] );
             } catch ( Freemius_Exception $e ) {
@@ -35,14 +33,13 @@ if ( !function_exists( 'sliFreemius' ) ) {
                 return null;
             }
         }
-        
         $sliFreemius->override_i18n( [
             'account'    => __( 'License', 'sl-insta' ),
             'contact-us' => __( 'Help', 'sl-insta' ),
         ] );
         return $sliFreemius;
     }
-    
+
     // Init Freemius.
     sliFreemius();
     // Set plugin icon

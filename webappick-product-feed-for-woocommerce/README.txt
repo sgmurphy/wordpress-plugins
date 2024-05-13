@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.28
+Stable tag: 6.4.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,112 +146,6 @@ For instance, if you have hundreds of products that refer to the same brand, in 
 
 Categories are the essential key to get products into search results. It is best practice to assign the most matching shopping engine category to your WooCommerce store category for each product.
 
-== CUSTOMER SUPPORT TEAM ==
-
-We’ve a dedicated team of coders and wordpress experts to make your journey to us friendlier & error free. So, if you want to use our plugin or if you are facing any problem with our plugin feel free to say us by emailing here: support@webappick.com.
-
-== Installation ==
-
-Before installing the plugin please make sure that
-
-1. Your php version is 5.4 or greater
-1. WordPress version is 3.6 or greater
-1. WooCommerce version is 2.4 or greater
-
-You can also check your system status and versions from WooCommerce > System Status
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `webappick-product-feed-for-woocommerce` folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Select 'CTX Feed' from admin menu, Click 'Make Feed'
-1. Select the template and make feed
-1. Done!
-
-== Frequently Asked Questions ==
-
-<blockquote>
-<h4>Read <a target="_blank" href="https://webappick.com/docs/woo-feed/">Documentation and FAQ</a></h4>
-<br/>
-<h4>For Support Email to support@webappick.com</h4>
-<br/>
-</blockquote>
-
-= Why should I use this WooCommerce product feed plugin? =
-
-This plugin support all the sopping engines.
-
-= Why is CTX Feed one of the best WooCommerce product feed generators? =
-
-Being a freemium plugin, the free version is capable of generating a feed with almost every little element you need to make it perfect. However, the pro version can leverage your feed with lots of premium features like dynamic attribute (applying conditions on the products), attribute mapping (for modifying title, description, or other attributes), ample marketplaces to promote your products, custom template for more complex feed for a personalized channel, variations and variables setup, multilingual & multicurrency feature, different output types for mapping the products, auto-update feature, etc. These features make it one of the best WooCommerce product feed plugins.
-
-= For which channels can I generate product feed with CTX Feed free and pro version? =
-
-Tou can create a feed for more than 100 marketing channels from high-range to any range. It is available for both free and pro versions. However, the pro version of this WooCommerce product feed manager allows you to create custom templates for your own bespoke channels.
-
-= Can I generate a Google product feed for WooCommerce with CTX Feed? =
-
-Yes, you can. In fact, WooCommerce Google Shopping is one of the most key channels for feed generation. Therefore, we have not only put Google Shopping as a single channel, but we also have several templates of Google built-in the CTX Feed, such as Google Shopping inventory ads, Google Ads, Google Promotions, Google Dynamic search ads, etc.
-
-= How do I generate a WooCommerce Google product feed for Google Shopping? =
-
-Check out the following tutorial.
-
-**WooCommerce Google Shopping Product Feed - Video Tutorial**
-[youtube https://www.youtube.com/watch?v=QRTvrDJm4mI]
-
-= How can I create Facebook product catalog feeds? =
-
-Watch the following YouTube video to know more about creating the Facebook catalog feed
-
-**WooCommerce Facebook Catalog Product Feed - Video Tutorial**
-[youtube https://youtu.be/Ml-KoFEVBHQ]
-
-= Are there any limits of products the plugin supports in a single feed? =
-
-No. You can create a feed with unlimited products.
-
-= Are there any limits on product feed? =
-
-No. This best WooCommerce product feed plugin is capable of creating an unlimited number of feeds.
-
-= Does  CTX Feed auto-update product feeds? =
-
-Yes, This plugin offers you a range of product feed updating interval times. You can set your interval time, and the product feed will update automatically as per the scheduled time.
-
-= What file format does CTX Feed Plugin Support? =
-
-It supports 6 feed file formats depending on the marketing channels you select;
-
- * XML
- * CSV
- * TXT
- * TSV
- * JSON
- * XLS
-
-= Does this plugin support. product variations? =
-
-Yes, This plugin supports both variables and their associated variations.
-
-= What is the difference between Free and Pro Version? =
-
-The free version includes all the major functions but the Pro version has some awesome functionality.
-
-Using pro version:
-
-*  You can filter products using price, quantity, product name
-
-*  You can use custom taxonomies or other plugins taxonomy value into feed
-
-*  Using Category Mapping You can map your store category with your merchant category which is very useful for visitors to find out your product on the merchant site.
-
-*  You can make different prices for different merchants using Dynamic Attribute. Also, it is possible to set different values for different products using Dynamic Attribute Conditions.
-
-** CTX FEED Free vs Pro**
-[youtube https://youtu.be/XEW8rSyEcSU]
 
 == Screenshots ==
 
@@ -261,6 +155,9 @@ Using pro version:
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.29 (2024-05-13) =
+* Updated: Plugin information.
 
 = 6.4.28 (2024-05-09) =
 * Added : Wood Mart images on the additional images fields.

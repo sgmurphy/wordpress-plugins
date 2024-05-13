@@ -90,7 +90,7 @@ class AccountPostType extends PostType
     {
         $accessToken = new AccessToken(
             static::decryptAccessToken($post->{static::ACCESS_TOKEN}, $post->{static::ACCESS_IV}),
-            $post->{static::ACCESS_EXPIRY}
+            (int) $post->{static::ACCESS_EXPIRY}
         );
 
         $user = IgUser::create([

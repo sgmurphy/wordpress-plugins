@@ -342,7 +342,7 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                         <div class="alert alert-info m-b-0" role="alert">
                             <i class="wpdt-icon-info-circle-full"></i>
                             <ul>
-                                <li><strong>Improvement:</strong> Added notice when trying to create a chart from Simple tables.</li>
+                                <li><strong>Feature:</strong> Pagination Interaction Improvement: Auto-Scroll to Table Header on Number Selection.</li>
                                 <li>Other small bug fixes and stability improvements</li>
                             </ul>
                         </div>

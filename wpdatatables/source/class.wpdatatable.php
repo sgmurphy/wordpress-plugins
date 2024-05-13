@@ -102,6 +102,7 @@ class WPDataTable
     private $_table_wcag = 0;
     public $column_id;
     private $_simple_template_id = 0;
+    private $_pagination_top = 0;
     public static $allowedTableTypes = array('xls', 'csv', 'manual', 'mysql', 'json','nested_json', 'google_spreadsheet', 'xml', 'serialized', 'simple');
 
     /**
@@ -546,6 +547,18 @@ class WPDataTable
     public function getRefreshInterval()
     {
         return (int)$this->_autoRefreshInterval;
+    }
+
+    /**
+     * @param boolean $paginationOnTop
+     */
+    public function setPaginationOnTop($paginationOnTop)
+    {
+        $this->_pagination_top = (int)$paginationOnTop;
+    }
+    public function getPaginationOnTop()
+    {
+        return $this->_pagination_top;
     }
 
     public function paginationEnabled()
@@ -2426,6 +2439,7 @@ class WPDataTable
             isset($advancedSettings->table_description) ? $this->setDescription($advancedSettings->table_description) : $this->setDescription('');
             isset($advancedSettings->table_wcag) ? $this->setTableWCAG($advancedSettings->table_wcag) : $this->setTableWCAG(0);
             isset($advancedSettings->simple_template_id) ? $this->setSimpleTemplateId($advancedSettings->simple_template_id) : $this->setSimpleTemplateId(0);
+            isset($advancedSettings->pagination_top) ? $this->setPaginationOnTop($advancedSettings->pagination_top) : $this->setPaginationOnTop(0);
         } else {
             $this->setInfoBlock(true);
             $this->setGlobalSearch(true);
@@ -2449,6 +2463,7 @@ class WPDataTable
             $this->setShowDescription(false);
             $this->setDescription('');
             $this->setTableWCAG(0);
+            $this->setPaginationOnTop(0);
         }
 
         if (!empty($columnData['columnOrder'])) {
@@ -2594,6 +2609,7 @@ class WPDataTable
         $obj->globalSearch = $this->isGlobalSearch();
         $obj->showRowsPerPage = $this->isShowRowsPerPage();
         $obj->hideBeforeLoad = $this->doHideBeforeLoad();
+        $obj->pagination_top = $this->getPaginationOnTop();
         $obj->number_format = (int)(get_option('wdtNumberFormat') ? get_option('wdtNumberFormat') : 1);
         $obj->decimalPlaces = (int)(get_option('wdtDecimalPlaces') ? get_option('wdtDecimalPlaces') : 2);
 

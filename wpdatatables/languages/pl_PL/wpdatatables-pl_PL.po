@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpdatatables\n"
-"POT-Creation-Date: 2024-04-26 14:41+0200\n"
-"PO-Revision-Date: 2024-04-26 14:41+0200\n"
+"POT-Creation-Date: 2024-05-10 15:58+0200\n"
+"PO-Revision-Date: 2024-05-10 15:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: wpdatatables <cjbug@yandex.ru>\n"
 "Language: pl\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
 "|| n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.3\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;esc_attr_e;esc_html_e\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -296,11 +296,11 @@ msgstr "Brak wpDataTables w systemie jeszcze."
 msgid "There was an error trying to fetch the table data: "
 msgstr "Wystąpił błąd podczas próby pobrania danych z tabeli:"
 
-#: source/class.wdtconfigcontroller.php:723
+#: source/class.wdtconfigcontroller.php:726
 msgid "Table in data source has no rows."
 msgstr "Tabela w źródle danych nie ma wierszy."
 
-#: source/class.wdtconfigcontroller.php:1315
+#: source/class.wdtconfigcontroller.php:1319
 msgid "Select a "
 msgstr ""
 
@@ -455,9 +455,9 @@ msgstr "Kolumna została usunięta!"
 msgid "Please select columns that you want to use in table"
 msgstr "Proszę wybrać kolumny, których chcesz użyć w tabeli"
 
-#: source/class.wdttools.php:240 source/class.wpdatatable.php:2746
-#: source/class.wpdatatable.php:2833
-#: templates/admin/table-settings/table_settings_block.inc.php:1338
+#: source/class.wdttools.php:240 source/class.wpdatatable.php:2762
+#: source/class.wpdatatable.php:2849
+#: templates/admin/table-settings/table_settings_block.inc.php:1356
 msgid "Copy"
 msgstr "Kopiuj"
 
@@ -693,21 +693,21 @@ msgstr ""
 #: source/class.wdttools.php:301
 #: templates/admin/table-settings/column_settings_panel.inc.php:258
 #: templates/admin/table-settings/column_settings_panel.inc.php:275
-#: templates/admin/table-settings/table_settings_block.inc.php:842
+#: templates/admin/table-settings/table_settings_block.inc.php:860
 msgid "Left"
 msgstr ""
 
 #: source/class.wdttools.php:302
 #: templates/admin/table-settings/column_settings_panel.inc.php:259
 #: templates/admin/table-settings/column_settings_panel.inc.php:276
-#: templates/admin/table-settings/table_settings_block.inc.php:841
+#: templates/admin/table-settings/table_settings_block.inc.php:859
 msgid "Center"
 msgstr ""
 
 #: source/class.wdttools.php:303
 #: templates/admin/table-settings/column_settings_panel.inc.php:260
 #: templates/admin/table-settings/column_settings_panel.inc.php:277
-#: templates/admin/table-settings/table_settings_block.inc.php:840
+#: templates/admin/table-settings/table_settings_block.inc.php:858
 msgid "Right"
 msgstr ""
 
@@ -849,7 +849,7 @@ msgid "Export table"
 msgstr "Eksportuj wykres"
 
 #: source/class.wdttools.php:329
-#: templates/admin/table-settings/table_settings_block.inc.php:1035
+#: templates/admin/table-settings/table_settings_block.inc.php:1053
 msgid "Clear filters"
 msgstr "Wyczyść filtry"
 
@@ -861,17 +861,17 @@ msgstr "Widoczność kolumn"
 
 #: source/class.wdttools.php:366
 #: templates/admin/common/premium_modal.inc.php:17
-#: templates/admin/table-settings/table_settings_block.inc.php:1472
-#: templates/admin/table-settings/table_settings_block.inc.php:1850
-#: templates/admin/table-settings/table_settings_block.inc.php:2562
+#: templates/admin/table-settings/table_settings_block.inc.php:1490
+#: templates/admin/table-settings/table_settings_block.inc.php:1868
+#: templates/admin/table-settings/table_settings_block.inc.php:2580
 msgid "This is a premium feature"
 msgstr ""
 
 #: source/class.wdttools.php:367
 #: templates/admin/common/premium_modal.inc.php:26
-#: templates/admin/table-settings/table_settings_block.inc.php:1473
-#: templates/admin/table-settings/table_settings_block.inc.php:1851
-#: templates/admin/table-settings/table_settings_block.inc.php:2563
+#: templates/admin/table-settings/table_settings_block.inc.php:1491
+#: templates/admin/table-settings/table_settings_block.inc.php:1869
+#: templates/admin/table-settings/table_settings_block.inc.php:2581
 msgid "This feature is available only in premium version of wpDataTables"
 msgstr ""
 
@@ -880,9 +880,9 @@ msgstr ""
 #: templates/admin/getting-started/getting_started.inc.php:145
 #: templates/admin/getting-started/getting_started.inc.php:157
 #: templates/admin/getting-started/getting_started.inc.php:169
-#: templates/admin/table-settings/table_settings_block.inc.php:1477
-#: templates/admin/table-settings/table_settings_block.inc.php:1855
-#: templates/admin/table-settings/table_settings_block.inc.php:2567
+#: templates/admin/table-settings/table_settings_block.inc.php:1495
+#: templates/admin/table-settings/table_settings_block.inc.php:1873
+#: templates/admin/table-settings/table_settings_block.inc.php:2585
 msgid "Compare and View Pricing"
 msgstr ""
 
@@ -1388,7 +1388,7 @@ msgstr "Tylko jedna kolumna może być typu String"
 msgid "You are mixing data types (several date axes and several number)"
 msgstr "Mieszasz typy danych (kilka osi daty i kilka liczb)"
 
-#: source/class.wpdatatable.php:1641
+#: source/class.wpdatatable.php:1654
 msgid ""
 "You are trying to load a table of an unknown type. Probably you did not "
 "activate the addon which is required to use this table type."
@@ -1396,47 +1396,47 @@ msgstr ""
 "Próbujesz załadować tabelę nieznanego typu. Prawdopodobnie nie aktywowano "
 "dodatku, który jest wymagany do korzystania z tego typu tabeli."
 
-#: source/class.wpdatatable.php:2626 source/class.wpdatatable.php:2629
+#: source/class.wpdatatable.php:2642 source/class.wpdatatable.php:2645
 #: templates/admin/chart_wizard/steps/step3.inc.php:86
 #: templates/admin/table-settings/column_settings_panel.inc.php:611
 #: templates/admin/table-settings/table_settings_block.inc.php:615
 msgid "All"
 msgstr "Wszystkie"
 
-#: source/class.wpdatatable.php:2677
-#: templates/admin/table-settings/table_settings_block.inc.php:1335
+#: source/class.wpdatatable.php:2693
+#: templates/admin/table-settings/table_settings_block.inc.php:1353
 msgid "Print"
 msgstr "Drukuj"
 
-#: source/class.wpdatatable.php:2679
+#: source/class.wpdatatable.php:2695
 msgid "Export"
 msgstr "Eksport"
 
-#: source/class.wpdatatable.php:2682
+#: source/class.wpdatatable.php:2698
 #: templates/admin/table-settings/columns_list_modal.inc.php:12
 msgid "Columns"
 msgstr "Kolumny"
 
-#: source/class.wpdatatable.php:2721 source/class.wpdatatable.php:2806
-#: templates/admin/table-settings/table_settings_block.inc.php:1336
+#: source/class.wpdatatable.php:2737 source/class.wpdatatable.php:2822
+#: templates/admin/table-settings/table_settings_block.inc.php:1354
 msgid "Excel"
 msgstr "Excel"
 
-#: source/class.wpdatatable.php:2733 source/class.wpdatatable.php:2819
-#: templates/admin/table-settings/table_settings_block.inc.php:1337
+#: source/class.wpdatatable.php:2749 source/class.wpdatatable.php:2835
+#: templates/admin/table-settings/table_settings_block.inc.php:1355
 msgid "CSV"
 msgstr "CSV"
 
-#: source/class.wpdatatable.php:2757 source/class.wpdatatable.php:2845
-#: templates/admin/table-settings/table_settings_block.inc.php:1339
+#: source/class.wpdatatable.php:2773 source/class.wpdatatable.php:2861
+#: templates/admin/table-settings/table_settings_block.inc.php:1357
 msgid "PDF"
 msgstr "PDF"
 
-#: source/class.wpdatatable.php:2858
+#: source/class.wpdatatable.php:2874
 msgid "Search table"
 msgstr "Szukaj"
 
-#: source/class.wpdatatable.php:2859
+#: source/class.wpdatatable.php:2875
 msgid "Showing _MENU_ Entries"
 msgstr "Wyświetlanie wpisów _MENU_"
 
@@ -1685,7 +1685,7 @@ msgstr "Etykieta"
 
 #: templates/admin/chart_wizard/chart_wizard.inc.php:159
 #: templates/admin/settings/tabs/color_and_font_settings.php:680
-#: templates/admin/table-settings/table_settings_block.inc.php:2407
+#: templates/admin/table-settings/table_settings_block.inc.php:2425
 msgid "Color"
 msgstr "Kolor"
 
@@ -2164,8 +2164,8 @@ msgstr "Włącz grupowanie"
 #: templates/admin/settings/tabs/color_and_font_settings.php:104
 #: templates/admin/settings/tabs/color_and_font_settings.php:425
 #: templates/admin/settings/tabs/color_and_font_settings.php:660
-#: templates/admin/table-settings/table_settings_block.inc.php:2054
-#: templates/admin/table-settings/table_settings_block.inc.php:2384
+#: templates/admin/table-settings/table_settings_block.inc.php:2072
+#: templates/admin/table-settings/table_settings_block.inc.php:2402
 msgid "Background color"
 msgstr "Kolor tła"
 
@@ -2184,7 +2184,7 @@ msgstr "Szerokość piksela zewnętrznego obramowania wykresu."
 #: templates/admin/chart_wizard/steps/step4.inc.php:177
 #: templates/admin/settings/tabs/color_and_font_settings.php:123
 #: templates/admin/settings/tabs/color_and_font_settings.php:444
-#: templates/admin/table-settings/table_settings_block.inc.php:2076
+#: templates/admin/table-settings/table_settings_block.inc.php:2094
 msgid "Border color"
 msgstr "Kolor obramowania"
 
@@ -2224,7 +2224,7 @@ msgstr "Kolor wykresu wewnętrznego lub obramowania obszaru kreślenia."
 
 #: templates/admin/chart_wizard/steps/step4.inc.php:286
 #: templates/admin/settings/tabs/color_and_font_settings.php:45
-#: templates/admin/table-settings/table_settings_block.inc.php:1988
+#: templates/admin/table-settings/table_settings_block.inc.php:2006
 msgid "Font size"
 msgstr "Rozmiar czcionki"
 
@@ -2268,8 +2268,8 @@ msgstr "Domyślna ściana czcionki dla całego tekstu na wykresie."
 #: templates/admin/settings/tabs/color_and_font_settings.php:70
 #: templates/admin/settings/tabs/color_and_font_settings.php:143
 #: templates/admin/settings/tabs/color_and_font_settings.php:464
-#: templates/admin/table-settings/table_settings_block.inc.php:2024
-#: templates/admin/table-settings/table_settings_block.inc.php:2099
+#: templates/admin/table-settings/table_settings_block.inc.php:2042
+#: templates/admin/table-settings/table_settings_block.inc.php:2117
 msgid "Font color"
 msgstr "Kolor czcionki"
 
@@ -2762,7 +2762,7 @@ msgstr "Otwórz w edytorze jak w Excelu"
 #: templates/admin/table-settings/column_settings_panel.inc.php:1178
 #: templates/admin/table-settings/simple_table_settings_block.inc.php:713
 #: templates/admin/table-settings/table_preview_block.inc.php:81
-#: templates/admin/table-settings/table_settings_block.inc.php:2755
+#: templates/admin/table-settings/table_settings_block.inc.php:2773
 #: templates/admin/welcome_page/welcome_page.inc.php:228
 msgid "View Documentation"
 msgstr ""
@@ -3287,7 +3287,7 @@ msgstr ""
 
 #: templates/admin/dashboard/dashboard.inc.php:376
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:236
-#: templates/admin/table-settings/table_settings_block.inc.php:2680
+#: templates/admin/table-settings/table_settings_block.inc.php:2698
 #, fuzzy
 #| msgid "Displayed header"
 msgid "Fixed headers"
@@ -3295,8 +3295,8 @@ msgstr "Wyświetlany nagłówek"
 
 #: templates/admin/dashboard/dashboard.inc.php:379
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:257
-#: templates/admin/table-settings/table_settings_block.inc.php:2574
-#: templates/admin/table-settings/table_settings_block.inc.php:2583
+#: templates/admin/table-settings/table_settings_block.inc.php:2592
+#: templates/admin/table-settings/table_settings_block.inc.php:2601
 #, fuzzy
 #| msgid "Add column"
 msgid "Fixed columns"
@@ -3877,16 +3877,16 @@ msgstr ""
 
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1000
 #: templates/admin/table-settings/column_settings_panel.inc.php:47
-#: templates/admin/table-settings/table_settings_block.inc.php:930
-#: templates/admin/table-settings/table_settings_block.inc.php:938
+#: templates/admin/table-settings/table_settings_block.inc.php:948
+#: templates/admin/table-settings/table_settings_block.inc.php:956
 msgid "Sorting"
 msgstr "Sortowanie"
 
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1020
 #: templates/admin/settings/tabs/color_and_font_settings.php:653
-#: templates/admin/table-settings/table_settings_block.inc.php:792
-#: templates/admin/table-settings/table_settings_block.inc.php:800
-#: templates/admin/table-settings/table_settings_block.inc.php:1889
+#: templates/admin/table-settings/table_settings_block.inc.php:810
+#: templates/admin/table-settings/table_settings_block.inc.php:818
+#: templates/admin/table-settings/table_settings_block.inc.php:1907
 msgid "Pagination"
 msgstr ""
 
@@ -4042,13 +4042,13 @@ msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:18
 #: templates/admin/settings/tabs/color_and_font_settings.php:25
-#: templates/admin/table-settings/table_settings_block.inc.php:1869
-#: templates/admin/table-settings/table_settings_block.inc.php:1966
+#: templates/admin/table-settings/table_settings_block.inc.php:1887
+#: templates/admin/table-settings/table_settings_block.inc.php:1984
 msgid "Font"
 msgstr "Czcionka"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:27
-#: templates/admin/table-settings/table_settings_block.inc.php:1969
+#: templates/admin/table-settings/table_settings_block.inc.php:1987
 msgid ""
 "This font will be used in rendered tables. Leave blank not to override "
 "default theme settings"
@@ -4057,43 +4057,43 @@ msgstr ""
 "zastępować domyślnych ustawień motywu"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:47
-#: templates/admin/table-settings/table_settings_block.inc.php:1991
+#: templates/admin/table-settings/table_settings_block.inc.php:2009
 msgid "Define the font size"
 msgstr "Zdefiniuj rozmiar czcionki"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:72
-#: templates/admin/table-settings/table_settings_block.inc.php:2027
+#: templates/admin/table-settings/table_settings_block.inc.php:2045
 msgid "This color is used for the main font in table cells."
 msgstr "Ten kolor jest używany dla głównej czcionki w komórkach tabeli."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:97
 #: templates/admin/table-settings/simple_table_settings_block.inc.php:400
-#: templates/admin/table-settings/table_settings_block.inc.php:1873
+#: templates/admin/table-settings/table_settings_block.inc.php:1891
 msgid "Header"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:106
-#: templates/admin/table-settings/table_settings_block.inc.php:2057
+#: templates/admin/table-settings/table_settings_block.inc.php:2075
 msgid "The color is used for background of the table header."
 msgstr "Kolor jest używany dla tła nagłówka tabeli."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:125
-#: templates/admin/table-settings/table_settings_block.inc.php:2079
+#: templates/admin/table-settings/table_settings_block.inc.php:2097
 msgid "This color is used for the border in the table header."
 msgstr "Ten kolor jest używany dla obramowania w nagłówku tabeli."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:145
-#: templates/admin/table-settings/table_settings_block.inc.php:2102
+#: templates/admin/table-settings/table_settings_block.inc.php:2120
 msgid "This color is used for the font in the table header."
 msgstr "Ten kolor jest używany dla czcionki w nagłówku tabeli."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:162
-#: templates/admin/table-settings/table_settings_block.inc.php:2121
+#: templates/admin/table-settings/table_settings_block.inc.php:2139
 msgid "Active and hover color\t"
 msgstr "Aktywny i aktywowany kolor\t"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:164
-#: templates/admin/table-settings/table_settings_block.inc.php:2124
+#: templates/admin/table-settings/table_settings_block.inc.php:2142
 msgid ""
 "This color is used when you hover the mouse above the table header, or when "
 "you choose a column."
@@ -4106,49 +4106,49 @@ msgid "Table border "
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:198
-#: templates/admin/table-settings/table_settings_block.inc.php:2152
+#: templates/admin/table-settings/table_settings_block.inc.php:2170
 msgid "Inner border"
 msgstr "Granica wewnętrzna"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:200
-#: templates/admin/table-settings/table_settings_block.inc.php:2155
+#: templates/admin/table-settings/table_settings_block.inc.php:2173
 msgid "This color is used for the inner border in the table between cells."
 msgstr ""
 "Ten kolor jest używany dla wewnętrznego obramowania w tabeli między "
 "komórkami."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:218
-#: templates/admin/table-settings/table_settings_block.inc.php:2175
+#: templates/admin/table-settings/table_settings_block.inc.php:2193
 msgid "Outer border"
 msgstr "Granica zewnętrzna"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:220
-#: templates/admin/table-settings/table_settings_block.inc.php:2178
+#: templates/admin/table-settings/table_settings_block.inc.php:2196
 msgid "This color is used for the outer border of the whole table body."
 msgstr "Ten kolor jest używany dla zewnętrznej krawędzi całego obiektu tabeli."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:238
-#: templates/admin/table-settings/table_settings_block.inc.php:2198
+#: templates/admin/table-settings/table_settings_block.inc.php:2216
 msgid "Table borders"
 msgstr "Obramowania tabel"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:240
-#: templates/admin/table-settings/table_settings_block.inc.php:2201
+#: templates/admin/table-settings/table_settings_block.inc.php:2219
 msgid "When this is checked, borders in table will be removed "
 msgstr "Gdy ta jest zaznaczona, obramowania w tabeli zostaną usunięte "
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:244
-#: templates/admin/table-settings/table_settings_block.inc.php:2207
+#: templates/admin/table-settings/table_settings_block.inc.php:2225
 msgid "Remove borders in table"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:249
-#: templates/admin/table-settings/table_settings_block.inc.php:2212
+#: templates/admin/table-settings/table_settings_block.inc.php:2230
 msgid "Header border"
 msgstr "Obramowanie nagłówka"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:251
-#: templates/admin/table-settings/table_settings_block.inc.php:2215
+#: templates/admin/table-settings/table_settings_block.inc.php:2233
 msgid "When this is checked,borders in header will be removed  "
 msgstr "Gdy to jest zaznaczone, obramowania w nagłówku zostaną usunięte "
 
@@ -4157,37 +4157,37 @@ msgid "Remove borders in header"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:269
-#: templates/admin/table-settings/table_settings_block.inc.php:1881
+#: templates/admin/table-settings/table_settings_block.inc.php:1899
 msgid "Row color"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:276
-#: templates/admin/table-settings/table_settings_block.inc.php:2234
+#: templates/admin/table-settings/table_settings_block.inc.php:2252
 msgid "Even row background"
 msgstr "Równomierne tło rzędu"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:278
-#: templates/admin/table-settings/table_settings_block.inc.php:2237
+#: templates/admin/table-settings/table_settings_block.inc.php:2255
 msgid "This color is used for for background in even rows."
 msgstr "Ten kolor jest używany dla tła w wierszach parzystych."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:295
-#: templates/admin/table-settings/table_settings_block.inc.php:2256
+#: templates/admin/table-settings/table_settings_block.inc.php:2274
 msgid "Odd row background"
 msgstr "Nieparzyste tło wiersza"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:297
-#: templates/admin/table-settings/table_settings_block.inc.php:2259
+#: templates/admin/table-settings/table_settings_block.inc.php:2277
 msgid "This color is used for for background in odd rows."
 msgstr "Ten kolor jest używany dla tła w nieparzystych wierszach."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:314
-#: templates/admin/table-settings/table_settings_block.inc.php:2278
+#: templates/admin/table-settings/table_settings_block.inc.php:2296
 msgid "Hover row"
 msgstr "Umieść wiersz"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:316
-#: templates/admin/table-settings/table_settings_block.inc.php:2281
+#: templates/admin/table-settings/table_settings_block.inc.php:2299
 msgid ""
 "This color is used for to highlight the row when you hover your mouse above "
 "it."
@@ -4195,27 +4195,27 @@ msgstr ""
 "Ten kolor służy do wyróżniania wiersza po umieszczeniu kursora myszy nad nim."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:333
-#: templates/admin/table-settings/table_settings_block.inc.php:2300
+#: templates/admin/table-settings/table_settings_block.inc.php:2318
 msgid "Background for selected rows"
 msgstr "Tło dla zaznaczonych wierszy"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:335
-#: templates/admin/table-settings/table_settings_block.inc.php:2303
+#: templates/admin/table-settings/table_settings_block.inc.php:2321
 msgid "This color is used for background in selected rows."
 msgstr "Ten kolor jest używany dla tła w wybranych wierszach."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:362
-#: templates/admin/table-settings/table_settings_block.inc.php:1885
+#: templates/admin/table-settings/table_settings_block.inc.php:1903
 msgid "Cell color"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:369
-#: templates/admin/table-settings/table_settings_block.inc.php:2331
+#: templates/admin/table-settings/table_settings_block.inc.php:2349
 msgid "Sorted columns, even rows"
 msgstr "Sortowane kolumny, parzyste wiersze"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:371
-#: templates/admin/table-settings/table_settings_block.inc.php:2334
+#: templates/admin/table-settings/table_settings_block.inc.php:2352
 msgid ""
 "This color is used for background in cells which are in the active columns "
 "(columns used for sorting) in even rows."
@@ -4224,12 +4224,12 @@ msgstr ""
 "kolumnach (kolumny używane do sortowania) w wierszach parzystych."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:389
-#: templates/admin/table-settings/table_settings_block.inc.php:2354
+#: templates/admin/table-settings/table_settings_block.inc.php:2372
 msgid "Sorted columns, odd rows"
 msgstr "Sortowane kolumny, nieparzyste wiersze"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:391
-#: templates/admin/table-settings/table_settings_block.inc.php:2357
+#: templates/admin/table-settings/table_settings_block.inc.php:2375
 msgid ""
 "This color is used for background in cells which are in the active columns "
 "(columns used for sorting) in odd rows."
@@ -4328,54 +4328,54 @@ msgstr ""
 "wtyczki."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:662
-#: templates/admin/table-settings/table_settings_block.inc.php:2387
+#: templates/admin/table-settings/table_settings_block.inc.php:2405
 msgid "This color is used for the background of the pagination"
 msgstr "Ten kolor jest używany dla tła podział na strony"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:682
-#: templates/admin/table-settings/table_settings_block.inc.php:2410
+#: templates/admin/table-settings/table_settings_block.inc.php:2428
 msgid "This color is used for the color of the links in the pagination."
 msgstr "Kolor ten jest używany dla koloru łączy w podział na strony."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:700
-#: templates/admin/table-settings/table_settings_block.inc.php:2429
+#: templates/admin/table-settings/table_settings_block.inc.php:2447
 msgid "Current page background color"
 msgstr "Kolor tła bieżącej strony"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:702
-#: templates/admin/table-settings/table_settings_block.inc.php:2432
+#: templates/admin/table-settings/table_settings_block.inc.php:2450
 msgid "The color is used for background of the current page"
 msgstr "Kolor jest używany dla tła bieżącej strony"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:719
-#: templates/admin/table-settings/table_settings_block.inc.php:2453
+#: templates/admin/table-settings/table_settings_block.inc.php:2471
 msgid "Current page color"
 msgstr "Bieżący kolor strony"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:721
-#: templates/admin/table-settings/table_settings_block.inc.php:2456
+#: templates/admin/table-settings/table_settings_block.inc.php:2474
 msgid "This color is used for the color of the current page."
 msgstr "Kolor ten jest używany dla koloru bieżącej strony."
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:739
-#: templates/admin/table-settings/table_settings_block.inc.php:2476
+#: templates/admin/table-settings/table_settings_block.inc.php:2494
 msgid "Other pages hover background color"
 msgstr "Inne strony Hover kolor tła"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:741
-#: templates/admin/table-settings/table_settings_block.inc.php:2479
+#: templates/admin/table-settings/table_settings_block.inc.php:2497
 msgid ""
 "This background color is used when you hover the mouse above the other pages"
 msgstr ""
 "Ten kolor tła jest używany po umieszczeniu kursora myszy nad innymi stronami"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:758
-#: templates/admin/table-settings/table_settings_block.inc.php:2500
+#: templates/admin/table-settings/table_settings_block.inc.php:2518
 msgid "Other pages hover color"
 msgstr "Inne strony Hover kolor"
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:760
-#: templates/admin/table-settings/table_settings_block.inc.php:2503
+#: templates/admin/table-settings/table_settings_block.inc.php:2521
 msgid "This color is used when you hover the mouse above the other pages."
 msgstr ""
 "Ten kolor jest używany po umieszczeniu kursora myszy nad innymi stronami."
@@ -4393,7 +4393,7 @@ msgstr ""
 "która ma wpDataTable."
 
 #: templates/admin/settings/tabs/custom_js_and_css.php:31
-#: templates/admin/table-settings/table_settings_block.inc.php:2530
+#: templates/admin/table-settings/table_settings_block.inc.php:2548
 msgid "Custom wpDataTables CSS"
 msgstr "Niestandardowy wpDataTables CSS"
 
@@ -4414,17 +4414,17 @@ msgid "Use minified version of Javascript files"
 msgstr ""
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:15
-#: templates/admin/table-settings/table_settings_block.inc.php:1909
+#: templates/admin/table-settings/table_settings_block.inc.php:1927
 msgid "Interface language"
 msgstr "Język interfejsu"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:17
-#: templates/admin/table-settings/table_settings_block.inc.php:1912
+#: templates/admin/table-settings/table_settings_block.inc.php:1930
 msgid "Pick the language which will be used in tables interface."
 msgstr "Wybierz język, który będzie używany w interfejsie tabel."
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:23
-#: templates/admin/table-settings/table_settings_block.inc.php:1919
+#: templates/admin/table-settings/table_settings_block.inc.php:1937
 msgid "English (default)"
 msgstr "Angielski (domyślnie)"
 
@@ -4459,57 +4459,57 @@ msgid "Parse shortcodes in strings"
 msgstr "Analizować skróconych w ciągach"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:104
-#: templates/admin/table-settings/table_settings_block.inc.php:1932
+#: templates/admin/table-settings/table_settings_block.inc.php:1950
 msgid "Base skin"
 msgstr "Skóra podstawowa"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:106
-#: templates/admin/table-settings/table_settings_block.inc.php:1935
+#: templates/admin/table-settings/table_settings_block.inc.php:1953
 msgid "Choose the base skin for the plugin."
 msgstr "Wybierz podstawową skórkę dla wtyczki."
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:112
-#: templates/admin/table-settings/table_settings_block.inc.php:1942
+#: templates/admin/table-settings/table_settings_block.inc.php:1960
 msgid "Material"
 msgstr "Materiał"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:113
-#: templates/admin/table-settings/table_settings_block.inc.php:1943
+#: templates/admin/table-settings/table_settings_block.inc.php:1961
 msgid "Light"
 msgstr "Jasny"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:114
-#: templates/admin/table-settings/table_settings_block.inc.php:1944
+#: templates/admin/table-settings/table_settings_block.inc.php:1962
 msgid "Graphite"
 msgstr "Grafit"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:115
-#: templates/admin/table-settings/table_settings_block.inc.php:1945
+#: templates/admin/table-settings/table_settings_block.inc.php:1963
 msgid "Aqua"
 msgstr "Wodny"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:116
-#: templates/admin/table-settings/table_settings_block.inc.php:1946
+#: templates/admin/table-settings/table_settings_block.inc.php:1964
 msgid "Purple"
 msgstr "Fioletowy"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:117
-#: templates/admin/table-settings/table_settings_block.inc.php:1947
+#: templates/admin/table-settings/table_settings_block.inc.php:1965
 msgid "Dark"
 msgstr "Ciemny"
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:118
-#: templates/admin/table-settings/table_settings_block.inc.php:1948
+#: templates/admin/table-settings/table_settings_block.inc.php:1966
 msgid "Mojito"
 msgstr ""
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:119
-#: templates/admin/table-settings/table_settings_block.inc.php:1949
+#: templates/admin/table-settings/table_settings_block.inc.php:1967
 msgid "Raspberry Cream"
 msgstr ""
 
 #: templates/admin/settings/tabs/main_plugin_settings.php:120
-#: templates/admin/table-settings/table_settings_block.inc.php:1950
+#: templates/admin/table-settings/table_settings_block.inc.php:1968
 msgid "Dark Mojito"
 msgstr ""
 
@@ -5381,8 +5381,8 @@ msgid "Column header text rotation"
 msgstr "Nagłówek kolumny"
 
 #: templates/admin/table-settings/column_settings_panel.inc.php:372
-#: templates/admin/table-settings/table_settings_block.inc.php:2575
-#: templates/admin/table-settings/table_settings_block.inc.php:2681
+#: templates/admin/table-settings/table_settings_block.inc.php:2593
+#: templates/admin/table-settings/table_settings_block.inc.php:2699
 msgid "BETA"
 msgstr ""
 
@@ -5801,7 +5801,7 @@ msgid "Allow filtering"
 msgstr "Pozwól na filtrowanie"
 
 #: templates/admin/table-settings/column_settings_panel.inc.php:922
-#: templates/admin/table-settings/table_settings_block.inc.php:974
+#: templates/admin/table-settings/table_settings_block.inc.php:992
 msgid "Global search"
 msgstr "Wyszukiwanie globalne"
 
@@ -6614,7 +6614,7 @@ msgid "Sorting and filtering"
 msgstr "Sortowanie i filtrowanie"
 
 #: templates/admin/table-settings/table_settings_block.inc.php:85
-#: templates/admin/table-settings/table_settings_block.inc.php:1295
+#: templates/admin/table-settings/table_settings_block.inc.php:1313
 msgid "Table Tools"
 msgstr "Narzędzia tabeli"
 
@@ -7024,66 +7024,74 @@ msgstr ""
 "To powinno być włączone, jeśli chcesz ustawić szerokość kolumn ręcznie. "
 "Należy używać zawijania wyrazów."
 
+#: templates/admin/table-settings/table_settings_block.inc.php:790
+#: templates/admin/table-settings/table_settings_block.inc.php:797
 #: templates/admin/table-settings/table_settings_block.inc.php:804
+#, fuzzy
+#| msgid "Show information block below the table"
+msgid "Pagination on top of the table"
+msgstr "Pokaż blok informacyjny pod tabelą"
+
+#: templates/admin/table-settings/table_settings_block.inc.php:822
 msgid "Enable to show a pagination"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:812
+#: templates/admin/table-settings/table_settings_block.inc.php:830
 msgid "Show pagination block below the table"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:820
-#: templates/admin/table-settings/table_settings_block.inc.php:828
+#: templates/admin/table-settings/table_settings_block.inc.php:838
+#: templates/admin/table-settings/table_settings_block.inc.php:846
 msgid "Pagination Alignment"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:832
+#: templates/admin/table-settings/table_settings_block.inc.php:850
 msgid "Here you can set pagination position: right, center or left."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:851
-#: templates/admin/table-settings/table_settings_block.inc.php:859
+#: templates/admin/table-settings/table_settings_block.inc.php:869
+#: templates/admin/table-settings/table_settings_block.inc.php:877
 msgid "Pagination Layout"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:863
+#: templates/admin/table-settings/table_settings_block.inc.php:881
 msgid "Here you can choose between different pagination layout."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:871
+#: templates/admin/table-settings/table_settings_block.inc.php:889
 msgid ""
 "\"First\", \"Previous\", \"Next\" and \"Last\" buttons, plus page numbers"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:872
+#: templates/admin/table-settings/table_settings_block.inc.php:890
 msgid "\"Previous\" and \"Next\" buttons only"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:873
+#: templates/admin/table-settings/table_settings_block.inc.php:891
 msgid "\"Previous\" and \"Next\" buttons, plus page numbers"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:874
+#: templates/admin/table-settings/table_settings_block.inc.php:892
 msgid "\"First\", \"Previous\", \"Next\" and \"Last\" buttons"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:875
+#: templates/admin/table-settings/table_settings_block.inc.php:893
 msgid "Page number buttons only"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:876
+#: templates/admin/table-settings/table_settings_block.inc.php:894
 msgid "\"First\" and \"Last\" buttons, plus page numbers"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:896
+#: templates/admin/table-settings/table_settings_block.inc.php:914
 msgid "Advanced column filters"
 msgstr "Zaawansowane filtry kolumnowe"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:904
+#: templates/admin/table-settings/table_settings_block.inc.php:922
 msgid "Advanced filter"
 msgstr "Filtr zaawansowany"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:911
+#: templates/admin/table-settings/table_settings_block.inc.php:929
 msgid ""
 "Enable to show an advanced filter for each of the columns, filters can be "
 "shown in table footer, header or in a separate form."
@@ -7091,11 +7099,11 @@ msgstr ""
 "Włącz, aby wyświetlić Filtr zaawansowany dla każdej kolumny, filtry mogą być "
 "wyświetlane w stopce tabeli, nagłówku lub w osobnym formularzu."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:922
+#: templates/admin/table-settings/table_settings_block.inc.php:940
 msgid "Enable advanced column filters"
 msgstr "Włącz Zaawansowane filtry kolumn"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:945
+#: templates/admin/table-settings/table_settings_block.inc.php:963
 msgid ""
 "If this is enabled, each column header will be clickable; clicking will sort "
 "the whole table by the content of this column cells ascending or descending."
@@ -7104,15 +7112,15 @@ msgstr ""
 "kliknięcie posortuje całą tabelę według zawartości tej kolumny komórek "
 "rosnąco lub malejąco."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:953
+#: templates/admin/table-settings/table_settings_block.inc.php:971
 msgid "Allow sorting for the table"
 msgstr "Zezwalaj na sortowanie dla tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:966
+#: templates/admin/table-settings/table_settings_block.inc.php:984
 msgid "Main search block"
 msgstr "Główny blok wyszukiwania"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:981
+#: templates/admin/table-settings/table_settings_block.inc.php:999
 msgid ""
 "If this is enabled, a search block will be displayed on the top right of the "
 "table, allowing to search through whole table with a single input."
@@ -7121,19 +7129,19 @@ msgstr ""
 "wyświetlony blok wyszukiwania, umożliwiający przeszukiwanie całej tabeli za "
 "pomocą jednego wejścia."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:989
+#: templates/admin/table-settings/table_settings_block.inc.php:1007
 msgid "Enable search block"
 msgstr "Włącz blok wyszukiwania"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:997
+#: templates/admin/table-settings/table_settings_block.inc.php:1015
 msgid "Filters in a form"
 msgstr "Filtry w formularzu"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1004
+#: templates/admin/table-settings/table_settings_block.inc.php:1022
 msgid "Filter in form"
 msgstr "Filtruj w formie"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1011
+#: templates/admin/table-settings/table_settings_block.inc.php:1029
 msgid ""
 "Enable to show the advanced column filter in a form above the table, instead "
 "of showing in the table footer/header."
@@ -7141,19 +7149,19 @@ msgstr ""
 "Włącz, aby wyświetlić zaawansowany filtr kolumn w formularzu powyżej tabeli, "
 "zamiast pokazywać w stopce/nagłówku tabeli."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1020
+#: templates/admin/table-settings/table_settings_block.inc.php:1038
 msgid "Show filters in a form above the table"
 msgstr "Pokaż filtry w formularzu nad tabelą"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1028
+#: templates/admin/table-settings/table_settings_block.inc.php:1046
 msgid "Clear filters button"
 msgstr "Przycisk Wyczyść filtry"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1039
+#: templates/admin/table-settings/table_settings_block.inc.php:1057
 msgid "Enable to show the clear filters button."
 msgstr "Włącz, aby wyświetlić przycisk Wyczyść filtry."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1040
+#: templates/admin/table-settings/table_settings_block.inc.php:1058
 msgid ""
 "If filter in form is enabled, clear button will be rendered after the last "
 "filter."
@@ -7161,7 +7169,7 @@ msgstr ""
 "Jeśli filtr w formularzu jest włączony, po ostatnim filtrze zostanie "
 "wyświetlony przycisk Wyczyść."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1045
+#: templates/admin/table-settings/table_settings_block.inc.php:1063
 msgid ""
 "Otherwise, clear filter button will be rendered above the table next to "
 "\"Table Tools\" buttons."
@@ -7169,35 +7177,35 @@ msgstr ""
 "W przeciwnym razie przycisk Wyczyść filtr będzie renderowany powyżej tabeli "
 "obok \"narzędzia tabeli\" przyciski."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1058
+#: templates/admin/table-settings/table_settings_block.inc.php:1076
 msgid "Show clear filters button"
 msgstr "Pokaż przycisk Wyczyść filtry"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1078
+#: templates/admin/table-settings/table_settings_block.inc.php:1096
 msgid "Allow editing"
 msgstr "Zezwalaj na edycję"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1086
+#: templates/admin/table-settings/table_settings_block.inc.php:1104
 msgid "Front-end editing"
 msgstr "Edycja frontowa"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1093
+#: templates/admin/table-settings/table_settings_block.inc.php:1111
 msgid "Allow editing the table from the front-end."
 msgstr "Zezwalaj na edycję tabeli z frontonu."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1101
+#: templates/admin/table-settings/table_settings_block.inc.php:1119
 msgid "Allow front-end editing"
 msgstr "Zezwalaj na edycję frontonu"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1109
+#: templates/admin/table-settings/table_settings_block.inc.php:1127
 msgid "Popover edit block"
 msgstr "Blok edycji popover"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1117
+#: templates/admin/table-settings/table_settings_block.inc.php:1135
 msgid "Popover tools"
 msgstr "Narzędzia popover"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1124
+#: templates/admin/table-settings/table_settings_block.inc.php:1142
 msgid ""
 "If this is enabled, the New, Edit and Delete buttons will appear in a "
 "popover when you click on any row, instead of Table Tools block above the "
@@ -7207,16 +7215,16 @@ msgstr ""
 "popover po kliknięciu dowolnego wiersza, zamiast narzędzia tabeli bloku "
 "powyżej tabeli."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1132
+#: templates/admin/table-settings/table_settings_block.inc.php:1150
 msgid "Editing buttons in a popover"
 msgstr "Edytowanie przycisków w popover"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1140
-#: templates/admin/table-settings/table_settings_block.inc.php:1148
+#: templates/admin/table-settings/table_settings_block.inc.php:1158
+#: templates/admin/table-settings/table_settings_block.inc.php:1166
 msgid "In-line editing"
 msgstr "Edycja w linii"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1155
+#: templates/admin/table-settings/table_settings_block.inc.php:1173
 msgid ""
 "If this is enabled, front-end users will be able to edit cells by double-"
 "clicking them, not only with the editor dialog."
@@ -7224,29 +7232,29 @@ msgstr ""
 "Jeśli ta opcja jest włączona, użytkownicy frontonu będą mogli edytować "
 "komórki, klikając je dwukrotnie, nie tylko w oknie edytora."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1163
+#: templates/admin/table-settings/table_settings_block.inc.php:1181
 msgid "Allow in-line editing"
 msgstr "Zezwalaj na edycję w wierszu"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1178
+#: templates/admin/table-settings/table_settings_block.inc.php:1196
 msgid "MySQL table name for editing"
 msgstr "Nazwa tabeli MySQL do edycji"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1180
+#: templates/admin/table-settings/table_settings_block.inc.php:1198
 msgid ""
 "Name of the MySQL table which will be updated when edited from front-end."
 msgstr ""
 "Nazwa tabeli MySQL, która będzie aktualizowana podczas edycji z przodu."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1185
+#: templates/admin/table-settings/table_settings_block.inc.php:1203
 msgid "MySQL table name"
 msgstr "Nazwa tabeli MySQL"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1194
+#: templates/admin/table-settings/table_settings_block.inc.php:1212
 msgid "ID column for editing"
 msgstr "Kolumna ID do edycji"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1196
+#: templates/admin/table-settings/table_settings_block.inc.php:1214
 msgid ""
 "Choose the column values from which will be used as row identifiers. MUST be "
 "a unique auto-increment integer on MySQL side so insert/edit/delete would "
@@ -7258,11 +7266,11 @@ msgstr ""
 "wstawić/Edit/Delete będzie działać poprawnie! wpDataTables odgadnie poprawną "
 "kolumnę, jeśli jest on nazywany \"ID\" lub \"ID\" po stronie MySQL."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1210
+#: templates/admin/table-settings/table_settings_block.inc.php:1228
 msgid "Editor roles"
 msgstr "Role edytorów"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1212
+#: templates/admin/table-settings/table_settings_block.inc.php:1230
 msgid ""
 "If you want only specific user roles to be able to edit the table, choose in "
 "this dropdown. Leave unchecked to allow editing for everyone."
@@ -7271,39 +7279,39 @@ msgstr ""
 "wybierz tę listę rozwijaną. Pozostaw niezaznaczone, aby zezwolić na edycję "
 "dla wszystkich."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1217
+#: templates/admin/table-settings/table_settings_block.inc.php:1235
 msgid "Everyone"
 msgstr "Wszyscy"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1218
+#: templates/admin/table-settings/table_settings_block.inc.php:1236
 msgid "Administrators"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1219
+#: templates/admin/table-settings/table_settings_block.inc.php:1237
 msgid "Editors"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1220
+#: templates/admin/table-settings/table_settings_block.inc.php:1238
 msgid "Authors"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1221
+#: templates/admin/table-settings/table_settings_block.inc.php:1239
 msgid "Contributors"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1222
+#: templates/admin/table-settings/table_settings_block.inc.php:1240
 msgid "Subscribers"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1237
+#: templates/admin/table-settings/table_settings_block.inc.php:1255
 msgid "Users see and edit only own data"
 msgstr "Użytkownicy widzą i edytują tylko własne dane"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1245
+#: templates/admin/table-settings/table_settings_block.inc.php:1263
 msgid "Users see and edit only their own data"
 msgstr "Użytkownicy widzą i edytują tylko swoje własne dane"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1252
+#: templates/admin/table-settings/table_settings_block.inc.php:1270
 msgid ""
 "If this is enabled, users will see and edit only the rows that are related "
 "to them or were created by them (associated using the User ID column)."
@@ -7312,15 +7320,15 @@ msgstr ""
 "wiersze, które są z nimi powiązane lub zostały przez nich utworzone "
 "(skojarzone z kolumną User ID)."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1260
+#: templates/admin/table-settings/table_settings_block.inc.php:1278
 msgid "Limit editing to own data only"
 msgstr "Ogranicz edycję tylko do własnych danych"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1268
+#: templates/admin/table-settings/table_settings_block.inc.php:1286
 msgid "User ID column"
 msgstr "Kolumna identyfikatora użytkownika"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1270
+#: templates/admin/table-settings/table_settings_block.inc.php:1288
 msgid ""
 "Choose the column values from which will be used as User identifiers. "
 "References the ID from WordPress Users table (wp_users), MUST be defined as "
@@ -7330,148 +7338,148 @@ msgstr ""
 "użytkownika. Odwołuje się do identyfikatora z tabeli użytkownicy WordPressa "
 "(wp_users), musi być zdefiniowana jako liczba całkowita po stronie MySQL."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1303
+#: templates/admin/table-settings/table_settings_block.inc.php:1321
 msgid "Table tools"
 msgstr "Narzędzia tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1310
+#: templates/admin/table-settings/table_settings_block.inc.php:1328
 msgid ""
 "If this is enabled, a toolbar with useful tools will be shown above the table"
 msgstr ""
 "Jeśli ta opcja jest włączona, pasek narzędzi z przydatnymi narzędziami "
 "pojawi się nad tabelą"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1318
+#: templates/admin/table-settings/table_settings_block.inc.php:1336
 msgid "Enable Table Tools"
 msgstr "Włącz narzędzia tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1326
+#: templates/admin/table-settings/table_settings_block.inc.php:1344
 msgid "Buttons"
 msgstr "Przyciski"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1328
+#: templates/admin/table-settings/table_settings_block.inc.php:1346
 msgid "Choose which buttons to show in the Table Tools block."
 msgstr ""
 "Wybierz przyciski, które mają być wyświetlane w bloku narzędzia tabeli."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1334
+#: templates/admin/table-settings/table_settings_block.inc.php:1352
 msgid "Columns visibility"
 msgstr "Widoczność kolumn"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1347
-#: templates/admin/table-settings/table_settings_block.inc.php:1354
+#: templates/admin/table-settings/table_settings_block.inc.php:1365
+#: templates/admin/table-settings/table_settings_block.inc.php:1372
 msgid "Include HTML"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1357
+#: templates/admin/table-settings/table_settings_block.inc.php:1375
 msgid ""
 "If this is enabled, columns that contain HTML like (link, image, email, "
 "attachment or HTML) will be rendered as HTML in export files for CSV,Excel,"
 "Print and Copy export option."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1359
+#: templates/admin/table-settings/table_settings_block.inc.php:1377
 msgid ""
 "NOTICE: Please note that in back-end it will be rendered settings buttons in "
 "headers as well, so please check this functionality on front-end."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1366
+#: templates/admin/table-settings/table_settings_block.inc.php:1384
 msgid "Enable HTML in export files (CSV, Excel, Print and Copy)"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1377
+#: templates/admin/table-settings/table_settings_block.inc.php:1395
 msgid "PDF Paper Size"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1379
+#: templates/admin/table-settings/table_settings_block.inc.php:1397
 msgid "Choose between different paper sizes for the created PDF."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1384
+#: templates/admin/table-settings/table_settings_block.inc.php:1402
 msgid "A3"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1385
+#: templates/admin/table-settings/table_settings_block.inc.php:1403
 msgid "A4"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1386
+#: templates/admin/table-settings/table_settings_block.inc.php:1404
 msgid "A5"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1387
+#: templates/admin/table-settings/table_settings_block.inc.php:1405
 msgid "Legal"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1388
+#: templates/admin/table-settings/table_settings_block.inc.php:1406
 msgid "Letter"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1389
+#: templates/admin/table-settings/table_settings_block.inc.php:1407
 msgid "Tabloid"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1396
+#: templates/admin/table-settings/table_settings_block.inc.php:1414
 msgid "Page orientation"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1398
+#: templates/admin/table-settings/table_settings_block.inc.php:1416
 msgid "Choose a paper orientation for the created PDF."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1403
+#: templates/admin/table-settings/table_settings_block.inc.php:1421
 msgid "Portrait"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1404
+#: templates/admin/table-settings/table_settings_block.inc.php:1422
 msgid "Landscape"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1414
-#: templates/admin/table-settings/table_settings_block.inc.php:1422
+#: templates/admin/table-settings/table_settings_block.inc.php:1432
+#: templates/admin/table-settings/table_settings_block.inc.php:1440
 #, fuzzy
 #| msgid "Table title"
 msgid "Include Table title"
 msgstr "Tytuł tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1426
+#: templates/admin/table-settings/table_settings_block.inc.php:1444
 msgid ""
 " If this is enabled, table title will be shown in first row  in the exported "
 "files of the Excel and Copy options.(CSV is not supported and on Print and "
 "PDF is included.)"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1434
+#: templates/admin/table-settings/table_settings_block.inc.php:1452
 msgid "Show table title in export files (Excel and Copy)"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1440
+#: templates/admin/table-settings/table_settings_block.inc.php:1458
 msgid "WCAG compatibility"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1446
+#: templates/admin/table-settings/table_settings_block.inc.php:1464
 msgid "Web Content Accessibility Guidelines"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1449
+#: templates/admin/table-settings/table_settings_block.inc.php:1467
 #, fuzzy
 #| msgid "Enable this to restrict table width to page width."
 msgid "Enable this option to ensure table is WCAG compatible."
 msgstr "Włącz tę opcję, aby ograniczyć szerokość tabeli do szerokości strony."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1452
+#: templates/admin/table-settings/table_settings_block.inc.php:1470
 msgid ""
 "If you decide to enable this option, you might notice some changes in the "
 "appearance of the table. This is because we have fixed issues with low "
 "contrast or focus that were present before."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1458
+#: templates/admin/table-settings/table_settings_block.inc.php:1476
 msgid "Make table WCAG compatible"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1480
+#: templates/admin/table-settings/table_settings_block.inc.php:1498
 msgid ""
 "Placeholders can be understood as predefined ‘search and replace‘ templates; "
 "that will be replaced with some actual values at the execution time; usually "
@@ -7480,15 +7488,15 @@ msgid ""
 "Excel, CSV, Google Spreadsheet and PHP Serialized array."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1494
-#: templates/admin/table-settings/table_settings_block.inc.php:1509
-#: templates/admin/table-settings/table_settings_block.inc.php:1524
-#: templates/admin/table-settings/table_settings_block.inc.php:1545
-#: templates/admin/table-settings/table_settings_block.inc.php:1560
-#: templates/admin/table-settings/table_settings_block.inc.php:1575
-#: templates/admin/table-settings/table_settings_block.inc.php:1596
-#: templates/admin/table-settings/table_settings_block.inc.php:1611
-#: templates/admin/table-settings/table_settings_block.inc.php:1626
+#: templates/admin/table-settings/table_settings_block.inc.php:1512
+#: templates/admin/table-settings/table_settings_block.inc.php:1527
+#: templates/admin/table-settings/table_settings_block.inc.php:1542
+#: templates/admin/table-settings/table_settings_block.inc.php:1563
+#: templates/admin/table-settings/table_settings_block.inc.php:1578
+#: templates/admin/table-settings/table_settings_block.inc.php:1593
+#: templates/admin/table-settings/table_settings_block.inc.php:1614
+#: templates/admin/table-settings/table_settings_block.inc.php:1629
+#: templates/admin/table-settings/table_settings_block.inc.php:1644
 msgid ""
 "This placeholder will be replaced with any value that you will provide in a "
 "shortcode. Provide a default value here that will be used for table "
@@ -7498,29 +7506,29 @@ msgstr ""
 "podać w shortcode. Podaj wartość domyślną w tym miejscu, które będą używane "
 "do generowania tabeli i gdy inny nie jest zdefiniowany w shortcode."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1499
-#: templates/admin/table-settings/table_settings_block.inc.php:1514
-#: templates/admin/table-settings/table_settings_block.inc.php:1529
-#: templates/admin/table-settings/table_settings_block.inc.php:1550
-#: templates/admin/table-settings/table_settings_block.inc.php:1565
-#: templates/admin/table-settings/table_settings_block.inc.php:1580
-#: templates/admin/table-settings/table_settings_block.inc.php:1601
-#: templates/admin/table-settings/table_settings_block.inc.php:1616
-#: templates/admin/table-settings/table_settings_block.inc.php:1631
-#: templates/admin/table-settings/table_settings_block.inc.php:1654
+#: templates/admin/table-settings/table_settings_block.inc.php:1517
+#: templates/admin/table-settings/table_settings_block.inc.php:1532
+#: templates/admin/table-settings/table_settings_block.inc.php:1547
+#: templates/admin/table-settings/table_settings_block.inc.php:1568
+#: templates/admin/table-settings/table_settings_block.inc.php:1583
+#: templates/admin/table-settings/table_settings_block.inc.php:1598
+#: templates/admin/table-settings/table_settings_block.inc.php:1619
+#: templates/admin/table-settings/table_settings_block.inc.php:1634
+#: templates/admin/table-settings/table_settings_block.inc.php:1649
 #: templates/admin/table-settings/table_settings_block.inc.php:1672
 #: templates/admin/table-settings/table_settings_block.inc.php:1690
-#: templates/admin/table-settings/table_settings_block.inc.php:1712
+#: templates/admin/table-settings/table_settings_block.inc.php:1708
 #: templates/admin/table-settings/table_settings_block.inc.php:1730
 #: templates/admin/table-settings/table_settings_block.inc.php:1748
-#: templates/admin/table-settings/table_settings_block.inc.php:1773
-#: templates/admin/table-settings/table_settings_block.inc.php:1793
-#: templates/admin/table-settings/table_settings_block.inc.php:1812
-#: templates/admin/table-settings/table_settings_block.inc.php:1834
+#: templates/admin/table-settings/table_settings_block.inc.php:1766
+#: templates/admin/table-settings/table_settings_block.inc.php:1791
+#: templates/admin/table-settings/table_settings_block.inc.php:1811
+#: templates/admin/table-settings/table_settings_block.inc.php:1830
+#: templates/admin/table-settings/table_settings_block.inc.php:1852
 msgid "Default for table generation"
 msgstr "Domyślne dla generowania tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1647
+#: templates/admin/table-settings/table_settings_block.inc.php:1665
 msgid ""
 "This placeholder will be replaced with the ID of currently logged in user. "
 "Provide a value here to be used for table generation"
@@ -7529,7 +7537,7 @@ msgstr ""
 "zalogowanego użytkownika. Podaj wartość, która ma być używana do generowania "
 "tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1664
+#: templates/admin/table-settings/table_settings_block.inc.php:1682
 msgid ""
 "This placeholder will be replaced with the login of currently logged in "
 "user. Provide a value here to be used for table generation"
@@ -7537,13 +7545,13 @@ msgstr ""
 "Ten symbol zastępczy zostanie zastąpiony loginem aktualnie zalogowanego "
 "użytkownika. Podaj wartość, która ma być używana do generowania tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1682
+#: templates/admin/table-settings/table_settings_block.inc.php:1700
 msgid ""
 "This placeholder will be replaced with the Email of currently logged in "
 "user. Provide a value here to be used for table generation"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1706
+#: templates/admin/table-settings/table_settings_block.inc.php:1724
 msgid ""
 "This placeholder will be replaced with the ID of current post. Provide a "
 "value here to be used for table generation"
@@ -7551,7 +7559,7 @@ msgstr ""
 "Ten symbol zastępczy zostanie zastąpiony identyfikatorem bieżącego wpisu. "
 "Podaj wartość, która ma być używana do generowania tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1722
+#: templates/admin/table-settings/table_settings_block.inc.php:1740
 msgid ""
 "This placeholder will be replaced with the First Name of currently logged in "
 "user. Provide a value here to be used for table generation"
@@ -7559,7 +7567,7 @@ msgstr ""
 "Ten symbol zastępczy zostanie zastąpiony przez imię aktualnie zalogowanego "
 "użytkownika. Podaj wartość, która ma być używana do generowania tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1740
+#: templates/admin/table-settings/table_settings_block.inc.php:1758
 msgid ""
 "This placeholder will be replaced with the Last Name of currently logged in "
 "user. Provide a value here to be used for table generation"
@@ -7568,19 +7576,19 @@ msgstr ""
 "zalogowanego użytkownika. Podaj wartość, która ma być używana do generowania "
 "tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1764
+#: templates/admin/table-settings/table_settings_block.inc.php:1782
 msgid "This placeholder will be replaced with current date."
 msgstr "Ten symbol zastępczy zostanie zastąpiony bieżącym czasem."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1783
+#: templates/admin/table-settings/table_settings_block.inc.php:1801
 msgid "This placeholder will be replaced with current datetime."
 msgstr "Ten symbol zastępczy zostanie zastąpiony bieżącym czasem."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1803
+#: templates/admin/table-settings/table_settings_block.inc.php:1821
 msgid "This placeholder will be replaced with current time."
 msgstr "Ten symbol zastępczy zostanie zastąpiony bieżącym czasem."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1827
+#: templates/admin/table-settings/table_settings_block.inc.php:1845
 msgid ""
 "This placeholder will be replaced with the current prefix of WordPress "
 "database. Provide a value here to be used for table generation"
@@ -7588,105 +7596,105 @@ msgstr ""
 "Ten symbol zastępczy zostanie zastąpiony bieżącym prefiksem bazy danych "
 "WordPress. Podaj wartość, która ma być używana do generowania tabeli"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1858
+#: templates/admin/table-settings/table_settings_block.inc.php:1876
 msgid ""
 "In premium version you can customize each table with different skin, font, "
 "background , colors and lot more. Checkout new table customize settings "
 "below."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1865
+#: templates/admin/table-settings/table_settings_block.inc.php:1883
 msgid "Main"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1877
+#: templates/admin/table-settings/table_settings_block.inc.php:1895
 msgid "Table border"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:1893
+#: templates/admin/table-settings/table_settings_block.inc.php:1911
 msgid "Custom CSS"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2221
+#: templates/admin/table-settings/table_settings_block.inc.php:2239
 msgid "Remove borders in table header"
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2533
+#: templates/admin/table-settings/table_settings_block.inc.php:2551
 msgid ""
 "This CSS will be inserted as an inline style block on every page that has "
 "this wpDataTable."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2587
+#: templates/admin/table-settings/table_settings_block.inc.php:2605
 #, fuzzy
 #| msgid "Enable advanced column filters"
 msgid "Enable this to make columns fixed."
 msgstr "Włącz Zaawansowane filtry kolumn"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2595
+#: templates/admin/table-settings/table_settings_block.inc.php:2613
 #, fuzzy
 #| msgid "Enable filtering for column"
 msgid "Enable fixed columns"
 msgstr "Włącz filtrowanie dla kolumny"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2602
+#: templates/admin/table-settings/table_settings_block.inc.php:2620
 #, fuzzy
 #| msgid "Set column color"
 msgid "Left columns numbers"
 msgstr "Ustaw kolor kolumny"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2611
+#: templates/admin/table-settings/table_settings_block.inc.php:2629
 #, fuzzy
 #| msgid "Set column color"
 msgid "Left columns number"
 msgstr "Ustaw kolor kolumny"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2615
+#: templates/admin/table-settings/table_settings_block.inc.php:2633
 msgid "You can enter the number for fixed left columns here."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2640
+#: templates/admin/table-settings/table_settings_block.inc.php:2658
 #, fuzzy
 #| msgid "Align numbers"
 msgid "Right columns numbers"
 msgstr "Wyrównywanie liczb"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2649
+#: templates/admin/table-settings/table_settings_block.inc.php:2667
 #, fuzzy
 #| msgid "Align numbers"
 msgid "Right columns number"
 msgstr "Wyrównywanie liczb"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2653
+#: templates/admin/table-settings/table_settings_block.inc.php:2671
 msgid "You can enter the number for fixed right columns here."
 msgstr ""
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2689
+#: templates/admin/table-settings/table_settings_block.inc.php:2707
 #, fuzzy
 #| msgid "Displayed header"
 msgid "Fixed header"
 msgstr "Wyświetlany nagłówek"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2693
+#: templates/admin/table-settings/table_settings_block.inc.php:2711
 #, fuzzy
 #| msgid "Enable this to restrict table width to page width."
 msgid "Enable this to make header fixed."
 msgstr "Włącz tę opcję, aby ograniczyć szerokość tabeli do szerokości strony."
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2701
+#: templates/admin/table-settings/table_settings_block.inc.php:2719
 #, fuzzy
 #| msgid "In the header"
 msgid "Enable fixed header"
 msgstr "W nagłówku"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2708
-#: templates/admin/table-settings/table_settings_block.inc.php:2716
+#: templates/admin/table-settings/table_settings_block.inc.php:2726
+#: templates/admin/table-settings/table_settings_block.inc.php:2734
 #, fuzzy
 #| msgid "Header border"
 msgid "Header offset"
 msgstr "Obramowanie nagłówka"
 
-#: templates/admin/table-settings/table_settings_block.inc.php:2720
+#: templates/admin/table-settings/table_settings_block.inc.php:2738
 msgid "You can enter the offset for fixed header here."
 msgstr ""
 

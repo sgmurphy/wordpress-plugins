@@ -181,7 +181,8 @@ import {
   markRaw,
   computed,
   onMounted,
-  readonly
+  readonly,
+  onBeforeMount
 } from 'vue'
 
 // * import from Vuex
@@ -193,6 +194,7 @@ import {
   defaultCustomizeSettings
 } from '../../../../assets/js/common/defaultCustomize.js'
 import { useColorTransparency } from '../../../../assets/js/common/colorManipulation.js'
+import { useCurrentTimeZone } from "../../../../assets/js/common/helper";
 
 // * Form Component Collection
 import Auth from "../common/Authentication/Auth.vue";
@@ -200,6 +202,12 @@ import Profile from "../common/Profile/Profile.vue";
 import Appointments from "../common/Appointments/Appointments.vue";
 import Events from "../common/Events/Events.vue";
 import Packages from "../common/Packages/Packages.vue";
+
+// * Import from Libraries
+import { useCookies } from 'vue3-cookies'
+
+// * Vars
+const vueCookies = useCookies()['cookies']
 
 const store = useStore()
 
@@ -457,6 +465,22 @@ function bookingsCounterChanger () {
 
 provide('bookingsCounterChanger', {
   bookingsCounterChanger
+})
+
+const adminTimeZone = inject('timeZone')
+
+onBeforeMount(() => {
+  if (!amSettings.general.showClientTimeZone) {
+    let initialTimeZone = adminTimeZone.value
+
+    if (vueCookies.get('ameliaUserTimeZone')) {
+      initialTimeZone = vueCookies.get('ameliaUserTimeZone')
+    }
+
+    store.commit('cabinet/setTimeZone', initialTimeZone)
+  }
+
+  if (!store.getters['cabinet/getTimeZone']) store.commit('cabinet/setTimeZone', useCurrentTimeZone())
 })
 
 // * Colors block
