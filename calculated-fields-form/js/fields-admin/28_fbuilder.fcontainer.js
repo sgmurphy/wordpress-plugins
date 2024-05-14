@@ -1,5 +1,6 @@
 	$.fbuilder.controls[ 'fcontainer' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fcontainer' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{

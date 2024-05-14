@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.5 =
+
+* Includes a new section in the fields settings to allow customizing the fields desings directly.
+
 = 5.2.4 =
 
 * Allows to assign developer notes to the calculated fields.

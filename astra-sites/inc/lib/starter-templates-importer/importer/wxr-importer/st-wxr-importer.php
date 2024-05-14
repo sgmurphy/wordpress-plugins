@@ -296,6 +296,16 @@ class ST_WXR_Importer {
 			}
 		}
 
+		/**
+		 * Setting the publish date to current date.
+		 */
+		if ( isset( $data['post_date'] ) ) {
+			$post_modified         = current_time( 'mysql' );
+			$post_modified_gmt     = current_time( 'mysql', 1 );
+			$data['post_date']     = $post_modified;
+			$data['post_date_gmt'] = $post_modified_gmt;
+		}
+
 		return $data;
 	}
 

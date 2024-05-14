@@ -20,30 +20,20 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 class Action extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Collection
 {
   protected $collection_key = 'reasons';
-  /**
-   * @var BuiltInSimpleAction
-   */
-  public $builtinSimpleAction;
   protected $builtinSimpleActionType = BuiltInSimpleAction::class;
   protected $builtinSimpleActionDataType = '';
+  protected $builtinUserInputActionType = BuiltInUserInputAction::class;
+  protected $builtinUserInputActionDataType = '';
   /**
    * @var string
    */
   public $buttonLabel;
-  /**
-   * @var ExternalAction
-   */
-  public $externalAction;
   protected $externalActionType = ExternalAction::class;
   protected $externalActionDataType = '';
   /**
    * @var bool
    */
   public $isAvailable;
-  /**
-   * @var ActionReason[]
-   */
-  public $reasons;
   protected $reasonsType = ActionReason::class;
   protected $reasonsDataType = 'array';
 
@@ -60,6 +50,20 @@ class Action extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\
   public function getBuiltinSimpleAction()
   {
     return $this->builtinSimpleAction;
+  }
+  /**
+   * @param BuiltInUserInputAction
+   */
+  public function setBuiltinUserInputAction(BuiltInUserInputAction $builtinUserInputAction)
+  {
+    $this->builtinUserInputAction = $builtinUserInputAction;
+  }
+  /**
+   * @return BuiltInUserInputAction
+   */
+  public function getBuiltinUserInputAction()
+  {
+    return $this->builtinUserInputAction;
   }
   /**
    * @param string

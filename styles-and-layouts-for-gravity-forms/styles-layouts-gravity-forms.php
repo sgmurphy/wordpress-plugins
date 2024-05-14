@@ -3,7 +3,7 @@
 Plugin Name: Gravity Booster ( Style & Layouts )
 Plugin URI:  http://wpmonks.com/styles-layouts-gravity-forms
 Description: Create beautiful styles for your gravity forms
-Version:     5.2
+Version:     5.3
 Author:      Sushil Kumar
 Author URI:  http://wpmonks.com/
 License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GF_STLA_DIR', WP_PLUGIN_DIR . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_URL', plugins_url() . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_STORE_URL', 'https://wpmonks.com' );
-define( 'GF_STLA_VERSION', '5.2' );
+define( 'GF_STLA_VERSION', '5.3' );
 
 if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include_once GF_STLA_DIR . '/admin-menu/EDD_SL_Plugin_Updater.php';
@@ -73,7 +73,8 @@ class Gravity_customizer_admin {
 	function admin_enqueue_scripts() {
 
 		if ( is_admin() || defined( 'REST_REQUEST' ) ) {
-			if ( ( isset( $_GET['page'] ) && $_GET['page'] !== 'stla_gravity_booster' ) ) {
+
+			if ( ( ! isset( $_GET['page'] ) || $_GET['page'] !== 'stla_gravity_booster' ) ) {
 				return;
 			}
 		}
@@ -86,7 +87,6 @@ class Gravity_customizer_admin {
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'stla-admin-gravity-booster-js', GF_STLA_URL . '/build/index.js', $asset_file['dependencies'], $asset_file['version'], true );
-
 		wp_enqueue_script( 'stla-admin-gravity-booster', GF_STLA_URL . '/build/index.js', $addons_info['dependencies'], $asset_file['version'], true );
 
 		// Generate a nonce
@@ -139,34 +139,49 @@ class Gravity_customizer_admin {
 			if ( is_plugin_active( $slug ) ) {
 				switch ( $name ) {
 					case 'checkboxRadio':
-						$addon_dependecies[]      = 'stla-admin-checkbox-radio';
 						$status['checkboxRadio']  = 'active';
 						$version['checkboxRadio'] = defined( 'STLA_CHECKBOX_RADIO_VERSION' ) ? STLA_CHECKBOX_RADIO_VERSION : '1.0';
+						if ( (int) $version['checkboxRadio'] >= 2 ) {
+							$addon_dependecies[] = 'stla-admin-checkbox-radio';
+						}
 						break;
 					case 'bootstrap':
-						$addon_dependecies[]  = 'stla-admin-bootstrap';
 						$status['bootstrap']  = 'active';
 						$version['bootstrap'] = defined( 'STLA_BOOTSTRAP_VERSION' ) ? STLA_BOOTSTRAP_VERSION : '1.0';
+						if ( (int) $version['bootstrap'] >= 2 ) {
+							$addon_dependecies[] = 'stla-admin-bootstrap';
+						}
 						break;
 					case 'material':
-						$addon_dependecies[] = 'stla-admin-material';
 						$status['material']  = 'active';
 						$version['material'] = defined( 'STLA_MATERIAL_VERSION' ) ? STLA_MATERIAL_VERSION : '1.0';
+						if ( (int) $version['material'] >= 6 ) {
+							$addon_dependecies[] = 'stla-admin-material';
+						}
 						break;
 					case 'tooltips':
-						$addon_dependecies[] = 'stla-admin-tooltips';
 						$status['tooltips']  = 'active';
 						$version['tooltips'] = defined( 'GF_STLA_TOOLTIPS_VERSION' ) ? GF_STLA_TOOLTIPS_VERSION : '1.0';
+						if ( (int) $version['tooltips'] >= 4 ) {
+							$addon_dependecies[] = 'stla-admin-tooltips';
+						}
+
 						break;
 					case 'fieldIcons':
-						$addon_dependecies[]   = 'stla-admin-field-icons';
 						$status['fieldIcons']  = 'active';
 						$version['fieldIcons'] = defined( 'GF_STLA_FIELD_ICONS_VERSION' ) ? GF_STLA_FIELD_ICONS_VERSION : '1.0';
+						if ( (int) $version['fieldIcons'] >= 3 ) {
+							$addon_dependecies[] = 'stla-admin-field-icons';
+						}
+
 						break;
 					case 'customThemes':
-						$addon_dependecies[]     = 'stla-admin-custom-themes';
 						$status['customThemes']  = 'active';
 						$version['customThemes'] = defined( 'GF_STLA_MY_THEME_VERSION' ) ? GF_STLA_MY_THEME_VERSION : '1.0';
+						
+						if ( (int) $version['customThemes'] >= 3 ) {
+							$addon_dependecies[]     = 'stla-admin-custom-themes';
+						}
 						break;
 				}
 

@@ -12,7 +12,7 @@ class Social_Pug {
 	public const API_NAMESPACE = 'mv-grow-social/v1';
 
 	/** @var string|null Build tool sets this. */
-	const VERSION = '1.33.2';
+	const VERSION = '1.34.0';
 
 	/** @var string|null Version number for this release. @deprecated Use MV_GROW_VERSION */
 	public static $VERSION;
@@ -155,6 +155,12 @@ class Social_Pug {
 		add_action( 'wp_footer', [ $this->asset_loader, 'maybe_dequeue' ] );
 		add_action( 'admin_init', [ $this, 'update_database' ] );
 		add_filter( 'body_class', [ $this, 'add_body_class' ] );
+
+		// Exclude Hubbub from WP Rocket's Delay JavaScript
+		add_filter( 'rocket_delay_js_exclusions', [ $this, 'add_hubbub_wp_rocket_delay_js_exclusion' ] );
+
+		// Exclude Hubbub from Perfmatters Delay JavaScript
+		add_filter( 'perfmatters_delay_js_exclusions', [ $this, 'add_hubbub_perfmatters_delay_js_exclusion' ] );
 
 		// Set up Facebook Authorization
 		add_action( 'admin_init', 'dpsp_capture_authorize_facebook_access_token' );
@@ -302,6 +308,22 @@ class Social_Pug {
 		$this->tools = $tool_container;
 	}
 
+	/**
+	 * Add Hubbub to WP Rocket's Delay JavaScript Exclusion List
+	 */
+	public function add_hubbub_wp_rocket_delay_js_exclusion( $excluded = array() ) {
+		$excluded[] = 'social-pug';
+		return $excluded;
+	}
+
+	/**
+	 * Add Hubbub to Perfmatters Delay JavaScript Exclusion List
+	 */
+	public function add_hubbub_perfmatters_delay_js_exclusion( $excluded = array() ) {
+		$excluded[] = 'social-pug';
+		return $excluded;
+	}
+
 	public static function assets_url() {
 		return plugin_dir_url( __FILE__ );
 	}
@@ -350,7 +372,7 @@ class Social_Pug {
 	 * 
 	 */
 	public function add_hubbub_admin_menu_item_badge() {
-		if ( \Social_Pug::is_free() ) return;
+		if ( \Social_Pug::is_free() || wp_doing_ajax() ) return;
 		
 		$numberOfNotices = \Mediavine\Grow\Admin_Notices::dpsp_count_hubbub_admin_notices();
 		if ( $numberOfNotices == 0 ) return;
@@ -369,9 +391,7 @@ class Social_Pug {
 	 *
 	 */
 	public function remove_main_menu_page() {
-
 		remove_submenu_page( 'dpsp-social-pug', 'dpsp-social-pug' );
-
 	}
 
 	/**
@@ -568,14 +588,17 @@ class Social_Pug {
 			if ( ! $license_status || empty( $license_status ) ) return new WP_Error( 'hubbub-pro-expired', __('The status of your Hubbub Pro license key is unknown. Please update your license key in <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Hubbub > Settings</a> and try again.') );
 			
 			switch ( $license_status ) {
+				case 'disabled':
+					return new WP_Error( 'hubbub-pro-license-disabled', __('The license key for Hubbub Pro disabled. Please <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">reinstate your license</a> and try updating the plugin again.') );
+					break;
+				case 'expired':
+					return new WP_Error( 'hubbub-pro-license-expired', __('The license key for Hubbub Pro has expired. Please <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">renew your license</a> and try updating the plugin again.') );
+					break;
 				case 'valid':
 					return $return; // Allow the plugin update to proceed
 					break;
 				case 'invalid':
 					return new WP_Error( 'hubbub-pro-license-invalid', __('The license key for Hubbub Pro is invalid. Please <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">update the license key</a> and try updating the plugin again.') );
-					break;
-				case 'expired':
-					return new WP_Error( 'hubbub-pro-license-expired', __('The license key for Hubbub Pro has expired. Please <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">renew your license</a> and try updating the plugin again.') );
 					break;
 				default: // Allow the plugin update to proceed
 					return $return;

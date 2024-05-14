@@ -22,6 +22,7 @@ class DPSP_Network_Buttons_Outputter {
 		'network_label'     => '',
 		'network_shares'    => 0,
 		'show_labels'       => true,
+		'show_labels_mobile' => true,
 		'show_share_counts' => true,
 	];
 
@@ -174,6 +175,7 @@ class DPSP_Network_Buttons_Outputter {
 
 		$button_data['show_share_counts'] = self::should_count_show( $data['settings'], $slug, ! empty( $data['post_details']['networks_shares_unfiltered'][ $slug ] ) && is_int($data['post_details']['networks_shares_unfiltered'][ $slug ]) ? $data['post_details']['networks_shares_unfiltered'][ $slug ] : 0 );
 		$button_data['show_labels']       = self::should_label_show( $data['settings'] );
+		$button_data['show_labels_mobile']       = self::should_label_show_mobile( $data['settings'] );
 
 		// Get the link of the button
 		$network_share_link = 'share' === $data['action'] ? self::get_button_share_link( $slug, $data ) : self::get_button_follow_link( $slug );
@@ -190,12 +192,14 @@ class DPSP_Network_Buttons_Outputter {
 		}
 		$button_data['button_classes'][] = $button_data['show_labels'] ? 'dpsp-has-label' : '';
 
+		$button_data['button_classes'][] = ! $button_data['show_labels_mobile'] ? 'dpsp-has-label-mobile' : '';
+
 		// Filter the button classes
 		$button_data['button_classes'] = apply_filters( 'dpsp_button_classes', $button_data['button_classes'], $data['location'], $button_data['network_shares'] );
 		$button_data['button_classes'] = esc_attr( implode( ' ', array_filter( $button_data['button_classes'] ) ) );
 
 		// Load pinterest and grow as a button when no href value is used
-		if ( ( 'pinterest' === $slug || 'grow' === $slug ) && 'share' === $data['action'] ) {
+		if ( ( 'pinterest' === $slug || 'grow' === $slug || 'mastodon' === $slug ) && 'share' === $data['action'] ) {
 			$button_data['tag']            = 'button';
 			$button_data['href_attribute'] = 'data-href="' . esc_url( $network_share_link ) . '"';
 		} else {
@@ -327,6 +331,16 @@ class DPSP_Network_Buttons_Outputter {
 	 */
 	private static function should_label_show( $settings ) {
 		return isset( $settings['display']['show_labels'] );
+	}
+
+	/**
+	 * Determine if the label for a button should show on mobile
+	 *
+	 * @param array $settings Array of settings for this location
+	 * @return bool
+	 */
+	private static function should_label_show_mobile( $settings ) {
+		return isset( $settings['display']['show_labels_mobile'] );
 	}
 
 	/**

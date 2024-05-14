@@ -28,10 +28,6 @@ class DatafeedsListResponse extends \Automattic\WooCommerce\GoogleListingsAndAds
    * @var string
    */
   public $nextPageToken;
-  /**
-   * @var Datafeed[]
-   */
-  public $resources;
   protected $resourcesType = Datafeed::class;
   protected $resourcesDataType = 'array';
 

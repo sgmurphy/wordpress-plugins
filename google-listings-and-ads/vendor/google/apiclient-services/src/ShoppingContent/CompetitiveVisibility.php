@@ -29,10 +29,6 @@ class CompetitiveVisibility extends \Automattic\WooCommerce\GoogleListingsAndAds
    * @var string
    */
   public $countryCode;
-  /**
-   * @var Date
-   */
-  public $date;
   protected $dateType = Date::class;
   protected $dateDataType = '';
   /**

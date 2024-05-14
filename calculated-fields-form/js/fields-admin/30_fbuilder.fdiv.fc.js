@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'fdiv' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fdiv' ].prototype,
 		$.fbuilder.controls[ 'fcontainer' ].prototype,
 		{
@@ -17,9 +18,13 @@
 			columns:1,
 			rearrange: 0,
 			collapsed:false,
-			display:function()
+			initAdv:function(){
+					delete this.advanced;
+				},
+			display:function( css_class )
 				{
-					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Div')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield" style="width:100%;"><div class="fcontainer"><span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span>'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Div')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield" style="width:100%;"><div class="fcontainer"><span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span>'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer"></div></div>';
 				},
 			showTitle:function(){ return ''; },
 			editItemEvents:function()

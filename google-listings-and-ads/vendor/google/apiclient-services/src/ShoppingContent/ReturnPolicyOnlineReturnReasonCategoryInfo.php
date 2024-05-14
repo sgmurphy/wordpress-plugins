@@ -27,10 +27,6 @@ class ReturnPolicyOnlineReturnReasonCategoryInfo extends \Automattic\WooCommerce
    * @var string
    */
   public $returnReasonCategory;
-  /**
-   * @var ReturnPolicyOnlineReturnShippingFee
-   */
-  public $returnShippingFee;
   protected $returnShippingFeeType = ReturnPolicyOnlineReturnShippingFee::class;
   protected $returnShippingFeeDataType = '';
 

@@ -231,11 +231,6 @@ parameters:
 			path: inc/classes/class-astra-sites-importer-log.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:track_post\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
 			message: "#^Call to function is_int\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer.php
@@ -247,6 +242,11 @@ parameters:
 
 		-
 			message: "#^Call to static method refresh_assets\\(\\) on an unknown class Astra_Minify\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-importer.php
+
+		-
+			message: "#^Call to static method track_post\\(\\) on an unknown class STImporter\\\\Importer\\\\ST_Importer_Helper\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer.php
 
@@ -1950,7 +1950,7 @@ parameters:
 			path: inc/importers/class-astra-site-options-import.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:track_post\\(\\)\\.$#"
+			message: "#^Call to static method track_post\\(\\) on an unknown class STImporter\\\\Importer\\\\ST_Importer_Helper\\.$#"
 			count: 1
 			path: inc/importers/class-astra-site-options-import.php
 

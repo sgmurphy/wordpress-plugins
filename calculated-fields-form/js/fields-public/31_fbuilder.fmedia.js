@@ -60,11 +60,11 @@
                     {
                         l.push('href="'+esc(d.sLink)+'"');
                         if(String(d.sTarget).trim()) l.push('target="'+esc(d.sTarget)+'"');
-                        r = '<a '+l.join(' ')+' ><img '+a.join(' ')+' /></a>';
+                        r = '<a '+l.join(' ')+' ><img '+a.join(' ')+' style="'+cff_esc_attr(this.getCSSComponent('image'))+'" /></a>';
                     }
                     else
                     {
-                        r = '<img '+a.join(' ')+' />';
+                        r = '<img '+a.join(' ')+' style="'+cff_esc_attr(this.getCSSComponent('image'))+'" />';
                     }
 
                     return r;
@@ -87,7 +87,7 @@
                     if(d.sHideDownload) a.push('controlsList="nodownload"');
                     a.push('preload="'+esc(d.sPreload)+'"');
 
-                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
+                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'" style="'+cff_esc_attr(this.getCSSComponent(isV ? 'video' : 'audio'))+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
                 },
             _show_audio: function()
                 {
@@ -99,7 +99,7 @@
                 },
             show:function()
 				{
-						return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-media-field" id="field'+this.form_identifier+'-'+this.index+'"><div class="clearer"><div class="field" id="'+this.name+'">'+this['_show_'+this.sMediaType]()+'</div></div><span class="uh">'+this.data[this.sMediaType].sFigcaption+'</span><div class="clearer"></div></div>';
+						return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-media-field" id="field'+this.form_identifier+'-'+this.index+'"><div class="clearer"><div class="field" id="'+this.name+'">'+this['_show_'+this.sMediaType]()+'</div></div><span class="uh" style="'+cff_esc_attr(this.getCSSComponent('caption'))+'">'+this.data[this.sMediaType].sFigcaption+'</span><div class="clearer"></div></div>';
 				}
 		}
 	);

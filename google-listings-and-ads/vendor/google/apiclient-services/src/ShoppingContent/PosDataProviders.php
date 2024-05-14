@@ -24,10 +24,6 @@ class PosDataProviders extends \Automattic\WooCommerce\GoogleListingsAndAds\Vend
    * @var string
    */
   public $country;
-  /**
-   * @var PosDataProvidersPosDataProvider[]
-   */
-  public $posDataProviders;
   protected $posDataProvidersType = PosDataProvidersPosDataProvider::class;
   protected $posDataProvidersDataType = 'array';
 

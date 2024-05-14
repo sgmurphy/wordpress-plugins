@@ -454,6 +454,7 @@ function dpsp_default_settings() {
 				$location_settings['display']['column_count']   = 'auto';
 				$location_settings['display']['icon_animation'] = 'yes';
 				$location_settings['display']['show_labels']    = 'yes';
+				$location_settings['display']['show_labels_mobile']    = 'no';
 				break;
 
 			case 'sticky_bar':
@@ -468,12 +469,14 @@ function dpsp_default_settings() {
 			case 'pop_up':
 				$location_settings['display']['icon_animation'] = 'yes';
 				$location_settings['display']['show_labels']    = 'yes';
+				$location_settings['display']['show_labels_mobile']    = 'yes';
 				$location_settings['display']['title']          = __( 'Sharing is Caring', 'social-pug' );
 				$location_settings['display']['message']        = __( 'Help spread the word. You\'re awesome for doing it!', 'social-pug' );
 				break;
 
 			case 'follow_widget':
 				$location_settings['display']['show_labels'] = 'yes';
+				$location_settings['display']['show_labels_mobile']    = 'yes';
 				$location_settings['display']['show_mobile'] = 'yes';
 				break;
 

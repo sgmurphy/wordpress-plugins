@@ -24,10 +24,6 @@ class PosListResponse extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendo
    * @var string
    */
   public $kind;
-  /**
-   * @var PosStore[]
-   */
-  public $resources;
   protected $resourcesType = PosStore::class;
   protected $resourcesDataType = 'array';
 

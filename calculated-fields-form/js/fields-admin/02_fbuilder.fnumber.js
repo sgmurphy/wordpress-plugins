@@ -7,6 +7,7 @@
 		);
         $.fbuilder.controls[ 'fnumber' ] = function(){};
 		$.extend(
+			true,
 			$.fbuilder.controls[ 'fnumber' ].prototype,
 			$.fbuilder.controls[ 'ffields' ].prototype,
 			{
@@ -30,9 +31,14 @@
 				formatDynamically:false,
 				dformat:"digits",
 				formats:new Array("digits","number", "percent"),
-				display:function()
+				initAdv: function() {
+					if ( ! ( 'spinner_left' in this.advanced.css ) ) this.advanced.css.spinner_left = {label: 'Left spinner',rules:{}};
+					if ( ! ( 'spinner_right' in this.advanced.css ) ) this.advanced.css.spinner_right = {label: 'Right spinner',rules:{}};
+				},
+				display:function( css_class )
 					{
-						return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Number')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+						css_class = css_class || '';
+						return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Number')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 					},
 				editItemEvents:function()
 					{

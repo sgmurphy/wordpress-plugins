@@ -19,10 +19,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class OrderLineItemProductFee extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var Price
-   */
-  public $amount;
   protected $amountType = Price::class;
   protected $amountDataType = '';
   /**

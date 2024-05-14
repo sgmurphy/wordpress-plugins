@@ -136,7 +136,7 @@
 				);
 ?>
 
-				<?php dpsp_settings_field( 'switch', 'dpsp_location_sidebar[display][show_labels]', ( isset( $dpsp_location_sidebar['display']['show_labels'] ) ? $dpsp_location_sidebar['display']['show_labels'] : '' ), __( 'Show button labels', 'social-pug' ), [ 'yes' ] ); ?>
+				<?php dpsp_settings_field( 'switch', 'dpsp_location_sidebar[display][show_labels]', ( isset( $dpsp_location_sidebar['display']['show_labels'] ) ? $dpsp_location_sidebar['display']['show_labels'] : '' ), __( 'Show button labels on desktop', 'social-pug' ), [ 'yes' ] ); ?>
 
 				<?php dpsp_settings_field( 'switch', 'dpsp_location_sidebar[display][spacing]', ( isset( $dpsp_location_sidebar['display']['spacing'] ) ? $dpsp_location_sidebar['display']['spacing'] : '' ), __( 'Button spacing', 'social-pug' ), [ 'yes' ], __( 'Adds bottom spacing for each button.', 'social-pug' ) ); ?>
 
@@ -247,7 +247,7 @@
 		<!-- Save Changes Button -->
 		<input type="hidden" name="action" value="update" />
 		<p class="submit"><input type="submit" class="dpsp-button-primary" value="<?php esc_attr_e( 'Save Changes', 'social-pug' ); ?>" /></p>
-
+		<p><strong>Please note:</strong> To ensure that changes take effect, please clear all caches. (Need help? <a href="https://morehubbub.com/docs/cache-help/" title="Read our support doc on caches">See our support doc</a>.)</p>
 	</div>
 </form>
 <?php do_action( 'dpsp_submenu_page_bottom' ); ?>

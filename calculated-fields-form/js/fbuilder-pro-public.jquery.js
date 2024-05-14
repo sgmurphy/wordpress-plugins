@@ -1,6 +1,7 @@
-	$.fbuilder['version'] = '5.2.4';
+	$.fbuilder['version'] = '5.2.5';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
+	$.fbuilder['css'] = $.fbuilder['css'] || {};
 
 	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
 
@@ -397,7 +398,7 @@
 				if( !opt.cached )
 				{
 					page_tag = $('<div class="pb'+page+' pbreak" page="'+page+'"></div>');
-                    header_tag.html($.fbuilder.sanitize(theForm.show()));
+                    header_tag.html($.fbuilder.sanitize(theForm.show( opt.identifier )));
 					fieldlist_tag.addClass(theForm.formlayout).append(page_tag);
 
 					for(i; i<items.length; i++)
@@ -654,10 +655,11 @@
                 animate_form:0,
 				animation_effect:'fade',
                 autocomplete:1,
-				show:function(){
+				show:function( id ){
 					let css = (this.textalign != 'default') ? 'text-align:'+this.textalign+';' : '';
 					if(this.headertextcolor != '') css+='color:'+this.headertextcolor+';';
-				    return '<div class="fform" id="field">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+'">'+this.title+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+'">'+this.description+'</span>' : '' )+'</div>';
+				    return ( id in $.fbuilder.css ? '<style>' + $.fbuilder.css[id].join('') + '</style>' : '') + // Include the fields CSS
+					'<div class="fform" id="field">'+( !/^\s*$/.test( this.title ) ? '<'+this.titletag+' class="cff-form-title" style="'+css+'">'+this.title+'</'+this.titletag+'>' : '' )+( !/^\s*$/.test( this.description ) ? '<span class="cff-form-description" style="'+css+'">'+this.description+'</span>' : '' )+'</div>';
 				},
                 after_show:function( id ){
                     // Common validators
@@ -782,7 +784,7 @@
 							   for (var i=0;i<d[0].length;i++)
 							   {
 								   var obj = new $.fbuilder.controls[d[0][i].ftype]();
-								   obj = $.extend(true, {}, obj,d[0][i]);
+								   obj = $.extend(true, {}, obj, d[0][i]);
 								   obj.name = obj.name+opt.identifier;
 								   obj.form_identifier = opt.identifier;
 								   if( 'fieldlayout' in obj && obj.fieldlayout != 'default' )
@@ -922,6 +924,40 @@
 					$( '[id="' + this.name + '"][type="text"]' )
 					 .add( '[id="' + this.name + '"][type="text"]' )
 					 .attr( 'placeholder', v );
+				},
+				getCSSComponent:function( c, i, s, f ) // c: component, i: !important, s: selector, f: form
+				{
+					// Initialize variables
+					i = i || false;
+					s = s || false;
+					f = f || false;
+
+					let output = '';
+					if ( 'advanced' in this ) {
+						if ( 'css' in this.advanced ) {
+							if ( c in this.advanced.css ) {
+								if ( 'rules' in this.advanced.css[c] ) {
+									let rules = this.advanced.css[c].rules,
+										v;
+									for ( let r in rules ) {
+										r = String( r ).trim().replace(/\:$/, '');
+										v = String( rules[r] ).trim().replace(/\;$/, '');
+										if ( '' !== r && '' !== v ) {
+											if (i) {
+												v = v.replace(/\!\s*important/i, '')+' !important';
+											}
+											output += r+':'+v+';';
+										}
+									}
+								}
+							}
+						}
+					}
+					if ( f && s && output !== '' ) {
+						if ( ! ( f in $.fbuilder.css ) ) $.fbuilder.css[f] = [];
+						$.fbuilder.css[f].push( s+'{'+output+'}');
+					}
+					return output;
 				}
 		});
 	$.fbuilder['doValidate'] = function(form) {

@@ -7,6 +7,7 @@
 		);
         $.fbuilder.controls[ 'fcurrency' ] = function(){};
 		$.extend(
+			true,
 			$.fbuilder.controls[ 'fcurrency' ].prototype,
 			$.fbuilder.controls[ 'ffields' ].prototype,
 			{
@@ -30,6 +31,10 @@
 				step:"",
 				formatDynamically:false,
 				twoDecimals:false,
+				initAdv: function() {
+					if ( ! ( 'spinner_left' in this.advanced.css ) ) this.advanced.css.spinner_left = {label: 'Left spinner',rules:{}};
+					if ( ! ( 'spinner_right' in this.advanced.css ) ) this.advanced.css.spinner_right = {label: 'Right spinner',rules:{}};
+				},
 				getPredefinedValue:function()
 					{
 						var me = this,
@@ -72,9 +77,10 @@
 							return this.predefined;
 						}
 					},
-				display:function()
+				display:function( css_class )
 					{
-						return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Currency')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.getPredefinedValue())+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+						css_class = css_class || '';
+						return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Currency')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.getPredefinedValue())+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 					},
 				editItemEvents:function()
 					{
@@ -105,7 +111,7 @@
 						str += '<label>Thousands Separator</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" value="'+cff_esc_attr(this.thousandSeparator)+'" class="large">';
 						str += '<label>Cents Separator</label><input type="text" name="sCentSeparator" id="sCentSeparator" value="'+cff_esc_attr(this.centSeparator)+'" class="large">';
 						str += '<label><input type="checkbox" name="sNoCents" id="sNoCents" '+( (this.noCents) ? 'CHECKED' : '')+'> Do Not Allow Cents</label>';
-						str += '<label class="column width50"><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'> Format Dynamically to&nbsp;</label><label class="column width50"><input type="checkbox" name="sTwoDecimals" id="sTwoDecimals" '+( (this.twoDecimals) ? 'CHECKED' : '')+'> two decimal places</label><div class="clearer" />';
+						str += '<label class="column width50"><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'> Format Dynamically to&nbsp;</label><label class="column width50"><input type="checkbox" name="sTwoDecimals" id="sTwoDecimals" '+( (this.twoDecimals) ? 'CHECKED' : '')+'> two decimal places</label><div class="clearer"></div>';
 						return str;
 					},
                 showRangeIntance: function()

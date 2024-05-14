@@ -20,15 +20,17 @@ endif;
 		<span class="dpsp-network-icon-inner" <?php echo Critical_Styles::get( 'single-button-icon-inner', $args['location'] ); ?>><?php echo $args['icon_svg']; ?></span>
 	</span>
 	<?php
+	// For all tools except the sidebar, the label span is inside the wrapper tag
+	$showLabelsOnMobile = ! $args['show_labels_mobile'] ? ' dpsp-network-hide-label-mobile' : '';
 	if ( $args['show_labels'] && 'sidebar' !== $args['location'] ) {
-		echo '<span class="dpsp-network-label">' . esc_html( $args['network_label'] ) . '</span>';
+		echo '<span class="dpsp-network-label' . $showLabelsOnMobile . '">' . esc_html( $args['network_label'] ) . '</span>';
 	}
 	if ( $args['show_share_counts'] ) {
 		echo '<span class="dpsp-network-count">' . esc_html( $args['network_shares'] ) . '</span>';
 	}
 	echo '</' . $args['tag'] . '>';
 	if ( $args['show_labels'] && 'sidebar' === $args['location'] ) {
-		echo '<span class="dpsp-network-label">' . esc_html( $args['network_label'] ) . '</span>';
+		echo '<span class="dpsp-network-label' . $showLabelsOnMobile . '">' . esc_html( $args['network_label'] ) . '</span>';
 	}
 	?>
 </li>

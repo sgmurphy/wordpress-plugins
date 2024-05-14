@@ -35,10 +35,6 @@ class RegionalinventoryCustomBatchRequestEntry extends \Automattic\WooCommerce\G
    * @var string
    */
   public $productId;
-  /**
-   * @var RegionalInventory
-   */
-  public $regionalInventory;
   protected $regionalInventoryType = RegionalInventory::class;
   protected $regionalInventoryDataType = '';
 

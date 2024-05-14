@@ -1018,8 +1018,7 @@
 	}
 
 .event-tickets .tribe-tickets__rsvp-ar-quantity-input input[type="number"] {
-			-webkit-appearance: textfield;
-			        appearance: textfield;
+			appearance: textfield;
 			background: transparent;
 			border: none;
 			height: var(--tec-spacer-8);
@@ -1030,8 +1029,7 @@
 
 .event-tickets .tribe-tickets__rsvp-ar-quantity-input input[type="number"]:-webkit-inner-spin-button,
 			.event-tickets .tribe-tickets__rsvp-ar-quantity-input input[type="number"]:-webkit-outer-spin-button {
-				-webkit-appearance: none;
-				        appearance: none;
+				appearance: none;
 			}
 
 /* @todo @juanfra: check this and see if we do a minus/plus and one for the number input instead of generic. */

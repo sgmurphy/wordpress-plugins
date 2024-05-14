@@ -11,7 +11,7 @@ function dpsp_register_extensions_subpage() {
  * Function that adds content to the extensions subpage.
  */
 function dpsp_extensions_subpage() {
-	$sub_page = filter_input( INPUT_GET, 'sub-page', FILTER_SANITIZE_STRING );
+	$sub_page = ( isset( $_GET['sub-page'] ) ) ? strip_tags( $_GET['sub-page'] ) : ''; 
 	if ( 'opt-in-hound' === $sub_page ) {
 		include_once 'views/view-submenu-page-extensions-sub-page-opt-in-hound.php';
 	} else {

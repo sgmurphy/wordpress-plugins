@@ -19,10 +19,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class MerchantCenterDestination extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var AttributionSettings
-   */
-  public $attributionSettings;
   protected $attributionSettingsType = AttributionSettings::class;
   protected $attributionSettingsDataType = '';
   /**

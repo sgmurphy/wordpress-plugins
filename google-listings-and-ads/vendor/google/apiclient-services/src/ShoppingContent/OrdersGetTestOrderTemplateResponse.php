@@ -23,10 +23,6 @@ class OrdersGetTestOrderTemplateResponse extends \Automattic\WooCommerce\GoogleL
    * @var string
    */
   public $kind;
-  /**
-   * @var TestOrder
-   */
-  public $template;
   protected $templateType = TestOrder::class;
   protected $templateDataType = '';
 

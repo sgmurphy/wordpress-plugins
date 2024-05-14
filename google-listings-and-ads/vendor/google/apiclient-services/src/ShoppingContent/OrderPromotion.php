@@ -20,16 +20,8 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 class OrderPromotion extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Collection
 {
   protected $collection_key = 'appliedItems';
-  /**
-   * @var OrderPromotionItem[]
-   */
-  public $applicableItems;
   protected $applicableItemsType = OrderPromotionItem::class;
   protected $applicableItemsDataType = 'array';
-  /**
-   * @var OrderPromotionItem[]
-   */
-  public $appliedItems;
   protected $appliedItemsType = OrderPromotionItem::class;
   protected $appliedItemsDataType = 'array';
   /**
@@ -44,10 +36,6 @@ class OrderPromotion extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor
    * @var string
    */
   public $merchantPromotionId;
-  /**
-   * @var Price
-   */
-  public $priceValue;
   protected $priceValueType = Price::class;
   protected $priceValueDataType = '';
   /**
@@ -62,10 +50,6 @@ class OrderPromotion extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor
    * @var string
    */
   public $subtype;
-  /**
-   * @var Price
-   */
-  public $taxValue;
   protected $taxValueType = Price::class;
   protected $taxValueDataType = '';
   /**

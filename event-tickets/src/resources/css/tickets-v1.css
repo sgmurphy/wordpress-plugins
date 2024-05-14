@@ -758,9 +758,7 @@
 
 			line-height: var(--tec-line-height-0);
 
-			-webkit-appearance: none;
-
-			        appearance: none;
+			appearance: none;
 			background-color: var(--tec-color-background);
 			background-image: url('../images/select.png');
 			background-position: right center;
@@ -986,8 +984,7 @@
 		}
 
 .tribe-common .tribe-tickets__item__quantity__number, .entry .entry-content .tribe-common .tribe-tickets__item__quantity__number {
-		-webkit-appearance: none;
-		        appearance: none;
+		appearance: none;
 		align-items: center;
 		background-color: transparent;
 		border: none;
@@ -1009,8 +1006,7 @@
 	}
 
 .tribe-common .tribe-tickets-quantity, .entry .entry-content .tribe-common .tribe-tickets-quantity {
-		-webkit-appearance: textfield;
-		        appearance: textfield;
+		appearance: textfield;
 		background: transparent;
 		border: none;
 		color: var(--tec-color-text-primary);
@@ -1410,9 +1406,7 @@
 			font-weight: var(--tec-font-weight-regular);
 			line-height: var(--tec-line-height-0);
 
-			-webkit-appearance: none;
-
-			        appearance: none;
+			appearance: none;
 			background-color: var(--tec-color-background);
 			background-image: url('../images/select.png');
 			background-position: right center;

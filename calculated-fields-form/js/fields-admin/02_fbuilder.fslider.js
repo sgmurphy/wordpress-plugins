@@ -7,6 +7,7 @@
 		);
         $.fbuilder.controls[ 'fslider' ] = function(){};
 		$.extend(
+			true,
 			$.fbuilder.controls[ 'fslider' ].prototype,
 			$.fbuilder.controls[ 'ffields' ].prototype,
 			{
@@ -32,9 +33,18 @@
 				caption:"{0}",
 				minCaption:"",
 				maxCaption:"",
-				display:function()
+				initAdv: function() {
+					if ( ! ( 'slider' in this.advanced.css ) ) this.advanced.css.slider = {label: 'Slider',rules:{}};
+					if ( ! ( 'slider_handle' in this.advanced.css ) ) this.advanced.css.slider_handle = {label: 'Slider handle',rules:{}};
+					if ( ! ( 'slider_range' in this.advanced.css ) ) this.advanced.css.slider_range = {label: 'Slider range',rules:{}};
+					if ( ! ( 'caption' in this.advanced.css ) ) this.advanced.css.caption = {label: 'Caption',rules:{}};
+					if ( ! ( 'caption_left' in this.advanced.css ) ) this.advanced.css.caption_left= {label: 'Left caption',rules:{}};
+					if ( ! ( 'caption_right' in this.advanced.css ) ) this.advanced.css.caption_right= {label: 'Right caption',rules:{}};
+				},
+				display:function( css_class )
 				{
-					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Slider')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+( ( !this.range ) ? cff_esc_attr( this.predefined ) : cff_esc_attr( '['+this.predefinedMin+','+this.predefinedMax+']' ) )+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Slider')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+'</label><div class="dfield"><input class="field disabled '+this.size+'" type="text" value="'+( ( !this.range ) ? cff_esc_attr( this.predefined ) : cff_esc_attr( '['+this.predefinedMin+','+this.predefinedMax+']' ) )+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 				editItemEvents:function()
 				{
@@ -77,12 +87,12 @@
 					return '<div class="no-range" style="display:'+( ( this.range ) ? 'none' : 'block')+';"><label>Predefined Value</label><input type="text" class="large" name="sPredefined" id="sPredefined" value="'+cff_esc_attr( this.predefined )+'"></div>'+
 					'<div class="range" style="display:'+( ( this.range ) ? 'block' : 'none')+';"><div class="column width50"><label>Predefined Min</label><input type="text" name="sPredefinedMin" id="sPredefinedMin" value="'+cff_esc_attr( this.predefinedMin )+'" class="large"></div><div class="column width50"><label>Predefined Max</label><input type="text" name="sPredefinedMax" id="sPredefinedMax" value="'+cff_esc_attr( this.predefinedMax )+'" class="large"></div></div>'+
 					'<i>It is possible to use another field in the form as predefined value. Ex: fieldname1</i>'+
-					'<div class="clearer" />';
+					'<div class="clearer"></div>';
 				},
 				showRangeIntance: function()
 				{
 					return $.fbuilder.showSettings.showExclude(this.exclude) +
 						$.fbuilder.showSettings.showReadonly(this.readonly) +
-						'<div><div class="column width30"><label>Min</label><input type="text" name="sMin" id="sMin" value="'+cff_esc_attr(this.min)+'" placeholder="0 by default" class="large"></div><div class="column width30"><label>Max</label><input type="text" name="sMax" id="sMax" value="'+cff_esc_attr(this.max)+'" placeholder="100 by default" class="large"></div><div class="column width30"><label>Step</label><input type="text" name="sStep" id="sStep" value="'+cff_esc_attr(this.step)+'" placeholder="1 by default" class="large"></div><div class="clearer" /></div><div style="margin-bottom:10px;"><i>It is possible to associate other fields in the form with the attributes "min", "max" and "step". Ex: fieldname1</i></div><label><input type="checkbox" name="sRange" id="sRange" '+( ( this.range ) ? 'CHECKED' : '' )+' /> Range slider </label><label class="no-range"><input type="checkbox" name="sLogarithmic" id="sLogarithmic" '+( ( this.logarithmic ) ? 'CHECKED' : '' )+' /> Logarithmic slider </label><div class="marks" style="display:'+(this.logarithmic? 'none' : 'block')+';"><label><input type="checkbox" name="sMarks" id="sMarks" '+( ( this.marks ) ? 'CHECKED' : '' )+' /> Show marks </label><div class="width30"><label>Divisions</label><input type="text" name="sDivisions" id="sDivisions" value="'+cff_esc_attr(this.divisions)+'" class="large"></div></div><div><label>Field Caption</label><input class="large" type="text" name="sCaption" id="sCaption" value="'+cff_esc_attr( this.caption )+'"></div><div><label>Min Corner Caption</label><input class="large" type="text" name="sMinCaption" id="sMinCaption" value="'+cff_esc_attr( this.minCaption )+'"></div><div><label>Max Corner Caption</label><input class="large" type="text" name="sMaxCaption" id="sMaxCaption" value="'+cff_esc_attr( this.maxCaption )+'"></div><div><label>Symbol for grouping thousands in the field\'s caption(Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+cff_esc_attr( this.thousandSeparator )+'" /></div><div><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sCentSeparator" id="sCentSeparator" class="large" value="'+cff_esc_attr( this.centSeparator )+'" /></div>';
+						'<div><div class="column width30"><label>Min</label><input type="text" name="sMin" id="sMin" value="'+cff_esc_attr(this.min)+'" placeholder="0 by default" class="large"></div><div class="column width30"><label>Max</label><input type="text" name="sMax" id="sMax" value="'+cff_esc_attr(this.max)+'" placeholder="100 by default" class="large"></div><div class="column width30"><label>Step</label><input type="text" name="sStep" id="sStep" value="'+cff_esc_attr(this.step)+'" placeholder="1 by default" class="large"></div><div class="clearer"></div></div><div style="margin-bottom:10px;"><i>It is possible to associate other fields in the form with the attributes "min", "max" and "step". Ex: fieldname1</i></div><label><input type="checkbox" name="sRange" id="sRange" '+( ( this.range ) ? 'CHECKED' : '' )+' /> Range slider </label><label class="no-range"><input type="checkbox" name="sLogarithmic" id="sLogarithmic" '+( ( this.logarithmic ) ? 'CHECKED' : '' )+' /> Logarithmic slider </label><div class="marks" style="display:'+(this.logarithmic? 'none' : 'block')+';"><label><input type="checkbox" name="sMarks" id="sMarks" '+( ( this.marks ) ? 'CHECKED' : '' )+' /> Show marks </label><div class="width30"><label>Divisions</label><input type="text" name="sDivisions" id="sDivisions" value="'+cff_esc_attr(this.divisions)+'" class="large"></div></div><div><label>Field Caption</label><input class="large" type="text" name="sCaption" id="sCaption" value="'+cff_esc_attr( this.caption )+'"></div><div><label>Min Corner Caption</label><input class="large" type="text" name="sMinCaption" id="sMinCaption" value="'+cff_esc_attr( this.minCaption )+'"></div><div><label>Max Corner Caption</label><input class="large" type="text" name="sMaxCaption" id="sMaxCaption" value="'+cff_esc_attr( this.maxCaption )+'"></div><div><label>Symbol for grouping thousands in the field\'s caption(Ex: 3,000,000)</label><input type="text" name="sThousandSeparator" id="sThousandSeparator" class="large" value="'+cff_esc_attr( this.thousandSeparator )+'" /></div><div><label>Decimals separator symbol (Ex: 25.20)</label><input type="text" name="sCentSeparator" id="sCentSeparator" class="large" value="'+cff_esc_attr( this.centSeparator )+'" /></div>';
 				}
 		});

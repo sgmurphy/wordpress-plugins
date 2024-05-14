@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'ffieldset' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'ffieldset' ].prototype,
 		$.fbuilder.controls[ 'fcontainer' ].prototype,
 		{
@@ -20,9 +21,17 @@
 			defaultCollapsed: true, // Public
 			collapsed:false, // Admin
             selfClosing:false,
-			display:function()
+			initAdv:function(){
+					delete this.advanced.css.label;
+					delete this.advanced.css.input;
+					delete this.advanced.css.help;
+					if ( ! ( 'legend' in this.advanced.css ) ) this.advanced.css.legend = {label: 'Legend',rules:{}};
+					if ( ! ( 'container' in this.advanced.css ) ) this.advanced.css.container = {label: 'Fields container',rules:{}};
+				},
+			display:function( css_class )
 				{
-					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Fieldset')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield" style="width:100%;"><FIELDSET class="fcontainer">'+( ( !/^\s*$/.test( this.title ) ) ? '<LEGEND>'+cff_esc_attr(this.title)+'</LEGEND>' : '' )+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></FIELDSET></div><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Fieldset')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield" style="width:100%;"><FIELDSET class="fcontainer">'+( ( !/^\s*$/.test( this.title ) ) ? '<LEGEND>'+cff_esc_attr(this.title)+'</LEGEND>' : '' )+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></FIELDSET></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

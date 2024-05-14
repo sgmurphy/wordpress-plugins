@@ -20,10 +20,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 class ShippingsettingsCustomBatchRequest extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Collection
 {
   protected $collection_key = 'entries';
-  /**
-   * @var ShippingsettingsCustomBatchRequestEntry[]
-   */
-  public $entries;
   protected $entriesType = ShippingsettingsCustomBatchRequestEntry::class;
   protected $entriesDataType = 'array';
 

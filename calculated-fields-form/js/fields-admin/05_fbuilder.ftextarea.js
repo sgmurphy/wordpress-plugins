@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'ftextarea' ] = function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'ftextarea' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -22,9 +23,14 @@
 			minlength:"",
 			maxlength:"",
             rows:4,
-			display:function()
+			initAdv: function() {
+				delete this.advanced.css['input'];
+				if ( ! ( 'textarea' in this.advanced.css ) ) this.advanced.css.textarea = {label: 'Text area',rules:{}};
+			},
+			display:function( css_class )
 				{
-					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Text Area')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><textarea '+((!/^\s*$/.test(this.rows)) ? 'rows='+cff_esc_attr(this.rows) : '' )+' class="field disabled '+this.size+'">'+cff_esc_attr(this.predefined)+'</textarea><span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Text Area')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><textarea '+((!/^\s*$/.test(this.rows)) ? 'rows='+cff_esc_attr(this.rows) : '' )+' class="field disabled '+this.size+'">'+cff_esc_attr(this.predefined)+'</textarea><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -37,6 +43,6 @@
 				},
 			showSpecialDataInstance: function()
 				{
-					return '<div class="column width50"><label>Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label>Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer" /><label>Number of rows</label><input type="text" name="sRows" id="sRows" value="'+cff_esc_attr(this.rows)+'" />';
+					return '<div class="column width50"><label>Min length/characters</label><input type="text" name="sMinlength" id="sMinlength" value="'+cff_esc_attr(this.minlength)+'" class="large"></div><div class="column width50"><label>Max length/characters</label><input type="text" name="sMaxlength" id="sMaxlength" value="'+cff_esc_attr(this.maxlength)+'" class="large"></div><div class="clearer"></div><label>Number of rows</label><input type="text" name="sRows" id="sRows" value="'+cff_esc_attr(this.rows)+'" />';
 				}
 	});

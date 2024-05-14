@@ -235,14 +235,17 @@ class SQ_Models_Focuspages_Audit extends SQ_Models_Abstract_Assistant
      */
     public function checkTitle($task)
     {
-        if ($this->_empty_titles) {
-            if (isset($this->_empty_titles->urls) && !empty($this->_empty_titles->urls)) {
-                $task['value'] = '<br />';
+	    if ($this->_empty_titles) {
+		    $task['completed'] = true;
+
+			if (isset($this->_empty_titles->urls) && !empty($this->_empty_titles->urls)) {
                 foreach ($this->_empty_titles->urls as $url) {
-                    $task['value'] .= esc_html__("URL", 'squirrly-seo') . ': ' . $url . '<br />';
-                }
+	                if(rtrim($url, '/') == rtrim($this->_post->url, '/')){
+		                $task['value'] = $url ;
+		                $task['completed'] = false;
+	                }
+				}
             }
-            $task['completed'] = (bool)$this->_empty_titles->complete;
             return $task;
         }
 
@@ -259,14 +262,21 @@ class SQ_Models_Focuspages_Audit extends SQ_Models_Abstract_Assistant
     public function checkDescription($task)
     {
         if ($this->_empty_descriptions) {
-            if (isset($this->_empty_descriptions->urls) && !empty($this->_empty_descriptions->urls)) {
-                $task['value'] = '<br />';
+	        $task['completed'] = true;
+
+	        if (isset($this->_empty_descriptions->urls) && !empty($this->_empty_descriptions->urls)) {
                 foreach ($this->_empty_descriptions->urls as $url) {
-                    $task['value'] .= esc_html__("URL", 'squirrly-seo') . ': ' . $url . '<br />';
+					if(rtrim($url, '/') == rtrim($this->_post->url, '/')){
+						$task['value'] = $url ;
+						$task['completed'] = false;
+					}
                 }
-            }
-            $task['completed'] = (bool)$this->_empty_descriptions->complete;
-            return $task;
+
+		        return $task;
+	        }
+
+	        $task['error'] = true;
+	        return $task;
         }
 
 

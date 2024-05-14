@@ -23,10 +23,6 @@ class DatafeedsCustomBatchRequestEntry extends \Automattic\WooCommerce\GoogleLis
    * @var string
    */
   public $batchId;
-  /**
-   * @var Datafeed
-   */
-  public $datafeed;
   protected $datafeedType = Datafeed::class;
   protected $datafeedDataType = '';
   /**

@@ -1012,8 +1012,7 @@
 
 .event-tickets .tribe-tickets__tickets-item-quantity-number, .entry .entry-content .event-tickets .tribe-tickets__tickets-item-quantity-number {
 		align-items: center;
-		-webkit-appearance: none;
-		        appearance: none;
+		appearance: none;
 		background-color: transparent;
 		border: none;
 		color: var(--tec-color-icon-secondary);
@@ -1034,8 +1033,7 @@
 	}
 
 .event-tickets .tribe-tickets__form input[type="number"].tribe-tickets__tickets-item-quantity-number-input, .entry .entry-content .event-tickets .tribe-tickets__form input[type="number"].tribe-tickets__tickets-item-quantity-number-input {
-			-webkit-appearance: textfield;
-			        appearance: textfield;
+			appearance: textfield;
 			background: transparent;
 			border: none;
 			color: var(--tec-color-text-primary);

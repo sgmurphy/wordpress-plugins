@@ -24,10 +24,6 @@ class Breakdown extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Goog
    * @var string[]
    */
   public $details;
-  /**
-   * @var BreakdownRegion[]
-   */
-  public $regions;
   protected $regionsType = BreakdownRegion::class;
   protected $regionsDataType = 'array';
 

@@ -28,10 +28,6 @@ class SettlementReport extends \Automattic\WooCommerce\GoogleListingsAndAds\Vend
    * @var string
    */
   public $kind;
-  /**
-   * @var Price
-   */
-  public $previousBalance;
   protected $previousBalanceType = Price::class;
   protected $previousBalanceDataType = '';
   /**
@@ -42,10 +38,6 @@ class SettlementReport extends \Automattic\WooCommerce\GoogleListingsAndAds\Vend
    * @var string
    */
   public $startDate;
-  /**
-   * @var Price
-   */
-  public $transferAmount;
   protected $transferAmountType = Price::class;
   protected $transferAmountDataType = '';
   /**

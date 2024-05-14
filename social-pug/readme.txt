@@ -4,7 +4,7 @@ Tags: social share, social sharing, social media, social network, social buttons
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.33.2
+Stable tag: 1.34.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,16 @@ Hubbub Pro has additional add-ons for migrating data from a few popular alternat
 
 == Changelog ==
 This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog/).
+
+= 1.34.0 =
+* May 14, 2024
+* New: An option to show/hide button labels on desktop and mobile on the Inline Content Tool. Also available as an argument via the [hubbub_share] shortcode.
+* Improvement: Better compatibility with WP Rocket.
+* Improvement: Better compatibility with Cloudflare's Rocket Loader.
+* Fix: Clearing WP Rocket's cache clearing sometimes caused an error on hosts with PHP Warnings turned on.
+* Fix: Better compatibility with PHP 8.x.
+* Fix: Hubbub no longer includes a SPAN if the sharing tools are inactive or not enabled for the current post type.
+* Fix: Fixed an issue with share counts saving properly. Thanks Daniela!
 
 = 1.33.2 =
 * March 27, 2024

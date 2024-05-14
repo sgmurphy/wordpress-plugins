@@ -18,7 +18,7 @@
 					    l = p.length;
 					if(l)
 					{
-						var str = '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-summary-field" id="field'+me.form_identifier+'-'+me.index+'">'+((!/^\s*$/.test(me.title)) ? '<h2>'+me.title+'</h2>': '')+'<div id="'+me.name+'"></div></div>';
+						var str = '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-summary-field" id="field'+me.form_identifier+'-'+me.index+'">'+((!/^\s*$/.test(me.title)) ? '<h2 style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+'</h2>': '')+'<div id="'+me.name+'"></div></div>';
 
 						return str;
 					}
@@ -38,7 +38,7 @@
                             {
 								p[i] = String(p[i]).trim()+me.form_identifier;
 								if ( $( '.'+p[i] ).length ) {
-									str += '<div ref="'+p[i]+'" class="cff-summary-item"><span class="'+cff_esc_attr(me.titleClassname)+' cff-summary-title"></span><span class="'+cff_esc_attr(me.valueClassname)+' cff-summary-value"></span></div>';
+									str += '<div ref="'+p[i]+'" class="cff-summary-item"><span class="'+cff_esc_attr(me.titleClassname)+' cff-summary-title" style="'+cff_esc_attr(me.getCSSComponent('fields_labels'))+'"></span><span class="'+cff_esc_attr(me.valueClassname)+' cff-summary-value" style="'+cff_esc_attr(me.getCSSComponent('fields_values'))+'"></span></div>';
 
 									me.fieldsArray.push(p[i]);
 									$(document).on('change', '.'+p[i]+' [id*="'+p[i]+'"]', function(){ me.update(); });

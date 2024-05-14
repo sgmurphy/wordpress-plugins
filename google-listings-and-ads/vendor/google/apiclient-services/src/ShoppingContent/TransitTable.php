@@ -24,10 +24,6 @@ class TransitTable extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\G
    * @var string[]
    */
   public $postalCodeGroupNames;
-  /**
-   * @var TransitTableTransitTimeRow[]
-   */
-  public $rows;
   protected $rowsType = TransitTableTransitTimeRow::class;
   protected $rowsDataType = 'array';
   /**

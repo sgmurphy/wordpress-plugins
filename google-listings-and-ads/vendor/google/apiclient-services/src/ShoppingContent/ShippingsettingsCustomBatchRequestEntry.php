@@ -35,10 +35,6 @@ class ShippingsettingsCustomBatchRequestEntry extends \Automattic\WooCommerce\Go
    * @var string
    */
   public $method;
-  /**
-   * @var ShippingSettings
-   */
-  public $shippingSettings;
   protected $shippingSettingsType = ShippingSettings::class;
   protected $shippingSettingsDataType = '';
 

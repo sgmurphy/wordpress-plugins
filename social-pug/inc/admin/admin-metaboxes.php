@@ -211,7 +211,7 @@ function dpsp_share_options_output( $post ) {
 				$current_count   = ( ! empty( $share_options['custom_tweet'] ) ? strlen( wp_kses_post( $share_options['custom_tweet'] ) ) : 0 );
 				$remaining_count = $maximum_count - $current_count;
 
-				echo '<label for="dpsp_share_options[custom_tweet]"><span class="dpsp-admin-icon dpsp-admin-icon-twitter">' . wp_kses( dpsp_get_svg_icon_output( 'twitter' ), View_Loader::get_allowed_tags() ) . '</span>' . esc_html__( 'Custom Tweet', 'social-pug' ) . '<span class="dpsp-textarea-characters-remaining-wrapper" data-maximum-count="' . esc_attr( $maximum_count ) . '"><span class="dpsp-textarea-characters-remaining">' . esc_html( $remaining_count ) . '</span> ' . esc_html__( 'Characters Remaining', 'social-pug' ) . '</span>';
+				echo '<label for="dpsp_share_options[custom_tweet]"><span class="dpsp-admin-icon dpsp-admin-icon-x">' . wp_kses( dpsp_get_svg_icon_output( 'twitter' ), View_Loader::get_allowed_tags() ) . '</span>' . esc_html__( 'Custom Tweet', 'social-pug' ) . '<span class="dpsp-textarea-characters-remaining-wrapper" data-maximum-count="' . esc_attr( $maximum_count ) . '"><span class="dpsp-textarea-characters-remaining">' . esc_html( $remaining_count ) . '</span> ' . esc_html__( 'Characters Remaining', 'social-pug' ) . '</span>';
 				dpsp_output_backend_tooltip( __( 'Add a customized tweet that will be used when this post is shared on Twitter.', 'social-pug' ), false );
 				echo '</label>';
 				echo '<textarea id="dpsp_share_options[custom_tweet]" name="dpsp_share_options[custom_tweet]" placeholder="' . esc_attr__( 'Write a custom tweet...', 'social-pug' ) . '">' . ( isset( $share_options['custom_tweet'] ) ? wp_kses_post( $share_options['custom_tweet'] ) : '' ) . '</textarea>';

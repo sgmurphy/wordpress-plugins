@@ -6,6 +6,8 @@
  * @package Astra Sites
  */
 
+use STImporter\Importer\ST_Importer_Helper;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -165,7 +167,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) {
 		 */
 		public function track_flows( $flow_id ) {
 			Astra_Sites_Importer_Log::add( 'Flow ID ' . $flow_id );
-			Astra_WXR_Importer::instance()->track_post( $flow_id );
+			ST_Importer_Helper::track_post( $flow_id );
 		}
 
 

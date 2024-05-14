@@ -36,10 +36,6 @@ class ReturnShipment extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor
    * @var string
    */
   public $shipmentId;
-  /**
-   * @var ShipmentTrackingInfo[]
-   */
-  public $shipmentTrackingInfos;
   protected $shipmentTrackingInfosType = ShipmentTrackingInfo::class;
   protected $shipmentTrackingInfosDataType = 'array';
   /**

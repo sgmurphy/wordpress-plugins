@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'frecordav' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'frecordav' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -24,25 +25,33 @@
 			record_label: 'Record',
 			stop_label: 'Stop',
 			status_message: 'Recording saved',
+			initAdv: function(){
+					delete this.advanced.css.input;
+					if ( ! ( 'button' in this.advanced.css ) ) this.advanced.css.button = {label: 'Button',rules:{}};
+					if ( ! ( 'button_hover' in this.advanced.css ) ) this.advanced.css.button_hover = {label: 'Button hover',rules:{}};
+					if ( ! ( 'audio' in this.advanced.css ) ) this.advanced.css.audio = {label: 'Audio',rules:{}};
+					if ( ! ( 'video' in this.advanced.css ) ) this.advanced.css.video = {label: 'Video',rules:{}};
+				},
 			showFieldType: function()
 			{
 				return '<label><b>Field Type: Recording Audio and Video</b><br><i>(Experimental control)</i></label>';
 			},
-			display:function()
+			display:function( css_class )
 				{
+					css_class = css_class || '';
 					var hours = Math.floor( this.max_time / 3600 ),
 						minutes = Math.floor( ( this.max_time - hours * 3600 ) / 60 ),
 						seconds = ( this.max_time - hours * 3600 - minutes * 60 ) % 60,
 						max_time_formatted = ( hours ? ( hours < 10 ? '0' + hours : hours ) + ':' : '' ) + ( minutes < 10 ? '0' + minutes : minutes ) + ':' + ( seconds < 10 ? '0' + seconds : seconds ),
 						time_formatted = ( hours ? '00:' : '')+'00:00';
 
-					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Recording')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+cff_sanitize(this.title)+''+((this.required)?"*":"")+'</label><div class="dfield">' +
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Recording')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+cff_sanitize(this.title)+''+((this.required)?"*":"")+'</label><div class="dfield">' +
 					'<div class="cff-record-btn">'+cff_sanitize(this.record_label)+'</div>' +
 					( this.preview ? '<div class="cff-record-play-btn"></div>' : '' ) +
 					( this.max_time ? '<div class="cff-record-time">'+time_formatted+'</div><div class="cff-record-max-time">'+max_time_formatted+'</div>' : '' ) +
 					'<div class="clearer"></div>' +
 					'<div class="cff-record-status">'+cff_sanitize(this.status_message)+'</div>' +
-					'<span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

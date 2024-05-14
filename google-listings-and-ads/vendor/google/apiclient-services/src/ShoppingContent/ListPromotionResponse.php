@@ -24,10 +24,6 @@ class ListPromotionResponse extends \Automattic\WooCommerce\GoogleListingsAndAds
    * @var string
    */
   public $nextPageToken;
-  /**
-   * @var Promotion[]
-   */
-  public $promotions;
   protected $promotionsType = Promotion::class;
   protected $promotionsDataType = 'array';
 

@@ -28,10 +28,6 @@ class ReturnaddressListResponse extends \Automattic\WooCommerce\GoogleListingsAn
    * @var string
    */
   public $nextPageToken;
-  /**
-   * @var ReturnAddress[]
-   */
-  public $resources;
   protected $resourcesType = ReturnAddress::class;
   protected $resourcesDataType = 'array';
 

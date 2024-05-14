@@ -6,6 +6,8 @@
  * @package Astra Addon
  */
 
+use STImporter\Importer\ST_Importer_Helper;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -380,7 +382,7 @@ class Astra_Site_Options_Import {
 		);
 
 		if ( $downloaded_image['id'] ) {
-			Astra_WXR_Importer::instance()->track_post( $downloaded_image['id'] );
+			ST_Importer_Helper::track_post( $downloaded_image['id'] );
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
 		}
 

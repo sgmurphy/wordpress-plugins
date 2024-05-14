@@ -43,10 +43,6 @@ class PosInventory extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\G
    * @var string
    */
   public $pickupSla;
-  /**
-   * @var Price
-   */
-  public $price;
   protected $priceType = Price::class;
   protected $priceDataType = '';
   /**

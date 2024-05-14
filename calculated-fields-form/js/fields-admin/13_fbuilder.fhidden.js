@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'fhidden' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fhidden' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -14,9 +15,11 @@
 			ftype:"fhidden",
 			exclude:false,
 			predefined:"",
-			display:function()
+			initAdv: function(){ delete this.advanced; },
+			display:function( css_class )
 				{
-					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Hidden')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+'</label><span class="uh">'+this.predefined+'</span><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Hidden')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+'</label><span class="uh">'+this.predefined+'</span><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

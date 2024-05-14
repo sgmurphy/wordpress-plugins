@@ -19,10 +19,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class InvoiceSummaryAdditionalChargeSummary extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var Amount
-   */
-  public $totalAmount;
   protected $totalAmountType = Amount::class;
   protected $totalAmountDataType = '';
   /**

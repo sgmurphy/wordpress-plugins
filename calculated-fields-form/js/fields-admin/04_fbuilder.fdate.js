@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'fdate' ] = function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fdate' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -56,11 +57,19 @@
 
             errorMssg:'',
 
-			display:function()
+			initAdv: function() {
+				delete this.advanced.css['input'];
+				if ( ! ( 'date' in this.advanced.css ) ) this.advanced.css.date = {label: 'Date field',rules:{}};
+				if ( ! ( 'hour' in this.advanced.css ) ) this.advanced.css.hour = {label: 'Hours selector',rules:{}};
+				if ( ! ( 'minute' in this.advanced.css ) ) this.advanced.css.minute = {label: 'Minutes selector',rules:{}};
+				if ( ! ( 'ampm' in this.advanced.css ) ) this.advanced.css.ampm = {label: 'AM/PM selector',rules:{}};
+			},
+			display:function( css_class )
 				{
+					css_class = css_class || '';
 					var me = this,
 						dformat = me.dformat.replace(/\//g, me.dseparator);
-					return '<div class="fields '+me.name+' '+this.ftype+'" id="field'+me.form_identifier+'-'+me.index+'" title="'+me.controlLabel('Date Time')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+me.title+''+((me.required)?"*":"")+' ('+dformat+')</label><div class="dfield"><input class="field disabled '+me.size+'" type="text" value="'+cff_esc_attr(me.predefined)+'"/><span class="uh">'+me.userhelp+'</span></div><div class="clearer" /></div>';
+					return '<div class="fields '+me.name+' '+this.ftype+' '+css_class+'" id="field'+me.form_identifier+'-'+me.index+'" title="'+me.controlLabel('Date Time')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+me.title+''+((me.required)?"*":"")+' ('+dformat+')</label><div class="dfield"><input class="field disabled '+me.size+'" type="text" value="'+cff_esc_attr(me.predefined)+'"/><span class="uh">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

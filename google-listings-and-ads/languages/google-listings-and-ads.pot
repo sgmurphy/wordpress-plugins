@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.6.9\n"
+"Project-Id-Version: Google Listings and Ads 2.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-07T06:59:53+00:00\n"
+"POT-Creation-Date: 2024-05-14T06:54:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -288,11 +288,11 @@ msgid "Invalid Term ID %1$d"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/Ads.php:84
+#: src/API/Google/Ads.php:85
 msgid "Error retrieving accounts: %s"
 msgstr ""
 
-#: src/API/Google/Ads.php:324
+#: src/API/Google/Ads.php:322
 msgid "Merchant link is not available to accept"
 msgstr ""
 
@@ -307,20 +307,20 @@ msgid "Error creating asset group: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsAssetGroup.php:309
+#: src/API/Google/AdsAssetGroup.php:266
 msgid "Error retrieving asset groups: %s"
 msgstr ""
 
-#: src/API/Google/AdsAssetGroup.php:377
+#: src/API/Google/AdsAssetGroup.php:334
 msgid "Each image type (landscape, square, portrait or logo) cannot contain duplicated images."
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsAssetGroup.php:383
+#: src/API/Google/AdsAssetGroup.php:340
 msgid "Error editing asset group: %s"
 msgstr ""
 
-#: src/API/Google/AdsAssetGroup.php:472
+#: src/API/Google/AdsAssetGroup.php:429
 msgid "Invalid asset group ID"
 msgstr ""
 
@@ -335,35 +335,35 @@ msgid "Error retrieving asset groups assets by final url: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:145
+#: src/API/Google/AdsCampaign.php:146
 msgid "Error retrieving campaigns: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:188
+#: src/API/Google/AdsCampaign.php:189
 msgid "Error retrieving campaign: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:250
+#: src/API/Google/AdsCampaign.php:251
 msgid "Error creating campaign: %s"
 msgstr ""
 
-#: src/API/Google/AdsCampaign.php:253
+#: src/API/Google/AdsCampaign.php:254
 msgid "A campaign with this name already exists"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:306
+#: src/API/Google/AdsCampaign.php:307
 msgid "Error editing campaign: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsCampaign.php:342
+#: src/API/Google/AdsCampaign.php:343
 msgid "Error deleting campaign: %s"
 msgstr ""
 
-#: src/API/Google/AdsCampaign.php:345
+#: src/API/Google/AdsCampaign.php:346
 msgid "This campaign has already been deleted"
 msgstr ""
 
@@ -385,21 +385,21 @@ msgid "Invalid campaign budget ID"
 msgstr ""
 
 #. translators: %1 is a random 4-digit string
-#: src/API/Google/AdsConversionAction.php:69
+#: src/API/Google/AdsConversionAction.php:70
 msgid "[%1$s] Google Listings and Ads purchase action"
 msgstr ""
 
-#: src/API/Google/AdsConversionAction.php:104
+#: src/API/Google/AdsConversionAction.php:107
 msgid "A conversion action with this name already exists"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsConversionAction.php:113
+#: src/API/Google/AdsConversionAction.php:116
 msgid "Error creating conversion action: %s"
 msgstr ""
 
 #. translators: %s Error message
-#: src/API/Google/AdsConversionAction.php:154
+#: src/API/Google/AdsConversionAction.php:157
 msgid "Error retrieving conversion action: %s"
 msgstr ""
 
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Error requesting a new review."
 msgstr ""
 
-#: src/API/Google/Query/AdsQuery.php:78
+#: src/API/Google/Query/AdsQuery.php:79
 msgid "No result from query"
 msgstr ""
 

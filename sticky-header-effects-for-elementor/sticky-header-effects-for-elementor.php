@@ -2,12 +2,12 @@
 /**
  * Plugin Name:			Sticky Header Effects for Elementor
  * Plugin URI:			https://stickyheadereffects.com
- * Description:			Options and features that extend Elementor Pro's sticky header capabilities.
- * Version:				1.6.10
+ * Description:			Custom settings to change sticky header on scroll using Elementor Pro.
+ * Version:				1.6.11
  * Author:				Rwattner
  * Author URI:			https://stickyheadereffects.com
  * Requires at least:	5.3
- * Tested up to:		6.4
+ * Tested up to:		6.5
  *
  * Text Domain: she-header
  * Domain Path: /languages/
@@ -19,8 +19,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define( 'SHE_HEADER_VERSION', '1.6.10' );
-define( 'SHE_HEADER_PREVIOUS_STABLE_VERSION', '1.6.9' );
+define( 'SHE_HEADER_VERSION', '1.6.11' );
+define( 'SHE_HEADER_PREVIOUS_STABLE_VERSION', '1.6.10' );
 
 define( 'SHE_HEADER__FILE__', __FILE__ );
 define( 'SHE_HEADER_PLUGIN_BASE', plugin_basename( SHE_HEADER__FILE__ ) );
@@ -45,7 +45,7 @@ function she_header_load_plugin() {
 		return;
 	}
 
-	$elementor_version_required = '1.4.0';
+	$elementor_version_required = '2.0';
 	if ( ! version_compare( ELEMENTOR_VERSION, $elementor_version_required, '>=' ) ) {
 		add_action( 'admin_notices', 'she_header_fail_load_out_of_date' );
 		return;

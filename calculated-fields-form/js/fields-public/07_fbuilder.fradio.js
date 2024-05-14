@@ -17,6 +17,9 @@
 				{
 					$('[id*="'+this.name+'_"]').each(function(){$(this).data('previous-status', this.checked);});
 				},
+			init:function(){
+				this.getCSSComponent('choice', true, '#fbuilder .'+this.name+' .dfield label', this.form_identifier);
+			},
 			show:function()
 				{
 					this.choicesVal = ((typeof(this.choicesVal) != "undefined" && this.choicesVal !== null)?this.choicesVal:this.choices);
@@ -47,7 +50,7 @@
                         '<span>'+cff_html_decode(this.choices[i])+'</span></label></div>';
 					}
 
-					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-radiobutton-field" id="field'+this.form_identifier+'-'+this.index+'"><label>'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh">'+this.userhelp+'</span>' : '')+'</div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(this.csslayout)+(this.onoff ? ' cff-switch-container' : '')+' '+this.name+' cff-radiobutton-field" id="field'+this.form_identifier+'-'+this.index+'"><label style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield">'+str+'<div class="clearer"></div>'+(!this.userhelpTooltip ? '<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span>' : '')+'</div><div class="clearer"></div></div>';
 				},
 			after_show: function()
 				{

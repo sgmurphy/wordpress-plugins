@@ -520,7 +520,11 @@ class Share_Counts extends \Social_Pug {
 		$share_count_total = $share_counts->get_count_total();
 
 		// Update post meta with all shares
+		// For backwards compatibilty pre 2.21.0 / 1.33.2
 		$shares_updated = update_post_meta( $current_post->ID, 'dpsp_networks_shares', $updated_shares );
+
+		// Update JSON (which is what is used post 2.21.0 / 1.33.2 )
+		$shares_updated_json = update_post_meta( $current_post->ID, 'dpsp_networks_shares_json', json_encode( $updated_shares, JSON_UNESCAPED_UNICODE ) );
 
 		// Update post meta with total share counts
 		$totals_updated = update_post_meta( $current_post->ID, 'dpsp_networks_shares_total', $share_count_total );

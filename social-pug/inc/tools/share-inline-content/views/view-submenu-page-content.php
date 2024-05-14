@@ -194,11 +194,13 @@
 
 				<?php dpsp_settings_field( 'text', 'dpsp_location_content[display][message]', ( isset( $dpsp_location_content['display']['message'] ) ? $dpsp_location_content['display']['message'] : 'Sharing is caring!' ), __( 'Share Text', 'social-pug' ), [] ); ?>
 
-				<?php dpsp_settings_field( 'switch', 'dpsp_location_content[display][show_labels]', ( isset( $dpsp_location_content['display']['show_labels'] ) ? $dpsp_location_content['display']['show_labels'] : '' ), __( 'Show button labels', 'social-pug' ), [ 'yes' ] ); ?>
-
 				<?php dpsp_settings_field( 'switch', 'dpsp_location_content[display][spacing]', ( isset( $dpsp_location_content['display']['spacing'] ) ? $dpsp_location_content['display']['spacing'] : '' ), __( 'Button spacing', 'social-pug' ), [ 'yes' ] ); ?>
 
-				<?php dpsp_settings_field( 'switch', 'dpsp_location_content[display][show_mobile]', ( isset( $dpsp_location_content['display']['show_mobile'] ) ? $dpsp_location_content['display']['show_mobile'] : '' ), __( 'Show on mobile', 'social-pug' ), [ 'yes' ] ); ?>
+				<?php dpsp_settings_field( 'switch', 'dpsp_location_content[display][show_mobile]', ( isset( $dpsp_location_content['display']['show_mobile'] ) ? $dpsp_location_content['display']['show_mobile'] : '' ), __( 'Show buttons on mobile', 'social-pug' ), [ 'yes' ] ); ?>
+
+				<?php dpsp_settings_field( 'switch', 'dpsp_location_content[display][show_labels_mobile]', ( isset( $dpsp_location_content['display']['show_labels_mobile'] ) ? $dpsp_location_content['display']['show_labels_mobile'] : '' ), __( 'Show button labels on mobile', 'social-pug' ), [ 'yes' ], __( 'The Show button labels setting (above) must be enabled.', 'social-pug' ) ); ?>
+
+				<?php dpsp_settings_field( 'switch', 'dpsp_location_content[display][show_labels]', ( isset( $dpsp_location_content['display']['show_labels'] ) ? $dpsp_location_content['display']['show_labels'] : '' ), __( 'Show button labels on desktop', 'social-pug' ), [ 'yes' ] ); ?>
 
 				<?php dpsp_settings_field( 'text', 'dpsp_location_content[display][screen_size]', ( isset( $dpsp_location_content['display']['screen_size'] ) ? $dpsp_location_content['display']['screen_size'] : '' ), __( 'Mobile screen width (pixels)', 'social-pug' ), [], __( 'For screen widths smaller than this value ( in pixels ) the buttons will be displayed on screen if the show on mobile option is checked.', 'social-pug' ) ); ?>
 
@@ -283,7 +285,7 @@
 		<!-- Save Changes Button -->
 		<input type="hidden" name="action" value="update" />
 		<p class="submit"><input type="submit" class="dpsp-button-primary" value="<?php esc_html_e( 'Save Changes' ); ?>" /></p>
-
+		<p><strong>Please note:</strong> To ensure that changes take effect, please clear all caches. (Need help? <a href="https://morehubbub.com/docs/cache-help/" title="Read our support doc on caches">See our support doc</a>.)</p>
 	</div>
 
 </form>

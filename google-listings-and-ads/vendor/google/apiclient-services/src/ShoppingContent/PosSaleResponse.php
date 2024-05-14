@@ -35,10 +35,6 @@ class PosSaleResponse extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendo
    * @var string
    */
   public $kind;
-  /**
-   * @var Price
-   */
-  public $price;
   protected $priceType = Price::class;
   protected $priceDataType = '';
   /**

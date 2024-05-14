@@ -477,7 +477,7 @@ class Importer extends AjaxBase {
 
 		$data = astra_get_site_data( 'astra-site-widgets-data' );
 
-		$result = ST_Importer::import_widgets( $data, $widgets_data );
+		$result = ST_Importer::import_widgets( $widgets_data, $data );
 
 		if ( false === $result['status'] ) {
 			if ( defined( 'WP_CLI' ) ) {

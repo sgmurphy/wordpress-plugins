@@ -595,8 +595,7 @@ div.tec__tickets-my-tickets-rsvp-attendee-list-wrapper {
 }
 
 .tribe-block__rsvp__number-input-inner input[type='number'] {
-		-webkit-appearance: textfield;
-		        appearance: textfield;
+		appearance: textfield;
 		background: transparent;
 		border: none;
 		color: #000;
@@ -611,8 +610,7 @@ div.tec__tickets-my-tickets-rsvp-attendee-list-wrapper {
 
 .tribe-block__rsvp__number-input-inner input[type='number']::-webkit-inner-spin-button,
 		.tribe-block__rsvp__number-input-inner input[type='number']::-webkit-outer-spin-button {
-			-webkit-appearance: none;
-			        appearance: none;
+			appearance: none;
 		}
 
 .tribe-block__rsvp__number-input-label {
@@ -711,8 +709,7 @@ div.tec__tickets-my-tickets-rsvp-attendee-list-wrapper {
 		}
 
 .tribe-right label[for^='tribe-tickets-attendees-list-optout'] input[type='checkbox'] {
-				-webkit-appearance: none;
-				        appearance: none;
+				appearance: none;
 				background-color: #fff;
 				border: 1px solid #e1e3e6;
 				border-radius: 0;

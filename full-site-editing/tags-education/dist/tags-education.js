@@ -2680,7 +2680,7 @@ function initializeAnalytics(currentUser, superProps) {
   const tracksLinkerId = getUrlParameter('_tkl');
   if (tracksLinkerId && tracksLinkerId !== getTracksAnonymousUserId()) {
     // Link tk_ai anonymous ids if _tkl parameter is present in URL and ids between pages are different (e.g. cross-domain)
-    signalUserFromAnotherProduct('anon', tracksLinkerId);
+    signalUserFromAnotherProduct(tracksLinkerId, 'anon');
   }
 
   // Tracks blocked?
@@ -4100,6 +4100,11 @@ const urlLocalizationMapping = {
     return isLoggedIn ? url : suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW)(url, localeSlug);
   },
   'wordpress.com/learn/': (url, localeSlug) => {
+    const webinars = url.pathname.includes('/learn/webinars/');
+    if (webinars && 'es' === localeSlug) {
+      url.pathname = url.pathname.replace('/learn/webinars/', '/learn/es/webinars/');
+      return url;
+    }
     return suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .localesWithLearn */ .mt)(url, localeSlug);
   },
   'wordpress.com/plans/': (url, localeSlug, isLoggedIn) => {

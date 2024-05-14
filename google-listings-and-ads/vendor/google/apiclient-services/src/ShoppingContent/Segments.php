@@ -71,10 +71,6 @@ class Segments extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Googl
    * @var string
    */
   public $customerCountryCode;
-  /**
-   * @var Date
-   */
-  public $date;
   protected $dateType = Date::class;
   protected $dateDataType = '';
   /**
@@ -109,10 +105,6 @@ class Segments extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Googl
    * @var string
    */
   public $title;
-  /**
-   * @var Date
-   */
-  public $week;
   protected $weekType = Date::class;
   protected $weekDataType = '';
 

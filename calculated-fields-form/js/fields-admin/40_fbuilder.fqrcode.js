@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'fqrcode' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fqrcode' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -17,9 +18,10 @@
 			exclude:false,
 			readonly:false,
 			size:"medium",
-			display:function()
+			display:function( css_class )
 				{
-					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('QRCode')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('QRCode')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield"><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

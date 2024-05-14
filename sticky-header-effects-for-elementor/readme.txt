@@ -14,7 +14,7 @@ Options and features that extend Elementor Pro's sticky header capabilities.
 
 == Description ==
 
-Sticky Header Effects for Elementor adds useful options that are missing from the "sticky" header feature introduced in Elementor Pro 2.0. Giving users the option to change the background color and height when the visitor starts scrolling down the page. This allows for a "transparent" menu effect that can become any color, semi-transparent or solid, once the visitor begins to scroll.
+Sticky Header Effects for Elementor adds options to Elementor Pro to change the header background when the visitor starts scrolling down the page. Choose the scroll distance to change the header height, background color, and bottom border. Other customizable features include transparent header, shrink logo, change logo color, background blur, and hide header on scroll down.
 
 This plugin is cross-browser compatible and fully responsive. Meaning it will work on all browsers as well as tablets and mobile devices.
 
@@ -32,16 +32,7 @@ This plugin is meant to be an add-on to Elementor Pro page builder as it's not a
 * Shrink Logo - Ability to adjust the logo height after scrolling
 *Change Logo Color - Change the logo image color before or after the user scrolls. Useful for switching header design from monocromatic to full color
 *Blur Background - Add a modern blur effect to a semi-transparent header background color after scrolling
-*Hide Header on Scroll Down - Hides the header if scrolling down, and shows header if scrolling up. Has selectable distance to start the effect
-
-### Pro Features Coming Soon
-
-* Replace logo - Change logo image entirely
-* Entrance animations - Slide-in and fade-in animations with animation duration
-* Hide elements - Hide or show header elements after scrolling
-* Box shadow - Add or remove box shadow effect upon scrolling with color, horizontal, vertical, blur, and spread controls
-* Menu toggle animations - Entrance and exit animations for the mobile hamburger menu
-* Split menu - Menus that will split to allow center logo
+*Hide Header on Scroll Down - Hides the header if scrolling down, and shows header if scrolling up. Has selectable distance to start the effect.
 
 == Installation ==
 
@@ -88,7 +79,7 @@ Yes. It will work with any WordPress theme that is using Elementor Pro as a page
 
 = Will this plugin slow down my website speed? =
 
-Sticky Header Options for Elementor is light-weight and you can also use only the options you want to use on your website for faster performance.
+Sticky Header Options for Elementor is extremely light-weight. You also have the option to enable or disable individual features for betterer performance.
 
 == Screenshots ==
 
@@ -97,6 +88,9 @@ Sticky Header Options for Elementor is light-weight and you can also use only th
 3. Current effects settings.
 
 == Changelog ==
+= 1.6.11 =
+- Maintenance: Wordpress 6.5 compatibility update
+
 = 1.6.10 =
 - Maintenance: Wordpress 6.4 compatibility update
 
@@ -261,6 +255,9 @@ Tweaked: Logo color change optimized so "full color" option no longer overwrites
 - Initial stable release
 
 == Upgrade Notice ==
+= 1.6.11 =
+- Maintenance: Wordpress 6.5 compatibility update
+
 = 1.6.10 =
 - Maintenance: Wordpress 6.4 compatibility update
 

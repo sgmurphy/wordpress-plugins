@@ -44,7 +44,7 @@
                     if(me.countryComponent)
                     {
 						nc += me.toDisplay == 'iso' ? 3 : 4;
-                        str += '<div class="uh_phone" style="min-width:'+(100/nc*(me.toDisplay == 'iso' ? 3 : 4))+'%;"><select id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field">';
+                        str += '<div class="uh_phone" style="min-width:'+(100/nc*(me.toDisplay == 'iso' ? 3 : 4))+'%;"><select id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field" style="'+cff_esc_attr(me.getCSSComponent('prefix'))+'">';
 						if(me.toDisplay != 'iso') {
 							db = Object.fromEntries(Object.entries(db).sort(
 								function(a,b){
@@ -67,13 +67,13 @@
 					{
                         if (String(tmp[i]).trim() != "")
 						{
-							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+String(tmp[i]).trim().length+'" '+attr+'="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" minlength="'+String(tmp[i]).trim().length+'" '+((me.readonly)?'readonly':'')+' /><div class="l">'+String(tmp[i]).trim()+'</div></div>';
+							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+String(tmp[i]).trim().length+'" '+attr+'="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" minlength="'+String(tmp[i]).trim().length+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+String(tmp[i]).trim()+'</div></div>';
 							c++;
 						}
 					}
 					str += '</div>';
 
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-phone-field" id="field'+me.form_identifier+'-'+me.index+'"><label for="'+me.name+'">'+me.title+''+((me.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+me.name+'" name="'+me.name+'" class="field" />'+str+'<div class="clearer"></div><span class="uh">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-phone-field" id="field'+me.form_identifier+'-'+me.index+'"><label for="'+me.name+'" style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+''+((me.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input type="hidden" id="'+me.name+'" name="'+me.name+'" class="field" />'+str+'<div class="clearer"></div><span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
             after_show: function()
 				{

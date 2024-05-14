@@ -23,10 +23,6 @@ class OrdersGetByMerchantOrderIdResponse extends \Automattic\WooCommerce\GoogleL
    * @var string
    */
   public $kind;
-  /**
-   * @var Order
-   */
-  public $order;
   protected $orderType = Order::class;
   protected $orderDataType = '';
 

@@ -7,11 +7,21 @@
 	);
 	$.fbuilder.controls[ 'fMedia' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fMedia' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
 			ftype:"fMedia",
             sMediaType:"image", // image, audio, video
+			initAdv : function(){
+					delete this.advanced.css.label;
+					delete this.advanced.css.help;
+					delete this.advanced.css.input;
+					if ( ! ( 'caption' in this.advanced.css ) ) this.advanced.css.caption = {label: 'Fig caption',rules:{}};
+					if ( ! ( 'image' in this.advanced.css ) ) this.advanced.css.image = {label: 'Image',rules:{}};
+					if ( ! ( 'audio' in this.advanced.css ) ) this.advanced.css.audio = {label: 'Audio',rules:{}};
+					if ( ! ( 'video' in this.advanced.css ) ) this.advanced.css.video = {label: 'Video',rules:{}};
+				},
 			init : function()
 				{
 					this.data = {
@@ -98,9 +108,10 @@
                 {
                     return this._display_audio_video( this.data.video, true );
                 },
-            display:function()
+            display:function( css_class )
 				{
-					return '<div class="fields fmark '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this[ '_display_'+this.sMediaType ]()+'</label><span class="uh">'+this.data[ this.sMediaType ][ 'sFigcaption' ]+'</span><div class="clearer" /></div>';
+					css_class = css_class || '';
+					return '<div class="fields fmark '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Media')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this[ '_display_'+this.sMediaType ]()+'</label><span class="uh">'+this.data[ this.sMediaType ][ 'sFigcaption' ]+'</span><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{

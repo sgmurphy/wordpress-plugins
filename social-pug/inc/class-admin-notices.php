@@ -50,6 +50,7 @@ class Admin_Notices {
 
 		if ( ! \Social_Pug::is_free() ) {
 			add_action( 'admin_notices', [ $this, 'dpsp_license_admin_notification' ] );
+			add_action( 'admin_notices', [ $this, 'dpsp_admin_notice_announce_mastodon_threads' ] );
 		}
 	}
 
@@ -98,7 +99,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$admin_page = ( ! empty( filter_input( INPUT_GET, 'page' ) ) ? filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING ) : '' );
+		$admin_page = ( ! empty( filter_input( INPUT_GET, 'page' ) ) ? htmlspecialchars( $_GET['page'] ) : '' );
 
 		// Show these notices only on dpsp pages
 		if ( false === strpos( $admin_page, 'dpsp' ) || 'dpsp-register-version' === $admin_page ) {
@@ -106,7 +107,7 @@ class Admin_Notices {
 		}
 	
 		// Get messages
-		$message_id = ( ! empty( filter_input( INPUT_GET, 'dpsp_message_id' ) ) ? filter_input( INPUT_GET, 'dpsp_message_id', FILTER_SANITIZE_NUMBER_INT ) : 0 );
+		$message_id = ( ! empty( filter_input( INPUT_GET, 'dpsp_message_id' ) ) ? htmlspecialchars( intval( $_GET['dpsp_message_id'] ) ) : 0 );
 
 		if ( get_transient('hubbub_license_activated_on_this_website') ) :
 			$message_id = 5;
@@ -114,7 +115,7 @@ class Admin_Notices {
 		
 		$message    = $this->dpsp_get_admin_notice_message( $message_id );
 
-		$class = ( ! empty( filter_input( INPUT_GET, 'dpsp_message_class' ) ) ? filter_input( INPUT_GET, 'dpsp_message_class', FILTER_SANITIZE_STRING ) : 'updated' );
+		$class = ( ! empty( filter_input( INPUT_GET, 'dpsp_message_class' ) ) ? htmlspecialchars( $_GET['dpsp_message_class'] ) : 'updated' );
 
 		if ( $message_id == 5 && isset( $message ) ) : // The user just activated Hubbub Pro on this domain name for the first time
 			echo '<div class="dpsp-admin-notice notice is-dismissible ' . esc_attr( $class ) . '">';
@@ -209,6 +210,36 @@ class Admin_Notices {
 		$license_key 		= get_option( 'mv_grow_license' );
 
 		switch ( $license_status ) {
+			case 'disabled':
+				echo '<div class="dpsp-admin-notice notice notice-warning">';
+				echo '<h4>Action needed: Reinstate Your Hubbub Pro License Today</h4>';
+				echo '<p>Your Hubbub Pro license key appears to be disabled. A current license key is required to receive security updates, bug fixes, new features, and support. <a href="https://morehubbub.com/pricing" target="_blank" title="Purchase a new Hubbub Pro license key">Please purchase a new key here</a>. Once you have your new key, please';
+				if ( ! $is_hubbub_settings_page ) :
+					echo ' go to <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Hubbub > Settings</a>, and enter it there.';
+				else:
+					echo ' enter it below.';
+				endif;
+				
+				echo '</p><p>If you\'re having trouble, please <a href="mailto:support@morehubbub.com?subject=Hubbub Pro License Key Is Disabled&body=Hi! I\'m having trouble with my license key on: '.site_url().'%0D%0A%0D%0A(please enter more details here - thanks!)" title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email us</a>.</p>';
+				echo '<p></p>';
+				echo '<p>';
+				if ( ! $is_hubbub_settings_page ) :
+					echo '<a class="dpsp-get-license dpsp-button-secondary" href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Update Settings</a> ';
+				endif;
+				
+				echo '<a class="dpsp-get-license dpsp-button-primary" target="_blank" href="https://morehubbub.com/pricing/">Get License</a></p>';
+				echo '</div>';
+				return;
+				break;
+			case 'expired':
+				echo '<div class="dpsp-admin-notice notice notice-warning">';
+				echo '<h4>Action needed: Renew Your Hubbub Pro License Today</h4>';
+				echo '<p>Oh no! Your Hubbub Pro license key has expired. Your subscription fuels the ongoing development and support of Hubbub Pro. A current license key is required to receive security updates, bug fixes, new features, and support.</p><p>It\'s easy to renew: Click the button below and follow the instructions. If you\'ve already renewed your license, please click "Check License". Of course, if you have any questions, please <a href="mailto:support@morehubbub.com?subject=Hubbub Pro License Key Expiration Help&body=Hi! I\'m having trouble with my license key on: '.site_url().'%0D%0A%0D%0A(please enter more details here - thanks!)" title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email us</a>. Thanks!</p>';
+				$check_license_url = esc_attr( add_query_arg( [ '_wpnonce' => wp_create_nonce( 'dpsp_check_license' ), 'dpsp_check_license' => 'dpsp_check_license' ] ), remove_query_arg( ['_wpnonce', 'dpsp_check_license' ], $_SERVER['REQUEST_URI'] ) );
+				echo '<p><a class="dpsp-get-license dpsp-button-secondary" href="' . $check_license_url . '">Check License</a> <a class="dpsp-button-primary" title="Click this Renew License button to purchase a renewal for your current license" target="_blank" href="https://morehubbub.com/checkout/?edd_license_key='. $license_key . '&download_id=28&utm_source=WordPressAdmin&utm_medium=button&utm_campaign=HubbubProExpireNotice&utm_content=RenewLicense">Renew License</a></p>';
+				echo '</div>';
+				return;
+				break;
 			case 'valid':
 				return;
 				break;
@@ -230,15 +261,6 @@ class Admin_Notices {
 				endif;
 				
 				echo '<a class="dpsp-get-license dpsp-button-primary" target="_blank" href="https://morehubbub.com/pricing/">Get License</a></p>';
-				echo '</div>';
-				return;
-				break;
-			case 'expired':
-				echo '<div class="dpsp-admin-notice notice notice-warning">';
-				echo '<h4>Action needed: Renew Your Hubbub Pro License Today</h4>';
-				echo '<p>Oh no! Your Hubbub Pro license key has expired. Your subscription fuels the ongoing development and support of Hubbub Pro. A current license key is required to receive security updates, bug fixes, new features, and support.</p><p>It\'s easy to renew: Click the button below and follow the instructions. If you\'ve already renewed your license, please click "Check License". Of course, if you have any questions, please <a href="mailto:support@morehubbub.com?subject=Hubbub Pro License Key Expiration Help&body=Hi! I\'m having trouble with my license key on: '.site_url().'%0D%0A%0D%0A(please enter more details here - thanks!)" title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email us</a>. Thanks!</p>';
-				$check_license_url = esc_attr( add_query_arg( [ '_wpnonce' => wp_create_nonce( 'dpsp_check_license' ), 'dpsp_check_license' => 'dpsp_check_license' ] ), remove_query_arg( ['_wpnonce', 'dpsp_check_license' ], $_SERVER['REQUEST_URI'] ) );
-				echo '<p><a class="dpsp-get-license dpsp-button-secondary" href="' . $check_license_url . '">Check License</a> <a class="dpsp-button-primary" title="Click this Renew License button to purchase a renewal for your current license" target="_blank" href="https://morehubbub.com/checkout/?edd_license_key='. $license_key . '&download_id=28&utm_source=WordPressAdmin&utm_medium=button&utm_campaign=HubbubProExpireNotice&utm_content=RenewLicense">Renew License</a></p>';
 				echo '</div>';
 				return;
 				break;
@@ -277,10 +299,16 @@ class Admin_Notices {
 			return $numberOfNoticesToShow;
 		endif;
 
+		// From dpsp_admin_notice_announce_mastodon_threads
+		$numberOfNoticesToShow = ( empty( get_option( 'dpsp_admin_notice_announce_mastodon_threads' ) ) ) ? $numberOfNoticesToShow+1 : $numberOfNoticesToShow;
+
 		$license_status      = get_option( 'mv_grow_license_status' );
 
 		// Increase notice count if the license is invalid or expired
 		switch ( $license_status ) {
+			case 'disabled':
+				$numberOfNoticesToShow++;
+				break;
 			case 'invalid':
 				$numberOfNoticesToShow++;
 				break;
@@ -382,6 +410,7 @@ class Admin_Notices {
 	/**
 	 * Create a secure cruft free Admin URL to the current page for dismissing Hubbub notices
 	 * List of known dismissable notices:
+	 * - dpsp_admin_notice_announce_mastodon_threads
 	 * - dpsp_admin_notice_grow_name_change_hubbub
 	 * - dpsp_admin_notice_initial_setup_nag (works differently, see dpsp_admin_notice_dismiss() )
 	 * - deprecated: dpsp_admin_notice_twitter_counts
@@ -396,6 +425,37 @@ class Admin_Notices {
 
 	function dpsp_create_dismiss_notice_admin_url( $action ) {
 		return esc_attr( add_query_arg( [ '_wpnonce' => wp_create_nonce( 'dpsp_admin_notice_dismiss_' . $action ), 'dpsp_admin_notice_dismiss' => $action ] ), remove_query_arg( ['_wpnonce', 'dpsp_admin_notice_dismiss' ], $_SERVER['REQUEST_URI'] ) );
+	}
+
+	/**
+	 * Add admin notice for enabling Threads and Mastodon
+	 * May 2024
+	 */
+	function dpsp_admin_notice_announce_mastodon_threads() {
+		if ( !$this->dpsp_is_hubbub_screen() ) return; // Limit to just Hubbub screens
+
+
+		// Do not display this notice if user cannot activate plugins
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		// Do not display this notice any user on the site has dismissed it
+		if ( ! empty( get_option( 'dpsp_admin_notice_announce_mastodon_threads' ) ) ) :
+			return;
+		endif;
+
+		$active_tools = dpsp_get_active_tools_nicenames( 'csv', true ); // Includes links
+
+		echo '<div class="dpsp-admin-notice notice notice-info">';
+		echo '<a class="notice-dismiss" href="' . $this->dpsp_create_dismiss_notice_admin_url( 'dpsp_admin_notice_announce_mastodon_threads' ) . '"></a>';
+		echo '<h4>' . esc_html__( '@ 🐘 New networks: Threads and Mastodon', 'social-pug' ) . '</h4>';
+		echo '<p>' . esc_html__( 'The fediverse awaits! Hubbub Pro has added support for sharing to Threads and Mastodon.', 'social-pug' ) . '</p>';
+		if ( $active_tools != '' ) {
+		echo '<p>Would you like to adjust the sharing buttons on your sharing tools? These tools are currently active: ' . $active_tools . '.</p>';
+		}
+		echo '<p><a class="dpsp-button-secondary" target="_blank" href="https://morehubbub.com/docs/adding-sharing-buttons/">' . esc_html__( 'Learn how to add share buttons', 'social-pug' ) . ' ↗ </a></p>';
+		echo '</div>';
 	}
 
 	/**
@@ -448,8 +508,8 @@ class Admin_Notices {
 			endif;
 		} else {
 			// If this is the name change notice, dismiss for all users
-			if ( $notice_to_dismiss == 'dpsp_admin_notice_grow_name_change_hubbub' ) :
-				update_option( 'dpsp_admin_notice_grow_name_change_hubbub', '1', false );
+			if ( $notice_to_dismiss == 'dpsp_admin_notice_grow_name_change_hubbub' || $notice_to_dismiss == 'dpsp_admin_notice_announce_mastodon_threads' ) :
+				update_option( $notice_to_dismiss, '1', false );
 			else :
 				add_user_meta( get_current_user_id(), $notice_to_dismiss, 1, true );
 			endif;

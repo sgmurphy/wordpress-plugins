@@ -35,6 +35,7 @@ function get_tool_settings() : array {
 					'show_count',
 					'show_count_total',
 					'show_labels',
+					'show_labels_mobile',
 					'show_mobile',
 					'size',
 					'spacing',

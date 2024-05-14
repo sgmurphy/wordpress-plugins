@@ -24,10 +24,6 @@ class FreeListingsProgramStatus extends \Automattic\WooCommerce\GoogleListingsAn
    * @var string
    */
   public $globalState;
-  /**
-   * @var FreeListingsProgramStatusRegionStatus[]
-   */
-  public $regionStatuses;
   protected $regionStatusesType = FreeListingsProgramStatusRegionStatus::class;
   protected $regionStatusesDataType = 'array';
 

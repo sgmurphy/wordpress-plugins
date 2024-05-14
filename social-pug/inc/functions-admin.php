@@ -596,20 +596,21 @@ function dpsp_add_submenu_page_sidebar() {
 	echo '<div id="dpsp-settings-sidebar-social-pug-pro" class="dpsp-card">';
 	echo '<div class="dpsp-card-inner">';
 
-	echo '<img data-pin-nopin="true" alt="Two friends laugh while discussing their favorite finds on a new recipe website they found." src="' . esc_url( DPSP_PLUGIN_DIR_URL . 'assets/dist/hubbub-upgrade.png?' . DPSP_VERSION ) . '" />';
+	echo '<img data-pin-nopin="true" alt="A creator makes the heart symbol with his two fingers." src="' . esc_url( DPSP_PLUGIN_DIR_URL . 'assets/dist/hubbub-upgrade.png?' . DPSP_VERSION ) . '" />';
 
 	echo '<h3>' . esc_html__( 'Create more Hubbub! Upgrade to Pro', 'social-pug' ) . '</h3>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add a "Pin It" button that appears when visitors hover your in-post images.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Force a custom image to be shared on Pinterest when using the Pinterest button.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add unlimited hidden Pinterest images to your posts and pages.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Optionally revert X icons to old-school Twitter icons.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'New: Share to Threads, Mastodon, and 17+ other social networks!', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Attract users to your social media profiles with our Follow Buttons Widget and follow shortcode. You can place it in your sidebar, template files, or anywhere on your site. Buttons include Facebook, X, Pinterest, Threads, Mastodon, LinkedIn, Reddit, Instagram, YouTube, Flipboard, Vimeo, SoundCloud, Twitch, Yummly, and Behance.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Make your website mobile-friendly with sticky footer social share buttons.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Trigger a pop-up with the social sharing buttons when a user starts to scroll, arrives at the bottom of a post or begins to leave your site.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Attract users to your social media profiles with our Follow Buttons Widget and follow shortcode. You can place it in your sidebar, template files, or anywhere on your site. Buttons include Facebook, X, Pinterest, LinkedIn, Reddit, Instagram, YouTube, Flipboard, Vimeo, SoundCloud, Twitch, Yummly, and Behance.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add a "Pin It" button that appears when visitors hover your in-post images.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add custom pin descriptions and repin IDs to your in-post images.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( "Recover your lost social share counts if you've ever changed your permalink structure.", 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add unlimited "Click to Tweet" boxes so that your users can share your content on Twitter with just one click.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Get help with priority support.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Optionally revert X icons to old-school Twitter icons.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Get help with support provided by NerdPress.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'And more...', 'social-pug' ) . '</p>';
 
 	echo '</div>';

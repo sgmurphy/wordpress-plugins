@@ -1,3 +1,9 @@
+v1.0.23 - 13-May-2024
+- Fix: Fixed the PHP warning for function optional parameter.
+
+v1.0.22 - 10-May-2024
+- Improvement: Added filter for migration svg for onboarding plugin.
+
 v1.0.18 - 09-May-2024
 - Improvement: Added Light and Dark Color palettes.
 

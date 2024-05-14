@@ -19,10 +19,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class LiaCountrySettings extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var LiaAboutPageSettings
-   */
-  public $about;
   protected $aboutType = LiaAboutPageSettings::class;
   protected $aboutDataType = '';
   /**
@@ -33,28 +29,12 @@ class LiaCountrySettings extends \Automattic\WooCommerce\GoogleListingsAndAds\Ve
    * @var bool
    */
   public $hostedLocalStorefrontActive;
-  /**
-   * @var LiaInventorySettings
-   */
-  public $inventory;
   protected $inventoryType = LiaInventorySettings::class;
   protected $inventoryDataType = '';
-  /**
-   * @var LiaOmnichannelExperience
-   */
-  public $omnichannelExperience;
   protected $omnichannelExperienceType = LiaOmnichannelExperience::class;
   protected $omnichannelExperienceDataType = '';
-  /**
-   * @var LiaOnDisplayToOrderSettings
-   */
-  public $onDisplayToOrder;
   protected $onDisplayToOrderType = LiaOnDisplayToOrderSettings::class;
   protected $onDisplayToOrderDataType = '';
-  /**
-   * @var LiaPosDataProvider
-   */
-  public $posDataProvider;
   protected $posDataProviderType = LiaPosDataProvider::class;
   protected $posDataProviderDataType = '';
   /**

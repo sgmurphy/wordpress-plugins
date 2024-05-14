@@ -9237,7 +9237,7 @@ function initializeAnalytics(currentUser, superProps) {
   const tracksLinkerId = getUrlParameter('_tkl');
   if (tracksLinkerId && tracksLinkerId !== getTracksAnonymousUserId()) {
     // Link tk_ai anonymous ids if _tkl parameter is present in URL and ids between pages are different (e.g. cross-domain)
-    signalUserFromAnotherProduct('anon', tracksLinkerId);
+    signalUserFromAnotherProduct(tracksLinkerId, 'anon');
   }
 
   // Tracks blocked?
@@ -10893,6 +10893,11 @@ const urlLocalizationMapping = {
     return isLoggedIn ? url : suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW)(url, localeSlug);
   },
   'wordpress.com/learn/': (url, localeSlug) => {
+    const webinars = url.pathname.includes('/learn/webinars/');
+    if (webinars && 'es' === localeSlug) {
+      url.pathname = url.pathname.replace('/learn/webinars/', '/learn/es/webinars/');
+      return url;
+    }
     return suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .localesWithLearn */ .mt)(url, localeSlug);
   },
   'wordpress.com/plans/': (url, localeSlug, isLoggedIn) => {
@@ -13171,7 +13176,7 @@ const withDesktopBreakpoint = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__
 /* harmony export */   jK: () => (/* binding */ DESKTOP_BREAKPOINT),
 /* harmony export */   xV: () => (/* binding */ subscribeIsWithinBreakpoint)
 /* harmony export */ });
-/* unused harmony exports subscribeIsMobile, isDesktop, subscribeIsDesktop, getWindowInnerWidth, isTabletResolution, DEVICE_MOBILE, DEVICE_TABLET, DEVICE_DESKTOP, resolveDeviceTypeByViewPort */
+/* unused harmony exports WIDE_BREAKPOINT, subscribeIsMobile, isDesktop, subscribeIsDesktop, getWindowInnerWidth, isTabletResolution, DEVICE_MOBILE, DEVICE_TABLET, DEVICE_DESKTOP, resolveDeviceTypeByViewPort */
 // Determine whether a user is viewing calypso from a device within a
 // particular mobile-first responsive breakpoint, matching our existing media
 // queries. [1]
@@ -13215,6 +13220,7 @@ const withDesktopBreakpoint = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__
 const SERVER_WIDTH = 769;
 const MOBILE_BREAKPOINT = '<480px';
 const DESKTOP_BREAKPOINT = '>960px';
+const WIDE_BREAKPOINT = '>1280px';
 const isServer =  false || !window.matchMedia;
 const noop = () => null;
 function addListenerFunctions(obj) {
@@ -14988,7 +14994,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = (0,_toPrimitive_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(t, "string");
-  return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(i) ? i : String(i);
+  return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(i) ? i : i + "";
 }
 
 /***/ }),

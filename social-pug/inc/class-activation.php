@@ -19,6 +19,8 @@ class Activation extends \Social_Pug {
 
 	public const LICENSE_STATUS_INVALID = 'invalid';
 
+	public const LICENSE_STATUS_DISABLED = 'disabled';
+
 	public const LICENSE_STATUS_EXPIRED = 'expired';
 
 	public const LICENSE_STATUS_VALID = 'valid';
@@ -102,6 +104,9 @@ class Activation extends \Social_Pug {
 			$edd_license_status = $response['license'] ?? null;
 
 			switch ( $edd_license_status) {
+				case 'disabled':
+					$this->set_license_status( self::LICENSE_STATUS_DISABLED );
+					return;
 				case 'expired':
 					$this->set_license_status( self::LICENSE_STATUS_EXPIRED );
 					return;
@@ -306,6 +311,7 @@ class Activation extends \Social_Pug {
 		}
 
 		$valid_statuses = [
+			self::LICENSE_STATUS_DISABLED => self::LICENSE_STATUS_DISABLED,
 			self::LICENSE_STATUS_EXPIRED => self::LICENSE_STATUS_EXPIRED,
 			self::LICENSE_STATUS_INACTIVE => self::LICENSE_STATUS_INACTIVE,
 			self::LICENSE_STATUS_INVALID => self::LICENSE_STATUS_INVALID,
@@ -352,6 +358,9 @@ class Activation extends \Social_Pug {
 
 		$license_valid = $response['license'] ?? null;
 		switch ( $license_valid ) {
+			case 'disabled':
+				$this->set_license_status( self::LICENSE_STATUS_DISABLED );
+				return;
 			case 'expired':
 				$this->set_license_status( self::LICENSE_STATUS_EXPIRED );
 				return;

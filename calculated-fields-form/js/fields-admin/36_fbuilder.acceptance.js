@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'facceptance' ] = function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'facceptance' ].prototype,
 		$.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -18,10 +19,18 @@
 			required:true,
 			exclude:false,
             onoff:0,
-			display:function()
+			initAdv:function(){
+					delete this.advanced.css.label;
+					delete this.advanced.css.input;
+					delete this.advanced.css.help;
+					if ( ! ( 'choice' in this.advanced.css ) ) this.advanced.css.choice = {label: 'Choice text',rules:{}};
+					if ( ! ( 'text' in this.advanced.css ) ) this.advanced.css.text = {label: 'Acknowledgement text',rules:{}};
+				},
+			display:function( css_class )
 				{
+					css_class = css_class || '';
 					var	str = '<div class="one_column"><input class="field disabled" disabled="true" type="checkbox"/> '+this.title+((this.required)?"*":"")+'</div>';
-					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Acceptance (GDPR)')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Acceptance (GDPR)')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -33,6 +42,10 @@
 							{s:"#sMessage",e:"change keyup", l:"message"}
 						];
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this, evt);
+				},
+			showTitle: function(v)
+				{
+					return '<label>Field Label</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(v)+'</textarea>';
 				},
 			showRequired: function(v)
 				{

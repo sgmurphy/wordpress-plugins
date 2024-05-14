@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.4
+Stable tag: 5.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,10 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.5 =
+
+* Includes a new section in the fields settings to allow customizing the fields desings directly.
+
 = 5.2.4 =
 
 * Allows to assign developer notes to the calculated fields.
@@ -479,10 +483,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the shortcode for variables.
 * Improves the method to attach additional files to the notification emails.
 * Modifies the path where storing the uploaded files.
-
-= 5.1.65 =
-
-* Increases the precedence of col-xx-xx class names over column#
-* Include a new attribute in the Date controls to allow to restrict dates to a set of valid dates.
-* Modify the User Permissions add-in to integrate the summary attribute with the Multilanguage for Calculated Fields Form plugin (Developer version and Platinum plugin).
-* Modify the server-side equations plugin (developer version and Platinum plugin).

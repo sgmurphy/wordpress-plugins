@@ -46814,6 +46814,9 @@ const itemsSchema = {
           hasZone: {
             type: 'boolean'
           },
+          isGravatarDomain: {
+            type: 'boolean'
+          },
           isPendingIcannVerification: {
             type: 'boolean'
           },
@@ -46987,10 +46990,12 @@ function featuresReducer(state = {}, {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   g: () => (/* reexport safe */ _use_site_option__WEBPACK_IMPORTED_MODULE_1__.A)
+/* harmony export */   gK: () => (/* reexport safe */ _use_site_option__WEBPACK_IMPORTED_MODULE_1__.A)
 /* harmony export */ });
 /* harmony import */ var _use_selected_site_selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48683);
 /* harmony import */ var _use_site_option__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37061);
+/* harmony import */ var _use_site_admin_interface_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67292);
+
 
 
 
@@ -47016,6 +47021,36 @@ function featuresReducer(state = {}, {
 function useSelectedSiteSelector(selector, ...args) {
   return useSelector(state => selector(state, getSelectedSiteId(state), ...args));
 }
+
+/***/ }),
+
+/***/ 67292:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var calypso_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(78219);
+
+
+
+
+
+/**
+ * Returns the site admin interface data
+ */
+const useSiteAdminInterfaceData = (siteId = 0) => {
+  const translate = useTranslate();
+  const wpcomAdminInterface = useSelector(state => getSiteOption(state, siteId, 'wpcom_admin_interface'));
+  const isWPAdmin = wpcomAdminInterface === 'wp-admin';
+  const adminLabel = isWPAdmin ? translate('WP Admin') : translate('My Home');
+  const adminUrl = useSelector(state => isWPAdmin ? getSiteAdminUrl(state, siteId) : getSiteHomeUrl(state, siteId)) ?? '';
+  return {
+    wpcomAdminInterface,
+    isWPAdmin,
+    adminLabel,
+    adminUrl
+  };
+};
+/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = ((/* unused pure expression or super */ null && (useSiteAdminInterfaceData)));
 
 /***/ }),
 
@@ -50045,7 +50080,7 @@ function initializeAnalytics(currentUser, superProps) {
   const tracksLinkerId = getUrlParameter('_tkl');
   if (tracksLinkerId && tracksLinkerId !== getTracksAnonymousUserId()) {
     // Link tk_ai anonymous ids if _tkl parameter is present in URL and ids between pages are different (e.g. cross-domain)
-    signalUserFromAnotherProduct('anon', tracksLinkerId);
+    signalUserFromAnotherProduct(tracksLinkerId, 'anon');
   }
 
   // Tracks blocked?
@@ -53503,6 +53538,9 @@ const getPlanPersonalDetails = () => ({
     if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_copy_and_structure') {
       return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_20_PREMIUM_THEMES */ .Hti, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LIMITED_STATS */ .__J, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_1_WEBSITE */ .hJ3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FREE_SSL_CERTIFICATE */ .p0N, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_POST_EDITS_HISTORY */ .b9l, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_8 */ .Ymf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_EMAIL_SUPPORT */ .u7c];
     }
+    if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_structure') {
+      return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BEAUTIFUL_THEMES */ .EPC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAGES */ .ko5, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_POST_EDITS_HISTORY */ .b9l, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_NEWSLETTERS_RSS */ .jdY, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_BRUTE_FORCE */ .LKS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SMART_REDIRECTS */ .lIm, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ALWAYS_ONLINE */ .P25, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_LIMITED */ .NI9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FAST_DNS */ .uoN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SUPPORT_EMAIL */ .EOS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_8 */ .Ymf];
+    }
     return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_LIMITED */ .NI9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FAST_DNS */ .uoN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SUPPORT_EMAIL */ .EOS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_8 */ .Ymf];
   },
   get2023PlanComparisonFeatureOverride: () => (0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .isTrailMapCopyVariant */ .D_)() ? [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_EMAIL_SUPPORT */ .u7c] : [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FAST_DNS */ .uoN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SUPPORT_EMAIL */ .EOS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_8 */ .Ymf],
@@ -53565,7 +53603,14 @@ const getPlanEcommerceDetails = () => ({
     if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_copy_and_structure') {
       return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_48_PREMIUM_THEMES */ .Fh3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_STATS */ .Ik1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_VIDEOPRESS_JP */ .HKK, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_INSTALL_PLUGINS */ .m51, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRE_INSTALLED_SECURITY_PERF_PLUGINS */ .McC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_1_WEBSITE */ .hJ3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FREE_SSL_CERTIFICATE */ .p0N, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SITE_BACKUPS_AND_RESTORE */ ._vw, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FREE_MIGRATIONS */ .S84, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AUTOMATED_BURST_SCALING */ .Hmc, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WAF_V2 */ .$5r, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_DDOS */ .HU_, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FULL_DATA_CENTER_REDUNDANCIES */ .Mak, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_SECURITY_SCANS */ .O2$, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SITE_STAGING_SITES */ .KmN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LOCAL_DEVELOPMENT_ENVIRONMENT */ .$DC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_GITHUB_DEPLOYMENTS */ .qj9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DEV_TOOLS */ .lW1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DATABASE_ACCESS */ .yxk, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WEB_SERVER_SETTINGS */ .QcA, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_0 */ .kSO, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STORE_DESIGN */ .CTo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRE_INSTALLED_ECOMMERCE_PLUGINS */ .KtL, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_EMAIL_LIVE_CHAT_SUPPORT */ .EVF];
     }
-    return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WOOCOMMERCE_HOSTING */ .ZLu, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PREMIUM_STORE_THEMES */ .SQX, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STORE_DESIGN */ .CTo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_PRODUCTS */ .CN1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DISPLAY_PRODUCTS_BRAND */ .bA6, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRODUCT_ADD_ONS */ .ozR, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ASSEMBLED_KITS */ .uXB, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_MIN_MAX_ORDER_QUANTITY */ .QvK, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STOCK_NOTIFS */ .m38, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DYNAMIC_UPSELLS */ .Czl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LOYALTY_PROG */ .rxl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_MARKETING_AUTOMATION */ .yqq, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BULK_DISCOUNTS */ .Xlo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_INVENTORY_MGMT */ .MaF, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STREAMLINED_CHECKOUT */ .D9A, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SELL_60_COUNTRIES */ .kbI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SHIPPING_INTEGRATIONS */ .mT$, i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Ay.hasTranslation('%(commission)d%% transaction fee for all payment features') || ['en', 'en-gb'].includes((0,i18n_calypso__WEBPACK_IMPORTED_MODULE_2__/* .getLocaleSlug */ .yb)() || '') ? _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_0_ALL */ .aNF : _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_0 */ .kSO];
+    if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_structure') {
+      return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BEAUTIFUL_THEMES */ .EPC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAGES */ .ko5, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_POST_EDITS_HISTORY */ .b9l, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_NEWSLETTERS_RSS */ .jdY, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_BRUTE_FORCE */ .LKS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SMART_REDIRECTS */ .lIm, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ALWAYS_ONLINE */ .P25, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_LIMITED */ .NI9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FAST_DNS */ .uoN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LIVE_CHAT_SUPPORT */ .Dml, _constants__WEBPACK_IMPORTED_MODULE_5__/* .EXPERT_SUPPORT_ALL_DAYS */ .Tfk, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_UNLIMITED */ .uGw, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WORDADS */ .yks, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PLUGINS_THEMES */ .j58, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_GLOBAL_EDGE_CACHING */ .vz3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BURST */ .eCG, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WAF_V2 */ .$5r, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CPUS */ .lS7, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DATACENTRE_FAILOVER */ .qot, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ISOLATED_INFRA */ .iAz, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_MALWARE */ .QXs, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_TIERED_STORAGE_PLANS_AVAILABLE */ .OvS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_SECURITY_SCANS */ .O2$,
+      /***
+       * Probably should be moved to Jetpack Features
+       */
+      _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SPAM_JP */ .y33, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_DDOS */ .HU_, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DEV_TOOLS */ .lW1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SITE_STAGING_SITES */ .KmN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SEAMLESS_STAGING_PRODUCTION_SYNCING */ .XNd, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WP_UPDATES */ .SIm, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_MULTI_SITE */ .bW1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_VULNERABILITY_NOTIFICATIONS */ .Cf7, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WOOCOMMERCE_HOSTING */ .ZLu, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PREMIUM_STORE_THEMES */ .SQX, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STORE_DESIGN */ .CTo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_PRODUCTS */ .CN1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DISPLAY_PRODUCTS_BRAND */ .bA6, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRODUCT_ADD_ONS */ .ozR, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ASSEMBLED_KITS */ .uXB, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_MIN_MAX_ORDER_QUANTITY */ .QvK, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STOCK_NOTIFS */ .m38, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DYNAMIC_UPSELLS */ .Czl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LOYALTY_PROG */ .rxl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_MARKETING_AUTOMATION */ .yqq, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BULK_DISCOUNTS */ .Xlo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_INVENTORY_MGMT */ .MaF, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STREAMLINED_CHECKOUT */ .D9A, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SELL_60_COUNTRIES */ .kbI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SHIPPING_INTEGRATIONS */ .mT$, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_0_ALL */ .aNF];
+    }
+    return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WOOCOMMERCE_HOSTING */ .ZLu, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PREMIUM_STORE_THEMES */ .SQX, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STORE_DESIGN */ .CTo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_PRODUCTS */ .CN1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DISPLAY_PRODUCTS_BRAND */ .bA6, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRODUCT_ADD_ONS */ .ozR, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ASSEMBLED_KITS */ .uXB, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_MIN_MAX_ORDER_QUANTITY */ .QvK, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STOCK_NOTIFS */ .m38, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DYNAMIC_UPSELLS */ .Czl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LOYALTY_PROG */ .rxl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_MARKETING_AUTOMATION */ .yqq, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BULK_DISCOUNTS */ .Xlo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_INVENTORY_MGMT */ .MaF, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STREAMLINED_CHECKOUT */ .D9A, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SELL_60_COUNTRIES */ .kbI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SHIPPING_INTEGRATIONS */ .mT$, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_0_ALL */ .aNF];
   },
   get2023PlanComparisonFeatureOverride: () => (0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .isTrailMapCopyVariant */ .D_)() ? [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STORE_DESIGN */ .CTo, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRE_INSTALLED_ECOMMERCE_PLUGINS */ .KtL] : [],
   getCheckoutFeatures: () => [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LIVE_CHAT_SUPPORT */ .Dml, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PLUGINS_THEMES */ .j58, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ACCEPT_PAYMENTS */ .gH7, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SHIPPING_CARRIERS */ .mEY, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_PRODUCTS_SERVICES */ .vkJ, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LOYALTY_PROG */ .rxl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_INVENTORY */ .Y_U, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_MARKETING_AUTOMATION */ .yqq],
@@ -53677,6 +53722,9 @@ const getPlanPremiumDetails = () => ({
     if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_copy_and_structure') {
       return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_48_PREMIUM_THEMES */ .Fh3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_STATS */ .Ik1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_VIDEOPRESS_JP */ .HKK, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_1_WEBSITE */ .hJ3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FREE_SSL_CERTIFICATE */ .p0N, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_POST_EDITS_HISTORY */ .b9l, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_4 */ .kYS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_EMAIL_SUPPORT */ .u7c];
     }
+    if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_structure') {
+      return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BEAUTIFUL_THEMES */ .EPC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAGES */ .ko5, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_POST_EDITS_HISTORY */ .b9l, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_NEWSLETTERS_RSS */ .jdY, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_BRUTE_FORCE */ .LKS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SMART_REDIRECTS */ .lIm, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ALWAYS_ONLINE */ .P25, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_LIMITED */ .NI9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FAST_DNS */ .uoN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SUPPORT_EMAIL */ .EOS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .EXPERT_SUPPORT_ALL_DAYS */ .Tfk, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_UNLIMITED */ .uGw, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WORDADS */ .yks, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_4 */ .kYS];
+    }
     return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .EXPERT_SUPPORT_ALL_DAYS */ .Tfk, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_UNLIMITED */ .uGw, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WORDADS */ .yks, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_4 */ .kYS];
   },
   get2023PlanComparisonFeatureOverride: () => (0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .isTrailMapCopyVariant */ .D_)() ? [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_STATS */ .Ik1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_VIDEOPRESS_JP */ .HKK] : [],
@@ -53739,6 +53787,13 @@ const getPlanBusinessDetails = () => ({
     }
     if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_copy_and_structure') {
       return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_48_PREMIUM_THEMES */ .Fh3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_STATS */ .Ik1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_VIDEOPRESS_JP */ .HKK, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_INSTALL_PLUGINS */ .m51, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PRE_INSTALLED_SECURITY_PERF_PLUGINS */ .McC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_1_WEBSITE */ .hJ3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FREE_SSL_CERTIFICATE */ .p0N, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SITE_BACKUPS_AND_RESTORE */ ._vw, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FREE_MIGRATIONS */ .S84, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AUTOMATED_BURST_SCALING */ .Hmc, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WAF_V2 */ .$5r, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_DDOS */ .HU_, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FULL_DATA_CENTER_REDUNDANCIES */ .Mak, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_SECURITY_SCANS */ .O2$, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SITE_STAGING_SITES */ .KmN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LOCAL_DEVELOPMENT_ENVIRONMENT */ .$DC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_GITHUB_DEPLOYMENTS */ .qj9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DEV_TOOLS */ .lW1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DATABASE_ACCESS */ .yxk, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WEB_SERVER_SETTINGS */ .QcA, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_2 */ .kb1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_EMAIL_LIVE_CHAT_SUPPORT */ .EVF];
+    }
+    if ((0,_experiments__WEBPACK_IMPORTED_MODULE_8__/* .getTrailMapExperiment */ .Qy)() === 'treatment_structure') {
+      return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BEAUTIFUL_THEMES */ .EPC, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAGES */ .ko5, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_USERS */ .e5F, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_POST_EDITS_HISTORY */ .b9l, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_NEWSLETTERS_RSS */ .jdY, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_BRUTE_FORCE */ .LKS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SMART_REDIRECTS */ .lIm, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ALWAYS_ONLINE */ .P25, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_LIMITED */ .NI9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_AD_FREE_EXPERIENCE */ .dBh, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_FAST_DNS */ .uoN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LIVE_CHAT_SUPPORT */ .Dml, _constants__WEBPACK_IMPORTED_MODULE_5__/* .EXPERT_SUPPORT_ALL_DAYS */ .Tfk, _constants__WEBPACK_IMPORTED_MODULE_5__/* .WPCOM_FEATURES_PREMIUM_THEMES_UNLIMITED */ .uGw, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WORDADS */ .yks, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_STYLE_CUSTOMIZATION */ .RkI, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PLUGINS_THEMES */ .j58, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_GLOBAL_EDGE_CACHING */ .vz3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BURST */ .eCG, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WAF_V2 */ .$5r, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CPUS */ .lS7, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DATACENTRE_FAILOVER */ .qot, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ISOLATED_INFRA */ .iAz, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_MALWARE */ .QXs, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_TIERED_STORAGE_PLANS_AVAILABLE */ .OvS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_SECURITY_SCANS */ .O2$,
+      /***
+       * Probably should be moved to Jetpack Features
+       */
+      _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SPAM_JP */ .y33, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_DDOS */ .HU_, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DEV_TOOLS */ .lW1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SITE_STAGING_SITES */ .KmN, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SEAMLESS_STAGING_PRODUCTION_SYNCING */ .XNd, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WP_UPDATES */ .SIm, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_MULTI_SITE */ .bW1, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_VULNERABILITY_NOTIFICATIONS */ .Cf7, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_0_WOO */ .WT$, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PAYMENT_TRANSACTION_FEES_2_REGULAR */ .jM];
     }
     return [_constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CUSTOM_DOMAIN */ .kgl, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_PLUGINS_THEMES */ .j58, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BANDWIDTH */ .Tuf, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_UNLIMITED_TRAFFIC */ .l5Q, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_LIVE_CHAT_SUPPORT */ .Dml, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_GLOBAL_EDGE_CACHING */ .vz3, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_BURST */ .eCG, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_WAF_V2 */ .$5r, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CDN */ .xq9, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_CPUS */ .lS7, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_DATACENTRE_FAILOVER */ .qot, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_ISOLATED_INFRA */ .iAz, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_SECURITY_MALWARE */ .QXs, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_TIERED_STORAGE_PLANS_AVAILABLE */ .OvS, _constants__WEBPACK_IMPORTED_MODULE_5__/* .FEATURE_REAL_TIME_SECURITY_SCANS */ .O2$,
     /***
@@ -61973,29 +62028,27 @@ const HelpCenterContactForm = props => {
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(98948);
 /* harmony import */ var _automattic_calypso_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70696);
-/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(64682);
-/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(20609);
+/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(64682);
+/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(20609);
 /* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(16706);
-/* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(57033);
+/* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(57033);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27723);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(64446);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(24955);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(64446);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(24955);
 /* harmony import */ var _wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(23634);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(99870);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20759);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73657);
-/* harmony import */ var calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(65284);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(8652);
+/* harmony import */ var calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(65284);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(8652);
 /* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(63119);
 /* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(34655);
 /* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(51653);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(59249);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(34237);
-/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(22047);
-/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(52927);
-/* harmony import */ var _help_center_notice__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(89858);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(34237);
+/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(52927);
+/* harmony import */ var _help_center_notice__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(89858);
 
 /* eslint-disable no-restricted-imports */
 /**
@@ -62062,13 +62115,11 @@ const HelpCenterContactPage = ({
   const renderEmail = (0,_hooks__WEBPACK_IMPORTED_MODULE_9__/* .useShouldRenderEmailOption */ .s)();
   const {
     hasActiveChats,
-    isChatAvailable,
     isEligibleForChat,
     isLoading: isLoadingChatStatus,
     supportActivity
   } = (0,_hooks__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .A)();
   (0,_hooks__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .A)('zendesk_support_chat_key', isEligibleForChat || hasActiveChats, isEligibleForChat || hasActiveChats);
-  const renderChat = (0,_hooks__WEBPACK_IMPORTED_MODULE_12__/* .useShouldRenderChatOption */ .u)(isChatAvailable || hasActiveChats, isEligibleForChat);
   const isLoading = renderEmail.isLoading || isLoadingChatStatus;
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isLoading) {
@@ -62077,15 +62128,15 @@ const HelpCenterContactPage = ({
     (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__/* .recordTracksEvent */ .Oy)('calypso_helpcenter_contact_options_impression', {
       force_site_id: true,
       location: 'help-center',
-      chat_available: renderChat.state === 'AVAILABLE',
+      chat_available: !renderEmail.render,
       email_available: renderEmail.render
     });
-  }, [isLoading, renderChat.state, renderEmail.render]);
+  }, [isLoading, renderEmail.render]);
   const liveChatHeaderText = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (isEnglishLocale || !(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.hasTranslation)('Live chat (English)')) {
-      return __('Live chat', "full-site-editing");
+    if (isEnglishLocale || !(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.hasTranslation)('Contact WordPress.com Support (English)')) {
+      return __('Contact WordPress.com Support', "full-site-editing");
     }
-    return __('Live chat (English)', "full-site-editing");
+    return __('Contact WordPress.com Support (English)', "full-site-editing");
   }, [__, locale]);
   const emailHeaderText = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (isEnglishLocale) {
@@ -62093,7 +62144,7 @@ const HelpCenterContactPage = ({
     }
     const isLanguageSupported = (0,_automattic_calypso_config__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Ay)('upwork_support_locales').includes(locale);
     if (isLanguageSupported) {
-      const language = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_13__/* .getLanguage */ .Z0)(locale)?.name;
+      const language = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_12__/* .getLanguage */ .Z0)(locale)?.name;
       return language && (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.hasTranslation)('Email (%s)') ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)(
       // translators: %s is the language name
       __('Email (%s)', "full-site-editing"), language) : __('Email', "full-site-editing");
@@ -62103,26 +62154,13 @@ const HelpCenterContactPage = ({
     }
     return __('Email', "full-site-editing");
   }, [__, locale]);
-  const forumHeaderText = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (isEnglishLocale) {
-      return __('Community forums', "full-site-editing");
-    }
-    return __('Community forums (English)', "full-site-editing");
-  }, [__, locale]);
   if (isLoading) {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "help-center-contact-page__loading"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_14__/* .Spinner */ .y, {
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_13__/* .Spinner */ .y, {
       baseClassName: ""
     }));
   }
-
-  // Create URLSearchParams for forum
-  const forumUrlSearchParams = new URLSearchParams({
-    mode: 'FORUM',
-    wapuuFlow: hideHeaders.toString()
-  });
-  const forumUrl = `/contact-form?${forumUrlSearchParams.toString()}`;
 
   // Create URLSearchParams for chat
   const chatUrlSearchParams = new URLSearchParams({
@@ -62135,69 +62173,57 @@ const HelpCenterContactPage = ({
   const emailUrlSearchParams = new URLSearchParams({
     mode: 'EMAIL',
     // Set overflow flag when chat is not available nor closed, and the user is eligible to chat, but still sends a support ticket
-    overflow: (renderChat.eligible && renderChat.state !== 'AVAILABLE').toString(),
+    overflow: renderEmail.render.toString(),
     wapuuFlow: hideHeaders.toString()
   });
   const emailUrl = `/contact-form?${emailUrlSearchParams.toString()}`;
   const contactOptionsEventMap = {
     chat: generateContactOnClickEvent('chat', trackEventName),
-    forum: generateContactOnClickEvent('forum', trackEventName),
     email: generateContactOnClickEvent('email', trackEventName)
+  };
+  const renderChatOption = () => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ConditionalLink, {
+      active: true,
+      to: chatUrl,
+      onClick: contactOptionsEventMap['chat']
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "help-center-contact-page__box chat",
+      role: "button",
+      tabIndex: 0
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "help-center-contact-page__box-icon"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .A, {
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .A
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, liveChatHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Our Happiness team will get back to you soon', "full-site-editing"))))));
+  };
+  const renderEmailOption = () => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Link */ .N_, {
+      to: emailUrl,
+      onClick: contactOptionsEventMap['email']
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__box', 'email'),
+      role: "button",
+      tabIndex: 0
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "help-center-contact-page__box-icon"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .A, {
+      icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_icons__WEBPACK_IMPORTED_MODULE_16__/* ["default"] */ .A, null)
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, emailHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('An expert will get back to you soon', "full-site-editing")))));
   };
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "help-center-contact-page"
-  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(___WEBPACK_IMPORTED_MODULE_15__/* .BackButton */ .o, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(___WEBPACK_IMPORTED_MODULE_17__/* .BackButton */ .o, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "help-center-contact-page__content"
-  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, __('Contact our WordPress.com experts', "full-site-editing")), supportActivity && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_notice__WEBPACK_IMPORTED_MODULE_16__/* .HelpCenterActiveTicketNotice */ .J6, {
+  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, __('Contact our WordPress.com experts', "full-site-editing")), supportActivity && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_notice__WEBPACK_IMPORTED_MODULE_18__/* .HelpCenterActiveTicketNotice */ .J6, {
     tickets: supportActivity
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_17__/* .GMClosureNotice */ .i, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_19__/* .GMClosureNotice */ .i, {
     displayAt: "2023-12-26 00:00Z",
     closesAt: "2023-12-31 00:00Z",
     reopensAt: "2024-01-02 07:00Z",
-    enabled: renderChat.render
+    enabled: !renderEmail.render
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__boxes')
-  }, !renderEmail.render && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Link */ .N_, {
-    to: forumUrl,
-    onClick: contactOptionsEventMap['forum']
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__box', 'forum'),
-    role: "button",
-    tabIndex: 0
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "help-center-contact-page__box-icon"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
-    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_icons__WEBPACK_IMPORTED_MODULE_19__/* ["default"] */ .A, null)
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, forumHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Your question and any answers will be public', "full-site-editing"))))), renderChat.render && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()({
-      disabled: renderChat.state !== 'AVAILABLE'
-    })
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ConditionalLink, {
-    active: renderChat.state === 'AVAILABLE',
-    to: chatUrl,
-    onClick: contactOptionsEventMap['chat']
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__box', 'chat', {
-      'is-disabled': renderChat.state !== 'AVAILABLE'
-    }),
-    role: "button",
-    tabIndex: 0
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "help-center-contact-page__box-icon"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_20__/* ["default"] */ .A
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, liveChatHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, renderChat.state !== 'AVAILABLE' ? __('Chat is unavailable right now', "full-site-editing") : __('Get an immediate reply', "full-site-editing")))))), renderEmail.render && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Link */ .N_, {
-    to: emailUrl,
-    onClick: contactOptionsEventMap['email']
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__box', 'email'),
-    role: "button",
-    tabIndex: 0
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "help-center-contact-page__box-icon"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
-    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_icons__WEBPACK_IMPORTED_MODULE_21__/* ["default"] */ .A, null)
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, emailHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('An expert will get back to you soon', "full-site-editing"))))))));
+  }, renderEmail.render ? renderEmailOption() : renderChatOption())));
 };
 const HelpCenterContactButton = () => {
   const {
@@ -62206,8 +62232,8 @@ const HelpCenterContactButton = () => {
   const {
     url,
     isLoading
-  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_22__/* .useStillNeedHelpURL */ .i)();
-  const sectionName = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__/* .useSelector */ .d4)(calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_23__/* ["default"] */ .A);
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_20__/* .useStillNeedHelpURL */ .i)();
+  const sectionName = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__/* .useSelector */ .d4)(calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_21__/* ["default"] */ .A);
   const redirectToWpcom = url === 'https://wordpress.com/help/contact';
   const trackContactButtonClicked = () => {
     (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__/* .recordTracksEvent */ .Oy)('calypso_inlinehelp_morehelp_click', {
@@ -62227,8 +62253,8 @@ const HelpCenterContactButton = () => {
     target: redirectToWpcom ? '_blank' : '_self',
     onClick: trackContactButtonClicked,
     className: "button help-center-contact-page__button"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_20__/* ["default"] */ .A
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .A, {
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .A
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, __('Still need help?', "full-site-editing")));
 };
 
@@ -63630,7 +63656,7 @@ function HelpSearchResults({
   const sectionName = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__/* .useSelector */ .d4)(calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .A);
   const adminResults = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__/* .useSelector */ .d4)(state => (0,calypso_state_selectors_get_admin_help_results__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .A)(state, searchQuery, 3));
   const isPurchasesSection = ['purchases', 'site-purchases'].includes(sectionName);
-  const siteIntent = (0,calypso_state_sites_hooks__WEBPACK_IMPORTED_MODULE_10__/* .useSiteOption */ .g)('site_intent');
+  const siteIntent = (0,calypso_state_sites_hooks__WEBPACK_IMPORTED_MODULE_10__/* .useSiteOption */ .gK)('site_intent');
   const rawContextualResults = (0,react__WEBPACK_IMPORTED_MODULE_4__.useMemo)(() => (0,_automattic_data_stores__WEBPACK_IMPORTED_MODULE_12__/* .getContextResults */ .U5)(sectionName, siteIntent), [sectionName, siteIntent]);
   const isRtl = (0,i18n_calypso__WEBPACK_IMPORTED_MODULE_13__/* .useRtl */ .I)();
   const locale = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_14__/* .useLocale */ .Ym)();
@@ -64804,11 +64830,11 @@ function useSupportAvailability(supportType, enabled = true) {
   return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__/* .useQuery */ .I)({
     queryKey: ['support-availability', supportType],
     queryFn: async () => (0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_2__/* .canAccessWpcomApis */ .IH)() ? await (0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Ay)({
-      path: `help/eligibility/${supportType === 'OTHER' ? 'all' : 'chat'}/mine`,
+      path: `help/eligibility/${supportType === 'OTHER' ? 'all' : supportType.toLocaleLowerCase()}/mine`,
       apiNamespace: 'wpcom/v2/',
       apiVersion: '2'
     }) : await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-      path: `help-center/support-availability/${supportType === 'OTHER' ? 'all' : 'chat'}`,
+      path: `help-center/support-availability/${supportType === 'OTHER' ? 'all' : supportType.toLocaleLowerCase()}`,
       global: true
     }),
     enabled,
@@ -65296,36 +65322,6 @@ function useMessagingAvailability(group, enabled = true) {
 
 /***/ }),
 
-/***/ 59249:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   u: () => (/* binding */ useShouldRenderChatOption)
-/* harmony export */ });
-function useShouldRenderChatOption(isChatAvailable, isEligibleForChat) {
-  if (!isEligibleForChat) {
-    return {
-      render: false,
-      state: 'UNAVAILABLE',
-      eligible: false
-    };
-  } else if (isChatAvailable) {
-    return {
-      render: true,
-      state: 'AVAILABLE',
-      eligible: true
-    };
-  }
-  return {
-    render: true,
-    state: 'UNAVAILABLE',
-    eligible: true
-  };
-}
-
-/***/ }),
-
 /***/ 63119:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -65339,10 +65335,10 @@ function useShouldRenderEmailOption() {
   const {
     data: supportAvailability,
     isFetching
-  } = (0,_data_use_support_availability__WEBPACK_IMPORTED_MODULE_0__/* .useSupportAvailability */ .e)('OTHER');
+  } = (0,_data_use_support_availability__WEBPACK_IMPORTED_MODULE_0__/* .useSupportAvailability */ .e)('EMAIL');
   return {
     isLoading: isFetching,
-    render: supportAvailability?.is_user_eligible_for_tickets ?? false
+    render: supportAvailability?.force_email_contact_form ?? false
   };
 }
 
@@ -65550,39 +65546,6 @@ function useZendeskMessaging(keyConfigName, enabled = true, tryAuthenticating = 
     isMessagingScriptLoaded
   };
 }
-
-/***/ }),
-
-/***/ 22047:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(86087);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-
-const Forum = () => {
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "24",
-    height: "24",
-    fill: "none",
-    viewBox: "21 21 27 27"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M39.4749 43.1113L39.2552 42.8913L38.9443 42.8913L31.2576 42.8913C31.1195 42.8913 31.0076 42.7794 31.0076 42.6413L31.0076 34.0913C31.0076 33.9532 31.1195 33.8413 31.2576 33.8413L42.2422 33.8413C42.3803 33.8413 42.4922 33.9532 42.4922 34.0913L42.4922 45.4588C42.4922 45.5617 42.4355 45.6562 42.3447 45.7046C42.2365 45.7623 42.1033 45.7424 42.0166 45.6557L39.4749 43.1113Z",
-    stroke: "#fff",
-    strokeWidth: "1.5",
-    fill: "transparent"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M26.2341 31.4251L26.4538 31.2052L26.7647 31.2052L34.4514 31.2052C34.5895 31.2052 34.7014 31.0932 34.7014 30.9552L34.7014 22.4052C34.7014 22.2671 34.5895 22.1552 34.4514 22.1552L23.4668 22.1552C23.3287 22.1552 23.2168 22.2671 23.2168 22.4052L23.2168 33.7727C23.2168 33.8755 23.2735 33.97 23.3643 34.0184C23.4725 34.0761 23.6057 34.0563 23.6924 33.9695L26.2341 31.4251Z",
-    stroke: "#fff",
-    strokeWidth: "1.5",
-    fill: "transparent"
-  }));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Forum);
 
 /***/ }),
 
@@ -66758,6 +66721,11 @@ const urlLocalizationMapping = {
     return isLoggedIn ? url : suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .magnificentNonEnLocales */ .lW)(url, localeSlug);
   },
   'wordpress.com/learn/': (url, localeSlug) => {
+    const webinars = url.pathname.includes('/learn/webinars/');
+    if (webinars && 'es' === localeSlug) {
+      url.pathname = url.pathname.replace('/learn/webinars/', '/learn/es/webinars/');
+      return url;
+    }
     return suffixLocalizedUrlPath(_locales__WEBPACK_IMPORTED_MODULE_4__/* .localesWithLearn */ .mt)(url, localeSlug);
   },
   'wordpress.com/plans/': (url, localeSlug, isLoggedIn) => {
@@ -70202,7 +70170,7 @@ const withDesktopBreakpoint = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__
 /* harmony export */   jK: () => (/* binding */ DESKTOP_BREAKPOINT),
 /* harmony export */   xV: () => (/* binding */ subscribeIsWithinBreakpoint)
 /* harmony export */ });
-/* unused harmony exports getMediaQueryList, subscribeIsMobile, isDesktop, subscribeIsDesktop, getWindowInnerWidth, isTabletResolution, DEVICE_MOBILE, DEVICE_TABLET, DEVICE_DESKTOP */
+/* unused harmony exports WIDE_BREAKPOINT, getMediaQueryList, subscribeIsMobile, isDesktop, subscribeIsDesktop, getWindowInnerWidth, isTabletResolution, DEVICE_MOBILE, DEVICE_TABLET, DEVICE_DESKTOP */
 // Determine whether a user is viewing calypso from a device within a
 // particular mobile-first responsive breakpoint, matching our existing media
 // queries. [1]
@@ -70246,6 +70214,7 @@ const withDesktopBreakpoint = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__
 const SERVER_WIDTH = 769;
 const MOBILE_BREAKPOINT = '<480px';
 const DESKTOP_BREAKPOINT = '>960px';
+const WIDE_BREAKPOINT = '>1280px';
 const isServer =  false || !window.matchMedia;
 const noop = () => null;
 function addListenerFunctions(obj) {
@@ -81268,12 +81237,11 @@ function _objectSpread2(e) {
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
+  for (var key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (excluded.indexOf(key) >= 0) continue;
+      target[key] = source[key];
+    }
   }
   return target;
 }
@@ -81315,7 +81283,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = (0,_toPrimitive_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(t, "string");
-  return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(i) ? i : String(i);
+  return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)(i) ? i : i + "";
 }
 
 /***/ }),

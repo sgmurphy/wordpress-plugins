@@ -28,10 +28,6 @@ class ProductsListResponse extends \Automattic\WooCommerce\GoogleListingsAndAds\
    * @var string
    */
   public $nextPageToken;
-  /**
-   * @var Product[]
-   */
-  public $resources;
   protected $resourcesType = Product::class;
   protected $resourcesDataType = 'array';
 

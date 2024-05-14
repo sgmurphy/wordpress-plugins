@@ -24,10 +24,6 @@ class ReturnpolicyListResponse extends \Automattic\WooCommerce\GoogleListingsAnd
    * @var string
    */
   public $kind;
-  /**
-   * @var ReturnPolicy[]
-   */
-  public $resources;
   protected $resourcesType = ReturnPolicy::class;
   protected $resourcesDataType = 'array';
 

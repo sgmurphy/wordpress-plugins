@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/wpmonks
 Tags: Gravity Forms CSS, gravity forms themes, gravity forms styler, Gravity Forms Design, Gravity Forms Material Design, Gravity Forms Tooltips
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 5.2
+Stable tag: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,6 +114,12 @@ Yes, Gravity Forms embedded in Divi themes is also supported. Please check the t
 4. Options in settings
 
 == Changelog ==
+= 5.3 (13th May 2024) =
+* If you try to switch panel without saving then you will get alert popup
+* Booster now waits for addons to load their settings
+* Fixed compatability with older addons
+* Fixed link for the 'open plugins' popup button.
+
 = 5.2 (12th May 2024) =
 * Added option to open any panel in booster directly from query param
 

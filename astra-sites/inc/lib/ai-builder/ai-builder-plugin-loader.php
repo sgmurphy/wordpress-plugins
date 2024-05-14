@@ -396,6 +396,7 @@ class Ai_Builder_Plugin_Loader {
 			'logoUrlLight'       => apply_filters( 'st_ai_onboarding_logo_light', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
 			'zip_plans'          => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),
 			'dashboard_url'      => admin_url(),
+			'migrateSvg'         => apply_filters( 'ai_builder_migrate_svg', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/migrate.svg' ),
 		);
 	}
 

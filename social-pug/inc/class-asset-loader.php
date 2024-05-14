@@ -31,6 +31,7 @@ class Asset_Loader extends \Social_Pug {
 	 */
 	public function init() {
 		add_filter( 'script_loader_tag', [ $this, 'add_async_attribute' ], 10, 2 );
+		add_filter( 'script_loader_tag', [ $this, 'add_disable_cfrocket_attribute' ], 11, 2 );
 		add_filter( 'style_loader_tag', [ $this, 'add_async_styles' ], 10, 3 );
 		add_action( 'dpsp_post_enqueue_frontend_scripts', [ $this, 'output_inline_styles' ] );
 	}
@@ -48,6 +49,23 @@ class Asset_Loader extends \Social_Pug {
 		}
 
 		return $tag;
+	}
+
+	/**
+	 * Disable Cloudflare's Rocket Loader (not to be confused with WP Rocket) via data attributes on the script tag.
+	 *
+	 * @param $tag
+	 * @param $handle
+	 * @return string|string[]
+	 */
+	public function add_disable_cfrocket_attribute( $tag, $handle ) {
+
+		if ( substr( $handle, 0, strlen( self::$script_handle ) ) === self::$script_handle ) {
+			return str_replace( "src", ' data-cfasync="false" src', $tag );
+		} else {
+			return $tag;
+		}
+
 	}
 
 	/**

@@ -7,6 +7,7 @@
 	);
 	$.fbuilder.controls[ 'fpopup' ]=function(){};
 	$.extend(
+		true,
 		$.fbuilder.controls[ 'fpopup' ].prototype,
 		$.fbuilder.controls[ 'fcontainer' ].prototype,
 		{
@@ -27,13 +28,21 @@
 			columns:1,
 			rearrange: 0,
 			collapsed:false, // Admin
-			display:function()
+			initAdv: function(){
+					delete this.advanced.css.input;
+					delete this.advanced.css.help;
+					if ( ! ( 'header' in this.advanced.css ) ) this.advanced.css.header = {label: 'Header area',rules:{}};
+					if ( ! ( 'close' in this.advanced.css ) ) this.advanced.css.close = {label: 'Close button',rules:{}};
+					if ( ! ( 'content' in this.advanced.css ) ) this.advanced.css.content = {label: 'Content area',rules:{}};
+				},
+			display:function( css_class )
 				{
-					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Popup')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield" style="width:100%;">'+
+					css_class = css_class || '';
+					return '<div class="fields '+this.name+((this.collapsed) ? ' collapsed' : '')+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Popup')+'" style="width:100%;"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Collapse" class="collapse ui-icon ui-icon-folder-collapsed "></div><div title="Uncollapse" class="uncollapse ui-icon ui-icon-folder-open "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><div class="dfield" style="width:100%;">'+
 					'<div class="cff-popup-header">'+(this.title.length ? '<' + this.titletag+ ' class="cff-popup-title">'+this.title+'</' + this.titletag+ '>' : '')+
 					(this.close_button ? '<div class="cff-popup-close ui-icon ui-icon-close"></div>' : '')+
 					'</div>'+
-					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer" /></div>';
+					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer"></div></div>';
 				},
 			editItemEvents:function()
 				{
@@ -71,7 +80,7 @@
 					let me = this;
 					return '<label>Popup Title</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(me.title)+'</textarea>'+
 					'<div><label>Title Tag</label><select class="large" id="sTitleTag" name="sTitleTag">'+
-					['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '')+'</select>';
+					['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '')+'</select></div>';
 				},
 			showPopupSettings:function()
 				{

@@ -225,7 +225,7 @@
 						str += '<option value="'+h+'">'+h+'</option>';
 						i++;
 					}
-					return '<select id="'+me.name+'_hours" name="'+me.name+'_hours" class="hours-component" aria-label="'+cff_esc_attr(me.ariaHourLabel)+'" '+((me.readonly) ? 'DISABLED' : '')+'>'+str+'</select>:';
+					return '<select id="'+me.name+'_hours" name="'+me.name+'_hours" class="hours-component" aria-label="'+cff_esc_attr(me.ariaHourLabel)+'" '+((me.readonly) ? 'DISABLED' : '')+' style="'+cff_esc_attr(me.getCSSComponent('hour'))+'">'+str+'</select>:';
 				},
 			get_minutes:function()
 				{
@@ -242,14 +242,14 @@
 						str += '<option value="'+m+'">'+m+'</option>';
 						i++;
 					}
-					return '<select id="'+me.name+'_minutes" name="'+me.name+'_minutes" class="minutes-component" aria-label="'+cff_esc_attr(me.ariaMinuteLabel)+'" '+((me.readonly) ? 'DISABLED' : '')+'>'+str+'</select>';
+					return '<select id="'+me.name+'_minutes" name="'+me.name+'_minutes" class="minutes-component" aria-label="'+cff_esc_attr(me.ariaMinuteLabel)+'" '+((me.readonly) ? 'DISABLED' : '')+' style="'+cff_esc_attr(me.getCSSComponent('minute'))+'">'+str+'</select>';
 				},
 			get_ampm:function()
 				{
 					var str = '';
 					if(this.tformat == 12)
 					{
-						return '<select id="'+this.name+'_ampm" class="ampm-component"  aria-label="'+cff_esc_attr(this.ariaAMPMLabel)+'" '+((this.readonly) ? 'DISABLED' : '')+'><option value="am">am</option><option value="pm">pm</option></select>';
+						return '<select id="'+this.name+'_ampm" class="ampm-component"  aria-label="'+cff_esc_attr(this.ariaAMPMLabel)+'" '+((this.readonly) ? 'DISABLED' : '')+' style="'+cff_esc_attr(this.getCSSComponent('ampm'))+'"><option value="am">am</option><option value="pm">pm</option></select>';
 					}
 					return str;
 				},
@@ -375,12 +375,12 @@
 					else{ date_tag_type = 'hidden'; if( ! me.alwaysVisible ) disabled='disabled';}
                     if(me.showTimepicker) format_label.push('HH:mm');
 					this.predefined = this._getAttr('predefined');
-					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+'>'+me.title+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+format_label.join(' ')+')</span>' : '')+'</label><div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
+					return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+n+' cff-date-field" id="field'+me.form_identifier+'-'+me.index+'"><label '+(me.showDatepicker ? 'for="'+n+'_date"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+''+((me.required)?"<span class='r'>*</span>":"")+((format_label.length) ? ' <span class="dformat">('+format_label.join(' ')+')</span>' : '')+'</label><div class="dfield"><input id="'+n+'" name="'+n+'" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
 
-					'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+date_tag_class+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(me.predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' />'+
+					'<input aria-label="'+cff_esc_attr(me.title)+'" id="'+n+'_date" name="'+n+'_date" class="'+date_tag_class+' date-component" type="'+date_tag_type+'" '+attr+'="'+cff_esc_attr(me.predefined)+'" '+disabled+(me.disableKeyboardOnMobile ? ' inputmode="none"' : '')+(me.errorMssg != '' ? ' data-msg="'+cff_esc_attr(me.errorMssg)+'"' : '')+' style="'+cff_esc_attr(me.getCSSComponent('date'))+'" />'+
 
 					(me.alwaysVisible && me.showDatepicker ? '<div id="'+n+'_datepicker_container" class="datepicker-container"></div>' : '')+
-					((me.showTimepicker) ? ' '+me.get_hours()+me.get_minutes()+' '+me.get_ampm() : '')+'<span class="uh">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
+					((me.showTimepicker) ? ' '+me.get_hours()+me.get_minutes()+' '+me.get_ampm() : '')+'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+me.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
 			after_show:function()
 				{

@@ -89,8 +89,7 @@ class Inline_Content extends Tool {
 			$styles .= '
 				@media screen and ( max-width : ' . $mobile_screen_width . 'px ) {
 					.dpsp-content-wrapper.dpsp-hide-on-mobile,
-					.dpsp-share-text.dpsp-hide-on-mobile,
-					.dpsp-content-wrapper .dpsp-network-label {
+					.dpsp-share-text.dpsp-hide-on-mobile {
 						display: none;
 					}
 					.dpsp-has-spacing .dpsp-networks-btns-wrapper li {

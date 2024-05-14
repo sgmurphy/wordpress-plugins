@@ -385,6 +385,10 @@ if (false === class_exists('WF_Licensing')) {
     function validate_ajax()
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
+      
+      if (false === current_user_can('administrator')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+      }
 
       $license_key = sanitize_text_field($_REQUEST['license_key']);
       $license_key = trim(substr($license_key, 0, 64));
@@ -411,6 +415,10 @@ if (false === class_exists('WF_Licensing')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
 
+      if (false === current_user_can('administrator')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+      }
+      
       $old_license = $this->get_license();
       $result = $this->deactivate();
       do_action('wf_licensing_' . $this->prefix . '_deactivate_ajax', $old_license, $result);
@@ -421,6 +429,10 @@ if (false === class_exists('WF_Licensing')) {
     function save_ajax()
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
+
+      if (false === current_user_can('administrator')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+      }
 
       $license_key = sanitize_text_field($_POST['license_key']);
       $license_key = trim(substr($license_key, 0, 64));

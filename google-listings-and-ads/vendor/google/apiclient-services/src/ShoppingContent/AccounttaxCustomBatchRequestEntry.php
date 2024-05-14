@@ -23,10 +23,6 @@ class AccounttaxCustomBatchRequestEntry extends \Automattic\WooCommerce\GoogleLi
    * @var string
    */
   public $accountId;
-  /**
-   * @var AccountTax
-   */
-  public $accountTax;
   protected $accountTaxType = AccountTax::class;
   protected $accountTaxDataType = '';
   /**

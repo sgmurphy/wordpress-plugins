@@ -33,13 +33,18 @@
 					return navigator.getUserMedia || navigator.webkitGetUserMedia ||
 						navigator.mozGetUserMedia || navigator.msGetUserMedia || false;
 				},
+			init:function()
+				{
+					this.getCSSComponent('button', true, '#fbuilder .cff-record-av-field #'+this.name+'_record_btn', this.form_identifier);
+					this.getCSSComponent('button_hover', true, '#fbuilder .cff-record-av-field #'+this.name+'_record_btn:hover', this.form_identifier);
+				},
             show:function()
 				{
 					var max_time_formatted = this._format_time_component(this.max_time),
 						time_formatted = ( this._has_hours_component() ? '00:' : '')+'00:00';
 
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-record-av-field" id="field'+this.form_identifier+'-'+this.index+'">' +
-					'<label for="'+this.name+'_record_btn">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>' +
+					'<label for="'+this.name+'_record_btn" style="'+cff_esc_attr(this.getCSSComponent('label'))+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label>' +
 					'<div class="dfield">' +
 					'<input type="file" id="'+this.name+'" name="'+this.name+'[]" class="hide-strong" />' +
 					'<div class="cff-record-controls-container">' +
@@ -49,9 +54,9 @@
 					'</div>' +
 					'<div class="clearer"></div>' +
 					'<div class="cff-record-status hide-strong" id="'+this.name+'_record_status">'+cff_sanitize(this.status_message)+'</div>' +
-					( this.preview ? (this._is_video() ? '<video id="'+this.name+'_media" width="'+cff_esc_attr(this.video_width)+'" height="'+cff_esc_attr(this.video_height)+'" class="hide-strong" style="margin-top:20px;" preload="metadata"></video>': '<audio id="'+this.name+'_media" class="hide-strong"></audio>') : '' ) +
+					( this.preview ? (this._is_video() ? '<video id="'+this.name+'_media" width="'+cff_esc_attr(this.video_width)+'" height="'+cff_esc_attr(this.video_height)+'" class="hide-strong" style="margin-top:20px;" preload="metadata" style="'+cff_esc_attr(this.getCSSComponent('video'))+'"></video>': '<audio id="'+this.name+'_media" class="hide-strong" style="'+cff_esc_attr(this.getCSSComponent('audio'))+'"></audio>') : '' ) +
 					'<div class="clearer"></div>' +
-					'<span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
+					'<span class="uh" style="'+cff_esc_attr(this.getCSSComponent('help'))+'">'+this.userhelp+'</span></div><div class="clearer" /></div>';
 				},
 			after_show:function()
 			{

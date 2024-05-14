@@ -20,10 +20,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 class Headers extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Collection
 {
   protected $collection_key = 'weights';
-  /**
-   * @var LocationIdSet[]
-   */
-  public $locations;
   protected $locationsType = LocationIdSet::class;
   protected $locationsDataType = 'array';
   /**
@@ -34,16 +30,8 @@ class Headers extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google
    * @var string[]
    */
   public $postalCodeGroupNames;
-  /**
-   * @var Price[]
-   */
-  public $prices;
   protected $pricesType = Price::class;
   protected $pricesDataType = 'array';
-  /**
-   * @var Weight[]
-   */
-  public $weights;
   protected $weightsType = Weight::class;
   protected $weightsDataType = 'array';
 

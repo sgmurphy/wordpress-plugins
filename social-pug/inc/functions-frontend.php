@@ -58,6 +58,7 @@ function dpsp_get_output_total_share_count( $location = '', $networks = [] ) {
  * 'size'                   - string (small/medium/large)
  * 'columns'                - string (auto) / int (from 1 to 6),
  * 'show_labels'            - bool
+ * 'show_labels_mobile'     - bool
  * 'button_spacing'         - bool
  * 'show_count'             - bool
  * 'show_total_count'       - bool
@@ -114,6 +115,11 @@ function dpsp_get_share_buttons( $args = [] ) {
 	// Show labels
 	if ( isset( $args['show_labels'] ) ) {
 		$settings['display']['show_labels'] = ( ! empty( $args['show_labels'] ) ? 'yes' : 'no' );
+	}
+
+	// Show labels mobile
+	if ( isset( $args['show_labels_mobile'] ) ) {
+		$settings['display']['show_labels_mobile'] = ( ! empty( $args['show_labels_mobile'] ) ? 'yes' : 'no' );
 	}
 
 	// Button spacing
@@ -193,6 +199,7 @@ function dpsp_get_share_buttons( $args = [] ) {
 	$wrapper_classes[] = ( isset( $settings['display']['column_count'] ) ? 'dpsp-column-' . $settings['display']['column_count'] : '' );
 	$wrapper_classes[] = ( isset( $settings['display']['spacing'] ) ? 'dpsp-has-spacing' : '' );
 	$wrapper_classes[] = ( isset( $settings['display']['show_labels'] ) || isset( $settings['display']['show_count'] ) ? '' : 'dpsp-no-labels' );
+	$wrapper_classes[] = ( isset( $settings['display']['show_labels_mobile'] ) || isset( $settings['display']['show_count'] ) ? '' : 'dpsp-no-labels-mobile' );
 	$wrapper_classes[] = ( isset( $settings['display']['show_count'] ) ? 'dpsp-has-buttons-count' : '' );
 	$wrapper_classes[] = ( isset( $settings['display']['show_mobile'] ) ? 'dpsp-show-on-mobile' : 'dpsp-hide-on-mobile' );
 

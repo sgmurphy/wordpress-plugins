@@ -326,11 +326,11 @@ class ST_Importer {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param  string $data Widgets Data.
 	 * @param  string $widgets_data Widgets Data.
+	 * @param  string $data Widgets Data.
 	 * @return array
 	 */
-	public static function import_widgets( $data = '', $widgets_data ) {
+	public static function import_widgets( $widgets_data, $data = '' ) {
 
 		if ( isset( $data ) && is_object( $data ) ) {
 			// $data is set and is an object.

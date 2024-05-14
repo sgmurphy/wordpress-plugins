@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body m-0 p-0">
-                <a href="https://hidemywpghost.com/buy/special_5_websites/" target="_blank"><img src="<?php echo _HMWP_ASSETS_URL_ . 'img/pro_offer.jpg' ?>" alt="" style="max-width: 100%; height: auto; margin: 5px auto;"/></a>
+                <a href="https://hidemywpghost.com/hide-my-wp-pricing/" target="_blank"><img src="<?php echo _HMWP_ASSETS_URL_ . 'img/pro_offer.png' ?>" alt="" style="max-width: 100%; height: auto; margin: 5px auto;"/></a>
             </div>
         </div>
     </div>

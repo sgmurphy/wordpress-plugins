@@ -32,16 +32,8 @@ class AccountStatusProducts extends \Automattic\WooCommerce\GoogleListingsAndAds
    * @var string
    */
   public $destination;
-  /**
-   * @var AccountStatusItemLevelIssue[]
-   */
-  public $itemLevelIssues;
   protected $itemLevelIssuesType = AccountStatusItemLevelIssue::class;
   protected $itemLevelIssuesDataType = 'array';
-  /**
-   * @var AccountStatusStatistics
-   */
-  public $statistics;
   protected $statisticsType = AccountStatusStatistics::class;
   protected $statisticsDataType = '';
 

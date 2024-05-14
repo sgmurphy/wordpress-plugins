@@ -27,16 +27,8 @@ class OrderCustomer extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\
    * @var string
    */
   public $invoiceReceivingEmail;
-  /**
-   * @var OrderCustomerLoyaltyInfo
-   */
-  public $loyaltyInfo;
   protected $loyaltyInfoType = OrderCustomerLoyaltyInfo::class;
   protected $loyaltyInfoDataType = '';
-  /**
-   * @var OrderCustomerMarketingRightsInfo
-   */
-  public $marketingRightsInfo;
   protected $marketingRightsInfoType = OrderCustomerMarketingRightsInfo::class;
   protected $marketingRightsInfoDataType = '';
 

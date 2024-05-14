@@ -19,10 +19,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class ReturnPolicyOnlineReturnShippingFee extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var PriceAmount
-   */
-  public $fixedFee;
   protected $fixedFeeType = PriceAmount::class;
   protected $fixedFeeDataType = '';
   /**

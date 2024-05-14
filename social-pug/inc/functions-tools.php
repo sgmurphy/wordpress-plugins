@@ -64,6 +64,75 @@ function dpsp_get_active_tools() {
 	return $active_tools;
 }
 
+/** 
+ * Returns all activate tools - with nicenames.
+ * 
+ * Similar to get_active_tools except it returns the names of the tools rather
+ * than the slugs
+ * 
+ */
+
+function dpsp_get_active_tools_nicenames( $format = 'array', $include_links = false ) {
+
+	$active_tools = dpsp_get_active_tools();
+
+	$nicenames_array 	= array();
+	$nicenames_csv		= '';
+	$index				= 1;
+
+	if ( is_array( $active_tools ) ) {
+
+		foreach ( $active_tools as $tool ) {
+
+			$skip_comma = false;
+			
+			switch( $tool ) {
+				case 'share_sidebar':
+					$nicenames_array[] 	= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-sidebar') . '">Floating Sidebar</a>' : 'Floating Sidebar';
+					$nicenames_csv		.= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-sidebar') . '">Floating Sidebar</a>' : 'Floating Sidebar';
+					break;
+				case 'share_content':
+					$nicenames_array[] 	= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-content') . '">Inline Content</a>' : 'Inline Content';
+					$nicenames_csv		.= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-content') . '">Inline Content</a>' : 'Inline Content';
+					break;
+				case 'share_sticky_bar':
+					$nicenames_array[] 	= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-sticky-bar') . '">Sticky Bar</a>' : 'Sticky Bar';
+					$nicenames_csv		.= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-sticky-bar') . '">Sticky Bar</a>' : 'Sticky Bar';
+					break;
+				case 'share_pop_up':
+					$nicenames_array[] 	= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-pop-up') . '">Pop-up</a>' : 'Pop-up';
+					$nicenames_csv		.= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-pop-up') . '">Pop-up</a>' : 'Pop-up';
+					break;
+				case 'follow_widget':
+					$nicenames_array[] 	= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-follow-widget') . '">Follow Widget</a>' : 'Follow Widget';
+					$nicenames_csv		.= ( $include_links ) ? '<a href="' . admin_url( 'admin.php?page=dpsp-follow-widget') . '">Follow Widget</a>' : 'Follow Widget';
+					break;
+				default:
+					$skip_comma = true;
+					break;
+			}
+
+			if ( !$skip_comma ) {
+				$nicenames_csv .= ( $index < count( $active_tools ) ) ? ', ' : '';
+			}
+
+			$index++;
+		}
+
+		if (substr($nicenames_csv, -2) === ', ') {
+			$nicenames_csv = substr($nicenames_csv, 0, -2);
+		}
+
+	}
+
+	if ( $format == 'array' ) {
+		return $nicenames_array;
+	} else {
+		return $nicenames_csv; // CSV
+	}
+
+}
+
 /**
  * Checks to see if the tool settings is active or not.
  *
@@ -87,7 +156,7 @@ function dpsp_should_show_settings() {
 
 	$license_key 		 = get_option( 'mv_grow_license' );
 	$license_status      = get_option( 'mv_grow_license_status' );
-	$show_settings		 = ( ! empty( $license_key) && 'invalid' !== $license_status ) ? true : false;
+	$show_settings		 = ( ! empty( $license_key) && ( 'invalid' !== $license_status && 'disabled' !== $license_status ) ) ? true : false;
 
 	return $show_settings;
 }
@@ -214,7 +283,7 @@ function dpsp_validate_tool_ajax_action() {
 		wp_die();
 	}
 
-	$tool = filter_input( INPUT_POST, 'tool', FILTER_SANITIZE_STRING );
+	$tool = htmlspecialchars( $_POST['tool'] );
 
 	if ( empty( $tool ) ) {
 		echo 0;

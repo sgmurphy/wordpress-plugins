@@ -99,6 +99,7 @@ class Share_Count_Url_Counts implements ArrayAccess, IteratorAggregate, Serializ
 	 * @param mixed $offset An offset to check for.
 	 * @return bool Returns true on success or false on failure.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return array_key_exists( $offset, $this->network_counts );
 	}
@@ -109,6 +110,7 @@ class Share_Count_Url_Counts implements ArrayAccess, IteratorAggregate, Serializ
 	 * @param mixed $offset The offset to retrieve.
 	 * @return mixed Can return all value types.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return $this->network_counts[ $offset ] ?? null;
 	}
@@ -119,6 +121,7 @@ class Share_Count_Url_Counts implements ArrayAccess, IteratorAggregate, Serializ
 	 * @param mixed $offset The offset to assign the value to.
 	 * @param mixed $value The value to set.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		throw new RuntimeException( 'Failed to mutate immutable object.' );
 	}
@@ -128,6 +131,7 @@ class Share_Count_Url_Counts implements ArrayAccess, IteratorAggregate, Serializ
 	 *
 	 * @param mixed $offset The offset to unset.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		throw new RuntimeException( 'Failed to mutate immutable object.' );
 	}
@@ -180,7 +184,16 @@ class Share_Count_Url_Counts implements ArrayAccess, IteratorAggregate, Serializ
 	 *
 	 * @return Traversable
 	 */
+	#[\ReturnTypeWillChange]
 	public function getIterator() {
 		return new ArrayIterator( $this->network_counts );
+	}
+
+	// For PHP 8.1+ compat
+	public function __serialize() {
+		return $this->serialize();
+	}
+	public function __unserialize( $data ) {
+		return $this->unserialize( $data );
 	}
 }

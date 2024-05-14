@@ -49,6 +49,7 @@ function put_tool_settings() {
 					'show_count',
 					'show_count_total',
 					'show_labels',
+					'show_labels_mobile',
 					'show_mobile',
 					'size',
 					'spacing',

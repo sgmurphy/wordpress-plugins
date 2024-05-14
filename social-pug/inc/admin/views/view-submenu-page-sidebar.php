@@ -67,6 +67,8 @@
 ?>
 
 				<?php dpsp_settings_field( 'switch', 'dpsp_location_sidebar[display][show_labels]', ( isset( $dpsp_location_sidebar['display']['show_labels'] ) ? $dpsp_location_sidebar['display']['show_labels'] : '' ), __( 'Show button labels', 'social-pug' ), [ 'yes' ] ); ?>
+				
+				<?php dpsp_settings_field( 'switch', 'dpsp_location_sidebar[display][show_labels_mobile]', ( isset( $dpsp_location_sidebar['display']['show_labels_mobile'] ) ? $dpsp_location_sidebar['display']['show_labels_mobile'] : '' ), __( 'Show labels on mobile', 'social-pug' ), [ 'yes' ], __( 'The Show button labels setting (above) must be enabled.', 'social-pug' ) ); ?>
 
 				<?php dpsp_settings_field( 'switch', 'dpsp_location_sidebar[display][spacing]', ( isset( $dpsp_location_sidebar['display']['spacing'] ) ? $dpsp_location_sidebar['display']['spacing'] : '' ), __( 'Button spacing', 'social-pug' ), [ 'yes' ], __( 'Adds bottom spacing for each button.', 'social-pug' ) ); ?>
 

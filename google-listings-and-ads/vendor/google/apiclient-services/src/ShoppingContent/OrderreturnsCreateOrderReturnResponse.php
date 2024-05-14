@@ -27,10 +27,6 @@ class OrderreturnsCreateOrderReturnResponse extends \Automattic\WooCommerce\Goog
    * @var string
    */
   public $kind;
-  /**
-   * @var MerchantOrderReturn
-   */
-  public $orderReturn;
   protected $orderReturnType = MerchantOrderReturn::class;
   protected $orderReturnDataType = '';
 

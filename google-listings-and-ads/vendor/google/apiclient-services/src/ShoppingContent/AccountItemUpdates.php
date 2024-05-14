@@ -19,10 +19,6 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class AccountItemUpdates extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var AccountItemUpdatesSettings
-   */
-  public $accountItemUpdatesSettings;
   protected $accountItemUpdatesSettingsType = AccountItemUpdatesSettings::class;
   protected $accountItemUpdatesSettingsDataType = '';
   /**

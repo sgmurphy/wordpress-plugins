@@ -24,10 +24,6 @@ class MinimumOrderValueTableStoreCodeSetWithMov extends \Automattic\WooCommerce\
    * @var string[]
    */
   public $storeCodes;
-  /**
-   * @var Price
-   */
-  public $value;
   protected $valueType = Price::class;
   protected $valueDataType = '';
 

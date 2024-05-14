@@ -19,16 +19,8 @@ namespace Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\Shop
 
 class Warehouse extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Model
 {
-  /**
-   * @var BusinessDayConfig
-   */
-  public $businessDayConfig;
   protected $businessDayConfigType = BusinessDayConfig::class;
   protected $businessDayConfigDataType = '';
-  /**
-   * @var WarehouseCutoffTime
-   */
-  public $cutoffTime;
   protected $cutoffTimeType = WarehouseCutoffTime::class;
   protected $cutoffTimeDataType = '';
   /**
@@ -39,10 +31,6 @@ class Warehouse extends \Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Goog
    * @var string
    */
   public $name;
-  /**
-   * @var Address
-   */
-  public $shippingAddress;
   protected $shippingAddressType = Address::class;
   protected $shippingAddressDataType = '';
 

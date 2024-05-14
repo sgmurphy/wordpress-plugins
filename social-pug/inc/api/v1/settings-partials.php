@@ -114,6 +114,11 @@ function get_settings_partials() {
 			'description' => esc_html__( 'Whether to show labels or not', 'mediavine' ),
 
 		],
+		'show_labels_mobile'                         => [
+			'type'        => 'boolean',
+			'description' => esc_html__( 'Whether to show labels on mobile or not', 'mediavine' ),
+
+		],
 		'show_mobile'                         => [
 			'type'        => 'boolean',
 			'description' => esc_html__( 'Whether to show on mobile or not', 'mediavine' ),

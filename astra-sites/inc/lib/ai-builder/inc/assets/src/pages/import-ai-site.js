@@ -17,7 +17,7 @@ import {
 	saveTypography,
 	setSiteLanguage,
 } from '../utils/import-site/import-utils';
-const { imageDir, reportError } = aiBuilderVars;
+const { migrateSvg, reportError } = aiBuilderVars;
 let sendReportFlag = reportError;
 const successMessageDelay = 8000; // 8 seconds delay for fully assets load.
 import { STORE_KEY } from '../store';
@@ -2064,7 +2064,7 @@ const ImportAiSite = () => {
 						<div className="relative flex items-center justify-center px-10 py-6 h-120 w-120 bg-loading-website-grid-texture">
 							<img
 								className="w-[30rem] h-[20.875rem]"
-								src={ `${ imageDir }/build-with-ai/migrate.svg` }
+								src={ migrateSvg }
 								alt={ __( 'Migrating', 'ai-builder' ) }
 							/>
 						</div>

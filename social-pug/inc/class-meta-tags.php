@@ -95,6 +95,7 @@ class Meta_Tags {
 			'twitter:card'           => 'summary_large_image',
 			'twitter:title'          => $title,
 			'twitter:description'    => $desc,
+			'flipboard-article'		 => $desc,
 		];
 
 		// Set Facebook App ID.
@@ -127,8 +128,18 @@ class Meta_Tags {
 	public static function build_html( array $tags ) {
 		$output = '';
 		foreach ( $tags as $property => $value ) {
-			// Only Twitter uses the `meta` tag properly with a `name` attribute. The rest use `property`.
+			
+			// Meta tag attributes by network:
+			// Twitter: name
+			// Flipboard: class
+			// All others: property
 			$attr_name = ( 0 === strpos( $property, 'twitter:' ) ) ? 'name' : 'property';
+			
+			// Only Flipboard requires a CLASS! on the meta-tag. See issue: 1719
+			if ( strpos( $property, 'flipboard' ) !== false ) {
+				$attr_name = 'class';
+			}
+
 			$output   .= esc_attr( PHP_EOL ) . '<meta ' . $attr_name . '="' . esc_attr( $property ) . '" content="' . esc_attr( $value ) . '" />';
 		}
 

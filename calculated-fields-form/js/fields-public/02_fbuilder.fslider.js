@@ -132,6 +132,10 @@
 							this.calc_step = this.step;
 							this.step = Math.min(this.step, 1);
 						}
+
+						this.getCSSComponent('slider', true, '#fbuilder .'+this.name+' .ui-slider', this.form_identifier);
+						this.getCSSComponent('slider_handle', true, '#fbuilder .'+this.name+' .ui-slider-handle', this.form_identifier);
+						this.getCSSComponent('slider_range', true, '#fbuilder .'+this.name+' .ui-slider-range', this.form_identifier);
 					},
 				show:function()
 					{
@@ -192,7 +196,7 @@
 									'val' in getField(predefined)
 									? getField(predefined).val()
 									: predefined
-								)+'" '+((me.readonly) ? 'readonly' : '')+' /></div>';
+								)+'" '+((me.readonly) ? 'readonly' : '')+' style="'+cff_esc_attr(me.getCSSComponent('input'))+'" /></div>';
 							};
 
 							var str = '';
@@ -204,18 +208,18 @@
 						};
 						me.predefined = (/^\s*$/.test(me.predefined)) ? me.min : me._toNumber(me._getAttr('predefined'));
 						return '<div class="fields '+cff_esc_attr(me.csslayout)+' '+me.name+' cff-slider-field" id="field'+me.form_identifier+'-'+me.index+'">'+
-							'<label>'+me.title+'</label>'+
+							'<label style="'+cff_esc_attr(me.getCSSComponent('label'))+'">'+me.title+'</label>'+
 							'<div class="dfield slider-container">'+
 								typeValuesComponents()+
 								'<input id="'+me.name+'" name="'+me.name+'" class="field" type="hidden" value="'+cff_esc_attr(me.predefined)+'"/>'+
 								'<div id="'+me.name+'_slider" class="slider '+me.size+'"></div>'+
 								'<div class="corner-captions '+me.size+'">'+
-									'<span class="left-corner">'+me.minCaption+'</span>'+
-									'<span class="right-corner">'+me.maxCaption+'</span>'+
-									'<div id="'+me.name+'_caption" class="slider-caption"></div>'+
+									'<span class="left-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_left'))+'">'+me.minCaption+'</span>'+
+									'<span class="right-corner" style="'+cff_esc_attr(me.getCSSComponent('caption_right'))+'">'+me.maxCaption+'</span>'+
+									'<div id="'+me.name+'_caption" class="slider-caption" style="'+cff_esc_attr(me.getCSSComponent('caption'))+'"></div>'+
 									'<div class="clearer"></div>'+
 								'</div>'+
-								'<span class="uh">'+me.userhelp+'</span>'+
+								'<span class="uh" style="'+cff_esc_attr(me.getCSSComponent('help'))+'">'+me.userhelp+'</span>'+
 							'</div>'+
 							'<div class="clearer"></div>'+
 						'</div>';
