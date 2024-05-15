@@ -3,7 +3,7 @@
 	<img class="blogvault-logo" src="<?php echo esc_url(plugins_url("/../img/powered-by-blogvault.png", __FILE__)); ?>">
 </header>
 <main>
-	<div class="card">
+	<div class="card migration-card">
 		<div class="card-header-links">
 			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/solutions/33000046011">
 				FAQs
@@ -44,10 +44,13 @@
 	</div>
 
 	<div class="card migration-key-card">
-		<h2><span>Migration Key</span></h2>
-		<div>
+		<h2>
+			<span>Migration Key</span>
+			<span id="migration-key-content-dropdown" class="mdil mdil-chevron-down"></span>
+		</h2>
+		<div id="migration-key-content">
 			<div>
-				Install Migrate Guru Plugin on destination and copy the key.
+				Install Migrate Guru plugin on the destination and use the key.
 			</div><br/>
 			<div style="display: flex; gap: 8px; align-items: center;">
 				<input type="password" id="destination-migration-key" name="destination_migration_key" value="<?php echo esc_attr( $this->bvinfo->getConnectionKey() ); ?>" class="widefat" style="flex: 1;" readonly>
@@ -67,6 +70,9 @@
 			copyText.type = 'password'; // Revert back to password type
 			var copyButton = document.getElementById("copy-key");
 			copyButton.textContent = 'Copied!';
+			document.getElementById('view-key').textContent = 'View Key'; // Update the text of the "View Key" button
+			var copyButton = document.getElementById("copy-key");
+			copyButton.textContent = 'Copied!';
 			setTimeout(() => copyButton.textContent = 'Copy Key', 2000);
 		}
 		document.getElementById('view-key').addEventListener('click', function() {
@@ -77,6 +83,17 @@
 			} else {
 				keyField.type = "password";
 				this.textContent = 'View Key';
+			}
+		});
+		document.getElementById('migration-key-content-dropdown').addEventListener('click', function() {
+			var migrationKeyContent = document.getElementById("migration-key-content");
+			var migrationKeyContentDropdown = document.getElementById("migration-key-content-dropdown");
+			if (migrationKeyContent.style.display == 'block') {
+				migrationKeyContent.style.display = 'none';
+				migrationKeyContentDropdown.className = 'mdil mdil-chevron-down'
+			} else {
+				migrationKeyContent.style.display = 'block';
+				migrationKeyContentDropdown.className = 'mdil mdil-chevron-up'
 			}
 		});
 	</script>

@@ -1,12 +1,12 @@
 === Migrate Guru: Migrate & Clone WordPress Free ===
 Contributors: migrateguru, backup-by-blogvault 
-Tags: migrate, migration, clone, copy, Wordpress migrate
+Tags: migrate, migration, clone, copy, WordPress migrate
 Plugin URI: https://www.migrateguru.com/
 Donate link: https://www.migrateguru.com/
 Requires at least: 4.0
 Tested up to: 6.5
 Requires PHP: 5.6.0
-Stable tag: 5.48
+Stable tag: 5.56
 License: GPLv2 or later
 License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -135,6 +135,10 @@ Yes, we do. You can access it here: https://migrateguru.freshdesk.com/support/ho
 6. Click ‘Migrate’.
 
 == Changelog =
+= 5.56 =
+* UI Improvements
+* Better handling for Activate Redirect
+
 = 5.48 =
 * Upgrading to New UI
 

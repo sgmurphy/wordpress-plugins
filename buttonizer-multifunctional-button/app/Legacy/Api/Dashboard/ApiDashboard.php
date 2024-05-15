@@ -13,44 +13,41 @@
  */
 namespace Buttonizer\Legacy\Api\Dashboard;
 
-use  Buttonizer\Legacy\Utils\Maintain ;
-use  Buttonizer\Legacy\Utils\Update ;
-use  Buttonizer\Utils\PermissionCheck ;
+use Buttonizer\Legacy\Utils\Maintain;
+use Buttonizer\Legacy\Utils\Update;
+use Buttonizer\Utils\PermissionCheck;
 /**
  * Dashboard API
  * 
  * @endpoint /wp-json/buttonizer/dashboard
  * @methods GET
  */
-class ApiDashboard
-{
+class ApiDashboard {
     /**
      * Register route
      */
-    public function registerRoute()
-    {
-        register_rest_route( 'buttonizer', '/dashboard', [ [
-            'methods'             => [ 'GET' ],
+    public function registerRoute() {
+        register_rest_route( 'buttonizer', '/dashboard', [[
+            'methods'             => ['GET'],
             'args'                => [
-            'nonce' => [
-            'validate_callback' => function ( $value ) {
-            return wp_verify_nonce( $value, 'wp_rest' );
-        },
-            'required'          => true,
-        ],
-        ],
-            'callback'            => [ $this, 'get' ],
+                'nonce' => [
+                    'validate_callback' => function ( $value ) {
+                        return wp_verify_nonce( $value, 'wp_rest' );
+                    },
+                    'required'          => true,
+                ],
+            ],
+            'callback'            => [$this, 'get'],
             'permission_callback' => function () {
-            return PermissionCheck::hasPermission();
-        },
-        ] ] );
+                return PermissionCheck::hasPermission();
+            },
+        ]] );
     }
-    
+
     /**
      * Get settings
      */
-    public function get()
-    {
+    public function get() {
         $this->init();
         // Let the frontend know that this is the free version
         $premium = ButtonizerLicense()->can_use_premium_code();
@@ -68,24 +65,22 @@ class ApiDashboard
             "time_schedules"              => $this->loadTimeSchedules(),
             "page_rules"                  => $this->loadPageRules(),
             "wordpress"                   => [
-            "base"       => get_site_url(),
-            "admin_base" => substr( admin_url(), 0, -1 ),
-            'timezone'   => Maintain::getTimezone(),
-        ],
+                "base"       => get_site_url(),
+                "admin_base" => substr( admin_url(), 0, -1 ),
+                'timezone'   => Maintain::getTimezone(),
+            ],
         ];
     }
-    
+
     /**
      * Initialize few settings
      */
-    private function init()
-    {
+    private function init() {
         // Register general Buttonizer settings
         register_setting( 'buttonizer', 'buttonizer_settings' );
         // Load general Buttonizer settings
         $this->settings = get_option( 'buttonizer_settings' );
         // Migrate to Buttonizer 2.0
-        
         if ( !isset( $this->settings['migration_version'] ) ) {
             ( new Update() )->run();
             // Load updated general settings
@@ -95,16 +90,14 @@ class ApiDashboard
                 ( new Update() )->selfMigrate( $this->settings['migration_version'] );
             }
         }
-        
         // Load 'changes' boolean
         $this->hasChanges = get_option( 'buttonizer_has_changes' );
     }
-    
+
     /**
      * Load settings
      */
-    private function loadSettings()
-    {
+    private function loadSettings() {
         return [
             "welcome"                   => $this->checkBoolean( "welcome", false ),
             "changelog_dialog_updated"  => $this->check( "changelog_dialog_updated", 0 ),
@@ -125,12 +118,11 @@ class ApiDashboard
             "additional_permissions"    => $this->check( "additional_permissions", [] ),
         ];
     }
-    
+
     /**
      * Check is buttonizer has loaded $times times
      */
-    private function checkTimesLoaded( $times = 3 )
-    {
+    private function checkTimesLoaded( $times = 3 ) {
         // recheck buttonizer settings
         // Register general Buttonizer settings
         register_setting( 'buttonizer', 'buttonizer_settings' );
@@ -141,7 +133,6 @@ class ApiDashboard
             return $this->checkBoolean( "show_super_contributor_dialog", false );
         }
         // First
-        
         if ( !isset( $this->settings['buttonizer_times_loaded'] ) ) {
             $this->settings['buttonizer_times_loaded'] = 1;
         } else {
@@ -150,11 +141,10 @@ class ApiDashboard
                 $this->settings['show_super_contributor_dialog'] = true;
             }
         }
-        
         update_option( 'buttonizer_settings', $this->settings );
         return false;
     }
-    
+
     /**
      * Check setting exists, otherwise give default value
      *
@@ -162,11 +152,10 @@ class ApiDashboard
      * @param $default
      * @return mixed
      */
-    private function check( $name, $default )
-    {
-        return ( isset( $this->settings[$name] ) && !empty($this->settings[$name]) ? $this->settings[$name] : $default );
+    private function check( $name, $default ) {
+        return ( isset( $this->settings[$name] ) && !empty( $this->settings[$name] ) ? $this->settings[$name] : $default );
     }
-    
+
     /**
      * Check setting exists, otherwise give default value
      *
@@ -174,42 +163,38 @@ class ApiDashboard
      * @param $default
      * @return mixed
      */
-    private function checkBoolean( $name, $default )
-    {
+    private function checkBoolean( $name, $default ) {
         return ( isset( $this->settings[$name] ) ? filter_var( $this->settings[$name], FILTER_VALIDATE_BOOLEAN, [
             'options' => [
-            'default' => false,
-        ],
+                'default' => false,
+            ],
         ] ) === true : $default );
     }
-    
+
     /**
      * Return groups and buttons
      *
      * @return array
      */
-    private function loadButtonObjects()
-    {
+    private function loadButtonObjects() {
         // Register button settings
         register_setting( 'buttonizer', 'buttonizer_buttons' );
         // Load button settings
         $buttons = get_option( 'buttonizer_buttons' );
         return ( is_array( $buttons ) && count( $buttons ) > 0 ? $buttons : [] );
     }
-    
+
     /**
      * Get time schedules
      */
-    private function loadTimeSchedules()
-    {
+    private function loadTimeSchedules() {
         return false;
     }
-    
+
     /**
      * Get page rules
      */
-    private function loadPageRules()
-    {
+    private function loadPageRules() {
         return false;
     }
 

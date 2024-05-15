@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.5
-Stable tag: 7.7.2
+Stable tag: 7.7.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -154,13 +154,13 @@ The Post Grid offers over 90 pre-made sections for Elementor and Gutenberg, alon
 * Join our [Facebook Group](https://www.facebook.com/groups/radiustheme).
 * Learn from our tutorials on [YouTube Channel](https://www.youtube.com/@RadiusTheme).
 
-🔥 == WHAT’S NEXT ==
+== 🔥 WHAT’S NEXT ==
 
 If you like The Post Grid Plugin, then consider checking out our other WordPress Plugins:
 
 * [Classified Lisitng](https://wordpress.org/plugins/classified-listing/) – Best Classified ads and Directory WordPress Plugin
 
-* [Variation Swatches](https://wordpress.org/plugins/woo-product-variation-swatches/) - Woocommerce Variation Swatches plugin converts the product variation select fields into radio, images, colors, and labels. 
+* [Variation Swatches](https://wordpress.org/plugins/woo-product-variation-swatches/) - Woocommerce Variation Swatches plugin converts the product variation select fields into radio, images, colors, and labels.
 
 * [Variation Gallery](https://wordpress.org/plugins/woo-product-variation-gallery/) - Woocommerce Variation Gallery plugin allows to add UNLIMITED additional images for each variation of product.
 
@@ -247,6 +247,12 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 11. Elementor Page builder
 
 == Changelog ==
+
+= 7.7.3 =
+* Fixed: Gutenberg margin padding responsive issue fixed
+* Fixed: Gutenberg gradient ( cannot read properties of undefined reading 'orientation' )
+* Fixed: Taxonomy source and Front-end Filter tax source for CPT not working
+* Updated: Security updated
 
 = 7.7.2 =
 * Fixed: Security issues Fixed

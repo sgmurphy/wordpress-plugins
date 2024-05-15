@@ -1,6 +1,6 @@
 === Inline Related Posts ===
 Contributors: IntellyWP, Data443
-Tags: related post, related posts,inline related posts, inside related posts, suggestions, similar post, similar posts, related,contextual, relations, seo, bounce rate, internal links, related content, Zemanta, Related Links, Contextual Related Posts, YARPP
+Tags: inline related posts, suggestions, similar posts, Zemanta, YARPP
 Requires at least: 3.6
 Tested up to: 6.4
 Requires PHP: 5.6

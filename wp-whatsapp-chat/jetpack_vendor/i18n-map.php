@@ -20,6 +20,14 @@ return array(
       'path' => 'jetpack_vendor/quadlayers/wp-notice-plugin-required',
       'ver' => '0.0.0',
     ),
+    'wp-plugin-install-tab' => array(
+      'path' => 'jetpack_vendor/quadlayers/wp-plugin-install-tab',
+      'ver' => '0.0.0',
+    ),
+    'wp-plugin-suggestions' => array(
+      'path' => 'jetpack_vendor/quadlayers/wp-plugin-suggestions',
+      'ver' => '0.0.0',
+    ),
     'wp-plugin-table-links' => array(
       'path' => 'jetpack_vendor/quadlayers/wp-plugin-table-links',
       'ver' => '0.0.0',

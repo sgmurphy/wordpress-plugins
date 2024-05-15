@@ -86,21 +86,14 @@ let thumbpress_modal = ( show = true ) => {
 	// dismiss
 	$(".image_sizes-dismiss").click(function (e) {
 		var $this = $(this);
-		$this.parent().slideToggle();
+
 		$.ajax({
 			url: THUMBPRESS.ajaxurl,
 			data: {
 				action: "image_sizes-dismiss",
 				meta_key: $this.data("meta_key"),
-				_nonce: THUMBPRESS.nonce,
 			},
-			type: "GET",
-			success: function (res) {
-				console.log(res);
-			},
-			error: function (err) {
-				console.log(err);
-			},
+			type: "POST",			
 		});
 	});
 
@@ -223,8 +216,11 @@ let thumbpress_modal = ( show = true ) => {
 		}
 	});
 	// addClass with pointer
-	parent = $('.image_sizes-para').parent();
-	parent.addClass( 'image-sizes-pointer' ) ;
+	// parent = $('.image_sizes-para').parent();
+	// parent.addClass( 'image-sizes-pointer' ) ;
+
+	$('.image_sizes-para').parent().addClass('image-sizes-pointer');
+
 	 
 
 

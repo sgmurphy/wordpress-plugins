@@ -81,5 +81,9 @@ return array(
     'QuadLayers\\WP_Orm\\Repository\\CollectionRepositoryInterface' => $vendorDir . '/franmastromarino/wp-orm/src/Repository/CollectionRepositoryInterface.php',
     'QuadLayers\\WP_Orm\\Repository\\SingleRepository' => $vendorDir . '/franmastromarino/wp-orm/src/Repository/SingleRepository.php',
     'QuadLayers\\WP_Orm\\Repository\\SingleRepositoryInterface' => $vendorDir . '/franmastromarino/wp-orm/src/Repository/SingleRepositoryInterface.php',
+    'QuadLayers\\WP_Plugin_Install_Tab\\Load' => $baseDir . '/jetpack_vendor/quadlayers/wp-plugin-install-tab/src/Load.php',
+    'QuadLayers\\WP_Plugin_Suggestions\\Load' => $baseDir . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Load.php',
+    'QuadLayers\\WP_Plugin_Suggestions\\Page' => $baseDir . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Page.php',
+    'QuadLayers\\WP_Plugin_Suggestions\\Table' => $baseDir . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Table.php',
     'QuadLayers\\WP_Plugin_Table_Links\\Load' => $baseDir . '/jetpack_vendor/quadlayers/wp-plugin-table-links/src/Load.php',
 );

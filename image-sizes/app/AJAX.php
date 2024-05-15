@@ -74,4 +74,11 @@ class Ajax extends Base {
 		wp_send_json( $response );
 
 	}
+
+	public function image_sizes_dismiss(){		
+
+		if ( 'cx-setup-notice' ==  $_POST['meta_key'] ) {
+			update_option( "{$this->slug}_dismiss", 1 );
+		}
+	}
 }

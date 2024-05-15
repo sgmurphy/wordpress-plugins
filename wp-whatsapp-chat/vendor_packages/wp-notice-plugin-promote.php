@@ -19,17 +19,20 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 	/**
 	 * Notice cross sell 1
 	 */
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_SLUG', 'insta-gallery' );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_NAME', 'Instagram Feed Gallery' );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'Instagram Feed Gallery is a user-friendly WordPress plugin. It simplifies integration, speeds up site updates, and aligns with the rapidly evolving social media landscape.', 'wp-whatsapp-chat' ) );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_URL', 'https://quadlayers.com/products/instagram-feed-gallery/?utm_source=qlwapp_admin' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_SLUG', 'ai-copilot' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_NAME', 'AI Copilot' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'Boost your productivity in WordPress content creation with AI-driven tools, automated content generation, and enhanced editor utilities.', 'wp-whatsapp-chat' ) );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_URL', 'https://quadlayers.com/products/ai-copilot/?utm_source=qlwapp_admin' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_LOGO_SRC', plugins_url( '/assets/backend/img/ai-copilot.png', QLWAPP_PLUGIN_FILE ) );
 	/**
 	 * Notice cross sell 2
 	 */
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_SLUG', 'wp-tiktok-feed' );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_NAME', 'TikTok Feed' );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_DESCRIPTION', esc_html__( 'TikTok Feed is a user-friendly WordPress plugin designed for easy integration. It ensures quick site updates and keeps pace with the fast-growing social media trends.', 'wp-whatsapp-chat' ) );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_URL', 'https://quadlayers.com/products/tiktok-feed/?utm_source=qlwapp_admin' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_SLUG', 'insta-gallery' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_NAME', 'Instagram Feed Gallery' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_DESCRIPTION', esc_html__( 'Instagram Feed Gallery is a user-friendly WordPress plugin. It simplifies integration, speeds up site updates, and aligns with the rapidly evolving social media landscape.', 'wp-whatsapp-chat' ) );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_URL', 'https://quadlayers.com/products/instagram-feed-gallery/?utm_source=qlwapp_admin' );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_LOGO_SRC', plugins_url( '/assets/backend/img/insta-gallery.jpg', QLWAPP_PLUGIN_FILE ) );
+
 
 	new \QuadLayers\WP_Notice_Plugin_Promote\Load(
 		QLWAPP_PLUGIN_FILE,
@@ -88,7 +91,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 			array(
 				'plugin_slug'        => QLWAPP_PROMOTE_CROSS_INSTALL_1_SLUG,
 				'notice_delay'       => MONTH_IN_SECONDS * 4,
-				'notice_logo'        => QLWAPP_PROMOTE_LOGO_SRC,
+				'notice_logo'        => QLWAPP_PROMOTE_CROSS_INSTALL_1_LOGO_SRC,
 				'notice_title'       => sprintf(
 					esc_html__(
 						'Hello! We want to invite you to try our %s plugin!',
@@ -106,7 +109,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 			array(
 				'plugin_slug'        => QLWAPP_PROMOTE_CROSS_INSTALL_2_SLUG,
 				'notice_delay'       => MONTH_IN_SECONDS * 6,
-				'notice_logo'        => QLWAPP_PROMOTE_LOGO_SRC,
+				'notice_logo'        => QLWAPP_PROMOTE_CROSS_INSTALL_2_LOGO_SRC,
 				'notice_title'       => sprintf(
 					esc_html__(
 						'Hello! We want to invite you to try our %s plugin!',

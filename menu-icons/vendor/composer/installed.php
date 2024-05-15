@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/wp-menu-icons',
-        'pretty_version' => 'v0.13.13',
-        'version' => '0.13.13.0',
-        'reference' => '1d9b7a1bc87b0942bb633546596245b44c1dd15e',
+        'pretty_version' => 'v0.13.14',
+        'version' => '0.13.14.0',
+        'reference' => 'a7c071a7be5a809a8379624381d823e2d9b20e50',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,10 +22,12 @@
         'codeinwp/icon-picker' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0c60ce3a41653e41a20e710c4d5a6a2104c85020',
+            'reference' => '8efc2e400231ad7d4af94ff9270cd5b50248d4c9',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../codeinwp/icon-picker',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
             'dev_requirement' => false,
         ),
         'codeinwp/menu-item-custom-fields' => array(
@@ -47,9 +49,9 @@
             'dev_requirement' => false,
         ),
         'codeinwp/wp-menu-icons' => array(
-            'pretty_version' => 'v0.13.13',
-            'version' => '0.13.13.0',
-            'reference' => '1d9b7a1bc87b0942bb633546596245b44c1dd15e',
+            'pretty_version' => 'v0.13.14',
+            'version' => '0.13.14.0',
+            'reference' => 'a7c071a7be5a809a8379624381d823e2d9b20e50',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -60,6 +62,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'enshrined/svg-sanitize' => array(
+            'pretty_version' => '0.18.0',
+            'version' => '0.18.0.0',
+            'reference' => '6a2c069dab3843ca4d887ff09c972fc7033888d0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../enshrined/svg-sanitize',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
     ),
 );

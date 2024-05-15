@@ -5,8 +5,6 @@
  * @package  WooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\Features\Features;
-
 defined( 'ABSPATH' ) || exit;
 
 /**

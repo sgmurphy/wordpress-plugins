@@ -13,50 +13,47 @@
  */
 namespace Buttonizer\Legacy\Api\PageRules\WordPressData;
 
-use  Buttonizer\Legacy\Frontend\Buttonizer ;
-use  Buttonizer\Legacy\Frontend\PageRules\Rule\Rule ;
-use  Buttonizer\Utils\PermissionCheck ;
+use Buttonizer\Legacy\Frontend\Buttonizer;
+use Buttonizer\Legacy\Frontend\PageRules\Rule\Rule;
+use Buttonizer\Utils\PermissionCheck;
 /**
  * WordPress Buttonizer API
  * 
  * @endpoint /wp-json/buttonizer/pagerules/debug
  * @methods GET
  */
-class ApiDebug
-{
+class ApiDebug {
     /**
      * Register route
      */
-    public function registerRoute()
-    {
-        register_rest_route( 'buttonizer', '/page_rules/debug', [ [
-            'methods'             => [ 'GET' ],
+    public function registerRoute() {
+        register_rest_route( 'buttonizer', '/page_rules/debug', [[
+            'methods'             => ['GET'],
             'args'                => [
-            'rule'      => [
-            'required' => true,
-            "type"     => "string",
-        ],
-            'user_role' => [
-            'required' => true,
-            "type"     => "string",
-        ],
-            'url'       => [
-            'required' => true,
-            "type"     => "string",
-        ],
-        ],
-            'callback'            => [ $this, 'debug' ],
+                'rule'      => [
+                    'required' => true,
+                    "type"     => "string",
+                ],
+                'user_role' => [
+                    'required' => true,
+                    "type"     => "string",
+                ],
+                'url'       => [
+                    'required' => true,
+                    "type"     => "string",
+                ],
+            ],
+            'callback'            => [$this, 'debug'],
             'permission_callback' => function () {
-            return PermissionCheck::hasPermission();
-        },
-        ] ] );
+                return PermissionCheck::hasPermission();
+            },
+        ]] );
     }
-    
+
     /**
      * Get page rules roles
      */
-    public function debug()
-    {
+    public function debug() {
         return \Buttonizer\Legacy\Api\Api::needButtonizerPremium();
     }
 

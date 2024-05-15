@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.11.0\n"
+"Project-Id-Version: Give - Donation Plugin 3.12.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-08T13:52:08+00:00\n"
+"POT-Creation-Date: 2024-05-15T15:11:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -68,8 +68,8 @@ msgstr ""
 
 #: blocks/donation-form/class-give-donation-form-block.php:137
 #: src/DonationForms/Blocks/DonationFormBlock/DataTransferObjects/BlockAttributes.php:39
-#: src/DonationForms/Properties/FormSettings.php:272
-#: src/DonationForms/Properties/FormSettings.php:322
+#: src/DonationForms/Properties/FormSettings.php:286
+#: src/DonationForms/Properties/FormSettings.php:341
 msgid "Donate now"
 msgstr ""
 
@@ -346,7 +346,7 @@ msgstr[1] ""
 #: includes/admin/tools/import/class-give-import-donations.php:259
 #: src/Views/Form/Templates/Classic/Classic.php:345
 #: src/Views/Form/Templates/Sequoia/sections/income-stats.php:54
-#: assets/dist/js/donor-dashboards-block.js:5735
+#: assets/dist/js/donor-dashboards-block.js:5755
 msgid "donor"
 msgid_plural "donors"
 msgstr[0] ""
@@ -387,7 +387,7 @@ msgstr ""
 #: includes/admin/admin-actions.php:971
 #: includes/class-give-scripts.php:521
 #: includes/process-donation.php:643
-#: includes/shortcodes.php:502
+#: includes/shortcodes.php:505
 msgid "Please enter your first name."
 msgstr ""
 
@@ -502,7 +502,7 @@ msgstr ""
 #: includes/admin/tools/import/class-give-import-donations.php:604
 #: src/API/Endpoints/Reports/Income.php:98
 #: src/API/Endpoints/Reports/IncomeBreakdown.php:83
-#: src/DonationForms/ViewModels/DonationFormViewModel.php:151
+#: src/DonationForms/ViewModels/DonationFormViewModel.php:152
 #: src/Donors/DonorsAdminPage.php:51
 #: src/Donors/DonorsAdminPage.php:52
 #: assets/dist/js/give-admin-donors.js:1132
@@ -807,6 +807,7 @@ msgstr ""
 #: src/EventTickets/ListTable/Columns/DateColumn.php:37
 #: src/Exports/resources/views/export-donors-table-row.php:23
 #: assets/dist/js/give-admin-event-tickets-details.js:1189
+#: build/formBuilderApp.js:13
 msgid "Start Date"
 msgstr ""
 
@@ -819,6 +820,7 @@ msgstr ""
 #: includes/admin/tools/export/class-give-export-donations.php:252
 #: src/Exports/resources/views/export-donors-table-row.php:32
 #: assets/dist/js/give-admin-event-tickets-details.js:1190
+#: build/formBuilderApp.js:13
 msgid "End Date"
 msgstr ""
 
@@ -900,7 +902,7 @@ msgstr ""
 #: src/API/Endpoints/Reports/FormPerformance.php:103
 #: src/API/Endpoints/Reports/IncomeBreakdown.php:84
 #: src/DonationForms/V2/ListTable/Columns/DonationCountColumn.php:37
-#: src/DonationForms/ViewModels/DonationFormViewModel.php:155
+#: src/DonationForms/ViewModels/DonationFormViewModel.php:156
 #: src/Donations/DonationsAdminPage.php:51
 #: src/Donations/DonationsAdminPage.php:52
 #: src/Donors/ListTable/Columns/DonationCountColumn.php:37
@@ -1394,7 +1396,7 @@ msgstr ""
 #: includes/admin/tools/import/class-give-import-donations.php:491
 #: includes/forms/template.php:966
 #: includes/forms/template.php:981
-#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:127
+#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:126
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:181
 #: src/Receipt/DonationReceipt.php:78
 #: templates/email-login-form.php:108
@@ -2133,7 +2135,6 @@ msgid "Donation Options"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:138
-#: build/formBuilderRegistrars.js:1
 msgid "Donation Option"
 msgstr ""
 
@@ -2142,7 +2143,6 @@ msgid "Do you want this form to have one set donation price or multiple levels (
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:149
-#: build/formBuilderRegistrars.js:1
 msgid "Multi-level Donation"
 msgstr ""
 
@@ -2386,7 +2386,7 @@ msgid "Do you want to display the total amount raised based on your monetary goa
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:473
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:121
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:141
 msgid "Amount Raised"
 msgstr ""
 
@@ -2397,14 +2397,14 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:475
 #: includes/admin/shortcodes/shortcode-give-donation-grid.php:66
 #: includes/admin/tools/export/pdf-reports.php:113
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:127
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:147
 #: build/adminBlocks.js:1
 #: build/formBuilderRegistrars.js:1
 msgid "Number of Donations"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:476
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:132
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:152
 msgid "Number of Donors"
 msgstr ""
 
@@ -2458,7 +2458,7 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:539
 #: src/DonationForms/Factories/DonationFormFactory.php:39
-#: src/DonationForms/Properties/FormSettings.php:285
+#: src/DonationForms/Properties/FormSettings.php:304
 #: src/Onboarding/DefaultFormFactory.php:67
 msgid "Thank you to all our donors, we have met our fundraising goal."
 msgstr ""
@@ -3013,7 +3013,7 @@ msgstr ""
 #: includes/admin/shortcodes/shortcode-give-form.php:27
 #: includes/admin/shortcodes/shortcode-give-form.php:28
 #: includes/post-types.php:69
-#: src/DonationForms/Properties/FormSettings.php:271
+#: src/DonationForms/Properties/FormSettings.php:285
 #: src/Donations/ListTable/Columns/FormColumn.php:37
 #: build/adminBlocks.js:1
 #: build/formBuilderApp.js:13
@@ -3750,6 +3750,7 @@ msgid "Last Year"
 msgstr ""
 
 #: includes/admin/reports/graphing.php:516
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:194
 #: build/adminBlocks.js:1
 msgid "Custom"
 msgstr ""
@@ -5352,7 +5353,7 @@ msgid "Enter a message to display encouraging donors to support the goal."
 msgstr ""
 
 #: includes/admin/shortcodes/shortcode-give-totals.php:105
-#: includes/shortcodes.php:639
+#: includes/shortcodes.php:642
 msgid "Hey! We've raised {total} of the {total_goal} we are trying to raise for this campaign!"
 msgstr ""
 
@@ -5865,7 +5866,7 @@ msgstr ""
 #: includes/admin/tools/import/class-give-import-donations.php:254
 #: includes/admin/tools/import/class-give-import-donations.php:260
 #: includes/forms/functions.php:1280
-#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:81
+#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:107
 #: assets/dist/js/give-admin-donors.js:1133
 #: assets/dist/js/give-admin-donors.js:1134
 msgid "donors"
@@ -5912,7 +5913,7 @@ msgstr[1] ""
 #: includes/admin/tools/import/class-give-import-donations.php:272
 #: includes/admin/tools/import/class-give-import-donations.php:278
 #: includes/forms/functions.php:1280
-#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:85
+#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:111
 #: assets/dist/js/give-admin-donations.js:1765
 #: build/donationFormRegistrars.js:1
 #: build/formBuilderRegistrars.js:1
@@ -12997,7 +12998,7 @@ msgstr ""
 #: includes/forms/template.php:2034
 #: includes/forms/widget.php:172
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:54
-#: includes/shortcodes.php:649
+#: includes/shortcodes.php:652
 #: src/Form/Template.php:239
 #: src/Form/Template.php:250
 #: src/Form/Template/Options.php:60
@@ -13306,7 +13307,7 @@ msgstr ""
 
 #: includes/forms/widget.php:170
 #: includes/forms/widget.php:177
-#: src/DonationForms/Properties/FormSettings.php:324
+#: src/DonationForms/Properties/FormSettings.php:343
 #: src/Onboarding/DefaultFormFactory.php:140
 #: src/Views/Form/Templates/Sequoia/Actions.php:321
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:178
@@ -14782,48 +14783,48 @@ msgid "You must be logged in to view your donation history. Please login using y
 msgstr ""
 
 #: includes/shortcodes.php:164
-#: includes/shortcodes.php:246
+#: includes/shortcodes.php:249
 msgid "The shortcode is missing a valid Donation Form ID attribute."
 msgstr ""
 
 #: includes/shortcodes.php:172
-#: includes/shortcodes.php:250
+#: includes/shortcodes.php:253
 msgid "The form is not published."
 msgstr ""
 
-#: includes/shortcodes.php:254
+#: includes/shortcodes.php:257
 msgid "The form does not have Goals enabled."
 msgstr ""
 
-#: includes/shortcodes.php:353
+#: includes/shortcodes.php:356
 msgid "You are missing the donation id to view this donation receipt."
 msgstr ""
 
-#: includes/shortcodes.php:430
+#: includes/shortcodes.php:433
 msgid "Your Donor and User profile are no longer connected. Please contact the site administrator."
 msgstr ""
 
-#: includes/shortcodes.php:510
+#: includes/shortcodes.php:513
 msgid "The email you entered is empty."
 msgstr ""
 
-#: includes/shortcodes.php:514
+#: includes/shortcodes.php:517
 msgid "The email you entered is not valid. Please use another"
 msgstr ""
 
-#: includes/shortcodes.php:519
+#: includes/shortcodes.php:522
 msgid "The email you entered belongs to another user. Please use another."
 msgstr ""
 
-#: includes/shortcodes.php:522
+#: includes/shortcodes.php:525
 msgid "The email you entered belongs to another donor. Please use another."
 msgstr ""
 
-#: includes/shortcodes.php:1100
+#: includes/shortcodes.php:1103
 msgid "&laquo; Previous"
 msgstr ""
 
-#: includes/shortcodes.php:1101
+#: includes/shortcodes.php:1104
 msgid "Next &raquo;"
 msgstr ""
 
@@ -15009,12 +15010,12 @@ msgstr ""
 msgid "Show terms"
 msgstr ""
 
-#: src/DonationForms/Actions/ConvertDonationAmountBlockToFieldsApi.php:148
+#: src/DonationForms/Actions/ConvertDonationAmountBlockToFieldsApi.php:154
 #: build/formBuilderRegistrars.js:1
 msgid "One Time"
 msgstr ""
 
-#: src/DonationForms/Actions/ConvertDonationAmountBlockToFieldsApi.php:163
+#: src/DonationForms/Actions/ConvertDonationAmountBlockToFieldsApi.php:169
 msgid "Choose your donation frequency"
 msgstr ""
 
@@ -15022,11 +15023,11 @@ msgstr ""
 msgid "[%s] This payment gateway does not support recurring payments, please try selecting another payment gateway."
 msgstr ""
 
-#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:89
+#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:115
 msgid "recurring donations"
 msgstr ""
 
-#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:92
+#: src/DonationForms/DataTransferObjects/DonationFormGoalData.php:118
 msgid "amount"
 msgstr ""
 
@@ -15036,7 +15037,7 @@ msgid "GiveWP Donation Form"
 msgstr ""
 
 #: src/DonationForms/Factories/DonationFormFactory.php:34
-#: src/DonationForms/Properties/FormSettings.php:265
+#: src/DonationForms/Properties/FormSettings.php:279
 #: src/Onboarding/DefaultFormFactory.php:122
 #: src/Views/Form/Templates/Classic/optionConfig.php:70
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:10
@@ -15057,16 +15058,16 @@ msgstr ""
 msgid "Two Panel"
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:267
+#: src/DonationForms/Properties/FormSettings.php:281
 msgid "Help our organization by donating today! Donations go to making a difference for our cause."
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:289
+#: src/DonationForms/Properties/FormSettings.php:308
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:337
 msgid "Hey {first_name}, thanks for your donation!"
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:293
+#: src/DonationForms/Properties/FormSettings.php:312
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:354
 msgid "{first_name}, your contribution means a lot and will be put to good use in making a difference. We’ve sent your donation receipt to {email}."
 msgstr ""
@@ -15170,7 +15171,6 @@ msgid "Goal achieved!"
 msgstr ""
 
 #: src/DonationForms/V2/ListTable/Columns/LevelsColumn.php:35
-#: build/formBuilderRegistrars.js:1
 msgid "Donation Levels"
 msgstr ""
 
@@ -15209,7 +15209,7 @@ msgstr ""
 msgid "Upgraded"
 msgstr ""
 
-#: src/DonationForms/ViewModels/DonationFormViewModel.php:159
+#: src/DonationForms/ViewModels/DonationFormViewModel.php:160
 #: src/Onboarding/Setup/templates/index.html.php:174
 #: src/Onboarding/Setup/templates/index.html.php:175
 #: assets/dist/js/admin-onboarding-wizard.js:4408
@@ -15217,7 +15217,7 @@ msgstr ""
 msgid "Recurring Donations"
 msgstr ""
 
-#: src/DonationForms/ViewModels/DonationFormViewModel.php:162
+#: src/DonationForms/ViewModels/DonationFormViewModel.php:163
 msgid "Counted"
 msgstr ""
 
@@ -15346,7 +15346,7 @@ msgstr ""
 
 #: src/DonorDashboards/Admin/Settings.php:142
 #: src/DonorDashboards/resources/views/donordashboard.php:14
-#: assets/dist/js/donor-dashboards-block.js:5729
+#: assets/dist/js/donor-dashboards-block.js:5749
 msgid "Donor Dashboard"
 msgstr ""
 
@@ -15771,26 +15771,26 @@ msgstr ""
 msgid "How would you like to pay for your donation?"
 msgstr ""
 
-#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:105
+#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:104
 msgid "Mr"
 msgstr ""
 
-#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:106
+#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:105
 msgid "Ms"
 msgstr ""
 
-#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:107
+#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:106
 msgid "Mrs"
 msgstr ""
 
+#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:108
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:109
-#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:110
 #: build/formBuilderRegistrars.js:1
 msgid "First name"
 msgstr ""
 
+#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:110
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:111
-#: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:112
 #: build/formBuilderRegistrars.js:1
 msgid "Last name"
 msgstr ""
@@ -15809,54 +15809,66 @@ msgid_plural "<p>The following blocks were not found and are required for the fo
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:122
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:142
 msgid "The total amount raised for the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:128
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:148
 msgid "The total number of donations made for the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:133
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:153
 msgid "The total number of unique donors who have donated to the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:141
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:161
 msgid "Subscription Amount Raised"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:142
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:162
 msgid "The total amount raised for the form through subscriptions"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:147
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:167
 msgid "Number of Subscriptions"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:148
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:168
 msgid "The total number of subscriptions made for the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:152
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:172
 msgid "Number of Subscribers"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:153
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:173
 msgid "The total number of unique donors who have donated to the form through subscriptions"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:183
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:184
-msgid "The first name supplied by the donor during their donation."
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:189
+msgid "All time"
 msgstr ""
 
 #: src/FormBuilder/ViewModels/FormBuilderViewModel.php:190
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:191
+msgid "Displays the goal progress for a lifetime, starting from when this form was published."
+msgstr ""
+
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:195
+msgid "Displays the goal progress from the start date to the end date."
+msgstr ""
+
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:222
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:223
+msgid "The first name supplied by the donor during their donation."
+msgstr ""
+
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:229
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:230
 msgid "The last name supplied by the donor during their donation."
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:197
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:198
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:236
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:237
 msgid "The email supplied by the donor during their donation."
 msgstr ""
 
@@ -16290,19 +16302,19 @@ msgstr ""
 msgid "Grey"
 msgstr ""
 
-#: src/MultiFormGoals/ProgressBar/Model.php:312
+#: src/MultiFormGoals/ProgressBar/Model.php:311
 msgid "day to go"
 msgid_plural "days to go"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/MultiFormGoals/ProgressBar/Model.php:316
+#: src/MultiFormGoals/ProgressBar/Model.php:315
 msgid "hour to go"
 msgid_plural "hours to go"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/MultiFormGoals/ProgressBar/Model.php:320
+#: src/MultiFormGoals/ProgressBar/Model.php:319
 msgid "minute to go"
 msgid_plural "minutes to go"
 msgstr[0] ""
@@ -19158,25 +19170,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: amount of income raised 2: goal target amount.
-#: templates/shortcode-goal.php:181
+#: templates/shortcode-goal.php:200
 msgid "<span class=\"income\" data-amounts=\"%1$s\">%2$s</span> of <span class=\"goal-text\" data-amounts=\"%3$s\">%4$s</span> raised"
 msgstr ""
 
 #. translators: %s: percentage of the amount raised compared to the goal target
-#: templates/shortcode-goal.php:191
+#: templates/shortcode-goal.php:210
 #: templates/shortcode-totals-progress.php:34
 msgid "<span class=\"give-percentage\">%s%%</span> funded"
 msgstr ""
 
 #. translators: 1: total number of donations completed 2: total number of donations set as goal
-#: templates/shortcode-goal.php:198
+#: templates/shortcode-goal.php:217
 msgid "<span class=\"income\">%1$s</span> of <span class=\"goal-text\">%2$s</span> donation"
 msgid_plural "<span class=\"income\">%1$s</span> of <span class=\"goal-text\">%2$s</span> donations"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: total number of donors completed 2: total number of donors set as goal
-#: templates/shortcode-goal.php:212
+#: templates/shortcode-goal.php:231
 msgid "<span class=\"income\">%1$s</span> of <span class=\"goal-text\">%2$s</span> donor"
 msgid_plural "<span class=\"income\">%1$s</span> of <span class=\"goal-text\">%2$s</span> donors"
 msgstr[0] ""
@@ -19777,11 +19789,11 @@ msgstr ""
 msgid "Accent Color"
 msgstr ""
 
-#: assets/dist/js/donor-dashboards-block.js:5730
+#: assets/dist/js/donor-dashboards-block.js:5750
 msgid "The Donor Dashboard block allows donors to modify and review their donor information from the front-end."
 msgstr ""
 
-#: assets/dist/js/donor-dashboards-block.js:5735
+#: assets/dist/js/donor-dashboards-block.js:5755
 msgid "dashboard"
 msgstr ""
 
@@ -20569,6 +20581,7 @@ msgid "Loading log activity"
 msgstr ""
 
 #: assets/dist/js/give-log-list-table-app.js:6778
+#: build/formBuilderApp.js:13
 msgid "Reset"
 msgstr ""
 
@@ -21810,7 +21823,15 @@ msgid "Duplicate path found in FormSettings routes:"
 msgstr ""
 
 #: build/formBuilderApp.js:13
+msgid "Set Date"
+msgstr ""
+
+#: build/formBuilderApp.js:13
 msgid "Enable Donation Goal"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Goal Type"
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -21818,7 +21839,23 @@ msgid "Auto-Close Form"
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Goal Type"
+msgid "Goal Progress"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Select Date"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "What is custom goal progress?"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "You can now set a time frame to show progress toward your goal."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Learn more about how to use the custom goal progress."
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -22229,6 +22266,26 @@ msgid "Provide donors the option of making flexible recurring donations."
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
+msgid "Donation Type"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "Set multiple price donations for this form."
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "The donation amount is fixed to the following amount:"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "Multi-level"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "Fixed"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
 msgid "Every"
 msgstr ""
 
@@ -22257,15 +22314,11 @@ msgid "%d donations"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
-msgid "Fixed Donation"
+msgid "Default Level"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
-msgid "Set multiple price donations for this form."
-msgstr ""
-
-#: build/formBuilderRegistrars.js:1
-msgid "The donation amount is fixed to the following amount:"
+msgid "Enable amount description"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
@@ -22282,10 +22335,6 @@ msgstr ""
 
 #: build/formBuilderRegistrars.js:1
 msgid "Sets the maximum donation amount for all gateways. Leave empty for no maximum amount."
-msgstr ""
-
-#: build/formBuilderRegistrars.js:1
-msgid "Default Level"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
@@ -22310,6 +22359,10 @@ msgstr ""
 
 #: build/formBuilderRegistrars.js:1
 msgid "Interval"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "Description goes here"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1

@@ -13,33 +13,31 @@
  */
 namespace Buttonizer\Legacy\Admin;
 
-use  Buttonizer\Admin\Admin as NewAdmin ;
-use  Buttonizer\Utils\Editor ;
-use  Buttonizer\Utils\PermissionCheck ;
-use  Buttonizer\Utils\Settings ;
+use Buttonizer\Admin\Admin as NewAdmin;
+use Buttonizer\Utils\Editor;
+use Buttonizer\Utils\PermissionCheck;
+use Buttonizer\Utils\Settings;
 # No script kiddies
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-class Admin
-{
-    private static  $showMigrationPage = false ;
+class Admin {
+    private static $showMigrationPage = false;
+
     /**
      * Admin constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         // Lets do some admin stuff for Buttonizer
-        add_action( 'admin_init', [ $this, 'adminInit' ] );
+        add_action( 'admin_init', [$this, 'adminInit'] );
         // Add admin assets for migration
-        add_action( 'admin_enqueue_scripts', [ $this, 'adminAssets' ] );
+        add_action( 'admin_enqueue_scripts', [$this, 'adminAssets'] );
         // Add admin menu
-        add_action( 'admin_menu', [ $this, 'pluginAdminMenu' ] );
+        add_action( 'admin_menu', [$this, 'pluginAdminMenu'] );
     }
-    
+
     /**
      * Create Admin menu
      */
-    public function pluginAdminMenu()
-    {
+    public function pluginAdminMenu() {
         if ( !PermissionCheck::hasPermission() ) {
             return;
         }
@@ -49,7 +47,7 @@ class Admin
             'Buttonizer',
             'read',
             'Buttonizer',
-            [ $this, 'migrationAdminPage' ],
+            [$this, 'migrationAdminPage'],
             plugins_url( '/assets/images/wp-icon.png', BUTTONIZER_PLUGIN_DIR ),
             81
         );
@@ -96,54 +94,48 @@ class Admin
             return array_merge( $aLinks, $aButtonizerLinks );
         } );
     }
-    
+
     /**
      * Show new Buttonizer admin dashboard
      */
-    public function adminAssets()
-    {
+    public function adminAssets() {
         // Make sure only admins see this page
         if ( !self::$showMigrationPage ) {
             return;
         }
         ( new NewAdmin() )->adminAssets();
     }
-    
+
     /**
      * Populate admin HTML content
      */
-    public function migrationAdminPage()
-    {
+    public function migrationAdminPage() {
         // Make sure only admins see this page
         if ( !self::$showMigrationPage ) {
             return;
         }
         ( new NewAdmin() )->page();
     }
-    
+
     /**
      * Remove stylesheets when on Buttonizer page
      */
-    public function adminInit()
-    {
+    public function adminInit() {
         // Only show migration page to admins
         if ( defined( "\\BUTTONIZER_LEGACY_REQUESTED_MIGRATION" ) && \BUTTONIZER_LEGACY_REQUESTED_MIGRATION === false && PermissionCheck::hasPermission( true ) ) {
             self::$showMigrationPage = true;
         }
         // Register Buttonizer admin template
-        
         if ( !self::$showMigrationPage && isset( $_GET['page'] ) && $_GET['page'] === 'Buttonizer' && !ButtonizerLicense()->is_activation_mode() ) {
             $this->getPluginAdminPage();
             exit;
         }
-    
     }
-    
+
     /**
      * Get media and add scripts/styles that Buttonizer uses
      */
-    public function getPluginAdminPage()
-    {
+    public function getPluginAdminPage() {
         // Add WordPress admin-header thing
         header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
         add_filter( 'show_admin_bar', '__return_false' );
@@ -152,8 +144,8 @@ class Admin
         remove_all_actions( 'wp_print_head_scripts' );
         remove_all_actions( 'wp_footer' );
         remove_all_actions( 'wp_enqueue_scripts' );
-        wp_deregister_script( [ 'admin-bar' ] );
-        wp_deregister_style( [ 'admin-bar' ] );
+        wp_deregister_script( ['admin-bar'] );
+        wp_deregister_style( ['admin-bar'] );
         // Require media manager
         wp_enqueue_media();
         $styles = '/assets/legacy/dashboard.css';

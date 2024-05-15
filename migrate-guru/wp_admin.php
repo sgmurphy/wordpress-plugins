@@ -36,7 +36,9 @@ class MGWPAdmin {
 
 		if ($this->bvinfo->isActivateRedirectSet()) {
 			$this->settings->updateOption($this->bvinfo->plug_redirect, 'no');
-			wp_redirect($this->mainUrl());
+			if (!wp_doing_ajax()) {
+				wp_redirect($this->mainUrl());
+			}
 		}
 	}
 
@@ -82,6 +84,7 @@ class MGWPAdmin {
 	public function mgsecAdminMenu($hook) {
 		if ($hook === 'toplevel_page_migrateguru') {
 			wp_enqueue_style('mgsurface', plugins_url('css/style.css', __FILE__));
+			wp_enqueue_style('mgmdil', plugins_url('css/mdil.min.css', __FILE__));
 			wp_enqueue_style('mgsurface');
 		}
 	}

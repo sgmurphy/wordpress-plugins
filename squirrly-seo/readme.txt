@@ -4,7 +4,7 @@ Donate link: https://plugin.squirrly.co/squirrly-seo-pricing/
 Tags: SEO, AI, XML sitemap, google search console, schema
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 12.3.18
+Stable tag: 12.3.19
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -230,6 +230,18 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 7. Squirrly SEO - SEO Briefcase
 
 == Changelog ==
+= 12.3.19 =
+Update - Compatible with WP 6.5.3
+Update - SLA compatibility for Chinese chars
+Update - SLA compatibility with last version of Elementor
+Update - Compatibility with WPML when post type is not translatable.
+Fixed - Focus Page > Platform Health tasks to not create confusion about the current URL
+Fixed - Location coordinates kml in sitemap
+Fixed - Prevent loading the sitemap.xml on subcategories
+Fixed - Adjust settings layout on scale resolution
+Fixed - Sitemap to use the /wp-content/cache as the default directory
+Fixed - Favicon size in config to load on all mobile devices
+
 = 12.3.18 =
 Update - Compatible with PHP 8.3 & WP 6.5
 Update - Search by URL in Focus Pages and Audit

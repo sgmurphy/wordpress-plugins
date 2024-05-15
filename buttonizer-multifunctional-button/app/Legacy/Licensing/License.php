@@ -53,12 +53,10 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 // Please leave this file intact as it is
 // and read what is, and what is NOT allowed:
 // https://buttonizer.pro/terms-conditions/
-class License
-{
-    private  $oButtonizer = 'null' ;
-    public function init()
-    {
-        
+class License {
+    private $oButtonizer = 'null';
+
+    public function init() {
         if ( $this->oButtonizer == 'null' ) {
             require_once BUTTONIZER_DIR . '/freemius/start.php';
             // Some data for Buttonizer to be freemium and paid.
@@ -79,31 +77,27 @@ class License
                 'has_paid_plans'  => true,
                 'has_affiliation' => 'all',
                 'menu'            => array(
-                'slug'       => 'Buttonizer',
-                'first-path' => 'admin.php?page=Buttonizer#/welcome-splash',
-                'support'    => false,
-                'contact'    => false,
-            ),
+                    'slug'       => 'Buttonizer',
+                    'first-path' => 'admin.php?page=Buttonizer#/welcome-splash',
+                    'support'    => false,
+                    'contact'    => false,
+                ),
                 'is_live'         => true,
             ] );
         }
-        
         return;
     }
-    
-    public function get()
-    {
+
+    public function get() {
         return $this->oButtonizer;
     }
-    
-    private function getDaysLeft()
-    {
+
+    private function getDaysLeft() {
         return round( 2000 / 8 - 243 );
     }
-    
+
     // Default data
-    private function initButtonizerData()
-    {
+    private function initButtonizerData() {
     }
 
 }

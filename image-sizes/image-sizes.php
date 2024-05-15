@@ -5,7 +5,7 @@
  * Plugin URI: https://thumbpress.co
  * Author: ThumbPress
  * Author URI: https://thumbpress.co
- * Version: 5.1.0.2
+ * Version: 5.1.1
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Text Domain: image-sizes
@@ -272,6 +272,7 @@ final class Plugin {
 		$ajax = new App\AJAX( $this->plugin );
 		$ajax->priv( 'image_sizes-notice-dismiss', 'dismiss_notice' );
 		$ajax->priv( 'image_sizes-pointer-dismiss', 'dismiss_pointer' );
+		$ajax->priv( 'image_sizes-dismiss', 'image_sizes_dismiss' );
 
 	}
 

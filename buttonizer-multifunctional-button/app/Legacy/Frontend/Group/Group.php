@@ -13,27 +13,31 @@
  */
 namespace Buttonizer\Legacy\Frontend\Group;
 
-use  Buttonizer\Legacy\Frontend\Group\Button\Button ;
-use  Buttonizer\Legacy\Frontend\Buttonizer ;
-use  Buttonizer\Utils\Settings ;
-class Group
-{
-    private  $buttons = array() ;
-    private  $data ;
-    private  $noLimit ;
-    private  $totalButtons = 0 ;
-    private  $countMobile = 0 ;
-    private  $countDesktop = 0 ;
+use Buttonizer\Legacy\Frontend\Group\Button\Button;
+use Buttonizer\Legacy\Frontend\Buttonizer;
+use Buttonizer\Utils\Settings;
+class Group {
+    private $buttons = [];
+
+    private $data;
+
+    private $noLimit;
+
+    private $totalButtons = 0;
+
+    private $countMobile = 0;
+
+    private $countDesktop = 0;
+
     /**
      * Buttons constructor.
      * @param $data
      */
-    public function __construct( $data )
-    {
+    public function __construct( $data ) {
         $this->data = $data;
         $this->noLimit = Settings::getSetting( "no_limit" );
     }
-    
+
     /**
      * Return option data
      * 
@@ -41,11 +45,10 @@ class Group
      * @param $default null
      * @return string
      */
-    private function getOption( $key, $default = '' )
-    {
+    private function getOption( $key, $default = '' ) {
         return ( isset( $this->data[$key] ) ? $this->data[$key] : $default );
     }
-    
+
     /**
      * Return option data as boolean
      * 
@@ -53,47 +56,39 @@ class Group
      * @param $default false
      * @return boolean
      */
-    public function getBoolean( $key, $default = false )
-    {
+    public function getBoolean( $key, $default = false ) {
         return ( isset( $this->data[$key] ) ? filter_var( $this->data[$key], FILTER_VALIDATE_BOOLEAN, [
             'options' => [
-            'default' => false,
-        ],
+                'default' => false,
+            ],
         ] ) === true : $default );
     }
-    
-    public function getId()
-    {
+
+    public function getId() {
         return $this->getOption( "id", null );
     }
-    
+
     /**
      * Add button
      *
      * @param Button $button
      */
-    public function add( Button $button )
-    {
+    public function add( Button $button ) {
         $this->totalButtons++;
         // Show button (on page OR only when opened
-        
         if ( $button->showButton() ) {
             if ( !$this->noLimit ) {
                 if ( ($button->getBoolean( 'show_desktop' ) || $button->getBoolean( 'show_mobile' )) && ($this->countDesktop >= 7 || $this->countMobile >= 7) ) {
                     // Is desktop, but no place on desktop? Force hide on desktop
-                    
                     if ( $button->getBoolean( 'show_desktop' ) && $this->countDesktop >= 7 && $this->countMobile < 7 && $button->getBoolean( 'show_mobile' ) ) {
                         $button->setOption( "show_desktop", false );
                     } else {
-                        
                         if ( $button->getBoolean( 'show_mobile' ) && $this->countMobile >= 7 && $this->countDesktop < 7 && $button->getBoolean( 'show_desktop' ) ) {
                             $button->setOption( "show_mobile", false );
                         } else {
                             return;
                         }
-                    
                     }
-                
                 }
             }
             // Add mobile
@@ -106,18 +101,15 @@ class Group
             }
             $this->buttons[] = $button->generate();
         }
-    
     }
-    
+
     /**
      * Show group?
      *
      * @return bool
      */
-    public function show()
-    {
+    public function show() {
         // Hide on all devices
-        
         if ( !$this->getBoolean( 'show_desktop' ) && !$this->getBoolean( 'show_mobile' ) && !$this->getBoolean( 'single_button_mode' ) ) {
             Buttonizer::addEvent( [
                 "id"          => $this->getOption( 'id', null ),
@@ -128,15 +120,13 @@ class Group
             ] );
             return;
         }
-        
         return ( count( $this->buttons ) > 0 ? true : false );
     }
-    
+
     /**
      * Output
      */
-    public function fix()
-    {
+    public function fix() {
         return [
             "data"    => $this->data,
             "buttons" => $this->buttons,

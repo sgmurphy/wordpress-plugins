@@ -10,7 +10,7 @@ class BVCallbackBase {
 		"ACCOUNT_WING_VERSION" => '1.2',
 		"MISC_WING_VERSION" => '1.2',
 		"FS_WING_VERSION" => '1.2',
-		"INFO_WING_VERSION" => '2.0',
+		"INFO_WING_VERSION" => '2.2',
 		"FS_WRITE_WING_VERSION" => '1.0',
 		);
 

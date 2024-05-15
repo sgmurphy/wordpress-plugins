@@ -19,10 +19,11 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 	/**
 	 * Notice cross sell 1
 	 */
-	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_SLUG', 'wp-tiktok-feed' );
-	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_NAME', 'TikTok Feed' );
-	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'TikTok Feed is a user-friendly WordPress plugin designed for easy integration. It ensures quick site updates and keeps pace with the fast-growing social media trends.', 'insta-gallery' ) );
-	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_URL', 'https://quadlayers.com/products/tiktok-feed/?utm_source=qligg_admin' );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_SLUG', 'ai-copilot' );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_NAME', 'AI Copilot' );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'Boost your productivity in WordPress content creation with AI-driven tools, automated content generation, and enhanced editor utilities.', 'insta-gallery' ) );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_URL', 'https://quadlayers.com/products/ai-copilot/?utm_source=qligg_admin' );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_LOGO_SRC', plugins_url( '/assets/backend/img/ai-copilot.png', QLIGG_PLUGIN_FILE ) );
 	/**
 	 * Notice cross sell 2
 	 */
@@ -30,6 +31,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 	define( 'QLIGG_PROMOTE_CROSS_INSTALL_2_NAME', 'Social Chat' );
 	define( 'QLIGG_PROMOTE_CROSS_INSTALL_2_DESCRIPTION', esc_html__( 'Social Chat allows your users to start a conversation from your website directly to your WhatsApp phone number with one click.', 'insta-gallery' ) );
 	define( 'QLIGG_PROMOTE_CROSS_INSTALL_2_URL', 'https://quadlayers.com/product/whatsapp-chat/?utm_source=qligg_admin' );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_2_LOGO_SRC', plugins_url( '/assets/backend/img/wp-whatsapp-chat.jpeg', QLIGG_PLUGIN_FILE ) );
 
 	new \QuadLayers\WP_Notice_Plugin_Promote\Load(
 		QLIGG_PLUGIN_FILE,
@@ -88,7 +90,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 			array(
 				'plugin_slug'        => QLIGG_PROMOTE_CROSS_INSTALL_1_SLUG,
 				'notice_delay'       => MONTH_IN_SECONDS * 4,
-				'notice_logo'        => QLIGG_PROMOTE_LOGO_SRC,
+				'notice_logo'        => QLIGG_PROMOTE_CROSS_INSTALL_1_LOGO_SRC,
 				'notice_title'       => sprintf(
 					esc_html__(
 						'Hello! We want to invite you to try our %s plugin!',
@@ -106,7 +108,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 			array(
 				'plugin_slug'        => QLIGG_PROMOTE_CROSS_INSTALL_2_SLUG,
 				'notice_delay'       => MONTH_IN_SECONDS * 6,
-				'notice_logo'        => QLIGG_PROMOTE_LOGO_SRC,
+				'notice_logo'        => QLIGG_PROMOTE_CROSS_INSTALL_2_LOGO_SRC,
 				'notice_title'       => sprintf(
 					esc_html__(
 						'Hello! We want to invite you to try our %s plugin!',

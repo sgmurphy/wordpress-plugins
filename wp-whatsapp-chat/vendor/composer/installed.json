@@ -7,20 +7,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "e6417cf86590e5ab2922dce991fe9b37363ac6f0"
+                "reference": "2126bbad9448ceb45375c31b6c2c00f6a5eded3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/e6417cf86590e5ab2922dce991fe9b37363ac6f0",
-                "reference": "e6417cf86590e5ab2922dce991fe9b37363ac6f0",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/2126bbad9448ceb45375c31b6c2c00f6a5eded3e",
+                "reference": "2126bbad9448ceb45375c31b6c2c00f6a5eded3e",
                 "shasum": ""
             },
             "require": {
-                "automattic/jetpack-constants": "^2.0.1",
+                "automattic/jetpack-constants": "^2.0.2",
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.2-alpha",
+                "automattic/jetpack-changelogger": "^4.2.3",
                 "brain/monkey": "2.6.1",
                 "wikimedia/testing-access-wrapper": "^1.0 || ^2.0 || ^3.0",
                 "yoast/phpunit-polyfills": "1.1.0"
@@ -28,7 +28,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-04-16T17:01:59+00:00",
+            "time": "2024-05-06T21:08:25+00:00",
             "default-branch": true,
             "type": "jetpack-library",
             "extra": {
@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-composer-plugin.git",
-                "reference": "d35cfbe6a6ab3cd40f11ddded66ae15f9eacb71c"
+                "reference": "c212232a478fe05985abcbe7a0799c8afcb8e217"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-composer-plugin/zipball/d35cfbe6a6ab3cd40f11ddded66ae15f9eacb71c",
-                "reference": "d35cfbe6a6ab3cd40f11ddded66ae15f9eacb71c",
+                "url": "https://api.github.com/repos/Automattic/jetpack-composer-plugin/zipball/c212232a478fe05985abcbe7a0799c8afcb8e217",
+                "reference": "c212232a478fe05985abcbe7a0799c8afcb8e217",
                 "shasum": ""
             },
             "require": {
@@ -81,11 +81,11 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.2-alpha",
+                "automattic/jetpack-changelogger": "^4.2.3",
                 "composer/composer": "^2.2 || ^2.4",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
-            "time": "2024-04-16T17:00:32+00:00",
+            "time": "2024-05-06T21:07:37+00:00",
             "default-branch": true,
             "type": "composer-plugin",
             "extra": {
@@ -129,26 +129,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-constants.git",
-                "reference": "a6cbe7d105d964afec28ab91cf3ff49f20306888"
+                "reference": "80244a71b24262672c0354d65ca91a1a8e1dfcf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/a6cbe7d105d964afec28ab91cf3ff49f20306888",
-                "reference": "a6cbe7d105d964afec28ab91cf3ff49f20306888",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/80244a71b24262672c0354d65ca91a1a8e1dfcf2",
+                "reference": "80244a71b24262672c0354d65ca91a1a8e1dfcf2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.2-alpha",
+                "automattic/jetpack-changelogger": "^4.2.3",
                 "brain/monkey": "2.6.1",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-04-16T17:00:41+00:00",
+            "time": "2024-05-06T21:07:39+00:00",
             "default-branch": true,
             "type": "jetpack-library",
             "extra": {
@@ -411,6 +411,118 @@
                 "source": "https://github.com/franmastromarino/wp-notice-plugin-required/tree/2.0.7"
             },
             "install-path": "../../jetpack_vendor/quadlayers/wp-notice-plugin-required"
+        },
+        {
+            "name": "quadlayers/wp-plugin-install-tab",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franmastromarino/wp-plugin-install-tab.git",
+                "reference": "7f29b6bcebf6cebdd2ad300fb096e05e3ad0f398"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franmastromarino/wp-plugin-install-tab/zipball/7f29b6bcebf6cebdd2ad300fb096e05e3ad0f398",
+                "reference": "7f29b6bcebf6cebdd2ad300fb096e05e3ad0f398",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "quadlayers/wp-plugin-suggestions": "*"
+            },
+            "time": "2023-12-18T10:21:33+00:00",
+            "default-branch": true,
+            "type": "jetpack-library",
+            "extra": {
+                "textdomain": "wp-plugin-install-tab"
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "QuadLayers\\WP_Plugin_Install_Tab\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "QuadLayers",
+                    "email": "noreply@quadlayers.com"
+                }
+            ],
+            "description": "WP Plugin Install Tab",
+            "keywords": [
+                "admin",
+                "install",
+                "plugin",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/franmastromarino/wp-plugin-install-tab/issues",
+                "source": "https://github.com/franmastromarino/wp-plugin-install-tab/tree/1.0.1"
+            },
+            "install-path": "../../jetpack_vendor/quadlayers/wp-plugin-install-tab"
+        },
+        {
+            "name": "quadlayers/wp-plugin-suggestions",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franmastromarino/wp-composer-plugin-suggestions.git",
+                "reference": "3983f69cbea33743683c95cd26c97f03f540ca52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franmastromarino/wp-composer-plugin-suggestions/zipball/3983f69cbea33743683c95cd26c97f03f540ca52",
+                "reference": "3983f69cbea33743683c95cd26c97f03f540ca52",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.1.0",
+                "wp-coding-standards/wpcs": "^2.3.0"
+            },
+            "time": "2023-12-31T10:45:51+00:00",
+            "default-branch": true,
+            "type": "jetpack-library",
+            "extra": {
+                "textdomain": "wp-plugin-suggestions"
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "QuadLayers\\WP_Plugin_Suggestions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "QuadLayers",
+                    "email": "noreply@quadlayers.com"
+                }
+            ],
+            "description": "WP Plugin Suggestions",
+            "keywords": [
+                "admin",
+                "plugin",
+                "widget",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/franmastromarino/wp-composer-plugin-suggestions/issues",
+                "source": "https://github.com/franmastromarino/wp-composer-plugin-suggestions/tree/1.0.9"
+            },
+            "install-path": "../../jetpack_vendor/quadlayers/wp-plugin-suggestions"
         },
         {
             "name": "quadlayers/wp-plugin-table-links",

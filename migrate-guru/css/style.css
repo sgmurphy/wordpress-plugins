@@ -38,13 +38,31 @@ body {
 	width: 100%;
 	max-width: 650px;
 	background: #fff;
-	padding: 1rem 2rem 2rem 2rem;
+	padding: 2rem;
 	border: 1px solid rgba(74,144,226,0.24);
 	box-shadow: 0px 2px 9px rgba(212,212,212,0.5);
 	border-radius: 8px;
 }
+.card.migration-card {
+	padding-top: 1rem;
+}
 .card.migration-key-card {
 	margin-top: 20px;
+	padding: 1.5rem;
+}
+.card.migration-key-card h2 {
+	margin: unset;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+#migration-key-content-dropdown {
+	font-size: 24px;
+	cursor: pointer;
+}
+#migration-key-content {
+	margin-top: 20px;
+	display: none;
 }
 .card .card-header-links {
 	text-align: right;

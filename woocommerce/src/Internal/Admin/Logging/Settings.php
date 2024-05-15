@@ -8,12 +8,10 @@ use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\File;
 use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
 use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController;
 use Automattic\WooCommerce\Internal\Traits\AccessiblePrivateMethods;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
 use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Exception;
 use WC_Admin_Settings;
 use WC_Log_Handler_DB, WC_Log_Handler_File, WC_Log_Levels;
-use WP_Filesystem_Direct;
+use WP_Filesystem_Base;
 
 /**
  * Settings class.
@@ -80,13 +78,14 @@ class Settings {
 
 			if ( true === $result ) {
 				// Create infrastructure to prevent listing contents of the logs directory.
-				try {
-					$filesystem = FilesystemUtil::get_wp_filesystem();
-					$filesystem->put_contents( $dir . '.htaccess', 'deny from all' );
-					$filesystem->put_contents( $dir . 'index.html', '' );
-				} catch ( Exception $exception ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
-					// Creation failed.
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+				global $wp_filesystem;
+				if ( ! $wp_filesystem instanceof WP_Filesystem_Base ) {
+					WP_Filesystem();
 				}
+
+				$wp_filesystem->put_contents( $dir . '.htaccess', 'deny from all' );
+				$wp_filesystem->put_contents( $dir . 'index.html', '' );
 			}
 		}
 
@@ -293,20 +292,6 @@ class Settings {
 		$location_info = array();
 		$directory     = self::get_log_directory();
 
-		$status_info = array();
-		try {
-			$filesystem = FilesystemUtil::get_wp_filesystem();
-			if ( $filesystem instanceof WP_Filesystem_Direct ) {
-				$status_info[] = __( '✅ Ready', 'woocommerce' );
-			} else {
-				$status_info[] = __( '⚠️ The file system is not configured for direct writes. This could cause problems for the logger.', 'woocommerce' );
-				$status_info[] = __( 'You may want to switch to the database for log storage.', 'woocommerce' );
-			}
-		} catch ( Exception $exception ) {
-			$status_info[] = __( '⚠️ The file system connection could not be initialized.', 'woocommerce' );
-			$status_info[] = __( 'You may want to switch to the database for log storage.', 'woocommerce' );
-		}
-
 		$location_info[] = sprintf(
 			// translators: %s is a location in the filesystem.
 			__( 'Log files are stored in this directory: %s', 'woocommerce' ),
@@ -332,11 +317,6 @@ class Settings {
 				'id'    => self::PREFIX . 'settings',
 				'type'  => 'title',
 			),
-			'file_status'   => array(
-				'title' => __( 'Status', 'woocommerce' ),
-				'type'  => 'info',
-				'text'  => implode( "\n\n", $status_info ),
-			),
 			'log_directory' => array(
 				'title' => __( 'Location', 'woocommerce' ),
 				'type'  => 'info',
@@ -360,7 +340,7 @@ class Settings {
 		$table = "{$wpdb->prefix}woocommerce_log";
 
 		$location_info = sprintf(
-			// translators: %s is the name of a table in the database.
+			// translators: %s is a location in the filesystem.
 			__( 'Log entries are stored in this database table: %s', 'woocommerce' ),
 			"<code>$table</code>"
 		);

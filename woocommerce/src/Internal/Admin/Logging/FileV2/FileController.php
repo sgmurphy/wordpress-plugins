@@ -481,7 +481,10 @@ class FileController {
 
 		$files = $this->get_files_by_id( $file_ids );
 		foreach ( $files as $file ) {
-			$result = $file->delete();
+			$result = false;
+			if ( $file->is_writable() ) {
+				$result = $file->delete();
+			}
 
 			if ( true === $result ) {
 				$deleted ++;
@@ -659,7 +662,7 @@ class FileController {
 		$path  = realpath( Settings::get_log_directory() );
 
 		if ( wp_is_writable( $path ) ) {
-			$iterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $path, \FilesystemIterator::SKIP_DOTS ), \RecursiveIteratorIterator::CATCH_GET_CHILD );
+			$iterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $path, \FilesystemIterator::SKIP_DOTS ) );
 
 			foreach ( $iterator as $file ) {
 				$bytes += $file->getSize();

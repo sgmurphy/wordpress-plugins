@@ -3,7 +3,7 @@
         'name' => 'mediavine/mediavine-grow-pro',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '20beabb3b3544f75240be81141f9de05fbecae46',
+        'reference' => '73c83f9d3f1be7a681be9d59e7f8fef9c3949795',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'mediavine/mediavine-grow-pro' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '20beabb3b3544f75240be81141f9de05fbecae46',
+            'reference' => '73c83f9d3f1be7a681be9d59e7f8fef9c3949795',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -168,9 +168,13 @@ class Admin extends Base {
 			}
 		}
 		
-		if ( current_user_can( 'manage_options' ) && get_option( "{$this->slug}_setup_done" ) != 1 ) {
+		if ( 
+			current_user_can( 'manage_options' )
+
+			&& ( get_option( "{$this->slug}_setup_done" ) != 1 )
+			&& ( get_option( "{$this->slug}_dismiss" ) != 1 ) ) {
 			?>
-			<div class="notice notice-warning cx-notice cx-shadow is-dismissible">
+			<div data-meta_key='cx-setup-notice' class="notice notice-warning image_sizes-dismiss cx-notice cx-shadow is-dismissible">			
 				<h3>
 					<?php _e( 'Congratulations! You\'re almost there.. 🥳', 'image-sizes' ); ?>
 				</h3>
