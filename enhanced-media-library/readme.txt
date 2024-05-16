@@ -4,7 +4,7 @@ Tags: media library, media folders, media taxonomies, media gallery, mime types
 Requires at least: 6.0
 Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 2.8.15
+Stable tag: 2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -177,14 +177,32 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 
 ## Changelog ##
 
+### 2.9 ###
+*Release Date - May 16, 2024*
+
+= SECURITY UPDATE =
+* Security issue related to MIME types upload has been fixed since v2.8.10. Please update to the latest version on all your websites.
+
+= New =
+* `Uploaded to this post by default` option added to the `Media` > `Media Library` > `Filters` section
+  *Enable the option to get media files initially filtered by "Uploaded to this post" in a Media Popup while adding or editing them for a post, page, or custom post type.*
+* Some changes made to the plugin's code and the PRO version updating mechanism in preparation for an upcoming major update EML v3.0
+
+= Bugfixes =
+* Tiny bugs fixed
+
+= Thank you! =
+For being EML users for so many years.
+* *This update has been issued in Ukraine under everyday missile attacks.*
+* *Please do not buy into ruzzian lies and propaganda. This aggression is unprovoked, illegal, and unfair. The people of Ukraine have all the right to live peacefully without ungrounded ruzzian claims and crimes committed.* 
+* *Support Ukraine. We are badly in need of weapons for defense.*
+
+
 ### 2.8.15 ###
 *Release Date - May 10, 2024*
 
-= SECURITY UPDATE =
-* A security issue related to MIME types upload fixed. Please update to the latest version on all your websites.
-
 = Improvements =
-* Gallery / playlist shortcodes improved for better compatibility with other plugins 
+* Gallery / playlist shortcodes improved for better compatibility with other plugins
 * `AND` logic within a single taxonomy implemented for `[gallery]` and `[playlist]` shortcodes
 
 ***Examples:***
@@ -201,12 +219,6 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 * Layout issues fixed for the **media popup** with the `Infinite scrolling` option enabled
 * `Fatal Error – Too Few Arguments to function` fixed for two plugins: "cred-frontend-editor" and AJAX Thumbnail Rebuild
 * Minor CSS fixes
-
-= Thank you! =
-For being EML users for so many years.
-* *This update has been issued in Ukraine under everyday missile attacks.*
-* *Please do not buy into ruzzian lies and propaganda. This aggression is unprovoked, illegal, and unfair. The people of Ukraine have all the right to live peacefully without ungrounded ruzzian claims and crimes committed.* 
-* *Support Ukraine. We are badly in need of weapons for defense.*
 
 
 ### 2.8.14 ###

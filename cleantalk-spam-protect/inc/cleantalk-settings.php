@@ -508,6 +508,7 @@ function apbct_settings__set_fields()
                     'display'    => $apbct->data['cookies_type'] === 'alternative',
                     'callback' => 'apbct_settings__check_alt_cookies_types'
                 ),
+                //bot detector
                 'data__bot_detector_enabled' => array(
                     'title' => __('Use ', 'cleantalk-spam-protect')
                                . $apbct->data['wl_brandname']
@@ -515,6 +516,41 @@ function apbct_settings__set_fields()
                     'description' => __('This option includes external ', 'cleantalk-spam-protect')
                                . $apbct->data['wl_brandname']
                                . __(' JavaScript library to getting visitors info data', 'cleantalk-spam-protect'),
+                    'childrens' => array('exclusions__bot_detector')
+                ),
+                'exclusions__bot_detector' => array(
+                    'title' => __('JavaScript Library Exclusions', 'cleantalk-spam-protect'),
+                    'childrens' => array(
+                        'exclusions__bot_detector__form_attributes',
+                        'exclusions__bot_detector__form_children_attributes',
+                        'exclusions__bot_detector__form_parent_attributes',
+                    ),
+                    'description' => __(
+                        'Regular expression. Use to skip a HTML form from special service field attach.',
+                        'cleantalk-spam-protect'
+                    ),
+                    'parent' => 'data__bot_detector_enabled',
+                ),
+                'exclusions__bot_detector__form_attributes'             => array(
+                    'type'        => 'text',
+                    'title'       => __('Exclude any forms that has attribute matches.', 'cleantalk-spam-protect'),
+                    'parent' => 'exclusions__bot_detector',
+                    'class' => 'apbct_settings-field_wrapper--sub',
+                    'long_description' => true,
+                ),
+                'exclusions__bot_detector__form_children_attributes'             => array(
+                    'type'        => 'text',
+                    'title'       => __('Exclude any forms that includes a child element with attribute matches.', 'cleantalk-spam-protect'),
+                    'parent' => 'exclusions__bot_detector',
+                    'class' => 'apbct_settings-field_wrapper--sub',
+                    'long_description' => true,
+                ),
+                'exclusions__bot_detector__form_parent_attributes'             => array(
+                    'type'        => 'text',
+                    'title'       => __('Exclude any forms that includes a parent element with attribute matches.', 'cleantalk-spam-protect'),
+                    'parent' => 'exclusions__bot_detector',
+                    'class' => 'apbct_settings-field_wrapper--sub',
+                    'long_description' => true,
                 ),
                 'wp__use_builtin_http_api'             => array(
                     'title'       => __("Use WordPress HTTP API", 'cleantalk-spam-protect'),
@@ -624,6 +660,7 @@ function apbct_settings__set_fields()
                     ),
                     'long_description' => true
                 ),
+                //roles
                 'exclusions__roles'              => array(
                     'type'                    => 'select',
                     'title' => __('Roles Exclusions', 'cleantalk-spam-protect'),
@@ -2470,6 +2507,49 @@ function apbct_settings__validate($settings)
         : $apbct->errorDelete('exclusions_fields', true, 'settings_validate');
     $settings['exclusions__form_signs'] = $result ? $result : '';
 
+    //Bot detector form
+    $result = apbct_settings__sanitize__exclusions(
+        $settings['exclusions__bot_detector__form_attributes'],
+        true
+    );
+    $result === false
+        ? $apbct->errorAdd(
+            'exclusions_fields',
+            'is not valid: "' . $settings['exclusions__bot_detector__form_attributes'] . '"',
+            'settings_validate'
+        )
+        : $apbct->errorDelete('exclusions_fields', true, 'settings_validate');
+    $settings['exclusions__bot_detector__form_attributes'] = $result ? $result : '';
+
+    //Bot detector parent
+    $result = apbct_settings__sanitize__exclusions(
+        $settings['exclusions__bot_detector__form_parent_attributes'],
+        true
+    );
+    $result === false
+        ? $apbct->errorAdd(
+            'exclusions_fields',
+            'is not valid: "' . $settings['exclusions__bot_detector__form_parent_attributes'] . '"',
+            'settings_validate'
+        )
+        : $apbct->errorDelete('exclusions_fields', true, 'settings_validate');
+    $settings['exclusions__bot_detector__form_parent_attributes'] = $result ? $result : '';
+
+    //Bot detector child
+    $result = apbct_settings__sanitize__exclusions(
+        $settings['exclusions__bot_detector__form_children_attributes'],
+        true
+    );
+    $result === false
+        ? $apbct->errorAdd(
+            'exclusions_fields',
+            'is not valid: "' . $settings['exclusions__bot_detector__form_children_attributes'] . '"',
+            'settings_validate'
+        )
+        : $apbct->errorDelete('exclusions_fields', true, 'settings_validate');
+    $settings['exclusions__bot_detector__form_children_attributes'] = $result ? $result : '';
+
+
     // WPMS Logic.
     if ( APBCT_WPMS && is_main_site() ) {
         $network_settings = array(
@@ -3066,6 +3146,27 @@ function apbct_settings__get__long_description()
                     '</p><a href="https://cleantalk.org/help/exclusion-from-anti-spam-checking{utm_mark}#wordpress" target="_blank">' . __('Learn more.', 'cleantalk-spam-protect') . '</a>'
                 )
         ),
+        'exclusions__bot_detector__form_attributes' => array(
+            'title' => esc_html__('Exclude the form by their attribute', 'cleantalk-spam-protect'),
+            'desc' => 'If your form tag have any html attribute. like:
+            <p><code>' . htmlspecialchars('<form id="my-form" method="get"></form>') . '</code></p>
+            you can exclude the same form using attribute name
+            <p><code>^my-form$</code> or <code>^get$</code></p>'
+        ),
+        'exclusions__bot_detector__form_children_attributes' => array(
+            'title' => 'Exclude the form by their child html-element attribute',
+            'desc' => 'If your form tag have any html attribute. like:
+            <p><code>' . htmlspecialchars('<form id="my-form" method="get"><div id="my-child-div"></div></form>') . '</code></p>
+            you can exclude the same form using attribute name
+            <p><code>^my-child-div$</code></p>',
+        ),
+        'exclusions__bot_detector__form_parent_attributes' => array(
+            'title' => 'Exclude the form by their parent html-element attribute',
+            'desc' => 'If your form tag have any html attribute. like:
+            <p><code>' . htmlspecialchars('<div id="my-parent-div"><form id="my-form" method="get"></form></div>') . '</code></p>
+            you can exclude the same form using attribute name
+            <p><code>^my-parent-div$</code></p>',
+        ),
     );
 
     if ( ! empty($setting_id) ) {
@@ -3244,13 +3345,21 @@ function apbct_get_spoilers_links()
                          . __('Advanced settings', 'cleantalk-spam-protect')
                          . '</a>'
                          . '</span>';
-    $import_export = ! $apbct->data['wl_mode_enabled']
-        ? '<span class="apbct_bottom_links--other">'
+
+    $import_export = '';
+    if (! $apbct->data['wl_mode_enabled'] &&
+        (is_main_site() ||
+            ($apbct->network_settings['multisite__work_mode'] == 1 &&
+            $apbct->network_settings['multisite__allow_custom_settings'])
+        )
+    ) {
+        $import_export = '<span class="apbct_bottom_links--other">'
           . '<a href="#" class="apbct_color--gray" onclick="cleantalkModal.open()">'
           . __('Import/Export settings', 'cleantalk-spam-protect')
           . '</a>'
-          . '</span>'
-        : '';
+          . '</span>';
+    }
+
     $affiliate_section = ! $apbct->data['wl_mode_enabled']
         ? '<span id="ct_trusted_text_showhide" class="apbct_bottom_links--other">'
           . '<a href="#" class="apbct_color--gray" onclick="'
@@ -3260,5 +3369,6 @@ function apbct_get_spoilers_links()
           . '</a>'
           . '</span>'
         : '';
+
     return '<br>' . $advanced_settings . $import_export . $affiliate_section;
 }

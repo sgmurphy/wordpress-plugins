@@ -242,14 +242,7 @@ $isAgent = 0;
             <div class="channels__input-box flex-auto">
                 <div class="p-relative test-btn <?php echo esc_attr($social['slug']) ?>-input">
                     <input data-label="<?php echo esc_attr($social['title']) ?>" placeholder="<?php echo esc_attr($placeholder); ?>" type="text" class="channels__input custom-channel-<?php echo esc_attr($channelType) ?> <?php echo isset($social['attr']) ? esc_attr($social['attr']) : "" ?>" name="cht_social_<?php echo esc_attr($social['slug']); ?>[value]" value="<?php echo esc_attr(wp_unslash($value['value'])); ?>" data-gramm_editor="false" id="channel_input_<?php echo esc_attr($social['slug']); ?>" />
-                    <?php if($social['slug'] == "Whatsapp") { ?>
-                        <span class="header-tooltip-text text-center leading-zero-msg">
-                            <span class="close-msg-box">
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1L1 11M1 1L11 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </span>
-                            You entered the phone number with a leading zero. We've fixed it for you
-                        </span>
-                    <?php } ?>
+
                     <?php if($social['slug'] == 'Whatsapp' || $social['slug'] == 'Facebook_Messenger') { ?>
                         <button type="button" class="wf-test-button <?php echo !empty($value['value']) ? "active" : "" ?>" data-slug="<?php echo esc_attr($social['slug']) ?>"><?php esc_html_e('Test', 'chaty') ?></button>
                     <?php } ?>

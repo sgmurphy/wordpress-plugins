@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,10 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.8 - Thursday, 16th May 2024 =
+* Fix: A blank question mark was getting added in the URL of next-step button.
+* Security Fix: Hardened the security of the plugin suggested by Wordfence.
 
 = Version 2.0.7 - Tuesday, 23nd April 2024 =
 * Fix: Unable to display the 100% discount applied on product tab for Checkout page and Order Bump backend setting.

@@ -7,7 +7,7 @@ function UEDynamicFilters(){
 	var g_objFilters, g_filtersData, g_urlBase;
 	var g_urlAjax, g_lastGridAjaxCall, g_cache = {}, g_objBody;
 	var g_remote = null, g_lastSyncGrids, g_initFiltersCounter = 0;
-
+	
 	var t = this;
 
 	var g_showDebug = false;

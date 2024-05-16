@@ -638,6 +638,11 @@ window.eml = window.eml || { l10n: {} };
             }
 
 
+            // console.log( 'AttachmentsBrowser controller', this.controller );
+            // console.log( 'AttachmentsBrowser', this );
+            // // console.log( 'AttachmentsBrowser states', this.controller.states );
+
+
             if ( this.controller.isModeActive( 'eml-grid' ) ) {
 
                 this.sidebar.$el.width( eml.l10n.grid_sidebar_width );
@@ -649,10 +654,18 @@ window.eml = window.eml || { l10n: {} };
 
             if ( this.controller.isModeActive( 'select' ) ) {
 
-                this.controller.on( 'open', this.fixLayout, this );
+                // this.controller.on( 'open', this.fixLayout, this );
+                this.on( 'ready', this.fixLayout, this );
 
                 // acf compatibility
                 $( document ).on( 'click', '.acf-expand-details', _.bind( this.fixLayout, this ) );
+
+                if ( parseInt( eml.l10n.filter_uploaded ) && 'post-php' === window.adminpage ) {
+                    filters = this.toolbar.get( 'filters' );
+                    uploaded = filters.filters.uploaded;
+
+                    filters.model.set( uploaded.props );
+                }
             }
 
 
@@ -731,6 +744,11 @@ window.eml = window.eml || { l10n: {} };
                 self = this,
                 i = 1,
                 isResetButton = false;
+
+
+                // console.log( 'AttachmentsBrowser', this );
+                // console.log( 'window.wp', window.wp );
+                // // console.log( 'page', this.$window.get().adminpage );
 
 
             toolbarOptions = {
@@ -1234,6 +1252,54 @@ window.eml = window.eml || { l10n: {} };
         }, 1000 ) // more time to type a query for a user
                   // no need to ask every 500 mls
     });
+
+
+
+    // /* wp.media.view.MediaFrame.Post
+    //  *
+    //  */
+    // original.MediaFrame = {
+
+    //     Select: {
+    //         activate: media.view.MediaFrame.Select.prototype.activate
+    //     },
+
+    //     Post: {
+    //         activate: media.view.MediaFrame.Post.prototype.activate
+    //     }
+    // };
+
+    // _.extend( media.view.MediaFrame.Select.prototype, {
+
+    //     activate: function() {
+
+    //         original.MediaFrame.Select.activate.apply( this, arguments );
+
+    //         console.log( 'Select', this );
+    //         console.log( 'toolbar filters', this.content.get().toolbar.get( 'filters' ) );
+
+    //         filters = this.content.get().toolbar.get( 'filters' );
+    //         uploaded = filters.filters.uploaded;
+
+    //         filters.model.set( uploaded.props );
+    //     }
+    // });
+
+    // _.extend( media.view.MediaFrame.Post.prototype, {
+
+    //     activate: function() {
+
+    //         original.MediaFrame.Post.activate.apply( this, arguments );
+
+    //         console.log( 'Post', this );
+    //         console.log( 'toolbar filters', this.content.get().toolbar.get( 'filters' ) );
+
+    //         filters = this.content.get().toolbar.get( 'filters' );
+    //         uploaded = filters.filters.uploaded;
+
+    //         filters.model.set( uploaded.props );
+    //     }
+    // });
 
 
 

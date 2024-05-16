@@ -3767,11 +3767,13 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 				break;
 				case "current_post_meta":
+				case "current_product_variations":
 
 					//item is ID
 					$galleryItem = $this->getGalleryItem($item, null, $params);
 					
 				break;
+				
 				case "image_video_repeater":
 
 					$image = UniteFunctionsUC::getVal($item, "image");
@@ -3952,7 +3954,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			case "gallery":
 
 				$arrGalleryItems = UniteFunctionsUC::getVal($value, $name."_gallery");
-
+				
 				$data[$name."_items"] = $arrGalleryItems;
 
 			break;
@@ -3967,6 +3969,11 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 				//do nothing, convert later
 
+			break;
+			case "current_product_variations":
+				
+				$data[$name."_items"] = UniteCreatorWooIntegrate::getCurrentProductVariationImageItems();
+				
 			break;
 			case "instagram":
 
@@ -4127,12 +4134,18 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 		if(!empty($widgetName))
 			$attributes .= " data-widgetname='$widgetName'";
 
-
 		if($isSync == true){
-
+			
 			//get the name
 			$syncParentName = UniteFunctionsUC::getVal($value, $name."_sync_name");
-
+			
+			//update for the template switcher, to keep the sync inside the template
+			if(GlobalsProviderUC::$renderJSForHiddenContent == true){
+				
+				if(!empty(GlobalsProviderUC::$renderTemplateID))
+					$syncParentName .= "_".GlobalsProviderUC::$renderTemplateID;
+			}
+			
 			$attributes .= " data-sync='true' data-syncid='$syncParentName'";
 		}
 

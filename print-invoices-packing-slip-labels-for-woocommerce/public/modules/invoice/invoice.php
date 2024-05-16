@@ -1722,9 +1722,12 @@ class Wf_Woocommerce_Packing_List_Invoice
     		$document_created = Wf_Woocommerce_Packing_List_Admin::created_document_count($order_id,$template_type);
     	}
 
-		// bulk download page break
-		if($number_of_orders>1)
-		{
+		
+		/**
+		 * bulk download page break
+		 * @since 4.5.1 - [Fix] - mPDF library shows empty pages.
+		 */
+		if( 1 < $number_of_orders && false === Wf_Woocommerce_Packing_List_Admin::check_if_mpdf_used() ) {
 			$out	= str_replace('</body>','<div class="pagebreak"></div></body>',$out);
 		}
 		

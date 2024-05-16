@@ -6,7 +6,8 @@ Requires at least: 4.9.0
 Tested up to: 6.5
 Requires PHP: 7.2
 Stable tag: 1.4.1.9
-
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 FOX - Currency Switcher Professional for WooCommerce (former name is WOOCS) is currency plugin for woocommerce and multi currency shop, switch & pay
 

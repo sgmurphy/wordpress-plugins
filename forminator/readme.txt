@@ -21,6 +21,10 @@ It’s the magical WordPress form builder for, well, everyone!
 
 Forminator’s drag and drop visual builder makes it easy to setup and add forms to your WordPress website. Collect information, make your content interactive and generate more conversions with Forminator.
 
+Unlock all form fields and premium addons from the start with [Forminator Pro](https://wpmudev.com/project/forminator-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=forminator-readme-above-the-fold&utm_content=forminator_pro).
+
+Level up immediately with exclusive Pro features like Stripe subscription forms, dynamic PDF generation, and easy geolocation & autocomplete. [Learn more about Pro](https://wpmudev.com/project/forminator-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=forminator-readme-above-the-fold&utm_content=forminator_pro).
+
 [youtube https://www.youtube.com/watch?v=q2oBKNWTu5s&feature=youtu.be]
 
 ### Forminator Forms, Surveys, Quizzes, Polls, Calculations and More...
@@ -172,10 +176,6 @@ Love Forminator! WPMU DEV has some other awesome free plugins you should checkou
 - [Defender](https://wordpress.org/plugins/defender-security/) - Security, Monitoring, and Hack Protection
 
 == Frequently Asked Questions ==
-
-= Are there any limitations in the free version of Forminator? =
-
-Currently the free version and the Pro version on [WPMU DEV](https://wpmudev.com/project/forminator-pro/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=forminator-readme&utm_content=wpmu_dev#trial) are exactly the same, aside from our “E-Signature” and “Stripe Subscriptions” features, which are pro only.
 
 = Does Forminator include a Gutenberg block? =
 

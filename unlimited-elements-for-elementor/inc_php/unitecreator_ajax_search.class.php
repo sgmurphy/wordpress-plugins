@@ -48,8 +48,9 @@ class UniteCreatorAjaxSeach{
 			$addCount = $maxItems - count($arrPosts);
 		}
 		
-		if($this->searchInTerms == true)
+		if($this->searchInTerms == true && $addCount > 0)
 			$arrPosts = $this->getPostsByTerms($arrPosts, $args, $addCount);
+		
 		
 		return($arrPosts);
 	}
@@ -98,7 +99,7 @@ class UniteCreatorAjaxSeach{
 		$arrTermsSearch["search"] = $search;
 		$arrTermsSearch["hide_empty"] = true;
 		$arrTermsSearch["number"] = 50;
-		$arrTermsSearch["fields"] = "id=>name";
+		//$arrTermsSearch["fields"] = "id=>name";
 		
 		$termsQuery = new WP_Term_Query();
 		$arrTermsFound = $termsQuery->query($arrTermsSearch);
@@ -110,31 +111,11 @@ class UniteCreatorAjaxSeach{
 			
 			return($arrPosts);
 		}
-
-		if(GlobalsProviderUC::$showPostsQueryDebug == true){
-						
-			dmp("Searching Terms: ");
-			dmp($arrTermsSearch);
-			
-			dmp("Found Terms: ".count($arrTermsFound));
-			
-			dmp($arrTermsFound);
-			
-		}
 		
 		
-		$termIDs = array_keys($arrTermsFound);
-				
-		$taxQuery = array(
-			array(
-				"taxonomy"=>"category",
-				"field"=>"id",
-				"terms"=>$termIDs,
-				"operator"=>"IN",
-			)
-		);
+		$arrTaxQuery = UniteFunctionsWPUC::getTaxQueryFromTerms($arrTermsFound);
 		
-		$args = UniteFunctionsWPUC::mergeArgsTaxQuery($args,$taxQuery);
+		$args = UniteFunctionsWPUC::mergeArgsTaxQuery($args,$arrTaxQuery);
 				
 		$query = new WP_Query();
 		$query->query($args);
@@ -143,20 +124,20 @@ class UniteCreatorAjaxSeach{
 		
 		//debug output
 		if(GlobalsProviderUC::$showPostsQueryDebug == true){
-						
+			
 			dmp("Run Search By Terms Query: ");
+			
+			$strTerms = UniteFunctionsWPUC::getTermsTitlesString($arrTermsFound, true);
+			
+			dmp("Found Terms: ".count($arrTermsFound));
+			
+			dmp($strTerms);
+			
 			dmp($args);
 			
 			dmp("Found Posts: ".count($arrNewPosts));
 		}
-
 		
-		
-		dmp("fix the tax query by real terms!!! group by taxonomies");
-		
-		HelperProviderUC::showPostsDebug($arrNewPosts);
-		
-		exit();
 		
 		if(empty($arrNewPosts))
 			return($arrPosts);

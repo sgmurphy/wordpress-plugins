@@ -147,11 +147,12 @@ function UniteSettingsUC(){
 	 * get all settings inputs
 	 */
 	function getObjInputs(controlsOnly) {
+		
 		validateInited();
 
 		var selectors = "input, textarea, select, .unite-setting-inline-editor, .unite-setting-input-object";
 		var selectorNot = "input[type='button'], input[type='range'], input[type='search'], .unite-responsive-picker, .unite-units-picker";
-
+		
 		if (g_temp.disableExcludeSelector !== true)
 			selectorNot += ", .unite-settings-exclude *";
 
@@ -165,7 +166,7 @@ function UniteSettingsUC(){
 
 		if (controlsOnly === true)
 			selectors = "input[type='radio'], select";
-
+		
 		return g_objParent.find(selectors).not(selectorNot);
 	}
 
@@ -299,10 +300,11 @@ function UniteSettingsUC(){
 		var type = getInputType(objInput);
 		var value = objInput.val();
 		var id = objInput.prop("id");
-
-		if(!name)
+		
+		if(!name){
 			return(g_vars.NOT_UPDATE_OPTION);
-
+		}
+		
 		var flagUpdate = true;
 
 		switch(type){
@@ -404,6 +406,7 @@ function UniteSettingsUC(){
 	 * get settings values object by the parent
 	 */
 	this.getSettingsValues = function (controlsOnly, isChangedOnly) {
+		
 		validateInited();
 
 		var objValues = {};
@@ -415,6 +418,7 @@ function UniteSettingsUC(){
 			objInputs = getObjInputs().not(".unite-setting-transparent");
 
 		jQuery.each(objInputs, function () {
+			
 			var objInput = jQuery(this);
 
 			// skip hidden/disabled setting
@@ -424,7 +428,7 @@ function UniteSettingsUC(){
 			var name = getInputName(objInput);
 			var type = getInputType(objInput);
 			var value = getSettingInputValue(objInput);
-
+			
 			if (value === g_vars.NOT_UPDATE_OPTION)
 				return;
 
@@ -496,12 +500,13 @@ function UniteSettingsUC(){
 	/**
 	 * clear input
 	 */
-	function clearInput(objInput, dataname, checkboxDataName){
+	function clearInput(objInput, dataname, checkboxDataName, skipControl){
+		
 		var name = getInputName(objInput);
 		var type = getInputType(objInput);
 		var id = objInput.prop("id");
 		var defaultValue;
-
+		
 		if(!dataname)
 			dataname = "default";
 
@@ -677,8 +682,10 @@ function UniteSettingsUC(){
 		}
 
 		objInput.removeData("unite_setting_oldvalue");
-
-		processControlSettingChange(objInput);
+		
+		if(skipControl !== true)
+			processControlSettingChange(objInput);
+		
 	}
 
 
@@ -686,10 +693,14 @@ function UniteSettingsUC(){
 	 * set input value
 	 */
 	function setInputValue(objInput, value, objValues){
+		
 		var name = getInputName(objInput);
 		var type = getInputType(objInput);
 		var id = objInput.prop("id");
-
+		
+		if(value == g_vars.NOT_UPDATE_OPTION)
+			return(false);
+		
 		switch(type){
 			case "select":
 			case "select2":
@@ -824,6 +835,7 @@ function UniteSettingsUC(){
 
 					//trace error
 					if(success == false){
+						trace(objInput);
 						trace("for setvalue - wrong type: " + type);
 					}
 				}
@@ -837,14 +849,18 @@ function UniteSettingsUC(){
 	 * clear settings
 	 */
 	this.clearSettings = function (dataname, checkboxDataName) {
+		
 		validateInited();
 
 		t.disableTriggerChange();
 
 		var objInputs = getObjInputs();
-
-		jQuery.each(objInputs, function () {
-			clearInput(jQuery(this), dataname, checkboxDataName);
+		
+		jQuery.each(objInputs, function (index, input) {
+			
+			var objInput = jQuery(input);
+							
+			clearInput(objInput, dataname, checkboxDataName, true);
 		});
 
 		t.enableTriggerChange();
@@ -1582,7 +1598,7 @@ function UniteSettingsUC(){
 			return(false);
 
 		var objSapElements = g_objParent.find(elementClass);
-
+		
 		objElements.not(objSapElements).addClass("unite-setting-hidden");
 
 		objSapElements.removeClass("unite-setting-hidden");
@@ -2975,7 +2991,7 @@ function UniteSettingsUC(){
 	 * init animations selector settings
 	 */
 	function initAnimationsSelector() {
-
+		
 		getObjInputs()
 			.find("select.uc-select-animation-type")
 			.on("change", onAnimationSettingChange);
@@ -3587,6 +3603,7 @@ function UniteSettingsUC(){
 	 * process control setting change
 	 */
 	function processControlSettingChange(objInput) {
+		
 		var allowedTypes = ["select", "select2", "radio", "switcher"];
 		var controlType = getInputType(objInput);
 
@@ -3610,8 +3627,10 @@ function UniteSettingsUC(){
 			id: controlID,
 			value: controlValue,
 		};
+		
 
 		jQuery.each(arrChildControls, function (childName, objControl) {
+			
 			var isSap = g_ucAdmin.getVal(objControl, "forsap");
 			var rowID;
 			var objChildInput = null;
@@ -3638,7 +3657,7 @@ function UniteSettingsUC(){
 				action = getControlActionMultiple(objParent, objControl, arrParents);
 			else
 				action = getControlAction(objParent, objControl);
-
+			
 			var isChildRadio = false;
 			var isChildColor = false;
 
@@ -3648,7 +3667,7 @@ function UniteSettingsUC(){
 				isChildRadio = inputTagName === "SPAN" && objChildInput.hasClass("unite-radio-wrapper");
 				isChildColor = objChildInput.hasClass("unite-color-picker");
 			}
-
+						
 			switch (objControl.type) {
 				case "enable":
 				case "disable":
@@ -3700,7 +3719,7 @@ function UniteSettingsUC(){
 
 						if (isShow === false && isHidden === false) {
 							objInput.data("previous-value", value);
-
+							
 							clearInput(objInput);
 						}
 					});

@@ -75,7 +75,7 @@ class THWCFD {
 		add_action( 'admin_notices', array($plugin_admin, 'output_review_request_link'));
 		add_action('admin_footer-plugins.php', array($this, 'thwcfd_deactivation_form'));
         add_action('wp_ajax_thwcfd_deactivation_reason', array($this, 'thwcfd_deactivation_reason'));
-		//add_filter('plugin_row_meta', array($plugin_admin, 'plugin_row_meta'), 10, 2);
+		add_filter('plugin_row_meta', array($plugin_admin, 'plugin_row_meta'), 10, 2);
 		
 		$themehigh_plugins = new THWCFD_Admin_Settings_Themehigh_Plugins();
 		add_action('wp_ajax_th_activate_plugin', array($themehigh_plugins, 'activate_themehigh_plugins'));

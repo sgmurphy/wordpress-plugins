@@ -1011,7 +1011,7 @@ function UESyncObject(){
 			var firstExistingAPI = g_objApis[elID];
 
 			var numItemsExisting = firstExistingAPI.doAction("get_total_items");
-
+			
 			if(numItemsExisting !== numItems)
 				throw new Error("Sync failed, number of items should be the same. Now it's "+numItems+" and "+numItemsExisting);
 
@@ -1227,9 +1227,10 @@ function UESyncObject(){
 	 * add widget to sync object
 	 */
 	this.addAPI = function(objAPI){
-
+		
+		
 		var id = getElementID(objAPI);
-
+		
 		if(g_objApis.hasOwnProperty(id))
 			return(false);
 
@@ -1488,15 +1489,23 @@ function UERemoteWidgets(){
 	 * detect closest parent
 	 */
 	function detectClosestParent(objParents){
-
+		
+		var objContainer = jQuery("body");
+		
+		//twick for tempalte switcher
+		var objTemplateHolder = g_objWidget.closest(".uc-template-holder");
+		
+		if(objTemplateHolder.length)
+			objContainer = objTemplateHolder;
+		
 		if(!objParents)
-			var objParents = jQuery(".uc-remote-parent").not(g_objWidget);
-
+			var objParents = objContainer.find(".uc-remote-parent").not(g_objWidget);
+		
 		if(g_vars.trace_debug){
 			trace("detect closest start. group:");
 			trace(objParents);
 		}
-
+		
 		var numParents = objParents.length;
 
 		if(numParents == 0)
@@ -1636,7 +1645,7 @@ function UERemoteWidgets(){
 
 			var parentID = g_objParent.attr("id");
 			var widgetID = g_objWidget.attr("id");
-
+			
 			trace("widget: "+widgetID+" connected to: "+parentID);
 
 		}
@@ -2525,9 +2534,11 @@ function UERemoteWidgets(){
 	 * start sync
 	 */
 	function startParentSync(){
-
+				
 		var syncID = g_objParent.data("syncid");
 
+		//if under template switcher - modify sync id
+				
 		if(g_vars.trace_debug == true){
 			trace("Start parent sync");
 			trace(g_objParent);
@@ -2543,7 +2554,7 @@ function UERemoteWidgets(){
 		}
 
 		var objSync = g_remoteConnection.getSyncObject(syncID);
-
+		
 		var isEditorMode = isInsideEditor();
 
 		objSync.setOptions(syncID, isEditorMode);
@@ -2704,7 +2715,7 @@ function UERemoteConnection(){
 
 		if(objSync)
 			return(objSync);
-
+		
 		var objSync = new UESyncObject();
 
 		window[syncRealID] = objSync;

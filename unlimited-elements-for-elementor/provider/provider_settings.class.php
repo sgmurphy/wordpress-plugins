@@ -3001,7 +3001,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 			else
 				$arrSource["image_video_repeater"] = __("Image Items", "unlimited-elements-for-elementor");
 
-			$arrSource["instagram"] = __("Instagram", "unlimited-elements-for-elementor");
+			$arrSource["instagram"] = __("Instagram", "unlimited-elements-for-elementor");			
 		}
 
 		$arrSource["posts"] = __("Posts", "unlimited-elements-for-elementor");
@@ -3010,7 +3010,10 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		if($isWooActive == true)
 			$arrSource["products"] = __("Products", "unlimited-elements-for-elementor");
 
-
+		
+		if($isForGallery == true && $isWooActive == true)
+			$arrSource["current_product_variations"] = __("Current Product Variations", "unlimited-elements-for-elementor");
+		
 		if($isForGallery == true){
 			$arrSource["current_post_meta"] = __("Current Post Metafield", "unlimited-elements-for-elementor");
 		}

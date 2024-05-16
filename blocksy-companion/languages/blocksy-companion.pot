@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-10 16:00+0000\n"
+"POT-Creation-Date: 2024-05-16 18:08+0000\n"
 "Project-Id-Version: undefined\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;"
@@ -209,7 +209,7 @@ msgstr ""
 #: framework/extensions/newsletter-subscribe/ct-newsletter-subscribe/options.php:67,
 #: framework/premium/features/premium-header/items/language-switcher/options.php:97
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/active-filters/index.js:159
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:268
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:256
 msgid "Inline"
 msgstr ""
 
@@ -510,8 +510,7 @@ msgid ""
 msgstr ""
 
 #: framework/helpers/exts.php:234,
-#: framework/features/conditions/rules/woo.php:37
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:52
+#: framework/features/conditions/rules/woo.php:42
 msgid "Product Brands"
 msgstr ""
 
@@ -569,7 +568,7 @@ msgid ""
 msgstr ""
 
 #: framework/helpers/exts.php:278,
-#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:123,
+#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:180,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:4
 msgid "Free Shipping Bar"
 msgstr ""
@@ -1124,7 +1123,7 @@ msgid "Subscribe Form"
 msgstr ""
 
 #: framework/extensions/newsletter-subscribe/customizer.php:18,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:288,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:327,
 #: framework/premium/features/premium-header/items/contacts/options.php:62,
 #: framework/premium/features/premium-header/items/contacts/options.php:105,
 #: framework/premium/features/premium-header/items/contacts/options.php:147,
@@ -1195,7 +1194,7 @@ msgstr ""
 #: framework/premium/extensions/woocommerce-extra/features/compare/options.php:196,
 #: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/options.php:188,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:41,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:636,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:761,
 #: framework/premium/extensions/woocommerce-extra/features/compare/header-items/compare/options.php:18,
 #: framework/premium/extensions/woocommerce-extra/features/wish-list/header-items/wish-list/options.php:18
 msgid "Custom"
@@ -1855,8 +1854,8 @@ msgid "All categories"
 msgstr ""
 
 #: framework/extensions/trending/customizer.php:41
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:59
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:279
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:48
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:267
 msgid "Taxonomy"
 msgstr ""
 
@@ -2044,13 +2043,13 @@ msgstr ""
 msgid "Sorry, you don't have permission to install content."
 msgstr ""
 
-#: framework/features/demo-install/content-installer.php:181,
-#: framework/features/demo-install/content-installer.php:175
+#: framework/features/demo-install/content-installer.php:178,
+#: framework/features/demo-install/content-installer.php:172
 msgid "No demo data found."
 msgstr ""
 
-#: framework/features/demo-install/content-installer.php:337,
-#: framework/features/demo-install/content-installer.php:332
+#: framework/features/demo-install/content-installer.php:334,
+#: framework/features/demo-install/content-installer.php:329
 msgid "No pages to assign."
 msgstr ""
 
@@ -2064,8 +2063,8 @@ msgstr ""
 
 #: framework/features/demo-install/options-import.php:50,
 #: framework/features/demo-install/options-import.php:45,
-#: framework/features/demo-install/options-import.php:83,
-#: framework/features/demo-install/options-import.php:78,
+#: framework/features/demo-install/options-import.php:80,
+#: framework/features/demo-install/options-import.php:75,
 #: framework/features/demo-install/widgets-import.php:48,
 #: framework/features/demo-install/widgets-import.php:43
 msgid "No demo to install"
@@ -2088,8 +2087,8 @@ msgstr ""
 msgid "Sorry, you don't have permission to install widgets."
 msgstr ""
 
-#: framework/features/demo-install/widgets-import.php:82,
-#: framework/features/demo-install/widgets-import.php:76
+#: framework/features/demo-install/widgets-import.php:79,
+#: framework/features/demo-install/widgets-import.php:73
 msgid "No widgets to install."
 msgstr ""
 
@@ -2553,19 +2552,19 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: framework/features/conditions/rules/cpt.php:24
+#: framework/features/conditions/rules/cpt.php:17
 msgid "%s Single"
 msgstr ""
 
-#: framework/features/conditions/rules/cpt.php:34
+#: framework/features/conditions/rules/cpt.php:27
 msgid "%s Archive"
 msgstr ""
 
-#: framework/features/conditions/rules/cpt.php:47
+#: framework/features/conditions/rules/cpt.php:40
 msgid "%s %s Taxonomy"
 msgstr ""
 
-#: framework/features/conditions/rules/cpt.php:60
+#: framework/features/conditions/rules/cpt.php:53
 msgid "Custom Post Types"
 msgstr ""
 
@@ -2686,7 +2685,7 @@ msgid "Post with Author ID"
 msgstr ""
 
 #: framework/features/conditions/rules/specific.php:38,
-#: framework/features/conditions/rules/woo.php:60
+#: framework/features/conditions/rules/woo.php:65
 msgid "Taxonomy ID"
 msgstr ""
 
@@ -2725,31 +2724,36 @@ msgstr ""
 
 #: framework/features/conditions/rules/woo.php:30,
 #: framework/premium/extensions/woocommerce-extra/features/custom-thank-you-page/options.php:91
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:47
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:40
 msgid "Product Categories"
 msgstr ""
 
-#: framework/features/conditions/rules/woo.php:44
-msgid "Product Tags"
+#: framework/features/conditions/rules/woo.php:35
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:45
+msgid "Product Attributes"
 msgstr ""
 
 #: framework/features/conditions/rules/woo.php:49
-msgid "Single Product ID"
+msgid "Product Tags"
 msgstr ""
 
 #: framework/features/conditions/rules/woo.php:54
+msgid "Single Product ID"
+msgstr ""
+
+#: framework/features/conditions/rules/woo.php:59
 msgid "Single Product with Taxonomy ID"
 msgstr ""
 
-#: framework/features/conditions/rules/woo.php:70
+#: framework/features/conditions/rules/woo.php:75
 msgid "Product ID"
 msgstr ""
 
-#: framework/features/conditions/rules/woo.php:75
+#: framework/features/conditions/rules/woo.php:80
 msgid "Product with Taxonomy ID"
 msgstr ""
 
-#: framework/features/conditions/rules/woo.php:84,
+#: framework/features/conditions/rules/woo.php:89,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:42
 msgid "WooCommerce"
 msgstr ""
@@ -3136,7 +3140,7 @@ msgstr ""
 #: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/helpers.php:40,
 #: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/options.php:111
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/price-filter/index.js:108
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:630
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:623
 msgid "Filter"
 msgstr ""
 
@@ -3517,10 +3521,10 @@ msgstr ""
 #: framework/premium/extensions/woocommerce-extra/features/sku-layer.php:64,
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:353,
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:404,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:300,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:339,
 #: framework/premium/extensions/woocommerce-extra/features/share-box-layer/feature.php:203,
-#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:133,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:696
+#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:190,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:821
 msgid "Bottom Spacing"
 msgstr ""
 
@@ -4438,24 +4442,24 @@ msgstr ""
 
 #: framework/features/header/items/account/options.php:185,
 #: framework/features/header/items/account/options.php:189,
-#: framework/features/header/items/account/views/login.php:548
+#: framework/features/header/items/account/views/login.php:553
 msgid "Dokan Dashboard"
 msgstr ""
 
 #: framework/features/header/items/account/options.php:199,
 #: framework/features/header/items/account/options.php:203,
-#: framework/features/header/items/account/views/login.php:581
+#: framework/features/header/items/account/views/login.php:587
 msgid "Dokan Shop"
 msgstr ""
 
 #: framework/features/header/items/account/options.php:215,
 #: framework/features/header/items/account/options.php:219,
-#: framework/features/header/items/account/views/login.php:613
+#: framework/features/header/items/account/views/login.php:619
 msgid "Tutor LMS Dashboard"
 msgstr ""
 
 #: framework/features/header/items/account/options.php:235,
-#: framework/features/header/items/account/views/login.php:640
+#: framework/features/header/items/account/views/login.php:646
 msgid "bbPress Dashboard"
 msgstr ""
 
@@ -5136,7 +5140,7 @@ msgid "Max Width"
 msgstr ""
 
 #: framework/premium/features/content-blocks/options/popup.php:400
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:584
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:577
 msgid "Max Height"
 msgstr ""
 
@@ -5420,7 +5424,7 @@ msgstr ""
 
 #: framework/premium/extensions/post-types-extra/features/filtering/helpers.php:181,
 #: framework/premium/extensions/woocommerce-extra/features/compare/options.php:195,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:635
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:760
 msgid "All"
 msgstr ""
 
@@ -5630,8 +5634,7 @@ msgstr ""
 msgid "Product brands base"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:49,
-#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:51
+#: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:49
 msgid "brand"
 msgstr ""
 
@@ -5650,8 +5653,7 @@ msgstr ""
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:376,
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:443,
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:454,
-#: framework/premium/extensions/woocommerce-extra/features/compare/views/table.php:493,
-#: framework/premium/extensions/woocommerce-extra/features/filters/includes/active-filters.php:193
+#: framework/premium/extensions/woocommerce-extra/features/compare/views/table.php:493
 msgid "Brands"
 msgstr ""
 
@@ -5676,8 +5678,6 @@ msgid "Logos Gap"
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:444
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Preview.js:196
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:57
 msgid "Brand"
 msgstr ""
 
@@ -5978,15 +5978,15 @@ msgstr ""
 msgid "Choose a custom thank you page for this product."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/feature.php:49
+#: framework/premium/extensions/woocommerce-extra/features/filters/feature.php:118
 msgid "AJAX Filtering"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/feature.php:55
+#: framework/premium/extensions/woocommerce-extra/features/filters/feature.php:124
 msgid "Scroll to Top"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/feature.php:56
+#: framework/premium/extensions/woocommerce-extra/features/filters/feature.php:125
 msgid "Automatically scroll page to top after user interaction."
 msgstr ""
 
@@ -6010,12 +6010,12 @@ msgstr ""
 msgid "Close cart drawer"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/feature.php:111,
+#: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/feature.php:123,
 #: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/options.php:510
 msgid "WooCommerce Filters Canvas"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/feature.php:116
+#: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/feature.php:128
 msgid "Add widgets here."
 msgstr ""
 
@@ -6134,32 +6134,32 @@ msgstr ""
 msgid "Arrows Visibility"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:77,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:203
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:116,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:242
 msgid "Days"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:78,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:217
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:117,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:256
 msgid "Hours"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:82,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:231
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:121,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:270
 msgid "Min"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:83,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:245
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:122,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:284
 msgid "Sec"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:259,
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:291
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:298,
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:330
 msgid "Hurry up! This sale ends in"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:285
+#: framework/premium/extensions/woocommerce-extra/features/product-sale-countdown/feature.php:324
 msgid "Countdown Box"
 msgstr ""
 
@@ -6189,7 +6189,7 @@ msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/features/quick-view/options.php:33,
 #: framework/premium/extensions/woocommerce-extra/features/quick-view/options.php:80,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:515
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:640
 msgid "Button"
 msgstr ""
 
@@ -6198,7 +6198,7 @@ msgid "Modal Trigger"
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/features/quick-view/options.php:81,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:517,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:642,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/woo-tab-options.php:68,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/woo-tab-options.php:99,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/woo-tab-options.php:143
@@ -6283,21 +6283,21 @@ msgstr ""
 msgid "Share Box"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:126
+#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:183
 msgid "Show if cart is empty"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:315,
+#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:382,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:176
 msgid "Congratulations! You got free shipping 🎉"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:292,
+#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:359,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:135
 msgid "Add {price} more to get free shipping!"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:305,
+#: framework/premium/extensions/woocommerce-extra/features/shipping-progress/feature.php:372,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:160
 msgid "Add {items} more items to get free shipping!"
 msgstr ""
@@ -6323,7 +6323,7 @@ msgid "Count Criteria"
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:59,
-#: framework/premium/extensions/woocommerce-extra/features/filters/includes/active-filters.php:250,
+#: framework/premium/extensions/woocommerce-extra/features/filters/includes/active-filters.php:246,
 #: framework/premium/extensions/woocommerce-extra/features/filters/includes/price-filter.php:280
 msgid "Price"
 msgstr ""
@@ -6433,79 +6433,79 @@ msgstr ""
 msgid "Choose where you want this size guide to be displayed."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:78
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:203
 msgid ""
 "Sorry, no products matched your selection. Please choose a different "
 "combination."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:79
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:204
 msgid ""
 "Please select some product options before adding this product to your cart."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:80
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:205
 msgid ""
 "Sorry, this product is unavailable. Please choose a different combination."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:81,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:206,
 #: framework/premium/extensions/woocommerce-extra/features/compare/views/table.php:481,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/includes/swatch-element-render.php:47
 msgid "Out of Stock"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:335
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:460
 msgid "Display Variations Inline"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:431,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:525,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:626
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:556,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:650,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:751
 msgid "Swatches"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:481
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:606
 msgid "Swatches removed"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:488
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:613
 msgid "Swatches saved"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:516,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:641,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/woo-tab-options.php:24,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/woo-tab-options.php:46,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/woo-tab-options.php:142
 msgid "Color"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:518
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:643
 msgid "Mixed"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:544
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:669
 msgid "Custom Attributes"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:552,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:593,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:666
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:677,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:718,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:791
 msgid "Terms Limit"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:555,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:596
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:680,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:721
 msgid "Set how many terms you want to display in this attribute."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:565,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:606,
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:680
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:690,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:731,
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:805
 msgid "Limit"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:669
+#: framework/premium/extensions/woocommerce-extra/features/swatches/feature.php:794
 msgid "Set how many terms you want to display in each attribute."
 msgstr ""
 
@@ -6813,7 +6813,7 @@ msgstr ""
 #: framework/premium/features/premium-header/items/language-switcher/options.php:33,
 #: framework/premium/features/premium-header/items/language-switcher/options.php:171
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/active-filters/index.js:145
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:253
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:241
 msgid "Display Type"
 msgstr ""
 
@@ -6986,11 +6986,11 @@ msgstr ""
 msgid "In Stock"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/filter-types/taxonomies.php:204
+#: framework/premium/extensions/woocommerce-extra/features/filters/filter-types/taxonomies.php:283
 msgid "Collapse"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/filter-types/taxonomies.php:205
+#: framework/premium/extensions/woocommerce-extra/features/filters/filter-types/taxonomies.php:284
 msgid "Expand"
 msgstr ""
 
@@ -7006,19 +7006,19 @@ msgstr ""
 msgid "Active Filters Label"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:48
+#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:54
 msgid "category"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:82
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Preview.js:189
+#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:84
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Preview.js:175
 msgid "Find by %s"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:123,
+#: framework/premium/extensions/woocommerce-extra/features/filters/includes/filter-presenter.php:125,
 #: framework/premium/extensions/woocommerce-extra/features/filters/includes/price-filter.php:186
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/price-filter/Preview.js:59
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Preview.js:357
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Preview.js:342
 msgid "Reset Filter"
 msgstr ""
 
@@ -7500,13 +7500,13 @@ msgid "Display the currently active filters."
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/active-filters/index.js:154
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:264
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:252
 msgid "List"
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/active-filters/index.js:164
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/price-filter/index.js:82
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:603
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:596
 msgid "Show Reset Button"
 msgstr ""
 
@@ -7531,7 +7531,7 @@ msgid "Attribute 2"
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/active-filters/index.js:92
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:296
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:284
 msgid "Attribute"
 msgstr ""
 
@@ -7615,7 +7615,7 @@ msgid "Widget for filtering the WooCommerce products by price."
 msgstr ""
 
 #: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/price-filter/index.js:58
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:547
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:540
 msgid "Show Tooltip"
 msgstr ""
 
@@ -7623,105 +7623,101 @@ msgstr ""
 msgid "Show Prices"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Disabled.js:10
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Disabled.js:6
+msgid "Please select a valid taxonomy."
+msgstr ""
+
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Disabled.js:7
 msgid "Please select a valid attribute."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/Disabled.js:6
-msgid "Please install and activate the Blocksy Brands extension."
-msgstr ""
-
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:112
-msgid "Exclude %s"
-msgstr ""
-
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:126
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:110
 msgid "Exclude Speciffic Items"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:56
-msgid "Product Attributes"
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/TaxonomySelector.js:96
+msgid "Exclude %s"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:230
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:222
 msgid "Filter By"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:31
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:24
 msgid "Select attribute"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:312
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:300
 msgid "Multiple Selections"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:316
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:304
 msgid "Allow selecting multiple items in a filter."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:331
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:319
 msgid "Show Search Box"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:364
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:352
 msgid "Show Checkboxes"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:385
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:373
 msgid "Show Hierarchy"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:400
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:388
 msgid "Expandable"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:414
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:402
 msgid "Expanded by Default"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:437
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:427
 msgid "Show Brands Images"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:441
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:431
 msgid "Show Swatches"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:458
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:449
 msgid "Image Aspect Ratio"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:480
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:471
 msgid "Image Max width"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:496
-msgid "Show Image Frame"
-msgstr ""
-
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:515
-msgid "Show Label"
-msgstr ""
-
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:531
-msgid "Show Counter"
-msgstr ""
-
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:570
-msgid "Container Maximum Height"
-msgstr ""
-
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:61
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:48
 msgid "Shop Filters Controls"
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:62
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:487
+msgid "Show Image Frame"
+msgstr ""
+
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:49
 msgid ""
 "Widget for filtering the WooCommerce products loop by category, attribute or "
 "brand."
 msgstr ""
 
-#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:628
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:508
+msgid "Show Label"
+msgstr ""
+
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:524
+msgid "Show Counter"
+msgstr ""
+
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:563
+msgid "Container Maximum Height"
+msgstr ""
+
+#: framework/premium/extensions/woocommerce-extra/static/js/blocks/woocommerce-filters/tax-filters/index.js:621
 msgid "Shop Filters"
 msgstr ""
 

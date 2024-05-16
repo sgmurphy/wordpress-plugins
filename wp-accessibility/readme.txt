@@ -1,11 +1,11 @@
 === WP Accessibility ===
 Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
-Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
-Requires at least: 3.4.2
+Tags: accessibility, wcag, a11y, section508, alt text
+Requires at least: 4.9
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,14 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.9 =
+
+* Bug fix: Let Google Translate plugin keep title attributes that are used for CSS hooks.
+* Bug fix: Don't double-add '#' in focus color input.
+* Change: Use CSS variables for font resizing.
+* Feature: Add label fix when `label` element present but has no text.
+* Feature: Live Preview support via Playground.
 
 = 2.1.8 =
 

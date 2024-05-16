@@ -67,7 +67,32 @@ jQuery( function($) {
         return true;
     }
 
+    function checkForWhatsAppNumber() {
+
+        if(isWhatsAppValidated) {
+            return checkPreSettings();
+        }
+
+        $(".phone-number-list").html("");
+        if($("#channel_input_Whatsapp").length) {
+            if($("#channel_input_Whatsapp").val() != "") {
+                if($("#channel_input_Whatsapp").val().indexOf("-0") != -1) {
+                    let inputVal = $("#channel_input_Whatsapp").val();
+                    let phoneLabel = $(".phone-number-list").data("label");
+                    let testLink = `https://wa.me/`+($.trim(inputVal).replace(/[^a-zA-Z0-9 ]/g, '')).toHtmlEntities() ;
+                    let phoneLink = `<a class="whatsapp-test-btn" target="_blank" href='${testLink}'>Test</a>`;
+                    let btnHtml = `<div class='number-list is-not-agent'>${phoneLabel}: <b>${inputVal}</b> ${phoneLink}</div>`;
+                    $(".phone-number-list").html(btnHtml);
+                    $("#whatsapp-message-popup").show();
+                    return false;
+                }
+            }
+        }
+        return checkPreSettings();
+    }
+
     function checkPreSettings() {
+        isWhatsAppValidated = true;
         if(!whatsappStatus) {
             whatsappStatus = true;
             var phoneNumberReg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -159,6 +184,8 @@ jQuery( function($) {
                 });
         }, 500)
     });
+
+    let isWhatsAppValidated = true;
 
     $(document).ready(function () {
 
@@ -300,23 +327,9 @@ jQuery( function($) {
                     var dialCode = data.dialCode;
 
                     if (value.length > dialCode.length + 1 && !value.includes('-') && value.startsWith(`+${dialCode}`)) {
-                        if(value.charAt(value.length - 1) == 0) {
-                            $(".leading-zero-msg").addClass("active");
-                        } else {
-                            $(".leading-zero-msg").removeClass("active");
-                        }
                         var number = value.replace(`+${dialCode}`, '')
                         number = number.replaceAll(" ", "");
-                        number = number.replace(/^0+/, "");
                         $(this).val('+' + dialCode + '-' + number);
-                    }
-
-                    if (value.length > dialCode.length + 1 && value.startsWith(`+${dialCode}-0`)) {
-                        var number = value.replace(`+${dialCode}-0`, '')
-                        number = number.replaceAll(" ", "");
-                        number = number.replace(/^0+/, "");
-                        $(this).val('+' + dialCode + '-' + number);
-                        $(".leading-zero-msg").addClass("active");
                     }
                 }
 
@@ -336,20 +349,23 @@ jQuery( function($) {
                     $(this).closest(".channels__input-box").find(".iti__selected-flag").find(".iti__flag").attr("class", "iti__flag");
                     $(this).closest(".channels__input-box").find(".iti__selected-flag").attr("title", "");
                 }
-
-                if($(".leading-zero-msg").hasClass("active")) {
-                    setTimeout(function (){
-                        $(".leading-zero-msg").removeClass("active");
-                    }, 4000);
-                }
             } else if($.trim($(this).val()) == "") {
                 $(this).closest(".channels__input-box").find(".iti__selected-flag").find(".iti__flag").attr("class", "iti__flag");
                 $(this).closest(".channels__input-box").find(".iti__selected-flag").attr("title", "");
             }
         });
 
-        $(document).on("click", ".close-msg-box", function (){
-            $(".leading-zero-msg").removeClass("active");
+        $(document).on("click", ".remove-zero-btn", function(){
+            let inputVal = $("#channel_input_Whatsapp").val();
+            inputVal = inputVal.replace(/-0+/, '-');
+            $("#channel_input_Whatsapp").val(inputVal);
+            $(".chaty-popup").hide();
+            isWhatsAppValidated = true;
+            checkPreSettings();
+        });
+
+        $(document).on("change", ".custom-channel-Whatsapp", function(){
+            isWhatsAppValidated = false;
         });
 
         $(document).on("change", ".chaty-redirect-setting", function(){
@@ -490,16 +506,13 @@ jQuery( function($) {
                 });
             }
             if(errorCount == 0) {
-                return checkPreSettings();
+                return checkForWhatsAppNumber();
             } else {
                 $(".cht-input-error:first").focus();
                 return false;
             }
         });
 
-        $(".chaty-popup-inner").on("click", function(e){
-            e.stopPropagation();
-        });
         $(".chaty-popup-outer").on("click", function(e){
             $(".chaty-popup").hide();
         });

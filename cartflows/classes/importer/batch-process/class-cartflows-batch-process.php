@@ -85,6 +85,15 @@ if ( ! class_exists( 'CartFlows_Batch_Process' ) ) :
 		public $last_export_checksums;
 
 		/**
+		 * Set the
+		 *
+		 * @since 2.0.8
+		 * @var bool True/False flag to get the status of import process.
+		 * @access public
+		 */
+		public static $is_wcf_template_import;
+
+		/**
 		 * Initiator
 		 *
 		 * @since 1.0.0
@@ -245,6 +254,16 @@ if ( ! class_exists( 'CartFlows_Batch_Process' ) ) :
 		 * @param array $mimes Already supported mime types.
 		 */
 		public function custom_upload_mimes( $mimes ) {
+
+			// Return if the current user don't have the access to upload the files.
+			if ( ! current_user_can( 'unfiltered_upload' ) ) {
+				return $mimes;
+			}
+
+			// Only add the SVG support if and only if the CartFlows import is complete OR in progress.
+			if ( ! self::$is_wcf_template_import ) {
+				return $mimes;
+			}
 
 			// Allow SVG files.
 			$mimes['svg']  = 'image/svg+xml';
@@ -656,6 +675,17 @@ if ( ! class_exists( 'CartFlows_Batch_Process' ) ) :
 		public function enable_unfiltered_upload_elementor() {
 
 			add_filter( 'elementor/files/allow_unfiltered_upload', '__return_true' );
+		}
+
+		/**
+		 * Set the flat for import process is in progress or not.
+		 * This flag will be used to add a support of extra files for uploading to the website directory while importing the ready-made templates.
+		 *
+		 * @param bool $bool The default state is false.
+		 * @return void
+		 */
+		public static function set_is_wcf_template_import( $bool = false ) {
+			self::$is_wcf_template_import = $bool;
 		}
 	}
 

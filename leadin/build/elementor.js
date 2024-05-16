@@ -125,6 +125,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "hubspotNonce": () => (/* binding */ hubspotNonce),
 /* harmony export */   "iframeUrl": () => (/* binding */ iframeUrl),
 /* harmony export */   "impactLink": () => (/* binding */ impactLink),
+/* harmony export */   "lastAuthorizeTime": () => (/* binding */ lastAuthorizeTime),
+/* harmony export */   "lastDeauthorizeTime": () => (/* binding */ lastDeauthorizeTime),
+/* harmony export */   "lastDisconnectTime": () => (/* binding */ lastDisconnectTime),
 /* harmony export */   "leadinPluginVersion": () => (/* binding */ leadinPluginVersion),
 /* harmony export */   "leadinQueryParams": () => (/* binding */ leadinQueryParams),
 /* harmony export */   "locale": () => (/* binding */ locale),
@@ -138,6 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "portalId": () => (/* binding */ portalId),
 /* harmony export */   "redirectNonce": () => (/* binding */ redirectNonce),
 /* harmony export */   "refreshToken": () => (/* binding */ refreshToken),
+/* harmony export */   "refreshTokenError": () => (/* binding */ refreshTokenError),
 /* harmony export */   "requiresContentEmbedScope": () => (/* binding */ requiresContentEmbedScope),
 /* harmony export */   "restNonce": () => (/* binding */ restNonce),
 /* harmony export */   "restUrl": () => (/* binding */ restUrl),
@@ -162,6 +166,9 @@ var _window$leadinConfig = window.leadinConfig,
     hubspotNonce = _window$leadinConfig.hubspotNonce,
     iframeUrl = _window$leadinConfig.iframeUrl,
     impactLink = _window$leadinConfig.impactLink,
+    lastAuthorizeTime = _window$leadinConfig.lastAuthorizeTime,
+    lastDeauthorizeTime = _window$leadinConfig.lastDeauthorizeTime,
+    lastDisconnectTime = _window$leadinConfig.lastDisconnectTime,
     leadinPluginVersion = _window$leadinConfig.leadinPluginVersion,
     leadinQueryParams = _window$leadinConfig.leadinQueryParams,
     locale = _window$leadinConfig.locale,
@@ -181,7 +188,8 @@ var _window$leadinConfig = window.leadinConfig,
     trackConsent = _window$leadinConfig.trackConsent,
     wpVersion = _window$leadinConfig.wpVersion,
     contentEmbed = _window$leadinConfig.contentEmbed,
-    requiresContentEmbedScope = _window$leadinConfig.requiresContentEmbedScope;
+    requiresContentEmbedScope = _window$leadinConfig.requiresContentEmbedScope,
+    refreshTokenError = _window$leadinConfig.refreshTokenError;
 
 
 /***/ }),
@@ -8929,7 +8937,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window.addEventListener('elementor/init', function () {
+var ELEMENTOR_READY_INTERVAL = 500;
+var MAX_POLL_TIMEOUT = 30000;
+
+var registerElementorWidgets = function registerElementorWidgets() {
   (0,_utils_backgroundAppUtils__WEBPACK_IMPORTED_MODULE_2__.initBackgroundApp)(function () {
     var FormWidget;
     var MeetingsWidget;
@@ -8960,7 +8971,19 @@ window.addEventListener('elementor/init', function () {
 
     window.elementor.addControlView('leadinmeetingselect', leadinSelectMeetingItemView);
   });
-});
+};
+
+var pollForElementorReady = setInterval(function () {
+  var elementorFrontend = window.elementorFrontend;
+
+  if (elementorFrontend) {
+    registerElementorWidgets();
+    clearInterval(pollForElementorReady);
+  }
+}, ELEMENTOR_READY_INTERVAL);
+setTimeout(function () {
+  clearInterval(pollForElementorReady);
+}, MAX_POLL_TIMEOUT);
 })();
 
 /******/ })()

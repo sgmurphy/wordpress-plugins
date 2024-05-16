@@ -3,7 +3,7 @@
 defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UCEmptyTemplate{
-
+	
 	const SHOW_DEBUG = false;
 	
 	private $templateID;
@@ -318,10 +318,10 @@ class UCEmptyTemplate{
 			if($index > 0){
 				
 				GlobalsProviderUC::$renderJSForHiddenContent = true;
+				GlobalsProviderUC::$renderTemplateID = $templateID;
 				$isHidden = true;
-				
 			}
-						
+			
 			$output = HelperProviderCoreUC_EL::getElementorTemplate($templateID, true);
 
 			//set hidden content

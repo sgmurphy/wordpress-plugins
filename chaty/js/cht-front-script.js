@@ -1029,7 +1029,7 @@
                             widgetIcon +
                             '<span class="sr-only">Open chaty</span>' +
                             '</button>' +
-                            '<button type="button" class="open-chaty-channel"></button>' +
+                            '<button type="button" class="open-chaty-channel"><span class="sr-only">chaty button</span></button>' +
                             '</div>' +
                             '</div>';
                         $("#chaty-widget-" + widgetRecord.id + " .chaty-i-trigger").html(widgetButton);

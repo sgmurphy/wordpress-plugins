@@ -4,7 +4,7 @@
   Plugin Name: Anti-Spam by CleanTalk
   Plugin URI: https://cleantalk.org
   Description: Max power, all-in-one, no Captcha, premium anti-spam plugin. No comment spam, no registration spam, no contact spam, protects any WordPress forms.
-  Version: 6.31
+  Version: 6.32
   Author: СleanTalk - Anti-Spam Protection <welcome@cleantalk.org>
   Author URI: https://cleantalk.org
   Text Domain: cleantalk-spam-protect
@@ -155,8 +155,22 @@ if ( $apbct->settings['comments__disable_comments__all'] || $apbct->settings['co
 if (
     $apbct->key_is_ok &&
     ( ! is_admin() || apbct_is_ajax() ) &&
-    $apbct->settings['data__email_decoder'] ) {
-    \Cleantalk\ApbctWP\Antispam\EmailEncoder::getInstance();
+    $apbct->settings['data__email_decoder']
+) {
+    $skip_email_encode = false;
+
+    if (!empty($_POST)) {
+        foreach ( $_POST as $param => $_value ) {
+            if ( strpos((string)$param, 'et_pb_contactform_submit') === 0 ) {
+                $skip_email_encode = true;
+                break;
+            }
+        }
+    }
+
+    if (!$skip_email_encode) {
+        \Cleantalk\ApbctWP\Antispam\EmailEncoder::getInstance();
+    }
 }
 
 add_action('rest_api_init', 'apbct_register_my_rest_routes');
@@ -188,6 +202,10 @@ add_action('wp_ajax_cleantalk_force_ajax_check', 'ct_ajax_hook');
 
 // Checking email before POST
 add_action('wp_ajax_nopriv_apbct_email_check_before_post', 'apbct_email_check_before_post');
+
+// Force ajax set important parameters (apbct_timestamp etc)
+add_action('wp_ajax_nopriv_apbct_set_important_parameters', 'apbct_cookie');
+add_action('wp_ajax_apbct_set_important_parameters', 'apbct_cookie');
 
 // Database prefix
 global $wpdb, $wp_version;
@@ -311,6 +329,11 @@ $apbct_active_integrations = array(
         'hook'    => 'ct_check_internal',
         'setting' => 'forms__check_internal',
         'ajax'    => true
+    ),
+    'CleantalkExternalForms'         => array(
+        'hook'    => 'init',
+        'setting' => 'forms__check_external',
+        'ajax'    => false
     ),
     'CleantalkPreprocessComment'         => array(
         'hook'    => 'preprocess_comment',
@@ -589,6 +612,12 @@ $apbct_active_integrations = array(
         'hook'    => 'kb_process_ajax_submit',
         'setting' => 'forms__contact_forms_test',
         'ajax'    => true
+    ),
+    'WordpressFileUpload' => array(
+        'hook'    => 'wfu_before_upload',
+        'setting' => 'forms__contact_forms_test',
+        'ajax'    => true,
+        'ajax_and_post' => true
     ),
 );
 new  \Cleantalk\Antispam\Integrations($apbct_active_integrations, (array)$apbct->settings);
@@ -1656,7 +1685,7 @@ function apbct_sfw_update__download_files($urls, $direct_update = false)
     }
 
     //Reset keys
-    $urls          = array_values($urls);
+    $urls          = array_values(array_unique($urls));
     $results       = Helper::httpMultiRequest($urls, $apbct->fw_stats['updating_folder']);
     $count_urls    = count($urls);
     $count_results = count($results);
@@ -2720,7 +2749,7 @@ function apbct_cookie()
     $domain = '';
 
     // Submit time
-    if (empty($_POST)) {
+    if ( empty($_POST) || Post::get('action') === 'apbct_set_important_parameters' ) {
         $apbct_timestamp = time();
         RequestParameters::set('apbct_timestamp', (string)$apbct_timestamp, true);
         $cookie_test_value['cookies_names'][] = 'apbct_timestamp';

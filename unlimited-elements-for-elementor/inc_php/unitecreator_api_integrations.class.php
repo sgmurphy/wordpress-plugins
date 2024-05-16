@@ -263,27 +263,33 @@ class UniteCreatorAPIIntegrations{
 	public function addSettingsFields($settingsManager, $fields, $name, $condition = null){
 
 		foreach($fields as $field){
+			
 			$params = array();
 			$params["origtype"] = $field["type"];
 			$params["description"] = isset($field["desc"]) ? $field["desc"] : "";
-
+			
 			if(!empty($condition))
 				$params["elementor_condition"] = $condition;
-
+				
 			$paramName = $name . "_" . $field["id"];
 			$paramDefault = isset($field["default"]) ? $field["default"] : "";
-
+			
 			switch($field["type"]){
 				case UniteCreatorDialogParam::PARAM_STATIC_TEXT:
 					$settingsManager->addStaticText($field["text"], $paramName, $params);
 				break;
 				case UniteCreatorDialogParam::PARAM_TEXTAREA:
+					$params["add_dynamic"] = true;
 					$settingsManager->addTextArea($paramName, $paramDefault, $field["text"], $params);
 				break;
 				case UniteCreatorDialogParam::PARAM_TEXTFIELD:
+					
+					$params["add_dynamic"] = true;
+					
 					$settingsManager->addTextBox($paramName, $paramDefault, $field["text"], $params);
 				break;
 				case UniteCreatorDialogParam::PARAM_DROPDOWN:
+					$params["add_dynamic"] = true;
 					$settingsManager->addSelect($paramName, array_flip($field["options"]), $field["text"], $paramDefault, $params);
 				break;
 				default:

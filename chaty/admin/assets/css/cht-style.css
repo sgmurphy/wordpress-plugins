@@ -6139,3 +6139,21 @@ span.header-tooltip.header-icon-tooltip span.header-tooltip-text:before {
 .Whatsapp-settings .html-tooltip .tooltip-text {
     height: 514px;
 }
+.number-list a {
+    background-color: transparent;
+    color: #b78deb;
+    border: 1px solid #b78deb;
+    box-shadow: none;
+    font-size: .88rem;
+    font-weight: 400;
+    height: 26px;
+    padding: 2px 1em;
+    margin-left: 1em;
+    white-space: nowrap;
+    border-radius: 8px;
+    transition-duration: .3s;
+    transition-property: background-color, opacity, color, transform, box-shadow;
+}
+.number-list a:hover {
+    background-color: rgba(183, 141, 235, .15);
+}

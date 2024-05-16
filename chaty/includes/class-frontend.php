@@ -1530,11 +1530,15 @@ class CHT_Frontend extends CHT_Admin_Base
         if( preg_match('/^#[a-f0-9]{6}$/i', $color)) {
             return $color;
         } else {
-            $rgbPattern = '/^rgb\((\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*,\s*?){2}\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*\)$/';
+            // Check if it's a RGB color
+            $rgbPattern = '/^rgb\(\s*(2[0-5]{2}|1\d{2}|[1-9]\d|\d)\s*,\s*(2[0-5]{2}|1\d{2}|[1-9]\d|\d)\s*,\s*(2[0-5]{2}|1\d{2}|[1-9]\d|\d)\s*\)$/i';
+            if(preg_match($rgbPattern, $color)) {
+                return $color;
+            }
 
             // Check if it's a RGBA color
             $rgbaPattern = '/^rgba\((\s*0*(?:1?[1-9]?\d|2[0-4]\d|25[0-5])\s*,\s*?){3}\s*0*(?:0(\.\d+)?|1(\.0+)?)\s*\)$/';
-            if(preg_match($rgbPattern, $color) || preg_match($rgbaPattern, $color)) {
+            if(preg_match($rgbaPattern, $color)) {
                 return $color;
             }
         }

@@ -153,7 +153,13 @@ class Importer extends AjaxBase {
 		);
 
 		if ( is_array( $flow_data ) ) {
+			// Set the flag as true to check for the import process is started for the CartFlows. So as to import/upload the required files.
+			\CartFlows_Batch_Process::set_is_wcf_template_import( true );
+
 			$imported_flow = \CartFlows_Importer::get_instance()->import_from_json_data( $flow_data );
+
+			// Set the flag as false once the template import is complete.
+			\CartFlows_Batch_Process::set_is_wcf_template_import( false );
 
 			$response_data['message']      = 'Funnel Imported successfully';
 			$response_data['redirect_url'] = admin_url( 'admin.php?page=' . CARTFLOWS_SLUG . '&path=flows' );
@@ -723,6 +729,15 @@ class Importer extends AjaxBase {
 		 */
 		$steps = isset( $flow['steps'] ) ? $flow['steps'] : array();
 
+		// Return of no steps are found in the imported flow.
+		if ( empty( $steps ) ) {
+			$response_data = array( 'message' => __( 'Steps not found.', 'cartflows' ) );
+			wp_send_json_error( $response_data );
+		}
+
+		// Set the flag as true to check for the import process is started for the CartFlows. So as to import/upload the required files.
+		\CartFlows_Batch_Process::set_is_wcf_template_import( true );
+
 		foreach ( $steps as $key => $step ) {
 
 			if ( in_array( $step['type'], array( 'upsell', 'downsell' ), true ) && ( ! _is_cartflows_pro() || is_wcf_starter_plan() ) ) {
@@ -754,6 +769,9 @@ class Importer extends AjaxBase {
 			'redirect_url' => admin_url( 'post.php?action=edit&post=' . $new_flow_id ),
 			'new_flow_id'  => $new_flow_id,
 		);
+
+		// Set the flag as false once the template import is complete.
+		\CartFlows_Batch_Process::set_is_wcf_template_import( false );
 
 		wcf()->logger->import_log( 'COMPLETE! Importing Flow' );
 
@@ -852,6 +870,10 @@ class Importer extends AjaxBase {
 		}
 
 		$step['title'] = isset( $_POST['step_name'] ) && ! empty( $_POST['step_name'] ) ? sanitize_text_field( wp_unslash( $_POST['step_name'] ) ) : $step['title'];
+
+		// Set the flag as true to check for the import process is started for the CartFlows. So as to import/upload the required files.
+		\CartFlows_Batch_Process::set_is_wcf_template_import( true );
+
 		// Create steps.
 		$this->import_single_step(
 			array(
@@ -880,6 +902,9 @@ class Importer extends AjaxBase {
 		$response_data = array(
 			'message' => __( 'Successfully imported the Step!', 'cartflows' ),
 		);
+
+		// Set the flag as false once the template import is complete.
+		\CartFlows_Batch_Process::set_is_wcf_template_import( false );
 
 		wcf()->logger->import_log( 'COMPLETE! Importing Step' );
 

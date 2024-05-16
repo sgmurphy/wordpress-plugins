@@ -1110,7 +1110,7 @@ function fifu_get_strings_settings() {
 
     // audio
     $fifu['audio']['desc'] = function () {
-        _e("This feature enables the featured audio field, where you can set the URL of an audio file, such as mp3 or ogg. Player controls will then be added to the external featured image, allowing visitors to play the audio.", FIFU_SLUG);
+        _e("This feature enables the featured audio field, where you can set the URL of an audio file, such as MP3 or OGG. Player controls will then be added to the external featured image, allowing visitors to play the audio. You can configure the behavior of the audio using the settings available in the 'Featured Video' tab.", FIFU_SLUG);
     };
     $fifu['audio']['requirement'] = function () {
         _e("you must set an external featured image as well.", FIFU_SLUG);

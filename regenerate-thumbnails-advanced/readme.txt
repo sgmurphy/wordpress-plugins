@@ -70,8 +70,8 @@ For support please contact us <a target="_blank" href="https://shortpixel.com/co
 
 **Other plugins by [ShortPixel](https://shortpixel.com)**
 
+* [FastPixel Caching](https://wordpress.org/plugins/fastpixel-website-accelerator/) - WP Optimization made easy
 * [ShortPixel Image Optimizer](https://wordpress.org/plugins/shortpixel-image-optimiser/) - Image optimization & compression for all the images on your website, including WebP & AVIF delivery
-* [FastPixel Website Accelerator](https://fastpixel.io/) - The all-in-one WP website accelerator. Image optimization and CDN included.
 * [ShortPixel Adaptive Images](https://wordpress.org/plugins/shortpixel-adaptive-images/) - On-the-fly image optimization & CDN delivery
 * [Enable Media Replace](https://wordpress.org/plugins/enable-media-replace/) - Easily replace images or files in Media Library
 * [Resize Image After Upload](https://wordpress.org/plugins/resize-image-after-upload/) - Automatically resize each uploaded image

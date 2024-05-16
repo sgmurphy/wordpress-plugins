@@ -355,12 +355,15 @@ class UniteCreatorTemplateEngineWork{
 
 			self::$arrCollectedSchemaItems = array();
 		}
-
-		$arrItems = HelperUC::$operations->getArrSchema($arrWidgetItems, "faq",$titleKey, $contentKey);
-
-		if(empty($arrItems))
+		
+		if(empty($arrWidgetItems))
 			return(false);
-
+		
+		$arrItems = HelperUC::$operations->getArrSchema($arrWidgetItems, "faq",$titleKey, $contentKey);
+		
+		if(empty($arrWidgetItems))
+			return(false);
+		
 		$jsonItems = json_encode($arrItems);
 
 		$htmlSchema = '<script type="application/ld+json">'.$jsonItems.'</script>';

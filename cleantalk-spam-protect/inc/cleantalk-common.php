@@ -607,7 +607,9 @@ function apbct_get_sender_info()
         'has_input_focused' => Cookie::get('ct_has_input_focused') !== ''
             ? json_encode(Cookie::get('ct_has_input_focused'))
             : null,
-        'cache_plugins_detected' => $cache_plugins_detected
+        'cache_plugins_detected' => $cache_plugins_detected,
+        'bot_detector_fired_form_exclusions' => apbct__bot_detector_get_fired_exclusions(),
+        'bot_detector_prepared_form_exclusions' => apbct__bot_detector_get_prepared_exclusion(),
     );
 
     // Unset cookies_enabled from sender_info if cookies_type === none
@@ -804,6 +806,11 @@ function apbct_is_cache_plugins_exists($return_names = false)
     }
 
     return $return_names ? $out : !empty($out);
+}
+
+function apbct_is_advanced_cache_exists()
+{
+    return apbct_is_cache_plugins_exists() && file_exists(untrailingslashit(WP_CONTENT_DIR) . '/advanced-cache.php');
 }
 
 /**
@@ -1200,7 +1207,11 @@ function apbct__change_type_website_field($fields)
 
     if ( isset($apbct->settings['comments__hide_website_field']) && $apbct->settings['comments__hide_website_field'] ) {
         if ( isset($fields['url']) && $fields['url'] ) {
-            $fields['url'] = '<input id="honeypot-field-url" autocomplete="off" name="url" type="text" value="" size="30" maxlength="200" />';
+            $fields['url'] = '<input id="honeypot-field-url" style="display: none;" autocomplete="off" name="url" type="text" value="" size="30" maxlength="200" />';
+        }
+        $theme = wp_get_theme();
+        if ( isset($theme->template) && $theme->template === 'dt-the7' ) {
+            $fields['url'] = '<input id="honeypot-field-url" autocomplete="off" name="url" type="text" value="" size="30" maxlength="200" /></div>';
         }
     }
 
@@ -1521,7 +1532,9 @@ function apbct_form__get_no_cookie_data($preprocessed_data = null)
     global $apbct;
     $flag = null;
     $no_cookie_data = apbct_check_post_for_no_cookie_data($preprocessed_data);
-    apbct_filter_post_no_cookie_data($no_cookie_data['mapping']);
+    if ( !empty($no_cookie_data['mapping']) ) {
+        apbct_filter_post_no_cookie_data($no_cookie_data['mapping']);
+    }
     if ( $no_cookie_data && !empty($no_cookie_data['data']) && $apbct->data['cookies_type'] === 'none' ) {
         $flag = \Cleantalk\ApbctWP\Variables\NoCookie::setDataFromHiddenField($no_cookie_data['data']);
     }
@@ -1696,4 +1709,91 @@ function apbct_get_event_token($params)
     return  $event_token_from_params
         ? (string) $event_token_from_params
         : (string) $event_token_from_request;
+}
+
+/**
+ * Do prepare exclusions for skippping bot-detector event token field.
+ * @return string JSOn
+ */
+function apbct__bot_detector_get_prepared_exclusion()
+{
+    global $apbct;
+    $bot_detector_exclusions = array();
+
+    //start exclusion there
+
+    //todo if do need to add a built-ib exclusion, use $exlusion_format
+    //set regexp to chek within attributes
+    //    $exlusion_format = array(
+    //        'exclusion_id' => '',
+    //        'signs_to_check' => array(
+    //            'form_attributes'               => '',
+    //            'form_children_attributes'      => '',
+    //            'form_parent_attributes'        => ''
+    //        )
+    //    );
+    if ($apbct->settings['exclusions__bot_detector']) {
+        $bot_detector_exclusions = array_merge(
+            $bot_detector_exclusions,
+            apbct__bot_detector_get_custom_exclusion_from_settings()
+        );
+    }
+
+    //start validate
+    $bot_detector_exclusions_valid = array();
+    foreach ($bot_detector_exclusions as $exclusion) {
+        if (
+            empty($exclusion['exclusion_id']) ||
+            (
+                empty($exclusion['signs_to_check']['form_attributes']) &&
+                empty($exclusion['signs_to_check']['form_children_attributes']) &&
+                empty($exclusion['signs_to_check']['form_parent_attributes'])
+            )
+        ) {
+            continue;
+        }
+        $bot_detector_exclusions_valid[] = $exclusion;
+    }
+
+    //prepare for early localize
+    $bot_detector_exclusions_valid = json_encode($bot_detector_exclusions_valid);
+    return $bot_detector_exclusions_valid !== false ? $bot_detector_exclusions_valid : '{}';
+}
+
+function apbct__bot_detector_get_fired_exclusions()
+{
+    return Cookie::get('ct_bot_detector_form_exclusion');
+}
+
+function apbct__bot_detector_get_custom_exclusion_from_settings()
+{
+    global $apbct;
+
+    $exlusion_format = array(
+        'exclusion_id' => '',
+        'signs_to_check' => array(
+            'form_attributes'               => '',
+            'form_children_attributes'      => '',
+            'form_parent_attributes'        => ''
+        )
+    );
+
+    $exclusions = array();
+    if (!$apbct->settings['exclusions__bot_detector']) {
+        return $exclusions;
+    }
+
+    foreach ($exlusion_format['signs_to_check'] as $sign => $_val) {
+        $setting_name = 'exclusions__bot_detector__' . $sign;
+        if (!empty($apbct->settings[$setting_name])) {
+            $regexps = explode(',', $apbct->settings[$setting_name]);
+            for ( $i = 0; $i < count($regexps); $i++ ) {
+                $form_exclusion = $exlusion_format;
+                $form_exclusion['exclusion_id'] = 'exclusion_' . $i;
+                $form_exclusion['signs_to_check'][$sign] = $regexps[$i];
+                $exclusions[] = $form_exclusion;
+            }
+        }
+    }
+    return $exclusions;
 }

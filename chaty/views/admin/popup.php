@@ -53,7 +53,7 @@ if (defined('ABSPATH') === false) {
                     <?php esc_html_e("Please select at least one chat channel before publishing your widget", 'chaty'); ?>
                 </div>
                 <input type="hidden" id="delete_widget_id" value="">
-                <div class="chaty-popup-footer flex px-5">
+                <div class="chaty-popup-footer flex px-5 justify-end">
                     <button type="button" class="close-chaty-popup-btn channel-setting-btn btn btn-primary rounded-lg mr-5"><?php esc_html_e("Select Channel", 'chaty'); ?></button>
                     <button type="button" class="btn btn-default check-for-triggers btn btn-primary btn rounded-lg btn-primary bg-transparent text-cht-gray-150 border-cht-gray-150 hover:bg-transparent hover:text-cht-gray-150"><?php esc_html_e("Save Anyway", 'chaty'); ?></button>
                 </div>
@@ -80,7 +80,7 @@ if (defined('ABSPATH') === false) {
                     <?php esc_html_e("You need to fill out at least one channel details for Chaty to show up on your website", 'chaty'); ?>
                 </div>
                 <input type="hidden" id="delete_widget_id" value="">
-                <div class="chaty-popup-footer flex px-5">
+                <div class="chaty-popup-footer flex px-5 justify-end">
                     <button type="button" class="btn rounded-lg btn-default check-for-triggers  bg-transparent text-cht-gray-150 border-cht-gray-150 hover:bg-transparent hover:text-cht-gray-150 mr-5"><?php esc_html_e("Save Anyway", 'chaty'); ?></button>
                     <button type="button" class="close-chaty-popup-btn channel-setting-btn btn rounded-lg btn-primary"><?php esc_html_e("Fill channel details", 'chaty'); ?></button>
                 </div>
@@ -106,7 +106,7 @@ if (defined('ABSPATH') === false) {
                     <?php esc_html_e("Please select mobile/desktop before publishing your widget", 'chaty'); ?>
                 </div>
                 <input type="hidden" id="delete_widget_id" value="">
-                <div class="chaty-popup-footer flex px-5">
+                <div class="chaty-popup-footer flex px-5 justify-end">
                     <button type="button" class="btn btn-default check-for-triggers rounded-lg bg-transparent text-cht-gray-150 border-cht-gray-150 hover:bg-transparent hover:text-cht-gray-150 mr-5"><?php esc_html_e("Save Anyway", 'chaty'); ?></button>
                     <button type="button" class="close-chaty-popup-btn channel-setting-btn btn rounded-lg btn-primary"><?php esc_html_e("Select Device", 'chaty'); ?></button>
                 </div>
@@ -131,7 +131,7 @@ if (defined('ABSPATH') === false) {
                     <?php esc_html_e("Please select a trigger before publishing your widget", 'chaty'); ?>
                 </div>
                 <input type="hidden" id="delete_widget_id" value="">
-                <div class="chaty-popup-footer flex px-5">
+                <div class="chaty-popup-footer flex px-5 justify-end">
                     <button type="button" class="btn-default check-for-status btn rounded-lg btn-primary bg-transparent text-cht-gray-150 border-cht-gray-150 hover:bg-transparent hover:text-cht-gray-150 mr-5"><?php esc_html_e("Save Anyway", 'chaty'); ?></button>
                     <button type="button" class="close-chaty-popup-btn select-trigger-btn btn btn-primary rounded-lg"><?php esc_html_e("Select Trigger", 'chaty'); ?></button>
                 </div>
@@ -156,7 +156,7 @@ if (defined('ABSPATH') === false) {
                     <?php esc_html_e("Chaty is currently turned off, would you like to save and show it on your site?", 'chaty'); ?>
                 </div>
                 <input type="hidden" id="delete_widget_id" value="">
-                <div class="chaty-popup-footer flex px-5">
+                <div class="chaty-popup-footer flex px-5 justify-end">
                     <button type="button" class="btn-default status-and-save btn-primary btn rounded-lg bg-transparent text-cht-gray-150 border-cht-gray-150 hover:bg-transparent hover:text-cht-gray-150 mr-5"><?php esc_html_e("Just save and keep it off", 'chaty'); ?></button>
                     <button type="button" class="btn-primary change-status-btn change-status-and-save btn rounded-lg"><?php esc_html_e("Save & Show on my site", 'chaty'); ?></button>
                 </div>
@@ -242,6 +242,34 @@ if (defined('ABSPATH') === false) {
                             </ul>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="chaty-popup" id="whatsapp-message-popup">
+    <div class="chaty-popup-outer"></div>
+    <div class="chaty-popup-inner popup-pos-bottom">
+        <div class="chaty-popup-content">
+            <div class="chaty-popup-close">
+                <a href="javascript:void(0)" class="close-delete-pop close-chaty-popup-btn relative top-2 right-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15.6 15.5c-.53.53-1.38.53-1.91 0L8.05 9.87 2.31 15.6c-.53.53-1.38.53-1.91 0s-.53-1.38 0-1.9l5.65-5.64L.4 2.4C-.13 1.87-.13 1.02.4.49s1.38-.53 1.91 0l5.64 5.63L13.69.39c.53-.53 1.38-.53 1.91 0s.53 1.38 0 1.91L9.94 7.94l5.66 5.65c.52.53.52 1.38 0 1.91z"/></svg>
+                </a>
+            </div>
+            <div class="a-card a-card--normal">
+                <div class="chaty-popup-header font-medium text-cht-gray-150 py-4 text-left px-5">
+                    <?php esc_html_e("Leading zero in WhatsApp number", "chaty") ?>
+                </div>
+                <div class="text-cht-gray-150 text-base px-5 py-6">
+                    <?php esc_html_e("You've entered your WhatsApp number with a leading zero. Are you sure the number is correct?", "chaty") ?>
+                    <div class="phone-number-list" data-label="<?php esc_html_e("Phone number", "chaty"); ?>" data-action="<?php esc_html_e("Remove Zero", "chaty"); ?>" data-test="<?php esc_html_e("Test", "chaty"); ?>" >
+
+                    </div>
+                </div>
+                <div class="chaty-popup-footer flex px-5 justify-end">
+                    <button type="button" class="remove-zero-btn channel-setting-btn btn btn-primary bg-transparent text-cht-gray-150 border-cht-gray-150 hover:bg-transparent hover:text-cht-gray-150 rounded-lg mr-5"><?php esc_html_e("Remove Zero", "chaty") ?></button>
+                    <button type="button" class="btn btn-default check-for-numbers btn btn-primary btn rounded-lg btn-primary "><?php esc_html_e("Proceed", "chaty") ?></button>
                 </div>
             </div>
         </div>

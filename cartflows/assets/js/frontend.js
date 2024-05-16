@@ -134,6 +134,11 @@
 		// Convert the object to a query string.
 		const queryString = new URLSearchParams( params ).toString();
 
+		// Return if the querystring is empty.
+		if ( '' === queryString ) {
+			return next_step_url;
+		}
+
 		/**
 		 * Append the query string to the URL
 		 * If: No question mark is in the URL then: add the question mark before query string.

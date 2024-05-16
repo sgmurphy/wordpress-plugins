@@ -867,6 +867,41 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+version 1.5.107: 2024-05-16
+
+Plugin Changes:
+
+* Feature - added elementor dynamic options to api integrations
+* Feature - added option to get images from current product variations for the dynamic gallery.
+* Feature - added preperation for the enhanced ajax search
+* Fix - fixed weird elementor no products on cart page bug
+* Fix - fixed bug with faq schema output
+* Fix - fixed general settings show items at start
+
+Widget Changes:
+
+* Feature: Event List (Pro) - Added "Remove All Upcoming Events Except Next One" functionality, facilitating the removal of all upcoming events except for the next scheduled event for streamlined event management.
+* Feature: Animated Icon Box (Pro) - Added Description Opacity option to customize the opacity level of descriptions for enhanced visual aesthetics and readability.
+* Feature: Underline Animated Button (Free) - Added Animation Move Amount option, enabling users to customize the amount of movement in animations for enhanced visual effects.
+* Feature: Remote Tabs (Pro) - Added Item Min Height option for better customization; users can now set a minimum height for items displayed.
+* Feature: Load More / Infinite Scroll (Pro) - Added the "Show Load More Button Icon" option to enhance interface; users can now customize the icon displayed for the load more button.
+* Feature: Mega Menu (Pro) - Added a new functionality enabling "Expand / Collapse Visible On" option, allowing expansion or collapse of visibility based on specific criteria.
+* Feature: Side Menu (Pro) - Added Menu Padding option. This new feature allows to add padding to the container of the Menu items.
+* Feature: Woo Product Grid (Pro) - Made Content Padding, Category Label Spacing, and Title Spacing options responsive for improved adaptability across various screen sizes and devices.
+* Feature: Icon Image Content Box (Free) - Implemented functionality to link Icon and Title to the same destination as the Image.
+* Feature: Hotspots (Pro) - Implemented styling options for images. This new functionality allows users to customize the appearance of images within the widget, including options for adjusting borders, shadows, and other visual attributes.
+* Feature: Team Member Grid (Pro) - Implemented 'Text Placement' option. This new functionality allows users to customize the placement of text within the widget, providing greater control over the layout and design.
+* Fix: Post Ticker (Free) - Fixed widgets behaviour for RTL websites.
+* Fix: Post Timeline (Pro) - Resolved category name spelling issue in some cases. This fix ensures that category names are spelled correctly throughout the widget, improving accuracy and consistency in the display of category information.
+* Fix: Team Member Grid (Pro) - Optimized HTML code of the widget. This optimization improves the efficiency and performance of the widgets by reducing unnecessary code and streamlining the structure for faster loading and rendering.
+* Fix: Number Field (Pro) - Resolved issue when Min - Max range were violated and no error were shown.
+* Fix: Dropdown Button (Pro) - Optimized widget's JS code. This fix ensures that widget works properly on mobile devices as well as on desktop.
+* Fix: Expanding Content Cards (Pro) - Addressed CSS filter issue where it was displaying incorrectly on mobile devices, ensuring proper rendering and display consistency across all devices.
+* Fix: Post Grid (Pro) - Fixed issue where Typography option was not functioning as expected, ensuring proper functionality and usability.
+* Fix: Justified Image Carousel (Pro) - Fixed issue where width of images was incorrectly set in certain cases, ensuring proper display and functionality across all scenarios.
+* Fix: Layers (Pro) - Resolved issue with the "Item Shadow" option. This fix ensures that the item shadow is applied correctly within the widget.
+
+
 version 1.5.106: 2024-05-12
 
 * Fix - fixed some main/child roles checkbox filter issues

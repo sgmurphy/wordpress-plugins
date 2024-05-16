@@ -1,5 +1,15 @@
 
 
+version 1.5.107:
+
+* Fix - fixed weird elementor no products on cart page bug
+* Feature - added elementor dynamic options to api integrations
+* Fix - fixed bug with faq schema output
+* Fix - fixed general settings show items at start
+* Feature - added option to get images from current product variations for the dynamic gallery.
+* Feature - added preperation for the enhanced ajax search
+
+
 version 1.5.106:
 
 * Fix - fixed some main/child roles checkbox filter issues

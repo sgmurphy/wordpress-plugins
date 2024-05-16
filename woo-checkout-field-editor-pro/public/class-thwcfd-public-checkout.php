@@ -648,7 +648,7 @@ class THWCFD_Public_Checkout {
 
 	public function woo_form_field($field, $key, $args, $value = null){
 
-		if(is_admin()){
+		if(is_admin() || ! in_array("thwcfd-field-wrapper", $args['class'])){
 			return $field;
 		}
 		$field = '';

@@ -1,4 +1,4 @@
-=== Password Protected - Only Plugin You Need to Password Protect WordPress Site/WooCommerce ===
+=== Password Protected - Ultimate Plugin to Protect WordPress Site, Pages & WooCommerce Store ===
 Contributors: wpexpertsio
 Tags: password, maintenance mode, coming soon page, password protect, login
 Requires at least: 4.6
@@ -7,7 +7,7 @@ Requires PHP: 5.6
 Stable tag: 2.7.2
 License: GPLv2 or later
 
-Password Protected plugin lets you password protect a WordPress site, pages, posts, categories, and WooCommerce products with single or multiple passwords.
+Protect your WordPress site, pages, posts, WooCommerce products, and categories with single or multiple passwords.
 
 == Description ==
 
@@ -125,7 +125,7 @@ With options to customize the background, logo, and other elements of the lock s
 
 Experience unmatched flexibility and control over access permissions with Multiple Password Management. You can create unlimited passwords for any lock screen. It is also easy to activate or deactivate multiple passwords for various purposes, from testing to membership management.
 
-== 🎉 **5 Key Reasons Why You Should Opt for Password Protected Pro** ==
+== 🎉 5 Key Reasons Why You Should Opt for Password Protected Pro ==
 
 ⚡ **Reason #1: Boost Your WordPress Site's Security With Ease**
 
@@ -163,7 +163,7 @@ If you manage a membership site or subscription-based platform, Password Protect
  
 With features like user role whitelisting and multiple password management, you can conveniently control access permissions for your WordPress content. By simplifying [WordPress content protection](https://passwordprotectedwp.com/content-locking-in-wordpress/) and ensuring seamless access for paying members, you can enhance user experience, retain subscribers, and drive sustained revenue growth.
 
-== 🎉 **Use Cases for WordPress Password Protection** ==
+== 🎉 Use Cases for WordPress Password Protection ==
 
 ⚡ **Use Case #1: Offer Premium Content to Your Subscribers**
 
@@ -203,7 +203,7 @@ Whether it's special deals, discounts, or bonuses, the Password Protected plugin
 
 Check out our detailed guide on how to [password protect WooCommerce products](https://passwordprotectedwp.com/password-protect-woocommerce-products/) and [WooCommerce shop page](https://passwordprotectedwp.com/password-protect-woocommerce-shop-page/).
 
-== **Need Help? Get Expert Assistance** ==
+== Need Help? Get Expert Assistance ==
 
 Can't figure out how to implement password protection for your WordPress site? We've got you covered around the clock. 
 
@@ -211,7 +211,7 @@ Whether it's troubleshooting technical issues, setting up password protection, o
 
 So, don't hesitate to [reach out for prompt and reliable guidance](https://objectsws.atlassian.net/servicedesk/customer/portal/18). Contact us now to experience smooth and hassle-free service 😀.
 
-== **Documentation and support** ==
+== Documentation and support ==
 
 👉 To learn more, check out Password Protected [Technical Documentation](https://passwordprotectedwp.com/documentation/?utm_source=wp_org&utm_medium=readme)
 
@@ -269,17 +269,22 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 4. Create and manage multiple passwords for your protected site and content.
 5. Enable and password protect specific or all pages, posts, and post types.
 6. Enable and select user roles that should be whitelisted.
-7. Google reCaptcha v2 and v3 settings. 
-1. The protected screen perfectly mimics the WordPress login.
-2. The protected screen with reCaptcha v3.
-3. The protected screen with reCaptcha v2.
-11. Password Protect your WP login/WP admin 
+7. Google reCaptcha v2 and v3 settings.
+8. The protected screen perfectly mimics the WordPress login.
+9. The protected screen with reCaptcha v3.
+10. The protected screen with reCaptcha v2.
+11. Password Protect your WP login/WP admin.
 12. Limit password attempts to enhance your WordPress site protection.
 13. Stay informed with detailed activity logs for every password attempt.
 14. Gain valuable insights through our exclusive Password Attempt Activity Report.
 
 
 == Changelog ==
+= 2.7.2 =
+- Fix: Updated depreciated PHP function to make it compatible with the latest PHP version.
+- Added: Login designer compatibility banner.
+- Improvement: Implement few UI tweaks.
+
 = 2.7.1 =
 - Fixed - Disabled activity report by default.
 
@@ -316,13 +321,13 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 = 2.6.3 =
 - New - Added Freemius SDK integration.
 - New - Added functionality to login with transient if the cookies are blocked.
-- Fix â€“ Fixed Redirect Issue from excluded page to password protected page.
+- Fix – Fixed Redirect Issue from excluded page to password protected page.
 
 = 2.6.2 =
-- Fix â€“ Parse error related to PHP version 7.2
+- Fix – Parse error related to PHP version 7.2
 
 = 2.6.1 =
-- Fix â€“ Parse error related to PHP version 7.2
+- Fix – Parse error related to PHP version 7.2
 - Update - Link to official Google Re-captcha documentation
 
 = 2.6.0 =
@@ -347,7 +352,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 = 2.4 =
 - Add a Nocache header to the login page redirect to prevent the browser from caching the redirect page. Props [De'Yonte W.](https://github.com/rxnlabs)
-- Remove â€˜password-protectedâ€™ query from redirects on successful login or logout.
+- Remove ‘password-protected’ query from redirects on successful login or logout.
 - Check "redirect_to" query var is set in hidden form field. Props [Matthias Kittsteiner](https://wordpress.org/support/users/kittmedia/).
 - Add favicon to password protected login page.
 
@@ -355,17 +360,17 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 - Adds `password_protected_cookie_name` filter for the cookie name. Props [Jose Castaneda](https://github.com/jocastaneda).
 - Let developers override the capability needed to see the options page via a `password_protected_options_page_capability` filter. Props [Nicola Peluchetti](https://github.com/nicoladj77).
 - Don't use a "testcookie" POST query as it is blocked by Namecheap (and possibly other hosts).
-- Fix warnings in W3 validator - script and style â€œtypeâ€ attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
+- Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
 - Translations now via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/password-protected/).
 - Updated URL references. Props [Garrett Hyder](https://github.com/garretthyder).
 
 = 2.2.5 =
 - Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com/jeherve).
-- Fix stray "and" in readme. Props [Viktor SzÃ©pe](https://github.com/szepeviktor).
+- Fix stray "and" in readme. Props [Viktor Szépe](https://github.com/szepeviktor).
 - Update Portuguese translation. Props [Jonathan Hult](https://github.com/jhult).
 - Update Russian translation. Props [Alexey Chumakov](https://github.com/achumakov).
 
-= 2.2.4 = 
+= 2.2.4 =
 - Check that `$_SERVER['REMOTE_ADDR']` is set.
 
 = 2.2.3 =
@@ -373,7 +378,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 - Added viewport meta tag to login page.
 - Added `password_protected_show_login` filter.
 - Cookie name is not editable in the admin so display just for reference.
-- Use default WordPress text domain for â€œRemember Meâ€ and â€œLog Inâ€ buttons.
+- Use default WordPress text domain for “Remember Me” and “Log In” buttons.
 
 = 2.2.2 =
 - Change locked admin bar icon to green.
@@ -384,7 +389,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 = 2.2 =
 * Added admin bar icon to indicate wether password protection is enabled/disabled.
-* Option to show "Remember me" checkbox. Props [Christian GÃ¼del](https://github.com/cguedel).
+* Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
 * REST API access disabled if password not entered.
 * Admin option to allow REST API access.
 * More robust checking of password hashes.
