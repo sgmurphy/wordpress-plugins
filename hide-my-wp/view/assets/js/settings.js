@@ -337,6 +337,38 @@
         //init settings as saved
         var unsaved = false;
 
+        //search option in features
+        $this.find("#hmwp_features_search").on('keyup', function(){
+
+            if(typeof $searchTimeout !== 'undefined'){
+                clearTimeout($searchTimeout);
+            }
+            if($(this).val() !== ''){
+                var $search = $(this).val();
+
+                var $searchTimeout = setTimeout(function(){
+                    $this.find('.hmwp_feature').each(function (){
+                        if($(this).text().toLowerCase().indexOf($search.toLowerCase()) !== -1){
+                            $(this).parent('div').show();
+                        }else{
+                            $(this).parent('div').hide();
+                        }
+                    });
+
+                    if(!$this.find('.hmwp_feature').is(":visible")){
+                        $this.find('#hmwp_feature_none').show();
+                    }else{
+                        $this.find('#hmwp_feature_none').hide();
+                    }
+                }, 1000);
+            }else{
+                $this.find('.hmwp_feature').each(function (){
+                    $(this).parent('div').show();
+                });
+            }
+
+        });
+
         //listen the SubMenu click
         $this.find(".hmwp_nav_item").on(
             'click', function ( ev ) {

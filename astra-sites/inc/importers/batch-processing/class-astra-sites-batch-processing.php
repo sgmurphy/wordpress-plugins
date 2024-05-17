@@ -34,6 +34,15 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		public static $process_all;
 
 		/**
+		 * Force Sync
+		 *
+		 * @since 4.2.4
+		 * @var bool is force sync.
+		 * @access public
+		 */
+		public static $is_force_sync = false;
+
+		/**
 		 * Last Export Checksums
 		 *
 		 * @since 2.0.0
@@ -81,6 +90,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 		public function __construct() {
 
 			$this->includes();
+			$this->check_is_force_sync();
 
 			// Start image importing after site import complete.
 			add_filter( 'astra_sites_image_importer_skip_image', array( $this, 'skip_image' ), 10, 2 );
@@ -102,6 +112,18 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			add_action( 'wp_ajax_astra-sites-get-all-categories-and-tags', array( $this, 'get_all_categories_and_tags' ) );
 
 			add_action( 'astra_sites_site_import_batch_complete', array( $this, 'sync_batch_complete' ) );
+		}
+
+		/**
+		 * Check if sync is forced.
+		 *
+		 * @return void
+		 */
+		public function check_is_force_sync() {
+			
+			if ( isset( $_GET['st-force-sync'] ) && 'true' === $_GET['st-force-sync'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				self::$is_force_sync = true;
+			}
 		}
 
 		/**
@@ -407,13 +429,13 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			$process_sync = apply_filters( 'astra_sites_initial_sync', true );
 
-			if ( ! $process_sync ) {
+			if ( ! $process_sync && ! self::$is_force_sync ) {
 				return;
 			}
 
 			$is_fresh_site = get_site_option( 'astra-sites-fresh-site', '' );
 
-			if ( empty( $is_fresh_site ) && '' === $is_fresh_site ) {
+			if ( self::$is_force_sync || ( empty( $is_fresh_site ) && '' === $is_fresh_site ) ) {
 				$this->process_import();
 				update_site_option( 'astra-sites-fresh-site', 'no' );
 			}
@@ -474,11 +496,11 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			$process_sync = apply_filters( 'astra_sites_process_sync_batch', true );
 
-			if ( ! $process_sync ) {
+			if ( ! $process_sync && ! self::$is_force_sync ) {
 				return;
 			}
 
-			if ( 'no' === $this->get_last_export_checksums() ) {
+			if ( 'no' === $this->get_last_export_checksums() && ! self::$is_force_sync ) {
 				$this->log( 'Library is up to date!' );
 				if ( defined( 'WP_CLI' ) ) {
 					WP_CLI::line( 'Library is up to date!' );
@@ -642,7 +664,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			$process_sync = apply_filters( 'astra_sites_process_auto_sync_library', true );
 
-			if ( ! $process_sync ) {
+			if ( ! $process_sync && ! self::$is_force_sync ) {
 				return;
 			}
 
@@ -654,7 +676,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			// Check batch expiry.
 			$expired = get_site_transient( 'astra-sites-import-check' );
-			if ( false !== $expired ) {
+			if ( false !== $expired && ! self::$is_force_sync ) {
 				return;
 			}
 

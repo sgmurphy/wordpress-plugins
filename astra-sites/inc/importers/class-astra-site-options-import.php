@@ -7,6 +7,7 @@
  */
 
 use STImporter\Importer\ST_Importer_Helper;
+use STImporter\Importer\Helpers\ST_Image_Importer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -345,7 +346,7 @@ class Astra_Site_Options_Import {
 
 				if ( ! empty( $cat['slug'] ) && ! empty( $cat['thumbnail_src'] ) ) {
 
-					$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import(
+					$downloaded_image = ST_Image_Importer::get_instance()->import(
 						array(
 							'url' => $cat['thumbnail_src'],
 							'id'  => 0,
@@ -374,7 +375,7 @@ class Astra_Site_Options_Import {
 	 */
 	private function insert_logo( $image_url = '' ) {
 
-		$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import(
+		$downloaded_image = ST_Image_Importer::get_instance()->import(
 			array(
 				'url' => $image_url,
 				'id'  => 0,

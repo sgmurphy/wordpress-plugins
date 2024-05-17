@@ -7,6 +7,7 @@
  */
 
 use STImporter\Importer\ST_Importer_Helper;
+use STImporter\Importer\WXR_Importer\ST_WXR_Importer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -68,6 +69,132 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) {
 
 			add_action( 'init', array( $this, 'disable_default_woo_pages_creation' ), 2 );
 			add_filter( 'upgrader_package_options', array( $this, 'plugin_install_clear_directory' ) );
+		}
+
+		/**
+		 * Delete imported posts
+		 *
+		 * @since 1.3.0
+		 * @since 1.4.0 The `$post_id` was added.
+		 * Note: This function can be deleted after a few releases since we are performing the delete operation in chunks.
+		 *
+		 * @param  integer $post_id Post ID.
+		 * @return void
+		 */
+		public function delete_imported_posts( $post_id = 0 ) {
+
+			if ( wp_doing_ajax() ) {
+				// Verify Nonce.
+				check_ajax_referer( 'astra-sites', '_ajax_nonce' );
+
+				if ( ! current_user_can( 'customize' ) ) {
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
+				}
+			}
+
+			$post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : $post_id;
+
+			$message = 'Deleted - Post ID ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id );
+
+			$message = '';
+			if ( $post_id ) {
+
+				$post_type = get_post_type( $post_id );
+				$message   = 'Deleted - Post ID ' . $post_id . ' - ' . $post_type . ' - ' . get_the_title( $post_id );
+
+				do_action( 'astra_sites_before_delete_imported_posts', $post_id, $post_type );
+
+				Astra_Sites_Importer_Log::add( $message );
+				wp_delete_post( $post_id, true );
+			}
+
+			if ( defined( 'WP_CLI' ) ) {
+				WP_CLI::line( $message );
+			} elseif ( wp_doing_ajax() ) {
+				wp_send_json_success( $message );
+			}
+		}
+
+		/**
+		 * Delete imported WP forms
+		 *
+		 * @since 1.3.0
+		 * @since 1.4.0 The `$post_id` was added.
+		 * Note: This function can be deleted after a few releases since we are performing the delete operation in chunks.
+		 *
+		 * @param  integer $post_id Post ID.
+		 * @return void
+		 */
+		public function delete_imported_wp_forms( $post_id = 0 ) {
+
+			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
+				// Verify Nonce.
+				check_ajax_referer( 'astra-sites', '_ajax_nonce' );
+
+				if ( ! current_user_can( 'customize' ) ) {
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
+				}
+			}
+
+			$post_id = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : $post_id;
+
+			$message = '';
+			if ( $post_id ) {
+
+				do_action( 'astra_sites_before_delete_imported_wp_forms', $post_id );
+
+				$message = 'Deleted - Form ID ' . $post_id . ' - ' . get_post_type( $post_id ) . ' - ' . get_the_title( $post_id );
+				Astra_Sites_Importer_Log::add( $message );
+				wp_delete_post( $post_id, true );
+			}
+
+			if ( defined( 'WP_CLI' ) ) {
+				WP_CLI::line( $message );
+			} elseif ( wp_doing_ajax() ) {
+				wp_send_json_success( $message );
+			}
+		}
+
+		/**
+		 * Delete imported terms
+		 *
+		 * @since 1.3.0
+		 * @since 1.4.0 The `$post_id` was added.
+		 * Note: This function can be deleted after a few releases since we are performing the delete operation in chunks.
+		 *
+		 * @param  integer $term_id Term ID.
+		 * @return void
+		 */
+		public function delete_imported_terms( $term_id = 0 ) {
+			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
+				// Verify Nonce.
+				check_ajax_referer( 'astra-sites', '_ajax_nonce' );
+
+				if ( ! current_user_can( 'customize' ) ) {
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
+				}
+			}
+
+			$term_id = isset( $_REQUEST['term_id'] ) ? absint( $_REQUEST['term_id'] ) : $term_id;
+
+			$message = '';
+			if ( $term_id ) {
+				$term = get_term( $term_id );
+				if ( ! is_wp_error( $term ) && ! empty( $term ) && is_object( $term ) ) {
+
+					do_action( 'astra_sites_before_delete_imported_terms', $term_id, $term );
+
+					$message = 'Deleted - Term ' . $term_id . ' - ' . $term->name . ' ' . $term->taxonomy;
+					Astra_Sites_Importer_Log::add( $message );
+					wp_delete_term( $term_id, $term->taxonomy );
+				}
+			}
+
+			if ( defined( 'WP_CLI' ) ) {
+				WP_CLI::line( $message );
+			} elseif ( wp_doing_ajax() ) {
+				wp_send_json_success( $message );
+			}
 		}
 
 		/**
@@ -205,7 +332,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) {
 			if ( ! empty( $wpforms_url ) && function_exists( 'wpforms_encode' ) ) {
 
 				// Download JSON file.
-				$file_path = Astra_Sites_Helper::download_file( $wpforms_url );
+				$file_path = ST_WXR_Importer::download_file( $wpforms_url );
 
 				if ( $file_path['success'] ) {
 					if ( isset( $file_path['data']['file'] ) ) {
@@ -286,9 +413,14 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) {
 		 * @return void
 		 */
 		public function import_cartflows( $url = '' ) {
-			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
-			if ( ! current_user_can( 'edit_posts' ) ) {
-				wp_send_json_error();
+
+			if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
+				// Verify Nonce.
+				check_ajax_referer( 'astra-sites', '_ajax_nonce' );
+
+				if ( ! current_user_can( 'edit_posts' ) ) {
+					wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
+				}
 			}
 
 			// Disable CartFlows import logging.
@@ -304,7 +436,7 @@ if ( ! class_exists( 'Astra_Sites_Importer' ) ) {
 			if ( ! empty( $url ) && is_callable( 'CartFlows_Importer::get_instance' ) ) {
 
 				// Download JSON file.
-				$file_path = Astra_Sites_Helper::download_file( $url );
+				$file_path = ST_WXR_Importer::download_file( $url );
 
 				if ( $file_path['success'] ) {
 					if ( isset( $file_path['data']['file'] ) ) {

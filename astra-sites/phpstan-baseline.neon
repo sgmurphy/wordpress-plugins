@@ -246,11 +246,6 @@ parameters:
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
-			message: "#^Call to static method track_post\\(\\) on an unknown class STImporter\\\\Importer\\\\ST_Importer_Helper\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
 			message: "#^Cannot access property \\$status on array\\<string, array\\<int\\|string, int\\|string\\|WP_Http_Cookie\\>\\|string\\|WP_HTTP_Requests_Response\\|WpOrg\\\\Requests\\\\Utility\\\\CaseInsensitiveDictionary\\|null\\>\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer.php
@@ -326,17 +321,7 @@ parameters:
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:get_status\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:get_white_label_name\\(\\)\\.$#"
-			count: 2
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Call to static method get_whitelabel_string\\(\\) on an unknown class Astra_Ext_White_Label_Markup\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-page.php
 
@@ -372,21 +357,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites_Page\\:\\:get_view_actions\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Method Astra_Sites_Page\\:\\:init_nav_menu\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Method Astra_Sites_Page\\:\\:render\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Method Astra_Sites_Page\\:\\:render_tab_menu\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-page.php
 
@@ -556,43 +526,13 @@ parameters:
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
-			message: "#^Call to an undefined method Astra_Sites\\:\\:backup_settings\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method Astra_Sites\\:\\:filesystem_permission\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method Astra_Sites\\:\\:get_reset_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method Astra_Sites\\:\\:required_plugin\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method Astra_Sites\\:\\:required_plugin_activate\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:delete_imported_posts\\(\\)\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:delete_imported_terms\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:delete_imported_wp_forms\\(\\)\\.$#"
-			count: 1
+			count: 2
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
@@ -611,52 +551,12 @@ parameters:
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:import_customizer_settings\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_end\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_widgets\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:import_wpforms\\(\\)\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:process_batch\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_customizer_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_site_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_widgets_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:sse_import\\(\\)\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
@@ -796,6 +696,11 @@ parameters:
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
+			message: "#^Method Astra_Sites_WP_CLI\\:\\:init\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-wp-cli.php
+
+		-
 			message: "#^Method Astra_Sites_WP_CLI\\:\\:list_sites\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
@@ -822,6 +727,16 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites_WP_CLI\\:\\:page_builder\\(\\) has parameter \\$assoc_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-wp-cli.php
+
+		-
+			message: "#^Method Astra_Sites_WP_CLI\\:\\:real_mime_types\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-wp-cli.php
+
+		-
+			message: "#^Method Astra_Sites_WP_CLI\\:\\:real_mime_types\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
@@ -917,12 +832,12 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:start_error_handler\\(\\)\\.$#"
-			count: 2
+			count: 3
 			path: inc/classes/class-astra-sites.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:stop_error_handler\\(\\)\\.$#"
-			count: 2
+			count: 3
 			path: inc/classes/class-astra-sites.php
 
 		-
@@ -1097,6 +1012,11 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites\\:\\:get_required_plugins_data\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites.php
+
+		-
+			message: "#^Method Astra_Sites\\:\\:get_reset_data\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -1950,11 +1870,6 @@ parameters:
 			path: inc/importers/class-astra-site-options-import.php
 
 		-
-			message: "#^Call to static method track_post\\(\\) on an unknown class STImporter\\\\Importer\\\\ST_Importer_Helper\\.$#"
-			count: 1
-			path: inc/importers/class-astra-site-options-import.php
-
-		-
 			message: "#^Method Astra_Site_Options_Import\\:\\:import_options\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/importers/class-astra-site-options-import.php
@@ -2061,16 +1976,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites_Helper\\:\\:add_svg_image_support\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/class-astra-sites-helper.php
-
-		-
-			message: "#^Method Astra_Sites_Helper\\:\\:download_file\\(\\) has parameter \\$overrides with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/class-astra-sites-helper.php
-
-		-
-			message: "#^Method Astra_Sites_Helper\\:\\:download_file\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/importers/class-astra-sites-helper.php
 

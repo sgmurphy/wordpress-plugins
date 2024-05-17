@@ -801,25 +801,21 @@ class HMWP_Models_Rewrite
 
 	        $rewritecode = '';
 
-	        //Add the URL Mapping rules
-	        if (!empty($this->_umrewrites)) {
-		        foreach ( $this->_umrewrites as $rewrite ) {
-			        $rewritecode .= 'Source: <strong>^' . str_replace(array('.css', '.js'), array('\.css', '\.js'), $rewrite['from']) . '</strong> Destination: <strong>' . $rewrite['to'] . "</strong> Rewrite type: 301 Permanent;<br />";
-		        }
-	        }
+            //Add the URL Mapping rules
+            if (!empty($this->_umrewrites)) {
+                foreach ( $this->_umrewrites as $rewrite ) {
+                    $rewritecode .= 'Source: <strong>^' . str_replace(array('.css', '.js'), array('\.css', '\.js'), $rewrite['from']) . '</strong> Destination: <strong>' . $rewrite['to'] . "</strong> Rewrite type: <strong>301 Permanent</strong>;<br />";
+                }
+            }
 
-	        //Add the New Paths rules
-	        if (!empty($this->_rewrites) ) {
-		        foreach ( $this->_rewrites as $rewrite ) {
-			        if(PHP_VERSION_ID >= 70400 ){
-				        $rewritecode .= 'Source: <strong>^/' . str_replace(array('.css', '.js'), array('\.css', '\.js'), $rewrite['from']) . '</strong> Destination: <strong>' . $rewrite['to'] . "</strong> Rewrite type: Break;<br />";
-			        }elseif (strpos($rewrite['to'], 'index.php') === false && (strpos($rewrite['to'], HMWP_Classes_Tools::$default['hmwp_wp-content_url']) !== false || strpos($rewrite['to'], HMWP_Classes_Tools::$default['hmwp_wp-includes_url']) !== false)) {
-				        if (strpos($rewrite['to'], HMWP_Classes_Tools::$default['hmwp_login_url']) === false && strpos($rewrite['to'], HMWP_Classes_Tools::$default['hmwp_admin_url']) === false ) {
-					        $rewritecode .= 'Source: <strong>^/' . str_replace(array('.css', '.js'), array('\.css', '\.js'), $rewrite['from']) . '</strong> Destination: <strong>' . $rewrite['to'] . "</strong> Rewrite type: Break;<br />";
-				        }
-			        }
-		        }
-	        }
+            //Add the New Paths rules
+            if (!empty($this->_rewrites) ) {
+                foreach ( $this->_rewrites as $rewrite ) {
+                    if (strpos($rewrite['to'], 'wp-login.php') === false) {
+                        $rewritecode .= 'Source: <strong>^/' . str_replace(array('.css', '.js'), array('\.css', '\.js'), $rewrite['from']) . '</strong> Destination: <strong>' . $rewrite['to'] . "</strong> Rewrite type: <strong>Break</strong>;<br />";
+                    }
+                }
+            }
 
             if ($rewritecode <> '' ) {
                 HMWP_Classes_Error::setNotification(sprintf(esc_html__('WpEngine detected. Add the redirects in the WpEngine Redirect rules panel %s.', 'hide-my-wp'), '<strong><a href="https://wpengine.com/support/redirect/" target="_blank" style="color: red">' . esc_html__("Learn How To Add the Code", 'hide-my-wp') . '</a></strong> <br /><br /><pre>' . $rewritecode . '</pre>' . $form),'notice',false);

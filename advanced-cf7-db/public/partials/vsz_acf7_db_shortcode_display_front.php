@@ -3,6 +3,10 @@
 if(!defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+//print "calling shortcode";
+
+
 global $wpdb;
 $html = "";
 // get id for banner shortcode if define
@@ -30,8 +34,17 @@ $search = addslashes(addslashes(sanitize_text_field($search)));
 $formArr = explode(",", $formIds);
 
 foreach($formArr as $key=>$val){
-	$val = (int) trim($val);
-	if(empty($val)) unset($formArr[$key]);
+	
+	//added in 2.0.2
+	if(defined('WPCF7_VERSION') && WPCF7_VERSION >= '5.8'){
+		
+		$objForm = wpcf7_get_contact_form_by_hash(trim($val));	
+		if(empty($objForm) || $objForm == NULL) unset($formArr[$key]);
+	}
+	else{
+		$val = (int) $objForm->id;
+		if(empty($val)) unset($formArr[$key]);
+	}
 }
 
 //Get all existing contact form list
@@ -42,20 +55,28 @@ if(empty($formArr)){
 	$allForms = true;
 }
 
+
 if(!empty($formArr)){
 
 	$count = array();
 
 	foreach($formArr as $fid){
-
+		
 		if(isset($allForms) && $allForms){
 			$form = $fid;
 			unset($fid);
 			$fid = $form->id();
 		}
-
-		$form = vsz_cf7_get_the_form_list($fid);
-
+		//added in 2.0.2
+		else if(defined('WPCF7_VERSION') && WPCF7_VERSION >= '5.8'){
+			
+			$objForm = wpcf7_get_contact_form_by_hash($fid);	
+			$fid = $objForm->id();
+		}
+		
+		$form = vsz_cf7_get_the_form_list($fid);	
+		
+		
 		if(!empty($form)){
 
 			$form = $form[0];
@@ -75,7 +96,8 @@ if(!empty($formArr)){
 					$valArr = explode(".",$val);
 
 					if(count($valArr) > 1){
-						if($valArr[0] == $fid){
+						//updated in 2.0.2
+						if($valArr[0] == $fid || ( function_exists('hash') && $form->hash() == $valArr[0]) ){
 							if(count($valArr)>2){
 								unset($valArr[0]);
 
@@ -92,13 +114,15 @@ if(!empty($formArr)){
 			}
 			if(!empty($hide)){
 				$hideArr = explode(",",$hide);
+				
 				foreach($hideArr as $key => $val){
 					$val = trim($val);
 
 					$valArr = explode(".",$val);
 
 					if(count($valArr) > 1){
-						if($valArr[0] == $fid){
+						//updated in 2.0.2
+						if($valArr[0] == $fid || ( function_exists('hash') && $form->hash() == $valArr[0]) ){
 							if(count($valArr)>2){
 								unset($valArr[0]);
 
@@ -120,7 +144,10 @@ if(!empty($formArr)){
 					$valArr = explode(".",$val);
 
 					if(count($valArr) > 1){
-						if($valArr[0] == $fid){
+						
+						//updated in 2.0.2
+						if($valArr[0] == $fid || ( function_exists('hash') && $form->hash() == $valArr[0]) ){
+						
 							if(count($valArr)>2){
 								unset($valArr[0]);
 

@@ -58,7 +58,7 @@ else{
 			<h2>Display Enquiry</h2>
 			<p>You can display all contact form submission data on front end side of website to place the short codes.</p>
 			<p>You can place these short codes in any page OR use to "do_shortcode" function to execute from php files.</p>
-			<p>Ex. <code>do_shortcode( ‘[acf7db form_id='2']’ );</code></p>
+			<p>Ex. <code>do_shortcode( ‘[acf7db form_id='30f46fb']’ );</code></p>
 			<p>You can use below options in short codes:</p>
 			<table class="form-table bordered widefat fixed display_enquiry_table_class" cellspacing="15px" >
 				<thead>
@@ -73,7 +73,7 @@ else{
 							<p>You can add form id to display the form data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2']</code></p>
+							<p><code>[acf7db form_id='30f46fb']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -81,7 +81,7 @@ else{
 							<p>You need to add multiple form ids to display multiple form data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -98,38 +98,38 @@ else{
 						<th rowspan="2" >SHOW</th>
 						<td>
 							<p>You need to add the columns names with form ids to display on front end side.</p>
-							<p>This will display only 1 column for form 2 data, and all columns for form 3 data.</p>
+							<p>This will display only 1 column for form 30f46fb data, and all columns for form 30f47yz data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' show='2.your-name']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' show='30f46fb.your-name']</code></p>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<p>You can also add multiple columns to display multiple form data.</p>
-							<p>This will display only 1 column for form 2 and form 3 data.</p>
+							<p>This will display only 1 column for form 30f46fb and form 30f47yz data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' show='2.your-name, 3.your-email']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' show='30f46fb.your-name, 30f47yz.your-email']</code></p>
 						</td>
 					</tr>
 					<tr class="form-field">
 						<th rowspan="2" >HIDE</th>
 						<td>
 							<p>You can specify particular columns which you won't like to display.</p>
-							<p>It means that to display all columns except 1 column ("your-name") for form 2 data, and all columns for form 3 data.</p>
+							<p>It means that to display all columns except 1 column ("your-name") for form 30f46fb data, and all columns for form 30f47yz data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' hide='2.your-name']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' hide='30f46fb.your-name']</code></p>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<p>You can also add multiple columns to don't display multiple form data.</p>
-							<p>This will display all columns except 1 column ("your-name") for form 2 data, and all columns except 1 column ("your-email") for form 3 data.</p>
+							<p>This will display all columns except 1 column ("your-name") for form 30f46fb data, and all columns except 1 column ("your-email") for form 30f47yz data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' hide='2.your-name, 3.your-email']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' hide='30f46fb.your-name, 30f47yz.your-email']</code></p>
 						</td>
 					</tr>
 					<tr class="form-field">
@@ -139,7 +139,7 @@ else{
 							<p>It will display all submitted data with value like "test@gmail.com".</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' search='test@gmail.com']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' search='test@gmail.com']</code></p>
 						</td>
 					</tr>
 					<tr class="form-field">
@@ -154,7 +154,7 @@ else{
 							<p>It's means that to display all submitted data with submit time in between "01/09/2017" and "01/10/2018" .</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' start-date="01/09/2017" end-date="01/10/2018"]</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' start-date="01/09/2017" end-date="01/10/2018"]</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -175,7 +175,7 @@ else{
 							<p>This will add id to the table.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' id='my-table-id']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' id='my-table-id']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -195,7 +195,7 @@ else{
 							<p>This will add classes to the table.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' class='form-table-class1 form-table-class2']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' class='form-table-class1 form-table-class2']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -215,7 +215,7 @@ else{
 							<p>This will add style to the table.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' style='max-width=400px;']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' style='max-width=400px;']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -233,19 +233,19 @@ else{
 						<th rowspan="3">HEADER</th>
 						<td>
 							<p>You can add custom header which will be displayed as title for every table. Headers must be used with form id to to affect the output data.</p>
-							<p>This will display "Form Header Text 1" as title for form 2 data. Form 3 data title will be form name.</p>
+							<p>This will display "Form Header Text 1" as title for form 30f46fb data. Form 30f47yz data title will be form name.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' header='2.Form Header Text 1']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' header='30f46fb.Form Header Text 1']</code></p>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<p>You can add multiple columns which will be displayed for multiple form data.</p>
-							<p>This will display "Form Header Text 1" as title for form 2 data and "Form Header Text 2" as title for Form 3 data.</p>
+							<p>This will display "Form Header Text 1" as title for form 30f46fb data and "Form Header Text 2" as title for Form 30f47yz data.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' header='2.Form Header Text 1, 3.Form Header Text 2']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' header='30f46fb.Form Header Text 1, 30f47yz.Form Header Text 2']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -270,7 +270,7 @@ else{
 							<p>This will output the short code as a <b>table</b> structure.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' display='table']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' display='table']</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -278,7 +278,7 @@ else{
 							<p>This will output the short code as a data <b>count</b> only.</p>
 						</td>
 						<td>
-							<p><code>[acf7db form_id='2,3' display='count']</code></p>
+							<p><code>[acf7db form_id='30f46fb,30f47yz' display='count']</code></p>
 						</td>
 					</tr>
 				</tbody>

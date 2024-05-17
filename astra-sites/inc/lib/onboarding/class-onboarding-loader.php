@@ -85,11 +85,6 @@ class Intelligent_Starter_Templates_Loader {
 	 * @since 3.0.0-beta.1
 	 */
 	public function menu_callback() {
-		$current_slug = isset( $_GET['action'] ) ? esc_attr( $_GET['action'] ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching a $_GET value, no nonce available to validate.
-		$active_tab   = str_replace( '_', '-', $current_slug );
-		if ( 'site-import' === $current_slug ) {
-			Astra_Sites_Page::get_instance()->init_nav_menu( $active_tab );
-		} else {
 		?>
 		<div class="astra-sites-menu-page-wrapper">
 			<div id="astra-sites-menu-page">
@@ -97,7 +92,6 @@ class Intelligent_Starter_Templates_Loader {
 			</div>
 		</div>
 		<?php
-		}
 	}
 
 	/**

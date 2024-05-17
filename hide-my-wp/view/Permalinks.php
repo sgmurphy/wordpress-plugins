@@ -268,10 +268,7 @@
                             if (HMWP_Classes_Tools::isGodaddy() ) {
                                 echo ' <div class="text-danger col-sm-12 border-bottom border-light py-3 mx-0 my-3">' . sprintf(esc_html__("Your admin URL can't be changed on %s hosting because of the %s security terms.", 'hide-my-wp'), '<strong>Godaddy</strong>', '<strong>Godaddy</strong>') . '</div>';
                                 echo '<input type="hidden" name="hmwp_admin_url" value="' . HMWP_Classes_Tools::$default['hmwp_admin_url'] . '"/>';
-                            } elseif (PHP_VERSION_ID >= 70400 && HMWP_Classes_Tools::isWpengine() ) {
-                                echo ' <div class="text-danger col-sm-12 border-bottom border-light py-3 mx-0 my-3">' . sprintf(esc_html__("Your admin URL can't be changed on %s because of the %s rules are no longer used.", 'hide-my-wp'), '<strong>Wpengine with PHP 7 or greater</strong>', '<strong>.htaccess</strong>') . '</div>';
-                                echo '<input type="hidden" name="hmwp_admin_url" value="' . HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '"/>';
-                            }  elseif (HMWP_Classes_ObjController::getClass('HMWP_Models_Rules')->isConfigAdminCookie() ) {
+                            } elseif (HMWP_Classes_ObjController::getClass('HMWP_Models_Rules')->isConfigAdminCookie() ) {
                                 echo ' <div class="text-danger col-sm-12 border-bottom border-light py-3 mx-0 my-3">' . sprintf(esc_html__("The constant ADMIN_COOKIE_PATH is defined in wp-config.php by another plugin. You can't change %s unless you remove the line define('ADMIN_COOKIE_PATH', ...);.", 'hide-my-wp'), '<strong>' . HMWP_Classes_Tools::$default['hmwp_admin_url'] . '</strong>') . '</div>';
                                 echo '<input type="hidden" name="hmwp_admin_url" value="' . HMWP_Classes_Tools::$default['hmwp_admin_url'] . '"/>';
                             } else {
@@ -288,43 +285,37 @@
                                 </div>
                             <?php } ?>
 
-                            <?php if (PHP_VERSION_ID >= 70400 && HMWP_Classes_Tools::isWpengine() ) { ?>
-                                <input type="hidden" name="hmwp_hide_admin" value="0"/>
-                                <input type="hidden" name="hmwp_hide_admin_loggedusers" value="0"/>
-                                <input type="hidden" name="hmwp_hide_newadmin" value="0"/>
-                            <?php }else{?>
-                                <div class="col-sm-12 row mb-1 ml-1 p-2">
-                                    <div class="checker col-sm-12 row my-2 py-1">
-                                        <div class="col-sm-12 p-0 switch switch-sm">
-                                            <input type="hidden" name="hmwp_hide_admin" value="0"/>
-                                            <input type="checkbox" id="hmwp_hide_admin" name="hmwp_hide_admin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_admin') ? 'checked="checked"' : '') ?> value="1"/>
-                                            <label for="hmwp_hide_admin"><?php echo esc_html__('Hide "wp-admin"', 'hide-my-wp'); ?></label>
-                                            <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-admin path from visitors.', 'hide-my-wp'); ?></div>
-                                        </div>
+                            <div class="col-sm-12 row mb-1 ml-1 p-2">
+                                <div class="checker col-sm-12 row my-2 py-1">
+                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                        <input type="hidden" name="hmwp_hide_admin" value="0"/>
+                                        <input type="checkbox" id="hmwp_hide_admin" name="hmwp_hide_admin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_admin') ? 'checked="checked"' : '') ?> value="1"/>
+                                        <label for="hmwp_hide_admin"><?php echo esc_html__('Hide "wp-admin"', 'hide-my-wp'); ?></label>
+                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-admin path from visitors.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 row mb-1 ml-1 p-2">
-                                    <div class="checker col-sm-12 row my-2 py-1">
-                                        <div class="col-sm-12 p-0 switch switch-sm">
-                                            <input type="hidden" name="hmwp_hide_admin_loggedusers" value="0"/>
-                                            <input type="checkbox" id="hmwp_hide_admin_loggedusers" name="hmwp_hide_admin_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_admin_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
-                                            <label for="hmwp_hide_admin_loggedusers"><?php echo esc_html__('Hide "wp-admin" From Non-Admin Users', 'hide-my-wp'); ?></label>
-                                            <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-admin path from non-administrator users.', 'hide-my-wp'); ?></div>
-                                        </div>
+                            </div>
+                            <div class="col-sm-12 row mb-1 ml-1 p-2">
+                                <div class="checker col-sm-12 row my-2 py-1">
+                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                        <input type="hidden" name="hmwp_hide_admin_loggedusers" value="0"/>
+                                        <input type="checkbox" id="hmwp_hide_admin_loggedusers" name="hmwp_hide_admin_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_admin_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
+                                        <label for="hmwp_hide_admin_loggedusers"><?php echo esc_html__('Hide "wp-admin" From Non-Admin Users', 'hide-my-wp'); ?></label>
+                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-admin path from non-administrator users.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_hide_newadmin_div" <?php echo(HMWP_Classes_Tools::getOption('hmwp_admin_url') == HMWP_Classes_Tools::$default['hmwp_admin_url'] ? 'style="display:none;"' : '') ?>>
-                                    <div class="checker col-sm-12 row my-2 py-1">
-                                        <div class="col-sm-12 p-0 switch switch-sm">
-                                            <input type="hidden" name="hmwp_hide_newadmin" value="0"/>
-                                            <input type="checkbox" id="hmwp_hide_newadmin" name="hmwp_hide_newadmin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newadmin') ? 'checked="checked"' : '') ?> value="1"/>
-                                            <label for="hmwp_hide_newadmin"><?php echo esc_html__('Hide the New Admin Path', 'hide-my-wp'); ?></label>
-                                            <div class="offset-1 text-black-50"><?php echo esc_html__('Hide the new admin path from visitors. Show the new admin path only for logged users.', 'hide-my-wp'); ?></div>
-                                        </div>
+                            <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_hide_newadmin_div" <?php echo(HMWP_Classes_Tools::getOption('hmwp_admin_url') == HMWP_Classes_Tools::$default['hmwp_admin_url'] ? 'style="display:none;"' : '') ?>>
+                                <div class="checker col-sm-12 row my-2 py-1">
+                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                        <input type="hidden" name="hmwp_hide_newadmin" value="0"/>
+                                        <input type="checkbox" id="hmwp_hide_newadmin" name="hmwp_hide_newadmin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newadmin') ? 'checked="checked"' : '') ?> value="1"/>
+                                        <label for="hmwp_hide_newadmin"><?php echo esc_html__('Hide the New Admin Path', 'hide-my-wp'); ?></label>
+                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide the new admin path from visitors. Show the new admin path only for logged users.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
-                            <?php }?>
+                            </div>
 
                             <div class="admin_warning col-sm-12 my-3 text-danger p-0 text-center small" style="display: none">
                                 <?php echo esc_html__("Some themes don't work with custom Admin and Ajax paths. In case of ajax errors, switch back to wp-admin and admin-ajax.php.", 'hide-my-wp'); ?>

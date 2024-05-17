@@ -2,8 +2,8 @@
 Contributors: vsourz1td
 Tags: contact form 7 db, contact form db, advanced cf7 db, contact form 7 database, contact form db, contact form 7, save form data, save contact form, save cf7, database, cf7db, save-contact-form, Save-Forms-Data, import-cf7, export-contact-data, view-cf7-entry
 Requires at least: 4.0
-Tested up to: 6.2.2
-Stable tag: 2.0.1
+Tested up to: 6.5.3
+Stable tag: 2.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -192,6 +192,11 @@ return $contact_form_ids;
 
 
 == Changelog ==
+
+= 2.0.2 =
+* Compatible with latest version wordpress 6.5.3
+* Compatible up to PHP 8.2
+* Fixed SHA-1 hash-based contact form identification
 
 = 2.0.1 =
 * Integrate Freemius.

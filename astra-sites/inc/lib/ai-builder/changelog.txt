@@ -1,3 +1,6 @@
+v1.0.24 - 15-May-2024
+- Improvement: Added compatibility for WP-CLI import process.
+
 v1.0.23 - 13-May-2024
 - Fix: Fixed the PHP warning for function optional parameter.
 
