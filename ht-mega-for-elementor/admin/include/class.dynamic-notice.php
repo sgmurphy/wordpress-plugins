@@ -1,4 +1,11 @@
-<?php  
+<?php 
+/**
+ * This class manage the admin_notice
+ *
+ * Author: ZenaulIslam
+ * Version: 1.0.0
+ */
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'HasTech_Notices' ) ){
@@ -51,8 +58,23 @@ if ( ! class_exists( 'HasTech_Notices' ) ){
          */
         public function ajax_dismiss() {
 
-            $nonce = !empty( $_POST['notice_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['notice_nonce'] ) ) : '';
+            $nonce       = !empty( $_POST['notice_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['notice_nonce'] ) ) : '';
+            $notice_id   = ( isset( $_POST['noticeid'] ) ) ? sanitize_key( $_POST['noticeid'] ) : '';
+            $alreadydid  = ( isset( $_POST['alreadydid'] ) ) ? sanitize_key( $_POST['alreadydid'] ) : '';
+            $expire_time = ( isset( $_POST['expiretime'] ) ) ? sanitize_text_field( wp_unslash( $_POST['expiretime'] ) ) : '';
+            $close_by    = ( isset( $_POST['closeby'] ) ) ? sanitize_key( $_POST['closeby'] ) : '';
+            $notice      = $this->get_notice_by_id( $notice_id );
+            $capability  = isset( $notice['capability'] ) ? $notice['capability'] : 'manage_options';
 
+            // User Capability check
+			if ( ! apply_filters( 'hastech_notice_user_cap_check', current_user_can( $capability ) ) ) {
+                $error_message = [
+                    'message'  => __('You are not authorized.', self::$plugin_domain)
+                ];
+                wp_send_json_error( $error_message );
+			}
+
+            // Nonce verification check
             if( !wp_verify_nonce( $nonce, 'hastech_notices_nonce') ) {
                 $error_message = [
                     'message'  => __('Are you cheating?', self::$plugin_domain)
@@ -60,12 +82,7 @@ if ( ! class_exists( 'HasTech_Notices' ) ){
                 wp_send_json_error( $error_message );
             }
 
-            $notice_id   = ( isset( $_POST['noticeid'] ) ) ? sanitize_key( $_POST['noticeid'] ) : '';
-            $alreadydid  = ( isset( $_POST['alreadydid'] ) ) ? sanitize_key( $_POST['alreadydid'] ) : '';
-            $expire_time = ( isset( $_POST['expiretime'] ) ) ? sanitize_text_field( wp_unslash( $_POST['expiretime'] ) ) : '';
-            $close_by    = ( isset( $_POST['closeby'] ) ) ? sanitize_key( $_POST['closeby'] ) : '';
-
-            if ( ! empty( $notice_id ) ) {
+            if ( ! empty( $notice_id ) && (strpos( $notice_id, 'hastech-notice' ) !== false) ) {
 
                 if( !empty( $alreadydid ) ) {
                     update_option( $notice_id , true );
@@ -201,6 +218,21 @@ if ( ! class_exists( 'HasTech_Notices' ) ){
             usort( self::$notices, [ $this, 'sort_notices' ] );
             return self::$notices;
         }
+
+         /**
+         * Get Notices By id
+         * @param [type] $notice_id
+         */
+        private function get_notice_by_id( $notice_id ) {
+			if ( empty( $notice_id ) ) {
+				return [];
+			}
+
+			$notices = $this->get_notices();
+			$notice  = wp_list_filter( $notices, [ 'id' => $notice_id ] );
+
+			return ! empty( $notice ) ? $notice[0] : [];
+		}
 
         /**
          * Notice Prepare For Display

@@ -277,14 +277,22 @@ class HTMegaMenu_Elementor {
 
         $menu_item_color = $menu_item_hover_color = $sub_menu_width = $sub_menu_bg = $sub_menu_itemcolor = $sub_menu_itemhover_color = $mega_menu_width = $mega_menu_bg = '';
 
-        $menuitemscolor         = htmega_get_option( 'menu_items_color', 'htmegamenu_setting_tabs' );
-        $menuitemshovercolor    = htmega_get_option( 'menu_items_hover_color', 'htmegamenu_setting_tabs' );
-        $submenuwidth           = htmega_get_option( 'sub_menu_width', 'htmegamenu_setting_tabs' );
-        $submenubg              = htmega_get_option( 'sub_menu_bg_color', 'htmegamenu_setting_tabs' );
-        $submenuitemcolor       = htmega_get_option( 'sub_menu_items_color', 'htmegamenu_setting_tabs' );
-        $submenuitemhovercolor  = htmega_get_option( 'sub_menu_items_hover_color', 'htmegamenu_setting_tabs' );
-        $megamenuwidth          = htmega_get_option( 'mega_menu_width', 'htmegamenu_setting_tabs' );
-        $megamenubg             = htmega_get_option( 'mega_menu_bg_color', 'htmegamenu_setting_tabs' );
+        //$menuitemscolor         = htmega_get_option( 'menu_items_color', 'htmegamenu_setting_tabs' );
+        $menuitemscolor         = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'menu_items_color') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'menu_items_color') : htmega_get_option( 'menu_items_color', 'htmegamenu_setting_tabs' );
+
+        $menuitemshovercolor    = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'menu_items_hover_color') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'menu_items_hover_color') : htmega_get_option( 'menu_items_hover_color', 'htmegamenu_setting_tabs' );
+
+        $submenuwidth           = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_width') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_width') : htmega_get_option( 'sub_menu_width', 'htmegamenu_setting_tabs' );
+
+        $submenubg              = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_bg_color') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_bg_color') : htmega_get_option( 'sub_menu_bg_color', 'htmegamenu_setting_tabs' );
+
+        $submenuitemcolor       = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_items_color') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_items_color') : htmega_get_option( 'sub_menu_items_color', 'htmegamenu_setting_tabs' );
+
+        $submenuitemhovercolor  = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_items_hover_color') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'sub_menu_items_hover_color') : htmega_get_option( 'sub_menu_items_hover_color', 'htmegamenu_setting_tabs' );
+        
+        $megamenuwidth          = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'mega_menu_width') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'mega_menu_width') : htmega_get_option( 'mega_menu_width', 'htmegamenu_setting_tabs' );
+
+        $megamenubg             = htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'mega_menu_bg_color') ? htmega_get_module_option( 'htmega_megamenu_module_settings', 'megamenubuilder', 'mega_menu_bg_color') : htmega_get_option( 'mega_menu_bg_color', 'htmegamenu_setting_tabs' );
 
         if( $menuitemscolor && !empty($menuitemscolor) ){
             $menu_item_color = "
@@ -296,7 +304,7 @@ class HTMegaMenu_Elementor {
 
         if( $menuitemshovercolor && !empty($menuitemshovercolor) ){
             $menu_item_hover_color = "
-                .htmega-menu-container ul > li > a:hover{
+                .htmega-menu-container ul > li:hover > a {
                     color: {$menuitemshovercolor};
                 }
             ";
@@ -328,7 +336,7 @@ class HTMegaMenu_Elementor {
 
         if( $submenuitemhovercolor && !empty($submenuitemhovercolor) ){
             $sub_menu_itemhover_color = "
-                .htmega-menu-container .sub-menu li a:hover{
+                .htmega-menu-container .sub-menu li:hover > a {
                     color: {$submenuitemhovercolor};
                 }
             ";

@@ -1124,16 +1124,99 @@ class Options_Field {
             ),
 
             'htmega_advance_element_tabs' => array(
-
                 array(
                     'id'  => 'themebuilder',
                     'name'  => __( 'Theme Builder', 'htmega-addons' ),
-                    'type'  => 'element',
+                    'type'  => 'module',
                     'default'=>'off',
                     'label_on' => __( 'On', 'htmega-addons' ),
                     'label_off' => __( 'Off', 'htmega-addons' ),
+                    'section'  => 'htmega_themebuilder_module_settings',
+                    'setting_fields' => array(
+                        array(
+                            'id'  => 'themebuilder_enable',
+                            'name' => esc_html__( 'Enable / Disable' ),
+                            'desc'  => esc_html__( 'You can enable / disable Theme Builder from  here.', 'htmega-addons' ),
+                            'type'  => 'checkbox',
+                            'default' => 'off',
+                            'class' => 'htmega-action-field-left',
+                            'label_on' => esc_html__( 'On', 'htmega-addons' ),
+                            'label_off' => esc_html__( 'Off', 'htmega-addons' ),
+                        ),
+                        array(
+                            'id'    => 'single_blog_page',
+                            'name'   => __( 'Single Blog Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select Single blog page from here.', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => '0',
+                            'options' => htmega_elementor_template(),
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                        array(
+                            'id'    => 'archive_blog_page',
+                            'name'   => __( 'Blog Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select blog page from here.', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => '0',
+                            'options' => htmega_elementor_template(),
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                        array(
+                            'id'    => 'header_page',
+                            'name'   => __( 'Header Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select header template from here.', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => '0',
+                            'options' => htmega_elementor_template(),
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                        array(
+                            'id'    => 'footer_page',
+                            'name'   => __( 'Footer Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select footer template from here.', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => '0',
+                            'options' => htmega_elementor_template(),
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                        array(
+                            'id'    => 'search_pagep',
+                            'name'   => __( 'Search Page Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select search page from here.', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => 'select',
+                            'options' => array(
+                                'select'=>'Select Template',
+                            ),
+                            'is_pro' => true,
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                        array(
+                            'id'    => 'error_pagep',
+                            'name'   => __( '404 Page Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select 404 page from here. <span>( Pro )</span>', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => 'select',
+                            'options' => array(
+                                'select'=>'Select Template',
+                            ),
+                            'is_pro' => true,
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                        array(
+                            'id'    => 'coming_soon_pagep',
+                            'name'   => __( 'Coming Soon Page Template.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select coming soon page from here.', 'htmega-addons' ),
+                            'type'    => 'select',
+                            'default' => 'select',
+                            'options' => array(
+                                'select'=>'Select Template',
+                            ),
+                            'is_pro' => true,
+                            'condition' => [ ['condition_key' => 'themebuilder_enable', 'condition_value' => 'on'] ]
+                        ),
+                    ),
                 ),
-
                 array(
                     'id'  => 'salenotification',
                     'name'  => __( 'Sales Notification', 'htmega-addons' ),
@@ -1146,10 +1229,102 @@ class Options_Field {
                 array(
                     'id'  => 'megamenubuilder',
                     'name'  => __( 'Menu Builder', 'htmega-addons' ),
-                    'type'  => 'element',
+                    'type'  => 'module',
                     'default'=>'off',
                     'label_on' => __( 'On', 'htmega-addons' ),
                     'label_off' => __( 'Off', 'htmega-addons' ),
+                    'section'  => 'htmega_megamenu_module_settings',
+                    'setting_fields' => array(
+                        array(
+                            'id'  => 'megamenubuilder_enable',
+                            'name' => esc_html__( 'Enable / Disable' ),
+                            'desc'  => esc_html__( 'You can enable / disable Menu Builder from  here.', 'htmega-addons' ),
+                            'type'  => 'checkbox',
+                            'default' => 'off',
+                            'class' => 'htmega-action-field-left',
+                            'label_on' => esc_html__( 'On', 'htmega-addons' ),
+                            'label_off' => esc_html__( 'Off', 'htmega-addons' ),
+                        ),
+
+                        array(
+                            'id'    => 'menu_items_color',
+                            'name'   => __( 'Menu Items Color', 'htmega-addons' ),
+                            'desc'    => __( 'Set the Menu Items Color.', 'htmega-addons' ),
+                            'class' => 'htmega-action-field-left',
+                            'type'    => 'color',
+                            'default' => '',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'    => 'menu_items_hover_color',
+                            'name'   => __( 'Menu Items Hover Color', 'htmega-addons' ),
+                            'desc'    => __( 'Set the Menu Items Hover Color.', 'htmega-addons' ),
+                            'class' => 'htmega-action-field-left',
+                            'type'    => 'color',
+                            'default' => '',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'  => 'sub_menu_width',
+                            'name' => __( 'Sub Menu Width', 'htmega-addons' ),
+                            'desc'  => __( 'Specify the width of the Sub Menu (px).', 'htmega-addons' ),
+                            'min'               => 0,
+                            'max'               => 1000,
+                            'step'              => '1',
+                            'type'              => 'number',
+                            'default'           => '200',
+                            'sanitize_callback' => 'floatval',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'    => 'sub_menu_bg_color',
+                            'name'   => __( 'Sub Menu Background Color', 'htmega-addons' ),
+                            'desc'    => __( 'Set the Sub Menu Background Color.', 'htmega-addons' ),
+                            'class' => 'htmega-action-field-left',
+                            'type'    => 'color',
+                            'default' => '',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'    => 'sub_menu_items_color',
+                            'name'   => __( 'Sub Menu Items Color', 'htmega-addons' ),
+                            'desc'    => __( 'Set the Sub Menu Items Color.', 'htmega-addons' ),
+                            'class' => 'htmega-action-field-left',
+                            'type'    => 'color',
+                            'default' => '',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'    => 'sub_menu_items_hover_color',
+                            'name'   => __( 'Sub Menu Items Hover Color', 'htmega-addons' ),
+                            'desc'    => __( 'Set the Sub Menu Items Hover Color.', 'htmega-addons' ),
+                            'class' => 'htmega-action-field-left',
+                            'type'    => 'color',
+                            'default' => '',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'  => 'mega_menu_width',
+                            'name' => __( 'Mega Menu Width', 'htmega-addons' ),
+                            'desc'  => __( 'Specify the Mega Menu Width (px)', 'htmega-addons' ),
+                            'min'               => 0,
+                            'max'               => 2000,
+                            'step'              => '1',
+                            'type'              => 'number',
+                            'default'           => '',
+                            'sanitize_callback' => 'floatval',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        ),
+                        array(
+                            'id'    => 'mega_menu_bg_color',
+                            'name'   => __( 'Mega Menu Background Color', 'htmega-addons' ),
+                            'desc'    => __( 'Set the Mega Menu Background Color.', 'htmega-addons' ),
+                            'class' => 'htmega-action-field-left',
+                            'type'    => 'color',
+                            'default' => '',
+                            'condition' => [['condition_key' => 'megamenubuilder_enable', 'condition_value' => 'on']]
+                        )
+                    ),
                 ),
 
                 array(

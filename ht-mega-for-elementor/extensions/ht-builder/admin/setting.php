@@ -8,8 +8,6 @@ class HTMegaBuilder_Admin_Settings {
 
         $this->settings_api = new HTMega_Settings_API();
         add_action( 'admin_init', [ $this, 'admin_init' ] );
-        add_action( 'admin_menu', [ $this, 'admin_menu' ], 224 );
-
         add_action( 'wsa_form_bottom_htmegabuilder_templatebuilder_tabs', [ $this, 'popup_box' ] );
     }
 
@@ -17,26 +15,8 @@ class HTMegaBuilder_Admin_Settings {
     function admin_init() {
         add_filter( 'htmega_admin_fields_sections', [ $this, 'fields_section' ], 10, 1 );
 
-        //set the settings
-        $this->settings_api->set_sections( $this->admin_get_settings_sections() );
-        $this->settings_api->set_fields( $this->admin_fields_settings() );
-
         //initialize settings
         $this->settings_api->admin_init();
-    }
-
-    // Plugins menu Register
-    function admin_menu() {
-
-        add_submenu_page(
-            'htmega-addons', 
-            __( 'HT Builder', 'htmega-addons' ),
-            __( 'HT Builder', 'htmega-addons' ), 
-            'manage_options', 
-            'htmegabuilder', 
-            array ( $this, 'plugin_page' ) 
-        );
-
     }
 
     /**
@@ -60,107 +40,6 @@ class HTMegaBuilder_Admin_Settings {
 
         return $sections;
 
-    }
-
-    
-    // Options page Section register
-    function admin_get_settings_sections() {
-        $sections = array(
-
-            array(
-                'id'    => 'htmegabuilder_templatebuilder_tabs',
-                'title' => esc_html__( 'Theme Builder', 'htmega-addons' )
-            ),
-
-        );
-        return $sections;
-    }
-
-    // Options page field register
-    protected function admin_fields_settings() {
-
-        $settings_fields = array(
-            
-            'htmegabuilder_templatebuilder_tabs' => array(
-
-                array(
-                    'name'    => 'single_blog_page',
-                    'label'   => __( 'Single Blog Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select Single blog page from here.', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => '0',
-                    'options' => htmega_elementor_template()
-                ),
-
-                array(
-                    'name'    => 'archive_blog_page',
-                    'label'   => __( 'Blog Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select blog page from here.', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => '0',
-                    'options' => htmega_elementor_template()
-                ),
-
-                array(
-                    'name'    => 'header_page',
-                    'label'   => __( 'Header Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select header template from here.', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => '0',
-                    'options' => htmega_elementor_template()
-                ),
-
-                array(
-                    'name'    => 'footer_page',
-                    'label'   => __( 'Footer Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select footer template from here.', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => '0',
-                    'options' => htmega_elementor_template()
-                ),
-
-                array(
-                    'name'    => 'search_pagep',
-                    'label'   => __( 'Search Page Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select search page from here. <span>( Pro )</span>', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => 'select',
-                    'options' => array(
-                        'select'=>'Select Template',
-                    ),
-                    'class'=>'htmegapro',
-                ),
-
-                array(
-                    'name'    => 'error_pagep',
-                    'label'   => __( '404 Page Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select 404 page from here. <span>( Pro )</span>', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => '0',
-                    'options' => array(
-                        'select'=>'Select Template',
-                    ),
-                    'class'   =>'htmegapro',
-                ),
-
-                array(
-                    'name'    => 'coming_soon_pagep',
-                    'label'   => __( 'Coming Soon Page Template.', 'htmega-addons' ),
-                    'desc'    => __( 'You can select coming soon page from here. <span>( Pro )</span>', 'htmega-addons' ),
-                    'type'    => 'select',
-                    'default' => '0',
-                    'options' => array(
-                        'select'=>'Select Template',
-                    ),
-                    'class'   =>'htmegapro',
-                ),
-
-            ),
-
-
-        );
-        
-        return array_merge( $settings_fields );
     }
 
     // Pop up Box
@@ -222,8 +101,6 @@ class HTMegaBuilder_Admin_Settings {
             <?php
         }
     }
-
-
 }
 
 new HTMegaBuilder_Admin_Settings();

@@ -78,7 +78,9 @@ class HTMegaBuilder_Custom_Template_Layout{
     */
     public function custom_template_id( $option_key ){
 
-        $custom_tm_id = htmega_get_option( $option_key, 'htmegabuilder_templatebuilder_tabs', '0' );
+        //$custom_tm_id = htmega_get_option( $option_key, 'htmegabuilder_templatebuilder_tabs', '0' );
+
+        $custom_tm_id =  htmega_get_module_option( 'htmega_themebuilder_module_settings', 'themebuilder', $option_key ) ? htmega_get_module_option( 'htmega_themebuilder_module_settings', 'themebuilder', $option_key ) : htmega_get_option( $option_key, 'htmegabuilder_templatebuilder_tabs', '0' );
 
         // Meta value
         $bltermlayoutid = 0;

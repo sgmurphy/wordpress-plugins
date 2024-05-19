@@ -413,6 +413,12 @@ class Woolentor_Admin_Fields {
                         'default' => 'on'
                     ),
                     array(
+                        'name'    => 'product_horizontal_filter',
+                        'label'   => esc_html__( 'Product Horizontal Filter', 'woolentor' ),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
+                    array(
                         'name'    => 'archive_result_count',
                         'label'   => esc_html__( 'Archive Result Count', 'woolentor' ),
                         'type'    => 'element',
@@ -535,6 +541,51 @@ class Woolentor_Admin_Fields {
                         'label'   => esc_html__('Product Reviews','woolentor'),
                         'type'    => 'element',
                         'default' => 'on'
+                    ),
+                    array(
+                        'name'    => 'product_categories',
+                        'label'   => esc_html__('Product Categories','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
+                    array(
+                        'name'    => 'product_sku',
+                        'label'   => esc_html__('Product SKU','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
+                    array(
+                        'name'    => 'call_for_price',
+                        'label'   => esc_html__('Call for Price','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'on'
+                    ),
+                    array(
+                        'name'    => 'suggest_price',
+                        'label'   => esc_html__('Suggest Price','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'on',
+                    ),
+                    array(
+                        'name'    => 'product_social_share',
+                        'label'   => esc_html__('Product Social Share','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'off',
+                        'is_pro' => true,
+                    ),
+                    array(
+                        'name'    => 'product_stock_progressbar',
+                        'label'   => esc_html__('Stock Progressbar','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'off',
+                        'is_pro' => true,
+                    ),
+                    array(
+                        'name'    => 'product_sale_schedule',
+                        'label'   => esc_html__('Product Sale Schedule','woolentor'),
+                        'type'    => 'element',
+                        'default' => 'off',
+                        'is_pro' => true,
                     ),
 
                     array(

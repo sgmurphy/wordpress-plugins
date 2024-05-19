@@ -176,6 +176,34 @@ class Blocks_List {
                 'type'   => 'single',
                 'active' => true,
             ],
+            'product_categories' => [
+                'label'  => __('Product Categories','woolentor'),
+                'name'   => 'woolentor/product-categories',
+                'server_side_render' => true,
+                'type'   => 'single',
+                'active' => true,
+            ],
+            'product_sku' => [
+                'label'  => __('Product SKU','woolentor'),
+                'name'   => 'woolentor/product-sku',
+                'server_side_render' => true,
+                'type'   => 'single',
+                'active' => true,
+            ],
+            'call_for_price' => [
+                'label'  => __('Call For Price','woolentor'),
+                'name'   => 'woolentor/call-for-price',
+                'server_side_render' => true,
+                'type'   => 'single',
+                'active' => true,
+            ],
+            'suggest_price' => [
+                'label'  => __('Suggest Price','woolentor'),
+                'name'   => 'woolentor/suggest-price',
+                'server_side_render' => true,
+                'type'   => 'single',
+                'active' => true,
+            ],
             'product_additional_info' => [
                 'label'  => __('Product Additional Info','woolentor'),
                 'name'   => 'woolentor/product-additional-info',
@@ -255,6 +283,17 @@ class Blocks_List {
                 'active' => true,
                 'enqueue_assets' => function(){
                     wp_enqueue_script('jquery-ui-slider');
+                }
+            ],
+            'product_horizontal_filter' => [
+                'title'  => __('Product Horizintal Filter','woolentor'),
+                'name'   => 'woolentor/product-horizontal-filter',
+                'server_side_render' => true,
+                'type'   => 'shop',
+                'active' => true,
+                'enqueue_assets' => function(){
+                    wp_enqueue_style('woolentor-select2');
+                    wp_enqueue_script('select2-min');
                 }
             ]
             

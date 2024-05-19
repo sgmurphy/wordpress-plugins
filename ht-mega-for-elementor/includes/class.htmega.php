@@ -124,6 +124,10 @@ final class HTMega_Addons_Elementor {
         
         // Admin Notices
         add_action( 'admin_head', [ $this, 'admin_rating_notice' ] );
+
+         if ( is_plugin_active('htmega-pro/htmega_pro.php' ) ) {
+            add_action( 'admin_head', [ $this, 'admin_htmega_pro_version_compatibily' ] );
+        }
     }
 
     /**
@@ -169,6 +173,36 @@ final class HTMega_Addons_Elementor {
             ]
         );
     }
+
+
+
+    /**
+     * HT Mega Pro version compatibility Notice
+     *
+     * @return void
+     */
+    public function admin_htmega_pro_version_compatibily() {
+
+        if ( is_plugin_active('htmega-pro/htmega_pro.php') && ( version_compare( HTMEGA_VERSION_PRO, '1.8.3' ) >= 0 ) ) {
+            return;
+        }
+        
+        $message = '<p>' . __( 'To ensure smooth functionality of <strong>HT MEGA Addons for Elementor</strong>, it\'s essential to have the most recent version of <strong>HT Mega Pro</strong>. Please make sure to update <strong>HT Mega Pro</strong> to ensure seamless compatibility with this version.', 'htmega-addons' ) . '</p>';
+
+        \HasTech_Notices::set_notice(
+            [
+                'id'          => 'htmega-free-and-pro-compatibilty-notice',
+                'type'        => 'warning',
+                'dismissible' => false,
+                'message_type' => 'html',
+                'message'     => $message,
+                'display_after'  => 1,
+                'expire_time' => 0,
+                'close_by'    => 'user'
+            ]
+        );
+    }
+
     /**
      * [add_image_size]
      * @return [void]
@@ -337,10 +371,14 @@ final class HTMega_Addons_Elementor {
         require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/class.enqueue_scripts.php' );
 
         // HT Builder
-        if( htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' ){
+        if ( 'on' == htmega_get_module_option( 'htmega_themebuilder_module_settings','themebuilder','themebuilder_enable','off' ) ) {
             require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-builder/init.php' );
-        }
 
+        } else {
+            if ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ){
+                require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-builder/init.php' );
+            }
+        }
         // WC Sales Notification
         if( htmega_get_option( 'salenotification', 'htmega_advance_element_tabs', 'off' ) === 'on' && is_plugin_active('woocommerce/woocommerce.php') ){
             if( is_plugin_active('htmega-pro/htmega_pro.php') ){
@@ -355,11 +393,22 @@ final class HTMega_Addons_Elementor {
         }
 
         // HT Menu
-        if( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' ){
-            if( is_plugin_active('htmega-pro/htmega_pro.php') ){
+        if ( 'on' == htmega_get_module_option( 'htmega_megamenu_module_settings','megamenubuilder','megamenubuilder_enable','off' ) ) {
+
+            if ( is_plugin_active( 'htmega-pro/htmega_pro.php' ) ) {
                 require_once( HTMEGA_ADDONS_PL_PATH_PRO . 'extensions/ht-menu/classes/class.mega-menu.php' );
-            }else{
+            } else {
                 require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-menu/classes/class.mega-menu.php' );
+            }
+
+        } else {
+
+            if ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_megamenu_module_settings') ) ){
+                if ( is_plugin_active( 'htmega-pro/htmega_pro.php' ) ) {
+                    require_once( HTMEGA_ADDONS_PL_PATH_PRO . 'extensions/ht-menu/classes/class.mega-menu.php' );
+                } else {
+                    require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-menu/classes/class.mega-menu.php' );
+                }
             }
         }
 

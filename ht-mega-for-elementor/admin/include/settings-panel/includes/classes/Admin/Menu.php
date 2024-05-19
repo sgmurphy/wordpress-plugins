@@ -105,6 +105,45 @@ class Menu {
                 ]
             ]
         ];
+
+        // update existing data to new Menu builder module settings default option
+        $updated_megamenu_options = [
+            "megamenubuilder" =>  wp_json_encode([
+                "megamenubuilder_enable"   => htmega_get_option('megamenubuilder', 'htmega_advance_element_tabs'),
+                "menu_items_color"           => htmega_get_option('menu_items_color', 'htmegamenu_setting_tabs'),
+                "menu_items_hover_color"     => htmega_get_option('menu_items_hover_color', 'htmegamenu_setting_tabs'),
+                "sub_menu_width"             => htmega_get_option('sub_menu_width', 'htmegamenu_setting_tabs'),
+                "sub_menu_bg_color"          => htmega_get_option('sub_menu_bg_color', 'htmegamenu_setting_tabs'),
+                "sub_menu_items_color"       => htmega_get_option('sub_menu_items_color', 'htmegamenu_setting_tabs'),
+                "sub_menu_items_hover_color" => htmega_get_option('sub_menu_items_hover_color', 'htmegamenu_setting_tabs'),
+                "mega_menu_width"            => htmega_get_option('mega_menu_width', 'htmegamenu_setting_tabs'),
+                "mega_menu_bg_color"         => htmega_get_option('mega_menu_bg_color', 'htmegamenu_setting_tabs'),
+            ]),
+        ];
+        // megamenu modules defautl option's value update
+        if ( empty( htmega_get_module_option( 'htmega_megamenu_module_settings' ) ) ) {
+            update_option( 'htmega_megamenu_module_settings' , $updated_megamenu_options );
+            update_option( 'htmegamenu_setting_tabs' , '' );
+        }
+
+        // update existing data to new theme builder module settings default option
+        $updated_theme_builder_options = [
+            "themebuilder" =>  wp_json_encode([
+                "themebuilder_enable"   => htmega_get_option('themebuilder', 'htmega_advance_element_tabs'),
+                "single_blog_page"           => htmega_get_option('single_blog_page', 'htmegabuilder_templatebuilder_tabs'),
+                "archive_blog_page"     => htmega_get_option('archive_blog_page', 'htmegabuilder_templatebuilder_tabs'),
+                "header_page"             => htmega_get_option('header_page', 'htmegabuilder_templatebuilder_tabs'),
+                "footer_page"          => htmega_get_option('footer_page', 'htmegabuilder_templatebuilder_tabs'),
+                "search_page"       => htmega_get_option('search_page', 'htmegabuilder_templatebuilder_tabs'),
+                "error_page" => htmega_get_option('error_page', 'htmegabuilder_templatebuilder_tabs'),
+                "coming_soon_page"            => htmega_get_option('coming_soon_page', 'htmegabuilder_templatebuilder_tabs'),
+            ]),
+        ];
+        // megamenu modules defautl option's value update
+        if ( empty( htmega_get_module_option( 'htmega_themebuilder_module_settings' ) ) ) {
+            update_option( 'htmega_themebuilder_module_settings' , $updated_theme_builder_options );
+            update_option( 'htmegabuilder_templatebuilder_tabs' , '' );
+        }
         wp_localize_script( 'htmegaopt-admin', 'htmegaOptions', $option_localize_script );
     }
 

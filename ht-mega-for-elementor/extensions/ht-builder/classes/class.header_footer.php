@@ -44,14 +44,14 @@ class HTMegaBuilder_Header_Footer{
         if( !empty( htmega_get_elementor_setting( 'htmegaheader_template', get_the_ID() ) ) ){
             $this->header_id = htmega_get_elementor_setting( 'htmegaheader_template', get_the_ID() );
         }else{
-            $this->header_id = htmega_get_option( 'header_page', 'htmegabuilder_templatebuilder_tabs', '0' );
+            $this->header_id = htmega_get_module_option( 'htmega_themebuilder_module_settings', 'themebuilder', 'header_page' ) ? htmega_get_module_option( 'htmega_themebuilder_module_settings', 'themebuilder', 'header_page' ) : htmega_get_option( 'header_page', 'htmegabuilder_templatebuilder_tabs', '0' );
         }
 
         // Footer id
         if( !empty( htmega_get_elementor_setting( 'htmegafooter_template', get_the_ID() ) ) ){
             $this->footer_id = htmega_get_elementor_setting( 'htmegafooter_template', get_the_ID() );
         }else{
-            $this->footer_id = htmega_get_option( 'footer_page', 'htmegabuilder_templatebuilder_tabs', '0' );
+            $this->footer_id = htmega_get_module_option( 'htmega_themebuilder_module_settings', 'themebuilder', 'footer_page' ) ? htmega_get_module_option( 'htmega_themebuilder_module_settings', 'themebuilder', 'footer_page' ) : htmega_get_option( 'footer_page', 'htmegabuilder_templatebuilder_tabs', '0' );
         }
 
         // Content Hooks

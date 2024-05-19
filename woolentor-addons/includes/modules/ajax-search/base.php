@@ -135,7 +135,7 @@ class WooLentor_Ajax_Search_Base{
 		), $atts, 'woolentorsearch' ) );
 
 		$data_settings = array(
-			'limit'		  => $limit,
+			'limit'		  => esc_attr( $limit ),
 			'wlwidget_id' => '#wluniq-'.uniqid(),
 		);
 

@@ -664,8 +664,112 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
 
             $this->pro_notice( $this,'export_data', 'yes' );
         $this->end_controls_section();
-
-
+        // Custom Labels
+        $this->start_controls_section(
+            'datatable_custom_labels',
+            [
+                'label' => __( 'Custom Labels', 'htmega-addons' ),
+            ]
+        );
+        $this->add_control(
+            'search_labelp',
+            [
+                'label'        => __( 'Search', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( 'Search:', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'menu_lenght_labelp',
+            [
+                'label'        => __( 'Menu Lenght Text', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( 'Show _MENU_ entries', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'paginate_next_labelp',
+            [
+                'label'        => __( 'Paginate Next', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'default' => __( 'Next', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'paginate_prev_labelp',
+            [
+                'label'        => __( 'Paginate Prev', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'default' => __( 'Previous', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'paginate_info_labelp',
+            [
+                'label'        => __( 'Paginate Info', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'empty_info_labelp',
+            [
+                'label'        => __( 'Empty Info', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( 'Showing 0 to 0 of 0 entries', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'filtered_info_labelp',
+            [
+                'label'        => __( 'Filtered Info', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( '(filtered from _MAX_ total entries)', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->add_control(
+            'no_match_info_labelp',
+            [
+                'label'        => __( 'Data Not Found', 'htmega-addons' ) . ' <i class="eicon-pro-icon"></i>',
+                'type'    => Controls_Manager::TEXT,
+                'label_block' => true,
+                'default' => __( 'No matching records found', 'htmega-addons' ),
+                'classes' => 'htmega-disable-control',
+            ]
+        );
+        $this->end_controls_section();
+        // Upgrade pro  notice
+        $this->start_controls_section(
+            'htmega_Upgrade_pro_section',
+            [
+                'label' => __( 'Upgrade to HT Mega Pro', 'htmega-addons' ),
+                'classes' => 'htmega-purchase-pro-section-control',
+            ]
+        );
+        $this->add_control(
+            'htmega_update_pro',
+            [
+                'type' => Controls_Manager::RAW_HTML,
+                'raw' => sprintf(
+                    __('%s UPGRADE NOW %s', 'htmega-addons'),
+                    '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
+                    '</a></strong>'),
+                'content_classes' => 'htmega-addons-notice',
+            ]
+        );
+        $this->end_controls_section();
         // Style tab section
         $this->start_controls_section(
             'htmega_table_style_section',
@@ -1654,7 +1758,7 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                         ordering:  <?php echo esc_js(( $settings['show_datatable_ordering'] == 'yes' ) ? 'true' : 'false'); ?>,
                         info: <?php echo esc_js(( $settings['show_datatable_info'] == 'yes' ) ? 'true' : 'false'); ?>,
                         pageLength: <?php echo esc_js($default_row_number ); ?>,
-                        lengthMenu: [ [<?php echo esc_js( $display_options ).$show_all_num;?>], [<?php echo esc_js( $display_options ).$show_all_text;?>] ]
+                        lengthMenu: [ [<?php echo esc_js( $display_options ).$show_all_num;?>], [<?php echo esc_js( $display_options ).$show_all_text;?>] ],
                     });
                  });
             </script>

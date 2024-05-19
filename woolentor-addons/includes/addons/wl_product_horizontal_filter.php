@@ -208,7 +208,7 @@ class Woolentor_Wl_Product_Horizontal_Filter_Widget extends Widget_Base {
             $price_range->add_control(
                 'price_seprator', 
                 [
-                    'label' => esc_html__( 'Filter Placeholder', 'woolentor' ),
+                    'label' => esc_html__( 'Separator', 'woolentor' ),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => true,
                     'default'=> esc_html__( 'to', 'woolentor' ),

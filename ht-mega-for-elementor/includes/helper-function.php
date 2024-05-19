@@ -929,3 +929,43 @@ function htmega_pro_notice( $repeater,$condition_key, $array_value, $type ){
         ]
     );
 }
+
+
+/**
+ * Get module option value
+ * @input section, option_id, option_key, default
+ * @return mixed
+ */
+if( !function_exists('htmega_get_module_option') ) {
+    function htmega_get_module_option( $section = '', $option_id = '', $option_key = '', $default = null ){
+
+        $module_settings = get_option( $section );
+        
+        if( $option_id && is_array( $module_settings ) && count( $module_settings ) > 0 ) {
+
+
+            if( isset ( $module_settings[ $option_id ] ) && '' != $module_settings[ $option_id ] ) {
+
+                $option_value = json_decode( $module_settings[ $option_id ], true );
+
+                if( $option_key && is_array( $option_value  ) && count( $option_value  ) > 0 ) {
+
+                    if ( isset($option_value[$option_key] ) && '' != $option_value[$option_key] ) {
+                        return $option_value[$option_key];
+                    } else {
+                        return $default;
+                    }
+                } else {
+                    return $module_settings[ $option_id ];
+                }
+                
+            } else {
+                return $default;;
+            }
+
+        } else {
+            return $module_settings;
+        }
+
+    }
+}

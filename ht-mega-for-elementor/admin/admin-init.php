@@ -46,11 +46,20 @@ class HTMega_Admin_Setting{
         }
 
         // HT Builder
-        if( htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' ){
+        if ( 'on' == htmega_get_module_option( 'htmega_themebuilder_module_settings','themebuilder','themebuilder_enable','off' ) ) {
             if( is_plugin_active('htmega-pro/htmega_pro.php') ){
                 require_once( HTMEGA_ADDONS_PL_PATH_PRO.'extensions/ht-builder/admin/setting.php' );
             }else{
                 require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-builder/admin/setting.php' );
+            }
+
+        } else {
+            if ( htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ){
+                if( is_plugin_active('htmega-pro/htmega_pro.php') ){
+                    require_once( HTMEGA_ADDONS_PL_PATH_PRO.'extensions/ht-builder/admin/setting.php' );
+                }else{
+                    require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-builder/admin/setting.php' );
+                }
             }
         }
 
@@ -62,12 +71,6 @@ class HTMega_Admin_Setting{
                 require_once( HTMEGA_ADDONS_PL_PATH.'extensions/wc-sales-notification/admin/setting.php' );
             }
         }
-
-        // HT Mega Menu
-        if( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' ){
-            require_once( HTMEGA_ADDONS_PL_PATH.'extensions/ht-menu/admin/setting.php' );
-        }
-
     }
 
     /**
@@ -193,8 +196,6 @@ class HTMega_Admin_Setting{
             include_once( $tmp_file );
         }
     }
-
-
 
 }
 

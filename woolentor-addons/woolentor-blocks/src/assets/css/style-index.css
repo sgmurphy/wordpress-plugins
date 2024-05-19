@@ -485,6 +485,9 @@ body .wp-block-group.is-layout-flex.is-content-justification-space-between {
   .wl-quantity-cal {
   margin-left: 0 !important;
 }
+.woocommerce .woolentor-product-addtocart .quantity .qty {
+  width: auto;
+}
 
 /*
 * OceanWP Theme

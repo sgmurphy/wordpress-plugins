@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -525,6 +525,11 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+= Version 2.5.3 - Date: 2024-05-19 =
+* Moved: Theme builder and Mega menu settings options to Module settings popup.
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of Elementor.
+
 = Version 2.5.2 - Date: 2024-04-29 =
 * Added: Individual cell and column heading content align option in Data Table Widget
 * Added: Individual cell content color option in Data Table Widget

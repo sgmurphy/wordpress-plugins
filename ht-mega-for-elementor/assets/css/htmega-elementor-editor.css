@@ -47,6 +47,11 @@
   width: 100%;
   background-color: transparent;
 }
+
+.htmega-purchase-pro-section-control .elementor-panel-heading-title {
+  color: #d73361;
+}
+
 .htmega-addons-notice {
   font-size: 12px;
   line-height: 16px;

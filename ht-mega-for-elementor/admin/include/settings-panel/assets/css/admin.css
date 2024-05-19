@@ -1107,7 +1107,7 @@ form#htmega-module-setting-form {
   position: absolute;
   right: -47px;
   top: 0;
-  border: 6px solid #ddd;
+  border: 3px solid #ddd;
 }
 .htmega-module-setting-popup .htmega-form-wrapper {
   height: 100%;

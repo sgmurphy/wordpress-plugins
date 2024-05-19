@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HT Mega – Absolute Addons for Elementor.\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-19 04:12+0000\n"
+"POT-Creation-Date: 2024-05-19 03:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.7; wp-6.5-RC2\n"
+"X-Loco-Version: 2.6.9; wp-6.5.3\n"
 "X-Domain: htmega-addons"
 
 #: includes/widgets/htmega_twitter_feed.php:1686
@@ -40,7 +40,7 @@ msgstr ""
 msgid " years ago"
 msgstr ""
 
-#: includes/class.htmega.php:182 includes/class.htmega.php:197
+#: includes/class.htmega.php:261 includes/class.htmega.php:276
 #, php-format
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
 msgstr ""
@@ -87,12 +87,21 @@ msgstr ""
 msgid "%s Comments"
 msgstr ""
 
+#: includes/widgets/htmega_data_table.php:766
+#, php-format
+msgid "%s UPGRADE NOW %s"
+msgstr ""
+
 #: extensions/ht-menu/menu/templates.php:107
 #: extensions/ht-menu/menu/templates.php:115
 #: extensions/ht-menu/menu/templates.php:129
 #: extensions/ht-menu/menu/templates.php:144
 #: extensions/ht-menu/menu/templates.php:180
 msgid "( Pro )"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:738
+msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
 #: includes/widgets/htmega_tablepress.php:43
@@ -148,11 +157,11 @@ msgstr ""
 msgid "09"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:394
-#: includes/widgets/htmega_data_table.php:395
-#: includes/widgets/htmega_data_table.php:401
-#: includes/widgets/htmega_data_table.php:407
-#: includes/widgets/htmega_data_table.php:414
+#: includes/widgets/htmega_data_table.php:459
+#: includes/widgets/htmega_data_table.php:460
+#: includes/widgets/htmega_data_table.php:466
+#: includes/widgets/htmega_data_table.php:472
+#: includes/widgets/htmega_data_table.php:479
 #: includes/widgets/htmega_instagram.php:169
 #: includes/widgets/htmega_pricing_list_view.php:1093
 #: includes/widgets/htmega_pricing_list_view.php:1094
@@ -203,7 +212,7 @@ msgstr ""
 msgid "10 seconds"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:502
+#: includes/widgets/htmega_data_table.php:567
 msgid "10,25,50,100"
 msgstr ""
 
@@ -466,7 +475,7 @@ msgstr ""
 msgid "404 Content"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:136
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1196
 msgid "404 Page Template."
 msgstr ""
 
@@ -535,14 +544,14 @@ msgstr ""
 msgid "9:00 AM to 6:30 PM"
 msgstr ""
 
-#: includes/class.htmega.php:161
+#: includes/class.htmega.php:240
 msgid ""
 "<strong>HTMEGA Addons for Elementor</strong> requires \"<strong>"
 "Elementor</strong>\" plugin to be active. Please activate Elementor to "
 "continue."
 msgstr ""
 
-#: includes/class.htmega.php:168
+#: includes/class.htmega.php:247
 msgid ""
 "<strong>HTMEGA Addons for Elementor</strong> requires \"<strong>"
 "Elementor</strong>\" plugin to be active. Please install the Elementor "
@@ -663,7 +672,7 @@ msgstr ""
 #: includes/widgets/htmega_carousel.php:1005
 #: includes/widgets/htmega_carousel.php:1205
 #: includes/widgets/htmega_carousel.php:1403
-#: includes/widgets/htmega_data_table.php:1436
+#: includes/widgets/htmega_data_table.php:1605
 #: includes/widgets/htmega_inlinemenu.php:414
 #: includes/widgets/htmega_instagram.php:1246
 #: includes/widgets/htmega_panel_slider.php:1205
@@ -710,7 +719,7 @@ msgstr ""
 msgid "Active Tooltip (Pro)"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:515
+#: includes/widgets/htmega_data_table.php:580
 msgid "Add all option"
 msgstr ""
 
@@ -797,7 +806,7 @@ msgstr ""
 msgid "Advanced Slider"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1286
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1461
 msgid "Advanced Sticky"
 msgstr ""
 
@@ -874,8 +883,10 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:325
 #: includes/widgets/htmega_counter.php:431
 #: includes/widgets/htmega_counter.php:557
-#: includes/widgets/htmega_data_table.php:753
-#: includes/widgets/htmega_data_table.php:880
+#: includes/widgets/htmega_data_table.php:97
+#: includes/widgets/htmega_data_table.php:422
+#: includes/widgets/htmega_data_table.php:922
+#: includes/widgets/htmega_data_table.php:1049
 #: includes/widgets/htmega_double_button.php:327
 #: includes/widgets/htmega_dropcaps.php:87
 #: includes/widgets/htmega_easy_digital_download.php:322
@@ -984,7 +995,7 @@ msgstr ""
 msgid "ALL"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:532
+#: includes/widgets/htmega_data_table.php:597
 msgid "All"
 msgstr ""
 
@@ -1102,7 +1113,7 @@ msgid "April"
 msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_archive.php:23
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1373
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1548
 msgid "Archive Posts"
 msgstr ""
 
@@ -1110,7 +1121,7 @@ msgstr ""
 #: extensions/ht-builder/widgets/bl_post_archive_title.php:45
 #: extensions/ht-builder/widgets/bl_post_archive_title.php:66
 #: extensions/ht-builder/widgets/bl_post_archive_title.php:174
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1382
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1557
 msgid "Archive Title"
 msgstr ""
 
@@ -1221,7 +1232,7 @@ msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_author_info.php:22
 #: extensions/ht-builder/widgets/bl_post_author_info.php:45
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1427
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1602
 msgid "Author Info"
 msgstr ""
 
@@ -1350,17 +1361,17 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:877
 #: includes/widgets/htmega_counter.php:974
 #: includes/widgets/htmega_counter.php:1063
-#: includes/widgets/htmega_data_table.php:98
-#: includes/widgets/htmega_data_table.php:361
-#: includes/widgets/htmega_data_table.php:617
-#: includes/widgets/htmega_data_table.php:703
-#: includes/widgets/htmega_data_table.php:1033
-#: includes/widgets/htmega_data_table.php:1077
+#: includes/widgets/htmega_data_table.php:123
+#: includes/widgets/htmega_data_table.php:399
+#: includes/widgets/htmega_data_table.php:786
+#: includes/widgets/htmega_data_table.php:872
+#: includes/widgets/htmega_data_table.php:1202
 #: includes/widgets/htmega_data_table.php:1246
-#: includes/widgets/htmega_data_table.php:1297
-#: includes/widgets/htmega_data_table.php:1386
-#: includes/widgets/htmega_data_table.php:1416
-#: includes/widgets/htmega_data_table.php:1455
+#: includes/widgets/htmega_data_table.php:1415
+#: includes/widgets/htmega_data_table.php:1466
+#: includes/widgets/htmega_data_table.php:1555
+#: includes/widgets/htmega_data_table.php:1585
+#: includes/widgets/htmega_data_table.php:1624
 #: includes/widgets/htmega_double_button.php:530
 #: includes/widgets/htmega_double_button.php:617
 #: includes/widgets/htmega_double_button.php:703
@@ -1654,11 +1665,11 @@ msgstr ""
 msgid "Background Color ( Even )"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:795
+#: includes/widgets/htmega_data_table.php:964
 msgid "Background Color ( Event )"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:807
+#: includes/widgets/htmega_data_table.php:976
 #: includes/widgets/htmega_pricing_list_view.php:1389
 msgid "Background Color ( Odd )"
 msgstr ""
@@ -1748,7 +1759,7 @@ msgstr ""
 msgid "Bbpress"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1518
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1693
 msgid "bbPress"
 msgstr ""
 
@@ -1880,7 +1891,7 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:97
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1157
 msgid "Blog Template."
 msgstr ""
 
@@ -1903,7 +1914,7 @@ msgid "Booked Calendar"
 msgstr ""
 
 #: includes/widgets/htmega_booked_calender.php:43
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1529
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1704
 msgid "Booked Calender"
 msgstr ""
 
@@ -1982,18 +1993,18 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:1099
 #: includes/widgets/htmega_custom_event.php:425
 #: includes/widgets/htmega_custom_event.php:467
-#: includes/widgets/htmega_data_table.php:108
-#: includes/widgets/htmega_data_table.php:374
-#: includes/widgets/htmega_data_table.php:652
-#: includes/widgets/htmega_data_table.php:734
-#: includes/widgets/htmega_data_table.php:861
-#: includes/widgets/htmega_data_table.php:951
-#: includes/widgets/htmega_data_table.php:1046
-#: includes/widgets/htmega_data_table.php:1088
+#: includes/widgets/htmega_data_table.php:133
+#: includes/widgets/htmega_data_table.php:412
+#: includes/widgets/htmega_data_table.php:821
+#: includes/widgets/htmega_data_table.php:903
+#: includes/widgets/htmega_data_table.php:1030
+#: includes/widgets/htmega_data_table.php:1120
+#: includes/widgets/htmega_data_table.php:1215
 #: includes/widgets/htmega_data_table.php:1257
-#: includes/widgets/htmega_data_table.php:1308
-#: includes/widgets/htmega_data_table.php:1427
-#: includes/widgets/htmega_data_table.php:1466
+#: includes/widgets/htmega_data_table.php:1426
+#: includes/widgets/htmega_data_table.php:1477
+#: includes/widgets/htmega_data_table.php:1596
+#: includes/widgets/htmega_data_table.php:1635
 #: includes/widgets/htmega_double_button.php:414
 #: includes/widgets/htmega_double_button.php:444
 #: includes/widgets/htmega_double_button.php:510
@@ -2381,14 +2392,14 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:1017
 #: includes/widgets/htmega_counter.php:1107
 #: includes/widgets/htmega_custom_event.php:433
-#: includes/widgets/htmega_data_table.php:116
-#: includes/widgets/htmega_data_table.php:660
-#: includes/widgets/htmega_data_table.php:742
-#: includes/widgets/htmega_data_table.php:869
-#: includes/widgets/htmega_data_table.php:961
-#: includes/widgets/htmega_data_table.php:1265
-#: includes/widgets/htmega_data_table.php:1316
-#: includes/widgets/htmega_data_table.php:1375
+#: includes/widgets/htmega_data_table.php:141
+#: includes/widgets/htmega_data_table.php:829
+#: includes/widgets/htmega_data_table.php:911
+#: includes/widgets/htmega_data_table.php:1038
+#: includes/widgets/htmega_data_table.php:1130
+#: includes/widgets/htmega_data_table.php:1434
+#: includes/widgets/htmega_data_table.php:1485
+#: includes/widgets/htmega_data_table.php:1544
 #: includes/widgets/htmega_double_button.php:282
 #: includes/widgets/htmega_double_button.php:422
 #: includes/widgets/htmega_double_button.php:452
@@ -2702,8 +2713,8 @@ msgstr ""
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:971
-#: includes/widgets/htmega_data_table.php:1162
+#: includes/widgets/htmega_data_table.php:1140
+#: includes/widgets/htmega_data_table.php:1331
 msgid "Bottom Space"
 msgstr ""
 
@@ -2818,8 +2829,8 @@ msgstr ""
 #: includes/widgets/htmega_countdown.php:532
 #: includes/widgets/htmega_counter.php:283
 #: includes/widgets/htmega_counter.php:933
-#: includes/widgets/htmega_data_table.php:126
-#: includes/widgets/htmega_data_table.php:671
+#: includes/widgets/htmega_data_table.php:151
+#: includes/widgets/htmega_data_table.php:840
 #: includes/widgets/htmega_double_button.php:295
 #: includes/widgets/htmega_double_button.php:541
 #: includes/widgets/htmega_double_button.php:628
@@ -2946,7 +2957,7 @@ msgstr ""
 
 #: includes/widgets/htmega_buddy_press.php:13
 #: includes/widgets/htmega_buddy_press.php:41
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1540
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1715
 msgid "BuddyPress"
 msgstr ""
 
@@ -3149,7 +3160,7 @@ msgstr ""
 
 #: includes/widgets/htmega_caldera_form.php:13
 #: includes/widgets/htmega_caldera_form.php:41
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1551
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1726
 msgid "Caldera Form"
 msgstr ""
 
@@ -3245,16 +3256,16 @@ msgstr ""
 msgid "Category List"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:205
+#: includes/widgets/htmega_data_table.php:230
 #: includes/widgets/htmega_pricing_list_view.php:600
 msgid "Cell Content"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:218
+#: includes/widgets/htmega_data_table.php:243
 msgid "Cell Icon"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:275
+#: includes/widgets/htmega_data_table.php:300
 msgid "Cell Image"
 msgstr ""
 
@@ -3262,7 +3273,7 @@ msgstr ""
 msgid "Cell Label"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:348
+#: includes/widgets/htmega_data_table.php:373
 msgid "Cell Styles"
 msgstr ""
 
@@ -3289,8 +3300,10 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:333
 #: includes/widgets/htmega_counter.php:439
 #: includes/widgets/htmega_counter.php:565
-#: includes/widgets/htmega_data_table.php:761
-#: includes/widgets/htmega_data_table.php:888
+#: includes/widgets/htmega_data_table.php:105
+#: includes/widgets/htmega_data_table.php:430
+#: includes/widgets/htmega_data_table.php:930
+#: includes/widgets/htmega_data_table.php:1057
 #: includes/widgets/htmega_double_button.php:335
 #: includes/widgets/htmega_dropcaps.php:95
 #: includes/widgets/htmega_easy_digital_download.php:330
@@ -3547,10 +3560,10 @@ msgstr ""
 msgid "Close Button Text"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:393
-#: includes/widgets/htmega_data_table.php:399
-#: includes/widgets/htmega_data_table.php:405
-#: includes/widgets/htmega_data_table.php:412
+#: includes/widgets/htmega_data_table.php:458
+#: includes/widgets/htmega_data_table.php:464
+#: includes/widgets/htmega_data_table.php:470
+#: includes/widgets/htmega_data_table.php:477
 #: includes/widgets/htmega_pricing_list_view.php:1092
 #: includes/widgets/htmega_pricing_list_view.php:1098
 #: includes/widgets/htmega_pricing_list_view.php:1104
@@ -3672,11 +3685,12 @@ msgstr ""
 #: includes/widgets/htmega_custom_event.php:336
 #: includes/widgets/htmega_custom_event.php:404
 #: includes/widgets/htmega_custom_event.php:454
-#: includes/widgets/htmega_data_table.php:259
-#: includes/widgets/htmega_data_table.php:1017
-#: includes/widgets/htmega_data_table.php:1065
-#: includes/widgets/htmega_data_table.php:1233
-#: includes/widgets/htmega_data_table.php:1285
+#: includes/widgets/htmega_data_table.php:284
+#: includes/widgets/htmega_data_table.php:384
+#: includes/widgets/htmega_data_table.php:1186
+#: includes/widgets/htmega_data_table.php:1234
+#: includes/widgets/htmega_data_table.php:1402
+#: includes/widgets/htmega_data_table.php:1454
 #: includes/widgets/htmega_double_button.php:488
 #: includes/widgets/htmega_double_button.php:584
 #: includes/widgets/htmega_double_button.php:661
@@ -3943,12 +3957,12 @@ msgstr ""
 msgid "Colors and Border"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:334
+#: includes/widgets/htmega_data_table.php:359
 #: includes/widgets/htmega_pricing_list_view.php:646
 msgid "Colspan"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:179
+#: includes/widgets/htmega_data_table.php:204
 #: includes/widgets/htmega_image_grid.php:66
 #: includes/widgets/htmega_image_masonry.php:75
 #: includes/widgets/htmega_instagram.php:150
@@ -4024,7 +4038,7 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:148
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1208
 msgid "Coming Soon Page Template."
 msgstr ""
 
@@ -4051,7 +4065,7 @@ msgstr ""
 msgid "Compare"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1277
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1452
 msgid "Conditional Display"
 msgstr ""
 
@@ -4080,7 +4094,7 @@ msgid "Contact Form"
 msgstr ""
 
 #: includes/widgets/htmega_contact_form_seven.php:13
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1562
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1737
 msgid "Contact form 7"
 msgstr ""
 
@@ -4299,7 +4313,7 @@ msgstr ""
 msgid "Create a new page from this template"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1250
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1425
 msgid "Cross Domain Copy Paste"
 msgstr ""
 
@@ -4364,7 +4378,7 @@ msgstr ""
 msgid "Custom Content"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1295
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1470
 msgid "Custom CSS"
 msgstr ""
 
@@ -4406,6 +4420,10 @@ msgstr ""
 msgid "Custom label"
 msgstr ""
 
+#: includes/widgets/htmega_data_table.php:671
+msgid "Custom Labels"
+msgstr ""
+
 #: includes/widgets/htmega_scroll_image.php:94
 msgid "Custom Link"
 msgstr ""
@@ -4414,7 +4432,7 @@ msgstr ""
 msgid "Custom marker"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:485
+#: includes/widgets/htmega_data_table.php:550
 msgid "Custom options for number of Rows?"
 msgstr ""
 
@@ -4438,12 +4456,16 @@ msgstr ""
 msgid "Danger"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:591
+#: includes/widgets/htmega_data_table.php:656
 msgid "Data Export Button (Pro)"
 msgstr ""
 
 #: htmega-blocks/includes/classes/Manage_Styles.php:205
 msgid "Data fetch"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:745
+msgid "Data Not Found"
 msgstr ""
 
 #: htmega-blocks/includes/classes/Manage_Styles.php:212
@@ -4459,7 +4481,7 @@ msgstr ""
 msgid "Data Table"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:187
+#: includes/widgets/htmega_data_table.php:212
 msgid "Data Type"
 msgstr ""
 
@@ -4520,6 +4542,7 @@ msgstr ""
 
 #: includes/widgets/htmega_countdown.php:208
 #: includes/widgets/htmega_countdown.php:210
+#: includes/widgets/htmega_countdown.php:1212
 msgid "Days"
 msgstr ""
 
@@ -4538,7 +4561,7 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:471
+#: includes/widgets/htmega_data_table.php:536
 msgid "Default option for number of Rows"
 msgstr ""
 
@@ -4627,7 +4650,7 @@ msgstr ""
 msgid "Description Tag"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:147
+#: includes/widgets/htmega_data_table.php:172
 #: includes/widgets/htmega_pricing_list_view.php:455
 #: includes/widgets/htmega_teammember.php:169
 #: includes/widgets/htmega_teammember.php:780
@@ -4653,7 +4676,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:406
+#: includes/widgets/htmega_data_table.php:471
 #: includes/widgets/htmega_pricing_list_view.php:1105
 #: includes/widgets/htmega_testimonial_grid.php:246
 msgid "Developer"
@@ -4702,7 +4725,7 @@ msgstr ""
 msgid "Display as"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:427
+#: includes/widgets/htmega_data_table.php:492
 msgid "Display Options"
 msgstr ""
 
@@ -4710,7 +4733,7 @@ msgstr ""
 msgid "div"
 msgstr ""
 
-#: includes/helper-function.php:96 includes/helper-function.php:104
+#: includes/helper-function.php:97 includes/helper-function.php:104
 #: extensions/ht-menu/menu/helper_function.php:17
 msgid "Do not Saved Templates."
 msgstr ""
@@ -4721,7 +4744,7 @@ msgid ""
 "Pro )</span>"
 msgstr ""
 
-#: includes/class.htmega.php:368
+#: includes/class.htmega.php:462
 #: admin/include/templates/dashboard-widget.php:94
 #: admin/include/settings-panel/includes/templates/dashboard-general.php:25
 msgid "Documentation"
@@ -4755,7 +4778,7 @@ msgid "Download File"
 msgstr ""
 
 #: includes/widgets/htmega_download_monitor.php:13
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1573
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1748
 msgid "Download Monitor"
 msgstr ""
 
@@ -4820,7 +4843,7 @@ msgstr ""
 
 #: includes/widgets/htmega_easy_digital_download.php:13
 #: includes/widgets/htmega_easy_digital_download.php:43
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1584
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1759
 msgid "Easy Digital Downloads"
 msgstr ""
 
@@ -4927,15 +4950,15 @@ msgstr ""
 msgid "Element Space"
 msgstr ""
 
-#: includes/class.htmega.php:184 admin/include/templates_list.php:42
+#: includes/class.htmega.php:263 admin/include/templates_list.php:42
 msgid "Elementor"
 msgstr ""
 
-#: includes/class.htmega.php:162
+#: includes/class.htmega.php:241
 msgid "Elementor Activate Now"
 msgstr ""
 
-#: includes/class.htmega.php:170
+#: includes/class.htmega.php:249
 msgid "Elementor Install Now"
 msgstr ""
 
@@ -4951,7 +4974,7 @@ msgstr ""
 msgid "Elementor Template"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:194
+#: includes/widgets/htmega_data_table.php:219
 #: includes/widgets/htmega_imagemarker.php:191
 msgid "Elementor Template (Pro)"
 msgstr ""
@@ -4960,7 +4983,7 @@ msgstr ""
 msgid "Elements"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:151
+#: includes/widgets/htmega_data_table.php:176
 #: includes/widgets/htmega_pricing_list_view.php:459
 msgid "Email"
 msgstr ""
@@ -4971,6 +4994,10 @@ msgstr ""
 
 #: includes/helper-function.php:507
 msgid "Email is not valid"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:725
+msgid "Empty Info"
 msgstr ""
 
 #: extensions/floating-effects/class.floating-effects.php:84
@@ -4989,7 +5016,7 @@ msgstr ""
 msgid "Enable Reading Progress Bar"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1204
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1379
 msgid "Enable Reading Progress Bar Globally."
 msgstr ""
 
@@ -4997,7 +5024,7 @@ msgstr ""
 msgid "Enable Scroll To Top"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1237
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1412
 msgid "Enable Scroll To Top Globally."
 msgstr ""
 
@@ -5006,13 +5033,13 @@ msgstr ""
 msgid "Enable to Custom Style"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1193
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1226
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1368
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1401
 msgid "Enable/Disable"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1203
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1236
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1378
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1411
 msgid "Enable/Disable Global"
 msgstr ""
 
@@ -5037,7 +5064,7 @@ msgstr ""
 msgid "Enter Map Style Json Code."
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:503
+#: includes/widgets/htmega_data_table.php:568
 msgid "Enter the number separate by comma(10,25,50,100)"
 msgstr ""
 
@@ -5088,7 +5115,7 @@ msgstr ""
 msgid "Entries Hide"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:913
+#: includes/widgets/htmega_data_table.php:1082
 msgid "Entries Style"
 msgstr ""
 
@@ -5247,7 +5274,7 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: includes/class.htmega.php:369
+#: includes/class.htmega.php:463
 msgid "Facebook Group"
 msgstr ""
 
@@ -5355,7 +5382,7 @@ msgstr ""
 msgid "Feedback Style"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:174
+#: includes/widgets/htmega_data_table.php:199
 msgid "Field Type"
 msgstr ""
 
@@ -5370,6 +5397,10 @@ msgstr ""
 #: includes/class.assests.php:628
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:837
 msgid "Filterable Gallery"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:735
+msgid "Filtered Info"
 msgstr ""
 
 #: extensions/floating-effects/class.floating-effects.php:566
@@ -5413,7 +5444,7 @@ msgstr ""
 msgid "Flip Switcher Pricing Table"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1175
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1350
 msgid "Floating Effects"
 msgstr ""
 
@@ -5428,8 +5459,8 @@ msgstr ""
 #: includes/widgets/htmega_caldera_form.php:369
 #: includes/widgets/htmega_contact_form_seven.php:368
 #: includes/widgets/htmega_contact_form_seven.php:593
-#: includes/widgets/htmega_data_table.php:1059
-#: includes/widgets/htmega_data_table.php:1279
+#: includes/widgets/htmega_data_table.php:1228
+#: includes/widgets/htmega_data_table.php:1448
 #: includes/widgets/htmega_gravity_forms.php:568
 #: includes/widgets/htmega_ninja_form.php:634
 #: includes/widgets/htmega_ninja_form.php:852
@@ -5506,7 +5537,7 @@ msgstr ""
 msgid "Footer Close Button"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:577
+#: includes/widgets/htmega_data_table.php:642
 msgid "Footer Info"
 msgstr ""
 
@@ -5514,7 +5545,7 @@ msgstr ""
 msgid "Footer Template"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:115
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1175
 msgid "Footer Template."
 msgstr ""
 
@@ -5616,7 +5647,7 @@ msgstr ""
 msgid "Free VS Pro"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:57
+#: extensions/ht-builder/admin/setting.php:37
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:33
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:43
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:63
@@ -5697,7 +5728,7 @@ msgstr ""
 msgid "Get Support"
 msgstr ""
 
-#: includes/class.htmega.php:214
+#: includes/class.htmega.php:293
 #: admin/include/templates/library/templates.php:71
 msgid "Go Pro"
 msgstr ""
@@ -5779,7 +5810,7 @@ msgstr ""
 
 #: includes/widgets/htmega_gravity_forms.php:13
 #: includes/widgets/htmega_gravity_forms.php:59
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1595
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1770
 msgid "Gravity Forms"
 msgstr ""
 
@@ -5851,7 +5882,7 @@ msgstr ""
 msgid "HasThemes"
 msgstr ""
 
-#: admin/admin-init.php:98
+#: admin/admin-init.php:177
 msgid "HasThemes Stories"
 msgstr ""
 
@@ -5889,7 +5920,7 @@ msgstr ""
 msgid "Header Template"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:106
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1166
 msgid "Header Template."
 msgstr ""
 
@@ -5989,18 +6020,24 @@ msgstr ""
 msgid "Hexagon"
 msgstr ""
 
+#: includes/class.htmega.php:151
+msgid ""
+"Hi there! Thanks a lot for choosing HT Mega Elementor Addons to take your "
+"WordPress website to the next level."
+msgstr ""
+
 #: includes/widgets/htmega_buddy_press.php:116
 #: includes/widgets/htmega_buddy_press.php:129
 #: includes/widgets/htmega_buddy_press.php:144
 #: includes/widgets/htmega_buddy_press.php:159
-#: includes/widgets/htmega_data_table.php:449
-#: includes/widgets/htmega_data_table.php:460
-#: includes/widgets/htmega_data_table.php:488
-#: includes/widgets/htmega_data_table.php:518
-#: includes/widgets/htmega_data_table.php:549
-#: includes/widgets/htmega_data_table.php:565
-#: includes/widgets/htmega_data_table.php:580
-#: includes/widgets/htmega_data_table.php:594
+#: includes/widgets/htmega_data_table.php:514
+#: includes/widgets/htmega_data_table.php:525
+#: includes/widgets/htmega_data_table.php:553
+#: includes/widgets/htmega_data_table.php:583
+#: includes/widgets/htmega_data_table.php:614
+#: includes/widgets/htmega_data_table.php:630
+#: includes/widgets/htmega_data_table.php:645
+#: includes/widgets/htmega_data_table.php:659
 #: includes/widgets/htmega_double_button.php:87
 #: includes/widgets/htmega_gravity_forms.php:80
 #: includes/widgets/htmega_gravity_forms.php:92
@@ -6126,6 +6163,7 @@ msgstr ""
 #: includes/widgets/htmega_countdown.php:148
 #: includes/widgets/htmega_countdown.php:222
 #: includes/widgets/htmega_countdown.php:224
+#: includes/widgets/htmega_countdown.php:1213
 msgid "Hours"
 msgstr ""
 
@@ -6271,12 +6309,7 @@ msgstr ""
 msgid "Hover Style"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:33
-#: extensions/ht-builder/admin/setting.php:34
-msgid "HT Builder"
-msgstr ""
-
-#: extensions/ht-builder/admin/setting.php:208
+#: extensions/ht-builder/admin/setting.php:87
 msgid "HT Builder Settings"
 msgstr ""
 
@@ -6294,6 +6327,10 @@ msgstr ""
 
 #: extensions/ht-builder/classes/class.header_footer.php:81
 msgid "HT Header & Footer"
+msgstr ""
+
+#: includes/class.htmega.php:148
+msgid "HT Mega"
 msgstr ""
 
 #: includes/widgets/htmega_call_to_action.php:115
@@ -6332,7 +6369,7 @@ msgstr ""
 msgid "HT WPForms"
 msgstr ""
 
-#: includes/class.htmega.php:183 includes/class.htmega.php:198
+#: includes/class.htmega.php:262 includes/class.htmega.php:277
 #: includes/widgets_control.php:40
 #: admin/include/settings-panel/includes/classes/Admin/Menu.php:25
 #: admin/include/settings-panel/includes/classes/Admin/Menu.php:26
@@ -6442,6 +6479,10 @@ msgstr ""
 msgid "https://your-link.com/register"
 msgstr ""
 
+#: includes/class.htmega.php:158
+msgid "I already did"
+msgstr ""
+
 #: includes/widgets/htmega_teammember.php:183
 msgid "I am web developer."
 msgstr ""
@@ -6457,7 +6498,7 @@ msgstr ""
 #: includes/widgets/htmega_countdown.php:286
 #: includes/widgets/htmega_counter.php:111
 #: includes/widgets/htmega_counter.php:122
-#: includes/widgets/htmega_data_table.php:192
+#: includes/widgets/htmega_data_table.php:217
 #: includes/widgets/htmega_double_button.php:129
 #: includes/widgets/htmega_double_button.php:216
 #: includes/widgets/htmega_download_monitor.php:125
@@ -6593,7 +6634,7 @@ msgstr ""
 msgid "Icon Settings"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:230
+#: includes/widgets/htmega_data_table.php:255
 msgid "Icon SIze"
 msgstr ""
 
@@ -6698,7 +6739,7 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:107
 #: includes/widgets/htmega_counter.php:133
 #: includes/widgets/htmega_custom_event.php:57
-#: includes/widgets/htmega_data_table.php:193
+#: includes/widgets/htmega_data_table.php:218
 #: includes/widgets/htmega_errorcontent.php:65
 #: includes/widgets/htmega_image_grid.php:131
 #: includes/widgets/htmega_image_masonry.php:112
@@ -6785,7 +6826,7 @@ msgstr ""
 msgid "Image Grid Title."
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:310
+#: includes/widgets/htmega_data_table.php:335
 msgid "Image Height"
 msgstr ""
 
@@ -6862,7 +6903,7 @@ msgstr ""
 msgid "Image space"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:287
+#: includes/widgets/htmega_data_table.php:312
 #: includes/widgets/htmega_twitter_feed.php:813
 msgid "Image Width"
 msgstr ""
@@ -6976,7 +7017,7 @@ msgstr ""
 msgid "Info Pointer"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1101
+#: includes/widgets/htmega_data_table.php:1270
 msgid "Info Style"
 msgstr ""
 
@@ -7030,7 +7071,7 @@ msgstr ""
 msgid "Input"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1194
+#: includes/widgets/htmega_data_table.php:1363
 #: includes/widgets/htmega_mailchimp_wp.php:159
 #: extensions/ht-builder/widgets/bl_post_comments.php:151
 #: extensions/ht-builder/widgets/bl_post_search_form.php:126
@@ -7041,7 +7082,7 @@ msgstr ""
 msgid "Input Space"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:985
+#: includes/widgets/htmega_data_table.php:1154
 msgid "Input Style"
 msgstr ""
 
@@ -7083,7 +7124,7 @@ msgstr ""
 msgid "Instapaper"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1606
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1781
 msgid "Instragram Feed"
 msgstr ""
 
@@ -7139,6 +7180,13 @@ msgstr ""
 msgid ""
 "It will reset all the settings to default, and all the changes you made will "
 "be deleted."
+msgstr ""
+
+#: includes/class.htmega.php:152
+msgid ""
+"It would be greatly appreciated if you consider giving us a review in "
+"WordPress. These reviews help us improve the plugin further and make it "
+"easier for other users to decide when exploring HT Mega Elementor Addons!"
 msgstr ""
 
 #: includes/widgets/htmega_business_hours.php:306
@@ -7272,8 +7320,8 @@ msgstr ""
 
 #: includes/widgets/htmega_job_manager.php:13
 #: includes/widgets/htmega_job_manager.php:43
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1617
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1628
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1792
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1803
 msgid "Job Manager"
 msgstr ""
 
@@ -7290,7 +7338,7 @@ msgstr ""
 msgid "Jon Doy"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:413
+#: includes/widgets/htmega_data_table.php:478
 msgid "jondoy@gmail.com"
 msgstr ""
 
@@ -7323,8 +7371,8 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:341
 #: includes/widgets/htmega_counter.php:447
 #: includes/widgets/htmega_counter.php:573
-#: includes/widgets/htmega_data_table.php:769
-#: includes/widgets/htmega_data_table.php:896
+#: includes/widgets/htmega_data_table.php:938
+#: includes/widgets/htmega_data_table.php:1065
 #: includes/widgets/htmega_errorcontent.php:261
 #: includes/widgets/htmega_image_grid.php:303
 #: includes/widgets/htmega_image_grid.php:400
@@ -7402,8 +7450,8 @@ msgstr ""
 msgid "Label Background"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:923
-#: includes/widgets/htmega_data_table.php:1176
+#: includes/widgets/htmega_data_table.php:1092
+#: includes/widgets/htmega_data_table.php:1345
 #: includes/widgets/htmega_pricing_list_view.php:805
 #: extensions/ht-builder/widgets/bl_post_comments.php:193
 msgid "Label Color"
@@ -7467,7 +7515,7 @@ msgstr ""
 #: includes/widgets/htmega_animated_heading.php:55
 #: includes/widgets/htmega_bbpress.php:50
 #: includes/widgets/htmega_business_hours.php:49
-#: includes/widgets/htmega_data_table.php:433
+#: includes/widgets/htmega_data_table.php:498
 #: includes/widgets/htmega_job_manager.php:50
 #: includes/widgets/htmega_post_grid_tab.php:56
 #: includes/widgets/htmega_pricing_list_view.php:43
@@ -7494,7 +7542,7 @@ msgid "Layout Four ( No Border )"
 msgstr ""
 
 #: includes/widgets/htmega_business_hours.php:53
-#: includes/widgets/htmega_data_table.php:437
+#: includes/widgets/htmega_data_table.php:502
 #: includes/widgets/htmega_post_grid_tab.php:60
 #: includes/widgets/htmega_pricing_list_view.php:54
 #: includes/widgets/htmega_switcher.php:52
@@ -7504,7 +7552,7 @@ msgid "Layout One"
 msgstr ""
 
 #: includes/widgets/htmega_business_hours.php:55
-#: includes/widgets/htmega_data_table.php:439
+#: includes/widgets/htmega_data_table.php:504
 #: includes/widgets/htmega_post_grid_tab.php:62
 #: includes/widgets/htmega_pricing_list_view.php:56
 #: includes/widgets/htmega_verticle_time_line.php:56
@@ -7512,7 +7560,7 @@ msgid "Layout Three"
 msgstr ""
 
 #: includes/widgets/htmega_business_hours.php:54
-#: includes/widgets/htmega_data_table.php:438
+#: includes/widgets/htmega_data_table.php:503
 #: includes/widgets/htmega_post_grid_tab.php:61
 #: includes/widgets/htmega_pricing_list_view.php:55
 #: includes/widgets/htmega_switcher.php:53
@@ -7558,8 +7606,10 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:329
 #: includes/widgets/htmega_counter.php:435
 #: includes/widgets/htmega_counter.php:561
-#: includes/widgets/htmega_data_table.php:757
-#: includes/widgets/htmega_data_table.php:884
+#: includes/widgets/htmega_data_table.php:101
+#: includes/widgets/htmega_data_table.php:426
+#: includes/widgets/htmega_data_table.php:926
+#: includes/widgets/htmega_data_table.php:1053
 #: includes/widgets/htmega_double_button.php:163
 #: includes/widgets/htmega_double_button.php:250
 #: includes/widgets/htmega_double_button.php:331
@@ -7975,8 +8025,8 @@ msgstr ""
 msgid "Lottie"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:207
-#: includes/widgets/htmega_data_table.php:400
+#: includes/widgets/htmega_data_table.php:232
+#: includes/widgets/htmega_data_table.php:465
 #: includes/widgets/htmega_pricing_list_view.php:603
 #: includes/widgets/htmega_pricing_list_view.php:1099
 msgid "Louis Hudson"
@@ -8020,7 +8070,7 @@ msgid "Mailchimp"
 msgstr ""
 
 #: includes/widgets/htmega_mailchimp_wp.php:13
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1639
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1814
 msgid "Mailchimp for wp"
 msgstr ""
 
@@ -8152,7 +8202,7 @@ msgstr ""
 #: includes/widgets/htmega_custom_event.php:267
 #: includes/widgets/htmega_custom_event.php:311
 #: includes/widgets/htmega_custom_event.php:368
-#: includes/widgets/htmega_data_table.php:639
+#: includes/widgets/htmega_data_table.php:808
 #: includes/widgets/htmega_double_button.php:303
 #: includes/widgets/htmega_double_button.php:562
 #: includes/widgets/htmega_double_button.php:735
@@ -8425,6 +8475,10 @@ msgstr ""
 msgid "May"
 msgstr ""
 
+#: includes/class.htmega.php:156
+msgid "Maybe Later"
+msgstr ""
+
 #: includes/widgets/htmega_pricing_list_view.php:237
 msgid "Media"
 msgstr ""
@@ -8441,6 +8495,7 @@ msgid "Mega Menu"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:118
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1320
 msgid "Mega Menu Background Color"
 msgstr ""
 
@@ -8451,6 +8506,7 @@ msgstr ""
 #: extensions/ht-menu/admin/setting.php:107
 #: extensions/ht-menu/widgets/inline-mega-menu.php:374
 #: extensions/ht-menu/widgets/verticle-mega-menu.php:317
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1308
 msgid "Mega Menu Width"
 msgstr ""
 
@@ -8484,7 +8540,7 @@ msgstr ""
 msgid "Menu Badge"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1148
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1231
 msgid "Menu Builder"
 msgstr ""
 
@@ -8493,11 +8549,17 @@ msgid "Menu Items"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:61
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1251
 msgid "Menu Items Color"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:68
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1260
 msgid "Menu Items Hover Color"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:687
+msgid "Menu Lenght Text"
 msgstr ""
 
 #: includes/widgets/htmega_wc_element_pages.php:1693
@@ -8569,6 +8631,7 @@ msgstr ""
 #: includes/widgets/htmega_countdown.php:158
 #: includes/widgets/htmega_countdown.php:236
 #: includes/widgets/htmega_countdown.php:238
+#: includes/widgets/htmega_countdown.php:1214
 msgid "Minutes"
 msgstr ""
 
@@ -8684,7 +8747,7 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:143
+#: includes/widgets/htmega_data_table.php:168
 #: includes/widgets/htmega_easy_digital_download.php:201
 #: includes/widgets/htmega_newsticker.php:1194
 #: includes/widgets/htmega_post_grid_tab.php:1694
@@ -8705,7 +8768,7 @@ msgid "Name HTML Tag"
 msgstr ""
 
 #: extensions/ht-builder/widgets/bl_nav_menu.php:23
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1418
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1593
 msgid "Nav Menu"
 msgstr ""
 
@@ -8733,7 +8796,7 @@ msgstr ""
 msgid "News Ticker"
 msgstr ""
 
-#: includes/class.assests.php:371
+#: includes/class.assests.php:371 includes/widgets/htmega_data_table.php:699
 msgid "Next"
 msgstr ""
 
@@ -8751,7 +8814,7 @@ msgstr ""
 
 #: includes/widgets/htmega_ninja_form.php:13
 #: includes/widgets/htmega_ninja_form.php:59
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1650
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1825
 msgid "Ninja Form"
 msgstr ""
 
@@ -8761,7 +8824,7 @@ msgstr ""
 #: extensions/scroll-to-top/class.scroll-to-top.php:114
 #: includes/widgets/htmega_carousel.php:217
 #: includes/widgets/htmega_data_table.php:81
-#: includes/widgets/htmega_data_table.php:139
+#: includes/widgets/htmega_data_table.php:164
 #: includes/widgets/htmega_gravity_forms.php:104
 #: includes/widgets/htmega_instagram.php:413
 #: includes/widgets/htmega_panel_slider.php:159
@@ -8804,8 +8867,12 @@ msgstr ""
 msgid "No data found"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1736
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1911
 msgid "No Element Found"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:748
+msgid "No matching records found"
 msgstr ""
 
 #: includes/widgets/htmega_singlepost.php:603
@@ -8882,9 +8949,9 @@ msgstr ""
 #: includes/widgets/htmega_countdown.php:1034
 #: includes/widgets/htmega_custom_event.php:142
 #: includes/widgets/htmega_custom_event.php:397
-#: includes/widgets/htmega_data_table.php:1010
-#: includes/widgets/htmega_data_table.php:1226
-#: includes/widgets/htmega_data_table.php:1396
+#: includes/widgets/htmega_data_table.php:1179
+#: includes/widgets/htmega_data_table.php:1395
+#: includes/widgets/htmega_data_table.php:1565
 #: includes/widgets/htmega_double_button.php:406
 #: includes/widgets/htmega_double_button.php:481
 #: includes/widgets/htmega_double_button.php:654
@@ -9221,64 +9288,66 @@ msgstr ""
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1061
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1070
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1079
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1134
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1143
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1152
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1161
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1170
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1179
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1188
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1199
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1209
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1221
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1232
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1242
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1255
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1264
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1273
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1282
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1291
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1300
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1314
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1323
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1332
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1341
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1350
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1359
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1368
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1377
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1386
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1395
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1404
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1413
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1422
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1431
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1441
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1451
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1461
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1471
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1481
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1491
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1522
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1533
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1544
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1555
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1566
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1577
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1133
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1144
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1226
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1235
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1246
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1336
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1345
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1354
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1363
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1374
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1384
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1396
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1407
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1417
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1430
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1439
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1448
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1457
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1466
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1475
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1489
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1498
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1507
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1516
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1525
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1534
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1543
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1552
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1561
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1570
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1579
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1588
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1599
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1610
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1621
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1632
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1643
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1654
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1665
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1676
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1687
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1698
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1710
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1597
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1606
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1616
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1626
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1636
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1646
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1656
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1666
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1697
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1708
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1719
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1728
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1730
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1741
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1752
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1763
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1774
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1785
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1796
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1807
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1818
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1829
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1840
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1851
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1862
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1873
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1885
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1894
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1903
 msgid "Off"
 msgstr ""
 
@@ -9331,6 +9400,10 @@ msgstr ""
 
 #: admin/include/settings-panel/includes/classes/Admin/Menu.php:102
 msgid "OK"
+msgstr ""
+
+#: includes/class.htmega.php:154
+msgid "Ok, you deserve it!"
 msgstr ""
 
 #: includes/widgets/htmega_call_to_action.php:626
@@ -9447,64 +9520,66 @@ msgstr ""
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1060
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1069
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1078
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1133
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1142
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1151
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1160
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1169
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1178
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1187
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1198
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1208
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1220
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1231
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1241
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1254
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1263
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1272
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1281
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1290
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1299
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1313
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1322
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1331
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1340
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1349
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1358
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1367
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1376
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1385
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1394
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1403
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1412
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1421
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1430
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1440
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1450
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1460
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1470
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1480
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1490
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1521
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1532
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1543
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1554
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1565
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1576
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1132
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1143
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1225
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1234
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1245
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1335
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1344
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1353
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1362
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1373
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1383
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1395
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1406
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1416
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1429
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1438
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1447
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1456
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1465
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1474
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1488
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1497
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1506
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1515
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1524
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1533
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1542
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1551
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1560
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1569
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1578
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1587
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1598
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1609
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1620
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1631
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1642
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1653
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1664
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1675
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1686
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1697
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1709
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1596
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1605
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1615
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1625
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1635
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1645
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1655
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1665
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1696
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1707
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1718
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1727
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1729
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1740
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1751
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1762
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1773
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1784
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1795
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1806
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1817
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1828
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1839
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1850
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1861
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1872
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1884
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1893
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1902
 msgid "On"
 msgstr ""
 
@@ -9575,7 +9650,7 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:500
+#: includes/widgets/htmega_data_table.php:565
 msgid "Options for number of Rows"
 msgstr ""
 
@@ -9626,7 +9701,7 @@ msgstr ""
 msgid "Orderby"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:562
+#: includes/widgets/htmega_data_table.php:627
 msgid "Ordering"
 msgstr ""
 
@@ -9732,8 +9807,8 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:1072
 #: includes/widgets/htmega_custom_event.php:169
 #: includes/widgets/htmega_custom_event.php:254
-#: includes/widgets/htmega_data_table.php:627
-#: includes/widgets/htmega_data_table.php:1212
+#: includes/widgets/htmega_data_table.php:796
+#: includes/widgets/htmega_data_table.php:1381
 #: includes/widgets/htmega_double_button.php:549
 #: includes/widgets/htmega_double_button.php:722
 #: includes/widgets/htmega_double_button.php:905
@@ -9960,7 +10035,7 @@ msgstr ""
 #: extensions/ht-builder/widgets/bl_page_title.php:45
 #: extensions/ht-builder/widgets/bl_page_title.php:64
 #: extensions/ht-builder/widgets/bl_page_title.php:174
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1391
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1566
 msgid "Page Title"
 msgstr ""
 
@@ -9968,9 +10043,21 @@ msgstr ""
 msgid "Pages:"
 msgstr ""
 
+#: includes/widgets/htmega_data_table.php:715
+msgid "Paginate Info"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:697
+msgid "Paginate Next"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:706
+msgid "Paginate Prev"
+msgstr ""
+
 #: includes/widgets/htmega_carousel.php:827
 #: includes/widgets/htmega_carousel.php:1095
-#: includes/widgets/htmega_data_table.php:457
+#: includes/widgets/htmega_data_table.php:522
 #: includes/widgets/htmega_easy_digital_download.php:679
 #: includes/widgets/htmega_instagram.php:1137
 #: includes/widgets/htmega_panel_slider.php:1086
@@ -9985,7 +10072,7 @@ msgstr ""
 msgid "Pagination Box"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1368
+#: includes/widgets/htmega_data_table.php:1537
 msgid "Pagination Box Border"
 msgstr ""
 
@@ -9993,7 +10080,7 @@ msgstr ""
 msgid "Pagination Hide"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1333
+#: includes/widgets/htmega_data_table.php:1502
 msgid "Pagination Style"
 msgstr ""
 
@@ -10007,7 +10094,7 @@ msgstr ""
 msgid "Panel Slider"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1259
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1434
 msgid "Parallax"
 msgstr ""
 
@@ -10016,7 +10103,7 @@ msgstr ""
 msgid "Parent"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1268
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1443
 msgid "Particles"
 msgstr ""
 
@@ -10076,7 +10163,7 @@ msgstr ""
 msgid "Photoshop"
 msgstr ""
 
-#: includes/class.htmega.php:199
+#: includes/class.htmega.php:278
 msgid "PHP"
 msgstr ""
 
@@ -10248,7 +10335,7 @@ msgstr ""
 msgid "Popular"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1486
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1661
 msgid "Popular Post"
 msgstr ""
 
@@ -10304,13 +10391,13 @@ msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_comments.php:23
 #: extensions/ht-builder/widgets/bl_post_comments.php:45
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1355
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1530
 msgid "Post Comments"
 msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_content.php:22
 #: extensions/ht-builder/widgets/bl_post_content.php:43
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1346
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1521
 msgid "Post Content"
 msgstr ""
 
@@ -10330,11 +10417,11 @@ msgstr ""
 msgid "Post Data not found."
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1157
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1332
 msgid "Post Duplicator"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1505
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1680
 msgid "Post Duplicator Condition"
 msgstr ""
 
@@ -10342,14 +10429,14 @@ msgstr ""
 #: extensions/ht-builder/widgets/bl_post_excerpt.php:46
 #: extensions/ht-builder/widgets/bl_post_excerpt.php:80
 #: extensions/ht-builder/widgets/bl_post_excerpt.php:114
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1337
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1512
 msgid "Post Excerpt"
 msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_featured_image.php:23
 #: extensions/ht-builder/widgets/bl_post_featured_image.php:47
 #: extensions/ht-builder/widgets/bl_post_featured_image.php:66
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1319
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1494
 msgid "Post Featured Image"
 msgstr ""
 
@@ -10369,7 +10456,7 @@ msgid "Post Masonry"
 msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_meta_info.php:24
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1328
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1503
 msgid "Post Meta Info"
 msgstr ""
 
@@ -10378,7 +10465,7 @@ msgstr ""
 msgid "Post Name"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1466
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1641
 msgid "Post Navigation"
 msgstr ""
 
@@ -10391,7 +10478,7 @@ msgid "Post Option"
 msgstr ""
 
 #: extensions/ht-builder/widgets/bl_post_search_form.php:22
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1364
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1539
 msgid "Post Search Form"
 msgstr ""
 
@@ -10407,7 +10494,7 @@ msgstr ""
 #: extensions/ht-builder/widgets/bl_post_title.php:20
 #: extensions/ht-builder/widgets/bl_post_title.php:45
 #: extensions/ht-builder/widgets/bl_post_title.php:64
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1310
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1485
 msgid "Post Title"
 msgstr ""
 
@@ -10425,7 +10512,7 @@ msgstr ""
 msgid "Prefix"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:175
+#: extensions/ht-builder/admin/setting.php:54
 #: extensions/ht-menu/classes/class.mega-menu.php:264
 #: extensions/wc-sales-notification/admin/setting.php:235
 msgid "premium version"
@@ -10441,7 +10528,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: includes/class.assests.php:372
+#: includes/class.assests.php:372 includes/widgets/htmega_data_table.php:708
 msgid "Previous"
 msgstr ""
 
@@ -10503,7 +10590,7 @@ msgstr ""
 msgid "Primary Button Text"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1446
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1621
 msgid "Print Page"
 msgstr ""
 
@@ -10603,7 +10690,7 @@ msgstr ""
 msgid "Pulse Shadow Color"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:175
+#: extensions/ht-builder/admin/setting.php:54
 #: extensions/ht-menu/classes/class.mega-menu.php:264
 #: extensions/wc-sales-notification/admin/setting.php:235
 msgid "Purchase our"
@@ -10623,7 +10710,7 @@ msgstr ""
 
 #: includes/widgets/htmega_quforms.php:13
 #: includes/widgets/htmega_quforms.php:59
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1661
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1836
 msgid "QU Form"
 msgstr ""
 
@@ -10666,7 +10753,7 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
-#: includes/class.htmega.php:370
+#: includes/class.htmega.php:464
 msgid "Rate the plugin"
 msgstr ""
 
@@ -10731,7 +10818,7 @@ msgstr ""
 msgid "Read More."
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1184
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1359
 msgid "Reading Progress Bar"
 msgstr ""
 
@@ -10777,7 +10864,7 @@ msgstr ""
 msgid "Register Link Text"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1476
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1651
 msgid "Related Post"
 msgstr ""
 
@@ -10861,7 +10948,7 @@ msgstr ""
 
 #: includes/widgets/htmega_revolution_slider.php:13
 #: includes/widgets/htmega_revolution_slider.php:60
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1683
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1858
 msgid "Revolution Slider"
 msgstr ""
 
@@ -10891,8 +10978,10 @@ msgstr ""
 #: includes/widgets/htmega_counter.php:337
 #: includes/widgets/htmega_counter.php:443
 #: includes/widgets/htmega_counter.php:569
-#: includes/widgets/htmega_data_table.php:765
-#: includes/widgets/htmega_data_table.php:892
+#: includes/widgets/htmega_data_table.php:109
+#: includes/widgets/htmega_data_table.php:434
+#: includes/widgets/htmega_data_table.php:934
+#: includes/widgets/htmega_data_table.php:1061
 #: includes/widgets/htmega_double_button.php:167
 #: includes/widgets/htmega_double_button.php:254
 #: includes/widgets/htmega_double_button.php:339
@@ -11061,13 +11150,13 @@ msgstr ""
 msgid "Rotated"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:178
+#: includes/widgets/htmega_data_table.php:203
 #: includes/widgets/htmega_pricing_list_view.php:549
 #: includes/widgets/htmega_user_login_form.php:444
 msgid "Row"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:389
+#: includes/widgets/htmega_data_table.php:454
 #: includes/widgets/htmega_pricing_list_view.php:1088
 msgid "row"
 msgstr ""
@@ -11105,7 +11194,7 @@ msgstr ""
 
 #: extensions/wc-sales-notification/admin/setting.php:33
 #: extensions/wc-sales-notification/admin/setting.php:34
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1139
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1222
 msgid "Sales Notification"
 msgstr ""
 
@@ -11173,7 +11262,7 @@ msgstr ""
 msgid "Scroll Navigation"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1217
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1392
 msgid "Scroll To Top"
 msgstr ""
 
@@ -11181,6 +11270,7 @@ msgstr ""
 msgid "Scroll Type"
 msgstr ""
 
+#: includes/widgets/htmega_data_table.php:677
 #: includes/widgets/htmega_search.php:14 includes/widgets/htmega_search.php:42
 #: includes/widgets/htmega_search.php:67 includes/widgets/htmega_search.php:68
 #: includes/widgets/htmega_search.php:99 includes/widgets/htmega_search.php:100
@@ -11196,7 +11286,7 @@ msgstr ""
 msgid "Search ..."
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1152
+#: includes/widgets/htmega_data_table.php:1321
 msgid "Search Box"
 msgstr ""
 
@@ -11216,7 +11306,7 @@ msgstr ""
 msgid "Search Hide"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:124
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1184
 msgid "Search Page Template."
 msgstr ""
 
@@ -11228,7 +11318,11 @@ msgstr ""
 msgid "Search.."
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:546
+#: includes/widgets/htmega_data_table.php:680
+msgid "Search:"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:611
 msgid "Searching"
 msgstr ""
 
@@ -11249,6 +11343,7 @@ msgstr ""
 #: includes/widgets/htmega_countdown.php:168
 #: includes/widgets/htmega_countdown.php:250
 #: includes/widgets/htmega_countdown.php:252
+#: includes/widgets/htmega_countdown.php:1215
 msgid "Seconds"
 msgstr ""
 
@@ -11360,7 +11455,7 @@ msgstr ""
 msgid "Select Table"
 msgstr ""
 
-#: includes/helper-function.php:91 includes/widgets/htmega_offcanvas.php:70
+#: includes/helper-function.php:92 includes/widgets/htmega_offcanvas.php:70
 #: extensions/ht-menu/menu/helper_function.php:19
 msgid "Select Template"
 msgstr ""
@@ -11476,7 +11571,31 @@ msgstr ""
 msgid "Set the fields value to use these features"
 msgstr ""
 
-#: includes/class.htmega.php:211 includes/widgets/htmega_scroll_image.php:268
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1321
+msgid "Set the Mega Menu Background Color."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1252
+msgid "Set the Menu Items Color."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1261
+msgid "Set the Menu Items Hover Color."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1282
+msgid "Set the Sub Menu Background Color."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1291
+msgid "Set the Sub Menu Items Color."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1300
+msgid "Set the Sub Menu Items Hover Color."
+msgstr ""
+
+#: includes/class.htmega.php:290 includes/widgets/htmega_scroll_image.php:268
 #: extensions/ht-builder/widgets/bl_post_archive.php:42
 #: extensions/ht-menu/menu/templates.php:40
 #: admin/include/settings-panel/includes/classes/Admin/Menu.php:35
@@ -11514,14 +11633,14 @@ msgstr ""
 #: includes/widgets/htmega_buddy_press.php:128
 #: includes/widgets/htmega_buddy_press.php:143
 #: includes/widgets/htmega_buddy_press.php:158
-#: includes/widgets/htmega_data_table.php:448
-#: includes/widgets/htmega_data_table.php:459
-#: includes/widgets/htmega_data_table.php:487
-#: includes/widgets/htmega_data_table.php:517
-#: includes/widgets/htmega_data_table.php:548
-#: includes/widgets/htmega_data_table.php:564
-#: includes/widgets/htmega_data_table.php:579
-#: includes/widgets/htmega_data_table.php:593
+#: includes/widgets/htmega_data_table.php:513
+#: includes/widgets/htmega_data_table.php:524
+#: includes/widgets/htmega_data_table.php:552
+#: includes/widgets/htmega_data_table.php:582
+#: includes/widgets/htmega_data_table.php:613
+#: includes/widgets/htmega_data_table.php:629
+#: includes/widgets/htmega_data_table.php:644
+#: includes/widgets/htmega_data_table.php:658
 #: includes/widgets/htmega_double_button.php:86
 #: includes/widgets/htmega_gravity_forms.php:79
 #: includes/widgets/htmega_gravity_forms.php:91
@@ -11557,6 +11676,10 @@ msgstr ""
 #: extensions/ht-builder/widgets/bl_post_author_info.php:78
 #: extensions/ht-builder/widgets/bl_post_author_info.php:90
 msgid "Show"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:690
+msgid "Show _MENU_ entries"
 msgstr ""
 
 #: includes/widgets/htmega_buddy_press.php:126
@@ -11719,7 +11842,7 @@ msgstr ""
 msgid "Show Short Description "
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:446
+#: includes/widgets/htmega_data_table.php:511
 msgid "Show Sorting Options"
 msgstr ""
 
@@ -11753,6 +11876,14 @@ msgstr ""
 msgid "Show video source Logo"
 msgstr ""
 
+#: includes/widgets/htmega_data_table.php:728
+msgid "Showing 0 to 0 of 0 entries"
+msgstr ""
+
+#: includes/widgets/htmega_data_table.php:718
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr ""
+
 #: includes/widgets/htmega_offcanvas.php:61
 msgid "Sidebar"
 msgstr ""
@@ -11772,7 +11903,7 @@ msgstr ""
 msgid "Simulate Touch"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:88
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1148
 msgid "Single Blog Template."
 msgstr ""
 
@@ -11817,7 +11948,7 @@ msgstr ""
 
 #: extensions/ht-builder/widgets/bl_site_logo.php:24
 #: extensions/ht-builder/widgets/bl_site_logo.php:75
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1409
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1584
 msgid "Site Logo"
 msgstr ""
 
@@ -11826,7 +11957,7 @@ msgstr ""
 #: extensions/ht-builder/widgets/bl_site_title.php:45
 #: extensions/ht-builder/widgets/bl_site_title.php:66
 #: extensions/ht-builder/widgets/bl_site_title.php:179
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1400
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1575
 msgid "Site Title"
 msgstr ""
 
@@ -12009,7 +12140,7 @@ msgstr ""
 #: includes/widgets/htmega_socialshere.php:13
 #: includes/widgets/htmega_socialshere.php:49
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:530
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1436
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1611
 msgid "Social Share"
 msgstr ""
 
@@ -12080,6 +12211,14 @@ msgstr ""
 #: includes/widgets/htmega_special_day_banner.php:14
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:143
 msgid "Special Day Offer"
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1309
+msgid "Specify the Mega Menu Width (px)"
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1270
+msgid "Specify the width of the Sub Menu (px)."
 msgstr ""
 
 #: includes/widgets/htmega_scroll_image.php:395
@@ -12409,20 +12548,24 @@ msgid "Sub Menu"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:86
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1281
 msgid "Sub Menu Background Color"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:93
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1290
 msgid "Sub Menu Items Color"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:100
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1299
 msgid "Sub Menu Items Hover Color"
 msgstr ""
 
 #: extensions/ht-menu/admin/setting.php:75
 #: extensions/ht-menu/widgets/inline-mega-menu.php:243
 #: extensions/ht-menu/widgets/verticle-mega-menu.php:229
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1269
 msgid "Sub Menu Width"
 msgstr ""
 
@@ -12501,7 +12644,7 @@ msgstr ""
 msgid "Successfully Register"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:220
+#: extensions/ht-builder/admin/setting.php:99
 #: extensions/ht-menu/admin/setting.php:147
 #: extensions/wc-sales-notification/admin/setting.php:280
 msgid "Successfully Settings Saved."
@@ -12627,19 +12770,19 @@ msgstr ""
 msgid "Tab view"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:608
+#: includes/widgets/htmega_data_table.php:777
 #: includes/widgets/htmega_pricing_list_view.php:1217
 #: includes/widgets/htmega_tablepress.php:130
 msgid "Table"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:787
+#: includes/widgets/htmega_data_table.php:956
 #: includes/widgets/htmega_pricing_list_view.php:1366
 #: includes/widgets/htmega_wc_element_pages.php:121
 msgid "Table Body"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:819
+#: includes/widgets/htmega_data_table.php:988
 msgid "Table Body Border"
 msgstr ""
 
@@ -12655,11 +12798,11 @@ msgstr ""
 msgid "Table Body Typography"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:848
+#: includes/widgets/htmega_data_table.php:1017
 msgid "Table Cell Padding"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:165
+#: includes/widgets/htmega_data_table.php:190
 #: includes/widgets/htmega_pricing_list_view.php:532
 msgid "Table Content"
 msgstr ""
@@ -12677,13 +12820,13 @@ msgid "Table Head"
 msgstr ""
 
 #: includes/widgets/htmega_data_table.php:70
-#: includes/widgets/htmega_data_table.php:682
+#: includes/widgets/htmega_data_table.php:851
 #: includes/widgets/htmega_pricing_list_view.php:180
 #: includes/widgets/htmega_pricing_list_view.php:1287
 msgid "Table Header"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:721
+#: includes/widgets/htmega_data_table.php:890
 #: includes/widgets/htmega_pricing_list_view.php:1331
 msgid "Table Header Padding"
 msgstr ""
@@ -12694,7 +12837,7 @@ msgstr ""
 
 #: includes/widgets/htmega_tablepress.php:13
 #: includes/widgets/htmega_tablepress.php:55
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1694
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1869
 msgid "TablePress"
 msgstr ""
 
@@ -12798,7 +12941,7 @@ msgid "Template Selector"
 msgstr ""
 
 #: admin/include/templates_list.php:33
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1501
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1676
 msgid "Templates"
 msgstr ""
 
@@ -12824,7 +12967,7 @@ msgstr ""
 
 #: includes/widgets/htmega_button.php:68
 #: includes/widgets/htmega_countdown.php:277
-#: includes/widgets/htmega_data_table.php:191
+#: includes/widgets/htmega_data_table.php:216
 #: includes/widgets/htmega_double_button.php:105
 #: includes/widgets/htmega_double_button.php:192
 #: includes/widgets/htmega_download_monitor.php:117
@@ -12840,7 +12983,7 @@ msgstr ""
 msgid "Text (Pro)"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1442
+#: includes/widgets/htmega_data_table.php:1611
 msgid "Text Active Color"
 msgstr ""
 
@@ -12867,10 +13010,10 @@ msgstr ""
 #: includes/widgets/htmega_contact_form_seven.php:674
 #: includes/widgets/htmega_contact_form_seven.php:837
 #: includes/widgets/htmega_contact_form_seven.php:925
-#: includes/widgets/htmega_data_table.php:690
-#: includes/widgets/htmega_data_table.php:826
-#: includes/widgets/htmega_data_table.php:1111
-#: includes/widgets/htmega_data_table.php:1403
+#: includes/widgets/htmega_data_table.php:859
+#: includes/widgets/htmega_data_table.php:995
+#: includes/widgets/htmega_data_table.php:1280
+#: includes/widgets/htmega_data_table.php:1572
 #: includes/widgets/htmega_mailchimp_wp.php:208
 #: includes/widgets/htmega_mailchimp_wp.php:372
 #: includes/widgets/htmega_mailchimp_wp.php:460
@@ -13000,13 +13143,12 @@ msgstr ""
 msgid "Theme Activated"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:52
-#: extensions/ht-builder/admin/setting.php:72
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1130
+#: extensions/ht-builder/admin/setting.php:32
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1129
 msgid "Theme Builder"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:56
+#: extensions/ht-builder/admin/setting.php:36
 msgid "Theme Builder Widget List"
 msgstr ""
 
@@ -13381,6 +13523,14 @@ msgstr ""
 msgid "To"
 msgstr ""
 
+#: includes/class.htmega.php:190
+msgid ""
+"To ensure smooth functionality of <strong>HT MEGA Addons for "
+"Elementor</strong>, it's essential to have the most recent version of "
+"\"<strong>HT Mega Pro</strong>.\" Please make sure to update HT Mega Pro to "
+"ensure seamless compatibility with this version."
+msgstr ""
+
 #: includes/widgets/htmega_newsticker.php:1172
 #: includes/widgets/htmega_post_grid_tab.php:1672
 msgid "To Exclude Post, Enter  the post id separated by ','"
@@ -13391,7 +13541,7 @@ msgstr ""
 msgid "To hide the shape, please set the color to transparent."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:175
+#: extensions/ht-builder/admin/setting.php:54
 #: extensions/wc-sales-notification/admin/setting.php:235
 msgid "to unlock these pro elements!"
 msgstr ""
@@ -13498,8 +13648,8 @@ msgstr ""
 msgid "Top Right"
 msgstr ""
 
-#: includes/widgets/htmega_data_table.php:1136
-#: includes/widgets/htmega_data_table.php:1353
+#: includes/widgets/htmega_data_table.php:1305
+#: includes/widgets/htmega_data_table.php:1522
 msgid "Top Space"
 msgstr ""
 
@@ -13649,14 +13799,14 @@ msgstr ""
 #: includes/widgets/htmega_call_to_action.php:815
 #: includes/widgets/htmega_call_to_action.php:1021
 #: includes/widgets/htmega_countdown.php:1042
-#: includes/widgets/htmega_data_table.php:713
-#: includes/widgets/htmega_data_table.php:840
-#: includes/widgets/htmega_data_table.php:939
-#: includes/widgets/htmega_data_table.php:998
-#: includes/widgets/htmega_data_table.php:1126
-#: includes/widgets/htmega_data_table.php:1187
-#: includes/widgets/htmega_data_table.php:1204
-#: includes/widgets/htmega_data_table.php:1346
+#: includes/widgets/htmega_data_table.php:882
+#: includes/widgets/htmega_data_table.php:1009
+#: includes/widgets/htmega_data_table.php:1108
+#: includes/widgets/htmega_data_table.php:1167
+#: includes/widgets/htmega_data_table.php:1295
+#: includes/widgets/htmega_data_table.php:1356
+#: includes/widgets/htmega_data_table.php:1373
+#: includes/widgets/htmega_data_table.php:1515
 #: includes/widgets/htmega_double_button.php:501
 #: includes/widgets/htmega_double_button.php:674
 #: includes/widgets/htmega_double_button.php:857
@@ -13750,7 +13900,15 @@ msgstr ""
 msgid "Up"
 msgstr ""
 
-#: includes/helper-function.php:922 includes/widgets/htmega_data_table.php:1604
+#: includes/widgets/htmega_data_table.php:757
+msgid "Upgrade to HT Mega Pro"
+msgstr ""
+
+#: admin/admin-init.php:101 admin/admin-init.php:102
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: includes/helper-function.php:922 includes/widgets/htmega_data_table.php:1773
 #: includes/widgets/htmega_imagemarker.php:1214
 #: includes/widgets/htmega_user_login_form.php:586
 #: includes/widgets/htmega_user_login_form.php:1686
@@ -13965,7 +14123,7 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1456
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1631
 msgid "View Counter"
 msgstr ""
 
@@ -13990,17 +14148,17 @@ msgid "Warning"
 msgstr ""
 
 #: includes/widgets/htmega_wc_add_to_cart.php:14
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1706
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1881
 msgid "WC : Add To cart"
 msgstr ""
 
 #: includes/widgets/htmega_wc_categories.php:13
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1715
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1890
 msgid "WC : Categories"
 msgstr ""
 
 #: includes/widgets/htmega_wc_element_pages.php:13
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1724
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1899
 msgid "WC : Pages"
 msgstr ""
 
@@ -14165,7 +14323,7 @@ msgstr ""
 
 #: includes/widgets/htmega_wpforms.php:13
 #: includes/widgets/htmega_wpforms.php:57
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1672
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1847
 msgid "WP Form"
 msgstr ""
 
@@ -14174,7 +14332,7 @@ msgid "WP Plugin Manager"
 msgstr ""
 
 #: extensions/wrapper-link/class.wrapper-link.php:54
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1166
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1341
 msgid "Wrapper Link"
 msgstr ""
 
@@ -14248,15 +14406,23 @@ msgstr ""
 msgid "You are not permitted to save CSS."
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1506
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1241
+msgid "You can enable / disable Menu Builder from  here."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1139
+msgid "You can enable / disable Theme Builder from  here."
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1681
 msgid "You can enable duplicator for individual post."
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1227
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1402
 msgid "You can enable/disable Scroll To Top from here."
 msgstr ""
 
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1194
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1369
 msgid "You can enable/disable the Reading Progress Bar from here."
 msgstr ""
 
@@ -14264,31 +14430,31 @@ msgstr ""
 msgid "You can select 404 page from here."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:137
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1197
 msgid "You can select 404 page from here. <span>( Pro )</span>"
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:98
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1158
 msgid "You can select blog page from here."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:149
-msgid "You can select coming soon page from here. <span>( Pro )</span>"
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1209
+msgid "You can select coming soon page from here."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:116
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1176
 msgid "You can select footer template from here."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:107
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1167
 msgid "You can select header template from here."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:125
-msgid "You can select search page from here. <span>( Pro )</span>"
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1185
+msgid "You can select search page from here."
 msgstr ""
 
-#: extensions/ht-builder/admin/setting.php:89
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1149
 msgid "You can select Single blog page from here."
 msgstr ""
 
