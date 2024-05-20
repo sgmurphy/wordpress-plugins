@@ -25,7 +25,8 @@ import Inspector from "./inspector";
 const {
     duplicateBlockIdFix,
     DynamicInputValueHandler,
-    EBDisplayIcon
+    EBDisplayIcon,
+    BlockProps
 } = window.EBControls;
 
 import Style from "./style";
@@ -60,22 +61,17 @@ export default function Edit(props) {
         currentPostType
     } = attributes;
 
-    // this useEffect is for creating a unique id for each block's unique className by a random unique number
-    useEffect(() => {
-        const BLOCK_PREFIX = "eb-advance-heading";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
 
-    }, []);
+    // you must declare this variable
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-advance-heading',
+        style: <Style {...props} />
+    };
 
     useEffect(() => {
-        const postId = select("core/editor").getCurrentPostId();
-        const postType = select("core/editor").getCurrentPostType();
+        const postId = select("core/editor")?.getCurrentPostId();
+        const postType = select("core/editor")?.getCurrentPostType();
 
         if (postId) {
             setAttributes({
@@ -84,10 +80,6 @@ export default function Edit(props) {
             });
         }
     }, [source])
-
-    const blockProps = useBlockProps({
-        className: classnames(className, `eb-guten-block-main-parent-wrapper`),
-    });
 
     const [rawTitle = '', setTitle, fullTitle] = useEntityProp(
         'postType',
@@ -116,8 +108,7 @@ export default function Edit(props) {
                 </>
             )}
 
-            <div {...blockProps}>
-                <Style {...props} />
+            <BlockProps.Edit {...enhancedProps}>
 
                 {source == 'dynamic-title' && currentPostId == 0 && (
                     <div className="eb-loading" >
@@ -234,7 +225,7 @@ export default function Edit(props) {
                         </div>
                     </>
                 )}
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }

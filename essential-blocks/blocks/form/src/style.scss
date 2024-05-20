@@ -490,6 +490,24 @@
 	.block-editor-default-block-appender .block-editor-inserter {
 		top: calc(100% + 10px);
 	}
+
+	.block-list-appender {
+		width: 100%;
+
+		button {
+			box-shadow: none;
+			border: 1px solid rgb(195 195 195);
+			background: #cccccc47;
+			border-radius: 5px;
+			/* color: white; */
+
+			&:hover {
+				border-color: #000;
+				color: #000;
+			}
+
+		}
+	}
 }
 
 .eb_form_submit_response {

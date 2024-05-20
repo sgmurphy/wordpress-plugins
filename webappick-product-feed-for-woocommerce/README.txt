@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.29
+Stable tag: 6.4.30
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,8 +156,14 @@ Categories are the essential key to get products into search results. It is best
 
 == Changelog ==
 
+= 6.4.30 (2024-05-16) =
+* Fixed: Delete button issue.
+* Fixed: TranslatePress categories, attributes translated issue.
+* Fixed: Suffix field typing issue.
+* Fixed: Review feed generated issue.
+
 = 6.4.29 (2024-05-13) =
-* Updated: Plugin information.
+* Updated : Plugin information.
 
 = 6.4.28 (2024-05-09) =
 * Added : Wood Mart images on the additional images fields.

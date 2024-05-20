@@ -44,8 +44,8 @@ class Form extends Block {
         'buttonText'   => 'Submit',
         'icon'         => 'fas fa-chevron-right',
         'formLayout'   => 'block',
-        'formStyle'    => 'form-style-classic'
-
+        'formStyle'    => 'form-style-classic',
+        'formType'    => ''
     ];
 
     /**
@@ -79,6 +79,12 @@ class Form extends Block {
 
         $attributes = wp_parse_args( $attributes, self::$default_attributes );
 
+        if ( empty( $attributes['formType'] ) ) {
+            return '';
+        }
+        if ( empty( $content ) ) {
+            return '';
+        }
         $classHook = isset( $attributes['classHook'] ) ? $attributes['classHook'] : '';
 
         $submit_btn_attr = apply_filters( 'eb_form_submit_btn_attr', [

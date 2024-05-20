@@ -1713,7 +1713,15 @@ class Search extends Module_Base {
 	private function render_toggle_icon($settings) {
 		$id                = $this->get_id();
 
-		$this->add_render_attribute('toggle-icon', 'class', 'bdt-search-toggle');
+		$this->add_render_attribute(
+			[
+				'toggle-icon' => [
+					'class' => 'bdt-search-toggle',
+					'aria-label' => 'search-button',
+					'title' => 'search-button',
+				],
+			]
+		);
 
 		if ('modal' === $settings['skin']) {
 			$this->add_render_attribute('toggle-icon', 'bdt-toggle');

@@ -27,7 +27,8 @@ const {
     fetchFormBlockData,
     saveFormBlockData,
     getAllBlockClientIds,
-    EBDisplayIcon
+    EBDisplayIcon,
+    BlockProps
 } = EBControls;
 
 import classnames from "classnames";
@@ -116,17 +117,17 @@ export default function Edit(props) {
         "core/paragraph",
     ]);
 
-    useEffect(() => {
-        // this is for creating a unique blockId for each block's unique className
-        const BLOCK_PREFIX = "eb-form";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
+    const BLOCK_PREFIX = "eb-form";
 
+    // you must declare this variable
+    const enhancedProps = {
+        ...props,
+        blockPrefix: BLOCK_PREFIX,
+        style: <Style {...props} />
+    };
+    const formInnerItem = select("core/block-editor").getBlock(clientId)?.innerBlocks;
+
+    useEffect(() => {
         //Generate Custom Form ID
         let uniqueId = clientId.substr(clientId.length - 6);
         if (blockId && blockId.startsWith(BLOCK_PREFIX)) {
@@ -311,10 +312,6 @@ export default function Edit(props) {
             if (!formTitle) {
                 setAttributes({ formTitle: "New Form" });
             }
-            replaceInnerBlocks(
-                clientId,
-                createBlocksFromInnerBlocksTemplate([["core/paragraph"]])
-            );
 
             setAttributes({
                 showInputIcon: false,
@@ -335,10 +332,6 @@ export default function Edit(props) {
             dispatch("core/editor").editPost({ isPublishable: true });
         }
     }, [formSettings]);
-
-    const blockProps = useBlockProps({
-        className: classnames(className, `eb-guten-block-main-parent-wrapper`),
-    });
 
     /**
      * Memorize function for hanlde endless render
@@ -426,8 +419,7 @@ export default function Edit(props) {
                     setFormSettings={setFormSettings}
                 />
             )}
-            <div {...blockProps}>
-                <Style {...props} />
+            <BlockProps.Edit {...enhancedProps}>
                 {EssentialBlocksLocalize?.unfilter_capability && EssentialBlocksLocalize.unfilter_capability === 'false' && (
                     <div style={{ marginLeft: '0', marginRight: '0' }} className="notice notice-error">
                         <p>You don't have permission to add/edit the Form Block. Any changes you make won't work in the frontend properly.</p>
@@ -508,6 +500,13 @@ export default function Edit(props) {
                         )}
                         {formType && formType.length > 0 && (
                             <>
+                                {formInnerItem.length == 0 && (
+                                    <div className="eb-popup-before-content">
+                                        <p>
+                                            <strong>Add Form Field</strong>
+                                        </p>
+                                    </div>
+                                )}
                                 <form
                                     id={formId}
                                     className={`eb-form form-layout-${formLayout} ${formStyle}`}
@@ -517,36 +516,45 @@ export default function Edit(props) {
                                         <InnerBlocks
                                             template={[]}
                                             renderAppender={
-                                                InnerBlocks.DefaultBlockAppender
+                                                select("core/block-editor").getBlockOrder(
+                                                    clientId
+                                                ).length > 0
+                                                    ? undefined
+                                                    : InnerBlocks.ButtonBlockAppender
                                             }
                                             allowedBlocks={allowedBlocks}
                                         />
                                     </div>
-                                    <div className={"eb-form-submit"}>
-                                        <button
-                                            data-id={blockId}
-                                            type="button"
-                                            className="btn btn-primary eb-form-submit-button"
-                                        >
-                                            {btnAddIcon && iconPosition === "left" ? (
-                                                <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
-                                            ) : (
-                                                ""
-                                            )}
-                                            {buttonText}
-                                            {btnAddIcon && iconPosition === "right" ? (
-                                                <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
-                                            ) : (
-                                                ""
-                                            )}
-                                        </button>
-                                    </div>
+
+                                    {formInnerItem?.length > 0 && (
+                                        <div className={"eb-form-submit"}>
+                                            <button
+                                                data-id={blockId}
+                                                type="button"
+                                                className="btn btn-primary eb-form-submit-button"
+                                            >
+                                                {btnAddIcon && iconPosition === "left" ? (
+                                                    <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
+                                                ) : (
+                                                    ""
+                                                )}
+                                                {buttonText}
+                                                {btnAddIcon && iconPosition === "right" ? (
+                                                    <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
+                                                ) : (
+                                                    ""
+                                                )}
+                                            </button>
+                                        </div>
+                                    )}
+
+
                                 </form>
                             </>
                         )}
                     </div>
                 </div>
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }

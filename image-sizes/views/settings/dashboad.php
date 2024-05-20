@@ -119,7 +119,7 @@
                 'title'     => __( 'Show Your Love', 'image-sizes' ),
                 'desc'      => __( 'Take 2 minutes to review ThumbPress and help us keep motivated.', 'image-sizes' ),
                 'link_text' => __( 'Leave a review', 'image-sizes' ),
-                'link_url'  => 'https://wordpress.org/support/plugin/image-sizes/reviews/?filter=5'
+                'link_url'  => 'https://wordpress.org/support/plugin/image-sizes/reviews/?filter=5#new-post'
             ],
             [
                 'color'     => 'tp-green',

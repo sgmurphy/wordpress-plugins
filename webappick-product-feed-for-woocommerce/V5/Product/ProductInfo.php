@@ -726,7 +726,7 @@ class ProductInfo {
 		} else {
 			$tags = wp_strip_all_tags( wc_get_product_tag_list( $this->product->get_id(), ',', '', '' ) );
 		}
-
+		error_log(print_r($tags, 1));
 		return apply_filters( 'woo_feed_filter_product_tags', $tags, $this->product, $this->config );
 	}
 

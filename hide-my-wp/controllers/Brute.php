@@ -17,8 +17,13 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
     {
         parent::__construct();
 
-	    add_filter('authenticate', array($this, 'hmwp_check_preauth'), 99, 1);
-	    add_action('admin_init', array($this, 'hmwp_update_trusted_headers'), 99);
+        //listen the login process and check BF
+        add_filter('authenticate', array($this, 'hmwp_check_preauth'), 99, 1);
+
+        //once logged in, clear blocked IPs
+        add_action('admin_init', array($this, 'hmwp_update_trusted_headers'), 99);
+
+        //listen BF shortcode on forms
         add_shortcode('hmwp_bruteforce', array($this, 'hmwp_bruteforce_shortcode') );
 
         //Check BF on register
@@ -42,26 +47,33 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
 		    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register')) {
 			    add_action('register_form', array($this->model, 'brute_math_form'), 99);
 		    }
+
 	    }elseif (HMWP_Classes_Tools::getOption('brute_use_captcha')) {
 		    add_action('wp_login_failed', array($this, 'hmwp_failed_attempt'), 99);
 		    add_action('login_head', array($this->model, 'brute_recaptcha_head'), 99);
 		    add_action('login_form', array($this->model, 'brute_recaptcha_form'), 99);
-		    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
+
+            if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
 			    add_filter('lostpassword_form', array($this->model, 'brute_recaptcha_form'), 99);
 		    }
+
 		    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register')) {
 			    add_action('register_form', array($this->model, 'brute_recaptcha_form'), 99);
 		    }
+
 	    }elseif (HMWP_Classes_Tools::getOption('brute_use_captcha_v3')) {
 		    add_action('wp_login_failed', array($this, 'hmwp_failed_attempt'), 99);
 		    add_action('login_head', array($this->model, 'brute_recaptcha_head_v3'), 99);
 		    add_action('login_form', array($this->model, 'brute_recaptcha_form_v3'), 99);
-		    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
+
+            if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword')) {
 			    add_filter('lostpassword_form', array($this->model, 'brute_recaptcha_form_v3'), 99);
 		    }
+
 		    if(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register')) {
 			    add_action('register_form', array($this->model, 'brute_recaptcha_form_v3'), 99);
 		    }
+
 	    }
 
     }
@@ -73,10 +85,15 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
             //Load the Multilanguage
             HMWP_Classes_Tools::loadMultilanguage();
 
+            //check brute force
             $this->bruteBlockCheck();
         }
     }
 
+    /**
+     * Check the BF
+     * @return void
+     */
     public function bruteBlockCheck()
     {
         $response = $this->model->brute_call('check_ip');

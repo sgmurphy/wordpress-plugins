@@ -29,7 +29,7 @@ use EssentialBlocks\Integrations\PluginInstaller;
 final class Plugin
 {
     use HasSingletone;
-    public $version = '4.5.13';
+    public $version = '4.6.0';
 
     public $admin;
     /**

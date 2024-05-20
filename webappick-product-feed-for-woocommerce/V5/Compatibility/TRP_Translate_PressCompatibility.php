@@ -65,6 +65,11 @@ class TRP_Translate_PressCompatibility {
 				'woo_feed_filter_product_yoast_wpseo_title',
 				'woo_feed_filter_product_rank_math_title',
 				'woo_feed_filter_product_aioseop_title',
+				'woo_feed_filter_product_categories',
+				'woo_feed_get_google_g:color_attribute',
+				'woo_feed_get_google_color_attribute',
+				'woo_feed_get_google_g:brand_attribute',
+				'woo_feed_get_google_brand_attribute',
 			)
 		);
 
@@ -370,6 +375,8 @@ class TRP_Translate_PressCompatibility {
 
 		if ( $slug ) {
 			$slug = '/' . $slug;
+		}else{
+			$slug = '';
 		}
 
 		return $slug;

@@ -170,39 +170,6 @@ class HMWP_Models_Compatibility
 	}
 
     /**
-     * Check if the IP is in blacklist
-     * Include also the theme detectors
-     * @return void
-     * @throws Exception
-     */
-    public function checkBlacklistIPs(){
-
-        if (!HMWP_Classes_Tools::getValue('hmwp_preview') && isset($_SERVER['REMOTE_ADDR']) && strpos($_SERVER['REMOTE_ADDR'], '.') !== false ) {
-
-
-            $ip = $_SERVER['REMOTE_ADDR'];
-
-            if(!HMWP_Classes_Tools::isWhitelistedIP($ip) && HMWP_Classes_Tools::isBlacklistedIP($ip)){
-                HMWP_Classes_ObjController::getClass('HMWP_Models_Brute')->brute_kill_login();
-            }
-
-            if(isset($_SERVER['HTTP_USER_AGENT'])){
-                $agent = $_SERVER['HTTP_USER_AGENT'];
-                if(strpos($agent, 'wpthemedetector') !== false ||
-                    strpos($agent, 'builtwith') !== false ||
-                    strpos($agent, 'wapalyzer') !== false ||
-                    strpos($agent, 'mShots') !== false ||
-                    strpos($agent, 'WhatCMS') !== false ||
-                    strpos($agent, 'isitwp') !== false){
-
-                    HMWP_Classes_ObjController::getClass('HMWP_Models_Brute')->brute_kill_login();
-                }
-            }
-
-        }
-    }
-
-    /**
      * Check if the cache plugins are loaded and have cached files
      *
      * @throws Exception

@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Zapier for WordPress
  * Description:       Zapier enables you to automatically share your posts to social media, create WordPress posts from Mailchimp newsletters, and much more. Visit https://zapier.com/apps/wordpress/integrations for more details.
- * Version:           1.3.0
+ * Version:           1.4.0
  * Author:            Zapier
  * Author URI:        https://zapier.com
  * License:           Expat (MIT License)
@@ -80,6 +80,7 @@ class Zapier_Auth
         $this->loader->add_plugin_action('rest_api_init', $this, 'add_api_routes');
         $this->loader->add_plugin_filter('rest_pre_dispatch', $this, 'rest_pre_dispatch');
         $this->loader->add_plugin_filter('determine_current_user', $this, 'determine_current_user');
+        $this->loader->add_plugin_action('wp_update_user', $this, 'updated_user');
     }
 
     public function run()
@@ -104,6 +105,18 @@ class Zapier_Auth
         register_rest_route($this->namespace, '/roles', array(
             'methods' => "GET",
             'callback' => array($this, 'get_roles'),
+            'permission_callback' => '__return_true'
+        ));
+
+        register_rest_route($this->namespace, '/webhook', array(
+            'methods' => "POST",
+            'callback' => array($this, 'add_webhook'),
+            'permission_callback' => '__return_true'
+        ));
+
+        register_rest_route($this->namespace, '/webhook', array(
+            'methods' => "DELETE",
+            'callback' => array($this, 'remove_webhook'),
             'permission_callback' => '__return_true'
         ));
     }
@@ -189,6 +202,94 @@ class Zapier_Auth
         }
 
         return array('roles' => $roles);
+    }
+
+    public function add_webhook($request) {
+
+        if(!is_user_logged_in()) {
+            return new WP_Error(
+                'not_logged_in',
+                'You are not logged in',
+                array(
+                    'status' => 401,
+                )
+            );
+        }
+
+        $ALLOWED_ACTIONS = array('wp_update_user');
+
+        $action = $request->get_param("action");
+        $endpoint_url = $request->get_param("endpoint_url");
+
+        if(!in_array($action, $ALLOWED_ACTIONS)) {
+            return new WP_Error(
+                'invalid_action',
+                'Invalid action',
+                array(
+                    'status' => 400,
+                )
+            );
+        }
+
+        if(empty($endpoint_url)) {
+            return new WP_Error(
+                'invalid_endpoint_url',
+                'Invalid endpoint url',
+                array(
+                    'status' => 400,
+                )
+            );
+        }
+
+        $option_key = "zapier_hooks_$action";
+
+        $hooks = get_option($option_key, []);
+
+        if(!in_array($endpoint_url, $hooks)) {
+            $hooks[] = $endpoint_url;
+            update_option($option_key, $hooks);
+        }
+
+        return array('success' => true);
+    }
+
+    public function remove_webhook($request) {
+
+        if(!is_user_logged_in()) {
+            return new WP_Error(
+                'not_logged_in',
+                'You are not logged in',
+                array(
+                    'status' => 401,
+                )
+            );
+        }
+
+        $action = $request->get_param("action");
+        $endpoint_url = $request->get_param("endpoint_url");
+
+        $option_key = "zapier_hooks_$action";
+        $hooks = get_option($option_key, []);
+
+        if(($key = array_search($endpoint_url, $hooks)) !== false) {
+            unset($hooks[$key]);
+            update_option($option_key, $hooks);
+        }
+
+        return array('success' => true);
+    }
+
+    public function updated_user($user_id) {
+        $option_key = "zapier_hooks_wp_update_user";
+
+        $hooks = get_option($option_key, []);
+
+        foreach($hooks as $hook) {
+            $response = wp_remote_post($hook, array(
+                'body' => json_encode(array('user_id' => $user_id)),
+                'headers' => array('Content-Type' => 'application/json'),
+            ));
+        }
     }
 
     public function get_user_from_token()

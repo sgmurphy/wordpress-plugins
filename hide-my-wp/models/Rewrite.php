@@ -1931,11 +1931,6 @@ class HMWP_Models_Rewrite
                     $this->hideRestRouteParam();
                 }
 
-                //Check the whitelist IPs for accessing the hide paths
-                if (HMWP_Classes_Tools::getOption('hmwp_detectors_block') ) {
-                    HMWP_Classes_ObjController::getClass('HMWP_Models_Compatibility')->checkBlacklistIPs();
-                }
-
                 //if is set to hide the urls or not logged in
                 if ($url <> '') {
 

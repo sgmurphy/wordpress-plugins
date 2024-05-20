@@ -14,7 +14,8 @@ const {
     duplicateBlockIdFix,
     filterBlocksByName,
     getBlockParentClientId,
-    EBDisplayIcon
+    EBDisplayIcon,
+    BlockProps
 } = EBControls;
 
 import classnames from "classnames";
@@ -57,85 +58,13 @@ export default function Edit(props) {
         parentIconColor,
     } = attributes;
 
-    useEffect(() => {
-        // this is for creating a unique blockId for each block's unique className
-        const BLOCK_PREFIX = "eb-email-field";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
-
-        const parentClientId = getBlockParentClientId(
-            clientId,
-            "essential-blocks/form"
-        );
-
-        const getParentBlock = select("core/block-editor").getBlock(
-            parentClientId
-        );
-        const getParentBlockId = getParentBlock?.attributes?.blockId;
-        const parentIconColor = getParentBlock?.attributes?.inputIconColor;
-        const parentBlockIconSize =
-            getParentBlock?.attributes?.inputIconSizeRange;
-        const parentBlockPaddingLeft =
-            getParentBlock?.attributes?.fieldsPaddingLeft;
-        const parentBlockPaddingUnit =
-            getParentBlock?.attributes?.fieldsPaddingUnit;
-        if (getParentBlockId)
-            setAttributes({
-                parentBlockId: getParentBlockId,
-                parentBlockPaddingLeft,
-                parentBlockPaddingUnit,
-                parentBlockIconSize,
-                parentIconColor,
-            });
-
-        //Handle as per parent settings
-        const isBlockJustInserted = select(
-            "core/block-editor"
-        ).wasBlockJustInserted(clientId);
-        const getFormLabel = getParentBlock?.attributes?.showLabel;
-        const getFormIcon = getParentBlock?.attributes?.showInputIcon;
-        if (
-            isBlockJustInserted &&
-            typeof getFormLabel !== "undefined" &&
-            typeof getFormIcon !== "undefined"
-        ) {
-            setAttributes({
-                showLabel: getFormLabel,
-                isIcon: getFormIcon,
-            });
-        }
-
-        const getFormStyle = getParentBlock?.attributes?.formStyle;
-        if (getFormStyle) setAttributes({ formStyle: getFormStyle });
-
-        //Hanlde Field Name
-        if (!fieldName) {
-            if (parentClientId) {
-                const parentAllChildBlocks = select(
-                    "core/block-editor"
-                ).getBlocksByClientId(parentClientId);
-                const filteredBlocks = filterBlocksByName(
-                    parentAllChildBlocks,
-                    name
-                );
-                const currentBlockIndex = filteredBlocks.indexOf(clientId);
-                if (currentBlockIndex !== -1) {
-                    if (filteredBlocks.length === 1) {
-                        setAttributes({ fieldName: `email` });
-                    } else {
-                        setAttributes({
-                            fieldName: `email-${currentBlockIndex + 1}`,
-                        });
-                    }
-                }
-            }
-        }
-    }, []);
+    // you must declare this variable
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-email-field',
+        rootClass: `eb-guten-block-main-parent-wrapper eb-form-field`,
+        style: <Style {...props} />
+    };
 
     //UseEffect for set Validation rules
     useEffect(() => {
@@ -153,13 +82,6 @@ export default function Edit(props) {
         setAttributes({ validationRules: rules });
     }, [isRequired, fieldName, validationMessage, emailValidationMessage]);
 
-    const blockProps = useBlockProps({
-        className: classnames(
-            className,
-            `eb-guten-block-main-parent-wrapper eb-form-field`
-        ),
-    });
-
     return (
         <>
             {isSelected && (
@@ -169,8 +91,7 @@ export default function Edit(props) {
                     setAttributes={setAttributes}
                 />
             )}
-            <div {...blockProps}>
-                <Style {...props} />
+            <BlockProps.Edit {...enhancedProps}>
                 <div
                     className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
                 >
@@ -224,7 +145,7 @@ export default function Edit(props) {
                         )}
                     </div>
                 </div>
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }

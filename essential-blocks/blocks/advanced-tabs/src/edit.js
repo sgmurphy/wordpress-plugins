@@ -13,8 +13,8 @@ const { times } = lodash;
  */
 
 const {
-    duplicateBlockIdFix,
-    EBDisplayIcon
+    EBDisplayIcon,
+    BlockProps
 } = EBControls;
 
 import classnames from "classnames";
@@ -91,54 +91,11 @@ export default function Edit(props) {
         setAttributes({ tabTitles: newTabTitles });
     };
 
-    useEffect(() => {
-        // this is for creating a unique blockId for each block's unique className
-        const BLOCK_PREFIX = "eb-advanced-tabs";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
-
-        if (tabTitles.length === 0) {
-            setAttributes({
-                tabTitles: [
-                    {
-                        text: "Tab Title 1",
-                        id: "1",
-                        media: "icon",
-                        icon: "fas fa-home",
-                        image: "",
-                        isExpanded: true,
-                        isDefault: true,
-                        customId: "",
-                    },
-                    {
-                        text: "Tab Title 2",
-                        id: "2",
-                        media: "icon",
-                        icon: "fas fa-home",
-                        image: "",
-                        isExpanded: false,
-                        isDefault: false,
-                        customId: "",
-                    },
-                    {
-                        text: "Tab Title 3",
-                        id: "3",
-                        media: "icon",
-                        icon: "fas fa-home",
-                        image: "",
-                        isExpanded: false,
-                        isDefault: false,
-                        customId: "",
-                    },
-                ],
-            });
-        }
-    }, []);
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-advanced-tabs',
+        style: <Style {...props} isClickTab={isClickTab} />
+    };
 
     const { innerBlocks } = useSelect(
         (select) => select("core/block-editor").getBlocksByClientId(clientId)[0]
@@ -168,12 +125,7 @@ export default function Edit(props) {
                     handleTabTitleClick={handleTabTitleClick}
                 />
             )}
-            <div {...blockProps}>
-                <Style
-                    {...props}
-                    isClickTab={isClickTab}
-                />
-
+            <BlockProps.Edit {...enhancedProps}>
                 <div
                     className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
                 >
@@ -252,7 +204,7 @@ export default function Edit(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }

@@ -4,7 +4,7 @@ Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.1.02
+Stable tag: 5.1.03
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -282,6 +282,14 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.1.03 (20 May 2024) =
+Update - Compatibility with WP 6.5.3
+Update - Compatibility with WPEngine rules on wp-admin and wp-login.php
+Fixed - Prevent firewall to record all triggered filters as fail attempts
+Fixed - Remove filter on robots when 8G firewall is active
+Fixed - Frontend Login Check popup to prevent any redirect to admin panel in popup test
+Fixed - Prevent redirect the wp-admin to new login when wp-admin path is hidden
+
 = 5.1.02 (30 Apr 2024) =
 Update - Security Check verifies the firewall against SQL & Script injection and weak usernames
 Update - Font-sizes and layouts

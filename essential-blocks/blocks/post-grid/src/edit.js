@@ -30,7 +30,8 @@ const {
     CustomQuery,
     DynamicInputValueHandler,
     EBDisplayIcon,
-    BrowseTemplate
+    BrowseTemplate,
+    BlockProps
 } = window.EBControls;
 
 export default function Edit(props) {
@@ -79,30 +80,25 @@ export default function Edit(props) {
     const [searchError, setSearchError] = useState(false);
     const [queryResults, setQueryResults] = useState(false);
     const [didMount, setDidMount] = useState(false);
+    const isContentEnabled = (contentName) => enableContents.includes(contentName);
+
+    // you must declare this variable
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-post-grid',
+        style: <Style {...props} isContentEnabled={isContentEnabled} />
+    };
 
     // this useEffect is for creating a unique id for each block's unique className by a random unique number
     useEffect(() => {
         setTimeout(() => {
             setDidMount(true)
         }, 1500)
-        //Unique Id
-        const BLOCK_PREFIX = "eb-post-grid";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
 
         if (!version) {
             setAttributes({ version: 'v2' });
         }
     }, []);
-
-    const blockProps = useBlockProps({
-        className: classnames(className),
-    });
 
     useEffect(() => {
         //If Preset is 4/5, make enableThumbnailSort to false
@@ -115,7 +111,7 @@ export default function Edit(props) {
         const totalPages = Math.floor(options.totalPosts / perPage);
         let html = "";
         html += `<button class="ebpg-pagination-item-previous">${options.prevTxt}</button>`;
-        for (let i = 1; i <= totalPages; i++) {
+        for (let i = 1;i <= totalPages;i++) {
             if (i === 1) {
                 html += `<button class="ebpg-pagination-item active">${i}</button>`;
             } else if (i <= 3) {
@@ -214,8 +210,6 @@ export default function Edit(props) {
     //     }
     // }, [queryResults]);
 
-    const isContentEnabled = (contentName) => enableContents.includes(contentName);
-
     return cover.length ? (
         <div>
             <img src={cover} alt="post grid" style={{ maxWidth: "100%" }} />
@@ -244,8 +238,7 @@ export default function Edit(props) {
                 </>
             )}
 
-            <div {...blockProps}>
-                <Style {...props} isContentEnabled={isContentEnabled} />
+            <BlockProps.Edit {...enhancedProps}>
 
                 <BrowseTemplate
                     {...props}
@@ -1136,7 +1129,7 @@ export default function Edit(props) {
                         </div>
                     </>
                 )}
-            </div >
+            </BlockProps.Edit>
         </>
     );
 }

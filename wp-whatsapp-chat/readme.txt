@@ -5,7 +5,7 @@ Tags: whatsapp, whatsapp business, click to chat, Social Chat, woocommerce whats
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 7.3.7
+Stable tag: 7.3.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,9 @@ Don't use: +001-(555)1234567
 * Brazilian Portuguese (thanks to [Dionizio Bach](@djio))
 
 == Changelog ==
+
+= 7.3.8 =
+* Fix customizer issues
 
 = 7.3.7 =
 * Update packages

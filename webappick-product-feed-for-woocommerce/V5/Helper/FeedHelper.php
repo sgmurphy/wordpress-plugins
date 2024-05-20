@@ -1844,7 +1844,7 @@ class FeedHelper {
 		}
 
 		$theme = wp_get_theme(); // gets the current theme
-		if ( 'Woodmart Child' == $theme->name && 'Woodmart' == $theme->parent_theme ) {
+		if ( 'Woodmart' == $theme->parent_theme ) {
 			$should_generate_feed_by_ajax = false;
 		}
 

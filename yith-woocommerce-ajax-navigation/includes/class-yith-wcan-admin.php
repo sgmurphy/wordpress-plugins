@@ -618,15 +618,36 @@ if ( ! class_exists( 'YITH_WCAN_Admin' ) ) {
 				return $new_row_meta_args;
 			}
 
-			$new_row_meta_args['slug']        = 'yith-woocommerce-ajax-product-filter';
-			$new_row_meta_args['is_premium']  = defined( 'YITH_WCAN_PREMIUM' );
-			$new_row_meta_args['is_extended'] = defined( 'YITH_WCAN_EXTENDED' );
-
-			if ( defined( 'YITH_WCAN_FREE_INIT' ) ) {
-				$new_row_meta_args['support'] = array(
-					'url' => 'https://wordpress.org/support/plugin/yith-woocommerce-ajax-navigation',
-				);
-			}
+			$new_row_meta_args = array_merge(
+				$new_row_meta_args,
+				array(
+					'slug'          => YITH_WCAN_SLUG,
+					'is_premium'    => defined( 'YITH_WCAN_PREMIUM' ),
+					'is_extended'   => defined( 'YITH_WCAN_EXTENDED' ),
+					'documentation' => array(
+						'url' => 'https://docs.yithemes.com/yith-woocommerce-ajax-product-filter',
+					),
+					'live_demo'     => array(
+						'url' => 'https://plugins.yithemes.com/yith-woocommerce-ajax-product-filter-free',
+					),
+					'premium_version' => array(
+						'url' => 'https://yithemes.com/themes/plugins/yith-woocommerce-ajax-product-filter/',
+					)
+				),
+				defined( 'YITH_WCAN_EXTENDED' ) ? array(
+					'documentation' => array(
+						'url' => 'https://docs.yithemes.com/yith-woocommerce-ajax-product-filter-extended',
+					),
+					'support'       => array(
+						'url' => 'https://docs.yithemes.com/yith-woocommerce-ajax-product-filter-extended/overview/need-support/',
+					),
+				) : array(),
+				defined( 'YITH_WCAN_PREMIUM' ) ? array(
+					'live_demo' => array(
+						'url' => 'https://plugins.yithemes.com/yith-woocommerce-ajax-product-filter',
+					),
+				) : array()
+			);
 
 			return $new_row_meta_args;
 		}

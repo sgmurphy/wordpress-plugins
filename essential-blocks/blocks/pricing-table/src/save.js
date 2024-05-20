@@ -1,8 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useBlockProps } from "@wordpress/block-editor";
-const { EBDisplayIcon } = window.EBControls;
+const { EBDisplayIcon, sanitizeURL, BlockProps } = window.EBControls;
 
 const Save = ({ attributes }) => {
     const {
@@ -47,7 +46,7 @@ const Save = ({ attributes }) => {
     const ribbonClass = showRibbon ? ` featured ${ribbonStyle}` : "";
 
     return (
-        <div {...useBlockProps.save()}>
+        <BlockProps.Save attributes={attributes}>
             <div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
                 <div className={`${blockId} eb-pricing-wrapper eb-pricing-content-${contentAlign}`}>
                     <div className={`eb-pricing ${pricingStyle}`}>
@@ -132,14 +131,12 @@ const Save = ({ attributes }) => {
                                                                     data-link={link}
                                                                 >
                                                                     {clickable && link ? (
-                                                                        <a href={link}>
-                                                                            {showFeatureIcon && (
-                                                                                <EBDisplayIcon
-                                                                                    className={`eb-pricebox-icon`}
-                                                                                    icon={icon}
-                                                                                    style={{ color: color }}
-                                                                                />
-                                                                            )}
+                                                                        <a href={sanitizeURL(link)}>
+                                                                            <EBDisplayIcon
+                                                                                className={`eb-pricebox-icon`}
+                                                                                icon={icon}
+                                                                                style={{ color: color }}
+                                                                            />
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {text}
                                                                             </span>
@@ -170,7 +167,7 @@ const Save = ({ attributes }) => {
                                             <div className="eb-pricing-footer" data-icon={buttonIcon}>
                                                 <div className="eb-pricing-button-wrapper">
                                                     <a
-                                                        href={buttonURL == '#' ? '' : buttonURL}
+                                                        href={buttonURL == '#' ? '' : sanitizeURL(buttonURL)}
                                                         {...(newWindow && { target: "_blank" })}
                                                         className="eb-pricing-button"
                                                     >
@@ -257,14 +254,12 @@ const Save = ({ attributes }) => {
                                                             data-link={link}
                                                         >
                                                             {clickable && link ? (
-                                                                <a href={link}>
-                                                                    {showFeatureIcon && (
-                                                                        <EBDisplayIcon
-                                                                            className={`eb-pricebox-icon`}
-                                                                            icon={icon}
-                                                                            style={{ color: color }}
-                                                                        />
-                                                                    )}
+                                                                <a href={sanitizeURL(link)}>
+                                                                    <EBDisplayIcon
+                                                                        className={`eb-pricebox-icon`}
+                                                                        icon={icon}
+                                                                        style={{ color: color }}
+                                                                    />
                                                                     <span className="eb-pricebox-feature-text">
                                                                         {text}
                                                                     </span>
@@ -333,7 +328,7 @@ const Save = ({ attributes }) => {
                                         <div className="eb-pricing-footer" data-icon={buttonIcon}>
                                             <div className="eb-pricing-button-wrapper">
                                                 <a
-                                                    href={buttonURL == '#' ? '' : buttonURL}
+                                                    href={buttonURL == '#' ? '' : sanitizeURL(buttonURL)}
                                                     {...(newWindow && { target: "_blank" })}
                                                     className="eb-pricing-button"
                                                 >
@@ -354,7 +349,7 @@ const Save = ({ attributes }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </BlockProps.Save>
         // edit view end
     );
 };

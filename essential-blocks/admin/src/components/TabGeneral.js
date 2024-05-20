@@ -277,12 +277,42 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.13", "essential-blocks")}
+                                    {__("Version: 4.6.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("16/05/2024", "essential-blocks")}
+                                        {__("20/05/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
+                                    <li>
+                                        {__(
+                                            "Added: Visibility Options for customize design each block",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Update Openverse block API changes",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Form block default layout issues",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Woo Product Grid font size issues",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Improved: Block Defaults improvements",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
                                     <li>
                                         {__(
                                             "Improved: Security enhancement",
@@ -291,7 +321,7 @@ export default function TabGeneral() {
                                     </li>
                                     <li>
                                         {__(
-                                            "Few minor bug fixes & improvements",
+                                            "Minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
                                     </li>

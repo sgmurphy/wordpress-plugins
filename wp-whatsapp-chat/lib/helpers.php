@@ -63,8 +63,11 @@ function qlwapp_get_timezone_offset( $timezone ) {
 		}
 	} else {
 		$current = timezone_open( $timezone );
-		$utc     = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
-		$offset  = $current->getOffset( $utc ) / 3600 * 60;
+		if ( ! $current ) {
+			return;
+		}
+		$utc    = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
+		$offset = $current->getOffset( $utc ) / 3600 * 60;
 	}
 	return $offset;
 }

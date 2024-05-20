@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wprss/core',
-        'pretty_version' => 'dev-develop',
-        'version' => 'dev-develop',
-        'reference' => '1ce7723319965796cec50e187c76c672c3af719d',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '87a206aaf991564e9e19dae7968643f99b4edff4',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -338,9 +338,9 @@
             'dev_requirement' => false,
         ),
         'wprss/core' => array(
-            'pretty_version' => 'dev-develop',
-            'version' => 'dev-develop',
-            'reference' => '1ce7723319965796cec50e187c76c672c3af719d',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '87a206aaf991564e9e19dae7968643f99b4edff4',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

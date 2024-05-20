@@ -141,32 +141,32 @@ class Admin extends Base {
 
 	public function admin_notices() {
 
-		if ( ! defined( 'THUMBPRESS_PRO' ) && current_user_can( 'manage_options' ) ) {
+		// if ( ! defined( 'THUMBPRESS_PRO' ) && current_user_can( 'manage_options' ) ) {
 
-			$current_screen = get_current_screen()->base;
-			$current_time 	= wp_date('U');
-			$notice_meta 	= get_option( 'thumbpress_pro_notice_recurring_every_week', true );
+		// 	$current_screen = get_current_screen()->base;
+		// 	$current_time 	= wp_date('U');
+		// 	$notice_meta 	= get_option( 'thumbpress_pro_notice_recurring_every_week', true );
 
-			if ( ( $current_screen == 'dashboard' ) && ( $current_time >= $notice_meta )) {
+		// 	if ( ( $current_screen == 'dashboard' ) && ( $current_time >= $notice_meta )) {
 				
-				printf( 
-					'<div id="image-sizes-hide-banner"  class="notice notice-success is-dismissible image-sizes-admin_notice">
+		// 		printf( 
+		// 			'<div id="image-sizes-hide-banner"  class="notice notice-success is-dismissible image-sizes-admin_notice">
 
-						<form class="image-sizes-banner" method="post">
-							<input type="hidden" value="%1$s" name="">
-							<a href="%3$s" target="_blank"> 
-								<img class="cx-free-banner-img" src="%2$s">
-							</a>
-							<button type="button"  class="notice-dismiss image-sizes-notice"></button>
-						</form>
+		// 				<form class="image-sizes-banner" method="post">
+		// 					<input type="hidden" value="%1$s" name="">
+		// 					<a href="%3$s" target="_blank"> 
+		// 						<img class="cx-free-banner-img" src="%2$s">
+		// 					</a>
+		// 					<button type="button"  class="notice-dismiss image-sizes-notice"></button>
+		// 				</form>
 
-					</div>',
-					wp_create_nonce(), 
-					THUMBPRESS_ASSET . '/img/ThumbPress-pro-notice.gif',
-					'https://thumbpress.co/',
-				);
-			}
-		}
+		// 			</div>',
+		// 			wp_create_nonce(), 
+		// 			THUMBPRESS_ASSET . '/img/ThumbPress-pro-notice.gif',
+		// 			'https://thumbpress.co/',
+		// 		);
+		// 	}
+		// }
 		
 		if ( 
 			current_user_can( 'manage_options' )

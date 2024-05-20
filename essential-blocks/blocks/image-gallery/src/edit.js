@@ -27,6 +27,7 @@ import Style from "./style";
 
 const {
     duplicateBlockIdFix,
+    BlockProps
 } = window.EBControls;
 
 export default function Edit(props) {
@@ -78,19 +79,15 @@ export default function Edit(props) {
         enableIsotope,
         loadmoreBtnText,
         enableLoadMore,
+        enableInfiniteScroll
     } = attributes;
 
-    // this useEffect is for creating a unique id for each block's unique className by a random unique number
-    useEffect(() => {
-        const BLOCK_PREFIX = "eb-image-gallery";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
-    }, []);
+    // you must declare this variable
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-image-gallery',
+        style: <Style {...props} />
+    };
 
     const blockProps = useBlockProps({
         className: classnames(className, `eb-guten-block-main-parent-wrapper`),
@@ -313,8 +310,7 @@ export default function Edit(props) {
                     />
                 )}
             </>
-            <div {...blockProps}>
-                <Style {...props} />
+            <BlockProps.Edit {...enhancedProps}>
 
                 {urls.length > 0 && (
                     <Fragment>
@@ -457,7 +453,14 @@ export default function Edit(props) {
                             </div>
 
                             {enableLoadMore && (
-                                <button className="eb-img-gallery-loadmore">{loadmoreBtnText}</button>
+                                <button
+                                    {...(enableInfiniteScroll ? { disabled: true } : {})}
+                                    className={`eb-img-gallery-loadmore ${enableInfiniteScroll ? 'loadmore-disable' : ''}`}>
+                                    {enableInfiniteScroll && (
+                                        <img src={`${EssentialBlocksLocalize.eb_plugins_url}/assets/images/loading.svg`} />
+                                    )}
+                                    {loadmoreBtnText}
+                                </button>
                             )}
 
                         </div>
@@ -513,7 +516,7 @@ export default function Edit(props) {
                         />
                     </Fragment>
                 )}
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }

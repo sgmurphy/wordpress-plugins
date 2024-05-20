@@ -2,84 +2,43 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, InnerBlocks, RichText, MediaUpload, } from "@wordpress/block-editor";
+import { InnerBlocks, MediaUpload, } from "@wordpress/block-editor";
 import { Button } from "@wordpress/components";
-import { useRef } from "@wordpress/element";
-import { useEffect } from "@wordpress/element";
+import { useEffect, useRef } from "@wordpress/element";
 import { select } from "@wordpress/data";
-
-import classnames from "classnames";
 import Inspector from "./inspector";
 import Style from "./style";
-
-const { duplicateBlockIdFix, EBDisplayIcon, getIconClass, DynamicInputValueHandler, getBlockParentClientId } = window.EBControls;
+const { EBDisplayIcon, getIconClass, DynamicInputValueHandler, getBlockParentClientId, BlockProps } = window.EBControls;
 
 export default function Edit(props) {
-    const { attributes, setAttributes, className, isSelected, clientId } = props;
+    const { attributes, setAttributes, isSelected, clientId } = props;
     const {
-        resOption,
         blockId,
-        blockMeta,
         title,
-        titleColor,
         clickable,
-        iconColor,
-        accordionColor,
         parentBlockId,
         inheritedTagName,
         inheritedDisplayIcon,
         inheritedTabIcon,
         inheritedExpandedIcon,
-
         titlePrefixType,
         titlePrefixText,
         titlePrefixIcon,
         titlePrefixImgUrl,
         titlePrefixImgId,
-        titlePrefixImgAlt,
-
         titleSuffixType,
         titleSuffixText,
         titleSuffixIcon,
         titleSuffixImgUrl,
         titleSuffixImgId,
-        titleSuffixImgAlt,
     } = attributes;
 
-    // this useEffect is for creating a unique blockId for each block's unique className
-    useEffect(() => {
-        const BLOCK_PREFIX = "eb-accordion-item";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
-
-        // Parent Block Attr
-        const parentClientId = getBlockParentClientId(clientId, "essential-blocks/accordion");
-        const getParentBlock = select("core/block-editor").getBlock(parentClientId);
-        const getParentBlockId = getParentBlock?.attributes?.blockId;
-        const parentTitlePrefixIcon = getParentBlock?.attributes?.titlePrefixIcon;
-        const parentTitleSuffixIcon = getParentBlock?.attributes?.titleSuffixIcon;
-
-        // if (getParentBlockId) {
-        //     setAttributes({
-        //         parentBlockId: getParentBlockId,
-        //         // titlePrefixIcon: parentTitlePrefixIcon,
-        //         // titleSuffixIcon: parentTitleSuffixIcon,
-        //     });
-        // }
-
-    }, []);
-
-    const blockProps = useBlockProps({
-        className: classnames(
-            className,
-            `eb-guten-block-main-parent-wrapper eb-accordion-item`
-        ),
-    });
+    const enhancedProps = {
+        ...props,
+        rootClass: `eb-guten-block-main-parent-wrapper eb-accordion-item`,
+        blockPrefix: 'eb-accordion-item',
+        style: <Style {...props} />
+    };
 
     const accordionTitle = useRef(null);
     const handleSlidingOfAccordion = () => {
@@ -94,7 +53,7 @@ export default function Edit(props) {
             if (iconWrapper.tagName === 'I') {
                 iconWrapper.removeAttribute("class");
                 tabIcon = getIconClass(tabIcon).split(" ");
-                for (let i = 0; i < tabIcon.length; i++) {
+                for (let i = 0;i < tabIcon.length;i++) {
                     iconWrapper.classList.add(tabIcon[i]);
                 }
                 iconWrapper.classList.add("eb-accordion-icon");
@@ -106,7 +65,7 @@ export default function Edit(props) {
             if (iconWrapper.tagName === 'I') {
                 iconWrapper.removeAttribute("class");
                 expandedIcon = getIconClass(expandedIcon).split(" ");
-                for (let i = 0; i < expandedIcon.length; i++) {
+                for (let i = 0;i < expandedIcon.length;i++) {
                     iconWrapper.classList.add(expandedIcon[i]);
                 }
                 iconWrapper.classList.add("eb-accordion-icon");
@@ -119,9 +78,7 @@ export default function Edit(props) {
     return (
         <>
             {isSelected && <Inspector {...props} />}
-            <div {...blockProps}>
-                <Style {...props} />
-
+            <BlockProps.Edit {...enhancedProps}>
                 <div
                     className={`${blockId} eb-accordion-wrapper for_edit_page`}
                     data-clickable={clickable}
@@ -279,7 +236,7 @@ export default function Edit(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }

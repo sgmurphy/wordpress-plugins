@@ -123,7 +123,8 @@ function Inspector(props) {
         loadmoreHvColor,
         loadmoreBGColor,
         loadmoreHvBGColor,
-        imagesPerPage,
+        enableInfiniteScroll,
+        imagesPerPageCount
     } = attributes;
 
     const [defaultFilterOptions, setDefaultFilterOptions] = useState("");
@@ -251,6 +252,20 @@ function Inspector(props) {
 
         setAttributes({ sources: updatedSources });
     };
+
+    const handleLoadMore = (enableLoadMore) => {
+        let attr = {
+            enableLoadMore: enableLoadMore,
+        }
+        if (!enableFilter && !enableIsotope) {
+            attr = { ...attr, enableIsotope: true }
+        }
+        setAttributes(attr);
+    };
+
+    useEffect(() => {
+        enableInfiniteScroll ? setAttributes({ loadmoreBtnText: 'Loading ...', }) : setAttributes({ loadmoreBtnText: 'Load More', });
+    }, [enableInfiniteScroll])
 
     return (
         <InspectorControls key="controls">
@@ -647,55 +662,63 @@ function Inspector(props) {
                                         })}
                                     </PanelBody>
 
-                                    {(enableFilter || enableIsotope) && (
-                                        <PanelBody
-                                            title={__(
-                                                "Load More Button",
+                                    <PanelBody
+                                        title={__(
+                                            "Load More Button",
+                                            "essential-blocks"
+                                        )}
+                                        initialOpen={false}
+                                    >
+                                        <ToggleControl
+                                            label={__(
+                                                "Enable Loadmore",
                                                 "essential-blocks"
                                             )}
-                                            initialOpen={false}
-                                        >
-                                            <ToggleControl
-                                                label={__(
-                                                    "Enable Loadmore",
-                                                    "essential-blocks"
-                                                )}
-                                                checked={enableLoadMore}
-                                                onChange={() =>
-                                                    setAttributes({
-                                                        enableLoadMore: !enableLoadMore,
-                                                    })
-                                                }
-                                            />
+                                            checked={enableLoadMore}
+                                            onChange={(enableLoadMore) =>
+                                                handleLoadMore(enableLoadMore)
+                                            }
+                                        />
 
-                                            {enableLoadMore && (
-                                                <>
-                                                    <DynamicInputControl
-                                                        label="Button Text"
-                                                        attrName="loadmoreBtnText"
-                                                        inputValue={loadmoreBtnText}
-                                                        setAttributes={setAttributes}
-                                                        onChange={(text) => setAttributes({ loadmoreBtnText: text })}
-                                                    />
-                                                    <RangeControl
-                                                        label={__(
-                                                            "Images Per Page",
-                                                            "essential-blocks"
-                                                        )}
-                                                        value={imagesPerPage}
-                                                        onChange={(imagesPerPage) =>
-                                                            setAttributes({
-                                                                imagesPerPage,
-                                                            })
-                                                        }
-                                                        min={1}
-                                                        max={sources?.length - 1}
-                                                        allowReset={true}
-                                                    />
-                                                </>
-                                            )}
-                                        </PanelBody>
-                                    )}
+                                        {enableLoadMore && (
+                                            <>
+                                                {/* <ToggleControl
+                                                    label={__(
+                                                        "Infinite Scroll",
+                                                        "essential-blocks"
+                                                    )}
+                                                    checked={enableInfiniteScroll}
+                                                    onChange={() =>
+                                                        setAttributes({
+                                                            enableInfiniteScroll: !enableInfiniteScroll,
+                                                        })
+                                                    }
+                                                /> */}
+                                                <DynamicInputControl
+                                                    label="Button Text"
+                                                    attrName="loadmoreBtnText"
+                                                    inputValue={loadmoreBtnText}
+                                                    setAttributes={setAttributes}
+                                                    onChange={(text) => setAttributes({ loadmoreBtnText: text })}
+                                                />
+                                                <RangeControl
+                                                    label={__(
+                                                        "Images Per Page",
+                                                        "essential-blocks"
+                                                    )}
+                                                    value={imagesPerPageCount}
+                                                    onChange={(imagesPerPageCount) =>
+                                                        setAttributes({
+                                                            imagesPerPageCount,
+                                                        })
+                                                    }
+                                                    min={1}
+                                                    max={sources?.length - 1}
+                                                    allowReset={true}
+                                                />
+                                            </>
+                                        )}
+                                    </PanelBody>
                                 </>
                             )}
 
@@ -1323,7 +1346,7 @@ function Inspector(props) {
 
                                     {(enableFilter || enableIsotope) && enableLoadMore && (
                                         <PanelBody
-                                            title={__("Loadmore Button", "essential-blocks")}
+                                            title={__("Load More Button", "essential-blocks")}
                                             initialOpen={false}
                                         >
                                             <>

@@ -30,6 +30,7 @@ const {
     CustomQuery,
     DynamicInputValueHandler,
     BrowseTemplate,
+    BlockProps
 } = window.EBControls;
 
 const SlickArrow = (props) => {
@@ -89,26 +90,19 @@ export default function Edit(props) {
 
     const dateFormat = getSettings().formats.date;
 
+    // you must declare this variable
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-post-carousel',
+        style: <Style {...props} />
+    };
+
     // this useEffect is for creating a unique id for each block's unique className by a random unique number
     useEffect(() => {
         setTimeout(() => {
             setDidMount(true)
         }, 1500)
-
-        //Set Unique Id
-        const BLOCK_PREFIX = "eb-post-carousel";
-        duplicateBlockIdFix({
-            BLOCK_PREFIX,
-            blockId,
-            setAttributes,
-            select,
-            clientId,
-        });
     }, []);
-
-    const blockProps = useBlockProps({
-        className: classnames(className),
-    });
 
     const TABslideToShowRanges = TABslideToShowRange ? TABslideToShowRange : 2;
     const MOBslideToShowRanges = MOBslideToShowRange ? MOBslideToShowRange : 1;
@@ -178,8 +172,7 @@ export default function Edit(props) {
                     />
                 </>
             )}
-            <div {...blockProps}>
-                <Style {...props} />
+            <BlockProps.Edit {...enhancedProps}>
 
                 <BrowseTemplate
                     {...props}
@@ -536,7 +529,7 @@ export default function Edit(props) {
                         )}
                     </>
                 )}
-            </div>
+            </BlockProps.Edit>
         </>
     );
 }
