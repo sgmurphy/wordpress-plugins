@@ -54,26 +54,26 @@ class Ajax extends Base {
 		
 	}
 
-	public function dismiss_pointer() {
+	// public function dismiss_pointer() {
 
-		$response = [
-			 'status'	=> 0,
-			 'message'	=>__( 'Unauthorized!', 'image-sizes' )
-		];
+	// 	$response = [
+	// 		 'status'	=> 0,
+	// 		 'message'	=>__( 'Unauthorized!', 'image-sizes' )
+	// 	];
 
-		if( ! wp_verify_nonce( $_POST['_wpnonce'], $this->slug ) ) {
-		    wp_send_json( $response );
-		}
+	// 	if( ! wp_verify_nonce( $_POST['_wpnonce'], $this->slug ) ) {
+	// 	    wp_send_json( $response );
+	// 	}
 
-		$add_1_month 	= wp_date('U') + MONTH_IN_SECONDS ;
-		update_option( 'thumbpress_pro_notice_recurring_every_1_month', $add_1_month );
-		// update_option('thumbpress_pro_notice_1_time', true);
+	// 	$add_1_month 	= wp_date('U') + MONTH_IN_SECONDS ;
+	// 	update_option( 'thumbpress_pro_notice_recurring_every_1_month', $add_1_month );
+	// 	// update_option('thumbpress_pro_notice_1_time', true);
 
-		$response['status'] 	= 1;
-		$response['message'] 	= __( 'Pointer Removed', 'image-sizes' );
-		wp_send_json( $response );
+	// 	$response['status'] 	= 1;
+	// 	$response['message'] 	= __( 'Pointer Removed', 'image-sizes' );
+	// 	wp_send_json( $response );
 
-	}
+	// }
 
 	public function image_sizes_dismiss(){		
 

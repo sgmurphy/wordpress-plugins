@@ -1778,8 +1778,6 @@ class Premium_Person extends Widget_Base {
 
 			$this->add_render_attribute( 'persons_container', 'data-carousel', $carousel );
 
-			$speed = ! empty( $settings['carousel_autoplay_speed'] ) ? $settings['carousel_autoplay_speed'] : 5000;
-
 			$this->add_render_attribute(
 				'persons_container',
 				array(

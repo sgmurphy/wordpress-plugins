@@ -444,8 +444,8 @@ body{
 
 #fbuilder .cff-textarea-counter{text-align:right;}
 
-#fbuilder .cff-phone-field .components_container{display:table;}
-#fbuilder .uh_phone{padding-left:10px;text-align:center;position:relative;display:table-cell;}
+#fbuilder .cff-phone-field .components_container{display:inline-block;}
+#fbuilder .uh_phone{padding-left:10px;text-align:center;position:relative;display:inline-block;vertical-align:top;}
 #fbuilder .uh_phone:first-child{padding-left:0;}
 *[dir="rtl"] #fbuilder .uh_phone{float:right;}
 #fbuilder .uh_phone input{text-align:center;width:100%}

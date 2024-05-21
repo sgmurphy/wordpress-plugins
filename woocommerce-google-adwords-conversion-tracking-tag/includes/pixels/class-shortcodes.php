@@ -60,7 +60,7 @@ class Shortcodes {
 
 			<script>
 				jQuery(document).on("pmw:ready", function () {
-					jQuery(document).trigger("wpmViewItem", wpm.getProductDetailsFormattedForEvent(<?php esc_html_e($shortcode_attributes['product-id']); ?>))
+					jQuery(document).trigger("pmw:view-item", wpm.getProductDetailsFormattedForEvent(<?php esc_html_e($shortcode_attributes['product-id']); ?>))
 				})
 			</script>
 			<?php
@@ -304,7 +304,7 @@ class Shortcodes {
 		}
 
 
-		if (Options::is_facebook_capi_enabled()) {
+		if (Options::is_facebook_capi_active()) {
 			?>
 
 			<script>

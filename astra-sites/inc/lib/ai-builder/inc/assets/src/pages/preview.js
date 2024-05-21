@@ -67,6 +67,7 @@ const SitePreview = () => {
 			templateList,
 			businessName,
 			selectedImages = [],
+			businessContact,
 		},
 		aiSiteLogo,
 		aiActiveTypography,
@@ -155,6 +156,30 @@ const SitePreview = () => {
 			sendPostMessage( {
 				param: 'siteTypography',
 				data: aiActiveTypography,
+			} );
+		}
+
+		if ( Object.values( businessContact ).some( Boolean ) ) {
+			const updatedData = [
+				{
+					type: 'phone',
+					value: businessContact.phone,
+					fallback: '202-555-0188',
+				},
+				{
+					type: 'email',
+					value: businessContact.email,
+					fallback: 'contact@example.com',
+				},
+				{
+					type: 'address',
+					value: businessContact.address,
+					fallback: '2360 Hood Avenue, San Diego, CA, 92123',
+				},
+			];
+			sendPostMessage( {
+				param: 'contactInfo',
+				data: updatedData,
 			} );
 		}
 

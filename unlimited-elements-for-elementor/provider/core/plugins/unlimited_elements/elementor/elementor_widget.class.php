@@ -3324,9 +3324,9 @@ class UniteCreatorElementorWidget extends Widget_Base {
 		
     	//don't run on woocommerce cart page - cause some weird elementor bug
     	
-    	$isCartPage = UniteCreatorWooIntegrate::isCartPage();
+    	$isCartOrCheckoutPage = UniteCreatorWooIntegrate::isCartOrCheckoutPage();
     	
-    	if($isCartPage == true)
+    	if($isCartOrCheckoutPage == true)
     		return(array());
     	
     	self::$arrGlobalColors = array();

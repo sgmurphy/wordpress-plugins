@@ -258,6 +258,7 @@ class Premium_Testimonials extends Widget_Base {
 			array(
 				'label'       => __( 'Rating Score', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
+                'dynamic'     => array( 'active' => true ),
 				'min'         => 0,
 				'max'         => 5,
 				'description' => __( 'Leave empty if not needed.', 'premium-addons-for-elementor' ),
@@ -355,6 +356,7 @@ class Premium_Testimonials extends Widget_Base {
 			array(
 				'label'       => __( 'Rating Score', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
+                'dynamic'     => array( 'active' => true ),
 				'description' => __( 'Leave empty if not needed.', 'premium-addons-for-elementor' ),
 				'min'         => 0,
 				'max'         => 5,
@@ -1568,8 +1570,6 @@ class Premium_Testimonials extends Widget_Base {
 		if ( $carousel ) {
 
 			$this->add_render_attribute( 'testimonials_container', 'data-carousel', $carousel );
-
-			$speed = ! empty( $settings['carousel_autoplay_speed'] ) ? $settings['carousel_autoplay_speed'] : 5000;
 
 			$this->add_render_attribute(
 				'testimonials_container',

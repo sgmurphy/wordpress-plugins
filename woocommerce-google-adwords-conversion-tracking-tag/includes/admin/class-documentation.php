@@ -105,6 +105,10 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/snapchat',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
+			'snapchat_capi_token'                                      => [
+				'default' => '/docs/wpm/plugin-configuration/snapchat#conversions-api',
+				'wcm'     => '',
+			],
 			'snapchat_advanced_matching'                             => [
 				'default' => '/docs/wpm/plugin-configuration/snapchat#advanced-matching',
 				'wcm'     => '',

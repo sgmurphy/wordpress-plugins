@@ -1044,7 +1044,7 @@ class Module {
 
 			$svg_html .= '<pattern id="pa-shape-divider-fill-' . $id . '" patternUnits="userSpaceOnUse" width="100%" height="100%">' .
 
-			'<image href="' . $img_src . '" x="' . $img_options['xpos'] . '" y="' . $img_options['ypos'] . '" width="' . $img_options['width'] . '" height="' . $img_options['height'] . '" ' . $img_options['aspect'] . '" />' .
+			'<image href="' . esc_url( $img_src ) . '" x="' . $img_options['xpos'] . '" y="' . $img_options['ypos'] . '" width="' . $img_options['width'] . '" height="' . $img_options['height'] . '" ' . $img_options['aspect'] . '" />' .
 
 			'</pattern>';
 		} else {

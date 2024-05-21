@@ -1,15 +1,15 @@
-=== Regenerate Thumbnails, Compress, Convert to WebP, Find Unused Images, Image Editor & More - ThumbPress ===
+=== ThumbPress - Disable Thumbnails, Regenerate Thumbnails, Optimize Images, Convert to WebP, Compress Images, Image Editor & More ===
 Contributors: pluggable, codexpert, thumbpressco, mukto90
 Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&utm_campaign=image-sizes
 Tags: compress images, disable thumbnails, image editor, optimize images, regenerate thumbnails
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 5.1.2
+Stable tag: 5.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Disable and Regenerate Thumbnails, Compress Images, Convert Images to WebP, Find Large Images, Edit Images, and more with ThumbPress.
+Disable Thumbnails, Regenerate Thumbnails, Compress Images, Convert to WebP, Find Unused and Large Images, Edit Images, and more with ThumbPress.
 
 == Description ==
 
@@ -23,17 +23,17 @@ Check out the exciting features below:
 
 ### 👉 All ThumbPress Features to Supercharge Your WordPress Image Management
 
-💥 Disable Thumbnails
-💥 Regenerate Thumbnails
+💥 [Disable Thumbnails](https://thumbpress.co/modules/disable-thumbnails/)
+💥 [Regenerate Thumbnails](https://thumbpress.co/modules/regenerate-thumbnails/)
 💥 [Find Unused Images](https://thumbpress.co/modules/detect-unused-images/) [Pro]
-💥 Set Image Upload Limit
+💥 [Set Image Upload Limit](https://thumbpress.co/modules/image-upload-limit/)
 💥 [Detect Large Images](https://thumbpress.co/modules/detect-large-images/) [Pro]
 💥 [Image Compression](https://thumbpress.co/modules/compress-images/) [Pro]
 💥 [Replace Images](https://thumbpress.co/modules/replace-image-with-new-version/) [Pro]
-💥 Set Social Media Thumbnails
+💥 [Set Social Media Thumbnails](https://thumbpress.co/modules/set-social-media-thumbnails/)
 💥 [Image Editor](https://thumbpress.co/modules/image-editor/) [Pro]
-💥 Convert to WebP
-💥 Disable Right Click on Image
+💥 [Convert to WebP](https://thumbpress.co/modules/convert-images-to-webp/)
+💥 [Disable Right Click on Image](https://thumbpress.co/modules/disable-right-click/)
 
 Here are some of the key features of the ThumbPress plugin for WordPress Image Management –
 
@@ -163,14 +163,24 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 
 == Changelog ==
 
-= v5.1.2 – 2024-05-20 =
+= 2024-05-21 – v5.2.2 =
+- [fix] Fixed the issue of stopping generating thumbnails
+
+= 2024-05-21 – v5.2.1 =
+- [imp] removed pointer notice
+
+= 2024-05-21 – v5.2 =
+- [fix] solved regenerate thumbnails issue
+- [imp] optimized javascript code
+
+= 2024-05-20 – v5.1.2 =
 - [imp] removed admin notice from dashboard
 - [mod] changed leave a review button url
 
-= v5.1.1 – 2024-05-15 =
+= 2024-05-15 – v5.1.1 =
 - [fix] `Add New Plugin` page refersh button onclick issue fixed
 
-= v5.1.0.2 – 2024-05-09 =
+= 2024-05-09 – v5.1.0.2 =
 - [imp] code structure improved
 - [fix] sub-menu text changed
 - [fix] replace images issue fixed
@@ -191,7 +201,7 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 - [fix] scaled image regenerate issue fixed
 - [fix] scaled image thumbnail regenerate in background issue fixed
 
-= v5.0.2 – 2024-05-01 =
+= 2024-05-01 – v5.0.2 =
 * [fix] fixed pinterest thumbnail in social share images module
 * [fix] fixed typographic issues in sereral modules
 * [fix] fixed Setup Wizard skip button URL
@@ -201,11 +211,11 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 * [imp] Pinterest pin meta tag updated in social share images module
 * [imp] improved some styles
 
-= v5.0.1 – 2024-04-29 =
+= 2024-04-29 – v5.0.1 =
 * [fix] JS and CSS minified
 * [fix] Compat tested with WordPress 6.5.2
 
-= v5.0 – 2024-04-29 =
+= 2024-04-29 – v5.0 =
 * [new] #### 🚀 Introduced modules-
 	- Detect Unused Images
 	- Set Image Upload Limit

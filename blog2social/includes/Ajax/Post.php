@@ -372,11 +372,11 @@ class Ajax_Post {
                                     if ($tokenInfo !== false && is_array($tokenInfo) && !empty($tokenInfo)) {
                                         if (isset($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']) && isset($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_daily_post_quota']) && isset($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'])) {
                                             if (B2S_PLUGIN_USER_VERSION > 0) {
-                                                $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] = ($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota']) - count($countPost);
+                                                $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] = ($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota']) - (int) $countPost;
                                             }
                                             //Type direct Post
                                             if (isset($_POST['ship_type']) && (int) $_POST['ship_type'] == 0) {
-                                                $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_daily_post_quota'] = ($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_daily_post_quota']) - count($countPost);
+                                                $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_daily_post_quota'] = ($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_daily_post_quota']) - (int) $countPost;
                                             }
                                             $currentOpenDailyLimit = (int) $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_daily_post_quota'];
                                             $currentOpenSchedLimit = (B2S_PLUGIN_USER_VERSION > 0) ? (int) $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] : $currentOpenDailyLimit;

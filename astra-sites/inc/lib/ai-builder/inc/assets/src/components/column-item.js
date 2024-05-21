@@ -9,12 +9,11 @@ import DotsLoader from './dots-loader';
 import { siteLogoDefault } from '../store/reducer';
 
 export const ColumnItem = ( { template, isRecommended, position } ) => {
-	const { businessName, selectedImages, templateList } = useSelect(
-		( select ) => {
+	const { businessName, selectedImages, templateList, businessContact } =
+		useSelect( ( select ) => {
 			const { getAIStepData } = select( STORE_KEY );
 			return getAIStepData();
-		}
-	);
+		} );
 
 	const {
 		setWebsiteSelectedTemplateAIStep,
@@ -62,6 +61,33 @@ export const ColumnItem = ( { template, isRecommended, position } ) => {
 		if ( ! selectedImages?.length ) {
 			selectedImages.push( aiBuilderVars?.placeholder_images[ 0 ] );
 			selectedImages.push( aiBuilderVars?.placeholder_images[ 1 ] );
+		}
+
+		if ( Object.values( businessContact ).some( Boolean ) ) {
+			const updatedData = [
+				{
+					type: 'phone',
+					value: businessContact.phone,
+					fallback: '202-555-0188',
+				},
+				{
+					type: 'email',
+					value: businessContact.email,
+					fallback: 'contact@example.com',
+				},
+				{
+					type: 'address',
+					value: businessContact.address,
+					fallback: '2360 Hood Avenue, San Diego, CA, 92123',
+				},
+			];
+			sendPostMessage(
+				{
+					param: 'contactInfo',
+					data: updatedData,
+				},
+				uuid
+			);
 		}
 
 		sendPostMessage(

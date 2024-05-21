@@ -1470,3 +1470,9 @@
     transform: none !important;
     display: inline;
 }
+
+.premium-banner-link {
+    display: inline-block;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }

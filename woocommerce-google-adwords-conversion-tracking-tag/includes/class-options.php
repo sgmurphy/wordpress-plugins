@@ -334,7 +334,7 @@ class Options {
 		return (bool) self::get_options_obj()->facebook->capi->user_transparency->send_additional_client_identifiers;
 	}
 
-	public static function is_facebook_capi_enabled() {
+	public static function is_facebook_capi_active() {
 		return self::is_facebook_active() && self::get_facebook_capi_token();
 	}
 
@@ -366,12 +366,8 @@ class Options {
 		return (bool) self::get_tiktok_eapi_test_event_code();
 	}
 
-	public static function is_tiktok_eapi_enabled() {
-		return self::is_tiktok_active() && self::get_tiktok_eapi_token();
-	}
-
 	public static function is_tiktok_eapi_active() {
-		return self::is_tiktok_active() && self::is_tiktok_eapi_enabled();
+		return self::is_tiktok_active() && self::get_tiktok_eapi_token();
 	}
 
 	public static function is_tiktok_advanced_matching_enabled() {
@@ -430,7 +426,7 @@ class Options {
 		return self::get_options_obj()->snapchat->capi->token;
 	}
 
-	public static function is_snapchat_capi_enabled() {
+	public static function is_snapchat_capi_active() {
 		return self::is_snapchat_active() && self::get_snapchat_capi_token();
 	}
 
@@ -878,10 +874,10 @@ class Options {
 
 	public static function server_2_server_enabled() {
 		return
-			self::is_facebook_capi_enabled()
-			|| self::is_tiktok_eapi_enabled()
+			self::is_facebook_capi_active()
+			|| self::is_tiktok_eapi_active()
 			|| self::is_pinterest_apic_active()
-			|| self::is_snapchat_capi_enabled();
+			|| self::is_snapchat_capi_active();
 	}
 
 	public static function get_excluded_roles() {

@@ -2344,7 +2344,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 		if($showDebugQuery == true){
 			echo "<div class='uc-debug-query-wrapper'>";	//start debug wrapper
-
+			
 			$argsForDebug = $args;
 			if(!empty($arrQueryBase))
 				$argsForDebug = UniteFunctionsWPUC::cleanQueryArgsForDebug($argsForDebug);
@@ -4074,6 +4074,19 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 	protected function z_______________REMOTE____________(){}
 
 	/**
+	 * update for the template switcher, to keep the sync inside the template
+	 */
+	private function modifySyncGroupName($syncParentName){
+		
+		if(empty(GlobalsProviderUC::$renderTemplateID)) 
+			return($syncParentName);
+			
+		$syncParentName .= "_".GlobalsProviderUC::$renderTemplateID;
+		
+		return($syncParentName);
+	}
+	
+	/**
 	 * get remote parent type data
 	 */
 	private function getRemoteParentData($value, $name, $processType, $param, $data){
@@ -4136,16 +4149,10 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 		if($isSync == true){
 			
-			//get the name
 			$syncParentName = UniteFunctionsUC::getVal($value, $name."_sync_name");
 			
-			//update for the template switcher, to keep the sync inside the template
-			if(GlobalsProviderUC::$renderJSForHiddenContent == true){
-				
-				if(!empty(GlobalsProviderUC::$renderTemplateID))
-					$syncParentName .= "_".GlobalsProviderUC::$renderTemplateID;
-			}
-			
+			$syncParentName = $this->modifySyncGroupName($syncParentName);
+						
 			$attributes .= " data-sync='true' data-syncid='$syncParentName'";
 		}
 
@@ -4188,9 +4195,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 
 		HelperUC::addRemoteControlsScript();
 
+		$syncParentName = $this->modifySyncGroupName($syncParentName);
+		
+		
 		$attributes = "";
 		$attributes .= " data-sync='true' data-syncid='$syncParentName' data-remoteid='$remoteParentName'";
-
+		
 		if($isDebug == true)
 			$attributes .= " data-debug='true'";
 

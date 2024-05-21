@@ -354,6 +354,8 @@ class WC_Stripe_Payment_Intent extends WC_Stripe_Payment {
 
 		if ( ( $customer_id = wc_stripe_get_customer_id( $order->get_customer_id() ) ) ) {
 			$args['customer'] = $customer_id;
+		} elseif ( ( $customer_id = $order->get_meta( WC_Stripe_Constants::CUSTOMER_ID ) ) ) {
+			$args['customer'] = $customer_id;
 		}
 
 		if ( $this->payment_method->should_save_payment_method( $order )

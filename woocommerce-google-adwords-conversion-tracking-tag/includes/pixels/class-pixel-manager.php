@@ -399,12 +399,6 @@ class Pixel_Manager {
         return true;
     }
 
-    public function capture_ajax_server_to_server_event() {
-        $_post = Helpers::get_input_vars( INPUT_POST );
-        $this->process_server_to_server_event( $_post['data'] );
-        wp_send_json_success();
-    }
-
     public static function pmw_store_ipv6_in_server_session() {
         $_post = Helpers::get_input_vars( INPUT_POST );
         // return error if the ipv6 field is not set
@@ -435,25 +429,6 @@ class Pixel_Manager {
         ] );
     }
 
-    public function process_server_to_server_event( $data ) {
-        // Send Facebook CAPI event
-        if ( isset( $data['facebook'] ) ) {
-            Facebook_CAPI::send_facebook_capi_event( $data['facebook'] );
-        }
-        // Send Tiktok Events API event
-        if ( isset( $data['tiktok'] ) ) {
-            TikTok_EAPI::send_tiktok_eapi_event( $data['tiktok'] );
-        }
-        // Send Pinterest APIC event
-        if ( isset( $data['pinterest'] ) ) {
-            Pinterest_APIC::send_pinterest_apic_event( $data['pinterest'] );
-        }
-        // Send Snapchat CAPI event
-        if ( isset( $data['snapchat'] ) ) {
-            Snapchat_CAPI::send_snapchat_capi_event( $data['snapchat'] );
-        }
-    }
-
     public function pmw_save_imported_settings( $request ) {
         // Verify nonce
         if ( !wp_verify_nonce( $request->get_header( 'X-WP-Nonce' ), 'wp_rest' ) ) {
@@ -481,22 +456,26 @@ class Pixel_Manager {
     public function run_background_processes() {
         if ( wpm_fs()->can_use_premium_code__premium_only() && Environment::is_woocommerce_active() ) {
             if ( is_cart() || is_checkout() ) {
-                if ( Options::is_google_analytics_active() ) {
-                    Google_MP_GA4::pmw_google_analytics_set_session_data();
+                if ( Options::is_ga4_mp_active() ) {
+                    Google_MP_GA4::set_identifiers_on_session();
                 }
-                if ( Options::is_facebook_capi_enabled() ) {
-                    Facebook_CAPI::pmw_facebook_set_session_identifiers();
+                if ( Options::is_facebook_capi_active() ) {
+                    Facebook_CAPI::set_identifiers_on_session();
                 }
                 if ( Options::is_tiktok_eapi_active() ) {
-                    TikTok_EAPI::set_session_identifiers();
+                    TikTok_EAPI::set_identifiers_on_session();
                 }
                 if ( Options::is_pinterest_apic_active() ) {
-                    Pinterest_APIC::set_session_identifiers();
+                    Pinterest_APIC::set_identifiers_on_session();
+                }
+                if ( Options::is_snapchat_capi_active() ) {
+                    Snapchat_CAPI::set_identifiers_on_session();
                 }
             }
+            // TODO: That function should probably not go into the Google_MP_GA4 class
             if ( Shop::pmw_is_order_received_page() ) {
                 if ( Shop::pmw_get_current_order() ) {
-                    Google_MP_GA4::save_gclid_in_order__premium_only( Shop::pmw_get_current_order() );
+                    Google_Helpers::save_gclid_in_order__premium_only( Shop::pmw_get_current_order() );
                 }
             }
         }
@@ -880,7 +859,7 @@ class Pixel_Manager {
             'dynamic_remarketing' => [
                 'id_type' => Product::get_dyn_r_id_type( 'facebook' ),
             ],
-            'capi'                => Options::is_facebook_capi_enabled(),
+            'capi'                => Options::is_facebook_capi_active(),
             'advanced_matching'   => Options::is_facebook_capi_advanced_matching_enabled(),
             'exclusion_patterns'  => apply_filters( 'pmw_facebook_tracking_exclusion_patterns', [] ),
             'fbevents_js_url'     => Helpers::get_facebook_fbevents_js_url(),
@@ -1407,6 +1386,7 @@ class Pixel_Manager {
         $data['order_duplication_prevention'] = Shop::is_order_duplication_prevention_active();
         $data['view_item_list_trigger'] = Shop::view_item_list_trigger_settings();
         $data['variations_output'] = Options::is_shop_variations_output_active();
+        $data['session_active'] = Helpers::is_woocommerce_session_active();
         return $data;
     }
 

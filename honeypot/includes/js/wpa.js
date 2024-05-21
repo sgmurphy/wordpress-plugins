@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 	wpa_unique_id 	= wpa_field_info.wpa_field_value;
 	wpa_add_test 	= wpa_field_info.wpa_add_test;
 
-	wpa_hidden_field 			= "<div id='altEmail_container'><label for='alt_s'>Alternative:</label><input type='text' id='alt_s' name='alt_s' ></div><span class='wpa_hidden_field' style='display:none;height:0;width:0;'><label>WPA <input type='text' name='"+wpa_field_name+"' value='"+wpa_unique_id+"' /></label></span>";
+	wpa_hidden_field 			= "<div id='altEmail_container' class='altEmail_container'><label for='alt_s'>Alternative:</label><input type='text' id='alt_s' name='alt_s' ></div><span class='wpa_hidden_field' style='display:none;height:0;width:0;'><label>WPA <input type='text' name='"+wpa_field_name+"' value='"+wpa_unique_id+"' /></label></span>";
 
 	wpa_add_honeypot_field();
 
@@ -36,11 +36,15 @@ function wpa_add_honeypot_field(){
 	jQuery('.bbp-reply-form form').append(wpa_hidden_field); // BBPRESS REPLY
 	
 	// FOR COMMENTS
-	jQuery('form#commentform').append(wpa_hidden_field); // WP COMMENT
-	jQuery('form#ast-commentform').append(wpa_hidden_field); // Astra Comment Form
-	jQuery('form#fl-comment-form').append(wpa_hidden_field); // Beaver Builder Theme Form
-	jQuery('form.comment-form').append(wpa_hidden_field);
-	jQuery('form#edd-reviews-form').append(wpa_hidden_field); // EDD REVIEWS	
+	var commentFormSelectors = [
+	    'form#commentform',            // WP COMMENT with ID
+	    'form.ast-commentform',        // Astra Comment Form with class
+	    'form#fl-comment-form',        // Beaver Builder Theme Form with ID
+	    'form.comment-form',           // WP COMMENT with class
+	    'form#edd-reviews-form'        // EDD REVIEWS with ID
+	];
+	jQuery(commentFormSelectors.join(', ')).append(wpa_hidden_field);
+	// EOF FOR COMMENTS
 
 	jQuery('form.wpcf7-form').append(wpa_hidden_field); // CONTACT FORM 7
 	jQuery('form.wpforms-form').append(wpa_hidden_field); // WPFFORMS
@@ -74,7 +78,6 @@ function wpa_add_honeypot_field(){
 	jQuery('form#edd_login_form').append(wpa_hidden_field);	// EDD LOGIN FORM
 	jQuery('form.uwp-login-form').append(wpa_hidden_field);	// USER WP LOGIN FORM
 	
-	
 }
 
 function wpa_add_test_block(){
@@ -85,7 +88,7 @@ function wpa_add_test_block(){
 
 function wpa_remove_honeypot_field(){
 	jQuery('.wpa_hidden_field').remove();
-	jQuery('#altEmail_container').remove();
+	jQuery('#altEmail_container, .altEmail_container').remove();
 
 	if (typeof fluent_forms_global_var_1 !== 'undefined') { 
     	delete fluent_forms_global_var_1.extra_inputs[wpa_field_name];

@@ -314,11 +314,12 @@ class UCEmptyTemplate{
 			//render in hidden mode
 			
 			$isHidden = false;
+				
+			GlobalsProviderUC::$renderTemplateID = $templateID;
 			
 			if($index > 0){
 				
 				GlobalsProviderUC::$renderJSForHiddenContent = true;
-				GlobalsProviderUC::$renderTemplateID = $templateID;
 				$isHidden = true;
 			}
 			
@@ -342,6 +343,8 @@ class UCEmptyTemplate{
 			$content .= "<div id='uc_template_$templateID' class='uc-template-holder{$class}' data-id='$templateID' data-link='$urlTemplate'>$output</div>";
 			
 			GlobalsProviderUC::$renderJSForHiddenContent = false;
+			
+			GlobalsProviderUC::$renderTemplateID = null;
 			
 		}
 		

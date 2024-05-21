@@ -30,9 +30,25 @@ function ueCheckCatalog(){
 	
 }
 
-if(GlobalsUC::$inDev == true){
+function checkSomeFunc(){
+	
+$operations = new ProviderOperationsUC();
 
-	ueCheckCatalog();
+$data = array();
+$data["post_ids"] = array("0=0)UNION+SELECT+NULL,NULL,SLEEP(10)+--+");
+
+
+$arrData = $operations->getSelect2PostTitles($data);
+	
+dmp($arrData);
+	
+}
+
+
+if(GlobalsUC::$inDev == true){
+	checkSomeFunc();
+	
+	//ueCheckCatalog();
 	
 }
 

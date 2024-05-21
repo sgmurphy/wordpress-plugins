@@ -100,6 +100,16 @@ cff_forms_templates = {
             "description": "Calculate the number of calories a person needs to consume each day to maintain his or her weight.",
             "id": 7
         }, {
+            "title": "Calories Calculator - Imperial and Metric",
+            "category": "Health",
+            "description": "Calculate the number of calories a person needs to consume each day for weight maintenance and the activity level alternatives.",
+            "id": 32
+        }, {
+            "title": "Daily Hydratation Calculator",
+            "category": "Health",
+            "description": "Calculate the daily water intake based on gender, age, activity level, and climate.",
+            "id": 33
+        }, {
             "title": "Weight Goal",
             "category": "Health",
             "description": "Calculates the daily calories you should eat to reach a weight goal.",

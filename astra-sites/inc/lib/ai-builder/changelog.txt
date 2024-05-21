@@ -1,3 +1,9 @@
+v1.0.26 - 21-May-2024
+- Fix: Fixed fatal error while activating plugin on multisite.
+
+v1.0.25 - 17-May-2024
+- Fix: Show the user-entered contact details in the preview.
+
 v1.0.24 - 15-May-2024
 - Improvement: Added compatibility for WP-CLI import process.
 

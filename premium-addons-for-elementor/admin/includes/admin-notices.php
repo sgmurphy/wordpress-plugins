@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'search_form',
+			'mobile_menu',
 		);
 
-		delete_option( 'countdown' );
+		delete_option( 'search_form' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_search_form_notice();
+		$this->get_mobile_menu_notice();
 
 	}
 
@@ -235,22 +235,22 @@ class Admin_Notices {
 
 	/**
 	 *
-	 * Shows admin notice for Search Form widget.
+	 * Shows admin notice for Mobile Menu widget.
 	 *
-	 * @since 4.10.25
+	 * @since 4.10.32
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function get_search_form_notice() {
+	public function get_mobile_menu_notice() {
 
-		$option = get_option( 'search_form' );
+		$option = get_option( 'mobile_menu' );
 
 		if ( '1' === $option ) {
 			return;
 		}
 
-		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget', 'search-notification', 'wp-dash', 'search' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mobile-menu-widget', 'mobile-menu-notification', 'wp-dash', 'mobile-menu' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Premium AJAX Search widget', 'premium-addons-for-elemetor' ); ?></strong>
+					<strong><?php echo __( 'Premium Mobile Menu widget', 'premium-addons-for-elemetor' ); ?></strong>
 					<?php echo sprintf( __( 'is now available in Premium Addons for Elementor. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="search">
+			<div class="pa-notice-close" data-notice="mobile-menu">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

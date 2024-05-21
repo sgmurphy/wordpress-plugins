@@ -9,13 +9,13 @@
             $scope = $('.elementor-element-' + id);
         }
 
-        if ( !elementorFrontend.isEditMode() ) {
+        if (!elementorFrontend.isEditMode()) {
             $scope.find('.premium-weather__outer-wrapper').css({ visibility: 'visible', opacity: 1 });
         }
 
         var settings = $scope.find('.premium-weather__outer-wrapper').data('pa-weather-settings');
 
-        if ( ! settings ) {
+        if (!settings) {
             return;
         }
 
@@ -26,53 +26,53 @@
             dailyEqWidth = !forecastTabs && !dailyForecastCarousel & !$scope.hasClass('premium-daily-forecast__style-4') ? true : false;
 
 
-        if ( $forecastSlider.length ) {
+        if ($forecastSlider.length) {
             $forecastSlider.addClass('premium-addons__v-hidden').slick(getSlickSettings(settings, settings.layout, false));
         }
 
-        if ( dailyForecastCarousel ) {
+        if (dailyForecastCarousel) {
             var dailyCarouselSettings = $scope.find('.premium-weather__outer-wrapper').data('pa-daily-settings');
 
-            $scope.find('.premium-weather__forecast').slick( getSlickSettings(dailyCarouselSettings, '', true) );
+            $scope.find('.premium-weather__forecast').slick(getSlickSettings(dailyCarouselSettings, '', true));
         }
 
         // append the arrows here.
-        if ( 'layout-2' !== settings.layout && 'vertical' === settings.hourlyLayout ) {
-            var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
+        if ('layout-2' !== settings.layout && 'vertical' === settings.hourlyLayout) {
+            var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
                 nextArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-chevron-right" aria-hidden="true"></i></a>';
 
-            $forecastSlider.append( prevArrow + nextArrow );
+            $forecastSlider.append(prevArrow + nextArrow);
 
-            $scope.find('a.carousel-arrow').on('click.paWeatherNav', function() {
+            $scope.find('a.carousel-arrow').on('click.paWeatherNav', function () {
 
-                if ( $(this).hasClass('carousel-prev') ) {
+                if ($(this).hasClass('carousel-prev')) {
                     $forecastSlider.slick('slickPrev');
-                } else if ( $(this).hasClass('carousel-next') ) {
+                } else if ($(this).hasClass('carousel-next')) {
                     $forecastSlider.slick('slickNext');
                 }
 
             });
         }
 
-        if ( $forecastSlider.length ) {
+        if ($forecastSlider.length) {
             $forecastSlider.removeClass('premium-addons__v-hidden');
         }
 
         $(window).trigger('resize');
 
-        if ( forecastTabs ) {
+        if (forecastTabs) {
 
             var $tabs_headers = $scope.find('.premium-weather__tab-header');
 
-            $tabs_headers.on('click.paWeatherTabs', function() {
+            $tabs_headers.on('click.paWeatherTabs', function () {
                 $scope.find('.current').removeClass('current');
 
                 $(this).addClass('current');
-                $scope.find( $(this).data('content-id') ).addClass('current');
+                $scope.find($(this).data('content-id')).addClass('current');
             });
         }
 
-        if ( '' !== forecastHeight ) {
+        if ('' !== forecastHeight) {
             $scope.find('.premium-weather__forecast').slimScroll({
                 color: '#00000033',
                 height: forecastHeight,
@@ -81,8 +81,8 @@
             $scope.find('.slimScrollDiv').css('overflow', '');
         }
 
-        if ( dailyEqWidth ) {
-            equalWidth( $scope );
+        if (dailyEqWidth) {
+            equalWidth($scope);
         }
 
         function getSlickSettings(settings, widgetLayout, dailyForecast) {
@@ -94,7 +94,7 @@
                 draggable: true,
             };
 
-            if ( ! dailyForecast && 'layout-2' !== widgetLayout && 'vertical' === settings.hourlyLayout ) {
+            if (!dailyForecast && 'layout-2' !== widgetLayout && 'vertical' === settings.hourlyLayout) {
                 slickSetting.slidesToShow = 1;
                 slickSetting.slidesToScroll = 1;
                 slickSetting.rows = settings.slidesToShow;
@@ -111,15 +111,15 @@
                     {
                         breakpoint: 768,
                         settings: {
-                            slidesToShow:  1,
-                            slidesToScroll:  1,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
                             rows: settings.slidesToShowMobile || 1
                         }
                     }
                 ];
             } else {
 
-                var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
+                var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
                     nextArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-chevron-right" aria-hidden="true"></i></a>';
 
                 slickSetting.slidesToScroll = settings.slidesToScroll || 1;
@@ -164,7 +164,7 @@
     };
 
     $(window).on('elementor/frontend/init', function () {
-        elementorFrontend.hooks.addAction('frontend/element_ready/premium-weather.default',  PremiumWeatherHandler);
+        elementorFrontend.hooks.addAction('frontend/element_ready/premium-weather.default', PremiumWeatherHandler);
     });
 
 })(jQuery);

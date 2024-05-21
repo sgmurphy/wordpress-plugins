@@ -242,7 +242,7 @@
                     }
                 });
 
-                var fullWidth = (horAlignWidth + ($mediaItem.length * parseFloat(slidesSpacing)));
+                var fullWidth = (horAlignWidth + ($scope.find('.premium-adv-carousel__item').length * parseFloat(slidesSpacing)));
                 // var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
                 var animation = gsap.to($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
                     duration: settings.speed,

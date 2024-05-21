@@ -146,7 +146,7 @@ abstract class Skin_Style {
 			'arrows'         => $arrows,
 			'dots'           => $dots,
 			'rtl'            => $is_rtl,
-			'prevArrow'      => '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
+			'prevArrow'      => '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
 			'nextArrow'      => '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-angle-right" aria-hidden="true"></i></a>',
 		);
 

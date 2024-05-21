@@ -2,6 +2,10 @@
 
     var PremiumSearchHandler = function ($scope, $) {
 
+        var widgetID = $scope.data('id');
+
+        $scope = $('.elementor-element-' + widgetID);
+
         var $container = $scope.find('.premium-search__container'),
             settings = $container.data('settings'),
             $search = $scope.find('.premium-search__input'),
@@ -206,7 +210,7 @@
                             });
 
                             $queriedElems.css('filter', 'blur(3px)');
-                            $fadeElems.css('opacity', '0.7');
+                            $fadeElems.css('opacity', '0.4');
                         } else {
                             $textElems.css('filter', 'blur(0px)');
                             $fadeElems.css('opacity', '1');

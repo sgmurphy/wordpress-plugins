@@ -12,12 +12,20 @@ $elements = array(
 		'icon'     => 'all',
 		'title'    => __( 'All Widgets', 'premium-addons-for-elementor' ),
 		'elements' => array(
-            array(
-				'key'      => 'premium-search-form',
-				'name'     => 'premium-search-form',
-				'title'    => __( 'Search Form', 'premium-addons-for-elementor' ),
-				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+			array(
+				'key'      => 'premium-mobile-menu',
+				'name'     => 'premium-mobile-menu',
+				'title'    => __( 'Mobile Menu', 'premium-addons-for-elementor' ),
+				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mobile-menu-widget', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'draw_svg' => true,
+			),
+			array(
+				'key'   => 'premium-search-form',
+				'name'  => 'premium-search-form',
+				'title' => __( 'Search Form', 'premium-addons-for-elementor' ),
+				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
 			array(
 				'key'      => 'premium-notifications',
@@ -663,7 +671,7 @@ $elements = array(
 				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-weather-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'draw_svg' => true,
 			),
-            array(
+			array(
 				'key'      => 'premium-textual-showcase',
 				'name'     => 'premium-textual-showcase',
 				'title'    => __( 'Textual Showcase', 'premium-addons-for-elementor' ),
@@ -677,12 +685,12 @@ $elements = array(
 		'icon'     => 'content',
 		'title'    => __( 'Content Widgets', 'premium-addons-for-elementor' ),
 		'elements' => array(
-            array(
-				'key'      => 'premium-search-form',
-				'name'     => 'premium-search-form',
-				'title'    => __( 'Search Form', 'premium-addons-for-elementor' ),
-				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
-				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+			array(
+				'key'   => 'premium-search-form',
+				'name'  => 'premium-search-form',
+				'title' => __( 'Search Form', 'premium-addons-for-elementor' ),
+				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-ajax-search-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
 			array(
 				'key'      => 'premium-carousel',
@@ -736,6 +744,14 @@ $elements = array(
 				'title' => __( 'Nav/Mega Menu', 'premium-addons-for-elementor' ),
 				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mega-menu-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-mega-menu-widget-tutorial', 'settings-page', 'wp-dash', 'dashboard' ),
+			),
+			array(
+				'key'      => 'premium-mobile-menu',
+				'name'     => 'premium-mobile-menu',
+				'title'    => __( 'Mobile Menu', 'premium-addons-for-elementor' ),
+				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mobile-menu-widget', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'draw_svg' => true,
 			),
 			array(
 				'key'      => 'premium-maps',
@@ -800,7 +816,7 @@ $elements = array(
 				'is_pro'   => true,
 				'draw_svg' => true,
 			),
-            array(
+			array(
 				'key'      => 'premium-textual-showcase',
 				'name'     => 'premium-textual-showcase',
 				'title'    => __( 'Textual Showcase', 'premium-addons-for-elementor' ),
@@ -1018,8 +1034,8 @@ $elements = array(
 				'key'      => 'premium-magic-section',
 				'name'     => 'premium-addon-magic-section',
 				'title'    => __( 'Off Canvas', 'premium-addons-for-elementor' ),
-				'demo'       => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-off-canvas-widget', 'settings-page', 'wp-dash', 'dashboard' ),
-				'doc'        => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-off-canvas-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-off-canvas-widget', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-off-canvas-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'is_pro'   => true,
 				'draw_svg' => true,
 			),

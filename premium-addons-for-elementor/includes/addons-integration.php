@@ -1413,6 +1413,10 @@ class Addons_Integration {
 			wp_send_json_error( 'Empty Template ID' );
 		}
 
+        if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( 'Insufficient user role' );
+		}
+
 		$template_content = $this->template_instance->get_template_content( $template );
 
 		if ( empty( $template_content ) || ! isset( $template_content ) ) {
@@ -1510,6 +1514,7 @@ class Addons_Integration {
 			self::$modules['premium-smart-post-listing'],
 			self::$modules['premium-post-ticker'],
 			self::$modules['premium-notifications'],
+            self::$modules['premium-search-form'],
 		);
 
 		$load_controls = in_array( true, $modules, true );

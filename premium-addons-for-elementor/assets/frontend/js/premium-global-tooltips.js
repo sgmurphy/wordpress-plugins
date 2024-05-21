@@ -276,16 +276,19 @@
                             return;
                         }
 
-                        if (!elementorFrontend.isEditMode()) {
+                        if (!elementorFrontend.isEditMode()) { // fronend.
+
                             if ('' !== settings.uniqueClass) {
                                 addTourEvents();
                             }
+
+                            $("#tooltip_content-" + id).parent().addClass('pa-tooltipstered');
 
                             var content = $("#tooltip_content-" + id).detach();
 
                             instance.content(content);
 
-                            $(".premium-global-tooltips-wrapper-temp-" + id).remove();
+                            $(".pa-tooltipstered.premium-global-tooltips-wrapper-temp-" + id).remove();
                         }
 
                         if ('' !== settings.uniqueClass) {

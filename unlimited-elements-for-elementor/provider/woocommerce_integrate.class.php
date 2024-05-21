@@ -921,19 +921,24 @@ class UniteCreatorWooIntegrate{
 	/**
 	 * return if the current pais is a cart page
 	 */
-	public static function isCartPage(){
-		
+	public static function isCartOrCheckoutPage(){
+				
 		if(self::isWooActive() == false)
 			return(false);
 		
 		$cartPageID = wc_get_page_id("cart");
-
+		
 		if(empty($cartPageID))
 			return(false);
-			
+		
 		$currentPageID = get_the_id();
 		
 		if($currentPageID == $cartPageID)
+			return(true);
+		
+		$checkoutID = wc_get_page_id("checkout");
+		
+		if($currentPageID == $checkoutID)
 			return(true);
 		
 		

@@ -2741,18 +2741,18 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		$db = self::getDB();
 
 		$tablePosts = UniteProviderFunctionsUC::$tablePosts;
-
+				
 		$strIDs = implode(",", $arrIDs);
-
+		
+		UniteFunctionsUC::validateIDsList($strIDs,"post ids");
+		
 		if(empty($strIDs))
 			return (array());
-
-		$strIDs = $db->escape($strIDs);
-
+		
 		$sql = "select ID as id,post_title as title, post_type as type from $tablePosts where ID in($strIDs)";
-
+		
 		$response = $db->fetchSql($sql);
-
+		
 		if(empty($response))
 			return (array());
 

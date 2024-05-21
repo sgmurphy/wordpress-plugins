@@ -22,6 +22,8 @@ class Helpers {
      *
      * @param bool   $raw
      *        Whether to apply raw sanitization or not. Default is false.
+     *        If true, the function will apply FILTER_UNSAFE_RAW sanitization.
+     *        This is potentially unsafe and should be used with caution.
      *
      * @return mixed
      */
@@ -326,9 +328,10 @@ class Helpers {
         if ( !empty( self::$user_data ) ) {
             return self::$user_data;
         }
-        $data = [];
+        $user_data = [];
         $order = ( Environment::is_woocommerce_active() && !$order && Shop::pmw_is_order_received_page() && Shop::pmw_get_current_order() ? Shop::pmw_get_current_order() : $order );
-        // If the order is not null get the $current_user from the order
+        // If the order is not null,
+        // get the $current_user from the order.
         if ( $order && $order->get_user() ) {
             $current_user = $order->get_user();
         } else {
@@ -336,8 +339,8 @@ class Helpers {
         }
         // If the user is logged in, get the user data
         if ( $current_user ) {
-            $data['id']['raw'] = get_current_user_id();
-            $data['id']['sha256'] = self::hash_string( $data['id']['raw'] );
+            $user_data['id']['raw'] = get_current_user_id();
+            $user_data['id']['sha256'] = self::hash_string( $user_data['id']['raw'] );
         }
         /**
          * Determine the details.
@@ -345,6 +348,44 @@ class Helpers {
          * If logged in use the logged-in user data.
          * On the order page, override the logged-in user data with the order data.
          */
+        $raw_user_data = self::get_raw_user_data( $order, $current_user );
+        // Add the details to the data array and return it
+        // Only add the data if it exists
+        //		$data = $email ? self::get_user_object_email($email) : $data;
+        // If $email is not empty,
+        // get the data from self::get_user_object_email($email) and add it to $data['email']
+        if ( !empty( $raw_user_data['email'] ) ) {
+            $user_data['email'] = self::get_user_object_email( $raw_user_data['email'] );
+        }
+        if ( !empty( $raw_user_data['first_name'] ) ) {
+            $user_data['first_name'] = self::get_user_object_first_name( $raw_user_data['first_name'] );
+        }
+        if ( !empty( $raw_user_data['last_name'] ) ) {
+            $user_data['last_name'] = self::get_user_object_last_name( $raw_user_data['last_name'] );
+        }
+        if ( !empty( $raw_user_data['phone'] ) ) {
+            $user_data['phone'] = self::get_user_object_phone( $raw_user_data['phone'], $current_user );
+        }
+        if ( !empty( $raw_user_data['city'] ) ) {
+            $user_data['city'] = self::get_user_object_city( $raw_user_data['city'] );
+        }
+        if ( !empty( $raw_user_data['state'] ) ) {
+            $user_data['state'] = self::get_user_object_state( $raw_user_data['state'] );
+        }
+        if ( !empty( $raw_user_data['postcode'] ) ) {
+            $user_data['postcode'] = self::get_user_object_postcode( $raw_user_data['postcode'] );
+        }
+        if ( !empty( $raw_user_data['country'] ) ) {
+            $user_data['country'] = self::get_user_object_country( $raw_user_data['country'] );
+        }
+        if ( !empty( $raw_user_data['roles'] ) ) {
+            $user_data['roles'] = $raw_user_data['roles'];
+        }
+        self::$user_data = $user_data;
+        return $user_data;
+    }
+
+    public static function get_raw_user_data( $order = null, $current_user = null ) {
         // Email
         $email = ( is_user_logged_in() && $current_user->user_email ? $current_user->user_email : '' );
         $email = ( $order && $order->get_billing_email() ? $order->get_billing_email() : $email );
@@ -371,19 +412,17 @@ class Helpers {
         $country = ( $order && $order->get_billing_country() ? $order->get_billing_country() : $country );
         // Roles
         $roles = ( is_user_logged_in() && $current_user ? $current_user->roles : [] );
-        // Add the details to the data array and return it
-        // Only add the data if it exists
-        $data = ( $email ? self::get_user_object_email( $data, $email ) : $data );
-        $data = ( $first_name ? self::get_user_object_first_name( $data, $first_name ) : $data );
-        $data = ( $last_name ? self::get_user_object_last_name( $data, $last_name ) : $data );
-        $data = ( $phone ? self::get_user_object_phone( $data, $phone, $current_user ) : $data );
-        $data = ( $city ? self::get_user_object_city( $data, $city ) : $data );
-        $data = ( $state ? self::get_user_object_state( $data, $state ) : $data );
-        $data = ( $postcode ? self::get_user_object_postcode( $data, $postcode ) : $data );
-        $data = ( $country ? self::get_user_object_country( $data, $country ) : $data );
-        $data = ( $roles ? self::get_user_object_roles( $data, $roles ) : $data );
-        self::$user_data = $data;
-        return $data;
+        return [
+            'email'      => $email,
+            'first_name' => $first_name,
+            'last_name'  => $last_name,
+            'phone'      => $phone,
+            'city'       => $city,
+            'state'      => $state,
+            'postcode'   => $postcode,
+            'country'    => $country,
+            'roles'      => $roles,
+        ];
     }
 
     public static function get_user_data_object( $order = null ) {
@@ -391,96 +430,105 @@ class Helpers {
         return json_decode( wp_json_encode( $data ) );
     }
 
-    private static function get_user_object_roles( $data, $roles ) {
-        $data['roles'] = $roles;
-        return $data;
-    }
-
-    private static function get_user_object_email( $data, $email ) {
+    private static function get_user_object_email( $email ) {
         $email = self::trim_string( $email );
         $email = strtolower( $email );
         //		$email = self::normalize_google_email_address($email);
-        $data['email']['raw'] = $email;
-        $data['email']['sha256'] = self::hash_string( $email );
-        $data['email']['facebook'] = self::hash_string( $email );
-        return $data;
+        return [
+            'raw'       => $email,
+            'sha256'    => self::hash_string( $email ),
+            'facebook'  => self::hash_string( $email ),
+            'pinterest' => self::hash_string( $email ),
+            'tiktok'    => self::hash_string( $email ),
+        ];
     }
 
-    private static function get_user_object_first_name( $data, $first_name ) {
+    private static function get_user_object_first_name( $first_name ) {
         $first_name = self::trim_string( $first_name );
-        $data['first_name']['raw'] = $first_name;
-        $data['first_name']['sha256'] = self::hash_string( $first_name );
-        $data['first_name']['facebook'] = strtolower( $first_name );
-        $data['first_name']['pinterest'] = self::hash_string( strtolower( $first_name ) );
-        $data['first_name']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $first_name ) );
-        return $data;
+        return [
+            'raw'       => $first_name,
+            'sha256'    => self::hash_string( $first_name ),
+            'facebook'  => self::hash_string( strtolower( $first_name ) ),
+            'pinterest' => self::hash_string( strtolower( $first_name ) ),
+            'snapchat'  => self::hash_string( self::normalize_for_snapchat( $first_name ) ),
+        ];
     }
 
-    private static function get_user_object_last_name( $data, $last_name ) {
+    private static function get_user_object_last_name( $last_name ) {
         $last_name = self::trim_string( $last_name );
-        $data['last_name']['raw'] = $last_name;
-        $data['last_name']['sha256'] = self::hash_string( $last_name );
-        $data['last_name']['facebook'] = strtolower( $last_name );
-        $data['last_name']['pinterest'] = self::hash_string( strtolower( $last_name ) );
-        $data['last_name']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $last_name ) );
-        return $data;
+        return [
+            'raw'       => $last_name,
+            'sha256'    => self::hash_string( $last_name ),
+            'facebook'  => self::hash_string( strtolower( $last_name ) ),
+            'pinterest' => self::hash_string( strtolower( $last_name ) ),
+            'snapchat'  => self::hash_string( self::normalize_for_snapchat( $last_name ) ),
+        ];
     }
 
-    private static function get_user_object_phone( $data, $phone, $current_user ) {
+    private static function get_user_object_phone( $phone, $current_user ) {
         $phone = self::trim_string( $phone );
-        $data['phone']['raw'] = $phone;
-        $data['phone']['e164'] = self::get_e164_formatted_phone_number( strtolower( $phone ), self::get_user_country_code( $current_user ) );
-        $data['phone']['sha256']['raw'] = self::hash_string( $phone );
-        $data['phone']['sha256']['e164'] = self::hash_string( $data['phone']['e164'] );
-        $data['phone']['facebook'] = str_replace( '+', '', strtolower( $phone ) );
-        $data['phone']['pinterest'] = self::hash_string( preg_replace( '/[^0-9]/', '', $data['phone']['e164'] ) );
-        $data['phone']['sha256']['snapchat'] = self::hash_string( str_replace( '+', '', $data['phone']['e164'] ) );
-        return $data;
+        $phone_e164 = self::get_e164_formatted_phone_number( strtolower( $phone ), self::get_user_country_code( $current_user ) );
+        return [
+            'raw'       => $phone,
+            'e164'      => $phone_e164,
+            'facebook'  => self::hash_string( str_replace( '+', '', strtolower( $phone ) ) ),
+            'pinterest' => self::hash_string( preg_replace( '/[^0-9]/', '', $phone_e164 ) ),
+            'snapchat'  => self::hash_string( str_replace( '+', '', $phone_e164 ) ),
+            'tiktok'    => self::hash_string( $phone_e164 ),
+            'sha256'    => [
+                'raw'  => self::hash_string( $phone ),
+                'e164' => self::hash_string( $phone_e164 ),
+            ],
+        ];
     }
 
-    private static function get_user_object_city( $data, $city ) {
+    private static function get_user_object_city( $city ) {
         $city = self::trim_string( $city );
-        $data['city']['raw'] = $city;
-        $data['city']['sha256'] = self::hash_string( $city );
-        $data['city']['facebook'] = strtolower( $city );
-        $data['city']['pinterest'] = self::hash_string( strtolower( preg_replace( '/[^A-Za-z0-9\\-]/', '', $city ) ) );
-        $data['city']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $city ) );
-        return $data;
+        return [
+            'raw'       => $city,
+            'sha256'    => self::hash_string( $city ),
+            'facebook'  => self::hash_string( strtolower( $city ) ),
+            'pinterest' => self::hash_string( strtolower( preg_replace( '/[^A-Za-z0-9\\-]/', '', $city ) ) ),
+            'snapchat'  => self::hash_string( self::normalize_for_snapchat( $city ) ),
+        ];
     }
 
-    private static function get_user_object_state( $data, $state ) {
+    private static function get_user_object_state( $state ) {
         $state = self::trim_string( $state );
-        $data['state']['raw'] = $state;
-        $data['state']['sha256'] = self::hash_string( $state );
-        $data['state']['facebook'] = preg_replace( '/[a-zA-Z]{2}-/', '', strtolower( $state ) );
-        $data['state']['pinterest'] = self::hash_string( strtolower( $state ) );
-        $data['state']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $state ) );
-        return $data;
+        return [
+            'raw'       => $state,
+            'sha256'    => self::hash_string( $state ),
+            'facebook'  => self::hash_string( preg_replace( '/[a-zA-Z]{2}-/', '', strtolower( $state ) ) ),
+            'pinterest' => self::hash_string( strtolower( $state ) ),
+            'snapchat'  => self::hash_string( self::normalize_for_snapchat( $state ) ),
+        ];
     }
 
-    private static function get_user_object_postcode( $data, $postcode ) {
+    private static function get_user_object_postcode( $postcode ) {
         $postcode = self::trim_string( $postcode );
-        $data['postcode']['raw'] = $postcode;
-        $data['postcode']['sha256'] = self::hash_string( $postcode );
-        $data['postcode']['facebook'] = strtolower( $postcode );
-        $data['postcode']['pinterest'] = self::hash_string( preg_replace( '/[^0-9]/', '', $postcode ) );
-        return $data;
+        return [
+            'raw'       => $postcode,
+            'sha256'    => self::hash_string( $postcode ),
+            'facebook'  => self::hash_string( strtolower( $postcode ) ),
+            'pinterest' => self::hash_string( preg_replace( '/[^0-9]/', '', $postcode ) ),
+        ];
     }
 
     /**
      * This function takes a user data array and a country string and adds the country values to the user object.
      *
-     * @param array  $data
      * @param string $country
      * @return array
      */
-    private static function get_user_object_country( $data, $country ) {
+    private static function get_user_object_country( $country ) {
         $country = self::trim_string( $country );
-        $data['country']['raw'] = $country;
-        $data['country']['facebook'] = strtolower( $country );
-        $data['country']['pinterest'] = self::hash_string( strtolower( $country ) );
-        $data['country']['snapchat'] = self::hash_string( self::normalize_for_snapchat( $country ) );
-        return $data;
+        return [
+            'raw'       => $country,
+            'sha256'    => self::hash_string( $country ),
+            'facebook'  => self::hash_string( strtolower( $country ) ),
+            'pinterest' => self::hash_string( strtolower( $country ) ),
+            'snapchat'  => self::hash_string( self::normalize_for_snapchat( $country ) ),
+        ];
     }
 
     /**
@@ -870,6 +918,19 @@ class Helpers {
 
 		<!--IUB-COOKIE-BLOCK-SKIP-END-->
 		<?php 
+    }
+
+    public static function make_full_url( $url ) {
+        // Trim any leading or trailing whitespace
+        $url = trim( $url );
+        // Check if the URL already contains a protocol
+        if ( preg_match( '/^(http:\\/\\/|https:\\/\\/)/', $url ) ) {
+            return $url;
+        }
+        // Remove leading slashes
+        $url = ltrim( $url, '/' );
+        // Add 'https://' as default protocol
+        return 'https://' . $url;
     }
 
 }

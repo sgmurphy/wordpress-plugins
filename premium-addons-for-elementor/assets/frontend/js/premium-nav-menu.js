@@ -193,27 +193,50 @@
             $('body').removeClass('premium-scroll-disabled');
         });
 
+        var canBeClicked = true;
         $menuToggler.on('click', function () {
+
             if ('slide' === settings.mobileLayout || 'slide' === settings.mainLayout) {
                 $scope.find('.premium-mobile-menu-outer-container, .premium-nav-slide-overlay').addClass('premium-vertical-toggle-open');
 
                 if (disablePageScroll) {
                     $('body').addClass('premium-scroll-disabled');
                 }
-            } else {
-                // $menuContainer.toggleClass('premium-active-menu');
-                if ($($menuContainer).hasClass('premium-active-menu')) {
-                    $scope.find('.premium-mobile-menu-container').slideUp('slow', function () {
-                        $menuContainer.removeClass('premium-active-menu');
-                        $scope.find('.premium-mobile-menu-container').show();
-                    });
-                } else {
 
-                    $menuContainer.addClass('premium-active-menu');
+                $menuToggler.toggleClass('premium-toggle-opened'); // show/hide close icon/text.
+            } else {
+
+                if (canBeClicked) {
+
+                    canBeClicked = false;
+                    if ($($menuContainer).hasClass('premium-active-menu')) {
+
+                        $scope.find('.premium-mobile-menu-container').slideUp('fast', function () {
+
+                            $menuContainer.removeClass('premium-active-menu');
+                            $scope.find('.premium-mobile-menu-container').show();
+
+                            setTimeout(function () {
+                                canBeClicked = true;
+                                $menuToggler.removeClass('premium-toggle-opened'); // hide close icon/text.
+                            }, 100);
+
+
+                        });
+                    } else {
+
+                        $menuContainer.addClass('premium-active-menu');
+
+                        $menuToggler.addClass('premium-toggle-opened'); // show close icon/text.
+
+                        canBeClicked = true;
+
+                    }
                 }
             }
 
-            $menuToggler.toggleClass('premium-toggle-opened'); // show/hide close icon/text.
+            // $menuToggler.toggleClass('premium-toggle-opened'); // show/hide close icon/text.
+
         });
 
         $menuContainer.find('.premium-nav-menu-item.menu-item-has-children a, .premium-mega-nav-item a').on('click', function (e) {
@@ -252,10 +275,10 @@
                 isWidgetContainer = $(event.target).closest('.premium-nav-widget-container').length;
 
             if (!isWidgetContainer && !isTabsItem) {
-                if ( $($menuContainer).hasClass('premium-active-menu') ) {
+                if ($($menuContainer).hasClass('premium-active-menu')) {
                     $menuToggler.click();
                 }
-                
+
                 if ('click' === settings.submenuEvent) {
                     $scope.find('.premium-nav-menu-container .premium-item-hovered').removeClass('premium-item-hovered')
                 }

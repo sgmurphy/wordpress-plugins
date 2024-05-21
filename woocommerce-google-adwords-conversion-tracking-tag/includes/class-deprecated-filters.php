@@ -123,5 +123,53 @@ class Deprecated_Filters {
 			= 'The filter has become obsolete since PMW now tracks cart item data using the browser cache and doesn\'t rely entirely on the server anymore.';
 		apply_filters_deprecated('wooptpm_track_mini_cart', [ true ], '1.13.0', '', $mini_cart_filter_deprecation_message);
 		apply_filters_deprecated('wpm_track_mini_cart', [ true ], '1.15.5', '', $mini_cart_filter_deprecation_message);
+
+		self::deprecated_filters_for_ga4_mp();
+		self::facebook_capi_is_blocking();
+		self::facebook_capi_get_test_event_code();
+	}
+
+	private static function facebook_capi_get_test_event_code() {
+
+		$test_event_code = apply_filters_deprecated('wooptpm_facebook_capi_test_event_code', [ false ], '1.13.0', 'wpm_facebook_capi_test_event_code');
+		// Filter to inject the Facebook CAPI test event code
+		apply_filters_deprecated(
+			'wpm_facebook_capi_test_event_code',
+			[ $test_event_code ],
+			'1.25.1',
+			null,
+			'This filter has been deprecated. Start using the new test event code field in the plugin settings.'
+		);
+	}
+
+	/**
+	 * Set the request blocking for the Facebook CAPI requests
+	 */
+	private static function facebook_capi_is_blocking() {
+
+		$is_blocking = apply_filters_deprecated('wooptpm_send_http_api_facebook_capi_requests_blocking', [ false ], '1.13.0', 'pmw_send_http_api_facebook_capi_requests_blocking');
+		$is_blocking = apply_filters_deprecated('wpm_send_http_api_facebook_capi_requests_blocking', [ $is_blocking ], '1.31.2', 'pmw_send_http_api_facebook_capi_requests_blocking');
+		apply_filters_deprecated(
+			'pmw_send_http_api_facebook_capi_requests_blocking',
+			[ $is_blocking ],
+			'1.43.0',
+			null,
+			'This filter has been deprecated without replacement.'
+		);
+	}
+
+	private static function deprecated_filters_for_ga4_mp() {
+
+		$use_debug_endpoint = apply_filters_deprecated('wooptpm_google_mp_use_debug_endpoint', [ false ], '1.13.0', 'pmw_google_mp_use_debug_endpoint');
+		$use_debug_endpoint = apply_filters_deprecated('wpm_google_mp_use_debug_endpoint', [ $use_debug_endpoint ], '1.31.2', 'pmw_google_mp_use_debug_endpoint');
+		$use_debug_endpoint = apply_filters_deprecated('pmw_google_mp_use_debug_endpoint', [ $use_debug_endpoint ], '1.42.6', 'pmw_google_mp_use_debug_endpoint');
+
+		apply_filters_deprecated(
+			'pmw_use_ga4_mp_debug_endpoint',
+			[ $use_debug_endpoint ],
+			'1.43.0',
+			null,
+			'This filter has been deprecated without replacement. The new HTTP request logger automatically logs debug hits.'
+		);
 	}
 }

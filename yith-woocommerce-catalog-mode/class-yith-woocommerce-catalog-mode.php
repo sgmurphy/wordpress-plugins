@@ -310,7 +310,6 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode' ) ) {
 					},
 					'show_in'  => function () {
 						update_option( 'ywctm-plugin-welcome-modal', 'no' );
-
 						return ! isset( $_GET['modal-opened'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					},
 					'modals'   => array(
@@ -397,7 +396,6 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode' ) ) {
 			);
 
 			foreach ( $pages as $key => $page ) {
-
 				if ( in_array( current_filter(), array( 'wp_get_nav_menu_items', 'wp_nav_menu_objects' ), true ) ) {
 					$page_id = isset( $page->object_id ) ? $page->object_id : 0;
 
@@ -764,6 +762,8 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode' ) ) {
 
 				$args = array(
 					'form.cart button.single_add_to_cart_button',
+					'.ppc-button-wrapper',
+					'.wc-ppcp-paylater-msg__container'
 				);
 
 				if ( ! class_exists( 'YITH_YWRAQ_Frontend' ) || ( ( class_exists( 'YITH_Request_Quote_Premium' ) ) && ! YITH_Request_Quote_Premium()->check_user_type() ) ) {
@@ -964,7 +964,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode' ) ) {
 				?>
 				<style type="text/css">
 					.ywctm-void, <?php echo esc_attr( $classes ); ?> {
-						display : none !important;
+						display: none !important;
 					}
 				</style>
 				<?php

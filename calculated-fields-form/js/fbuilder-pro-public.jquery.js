@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.5';
+	$.fbuilder['version'] = '5.2.6';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -811,8 +811,16 @@
 										let f = $('#'+fid);
 										f.css({'height':'auto', 'minHeight':'auto'});
 										$.fbuilder.cpcffLoadDefaults( opt );
-										if(f.attr( 'data-evalequations') == undefined)
-											f.attr( 'data-evalequations', opt.evalequations );
+
+										f.attr(
+											'data-evalequations',
+											(
+												f.attr( 'data-evalequations') == undefined ?
+												opt.evalequations :
+												Math.max( opt.evalequations*1, f.attr( 'data-evalequations')*1 )
+											)
+										);
+
 										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
 										$.post(
 											document.location.href,

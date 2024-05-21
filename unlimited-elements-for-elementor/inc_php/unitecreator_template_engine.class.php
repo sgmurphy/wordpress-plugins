@@ -182,8 +182,18 @@ class UniteCreatorTemplateEngineWork{
 	 */
 	private function validateFilterCallable($filter, $callable){	//Security Update 2
 		
+		$isClosure = $callable instanceof Closure;
+		
+		if($isClosure == false){
+			
+			if(is_string($callable) == false)
+				$callable = "";
+			
+			UniteFunctionsUC::throwError("Function {$filter} can execute only arrow functions. Not php functions like this: \"" . $callable . "\" is forbidden for the.");
+		}
+		
 		$forbiddenFunctions = array("exec", "eval", "system", "shell_exec", "show_source", "passthru", "pcntl_exec", "proc_open");
-
+		
 		if(is_string($callable) === true && in_array($callable, $forbiddenFunctions) === true)
 			UniteFunctionsUC::throwError("Function \"" . $callable . "\" is forbidden for the \"" . $filter . "\" filter.");
 	}
@@ -194,7 +204,7 @@ class UniteCreatorTemplateEngineWork{
 	public function filter($env, $array, $arrow){
 
 		$this->validateFilterCallable("filter", $arrow);
-
+		
 		return twig_array_filter($env, $array, $arrow);
 	}
 
@@ -1530,7 +1540,7 @@ class UniteCreatorTemplateEngineWork{
 	 */
 	protected function initTwig_addExtraFunctions(){
 
-		//override filters
+		//override filters - disable those functions
 		$filterFilter = new Twig\TwigFilter("filter", array($this, "filter"), array("needs_environment" => true));
 		$filterMap = new Twig\TwigFilter("map", array($this, "map"), array("needs_environment" => true));
 

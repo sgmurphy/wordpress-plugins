@@ -659,7 +659,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 	#metabox_form_structure.fullscreen .cff-form-builder-extend-shrink [name="cff_expand_btn"]{display:none;}
 	#metabox_form_structure.fullscreen .form-builder>.column,
 	#metabox_form_structure.fullscreen .form-builder>.column #tabs,
-	#metabox_form_structure.fullscreen .form-builder>.columnr{height: 100%;box-sizing:border-box;}
+	#metabox_form_structure.fullscreen .form-builder>.columnr{height: 100% !important;box-sizing:border-box;}
 	#metabox_form_structure.fullscreen .form-builder{overflow:hidden; position:fixed; bottom:0px; top:80px; right:0; left:0;}
 }
 

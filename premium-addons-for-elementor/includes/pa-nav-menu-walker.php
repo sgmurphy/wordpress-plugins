@@ -391,21 +391,21 @@ class Pa_Nav_Menu_Walker extends \Walker_Nav_Menu {
 			if ( ! empty( $dropdown_icon_class ) ) {
 
 				$dropdown_icon_class .= ' premium-dropdown-icon';
-				$dropdown_icon        = sprintf( '<i class="%1$s"></i>', $dropdown_icon_class );
+				$dropdown_icon        = sprintf( '<i class="%1$s"></i>', esc_attr( $dropdown_icon_class ) );
 
 			}
 		}
 
 		// add item icon.
 		if ( 'icon' === $item_meta->item_icon_type && ! empty( $item_meta->item_icon ) ) {
-			$item_icon = sprintf( '<i class="%1$s" style="color:%2$s"></i>', $item_meta->item_icon . $icon_class, $item_meta->item_icon_color );
+			$item_icon = sprintf( '<i class="%1$s" style="color:%2$s"></i>', esc_attr( $item_meta->item_icon . $icon_class ), esc_attr( $item_meta->item_icon_color ) );
 		} elseif ( 'lottie' === $item_meta->item_icon_type && ! empty( $item_meta->item_lottie_url ) ) {
-			$item_icon = sprintf( '<div class="%1$s" data-lottie-url="%2$s" data-lottie-loop="true"></div>', $icon_class . ' premium-lottie-animation', $item_meta->item_lottie_url );
+			$item_icon = sprintf( '<div class="%1$s" data-lottie-url="%2$s" data-lottie-loop="true"></div>', esc_attr( $icon_class ) . ' premium-lottie-animation', esc_url( $item_meta->item_lottie_url ) );
 		}
 
 		// add item badge.
 		if ( ! empty( $item_meta->item_badge ) ) {
-			$item_badge = sprintf( '<span class="%1$s" style="color:%2$s; background-color:%3$s;">%4$s</span>', $badge_class, $item_meta->item_badge_color, $item_meta->item_badge_bg, $item_meta->item_badge );
+			$item_badge = sprintf( '<span class="%1$s" style="color:%2$s; background-color:%3$s;">%4$s</span>', esc_attr( $badge_class ), esc_attr( $item_meta->item_badge_color ), esc_attr( $item_meta->item_badge_bg ), esc_attr( $item_meta->item_badge ) );
 		}
 
 		if ( 0 < $depth ) {

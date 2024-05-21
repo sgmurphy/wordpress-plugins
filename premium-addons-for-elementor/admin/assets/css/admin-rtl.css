@@ -2068,6 +2068,14 @@
     content: "\e954";
 }
 
+.pa-dash-premium-search-form:before {
+    content: "\e95f";
+}
+
+.pa-dash-premium-mobile-menu:before {
+    content: "\e960";
+}
+
 .pa-dash-premium-notifications::before {
     content: "\e956";
 }

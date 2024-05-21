@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.5
+Stable tag: 5.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.6 =
+
+* Fixes an issue delaying the evaluation of the equations.
+* Includes new form templates.
+* Modifies the styles applied to the Phone field.
+* Implements minor modifications in the forms builder.
+
 = 5.2.5 =
 
 * Includes a new section in the fields settings to allow customizing the fields desings directly.
@@ -474,12 +481,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.1 =
 
 * Fixes an issue in the new submit button.
-
-= 5.2.0 =
-
-* Includes the notification emails feature in the free plugin distribution.
-* Modifies the button control to include the submit option in the button types list.
-* Improves the sanitization methods.
-* Modifies the shortcode for variables.
-* Improves the method to attach additional files to the notification emails.
-* Modifies the path where storing the uploaded files.

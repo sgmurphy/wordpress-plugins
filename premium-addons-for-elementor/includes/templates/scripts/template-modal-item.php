@@ -26,7 +26,6 @@
 
 	<# } else if ( pro ) { #>
 	<a class="template-library-activate-license" href="{{{ window.PremiumTempsData.license.activateLink }}}" target="_blank">
-		<i class="fa fa-external-link" aria-hidden="true"></i>
 		{{{ window.PremiumTempsData.license.proMessage }}}
 	</a>
 	<# } #>

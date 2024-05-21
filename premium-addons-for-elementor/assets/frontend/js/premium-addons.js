@@ -2198,7 +2198,7 @@
                     slick: {
                         infinite: true,
                         rows: 0,
-                        prevArrow: '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
+                        prevArrow: '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
                         nextArrow: '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-angle-right" aria-hidden="true"></i></a>',
                         draggable: true,
                         pauseOnHover: true,
@@ -3446,7 +3446,7 @@
 
             // append the arrows here.
             if ('layout-2' !== settings.layout && 'vertical' === settings.hourlyLayout) {
-                var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
+                var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
                     nextArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-chevron-right" aria-hidden="true"></i></a>';
 
                 $forecastSlider.append(prevArrow + nextArrow);
@@ -3527,7 +3527,7 @@
                     ];
                 } else {
 
-                    var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
+                    var prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-chevron-left" aria-hidden="true"></i></a>',
                         nextArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-chevron-right" aria-hidden="true"></i></a>';
 
                     slickSetting.slidesToScroll = settings.slidesToScroll || 1;
@@ -4266,7 +4266,7 @@
                     slick: {
                         infinite: true,
                         rows: 0,
-                        prevArrow: '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Next" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
+                        prevArrow: '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
                         nextArrow: '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-angle-right" aria-hidden="true"></i></a>',
                         draggable: true,
                         pauseOnHover: true,
@@ -4481,6 +4481,10 @@
 
         var PremiumSearchHandler = function ($scope, $) {
 
+            var widgetID = $scope.data('id');
+
+            $scope = $('.elementor-element-' + widgetID);
+
             var $container = $scope.find('.premium-search__container'),
                 settings = $container.data('settings'),
                 $search = $scope.find('.premium-search__input'),
@@ -4685,7 +4689,7 @@
                                 });
 
                                 $queriedElems.css('filter', 'blur(3px)');
-                                $fadeElems.css('opacity', '0.7');
+                                $fadeElems.css('opacity', '0.4');
                             } else {
                                 $textElems.css('filter', 'blur(0px)');
                                 $fadeElems.css('opacity', '1');
@@ -4822,7 +4826,112 @@
 
         };
 
+        var PremiumMobileMenuHandler = ModuleHandler.extend({
+
+            getDefaultSettings: function () {
+
+                return {
+                    slick: {
+                        infinite: false,
+                        rows: 0,
+                        draggable: true,
+                        pauseOnHover: true,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                    },
+                    selectors: {
+                        wrap: '.premium-mobile-menu__wrap',
+                        list: '.premium-mobile-menu__list'
+
+                    }
+                }
+            },
+
+            getDefaultElements: function () {
+
+                var selectors = this.getSettings('selectors');
+
+                return {
+                    $wrap: this.$element.find(selectors.wrap),
+                    $list: this.$element.find(selectors.list),
+                }
+
+            },
+            bindEvents: function () {
+                this.run();
+            },
+
+            getSlickSettings: function () {
+
+                var settings = this.getElementSettings(),
+                    rtl = this.elements.$wrap.data("rtl"),
+                    colsNumber = settings.items_to_show,
+                    prevArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-prev" aria-label="Previous" role="button" style=""><i class="fas fa-angle-left" aria-hidden="true"></i></a>',
+                    nextArrow = '<a type="button" data-role="none" class="carousel-arrow carousel-next" aria-label="Next" role="button" style=""><i class="fas fa-angle-right" aria-hidden="true"></i></a>',
+                    slides_tab = settings.items_to_show_tablet,
+                    slides_mob = settings.items_to_show_mobile,
+                    spacing_tab = settings.carousel_spacing_tablet,
+                    spacing_mob = settings.carousel_spacing_mobile,
+                    currentDeviceMode = elementorFrontend.getCurrentDeviceMode();
+
+                if (-1 !== currentDeviceMode.indexOf('mobile') && 'yes' !== settings.carousel_arrows_mobile) {
+                    prevArrow = '';
+                    nextArrow = '';
+
+                } else if (-1 !== currentDeviceMode.indexOf('tablet') && 'yes' !== settings.carousel_arrows_tablet) {
+                    prevArrow = '';
+                    nextArrow = '';
+                }
+
+                return Object.assign(this.getSettings('slick'), {
+
+                    slidesToShow: colsNumber,
+                    responsive: [{
+                        breakpoint: 1025,
+                        settings: {
+                            slidesToShow: slides_tab,
+                            centerPadding: spacing_tab + "px",
+                            nextArrow: settings.carousel_arrows_tablet ? nextArrow : '',
+                            prevArrow: settings.carousel_arrows_tablet ? prevArrow : '',
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: slides_mob,
+                            centerPadding: spacing_mob + "px",
+                            nextArrow: settings.carousel_arrows_mobile ? nextArrow : '',
+                            prevArrow: settings.carousel_arrows_mobile ? prevArrow : '',
+                        }
+                    }
+                    ],
+                    rtl: rtl ? true : false,
+                    autoplaySpeed: settings.speed || 5000,
+                    prevArrow: settings.carousel_arrows ? prevArrow : '',
+                    nextArrow: settings.carousel_arrows ? nextArrow : '',
+                    centerMode: settings.carousel_center,
+                    centerPadding: settings.carousel_spacing + "px",
+
+                });
+
+
+            },
+
+            run: function () {
+
+                var $list = this.elements.$list;
+
+                var carousel = this.getElementSettings('carousel');
+
+                if (carousel)
+                    $list.slick(this.getSlickSettings());
+
+            }
+
+        });
+
         var functionalHandlers = {
+            'premium-search-form.default': PremiumSearchHandler,
             'premium-addon-dual-header.default': PremiumMaskHandler,
             'premium-addon-video-box.default': PremiumVideoBoxWidgetHandler,
             'premium-addon-fancy-text.default': PremiumFancyTextHandler,
@@ -4841,7 +4950,6 @@
             'premium-pinterest-feed.default': PremiumPinterestHandler,
             'premium-tiktok-feed.default': PremiumTiktokHandler,
             'premium-media-wheel.default': PremiumAdvCarouselHandler,
-            'premium-search-form.default': PremiumSearchHandler,
             'premium-textual-showcase.default': [PremiumTextualShowcaseHandler, PremiumMaskHandler]
         };
 
@@ -4854,6 +4962,7 @@
             'premium-tcloud': PremiumTermsCloud,
             'premium-icon-list': PremiumBulletListHandler,
             'premium-addon-testimonials': PremiumTestimonialsHandler,
+            'premium-mobile-menu': PremiumMobileMenuHandler,
         };
 
         $.each(functionalHandlers, function (elemName, func) {

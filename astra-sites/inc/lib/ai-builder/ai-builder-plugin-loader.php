@@ -134,11 +134,6 @@ class Ai_Builder_Plugin_Loader {
 	 */
 	public function setup_classes() {
 
-		// Required for condition added in ajax calls.
-		if ( ! function_exists( 'wp_get_current_user' ) ) {
-			include ABSPATH . 'wp-includes/pluggable.php';
-		}
-
 		/* Init API */
 		ApiInit::Instance();
 

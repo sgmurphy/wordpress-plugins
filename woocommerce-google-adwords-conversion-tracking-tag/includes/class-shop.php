@@ -59,7 +59,7 @@ class Shop {
      * But, for instance for the customer lifetime value calculation we don't want the multipliers to be applied,
      * because the CLV is calculated based on all existing and effective orders.
      *
-     * @return string
+     * @return float
      */
     public static function pmw_get_order_total_marketing( $order, $apply_multipliers = false ) {
         $order_total = $order->get_total();
@@ -94,7 +94,7 @@ class Shop {
         );
         // filter to adjust the order value
         $order_total = apply_filters( 'pmw_marketing_conversion_value_filter', $order_total, $order );
-        return Helpers::format_decimal( (float) $order_total, 2 );
+        return (float) Helpers::format_decimal( (float) $order_total, 2 );
     }
 
     public static function is_backend_manual_order( $order ) {
@@ -236,12 +236,8 @@ class Shop {
         }
     }
 
-    public static function was_order_created_while_wpm_was_active( $order ) {
-        if ( $order->meta_exists( '_wpm_process_through_wpm' ) ) {
-            return true;
-        } else {
-            return false;
-        }
+    public static function was_order_created_while_pmw_was_active( $order ) {
+        return (bool) $order->meta_exists( '_wpm_process_through_wpm' );
     }
 
     public static function is_backend_subscription_renewal_order( $order ) {
@@ -642,14 +638,19 @@ class Shop {
     }
 
     public static function get_user_id() {
-        if ( is_user_logged_in() ) {
+        if ( is_user_logged_in() && !is_admin() ) {
             return (string) get_current_user_id();
         }
         // If we're on the purchase confirmation page, we can get the user ID from the order and return it
         if ( self::pmw_is_order_received_page() ) {
             $order = self::get_order_from_order_received_page();
             if ( $order ) {
-                return (string) $order->get_user_id();
+                $user_id = $order->get_user_id();
+                // If the $user_id is 0 (for guest) or 1 (for admin), we return null
+                if ( 0 == $user_id || 1 == $user_id ) {
+                    return null;
+                }
+                return (string) $user_id;
             }
         }
         return null;
@@ -728,6 +729,18 @@ class Shop {
             'pmw_view_item_list_trigger_settings'
         );
         return apply_filters( 'pmw_view_item_list_trigger_settings', $settings );
+    }
+
+    // https://woocommerce.github.io/code-reference/files/woocommerce-includes-class-wc-order.html#source-view.364
+    public static function get_order_paid_statuses() {
+        $statuses = wc_get_is_paid_statuses();
+        // Add additional custom order statuses to trigger the Measurement Protocol purchase hit
+        return apply_filters_deprecated(
+            'wpm_register_custom_order_confirmation_statuses',
+            [$statuses],
+            '1.30.3',
+            'Use the woocommerce_order_is_paid_statuses filter instead'
+        );
     }
 
 }

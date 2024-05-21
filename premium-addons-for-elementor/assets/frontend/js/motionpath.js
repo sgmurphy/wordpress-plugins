@@ -1802,7 +1802,7 @@
 
         var isContainer = "widget" !== $scope.data("element_type"),
             isParallax = $scope.hasClass("premium-parallax-yes"),
-            isInsideTemplate = $scope.closest('.draw-triggered').length > 0;
+            isInsideTemplate = !elementorFrontend.isEditMode() && $scope.closest('.draw-triggered').length > 0;
 
         //If the $scope is inside a parent template, then we don't want to trigger things again. Why? because the draw has already been triggered for the parent element.
         // For example, off canvas widget, the function already is triggered for the $scope of the widget itself. So, no need to trigger it again for child elements inside the template.

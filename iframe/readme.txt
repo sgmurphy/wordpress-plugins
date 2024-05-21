@@ -1,10 +1,10 @@
 === iframe ===
 Contributors: webvitaly
 Donate link: http://web-profile.net/donate/
-Tags: iframe, embed, youtube, vimeo, google-map, google-maps
+Tags: iframe, embed, youtube, vimeo, google-maps
 Requires at least: 3.0
 Tested up to: 6.4
-Stable tag: 5.0
+Stable tag: 5.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -56,6 +56,9 @@ So the protocol (http or httpS) for parent and embedded page should match.
 1. [iframe] shortcode
 
 == Changelog ==
+
+= 5.1 =
+* removed srcdoc attribute completely
 
 = 5.0 =
 * fixed the $atts string/array error.

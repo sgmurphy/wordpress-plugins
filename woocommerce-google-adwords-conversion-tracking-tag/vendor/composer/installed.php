@@ -3,7 +3,7 @@
         'name' => 'sweetcode/pixel-manager-for-woocommerce',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '284709fdafa5b6022e89fb2219627c58975b3ba4',
+        'reference' => '5a4d9ed3b0265fd1e6fdbaa1be899620a6d24344',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'giggsey/libphonenumber-for-php' => array(
-            'pretty_version' => '8.13.35',
-            'version' => '8.13.35.0',
-            'reference' => 'cd52d7b27572ee45d31ca0d61b394638ed9a6bae',
+            'pretty_version' => '8.13.36',
+            'version' => '8.13.36.0',
+            'reference' => '9ca4179e4332d21578cb29f0c0406f0a2b8803e3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../giggsey/libphonenumber-for-php',
             'aliases' => array(),
@@ -31,7 +31,7 @@
         'giggsey/libphonenumber-for-php-lite' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '8.13.35',
+                0 => '8.13.36',
             ),
         ),
         'giggsey/locale' => array(
@@ -55,7 +55,7 @@
         'sweetcode/pixel-manager-for-woocommerce' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '284709fdafa5b6022e89fb2219627c58975b3ba4',
+            'reference' => '5a4d9ed3b0265fd1e6fdbaa1be899620a6d24344',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -80,9 +80,9 @@
             'dev_requirement' => false,
         ),
         'woocommerce/action-scheduler' => array(
-            'pretty_version' => '3.7.4',
-            'version' => '3.7.4.0',
-            'reference' => '5fb655253dc004bb7a6d840da807f0949aea8bcd',
+            'pretty_version' => '3.7.3',
+            'version' => '3.7.3.0',
+            'reference' => '8aa895a6edfeb92f40d6eddc9dfc35df65da38ae',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../woocommerce/action-scheduler',
             'aliases' => array(),

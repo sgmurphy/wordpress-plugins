@@ -1,5 +1,13 @@
 
 
+version 1.5.108:
+
+* Feature: update freemius SDK
+* Fix: fixed bug with select filter and active filters widgets
+* Fix: fixed bug with several main checkbox filters unselecting
+* Fix: Fixed some small security issue
+
+
 version 1.5.107:
 
 * Fix - fixed weird elementor no products on cart page bug

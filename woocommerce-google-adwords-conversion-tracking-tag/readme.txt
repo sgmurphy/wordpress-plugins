@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.42.8
+Stable tag: 1.43.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -117,6 +117,8 @@ Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/
 * Google Ads Enhanced Conversions
 * Google Ads Conversion Adjustments
 * Meta CAPI (Facebook CAPI)
+* Pinterest APIC
+* Snapchat CAPI
 * Scroll Tracking
 * Automatic Phone and Link Click Tracking
 
@@ -291,6 +293,13 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.43.0  =
+*Release date - 21.05.2024*
+
+* Tweak: Added a safeguard into the product container watcher to prevent an undefined error.
+* Tweak: Added a safeguard in case attributes for the console logger are not passed correctly.
+* Tweak: Bumped up WooCommerce version compatibility to 8.9
+
 = 1.42.8  =
 *Release date - 06.05.2024*
 
@@ -320,7 +329,6 @@ We are committed to ensuring the security of our customers and their data. If yo
 = 1.42.4  =
 *Release date - 23.04.2024*
 
-* Tweak: Enabled Enhanced Conversions also for GA4.
 * Tweak: Added Virginia to the US states for the explicit consent management.
 * Tweak: On first load CookieYes sets the categories with no values, just empty strings. Not "yes" or "no" like in all subsequent loads. This update handles this case.
 * Tweak: Added a backwards compatibility process for website visitors that have saved a consent status before the latest update.

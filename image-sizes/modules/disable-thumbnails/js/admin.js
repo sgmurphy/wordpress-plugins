@@ -1,53 +1,60 @@
 jQuery(function ($) {
-	var limit = $("#image-sizes_regenerate-thumbs-limit").val();
+	// drag and drop disable thumbnail sizes
+	if($('body').hasClass('thumbpress_page_thumbpress-modules')) {
+		init_draggable($(".draggable-item"));
 
-	$("#image-sizes_regenerate-thumbs-limit").bind("keyup mouseup", function () {
-		limit = $(this).val();
-	});
-
-	var offset = 0;
-	var thumbs_deleted = 0;
-	var thumbs_created = 0;
-
-	function regenerate(limit, offset, thumbs_deleted, thumbs_created) {
-		$.ajax({
-			url: THUMBPRESS.ajaxurl,
-			type: "POST",
-			data: {
-				action: "image_sizes-regen-thumbs",
-				offset: offset,
-				limit: limit,
-				thumbs_deleteds: thumbs_deleted,
-				thumbs_createds: thumbs_created,
-				_nonce: THUMBPRESS.nonce,
+		$("#sortable2").sortable({
+			connectWith: "#sortable1, #sortable2",
+			items: ".draggable-item, .sortable-item",
+			start: function (event, ui) {
+				$("#sortable1").sortable("enable");
+				$("ul.image_sizes-sortable.disable li input").attr("name", "disables[]");
+	
+				var _length = $("ul.image_sizes-sortable.disable li").length - 1;
+				$(".image_sizes-default-thumbnails-panel h4 .disables-count").text(
+					_length
+					);
+	
+				var _length = $("ul.image_sizes-sortable.enable li").length;
+				$(".image_sizes-default-thumbnails-panel h4 .enables-count").text(
+					_length
+					);
 			},
-			success: function (res) {
-				if (res.has_image) {
-					var progress = (res.offset / res.total_images_count) * 100;
-					$(".image-sizes-progress-content").text(Math.ceil(progress) + "%").css({ width: progress + "%" });
-
-					regenerate(limit, res.offset, res.thumbs_deleted, res.thumbs_created);
-				} else {
-					$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
-					$(".image-sizes-progress-panel .image-sizes-progress-content").addClass("progress-full");
+			receive: function (event, ui) {
+				if (ui.item.hasClass("ui-draggable")) {
+					ui.item.draggable("destroy");
 				}
-				$("#image_sizes-message").html(res.message).show();
 			},
-			error: function (err) {
-				$("#image_sizes-regen-thumbs").text(THUMBPRESS.regen).attr("disabled", false);
+		});
+
+		$("#sortable1").sortable({
+			connectWith: "#sortable1, #sortable2",
+			items: ".draggable-item, .sortable-item",
+			receive: function (event, ui) {
+				$("#sortable1").sortable("disable");
+				var widget = ui.item;
+				init_draggable(widget);
+				$("ul.image_sizes-sortable.enable li input").attr("name", "");
+	
+				var _length = $("ul.image_sizes-sortable.disable li").length;
+				$(".image_sizes-default-thumbnails-panel h4 .disables-count").text(_length);
+	
+				var _length = $("ul.image_sizes-sortable.enable li").length;
+				$(".image_sizes-default-thumbnails-panel h4 .enables-count").text(_length);
 			},
 		});
 	}
 
-	// cx-regen-thumbs
-	$("#image_sizes-regen-thumbs").click(function (e) {
-		$("#image_sizes-regen-thumbs").text(THUMBPRESS.regening).attr("disabled", true);
-		$("#image_sizes-message").html("").hide();
-		$(".image-sizes-progress-panel").hide();
-
-		regenerate(limit, offset, thumbs_deleted, thumbs_created);
-
-		$("#image_sizes-message").before('<div class="image-sizes-progress-panel"><div class="image-sizes-progress-content" style="width:0%"><span>0%</span></div></div></div>');
-	});
+	function init_draggable(widget) {
+		widget.draggable({
+			connectToSortable: "#sortable2",
+			stack: ".draggable-item",
+			revert: true,
+			revertDuration: 200,
+			start: function (event, ui) {
+				$("#sortable1").sortable("disable");
+			},
+		});
+	}
 });
   

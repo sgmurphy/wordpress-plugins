@@ -3965,7 +3965,7 @@ class Premium_Weather extends Widget_Base {
 						<?php if ( $show_curr_weather_desc ) : ?>
 						<div class="premium-weather__desc-wrapper">
 							<div class="premium-weather__desc"><?php echo esc_html( $current['weather'][0]['description'] ); ?></div>
-							<div class="premium-weather__feels-like"> Feels Like: <?php echo esc_html( $current['feels_like'] ) . $temp_unit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+							<div class="premium-weather__feels-like"> Feels Like: <?php echo esc_html( round( $current['feels_like'], 0 ) ) . $temp_unit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 						</div>
 						<?php endif; ?>
 					</div>
@@ -4018,7 +4018,7 @@ class Premium_Weather extends Widget_Base {
 								</div>
 								<?php if ( $show_curr_weather_desc ) : ?>
 									<div class="premium-weather__desc"><?php echo esc_html( $current['weather'][0]['description'] ); ?></div>
-									<div class="premium-weather__feels-like"> Feels Like: <?php echo esc_html( $current['feels_like'] ) . $temp_unit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+									<div class="premium-weather__feels-like"> Feels Like: <?php echo esc_html( round( $current['feels_like'], 0 ) ) . $temp_unit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 								<?php endif; ?>
 							</div>
 						</div>
@@ -4066,7 +4066,7 @@ class Premium_Weather extends Widget_Base {
 						<?php } ?>
 						<?php if ( $show_curr_weather_desc ) : ?>
 							<div class="premium-weather__desc"><?php echo esc_html( $current['weather'][0]['description'] ); ?></div>
-							<div class="premium-weather__feels-like"> Feels Like: <?php echo esc_html( $current['feels_like'] ) . $temp_unit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+							<div class="premium-weather__feels-like"> Feels Like: <?php echo esc_html( round( $current['feels_like'], 0 ) ) . $temp_unit; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 						<?php endif; ?>
 					</div>
 
@@ -4230,16 +4230,16 @@ class Premium_Weather extends Widget_Base {
 		<?php endif; ?>
 
 		<?php if ( in_array( 'rain', $extra_weather, true ) && isset( $current['rain'] ) ) : ?>
-		<div class="premium-weather__rain-wrapper">
-			<i class="fas fa-cloud-rain"></i>
-			<span class="premium-weather__rain" title="Rain"> <?php echo esc_html( $current['rain'] ) . 'mmph'; ?></span>
+			<div class="premium-weather__rain-wrapper">
+				<i class="fas fa-cloud-rain"></i>
+			<span class="premium-weather__rain" title="Rain, Precipitation, mm/h"> <?php echo esc_html( $current['rain']['1h'] ) . 'mmph'; ?></span>
 		</div>
 		<?php endif; ?>
 
 		<?php if ( in_array( 'snow', $extra_weather, true ) && isset( $current['snow'] ) ) : ?>
 		<div class="premium-weather__snow-wrapper">
 			<i class="far fa-snowflake"></i>
-			<span class="premium-weather__snow" title="Snow"><?php echo esc_html( $current['snow'] ) . 'mmph'; ?></span>
+			<span class="premium-weather__snow" title="Snow, Precipitation, mm/h"><?php echo esc_html( $current['snow']['1h'] ) . 'mmph'; ?></span>
 		</div>
 		<?php endif; ?>
 		<?php
@@ -4795,7 +4795,7 @@ class Premium_Weather extends Widget_Base {
 					<?php if ( $conditions_arr['feels_like'] ) : ?>
 						<span class="premium-weather__temp">
 							<?php
-								echo esc_html( round( $item['main']['temp'], 0 ) ) . '&#176;';
+								echo esc_html( round( $item['main']['feels_like'], 0 ) ) . '&#176;';
 							?>
 						</span>
 					<?php endif; ?>

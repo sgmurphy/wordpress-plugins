@@ -5,11 +5,9 @@ namespace MailPoet\EmailEditor\Engine\Renderer;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Config\ServicesChecker;
 use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\ContentRenderer;
 use MailPoet\EmailEditor\Engine\Templates\Templates;
 use MailPoet\EmailEditor\Engine\ThemeController;
-use MailPoet\Util\CdnAssetUrl;
 use MailPoetVendor\Html2Text\Html2Text;
 use MailPoetVendor\Pelago\Emogrifier\CssInliner;
 use WP_Style_Engine;
@@ -18,8 +16,6 @@ use WP_Theme_JSON;
 class Renderer {
   private ThemeController $themeController;
   private ContentRenderer $contentRenderer;
-  private CdnAssetUrl $cdnAssetUrl;
-  private ServicesChecker $servicesChecker;
   private Templates $templates;
   /** @var WP_Theme_JSON|null */
   private static $theme = null;
@@ -29,15 +25,11 @@ class Renderer {
 
   public function __construct(
     ContentRenderer $contentRenderer,
-    CdnAssetUrl $cdnAssetUrl,
     Templates $templates,
-    ServicesChecker $servicesChecker,
     ThemeController $themeController
   ) {
     $this->contentRenderer = $contentRenderer;
-    $this->cdnAssetUrl = $cdnAssetUrl;
     $this->templates = $templates;
-    $this->servicesChecker = $servicesChecker;
     $this->themeController = $themeController;
   }
 
@@ -60,7 +52,6 @@ class Renderer {
     $templateHtml = $this->contentRenderer->render($post, $template);
 
     ob_start();
-    $logoHtml = $this->servicesChecker->isPremiumPluginActive() ? '' : '<img src="' . esc_attr($this->cdnAssetUrl->generateCdnUrl('email-editor/logo-footer.png')) . '" alt="MailPoet" style="margin: 24px auto; display: block;" />';
     include self::TEMPLATE_FILE;
     $renderedTemplate = (string)ob_get_clean();
 
@@ -74,7 +65,8 @@ class Renderer {
       'body, .email_layout_wrapper'
     );
     $templateStyles .= file_get_contents(dirname(__FILE__) . '/' . self::TEMPLATE_STYLES_FILE);
-    $renderedTemplate = $this->inlineCSSStyles('<style>' . (string)apply_filters('mailpoet_email_renderer_styles', $templateStyles, $post) . '</style>' . $renderedTemplate);
+    $templateStyles = '<style>' . wp_strip_all_tags((string)apply_filters('mailpoet_email_renderer_styles', $templateStyles, $post)) . '</style>';
+    $renderedTemplate = $this->inlineCSSStyles($templateStyles . $renderedTemplate);
 
     return [
       'html' => $renderedTemplate,

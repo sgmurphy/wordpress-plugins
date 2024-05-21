@@ -1212,9 +1212,9 @@ class Module {
 				'tablet'  => ! empty( $settings['premium_tooltip_max_width_tablet']['size'] ) ? $settings['premium_tooltip_max_width_tablet']['size'] : null,
 			);
 
-			$tooltip_settings = array(
+			$tooltip_settings = array( // escape it all
 				'type'         => $type,
-				'content'      => $content,
+				'content'      => $content, // needs escaping
 				'minWidth'     => $min_width,
 				'maxWidth'     => $max_width,
 				'zindex'       => $settings['pa_tooltip_zindex'],
@@ -1242,9 +1242,16 @@ class Module {
 
 			$element->add_render_attribute( '_wrapper', 'data-tooltip_settings', wp_json_encode( $tooltip_settings ) );
 
+			$element->add_render_attribute( 'gTooltips_temps' . $id,
+				array(
+					'id'=> 'premium-global-tooltips-temp-' . esc_attr( $id ),
+					'data-tooltip_settings'=> wp_json_encode( $tooltip_settings )
+				)
+			);
+
 			if ( 'widget' === $element_type && \Elementor\Plugin::instance()->editor->is_edit_mode() ) {
 				?>
-				<div id='premium-global-tooltips-temp-<?php echo esc_html( $id ); ?>' data-tooltip_settings='<?php echo wp_json_encode( $tooltip_settings ); ?>'></div>
+				<div <?php echo wp_kses_post( $element->get_render_attribute_string( 'gTooltips_temps' . $id ) ); ?>></div>
 				<?php
 			}
 		}

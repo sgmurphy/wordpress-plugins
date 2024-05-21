@@ -36,6 +36,15 @@ class HTTP {
 	}
 
 	/**
+	 * Add and/or override the request args (partially or completely)
+	 *
+	 * @param array $request_args
+	 */
+	public function set_request_args( $request_args ) {
+		$this->request_args = array_merge($this->request_args, $request_args);
+	}
+
+	/**
 	 * Filter the options
 	 *
 	 * @return array
@@ -49,11 +58,16 @@ class HTTP {
 
 	public function post( $url, $payload = null, $request_args_override = [] ) {
 
-		$this->request_args = array_merge($this->request_args, $request_args_override);
-
 		if ($payload) {
+
+			if (!isset($this->request_args['headers']['Content-Type'])) {
+				$this->request_args['headers']['Content-Type'] = 'application/json';
+			}
+
 			$this->request_args['body'] = wp_json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
+
+		$this->request_args = array_merge($this->request_args, $request_args_override);
 
 		$response = wp_safe_remote_post($url, $this->request_args);
 
@@ -77,6 +91,7 @@ class HTTP {
 
 		if ($payload) {
 			Logger::debug('payload: ' . print_r($payload, true));
+			Logger::debug('json payload: ' . wp_json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		}
 
 		if ($request_args_override) {

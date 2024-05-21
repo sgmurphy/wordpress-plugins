@@ -3,25 +3,28 @@ Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
-Tested Up To: 6.5.2
+Tested Up To: 6.5.3
 Requires PHP: 7.0
-Stable Tag: 4.10.31
+Stable Tag: 4.10.32
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
-Premium Addons comes with tens of Elementor widgets and pre-made section and full-page templates. It includes Mega Menu, Carousel, Blog and many more useful Elementor widgets!
+Premium Addons comes with 90+ Elementor widgets and 550+ templates. It includes elements like Mega Menu, Carousel and Blog, Display Conditions
 
 == Description ==
 
-Supercharge your [Elementor Page Builder](https://wordpress.org/plugins/elementor/) with 60+ highly customizable addons and widgets, 400+ premade templates that will give you the ability to build sophisticated websites in less time with no coding required. Both Elementor and Premium Addons plugins take your WordPress website to the next level.
+Supercharge your [Elementor Page Builder](https://wordpress.org/plugins/elementor/) with 90+ highly customizable addons and widgets, 550+ premade templates that will give you the ability to build sophisticated websites in less time with no coding required. Both Elementor and Premium Addons plugins take your WordPress website to the next level.
 
 [**Check The Widgets & Addons Demo Pages**](https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)
 
 ### Useful Links
 [Support](https://my.leap13.com/contact-support/) | [Docs](https://premiumaddons.com/docs/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) | [Video Tutorials](https://www.youtube.com/channel/UCXcJ9BeO2sKKHor7Q9VglTQ) | [Facebook Group](https://facebook.com/groups/premiumAddons) | [Upgrade to Pro](https://premiumaddons.com/pro/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)
 
+### New: Mobile Nav Menu Widget
+Create a neat mobile menu on your website with just few click with this powerful widget. You can set the click action of each menu item to a link or to open an off-canvas content. [Check it out now!](https://premiumaddons.com/elementor-mobile-menu-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
+
 ### New: AJAX Search Form Widget
-The ultimate solution to add a search form widget on Elementor websites. Customize the search results, add pagination or carousel and select between three different neat skins. [Check it out now!](https://premiumaddons.com/elementor-ajax-search-widget/0?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
+The ultimate solution to add a search form widget on Elementor websites. Customize the search results, add pagination or carousel and select between three different neat skins. [Check it out now!](https://premiumaddons.com/elementor-ajax-search-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### New: Animated Shape Divider Addon
 Add animated shape dividers for Elementor flexbox containers, sections and columns. You can select between 40+ shape dividers or use a custom SVG code to add your own divider. [Check it out now!](https://premiumaddons.com/elementor-animated-shape-divider-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
@@ -29,17 +32,11 @@ Add animated shape dividers for Elementor flexbox containers, sections and colum
 ### Advanced Media Carousel Widget
 You can now create carousel using images, videos, Elementor templates to create the carousel you want. Select between four animations and dozens of customization options. [Check it out now!](https://premiumaddons.com/elementor-advanced-carousel-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
-### TikTok Feed Widget
-We recently released the UNIQUE TikTok Feed widget that helps you to get feed from your TikTok accounts and show them as a grid, masonry or carousel. Select between 3 neat skins. [Check it out now!](https://premiumaddons.com/elementor-tiktok-feed-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
-
 ### Global Tooltips Addon
 Add icon, image gallery, Lottie animation or Elementor template as a tooltip for any element. You can also use the tooltips addon to create a tour steps. [Check it out now!](https://premiumaddons.com/elementor-tooltip-global-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### New: Magazine Bundle
 Smart Post Listing, Weather, World Clock, News Ticker, Tags Cloud and Recent Posts Notification widgets newly added to create the magazine website you ever dreamed. [Check it out now!](https://premiumaddons.com/elementor-news-magazine-widgets-bundle/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
-
-### Premium Templates Portal
-You can browse a wide range of Elementor page and section templates LIVE on PremiumTemplates.io [Check it out now!](https://premiumtemplates.io/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
 ### SVG Draw Widget
 You can now draw any Font Awesome icon or SVG path using Premium SVG Draw widget. Not just that, we have added Draw Icon option in all premium widgets that has icon option in them. [Check it out now!](https://premiumaddons.com/elementor-svg-draw-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
@@ -68,9 +65,6 @@ Now, you will have the ability to copy and paste any content from a website to a
 ### Post and Page Duplicator
 Duplicate any post, page or template on your website with just ONE click. Check the documentation article from [here](https://premiumaddons.com/docs/how-to-use-pa-duplicator/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme).
 
-### 70+ Fully Customizable Widgets & Addons
-Besides adding new widgets on monthly bases, we don't mainly focus on the number, we focus on adding as much customization options to our widgets as possible more than anywhere else.
-
 ### Modular & Lightweight
 Premium Addons for Elementor is fully modular. You can enable/disable specific elements to prevent overloading your website with code you will not actually use which helps your website have a blazing fast performance.
 
@@ -89,7 +83,7 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 * [**Carousel Widget**](https://premiumaddons.com/carousel-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The best all purpose carousel widget. It can be used to create any kind of carousel you want like: Testimonials Carousel, Client Logos Carousel, and some of our users even used it as Advanced Slider in a combination with other widgets.
 * [**Blog Widget**](https://premiumaddons.com/blog-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Blog Posts Widget comes with a modern style, advanced posts filtering options, and also it allows you to create posts carousel.
 
-* [**AJAX Search Widget**](https://premiumaddons.com/elementor-ajax-search-widget/0?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add search form to your website. It allows to create a custom search query and add post type select field and dozens of customization options.
+* [**AJAX Search Widget**](https://premiumaddons.com/elementor-ajax-search-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add search form to your website. It allows to create a custom search query and add post type select field and dozens of customization options.
 
 * [**Smart Post Listing Widget**](https://premiumaddons.com/elementor-smart-post-listing-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create any posts layout you want using this widget. You can use it to create any grid layout to show your posts or any custom post type on your website.
 
@@ -240,6 +234,15 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.32 =
+
+- New: Added Mobile Menu widget - [here](https://premiumaddons.com/elementor-mobile-menu-widget/).
+- Tweak: 'Feels Like' value rounded in Weather Forecast widget.
+- Tweak: Code refactored for better performance and security.
+- Tweak: Slow queries removed to improve plugin performance.
+- Fixed: Layout broken in Blog widget.
+- Fixed: Mega Menu widget causes high INP value on touch devices.
 
 = 4.10.31 =
 

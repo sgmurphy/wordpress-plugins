@@ -42,6 +42,35 @@ class Admin extends Base {
 	}
 
 	/**
+	 * Check for action scheduler tables before activation
+	 */
+	public function check_action_scheduler_tables() {
+
+		$table_report = thumbpress_check_action_tables();
+
+		// check for missing tables
+		if( in_array( true, $table_report ) ) :
+
+			// check store table
+			if( $table_report['store_table_missing'] ) :
+				delete_option( 'schema-ActionScheduler_StoreSchema' );
+
+				$action_store_db 	= new \ActionScheduler_DBStore();
+				$action_store_db->init();
+			endif;
+
+			// check log table
+			if( $table_report['log_table_missing'] ) :
+				delete_option( 'schema-ActionScheduler_LoggerSchema' );
+
+				$action_log_db 		= new \ActionScheduler_DBLogger();
+				$action_log_db->init();
+			endif;
+
+		endif;
+	}
+
+	/**
 	 * Internationalization
 	 */
 	public function i18n() {
@@ -97,7 +126,7 @@ class Admin extends Base {
 			'optimized'		=> __( 'Compressed', 'image-sizes' ),
 			'confirm'		=> esc_html__( 'Are you sure you want to delete this? The data and its associated files will be completely erased. This action cannot be undone!', 'image-sizes' ),
 			'confirm_all'	=> esc_html__( 'Are you sure you want to delete these? The data and their associated files will be completely erased. This action cannot be undone!', 'image-sizes' ),
-			'is_welcome'	=> $this->get_pointers(),
+			// 'is_welcome'	=> $this->get_pointers(),
 			'live_chat'		=> get_option( 'thumbpress_live_chat_enabled' ) == 1,
 			'tp_page'		=> isset( $_GET['page'] ) && false !== strpos( $_GET['page'], 'thumbpress' ),
 			'name'			=> get_userdata( get_current_user_id() )->display_name,
@@ -191,43 +220,43 @@ class Admin extends Base {
 		}
 	}
 
-	/**
-	 * Returns all WP pointers
-	 *
-	 * @return array
-	 */
-	public function get_pointers() {
-		if ( ! defined( 'THUMBPRESS_PRO' ) ) {
-			$current_time 	= wp_date( 'U' );
-			$notice_meta 	= get_option( 'thumbpress_pro_notice_recurring_every_1_month', true );
+	// /**
+	//  * Returns all WP pointers
+	//  *
+	//  * @return array
+	//  */
+	// public function get_pointers() {
+	// 	if ( ! defined( 'THUMBPRESS_PRO' ) ) {
+	// 		$current_time 	= wp_date( 'U' );
+	// 		$notice_meta 	= get_option( 'thumbpress_pro_notice_recurring_every_1_month', true );
 
-			if ( $current_time >= $notice_meta ) {
-				$pointers = array(
-					'target' 	=> '#toplevel_page_thumbpress',
-					'edge' 		=> 'left',
-					'align' 	=> 'right',
-					'content' 	=> sprintf(
-						__( '<h3>%1s %2s</h3>
-							<p class="image_sizes-para">🎉 %3s %4s, %5s %6s 
-							</b> 
-							<a class="image_sizes-notice_ahref" href="%7s">
-							<button >%8s</button>
-							</a>
-							</p>', 'images-sizes' ),
-						__( 'ThumbPress Pro', 'images-sizes' ),
-						__( 'Grand Launch', 'images-sizes' ),
-						__( '25%', 'images-sizes' ),
-						__( 'OFF Yearly', 'images-sizes' ),
-						__( '50%', 'images-sizes' ),
-						__( 'OFF Lifetime - Limited-time Only!', 'images-sizes' ),
-						admin_url( 'admin.php?page=thumbpress' ),
-						__( 'Upgrade Now', 'images-sizes' )
-					),
-					'action' 	=> 'image_sizes-pointer-dismiss',
-				);
+	// 		if ( $current_time >= $notice_meta ) {
+	// 			$pointers = array(
+	// 				'target' 	=> '#toplevel_page_thumbpress',
+	// 				'edge' 		=> 'left',
+	// 				'align' 	=> 'right',
+	// 				'content' 	=> sprintf(
+	// 					__( '<h3>%1s %2s</h3>
+	// 						<p class="image_sizes-para">🎉 %3s %4s, %5s %6s 
+	// 						</b> 
+	// 						<a class="image_sizes-notice_ahref" href="%7s">
+	// 						<button >%8s</button>
+	// 						</a>
+	// 						</p>', 'images-sizes' ),
+	// 					__( 'ThumbPress Pro', 'images-sizes' ),
+	// 					__( 'Grand Launch', 'images-sizes' ),
+	// 					__( '25%', 'images-sizes' ),
+	// 					__( 'OFF Yearly', 'images-sizes' ),
+	// 					__( '50%', 'images-sizes' ),
+	// 					__( 'OFF Lifetime - Limited-time Only!', 'images-sizes' ),
+	// 					admin_url( 'admin.php?page=thumbpress' ),
+	// 					__( 'Upgrade Now', 'images-sizes' )
+	// 				),
+	// 				'action' 	=> 'image_sizes-pointer-dismiss',
+	// 			);
 
-				return $pointers;
-			}
-		}		
-	}
+	// 			return $pointers;
+	// 		}
+	// 	}		
+	// }
 }

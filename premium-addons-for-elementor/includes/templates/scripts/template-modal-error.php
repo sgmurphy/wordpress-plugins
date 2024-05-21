@@ -15,9 +15,8 @@ use PremiumAddons\Includes\Templates;
 	<div class="elementor-library-error-link">
 	<?php
 		printf(
-			'<a class="template-library-activate-license" href="%1$s" target="_blank">%2$s %3$s</a>',
+			'<a class="template-library-activate-license" href="%1$s" target="_blank">%2$s</a>',
 			esc_url( Templates\premium_templates()->config->get( 'license_page' ) ),
-			'<i class="fa fa-external-link" aria-hidden="true"></i>',
 			wp_kses_post( Templates\premium_templates()->config->get( 'pro_message' ) )
 		);
 		?>

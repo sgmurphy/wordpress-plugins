@@ -21,7 +21,8 @@ function UEDynamicFilters(){
 		SEARCH: "search",
 		SELECT: "select",
 		SUMMARY: "summary",
-		GENERAL: "general"
+		GENERAL: "general",
+		GENERAL_MOBILE_DRAWER: "mobilefilters"
 	};
 
 	var g_vars = {
@@ -785,8 +786,8 @@ function UEDynamicFilters(){
 	/**
 	 * get filter type
 	 */
-	function getFilterType(objFilter){
-
+	function getFilterType(objFilter, getGeneralType){
+		
 		if(objFilter.hasClass("uc-filter-pagination"))
 			return(g_types.PAGINATION);
 
@@ -795,6 +796,12 @@ function UEDynamicFilters(){
 
 		var filterType = objFilter.data("filtertype")
 
+		if(filterType == g_types.GENERAL && getGeneralType === true){
+			
+			var generalType = objFilter.data("generaltype");
+			return(generalType);
+		}
+		
 		if(filterType)
 			return(filterType);
 
@@ -834,7 +841,7 @@ function UEDynamicFilters(){
 	 * hide children and just clear the main filters
 	 */
 	function clearChildFilters(objGrid, objCurrentFilter, isHideChildren, termID, isClearAll){
-
+				
 		var objFilters = getGridFilters(objGrid);
 		
 		if(!objFilters)
@@ -846,7 +853,7 @@ function UEDynamicFilters(){
 			var currentFilterID = objCurrentFilter.attr("id");
 						
 		jQuery.each(objFilters, function(index, filter){
-
+			
 			var objFilter = jQuery(filter);
 			var filterID = objFilter.attr("id");
 
@@ -855,8 +862,10 @@ function UEDynamicFilters(){
 
 			var role = objFilter.data("role");
 			
+			//clear all others if that option selected
+			
 			if(role != "child" && role != "main" && role != "term_child"){
-
+				
 				if(isClearAll == true)
 					clearFilter(objFilter);
 
@@ -898,13 +907,16 @@ function UEDynamicFilters(){
 					}
 
 				break;
+				default:
+					return(true);
+				break;
 			}
 
 			//hide the child filters and not refresh
 
 			if(isHide == true)
 				objFilter.addClass(g_vars.CLASS_HIDDEN);
-
+			
 			clearFilter(objFilter);
 
 		});
@@ -957,7 +969,7 @@ function UEDynamicFilters(){
 			var objFilter = jQuery(filter);
 
 			objFilter.trigger(g_vars.ACTION_FILTER_UNSELECT_BY_KEY, [key]);
-
+			
 		});
 
 	}
@@ -968,7 +980,7 @@ function UEDynamicFilters(){
 	function isFilterSkipAction(objFilter){
 
 		var objParentSkipRefresh = objFilter.parents("." + g_vars.CLASS_SKIP_REFRESH);
-
+		
 		if(objParentSkipRefresh.length)
 			return(true);
 
@@ -1148,7 +1160,7 @@ function UEDynamicFilters(){
 	 * init select filter, select the selected item (avoid cache)
 	 */
 	function initSelectFilter(objFilter){
-
+		
 		var objSelected = objFilter.find(".uc-selected");
 
 		if(objSelected.length == 0)
@@ -1169,30 +1181,24 @@ function UEDynamicFilters(){
 	 * unselect by key terms list and select
 	 */
 	function termsFilterUnselectByKey(event,key){
-
+		
 		var objFilter = jQuery(this);
+		
+		var selectedTerm = getTermsListSelectedTerm(objFilter);
+		
+		if(!selectedTerm)
+			return(false);
+		
+		var selectedKey = getVal(selectedTerm,"key");
+		
+		if(selectedKey != key)
+			return(false);
+		
+		//if key match - clear filter and set no refresh.
 
-		var objSelectedItems = objFilter.find(".ue_taxonomy_item.uc-selected");
-
-		if(objSelectedItems.length == 0)
-			return(true);
-
-		jQuery.each(objSelectedItems, function(index, item){
-
-			var objItem = jQuery(item);
-
-			var itemKey = t.getFilterItemKey(objItem);
-
-			if(itemKey == key){
-				clearFilter(objFilter);	//single filter - may be cleared
-
-				//set no refresh next time
-				setNoRefreshFilter(objFilter);
-				return(false);
-			}
-
-		});
-
+		clearFilter(objFilter);	
+		
+		setNoRefreshFilter(objFilter);
 	}
 
 
@@ -1511,7 +1517,7 @@ function UEDynamicFilters(){
 	 * init terms related filer (terms list and select)
 	 */
 	function initTermsRelatedFilter(objFilter){
-
+		
 		objFilter.on(g_vars.ACTION_FILTER_UNSELECT_BY_KEY, termsFilterUnselectByKey);
 
 	}
@@ -2778,25 +2784,32 @@ function UEDynamicFilters(){
 		}
 
 		//filter only visible elements (by it's parents)
-
+		
 		var objVisibleFilters = objFilters.filter(function(objFilter){
-
+			
 			var objParent = objFilter.parent();
 
 			return(!objParent.is(":hidden"));
 		});
 		
 		if(objVisibleFilters.length < objFilters.length){
-
-			var objFilters = objVisibleFilters;
-
-			if(g_showDebug){
-				trace("Visible Filters: ");
-				trace(objFilters);
-
+			
+			var objFirstFilter = jQuery(objVisibleFilters[0]);
+			var visibleFilterType = getFilterType(objFirstFilter, true);
+			
+			//exception for mobile drawer
+			if(visibleFilterType !=  g_types.GENERAL_MOBILE_DRAWER){
+				
+				var objFilters = objVisibleFilters;
+				
+				if(g_showDebug){
+					trace("Visible Filters: ");
+					trace(objFilters);
+				}
 			}
 		}
 
+		
 		if(!objFilters || objFilters.length == 0)
 			return(null);
 
@@ -3481,6 +3494,7 @@ function UEDynamicFilters(){
 			break;
 			case g_types.SELECT:
 				initSelectFilter(objFilter);
+				initTermsRelatedFilter(objFilter);				
 			break;
 			case g_types.GENERAL:		//general filter events
 				initGeneralFilter(objFilter);
@@ -3922,7 +3936,7 @@ function UEDynamicFilters(){
 		//unselect filter from event
 
 		objGrids.on(g_vars.EVENT_UNSELECT_FILTER, function(event, key){
-
+						
 			var objGrid = jQuery(this);
 
 			unselectFilterItem(objGrid, key);

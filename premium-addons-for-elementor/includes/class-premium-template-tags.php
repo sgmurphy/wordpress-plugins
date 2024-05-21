@@ -205,7 +205,10 @@ class Premium_Template_Tags {
 			self::$e_temps_list = get_posts(
 				array(
 					'post_type' => 'elementor_library',
-					'showposts' => 999,
+					'posts_per_page'         => -1,
+                    'update_post_term_cache' => false,
+                    'update_post_meta_cache' => false,
+                    'fields'                 => array( 'ids' ),
 				)
 			);
 
@@ -985,6 +988,10 @@ class Premium_Template_Tags {
 	 * @param array $options  post content options.
 	 */
 	protected function get_post_content( $options ) {
+
+        if( ! isset( $options['button_class'] ) ) {
+            $options['button_class'] = true;
+        }
 
 		if ( 'yes' !== $options['excerpt'] || empty( $options['length'] ) ) {
 			return;

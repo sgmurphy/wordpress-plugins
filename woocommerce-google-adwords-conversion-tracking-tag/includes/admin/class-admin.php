@@ -671,7 +671,7 @@ class Admin {
                 // add fields for the Google GA4 API secret
                 add_settings_field(
                     'wpm_setting_google_analytics_4_api_secret',
-                    esc_html__( 'GA4 API secret', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                    esc_html__( 'GA4 API secret', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
                     [$this, 'setting_html_google_analytics_4_api_secret'],
                     'wpm_plugin_options_page',
                     $section_ids['settings_name']
@@ -886,16 +886,14 @@ class Admin {
             'slug'  => 'snapchat',
         ];
         self::add_subsection_div( $section_ids, $sub_section_ids );
-        if ( Helpers::is_experiment() ) {
-            // Add the field for the Snapchat CAPI token
-            add_settings_field(
-                'plugin_snapchat_capi_token',
-                esc_html__( 'Snapchat CAPI token', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-                [$this, 'option_html_snapchat_capi_token'],
-                'wpm_plugin_options_page',
-                $section_ids['settings_name']
-            );
-        }
+        // Add the field for the Snapchat CAPI token
+        add_settings_field(
+            'plugin_snapchat_capi_token',
+            esc_html__( 'Snapchat CAPI Token', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+            [$this, 'option_html_snapchat_capi_token'],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
         // Add the field for the Snapchat advanced matching
         add_settings_field(
             'plugin_snapchat_advanced_matching',
@@ -3402,6 +3400,10 @@ class Admin {
         self::display_status_icon( Options::get_ga4_data_api_property_id(), count( Options::get_ga4_data_api_credentials() ) > 0 );
         self::get_documentation_html_by_key( 'ga4_data_api_property_id' );
         self::html_pro_feature();
+        if ( Options::get_ga4_data_api_property_id() && !isset( Options::get_ga4_data_api_credentials()['client_email'] ) ) {
+            echo '<p><span class="dashicons dashicons-info"></span>';
+            esc_html_e( 'GA4 Data API Credentials need to be set.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        }
     }
 
     public function setting_html_g4_data_api_credentials() {
@@ -3492,19 +3494,6 @@ class Admin {
 				<!-- Delete Settings -->
 			</div>
 
-			<div style="margin-top: 20px">
-				<?php 
-        if ( !Options::get_ga4_data_api_property_id() ) {
-            ?>
-					<span class="dashicons dashicons-info" style="padding-right: 10px"></span>
-					<?php 
-            esc_html_e( 'The GA4 property ID must be set.', 'woocommerce-google-adwords-conversion-tracking-tag' );
-            ?>
-				<?php 
-        }
-        ?>
-			</div>
-
 			<div>
 				<pre id="ga4-api-credentials-upload-status-success" style="display: none; white-space: pre-line;">
 					<span style="color: green; font-weight: bold">
@@ -3530,6 +3519,10 @@ class Admin {
 			</div>
 		</div>
 		<?php 
+        if ( isset( Options::get_ga4_data_api_credentials()['client_email'] ) && !Options::get_ga4_data_api_property_id() ) {
+            echo '<p><span class="dashicons dashicons-info"></span>';
+            esc_html_e( 'The GA4 Property ID needs to be set.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        }
     }
 
     public function setting_html_g4_page_load_time_tracking() {

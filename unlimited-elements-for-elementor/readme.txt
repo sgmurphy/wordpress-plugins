@@ -867,6 +867,31 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+version 1.5.108: 2024-05-21
+
+Plugin Changes: 
+
+* Feature: update freemius SDK to 2.7.2
+* Fix: fixed bug with select filter and active filters widgets
+* Fix: fixed bug with several main checkbox filters unselecting
+* Fix: Fixed some small security issue
+
+Widget Changes:
+ 
+* Feature: AJAX Search (Pro) - Added option to search by meta and by terms.
+* Feature: Dark Mode (Free) - Introduced 'Do not affect SVG' option to prevent SVG images from inverting when toggling dark mode, ensuring correct image display.
+* Feature: Load More / Infinite Scroll (Pro) - Added Button Hover Animation option to enable animations when hovering over button, enhancing interactivity and visual appeal.
+* Feature: Load More / Infinite Scroll (Pro) - Added Icon Position option, allowing users to customize the placement of icons for better design flexibility.
+* Feature: Woo Product Grid (Pro) - Added "Show Only Lowest Variable Price" option to display only the lowest price for variable products, enhancing price visibility and simplicity for users.
+* Fix: Dynamic Post Popup (Pro) - Fixed Navigation Arrows functionality issue when Animation option was enabled, ensuring smooth and consistent navigation experience.
+* Fix: Dynamic Popup Button (Pro) - Added suppot for Loop Carousel widget with enabled Loop option.
+* Fix: Woo Mini Cart (Pro) - Fixed widgets behaviour for Shop pages when page name is different then default.
+* Fix: Icon Tabs (Pro) - Provided a fix that ensures Icon Tabs widget changing Active Tab after click event.
+* Fix: Unlimited Google Maps (Pro) - get it work on the template switcher
+* Fix: Fullscreen Menu (Free) - Fixed issue where Menu widget wouldn't open properly when nested within sticky parent containers, ensuring smooth functionality and user experience.
+
+
+
 version 1.5.107: 2024-05-16
 
 Plugin Changes:

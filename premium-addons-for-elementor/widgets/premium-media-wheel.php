@@ -2414,7 +2414,7 @@ class Premium_Media_Wheel extends Widget_Base {
 		$wheel_settings = array(
 			'type'         => $type,
 			'scroll'       => 'yes' === $settings['media_wheel_scroll'],
-			'speed'        => '' === $settings['media_wheel_speed'] ? 50 : $settings['media_wheel_speed'],
+			'speed'        => empty( $settings['media_wheel_speed'] ) ? 50 : $settings['media_wheel_speed'],
 			'pauseOnHover' => 'yes' === $settings['media_wheel_scroll'] ? true : 'yes' === $settings['pause_on_hover'],
 		);
 
@@ -2695,7 +2695,7 @@ class Premium_Media_Wheel extends Widget_Base {
 	 *
 	 * @param array  $item  repeater item.
 	 * @param number $index item index.
-     * @param number $hover_effect image hover effect.
+	 * @param number $hover_effect image hover effect.
 	 */
 	private function render_carousel_video( $item, $index, $hover_effect ) {
 

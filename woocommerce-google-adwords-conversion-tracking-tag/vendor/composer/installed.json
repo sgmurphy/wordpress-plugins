@@ -53,17 +53,17 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.35",
-            "version_normalized": "8.13.35.0",
+            "version": "8.13.36",
+            "version_normalized": "8.13.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "cd52d7b27572ee45d31ca0d61b394638ed9a6bae"
+                "reference": "9ca4179e4332d21578cb29f0c0406f0a2b8803e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/cd52d7b27572ee45d31ca0d61b394638ed9a6bae",
-                "reference": "cd52d7b27572ee45d31ca0d61b394638ed9a6bae",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/9ca4179e4332d21578cb29f0c0406f0a2b8803e3",
+                "reference": "9ca4179e4332d21578cb29f0c0406f0a2b8803e3",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                 "symfony/console": "^2.8|^3.0|^v4.4|^v5.2",
                 "symfony/phpunit-bridge": "^4.2 || ^5"
             },
-            "time": "2024-04-19T12:41:30+00:00",
+            "time": "2024-05-03T06:27:03+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -381,17 +381,17 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.7.4",
-            "version_normalized": "3.7.4.0",
+            "version": "3.7.3",
+            "version_normalized": "3.7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "5fb655253dc004bb7a6d840da807f0949aea8bcd"
+                "reference": "8aa895a6edfeb92f40d6eddc9dfc35df65da38ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/5fb655253dc004bb7a6d840da807f0949aea8bcd",
-                "reference": "5fb655253dc004bb7a6d840da807f0949aea8bcd",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/8aa895a6edfeb92f40d6eddc9dfc35df65da38ae",
+                "reference": "8aa895a6edfeb92f40d6eddc9dfc35df65da38ae",
                 "shasum": ""
             },
             "require": {
@@ -403,7 +403,7 @@
                 "wp-cli/wp-cli": "~2.5.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
-            "time": "2024-04-05T14:42:07+00:00",
+            "time": "2024-03-20T10:16:56+00:00",
             "type": "wordpress-plugin",
             "extra": {
                 "scripts-description": {
@@ -421,7 +421,7 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.7.4"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.7.3"
             },
             "install-path": "../woocommerce/action-scheduler"
         }

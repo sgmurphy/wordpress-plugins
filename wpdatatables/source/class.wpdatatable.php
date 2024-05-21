@@ -1384,6 +1384,13 @@ class WPDataTable
             }
         }
 
+        foreach ($wdtColumnTypes as $key => $columnType){
+            foreach ($this->_dataRows as &$dataRow) {
+                if (isset($dataRow[$key])) {
+                    $dataRow[$key] = wp_kses_post($dataRow[$key]);
+                }
+            }
+        }
 
         return true;
 
@@ -1784,10 +1791,12 @@ class WPDataTable
 					foreach ($headingsArray as $dataColumnIndex => $dataColumnHeading) {
 						$dataColumnHeading = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $dataColumnHeading)));
                         $namedDataArray[$r][$dataColumnHeading] = trim(isset($dataRows[$row][$dataColumnIndex]) ? $dataRows[$row][$dataColumnIndex] : '');
+                        $namedDataArray[$r][$dataColumnHeading] = wp_kses_post($namedDataArray[$r][$dataColumnHeading]);
 						$currentDateFormat = isset($wdtParameters['dateInputFormat'][$dataColumnHeading]) ? $wdtParameters['dateInputFormat'][$dataColumnHeading] : null;
 						if (!empty($wdtParameters['data_types'][$dataColumnHeading]) && in_array($wdtParameters['data_types'][$dataColumnHeading], array('date', 'datetime', 'time'))) {
 							if ($format === 'xls' || $format === 'ods') {
 								$cell = $objPHPExcel->getActiveSheet()->getCell($dataColumnIndex . '' . $row);
+                                $cell = wp_kses_post($cell);
 								if (Date::isDateTime($cell) && $cell->getValue() !== null) {
 									$namedDataArray[$r][$dataColumnHeading] = Date::excelToTimestamp($cell->getValue());
 								} else {

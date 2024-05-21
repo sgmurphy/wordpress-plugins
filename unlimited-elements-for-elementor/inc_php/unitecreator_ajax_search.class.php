@@ -94,6 +94,7 @@ class UniteCreatorAjaxSeach{
 			return($arrPosts);
 		}
 		
+		
 		$arrTermsSearch = array();
 		$arrTermsSearch["taxonomy"] = $arrTaxNames;
 		$arrTermsSearch["search"] = $search;
@@ -106,8 +107,11 @@ class UniteCreatorAjaxSeach{
 
 		if(empty($arrTermsFound)){
 		
-			if(GlobalsProviderUC::$showPostsQueryDebug == true)
-				dmp("no terms found by: $search");
+			if(GlobalsProviderUC::$showPostsQueryDebug == true){
+				dmp("no terms found by: <b>$search</b>. Terms Query:");
+				
+				dmp($arrTermsSearch);
+			}
 			
 			return($arrPosts);
 		}

@@ -3,7 +3,7 @@
 Plugin Name: iframe
 Plugin URI: http://wordpress.org/plugins/iframe/
 Description: [iframe src="http://www.youtube.com/embed/dUpTjDqjQoo" width="100%" height="500"] shortcode
-Version: 5.0
+Version: 5.1
 Author: webvitaly
 Author URI: http://web-profile.net/wordpress/plugins/
 License: GPLv3
@@ -13,33 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) { // Avoid direct calls to this file and prevent f
 	exit;
 }
 
-define('IFRAME_PLUGIN_VERSION', '5.0');
+define('IFRAME_PLUGIN_VERSION', '5.1');
 
 function iframe_plugin_add_shortcode_cb( $atts ) {
 	$defaults = array(
-		'src' => 'http://www.youtube.com/embed/dUpTjDqjQoo',
+		//'src' => 'http://www.youtube.com/embed/dUpTjDqjQoo',
 		'width' => '100%',
 		'height' => '500',
 		'scrolling' => 'yes',
 		'class' => 'iframe-class',
 		'frameborder' => '0'
-	);
-
-	$allowed_tags = array(
-		'h1' => array(),
-		'h2' => array(),
-		'h3' => array(),
-		'h4' => array(),
-		'h5' => array(),
-		'h6' => array(),
-		'p' => array(),
-		'a' => array(
-            'href' => true,
-            'title' => true,
-        ),
-        'br' => array(),
-        'em' => array(),
-        'strong' => array()
 	);
 
 	if ( ! is_array( $atts ) ) {
@@ -58,18 +41,21 @@ function iframe_plugin_add_shortcode_cb( $atts ) {
 		if ( strtolower($attr) == 'src' ) { // sanitize url
 			$value = esc_url( $value );
 		}
-		if ( strtolower($attr) == 'srcdoc' ) { // sanitize html
-			$value = htmlspecialchars_decode( $value );
-			$value = wp_kses( $value, $allowed_tags );
-			$value = esc_html( $value );
+
+		// Remove 'srcdoc' attribute
+		if ( strtolower($attr) == 'srcdoc' ) {
+			continue;
 		}
-		// Remove all attributes starting with "on". Examples: onload, onmouseover, onfocus, onpageshow, onclick
-		if ( strpos( strtolower( $attr ), 'on' ) !== 0 ) {
-			if ( $value != '' ) { // adding all attributes
-				$html .= ' ' . esc_attr( $attr ) . '="' . esc_attr( $value ) . '"';
-			} else { // adding empty attributes
-				$html .= ' ' . esc_attr( $attr );
-			}
+
+		// Skip attributes starting with "on". Examples: onload, onmouseover, onfocus, onpageshow, onclick
+		if ( strpos( strtolower( $attr ), 'on' ) === 0 ) {
+			continue;
+		}
+
+		if ($value !== '') { // adding all attributes
+			$html .= ' ' . esc_attr($attr) . '="' . esc_attr($value) . '"';
+		} else { // adding empty attributes
+			$html .= ' ' . esc_attr($attr);
 		}
 	}
 	$html .= '></iframe>'."\n";

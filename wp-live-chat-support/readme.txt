@@ -4,7 +4,7 @@ Tags: chat plugin, live chat, free live chat, live help, live support, wordpress
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.4
-Stable tag: 10.0.12
+Stable tag: 10.0.13
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wp-live-chat-support
@@ -13,7 +13,7 @@ Chat with your website visitors in real-time for free! Engage with your customer
 
 == Description ==
 
-Increase your online conversions with the free [3CX Live Chat](https://www.3cx.com/signup/) plugin. Chat and call with your website visitors in real-time, and not only!
+Increase your online conversions with the free [3CX Live Chat](https://www.3cx.com/signup/live-chat/?src=livechatwpplugin) plugin. Chat and call with your website visitors in real-time, and not only!
 
 The plugin includes a complete communications system for your business - for free. Call, chat, conference and collaborate with your teams and customers from your office, home or smartphone. 
 
@@ -23,7 +23,7 @@ Tried and tested with more than 30,000 active installations, 3CX Live Chat is a 
 
 = NO HIDDEN COSTS =
 
-The plugin is [free](https://www.3cx.com/signup/), forever. It’s not a free trial and we don’t ask you for your credit card details. 
+The plugin is [free](https://www.3cx.com/signup/live-chat/?src=livechatwpplugin), forever. It’s not a free trial and we don’t ask you for your credit card details. 
 Simply create an account on the 3CX.com website, receive your account details, login and start chatting!
 
 = VOICE, WHATSAPP & FACEBOOK! =
@@ -53,7 +53,7 @@ Simply create an account on the 3CX.com website, receive your account details, l
 == Installation ==
 Get 3CX
 1. Download and install the WordPress Plugin
-2. Sign up [here](https://www.3cx.com/signup/) for 3CX
+2. Sign up [here](https://www.3cx.com/signup/live-chat/?src=livechatwpplugin) for 3CX
 3. With the credentials you receive login to the Web Client 
 4. Go to Office Settings > Voice & Chat > Add Live Chat
 5. Customize your live chat bubble
@@ -68,7 +68,7 @@ Get 3CX
 
 = How do I get 3CX Free? =
 3CX Free is an easy to setup and manage communications platform that handles live chat as well as calls, video conferencing and team communications. Ideal for small to medium sized businesses. It is available in the cloud and offered for free.
-1. Sign up for a 3CX account [here](https://www.3cx.com/signup/?src=livechatwp)
+1. Sign up for a 3CX account [here](https://www.3cx.com/signup/live-chat/?src=livechatwpplugin)
 2. Install the WordPress Plugin on your website
 3. With the credentials you receive login to the Web Client 
 4. Go to Admin > Voice & Chat > Add Live Chat
@@ -92,6 +92,10 @@ With 3CX Dedicated (hosted or self-managed) you get live chat included free for 
 Huge update with over 300 changes that include: Bugfixes, Vulnerability Fixes & Plugin Security, Plugin Optimization & Rebranding Updates. We suggest you remove any existing installations of this plugin and install 8.1.x fresh.
 
 == Changelog ==
+
+= 10.0.13 - 2024-05-17 =
+* Update install URLs
+* Added warnings when configuration is not complete
 
 = 10.0.12 - 2024-04-10 =
 * Fixed install warning on Wordpress 6.5

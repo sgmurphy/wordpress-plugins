@@ -39,6 +39,7 @@ If you have WordPress version between 3.3 and 6.5.3 and PHP version between 5.3 
 * Full product support.
 * Browse WPRESS files online with [Traktor Web](https://traktor.servmask.com)
 * Extract WPRESS files on your computer with [Traktor Desktop](https://traktor.wp-migration.com)
+* New in v7.82: Integration with WordPress Playground, enabling easy migration between SQLite and MySQL.
 * And lots more!
 
 Here are other reasons to use All-in-One WP Migration ...

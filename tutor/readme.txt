@@ -17,7 +17,7 @@ Tutor LMS is a complete, feature-packed, and robust WordPress LMS plugin to easi
 
 You can create challenging and fun quizzes, interactive lessons, powerful reports, and stats making Tutor potentially the best free WordPress LMS plugin. Manage, administer and monetize your education, online school, and online courses without having to write a single line of code. 
 
-👉 [Tutor LMS Pro](https://www.themeum.com/product/tutor-lms/)
+👉 [Tutor LMS Pro](https://tutorlms.com/)
 👉 [Tutor LMS Themes](https://www.themeum.com/wordpress-themes/) 
 👉 [Live Demo](https://demo.themeum.com/plugins/tutor/)
 👉 [Documentation](https://docs.themeum.com/tutor-lms/)

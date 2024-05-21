@@ -5,7 +5,7 @@
  * Plugin URI: https://thumbpress.co
  * Author: ThumbPress
  * Author URI: https://thumbpress.co
- * Version: 5.1.2
+ * Version: 5.2.2
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Text Domain: image-sizes
@@ -68,11 +68,6 @@ final class Plugin {
 	private function __construct() {
 		
 		/**
-		 * Check for action scheduler tables
-		 */
-		register_activation_hook( __FILE__, [ $this, 'check_action_scheduler_tables' ] );
-
-		/**
 		 * Includes required files
 		 */
 		$this->include();
@@ -86,35 +81,6 @@ final class Plugin {
 		 * Runs actual hooks
 		 */
 		$this->hook();
-	}
-
-	/**
-	 * Check for action scheduler tables before activation
-	 */
-	public function check_action_scheduler_tables() {
-
-		$table_report = thumbpress_check_action_tables();
-
-		// check for missing tables
-		if( in_array( true, $table_report ) ) :
-
-			// check store table
-			if( $table_report['store_table_missing'] ) :
-				delete_option( 'schema-ActionScheduler_StoreSchema' );
-
-				$action_store_db 	= new \ActionScheduler_DBStore();
-				$action_store_db->init();
-			endif;
-
-			// check log table
-			if( $table_report['log_table_missing'] ) :
-				delete_option( 'schema-ActionScheduler_LoggerSchema' );
-
-				$action_log_db 		= new \ActionScheduler_DBLogger();
-				$action_log_db->init();
-			endif;
-
-		endif;
 	}
 
 	/**
@@ -188,6 +154,7 @@ final class Plugin {
 			 * Admin facing hooks
 			 */
 			$admin = new App\Admin( $this->plugin );
+			$admin->activate( 'check_action_scheduler_tables' );
 			$admin->action( 'admin_footer', 'modal' );
 			$admin->action( 'admin_footer', 'upgrade' );
 			$admin->action( 'plugins_loaded', 'i18n' );
@@ -271,7 +238,7 @@ final class Plugin {
 		 */
 		$ajax = new App\AJAX( $this->plugin );
 		$ajax->priv( 'image_sizes-notice-dismiss', 'dismiss_notice' );
-		$ajax->priv( 'image_sizes-pointer-dismiss', 'dismiss_pointer' );
+		// $ajax->priv( 'image_sizes-pointer-dismiss', 'dismiss_pointer' );
 		$ajax->priv( 'image_sizes-dismiss', 'image_sizes_dismiss' );
 
 	}

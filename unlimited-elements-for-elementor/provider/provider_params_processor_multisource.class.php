@@ -52,7 +52,7 @@ class UniteCreatetorParamsProcessorMultisource{
 		//check if there is some size
 		if(!empty($this->arrItemsImageSizes))
 			return;
-
+		
 		//check if there is some params
 		$params = $this->arrParamsItems;
 
@@ -71,10 +71,10 @@ class UniteCreatetorParamsProcessorMultisource{
 
 		if(empty($imageTitle))
 			return;
-
+		
 		//if no image param - show some message
 		HelperHtmlUC::outputErrorMessage("Multisource Error: Missing <b>image size attribute</b> for: <b>$imageTitle</b> image attribute. Please add it to attributes list. Special Attribute -> Image Size");
-
+		
 	}
 
 
