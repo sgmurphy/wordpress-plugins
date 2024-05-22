@@ -14,6 +14,8 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Box_Shadow;
+
 
 use TheplusAddons\L_Theplus_Element_Load;
 
@@ -101,7 +103,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -143,7 +145,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'default' => 'content',
 				'options' => array(
 					'content'       => esc_html__( 'Content', 'tpebl' ),
-					'page_template' => esc_html__( 'Page Template (Pro)', 'tpebl' ),
+					'page_template' => esc_html__( 'Page Template', 'tpebl' ),
 				),
 			)
 		);
@@ -161,14 +163,63 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 			)
 		);
 		$repeater->add_control(
-			'content_template_options',
+			'content_template_type',
 			array(
-				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type'        => Controls_Manager::TEXT,
+				'label'     => wp_kses_post( "Templates<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "elementor-template-inside-tabs-widget/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'dropdown',
+				'options'   => array(
+					'dropdown' => esc_html__( 'Template', 'tpebl' ),
+					'manually' => esc_html__( 'Shortcode', 'tpebl' ),
+				),
+				'condition' => array(
+					'content_source' => array( 'page_template' ),
+				),
+			)
+		);
+		$repeater->add_control(
+			'content_template',
+			array(
+				'label'       => esc_html__( 'Elementor Templates', 'theplus' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => L_theplus_get_templates(),
+				'label_block' => 'true',
+				'condition'   => array(
+					'content_source'        => 'page_template',
+					'content_template_type' => 'dropdown',
+				),
+			)
+		);
+		$repeater->add_control(
+			'content_template_id',
+			array(
+				'label'       => esc_html__( 'Elementor Templates Shortcode', 'theplus' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'dynamic'     => array(
+					'active' => true,
+				),
 				'default'     => '',
-				'description' => theplus_pro_ver_notice(),
-				'classes'     => 'plus-pro-version',
-				'condition'   => array( 'content_source' => 'page_template' ),
+				'placeholder' => '[elementor-template id="70"]',
+				'condition'   => array(
+					'content_source'        => 'page_template',
+					'content_template_type' => 'manually',
+				),
+			)
+		);
+		$repeater->add_control(
+			'backend_preview_template',
+			array(
+				'label'       => esc_html__( 'Backend Visibility', 'tpebl' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'label_on'    => esc_html__( 'Show', 'theplus' ),
+				'label_off'   => esc_html__( 'Hide', 'theplus' ),
+				'description' => esc_html__( 'Note : If disabled, Template will not visible/load in the backend for better page loading performance.', 'theplus' ),
+				'separator'   => 'after',
+				'condition'   => array(
+					'content_source' => 'page_template',
+				),
 			)
 		);
 		$repeater->add_control(
@@ -193,6 +244,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'default'   => 'font_awesome',
 				'options'   => array(
 					'font_awesome' => esc_html__( 'Font Awesome', 'tpebl' ),
+					'font_awesome_5' => esc_html__( 'Font Awesome 5', 'tpebl' ),
 					'icon_mind'    => esc_html__( 'Icons Mind (Pro)', 'tpebl' ),
 					'image'        => esc_html__( 'Image (Pro)', 'tpebl' ),
 				),
@@ -213,6 +265,22 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 					'content_source' => array( 'content' ),
 					'display_icon'   => 'yes',
 					'icon_style'     => 'font_awesome',
+				),
+			)
+		);
+		$repeater->add_control(
+			'icon_fontawesome_5',
+			array(
+				'label'     => esc_html__( 'Icon Library', 'theplus' ),
+				'type'      => Controls_Manager::ICONS,
+				'default'   => array(
+					'value'   => 'fas fa-plus',
+					'library' => 'solid',
+				),
+				'separator' => 'before',
+				'condition' => array(
+					'display_icon' => 'yes',
+					'icon_style'   => 'font_awesome_5',
 				),
 			)
 		);
@@ -423,6 +491,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'render_type' => 'ui',
 				'selectors'   => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-wrap svg,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap svg' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-image' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
 			)
@@ -434,6 +503,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header .tab-icon-wrap svg,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title .tab-icon-wrap svg' => 'fill: {{VALUE}}'
 				),
 			)
 		);
@@ -445,6 +515,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header:hover .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active .tab-icon-wrap,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active .tab-icon-wrap' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .theplus-tabs-wrapper .plus-tabs-nav .plus-tab-header.active .tab-icon-wrap svg,{{WRAPPER}} .theplus-tabs-wrapper.mobile-accordion .elementor-tab-mobile-title.active .tab-icon-wrap svg' => 'fill: {{VALUE}}'
 				),
 			)
 		);
@@ -1304,6 +1375,91 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 			)
 		);
 		$this->add_control(
+			'content_border_options',
+			array(
+				'label'     => esc_html__( 'Border Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_control(
+			'content_box_border',
+			array(
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'theplus' ),
+				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'default'   => 'no',
+			)
+		);
+
+		$this->add_control(
+			'content_border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'content_box_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'content_box_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'content_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
 			'content_background_options',
 			array(
 				'label'     => esc_html__( 'Background Options', 'tpebl' ),
@@ -1318,6 +1474,21 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'types'    => array( 'classic', 'gradient' ),
 				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper',
 
+			)
+		);
+		$this->add_control(
+			'content_shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'content_box_shadow',
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-content-wrapper',
 			)
 		);
 		$this->end_controls_section();
@@ -1582,7 +1753,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 	 * Tabs tours render.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 		$settings  = $this->get_settings_for_display();
@@ -1658,11 +1829,21 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				if ( 'font_awesome' === $icon_style ) {
 
 					$icons = $item['icon_fontawesome'];
+				}elseif ( 'font_awesome_5' === $item['icon_style'] ) {
+					ob_start();
+					\Elementor\Icons_Manager::render_icon( $item['icon_fontawesome_5'], array( 'aria-hidden' => 'true' ) );
+					$icons = ob_get_contents();
+					ob_end_clean();
 				}
+
 				if ( ! empty( $icons ) || ! empty( $icon_image ) ) {
 						$tab_nav .= '<span class="tab-icon-wrap" aria-hidden="true">';
 					if ( 'image' !== $icon_style ) {
-						$tab_nav .= '<i class="tab-icon ' . esc_attr( $icons ) . '"></i>';
+						if ( 'font_awesome_5' === $item['icon_style'] ) {
+								$tab_nav .= '<span>' . $icons . '</span>';
+							} else {
+								$tab_nav .= '<i class="tab-icon ' . esc_attr( $icons ) . '"></i>';
+							}
 					} else {
 						$tab_nav .= '<img src="' . esc_url( $icon_image ) . '" class="tab-icon tab-icon-image" alt="' . esc_attr( $image_alt ) . '" />';
 					}
@@ -1716,15 +1897,25 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 			if ( 'yes' === $dis_icon ) :
 				$icons      = '';
 				$icon_image = '';
+				$IconStyle  = ! empty( $item['icon_style'] ) ? $item['icon_style'] : '';
 
 				if ( 'font_awesome' === $icon_style ) {
 						$icons = $item['icon_fontawesome'];
+				}elseif ( 'font_awesome_5' === $IconStyle ) {
+					ob_start();
+						\Elementor\Icons_Manager::render_icon( $item['icon_fontawesome_5'], array( 'aria-hidden' => 'true' ) );
+						$icons = ob_get_contents();
+					ob_end_clean();
 				}
 
 				if ( ! empty( $icons ) || ! empty( $icon_image ) ) {
 						$tab_content .= '<span class="tab-icon-wrap" aria-hidden="true">';
 					if ( 'image' !== $icon_style ) {
-						$tab_content .= '<i class="tab-icon ' . esc_attr( $icons ) . '"></i>';
+						if ( 'font_awesome_5' === $IconStyle ) {
+							$tab_content .= $icons;
+						} else {
+							$tab_content .= '<i class="tab-icon ' . esc_attr( $icons ) . '"></i>';
+						}
 					} else {
 						$tab_content .= '<img src="' . esc_url( $icon_image ) . '" class="tab-icon tab-icon-image" alt="' . esc_attr( $image_alt ) . '" />';
 					}
@@ -1741,6 +1932,37 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 
 			if ( 'content' === $con_sors && ! empty( $tab_con ) ) {
 				$tab_content .= '<div class="plus-content-editor">' . $this->parse_text_editor( $tab_con ) . '</div>';
+			}
+			if ( ( ! empty( $item['content_source'] ) && 'page_template' === $item['content_source'] ) && ( ! empty( $item['content_template_type'] ) && 'manually' === $item['content_template_type'] ) && ! empty( $item['content_template_id'] ) ) {
+				if ( \Elementor\Plugin::$instance->editor->is_edit_mode() && 'page_template' === $item['content_source'] && ! empty( $item['content_template_id'] ) ) {
+					if ( ! empty( $item['backend_preview_template'] ) && 'yes' === $item['backend_preview_template'] ) {
+						$tab_content .= '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( substr( $item['content_template_id'], 24, -2 ) ) . '</div>';
+					} else {
+						$tab_content .= '<div class="tab-preview-template-notice"><div class="preview-temp-notice-heading">Selected Template : <b>"' . esc_attr( $item['content_template_id'] ) . '"</b></div><div class="preview-temp-notice-desc"><b>Note :</b> We have turn off visibility of template in the backend due to performance improvements. This will be visible perfectly on the frontend.</div></div>';
+					}
+				} elseif ( 'page_template' === $item['content_source'] && ! empty( $item['content_template_id'] ) ) {
+
+					$tab_content .= '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( substr( $item['content_template_id'], 24, -2 ) ) . '</div>';
+				}
+			} elseif ( \Elementor\Plugin::$instance->editor->is_edit_mode() && 'page_template' === $item['content_source'] && ! empty( $item['content_template'] ) ) {
+				if ( ! empty( $item['backend_preview_template'] ) && 'yes' === $item['backend_preview_template'] ) {
+					$tab_content .= '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( $item['content_template'] ) . '</div>';
+				} else {
+					$get_template_name = '';
+					$get_template_id   = $item['content_template'];
+					if ( ! empty( $templates ) && ! empty( $get_template_id ) ) {
+						foreach ( $templates as $value ) {
+							if ( $value['template_id'] === $get_template_id ) {
+								$get_template_name = $value['title'];
+							}
+						}
+					}
+
+					$tab_content .= '<div class="tab-preview-template-notice"><div class="preview-temp-notice-heading">Selected Template : <b>"' . esc_attr( $get_template_name ) . '"</b></div><div class="preview-temp-notice-desc"><b>Note :</b> We have turn off visibility of template in the backend due to performance improvements. This will be visible perfectly on the frontend.</div></div>';
+				}
+			} elseif ( 'page_template' === $item['content_source'] && ! empty( $item['content_template'] ) ) {
+
+				$tab_content .= '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( $item['content_template'] ) . '</div>';
 			}
 				$tab_content .= '</div>';
 				endforeach;

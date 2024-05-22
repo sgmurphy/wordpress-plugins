@@ -946,6 +946,16 @@ class L_ThePlus_Contact_Form_7 extends Widget_Base {
 			)
 		);
 		$this->add_control(
+			'unradio_field_color',
+			array(
+				'label'     => esc_html__( 'UnChecked Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-contact-form .input__radio_btn .toggle-button__icon:before' => 'color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_control(
 			'radio_unchecked_field_bgcolor',
 			array(
 				'label'     => esc_html__( 'UnChecked Bg Color', 'tpebl' ),

@@ -256,17 +256,17 @@
                 if (current === 8) {
                     var onDonebtn = document.querySelector('.tpae-onbor-last'),
                         tpae_ondata = document.getElementById('tpae_ondata');
-
                     if (onDonebtn != null) {
                         onDonebtn.onclick = function (event) {
                             event.preventDefault();
-                            
                             var tpaeonData = { 
                                 tpae_web_com: '', 
                                 tpae_web_Type: '', 
                                 tpae_get_data: false, 
                                 tpae_onboarding: false 
                             };
+
+                            let checkbox_val = tpae_ondata.checked
 
                             select1.forEach((obj) => {
                                 if (obj.classList.contains('active')) {
@@ -283,7 +283,7 @@
                             });
 
                             if (tpae_ondata) {
-                                tpaeonData['tpae_get_data'] = true;
+                                tpaeonData['tpae_get_data'] = checkbox_val;
                             }
 
                             if (tpaeonData) {

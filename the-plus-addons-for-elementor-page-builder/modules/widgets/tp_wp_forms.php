@@ -101,7 +101,7 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -138,6 +138,35 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 			)
 		);
 
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'displayoption_section',
+			array(
+				'label' => esc_html__( 'Display Options', 'theplus' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+		$this->add_control(
+			'form_title',
+			array(
+				'label'     => esc_html__( 'Form Name', 'theplus' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'theplus' ),
+				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'default'   => '',
+			)
+		);
+		$this->add_control(
+			'form_description',
+			array(
+				'label'     => esc_html__( 'Form Description', 'theplus' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'theplus' ),
+				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'default'   => '',
+			)
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -2339,17 +2368,22 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 	 * Wp Form shortcode.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	private function get_shortcode() {
 		$settings = $this->get_settings_for_display();
+
+		$form_description = ! empty( $settings['form_description'] ) ? 'true' : 'false';
+		$form_title       = ! empty( $settings['form_title'] ) ? 'true' : 'false';
 
 		if ( ! $settings['wp_forms'] ) {
 			return '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a WPForms', 'tpebl' ) . '</h3>';
 		}
 
 		$attributes = array(
-			'id' => $settings['wp_forms'],
+			'id'          => $settings['wp_forms'],
+			'description' => $form_description,
+			'title'       => $form_title,
 		);
 		$this->add_render_attribute( 'shortcode', $attributes );
 
@@ -2363,7 +2397,7 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 	 * Wp Form Render.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	public function render() {
 		$settings = $this->get_settings_for_display();
@@ -2413,28 +2447,27 @@ class L_ThePlus_Wp_Forms extends Widget_Base {
 	 * @since 1.0.1
 	 * @version 5.5.2
 	 */
-    function l_theplus_wpforms_forms() {
-        $options = array();
-        if ( class_exists( '\WPForms\WPForms' ) ) {
+	function l_theplus_wpforms_forms() {
+		$options = array();
+		if ( class_exists( '\WPForms\WPForms' ) ) {
 
-            $args = array(
-                'post_type' => 'wpforms',
-                'posts_per_page' => -1
-            );
+			$args = array(
+				'post_type'      => 'wpforms',
+				'posts_per_page' => -1,
+			);
 
-            $contact_forms = get_posts( $args );
+			$contact_forms = get_posts( $args );
 
-            if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
-                $options[0] = esc_html__( 'Select a WPForm', 'tpebl' );
-                foreach ( $contact_forms as $post ) {   
-                    $options[ $post->ID ] = $post->post_title;
-                }
-            }
-        } else {
-            $options[0] = esc_html__( 'Create a Form First', 'tpebl' );
-        }
+			if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
+				$options[0] = esc_html__( 'Select a WPForm', 'tpebl' );
+				foreach ( $contact_forms as $post ) {
+					$options[ $post->ID ] = $post->post_title;
+				}
+			}
+		} else {
+			$options[0] = esc_html__( 'Create a Form First', 'tpebl' );
+		}
 
-        return $options;
-    }
-
+		return $options;
+	}
 }

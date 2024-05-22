@@ -155,19 +155,81 @@ class HMWP_Models_Compatibility
 			$ip = $_SERVER['REMOTE_ADDR'];
 
 			if(HMWP_Classes_Tools::isWhitelistedIP($ip)){
-				add_filter('hmwp_process_hide_urls', '__return_false');
-
-				if(HMWP_Classes_Tools::getOption('whitelist_paths')) {
-					add_filter('hmwp_process_init', '__return_false');
-					add_filter('hmwp_process_buffer', '__return_false');
-					add_filter('hmwp_process_hide_disable', '__return_false');
-					add_filter('hmwp_process_find_replace', '__return_false');
-					HMWP_Classes_ObjController::getClass('HMWP_Models_Cookies')->setWhitelistCookie();
-				}
+                $this->whitelistLevel(HMWP_Classes_Tools::getOption('whitelist_level'));
 			}
 
 		}
 	}
+
+
+    /**
+     * Check if there are whitelisted paths for the current path
+     * @return void
+     */
+    public function checkWhitelistPaths(){
+
+        if(isset($_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_URI"] <> ''){
+            $url = untrailingslashit(strtok($_SERVER["REQUEST_URI"], '?'));
+
+            //check the whitelist URLs
+            if (HMWP_Classes_Tools::getOption('whitelist_urls')) {
+                $whitelist_urls = json_decode(HMWP_Classes_Tools::getOption('whitelist_urls'), true);
+
+                if(!empty($whitelist_urls)){
+                    foreach ($whitelist_urls as $path){
+                        if(strpos($path, ',')){
+                            $paths = explode(',', $path);
+
+                            foreach ($paths as $spath){
+                                if (HMWP_Classes_Tools::searchInString($spath, array($url))) {
+                                    $this->whitelistLevel(HMWP_Classes_Tools::getOption('whitelist_level'));
+                                }
+                            }
+
+                        }else{
+                            if (HMWP_Classes_Tools::searchInString($path, array($url))) {
+                                $this->whitelistLevel(HMWP_Classes_Tools::getOption('whitelist_level'));
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Whitelist features based on whitelist level
+     *
+     * @param $level
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function whitelistLevel($level) {
+
+        //whitelist_level == 0
+        if($level == 0){
+            add_filter('hmwp_process_hide_urls', '__return_false');
+        }
+
+        //whitelist_level == 1
+        if($level > 0){
+            add_filter('hmwp_process_find_replace', '__return_false');
+            HMWP_Classes_ObjController::getClass('HMWP_Models_Cookies')->setWhitelistCookie();
+        }
+
+        //whitelist_level == 2
+        if($level > 1){
+            add_filter('hmwp_process_init', '__return_false');
+            add_filter('hmwp_process_buffer', '__return_false');
+            add_filter('hmwp_process_hide_disable', '__return_false');
+        }
+    }
 
     /**
      * Check if the cache plugins are loaded and have cached files

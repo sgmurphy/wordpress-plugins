@@ -1125,7 +1125,7 @@ class L_ThePlus_Scroll_Navigation extends Widget_Base {
 			$scroll_navigation .= '<div class="theplus-scroll-navigation__inner">';
 
 			foreach ( $menu_list as $item ) {
-				$scroll_navigation .= '<a href="#' . $item['scroll_navigation_section_id'] . '" class="theplus-scroll-navigation__item _mPS2id-h" >';
+				$scroll_navigation .= '<a href="#' . esc_attr( $item['scroll_navigation_section_id'] ) . '" class="theplus-scroll-navigation__item _mPS2id-h" >';
 				$tooltip_menu_title = '';
 				$tooltip_title      = '';
 				$tooltip_icon       = '';

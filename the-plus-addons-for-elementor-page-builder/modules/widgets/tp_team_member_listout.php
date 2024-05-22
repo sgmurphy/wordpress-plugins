@@ -15,6 +15,7 @@ use Elementor\Controls_Manager;
 use Elementor\Utils;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
@@ -337,7 +338,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'options' => array(
 					'style-1' => esc_html__( 'Style 1', 'tpebl' ),
 					'style-2' => esc_html__( 'Style 2 (PRO)', 'tpebl' ),
-					'style-3' => esc_html__( 'Style 3 (PRO)', 'tpebl' ),
+					'style-3' => esc_html__( 'Style 3', 'tpebl' ),
 					'style-4' => esc_html__( 'Style 4 (PRO)', 'tpebl' ),
 				),
 			)
@@ -351,7 +352,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'description' => theplus_pro_ver_notice(),
 				'classes'     => 'plus-pro-version',
 				'condition'   => array(
-					'style!' => array( 'style-1' ),
+					'style!' => array( 'style-1','style-3' ),
 				),
 			)
 		);
@@ -812,7 +813,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'label'     => esc_html__( 'Social Icon', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
-					'style'               => array( 'style-1' ),
+					'style'               => array( 'style-1','style-3' ),
 					'display_social_icon' => 'yes',
 				),
 			)
@@ -836,7 +837,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				),
 				'render_type' => 'ui',
 				'selectors'   => array(
-					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a i' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a i' => 'font-size: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -859,7 +860,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				),
 				'render_type' => 'ui',
 				'selectors'   => array(
-					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};line-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a,{{WRAPPER}} .team-member-list.team-style-3 .team-social-content .team-social-list li a' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};line-height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -882,7 +883,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				),
 				'render_type' => 'ui',
 				'selectors'   => array(
-					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a i' => 'transform: translateY({{SIZE}}{{UNIT}});',
+					'{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a i' => 'transform: translateY({{SIZE}}{{UNIT}});',
 				),
 			)
 		);
@@ -900,7 +901,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a,{{WRAPPER}} .team-member-list.team-style-3 .team-social-content .team-social-list li a' => 'color: {{VALUE}}',
 				),
 			)
 		);
@@ -918,7 +919,138 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .team-member-list.team-style-1 .team-social-content .team-social-list li a:hover,{{WRAPPER}} .team-member-list.team-style-3 .team-social-content .team-social-list li a:hover' => 'color: {{VALUE}}',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->add_control(
+			'social_common_color_opt',
+			array(
+				'label'     => esc_html__( 'Social Icon Common Options', 'theplus' ),
+				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Enable', 'theplus' ),
+				'label_off' => esc_html__( 'Disable', 'theplus' ),
+				'default'   => 'no',
+				'separator' => 'before',
+			)
+		);
+		$this->start_controls_tabs( 'tabs_social_common_color_opt' );
+		$this->start_controls_tab(
+			'tab_scco_normal',
+			array(
+				'label'     => esc_html__( 'Normal', 'theplus' ),
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'scco_n_background',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a',
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'      => 'scco_n_border',
+				'label'     => esc_html__( 'Border', 'theplus' ),
+				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a',
+				'separator' => 'before',
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'scco_n_br',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'      => 'scco_n_shadow',
+				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a',
+				'separator' => 'before',
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'tab_scco_hover',
+			array(
+				'label'     => esc_html__( 'Hover', 'theplus' ),
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'scco_h_background',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a:hover',
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'      => 'scco_h_border',
+				'label'     => esc_html__( 'Border', 'theplus' ),
+				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a:hover',
+				'separator' => 'before',
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'scco_h_br',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'theplus' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'social_common_color_opt' => 'yes',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'      => 'scco_h_shadow',
+				'label'     => esc_html__( 'Box Shadow', 'theplus' ),
+				'selector'  => '{{WRAPPER}} .team-member-list .team-social-content .team-social-list li a:hover',
+				'separator' => 'before',
+				'condition' => array(
+					'social_common_color_opt' => 'yes',
 				),
 			)
 		);
@@ -1069,6 +1201,51 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				),
 			)
 		);
+		$this->add_control(
+			'box_border',
+			array(
+				'label'     => esc_html__( 'Box Border', 'theplus' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'theplus' ),
+				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'default'   => 'no',
+			)
+		);
+		$this->add_control(
+			'border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'theplus' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .team-member-list .team-list-content' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'box_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'theplus' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .team-member-list .team-list-content' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'box_border' => 'yes',
+				),
+			)
+		);
 		$this->start_controls_tabs( 'tabs_border_style' );
 		$this->start_controls_tab(
 			'tab_border_normal',
@@ -1135,6 +1312,44 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			array(
 				'name'     => 'box_active_background',
 				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .team-member-list .team-list-content:hover',
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->add_control(
+			'shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'theplus' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->start_controls_tabs( 'tabs_shadow_style' );
+		$this->start_controls_tab(
+			'tab_shadow_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'theplus' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'box_shadow',
+				'selector' => '{{WRAPPER}} .team-member-list .team-list-content',
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'tab_shadow_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'theplus' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'box_active_shadow',
 				'selector' => '{{WRAPPER}} .team-member-list .team-list-content:hover',
 			)
 		);
@@ -1392,7 +1607,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$settings   = $this->get_settings_for_display();
 		$query_args = $this->get_query_args();
 		$query      = new \WP_Query( $query_args );
-		$style      = ! empty( $settings['style'] ) ? $settings['style'] : '';
+		$style      = ! empty( $settings['style'] ) ? $settings['style'] : 'style-1';
 		$layout     = ! empty( $settings['layout'] ) ? $settings['layout'] : '';
 
 		$team_name     = l_theplus_team_member_post_name();
@@ -1529,7 +1744,8 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			}
 		} elseif ( ! $query->have_posts() ) {
 			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Posts not found', 'tpebl' ) . '</h3>';
-		} elseif ( 'style-1' === $style && 'carousel' !== $layout ) {
+		} elseif ( 'style-1' === $style || 'style-3' === $style && 'carousel' !== $layout ) {
+			
 			$output .= '<div id="theplus-team-member-list" class="team-member-list ' . esc_attr( $uid ) . ' ' . esc_attr( $data_class ) . ' ' . $animated_class . '" ' . $layout_attr . ' ' . $data_attr . ' ' . $animation_attr . ' data-enable-isotope="1">';
 
 			$member_urlblank    = '';

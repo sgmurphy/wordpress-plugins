@@ -42,8 +42,8 @@ function wpa_admin_notices(){
                         <ul style="padding-left:50px;list-style-type: square;">
                             <li><a href="https://wordpress.org/support/plugin/honeypot/reviews/?filter=5" target="_blank">Ok, you deserve it</a></li>
                             <li><a href="https://dineshkarki.com.np/contact" target="_blank">I still have problem !!</a></li>
-                            <li><a href="'.admin_url("?page=wp-armour&wpa_reviews_notice_hide=1").'">I already did</a></li> 
-                            <li><a href="'.admin_url("?page=wp-armour&wpa_reviews_notice_hide=1").'">Hide this message</a></li>    
+                            <li><a href="'.admin_url("admin.php?page=wp-armour&wpa_reviews_notice_hide=1").'">I already did</a></li> 
+                            <li><a href="'.admin_url("admin.php?page=wp-armour&wpa_reviews_notice_hide=1").'">Hide this message</a></li>    
 
                         </ul>
 
@@ -66,7 +66,7 @@ function wpa_admin_notices(){
                             Your support is vital for us to keep fighting spam. By supporting us on <a href="https://www.patreon.com/wp_armour" target="_blank">Patreon</a> with as little as USD 1, you will help us continue developing of <strong>WP Armour</strong> Anti Spam Plugin.
                             <ul style="padding-left:50px;list-style-type: square;">
                                 <li><a href="https://www.patreon.com/wp_armour" target="_blank">WP Armour Patreon Page</a></li>
-                                <li><a href="'.admin_url("?page=wp-armour&wpa_pateron_notice_hide=1").'">Hide this message</a></li>
+                                <li><a href="'.admin_url("admin.php?page=wp-armour&wpa_pateron_notice_hide=1").'">Hide this message</a></li>
                             </ul>
 
                      </div>';
@@ -93,7 +93,7 @@ function wpa_admin_notices(){
 
                         <ul style="padding-left:50px;list-style-type: square;">
                             <li><a href="https://dineshkarki.com.np/buy-wp-armour-extended" target="_blank">I will help</a></li>
-                            <li><a href="'.admin_url("?page=wp-armour&wpa_extended_notice_hide=1").'">Hide this message</a></li>
+                            <li><a href="'.admin_url("admin.php?page=wp-armour&wpa_extended_notice_hide=1").'">Hide this message</a></li>
                         </ul>
                  </div>';
             }

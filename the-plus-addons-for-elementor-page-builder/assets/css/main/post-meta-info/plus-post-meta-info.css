@@ -11,6 +11,7 @@
 .tp-post-meta-info .tp-post-meta-info-inner {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
 	align-items: center;
 }
 .tp-post-meta-info, .tp-post-meta-info a, .tp-post-meta-info .tp-meta-date i, .tp-post-meta-info .tp-meta-author i, .tp-post-meta-info .tp-meta-comment i,.tp-post-meta-info .tp-post-meta-info-inner,.tp-post-meta-info .tp-post-meta-info-inner .tp-meta-date,

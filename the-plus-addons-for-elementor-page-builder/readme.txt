@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, elementor addons, elementor templates, widge
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.5.3
+Stable tag: 5.5.5
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -383,6 +383,56 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 5.5.5 =
+Fix : Age Gate : Security Patch ( Low security )
+Fix : Hover Card : Security Patch ( Low security )
+Fix : Header Meta content : Security Patch ( Low security )
+
+= 5.5.4 =
+Add : Accordion : Default tab active Option
+Add : Accordion : Option to add space between tabs
+Add : Accordion : Option to style border
+Add : Accordion : Option for content background styling
+Add : Blog Listout : Post load more option
+Add : Blog Listout : Border styling option
+Add : Blog Listout : Social Icon Background color option
+Add : Blog Listout : Box shadow option
+Add : Contact Form 7 : Add option for uncheck radio button color
+Add : Gallery Listing : add style 2 layout
+Add : Info Box : Add Style 4
+Add : Number Counter : Symbol color option
+Add : Navigation Menu Lite : Add Repeater option 
+Add : Pricing Table : Ribbon style 1  
+Add : Pricing Table : Font Awesome icon option 
+Add : Pricing Table : Content style option
+Add : Pricing Table : Button Alignment
+Add : Process Steps widget
+Add : Stylis List widget
+Add : Team Member : Add style 3
+Add : Team Member : Border width option
+Add : Team Member : Box shadow option
+Add : Team Member : Social icon background color option
+Add : Testimonial : Box shadow option
+Add : Testimonial : Alignment for style-4
+Add : Tabs/Tour : Font Awesome 5 icons 
+Add : Tabs/Tour : Option add content via Elementor Template 
+Add : Tabs/Tour : Option to style border 
+Add : Tabs/Tour : Option to style box shadow 
+Add : WP Forms : Display option for hide/show form Name & Description
+Compatibility : Button : Add responsive compatibility for button size and spacing
+compatibility : Info Box : Responsive compatibility for title top/bottom space
+compatibility : Flip Box : Responsive compatibility for Icons size & title top/bottom space
+Fix : Blockquote : Image should not hide when toggle of icon disable
+Fix : Gravity Form : checkbox and radio button not showing
+Fix : Flip Box : Security Patch ( Low security )
+Fix : Info Box : SVG icons css improvement
+Fix : Info Box : Button SVG icon not showing fix
+Fix : Pricing Table : Content Description style 2 alignment not working 
+Fix : Post Featured Image : Css improvement for border radius
+Fix : Progress Bar : Security Patch ( Low security )
+Fix : Scroll Navigation : Security Patch ( Low security )
+Fix : Minor Bug Fixes & Performance Improvements
+
 = 5.5.3 =
 Add : Syntax Highlighter Widget
 Fix : Button : Security Patch ( Low security )
@@ -397,6 +447,7 @@ Fix : Post Meta : Post Author name compatibility with Nexter Extension Single Pa
 Add : Contact Form 7 : Option to Change checkbox Position
 Fix : Gravity Form : Condition Improvement
 Fix : Condition Improvement for Caching File generating flow
+Fix : Minor Bug Fixes & Performance Improvements
 
 == Upgrade Notice ==
 

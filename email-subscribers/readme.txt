@@ -6,7 +6,7 @@ Tags: email marketing, email subscribers, newsletters, autoresponders, email aut
 Requires at least: 3.9
 Tested up to: 6.5.2
 Requires PHP: 7.0
-Stable tag: 5.7.20
+Stable tag: 5.7.21
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,12 +438,23 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.20 =
+= 5.7.21 =
 
-* Improvements: Settings page UI improvements
-* Fix: Security vulnerabilities including SQL injection, PHP object injection, and missing authorization checks - CVE-2024-4010 [Thanks to Wordfence team]
+* Improvements: New WordPress filter 'ig_es_validate_subscription' to enable custom subscription validation
+* Fix: Unauthenticated SQL Injection vulnerability - CVE-2024-4295 [Thanks to Wordfence team]
+* Fix: Campaign title getting used in email subject for post notification campaigns
+* Fix: Issue while editing campaign title
+* Fix: Style issues with custom fields [MAX]
 
 == Changelog ==
+
+**5.7.21 (22.05.2024)**
+
+* Improvements: New WordPress filter 'ig_es_validate_subscription' to enable custom subscription validation
+* Fix: Unauthenticated SQL Injection vulnerability - CVE-2024-4295 [Thanks to Wordfence team]
+* Fix: Campaign title getting used in email subject for post notification campaigns
+* Fix: Issue while editing campaign title
+* Fix: Style issues with custom fields [MAX]
 
 **5.7.20 (09.05.2024)**
 

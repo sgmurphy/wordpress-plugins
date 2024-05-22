@@ -16,7 +16,7 @@ use FSVendor\WPDesk\PluginBuilder\Plugin\HookableParent;
 use FSVendor\WPDesk\Tracker\Deactivation\PluginData;
 use FSVendor\WPDesk\Tracker\Deactivation\ReasonsFactory;
 use FSVendor\WPDesk\Tracker\Deactivation\TrackerFactory;
-use FSVendor\WPDesk\Tracker\OptInOptOut;
+use FSVendor\WPDesk\Tracker\PluginActionLinks;
 /**
  * Can create complete tracker.
  */
@@ -78,6 +78,8 @@ class TrackerInitializer implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookab
             $this->add_hookable(new \FSVendor\Octolize\Tracker\OptInNotice\OptInNotice($this->plugin_slug, $this->shop_url, $this->should_display));
         }
         $this->hooks_on_hookable_objects();
+        // Move opt links to plugin meta.
+        \add_filter(\FSVendor\WPDesk\Tracker\PluginActionLinks::WPDESK_OPT_LINK_LOCATION . $this->plugin_file, fn() => \FSVendor\WPDesk\Tracker\PluginActionLinks::PLUGIN_META);
         // By returning empty array, we opt out from notice provided by wp-wpdesk-tracker.
         \add_filter('wpdesk_tracker_notice_screens', fn() => []);
         \add_action('plugins_loaded', [$this, 'init_tracker']);

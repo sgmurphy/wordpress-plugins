@@ -790,7 +790,6 @@ class Loader {
 			return;
 		}
 
-		add_action( 'init', array( $this->config, 'check_current_version' ) );
 		add_action( 'updated_option', array( $this->config, 'update_config_check' ), 10, 1 );
 		add_action( 'added_option', array( $this->config, 'update_config_check' ), 10, 1 );
 	}

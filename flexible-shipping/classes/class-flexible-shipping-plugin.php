@@ -8,6 +8,8 @@
 use FSVendor\Octolize\Blocks\IntegrationData;
 use FSVendor\Octolize\Blocks\Registrator;
 use FSVendor\Octolize\Blocks\StoreEndpoint;
+use FSVendor\Octolize\Brand\Assets\AdminAssets;
+use FSVendor\Octolize\Brand\UpsellingBox\ShippingMethodShouldShowStrategy;
 use FSVendor\Octolize\ShippingExtensions\ShippingExtensions;
 use FSVendor\Octolize\Tracker\DeactivationTracker\OctolizeReasonsFactory;
 use FSVendor\Octolize\Tracker\OptInNotice\ShouldDisplayAndConditions;
@@ -325,6 +327,16 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 		$this->add_hookable( new Tracker() );
 
 		$this->add_hookable( new ProVersionUpdateReminder( 'pl_PL' === get_locale() ) );
+
+		$this->add_hookable( new \WPDesk\FS\Plugin\PluginLinks( $this->get_plugin_file_path() ) );
+
+		$brand_assets_url = $this->get_plugin_assets_url() . '../vendor_prefixed/octolize/wp-octolize-brand-assets/assets/';
+
+		$this->add_hookable( new \WPDesk\FS\AdvertMetabox\ProPluginAdvertMetabox( $brand_assets_url ) );
+		$this->add_hookable( new \WPDesk\FS\AdvertMetabox\FsiePluginAdvertMetabox( $brand_assets_url ) );
+
+		$should_show_strategy = new ShippingMethodShouldShowStrategy( \WPDesk_Flexible_Shipping_Settings::METHOD_ID );
+		$this->add_hookable( new AdminAssets( $brand_assets_url, 'fs', $should_show_strategy ) );
 
 	}
 
@@ -842,23 +854,18 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 	 * @return array
 	 */
 	public function links_filter( $links ) {
-		$docs_link    = get_locale() === 'pl_PL' ? 'https://octol.io/fs-docs-pl' : 'https://octol.io/fs-docs';
-		$support_link = get_locale() === 'pl_PL' ? 'https://octol.io/fs-support-pl' : 'https://octol.io/fs-support';
-
-		$settings_url = admin_url( 'admin.php?page=wc-settings&tab=shipping&section=' . WPDesk_Flexible_Shipping_Settings::METHOD_ID );
+		$settings_url = admin_url( 'admin.php?page=wc-settings&tab=shipping&section=' . \WPDesk_Flexible_Shipping_Settings::METHOD_ID );
 
 		$plugin_links = [
 			'<a href="' . $settings_url . '">' . __(
 				'Settings',
 				'flexible-shipping'
 			) . '</a>',
-			'<a target="_blank" href="' . esc_url( $docs_link ) . '">' . __( 'Docs', 'flexible-shipping' ) . '</a>',
-			'<a target="_blank" href="' . esc_url( $support_link ) . '">' . __( 'Support', 'flexible-shipping' ) . '</a>',
 		];
-		$pro_link     = get_locale() === 'pl_PL' ? 'https://octol.io/fs-upgrade-pl' : 'https://octol.io/fs-upgrade';
 
-		if ( ! wpdesk_is_plugin_active( 'flexible-shipping-pro/flexible-shipping-pro.php' ) ) {
-			$plugin_links[] = '<a href="' . esc_url( $pro_link ) . '" target="_blank" style="color:#d64e07;font-weight:bold;">' . __(
+		if ( ! defined( 'FLEXIBLE_SHIPPING_PRO_VERSION' )  ) {
+			$pro_link     = get_locale() === 'pl_PL' ? 'https://octol.io/fs-upgrade-pl' : 'https://octol.io/fs-upgrade';
+			$plugin_links[] = '<a href="' . esc_url( $pro_link ) . '" target="_blank" style="color:#00B62E;font-weight:bold;">' . __(
 					'Buy PRO',
 					'flexible-shipping'
 				) . '</a>';

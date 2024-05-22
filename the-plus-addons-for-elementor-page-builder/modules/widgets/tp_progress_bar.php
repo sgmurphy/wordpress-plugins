@@ -1109,9 +1109,9 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 		}
 
 		if ( 'gradient' === $pi_fill ) {
-			$data_fill_color = ' data-fill="{&quot;gradient&quot;: [&quot;' . $settings['pie_fill_gradient_color1'] . '&quot;,&quot;' . $settings['pie_fill_gradient_color2'] . '&quot;]}" ';
+			$data_fill_color = ' data-fill="{&quot;gradient&quot;: [&quot;' . sanitize_hex_color( $settings['pie_fill_gradient_color1'] ) . '&quot;,&quot;' . sanitize_hex_color( $settings['pie_fill_gradient_color2'] ) . '&quot;]}" ';
 		} else {
-			$data_fill_color = ' data-fill="{&quot;color&quot;: &quot;' . $settings['pie_fill_classic'] . '&quot;}" ';
+			$data_fill_color = ' data-fill="{&quot;color&quot;: &quot;' . sanitize_hex_color( $settings['pie_fill_classic'] ) . '&quot;}" ';
 		}
 
 		if ( 'pie_chart' === $main_style ) {
@@ -1201,13 +1201,17 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 		}
 
 		if ( ! empty( $settings['data_empty_fill'] ) ) {
-			$data_empty_fill = $settings['data_empty_fill'];
+			$data_empty_fill = sanitize_hex_color( $settings['data_empty_fill'] );
 		} else {
 			$data_empty_fill = 'transparent';
 		}
 
+		$pie_size     = ! empty( $settings['pie_value']['size'] ) ? $settings['pie_value']['size'] : '';
+		$pie_val      = ! empty( $settings['pie_size']['size'] ) ? $settings['pie_size']['size'] : '';
+		$pie_thikness = ! empty( $settings['pie_thickness']['size'] ) ? $settings['pie_thickness']['size'] : '';
+
 		if ( 'pie_chart' === $main_style ) {
-				$progress_bar .= '<div class="pt-plus-piechart ' . esc_attr( $pie_border_after ) . ' pie-' . esc_attr( $pie_chart_style ) . '"  ' . $data_fill_color . ' data-emptyfill="' . $data_empty_fill . '" data-value="' . $settings['pie_value']['size'] . '"  data-size="' . $settings['pie_size']['size'] . '" data-thickness="' . $settings['pie_thickness']['size'] . '"  data-animation-start-value="0"  data-reverse="false">';
+				$progress_bar .= '<div class="pt-plus-piechart ' . esc_attr( $pie_border_after ) . ' pie-' . esc_attr( $pie_chart_style ) . '"  ' . $data_fill_color . ' data-emptyfill="' . $data_empty_fill . '" data-value="' . esc_attr( $pie_size ) . '"  data-size="' . esc_attr( $pie_val ) . '" data-thickness="' . esc_attr( $pie_thikness ) . '"  data-animation-start-value="0"  data-reverse="false">';
 
 				$progress_bar .= '<div class="pt-plus-circle" ' . $inner_width . '>';
 

@@ -17,6 +17,15 @@ namespace SiteGround_Optimizer\Minifier;
 class Minify_Html {
 
 	/**
+	 * HTML content.
+	 *
+	 * @since 7.5.1
+	 *
+	 * @var string|null
+	 */
+	public $_html;
+
+	/**
 	 * "Minify" an HTML page
 	 *
 	 * @param string $html

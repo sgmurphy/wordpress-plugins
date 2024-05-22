@@ -90,7 +90,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -1282,54 +1282,68 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
-		$this->add_control(
+		$this->add_responsive_control(
 			'title_top_space',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Title Top Space', 'tpebl' ),
-				'size_units'  => array( 'px' ),
-				'range'       => array(
+				'type'            => Controls_Manager::SLIDER,
+				'label'           => esc_html__( 'Title Top Space', 'tpebl' ),
+				'range'           => array(
 					'px' => array(
 						'step' => 2,
 						'min'  => -150,
 						'max'  => 150,
 					),
 				),
-				'default'     => array(
+				'devices'         => array( 'desktop', 'tablet', 'mobile' ),
+				'desktop_default' => array(
 					'unit' => 'px',
 					'size' => 0,
 				),
-				'render_type' => 'ui',
-				'separator'   => 'before',
-				'selectors'   => array(
+				'tablet_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'mobile_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'render_type'     => 'ui',
+				'selectors'       => array(
 					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title' => 'margin-top : {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'title_btm_space',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Title Bottom Space', 'tpebl' ),
-				'size_units'  => array( 'px' ),
-				'range'       => array(
+				'type'            => Controls_Manager::SLIDER,
+				'label'           => esc_html__( 'Title Bottom Space', 'tpebl' ),
+				'range'           => array(
 					'px' => array(
 						'step' => 2,
 						'min'  => -150,
 						'max'  => 150,
 					),
 				),
-				'default'     => array(
+				'devices'         => array( 'desktop', 'tablet', 'mobile' ),
+				'desktop_default' => array(
 					'unit' => 'px',
 					'size' => 0,
 				),
-				'render_type' => 'ui',
-				'selectors'   => array(
+				'tablet_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'mobile_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'render_type'     => 'ui',
+				'selectors'       => array(
 					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title' => 'margin-bottom : {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
-
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_digit_option',
@@ -1382,7 +1396,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'orange',
 				'selectors' => array(
-					'{{WRAPPER}} .counter-number .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .counter-number .number-counter-inner-block .counter-number .counter-number-inner' => 'color: {{VALUE}}',
 				),
 				'condition' => array(
 					'digit_gradient_color' => 'gradient',
@@ -1414,7 +1428,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'cyan',
 				'selectors' => array(
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number .counter-number-inner' => 'color: {{VALUE}}',
 				),
 				'condition' => array(
 					'digit_gradient_color' => 'gradient',
@@ -1468,7 +1482,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background: linear-gradient({{SIZE}}{{UNIT}}, {{digit_gradient_color1.VALUE}} {{digit_gradient_color1_control.SIZE}}{{digit_gradient_color1_control.UNIT}}, {{digit_gradient_color2.VALUE}} {{digit_gradient_color2_control.SIZE}}{{digit_gradient_color2_control.UNIT}})',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number .counter-number-inner' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background: linear-gradient({{SIZE}}{{UNIT}}, {{digit_gradient_color1.VALUE}} {{digit_gradient_color1_control.SIZE}}{{digit_gradient_color1_control.UNIT}}, {{digit_gradient_color2.VALUE}} {{digit_gradient_color2_control.SIZE}}{{digit_gradient_color2_control.UNIT}})',
 				),
 				'condition'  => array(
 					'digit_gradient_color' => 'gradient',
@@ -1484,7 +1498,20 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'label'     => esc_html__( 'Color', 'tpebl' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number .counter-number-inner' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'digit_gradient_color' => 'color',
+				),
+			)
+		);
+		$this->add_control(
+			'symbol_color',
+			array(
+				'label'     => esc_html__( 'Symbol Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number .number-counter-symbol' => 'color: {{VALUE}}',
 				),
 				'condition' => array(
 					'digit_gradient_color' => 'color',
@@ -1643,27 +1670,47 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				),
 			)
 		);
-		$this->end_controls_tabs();
 		$this->add_control(
+            'symbol_hover_color',
+            array(
+                'label'     => esc_html__( 'Symbol Hover Color', 'tpebl' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number .number-counter-symbol' => 'color: {{VALUE}}',
+                ),
+                'condition' => array(
+                    'gradient_hover_color_option' => 'color',
+                ),
+            )
+        );
+		$this->end_controls_tabs();
+		$this->add_responsive_control(
 			'number_top_space',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Number Top Space', 'tpebl' ),
-				'size_units'  => array( 'px' ),
-				'range'       => array(
+				'type'            => Controls_Manager::SLIDER,
+				'label'           => esc_html__( 'Number Top Space', 'tpebl' ),
+				'range'           => array(
 					'px' => array(
 						'step' => 2,
 						'min'  => -150,
 						'max'  => 150,
 					),
 				),
-				'default'     => array(
+				'devices'         => array( 'desktop', 'tablet', 'mobile' ),
+				'desktop_default' => array(
 					'unit' => 'px',
 					'size' => 0,
 				),
-				'render_type' => 'ui',
-				'separator'   => 'before',
-				'selectors'   => array(
+				'tablet_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'mobile_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'render_type'     => 'ui',
+				'selectors'       => array(
 					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'margin-top : {{SIZE}}{{UNIT}}',
 				),
 			)
@@ -2073,7 +2120,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 	 * Number Counter Render.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 
@@ -2162,9 +2209,9 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 
 		if ( ! empty( $symbol ) ) {
 			if ( 'after' === $symbol_position ) {
-				$number_symbol = '<span class="counter-number-inner numscroller" data-min="' . esc_attr( $min_number ) . '" data-max="' . esc_attr( $max_number ) . '" data-delay="' . esc_attr( $delay_number ) . '" data-increment="' . esc_attr( $increment_number ) . '">' . esc_html( $min_number ) . '</span><span>' . esc_html( $symbol ) . '</span>';
+				$number_symbol = '<span class="counter-number-inner numscroller" data-min="' . esc_attr( $min_number ) . '" data-max="' . esc_attr( $max_number ) . '" data-delay="' . esc_attr( $delay_number ) . '" data-increment="' . esc_attr( $increment_number ) . '">' . esc_html( $min_number ) . '</span><span class="number-counter-symbol">' . esc_html( $symbol ) . '</span>';
 			} elseif ( 'before' === $symbol_position ) {
-				$number_symbol = '<span>' . esc_html( $symbol ) . '</span><span class="counter-number-inner numscroller"  data-min="' . esc_attr( $min_number ) . '" data-max="' . esc_attr( $max_number ) . '" data-delay="' . esc_attr( $delay_number ) . '" data-increment="' . esc_attr( $increment_number ) . '">' . esc_html( $min_number ) . '</span>';
+				$number_symbol = '<span class="number-counter-symbol">' . esc_html( $symbol ) . '</span><span class="counter-number-inner numscroller"  data-min="' . esc_attr( $min_number ) . '" data-max="' . esc_attr( $max_number ) . '" data-delay="' . esc_attr( $delay_number ) . '" data-increment="' . esc_attr( $increment_number ) . '">' . esc_html( $min_number ) . '</span>';
 			}
 		} else {
 			$number_symbol = '<span class="counter-number-inner numscroller" data-min="' . esc_attr( $min_number ) . '" data-max="' . esc_attr( $max_number ) . '" data-delay="' . esc_attr( $delay_number ) . '" data-increment="' . esc_attr( $increment_number ) . '">' . esc_html( $min_number ) . '</span>';

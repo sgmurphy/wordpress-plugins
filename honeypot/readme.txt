@@ -1,10 +1,10 @@
 === WP Armour - Honeypot Anti Spam ===
 Contributors: dnesscarkey
 Donate link: https://www.patreon.com/wp_armour
-Tags: anti spam, spam checker, spam filter, gravity forms, contact form 7
+Tags: anti spam, spam protection, comment spam , contact form spam, akismet
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 2.1.21
+Stable tag: 2.1.22
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,10 @@ With WP Armour - Honeypot Anti Spam plugin it is No. But if you want you can use
 1. Screenshot #11. Anti Spam for Fluent Forms
 
 == Changelog ==
+
+= = 2.1.22 =
+
+* Fixed admin url path issues.
 
 = = 2.1.21 =
 

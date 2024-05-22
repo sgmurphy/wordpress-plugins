@@ -2,7 +2,7 @@
 /*
 Plugin Name: Advanced iFrame
 Plugin URI: https://1.envato.market/VDRDJ
-Version: 2024.3
+Version: 2024.4
 Text Domain: advanced-iframe
 Domain Path: /languages
 Author: Michael Dempfle
@@ -47,7 +47,7 @@ define('AIP_URL_CUSTOM', plugins_url() . '/advanced-iframe-custom/');
 include dirname(__FILE__) . '/includes/advanced-iframe-main-helper.php';
 include dirname(__FILE__) . '/includes/advanced-iframe-main-cookie.php';
 
-$aiVersion = '2024.3';
+$aiVersion = '2024.4';
 // check $aiJsSize
 
 if (!class_exists('advancediFrame')) {
@@ -1742,7 +1742,7 @@ function advanced_iframe_widget_init()
 if (!isset($aip_standalone) && file_exists(dirname(__FILE__) . "/includes/advanced-iframe-widget.php")) {
     require_once('includes/advanced-iframe-widget.php');
     add_action('widgets_init', 'advanced_iframe_widget_init');
-    if ($isFreemiusMigration) {
+    if (!$isFreemiusMigration) {
     add_filter('site_transient_update_plugins', 'ai_remove_update');
  	add_filter('auto_update_plugin', 'ai_remove_auto_update', 10,2);
 	}

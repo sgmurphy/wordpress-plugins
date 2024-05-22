@@ -43,6 +43,19 @@ function l_theplus_get_post_taxonomies() {
 /**
  * Prevent JS senitizer
  * 
+ * @since 5.5.5
+ * 
+ * */
+function tp_senitize_role( $capability ) {
+
+	$id = get_the_author_meta( 'ID' );
+
+	return user_can( $id, $capability );
+}
+
+/**
+ * Prevent JS senitizer
+ * 
  * @since 5.5.0
  * 
  * */

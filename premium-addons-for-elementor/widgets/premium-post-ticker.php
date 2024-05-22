@@ -3994,7 +3994,7 @@ class Premium_Post_Ticker extends Widget_Base {
 			<div>
 				<<?php echo wp_kses_post( $title_tag . ' ' . $this->get_render_attribute_string( 'post-title' . $post_id ) ); ?>>
 					<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'post-link' . $post_id ) ); ?>>
-						<?php echo esc_html( $title ); ?>
+						<?php echo wp_kses_post( $title ); ?>
 					</a>
 				</<?php echo wp_kses_post( $title_tag ); ?>>
 			</div>

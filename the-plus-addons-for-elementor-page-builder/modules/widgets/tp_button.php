@@ -343,7 +343,7 @@ class L_ThePlus_Button extends Widget_Base {
 				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'icon_spacing',
 			array(
 				'label'     => esc_html__( 'Icon Spacing', 'tpebl' ),
@@ -365,7 +365,7 @@ class L_ThePlus_Button extends Widget_Base {
 				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'icon_size',
 			array(
 				'label'     => esc_html__( 'Icon Size', 'tpebl' ),

@@ -84,19 +84,4 @@ class Config {
 		// Update the config file.
 		Helper_Service::update_file( self::SGO_CONFIG, Helper_Service::build_config_content( $this->config_options ) );
 	}
-
-	/**
-	 * Check the current plugin version and update config if needed.
-	 *
-	 * @since 7.3.1
-	 */
-	public function check_current_version() {
-		// Bail if we have the latest version.
-		if ( version_compare( get_option( 'siteground_optimizer_current_version', false ), \SiteGround_Optimizer\VERSION, '==' ) ) {
-			return;
-		}
-
-		// Update the option in the db.
-		update_option( 'siteground_optimizer_current_version', \SiteGround_Optimizer\VERSION );
-	}
 }

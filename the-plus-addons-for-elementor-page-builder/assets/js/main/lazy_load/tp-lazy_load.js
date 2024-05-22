@@ -9,7 +9,7 @@ function onDocumentLoaded(cb){
 
 onDocumentLoaded(() => {
 	if (document.querySelector('img.tp-lazyload')) {
-		tp_lazy_load(lz)
+		tp_lazy_load()
 	}
 	var lazyBackgrounds = [].slice.call(document.querySelectorAll(".lazy-background"));
 
@@ -31,7 +31,7 @@ onDocumentLoaded(() => {
 
 let lz = null
 
-function tp_lazy_load(lz){
+function tp_lazy_load(){
 	if (lz) {
 		lz.update()
 		return

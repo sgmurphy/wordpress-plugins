@@ -118,6 +118,8 @@ class Install_Service {
 		// Flush dynamic and memcache.
 		Supercacher::purge_cache();
 		Supercacher::flush_memcache();
+
+		$this->check_current_version();
 	}
 
 	/**
@@ -172,5 +174,20 @@ class Install_Service {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Check the current plugin version and update config if needed.
+	 *
+	 * @since 7.5.1
+	 */
+	private function check_current_version() {
+		// Bail if we have the latest version.
+		if ( version_compare( get_option( 'siteground_optimizer_current_version', false ), \SiteGround_Optimizer\VERSION, '==' ) ) {
+			return;
+		}
+
+		// Update the option in the db.
+		update_option( 'siteground_optimizer_current_version', \SiteGround_Optimizer\VERSION );
 	}
 }

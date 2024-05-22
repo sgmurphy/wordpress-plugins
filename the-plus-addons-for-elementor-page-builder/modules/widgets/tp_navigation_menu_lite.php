@@ -12,9 +12,13 @@ namespace TheplusAddons\Widgets;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Utils;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
+
+use TheplusAddons\L_Theplus_Element_Load;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -101,7 +105,7 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -110,6 +114,18 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 			array(
 				'label' => __( 'Navigation Bar', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+		$this->add_control(
+			'TypeMenu',
+			array(
+				'label'   => esc_html__( 'Menu Type', 'tpebl' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'standard',
+				'options' => array(
+					'standard' => esc_html__( 'Default', 'tpebl' ),
+					'custom'   => esc_html__( 'Repeater', 'tpebl' ),
+				),
 			)
 		);
 		$this->add_control(
@@ -134,13 +150,585 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 				),
 			)
 		);
+		$repeater = new \Elementor\Repeater();
+		$repeater->add_control(
+			'depth',
+			array(
+				'label'   => esc_html__( 'Menu Level', 'tpebl' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '0',
+				'options' => array(
+					'0' => esc_html__( '0 Level', 'tpebl' ),
+					'1' => esc_html__( '1 Level', 'tpebl' ),
+					'2' => esc_html__( '2 Level', 'tpebl' ),
+					'3' => esc_html__( '3 Level', 'tpebl' ),
+					'4' => esc_html__( '4 Level', 'tpebl' ),
+					'5' => esc_html__( '5 Level', 'tpebl' ),
+					'6' => esc_html__( '6 Level', 'tpebl' ),
+				),
+			)
+		);
+		$repeater->add_control(
+			'SmenuType',
+			array(
+				'label'     => esc_html__( 'Sub Menu Type', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'link',
+				'options'   => array(
+					'link'      => esc_html__( 'Link', 'tpebl' ),
+					'mega-menu' => esc_html__( 'Mega Menu', 'tpebl' ),
+				),
+				'condition' => array(
+					'depth' => '1',
+				),
+			)
+		);
+		$repeater->add_control(
+			'LinkFilter',
+			array(
+				'label'         => esc_html__( 'Link', 'tpebl' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'tpebl' ),
+				'show_external' => true,
+				'default'       => array(
+					'url'         => '#',
+					'is_external' => true,
+					'nofollow'    => true,
+				),
+				'dynamic'       => array( 'active' => true ),
+				'conditions'    => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'terms' => array(
+								array(
+									'name'     => 'depth',
+									'operator' => '!=',
+									'value'    => '1',
+								),
+							),
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'     => 'depth',
+									'operator' => '==',
+									'value'    => '1',
+								),
+								array(
+									'name'     => 'SmenuType',
+									'operator' => '==',
+									'value'    => 'link',
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+		$repeater->add_control(
+			'filterlabel',
+			array(
+				'label'       => esc_html__( 'Menu Text', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'dynamic'     => array(
+					'active' => true,
+				),
+				'label_block' => true,
+				'conditions'  => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'terms' => array(
+								array(
+									'name'     => 'depth',
+									'operator' => '!=',
+									'value'    => '1',
+								),
+							),
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'     => 'depth',
+									'operator' => '==',
+									'value'    => '1',
+								),
+								array(
+									'name'     => 'SmenuType',
+									'operator' => '==',
+									'value'    => 'link',
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+		$repeater->add_control(
+			'blockTemp',
+			array(
+				'label'       => esc_html__( 'Template', 'tpebl' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => L_theplus_get_templates(),
+				'label_block' => 'true',
+				'condition'   => array(
+					'depth'     => '1',
+					'SmenuType' => 'mega-menu',
+				),
+			)
+		);
+		$repeater->add_control(
+			'megaMType',
+			array(
+				'label'     => esc_html__( 'Mega Menu Type', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'default',
+				'options'   => array(
+					'default'    => esc_html__( 'Default', 'tpebl' ),
+					'container'  => esc_html__( 'Container', 'tpebl' ),
+					'full-width' => esc_html__( 'Full Width', 'tpebl' ),
+				),
+				'condition' => array(
+					'depth'     => '1',
+					'SmenuType' => 'mega-menu',
+				),
+			)
+		);
+		$repeater->add_control(
+			'megaMwid',
+			array(
+				'label'      => esc_html__( 'Container Width', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 5000,
+						'step' => 1,
+					),
+					'%'  => array(
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 0.5,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => '',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .plus-navigation-wrap .plus-navigation-inner .navbar-nav li.plus-dropdown-default ul.dropdown-menu' => 'max-width: {{SIZE}}{{UNIT}};min-width: {{SIZE}}{{UNIT}};right: auto;',
+				),
+				'condition'  => array(
+					'megaMType' => 'default',
+				),
+			)
+		);
+		$repeater->add_control(
+			'megaMAlign',
+			array(
+				'label'     => esc_html__( 'Dropdown Menu Alignment', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'default',
+				'options'   => array(
+					'default' => esc_html__( 'Default', 'tpebl' ),
+					'center'  => esc_html__( 'Center', 'tpebl' ),
+				),
+				'condition' => array(
+					'megaMType' => 'default',
+				),
+			)
+		);
+		$repeater->add_control(
+			'moblieMmenu',
+			array(
+				'label'     => esc_html__( 'Moblie Mega Menu Link', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'label_on'  => esc_html__( 'Yes', 'tpebl' ),
+				'label_off' => esc_html__( 'No', 'tpebl' ),
+			)
+		);
+		$repeater->add_control(
+			'MLinkFilter',
+			array(
+				'label'         => esc_html__( 'Link', 'tpebl' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'tpebl' ),
+				'show_external' => true,
+				'default'       => array(
+					'url'         => '#',
+					'is_external' => true,
+					'nofollow'    => true,
+				),
+				'dynamic'       => array( 'active' => true ),
+				'condition'     => array(
+					'moblieMmenu' => 'yes',
+				),
+			)
+		);
+		$repeater->add_control(
+			'Mfilterlabel',
+			array(
+				'label'       => esc_html__( 'Menu Text', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'dynamic'     => array(
+					'active' => true,
+				),
+				'label_block' => true,
+				'condition'   => array(
+					'moblieMmenu' => 'yes',
+				),
+			)
+		);
+		$repeater->add_control(
+			'minWidth',
+			array(
+				'label'      => esc_html__( 'Submenu Minimum Width (Px)', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'default'    => '',
+				'range'      => array(
+					'px' => array(
+						'min'  => 100,
+						'max'  => 1000,
+						'step' => 2,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => '',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .plus-navigation-menu .navbar-nav li{{CURRENT_ITEM}} > ul.dropdown-menu' => 'min-width: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'megaMType' => 'default',
+				),
+			)
+		);
+		$repeater->add_control(
+			'showlabel',
+			array(
+				'label'     => esc_html__( 'Label', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'label_on'  => esc_html__( 'Yes', 'tpebl' ),
+				'label_off' => esc_html__( 'No', 'tpebl' ),
+			)
+		);
+		$repeater->add_control(
+			'labeltxt',
+			array(
+				'label'       => esc_html__( 'Title', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'New', 'tpebl' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+				'label_block' => true,
+				'condition'   => array(
+					'showlabel' => 'yes',
+				),
+			)
+		);
+		$repeater->add_control(
+			'labelcolor',
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .plus-navigation-menu .navbar-nav li{{CURRENT_ITEM}} a .plus-nav-label-text,{{WRAPPER}} .plus-mobile-menu .navbar-nav li{{CURRENT_ITEM}} a .plus-nav-label-text' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'showlabel' => 'yes',
+				),
+			)
+		);
+		$repeater->add_control(
+			'labelBgcolor',
+			array(
+				'label'     => esc_html__( 'Background Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .plus-navigation-menu .navbar-nav li{{CURRENT_ITEM}} a .plus-nav-label-text,{{WRAPPER}} .plus-mobile-menu .navbar-nav li{{CURRENT_ITEM}} a .plus-nav-label-text' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'showlabel' => 'yes',
+				),
+			)
+		);
+		$repeater->add_control(
+			'menuiconTy',
+			array(
+				'label'   => esc_html__( 'Menu Icon Type', 'tpebl' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => array(
+					''     => esc_html__( 'None', 'tpebl' ),
+					'icon' => esc_html__( 'Icon', 'tpebl' ),
+					'img'  => esc_html__( 'Image', 'tpebl' ),
+				),
+			)
+		);
+		$repeater->add_control(
+			'preicon',
+			array(
+				'label'     => esc_html__( 'Select Icon', 'tpebl' ),
+				'type'      => Controls_Manager::ICONS,
+				'default'   => array(
+					'value'   => 'fas fa-home',
+					'library' => 'solid',
+				),
+				'condition' => array(
+					'menuiconTy' => 'icon',
+				),
+			)
+		);
+		$repeater->add_control(
+			'menuImg',
+			array(
+				'label'     => esc_html__( 'Upload Icon Image', 'tpebl' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => Utils::get_placeholder_image_src(),
+				),
+				'dynamic'   => array( 'active' => true ),
+				'condition' => array(
+					'menuiconTy' => 'img',
+				),
+			)
+		);
+		$repeater->start_controls_tabs( 'tab_mega_menu_rep' );
+		$repeater->start_controls_tab(
+			'tab_mega_menu_Nml',
+			array(
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->add_responsive_control(
+			'iconPadding',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}} >a span.plus-navicon-wrap .plus-nav-icon-menu,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}} >a>span.plus-navicon-wrap .plus-nav-icon-menu' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$repeater->add_control(
+			'iconcolor',
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}} >a span.plus-navicon-wrap .plus-nav-icon-menu,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}} >a>span.plus-navicon-wrap .plus-nav-icon-menu' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'menuiconTy' => 'icon',
+				),
+			)
+		);
+		$repeater->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'iconBg',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li{{CURRENT_ITEM}} >a span.plus-navicon-wrap,{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}} >a span.plus-navicon-wrap',
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'      => 'iconborcolor',
+				'label'     => esc_html__( 'Border', 'tpebl' ),
+				'selector'  => '{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}} >a span.plus-navicon-wrap,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}} >a>span.plus-navicon-wrap',
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->end_controls_tab();
+		$repeater->start_controls_tab(
+			'tab_mega_menu_Hvr',
+			array(
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->add_responsive_control(
+			'iconHvrPadding',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}:hover>a span.plus-navicon-wrap .plus-nav-icon-menu,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}}:hover>a>span.plus-navicon-wrap .plus-nav-icon-menu' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$repeater->add_control(
+			'iconHvrcolor',
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}:hover>a span.plus-navicon-wrap,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}}:hover>a>span.plus-navicon-wrap' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'menuiconTy' => 'icon',
+				),
+			)
+		);
+		$repeater->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'iconHvrBg',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li{{CURRENT_ITEM}}:hover>a span.plus-navicon-wrap,{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}:hover>a span.plus-navicon-wrap',
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'      => 'iconhvrborcolor',
+				'label'     => esc_html__( 'Border', 'tpebl' ),
+				'selector'  => '{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}:hover>a span.plus-navicon-wrap .plus-nav-icon-menu,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}}:hover>a>.plus-navicon-wrap .plus-nav-icon-menu',
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->end_controls_tab();
+		$repeater->start_controls_tab(
+			'tab_mega_menu_Act',
+			array(
+				'label'     => esc_html__( 'Active', 'tpebl' ),
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->add_responsive_control(
+			'iconActPadding',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}.active>a span.plus-navicon-wrap .plus-nav-icon-menu,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}}.active>a>.plus-navicon-wrap .plus-nav-icon-menu' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$repeater->add_control(
+			'iconActcolor',
+			array(
+				'label'     => esc_html__( 'Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}.active>a span.plus-navicon-wrap,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}}.active>a>.plus-navicon-wrap' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'menuiconTy' => 'icon',
+				),
+			)
+		);
+		$repeater->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'iconActBg',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .plus-navigation-menu .navbar-nav li{{CURRENT_ITEM}}.active>a span.plus-navicon-wrap,{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}.active>a span.plus-navicon-wrap',
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'      => 'iconActborcolor',
+				'label'     => esc_html__( 'Border', 'tpebl' ),
+				'selector'  => '{{WRAPPER}} .plus-navigation-inner .plus-navigation-menu .navbar-nav li.dropdown .dropdown-menu li{{CURRENT_ITEM}}.active>a span.plus-navicon-wrap .plus-nav-icon-menu,{{WRAPPER}} .plus-navigation-menu .navbar-nav>li{{CURRENT_ITEM}}.active>a>.plus-navicon-wrap .plus-nav-icon-menu',
+				'condition' => array(
+					'menuiconTy!' => '',
+				),
+			)
+		);
+		$repeater->end_controls_tab();
+		$repeater->end_controls_tabs();
+		$repeater->add_control(
+			'navDesc',
+			array(
+				'label'       => esc_html__( 'Description', 'tpebl' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 3,
+				'default'     => '',
+				'placeholder' => esc_html__( 'Enter Description', 'tpebl' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+			)
+		);
+		$repeater->add_control(
+			'classTxt',
+			array(
+				'label'       => esc_html__( 'Custom Class', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => esc_html__( 'Enter Class Name', 'tpebl' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+				'label_block' => true,
+			)
+		);
+		$this->add_control(
+			'ItemMenu',
+			array(
+				'label'       => esc_html__( 'Navigation Menu', 'tpebl' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => array(
+					array(
+						'depth' => '0',
+					),
+				),
+				'title_field' => 'Level {{{ depth }}}',
+				'condition'   => array(
+					'TypeMenu' => 'custom',
+				),
+			)
+		);
 		$this->add_control(
 			'navbar',
 			array(
-				'label'   => __( 'Select Menu', 'tpebl' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => '',
-				'options' => l_theplus_navigation_menulist(),
+				'label'     => __( 'Select Menu', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '',
+				'options'   => l_theplus_navigation_menulist(),
+				'condition' => array(
+					'TypeMenu' => 'standard',
+				),
 			)
 		);
 		$this->add_control(
@@ -367,13 +955,16 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 			)
 		);
 		$this->add_control(
-			'mobile_navbar_template_pro',
+			'mobile_navbar_template',
 			array(
-				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => '',
-				'description' => theplus_pro_ver_notice(),
-				'classes'     => 'plus-pro-version',
+				'label'       => esc_html__( 'Elementor Templates', 'tpebl' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => L_theplus_get_templates(),
+				'label_block' => 'true',
+				'condition'   => array(
+					'show_mobile_menu' => 'yes',
+				),
 				'condition'   => array(
 					'show_mobile_menu'    => 'yes',
 					'mobile_menu_content' => 'template-menu',
@@ -1676,7 +2267,7 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 	 * Meeting Scheduler Render.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 		$menu_attr = '';
@@ -1710,12 +2301,13 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 
 		$nav_menu      = ! empty( $settings['navbar'] ) ? wp_get_nav_menu_object( $settings['navbar'] ) : false;
 		$mobile_navbar = ! empty( $settings['mobile_navbar'] ) ? wp_get_nav_menu_object( $settings['mobile_navbar'] ) : false;
+		$TypeMenu      = ! empty( $settings['TypeMenu'] ) ? $settings['TypeMenu'] : 'standard';
 
 		$navbar_attr = array();
 
-		if ( ! $nav_menu ) {
-			return;
-		}
+		// if ( ! $nav_menu ) {
+		// return;
+		// }
 
 		$nav_menu_args = array(
 			'menu'            => $nav_menu,
@@ -1741,15 +2333,33 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 				'walker'          => new L_Theplus_Navigation_NavWalker(),
 			);
 		}
+		$temp_menu = '';
+		if ( 'template-menu' === $menu_content ) {
+			$temp_menu = 'template_mobile_menu';
+		}
 
 		$uid = uniqid( 'nav-menu' );
-		
+
 		?>
 
 		<div class="plus-navigation-wrap <?php echo esc_attr( $nav_alignment ); ?> <?php echo esc_attr( $uid ); ?>">
 			<div class="plus-navigation-inner <?php echo esc_attr( $menu_hover_click ); ?> <?php echo esc_attr( $main_menu_indicator_style ); ?> <?php echo esc_attr( $sub_menu_indicator_style ); ?> " <?php echo $menu_attr; ?>>
 				<div id="theplus-navigation-normal-menu" class="collapse navbar-collapse navbar-ex1-collapse">
-					<?php wp_nav_menu( apply_filters( 'widget_nav_menu_args', $nav_menu_args, $nav_menu, $settings ) ); ?>	
+	
+					<div class="plus-navigation-menu <?php echo esc_attr( $navbar_menu_type ); ?>">
+						
+						<?php
+						if ( defined( 'JUPITERX_VERSION' ) ) {
+
+							wp_nav_menu( $nav_menu_args );
+						} elseif ( ! empty( $TypeMenu ) && $TypeMenu == 'custom' ) {
+
+							echo $this->tp_mega_menu( $settings );
+						} else {
+							wp_nav_menu( apply_filters( 'widget_nav_menu_args', $nav_menu_args, $nav_menu, $settings ) );
+						}
+						?>
+					</div>
 				</div>
 
 				<?php if ( 'yes' === $mob_menu && ! empty( $mobile_menu_toggle_style ) ) { ?>
@@ -1764,10 +2374,27 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 							<?php } ?>
 						</div>
 					</div>
-					<div id="plus-mobile-nav-toggle-<?php echo esc_attr( $uid ); ?>" class="collapse navbar-collapse navbar-ex1-collapse plus-mobile-menu-content">
-						<?php if ( 'normal-menu' === $menu_content && ! empty( $mobile_navbar ) ) { ?>
-							<?php wp_nav_menu( apply_filters( 'widget_nav_menu_args', $mobile_nav_menu_args, $nav_menu, $settings ) ); ?>	
-						<?php } ?>						
+				
+					<div id="plus-mobile-nav-toggle-<?php echo esc_attr( $uid ); ?>"
+						class="plus-mobile-menu  collapse navbar-collapse navbar-ex1-collapse plus-mobile-menu-content <?php echo esc_attr( $temp_menu ); ?>">
+						<?php
+
+						if ( 'normal-menu' === $menu_content && ! empty( $settings['mobile_navbar'] ) ) {
+
+							if ( defined( 'JUPITERX_VERSION' ) ) {
+								wp_nav_menu( $mobile_nav_menu_args );
+							} else {
+								wp_nav_menu( apply_filters( 'widget_nav_menu_args', $mobile_nav_menu_args, $nav_menu, $settings ) );
+							}
+						} elseif ( ! empty( $TypeMenu ) && $TypeMenu == 'custom' ) {
+							echo $this->tp_mega_menu( $settings );
+						}
+						?>
+						<?php
+						if ( 'template-menu' === $menu_content && ! empty( $settings['mobile_navbar_template'] ) ) {
+							echo '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( $settings['mobile_navbar_template'] ) . '</div>';
+						}
+						?>
 					</div>
 				<?php } ?>
 				
@@ -1789,5 +2416,159 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 		}
 
 		echo '<style>' . $css_rule . '</style>';
+	}
+
+	/**
+	 * Tp Mega Menu 
+	 *
+	 * @since 5.5.4
+	 * @version 5.5.4
+	 */
+	protected function tp_mega_menu( $settings, $sett = '' ) {
+
+		$CustomMenu = '';
+		$stylecss   = '';
+		if ( ! empty( $settings['ItemMenu'] ) ) {
+			$CustomMenu .= '<ul class="nav navbar-nav ' . ( $settings['main_menu_hover_style'] == 'style-1' ? 'menu-hover-style-1' : ( $settings['main_menu_hover_style'] == 'style-2' ? 'menu-hover-style-2' : '' ) ) . ' ' . ( ( $settings['main_menu_hover_inverse'] == 'yes' ) ? 'hover-inverse-effect' : '' ) . ' ' . ( ( $settings['sub_menu_hover_inverse'] == 'yes' ) ? 'submenu-hover-inverse-effect' : '' ) . '  ' . ( ( $settings['main_menu_last_open_sub_menu'] == 'yes' ) ? ' open-sub-menu-left' : '' ) . ' ">';
+
+			$menuArray = $settings['ItemMenu'];
+
+			$level = 0;
+			foreach ( $settings['ItemMenu'] as $index => $item ) {
+				$depth     = $item['depth'];
+				$Nextdepth = ( ! empty( $menuArray[ intval( $index + 1 ) ] ) ) ? intval( $menuArray[ $index + 1 ]['depth'] ) : '';
+				$Prevdepth = ( ! empty( $menuArray[ intval( $index - 1 ) ] ) ) ? intval( $menuArray[ $index - 1 ]['depth'] ) : '';
+
+				$st_child_Li = '';
+				if ( $depth > 0 ) {
+					if ( ( $Nextdepth == $depth || $Nextdepth > $depth || $Nextdepth < $depth ) && $Prevdepth != $depth && $Prevdepth < $depth ) {
+						$level       = $level + 1;
+						$st_child_Li = '<ul role="menu" class="dropdown-menu">';
+					}
+				}
+
+				$st_end_child_Li = $end_child_Li = '';
+				if ( $Nextdepth < $depth ) {
+					$diff = ( (int) $depth - (int) $Nextdepth );
+					if ( $diff >= 1 ) {
+						for ( $i = 0; $i < $diff; $i++ ) {
+							$end_child_Li .= '</ul></li>';
+						}
+					} elseif ( $diff === 0 ) {
+						$end_child_Li .= '</li>';
+					}
+				}
+
+				$name        = '';
+				$itemUrl     = '';
+				$menuName    = '';
+				$indiIcon    = '';
+				$subindiIcon = '';
+
+				// Get Prefix Icon
+				$preicon = '';
+				if ( $item['menuiconTy'] !== '' && $item['menuiconTy'] == 'icon' ) {
+					$preicon .= '<span class="plus-navicon-wrap"><i class="' . $item['preicon']['value'] . ' plus-nav-icon-menu"> </i></span>';
+				} elseif ( $item['menuiconTy'] !== '' && $item['menuiconTy'] == 'img' ) {
+					if ( ! empty( $item['menuImg'] ) && ! empty( $item['menuImg']['id'] ) ) {
+						$preicon .= '<span class="plus-navicon-wrap">' . wp_get_attachment_image( $item['menuImg']['id'], 'full', true, array( 'class' => 'plus-nav-icon-menu' ) ) . '</span>';
+					} elseif ( ! empty( $item['menuImg']['url'] ) ) {
+						$preicon .= '<span class="plus-navicon-wrap"><img src="' . esc_url( $item['menuImg']['url'] ) . '" class="plus-nav-icon-menu icon-img" alt="' . esc_attr__( 'icon_img', 'tpebl' ) . '" /></span>';
+					}
+				}
+
+				// Get Label
+				$txtLabel = '';
+				if ( ! empty( $item['showlabel'] ) && $item['labeltxt'] != '' ) {
+					$txtLabel .= '<span class="plus-nav-label-text">' . esc_html( $item['labeltxt'] ) . '</span>';
+				}
+
+				// Get Descroption
+				$navdesc = '';
+				if ( ! empty( $item['navDesc'] ) ) {
+					$navdesc .= '<span class="tp-navigation-description">' . $item['navDesc'] . '</span>';
+				}
+				$LinkFilter = ! empty( $item['LinkFilter']['url'] ) ? $item['LinkFilter']['url'] : '#';
+
+				$menuName = ! empty( $LinkFilter ) && ! empty( $item['filterlabel'] ) ? $item['filterlabel'] : '';
+
+				// Get Page Url from id
+				$current_active = '';
+				if ( ! empty( $item['LinkFilter']['url'] ) ) {
+					$itemUrl      = $item['LinkFilter']['url'];
+					$itemTarget   = ! empty( $item['LinkFilter']['is_external'] ) ? ' target="_blank"' : '';
+					$itemNofollow = ! empty( $item['LinkFilter']['nofollow'] ) ? ' rel="nofollow"' : '';
+					if ( $item['filterlabel'] === get_the_ID() ) {
+						$current_active = ' active';
+					}
+				} else {
+					$itemUrl = '#';
+				}
+
+				if ( ( $depth != '1' ) || ! empty( $item['SmenuType'] ) && $item['SmenuType'] != 'mega-menu' && $item['SmenuType'] == 'link' ) {
+					$name = '<a href="' . esc_attr( $itemUrl ) . '" ' . $itemTarget . $itemNofollow . ' title="' . esc_attr( $menuName ) . '" data-text="' . esc_attr( $menuName ) . '" >' . $preicon . '<span class="plus-title-wrap">' . esc_html( $menuName ) . '' . $txtLabel . '' . $navdesc . '</span></a>';
+				}
+				$dropdownClass = ( $Nextdepth >= 2 && ( $Nextdepth > $depth ) ) ? 'dropdown-submenu menu-item-has-children' : ( ( $Nextdepth > $depth ) ? 'dropdown menu-item-has-children' : '' );
+
+				$MegaMenuClass = '';
+				if ( $Nextdepth === 1 ) {
+					$NextMenu = ( ! empty( $menuArray[ $index + 1 ] ) ) ? $menuArray[ $index + 1 ] : '';
+					if ( $NextMenu != '' && $NextMenu['SmenuType'] == 'mega-menu' ) {
+						$MegaMenuClass .= ' plus-fw';
+						if ( $NextMenu != '' && $NextMenu['megaMType'] != '' ) {
+							$MegaMenuClass .= ' plus-dropdown-' . $NextMenu['megaMType'];
+						}
+						if ( $NextMenu != '' && $NextMenu['megaMType'] == 'default' ) {
+							$unit = isset( $NextMenu['megaMwid']['size'] ) && ! empty( $NextMenu['megaMwid']['size'] ) ? $NextMenu['megaMwid']['size'] : '';
+
+							// Desktop
+							if ( isset( $NextMenu['megaMwid']['size'] ) && ! empty( $NextMenu['megaMwid']['size'] ) ) {
+								$stylecss .= '@media (min-width: 1024px) { .plus-navigation-wrap .plus-navigation-inner .navbar-nav>li.elementor-repeater-item-' . $item['_id'] . '.plus-dropdown-default>ul.dropdown-menu{ max-width: ' . $NextMenu['megaMwid']['size'] . $unit . ' !important; min-width: ' . $NextMenu['megaMwid']['size'] . $unit . '!important; ' . ( isset( $NextMenu['megaMAlign'] ) && $NextMenu['megaMAlign'] == 'default' ? 'right: auto;' : '' ) . '} } ';
+							}
+							// Tablet
+							if ( isset( $NextMenu['megaMwid']['size'] ) && ! empty( $NextMenu['megaMwid']['size'] ) ) {
+								$stylecss .= '@media (max-width: 1024px) and (min-width:768px){ .plus-navigation-wrap .plus-navigation-inner .navbar-nav>li.elementor-repeater-item-' . $item['_id'] . '.plus-dropdown-default>ul.dropdown-menu{ max-width: ' . $NextMenu['megaMwid']['size'] . $unit . ' !important; min-width: ' . $NextMenu['megaMwid']['size'] . $unit . ' !important; ' . ( isset( $NextMenu['megaMAlign'] ) && $NextMenu['megaMAlign'] == 'default' ? 'right: auto;' : '' ) . '} } ';
+							}
+							// Mobile
+							if ( isset( $NextMenu['megaMwid']['size'] ) && ! empty( $NextMenu['megaMwid']['size'] ) ) {
+								$stylecss .= '@media (max-width: 767px) { .plus-navigation-wrap .plus-navigation-inner .navbar-nav>li.elementor-repeater-item-' . $item['_id'] . '.plus-dropdown-default>ul.dropdown-menu{ max-width: ' . $NextMenu['megaMwid']['size'] . $unit . ' !important; min-width: ' . $NextMenu['megaMwid']['size'] . $unit . ' !important; ' . ( isset( $NextMenu['megaMAlign'] ) && $NextMenu['megaMAlign'] == 'default' ? 'right: auto;' : '' ) . '} } ';
+							}
+						}
+					}
+					if ( $NextMenu != '' && $NextMenu['megaMType'] == 'default' && isset( $NextMenu['megaMAlign'] ) && $NextMenu['megaMAlign'] == 'center' ) {
+						$MegaMenuClass .= ' plus-dropdown-' . esc_attr( $NextMenu['megaMAlign'] );
+					}
+				}
+				$start_Li = "<li class='menu-item depth-" . esc_attr( $depth ) . ' ' . esc_attr( $dropdownClass ) . ' ' . esc_attr( $MegaMenuClass ) . ' ' . ( ! empty( $item['classTxt'] ) ? $item['classTxt'] : '' ) . ' elementor-repeater-item-' . esc_attr( $item['_id'] ) . $current_active . "' >";
+
+				if ( $depth == '1' && $item['SmenuType'] == 'mega-menu' ) {
+					if ( empty( $sett ) || empty( $item['moblieMmenu'] && $item['moblieMmenu'] == 'no' ) ) {
+						$start_Li .= '<div class="plus-megamenu-content">';
+						if ( ( $item['blockTemp'] ) && $item['blockTemp'] != '0' ) {
+							$start_Li .= '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( $item['blockTemp'] ) . '</div>';
+						}
+						$start_Li .= '</div>';
+					}
+					if ( ! empty( $item['moblieMmenu'] && $item['moblieMmenu'] == 'yes' ) && ! empty( $sett ) ) {
+						$MLinkFilter = (array) $item['MLinkFilter']['url'];
+						$MmenuName   = ! empty( $MLinkFilter ) && ! empty( $item['Mfilterlabel'] ) ? $item['Mfilterlabel'] : '';
+						$MitemUrl    = ! empty( $item['MLinkFilter']['url'] ) ? $item['MLinkFilter']['url'] : '#';
+						$Target      = ! empty( $item['MLinkFilter']['is_external'] ) ? ' target="_blank"' : '';
+						$Nofollow    = ! empty( $item['MLinkFilter']['nofollow'] ) ? ' rel="nofollow"' : '';
+						$start_Li   .= '<a href="' . esc_attr( $MitemUrl ) . '" ' . $Target . $Nofollow . ' title="' . esc_attr( $MmenuName ) . '" data-text="' . $MmenuName . '" >' . $preicon . '' . $MmenuName . '' . $txtLabel . '</a>';
+					}
+				}
+				$end_Li = '';
+				if ( $Nextdepth === $depth && $depth === '0' && $Nextdepth === $Prevdepth ) {
+					$end_Li = '</li>';
+				}
+				$CustomMenu .= $st_end_child_Li . $st_child_Li . $start_Li . $name . $end_Li . $end_child_Li;
+			}
+			$CustomMenu .= '</ul>';
+			if ( ! empty( $stylecss ) ) {
+				$CustomMenu .= '<style>' . $stylecss . '</style>';
+			}
+		}
+		return $CustomMenu;
 	}
 }

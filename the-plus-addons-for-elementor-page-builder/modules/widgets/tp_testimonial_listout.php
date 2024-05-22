@@ -103,7 +103,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -169,6 +169,29 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 				'condition' => array(
 					'layout' => 'carousel',
 				),
+			)
+		);
+		$this->add_control(
+			'content_alignment_4',
+			array(
+				'label'       => esc_html__( 'Content Alignment', 'theplus' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'options'     => array(
+					'left'  => array(
+						'title' => esc_html__( 'Left', 'theplus' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'right' => array(
+						'title' => esc_html__( 'Right', 'theplus' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'     => 'left',
+				'condition'   => array(
+					'style' => 'style-4',
+				),
+				'label_block' => false,
+				'toggle'      => true,
 			)
 		);
 		$this->add_control(
@@ -1201,6 +1224,44 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
+		$this->add_control(
+			'content_box_shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'theplus' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->start_controls_tabs( 'tabs_content_shadow_style' );
+		$this->start_controls_tab(
+			'tab_content_shadow_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'theplus' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'content_shadow',
+				'selector' => '{{WRAPPER}} .testimonial-list.testimonial-style-1 .testimonial-list-content .testimonial-content-text,{{WRAPPER}} .testimonial-list.testimonial-style-2 .testimonial-list-content,{{WRAPPER}} .testimonial-list.testimonial-style-3 .testimonial-list-content,{{WRAPPER}} .testimonial-list.testimonial-style-4 .testimonial-list-content',
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'tab_content_shadow_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'theplus' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'content_hover_shadow',
+				'selector' => '{{WRAPPER}} .testimonial-list.testimonial-style-1 .testimonial-list-content:hover .testimonial-content-text,{{WRAPPER}} .testimonial-list.testimonial-style-2 .testimonial-list-content:hover,{{WRAPPER}} .testimonial-list.testimonial-style-3 .testimonial-list-content:hover,{{WRAPPER}} .testimonial-list.testimonial-style-4 .testimonial-list-content:hover',
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -2090,7 +2151,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.1
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 		$settings      = $this->get_settings_for_display();
@@ -2105,7 +2166,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$con_from       = ! empty( $settings['tlContentFrom'] ) ? $settings['tlContentFrom'] : 'tlcontent';
 		$testi_list     = ! empty( $settings['testiAllList'] ) ? $settings['testiAllList'] : array();
 
-		$content_alignment_4 = 'content-left';
+		$content_alignment_4 = ( $settings['content_alignment_4'] != '' ) ? 'content-' . $settings['content_alignment_4'] : '';
 
 		$descby_limit  = ! empty( $settings['descByLimit'] ) ? $settings['descByLimit'] : 'default';
 		$desc_limit    = ! empty( $settings['descLimit'] ) ? $settings['descLimit'] : 30;

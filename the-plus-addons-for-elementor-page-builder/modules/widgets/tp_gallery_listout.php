@@ -110,7 +110,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.0
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -129,7 +129,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 				'default' => 'style-1',
 				'options' => array(
 					'style-1' => esc_html__( 'Style 1', 'tpebl' ),
-					'style-2' => esc_html__( 'Style 2 (PRO)', 'tpebl' ),
+					'style-2' => esc_html__( 'Style 2 ', 'tpebl' ),
 					'style-3' => esc_html__( 'Style 3 (PRO)', 'tpebl' ),
 					'style-4' => esc_html__( 'Style 4 (PRO)', 'tpebl' ),
 				),
@@ -144,7 +144,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 				'description' => theplus_pro_ver_notice(),
 				'classes'     => 'plus-pro-version',
 				'condition'   => array(
-					'style!' => array( 'style-1' ),
+					'style!' => array( 'style-1', 'style-2' ),
 				),
 			)
 		);
@@ -1363,7 +1363,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 	 * Gallery Listout render.
 	 *
 	 * @since 1.0.0
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 
@@ -1474,7 +1474,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 
 		if ( 'normal' === $metro_columns ) {
 			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Please select a multiple images gallery', 'tpebl' ) . '</h3>';
-		} elseif ( 'style-1' === $style && 'carousel' !== $layout ) {
+		} elseif ( 'style-1' === $style || 'style-2' === $style && 'carousel' !== $layout ) {
 				$output .= '<div id="pt-plus-gallery-list" class="gallery-list ' . esc_attr( $uid ) . ' ' . esc_attr( $data_class ) . ' ' . esc_attr( $animated_class ) . ' " ' . $layout_attr . ' ' . $data_attr . ' ' . $animation_attr . ' data-enable-isotope="1">';
 
 				$output .= '<div id="' . esc_attr( $uid ) . '" class="tp-row post-inner-loop ' . esc_attr( $uid ) . '">';

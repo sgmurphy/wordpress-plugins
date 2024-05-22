@@ -349,7 +349,23 @@ class L_ThePlus_Accordion extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
+		$this->start_controls_section(
+			'special_content_section',
+			array(
+				'label' => esc_html__( 'Special Options', 'tpebl' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+		$this->add_control(
+			'active_accordion',
+			array(
+				'label'   => wp_kses_post( "Active Accordion <a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "' target='_blank' rel='noopener noreferrer'> <i class='eicon-help-o'></i> </a>" ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '1',
+				'options' => L_theplus_get_numbers(),
+			)
+		);
+		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_toggle_style_icon',
 			array(
@@ -793,6 +809,29 @@ class L_ThePlus_Accordion extends Widget_Base {
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
+		$this->add_responsive_control(
+			'accordion_space',
+			array(
+				'label'      => esc_html__( 'Accordion Between Space', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'min'  => 0,
+						'max'  => 200,
+						'step' => 2,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 15,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+				'separator'  => 'after',
+			)
+		);
 		$this->start_controls_tabs( 'tabs_background_style' );
 		$this->start_controls_tab(
 			'tab_background_normal',
@@ -859,6 +898,113 @@ class L_ThePlus_Accordion extends Widget_Base {
 			array(
 				'label' => esc_html__( 'Content Background', 'tpebl' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+		$this->add_responsive_control(
+			'content_accordion_margin',
+			array(
+				'label'      => esc_html__( 'Content Margin Space', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'before',
+			)
+		);
+		$this->add_responsive_control(
+			'content_accordion_padding',
+			array(
+				'label'      => esc_html__( 'Content Inner Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_control(
+			'content_border_options',
+			array(
+				'label'     => esc_html__( 'Border Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_control(
+			'content_box_border',
+			array(
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'theplus' ),
+				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'default'   => 'no',
+			)
+		);
+
+		$this->add_control(
+			'content_border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'content_box_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'content_box_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'content_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'content_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'content_box_border' => 'yes',
+				),
 			)
 		);
 		$this->add_control(
@@ -1110,8 +1256,10 @@ class L_ThePlus_Accordion extends Widget_Base {
 
 				$tab_count = $index + 1;
 
-				if ( 1 === $tab_count ) {
+				if ( $settings['active_accordion'] == $tab_count || 'all-open' === $settings['active_accordion'] ) {
 					$active_default = 'active-default';
+				} elseif ( $settings['active_accordion'] == 0 ) {
+					$active_default = '0';
 				} else {
 					$active_default = 'no';
 				}

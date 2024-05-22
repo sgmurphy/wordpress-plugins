@@ -3,8 +3,8 @@ Contributors: mdempfle
 Donate link: http://www.tinywebgallery.com
 Tags: iframe, embed, resize, shortcode, modify css
 Requires at least: 3.3
-Tested up to: 6.4.3
-Stable tag: 2024.3
+Tested up to: 6.5.3
+Stable tag: 2024.4
 Requires PHP: 5.4
 License: Envato market standard or extended license
 License URI: https://themeforest.net/licenses/standard
@@ -169,6 +169,11 @@ Use the Wordpress installer to update or simply overwrite all files from your pr
 If you have some radio elements empty after the update simply select the one you like and save again.
 
 == Changelog ==
+= 2024.4 = 
+- New: Tested with WordPress 6.5.3
+- Fix: When using arrays in the parameters was causing an error. If this is now the case no optimization of placeholders are done anymore.
+- Security fix: Added additional filters to some Javascript parameters to increase security.
+
 = 2024.3 =
 - Security fix: The filter attribute method now filters shortcode attributes which are parsed wrong by WordPress if the user does not have the unfiltered_html permission.
 - Security fix: #x28 and #x29 are  filtered if the user does not have the unfiltered_html permission.

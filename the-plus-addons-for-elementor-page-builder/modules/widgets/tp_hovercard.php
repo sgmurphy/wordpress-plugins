@@ -293,6 +293,21 @@ class L_ThePlus_Hovercard extends Widget_Base {
 				),
 			)
 		);
+
+		if( ! tp_senitize_role( 'unfiltered_html' ) ){
+			$repeater->add_control(
+				'script_c_notice',
+				array(
+					'type'        => Controls_Manager::RAW_HTML,
+					'raw'         => '<p class="tp-controller-notice"><i>You are not a admin user so <b>Custom Script</b> option dose not work for you tell your admin to give you rights.</i></p>',
+					'label_block' => true,
+					'condition' => array(
+						'content_tag' => 'script',
+					),
+				)
+			);
+		}
+
 		$repeater->add_control(
 			'style_heading',
 			array(
@@ -2734,8 +2749,11 @@ class L_ThePlus_Hovercard extends Widget_Base {
 				}
 
 				$script_con = ! empty( $item['script_content'] ) ? $item['script_content'] : '';
-				if ( 'script' === $con_tag && ! empty( $script_con ) ) {
-					$loopitem .= wp_print_inline_script_tag( $script_con );
+				
+				if( tp_senitize_role( 'unfiltered_html' ) ){
+					if ( 'script' === $con_tag && ! empty( $script_con ) ) {
+						$loopitem .= wp_print_inline_script_tag( $script_con );
+					}
 				}
 			}
 

@@ -133,7 +133,7 @@ class L_ThePlus_Age_Gate extends Widget_Base {
 			'tempNotice',
 			array(
 				'type'        => Controls_Manager::RAW_HTML,
-				'raw'         => '<p class="tp-controller-notice"><i>Keep this disabled, If you do not want that to load on editor page. Either It will highjack your whole page.</i></p>',
+				'raw'         => '<p class="tp-controller-notice"><i>To view your Age gate design in the backend Elementor editor, you can enable the backend preview. To avoid full screen disruption during normal page edits, please keep it disabled.</i></p>',
 				'label_block' => true,
 			)
 		);
@@ -2386,12 +2386,21 @@ class L_ThePlus_Age_Gate extends Widget_Base {
 		}
 
 		if ( 'yes' === $cookies ) {
-			$data_attr .= 'data-age_cookies_days="' . tp_senitize_js_input( $cookies_days ) . '"';
+			$cookies_days = isset( $cookies_days ) ? tp_senitize_js_input( $cookies_days ) : 10;
+			if( is_numeric( $cookies_days ) ){
+				$data_attr .= 'data-age_cookies_days="' . esc_attr( $cookies_days ) . '"';
+			}else{
+				$data_attr .= 'data-age_cookies_days="10"';
+			}
 		}
 
 		if ( 'method-2' === $method_type ) {
-			$birthyears = ! empty( $settings['birthyears'] ) ? $settings['birthyears'] : 18;
-			$data_attr .= ' data-userbirth="' . esc_attr( $birthyears ) . '"';
+			$birthyears = ! empty( $settings['birthyears'] ) ? tp_senitize_js_input( $settings['birthyears'] ) : 18;
+			if( is_numeric( $cookies_days ) ){
+				$data_attr .= ' data-userbirth="' . esc_attr( $birthyears ) . '"';
+			}else{
+				$data_attr .= ' data-userbirth="18"';
+			}
 		}
 
 		if ( ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) && 'yes' !== $settings['backend_preview'] ) {

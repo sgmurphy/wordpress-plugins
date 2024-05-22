@@ -33,7 +33,7 @@ if (isset($_GET['tab']) && array_key_exists($_GET['tab'],$wpa_tabs)){
 
     <nav class="nav-tab-wrapper">
         <?php foreach ($wpa_tabs as $tabKey => $tabData) { ?>
-            <a href="<?php echo admin_url(); ?>plugins.php?page=wp-armour&tab=<?php echo $tabKey; ?>" class="nav-tab <?php echo $currentTab == $tabKey?'nav-tab-active':''; ?>"><?php echo $tabData['name']; ?></a>
+            <a href="<?php echo admin_url(); ?>admin.php?page=wp-armour&tab=<?php echo $tabKey; ?>" class="nav-tab <?php echo $currentTab == $tabKey?'nav-tab-active':''; ?>"><?php echo $tabData['name']; ?></a>
         <?php } ?>
     </nav>
 

@@ -118,6 +118,10 @@ function wp_cache_add_non_persistent_groups( $groups ) {
 }
 
 class WP_Object_Cache {
+	var $global_prefix;
+	var $blog_prefix;
+	var $cache_hits;
+	var $cache_misses;
 	var $global_groups = array();
 
 	var $no_mc_groups = array();

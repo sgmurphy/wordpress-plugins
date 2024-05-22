@@ -192,10 +192,11 @@ class HMWP_Classes_Tools
             'hmwp_bruteforce_lostpassword' => 0,
             'hmwp_brute_message' => esc_html__('Your IP has been flagged for potential security violations. Please try again in a little while...', 'hide-my-wp'),
             'whitelist_ip' => array(),
+            'whitelist_urls' => array(),
+            'whitelist_level' => 0,
             'banlist_ip' => array(),
             'hmwp_hide_classes' => json_encode(array()),
             'trusted_ip_header' => '',
-            'whitelist_paths' => 0,
 
             //Math reCaptcha
             'brute_use_math' => 1,
@@ -448,6 +449,11 @@ class HMWP_Classes_Tools
             }
         }
 
+        //update the whitelist_level
+        if(isset($options['whitelist_paths']) && !isset($options['whitelist_level'])){
+            $options['whitelist_level'] = ($options['whitelist_paths'] == 1 ? 2 : 0);
+        }
+
         //Set the categories and tags paths
         $category_base = get_option('category_base');
         $tag_base = get_option('tag_base');
@@ -509,6 +515,11 @@ class HMWP_Classes_Tools
             if (isset(self::$options['hmwp_shutdownload']) && self::$options['hmwp_shutdownload']) {
                 self::$options['hmwp_hide_in_sitemap'] = self::$options['hmwp_shutdownload'];
                 unset(self::$options['hmwp_shutdownload']);
+            }
+
+            //update the whitelist_level
+            if(isset(self::$options['whitelist_paths'])){
+                unset(self::$options['whitelist_paths']);
             }
 
             //update the login on Cloud when plugin update
@@ -2287,7 +2298,9 @@ class HMWP_Classes_Tools
             '195.234.108.0/22',
         );
 
-        if (filter_var(home_url(), FILTER_VALIDATE_URL) !== FALSE && strpos(home_url(), '.') !== false) {
+        $domain = (self::isMultisites() && defined('BLOG_ID_CURRENT_SITE')) ? get_home_url(BLOG_ID_CURRENT_SITE) : site_url();
+
+        if (filter_var($domain, FILTER_VALIDATE_URL) !== false && strpos($domain, '.') !== false) {
             if(!self::isLocalFlywheel()){
                 $wl_jetpack[] = '127.0.0.1';
             }

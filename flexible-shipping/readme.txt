@@ -4,7 +4,7 @@ Donate link: https://octol.io/fs-repo-up
 Tags: table rate, table rate shipping, conditional shipping, free shipping, woocommerce shipping, woocommerce table rate shipping, cart based shipping, weight based shipping, totals based shipping, order based shipping, advanced shipping
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 4.24.19
+Stable tag: 4.25.0
 Requires PHP: 7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@ The best and the most powerful Table Rate shipping plugin for WooCommerce. Defin
 
 Flexible Shipping is the most advanced shipping plugin for WooCommerce stores, allowing you to calculate the shipping costs based on weight and/or cart total. Combine it with the PRO version and it will become the only WooCommerce shipping plugin you'll ever need.
 
-[youtube https://www.youtube.com/watch?v=C7dQ2jQ-iVc]
+[youtube https://www.youtube.com/watch?v=Fk0mF0s6W8w]
 
 > **Upgrade to Flexible Shipping PRO**<br />
 > Upgrade to [Flexible Shipping PRO now](https://octol.io/fs-repo-up) to get the priority e-mail support and gain an access to all the PRO features!
@@ -233,6 +233,14 @@ We provide a limited support for the free version of our Flexible Shipping plugi
 If you are upgrading from the old Flexible Shipping version (1.3.2, woo-flexible-shipping) make sure to completely delete the old version first. If you install the new version without deleting the old one it may break your WordPress installation.
 
 == Changelog ==
+
+= 4.25.0 - 2024-05-22 =
+* Added support for WooCommerce 8.9
+* Changed shipping extensions tab
+
+= 4.24.20 - 2024-04-28 =
+* Deprecated notice on PHP 8.1, preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated
+* Fixed shipping extensions tab font
 
 = 4.24.19 - 2024-04-08 =
 * Added support for WooCommerce 8.8

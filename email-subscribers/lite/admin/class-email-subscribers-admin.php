@@ -162,7 +162,7 @@ class Email_Subscribers_Admin {
 		$current_action 	   = ig_es_get_request_data( 'action' );
 		
 		//This below condition will helping to apply main.css file on forms add & update DND editor page.
-		$es_forms = ($current_page == "es_forms" && (isset($current_action) && ($current_action == "new" || $current_action == "edit"))) ? '' : 'es_forms';
+		$es_forms = ( $current_page == 'es_forms' && ( isset($current_action) && ( $current_action == 'new' || $current_action == 'edit' ) ) ) ? '' : 'es_forms';
 		
 		$enqueue_tailwind 	   = in_array( $current_page, array( 'es_gallery', 'es_campaigns', 'es_subscribers', 'es_lists', $es_forms, 'es_custom_fields', 'es_settings' ), true );
 		

@@ -14,6 +14,7 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Box_Shadow;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -105,7 +106,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -571,7 +572,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				'options'   => array(
 					'none'       => esc_html__( 'Select Options', 'tpebl' ),
 					'pagination' => esc_html__( 'Pagination (PRO)', 'tpebl' ),
-					'load_more'  => esc_html__( 'Load More (PRO)', 'tpebl' ),
+					'load_more'  => esc_html__( 'Load More', 'tpebl' ),
 					'lazy_load'  => esc_html__( 'Lazy Load (PRO)', 'tpebl' ),
 				),
 				'condition' => array(
@@ -588,10 +589,407 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				'description' => theplus_pro_ver_notice(),
 				'classes'     => 'plus-pro-version',
 				'condition'   => array(
-					'post_extra_option!' => array( 'none' ),
+					'post_extra_option!' => array( 'none', 'load_more' ),
 				),
 			)
 		);
+		$this->add_control(
+			'how_it_works_load_more',
+			array(
+				'label'     => wp_kses_post( "<a class='tp-docs-link' href='" . esc_url( $this->tp_doc ) . "add-read-more-button-in-blog-posts-in-elementor/?utm_source=wpbackend&utm_medium=elementoreditor&utm_campaign=widget' target='_blank' rel='noopener noreferrer'> Learn How it works  <i class='eicon-help-o'></i> </a>" ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array(
+					'post_extra_option' => array( 'load_more' ),
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_btn_text',
+			array(
+				'label'     => esc_html__( 'Button Text', 'tpebl' ),
+				'type'      => \Elementor\Controls_Manager::TEXT,
+				'default'   => esc_html__( 'Load More', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'tp_loading_text',
+			array(
+				'label'     => esc_html__( 'Loading Text', 'tpebl' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => esc_html__( 'Loading...', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => array( 'load_more' ),
+				),
+			)
+		);
+		$this->add_control(
+			'loaded_posts_text',
+			array(
+				'label'     => esc_html__( 'All Posts Loaded Text', 'tpebl' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => esc_html__( 'All done!', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => array( 'load_more' ),
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_post',
+			array(
+				'label'     => esc_html__( 'More posts on click/scroll', 'tpebl' ),
+				'type'      => Controls_Manager::NUMBER,
+				'min'       => 1,
+				'max'       => 30,
+				'step'      => 1,
+				'default'   => 4,
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => array( 'load_more' ),
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'load_more_typography',
+				'label'     => esc_html__( 'Load More Typography', 'tpebl' ),
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector'  => '{{WRAPPER}} .ajax_load_more .post-load-more',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'loaded_posts_typo',
+				'label'     => esc_html__( 'Loaded All Posts Typography', 'tpebl' ),
+				'global'    => array(
+					'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
+				'selector'  => '{{WRAPPER}} .plus-all-posts-loaded',
+				'separator' => 'before',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => array( 'load_more' ),
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_border',
+			array(
+				'label'     => esc_html__( 'Load More Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
+				'default'   => 'no',
+				'separator' => 'before',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'load_more_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->start_controls_tabs(
+			'tabs_load_more_border_style',
+			array(
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->start_controls_tab(
+			'tab_load_more_border_normal',
+			array(
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'load_more_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'after',
+				'condition'  => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'tab_load_more_border_hover',
+			array(
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_border_hover_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more:hover' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'load_more_border_hover_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'after',
+				'condition'  => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+					'load_more_border'  => 'yes',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->start_controls_tabs(
+			'tabs_load_more_style',
+			array(
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->start_controls_tab(
+			'tab_load_more_normal',
+			array(
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more' => 'color: {{VALUE}}',
+				),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'loaded_posts_color',
+			array(
+				'label'     => esc_html__( 'Loaded Posts Text Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .plus-all-posts-loaded' => 'color: {{VALUE}}',
+				),
+				'separator' => 'after',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => array( 'load_more', 'lazy_load' ),
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'load_more_background',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .ajax_load_more .post-load-more',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'      => 'load_more_shadow',
+				'selector'  => '{{WRAPPER}} .ajax_load_more .post-load-more',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'tab_load_more_hover',
+			array(
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_color_hover',
+			array(
+				'label'     => esc_html__( 'Text Hover Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}} .ajax_load_more .post-load-more:hover' => 'color: {{VALUE}}',
+				),
+				'separator' => 'after',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'      => 'load_more_hover_background',
+				'types'     => array( 'classic', 'gradient' ),
+				'selector'  => '{{WRAPPER}} .ajax_load_more .post-load-more:hover',
+				'separator' => 'after',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_control(
+			'load_more_shadow_hover_options',
+			array(
+				'label'     => esc_html__( 'Hover Shadow Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'      => 'load_more_hover_shadow',
+				'selector'  => '{{WRAPPER}} .ajax_load_more .post-load-more:hover',
+				'condition' => array(
+					'layout!'           => array( 'carousel' ),
+					'post_extra_option' => 'load_more',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -696,6 +1094,28 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				'selector' => '{{WRAPPER}} .blog-list .post-inner-loop .post-title,{{WRAPPER}} .blog-list .post-inner-loop .post-title a',
 			)
 		);
+		$this->add_responsive_control(
+			'title_margin',
+			array(
+				'label'      => esc_html__( 'Margin', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .blog-list .post-inner-loop .post-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			's_title_pg',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} #pt-plus-blog-post-list.blog-list.blog-style-1 .post-title, {{WRAPPER}} #pt-plus-blog-post-list.blog-list.blog-style-2 .post-title, {{WRAPPER}} .blog-list.blog-style-3 h3.post-title, {{WRAPPER}} #pt-plus-blog-post-list.blog-list.blog-style-4 .post-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
 		$this->start_controls_tabs( 'tabs_title_style' );
 		$this->start_controls_tab(
 			'tab_title_normal',
@@ -757,6 +1177,30 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				'selector' => '{{WRAPPER}} .blog-list .post-inner-loop .entry-content,{{WRAPPER}} .blog-list .post-inner-loop .entry-content p',
 			)
 		);
+		/* Content Background Padding Start */
+		$this->add_responsive_control(
+			'excerpt_margin',
+			array(
+				'label'      => esc_html__( 'Margin', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .blog-list .post-inner-loop .entry-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			's_excerpt_content_pg',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .blog-list .blog-list-content .entry-content p' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		/* Content Background Padding End */
 		$this->start_controls_tabs( 'tabs_excerpt_style' );
 		$this->start_controls_tab(
 			'tab_excerpt_normal',
@@ -854,6 +1298,17 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				'options' => l_theplus_get_style_list( 1, 'yes' ),
 			)
 		);
+		$this->add_responsive_control(
+			'featured_image_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .blog-list.blog-style-3 .blog-list-content,{{WRAPPER}} .blog-list.blog-style-3 .blog-featured-image,{{WRAPPER}} .blog-list.blog-style-2 .blog-featured-image' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -896,6 +1351,51 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				),
 				'condition'  => array(
 					'style!' => array( 'style-1', 'style-4' ),
+				),
+			)
+		);
+		$this->add_control(
+			'box_border',
+			array(
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
+				'default'   => 'no',
+			)
+		);
+		$this->add_control(
+			'border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .blog-list .post-inner-loop .grid-item .blog-list-content' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'box_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .blog-list .post-inner-loop .grid-item .blog-list-content' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'box_border' => 'yes',
 				),
 			)
 		);
@@ -977,6 +1477,47 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				'name'     => 'box_active_background',
 				'types'    => array( 'classic', 'gradient' ),
 				'selector' => '{{WRAPPER}} .blog-list .post-inner-loop .grid-item .blog-list-content:hover',
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->add_control(
+			'content_box_shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->start_controls_tabs(
+			'tabs_content_shadow_style',
+			array()
+		);
+		$this->start_controls_tab(
+			'tab_content_shadow_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'tpebl' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'content_shadow',
+				'selector' => '{{WRAPPER}} .blog-list.blog-style-1 .blog-list-content',
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'tab_content_shadow_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'tpebl' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'content_hover_shadow',
+				'selector' => '{{WRAPPER}} .blog-list.blog-style-1 .blog-list-content:hover',
 			)
 		);
 		$this->end_controls_tab();
@@ -1225,7 +1766,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 	 * Render Written in PHP and HTML.
 	 *
 	 * @since 1.0.0
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 
@@ -1377,6 +1918,79 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 			}
 
 			$output .= '</div>';
+
+			if ( ! empty( $post_category ) && is_array( $post_category ) ) {
+				$post_category = implode( ',', $post_category );
+			} else {
+				$post_category = '';
+			}
+
+			if ( ! empty( $post_tags ) && is_array( $post_tags ) ) {
+				$post_tags = implode( ',', $post_tags );
+			} else {
+				$post_tags = '';
+			}
+
+			if ( $query->found_posts != '' ) {
+				$total_posts   = $query->found_posts;
+				$post_offset   = ( $settings['post_offset'] != '' ) ? $settings['post_offset'] : 0;
+				$display_posts = ( $settings['display_posts'] != '' ) ? $settings['display_posts'] : 0;
+				$offset_posts  = intval( $display_posts + $post_offset );
+				$total_posts   = intval( $total_posts - $offset_posts );
+				if ( $total_posts != 0 && $settings['load_more_post'] != 0 ) {
+					$load_page = ceil( intval($total_posts) / intval($settings['load_more_post']) );
+				} else {
+					$load_page = 1;
+				}
+				$load_page = $load_page + 1;
+			} else {
+				$load_page = 1;
+			}
+
+			$loaded_posts_text = ! empty( $settings['loaded_posts_text'] ) ? $settings['loaded_posts_text'] : 'All done!';
+			$tp_loading_text   = ! empty( $settings['tp_loading_text'] ) ? $settings['tp_loading_text'] : 'Loading...';
+
+			$data_loadkey = '';
+			if ( ( $settings['post_extra_option'] == 'load_more' || $settings['post_extra_option'] == 'lazy_load' ) && $layout != 'carousel' ) {
+				$postattr = array(
+					'load'                => 'blogs',
+					'post_type'           => 'post',
+					'texonomy_category'   => 'cat',
+					'post_title_tag'      => esc_attr( $post_title_tag ),
+					'layout'              => esc_attr( $layout ),
+					'style'               => esc_attr( $style ),
+					'desktop-column'      => esc_attr( $settings['desktop_column'] ),
+					'tablet-column'       => esc_attr( $settings['tablet_column'] ),
+					'mobile-column'       => esc_attr( $settings['mobile_column'] ),
+					'metro_column'        => esc_attr( $settings['metro_column'] ),
+					'metro_style'         => esc_attr( $metro_style ),
+					'offset-posts'        => esc_attr( $settings['post_offset'] ),
+					'category'            => esc_attr( $post_category ),
+					'post_tags'           => esc_attr( $post_tags ),
+					'order_by'            => esc_attr( $settings['post_order_by'] ),
+					'post_order'          => esc_attr( $settings['post_order'] ),
+					'filter_category'     => esc_attr( $settings['filter_category'] ),
+					'display_post'        => esc_attr( $settings['display_posts'] ),
+					'animated_columns'    => esc_attr( $animated_columns ),
+					'post_load_more'      => esc_attr( $settings['load_more_post'] ),
+
+					'display_post_meta'   => $display_post_meta,
+					'post_meta_tag_style' => $post_meta_tag_style,
+					'theplus_nonce'       => wp_create_nonce( 'theplus-addons' ),
+				);
+
+				$postattr     = array_merge( $postattr );
+				$data_loadkey = L_tp_plus_simple_decrypt( json_encode( $postattr ), 'ey' );
+			}
+
+			if ( $settings['post_extra_option'] == 'load_more' && $layout != 'carousel' ) {
+				if ( ! empty( $total_posts ) && $total_posts > 0 ) {
+					$output     .= '<div class="ajax_load_more">';
+						$output .= '<a class="post-load-more" data-layout="' . esc_attr( $layout ) . '" data-offset-posts="' . $settings['post_offset'] . '" data-load-class="' . esc_attr( $uid ) . '" data-display_post="' . esc_attr( $settings['display_posts'] ) . '" data-post_load_more="' . esc_attr( $settings['load_more_post'] ) . '" data-loaded_posts="' . esc_attr( $loaded_posts_text ) . '" data-tp_loading_text="' . esc_attr( $tp_loading_text ) . '" data-page="1" data-total_page="' . esc_attr( $load_page ) . '" data-loadattr= \'' . $data_loadkey . '\'>' . esc_html( $settings['load_more_btn_text'] ) . '</a>';
+					$output     .= '</div>';
+				}
+			}
+
 			$output .= '</div>';
 		} else {
 			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'This Style Premium Version', 'tpebl' ) . '</h3>';

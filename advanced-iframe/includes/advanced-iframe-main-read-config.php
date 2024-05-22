@@ -686,4 +686,12 @@ $reload_interval = AdvancedIframeHelper::filterXSS($reload_interval);
 $resize_on_element_resize_delay = AdvancedIframeHelper::filterXSS($resize_on_element_resize_delay);
 $include_fade = AdvancedIframeHelper::filterXSS($include_fade);
 $include_height = AdvancedIframeHelper::filterXSS($include_height);
+$add_iframe_url_as_param_direct = AdvancedIframeHelper::filterXSSTrueFalse($include_height);
+$add_iframe_url_as_param_prefix = AdvancedIframeHelper::filterBasicXSS($add_iframe_url_as_param_prefix);
+$map_parameter_to_url =AdvancedIframeHelper::filterBasicXSS($map_parameter_to_url);
+$show_part_of_iframe_next_viewports =AdvancedIframeHelper::filterBasicXSS($show_part_of_iframe_next_viewports);
+$enable_responsive_iframe = AdvancedIframeHelper::filterXSSTrueFalse($enable_responsive_iframe);
+$show_part_of_iframe_zoom = AdvancedIframeHelper::filterXSSTrueFalse($show_part_of_iframe_zoom);
+$remove_elements_from_height = AdvancedIframeHelper::filterBasicXSS($remove_elements_from_height);
+$resize_on_element_resize = AdvancedIframeHelper::filterBasicXSS($resize_on_element_resize);
 ?>

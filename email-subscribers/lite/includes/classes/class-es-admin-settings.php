@@ -158,7 +158,7 @@ class ES_Admin_Settings {
 				<nav aria-label="Global" class="pb-5 w-full pt-2">
 					<div class="brand-logo">
 						<span>
-							<img src="<?php echo ES_PLUGIN_URL."lite/admin/images/new/brand-logo/IG LOGO 192X192.svg";?>" alt="brand logo" />
+							<img src="<?php echo ES_PLUGIN_URL . 'lite/admin/images/new/brand-logo/IG LOGO 192X192.svg'; ?>" alt="brand logo" />
 							<div class="divide"></div>
 							<h1><?php esc_html_e( 'Settings', 'email-subscribers' ); ?></h1>
 						</span>
@@ -734,7 +734,7 @@ class ES_Admin_Settings {
 	}
 
 	public function render_settings_fields( $fields ) {
-		$html  = "<table>";
+		$html  = '<table>';
 		$html .= '<tbody>';
 		foreach ( $fields as $key => $field ) {
 			if ( ! empty( $field['name'] ) ) {
@@ -756,7 +756,7 @@ class ES_Admin_Settings {
 				$html .= '</th>';
 			}
 
-			$html .= "<td>";
+			$html .= '<td>';
 
 			if ( ! empty( $field['upgrade_desc'] ) ) {
 				$html .= "<div class='flex settings_upsell_div'><div class='flex-none w-2/5 upsell_switcher'>";
@@ -911,6 +911,9 @@ class ES_Admin_Settings {
 		$current_month              = ig_es_get_current_month();
 		$allocated_limit           = isset( $es_ess_data['allocated_limit'] ) ? $es_ess_data['allocated_limit']: 0;
 		$used_limit                = isset( $es_ess_data['used_limit'][$current_month] ) ? $es_ess_data['used_limit'][$current_month] : 0;
+		$remaining_limit		   = $allocated_limit - $used_limit;
+		$remaining_limit_percentage = number_format_i18n( ( ( $remaining_limit * 100 ) / $allocated_limit ), 2 );
+		$remaining_percentage_limit = 10;   //Set email remaining percentage limit, so upsell notice box will visible.
 		$plan                      = ES_Service_Email_Sending::get_plan();
 		$premium_plans             = array( 'pro', 'max' );
 		$is_premium_plan           = in_array( $plan, $premium_plans, true );
@@ -970,16 +973,49 @@ class ES_Admin_Settings {
 							<?php echo esc_html__( 'Allocated limit', 'email-subscribers' ); ?>: <b><?php echo esc_html( $allocated_limit ); ?></b>
 						</div>
 						<div>
-						<?php echo esc_html__( 'Used limit', 'email-subscribers' ); ?>: <b><?php echo esc_html( $used_limit ); ?></b>
+						<?php echo esc_html__( 'Used limit', 'email-subscribers' ); ?>: <b><?php echo esc_html( $used_limit ) . ' (' . esc_html( number_format_i18n( ( ( $used_limit * 100 ) / $allocated_limit ), 2 ) ) . '%)'; ?></b>
 						</div>
 						<div>
-						<?php echo esc_html__( 'Remaining limit', 'email-subscribers' ); ?>: <b><?php echo esc_html( $allocated_limit - $used_limit ); ?></b>
+						<?php echo esc_html__( 'Remaining limit', 'email-subscribers' ); ?>: <b style="<?php echo ( $remaining_limit_percentage <= $remaining_percentage_limit ) ? 'color:orange' : ''; ?>"><?php echo esc_html( $remaining_limit ) . ' (' . esc_html( $remaining_limit_percentage ) . '%)'; ?></b>
 						</div>
 					</div>
 					<?php
 				}
 				?>
 			</label>
+			<?php
+			if ($remaining_limit_percentage <= $remaining_percentage_limit && $allocated_limit != 30000) {
+				?>
+				<div class="ess-upsell-sec">
+					<div class="main-upsell-sec">
+						<div class="flex">
+							<div class="flex-shrink-0">
+								<svg class='h-5 w-5 text-teal-400' fill='currentColor' viewBox='0 0 20 20'>
+									<path fill-rule='evenodd'
+										d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+										clip-rule='evenodd'/>
+								</svg>
+							</div>
+							<div class="ess-upsell-msg">
+								<h3>
+									<?php 
+										echo esc_html__( 'You are about to exhaust your monthly email sending limit. Upgrade now to continue sending emails through our Icegram email sending service.', 'email-subscribers' );
+									?>
+								</h3>
+							</div>
+						</div>
+						<div class="upsell-btn-sec">
+							<a href="https://www.icegram.com/email-sending-service/?utm_source=in_app&utm_medium=ess_setting&utm_campaign=ess_upsell" target="_blank">
+								<button class="primary" type="button">
+									<?php esc_html_e( 'Upgrade', 'email-subscribers'); ?>
+								</button>
+							</a>
+						</div>
+					</div>
+				</div>
+				<?php
+			}
+			?>
 		</section>
 		<?php
 		$html = ob_get_clean();

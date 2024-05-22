@@ -174,15 +174,37 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 row mb-1 ml-1 p-2">
-                                <div class="checker col-sm-12 row my-2 py-1">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
-                                        <input type="hidden" name="whitelist_paths" value="0"/>
-                                        <input type="checkbox" id="whitelist_paths" name="whitelist_paths" class="switch" <?php echo(HMWP_Classes_Tools::getOption('whitelist_paths') ? 'checked="checked"' : '') ?> value="1"/>
-                                        <label for="whitelist_paths"><?php echo esc_html__('Disable All Features', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Deactivate the plugin when accessing from whitelist IP addresses.', 'hide-my-wp'); ?></div>
-                                    </div>
+                            <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
+                                <div class="col-md-4 p-0 font-weight-bold">
+                                    <?php echo esc_html__('Whitelist Paths', 'hide-my-wp'); ?>:
+                                    <div class="small text-black-50"><?php echo esc_html__('Add paths that can pass plugin security', 'hide-my-wp') ?></div>
+                                    <div class="small text-black-50"><?php echo esc_html__('e.g. /cart/', 'hide-my-wp') ?></div>
+                                    <div class="small text-black-50"><?php echo esc_html__('e.g. /checkout/', 'hide-my-wp') ?></div>
                                 </div>
+                                <div class="col-md-8 p-0 input-group input-group">
+                                    <?php
+                                    $urls = array();
+                                    if (HMWP_Classes_Tools::getOption('whitelist_urls')) {
+                                        $urls = json_decode(HMWP_Classes_Tools::getOption('whitelist_urls'), true);
+                                    }
+                                    ?>
+                                    <textarea type="text" class="form-control bg-input" name="whitelist_urls" style="height: 100px"><?php echo(!empty($urls) ? implode(PHP_EOL, $urls) : '') ?></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3 hmwp_sqlinjection border-bottom">
+                                <div class="col-sm-4 p-1">
+                                    <div class="font-weight-bold"><?php echo esc_html__('Whitelist Options', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 small"><?php echo esc_html__('Chose what to do when accessing from whitelist IP addresses and whitelisted paths.', 'hide-my-wp'); ?></div>
+                                </div>
+                                <div class="col-sm-8 p-0 input-group mb-1">
+                                    <select name="whitelist_level" class="form-control bg-input">
+                                        <option value="0" <?php echo selected(0, HMWP_Classes_Tools::getOption('whitelist_level')) ?> ><?php echo esc_html__('Allow Hidden Paths', 'hide-my-wp'); ?></option>
+                                        <option value="1" <?php echo selected(1, HMWP_Classes_Tools::getOption('whitelist_level')) ?> ><?php echo esc_html__('Show Default Paths & Allow Hidden Paths', 'hide-my-wp'); ?></option>
+                                        <option value="2" <?php echo selected(2, HMWP_Classes_Tools::getOption('whitelist_level')) ?> ><?php echo esc_html__('Show Defaults Paths & Allow Everything', 'hide-my-wp'); ?></option>
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
                     </div>

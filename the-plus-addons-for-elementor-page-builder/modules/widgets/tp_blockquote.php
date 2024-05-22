@@ -2502,9 +2502,9 @@ class L_ThePlus_Block_Quote extends Widget_Base {
 				}
 			}
 
-			if ( 'yes' === $iamge_on && ! empty( $q_image ) ) {
-				$text_block .= $quote_img;
-			}
+		}
+		if ( 'yes' === $iamge_on && ! empty( $q_image ) ) {
+			$text_block .= $quote_img;
 		}
 
 		if ( 'yes' === $dropcap && 'style-2' !== $quote_style ) {

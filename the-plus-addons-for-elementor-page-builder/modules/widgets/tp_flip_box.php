@@ -79,7 +79,7 @@ class L_ThePlus_Flip_Box extends Widget_Base {
 	 * Register controls.
 	 *
 	 * @since 1.0.0
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function register_controls() {
 
@@ -617,25 +617,32 @@ class L_ThePlus_Flip_Box extends Widget_Base {
 				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'icon_size',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Icon Size', 'tpebl' ),
-				'size_units'  => array( 'px' ),
-				'range'       => array(
+				'type'            => Controls_Manager::SLIDER,
+				'label'           => esc_html__( 'Icon Size', 'tpebl' ),
+				'range'           => array(
 					'px' => array(
 						'min'  => 0,
 						'max'  => 200,
 						'step' => 1,
 					),
 				),
-				'default'     => array(
+				'devices'         => array( 'desktop', 'tablet', 'mobile' ),
+				'desktop_default' => array(
 					'unit' => 'px',
 					'size' => 25,
 				),
-				'render_type' => 'ui',
-				'selectors'   => array(
+				'tablet_default'  => array(
+					'unit' => 'px',
+					'size' => 25,
+				),
+				'mobile_default'  => array(
+					'unit' => 'px',
+					'size' => 25,
+				),
+				'selectors'       => array(
 					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .service-icon' => 'font-size: {{SIZE}}{{UNIT}} !important;',
 					'{{WRAPPER}} .pt_plus_info_box .info-box-inner .service-icon svg' => 'width: {{SIZE}}{{UNIT}} !important;height: {{SIZE}}{{UNIT}} !important;',
 				),
@@ -1352,54 +1359,66 @@ class L_ThePlus_Flip_Box extends Widget_Base {
 		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
-		$this->add_control(
+		$this->add_responsive_control(
 			'title_top_space',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Title Top Space', 'tpebl' ),
-				'size_units'  => array( 'px' ),
-				'range'       => array(
+				'type'            => Controls_Manager::SLIDER,
+				'label'           => esc_html__( 'Title Top Space', 'tpebl' ),
+				'range'           => array(
 					'px' => array(
 						'step' => 2,
 						'min'  => -150,
 						'max'  => 150,
 					),
 				),
-				'default'     => array(
+				'devices'         => array( 'desktop', 'tablet', 'mobile' ),
+				'desktop_default' => array(
 					'unit' => 'px',
 					'size' => 0,
 				),
-				'render_type' => 'ui',
-				'separator'   => 'before',
-				'selectors'   => array(
+				'tablet_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'mobile_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'selectors'       => array(
 					'{{WRAPPER}} .pt_plus_info_box.info-box-style_5 .info-box-inner .service-title' => 'margin-top : {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'title_btm_space',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Title Bottom Space', 'tpebl' ),
-				'size_units'  => array( 'px' ),
-				'range'       => array(
+				'type'            => Controls_Manager::SLIDER,
+				'label'           => esc_html__( 'Title Bottom Space', 'tpebl' ),
+				'range'           => array(
 					'px' => array(
 						'step' => 2,
 						'min'  => -150,
 						'max'  => 150,
 					),
 				),
-				'default'     => array(
+				'devices'         => array( 'desktop', 'tablet', 'mobile' ),
+				'desktop_default' => array(
 					'unit' => 'px',
 					'size' => 0,
 				),
-				'render_type' => 'ui',
-				'selectors'   => array(
+				'tablet_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'mobile_default'  => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'selectors'       => array(
 					'{{WRAPPER}} .pt_plus_info_box.info-box-style_5 .info-box-inner .service-title' => 'margin-bottom : {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
-
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -2222,7 +2241,7 @@ class L_ThePlus_Flip_Box extends Widget_Base {
 	 * Written in PHP and HTML.
 	 *
 	 * @since 1.0.0
-	 * @version 5.4.2
+	 * @version 5.5.4
 	 */
 	protected function render() {
 
@@ -2508,7 +2527,7 @@ class L_ThePlus_Flip_Box extends Widget_Base {
 		}
 
 		if ( 'style-8' === $button_style ) {
-			$button_text = $icons_before . $button_text . $icons_after;
+			$button_text = $icons_before . esc_attr( $button_text ) . $icons_after;
 		}
 
 		return $button_text;

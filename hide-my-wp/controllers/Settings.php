@@ -321,6 +321,9 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 	        //whitelist_ip
             $this->saveWhiteListIps();
 
+            //whitelist_paths
+            $this->saveWhiteListPaths();
+
 	        //load the after saving settings process
 	        if($this->model->applyPermalinksChanged()){
 		        HMWP_Classes_Error::setNotification(esc_html__('Saved'), 'success');
@@ -739,6 +742,25 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 	    }
     }
 
+    /**
+     * Save the whitelist Paths into database
+     * @return void
+     */
+    private function saveWhiteListPaths(){
+
+        $whitelist = HMWP_Classes_Tools::getValue('whitelist_urls', '', true);
+        $urls = explode(PHP_EOL, $whitelist);
+
+        if (!empty($urls)) {
+            foreach ($urls as &$url) {
+                $url = trim($url);
+            }
+
+            $urls = array_unique($urls);
+            HMWP_Classes_Tools::saveOptions('whitelist_urls', json_encode($urls));
+        }
+
+    }
 
     /**
      * If javascript is not loaded

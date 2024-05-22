@@ -726,6 +726,32 @@ table td
           }
           /* End */
 
+          /* ESS upsell noticebox CSS */
+          #sending_service_info .ess-upsell-sec {
+            @apply inline-flex rounded-md shadow bg-teal-50 px-2 pt-1 my-2 w-4/5 font-sans;
+
+            .main-upsell-sec {
+              @apply px-2 pt-2 pb-2;
+
+              .ess-upsell-msg {
+                @apply ml-3;
+
+                h3 {
+                  @apply text-sm leading-5 font-medium text-blue-800;
+                }
+              }
+
+              .upsell-btn-sec {
+                @apply mt-2 ml-8 text-sm leading-5 text-teal-700;
+
+                .upsell-btn-div {
+                  @apply pt-6 text-left pb-2;
+                }
+              }
+            }
+          }
+          /* End */
+
           #send_time_optimizer_section {
             label.send_time_optimizer_label {
               @apply inline-flex items-center mt-4 cursor-pointer;

@@ -285,6 +285,8 @@ Enjoy!
 = 5.1.03 (20 May 2024) =
 Update - Compatibility with WP 6.5.3
 Update - Compatibility with WPEngine rules on wp-admin and wp-login.php
+Update - Add whitelist paths feature
+Update - Select the Whitelist level for IPs and Paths
 Fixed - Prevent firewall to record all triggered filters as fail attempts
 Fixed - Remove filter on robots when 8G firewall is active
 Fixed - Frontend Login Check popup to prevent any redirect to admin panel in popup test

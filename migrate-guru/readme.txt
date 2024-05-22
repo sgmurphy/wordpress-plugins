@@ -1,4 +1,4 @@
-=== Migrate Guru: Migrate & Clone WordPress Free ===
+=== WordPress Migrate & Clone Free : Migrate Guru ===
 Contributors: migrateguru, backup-by-blogvault 
 Tags: migrate, migration, clone, copy, WordPress migrate
 Plugin URI: https://www.migrateguru.com/
@@ -10,71 +10,61 @@ Stable tag: 5.56
 License: GPLv2 or later
 License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Migrate, Clone or Move your WordPress site to 5000+ web hosts with Migrate Guru. Proud Migration Partners for WP Engine, Pantheon, FlyWheel, etc.
+Effortlessly migrate, clone, or transfer your WordPress site to over 5,000 web hosts with Migrate Guru, trusted by Cloudways, Pantheon, and Dreamhost.
 
 == DESCRIPTION ==
 
-Migrate Guru is the fastest way to migrate WordPress sites. It simplifies difficult WordPress migrations (e.g. multi-site networks, 200 GB sites, etc.).
+Migrate Guru is a powerful WordPress migration plugin designed to seamlessly transfer your WordPress site to a new host or domain. Whether you need to clone, move, or migrate your WordPress website, Migrate Guru ensures a hassle-free process with its one-click migration feature. This plugin supports all-in-one WP migrations, handling large sites up to 200 GB without overloading your server. Compatible with every major web host and equipped with automatic URL rewriting and serialized data handling, it's the go-to tool for moving WordPress sites to new domains or hosts. Move, clone, or migrate your WordPress site with Migrate Guru—the smart, swift, and secure WordPress migrator and backup plugin.
 
-Powered by BlogVault (an onboarding partner of top WordPress hosts in the world), Migrate Guru uses intelligent processes on its own servers… So there is ZERO risk to your sites. It automatically rewrites URLs, bypasses import-export scripts, and handles serialised data. It also can clone WordPress sites without any manual work, add-ons, or additional tools.
-
-**OVERVIEW**
+== CHECKOUT Migrate Guru in Action ==
 
 [youtube https://www.youtube.com/watch?v=9TZ_x3NMI9Q]
 
-**TOP FEATURES**
+== TOP FEATURES ==
 
-= TRUE ONE-CLICK MIGRATION =
+= One-Click Migration =
+Effortlessly move WordPress sites 80% faster with a single click, migrating 1 GB in under 30 minutes.
 
-Move 80% faster! (Clone 1GB sites in <30 minutes). Enter host details & click ‘Migrate’. That’s it!
+= No Site Overload =
+Migrate Guru uses its own servers, preventing site crashes.
 
-= NO OVERLOAD ON SITE =
+= Optimized for Large Sites =
+Easily migrate WordPress sites up to 200 GB, overcoming live-site server limits.
 
-The website transfer or migration process works on our servers, so it doesn’t crash your site.
+= No Add-Ons Required =
+Seamlessly handle multi-sites and serialized data without extra plugins.
 
-= BUILT FOR LARGE SITES =
+= No Storage Needed =
+Temporary copies are removed post-migration.
 
-Move or clone sites as large as 200 GB in a breeze. Large site migrations usually fail because of live-site server import limits.
+= Universal Compatibility =
+Compatible with all web hosts, making transfers simple.
 
-= NO ADDONS =
+= Automated Search & Replace =
+Accurate search and replace for serialized data.
 
-You don’t need add-ons to move multi-sites, or sites with serialised data.
+= Real-Time Alerts =
+Receive real-time and email alerts on migration status.
 
-= NO STORAGE SPACE REQUIRED =
-
-Migrate Guru automatically copies your site to our servers. After the migration is complete, the copy is erased.
-
-= COMPATIBLE WITH EVERY WEB HOST =
-
-Move your site from & to *any web host*.
-
-= FULLY AUTOMATIC, BUILT-IN SEARCH & REPLACE =
-
-Comfortably handle serialised data with accurate Search&Replace.
-
-= TIMELY ALERTS =
-
-Sit back. Relax. Our real-time & email alerts will keep you up to date with the website migrate status.
-
-= DISCLAIMER =
+== DISCLAIMER ==
 
 Currently we don't support:
 
 * Local host migrations
 * Migration of multi-site network sub-sites to a different domain or migration of a site to multi-site network subdivision.
 
-= HOW TO PERFORM A MIGRATION =
+== HOW TO PERFORM A MIGRATION ==
 
 1. Install Migrate Guru on the site you want to clone.
 2. Install WordPress on the destination.
 3. Choose the destination web host that you want to clone your website to, enter details.
 4. Click ‘Migrate’.
 
-= PROUD MIGRATION PARTNERS of WP Engine, Pantheon and DreamHost =
+
+= PROUD MIGRATION PARTNERS of Cloudways, Pantheon and DreamHost =
 
 = SUPPORTS ALL 5,000+ WEB HOSTS AROUND THE WORLD =
-
-WPEngine, Pantheon, FlyWheel, LiquidWeb, Cloudways, Savvii, DigitalOcean, Hostgator, Godaddy, Bluehost, SiteGround, Kinsta, AWS, Pressable, Webhostingtalk, Inmotion Hosting, Softlayer, Reverbnation, Homestead, Site5, Linode, Fatcow, DreamHost, Liquid Web, Rackspace, etc.
+Pantheon, LiquidWeb, Cloudways, Savvii, DigitalOcean, Hostgator, Godaddy, Bluehost, SiteGround, Kinsta, AWS, Pressable, Webhostingtalk, Inmotion Hosting, Softlayer, Reverbnation, Homestead, Site5, Linode, Fatcow, DreamHost, Rackspace, etc.
 
 == Installation ==
 
@@ -89,35 +79,38 @@ WPEngine, Pantheon, FlyWheel, LiquidWeb, Cloudways, Savvii, DigitalOcean, Hostga
 2. Click *Download*.
 3. Upload the .zip file to your web server via an FTP application. [Instructions here](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
 
+== WordPress Support forum ==
+For dedicated support and guidance on Migrate Guru, visit the [WordPress.org support page](https://wordpress.org/support/plugin/migrate-guru/). Here you can find community discussions, ask questions, and access resources to ensure smooth and efficient WordPress migrations.
+
 == Frequently Asked Questions ==
 
-=What do I need to use MG?=
+=What do I need to use Migrate Guru?=
 You’ll need:
-* An account on the new web hosting service
-* A domain on the new host, with WordPress installed
-* The destination’s FTP/cPanel details
+* An account on the new web hosting service.
+* A domain on the new host, with WordPress installed.
+* The destination’s FTP/cPanel details(optional).
 
 =Why do you need my email?=
-MigrateGuru requires an email address to send you updates on the migration process, notify you of any errors that occur during the migration.
+Migrate Guru requires an email address to send you updates on the migration process, notify you of any errors that occur during the migration.
 
-=How long does MG take to move a site?=
-MG can move a 1 GB (files & database) site in <30 Mins*
+=How long does Migrate Guru take to move a site?=
+Migrate Guru can move a 1 GB (files & database) site in <30 Mins*
 (*Approximate & depends on a number of factors).
 
 =Are there any limitations on the number of migrations?=
 Yes. We’ve enforced a limit of 5 site migrations/user/month (developers can request to have this limit extended). This cap ensures that our servers aren’t overburdened. Each of the 5 sites can be moved unlimited times.
 
-=Does MG backup my site?=
+=Does Migrate Guru backup my site?=
 No.
 
 =Do I need to have WordPress installed in the destination?=
 Yes.
 
-=Do I need to have MG installed in the destination to transfer my site?=
-No. It’s only needed on the source site.
+=Do I need to have Migrate Guru installed in the destination to transfer my site?=
+Yes.
 
 =Why do you need FTP/cPanel details?=
-MG needs these details since FTP/cPanel is the safest way to move your site.
+Migrate Guru requires FTP/cPanel details primarily as a fallback. The plugin generally doesn't need these details, relying instead on Migration-key based migration. However, in cases where this primary method encounters issues, the plugin uses FTP/cPanel details as an alternative to ensure a seamless migration.
 
 =How do I move a multi-site network?=
 When installed on a WordPress multi-site network, the plugin automatically becomes ‘network activated’. Once this is done you can go by the same steps as a single site.

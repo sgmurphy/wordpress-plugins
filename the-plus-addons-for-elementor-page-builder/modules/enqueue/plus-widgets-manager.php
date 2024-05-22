@@ -208,7 +208,7 @@ class Plus_Widgets_Manager {
 
 		if ( ! empty( $widget_name ) ) {
 
-			if( 'tp-button' === $widget_name || 'tp-contact-form-7' === $widget_name || 'tp-post-search' === $widget_name || 'tp-flip-box' === $widget_name || 'tp-info-box' === $widget_name || 'tp-navigation-menu-lite' === $widget_name || 'tp-tabs-tours' === $widget_name || 'tp-social-icon' === $widget_name ){
+			if( 'tp-heading-title' === $widget_name || 'tp-button' === $widget_name || 'tp-contact-form-7' === $widget_name || 'tp-post-search' === $widget_name || 'tp-flip-box' === $widget_name || 'tp-info-box' === $widget_name || 'tp-navigation-menu-lite' === $widget_name || 'tp-tabs-tours' === $widget_name || 'tp-social-icon' === $widget_name ){
 				$this->transient_widgets[] = "plus-alignmnet-effect";
 			}
 
@@ -241,8 +241,11 @@ class Plus_Widgets_Manager {
 
 				$gallery_style = ! empty( $options['style'] ) ? $options['style'] : 'style-1';
 
-				$this->transient_widgets[] = 'tp-gallery-listout-' . $gallery_style;
 				$this->transient_widgets[] = 'tp-gallery-listout';
+
+				if ( 'style-1' === $gallery_style || 'style-2' === $gallery_style) {
+					$this->transient_widgets[] = 'tp-gallery-listout-' . $gallery_style;
+				}
 
 				$this->transient_widgets[] = $this->tpebl_layout_listing( $options );
 			}
@@ -251,8 +254,8 @@ class Plus_Widgets_Manager {
 
 				$tm_style = ! empty( $options['style'] ) ? $options['style'] : 'style-1';
 
-				if ( 'style-1' === $tm_style ) {
-
+				if ( 'style-1' === $tm_style || 'style-3' === $tm_style ) {
+					
 					$this->transient_widgets[] = 'tp-team-member-listout-' . $tm_style;
 				}
 				$this->transient_widgets[] = 'tp-team-member-listout';
@@ -354,6 +357,30 @@ class Plus_Widgets_Manager {
 				$this->transient_widgets[] = 'plus-widget-error';
 			}
 
+			if ( 'tp-process-steps' === $widget_name ) {
+
+				$display_counter = ! empty( $options['pro_ste_display_counter'] ) ? $options['pro_ste_display_counter'] : 'no';
+				$special_bg      = ! empty( $options['pro_ste_display_special_bg'] ) ? $options['pro_ste_display_special_bg'] : 'no';
+
+				if ( 'yes' == $display_counter ) {
+					$this->transient_widgets[] = 'tp-process-counter';
+				}
+
+				if ( 'yes' == $special_bg ) {
+					$this->transient_widgets[] = 'tp-process-bg';
+				}
+
+				$this->transient_widgets[] = 'tp-process-steps';
+
+				if ( ( ! empty( $options['ps_style'] ) && 'style_2' === $options['ps_style'] ) || ( ! empty( $options['connection_switch'] ) && 'yes' === $options['connection_switch'] && ! empty( $options['connection_unique_id'] ) ) ) {
+					$this->transient_widgets[] = 'tp-process-steps-js';
+				}
+
+				if ( ( ! empty( $options['loop_content'][0]['loop_image_icon'] ) && 'lottie' === $options['loop_content'][0]['loop_image_icon'] ) ) {
+					$this->transient_widgets[] = 'plus-lottie-player';
+				}
+			}
+
 			if ( has_filter( 'tp_has_widgets_condition' ) ) {
 				$this->transient_widgets = apply_filters( 'tp_has_widgets_condition', $this->transient_widgets, $options, $widget_name );
 			}
@@ -453,12 +480,19 @@ class Plus_Widgets_Manager {
 			}
 
 			if ( 'tp-pricing-table' === $widget_name ) {
-				$p_style                   = ! empty( $options['pricing_table_style'] ) ? $options['pricing_table_style'] : 'style-1';
+				$p_style = ! empty( $options['pricing_table_style'] ) ? $options['pricing_table_style'] : 'style-1';
 				$this->transient_widgets[] = 'tp-pricing-table-' . $p_style;
 				$this->transient_widgets[] = 'tp-pricing-table';
 
 				$button_style = ! empty( $options['button_style'] ) ? $options['button_style'] : 'style-8';
 				$this->tp_button_style( $button_style );
+
+				$table_ribbon  = ! empty( $options['display_ribbon_pin'] ) ? $options['display_ribbon_pin'] : 'no';
+                $ribbon_style = ! empty( $options['ribbon_pin_style'] ) ? $options['ribbon_pin_style'] : 'style-1';
+
+                if( 'yes' === $table_ribbon && 'style-1' === $ribbon_style ){
+                    $this->transient_widgets[] = 'tp-pricing-ribbon';
+                }
 			}
 
 			if ('tp-video-player' === $widget_name){

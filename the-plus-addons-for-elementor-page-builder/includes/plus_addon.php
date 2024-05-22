@@ -382,6 +382,244 @@ function l_theplus_createSlug($str, $delimiter = '-'){
 	
 } 
 
+/**
+ * Load more post
+ * 
+ * @since 5.5.4
+ * @version 5.5.4
+ */
+function L_theplus_more_post_ajax(){
+	global $post;
+	ob_start();
+	$load_attr = isset($_POST["loadattr"]) ? wp_unslash( $_POST["loadattr"] ) : '';
+	if(empty($load_attr)){
+		ob_get_contents();
+		exit;
+		ob_end_clean();
+	}
+	
+	$load_attr = L_tp_check_decrypt_key($load_attr);
+	$load_attr = json_decode($load_attr,true);
+	if(!is_array($load_attr)){
+		ob_get_contents();
+		exit;
+		ob_end_clean();
+	}
+	
+	$nonce = (isset($load_attr["theplus_nonce"])) ? wp_unslash( $load_attr["theplus_nonce"] ) : '';
+	if ( ! wp_verify_nonce( $nonce, 'theplus-addons' ) ){
+		die ( 'Security checked!');
+	}
+	
+	$paged= (isset($_POST["paged"]) && intval($_POST["paged"]) ) ? wp_unslash( $_POST["paged"] ) : '';
+	$offset= (isset($_POST["offset"]) && intval($_POST["offset"]) ) ? wp_unslash( $_POST["offset"] ) : '';
+	
+	$post_type = isset( $load_attr["post_type"] ) ? sanitize_text_field( wp_unslash($load_attr["post_type"]) ) : '';
+	$post_load = isset( $load_attr["load"] ) ? sanitize_text_field( wp_unslash($load_attr["load"]) ) : '';
+	$texonomy_category = isset( $load_attr["texonomy_category"] ) ? sanitize_text_field( wp_unslash($load_attr["texonomy_category"]) ) : '';
+	$include_posts = isset( $load_attr["include_posts"] ) ? sanitize_text_field( wp_unslash($load_attr["include_posts"]) ) : '';
+	$exclude_posts = isset( $load_attr["exclude_posts"] ) ? sanitize_text_field( wp_unslash($load_attr["exclude_posts"]) ) : '';
+	$layout =  isset( $load_attr["layout"] ) ? sanitize_text_field( wp_unslash($load_attr["layout"]) ) : '';
+	
+	$display_post = (isset( $load_attr["display_post"] ) && intval($load_attr["display_post"]) ) ? wp_unslash($load_attr["display_post"]) : 4;
+	$category = isset( $load_attr["category"] ) ? wp_unslash($load_attr["category"]) : '';
+	$post_tags = isset( $load_attr["post_tags"] ) ? wp_unslash($load_attr["post_tags"]) : '';
+	$post_authors = isset( $load_attr["post_authors"] ) ? wp_unslash($load_attr["post_authors"]) : '';
+	$desktop_column = (isset( $load_attr["desktop-column"] )  && intval($load_attr["desktop-column"]) ) ? wp_unslash($load_attr["desktop-column"]) : '';
+	$tablet_column = (isset( $load_attr["tablet-column"] )  && intval($load_attr["tablet-column"]) ) ? wp_unslash($load_attr["tablet-column"]) : '';
+	$mobile_column = (isset( $load_attr["mobile-column"] )  && intval($load_attr["mobile-column"]) ) ? wp_unslash($load_attr["mobile-column"]) : '';
+	$style = isset( $load_attr["style"] ) ? sanitize_text_field( wp_unslash($load_attr["style"]) ) : '';
+	$style_layout = isset( $load_attr["style_layout"] ) ? sanitize_text_field( wp_unslash($load_attr["style_layout"]) ) : '';
+	$filter_category = isset( $load_attr["filter_category"] ) ? wp_unslash($load_attr["filter_category"]) : '';
+	$order_by = isset( $load_attr["order_by"] ) ? sanitize_text_field( wp_unslash($load_attr["order_by"]) ) : '';
+	$post_order = isset( $load_attr["post_order"] ) ? sanitize_text_field( wp_unslash($load_attr["post_order"]) ) : '';
+	$animated_columns = isset( $load_attr["animated_columns"] ) ? sanitize_text_field( wp_unslash($load_attr["animated_columns"]) ) : '';
+	$post_load_more = (isset( $load_attr["post_load_more"] ) && intval($load_attr["post_load_more"]) ) ? wp_unslash($load_attr["post_load_more"]) : '';
+	
+	$metro_column = isset( $load_attr["metro_column"] ) ? wp_unslash($load_attr["metro_column"]) : '';
+	$metro_style = isset( $load_attr["metro_style"] ) ? wp_unslash($load_attr["metro_style"]) : '';
+	$responsive_tablet_metro = isset( $load_attr["responsive_tablet_metro"] ) ? wp_unslash($load_attr["responsive_tablet_metro"]) : '';
+	$tablet_metro_column = isset( $load_attr["tablet_metro_column"] ) ? wp_unslash($load_attr["tablet_metro_column"]) : '';
+	$tablet_metro_style = isset( $load_attr["tablet_metro_style"] ) ? wp_unslash($load_attr["tablet_metro_style"]) : '';
+	
+	$display_post_title = isset( $load_attr["display_post_title"] ) ? wp_unslash($load_attr["display_post_title"]) : '';
+	$post_title_tag = isset( $load_attr["post_title_tag"] ) ? wp_unslash($load_attr["post_title_tag"]) : '';
+
+	$author_prefix = isset( $load_attr["author_prefix"] ) ? wp_unslash($load_attr["author_prefix"]) : '';
+
+	$title_desc_word_break = isset( $load_attr["title_desc_word_break"] ) ? wp_unslash($load_attr["title_desc_word_break"]) : '';
+	
+	$feature_image = isset( $load_attr["feature_image"] ) ? wp_unslash($load_attr["feature_image"]) : '';
+	
+	$display_post_meta = isset( $load_attr["display_post_meta"] ) ? wp_unslash($load_attr["display_post_meta"]) : '';
+	$post_meta_tag_style = isset( $load_attr["post_meta_tag_style"] ) ? wp_unslash($load_attr["post_meta_tag_style"]) : '';
+	$display_excerpt = isset( $load_attr["display_excerpt"] ) ? wp_unslash($load_attr["display_excerpt"]) : '';
+	$post_excerpt_count = isset( $load_attr["post_excerpt_count"] ) ? wp_unslash($load_attr["post_excerpt_count"]) : '';
+	$display_post_category = isset( $load_attr["display_post_category"] ) ? wp_unslash($load_attr["display_post_category"]) : '';
+	$post_category_style = isset( $load_attr["post_category_style"] ) ? wp_unslash($load_attr["post_category_style"]) : '';
+	$dpc_all = isset( $load_attr["dpc_all"] ) ? wp_unslash($load_attr["dpc_all"]) : '';
+	
+	$desktop_class=$tablet_class=$mobile_class='';
+
+	if ( 'carousel' !== $layout && 'metro' !== $layout ) {
+		$desktop_class = 'tp-col-lg-' . esc_attr( $desktop_column );
+		$tablet_class  = 'tp-col-md-' . esc_attr( $tablet_column );
+		$mobile_class  = 'tp-col-sm-' . esc_attr( $mobile_column );
+		$mobile_class .= ' tp-col-' . esc_attr( $mobile_column );
+	}
+
+	$clientContentFrom="";
+	if($post_load=='clients'){
+		$clientContentFrom = isset( $load_attr['SourceType'] ) ? $load_attr['SourceType'] : '';
+		$disable_link = isset( $load_attr['disable_link'] ) ? $load_attr['disable_link'] : '';
+	}
+
+	$j=1;
+	$args = array(
+		'post_type' => $post_type,
+		'posts_per_page' => $post_load_more,
+		$texonomy_category => $category,
+		'offset' => $offset,
+		'orderby'	=>$order_by,
+		'post_status' =>'publish',
+		'order'	=>$post_order
+	);
+	
+	if('' !== $exclude_posts){
+		$exclude_posts =explode(",",$exclude_posts);
+		$args['post__not_in'] = $exclude_posts;
+	}
+	if('' !== $include_posts){
+		$include_posts =explode(",",$include_posts);
+		$args['post__in'] = $include_posts;
+	}
+
+	if ( '' !== $post_tags && $post_type=='post') {
+		$post_tags =explode(",",$post_tags);
+		$args['tax_query'] = array(
+		'relation' => 'AND',
+			array(
+				'taxonomy'         => 'post_tag',
+				'terms'            => $post_tags,
+				'field'            => 'term_id',
+				'operator'         => 'IN',
+				'include_children' => true,
+			),
+		);
+	}
+	
+	if('' !== $post_authors && $post_type=='post'){
+		$args['author'] = $post_authors;
+	}
+	
+	$ji=($post_load_more*$paged)-$post_load_more+$display_post+1;
+	$ij='';
+	$tablet_metro_class=$tablet_ij='';
+	$loop = new WP_Query($args);		
+		if ( $loop->have_posts() ) :
+			while ($loop->have_posts()) {
+				$loop->the_post();
+				
+				if($post_load=='blogs'){
+					include L_THEPLUS_PATH ."includes/ajax-load-post/blog-style.php";
+				}				
+				$ji++;
+			}
+			$content = ob_get_contents();
+			ob_end_clean();
+		endif;
+	wp_reset_postdata();
+	echo $content;
+	exit;
+	ob_end_clean();
+}
+add_action('wp_ajax_L_theplus_more_post','L_theplus_more_post_ajax');
+add_action('wp_ajax_nopriv_L_theplus_more_post', 'L_theplus_more_post_ajax');
+
+/**
+ * Check dycrypt Key
+ * 
+ * @since 5.5.4
+ * @version 5.5.4
+ */
+function L_tp_check_decrypt_key($key){   	 
+	$decrypted = L_tp_plus_simple_decrypt( $key, 'dy' );
+	return $decrypted;
+}
+
+/**
+ * Simple decrypt function
+ * 
+ * @since 5.5.4
+ * @version 5.5.4
+ */
+function L_tp_plus_simple_decrypt( $string, $action = 'dy' ) {
+	// you may change these values to your own
+	$tppk=get_option( 'theplus_purchase_code' );
+	$generated = !empty(get_option( 'tp_key_random_generate' )) ? get_option( 'tp_key_random_generate' ) : 'PO$_key';
+	
+	$secret_key = ( isset($tppk['tp_api_key']) && !empty($tppk['tp_api_key']) ) ? $tppk['tp_api_key'] : $generated;
+	$secret_iv = 'PO$_iv';
+
+	$output = false;
+	$encrypt_method = "AES-128-CBC";
+	$key = hash( 'sha256', $secret_key );
+	$iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+
+	if( $action == 'ey' ) {
+		$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+	}
+	else if( $action == 'dy' ){
+		$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+	}
+
+	return $output;
+}
+
+/**
+ * Metro layout for ajax load
+ * 
+ * @since 5.5.4
+ * @version 5.5.4
+ */
+function L_theplus_load_metro_style_layout($columns='1',$metro_column='3',$metro_style='style-1'){
+	$i=($columns!='') ? $columns : 1;
+	if(!empty($metro_column)){
+		//style-3
+		if($metro_column=='3' && $metro_style=='style-1'){
+			$i=($i<=10) ? $i : ($i%10);			
+		}
+		if($metro_column=='3' && $metro_style=='style-2'){
+			$i=($i<=9) ? $i : ($i%9);			
+		}
+		if($metro_column=='3' && $metro_style=='style-3'){
+			$i=($i<=15) ? $i : ($i%15);			
+		}
+		if($metro_column=='3' && $metro_style=='style-4'){
+			$i=($i<=8) ? $i : ($i%8);			
+		}
+		//style-4
+		if($metro_column=='4' && $metro_style=='style-1'){
+			$i=($i<=12) ? $i : ($i%12);			
+		}
+		if($metro_column=='4' && $metro_style=='style-2'){
+			$i=($i<=14) ? $i : ($i%14);			
+		}
+		if($metro_column=='4' && $metro_style=='style-3'){
+			$i=($i<=12) ? $i : ($i%12);			
+		}
+		//style-5
+		if($metro_column=='5' && $metro_style=='style-1'){
+			$i=($i<=18) ? $i : ($i%18);			
+		}
+		//style-6
+		if($metro_column=='6' && $metro_style=='style-1'){
+			$i=($i<=16) ? $i : ($i%16);			
+		}
+	}
+	return $i;
+}
+
 if(!function_exists('plus_simple_crypt')){
 	function plus_simple_crypt( $string, $action = 'dy' ) {
 	    $secret_key = 'PO$_key';
@@ -833,6 +1071,16 @@ function l_registered_widgets(){
 				],
 			],
 		],
+		'tp-style-list' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/stylist-list/plus-style-list.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/stylist-list/plus-stylist-list.min.js',
+				],
+			],
+		],
 		'tp-flip-box' => [
 			'dependency' => [
 				'css' => [					
@@ -858,6 +1106,13 @@ function l_registered_widgets(){
 				),
 			),
 		),
+		'tp-gallery-listout-style-2' => array(
+            'dependency' => array(
+                'css' => array(
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/gallery-list/plus-gl-style2.css',
+                ),
+            ),
+        ),
 		'tp-gravityt-form' => [
 			'dependency' => [
 				'css' => [
@@ -1014,27 +1269,34 @@ function l_registered_widgets(){
 				),
 			),
 		),
-		'tp-info-box'                     => array(
+		'tp-info-box' => array(
 			'dependency' => array(
 				'css' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/info-box/plus-infobox-style.css',
 				),
 			),
 		),
-		'tp-info-box-style_1'             => array(
+		'tp-info-box-style_1' => array(
 			'dependency' => array(
 				'css' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/info-box/plus-infobox-style-1.css',
 				),
 			),
 		),
-		'tp-info-box-style_3'             => array(
+		'tp-info-box-style_3'  => array(
 			'dependency' => array(
 				'css' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/info-box/plus-infobox-style-3.css',
 				),
 			),
 		),
+		'tp-info-box-style_4' => [
+            'dependency' => [
+                'css' => [                  
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR .'assets/css/main/info-box/plus-infobox-style-4.css',
+                ],
+            ],
+        ],
 		'tp-messagebox' => [
 			'dependency' => [
 				'css' => [
@@ -1170,13 +1432,20 @@ function l_registered_widgets(){
 				),
 			),
 		),
-		'tp-pricing-table-style-1'                   => array(
+		'tp-pricing-table-style-1'  => array(
 			'dependency' => array(
 				'css' => array(
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/pricing-table/plus-pricing-style-1.css',
 				),
 			),
 		),
+		'tp-pricing-ribbon' => array(
+            'dependency' => array(
+                'css' => array(
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/pricing-table/plus-table-ribbon.css',
+                ),
+            ),
+        ),
 		'tp-post-search' => [
 			'dependency' => [
 				'css' => [					
@@ -1205,6 +1474,34 @@ function l_registered_widgets(){
 				),
 			),
 		),
+		'tp-process-steps' => [
+            'dependency' => [
+                'css' => [
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/process-steps/plus-process-steps.css',
+                ],
+            ],
+        ],
+        'tp-process-bg' => [
+            'dependency' => [
+                'css' => [
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/process-steps/plus-process-bg.css',
+                ],
+            ],
+        ],
+        'tp-process-counter' => [
+            'dependency' => [
+                'css' => [
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/process-steps/plus-process-counter.css',
+                ],
+            ],
+        ],
+		'tp-process-steps-js' => [
+			'dependency' => [
+				'js' => [					
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/process-steps/plus-process-steps.min.js',
+				],
+			],
+		],
 		'tp-scroll-navigation' => array(
 			'dependency' => array(
 				'css' => array(
@@ -1356,6 +1653,16 @@ function l_registered_widgets(){
 				],
 			],
 		],
+		'tp-switcher' => [
+            'dependency' => [
+                'css' => [
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/switcher/plus-switcher.css',
+                ],
+                'js' => [
+                    L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/switcher/plus-switcher.min.js',
+                ],
+            ],
+        ],
 		'prism_default' => [
 			'dependency' => [
 				'css' => [
@@ -1464,6 +1771,13 @@ function l_registered_widgets(){
 				),
 			),
 		),
+		'tp-team-member-listout-style-3' => [
+			'dependency' => [
+				'css' => [					
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/team-member-list/plus-team-member-style-3.css',
+				],
+			],
+		],
 		'tp-carosual-extra' => array(
 			'dependency' => array(
 				'css' => array(

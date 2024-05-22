@@ -80,8 +80,9 @@ class HMWP_Controllers_Rewrite extends HMWP_Classes_FrontController
             add_filter('hmwp_process_hide_urls', '__return_false');
         }
 
-        //Check the whitelist IPs for accessing the hide paths
+        //Check the whitelist IPs & Paths for accessing the hide paths
         HMWP_Classes_ObjController::getClass('HMWP_Models_Compatibility')->checkWhitelistIPs();
+        HMWP_Classes_ObjController::getClass('HMWP_Models_Compatibility')->checkWhitelistPaths();
 
 	    //load the compatibility class when the plugin loads
 	    //Check boot compatibility for some plugins and functionalities

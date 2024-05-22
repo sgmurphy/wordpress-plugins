@@ -221,7 +221,7 @@ class AdvancedIframeHelper {
 		$hash = isset($querySplit[1]) ? '#' . $querySplit[1] : '';
 		parse_str($querySplit[0], $queryArray);
 		$cleanedParams = array_filter($queryArray, function($var) {
-            return isset($var) && trim($var) !== '';
+            return isset($var) && (is_array($var) || trim($var) !== '');
         });
 		$count = count($cleanedParams);
 		$i = 0;
@@ -482,10 +482,20 @@ class AdvancedIframeHelper {
 		}
 	}
 	
-	static $replaceArrayXSS = array('"',"'",' ', '(',')',';','=');
+	static $replaceArrayXSS = array('"',"'",' ', '(',')',';','=','}');
 	
 	static function filterXSS($value) {
 		return empty($value) ? '' : str_replace(static::$replaceArrayXSS, '', $value);
+	}
+	
+	static function filterXSSTrueFalse($value) {
+		return ($value === 'true' || $value === 'false') ? $value : 'false';	
+	}
+	
+	static $replaceBasicXSS = array('"',"'",' ', '(',')',';','}');
+	
+	static function filterBasicXSS($value) {
+		return empty($value) ? '' : str_replace(static::$filterBasicXSS, '', $value);
 	}
 }
 ?>

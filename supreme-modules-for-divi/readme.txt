@@ -5,7 +5,7 @@ Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 2.5.5
+Stable tag: 2.5.51
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ This is a common question that we get asked here every now and then which is why
 
 
 == Changelog ==
+= 2.5.51 – 22.05.2024 =
+* Added WPML Compatibility.
+
 = 2.5.5 – 12.05.2024 =
 * Fixed: Deprecated: Implicit conversion from float
 

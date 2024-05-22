@@ -913,6 +913,7 @@ class Premium_Fancytext extends Widget_Base {
 				}
 			}
 
+            $cursor_text = html_entity_decode( $cursor_text );
 			$fancytext_settings = array(
 				'effect'     => $effect,
 				'strings'    => $strings,
@@ -921,7 +922,7 @@ class Premium_Fancytext extends Widget_Base {
 				'startDelay' => $settings['premium_fancy_text_start_delay'],
 				'backDelay'  => $settings['premium_fancy_text_back_delay'],
 				'showCursor' => $show_cursor,
-				'cursorChar' => wp_kses_post ( ​html_entity_decode( $cursor_text ) ),
+				'cursorChar' => wp_kses_post ( $cursor_text ),
 				'loop'       => $loop,
 			);
 		} elseif ( 'slide' === $effect ) {

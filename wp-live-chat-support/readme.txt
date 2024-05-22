@@ -1,6 +1,6 @@
 === 3CX Free Live Chat, Calls & WhatsApp ===
 Contributors: WP-LiveChat, wordpress3cx, wp3cx
-Tags: chat plugin, live chat, free live chat, live help, live support, wordpress live chat
+Tags: live chat, free live chat, live help, live support, wordpress live chat
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.4
@@ -60,7 +60,7 @@ Get 3CX
 6. Start answering chats or calls from the 3CX Web Client.
 
 = Read our guides on =
-[Setting up Live Chat](https://www.3cx.com/docs/manual/live-chat-configuration/)
+[Setting up Live Chat](https://www.3cx.com/docs/manual/live-chat/)
 
 [youtube http://youtube.com/watch?v=onawKT7y5P8]
 

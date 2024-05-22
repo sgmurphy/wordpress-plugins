@@ -122,7 +122,7 @@ class CustomPostType implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookable
         $order_id = $order->get_id();
         $shipments = fs_get_order_shipments($order_id);
         foreach ($shipments as $shipment) {
-            echo \wp_kses_post($shipment->get_after_order_table());
+            echo \wp_kses_post($shipment->get_after_order_table() ?? '');
         }
     }
     /**
@@ -134,7 +134,7 @@ class CustomPostType implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookable
         $order_id = $order->get_id();
         $shipments = fs_get_order_shipments($order_id);
         foreach ($shipments as $shipment) {
-            echo \wp_kses_post($shipment->get_email_after_order_table());
+            echo \wp_kses_post($shipment->get_email_after_order_table() ?? '');
         }
     }
 }

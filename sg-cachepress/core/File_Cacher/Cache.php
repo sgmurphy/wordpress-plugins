@@ -9,9 +9,12 @@
 namespace SiteGround_Optimizer\File_Cacher;
 
 use SiteGround_Optimizer\Helper\File_Cacher_Trait;
+use \AllowDynamicProperties;
+
 /**
  * SG File Cacher main class
  */
+#[\AllowDynamicProperties]
 class Cache {
 	use File_Cacher_Trait;
 	/**

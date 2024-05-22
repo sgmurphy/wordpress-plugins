@@ -19,6 +19,15 @@ abstract class Abstract_Combinator {
 	private $wp_filesystem = null;
 
 	/**
+	 * The dir where the minified styles and scripts will be saved.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var string|null Path to assets dir.
+	 */
+	public $assets_dir = null;
+
+	/**
 	 * The constructor.
 	 *
 	 * @since 5.0.0
