@@ -10,7 +10,7 @@ import {
     InnerBlocks,
 } from "@wordpress/block-editor";
 import classnames from "classnames";
-import { select } from "@wordpress/data";
+import { select, useSelect } from "@wordpress/data";
 const { BlockProps } = window.EBControls;
 export default function Edit(props) {
     const { attributes, className, clientId } = props;
@@ -28,6 +28,10 @@ export default function Edit(props) {
         rootClass: `eb-guten-block-main-parent-wrapper eb-tab-editor-wrap`,
     };
 
+    const { blocks } = useSelect((select) => ({
+        blocks: select("core/block-editor").getBlockOrder(clientId)
+    }), []);
+
     return (
         <BlockProps.Edit {...enhancedProps}>
             <div
@@ -44,7 +48,7 @@ export default function Edit(props) {
                             false
                         }
                         renderAppender={
-                            select("core/block-editor").getBlockOrder(clientId).length > 0
+                            blocks.length > 0
                                 ? undefined
                                 : InnerBlocks.ButtonBlockAppender
                         }

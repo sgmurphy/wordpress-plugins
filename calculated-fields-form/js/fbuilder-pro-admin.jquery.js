@@ -287,6 +287,11 @@
 				$('#tabs-3').html(theForm.showAllSettings());
 				selected = -1;
 
+				$("#calculated-fields-form-category-mirror").on( 'keyup', function()
+				{
+					$('[name="calculated-fields-form-category"]').val($(this).val());
+				});
+
 				$("#fTitle").on( 'keyup', function()
 				{
 					theForm.title = $(this).val();
@@ -780,7 +785,8 @@
 						template += '<option value="'+cff_esc_attr($.fbuilder.showSettings.formTemplateDic[i].prefix)+'" ' + selected + '>'+cff_esc_attr($.fbuilder.showSettings.formTemplateDic[i].title)+'</option>';
 					}
 
-					str += '<div><label>Form Name</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
+					str += '<div><label>Form Category</label><input type="text" class="large" name="calculated-fields-form-category-mirror" id="calculated-fields-form-category-mirror" value="'+cff_esc_attr( $('[name="calculated-fields-form-category"]').val() )+'" list="calculated-fields-form-categories" /></div>'+
+					'<div><label>Form Name</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
 					'<div><label>Form Name Tag</label><select class="large" id="fTitleTag" name="fTitleTag">'+
 					['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '')+
 					'</select></div>'+
@@ -1779,3 +1785,22 @@
 			return false;
 		}
 	});
+
+	window['cff_getScrollForURL'] = function( symbol ) {
+		symbol = symbol || '&';
+		let output = '';
+		if('scrollY' in window) output = symbol + '&scrolly='+window.scrollY+'&scrollx='+window.scrollX;
+		return output;
+	};
+
+	// Scroll page if scrollx and scrolly parameters are availables in the URL
+	(function(){
+		try {
+			const urlParams = new URLSearchParams(window.location.search);
+			const scroll_x = urlParams.get('scrollx');
+			const scroll_y = urlParams.get('scrolly');
+			if ( scroll_x && scroll_y && 'scrollTo' in window) {
+				window.scrollTo(scroll_x, scroll_y);
+			}
+		} catch(err){}
+	})();

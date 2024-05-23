@@ -1,3 +1,6 @@
+= 11.1.13 (2024-05-23) =
+* Add error labels for connection process
+
 = 11.1.11 (2024-05-16) =
 * Add another field to integrated app config
 
@@ -301,7 +304,4 @@
 * Replace jQuery .unbind with .off
 * Replace rand with wp_rand
 * Fix Gutenberg block not showing due to a js error
-
-= 8.4.302 (2021-10-21) =
-* Fix for search function in HubSpot Gutenberg block
 

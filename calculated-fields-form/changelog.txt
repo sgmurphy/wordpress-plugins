@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.8 =
+
+* Pauses the fields animation for a conflict with themes.
+
+= 5.2.7 =
+
+* Removes non-essential information from the forms builder.
+
 = 5.2.6 =
 
 * Fixes an issue delaying the evaluation of the equations.

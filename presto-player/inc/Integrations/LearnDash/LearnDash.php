@@ -71,7 +71,7 @@ class LearnDash implements Service
             // get lesson settings
             $step_settings = learndash_get_setting($post);
 
-            if ('BEFORE' === $step_settings['lesson_video_shown']) {
+            if ('BEFORE' === ($step_settings['lesson_video_shown'] ?? '')) {
                 $logic_video = true;
 
                 $topics = learndash_get_topic_list($post->ID);
@@ -309,7 +309,7 @@ class LearnDash implements Service
         $lesson_settings = learndash_get_setting($post);
 
         // we're only concerned with "AFTER"
-        if ('AFTER' !== $lesson_settings['lesson_video_shown']) {
+        if ('AFTER' !== ($lesson_settings['lesson_video_shown'] ?? '')) {
             return true;
         }
 

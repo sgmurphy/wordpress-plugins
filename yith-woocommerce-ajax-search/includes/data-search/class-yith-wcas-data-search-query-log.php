@@ -132,7 +132,7 @@ class YITH_WCAS_Data_Search_Query_Log {
 		$limit_string = $limit ? ' LIMIT '. $limit : '';
 		$offset_string = 0 === $offset ? '' : ' OFFSET ' . $offset;
 
-		return $wpdb->get_results( "SELECT clicked_product as product_id, COUNT( clicked_product ) as clicks FROM $wpdb->yith_wcas_query_log WHERE num_results > 0  $where GROUP BY clicked_product ORDER BY COUNT( clicked_product ) DESC $limit_string $offset_string", ARRAY_A );
+		return $wpdb->get_results( "SELECT clicked_product as product_id, COUNT( clicked_product ) as clicks FROM $wpdb->yith_wcas_query_log WHERE num_results > 0  AND clicked_product > 0  $where GROUP BY clicked_product ORDER BY COUNT( clicked_product ) DESC $limit_string $offset_string", ARRAY_A );
 	}
 
 	/**

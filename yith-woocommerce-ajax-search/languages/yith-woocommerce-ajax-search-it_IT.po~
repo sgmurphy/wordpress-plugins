@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Search Premium\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-search\n"
-"POT-Creation-Date: 2024-02-16T10:50:07+00:00\n"
+"POT-Creation-Date: 2024-05-21T14:42:13+00:00\n"
 "PO-Revision-Date: 2020-03-20 08:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: Yithemes <plugins@yithemes.com>\n"
@@ -47,7 +47,7 @@ msgid "Top clicked products"
 msgstr ""
 
 #: includes/admin/class-yith-wcas-admin-statistic-list-table.php:41
-#: includes/admin/views/panel/statistic.php:87
+#: includes/admin/views/panel/statistic.php:113
 #, fuzzy
 msgid "Searches with \"No Results\""
 msgstr "Cerca"
@@ -70,7 +70,7 @@ msgstr "Prodotti"
 msgid "Clicks"
 msgstr ""
 
-#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:222
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:223
 msgid "No items found"
 msgstr ""
 
@@ -258,20 +258,21 @@ msgid "Top Searches"
 msgstr "Cerca"
 
 #: includes/admin/views/panel/statistic.php:54
-#: includes/admin/views/panel/statistic.php:81
-#: includes/admin/views/panel/statistic.php:103
+#: includes/admin/views/panel/statistic.php:94
+#: includes/admin/views/panel/statistic.php:129
 #, fuzzy
 msgid "View all >"
 msgstr "Visualizza tutto"
 
-#: includes/admin/views/panel/statistic.php:56
-#: includes/admin/views/panel/statistic.php:83
-#: includes/admin/views/panel/statistic.php:105
+#. translators: %s is a html tag
+#: includes/admin/views/panel/statistic.php:60
+#: includes/admin/views/panel/statistic.php:100
+#: includes/admin/views/panel/statistic.php:135
 msgctxt "placeholder is an html tag"
 msgid "No statistics%sare reported for this period"
 msgstr ""
 
-#: includes/admin/views/panel/statistic.php:61
+#: includes/admin/views/panel/statistic.php:74
 msgid "Top Clicked Products"
 msgstr ""
 
@@ -313,58 +314,61 @@ msgid ""
 "2024. After that date, it will be automatically updated to the new form."
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:277
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:288
 msgid "Add to cart"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:278
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:289
 msgctxt "add to cart label for not purchasable products"
 msgid "Read more"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:279
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:290
 #, fuzzy
 msgctxt "add to cart label for variable products"
 msgid "Select options"
 msgstr "Seleziona una data"
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:280
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:291
 msgid "In stock"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:281
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:292
 #: includes/class-yith-wcas-settings.php:277
 #: includes/legacy/class-yith-wcas-legacy.php:584
 msgid "Out of stock"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:282
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:293
 msgid "SKU: "
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:288
+#. translators: %1$s is the amount of result %2$s is the query searched.
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:300
 #, fuzzy
 msgctxt "1 result for \"shoes\""
 msgid "%1$s result for \"%2$s\""
 msgstr "Nessun risultato"
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:289
+#. translators: %1$s is the amount of result %2$s is the query searched.
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:302
 #, fuzzy
 msgctxt "3 results for \"shoes\""
 msgid "%1$s results for \"%2$s\""
 msgstr "Nessun risultato"
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:290
+#. translators: %s is the query searched.
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:304
 #, fuzzy
 msgctxt "Results for \"shoes\""
 msgid "Results for \"%s\""
 msgstr "Nessun risultato"
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:291
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:305
 msgid "Delete all"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:292
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:306
 msgctxt "T-shirts in Woman Clothes"
 msgid "in"
 msgstr ""
@@ -732,32 +736,32 @@ msgstr ""
 msgid "Use {total} to show the total number of results."
 msgstr "Aggiungi un link sotto tutti i risultati"
 
-#: includes/functions-yith-wcas.php:138
+#: includes/functions-yith-wcas.php:141
 #, fuzzy
 msgctxt "[Admin]search field type"
 msgid "Product name"
 msgstr "Prodotti"
 
-#: includes/functions-yith-wcas.php:139
+#: includes/functions-yith-wcas.php:142
 msgctxt "[Admin]search field type"
 msgid "Description"
 msgstr ""
 
-#: includes/functions-yith-wcas.php:140
+#: includes/functions-yith-wcas.php:143
 #, fuzzy
 msgctxt "[Admin]search field type"
 msgid "Short description"
 msgstr "Mostra %1$sdescrizione prodotto%2$s"
 
 #. translators: Placeholders are HTML tags.
-#: includes/functions-yith-wcas.php:522
+#: includes/functions-yith-wcas.php:525
 msgctxt "Placeholders are HTML tags"
 msgid ""
 "This option is available only in the new search form. %1$sUpdate the plugin "
 "now, it's easy >%2$s"
 msgstr ""
 
-#: includes/functions-yith-wcas.php:576
+#: includes/functions-yith-wcas.php:582
 #: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/attributes.js:9
 #, fuzzy
 msgid "Search products..."
@@ -1182,6 +1186,11 @@ msgstr "Impostazioni di ricerca"
 msgid "Enter search placeholder text"
 msgstr ""
 
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:107
+#, fuzzy
+msgid "Color Settings"
+msgstr "Impostazioni"
+
 #: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:144
 #, fuzzy
 msgid "Search icon"
@@ -1196,6 +1205,11 @@ msgstr "Mostra a destra"
 #, fuzzy
 msgid "Icon on the left"
 msgstr "Mostra a sinistra"
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:154
+#, fuzzy
+msgid "Submit Color Settings"
+msgstr "Impostazioni"
 
 #: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:44
 #, fuzzy
@@ -1580,10 +1594,6 @@ msgstr "Mostra prezzo prodotto"
 
 #, fuzzy
 #~ msgid "%s Settings"
-#~ msgstr "Impostazioni"
-
-#, fuzzy
-#~ msgid "Plugin Settings"
 #~ msgstr "Impostazioni"
 
 #, fuzzy

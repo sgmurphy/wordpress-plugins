@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.6
+Stable tag: 5.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.8 =
+
+* Pauses the fields animation for a conflict with themes.
+
+= 5.2.7 =
+
+* Removes non-essential information from the forms builder.
+
 = 5.2.6 =
 
 * Fixes an issue delaying the evaluation of the equations.
@@ -470,14 +478,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Fixes a CLS issue on pages with the CFF forms.
 * Fixes a minor visual issue with the Gutenberg module.
 * Modifies the val method in date/time controls.
-
-= 5.2.2 =
-
-* Modifies the fields' lists in dependencies, calculated fields settings, and fields list popup to display the short label if the label is empty.
-* Fixes a minor issue with space characters in the fields' attributes.
-* Adjust the form builder height on desktops.
-* Modifies the HubSpot add-on to support fields' tags in the extra attributes (Platinum plugin version).
-
-= 5.2.1 =
-
-* Fixes an issue in the new submit button.

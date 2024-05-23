@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf6346fcfb89b1e94d2805bb73275efde
+class ComposerStaticInitc293d1e978bd19a1e0aed5fa8f47c860
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
@@ -83,16 +83,16 @@ class ComposerStaticInitf6346fcfb89b1e94d2805bb73275efde
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'PHPGangsta_GoogleAuthenticator' => __DIR__ . '/..' . '/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php',
+        'PHPGangsta_GoogleAuthenticator' => __DIR__ . '/..' . '/siteground/googleauthenticator/PHPGangsta/GoogleAuthenticator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf6346fcfb89b1e94d2805bb73275efde::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf6346fcfb89b1e94d2805bb73275efde::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf6346fcfb89b1e94d2805bb73275efde::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitf6346fcfb89b1e94d2805bb73275efde::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc293d1e978bd19a1e0aed5fa8f47c860::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc293d1e978bd19a1e0aed5fa8f47c860::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc293d1e978bd19a1e0aed5fa8f47c860::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc293d1e978bd19a1e0aed5fa8f47c860::$classMap;
 
         }, null, ClassLoader::class);
     }

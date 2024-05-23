@@ -484,7 +484,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/tools/views/WpCode.vue:66
 	__( 'Activate WPCode', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:62
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:63
 	// Reference: /src/vue/components/lite/settings/NetworkSitesActivation.vue:53
 	// Reference: /src/vue/components/lite/settings/NetworkSitesActivation.vue:84
 	// Reference: /src/vue/pages/about/views/AboutUs.vue:81
@@ -794,7 +794,6 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/search-appearance/views/GlobalSettings.vue:86
 	__( 'An alternate name for your site. This could be an acronym or shorter version of your website name.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:70
 	// Reference: /src/vue/components/common/core/addon/Activate.vue:49
 	// Reference: /src/vue/components/common/core/addon/Update.vue:50
 	// Reference: /src/vue/pages/tools/views/WpCode.vue:37
@@ -805,6 +804,9 @@ $generated_i18n_strings = [
 
 	// Reference: /src/vue/composables/SeoSiteScore.js:28
 	__( 'An error occurred while analyzing your site.', 'all-in-one-seo-pack' ),
+
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:72
+	__( 'An error occurred while changing the addon status. Please try again or contact support for more information.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/post-settings/views/partials/general/FocusKeyphrase.vue:123
 	__( 'An error occurred while fetching keyphrases. Please try again later.', 'all-in-one-seo-pack' ),
@@ -827,7 +829,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/stores/integrations/SemrushStore.js:62
 	__( 'An unknown error occurred, please try again later.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:73
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:75
 	// Translators: 1 - Plugin short name ("AIOSEO"), 2 - Pro.
 	__( 'An update is required for this addon to continue to work with %1$s %2$s.', 'all-in-one-seo-pack' ),
 
@@ -926,7 +928,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/feature-manager/views/FeatureManager.vue:142
 	__( 'Are you sure you want to activate these addons across the network?', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:88
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:90
 	__( 'Are you sure you want to activate this addon across the network?', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/search-appearance/views/partials/query-arg-monitor/Table.vue:82
@@ -938,7 +940,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/feature-manager/views/FeatureManager.vue:140
 	__( 'Are you sure you want to deactivate these addons across the network?', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:86
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:88
 	__( 'Are you sure you want to deactivate this addon across the network?', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/composables/link-assistant/Links.js:11
@@ -1968,7 +1970,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/components/lite/settings/NetworkSitesActivation.vue:19
 	__( 'Deactivate License', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:63
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:65
 	// Reference: /src/vue/components/lite/settings/NetworkSitesActivation.vue:88
 	// Reference: /src/vue/pages/about/views/AboutUs.vue:82
 	__( 'Deactivated', 'all-in-one-seo-pack' ),
@@ -4170,7 +4172,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/plugins/constants.js:1531
 	__( 'Male', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:69
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:71
 	// Reference: /src/vue/pages/about/views/AboutUs.vue:77
 	// Reference: /src/vue/pages/dashboard/views/Main.vue:108
 	__( 'Manage', 'all-in-one-seo-pack' ),
@@ -4401,6 +4403,9 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/mixins/HeadlineResult.js:178
 	__( 'Negative headlines are attention-grabbing and tend to perform better than neutral ones.', 'all-in-one-seo-pack' ),
 
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:64
+	__( 'Network Activated', 'all-in-one-seo-pack' ),
+
 	// Reference: /src/vue/components/common/core/NetworkSiteSelector.vue:26
 	__( 'Network Admin (no site)', 'all-in-one-seo-pack' ),
 
@@ -4606,7 +4611,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/tools/views/RobotsEditor.vue:114
 	__( 'No User-agent found in the content beginning.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:79
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:81
 	// Reference: /src/vue/composables/link-assistant/Links.js:16
 	// Reference: /src/vue/pages/feature-manager/views/FeatureManager.vue:84
 	// Reference: /src/vue/pages/search-appearance/views/partials/query-arg-monitor/Table.vue:97
@@ -4673,7 +4678,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/tools/views/partials/ImportOthers.vue:47
 	__( 'not installed', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:64
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:66
 	// Reference: /src/vue/pages/about/views/AboutUs.vue:83
 	__( 'Not Installed', 'all-in-one-seo-pack' ),
 
@@ -7003,7 +7008,7 @@ $generated_i18n_strings = [
 	// Translators: 1 - Learn more link.
 	__( 'This is a global feed of your site output in the RDF/RSS 1.0 format. %1$s', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:77
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:79
 	// Reference: /src/vue/pages/feature-manager/views/FeatureManager.vue:82
 	__( 'This is a network-wide change.', 'all-in-one-seo-pack' ),
 
@@ -7492,7 +7497,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/page-builders/wpbakery/limit-modified-date/main.js:13
 	__( 'Update (Don\'t Modify Date)', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:67
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:69
 	__( 'Update Addon', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/composables/EeatCta.js:23
@@ -7507,7 +7512,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/sitemaps/views/partials/AddAdditionalPage.vue:71
 	__( 'Update Page', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:61
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:62
 	__( 'Update to version', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/tools/views/WpCode.vue:62
@@ -7542,7 +7547,7 @@ $generated_i18n_strings = [
 	// Translators: 1 - "Pro".
 	__( 'Upgrade to %1$s Today', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:65
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:67
 	// Reference: /src/vue/components/common/core/Help.vue:53
 	__( 'Upgrade to Pro', 'all-in-one-seo-pack' ),
 
@@ -7559,7 +7564,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/components/common/core/Overview.vue:51
 	__( 'Upgrade to Pro Today!', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:66
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:68
 	__( 'Upgrade Your Plan', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/components/lite/core/UpgradeBar.vue:27
@@ -7734,7 +7739,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/blocks/business-info/index.js:61
 	__( 'VAT ID:', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:60
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:61
 	__( 'Version', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/app/tru-seo/analyzer/analysis/calculateFleschReading.js:49
@@ -8192,7 +8197,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/tools/views/partials/BackupSettings.vue:52
 	__( 'Yes, I want to restore this backup', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:78
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:80
 	// Reference: /src/vue/pages/feature-manager/views/FeatureManager.vue:83
 	__( 'Yes, process this network change', 'all-in-one-seo-pack' ),
 
@@ -8270,7 +8275,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/tools/views/WpCode.vue:38
 	__( 'You currently don\'t have permission to activate this addon. Please ask a site administrator to activate first.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/FeatureCard.vue:68
+	// Reference: /src/vue/components/common/core/FeatureCard.vue:70
 	__( 'You currently don\'t have permission to update this addon. Please ask a site administrator to update.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/search-statistics/views/partials/TopKeywords.vue:26

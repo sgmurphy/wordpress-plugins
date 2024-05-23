@@ -4,6 +4,7 @@
 import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import attributes from "./attributes";
 import { SHAPE_DIVIDER_TOP, SHAPE_DIVIDER_BOTTOM } from "./constants";
+const { ShapeDividerContent } = window.EBControls;
 const deprecated = [
     {
         attributes: { ...attributes },

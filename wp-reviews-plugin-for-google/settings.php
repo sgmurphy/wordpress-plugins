@@ -7,7 +7,7 @@ $newBadgeTabs = [];
 if (get_option($pluginManagerInstance->get_option_name('widget-setted-up'), 0) && !get_option($pluginManagerInstance->get_option_name('reply-generated'), 0)) {
 $newBadgeTabs []= 'my-reviews';
 }
-$noContainerElementTabs = [ 'free-widget-configurator' ];
+$noContainerElementTabs = [ 'free-widget-configurator', 'instagram-feed-widget' ];
 $logoCampaignId = 'wp-google-l';
 $logoFile = 'static/img/trustindex.svg';
 $assetCheckJs = [
@@ -16,11 +16,6 @@ $assetCheckJs = [
 ];
 $assetCheckCssId = 'trustindex_settings_style_google';
 $assetCheckCssFile = 'static/css/admin-page-settings.css';
-function trustindexNotificationOpenRedirect($type)
-{
-$tab = 'free-widget-configurator';
-header('Location: admin.php?page=' . sanitize_text_field($_GET['page']) .'&tab='. $tab);
-}
 if (isset($_GET['wc_notification'])) {
 $mode = sanitize_text_field($_GET['wc_notification']);
 $dbValue = 'hide';

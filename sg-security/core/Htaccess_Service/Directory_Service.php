@@ -16,6 +16,13 @@ class Directory_Service extends Abstract_Htaccess_Service {
 	public $template = 'directory-hardening.tpl';
 
 	/**
+	 * The type of directory.
+	 *
+	 * @var string
+	 */
+	public $type;
+
+	/**
 	 * Array with files to the whitelisted.
 	 *
 	 * @var array

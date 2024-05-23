@@ -66,6 +66,8 @@ class Install_Service {
 			// Delete the transient after the install.
 			delete_transient( '_sg_security_installing' );
 		}
+
+		$this->check_current_version();
 	}
 
 	/**
@@ -120,5 +122,20 @@ class Install_Service {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Check the current plugin version and update config if needed.
+	 *
+	 * @since 1.4.14
+	 */
+	private function check_current_version() {
+		// Bail if we have the latest version.
+		if ( version_compare( get_option( 'sg_security_current_version', false ), \SG_Security\VERSION, '==' ) ) {
+			return;
+		}
+
+		// Update the option in the db.
+		update_option( 'sg_security_current_version', \SG_Security\VERSION );
 	}
 }

@@ -68,7 +68,7 @@ body.post-type-envira_album {
 		*/
 		a.page-title-action {
 			position: relative;
-			top: -53px;
+			top: -34px;
 			left: 115px; /* default - English */
 			&:hover {
 				background: $primary_button_color_hover;
@@ -86,8 +86,6 @@ body.post-type-envira_album {
 		*/
 		> h1,
 		> h2 {
-			margin: 0 0 20px 0;
-			padding: 15px 0 10px;
 			background: $white;
 			font-weight: 600;
 			font-size: 20px;
@@ -733,7 +731,7 @@ body.post-type-envira_album.post-php {
 		border-bottom: 1px solid #DDDDDD;
 		display: flex;
 		margin: 0;
-		padding: 24px;
+		padding: 20px;
 		font-size: 14px;
 		color: #3C434A99;
 		&:first-child {
@@ -760,7 +758,7 @@ body.post-type-envira_album.post-php {
 		}
 	}
 	.envira-button {
-		padding: 8px 14px;
+		padding: 5px;
 		border-radius: 4px;
 		text-decoration: none;
 		font-size: 12px;
@@ -771,6 +769,11 @@ body.post-type-envira_album.post-php {
 		&.envira-button-secondary {
 			border: 1px solid #DDDDDD;
 		}
+	}
+	.envira-notification-actions{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 }
@@ -1243,7 +1246,6 @@ div.addon-tag:after {
 
 
 .envira-settings-tab {
-	padding: 20px;
 	box-sizing: border-box;
 	#envira-gallery-refresh-submit {
 		margin-left: 10px;

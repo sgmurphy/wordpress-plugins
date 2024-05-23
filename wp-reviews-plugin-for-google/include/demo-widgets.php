@@ -1,3 +1,6 @@
+<?php
+defined('ABSPATH') or die('No script kiddies please!');
+?>
 <div class="ti-preview-boxes-container">
 <div class="ti-full-width">
 <div class="ti-box ti-preview-boxes">

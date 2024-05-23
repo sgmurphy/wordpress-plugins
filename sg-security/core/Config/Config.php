@@ -71,19 +71,4 @@ class Config {
 		// Update the config file.
 		Helper_Service::update_file( self::SGS_CONFIG, Helper_Service::build_config_content( $this->config_options ) );
 	}
-
-	/**
-	 * Check the current plugin version and update config if needed.
-	 *
-	 * @since 1.4.1
-	 */
-	public function check_current_version() {
-		// Bail if we have the latest version.
-		if ( version_compare( get_option( 'sg_security_current_version', false ), \SG_Security\VERSION, '==' ) ) {
-			return;
-		}
-
-		// Update the option in the db.
-		update_option( 'sg_security_current_version', \SG_Security\VERSION );
-	}
 }

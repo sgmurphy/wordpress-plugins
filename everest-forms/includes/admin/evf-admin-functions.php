@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) || exit;
 function evf_get_screen_ids() {
 	$evf_screen_id = sanitize_title( esc_html__( 'Everest Forms', 'everest-forms' ) );
 	$screen_ids    = array(
-		'dashboard_page_evf-welcome',
 		'toplevel_page_' . $evf_screen_id,
+		$evf_screen_id . '_page_evf-dashboard',
 		$evf_screen_id . '_page_evf-builder',
 		$evf_screen_id . '_page_evf-entries',
 		$evf_screen_id . '_page_evf-settings',
@@ -472,8 +472,10 @@ function everest_forms_panel_field( $option, $panel, $field, $form_data, $label,
 			break;
 		case 'image':
 			if ( '' !== $value ) {
-				$headers = get_headers( $value, 1 );
-				if ( strpos( $headers['Content-Type'], 'image/' ) === false ) {
+				$headers      = get_headers( $value, 1 );
+				$content_type = is_array( $headers['Content-Type'] ) ? implode( ' ', $headers['Content-Type'] ) : $headers['Content-Type'];
+
+				if ( strpos( $content_type, 'image/' ) === false ) {
 					$value = '';
 				}
 			}

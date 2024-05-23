@@ -157,9 +157,9 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <?php endif; ?>
 <?php $pageDetails = $pluginManagerInstance->getPageDetails(); ?>
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
-<input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
+<input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.3" />
+<input type="hidden" id="ti-noreg-version" value="11.8.4" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));
@@ -342,25 +342,3 @@ $tiCampaign1 = 'wp-google-4';
 $tiCampaign2 = 'wp-google-5';
 include(plugin_dir_path(__FILE__ ) . '../include/get-more-customers-box.php');
 ?>
-<?php if (class_exists('Woocommerce')): ?>
-<div class="ti-box">
-<div class="ti-box-header"><?php echo __('Collect reviews automatically for your WooCommerce shop', 'trustindex-plugin'); ?></div>
-<?php if (!class_exists('TrustindexCollectorPlugin')): ?>
-<p><?php echo sprintf(__("Download our new <a href='%s' target='_blank'>%s</a> plugin and get features for free!", 'trustindex-plugin'), 'https://wordpress.org/plugins/customer-reviews-collector-for-woocommerce/', 'Customer Reviews Collector for WooCommerce'); ?></p>
-<?php endif; ?>
-<ul class="ti-check-list">
-<li><?php echo __('Send unlimited review invitations for free', 'trustindex-plugin'); ?></li>
-<li><?php echo __('E-mail templates are fully customizable', 'trustindex-plugin'); ?></li>
-<li><?php echo __('Collect reviews on 100+ review platforms (Google, Facebook, Yelp, etc.)', 'trustindex-plugin'); ?></li>
-</ul>
-<?php if (class_exists('TrustindexCollectorPlugin')): ?>
-<a href="?page=customer-reviews-collector-for-woocommerce%2Fadmin.php&tab=settings" class="ti-btn">
-<?php echo __('Collect reviews automatically', 'trustindex-plugin'); ?>
-</a>
-<?php else: ?>
-<a href="https://wordpress.org/plugins/customer-reviews-collector-for-woocommerce/" target="_blank" class="ti-btn">
-<?php echo __('Download plugin', 'trustindex-plugin'); ?>
-</a>
-<?php endif; ?>
-</div>
-<?php endif; ?>

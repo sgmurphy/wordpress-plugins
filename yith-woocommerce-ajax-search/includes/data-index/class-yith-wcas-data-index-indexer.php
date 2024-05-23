@@ -224,7 +224,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 				'min_price'       => $min_price,
 				'max_price'       => $max_price,
 				'onsale'          => $product->is_on_sale(),
-				'instock'         => $product->is_in_stock(),
+				'instock'           => $product->get_type() === 'variable' ? count( $product->get_available_variations() ) > 0 : $product->is_in_stock(),
 				'stock_quantity'  => empty( $stock_qty ) ? 0 : $stock_qty,
 				'is_purchasable'  => $is_purchasable,
 				'rating_count'    => $product->get_rating_count(),

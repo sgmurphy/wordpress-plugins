@@ -245,7 +245,7 @@ class Iubenda_Code_Extractor {
 		}
 
 		// Ensure DOMDocument class exists.
-		if ( can_use_dom_document_class() ) {
+		if ( 'new' === (string) iubenda()->options['cs']['parser_engine'] && can_use_dom_document_class() ) {
 			$this->extract_html_tags_with_dom();
 
 			return;

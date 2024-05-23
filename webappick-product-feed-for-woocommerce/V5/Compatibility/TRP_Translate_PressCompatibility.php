@@ -15,6 +15,11 @@ namespace CTXFeed\V5\Compatibility;
 class TRP_Translate_PressCompatibility {
 
 	/**
+	 * @var \TRP_Settings
+	 */
+	private $trp_settings;
+
+	/**
 	 * @var \TRP_Translation_Render
 	 */
 	private $translatepress_renderer;

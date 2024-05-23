@@ -5,11 +5,11 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.30
+Stable tag: 6.4.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Generate error-free woocommerce product feed plugin for Google Shopping, Facebook Catalog, Pinterest Catalog, Idealo, Skroutz, TikTok & 100+ more channels.
+Generate error-free woocommerce product feed plugin for Google Shopping, Facebook Catalog, Pinterest Catalog, Skroutz, TikTok & 100+ more channels.
 
 == Description ==
 
@@ -156,7 +156,10 @@ Categories are the essential key to get products into search results. It is best
 
 == Changelog ==
 
-= 6.4.30 (2024-05-16) =
+= 6.4.31 (2024-05-23) =
+* Updated : Plugin description.
+
+= 6.4.30 (2024-05-20) =
 * Fixed: Delete button issue.
 * Fixed: TranslatePress categories, attributes translated issue.
 * Fixed: Suffix field typing issue.

@@ -111,6 +111,14 @@ class Block
         'youtube'
     ];
 
+    /**
+     * Default attributes for the block.
+     *
+     * @var array
+     */
+    protected $default_attributes = [
+        'playsInline' => true
+    ];
 
     public function __construct(bool $isPremium = false, $version = 1)
     {
@@ -196,6 +204,9 @@ class Block
 
         // attribute overrides
         $attributes = $this->overrideAttributes($attributes);
+
+        // Apply default attributes if not set.
+        $attributes = $this->appyAttributeDefaults($attributes);
 
         // video id
         $id = !empty($attributes['id']) ? $attributes['id'] : 0;
@@ -689,5 +700,16 @@ class Block
             <?php
             return ob_get_clean();
         }
+    }
+
+    /**
+     * Applies a default value to the attribute if attribute is not set.
+     * 
+     * @param  array $attributes array of attributes.
+     * @return array The merged attributes after applying defaults.
+     */
+    public function appyAttributeDefaults($attributes)
+    {
+        return wp_parse_args($attributes, $this->default_attributes);
     }
 }

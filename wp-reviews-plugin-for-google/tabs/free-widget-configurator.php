@@ -380,6 +380,8 @@ $stepDone = 1;
 }
 if (!$stepCurrent) {
 $stepCurrent = $stepDone + 1;
+} else if ($stepCurrent > ($stepDone + 1)) {
+$stepCurrent = $stepDone + 1;
 }
 include(plugin_dir_path(__FILE__) . '../include/step-list.php');
 ?>
@@ -387,7 +389,10 @@ include(plugin_dir_path(__FILE__) . '../include/step-list.php');
 <?php if ($pluginManagerInstance->is_trustindex_connected()): ?>
 <div class="ti-notice ti-notice-warning">
 <p>
-<?php echo sprintf(__("You have connected your Trustindex account, so you can find premium functionality under the \"%s\" tab. You no longer need this tab unless you choose the limited but forever free mode.", 'trustindex-plugin'), 'Trustindex admin'); ?>
+<?php
+$advancedTab = '<a href="?page='.esc_attr($_GET['page']).'&tab=advanced#trustindex-admin">'.__('Advanced', 'trustindex-plugin').'</a>';
+echo sprintf(__("You have connected your Trustindex account, so you can find premium functionality under the %s tab. You no longer need this tab unless you choose the limited but forever free mode.", 'trustindex-plugin'), $advancedTab);
+?>
 </p>
 </div>
 <?php endif; ?>
@@ -397,7 +402,7 @@ include(plugin_dir_path(__FILE__) . '../include/step-list.php');
 <p>
 <?php echo __('Free plugin features are unavailable with AMP plugin.', 'trustindex-plugin'); ?>
 <?php if ($pluginManagerInstance->is_trustindex_connected()): ?>
- <a href="?page=<?php echo esc_attr($_GET['page']); ?>&tab=setup_trustindex_join">Trustindex admin</a>
+ <a href="?page=<?php echo esc_attr($_GET['page']); ?>&tab=advanced">Trustindex admin</a>
 <?php else: ?>
  <a href="https://www.trustindex.io/ti-redirect.php?a=sys&c=wp-amp" target="_blank"><?php echo __('Try premium features (like AMP) for free', 'trustindex-plugin'); ?></a>
 <?php endif; ?>
@@ -438,9 +443,9 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 }
 ?>
 <input type="hidden" id="ti-noreg-connect-token" name="ti-noreg-connect-token" value="<?php echo $reviewDownloadToken; ?>" />
-<input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
+<input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.3" />
+<input type="hidden" id="ti-noreg-version" value="11.8.4" />
 <input type="hidden" id="ti-noreg-review-download" name="review_download" value="0" />
 <input type="hidden" id="ti-noreg-review-request-id" name="review_request_id" value="" />
 <input type="hidden" id="ti-noreg-manual-download" name="manual_download" value=0 />
@@ -784,18 +789,7 @@ break;
 <?php endif; ?>
 <div class="ti-box">
 <div class="ti-box-header"><?php echo __('Insert this shortcode into your website', 'trustindex-plugin'); ?></div>
-<div class="ti-form-group" style="margin-bottom: 2px">
-<label>Shortcode</label>
-<code class="ti-shortcode">[<?php echo $pluginManagerInstance->get_shortcode_name(); ?> no-registration=google]</code>
-<a href=".ti-shortcode" class="ti-btn ti-tooltip ti-toggle-tooltip btn-copy2clipboard">
-<?php echo __('Copy to clipboard', 'trustindex-plugin'); ?>
-<span class="ti-tooltip-message">
-<span style="color: #00ff00; margin-right: 2px">✓</span>
-<?php echo __('Copied', 'trustindex-plugin'); ?>
-</span>
-</a>
-</div>
-<div class="ti-info-text"><?php echo __('Copy and paste this shortcode into post, page or widget.', 'trustindex-plugin'); ?></div>
+<?php include(plugin_dir_path(__FILE__) . '../include/shortcode-paste-box.php'); ?>
 </div>
 <?php if (!get_option($pluginManagerInstance->get_option_name('rate-us-feedback'), 0)): ?>
 <?php include(plugin_dir_path(__FILE__) . '../include/rate-us-feedback-box.php'); ?>

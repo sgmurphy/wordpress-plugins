@@ -56,10 +56,15 @@ class EVF_Settings_Integrations extends EVF_Settings_Page {
 	 */
 	protected function output_integrations( $integrations ) {
 		?>
-		<h2><?php esc_html_e( 'Integrations', 'everest-forms' ); ?></h2>
+		<div class="everest-forms-options-header">
+			<div class="everest-forms-options-header--top">
+				<span class="evf-forms-options-header-header--top-icon"><?php echo evf_file_get_contents( '/assets/images/settings-icons/integration.svg' ); //phpcs:ignore ?></span>
+				<h3><?php esc_html_e( 'Integrations', 'everest-forms' ); ?></h3>
+			</div>
+		</div>
 		<div class="everest-forms-integrations-connection">
 			<?php foreach ( $integrations as $integration ) : ?>
-				<div class="everest-forms-integrations">
+				<div class="everest-forms-integrations" data-action="<?php echo esc_attr( isset( $integration->upgrade ) ? $integration->upgrade : '' ); ?>" data-links="<?php echo esc_attr( isset( $integration->vedio_id ) ? $integration->vedio_id : '' ); ?>">
 					<div class="integration-header-info">
 						<div class="integration-status">
 							<span class="toggle-switch-outer <?php echo esc_attr( $integration->account_status ); ?>"></span>

@@ -118,7 +118,7 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 == Changelog ==
 
 = 1.2.7 =
-* to fix the issue of backslashes being removed in the <pre> tag after minifying HTML
+* to fix the issue of backslashes being removed in the &lt;pre&gt; tag after minifying HTML
 
 = 1.2.6 =
 * refactoring for getABSPATH()

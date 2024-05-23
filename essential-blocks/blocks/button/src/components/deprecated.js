@@ -4,7 +4,7 @@
 import { useBlockProps, RichText } from "@wordpress/block-editor";
 const { omit } = lodash;
 
-const { sanitizeURL } = window.EBControls;
+const { sanitizeURL, EBDisplayIcon } = window.EBControls;
 import attributes from "./attributes";
 
 const deprecated = [

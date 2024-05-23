@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'PHPGangsta_GoogleAuthenticator' => $vendorDir . '/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php',
+    'PHPGangsta_GoogleAuthenticator' => $vendorDir . '/siteground/googleauthenticator/PHPGangsta/GoogleAuthenticator.php',
 );

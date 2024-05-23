@@ -17,13 +17,6 @@ $this->platform_name = $platformName;
 public function getPluginTabs()
 {
 $tabs = [];
-if ($this->is_trustindex_connected()) {
-$tabs[] = [
-'place' => 'left',
-'slug' => 'trustindex-admin',
-'name' => 'Trustindex admin'
-];
-}
 $tabs[] = [
 'place' => 'left',
 'slug' => 'free-widget-configurator',
@@ -52,17 +45,7 @@ $tabs[] = [
 'slug' => 'get-more-features',
 'name' => __('Get more Features', 'trustindex-plugin')
 ];
-$tabs[] = [
-'place' => 'left',
-'slug' => 'trustindex-admin',
-'name' => __('Log In', 'trustindex-plugin')
-];
 }
-$tabs[] = [
-'place' => 'right',
-'slug' => 'feature-request',
-'name' => __('Feature request', 'trustindex-plugin')
-];
 $tabs[] = [
 'place' => 'right',
 'slug' => 'advanced',
@@ -74,13 +57,13 @@ public function getShortName()
 {
 return $this->shortname;
 }
-public function get_webhook_action()
+public function getWebhookAction()
 {
 return 'trustindex_reviews_hook_' . $this->getShortName();
 }
-public function get_webhook_url()
+public function getWebhookUrl()
 {
-return admin_url('admin-ajax.php') . '?action='. $this->get_webhook_action();
+return admin_url('admin-ajax.php') . '?action='. $this->getWebhookAction();
 }
 public function is_review_download_in_progress()
 {
@@ -410,6 +393,83 @@ return [
 'update-version-check',
 ];
 }
+
+
+public function getNotificationOptions($type = "")
+{
+$platformName = $this->get_platform_name($this->getShortName());
+$defaultRedirect = '?page='. $this->get_plugin_slug() .'/settings.php&tab=free-widget-configurator';
+$list = [
+'rate-us' => [
+'type' => 'warning',
+'extra-class' => 'trustindex-popup',
+'button-text' => "",
+'is-closeable' => true,
+'hide-on-close' => false,
+'hide-on-open' => true,
+'redirect' => 'https://wordpress.org/support/plugin/'. $this->get_plugin_slug() .'/reviews/?rate=5#new-post',
+'text' =>
+'<div class="trustindex-star-row">&starf;&starf;&starf;&starf;&starf;</div>' .
+/* translators: %s: Name of the plugin */
+sprintf(__('We have worked a lot on the free "%s" plugin.', 'trustindex-plugin'), $this->plugin_name) . '<br />' .
+__('If you love our features, please write a review to help us make the plugin even better.', 'trustindex-plugin') . '<br />' .
+/* translators: %s: Trustindex CEO */
+sprintf(__('Thank you. Gabor, %s', 'trustindex-plugin'), 'Trustindex CEO'),
+],
+'not-using-no-connection' => [
+'type' => 'warning',
+'extra-class' => "",
+/* translators: %s: Platform name */
+'button-text' => sprintf(__('Create a free %s widget! »', 'trustindex-plugin'), $platformName),
+'is-closeable' => true,
+'hide-on-close' => true,
+'hide-on-open' => true,
+'remind-later-button' => false,
+'redirect' => $defaultRedirect,
+/* translators: %s: Platform name */
+'text' => sprintf(__('Display %s reviews on your website.', 'trustindex-plugin'), $platformName),
+],
+'not-using-no-widget' => [
+'type' => 'warning',
+'extra-class' => "",
+/* translators: %s: Platform name */
+'button-text' => sprintf(__('Embed the %s reviews widget! »', 'trustindex-plugin'), $platformName),
+'is-closeable' => true,
+'hide-on-close' => true,
+'hide-on-open' => true,
+'remind-later-button' => true,
+'redirect' => $defaultRedirect,
+/* translators: %s: Platform name */
+'text' => sprintf(__('Build trust and display your %s reviews on your website.', 'trustindex-plugin'), $platformName),
+],
+'review-download-available' => [
+'type' => 'warning',
+'extra-class' => "",
+'button-text' => __('Download your latest reviews! »', 'trustindex-plugin'),
+'is-closeable' => true,
+'hide-on-close' => true,
+'hide-on-open' => true,
+'remind-later-button' => false,
+'redirect' => $defaultRedirect,
+/* translators: %s: Platform name */
+'text' => sprintf(__('You can update your %s reviews.', 'trustindex-plugin'), $platformName),
+],
+'review-download-finished' => [
+'type' => 'warning',
+'extra-class' => "",
+/* translators: %s: Service name (ChatGPT) */
+'button-text' => sprintf(__('Reply with %s! »', 'trustindex-plugin'), 'ChatGPT'),
+'is-closeable' => true,
+'hide-on-close' => true,
+'hide-on-open' => true,
+'remind-later-button' => false,
+'redirect' => $defaultRedirect,
+/* translators: %s: Platform name */
+'text' => sprintf(__('Your new %s reviews have been downloaded.', 'trustindex-plugin'), $platformName),
+],
+];
+return $type ? $list[$type] : $list;
+}
 public function setNotificationParam($type, $param, $value)
 {
 $notifications = get_option($this->get_option_name('notifications'), []);
@@ -427,11 +487,9 @@ return $default;
 }
 return $notifications[ $type ][ $param ];
 }
-public function isNotificationActive($type, $notifications = null)
+public function isNotificationActive($type)
 {
-if (!$notifications) {
 $notifications = get_option($this->get_option_name('notifications'), []);
-}
 if (
 !isset($notifications[ $type ]) ||
 !isset($notifications[ $type ]['active']) || !$notifications[ $type ]['active'] ||
@@ -441,40 +499,6 @@ if (
 return false;
 }
 return true;
-}
-public function getNotificationText($type)
-{
-$platformName = $this->get_platform_name($this->getShortName());
-switch ($type) {
-case 'not-using-no-connection':
-return sprintf(__('Display %s reviews on your website.', 'trustindex-plugin'), $platformName);
-case 'not-using-no-widget':
-return sprintf(__('Build trust and display your %s reviews on your website.', 'trustindex-plugin'), $platformName);
-case 'review-download-available':
-return sprintf(__('You can update your %s reviews.', 'trustindex-plugin'), $platformName);
-case 'review-download-finished':
-return sprintf(__('Your new %s reviews have been downloaded.', 'trustindex-plugin'), $platformName);
-case 'rate-us':
-return
-'<div class="trustindex-star-row">&starf;&starf;&starf;&starf;&starf;</div>' .
-sprintf(__('We have worked a lot on the free "%s" plugin.', 'trustindex-plugin'), $this->plugin_name) . '<br />' .
-__('If you love our features, please write a review to help us make the plugin even better.', 'trustindex-plugin') . '<br />' .
-sprintf(__('Thank you. Gabor, %s', 'trustindex-plugin'), 'Trustindex CEO');
-}
-}
-public function getNotificationButtonText($type)
-{
-$platformName = $this->get_platform_name($this->getShortName());
-switch ($type) {
-case 'not-using-no-connection':
-return sprintf(__('Create a free %s widget! »', 'trustindex-plugin'), $platformName);
-case 'not-using-no-widget':
-return sprintf(__('Embed the %s reviews widget! »', 'trustindex-plugin'), $platformName);
-case 'review-download-available':
-return __('Download your latest reviews! »', 'trustindex-plugin');
-case 'review-download-finished':
-return sprintf(__('Reply with %s! »', 'trustindex-plugin'), 'ChatGPT');
-}
 }
 public function getNotificationEmailContent($type)
 {
@@ -643,7 +667,7 @@ if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
 $className = 'TrustindexPlugin_' . $forcePlatform;
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.3", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.4", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -3822,7 +3846,7 @@ private static $widget_rating_texts = array (
  0 => 'Slecht',
  1 => 'Onder het gemiddelde',
  2 => 'Gemiddeld',
- 3 => 'Goed',
+ 3 => 'Goede',
  4 => 'Uitstekend',
  ),
  'no' => 
@@ -4313,7 +4337,7 @@ private static $widget_footer_filter_texts = array (
  ),
  'es' => 
  array (
- 'star' => 'Mostrando solo RATING_STAR_FILTER reseñas de estrellas',
+ 'star' => 'Mostrando solo RATING_STAR_FILTER reseñas estrellas',
  'latest' => 'Mostrando nuestras últimas reseñas',
  ),
  'et' => 
@@ -5590,10 +5614,14 @@ wp_enqueue_script($scriptName, 'https://cdn.trustindex.io/loader.js', [], false,
 $scripts = wp_scripts();
 if (isset($scripts->registered[ $scriptName ]) && !isset($scripts->registered[ $scriptName ]->extra['after'])) {
 wp_add_inline_script($scriptName, '
-(function ti_init() {
-if(typeof Trustindex == "undefined"){setTimeout(ti_init, 1985);return false;}
-if(typeof Trustindex.pager_inited != "undefined"){return false;}
-Trustindex.init_pager(document.querySelectorAll(".ti-widget"));
+(function trustindexWidgetInit() {
+if (typeof Trustindex === "undefined") {
+return setTimeout(trustindexWidgetInit, 100);
+}
+if (typeof Trustindex.pager_inited !== "undefined") {
+return false;
+}
+setTimeout(() => Trustindex.init_pager(document.querySelectorAll(".ti-widget")), 200);
 })();
 document.querySelectorAll("pre.ti-widget").forEach(item => item.replaceWith(item.firstChild));
 ');
@@ -6133,7 +6161,7 @@ __("You have no widget saved!", 'trustindex-plugin') . " "
 <?php else: ?>
 <?php echo self::get_alertbox("warning",
 __("You have not set up your Trustindex account yet!", 'trustindex-plugin') . " "
-. sprintf(__("Go to <a href='%s'>plugin setup page</a> to complete the one-step setup guide and enjoy the full functionalization!", 'trustindex-plugin'), admin_url('admin.php?page='.$this->get_plugin_slug().'/settings.php&tab=setup_trustindex_join'))
+. sprintf(__("Go to <a href='%s'>plugin setup page</a> to complete the one-step setup guide and enjoy the full functionalization!", 'trustindex-plugin'), admin_url('admin.php?page='.$this->get_plugin_slug().'/settings.php&tab=advanced'))
 ); ?>
 <?php endif;
 wp_die();
@@ -6341,7 +6369,7 @@ $result[ $platforms[ $index ] ] = get_option('trustindex-'. $platforms[ $index ]
 }
 return [
 'result' => $result,
-'setup_url' => admin_url('admin.php?page='. $activePluginSlug .'/settings.php&tab=setup_trustindex_join')
+'setup_url' => admin_url('admin.php?page='. $activePluginSlug .'/settings.php&tab=advanced')
 ];
 }
 function init_restapi()
@@ -6369,18 +6397,6 @@ public function is_table_exists($name = "")
 global $wpdb;
 $tableName = $this->get_tablename($name);
 return ($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName);
-}
-public function get_noreg_tablename($forcePlatform = null)
-{
-global $wpdb;
-$forcePlatform = $forcePlatform ? $forcePlatform : $this->getShortName();
-return $wpdb->prefix .'trustindex_'. $forcePlatform .'_reviews';
-}
-public function is_noreg_table_exists($forcePlatform = null)
-{
-global $wpdb;
-$dbtable = $this->get_noreg_tablename($forcePlatform);
-return ($wpdb->get_var("SHOW TABLES LIKE '$dbtable'") == $dbtable);
 }
 }
 ?>

@@ -11,6 +11,6 @@ wp_enqueue_script('trustindex-js', 'https://cdn.trustindex.io/loader.js', [], fa
 </p>
 <a class="ti-btn" href="https://wordpress.org/support/plugin/<?php echo $pluginManagerInstance->get_plugin_slug(); ?>/reviews/?rate=5#new-post" target="_blank"><?php echo __('Click here to rate us!', 'trustindex-plugin'); ?></a>
 <div class="ti-box-footer">
-<div src='https://cdn.trustindex.io/loader.js?<?php echo '3ef6962888fb40403c525129f9'; ?>'></div>
+<div data-src='https://cdn.trustindex.io/loader.js?<?php echo '3ef6962888fb40403c525129f9'; ?>'></div>
 </div>
 </div>

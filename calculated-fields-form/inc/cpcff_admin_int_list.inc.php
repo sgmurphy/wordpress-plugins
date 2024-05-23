@@ -173,10 +173,18 @@ function cp_addItem_keyup( e )
 	if(e.which == 13) cp_addItem();
 }
 
+ function cp_renameItem_keyup( e, id )
+ {
+    e.which = e.which || e.keyCode;
+    if(e.which == 13) {
+        cp_updateItem(id);
+    }
+ }
+
 function cp_updateItem(id)
 {
 	var calname = document.getElementById("calname_"+id).value;
-	document.location = 'admin.php?page=cp_calculated_fields_form&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname)+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-form' ) ); ?>';
+	document.location = 'admin.php?page=cp_calculated_fields_form&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname)+'&_cpcff_nonce=<?php echo esc_js( wp_create_nonce( 'cff-update-form' ) ); ?>'+( 'cff_getScrollForURL' in window ? cff_getScrollForURL() : '' );
 }
 
 function cp_cloneItem(id)
@@ -430,7 +438,7 @@ function cp_update_default_settings(e)
 						?>
 						<tr>
 							<td nowrap><?php echo esc_html( $item->id ); ?></td>
-							<td nowrap><input type="text" name="calname_<?php echo esc_attr( $item->id ); ?>" id="calname_<?php echo esc_attr( $item->id ); ?>" value="<?php echo esc_attr( $item->form_name ); ?>" /></td>
+							<td nowrap><input type="text" name="calname_<?php echo esc_attr( $item->id ); ?>" id="calname_<?php echo esc_attr( $item->id ); ?>" value="<?php echo esc_attr( $item->form_name ); ?>" onkeyup="cp_renameItem_keyup(event, <?php echo esc_js( $item->id ); ?>);" /></td>
 							<td nowrap>
 								<input type="button" name="calupdate_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Rename', 'calculated-fields-form' ); ?>" onclick="cp_updateItem(<?php echo esc_attr( $item->id ); ?>);" class="button-secondary" />
 								<input type="button" name="calmanage_<?php echo esc_attr( $item->id ); ?>" value="<?php esc_attr_e( 'Build', 'calculated-fields-form' ); ?>" onclick="cp_manageSettings(<?php echo esc_attr( $item->id ); ?>);" class="button-primary" style="padding-left:30px;padding-right:30px" title="<?php esc_attr_e( 'Ctrl+Click to open in new tab', 'calculated-fields-form' ); ?>" />
@@ -551,7 +559,7 @@ function cp_update_default_settings(e)
 	</div>
 </div><!-- End Forms & Settings Section -->
 <div style="margin-top:20px;display:<?php print ( ! empty( $_GET['cff-tab'] ) && 'marketplace' == $_GET['cff-tab'] ) ? 'block' : 'none'; ?>;"><!-- Marketplace Section -->
-	<div id="metabox_basic_settings" class="postbox" >
+	<div id="metabox_basic_settings" class="postbox cff-no-animate" >
 		<h3 class='hndle' style="padding:5px;"><span><?php esc_html_e( 'Calculated Fields Form Marketplace', 'calculated-fields-form' ); ?></span></h3>
 		<div class="inside">
 			<div class="cff-marketplace"></div>

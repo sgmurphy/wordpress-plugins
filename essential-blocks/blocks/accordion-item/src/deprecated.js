@@ -3,7 +3,7 @@
  */
 import { InnerBlocks, RichText } from "@wordpress/block-editor";
 const { omit } = lodash;
-const { getIconClass } = window.EBControls;
+const { getIconClass, EBDisplayIcon } = window.EBControls;
 
 import attributes from "./attributes";
 

@@ -60,9 +60,12 @@ $section_nav_bar = '<div>
  </div>';
 ?>
 <div class="wrap">
+	<div style="text-align:right;float:right;display:inline-block;">
+		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to items list...', 'calculated-fields-form' ); ?></a>
+	</div>
 	<h1 class="cff-form-name">
 	<?php
-		print esc_html__( 'Calculated Fields Form', 'calculated-fields-form' ) . ' <span class="cff-form-name-shortcode">(<b>' . esc_html__( 'Form', 'calculated-fields-form' ) . ' ' . esc_html( CP_CALCULATEDFIELDSF_ID ) . ' - ' . esc_html( $form_obj->get_option( 'form_name', '' ) ) . '</b>) Shortcode: [CP_CALCULATED_FIELDS id="' . esc_attr( CP_CALCULATEDFIELDSF_ID ) . '"]</span>';
+		print esc_html__( 'Form', 'calculated-fields-form' ) . ' ' . esc_html( CP_CALCULATEDFIELDSF_ID ) . ' - ' . esc_html( $form_obj->get_option( 'form_name', '' ) ) . ' | Shortcode: [CP_CALCULATED_FIELDS id="' . esc_html( CP_CALCULATEDFIELDSF_ID ) . '"]';
 
 	if ( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS ) ) {
 		$url  = CPCFF_AUXILIARY::site_url();
@@ -72,8 +75,6 @@ $section_nav_bar = '<div>
 	}
 	?>
 	</h1>
-	<input type="button" name="backbtn" value="<?php esc_attr_e( 'Back to items list...', 'calculated-fields-form' ); ?>" onclick="document.location='admin.php?page=cp_calculated_fields_form';" class="button-secondary" />
-	<br /><br />
 	<?php $_cpcff_nonce = wp_create_nonce( 'cff-form-settings' ); ?>
 	<form method="post" action="" id="cpformconf" name="cpformconf" class="cff_form_builder">
 		<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_nonce ); ?>" />
@@ -81,27 +82,17 @@ $section_nav_bar = '<div>
 		<input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" />
 
 		<div id="normal-sortables" class="meta-box-sortables">
-			<h2><?php esc_html_e( 'Form Settings', 'calculated-fields-form' ); ?>:</h2>
-
 			<!-- Form category -->
-			<div class="postbox" >
-				<div class="inside">
-					<b><?php esc_html_e( 'Form Category', 'calculated-fields-form' ); ?></b>
-					<input type="text" name="calculated-fields-form-category" class="width75" value="<?php print esc_attr( $form_obj->get_option( 'category', '' ) ); ?>" list="calculated-fields-form-categories" />
-					<datalist id="calculated-fields-form-categories">
-						<?php
-							print $cpcff_main->get_categories( 'DATALIST' ); // phpcs:ignore WordPress.Security.EscapeOutput
-						?>
-					</datalist>
-				</div>
-			</div>
+			<input type="hidden" name="calculated-fields-form-category" value="<?php print esc_attr($form_obj->get_option('category', '')); ?>" list="calculated-fields-form-categories" />
+			<datalist id="calculated-fields-form-categories"><?php
+				print $cpcff_main->get_categories('DATALIST'); // phpcs:ignore WordPress.Security.EscapeOutput
+			?></datalist>
 			<hr />
 			<?php print $section_nav_bar; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<hr />
 			<div><?php esc_html_e( '* Different form styles available on the tab Form Settings &gt;&gt; Form Template', 'calculated-fields-form' ); ?></div>
 			<div id="metabox_form_structure" class="postbox" >
 				<div class="hndle">
-					<h3 style="padding:5px;display:inline-block;"><span><?php esc_html_e( 'Form Builder', 'calculated-fields-form' ); ?></span></h3>
 					<div class="cff-revisions-container">
 						<?php
 						if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
@@ -121,13 +112,14 @@ $section_nav_bar = '<div>
 							<?php
 						endif;
 						?>
-						<input type="button" name="previewbtn" id="previewbtn2" class="button-primary" value="<?php esc_attr_e( 'Save and Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e( "Saves the form's structure only, and opens a preview windows", 'calculated-fields-form' ); ?>" />
 						<input type="button" name="cff_fields_list" class="button-secondary" value="<?php print wp_is_mobile() ? '&#9776;' : esc_attr__( 'Fields List', 'calculated-fields-form' ); ?>" title="<?php esc_attr_e( 'Fields List', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.printFields();" />
-						<div class="cff-form-builder-extend-shrink">
-							<input type="button" name="cff_expand_btn" class="button-secondary" value="<?php esc_attr_e( 'Fullscreen', 'calculated-fields-form' ); ?>" title="<?php esc_attr_e( 'Fullscreen', 'calculated-fields-form' ); ?>" />
-							<input type="button" name="cff_shrink_btn" class="button-secondary" value="<?php esc_attr_e( 'Shrink', 'calculated-fields-form' ); ?>" title="<?php esc_attr_e( 'Shrink', 'calculated-fields-form' ); ?>" />
-						</div>&nbsp;|&nbsp;
+						<input type="button" name="previewbtn" id="previewbtn2" class="button-primary" value="<?php esc_attr_e( 'Save and Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="<?php esc_attr_e( "Saves the form's structure only, and opens a preview windows", 'calculated-fields-form' ); ?>" />
+						&nbsp;|&nbsp;
 						<input type="button" name="cff_ai_assistant" id="cff_ai_assistant" class="button" value="<?php esc_attr_e( 'AI Assistant', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery('#cff-ai-assistant-container').show();" style="float:none;" />
+						<div class="cff-form-builder-extend-shrink">
+							<button type="button" name="cff_expand_btn" class="button-secondary" title="<?php esc_attr_e( 'Fullscreen', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Fullscreen', 'calculated-fields-form' ); ?></button>
+							<button type="button" name="cff_shrink_btn" class="button-secondary" title="<?php esc_attr_e( 'Shrink', 'calculated-fields-form'); ?>"><?php esc_html_e( 'Shrink', 'calculated-fields-form' ); ?></button>
+						</div>
 					</div>
 					<div class="clearer"></div>
 				</div>
@@ -266,7 +258,7 @@ $section_nav_bar = '<div>
 					</div>
 				</div>
 			</div>
-			<p class="submit">
+			<p>
 				<input type="submit" name="save" id="save2" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'calculated-fields-form' ); ?>"  title="Saves the form's structure and settings and creates a revision" onclick="fbuilderjQuery.fbuilder.delete_form_preview_window();" />
 				<input type="button" name="previewbtn" id="previewbtn" class="button-primary" value="<?php esc_attr_e( 'Preview', 'calculated-fields-form' ); ?>" onclick="fbuilderjQuery.fbuilder.preview( this );" title="Saves the form's structure only, and opens a preview windows" />
 				<?php

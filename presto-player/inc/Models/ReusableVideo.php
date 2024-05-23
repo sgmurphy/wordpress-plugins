@@ -7,7 +7,6 @@ use PrestoPlayer\Blocks\VimeoBlock;
 use PrestoPlayer\Blocks\YouTubeBlock;
 use PrestoPlayer\Blocks\SelfHostedBlock;
 use PrestoPlayer\Pro\Blocks\BunnyCDNBlock;
-use PrestoPlayer\Pro\Blocks\PrivateSelfHostedBlock;
 use WP_Query;
 
 class ReusableVideo

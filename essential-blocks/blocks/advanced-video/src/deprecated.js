@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { RichText, useBlockProps } from "@wordpress/block-editor";
+import { useBlockProps } from "@wordpress/block-editor";
 
 import attributes from "./attributes";
 

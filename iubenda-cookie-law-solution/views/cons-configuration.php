@@ -30,7 +30,7 @@ require_once IUBENDA_PLUGIN_PATH . 'views/partials/header.php';
 		<p><?php echo wp_kses_post( __( 'Activate <strong>Consent Database</strong> on our website in your iubenda dashboard and paste the <strong>API key</strong> here to integrate it in your website.', 'iubenda' ) ); ?></p>
 		<div class="d-flex align-items-center">
 			<div class="steps flex-shrink mr-3">1</div>
-			<p class="text-bold"> <?php esc_html_e( 'Activate & Configure Consent Database Solution by', 'iubenda' ); ?>
+			<p class="text-bold"> <?php esc_html_e( 'Activate & Configure Consent Database by', 'iubenda' ); ?>
 				<a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['flow_page'] ); ?>" class="link-underline text-gray-lighter"> <?php esc_html_e( 'clicking here', 'iubenda' ); ?></a>
 			</p>
 		</div>

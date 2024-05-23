@@ -91,11 +91,45 @@ export default function Edit(props) {
         setAttributes({ tabTitles: newTabTitles });
     };
 
-    const enhancedProps = {
-        ...props,
-        blockPrefix: 'eb-advanced-tabs',
-        style: <Style {...props} isClickTab={isClickTab} />
-    };
+    useEffect(() => {
+
+        if (tabTitles.length === 0) {
+            setAttributes({
+                tabTitles: [
+                    {
+                        text: "Tab Title 1",
+                        id: "1",
+                        media: "icon",
+                        icon: "fas fa-home",
+                        image: "",
+                        isExpanded: true,
+                        isDefault: true,
+                        customId: "",
+                    },
+                    {
+                        text: "Tab Title 2",
+                        id: "2",
+                        media: "icon",
+                        icon: "fas fa-home",
+                        image: "",
+                        isExpanded: false,
+                        isDefault: false,
+                        customId: "",
+                    },
+                    {
+                        text: "Tab Title 3",
+                        id: "3",
+                        media: "icon",
+                        icon: "fas fa-home",
+                        image: "",
+                        isExpanded: false,
+                        isDefault: false,
+                        customId: "",
+                    },
+                ],
+            });
+        }
+    }, []);
 
     const { innerBlocks } = useSelect(
         (select) => select("core/block-editor").getBlocksByClientId(clientId)[0]
@@ -111,9 +145,11 @@ export default function Edit(props) {
         });
     }, [blockId, innerBlocks]);
 
-    const blockProps = useBlockProps({
-        className: classnames(className, `eb-guten-block-main-parent-wrapper`),
-    });
+    const enhancedProps = {
+        ...props,
+        blockPrefix: 'eb-advanced-tabs',
+        style: <Style {...props} isClickTab={isClickTab} />
+    };
 
     return (
         <>

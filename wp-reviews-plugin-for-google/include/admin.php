@@ -11,23 +11,23 @@ exit;
 }
 if (isset($_GET['notification'])) {
 $type = sanitize_text_field($_GET['notification']);
+$options = $pluginManagerInstance->getNotificationOptions($type);
 switch (sanitize_text_field($_GET['action'])) {
 case 'later':
 $pluginManagerInstance->setNotificationParam($type, 'timestamp', time() + (14 * 86400));
 break;
 case 'close':
-if ($type !== 'rate-us') {
+if ($options['hide-on-close']) {
 $pluginManagerInstance->setNotificationParam($type, 'active', false);
 }
 break;
 case 'open':
+if ($options['hide-on-open']) {
 $pluginManagerInstance->setNotificationParam($type, 'active', false);
-if ($type === 'rate-us') {
-header('Location: https://wordpress.org/support/plugin/'. $pluginManagerInstance->get_plugin_slug() . '/reviews/?rate=5#new-post');
-exit;
 }
-if (function_exists('trustindexNotificationOpenRedirect')) {
-trustindexNotificationOpenRedirect($type);
+if ($options['redirect']) {
+header('Location: '. $options['redirect']);
+exit;
 }
 break;
 case 'hide':

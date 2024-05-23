@@ -154,7 +154,8 @@ if ( ! class_exists( 'YITH_WCAS_Admin_Statistic_List_Table' ) ) {
 				$hidden                            = array();
 				$sortable                          = $this->get_sortable_columns();
 				$this->_column_headers             = array( $columns, $hidden, $sortable );
-				$_wp_column_headers[ $screen->id ] = $columns;
+				$screen_id = $screen->id ?? 1;
+				$_wp_column_headers[ $screen_id ] = $columns;
 			}
 
 		}
