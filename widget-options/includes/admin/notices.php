@@ -164,7 +164,7 @@ if (!function_exists('widgetopts_display_free_liecnse_admin_notice')) {
                         'https://api.brevo.com/v3/contacts',
                         array(
                             'headers' => array(
-                                'api-key' => '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',
+                                'api-key' => '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',
                                 'Accept' => 'application/json',
                                 'Content-Type' => 'application/json'
                             ),

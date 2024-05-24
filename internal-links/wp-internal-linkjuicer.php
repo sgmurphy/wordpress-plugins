@@ -4,13 +4,13 @@
 /**
  * Internal Link Juicer
  *
- * @version 2.23.6
+ * @version 2.24.3
  * @package ILJ
  *
  * @wordpress-plugin
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.23.6
+ * Version: 2.24.3
  * Description: A performant solution for high class internal linkbuilding automation.
  * Author: Internal Link Juicer
  * Author URI: https://www.internallinkjuicer.com
@@ -38,75 +38,50 @@
 // @codingStandardsIgnoreEnd
 namespace ILJ;
 
-use  ILJ\Core\App ;
-
-if ( !function_exists( 'add_filter' ) ) {
-    header( 'Status: 403 Forbidden' );
-    header( 'HTTP/1.1 403 Forbidden' );
+use ILJ\Core\App;
+if (!function_exists('add_filter')) {
+    header('Status: 403 Forbidden');
+    header('HTTP/1.1 403 Forbidden');
     exit;
 }
-
-if ( !defined( 'ILJ_VERSION' ) ) {
-    define( 'ILJ_VERSION', '2.23.6' );
+if (!defined('ILJ_VERSION')) {
+    define('ILJ_VERSION', '2.24.3');
 }
-if ( !defined( 'ILJ_FILE' ) ) {
-    define( 'ILJ_FILE', __FILE__ );
+if (!defined('ILJ_FILE')) {
+    define('ILJ_FILE', __FILE__);
 }
-if ( !defined( 'ILJ_PATH' ) ) {
-    define( 'ILJ_PATH', plugin_dir_path( ILJ_FILE ) );
+if (!defined('ILJ_PATH')) {
+    define('ILJ_PATH', plugin_dir_path(ILJ_FILE));
 }
-if ( !defined( 'ILJ_URL' ) ) {
-    define( 'ILJ_URL', plugin_dir_url( ILJ_FILE ) );
+if (!defined('ILJ_URL')) {
+    define('ILJ_URL', plugin_dir_url(ILJ_FILE));
 }
-if ( !defined( 'ILJ_NAME' ) ) {
-    define( 'ILJ_NAME', plugin_basename( ILJ_FILE ) );
+if (!defined('ILJ_NAME')) {
+    define('ILJ_NAME', plugin_basename(ILJ_FILE));
 }
-
-if ( function_exists( '\\ILJ\\ilj_fs' ) ) {
-    ilj_fs()->set_basename( false, __FILE__ );
+if (function_exists('\ILJ\ilj_fs')) {
+    ilj_fs()->set_basename(false, __FILE__);
     return;
 } else {
     function ilj_fs()
     {
-        global  $ilj_fs ;
-        
-        if ( !isset( $ilj_fs ) ) {
-            include_once dirname( __FILE__ ) . '/freemius/start.php';
-            $ilj_fs = fs_dynamic_init( array(
-                'id'              => '2610',
-                'slug'            => 'internal-links',
-                'type'            => 'plugin',
-                'public_key'      => 'pk_624b0309eb6afc65f81d070e79fcd',
-                'is_premium'      => false,
-                'premium_suffix'  => '(Pro)',
-                'has_addons'      => false,
-                'has_paid_plans'  => true,
-                'trial'           => array(
-                'days'               => 14,
-                'is_require_payment' => true,
-            ),
-                'has_affiliation' => 'selected',
-                'menu'            => array(
-                'slug'        => 'internal_link_juicer',
-                'first-path'  => 'admin.php?page=internal_link_juicer-tour',
-                'support'     => false,
-                'affiliation' => false,
-            ),
-                'is_live'         => true,
-            ) );
+        global $ilj_fs;
+        if (!isset($ilj_fs)) {
+            include_once dirname(__FILE__) . '/freemius/start.php';
+            $first_path = 'admin.php?page=internal_link_juicer-tour';
+            if (is_plugin_active_for_network(ILJ_NAME)) {
+                $first_path = '';
+            }
+            $ilj_fs = fs_dynamic_init(array('id' => '2610', 'slug' => 'internal-links', 'type' => 'plugin', 'public_key' => 'pk_624b0309eb6afc65f81d070e79fcd', 'is_premium' => false, 'premium_suffix' => '(Pro)', 'has_addons' => false, 'has_paid_plans' => true, 'trial' => array('days' => 14, 'is_require_payment' => true), 'has_affiliation' => 'selected', 'menu' => array('slug' => 'internal_link_juicer', 'first-path' => $first_path, 'support' => false, 'affiliation' => false), 'is_live' => true));
         }
-        
         return $ilj_fs;
     }
-    
     ilj_fs();
-    do_action( 'ilj_fs_loaded' );
-    spl_autoload_register( function ( $class_name ) {
-        
-        if ( false !== strpos( $class_name, 'ILJ\\' ) ) {
-            $file = strtolower( str_replace( '\\', '/', substr( $class_name, 4 ) ) ) . '.php';
-            
-            if ( file_exists( ILJ_PATH . $file ) ) {
+    do_action('ilj_fs_loaded');
+    spl_autoload_register(function ($class_name) {
+        if (false !== strpos($class_name, 'ILJ\\')) {
+            $file = strtolower(str_replace('\\', '/', substr($class_name, 4))) . '.php';
+            if (file_exists(ILJ_PATH . $file)) {
                 include_once $file;
             } else {
                 /**
@@ -115,14 +90,12 @@ if ( function_exists( '\\ILJ\\ilj_fs' ) ) {
                  *
                  * @since 2.23.5
                  */
-                $file = strtolower( str_replace( '\\', '/', substr( str_replace( '_', '-', $class_name ), 4 ) ) ) . '.php';
-                if ( file_exists( ILJ_PATH . $file ) ) {
+                $file = strtolower(str_replace('\\', '/', substr(str_replace('_', '-', $class_name), 4))) . '.php';
+                if (file_exists(ILJ_PATH . $file)) {
                     include_once $file;
                 }
             }
-        
         }
-    
-    } );
+    });
     App::init();
 }

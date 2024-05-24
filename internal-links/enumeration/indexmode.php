@@ -1,4 +1,5 @@
 <?php
+
 namespace ILJ\Enumeration;
 
 /**
@@ -7,8 +8,8 @@ namespace ILJ\Enumeration;
  * @package ILJ\Enumerations
  * @since   1.0.1
  */
-final class IndexMode {
-
-	const NONE      = 'index_mode_none';
-	const AUTOMATIC = 'index_mode_automatic';
+final class IndexMode
+{
+    const NONE = 'index_mode_none';
+    const AUTOMATIC = 'index_mode_automatic';
 }

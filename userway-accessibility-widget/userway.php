@@ -17,8 +17,11 @@ define( 'USW_USERWAY_URL', plugin_dir_url( __FILE__ ) );
 
 register_activation_hook( __FILE__, 'usw_userway_activation' );
 register_uninstall_hook( __FILE__, 'usw_userway_uninstall' );
+register_activation_hook( __FILE__, 'usw_userway_activation_notice' );
+register_deactivation_hook( __FILE__, 'usw_userway_deactivation_notice' );
 
 require_once( USW_USERWAY_DIR . 'includes/functions.php' );
+require_once( USW_USERWAY_DIR . 'includes/notifications.php' );
 
 function usw_userway_activation() {
 	initUwTable();

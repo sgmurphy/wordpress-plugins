@@ -5,7 +5,7 @@ Donate link: https://meowapps.com/donation/
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 6.7.4
+Stable tag: 6.7.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,12 +47,15 @@ This plugin is compatible with all media types, including retina and WebP versio
 
 == Changelog ==
 
+= 6.7.5 (2024/05/24) =
+* Fix: Logging system.
+* Info: We are working hard on Media Cleaner. If you want to share some love, write a simple and nice review [here](https://wordpress.org/support/plugin/media-cleaner/reviews/?rate=5#new-post). Thank you so much! 💖
+
 = 6.7.4 (2024/04/27) =
 * Update: Updated description for OB cleaning to enhance clarity.
 * Add: Support for Breakdance Builder, extending compatibility.
 * Update: Added shortcode checking for Oxygen Builder.
 * Fix: Updated readme file to comply with the latest WordPress guidelines.
-* Info: We are working hard on Media Cleaner. If you want to share some love, write a simple and nice review [here](https://wordpress.org/support/plugin/media-cleaner/reviews/?rate=5#new-post). Thank you so much! 💖
 
 = 6.7.3 (2024/03/01) =
 * Update: Better translations.

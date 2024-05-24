@@ -1,4 +1,5 @@
 <?php
+
 namespace ILJ\Enumeration;
 
 /**
@@ -7,8 +8,9 @@ namespace ILJ\Enumeration;
  * @package ILJ\Enumerations
  * @since   1.0.1
  */
-final class ActionSchedulerOptions {
-	const DEFAULT = 10;
-	const MINIMAL = 1;
-	const MAXIMAL = 250;
+final class ActionSchedulerOptions
+{
+    const DEFAULT = 10;
+    const MINIMAL = 1;
+    const MAXIMAL = 250;
 }

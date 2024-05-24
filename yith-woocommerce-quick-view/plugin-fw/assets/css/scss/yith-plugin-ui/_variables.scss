@@ -71,6 +71,12 @@ $field_placeholder_color: #8f9eb0;
 
 $link: #0079b0; // Link Color.
 
+// Z-indexes
+$dialog_z_index: 999995;
+$modal_z_index: 999999;
+$modal_allow_wp_z_index: 1500;
+$tip_tip_z_index: 1500;
+
 // Extra variables: these will be not converted to CSS Variables
 $wp_menu_size: 160px;
 $wp_menu_folded_size: 36px;
@@ -146,4 +152,9 @@ $wp_top_bar_mobile_size: 46px;
     --yith-field-placeholder-color: #{$field_placeholder_color};
 
     --yith-link: #{$link};
+
+    --yith-dialog-z-index: #{$dialog_z_index};
+    --yith-modal-z-index: #{$modal_z_index};
+    --yith-modal-allow-wp-z-index: #{$modal_allow_wp_z_index};
+    --yith-tip-tip-z-index: #{$tip_tip_z_index};
 }

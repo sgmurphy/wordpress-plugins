@@ -2,7 +2,7 @@
 
 namespace ILJ\Database;
 
-use  ILJ\Enumeration\LinkType ;
+use ILJ\Enumeration\LinkType;
 /**
  * Database wrapper for the linkindex table
  *
@@ -11,8 +11,8 @@ use  ILJ\Enumeration\LinkType ;
  */
 class Linkindex
 {
-    const  ILJ_DATABASE_TABLE_LINKINDEX = 'ilj_linkindex' ;
-    const  ILJ_ACTION_AFTER_DELETE_LINKINDEX = 'ilj_after_delete_linkindex' ;
+    const ILJ_DATABASE_TABLE_LINKINDEX = 'ilj_linkindex';
+    const ILJ_ACTION_AFTER_DELETE_LINKINDEX = 'ilj_after_delete_linkindex';
     /**
      * Cleans the whole index table
      *
@@ -21,10 +21,9 @@ class Linkindex
      */
     public static function flush()
     {
-        global  $wpdb ;
-        $wpdb->query( 'TRUNCATE TABLE ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX );
+        global $wpdb;
+        $wpdb->query('TRUNCATE TABLE ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX);
     }
-    
     /**
      * Handles the delete function for link_to
      *
@@ -32,12 +31,11 @@ class Linkindex
      * @param  string $type
      * @return void
      */
-    public static function delete_link_to( $id, $type )
+    public static function delete_link_to($id, $type)
     {
-        global  $wpdb ;
-        $wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . '  WHERE link_to = %d AND type_to = %s', $id, $type ) );
+        global $wpdb;
+        $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . '  WHERE link_to = %d AND type_to = %s', $id, $type));
     }
-    
     /**
      * Handles the delete function for link_from
      *
@@ -45,33 +43,31 @@ class Linkindex
      * @param  string $type
      * @return void
      */
-    public static function delete_link_from( $id, $type )
+    public static function delete_link_from($id, $type)
     {
-        global  $wpdb ;
-        $wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' WHERE link_from = %d AND type_from = %s', $id, $type ) );
+        global $wpdb;
+        $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' WHERE link_from = %d AND type_from = %s', $id, $type));
     }
-    
     public static function delete_for_individual_builds()
     {
-        global  $wpdb ;
+        global $wpdb;
         $addition_query = '';
-        $outgoing = $wpdb->prepare( 'SELECT DISTINCT link_from, type_from FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . ' WHERE link_type = %s ' . $addition_query, LinkType::OUTGOING );
-        $outgoing_ids = $wpdb->get_results( $outgoing, ARRAY_A );
-        if ( is_array( $outgoing_ids ) && !empty($outgoing_ids) ) {
-            foreach ( $outgoing_ids as $value ) {
-                self::delete_link_from( $value['link_from'], $value['type_from'] );
+        $outgoing = $wpdb->prepare('SELECT DISTINCT link_from, type_from FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . ' WHERE link_type = %s ' . $addition_query, LinkType::OUTGOING);
+        $outgoing_ids = $wpdb->get_results($outgoing, ARRAY_A);
+        if (is_array($outgoing_ids) && !empty($outgoing_ids)) {
+            foreach ($outgoing_ids as $value) {
+                self::delete_link_from($value['link_from'], $value['type_from']);
             }
         }
-        $incoming = $wpdb->prepare( 'SELECT DISTINCT link_to, type_to FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . ' WHERE link_type = %s ' . $addition_query, LinkType::INCOMING );
-        $incoming_ids = $wpdb->get_results( $incoming, ARRAY_A );
-        if ( is_array( $incoming_ids ) && !empty($incoming_ids) ) {
-            foreach ( $incoming_ids as $value ) {
-                self::delete_link_to( $value['link_to'], $value['type_to'] );
+        $incoming = $wpdb->prepare('SELECT DISTINCT link_to, type_to FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . ' WHERE link_type = %s ' . $addition_query, LinkType::INCOMING);
+        $incoming_ids = $wpdb->get_results($incoming, ARRAY_A);
+        if (is_array($incoming_ids) && !empty($incoming_ids)) {
+            foreach ($incoming_ids as $value) {
+                self::delete_link_to($value['link_to'], $value['type_to']);
             }
         }
         self::delete_individual_build_initialization_values();
     }
-    
     /**
      * Deletes the individual build initialization values so it does not get included in the linkindex importfromtemp function
      *
@@ -79,17 +75,14 @@ class Linkindex
      */
     public static function delete_individual_build_initialization_values()
     {
-        global  $wpdb ;
-        
-        if ( $wpdb->get_var( "SHOW TABLES LIKE '" . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . "'" ) == $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP ) {
+        global $wpdb;
+        if ($wpdb->get_var("SHOW TABLES LIKE '" . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . "'") == $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP) {
             // delete initialization from outgoing build
-            $wpdb->query( 'DELETE FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . " WHERE link_to = 0 AND type_to = '' AND anchor = '' AND link_type = 'outgoing'" );
+            $wpdb->query('DELETE FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . " WHERE link_to = 0 AND type_to = '' AND anchor = '' AND link_type = 'outgoing'");
             // delete initialization from incoming build
-            $wpdb->query( 'DELETE FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . " WHERE link_from = 0 AND type_from = '' AND anchor = '' AND link_type = 'incoming'" );
+            $wpdb->query('DELETE FROM ' . $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP . " WHERE link_from = 0 AND type_from = '' AND anchor = '' AND link_type = 'incoming'");
         }
-    
     }
-    
     /**
      * Handles the delete function for deleting links by ID
      *
@@ -97,24 +90,17 @@ class Linkindex
      * @param  string $type
      * @return void
      */
-    public static function delete_link_by_id( $id, $type )
+    public static function delete_link_by_id($id, $type)
     {
-        global  $wpdb ;
-        $wpdb->query( $wpdb->prepare(
-            'DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' WHERE (link_from = %d AND type_from = %s) OR (link_to = %d AND type_to = %s)',
-            $id,
-            $type,
-            $id,
-            $type
-        ) );
+        global $wpdb;
+        $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' WHERE (link_from = %d AND type_from = %s) OR (link_to = %d AND type_to = %s)', $id, $type, $id, $type));
         /**
          * Fires linkindex is deleted
          *
          * @since 1.2.23
          */
-        do_action( self::ILJ_ACTION_AFTER_DELETE_LINKINDEX );
+        do_action(self::ILJ_ACTION_AFTER_DELETE_LINKINDEX);
     }
-    
     /**
      * Returns all post outlinks from linkindex table
      *
@@ -123,16 +109,15 @@ class Linkindex
      * @param  string $type
      * @return array
      */
-    public static function getRules( $id, $type )
+    public static function getRules($id, $type)
     {
-        if ( !is_numeric( $id ) ) {
+        if (!is_numeric($id)) {
             return array();
         }
-        global  $wpdb ;
-        $query = $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' linkindex WHERE linkindex.link_from = %d AND linkindex.type_from = %s', $id, $type );
-        return $wpdb->get_results( $query );
+        global $wpdb;
+        $query = $wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' linkindex WHERE linkindex.link_from = %d AND linkindex.type_from = %s', $id, $type);
+        return $wpdb->get_results($query);
     }
-    
     /**
      * Adds a post rule to the linkindex table
      *
@@ -144,33 +129,14 @@ class Linkindex
      * @param  string $type_to   The type of asset which receives the link
      * @return void
      */
-    public static function addRule(
-        $link_from,
-        $link_to,
-        $anchor,
-        $type_from,
-        $type_to
-    )
+    public static function addRule($link_from, $link_to, $anchor, $type_from, $type_to)
     {
-        if ( !is_integer( (int) $link_from ) || !is_integer( (int) $link_to ) || !is_string( (string) $anchor ) ) {
+        if (!is_integer((int) $link_from) || !is_integer((int) $link_to) || !is_string((string) $anchor)) {
             return;
         }
-        global  $wpdb ;
-        $wpdb->insert( $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX, array(
-            'link_from' => $link_from,
-            'link_to'   => $link_to,
-            'anchor'    => $anchor,
-            'type_from' => $type_from,
-            'type_to'   => $type_to,
-        ), array(
-            '%d',
-            '%d',
-            '%s',
-            '%s',
-            '%s'
-        ) );
+        global $wpdb;
+        $wpdb->insert($wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX, array('link_from' => $link_from, 'link_to' => $link_to, 'anchor' => $anchor, 'type_from' => $type_from, 'type_to' => $type_to), array('%d', '%d', '%s', '%s', '%s'));
     }
-    
     /**
      * Aggregates and counts entries for a given column
      *
@@ -178,27 +144,18 @@ class Linkindex
      * @param  string $column The column in the linkindex table
      * @return array
      */
-    public static function getGroupedCount( $column )
+    public static function getGroupedCount($column)
     {
-        $allowed_columns = array( 'link_from', 'link_to', 'anchor' );
-        if ( !in_array( $column, $allowed_columns ) ) {
+        $allowed_columns = array('link_from', 'link_to', 'anchor');
+        if (!in_array($column, $allowed_columns)) {
             return null;
         }
-        $type_mapping = array(
-            'link_from' => 'type_from',
-            'link_to'   => 'type_to',
-        );
-        $type = ( in_array( $column, array_keys( $type_mapping ) ) ? ', ' . $type_mapping[$column] . ' AS type ' : '' );
-        global  $wpdb ;
-        $query = sprintf(
-            'SELECT  %1$s, COUNT(*) AS elements%2$s FROM %3$s linkindex GROUP BY %1$s ORDER BY elements DESC',
-            $column,
-            $type,
-            $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX
-        );
-        return $wpdb->get_results( $query );
+        $type_mapping = array('link_from' => 'type_from', 'link_to' => 'type_to');
+        $type = in_array($column, array_keys($type_mapping)) ? ', ' . $type_mapping[$column] . ' AS type ' : '';
+        global $wpdb;
+        $query = sprintf('SELECT  %1$s, COUNT(*) AS elements%2$s FROM %3$s linkindex GROUP BY %1$s ORDER BY elements DESC', $column, $type, $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX);
+        return $wpdb->get_results($query);
     }
-    
     /**
      * Returns all link data grouped by in- and outlink countings
      *
@@ -208,15 +165,15 @@ class Linkindex
      * @param  int    $offset Offset of selected results
      * @return array
      */
-    public static function getGroupedCountFull( $order, $limit, $offset )
+    public static function getGroupedCountFull($order, $limit, $offset)
     {
-        $allowed_orders = array( 'elements_from', 'elements_to' );
-        if ( !in_array( $order, $allowed_orders ) ) {
+        $allowed_orders = array('elements_from', 'elements_to');
+        if (!in_array($order, $allowed_orders)) {
             $order = 'elements_from';
         }
-        $limit = ( $limit > 0 ? sprintf( ' LIMIT %1$d OFFSET %2$d', $limit, $offset ) : '' );
-        global  $wpdb ;
-        $query = sprintf( '
+        $limit = ($limit > 0) ? sprintf(' LIMIT %1$d OFFSET %2$d', $limit, $offset) : '';
+        global $wpdb;
+        $query = sprintf('
             SELECT asset_id, elements_from, elements_to, asset_type
             FROM(
                 (
@@ -243,10 +200,9 @@ class Linkindex
                     AND
                     (outlinks.asset_type_ = inlinks.asset_type)
                 )
-            ORDER BY %1$s DESC' . $limit, $order );
-        return $wpdb->get_results( $query );
+            ORDER BY %1$s DESC' . $limit, $order);
+        return $wpdb->get_results($query);
     }
-    
     /**
      * Returns all links, pointing to or from a single resource
      *
@@ -256,25 +212,22 @@ class Linkindex
      * @param  string $direction
      * @return array
      */
-    public static function getDirectiveLinks( $id, $type, $direction )
+    public static function getDirectiveLinks($id, $type, $direction)
     {
-        global  $wpdb ;
-        if ( !is_numeric( $id ) ) {
+        global $wpdb;
+        if (!is_numeric($id)) {
             return;
         }
         $select = 'SELECT * FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' linkindex';
-        
-        if ( 'from' == $direction ) {
-            $query = $wpdb->prepare( $select . ' WHERE linkindex.link_from = %d AND linkindex.type_from = %s', $id, $type );
-        } elseif ( 'to' == $direction ) {
-            $query = $wpdb->prepare( $select . ' WHERE linkindex.link_to = %d AND linkindex.type_to = %s', $id, $type );
+        if ('from' == $direction) {
+            $query = $wpdb->prepare($select . ' WHERE linkindex.link_from = %d AND linkindex.type_from = %s', $id, $type);
+        } elseif ('to' == $direction) {
+            $query = $wpdb->prepare($select . ' WHERE linkindex.link_to = %d AND linkindex.type_to = %s', $id, $type);
         } else {
             return null;
         }
-        
-        return $wpdb->get_results( $query );
+        return $wpdb->get_results($query);
     }
-    
     /**
      * Returns all anchor texts with their frequency
      *
@@ -283,11 +236,10 @@ class Linkindex
      */
     public static function getAnchorCountFull()
     {
-        global  $wpdb ;
+        global $wpdb;
         $query = 'SELECT *, count(anchor) as frequency FROM  ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . '  GROUP BY anchor ORDER BY frequency DESC';
-        return $wpdb->get_results( $query );
+        return $wpdb->get_results($query);
     }
-    
     /**
      * Count inbound/outbound entries for a given index type
      *
@@ -296,33 +248,31 @@ class Linkindex
      * @param  int    $id     The ID of the element we want to count rows for
      * @return int
      */
-    public static function get_grouped_count_for_type( $column, $type, $id )
+    public static function get_grouped_count_for_type($column, $type, $id)
     {
-        global  $wpdb ;
-        $allowed_columns = array( 'link_from', 'link_to' );
-        if ( !in_array( $column, $allowed_columns ) ) {
-            throw new Exception( sprintf( "Invalid column name %s", $column ) );
+        global $wpdb;
+        $allowed_columns = array('link_from', 'link_to');
+        if (!in_array($column, $allowed_columns)) {
+            throw new Exception(esc_html(sprintf("Invalid column name %s", $column)));
         }
-        $allowed_types = array( 'post', 'term', 'custom' );
-        if ( !in_array( $type, $allowed_types ) ) {
-            throw new Exception( sprintf( "Invalid element type %s", $type ) );
+        $allowed_types = array('post', 'term', 'custom');
+        if (!in_array($type, $allowed_types)) {
+            throw new Exception(esc_html(sprintf("Invalid element type %s", $type)));
         }
-        $type_mapping = array(
-            'link_from' => 'type_from',
-            'link_to'   => 'type_to',
-        );
+        $type_mapping = array('link_from' => 'type_from', 'link_to' => 'type_to');
         $type_field = $type_mapping[$column];
-        $query = $wpdb->prepare(
-            'SELECT %1$s, COUNT(1) FROM %2$s linkindex WHERE linkindex.%3$s = %4$s AND %5$s = "%6$s" GROUP BY %7$s',
-            $column,
-            $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX,
-            $column,
-            $id,
-            $type_field,
-            $type,
-            $column
-        );
-        return (int) $wpdb->get_var( $query, 1 );
+        $query = $wpdb->prepare('SELECT %1$s, COUNT(1) FROM %2$s linkindex WHERE linkindex.%3$s = %4$s AND %5$s = "%6$s" GROUP BY %7$s', $column, $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX, $column, $id, $type_field, $type, $column);
+        return (int) $wpdb->get_var($query, 1);
     }
-
+    /**
+     * Delete link index entries by type
+     *
+     * @param  String $type
+     * @return void
+     */
+    public static function delete_links_by_type($type)
+    {
+        global $wpdb;
+        $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . ' WHERE type_from = %s OR type_to = %s', $type, $type));
+    }
 }

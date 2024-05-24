@@ -64,7 +64,7 @@ function widgetopts_global_taxonomies()
 
         // Let's let devs alter that value coming in
         $taxonomies = apply_filters('widgetopts_update_global_taxonomies', $taxonomies);
-        update_option('widgetopts_global_taxonomies', $taxonomies);
+        update_option('widgetopts_global_taxonomies', $taxonomies, false);
     }
 
     return apply_filters('widgetopts_get_global_taxonomies', $taxonomies);

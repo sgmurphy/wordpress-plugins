@@ -4,7 +4,7 @@ Tags: woocommerce, quick view, woocommerce quick view, products quick view
 Requires PHP: 7.4
 Requires at least: 6.3
 Tested up to: 6.5
-Stable tag: 1.38.0
+Stable tag: 1.39.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. The quick view modal.
 
 == Changelog ==
+
+= 1.39.0 = Released 25 May 2024
+
+* New: support for WooCommerce 8.9
+* Update: YITH plugin framework
 
 = 1.38.0 = Released 17 April 2024
 
@@ -542,7 +547,7 @@ Or, if you have created your own language pack, or have an update for an existin
 
 == Upgrade notice ==
 
-= 1.38.0 = Released 17 April 2024
+= 1.39.0 = Released 25 May 2024
 
-* New: support for WooCommerce 8.8
+* New: support for WooCommerce 8.9
 * Update: YITH plugin framework

@@ -23,6 +23,7 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 	private $styles;
 	private $documentation = '';
 	private $demo          = '';
+	private $is_new        = '';
 	private $video         = '';
 
 	public function __construct() {
@@ -219,6 +220,14 @@ abstract class QiAddonsForElementor_Framework_Shortcode {
 
 	public function set_demo( $demo ) {
 		$this->demo = $demo;
+	}
+
+	public function get_is_new() {
+		return $this->is_new;
+	}
+
+	public function set_is_new( $is_new ) {
+		$this->is_new = $is_new;
 	}
 
 	public function get_video() {

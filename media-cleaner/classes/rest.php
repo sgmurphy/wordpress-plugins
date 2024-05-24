@@ -143,12 +143,12 @@ class Meow_WPMC_Rest
 			register_rest_route( $this->namespace, '/refresh_logs', array(
 				'methods' => 'POST',
 				'permission_callback' => array( $this->core, 'can_access_features' ),
-				'callback' => array( $this, 'refresh_logs' )
+				'callback' => array( $this, 'rest_refresh_logs' )
 			) );
 			register_rest_route( $this->namespace, '/clear_logs', array(
 				'methods' => 'POST',
 				'permission_callback' => array( $this->core, 'can_access_features' ),
-				'callback' => array( $this, 'clear_logs' )
+				'callback' => array( $this, 'rest_clear_logs' )
 			) );
 		} 
 		catch (Exception $e) {
@@ -375,21 +375,12 @@ class Meow_WPMC_Rest
 		], 200 );
 	}
 
-	function refresh_logs() {
-		$data = "No data.";
-
-		$log_file = $this->core->get_logs_path();
-
-		if ( file_exists( $log_file ) ) {
-			$data = file_get_contents( $log_file );
-		}
-
-		return new WP_REST_Response( [ 'success' => true, 'data' => $data ], 200 );
+	function rest_refresh_logs() {
+		return new WP_REST_Response( [ 'success' => true, 'data' => $this->core->get_logs() ], 200 );
 	}
 
-	function clear_logs() {
-		$log_file = $this->core->get_logs_path();
-		unlink( $log_file );
+	function rest_clear_logs() {
+		$this->core->clear_logs();
 		return new WP_REST_Response( [ 'success' => true ], 200 );
 	}
 

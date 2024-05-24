@@ -1,13 +1,13 @@
 === Internal Link Juicer: SEO Auto Linker for WordPress ===
-Contributors: internallinkjuicer, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua, freemius
+Contributors: internallinkjuicer, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua
 Donate link: https://www.internallinkjuicer.com/
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker, ux, link, links
 Requires at least: 5.9.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.1.0
-Stable tag: 2.23.6
+Stable tag: 2.24.3
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -129,6 +129,25 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 
 == Changelog ==
 
+= 2.24.3 - 15/May/2024 =
+* FEATURE: Custom fields now have support for wildcard field names.
+* FEATURE: Keywords editor for posts and terms.
+* FIX: Fix Muffin Builder Compatibility issue.
+* FIX: Fix issues with creating linkindex table in multisite setup.
+* FIX: Prevent fatal error when whitelist of post types is empty in premium version.
+* FIX: Resolved a bug related to the global blacklist functionality, ensuring that links are no longer generated to blacklisted posts/terms.
+* FIX: Fixed issue with contents not properly rendering.
+* FIX: Page title links on dashboard statistics not loading the page when clicked.
+* TRANSLATIONS: Split sentences to make one sentence in any  translation functions
+* TWEAK: Added non minified js and css files to distributed version.
+* TWEAK: Added sourcemaps and polyfills to plugin scripts.
+* TWEAK: Avoid PHP errors on rebuild process when post/terms are empty.
+* TWEAK: Implemented output escaping to address WordPress.Security.EscapeOutput.OutputNotEscaped warnings.
+* TWEAK: Added checks if content needs applying link building filter or not to lessen processing time.
+* TWEAK: Update Premium code blocks.
+* TWEAK: Update action scheduler to version 3.7.4.
+* TWEAK: Freemius SDK update to 2.7.2
+
 = 2.23.6 - 13/Feb/2024 =
 * FIX: Fixed issue with contents not properly rendering.
 
@@ -223,4 +242,7 @@ Release Date: December 2nd, 2022
 = Earlier versions =
 
 For the complete changelog, please refer to [https://www.internallinkjuicer.com/changelog/](https://www.internallinkjuicer.com/changelog/).
+
+== Upgrade Notice ==
+* 2.24.3: Various features like custom field name wildcard support and keyword editor. Various tweaks and fixes. See changelog for full details. A recommended update for all.
 

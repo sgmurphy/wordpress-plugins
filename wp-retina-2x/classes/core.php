@@ -540,10 +540,10 @@ class Meow_WR2X_Core {
 						break;
 					}
 				}
-				if ( !$filename || !file_exists( trailingslashit( $upload_dir['basedir'] ) . trailingslashit( $pathinfo['dirname'] ) . $filename . $this->webp_extension() ) ) {
+				if ( !$filename || !file_exists( trailingslashit( $upload_dir['basedir'] ) . trailingslashit( $pathinfo['dirname'] ) . $filename . $this->webp_avif_extension() ) ) {
 					continue;
 				}
-				$webp_url = $source['url'] . $this->webp_extension();
+				$webp_url = $source['url'] . $this->webp_avif_extension();
 				$source['url'] = $webp_url;
 			}
 		}
@@ -1093,7 +1093,7 @@ class Meow_WR2X_Core {
 		$webp_file = trailingslashit( $pathinfo['dirname'] )
 			. $pathinfo['filename']
 			. ( isset( $pathinfo['extension'] ) ? "." . $pathinfo['extension'] : "" )
-			. $this->webp_extension();
+			. $this->webp_avif_extension();
 		if ( file_exists( $webp_file ) )
 			return $webp_file;
 		$this->log( "WebP file at '{$webp_file}' does not exist." );
@@ -1118,7 +1118,7 @@ class Meow_WR2X_Core {
 			. $pathinfo['filename']
 			. $this->retina_extension()
 			. ( isset( $pathinfo['extension'] ) ? $pathinfo['extension'] : "" )
-			. $this->webp_extension();
+			. $this->webp_avif_extension();
 		if ( file_exists( $webp_retina_file ) )
 			return $webp_retina_file;
 		$this->log( "WebP Retina file at '{$webp_retina_file}' does not exist." );
@@ -1432,7 +1432,14 @@ class Meow_WR2X_Core {
 	}
 
 	function clear_logs() {
-		unlink( $this->get_logs_path() );
+		$logPath = $this->get_logs_path();
+		if ( file_exists( $logPath ) ) {
+			unlink( $logPath );
+		}
+
+		$options = $this->get_all_options();
+		$options['logs_path'] = null;
+		$this->update_options( $options );
 	}
 
 	function get_logs_path() {
@@ -1502,7 +1509,12 @@ class Meow_WR2X_Core {
 		return '@2x.';
 	}
 
-	function webp_extension() {
+	function webp_avif_extension() {
+
+		if ( $this->get_option( 'generate_avif', false ) ) {
+			return '.avif';
+		}
+			
 		return '.webp';
 	}
 
@@ -1646,7 +1658,7 @@ class Meow_WR2X_Core {
 					$normal_file = trailingslashit( $basepath ) . $meta['sizes'][$name]['file'];
 					$pathinfo = pathinfo( $normal_file ) ;
 					
-					$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->webp_extension();
+					$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->webp_avif_extension();
 					$webp_file = trailingslashit( $pathinfo['dirname'] ) . $pathinfo['filename'] . '.' . $pathinfo['extension'] . $new_webp_ext;
 				}
 				// None of the file exist
@@ -1668,7 +1680,7 @@ class Meow_WR2X_Core {
 
 		// Full-Size (if required in the settings)
 		$fullsize_required = $this->get_option( "webp_full_size" ) && class_exists( 'MeowPro_WR2X_Core' );
-		$webp_file = trailingslashit( $pathinfo_fullsize['dirname'] ) . $pathinfo_fullsize['filename'] . '.' . $pathinfo_fullsize['extension'] . $this->webp_extension();
+		$webp_file = trailingslashit( $pathinfo_fullsize['dirname'] ) . $pathinfo_fullsize['filename'] . '.' . $pathinfo_fullsize['extension'] . $this->webp_avif_extension();
 		if ( $webp_file && file_exists( $webp_file ) )
 			$result['full-size'] = 'EXISTS';
 		else if ( $fullsize_required && $webp_file )
@@ -1731,7 +1743,7 @@ class Meow_WR2X_Core {
 				) {
 					$normal_file = trailingslashit( $basepath ) . $meta['sizes'][$name]['file'];
 					$pathinfo = pathinfo( $normal_file ) ;
-					$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->webp_extension();
+					$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->webp_avif_extension();
 					$webp_retina_file = trailingslashit( $pathinfo['dirname'] ) . $pathinfo['filename'] . $this->retina_extension() . $pathinfo['extension'] . $new_webp_ext;
 				}
 				// None of the file exist
@@ -1918,6 +1930,7 @@ class Meow_WR2X_Core {
 			'gif_thumbnails_disabled' => false,
 			'logs_path' => null,
 			'custom_image_sizes' => [],
+			'generate_avif' => false,
 		);
 	}
 

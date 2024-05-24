@@ -250,8 +250,10 @@
 }
 
 @mixin boxed-table-h-scroll-wrapper($table_selector) {
-    padding: 0 1px;
-    margin: 20px -1px 0;
+    .yith-plugin-ui__wp-list-auto-h-scroll__scrollable {
+        padding: 0 1px;
+        margin: 20px -1px 0;
+    }
 
     #{$table_selector} {
         margin-top: -20px;
@@ -293,6 +295,38 @@
 
     &:not(.yith-plugin-ui--has-scrolling) {
         overflow: visible;
+    }
+}
+
+@mixin classic-table-h-scroll-wrapper($table_selector) {
+    border: 2px solid var(--yith-table-border-light);
+
+    #{$table_selector} {
+        border: none;
+        margin: 0 !important;
+    }
+
+    @media screen and (min-width: 783px) {
+        &.yith-plugin-ui--has-scrolling {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 20px;
+                height: 100%;
+                top: 0;
+                left: 100%;
+                box-shadow: 0 0 15px 4px var(--yith-shadow);
+                pointer-events: none;
+                clip-path: polygon(-15px 0, 100% 0, 100% 100%, -15px 100%);
+                z-index: 99;
+            }
+
+            &.yith-plugin-ui--is-scrolled:after {
+                display: none;
+            }
+        }
     }
 }
 

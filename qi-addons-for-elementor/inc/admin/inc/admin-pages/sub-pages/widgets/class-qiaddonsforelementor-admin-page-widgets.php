@@ -29,13 +29,9 @@ if ( class_exists( 'QiAddonsForElementor_Admin_Sub_Pages' ) ) {
 
 			parent::__construct();
 
-			add_action(
-				'wp_ajax_qi_addons_for_elementor_action_framework_save_options',
-				array(
-					$this,
-					'save_widgets',
-				)
-			);
+			add_filter( 'qi_addons_for_elementor_filter_hidden_submenu_pages', array( $this, 'add_to_hidden_submenu_pages' ) );
+
+			add_action( 'wp_ajax_qi_addons_for_elementor_action_framework_save_options', array( $this, 'save_widgets' ) );
 		}
 
 		public function get_sidebar() {
@@ -78,6 +74,7 @@ if ( class_exists( 'QiAddonsForElementor_Admin_Sub_Pages' ) ) {
 				$shortcodes_array[ $shortcode->get_base() ]['documentation'] = $shortcode->get_documentation();
 				$shortcodes_array[ $shortcode->get_base() ]['premium']       = stripos( $shortcode->get_category(), 'premium' ) ? true : false;
 				$shortcodes_array[ $shortcode->get_base() ]['active']        = true;
+				$shortcodes_array[ $shortcode->get_base() ]['new']           = $shortcode->get_is_new() !== null && $shortcode->get_is_new();
 			}
 
 			$promo_shortcodes = qi_addons_for_elementor_promotion_shortcodes_list();
@@ -214,6 +211,12 @@ if ( class_exists( 'QiAddonsForElementor_Admin_Sub_Pages' ) ) {
 			}
 
 			$wp_filesystem->put_contents( $main_file, $main_style, FS_CHMOD_FILE );
+		}
+
+		public function add_to_hidden_submenu_pages( $hidden_submenu_pages ) {
+			$hidden_submenu_pages[] = $this->get_menu_slug();
+
+			return $hidden_submenu_pages;
 		}
 	}
 }

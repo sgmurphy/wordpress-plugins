@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Qi Addons For Elementor
+ * Plugin Name: Qi Addons for Elementor
  * Description: Qi Addons for Elementor is a comprehensive library of 60 custom, flexible & easily styled widgets for Elementor developed by Qode Interactive.
  * Author: Qode Interactive
  * Author URI: https://qodeinteractive.com/
  * Plugin URI: https://qodeinteractive.com/qi-addons-for-elementor/
- * Version: 1.7.1
+ * Version: 1.7.2
  * Text Domain: qi-addons-for-elementor
- * Elementor tested up to: 3.21.3
- * Elementor Pro tested up to: 3.21.1
+ * Elementor tested up to: 3.21.7
+ * Elementor Pro tested up to: 3.21.3
  */
 
 if ( ! class_exists( 'QiAddonsForElementor' ) ) {

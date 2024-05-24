@@ -2,7 +2,7 @@
 Contributors: userwayorg
 Tags: ada, wcag, EAA compliance, section 508, accessibility
 Requires at least: 4.7
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Stable tag: 5.7.2
 
 UserWay’s Accessibility Widget creates a simpler and more accessible browsing experience for your users.
@@ -78,7 +78,8 @@ change endpoint to non permalinks
 change Admin menu location and icon
 = 2.5.0 =
 improve README file
-
+= 2.5.1 =
+Implementation of Compliant Admin Notice
 
 *
 *Added translations for the plugin:

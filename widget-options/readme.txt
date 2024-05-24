@@ -4,10 +4,11 @@ Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 4.0.6
+Stable tag: 4.0.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+Widget Options gives you super powers to control your site’s sidebar widgets and all Gutenberg blocks on pages, posts & other custom post types.
 
 == Description ==
 
@@ -191,6 +192,10 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 14. Elementor Pagebuilder Integration
 
 == Changelog ==
+
+= 4.0.5.1 =
+
+* Improved: widgetopts_global_taxonomies attributes
 
 = 4.0.6 =
 

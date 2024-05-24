@@ -16,7 +16,7 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 		public function __construct() {
 
 			$this->menu_slug = 'qi_addons_for_elementor_welcome';
-			$this->title     = esc_html__( 'Qi Addons For Elementor', 'qi-addons-for-elementor' );
+			$this->title     = esc_html__( 'Qi Addons for Elementor', 'qi-addons-for-elementor' );
 			$this->transient = 'qi_addons_for_elementor_set_redirect';
 
 			// action is init because of shortcode register on init - 0.
@@ -28,6 +28,10 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 			add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 20 );
 
 			add_filter( 'admin_body_class', array( $this, 'add_admin_body_classes' ) );
+
+			add_filter( 'elementor/admin-top-bar/is-active', array( $this, 'remove_elementor_admin_top_bar' ), 10, 2 );
+			
+			add_action( 'admin_init', array( $this, 'fix_missing_title' ) );
 		}
 
 		/**
@@ -76,9 +80,13 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 
 			ksort( $subpages_array );
 
+			$hidden_submenu_pages = apply_filters( 'qi_addons_for_elementor_filter_hidden_submenu_pages', array() );
+
 			foreach ( $subpages_array as $sub_page => $sub_page_value ) {
+				$parent_slug = ! in_array( $sub_page_value->get_menu_slug(), $hidden_submenu_pages, true ) ? $this->get_menu_slug() : '';
+
 				$sub_page_instance = add_submenu_page(
-					$this->get_menu_slug(),
+					$parent_slug,
 					$sub_page_value->get_title(),
 					$sub_page_value->get_title(),
 					'edit_theme_options',
@@ -91,7 +99,7 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 			}
 		}
 
-		public function get_header( $object = null ) {
+		public function get_header( $object = null, $params = array() ) {
 
 			$object = ! empty( $object ) ? $object : $this;
 
@@ -100,6 +108,8 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 				'menu_title' => $object->get_title(),
 				'menu_url'   => admin_url( 'admin.php?page=' . $this->get_menu_slug() ),
 			);
+
+			$args = array_merge( $args, $params );
 
 			qi_addons_for_elementor_framework_template_part( QI_ADDONS_FOR_ELEMENTOR_ADMIN_PATH . '/inc', 'admin-pages', 'templates/header', '', $args );
 		}
@@ -151,6 +161,7 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 		public function enqueue_scripts() {
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion
 			wp_enqueue_script( 'qi-addons-for-elementor-framework-script', QI_ADDONS_FOR_ELEMENTOR_ADMIN_URL_PATH . '/inc/admin-pages/assets/js/dashboard.js', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'perfect-scrollbar', QI_ADDONS_FOR_ELEMENTOR_ADMIN_URL_PATH . '/inc/admin-pages/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js', array(), '1.5.3', true );
 
 			do_action( 'qi_addons_for_elementor_action_additional_scripts' );
 		}
@@ -208,6 +219,22 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 				);
 
 				exit;
+			}
+		}
+
+		public function remove_elementor_admin_top_bar( $value, $current_screen ) {
+			if ( isset( $current_screen->id ) && false !== strpos( $current_screen->id, 'qi_addons_for_elementor' ) ) {
+				return false;
+			}
+
+			return $value;
+		}
+		
+		public function fix_missing_title() {
+			global $title;
+			
+			if ( empty( $title ) ) {
+				$title = '';
 			}
 		}
 	}

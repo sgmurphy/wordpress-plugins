@@ -609,21 +609,6 @@ body.yith-plugin-fw-panel.yith-plugin-fw-panel--version-2 {
             margin-left: 8px;
         }
     }
-
-    &.yith-plugin-fw__panel__content--has-header-nav {
-        .yith-plugin-fw__panel__content__page {
-            .yith-plugin-fw__panel__content__page__heading {
-                border-bottom: none;
-            }
-
-            .yith-plugin-fw__panel__content__page__container,
-            .yith-plugin-fw-panel-custom-tab-container,
-            #plugin-fw-wc,
-            #yith-plugin-fw-panel {
-                padding-top: 0;
-            }
-        }
-    }
 }
 
 #yith-plugin-fw__panel__sidebar__mobile-backdrop {

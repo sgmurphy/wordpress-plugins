@@ -2,7 +2,7 @@
 
 namespace ILJ\Core\Options;
 
-use  ILJ\Helper\Options as OptionsHelper ;
+use ILJ\Helper\Options as OptionsHelper;
 /**
  * Option: Respect existing links
  *
@@ -20,7 +20,6 @@ class RespectExistingLinks extends AbstractOption
     {
         return self::ILJ_OPTIONS_PREFIX . 'link_output_respect_existing_links';
     }
-    
     /**
      * Get the default value of the option
      *
@@ -30,7 +29,6 @@ class RespectExistingLinks extends AbstractOption
     {
         return false;
     }
-    
     /**
      * Identifies if the current option is pro only
      *
@@ -40,17 +38,15 @@ class RespectExistingLinks extends AbstractOption
     {
         return true;
     }
-    
     /**
      * Adds the option to an option group
      *
      * @param  string $option_group The option group to which the option gets connected
      * @return void
      */
-    public function register( $option_group )
+    public function register($option_group)
     {
     }
-    
     /**
      * Get the frontend label for the option
      *
@@ -58,9 +54,8 @@ class RespectExistingLinks extends AbstractOption
      */
     public function getTitle()
     {
-        return __( 'Consideration of existing or manually created links', 'internal-links' );
+        return __('Consideration of existing or manually created links', 'internal-links');
     }
-    
     /**
      * Get the frontend description for the option
      *
@@ -68,30 +63,26 @@ class RespectExistingLinks extends AbstractOption
      */
     public function getDescription()
     {
-        return __( 'Do not link already manually built link targets', 'internal-links' ) . '<br>' . __( 'Prevents links to URLs that are already linked in the content', 'internal-links' );
+        return __('Do not link already manually built link targets', 'internal-links') . '<br>' . __('Prevents links to URLs that are already linked in the content', 'internal-links');
     }
-    
     /**
      * Outputs the options form element for backend administration
      *
      * @param  mixed $value
      * @return mixed
      */
-    public function renderField( $value )
+    public function renderField($value)
     {
-        $checked = checked( 1, $value, false );
-        OptionsHelper::renderToggle( $this, $checked );
+        OptionsHelper::renderToggle($this, $value);
     }
-    
     /**
      * Checks if a value is a valid value for option
      *
      * @param  mixed $value The value that gets validated
      * @return bool
      */
-    public function isValidValue( $value )
+    public function isValidValue($value)
     {
         return false;
     }
-
 }

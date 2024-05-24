@@ -4,7 +4,7 @@ Tags: elementor, elementor addons, elementor widgets, elementor elements, addons
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -327,6 +327,10 @@ From wordpress.org
 
 
 == Changelog ==
+
+= 1.7.2 - 24-05-2024 =
+- Improved admin layout
+- Minor improvements
 
 = 1.7.1 - 26-04-2024 =
 - Fixed 'Countdown' widget labels rendering

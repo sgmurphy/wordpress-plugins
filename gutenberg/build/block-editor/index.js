@@ -49451,6 +49451,25 @@ function useClipboardHandler() {
       if (selectedBlockClientIds.length === 0) {
         return;
       }
+
+      // Let native copy/paste behaviour take over in input fields.
+      // But always handle multiple selected blocks.
+      if (!hasMultiSelection()) {
+        const {
+          target
+        } = event;
+        const {
+          ownerDocument
+        } = target;
+        // If copying, only consider actual text selection as selection.
+        // Otherwise, any focus on an input field is considered.
+        const hasSelection = event.type === 'copy' || event.type === 'cut' ? (0,external_wp_dom_namespaceObject.documentHasUncollapsedSelection)(ownerDocument) : (0,external_wp_dom_namespaceObject.documentHasSelection)(ownerDocument) && !ownerDocument.activeElement.isContentEditable;
+
+        // Let native copy behaviour take over in input fields.
+        if (hasSelection) {
+          return;
+        }
+      }
       const {
         activeElement
       } = event.target.ownerDocument;
@@ -49461,22 +49480,6 @@ function useClipboardHandler() {
       const shouldHandleWholeBlocks = __unstableIsSelectionCollapsed() || __unstableIsFullySelected();
       const expandSelectionIsNeeded = !shouldHandleWholeBlocks && !isSelectionMergeable;
       if (event.type === 'copy' || event.type === 'cut') {
-        if (!hasMultiSelection()) {
-          const {
-            target
-          } = event;
-          const {
-            ownerDocument
-          } = target;
-          // If copying, only consider actual text selection as selection.
-          // Otherwise, any focus on an input field is considered.
-          const hasSelection = event.type === 'copy' || event.type === 'cut' ? (0,external_wp_dom_namespaceObject.documentHasUncollapsedSelection)(ownerDocument) : (0,external_wp_dom_namespaceObject.documentHasSelection)(ownerDocument);
-
-          // Let native copy behaviour take over in input fields.
-          if (hasSelection) {
-            return;
-          }
-        }
         event.preventDefault();
         if (selectedBlockClientIds.length === 1) {
           flashBlock(selectedBlockClientIds[0]);

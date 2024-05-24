@@ -1,1 +1,23 @@
-jQuery(document).ready(function(){jQuery(".iljmessage.admin-warning-litespeed").on("click",".notice-dismiss",function(e){e.preventDefault();jQuery.ajax({url:ajaxurl,type:"POST",data:{action:"ilj_dismiss_admin_warning_litespeed"},statusCode:{500:function(e){jQuery(e.responseJSON.message)}},success:function(e,n,i){}})})});
+var __webpack_exports__ = {};
+/*!******************************************!*\
+  !*** ./src/admin/js/ilj_admin_script.js ***!
+  \******************************************/
+jQuery(document).ready(function () {
+  jQuery('.iljmessage.admin-warning-litespeed').on('click', '.notice-dismiss', function (e) {
+    e.preventDefault();
+    var data = {
+      'action': 'ilj_dismiss_admin_warning_litespeed'
+    };
+    jQuery.ajax({
+      url: ajaxurl,
+      type: "POST",
+      data: data,
+      statusCode: {
+        500: function (xhr) {
+          var $feedback = jQuery(xhr.responseJSON.message);
+        }
+      },
+      success: function (data, textStatus, xhr) {}
+    });
+  });
+});

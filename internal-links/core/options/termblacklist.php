@@ -2,7 +2,7 @@
 
 namespace ILJ\Core\Options;
 
-use  ILJ\Helper\Options as OptionsHelper ;
+use ILJ\Helper\Options as OptionsHelper;
 /**
  * Option: Blacklist for terms
  *
@@ -20,7 +20,6 @@ class TermBlacklist extends AbstractOption
     {
         return self::ILJ_OPTIONS_PREFIX . 'term_blacklist';
     }
-    
     /**
      * Get the default value of the option
      *
@@ -30,7 +29,6 @@ class TermBlacklist extends AbstractOption
     {
         return array();
     }
-    
     /**
      * Identifies if the current option is pro only
      *
@@ -40,17 +38,15 @@ class TermBlacklist extends AbstractOption
     {
         return true;
     }
-    
     /**
      * Adds the option to an option group
      *
      * @param  string $option_group The option group to which the option gets connected
      * @return void
      */
-    public function register( $option_group )
+    public function register($option_group)
     {
     }
-    
     /**
      * Get the frontend label for the option
      *
@@ -58,9 +54,8 @@ class TermBlacklist extends AbstractOption
      */
     public function getTitle()
     {
-        return __( 'Blacklist of terms that should not be used for linking', 'internal-links' );
+        return __('Blacklist of terms that should not be used for linking', 'internal-links');
     }
-    
     /**
      * Get the frontend description for the option
      *
@@ -68,18 +63,17 @@ class TermBlacklist extends AbstractOption
      */
     public function getDescription()
     {
-        return __( 'Terms that get configured here do not link to others automatically.', 'internal-links' );
+        return __('Terms that get configured here do not link to others automatically.', 'internal-links');
     }
-    
     /**
      * Outputs the options form element for backend administration
      *
      * @param  mixed $value
      * @return mixed
      */
-    public function renderField( $value )
+    public function renderField($value)
     {
-        if ( '' == $value ) {
+        if ('' == $value) {
             $value = array();
         }
         /**
@@ -88,46 +82,44 @@ class TermBlacklist extends AbstractOption
          *
          * @since 2.23.5
          */
-        $limit = apply_filters( 'ilj_term_blacklist_title_character_limit', 20 );
+        $limit = apply_filters('ilj_term_blacklist_title_character_limit', 20);
         ?>
 		<select name="<?php 
-        echo  esc_attr( self::getKey() ) ;
+        echo esc_attr(self::getKey());
         ?>[]"
 				id="<?php 
-        echo  esc_attr( self::getKey() ) ;
+        echo esc_attr(self::getKey());
         ?>"
 				multiple="multiple"
 				data-ilj-title-character-limit="<?php 
-        echo  esc_attr( $limit ) ;
+        echo esc_attr($limit);
         ?>"
 				<?php 
-        OptionsHelper::getDisabler( $this );
+        OptionsHelper::render_disabler($this);
         ?>
 		>
 		<?php 
-        foreach ( $value as $val ) {
-            $term = get_term( $val );
-            $term_name = sprintf( '%s [%s]', $term->name, ucfirst( $term->taxonomy ) );
+        foreach ($value as $val) {
+            $term = get_term($val);
+            $term_name = sprintf('%s [%s]', $term->name, ucfirst($term->taxonomy));
             ?>
 			<option value="<?php 
-            echo  esc_attr( $term->term_id ) ;
+            echo esc_attr($term->term_id);
             ?>" selected="selected"><?php 
-            echo  esc_attr( $term_name ) ;
+            echo esc_attr($term_name);
             ?></option>
 			<?php 
         }
-        echo  '</select>' ;
+        echo '</select>';
     }
-    
     /**
      * Checks if a value is a valid value for option
      *
      * @param  mixed $value The value that gets validated
      * @return bool
      */
-    public function isValidValue( $value )
+    public function isValidValue($value)
     {
         return false;
     }
-
 }

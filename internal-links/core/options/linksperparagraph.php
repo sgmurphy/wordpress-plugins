@@ -2,10 +2,10 @@
 
 namespace ILJ\Core\Options;
 
-use  ILJ\Helper\Help ;
-use  ILJ\Core\Options ;
-use  ILJ\Core\Options\MultipleKeywords ;
-use  ILJ\Helper\Options as OptionsHelper ;
+use ILJ\Helper\Help;
+use ILJ\Core\Options as Options;
+use ILJ\Core\Options\MultipleKeywords;
+use ILJ\Helper\Options as OptionsHelper;
 /**
  * Option: Links per Paragraph
  *
@@ -23,7 +23,6 @@ class LinksPerParagraph extends AbstractOption
     {
         return self::ILJ_OPTIONS_PREFIX . 'links_per_paragraph';
     }
-    
     /**
      * Get the default value of the option
      *
@@ -33,7 +32,6 @@ class LinksPerParagraph extends AbstractOption
     {
         return (int) 0;
     }
-    
     /**
      * Identifies if the current option is pro only
      *
@@ -43,17 +41,15 @@ class LinksPerParagraph extends AbstractOption
     {
         return true;
     }
-    
     /**
      * Adds the option to an option group
      *
      * @param  string $option_group The option group to which the option gets connected
      * @return void
      */
-    public function register( $option_group )
+    public function register($option_group)
     {
     }
-    
     /**
      * Get the frontend label for the option
      *
@@ -61,9 +57,8 @@ class LinksPerParagraph extends AbstractOption
      */
     public function getTitle()
     {
-        return __( 'Maximum amount of links per paragraph', 'internal-links' );
+        return __('Maximum amount of links per paragraph', 'internal-links');
     }
-    
     /**
      * Get the frontend description for the option
      *
@@ -71,50 +66,47 @@ class LinksPerParagraph extends AbstractOption
      */
     public function getDescription()
     {
-        return __( 'Set the maximum links per paragraph.', 'internal-links' );
+        return __('Set the maximum links per paragraph.', 'internal-links');
     }
-    
     /**
      * Outputs the options form element for backend administration
      *
      * @param  mixed $value
      * @return mixed
      */
-    public function renderField( $value )
+    public function renderField($value)
     {
-        $multiple_keywords = Options::getOption( MultipleKeywords::getKey() );
+        $multiple_keywords = Options::getOption(MultipleKeywords::getKey());
         $key = self::getKey();
         ?>
 		<input type="number"
 			min="1"
 			name="<?php 
-        echo  esc_attr( $key ) ;
+        echo esc_attr($key);
         ?>"
 			id="<?php 
-        echo  esc_attr( $key ) ;
+        echo esc_attr($key);
         ?>"
 			value="<?php 
-        echo  esc_attr( $value ) ;
+        echo esc_attr($value);
         ?>"
 			<?php 
-        disabled( $multiple_keywords );
+        disabled($multiple_keywords);
         ?>
 			<?php 
-        echo  OptionsHelper::getDisabler( $this ) ;
+        OptionsHelper::render_disabler($this);
         ?>
 		/>
 		<?php 
     }
-    
     /**
      * Checks if a value is a valid value for option
      *
      * @param  mixed $value The value that gets validated
      * @return bool
      */
-    public function isValidValue( $value )
+    public function isValidValue($value)
     {
         return 0;
     }
-
 }

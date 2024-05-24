@@ -1,1 +1,71 @@
-!function(e){e(document).ready(function(){var t=setInterval(function(){e().updateLinkIndexStatus(t)},3e3)}),e.fn.updateLinkIndexStatus=function(i){$old_progress_value=parseFloat(e("#ilj_batch_progress").text()),e.ajax({url:ilj_ajax_object.ajaxurl,type:"POST",data:{action:"ilj_render_batch_info"}}).done(function(t){$batch_build_info=t,e("#ilj_batch_status").text($batch_build_info.status),e("#ilj-index-status").length&&e("#ilj-index-status").text($batch_build_info.status),e("#progressbar>div").animate({width:$batch_build_info.progress+"%"},{duration:1e3,easing:"swing"}),$old_progress_value!=$batch_build_info.progress&&e({Counter:$old_progress_value}).animate({Counter:$batch_build_info.progress},{duration:1e3,easing:"swing",step:function(){e("#ilj_batch_progress").text(Math.ceil(this.Counter)+"%")},always:function(){e("#ilj_batch_progress").text(Math.ceil($batch_build_info.progress)+"%")}}),1==$batch_build_info.is_complete&&(clearInterval(i),t=$batch_build_info,e(".button.ilj-index-rebuild").length&&(e(".button.ilj-index-rebuild").removeClass("hidden"),e(".button.ilj-index-restart-rebuild").addClass("hidden"),e("#ilj-index-rebuild-spinner").remove(),e("#ilj-index-rebuild-message").html("")),e("#ilj-linkindex-count").length)&&""!=t&&(e("#ilj-linkindex-count").html(t.linkindex_count),e("#ilj-configured-keywords-count").html(t.keywords_count),e("#ilj-last-built").html(t.last_built))})}}(jQuery);
+var __webpack_exports__ = {};
+/*!********************************************!*\
+  !*** ./src/admin/js/ilj_admin_menu_bar.js ***!
+  \********************************************/
+(function ($) {
+  $(document).ready(function () {
+    var timer,
+      delay = 3000;
+    timer = setInterval(function () {
+      $().updateLinkIndexStatus(timer);
+    }, delay);
+  });
+  $.fn.updateLinkIndexStatus = function (timer) {
+    var data = {
+      action: "ilj_render_batch_info"
+    };
+    $old_progress_value = parseFloat($("#ilj_batch_progress").text());
+    $.ajax({
+      url: ilj_ajax_object.ajaxurl,
+      type: "POST",
+      data: data
+    }).done(function (data) {
+      $batch_build_info = data;
+      $("#ilj_batch_status").text($batch_build_info.status);
+      if ($('#ilj-index-status').length) {
+        $('#ilj-index-status').text($batch_build_info.status);
+      }
+      $("#progressbar>div").animate({
+        width: $batch_build_info.progress + "%"
+      }, {
+        duration: 1000,
+        easing: 'swing'
+      });
+      if ($old_progress_value != $batch_build_info.progress) {
+        $({
+          Counter: $old_progress_value
+        }).animate({
+          Counter: $batch_build_info.progress
+        }, {
+          duration: 1000,
+          easing: 'swing',
+          step: function () {
+            $('#ilj_batch_progress').text(Math.ceil(this.Counter) + "%");
+          },
+          always: function () {
+            $('#ilj_batch_progress').text(Math.ceil($batch_build_info.progress) + "%");
+          }
+        });
+      }
+      if ($batch_build_info.is_complete == true) {
+        clearInterval(timer);
+        updateDashboardElements($batch_build_info);
+      }
+    });
+  };
+  function updateDashboardElements(batch_build_info) {
+    if ($('.button.ilj-index-rebuild').length) {
+      $('.button.ilj-index-rebuild').removeClass("hidden");
+      $('.button.ilj-index-restart-rebuild').addClass("hidden");
+      $('#ilj-index-rebuild-spinner').remove();
+      $('#ilj-index-rebuild-message').html("");
+    }
+    if ($('#ilj-linkindex-count').length) {
+      if (batch_build_info != "") {
+        $('#ilj-linkindex-count').html(batch_build_info.linkindex_count);
+        $('#ilj-configured-keywords-count').html(batch_build_info.keywords_count);
+        $('#ilj-last-built').html(batch_build_info.last_built);
+      }
+    }
+  }
+})(jQuery);

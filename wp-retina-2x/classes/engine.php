@@ -270,8 +270,14 @@ class Meow_WR2X_Engine {
 		//before doing each size, create a webp version of the original file
 		if( $this->core->get_option( 'webp_full_size' ) ) {
 			$random_suffix = substr( md5( uniqid( rand(), true ) ), 0, 8 );
-			$sizes['webp_full_size_' . $random_suffix] = array( 'width' => $meta['width'], 'height' => $meta['height'], 'webp' => true );
+
+			$sizes['webp_full_size_' . $random_suffix]['width'] = $meta['width'];
+			$sizes['webp_full_size_' . $random_suffix]['height'] = $meta['height'];
+			$sizes['webp_full_size_' . $random_suffix]['webp'] = true;
+
 			$meta['sizes']['webp_full_size_' . $random_suffix]['file'] = $original_basename;
+			$meta['sizes']['webp_full_size_' . $random_suffix]['width'] = $meta['width'];
+			$meta['sizes']['webp_full_size_' . $random_suffix]['height'] = $meta['height'];
 		}
 		
 		
@@ -290,7 +296,7 @@ class Meow_WR2X_Engine {
 				$normal_file = trailingslashit( $basepath ) . $meta['sizes'][$name]['file'];
 				$pathinfo = pathinfo( $normal_file ) ;
 
-				$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->core->webp_extension();
+				$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->core->webp_avif_extension();
 				$webp_file = trailingslashit( $pathinfo['dirname'] ) . $pathinfo['filename'] . "." . $pathinfo['extension'] . $new_webp_ext;
 			}
 
@@ -313,8 +319,14 @@ class Meow_WR2X_Engine {
                 $crop = isset( $_wp_additional_image_sizes[$name] ) ? $_wp_additional_image_sizes[$name]['crop'] : true;
                 $customCrop = apply_filters( 'wr2x_custom_crop', null, $id, $name );
 
-                $this->resize( $originalfile, $meta['sizes'][$name]['width'],
-                    $meta['sizes'][$name]['height'], $crop, $webp_file, $customCrop );
+
+				if ( isset( $meta['sizes'][$name]['width'], $meta['sizes'][$name]['height'] ) ) {
+					$this->resize( $originalfile, $meta['sizes'][$name]['width'],
+								$meta['sizes'][$name]['height'], $crop, $webp_file, $customCrop );
+				} else {
+					$this->core->log( "[ERROR] Could not generate WebP for {$name} because the width and height are not set." );
+				}
+
 
 				if ( !file_exists( $webp_file ) ) {
 					$this->core->log( "[ERROR] WebP for {$name} could not be created.");
@@ -394,10 +406,12 @@ class Meow_WR2X_Engine {
 
 		foreach ( $sizes as $name => $attr ) {
 			$normal_file = "";
-			if ( !$attr['webp_retina'] ) {
+
+			if ( !isset( $attr['webp_retina'] ) || !$attr['webp_retina'] ) {
 				$this->core->log( "WebP Retina for {$name} ignored (settings)." );
 				continue;
 			}
+
 			// Is the file related to this size there?
 			$pathinfo = null;
 			$webp_retina_file = null;
@@ -406,7 +420,7 @@ class Meow_WR2X_Engine {
 				$normal_file = trailingslashit( $basepath ) . $meta['sizes'][$name]['file'];
 				$pathinfo = pathinfo( $normal_file ) ;
 
-				$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->core->webp_extension();
+				$new_webp_ext = $pathinfo['extension'] === 'webp' ? '' : $this->core->webp_avif_extension();
 				$webp_retina_file = trailingslashit( $pathinfo['dirname'] ) . $pathinfo['filename'] . $this->core->retina_extension() . $pathinfo['extension'] . $new_webp_ext;
 			}
 
@@ -544,7 +558,7 @@ class Meow_WR2X_Engine {
 		$basepath = trailingslashit( $uploads['basedir'] ) . $pathinfo['dirname'];
 		foreach ( $sizes as $attr ) {
 			$pathinfo = pathinfo( $attr['file'] );
-			$webp_file = $pathinfo['filename'] . '.' . $pathinfo['extension'] . $this->core->webp_extension();
+			$webp_file = $pathinfo['filename'] . '.' . $pathinfo['extension'] . $this->core->webp_avif_extension();
 			if ( file_exists( trailingslashit( $basepath ) . $webp_file ) ) {
 				$fullpath = trailingslashit( $basepath ) . $webp_file;
 				unlink( $fullpath );
@@ -555,7 +569,7 @@ class Meow_WR2X_Engine {
 		// Remove full-size if there is any
 		if ( $deleteFullSize ) {
 			$pathinfo = pathinfo( $originalfile );
-			$webp_file = $pathinfo[ 'filename' ] . '.' . $pathinfo[ 'extension' ] . $this->core->webp_extension();
+			$webp_file = $pathinfo[ 'filename' ] . '.' . $pathinfo[ 'extension' ] . $this->core->webp_avif_extension();
 			if ( file_exists( trailingslashit( $basepath ) . $webp_file ) ) {
 				$fullpath = trailingslashit( $basepath ) . $webp_file;
 				unlink( $fullpath );
@@ -580,7 +594,7 @@ class Meow_WR2X_Engine {
 		$basepath = trailingslashit( $uploads['basedir'] ) . $pathinfo['dirname'];
 		foreach ( $sizes as $name => $attr ) {
 			$pathinfo = pathinfo( $attr['file'] );
-			$retina_file = $pathinfo['filename'] . $this->core->retina_extension() . $pathinfo['extension'] . $this->core->webp_extension();
+			$retina_file = $pathinfo['filename'] . $this->core->retina_extension() . $pathinfo['extension'] . $this->core->webp_avif_extension();
 			if ( file_exists( trailingslashit( $basepath ) . $retina_file ) ) {
 				$fullpath = trailingslashit( $basepath ) . $retina_file;
 				unlink( $fullpath );
@@ -606,7 +620,7 @@ class Meow_WR2X_Engine {
 	function delete_webp_fullsize( $mediaId ) {
 		$originalfile = get_attached_file( $mediaId );
 		$pathinfo = pathinfo( $originalfile );
-		$retina_file = trailingslashit( $pathinfo['dirname'] ) . $pathinfo['filename'] . '.' . $pathinfo['extension'] . $this->core->webp_extension();
+		$retina_file = trailingslashit( $pathinfo['dirname'] ) . $pathinfo['filename'] . '.' . $pathinfo['extension'] . $this->core->webp_avif_extension();
 		if ( $retina_file && file_exists( $retina_file ) ) {
 			return unlink( $retina_file );
 		}

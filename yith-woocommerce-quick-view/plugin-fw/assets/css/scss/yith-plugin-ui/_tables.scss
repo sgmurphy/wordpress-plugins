@@ -3,6 +3,7 @@
  */
 
 @import "mixins/tables";
+@import "mixins/scrollbars";
 
 table.yith-plugin-fw__classic-table {
     @include classic-table;
@@ -34,12 +35,7 @@ table.yith-plugin-fw__boxed-table {
     @include wp-list-table-navs;
 
     .yith-plugin-ui__wp-list-auto-h-scroll__wrapper {
-        border: 2px solid var(--yith-table-border-light);
-
-        table.wp-list-table {
-            border: none;
-            margin: 0 !important;
-        }
+        @include classic-table-h-scroll-wrapper("table.wp-list-table");
     }
 }
 
@@ -90,19 +86,24 @@ table.yith-plugin-ui__wp-list-auto-h-scroll {
 
 .yith-plugin-ui__wp-list-auto-h-scroll__wrapper {
     width: 100%;
-    overflow-x: auto;
+
+    @include with-visible-scrollbars;
+
+    .yith-plugin-ui__wp-list-auto-h-scroll__scrollable {
+        overflow-x: auto;
+
+        &.yith-plugin-ui--has-scrolling {
+            overflow-x: scroll;
+        }
+    }
 
     &.yith-plugin-ui__wp-list-auto-h-scroll__wrapper--classic {
-        border: 2px solid var(--yith-table-border-light);
-
-        table.yith-plugin-fw__classic-table {
-            border: none;
-            margin: 0 !important;
-        }
+        @include classic-table-h-scroll-wrapper("table.yith-plugin-fw__classic-table");
     }
 
     &.yith-plugin-ui__wp-list-auto-h-scroll__wrapper--boxed {
         @include boxed-table-h-scroll-wrapper("table.yith-plugin-fw__boxed-table");
+
         table.yith-plugin-fw__boxed-table {
             & > thead > tr {
                 & > th, & > td {
@@ -134,6 +135,15 @@ table.yith-plugin-ui__wp-list-auto-h-scroll {
 
                 & > tr > .check-column + * {
                     left: 42px;
+                }
+
+                & > tr > .check-column + *,
+                & > tr > .column-primary {
+                    max-width: 250px;
+
+                    @media screen and (max-width: 1024px) {
+                        max-width: 200px;
+                    }
                 }
             }
         }

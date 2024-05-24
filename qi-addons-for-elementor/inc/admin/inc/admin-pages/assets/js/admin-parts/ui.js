@@ -13,6 +13,7 @@
 			qodefAdminOptionsPanel.init();
 			qodefSearchWidgets.init();
 			qodefWidgets.init();
+			qodefNavTabs.init();
 		}
 	);
 
@@ -36,35 +37,62 @@
 
 	var qodefAdminOptionsPanel = {
 		init: function () {
-			this.adminPage = $( '.qodef-admin-page' );
+			this.adminPage = $( '.qodef-admin-widgets-page' );
 			this.adminHeaderPosition();
 		},
 		adminHeaderPosition: function () {
 			if ( this.adminPage.length && qodefFramework.windowWidth > 600 ) {
 				this.adminBarHeight         = $( '#wpadminbar' ).height();
-				this.adminHeader            = $( '.qodef-admin-header' );
+				this.wpContentHolder        = $( '#wpcontent' );
+				this.adminHeader            = $( '.qodef-admin-widget-header' );
+				this.adminHeaderInner       = $( '.qodef-admin-widget-header-inner' );
 				this.adminHeaderHeight      = this.adminHeader.outerHeight( true );
 				this.adminHeaderTopPosition = this.adminHeader.offset().top - parseInt( this.adminBarHeight );
-				this.adminContent           = $( '.qodef-admin-content' );
+				this.adminContent           = $( '.qodef-admin-widgets-page' );
 
-				this.adminHeader.width( this.adminPage.width() );
+				var initialWidth         = this.adminPage.width(),
+					wpContentMarginLeft  = this.wpContentHolder.css( 'marginLeft' ),
+					wpContentPaddingLeft = this.wpContentHolder.css( 'paddingLeft' );
+
+				this.adminHeaderInner.width( initialWidth );
 
 				$( window ).on(
 					'scroll load',
 					function () {
 						if ( qodefFramework.scroll >= qodefAdminOptionsPanel.adminHeaderTopPosition ) {
+							console.log( wpContentMarginLeft );
+							console.log( wpContentPaddingLeft );
 							qodefAdminOptionsPanel.adminHeader.addClass( 'qodef-fixed' ).css(
-								'top',
-								parseInt( qodefAdminOptionsPanel.adminBarHeight )
+								{
+									'top': parseInt( qodefAdminOptionsPanel.adminBarHeight ),
+									'left': wpContentMarginLeft,
+									'width': 'calc(100% - ' + wpContentMarginLeft + ')',
+								}
+							);
+							qodefAdminOptionsPanel.adminHeaderInner.css(
+								{
+									'width': 'calc(' + initialWidth + 'px + ' + wpContentPaddingLeft + ')',
+									'padding-left': wpContentPaddingLeft,
+								}
 							);
 							qodefAdminOptionsPanel.adminContent.css(
 								'marginTop',
 								qodefAdminOptionsPanel.adminHeaderHeight
 							);
+
 						} else {
 							qodefAdminOptionsPanel.adminHeader.removeClass( 'qodef-fixed' ).css(
-								'top',
-								0
+								{
+									'top': 0,
+									'left': 0,
+									'width': initialWidth
+								}
+							);
+							qodefAdminOptionsPanel.adminHeaderInner.css(
+								{
+									'width': initialWidth,
+									'padding-left': 0,
+								}
 							);
 							qodefAdminOptionsPanel.adminContent.css(
 								'marginTop',
@@ -150,6 +178,7 @@
 
 			if ( this.formHolder.length ) {
 				this.saveWidgetsValues( this.formHolder );
+				this.switchWidgetValueBySectionClick( this.formHolder );
 				this.switchWidgetsValuesByControler( this.formHolder );
 				this.switchControlerValuesByWidget( this.formHolder );
 
@@ -174,7 +203,7 @@
 
 						var form     = $( this ),
 							ajaxData = {
-								action: 'qi_addons_for_elementor_action_framework_save_options',
+								action: 'qi_addons_for_elementor_action_framework_save_options'
 						};
 
 						$.ajax(
@@ -202,6 +231,52 @@
 				);
 			}
 		},
+		switchWidgetValueBySectionClick: function ( $adminPage ) {
+			this.optionsForm = $adminPage.find( '#qi_addons_for_elementor_widgets_framework_ajax_form' );
+			
+			var $sections = $adminPage.find( '.qodef-widgets-section' );
+			
+			$sections.each(
+				function () {
+					var $section          = $( this ),
+						$sections   = $section.find( '.qodef-widgets-item' );
+					
+					$sections.each(
+						function () {
+							var $section = $( this ),
+								$sectionLinks = $section.find( 'a' );
+							
+							if( $sectionLinks.length ) {
+								$sectionLinks.each( function() {
+									$(this).on( 'click', function( e ) {
+										e.stopPropagation();
+									} )
+								} )
+							}
+							
+							$section.on(
+								'click',
+								function ( e ) {
+									var $sectionCheckbox = $section.find( 'input:checkbox' );
+									
+									if ( $sectionCheckbox.is( ':checked' ) ) {
+										$sectionCheckbox.prop(
+											'checked',
+											false
+										);
+									} else {
+										$sectionCheckbox.prop(
+											'checked',
+											true
+										);
+									}
+								}
+							);
+						}
+					);
+				}
+			);
+		},
 		switchWidgetsValuesByControler: function ( $adminPage ) {
 			this.optionsForm = $adminPage.find( '#qi_addons_for_elementor_widgets_framework_ajax_form' );
 
@@ -224,6 +299,7 @@
 					);
 				}
 			);
+
 		},
 		switchControlerValuesByWidget: function ( $adminPage ) {
 			this.optionsForm = $adminPage.find( '#qi_addons_for_elementor_widgets_framework_ajax_form' );
@@ -234,7 +310,7 @@
 				function () {
 					var $section          = $( this ),
 						$sectionControler = $section.find( '.qodef-section-enable' ),
-						$sectionWidgets   = $section.find( '.qodef-widgets-item input:checkbox' );
+						$sectionWidgets   = $section.find( '.qodef-widgets-item' );
 
 					$sectionWidgets.each(
 						function () {
@@ -242,12 +318,21 @@
 
 							$widget.on(
 								'click',
-								function () {
+								function ( e ) {
+									// if( ! $widget.is(':checked') ){
+									// $sectionControler.prop('checked', false);
+									// }
 
-									if ( $sectionWidgets.not( ':checked' ).length > 0 ) {
-										$sectionControler.prop( 'checked', false );
+									if ( $sectionWidgets.find( 'input:checkbox' ).not( ':checked' ).length > 0 ) {
+										$sectionControler.prop(
+											'checked',
+											false
+										);
 									} else {
-										$sectionControler.prop( 'checked', true );
+										$sectionControler.prop(
+											'checked',
+											true
+										);
 									}
 								}
 							);
@@ -256,6 +341,7 @@
 					);
 				}
 			);
+
 		},
 		allWidgetsEnabled: function ( $section ) {
 			var $sectionWidgets = $section.find( '.qodef-widgets-item input:checkbox' );
@@ -271,7 +357,53 @@
 			);
 
 			return true;
+
+		}
+
+	};
+
+	var qodefNavTabs = {
+		init: function () {
+			this.adminPage = $( '.qodef-admin-page' );
+
+			if ( this.adminPage.length ) {
+				var tabsNav = this.adminPage.find( '.qodef-tabs-nav' );
+
+				if ( tabsNav.length ) {
+					qodefFramework.qodefPerfectScrollbar.init( tabsNav, false );
+				}
+			}
+		},
+	};
+
+	var qodefPerfectScrollbar = {
+		init: function ( $holder, suppressScrollX ) {
+			if ( $holder.length ) {
+				qodefPerfectScrollbar.qodefInitScroll(
+					$holder,
+					typeof suppressScrollX !== 'undefined' ? suppressScrollX : true
+				);
+			}
+		},
+		qodefInitScroll: function ( $holder, suppressScrollX ) {
+			var $defaultParams = {
+				wheelSpeed: 0.6,
+				suppressScrollX: suppressScrollX
+			};
+
+			var $ps = new PerfectScrollbar(
+				$holder[0],
+				$defaultParams
+			);
+
+			$( window ).resize(
+				function () {
+					$ps.update();
+				}
+			);
 		}
 	};
+
+	qodefFramework.qodefPerfectScrollbar = qodefPerfectScrollbar;
 
 })( jQuery );
