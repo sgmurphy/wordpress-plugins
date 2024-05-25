@@ -5,7 +5,7 @@ Tags: search, better search, live search, product search, woocommerce search
 Requires at least: 3.5
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.11.5
+Stable tag: 4.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,13 @@ notify the developers of this plugin.
 2. Administrator area - nice and smooth
 
 == Changelog ==
+= 4.12 =
+* Added support for Block Editor - the Ajax Search Lite block should be available for Gutenberg
+* WPML String translations updates
+* PHP 8.3 compatibility fixes
+* Fixed an issue with the post_parent shortcode attribute
+* Fixed an issue with form width/flex with some themes
+
 = 4.11.5 =
 * Improved the results keyword highlighter - now does not need to use the local storage
 * Fixed a few PHP>8.2 deprecation issues
