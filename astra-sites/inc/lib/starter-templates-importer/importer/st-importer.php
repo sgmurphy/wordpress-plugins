@@ -48,12 +48,13 @@ class ST_Importer {
 	 * Initiate import process flog.
 	 *
 	 * @since 1.0.0
+	 * @param string $template_type template type.
 	 * @param string $uuid uuid.
 	 * @return array
 	 */
-	public static function set_import_process_start_flag( $uuid = '' ) {
+	public static function set_import_process_start_flag( $template_type, $uuid = '' ) {
 
-		if ( empty( $uuid ) ) {
+		if ( empty( $uuid ) && 'ai' === $template_type ) {
 			return array(
 				'status' => false,
 				'error'  => __( 'uuid is empty.', 'st-importer', 'astra-sites' ),
@@ -272,7 +273,6 @@ class ST_Importer {
 			}
 
 			try {
-				$site_options = array_merge( $site_options, ST_Option_Importer::site_options() );
 				foreach ( $options as $option_name => $option_value ) {
 
 					// Is option exist in defined array site_options()?
@@ -308,6 +308,9 @@ class ST_Importer {
 						}
 					}
 				}
+
+				do_action( 'st_importer_import_site_options', $options, $site_options );
+
 				return array(
 					'status'  => true,
 					'message' => __( 'Options imported successfully.', 'st-importer', 'astra-sites' ),

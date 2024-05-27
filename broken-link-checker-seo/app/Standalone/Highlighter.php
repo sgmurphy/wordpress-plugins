@@ -41,7 +41,6 @@ class Highlighter {
 		}
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueueScript' ] );
-		add_action( 'wp_footer', [ $this, 'outputDiv' ] );
 	}
 
 	/**
@@ -54,16 +53,5 @@ class Highlighter {
 	public function enqueueScript() {
 		$scriptHandle = 'src/vue/standalone/highlighter/main.js';
 		aioseoBrokenLinkChecker()->core->assets->load( $scriptHandle, [], aioseoBrokenLinkChecker()->helpers->getVueData( 'highlighter' ) );
-	}
-
-	/**
-	 * Outputs the div to mount on.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @return void
-	 */
-	public function outputDiv() {
-		echo '<div id="aioseo-blc-highlighter" />';
 	}
 }

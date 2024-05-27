@@ -436,8 +436,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * Push Data to Search API.
 		 *
 		 * @since  2.0.0
-		 * @param Object $response Response data object.
-		 * @param Object $data Data object.
+		 * @param array<string, string> $response Response data object.
+		 * @param array<string, string> $data Data object.
 		 *
 		 * @return array Search response.
 		 */

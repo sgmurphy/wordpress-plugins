@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:27+0200\n"
 "Last-Translator: Parsian VIP\n"
 "Language-Team: فارسی\n"
@@ -1537,6 +1537,7 @@ msgid "Purchase code"
 msgstr "کد خرید"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "جزئیات سرویس خدمات"
@@ -1806,11 +1807,6 @@ msgstr "مشاهده تنظیمات نوتیفیکیشن ها"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "مشاهده تنظیمات پرداخت"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "مشاهده تنظیمات عمومی"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10378,6 +10374,11 @@ msgstr "رزرو را نمی توان لغو کرد"
 
 #~ msgid "Zoom Links"
 #~ msgstr "لینک های Zoom"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "مشاهده تنظیمات عمومی"
 
 #, fuzzy
 #~| msgid "Organizer"

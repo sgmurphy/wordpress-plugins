@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1535,6 +1535,7 @@ msgid "Purchase code"
 msgstr "Nákupní kód"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Nastavte Detaily poskytovatele"
@@ -1800,10 +1801,6 @@ msgstr "Zobrazit Nastavení upozornění"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Zobrazit nastavení plateb"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-msgid "View Provider Details Settings"
-msgstr "Zobrazit Detaily poskytovatele"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10360,6 +10357,9 @@ msgstr "Rezervace nemůže být zrušena"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Odkazy Zoom"
+
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Zobrazit Detaily poskytovatele"
 
 #~ msgid ""
 #~ "We are thrilled to announce the latest release of Amelia, packed with bug "

@@ -421,7 +421,27 @@ function wc_gzd_dhl_format_label_state( $state, $country ) {
 		}
 	}
 
+	// No need to transmit states for DE
+	if ( 'DE' === $country ) {
+		$state = '';
+	}
+
 	return $state;
+}
+
+/**
+ * @param Shipment $shipment
+ *
+ * @return string
+ */
+function wc_gzd_dhl_get_parcel_outlet_routing_email_address( $shipment ) {
+	$email = $shipment->get_email();
+
+	if ( empty( $email ) ) {
+		$email = $shipment->get_sender_email();
+	}
+
+	return apply_filters( 'woocommerce_gzd_dhl_parcel_outlet_routing_email_address', $email, $shipment );
 }
 
 /**

@@ -46,7 +46,7 @@ function wpa_add_honeypot_field(){
 	jQuery(commentFormSelectors.join(', ')).append(wpa_hidden_field);
 	// EOF FOR COMMENTS
 
-	jQuery('form.wpcf7-form').append(wpa_hidden_field); // CONTACT FORM 7
+	jQuery('form.wpcf7-form, .wpcf7 form').append(wpa_hidden_field); // CONTACT FORM 7
 	jQuery('form.wpforms-form').append(wpa_hidden_field); // WPFFORMS
 	jQuery('.gform_wrapper form').append(wpa_hidden_field); // GRAVITY FORMS
 	jQuery('.frm_forms form').append(wpa_hidden_field); // Formidible forms

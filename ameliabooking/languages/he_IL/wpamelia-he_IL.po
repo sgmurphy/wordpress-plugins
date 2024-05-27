@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1477,6 +1477,7 @@ msgid "Purchase code"
 msgstr "Purchase code"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 msgid "Provider Details"
 msgstr "פרטי הספק"
 
@@ -1729,10 +1730,6 @@ msgstr "צפה בהגדרות התראות"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "צפה בהגדרות תשלום"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-msgid "View Provider Details Settings"
-msgstr "הצג את הגדרות פרטי הספק"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -8065,6 +8062,9 @@ msgstr "לא ניתן לבטל את ההזמנה"
 
 #~ msgid "Zoom Links"
 #~ msgstr "לינקים לזום"
+
+#~ msgid "View Provider Details Settings"
+#~ msgstr "הצג את הגדרות פרטי הספק"
 
 #~ msgid "Event Organizer"
 #~ msgstr "מארגן האירוע"

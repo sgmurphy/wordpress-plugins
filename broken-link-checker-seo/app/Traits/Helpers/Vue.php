@@ -123,7 +123,7 @@ trait Vue {
 	 * @return void
 	 */
 	private function addHighlighterData() {
-		if ( is_admin() || ! is_single() ) {
+		if ( is_admin() || ! is_singular() ) {
 			return;
 		}
 
@@ -191,18 +191,8 @@ trait Vue {
 	 * @param  string $orderDir   The order direction.
 	 * @return array              The data.
 	 */
-	public function getLinkStatusesData( $limit = 20, $offset = 0, $searchTerm = '', $filter = '', $orderBy = '', $orderDir = 'DESC' ) {
+	public function getLinkStatusesData( $limit = 20, $offset = 0, $searchTerm = '', $filter = 'all', $orderBy = '', $orderDir = 'DESC' ) {
 		$whereClause = Models\Link::getLinkWhereClause( $searchTerm );
-
-		$linksScanPercentage      = aioseoBrokenLinkChecker()->main->links->data->getScanPercentage();
-		$linkStatusScanPercentage = aioseoBrokenLinkChecker()->main->linkStatus->data->getScanPercentage();
-		if ( ! $filter ) {
-			if ( 100 === (int) $linksScanPercentage && (int) 100 === $linkStatusScanPercentage ) {
-				$filter = 'broken';
-			} else {
-				$filter = 'all';
-			}
-		}
 
 		$rows      = [];
 		$totalRows = [];
@@ -218,6 +208,10 @@ trait Vue {
 			case 'dismissed':
 				$rows      = Models\LinkStatus::rowQuery( 'dismissed', $limit, $offset, $whereClause, $orderBy, $orderDir );
 				$totalRows = Models\LinkStatus::rowCountQuery( 'dismissed', $whereClause );
+				break;
+			case 'not-checked':
+				$rows      = Models\LinkStatus::rowQuery( 'not-checked', $limit, $offset, $whereClause, $orderBy, $orderDir );
+				$totalRows = Models\LinkStatus::rowCountQuery( 'not-checked', $whereClause );
 				break;
 			case 'all':
 				$rows      = Models\LinkStatus::rowQuery( 'all', $limit, $offset, $whereClause, $orderBy, $orderDir );
@@ -254,6 +248,12 @@ trait Vue {
 					'name'   => __( 'Redirects', 'aioseo-broken-link-checker' ),
 					'count'  => Models\LinkStatus::rowCountQuery( 'redirects', $whereClause ),
 					'active' => 'redirects' === $filter ? true : false
+				],
+				[
+					'slug'   => 'not-checked',
+					'name'   => __( 'Not Checked Yet', 'aioseo-broken-link-checker' ),
+					'count'  => Models\LinkStatus::rowCountQuery( 'not-checked', $whereClause ),
+					'active' => 'not-checked' === $filter ? true : false
 				],
 				[
 					'slug'   => 'dismissed',

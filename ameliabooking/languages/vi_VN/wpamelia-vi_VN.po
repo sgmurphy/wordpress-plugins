@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-03-01 10:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1530,6 +1530,7 @@ msgid "Purchase code"
 msgstr "Mã mua hàng"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Chi tiết Dịch vụ"
@@ -1800,11 +1801,6 @@ msgstr "Xem Cài đặt Thông báo"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Xem Cài đặt Thanh toán"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Xem Cài đặt Chung"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"

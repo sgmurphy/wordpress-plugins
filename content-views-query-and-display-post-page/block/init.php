@@ -154,11 +154,15 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 			if ( empty( $settings[ PT_CV_PREFIX . 'limit' ] ) ) {
 				$settings[ PT_CV_PREFIX . 'limit' ] = 1000000;
 			}
+			if ( empty( $settings[ PT_CV_PREFIX . 'pagination-items-per-page' ] ) ) {
+				$settings[ PT_CV_PREFIX . 'pagination-items-per-page' ] = 6;
+			}
 
 			$settings[ PT_CV_PREFIX . 'field-thumbnail-nowprpi' ] = !$settings[ PT_CV_PREFIX . 'responsiveImg' ];
 			$settings[ PT_CV_PREFIX . 'field-thumbnail-nodefault' ]	 = !$settings[ PT_CV_PREFIX . 'defaultImg' ];
 
-			$settings[ PT_CV_PREFIX . 'multi-post-types' ]	 = self::values_from_block( $data, 'multipostType', 'any' );
+			$multitypes										 = self::values_from_block( $data, 'multipostType', '' );
+			$settings[ PT_CV_PREFIX . 'multi-post-types' ]	 = !empty( $multitypes ) ? $multitypes : 'any';
 
 			$settings[ PT_CV_PREFIX . 'taxonomy' ] = self::values_from_block( $data, 'taxonomy', '' );
 

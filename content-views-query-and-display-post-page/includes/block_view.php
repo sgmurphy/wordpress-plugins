@@ -160,11 +160,11 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 						unset( $args[ PT_CV_PREFIX . $key ] );
 					}
 				}
-			
+				$showf0		 = [ 'field-excerpt-manual', 'other-lightbox-enable-navigation', 'field-thumbnail-nowprpi', 'overlayClickable' ];
 				$showf1		 = [ 'show-field-thumbnail', 'show-field-taxoterm', 'show-field-title', 'show-field-content', 'show-field-readmore', 'show-field-meta-fields', 'show-field-custom-fields', 'show-field-wooprice', 'show-field-wooatc' ];
 				$showf2		 = [ 'show-field-taxoterm-Others', 'show-field-content-Others', 'show-field-readmore-Others', 'show-field-meta-fields-Others', ];
 				$showf3		 = [ 'meta-fields-date', 'meta-fields-author', 'meta-fields-taxonomy', 'meta-fields-comment', 'showHeading', 'headingHide', 'defaultImg', 'metaWhichOthers' ];
-				$show_fields = array_merge( $showf1, $showf2, $showf3 );
+				$show_fields = array_merge( $showf1, $showf2, $showf3, $showf0 );
 				if ( !$importing ) {
 					foreach ( $show_fields as $field ) {
 						// exclude block attributes, if fields unchecked

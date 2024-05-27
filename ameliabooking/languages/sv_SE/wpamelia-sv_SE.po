@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:03+0200\n"
 "PO-Revision-Date: 2024-04-24 14:31+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1537,6 +1537,7 @@ msgid "Purchase code"
 msgstr "Licenskod"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Information om tjänsten"
@@ -1808,11 +1809,6 @@ msgstr "Visa aviserings inställningar"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Visa betalnings inställningar"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Visa allmänna inställningar"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10530,6 +10526,11 @@ msgstr "Denna tid kan inte bokas av"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Zoomlänkar"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Visa allmänna inställningar"
 
 #~ msgid ""
 #~ "We are thrilled to announce the latest release of Amelia, packed with bug "

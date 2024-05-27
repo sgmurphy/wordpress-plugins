@@ -4,7 +4,7 @@ Donate link: http://fooplugins.com
 Tags: lightbox,modal,popup,images,gallery,media
 Requires at least: 3.5.1
 Tested up to: 6.5
-Stable tag: 2.7.27
+Stable tag: 2.7.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,11 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 
 == Changelog ==
 
+= 2.7.28 =
+* Update 4 May 2024
+* Update : Freemius SDK update 2.7.2
+* Fix : enhanced sanitization for settings.
+
 = 2.7.27 =
 * Updated 1 July 2023
 * Update : Freemius SDK to 2.5.10
@@ -124,10 +129,8 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 = 2.7.22 =
 * Updated 15 Jan 2022
 
-
 = 2.7.20 =
 * Updated 5 Sep 2021
-
 
 = 2.7.20 =
 * Updated 08/09/2021
@@ -142,7 +145,6 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 * New : added compatibility with Elementor custom captions
 * New : added compatibility with WP Rocket to always exclude FooBox inline script to avoid javascript errors
 * Update : Updated to latest FooBox client JS & CSS 2.4.6
-
 
 = 2.7.17 =
 * Updated 19/12/2020
@@ -163,7 +165,6 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 * Added new setting to force the FooBox trial notice admin banner to never show
 * Updated settings page with ratings CTA and included details of other plugins
 
-
 = 2.7.14 =
 * Updated 20/08/2020
 * Fix : fixed bug where FooBox was ignoring FooGallery filters
@@ -177,18 +178,15 @@ There is a setting to try and disable hard coded lightboxes, but this is not a s
 * Update : Updated to latest FooBox client JS & CSS 2.4.0
 
 = 2.7.11 =
-
 *	Update : Freemius SDK 2.3.2
 *	Update : Updated to latest FooBox client JS & CSS
 
 = 2.7.8 =
-
 *	Fix : turned off font preload by default
 *	Fix : scrollbar bug in iOS13
 *	Update : Updated to latest FooBox client JS & CSS
 
 = 2.7.7 =
-
 * Fix : Slideshow was stopping after the Lightbox is closed
 * Update : Updated to latest FooBox client JS & CSS
 

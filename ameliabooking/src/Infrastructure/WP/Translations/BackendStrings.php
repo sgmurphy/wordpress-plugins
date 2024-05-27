@@ -421,7 +421,7 @@ class BackendStrings
             'view_labels_settings'                   => __('View Labels Settings', 'wpamelia'),
             'view_notifications_settings'            => __('View Notifications Settings', 'wpamelia'),
             'view_payments_settings'                 => __('View Payments Settings', 'wpamelia'),
-            'view_provider_details_settings'         => __('View Provider Details Settings', 'wpamelia'),
+            'view_provider_details_settings'         => __('Provider Details', 'wpamelia'),
             'view_roles_settings_description'        => __('View Roles Settings', 'wpamelia'),
             'view_api_keys_settings'                 => __('View API keys Settings', 'wpamelia'),
             'website'                                => __('Website', 'wpamelia'),

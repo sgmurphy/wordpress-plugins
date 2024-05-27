@@ -15,6 +15,7 @@ import { STORE_KEY } from '../store';
 import { classNames } from '../helpers';
 import NavigationButtons from '../components/navigation-buttons';
 import { useNavigateSteps } from '../router';
+import PreBuildConfirmModal from '../components/pre-build-confirm-modal';
 
 const fetchStatus = {
 	fetching: 'fetching',
@@ -67,8 +68,37 @@ const Features = () => {
 		fetchStatus.fetching
 	);
 	const [ isInProgress, setIsInProgress ] = useState( false );
+	const [ preBuildModal, setPreBuildModal ] = useState( {
+		open: false,
+		skipFeature: false,
+	} );
 
-	const [ {} ] = [ {}, () => {} ]; // Remove this line.
+	const handleClosePreBuildModal = ( value = false ) => {
+		setPreBuildModal( ( prev ) => {
+			return {
+				...prev,
+				open: value,
+			};
+		} );
+	};
+
+	const handleClickStartBuilding =
+		( skipFeature = false ) =>
+		() => {
+			if ( isInProgress ) {
+				return;
+			}
+
+			if ( 'yes' !== aiBuilderVars.firstImportStatus ) {
+				handleGenerateContent( skipFeature )();
+				return;
+			}
+
+			setPreBuildModal( {
+				open: true,
+				skipFeature,
+			} );
+		};
 
 	const fetchSiteFeatures = async () => {
 		const response = await apiFetch( {
@@ -311,10 +341,17 @@ const Features = () => {
 			<NavigationButtons
 				continueButtonText={ __( 'Start Building', 'ai-builder' ) }
 				onClickPrevious={ previousStep }
-				onClickContinue={ handleGenerateContent() }
-				onClickSkip={ handleGenerateContent( true ) }
+				onClickContinue={ handleClickStartBuilding() }
+				onClickSkip={ handleClickStartBuilding( true ) }
 				loading={ isInProgress }
 				skipButtonText={ __( 'Skip & Start Building', 'ai-builder' ) }
+			/>
+			<PreBuildConfirmModal
+				open={ preBuildModal.open }
+				setOpen={ handleClosePreBuildModal }
+				startBuilding={ handleGenerateContent(
+					preBuildModal.skipFeature
+				) }
 			/>
 		</div>
 	);

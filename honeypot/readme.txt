@@ -4,11 +4,11 @@ Donate link: https://www.patreon.com/wp_armour
 Tags: anti spam, spam protection, comment spam , contact form spam, akismet
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 2.1.22
+Stable tag: 2.1.23
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Anti spam filter blocks spam bots including russian spam in Contact Form 7, Gravity Forms, Ninja Forms, Formidable Forms, Comments, Registration and..
+Fastest growing Anti Spam plugin. No API calls, subscriptions, captcha or puzzle. Full GDPR complaint. For comments, contact form, login, registration
 
 == Description ==
 This plugins block spam submissions using honeypot anti spam technic. No Captcha or extra verification field hassle to the users. Only lets spam bots to suffer using our anti spam filter.
@@ -141,6 +141,10 @@ With WP Armour - Honeypot Anti Spam plugin it is No. But if you want you can use
 1. Screenshot #11. Anti Spam for Fluent Forms
 
 == Changelog ==
+
+= = 2.1.23 =
+
+* Issue fixed for Contact Form 7. 
 
 = = 2.1.22 =
 

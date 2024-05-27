@@ -804,7 +804,27 @@ abstract class Auto extends Simple implements ShippingProviderAuto {
 			);
 		}
 
+		if ( $this->label_supports_export_reference_number( $shipment ) ) {
+			$settings = array_merge(
+				$settings,
+				array(
+					array(
+						'id'          => 'export_reference_number',
+						'label'       => _x( 'Export Reference Number', 'shipments', 'woocommerce-germanized' ),
+						'description' => _x( 'In case of a shipment with an export declaration - provide the assigned Export Reference Number for customs purposes.', 'shipments', 'woocommerce-germanized' ),
+						'value'       => '',
+						'type'        => 'text',
+						'desc_tip'    => true,
+					),
+				)
+			);
+		}
+
 		return $settings;
+	}
+
+	protected function label_supports_export_reference_number( $shipment ) {
+		return apply_filters( "{$this->get_general_hook_prefix()}supports_export_reference_number", false, $shipment, $this );
 	}
 
 	/**

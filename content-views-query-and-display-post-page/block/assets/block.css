@@ -73,7 +73,7 @@
 }
 .contentviews-panelbody .components-tab-panel__tabs {
 	background: #fdfdfd;
-	border: none;
+	border: 1px solid #ddd;
 }
 .cv-tab-panel .components-tab-panel__tabs-item,
 .contentviews-panelbody .components-tab-panel__tabs-item
@@ -84,7 +84,7 @@
 }
 
 .contentviews-panelbody .components-tab-panel__tabs-item.is-active {
-	background-color: #f9f9f9;
+	background-color: #f1f1f1;
 }
 
 .cvb-subpanel .cvb-components-wrapper > .components-base-control:last-child,
@@ -752,6 +752,12 @@ option:disabled {
 
 .cvb-toggle-wrapper p {
 	margin: 10px 0 0 -5px !important;
+}
+
+/* Parent page option */
+.cvb-components-wrapper [class*="singleValue"] {
+	background-color: hsl(0, 0%, 90%);
+	padding: 3px 6px;
 }
 
 /* Hide upgrade text if no taxonomy for post type */

@@ -1083,3 +1083,169 @@ export const TilesIcon = ( { className } ) => (
 		</defs>
 	</svg>
 );
+
+export const SirenColorfulIcon = ( { className } ) => (
+	<svg
+		className={ className }
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M7 12C7 10.6739 7.52678 9.40215 8.46447 8.46447C9.40215 7.52678 10.6739 7 12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12V18H7V12Z"
+			stroke="url(#paint0_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M5 20C5 19.4696 5.21071 18.9609 5.58579 18.5858C5.96086 18.2107 6.46957 18 7 18H17C17.5304 18 18.0391 18.2107 18.4142 18.5858C18.7893 18.9609 19 19.4696 19 20V22H5V20Z"
+			stroke="url(#paint1_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M21 12H22"
+			stroke="url(#paint2_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M18.5 4.5L18 5"
+			stroke="url(#paint3_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M2 12H3"
+			stroke="url(#paint4_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 2V3"
+			stroke="url(#paint5_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M4.92896 4.929L5.63596 5.636"
+			stroke="url(#paint6_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 12V18"
+			stroke="url(#paint7_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<defs>
+			<linearGradient
+				id="paint0_linear_1547_11043"
+				x1="7"
+				y1="12.5"
+				x2="17"
+				y2="12.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint1_linear_1547_11043"
+				x1="5"
+				y1="20"
+				x2="19"
+				y2="20"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint2_linear_1547_11043"
+				x1="21"
+				y1="12.5"
+				x2="22"
+				y2="12.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint3_linear_1547_11043"
+				x1="18"
+				y1="4.75"
+				x2="18.5"
+				y2="4.75"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint4_linear_1547_11043"
+				x1="2"
+				y1="12.5"
+				x2="3"
+				y2="12.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint5_linear_1547_11043"
+				x1="12"
+				y1="2.5"
+				x2="13"
+				y2="2.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint6_linear_1547_11043"
+				x1="4.92896"
+				y1="5.2825"
+				x2="5.63596"
+				y2="5.2825"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint7_linear_1547_11043"
+				x1="12"
+				y1="15"
+				x2="13"
+				y2="15"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+		</defs>
+	</svg>
+);

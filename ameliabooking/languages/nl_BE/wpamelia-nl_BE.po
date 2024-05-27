@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1609,6 +1609,7 @@ msgid "Purchase code"
 msgstr "Aankoopcode"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Service details"
@@ -1893,11 +1894,6 @@ msgstr "Meldingsinstellingen weergeven"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Betalingsinstellingen weergeven"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Algemene instellingen weergeven"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -11123,6 +11119,11 @@ msgstr "Boeking kan niet worden geannuleerd"
 #, fuzzy
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Links"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Algemene instellingen weergeven"
 
 #, fuzzy
 #~ msgid "Event Organizer"

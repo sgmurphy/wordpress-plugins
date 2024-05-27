@@ -1,3 +1,15 @@
+v1.0.31 - 27-May-2024
+- Improvement: Added compatibility for classic templates sites options.
+
+v1.0.30 - 27-May-2024
+- Improvement: Sending template type parameter to set the flag.
+
+v1.0.29 - 23-May-2024
+- Improvement: Added a pre-installation confirmation modal.
+
+v1.0.27 - 23-May-2024
+- Improvement: Added filter to skip loading AI Builder library.
+
 v1.0.26 - 21-May-2024
 - Fix: Fixed fatal error while activating plugin on multisite.
 

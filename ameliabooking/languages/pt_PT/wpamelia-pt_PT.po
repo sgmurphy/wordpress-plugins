@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:30+0200\n"
 "Last-Translator: look@it\n"
 "Language-Team: Português\n"
@@ -1476,6 +1476,7 @@ msgid "Purchase code"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Detalhes do Serviço"
@@ -1724,11 +1725,6 @@ msgstr "Ver Definições de Notificações"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Ver Definições de Pagamentos"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Ver Definições Gerais"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -6785,6 +6781,11 @@ msgstr ""
 #, fuzzy
 #~ msgid "Working Hours"
 #~ msgstr "Definições de Horário de trabalho & Folgas"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Ver Definições Gerais"
 
 #, fuzzy
 #~| msgid "Event Price"

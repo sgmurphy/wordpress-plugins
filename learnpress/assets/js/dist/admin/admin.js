@@ -253,7 +253,7 @@ var __webpack_exports__ = {};
     lpMetaboxFileInput();
     //updateDb();
     $('.learn-press-dropdown-pages').LP('DropdownPages');
-    $('.learn-press-advertisement-slider').LP('Advertisement', 'a', 's').appendTo($('#wpbody-content'));
+    //$( '.learn-press-advertisement-slider' ).LP( 'Advertisement', 'a', 's' ).appendTo( $( '#wpbody-content' ) );
     //$( '.learn-press-toggle-item-preview' ).on( 'change', updateItemPreview );
     $('.learn-press-tip').LP('QuickTip'); //$('.learn-press-tabs').LP('AdminTab');
 

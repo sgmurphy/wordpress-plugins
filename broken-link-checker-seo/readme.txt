@@ -1,10 +1,10 @@
 === Broken Link Checker by AIOSEO – Easily Fix/Monitor Internal and External links ===
 Contributors: aioseo, smub, benjaminprojas
 Tags: broken links, internal link, external link, check links, seo
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Requires at least: 5.3
 Requires PHP: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -86,6 +86,15 @@ Visit <a href="http://www.wpbeginner.com/" rel="friend" title="WPBeginner">WPBeg
 
 == Changelog ==
 
+**New in Version 1.2.1**
+
+* New: Added a "Not Checked Yet" filter for new, unchecked links to the links table.
+* New: Added an alert to the link info modal to indicate the date when the link will be rechecked.
+* New: Added an admin notice to inform users when they have not connected Broken Link Checker yet.
+* Fixed: Image URIs could cause catastrophical regex backtracking, freezing up the site.
+* Fixed: Links with leading/trailing spaces in their URL or anchor text could not be edited or unlinked.
+* Fixed: Broken links sometimes not highlighted for pages and CPTs. 
+
 **New in Version 1.2.0**
 
 * New: Broken Links Highlighter - The new highlighter marks broken links on the frontend of your website, making it easier for you to find and fix them.
@@ -119,42 +128,10 @@ Visit <a href="http://www.wpbeginner.com/" rel="friend" title="WPBeginner">WPBeg
 * Fixed: Various issues where updating, removing or force-rechecking certain links sometimes failed.
 * Fixed: Connecting to remote server sometimes hanged until the user refreshed the page.
 
-**New in Version 1.0.5**
-
-* Updated: Significant improvement to link status scan success rate.
-* Updated: Links report is now ordered by newest URLs first.
-* Fixed: E-mail (mailto:) and callable (tel:) URLs are no longer indexed.
-* Fixed: Updating links not working in some cases due to missing trailing slash.
-
-**New in Version 1.0.4**
-
-* Updated: Significant performance improvements to the recurrent broken links scan.
-* Updated: Moved Post Title and URL values in URL info modal to their own rows to provide them with a bit more space.
-* Fixed: HTML anchors and URL params are now stripped from URLs before they are indexed and checked.
-* Fixed: URLs with capitals are no longer lowercased before being checked.
-* Fixed: Plugin conflicts due to Vue version mismatches.
-* Fixed: Action Scheduler actions now automatically clean up their logs after they ran successfully.
-
-**New in Version 1.0.3**
-
-* Fixed: Admin menu is no longer restricted to users with "edit_plugins" capability.
-
-**New in Version 1.0.2**
-
-* Updated: Broken links scan starts immediately after user connects to their account.
-
-**New in Version 1.0.1**
-
-* Fixed: Link status scan ID sometimes not stored correctly, causing the scan to be rescheduled.
-* Fixed: Dismissed links are no longer periodically rechecked.
-* Fixed: CSS issue when user has a very high quota.
-
-**New in Version 1.0.0**
-
-* NEW: Initial release.
+**See our [changelog on aioseo.com](https://aioseo.com/changelog/broken-link-checker/?utm_source=wprepo&utm_medium=link&utm_campaign=blc) for previous releases.**
 
 == Upgrade Notice ==
 
-= 1.2.0 =
+= 1.2.1 =
 
 This update adds major improvements and bug fixes.

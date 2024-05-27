@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.2.5
+Stable tag: 4.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,13 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.2.6 - 27-May-2024
+- Improvement: AI Builder - Added a pre-installation confirmation modal before building the site.
+- Fix: Fixed a redirection issue with the "Try the New AI Builder" button on Starter Templates dashboard.
+- Fix: Corrected template listing for the Spectra One theme.
+- Fix: Fixed an issue where import failed for Beaver Builder templates.
+- Fix: Addressed an issue where fonts, colors, and other settings were not applied after importing Elementor templates.
 
 v4.2.5 - 21-May-2024
 - Fix: Resolved an issue that caused plugin activation errors on multisite installations.

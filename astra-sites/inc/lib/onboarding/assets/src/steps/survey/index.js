@@ -162,6 +162,7 @@ const Survey = () => {
 		const content = new FormData();
 		content.append( 'action', 'astra-sites-set_start_flag' );
 		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+		content.append( 'template_type', 'classic' );
 
 		fetch( ajaxurl, {
 			method: 'post',

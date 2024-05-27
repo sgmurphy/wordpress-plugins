@@ -227,7 +227,7 @@ namespace AIOSEO\BrokenLinkChecker {
 
 			$constants = [
 				'AIOSEO_BROKEN_LINK_CHECKER_PLUGIN_BASENAME'  => plugin_basename( AIOSEO_BROKEN_LINK_CHECKER_FILE ),
-				'AIOSEO_BROKEN_LINK_CHECKER_PLUGIN_NAME'      => $pluginData['name'],
+				'AIOSEO_BROKEN_LINK_CHECKER_PLUGIN_NAME'      => 'Broken Link Checker',
 				'AIOSEO_BROKEN_LINK_CHECKER_PLUGIN_URL'       => plugin_dir_url( AIOSEO_BROKEN_LINK_CHECKER_FILE ),
 				'AIOSEO_BROKEN_LINK_CHECKER_VERSION'          => $pluginData['version'],
 				'AIOSEO_BROKEN_LINK_CHECKER_MARKETING_URL'    => 'https://aioseo.com/',

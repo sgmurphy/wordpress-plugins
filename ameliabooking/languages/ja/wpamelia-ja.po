@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1490,6 +1490,7 @@ msgid "Purchase code"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "サービスの詳細"
@@ -1739,11 +1740,6 @@ msgstr "通知の設定を表示"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "支払いの設定を表示"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "基本設定を表示"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -7396,6 +7392,11 @@ msgstr ""
 #, fuzzy
 #~ msgid "Working Hours"
 #~ msgstr "営業時間＆休業日の設定"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "基本設定を表示"
 
 #, fuzzy
 #~| msgid "Event Day"

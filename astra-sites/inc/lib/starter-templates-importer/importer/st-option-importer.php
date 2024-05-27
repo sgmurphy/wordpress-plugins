@@ -59,17 +59,20 @@ class ST_Option_Importer {
 	 * @return array    List of defined array.
 	 */
 	public static function site_options() {
-		return array(
-			'custom_logo',
-			'nav_menu_locations',
-			'show_on_front',
-			'page_on_front',
-			'page_for_posts',
-			'site_title',
+		return apply_filters(
+			'st_importer_site_options',
+			array(
+				'custom_logo',
+				'nav_menu_locations',
+				'show_on_front',
+				'page_on_front',
+				'page_for_posts',
+				'site_title',
 
-			// Astra Theme Global Color Palette and Typography Preset options.
-			'astra-color-palettes',
-			'astra-typography-presets',
+				// Astra Theme Global Color Palette and Typography Preset options.
+				'astra-color-palettes',
+				'astra-typography-presets',
+			)
 		);
 	}
 

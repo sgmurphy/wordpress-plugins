@@ -390,6 +390,9 @@ let liteOptionsTreatment = deepMerge(
       payment: [
         'coupon',
       ],
+      congrats: [
+        'secBtn'
+      ]
     },
   },
 )

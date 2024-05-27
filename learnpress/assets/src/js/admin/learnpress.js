@@ -1,6 +1,6 @@
+import { lpAjaxParseJsonOld } from '../utils';
 const $ = jQuery;
 const $doc = $( document );
-const $win = $( window );
 
 const makePaymentsSortable = function makePaymentsSortable() {
 	// Make payments sortable
@@ -646,7 +646,7 @@ const togglePaymentStatus = function togglePaymentStatus( e ) {
 			nonce: $( 'input[name=lp-settings-nonce]' ).val(),
 		},
 		success( response ) {
-			response = LP.parseJSON( response );
+			response = lpAjaxParseJsonOld( response );
 			for ( const i in response ) {
 				$( '#payment-' + i + ' .status' ).toggleClass( 'enabled', response[ i ] );
 			}
@@ -666,7 +666,7 @@ const updateEmailStatus = function updateEmailStatus() {
 			},
 			dataType: 'text',
 			success: $.proxy( function( res ) {
-				res = LP.parseJSON( res );
+				res = lpAjaxParseJsonOld( res );
 				for ( const i in res ) {
 					$( '#email-' + i + ' .status' ).toggleClass( 'enabled', res[ i ] );
 				}
@@ -832,52 +832,9 @@ const toggleEmails = function toggleEmails( e ) {
 			status,
 		},
 		success( response ) {
-			response = LP.parseJSON( response );
+			response = lpAjaxParseJsonOld( response );
 			for ( const i in response ) {
 				$( '#email-' + i + ' .status' ).toggleClass( 'enabled', response[ i ] );
-			}
-		},
-	} );
-};
-
-const importCourses = function importCourses() {
-	const $container = $( '#learn-press-install-sample-data-notice' ),
-		action = $( this ).attr( 'data-action' );
-	if ( ! action ) {
-		return;
-	}
-	e.preventDefault();
-
-	if ( action === 'yes' ) {
-		$container
-			.find( '.install-sample-data-notice' ).slideUp()
-			.siblings( '.install-sample-data-loading' ).slideDown();
-	} else {
-		$container.fadeOut();
-	}
-	$.ajax( {
-		url: ajaxurl,
-		dataType: 'html',
-		type: 'post',
-		data: {
-			action: 'learnpress_install_sample_data',
-			yes: action,
-		},
-		success( response ) {
-			response = LP.parseJSON( response );
-			if ( response.url ) {
-				$.ajax( {
-					url: response.url,
-					success() {
-						$container
-							.find( '.install-sample-data-notice' ).html( response.message ).slideDown()
-							.siblings( '.install-sample-data-loading' ).slideUp();
-					},
-				} );
-			} else {
-				$container
-					.find( '.install-sample-data-notice' ).html( response.message ).slideDown()
-					.siblings( '.install-sample-data-loading' ).slideUp();
 			}
 		},
 	} );
@@ -906,8 +863,7 @@ const onReady = function onReady() {
 		.on( 'click', '.learn-press-payments .status .dashicons', togglePaymentStatus )
 		.on( 'click', '.change-email-status', updateEmailStatus )
 		.on( 'click', '.learn-press-filter-template', callbackFilterTemplates )
-		.on( 'click', '#learn-press-enable-emails, #learn-press-disable-emails', toggleEmails )
-		.on( 'click', '#learn-press-install-sample-data-notice a', importCourses );
+		.on( 'click', '#learn-press-enable-emails, #learn-press-disable-emails', toggleEmails );
 };
 
 $( document ).ready( onReady );

@@ -148,6 +148,9 @@ class Data {
 	private function extractLinks( $postId, $postContent ) {
 		$postContent = aioseoBrokenLinkChecker()->helpers->decodeHtmlEntities( $postContent );
 
+		// Strip data URIs to prevent catastrophic backtracking.
+		$postContent = preg_replace( '/data:[^;]+;base64,[^"]+/', '', $postContent );
+
 		/**
 		 * Regex pattern divided into groups:
 		 * 0  - Full phrase with link tag.
@@ -216,8 +219,8 @@ class Data {
 			// Reformat the URL to get rid of params and fragments.
 			$url = $this->geturlWithoutParamsAndFragment( $parsedUrl );
 
-			// We need to escape it here so the hash is calculated based on the escaped version.
-			$url = esc_url( $url );
+			// We need to sanitize the URL here so the hash is calculated based on the escaped version.
+			$url = trim( sanitize_url( $url ) );
 
 			$linkData = [
 				'post_id'            => (int) $postId,

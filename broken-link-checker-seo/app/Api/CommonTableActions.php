@@ -129,10 +129,10 @@ abstract class CommonTableActions {
 		// First, update the link in the phrase.
 		$oldAnchor     = aioseoBrokenLinkChecker()->helpers->escapeRegex( $link->anchor );
 		$oldUrl        = aioseoBrokenLinkChecker()->helpers->escapeRegex( $link->url );
-		$escapedAnchor = aioseoBrokenLinkChecker()->helpers->escapeRegexReplacement( $newAnchor ? $newAnchor : $link->anchor );
-		$escapedUrl    = aioseoBrokenLinkChecker()->helpers->escapeRegexReplacement( $newUrl ? $newUrl : $link->url );
+		$escapedAnchor = aioseoBrokenLinkChecker()->helpers->escapeRegexReplacement( $newAnchor ?: $link->anchor );
+		$escapedUrl    = aioseoBrokenLinkChecker()->helpers->escapeRegexReplacement( $newUrl ?: $link->url );
 
-		$newPhraseHtml = preg_replace( "/(<a.*?href=\")({$oldUrl})(\".*?>)({$oldAnchor})(<\/a>)/i", "$1{$escapedUrl}$3{$escapedAnchor}$5", $link->phrase_html );
+		$newPhraseHtml = preg_replace( "/(<a.*?href=\")($oldUrl)(\".*?>[\s\w]*?)($oldAnchor)([\s\w]*?<\/a>)/is", "$1$escapedUrl$3$escapedAnchor$5", $link->phrase_html );
 
 		// Then, replace the phrase in the post content.
 		$postContent   = str_replace( '&nbsp;', ' ', $post->post_content );
@@ -214,7 +214,7 @@ abstract class CommonTableActions {
 
 		// First, remove the link in the phrase.
 		$anchor        = $link->anchor;
-		$newPhraseHtml = preg_replace( "/<a.*?>({$anchor})<\/a>/", '$1', $link->phrase_html );
+		$newPhraseHtml = preg_replace( "/<a.*?>([\s\w]*?{$anchor}[\s\w]*?)<\/a>/is", '$1', $link->phrase_html );
 
 		// Then, replace the phrase in the post content.
 		$postContent   = str_replace( '&nbsp;', ' ', $post->post_content );

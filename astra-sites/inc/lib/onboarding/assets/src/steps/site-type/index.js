@@ -89,12 +89,6 @@ const SiteType = () => {
 			} );
 			return;
 		}
-
-		// dispatch( {
-		// 	type: 'set',
-		// 	currentIndex: 1,
-		// 	builder: 'ai-builder',
-		// } );
 		const content = new FormData();
 		content.append( 'action', 'astra-sites-change-page-builder' );
 		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
@@ -109,7 +103,7 @@ const SiteType = () => {
 	};
 
 	useEffect( () => {
-		if ( currentIndex === 0 ) {
+		if ( currentIndex === 0 && builder !== 'fse' ) {
 			dispatch( {
 				type: 'set',
 				builder: 'ai-builder',

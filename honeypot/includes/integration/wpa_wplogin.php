@@ -13,7 +13,9 @@ if (!function_exists('wpae_get_blocked_integrations') || !in_array('wp_login_for
 	function wpae_wplogin_extra_validation( $user, $username, $password ) {
 	    if ( ! empty( $_POST ) ) {
 		    if (wpa_check_is_spam($_POST)){
-				do_action('wpa_handle_spammers','wplogin', $_POST);
+		    	$postData = $_POST;
+				$postData['pwd']	= '**removed**';
+				do_action('wpa_handle_spammers','wplogin', $postData);
 				return new WP_Error( 'error', $GLOBALS['wpa_error_message']);
 			}
 		}

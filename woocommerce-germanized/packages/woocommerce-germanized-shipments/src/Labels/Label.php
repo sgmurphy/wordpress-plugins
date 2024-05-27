@@ -53,21 +53,22 @@ class Label extends WC_Data implements ShipmentLabel {
 	 * @var array
 	 */
 	protected $data = array(
-		'date_created'      => null,
-		'shipment_id'       => 0,
-		'product_id'        => '',
-		'parent_id'         => 0,
-		'number'            => '',
-		'shipping_provider' => '',
-		'weight'            => '',
-		'net_weight'        => '',
-		'length'            => '',
-		'width'             => '',
-		'height'            => '',
-		'path'              => '',
-		'created_via'       => '',
-		'services'          => array(),
-		'print_format'      => '',
+		'date_created'            => null,
+		'shipment_id'             => 0,
+		'product_id'              => '',
+		'parent_id'               => 0,
+		'number'                  => '',
+		'shipping_provider'       => '',
+		'weight'                  => '',
+		'net_weight'              => '',
+		'length'                  => '',
+		'width'                   => '',
+		'height'                  => '',
+		'path'                    => '',
+		'created_via'             => '',
+		'services'                => array(),
+		'print_format'            => '',
+		'export_reference_number' => '',
 	);
 
 	public function __construct( $data = 0 ) {
@@ -193,6 +194,10 @@ class Label extends WC_Data implements ShipmentLabel {
 
 	public function get_print_format( $context = 'view' ) {
 		return $this->get_prop( 'print_format', $context );
+	}
+
+	public function get_export_reference_number( $context = 'view' ) {
+		return $this->get_prop( 'export_reference_number', $context );
 	}
 
 	public function has_number() {
@@ -337,6 +342,10 @@ class Label extends WC_Data implements ShipmentLabel {
 
 	public function set_print_format( $format ) {
 		$this->set_prop( 'print_format', $format );
+	}
+
+	public function set_export_reference_number( $ref_number ) {
+		$this->set_prop( 'export_reference_number', $ref_number );
 	}
 
 	public function set_shipping_provider( $slug ) {
@@ -817,7 +826,7 @@ class Label extends WC_Data implements ShipmentLabel {
 			$customs_items[ $key ] = apply_filters(
 				"{$this->get_general_hook_prefix()}customs_item",
 				array(
-					'description'         => apply_filters( "{$this->get_general_hook_prefix()}item_description", wc_clean( mb_substr( $single_item_description, 0, $max_desc_length ) ), $item, $this, $shipment ),
+					'description'         => apply_filters( "{$this->get_general_hook_prefix()}item_description", wc_clean( wc_gzd_shipments_substring( $single_item_description, 0, $max_desc_length ) ), $item, $this, $shipment ),
 					'category'            => apply_filters( "{$this->get_general_hook_prefix()}item_category", $category, $item, $this, $shipment ),
 					'origin_code'         => ( $shipment_product && $shipment_product->get_manufacture_country() ) ? $shipment_product->get_manufacture_country() : Package::get_base_country(),
 					'tariff_number'       => $shipment_product ? $shipment_product->get_hs_code() : '',
@@ -841,7 +850,7 @@ class Label extends WC_Data implements ShipmentLabel {
 			$total_value        += (float) $customs_items[ $key ]['value'];
 		}
 
-		$item_description = mb_substr( $item_description, 0, $max_desc_length );
+		$item_description = wc_gzd_shipments_substring( $item_description, 0, $max_desc_length );
 
 		$customs_data = apply_filters(
 			"{$this->get_general_hook_prefix()}customs_data",
@@ -849,6 +858,7 @@ class Label extends WC_Data implements ShipmentLabel {
 				'shipment_id'                   => $shipment->get_id(),
 				'additional_fee'                => wc_format_decimal( $shipment->get_additional_total(), 2 ),
 				'place_of_commital'             => $shipment->get_sender_city(),
+				'export_reference_number'       => $this->get_export_reference_number(),
 				// e.g. EORI number
 				'sender_customs_ref_number'     => $shipment->get_sender_customs_reference_number(),
 				'receiver_customs_ref_number'   => $shipment->get_customs_reference_number(),

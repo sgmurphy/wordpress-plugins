@@ -1852,6 +1852,43 @@ function wpuxss_eml_print_media_library_options() {
                                             </fieldset>
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <th scope="row"><?php _e('Search on enter','enhanced-media-library'); ?></th>
+                                        <td>
+                                            <fieldset>
+                                                <legend class="screen-reader-text"><span><?php _e('Search on enter','enhanced-media-library'); ?></span></legend>
+                                                <label><input name="wpuxss_eml_lib_options[search_on_enter]" type="hidden" value="0" /><input id="wpuxss_eml_lib_options_search_on_enter" name="wpuxss_eml_lib_options[search_on_enter]" type="checkbox" value="1" <?php checked( true, (bool) $wpuxss_eml_lib_options['search_on_enter'], true ); ?> /> <?php _e('Enable search on hitting Enter key','enhanced-media-library'); ?></label>
+                                                <p class="description"><?php _e( 'Use in combination with the higher minimum number of letters or disable auto search at all.', 'enhanced-media-library' ); ?></p>
+                                                <p class="description"><?php _e( 'Works for Media Library Grid Mode and Media Popups.', 'enhanced-media-library' ); ?></p>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row"><?php _e('Auto search','enhanced-media-library'); ?></th>
+                                        <td>
+                                            <fieldset>
+                                                <legend class="screen-reader-text"><span><?php _e('Auto search','enhanced-media-library'); ?></span></legend>
+                                                <label><input name="wpuxss_eml_lib_options[search_auto]" type="hidden" value="0" /><input id="wpuxss_eml_lib_options_search_auto" name="wpuxss_eml_lib_options[search_auto]" type="checkbox" value="1" <?php checked( true, (bool) $wpuxss_eml_lib_options['search_auto'], true ); ?> /> <?php _e('Enable auto search while typing search request','enhanced-media-library'); ?></label>
+                                                <p class="description"><?php _e( 'Default WordPress behavior for Media Library Grid Mode and Media Popups.', 'enhanced-media-library' ); ?></p>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+
+                                    <tr id="wpuxss_eml_lib_options_search_min_letters">
+                                        <th scope="row"><?php _e('Minimun number of letters','enhanced-media-library'); ?></th>
+                                        <td>
+                                            <fieldset>
+                                                <legend class="screen-reader-text"><span><?php _e('Minimun number of letters','enhanced-media-library'); ?></span></legend>
+                                                <label><input name="wpuxss_eml_lib_options[search_min_letters]" type="number" min="2" step="1" value="<?php echo (int) $wpuxss_eml_lib_options['search_min_letters']; ?>" /> <?php _e('Set the minimum number of letters required to start the auto search','enhanced-media-library'); ?></label>
+                                                <p class="description"><?php _e('Set higher number to prevent multiple search requests to the database.','enhanced-media-library'); ?></p>
+                                                <p class="description"><?php _e( 'Using a higher number can improve auto search query performance.', 'enhanced-media-library' ); ?></p>
+                                                <p class="description"><?php _e( 'Works for Media Library Grid Mode and Media Popups.', 'enhanced-media-library' ); ?></p>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+
                                 </table>
 
                                 <?php submit_button( __( 'Save Changes' ), 'primary', 'submit', true, array( 'id' => 'eml-submit-lib-settings-search' ) ); ?>
@@ -1953,7 +1990,7 @@ function wpuxss_eml_print_media_library_options() {
                                     </tr>
 
                                     <tr id="wpuxss_eml_lib_options_grid_caption_type">
-                                        <th scope="row"><label for="wpuxss_eml_lib_options[media_order]"><?php _e('Caption type','enhanced-media-library'); ?></label></th>
+                                        <th scope="row"><label for="wpuxss_eml_lib_options[grid_caption_type]"><?php _e('Caption type','enhanced-media-library'); ?></label></th>
                                         <td>
                                             <select name="wpuxss_eml_lib_options[grid_caption_type]">
                                                 <option value="title" <?php selected( $wpuxss_eml_lib_options['grid_caption_type'], 'title' ); ?>><?php _e('Title','enhanced-media-library'); ?></option>

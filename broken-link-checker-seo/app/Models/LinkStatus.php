@@ -216,7 +216,7 @@ class LinkStatus extends Model {
 
 		$query = aioseoBrokenLinkChecker()->core->db->start( 'aioseo_blc_link_status as als' )
 			->join( 'aioseo_blc_links as al', 'als.id = al.blc_link_status_id' )
-			->join( 'posts as p', 'al.post_id = p.ID', 'RIGHT' )
+			->join( 'posts as p', 'al.post_id = p.ID' )
 			->groupBy( 'al.url' );
 
 		if ( ! empty( $whereClause ) ) {
@@ -251,6 +251,9 @@ class LinkStatus extends Model {
 					break;
 				case 'dismissed':
 					$query->where( 'als.dismissed', true );
+					break;
+				case 'not-checked':
+					$query->where( 'als.last_scan_date', null );
 					break;
 				case 'all':
 				default:

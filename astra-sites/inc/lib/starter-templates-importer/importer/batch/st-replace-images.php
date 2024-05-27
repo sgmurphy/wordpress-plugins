@@ -214,6 +214,7 @@ class ST_Replace_Images {
 			}
 		}
 		delete_option( 'ast_sites_downloaded_images' );
+		delete_option( 'astra_sites_ai_imports' );
 	}
 
 	/**
@@ -717,6 +718,10 @@ class ST_Replace_Images {
 	 * @since 4.1.0
 	 */
 	public static function get_pages( $type = 'page' ) {
+
+		$posts               = get_option( 'astra_sites_ai_imports', array() );
+		$post_ids_to_include = ! empty( $posts[ $type ] ) ? $posts[ $type ] : array();
+
 		$query_args = array(
 			'post_type'           => array( $type ),
 			// Query performance optimization.
@@ -725,13 +730,7 @@ class ST_Replace_Images {
 			'post_status'         => 'publish',
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => true,
-			'meta_query'          => array(
-				array(
-					'key'     => '_astra_sites_imported_post', // Replace 'your_meta_key' with your actual meta key.
-					'value'   => '1', // Replace 'desired_meta_value' with the value you are querying.
-					'compare' => '=', // Change the comparison operator if needed.
-				),
-			),
+			'post__in'            => $post_ids_to_include,
 		);
 
 		$query = new \WP_Query( $query_args );

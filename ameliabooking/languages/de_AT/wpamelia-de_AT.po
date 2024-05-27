@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:26+0200\n"
 "Last-Translator: Tobias D. <info@td-projects.de>\n"
 "Language-Team: Amelia\n"
@@ -1533,6 +1533,7 @@ msgid "Purchase code"
 msgstr "Bestellcode"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Dienstleistungsdetails"
@@ -1798,11 +1799,6 @@ msgstr "Benachrichtigungs-Einstellungen anzeigen"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Zahlungs-Einstellungen anzeigen"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Allgemeine Einstellungen anzeigen"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -8917,6 +8913,11 @@ msgstr "Die Buchung kann nicht storniert werden"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Links"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Allgemeine Einstellungen anzeigen"
 
 #, fuzzy
 #~ msgid "Event Organizer"

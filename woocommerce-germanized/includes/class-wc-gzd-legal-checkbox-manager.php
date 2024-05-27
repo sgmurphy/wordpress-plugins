@@ -475,18 +475,14 @@ class WC_GZD_Legal_Checkbox_Manager {
 		return $args;
 	}
 
-	public function show_conditionally_pay_for_order() {
-		global $wp;
-
-		$order_id = absint( $wp->query_vars['order-pay'] );
-
-		if ( ! $order_id || ! ( $order = wc_get_order( $order_id ) ) ) {
-			return;
-		}
-
+	/**
+	 * @param WC_Order $order
+	 *
+	 * @return void
+	 */
+	public function show_conditionally_order( $order, $location = 'pay_for_order' ) {
 		$items = $order->get_items();
-
-		$args = array(
+		$args  = array(
 			'is_downloadable'        => false,
 			'is_service'             => false,
 			'has_defective_copies'   => false,
@@ -498,7 +494,8 @@ class WC_GZD_Legal_Checkbox_Manager {
 			'company'                => $order->get_shipping_company() ? $order->get_shipping_company() : $order->get_billing_company(),
 			'create_account'         => false,
 			'order'                  => $order,
-			'needs_age_verification' => wc_gzd_order_has_age_verification( $order_id ),
+			'needs_age_verification' => wc_gzd_order_has_age_verification( $order->get_id() ),
+			'payment_method'         => $order->get_payment_method(),
 		);
 
 		foreach ( $items as $key => $item ) {
@@ -529,7 +526,19 @@ class WC_GZD_Legal_Checkbox_Manager {
 			}
 		}
 
-		$this->update_show_conditionally( 'pay_for_order', $args );
+		$this->update_show_conditionally( $location, $args, 'order' );
+	}
+
+	public function show_conditionally_pay_for_order() {
+		global $wp;
+
+		$order_id = absint( $wp->query_vars['order-pay'] );
+
+		if ( ! $order_id || ! ( $order = wc_get_order( $order_id ) ) ) {
+			return;
+		}
+
+		$this->show_conditionally_order( $order );
 	}
 
 	public function show_conditionally_checkout() {
@@ -539,6 +548,7 @@ class WC_GZD_Legal_Checkbox_Manager {
 			'company'                => WC_GZD_Checkout::instance()->get_checkout_value( 'shipping_company' ) ? WC_GZD_Checkout::instance()->get_checkout_value( 'shipping_company' ) : WC_GZD_Checkout::instance()->get_checkout_value( 'billing_company' ),
 			'create_account'         => WC_GZD_Checkout::instance()->get_checkout_value( 'createaccount' ) ? WC_GZD_Checkout::instance()->get_checkout_value( 'createaccount' ) : false,
 			'needs_age_verification' => WC()->cart && wc_gzd_cart_needs_age_verification(),
+			'payment_method'         => WC_GZD_Checkout::instance()->get_checkout_value( 'payment_method' ) ? WC_GZD_Checkout::instance()->get_checkout_value( 'payment_method' ) : '',
 		);
 
 		$args = array_merge( $args, $this->get_cart_product_data() );
@@ -546,7 +556,7 @@ class WC_GZD_Legal_Checkbox_Manager {
 		$this->update_show_conditionally( 'checkout', $args );
 	}
 
-	public function update_show_conditionally( $location, $args = array() ) {
+	public function update_show_conditionally( $location, $args = array(), $context = '' ) {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -562,8 +572,15 @@ class WC_GZD_Legal_Checkbox_Manager {
 				'create_account'         => false,
 				'order'                  => false,
 				'needs_age_verification' => false,
+				'payment_method'         => '',
 			)
 		);
+
+		if ( empty( $context ) && 'pay_for_order' === $location ) {
+			$context = 'order';
+		}
+
+		$context = empty( $context ) ? $location : $context;
 
 		foreach ( $this->get_checkboxes( array( 'locations' => $location ) ) as $checkbox_id => $checkbox ) {
 			if ( $checkbox->is_enabled() ) {
@@ -586,9 +603,9 @@ class WC_GZD_Legal_Checkbox_Manager {
 				if ( 'age_verification' === $checkbox_id && $args['needs_age_verification'] ) {
 					$checkbox_args['is_shown'] = true;
 
-					if ( 'checkout' === $location ) {
+					if ( 'checkout' === $context ) {
 						$checkbox_args['label_args'] = array( '{age}' => wc_gzd_cart_get_age_verification_min_age() );
-					} elseif ( 'pay_for_order' === $location ) {
+					} elseif ( 'order' === $context ) {
 						$checkbox_args['label_args'] = array( '{age}' => wc_gzd_get_order_min_age( $args['order'] ) );
 					}
 				}
@@ -596,14 +613,14 @@ class WC_GZD_Legal_Checkbox_Manager {
 				if ( 'defective_copy' === $checkbox_id && $args['has_defective_copies'] ) {
 					$checkbox_args['is_shown'] = true;
 
-					if ( 'checkout' === $location ) {
+					if ( 'checkout' === $context ) {
 						$checkbox_args['label_args'] = array( '{defect_descriptions}' => wc_gzd_print_item_defect_descriptions( wc_gzd_get_cart_defect_descriptions() ) );
-					} elseif ( 'pay_for_order' === $location ) {
+					} elseif ( 'order' === $context ) {
 						$checkbox_args['label_args'] = array( '{defect_descriptions}' => wc_gzd_print_item_defect_descriptions( wc_gzd_get_order_defect_descriptions( $args['order'] ) ) );
 					}
 				}
 
-				if ( 'privacy' === $checkbox_id && 'checkout' === $location ) {
+				if ( 'privacy' === $checkbox_id && 'checkout' === $context ) {
 					$create_account = $args['create_account'];
 
 					/**
@@ -620,10 +637,10 @@ class WC_GZD_Legal_Checkbox_Manager {
 					}
 				}
 
-				if ( 'parcel_delivery' === $checkbox_id && in_array( $location, array( 'checkout', 'pay_for_order' ), true ) ) {
+				if ( 'parcel_delivery' === $checkbox_id && in_array( $context, array( 'checkout', 'order' ), true ) ) {
 					$enable_check = false;
 
-					if ( 'checkout' === $location ) {
+					if ( 'checkout' === $context ) {
 						if ( WC()->cart && WC()->cart->needs_shipping() ) {
 							$enable_check = true;
 							$rates        = wc_gzd_get_chosen_shipping_rates();
@@ -650,7 +667,7 @@ class WC_GZD_Legal_Checkbox_Manager {
 								array_push( $titles, $title );
 							}
 						}
-					} elseif ( 'pay_for_order' === $location ) {
+					} elseif ( 'order' === $context ) {
 						if ( $args['order']->has_shipping_address() ) {
 							$enable_check = true;
 							$ids          = array();
@@ -694,12 +711,24 @@ class WC_GZD_Legal_Checkbox_Manager {
 				/**
 				 * Do only apply global hide/show logic in case the checkbox is visible by default
 				 */
-				if ( $checkbox_args['is_shown'] && ( $checkbox->get_show_for_countries() || $checkbox->get_show_for_categories() ) ) {
-					$show_for_country_is_valid    = $checkbox->get_show_for_countries() ? false : true;
-					$show_for_categories_is_valid = $checkbox->get_show_for_categories() ? false : true;
+				if ( $checkbox_args['is_shown'] && ( $checkbox->get_show_for_countries() || $checkbox->get_show_for_categories() || $checkbox->get_show_for_payment_methods() ) ) {
+					$show_for_country_is_valid         = $checkbox->get_show_for_countries() ? false : true;
+					$show_for_categories_is_valid      = $checkbox->get_show_for_categories() ? false : true;
+					$show_for_payment_methods_is_valid = $checkbox->get_show_for_payment_methods() ? false : true;
 
 					if ( $checkbox->get_show_for_countries() && $checkbox->show_for_country( $args['country'] ) ) {
 						$show_for_country_is_valid = true;
+					}
+
+					if ( $checkbox->get_show_for_payment_methods() && $checkbox->show_for_payment_method( $args['payment_method'] ) ) {
+						$show_for_payment_methods_is_valid = true;
+					}
+
+					/**
+					 * Checkout block payment method validation is triggered client-side.
+					 */
+					if ( WC_germanized()->is_rest_api_request() ) {
+						$show_for_payment_methods_is_valid = true;
 					}
 
 					if ( $category_ids = $checkbox->get_show_for_categories() ) {
@@ -710,7 +739,7 @@ class WC_GZD_Legal_Checkbox_Manager {
 						}
 					}
 
-					if ( $show_for_country_is_valid && $show_for_categories_is_valid ) {
+					if ( $show_for_country_is_valid && $show_for_categories_is_valid && $show_for_payment_methods_is_valid ) {
 						$checkbox_args['is_shown'] = true;
 					} else {
 						$checkbox_args['is_shown'] = false;
@@ -726,10 +755,11 @@ class WC_GZD_Legal_Checkbox_Manager {
 				 * @param WC_GZD_Legal_Checkbox $checkbox Checkbox object.
 				 * @param string $checkbox_id The checkbox id.
 				 * @param WC_GZD_Legal_Checkbox_Manager $instance The checkbox manager instance.
+				 * @param string $context The checkbox context
 				 *
 				 * @since 3.11.5
 				 */
-				$checkbox_args = apply_filters( "woocommerce_gzd_checkbox_show_conditionally_{$location}_args", $checkbox_args, $checkbox, $checkbox_id, $this );
+				$checkbox_args = apply_filters( "woocommerce_gzd_checkbox_show_conditionally_{$location}_args", $checkbox_args, $checkbox, $checkbox_id, $this, $context );
 
 				wc_gzd_update_legal_checkbox( $checkbox_id, $checkbox_args );
 			}
@@ -906,21 +936,22 @@ class WC_GZD_Legal_Checkbox_Manager {
 		$args = wp_parse_args(
 			$args,
 			array(
-				'html_name'            => '',
-				'html_id'              => '',
-				'is_mandatory'         => false,
-				'locations'            => array(),
-				'supporting_locations' => array(),
-				'html_wrapper_classes' => array(),
-				'html_classes'         => array(),
-				'label_args'           => array(),
-				'hide_input'           => false,
-				'error_message'        => '',
-				'admin_name'           => '',
-				'show_for_categories'  => array(),
-				'show_for_countries'   => array(),
-				'refresh_fragments'    => true,
-				'is_shown'             => true,
+				'html_name'                => '',
+				'html_id'                  => '',
+				'is_mandatory'             => false,
+				'locations'                => array(),
+				'supporting_locations'     => array(),
+				'html_wrapper_classes'     => array(),
+				'html_classes'             => array(),
+				'label_args'               => array(),
+				'hide_input'               => false,
+				'error_message'            => '',
+				'admin_name'               => '',
+				'show_for_categories'      => array(),
+				'show_for_countries'       => array(),
+				'show_for_payment_methods' => array(),
+				'refresh_fragments'        => true,
+				'is_shown'                 => true,
 			)
 		);
 
@@ -952,6 +983,10 @@ class WC_GZD_Legal_Checkbox_Manager {
 
 		if ( ! is_array( $args['show_for_countries'] ) ) {
 			$args['show_for_countries'] = array_filter( array( $args['show_for_countries'] ) );
+		}
+
+		if ( ! is_array( $args['show_for_payment_methods'] ) ) {
+			$args['show_for_payment_methods'] = array_filter( array( $args['show_for_payment_methods'] ) );
 		}
 
 		$args['label_args'] = array_merge( $args['label_args'], $this->get_legal_label_args() );

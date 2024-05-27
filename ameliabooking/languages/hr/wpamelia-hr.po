@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1543,6 +1543,7 @@ msgid "Purchase code"
 msgstr "Kod kupnje"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Pojedinosti usluge"
@@ -1812,11 +1813,6 @@ msgstr "Pregledajte postavke obavijesti"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Pogledajte postavke plaćanja"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Pogledajte Opće postavke"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10468,6 +10464,11 @@ msgstr "Rezervacija se ne može otkazati"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Povećaj veze"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Pogledajte Opće postavke"
 
 #, fuzzy
 #~| msgid "Organizer"

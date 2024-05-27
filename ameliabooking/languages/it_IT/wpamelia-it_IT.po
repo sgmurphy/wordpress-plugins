@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1558,6 +1558,7 @@ msgid "Purchase code"
 msgstr "Codice di acquisto"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Dettagli del servizio"
@@ -1828,11 +1829,6 @@ msgstr "Visualizza le Impostazioni delle Notifiche"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Visualizza le Impostazioni dei Pagamenti"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Visualizza le Impostazioni Generali"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10559,6 +10555,11 @@ msgstr "La prenotazione non può essere annullata"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Links Zoom"
+
+#, fuzzy
+#~| msgid "View General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Visualizza le Impostazioni Generali"
 
 #, fuzzy
 #~| msgid "Organizer"

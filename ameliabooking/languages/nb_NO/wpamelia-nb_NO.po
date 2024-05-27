@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1502,6 +1502,7 @@ msgid "Purchase code"
 msgstr ""
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 #, fuzzy
 msgid "Provider Details"
 msgstr "Betalingsinformasjon"
@@ -1750,11 +1751,6 @@ msgstr ""
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr ""
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-#, fuzzy
-msgid "View Provider Details Settings"
-msgstr "Generelle innstillinger"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -7194,6 +7190,11 @@ msgstr "Bookingen kan ikke kanselleres"
 #, fuzzy
 #~ msgid "Periods"
 #~ msgstr "Dato og tid for hendelsen med Zoom -koblinger"
+
+#, fuzzy
+#~| msgid "General Settings"
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Generelle innstillinger"
 
 #, fuzzy
 #~ msgid "Event Organizer"

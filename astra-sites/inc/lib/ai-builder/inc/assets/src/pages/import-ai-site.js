@@ -1730,6 +1730,7 @@ const ImportAiSite = () => {
 		content.append( 'action', 'astra-sites-set_start_flag' );
 		content.append( '_ajax_nonce', aiBuilderVars._ajax_nonce );
 		content.append( 'uuid', websiteInfo.uuid );
+		content.append( 'template_type', 'ai' );
 
 		await fetch( ajaxurl, {
 			method: 'post',

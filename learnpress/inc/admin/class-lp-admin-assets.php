@@ -106,7 +106,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	protected function _get_scripts(): array {
 		$lp_admin_js = new LP_Asset_Key(
 			$this->url( 'js/dist/admin/admin' . self::$_min_assets . '.js' ),
-			[ 'wp-i18n' ],
+			[ 'wp-i18n', 'lp-utils' ],
 			[],
 			0,
 			0,
@@ -129,7 +129,16 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				'select2'                           => new LP_Asset_Key( $this->url( 'src/js/vendor/select2.full.min.js' ) ),
 				'jquery-tipsy'                      => new LP_Asset_Key( $this->url( 'src/js/vendor/jquery/jquery-tipsy.js' ) ),
 				'html2pdf'                          => new LP_Asset_Key( $this->url( 'src/js/vendor/html2pdf.bundle.min.js' ) ),
-				'dropdown-pages'                    => new LP_Asset_Key( $this->url( self::$_folder_source . 'js/admin/share/dropdown-pages' . self::$_min_assets . '.js' ) ),
+				'lp-utils'                          => new LP_Asset_Key(
+					$this->url( 'js/dist/utils' . self::$_min_assets . '.js' ),
+					array(),
+					array(),
+					1
+				),
+				'dropdown-pages'                    => new LP_Asset_Key(
+					$this->url( self::$_folder_source . 'js/admin/share/dropdown-pages' . self::$_min_assets . '.js' ),
+					[ 'lp-utils' ]
+				),
 				'jquery-ui-timepicker-addon'        => new LP_Asset_Key(
 					$this->url( 'src/js/vendor/jquery/jquery-ui-timepicker-addon.js' ),
 					array( 'jquery-ui-datepicker' )
@@ -148,18 +157,11 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					$this->url( self::$_folder_source . 'js/global' . self::$_min_assets . '.js' ),
 					array( 'jquery', 'underscore', 'utils', 'jquery-ui-sortable', 'select2' )
 				),
-				'lp-utils'                          => new LP_Asset_Key(
-					$this->url( 'js/dist/utils' . self::$_min_assets . '.js' ),
-					array(),
-					array(),
-					1
-				),
 				'lp-admin'                          => $lp_admin_js,
 				'lp-admin-learnpress'               => new LP_Asset_Key(
-					$this->url( self::$_folder_source . 'js/admin/learnpress' . self::$_min_assets . '.js' ),
+					$this->url( 'js/dist/admin/learnpress' . self::$_min_assets . '.js' ),
 					array(
 						'learn-press-global',
-						'lp-utils',
 						'wp-color-picker',
 						'jquery-tipsy',
 						'dropdown-pages',
@@ -190,21 +192,21 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				),
 				'learn-press-admin-course-editor'   => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/editor/course' . self::$_min_assets . '.js' ),
-					array( 'vue-libs' ),
+					array( 'vue-libs', 'lp-utils' ),
 					array( LP_COURSE_CPT ),
 					0,
 					0
 				),
 				'learn-press-admin-quiz-editor'     => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/editor/quiz' . self::$_min_assets . '.js' ),
-					array( 'vue-libs' ),
+					array( 'vue-libs', 'lp-utils' ),
 					array( LP_QUIZ_CPT ),
 					0,
 					0
 				),
 				'learn-press-admin-question-editor' => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/editor/question' . self::$_min_assets . '.js' ),
-					array( 'vue-libs', 'lodash' ),
+					array( 'vue-libs', 'lodash', 'lp-utils' ),
 					array( LP_QUESTION_CPT ),
 					0,
 					0
@@ -237,7 +239,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				),*/
 				'lp-setup'                          => new LP_Asset_Key(
 					$this->url( 'js/dist/admin/pages/setup' . self::$_min_assets . '.js' ),
-					array( 'jquery', 'lp-utils', 'dropdown-pages' ),
+					array( 'jquery', 'dropdown-pages' ),
 					array( 'lp-page-setup' ),
 					0,
 					1
@@ -249,21 +251,6 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					0,
 					1
 				),*/
-				'lp-advertisement'                  => new LP_Asset_Key(
-					$this->url( self::$_folder_source . 'js/admin/share/advertisement' . self::$_min_assets . '.js' ),
-					[ 'lp-utils' ],
-					array(
-						'edit-' . LP_COURSE_CPT,
-						'edit-' . LP_QUESTION_CPT,
-						'edit-' . LP_LESSON_CPT,
-						'edit-' . LP_ORDER_CPT,
-						'edit-' . LP_QUIZ_CPT,
-						'learnpress_page_learn-press-settings',
-						'learnpress_page_learn-press-tools',
-					),
-					0,
-					1
-				),
 				'lp-modal-search-courses'           => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/modal-search-courses' . self::$_min_assets . '.js' ),
 					array(
@@ -539,9 +526,8 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
  * Shortcut function to get instance of LP_Admin_Assets
  *
  * @return LP_Admin_Assets|null
+ * Addon Certificate, Import/Export is using.
  */
 function learn_press_admin_assets() {
 	return LP_Admin_Assets::instance();
 }
-
-learn_press_admin_assets();

@@ -155,7 +155,8 @@ function wpuxss_eml_lib_options_validate( $input ) {
         }
         elseif ( 'loads_per_page' === $key || 
                  'grid_sidebar_width' === $key || 
-                 'ideal_column_width' === $key
+                 'ideal_column_width' === $key ||
+                 'search_min_letters' === $key
             ) {
             $input[$key] = (int) $option;
         }

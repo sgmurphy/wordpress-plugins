@@ -1,10 +1,10 @@
 === FileBird - WordPress Media Library Folders & File Manager ===
 Contributors: ninjateam
 Donate link: https://ninjateam.org/wordpress-media-library-folders/ 
-Tags: wordpress media library folders, file manager, folders, media, gallery, media folder
+Tags: wordpress media library folders, folders, media, media folders, category, file manager
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 5.6.4
+Stable tag: 6.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -208,6 +208,25 @@ Happy Organizing! 😍
 
 
 == Changelog ==
+
+= May 23, 2024 - Version 6.2.3 =
+- New: Full compatibility of folders for pages, posts, custom post types with WPML, Polylang, etc.
+- New: SVG upload & sanitization
+- New: Each user can now experience new folder skins in different themes
+- New: Quickly display folder ID
+- New: File counter options for each user
+- New: UI/UX & icon design
+- Required: At least PHP 7.4
+- Improved: Unstyled component
+- Improved: Smooth resizeable folder sidebar
+- Improved: Lightweight plugin bundle with minified packages
+- Improved: Faster performance
+- Improved: Smart load assets per task
+- Improved: File search scope in list view
+- Improved: Performance
+- Fixed: Default folder settings not working in Elementor
+- Fixed: Default folder settings not saved in some CPTs
+- Fixed: PHP 8.0 auto-update library 
 
 = Mar 29, 2024 - Version 5.6.4 =
 - Fixed: Wordfence bug report

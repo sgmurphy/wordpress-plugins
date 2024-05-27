@@ -23,3 +23,49 @@ function foobox_freetrial_url() {
 function foobox_hide_pricing_menu() {
 	return false;
 }
+
+/**
+ * Filter out JavaScript-related keywords and inline scripts from an input string
+ *
+ * @param string $input
+ * @return string
+ */
+function foobox_sanitize_javascript( $input ) {
+	// list of JavaScript-related attributes to filter out
+	$javascript_attributes = array(
+		'innerHTML',
+		'document\.write',
+		'eval',
+		'Function\(',
+		'setTimeout',
+		'setInterval',
+		'new Function\(',
+		'onmouseover',
+		'onmouseout',
+		'onclick',
+		'onload',
+		'onchange',
+		'<script>',
+		'<\/script>',
+		'encodeURIComponent',
+		'decodeURIComponent',
+		'JSON\.parse',
+		'outerHTML',
+		'innerHTML',
+		'XMLHttpRequest',
+		'createElement',
+		'appendChild',
+		'RegExp',
+		'String\.fromCharCode',
+		'encodeURI',
+		'decodeURI',
+		'javascript:'
+	);
+
+	$pattern = '/' . implode( '|', $javascript_attributes ) . '/i';
+
+	// Use regex to replace potentially dangerous strings with an empty string.
+	$input = preg_replace( $pattern, '', $input );
+
+	return $input;
+}

@@ -128,7 +128,7 @@ class Link extends Model {
 					$v = rest_sanitize_boolean( $v );
 					break;
 				case 'url':
-					$v = esc_url( $v );
+					$v = sanitize_url( $v );
 					break;
 				case 'url_hash':
 				case 'hostname':
@@ -322,5 +322,31 @@ class Link extends Model {
 		";
 
 		return "( $where )";
+	}
+
+	/**
+	 * Extract the keys from the result and add them to the model.
+	 *
+	 * @since 1.2.1
+	 *
+	 * @param  array $keys The list of keys and values to add to the model.
+	 * @return void
+	 */
+	protected function applyKeys( $keys ) {
+		try {
+			parent::applyKeys( $keys );
+
+			foreach ( (array) $keys as $key => $value ) {
+				if ( ! property_exists( $this, $key ) ) {
+					continue;
+				}
+
+				if ( 'url' === $key && is_string( $this->$key ) ) {
+					$this->$key = rawurldecode( $this->$key );
+				}
+			}
+		} catch ( \Exception $e ) {
+			// Do nothing.
+		}
 	}
 }

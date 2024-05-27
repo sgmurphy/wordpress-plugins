@@ -47,7 +47,8 @@ class License {
 			// Force WordPress to check for updates.
 			delete_site_transient( 'update_plugins' );
 
-			aioseoBrokenLinkChecker()->main->links->scanPosts( false );
+			// Scan for some posts to fill the report.
+			aioseoBrokenLinkChecker()->actionScheduler->scheduleAsync( 'aioseo_blc_links_scan' );
 		} else {
 			$internalOptions->internal->license->licenseKey = null;
 

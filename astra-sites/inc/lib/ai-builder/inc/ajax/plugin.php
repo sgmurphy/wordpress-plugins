@@ -96,8 +96,9 @@ class Plugin extends AjaxBase {
 				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
 			}
 		}
-		$uuid = isset( $_POST['uuid'] ) ? sanitize_text_field( $_POST['uuid'] ) : '';
-		ST_Importer::set_import_process_start_flag( $uuid );
+		$uuid          = isset( $_POST['uuid'] ) ? sanitize_text_field( $_POST['uuid'] ) : '';
+		$template_type = isset( $_POST['template_type'] ) ? sanitize_text_field( $_POST['template_type'] ) : '';
+		ST_Importer::set_import_process_start_flag( $template_type, $uuid );
 		wp_send_json_success();
 	}
 

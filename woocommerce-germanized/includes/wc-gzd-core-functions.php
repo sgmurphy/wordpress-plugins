@@ -288,7 +288,14 @@ function wc_gzd_get_age_verification_min_ages_select() {
  * @return string
  */
 function wc_gzd_format_tax_rate_percentage( $rate, $percent = false ) {
-	return str_replace( '.', ',', wc_format_decimal( str_replace( '%', '', $rate ), true, true ) ) . ( $percent ? ' %' : '' );
+	$decimal_separator = wc_get_price_decimal_separator();
+	$formatted_number  = wc_format_decimal( str_replace( '%', '', $rate ), true, true );
+
+	if ( '.' !== $decimal_separator ) {
+		$formatted_number = str_replace( '.', $decimal_separator, $formatted_number );
+	}
+
+	return apply_filters( 'woocommerce_gzd_formatted_tax_rate_percentage', $formatted_number . ( $percent ? ' %' : '' ), $rate, $percent );
 }
 
 function wc_gzd_format_alcohol_content( $alcohol_content ) {
@@ -1829,4 +1836,25 @@ function wc_gzd_customer_applies_for_photovoltaic_system_vat_exemption( $args = 
  */
 function wc_gzd_shipping_country_supports_photovoltaic_system_vat_exempt( $country ) {
 	return apply_filters( 'woocommerce_gzd_shipping_country_supports_photovoltaic_system_vat_exempt', in_array( $country, array( 'DE', 'AT' ), true ) );
+}
+
+function wc_gzd_remove_all_hooks( $hook, $priority = 10 ) {
+	global $wp_filter;
+
+	/**
+	 * Remove the anonymous filter by its specific priority. In case the current
+	 * priority matches the target priority (e.g. remove self) do not use the WP core's
+	 * remove_all_filters as it contains a bug when called within the current priority.
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/61263
+	 */
+	if ( isset( $wp_filter[ $hook ] ) && isset( $wp_filter[ $hook ]->callbacks[ $priority ] ) ) {
+		$current_priority = $wp_filter[ $hook ]->current_priority();
+
+		if ( $priority === $current_priority ) {
+			array_pop( $wp_filter[ $hook ]->callbacks[ $priority ] );
+		} else {
+			remove_all_filters( $hook, $priority );
+		}
+	}
 }

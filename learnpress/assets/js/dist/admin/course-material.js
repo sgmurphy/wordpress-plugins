@@ -4,6 +4,7 @@ var __webpack_exports__ = {};
   !*** ./assets/src/js/admin/course-material.js ***!
   \************************************************/
 document.addEventListener('DOMContentLoaded', function () {
+  const $ = window.jQuery;
   const postID = document.getElementById('current-material-post-id').value,
     max_file_size = document.getElementById('material-max-file-size').value,
     accept_file = document.querySelector('.lp-material--field-upload').getAttribute('accept').split(','),

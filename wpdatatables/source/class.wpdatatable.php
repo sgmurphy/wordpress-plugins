@@ -1796,7 +1796,6 @@ class WPDataTable
 						if (!empty($wdtParameters['data_types'][$dataColumnHeading]) && in_array($wdtParameters['data_types'][$dataColumnHeading], array('date', 'datetime', 'time'))) {
 							if ($format === 'xls' || $format === 'ods') {
 								$cell = $objPHPExcel->getActiveSheet()->getCell($dataColumnIndex . '' . $row);
-                                $cell = wp_kses_post($cell);
 								if (Date::isDateTime($cell) && $cell->getValue() !== null) {
 									$namedDataArray[$r][$dataColumnHeading] = Date::excelToTimestamp($cell->getValue());
 								} else {

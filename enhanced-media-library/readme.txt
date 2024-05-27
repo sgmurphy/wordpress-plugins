@@ -1,10 +1,11 @@
 === Enhanced Media Library ===
 Contributors: webbistro
-Tags: media library, media folders, media taxonomies, media gallery, mime types
+Donate link: https://wpuxsolutions.com/plugins/enhanced-media-library-pro
+Tags: media library, media folders, media tags, media categories, mime types
 Requires at least: 6.0
 Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 2.9
+Stable tag: 2.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -177,11 +178,28 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 
 ## Changelog ##
 
-### 2.9 ###
-*Release Date - May 16, 2024*
+### 2.9.1 ###
+*Release Date - May 27, 2024*
 
 = SECURITY UPDATE =
 * Security issue related to MIME types upload has been fixed since v2.8.10. Please update to the latest version on all your websites.
+
+= New =
+* WP native search performance improved for both free and PRO versions in Media Library Grid Mode
+* PRO only: new options added: `Search on enter`, `Auto search`, and `Minimun number of letters`
+
+= Bugfixes =
+* PRO only: plugin update module PHP-warnings issue fixed
+
+= Thank you! =
+For being EML users for so many years.
+* *This update has been issued in Ukraine under everyday missile attacks.*
+* *Please do not buy into ruzzian lies and propaganda. This aggression is unprovoked, illegal, and unfair. The people of Ukraine have all the right to live peacefully without ungrounded ruzzian claims and crimes committed.* 
+* *Support Ukraine. Western politicians lie to people about this war. We do not have enough weapons and lose people because ruzzian war criminals feel safe to bomb us without any fear of being hit in response as Ukraine is tightly restricted in Western weapons usage.*
+
+
+### 2.9 ###
+*Release Date - May 16, 2024*
 
 = New =
 * `Uploaded to this post by default` option added to the `Media` > `Media Library` > `Filters` section
@@ -190,12 +208,6 @@ Please notice that you use Enhanced Media Library with other plugins that add me
 
 = Bugfixes =
 * Tiny bugs fixed
-
-= Thank you! =
-For being EML users for so many years.
-* *This update has been issued in Ukraine under everyday missile attacks.*
-* *Please do not buy into ruzzian lies and propaganda. This aggression is unprovoked, illegal, and unfair. The people of Ukraine have all the right to live peacefully without ungrounded ruzzian claims and crimes committed.* 
-* *Support Ukraine. We are badly in need of weapons for defense.*
 
 
 ### 2.8.15 ###

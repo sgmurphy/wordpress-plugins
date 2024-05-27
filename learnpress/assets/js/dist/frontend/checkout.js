@@ -13,6 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   listenElementCreated: () => (/* binding */ listenElementCreated),
 /* harmony export */   listenElementViewed: () => (/* binding */ listenElementViewed),
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
+/* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
 /* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
 /* harmony export */ });
@@ -197,7 +198,7 @@ var __webpack_exports__ = {};
   !*** ./assets/src/js/frontend/checkout.js ***!
   \********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./assets/src/js/utils.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./assets/src/js/utils.js");
 /**
  * File JS handling checkout page.
  */
@@ -234,7 +235,7 @@ window.lpCheckout = {
     option.method = 'POST';
     option.body = searchParams;
     fetch(url, option).then(res => res.text()).then(data => {
-      data = LP.parseJSON(data);
+      data = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpAjaxParseJsonOld)(data);
       callBack.success(data);
     }).finally(() => {
       callBack.completed();
@@ -266,7 +267,7 @@ window.lpCheckout = {
     elBtnPlaceOrder.classList.add('loading');
     const callBack = {
       success: response => {
-        response = LP.parseJSON(response);
+        response = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpAjaxParseJsonOld)(response);
         const {
           messages,
           result

@@ -23,25 +23,25 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 			$options = array();
 
 			$debug               = self::is_option_checked( $fbx_options, 'enable_debug' );
-			$forceDelay          = self::get_option( $fbx_options, 'force_delay', '0' );
+			$forceDelay          = esc_html( self::get_option( $fbx_options, 'force_delay', '0' ) );
 			$fitToScreen         = self::is_option_checked( $fbx_options, 'fit_to_screen' );
 			$hideScrollbars      = self::is_option_checked( $fbx_options, 'hide_scrollbars', true );
 			$close_overlay_click = self::is_option_checked( $fbx_options, 'close_overlay_click', true );
 			$show_count          = self::is_option_checked( $fbx_options, 'show_count', true );
-			$count_message       = self::get_option( $fbx_options, 'count_message', 'image %index of %total' );
+			$count_message       = esc_html( self::get_option( $fbx_options, 'count_message', 'image %index of %total' ) );
 			$powered_by_link     = self::is_option_checked( $fbx_options, 'powered_by_link', false );
 			$hide_caption        = self::is_option_checked( $fbx_options, 'hide_caption', false );
 			$captions_hover      = self::is_option_checked( $fbx_options, 'captions_show_on_hover', false );
-			$image_rel_selector  = self::get_option( $fbx_options, 'image_rel_selector' );
-			$custom_excludes	 = self::get_option( $fbx_options, 'custom_excludes', '' );
+			$image_rel_selector  = esc_html( self::get_option( $fbx_options, 'image_rel_selector' ) );
+			$custom_excludes	 = esc_html( self::get_option( $fbx_options, 'custom_excludes', '' ) );
 
 			//force to show the powered by link on the settings page, so the user can see what it will look like
 			if ( foo_check_plugin_settings_page( FOOBOXFREE_SLUG ) ) {
 				$powered_by_link = true;
 			}
 
-			$powered_by_url      = self::get_option( $fbx_options, 'powered_by_url', Foobox_Free::FOOBOX_URL );
-			$error_msg           = self::get_option( $fbx_options, 'error_message', '' );
+			$powered_by_url      = esc_url( self::get_option( $fbx_options, 'powered_by_url', Foobox_Free::FOOBOX_URL ) );
+			$error_msg           = esc_html( self::get_option( $fbx_options, 'error_message', '' ) );
 
 			if (empty($powered_by_url)) {
 				$powered_by_url = Foobox_Free::FOOBOX_URL;
@@ -183,7 +183,7 @@ if ( !class_exists( 'FooBox_Free_Script_Generator' ) ) {
 				}
 			}
 
-			$class = self::get_option( $fbx_options, 'enable_class' );
+			$class = esc_html( self::get_option( $fbx_options, 'enable_class' ) );
 
 			if ( !empty($class) ) {
 				$foobox_selectors[] = $class;

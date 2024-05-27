@@ -2,19 +2,32 @@
 // phpcs:ignore Generic.Files.LineLength.MaxExceeded
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = [
-	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:54
+	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:79
+	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:84
+	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:89
+	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:94
+	__( '(re)check', 'aioseo-broken-link-checker' ),
+
+	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:216
+	__( '(Re)check', 'aioseo-broken-link-checker' ),
+
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:108
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:143
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:56
 	// Translators: 1 - An amount of days.
 	_n( '%1$d day', '%1$d days', 0, 'aioseo-broken-link-checker' ),
 
-	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:59
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:113
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:148
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:61
 	// Translators: 1 - An amount of hours.
 	_n( '%1$d hour', '%1$d hours', 0, 'aioseo-broken-link-checker' ),
 
-	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:64
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:66
 	// Translators: 1 - An amount of minutes.
 	_n( '%1$d minute', '%1$d minutes', 0, 'aioseo-broken-link-checker' ),
 
-	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:69
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:71
 	// Translators: 1 - An amount of seconds.
 	_n( '%1$d second', '%1$d seconds', 0, 'aioseo-broken-link-checker' ),
 
@@ -427,13 +440,6 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/components/core/Header.vue:55
 	__( 'Posts are being scanned for links', 'aioseo-broken-link-checker' ),
 
-	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:79
-	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:84
-	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:89
-	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:94
-	__( 'recheck', 'aioseo-broken-link-checker' ),
-
-	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:216
 	// Reference: /src/vue/pages/links/views/partials/broken-links/LinkStatusTable.vue:67
 	__( 'Recheck', 'aioseo-broken-link-checker' ),
 
@@ -584,9 +590,13 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/components/license/Index.vue:126
 	__( 'This license has reached the maximum number of activations. Please deactivate it from another site or purchase a new license.', 'aioseo-broken-link-checker' ),
 
-	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:105
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:126
+	// Translators: 1 - An amount of time (e.g. "2 days" or "1 hour, 2 minutes and 3 seconds"), 2 - An amount of days (e.g. "2 days").
+	__( 'This link has been broken for %1$s. It will be checked again in %2$s.', 'aioseo-broken-link-checker' ),
+
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:133
 	// Translators: 1 - An amount of time (e.g. "2 days" or "1 hour, 2 minutes and 3 seconds").
-	__( 'This link has been broken for %1$s.', 'aioseo-broken-link-checker' ),
+	__( 'This link has been broken for %1$s. It will be checked again today.', 'aioseo-broken-link-checker' ),
 
 	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/StatusColumn.vue:32
 	__( 'This link is broken!', 'aioseo-broken-link-checker' ),
@@ -599,6 +609,13 @@ $generated_i18n_strings = [
 
 	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/StatusColumn.vue:33
 	__( 'This link still needs to be checked.', 'aioseo-broken-link-checker' ),
+
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:162
+	// Translators: 1 - An amount of days.
+	__( 'This link will be checked again in %1$s.', 'aioseo-broken-link-checker' ),
+
+	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/InfoColumn.vue:166
+	__( 'This link will be checked again today.', 'aioseo-broken-link-checker' ),
 
 	// Reference: /src/vue/pages/links/views/partials/broken-links/columns/PostsColumn.vue:68
 	__( 'Title', 'aioseo-broken-link-checker' ),

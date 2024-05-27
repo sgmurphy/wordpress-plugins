@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:31+0200\n"
 "Last-Translator: TOLGA ALTAŞ\n"
 "Language-Team: Türkçe\n"
@@ -1526,6 +1526,7 @@ msgid "Purchase code"
 msgstr "Satın Alma Kodu"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 msgid "Provider Details"
 msgstr "Sağlayıcı Detayları"
 
@@ -1793,10 +1794,6 @@ msgstr "Bildirim Ayarlarını Görüntüle"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Ödeme Ayarlarını Görüntüle"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-msgid "View Provider Details Settings"
-msgstr "Sağlayıcı Detayları Ayarlarını Görüntüle"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10475,6 +10472,9 @@ msgstr "Rezervasyon iptal edilemez"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Bağlantıları"
+
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Sağlayıcı Detayları Ayarlarını Görüntüle"
 
 #~ msgid ""
 #~ "We are thrilled to announce the latest release of Amelia, packed with bug "

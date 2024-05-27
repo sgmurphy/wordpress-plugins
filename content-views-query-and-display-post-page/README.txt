@@ -2,9 +2,9 @@
 Contributors: pt-guy
 Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display posts, post list, post slider, post accordion, gutenberg, blocks, category post, news, magazine, portfolio, latest posts, related posts
 Requires at least: 3.3
-Tested up to: 6.5.2
+Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 3.7.2
+Stable tag: 3.8.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -233,6 +233,13 @@ If you encounter any difficulties or if you have questions about Content Views, 
 
 
 == Changelog ==
+
+= 3.8.0 =
+* Fix: [Shortcode] Correct the checked/unchecked status of some checkboxes after saving when using new layouts (Grid 2...Big Post 2)
+* Fix: [Block] Fix error when removing selected option of "Parent Page" control
+* Update: [Ajax Pagination] Improve the show/hide status of the First, Prev, Next, Last buttons
+* Update: [Block] Set default value when "Posts Per Page" is empty
+* Other fixes and improvements
 
 = 3.7.2 =
 * Fix: prevent issue in a multisite network when getting blog ids

@@ -192,9 +192,7 @@ class LabelRest extends Rest {
 					$services[ $service_name ] = $label->get_preferred_neighbor();
 					break;
 				case 'ParcelOutletRouting':
-					if ( ! empty( $shipment->get_email() ) ) {
-						$services[ $service_name ] = $shipment->get_email();
-					}
+					$services[ $service_name ] = wc_gzd_dhl_get_parcel_outlet_routing_email_address( $shipment );
 					break;
 				case 'CDP':
 					$services['closestDropPoint'] = true;
@@ -220,7 +218,7 @@ class LabelRest extends Rest {
 					'addressStreet' => $label->get_return_street() . ' ' . $label->get_return_street_number(),
 					'postalCode'    => $label->get_return_postcode(),
 					'city'          => $label->get_return_city(),
-					'state'         => wc_gzd_dhl_format_label_state( $label->get_return_state(), $label->get_return_country() ),
+					'state'         => wc_gzd_shipments_substring( wc_gzd_dhl_format_label_state( $label->get_return_state(), $label->get_return_country() ), 0, 20 ),
 					'contactName'   => $label->get_return_formatted_full_name(),
 					'phone'         => $label->get_return_phone(),
 					'email'         => $label->get_return_email(),
@@ -232,7 +230,7 @@ class LabelRest extends Rest {
 		$shipment_request = array(
 			'product'       => $label->get_product_id(),
 			'billingNumber' => $account_number,
-			'refNo'         => mb_substr( wc_gzd_dhl_get_label_customer_reference( $label, $shipment ), 0, 35 ),
+			'refNo'         => wc_gzd_shipments_substring( wc_gzd_dhl_get_label_customer_reference( $label, $shipment ), 0, 35 ),
 			'shipDate'      => Package::get_date_de_timezone( 'Y-m-d' ),
 			'shipper'       => array(),
 			'consignee'     => array(),
@@ -341,11 +339,10 @@ class LabelRest extends Rest {
 				}
 			}
 		} else {
-			$formatted_recipient_state = wc_gzd_dhl_format_label_state( $shipment->get_state(), $shipment->get_country() );
-			$street_number             = $shipment->get_address_street_number();
-			$street_addition           = $shipment->get_address_street_addition();
-			$address_1                 = $shipment->get_address_1();
-			$address_2                 = $shipment->get_address_2();
+			$street_number   = $shipment->get_address_street_number();
+			$street_addition = $shipment->get_address_street_addition();
+			$address_1       = $shipment->get_address_1();
+			$address_2       = $shipment->get_address_2();
 
 			if ( empty( $street_number ) && ! empty( $address_2 ) ) {
 				$address_1_tmp   = wc_gzd_split_shipment_street( $address_1 . ' ' . $address_2 );
@@ -372,7 +369,7 @@ class LabelRest extends Rest {
 				'additionalAddressInformation1' => $street_addition,
 				'postalCode'                    => $shipment->get_postcode(),
 				'city'                          => $shipment->get_city(),
-				'state'                         => $formatted_recipient_state,
+				'state'                         => wc_gzd_shipments_substring( wc_gzd_dhl_format_label_state( $shipment->get_state(), $shipment->get_country() ), 0, 20 ),
 				'country'                       => wc_gzd_country_to_alpha3( $shipment->get_country() ),
 				/**
 				 * Choose whether to transmit the full name of the shipment receiver as contactPerson
@@ -453,7 +450,7 @@ class LabelRest extends Rest {
 					'value'    => $customs_label_data['additional_fee'],
 					'currency' => $customs_label_data['currency'],
 				),
-				'exportDescription'  => mb_substr( $customs_label_data['export_reason_description'], 0, 80 ),
+				'exportDescription'  => wc_gzd_shipments_substring( $customs_label_data['export_reason_description'], 0, 80 ),
 				'officeOfOrigin'     => $customs_label_data['place_of_commital'],
 				'items'              => $customs_items,
 				'exportType'         => strtoupper( $export_type ),
@@ -468,6 +465,11 @@ class LabelRest extends Rest {
 				 */
 				'invoiceNo'          => apply_filters( 'woocommerce_gzd_dhl_label_api_export_invoice_number', $customs_label_data['invoice_number'], $label ),
 			);
+
+			if ( ! empty( $customs_label_data['export_reference_number'] ) ) {
+				$customs_data['hasElectronicExportNotification'] = true;
+				$customs_data['MRN']                             = wc_gzd_shipments_substring( preg_replace( '/[^A-Za-z0-9]/', '', $customs_label_data['export_reference_number'] ), 0, 18 );
+			}
 
 			$shipment_request['customs'] = apply_filters( 'woocommerce_gzd_dhl_label_rest_api_customs_data', $customs_data, $label );
 		}

@@ -56,6 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   listenElementCreated: () => (/* binding */ listenElementCreated),
 /* harmony export */   listenElementViewed: () => (/* binding */ listenElementViewed),
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
+/* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
 /* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
 /* harmony export */ });
@@ -241,7 +242,7 @@ var __webpack_exports__ = {};
   \**********************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api */ "./assets/src/js/api.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "./assets/src/js/utils.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils.js */ "./assets/src/js/utils.js");
 /**
  * Handle events for courses list.
  *
@@ -282,7 +283,7 @@ window.lpCoursesList = (() => {
   const classLoadMore = 'courses-btn-load-more-no-css';
   const classPageResult = '.courses-page-result';
   const classLoading = '.lp-loading-no-css';
-  const urlCurrent = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)();
+  const urlCurrent = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)();
   return {
     clickNumberPage: (e, target) => {
       const btnNumber = target.closest('.page-numbers:not(.disabled)');
@@ -318,7 +319,7 @@ window.lpCoursesList = (() => {
       // Set url params to reload page.
       // Todo: need check allow set url params.
       lpData.urlParams.paged = dataSend.args.paged;
-      window.history.pushState({}, '', (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams));
+      window.history.pushState({}, '', (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams));
       // End.
 
       // Show loading
@@ -473,16 +474,16 @@ window.lpCoursesList = (() => {
       };
 
       // Listen el courses load infinite have just created.
-      (0,_utils__WEBPACK_IMPORTED_MODULE_1__.listenElementCreated)(node => {
+      (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.listenElementCreated)(node => {
         if (node.classList.contains('courses-load-infinite-no-css')) {
-          (0,_utils__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(node, callBackAfterSeeItem);
+          (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(node, callBackAfterSeeItem);
         }
       });
 
       // If el created on DOMContentLoaded.
       const elInfinite = document.querySelector('.courses-load-infinite-no-css');
       if (elInfinite) {
-        (0,_utils__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(elInfinite, callBackAfterSeeItem);
+        (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(elInfinite, callBackAfterSeeItem);
       }
     },
     onChangeSortBy: (e, target) => {
@@ -493,7 +494,7 @@ window.lpCoursesList = (() => {
       if (!elLPTarget) {
         lpData.urlParams.paged = 1;
         lpData.urlParams.order_by = target.value || '';
-        window.location.href = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams);
+        window.location.href = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams);
         return;
       }
       e.preventDefault();
@@ -509,7 +510,7 @@ window.lpCoursesList = (() => {
       // Todo: need check allow set url params.
       lpData.urlParams.paged = dataSend.args.paged;
       lpData.urlParams.order_by = dataSend.args.order_by;
-      window.history.pushState({}, '', (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams));
+      window.history.pushState({}, '', (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams));
       // End.
 
       // Show loading
@@ -578,7 +579,7 @@ window.lpCoursesList = (() => {
       // Todo: need check allow set url params.
       lpData.urlParams.paged = dataSend.args.paged;
       lpData.urlParams.c_search = dataSend.args.c_search;
-      window.history.pushState({}, '', (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)((0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)(), lpData.urlParams));
+      window.history.pushState({}, '', (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)((0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)(), lpData.urlParams));
       // End.
 
       if (!keyword || keyword && keyword.length > 2) {

@@ -691,7 +691,7 @@
           <el-tab-pane :label="$root.labels.pricing" name="pricing">
 
             <!-- Custom Pricing Warning -->
-            <el-row :style="{wordBreak: 'break-word'}" v-if="(event.id !== 0 && event.bookings.length)">
+            <el-row :style="{wordBreak: 'break-word'}" v-if="(event.id !== 0 && event.bookings.length && !$root.licence.isLite)">
               <div class="am-setting">
                 <el-alert
                   type="warning"

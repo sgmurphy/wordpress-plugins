@@ -23,6 +23,7 @@ class ComposerStaticInit0529d6e4fa34503461e6d0dcc97d844d
     public static $classMap = array (
         'AIOSEO\\BrokenLinkChecker\\Admin\\Admin' => __DIR__ . '/../..' . '/app/Admin/Admin.php',
         'AIOSEO\\BrokenLinkChecker\\Admin\\License' => __DIR__ . '/../..' . '/app/Admin/License.php',
+        'AIOSEO\\BrokenLinkChecker\\Admin\\Notices\\NotConnected' => __DIR__ . '/../..' . '/app/Admin/Notices/NotConnected.php',
         'AIOSEO\\BrokenLinkChecker\\Admin\\Notices\\Review' => __DIR__ . '/../..' . '/app/Admin/Notices/Review.php',
         'AIOSEO\\BrokenLinkChecker\\Admin\\Notifications' => __DIR__ . '/../..' . '/app/Admin/Notifications.php',
         'AIOSEO\\BrokenLinkChecker\\Api\\Api' => __DIR__ . '/../..' . '/app/Api/Api.php',

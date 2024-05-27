@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AIOSEO\\BrokenLinkChecker\\Admin\\Admin' => $baseDir . '/app/Admin/Admin.php',
     'AIOSEO\\BrokenLinkChecker\\Admin\\License' => $baseDir . '/app/Admin/License.php',
+    'AIOSEO\\BrokenLinkChecker\\Admin\\Notices\\NotConnected' => $baseDir . '/app/Admin/Notices/NotConnected.php',
     'AIOSEO\\BrokenLinkChecker\\Admin\\Notices\\Review' => $baseDir . '/app/Admin/Notices/Review.php',
     'AIOSEO\\BrokenLinkChecker\\Admin\\Notifications' => $baseDir . '/app/Admin/Notifications.php',
     'AIOSEO\\BrokenLinkChecker\\Api\\Api' => $baseDir . '/app/Api/Api.php',

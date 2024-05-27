@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-24 14:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: Romanian\n"
@@ -1551,6 +1551,7 @@ msgid "Purchase code"
 msgstr "Codul achiziției"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 msgid "Provider Details"
 msgstr "Detalii furnizor"
 
@@ -1818,10 +1819,6 @@ msgstr "Vizualizați Setările Notificărilor"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Vizualizați Setările de plată"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-msgid "View Provider Details Settings"
-msgstr "Vedeți setările detaliilor furnizorului"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10526,6 +10523,9 @@ msgstr "Rezervarea nu poate fi ștearsă"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Link-uri"
+
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Vedeți setările detaliilor furnizorului"
 
 #~ msgid ""
 #~ "We are thrilled to announce the latest release of Amelia, packed with bug "

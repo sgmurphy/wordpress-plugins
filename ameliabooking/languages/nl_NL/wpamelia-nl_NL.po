@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Amelia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:57+0200\n"
+"POT-Creation-Date: 2024-05-24 08:02+0200\n"
 "PO-Revision-Date: 2024-04-26 11:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: Amelia\n"
@@ -1529,6 +1529,7 @@ msgid "Purchase code"
 msgstr "Aankoopcode"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:368
+#: src/Infrastructure/WP/Translations/BackendStrings.php:424
 msgid "Provider Details"
 msgstr "Details provider"
 
@@ -1798,10 +1799,6 @@ msgstr "Notificaties Instellingen Weergeven"
 #: src/Infrastructure/WP/Translations/BackendStrings.php:423
 msgid "View Payments Settings"
 msgstr "Betalingsinstellingen weergeven"
-
-#: src/Infrastructure/WP/Translations/BackendStrings.php:424
-msgid "View Provider Details Settings"
-msgstr "Instellingen voor providergegevens bekijken"
 
 #: src/Infrastructure/WP/Translations/BackendStrings.php:425
 msgid "View Roles Settings"
@@ -10460,6 +10457,9 @@ msgstr "Boeking kan niet worden geannuleerd"
 
 #~ msgid "Zoom Links"
 #~ msgstr "Zoom Links"
+
+#~ msgid "View Provider Details Settings"
+#~ msgstr "Instellingen voor providergegevens bekijken"
 
 #~ msgid ""
 #~ "We are thrilled to announce the latest release of Amelia, packed with bug "

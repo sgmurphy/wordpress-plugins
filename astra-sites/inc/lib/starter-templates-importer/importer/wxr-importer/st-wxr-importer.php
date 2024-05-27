@@ -60,8 +60,34 @@ class ST_WXR_Importer {
 		} else {
 			add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_mime_types' ), 10, 4 );
 		}
+		add_action( 'wp_import_insert_post', array( $this, 'after_imported_post' ), 10, 4 );
 
 	}
+
+	/**
+	 * After Post import action.
+	 *
+	 * @param int                   $post_id post id.
+	 * @param int                   $original_id post id.
+	 * @param array<string, string> $postdata post id.
+	 * @param array<string, string> $data post id.
+	 *
+	 * @return void
+	 */
+	public function after_imported_post( $post_id, $original_id, $postdata, $data ) {
+		if ( in_array( $data['post_type'], [ 'post', 'page' ], true ) && 'ai' === get_transient( 'astra_sites_current_import_template_type' ) ) {
+			$imports                         = get_option(
+				'astra_sites_ai_imports',
+				array(
+					'post' => [],
+					'page' => [],
+				)
+			);
+			$imports[ $data['post_type'] ][] = $post_id;
+			update_option( 'astra_sites_ai_imports', $imports );
+		}
+	}
+
 	/**
 	 * Add .xml files as supported format in the uploader.
 	 *

@@ -18,7 +18,7 @@ class Package {
 	 *
 	 * @var string
 	 */
-	const VERSION = '3.2.4';
+	const VERSION = '3.3.0';
 
 	public static $upload_dir_suffix = '';
 
@@ -334,6 +334,12 @@ class Package {
 		}
 
 		return apply_filters( 'woocommerce_gzd_country_belongs_to_eu_customs_area', $belongs, $country, $postcode );
+	}
+
+	public static function base_country_supports_export_reference_number() {
+		$base_country = self::get_base_country();
+
+		return apply_filters( 'woocommerce_gzd_base_country_supports_export_reference_number', self::country_belongs_to_eu_customs_area( $base_country ) );
 	}
 
 	public static function is_shipping_international( $country, $args = array() ) {

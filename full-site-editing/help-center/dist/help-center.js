@@ -62230,32 +62230,43 @@ const HelpCenterContactForm = props => {
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(98948);
 /* harmony import */ var _automattic_calypso_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70696);
-/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(64682);
-/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(20609);
-/* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(16706);
-/* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(57033);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27723);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(64446);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(24955);
-/* harmony import */ var _wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(23634);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(99870);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20759);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73657);
-/* harmony import */ var calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(65284);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(8652);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(63119);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(34655);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(51653);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(34237);
-/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(52927);
-/* harmony import */ var _help_center_notice__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(89858);
+/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(64682);
+/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(36250);
+/* harmony import */ var _automattic_components__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(20609);
+/* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(16706);
+/* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(57033);
+/* harmony import */ var _automattic_odie_client__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(14366);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(47143);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27723);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(64446);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(24955);
+/* harmony import */ var _wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(23634);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(99870);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(51609);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(20759);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(73657);
+/* harmony import */ var calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(65284);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(8652);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(63119);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(34655);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(51653);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(23617);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(34237);
+/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(52927);
+/* harmony import */ var _stores__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(29575);
+/* harmony import */ var _help_center_notice__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(89858);
 
 /* eslint-disable no-restricted-imports */
 /**
  * External Dependencies
  */
+
+
+
 
 
 
@@ -62275,15 +62286,7 @@ const HelpCenterContactForm = props => {
 
 
 
-const ConditionalLink = ({
-  active,
-  ...props
-}) => {
-  if (active) {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Link */ .N_, props);
-  }
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", props);
-};
+
 const generateContactOnClickEvent = (contactOption, contactOptionEventName) => {
   return () => {
     if (contactOptionEventName) {
@@ -62311,17 +62314,27 @@ const HelpCenterContactPage = ({
 }) => {
   const {
     __
-  } = (0,_wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_7__/* .useI18n */ .s9)();
-  const locale = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_8__/* .useLocale */ .Ym)();
-  const isEnglishLocale = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_8__/* .useIsEnglishLocale */ .SL)();
-  const renderEmail = (0,_hooks__WEBPACK_IMPORTED_MODULE_9__/* .useShouldRenderEmailOption */ .s)();
+  } = (0,_wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_8__/* .useI18n */ .s9)();
+  const locale = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_9__/* .useLocale */ .Ym)();
+  const isEnglishLocale = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_9__/* .useIsEnglishLocale */ .SL)();
+  const renderEmail = (0,_hooks__WEBPACK_IMPORTED_MODULE_10__/* .useShouldRenderEmailOption */ .s)();
   const {
     hasActiveChats,
     isEligibleForChat,
     isLoading: isLoadingChatStatus,
     supportActivity
-  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .A)();
-  (0,_hooks__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .A)('zendesk_support_chat_key', isEligibleForChat || hasActiveChats, isEligibleForChat || hasActiveChats);
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .A)();
+  (0,_hooks__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .A)('zendesk_support_chat_key', isEligibleForChat || hasActiveChats, isEligibleForChat || hasActiveChats);
+  const [hasSubmittingError, setHasSubmittingError] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)(false);
+  const currentSite = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
+    const helpCenterSelect = select(_stores__WEBPACK_IMPORTED_MODULE_13__/* .HELP_CENTER_STORE */ .qO);
+    return helpCenterSelect.getSite();
+  }, []);
+  const wapuuChatId = (0,_automattic_odie_client__WEBPACK_IMPORTED_MODULE_14__/* .useGetOdieStorage */ .US)('chat_id');
+  const {
+    isOpeningChatWidget,
+    openChatWidget
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .A)('zendesk_support_chat_key', isEligibleForChat || hasActiveChats);
   const isLoading = renderEmail.isLoading || isLoadingChatStatus;
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isLoading) {
@@ -62335,7 +62348,7 @@ const HelpCenterContactPage = ({
     });
   }, [isLoading, renderEmail.render]);
   const liveChatHeaderText = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (isEnglishLocale || !(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.hasTranslation)('Contact WordPress.com Support (English)')) {
+    if (isEnglishLocale || !(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.hasTranslation)('Contact WordPress.com Support (English)')) {
       return __('Contact WordPress.com Support', "full-site-editing");
     }
     return __('Contact WordPress.com Support (English)', "full-site-editing");
@@ -62346,12 +62359,12 @@ const HelpCenterContactPage = ({
     }
     const isLanguageSupported = (0,_automattic_calypso_config__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Ay)('upwork_support_locales').includes(locale);
     if (isLanguageSupported) {
-      const language = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_12__/* .getLanguage */ .Z0)(locale)?.name;
-      return language && (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.hasTranslation)('Email (%s)') ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)(
+      const language = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_16__/* .getLanguage */ .Z0)(locale)?.name;
+      return language && (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.hasTranslation)('Email (%s)') ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)(
       // translators: %s is the language name
       __('Email (%s)', "full-site-editing"), language) : __('Email', "full-site-editing");
     }
-    if ((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.hasTranslation)('Email (English)')) {
+    if ((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.hasTranslation)('Email (English)')) {
       return __('Email (English)', "full-site-editing");
     }
     return __('Email', "full-site-editing");
@@ -62359,17 +62372,10 @@ const HelpCenterContactPage = ({
   if (isLoading) {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "help-center-contact-page__loading"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_13__/* .Spinner */ .y, {
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_17__/* .Spinner */ .y, {
       baseClassName: ""
     }));
   }
-
-  // Create URLSearchParams for chat
-  const chatUrlSearchParams = new URLSearchParams({
-    mode: 'CHAT',
-    wapuuFlow: hideHeaders.toString()
-  });
-  const chatUrl = `/contact-form?${chatUrlSearchParams.toString()}`;
 
   // Create URLSearchParams for email
   const emailUrlSearchParams = new URLSearchParams({
@@ -62384,58 +62390,68 @@ const HelpCenterContactPage = ({
     email: generateContactOnClickEvent('email', trackEventName)
   };
   const renderChatOption = () => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ConditionalLink, {
-      active: true,
-      to: chatUrl,
-      onClick: contactOptionsEventMap['chat']
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      disabled: isOpeningChatWidget,
+      onClick: () => {
+        contactOptionsEventMap.chat();
+        openChatWidget({
+          aiChatId: wapuuChatId,
+          message: '',
+          siteUrl: currentSite?.URL,
+          onError: () => setHasSubmittingError(true)
+        });
+      }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "help-center-contact-page__box chat",
       role: "button",
       tabIndex: 0
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "help-center-contact-page__box-icon"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .A, {
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .A
-    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, liveChatHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Our Happiness team will get back to you soon', "full-site-editing"))))));
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_19__/* ["default"] */ .A
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, liveChatHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Our Happiness team will get back to you soon', "full-site-editing"))))), hasSubmittingError && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_20__/* ["default"] */ .A, {
+      isError: true,
+      text: __('Something went wrong, please try again later.', "full-site-editing")
+    }));
   };
   const renderEmailOption = () => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Link */ .N_, {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_21__/* .Link */ .N_, {
       to: emailUrl,
       onClick: contactOptionsEventMap['email']
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__box', 'email'),
+      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('help-center-contact-page__box', 'email'),
       role: "button",
       tabIndex: 0
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "help-center-contact-page__box-icon"
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .A, {
-      icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_icons__WEBPACK_IMPORTED_MODULE_16__/* ["default"] */ .A, null)
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
+      icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_icons__WEBPACK_IMPORTED_MODULE_22__/* ["default"] */ .A, null)
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, emailHeaderText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('An expert will get back to you soon', "full-site-editing")))));
   };
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "help-center-contact-page"
-  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(___WEBPACK_IMPORTED_MODULE_17__/* .BackButton */ .o, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(___WEBPACK_IMPORTED_MODULE_23__/* .BackButton */ .o, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "help-center-contact-page__content"
-  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, __('Contact our WordPress.com experts', "full-site-editing")), supportActivity && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_notice__WEBPACK_IMPORTED_MODULE_18__/* .HelpCenterActiveTicketNotice */ .J6, {
+  }, !hideHeaders && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, __('Contact our WordPress.com experts', "full-site-editing")), supportActivity && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_notice__WEBPACK_IMPORTED_MODULE_24__/* .HelpCenterActiveTicketNotice */ .J6, {
     tickets: supportActivity
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_19__/* .GMClosureNotice */ .i, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_components__WEBPACK_IMPORTED_MODULE_25__/* .GMClosureNotice */ .i, {
     displayAt: "2023-12-26 00:00Z",
     closesAt: "2023-12-31 00:00Z",
     reopensAt: "2024-01-02 07:00Z",
     enabled: !renderEmail.render
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('help-center-contact-page__boxes')
+    className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('help-center-contact-page__boxes')
   }, renderEmail.render ? renderEmailOption() : renderChatOption())));
 };
 const HelpCenterContactButton = () => {
   const {
     __
-  } = (0,_wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_7__/* .useI18n */ .s9)();
+  } = (0,_wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_8__/* .useI18n */ .s9)();
   const {
     url,
     isLoading
-  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_20__/* .useStillNeedHelpURL */ .i)();
-  const sectionName = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__/* .useSelector */ .d4)(calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_21__/* ["default"] */ .A);
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_26__/* .useStillNeedHelpURL */ .i)();
+  const sectionName = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__/* .useSelector */ .d4)(calypso_state_ui_selectors__WEBPACK_IMPORTED_MODULE_27__/* ["default"] */ .A);
   const redirectToWpcom = url === 'https://wordpress.com/help/contact';
   const trackContactButtonClicked = () => {
     (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__/* .recordTracksEvent */ .Oy)('calypso_inlinehelp_morehelp_click', {
@@ -62450,13 +62466,13 @@ const HelpCenterContactButton = () => {
   if (isLoading) {
     to = '';
   }
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Link */ .N_, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_21__/* .Link */ .N_, {
     to: to,
     target: redirectToWpcom ? '_blank' : '_self',
     onClick: trackContactButtonClicked,
     className: "button help-center-contact-page__button"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .A, {
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .A
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_18__/* ["default"] */ .A, {
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_19__/* ["default"] */ .A
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, __('Still need help?', "full-site-editing")));
 };
 

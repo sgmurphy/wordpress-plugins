@@ -118,12 +118,6 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 			} );
 			return;
 		}
-
-		dispatch( {
-			type: 'set',
-			currentIndex: 1,
-			builder: 'ai-builder',
-		} );
 		const content = new FormData();
 		content.append( 'action', 'astra-sites-change-page-builder' );
 		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
@@ -135,6 +129,8 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 		if ( show ) {
 			dismissAIPopup();
 		}
+		window.location.href =
+			astraSitesVars.adminURL + 'themes.php?page=ai-builder';
 	};
 
 	return (

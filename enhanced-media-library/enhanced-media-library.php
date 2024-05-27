@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Media Library
 Plugin URI: https://wpUXsolutions.com/plugins/enhanced-media-library
 Description: This plugin will be handy for those who need to manage a lot of media files.
-Version: 2.9
+Version: 2.9.1
 Author: wpUXsolutions
 Author URI: http://wpUXsolutions.com
 Text Domain: enhanced-media-library
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 
 
-if ( ! defined('EML_VERSION') ) define( 'EML_VERSION', '2.9' );
+if ( ! defined('EML_VERSION') ) define( 'EML_VERSION', '2.9.1' );
 
 
 
@@ -418,6 +418,34 @@ if ( ! function_exists( 'wpuxss_get_eml_slug' ) ) {
 
 
     /**
+     *  wpuxss_eml_register_scripts
+     *
+     *  @since    2.9
+     *  @created  2024/05
+     */
+
+    add_action( 'wp_loaded', 'wpuxss_eml_register_scripts' );
+
+    function wpuxss_eml_register_scripts() {
+
+        global $wpuxss_eml_dir;
+
+
+        $suffix = defined( 'EML_SCRIPT_DEBUG' ) ? '' : '.min';
+        $rpath  = defined( 'EML_SCRIPT_DEBUG' ) ? 'js/source/' : 'js/';
+
+        wp_register_script(
+            'wpuxss-eml-media-views-script',
+            $wpuxss_eml_dir . $rpath . 'eml-media-views' . $suffix . '.js',
+            array('media-views'),
+            EML_VERSION,
+            true
+        );
+    }
+
+
+
+    /**
      *  wpuxss_eml_enqueue_media
      *
      *  @since    2.0
@@ -520,13 +548,7 @@ if ( ! function_exists( 'wpuxss_get_eml_slug' ) ) {
             true
         );
 
-        wp_enqueue_script(
-            'wpuxss-eml-media-views-script',
-            $wpuxss_eml_dir . 'js/eml-media-views.js',
-            array('media-views'),
-            EML_VERSION,
-            true
-        );
+        wp_enqueue_script( 'wpuxss-eml-media-views-script' );
 
 
         // TODO:
@@ -590,7 +612,7 @@ if ( ! function_exists( 'wpuxss_get_eml_slug' ) ) {
 
         wp_localize_script(
             'wpuxss-eml-media-views-script',
-            'wpuxss_eml_media_views_l10n',
+            'wpuxss_eml_mvln',
             $media_views_l10n
         );
 
@@ -796,7 +818,10 @@ if ( ! function_exists( 'wpuxss_get_eml_slug' ) ) {
                 'titles',
                 'captions',
                 'descriptions'
-            )
+            ),
+            'search_min_letters' => 2,
+            'search_on_enter' => 0,
+            'search_auto' => 1
         );
 
         $wpuxss_eml_lib_options = array_intersect_key( $wpuxss_eml_lib_options, $eml_lib_options_defaults );
