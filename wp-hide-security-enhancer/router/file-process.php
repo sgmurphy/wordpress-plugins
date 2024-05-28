@@ -31,9 +31,9 @@
     if(!defined('ABSPATH'))
         die();
     
-    $action             =   isset($_GET['action'])              ?   filter_var ( $_GET['action'],               FILTER_SANITIZE_STRING)       :   '';
-    $file_path          =   isset($_GET['file_path'])           ?   filter_var ( $_GET['file_path'],            FILTER_SANITIZE_STRING)       :   '';
-    $replacement_path   =   isset($_GET['replacement_path'])    ?   filter_var ( $_GET['replacement_path'],     FILTER_SANITIZE_STRING)       :   '';
+    $action             =   isset($_GET['action'])              ?   preg_replace( '/[^a-zA-Z0-9-]/m' , "", $_GET['action'] ) :   '';
+    $file_path          =   isset($_GET['file_path'])           ?   preg_replace( '/[^a-zA-Z0-9-_\.\/]/m' , "", $_GET['file_path'] ) :   '';
+    $replacement_path   =   isset($_GET['replacement_path'])    ?   preg_replace( '/[^a-zA-Z0-9-_\.\/]/m' , "", $_GET['replacement_path'] ) :   '';
     
     if(empty($action)   ||  empty($file_path)   ||  empty($replacement_path))
         die();

@@ -41,15 +41,7 @@ if (!function_exists('getRandNameWpf')) {
 		return $res;
 	}
 }
-if (!function_exists('importWpf')) {
-	function importWpf( $path ) {
-		if (file_exists($path)) {
-			require($path);
-			return true;
-		}
-		return false;
-	}
-}
+
 if (!function_exists('setDefaultParamsWpf')) {
 	function setDefaultParamsWpf( $params, $default ) {
 		foreach ($default as $k => $v) {
@@ -61,14 +53,16 @@ if (!function_exists('setDefaultParamsWpf')) {
 if (!function_exists('importClassWpf')) {
 	function importClassWpf( $class, $path = '' ) {
 		if (!class_exists($class)) {
-			if (!$path) {
-				$classFile = lcfirst($class);
-				if (strpos(strtolower($classFile), WPF_CODE) !== false) {
-					$classFile = preg_replace('/' . WPF_CODE . '/i', '', $classFile);
-				}
-				$path = WPF_CLASSES_DIR . $classFile . '.php';
+			$classFile = lcfirst($class);
+			if (strpos(strtolower($classFile), WPF_CODE) !== false) {
+				$classFile = preg_replace('/' . WPF_CODE . '/i', '', $classFile);
 			}
-			return importWpf($path);
+			$path = WPF_CLASSES_DIR . $classFile . '.php';
+			if (file_exists($path)) {
+				require WPF_CLASSES_DIR . $classFile . '.php';
+				return true;
+			}
+			//return importWpf($path);
 		}
 		return false;
 	}

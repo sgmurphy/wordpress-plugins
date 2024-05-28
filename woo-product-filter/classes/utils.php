@@ -182,49 +182,6 @@ class UtilsWpf {
 		return false;
 	}
 	/**
-	 * Get array with all monthes of year, uses in paypal pro and sagepay payment modules for now, than - who knows)
-	 *
-	 * @return array monthes
-	 */
-	public static function getMonthesArray() {
-		static $monthsArray = array();
-		//Some cache
-		if (!empty($monthsArray)) {
-			return $monthsArray;
-		}
-		for ($i = 1; $i < 13; $i++) {
-			$monthsArray[sprintf('%02d', $i)] = strftime('%B', mktime(0, 0, 0, $i, 1, 2000));
-		}
-		return $monthsArray;
-	}
-	public static function getWeekDaysArray() {
-		$timestamp = strtotime('next Sunday');
-		$days = array();
-		for ($i = 0; $i < 7; $i++) {
-			$day = strftime('%A', $timestamp);
-			$days[ strtolower($day) ] = $day;
-			$timestamp = strtotime('+1 day', $timestamp);
-		}
-		return $days;
-	}
-	/**
-	 * Get an array with years range from current year
-	 *
-	 * @param int $from - how many years from today ago
-	 * @param int $to - how many years in future
-	 * @param $formatKey - format for keys in array, @see strftime
-	 * @param $formatVal - format for values in array, @see strftime
-	 * @return array - years 
-	 */
-	public static function getYearsArray( $from, $to, $formatKey = '%Y', $formatVal = '%Y' ) {
-		$today = getdate();
-		$yearsArray = array();
-		for ($i = $today['year'] - $from; $i <= $today['year'] + $to; $i++) {
-			$yearsArray[strftime($formatKey, mktime(0, 0, 0, 1, 1, $i))] = strftime($formatVal, mktime(0, 0, 0, 1, 1, $i));
-		}
-		return $yearsArray;
-	}
-	/**
 	 * Make replacement in $text, where it will be find all keys with prefix ":" and replace it with corresponding value
 	 *
 	 * @see email_templatesModel::renderContent()
@@ -323,7 +280,12 @@ class UtilsWpf {
 	 * @return bool true if user are watching this site from mobile device
 	 */
 	public static function isMobile() {
-		importClassWpf('Mobile_Detect', WPF_HELPERS_DIR . 'mobileDetect.php');
+		//importClassWpf('Mobile_Detect', WPF_HELPERS_DIR . 'mobileDetect.php');
+		if (!class_exists('Mobile_Detect')) {
+			if (file_exists(WPF_HELPERS_DIR . 'mobileDetect.php')) {
+				require WPF_HELPERS_DIR . 'mobileDetect.php';
+			}
+		}
 		$mobileDetect = new Mobile_Detect();
 		return $mobileDetect->isMobile();
 	}
@@ -333,7 +295,12 @@ class UtilsWpf {
 	 * @return bool true if user are watching this site from tablet device
 	 */
 	public static function isTablet() {
-		importClassWpf('Mobile_Detect', WPF_HELPERS_DIR . 'mobileDetect.php');
+		//importClassWpf('Mobile_Detect', WPF_HELPERS_DIR . 'mobileDetect.php');
+		if (!class_exists('Mobile_Detect')) {
+			if (file_exists(WPF_HELPERS_DIR . 'mobileDetect.php')) {
+				require WPF_HELPERS_DIR . 'mobileDetect.php';
+			}
+		}
 		$mobileDetect = new Mobile_Detect();
 		return $mobileDetect->isTablet();
 	}

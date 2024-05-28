@@ -414,7 +414,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 			if ( 'yes' !== $order->get_meta( '_shipstation_exported', true ) ) {
 				$order->add_order_note( __( 'Order has been exported to Shipstation', 'woocommerce-shipstation-integration' ) );
 				$order->update_meta_data( '_shipstation_exported', 'yes' );
-				$order->save();
+				$order->save_meta_data();
 			}
 		}
 

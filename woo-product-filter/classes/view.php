@@ -38,10 +38,11 @@ abstract class ViewWpf extends BaseObjectWpf {
 	public function getContent( $tpl = '' ) {
 		$tpl = ( empty($tpl) ) ? $this->_tpl : $tpl;
 		$path = $this->getPath($tpl);
+		$parentModule = FrameWpf::_()->getModule( $this->_code );
 		if ($path) {
 			$content = '';
 			ob_start();
-			require($path);
+			require $parentModule->getModDir() . DS . 'views' . DS . 'tpl' . DS . $tpl . '.php';
 			$content = ob_get_contents();
 			ob_end_clean();
 			return $content;

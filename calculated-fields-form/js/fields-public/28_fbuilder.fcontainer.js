@@ -39,7 +39,7 @@
 							if(typeof toHide[fId] == 'undefined')
 							{
 								$('.'+fId+' [id*="'+fId+'"],.'+fId).closest('.fields').hide();
-								$('.'+fId+' [id*="'+fId+'"]:not(.ignore)').addClass('ignore');
+								$('.'+fId+' [id*="'+fId+'"]:not(.ignore)').addClass('ignore').trigger('add-ignore');
 								result.push(fId);
 							}
 						}
@@ -55,7 +55,7 @@
 								if(typeof toHide[fId] == 'undefined')
 								{
 									$('.'+fId+' [id*="'+fId+'"],.'+fId).closest('.fields').fadeIn(interval || 0);
-									$('.'+fId+' [id*="'+fId+'"].ignore').removeClass('ignore');
+									$('.'+fId+' [id*="'+fId+'"].ignore').removeClass('ignore').trigger('remove-ignore');
 									result.push(fId);
 								}
 							}

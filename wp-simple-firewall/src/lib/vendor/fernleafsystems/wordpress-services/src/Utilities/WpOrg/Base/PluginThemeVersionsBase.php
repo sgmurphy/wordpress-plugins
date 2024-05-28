@@ -16,7 +16,7 @@ abstract class PluginThemeVersionsBase {
 	 */
 	public function all() :array {
 		$versions = \array_filter( \array_keys( $this->allVersionsUrls() ) );
-		usort( $versions, 'version_compare' );
+		\usort( $versions, 'version_compare' );
 		return $versions;
 	}
 
@@ -67,7 +67,7 @@ abstract class PluginThemeVersionsBase {
 	public function exists( $version, $verifyUrl = false ) {
 
 		$url = $this->getUrlForVersion( $version );
-		$cacheKey = md5( serialize( [
+		$cacheKey = \md5( \serialize( [
 			'url'      => $url,
 			'function' => 'version_exists'
 		] ) );

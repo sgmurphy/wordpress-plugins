@@ -3,11 +3,7 @@
 namespace FernleafSystems\Wordpress\Services\Utilities;
 
 use FernleafSystems\Wordpress\Services\Services;
-use FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\Services\{
-	IPs,
-	ProviderIPs
-};
-use FernleafSystems\Wordpress\Services\Utilities\Net\IpID;
+use FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\Services\ProviderIPs;
 use FernleafSystems\Wordpress\Services\Utilities\Options\Transient;
 
 class ServiceProviders {
@@ -26,6 +22,7 @@ class ServiceProviders {
 	public const PROVIDER_STATUSCAKE = 'statuscake';
 	public const PROVIDER_STRIPE = 'stripe';
 	public const PROVIDER_UPTIMEROBOT = 'uptimerobot';
+	public const PROVIDER_WPROCKET = 'wprocket';
 	public const TYPES_CRAWLERS = 'crawlers';
 	public const TYPES_SERVICES = 'services';
 
@@ -102,63 +99,5 @@ class ServiceProviders {
 			$agents = \array_merge( $agents, $crawler[ 'agents' ] ?? [] );
 		}
 		return $agents;
-	}
-
-	/**
-	 * @return string[][][]|null
-	 * @deprecated 2.26
-	 */
-	protected function getAllServiceIPs() {
-		$IPs = Transient::Get( 'serviceips_all' );
-		if ( empty( $IPs ) ) {
-			$IPs = ( new IPs() )->getIPs();
-			$IPs = Transient::Set( 'serviceips_all', $IPs, \WEEK_IN_SECONDS );
-		}
-		return $IPs;
-	}
-
-	/**
-	 * @param string $slug
-	 * @param bool   $flatList
-	 * @return string[][]|string[]
-	 * @deprecated 2.26
-	 */
-	public function getIpsForSlug( $slug, $flatList = false ) :array {
-		$all = $this->getAllServiceIPs();
-		$IPs = empty( $all[ $slug ] ) ? [ 4 => [], 6 => [] ] : $all[ $slug ];
-		return $flatList ? \array_merge( $IPs[ 4 ], $IPs[ 6 ] ) : $IPs;
-	}
-
-	/**
-	 * @param string $ip
-	 * @deprecated 2.26
-	 */
-	public function isIp_Cloudflare( $ip ) :bool {
-		return IpID::IsIpInServiceCollection( $ip, self::PROVIDER_CLOUDFLARE );
-	}
-
-	/**
-	 * @param string     $ip
-	 * @param string[][] $collection
-	 * @return bool
-	 * @deprecated 2.26
-	 */
-	public function isIpInCollection( $ip, array $collection ) :bool {
-		try {
-			$version = Services::IP()->getIpVersion( $ip );
-			$exists = $version !== false && Services::IP()->IpIn( $ip, $collection[ $version ] );
-		}
-		catch ( \Exception $e ) {
-			$exists = false;
-		}
-		return $exists;
-	}
-
-	/**
-	 * @return array[][]
-	 * @deprecated 2.26
-	 */
-	public static function GetProviderIPs() :array {
-		return Services::ServiceProviders()->getProviders();
 	}
 }

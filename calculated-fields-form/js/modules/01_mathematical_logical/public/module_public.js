@@ -498,26 +498,33 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
 		if(window.SCIENTIFICTODECIMAL == undefined)
 		{
 			window.SCIENTIFICTODECIMAL = window.scientifictodecimal = function(x){
-                x *= 1;
-				if (Math.abs(x) < 1.0)
-				{
-					var e = parseInt(x.toString().split('e-')[1]);
-					if(e)
-					{
-						x *= Math.pow(10,e-1);
-						x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+				function initialize(c) {
+					e = parseInt( c[1] );
+					n = c[0].split( '.' );
+					i = n[0];
+					d = n[1] || '';
+				};
+				if ( ! isNaN( x*1 ) ) {
+					x *= 1;
+
+					var s = x < 0 ? '-' : '',
+						y, c, e, n, i, d;
+
+					y = Math.abs( x );
+					c = y.toString().split('e-');
+
+					if ( 2 == c.length ) {
+						initialize(c);
+						x = s+'0.'+(new Array(e-i.length+d.length)).join(0)+i+d;
+					} else {
+						c = y.toString().split('e+');
+						if ( 2 == c.length ) {
+							initialize(c);
+							x = s+i+d+(new Array(e+1-d.length)).join(0);
+						}
 					}
 				}
-				else
-				{
-					var e = parseInt(x.toString().split('+')[1]);
-					if (e > 20)
-					{
-						e -= 20;
-						x /= Math.pow(10,e);
-						x += (new Array(e+1)).join('0');
-					}
-				}
+
 				return x;
 			};
 		}

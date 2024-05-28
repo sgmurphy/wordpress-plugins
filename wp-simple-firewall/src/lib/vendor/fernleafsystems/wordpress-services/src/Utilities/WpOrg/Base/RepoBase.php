@@ -66,7 +66,6 @@ abstract class RepoBase {
 	 * @param string $fileFragment
 	 * @param string $version
 	 * @param bool   $useSiteLocale
-	 * @return string
 	 */
 	abstract public function getVcsUrlForFileAndVersion( $fileFragment, $version, $useSiteLocale = true ) :string;
 }

@@ -29,9 +29,6 @@
                     
                     //ensure to revert any urls of the superglobalvariables
                     add_action( 'wp-hide/modules_components_run/completed', array( $this, '_modules_components_run_completed' ) );
-                    
-                    
-                    //add_filter ( 'wph/components/rewrite-default/superglobal_variables_replacements' , array ( $this, 'do_superglobal_variables_replacements' ), 10, 3 );
                         
                 }
                 
@@ -208,20 +205,6 @@
                     return $helper;
                 }
                 
-            /**
-            * control certain data to be preserved as is
-            *     
-            * @param mixed $do_replace
-            * @param mixed $key
-            * @param mixed $superglobal_type
-            */
-            function do_superglobal_variables_replacements( $do_replace, $key, $superglobal_type ) 
-                {
-                    //Ignore the _wp_http_referer to avoid fails when conpare between the urls 
-                    if ( $key == '_wp_http_referer' )
-                        return FALSE;
-                        
-                    return $do_replace;      
-                }
+            
         }
 ?>

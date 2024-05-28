@@ -300,7 +300,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 			);
 
 			$order->update_meta_data( '_shipstation_shipped_item_count', $current_shipped_items + $shipped_item_count );
-			$order->save();
+			$order->save_meta_data();
 		} else {
 			// If we don't have items from SS and order items in WC, or cannot parse
 			// the XML, just complete the order as a whole.
@@ -329,7 +329,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 				$order->update_meta_data( '_tracking_provider', strtolower( $carrier ) );
 				$order->update_meta_data( '_tracking_number', $tracking_number );
 				$order->update_meta_data( '_date_shipped', $timestamp );
-				$order->save();
+				$order->save_meta_data();
 			}
 
 			$is_customer_note = 0;

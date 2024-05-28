@@ -102,10 +102,10 @@
   "fluentforms":             {
     "identifiers": {
       "classes":   [
-        "\\FluentForm\\App"
+        "\\FluentForm\\App\\App"
       ],
       "constants": [
-        "\\FORMINATOR_VERSION"
+        "\\FLUENTFORM_VERSION"
       ]
     },
     "properties":  {

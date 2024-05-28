@@ -111,9 +111,9 @@ class Moove_GDPR_License_Manager {
 				'valid'   => false,
 				'key'			=> $license_key,
 				'message' => array(
-					'We cannot activate the licence due to the following errors with the setup of your website and/or your hosting: ',
+					'We cannot activate the licence due to errors with the setup of your website and/or your hosting.',
 					'<strong>' . ( is_object( $error ) && method_exists( $error, 'get_error_messages' ) ? implode('<br />', $error->get_error_messages() ) : '' ) . '</strong>',
-					'Once you resolve the above, you will be able to activate the licence. You can also <a href="mailto:plugins@mooveagency.com" class="error_admin_link">contact our support</a> if you need any additional assistance.',
+					'Once you resolve the issues, you will be able to activate the licence. You can also <a href="https://support.mooveagency.com/forum/gdpr-cookie-compliance/" target="_blank" class="error_admin_link">contact our support</a> if you need any additional assistance.',
 				),
 			);
 		} else {
@@ -126,9 +126,9 @@ class Moove_GDPR_License_Manager {
 					'valid'   => false,
 					'key'			=> $license_key,
 					'message' => array(
-						'We cannot activate the licence due to the following errors with the setup of your website and/or your hosting: ',
+						'We cannot activate the licence due to errors with the setup of your website and/or your hosting.',
 						'<strong>' . ( method_exists( $error, 'get_error_messages' ) ? implode('<br />', $error->get_error_messages() ) : '' ) . '</strong>',
-						'Once you resolve the above, you will be able to activate the licence. You can also <a href="mailto:plugins@mooveagency.com" class="error_admin_link">contact our support</a> if you need any additional assistance.',
+						'Once you resolve the issues, you will be able to activate the licence. You can also <a href="https://support.mooveagency.com/forum/gdpr-cookie-compliance/" target="_blank" class="error_admin_link">contact our support</a> if you need any additional assistance.',
 					),
 				);
 			endif;

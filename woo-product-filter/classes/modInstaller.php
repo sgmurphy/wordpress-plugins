@@ -52,7 +52,10 @@ class ModInstallerWpf {
 		}
 		if (is_dir($moduleLocationDir . $module['code'])) {
 			if (!class_exists($module['code'] . strFirstUpWpf(WPF_CODE))) {
-				importClassWpf($module['code'] . strFirstUpWpf(WPF_CODE), $moduleLocationDir . $module['code'] . DS . 'mod.php');
+				//importClassWpf($module['code'] . strFirstUpWpf(WPF_CODE), $moduleLocationDir . $module['code'] . DS . 'mod.php');
+				if (file_exists($moduleLocationDir . $module['code'] . DS . 'mod.php')) {
+					require $moduleLocationDir . $module['code'] . DS . 'mod.php';
+				}
 			}
 			$moduleClass = toeGetClassNameWpf($module['code']);
 			$moduleObj = new $moduleClass($module);

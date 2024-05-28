@@ -167,7 +167,7 @@ class WC_ShipStation_Privacy extends WC_Abstract_Privacy {
 		$order->delete_meta_data( '_tracking_number' );
 		$order->delete_meta_data( '_date_shipped' );
 		$order->delete_meta_data( '_shipstation_exported' );
-		$order->save();
+		$order->save_meta_data();
 
 		return array( true, false, array( __( 'ShipStation Order Data Erased.', 'woocommerce-shipstation-integration' ) ) );
 	}

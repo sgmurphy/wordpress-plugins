@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.9 =
+
+* Allows access to the form settings sections from the form builder in fullscreen mode.
+* Fixes an issue with the radio buttons and checkbox designs in the predefined template 8.
+* Reimplements the SCIENTIFICTODECIMAL operation in the Mathematical Operations module.
+* Modifies the field dependencies modules to trigger two events: add-ignore and remove-ignore when the dependencies activate or activate the fields.
+* The CFF - WooCommerce add-on implements the get_product_price_with_tax operation to apply the WooCommerce tax to the calculated prices (Developer and Platinum plugin versions).
+
 = 5.2.8 =
 
 * Pauses the fields animation for a conflict with themes.

@@ -32,6 +32,36 @@ mappress-map.mapp-layout {
 	font-size: 13px;
 }
 
+/* Theme interference */
+.mapp-layout input[type="text"], .mapp-layout input[type="search"], .mapp-layout input[type="checkbox"], .mapp-layout input[type="radio"], .mapp-layout select {	
+	background: #fff;
+	border: 1px solid #bbb;
+	border-radius: 0;
+	box-shadow: none;
+	box-sizing: border-box;
+	color: black;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 13px;
+	height: auto;
+	letter-spacing: normal;
+	margin: initial;
+	max-width: none;
+	outline: none;
+	padding: initial;    
+	width: auto;
+}
+
+.mapp-layout input[type="text"]:focus, .mapp-layout input[type="search"]:focus, .mapp-layout input[type="checkbox"]:focus, .mapp-layout input[type="radio"]:focus, .mapp-layout select:focus {    
+	border: 1px solid black;
+	outline: none;  /* 2020 */
+}
+
+/* Theme interference */
+.mapp-layout label {
+	font-weight: normal;
+	margin: 0;
+}
+
 /* WP block editor interferes */
 .mapp-layout p {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -410,7 +440,7 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 
 /* Frontend buttons are divs to prevent theme interference w/styling */
 .mapp-paginate-button {
-	align-items: center;
+	align-items: baseline;
 	background-color: #eee;
 	border: 1px solid lightgray;
 	border-radius: 5px;
@@ -476,6 +506,7 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 }
 
 .mapp-autocomplete-wrapper {
+	align-items: center;
 	display: flex;
 	flex: 1;
 	position: relative;
@@ -488,10 +519,27 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 	box-shadow: none ;
 	color: black ;
 	flex: 1;
+	height: 100%;
 	line-height: 25px;
 	margin: 0 ;
 	padding: 5px 10px;
 }
+
+.mapp-autocomplete-button {
+	background: url('../images/search_black.png') no-repeat center;
+	background-size: contain;
+	cursor: pointer;
+	position: absolute;
+	right: 10px;
+	width: 20px;  
+	height: 100%;
+	background-size: contain;
+}		
+
+.mapp-autocomplete-button:hover {
+	background: url('../images/search_blue.png') no-repeat center;
+	background-size: contain;
+}    
 
 
 /* Themes like to set img padding/margin */
@@ -548,7 +596,6 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 			mapp-filter-toolbar
 	-----------------------------------------------------------------------------------
 */
-
 
 .mapp-filter {
 	display: flex;

@@ -5,11 +5,11 @@ Tags:  elementor addons, elementor widget, elementor extensions, elementor addon
 Requires at least: 5.0.0
 Tested up to: 6.5.3
 Requires PHP: 7.4.0
-Stable tag: 5.6.4
+Stable tag: 5.6.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.21.5
+Elementor tested up to: 3.21.8
 
 Best Addon for Elementor WordPress Plugin with 70+ Most Popular Elements that need your everyday website page building.
 
@@ -258,6 +258,12 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.6.5 [28th May 2024] =
+
+* Added: Modal Close Button controls added in search widget
+* Fixed: Close Button issue fixed in Search widget (Thanks to Andre Head)
+* Fixed: Swiper carousel autoplay interaction issue fixed
 
 = 5.6.4 [20th May 2024] =
 

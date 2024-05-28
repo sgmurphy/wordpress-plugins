@@ -672,6 +672,10 @@
 				</div>
 			</div>
 		</div>
+		<?php
+			$settingValue = ( isset($this->settings['settings']['filter_recount_price']) ? (int) $this->settings['settings']['filter_recount_price'] : '' );
+			$hiddenStyle  = $settingValue ? '' : 'wpfHidden';
+		?>
 		<div class="row row-settings-block">
 			<div class="settings-block-label col-xs-4 col-lg-3">
 				<?php esc_html_e('Recount Min/Max Price By Selected Filter', 'woo-product-filter'); ?>
@@ -684,6 +688,16 @@
 						'checked' => ( isset($this->settings['settings']['filter_recount_price']) ? (int) $this->settings['settings']['filter_recount_price'] : '' )
 					));
 					?>
+				</div>
+				<div class="settings-value settings-w100 <?php echo esc_attr($hiddenStyle); ?>"  data-parent="settings[filter_recount_price]">
+					<div class="settings-value-label">
+						<?php esc_html_e('Keep Min/Max Price By Reload', 'woo-product-filter'); ?>
+					</div>
+						<?php
+						HtmlWpf::checkboxToggle( 'settings[keep_recount_price]', array(
+							'checked' => ( isset( $this->settings['settings']['keep_recount_price'] ) ? (int) $this->settings['settings']['keep_recount_price'] : '' )
+						));
+						?>
 				</div>
 			</div>
 		</div>

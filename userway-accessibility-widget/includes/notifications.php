@@ -2,8 +2,8 @@
 add_filter( 'plugin_row_meta', 'usw_userway_custom_links', 10, 2 );
 function usw_userway_custom_links( $links, $file ) {
     if ( strpos( $file, 'userway.php' ) !== false ) {
-        $links[] = '<a href="https://manage.userway.org/">Upgrade to Pro</a>';
-        $links[] = '<a href="../wp-admin/admin.php?page=userway">Go to Dashboard</a>';
+        $links[] = '<a href="https://manage.userway.org/">'. __('Upgrade to Pro', 'userway') .'</a>';
+        $links[] = '<a href="../wp-admin/admin.php?page=userway">'. __('Go to Dashboard', 'userway') .'</a>';
     }
     return $links;
 }

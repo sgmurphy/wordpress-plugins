@@ -127,6 +127,15 @@ function fifu_fake_js() {
             return;
     }
 
+    setTimeout(function () {
+        if (toggle == "toggleon") {
+            metaIntervalId = setInterval(updateMetadataCounter.bind(null, true), 3000);
+        } else {
+            jQuery('#tabs-top').unblock();
+            jQuery('#image_metadata_counter').text('');
+        }
+    }, 1000);
+
     jQuery.ajax({
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/' + option + '/',
@@ -135,15 +144,6 @@ function fifu_fake_js() {
             xhr.setRequestHeader('X-WP-Nonce', fifuScriptVars.nonce);
         },
         success: function (data) {
-            setTimeout(function () {
-                if (toggle == "toggleon") {
-                    metaIntervalId = setInterval(updateMetadataCounter.bind(null, true), 3000);
-                }
-                if (toggle == "toggleoff") {
-                    jQuery('#tabs-top').unblock();
-                    jQuery('#image_metadata_counter').text('');
-                }
-            }, 1000);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
@@ -166,6 +166,10 @@ function fifu_clean_js() {
 function fifu_run_clean_js() {
     jQuery('#tabs-top').block({message: fifuScriptVars.wait, css: {backgroundColor: 'none', border: 'none', color: 'white'}});
 
+    setTimeout(function () {
+        metaIntervalId = setInterval(updateMetadataCounter.bind(null, true), 3000);
+    }, 1000);
+
     jQuery.ajax({
         method: "POST",
         url: restUrl + 'featured-image-from-url/v2/data_clean_api/',
@@ -184,8 +188,6 @@ function fifu_run_clean_js() {
             setTimeout(function () {
                 jQuery("#fifu_toggle_data_clean").attr('class', 'toggleoff');
                 jQuery("#fifu_toggle_fake").attr('class', 'toggleoff');
-                jQuery('#tabs-top').unblock();
-                jQuery('#image_metadata_counter').text('');
             }, 1000);
         },
         timeout: 0
@@ -267,11 +269,10 @@ function updateMetadataCounter(transient) {
             jQuery('#image_metadata_counter').text(response);
 
             let metadataCounterValue = parseInt(jQuery('#image_metadata_counter').text().trim());
-            if (metadataCounterValue === 0 && jQuery('#fifu_toggle_fake').hasClass('toggleon') && jQuery('#fifu_toggle_data_clean').hasClass('toggleoff')) {
-                jQuery('#tabs-top').unblock();
-                if (typeof metaIntervalId !== 'undefined') {
+            if ((metadataCounterValue === 0 && jQuery('#fifu_toggle_data_clean').hasClass('toggleoff'))) {
+                if (typeof metaIntervalId !== 'undefined')
                     clearInterval(metaIntervalId);
-                }
+                jQuery('#tabs-top').unblock();
             }
         },
         error: function (xhr, status, error) {

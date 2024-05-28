@@ -7,7 +7,7 @@ use FernleafSystems\Wordpress\Services\Services;
 class ConvertLineEndings {
 
 	public function dosToLinux( string $content ) :string {
-		return str_replace( [ "\r\n", "\r" ], "\n", $content );
+		return \str_replace( [ "\r\n", "\r" ], "\n", $content );
 	}
 
 	public function fileDosToLinux( string $path ) :string {
@@ -15,7 +15,7 @@ class ConvertLineEndings {
 	}
 
 	public function linuxToDos( string $content ) :string {
-		return str_replace( "\n", "\r\n", $this->dosToLinux( $content ) );
+		return \str_replace( "\n", "\r\n", $this->dosToLinux( $content ) );
 	}
 
 	public function fileLinuxToDos( string $path ) :string {

@@ -90,7 +90,13 @@ class FrameWpf {
 				if (is_dir($moduleLocationDir . $code)) {
 					$this->_allModules[$m['code']] = 1;
 					if ((bool) $m['active']) {
-						importClassWpf($code . strFirstUpWpf(WPF_CODE), $moduleLocationDir . $code . DS . 'mod.php');
+						//importClassWpf($code . strFirstUpWpf(WPF_CODE), $moduleLocationDir . $code . DS . 'mod.php');
+						if (!class_exists($code . strFirstUpWpf(WPF_CODE))) {
+							if (file_exists($moduleLocationDir . $code . DS . 'mod.php')) {
+								require $moduleLocationDir . $code . DS . 'mod.php';
+							}
+						}
+							
 						$moduleClass = toeGetClassNameWpf($code);
 						if (class_exists($moduleClass)) {
 							$this->_modules[$code] = new $moduleClass($m);
@@ -254,9 +260,9 @@ class FrameWpf {
 				if (!empty($noncedMethods)) {
 					$noncedMethods = array_map('strtolower', $noncedMethods);
 					if (in_array($action, $noncedMethods)) {
-						$nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field($_REQUEST['_wpnonce']) : reqCfs::getVar('_wpnonce');
+						$nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field($_REQUEST['_wpnonce']) : ReqWpf::getVar('_wpnonce');
 						if (!wp_verify_nonce( $nonce, $action )) {
-							$res = false;
+							die();
 						}
 					}
 				}
@@ -331,7 +337,12 @@ class FrameWpf {
 		}
 	}
 	protected function _extractTable( $tableName, $tablesDir = WPF_TABLES_DIR ) {
-		importClassWpf('noClassNameHere', $tablesDir . $tableName . '.php');
+		//importClassWpf('noClassNameHere', $tablesDir . $tableName . '.php');
+		if (!class_exists('noClassNameHere')) {
+			if (file_exists($tablesDir . $tableName . '.php')) {
+				require $tablesDir . $tableName . '.php';
+			}
+		}
 		$this->_tables[$tableName] = TableWpf::_($tableName);
 	}
 	/**

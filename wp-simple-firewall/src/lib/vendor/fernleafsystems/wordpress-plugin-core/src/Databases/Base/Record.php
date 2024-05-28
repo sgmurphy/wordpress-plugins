@@ -57,13 +57,7 @@ class Record extends DynPropertiesClass {
 				break;
 
 			case 'meta':
-				if ( \is_string( $value ) && !empty( $value ) ) {
-					$value = \base64_decode( $value );
-					if ( !empty( $value ) ) {
-						$value = @\json_decode( $value, true );
-					}
-				}
-
+				$value = $this->arrayDataUnwrap( $value );
 				if ( !\is_array( $value ) ) {
 					$value = [];
 				}
@@ -95,10 +89,10 @@ class Record extends DynPropertiesClass {
 				break;
 
 			case 'meta':
-				if ( !\is_array( $value ) ) {
-					$value = [];
+				$value = $this->arrayDataWrap( $value );
+				if ( !\is_string( $value ) ) {
+					$value = '';
 				}
-				$value = \base64_encode( \json_encode( $value ) );
 				break;
 
 			default:
@@ -116,5 +110,30 @@ class Record extends DynPropertiesClass {
 
 	public function isDeleted() :bool {
 		return $this->deleted_at > 0;
+	}
+
+	public function arrayDataWrap( $data ) :?string {
+		$wrapped = null;
+		if ( \is_array( $data ) ) {
+			$enc = \wp_json_encode( $data );
+			if ( \is_string( $enc ) ) {
+				$wrapped = \base64_encode( $enc );
+			}
+		}
+		return $wrapped;
+	}
+
+	public function arrayDataUnwrap( $data ) :?array {
+		$unwrapped = null;
+		if ( \is_string( $data ) && !empty( $data ) ) {
+			$data = \base64_decode( $data );
+			if ( !empty( $data ) ) {
+				$maybeUnwrapped = @\json_decode( $data, true );
+				if ( \is_array( $maybeUnwrapped ) ) {
+					$unwrapped = $maybeUnwrapped;
+				}
+			}
+		}
+		return $unwrapped;
 	}
 }

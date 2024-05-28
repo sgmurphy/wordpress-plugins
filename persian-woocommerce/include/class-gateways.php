@@ -712,6 +712,10 @@ abstract class Persian_Woocommerce_Gateways extends WC_Payment_Gateway {
 		die();
 	}
 
+	protected function nusoap() {
+
+	}
+
 	/*
 	 * Abstract methods and must be override
 	 * */

@@ -24,6 +24,8 @@ if ( ! defined( 'CP_CALCULATEDFIELDSF_ID' ) ) {
 	define( 'CP_CALCULATEDFIELDSF_ID', isset( $_GET['cal'] ) && is_numeric( $_GET['cal'] ) ? intval( $_GET['cal'] ) : 0 );
 }
 
+$admin_url = 'admin.php?page=cp_calculated_fields_form&cal=' . CP_CALCULATEDFIELDSF_ID . '&r=' . mt_rand();
+
 $cpcff_main = CPCFF_MAIN::instance();
 $form_obj   = $cpcff_main->get_form( intval( $_GET['cal'] ) );
 
@@ -48,7 +50,7 @@ $cpcff_texts_array = CPCFF_AUXILIARY::array_replace_recursive(
 );
 
 
-$section_nav_bar = '<div>
+$section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_define_texts">' . esc_html__( 'Texts definition', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
 	<a href="#metabox_define_validation_texts">' . esc_html__( 'Error texts', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
 	<a href="#metabox_submit_thank">' . esc_html__( 'Submit button and thank you page', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
@@ -61,7 +63,7 @@ $section_nav_bar = '<div>
 ?>
 <div class="wrap">
 	<div style="text-align:right;float:right;display:inline-block;">
-		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to items list...', 'calculated-fields-form' ); ?></a>
+		<a href="admin.php?page=cp_calculated_fields_form"><?php esc_html_e( 'Back to forms list...', 'calculated-fields-form' ); ?></a>
 	</div>
 	<h1 class="cff-form-name">
 	<?php
@@ -76,7 +78,7 @@ $section_nav_bar = '<div>
 	?>
 	</h1>
 	<?php $_cpcff_nonce = wp_create_nonce( 'cff-form-settings' ); ?>
-	<form method="post" action="" id="cpformconf" name="cpformconf" class="cff_form_builder">
+	<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder">
 		<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_nonce ); ?>" />
 		<input name="cp_calculatedfieldsf_post_options" type="hidden" value="1" />
 		<input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" />
@@ -95,6 +97,7 @@ $section_nav_bar = '<div>
 				<div class="hndle">
 					<div class="cff-revisions-container">
 						<?php
+						print $section_nav_bar;
 						if ( get_option( 'CP_CALCULATEDFIELDSF_DISABLE_REVISIONS', CP_CALCULATEDFIELDSF_DISABLE_REVISIONS ) == 0 ) :
 							esc_html_e( 'Revisions', 'calculated-fields-form' );
 							?>
@@ -144,6 +147,8 @@ $section_nav_bar = '<div>
 							{
 								function calculatedFieldsFormReady()
 								{
+									/* Nav sections menu */
+									$calculatedfieldsfQuery('.cff-navigation-sections-menu a').on( 'mouseup', function(){$calculatedfieldsfQuery('#metabox_form_structure').removeClass('fullscreen');});
 									/* Revisions code */
 									$calculatedfieldsfQuery('[name="cff_apply_revision"]').on( 'click',
 										function(){
@@ -153,7 +158,7 @@ $section_nav_bar = '<div>
 												result = window.confirm('<?php print esc_js( __( 'The action will load the revision selected, the data are not stored will be lose. Do you want continue?', 'calculated-fields-form' ) ); ?>');
 												if(result)
 												{
-													$calculatedfieldsfQuery('<form method="post" action="" id="cpformconf" name="cpformconf" class="cff_form_builder"><input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_nonce ); ?>" /><input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" /><input type="hidden" name="cpcff_revision_to_apply" value="'+esc_attr( revision )+'"></form>').appendTo('body').submit();
+													$calculatedfieldsfQuery('<form method="post" action="<?php echo esc_attr( $admin_url ); ?>" id="cpformconf" name="cpformconf" class="cff_form_builder"><input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( $_cpcff_nonce ); ?>" /><input name="cp_calculatedfieldsf_id" type="hidden" value="<?php echo esc_attr( CP_CALCULATEDFIELDSF_ID ); ?>" /><input type="hidden" name="cpcff_revision_to_apply" value="'+esc_attr( revision )+'"></form>').appendTo('body').submit();
 												}
 											}
 										}
@@ -414,7 +419,7 @@ $section_nav_bar = '<div>
 							<th scope="row"><?php esc_html_e( 'Thank you page (after sending the message)', 'calculated-fields-form' ); ?></th>
 							<td>
 								<input type="text" name="fp_return_page" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_return_page', CP_CALCULATEDFIELDSF_DEFAULT_fp_return_page ) ); ?>" />
-								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="width75">
+								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="cff-expand-mssg width75">
 									<p><?php esc_html_e( 'Commercial plugin versions allow you to include a summary of the information collected by the form on the "Thank You Page" content.', 'calculated-fields-form' ); ?> <a href="https://cff.dwbooster.com/download" target="_blank" class="button-primary"><?php esc_html_e( 'Upgrade Now', 'calculated-fields-form' ); ?></a></p>
 								</div>
 							</td>
@@ -435,7 +440,10 @@ $section_nav_bar = '<div>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Destination emails (comma separated)', 'calculated-fields-form' ); ?></th>
-							<td><input type="text" name="fp_destination_emails" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails ) ); ?>" /></td>
+							<td>
+								<input type="text" name="fp_destination_emails" class="width75" value="<?php echo esc_attr($form_obj->get_option('fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails)); ?>" />
+								<p><a href="javascript:void(0);" onclick="document.getElementsByName('fp_destination_emails')[0].value='';"><?php esc_html_e( 'If you do not want to receive emails, please leave the "destination" attribute blank.', 'calculated-fields-form' ); ?></a></p>
+							</td>
 						</tr>
 						<tr valign="top">
 							<th scope="row"><?php esc_html_e( 'Email subject', 'calculated-fields-form' ); ?></th>
@@ -492,7 +500,7 @@ $section_nav_bar = '<div>
 							<th scope="row"><?php esc_html_e( 'Message', 'calculated-fields-form' ); ?></th>
 							<td>
 								<textarea type="text" name="fp_message" rows="6" class="width75"><?php echo esc_textarea( $form_obj->get_option( 'fp_message', CP_CALCULATEDFIELDSF_DEFAULT_fp_message ) ); ?></textarea>
-								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="width75">
+								<div style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;color:#3c434a;margin-top:20px;margin-bottom:20px;box-sizing:border-box;" class="cff-expand-mssg width75">
 									<p><?php esc_html_e( 'The plugin replaces the <%INFO%> tag in the email content with a summary of the information collected by the form. However, you can customize the email content and design by combining the fields and HTML tags. Learn more about the fields and informative tags supported by the notification emails by visiting the link:', 'calculated-fields-form' ); ?> <a href="https://cff.dwbooster.com/documentation#special-tags" target="_blank"><?php esc_html_e( 'Fields and informative tags', 'calculated-fields-form' ); ?></a></p>
 								</div>
 							</td>
@@ -516,7 +524,7 @@ $section_nav_bar = '<div>
 							);
 							?>
 						</p>
-						<p><a href="https://wordpress.org/plugins/search/SMTP+Connection/" target="_blank">https://wordpress.org/plugins/search/SMTP+Connection/</a></p>
+						<p><a href="https://wordpress.org/plugins/search/SMTP+Connection/" target="_blank" style="width:100%;display:block;overflow:hidden;text-overflow:ellipsis;">https://wordpress.org/plugins/search/SMTP+Connection/</a></p>
 					</div>
 
 					<div class="cff-goto-top"><a href="#cpformconf"><?php esc_html_e( 'Up to form structure', 'calculated-fields-form' ); ?></a></div>
@@ -540,7 +548,7 @@ $section_nav_bar = '<div>
 			[<a href="https://cff.dwbooster.com/customization" target="_blank"><?php esc_html_e( 'Request Custom Modifications', 'calculated-fields-form' ); ?></a>] | [<a href="https://wordpress.org/support/plugin/calculated-fields-form#new-post" target="_blank"><?php esc_html_e( 'Help', 'calculated-fields-form' ); ?></a>]
 
 			<br /><br /><br />
-			<style>@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;}}</style>
+			<style>@media screen and (min-width:710px){.cff-plugin-promote{width: calc( 100% - 180px );}} @media screen and (max-width:710px){.cff-plugin-logo-promote{display:none;} .cff-expand-mssg{width:100% !important;} }</style>
 
 			<div id="cff-upgrade-frame" style="border:1px solid #F0AD4E;background:#FBE6CA;padding:10px;color:#3c434a;margin-bottom:20px;box-sizing:border-box;">
 				<a href="https://cff.dwbooster.com/download" target="_blank" style="text-decoration:none;float:left;" class="cff-plugin-logo-promote"><img src="https://ps.w.org/calculated-fields-form/assets/icon-256x256.jpg" style="width:160px;border:2px solid white;margin-right:10px;margin-bottom:10px;"></a>

@@ -145,7 +145,7 @@
 							},
 							hideField = function(id){
 								$('.'+id+' [id*="'+id+'"],.'+id).closest('.fields').hide();
-								$('.'+id+' [id*="'+id+'"]:not(.ignore)').addClass('ignore');
+								$('.'+id+' [id*="'+id+'"]:not(.ignore)').addClass('ignore').trigger('add-ignore');
 								toHide[id] = {};
 							};
 
@@ -176,7 +176,7 @@
 								if(!(dep in hiddenByContainer))
 								{
 									$('.'+dep+' [id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
-									$('.'+dep+' [id*="'+dep+'"].ignore').removeClass('ignore');
+									$('.'+dep+' [id*="'+dep+'"].ignore').removeClass('ignore').trigger('remove-ignore');
 								}
 								if($.inArray(dep,result) == -1) result.push(dep);
 							}

@@ -94,13 +94,63 @@
                                             'new_plugin_path'               =>  $this->functions->random_word(),
                                             'new_upload_path'               =>  $this->functions->random_word(),
                                             'new_wp_comments_post'          =>  $this->functions->random_word() . ".php",
+                                            
+                                            'disable_xml_rpc_auth'          =>  'yes',
+                                            'remove_xml_rpc_tag'            =>  'yes',
+                                            'new_xml_rpc_path'              =>  $this->functions->random_word(),
+                                            
+                                            
                                             'remove_generator_meta'         =>  'yes',
                                             'remove_other_generator_meta'   =>  'yes',
+                                            'remove_shortlink_meta'         =>  'yes',
                                             'remove_wlwmanifest'            =>  'yes',
+                                            'remove_rsd_link'               =>  'yes',
+                                            'remove_adjacent_posts_rel'     =>  'yes',
+                                            'remove_profile'                =>  'yes',
                                             'remove_header_link'            =>  'yes',
                                             'remove_html_comments'          =>  'yes',
-                                            'clean_json_base_route'         =>  'yes'
+                                            'clean_json_base_route'         =>  'yes',
+                                            'disable_json_rest_wphead_link' =>  'yes',
+                                            
+                                            'emulate_cms'                   =>  'drupal_9',
+                                            
+                                            'disable_robots_txt'            =>  'yes',
+                                            'disable_wpemojia'              =>  'yes',
+                                            'disable_tinymce_wpemojia'      =>  'yes',
+                                            
+                                            'remove_x_powered_by'           =>  'yes',
+                                            'remove_header_server'          =>  'yes'
+                                            
                                             );
+                                            
+                    
+                    /**
+                    * Headers
+                    *                         
+                    */
+                        
+                    //add the custom headers
+                    $_settings[ 'cross_origin_embedder_policy' ]['enabled']      =   'yes';
+                    $_settings[ 'cross_origin_embedder_policy' ]['value']        =   'unsafe-none';
+                    
+                    $_settings[ 'cross_origin_opener_policy' ]['enabled']        =   'yes';
+                    $_settings[ 'cross_origin_opener_policy' ]['value']          =   'unsafe-none';
+                    
+                    $_settings[ 'cross_origin_resource_policy' ]['enabled']      =   'yes';
+                    $_settings[ 'cross_origin_resource_policy' ]['value']        =   'cross-origin';
+                    
+                    $_settings[ 'referrer_policy' ]['enabled']                   =   'yes';
+                    $_settings[ 'referrer_policy' ]['value']                     =   'strict-origin-when-cross-origin';
+                                       
+                    $_settings[ 'x_download_options' ]['enabled']                =   'yes';
+                    $_settings[ 'x_download_options' ]['value']                  =   'noopen';
+                    
+                    $_settings[ 'x_frame_options' ]['enabled']                   =   'yes';
+                    $_settings[ 'x_frame_options' ]['value']                     =   'SAMEORIGIN';
+                    
+                    $_settings[ 'x_xss_protection' ]['enabled']                  =   'yes';
+                    $_settings[ 'x_xss_protection' ]['value']                    =   '1; mode=block';
+                                            
                     $this->wph->settings['module_settings']   =   $_settings;
                                                             
                     //generate a new write_check_string
@@ -231,22 +281,28 @@
                             <h2><?php _e( "Sample setup", 'wp-hide-security-enhancer' ) ?></h2>
                         </div>
                         <div class="container-description">
-                            <p><?php _e( "This creates a simple setup to get you started. The procedure activates some of the basic plugin options.  All options will be reset and any existing values will be overwritten, so use with caution.  After the procedure, for all basic sites, the WordPress CMS will be already hidden, otherwise further options adjustments will be necessary", 'wp-hide-security-enhancer' ) ?>.</p>
+                            <p><?php _e( "This establishes a straightforward setup to kickstart your journey. The process triggers activation of fundamental plugin options. Be mindful that all settings will revert to default, potentially overwriting existing values, so exercise caution. Following this procedure, WordPress CMS will be concealed on basic sites; otherwise, additional adjustments may be required for more customized configurations.", 'wp-hide-security-enhancer' ) ?></p>
                             <form id="wph-run-sample-setup" method="post" action="admin.php?page=wp-hide">
-                                <p><a href="javascript: void(0)" onclick="return WPH.confirm_sample_setup();" class="button-primary"><?php _e( "Run Sample Setup", 'wp-hide-security-enhancer' ) ?></a></p>
+                                <p><a href="javascript: void(0)" onclick="return WPH.confirm_sample_setup();" class="button-primary"><?php _e( "Create Plugin Setup", 'wp-hide-security-enhancer' ) ?></a></p>
+                                <p><a href="https://wp-hide.com/pricing/" target="_blank" class="button-primary p-button wph-pro"><span class="wph-pro">PRO</span> <?php _e( "Comprehensive Setup", 'wp-hide-security-enhancer' ) ?> </a></p>
                                 
                                 <input type="hidden" name="wph-run-sample-setup" value="true" />
                                 <input type="hidden" name="wph-run-sample-setup-nonce" value="<?php echo wp_create_nonce( 'wph-run-sample-setup' ) ?>" />
                             </form>
+                            <p><?php _e( "Additional adjustments to the settings may be needed to tailor them to your specific environment. Utilize the Scan feature for easier identification of necessary improvements.", '' ) ?>
+                            <br /><?php _e( "For more complex sites, consider employing the ", 'wp-hide-security-enhancer' ) ?> <span class="wph-pro">PRO</span> <?php  _e( "plugin, which offers advanced tools such as PostProcessing with Replacements for targeted removal of individual fingerprints (e.g., elementor, divi, woocommerce, etc.).", 'wp-hide-security-enhancer' ) ?></p>
                         </div>
                         
                                                 
-                        <div class="start-container">
+                        <div class="start-container title video">
                             <div class="text">
-                         
                                 <h2><?php _e('Demo Video', 'wp-hide-security-enhancer') ?></h2>
+                            </div>                     
+                        </div>
+                        
+                        <div class="container-description">
+                            <div class="text">
                                 <p>Sample video on how to fill options and check the changes on outputted HTML.</p>
-                                
                                 <div id="wph-video" style="max-width: 800px">
                                     <div style="padding:56.25% 0 0 0;position:relative;">
                                         <iframe src="https://player.vimeo.com/video/192011678?title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

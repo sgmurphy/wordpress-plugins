@@ -4,7 +4,7 @@ Tags: Contact Form 7, Spam, CAPTCHA, GDPR, WPForms
 Requires at least: 4.7
 Requires PHP: 7.0
 Tested up to: 6.5
-Stable tag: 3.3.14
+Stable tag: 3.3.15
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,6 +121,10 @@ If the Image CAPTCHA does not appear, please confirm that you are running PHP ve
 
 If the styling does not look right, you may need to clear your browser cache. If you have any caching plugins or speed optimization plugins installed, you may need to clear your site cache as well.
 
+= Does the plugin support WPML? =
+
+Yes, there is a partnership between WPML and WP Image CAPTCHA - <a href="https://wpml.org/plugin/wp-image-captcha/" target="_blank">See here!</a>
+
 == Screenshots ==
 
 1. CAPTCHA for Contact Form 7
@@ -128,6 +132,9 @@ If the styling does not look right, you may need to clear your browser cache. If
 3. PRO plugin
 
 == Changelog ==
+
+= 3.3.15 [05/28/2024] =
+* Update FAQ
 
 = 3.3.14 [04/21/2024] =
 * Update tested up to

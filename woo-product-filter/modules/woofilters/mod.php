@@ -2354,15 +2354,23 @@ class WoofiltersWpf extends ModuleWpf {
 	}
 
 	public function render( $params ) {
-		return $this->getView()->renderHtml( $params );
+		$p = array(
+			'id' => ( isset($params['id']) ? (int) $params['id'] : 0 ),
+			'mode' => ( 'widget' == $params['mode'] ? 'widget' : '' ),
+		);
+		return $this->getView()->renderHtml( $p );
 	}
 
 	public function renderProductsList( $params ) {
+		$params = array();
 		return $this->getView()->renderProductsListHtml( $params );
 	}
 
 	public function renderSelectedFilters( $params ) {
-		return FrameWpf::_()->isPro() ? $this->getView()->renderSelectedFiltersHtml( $params ) : '';
+		$p = array(
+			'id' => ( isset($params['id']) ? (int) $params['id'] : 0 ),
+		);
+		return FrameWpf::_()->isPro() ? $this->getView()->renderSelectedFiltersHtml( $p ) : '';
 	}
 
 	public function showAdminErrors() {
@@ -2628,6 +2636,7 @@ class WoofiltersWpf extends ModuleWpf {
 			'get_names'           => $getNames,
 			'multi_logic'         => $multiLogic,
 			'check_get_names'     => $checkGetNames,
+			'keep_recount_price'  => $this->getFilterSetting($filterSettings, 'filter_recount_price', '0') && $this->getFilterSetting($filterSettings, 'keep_recount_price', '0'),
 			'cat_only_children'   => DispatcherWpf::applyFilters( 'getOneByOneCategoryHierarchy', array(), $urlQuery, $filterSettings ),
 		);
 		
@@ -2646,7 +2655,7 @@ class WoofiltersWpf extends ModuleWpf {
 
 		foreach ( $taxonomies as $index => $taxonomy ) {
 
-			if ( empty( $differentLogic ) || isset( $differentLogic[ $index ] ) && $differentLogic[ $index ] === $taxonomy ) {
+			if ( empty( $differentLogic ) || ( isset( $differentLogic[ $index ] ) && $differentLogic[ $index ] === $taxonomy ) ) {
 
 				switch ( $taxonomy ) {
 					case 'product_cat':
@@ -3062,11 +3071,14 @@ class WoofiltersWpf extends ModuleWpf {
 					break;
 			}
 			if (!$onlyHaveFound) {
-				if ( ( 'full' === $mode && ! key_exists( 'light', $calc ) ) || 'light' === $mode ) {
+				//if ( ( 'full' === $mode && ! key_exists( 'light', $calc ) ) || 'light' === $mode ) {
+				if ( 'full' === $mode || 'light' === $mode ) {
 					$param  = array_merge( $param, array(
 						'listTable'  => $listTable,
 						'havePosts'  => $havePosts,
 						'taxonomies' => $taxonomies,
+						'calcMode' => $mode,
+						'calcVars' => $calc,
 					) );
 					$result = $this->getExistsMore( $args, $param, $result );
 				}
@@ -3187,7 +3199,7 @@ class WoofiltersWpf extends ModuleWpf {
 			unset( $args['taxonomy'], $args['term'] );
 		}
 
-		if ( is_null( $args ) || empty( $args ) || ! isset( $args['post_type'] ) || 'product' !== $args['post_type'] && ( is_array( $args['post_type'] ) && ! in_array( 'product', $args['post_type'], true ) ) ) {
+		if ( is_null( $args ) || empty( $args ) || ! isset( $args['post_type'] ) || ( 'product' !== $args['post_type'] && ( is_array( $args['post_type'] ) && ! in_array( 'product', $args['post_type'], true ) ) ) ) {
 			$args = array(
 				'post_status'         => 'publish',
 				'post_type'           => 'product',
@@ -3574,13 +3586,18 @@ class WoofiltersWpf extends ModuleWpf {
 	 */
 	public function getExistsMore( $args, $param, $result ) {
 		global $wpdb;
-		$result['existsPrices']              = new stdClass();
-		$result['existsPrices']->wpfMinPrice = 1000000000;
-		$result['existsPrices']->wpfMaxPrice = 0;
-		$result['existsPrices']->decimal     = 0;
-		$result['existsPrices']->dataStep    = '1';
-		$result['existsUsers']               = array();
+		if (!isset($result['existsPrices'])) {
+			$result['existsPrices']              = new stdClass();
+			$result['existsPrices']->wpfMinPrice = 1000000000;
+			$result['existsPrices']->wpfMaxPrice = 0;
+			$result['existsPrices']->decimal     = 0;
+			$result['existsPrices']->dataStep    = '1';
+			$result['existsUsers']               = array();
+		}
 		$listTable                           = $param['listTable'];
+		
+		$mode = $param['calcMode'];
+		$need = ( 'full' === $mode && !key_exists('light', $param['calcVars']) ) || 'light' === $mode;
 
 		if ( $param['havePosts'] && ! empty ( $param['taxonomies']['other_names'] ) ) {
 			foreach ( $param['generalSettings'] as $setting ) {
@@ -3588,6 +3605,14 @@ class WoofiltersWpf extends ModuleWpf {
 					continue;
 				}
 				if ( in_array( $setting['id'], $param['taxonomies']['other_names'], true ) ) {
+					if ('wpfPrice' == $setting['id']) {
+						$keep = $param['taxonomies']['keep_recount_price'];
+						if ( ( !$keep && !$need ) || ( $keep && 'full' != $mode ) ) {
+							continue;
+						}
+					} else if (!$need) {
+						continue;
+					}
 					switch ( $setting['id'] ) {
 						case 'wpfPrice':
 						case 'wpfPriceRange':
@@ -3874,7 +3899,7 @@ class WoofiltersWpf extends ModuleWpf {
 	 * @param array $attributes
 	 */
 	public function addWoocommerceShortcodeQuerySettings( $attributes ) {
-		$shortcodeAttr = htmlentities( UtilsWpf::jsonEncode( $attributes ) );
+		$shortcodeAttr = htmlentities( UtilsWpf::jsonEncode( $attributes ), ENT_COMPAT );
 
 		echo '<span class="wpfHidden" data-shortcode-attribute="' . esc_html( $shortcodeAttr ) . '"></span>';
 	}

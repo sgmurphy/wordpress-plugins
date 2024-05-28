@@ -201,8 +201,9 @@
                                 else
                                 {
                             
-                                    $value      =   isset($_POST[$field_name])  ?   sanitize_text_field($_POST[$field_name]) :   '';
-                                    
+                                    //$value      =   isset($_POST[$field_name])  ?   sanitize_text_field($_POST[$field_name]) :   '';
+                                    $value      =   isset($_POST[$field_name])  ?   preg_replace( '/[^a-zA-Z0-9-_\.\/]/m' , "", $_POST[$field_name] )   :   '';
+                                                                        
                                     //if empty use the default
                                     if(empty($value))
                                         $value  =   $module_setting['default_value'];

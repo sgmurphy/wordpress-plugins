@@ -429,6 +429,104 @@ class Moove_GDPR_Actions {
 			#moove_gdpr_cookie_info_bar .moove-gdpr-infobar-close-btn { ' . $css . ' }';
 		endif;
 
+		// Reject Button - Settings Screen
+		$gdpr_reject_button_bhv_ss = isset( $gdpr_options['gdpr_reject_button_bhv_ss'] ) && intval( $gdpr_options['gdpr_reject_button_bhv_ss'] ) ? intval( $gdpr_options['gdpr_reject_button_bhv_ss'] ) : 1;
+		if ( 2 === $gdpr_reject_button_bhv_ss ) :
+			?>
+
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder a.mgbutton.moove-gdpr-modal-reject-all,
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder button.mgbutton.moove-gdpr-modal-reject-all,
+				.gdpr_cookie_settings_shortcode_content .gdpr-shr-button.button-green.moove-gdpr-modal-reject-all {
+					background-color: transparent;
+				   opacity: .7;
+				   color: #202020;
+				}
+
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder a.mgbutton.moove-gdpr-modal-reject-all:hover,
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder button.mgbutton.moove-gdpr-modal-reject-all:hover,
+				.gdpr_cookie_settings_shortcode_content .gdpr-shr-button.button-green.moove-gdpr-modal-reject-all:hover {
+					background-color: #202020;
+					box-shadow: none;
+					color: #fff;
+					opacity: 1;
+				}
+			<?php
+		elseif ( 3 === $gdpr_reject_button_bhv_ss ) :
+			$gdpr_reject_button_bhv_ss_bg_colour = isset( $gdpr_options['gdpr_reject_button_bhv_ss_bg_colour'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_ss_bg_colour'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_ss_bg_colour'] ) ) : '#000000';
+
+			$gdpr_reject_button_bhv_ss_txt_colour = isset( $gdpr_options['gdpr_reject_button_bhv_ss_txt_colour'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_ss_txt_colour'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_ss_txt_colour'] ) ) : '#d6d6d6';
+			?>
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder a.mgbutton.moove-gdpr-modal-reject-all,
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder button.mgbutton.moove-gdpr-modal-reject-all,
+				.gdpr_cookie_settings_shortcode_content .gdpr-shr-button.button-green.moove-gdpr-modal-reject-all {
+					background-color: <?php echo $gdpr_reject_button_bhv_ss_bg_colour; ?>;
+					border-color: <?php echo $gdpr_reject_button_bhv_ss_bg_colour; ?>;
+					color: <?php echo $gdpr_reject_button_bhv_ss_txt_colour; ?>;
+				}
+
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder a.mgbutton.moove-gdpr-modal-reject-all:hover,
+				#moove_gdpr_cookie_modal .moove-gdpr-modal-content .moove-gdpr-modal-footer-content .moove-gdpr-button-holder button.mgbutton.moove-gdpr-modal-reject-all:hover,
+				.gdpr_cookie_settings_shortcode_content .gdpr-shr-button.button-green.moove-gdpr-modal-reject-all:hover {
+					color: <?php echo $gdpr_reject_button_bhv_ss_bg_colour; ?>;
+					background-color: <?php echo $gdpr_reject_button_bhv_ss_txt_colour; ?>;
+					border-color: <?php echo $gdpr_reject_button_bhv_ss_txt_colour; ?>;
+				}
+			<?php
+		endif;
+
+		// Reject Button - Cookie Banner
+		$gdpr_reject_button_bhv = isset( $gdpr_options['gdpr_reject_button_bhv'] ) && intval( $gdpr_options['gdpr_reject_button_bhv'] ) ? intval( $gdpr_options['gdpr_reject_button_bhv'] ) : 1;
+		if ( 2 === $gdpr_reject_button_bhv ) :
+			?>
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content a.mgbutton.moove-gdpr-infobar-reject-btn, 
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content button.mgbutton.moove-gdpr-infobar-reject-btn {
+					background-color: transparent;
+				   box-shadow: inset 0 0 0 1px currentColor;
+				   opacity: .7;
+				   color: #202020;
+				}
+
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content a.mgbutton.moove-gdpr-infobar-reject-btn:hover, 
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content button.mgbutton.moove-gdpr-infobar-reject-btn:hover {
+					background-color: #202020;
+					box-shadow: none;
+					color: #fff;
+					opacity: 1;
+				}
+
+				#moove_gdpr_cookie_info_bar:not(.gdpr-full-screen-infobar).moove-gdpr-dark-scheme .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content a.mgbutton.moove-gdpr-infobar-reject-btn, #moove_gdpr_cookie_info_bar:not(.gdpr-full-screen-infobar).moove-gdpr-dark-scheme .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content button.mgbutton.moove-gdpr-infobar-reject-btn {
+					background-color: transparent;
+				   box-shadow: inset 0 0 0 1px currentColor;
+				   opacity: .7;
+				   color: #fff;
+				}
+
+				#moove_gdpr_cookie_info_bar:not(.gdpr-full-screen-infobar).moove-gdpr-dark-scheme .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content a.mgbutton.moove-gdpr-infobar-reject-btn:hover, #moove_gdpr_cookie_info_bar:not(.gdpr-full-screen-infobar).moove-gdpr-dark-scheme .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content button.mgbutton.moove-gdpr-infobar-reject-btn:hover {
+					box-shadow: none;
+				   opacity: 1;
+				   color: #202020;
+				   background-color: #fff;
+				}
+			<?php
+		elseif ( 3 === $gdpr_reject_button_bhv ) :
+			$gdpr_reject_button_bhv_bg_colour = isset( $gdpr_options['gdpr_reject_button_bhv_bg_colour'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_bg_colour'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_bg_colour'] ) ) : '#000000';
+
+			$gdpr_reject_button_bhv_txt_colour = isset( $gdpr_options['gdpr_reject_button_bhv_txt_colour'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_txt_colour'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_txt_colour'] ) ) : '#d6d6d6';
+			?>
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content a.mgbutton.moove-gdpr-infobar-reject-btn, 
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content button.mgbutton.moove-gdpr-infobar-reject-btn {
+					background-color: <?php echo $gdpr_reject_button_bhv_bg_colour; ?>;
+					color: <?php echo $gdpr_reject_button_bhv_txt_colour; ?>;
+				}
+
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content a.mgbutton.moove-gdpr-infobar-reject-btn:hover, 
+				#moove_gdpr_cookie_info_bar .moove-gdpr-info-bar-container .moove-gdpr-info-bar-content button.mgbutton.moove-gdpr-infobar-reject-btn:hover {
+					color: <?php echo $gdpr_reject_button_bhv_bg_colour; ?>;
+					background-color: <?php echo $gdpr_reject_button_bhv_txt_colour; ?>;
+				}
+			<?php
+		endif;
+
 		$custom_font_weight = apply_filters( 'gdpr_font_wieght_title', 'inherit' );
 		// Custom Font Weights
 		if ( isset( $gdpr_options['moove_gdpr_plugin_font_type'] ) && '1' !== $gdpr_options['moove_gdpr_plugin_font_type'] || $custom_font_weight !== 'inherit' ) :

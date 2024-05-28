@@ -8,7 +8,7 @@ class FindClassFromNamespaceRoots {
 		$theClass = '';
 
 		$roots = \array_map( function ( $root ) {
-			return rtrim( $root, '\\' ).'\\';
+			return \rtrim( $root, '\\' ).'\\';
 		}, $roots );
 
 		foreach ( $roots as $NS ) {

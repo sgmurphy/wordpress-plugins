@@ -3,8 +3,8 @@ Contributors: nsp-code, tdgu
 Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
-Tested up to: 6.5
-Stable tag: 2.3.8.2
+Tested up to: 6.5.3
+Stable tag: 2.3.9
 License: GPLv2 or later
 
 Hide WordPress, wp-content, wp-includes, wp-admin, login URL, plugins, themes etc. Block the default URLs. Security Headers etc.
@@ -248,6 +248,7 @@ Since version 1.2, WP-Hide change individual plugin URLs and made them unrecogni
 
 * New wp-login.php – Maps a new wp-login.php instead of the default one
 * Block default wp-login.php – Blocks default wp-login.php file from being accessible
+* Customize the default login page Logo image 
 
 **Hide -> Admin > Admin URL**
 
@@ -406,6 +407,15 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.3.9 =
+* New feature: Customize the default login page Logo
+* Improve the default plugin set-up with more options and include the Headers sample settings.
+* Slight visual improvements. 
+* Inform to restart the LiteSpeed on certain servers (e.g. Hostinger ).
+* Use preg_replace to sanitize the input for security improvements. 
+* Compatibility file for WPForms Lite
+* WordPress 6.5.3 compatibility check and tag update
 
 = 2.3.8.2 =
 * Disable the filter wph/components/rewrite-default/superglobal_variables_replacements and the ignore for _wp_http_referer as produce issues with specific plugins

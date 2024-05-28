@@ -13,7 +13,7 @@ class ExtractLinesFromFile {
 	public function run( $path, $lineNumbers ) :array {
 		return \array_intersect_key(
 			( new GetFileAsArray() )->run( $path ),
-			array_flip( $lineNumbers )
+			\array_flip( $lineNumbers )
 		);
 	}
 }

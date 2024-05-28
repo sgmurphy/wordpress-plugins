@@ -519,6 +519,6 @@ abstract class TableWpf {
 		return DbWpf::get('SELECT MAX(' . $this->_id . ') FROM ' . $this->_table, 'one');
 	}
 	public function adaptHtml( $val ) {
-		return htmlspecialchars($val);
+		return htmlspecialchars($val, ENT_COMPAT);
 	}
 }

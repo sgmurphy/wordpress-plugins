@@ -126,7 +126,7 @@
 											if(typeof toShow[dep] == 'undefined')
 											{
 												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').hide();
-												$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore');
+												$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore').trigger('add-ignore');
 												toHide[dep] = {};
 											}
 										}
@@ -139,7 +139,7 @@
 											if(!(dep in hiddenByContainer))
 											{
 												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').fadeIn(interval || 0);
-												$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore');
+												$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore').trigger('remove-ignore');
 											}
 										}
 										if($.inArray(dep,result) == -1) result.push(dep);

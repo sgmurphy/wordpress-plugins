@@ -1,5 +1,8 @@
 *** ShipStation for WooCommerce ***
 
+= 4.4.3 - 2024-05-27 =
+* Tweak - Performance enhancement.
+
 = 4.4.2 - 2024-04-09 =
 * Fix - Cannot retrieve order number on from GET variable.
 

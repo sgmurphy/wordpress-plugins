@@ -1,4 +1,4 @@
-=== Slider, Gallery, and Carousel by MetaSlider - Responsive WordPress Slideshows ===
+=== Slider, Gallery, and Carousel by MetaSlider - Responsive WordPress Image Slideshows ===
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
 Tags: slideshow, slider, image slider, carousel, gallery, flex slider, wordpress slider, nivoslider, rotating banner, image sliders, slide show, responsive slideshow, seo slideshow, unsplash, post sliders, video sliders, YouTube sliders, Vimeo sliders, HTML sliders, external URL sliders, layer sliders, best WordPress slider, best slider, best slideshow, best carousel, easy slider, easy slideshow, flex slider, woocommerce slider, woocommerce slideshow, video slider, video captions, video subtitles
 Requires at least: 5.0
@@ -39,15 +39,15 @@ If you’re looking for further customization, [MetaSlider Pro](https://www.meta
 
 ### Image Sliders
 
-This may be the most basic slide type, but it still makes a great impression on any website! Present your beautiful images to a stunning slider, slide show, carousel, or gallery. Image slides are a basic slide type included in Meta Slider. An image slide will display an image with a caption. You can optionally link the slide to a URL of your choice.
+Image slides make a great impression on any website! Present your beautiful images to a stunning slider, slide show, carousel, or gallery. Image slides are a basic slide type included in MetaSlider. An image slide will display an image with a caption. You can optionally link the slide to a URL of your choice.
 
-Add images to your slide shows directly from your WordPress media manager, add the captions you want, set SEO fields and adjust the settings to display the slideshow just how you like it. Take it further with [MetaSlider Pro](https://www.metaslider.com/upgrade/) and use the Theme Editor to change the look of the navigation, the arrows, and the captions.
+Add images to your slide shows directly from your WordPress media library, add the captions you want, set SEO fields and adjust the settings to display the image slideshow just how you like it. Take it further with [MetaSlider Pro](https://www.metaslider.com/upgrade/) and use the Theme Editor to change the look of the navigation, the arrows, and the captions.
 
 ### YouTube and Vimeo Video Sliders
 
 With [MetaSlider Pro](https://www.metaslider.com/upgrade/) you can easily include responsive high definition YouTube and Vimeo videos in your slider, slideshow, or carousel. A video slide will display a video in your slide show directly from Vimeo or YouTube. The video will automatically pause if the user skips to the next slide.
 
-Simply add the URL of your video to a YouTube or Vimeo slide and MetaSlider will add it to your slider, slideshow, or carousel. Either create a slide show full of you favourite videos or mix it in between slides of other types to get just the result that you want.
+Simply add the URL of your video to a YouTube or Vimeo slide and MetaSlider will add it to your slider, slideshow, or carousel. Either create a slide show full of you favorite videos or mix it in between slides of other types to get just the result that you want.
 
 If you select the FlexSlider option with video slides you can take advantage of MetaSliders play/pause functionality. This means that you can have your slideshow autoplay but will pause when you set a video to play and carry on once the video has finished. You could even have the slider or slide show autoplay to give you a smooth, completely automatic presentation!
 
@@ -79,7 +79,7 @@ With [MetaSlider Pro](https://www.metaslider.com/upgrade/) you can create Extern
 
 **Optimized for Speed**
 
-MetaSlider is fast. Only the minimum JavaScript/CSS is included on your page to power your slider, slideshow, carousel, or gallery. We have optimized the Meta Slider plugin so that your images, photos, videos (YouTube and Vimeo), layers, products, and post feeds, load quickly without slowing down your website visitors’ experience.
+MetaSlider is fast. Only the minimum JavaScript/CSS is included on your page to power your slider, slideshow, carousel, or gallery. We have optimized the MetaSlider plugin so that your images, photos, videos (YouTube and Vimeo), layers, products, and post feeds, load quickly without slowing down your website visitors’ experience.
 
 **Unsplash Integration**
 
@@ -292,7 +292,7 @@ Our official name is MetaSlider. Don't worry - we'll still understand if you cal
 
 There are lot of good gallery and slideshow plugins available including NextGen, 10Web, Envira, Modula, FooGallery, Smart Slider 3, Depicter, Slider Revolution, Soliloquy and more.
 
-Enivra Gallery, FooGallery, and Module Gallery are photo gallery plugins. Smart Slider 3, Depicter, Slider Revolution, Soliloquy are slideshow plugins.
+Envira Gallery, FooGallery, and Modula Gallery are photo gallery plugins. Smart Slider 3, Depicter, Slider Revolution, Soliloquy are slideshow plugins.
 
 This variety of options is why we love WordPress and why you do too. However, give MetaSlider a test and you'll find it has a wonderful balance between speed and features. Some of the plugins on this list are very basic. Other plugins have too many features and are slow and bloated. MetaSlider makes sure that your site runs incredibly quickly, while making sure you still have a very robust set of features. Join our slider revolution! We believe MetaSlider is the best slide show and gallery option.
 

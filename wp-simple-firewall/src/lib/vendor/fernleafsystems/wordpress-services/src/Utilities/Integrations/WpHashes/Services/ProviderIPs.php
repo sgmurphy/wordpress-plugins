@@ -4,6 +4,7 @@ namespace FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\Ser
 
 class ProviderIPs extends Base {
 
+	public const API_VERSION = 2;
 	public const RESPONSE_DATA_KEY = 'provider_ips';
 
 	/**

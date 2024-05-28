@@ -62,7 +62,7 @@ class AssessDirWrite {
 
 		$canWrite = false;
 		$testFile = \path_join( $this->dir, 'test_write_file.txt' );
-		$uniq = uniqid();
+		$uniq = \uniqid();
 		$FS->putFileContent( $testFile, $uniq );
 		if ( $FS->isAccessibleFile( $testFile ) ) {
 			$canWrite = $FS->getFileContent( $testFile ) == $uniq;

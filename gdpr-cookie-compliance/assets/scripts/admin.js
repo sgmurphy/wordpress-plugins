@@ -270,6 +270,40 @@
         });
 
 
+
+        if ( $('input[name="gdpr_reject_button_bhv"]').length > 0 ) {
+          if ( $('input[name="gdpr_reject_button_bhv"]:checked').val() == 3 ) {
+            $(document).find('.gdpr_reject_button_bhv_tbl').show();
+          } else {
+            $(document).find('.gdpr_reject_button_bhv_tbl').hide();
+          }
+        };
+
+        $(document).on('change','input[name="gdpr_reject_button_bhv"]',function(){
+          if ( $('input[name="gdpr_reject_button_bhv"]:checked').val() == 3 ) {
+            $(document).find('.gdpr_reject_button_bhv_tbl').show();
+          } else {
+            $(document).find('.gdpr_reject_button_bhv_tbl').hide();
+          }
+        });
+
+        if ( $('input[name="gdpr_reject_button_bhv_ss"]').length > 0 ) {
+          if ( $('input[name="gdpr_reject_button_bhv_ss"]:checked').val() == 3 ) {
+            $(document).find('.gdpr_reject_button_bhv_ss_tbl').show();
+          } else {
+            $(document).find('.gdpr_reject_button_bhv_ss_tbl').hide();
+          }
+        };
+
+        $(document).on('change','input[name="gdpr_reject_button_bhv_ss"]',function(){
+          if ( $('input[name="gdpr_reject_button_bhv_ss"]:checked').val() == 3 ) {
+            $(document).find('.gdpr_reject_button_bhv_ss_tbl').show();
+          } else {
+            $(document).find('.gdpr_reject_button_bhv_ss_tbl').hide();
+          }
+        });
+
+
         // JavaScript to be fired on all pages
         $(document).on('keyup','input[name=moove_gdpr_company_logo]',function(){
           // console.log('changed');

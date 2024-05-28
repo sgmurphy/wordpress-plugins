@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.8
+Stable tag: 5.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.9 =
+
+* Allows access to the form settings sections from the form builder in fullscreen mode.
+* Fixes an issue with the radio buttons and checkbox designs in the predefined template 8.
+* Reimplements the SCIENTIFICTODECIMAL operation in the Mathematical Operations module.
+* Modifies the field dependencies modules to trigger two events: add-ignore and remove-ignore when the dependencies activate or activate the fields.
+* The CFF - WooCommerce add-on implements the get_product_price_with_tax operation to apply the WooCommerce tax to the calculated prices (Developer and Platinum plugin versions).
+
 = 5.2.8 =
 
 * Pauses the fields animation for a conflict with themes.
@@ -472,9 +480,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the Calculated Fields Form Gutenberg block to make it responsive.
 * Modifies the export forms and CSV files modules to prevent third-party plugin warnings and notices messages affecting the files generated (Professional, Developer, and Platinum versions).
 * Prevents accidental deletion of submissions by modifying the position of the Delete All submissions button in the entries section (Professional, Developer, and Platinum versions).
-
-= 5.2.3 =
-
-* Fixes a CLS issue on pages with the CFF forms.
-* Fixes a minor visual issue with the Gutenberg module.
-* Modifies the val method in date/time controls.

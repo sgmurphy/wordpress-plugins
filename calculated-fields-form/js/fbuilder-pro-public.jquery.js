@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.8';
+	$.fbuilder['version'] = '5.2.9';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -452,14 +452,16 @@
 								var uh = items[i].jQueryRef();
 								if(items[i].userhelp && items[i].userhelp.length)
 								{
-									if(items[i].tooltipIcon) $('<span class="cff-help-icon"></span>').attr('uh', items[i].userhelp).appendTo($(uh.children('label')[0] || uh));
+									var uh_content = '<div data-uh-styles="'+cff_esc_attr(items[i].getCSSComponent('help').replace(/<[^>]*>/g, ''))+'">'+items[i].userhelp+'</div>';
+
+									if(items[i].tooltipIcon) $('<span class="cff-help-icon"></span>').attr('uh', uh_content).appendTo($(uh.children('label')[0] || uh));
 									else{
                                         var target = uh.find('input[type="button"],input[type="reset"],input[type="text"],input[type="number"],input[type="email"],input[type="file"],input[type="color"],input[type="date"],input[type="password"],input[type="email"],select,textarea');
                                         if(!target.length) target = uh.find('.slider');
                                         if(!target.length) target = uh.find('.dfield label');
                                         if(!target.length) target = uh.find('.dfield');
                                         if(!target.length) target = uh;
-                                        $(target).attr('uh', items[i].userhelp);
+                                        $(target).attr('uh', uh_content);
                                     }
 								}
 								uh.find(".uh").remove();
@@ -618,6 +620,10 @@
 								content: function (){return $(this).attr("uh");},
 								open: function( evt, ui ) {
 									try {
+										let styles = ( ui.tooltip.attr('style') || '' ) +
+													 ( $(ui.tooltip).find('[data-uh-styles]').attr( 'data-uh-styles' ) || '' );
+
+										ui.tooltip.attr('style', styles );
 										if(
 											! $(evt.originalEvent.target).hasClass('cff-help-icon') &&
 											window.matchMedia("screen and (max-width: 640px)").matches &&

@@ -18,7 +18,8 @@ class PromoViewWpf extends ViewWpf {
 		$this->assign('serverSettings', $this->getServerSettings());
 		$this->assign('news', $this->getNewsContent());
 		$this->assign('contactFields', $this->getModule()->getContactFormFields());
-		return parent::getContent('overviewTabContent');
+		//return parent::getContent('overviewTabContent');
+		return '';
 	}
 	public function getFaqList() {
 		return array();
@@ -79,7 +80,8 @@ class PromoViewWpf extends ViewWpf {
 	}
 	public function getLayeredStylePromo() {
 		$this->assign('promoLink', $this->getModule()->generateMainLink('utm_source=plugin&utm_medium=layered&utm_campaign=popup'));
-		return parent::getContent('layeredStylePromo');
+		//return parent::getContent('layeredStylePromo');
+		return '';
 	}
 	public function showWelcomePage() {
 		FrameWpf::_()->getModule('templates')->loadJqueryUi();
@@ -91,7 +93,7 @@ class PromoViewWpf extends ViewWpf {
 		$this->assign('skipTutorLink', $this->_makeWelcomeLink( $skipTutorLink ));
 		$this->assign('faqList', $this->getMostFaqList());
 		$this->assign('mainLink', $this->getModule()->getMainLink());
-		parent::display('welcomePage');
+		//parent::display('welcomePage');
 	}
 	private function _makeWelcomeLink( $link ) {
 		return UriWpf::_(array('baseUrl' => $link, 'from' => 'welcome-page', 'pl' => WPF_CODE));
@@ -99,7 +101,8 @@ class PromoViewWpf extends ViewWpf {
 	public function getTourHtml() {
 		$this->assign('contactFormLink', $this->getModule()->getContactLink());
 		$this->assign('finishSiteLink', $this->getModule()->generateMainLink('utm_source=plugin&utm_medium=final_step_b_step&utm_campaign=popup'));
-		return parent::getContent('adminTour');
+		//return parent::getContent('adminTour');
+		return '';
 	}
 	public function showFeaturedPluginsPage() {
 		FrameWpf::_()->getModule('templates')->loadBootstrapSimple();

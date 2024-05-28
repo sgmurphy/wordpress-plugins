@@ -172,7 +172,7 @@ if (taxonomy_exists('pwb-brand')) {
 						'value' => $orderTab,
 					));
 					HtmlWpf::hidden('settings[filters][preselect]', array(
-						'value' => ( isset($this->settings['settings']['filters']['preselect']) ? htmlentities($this->settings['settings']['filters']['preselect']) : '' ),
+						'value' => ( isset($this->settings['settings']['filters']['preselect']) ? htmlentities($this->settings['settings']['filters']['preselect'], ENT_COMPAT) : '' ),
 					));
 					?>
 

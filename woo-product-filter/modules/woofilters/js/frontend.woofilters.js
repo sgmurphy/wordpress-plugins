@@ -3749,6 +3749,7 @@ function wpfChangePriceFiltersCount(prices) {
 		}
 	});
 	window.wpfFrontendPage.eventsPriceFilter();
+	_thisObj.getUrlParamsChangeFiltersValues();
 	/*if (typeof(window.wpfFrontendPage.eventsFrontendPro) == 'function') {
 		window.wpfFrontendPage.eventsFrontendPro();
 	}*/

@@ -7,12 +7,12 @@ use FernleafSystems\Wordpress\Services\Services;
 class Paths {
 
 	public static function AddExt( string $path, string $ext ) :string {
-		$ext = '.'.ltrim( $ext, '.' );
+		$ext = '.'.\ltrim( $ext, '.' );
 		return Services::Data()->getIfStringEndsIn( $path, $ext ) ? $path : rtrim( $path, '.' ).$ext;
 	}
 
 	public static function RemoveExt( string $path ) :string {
-		$extStart = strrpos( $path, '.' );
+		$extStart = \strrpos( $path, '.' );
 		return $extStart === false ? $path : substr( $path, 0, $extStart );
 	}
 
@@ -20,7 +20,7 @@ class Paths {
 	 * Includes period.
 	 */
 	public static function Ext( string $path ) :string {
-		$extStart = strrpos( $path, '.' );
+		$extStart = \strrpos( $path, '.' );
 		return $extStart === false ? '' : str_replace( '.', '', substr( $path, $extStart ) );
 	}
 }

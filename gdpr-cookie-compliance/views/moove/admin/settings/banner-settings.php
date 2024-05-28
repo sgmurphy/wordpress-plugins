@@ -54,6 +54,15 @@ if ( isset( $_POST ) && isset( $_POST['moove_gdpr_nonce'] ) ) :
 			endif;
 			$gdpr_options['moove_gdpr_reject_button_enable'] = $moove_gdpr_reject_enable;
 
+			$gdpr_options['gdpr_reject_button_bhv'] = 1;
+			if ( '1' === $moove_gdpr_reject_enable ) :
+				if ( isset( $_POST['gdpr_reject_button_bhv'] ) && intval( $_POST['gdpr_reject_button_bhv'] ) ) :
+					$gdpr_options['gdpr_reject_button_bhv'] 						= intval( $_POST['gdpr_reject_button_bhv'] );
+					$gdpr_options['gdpr_reject_button_bhv_bg_colour'] 	= isset( $_POST['gdpr_reject_button_bhv_bg_colour'] ) ? sanitize_text_field( wp_unslash( $_POST['gdpr_reject_button_bhv_bg_colour'] ) ) : '';
+					$gdpr_options['gdpr_reject_button_bhv_txt_colour'] 	= isset( $_POST['gdpr_reject_button_bhv_txt_colour'] ) ? sanitize_text_field( wp_unslash( $_POST['gdpr_reject_button_bhv_txt_colour'] ) ) : '';
+				endif;
+			endif;
+
 			// Cookie Banner Settings Button.
 			$moove_gdpr_reject_enable = '0';
 			if ( isset( $_POST['moove_gdpr_settings_button_enable'] ) ) :
@@ -273,6 +282,80 @@ $initalization_delay 	= isset( $gdpr_options['gdpr_initialization_delay'] ) && i
 														</th>
 														<td>
 															<input name="moove_gdpr_infobar_reject_button_label<?php echo esc_attr( $wpml_lang ); ?>" type="text" id="moove_gdpr_infobar_reject_button_label" value="<?php echo isset( $gdpr_options[ 'moove_gdpr_infobar_reject_button_label' . $wpml_lang ] ) && $gdpr_options[ 'moove_gdpr_infobar_reject_button_label' . $wpml_lang ] ? esc_attr( $gdpr_options[ 'moove_gdpr_infobar_reject_button_label' . $wpml_lang ] ) : esc_attr__( 'Reject', 'gdpr-cookie-compliance' ); ?>" class="regular-text">
+														</td>
+													</tr>
+
+													<tr class="gdpr-conditional-field" data-dependency="#moove_gdpr_reject_button_enable">
+														<td colspan="2">
+															<hr>
+															<h4><?php esc_html_e( 'Choose how visible the Reject button should be', 'gdpr-cookie-compliance' ); ?>:</h4>
+															<table>
+																<tr>
+																	<td>
+																		<fieldset class="gdpr-reject-options">
+																			<?php 
+																			$gdpr_reject_button_bhv = isset( $gdpr_options['gdpr_reject_button_bhv'] ) && intval( $gdpr_options['gdpr_reject_button_bhv'] ) ? intval( $gdpr_options['gdpr_reject_button_bhv'] ) : 1;
+
+																			$gdpr_reject_button_bhv_bg_colour = isset( $gdpr_options['gdpr_reject_button_bhv_bg_colour'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_bg_colour'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_bg_colour'] ) ) : '#000000';
+
+																			$gdpr_reject_button_bhv_txt_colour = isset( $gdpr_options['gdpr_reject_button_bhv_txt_colour'] ) && sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_txt_colour'] ) ) ? sanitize_url( wp_unslash( $gdpr_options['gdpr_reject_button_bhv_txt_colour'] ) ) : '#d6d6d6';
+																			?>
+					
+																			<label for="gdpr_reject_button_bhv_1">
+																				<input name="gdpr_reject_button_bhv" type="radio" <?php echo $gdpr_reject_button_bhv === 1 ? 'checked' : ''; ?> id="gdpr_reject_button_bhv_1" value="1">
+																				<?php esc_html_e( 'Same as Accept button', 'gdpr-cookie-compliance' ); ?>
+																			</label>
+																		
+																			<br />
+
+																			<label for="gdpr_reject_button_bhv_2">
+																				<input name="gdpr_reject_button_bhv" type="radio" <?php echo $gdpr_reject_button_bhv === 2 ? 'checked' : ''; ?> id="gdpr_reject_button_bhv_2" value="2">
+																				<?php esc_html_e( 'Less visible', 'gdpr-cookie-compliance' ); ?>	
+																			</label>
+																			
+																			<br />
+
+																			<div class="gdpr-conditional-field-group">
+																				<label for="gdpr_reject_button_bhv_3">
+																					<input name="gdpr_reject_button_bhv" type="radio" <?php echo $gdpr_reject_button_bhv === 3 ? 'checked' : ''; ?> id="gdpr_reject_button_bhv_3" value="3">
+																					<?php esc_html_e( 'Custom colour', 'gdpr-cookie-compliance' ); ?>													
+																				</label>
+																				<br>
+																				<table style="display: none" class="gdpr_reject_button_bhv_tbl">
+																					<tr>
+																						<td style="padding-left: 22px; width: 200px;"><strong><?php esc_html_e( 'Background Colour', 'gdpr-cookie-compliance' ); ?></strong></td>
+																						<td>
+																							<div class="iris-colorpicker-group-cnt">
+																								<?php $color = $gdpr_reject_button_bhv_bg_colour; ?>
+																								<input class="iris-colorpicker regular-text" name="gdpr_reject_button_bhv_bg_colour" value="<?php echo esc_attr( $color ); ?>" style="background-color: <?php echo esc_attr( $color ); ?>" type="text">
+																								<span class="iris-selectbtn"><?php esc_html_e( 'Select', 'gdpr-cookie-compliance' ); ?></span>
+																							</div>
+
+																						</td>
+																					</tr>
+
+																					<tr>
+																						<td style="padding-left: 22px; width: 200px;"><strong><?php esc_html_e( 'Text Colour', 'gdpr-cookie-compliance' ); ?></strong></td>
+																						<td>							
+																							<div class="iris-colorpicker-group-cnt">
+																								<?php $color = $gdpr_reject_button_bhv_txt_colour; ?>
+																								<input class="iris-colorpicker regular-text" name="gdpr_reject_button_bhv_txt_colour" value="<?php echo esc_attr( $color ); ?>" style="background-color: <?php echo esc_attr( $color ); ?>" type="text">
+																								<span class="iris-selectbtn"><?php esc_html_e( 'Select', 'gdpr-cookie-compliance' ); ?></span>
+																							</div>
+
+																						</td>
+																					</tr>
+																				</table>
+																				
+																			</div>
+																			<!-- .gdpr-conditional-field-group -->
+
+																			<br />
+
+																		</fieldset>
+																	</td>
+																</tr>
+															</table>
 														</td>
 													</tr>
 												</tbody>

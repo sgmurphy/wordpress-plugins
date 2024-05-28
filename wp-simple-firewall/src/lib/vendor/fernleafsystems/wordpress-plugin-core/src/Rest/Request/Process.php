@@ -23,7 +23,7 @@ abstract class Process {
 	/**
 	 * @param RouteBase|mixed $route
 	 */
-	public function __construct( $route = null, \WP_REST_Request $restRequest = null ) {
+	public function __construct( $route = null, ?\WP_REST_Request $restRequest = null ) {
 		$this->setRestRoute( $route );
 		if ( $restRequest instanceof \WP_REST_Request ) {
 			$this->setWpRestRequest( $restRequest );

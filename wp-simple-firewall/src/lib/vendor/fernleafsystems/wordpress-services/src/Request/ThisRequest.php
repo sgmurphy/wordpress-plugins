@@ -8,33 +8,33 @@ use FernleafSystems\Wordpress\Services\Services;
 use FernleafSystems\Wordpress\Services\Utilities\Net\IpID;
 
 /**
- * @property Request         $request
- * @property \Carbon\Carbon  $carbon
- * @property \Carbon\Carbon  $carbon_tz
+ * @property Request          $request
+ * @property \Carbon\Carbon   $carbon
+ * @property \Carbon\Carbon   $carbon_tz
  *
- * @property string          $ip
- * @property bool            $ip_is_public
- * @property string          $ip_id
- * @property bool            $is_server_loopback
+ * @property string           $ip
+ * @property bool             $ip_is_public
+ * @property string           $ip_id
+ * @property bool             $is_server_loopback
  *
- * @property string          $rest_api_root
- * @property \WP_REST_Server $rest_server
+ * @property string           $rest_api_root
+ * @property ?\WP_REST_Server $rest_server
  *
- * @property string          $method
- * @property string          $path
- * @property string          $host
- * @property string          $script_name
- * @property string          $useragent
+ * @property string           $method
+ * @property string           $path
+ * @property string           $host
+ * @property string           $script_name
+ * @property string           $useragent
  *
- * @property string          $wp_locale
- * @property bool            $wp_is_admin
- * @property bool            $wp_is_networkadmin
- * @property bool            $wp_is_ajax
- * @property bool            $wp_is_cron
- * @property bool            $wp_is_debug
- * @property bool            $wp_is_wpcli
- * @property bool            $wp_is_xmlrpc
- * @property bool            $wp_is_permalinks_enabled
+ * @property string           $wp_locale
+ * @property bool             $wp_is_admin
+ * @property bool             $wp_is_networkadmin
+ * @property bool             $wp_is_ajax
+ * @property bool             $wp_is_cron
+ * @property bool             $wp_is_debug
+ * @property bool             $wp_is_wpcli
+ * @property bool             $wp_is_xmlrpc
+ * @property bool             $wp_is_permalinks_enabled
  */
 class ThisRequest extends DynPropertiesClass {
 
@@ -98,7 +98,7 @@ class ThisRequest extends DynPropertiesClass {
 				}
 			}
 		}
-		return \trim( $host );
+		return \trim( (string)$host );
 	}
 
 	protected function setupRest() {

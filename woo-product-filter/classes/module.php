@@ -125,9 +125,9 @@ abstract class ModuleWpf extends BaseObjectWpf {
 		}
 		if (file_exists($this->getModDir() . 'controller.php')) {
 			$className = '';
-			if (importWpf($this->getModDir() . 'controller.php')) {
-				$className = toeGetClassNameWpf($this->getCode() . 'Controller');
-			}
+			require $this->getModDir() . 'controller.php';
+				//if (importWpf($this->getModDir() . 'controller.php')) {
+			$className = toeGetClassNameWpf($this->getCode() . 'Controller');
 			if (!empty($className)) {
 				$this->_controller = new $className($this->getCode());
 				$this->_controller->init();
@@ -158,7 +158,13 @@ abstract class ModuleWpf extends BaseObjectWpf {
 		}
 		if (file_exists($this->getModDir() . 'helper.php')) {
 			$helper = $this->getCode() . 'Helper';
-			importClassWpf($helper, $this->getModDir() . 'helper.php');
+			//importClassWpf($helper, $this->getModDir() . 'helper.php');
+			if (!class_exists($helper)) {
+				if (file_exists($this->getModDir() . 'helper.php')) {
+					require $this->getModDir() . 'helper.php';
+				}
+			}
+		
 			if (class_exists($helper)) {
 				$this->_helper = new $helper($this->_code);
 				$this->_helper->init();

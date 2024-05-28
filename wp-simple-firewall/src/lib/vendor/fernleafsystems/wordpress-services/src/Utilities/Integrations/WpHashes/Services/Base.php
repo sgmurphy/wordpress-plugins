@@ -1,18 +1,9 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\Services;
 
-use FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes;
-
-abstract class Base extends WpHashes\ApiBase {
+abstract class Base extends \FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\ApiBase {
 
 	public const API_ENDPOINT = 'services';
 	public const REQUIRES_API_AVAILABILITY = false;
-
-	/**
-	 * @return RequestVO
-	 */
-	protected function newReqVO() {
-		return new RequestVO();
-	}
 }

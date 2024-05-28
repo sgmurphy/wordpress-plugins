@@ -38,7 +38,7 @@ class WoofiltersControllerWpf extends ControllerWpf {
 				}
 			}
 			
-			$html = FrameWpf::_()->getModule('woofilters')->render($data);
+			$html = FrameWpf::_()->getModule('woofilters')->getView()->renderHtml($data);
 
 			$html .= '<script type="text/javascript">window.wpfFrontendPage.init();' . ( $isPro ? 'window.wpfFrontendPage.eventsFrontendPro();' : '' ) . '</script>';
 			$res->setHtml($html);
@@ -170,7 +170,6 @@ class WoofiltersControllerWpf extends ControllerWpf {
 		if ( isset( $args['posts_per_page'] ) && $args['posts_per_page'] > 0 ) {
 			$queryvars['posts_per_page'] = $args['posts_per_page'];
 		}
-
 		$parts = parse_url($curUrl);
 		$urlQuery = array();
 		if (!empty($parts['query'])) {
@@ -283,6 +282,7 @@ class WoofiltersControllerWpf extends ControllerWpf {
 		} else {
 			$args = DispatcherWpf::applyFilters('beforeFilterExistsTerms', $args, $filterSettings, $urlQuery);
 		}
+
 		$filterItems = $module->getFilterExistsItems($args, $taxonomies, $calcParentCategory, $categoryPageId, $generalSettings, true , $filterSettings, array(), $urlQuery);
 		if ($onlyStatistics) {
 			$isFound = empty($filterItems['have_posts']) ? 0 : 1;
@@ -385,7 +385,7 @@ class WoofiltersControllerWpf extends ControllerWpf {
 			$paginateType = $queryvars['paginate_type'];
 			$paginateBase = $queryvars['paginate_base'];
 
-			if ('query' === $paginateType || 'shortcode' === $paginateType && strpos($fullBaseUrl, $paginateBase) === false) {
+			if ( 'query' === $paginateType || ( 'shortcode' === $paginateType && strpos($fullBaseUrl, $paginateBase) === false ) ) {
 				$fullBaseUrl .= ( strpos($fullBaseUrl, '?') === false ? '?' : '&' ) . $paginateBase . '=%#%';
 			}
 
@@ -519,8 +519,8 @@ class WoofiltersControllerWpf extends ControllerWpf {
 			$terms = $this->getModule()->getAttributeTerms($slug);
 			$keys = array_keys($terms);
 		}
-		$res->addData('terms', htmlentities(UtilsWpf::jsonEncode($terms)));
-		$res->addData('keys', htmlentities(UtilsWpf::jsonEncode($keys)));
+		$res->addData('terms', htmlentities(UtilsWpf::jsonEncode($terms), ENT_COMPAT));
+		$res->addData('keys', htmlentities(UtilsWpf::jsonEncode($keys), ENT_COMPAT));
 		return $res->ajaxExec();
 	}
 

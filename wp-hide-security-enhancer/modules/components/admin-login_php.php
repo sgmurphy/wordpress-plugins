@@ -4,6 +4,18 @@
     
     class WPH_module_admin_login_php extends WPH_module_component
         {
+            
+            function __construct()
+                {
+                    parent::__construct();
+                    
+                    add_action ( 'admin_enqueue_scripts', 'wp_enqueue_media' ); 
+                    
+                    $custom_logo_image_id =   $this->wph->functions->get_module_item_setting('custom_login_logo');
+                    if ( ! empty ( $custom_logo_image_id ) )
+                        add_action( 'login_footer', array ( $this, 'custom_login_logo' ) );
+                }
+            
             function get_component_title()
                 {
                     return "Wp-login.php";
@@ -68,6 +80,30 @@
                                                                     
                                                                     'sanitize_type' =>  array('sanitize_title', 'strtolower'),
                                                                     'processing_order'  =>  55
+                                                                    
+                                                                    );
+                                                                    
+                    $this->module_settings[]                  =   array(
+                                                                    'id'            =>  'custom_login_logo',
+                                                                    'label'         =>  __('Custom Login page Logo',    'wp-hide-security-enhancer'),
+                                                                    'description'   =>  array(
+                                                                                                __('Change the default WordPress login page Logo.',  'wp-hide-security-enhancer')
+                                                                                                ),
+                                                                    
+                                                                    'help'          =>  array(
+                                                                                                        'title'                     =>  __('Help',    'wp-hide-security-enhancer') . ' - ' . __('Custom Login Logo',    'wp-hide-security-enhancer'),
+                                                                                                        'description'               =>  __("The feature in the WP Hide plugin allows you to replace the standard WordPress login page logo with a custom image of your choice. This customization enhances your site's branding by displaying your logo on the login page, admin dashboard, and other areas where the default logo appears. To use this feature, simply upload your desired logo in the WP Hide settings and save the changes. Your new logo will be displayed immediately, providing a more personalized and professional appearance for your WordPress site.",    'wp-hide-security-enhancer') . "</span>" .
+                                                                                                                                        "<br />" . __("Recommended width size is 320px.",    'wp-hide-security-enhancer') . "</span>",
+                                                                                                        'option_documentation_url'  =>  'https://wp-hide.com/documentation/admin-change-wp-login-php/'
+                                                                                                        ),
+                                                                                     
+                                                                    'input_type'    =>  'custom',
+                                                                    
+                                                                    'module_option_html_render' =>  array( $this, '_custom_login_logo_module_option_html' ),
+                                                                    'module_option_processing'  =>  array( $this, '_custom_login_logo_module_option_processing' ),
+                                                                    
+                                                                    
+                                                                    'processing_order'  =>  50
                                                                     
                                                                     );
                     
@@ -274,7 +310,119 @@
                 }
                 
             
+            function _custom_login_logo_module_option_html()
+                {
+                
+                    $custom_logo_image_id =   $this->wph->functions->get_module_item_setting('custom_login_logo');
+                    
+                    ?>
+                    <div id="image_preview" style="margin-top: 10px;">
+                        <img src="<?php
+                        
+                        if ( ! empty ( $custom_logo_image_id ) )
+                            {
+                                $image_url = wp_get_attachment_url( $custom_logo_image_id );
+                                if ( $image_url )
+                                    echo esc_url($image_url);
+                            }
+                        
+                        ?>" id="image_thumbnail" style="max-width: 320px;<?php  if ( empty ( $custom_logo_image_id ) ) { echo 'display: none'; }  ?>">
+                    </div>
+
+                    <p>
+                        <input type="hidden" id="custom_logo_image_id" name="custom_logo_image_id" value="<?php echo $custom_logo_image_id ?>" >
+                        <button type="button" class="set_custom_images button-primary">Set Logo</button>  &nbsp; <button type="button" id="remove_custom_image" class="button" style="<?php  if ( empty ( $custom_logo_image_id ) ) { echo 'display: none'; }  ?>">Remove Logo</button>
+                    </p>
+
+
+                    <script type="text/javascript">
+                        jQuery(document).ready(function($) {
+                            
+                            jQuery('#remove_custom_image').on( 'click', function() {
+                                jQuery( '#image_thumbnail' ).css ( 'display', 'none');
+                                jQuery( '#image_thumbnail' ).attr ( 'src', '');
+                                jQuery( '#custom_logo_image_id' ).val( '' );
+                                jQuery( this ).css ( 'display', 'none');
+                            })
+                            
+                            var mediaUploader;
+                            jQuery('.set_custom_images').on('click', function(e) {
+                                e.preventDefault();
+                                var button = jQuery(this);
+                                var inputField = button.prev();
+                                // If the media uploader already exists, reopen it
+                                if (mediaUploader) {
+                                    mediaUploader.open();
+                                    return;
+                                }
+                                // Create the media uploader
+                                mediaUploader = wp.media({
+                                    title: 'Choose Image',
+                                    button: {
+                                        text: 'Set Custom Logo'
+                                    },
+                                    multiple: false
+                                });
+                                // When an image is selected, run a callback
+                                mediaUploader.on('select', function() {
+                                    var attachment = mediaUploader.state().get('selection').first().toJSON();
+                                    inputField.val(attachment.id);
+                                    var thumbnailUrl = attachment.sizes && attachment.sizes.full ? attachment.sizes.full.url : attachment.url;
+                                    jQuery('#image_thumbnail').attr('src', thumbnailUrl).show();
+                                    jQuery('#remove_custom_image').css ( 'display', 'inline-block');
+                                });
+                                // Open the uploader dialog
+                                mediaUploader.open();
+                            });
+                        });
+                    </script>
+                    <?php
+   
+                }
+                
+            function _custom_login_logo_module_option_processing()
+                {
+                    $results            =   array();
+                    
+                    $custom_logo_image_id  =   preg_replace("/[^0-9]/", '', $_POST['custom_logo_image_id'] );
+                    
+                    $results['value']   =   $custom_logo_image_id;
+                    
+                    return $results;
+                }
+                
+            
+            function custom_login_logo()
+                {
+                    $custom_logo_image_id =   $this->wph->functions->get_module_item_setting('custom_login_logo');
+                    
+                    if ( empty ( $custom_logo_image_id ) )
+                        return;
+                        
+                    $image_url = wp_get_attachment_url( $custom_logo_image_id );
+                    if ( empty ( $image_url ) )
+                        return;
+                        
+                    ?>
+                    <style>
+                        #login h1 img, .login h1 img {display: block; max-width: 100%; max-height: 100%}
+                    </style>
+                    <script type="text/javascript">
+
+                        var elementToUpdate = document.querySelector('#login h1');
+                        elementToUpdate.innerHTML = '';
+                        var newElement = document.createElement('img');
+                        newElement.setAttribute('src', '<?php echo esc_url($image_url); ?>');
+                        elementToUpdate.appendChild(newElement);
+                    
+                    </script>
+      
+                    <?php   
+                }
                             
 
         }
+        
+        
+
 ?>

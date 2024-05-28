@@ -12,6 +12,8 @@
 #wph #reset_settings_form .reset_settings {    margin-top: -39px;margin-left: 10px;}
 #wph h2 #reset_settings, #wph #reset_settings_form .reset_settings {   z-index: 10; position: relative; }
 #wph span.wph-pro {background-color: #f04d46; color:#FFF; font-weight: bold;display: inline-block; padding: 2px 4px;}
+#wph .button-primary span.wph-pro {margin: -1px 0 -1px -1px;}
+#wph .p-button.wph-pro {padding-left: 0px}
 #wph .something-wrong { opacity: 0.2; -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
   -ms-transition: opacity 0.3s ease-in-out;
@@ -126,7 +128,7 @@ table .wph_input tr .cell{}
 .wph_help {width: 50%; background-color: #f9f9f9; padding: 0 20px; box-sizing: border-box; overflow: hidden; position:relative; border-left: 1px solid #f1f1f1}
 .option_help::before {    color: #ececec;    content: "\f118";;     display: block;    font-family: dashicons;    font-size: 232px;    line-height: 1;    position: absolute;    right: 20px;    text-align: center;    top: 10%;    width: 1em; z-index: 1}
 .option_help .text { position: relative; z-index: 1;}
-.option_help .text p, .option_help .text li { color: #999;}
+.option_help .text p, .option_help .text li { color: #575555}
 .option_help .text p br {content: "";  margin: 3px;  display: block;  font-size: 24%;}
 .option_help .text p img {max-width: 100%; height: auto}
 .option_help .text p a {text-decoration: none}
@@ -211,7 +213,7 @@ table .select.multiple {height: 82px}
 .wph-notice p span {font-weight: bold; cursor: text}
 
 
-#info_box {background-color: #FFF; display: flex; padding: 10px 20px 20px 0; margin-bottom: 20px}
+#info_box {background-color: #FFF; display: flex; padding: 10px 20px 20px 0; margin: 10px 0 20px 0}
 #info_box .image { max-width: 200px; padding: 10px 0px 0px 30px}
 #info_box .image img {max-width: 100%}
 #info_box .text {}
@@ -242,6 +244,7 @@ h2.subtitle {font-size: 15px; font-style: italic; font-weight: bold}
 .start-container.title.warning::before {content: "\f534";}
 .start-container.title.success::before {content: "\f147";}
 .start-container.title.setup::before {font-size: 90px; content: "\f107";}
+.start-container.title.video::before {font-size: 90px; content: "\f126";}
 .start-container.title.info::before {font-size: 90px; content: "\f111";}
 .start-container.title.test::before {font-size: 90px; content: "\f226";}
 .start-container.title.help::before {font-size: 90px; content: "\f468";}

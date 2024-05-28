@@ -562,9 +562,9 @@ class WoofiltersViewWpf extends ViewWpf {
 				}
 			}
 		}
-		$querySettingsStr =  htmlentities(UtilsWpf::jsonEncode($querySettings));
+		$querySettingsStr =  htmlentities(UtilsWpf::jsonEncode($querySettings), ENT_COMPAT);
 		unset($filterSettings['settings']['styles']);
-		$filterSettings = htmlentities(UtilsWpf::jsonEncode($filterSettings));
+		$filterSettings = htmlentities(UtilsWpf::jsonEncode($filterSettings), ENT_COMPAT);
 		$noWooPageData  = '';
 		if ($noWooPage) {
 			$noWooPageData = 'data-nowoo="true"';
@@ -591,7 +591,7 @@ class WoofiltersViewWpf extends ViewWpf {
 				'" data-filter="' . explode( '_', $viewId )[0] .
 				( $forceShowCurrentFilter ? '" data-force="' . $forceShowCurrentFilter : '' ) .
 				'" data-settings="' . $querySettingsStr .
-				'" data-default-query="' . ( empty( $defaultWCQuery ) || is_null( $defaultWCQuery ) ? '' : htmlentities( UtilsWpf::jsonEncode( $defaultWCQuery ) ) ) .
+				'" data-default-query="' . ( empty( $defaultWCQuery ) || is_null( $defaultWCQuery ) ? '' : htmlentities( UtilsWpf::jsonEncode( $defaultWCQuery ), ENT_COMPAT ) ) .
 				'" data-filter-settings="' . $filterSettings . '" ' . $noWooPageData . $proAttributes .
 				'>';
 
@@ -1191,7 +1191,7 @@ class WoofiltersViewWpf extends ViewWpf {
 				$html .= '<ul class="wpfFilterVerScroll">' . $htmlOpt . '</ul>';
 				break;
 			case 'dropdown':
-				$html .= ( $perPageLeft ? $perPage : '') . '<select>' . $htmlOpt . '</select>' . ( $perPageLeft ? '' : $perPage );
+				$html .= ( $perPageLeft ? $perPage : '' ) . '<select>' . $htmlOpt . '</select>' . ( $perPageLeft ? '' : $perPage );
 				break;
 			case 'mul_dropdown':
 				$settings['f_single_select']              = true;
@@ -2462,9 +2462,7 @@ class WoofiltersViewWpf extends ViewWpf {
 
 	public function generateSearchFieldList( $html, $settings, $labels ) {
 		$type = $this->getFilterSetting($settings, 'f_frontend_type', 'list');
-		if (
-			'list' != $type &&
-			'radio' != $type ||
+		if ( ( 'list' != $type && 'radio' != $type ) ||
 			!$this->getFilterSetting($settings, 'f_show_search_input', false
 		) ) {
 			return $html;
@@ -2767,7 +2765,7 @@ class WoofiltersViewWpf extends ViewWpf {
 			}
 			$termId      = isset($filterItem->term_id) ? $filterItem->term_id : '';
 			$style       = '';
-			$displayName = $filterItem->name;
+			$displayName = empty($filterItem->name_label) ? $filterItem->name : $filterItem->name_label;
 
 			$addAttrs = $menuMode ? ' data-link="' . get_term_link($termId, 'product_cat') . '"' : '';
 
@@ -3075,10 +3073,10 @@ class WoofiltersViewWpf extends ViewWpf {
 		if (empty($_SERVER['HTTP_HOST'])) {
 			return '';
 		}
-		if (isset($_SERVER['HTTPS']) &&
-			( ( 'on' == $_SERVER['HTTPS'] ) || ( 1 == $_SERVER['HTTPS'] ) ) ||
-			isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-			( 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ) {
+		if ( ( isset($_SERVER['HTTPS']) &&
+			( ( 'on' == $_SERVER['HTTPS'] ) || ( 1 == $_SERVER['HTTPS'] ) ) ) ||
+			( isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+			( 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ) ) {
 			$protocol = 'https://';
 		} else {
 			$protocol = 'http://';

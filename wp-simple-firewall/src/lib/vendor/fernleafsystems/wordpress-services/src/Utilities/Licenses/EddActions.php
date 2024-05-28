@@ -9,7 +9,7 @@ class EddActions {
 	 * @return string
 	 */
 	public static function CleanUrl( $url ) {
-		$url = preg_replace( '#^(https?:/{1,2})?(www\.)?#', '', mb_strtolower( \trim( $url ) ) );
+		$url = \preg_replace( '#^(https?:/{1,2})?(www\.)?#', '', \mb_strtolower( \trim( $url ) ) );
 		if ( \strpos( $url, '?' ) ) {
 			$url = \explode( '?', $url, 2 )[ 0 ];
 		}

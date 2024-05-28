@@ -9,50 +9,50 @@ class TestFileWritable {
 	public const TEST_STRING = '/** ODP TEST STRING %s */';
 
 	/**
-	 * @param string $sPath
+	 * @param string $path
 	 * @return bool
 	 * @throws \Exception
 	 */
-	public function run( $sPath ) {
-		if ( empty( $sPath ) ) {
+	public function run( $path ) {
+		if ( empty( $path ) ) {
 			throw new \Exception( 'File path is empty' );
 		}
 
-		$oFs = Services::WpFs();
-		if ( $oFs->isDir( $sPath ) ) {
+		$FS = Services::WpFs();
+		if ( $FS->isDir( $path ) ) {
 			throw new \Exception( 'Path is a directory and not file-writable' );
 		}
 
-		if ( $oFs->exists( $sPath ) ) {
-			$sContent = $oFs->getFileContent( $sPath );
-			if ( is_null( $sContent ) ) {
+		if ( $FS->exists( $path ) ) {
+			$content = $FS->getFileContent( $path );
+			if ( \is_null( $content ) ) {
 				throw new \Exception( 'Could not read file contents' );
 			}
 		}
 		else {
-			$sContent = '';
+			$content = '';
 		}
 
 		{ // Insert test string and write to file
-			$sTestString = sprintf( self::TEST_STRING, Services::WpGeneral()->getTimeStringForDisplay() );
-			$aLines = \explode( "\n", $sContent );
-			$aLines[] = $sTestString;
-			$oFs->putFileContent( $sPath, \implode( "\n", $aLines ) );
+			$testString = sprintf( self::TEST_STRING, Services::WpGeneral()->getTimeStringForDisplay() );
+			$aLines = \explode( "\n", $content );
+			$aLines[] = $testString;
+			$FS->putFileContent( $path, \implode( "\n", $aLines ) );
 		}
 
 		{ // Re-read file contents and test for string
-			$sContent = $oFs->getFileContent( $sPath );
-			$bTestStringPresent = \strpos( $sContent, $sTestString ) !== false;
+			$content = $FS->getFileContent( $path );
+			$isStringPresent = \strpos( $content, $testString ) !== false;
 		}
 
 		{ // Remove test string
-			if ( $bTestStringPresent ) {
-				$aLines = \explode( "\n", $sContent );
-				array_pop( $aLines );
-				$oFs->putFileContent( $sPath, \implode( "\n", $aLines ) );
+			if ( $isStringPresent ) {
+				$aLines = \explode( "\n", $content );
+				\array_pop( $aLines );
+				$FS->putFileContent( $path, \implode( "\n", $aLines ) );
 			}
 		}
 
-		return $bTestStringPresent;
+		return $isStringPresent;
 	}
 }

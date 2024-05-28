@@ -55,7 +55,9 @@ abstract class ControllerWpf {
 		}
 		$parentModule = FrameWpf::_()->getModule( $this->getCode() );
 		$className = '';
-		if (importWpf($parentModule->getModDir() . 'models' . DS . $name . '.php')) {
+		if (file_exists($parentModule->getModDir() . 'models' . DS . $name . '.php')) {
+			require $parentModule->getModDir() . 'models' . DS . $name . '.php';
+		//if (importWpf($parentModule->getModDir() . 'models' . DS . $name . '.php')) {
 			$className = toeGetClassNameWpf($name . 'Model');
 		}
 		
@@ -72,8 +74,9 @@ abstract class ControllerWpf {
 		}
 		$parentModule = FrameWpf::_()->getModule( $this->getCode() );
 		$className = '';
-		
-		if (importWpf($parentModule->getModDir() . 'views' . DS . $name . '.php')) {
+		if (file_exists($parentModule->getModDir() . 'views' . DS . $name . '.php')) {
+			require $parentModule->getModDir() . 'views' . DS . $name . '.php';
+			//if (importWpf($parentModule->getModDir() . 'views' . DS . $name . '.php')) {
 			$className = toeGetClassNameWpf($name . 'View');
 		}
 		

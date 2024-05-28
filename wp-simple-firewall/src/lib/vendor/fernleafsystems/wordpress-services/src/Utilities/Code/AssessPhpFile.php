@@ -21,7 +21,7 @@ class AssessPhpFile {
 		}
 
 		$Ts = \array_values( \array_filter(
-			token_get_all( $this->getRelevantContent( $file ) ),
+			\token_get_all( $this->getRelevantContent( $file ) ),
 			function ( $token ) {
 				return \is_array( $token ) &&
 					   !\in_array( $token[ 0 ], [ T_WHITESPACE, T_DOC_COMMENT, T_COMMENT, T_INLINE_HTML ] );
@@ -79,10 +79,10 @@ class AssessPhpFile {
 			'T_LNUMBER',
 		];
 		$notDefined = \array_filter( $constants, function ( $constant ) {
-			return !defined( $constant );
+			return !\defined( $constant );
 		} );
 		if ( !empty( $notDefined ) ) {
-			throw new \Exception( 'Not defined: '.implode( ', ', $notDefined ) );
+			throw new \Exception( 'Not defined: '.\implode( ', ', $notDefined ) );
 		}
 	}
 }
