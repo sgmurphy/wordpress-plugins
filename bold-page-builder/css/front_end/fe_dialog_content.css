@@ -514,3 +514,7 @@ input + .iris-picker {
 	border: 0;
 	outline: 0;
 }
+
+.bt_bb_fe_dd_element.bt_bb_dialog_item:before {
+	margin-top: 0;
+}

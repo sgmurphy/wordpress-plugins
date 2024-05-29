@@ -1505,3 +1505,19 @@ input:checked + .thumb-toggle-slider:before {
 	border: 1px solid #075BFE;
 	margin-right: 12px;
 }
+.imgs-thumb-size-back{
+	color: #075BFE;
+    font-size: 16px;
+    line-height: 26px;
+    font-family: inter;
+    margin-top: 44px;
+    position: absolute;
+/*    text-decoration: none;*/
+}
+.prevent_image_sizes-back{
+	color: #075BFE;
+    font-size: 16px;
+    line-height: 26px;
+    font-family: inter;
+    margin-top: 44px;
+}

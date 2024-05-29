@@ -1,9 +1,14 @@
-import dispatcher from "../utils/dispatcher";
 import delta from "../utils/delta";
-const c = process.env.DEBUG ? console.log : () => {
-};
-const d = document;
-const DCL = "DOMContentLoaded";
+import {
+  addEventListener,
+  DCL
+} from "../literals";
+import {
+  d,
+  c,
+  ce
+} from "../globals";
+let mocked = true;
 export default class jQueryMock {
   constructor() {
     this.known = [];
@@ -11,15 +16,14 @@ export default class jQueryMock {
   init() {
     let Mock;
     let Mock$;
-    let loaded = false;
-    const override = (jQuery) => {
-      if (!loaded && jQuery && jQuery.fn && !jQuery.__wpmeteor) {
-        process.env.DEBUG && c(delta(), "new jQuery detected", jQuery);
+    const override = (jQuery, symbol) => {
+      if (mocked && jQuery && jQuery.fn && !jQuery.__wpmeteor) {
+        process.env.DEBUG && c(delta(), "new " + symbol + " detected", jQuery.__wpmeteor, jQuery);
         const enqueue = function(func) {
           process.env.DEBUG && c(delta(), "enqueued jQuery(func)", func);
-          d.addEventListener(DCL, (e) => {
+          d[addEventListener](DCL, (e) => {
             process.env.DEBUG && c(delta(), "running enqueued jQuery function", func);
-            func.bind(d)(jQuery, e, "jQueryMock");
+            func.call(d, jQuery, e, "jQueryMock");
           });
           return this;
         };
@@ -30,15 +34,15 @@ export default class jQueryMock {
       }
       return jQuery;
     };
-    if (window.jQuery) {
-      Mock = override(window.jQuery);
+    if (window.jQuery || window.$) {
+      process.env.DEBUG && ce(delta(), "WARNING: JQUERY WAS INSTALLED BEFORE WP-METEOR, PROBABLY FROM A CHROME EXTENSION");
     }
     Object.defineProperty(window, "jQuery", {
       get() {
         return Mock;
       },
       set(jQuery) {
-        Mock = override(jQuery);
+        Mock = override(jQuery, "jQuery");
       }
     });
     Object.defineProperty(window, "$", {
@@ -46,10 +50,9 @@ export default class jQueryMock {
         return Mock$;
       },
       set($) {
-        Mock$ = override($);
+        Mock$ = override($, "$");
       }
     });
-    dispatcher.on("l", () => loaded = true);
   }
   unmock() {
     this.known.forEach(([jQuery, oldReady, oldPrototypeReady]) => {
@@ -57,6 +60,7 @@ export default class jQueryMock {
       jQuery.fn.ready = oldReady;
       jQuery.fn.init.prototype.ready = oldPrototypeReady;
     });
+    mocked = false;
   }
 }
 //# sourceMappingURL=jquery.js.map

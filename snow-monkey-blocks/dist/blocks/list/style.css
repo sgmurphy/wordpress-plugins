@@ -1,0 +1,1 @@
+.smb-list{--smb-list--gap:var(--_margin-2)}.smb-list ul{list-style:none!important}.smb-list ul *>li:first-child,.smb-list ul li+li{margin-top:var(--smb-list--gap)}.smb-list ul>li{position:relative}.smb-list ul>li .smb-list__icon{left:-1.5em;position:absolute}

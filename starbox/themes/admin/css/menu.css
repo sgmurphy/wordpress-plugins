@@ -37,12 +37,10 @@
 }
 .abh_loading {
     height: 60px;
-    background: transparent url('../img/loading.gif') no-repeat center
 }
 .abh_minloading {
     height: 20px;
     width: 20px;
-    background: transparent url('../img/minloading.gif') no-repeat center
 }
 .abh_error {
     text-align: center;
@@ -56,17 +54,20 @@
     position: relative
 }
 #abh_settings #abh_settings_title {
-    font-size: 19px;
-    font-weight: normal;
     line-height: 35px;
     color: #333;
-    margin: 30px 15px 3px 0;
+    margin: 30px 15px 3px 10px;
     padding-bottom: 6px;
     height: auto;
     border-bottom: 1px solid #CCC;
     box-shadow: 0 3px 12px -13px black;
     -moz-box-shadow: 0 3px 12px -13px black;
-    -webkit-box-shadow: 0 3px 12px -13px black
+    -webkit-box-shadow: 0 3px 12px -13px black;
+
+    font-weight: 600;
+    border-bottom: 1px solid #FBCC34;
+    width: 83vw;
+    font-size: 1.4vw;
 }
 #abh_settings #abh_settings_title a.abh_button,
 #abh_settings #abh_settings_title input.abh_button {
@@ -199,19 +200,10 @@
 #abh_settings_body #abh_settings_right fieldset {
     margin: 10px 0 22px 0
 }
-#abh_settings_body fieldset legend {
-    background: #fefefe repeat-x top left;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    font-weight: normal;
-    margin: 0;
-    padding: .2em .5em;
-    line-height: 20px;
-    text-align: left;
-    color: #333;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px
+#abh_settings_body fieldset .abh_title{
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 #abh_settings_body span.abh_settings_info {
     clear: both;
@@ -249,6 +241,7 @@
     height: 30px;
     line-height: 30px
 }
+
 #abh_settings_body fieldset p.withborder {
     clear: both;
     vertical-align: top;
@@ -290,7 +283,7 @@
 #abh_settings_body fieldset p input,
 #abh_settings_body fieldset p textarea {
     font-weight: bold;
-    margin-left: 15px;
+    margin-left: 25px;
     padding: 4px;
     border: 1px solid lightgray;
     max-width: 415px;
@@ -301,13 +294,17 @@
     font-weight: bold;
     margin-right: 5px
 }
+#abh_settings_body .abh_select select {
+    width: 110px;
+    margin-bottom: 10px;
+}
 #abh_settings_body .abh_description textarea {
     min-width: 400px
 }
 #abh_settings_body div p span {
     display: block;
     float: left;
-    min-width: 100px;
+    min-width: 106px;
     padding-top: 4px;
     font-size: 14px
 }
@@ -318,14 +315,22 @@
     padding: 1px 10px;
     margin-left: 11px;
     margin-top: 5px;
-    background-color: green;
-    color: white
+
+    border-radius: 20px;
+    background-color: #FBCC34;
+    color: black;
+    height: 35px;
 }
 #abh_settings_body a.abh_button {
-    background: #999;
-    padding: 5px 11px;
     text-transform: none;
-    text-decoration: none
+    text-decoration: none;
+
+    border-radius: 20px;
+    background-color: #333333;
+    color: white;
+    height: 40px;
+    border: 2px solid white;
+    padding: 8px;
 }
 #abh_settings_body .customize,
 #abh_settings_body ._customize {
@@ -364,12 +369,13 @@
     float: left;
     position: relative;
     margin: 0 9px 0 0;
-    height: 26px;
     width: 120px;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1)
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    background-color: #ECECEC;
+    height: 30px;
+    padding-top: 5px;
 }
 .abh_switch-label {
     position: relative;
@@ -406,7 +412,8 @@
 }
 .abh_switch-input:checked + .abh_switch-label-on ~ .abh_switch-selection {
     left: 60px;
-    background: lightcoral
+    background: rgba(255, 0, 0, 0.6) !important;
+    margin-left: -1px;
 }
 .abh_switch-selection {
     display: block;
@@ -414,25 +421,27 @@
     z-index: 1;
     top: 2px;
     left: 2px;
-    width: 58px;
-    height: 22px;
     background: #65bd63;
-    border-radius: 3px;
-    background-image: -webkit-linear-gradient(top, #9dd993, #65bd63);
-    background-image: -moz-linear-gradient(top, #9dd993, #65bd63);
-    background-image: -o-linear-gradient(top, #9dd993, #65bd63);
-    background-image: linear-gradient(to bottom, #9dd993, #65bd63);
     -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
     -webkit-transition: left 0.15s ease-out;
     -moz-transition: left 0.15s ease-out;
     -o-transition: left 0.15s ease-out;
-    transition: left 0.15s ease-out
+    transition: left 0.15s ease-out;
+
+    background: rgba(46, 204, 113, 0.6) !important;
+    border-radius: 20px;
+    width: 55px;
+    margin-left: 4px;
+    opacity: 70%;
+    -webkit-backdrop-filter: blur(7.8px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    height: 25px;
+    margin-top: 3px;
 }
 #abh_settings .abh_option_strictposts {
     float: left;
     clear: both;
-    margin: 4px 0 10px 1px
+    margin: 10px 0 10px 1px
 }
 #abh_settings .abh_option_strictposts input {
     margin-right: 3px;
@@ -565,12 +574,12 @@ span.abh_email:before {
 
 #abh_box_preview_title {
     font-size: 16px;
-    margin-top: 10px;
     font-weight: bold;
-    color: orange;
     text-align: center;
     width: 600px;
-    margin-left: 115px
+    color: #FBCC34;
+    position: relative;
+    margin: 10px 0;
 }
 #abh_box_preview {
     position: relative;
@@ -582,7 +591,7 @@ span.abh_email:before {
     width: 600px;
     min-height: 130px;
     padding: 10px;
-    margin-left: 115px
+    margin: 0;
 }
 #abh_box_preview .abh_box {
     margin: 0 !important

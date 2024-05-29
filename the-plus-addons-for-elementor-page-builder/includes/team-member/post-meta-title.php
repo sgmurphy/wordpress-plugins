@@ -21,6 +21,6 @@ if ( 'repeater' === $selct_source ) {
 }
 
 ?>
-<<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?> class="post-title">
+<<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?> class="post-title">
 	<a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo esc_html( $tm_title ); ?></a>
-</<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?>>
+</<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?>>

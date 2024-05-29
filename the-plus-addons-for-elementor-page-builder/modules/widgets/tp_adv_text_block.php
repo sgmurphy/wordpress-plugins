@@ -488,5 +488,6 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 		$text_block .= '</div>';
 
 		echo $text_block;
+
 	}
 }

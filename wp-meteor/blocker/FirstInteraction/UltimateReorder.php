@@ -12,6 +12,7 @@
 
 namespace WP_Meteor\Blocker\FirstInteraction;
 
+use WP_Meteor\Blocker\Event;
 /**
  * Provide Import and Export of the settings of the plugin
  */
@@ -58,7 +59,7 @@ class UltimateReorder extends Base
 
         $settings[$this->id]['id'] = $this->id;
         $settings[$this->id]['delay'] = isset($settings[$this->id]['delay']) ? (int) $settings[$this->id]['delay'] : 0;
-        $settings[$this->id]['after'] = 'REORDER';
+        // $settings[$this->id]['after'] = 'REORDER';
         $settings[$this->id]['description'] = $this->description;
         // var_dump($settings); exit;
         return $settings;
@@ -145,7 +146,7 @@ class UltimateReorder extends Base
                             return preg_replace('/<script/i', "<script {$EXTRA} ", $result);
                         }
                         $result = preg_replace('/\s+src=/i', " data-wpmeteor-src=", $result);
-                        $result = preg_replace('/\s+(async|defer|integrity)\b/i', " data-wpmeteor-\$1", $result);
+                        // $result = preg_replace('/\s+(async|defer|integrity)\b/i', " data-wpmeteor-\$1", $result);
                     }
                     if ($hasType) {
                         $result = preg_replace('/\s+type=([\'"])module\1/i', " type=\"javascript/blocked\" data-wpmeteor-type=\"module\" ", $result);
@@ -155,13 +156,16 @@ class UltimateReorder extends Base
                     } else {
                         $result = preg_replace('/<script/i', "<script type=\"javascript/blocked\" data-wpmeteor-type=\"text/javascript\" ", $result);
                     }
-                    $result = preg_replace('/<script/i', "<script {$EXTRA} data-wpmeteor-after=\"REORDER\"", $result);
+                    // $result = preg_replace('/<script/i', "<script {$EXTRA} data-wpmeteor-after=\"REORDER\"", $result);
+                    $result = preg_replace('/<script/i', "<script {$EXTRA}", $result);
                 }
             }
             return $result; // preg_replace('/\s*data-wpmeteor-nooptimize="true"/i', '', $result);
         }, $buffer);
 
-        $buffer = preg_replace_callback('/<(body|img|iframe|script)\b[^>]*?>/is', function ($matches) {
+        // we don't rewrite 
+        /* $buffer = preg_replace_callback('/<(body|img|iframe|script)\b[^>]*?>/is', function ($matches) { */
+        $buffer = preg_replace_callback('/<(html|body|img|iframe)\b[^>]*?>/is', function ($matches) {
             list($result) = $matches;
 
             // rewrite is called twice, so we don't want to rewrite twice
@@ -169,8 +173,8 @@ class UltimateReorder extends Base
                 return $result;
             }
 
-            $result = preg_replace('/\s+onload=/i', ' onload="document.dispatchEvent(new CustomEvent(\'wpmeteor:load\', { detail: { event: event, target: this } }))" data-wpmeteor-onload=', $result);
-            $result = preg_replace('/\s+onerror=/i', ' onerror="document.dispatchEvent(new CustomEvent(\'wpmeteor:load\', { detail: { event: event, target: this }))" data-wpmeteor-onerror=', $result);
+            $result = preg_replace('/\s+onload=/i', sprintf(' onload="window.dispatchEvent(new CustomEvent(\'%s\', { detail: { event: event, target: this } }))" data-wpmeteor-onload=', Event::EVENT_ELEMENT_LOADED), $result);
+            $result = preg_replace('/\s+onerror=/i', sprintf(' onerror="window.dispatchEvent(new CustomEvent(\'%s\', { detail: { event: event, target: this }))" data-wpmeteor-onerror=', Event::EVENT_ELEMENT_LOADED), $result);
             return $result;
         }, $buffer);
 

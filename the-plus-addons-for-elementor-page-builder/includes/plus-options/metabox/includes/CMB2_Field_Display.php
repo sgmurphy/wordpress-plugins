@@ -211,7 +211,7 @@ class CMB2_Display_Select extends CMB2_Field_Display {
 			$fallback = $options[''];
 		}
 		if ( ! $this->value && $fallback ) {
-			echo $fallback;
+			echo esc_html( 	$fallback );
 		} elseif ( isset( $options[ $this->value ] ) ) {
 			echo $options[ $this->value ];
 		} else {
@@ -315,7 +315,7 @@ class CMB2_Display_Text_Date_Timezone extends CMB2_Field_Display {
 		$date = $this->field->get_timestamp_format( 'date_format', $this->value );
 		$time = $this->field->get_timestamp_format( 'time_format', $this->value );
 
-		echo $date, ( $time ? ' ' . $time : '' ), ( $tzstring ? ', ' . $tzstring : '' );
+		echo sanitize_text_field( $date ), ( sanitize_text_field( $time ) ? ' ' . sanitize_text_field( $time ) : '' ), ( sanitize_text_field( $tzstring ) ? ', ' . sanitize_text_field( $tzstring ) : '' );
 	}
 }
 
@@ -424,7 +424,7 @@ class CMB2_Display_File extends CMB2_Field_Display {
 				$image = '<img class="cmb-image-display" style="max-width: ' . absint( $size ) . 'px; width: 100%; height: auto;" src="' . $url_value . '" alt="" />';
 			}
 
-			echo $image;
+			echo wp_kses_post( $image );
 
 		} else {
 
@@ -454,7 +454,7 @@ class CMB2_Display_File_List extends CMB2_Display_File {
 
 		echo '<ul class="cmb2-display-file-list">';
 		foreach ( $this->value as $id => $fullurl ) {
-			echo '<li>', $this->file_output( esc_url_raw( $fullurl ), $id, $type ), '</li>';
+			echo '<li>', $this->file_output( esc_url_raw( $fullurl ), esc_attr( $id ), esc_attr( $type ) ), '</li>';
 		}
 		echo '</ul>';
 	}

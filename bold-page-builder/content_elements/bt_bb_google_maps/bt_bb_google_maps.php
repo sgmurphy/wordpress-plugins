@@ -41,18 +41,32 @@ class bt_bb_google_maps extends BT_BB_Element {
 			$style_attr = ' ' . 'style="' . esc_attr( $el_style ) . '"';
 		}
 
+		wp_deregister_script( 'gmaps_api' );
+		wp_dequeue_script( 'gmaps_api' ); // dequeue one from map_shortcode
 		if ( $api_key != '' ) {
 			wp_enqueue_script( 
 				'gmaps_api',
-				'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&loading=async&callback=window.bt_bb_init_all_maps'
+				'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&loading=async&callback=window.bt_bb_init_all_maps',
+				array(),
+				false,
+				array(
+					'strategy'  => 'async',
+					'in_footer' => true,
+				)
 			);
 		} else {
 			wp_enqueue_script( 
 				'gmaps_api',
-				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&loading=async&callback=window.bt_bb_init_all_maps'
+				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&loading=async&callback=window.bt_bb_init_all_maps',
+				array(),
+				false,
+				array(
+					'strategy'  => 'async',
+					'in_footer' => true,
+				)
 			);
 		}
-		wp_script_add_data( 'gmaps_api', 'strategy', 'async' );
+		// wp_script_add_data( 'gmaps_api', 'strategy', 'async' );
 		
 		
 		if ( $zoom == '' ) {
@@ -64,7 +78,7 @@ class bt_bb_google_maps extends BT_BB_Element {
 			$style_height = ' ' . 'style="height:' . esc_attr( $height ) . '"';
 		}
 		
-		$map_id = $map_id == '' ? uniqid( 'map_canvas' ) : $map_id;
+		$map_id = $map_id == '' ? uniqid( 'map_canvas' ) : $map_id; // 'map_canvas' used in JS, do not modify
 
 		$content_html = do_shortcode( $content );
 
@@ -85,6 +99,7 @@ class bt_bb_google_maps extends BT_BB_Element {
 		   $content = $content_html;
 		}
 
+		do_action( $this->shortcode . '_before_extra_responsive_param' );
 		foreach ( $this->extra_responsive_data_override_param as $p ) {
 			if ( ! is_array( $atts ) || ! array_key_exists( $p, $atts ) ) continue;
 			$this->responsive_data_override_class(
@@ -112,9 +127,31 @@ class bt_bb_google_maps extends BT_BB_Element {
 	}
 
 	function map_shortcode() {
-		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Google Maps', 'bold-builder' ), 'description' => esc_html__( 'Google Map with custom content', 'bold-builder' ), 'container' => 'vertical', 'accept' => array( 'bt_bb_google_maps_location' => true ), 'toggle' => true, 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
+		
+		if ( BT_BB_FE::$editor_active ) {
+			wp_enqueue_script( // used when adding new Google Maps elements via drag and drop (no existing Google Maps elements on the page)
+				'gmaps_api',
+				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&loading=async&callback=window.bt_bb_init_all_maps',
+				array(),
+				false,
+				array(
+					'strategy'  => 'async',
+					'in_footer' => true,
+				)
+			);
+		}
+		
+		if ( BT_BB_FE::$editor_active ) {
+			$api_key_param = array( 'param_name' => 'api_key', 'type' => 'textfield', 'heading' => esc_html__( 'API key', 'bold-builder' ), 'description' => __( 'Google Maps require an API key for site domains.<br><a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get your API key here</a>. Save and reload page to make sure API is initialized.', 'bold-builder' ) );
+			$center_map_desc = esc_html__( 'You can edit location(s) on back end.', 'bold-builder' );
+		} else {
+			$api_key_param = array( 'param_name' => 'api_key', 'type' => 'textfield', 'heading' => esc_html__( 'API key', 'bold-builder' ), 'description' => __( 'Google Maps require an API key for site domains. <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get your API key here</a>.', 'bold-builder' ) );
+			$center_map_desc = '';
+		}
+		
+		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Google Maps', 'bold-builder' ), 'description' => esc_html__( 'Google Maps map with custom content', 'bold-builder' ), 'container' => 'vertical', 'accept' => array( 'bt_bb_google_maps_location' => true ), 'toggle' => true, 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'api_key', 'type' => 'textfield', 'heading' => esc_html__( 'API key', 'bold-builder' ), 'description' => __( 'Google Maps require an API key for site domains. <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get your API key</a>.', 'bold-builder' ) ),
+				$api_key_param,
 				array( 'param_name' => 'zoom', 'type' => 'textfield', 'heading' => esc_html__( 'Zoom', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 14', 'bold-builder' ) ),
 				array( 'param_name' => 'height', 'type' => 'textfield', 'heading' => esc_html__( 'Height', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 250px', 'bold-builder' ), 'description' => esc_html__( 'Used for static map or for interactive map without content; static image map width is 1280px ', 'bold-builder' ) ),
 				array( 'param_name' => 'map_id', 'type' => 'textfield', 'heading' => esc_html__( 'Map ID (Google API)', 'bold-builder' ), 'description' => __( 'The Google Maps Platform offers <a href="https://developers.google.com/maps/documentation/cloud-customization" target="_blank">cloud-based maps styling</a> in the Google Cloud Console. Copy Map ID there and copy here.', 'bold-builder' ) ),
@@ -124,8 +161,8 @@ class bt_bb_google_maps extends BT_BB_Element {
 						esc_html__( 'Interactive (JavaScript API)', 'bold-builder' ) 		=> 'interactive',
 						esc_html__( 'Static image (Maps Static API)', 'bold-builder' ) 		=> 'static'
 					)
-				), 
-				array( 'param_name' => 'center_map', 'type' => 'dropdown', 'heading' => esc_html__( 'Center map', 'bold-builder' ),
+				),
+				array( 'param_name' => 'center_map', 'type' => 'dropdown', 'heading' => esc_html__( 'Center map', 'bold-builder' ), 'description' => $center_map_desc,
 					'value' => array(
 						esc_html__( 'No (use first location as center)', 'bold-builder' ) 	=> 'no',
 						esc_html__( 'Yes', 'bold-builder' ) 								=> 'yes',

@@ -377,8 +377,8 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'type' => Controls_Manager::COLOR,
                             'default' => '#444444',
                             'selectors' => [
-                                '{{WRAPPER}} .htmega-switcher-nav a' => 'color: {{VALUE}};',
-                                '{{WRAPPER}} .htmega-switcher-nav a svg path' => 'fill: {{VALUE}};',
+                                '{{WRAPPER}} .htmega-switcher-nav span' => 'color: {{VALUE}};',
+                                '{{WRAPPER}} .htmega-switcher-nav span svg path' => 'fill: {{VALUE}};',
                             ],
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
@@ -390,7 +390,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         Group_Control_Typography::get_type(),
                         [
                             'name' => 'switcher_button_typography',
-                            'selector' => '{{WRAPPER}} .htmega-switcher-nav a',
+                            'selector' => '{{WRAPPER}} .htmega-switcher-nav span',
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
                             ],
@@ -404,7 +404,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'type' => Controls_Manager::DIMENSIONS,
                             'size_units' => [ 'px', '%', 'em' ],
                             'selectors' => [
-                                '{{WRAPPER}} .htmega-switcher-nav a' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                '{{WRAPPER}} .htmega-switcher-nav span' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ], 
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
@@ -418,7 +418,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'type' => Controls_Manager::DIMENSIONS,
                             'size_units' => [ 'px', '%', 'em' ],
                             'selectors' => [
-                                '{{WRAPPER}} .htmega-switcher-nav a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                                '{{WRAPPER}} .htmega-switcher-nav span' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ],
                             'separator' =>'after',
                             'condition'   => [
@@ -433,7 +433,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'name' => 'switcher_button_background',
                             'label' => __( 'Background', 'htmega-addons' ),
                             'types' => [ 'classic', 'gradient' ],
-                            'selector' => '{{WRAPPER}} .htmega-switcher-nav a,{{WRAPPER}} input+.htmega-switche-toggle-slider',
+                            'selector' => '{{WRAPPER}} .htmega-switcher-nav span,{{WRAPPER}} input+.htmega-switche-toggle-slider',
                         ]
                     );
 
@@ -456,7 +456,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         [
                             'name' => 'switcher_button_border',
                             'label' => __( 'Border', 'htmega-addons' ),
-                            'selector' => '{{WRAPPER}} .htmega-switcher-nav a',
+                            'selector' => '{{WRAPPER}} .htmega-switcher-nav span',
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
                             ],
@@ -469,7 +469,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'label' => esc_html__( 'Border Radius', 'htmega-addons' ),
                             'type' => Controls_Manager::DIMENSIONS,
                             'selectors' => [
-                                '{{WRAPPER}} .htmega-switcher-nav a' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
+                                '{{WRAPPER}} .htmega-switcher-nav span' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
                             ],
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
@@ -493,8 +493,8 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'type' => Controls_Manager::COLOR,
                             'default' => '#ffffff',
                             'selectors' => [
-                                '{{WRAPPER}} .htmega-switcher-nav a.htb-active' => 'color: {{VALUE}};',
-                                '{{WRAPPER}} .htmega-switcher-nav a.htb-active svg path' => 'fill: {{VALUE}};',
+                                '{{WRAPPER}} .htmega-switcher-nav span.htb-active,{{WRAPPER}} .htmega-switcher-nav span.htb-active' => 'color: {{VALUE}};',
+                                '{{WRAPPER}} .htmega-switcher-nav span.htb-active svg path' => 'fill: {{VALUE}};',
                             ],
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
@@ -508,7 +508,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'name' => 'switcher_button_active_background',
                             'label' => __( 'Background', 'htmega-addons' ),
                             'types' => [ 'classic', 'gradient' ],
-                            'selector' => '{{WRAPPER}} .htmega-switcher-nav a.htb-active, {{WRAPPER}} .htmega-switcher-nav a.htb-active::before,{{WRAPPER}} input:checked+.htmega-switche-toggle-slider',
+                            'selector' => '{{WRAPPER}} .htmega-switcher-nav span.htb-active, {{WRAPPER}} .htmega-switcher-nav span.htb-active::before,{{WRAPPER}} input:checked+.htmega-switche-toggle-slider',
                         ]
                     );
 
@@ -531,7 +531,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         [
                             'name' => 'switcher_button_active_border',
                             'label' => __( 'Border', 'htmega-addons' ),
-                            'selector' => '{{WRAPPER}} .htmega-switcher-nav a.htb-active',
+                            'selector' => '{{WRAPPER}} .htmega-switcher-nav span.htb-active',
                             'condition'   => [
                                 'htmega_switcher_layout_style' => "layout-1"
                             ],
@@ -544,8 +544,8 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             'label' => esc_html__( 'Border Radius', 'htmega-addons' ),
                             'type' => Controls_Manager::DIMENSIONS,
                             'selectors' => [
-                                '{{WRAPPER}} .htmega-switcher-nav a.htb-active' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
-                                '{{WRAPPER}} .htmega-switcher-nav a.htb-active::before' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
+                                '{{WRAPPER}} .htmega-switcher-nav span.htb-active' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
+                                '{{WRAPPER}} .htmega-switcher-nav span.htb-active::before' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
                             ]
                         ]
                     );
@@ -662,7 +662,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                     <!-- Switcher Menu area start  -->
                     <div class="htmega-switcher-btn">
                         <div class="htmega-switcher-nav htb-nav" role="tablist">
-                            <a class="htb-nav-link switcher_one_icon <?php echo ( 'active1' == $active_item ) ? ' htb-active htb-show' : ''; ?>" data-toggle="htbtab" href="#switcherone<?php echo esc_attr( $sectionid ); ?>">
+                            <span class="htb-nav-link switcher_one_icon <?php echo ( 'active1' == $active_item ) ? ' htb-active htb-show' : ''; ?>" data-toggle="htbtab" data-target="#switcherone<?php echo esc_attr( $sectionid ); ?>">
                                 <?php
                                     if( $settings['switcher_one_icon']['value'] != ''){
                                         echo HTMega_Icon_manager::render_icon( $settings['switcher_one_icon'], [ 'aria-hidden' => 'true' ] ).esc_html( $settings['switch_one_title'] );
@@ -670,8 +670,8 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                                         echo esc_html__( $settings['switch_one_title'],'htmega-addons' );
                                     }
                                 ?>
-                            </a>
-                            <a class="htb-nav-link switcher_two_icon <?php echo ( 'active2' == $active_item ) ? ' htb-active htb-show' : ''; ?>" data-toggle="htbtab" href="#switchertwo<?php echo esc_attr( $sectionid ); ?>">
+                            </span>
+                            <span class="htb-nav-link switcher_two_icon <?php echo ( 'active2' == $active_item ) ? ' htb-active htb-show' : ''; ?>" data-toggle="htbtab" data-target="#switchertwo<?php echo esc_attr( $sectionid ); ?>">
                                 <?php
                                     if( $settings['switcher_two_icon']['value'] != ''){
                                         echo HTMega_Icon_manager::render_icon( $settings['switcher_two_icon'], [ 'aria-hidden' => 'true' ] ).esc_html( $settings['switch_two_title'] );
@@ -679,7 +679,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                                         echo esc_html( $settings['switch_two_title'] );
                                     }
                                 ?>
-                            </a>
+                            </span>
                         </div>
                     </div>
                     <!-- Switcher Menu area End  -->

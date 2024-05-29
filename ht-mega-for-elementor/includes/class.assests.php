@@ -133,6 +133,10 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
                 'htmega-stt-css' => [
                     'src'     => HTMEGA_ADDONS_PL_URL . 'extensions/scroll-to-top/assets/css/htmega-scroll-to-top.css',
                     'version' => HTMEGA_VERSION
+                ],
+                'htmega-audio-player' => [
+                    'src'     => HTMEGA_ADDONS_PL_URL . 'assets/widgets/audio-player/style.css',
+                    'version' => HTMEGA_VERSION
                 ]
             ];
 
@@ -151,6 +155,11 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
 
             $script_list = [
 
+                'htmega-audio-player' => [
+                    'src'     => HTMEGA_ADDONS_PL_URL . 'assets/widgets/audio-player/active.js',
+                    'version' => HTMEGA_VERSION,
+                    'deps'    => [ 'jquery' ]
+                ],
                 'htbbootstrap' => [
                     'src'     => HTMEGA_ADDONS_PL_URL . 'assets/js/htbbootstrap.js',
                     'version' => HTMEGA_VERSION,

@@ -1,13 +1,13 @@
 "use strict";
 
-//version: 1.14
+//version: 1.15
 
 function UnlimitedElementsForm(){
   
   var t = this;
   
   //selectors
-  var ueInputFieldSelector, ueNumberSelector, ueNumberErrorSelector, ueOptionFieldSelector;
+  var ueInputFieldSelector, ueNumberSelector, ueNumberErrorSelector, ueOptionFieldSelector, elementorElementSelector;
   
   //objects
   var g_objCalcInputs;
@@ -638,19 +638,27 @@ function UnlimitedElementsForm(){
   /**
   * show main input
   */
-  function showField(objFieldWidget, classHidden){
+  function showField(objFieldWidget, classHidden, elementorHiddenClass){
     
     objFieldWidget.removeClass(classHidden);
+
+    var objParentElementorElement = objFieldWidget.closest(elementorElementSelector);
+    
+    objParentElementorElement.removeClass(elementorHiddenClass);
     
   }
   
   /**
   * hide main input
   */
-  function hideField(objFieldWidget, classHidden){
+  function hideField(objFieldWidget, classHidden, elementorHiddenClass){
     
     objFieldWidget.addClass(classHidden);
+
+    //hide parent elementor-element container to avoid unnecessary gap
+    var objParentElementorElement = objFieldWidget.closest(elementorElementSelector);
     
+    objParentElementorElement.addClass(elementorHiddenClass);
   }
   
   /**
@@ -841,14 +849,44 @@ function UnlimitedElementsForm(){
   /**
   * create condition visual for Editor
   */
-  function setConditionVisualInEditor(obj, operator, fieldName, condition, fieldValue){
+  function setConditionVisualInEditor(obj, operator, fieldName, condition, fieldValue, conditionsNum, conditions){
     var conditionClass = "ue-form-condition";
     var conditionStyles = 'color:#000;font-size:12px;padding:5px;border:1px solid grey;background-color:lightgrey;border-radius:5px;width:100%;margin-top:5px';
     var conditionHtml = `<div class="${conditionClass}" data-condition="['${operator}', '${fieldName}', '${condition}', '${fieldValue}']" style="${conditionStyles}">Visibility Condition: "${operator} ${fieldName} ${condition} ${fieldValue}"</div>`;
     var objCondition = obj.find(`[data-condition="['${operator}', '${fieldName}', '${condition}', '${fieldValue}']"]`);
-    
-    if(!objCondition || !objCondition.length)
+    var objAllConditions = obj.find(`.${conditionClass}`);
+    var visualConditionsNum = objAllConditions.length;
+ 
+    if(!objCondition || !objCondition.length){
+      
       obj.append(conditionHtml);
+      
+      //remove unnecesary visual condition in editor (currently not doing anything)
+      if(visualConditionsNum > conditionsNum){        
+
+        objAllConditions.each(function(){
+          var objCondition = jQuery(this);
+          var dataCondition = objCondition.data("condition").replace(/'/g, '"');
+          var currentConditionAttr = JSON.parse(dataCondition);
+          var currentOperator = currentConditionAttr[0];
+          var currentFieldName = currentConditionAttr[1];
+          var currentCondition = currentConditionAttr[2];
+          var currentFieldValue = currentConditionAttr[3];
+
+          for(let i=0; i<conditionsNum; i++){
+      
+            var conditionArray = conditions[i];
+            var operator = conditionArray.operator;
+            var fieldName = conditionArray.field_name;
+            var condition = conditionArray.condition;
+            var fieldValue = parseInt(conditionArray.field_value);
+
+            if(operator == currentOperator && fieldName == currentFieldName && condition == currentCondition && fieldValue == currentFieldValue)
+            return(true);
+          }      
+        });
+      }
+    }
   }
   
   /*
@@ -858,6 +896,7 @@ function UnlimitedElementsForm(){
     
     var objFieldWidget = jQuery("#"+widgetId);
     var classHidden = "ucform-has-conditions";
+    var elementorHiddenClass = "elementor-hidden-desktop elementor-hidden-tablet elementor-hidden-mobile";
     var classError = "ue-error";
     
     var conditions = conditionArray.visibility_conditions;
@@ -906,7 +945,7 @@ function UnlimitedElementsForm(){
       equalConditionInputNameError(objInputField, arrNames, classError);
       
       if(isInEditor == "yes")
-        setConditionVisualInEditor(objFieldWidget, operator, fieldName, condition, fieldValue);
+        setConditionVisualInEditor(objFieldWidget, operator, fieldName, condition, fieldValue, conditionsNum, conditions);
       
     }
     
@@ -914,7 +953,7 @@ function UnlimitedElementsForm(){
     
     if(eval(totalVisibilityCondition) == true){
       
-      showField(objFieldWidget, classHidden);
+      showField(objFieldWidget, classHidden, elementorHiddenClass);
       
       if(isInEditor == "yes"){
         // setVisibilityInEditor(objFieldWidget, classError, classHidden);
@@ -924,7 +963,7 @@ function UnlimitedElementsForm(){
     
     if(eval(totalVisibilityCondition) == false){      
       
-      hideField(objFieldWidget, classHidden);
+      hideField(objFieldWidget, classHidden, elementorHiddenClass);
       
       if(isInEditor == "yes"){        
         // setVisibilityInEditor(objFieldWidget, classError, classHidden);
@@ -1025,6 +1064,7 @@ function UnlimitedElementsForm(){
     ueNumberSelector = ".ue-number, .ue-content";
     ueNumberErrorSelector = ".ue-number-error";
     ueOptionFieldSelector = ".ue-option-field";
+    elementorElementSelector = ".elementor-element";
     
     //objects
     g_objCalcInputs = jQuery(ueInputFieldSelector+'[data-calc-mode="true"]');

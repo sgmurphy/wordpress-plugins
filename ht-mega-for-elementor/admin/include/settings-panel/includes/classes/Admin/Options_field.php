@@ -686,7 +686,14 @@ class Options_Field {
                     'label_on' => __( 'On', 'htmega-addons' ),
                     'label_off' => __( 'Off', 'htmega-addons' ),
                 ),
-
+                array(
+                    'id'  => 'audio_player',
+                    'name'  => __( 'Audio Player', 'htmega-addons' ),
+                    'type'  => 'element',
+                    'label_on' => __( 'On', 'htmega-addons' ),
+                    'label_off' => __( 'Off', 'htmega-addons' ),
+                    'default'=> 'off',
+                ),
                 // pro addon list
                 array(
                     'id'  => 'info_boxp',

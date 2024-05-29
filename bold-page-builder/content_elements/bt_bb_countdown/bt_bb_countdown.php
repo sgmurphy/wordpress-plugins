@@ -78,7 +78,7 @@ class bt_bb_countdown extends BT_BB_Element {
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );		
 
 		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
-			$output .= '<div class="btCountdownHolder" data-init-seconds="' . esc_attr( $init_seconds ) . '" data-init-target-seconds="' . esc_attr( $target ) . '">';
+			$output .= '<div class="btCountdownHolder" data-init-seconds="' . esc_attr( $init_seconds ) . '">';
 							
 				$output .= '<span class="days" data-text="' . esc_attr( $d_text ) . '"></span>';
 				

@@ -80,6 +80,10 @@ class Plugin extends AbstractPlugin
             'a[data-popup-json]',
             // [Plugin Comp] Kadence Blocks
             'a[href][class*="kadence-video-popup-link":delegateClick()]',
+            // [Plugin Comp] Bricks Builder
+            'a[data-pswp-video-url:matchesUrl(withHost=true),delegateClick()]',
+            // [Plugin Comp] Elementor Lightbox
+            'a[href][data-elementor-open-lightbox:confirm(),keepAttributes(value=href)]',
         ]);
         /**
          * `<div>` elements are expensive in Regexp cause there a lot of them, let's assume only a

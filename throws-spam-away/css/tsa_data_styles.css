@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+/** Throws SPAM Away */
+/** 変更ボタン */
+p.submit .button-primary {
+	width: 200px;
+	height: 30px;
+	margin: 20px auto 50px 20px;
+}
+
+/** スクロール対象テーブルCSS */
+#spam_list {
+	background-color: #ffffff;
+	border-collapse: initial;
+	font-size: 1em !important;
+}
+
+/** 全体container */
+#spam_list_container {
+	position: relative;
+	padding-top: 26px;
+	width: 1002px; /* 列幅合計＋セル間の幅(2px)の合計＋22px */
+	border: 1px solid #3377b6;
+	background-color: #ffffff;
+}
+
+/** tbody スクロール対象 */
+#spam_list_div {
+	overflow: auto;
+	height: 600px;
+}
+
+#spam_list thead tr {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #ffffff;
+}
+
+#spam_list thead tr th {
+	background-color: #3377b6;
+	color: #fff;
+	padding: 3px 0px;
+}
+
+#spam_list tbody tr td {
+	background-color: #efefef;
+	color: black;
+	padding: 3px 6px;
+}
+
+#spam_list tbody tr.odd td {
+	background-color: #F0F0F6;
+}
+
+.cols0 {
+	width: 200px;
+}
+
+.cols1 {
+	width: 50px;
+}
+
+.cols2 {
+	width: 130px;
+}
+
+.cols3 {
+	width: 280px;
+}
+
+.cols4 {
+	width: 220px;
+}
+
+.cols5 {
+	width: 100px;
+}
+
+
+.tsa_spam_data {
+	background-color: #efefef;
+}
+
+.tsa_spam_table {
+	width: 100%;
+	border: none;
+}
+
+.tsa_spam_data_day {
+	float: left;
+	width: 100%;
+	font-family: Helvetica;
+	font-size: 7pt;
+	text-align: center;
+	border-right: 1px solid white;
+	color: black;
+}
+
+/** hostbyip.php */
+#tsa_spam_host {
+	textalign: center;
+}
+
+#tsa_spam_host h2 {
+	padding: 5px;
+	background: #333;
+	color: #fff;
+}
+
+#tsa_spam_host .tsa_spam_host_found {
+	padding: 5px;
+	background: #666;
+	color: #fff;
+}
+
+.tsa_hostbyip_text {
+	padding: 5px;
+	background: #999;
+	color: #fff;
+	margin: 3px 0 0 0;
+}

@@ -1,0 +1,36 @@
+{
+	"name": "highfivery/zero-spam-for-wordpress",
+	"description": "No spam, no scams, just seamless experiences with Zero Spam for WordPress - the shield your site deserves.",
+	"type": "wordpress-plugin",
+	"keywords": ["wordpress", "plugin", "zerospam", "spam"],
+	"license": "GPL-2.0-only",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"authors": [
+		{
+			"name": "Ben Marshall",
+			"email": "me@benmarshall.me",
+			"homepage": "https://www.benmarshall.me"
+		},
+		{
+			"name": "Highfivery",
+			"email": "info@highfivery.com",
+			"homepage": "https://highfivery.com"
+		}
+	],
+	"repositories": [
+		{
+		  "type":"composer",
+		  "url":"https://wpackagist.org"
+		}
+	],
+	"require": {
+		"php" : ">=7.2",
+		"ipinfo/ipinfo": "^2.3"
+	},
+	"extra": {
+		"installer-paths": {
+			"vendor/{$name}/": ["type:wordpress-plugin"]
+		}
+	}
+}

@@ -79,6 +79,7 @@ class L_Theplus_Elementor_Plugin_Options
 		
 		add_action( 'init', array( $this,'tp_ele_pro_default_wid_save') );
 
+		$this->call_widget_banner_notice();
     }
 
 	public function tp_ele_pro_default_wid_save(){
@@ -113,6 +114,10 @@ class L_Theplus_Elementor_Plugin_Options
 			}
 		}
 	}
+
+	public function call_widget_banner_notice() {
+		include L_THEPLUS_PATH . 'includes/notices/class-wdesignkit-banner.php';
+    }
 
     /**
      * Initiate our hooks
@@ -158,9 +163,9 @@ class L_Theplus_Elementor_Plugin_Options
 		}
 		
 		if(get_option('tp-rateus-notice') ===false){
-			add_option('tp-rateus-notice',date('M d, Y', strtotime("+14 day")));
+			add_option('tp-rateus-notice',gmdate('M d, Y', strtotime("+14 day")));
 		}else{
-			update_option('tp-rateus-notice',date('M d, Y', strtotime("+14 day")));
+			update_option('tp-rateus-notice',gmdate('M d, Y', strtotime("+14 day")));
 		}
 		wp_send_json_success();
 	}
@@ -1740,9 +1745,9 @@ class L_Theplus_Elementor_Plugin_Options
 					$hidden_label = theplus_white_label_option('tp_hidden_label');
 				}				
 				if( empty($hidden_label) && $hidden_label !='on' ){
-					if( get_option('tp-rateus-notice') !='never' && ( get_option('tp-rateus-notice') === false || get_option('tp-rateus-notice') < date('M d, Y')) ){
+					if( get_option('tp-rateus-notice') !='never' && ( get_option('tp-rateus-notice') === false || get_option('tp-rateus-notice') < gmdate('M d, Y')) ){
 						if(get_option('tp-rateus-notice') === false){
-							add_option('tp-rateus-notice',date('M d, Y', strtotime("+14 day")));
+							add_option('tp-rateus-notice',gmdate('M d, Y', strtotime("+14 day")));
 						}else{
 							$output .= '<div class="theplus-rateus-wrapper">
 						<div class="theplus-rateus-close"><a href="#">X</a></div>
@@ -1841,6 +1846,10 @@ class L_Theplus_Elementor_Plugin_Options
 									echo '</form>';
 									/*block listing*/
 								echo '</div>';
+								
+								/**Wdesign kit banners */
+								do_action('wdesignkit_banner_notice_footer');
+
 							}
 							if($tab_form['id']=='post_type_options'){								
 								echo '<div class="post_type_options_btn_link">	
@@ -1851,9 +1860,10 @@ class L_Theplus_Elementor_Plugin_Options
 									</ul>	
 								</div>';				
 							}
+
 							/*Plus Design start*/
-							if($tab_form['id']=='theplus_import_data'){
-								do_action('theplus_free_pro_import_data');
+							if( $tab_form['id'] === 'theplus_import_data' || $tab_form['id'] === 'theplus_welcome_page'){
+								do_action('wdesignkit_banner_notice');
 							} 
 							/*Plus Design end*/
 							
@@ -2006,6 +2016,7 @@ class L_Theplus_Elementor_Plugin_Options
 				),
 				array(
 				'name' => esc_html__('Prebuilt Post Name : (You can find that from here)', 'tpebl'),
+				// Translators: %s is the URL of the screenshot image.
 				'desc' => sprintf( __('Enter the value of your current post type name which is prebuilt with your theme. E.g.: "theplus_clients" <a href="%s" class="thickbox" title="Get the Post Name of Custom Post type as per above Screenshot.">Check screenshot</a> for how to get that value from URL of your current post type.', 'tpebl'), L_THEPLUS_URL.'assets/images/post-type-screenshot.png' ),
 				'default' => '',
 				'id' => 'client_theme_name',
@@ -2017,6 +2028,7 @@ class L_Theplus_Elementor_Plugin_Options
 				),
 				array(
 				'name' => esc_html__('Prebuilt Category Taxonomy Value : (You can find that from here)', 'tpebl'),
+				// Translators: %s is the URL of the screenshot image.s
 				'desc' => sprintf( __('Enter the value of your current Category Taxonomy Value which is prebuilt with your theme.  E.g. : "theplus_clients_cat" <a href="%s" class="thickbox" title="Get the Category Taxonomy Value as per above screenshot.">Check screenshot</a> for how to get that value from URL of your current taxonomy.', 'tpebl'), L_THEPLUS_URL.'assets/images/taxonomy-screenshot.png'),
 				'default' => '',
 				'id' => 'client_category_name',
@@ -2082,6 +2094,7 @@ class L_Theplus_Elementor_Plugin_Options
 				),
 				array(
 				'name' => esc_html__('Prebuilt Post Name : (You can find that from here)', 'tpebl'),
+				// Translators: %s is the URL of the screenshot image.
 				'desc' => sprintf( __('Enter the value of your current post type name which is prebuilt with your theme. E.g.: "theplus_testimonial" <a href="%s" class="thickbox" title="Get the Post Name of Custom Post type as per above Screenshot.">Check screenshot</a> for how to get that value from URL of your current post type.', 'tpebl'), L_THEPLUS_URL.'assets/images/post-type-screenshot.png' ),
 				'default' => '',
 				'id' => 'testimonial_theme_name',
@@ -2093,6 +2106,7 @@ class L_Theplus_Elementor_Plugin_Options
 				),
 				array(
 				'name' => esc_html__('Prebuilt Category Taxonomy Value : (You can find that from here)', 'tpebl'),
+				// Translators: %s is the URL of the screenshot image.
 				'desc' => sprintf( __('Enter the value of your current Category Taxonomy Value which is prebuilt with your theme.  E.g. : "theplus_testimonial_cat" <a href="%s" class="thickbox" title="Get the Category Taxonomy Value as per above screenshot.">Check screenshot</a> for how to get that value from URL of your current taxonomy.', 'tpebl'), L_THEPLUS_URL.'assets/images/taxonomy-screenshot.png' ),
 				'default' => '',
 				'id' => 'testimonial_category_name',
@@ -2158,6 +2172,7 @@ class L_Theplus_Elementor_Plugin_Options
 				),
 				array(
 				'name' => esc_html__('Prebuilt Post Name : (You can find that from here)', 'tpebl'),
+				// Translators: %s is the URL of the screenshot image.
 				'desc' => sprintf( __('Enter the value of your current post type name which is prebuilt with your theme. E.g.: "theplus_team_member" <a href="%s" class="thickbox" title="Get the Post Name of Custom Post type as per above Screenshot.">Check screenshot</a> for how to get that value from URL of your current post type.', 'tpebl'), L_THEPLUS_URL.'assets/images/post-type-screenshot.png' ),
 				'default' => '',
 				'id' => 'team_member_theme_name',
@@ -2169,6 +2184,7 @@ class L_Theplus_Elementor_Plugin_Options
 				),
 				array(
 				'name' => esc_html__('Prebuilt Category Taxonomy Value (You can find that from here)', 'tpebl'),
+				// Translators: %s is the URL of the screenshot image.
 				'desc' => sprintf( __('Enter the value of your current Category Taxonomy Value which is prebuilt with your theme.  E.g. : "theplus_team_member_cat" <a href="%s" class="thickbox" title="Get the Category Taxonomy Value as per above screenshot.">Check screenshot</a> for how to get that value from URL of your current taxonomy.', 'tpebl'), L_THEPLUS_URL.'assets/images/taxonomy-screenshot.png' ),
 				'default' => '',
 				'id' => 'team_member_category_name',

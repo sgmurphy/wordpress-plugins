@@ -14,12 +14,12 @@ $max_num_pages = 0;
 
 wp_enqueue_script('post_grid_layouts');
 wp_localize_script(
-    'post_grid_layouts',
-    'post_grid_ajax',
-    array(
-        'post_grid_ajaxurl' => admin_url('admin-ajax.php'),
-        'ajax_nonce' => wp_create_nonce('post_grid_ajax_nonce'),
-    )
+  'post_grid_layouts',
+  'post_grid_ajax',
+  array(
+    'post_grid_ajaxurl' => admin_url('admin-ajax.php'),
+    'ajax_nonce' => wp_create_nonce('post_grid_ajax_nonce'),
+  )
 );
 wp_enqueue_style('post-grid-output', post_grid_plugin_url . '/dist/output.css', [], false, 'all');
 
@@ -53,25 +53,25 @@ wp_enqueue_style('post-grid-output', post_grid_plugin_url . '/dist/output.css', 
 
     <?php
 
-        $api_params = array(
-            'post_grid_remote_action' => 'layoutSearch',
-            'keyword' => $keyword,
-            'paged' => $paged,
-            'tabs' => $tabs,
-        );
+    $api_params = array(
+      'post_grid_remote_action' => 'layoutSearch',
+      'keyword' => $keyword,
+      'paged' => $paged,
+      'tabs' => $tabs,
+    );
 
-        // Send query to the license manager server
-        $response = wp_remote_get(add_query_arg($api_params, post_grid_server_url), array('timeout' => 20, 'sslverify' => false));
+    // Send query to the license manager server
+    $response = wp_remote_get(add_query_arg($api_params, post_grid_server_url), array('timeout' => 20, 'sslverify' => false));
 
 
 
-        /*
+    /*
          * Check is there any server error occurred
          *
          * */
-        if (is_wp_error($response)) {
+    if (is_wp_error($response)) {
 
-        ?>
+    ?>
     <div class="return-empty">
       <ul>
         <li><?php echo __("Unexpected Error! The query returned with an error.", 'post-grid'); ?></li>
@@ -81,43 +81,43 @@ wp_enqueue_style('post-grid-output', post_grid_plugin_url . '/dist/output.css', 
     <?php
 
 
-        } else {
+    } else {
 
-            $response_data = json_decode(wp_remote_retrieve_body($response));
-            $post_data = isset($response_data->posts) ? $response_data->posts : array();
-            $post_found = isset($response_data->post_found) ? sanitize_text_field($response_data->post_found) : array();
-            $max_num_pages = isset($response_data->max_num_pages) ? sanitize_text_field($response_data->max_num_pages) : 0;
-        }
+      $response_data = json_decode(wp_remote_retrieve_body($response));
+      $post_data = isset($response_data->posts) ? $response_data->posts : array();
+      $post_found = isset($response_data->post_found) ? sanitize_text_field($response_data->post_found) : array();
+      $max_num_pages = isset($response_data->max_num_pages) ? sanitize_text_field($response_data->max_num_pages) : 0;
+    }
 
-        ?>
+    ?>
 
     <div class="block-list-items">
       <?php
 
-            // var_dump($post_data);
+      // //var_dump($post_data);
 
 
-            if (!empty($post_data)) :
+      if (!empty($post_data)) :
 
-                foreach ($post_data as $item_index => $item) :
-
-
-                    //var_dump($item);
-
-                    $post_id      = isset($item->post_id) ? $item->post_id : '';
-                    $block_title        = isset($item->title) ? $item->title : __('No title', 'post-grid');
-                    $post_url           = isset($item->post_url) ? $item->post_url : '';
-                    $download_count           = isset($item->download_count) ? $item->download_count : 0;
-
-                    $layout_options           = isset($item->layout_options) ? unserialize($item->layout_options) : '';
-                    $is_pro           = isset($item->is_pro) ? $item->is_pro : '';
-
-                    $layout_preview_img           = isset($layout_options['layout_preview_img']) ? $layout_options['layout_preview_img'] : '';
+        foreach ($post_data as $item_index => $item) :
 
 
+          ////var_dump($item);
+
+          $post_id      = isset($item->post_id) ? $item->post_id : '';
+          $block_title        = isset($item->title) ? $item->title : __('No title', 'post-grid');
+          $post_url           = isset($item->post_url) ? $item->post_url : '';
+          $download_count           = isset($item->download_count) ? $item->download_count : 0;
+
+          $layout_options           = isset($item->layout_options) ? unserialize($item->layout_options) : '';
+          $is_pro           = isset($item->is_pro) ? $item->is_pro : '';
+
+          $layout_preview_img           = isset($layout_options['layout_preview_img']) ? $layout_options['layout_preview_img'] : '';
 
 
-            ?>
+
+
+      ?>
 
       <div class="item">
         <div class="item-top-area">
@@ -136,15 +136,15 @@ wp_enqueue_style('post-grid-output', post_grid_plugin_url . '/dist/output.css', 
           <div class="actions">
 
             <?php
-                                if ($is_pro == 'yes' && empty($license_key)) {
-                                } else {
-                                ?>
+                if ($is_pro == 'yes' && empty($license_key)) {
+                } else {
+                ?>
             <span class="button  import-layout" post_id="<?php echo esc_attr($post_id); ?>"><i
                 class="fas fa-download"></i> Import (<?php echo esc_html($download_count); ?>)</span>
             <?php
-                                }
+                }
 
-                                ?>
+                ?>
 
 
             <?php if ($is_pro == 'yes') : ?>
@@ -160,14 +160,14 @@ wp_enqueue_style('post-grid-output', post_grid_plugin_url . '/dist/output.css', 
         <div class="clear"></div>
       </div>
       <?php
-                endforeach;
+        endforeach;
 
-            else :
+      else :
 
-                echo 'Server return empty. please try again later.';
-            endif;
+        echo 'Server return empty. please try again later.';
+      endif;
 
-            ?>
+      ?>
 
 
 
@@ -177,27 +177,27 @@ wp_enqueue_style('post-grid-output', post_grid_plugin_url . '/dist/output.css', 
       <?php
 
 
-            $big = 999999999; // need an unlikely integer
-            //$max_num_pages = 4;
+      $big = 999999999; // need an unlikely integer
+      //$max_num_pages = 4;
 
 
-            //var_dump(get_pagenum_link( $big ));
+      ////var_dump(get_pagenum_link( $big ));
 
-            echo paginate_links(
-                array(
-                    'base' => preg_replace('/\?.*/', '', get_pagenum_link()) . '%_%',
-                    //'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-                    'format' => '?paged=%#%',
-                    'current' => max(1, $paged),
-                    'total' => $max_num_pages,
-                    'prev_text'          => '« Previous',
-                    'next_text'          => 'Next »',
+      echo paginate_links(
+        array(
+          'base' => preg_replace('/\?.*/', '', get_pagenum_link()) . '%_%',
+          //'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+          'format' => '?paged=%#%',
+          'current' => max(1, $paged),
+          'total' => $max_num_pages,
+          'prev_text'          => '« Previous',
+          'next_text'          => 'Next »',
 
 
 
-                )
-            );
-            ?>
+        )
+      );
+      ?>
     </div>
 
 

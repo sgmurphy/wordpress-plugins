@@ -502,16 +502,16 @@ class CMB2 extends CMB2_Base {
 		$label     = $field_group->args( 'name' );
 		$group_val = (array) $field_group->value();
 
-		echo '<div class="cmb-row cmb-repeat-group-wrap ', esc_attr( $field_group->row_classes() ), '" data-fieldtype="group"><div class="cmb-td"><div data-groupid="', esc_attr( $field_group->id() ), '" id="', esc_attr( $field_group->id() ), '_repeat" ', $this->group_wrap_attributes( $field_group ), '>';
+		echo '<div class="cmb-row cmb-repeat-group-wrap ', esc_attr( $field_group->row_classes() ), '" data-fieldtype="group"><div class="cmb-td"><div data-groupid="', esc_attr( $field_group->id() ), '" id="', esc_attr( $field_group->id() ), '_repeat" ', esc_attr( $this->group_wrap_attributes( $field_group ) ), '>';
 
 		if ( $desc || $label ) {
 			$class = $desc ? ' cmb-group-description' : '';
-			echo '<div class="cmb-row', $class, '"><div class="cmb-th">';
+			echo '<div class="cmb-row', esc_html( $class ), '"><div class="cmb-th">';
 			if ( $label ) {
-				echo '<h2 class="cmb-group-name">', $label, '</h2>';
+				echo '<h2 class="cmb-group-name">', esc_html($label), '</h2>';
 			}
 			if ( $desc ) {
-				echo '<p class="cmb2-metabox-description">', $desc, '</p>';
+				echo '<p class="cmb2-metabox-description">', esc_html($desc), '</p>';
 			}
 			echo '</div></div>';
 		}
@@ -526,7 +526,7 @@ class CMB2 extends CMB2_Base {
 		}
 
 		if ( $field_group->args( 'repeatable' ) ) {
-			echo '<div class="cmb-row"><div class="cmb-td"><p class="cmb-add-row"><button type="button" data-selector="', esc_attr( $field_group->id() ), '_repeat" data-grouptitle="', esc_attr( $field_group->options( 'group_title' ) ), '" class="cmb-add-group-row button-secondary">', $field_group->options( 'add_button' ), '</button></p></div></div>';
+			echo '<div class="cmb-row"><div class="cmb-td"><p class="cmb-add-row"><button type="button" data-selector="', esc_attr( $field_group->id() ), '_repeat" data-grouptitle="', esc_attr( $field_group->options( 'group_title' ) ), '" class="cmb-add-group-row button-secondary">', esc_attr( $field_group->options( 'add_button' ) ), '</button></p></div></div>';
 		}
 
 		echo '</div></div></div>';
@@ -592,11 +592,11 @@ class CMB2 extends CMB2_Base {
 		$confirm_deletion = $field_group->options( 'remove_confirm' );
 		$confirm_deletion = ! empty( $confirm_deletion ) ? $confirm_deletion : '';
 
-		echo '
-		<div id="cmb-group-', $field_group->id(), '-', $field_group->index, '" class="postbox cmb-row cmb-repeatable-grouping', $closed_class, '" data-iterator="', $field_group->index, '">';
+		echo '<div id="cmb-group-' . esc_attr( $field_group->id() ) . '-' . esc_attr( $field_group->index ) . '" class="postbox cmb-row cmb-repeatable-grouping' . esc_attr( $closed_class ) . '" data-iterator="' . esc_attr( $field_group->index ) . '">';
+
 
 		if ( $field_group->args( 'repeatable' ) ) {
-			echo '<button type="button" data-selector="', $field_group->id(), '_repeat" data-confirm="', esc_attr( $confirm_deletion ), '" class="dashicons-before dashicons-no-alt cmb-remove-group-row" title="', esc_attr( $field_group->options( 'remove_button' ) ), '"></button>';
+			echo '<button type="button" data-selector="' . esc_attr( $field_group->id() ) . '_repeat" data-confirm="' . esc_attr( $confirm_deletion ) . '" class="dashicons-before dashicons-no-alt cmb-remove-group-row" title="' . esc_attr( $field_group->options( 'remove_button' ) ) . '"></button>';
 		}
 
 			echo '
@@ -624,7 +624,7 @@ class CMB2 extends CMB2_Base {
 			echo '
 					<div class="cmb-row cmb-remove-field-row">
 						<div class="cmb-remove-row">
-							<button type="button" data-selector="', $field_group->id(), '_repeat" data-confirm="', esc_attr( $confirm_deletion ), '" class="cmb-remove-group-row cmb-remove-group-row-button alignright button-secondary">', $field_group->options( 'remove_button' ), '</button>
+							<button type="button" data-selector="', esc_attr( $field_group->id() ), '_repeat" data-confirm="', esc_attr( $confirm_deletion ), '" class="cmb-remove-group-row cmb-remove-group-row-button alignright button-secondary">', esc_attr( $field_group->options( 'remove_button' ) ), '</button>
 						</div>
 					</div>
 					';

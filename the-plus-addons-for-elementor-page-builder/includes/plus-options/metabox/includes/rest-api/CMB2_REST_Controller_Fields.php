@@ -412,6 +412,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 			if ( empty( $value ) || is_scalar( $value ) || is_array( $value ) ) {
 				$field_data[ $key ] = $value;
 			} else {
+				// translators: %s: Field key.
 				$field_data[ $key ] = sprintf( __( 'Value Error for %s', 'cmb2' ), $key );
 			}
 		}

@@ -1,18 +1,30 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
-if(!class_exists('WP_404_Auto_Redirect'))
+if(!class_exists('WP_404_Auto_Redirect')){
     return;
+}
 
-trait WP_404_Auto_Redirect_Debug {
-
+trait WP_404_Auto_Redirect_Debug{
+    
+    /**
+     * debug
+     *
+     * @param $query
+     *
+     * @return void
+     */
     function debug($query){
+        
         $title = 'Fallback Redirection disabled. Displaying 404.';
         
-        if(isset($query['redirect']['url']) && !empty($query['redirect']['url']))
+        if(isset($query['redirect']['url']) && !empty($query['redirect']['url'])){
             $title = 'Redirection: ' . "<a href='" . $query['redirect']['url'] . "'>" . $query['redirect']['url'] . "</a>" . ' (' . $query['settings']['method'] . ' Headers)';
+        }
+        
         ?>
         
         <style type="text/css">
@@ -49,5 +61,6 @@ Details: <?php echo $query['redirect']['why']; ?></pre>
         
         <?php 
         exit;
+        
     }
 }

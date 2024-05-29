@@ -1,13 +1,23 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
 if(!class_exists('WP_404_Auto_Redirect_Search')):
 
-class WP_404_Auto_Redirect_Search {
+class WP_404_Auto_Redirect_Search{
     
+    /**
+     * sql
+     *
+     * @param $args
+     * @param $query
+     *
+     * @return array
+     */
     function sql($args, $query){
+        
         global $wpdb;
         
         $args = wp_parse_args($args, array(
@@ -18,12 +28,14 @@ class WP_404_Auto_Redirect_Search {
         ));
         
         if(!$args['keywords']){
+            
             return array(
                 'result' => array(
                     'score' => 0
                 ),
                 'dump' => false
             );
+            
         }
         
         // Mode: Post
@@ -31,18 +43,21 @@ class WP_404_Auto_Redirect_Search {
             
             // Post Type Args not set && All Post Types are excluded in settings. Early Stop.
             if(!$args['post_type'] && empty($query['settings']['rules']['include']['post_types'])){
+                
                 return array(
                     'result' => array(
                         'score' => 0
                     ),
                     'dump' => false
                 );
+                
             }
 
             $sql = "SELECT p.ID, ";
             
-            if(!is_array($args['keywords']))
+            if(!is_array($args['keywords'])){
                 $args['keywords'] = array($args['keywords']);
+            }
 
             foreach($args['keywords'] as $k){
                 
@@ -136,18 +151,21 @@ class WP_404_Auto_Redirect_Search {
         
             // Taxonomy Args not set && All Taxonomies are excluded in settings. Early Stop.
             if(!$args['taxonomy'] && (empty($query['settings']['rules']['include']['taxonomies']) || $query['settings']['rules']['disable']['taxonomies'])){
+                
                 return array(
                     'result' => array(
                         'score' => 0
                     ),
                     'dump' => false
                 );
+                
             }
             
             $sql = "SELECT t.term_id, ";
             
-            if(!is_array($args['keywords']))
+            if(!is_array($args['keywords'])){
                 $args['keywords'] = array($args['keywords']);
+            }
 
             foreach($args['keywords'] as $k){
                 
@@ -246,17 +264,20 @@ class WP_404_Auto_Redirect_Search {
         $result['sql'] = $sql;
         
         // Post ID
-        if(isset($search['ID']) && !empty($search['ID']))
+        if(isset($search['ID']) && !empty($search['ID'])){
             $result['post_id'] = (int) $search['ID'];
+        }
         
         // Term ID
-        if(isset($search['term_id']) && !empty($search['term_id']))
+        if(isset($search['term_id']) && !empty($search['term_id'])){
             $result['term_id'] = (int) $search['term_id'];
+        }
         
         // Score
         $result['score'] = 0;
-        if(isset($search['score']) && !empty($search['score']))
+        if(isset($search['score']) && !empty($search['score'])){
             $result['score'] = (int) $search['score'];
+        }
         
         // Return Result
         return $result;
@@ -268,6 +289,15 @@ wp404arsp()->search = new WP_404_Auto_Redirect_Search();
 
 endif;
 
+
+/**
+ * wp404arsp_search
+ *
+ * @param $args
+ * @param $query
+ *
+ * @return mixed
+ */
 function wp404arsp_search($args, $query){
 	return wp404arsp()->search->sql($args, $query);
 }

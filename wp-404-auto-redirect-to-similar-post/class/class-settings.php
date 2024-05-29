@@ -1,31 +1,42 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
 if(!class_exists('WP_404_Auto_Redirect_Settings')):
 
-class WP_404_Auto_Redirect_Settings {
-
+class WP_404_Auto_Redirect_Settings{
+    
+    /**
+     * get
+     *
+     * @return array
+     */
     function get(){
         
         $option = get_option('wp404arsp_settings');
         
         // 0.9.0.2 Deprecated compatibility
-        // ---------------------------------------
         if(!wp404arsp_is_empty($option['rules']['redirection']['exclude'])){
+            
             $option['rules']['exclude'] = $option['rules']['redirection']['exclude'];
             unset($option['rules']['redirection']['exclude']);
+            
         }
         
+        // 0.9.0.2 Deprecated compatibility
         if(!wp404arsp_is_empty($option['rules']['redirection']['disable'])){
+            
             $option['rules']['disable'] = $option['rules']['redirection']['disable'];
             unset($option['rules']['redirection']['disable']);
+            
         }
         
-        if(isset($option['rules']['redirection']))
+        // 0.9.0.2 Deprecated compatibility
+        if(isset($option['rules']['redirection'])){
             unset($option['rules']['redirection']);
-        // ---------------------------------------
+        }
         
         // Defaults
         $settings = wp404arsp_parse_args_recursive($option, array(
@@ -61,12 +72,17 @@ class WP_404_Auto_Redirect_Settings {
         $settings['rules']['include']['taxonomies'] = wp404arsp_get_taxonomies($settings);
         
         // Falback
-        if($settings['fallback']['type'] == 'home')
+        if($settings['fallback']['type'] == 'home'){
             $settings['fallback']['url'] = home_url();
+        }
+        
+        // Esc Fallback
+        $settings['fallback']['url'] = esc_url($settings['fallback']['url']);
         
         // Headers
-        if(((int)$settings['method'] != 301) && ((int)$settings['method'] != 302))
+        if(((int)$settings['method'] != 301) && ((int)$settings['method'] != 302)){
             $settings['method'] = 301;
+        }
         
         // Return
         return $settings;
@@ -79,8 +95,12 @@ wp404arsp()->settings = new WP_404_Auto_Redirect_Settings();
 
 endif;
 
+
+/**
+ * wp404arsp_settings_get
+ *
+ * @return mixed
+ */
 function wp404arsp_settings_get(){
-    
     return wp404arsp()->settings->get();
-    
 }

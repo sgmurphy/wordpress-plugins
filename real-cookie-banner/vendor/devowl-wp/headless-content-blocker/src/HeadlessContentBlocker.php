@@ -687,14 +687,24 @@ class HeadlessContentBlocker extends FastHtmlTag
     }
     /**
      * Create an expression => regular expression cache for all available URLs in available blockables.
+     *
+     * @param boolean $contains
+     * @param AbstractBlockable[] $useBlockables
      */
-    public function blockablesToHosts()
+    public function blockablesToHosts($contains = \true, $useBlockables = null)
     {
-        if ($this->blockablesToHostsCache !== null) {
-            return $this->blockablesToHostsCache;
+        $prepareRows = function ($regex) use($contains) {
+            if (!\is_string($regex)) {
+                return $regex;
+            }
+            return $contains ? '/' . \substr($regex, 2, \strlen($regex) - 4) . '/' : $regex;
+        };
+        if ($this->blockablesToHostsCache !== null && $useBlockables === null) {
+            return \array_map($prepareRows, $this->blockablesToHostsCache);
         }
         $result = [];
-        foreach ($this->getBlockables() as $blockable) {
+        $forEachBlockables = $useBlockables === null ? $this->getBlockables() : $useBlockables;
+        foreach ($forEachBlockables as $blockable) {
             // Iterate all wildcard URLs
             foreach ($blockable->getRegularExpressions() as $expression => $regex) {
                 if (!isset($result[$expression]) && !empty($expression)) {
@@ -716,8 +726,10 @@ class HeadlessContentBlocker extends FastHtmlTag
                 }
             }
         }
-        $this->blockablesToHostsCache = $result;
-        return $result;
+        if ($useBlockables === null) {
+            $this->blockablesToHostsCache = $result;
+        }
+        return \array_map($prepareRows, $result);
     }
     /**
      * Get blockable rules starting with a given string. This does only work for non-Selector-Syntax expressions.

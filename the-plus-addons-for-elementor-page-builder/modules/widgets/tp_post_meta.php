@@ -1632,6 +1632,7 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 							$i = 1;
 							foreach ( $terms as $term ) {
 								if ( $cate_display >= $i ) {
+									// Translators: %s is the name of the term.
 									$category_list .= '<a class="tp-meta-value" href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( '%s', 'tpebl' ), $term->name ) ) . '">' . $term->name . '</a>';
 								}
 								++$i;

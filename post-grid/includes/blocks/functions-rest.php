@@ -276,6 +276,22 @@ class BlockPostGridRest
 				},
 			)
 		);
+		register_rest_route(
+			'post-grid/v2',
+			'/get_site_data',
+			array(
+				'methods' => 'POST',
+				'callback' => array($this, 'get_site_data'),
+				'permission_callback' => '__return_true',
+
+				// 'permission_callback' => function () {
+				// 	return current_user_can('manage_options');
+				// },
+			)
+		);
+
+
+
 
 
 		register_rest_route(
@@ -493,6 +509,14 @@ class BlockPostGridRest
 	public function get_posts_layout($post_data)
 	{
 
+		$query_args = [];
+
+
+		$nonce = isset($post_data['_wpnonce']) ? $post_data['_wpnonce'] : [];
+
+		if (!wp_verify_nonce($nonce, 'wp_rest')) return $query_args;
+
+
 		$category = isset($post_data['category']) ? $post_data['category'] : '';
 		$keyword = isset($post_data['keyword']) ? $post_data['keyword'] : '';
 
@@ -504,7 +528,6 @@ class BlockPostGridRest
 
 
 
-		$query_args = [];
 		$query_args['post_type'] = 'post_grid_template';
 
 		if (!empty($keyword)) {
@@ -639,9 +662,11 @@ class BlockPostGridRest
 		$transient = unserialize(get_transient($blockId . '_args'));
 		$transientData = get_transient($blockId . '_data');
 
+		// if(!isset($transient['slug'])) return [];
 
+		$saved_slug = isset($transient['slug']) ? $transient['slug'] : '';
 
-		if ($objSlug == $transient['slug']) {
+		if ($objSlug == $saved_slug) {
 
 			if (!empty($transientData)) {
 				$response['data'] = $transientData;
@@ -1280,7 +1305,7 @@ class BlockPostGridRest
 		$formdata = isset($request['formdata']) ? $request['formdata'] : 'no data';
 
 
-		$form_wrap_nonce = $request->get_param('nonce');
+		$form_wrap_nonce = $request->get_param('_wpnonce');
 
 
 
@@ -1682,8 +1707,49 @@ class BlockPostGridRest
 		}
 
 
+		error_log(rwmb_meta($meta_key, [], $postId));
 
-		if ($meta_type == 'acfImage' || $meta_type == 'acfFile' || $meta_type == 'acfButtonGroup') {
+		if ($meta_type == 'mbTaxonomy' || $meta_type == 'mbSelect') {
+			$mb_Value = rwmb_meta($meta_key, [], $postId);
+			// error_log(gettype($mb_Value));
+			if (gettype($mb_Value) == 'object') {
+				error_log(serialize($mb_Value));
+			}
+			if (gettype($mb_Value) == 'array') {
+				$singleArray = $this->nestedToSingle($mb_Value);
+				$response->html = strtr($template, (array) $singleArray);
+				$response->args = $singleArray;
+			} else if (gettype($mb_Value) == 'object') {
+				$arrayValue = (array)$mb_Value;
+
+				// Process the array
+				$singleArray = $this->nestedToSingle($arrayValue);
+
+				// Assuming $template is defined elsewhere
+				$response->html = strtr($template, $singleArray);
+
+				// Set $singleArray as args
+				$response->args = $singleArray;
+				// $singleArray = $this->nestedToSingle($mb_Value);
+				// $response->html = strtr($template, (array) $singleArray);
+				// $response->args = $singleArray;
+			} else {
+
+				$singleArray = ['{metaValue}' => $mb_Value];
+				$response->args = $singleArray;
+				$response->html = strtr($template, (array) $singleArray);
+				$response->meta_value = $mb_Value;
+				$response->meta_key = $meta_key;
+			}
+		} else if ($meta_type == 'mbButton') {
+			$mb_Value = rwmb_meta($meta_key, [], $postId);
+			// error_log(gettype($mb_Value));
+			$singleArray = ['{metaValue}' => $mb_Value];
+			$response->args = $singleArray;
+			$response->html = strtr($template, (array) $singleArray);
+			$response->meta_value = $mb_Value;
+			$response->meta_key = $meta_key;
+		} else if ($meta_type == 'acfImage' || $meta_type == 'acfFile' || $meta_type == 'acfButtonGroup') {
 
 			$acf_value = get_field($meta_key, $postId);
 
@@ -1717,6 +1783,26 @@ class BlockPostGridRest
 				$response->args = $singleArray;
 				$response->html = strtr($template, (array) $singleArray);
 				$response->meta_value = $acf_value;
+				$response->meta_key = $meta_key;
+			}
+		} else if ($meta_type == 'podsImage' || $meta_type == 'podsFile' || $meta_type == 'podsSelect' || $meta_type == 'podsCheckbox' || $meta_type == 'podsRadio' || $meta_type == 'podsButtonGroup' || $meta_type == 'podsLink' || $meta_type == 'podsTaxonomy' || $meta_type == 'podsUser' || $meta_type == 'podsPostObject' || $meta_type == 'podsRelationship' || $meta_type == 'podsTrueFalse') {
+
+
+			$post_type = get_post_type($postId);
+			$pods_value = pods_field($post_type, $postId, $meta_key, true);
+
+
+			if (gettype($pods_value) == 'array') {
+				$singleArray = $this->nestedToSingle($pods_value);
+				$response->html = strtr($template, (array) $singleArray);
+				$response->args = $singleArray;
+			} else if (gettype($pods_value) == 'object') {
+			} else {
+
+				$singleArray = ['{metaValue}' => $pods_value];
+				$response->args = $singleArray;
+				$response->html = strtr($template, (array) $singleArray);
+				$response->meta_value = $pods_value;
 				$response->meta_key = $meta_key;
 			}
 		} else {
@@ -1850,9 +1936,18 @@ class BlockPostGridRest
 	 */
 	public function get_posts($post_data)
 	{
+		$query_args = [];
+
+
+		$nonce = isset($post_data['_wpnonce']) ? $post_data['_wpnonce'] : "";
+
+
+		if (!wp_verify_nonce($nonce, 'wp_rest')) return $query_args;
+
 
 
 		$queryArgs = isset($post_data['queryArgs']) ? $post_data['queryArgs'] : [];
+		error_log(serialize($queryArgs));
 		$rawData = '<!-- wp:post-featured-image /--><!-- wp:post-title /--><!-- wp:post-excerpt /-->';
 		$rawData = !empty($post_data['rawData']) ? $post_data['rawData'] : $rawData;
 
@@ -1864,7 +1959,8 @@ class BlockPostGridRest
 		$paged = 1;
 
 
-		$query_args = [];
+
+
 
 		if (is_array($queryArgs))
 			foreach ($queryArgs as $item) {
@@ -2430,7 +2526,7 @@ class BlockPostGridRest
 
 
 		$response['email'] = $admin_email;
-		$response['name'] = $adminData->display_name;
+		$response['name'] = isset($adminData->display_name) ? $adminData->display_name : '';
 
 		$response['siteurl'] = $siteurl;
 		$response['siteAdminurl'] = $siteAdminurl;
@@ -2445,6 +2541,114 @@ class BlockPostGridRest
 
 		die(wp_json_encode($response));
 	}
+
+
+	/**
+	 * Return get_site_data.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_REST_Request $tax_data The tax data.
+	 */
+	public function get_site_data($request)
+	{
+		$response = [];
+
+
+		// if (!current_user_can('manage_options')) {
+		// 	die(wp_json_encode($response));
+		// }
+
+
+
+		$admin_email = get_option('admin_email');
+		$siteurl = get_option('siteurl');
+		$siteAdminurl = admin_url();
+		$adminData = get_user_by('email', $admin_email);
+
+
+		$response['admin_email'] = $admin_email;
+		$response['admin_name'] = isset($adminData->display_name) ? $adminData->display_name : '';
+
+		$response['siteurl'] = $siteurl;
+		$response['siteAdminurl'] = $siteAdminurl;
+
+		global $wp_roles;
+
+		$roles = [];
+
+		if ($wp_roles && property_exists($wp_roles, 'roles')) {
+
+			$rolesAll = isset($wp_roles->roles) ? $wp_roles->roles : [];
+
+			foreach ($rolesAll as $roleIndex => $role) {
+
+				$roles[$roleIndex] = $role['name'];
+			}
+		}
+
+		$response['roles'] = $roles;
+
+
+		global $wp_post_types;
+		$post_types = [];
+
+
+		$post_types_all = get_post_types('', 'names');
+		foreach ($post_types_all as $post_type) {
+
+			$obj = $wp_post_types[$post_type];
+			$post_types[$post_type] = $obj->labels->singular_name;
+		}
+
+
+		$response['post_types'] = $post_types;
+
+
+		$postTypes = [];
+
+		$post_types_all = get_post_types('', 'names');
+		foreach ($post_types_all as $post_type) {
+
+			$obj = $wp_post_types[$post_type];
+			$postTypes[] = $post_type;
+		}
+
+		$taxonomies = get_object_taxonomies($postTypes);
+		$taxonomiesArr = [];
+
+
+
+		foreach ($taxonomies as $taxonomy) {
+
+			$taxDetails = get_taxonomy($taxonomy);
+
+			$taxonomiesArr[] = ['label' => $taxDetails->label, 'id' => $taxonomy];
+		}
+
+
+		$response['taxonomies'] = $taxonomiesArr;
+
+
+		$response['post_statuses'] = get_post_statuses();
+
+
+
+
+		die(wp_json_encode($response));
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	public function email_subscribe($request)

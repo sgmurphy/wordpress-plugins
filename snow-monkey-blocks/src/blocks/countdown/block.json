@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"textdomain": "snow-monkey-blocks",
+	"name": "snow-monkey-blocks/countdown",
+	"title": "Countdown Timer",
+	"description": "Display the countdown until the set date and time (Front-end only)",
+	"category": "smb",
+	"attributes": {
+		"alignment": {
+			"type": "string"
+		},
+		"countdownTime": {
+			"type": "string"
+		},
+		"numericColor": {
+			"type": "string"
+		},
+		"clockColor": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		}
+	},
+	"style": "file:./style.css",
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./script.js"
+}

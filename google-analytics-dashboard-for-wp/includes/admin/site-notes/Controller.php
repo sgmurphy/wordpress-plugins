@@ -10,6 +10,9 @@ class ExactMetrics_SiteNotes_Controller
 	 */
 	private $db;
 
+	/**
+	 * @return self
+	 */
 	public static function get_instance()
 	{
 		if (!isset(self::$instance) && !(self::$instance instanceof ExactMetrics_SiteNotes_Controller)) {

@@ -3,25 +3,25 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.9.1
+ * Version: 4.9.6
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
- */
+ */ 
  
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.9.1' );
+define( 'BT_BB_VERSION', '4.9.6' );
 // VERSION --------------------------------------------------------- \\
  
-define( 'BT_BB_FEATURE_ADD_ELEMENTS', false );
+define( 'BT_BB_FEATURE_ADD_ELEMENTS', true );
  
 /**
  * Enqueue scripts and styles
  */
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . 'css-crush/CssCrush.php' ) && strpos( $_SERVER['SERVER_NAME'], '-dev' ) ) {
+if ( file_exists( plugin_dir_path( __FILE__ ) . 'css-crush/CssCrush.php' ) /*&& strpos( $_SERVER['SERVER_NAME'], '-dev' )*/ ) {
 	require_once( 'css-crush/CssCrush.php' );
 }
 
@@ -31,10 +31,49 @@ if ( file_exists( get_template_directory() . '/bt_bb_config.php' ) ) {
 
 add_filter( 'the_content', 'bt_bb_parse_content', 20 );
 function bt_bb_parse_content( $content ) {
+	
+	if ( BT_BB_Root::$fe_wrap_count > 1 ) {
+		return $content;
+	}
+	
 	if ( bt_bb_active_for_post_type_fe() ) {
 		$content = str_ireplace( array( '``', '`{`', '`}`' ), array( '&quot;', '&#91;', '&#93;' ), $content );
 		$content = str_ireplace( array( '*`*`*', '*`*{*`*', '*`*}*`*' ), array( '``', '`{`', '`}`' ), $content );
-		if ( is_singular() ) $content = '<div class="bt_bb_wrapper">' . $content . '</div>';
+		if ( is_singular() ) {
+			$_content = $content;
+			$content = '<div class="bt_bb_wrapper">' . $content;
+			if ( current_user_can( 'edit_pages' ) && ( strpos( $_content, 'bt_bb_fe_wrap' ) || $_content == '' ) ) {
+				if ( ! class_exists( 'BoldThemes_BB_Settings' ) || ! BoldThemes_BB_Settings::$custom_content_elements ) { // only with native BB elements
+					if ( ! ( isset( $_GET['bt_bb_fe_preview'] ) && $_GET['bt_bb_fe_preview'] == 'true' ) ) {
+						if ( BT_BB_FEATURE_ADD_ELEMENTS ) {
+							$content .= '<div class="bt_bb_fe_wrap">';
+							$content .= '<span id="bt_bb_fe_add_elements" title="' . esc_html__( 'Add Elements', 'bold-builder' ) . '"></span>';
+							$content .= '<div class="bt_bb_fe_add_template">';
+							$content .= '<h6>' . esc_html__( 'Add Section/Row/Column(s)', 'bold-builder' ) . '</h6>';
+							$content .= '<div class="bt_bb_fe_add_template_list">';
+								$content .= '<div data-layout-id="11" title="1/1"></div>';
+								$content .= '<div data-layout-id="12+12" title="1/2+1/2"></div>';
+								$content .= '<div data-layout-id="13+13+13" title="1/3+1/3+1/3"></div>';
+								$content .= '<div data-layout-id="14+14+14+14" title="1/4+1/4+1/4+1/4"></div>';
+								$content .= '<div data-layout-id="15+15+15+15+15" title="1/5+1/5+1/5+1/5+1/5"></div>';
+								$content .= '<div data-layout-id="23+13" title="2/3+1/3"></div>';
+								$content .= '<div data-layout-id="13+23" title="1/3+2/3"></div>';
+								$content .= '<div data-layout-id="34+14" title="3/4+1/4"></div>';
+								$content .= '<div data-layout-id="14+34" title="1/4+3/4"></div>';
+								$content .= '<div data-layout-id="14+24+14" title="1/4+2/4+1/4"></div>';
+							$content .= '</div>';
+							$content .= '</div>';
+							$content .= '</div>';
+						}
+					}
+				}
+				$content .= '<span id="bt_bb_fe_preview_toggler" class="bt_bb_fe_preview_toggler">' . esc_html__( 'Show/hide edit mode UI', 'bold-builder' ) . '</span>';
+				if ( ! class_exists( 'BoldThemes_BB_Settings' ) || ! BoldThemes_BB_Settings::$custom_content_elements ) { // only with native BB elements
+					$content .= '<span id="bt_bb_fe_save" title="' . esc_attr__( 'Save changes', 'bold-builder' ) . '"></span>';
+				}
+			}
+			$content .= '</div>';
+		}
 	}
 	return $content;
 }
@@ -72,13 +111,14 @@ function bt_bb_parse_content_admin( $content ) {
 	BT_BB_Root::$fe_wrap_count++;
 
 	$bt_bb_content = false;
-	if ( strpos( trim( $content, "\t\n"), '[bt_bb' ) === 0 || strpos( trim( $content, "\t\n"), '[bt_section' ) === 0 ) {
+	if ( current_user_can( 'edit_pages' ) && ( ( strpos( trim( $content, "\t\n"), '[bt_bb' ) === 0 || strpos( trim( $content, "\t\n" ), '[bt_section' ) === 0 ) || $content == '' ) ) {
 		$bt_bb_content = true;
 	}
+	
 	if ( ! $bt_bb_content ) {
 		return $content;
 	}
-	
+
 	global $bt_bb_map;
 	
 	foreach( BT_BB_Root::$elements as $base => $params ) {
@@ -159,51 +199,17 @@ function bt_bb_parse_content_admin( $content ) {
 	if ( isset( $wrap_arr['d0'] ) && $wrap_arr['d0'] != '' ) {
 		$fe_wrap_open = '';
 		$fe_wrap_close = '';
-		if ( current_user_can( 'edit_pages' ) ) {
-			if ( $bt_footer ) {
-				if ( function_exists( 'boldthemes_get_option' ) && function_exists( 'boldthemes_get_id_by_slug' ) ) {
-					$page_slug = boldthemes_get_option( 'footer_page_slug' );
-					if ( $page_slug != '' ) {
-						$page_id = boldthemes_get_id_by_slug( $page_slug );
-						if ( ! is_null( $page_id ) ) {
-							$fe_wrap_open = '<div class="bt_bb_fe_wrap_footer"><a href="' . get_edit_post_link( $page_id, '' ) . '" target="_blank" class="bt_bb_fe_preview_toggler bt_bb_fe_preview_toggler_footer">' . esc_html__( 'Edit Footer', 'bold-builder' ) . '</a>';
-							$fe_wrap_close = '</div>';
-						}
-					}
-				}			
-			} else {
-				if ( ! isset( $_GET['bt_bb_fe_add_section'] ) ) {
-					//$wrap_arr['d0'] .= '<span id="bt_bb_fe_preview_toggler" class="bt_bb_fe_preview_toggler">' . esc_html__( 'Show/hide edit mode UI', 'bold-builder' ) . '</span><span id="bt_bb_fe_save" data-nonce="' . wp_create_nonce( 'bt-bb-fe-save-nonce' ) . '"></span><span id="bt_bb_fe_add_section" data-icon-code="&#xf067" title="' . esc_html__( 'Add Section', 'bold-builder' ) . '"></span>';
-					if ( ! class_exists( 'BoldThemes_BB_Settings' ) || ! BoldThemes_BB_Settings::$custom_content_elements ) { // only with native BB elements
-						if ( ! ( isset( $_GET['bt_bb_fe_preview'] ) && $_GET['bt_bb_fe_preview'] == 'true' ) ) {
-							if ( BT_BB_FEATURE_ADD_ELEMENTS ) {
-								$wrap_arr['d0'] .= '<div class="bt_bb_fe_wrap">';
-								$wrap_arr['d0'] .= '<span id="bt_bb_fe_add_elements" title="' . esc_html__( 'Add elements', 'bold-builder' ) . '"></span>';
-								$wrap_arr['d0'] .= '<div class="bt_bb_fe_add_template">';
-								$wrap_arr['d0'] .= '<h6>' . esc_html__( 'Add Section/Row/Column(s)', 'bold-builder' ) . '</h6>';
-								$wrap_arr['d0'] .= '<div class="bt_bb_fe_add_template_list">';
-									$wrap_arr['d0'] .= '<div title="1/1"></div>';
-									$wrap_arr['d0'] .= '<div title="1/2+1/2"></div>';
-									$wrap_arr['d0'] .= '<div title="1/3+1/3+1/3"></div>';
-									$wrap_arr['d0'] .= '<div title="1/4+1/4+1/4+1/4"></div>';
-									$wrap_arr['d0'] .= '<div title="1/5+1/5+1/5+1/5+1/5"></div>';
-									$wrap_arr['d0'] .= '<div title="2/3+1/3"></div>';
-									$wrap_arr['d0'] .= '<div title="1/3+2/3"></div>';
-									$wrap_arr['d0'] .= '<div title="3/4+1/4"></div>';
-									$wrap_arr['d0'] .= '<div title="1/4+3/4"></div>';
-									$wrap_arr['d0'] .= '<div title="1/4+2/4+1/4"></div>';
-								$wrap_arr['d0'] .= '</div>';
-								$wrap_arr['d0'] .= '</div>';
-								$wrap_arr['d0'] .= '</div>';
-							}
-						}
-					}
-					$wrap_arr['d0'] .= '<span id="bt_bb_fe_preview_toggler" class="bt_bb_fe_preview_toggler">' . esc_html__( 'Show/hide edit mode UI', 'bold-builder' ) . '</span>';
-					if ( ! class_exists( 'BoldThemes_BB_Settings' ) || ! BoldThemes_BB_Settings::$custom_content_elements ) { // only with native BB elements
-						$wrap_arr['d0'] .= '<span id="bt_bb_fe_save" title="' . esc_attr__( 'Save changes', 'bold-builder' ) . '"></span>';
+		if ( $bt_footer ) {
+			if ( function_exists( 'boldthemes_get_option' ) && function_exists( 'boldthemes_get_id_by_slug' ) ) {
+				$page_slug = boldthemes_get_option( 'footer_page_slug' );
+				if ( $page_slug != '' ) {
+					$page_id = boldthemes_get_id_by_slug( $page_slug );
+					if ( ! is_null( $page_id ) ) {
+						$fe_wrap_open = '<div class="bt_bb_fe_wrap_footer"><a href="' . get_edit_post_link( $page_id, '' ) . '" target="_blank" class="bt_bb_fe_preview_toggler bt_bb_fe_preview_toggler_footer">' . esc_html__( 'Edit Footer', 'bold-builder' ) . '</a>';
+						$fe_wrap_close = '</div>';
 					}
 				}
-			}
+			}			
 		}
 		return $fe_wrap_open . $wrap_arr['d0'] . $fe_wrap_close;
 	} else {
@@ -849,6 +855,7 @@ function bt_bb_translate() {
 	echo 'window.bt_bb_text.layout_error = "' . esc_html__( 'Layout error!', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.number_columns = "' . esc_html__( 'Number of columns not equal for all breakpoints!', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.add_element = "' . esc_html__( 'Add Element', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.add_elements_dd = "' . esc_html__( 'Add elements (drag & drop)', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.select_layout = "' . esc_html__( 'Select Layout', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.edit_layout = "' . esc_html__( 'Edit Layout', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.select = "' . esc_html__( 'Select', 'bold-builder' ) . '";';

@@ -1,0 +1,46 @@
+{
+    "name": "onepageexpress/wp-companion",
+    "description": "OnePageExpress themes companion plugin",
+    "type": "library",
+    "license": "GPL2",
+    "authors": [
+        {
+            "name": "Horea Radu",
+            "email": "horea.radu@extendstudio.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "0.7",
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "wp-coding-standards/wpcs": "^2.2",
+        "sirbrillig/phpcs-variable-analysis": "^2.8",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "scripts": {
+        "format": "\"vendor/bin/phpcbf\" --standard=phpcs.xml ",
+        "lint": "\"vendor/bin/phpcs\" --standard=phpcs.xml --runtime-set ignore_warnings_on_exit 1",
+        "compatibility-check": "\"vendor/bin/phpcs\" -d memory_limit=1024M -p ./ --extensions=php  --ignore=\"./build/*,*/node_modules/*,*/vendor/*,*/.history/*\" --standard=PHPCompatibility --runtime-set testVersion 7.1"
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}": [
+                "type:wordpress-plugin"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "OnePageExpress\\": "src/"
+        }
+    },
+    "config": {
+        "autoloader-suffix": "_Mesmerize_Companion",
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

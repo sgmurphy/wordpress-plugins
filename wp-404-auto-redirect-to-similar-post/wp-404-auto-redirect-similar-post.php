@@ -2,34 +2,64 @@
 /**
  * Plugin Name: WP 404 Auto Redirect to Similar Post
  * Description: Automatically Redirect any 404 page to a Similar Post based on the Title, Post Type & Taxonomy using 301 Redirects!
- * Version: 	1.0.3
+ * Version: 	1.0.5
  * Author: 		hwk-fr
  * Author URI: 	https://hwk.fr
  * Text Domain: wp-404-auto-redirect
  */
  
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
-if(!defined('WP404ARSP_PATH'))
+if(!defined('WP404ARSP_PATH')){
     define('WP404ARSP_PATH', plugin_dir_path(__FILE__));
+}
 
-if(!defined('WP404ARSP_FILE'))
+if(!defined('WP404ARSP_FILE')){
     define('WP404ARSP_FILE', __FILE__);
+}
 
 if(!class_exists('WP_404_Auto_Redirect')):
 
-// Traits
+// includes
 include_once(WP404ARSP_PATH . 'includes/admin.php');
 include_once(WP404ARSP_PATH . 'includes/ajax.php');
 include_once(WP404ARSP_PATH . 'includes/debug.php');
 
-class WP_404_Auto_Redirect {
+class WP_404_Auto_Redirect{
     
+    /**
+     * traits
+     */
     Use WP_404_Auto_Redirect_Admin;
     Use WP_404_Auto_Redirect_Ajax;
     Use WP_404_Auto_Redirect_Debug;
     
+    
+    /**
+     * init
+     *
+     *****************************************************************************
+     *  Filters & Actions Fire Sequence:
+     *****************************************************************************
+     *                                                                           *
+     *  filter('wp404arsp/init',                    true,       $request      )  *
+     *                                                                           *
+     *  action('wp404arsp/search/init',             $query                    )  *
+     *  filter('wp404arsp/search/group',            $group,     $query        )  *
+     *  filter('wp404arsp/search/query',            $query                    )  *
+     *  filter('wp404arsp/search/engine/{engine}',  $result,    $query, $group)  *
+     *  filter('wp404arsp/search/results',          $query                    )  *
+     *  filter('wp404arsp/search/redirect',         $redirect,  $query        )  *
+     *                                                                           *
+     *  filter('wp404arsp/redirect',                $query                    )  *
+     *  action('wp404arsp/after_redirect',          $query                    )  *
+     *                                                                           *
+     *****************************************************************************
+     *
+     * @return void
+     */
     function init(){
         
         // Helpers
@@ -42,76 +72,87 @@ class WP_404_Auto_Redirect {
         include_once(WP404ARSP_PATH . 'class/class-settings.php');
         
         // WP: Admin
-        add_action('admin_menu',                                array($this, 'admin_menu'),                     10, 1);
-        add_filter('plugin_action_links',                       array($this, 'admin_link'),                     10, 2);
-        add_action('admin_init',                                array($this, 'admin_settings'),                 10, 1);
-        add_action('admin_enqueue_scripts',                     array($this, 'admin_scripts'),                  10, 1);
+        add_action('admin_menu',                     array($this, 'admin_menu'),     10, 1);
+        add_filter('plugin_action_links',            array($this, 'admin_link'),     10, 2);
+        add_action('admin_init',                     array($this, 'admin_settings'), 10, 1);
+        add_action('admin_enqueue_scripts',          array($this, 'admin_scripts'),  10, 1);
         
         // WP: Run
-        add_action('template_redirect',                         array($this, 'run'),                $this->priority());
+        add_action('template_redirect',              array($this, 'run'),            $this->priority());
         
         // Preview
-        add_action('wp_ajax_wp404arsp_ajax_preview',            array($this, 'preview'),                        1, 1);
+        add_action('wp_ajax_wp404arsp_ajax_preview', array($this, 'preview'),        1, 1);
         
         // Log
-        add_action('wp404arsp/after_redirect',                  array($this, 'log'),                            1, 1);
-        
-        /**
-         ****************************************************************************
-         *  Filters & Actions Fire Sequence:
-         ****************************************************************************
-         *  
-         *  filter('wp404arsp/init',                    true,       $request        )
-         *  
-         *  action('wp404arsp/search/init',             $query                      )
-         *  filter('wp404arsp/search/group',            $group,     $query          )
-         *  filter('wp404arsp/search/query',            $query                      )
-         *  filter('wp404arsp/search/engine/{engine}',  $result,    $query, $group  )
-         *  filter('wp404arsp/search/results',          $query                      )
-         *  filter('wp404arsp/search/redirect',         $redirect,  $query          )
-         *  
-         *  filter('wp404arsp/redirect',                $query                      )
-         *  action('wp404arsp/after_redirect',          $query                      )
-         *  
-         ****************************************************************************
-         */
+        add_action('wp404arsp/after_redirect',       array($this, 'log'),            1, 1);
         
     }
     
+    
+    /**
+     * priority
+     *
+     * @return int
+     */
     function priority(){
         
         $priority = 999;
         $wp404arsp_settings = get_option('wp404arsp_settings');
-        if(isset($wp404arsp_settings['priority']))
+        
+        if(isset($wp404arsp_settings['priority'])){
             $priority = (int) $wp404arsp_settings['priority'];
+        }
         
         return $priority;
         
     }
     
+    
+    /**
+     * run
+     *
+     * @return void
+     */
     function run(){
         
         // is 404
-        if(!is_404() || wp_doing_ajax() || is_admin() || wp404arsp_is_empty($_SERVER['REQUEST_URI']))
+        if(!is_404() || wp_doing_ajax() || is_admin() || wp404arsp_is_empty($_SERVER['REQUEST_URI'])){
             return;
+        }
         
-        // Admin Ajax
-        if(!wp404arsp_is_empty($_SERVER['SCRIPT_URI']) && $_SERVER['SCRIPT_URI'] == admin_url('admin-ajax.php'))
+        // admin ajax
+        if(!wp404arsp_is_empty($_SERVER['SCRIPT_URI']) && $_SERVER['SCRIPT_URI'] == admin_url('admin-ajax.php')){
             return;
+        }
         
-        // XMLRequest
-        if(!wp404arsp_is_empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+        // xml request
+        if(!wp404arsp_is_empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
             return;
+        }
         
         // Sanitize Request
-        $request = urldecode(esc_url_raw($_SERVER['REQUEST_URI']));
-        if(empty($request))
-            return;
+        $request = esc_url_raw($_SERVER['REQUEST_URI']); // sanitize url
+        $request = urldecode($request);                  // decode to remove %20 etc...
+        $request = esc_html($request);                   // escape output for display
         
+        if(empty($request)){
+            return;
+        }
+        
+        // do request
         $this->request($request);
         
     }
     
+    
+    /**
+     * request
+     *
+     * @param $request
+     * @param $preview
+     *
+     * @return void
+     */
     function request($request, $preview = false){
         
         // Pathinfo
@@ -121,8 +162,10 @@ class WP_404_Auto_Redirect {
         // Params
         $params = array();
         $request_parts = parse_url($request);
-        if(!wp404arsp_is_empty($request_parts['query']))
+        
+        if(!wp404arsp_is_empty($request_parts['query'])){
             wp_parse_str($request_parts['query'], $params);
+        }
         
         // Query
         $query = array(
@@ -150,11 +193,15 @@ class WP_404_Auto_Redirect {
         
         // Keywords: Explode Array
         $keywords = explode('/', trim($url, '/'));
+        
         foreach($keywords as $keyword){
-            if(!wp404arsp_is_empty($query['request']['extension']))
+            
+            if(!wp404arsp_is_empty($query['request']['extension'])){
                 $keyword = str_replace('.' . $query['request']['extension'], '', $keyword);
+            }
             
             $query['request']['keywords']['array'][] = wp404arsp_sanitize($keyword);
+            
         }
         
         // Keywords: Reverse for priority (last part is probably the most important)
@@ -164,33 +211,48 @@ class WP_404_Auto_Redirect {
         global $wp_query;
         
         if(isset($wp_query->query_vars)){
+            
             $query_vars = $wp_query->query_vars;
             
             // WP Query: Post Type found
             if(!wp404arsp_is_empty($query_vars['post_type']) && !wp404arsp_is_empty($query_vars['name'])){
+                
                 $query['request']['wp_query']['post_type'] = $query_vars['post_type'];
                 $query['request']['wp_query']['name'] = $query_vars['name'];
+                
             }
             
             // WP Query: Taxonomy found
             if(!wp404arsp_is_empty($query_vars['taxonomy']) && !wp404arsp_is_empty($query_vars['term'])){
+                
                 $query['request']['wp_query']['taxonomy'] = $query_vars['taxonomy'];
                 $query['request']['wp_query']['term'] = $query_vars['term'];
+                
             }
+            
         }
         
         // Settings
         $query['settings'] = wp404arsp_settings_get($query);
         
         // Filter init
-        if(!apply_filters('wp404arsp/init', true, $query))
+        if(!apply_filters('wp404arsp/init', true, $query)){
             return;
+        }
         
         // Search
         $this->search($query);
         
     }
     
+    
+    /**
+     * search
+     *
+     * @param $query
+     *
+     * @return void
+     */
     function search($query){
         
         // init Engines & Groups
@@ -214,29 +276,35 @@ class WP_404_Auto_Redirect {
             
             foreach($query['groups'] as $g => $group){
                 
-                if($group['slug'] != $query['search']['group'])
+                if($group['slug'] != $query['search']['group']){
                     continue;
+                }
             
-                if(empty($query['engines']) || empty($query['groups'][$g]['engines']))
+                if(empty($query['engines']) || empty($query['groups'][$g]['engines'])){
                     break;
+                }
                 
                 foreach($query['groups'][$g]['engines'] as $e_slug){
                     
-                    if(!$engine = wp404arsp_get_engine_by_slug($e_slug))
+                    if(!$engine = wp404arsp_get_engine_by_slug($e_slug)){
                         continue;
+                    }
                     
-                    if(!$result = apply_filters('wp404arsp/search/engine/' . $engine['slug'], false, $query, $group))
+                    if(!$result = apply_filters('wp404arsp/search/engine/' . $engine['slug'], false, $query, $group)){
                         continue;
+                    }
                     
                     $result = wp404arsp_set_result($result, $engine);
-                    if(!$result)
+                    if(!$result){
                         continue;
+                    }
                     
                     $query['search']['results'][] = $result;
                 
                     // Stop Search if Engine's Primary = true AND Score > 0
-                    if($result['score'] > 0 && $result['primary'])
+                    if($result['score'] > 0 && $result['primary']){
                         break;
+                    }
                     
                 }
                 
@@ -254,18 +322,22 @@ class WP_404_Auto_Redirect {
         
         // Redirection by highest score
         if(!empty($query['search']['results'])){
+            
             $s=0; foreach($query['search']['results'] as $r){
                 
-                if($r['score'] > $s)
+                if($r['score'] > $s){
                     $query['redirect'] = $r;
+                }
                 
                 // Stop if engine = primary
-                if($r['score'] > 0 && $r['primary'] === true)
+                if($r['score'] > 0 && $r['primary'] === true){
                     break;
+                }
                 
                 $s = $r['score'];
                 
             }
+            
         }
         
         // Redirection fallback
@@ -273,8 +345,9 @@ class WP_404_Auto_Redirect {
             
             $fallback = $query['settings']['fallback']['url'];
             
-            if($query['settings']['fallback']['type'] == 'disabled')
+            if($query['settings']['fallback']['type'] == 'disabled'){
                 $fallback = false;
+            }
             
             $engine = array(
                 'name' => 'None',
@@ -296,19 +369,29 @@ class WP_404_Auto_Redirect {
         $this->redirect($query);
         
     }
-
+    
+    
+    /**
+     * redirect
+     *
+     * @param $query
+     *
+     * @return void|null
+     */
     function redirect($query){
         
         // Filter: wp404arsp/redirect
         $query = apply_filters('wp404arsp/redirect', $query);
         
         // Debug
-        if(is_user_logged_in() && current_user_can('administrator') && ($query['settings']['debug'] || $query['preview']))
+        if(is_user_logged_in() && current_user_can('administrator') && ($query['settings']['debug'] || $query['preview'])){
             return $this->debug($query);
+        }
         
         // Fallback: 404
-        if(!$query['redirect']['url'])
+        if(!$query['redirect']['url']){
             return;
+        }
         
         // Redirect
         $this->redirect_to($query);
@@ -316,7 +399,15 @@ class WP_404_Auto_Redirect {
         return;
         
     }
-
+    
+    
+    /**
+     * redirect_to
+     *
+     * @param $query
+     *
+     * @return false|void
+     */
     function redirect_to($query){
         
         // Copy/paste from legacy WP_Redirect function()
@@ -332,34 +423,43 @@ class WP_404_Auto_Redirect {
         $location = apply_filters('wp_redirect', $query['redirect']['url'], $status);
         $status = apply_filters('wp_redirect_status', $status, $location);
      
-        if(!$location)
+        if(!$location){
             return false;
+        }
      
         $location = wp_sanitize_redirect($location);
      
-        if(!$is_IIS && PHP_SAPI != 'cgi-fcgi')
+        if(!$is_IIS && PHP_SAPI != 'cgi-fcgi'){
             status_header($status);
+        }
      
         header("Location: $location", true, $status);
         
         // Expose Headers
         if(current_user_can('administrator') && $query['settings']['headers']){
+            
             header('WP-404-Auto-Redirect: true');
             
-            if(isset($query['search']['group']))
+            if(isset($query['search']['group'])){
                 header('WP-404-Auto-Redirect-Group: ' . $query['search']['group']);
+            }
             
-            if(isset($query['redirect']['engine']))
+            if(isset($query['redirect']['engine'])){
                 header('WP-404-Auto-Redirect-Engine: ' . $query['redirect']['engine']);
+            }
             
-            if(isset($query['redirect']['primary']))
+            if(isset($query['redirect']['primary'])){
                 header('WP-404-Auto-Redirect-Primary: ' . $query['redirect']['primary']);
+            }
             
-            if(isset($query['redirect']['engine']))
+            if(isset($query['redirect']['engine'])){
                 header('WP-404-Auto-Redirect-Score: ' . $query['redirect']['engine']);
+            }
             
-            if(isset($query['redirect']['why']))
+            if(isset($query['redirect']['why'])){
                 header('WP-404-Auto-Redirect-Why: ' . strip_tags($query['redirect']['why']));
+            }
+            
         }
         
         // Action: wp404arsp/after_redirect
@@ -369,10 +469,19 @@ class WP_404_Auto_Redirect {
         
     }
     
+    
+    /**
+     * log
+     *
+     * @param $query
+     *
+     * @return void
+     */
     function log($query){
         
-        if(empty($query['settings']['log']) || !WP_DEBUG || !WP_DEBUG_LOG)
+        if(empty($query['settings']['log']) || !WP_DEBUG || !WP_DEBUG_LOG){
             return;
+        }
         
         $request_url = home_url() . $query['request']['url'];
         $redirect = $query['redirect']['url'];
@@ -382,8 +491,9 @@ class WP_404_Auto_Redirect {
         $why = strip_tags($query['redirect']['why']);
         
         // Cloudflare Fix
-        if(isset($_SERVER["HTTP_CF_CONNECTING_IP"]))
+        if(isset($_SERVER["HTTP_CF_CONNECTING_IP"])){
             $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+        }
         
         $ip = $_SERVER['REMOTE_ADDR'];
         
@@ -393,11 +503,19 @@ class WP_404_Auto_Redirect {
     
 }
 
+
+/**
+ * wp404arsp
+ *
+ * @return WP_404_Auto_Redirect
+ */
 function wp404arsp(){
+ 
 	global $wp404arsp;
 
-	if(isset($wp404arsp))
+	if(isset($wp404arsp)){
         return $wp404arsp;
+    }
     
     $wp404arsp = new WP_404_Auto_Redirect();
     $wp404arsp->init();

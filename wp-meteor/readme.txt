@@ -4,7 +4,7 @@ Donate link:
 Tags: pagespeed, performance, optimization, caching
 Requires at least: 4.5
 Tested up to: 6.4.1
-Stable tag: trunk
+Stable tag: 3.4.3
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -47,7 +47,7 @@ This delay in loading scripts greatly improves perceived load times for your vis
 * [Total Blocking Time (TBT)](https://web.dev/tbt/)
 
 == FURTHER ACCELERATE YOUR WEBSITE ==
-If you want to optimize your website's speed to the fullest extent automatically while ensuring that all Core Web Vitals are taken care of, we recommend trying [FastPixel.io](https://fastpixel.io/?utm_source=wpmeteor-readme) for free. 
+If you want to optimize your website's speed to the fullest extent automatically while ensuring that all Core Web Vitals are taken care of, we recommend trying [FastPixel.io](https://wordpress.org/plugins/fastpixel-website-accelerator/) for free. 
 The **FastPixel** project is a collaboration between the creator of WP Meteor and ShortPixel, and it addresses, with just a few clicks, [all the common issues](https://fastpixel.io/blog/easy-way-to-improve-core-web-vitals-on-wordpress/?utm_source=wpmeteor-readme#common-issues-affecting-core-web-vitals) that affect Core Web Vitals.
 
 == Frequently Asked Questions ==
@@ -59,7 +59,7 @@ While the plugin may not be compatible with every setup, it's important to note 
 
 * It's worth mentioning that the plugin is designed to leave no residual data on your server or database upon deactivation and removal. You are welcome to install it and assess its suitability for optimizing your site.
 
-* After installing the plugin, we advise performing a comprehensive site test. If the results don't meet your expectations, you have the option to uninstall the plugin. Alternatively, you can explore [FastPixel Website Accelerator](https://fastpixel.io/?utm_source=wpmeteor-readme).
+* After installing the plugin, we advise performing a comprehensive site test. If the results don't meet your expectations, you have the option to uninstall the plugin. Alternatively, you can explore [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/).
 
 = Known issues = 
 * WP Meteor is not compatible with Nitropack. 
@@ -114,6 +114,10 @@ Use the `wpmeteor-frontend-adjust-wpmeteor` filter in the following way:
 
 == Changelog ==
 
+3.4.3 - Major improvement, script unblocking rewritten using inplace modifications. Hopefully, addresses [Bug](https://wordpress.org/support/topic/elementor-forms-and-popup-were-stopped-working/)
+3.4.2 - Minor, updating links to [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/) as it is now live in Wordpress Plugin directory
+3.4.1 - Better compatibility with Smush, backport optimization code from [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/)
+3.4.0 - Javascript runner sync with Fastpixel Acceleration [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/)
 3.3.3 - links improved
 3.3.2 - readme.txt updated
 3.3.1 - Support for WP Fastest Cache and SiteGround Optimizer returned, but not guaranteed to work

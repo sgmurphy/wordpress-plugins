@@ -787,7 +787,7 @@ class CMB2_REST extends CMB2_Hookup_Base {
 			case 'rest_edit':
 				return $this->{$field};
 			default:
-				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . $field );
+				throw new Exception( 'Invalid ' . __CLASS__ . ' property: ' . esc_html( $field ) );
 		}
 	}
 

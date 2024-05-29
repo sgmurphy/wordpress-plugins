@@ -3,7 +3,7 @@
 Plugin Name: Combo Blocks
 Plugin URI: https://comboblocks.com/
 Description: Combo Blocks is extremely easy to use for creating grid-layout and post-layout. Also, we're offering many small blocks with extensive flexibility.
-Version: 2.2.77
+Version: 2.2.81
 Author: PickPlugins
 Author URI: https://www.pickplugins.com/
 License: GPLv2 or later
@@ -28,10 +28,40 @@ if (!class_exists('PostGrid')) {
       define('post_grid_plugin_dir', plugin_dir_path(__FILE__));
       define('post_grid_plugin_basename', plugin_basename(__FILE__));
       define('post_grid_plugin_name', 'Combo Blocks');
-      define('post_grid_version', '2.2.77');
+      define('post_grid_version', '2.2.81');
       define('post_grid_server_url', 'https://pickplugins.com/demo/post-grid/');
 
 
+
+
+
+
+      $postGridCss = [];
+      $postGridCssY = [];
+      $postGridScriptData = [];
+      $postGridFonts = [];
+
+
+      global $postGridCss;
+      global $postGridCustomCss;
+      global $postGridCssY;
+      global $postGridScriptData;
+      global $postGridFonts;
+
+      global $postGridLoaded;
+
+
+      $post_grid_block_editor = get_option('post_grid_block_editor');
+      $blocks = isset($post_grid_block_editor['blocks']) ? $post_grid_block_editor['blocks'] : [];
+      $disabled = isset($blocks['disabled']) ? $blocks['disabled'] : [];
+
+
+      foreach ($disabled as $block) {
+
+        $blockParts = explode("/", $block);
+
+        //var_dump($blockParts[1]);
+      }
 
       require_once(post_grid_plugin_dir . 'includes/blocks/functions-blocks.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/functions-rest.php');
@@ -42,14 +72,13 @@ if (!class_exists('PostGrid')) {
 
 
       require_once(post_grid_plugin_dir . 'includes/blocks/wordpress-org/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/wordpress-org-item/index.php');
 
 
       require_once(post_grid_plugin_dir . 'includes/blocks/menu-wrap/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/menu-wrap-item/index.php');
 
-      // require_once(post_grid_plugin_dir . 'includes/blocks/table-of-contents/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/post-title/index.php');
-      // require_once(post_grid_plugin_dir . 'includes/blocks/post-title/patterns.php');
 
 
       require_once(post_grid_plugin_dir . 'includes/blocks/post-excerpt/index.php');
@@ -104,9 +133,7 @@ if (!class_exists('PostGrid')) {
       require_once(post_grid_plugin_dir . 'includes/blocks/flex-wrap-item/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/masonry-wrap/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/masonry-wrap-item/index.php');
-      // require_once(post_grid_plugin_dir . 'includes/blocks/justified-wrap/index.php');
-      // require_once(post_grid_plugin_dir . 'includes/blocks/justified-image/index.php');
-      // require_once(post_grid_plugin_dir . 'includes/blocks/justified-wrap-item/index.php');
+
       require_once(post_grid_plugin_dir . 'includes/blocks/grid-wrap/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/grid-wrap-item/index.php');
 
@@ -132,30 +159,24 @@ if (!class_exists('PostGrid')) {
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-total-sales/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-stock-quantity/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-product-info/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-product-info-item/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-price/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-add-to-cart/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-star-rate/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-sale/index.php');
       require_once(post_grid_plugin_dir . 'includes/blocks/woo-stock/index.php');
-
-
-
-
-      $postGridCss = [];
-      $postGridCssY = [];
-      $postGridScriptData = [];
-      $postGridFonts = [];
-
-
-      global $postGridCss;
-      global $postGridCustomCss;
-      global $postGridCssY;
-      global $postGridScriptData;
-      global $postGridFonts;
-
-      global $postGridLoaded;
-
-
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-breadcrumb/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-my-account/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-product-tabs/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-related-products/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-sale-products/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-best-selling-products/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-top-rated-products/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-products/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-recent-products/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/woo-categories/index.php');
+      // require_once(post_grid_plugin_dir . 'includes/blocks/woo-login-form/index.php');
+      require_once(post_grid_plugin_dir . 'includes/blocks/post-comments/index.php');
 
 
       include('includes/classes/class-post-types.php');
@@ -206,7 +227,7 @@ if (!class_exists('PostGrid')) {
       register_deactivation_hook(__FILE__, array($this, '_deactivation'));
 
 
-      //add_action('activated_plugin', array($this, 'redirect_welcome'));
+      add_action('activated_plugin', array($this, 'redirect_welcome'));
 
 
       // $args = array(
@@ -224,6 +245,7 @@ if (!class_exists('PostGrid')) {
     {
       $this->enqueue_scripts();
     }
+
 
     public function _textdomain()
     {
@@ -348,6 +370,7 @@ if (!class_exists('PostGrid')) {
       wp_register_style('jquery-ui', post_grid_plugin_url . 'assets/css/jquery-ui.css');
       wp_register_style('font-awesome-4', post_grid_plugin_url . 'assets/css/fontawesome-old/css/font-awesome-4.css');
       wp_register_style('font-awesome-5', post_grid_plugin_url . 'assets/css/fontawesome-old/css/font-awesome-5.css');
+      wp_register_style('pg-admin-g-fonts', 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
       wp_enqueue_style('font-awesome-5');
 
@@ -370,8 +393,7 @@ if (!class_exists('PostGrid')) {
       wp_register_script('post_grid_layouts', post_grid_plugin_url . 'assets/js/scripts-layouts.js', array('jquery'));
 
 
-      // wp_localize_script('wp-api', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
-      // wp_enqueue_script('wp-api');
+
 
 
 
@@ -477,6 +499,16 @@ if (!class_exists('PostGrid')) {
         time()
 
       );
+
+      wp_localize_script('post-grid-blocks', 'post_grid_editor_js', array('post_grid_ajaxurl' => admin_url('admin-ajax.php'), '_wpnonce' => wp_create_nonce('wp_rest')));
+
+
+
+
+
+
+
+
       $post_grid_settings = get_option('post_grid_settings');
       $disable_blocks = isset($post_grid_settings['disable_blocks']) ? $post_grid_settings['disable_blocks'] : [];
 

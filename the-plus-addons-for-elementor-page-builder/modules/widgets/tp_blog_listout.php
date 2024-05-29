@@ -1980,7 +1980,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 				);
 
 				$postattr     = array_merge( $postattr );
-				$data_loadkey = L_tp_plus_simple_decrypt( json_encode( $postattr ), 'ey' );
+				$data_loadkey = L_tp_plus_simple_decrypt( wp_json_encode( $postattr ), 'ey' );
 			}
 
 			if ( $settings['post_extra_option'] == 'load_more' && $layout != 'carousel' ) {

@@ -48,14 +48,16 @@ class bt_bb_video extends BT_BB_Element {
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
 		$attr = array( 
-			'src' 			=> $video . '',
-			'loop' 			=> $loop_video,
-			'controls' 		=> false
+			'src'      => $video,
+			'loop'     => $loop_video,
+			'controls' => false
 		);
-
-		$output = '[video src="' . $video . '" loop="' . $loop_video . '"]';
-		$output = wp_video_shortcode( $attr );
 		
+		if ( $video != '' ) {
+			$output = wp_video_shortcode( $attr );
+		} else {
+			$output = esc_html__( 'Please enter video URL.', 'bold-builder' );
+		}
 		
 		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '>' . do_shortcode( $output ) . '</div>';
 		

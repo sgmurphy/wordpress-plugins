@@ -12,5 +12,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="entry-content">
-	<p><?php echo l_theplus_excerpt( $post_excerpt_count ); ?></p>
+	<p><?php echo esc_attr( l_theplus_excerpt( $post_excerpt_count ) ); ?></p>
 </div>

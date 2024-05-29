@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -288,6 +288,7 @@ This simple twitter widget for WordPress is simple and easy to use, and it allow
 
 <strong>[Special Day Offer Widget](https://wphtmega.com/widget/element-special-day-offer/)</strong> - This widget is a great way to entice customers with special deals. You can easily add banners and choose from different layouts that best showcase your offer, all through the HT Mega Special Day Offer Widget!
 
+<strong>[Audio Player Widget](https://wphtmega.com/widget/elementor-audio-player/)</strong> - The Audio Player Widget offers a convenient solution with simple controls to display your audio files on your WordPress site. Whether it's music, podcasts, or any other audio content, this widget allows you to effortlessly integrate it into your web pages. You can also customize the player with your own thumbnail image and adjust settings to enhance the audio playback experience. If you're looking to showcase your audio content in a professional and engaging manner, give this audio player widget a try.
 
 == Features: ==
 
@@ -525,6 +526,17 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+= Version 2.5.4 - Date: 2024-05-29 =
+* Added: Audio Player Widget.
+* Added: Rating Inner spacing and font size options in Testimonial Widget.
+* Fixed: Focus issue in Search Widget.
+* Fixed: PHP Waring issue in Accordion Widget.
+* Fixed: OceanWP theme conflict issue in Switcher Widget.
+* Fixed: Responsive break point issue in Nav Menu Widget.
+* Fixed: Default video play issue in Video Player Widget.
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of Elementor.
+
 = Version 2.5.3 - Date: 2024-05-19 =
 * Moved: Theme builder and Mega menu settings options to Module settings popup.
 * Fixed: A few minor issues.

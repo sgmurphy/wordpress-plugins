@@ -35,10 +35,12 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
         $str = '';
         $force = false;
 
-        if (isset($post->ID)) {
-            $this->custom[(int)$post->ID] = array();
-            $this->custom[(int)$post->ID] = true;
-        }
+        //get the current post ID or 0
+        $post_id = (isset($post->ID) ? (int)isset($post->ID) : 0);
+
+        $this->custom[$post_id] = array();
+        $this->custom[$post_id] = true;
+
         extract(shortcode_atts(array('id' => 0), $param));
 
         if ((int)$id > 0) {
@@ -122,10 +124,11 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
         $orderby = 'post_count';
         $order = 'DESC';
 
-        if (isset($post->ID)) {
-            $this->custom[(int)$post->ID] = array();
-            $this->custom[(int)$post->ID] = true;
-        }
+        //get the current post ID or 0
+        $post_id = (isset($post->ID) ? (int)isset($post->ID) : 0);
+
+        $this->custom[$post_id] = array();
+        $this->custom[$post_id] = true;
 
         extract(shortcode_atts(array('id' => 0, 'desc' => '', 'lpc' => '', 'theme' => '', 'orderby' => 'post_count', 'order' => 'DESC'), $param));
 
@@ -513,19 +516,22 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
             }
         }
 
-        if (!$this->show || (isset($this->custom[(int)$post->ID]) && $this->custom[(int)$post->ID] == true))
+        //get the current post ID or 0
+        $post_id = (isset($post->ID) ? (int)isset($post->ID) : 0);
+
+        if (!$this->show || (isset($this->custom[$post_id]) && $this->custom[$post_id] == true))
             return $content;
 
         if (ABH_Classes_Tools::getOption('abh_shortcode') == 1)
             if (preg_match($this->shortcode, $content)) {
-                $this->custom[(int)$post->ID] = true;
+                $this->custom[$post_id] = true;
                 return $content;
             }
 
         $content = $this->showAuthorBox($content);
 
-        if (ABH_Classes_Tools::getOption('abh_ineachpost') == 1 && $this->box == '') {
-            $post = get_post($post->ID);
+        if (ABH_Classes_Tools::getOption('abh_ineachpost') == 1 && $this->box == '' && $post_id > 0) {
+            $post = get_post($post_id);
             if (!isset($post->post_author)){
                 return '';
             }

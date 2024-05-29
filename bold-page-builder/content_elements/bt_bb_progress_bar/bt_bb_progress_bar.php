@@ -16,10 +16,6 @@ class bt_bb_progress_bar extends BT_BB_Element {
 
 		$class = array( $this->shortcode );
 		$data_override_class = array();
-
-		if ( $text == '' ) {
-			$text = $percentage . "%";
-		}
 		
 		if ( $el_class != '' ) {
 			$class[] = $el_class;
@@ -105,7 +101,7 @@ class bt_bb_progress_bar extends BT_BB_Element {
 		require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
 		$color_scheme_arr = bt_bb_get_color_scheme_param_array();			
 		
-		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Progress Bar', 'bold-builder' ), 'description' => esc_html__( 'Progress bar', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
+		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Progress Bar', 'bold-builder' ), 'description' => esc_html__( 'Animated progress bar', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
 				array( 'param_name' => 'percentage', 'type' => 'textfield', 'heading' => esc_html__( 'Percentage', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 75', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'text', 'type' => 'textfield', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Progress Bar text', 'bold-builder' ), 'preview' => true ),

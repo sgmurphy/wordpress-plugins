@@ -17,7 +17,8 @@ class bt_bb_image extends BT_BB_Element {
 			'content_display'  					=> '',
 			'content_background_color' 			=> '',
 			'content_background_opacity'	    => '',
-			'content_align'						=> ''
+			'content_align'						=> '',
+			'ignore_fe_editor'                  => '',
 		) ), $atts, $this->shortcode ) );
 		
 		require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
@@ -176,6 +177,8 @@ class bt_bb_image extends BT_BB_Element {
 					$output .= '<img src="' . esc_url_raw( $image ) . '"' . $title_attr . $alt_attr . '>';
 				}
 			}
+		} else if ( ! $ignore_fe_editor ) {
+			$output .= '<img src="' . BT_BB_Root::$path . 'img/placeholder.png" alt="' . esc_html__( 'Placeholder image', 'bold-builder' ) . '" title="' . esc_html__( 'Placeholder image', 'bold-builder' ) . '">';
 		}
 		
 		if ( ! empty( $link ) ) {

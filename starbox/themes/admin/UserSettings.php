@@ -18,7 +18,8 @@
 
             </fieldset>
             <fieldset>
-                <legend><?php echo esc_html__('Change the Profile Image', _ABH_PLUGIN_NAME_); ?></legend>
+                <div class="abh_title"><?php _e('Change the Profile Image', _ABH_PLUGIN_NAME_); ?>:</div>
+
                 <div class="abh_gravatar">
                     <p>
                         <?php echo esc_html__('File types: JPG, JPEG, GIF and PNG. Ideal image size is: 80x80', _ABH_PLUGIN_NAME_); ?>
@@ -35,8 +36,7 @@
                         ?>
                         <div class="abh_upload">
                             <input type="file" name="abh_gravatar" autocomplete="off" />
-                            <input type="submit"  id="abh_gravatar_update" name="abh_update" value="<?php echo esc_attr__('Upload', _ABH_PLUGIN_NAME_) ?>" />
-                            <div class="abh_upload_reset"><label for="abh_resetgravatar"><?php echo esc_html__('Reset the uploaded image', _ABH_PLUGIN_NAME_); ?></label><input name="abh_resetgravatar" type="checkbox" value="1" /></div>
+                            <div class="abh_upload_reset"><label for="abh_resetgravatar" style="position:relative;top:2px;"><?php echo esc_html__('Reset the uploaded image', _ABH_PLUGIN_NAME_); ?></label><input name="abh_resetgravatar" type="checkbox" value="1" /></div>
                             <span class="abh_settings_info"><?php echo sprintf(esc_attr__('You can also set your image on %shttps://en.gravatar.com/%s for your email address', _ABH_PLUGIN_NAME_), '<a href="https://en.gravatar.com/" target="_blank">', '</a>'); ?></span>
                         </div>
                     </div>
@@ -44,7 +44,8 @@
 
             </fieldset>
             <fieldset>
-                <legend><?php echo esc_html__('Theme settings:', _ABH_PLUGIN_NAME_); ?></legend>
+                <div class="abh_title"><?php _e('Theme settings', _ABH_PLUGIN_NAME_); ?>:</div>
+
                 <div class="abh_option_content">
                     <div class="abh_select">
                         <select name="abh_position">
@@ -118,7 +119,8 @@
                     ?></div>
             </fieldset>
             <fieldset>
-                <legend><?php echo esc_html__('Job settings:', _ABH_PLUGIN_NAME_); ?></legend>
+                <div class="abh_title"><?php _e('Job settings', _ABH_PLUGIN_NAME_); ?>:</div>
+
                 <div>
                     <p><span><?php echo esc_html__('Job Title:', _ABH_PLUGIN_NAME_); ?></span> <input type="text" name="abh_title" value="<?php echo esc_attr($view->author['abh_title']); ?>" size="30" /></p>
                     <p><span><?php echo esc_html__('Company:', _ABH_PLUGIN_NAME_); ?></span> <input type="text" name="abh_company" value="<?php echo esc_attr($view->author['abh_company']); ?>" size="30" /></p>
@@ -135,7 +137,7 @@
                 </div>
             </fieldset>
             <fieldset >
-                <legend><?php echo esc_html__('Social settings:', _ABH_PLUGIN_NAME_); ?></legend>
+                <div class="abh_title"><?php _e('Social settings', _ABH_PLUGIN_NAME_); ?>:</div>
 
                 <div id="abh_option_social" >
                     <p class="abh_social_text" style="height:30px; line-height: 30px;">
@@ -145,7 +147,7 @@
                     </p>
                     <p><span class="abh_social_settings abh_twitter"></span><span><?php echo esc_html__('Twitter:', _ABH_PLUGIN_NAME_); ?></span> <input type="text" name="abh_twitter" value="<?php echo esc_attr($view->author['abh_twitter']); ?>" size="30" /></p>
                     <p><span class="abh_social_settings abh_facebook"></span><span><?php echo esc_html__('Facebook:', _ABH_PLUGIN_NAME_); ?></span> <input type="text" name="abh_facebook" value="<?php echo esc_attr($view->author['abh_facebook']); ?>" size="30" /></p>
-                    <p style="font-size: 18px; color: red;"><?php echo sprintf(esc_html__('Need more Socials Links and High Priority support? Visit %sStarbox PRO%s', _ABH_PLUGIN_NAME_), '<a href="http://starbox.squirrly.co/product/starbox-the-author-box-for-humans/" target="_blank">', '</a>'); ?></p>
+                    <div style="margin-top:10px"></div>
                     <div class="abh_option_content">
                         <div class="abh_switch">
                             <input id="abh_nofollow_social_on" type="radio" class="abh_switch-input" name="abh_nofollow_social"  value="1" <?php echo ((!$view->author['abh_nofollow_social'] == 0) ? "checked" : '') ?> />
@@ -182,7 +184,29 @@
 
             <div id="abh_settings_title" >&nbsp;</div>
         </div>
+        <div id="abh_settings_right" style="">
+            <div class="panel-body f-gray-dark text-center b-b" style="line-height: 1.5;height:32vw;width:20vw;margin-left:30px;box-shadow:0 5px 9px -8px #999;border:1px solid #f1f1f1;border-radius:5px;background-image:radial-gradient(at 59% 100%, hsla(180,100%,10%,1) 0px, transparent 50%),
+                    radial-gradient(at 0% 42%, hsla(180,100%,11%,1) 0px, transparent 50%),
+                    radial-gradient(at 100% 4%, hsla(180,100%,17%,1) 0px, transparent 50%);background-color:hsla(180,0%,0%,1);">
 
+                <div style="text-align: center">
+
+                    <img style="width:18vw;margin-top:1.2vw;height:17vw" src="<?php echo _ABH_THEME_URL_ ?>/img/promo2.gif" alt="">
+                    <div style="color:white;width:18vw;display:flex;align-items: flex-start;margin-left:8px;flex-direction:column;">
+
+                        <div style="font-weight:400;color:#FFFFFF;font-size:1.1vw;margin-top:15px;">Premium WordPress Plugin</div>
+
+                        <div style="red;width:18vw;font-weight:bold;line-height:28px;color:#FFFFFF;font-size:1.6vw;margin-top:20px;display:flex;text-align: left;flex-wrap:wrap;">DARE TO BE DIFFERENT.</div>
+
+                        <a class="discover-pro" style="color:#333333;background-color:#FBCC34;text-decoration:none;text-align:left;margin-top:20px;padding:7px;border-radius:5px;" href="https://starbox.squirrly.co/" target="_blank">
+                            <span style="text-decoration:none;font-weight:700;font-size:1.1vw;">Discover Starbox PRO</span>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 </div>

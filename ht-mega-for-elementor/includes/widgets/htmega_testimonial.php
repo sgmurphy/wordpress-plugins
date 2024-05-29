@@ -1385,15 +1385,42 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
             $this->add_responsive_control(
                 'htmega_testimonial_clientrating_margin',
                 [
-                    'label' => __( 'Margin', 'htmega-addons' ),
-                    'type' => Controls_Manager::DIMENSIONS,
-                    'size_units' => [ 'px', '%', 'em' ],
-                    'selectors' => [
-                        '{{WRAPPER}} .htmega-testimonial-rating li' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    'label' => __( 'Inner spacing', 'htmega-addons' ),
+                    'type'  => Controls_Manager::SLIDER,
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 100,
+                        ],
                     ],
-                    'separator' =>'before',
+                    'default' => [
+                        'size' => 14,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-testimonial-rating' => 'gap: {{SIZE}}{{UNIT}};',
+                    ],
                 ]
             );
+            $this->add_responsive_control(
+                'htmega_testimonial_clientrating_size',
+                [
+                    'label' => __( 'Font Size', 'htmega-addons' ),
+                    'type'  => Controls_Manager::SLIDER,
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 300,
+                        ],
+                    ],
+                    'default' => [
+                        'size' => 14,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .htmega-testimonial-rating li i' => 'font-size: {{SIZE}}{{UNIT}};',
+                    ],
+                ]
+            );
+            
         $this->end_controls_section(); // Style Testimonial rating style end    
         // Style Testimonial arrow style start
         $this->start_controls_section(

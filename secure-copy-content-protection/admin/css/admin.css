@@ -1,0 +1,80 @@
+html[dir="rtl"] body.rtl{
+    text-align: right;
+}
+
+#adminmenu a.toplevel_page_secure-copy-content-protection div.wp-menu-image img {
+    padding: 0;
+    opacity: .6;
+    width: 32px;
+    transition: all .3s;
+}
+
+#adminmenu a.toplevel_page_secure-copy-content-protection + ul.wp-submenu.wp-submenu-wrap li:last-child a {
+    color: #68A615;
+    font-weight: bold;
+}
+
+div#ays_ask_question_content_inner{
+    position: relative;
+}
+
+div#ays_ask_question_content div#ays_ask_question_content_inner a#ays_poll_queztion_link{
+    position: absolute;
+    color: white;
+    text-decoration: none;
+    font-family: cursive;
+    width: 95%;
+    font-weight: bold;
+    box-shadow: unset;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform: rotate(4deg);
+    height: 75%;
+}
+
+div#ays_ask_question_content{
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 11111;
+
+}
+
+.swal2-popup .ays-sccp-upgrade-button,
+.swal2-popup .ays-sccp-cancel-button {
+    position: relative;
+}
+
+.swal2-popup .ays-sccp-upgrade-button.swal2-styled.swal2-confirm:after {
+    content: "(Save Your Data)";
+    position: absolute;
+    color: #878787;
+    bottom: -18px;
+    left: 25px;
+    font-size: 12px;
+}
+
+.swal2-popup .ays-sccp-cancel-button.swal2-styled.swal2-cancel:after {
+    content: "(Delete All Data)";
+    position: absolute;
+    color: #878787;
+    bottom: -18px;
+    left: 30px;
+    font-size: 12px;
+}
+
+.swal2-popup .ays-sccp-upgrade-button.swal2-styled.swal2-confirm {
+    background-color: #fff !important;
+    color: #3085d6 !important;
+    border: 1px solid #3085d6 !important;
+}
+
+#adminmenu a.toplevel_page_secure-copy-content-protection div.wp-menu-image img {
+    width: 28px !important;
+    padding-top: 2px !important;
+}

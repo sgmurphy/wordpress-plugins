@@ -1,0 +1,80 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "textdomain": "snow-monkey-blocks",
+  "name": "snow-monkey-blocks/directory-structure",
+  "title": "Directory structure",
+  "description": "Display a list of directories and files",
+  "category": "smb",
+  "attributes": {
+    "templateLock": {
+      "type": [
+        "string",
+        "boolean"
+      ],
+      "enum": [
+        "all",
+        "insert",
+        "contentOnly",
+        false
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": false,
+      "link": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true
+    }
+  },
+  "example": {
+    "innerBlocks": [
+      {
+        "name": "snow-monkey-blocks/directory-structure-item-directory",
+        "attributes": {
+          "name": "Lorem ipsum dolor sit amet"
+        },
+        "innerBlocks": [
+          {
+            "name": "snow-monkey-blocks/directory-structure-item-file",
+            "attributes": {
+              "name": "Lorem ipsum dolor sit amet"
+            }
+          },
+          {
+            "name": "snow-monkey-blocks/directory-structure-item-file",
+            "attributes": {
+              "name": "Lorem ipsum dolor sit amet"
+            }
+          }
+        ]
+      },
+      {
+        "name": "snow-monkey-blocks/directory-structure-item-directory",
+        "attributes": {
+          "name": "Lorem ipsum dolor sit amet"
+        },
+        "innerBlocks": [
+          {
+            "name": "snow-monkey-blocks/directory-structure-item-file",
+            "attributes": {
+              "name": "Lorem ipsum dolor sit amet"
+            }
+          },
+          {
+            "name": "snow-monkey-blocks/directory-structure-item-file",
+            "attributes": {
+              "name": "Lorem ipsum dolor sit amet"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "style": "file:./style.css",
+  "editorScript": "file:./index.js"
+}

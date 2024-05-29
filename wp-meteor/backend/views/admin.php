@@ -30,9 +30,6 @@
                 <div className="field">
                     <input type="submit" name="submit" id="submit" class="button" value="Save Changes" />
                 </div>
-                <p>
-                    <strong>Self Promotion</strong>: World-class full spectrum Wordpress development at $75/hour from the author of WP Meteor. <a href="#author">Details here</a>
-                </p>
             </div>
             <div id="exclusions" class="tab">
                 <?php do_action(WPMETEOR_TEXTDOMAIN . '-backend-display-settings-exclusions'); ?>
@@ -55,7 +52,7 @@
                     <li><input type="checkbox" name="enable-cache" label="SmartCache Accelerator" disabled /><label for="enable-cache">Smart Cache Accelerator</label></li>
                 </ul>
                 <div className="field">
-                    All these options and more are available in <strong>FastPixel Accelerator plugin</strong> - a freemium, commercial grade plugin spawned from WP Meteor. <a href="https://fastpixel.io/?utm_source=wpmeteor-tab-advanced">Try it for free.</a>
+                    All these options and more are available in <strong>FastPixel Accelerator plugin</strong> - a freemium, commercial grade plugin spawned from WP Meteor. <a href="https://wordpress.org/plugins/fastpixel-website-accelerator/">Now available in the Wordpress Plugin Directory.</a>
                 </div>
             </div>
         </div>

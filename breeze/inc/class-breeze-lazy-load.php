@@ -342,6 +342,8 @@ class Breeze_Lazy_Load {
 				$content = str_replace( $video_tag, $video_tag_new, $content );
 			}
 		}
+		// Buffer decoding.
+		$content = mb_decode_numericentity( $content, array( 0x80, 0x10FFFF, 0, ~0 ), 'UTF-8' );
 
 		return $content;
 

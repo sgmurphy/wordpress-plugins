@@ -6,7 +6,7 @@ Tags: email marketing, email subscribers, newsletters, autoresponders, email aut
 Requires at least: 3.9
 Tested up to: 6.5.2
 Requires PHP: 7.0
-Stable tag: 5.7.21.1
+Stable tag: 5.7.22
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,11 +438,17 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.21.1 =
+= 5.7.22 =
 
-* Fix: Error message: Uncaught DivisionByZeroError: Division by zero
+* Improvements: Enhanced the post notification setup process
+* Fix: Image upload issue while composing email in some cases
 
 == Changelog ==
+
+**5.7.22 (29.05.2024)**
+
+* Improvements: Enhanced the post notification setup process
+* Fix: Image upload issue while composing email in some cases
 
 **5.7.21.1 (23.05.2024)**
 

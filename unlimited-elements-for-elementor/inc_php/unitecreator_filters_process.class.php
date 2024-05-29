@@ -1186,7 +1186,7 @@ class UniteCreatorFiltersProcess{
 		
 	    if($isDebugFromGet == true)
 	        $objOutput->showDebugData(true);
-		
+
 		$objOutput->initByAddon($addon);
 
 	    if($isDebugFromGet == true){
@@ -1866,7 +1866,6 @@ class UniteCreatorFiltersProcess{
 		return($arrParts);
 	}
 	
-	
 	/**
 	 * get filters attributes
 	 * get the base url
@@ -1894,10 +1893,21 @@ class UniteCreatorFiltersProcess{
 				$search = "";
 		}
 		
+		
 		if($search !== null){
 			$search = urlencode($search);
 			$urlBase = UniteFunctionsUC::addUrlParams($urlBase, "s=$search");
 		}
+
+		//include lang if exists
+		
+		$lang = UniteFunctionsUC::getGetVar("lang","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
+		
+		if(!empty($lang)){
+			$lang = urlencode($lang);
+			$urlBase = UniteFunctionsUC::addUrlParams($urlBase, "lang=$lang");
+		}
+		
 		
 		//debug client url
 		

@@ -337,11 +337,11 @@ Class L_Plus_Library {
         $js_path_url = $this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-'.$filename . $post_type : 'tpebl') . (isset($post_id) ? '-' . $post_id : '') . '.min.js');
 
         if (file_exists($css_path_url) && in_array( 'css', $extension )) {
-            unlink($css_path_url);
+            wp_delete_file($css_path_url);
         }
 
         if (file_exists($js_path_url) && in_array( 'js', $extension )) {
-            unlink($js_path_url);
+            wp_delete_file($js_path_url);
         }
     }
 
@@ -365,7 +365,7 @@ Class L_Plus_Library {
                 continue;
             }
 
-            unlink($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . $item));
+            wp_delete_file($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . $item));
         }
     }
 	
@@ -375,10 +375,10 @@ Class L_Plus_Library {
      */
     public function remove_backend_dir_files() {
 		if (file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.css')) {
-			unlink($this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . '/theplus.min.css'));
+			wp_delete_file($this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . '/theplus.min.css'));
 		}
 		if(file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.js')){
-			unlink($this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . '/theplus.min.js'));
+			wp_delete_file($this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . '/theplus.min.js'));
 		}
 		
 		$action_page = 'tpae_backend_cache';
@@ -400,14 +400,14 @@ Class L_Plus_Library {
         }
 		
 		if (file_exists($path_url . '/'. $plus_name. '.min.css')) {
-			unlink($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. $plus_name . '.min.css'));
+			wp_delete_file($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. $plus_name . '.min.css'));
 		}
 		if (file_exists($path_url . '/'. str_replace("theplus","theplus-preload",$plus_name). '.min.css')) {
-			unlink($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. str_replace("theplus","theplus-preload",$plus_name) .'.min.css'));
+			wp_delete_file($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. str_replace("theplus","theplus-preload",$plus_name) .'.min.css'));
 			array_map('unlink', glob($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. str_replace("theplus","theplus-preload",$plus_name.'-') .'*.*')));
 		}
 		if(file_exists($path_url . '/'. $plus_name. '.min.js')){
-			unlink($this->secure_path_url($path_url. DIRECTORY_SEPARATOR . '/'. $plus_name . '.min.js'));
+			wp_delete_file($this->secure_path_url($path_url. DIRECTORY_SEPARATOR . '/'. $plus_name . '.min.js'));
 		}
 
 		delete_option($plus_name. '_update_at');

@@ -34,10 +34,16 @@ class PGBlockPostText
   {
     wp_register_script('pg-text', post_grid_plugin_url . 'includes/blocks/text/front-scripts.js', [], '', true);
 
-        if (has_block('post-grid/text')) {
+    if (has_block('post-grid/text')) {
 
-            wp_enqueue_script('pg-text');
-        }
+      $other = isset($attributes['other']) ? $attributes['other'] : [];
+      $otherOptions = isset($other['options']) ? $other['options'] : [];
+      $otherCopyObj = isset($otherOptions['copyObj']) ? $otherOptions['copyObj'] : false;
+
+      if ($otherCopyObj) {
+        wp_enqueue_script('pg-text');
+      }
+    }
   }
   function front_style($attributes)
   {
@@ -68,8 +74,11 @@ class PGBlockPostText
 
     $other = isset($attributes['other']) ? $attributes['other'] : [];
     $otherOptions = isset($other['options']) ? $other['options'] : [];
-    $otherCopyObj = isset($otherOptions['copyObj']) ? $otherOptions['copyObj'] : [];
-    
+    $otherCopyObj = isset($otherOptions['copyObj']) ? $otherOptions['copyObj'] : false;
+
+    $visible = isset($attributes['visible']) ? $attributes['visible'] : [];
+    $rules = isset($visible['rules']) ? $visible['rules'] : [];
+
     $text = isset($attributes['text']) ? $attributes['text'] : [];
     $textOptions = isset($text['options']) ? $text['options'] : [];
     $textClass = isset($textOptions['class']) ? $textOptions['class'] : '';
@@ -100,16 +109,23 @@ class PGBlockPostText
     $obj['id'] = $post_ID;
     $obj['type'] = 'post';
 
-    //var_dump($obj);
+    ////var_dump($obj);
     $textClass = parse_css_class($textClass, $obj);
 
 
 
     //$textClass = parse_css_class($textClass, $obj);
 
+    // //* Visible condition
+    if (!empty($visible['rules'])) {
+      $isVisible = post_grid_visible_parse($visible);
 
+      // var_dump($isVisible);
 
+      if (!$isVisible) return;
+    }
 
+    // //* Visible condition
 
 
     ob_start();
@@ -117,14 +133,20 @@ class PGBlockPostText
 
 
 
+
     if (!empty($wrapperTag)) :
 ?>
-<<?php echo esc_attr($wrapperTag); ?> class="
+
+
+
+      <<?php echo tag_escape($wrapperTag); ?> class="
         <?php echo esc_attr($blockId); ?>
-        <?php echo esc_attr($textClass); ?>" id="<?php echo esc_attr($textId); ?>"
-  clickToCopy="<?php echo esc_attr($otherCopyObj); ?>"><?php echo $content; ?>
-</<?php echo esc_attr($wrapperTag); ?>>
-<?php
+        <?php echo esc_attr($textClass); ?>" id="<?php echo esc_attr($textId); ?>" <?php
+
+                                                                                    if ($otherCopyObj) :
+                                                                                    ?> clickToCopy="<?php echo esc_attr($otherCopyObj); ?>" <?php endif; ?>><?php echo $content; ?>
+      </<?php echo tag_escape($wrapperTag); ?>>
+    <?php
 
     endif;
 

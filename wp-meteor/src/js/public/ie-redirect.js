@@ -1,17 +1,15 @@
 try {
-  (() => {
-  })();
   new MutationObserver(function() {
   });
-  new PerformanceObserver(function() {
+  new Promise(function() {
   });
   Object.assign({}, {});
   document.fonts.ready.then(function() {
   });
 } catch (e) {
-  var replacement = "wpmeteordisable=1";
+  var replacement = false ? "fpodisable=1" : "wpmeteordisable=1";
   var href = document.location.href;
-  if (!href.match(/[?&]wpmeteordisable/)) {
+  if (!(false ? href.match(/[?&]fpodisable/) : href.match(/[?&]wpmeteordisable/))) {
     var nhref = "";
     if (href.indexOf("?") == -1) {
       if (href.indexOf("#") == -1) {

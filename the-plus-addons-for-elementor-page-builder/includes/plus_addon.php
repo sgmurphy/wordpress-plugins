@@ -31,18 +31,9 @@ function l_theplus_validate_html_tag( $check_tag ) {
 	return in_array( strtolower( $check_tag ), l_theplus_html_tag_check() ) ? $check_tag : 'div';
 }
 
-
-/*panel start*/
-function theplus_free_import_data_content(){
-	echo '<div class="tp-pro-note-title"><p>Collection of 18+ Full page Templates, All PlusWidget Pages, All PlusListing Pages, All PlusExtras Pages, and 300+ Special UI Blocks with our pro version.</p></div>
-		<div style="text-align:center;"><img style="display: flex;justify-content: center;width:75%;" src="'.L_THEPLUS_URL .'assets/images/panel/plus-design.png" alt="'.esc_attr__('Plus Design','tpebl').'" class="panel-plus-design" /></div>
-		<div class="tp-pro-note-link"><a href="https://theplusaddons.com/plus-design/" target="_blank" rel="noopener noreferrer">Check Plus Design</a></div>';
-}
-add_action('theplus_free_pro_import_data', 'theplus_free_import_data_content');
-
 function theplus_free_purchase_code_content(){
 	echo '<div class="tp-pro-note-title"><p style="margin-bottom:40px;font-weight: bolder;">Activate Licence to get access of our Pro Widgets, Features and Design Templates.</p></div>
-		<div style="text-align:center;"><img style="width:auto;height:300px;" src="'.L_THEPLUS_URL .'assets/images/panel/activate.png" alt="'.esc_attr__('Activate','tpebl').'" class="panel-plus-activate" /></div>
+		<div style="text-align:center;"><img style="width:auto;height:300px;" src="' . esc_url(L_THEPLUS_URL . 'assets/images/panel/plus-design.png') . '" alt="'.esc_attr__('Activate','tpebl').'" class="panel-plus-activate" /></div>
 		<div style="display: flex;flex-direction: column;align-items: center;"> 
 			<div class="tp-pro-note-step">
 				<span>STEP I : </span>
@@ -78,7 +69,7 @@ add_action('theplus_free_pro_purchase_code', 'theplus_free_purchase_code_content
 function theplus_free_white_label_content(){
 	echo '<div class="tp-pro-note-title"><p style="margin-bottom:50px;">White Label our plugin and setup client\'s branding all around. You can update name, description, Icon and even hide the menu from dashboard. Get our pro version to have access of this feature.</p></div>
 		<div style="text-align:center;">
-			<img style="width:55%;" src="'.L_THEPLUS_URL .'assets/images/panel/white-lable.png" alt="'.esc_attr__('White Lable','tpebl').'" class="panel-plus-white-lable" />
+			<img style="width:55%;" src="' . esc_url(L_THEPLUS_URL . 'assets/images/panel/white-lable.png') . '" alt="'.esc_attr__('White Lable','tpebl').'" class="panel-plus-white-lable" />
 		</div>
 	<div class="tp-pro-note-link"><a href="https://theplusaddons.com/free-vs-pro-compare/" target="_blank" rel="noopener noreferrer">Compare Free vs Pro</a></div>';
 }

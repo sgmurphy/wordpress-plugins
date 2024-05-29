@@ -263,10 +263,27 @@
 		}
 	}
 	
-	&:not(.bt_bb_fe_editing) .bt_bb_fe_before:not(:hover) {
+	&:not(.bt_bb_fe_editing) > .bt_bb_fe_before:not(:hover) {
 		display: block;
 		border: 0;
 		z-index: 15; /* float fix, .bt_bb_slider.bt_bb_fe_editing_box > .bt_bb_fe_before in style.css has z-index 11 so 15 is ok?  */
+	}
+	
+	.bt_bb_image_content_inner .bt_bb_fe_before:not(:hover) {
+		border: 0;
+	}
+	
+	.bt_bb_image_content_inner .bt_bb_fe_before {
+		display: block;
+		z-index: 16 !important;
+	}
+	
+	.bt_bb_image_content_inner .bt_bb_button .bt_bb_fe_before {
+		z-index: 17 !important; /* float fix */
+	}
+	
+	.bt_bb_image_content_inner .bt_bb_icon .bt_bb_fe_before {
+		z-index: 17 !important; /* float fix */
 	}	
 	
 }

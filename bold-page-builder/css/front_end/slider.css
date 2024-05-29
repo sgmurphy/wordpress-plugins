@@ -55,6 +55,9 @@
 		.slick-slide {
 			height: 50vh;
 		}
+		.slick-list {
+			height: 50vh !important;
+		}
 	}
 	.bt_bb_height_keep-height & {
 		.slick-slide {

@@ -9,14 +9,6 @@ class bt_bb_accordion extends BT_BB_Element {
 			'shape'        => '',
 			'closed'       => ''
 		) ), $atts, $this->shortcode ) );
-		
-		wp_enqueue_script( 
-			'bt_bb_accordion',
-			plugin_dir_url( __FILE__ ) . 'bt_bb_accordion.js',
-			array( 'jquery' ),
-			BT_BB_VERSION,
-			true
-		);
 
 		$class = array( $this->shortcode );
 

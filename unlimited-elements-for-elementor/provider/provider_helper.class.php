@@ -634,7 +634,7 @@ class HelperProviderUC{
 		//print custom JS script
 
 		if($scriptType != "css"){
-
+			
 			$isSaparateScripts = HelperProviderCoreUC_EL::getGeneralSetting("js_saparate");
 			$isSaparateScripts = UniteFunctionsUC::strToBool($isSaparateScripts);
 
@@ -929,7 +929,10 @@ class HelperProviderUC{
 	 * check if backgrounds enabled
 	 */
 	public static function isBackgroundsEnabled(){
-
+		
+		if(GlobalsUnlimitedElements::$enableElementorSupport == false)
+			return(false);
+		
 		$isBackgroundsEnabled = HelperProviderCoreUC_EL::getGeneralSetting("enable_backgrounds");
 		$isBackgroundsEnabled = UniteFunctionsUC::strToBool($isBackgroundsEnabled);
 
@@ -983,6 +986,34 @@ class HelperProviderUC{
 	}
 	
 	private function _______DEBUG_________(){}
+	
+	/**
+	 * show debug db tables
+	 */
+	public static function showDebugDBTables(){
+		
+		$db = HelperUC::getDB();
+	
+		$response = $db->fetchSql("SHOW TABLES");
+		
+		echo "<div style='padding-left:30px;padding-top:20px;'>";
+		
+		foreach($response as $row){
+			
+			if(is_string($row)){
+				dmp($row);
+				continue;
+			}
+			
+			$value = UniteFunctionsUC::getArrFirstValue($row);
+			
+			dmp($value);
+		}
+		
+		echo "</div>";
+		
+	}
+	
 	
 	/**
 	 * show last posts queries

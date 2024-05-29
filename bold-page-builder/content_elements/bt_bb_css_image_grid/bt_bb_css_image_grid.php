@@ -16,7 +16,6 @@ class bt_bb_css_image_grid extends BT_BB_Element {
 
 		wp_enqueue_script( 'jquery-masonry' );
 
-
 		$class = array( $this->shortcode );
 
 		if ( $el_class != '' ) {
@@ -71,15 +70,28 @@ class bt_bb_css_image_grid extends BT_BB_Element {
 		$format_arr = explode( ',', $format );
 			
 		$n = 0;
+		
+		if ( $images == '' ) {
+			$images_arr = array();
+			for ( $i = 0; $i < $columns; $i++ ) {
+				$images_arr[] = -1;
+			}
+		}
 
 		foreach( $images_arr as $id ) {
+			$data_title = '';
 			if ( is_numeric( $id ) ) {
-				$img = wp_get_attachment_image_src( $id, $img_base_size );
-				$img_src = isset( $img[0] ) ? $img[0] : '';
-				$img_full = wp_get_attachment_image_src( $id, $lightbox_img_base_size );
-				$img_src_full = isset( $img_full[0] ) ? $img_full[0] : '';
-				$image_post = get_post( $id );
-				
+				if ( $id == -1 ) {
+					$image_post = '';
+					$img_src = BT_BB_Root::$path . 'img/placeholder2.png';
+					$img_src_full = BT_BB_Root::$path . 'img/placeholder2.png';
+				} else {
+					$img = wp_get_attachment_image_src( $id, $img_base_size );
+					$img_src = isset( $img[0] ) ? $img[0] : '';
+					$img_full = wp_get_attachment_image_src( $id, $lightbox_img_base_size );
+					$img_src_full = isset( $img_full[0] ) ? $img_full[0] : '';
+					$image_post = get_post( $id );
+				}
 				if ( isset( $format_arr[ $n ] ) ) {
 					$tile_format = 'bt_bb_tile_format';
 					if ( $format_arr[ $n ] != '' ) {
@@ -88,8 +100,7 @@ class bt_bb_css_image_grid extends BT_BB_Element {
 						$tile_format .= '_11';
 					}
 				}
-				
-				$data_title = '';
+
 				if ( is_object( $image_post ) ) {
 					$data_title = $image_post->post_title;
 				}
@@ -145,7 +156,7 @@ class bt_bb_css_image_grid extends BT_BB_Element {
 					'value' => bt_bb_get_image_sizes()
 				),
 				array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ), 'description' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ) ),
-				array( 'param_name' => 'lightbox_img_base_size', 'type' => 'dropdown', 'default' => 'full', 'heading' => esc_html__( 'Popup image size', 'bold-builder' ),
+				array( 'param_name' => 'lightbox_img_base_size', 'type' => 'dropdown', 'default' => 'full', 'heading' => esc_html__( 'Lightbox image size', 'bold-builder' ),
 					'value' => bt_bb_get_image_sizes()
 				),
 				array( 'param_name' => 'no_lightbox', 'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'bold-builder' ) => 'no_lightbox', esc_html__( 'No', 'bold-builder' ) => 'hide_share' ), 'heading' => esc_html__( 'Disable lightbox', 'bold-builder' ) )

@@ -3,6 +3,7 @@
 require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
 class SiteGuard_RenameLogin extends SiteGuard_Base {
+	private $denied_login;
 	protected static $incompatible_plugins = array(
 		'WordPress HTTPS (SSL)' => 'wordpress-https/wordpress-https.php',
 		'qTranslate X'          => 'qtranslate-x/qtranslate.php',
@@ -26,6 +27,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	}
 	function init() {
 		global $siteguard_config;
+		$this->denied_login = false;
 		$siteguard_config->set( 'renamelogin_path', 'login_' . sprintf( '%05d', siteguard_rand( 1, 99999 ) ) );
 		$siteguard_config->set( 'redirect_enable', '0' );
 		$siteguard_config->update();
@@ -59,6 +61,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		}
 	}
 	function add_filter() {
+		add_filter( 'plugins_loaded', array( $this, 'handler_plugins_loaded' ), 9999 );
 		add_filter( 'login_init', array( $this, 'handler_login_init' ), 10, 2 );
 		add_filter( 'site_url', array( $this, 'handler_site_url' ), 10, 2 );
 		add_filter( 'network_site_url', array( $this, 'handler_site_url' ), 10, 2 );
@@ -87,11 +90,14 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	}
 	function convert_url( $link ) {
 		global $siteguard_config;
+		$result = $link;
 		$custom_login_url = $siteguard_config->get( 'renamelogin_path' );
-		if ( false !== strpos( $link, 'wp-login.php' ) ) {
-			$result = str_replace( 'wp-login.php', $custom_login_url, $link );
+		if ( false !== strpos( $link, 'wp-login.php?action=register' ) && $this->denied_login) {
+			$this->set_404();
 		} else {
-			$result = $link;
+			if ( false !== strpos( $link, 'wp-login.php' ) ) {
+				$result = str_replace( 'wp-login.php', $custom_login_url, $link );
+			}
 		}
 		return $result;
 	}
@@ -191,6 +197,18 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 			}
 			wp_safe_redirect( home_url() );
 			exit;
+		}
+	}
+	function handler_plugins_loaded() {
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+			return;
+		}
+		$request = parse_url( $_SERVER['REQUEST_URI'] );
+		$denied_slugs = array( 'wp-register' );
+		$denied_slugs_to_regex = implode( '|', $denied_slugs );
+		$is_denied = preg_match( '#\/(' . $denied_slugs_to_regex . ')(\.php)?$#i', untrailingslashit( $request['path'] ) );
+		if ( $is_denied && ! is_admin() ) {
+			$this->denied_login = true;
 		}
 	}
 }

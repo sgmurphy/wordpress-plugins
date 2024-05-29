@@ -413,6 +413,11 @@ class HTMega_Widgets_Control{
                 'option-tab'=>'htmega_element_tabs', 
                 'is_pro'   => false,
             ],
+            'audio_player' =>[
+                'title' => 'Audio Player',
+                'option-tab'=>'htmega_element_tabs', 
+                'is_pro'   => false,
+            ],
 
             'bbpress' => [   
                 'title' => 'Bbpress',

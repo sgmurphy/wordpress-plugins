@@ -1,5 +1,197 @@
 (() => {
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/utils/event-emitter.js
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/utils/delta.js
+  var delta_default = () => Math.round(performance.now()) / 1e3;
+
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/literals.js
+  var addEventListener = "addEventListener";
+  var removeEventListener = "removeEventListener";
+  var getAttribute = "getAttribute";
+  var setAttribute = "setAttribute";
+  var removeAttribute = "removeAttribute";
+  var hasAttribute = "hasAttribute";
+  var querySelector = "querySelector";
+  var querySelectorAll = querySelector + "All";
+  var appendChild = "appendChild";
+  var removeChild = "removeChild";
+  var createElement = "createElement";
+  var tagName = "tagName";
+  var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
+  var prototype = "prototype";
+  var __lookupGetter__ = "__lookupGetter__";
+  var __lookupSetter__ = "__lookupSetter__";
+  var DCL = "DOMContentLoaded";
+  var L = "load";
+  var E = "error";
+
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/globals.js
+  var w = window;
+  var d = document;
+  var de = d.documentElement;
+  var c = true ? console.log : () => {
+  };
+  var ce = console.error;
+
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/mocks/jquery.js
+  var mocked = true;
+  var jQueryMock = class {
+    constructor() {
+      this.known = [];
+    }
+    init() {
+      let Mock;
+      let Mock$;
+      const override = (jQuery2, symbol) => {
+        if (mocked && jQuery2 && jQuery2.fn && !jQuery2.__wpmeteor) {
+          c(delta_default(), "new " + symbol + " detected", jQuery2.__wpmeteor, jQuery2);
+          const enqueue = function(func) {
+            c(delta_default(), "enqueued jQuery(func)", func);
+            d[addEventListener](DCL, (e) => {
+              c(delta_default(), "running enqueued jQuery function", func);
+              func.call(d, jQuery2, e, "jQueryMock");
+            });
+            return this;
+          };
+          this.known.push([jQuery2, jQuery2.fn.ready, jQuery2.fn.init.prototype.ready]);
+          jQuery2.fn.ready = enqueue;
+          jQuery2.fn.init.prototype.ready = enqueue;
+          jQuery2.__wpmeteor = true;
+        }
+        return jQuery2;
+      };
+      if (window.jQuery || window.$) {
+        ce(delta_default(), "WARNING: JQUERY WAS INSTALLED BEFORE WP-METEOR, PROBABLY FROM A CHROME EXTENSION");
+      }
+      Object.defineProperty(window, "jQuery", {
+        get() {
+          return Mock;
+        },
+        set(jQuery2) {
+          Mock = override(jQuery2, "jQuery");
+        }
+        // configurable: true
+      });
+      Object.defineProperty(window, "$", {
+        get() {
+          return Mock$;
+        },
+        set($) {
+          Mock$ = override($, "$");
+        }
+        // configurable: true
+      });
+    }
+    unmock() {
+      this.known.forEach(([jQuery2, oldReady, oldPrototypeReady]) => {
+        c(delta_default(), "unmocking jQuery", jQuery2);
+        jQuery2.fn.ready = oldReady;
+        jQuery2.fn.init.prototype.ready = oldPrototypeReady;
+      });
+      mocked = false;
+    }
+  };
+
+  // node_modules/@aguidrevitch/fpo-inpage-first-interaction/src/browser/utils/delta.mjs
+  var delta_default2 = () => Math.round(performance.now()) / 1e3;
+
+  // node_modules/@aguidrevitch/fpo-inpage-first-interaction/src/browser/utils/console.mjs
+  var c2 = true ? console.log : () => {
+  };
+  var console_default = c2;
+
+  // node_modules/@aguidrevitch/fpo-inpage-events/src/index.mjs
+  var EVENT_FIRST_INTERACTION = "fpo:first-interaction";
+  var EVENT_REPLAY_CAPTURED_EVENTS = "fpo:replay-captured-events";
+  var EVENT_ELEMENT_LOADED = "fpo:element-loaded";
+  var EVENT_IMAGES_LOADED = "fpo:images-loaded";
+  var EVENT_THE_END = "fpo:the-end";
+
+  // node_modules/@aguidrevitch/fpo-inpage-first-interaction/src/browser/index.mjs
+  var EVENT_CLICK = "click";
+  var w2 = window;
+  var wOrigAddEventListener = w2.addEventListener.bind(w2);
+  var wOrigRemoveEventListener = w2.removeEventListener.bind(w2);
+  var ra = "removeAttribute";
+  var ga = "getAttribute";
+  var sa = "setAttribute";
+  var passiveEvents = ["touchstart", "touchmove", "touchend", "touchcancel", "keydown", "wheel"];
+  var activeEvents = ["mouseover", "mouseout", EVENT_CLICK];
+  var captureEvents = ["touchstart", "touchend", "touchcancel", "mouseover", "mouseout", EVENT_CLICK];
+  var prefix = "data-wpmeteor-";
+  var separator = "----";
+  var dispatchEvent2 = "dispatchEvent";
+  var synteticCick = (e) => {
+    console_default(delta_default2(), "creating syntetic click event for", e);
+    const event = new MouseEvent(EVENT_CLICK, {
+      view: e.view,
+      bubbles: true,
+      cancelable: true
+    });
+    Object.defineProperty(event, "target", { writable: false, value: e.target });
+    return event;
+  };
+  var InteractionEvents = class {
+    static capture() {
+      let firstInteractionFired = false;
+      const capturedEvents = [];
+      const captureEvent = (e) => {
+        if (e.target && dispatchEvent2 in e.target) {
+          if (!e.isTrusted) {
+            console_default(delta_default2(), "the event is not trusted, configuration issues, not recording", e.type, e.target);
+            console_default(delta_default2(), "please double check if first interaction listener was installed before wp-meteor");
+            return;
+          }
+          if (e.cancelable && !passiveEvents.includes(e.type)) {
+            try {
+              e.preventDefault();
+            } catch {
+            }
+          }
+          e.stopImmediatePropagation();
+          if (e.type === EVENT_CLICK) {
+            console_default(delta_default2(), "captured", e.type, e.target);
+            capturedEvents.push(synteticCick(e));
+          } else if (captureEvents.includes(e.type)) {
+            console_default(delta_default2(), "captured", e.type, e.target);
+            capturedEvents.push(e);
+          }
+          e.target[sa](prefix + e.type, true);
+          if (!firstInteractionFired) {
+            firstInteractionFired = true;
+            w2[dispatchEvent2](new CustomEvent(EVENT_FIRST_INTERACTION));
+          }
+        }
+      };
+      w2.addEventListener(EVENT_REPLAY_CAPTURED_EVENTS, () => {
+        console_default(delta_default2(), separator, "got " + EVENT_REPLAY_CAPTURED_EVENTS);
+        console_default(delta_default2(), separator, "removing event listeners");
+        activeEvents.forEach((event) => wOrigRemoveEventListener(event, captureEvent, { passive: false, capture: true }));
+        passiveEvents.forEach((event) => wOrigRemoveEventListener(event, captureEvent, { passive: true, capture: true }));
+        let e;
+        while (e = capturedEvents.shift()) {
+          var target = e.target;
+          if (target[ga](prefix + "touchstart") && target[ga](prefix + "touchend") && !target[ga](prefix + EVENT_CLICK)) {
+            if (target[ga](prefix + "touchmove")) {
+              console_default(delta_default2(), `touchmove happened, so not dispatching ${EVENT_CLICK} to `, e.target);
+            } else {
+              capturedEvents.push(synteticCick(e));
+            }
+            target[ra](prefix + "touchstart");
+            target[ra](prefix + "touchend");
+          } else {
+            target[ra](prefix + e.type);
+          }
+          console_default(delta_default2(), " dispatching " + e.type + " to ", e.target);
+          target[dispatchEvent2](e);
+        }
+      });
+      console_default(delta_default2(), separator, "installing first interaction event listeners");
+      activeEvents.forEach((event) => wOrigAddEventListener(event, captureEvent, { passive: false, capture: true }));
+      passiveEvents.forEach((event) => wOrigAddEventListener(event, captureEvent, { passive: true, capture: true }));
+    }
+  };
+  var browser_default = InteractionEvents;
+
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/utils/event-emitter.js
   var EventEmitter = class {
     constructor() {
       this.l = [];
@@ -12,7 +204,7 @@
       this.l[name].push(callback);
     }
     off(name, callback) {
-      this.l[name] = (this.l[name] || []).filter((c5) => c5 !== callback);
+      this.l[name] = (this.l[name] || []).filter((c3) => c3 !== callback);
     }
     /*
     once(name, callback) {
@@ -26,221 +218,39 @@
     */
   };
 
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/utils/dispatcher.js
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/utils/dispatcher.js
   var dispatcher_default = new EventEmitter();
 
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/utils/delta.js
-  var delta_default = () => Math.round(performance.now()) / 1e3;
-
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/mocks/jquery.js
-  var c = true ? console.log : () => {
-  };
-  var d = document;
-  var DCL = "DOMContentLoaded";
-  var jQueryMock = class {
-    constructor() {
-      this.known = [];
-    }
-    init() {
-      let Mock;
-      let Mock$;
-      let loaded = false;
-      const override = (jQuery2) => {
-        if (!loaded && jQuery2 && jQuery2.fn && !jQuery2.__wpmeteor) {
-          c(delta_default(), "new jQuery detected", jQuery2);
-          const enqueue = function(func) {
-            c(delta_default(), "enqueued jQuery(func)", func);
-            d.addEventListener(DCL, (e) => {
-              c(delta_default(), "running enqueued jQuery function", func);
-              func.bind(d)(jQuery2, e, "jQueryMock");
-            });
-            return this;
-          };
-          this.known.push([jQuery2, jQuery2.fn.ready, jQuery2.fn.init.prototype.ready]);
-          jQuery2.fn.ready = enqueue;
-          jQuery2.fn.init.prototype.ready = enqueue;
-          jQuery2.__wpmeteor = true;
-        }
-        return jQuery2;
-      };
-      if (window.jQuery) {
-        Mock = override(window.jQuery);
-      }
-      Object.defineProperty(window, "jQuery", {
-        get() {
-          return Mock;
-        },
-        set(jQuery2) {
-          Mock = override(jQuery2);
-        }
-        // configurable: true
-      });
-      Object.defineProperty(window, "$", {
-        get() {
-          return Mock$;
-        },
-        set($) {
-          Mock$ = override($);
-        }
-        // configurable: true
-      });
-      dispatcher_default.on("l", () => loaded = true);
-    }
-    unmock() {
-      this.known.forEach(([jQuery2, oldReady, oldPrototypeReady]) => {
-        c(delta_default(), "unmocking jQuery", jQuery2);
-        jQuery2.fn.ready = oldReady;
-        jQuery2.fn.init.prototype.ready = oldPrototypeReady;
-      });
-    }
-  };
-
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/utils/listener-options.js
-  var listenerOptions = {};
-  ((w4, p) => {
-    try {
-      const opts = Object.defineProperty({}, p, {
-        get: function() {
-          return listenerOptions[p] = true;
-        }
-      });
-      w4.addEventListener(p, null, opts);
-      w4.removeEventListener(p, null, opts);
-    } catch (e) {
-    }
-  })(window, "passive");
-  var listener_options_default = listenerOptions;
-
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/utils/interaction-events.js
-  var c2 = true ? console.log : () => {
-  };
-  var w = window;
-  var d2 = document;
-  var a = "addEventListener";
-  var r = "removeEventListener";
-  var ra = "removeAttribute";
-  var ga = "getAttribute";
-  var sa = "setAttribute";
-  var DCL2 = "DOMContentLoaded";
-  var interactionEvents = ["mouseover", "keydown", "touchmove", "touchend", "wheel"];
-  var captureEvents = ["mouseover", "mouseout", "touchstart", "touchmove", "touchend", "click"];
-  var prefix = "data-wpmeteor-";
-  var separator = "----";
-  var InteractionEvents = class {
-    init() {
-      let firstInteractionFired2 = false;
-      let firstInteractionTimeout = false;
-      const onFirstInteraction = (e) => {
-        c2(delta_default(), separator, "firstInteraction event MAYBE fired", (e || {}).type);
-        if (!firstInteractionFired2) {
-          c2(delta_default(), separator, "firstInteraction fired");
-          firstInteractionFired2 = true;
-          c2(delta_default(), separator, "firstInteraction event listeners removed");
-          interactionEvents.forEach((event) => d2.body[r](event, onFirstInteraction, listener_options_default));
-          clearTimeout(firstInteractionTimeout);
-          dispatcher_default.emit("fi");
-        }
-      };
-      const synteticCick = (e) => {
-        c2(delta_default(), "creating syntetic click event for", e);
-        const event = new MouseEvent("click", {
-          view: e.view,
-          bubbles: true,
-          cancelable: true
-        });
-        Object.defineProperty(event, "target", { writable: false, value: e.target });
-        return event;
-      };
-      dispatcher_default.on("i", () => {
-        if (!firstInteractionFired2) {
-          onFirstInteraction();
-        }
-      });
-      const capturedEvents = [];
-      const captureEvent = (e) => {
-        if (e.target && "dispatchEvent" in e.target) {
-          c2(delta_default(), "captured", e.type, e.target);
-          if (e.type === "click") {
-            e.preventDefault();
-            e.stopPropagation();
-            capturedEvents.push(synteticCick(e));
-          } else if (e.type !== "touchmove") {
-            capturedEvents.push(e);
-          }
-          e.target[sa](prefix + e.type, true);
-        }
-      };
-      dispatcher_default.on("l", () => {
-        c2(delta_default(), separator, "removing mouse event listeners");
-        captureEvents.forEach((name) => w[r](name, captureEvent));
-        let e;
-        while (e = capturedEvents.shift()) {
-          var target = e.target;
-          if (target[ga](prefix + "touchstart") && target[ga](prefix + "touchend") && !target[ga](prefix + "click")) {
-            if (target[ga](prefix + "touchmove")) {
-              c2(delta_default(), " touchmove happened, so not dispatching click to ", e.target);
-            } else {
-              target[ra](prefix + "touchmove");
-              capturedEvents.push(synteticCick(e));
-            }
-            target[ra](prefix + "touchstart");
-            target[ra](prefix + "touchend");
-          } else {
-            target[ra](prefix + e.type);
-          }
-          c2(delta_default(), " dispatching " + e.type + " to ", e.target);
-          target.dispatchEvent(e);
-        }
-      });
-      const installFirstInteractionListeners = () => {
-        c2(delta_default(), separator, "installing firstInteraction listeners");
-        interactionEvents.forEach((event) => d2.body[a](event, onFirstInteraction, listener_options_default));
-        c2(delta_default(), separator, "installing mouse event listeners");
-        captureEvents.forEach((name) => w[a](name, captureEvent));
-        d2[r](DCL2, installFirstInteractionListeners);
-      };
-      d2[a](DCL2, installFirstInteractionListeners);
-    }
-  };
-
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/elementor/device-mode.js
-  var d3 = document;
-  var $deviceMode = d3.createElement("span");
-  $deviceMode.setAttribute("id", "elementor-device-mode");
-  $deviceMode.setAttribute("class", "elementor-screen-only");
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/elementor/device-mode.js
+  var $deviceMode = d[createElement]("span");
+  $deviceMode[setAttribute]("id", "elementor-device-mode");
+  $deviceMode[setAttribute]("class", "elementor-screen-only");
   var attached = false;
   var device_mode_default = () => {
     if (!attached) {
-      d3.body.appendChild($deviceMode);
+      d.body[appendChild]($deviceMode);
     }
     return getComputedStyle($deviceMode, ":after").content.replace(/"/g, "");
   };
 
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/elementor/animations.js
-  var w2 = window;
-  var d4 = document;
-  var de = d4.documentElement;
-  var c3 = true ? console.log : () => {
-  };
-  var ga2 = "getAttribute";
-  var sa2 = "setAttribute";
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/elementor/animations.js
   var getClass = (el) => {
-    return el[ga2]("class") || "";
+    return el[getAttribute]("class") || "";
   };
   var setClass = (el, value) => {
-    return el[sa2]("class", value);
+    return el[setAttribute]("class", value);
   };
   var animations_default = () => {
-    window.addEventListener("load", function() {
+    w[addEventListener](L, function() {
       const mode = device_mode_default();
-      const vw = Math.max(de.clientWidth || 0, w2.innerWidth || 0);
-      const vh = Math.max(de.clientHeight || 0, w2.innerHeight || 0);
+      const vw = Math.max(de.clientWidth || 0, w.innerWidth || 0);
+      const vh = Math.max(de.clientHeight || 0, w.innerHeight || 0);
       const keys = ["_animation_" + mode, "animation_" + mode, "_animation", "_animation", "animation"];
-      Array.from(d4.querySelectorAll(".elementor-invisible")).forEach((el) => {
+      Array.from(d[querySelectorAll](".elementor-invisible")).forEach((el) => {
         const viewportOffset = el.getBoundingClientRect();
-        if (viewportOffset.top + w2.scrollY <= vh && viewportOffset.left + w2.scrollX < vw) {
+        if (viewportOffset.top + w.scrollY <= vh && viewportOffset.left + w.scrollX < vw) {
           try {
-            const settings = JSON.parse(el[ga2]("data-settings"));
+            const settings = JSON.parse(el[getAttribute]("data-settings"));
             if (settings.trigger_source) {
               return;
             }
@@ -254,13 +264,13 @@
               }
             }
             if (animation) {
-              c3(delta_default(), "animating with" + animation, el);
+              c(delta_default(), "animating with" + animation, el);
               const oldClass = getClass(el);
               const newClass = animation === "none" ? oldClass : oldClass + " animated " + animation;
               const animate = () => {
                 setClass(el, newClass.replace(/\belementor-invisible\b/, ""));
                 keys.forEach((key2) => delete settings[key2]);
-                el[sa2]("data-settings", JSON.stringify(settings));
+                el[setAttribute]("data-settings", JSON.stringify(settings));
               };
               let timeout = setTimeout(animate, animationDelay);
               dispatcher_default.on("fi", () => {
@@ -276,14 +286,10 @@
     });
   };
 
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/includes/elementor/pp-menu.js
-  var d5 = document;
-  var ga3 = "getAttribute";
-  var sa3 = "setAttribute";
-  var qsa = "querySelectorAll";
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/includes/elementor/pp-menu.js
   var inmega = "data-in-mega_smartmenus";
   var pp_menu_default = () => {
-    const div = d5.createElement("div");
+    const div = d[createElement]("div");
     div.innerHTML = '<span class="sub-arrow --wp-meteor"><i class="fa" aria-hidden="true"></i></span>';
     const placeholder = div.firstChild;
     const prevAll = (el) => {
@@ -292,113 +298,99 @@
         result.push(el);
       return result;
     };
-    d5.addEventListener("DOMContentLoaded", function() {
-      Array.from(d5[qsa](".pp-advanced-menu ul")).forEach((ul) => {
-        if (ul[ga3](inmega)) {
+    d[addEventListener](DCL, function() {
+      Array.from(d[querySelectorAll](".pp-advanced-menu ul")).forEach((ul) => {
+        if (ul[getAttribute](inmega)) {
           return;
-        } else if ((ul[ga3]("class") || "").match(/\bmega-menu\b/)) {
-          ul[qsa]("ul").forEach((ul2) => {
-            ul2[sa3](inmega, true);
+        } else if ((ul[getAttribute]("class") || "").match(/\bmega-menu\b/)) {
+          ul[querySelectorAll]("ul").forEach((ul2) => {
+            ul2[setAttribute](inmega, true);
           });
         }
         let prev = prevAll(ul);
-        let a3 = prev.filter((el) => el).filter((el) => el.tagName === "A").pop();
-        if (!a3) {
-          a3 = prev.map((el) => Array.from(el[qsa]("a"))).filter((el) => el).flat().pop();
+        let a = prev.filter((el) => el).filter((el) => el[tagName] === "A").pop();
+        if (!a) {
+          a = prev.map((el) => Array.from(el[querySelectorAll]("a"))).filter((el) => el).flat().pop();
         }
-        if (a3) {
+        if (a) {
           const span = placeholder.cloneNode(true);
-          a3.appendChild(span);
+          a[appendChild](span);
           const observer2 = new MutationObserver((mutations) => {
             mutations.forEach(({ addedNodes }) => {
               addedNodes.forEach((node) => {
-                if (node.nodeType === 1 && "SPAN" === node.tagName) {
+                if (node.nodeType === 1 && "SPAN" === node[tagName]) {
                   try {
-                    a3.removeChild(span);
+                    a[removeChild](span);
                   } catch {
                   }
                 }
               });
             });
           });
-          observer2.observe(a3, { childList: true });
+          observer2.observe(a, { childList: true });
         }
       });
     });
   };
 
-  // node_modules/@aguidrevitch/fpo-inpage-wp-meteor/src/browser/public.js
-  var DCL3 = "DOMContentLoaded";
+  // node_modules/@aguidrevitch/fpo-javascript-rewrite/src/wp-meteor/public.js
   var RSC = "readystatechange";
   var M = "message";
   var separator2 = "----";
   var S = "SCRIPT";
-  var c4 = true ? console.log : () => {
-  };
-  var ce = console.error;
   var prefix2 = "data-wpmeteor-";
   var Object_defineProperty = Object.defineProperty;
   var Object_defineProperties = Object.defineProperties;
   var javascriptBlocked = "javascript/blocked";
-  var isJavascriptRegexp = /^(text\/javascript|module)$/i;
+  var isJavascriptRegexp = /^\s*(application|text)\/javascript|module\s*$/i;
   var _rAF = "requestAnimationFrame";
   var _rIC = "requestIdleCallback";
   var _setTimeout = "setTimeout";
-  var w3 = window;
-  var d6 = document;
-  var a2 = "addEventListener";
-  var r2 = "removeEventListener";
-  var ga4 = "getAttribute";
-  var sa4 = "setAttribute";
-  var ra2 = "removeAttribute";
-  var ha = "hasAttribute";
-  var L = "load";
-  var E = "error";
-  var windowEventPrefix = w3.constructor.name + "::";
-  var documentEventPrefix = d6.constructor.name + "::";
+  var windowEventPrefix = w.constructor.name + "::";
+  var documentEventPrefix = d.constructor.name + "::";
   var forEach = function(callback, thisArg) {
-    thisArg = thisArg || w3;
+    thisArg = thisArg || w;
     for (var i2 = 0; i2 < this.length; i2++) {
       callback.call(thisArg, this[i2], i2, this);
     }
   };
-  if ("NodeList" in w3 && !NodeList.prototype.forEach) {
-    c4("polyfilling NodeList.forEach");
-    NodeList.prototype.forEach = forEach;
+  if ("NodeList" in w && !NodeList[prototype].forEach) {
+    c("polyfilling NodeList.forEach");
+    NodeList[prototype].forEach = forEach;
   }
-  if ("HTMLCollection" in w3 && !HTMLCollection.prototype.forEach) {
-    c4("polyfilling HTMLCollection.forEach");
-    HTMLCollection.prototype.forEach = forEach;
+  if ("HTMLCollection" in w && !HTMLCollection[prototype].forEach) {
+    c("polyfilling HTMLCollection.forEach");
+    HTMLCollection[prototype].forEach = forEach;
   }
-  if (_wpmeteor["elementor-animations"]) {
-    animations_default();
-  }
-  if (_wpmeteor["elementor-pp"]) {
-    pp_menu_default();
-  }
+  (() => {
+    if (_wpmeteor["elementor-animations"]) {
+      animations_default();
+    }
+    if (_wpmeteor["elementor-pp"]) {
+      pp_menu_default();
+    }
+  })();
   var reorder = [];
-  var delayed = [];
-  var wheight = window.innerHeight || document.documentElement.clientHeight;
-  var wwidth = window.innerWidth || document.documentElement.clientWidth;
+  var defer = [];
+  var async = [];
   var DONE = false;
   var eventQueue = [];
   var listeners = {};
   var WindowLoaded = false;
-  var firstInteractionFired = false;
   var firedEventsCount = 0;
-  var rAF = d6.visibilityState === "visible" ? w3[_rAF] : w3[_setTimeout];
-  var rIC = w3[_rIC] || rAF;
-  d6[a2]("visibilitychange", () => {
-    rAF = d6.visibilityState === "visible" ? w3[_rAF] : w3[_setTimeout];
-    rIC = w3[_rIC] || rAF;
+  var rAF = d.visibilityState === "visible" ? w[_rAF] : w[_setTimeout];
+  var rIC = w[_rIC] || rAF;
+  d[addEventListener]("visibilitychange", () => {
+    rAF = d.visibilityState === "visible" ? w[_rAF] : w[_setTimeout];
+    rIC = w[_rIC] || rAF;
   });
-  var nextTick = w3[_setTimeout];
+  var nextTick = w[_setTimeout];
   var createElementOverride;
-  var capturedAttributes = ["src", "async", "defer", "type", "integrity"];
+  var capturedAttributes = ["src", "type"];
   var O = Object;
   var definePropert = "definePropert";
   O[definePropert + "y"] = (object, property, options) => {
-    if (object === w3 && ["jQuery", "onload"].indexOf(property) >= 0 || (object === d6 || object === d6.body) && ["readyState", "write", "writeln", "on" + RSC].indexOf(property) >= 0) {
+    if (object === w && ["jQuery", "onload"].indexOf(property) >= 0 || (object === d || object === d.body) && ["readyState", "write", "writeln", "on" + RSC].indexOf(property) >= 0) {
       if (["on" + RSC, "on" + L].indexOf(property) && options.set) {
         listeners["on" + RSC] = listeners["on" + RSC] || [];
         listeners["on" + RSC].push(options.set);
@@ -433,41 +425,37 @@
     for (let i2 in properties) {
       O[definePropert + "y"](object, i2, properties[i2]);
     }
+    for (let sym of Object.getOwnPropertySymbols(properties)) {
+      O[definePropert + "y"](object, sym, properties[sym]);
+    }
     return object;
   };
   if (true) {
-    d6[a2](RSC, () => {
-      c4(delta_default(), separator2, RSC, d6.readyState);
+    d[addEventListener](RSC, () => {
+      c(delta_default(), separator2, RSC, d.readyState);
     });
-    d6[a2](DCL3, () => {
-      c4(delta_default(), separator2, DCL3);
+    d[addEventListener](DCL, () => {
+      c(delta_default(), separator2, DCL);
     });
-    dispatcher_default.on("l", () => {
-      c4(delta_default(), separator2, "L");
-      c4(delta_default(), separator2, firedEventsCount + " queued events fired");
+    dispatcher_default.on(EVENT_THE_END, () => {
+      c(delta_default(), separator2, EVENT_THE_END);
+      c(delta_default(), separator2, firedEventsCount + " queued events fired");
     });
-    w3[a2](L, () => {
-      c4(delta_default(), separator2, L);
+    w[addEventListener](L, () => {
+      c(delta_default(), separator2, L);
     });
   }
-  var origAddEventListener;
-  var origRemoveEventListener;
-  var dOrigAddEventListener = d6[a2].bind(d6);
-  var dOrigRemoveEventListener = d6[r2].bind(d6);
-  var wOrigAddEventListener = w3[a2].bind(w3);
-  var wOrigRemoveEventListener = w3[r2].bind(w3);
-  if ("undefined" != typeof EventTarget) {
-    origAddEventListener = EventTarget.prototype.addEventListener;
-    origRemoveEventListener = EventTarget.prototype.removeEventListener;
-    dOrigAddEventListener = origAddEventListener.bind(d6);
-    dOrigRemoveEventListener = origRemoveEventListener.bind(d6);
-    wOrigAddEventListener = origAddEventListener.bind(w3);
-    wOrigRemoveEventListener = origRemoveEventListener.bind(w3);
-  }
-  var dOrigCreateElement = d6.createElement.bind(d6);
-  var origReadyStateGetter = d6.__proto__.__lookupGetter__("readyState").bind(d6);
+  var origAddEventListener = EventTarget[prototype][addEventListener];
+  var origRemoveEventListener = EventTarget[prototype][removeEventListener];
+  var dOrigAddEventListener = origAddEventListener.bind(d);
+  var dOrigRemoveEventListener = origRemoveEventListener.bind(d);
+  var wOrigAddEventListener2 = origAddEventListener.bind(w);
+  var wOrigRemoveEventListener2 = origRemoveEventListener.bind(w);
+  var origCreateElement = Document[prototype].createElement;
+  var dOrigCreateElement = origCreateElement.bind(d);
+  var origReadyStateGetter = d.__proto__[__lookupGetter__]("readyState").bind(d);
   var readyState = "loading";
-  Object_defineProperty(d6, "readyState", {
+  Object_defineProperty(d, "readyState", {
     get() {
       return readyState;
     },
@@ -516,12 +504,12 @@
               const listenerKey = name + "::" + j + "::" + i2;
               if (!firedListeners[listenerKey]) {
                 firedListeners[listenerKey] = true;
-                d6.readyState = readyState2;
+                d.readyState = readyState2;
                 currentlyFiredEvent = name;
                 try {
                   firedEventsCount++;
-                  c4(delta_default(), "firing " + event.type + "(" + d6.readyState + ") for", func.prototype ? func.prototype.constructor : func);
-                  if (!func.prototype || func.prototype.constructor === func) {
+                  c(delta_default(), "firing " + event.type + "(" + d.readyState + ") for", func[prototype] ? func[prototype].constructor : func);
+                  if (!func[prototype] || func[prototype].constructor === func) {
                     func.bind(context)(event);
                   } else {
                     func(event);
@@ -539,77 +527,89 @@
       }
     });
   };
-  dOrigAddEventListener(DCL3, (e) => {
-    c4(delta_default(), "enqueued document " + DCL3);
-    eventQueue.push([e, origReadyStateGetter(), d6]);
+  dOrigAddEventListener(DCL, (e) => {
+    c(delta_default(), "enqueued document " + DCL);
+    eventQueue.push([new e.constructor(DCL, e), origReadyStateGetter(), d]);
   });
   dOrigAddEventListener(RSC, (e) => {
-    c4(delta_default(), "enqueued document " + RSC);
-    eventQueue.push([e, origReadyStateGetter(), d6]);
+    c(delta_default(), "enqueued document " + RSC);
+    eventQueue.push([new e.constructor(RSC, e), origReadyStateGetter(), d]);
   });
-  wOrigAddEventListener(DCL3, (e) => {
-    c4(delta_default(), "enqueued window " + DCL3);
-    eventQueue.push([e, origReadyStateGetter(), w3]);
+  wOrigAddEventListener2(DCL, (e) => {
+    c(delta_default(), "enqueued window " + DCL);
+    eventQueue.push([new e.constructor(DCL, e), origReadyStateGetter(), w]);
   });
-  var jQuery = new jQueryMock();
-  wOrigAddEventListener(L, (e) => {
-    c4(delta_default(), "enqueued window " + L);
-    eventQueue.push([e, origReadyStateGetter(), w3]);
+  wOrigAddEventListener2(L, (e) => {
+    WindowLoaded = true;
+    c(delta_default(), "enqueued window " + L);
+    eventQueue.push([new e.constructor(L, e), origReadyStateGetter(), w]);
     if (!iterating) {
-      fireQueuedEvents([DCL3, RSC, M, L]);
-      jQuery.init();
+      fireQueuedEvents([DCL, RSC, M, L]);
     }
   });
   var messageListener = (e) => {
-    c4(delta_default(), "enqueued window " + M);
-    eventQueue.push([e, d6.readyState, w3]);
+    c(delta_default(), "enqueued " + M);
+    eventQueue.push([e, d.readyState, w]);
   };
+  var origWindowOnMessageGetter = w[__lookupGetter__]("onmessage");
+  var origWindowOnMessageSetter = w[__lookupSetter__]("onmessage");
   var restoreMessageListener = () => {
-    wOrigRemoveEventListener(M, messageListener);
+    wOrigRemoveEventListener2(M, messageListener);
     (listeners[windowEventPrefix + "message"] || []).forEach((listener) => {
-      wOrigAddEventListener(M, listener);
+      wOrigAddEventListener2(M, listener);
     });
-    c4(delta_default(), "message listener restored");
+    Object_defineProperty(w, "onmessage", {
+      get: origWindowOnMessageGetter,
+      set: origWindowOnMessageSetter
+    });
+    c(delta_default(), "message listener restored");
   };
-  wOrigAddEventListener(M, messageListener);
-  dispatcher_default.on("fi", d6.dispatchEvent.bind(d6, new CustomEvent("fi")));
-  dispatcher_default.on("fi", () => {
-    c4(delta_default(), separator2, "starting iterating on first interaction");
-    firstInteractionFired = true;
-    iterating = true;
-    mayBePreloadScripts();
-    d6.readyState = "loading";
-    nextTick(iterate);
-  });
+  wOrigAddEventListener2(M, messageListener);
+  var jQuery = new jQueryMock();
+  jQuery.init();
   var startIterating = () => {
-    WindowLoaded = true;
-    if (firstInteractionFired && !iterating) {
-      c4(delta_default(), separator2, "starting iterating on window.load");
-      d6.readyState = "loading";
-      nextTick(iterate);
+    if (!iterating && !DONE) {
+      iterating = true;
+      d.readyState = "loading";
+      rAF(flushPreloadsAndPreconnects);
+      rAF(iterate);
     }
-    wOrigRemoveEventListener(L, startIterating);
+    if (!WindowLoaded) {
+      wOrigAddEventListener2(L, () => {
+        c(delta_default(), separator2, "starting iterating after window loaded");
+        startIterating();
+      });
+    }
   };
-  wOrigAddEventListener(L, startIterating);
-  if (_wpmeteor.rdelay >= 0) {
-    new InteractionEvents().init(_wpmeteor.rdelay);
-  }
+  wOrigAddEventListener2(EVENT_FIRST_INTERACTION, () => {
+    c(delta_default(), separator2, "starting iterating on first interaction");
+    startIterating();
+  });
+  dispatcher_default.on(EVENT_IMAGES_LOADED, () => {
+    c(delta_default(), separator2, "starting iterating after images loaded");
+    startIterating();
+  });
+  (() => {
+    if (_wpmeteor.rdelay >= 0) {
+      browser_default.capture();
+    }
+  })();
   var scriptsToLoad = 1;
   var scriptLoaded = () => {
-    c4(delta_default(), "scriptLoaded", scriptsToLoad - 1);
+    c(delta_default(), "scriptLoaded", scriptsToLoad - 1);
     if (!--scriptsToLoad) {
-      nextTick(dispatcher_default.emit.bind(dispatcher_default, "l"));
+      nextTick(dispatcher_default.emit.bind(dispatcher_default, EVENT_THE_END));
     }
   };
   var i = 0;
   var iterating = false;
   var iterate = () => {
-    c4(delta_default(), "it", i++, reorder.length);
+    c(delta_default(), "it", i++, reorder.length);
     const element = reorder.shift();
     if (element) {
-      if (element[ga4](prefix2 + "src")) {
-        if (element[ha](prefix2 + "async")) {
-          c4(delta_default(), "async", scriptsToLoad, element);
+      if (element[getAttribute](prefix2 + "src")) {
+        if (element[hasAttribute]("async")) {
+          c(delta_default(), "async", scriptsToLoad, element);
           scriptsToLoad++;
           unblock(element, scriptLoaded);
           nextTick(iterate);
@@ -624,37 +624,43 @@
         nextTick(iterate);
       }
     } else {
-      if (hasUnfiredListeners([DCL3, RSC, M])) {
-        fireQueuedEvents([DCL3, RSC, M]);
+      if (defer.length) {
+        while (defer.length) {
+          reorder.push(defer.shift());
+          c(delta_default(), "adding deferred script", reorder.slice(-1)[0]);
+        }
         nextTick(iterate);
-      } else if (firstInteractionFired && WindowLoaded) {
+      } else if (hasUnfiredListeners([DCL, RSC, M])) {
+        c(delta_default(), "firing unfired listeners");
+        fireQueuedEvents([DCL, RSC, M]);
+        nextTick(iterate);
+      } else if (WindowLoaded) {
         if (hasUnfiredListeners([L, M])) {
           fireQueuedEvents([L, M]);
           nextTick(iterate);
         } else if (scriptsToLoad > 1) {
-          c4(delta_default(), "waiting for", scriptsToLoad - 1, "more scripts to load", reorder);
+          c(delta_default(), "waiting for", scriptsToLoad - 1, "more scripts to load", reorder);
           rIC(iterate);
-        } else if (delayed.length) {
-          while (delayed.length) {
-            reorder.push(delayed.shift());
-            c4(delta_default(), "adding delayed script", reorder.slice(-1)[0]);
+        } else if (async.length) {
+          while (async.length) {
+            reorder.push(async.shift());
+            c(delta_default(), "adding async script", reorder.slice(-1)[0]);
           }
-          mayBePreloadScripts();
           nextTick(iterate);
         } else {
-          if (w3.RocketLazyLoadScripts) {
+          if (w.RocketLazyLoadScripts) {
             try {
               RocketLazyLoadScripts.run();
             } catch (e) {
               ce(e);
             }
           }
-          d6.readyState = "complete";
+          d.readyState = "complete";
           restoreMessageListener();
           jQuery.unmock();
           iterating = false;
           DONE = true;
-          w3[_setTimeout](scriptLoaded);
+          w[_setTimeout](scriptLoaded);
         }
       } else {
         iterating = false;
@@ -665,9 +671,11 @@
     const newElement = dOrigCreateElement(S);
     const attrs = el.attributes;
     for (var i2 = attrs.length - 1; i2 >= 0; i2--) {
-      newElement[sa4](attrs[i2].name, attrs[i2].value);
+      if (!attrs[i2].name.startsWith(prefix2)) {
+        newElement[setAttribute](attrs[i2].name, attrs[i2].value);
+      }
     }
-    const type = el[ga4](prefix2 + "type");
+    const type = el[getAttribute](prefix2 + "type");
     if (type) {
       newElement.type = type;
     } else {
@@ -678,49 +686,35 @@
     } else {
       newElement.textContent = el.textContent;
     }
-    ["after", "type", "src", "async", "defer"].forEach((postfix) => newElement[ra2](prefix2 + postfix));
+    for (const property of ["onload", "onerror", "onreadystatechange"]) {
+      if (el[property]) {
+        c(delta_default(), `re-adding ${property} to`, el, el[property]);
+        newElement[property] = el[property];
+      }
+    }
     return newElement;
   };
-  var replaceScript = (el, newElement) => {
-    const parentNode = el.parentNode;
-    if (parentNode) {
-      const newParent = parentNode.nodeType === 11 ? dOrigCreateElement(parentNode.host.tagName) : dOrigCreateElement(parentNode.tagName);
-      newParent.appendChild(parentNode.replaceChild(newElement, el));
-      if (!parentNode.isConnected) {
-        ce("Parent for", el, " is not part of the DOM");
-        return;
-      }
-      return el;
-    }
-    ce("No parent for", el);
-  };
   var unblock = (el, callback) => {
-    let src = el[ga4](prefix2 + "src");
+    let src = el[getAttribute](prefix2 + "src");
     if (src) {
-      c4(delta_default(), "unblocking src", src);
-      const newElement = cloneScript(el);
-      const addEventListener = origAddEventListener ? origAddEventListener.bind(newElement) : newElement[a2].bind(newElement);
-      if (el.getEventListeners) {
-        el.getEventListeners().forEach(([event, listener]) => {
-          c4(delta_default(), "re-adding event listeners to cloned element", event, listener);
-          addEventListener(event, listener);
-        });
-      }
+      c(delta_default(), "unblocking src", src);
+      const addEventListener2 = origAddEventListener.bind(el);
       if (callback) {
-        addEventListener(L, callback);
-        addEventListener(E, callback);
+        addEventListener2(L, callback);
+        addEventListener2(E, callback);
       }
-      newElement.src = src;
-      const oldChild = replaceScript(el, newElement);
-      const type = newElement[ga4]("type");
-      c4(delta_default(), "unblocked src", src, newElement);
-      if ((!oldChild || el[ha]("nomodule") || type && !isJavascriptRegexp.test(type)) && callback) {
+      el.origtype = el[getAttribute](prefix2 + "type") || "text/javascript";
+      el.origsrc = src;
+      c(delta_default(), "unblocked src", src, el);
+      if ((el[hasAttribute]("nomodule") || el.type && !isJavascriptRegexp.test(el.type)) && callback) {
         callback();
       }
     } else if (el.origtype === javascriptBlocked) {
-      c4(delta_default(), "unblocking inline", el);
-      replaceScript(el, cloneScript(el));
-      c4(delta_default(), "unblocked inline", el);
+      c(delta_default(), "unblocking inline", el);
+      el.origtype = el[getAttribute](prefix2 + "type") || "text/javascript";
+      el[removeAttribute]("integrity");
+      el.textContent = el.textContent + "\n";
+      c(delta_default(), "unblocked inline", el);
     } else {
       ce(delta_default(), "already unblocked", el);
       if (callback) {
@@ -728,7 +722,7 @@
       }
     }
   };
-  var removeEventListener = (name, func) => {
+  var removeQueuedEventListener = (name, func) => {
     const pos = (listeners[name] || []).indexOf(func);
     if (pos >= 0) {
       listeners[name][pos] = void 0;
@@ -736,12 +730,12 @@
     }
   };
   var documentAddEventListener = (event, func, ...args) => {
-    if ("HTMLDocument::" + DCL3 == currentlyFiredEvent && event === DCL3 && !func.toString().match(/jQueryMock/)) {
-      dispatcher_default.on("l", d6.addEventListener.bind(d6, event, func, ...args));
+    if ("HTMLDocument::" + DCL == currentlyFiredEvent && event === DCL && !func.toString().match(/jQueryMock/)) {
+      dispatcher_default.on(EVENT_THE_END, d[addEventListener].bind(d, event, func, ...args));
       return;
     }
-    if (func && (event === DCL3 || event === RSC)) {
-      c4(delta_default(), "enqueuing event listener", event, func);
+    if (func && (event === DCL || event === RSC)) {
+      c(delta_default(), "enqueuing event listener", event, func);
       const name = documentEventPrefix + event;
       listeners[name] = listeners[name] || [];
       listeners[name].push(func);
@@ -752,15 +746,15 @@
     }
     return dOrigAddEventListener(event, func, ...args);
   };
-  var documentRemoveEventListener = (event, func) => {
-    if (event === DCL3) {
+  var documentRemoveEventListener = (event, func, ...args) => {
+    if (event === DCL) {
       const name = documentEventPrefix + event;
-      removeEventListener(name, func);
+      removeQueuedEventListener(name, func);
     }
-    return dOrigRemoveEventListener(event, func);
+    return dOrigRemoveEventListener(event, func, ...args);
   };
-  Object_defineProperties(d6, {
-    [a2]: {
+  Object_defineProperties(d, {
+    [addEventListener]: {
       get() {
         return documentAddEventListener;
       },
@@ -768,7 +762,7 @@
         return documentAddEventListener;
       }
     },
-    [r2]: {
+    [removeEventListener]: {
       get() {
         return documentRemoveEventListener;
       },
@@ -777,156 +771,141 @@
       }
     }
   });
+  var preloadsAndPreconnectsFragment = d.createDocumentFragment();
+  var flushPreloadsAndPreconnects = () => {
+    if (preloadsAndPreconnectsFragment.hasChildNodes()) {
+      d.head[appendChild](preloadsAndPreconnectsFragment);
+      preloadsAndPreconnectsFragment = d.createDocumentFragment();
+    }
+  };
   var preconnects = {};
   var preconnect = (src) => {
     if (!src)
       return;
     try {
       if (src.match(/^\/\/\w+/))
-        src = d6.location.protocol + src;
+        src = d.location.protocol + src;
       const url = new URL(src);
       const href = url.origin;
-      if (href && !preconnects[href] && d6.location.host !== url.host) {
+      if (href && !preconnects[href] && d.location.host !== url.host) {
         const s = dOrigCreateElement("link");
         s.rel = "preconnect";
         s.href = href;
-        d6.head.appendChild(s);
-        c4(delta_default(), "preconnecting", url.origin);
+        preloadsAndPreconnectsFragment[appendChild](s);
+        c(delta_default(), "preconnecting", url.origin);
         preconnects[href] = true;
+        if (iterating) {
+          rAF(flushPreloadsAndPreconnects);
+        }
       }
     } catch (e) {
       ce(delta_default(), "failed to parse src for preconnect", src);
     }
   };
   var preloads = {};
-  var preloadAsScript = (src, isModule, crossorigin, fragment) => {
-    var s = dOrigCreateElement("link");
+  var preloadAsScript = (src, isModule, crossorigin, integrity) => {
+    const s = dOrigCreateElement("link");
     s.rel = isModule ? "modulepre" + L : "pre" + L;
     s.as = "script";
     if (crossorigin)
-      s[sa4]("crossorigin", crossorigin);
+      s[setAttribute]("crossorigin", crossorigin);
+    if (integrity)
+      s[setAttribute]("integrity", integrity);
     s.href = src;
-    fragment.appendChild(s);
+    preloadsAndPreconnectsFragment[appendChild](s);
     preloads[src] = true;
-    c4(delta_default(), s.rel, src);
-  };
-  var mayBePreloadScripts = () => {
-    if (_wpmeteor.preload && reorder.length) {
-      const fragment = d6.createDocumentFragment();
-      reorder.forEach((script) => {
-        const src = script[ga4](prefix2 + "src");
-        if (src && !preloads[src] && !script[ga4](prefix2 + "integrity") && !script[ha]("nomodule")) {
-          preloadAsScript(src, script[ga4](prefix2 + "type") == "module", script[ha]("crossorigin") && script[ga4]("crossorigin"), fragment);
-        }
-      });
-      rAF(d6.head.appendChild.bind(d6.head, fragment));
+    c(delta_default(), s.rel, src);
+    if (iterating) {
+      rAF(flushPreloadsAndPreconnects);
     }
   };
-  dOrigAddEventListener(DCL3, () => {
-    const treorder = [...reorder];
-    reorder.splice(0, reorder.length);
-    [...d6.querySelectorAll("script[" + prefix2 + "after]"), ...treorder].forEach((el) => {
-      if (seenScripts.some((seen) => seen === el)) {
-        return;
-      }
-      const originalAttributeGetter = el.__lookupGetter__("type").bind(el);
-      Object_defineProperty(el, "origtype", {
-        get() {
-          return originalAttributeGetter();
-        }
-      });
-      if ((el[ga4](prefix2 + "src") || "").match(/\/gtm.js\?/)) {
-        c4(delta_default(), "delaying regex", el[ga4](prefix2 + "src"));
-        delayed.push(el);
-      } else if (el[ha](prefix2 + "async")) {
-        c4(delta_default(), "delaying async", el[ga4](prefix2 + "src"));
-        delayed.unshift(el);
-      } else {
-        reorder.push(el);
-      }
-      seenScripts.push(el);
-    });
-  });
-  var createElement = function(...args) {
+  var createElement2 = function(...args) {
     const scriptElt = dOrigCreateElement(...args);
-    if (args[0].toUpperCase() !== S || !iterating) {
+    if (!args || args[0].toUpperCase() !== S || !iterating) {
       return scriptElt;
     }
-    c4(delta_default(), "creating script element");
-    const originalSetAttribute = scriptElt[sa4].bind(scriptElt);
-    const originalGetAttribute = scriptElt[ga4].bind(scriptElt);
-    const originalHasAttribute = scriptElt[ha].bind(scriptElt);
-    originalSetAttribute(prefix2 + "after", "REORDER");
-    originalSetAttribute(prefix2 + "type", "text/javascript");
-    scriptElt.type = javascriptBlocked;
+    c(delta_default(), "creating script element");
+    const originalSetAttribute = scriptElt[setAttribute].bind(scriptElt);
+    const originalGetAttribute = scriptElt[getAttribute].bind(scriptElt);
+    const originalHasAttribute = scriptElt[hasAttribute].bind(scriptElt);
+    const originalAttributes = scriptElt[__lookupGetter__]("attributes").bind(scriptElt);
     const eventListeners = [];
     scriptElt.getEventListeners = () => {
       return eventListeners;
     };
-    O[definePropert + "ies"](scriptElt, {
-      "onreadystatechange": {
-        set(func) {
-          eventListeners.push([L, func]);
-        }
-      },
-      "onload": {
-        set(func) {
-          eventListeners.push([L, func]);
-        }
-      },
-      "onerror": {
-        set(func) {
-          eventListeners.push([E, func]);
-        }
-      }
-    });
     capturedAttributes.forEach((property) => {
-      const originalAttributeGetter = scriptElt.__lookupGetter__(property).bind(scriptElt);
+      const originalAttributeGetter = scriptElt[__lookupGetter__](property).bind(scriptElt);
+      const originalAttributeSetter = scriptElt[__lookupSetter__](property).bind(scriptElt);
       O[definePropert + "y"](scriptElt, property, {
         set(value) {
-          c4(delta_default(), "setting ", property, value);
-          return value ? scriptElt[sa4](prefix2 + property, value) : scriptElt[ra2](prefix2 + property);
+          c(delta_default(), "setting ", property, value);
+          if (property === "type" && value && !isJavascriptRegexp.test(value)) {
+            return scriptElt[setAttribute](property, value);
+          }
+          if (property === "src" && value) {
+            originalSetAttribute("type", javascriptBlocked);
+          } else if (property === "type" && value && scriptElt.origsrc) {
+            originalSetAttribute("type", javascriptBlocked);
+          }
+          return value ? scriptElt[setAttribute](prefix2 + property, value) : scriptElt[removeAttribute](prefix2 + property);
         },
         get() {
-          return scriptElt[ga4](prefix2 + property);
+          const result = scriptElt[getAttribute](prefix2 + property);
+          if (property === "src") {
+            try {
+              const url = new URL(result, d.location.href);
+              return url.href;
+            } catch {
+            }
+          }
+          return result;
         }
       });
       Object_defineProperty(scriptElt, "orig" + property, {
+        set(value) {
+          return originalAttributeSetter(value);
+        },
         get() {
           return originalAttributeGetter();
         }
       });
     });
-    scriptElt[a2] = function(event, handler) {
+    scriptElt[addEventListener] = function(event, handler) {
       eventListeners.push([event, handler]);
     };
-    scriptElt[sa4] = function(property, value) {
+    scriptElt[setAttribute] = function(property, value) {
       if (capturedAttributes.includes(property)) {
-        c4(delta_default(), "setting attribute ", property, value);
-        return value ? originalSetAttribute(prefix2 + property, value) : scriptElt[ra2](prefix2 + property);
-      } else if (["onload", "onerror", "onreadystatechange"].includes(property)) {
-        c4(delta_default(), "setting attribute ", property, value);
-        if (value) {
-          originalSetAttribute(prefix2 + property, value);
-          originalSetAttribute(property, 'document.dispatchEvent(new CustomEvent("wpmeteor:load", { detail: { event: event, target: this } }))');
-        } else {
-          scriptElt[ra2](property);
-          scriptElt[ra2](prefix2 + property, value);
+        c(delta_default(), "setting attribute", property, value);
+        if (property === "type" && value && !isJavascriptRegexp.test(value)) {
+          return originalSetAttribute(property, value);
         }
+        if (property === "src" && value) {
+          originalSetAttribute("type", javascriptBlocked);
+        } else if (property === "type" && value && scriptElt.origsrc) {
+          originalSetAttribute("type", javascriptBlocked);
+        }
+        return value ? originalSetAttribute(prefix2 + property, value) : scriptElt[removeAttribute](prefix2 + property);
       } else {
         originalSetAttribute(property, value);
       }
     };
-    scriptElt[ga4] = function(property) {
-      return capturedAttributes.indexOf(property) >= 0 ? originalGetAttribute(prefix2 + property) : originalGetAttribute(property);
+    scriptElt[getAttribute] = function(property) {
+      const result = capturedAttributes.indexOf(property) >= 0 ? originalGetAttribute(prefix2 + property) : originalGetAttribute(property);
+      if (property === "src") {
+        try {
+          const url = new URL(result, d.location.href);
+          return url.href;
+        } catch {
+        }
+      }
+      return result;
     };
-    scriptElt[ha] = function(property) {
+    scriptElt[hasAttribute] = function(property) {
       return capturedAttributes.indexOf(property) >= 0 ? originalHasAttribute(prefix2 + property) : originalHasAttribute(property);
     };
-    const attributes = scriptElt.attributes;
     Object_defineProperty(scriptElt, "attributes", {
       get() {
-        const mock = [...attributes].filter((attr) => attr.name !== "type" && attr.name !== prefix2 + "after").map((attr) => {
+        const mock = [...originalAttributes()].filter((attr) => attr.name !== "type").map((attr) => {
           return {
             name: attr.name.match(new RegExp(prefix2)) ? attr.name.replace(prefix2, "") : attr.name,
             value: attr.value
@@ -937,105 +916,147 @@
     });
     return scriptElt;
   };
-  Object.defineProperty(d6, "createElement", {
+  Object.defineProperty(Document[prototype], "createElement", {
     set(value) {
       if (true) {
-        if (value == dOrigCreateElement) {
-          c4(delta_default(), "document.createElement restored to original");
-        } else if (value === createElement) {
-          c4(delta_default(), "document.createElement overridden");
+        if (value == origCreateElement) {
+          c(delta_default(), "document.createElement restored to original");
+        } else if (value === createElement2) {
+          c(delta_default(), "document.createElement overridden");
         } else {
-          c4(delta_default(), "document.createElement overridden by a 3rd party script");
+          c(delta_default(), "document.createElement overridden by a 3rd party script");
         }
       }
-      if (value !== createElement) {
+      if (value !== createElement2) {
         createElementOverride = value;
       }
     },
     get() {
-      return createElementOverride || createElement;
+      return createElementOverride || createElement2;
     }
   });
-  var seenScripts = [];
+  var seenScripts = /* @__PURE__ */ new Set();
   var observer = new MutationObserver((mutations) => {
-    if (iterating) {
-      mutations.forEach(({ addedNodes, target }) => {
-        addedNodes.forEach((node) => {
-          if (node.nodeType === 1) {
-            if (S === node.tagName) {
-              if ("REORDER" === node[ga4](prefix2 + "after") && (!node[ga4](prefix2 + "type") || isJavascriptRegexp.test(node[ga4](prefix2 + "type")))) {
-                c4(delta_default(), "captured new script", node.cloneNode(true), node);
-                const src = node[ga4](prefix2 + "src");
-                if (seenScripts.filter((n) => n === node).length) {
-                  ce("Inserted twice", node);
-                }
-                if (node.parentNode) {
-                  seenScripts.push(node);
-                  if ((src || "").match(/\/gtm.js\?/)) {
-                    c4(delta_default(), "delaying regex", node[ga4](prefix2 + "src"));
-                    delayed.push(node);
-                    preconnect(src);
-                  } else if (node[ha](prefix2 + "async")) {
-                    c4(delta_default(), "delaying async", node[ga4](prefix2 + "src"));
-                    delayed.unshift(node);
-                    preconnect(src);
-                  } else {
-                    if (src && !node[ga4](prefix2 + "integrity") && !node[ha]("nomodule") && !preloads[src]) {
-                      c4(delta_default(), "pre preload", reorder.length);
-                      preloadAsScript(src, node[ga4](prefix2 + "type") == "module", node[ha]("crossorigin") && node[ga4]("crossorigin"), d6.head);
-                    }
-                    reorder.push(node);
-                  }
-                } else {
-                  ce("No parent node for", node, "re-adding to", target);
-                  node.addEventListener(L, (e) => e.target.parentNode.removeChild(e.target));
-                  node.addEventListener(E, (e) => e.target.parentNode.removeChild(e.target));
-                  target.appendChild(node);
-                }
-              } else {
-                c4(delta_default(), "captured unmodified or non-javascript script", node.cloneNode(true), node);
-                dispatcher_default.emit("s", node.src);
-              }
-            } else if ("LINK" === node.tagName && node[ga4]("as") === "script") {
-              preloads[node[ga4]("href")] = true;
-            }
-          }
-        });
+    mutations.forEach(({ removedNodes, addedNodes, target }) => {
+      removedNodes.forEach((node) => {
+        if (node.nodeType === 1 && S === node[tagName] && "origtype" in node) {
+          seenScripts.delete(node);
+        }
       });
-    }
+      addedNodes.forEach((node) => {
+        if (node.nodeType === 1) {
+          if (S === node[tagName]) {
+            if ("origtype" in node) {
+              if (node.origtype !== javascriptBlocked) {
+                c(delta_default(), "mutationobserver captured non-blocked script", node);
+                return;
+              }
+            } else if (node[getAttribute]("type") !== javascriptBlocked) {
+              c(delta_default(), "mutationobserver captured non-blocked script", node);
+              return;
+            }
+            if (!("origtype" in node)) {
+              node[getAttribute]("type") === javascriptBlocked ? c(delta_default(), "mutationobserver captured blocked script", node) : c(delta_default(), "mutationobserver captured non-javascript script", node);
+              capturedAttributes.forEach((property) => {
+                const originalAttributeGetter = node[__lookupGetter__](property).bind(node);
+                const originalAttributeSetter = node[__lookupSetter__](property).bind(node);
+                Object_defineProperty(node, "orig" + property, {
+                  set(value) {
+                    return originalAttributeSetter(value);
+                  },
+                  get() {
+                    return originalAttributeGetter();
+                  }
+                });
+              });
+            } else {
+              c(delta_default(), "mutationobserver captured new script", node);
+            }
+            const src = node[getAttribute](prefix2 + "src");
+            if (seenScripts.has(node)) {
+              ce("Inserted twice", node);
+            }
+            if (node.parentNode) {
+              seenScripts.add(node);
+              if ((src || "").match(/\/gtm.js\?/)) {
+                c(delta_default(), "delaying regex", node[getAttribute](prefix2 + "src"));
+                async.push(node);
+                preconnect(src);
+              } else if (node[hasAttribute]("async")) {
+                c(delta_default(), "delaying async", node[getAttribute](prefix2 + "src"));
+                async.unshift(node);
+                preconnect(src);
+              } else if (node[hasAttribute]("defer")) {
+                c(delta_default(), "delaying defer", node[getAttribute](prefix2 + "src"));
+                defer.push(node);
+                preconnect(src);
+              } else {
+                if (src && !node[hasAttribute]("nomodule") && !preloads[src]) {
+                  c(delta_default(), "pre preload", reorder.length);
+                  preloadAsScript(src, node[getAttribute](prefix2 + "type") == "module", node[hasAttribute]("crossorigin") && node[getAttribute]("crossorigin"), node[getAttribute]("integrity"));
+                }
+                reorder.push(node);
+              }
+            } else {
+              ce("No parent node for", node, "re-adding to", target);
+              node[addEventListener](L, (e) => e.target.parentNode[removeChild](e.target));
+              node[addEventListener](E, (e) => e.target.parentNode[removeChild](e.target));
+              target[appendChild](node);
+            }
+          } else if ("LINK" === node[tagName] && node[getAttribute]("as") === "script") {
+            preloads[node[getAttribute]("href")] = true;
+          }
+        }
+      });
+    });
   });
   var mutationObserverOptions = {
     childList: true,
-    subtree: true,
-    attributes: true,
+    subtree: true
+    // attributes: true,
     // attributeFilter: ['src', 'type'],
-    attributeOldValue: true
+    // attributeOldValue: true,
   };
-  observer.observe(d6.documentElement, mutationObserverOptions);
-  var origAttachShadow = HTMLElement.prototype.attachShadow;
-  HTMLElement.prototype.attachShadow = function(options) {
+  observer.observe(d.documentElement, mutationObserverOptions);
+  var origAttachShadow = HTMLElement[prototype].attachShadow;
+  HTMLElement[prototype].attachShadow = function(options) {
     const shadowRoot = origAttachShadow.call(this, options);
     if (options.mode === "open") {
       observer.observe(shadowRoot, mutationObserverOptions);
     }
     return shadowRoot;
   };
-  dispatcher_default.on("l", () => {
-    if (!createElementOverride || createElementOverride === createElement) {
-      d6.createElement = dOrigCreateElement;
+  var origIFrameSrc = O[getOwnPropertyDescriptor](HTMLIFrameElement[prototype], "src");
+  Object_defineProperty(HTMLIFrameElement[prototype], "src", {
+    get() {
+      if (this.dataset.fpoSrc) {
+        return this.dataset.fpoSrc;
+      }
+      return origIFrameSrc.get.call(this);
+    },
+    set(value) {
+      delete this.dataset.fpoSrc;
+      origIFrameSrc.set.call(this, value);
+    }
+  });
+  dispatcher_default.on(EVENT_THE_END, () => {
+    c(delta_default(), "THE END");
+    if (!createElementOverride || createElementOverride === createElement2) {
+      Document[prototype].createElement = origCreateElement;
       observer.disconnect();
     } else {
-      c4(delta_default(), "createElement is overridden, keeping observers in place");
+      c(delta_default(), "createElement is overridden, keeping observers in place");
     }
-    d6.dispatchEvent(new CustomEvent("l"));
+    dispatchEvent(new CustomEvent(EVENT_REPLAY_CAPTURED_EVENTS));
+    dispatchEvent(new CustomEvent(EVENT_THE_END));
   });
   var documentWrite = (str) => {
     let parent, currentScript;
-    if (!d6.currentScript || !d6.currentScript.parentNode) {
-      parent = d6.body;
+    if (!d.currentScript || !d.currentScript.parentNode) {
+      parent = d.body;
       currentScript = parent.lastChild;
     } else {
-      currentScript = d6.currentScript;
+      currentScript = d.currentScript;
       parent = currentScript.parentNode;
     }
     try {
@@ -1053,7 +1074,7 @@
     }
   };
   var documentWriteLn = (str) => documentWrite(str + "\n");
-  Object_defineProperties(d6, {
+  Object_defineProperties(d, {
     "write": {
       get() {
         return documentWrite;
@@ -1072,17 +1093,17 @@
     }
   });
   var windowAddEventListener = (event, func, ...args) => {
-    if ("Window::" + DCL3 == currentlyFiredEvent && event === DCL3 && !func.toString().match(/jQueryMock/)) {
-      dispatcher_default.on("l", w3.addEventListener.bind(w3, event, func, ...args));
+    if (windowEventPrefix + DCL == currentlyFiredEvent && event === DCL && !func.toString().match(/jQueryMock/)) {
+      dispatcher_default.on(EVENT_THE_END, w[addEventListener].bind(w, event, func, ...args));
       return;
     }
-    if ("Window::" + L == currentlyFiredEvent && event === L) {
-      dispatcher_default.on("l", w3.addEventListener.bind(w3, event, func, ...args));
+    if (windowEventPrefix + L == currentlyFiredEvent && event === L) {
+      dispatcher_default.on(EVENT_THE_END, w[addEventListener].bind(w, event, func, ...args));
       return;
     }
-    if (func && (event === L || event === DCL3 || event === M && !DONE)) {
-      c4(delta_default(), "enqueuing event listener", event, func);
-      const name = event === DCL3 ? documentEventPrefix + event : windowEventPrefix + event;
+    if (func && (event === L || event === DCL || event === M && !DONE)) {
+      c(delta_default(), "enqueuing event listener", event, func);
+      const name = event === DCL ? documentEventPrefix + event : windowEventPrefix + event;
       listeners[name] = listeners[name] || [];
       listeners[name].push(func);
       if (DONE) {
@@ -1090,17 +1111,17 @@
       }
       return;
     }
-    return wOrigAddEventListener(event, func, ...args);
+    return wOrigAddEventListener2(event, func, ...args);
   };
-  var windowRemoveEventListener = (event, func) => {
+  var windowRemoveEventListener = (event, func, ...args) => {
     if (event === L) {
-      const name = event === DCL3 ? documentEventPrefix + event : windowEventPrefix + event;
-      removeEventListener(name, func);
+      const name = event === DCL ? documentEventPrefix + event : windowEventPrefix + event;
+      removeQueuedEventListener(name, func);
     }
-    return wOrigRemoveEventListener(event, func);
+    return wOrigRemoveEventListener2(event, func, ...args);
   };
-  Object_defineProperties(w3, {
-    [a2]: {
+  Object_defineProperties(w, {
+    [addEventListener]: {
       get() {
         return windowAddEventListener;
       },
@@ -1108,7 +1129,7 @@
         return windowAddEventListener;
       }
     },
-    [r2]: {
+    [removeEventListener]: {
       get() {
         return windowRemoveEventListener;
       },
@@ -1121,13 +1142,13 @@
     let handler;
     return {
       get() {
-        c4(delta_default(), separator2, "getting " + name.toLowerCase().replace(/::/, ".") + " handler", handler);
+        c(delta_default(), separator2, "getting " + name.toLowerCase().replace(/::/, ".") + " handler", handler);
         return handler;
       },
       set(func) {
-        c4(delta_default(), separator2, "setting " + name.toLowerCase().replace(/::/, ".") + " handler", func);
+        c(delta_default(), separator2, "setting " + name.toLowerCase().replace(/::/, ".") + " handler", func);
         if (handler) {
-          removeEventListener(name, func);
+          removeQueuedEventListener(name, func);
         }
         listeners[name] = listeners[name] || [];
         listeners[name].push(func);
@@ -1137,15 +1158,15 @@
       // configurable: true,
     };
   };
-  dOrigAddEventListener("wpmeteor:load", (e) => {
+  wOrigAddEventListener2(EVENT_ELEMENT_LOADED, (e) => {
     const { target, event } = e.detail;
-    const el = target === w3 ? d6.body : target;
-    const func = el[ga4](prefix2 + "on" + event.type);
-    el[ra2](prefix2 + "on" + event.type);
+    const el = target === w ? d.body : target;
+    const func = el[getAttribute](prefix2 + "on" + event.type);
+    el[removeAttribute](prefix2 + "on" + event.type);
     try {
       const f = new Function("event", func);
-      if (target === w3) {
-        w3[a2](L, w3[a2].bind(w3, L, f));
+      if (target === w) {
+        w[addEventListener](L, f.bind(target, event));
       } else {
         f.call(target, event);
       }
@@ -1155,104 +1176,93 @@
   });
   {
     const options = onHandlerOptions(windowEventPrefix + L);
-    Object_defineProperty(w3, "onload", options);
-    dOrigAddEventListener(DCL3, () => {
-      Object_defineProperty(d6.body, "onload", options);
+    Object_defineProperty(w, "onload", options);
+    dOrigAddEventListener(DCL, () => {
+      Object_defineProperty(d.body, "onload", options);
     });
   }
-  Object_defineProperty(d6, "onreadystatechange", onHandlerOptions(documentEventPrefix + RSC));
-  Object_defineProperty(w3, "onmessage", onHandlerOptions(windowEventPrefix + M));
-  if (location.search.match(/wpmeteorperformance/)) {
-    try {
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          c4(delta_default(), "LCP candidate:", entry.startTime, entry);
+  Object_defineProperty(d, "onreadystatechange", onHandlerOptions(documentEventPrefix + RSC));
+  Object_defineProperty(w, "onmessage", onHandlerOptions(windowEventPrefix + M));
+  (() => {
+    const wheight = w.innerHeight;
+    const wwidth = w.innerWidth;
+    const intersectsViewport = (el) => {
+      let extras = {
+        "4g": 1250,
+        "3g": 2500,
+        "2g": 2500
+      };
+      const extra = extras[(navigator.connection || {}).effectiveType] || 0;
+      const rect = el.getBoundingClientRect();
+      const viewport = {
+        top: -1 * wheight - extra,
+        left: -1 * wwidth - extra,
+        bottom: wheight + extra,
+        right: wwidth + extra
+      };
+      if (rect.left >= viewport.right || rect.right <= viewport.left)
+        return false;
+      if (rect.top >= viewport.bottom || rect.bottom <= viewport.top)
+        return false;
+      return true;
+    };
+    const waitForImages = (reallyWait = true) => {
+      let imagesToLoad = 1;
+      let imagesLoadedCount = -1;
+      const seen = {};
+      const imageLoadedHandler = () => {
+        imagesLoadedCount++;
+        if (!--imagesToLoad) {
+          c(delta_default(), imagesLoadedCount + " eager images loaded");
+          w[_setTimeout](dispatcher_default.emit.bind(dispatcher_default, EVENT_IMAGES_LOADED), _wpmeteor.rdelay);
         }
-      }).observe({ type: "largest-contentful-paint", buffered: true });
-      new PerformanceObserver((list) => {
-        list.getEntries().forEach((e) => c4(delta_default(), "resource loaded", e.name, e));
-      }).observe({ type: "resource" });
-    } catch (e) {
-    }
-  }
-  var intersectsViewport = (el) => {
-    let extras = {
-      "4g": 1250,
-      "3g": 2500,
-      "2g": 2500
-    };
-    const extra = extras[(navigator.connection || {}).effectiveType] || 0;
-    const rect = el.getBoundingClientRect();
-    const viewport = {
-      top: -1 * wheight - extra,
-      left: -1 * wwidth - extra,
-      bottom: wheight + extra,
-      right: wwidth + extra
-    };
-    if (rect.left >= viewport.right || rect.right <= viewport.left)
-      return false;
-    if (rect.top >= viewport.bottom || rect.bottom <= viewport.top)
-      return false;
-    return true;
-  };
-  var waitForImages = (reallyWait = true) => {
-    let imagesToLoad = 1;
-    let imagesLoadedCount = -1;
-    const seen = {};
-    const imageLoadedHandler = () => {
-      imagesLoadedCount++;
-      if (!--imagesToLoad) {
-        c4(delta_default(), imagesLoadedCount + " eager images loaded");
-        nextTick(dispatcher_default.emit.bind(dispatcher_default, "i"), _wpmeteor.rdelay);
-      }
-    };
-    Array.from(d6.getElementsByTagName("*")).forEach((tag) => {
-      let src, style, bgUrl;
-      if (tag.tagName === "IMG") {
-        let _src = tag.currentSrc || tag.src;
-        if (_src && !seen[_src] && !_src.match(/^data:/i)) {
-          if ((tag.loading || "").toLowerCase() !== "lazy") {
-            src = _src;
-            c4(delta_default(), "loading image", src, "for", tag);
-          } else if (intersectsViewport(tag)) {
-            src = _src;
-            c4(delta_default(), "loading lazy image", src, "for", tag);
+      };
+      Array.from(d.getElementsByTagName("*")).forEach((tag) => {
+        let src, style, bgUrl;
+        if (tag[tagName] === "IMG") {
+          let _src = tag.currentSrc || tag.src;
+          if (_src && !seen[_src] && !_src.match(/^data:/i)) {
+            if ((tag.loading || "").toLowerCase() !== "lazy") {
+              src = _src;
+              c(delta_default(), "loading image", src, "for", tag);
+            } else if (intersectsViewport(tag)) {
+              src = _src;
+              c(delta_default(), "loading lazy image", src, "for", tag);
+            }
+          }
+        } else if (tag[tagName] === S) {
+          preconnect(tag[getAttribute](prefix2 + "src"));
+        } else if (tag[tagName] === "LINK" && tag[getAttribute]("as") === "script" && ["pre" + L, "modulepre" + L].indexOf(tag[getAttribute]("rel")) >= 0) {
+          preloads[tag[getAttribute]("href")] = true;
+        } else if ((style = w.getComputedStyle(tag)) && (bgUrl = (style.backgroundImage || "").match(/^url\s*\((.*?)\)/i)) && (bgUrl || []).length) {
+          const url = bgUrl[0].slice(4, -1).replace(/"/g, "");
+          if (!seen[url] && !url.match(/^data:/i)) {
+            src = url;
+            c(delta_default(), "loading background", src, "for", tag);
           }
         }
-      } else if (tag.tagName === S) {
-        preconnect(tag[ga4](prefix2 + "src"));
-      } else if (tag.tagName === "LINK" && tag[ga4]("as") === "script" && ["pre" + L, "modulepre" + L].indexOf(tag[ga4]("rel")) >= 0) {
-        preloads[tag[ga4]("href")] = true;
-      } else if ((style = w3.getComputedStyle(tag)) && (bgUrl = (style.backgroundImage || "").match(/^url\s*\((.*?)\)/i)) && (bgUrl || []).length) {
-        const url = bgUrl[0].slice(4, -1).replace(/"/g, "");
-        if (!seen[url] && !url.match(/^data:/i)) {
-          src = url;
-          c4(delta_default(), "loading background", src, "for", tag);
+        if (src) {
+          seen[src] = true;
+          const temp = new Image();
+          if (reallyWait) {
+            imagesToLoad++;
+            temp[addEventListener](L, imageLoadedHandler);
+            temp[addEventListener](E, imageLoadedHandler);
+          }
+          temp.src = src;
         }
-      }
-      if (src) {
-        seen[src] = true;
-        const temp = new Image();
-        if (reallyWait) {
-          imagesToLoad++;
-          temp[a2](L, imageLoadedHandler);
-          temp[a2](E, imageLoadedHandler);
-        }
-        temp.src = src;
-      }
-    });
-    d6.fonts.ready.then(() => {
-      c4(delta_default(), "fonts ready");
-      imageLoadedHandler();
-    });
-  };
-  (() => {
+      });
+      d.fonts.ready.then(() => {
+        c(delta_default(), "fonts ready");
+        imageLoadedHandler();
+      });
+    };
     if (_wpmeteor.rdelay === 0) {
-      dOrigAddEventListener(DCL3, () => nextTick(waitForImages.bind(null, false)));
+      dOrigAddEventListener(DCL, waitForImages);
     } else {
-      wOrigAddEventListener(L, waitForImages);
+      wOrigAddEventListener2(L, waitForImages);
     }
   })();
 })();
-//0.1.16
+//1.0.20
 //# sourceMappingURL=public-debug.js.map

@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 4.0.4
+Version: 4.0.5
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
@@ -12,12 +12,12 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.8
+WC tested up to: 8.9
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.4' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.5' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -1034,22 +1034,6 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                                     </select> </label>
                                             </td>
                                         </tr>
-                                        <tr class="heading">
-                                            <th colspan="2"><?php esc_html_e( 'Suggestion', 'woo-smart-quick-view' ); ?></th>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                To display custom engaging real-time messages on any wished positions, please install
-                                                <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                Wanna save your precious time working on variations? Try our brand-new free plugin
-                                                <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
-                                                <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
-                                            </td>
-                                        </tr>
                                         <tr class="submit">
                                             <th colspan="2">
 												<?php settings_fields( 'woosq_settings' ); ?><?php submit_button(); ?>
@@ -1135,6 +1119,22 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                     </ul>
                                 </div>
 							<?php } ?>
+                        </div><!-- /.wpclever_settings_page_content -->
+                        <div class="wpclever_settings_page_suggestion">
+                            <div class="wpclever_settings_page_suggestion_label">
+                                <span class="dashicons dashicons-yes-alt"></span> Suggestion
+                            </div>
+                            <div class="wpclever_settings_page_suggestion_content">
+                                <div>
+                                    To display custom engaging real-time messages on any wished positions, please install
+                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
+                                </div>
+                                <div>
+                                    Wanna save your precious time working on variations? Try our brand-new free plugin
+                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
+                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
+                                </div>
+                            </div>
                         </div>
                     </div>
 					<?php

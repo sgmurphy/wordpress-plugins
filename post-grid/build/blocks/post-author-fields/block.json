@@ -5,10 +5,16 @@
   "title": "Author Fields",
   "textdomain": "post-grid",
   "category": "post-grid-post",
+  "parent": [
+    "post-grid/post-author",
+    "post-grid/flex-wrap-item",
+    "post-grid/layers"
+  ],
   "usesContext": [
     "postId",
     "loopIndex",
     "postType",
+    "post-grid/postElement",
     "queryId"
   ],
   "supports": {
@@ -37,6 +43,7 @@
       "default": {
         "options": {
           "linkTo": "postUrl",
+          "customField": "",
           "linkToMeta": "",
           "linkTarget": "",
           "avatarSize": "",
@@ -90,7 +97,7 @@
     },
     "metaKey": {
       "type": "string",
-      "default": ""
+      "default": "display_name"
     },
     "frontText": {
       "type": "object",

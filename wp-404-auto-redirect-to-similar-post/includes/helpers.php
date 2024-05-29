@@ -1,8 +1,18 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
+
+/**
+ * wp404arsp_set_result
+ *
+ * @param $result
+ * @param $engine
+ *
+ * @return false
+ */
 function wp404arsp_set_result($result, $engine){
     
     $engine = wp_parse_args($engine, array(
@@ -12,8 +22,9 @@ function wp404arsp_set_result($result, $engine){
         'primary'   => false,
     ));
     
-    if(empty($engine['name']) || empty($engine['slug']))
+    if(empty($engine['name']) || empty($engine['slug'])){
         return false;
+    }
     
     if(is_array($result)){
         
@@ -39,17 +50,40 @@ function wp404arsp_set_result($result, $engine){
     
 }
 
-// isset + !empty
+
+/**
+ * wp404arsp_is_empty
+ *
+ * @param $var
+ *
+ * @return bool
+ */
 function wp404arsp_is_empty(&$var){
     return (isset($var) && !empty($var)) ? false : true;
 }
 
+
+/**
+ * wp404arsp_sanitize
+ *
+ * @param $input
+ * @param $delimiter
+ *
+ * @return array|string|string[]
+ */
 function wp404arsp_sanitize($input, $delimiter = '-'){
-    
     return str_replace(array('-', '_'), $delimiter, sanitize_title(str_replace(array('_', '/', '?', '#', '=', '&amp;', '&'), '-', $input)));
-    
 }
 
+
+/**
+ * wp404arsp_parse_args_recursive
+ *
+ * @param $a
+ * @param $b
+ *
+ * @return array
+ */
 function wp404arsp_parse_args_recursive(&$a, $b){
     
     $a = (array) $a;
@@ -68,6 +102,16 @@ function wp404arsp_parse_args_recursive(&$a, $b){
     
 }
 
+
+/**
+ * wp404arsp_array_swap
+ *
+ * @param $key1
+ * @param $key2
+ * @param $array
+ *
+ * @return array
+ */
 function wp404arsp_array_swap($key1, $key2, $array){
         
     $newArray = array();
@@ -92,51 +136,85 @@ function wp404arsp_array_swap($key1, $key2, $array){
 }
 
 
+/**
+ * wp404arsp_array_move_by_key
+ *
+ * @param $a
+ * @param $oldpos
+ * @param $newpos
+ *
+ * @return void
+ */
 function wp404arsp_array_move_by_key(&$a, $oldpos, $newpos){
     
-    if($oldpos == $newpos)
+    if($oldpos == $newpos){
         return;
+    }
     
     array_splice($a, max($newpos,0), 0, array_splice($a, max($oldpos,0), 1));
     
 }
 
+
+/**
+ * wp404arsp_get_post_types
+ *
+ * @param $settings
+ *
+ * @return array|string[]|WP_Post_Type[]
+ */
 function wp404arsp_get_post_types($settings){
     
     $get_post_types = get_post_types(array('public' => true), 'names');
     
     // No exclude
-    if(!isset($settings['rules']['exclude']['post_types']) || !is_array($settings['rules']['exclude']['post_types']) || empty($settings['rules']['exclude']['post_types']))
+    if(!isset($settings['rules']['exclude']['post_types']) || !is_array($settings['rules']['exclude']['post_types']) || empty($settings['rules']['exclude']['post_types'])){
         return $get_post_types;
+    }
     
     // Exclude
     $return = array();
     foreach($get_post_types as $post_type){
-        if(in_array($post_type, $settings['rules']['exclude']['post_types']))
+        
+        if(in_array($post_type, $settings['rules']['exclude']['post_types'])){
             continue;
+        }
         
         $return[] = $post_type;
+        
     }
     
     return $return;
     
 }
 
+
+/**
+ * wp404arsp_get_taxonomies
+ *
+ * @param $settings
+ *
+ * @return array|string[]|WP_Taxonomy[]
+ */
 function wp404arsp_get_taxonomies($settings){
     
     $get_taxonomies = get_taxonomies(array('public' => true), 'names');
     
     // No exclude
-    if(!isset($settings['rules']['exclude']['taxonomies']) || !is_array($settings['rules']['exclude']['taxonomies']) || empty($settings['rules']['exclude']['taxonomies']))
+    if(!isset($settings['rules']['exclude']['taxonomies']) || !is_array($settings['rules']['exclude']['taxonomies']) || empty($settings['rules']['exclude']['taxonomies'])){
         return $get_taxonomies;
+    }
     
     // Exclude
     $return = array();
     foreach($get_taxonomies as $taxonomy){
-        if(in_array($taxonomy, $settings['rules']['exclude']['taxonomies']))
+        
+        if(in_array($taxonomy, $settings['rules']['exclude']['taxonomies'])){
             continue;
+        }
         
         $return[] = $taxonomy;
+        
     }
     
     return $return;

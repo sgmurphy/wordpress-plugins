@@ -4,7 +4,7 @@ Donate link: https://richplugins.com/business-reviews-bundle-wordpress-plugin
 Tags: Google reviews, reviews, slider, testimonials, Google business
 Requires at least: 3.0.1
 Tested up to: 6.5
-Stable tag: 3.7
+Stable tag: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,7 +80,7 @@ Why limit your reviews to just Google Reviews? Check out our other free reviews 
 
 If you have any questions regarding this plugin or business version, you can contact us directly.
 
-We offer 24/7 email support in English.
+We offer 24/5 email support in English.
 
 We recommend the following order when searching for answers:
 1. Plugin's support page in wp-admin: Google Reviews / Support.
@@ -101,8 +101,17 @@ To find out more about who we are and what we do, here are some useful links:
 == Roadmap ==
 
 * Test-feature: weekly reviews auto-updates
+* Remove unused ajax grw_connect listener
+* Put new connected Google place to the top connections list (at the moment it's added to the end)
+* Trying to get 10 reviews with own Google API key instead of 5 most-helpful by default
+* Fix incorrect redirecting after initial page connecting
 
 == Changelog ==
+
+= 3.8 =
+* Update Google connection method
+* Bugfix: used own Google API key (if saved) in the initial connect
+* Clear unused code
 
 = 3.7 =
 * Initial Google connection page

@@ -5,9 +5,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 class GlobalsProviderUC{
 	
 	const ENABLE_FREEMIUS = true;
-	
-	public static $pluginName = "";
-	
+		
 	const META_KEY_LAYOUT_DATA = "_unelements_layout_data";
 	const META_KEY_LAYOUT_PARAMS = "_unelements_layout_params";
 	

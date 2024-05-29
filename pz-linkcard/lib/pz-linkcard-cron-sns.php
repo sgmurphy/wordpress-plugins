@@ -1,0 +1,40 @@
+<?php defined('ABSPATH' ) || wp_die; ?>
+<?php
+	// WP-CRONスケジュール（SNSカウント取得）
+	if (!$this->options['sns-position'] ) {
+		wp_clear_scheduled_hook('pz_linkcard_check' );
+		return	null;
+	}
+
+	// DBの宣言
+	global	$wpdb;
+
+	// SNS次回取得日時を越えているものを抽出
+	$proc_datas	=	$wpdb->get_results($wpdb->prepare("SELECT url,sns_nexttime FROM $this->db_name WHERE sns_nexttime < %d ORDER BY sns_nexttime ASC", $this->now ) );
+
+	// 実行ログ
+	$message	=	'There were '.count($proc_datas ).' links that passed the next "Check SNS Count" confirmation date and time.';
+	$log		=	$message.PHP_EOL;
+	$this->pz_OutputLog($message );
+
+	// SNSカウント取得
+	$proc_count	=	0;
+	if (isset($proc_datas ) && is_array($proc_datas ) && count($proc_datas ) > 0) {
+		foreach($proc_datas as $data ) {
+			$proc_count++;
+
+			// 10件を超えたら、5分後に続きを処理する
+			if ($proc_count > 10) {
+				wp_schedule_single_event(time() + 300, 'pz_linkcard_check' );
+				break;
+			}
+
+			// SNSカウントを取得
+			$result		=	$this->pz_RenewSNSCount(array('url' => $data->url ) );	// SNS取得＆キャッシュ更新
+
+			// 実行ログ
+			$message	=	'['.$proc_count.'] '.'Confirmed the "Check SNS Count". (NextTime='.date('Y-m-d H:i:s', $result['alive_nexttime'] ).' URL='.$result['url'].')';
+			$log		.=	$message.PHP_EOL;
+			$this->pz_OutputLog($message );
+		}
+	}

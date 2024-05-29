@@ -52,6 +52,7 @@ class Builder_Page {
         $reviews = null;
 
         $rate_us = get_option('grw_rate_us');
+        $authcode = get_option('grw_auth_code');
 
         if ($feed != null) {
             $feed_id = $feed->ID;
@@ -69,8 +70,7 @@ class Builder_Page {
 
         ?>
         <div class="grw-builder">
-            <?php wp_nonce_field('grw_wpnonce', 'grw_nonce');
-            if ($feed_inited) { ?>
+            <?php wp_nonce_field('grw_wpnonce', 'grw_nonce'); ?>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php?action=' . Post_Types::FEED_POST_TYPE . '_save')); ?>">
                 <input type="hidden" id="grw_post_id" name="<?php echo Post_Types::FEED_POST_TYPE; ?>[post_id]" value="<?php echo esc_attr($feed_id); ?>">
                 <input type="hidden" id="grw_current_url" name="<?php echo Post_Types::FEED_POST_TYPE; ?>[current_url]" value="<?php echo home_url($_SERVER['REQUEST_URI']); ?>">
@@ -95,19 +95,19 @@ class Builder_Page {
                     <div class="grw-builder-preview">
                         <textarea id="grw-builder-connection" name="<?php echo Post_Types::FEED_POST_TYPE; ?>[content]" style="display:none"><?php echo $feed_content; ?></textarea>
                         <div id="grw_collection_preview">
-                            <?php echo $this->view->render($feed_id, $businesses, $reviews, $options, true); ?>
+                            <?php
+                            if ($feed_inited) {
+                                echo $this->view->render($feed_id, $businesses, $reviews, $options, true);
+                            } else {
+                                ?>To show reviews in this preview, firstly connect it on the right menu (CONNECT GOOGLE) and click
+                                '<b>Save & Update</b>' button. Then you can use this created widget on a sidebar or through a shortcode.<?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div id="grw-builder-option" class="grw-builder-options"></div>
             </form>
-            <?php } else { ?>
-                <div style="max-width:640px;padding:1rem 1rem 0;margin: auto">
-                    <p style="font-size:16px;">Please start typing your Google Business Profile name or location, then select your business from the drop-down list.</p>
-                    <p style="font-size:16px;">Alternatively, you can find your <b>Place ID</b> by <a href="<?php echo admin_url('admin.php?page=grw-support&grw_tab=fig#place_id'); ?>" target="_blank">this instruction</a> and paste here to connect.</p>
-                </div>
-                <iframe src="https://app.richplugins.com/gpidc" style="width:100%;height:400px"></iframe>
-            <?php } ?>
         </div>
 
         <?php if (!$rate_us) { ?>
@@ -154,25 +154,6 @@ class Builder_Page {
 
         <script>
             jQuery(document).ready(function($) {
-
-                window.onmessage = function(e) {
-                    if (e.origin !== 'https://app.richplugins.com') return;
-                    if (e.data) {
-                        let data = e.data;
-                        jQuery.post(ajaxurl, {
-                            pid       : data.pid,
-                            lang      : data.lang,
-                            token     : data.token,
-                            action    : 'grw_connect',
-                            grw_nonce : jQuery('#grw_nonce').val()
-                        }, function(res) {
-                            if (res.status == 'success') {
-                                window.location.href = '<?php echo admin_url('admin.php?page=grw-builder&' . Post_Types::FEED_POST_TYPE . '_id='); ?>' + res.result.feed_id + '&grw_feed_new=1';
-                            }
-                        });
-                    }
-                };
-
                 function grw_builder_init_listener(attempts) {
                     if (!window.grw_builder_init) {
                         if (attempts > 0) {
@@ -183,7 +164,7 @@ class Builder_Page {
                     grw_builder_init($, {
                         el       : '#grw-builder-option',
                         use_gpa  : true,
-                        authcode : '<?php echo get_option('grw_auth_code'); ?>',
+                        authcode : '<?php echo $authcode; ?>',
                         <?php if (strlen($feed_content) > 0) { echo 'conns: ' . $feed_content; } ?>
                     });
                 }

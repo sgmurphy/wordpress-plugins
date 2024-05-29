@@ -43,7 +43,7 @@ class PGBlockPostAuthor
   {
 
 
-    global $postGridCss;
+
 
     global $postGridCssY;
 
@@ -51,7 +51,7 @@ class PGBlockPostAuthor
     $post_data = get_post($post_ID);
 
     $post_url = get_the_permalink($post_ID);
-    $post_author_id = $post_data->post_author;
+    $post_author_id = isset($post_data->post_author) ? $post_data->post_author : '';
     //$author_data = get_user_by('ID', $post_author_id);
 
     $blockId = isset($attributes['blockId']) ? $attributes['blockId'] : '';
@@ -106,30 +106,32 @@ class PGBlockPostAuthor
     //
     $postGridCssY[] = isset($blockCssY['items']) ? $blockCssY['items'] : [];
 
-    $nameLink = '';
+    // $nameLink = '';
 
-    if ($nameLinkTo == 'postUrl') {
-      $nameLink = get_permalink($post_ID);
-    } else if ($nameLinkTo == 'authorUrl') {
-      $user = get_user_by('ID', $post_author_id);
-      $nameLink = $user->user_url;
-    } else if ($nameLinkTo == 'authorLink') {
-      $nameLink = get_author_posts_url($post_author_id);
-    } else if ($nameLinkTo == 'customUrl') {
-      $nameLink = $nameCustomUrl;
-    } else if ($nameLinkTo == 'authorMeta') {
-      $nameLink = !empty($nameLinkToMeta) ? get_user_meta($post_author_id, $nameLinkToMeta, true) : '';
-    } else if ($nameLinkTo == 'authorMail') {
-      $user = get_user_by('ID', $post_author_id);
-      $nameLink = $user->user_email;
-      $nameLink = "mailto:$nameLink";
-    } else if ($nameLinkTo == 'homeUrl') {
-      $nameLink = get_home_url();
-    } else if ($nameLinkTo == 'customField') {
-      // $nameLink = get_post_meta($post_author_id, $nameLinkToMeta, true);
-      $nameLink = "";
-    }
+    // if ($nameLinkTo == 'postUrl') {
+    //   $nameLink = get_permalink($post_ID);
+    // } else if ($nameLinkTo == 'authorUrl') {
+    //   $user = get_user_by('ID', $post_author_id);
+    //   $nameLink = $user->user_url;
+    // } else if ($nameLinkTo == 'authorLink') {
+    //   $nameLink = get_author_posts_url($post_author_id);
+    // } else if ($nameLinkTo == 'customUrl') {
+    //   $nameLink = $nameCustomUrl;
+    // } else if ($nameLinkTo == 'authorMeta') {
+    //   $nameLink = !empty($nameLinkToMeta) ? get_user_meta($post_author_id, $nameLinkToMeta, true) : '';
+    // } else if ($nameLinkTo == 'authorMail') {
+    //   $user = get_user_by('ID', $post_author_id);
+    //   $nameLink = $user->user_email;
+    //   $nameLink = "mailto:$nameLink";
+    // } else if ($nameLinkTo == 'homeUrl') {
+    //   $nameLink = get_home_url();
+    // } else if ($nameLinkTo == 'customURL') {
+    //   $nameLink = $nameCustomUrl;
+    // } else if ($nameLinkTo == 'customField') {
+    //   $nameLink = get_post_meta($post_ID, $nameLinkToMeta, true);
+    // }
 
+    // var_export(get_post_meta($post_author_id, $nameLinkToMeta, true));
 
 
     $htmlGroups = [];
@@ -145,41 +147,7 @@ class PGBlockPostAuthor
     ob_start();
 ?>
 
-    <div class="<?php echo esc_attr($nameClass); ?>">
-      <?php if (!empty($nameLink)) : ?>
 
-        <?php if ($namePrefix) : ?>
-          <span class="prefix">
-            <?php echo wp_kses_post($namePrefix); ?>
-          </span>
-        <?php endif; ?>
-        <a href="<?php echo esc_url_raw($nameLink); ?>">
-          <?php echo wp_kses_post(get_the_author_meta('display_name', $post_author_id)); ?>
-        </a>
-        <?php if ($namePostfix) : ?>
-          <span class="prefix">
-            <?php echo wp_kses_post($namePostfix); ?>
-          </span>
-        <?php endif; ?>
-
-
-      <?php else : ?>
-
-
-        <?php if ($namePrefix) : ?>
-          <span class="prefix">
-            <?php echo wp_kses_post($namePrefix); ?>
-          </span>
-        <?php endif; ?>
-        <?php echo wp_kses_post(get_the_author_meta('display_name', $post_author_id)); ?>
-        <?php if ($namePostfix) : ?>
-          <span class="prefix">
-            <?php echo wp_kses_post($namePostfix); ?>
-          </span>
-        <?php endif; ?>
-      <?php endif; ?>
-
-    </div>
 
     <?php
     $htmlGroups['name'] = ob_get_clean();
@@ -223,24 +191,15 @@ class PGBlockPostAuthor
 
     ob_start();
 
-
     ?>
 
 
-    <<?php echo esc_attr($wrapperTag); ?> class="
+    <<?php echo tag_escape($wrapperTag); ?> class="
           <?php echo esc_attr($wrapperClass); ?>
           <?php echo $blockId; ?>">
       <?php
-      foreach ($elementsItems as $item) {
-
-
-        echo $htmlGroups[$item['id']];
-      }
-
-
-
-      ?>
-    </<?php echo esc_attr($wrapperTag); ?>>
+      echo $content ?>
+    </<?php echo tag_escape($wrapperTag); ?>>
 
 
 

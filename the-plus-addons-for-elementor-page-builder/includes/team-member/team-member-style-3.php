@@ -23,14 +23,14 @@ $postid = get_the_ID();
 				<div class="table-cell">
 					<?php
 					if ( ! empty( $team_social_contnet ) && ! empty( $display_social_icon ) && $display_social_icon == 'yes' ) {
-						echo $team_social_contnet;
+						echo wp_kses_post( $team_social_contnet );
 					}
 					?>
 				</div>
 			</div>
 			<?php
 			if ( ! empty( $designation ) && ! empty( $display_designation ) && $display_designation == 'yes' ) {
-				echo $designation;
+				echo wp_kses_post( $designation );
 			}
 			?>
 		</div>

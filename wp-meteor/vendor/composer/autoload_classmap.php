@@ -45,6 +45,7 @@ return array(
     'WP_Meteor\\Backend\\SaveSettings' => $baseDir . '/backend/SaveSettings.php',
     'WP_Meteor\\Backend\\SettingsPage' => $baseDir . '/backend/SettingsPage.php',
     'WP_Meteor\\Blocker\\Base' => $baseDir . '/blocker/Base.php',
+    'WP_Meteor\\Blocker\\Event' => $baseDir . '/blocker/Event.php',
     'WP_Meteor\\Blocker\\Exclusions\\Compatibility' => $baseDir . '/blocker/Exclusions/Compatibility.php',
     'WP_Meteor\\Blocker\\Exclusions\\Exclude' => $baseDir . '/blocker/Exclusions/Exclude.php',
     'WP_Meteor\\Blocker\\Exclusions\\GDPR' => $baseDir . '/blocker/Exclusions/GDPR.php',

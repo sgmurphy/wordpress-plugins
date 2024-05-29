@@ -569,7 +569,8 @@ class L_ThePlus_Post_Title extends Widget_Base {
 					} elseif ( is_author() ) {
 						$title = '<span class="vcard">' . get_the_author() . '</span>';
 					} elseif ( is_tax() ) {
-						$title = sprintf( __( '%1$s' ), single_term_title( '', false ) );
+						// Translators: %1$s is replaced with the title.
+                        $title = sprintf( __( 'Title: %1$s', 'tpebl' ), single_term_title( '', false ) );
 					} elseif ( is_post_type_archive() ) {
 						$title = post_type_archive_title( '', false );
 					} elseif ( is_search() ) {

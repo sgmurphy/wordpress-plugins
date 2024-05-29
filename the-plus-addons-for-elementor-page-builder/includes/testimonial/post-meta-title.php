@@ -22,7 +22,7 @@ if ( ! empty( $testimonial_title ) ) {
 	if ( 'tlrepeater' === $con_from ) {
 		$title = '';
 		if ( $layout != 'carousel' ) { ?>
-			<<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?> class="testimonial-author-title title-scroll-<?php echo esc_attr( $cntscroll_on ); ?>"><?php echo esc_html( $testimonial_title ); ?></<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?>>
+			<<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?> class="testimonial-author-title title-scroll-<?php echo esc_attr( $cntscroll_on ); ?>"><?php echo esc_html( $testimonial_title ); ?></<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?>>
 			<?php
 		} elseif ( $title_by_limit === 'words' ) {
 				$titotal           = explode( ' ', $testimonial_title );
@@ -51,9 +51,9 @@ if ( ! empty( $testimonial_title ) ) {
 
 	if ( 'tlrepeater' === $con_from ) {
 		?>
-		<<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?> class="testimonial-author-title"><?php echo $title; ?></<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?>>
+		<<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?> class="testimonial-author-title"><?php echo wp_kses_post( $title ); ?></<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?>>
 	<?php } else { ?>
-		<<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?> class="testimonial-author-title"><?php echo esc_html( $testimonial_title ); ?></<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?>>
+		<<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?> class="testimonial-author-title"><?php echo esc_html( $testimonial_title ); ?></<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?>>
 	<?php }
 }
 ?>

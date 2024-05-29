@@ -1,3 +1,6 @@
+<?php 
+use Codexpert\ThumbPress\Helper;
+ ?>
 <div id="cx-message-optimize-images" class="cx-message">
 	<img src="<?php echo esc_url( plugins_url( 'vendor/codexpert/plugin/src/assets/img/checked.png', THUMBPRESS ) ); ?>">
 </div>
@@ -18,6 +21,17 @@
 				<?php _e( 'Regenerate In Background', 'image-sizes' ); ?>
 			</button>
 		</div>
+
+		<?php 
+	        $thumbpress_modules = Helper::get_option( 'thumbpress_modules', 'disable-thumbnails' );
+
+	        if ( $thumbpress_modules == 'on' ) {
+	            ?>
+	            <a href="<?php echo get_site_url() . '/wp-admin/admin.php?page=thumbpress-modules#prevent_image_sizes' ; ?>" class="prevent_image_sizes-back button-hero">&#10550; <?php _e( 'Go to Disable Thumbnails Settings','image-sizes' ) ?></a>
+	            <?php 
+	        }
+		?>
+		
 	</div>
 	<div id="image_sizes-regen-right">
 		<div class="image-sizes-progress-panel-wrapper" style="display: none;">

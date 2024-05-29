@@ -1,0 +1,11 @@
+{
+    "name": "wpplugin/easy-paypal-donations",
+    "type": "project",
+    "license": "GPL2",
+    "autoload": {
+        "psr-4": {
+            "WPEasyDonation\\": "./core"
+        }
+    },
+    "require": {}
+}

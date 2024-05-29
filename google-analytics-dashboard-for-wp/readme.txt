@@ -3,8 +3,8 @@ Contributors: chriscct7, smub
 Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,website stats
 Requires at least: 5.6.0
-Tested up to: 6.5
-Stable tag: 7.26.0
+Tested up to: 6.5.2
+Stable tag: 7.27.0
 Requires PHP: 7.2
 License: GPL v3
 
@@ -28,7 +28,7 @@ Basically, we made the same advanced Google analytics setup that big enterprise 
 This is why even the large companies like Microsoft, Quickbooks, Pizza Hut, Delta, Pepsi, Coldwell Bankers, and many others are using ExactMetrics to properly setup Google Analytics and see the custom analytics reports in WordPress.
 
 > <strong>ExactMetrics Pro</strong><br />
-> This plugin is the lite version of ExactMetrics Pro plugin that comes with all the Google analytics tracking features you will ever need including events tracking, ecommerce tracking, custom dimensions tracking, form conversion tracking, affiliate link tracking, and tons more. [click here to purchase teh best premium Google Analytics plugin for WordPress Now!(https://exactmetrics.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). 
+> This plugin is the lite version of ExactMetrics Pro plugin that comes with all the Google analytics tracking features you will ever need including events tracking, ecommerce tracking, custom dimensions tracking, form conversion tracking, affiliate link tracking, and tons more. [click here to purchase the best premium Google Analytics plugin for WordPress Now!](https://exactmetrics.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). 
 We are on a mission to level the playing field for small businesses, so they can grow their business faster with data-driven decisions.
 
 https://www.youtube.com/watch?v=4GZ-IgZssao
@@ -131,6 +131,12 @@ You can translate Google Analytics Dashboard for WP by ExactMetrics on [translat
 4. Want more features? <a href="https://www.exactmetrics.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase ExactMetrics Pro</a>!
 
 == Changelog ==
+= 7.27.0: May 29, 2024 =
+- New: Site Notes Automations addon. 
+- Fix: We fixed an issue related to eCommerce abandoned checkouts.
+- Fix: We fixed an issue related to UserJourney report pages.
+- Enhancement: We improved the notification system.
+
 = 7.26.0: April 15, 2024 =
 - New: Added new Exceptions Report
 - New: Added new Google Consent support.

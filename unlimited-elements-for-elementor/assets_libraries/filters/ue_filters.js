@@ -815,7 +815,7 @@ function UEDynamicFilters(){
 	 * clear all filters
 	 */
 	function clearAllFilters(objGrid){
-
+		
 		clearChildFilters(objGrid, null, true, null, true);
 	}
 
@@ -853,7 +853,7 @@ function UEDynamicFilters(){
 			var currentFilterID = objCurrentFilter.attr("id");
 						
 		jQuery.each(objFilters, function(index, filter){
-			
+						
 			var objFilter = jQuery(filter);
 			var filterID = objFilter.attr("id");
 
@@ -866,9 +866,10 @@ function UEDynamicFilters(){
 			
 			if(role != "child" && role != "main" && role != "term_child"){
 				
-				if(isClearAll == true)
+				if(isClearAll == true){
 					clearFilter(objFilter);
-
+				}
+				
 				return(true);
 			}
 
@@ -908,6 +909,11 @@ function UEDynamicFilters(){
 
 				break;
 				default:
+					
+					if(isClearAll == true){
+						clearFilter(objFilter);
+					}
+					
 					return(true);
 				break;
 			}
@@ -927,7 +933,7 @@ function UEDynamicFilters(){
 	 * clear some filter
 	 */
 	function clearFilter(objFilter){
-
+		
 		var type = getFilterType(objFilter);
 
 		switch(type){
@@ -3918,7 +3924,7 @@ function UEDynamicFilters(){
 		//clear filters from event
 
 		objGrids.on(g_vars.ACTION_CLEAR_FILTERS, function(){
-
+			
 			var objGrid = jQuery(this);
 
 			var arrActiveFilterItems = getGridActiveFilterItems(objGrid);
@@ -3926,9 +3932,9 @@ function UEDynamicFilters(){
 			//if already cleared - no need
 			if(!arrActiveFilterItems)
 				return(null);
-
+						
 			clearAllFilters(objGrid, null, true);
-
+			
 			objGrid.trigger(g_vars.ACTION_REFRESH_GRID);
 
 		});

@@ -89,13 +89,13 @@ class bt_bb_leaflet_map extends BT_BB_Element {
 		
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
-		$output = '<div class="' . esc_attr($this->shortcode) . '_map ' . esc_attr( $class_master ) . '_map" id="' . esc_attr( $map_id ) . '"' . $style_height . '></div>';
+		$output = '<div class="' . esc_attr( $this->shortcode ) . '_map ' . esc_attr( $class_master ) . '_map" id="' . esc_attr( $map_id ) . '"' . $style_height . ' data-zoom="' . esc_attr( $zoom ) . '" data-max_zoom="' . esc_attr( $max_zoom ) . '" data-predefined_style="' . esc_attr( $predefined_style ) . '" data-custom_style="' . esc_attr( $custom_style ) . '" data-scroll_wheel="' . esc_attr( $scroll_wheel ) . '" data-zoom_control="' . esc_attr( $zoom_control ) . '"></div>';
 		$output .= $content;
 		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-center="' . esc_attr( $center_map ) . '">' . $output . '</div>';
 		
 		$output_script = 'var bt_bb_leaflet_' . $map_id . '_init_finished = false; ';
 		$output_script .= ' document.addEventListener("readystatechange", function() { ';
-			$output_script .= ' if ( !bt_bb_leaflet_' . $map_id . '_init_finished && ( document.readyState === "interactive" || document.readyState === "complete" ) ) { ';
+			$output_script .= ' if ( ! bt_bb_leaflet_' . $map_id . '_init_finished && ( document.readyState === "interactive" || document.readyState === "complete" ) ) { ';
 				$output_script .= ' if ( typeof( bt_bb_leaflet_init ) !== typeof(Function) ) { return false; } ';
 				$output_script .= ' bt_bb_leaflet_init( "' . $map_id . '", ' . $zoom . ', ' . $max_zoom . ', ' . $predefined_style . ', "' . $custom_style . '", ' . $scroll_wheel . ', ' . $zoom_control . ' );';
 				$output_script .= ' bt_bb_leaflet_' . $map_id . '_init_finished = true; ';
@@ -114,6 +114,13 @@ class bt_bb_leaflet_map extends BT_BB_Element {
 		}
 
 	function map_shortcode() {
+		
+		$center_map_desc = '';
+		if ( BT_BB_FE::$editor_active ) {
+			$center_map_desc = esc_html__( 'You can edit location(s) on back end.', 'bold-builder' );
+			require_once( 'enqueue_lib.php' );
+		}		
+		
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'OpenStreetMap', 'boldthemes_framework_textdomain' ), 'description' => esc_html__( 'OpenStreetMap with custom content', 'boldthemes_framework_textdomain' ), 'toggle' => true, 'container' => 'vertical', 'accept' => array( 'bt_bb_leaflet_map_location' => true ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
 				array( 'param_name' => 'zoom', 'type' => 'textfield', 'heading' => esc_html__( 'Zoom', 'boldthemes_framework_textdomain' ), 'placeholder' => esc_html__( 'E.g. 9', 'bold-builder' ), 'default' => '9', 'preview' => true ),
@@ -121,23 +128,23 @@ class bt_bb_leaflet_map extends BT_BB_Element {
 				array( 'param_name' => 'height', 'type' => 'textfield', 'heading' => esc_html__( 'Height', 'boldthemes_framework_textdomain' ), 'placeholder' => esc_html__( 'E.g. 250px', 'bold-builder' ), 'description' => esc_html__( 'Used when there is no content', 'boldthemes_framework_textdomain' ) ),
 				array( 'param_name' => 'predefined_style', 'type' => 'dropdown', 'default' => '1', 'heading' => esc_html__( 'Predefined (base) map layer', 'boldthemes_framework_textdomain' ), 'preview' => true, 
 					'value' => array(
-						__( 'No base layer (use only additional map layers)', 'boldthemes_framework_textdomain' ) 	=> '0',
-						__( 'Mapnik OSM', 'boldthemes_framework_textdomain' ) 										=> '1',
+						esc_html__( 'No base layer (use only additional map layers)', 'boldthemes_framework_textdomain' ) 	=> '0',
+						esc_html__( 'Mapnik OSM', 'boldthemes_framework_textdomain' ) 										=> '1',
 						//__( 'Wikimedia', 'boldthemes_framework_textdomain' ) 										=> '2',
-						__( 'OSM Hot', 'boldthemes_framework_textdomain' ) 											=> '3',
-						__( 'Stamen Watercolor', 'boldthemes_framework_textdomain' ) 								=> '4',
-						__( 'Stamen Terrain', 'boldthemes_framework_textdomain' ) 									=> '5',
-						__( 'Stamen Toner', 'boldthemes_framework_textdomain' ) 									=> '6',
-						__( 'Carto Dark', 'boldthemes_framework_textdomain' )  										=> '7',
-						__( 'Carto Light', 'boldthemes_framework_textdomain' )  									=> '8'
+						esc_html__( 'OSM Hot', 'boldthemes_framework_textdomain' ) 											=> '3',
+						esc_html__( 'Stamen Watercolor', 'boldthemes_framework_textdomain' ) 								=> '4',
+						esc_html__( 'Stamen Terrain', 'boldthemes_framework_textdomain' ) 									=> '5',
+						esc_html__( 'Stamen Toner', 'boldthemes_framework_textdomain' ) 									=> '6',
+						esc_html__( 'Carto Dark', 'boldthemes_framework_textdomain' )  										=> '7',
+						esc_html__( 'Carto Light', 'boldthemes_framework_textdomain' )  									=> '8'
 					)
 				),
 				array( 'param_name' => 'custom_style', 'type' => 'textarea_object', 'heading' => esc_html__( 'Additional map layers', 'boldthemes_framework_textdomain' ), 'description' => esc_html__( 'Add Map tiles URL. E.g. https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png, Attribution text separated by new line', 'boldthemes_framework_textdomain' ) ),
-				array( 'param_name' => 'center_map', 'type' => 'dropdown', 'heading' => esc_html__( 'Center map', 'boldthemes_framework_textdomain' ),
+				array( 'param_name' => 'center_map', 'type' => 'dropdown', 'heading' => esc_html__( 'Center map', 'boldthemes_framework_textdomain' ), 'description' => $center_map_desc,
 					'value' => array(
-						__( 'No (use first location as center)', 'boldthemes_framework_textdomain' ) 	=> 'no',
-						__( 'Yes', 'boldthemes_framework_textdomain' ) 									=> 'yes',
-						__( 'Yes (without overlay initially)', 'boldthemes_framework_textdomain' ) 		=> 'yes_no_overlay'
+						esc_html__( 'No (use first location as center)', 'boldthemes_framework_textdomain' ) 	=> 'no',
+						esc_html__( 'Yes', 'boldthemes_framework_textdomain' ) 									=> 'yes',
+						esc_html__( 'Yes (without overlay initially)', 'boldthemes_framework_textdomain' ) 		=> 'yes_no_overlay'
 					)
 				),
 				array( 'param_name' => 'scroll_wheel',  'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'boldthemes_framework_textdomain' ) => 'yes' ), 'default' => 'yes', 'heading' => esc_html__( 'Enable scroll wheel zoom on map', 'boldthemes_framework_textdomain' ), 'preview' => true

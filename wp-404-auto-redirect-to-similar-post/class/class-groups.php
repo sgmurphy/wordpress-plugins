@@ -1,14 +1,18 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
 if(!class_exists('WP_404_Auto_Redirect_Groups')){
 
-class WP_404_Auto_Redirect_Groups {
+class WP_404_Auto_Redirect_Groups{
     
     public $get_groups = array();
     
+    /**
+     * construct
+     */
     function __construct(){
         
         // Groups: Register
@@ -16,6 +20,12 @@ class WP_404_Auto_Redirect_Groups {
         
 	}
     
+    
+    /**
+     * register_groups
+     *
+     * @return void
+     */
     function register_groups(){
         
         $this->register_group(array(
@@ -34,11 +44,13 @@ class WP_404_Auto_Redirect_Groups {
     }
     
     
-    /*
-	*  Group: Register
-	*
-	*/
-    
+    /**
+     * register_group
+     *
+     * @param $args
+     *
+     * @return void
+     */
     function register_group($args){
         
         $args = wp_parse_args($args, array(
@@ -48,32 +60,42 @@ class WP_404_Auto_Redirect_Groups {
             'engines'   => array()
         ));
         
-        if(empty($args['name']) || empty($args['slug']))
+        if(empty($args['name']) || empty($args['slug'])){
             return;
+        }
         
-        if($args['slug'] == 'default' && $args['custom'])
+        if($args['slug'] == 'default' && $args['custom']){
             return;
+        }
         
-        if(!$args['custom'])
+        if(!$args['custom']){
             unset($args['custom']);
+        }
         
         $group = apply_filters('wp404arsp/define/group/' . $args['slug'], $args);
-        if(!$group)
+        
+        if(!$group){
             return;
+        }
         
         if(!empty($group['engines'])){
         
             $reset = false;
+            
             foreach($group['engines'] as $e => $engine){
-                if(wp404arsp_engine_exists($engine))
+                
+                if(wp404arsp_engine_exists($engine)){
                     continue;
+                }
                 
                 unset($group['engines'][$e]);
                 $reset = true;
+                
             }
             
-            if($reset)
+            if($reset){
                 $group['engines'] = array_values($group['engines']);
+            }
             
         }
         
@@ -82,11 +104,13 @@ class WP_404_Auto_Redirect_Groups {
     }
     
     
-    /*
-	*  Group: Register
-	*
-	*/
-    
+    /**
+     * register_group_engines
+     *
+     * @param $args
+     *
+     * @return void
+     */
     function register_group_engines($args){
         
         $args = wp_parse_args($args, array(
@@ -94,52 +118,65 @@ class WP_404_Auto_Redirect_Groups {
             'engines'   => array()
         ));
         
-        if(!$args['group'] || empty($this->get_groups))
+        if(!$args['group'] || empty($this->get_groups)){
             return;
+        }
         
         foreach($this->get_groups as &$group){
-            if($group['slug'] != $args['group'])
+            
+            if($group['slug'] != $args['group']){
                 continue;
+            }
             
             $group['engines'] = $args['engines'];
             
-            if(empty($args['engines']))
+            if(empty($args['engines'])){
                 break;
+            }
             
             $reset = false;
+            
             foreach($args['engines'] as $e => $engine){
-                if(wp404arsp_engine_exists($engine))
+                
+                if(wp404arsp_engine_exists($engine)){
                     continue;
+                }
                 
                 unset($group['engines'][$e]);
                 $reset = true;
+                
             }
             
-            if($reset)
+            if($reset){
                 $group['engines'] = array_values($group['engines']);
+            }
             
         }
         
     }
     
     
-    /*
-	*  Group: Deregister
-	*
-	*/
-    
+    /**
+     * deregister_group
+     *
+     * @param $slug
+     *
+     * @return void
+     */
     function deregister_group($slug){
         
-        if(empty($this->get_groups) || $slug == 'default')
+        if(empty($this->get_groups) || $slug == 'default'){
             return;
+        }
         
         $reset = false;
         
         // Engines
         foreach($this->get_groups as $g => $group){
         
-            if($group['slug'] != $slug)
+            if($group['slug'] != $slug){
                 continue;
+            }
             
             // Engine
             unset($this->get_groups[$g]);
@@ -148,16 +185,22 @@ class WP_404_Auto_Redirect_Groups {
             
         }
         
-        if($reset)
+        if($reset){
             $this->get_groups = array_values($this->get_groups);
+        }
         
     }
     
-    /*
-	*  One Group: Deregister 1 engine
-	*
-	*/
     
+    /**
+     * deregister_group_engine
+     *
+     * Deregister a single engine from a group
+     *
+     * @param $args
+     *
+     * @return void
+     */
     function deregister_group_engine($args){
         
         $args = wp_parse_args($args, array(
@@ -165,20 +208,23 @@ class WP_404_Auto_Redirect_Groups {
             'engine'    => false
         ));
         
-        if(!$args['group'] || !$args['engine'])
+        if(!$args['group'] || !$args['engine']){
             return;
+        }
         
         foreach($this->get_groups as $g => $group){
         
-            if($group['slug'] != $args['group'] || empty($group['engines']))
+            if($group['slug'] != $args['group'] || empty($group['engines'])){
                 continue;
+            }
             
             $reset = false;
             
             foreach($group['engines'] as $ge => $group_engine){
             
-                if($group_engine != $args['engine'])
+                if($group_engine != $args['engine']){
                     continue;
+                }
                 
                 unset($this->get_groups[$g]['engines'][$ge]);
                 $reset = true;
@@ -186,8 +232,9 @@ class WP_404_Auto_Redirect_Groups {
                 
             }
             
-            if($reset)
+            if($reset){
                 $this->get_groups[$g]['engines'] = array_values($this->get_groups[$g]['engines']);
+            }
             
             break;
             
@@ -196,24 +243,30 @@ class WP_404_Auto_Redirect_Groups {
     }
     
     
-    /*
-	*  All Groups: Deregister 1 Engine
-	*
-	*/
-    
+    /**
+     * deregister_groups_engine
+     *
+     * Deregister a single engine from all groups
+     *
+     * @param $slug
+     *
+     * @return void
+     */
     function deregister_groups_engine($slug){
         
         foreach($this->get_groups as $g => $group){
         
-            if(empty($group['engines']))
+            if(empty($group['engines'])){
                 continue;
+            }
             
             $reset = false;
             
             foreach($group['engines'] as $ge => $group_engine){
             
-                if($group_engine != $slug)
+                if($group_engine != $slug){
                     continue;
+                }
                 
                 unset($this->get_groups[$g]['engines'][$ge]);
                 $reset = true;
@@ -221,19 +274,22 @@ class WP_404_Auto_Redirect_Groups {
                 
             }
             
-            if($reset)
+            if($reset){
                 $this->get_groups[$g]['engines'] = array_values($this->get_groups[$g]['engines']);
+            }
             
         }
         
     }
     
     
-    /*
-	*  Group: Re-order
-	*
-	*/
-    
+    /**
+     * reorder_group_engines
+     *
+     * @param $args
+     *
+     * @return void
+     */
     function reorder_group_engines($args){
     
         $args = wp_parse_args($args, array(
@@ -244,52 +300,79 @@ class WP_404_Auto_Redirect_Groups {
         
         $get_engines = wp404arsp()->engines->get_engines;
         
-        if(!$args['group'] || empty($this->get_groups) || !$args['engine'] || empty($get_engines))
+        if(!$args['group'] || empty($this->get_groups) || !$args['engine'] || empty($get_engines)){
             return;
+        }
 
         $group_key = false;
         $engine_key = false;
         
         foreach($this->get_groups as $g => $group){
-            if($group['slug'] != $args['group'] || empty($group['engines']))
+            
+            if($group['slug'] != $args['group'] || empty($group['engines'])){
                 continue;
+            }
             
             foreach($group['engines'] as $e => $engine){
+                
                 if($engine == $args['engine']){
+                    
                     $group_key = $g;
                     $engine_key = $e;
                     break;
+                    
                 }
+                
             }
+            
         }
         
-        if($engine_key === false || $group_key === false)
+        if($engine_key === false || $group_key === false){
             return;
+        }
         
         wp404arsp_array_move_by_key($this->get_groups[$group_key]['engines'], $engine_key, $args['order']);
 
     }
     
+    
+    /**
+     * get_group_by_slug
+     *
+     * @param $slug
+     *
+     * @return false|mixed
+     */
     function get_group_by_slug($slug){
         
-        if(empty($this->get_groups))
+        if(empty($this->get_groups)){
             return false;
+        }
         
         foreach($this->get_groups as $group){
-            if($group['slug'] != $slug)
+            
+            if($group['slug'] != $slug){
                 continue;
+            }
             
             return $group;
+            
         }
         
         return false;
         
     }
     
-    function group_exists($slug){
     
+    /**
+     * group_exists
+     *
+     * @param $slug
+     *
+     * @return false|mixed
+     */
+    function group_exists($slug){
         return $this->get_group_by_slug($slug);
-        
     }
     
 }
@@ -298,44 +381,86 @@ wp404arsp()->groups = new WP_404_Auto_Redirect_Groups();
 
 }
 
+
+/**
+ * wp404arsp_register_group
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
 function wp404arsp_register_group($args){
-    
 	return wp404arsp()->groups->register_group($args);
-    
 }
 
+
+/**
+ * wp404arsp_register_group_engines
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
 function wp404arsp_register_group_engines($args){
-    
 	return wp404arsp()->groups->register_group_engines($args);
-    
 }
 
+
+/**
+ * wp404arsp_deregister_group_engine
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
 function wp404arsp_deregister_group_engine($args){
-    
 	return wp404arsp()->groups->deregister_group_engine($args);
-    
 }
 
+
+/**
+ * wp404arsp_deregister_groups_engine
+ *
+ * @param $slug
+ *
+ * @return mixed
+ */
 function wp404arsp_deregister_groups_engine($slug){
-    
 	return wp404arsp()->groups->deregister_groups_engine($slug);
-    
 }
 
+
+/**
+ * wp404arsp_reorder_group_engines
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
 function wp404arsp_reorder_group_engines($args){
-    
 	return wp404arsp()->groups->reorder_group_engines($args);
-    
 }
 
+
+/**
+ * wp404arsp_get_group_by_slug
+ *
+ * @param $slug
+ *
+ * @return mixed
+ */
 function wp404arsp_get_group_by_slug($slug){
-    
 	return wp404arsp()->groups->get_group_by_slug($slug);
-    
 }
 
+
+/**
+ * wp404arsp_group_exists
+ *
+ * @param $slug
+ *
+ * @return mixed
+ */
 function wp404arsp_group_exists($slug){
-    
 	return wp404arsp()->groups->group_exists($slug);
-    
 }

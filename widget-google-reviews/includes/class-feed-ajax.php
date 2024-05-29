@@ -21,6 +21,7 @@ class Feed_Ajax {
         $this->view = $view;
 
         add_action('wp_ajax_grw_feed_save_ajax', array($this, 'save_ajax'));
+        add_action('wp_ajax_grw_get_place', array($this, 'get_place'));
         add_action('wp_ajax_grw_connect', array($this, 'connect'));
     }
 
@@ -42,6 +43,57 @@ class Feed_Ajax {
         wp_die();
     }
 
+    public function get_place() {
+        if (current_user_can('manage_options')) {
+            if (isset($_POST['grw_nonce']) === false) {
+                $error = __('Unable to call request. Make sure you are accessing this page from the Wordpress dashboard.', 'widget-google-reviews');
+                $response = compact('error');
+            } else {
+                check_admin_referer('grw_wpnonce', 'grw_nonce');
+
+                $pid = sanitize_text_field(wp_unslash($_POST['pid']));
+                $lang = sanitize_text_field(wp_unslash($_POST['lang']));
+                $token = sanitize_text_field(wp_unslash($_POST['token']));
+
+                $google_api_key = get_option('grw_google_api_key');
+
+                if ($google_api_key && strlen($google_api_key) > 0) {
+                    $url = $this->api_url($pid, $google_api_key, $lang);
+                } else {
+                    $url = 'https://app.richplugins.com/gpaw2/get/json?pid=' . $pid . '&token=' . $token .
+                           '&siteurl=' . get_option('siteurl') . '&authcode=' . get_option('grw_auth_code');
+
+                    if ($lang && strlen($lang) > 0) {
+                        $url = $url . '&lang=' . $lang;
+                    }
+                }
+
+                $res = wp_remote_get($url);
+                $body = wp_remote_retrieve_body($res);
+                $body_json = json_decode($body);
+
+                if (!$body_json || !isset($body_json->result)) {
+                    $result = $body_json;
+                    $status = 'failed';
+                } elseif (!isset($body_json->result->rating)) {
+                    $error_msg = 'Google place <a href="' . $body_json->result->url . '" target="_blank">which you try to connect</a> ' .
+                                 'does not have a rating and reviews, it seems it\'s a street address, not a business locations. ' .
+                                 'Please read manual how to find ' .
+                                 '<a href="' . admin_url('admin.php?page=grw-support&grw_tab=fig#place_id') . '" target="_blank">right Place ID</a>.';
+                    $result = array('error_message' => $error_msg);
+                    $status = 'failed';
+                } else {
+                    $result = $body_json->result;
+                    $status = 'success';
+                }
+                $response = compact('status', 'result');
+            }
+            header('Content-type: text/json');
+            echo json_encode($response);
+            wp_die();
+        }
+    }
+
     public function connect() {
         if (current_user_can('manage_options')) {
             if (isset($_POST['grw_nonce']) === false) {
@@ -54,9 +106,17 @@ class Feed_Ajax {
                 $lang = sanitize_text_field(wp_unslash($_POST['lang']));
                 $token = sanitize_text_field(wp_unslash($_POST['token']));
 
-                $url = 'https://app.richplugins.com/gpaw2/get/json?pid=' . $pid . '&token=' . $token;
-                if ($lang && strlen($lang) > 0) {
-                    $url = $url . '&lang=' . $lang;
+                $google_api_key = get_option('grw_google_api_key');
+
+                if ($google_api_key && strlen($google_api_key) > 0) {
+                    $url = $this->api_url($pid, $google_api_key, $lang);
+                } else {
+                    $url = 'https://app.richplugins.com/gpaw2/get/json?pid=' . $pid . '&token=' . $token .
+                           '&siteurl=' . get_option('siteurl') . '&authcode=' . get_option('grw_auth_code');
+
+                    if ($lang && strlen($lang) > 0) {
+                        $url = $url . '&lang=' . $lang;
+                    }
                 }
 
                 $res = wp_remote_get($url);
@@ -109,6 +169,17 @@ class Feed_Ajax {
             echo json_encode($response);
             wp_die();
         }
+    }
+
+    function api_url($placeid, $google_api_key, $reviews_lang = '', $reviews_sort = '') {
+        $url = GRW_GOOGLE_PLACE_API . 'details/json?placeid=' . $placeid . '&key=' . $google_api_key;
+        if (strlen($reviews_lang) > 0) {
+            $url = $url . '&language=' . $reviews_lang;
+        }
+        if (strlen($reviews_sort) > 0) {
+            $url = $url . '&reviews_sort=' . $reviews_sort;
+        }
+        return $url;
     }
 
 }

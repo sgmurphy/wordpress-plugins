@@ -1507,6 +1507,11 @@ class UniteCreatorTemplateEngineWork{
 
 				return($getVarValue);
 			break;
+			case "wpp_get_page_views":	//get post views using wordpress popular posts plugin
+						
+				$count = UniteCreatorPluginIntegrations::WPP_getPostViews($arg1);
+				
+				return($count);
 			break;
 			default:
 

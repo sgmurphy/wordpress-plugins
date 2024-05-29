@@ -69,7 +69,7 @@ class L_Theplus_Section_Column_Link extends Elementor\Widget_Base {
 	}
 
 	public function tp_enqueue_scripts() {
-		wp_enqueue_script('plus-section-column-link',L_THEPLUS_ASSETS_URL . 'js/main/section-column-link/plus-section-column-link.min.js',array( 'jquery' ),'',true);	
+		wp_enqueue_script('plus-section-column-link',L_THEPLUS_ASSETS_URL . 'js/main/section-column-link/plus-section-column-link.min.js',array( 'jquery' ),L_THEPLUS_VERSION,true);	
 	}
 
 	public function plus_before_render($element) {		

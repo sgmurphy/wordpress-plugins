@@ -2013,7 +2013,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 					if ( ! empty( $icons ) && 'before' === $icon_position ) {
 						$lz2 = function_exists( 'tp_has_lazyload' ) ? tp_bg_lazyLoad( $settings['icon_adv_bg_image'], $settings['icon_adv_hover_bg_image'] ) : '';
 						?>
-						<div class="plus-icon-list-icon <?php echo $lz2; ?>"> 
+						<div class="plus-icon-list-icon <?php echo esc_attr( $lz2 ); ?>"> 
 							<?php
 							if ( 'font_awesome_5' === $icon_style ) {
 								?>
@@ -2063,7 +2063,7 @@ class L_ThePlus_Style_List extends Widget_Base {
 
 						$lz2 = function_exists( 'tp_has_lazyload' ) ? tp_bg_lazyLoad( $settings['icon_adv_bg_image'], $settings['icon_adv_hover_bg_image'] ) : '';
 						?>
-						<div class="plus-icon-list-icon <?php echo $lz2; ?>"> 
+						<div class="plus-icon-list-icon <?php echo esc_attr( $lz2 ); ?>"> 
 							<?php
 							if ( 'font_awesome_5' === $icon_style ) { ?>
 									<span>

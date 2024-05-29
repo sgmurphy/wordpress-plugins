@@ -47,7 +47,7 @@ if ( 'metro' === $layout ) {
 if ( ! empty( $settings['display_box_link'] ) && 'yes' === $settings['display_box_link'] ) {
 	if ( ! empty( $settings['force_custom_url'] ) && 'yes' === $settings['force_custom_url'] ) {
 		?>
-		<a href="<?php echo esc_url( $custom_url ); ?>" <?php echo $target; ?> <?php echo $nofollow; ?> class="gallery-list-content" <?php echo $popup_attr; ?>>
+		<a href="<?php echo esc_url( $custom_url ); ?>" <?php echo esc_attr( $target ); ?> <?php echo esc_attr( $nofollow ); ?> class="gallery-list-content" <?php echo esc_attr( $popup_attr ); ?>>
 		<?php
 	} else {
 		?>
@@ -72,8 +72,8 @@ if ( 'metro' !== $layout ) {
 			<?php } else { ?>
 				<a href="<?php echo esc_url( $custom_url ); ?>"  
 									<?php
-									echo $target;
-									echo $nofollow;
+									echo esc_attr( $target );
+									echo esc_attr( $nofollow );
 									?>
 				><?php include L_THEPLUS_INCLUDES_URL . 'gallery/format-image.php'; ?></a>
 			<?php } ?>			
@@ -81,9 +81,9 @@ if ( 'metro' !== $layout ) {
 		} elseif ( 'no' !== $popup_style ) {
 			if ( ! empty( $settings['display_box_link'] ) && 'yes' === $settings['display_box_link'] ) {
 				?>
-				<div <?php echo $popup_attr_icon; ?>><?php include L_THEPLUS_INCLUDES_URL . 'gallery/format-image.php'; ?></div>
+				<div heheh <?php echo wp_kses_post( $popup_attr_icon ); ?>><?php include L_THEPLUS_INCLUDES_URL . 'gallery/format-image.php'; ?></div>
 			<?php } else { ?>
-				<a href="<?php echo esc_url( $full_image ); ?>" <?php echo $popup_attr_icon1; ?>><?php include L_THEPLUS_INCLUDES_URL . 'gallery/format-image.php'; ?></a>
+				<a href="<?php echo esc_url( $full_image ); ?>" <?php echo wp_kses_post( $popup_attr_icon1 ); ?>><?php include L_THEPLUS_INCLUDES_URL . 'gallery/format-image.php'; ?></a>
 				<?php
 			}
 		} else {
@@ -97,7 +97,7 @@ if ( 'metro' !== $layout ) {
 		
 		<div class="post-zoom-icon">
 			<?php if ( ! empty( $image_icon ) && ! empty( $list_img ) ) { ?>
-				<div class="gallery-list-icon"><?php echo $list_img; ?></div>
+				<div class="gallery-list-icon"><?php echo wp_kses_post( $list_img ); ?></div>
 				<?php
 			}
 
@@ -134,7 +134,7 @@ if ( 'metro' !== $layout ) {
 		<?php } ?>
 	</div>
 	<?php if ( 'metro' === $layout ) { ?>
-		<div class="gallery-bg-image-metro <?php echo esc_attr( $lazyclass ); ?>" <?php echo $bg_attr; ?>></div>
+		<div class="gallery-bg-image-metro <?php echo esc_attr( $lazyclass ); ?>" <?php echo wp_kses_post( $bg_attr ); ?>></div>
 		<?php
 	}
 	if ( ! empty( $settings['display_box_link'] ) && 'yes' === $settings['display_box_link'] ) {

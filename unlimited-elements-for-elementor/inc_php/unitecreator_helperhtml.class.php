@@ -659,7 +659,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		public static function outputException($e, $prefix="", $forceTrace = false){
 
 			if(empty($prefix))
-				$prefix = GlobalsUC::$currentPluginTitle." Error: ";
+				$prefix = GlobalsUnlimitedElements::$pluginTitleCurrent." Error: ";
 
 			$message = $prefix.$e->getMessage();
 			$trace = $e->getTraceAsString();

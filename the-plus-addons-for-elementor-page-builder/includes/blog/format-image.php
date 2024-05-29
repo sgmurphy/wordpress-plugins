@@ -28,6 +28,6 @@ if ( ! empty( $featured_image_url ) ) {
 ?>
 <div class="blog-featured-image">
 <span class="thumb-wrap">
-	<?php echo $featured_image; ?>
+	<?php echo wp_kses_post( $featured_image ); ?>
 </span>
 </div>

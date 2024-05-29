@@ -2,12 +2,29 @@
 <div id="abh_settings" >
     <form id="abh_settings_form" name="settings" action="" method="post" enctype="multipart/form-data">
         <div id="abh_settings_title" ><?php _e('StarBox Settings', _ABH_PLUGIN_NAME_); ?></div>
+
+        <div style="display:flex;margin-top:2vw;margin-left:10px;background-image:radial-gradient(at 59% 100%, hsla(180,100%,10%,1) 0px, transparent 50%),radial-gradient(at 0% 42%, hsla(180,100%,11%,1) 0px, transparent 50%),
+                    radial-gradient(at 100% 4%, hsla(180,100%,17%,1) 0px, transparent 50%);background-color:hsla(180,0%,0%,1);
+                    width:83.4vw;height:7vw;">
+            <img style="width:45vw;margin-top:-0.8vw;height:7vw;margin-left:0.8vw;" src="<?php echo _ABH_THEME_URL_ ?>/img/promo.gif" alt="">            <div>
+                <div style="color:white;width:18vw;align-items: flex-start;margin-left:30px;flex-direction:column;">
+                    <div style="font-weight:400;color:#FFFFFF;font-size:0.85vw;margin-top:15px;">Premium WordPress Plugin</div>
+                    <div style="red;width:10vw;font-weight:bold;line-height:20px;color:#FFFFFF;font-size:0.9vw;margin-top:15px;letter-spacing:2px;display:flex;text-align: left;flex-wrap:wrap;">DARE TO BE DIFFERENT.</div>
+                </div>
+
+            </div>
+            <a class="discover-pro" style="color:#333333;background-color:#FBCC34;text-decoration:none;text-align:left;padding:7px;border-radius:5px;height:25px;margin-top:35px;margin-left:-20px;" href="https://starbox.squirrly.co/" target="_blank">
+                <span style="text-decoration:none;font-weight:800;font-size:1.1vw;position:relative;top:5px;">Discover Starbox PRO</span>
+            </a>
+        </div>
+
         <div id="abh_settings_body">
             <div id="abh_settings_left" >
 
                 <fieldset>
-
                     <div class="abh_option_content">
+                        <div class="abh_title"><?php _e('Visibility settings', _ABH_PLUGIN_NAME_); ?>:</div>
+
                         <div class="abh_switch">
                             <input id="abh_inposts_on" type="radio" class="abh_switch-input" name="abh_inposts"  value="1" <?php echo ((ABH_Classes_Tools::getOption('abh_inposts') == 1) ? "checked" : '') ?> />
                             <label for="abh_inposts_on" class="abh_switch-label abh_switch-label-off"><?php _e('Yes', _ABH_PLUGIN_NAME_); ?></label>
@@ -16,7 +33,10 @@
                             <span class="abh_switch-selection"></span>
                         </div>
                         <span><?php _e('Visible in <strong>posts</strong>', _ABH_PLUGIN_NAME_); ?></span>
-                        <div class="abh_option_strictposts"><input name="abh_strictposts" type="checkbox" value="1"  <?php echo ((ABH_Classes_Tools::getOption('abh_strictposts') == 1) ? "checked" : '') ?> /><label for="abh_strictposts"><?php _e('Hide Author Box from custom posts types', _ABH_PLUGIN_NAME_); ?></label></div>
+                        <div class="abh_option_strictposts">
+                            <input name="abh_strictposts" type="checkbox" value="1" <?php echo ((ABH_Classes_Tools::getOption('abh_strictposts') == 1) ? "checked" : '') ?> />
+                            <label for="abh_strictposts" style="position:relative;top:3px;"><?php _e('Hide Author Box from custom posts types', _ABH_PLUGIN_NAME_); ?></label>
+                        </div>
 
                     </div>
 
@@ -54,8 +74,9 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend><?php _e('Theme setting:', _ABH_PLUGIN_NAME_); ?></legend>
+
                     <div class="abh_option_content">
+                        <div class="abh_title"><?php _e('Theme settings', _ABH_PLUGIN_NAME_); ?>:</div>
 
                         <div class="abh_select">
                             <select name="abh_position">
@@ -144,14 +165,6 @@
                     </div>
                 </fieldset>
 
-            </div>
-            <div id="abh_settings_right">
-                <div class="panel-body f-gray-dark text-center b-b" style="    line-height: 1.5;">
-                    <div style="text-align: center"><img src="https://ps.w.org/starbox/assets/icon-128x128.png?rev=1974206" style="margin: 10px auto; width: 150px;" alt="" /></div>
-                    <h4>Thank you for choosing Starbox PRO, by Squirrly </h4>
-                    <span style="display: block; line-height: 20px; font-size: 14px; margin-bottom: 10px;">Go to <a href="https://customer.digitalpackglobal.com/" target="_blank">Billing Information</a> to see more about your current license.</span>
-                    <span style="display: block; line-height: 20px; font-size: 14px; margin-bottom: 10px;">There, you will also be able to reach out support form. Members of <a href="https://www.squirrly.co/more/" target="_blank">Squirrly</a> will help you out.</span>
-                </div>
             </div>
             <div id="abh_settings_submit">
                 <p><?php _e('Click "go to user settings" to setup the author box for each author you have ( including per author Google Authorship)', _ABH_PLUGIN_NAME_); ?></p>

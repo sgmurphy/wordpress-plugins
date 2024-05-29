@@ -1,0 +1,300 @@
+# Copyright (C) 2018 {package-name}
+# This file is distributed under the same license as the {package-name} package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Snow Monkey Editor\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/snow-monkey-"
+"editor\n"
+"POT-Creation-Date: 2024-04-12T00:56:14+00:00\n"
+"PO-Revision-Date: 2024-04-12 09:58+0900\n"
+"Last-Translator: inc2734 <inc@2inc.org>\n"
+"Language-Team: Takashi Kitajima <inc@2inc.org>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: dist\n"
+"X-Poedit-SearchPathExcluded-3: tests\n"
+"X-Poedit-SearchPathExcluded-4: languages\n"
+
+#. Plugin Name of the plugin
+#: dist/js/editor-extension.js:7
+msgid "Snow Monkey Editor"
+msgstr "Snow Monkey Editor"
+
+#. Description of the plugin
+msgid "Extends gutenberg block editor"
+msgstr "Gutenbergブロックエディターを拡張"
+
+#. Author of the plugin
+msgid "inc2734"
+msgstr "inc2734"
+
+#. Author URI of the plugin
+msgid "https://2inc.org"
+msgstr "https://2inc.org"
+
+#: dist/js/editor-extension.js:1
+msgid "Display setting (By window size)"
+msgstr "表示設定（ウィンドウサイズ）"
+
+#: dist/js/editor-extension.js:1
+msgid "Hide on smartphone size"
+msgstr "スマートフォンサイズで非表示"
+
+#: dist/js/editor-extension.js:1
+msgid "Hide on tablet size"
+msgstr "タブレットサイズで非表示"
+
+#: dist/js/editor-extension.js:1
+msgid "Hide on PC size"
+msgstr "PC サイズで非表示"
+
+#: dist/js/editor-extension.js:1
+msgid "Display setting (By roles)"
+msgstr "表示設定（ロール）"
+
+#: dist/js/editor-extension.js:1
+msgid "user is not logged in"
+msgstr "非ログインユーザー"
+
+#. translators: %1$s: The role name
+#: dist/js/editor-extension.js:4
+msgid "Hide if %1$s"
+msgstr "%1$sのとき非表示"
+
+#: dist/js/editor-extension.js:4
+msgid "bounce-in"
+msgstr "バウンス・イン"
+
+#: dist/js/editor-extension.js:4
+msgid "bounce-down"
+msgstr "バウンス・ダウン"
+
+#: dist/js/editor-extension.js:4
+msgid "fade-in"
+msgstr "フェード・イン"
+
+#: dist/js/editor-extension.js:4
+msgid "fade-in-up"
+msgstr "フェード・イン・アップ"
+
+#: dist/js/editor-extension.js:4
+msgid "fade-in-down"
+msgstr "フェード・イン・ダウン"
+
+#: dist/js/editor-extension.js:4
+msgid "Animation"
+msgstr "アニメーション"
+
+#: dist/js/editor-extension.js:4
+msgid "Delay"
+msgstr "遅延"
+
+#: dist/js/editor-extension.js:4
+msgid "Duration"
+msgstr "所要時間"
+
+#: dist/js/editor-extension.js:4
+msgid "Clear"
+msgstr "クリア"
+
+#: dist/js/editor-extension.js:4
+msgid "Publish setting"
+msgstr "公開設定"
+
+#: dist/js/editor-extension.js:4
+msgid "Unpublish setting"
+msgstr "公開終了設定"
+
+#: dist/js/editor-extension.js:4
+msgid "Editing lock (By roles)"
+msgstr "編集ロック（ロール）"
+
+#. translators: %1$s: The role name
+#: dist/js/editor-extension.js:7
+msgid "Edit lock if %1$s"
+msgstr "%1$sのときロック"
+
+#: dist/js/editor.js:1
+msgid "Snow Monkey Editor Controls"
+msgstr "Snow Monkey Editor コントロール"
+
+#: dist/js/editor.js:1
+msgid "Remove formatting"
+msgstr "書式設定をクリア"
+
+#: dist/js/editor.js:1
+msgid "Font size"
+msgstr "文字サイズ"
+
+#: dist/js/editor.js:1
+msgid "Letter spacing"
+msgstr "文字間隔"
+
+#: dist/js/editor.js:1
+msgid "Line height"
+msgstr "行の高さ"
+
+#: dist/js/editor.js:1
+msgid "Color"
+msgstr "色"
+
+#: dist/js/editor.js:1
+msgid "Text color"
+msgstr "文字色"
+
+#: dist/js/editor.js:1
+msgid "Background color"
+msgstr "背景色"
+
+#: dist/js/editor.js:1
+msgid "Highlighter"
+msgstr "蛍光ペン"
+
+#: dist/js/editor.js:1
+msgid "Badge"
+msgstr "バッジ"
+
+#: dist/js/editor.js:1
+msgid "Line break per screen size"
+msgstr "画面サイズ毎の改行"
+
+#: dist/js/editor.js:1
+msgid "Line breaks when on the desktop"
+msgstr "デスクトップのときに改行"
+
+#: dist/js/editor.js:1
+msgid "Line breaks when on the tablet"
+msgstr "タブレットのときに改行"
+
+#: dist/js/editor.js:1
+msgid "Line breaks when on the mobile"
+msgstr "モバイルのときに改行"
+
+#: dist/js/editor.js:1
+msgid "Alert"
+msgstr "アラート"
+
+#: dist/js/editor.js:1
+msgid "Alert (Success)"
+msgstr "アラート（サクセス）"
+
+#: dist/js/editor.js:1
+msgid "Alert (Warning)"
+msgstr "アラート（ワーニング）"
+
+#: dist/js/editor.js:1
+msgid "Alert (Remarks)"
+msgstr "アラート（備考）"
+
+#: dist/js/editor.js:1
+msgid "No wrap"
+msgstr "折り返さない"
+
+#: dist/js/editor.js:1
+msgid "Wrap"
+msgstr "折り返す"
+
+#: dist/js/editor.js:1
+msgid "Fluid Shape 1"
+msgstr "流体シェイプ1"
+
+#: dist/js/editor.js:1
+msgid "Fluid Shape 2"
+msgstr "流体シェイプ2"
+
+#: dist/js/editor.js:1
+msgid "Fluid Shape 3"
+msgstr "流体シェイプ3"
+
+#: dist/js/editor.js:1
+msgid "Arrow"
+msgstr "矢印"
+
+#: dist/js/editor.js:1
+msgid "Check"
+msgstr "チェック"
+
+#: dist/js/editor.js:1
+msgid "Remarks"
+msgstr "備考"
+
+#: dist/js/editor.js:1
+msgid "Times"
+msgstr "✗"
+
+#: dist/js/editor.js:1
+msgid "Ordered list (Circle)"
+msgstr "序列リスト（丸）"
+
+#: dist/js/editor.js:1
+msgid "Ordered list (Square)"
+msgstr "序列リスト（四角）"
+
+#: dist/js/editor.js:1
+msgid "Post-it"
+msgstr "付箋"
+
+#: dist/js/editor.js:1
+msgid "Post-it (Narrow)"
+msgstr "付箋（細）"
+
+#: dist/js/editor.js:1
+msgid "Shadowed"
+msgstr "影付き"
+
+#: dist/js/editor.js:1
+msgid "Speech (Bottom)"
+msgstr "吹きだし（下）"
+
+#: dist/js/editor.js:1
+msgid "Speech (Top)"
+msgstr "吹きだし（上）"
+
+#: dist/js/editor.js:1
+msgid "Speech (Right)"
+msgstr "吹きだし（右）"
+
+#: dist/js/editor.js:1
+msgid "Speech (Left)"
+msgstr "吹きだし（左）"
+
+#: dist/js/editor.js:1
+msgid "Remove this preset"
+msgstr "このプリセットを削除"
+
+#: dist/js/editor.js:1
+msgid "Presets"
+msgstr "プリセット"
+
+#: dist/js/editor.js:1
+msgid "Save current settings as a preset"
+msgstr "現在の設定をプリセットとして保存する"
+
+#: dist/js/editor.js:1
+msgid "Input the preset name."
+msgstr "プリセット名を入力してください。"
+
+#: dist/js/editor.js:1
+msgid "Save"
+msgstr "保存"
+
+#~ msgid "Speech"
+#~ msgstr "吹きだし"
+
+#~ msgid "Custom colors"
+#~ msgstr "カスタムカラー"
+
+#~ msgid "Circle ordered list"
+#~ msgstr "丸形序列リスト"
+
+#~ msgid "Square ordered list"
+#~ msgstr "四角序列リスト"

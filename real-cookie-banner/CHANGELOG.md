@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.7.9 (2024-05-29)
+
+
+### Bug Fixes
+
+* compatibility with Bricks Builder and PhotoSwipe lightboxes (CU-8694jz55m)
+* compatibility with Elementor Lightbox widget
+* compatibility with Perfmatters lazy loading iframes (CU-8694jz55m)
+* do not show REST API notice for non-administrators (CU-8694n17tx)
+* the WP cron system breaks the notice check and shows a notice with 'Operation timed out' error (CU-8694nu6cm)
+
+
+<details><summary>Dependency updates @devowl-wp/fast-html-tag 0.10.4</summary>
+
+
+**_Purpose of dependency:_** _Find tags within HTML content and modify it in speed of light_
+##### Bug Fixes
+
+* matchesUrl() should also work with addSelectorSyntaxMap() (CU-8694jz55m)</details>
+
+<details><summary>Dependency updates @devowl-wp/headless-content-blocker 0.16.10</summary>
+
+
+**_Purpose of dependency:_** _Block HTML content by URLs and selector syntax_
+##### Bug Fixes
+
+* allow to delegateClick() the real element before opening the hero dialog (confirm(), CU-m15mty)
+* allow to use confirm() and delegateClick() together (CU-8694myd2d)
+* matchesUrl() should also work with addSelectorSyntaxMap() (CU-8694jz55m)</details>
+
+<details><summary>Dependency updates @devowl-wp/headless-content-unblocker 0.8.10</summary>
+
+
+**_Purpose of dependency:_** _Unblock mechanism for @devowl-wp/headless-content-blocker with visual capabilities._
+##### Bug Fixes
+
+* allow to delegateClick() the real element before opening the hero dialog (confirm(), CU-m15mty)
+* do not render visual content blockers in nested confirm() blockers (CU-m15mty)</details>
+
+<details><summary>Dependency updates @devowl-wp/react-cookie-banner 0.12.6</summary>
+
+
+**_Purpose of dependency:_** _Provide UI for a cookie banner and content blocker for multiple services._
+##### Bug Fixes
+
+* accessibility elements use prohibited aria attributes aria-labelledby (CU-8694k3zua)
+* allow to delegateClick() the real element before opening the hero dialog (confirm(), CU-m15mty)</details>
+
+
+
+
+
 ## 4.7.8 (2024-05-10)
 
 

@@ -12,8 +12,8 @@ class bt_bb_row extends BT_BB_Element {
 			'opacity' 				=> ''
 		) ), $atts, $this->shortcode ) );
 
-		$class = array( $this->shortcode );
-		$outer_class = array( 'bt_bb_row_wrapper' );
+		$class = array( '' );
+		$outer_class = array( 'bt_bb_row' );
 		$data_override_class = array();
 
 		if ( $el_class != '' ) {
@@ -24,6 +24,9 @@ class bt_bb_row extends BT_BB_Element {
 		if ( $el_id != '' ) {
 			$id_attr = 'id="' . esc_attr( $el_id ) . '"';
 		}
+
+		$el_inner_style = apply_filters( $this->shortcode . '_fix_inner_style', '', $atts );
+		$el_style = apply_filters( $this->shortcode . '_style', $el_style, $atts );
 		
 		if ( $background_color != '' ) {
 			if ( strpos( $background_color, '#' ) !== false ) {
@@ -47,35 +50,42 @@ class bt_bb_row extends BT_BB_Element {
 		if ( $color_scheme_colors ) $el_style .= '; --row-primary-color:' . $color_scheme_colors[0] . '; --row-secondary-color:' . $color_scheme_colors[1] . ';';
 		if ( $color_scheme != '' ) $class[] = $this->prefix . 'color_scheme_' .  $color_scheme_id;
 
+
 		$style_attr = '';
-		$el_style = apply_filters( $this->shortcode . '_style', $el_style, $atts );
 		if ( $el_style != '' ) {
 			$style_attr = 'style="' . esc_attr( $el_style ) . '"';
 		}
+		
+		$style_inner_attr = '';
+		if ( $el_inner_style != '' ) {
+			$style_inner_attr = 'style="' . esc_attr( $el_inner_style ) . '"';
+		}
+
 
 		if ( $column_gap != '' ) {
 			$class[] = $this->prefix . 'column_gap' . '_' . $column_gap;
 		}
 
 		if ( $row_width != '' && $row_width != 'default' ) {
-			// $outer_class[] = $this->prefix . 'row_width' . '_' . $row_width;
 			$outer_class_1200_base = $this->prefix . 'row_width' . '_' . 'boxed_1200';
-			if ( $row_width == 'boxed_1200' ) { $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_left' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_left_content_wide' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_left_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_left_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
-			
 			$outer_class_1400_base = $this->prefix . 'row_width' . '_' . 'boxed_1400';
-			if ( $row_width == 'boxed_1400' ) { $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_left' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_left_content_wide' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_left_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_left_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
+			
+			if ( $row_width == 'boxed_1200' ) { $outer_class[] = $outer_class_1200_base; }
+			else if ( $row_width == 'boxed_1200_left' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1200_base; }
+			else if ( $row_width == 'boxed_1200_left_content_wide' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
+			else if ( $row_width == 'boxed_1200_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = $outer_class_1200_base; }
+			else if ( $row_width == 'boxed_1200_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
+			else if ( $row_width == 'boxed_1200_left_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1200_base; }
+			else if ( $row_width == 'boxed_1200_left_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
+			
+			else if ( $row_width == 'boxed_1400' ) { $outer_class[] = $outer_class_1400_base; }
+			else if ( $row_width == 'boxed_1400_left' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1400_base; }
+			else if ( $row_width == 'boxed_1400_left_content_wide' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
+			else if ( $row_width == 'boxed_1400_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = $outer_class_1400_base; }
+			else if ( $row_width == 'boxed_1400_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
+			else if ( $row_width == 'boxed_1400_left_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1400_base; }
+			else if ( $row_width == 'boxed_1400_left_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
+			else { $outer_class[] = $this->prefix . 'row_width' . '_' . $row_width; /* fix for old custom classes */ }
 		}
 
 		do_action( $this->shortcode . '_before_extra_responsive_param' );
@@ -95,8 +105,8 @@ class bt_bb_row extends BT_BB_Element {
 		$class_attr = implode( ' ', $class );
 		$outer_class_attr = implode( ' ', $outer_class );
 
-		$output = '<div class="' . esc_attr( $outer_class_attr ) . '">';
-			$output .= '<div ' . $id_attr . ' class="' . esc_attr( $class_attr ) . '" ' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
+		$output = '<div class="' . esc_attr( $outer_class_attr ) . ' ' . esc_attr( $class_attr ) . '" ' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '"' . $id_attr . '>';
+			$output .= '<div class="bt_bb_row_holder" ' . $style_inner_attr . '>';
 				$output .= do_shortcode( $content );
 			$output .= '</div>';
 		$output .= '</div>';
@@ -146,7 +156,7 @@ class bt_bb_row extends BT_BB_Element {
 						esc_html__( '100px', 'bold-builder' ) => '100'
 					)
 				),
-				array( 'param_name' => 'row_width', 'type' => 'radio', 'heading' => esc_html__( 'Row/Columns', 'bold-builder' ), 'default' => 'default', 'description' => __( 'For the best experience set Section Layout to Wide. Read more in our <a href="https://documentation.bold-themes.com/bold-builder/row-layouts/" target="_blank">documentation</a>.', 'bold-builder' ), 'preview' => true,
+				array( 'param_name' => 'row_width', 'type' => 'radio', 'heading' => esc_html__( 'Columns layout', 'bold-builder' ), 'default' => 'default', 'description' => __( 'For the best experience set Section Layout to Wide. Read more in our <a href="https://documentation.bold-themes.com/bold-builder/row-layouts/" target="_blank">documentation</a>.', 'bold-builder' ), 'preview' => true,
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) 										=> 'default',
 						

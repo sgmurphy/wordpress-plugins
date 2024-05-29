@@ -1,40 +1,99 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
-if(!class_exists('WP_404_Auto_Redirect'))
+if(!class_exists('WP_404_Auto_Redirect')){
     return;
+}
 
-trait WP_404_Auto_Redirect_Admin {
+trait WP_404_Auto_Redirect_Admin{
     
+    /**
+     * admin_menu
+     *
+     * @return void
+     */
     function admin_menu(){
         add_submenu_page('options-general.php', 'WP 404 Auto Redirect', 'WP 404 Auto Redirect', 'manage_options', 'wp-404-auto-redirect', array($this, 'admin_page'));
     }
     
+    
+    /**
+     * admin_link
+     *
+     * @param $links
+     * @param $plugin_file
+     *
+     * @return mixed
+     */
     function admin_link($links, $plugin_file){
+        
         $plugin = plugin_basename(WP404ARSP_FILE);
-        if($plugin != $plugin_file)
+        
+        if($plugin !== $plugin_file){
             return $links;
+        }
         
         return array_merge(
             $links, 
             array('<a href="' . admin_url('options-general.php?page=wp-404-auto-redirect') . '">' . __('Settings', 'wp404-auto-redirect') . '</a>')
         );
+        
     }
     
+    
+    /**
+     * admin_settings
+     *
+     * @return void
+     */
     function admin_settings(){
-        register_setting('wp404arsp_settings', 'wp404arsp_settings');
+        register_setting('wp404arsp_settings', 'wp404arsp_settings', array('sanitize_callback' => array($this, 'sanitize_setting')));
     }
     
+    
+    /**
+     * sanitize_setting
+     *
+     * @param $settings
+     *
+     * @return array
+     */
+    function sanitize_setting($settings){
+        
+        $settings['fallback']['url'] = sanitize_url($settings['fallback']['url']);
+        
+        return $settings;
+        
+    }
+    
+    
+    /**
+     * admin_scripts
+     *
+     * @param $page
+     *
+     * @return void
+     */
     function admin_scripts($page){
-        if($page != 'settings_page_wp-404-auto-redirect')
+        
+        if($page !== 'settings_page_wp-404-auto-redirect'){
             return;
+        }
         
         wp_enqueue_script('wp404arsp_admin_js', plugins_url('assets/admin.js', WP404ARSP_FILE), array('jquery'));
         wp_enqueue_style('wp404arsp_admin_css', plugins_url('assets/admin.css', WP404ARSP_FILE));
+        
     }
-
+    
+    
+    /**
+     * admin_page
+     *
+     * @return void
+     */
     function admin_page(){
     ?>
     <div class="wrap" id="wp404arsp_settings">
@@ -233,6 +292,7 @@ trait WP_404_Auto_Redirect_Admin {
                                                             <p class="description"><?php _e('Enter the URL you would like to test, starting with <code>/</code>.', 'wp404-auto-redirect'); ?></p>
                                                             
                                                             <p class="submit">
+                                                                <input class="nonce" type="hidden" name="nonce" value="<?php echo wp_create_nonce('preview_nonce'); ?>" />
                                                                 <?php submit_button(__('Preview', 'wp404-auto-redirect'), 'secondary', '', false); ?>
                                                                 <span class="loading spinner"></span>
                                                             </p>
@@ -582,4 +642,5 @@ trait WP_404_Auto_Redirect_Admin {
     <?php
 
     }
+    
 }

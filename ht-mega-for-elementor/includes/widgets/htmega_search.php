@@ -1056,7 +1056,7 @@ class HTMega_Elementor_Widget_Search extends Widget_Base {
                                 <!-- Start Search Popup -->
                                 <div class="box-search-content search_active block-bg close__top minisearch" style="opacity:0">
                                     <div class="field__search">
-                                        <input <?php echo $this->get_render_attribute_string( 'input_attr' ); ?> >
+                                        <input <?php echo $this->get_render_attribute_string( 'input_attr' ); ?> />
                                         <div class="action">
                                             <?php 
                                                 if( $settings['search_btn_icon_type'] == 'icon' ) {
@@ -1091,31 +1091,40 @@ class HTMega_Elementor_Widget_Search extends Widget_Base {
             <?php if( $settings['search_style'] == '4' || $settings['search_style'] == '5' ){ ?>
                 <script type="text/javascript">
                     (function($){
-                    "use strict";
+                        "use strict";
                         <?php if( $settings['search_style'] == '4' ): ?>
                             $('.search-button').click(function(){
                                 $(this).parent().toggleClass('open');
                             });
-                        <?php else:?>
+                        <?php else: ?>
                             function searchToggler() {
                                 var trigger = $('.search-trigger'),
-                                container = $('.search_active');
+                                    container = $('.search_active');
 
                                 trigger.on('click', function (e) {
-                                e.preventDefault();
-                                container.toggleClass('is-visible');
-                                container.css( 'opacity',1 );
+                                    e.preventDefault();
+                                    container.toggleClass('is-visible');
+                                    container.css('opacity', 1);
+                                    // Focus on the input field inside the container
+                                    setTimeout(function() {
+                                        container.find('input').focus();
+                                    }, 100);
                                 });
 
                                 $('.close__wrap').on('click', function () {
-                                container.removeClass('is-visible');
-                                container.css( 'opacity',0 );
+                                    container.removeClass('is-visible');
+                                    container.css('opacity', 0);
                                 });
 
+                                // When the user presses the enter key, submit the button with class name htb-btn btn-search
+                                $(".field__search input").keypress(function(e) {
+                                    if (e.which == 13) {
+                                        $('.search_active .btn-search').click();
+                                    }
+                                });
                             }
                             searchToggler();
-                        <?php endif;?>
-
+                        <?php endif; ?>
                     })(jQuery);
                 </script>
             <?php } ?>

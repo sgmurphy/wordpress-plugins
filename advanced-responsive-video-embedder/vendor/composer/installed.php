@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'nextgenthemes/advanced-responsive-video-embedder',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '4a0a2ee38d5660e85e81bd338fd75f569917bd8b',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'automattic/jetpack-autoloader' => array(
+            'pretty_version' => 'v3.0.7',
+            'version' => '3.0.7.0',
+            'reference' => '2a3ab8c22cefdb7a48f1c704696c821d1e9a5ebb',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/../automattic/jetpack-autoloader',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'nextgenthemes/advanced-responsive-video-embedder' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '4a0a2ee38d5660e85e81bd338fd75f569917bd8b',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'nextgenthemes/wp-shared' => array(
+            'pretty_version' => '2024.05.27.13.36.46',
+            'version' => '2024.05.27.13.36.46',
+            'reference' => '80aa482f7ca9df490631ae9e24f57c55fca5a854',
+            'type' => 'wp-package',
+            'install_path' => __DIR__ . '/../nextgenthemes/wp-shared',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+    ),
+);

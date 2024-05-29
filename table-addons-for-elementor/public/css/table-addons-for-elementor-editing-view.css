@@ -1,0 +1,23 @@
+a.table-addons-notice-button {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.2;
+	padding: 8px 16px;
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	background-color: #2563EB;
+	color: #fff;
+	transition: all .3s;
+	display: inline-block;
+	margin-top: 10px;
+	font-style: normal;
+}
+a.table-addons-notice-button:hover{
+    background-color: #134cca;
+    color: #fff;
+}
+
+img.pro-feature-image {
+	opacity: 0.3;
+}

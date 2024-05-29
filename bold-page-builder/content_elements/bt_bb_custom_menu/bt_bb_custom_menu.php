@@ -33,7 +33,7 @@ class bt_bb_custom_menu extends BT_BB_Element {
 		if ( $el_style != '' ) {
 			$style_attr = ' ' . 'style="' . esc_attr( $el_style ) . '"';
 		}
-		
+
 		$output = wp_nav_menu( 
 			array( 
 				'menu' => $menu, 
@@ -41,6 +41,10 @@ class bt_bb_custom_menu extends BT_BB_Element {
 				'fallback_cb' => false
 			) 
 		);
+		
+		if ( ! $output ) {
+			$output = esc_html__( 'No menus found.', 'bold-builder' );
+		}
 
 		foreach ( $this->extra_responsive_data_override_param as $p ) {
 			if ( ! is_array( $atts ) || ! array_key_exists( $p, $atts ) ) continue;

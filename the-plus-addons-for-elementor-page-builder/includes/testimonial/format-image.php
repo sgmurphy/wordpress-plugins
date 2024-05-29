@@ -33,5 +33,5 @@ if ( 'tlrepeater' === $con_from ) {
 ?>
 
 <div class="testimonial-featured-image">
-	<span class="thumb-wrap"><?php echo $featured_image; ?></span>
+	<span class="thumb-wrap"><?php echo wp_kses_post( $featured_image ); ?></span>
 </div>

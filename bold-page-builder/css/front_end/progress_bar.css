@@ -98,3 +98,6 @@
 	.bt_bb_progress_bar:nth-child(#(i)) .bt_bb_progress_bar_inner { transition-delay: math(200 + #(i)*100)ms; }
 }
 
+.bt_bb_progress_bar_text:empty:before {
+    content: '\00a0';
+}

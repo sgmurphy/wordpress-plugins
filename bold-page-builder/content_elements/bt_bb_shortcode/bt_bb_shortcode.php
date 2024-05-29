@@ -24,6 +24,10 @@ class bt_bb_shortcode extends BT_BB_Element {
 		
 		$shortcode_content = str_ireplace( array( '``', '`{`', '`}`' ), array( '"', '[', ']' ), $shortcode_content );
 		
+		if ( $shortcode_content == '' ) {
+			$shortcode_content = '<div>' . esc_html__( 'Please insert shortcode.', 'bold-builder' ) . '</div>';
+		}
+		
 		$output = '<div class="' . esc_attr( implode( ' ', $class ) ) . '">' . do_shortcode( $shortcode_content ) . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
@@ -38,9 +42,13 @@ class bt_bb_shortcode extends BT_BB_Element {
 	}
 
 	function map_shortcode() {
-		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Shortcode', 'bold-builder' ), 'description' => esc_html__( 'Custom shortcode content', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
+		$desc = '';
+		if ( BT_BB_FE::$editor_active ) {
+			$desc = esc_html__( 'Save and reload page to make sure shortcode is properly initialized.', 'bold-builder' );
+		}		
+		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Shortcode', 'bold-builder' ), 'description' => esc_html__( 'Custom shortcode', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'shortcode_content', 'type' => 'textfield', 'heading' => esc_html__( 'Shortcode', 'bold-builder' ), 'placeholder' => esc_html__( 'Add your Shortcode', 'bold-builder' ) )
+				array( 'param_name' => 'shortcode_content', 'type' => 'textfield', 'heading' => esc_html__( 'Shortcode', 'bold-builder' ), 'placeholder' => esc_html__( 'Add your shortcode', 'bold-builder' ), 'description' => $desc )
 			)
 		) );
 	}

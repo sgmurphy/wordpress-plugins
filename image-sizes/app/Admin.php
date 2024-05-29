@@ -220,6 +220,11 @@ class Admin extends Base {
 		}
 	}
 
+	public function show_new_button( $section ){
+		// Helper::pri( 'Hello' );
+		
+	}
+
 	// /**
 	//  * Returns all WP pointers
 	//  *

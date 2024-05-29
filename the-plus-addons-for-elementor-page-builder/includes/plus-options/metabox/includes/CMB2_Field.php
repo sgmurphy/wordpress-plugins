@@ -817,7 +817,7 @@ class CMB2_Field extends CMB2_Base {
 	 * @return string             Formatted date
 	 */
 	public function format_timestamp( $meta_value, $format = 'date_format' ) {
-		return date( stripslashes( $this->args( $format ) ), $meta_value );
+		return gmdate( stripslashes( $this->args( $format ) ), $meta_value );
 	}
 
 	/**
@@ -906,7 +906,7 @@ class CMB2_Field extends CMB2_Base {
 
 		$this->peform_param_callback( 'before_row' );
 
-		printf( "<div class=\"cmb-row %s\" data-fieldtype=\"%s\">\n", $this->row_classes(), $field_type );
+		printf( "<div class=\"cmb-row %s\" data-fieldtype=\"%s\">\n", $this->row_classes(), esc_html( $field_type ) );
 
 		if ( ! $this->args( 'show_names' ) ) {
 			echo "\n\t<div class=\"cmb-td\">\n";
@@ -1125,7 +1125,7 @@ class CMB2_Field extends CMB2_Base {
 
 		$this->peform_param_callback( 'before_display_wrap' );
 
-		printf( "<div class=\"cmb-column %s\" data-fieldtype=\"%s\">\n", $this->row_classes(), $field_type );
+		printf( "<div class=\"cmb-column %s\" data-fieldtype=\"%s\">\n", $this->row_classes(), esc_attr( $field_type ) );
 
 		$this->peform_param_callback( 'before_display' );
 

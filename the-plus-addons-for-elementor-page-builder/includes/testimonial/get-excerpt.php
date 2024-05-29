@@ -24,7 +24,7 @@ if ( ! empty( $testimonial_author_text ) ) {
 
 		if ( 'default' === $descby_limit ) {
 			?>
-				<div class="entry-content scroll-<?php echo esc_attr( $cntscroll_on ); ?>"><?php echo $testimonial_author_text; ?></div>
+				<div class="entry-content scroll-<?php echo esc_attr( $cntscroll_on ); ?>"><?php echo wp_kses_post( $testimonial_author_text ); ?></div>
 			<?php
 		} elseif ( 'words' === $descby_limit ) {
 

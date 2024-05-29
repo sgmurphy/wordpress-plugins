@@ -510,25 +510,16 @@ ul.htmeta-info li a{
   margin-bottom: 20px;
 }
 
-
 /*az css*/
 .htbuilder-menu-area ul > li > ul.sub-menu {
 	padding-left: 0;
 }
 
-/* Normal desktop :992px. */
-@media (min-width: 992px) and (max-width: 1200px) {
-
-}
-
-
 /* Tablet desktop :768px. */
-@media (min-width: 768px) and (max-width: 991px) {
-
+@media (min-width: 768px) and (max-width: 1024px) {
     .htbuilder-mobile-button {
       display: inline-block;
     }
-
     .htbuilder-nav{
         display: none;
     }
@@ -537,8 +528,6 @@ ul.htmeta-info li a{
     }
 
 }
-
-
 /* small mobile :320px. */
 @media (max-width: 767px) {
     .htbuilder-mobile-button {
@@ -551,9 +540,3 @@ ul.htmeta-info li a{
       padding: 20px;
     }
 }
-
-/* Large Mobile :480px. */
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-
-}
-

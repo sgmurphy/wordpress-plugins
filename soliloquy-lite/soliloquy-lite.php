@@ -5,7 +5,7 @@
  * Description: Soliloquy is best responsive WordPress slider plugin. This is the lite version.
  * Author:      Soliloquy Team
  * Author URI:  https://soliloquywp.com
- * Version:     2.7.4.4
+ * Version:     2.7.5
  * Text Domain: soliloquy
  * Domain Path: languages
  *
@@ -56,7 +56,7 @@ class Soliloquy_Lite {
 	 *
 	 * @var string
 	 */
-	public $version = '2.7.4.4';
+	public $version = '2.7.5';
 
 	/**
 	 * The name of the plugin.
@@ -179,7 +179,9 @@ class Soliloquy_Lite {
 		}
 
 		// Run hook once Soliloquy has been initialized.
-		do_action( 'soliloquy_init' );
+		// This hook is deliberately different from the Pro version, to prevent the entire site breaking.
+		// if a user activates Lite with Pro Addons.
+		do_action( 'soliloquy_lite_init' );
 
 		// Load admin only components.
 		if ( is_admin() ) {
@@ -545,6 +547,12 @@ function soliloquy_lite_activation_hook( $network_wide ) {
 		// Set the upgraded licenses since this is an activation and no slider will have existed yet.
 		update_option( 'soliloquy_upgrade', true );
 
+	}
+
+	$over_time = get_option( 'soliloquy_over_time', [] );
+	if ( empty( $over_time['installed_lite'] ) ) {
+		$over_time['installed_lite'] = wp_date( 'U' );
+		update_option( 'soliloquy_over_time', $over_time );
 	}
 }
 

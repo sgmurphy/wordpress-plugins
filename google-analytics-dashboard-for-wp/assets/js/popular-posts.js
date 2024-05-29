@@ -1,7 +1,7 @@
 var ExactMetrics_Popular_Posts = {
 
   init: function () {
-    this.grab_widgets_with_ajax();
+    document.addEventListener("DOMContentLoaded", this.grab_widgets_with_ajax);
   },
 
   grab_widgets_with_ajax: function () {
@@ -12,6 +12,7 @@ var ExactMetrics_Popular_Posts = {
       widgets_length = widgets_jsons.length;
 
     var params = 'action=exactmetrics_popular_posts_get_widget_output&post_id=' + exactmetrics_pp.post_id;
+    params += '&_ajax_nonce=' + exactmetrics_pp.nonce;
 
     for (i = 0; i < widgets_length; ++i) {
       params += '&data[]=' + widgets_jsons[i].innerHTML

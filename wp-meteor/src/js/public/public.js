@@ -1,12 +1,42 @@
 import jQueryMock from "./includes/mocks/jquery";
-import InteractionEvents from "./includes/utils/interaction-events";
+import InteractionEvents from "@aguidrevitch/fpo-inpage-first-interaction";
 import dispatcher from "./includes/utils/dispatcher";
 import delta from "./includes/utils/delta";
 import elementorAnimations from "./includes/elementor/animations";
 import elementorPP from "./includes/elementor/pp-menu";
-const DCL = "DOMContentLoaded", RSC = "readystatechange", M = "message", separator = "----", S = "SCRIPT", c = process.env.DEBUG ? console.log : () => {
-}, ce = console.error, prefix = "data-wpmeteor-", Object_defineProperty = Object.defineProperty, Object_defineProperties = Object.defineProperties, javascriptBlocked = "javascript/blocked", isJavascriptRegexp = /^(text\/javascript|module)$/i, _rAF = "requestAnimationFrame", _rIC = "requestIdleCallback", _setTimeout = "setTimeout";
-const w = window, d = document, a = "addEventListener", r = "removeEventListener", ga = "getAttribute", sa = "setAttribute", ra = "removeAttribute", ha = "hasAttribute", L = "load", E = "error";
+import {
+  addEventListener,
+  removeEventListener,
+  getAttribute,
+  setAttribute,
+  removeAttribute,
+  hasAttribute,
+  appendChild,
+  removeChild,
+  tagName,
+  getOwnPropertyDescriptor,
+  prototype,
+  __lookupGetter__,
+  __lookupSetter__,
+  DCL,
+  L,
+  E
+} from "./includes/literals";
+import {
+  w,
+  d,
+  c,
+  ce
+} from "./includes/globals";
+import {
+  EVENT_CSS_LOADED,
+  EVENT_ELEMENT_LOADED,
+  EVENT_FIRST_INTERACTION,
+  EVENT_REPLAY_CAPTURED_EVENTS,
+  EVENT_IMAGES_LOADED,
+  EVENT_THE_END
+} from "@aguidrevitch/fpo-inpage-events";
+const RSC = "readystatechange", M = "message", separator = "----", S = "SCRIPT", prefix = "data-wpmeteor-", Object_defineProperty = Object.defineProperty, Object_defineProperties = Object.defineProperties, javascriptBlocked = "javascript/blocked", isJavascriptRegexp = /^\s*(application|text)\/javascript|module\s*$/i, _rAF = "requestAnimationFrame", _rIC = "requestIdleCallback", _setTimeout = "setTimeout";
 const windowEventPrefix = w.constructor.name + "::";
 const documentEventPrefix = d.constructor.name + "::";
 const forEach = function(callback, thisArg) {
@@ -15,39 +45,39 @@ const forEach = function(callback, thisArg) {
     callback.call(thisArg, this[i2], i2, this);
   }
 };
-if ("NodeList" in w && !NodeList.prototype.forEach) {
+if ("NodeList" in w && !NodeList[prototype].forEach) {
   process.env.DEBUG && c("polyfilling NodeList.forEach");
-  NodeList.prototype.forEach = forEach;
+  NodeList[prototype].forEach = forEach;
 }
-if ("HTMLCollection" in w && !HTMLCollection.prototype.forEach) {
+if ("HTMLCollection" in w && !HTMLCollection[prototype].forEach) {
   process.env.DEBUG && c("polyfilling HTMLCollection.forEach");
-  HTMLCollection.prototype.forEach = forEach;
+  HTMLCollection[prototype].forEach = forEach;
 }
-if (_wpmeteor["elementor-animations"]) {
-  elementorAnimations();
-}
-if (_wpmeteor["elementor-pp"]) {
-  elementorPP();
-}
+(() => {
+  if (_wpmeteor["elementor-animations"]) {
+    elementorAnimations();
+  }
+  if (_wpmeteor["elementor-pp"]) {
+    elementorPP();
+  }
+})();
 const reorder = [];
-const delayed = [];
-const wheight = window.innerHeight || document.documentElement.clientHeight;
-const wwidth = window.innerWidth || document.documentElement.clientWidth;
+const defer = [];
+const async = [];
 let DONE = false;
-let eventQueue = [];
+const eventQueue = [];
 let listeners = {};
 let WindowLoaded = false;
-let firstInteractionFired = false;
 let firedEventsCount = 0;
 let rAF = d.visibilityState === "visible" ? w[_rAF] : w[_setTimeout];
 let rIC = w[_rIC] || rAF;
-d[a]("visibilitychange", () => {
+d[addEventListener]("visibilitychange", () => {
   rAF = d.visibilityState === "visible" ? w[_rAF] : w[_setTimeout];
   rIC = w[_rIC] || rAF;
 });
 const nextTick = w[_setTimeout];
 let createElementOverride;
-const capturedAttributes = ["src", "async", "defer", "type", "integrity"];
+const capturedAttributes = ["src", "type"];
 const O = Object, definePropert = "definePropert";
 O[definePropert + "y"] = (object, property, options) => {
   if (object === w && ["jQuery", "onload"].indexOf(property) >= 0 || (object === d || object === d.body) && ["readyState", "write", "writeln", "on" + RSC].indexOf(property) >= 0) {
@@ -85,38 +115,35 @@ O[definePropert + "ies"] = (object, properties) => {
   for (let i2 in properties) {
     O[definePropert + "y"](object, i2, properties[i2]);
   }
+  for (let sym of Object.getOwnPropertySymbols(properties)) {
+    O[definePropert + "y"](object, sym, properties[sym]);
+  }
   return object;
 };
 if (process.env.DEBUG) {
-  d[a](RSC, () => {
+  d[addEventListener](RSC, () => {
     c(delta(), separator, RSC, d.readyState);
   });
-  d[a](DCL, () => {
+  d[addEventListener](DCL, () => {
     c(delta(), separator, DCL);
   });
-  dispatcher.on("l", () => {
-    c(delta(), separator, "L");
+  dispatcher.on(EVENT_THE_END, () => {
+    c(delta(), separator, EVENT_THE_END);
     c(delta(), separator, firedEventsCount + " queued events fired");
   });
-  w[a](L, () => {
+  w[addEventListener](L, () => {
     c(delta(), separator, L);
   });
 }
-let origAddEventListener, origRemoveEventListener;
-let dOrigAddEventListener = d[a].bind(d);
-let dOrigRemoveEventListener = d[r].bind(d);
-let wOrigAddEventListener = w[a].bind(w);
-let wOrigRemoveEventListener = w[r].bind(w);
-if ("undefined" != typeof EventTarget) {
-  origAddEventListener = EventTarget.prototype.addEventListener;
-  origRemoveEventListener = EventTarget.prototype.removeEventListener;
-  dOrigAddEventListener = origAddEventListener.bind(d);
-  dOrigRemoveEventListener = origRemoveEventListener.bind(d);
-  wOrigAddEventListener = origAddEventListener.bind(w);
-  wOrigRemoveEventListener = origRemoveEventListener.bind(w);
-}
-const dOrigCreateElement = d.createElement.bind(d);
-const origReadyStateGetter = d.__proto__.__lookupGetter__("readyState").bind(d);
+const origAddEventListener = EventTarget[prototype][addEventListener];
+const origRemoveEventListener = EventTarget[prototype][removeEventListener];
+const dOrigAddEventListener = origAddEventListener.bind(d);
+const dOrigRemoveEventListener = origRemoveEventListener.bind(d);
+const wOrigAddEventListener = origAddEventListener.bind(w);
+const wOrigRemoveEventListener = origRemoveEventListener.bind(w);
+const origCreateElement = Document[prototype].createElement;
+const dOrigCreateElement = origCreateElement.bind(d);
+const origReadyStateGetter = d.__proto__[__lookupGetter__]("readyState").bind(d);
 let readyState = "loading";
 Object_defineProperty(d, "readyState", {
   get() {
@@ -171,8 +198,8 @@ const fireQueuedEvents = (eventNames) => {
               currentlyFiredEvent = name;
               try {
                 firedEventsCount++;
-                process.env.DEBUG && c(delta(), "firing " + event.type + "(" + d.readyState + ") for", func.prototype ? func.prototype.constructor : func);
-                if (!func.prototype || func.prototype.constructor === func) {
+                process.env.DEBUG && c(delta(), "firing " + event.type + "(" + d.readyState + ") for", func[prototype] ? func[prototype].constructor : func);
+                if (!func[prototype] || func[prototype].constructor === func) {
                   func.bind(context)(event);
                 } else {
                   func(event);
@@ -192,64 +219,76 @@ const fireQueuedEvents = (eventNames) => {
 };
 dOrigAddEventListener(DCL, (e) => {
   process.env.DEBUG && c(delta(), "enqueued document " + DCL);
-  eventQueue.push([e, origReadyStateGetter(), d]);
+  eventQueue.push([new e.constructor(DCL, e), origReadyStateGetter(), d]);
 });
 dOrigAddEventListener(RSC, (e) => {
   process.env.DEBUG && c(delta(), "enqueued document " + RSC);
-  eventQueue.push([e, origReadyStateGetter(), d]);
+  eventQueue.push([new e.constructor(RSC, e), origReadyStateGetter(), d]);
 });
 wOrigAddEventListener(DCL, (e) => {
   process.env.DEBUG && c(delta(), "enqueued window " + DCL);
-  eventQueue.push([e, origReadyStateGetter(), w]);
+  eventQueue.push([new e.constructor(DCL, e), origReadyStateGetter(), w]);
 });
-const jQuery = new jQueryMock();
 wOrigAddEventListener(L, (e) => {
+  WindowLoaded = true;
   process.env.DEBUG && c(delta(), "enqueued window " + L);
-  eventQueue.push([e, origReadyStateGetter(), w]);
+  eventQueue.push([new e.constructor(L, e), origReadyStateGetter(), w]);
   if (!iterating) {
     fireQueuedEvents([DCL, RSC, M, L]);
-    jQuery.init();
   }
 });
 const messageListener = (e) => {
-  process.env.DEBUG && c(delta(), "enqueued window " + M);
+  process.env.DEBUG && c(delta(), "enqueued " + M);
   eventQueue.push([e, d.readyState, w]);
 };
+const origWindowOnMessageGetter = w[__lookupGetter__]("onmessage");
+const origWindowOnMessageSetter = w[__lookupSetter__]("onmessage");
 const restoreMessageListener = () => {
   wOrigRemoveEventListener(M, messageListener);
   (listeners[windowEventPrefix + "message"] || []).forEach((listener) => {
     wOrigAddEventListener(M, listener);
   });
+  Object_defineProperty(w, "onmessage", {
+    get: origWindowOnMessageGetter,
+    set: origWindowOnMessageSetter
+  });
   process.env.DEBUG && c(delta(), "message listener restored");
 };
 wOrigAddEventListener(M, messageListener);
-dispatcher.on("fi", d.dispatchEvent.bind(d, new CustomEvent("fi")));
-dispatcher.on("fi", () => {
-  process.env.DEBUG && c(delta(), separator, "starting iterating on first interaction");
-  firstInteractionFired = true;
-  iterating = true;
-  mayBePreloadScripts();
-  d.readyState = "loading";
-  nextTick(iterate);
-});
+const jQuery = new jQueryMock();
+jQuery.init();
 const startIterating = () => {
-  WindowLoaded = true;
-  if (firstInteractionFired && !iterating) {
-    process.env.DEBUG && c(delta(), separator, "starting iterating on window.load");
+  if (!iterating && !DONE) {
+    iterating = true;
     d.readyState = "loading";
-    nextTick(iterate);
+    rAF(flushPreloadsAndPreconnects);
+    rAF(iterate);
   }
-  wOrigRemoveEventListener(L, startIterating);
+  if (!WindowLoaded) {
+    wOrigAddEventListener(L, () => {
+      process.env.DEBUG && c(delta(), separator, "starting iterating after window loaded");
+      startIterating();
+    });
+  }
 };
-wOrigAddEventListener(L, startIterating);
-if (_wpmeteor.rdelay >= 0) {
-  new InteractionEvents().init(_wpmeteor.rdelay);
-}
+wOrigAddEventListener(EVENT_FIRST_INTERACTION, () => {
+  process.env.DEBUG && c(delta(), separator, "starting iterating on first interaction");
+  startIterating();
+});
+dispatcher.on(EVENT_IMAGES_LOADED, () => {
+  process.env.DEBUG && c(delta(), separator, "starting iterating after images loaded");
+  startIterating();
+});
+(() => {
+  if (_wpmeteor.rdelay >= 0) {
+    InteractionEvents.capture();
+  }
+})();
 let scriptsToLoad = 1;
 const scriptLoaded = () => {
   process.env.DEBUG && c(delta(), "scriptLoaded", scriptsToLoad - 1);
   if (!--scriptsToLoad) {
-    nextTick(dispatcher.emit.bind(dispatcher, "l"));
+    nextTick(dispatcher.emit.bind(dispatcher, EVENT_THE_END));
   }
 };
 let i = 0;
@@ -258,8 +297,8 @@ const iterate = () => {
   process.env.DEBUG && c(delta(), "it", i++, reorder.length);
   const element = reorder.shift();
   if (element) {
-    if (element[ga](prefix + "src")) {
-      if (element[ha](prefix + "async")) {
+    if (element[getAttribute](prefix + "src")) {
+      if (element[hasAttribute]("async")) {
         process.env.DEBUG && c(delta(), "async", scriptsToLoad, element);
         scriptsToLoad++;
         unblock(element, scriptLoaded);
@@ -275,22 +314,28 @@ const iterate = () => {
       nextTick(iterate);
     }
   } else {
-    if (hasUnfiredListeners([DCL, RSC, M])) {
+    if (defer.length) {
+      while (defer.length) {
+        reorder.push(defer.shift());
+        process.env.DEBUG && c(delta(), "adding deferred script", reorder.slice(-1)[0]);
+      }
+      nextTick(iterate);
+    } else if (hasUnfiredListeners([DCL, RSC, M])) {
+      process.env.DEBUG && c(delta(), "firing unfired listeners");
       fireQueuedEvents([DCL, RSC, M]);
       nextTick(iterate);
-    } else if (firstInteractionFired && WindowLoaded) {
+    } else if (WindowLoaded) {
       if (hasUnfiredListeners([L, M])) {
         fireQueuedEvents([L, M]);
         nextTick(iterate);
       } else if (scriptsToLoad > 1) {
         process.env.DEBUG && c(delta(), "waiting for", scriptsToLoad - 1, "more scripts to load", reorder);
         rIC(iterate);
-      } else if (delayed.length) {
-        while (delayed.length) {
-          reorder.push(delayed.shift());
-          process.env.DEBUG && c(delta(), "adding delayed script", reorder.slice(-1)[0]);
+      } else if (async.length) {
+        while (async.length) {
+          reorder.push(async.shift());
+          process.env.DEBUG && c(delta(), "adding async script", reorder.slice(-1)[0]);
         }
-        mayBePreloadScripts();
         nextTick(iterate);
       } else {
         if (w.RocketLazyLoadScripts) {
@@ -316,9 +361,11 @@ const cloneScript = (el) => {
   const newElement = dOrigCreateElement(S);
   const attrs = el.attributes;
   for (var i2 = attrs.length - 1; i2 >= 0; i2--) {
-    newElement[sa](attrs[i2].name, attrs[i2].value);
+    if (!attrs[i2].name.startsWith(prefix)) {
+      newElement[setAttribute](attrs[i2].name, attrs[i2].value);
+    }
   }
-  const type = el[ga](prefix + "type");
+  const type = el[getAttribute](prefix + "type");
   if (type) {
     newElement.type = type;
   } else {
@@ -329,48 +376,34 @@ const cloneScript = (el) => {
   } else {
     newElement.textContent = el.textContent;
   }
-  ["after", "type", "src", "async", "defer"].forEach((postfix) => newElement[ra](prefix + postfix));
+  for (const property of ["onload", "onerror", "onreadystatechange"]) {
+    if (el[property]) {
+      process.env.DEBUG && c(delta(), `re-adding ${property} to`, el, el[property]);
+      newElement[property] = el[property];
+    }
+  }
   return newElement;
 };
-const replaceScript = (el, newElement) => {
-  const parentNode = el.parentNode;
-  if (parentNode) {
-    const newParent = parentNode.nodeType === 11 ? dOrigCreateElement(parentNode.host.tagName) : dOrigCreateElement(parentNode.tagName);
-    newParent.appendChild(parentNode.replaceChild(newElement, el));
-    if (!parentNode.isConnected) {
-      ce("Parent for", el, " is not part of the DOM");
-      return;
-    }
-    return el;
-  }
-  ce("No parent for", el);
-};
 const unblock = (el, callback) => {
-  let src = el[ga](prefix + "src");
+  let src = el[getAttribute](prefix + "src");
   if (src) {
     process.env.DEBUG && c(delta(), "unblocking src", src);
-    const newElement = cloneScript(el);
-    const addEventListener = origAddEventListener ? origAddEventListener.bind(newElement) : newElement[a].bind(newElement);
-    if (el.getEventListeners) {
-      el.getEventListeners().forEach(([event, listener]) => {
-        process.env.DEBUG && c(delta(), "re-adding event listeners to cloned element", event, listener);
-        addEventListener(event, listener);
-      });
-    }
+    const addEventListener2 = origAddEventListener.bind(el);
     if (callback) {
-      addEventListener(L, callback);
-      addEventListener(E, callback);
+      addEventListener2(L, callback);
+      addEventListener2(E, callback);
     }
-    newElement.src = src;
-    const oldChild = replaceScript(el, newElement);
-    const type = newElement[ga]("type");
-    process.env.DEBUG && c(delta(), "unblocked src", src, newElement);
-    if ((!oldChild || el[ha]("nomodule") || type && !isJavascriptRegexp.test(type)) && callback) {
+    el.origtype = el[getAttribute](prefix + "type") || "text/javascript";
+    el.origsrc = src;
+    process.env.DEBUG && c(delta(), "unblocked src", src, el);
+    if ((el[hasAttribute]("nomodule") || el.type && !isJavascriptRegexp.test(el.type)) && callback) {
       callback();
     }
   } else if (el.origtype === javascriptBlocked) {
     process.env.DEBUG && c(delta(), "unblocking inline", el);
-    replaceScript(el, cloneScript(el));
+    el.origtype = el[getAttribute](prefix + "type") || "text/javascript";
+    el[removeAttribute]("integrity");
+    el.textContent = el.textContent + "\n";
     process.env.DEBUG && c(delta(), "unblocked inline", el);
   } else {
     process.env.DEBUG && ce(delta(), "already unblocked", el);
@@ -379,16 +412,16 @@ const unblock = (el, callback) => {
     }
   }
 };
-const removeEventListener = (name, func) => {
+const removeQueuedEventListener = (name, func) => {
   const pos = (listeners[name] || []).indexOf(func);
   if (pos >= 0) {
     listeners[name][pos] = void 0;
     return true;
   }
 };
-let documentAddEventListener = (event, func, ...args) => {
+const documentAddEventListener = (event, func, ...args) => {
   if ("HTMLDocument::" + DCL == currentlyFiredEvent && event === DCL && !func.toString().match(/jQueryMock/)) {
-    dispatcher.on("l", d.addEventListener.bind(d, event, func, ...args));
+    dispatcher.on(EVENT_THE_END, d[addEventListener].bind(d, event, func, ...args));
     return;
   }
   if (func && (event === DCL || event === RSC)) {
@@ -403,15 +436,15 @@ let documentAddEventListener = (event, func, ...args) => {
   }
   return dOrigAddEventListener(event, func, ...args);
 };
-let documentRemoveEventListener = (event, func) => {
+const documentRemoveEventListener = (event, func, ...args) => {
   if (event === DCL) {
     const name = documentEventPrefix + event;
-    removeEventListener(name, func);
+    removeQueuedEventListener(name, func);
   }
-  return dOrigRemoveEventListener(event, func);
+  return dOrigRemoveEventListener(event, func, ...args);
 };
 Object_defineProperties(d, {
-  [a]: {
+  [addEventListener]: {
     get() {
       return documentAddEventListener;
     },
@@ -419,7 +452,7 @@ Object_defineProperties(d, {
       return documentAddEventListener;
     }
   },
-  [r]: {
+  [removeEventListener]: {
     get() {
       return documentRemoveEventListener;
     },
@@ -428,6 +461,13 @@ Object_defineProperties(d, {
     }
   }
 });
+let preloadsAndPreconnectsFragment = d.createDocumentFragment();
+const flushPreloadsAndPreconnects = () => {
+  if (preloadsAndPreconnectsFragment.hasChildNodes()) {
+    d.head[appendChild](preloadsAndPreconnectsFragment);
+    preloadsAndPreconnectsFragment = d.createDocumentFragment();
+  }
+};
 const preconnects = {};
 const preconnect = (src) => {
   if (!src)
@@ -441,143 +481,121 @@ const preconnect = (src) => {
       const s = dOrigCreateElement("link");
       s.rel = "preconnect";
       s.href = href;
-      d.head.appendChild(s);
+      preloadsAndPreconnectsFragment[appendChild](s);
       process.env.DEBUG && c(delta(), "preconnecting", url.origin);
       preconnects[href] = true;
+      if (iterating) {
+        rAF(flushPreloadsAndPreconnects);
+      }
     }
   } catch (e) {
     process.env.DEBUG && ce(delta(), "failed to parse src for preconnect", src);
   }
 };
 const preloads = {};
-const preloadAsScript = (src, isModule, crossorigin, fragment) => {
-  var s = dOrigCreateElement("link");
+const preloadAsScript = (src, isModule, crossorigin, integrity) => {
+  const s = dOrigCreateElement("link");
   s.rel = isModule ? "modulepre" + L : "pre" + L;
   s.as = "script";
   if (crossorigin)
-    s[sa]("crossorigin", crossorigin);
+    s[setAttribute]("crossorigin", crossorigin);
+  if (integrity)
+    s[setAttribute]("integrity", integrity);
   s.href = src;
-  fragment.appendChild(s);
+  preloadsAndPreconnectsFragment[appendChild](s);
   preloads[src] = true;
   process.env.DEBUG && c(delta(), s.rel, src);
-};
-const mayBePreloadScripts = () => {
-  if (_wpmeteor.preload && reorder.length) {
-    const fragment = d.createDocumentFragment();
-    reorder.forEach((script) => {
-      const src = script[ga](prefix + "src");
-      if (src && !preloads[src] && !script[ga](prefix + "integrity") && !script[ha]("nomodule")) {
-        preloadAsScript(src, script[ga](prefix + "type") == "module", script[ha]("crossorigin") && script[ga]("crossorigin"), fragment);
-      }
-    });
-    rAF(d.head.appendChild.bind(d.head, fragment));
+  if (iterating) {
+    rAF(flushPreloadsAndPreconnects);
   }
 };
-dOrigAddEventListener(DCL, () => {
-  const treorder = [...reorder];
-  reorder.splice(0, reorder.length);
-  [...d.querySelectorAll("script[" + prefix + "after]"), ...treorder].forEach((el) => {
-    if (seenScripts.some((seen) => seen === el)) {
-      return;
-    }
-    const originalAttributeGetter = el.__lookupGetter__("type").bind(el);
-    Object_defineProperty(el, "origtype", {
-      get() {
-        return originalAttributeGetter();
-      }
-    });
-    if ((el[ga](prefix + "src") || "").match(/\/gtm.js\?/)) {
-      process.env.DEBUG && c(delta(), "delaying regex", el[ga](prefix + "src"));
-      delayed.push(el);
-    } else if (el[ha](prefix + "async")) {
-      process.env.DEBUG && c(delta(), "delaying async", el[ga](prefix + "src"));
-      delayed.unshift(el);
-    } else {
-      reorder.push(el);
-    }
-    seenScripts.push(el);
-  });
-});
 const createElement = function(...args) {
   const scriptElt = dOrigCreateElement(...args);
-  if (args[0].toUpperCase() !== S || !iterating) {
+  if (!args || args[0].toUpperCase() !== S || !iterating) {
     return scriptElt;
   }
   process.env.DEBUG && c(delta(), "creating script element");
-  const originalSetAttribute = scriptElt[sa].bind(scriptElt);
-  const originalGetAttribute = scriptElt[ga].bind(scriptElt);
-  const originalHasAttribute = scriptElt[ha].bind(scriptElt);
-  originalSetAttribute(prefix + "after", "REORDER");
-  originalSetAttribute(prefix + "type", "text/javascript");
-  scriptElt.type = javascriptBlocked;
+  const originalSetAttribute = scriptElt[setAttribute].bind(scriptElt);
+  const originalGetAttribute = scriptElt[getAttribute].bind(scriptElt);
+  const originalHasAttribute = scriptElt[hasAttribute].bind(scriptElt);
+  const originalAttributes = scriptElt[__lookupGetter__]("attributes").bind(scriptElt);
   const eventListeners = [];
   scriptElt.getEventListeners = () => {
     return eventListeners;
   };
-  O[definePropert + "ies"](scriptElt, {
-    "onreadystatechange": {
-      set(func) {
-        eventListeners.push([L, func]);
-      }
-    },
-    "onload": {
-      set(func) {
-        eventListeners.push([L, func]);
-      }
-    },
-    "onerror": {
-      set(func) {
-        eventListeners.push([E, func]);
-      }
-    }
-  });
   capturedAttributes.forEach((property) => {
-    const originalAttributeGetter = scriptElt.__lookupGetter__(property).bind(scriptElt);
+    const originalAttributeGetter = scriptElt[__lookupGetter__](property).bind(scriptElt);
+    const originalAttributeSetter = scriptElt[__lookupSetter__](property).bind(scriptElt);
     O[definePropert + "y"](scriptElt, property, {
       set(value) {
         process.env.DEBUG && c(delta(), "setting ", property, value);
-        return value ? scriptElt[sa](prefix + property, value) : scriptElt[ra](prefix + property);
+        if (property === "type" && value && !isJavascriptRegexp.test(value)) {
+          return scriptElt[setAttribute](property, value);
+        }
+        if (property === "src" && value) {
+          originalSetAttribute("type", javascriptBlocked);
+        } else if (property === "type" && value && scriptElt.origsrc) {
+          originalSetAttribute("type", javascriptBlocked);
+        }
+        return value ? scriptElt[setAttribute](prefix + property, value) : scriptElt[removeAttribute](prefix + property);
       },
       get() {
-        return scriptElt[ga](prefix + property);
+        const result = scriptElt[getAttribute](prefix + property);
+        if (property === "src") {
+          try {
+            const url = new URL(result, d.location.href);
+            return url.href;
+          } catch {
+          }
+        }
+        return result;
       }
     });
     Object_defineProperty(scriptElt, "orig" + property, {
+      set(value) {
+        return originalAttributeSetter(value);
+      },
       get() {
         return originalAttributeGetter();
       }
     });
   });
-  scriptElt[a] = function(event, handler) {
+  scriptElt[addEventListener] = function(event, handler) {
     eventListeners.push([event, handler]);
   };
-  scriptElt[sa] = function(property, value) {
+  scriptElt[setAttribute] = function(property, value) {
     if (capturedAttributes.includes(property)) {
-      process.env.DEBUG && c(delta(), "setting attribute ", property, value);
-      return value ? originalSetAttribute(prefix + property, value) : scriptElt[ra](prefix + property);
-    } else if (["onload", "onerror", "onreadystatechange"].includes(property)) {
-      process.env.DEBUG && c(delta(), "setting attribute ", property, value);
-      if (value) {
-        originalSetAttribute(prefix + property, value);
-        originalSetAttribute(property, 'document.dispatchEvent(new CustomEvent("wpmeteor:load", { detail: { event: event, target: this } }))');
-      } else {
-        scriptElt[ra](property);
-        scriptElt[ra](prefix + property, value);
+      process.env.DEBUG && c(delta(), "setting attribute", property, value);
+      if (property === "type" && value && !isJavascriptRegexp.test(value)) {
+        return originalSetAttribute(property, value);
       }
+      if (property === "src" && value) {
+        originalSetAttribute("type", javascriptBlocked);
+      } else if (property === "type" && value && scriptElt.origsrc) {
+        originalSetAttribute("type", javascriptBlocked);
+      }
+      return value ? originalSetAttribute(prefix + property, value) : scriptElt[removeAttribute](prefix + property);
     } else {
       originalSetAttribute(property, value);
     }
   };
-  scriptElt[ga] = function(property) {
-    return capturedAttributes.indexOf(property) >= 0 ? originalGetAttribute(prefix + property) : originalGetAttribute(property);
+  scriptElt[getAttribute] = function(property) {
+    const result = capturedAttributes.indexOf(property) >= 0 ? originalGetAttribute(prefix + property) : originalGetAttribute(property);
+    if (property === "src") {
+      try {
+        const url = new URL(result, d.location.href);
+        return url.href;
+      } catch {
+      }
+    }
+    return result;
   };
-  scriptElt[ha] = function(property) {
+  scriptElt[hasAttribute] = function(property) {
     return capturedAttributes.indexOf(property) >= 0 ? originalHasAttribute(prefix + property) : originalHasAttribute(property);
   };
-  const attributes = scriptElt.attributes;
   Object_defineProperty(scriptElt, "attributes", {
     get() {
-      const mock = [...attributes].filter((attr) => attr.name !== "type" && attr.name !== prefix + "after").map((attr) => {
+      const mock = [...originalAttributes()].filter((attr) => attr.name !== "type").map((attr) => {
         return {
           name: attr.name.match(new RegExp(prefix)) ? attr.name.replace(prefix, "") : attr.name,
           value: attr.value
@@ -588,10 +606,10 @@ const createElement = function(...args) {
   });
   return scriptElt;
 };
-Object.defineProperty(d, "createElement", {
+Object.defineProperty(Document[prototype], "createElement", {
   set(value) {
     if (process.env.DEBUG) {
-      if (value == dOrigCreateElement) {
+      if (value == origCreateElement) {
         process.env.DEBUG && c(delta(), "document.createElement restored to original");
       } else if (value === createElement) {
         process.env.DEBUG && c(delta(), "document.createElement overridden");
@@ -607,77 +625,117 @@ Object.defineProperty(d, "createElement", {
     return createElementOverride || createElement;
   }
 });
-const seenScripts = [];
+const seenScripts = /* @__PURE__ */ new Set();
 const observer = new MutationObserver((mutations) => {
-  if (iterating) {
-    mutations.forEach(({ addedNodes, target }) => {
-      addedNodes.forEach((node) => {
-        if (node.nodeType === 1) {
-          if (S === node.tagName) {
-            if ("REORDER" === node[ga](prefix + "after") && (!node[ga](prefix + "type") || isJavascriptRegexp.test(node[ga](prefix + "type")))) {
-              process.env.DEBUG && c(delta(), "captured new script", node.cloneNode(true), node);
-              const src = node[ga](prefix + "src");
-              if (seenScripts.filter((n) => n === node).length) {
-                ce("Inserted twice", node);
-              }
-              if (node.parentNode) {
-                seenScripts.push(node);
-                if ((src || "").match(/\/gtm.js\?/)) {
-                  process.env.DEBUG && c(delta(), "delaying regex", node[ga](prefix + "src"));
-                  delayed.push(node);
-                  preconnect(src);
-                } else if (node[ha](prefix + "async")) {
-                  process.env.DEBUG && c(delta(), "delaying async", node[ga](prefix + "src"));
-                  delayed.unshift(node);
-                  preconnect(src);
-                } else {
-                  if (src && !node[ga](prefix + "integrity") && !node[ha]("nomodule") && !preloads[src]) {
-                    c(delta(), "pre preload", reorder.length);
-                    preloadAsScript(src, node[ga](prefix + "type") == "module", node[ha]("crossorigin") && node[ga]("crossorigin"), d.head);
-                  }
-                  reorder.push(node);
-                }
-              } else {
-                process.env.DEBUG && ce("No parent node for", node, "re-adding to", target);
-                node.addEventListener(L, (e) => e.target.parentNode.removeChild(e.target));
-                node.addEventListener(E, (e) => e.target.parentNode.removeChild(e.target));
-                target.appendChild(node);
-              }
-            } else {
-              process.env.DEBUG && c(delta(), "captured unmodified or non-javascript script", node.cloneNode(true), node);
-              dispatcher.emit("s", node.src);
-            }
-          } else if ("LINK" === node.tagName && node[ga]("as") === "script") {
-            preloads[node[ga]("href")] = true;
-          }
-        }
-      });
+  mutations.forEach(({ removedNodes, addedNodes, target }) => {
+    removedNodes.forEach((node) => {
+      if (node.nodeType === 1 && S === node[tagName] && "origtype" in node) {
+        seenScripts.delete(node);
+      }
     });
-  }
+    addedNodes.forEach((node) => {
+      if (node.nodeType === 1) {
+        if (S === node[tagName]) {
+          if ("origtype" in node) {
+            if (node.origtype !== javascriptBlocked) {
+              process.env.DEBUG && c(delta(), "mutationobserver captured non-blocked script", node);
+              return;
+            }
+          } else if (node[getAttribute]("type") !== javascriptBlocked) {
+            process.env.DEBUG && c(delta(), "mutationobserver captured non-blocked script", node);
+            return;
+          }
+          if (!("origtype" in node)) {
+            process.env.DEBUG && (node[getAttribute]("type") === javascriptBlocked ? c(delta(), "mutationobserver captured blocked script", node) : c(delta(), "mutationobserver captured non-javascript script", node));
+            capturedAttributes.forEach((property) => {
+              const originalAttributeGetter = node[__lookupGetter__](property).bind(node);
+              const originalAttributeSetter = node[__lookupSetter__](property).bind(node);
+              Object_defineProperty(node, "orig" + property, {
+                set(value) {
+                  return originalAttributeSetter(value);
+                },
+                get() {
+                  return originalAttributeGetter();
+                }
+              });
+            });
+          } else {
+            process.env.DEBUG && c(delta(), "mutationobserver captured new script", node);
+          }
+          const src = node[getAttribute](prefix + "src");
+          if (seenScripts.has(node)) {
+            ce("Inserted twice", node);
+          }
+          if (node.parentNode) {
+            seenScripts.add(node);
+            if ((src || "").match(/\/gtm.js\?/)) {
+              process.env.DEBUG && c(delta(), "delaying regex", node[getAttribute](prefix + "src"));
+              async.push(node);
+              preconnect(src);
+            } else if (node[hasAttribute]("async")) {
+              process.env.DEBUG && c(delta(), "delaying async", node[getAttribute](prefix + "src"));
+              async.unshift(node);
+              preconnect(src);
+            } else if (node[hasAttribute]("defer")) {
+              process.env.DEBUG && c(delta(), "delaying defer", node[getAttribute](prefix + "src"));
+              defer.push(node);
+              preconnect(src);
+            } else {
+              if (src && !node[hasAttribute]("nomodule") && !preloads[src]) {
+                c(delta(), "pre preload", reorder.length);
+                preloadAsScript(src, node[getAttribute](prefix + "type") == "module", node[hasAttribute]("crossorigin") && node[getAttribute]("crossorigin"), node[getAttribute]("integrity"));
+              }
+              reorder.push(node);
+            }
+          } else {
+            process.env.DEBUG && ce("No parent node for", node, "re-adding to", target);
+            node[addEventListener](L, (e) => e.target.parentNode[removeChild](e.target));
+            node[addEventListener](E, (e) => e.target.parentNode[removeChild](e.target));
+            target[appendChild](node);
+          }
+        } else if ("LINK" === node[tagName] && node[getAttribute]("as") === "script") {
+          preloads[node[getAttribute]("href")] = true;
+        }
+      }
+    });
+  });
 });
 const mutationObserverOptions = {
   childList: true,
-  subtree: true,
-  attributes: true,
-  attributeOldValue: true
+  subtree: true
 };
 observer.observe(d.documentElement, mutationObserverOptions);
-const origAttachShadow = HTMLElement.prototype.attachShadow;
-HTMLElement.prototype.attachShadow = function(options) {
+const origAttachShadow = HTMLElement[prototype].attachShadow;
+HTMLElement[prototype].attachShadow = function(options) {
   const shadowRoot = origAttachShadow.call(this, options);
   if (options.mode === "open") {
     observer.observe(shadowRoot, mutationObserverOptions);
   }
   return shadowRoot;
 };
-dispatcher.on("l", () => {
+const origIFrameSrc = O[getOwnPropertyDescriptor](HTMLIFrameElement[prototype], "src");
+Object_defineProperty(HTMLIFrameElement[prototype], "src", {
+  get() {
+    if (this.dataset.fpoSrc) {
+      return this.dataset.fpoSrc;
+    }
+    return origIFrameSrc.get.call(this);
+  },
+  set(value) {
+    delete this.dataset.fpoSrc;
+    origIFrameSrc.set.call(this, value);
+  }
+});
+dispatcher.on(EVENT_THE_END, () => {
+  process.env.DEBUG && c(delta(), "THE END");
   if (!createElementOverride || createElementOverride === createElement) {
-    d.createElement = dOrigCreateElement;
+    Document[prototype].createElement = origCreateElement;
     observer.disconnect();
   } else {
     process.env.DEBUG && c(delta(), "createElement is overridden, keeping observers in place");
   }
-  d.dispatchEvent(new CustomEvent("l"));
+  dispatchEvent(new CustomEvent(EVENT_REPLAY_CAPTURED_EVENTS));
+  dispatchEvent(new CustomEvent(EVENT_THE_END));
 });
 let documentWrite = (str) => {
   let parent, currentScript;
@@ -722,12 +780,12 @@ Object_defineProperties(d, {
   }
 });
 let windowAddEventListener = (event, func, ...args) => {
-  if ("Window::" + DCL == currentlyFiredEvent && event === DCL && !func.toString().match(/jQueryMock/)) {
-    dispatcher.on("l", w.addEventListener.bind(w, event, func, ...args));
+  if (windowEventPrefix + DCL == currentlyFiredEvent && event === DCL && !func.toString().match(/jQueryMock/)) {
+    dispatcher.on(EVENT_THE_END, w[addEventListener].bind(w, event, func, ...args));
     return;
   }
-  if ("Window::" + L == currentlyFiredEvent && event === L) {
-    dispatcher.on("l", w.addEventListener.bind(w, event, func, ...args));
+  if (windowEventPrefix + L == currentlyFiredEvent && event === L) {
+    dispatcher.on(EVENT_THE_END, w[addEventListener].bind(w, event, func, ...args));
     return;
   }
   if (func && (event === L || event === DCL || event === M && !DONE)) {
@@ -742,15 +800,15 @@ let windowAddEventListener = (event, func, ...args) => {
   }
   return wOrigAddEventListener(event, func, ...args);
 };
-let windowRemoveEventListener = (event, func) => {
+let windowRemoveEventListener = (event, func, ...args) => {
   if (event === L) {
     const name = event === DCL ? documentEventPrefix + event : windowEventPrefix + event;
-    removeEventListener(name, func);
+    removeQueuedEventListener(name, func);
   }
-  return wOrigRemoveEventListener(event, func);
+  return wOrigRemoveEventListener(event, func, ...args);
 };
 Object_defineProperties(w, {
-  [a]: {
+  [addEventListener]: {
     get() {
       return windowAddEventListener;
     },
@@ -758,7 +816,7 @@ Object_defineProperties(w, {
       return windowAddEventListener;
     }
   },
-  [r]: {
+  [removeEventListener]: {
     get() {
       return windowRemoveEventListener;
     },
@@ -777,7 +835,7 @@ const onHandlerOptions = (name) => {
     set(func) {
       process.env.DEBUG && c(delta(), separator, "setting " + name.toLowerCase().replace(/::/, ".") + " handler", func);
       if (handler) {
-        removeEventListener(name, func);
+        removeQueuedEventListener(name, func);
       }
       listeners[name] = listeners[name] || [];
       listeners[name].push(func);
@@ -785,15 +843,15 @@ const onHandlerOptions = (name) => {
     }
   };
 };
-dOrigAddEventListener("wpmeteor:load", (e) => {
+wOrigAddEventListener(EVENT_ELEMENT_LOADED, (e) => {
   const { target, event } = e.detail;
   const el = target === w ? d.body : target;
-  const func = el[ga](prefix + "on" + event.type);
-  el[ra](prefix + "on" + event.type);
+  const func = el[getAttribute](prefix + "on" + event.type);
+  el[removeAttribute](prefix + "on" + event.type);
   try {
     const f = new Function("event", func);
     if (target === w) {
-      w[a](L, w[a].bind(w, L, f));
+      w[addEventListener](L, f.bind(target, event));
     } else {
       f.call(target, event);
     }
@@ -810,93 +868,82 @@ dOrigAddEventListener("wpmeteor:load", (e) => {
 }
 Object_defineProperty(d, "onreadystatechange", onHandlerOptions(documentEventPrefix + RSC));
 Object_defineProperty(w, "onmessage", onHandlerOptions(windowEventPrefix + M));
-if (process.env.DEBUG && location.search.match(/wpmeteorperformance/)) {
-  try {
-    new PerformanceObserver((entryList) => {
-      for (const entry of entryList.getEntries()) {
-        c(delta(), "LCP candidate:", entry.startTime, entry);
+(() => {
+  const wheight = w.innerHeight;
+  const wwidth = w.innerWidth;
+  const intersectsViewport = (el) => {
+    let extras = {
+      "4g": 1250,
+      "3g": 2500,
+      "2g": 2500
+    };
+    const extra = extras[(navigator.connection || {}).effectiveType] || 0;
+    const rect = el.getBoundingClientRect();
+    const viewport = {
+      top: -1 * wheight - extra,
+      left: -1 * wwidth - extra,
+      bottom: wheight + extra,
+      right: wwidth + extra
+    };
+    if (rect.left >= viewport.right || rect.right <= viewport.left)
+      return false;
+    if (rect.top >= viewport.bottom || rect.bottom <= viewport.top)
+      return false;
+    return true;
+  };
+  const waitForImages = (reallyWait = true) => {
+    let imagesToLoad = 1;
+    let imagesLoadedCount = -1;
+    const seen = {};
+    const imageLoadedHandler = () => {
+      imagesLoadedCount++;
+      if (!--imagesToLoad) {
+        process.env.DEBUG && c(delta(), imagesLoadedCount + " eager images loaded");
+        w[_setTimeout](dispatcher.emit.bind(dispatcher, EVENT_IMAGES_LOADED), _wpmeteor.rdelay);
       }
-    }).observe({ type: "largest-contentful-paint", buffered: true });
-    new PerformanceObserver((list) => {
-      list.getEntries().forEach((e) => c(delta(), "resource loaded", e.name, e));
-    }).observe({ type: "resource" });
-  } catch (e) {
-  }
-}
-const intersectsViewport = (el) => {
-  let extras = {
-    "4g": 1250,
-    "3g": 2500,
-    "2g": 2500
-  };
-  const extra = extras[(navigator.connection || {}).effectiveType] || 0;
-  const rect = el.getBoundingClientRect();
-  const viewport = {
-    top: -1 * wheight - extra,
-    left: -1 * wwidth - extra,
-    bottom: wheight + extra,
-    right: wwidth + extra
-  };
-  if (rect.left >= viewport.right || rect.right <= viewport.left)
-    return false;
-  if (rect.top >= viewport.bottom || rect.bottom <= viewport.top)
-    return false;
-  return true;
-};
-const waitForImages = (reallyWait = true) => {
-  let imagesToLoad = 1;
-  let imagesLoadedCount = -1;
-  const seen = {};
-  const imageLoadedHandler = () => {
-    imagesLoadedCount++;
-    if (!--imagesToLoad) {
-      process.env.DEBUG && c(delta(), imagesLoadedCount + " eager images loaded");
-      nextTick(dispatcher.emit.bind(dispatcher, "i"), _wpmeteor.rdelay);
-    }
-  };
-  Array.from(d.getElementsByTagName("*")).forEach((tag) => {
-    let src, style, bgUrl;
-    if (tag.tagName === "IMG") {
-      let _src = tag.currentSrc || tag.src;
-      if (_src && !seen[_src] && !_src.match(/^data:/i)) {
-        if ((tag.loading || "").toLowerCase() !== "lazy") {
-          src = _src;
-          process.env.DEBUG && c(delta(), "loading image", src, "for", tag);
-        } else if (intersectsViewport(tag)) {
-          src = _src;
-          process.env.DEBUG && c(delta(), "loading lazy image", src, "for", tag);
+    };
+    Array.from(d.getElementsByTagName("*")).forEach((tag) => {
+      let src, style, bgUrl;
+      if (tag[tagName] === "IMG") {
+        let _src = tag.currentSrc || tag.src;
+        if (_src && !seen[_src] && !_src.match(/^data:/i)) {
+          if ((tag.loading || "").toLowerCase() !== "lazy") {
+            src = _src;
+            process.env.DEBUG && c(delta(), "loading image", src, "for", tag);
+          } else if (intersectsViewport(tag)) {
+            src = _src;
+            process.env.DEBUG && c(delta(), "loading lazy image", src, "for", tag);
+          }
+        }
+      } else if (tag[tagName] === S) {
+        preconnect(tag[getAttribute](prefix + "src"));
+      } else if (tag[tagName] === "LINK" && tag[getAttribute]("as") === "script" && ["pre" + L, "modulepre" + L].indexOf(tag[getAttribute]("rel")) >= 0) {
+        preloads[tag[getAttribute]("href")] = true;
+      } else if ((style = w.getComputedStyle(tag)) && (bgUrl = (style.backgroundImage || "").match(/^url\s*\((.*?)\)/i)) && (bgUrl || []).length) {
+        const url = bgUrl[0].slice(4, -1).replace(/"/g, "");
+        if (!seen[url] && !url.match(/^data:/i)) {
+          src = url;
+          process.env.DEBUG && c(delta(), "loading background", src, "for", tag);
         }
       }
-    } else if (tag.tagName === S) {
-      preconnect(tag[ga](prefix + "src"));
-    } else if (tag.tagName === "LINK" && tag[ga]("as") === "script" && ["pre" + L, "modulepre" + L].indexOf(tag[ga]("rel")) >= 0) {
-      preloads[tag[ga]("href")] = true;
-    } else if ((style = w.getComputedStyle(tag)) && (bgUrl = (style.backgroundImage || "").match(/^url\s*\((.*?)\)/i)) && (bgUrl || []).length) {
-      const url = bgUrl[0].slice(4, -1).replace(/"/g, "");
-      if (!seen[url] && !url.match(/^data:/i)) {
-        src = url;
-        process.env.DEBUG && c(delta(), "loading background", src, "for", tag);
+      if (src) {
+        seen[src] = true;
+        const temp = new Image();
+        if (reallyWait) {
+          imagesToLoad++;
+          temp[addEventListener](L, imageLoadedHandler);
+          temp[addEventListener](E, imageLoadedHandler);
+        }
+        temp.src = src;
       }
-    }
-    if (src) {
-      seen[src] = true;
-      const temp = new Image();
-      if (reallyWait) {
-        imagesToLoad++;
-        temp[a](L, imageLoadedHandler);
-        temp[a](E, imageLoadedHandler);
-      }
-      temp.src = src;
-    }
-  });
-  d.fonts.ready.then(() => {
-    process.env.DEBUG && c(delta(), "fonts ready");
-    imageLoadedHandler();
-  });
-};
-(() => {
+    });
+    d.fonts.ready.then(() => {
+      process.env.DEBUG && c(delta(), "fonts ready");
+      imageLoadedHandler();
+    });
+  };
   if (_wpmeteor.rdelay === 0) {
-    dOrigAddEventListener(DCL, () => nextTick(waitForImages.bind(null, false)));
+    dOrigAddEventListener(DCL, waitForImages);
   } else {
     wOrigAddEventListener(L, waitForImages);
   }

@@ -475,7 +475,7 @@
     line-height: 40px;
 }
 .image_sizes-disable-thumbnails h4 {
-    color: #ff4568;
+    color: #12bd6e;
 }
 .image_sizes-disable-thumbnails h4 small,
 .image_sizes-enable-thumbnails h4 small {
@@ -485,7 +485,7 @@
     color: var(--black-color);
 }
 .image_sizes-enable-thumbnails h4 {
-    color: #12bd6e;
+    color: #ff4568;
 }
 .tp-enable-thumbnails-table-wrap,
 .tp-disable-thumbnails-table-wrap {

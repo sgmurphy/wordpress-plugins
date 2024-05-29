@@ -69,7 +69,7 @@ class bt_bb_cost_calculator extends BT_BB_Element {
 		require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
 		$color_scheme_arr = bt_bb_get_color_scheme_param_array();
 		
-		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Simple Cost Calculator', 'bold-builder' ), 'description' => esc_html__( 'Simple cost calculator container', 'bold-builder' ), 'container' => 'vertical', 'accept' => array( 'bt_bb_cost_calculator_item' => true ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode . '_simple', 'show_settings_on_create' => false,
+		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Simple Cost Calculator (deprecated)', 'bold-builder' ), 'description' => esc_html__( 'Simple cost calculator container', 'bold-builder' ), 'container' => 'vertical', 'accept' => array( 'bt_bb_cost_calculator_item' => true ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode . '_simple', 'show_settings_on_create' => false,
 			'params' => array(
 				array( 'param_name' => 'currency', 'type' => 'textfield', 'heading' => esc_html__( 'Currency', 'bold-builder' ), 'placeholder' => esc_html__( '$', 'bold-builder' ) ),
 				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true ),

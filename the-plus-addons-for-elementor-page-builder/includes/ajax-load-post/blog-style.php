@@ -24,7 +24,7 @@ if ( 'yes' === $filter_category ) {
 }
 
 // grid item loop.
-echo '<div class="grid-item metro-item' . esc_attr( $ij ) . ' ' . esc_attr( $tablet_metro_class ) . ' ' . $desktop_class . ' ' . $tablet_class . ' ' . $mobile_class . ' ' . $category_filter . ' ' . $animated_columns . '">';
+echo '<div class="grid-item metro-item' . esc_attr( $ij ) . ' ' . esc_attr( $tablet_metro_class ) . ' ' . esc_attr( $desktop_class ) . ' ' . esc_attr( $tablet_class ) . ' ' . esc_attr( $mobile_class ) . ' ' . esc_attr( $category_filter ) . ' ' . esc_attr( $animated_columns ) . '">';
 
 if ( ! empty( $style ) ) {
 	include L_THEPLUS_PATH . 'includes/blog/blog-' . sanitize_file_name( $style ) . '.php';

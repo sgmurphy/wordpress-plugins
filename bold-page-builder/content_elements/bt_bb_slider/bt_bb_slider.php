@@ -147,41 +147,47 @@ class bt_bb_slider extends BT_BB_Element {
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 		
 		$output = '';
-
-		if ( $images != '' ) {
+		
+		if ( $images == '' ) {
+			$image_array = array();
+			$image_array[] = BT_BB_Root::$path . 'img/placeholder3.png';
+			$image_array[] = BT_BB_Root::$path . 'img/placeholder3.png';
+			$image_array[] = BT_BB_Root::$path . 'img/placeholder3.png';
+		} else {
 			$image_array = explode( ',', $images );
-			foreach( $image_array as $image ) {
-				$alt = '';
-				$title = '';
-				$image_thumb_src = plugins_url( 'placeholder.png', __FILE__ );
-				$image_full_src = plugins_url( 'placeholder.png', __FILE__ );
-				if ( is_numeric( $image ) ) {
-					$post_image = get_post( $image );
-					if ( is_object( $post_image ) ) {
-						$alt = get_post_meta( $post_image->ID, '_wp_attachment_image_alt', true );
-						if ( $alt == '' ) {
-							$alt = $post_image->post_excerpt;
-						} 
-						if ( $alt == '' ) {
-							$alt = $post_image->post_title;
-						}
-						$title = $post_image->post_title;
-						if ( $title != '' ) {
-							$title = ' title="' . esc_attr( $title ) . '"';	
-						}
-						$image_thumb = wp_get_attachment_image_src( $image, $size );
-						$image_full = wp_get_attachment_image_src( $image, 'full' );
-						$image_thumb_src = $image_thumb[0];
-						$image_full_src = $image_full[0];
+		}
+		
+		foreach( $image_array as $image ) {
+			$alt = '';
+			$title = '';
+			$image_thumb_src = BT_BB_Root::$path . 'img/placeholder3.png';
+			$image_full_src = BT_BB_Root::$path . 'img/placeholder3.png';
+			if ( is_numeric( $image ) ) {
+				$post_image = get_post( $image );
+				if ( is_object( $post_image ) ) {
+					$alt = get_post_meta( $post_image->ID, '_wp_attachment_image_alt', true );
+					if ( $alt == '' ) {
+						$alt = $post_image->post_excerpt;
+					} 
+					if ( $alt == '' ) {
+						$alt = $post_image->post_title;
 					}
+					$title = $post_image->post_title;
+					if ( $title != '' ) {
+						$title = ' title="' . esc_attr( $title ) . '"';	
+					}
+					$image_thumb = wp_get_attachment_image_src( $image, $size );
+					$image_full = wp_get_attachment_image_src( $image, 'full' );
+					$image_thumb_src = $image_thumb[0];
+					$image_full_src = $image_full[0];
 				}
-				if ( $height == 'auto' || $height == 'keep-height' ) {
-					$output .= '<div class="bt_bb_slider_item" data-src-full="' . esc_url_raw( $image_full_src ) . '"><img src="' . esc_url_raw( $image_thumb_src ) . '" alt="' . esc_attr( $alt ) . '" ' . ( $title ) . '></div>';
-				} else {
-					$output .= '<div class="bt_bb_slider_item" style="background-image:url(\'' . esc_url_raw( $image_thumb_src ) . '\')" data-src-full="' . esc_url_raw( $image_full_src ) . '"></div>';
-				}
-				
 			}
+			if ( $height == 'auto' || $height == 'keep-height' ) {
+				$output .= '<div class="bt_bb_slider_item" data-src-full="' . esc_url_raw( $image_full_src ) . '"><img src="' . esc_url_raw( $image_thumb_src ) . '" alt="' . esc_attr( $alt ) . '" ' . ( $title ) . '></div>';
+			} else {
+				$output .= '<div class="bt_bb_slider_item" style="background-image:url(\'' . esc_url_raw( $image_thumb_src ) . '\')" data-src-full="' . esc_url_raw( $image_full_src ) . '"></div>';
+			}
+			
 		}
 
 		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '><div class="' . esc_attr( implode( ' ', $slider_class ) ) . '" ' . $data_slick . '>' . $output . '</div></div>';

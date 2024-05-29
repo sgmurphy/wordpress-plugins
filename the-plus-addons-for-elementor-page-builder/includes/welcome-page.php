@@ -10,7 +10,7 @@ echo '<div class="theplus-panel-welcome-page">';
 					if ( $user ){
 						echo '<img src="'.esc_url( get_avatar_url( $user->ID ) ).'" class="theplus-avatar-img" />';
 					}
-					echo '<div class="theplus-welcom-author-name">'.esc_html__('Welcome ','tpebl').$user->display_name.',</div>';
+					echo '<div class="theplus-welcom-author-name">'.esc_html__('Welcome ','tpebl'). esc_attr( $user->display_name ).',</div>';
 				echo '</div>';
 				echo '<div class="theplus-sec-subtitle theplus-text-white theplus-mt-8">'.esc_html__('You deserve a quick and easy way to design, create, and publish. Start your new journey with the Plus Addons for Elementor. Presenting an incredible new workflow for Elementor. Constructing high-quality designs have never been such a breeze.','tpebl').'</div>';
 				echo '<div class="theplus-sec-border theplus-bg-white"></div>';
@@ -57,7 +57,7 @@ echo '<div class="theplus-panel-welcome-page">';
 				}else{
 					$php_check_req = '<span class="check-req-wrong">'.$check_wrong_req.'</span>';
 				}
-				echo '<div class="sys-req-label"><span style="width:70%;">'.esc_html__('PHP Version : ','tpebl').phpversion().esc_html__(' Check','tpebl').'</span>'.$php_check_req.'</div>';
+				echo '<div class="sys-req-label"><span style="width:70%;">'.esc_html__('PHP Version : ','tpebl').esc_attr( phpversion() ).esc_html__(' Check','tpebl').'</span>'.$php_check_req.'</div>';
 				
 				$memory_check_req ='';
 				$memory_limit = ini_get('memory_limit');
@@ -74,7 +74,7 @@ echo '<div class="theplus-panel-welcome-page">';
 				}else{
 					$memory_check_req = '<span class="check-req-wrong">'.$check_wrong_req.'</span>';
 				}
-				echo '<div class="sys-req-label theplus-bm-0"><span>'.esc_html__('Memory Limit : ','tpebl').'</br>'.ini_get('memory_limit').esc_html__(' Uncheck Required 512M','tpebl').'</span>'.$memory_check_req.'</div>';
+				echo '<div class="sys-req-label theplus-bm-0"><span>'.esc_html__('Memory Limit : ','tpebl').'</br>'.esc_attr( ini_get('memory_limit') ).esc_html__(' Uncheck Required 512M','tpebl').'</span>'.$memory_check_req.'</div>';
 
 				echo '<a href="http://docs.posimyth.com/tpae/system-requirements-configurations/" class="theplus-panel-btn theplus-mt-8" title="'.esc_attr__('Know More & Resolve','tpebl').'" target="_blank">'.esc_html__('Know More & Resolve','tpebl').'</a>';
 			echo '</div>';
@@ -87,10 +87,8 @@ echo '<div class="theplus-panel-welcome-page">';
 				echo '<div class="theplus-sec-subtitle">'.esc_html__('Notable additions made to The Plus Addons for Elementor.','tpebl').'</div>';
 				echo '<div class="theplus-sec-border"></div>';
 				echo '<div class="theplus-changelog-list">';
-					echo '<div class="changelog-date">May 22 , 2024 <span class="changelog-version">Lite Version 5.5.4</span></div>';
+					echo '<div class="changelog-date">May 29 , 2024 <span class="changelog-version">Lite Version 5.5.6</span></div>';
 						echo '<ul class="changelog-list">';
-							echo '<li>'.esc_html__('Add : Process Steps widget', 'tpebl').'</li>';
-							echo '<li>'.esc_html__('Add : Stylish List widge', 'tpebl').'</li>';
 							echo '<li>'.esc_html__('Fix : Minor Bug Fixes & performance Improvements', 'tpebl').'</li>';
 						echo '</ul>';
 				echo '</div>';
@@ -98,10 +96,10 @@ echo '<div class="theplus-panel-welcome-page">';
 
 				echo '<div class="theplus-sec-border" style="width:100%;height:1px;background:#DBDBDB;"></div>';
 				echo '<div class="theplus-changelog-list">';
-					echo '<div class="changelog-date">May 22 , 2024 <span class="changelog-version">Pro Version 5.5.4</span></div>';
+					echo '<div class="changelog-date">May 29 , 2024 <span class="changelog-version">Pro Version 5.5.5</span></div>';
 						echo '<ul class="changelog-list">';
-							echo '<li>'.esc_html__('Add : Woo Multistep widget', 'tpebl').'</li>';
-							echo '<li>'.esc_html__('Add : Woo Compare widget', 'tpebl').'</li>';
+							echo '<li>'.esc_html__('Fix : Search Filter : All post show when there is no post in result', 'tpebl').'</li>';
+							echo '<li>'.esc_html__('Fix : Heading Title : Security Patch ( Low security )', 'tpebl').'</li>';
 							echo '<li>'.esc_html__('Fix : Minor bug Fixes & performance Improvements', 'tpebl').'</li>';
 						echo '</ul>';
 					echo '</div>';
@@ -153,22 +151,22 @@ echo '<div class="theplus-panel-welcome-page">';
 					echo '<a href="https://www.youtube.com/playlist?list=PLFRO-irWzXaLK9H5opSt88xueTnRhqvO5 " class="theplus-more-video" target="_blank">'.esc_html__("Our Full Playlist",'tpebl').'</a>';
 					echo '<div class="theplus-panel-col theplus-panel-col-25">';
 						echo '<a href="https://youtu.be/HY5KlYuWP5k" class="theplus-panel-video-list" target="_blank">';
-							echo '<img src="'.L_THEPLUS_URL.'/assets/images/video-tutorial/video-1.jpg" />';
+							echo '<img src="' . esc_url(L_THEPLUS_URL . '/assets/images/video-tutorial/video-1.jpg') . '" />';
 						echo '</a>';
 					echo '</div>';
 					echo '<div class="theplus-panel-col theplus-panel-col-25">';
 						echo '<a href="https://youtu.be/9-8Ftlb79tI" class="theplus-panel-video-list" target="_blank">';
-							echo '<img src="'.L_THEPLUS_URL.'/assets/images/video-tutorial/video-2.jpg" />';
+							echo '<img src="' . esc_url(L_THEPLUS_URL . '/assets/images/video-tutorial/video-2.jpg') . '" />';
 						echo '</a>';
 					echo '</div>';
 					echo '<div class="theplus-panel-col theplus-panel-col-25">';
 						echo '<a href="https://youtu.be/Bwp3GBOlkaw" class="theplus-panel-video-list" target="_blank">';
-							echo '<img src="'.L_THEPLUS_URL.'/assets/images/video-tutorial/video-3.jpg" />';
-						echo '</a>';
-					echo '</div>';
-					echo '<div class="theplus-panel-col theplus-panel-col-25">';
-						echo '<a href="https://youtu.be/kl2xSnl2YqM" class="theplus-panel-video-list" target="_blank">';
-							echo '<img src="'.L_THEPLUS_URL.'/assets/images/video-tutorial/video-4.jpg" />';
+							echo '<img src="' . esc_url(L_THEPLUS_URL . '/assets/images/video-tutorial/video-3.jpg') . '" />';
+							echo '</a>';
+							echo '</div>';
+							echo '<div class="theplus-panel-col theplus-panel-col-25">';
+							echo '<a href="https://youtu.be/kl2xSnl2YqM" class="theplus-panel-video-list" target="_blank">';
+							echo '<img src="' . esc_url(L_THEPLUS_URL . '/assets/images/video-tutorial/video-4.jpg') . '" />';
 						echo '</a>';
 					echo '</div>';
 				echo '</div>';

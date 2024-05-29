@@ -39,3 +39,10 @@ Remove or replace the footer credit of any WordPress theme with the click of a m
 
 = 1.3 =
 * Security fixes with escaping content
+
+= 1.4 =
+* Fixed issue with selector not working
+
+= 1.5 =
+* Fixed issue with content not replacing
+

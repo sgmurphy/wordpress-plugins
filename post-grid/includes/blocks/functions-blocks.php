@@ -11,12 +11,6 @@ register_meta('post', 'pgc_meta', [
 
 
 
-
-
-
-
-
-
 function parse_css_class($classStr, $obj)
 {
 
@@ -790,63 +784,62 @@ function post_grid_parse_query_terms($queryArgs)
     $val = isset($item['val']) ? $item['val'] : '';
 
 
-    if ($val) {
-      if ($id == 'taxonomy') {
-        $query_args['taxonomy'] = $val;
-      } elseif ($id == 'orderby') {
-        $query_args['orderby'] = $val;
-      } elseif ($id == 'order') {
-        $query_args['order'] = $val;
-      } elseif ($id == 'hide_empty') {
-        $query_args['hide_empty'] = $val;
-      } elseif ($id == 'include') {
-        $query_args['include'] =
-          !empty($val) ? explode(',', $val) : [];
-      } elseif ($id == 'exclude') {
-        $query_args['exclude'] =
-          !empty($val) ? explode(',', $val) : [];
-      } elseif ($id == 'exclude_tree') {
-        $query_args['exclude_tree'] =
-          !empty($val) ? explode(',', $val) : [];
-      } elseif ($id == 'number') {
-        $query_args['number'] = $val;
-      } elseif ($id == 'count') {
-        $query_args['count'] = $val;
-      } elseif ($id == 'offset') {
-        $query_args['offset'] = $val;
-      } elseif ($id == 'name') {
-        $query_args['name'] =
-          !empty($val) ? explode(',', $val) : [];
-      } elseif ($id == 'slug') {
-        $query_args['slug'] =
-          !empty($val) ? explode(',', $val) : [];
-      } elseif ($id == 'hierarchical') {
-        $query_args['hierarchical'] = $val;
-      } elseif ($id == 'search') {
-        $query_args['search'] = $val;
-      } elseif ($id == 'name__like') {
-        $query_args['name__like'] = $val;
-      } elseif ($id == 'description__like') {
-        $query_args['description__like'] = $val;
-      } elseif ($id == 'pad_counts') {
-        $query_args['pad_counts'] = $val;
-      } elseif ($id == 'get') {
-        $query_args['get'] = $val;
-      } elseif ($id == 'parent') {
-        $query_args['parent'] = $val;
-      } elseif ($id == 'childless') {
-        $query_args['childless'] = $val;
-      } elseif ($id == 'child_of') {
-        $query_args['child_of'] = $val;
-      } elseif ($id == 'cache_domain') {
-        $query_args['cache_domain'] = $val;
-      } elseif ($id == 'update_term_meta_cache') {
-        $query_args['update_term_meta_cache'] = $val;
-      } elseif ($id == 'meta_key') {
-        $query_args['meta_key'] = $val;
-      } elseif ($id == 'meta_value') {
-        $query_args['meta_value'] = $val;
-      }
+
+    if ($id == 'taxonomy') {
+      $query_args['taxonomy'] = $val;
+    } elseif ($id == 'orderby') {
+      $query_args['orderby'] = $val;
+    } elseif ($id == 'order') {
+      $query_args['order'] = $val;
+    } elseif ($id == 'hide_empty') {
+      $query_args['hide_empty'] = $val;
+    } elseif ($id == 'include') {
+      $query_args['include'] =
+        !empty($val) ? explode(',', $val) : [];
+    } elseif ($id == 'exclude') {
+      $query_args['exclude'] =
+        !empty($val) ? explode(',', $val) : [];
+    } elseif ($id == 'exclude_tree') {
+      $query_args['exclude_tree'] =
+        !empty($val) ? explode(',', $val) : [];
+    } elseif ($id == 'number') {
+      $query_args['number'] = $val;
+    } elseif ($id == 'count') {
+      $query_args['count'] = $val;
+    } elseif ($id == 'offset') {
+      $query_args['offset'] = $val;
+    } elseif ($id == 'name') {
+      $query_args['name'] =
+        !empty($val) ? explode(',', $val) : [];
+    } elseif ($id == 'slug') {
+      $query_args['slug'] =
+        !empty($val) ? explode(',', $val) : [];
+    } elseif ($id == 'hierarchical') {
+      $query_args['hierarchical'] = $val;
+    } elseif ($id == 'search') {
+      $query_args['search'] = $val;
+    } elseif ($id == 'name__like') {
+      $query_args['name__like'] = $val;
+    } elseif ($id == 'description__like') {
+      $query_args['description__like'] = $val;
+    } elseif ($id == 'pad_counts') {
+      $query_args['pad_counts'] = $val;
+    } elseif ($id == 'get') {
+      $query_args['get'] = $val;
+    } elseif ($id == 'parent') {
+      $query_args['parent'] = $val;
+    } elseif ($id == 'childless') {
+      $query_args['childless'] = $val;
+    } elseif ($id == 'child_of') {
+      $query_args['child_of'] = $val;
+    } elseif ($id == 'cache_domain') {
+      $query_args['cache_domain'] = $val;
+    } elseif ($id == 'update_term_meta_cache') {
+      $query_args['update_term_meta_cache'] = $val;
+    } elseif ($id == 'meta_key') {
+      $query_args['meta_key'] = $val;
+    } elseif ($id == 'meta_value') {
+      $query_args['meta_value'] = $val;
     }
   }
 
@@ -1374,7 +1367,7 @@ function post_grid_global_cssY()
 
                   if (is_string($val)) {
                     $reponsiveCssGroups[$device][$selector][$att] = str_replace("u0022", '"', $val);
-                    //var_dump($val);
+                    ////var_dump($val);
                   }
                 }
             }
@@ -1505,7 +1498,7 @@ function post_grid_global_cssY()
 
   if (!empty($fonts)) {
   ?>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=<?php echo esc_html($fonts); ?>" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=<?php echo esc_html($fonts); ?>&display=swap" />
   <?php
 
   }
@@ -1535,9 +1528,12 @@ function post_grid_font_family()
 
   foreach ($customFonts as $face) {
 
-    $fontFamily = $face['family'];
-    $src = $face['src'][0]['url'];
-    $fontWeight = $face['weight'];
+    $src =
+
+
+      $fontFamily = isset($face['family']) ? $face['family'] : '';
+    $src = isset($face['src'][0]['url']) ? $face['src'][0]['url'] : '';
+    $fontWeight = isset($face['weight']) ? $face['weight'] : '';
 
     $faceStr .= "@font-face {
     font-family: '$fontFamily';
@@ -1547,7 +1543,7 @@ function post_grid_font_family()
   }
 ?>
   <style>
-    <?php echo ($faceStr);
+    <?php echo esc_html($faceStr);
     ?>
   </style>
 <?php
@@ -1773,6 +1769,8 @@ function cssAttrParse($key)
     $cssProp = 'row-gap';
   } else if ($key == 'columnGap') {
     $cssProp = 'column-gap';
+  } else if ($key == '-webkit-text-fill-color') {
+    $cssProp = '-webkit-text-fill-color';
   } else {
     $cssProp = $key;
   }
@@ -1792,7 +1790,7 @@ function pgb_post_query_prams($query_args, $prams)
     $post_status = isset($_GET["post_status"]) ? sanitize_text_field($_GET["post_status"]) : [];
     $posts_per_page = isset($_GET["posts_per_page"]) ? sanitize_text_field($_GET["posts_per_page"]) : "";
 
-    //var_dump($post_status);
+    ////var_dump($post_status);
 
 
     if (!empty($keyword)) {
@@ -2502,4 +2500,824 @@ function post_grid_generate_input_prams($inputargsSrc)
 
 
   return $inputArgs;
+}
+
+
+
+function post_grid_visible_parse($visible)
+{
+
+  $isVisible = true;
+  $rules = isset($visible['rules']) ? $visible['rules'] : [];
+  $GroupRelation = isset($visible['relation']) ? $visible['relation'] : 'OR';
+
+  $conditions = [];
+  //$conditions['relation'] = $GroupRelation;
+
+  foreach ($rules as $i => $rule) {
+
+    $relation = isset($rule['relation']) ? $rule['relation'] : 'OR';
+    $args = isset($rule['args']) ? $rule['args'] : [];
+
+
+    $conditions[$i]['relation'] = $relation;
+
+
+    foreach ($args as $j => $arg) {
+
+      $id = isset($arg['id']) ? $arg['id'] : '';
+
+
+      //echo "<p>" . $id . "</p>";
+
+      $isAccess = false;
+
+      if ($id == 'userLogged') {
+
+        if (is_user_logged_in()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'userNotLogged') {
+
+        if (!is_user_logged_in()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'userRoles') {
+        $roles = isset($arg['roles']) ? $arg['roles'] : [];
+
+        $user = wp_get_current_user();
+        $role = (array) $user->roles;
+        $roleExist = !empty(array_intersect($role, $roles));
+
+        if ($roleExist) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'userIds') {
+        $user = wp_get_current_user();
+        $currentUserId = isset($user->ID) ? $user->ID : '';
+        $value = isset($arg['value']) ? $arg['value'] : '';
+
+        $userIds = explode(",", $value);
+
+
+        if (in_array($currentUserId, $userIds)) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+
+        //var_dump($isAccess);
+      }
+      if ($id == 'isYears') {
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+        $value = isset($arg['value']) ? (int) $arg['value'] : '';
+
+        $values = isset($arg['values']) ? explode(",", $arg['values']) : [];
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+
+        // $curentYear = date('Y');
+        $curentYear = get_date_from_gmt(date("Y-m-d H:i:s"), 'Y');
+
+        if ($compare == '=') {
+
+          if ($value == $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '!=') {
+          if ($value != $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>') {
+
+          if ($value > $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<') {
+
+          if ($value < $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>=') {
+
+          if ($value >= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<=') {
+
+          if ($value <= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'between') {
+          $min = isset($values[0]) ? $values[0] : '';
+          $max = isset($values[1]) ? $values[1] : '';
+
+          if (($min <= $curentYear) && ($curentYear <= $max)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'exist') {
+          if (in_array($curentYear, $values)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'isMonths') {
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+        $value = isset($arg['value']) ? (int) $arg['value'] : '';
+
+        $values = isset($arg['values']) ? $arg['values'] : [];
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+
+        // $curentYear = date('m');
+        $curentYear = get_date_from_gmt(date("Y-m-d H:i:s"), 'm');
+
+        if ($compare == '=') {
+
+          if ($value == $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '!=') {
+          if ($value != $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>') {
+
+          if ($value > $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<') {
+
+          if ($value < $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>=') {
+
+          if ($value >= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<=') {
+
+          if ($value <= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'between') {
+          $min = isset($values[0]) ? $values[0] : '';
+          $max = isset($values[1]) ? $values[1] : '';
+
+          if (($min <= $curentYear) && ($curentYear <= $max)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'exist') {
+          if (in_array($curentYear, $values)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'weekDays') {
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+        $value = isset($arg['value']) ? (int) $arg['value'] : '';
+
+        $values = isset($arg['values']) ? $arg['values'] : [];
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+
+        //$curentYear = date('m');
+        $curentYear = get_date_from_gmt(date("Y-m-d H:i:s"), 'm');
+
+        if ($compare == '=') {
+
+          if ($value == $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '!=') {
+          if ($value != $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>') {
+
+          if ($value > $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<') {
+
+          if ($value < $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>=') {
+
+          if ($value >= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<=') {
+
+          if ($value <= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'between') {
+          $min = isset($values[0]) ? $values[0] : '';
+          $max = isset($values[1]) ? $values[1] : '';
+
+          if (($min <= $curentYear) && ($curentYear <= $max)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'exist') {
+          if (in_array($curentYear, $values)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'isHours') {
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+        $value = isset($arg['value']) ? (int) $arg['value'] : '';
+
+        $values = isset($arg['values']) ? $arg['values'] : [];
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+
+        $curentYear = get_date_from_gmt(date("Y-m-d H:i:s"), 'H');
+
+
+
+        if ($compare == '=') {
+
+          if ($value == $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '!=') {
+          if ($value != $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>') {
+
+          if ($value > $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<') {
+
+          if ($value < $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>=') {
+
+          if ($value >= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<=') {
+
+          if ($value <= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'between') {
+          $min = isset($values[0]) ? $values[0] : '';
+          $max = isset($values[1]) ? $values[1] : '';
+
+          if (($min <= $curentYear) && ($curentYear <= $max)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'exist') {
+          if (in_array($curentYear, $values)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'isDate') {
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+        $value = isset($arg['value']) ?  $arg['value'] : '';
+
+        $values = isset($arg['values']) ? $arg['values'] : [];
+        $compare = isset($arg['compare']) ? $arg['compare'] : '';
+
+        //$curentYear = date('Y-m-d');
+        $curentYear = get_date_from_gmt(date("Y-m-d H:i:s"), 'Y-m-d');
+
+
+
+
+        if ($compare == '=') {
+
+          if ($value == $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '!=') {
+          if ($value != $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>') {
+
+          if ($value > $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<') {
+
+          if ($value < $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '>=') {
+
+          if ($value >= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == '<=') {
+
+          if ($value <= $curentYear) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'between') {
+          $min = isset($values[0]) ? $values[0] : '';
+          $max = isset($values[1]) ? $values[1] : '';
+
+          if (($min <= $curentYear) && ($curentYear <= $max)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+        if ($compare == 'exist') {
+          if (in_array($curentYear, $values)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+
+
+
+
+
+
+      if ($id == 'urlPrams') {
+
+        $value = isset($arg['value']) ? $arg['value'] : '';
+        $prams = explode(",", $value);
+
+
+        $queryArray = array();
+        parse_str($_SERVER['QUERY_STRING'], $queryArray);
+
+        $pramExist = !empty(array_intersect($prams, array_keys($queryArray)));
+        if ($pramExist) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'referrerExist') {
+
+        $value = isset($arg['value']) ? $arg['value'] : '';
+        $prams = explode(",", $value);
+
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+
+
+        if (in_array($referer, $prams)) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'isDevice') {
+        $values = isset($arg['values']) ? $arg['values'] : [];
+
+        if (!function_exists('wp_check_browser_version')) {
+          include ABSPATH . "wp-admin/includes/dashboard.php";
+        }
+
+
+
+        //$ua = post_grid_getBrowser();
+        $browesr = wp_check_browser_version();
+        $name = $browesr['name'];
+
+
+
+        // echo var_export($browesr, true);
+      }
+      if ($id == 'isBrowsers') {
+        $values = isset($arg['values']) ? $arg['values'] : [];
+
+        if (!function_exists('wp_check_browser_version')) {
+          include ABSPATH . "wp-admin/includes/dashboard.php";
+        }
+
+
+
+        //$ua = post_grid_getBrowser();
+        $browesr = wp_check_browser_version();
+        $name = $browesr['name'];
+
+
+
+        echo var_export($browesr, true);
+
+
+        if (in_array($name, $values)) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'isCountries') {
+        //echo var_export($_SERVER['REMOTE_ADDR'], true);
+        echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip=' . $_SERVER['REMOTE_ADDR'])));
+      }
+      if ($id == 'postsIds') {
+
+        if (is_single()) {
+          $post_id = get_the_ID();
+        }
+      }
+      if ($id == 'termIds') {
+
+        $value = isset($arg['value']) ? $arg['value'] : '';
+        $ids = explode(',', $value);
+        if (is_tax()) {
+          $queried_object = get_queried_object();
+          $term_name = $queried_object->name;
+          $term_id = $queried_object->term_id;
+
+          if (in_array($term_id, $ids)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'authorIds') {
+        $value = isset($arg['value']) ? $arg['value'] : '';
+        $ids = explode(',', $value);
+        if (is_single()) {
+          $post_id = get_the_ID();
+          $post = get_post($post_id);
+          $author_id = $post->post_author;
+
+
+          if (in_array($author_id, $ids)) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'homePage') {
+
+
+        if (is_home()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'frontPage') {
+
+        if (is_front_page()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'postsPage') {
+
+        if (is_front_page() && is_home()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'is404') {
+        if (is_404()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+      if ($id == 'wcAccount') {
+
+        if (function_exists('wc_get_page_id')) {
+          $account_id = wc_get_page_id('myaccount');
+          $post_id = get_the_ID();
+
+          if ($account_id == $post_id) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'wcShop') {
+
+        if (function_exists('wc_get_page_id')) {
+          $shop_id = wc_get_page_id('shop');
+          $post_id = get_the_ID();
+
+          if ($shop_id == $post_id) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+      if ($id == 'wcCart') {
+
+        if (function_exists('wc_get_page_id')) {
+          $cart_id = wc_get_page_id('cart');
+          $post_id = get_the_ID();
+
+          if ($cart_id == $post_id) {
+            $isAccess = true;
+            $conditions[$i]['args'][$j] = $isAccess;
+          } else {
+            $conditions[$i]['args'][$j] = $isAccess;
+          }
+        }
+      }
+
+
+
+
+
+
+      if ($id == 'searchPage') {
+        if (is_search()) {
+          $isAccess = true;
+          $conditions[$i]['args'][$j] = $isAccess;
+        } else {
+          $conditions[$i]['args'][$j] = $isAccess;
+        }
+      }
+    }
+  }
+
+
+  //echo "<pre>" . var_export($conditions, true) . "</pre>";
+
+  $allowAccess = false;
+  $allowAccessArr = [];
+  $globalRelation = isset($conditions['relation']) ? $conditions['relation'] : 'OR';
+
+
+  foreach ($conditions as $x => $conditionGroup) {
+
+    $groupRelation = isset($conditionGroup['relation']) ? $conditionGroup['relation'] : 'OR';
+    $args = isset($conditionGroup['args']) ? $conditionGroup['args'] : [];
+
+    //echo "<pre>" . var_export($groupRelation, true) . "</pre>";
+    $res = array_unique($args);
+
+    // echo '$res';
+    // echo "<pre>" . var_export($res, true) . "</pre>";
+    // echo 'count($res)';
+    // echo "<pre>" . var_export(count($res), true) . "</pre>";
+
+    if ($groupRelation == "AND") {
+
+      if (count($res) === 1 && $res[0]) {
+        $allowAccessArr[$x] = true;
+      } else {
+        $allowAccessArr[$x] = false;
+      }
+    }
+
+    if ($groupRelation == "OR") {
+      if (in_array(true, $res)) {
+        $allowAccessArr[$x] = true;
+      } else {
+        $allowAccessArr[$x] = false;
+      }
+    }
+  }
+
+
+
+  $accessRes = array_unique($allowAccessArr);
+
+  if ($globalRelation == "AND") {
+
+    if (count($accessRes) === 1 && $accessRes[0]) {
+      $allowAccess = true;
+    } else {
+      $allowAccess = false;
+    }
+  }
+
+  if ($globalRelation == "OR") {
+    if (in_array(true, $accessRes)) {
+      $allowAccess = true;
+    } else {
+      $allowAccess = false;
+    }
+  }
+
+  // echo "<pre>" . var_export($allowAccessArr, true) . "</pre>";
+  //echo "<pre>" . var_export($allowAccess, true) . "</pre>";
+
+
+  return $allowAccess;
+}
+
+
+
+add_filter('render_block', function ($block_content, $block) {
+  // Make sure we have the blockName.
+  if (empty($block['blockName'])) {
+    return $block_content;
+  }
+
+  // If this is a pagination block, enqueue the pagination script.
+  if (
+    'post-grid/woo-product-tabs' === $block['blockName']
+  ) {
+    wp_enqueue_script('pg-woo-product-tabs-scripts');
+  }
+
+  // Return the block content.
+  return $block_content;
+}, 10, 2);
+
+
+function generateShortcode($params, $default)
+{
+  $shortcode = '[' . $default;
+
+  foreach ($params as $key => $value) {
+    if (!empty($value)) {
+      $shortcode .= ' ' . $key . '="' . $value . '"';
+    }
+  }
+
+  $shortcode .= ']';
+
+  return $shortcode;
 }

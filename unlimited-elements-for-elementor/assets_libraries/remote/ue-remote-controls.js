@@ -2350,7 +2350,7 @@ function UERemoteWidgets(){
 
 	function _______EDITOR_RELATED_________(){}
 
-
+	
 	/**
 	 * check if inside editor
 	 */
@@ -2358,10 +2358,10 @@ function UERemoteWidgets(){
 
 		if(g_vars.is_editor !== null)
 			return g_vars.is_editor;
-
-		if (typeof window.parent === "undefined") {
+		
+		if (window.parent === window.top) {
 			g_vars.is_editor = false;
-
+			
 			return false;
 		}
 
@@ -2371,14 +2371,13 @@ function UERemoteWidgets(){
 
 			return true;
 		}
-
+		
 		// check for gutenberg
 		if (typeof window.parent.wp !== "undefined" && typeof window.parent.wp.blocks !== "undefined") {
 			g_vars.is_editor = true;
-
 			return true;
 		}
-
+		
 		g_vars.is_editor = false;
 
 		return false;

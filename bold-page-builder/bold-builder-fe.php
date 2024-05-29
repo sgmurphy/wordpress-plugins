@@ -2,20 +2,23 @@
 
 class BT_BB_FE {
 	public static $elements = array();
+	public static $templates = array();
 	public static $fe_id = -1;
 	public static $content;
 	public static $sections_arr_search = array();
 	public static $editor_active = false;
 }
 
-add_action( 'admin_bar_init', 'bt_bb_fe_init' );
+add_action( 'admin_bar_init', 'bt_bb_fe_init', 9 );
 
 function bt_bb_fe_init() {
 	if ( ! bt_bb_active_for_post_type_fe() || ( isset( $_GET['preview'] ) && ! isset( $_GET['bt_bb_fe_preview'] ) ) ) {
 		return;
 	}
 	if ( current_user_can( 'edit_pages' ) ) {
+		
 		BT_BB_FE::$editor_active = true;
+		
 		BT_BB_FE::$elements = apply_filters( 'bt_bb_fe_elements', array(
 		
 			'bt_bb_accordion' => array(
@@ -51,6 +54,12 @@ function bt_bb_fe_init() {
 					'style' 			=> array( 'js_handler'	=> array( 'target_selector' => '', 'type' => 'class' ) ),
 					'shape' 			=> array( 'js_handler'	=> array( 'target_selector' => '', 'type' => 'class' ) ),
 					'width' 			=> array( 'js_handler'	=> array( 'target_selector' => '', 'type' => 'class' ) ),
+				),
+			),
+			'bt_bb_contact_form_7' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'contact_form_id' => array(),
 				),
 			),
 			'bt_bb_column' => array(
@@ -124,6 +133,19 @@ function bt_bb_fe_init() {
 					'menu' => array(),
 					'font_weight' => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
 					'direction'   => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+				),
+			),
+			'bt_bb_google_maps' => array( 
+				'edit_box_selector' => '',
+				'ajax_callback' => 'bt_bb_init_all_maps',
+				'params' => array(
+					'api_key'      => array(),
+					'zoom'         => array(),
+					'height'       => array(),
+					'map_id'       => array(),
+					'custom_style' => array(),
+					'map_type'     => array(),
+					'center_map'   => array(),
 				),
 			),
 			'bt_bb_headline' => array(
@@ -202,12 +224,13 @@ function bt_bb_fe_init() {
 			),
 			'bt_bb_css_image_grid' => array(
 				'edit_box_selector' => '',
-				'ajax_trigger_window_load' => true,
+				'ajax_callback' => 'bt_bb_init_css_image_grid_lightbox',
 				'params' => array(
-					'images' => array(),
-					'gap'    => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
-					'shape'  => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
-					'format' => array(),
+					'images'  => array(),
+					'columns' => array(),
+					'gap'     => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'shape'   => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'format'  => array(),
 				),
 			),
 			'bt_bb_masonry_post_grid' => array(
@@ -226,6 +249,20 @@ function bt_bb_fe_init() {
 					'hover_style' => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
 				),
 			),
+			'bt_bb_leaflet_map' => array( 
+				'edit_box_selector' => '',
+				'ajax_callback' => 'bt_bb_leaflet_init_late_all',
+				'params' => array(
+					'zoom'             => array(),
+					'max_zoom'         => array(),
+					'height'           => array(),
+					'predefined_style' => array(),
+					'custom_style'     => array(),
+					'center_map'       => array(),
+					'scroll_wheel'     => array(),
+					'zoom_control'     => array(),
+				),
+			),		
 			'bt_bb_price_list' => array(
 				'edit_box_selector' => '',
 				'params' => array(
@@ -250,6 +287,12 @@ function bt_bb_fe_init() {
 					'shape'				=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
 				),
 			),
+			'bt_bb_raw_content' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'raw_content' => array(),
+				),
+			),
 			'bt_bb_row' => array(
 				'edit_box_selector' => '',
 				'params' => array(
@@ -262,13 +305,15 @@ function bt_bb_fe_init() {
 			'bt_bb_row_inner' => array(
 				'edit_box_selector' => '',
 				'params' => array(
-					'column_gap'       => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					// 'column_gap'       => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'column_gap'        => array( 'ajax_filter' => array( 'class', 'style' ) ),
 					'row_width'        => array( 'ajax_filter' => array( 'class', 'style' ) ),
 				),
 			),
 			'bt_bb_section' => array(
 				'edit_box_selector' => '',
 				'params' => array(
+					'layout'				=> array( 'ajax_filter' => array( 'class' ) ),
 					'top_spacing'			=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'bottom_spacing'		=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'full_screen'			=> array( 'ajax_filter' => array( 'class' ) ), // non-standard class handling in bt_bb_section.php - can not use js_handler
@@ -316,11 +361,27 @@ function bt_bb_fe_init() {
 					'align'        => array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 				),
 			),
+			'bt_bb_shortcode' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'shortcode_content' => array(),
+				),
+			),
 			'bt_bb_slider' => array(
 				'edit_box_selector' => '',
 				'ajax_slick' => true,
 				'params' => array(
-					'images' => array(),
+					'images'              => array(),
+					'height'              => array(),
+					'size'                => array(),
+					'animation'           => array(),
+					'show_arrows'         => array(),
+					'show_dots'           => array(),
+					'slides_to_show'      => array(),
+					'additional_settings' => array(),
+					'auto_play'           => array(),
+					'pause_on_hover'      => array(),
+					'use_lightbox'        => array(),
 				),
 			),
 			'bt_bb_tabs' => array(
@@ -367,6 +428,155 @@ function bt_bb_fe_init() {
 				),
 			),
 		) );
+		
+		BT_BB_FE::$templates = apply_filters( 'bt_bb_fe_templates', array(
+			'accordion' => array( // id; id.txt is name of the file in /templates
+				'base' => esc_html__( 'bt_bb_accordion', 'bold-builder' ), // base is used to detect if template is allowed at requested position
+				'name' => esc_html__( 'Accordion', 'bold-builder' ),
+				'description' => esc_html__( 'Accordion container with few items', 'bold-builder' ),
+			),
+			'button' => array(
+				'base' => esc_html__( 'bt_bb_button', 'bold-builder' ),
+				'name' => esc_html__( 'Button', 'bold-builder' ),
+				'description' => esc_html__( 'Button with custom link', 'bold-builder' ),
+			),
+			'contact_form_7' => array(
+				'base' => esc_html__( 'bt_bb_contact_form_7', 'bold-builder' ),
+				'name' => esc_html__( 'Contact Form 7', 'bold-builder' ),
+				'description' => esc_html__( 'Choose CF7 form', 'bold-builder' ),
+			),
+			'countdown' => array(
+				'base' => esc_html__( 'bt_bb_countdown', 'bold-builder' ),
+				'name' => esc_html__( 'Countdown', 'bold-builder' ),
+				'description' => esc_html__( 'Animated countdown', 'bold-builder' ),
+			),
+			'counter' => array(
+				'base' => esc_html__( 'bt_bb_counter', 'bold-builder' ),
+				'name' => esc_html__( 'Counter', 'bold-builder' ),
+				'description' => esc_html__( 'Animated counter', 'bold-builder' ),
+			),
+			'custom_menu' => array(
+				'base' => esc_html__( 'bt_bb_custom_menu', 'bold-builder' ),
+				'name' => esc_html__( 'Custom Menu', 'bold-builder' ),
+				'description' => esc_html__( 'Custom WordPress menu', 'bold-builder' ),
+			),
+			'google_maps' => array(
+				'base' => esc_html__( 'bt_bb_google_maps', 'bold-builder' ),
+				'name' => esc_html__( 'Google Maps', 'bold-builder' ),
+				'description' => esc_html__( 'Google Maps map with custom content', 'bold-builder' ),
+			),
+			'headline' => array(
+				'base' => esc_html__( 'bt_bb_headline', 'bold-builder' ),
+				'name' => esc_html__( 'Headline', 'bold-builder' ),
+				'description' => esc_html__( 'Headline with custom fonts (and AI help)', 'bold-builder' ),
+			),
+			'icon' => array(
+				'base' => esc_html__( 'bt_bb_icon', 'bold-builder' ),
+				'name' => esc_html__( 'Icon', 'bold-builder' ),
+				'description' => esc_html__( 'Single icon with link', 'bold-builder' ),
+			),
+			'image' => array(
+				'base' => esc_html__( 'bt_bb_image', 'bold-builder' ),
+				'name' => esc_html__( 'Image', 'bold-builder' ),
+				'description' => esc_html__( 'Single image', 'bold-builder' ),
+			),
+			'image_grid' => array(
+				'base' => esc_html__( 'bt_bb_css_image_grid', 'bold-builder' ),
+				'name' => esc_html__( 'Image Grid', 'bold-builder' ),
+				'description' => esc_html__( 'Grid with images', 'bold-builder' ),
+			),
+			'slider' => array(
+				'base' => esc_html__( 'bt_bb_slider', 'bold-builder' ),
+				'name' => esc_html__( 'Image Slider', 'bold-builder' ),
+				'description' => esc_html__( 'Slider with images', 'bold-builder' ),
+			),
+			'inner_row_12+12' => array(
+				'base' => esc_html__( 'bt_bb_row_inner', 'bold-builder' ),
+				'name' => esc_html__( 'Inner Row (1/2+1/2)', 'bold-builder' ),
+				'description' => esc_html__( 'Inner Row with 2 columns', 'bold-builder' ),
+			),
+			'inner_row_13+13+13' => array(
+				'base' => esc_html__( 'bt_bb_row_inner', 'bold-builder' ),
+				'name' => esc_html__( 'Inner Row (1/3+1/3+1/3)', 'bold-builder' ),
+				'description' => esc_html__( 'Inner Row with 3 columns', 'bold-builder' ),
+			),
+			'inner_row_23+13' => array(
+				'base' => esc_html__( 'bt_bb_row_inner', 'bold-builder' ),
+				'name' => esc_html__( 'Inner Row (2/3+1/3)', 'bold-builder' ),
+				'description' => esc_html__( 'Inner Row with 2 columns', 'bold-builder' ),
+			),
+			'inner_row_13+23' => array(
+				'base' => esc_html__( 'bt_bb_row_inner', 'bold-builder' ),
+				'name' => esc_html__( 'Inner Row (1/3+2/3)', 'bold-builder' ),
+				'description' => esc_html__( 'Inner Row with 2 columns', 'bold-builder' ),
+			),
+			'latest_posts' => array(
+				'base' => esc_html__( 'bt_bb_latest_posts', 'bold-builder' ),
+				'name' => esc_html__( 'Latest Posts', 'bold-builder' ),
+				'description' => esc_html__( 'List of latest posts', 'bold-builder' ),
+			),
+			'leaflet_map' => array(
+				'base' => esc_html__( 'bt_bb_leaflet_map', 'bold-builder' ),
+				'name' => esc_html__( 'OpenStreetMap', 'bold-builder' ),
+				'description' => esc_html__( 'OpenStreetMap with custom content', 'bold-builder' ),
+			),
+			'post_grid' => array(
+				'base' => esc_html__( 'bt_bb_css_post_grid', 'bold-builder' ),
+				'name' => esc_html__( 'Post Grid', 'bold-builder' ),
+				'description' => esc_html__( 'Post grid with images', 'bold-builder' ),
+			),
+			'price_list' => array(
+				'base' => esc_html__( 'bt_bb_price_list', 'bold-builder' ),
+				'name' => esc_html__( 'Price List', 'bold-builder' ),
+				'description' => esc_html__( 'List of items with total price', 'bold-builder' ),
+			),
+			'progress_bar' => array(
+				'base' => esc_html__( 'bt_bb_progress_bar', 'bold-builder' ),
+				'name' => esc_html__( 'Progress Bar', 'bold-builder' ),
+				'description' => esc_html__( 'Animated progress bar', 'bold-builder' ),
+			),
+			'raw_content' => array(
+				'base' => esc_html__( 'bt_bb_raw_content', 'bold-builder' ),
+				'name' => esc_html__( 'Raw Content', 'bold-builder' ),
+				'description' => esc_html__( 'Raw HTML/JS content', 'bold-builder' ),
+			),
+			'separator' => array(
+				'base' => esc_html__( 'bt_bb_separator', 'bold-builder' ),
+				'name' => esc_html__( 'Separator', 'bold-builder' ),
+				'description' => esc_html__( 'Separator line', 'bold-builder' ),
+			),
+			'service' => array(
+				'base' => esc_html__( 'bt_bb_service', 'bold-builder' ),
+				'name' => esc_html__( 'Service', 'bold-builder' ),
+				'description' => esc_html__( 'Icon with text (and AI help)', 'bold-builder' ),
+			),
+			'shortcode' => array(
+				'base' => esc_html__( 'bt_bb_shortcode', 'bold-builder' ),
+				'name' => esc_html__( 'Shortcode', 'bold-builder' ),
+				'description' => esc_html__( 'Custom shortcode', 'bold-builder' ),
+			),
+			'content_slider' => array(
+				'base' => esc_html__( 'bt_bb_content_slider', 'bold-builder' ),
+				'name' => esc_html__( 'Slider', 'bold-builder' ),
+				'description' => esc_html__( 'Slider with custom content', 'bold-builder' ),
+			),
+			'tabs' => array(
+				'base' => esc_html__( 'bt_bb_tabs', 'bold-builder' ),
+				'name' => esc_html__( 'Tabs', 'bold-builder' ),
+				'description' => esc_html__( 'Tabs container with few items', 'bold-builder' ),
+			),
+			'text' => array(
+				'base' => esc_html__( 'bt_bb_text', 'bold-builder' ),
+				'name' => esc_html__( 'Text', 'bold-builder' ),
+				'description' => esc_html__( 'Text element (with AI help)', 'bold-builder' ),
+			),
+			'video' => array(
+				'base' => esc_html__( 'bt_bb_video', 'bold-builder' ),
+				'name' => esc_html__( 'Video', 'bold-builder' ),
+				'description' => esc_html__( 'Video player', 'bold-builder' ),
+			),
+		) );
+		
 		add_action( 'wp_head', 'bt_bb_fe_head' );
 		add_action( 'wp_head', 'bt_bb_translate' );
 		add_action( 'wp_footer', 'bt_bb_fe_dialog' );
@@ -383,6 +593,7 @@ function bt_bb_fe_init() {
 function bt_bb_fe_head() {
 	echo '<script>';
 		echo 'window.bt_bb_fe_elements = ' . bt_bb_json_encode( BT_BB_FE::$elements ) . ';';
+		echo 'window.bt_bb_fe_templates = ' . bt_bb_json_encode( BT_BB_FE::$templates ) . ';';
 		BT_BB_Root::$elements = apply_filters( 'bt_bb_elements', BT_BB_Root::$elements );
 		$elements = BT_BB_Root::$elements;
 		foreach ( $elements as $key => $value ) {
@@ -398,6 +609,7 @@ function bt_bb_fe_head() {
 		echo 'window.bt_bb_elements = ' . bt_bb_json_encode( $elements ) . ';';
 		global $post;
 		echo 'window.bt_bb_post_id = ' . $post->ID . ';';
+		echo 'window.bt_bb_edit_url = "' . get_edit_post_link( get_the_ID(), '' ) . '";';
 		echo 'window.bt_bb_settings = [];';
 		$options = get_option( 'bt_bb_settings' );
 		$slug_url = array_key_exists( 'slug_url', $options ) ? $options['slug_url'] : '';
@@ -450,6 +662,8 @@ function bt_bb_fe_dialog() {
 			
 		echo '</div>';
 	echo '</div>';
+	
+	echo '<div class="bt_bb_dd_tip"></div>';
 	
 	/*if ( ! isset( $_GET['bt_bb_fe_add_section'] ) ) {
 		echo '<div id="bt_bb_fe_add_section_dialog">';
@@ -520,9 +734,56 @@ function bt_bb_fe_get_html() {
 add_action( 'wp_ajax_bt_bb_fe_get_html', 'bt_bb_fe_get_html' );
 
 /**
+ * Get template HTML
+ */
+function bt_bb_fe_get_template_html() {
+	check_ajax_referer( 'bt_bb_fe_nonce', 'nonce' );
+	$post_id = intval( $_POST['post_id'] );
+	$edit_url = esc_url( $_POST['edit_url'] );
+	$layout = wp_kses_post( $_POST['layout'] );
+	$type = wp_kses_post( $_POST['type'] );
+	$content = @file_get_contents( get_stylesheet_directory() . '/bold-page-builder/templates/' . $layout . '.txt' );
+	if ( ! $content ) {
+		$content = @file_get_contents( get_template_directory() . '/bold-page-builder/templates/' . $layout . '.txt' );
+	}
+	if ( ! $content ) {
+		$content = file_get_contents( plugin_dir_path( __FILE__ ) . '/templates/' . $layout . '.txt' );
+	}
+	$content = trim( $content );
+	if ( current_user_can( 'edit_post', $post_id ) ) {
+		if ( str_starts_with( $content, '[bt_bb_' ) ) {
+			remove_filter( 'the_content', 'wpautop' );
+			$content = apply_filters( 'the_content', $content );
+			$content = str_ireplace( array( '``', '`{`', '`}`' ), array( '&quot;', '&#91;', '&#93;' ), $content );
+			$content = str_ireplace( array( '*`*`*', '*`*{*`*', '*`*}*`*' ), array( '``', '`{`', '`}`' ), $content );
+		}
+		
+		if ( $type == 'section' ) {
+			$fe_wrap_open = '<div class="bt_bb_fe_wrap">';
+			$fe_wrap_open .= '<span class="bt_bb_fe_count"><span class="bt_bb_fe_count_inner"></span>
+			<ul class="bt_bb_element_menu">
+				<li><span class="bt_bb_element_menu_edit">' . esc_html__( 'Edit', 'bold-builder' ) . '</span></li>
+				<li data-edit_url="' . esc_attr( $edit_url ) . '"><span class="bt_bb_element_menu_edit_be">' . esc_html__( 'Edit in back-end editor', 'bold-builder' ) . '</span><ul><li><span class="bt_bb_element_menu_edit_be_new_tab">' . esc_html__( '(new tab)', 'bold-builder' ) . '</span></li></ul></li>
+				<li><span class="bt_bb_element_menu_cut">' . esc_html__( 'Cut', 'bold-builder' ) . '</span></li>
+				<li><span class="bt_bb_element_menu_copy">' . esc_html__( 'Copy', 'bold-builder' ) . '</span></li>
+				<li><span class="bt_bb_element_menu_paste">' . esc_html__( 'Paste', 'bold-builder' ) . '</span><ul><li><span class="bt_bb_element_menu_paste_above">' . esc_html__( '(above)', 'bold-builder' ) . '</span></li></ul></li>
+				<li class="bt_bb_element_menu_delete_parent"><span class="bt_bb_element_menu_delete">' . esc_html__( 'Delete', 'bold-builder' ) . '</span></li>
+			</ul>
+			</span>';
+			$fe_wrap_close = '</div>';
+			echo $fe_wrap_open . $content . $fe_wrap_close;
+		} else {
+			echo $content;
+		}
+	}
+	wp_die();
+}
+add_action( 'wp_ajax_bt_bb_fe_get_template_html', 'bt_bb_fe_get_template_html' );
+
+/**
  * Add Section template
  */
-add_filter( 'template_include', 'bt_bb_fe_add_section_template', 100 );
+/*add_filter( 'template_include', 'bt_bb_fe_add_section_template', 100 );
 function bt_bb_fe_add_section_template( $template ) {
     if ( isset( $_GET['bt_bb_fe_add_section'] ) && BT_BB_FE::$editor_active ) {
 		add_filter( 'show_admin_bar', function( $classes ) {
@@ -537,4 +798,4 @@ function bt_bb_fe_add_section_template( $template ) {
         $template = dirname( __FILE__ ) . '/add-section-template.php';
     }
     return $template;
-}
+}*/

@@ -235,7 +235,8 @@ function htmega_validate_html_tag( $tag ) {
         'p',
         'span',
     ];
-    return in_array( strtolower( $tag ), $allowed_html_tags ) ? $tag : 'div';
+    $valid_tag = is_string( $tag ) ? strtolower( $tag ) : 'div';
+    return in_array( $valid_tag, $allowed_html_tags ) ? $tag : 'div';
 }
 
 /*

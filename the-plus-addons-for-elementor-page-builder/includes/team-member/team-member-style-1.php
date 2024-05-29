@@ -25,7 +25,7 @@ if ( 'repeater' !== $selct_source ) {
 				</a>
 			<?php
 			if ( ! empty( $team_social_contnet ) && 'yes' === $display_social_icon ) {
-				echo $team_social_contnet;
+				echo wp_kses_post( $team_social_contnet );
 			}
 			?>
 		</div>		

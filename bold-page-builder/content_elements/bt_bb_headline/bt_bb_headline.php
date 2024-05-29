@@ -184,7 +184,6 @@ class bt_bb_headline extends BT_BB_Element {
 		
 		$headline = nl2br( $headline );
 		
-		// XSS fix
 		$html_tag = substr( $html_tag, 0, 2 );
 
 		$output = '<header' . $id_attr . ' class="' . esc_attr( $class_attr ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
@@ -291,9 +290,12 @@ class bt_bb_headline extends BT_BB_Element {
 				array( 'param_name' => 'text_transform', 'type' => 'dropdown', 'heading' => esc_html__( 'Headline text transform', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) 	=> '',
+						esc_html__( 'None', 'bold-builder' ) 		=> 'none',
+						esc_html__( 'Initial', 'bold-builder' ) 	=> 'initial',
+						esc_html__( 'Inherit', 'bold-builder' ) 	=> 'inherit',
 						esc_html__( 'UPPERCASE', 'bold-builder' ) 	=> 'uppercase',
-						esc_html__( 'lowercase', 'bold-builder' ) 	=> 'lowercase',
-						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize'
+						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize',
+						esc_html__( 'lowercase', 'bold-builder' ) 	=> 'lowercase'
 					)
 				),
 				array( 'param_name' => 'superheadline_font_weight', 'type' => 'dropdown', 'heading' => esc_html__( 'Superheadline font weight', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
@@ -319,9 +321,12 @@ class bt_bb_headline extends BT_BB_Element {
 				array( 'param_name' => 'superheadline_text_transform', 'type' => 'dropdown', 'heading' => esc_html__( 'Superheadline text transform', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) 	=> '',
+						esc_html__( 'None', 'bold-builder' ) 		=> 'none',
+						esc_html__( 'Initial', 'bold-builder' ) 	=> 'initial',
+						esc_html__( 'Inherit', 'bold-builder' ) 	=> 'inherit',
 						esc_html__( 'UPPERCASE', 'bold-builder' ) 	=> 'uppercase',
-						esc_html__( 'lowercase', 'bold-builder' ) 	=> 'lowercase',
-						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize'
+						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize',
+						esc_html__( 'lowercase', 'bold-builder' ) 	=> 'lowercase'
 					)
 				),
 				array( 'param_name' => 'subheadline_font_weight', 'type' => 'dropdown', 'heading' => esc_html__( 'Subheadline font weight', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
@@ -346,10 +351,13 @@ class bt_bb_headline extends BT_BB_Element {
 				),
 				array( 'param_name' => 'subheadline_text_transform', 'type' => 'dropdown', 'heading' => esc_html__( 'Subheadline text transform', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
 					'value' => array(
-						esc_html__( 'Default', 'bold-builder' ) 	=> 'default',
+						esc_html__( 'Default', 'bold-builder' ) 	=> '',
+						esc_html__( 'None', 'bold-builder' ) 		=> 'none',
+						esc_html__( 'Initial', 'bold-builder' ) 	=> 'initial',
+						esc_html__( 'Inherit', 'bold-builder' ) 	=> 'inherit',
 						esc_html__( 'UPPERCASE', 'bold-builder' ) 	=> 'uppercase',
-						esc_html__( 'lowercase', 'bold-builder' ) 	=> 'lowercase',
-						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize'
+						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize',
+						esc_html__( 'lowercase', 'bold-builder' ) 	=> 'lowercase'
 					)
 				),
 				array( 'param_name' => 'url', 'type' => 'link', 'heading' => esc_html__( 'URL', 'bold-builder' ), 'description' => esc_html__( 'Enter full or local URL (e.g. https://www.bold-themes.com or /pages/about-us) or post slug (e.g. about-us) or search for existing content.', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ) ),

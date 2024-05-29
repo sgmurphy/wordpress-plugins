@@ -154,7 +154,7 @@ class L_ThePlus_Countdown extends Widget_Base {
 			array(
 				'label'     => esc_html__( 'Launch Date', 'tpebl' ),
 				'type'      => Controls_Manager::DATE_TIME,
-				'default'   => date( 'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
+				'default' => gmdate( 'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
 				'condition' => array(
 					'CDType' => 'normal',
 				),
@@ -1857,7 +1857,7 @@ class L_ThePlus_Countdown extends Widget_Base {
 
 		if ( ! empty( $count_time ) ) {
 			$counting_timer = $count_time;
-			$counting_timer = date( 'm/d/Y H:i:s', strtotime( $counting_timer ) );
+			$counting_timer = gmdate( 'm/d/Y H:i:s', strtotime( $counting_timer ) );
 		}
 
 		$offset_time  = get_option( 'gmt_offset' );

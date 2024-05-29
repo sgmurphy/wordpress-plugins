@@ -342,7 +342,23 @@ class UniteFunctionsUC{
 		return($arrOutput);
 	}
 
-
+	/**
+	 * convert simple array to simple assoc items array example: 
+	 * first,second,third to title:first, title:second, title:third
+	 */
+	public static function arrayToArrAssocItems($arr, $fieldName){
+		
+		if(empty($arr))
+			return(array());
+		
+		$arrAssoc = array();
+		foreach($arr as $item)
+			$arrAssoc[] = array($fieldName=>$item);
+		
+		return($arrAssoc);
+	}
+	
+	
 	/**
 	 *
 	 * Convert array to assoc array by some field

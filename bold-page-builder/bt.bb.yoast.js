@@ -34,7 +34,7 @@
 
     BTBBYoastCompatibilityPlugin.prototype.getCustomContent = function( content ) {
       // console.log( this.html_content );
-	  return this.html_content;
+	  return this.html_content !== undefined ? this.html_content : content;
     };
 
     $( window ).on( 'YoastSEO:ready', function () {

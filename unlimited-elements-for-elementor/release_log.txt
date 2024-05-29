@@ -1,5 +1,17 @@
 
 
+version 1.5.109:
+
+* Feature: added option to get page views of some post using WPP plugin
+* Feature: added option for "show db tables" in troubleshooting
+* Fix: fixed form editor form validation, excluded placeholders
+* Fix: fixed get filters based on wpml language with post count
+* Fix: Fixed some remote connection code items click code
+* Fix: Fixed clear all filters button not working bug
+* Fix: fixed multisource acf repeater checkboxes type get
+
+
+
 version 1.5.108:
 
 * Feature: update freemius SDK

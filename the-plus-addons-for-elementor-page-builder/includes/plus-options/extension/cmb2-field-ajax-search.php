@@ -15,7 +15,7 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 	 */
 	class CMB2_Field_Ajax_Search {
 
-		/**
+		/**		
 		 * Current version number
 		 */
 		const VERSION = '1.0.2';
@@ -58,7 +58,7 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 			if( $field->args( 'multiple' ) == true ) {
                 $default_limit = -1; // 0 or -1 means unlimited
 
-				?><ul id="<?php echo $field_name; ?>_results" class="cmb-ajax-search-results cmb-<?php echo $object_to_search; ?>-ajax-search-results"><?php
+				?><ul id="<?php echo esc_html( $field_name ); ?>_results" class="cmb-ajax-search-results cmb-<?php echo esc_html( $object_to_search ); ?>-ajax-search-results"><?php
 
 				if( isset( $value ) && ! empty( $value ) ){
 					if( ! is_array( $value ) ) {
@@ -69,7 +69,7 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
                         ?>
 						<li>
                             <?php if( $field->args( 'sortable' ) ) : ?><span class="hndl"></span><?php endif; ?>
-                            <input type="hidden" name="<?php echo $field_name; ?>[]" value="<?php echo $val; ?>">
+                            <input type="hidden" name="<?php echo esc_html( $field_name ); ?>[]" value="<?php echo esc_html( $val ); ?>">
                             <a href="<?php echo $this->object_link( $field_name, $val, $object_to_search ); ?>" target="_blank" rel="noopener noreferrer" class="edit-link">
                                 <?php echo $this->object_text( $field_name, $val, $object_to_search ); ?>
                             </a>
@@ -89,7 +89,7 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 
 				echo $field_type->input( array(
 					'type' 	=> 'hidden',
-					'name' 	=> $field_name,
+					'name' 	=> esc_html( $field_name ),
 					'value' => $value,
 					'desc'	=> false
 				) );
@@ -99,16 +99,16 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 
 			echo $field_type->input( array(
 				'type' 				=> 'text',
-				'name' 				=> $field_name . '_input',
-				'id'				=> $field_name . '_input',
-				'class'				=> 'cmb-ajax-search cmb-' . $object_to_search . '-ajax-search',
-				'value' 			=> $input_value,
+				'name' 				=> esc_html( $field_name ) . '_input',
+				'id'				=> esc_html( $field_name ) . '_input',
+				'class'				=> 'cmb-ajax-search cmb-' . esc_html( $object_to_search ) . '-ajax-search',
+				'value' 			=> esc_html( $input_value ),
 				'desc'				=> false,
 				'data-multiple'		=> $field->args( 'multiple' ) ? $field->args( 'multiple' ) : '0',
 				'data-limit'		=> $field->args( 'limit' ) ? $field->args( 'limit' ) : $default_limit,
 				'data-sortable'		=> $field->args( 'sortable' ) ? $field->args( 'sortable' ) : '0',
 				'data-object-type'	=> $object_to_search,
-				'data-query-args'	=> $field->args( 'query_args' ) ? htmlspecialchars( json_encode( $field->args( 'query_args' ) ), ENT_QUOTES, 'UTF-8' ) : ''
+				'data-query-args'	=> $field->args( 'query_args' ) ? htmlspecialchars( wp_json_encode( $field->args( 'query_args' ) ), ENT_QUOTES, 'UTF-8' ) : ''
 			) );
 
 			echo '<img src="'.admin_url( 'images/spinner.gif' ).'" class="cmb-ajax-search-spinner" />';
@@ -198,13 +198,13 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 			
 			if ( ! wp_verify_nonce( $nonce, 'cmb_ajax_search_get_results' ) ) {
                 // Wrong nonce
-				die( json_encode( array(
+				die( wp_json_encode( array(
                     'error' => __( 'Error : Unauthorized action','tpebl' )
                 ) ) );
 			} else if ( ( ! isset( $_POST['field_id'] ) || empty( $_POST['field_id'] ) )
                 || ( ! isset( $_POST['object_type'] ) || empty( $_POST['object_type'] ) ) ) {					
                 // Wrong request parameters (field_id and object_type are mandatory)
-                die( json_encode( array(
+                die( wp_json_encode( array(
                     'error' => __( 'Error : Wrong request parameters','tpebl' )
                 ) ) );
             } else {
@@ -288,4 +288,3 @@ if( ! class_exists( 'CMB2_Field_Ajax_Search' ) ) {
 	$cmb2_field_ajax_search = new CMB2_Field_Ajax_Search();
 
 }
-

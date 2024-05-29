@@ -609,4 +609,13 @@ class ExactMetrics_Notifications {
 		exactmetrics_notification_event_runner()->delete_data();
 
 	}
+
+	/**
+	 * This generates the markup for the notifications indicator for expired license.
+	 *
+	 * @return string
+	 */
+	public function get_license_expired_indicator() {
+			return '<span class="exactmetrics-menu-notification-indicator expired-license">!</span>';
+	}
 }

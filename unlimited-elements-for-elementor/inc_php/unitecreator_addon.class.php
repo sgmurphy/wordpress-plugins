@@ -924,8 +924,8 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 
 		$objAddonType = $this->getObjAddonType();
 
-		$typeName = $objAddonType->typeName;
-
+		$typeName = $objAddonType->typeNameCorrection;
+		
 		//get default preview
 		$filenameDefaultPreview = self::FILENAME_PREVIEW . "_$typeName.jpg";
 		$filepathDefaultPreview = GlobalsUC::$pathPlugin . "images/" . $filenameDefaultPreview;

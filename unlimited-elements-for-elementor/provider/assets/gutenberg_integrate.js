@@ -181,6 +181,9 @@
 				}
 			}
 
+			if (!settingsContent)
+				return; // wait for the settings
+
 			if (widgetRequestRef.current !== null)
 				widgetRequestRef.current.abort();
 

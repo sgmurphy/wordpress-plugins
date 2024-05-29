@@ -93,7 +93,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			if(empty($tableName))
 				UniteFunctionsUC::throwError("Empty table name!!!");
-
+			
 			$sql = "show tables like '$tableName'";
 
 			$table = $wpdb->get_var($sql);

@@ -1,3 +1,4 @@
+import { EVENT_THE_END } from "@aguidrevitch/fpo-inpage-events";
 import dispatcher from "./dispatcher";
 export default class Marketing {
   constructor(rest_url) {
@@ -14,7 +15,7 @@ export default class Marketing {
         }
       }
     });
-    dispatcher.on("l", () => {
+    dispatcher.on(EVENT_THE_END, () => {
       if (detected.length) {
         setTimeout(() => {
           const xhttp = new XMLHttpRequest();

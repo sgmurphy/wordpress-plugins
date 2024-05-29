@@ -3676,9 +3676,9 @@ body:has( .htmega_mega_menu ){
     list-style: none;
     padding: 0;
     margin: 25px 0 0;
+    gap: 5px;
 }
 .htmega-testimonial-rating li{
-    margin-right: 5px;
     font-size: 14px;
 }
 .htmega-testimonial-style-5 .htmega-testimonal-nav .content{
@@ -7104,7 +7104,7 @@ ul.htmega-testimonial-rating * {
       overflow: hidden;
   }
   
-  .htmega-switcher-nav a {
+  .htmega-switcher-nav span {
     display: inline-block;
     color: #444444;
     font-size: 14px;
@@ -7114,8 +7114,9 @@ ul.htmega-testimonial-rating * {
     z-index: 1;
     position: relative;
     font-family: "Montserrat", sans-serif;
+    cursor: pointer;
   }
-  .htmega-switcher-nav a i{
+  .htmega-switcher-nav span i{
     margin-right: 5px;
   }
   .htmega-switcher-nav svg {
@@ -7124,7 +7125,7 @@ ul.htmega-testimonial-rating * {
     margin-right: 8px;
   }
   
-  .htmega-switcher-nav a::before {
+  .htmega-switcher-nav span::before {
       height: 100%;
       top: 0;
       z-index: 0;
@@ -7136,11 +7137,11 @@ ul.htmega-testimonial-rating * {
       z-index: -1;
   }
   
-  .htmega-switcher-nav a.htb-active {
+  .htmega-switcher-nav span.htb-active {
       color: #ffffff;
   }
   
-  .htmega-switcher-nav a.htb-active::before {
+  .htmega-switcher-nav span.htb-active::before {
       width: 100%;
       background-color: #ed552d;
   }

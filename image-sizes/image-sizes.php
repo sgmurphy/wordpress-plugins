@@ -5,7 +5,7 @@
  * Plugin URI: https://thumbpress.co
  * Author: ThumbPress
  * Author URI: https://thumbpress.co
- * Version: 5.2.2
+ * Version: 5.2.3
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Text Domain: image-sizes
@@ -163,6 +163,7 @@ final class Plugin {
 			$admin->filter( 'plugin_row_meta', 'plugin_row_meta', 10, 2 );
 			$admin->action( 'admin_footer_text', 'footer_text' );
 			$admin->action( 'admin_notices', 'admin_notices' );
+			$admin->action( 'cx-settings-after-fields', 'show_new_button' );
 			
 			/**
 			 * The setup wizard

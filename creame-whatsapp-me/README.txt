@@ -16,7 +16,7 @@ WhatsApp, Messenger, Telegram, Phone call… capture users through their favorit
 
 **🎉 Chat with your website visitors through their favorite chat applications. Place a floating button at the bottom of your site and give the best support to your customers.**
 
-> The best WordPress plugin for WhatsApp, with more than **600,000 installations** worldwide.
+> The best WordPress plugin for WhatsApp, with more than **700,000 installations** worldwide.
 
 https://www.youtube.com/watch?v=Ad2ZpPnX_3Q
 

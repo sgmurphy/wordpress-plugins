@@ -4,7 +4,7 @@ Tags: woocommerce, paypal, payments, ecommerce, checkout, cart, pay later, apple
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -178,6 +178,18 @@ If you encounter issues with the PayPal buttons not appearing after an update, p
 6. Main settings screen.
 
 == Changelog ==
+
+= 2.7.1 - 2024-05-28 =
+* Fix - Ensure package tracking data is sent to original PayPal transaction #2180
+* Fix - Set the 'Woo_PPCP' as a default value for data-partner-attribution-id #2188
+* Fix - Allow PUI Gateway for refund processor #2192
+* Fix - Notice on newly created block cart checkout #2211
+* Fix - Apple Pay button in the editor #2177
+* Fix - Allow shipping callback and skipping confirmation page from any express button #2236
+* Fix - Pay Later messaging configurator sometimes displays old settings after saving #2249
+* Fix - Update the apple-developer-merchantid-domain-association validation strings for Apple Pay #2251
+* Fix - Enable the Shipping Callback handlers #2266
+* Enhancement - Use admin theme color #1602
 
 = 2.7.0 - 2024-04-30 =
 * Fix - Zero sum subscriptions cause CANNOT_BE_ZERO_OR_NEGATIVE when using Vault v3 #2152

@@ -308,18 +308,51 @@ class Extension_Animated_Gradient_Background extends Extension_Base {
 		?>
 		<# if ( 'yes' === settings.pp_animated_gradient_bg_enable ) {
 
-			color_list = settings.pp_animated_gradient_bg_color_list;
-			angle = settings.pp_animated_gradient_bg_angle.size + 'deg';
+			// Function to validate color input in hex, rgb, or rgba format
+			function isValidColor(color) {
+				// Regular expression for hex color format
+				const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8})$/;
+
+				// Regular expression for RGB color format
+				const rgbRegex = /^rgb\(\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*,\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*,\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*\)$/;
+
+				// Regular expression for RGBA color format
+				const rgbaRegex = /^rgba\(\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*,\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*,\s*([01]?\d\d?|2[0-4]\d|25[0-5])\s*,\s*(0|1|0?\.\d+)\s*\)$/;
+
+				// Check if the color matches any of the formats
+				if ( hexRegex.test(color) ) {
+					return true;
+				} else if ( rgbRegex.test(color) ) {
+					return true;
+				} else if ( rgbaRegex.test(color) ) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			var colorList = settings.pp_animated_gradient_bg_color_list;
+			var angle = settings.pp_animated_gradient_bg_angle.size + 'deg';
+
+			view.addRenderAttribute( 'animated_bg', 'class', 'pp-animated-gradient-bg' );
+			view.addRenderAttribute( 'animated_bg', 'data-angle', angle );
+
 			var color = [];
 			var i = 0;
-			_.each(color_list , function(color_list){
-					color[i] = color_list.pp_animated_gradient_bg_color;
-					i = i+1;
+
+			_.each( colorList, function( color_list ) {
+				if ( isValidColor( color_list.pp_animated_gradient_bg_color ) ) {
+					color[i] = elementor.helpers.sanitize( color_list.pp_animated_gradient_bg_color );
+				}
+				i = i+1;
 			});
-			view.addRenderAttribute('_wrapper', 'data-color', color);
+
 			var gradientColorEditor = 'linear-gradient( ' + angle + ',' + color + ' )';
+
+			view.addRenderAttribute('animated_bg', 'data-color', _.escape( color ));
+			view.addRenderAttribute('animated_bg', 'style', "background-image: " + gradientColorEditor);
 			#>
-			<div class="pp-animated-gradient-bg" data-angle="{{{ angle }}}deg" data-color="{{{ color }}}" style="background-image : {{{ gradientColorEditor }}}"></div>
+			<div {{{ view.getRenderAttributeString( 'animated_bg' ) }}}></div>
 		<# } #>
 		<?php
 		$animated_gradient_content = ob_get_contents();

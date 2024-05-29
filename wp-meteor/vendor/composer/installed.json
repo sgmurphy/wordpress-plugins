@@ -92,6 +92,6 @@
             "install-path": "../wpdesk/wp-notice"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

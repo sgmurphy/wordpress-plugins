@@ -1,22 +1,10 @@
-.bt_bb_row {
+.bt_bb_row_holder, .bt_bb_row_inner_holder {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
 	align-content: stretch;
 	align-content: flex-start;
 	.bt_bb_column {
-		flex: 1 1 0%;
-		max-width: 100%;
-	}
-}
-
-.bt_bb_row_inner {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
-	align-content: stretch;
-	align-content: flex-start;
-	.bt_bb_column_inner {
 		flex: 1 1 0%;
 		max-width: 100%;
 	}
@@ -162,7 +150,7 @@
 
 /* Grid Fix */
 @media (max-width: 992px) and (min-width: 621px) {
-	.bt_bb_row[data-structure="9-3"], .bt_bb_row[data-structure="3-9"] {
+	.bt_bb_row_holder[data-structure="9-3"], .bt_bb_row_holder[data-structure="3-9"] {
 		.bt_bb_column[data-width="9"]:not(.col-md-12) {
 			flex-basis: 66.666666%;
 			max-width: 66.666666%;
@@ -172,7 +160,7 @@
 			max-width: 33.333333%;
 		}
 	}
-	.bt_bb_row_inner[data-structure="9-3"], .bt_bb_row_inner[data-structure="3-9"] {
+	.bt_bb_row_holder[data-structure="9-3"], .bt_bb_row_holder[data-structure="3-9"] {
 		.bt_bb_column_inner[data-width="9"]:not(.col-md-12) {
 			flex-basis: 66.666666%;
 			max-width: 66.666666%;
@@ -185,7 +173,7 @@
 }
 
 @media (max-width: 620px) {
-	.bt_bb_row[data-structure="9-3"], .bt_bb_row[data-structure="3-9"] {
+	.bt_bb_row_holder[data-structure="9-3"], .bt_bb_row_holder[data-structure="3-9"] {
 		.bt_bb_column[data-width="9"] {
 			flex-basis: 100%;
 			max-width: 100%;
@@ -196,7 +184,7 @@
 		}
 
 	}
-	.bt_bb_row_inner[data-structure="9-3"], .bt_bb_row_inner[data-structure="3-9"] {
+	.bt_bb_row_holder[data-structure="9-3"], .bt_bb_row_holder[data-structure="3-9"] {
 		.bt_bb_column_inner[data-width="9"] {
 			flex-basis: 100%;
 			max-width: 100%;

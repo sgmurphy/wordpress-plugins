@@ -31,6 +31,6 @@ if ( ! empty( $featured_image_id ) ) {
 ?>
 <div class="gallery-image">
 <span class="thumb-wrap">
-	<?php echo $featured_image; ?>
+	<?php echo wp_kses_post( $featured_image ); ?>
 </span>
 </div>

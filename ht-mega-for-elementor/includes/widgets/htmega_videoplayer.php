@@ -65,8 +65,8 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                 [
                     'label'     => __( 'Video Url', 'htmega-addons' ),
                     'type'      => Controls_Manager::TEXT,
-                    'default'   => __( 'https://www.youtube.com/watch?v=CDilI6jcpP4', 'htmega-addons' ),
-                    'placeholder' => __( 'https://www.youtube.com/watch?v=CDilI6jcpP4', 'htmega-addons' ),
+                    'default'   => __( 'https://www.youtube.com/watch?v=z_9Z9VWhaEQ', 'htmega-addons' ),
+                    'placeholder' => __( 'https://www.youtube.com/watch?v=z_9Z9VWhaEQ', 'htmega-addons' ),
                 ]
             );
 
@@ -518,7 +518,7 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
 
         if( $settings['videocontainer'] == 'self' ){
             $player_options_settings = [
-                'videoURL'          => !empty( $settings['video_url'] ) ? $settings['video_url'] : 'https://www.youtube.com/watch?v=CDilI6jcpP4',
+                'videoURL'          => !empty( $settings['video_url'] ) ? esc_url( $settings['video_url'] ) : 'https://www.youtube.com/watch?v=z_9Z9VWhaEQ',
                 'coverImage'        => !empty( $settings['video_image']['url'] ) ? esc_url( $settings['video_image']['url'] ) : '',
                 'autoPlay'          => ( $settings['autoplay'] == 'yes' ) ? true : false,
                 'mute'              => ( $settings['soundmute'] == 'yes' ) ? true : false,

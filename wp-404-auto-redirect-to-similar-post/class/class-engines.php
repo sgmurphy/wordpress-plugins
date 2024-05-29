@@ -1,14 +1,18 @@
 <?php
 
-if(!defined('ABSPATH'))
+if(!defined('ABSPATH')){
     exit;
+}
 
 if(!class_exists('WP_404_Auto_Redirect_Engines')){
 
-class WP_404_Auto_Redirect_Engines {
+class WP_404_Auto_Redirect_Engines{
     
     public $get_engines = array();
     
+    /**
+     * construct
+     */
     function __construct(){
         
         // Engines: Register
@@ -23,6 +27,12 @@ class WP_404_Auto_Redirect_Engines {
         
 	}
     
+    
+    /**
+     * register_engines
+     *
+     * @return void
+     */
     function register_engines(){
         
         $this->register_engine(array(
@@ -62,6 +72,14 @@ class WP_404_Auto_Redirect_Engines {
         
     }
     
+    
+    /**
+     * register_engine
+     *
+     * @param $args
+     *
+     * @return void
+     */
     function register_engine($args){
         
         $args = wp_parse_args($args, array(
@@ -71,41 +89,49 @@ class WP_404_Auto_Redirect_Engines {
             'primary'   => false
         ));
         
-        if(!$args['name'])
+        if(!$args['name']){
             return;
+        }
         
-        if(!$args['slug'])
+        if(!$args['slug']){
             $args['slug'] = wp404arsp_sanitize($args['name'], '_');
+        }
         
-        if(empty($args['slug']))
+        if(empty($args['slug'])){
             return;
+        }
         
         $engine = apply_filters('wp404arsp/define/engine/' . $args['slug'], $args);
-        if(!$engine)
+        if(!$engine){
             return;
+        }
         
         $this->get_engines[] = $args;
         
     }
     
     
-    /*
-	*  Engines: Deregister
-	*
-	*/
-    
+    /**
+     * deregister_engine
+     *
+     * @param $slug
+     *
+     * @return void
+     */
     function deregister_engine($slug){
         
-        if(empty($this->get_engines))
+        if(empty($this->get_engines)){
             return;
+        }
         
         $reset = false;
         
         // Engines
         foreach($this->get_engines as $e => $engine){
         
-            if($engine['slug'] != $slug)
+            if($engine['slug'] != $slug){
                 continue;
+            }
             
             // Groups: Engine
             wp404arsp_deregister_groups_engine($slug);
@@ -117,58 +143,87 @@ class WP_404_Auto_Redirect_Engines {
             
         }
         
-        if($reset)
+        if($reset){
             $this->get_engines = array_values($this->get_engines);
+        }
         
     }
     
+    
+    /**
+     * get_engine_by_slug
+     *
+     * @param $slug
+     *
+     * @return false|mixed
+     */
     function get_engine_by_slug($slug){
         
-        if(empty($this->get_engines))
+        if(empty($this->get_engines)){
             return false;
+        }
         
         foreach($this->get_engines as $engine){
-            if($engine['slug'] != $slug)
+            
+            if($engine['slug'] != $slug){
                 continue;
+            }
             
             return $engine;
+            
         }
         
         return false;
         
     }
     
-    function engine_exists($slug){
     
+    /**
+     * engine_exists
+     *
+     * @param $slug
+     *
+     * @return false|mixed
+     */
+    function engine_exists($slug){
         return $this->get_engine_by_slug($slug);
-        
     }
     
-    /*
-    *  Engine: Fix URL
-    *
-    *  Condition: If Pagination Regex exists in the Requested URL.
-    *  If so, redirect to the same URL without the Pagination.
-    *
-    */
-
+    
+    /**
+     * engine_default_fix_url
+     *
+     * Engine: Fix URL
+     *
+     * Condition: If Pagination Regex exists in the Requested URL.
+     * If so, redirect to the same URL without the Pagination.
+     *
+     * @param $result
+     * @param $query
+     * @param $group
+     *
+     * @return array|string
+     */
     function engine_default_fix_url($result, $query, $group){
         
         // Fix URL '/p=6' instead of '/?p=6'
         if(preg_match('#/(?<param>p)=(?<val>[0-9]+)/?$#i', $query['request']['url'], $args)){
             
             if(get_post($args['val'])){
+                
                 return array(
                     'url'   => get_permalink($args['val']),
                     'score' => 1,
                     'why'   => "Fix Requested URL. Sending redirection to the correct permalink."
                 );
+                
             }
             
         }
         
         // Fix Pagination
         elseif(preg_match('#/(?<slug>page|paged)/(?<page>[0-9]+)/?$#i', $query['request']['url'], $pagination)){
+            
             $url = home_url() . str_replace($pagination[0], '', $query['request']['url']);
             
             return array(
@@ -176,27 +231,35 @@ class WP_404_Auto_Redirect_Engines {
                 'score' => 1,
                 'why'   => "Pagination found in the Requested URL. Sending redirection to the same URL without Pagination."
             );
+            
         }
         
         // Pagination not found
         return "No Fix to apply in the Requested URL.";
         
     }
-
-
-    /*
-    *  Engine: Direct Match
-    *
-    *  Condition: None.
-    *  Use get_page_by_path() to find the Post with the exact Name.
-    *
-    */
-
+    
+    
+    /**
+     * engine_default_direct
+     *
+     * Engine: Direct Match
+     *
+     * Condition: None.
+     * Use get_page_by_path() to find the Post with the exact Name.
+     *
+     * @param $result
+     * @param $query
+     * @param $group
+     *
+     * @return array|string
+     */
     function engine_default_direct($result, $query, $group){
         
         // No Post Types available
-        if(!$post_types = wp404arsp_get_post_types($query['settings']))
+        if(!$post_types = wp404arsp_get_post_types($query['settings'])){
             return "All Post Types are disabled in settings.";
+        }
         
         // init Found
         $found = false;
@@ -210,8 +273,9 @@ class WP_404_Auto_Redirect_Engines {
         foreach($keywords as $k){
             
             // Not found: continue
-            if(!$post = get_page_by_path($k, 'object', $post_types))
+            if(!$post = get_page_by_path($k, 'object', $post_types)){
                 continue;
+            }
             
             $found = true;
             $score = count(explode('-', $k));
@@ -224,16 +288,12 @@ class WP_404_Auto_Redirect_Engines {
             
             // Found but post Status not 'published'. Stop direct match
             if(get_post_status($post->ID) != 'publish'){
-                
                 return "Post Status not published. Stop direct match.";
-                
             }
             
             // Post Meta 'wp404arsp_no_redirect = 1'. Stop direct match
             elseif($query['settings']['rules']['exclude']['post_meta'] && get_post_meta($post->ID, 'wp404arsp_no_redirect', true) == '1'){
-                
                 return "Exluded Post Meta Set. Stop direct match.";
-                
             }
             
             // Everything is Okay.
@@ -251,27 +311,32 @@ class WP_404_Auto_Redirect_Engines {
         
         // Not Found
         else{
-            
             return "No Direct Match in any Post Types.";
-            
         }
         
     }
-
-
-    /*
-    *  Engine: Search Post
-    *
-    *  Condition: None.
-    *  Search similar Post in any available Post Types.
-    *
-    */
-
+    
+    
+    /**
+     * engine_default_post
+     *
+     * Engine: Search Post
+     *
+     * Condition: None.
+     * Search similar Post in any available Post Types.
+     *
+     * @param $result
+     * @param $query
+     * @param $group
+     *
+     * @return array|string
+     */
     function engine_default_post($result, $query, $group){
         
         // No Post Types available
-        if(!$post_types = wp404arsp_get_post_types($query['settings']))
+        if(!$post_types = wp404arsp_get_post_types($query['settings'])){
             return "All Post Types are disabled in settings.";
+        }
         
         $wp_query = false;
         
@@ -282,8 +347,9 @@ class WP_404_Auto_Redirect_Engines {
             $wp_query_post_type = $query['request']['wp_query']['post_type'];
 
             // Post_Type found in WP_Query is disabled in settings. Disable this specific search
-            if(!in_array($wp_query_post_type, wp404arsp_get_post_types($query['settings'])))
+            if(!in_array($wp_query_post_type, wp404arsp_get_post_types($query['settings']))){
                 $wp_query = false;
+            }
             
         }
         
@@ -296,8 +362,9 @@ class WP_404_Auto_Redirect_Engines {
             'mode'      => 'post'       // Search for Post
         );
         
-        if($wp_query)
+        if($wp_query){
             $args['post_type'] = $wp_query_post_type; // Add specific Post Type Search
+        }
         
         // Run Search
         $search = wp404arsp_search($args, $query);
@@ -309,8 +376,9 @@ class WP_404_Auto_Redirect_Engines {
             $why = "Similar Post of Post Type <strong>" . get_post_type($search['post_id']) . "</strong> was found.";
             
             // Change reason if Post_Type found in WP_Query
-            if($wp_query)
+            if($wp_query){
                 $why = "Similar Post found in the WP Query: Post Type <strong>" . $wp_query_post_type . "</strong>.";
+            }
             
             // Return result
             return array(
@@ -329,6 +397,7 @@ class WP_404_Auto_Redirect_Engines {
             
             // Change reason if Post_Type found in WP_Query
             if($wp_query){
+                
                 $why = "No Post found in the WP Query: Post Type <strong>" . $wp_query_post_type . "</strong>.";
                 
                 // Set Query Var for Engine: WP Query Fallback
@@ -339,22 +408,30 @@ class WP_404_Auto_Redirect_Engines {
             return $why;
             
         }
+        
     }
-
-
-    /*
-    *  Engine: Search Term
-    *
-    *  Condition: None.
-    *  Search similar Term in any available Taxonomies.
-    *
-    */
-
+    
+    
+    /**
+     * engine_default_term
+     *
+     * Engine: Search Term
+     *
+     * Condition: None.
+     * Search similar Term in any available Taxonomies.
+     *
+     * @param $result
+     * @param $query
+     * @param $group
+     *
+     * @return array|string
+     */
     function engine_default_term($result, $query, $group){
         
         // Taxonomies Disabled
-        if($query['settings']['rules']['disable']['taxonomies'])
+        if($query['settings']['rules']['disable']['taxonomies']){
             return "Taxonomies Disabled in settings.";
+        }
         
         $wp_query = false;
         
@@ -365,8 +442,9 @@ class WP_404_Auto_Redirect_Engines {
             $wp_query_taxonomy = $query['request']['wp_query']['taxonomy'];
             
             // Taxonomy found in WP_Query is disabled in settings. Disable this specific search
-            if(!in_array($wp_query_taxonomy, wp404arsp_get_taxonomies($query['settings'])))
+            if(!in_array($wp_query_taxonomy, wp404arsp_get_taxonomies($query['settings']))){
                 $wp_query = false;
+            }
             
         }
         
@@ -379,8 +457,9 @@ class WP_404_Auto_Redirect_Engines {
             'mode'      => 'term'       // Search for Term
         );
         
-        if($wp_query)
+        if($wp_query){
             $args['taxonomy'] = $wp_query_taxonomy; // Add specific Taxonomy Search
+        }
         
         // Run Search
         $search = wp404arsp_search($args, $query);
@@ -395,8 +474,9 @@ class WP_404_Auto_Redirect_Engines {
             $why = "Similar Term was found in the Taxonomy <strong>" . $term->taxonomy . "</strong>.";
             
             // Change reason if Taxonomy found in WP_Query
-            if($wp_query)
+            if($wp_query){
                 $why = "Similar Term found in the WP Query: Taxonomy <strong>" . $wp_query_taxonomy . "</strong>.";
+            }
             
             return array(
                 'score' => $search['score'], 
@@ -413,24 +493,31 @@ class WP_404_Auto_Redirect_Engines {
             $why = "No similar Term was found in Taxonomies.";
             
             // Change reason if Taxonomy found in WP_Query
-            if($wp_query)
+            if($wp_query){
                 $why = "No Term found in the WP Query: Taxonomy <strong>" . $wp_query_taxonomy . "</strong>.";
+            }
             
             return $why;
             
         }
         
     }
-
-
-    /*
-    *  Engine: Post Fallback
-    *
-    *  Condition: If the Post Type is set in the current WP_Query AND the engine "WP Query: Post Type" failed to found a similar Post inside it.
-    *  If the engine "WP Query: Post Type" failed, it will set a Query Var 'wp404arsp_engine_wpq_pt'. This engine will use it to fallback to the Post Type Archive.
-    *
-    */
-
+    
+    
+    /**
+     * engine_default_post_fallback
+     *
+     * Engine: Post Fallback
+     *
+     * Condition: If the Post Type is set in the current WP_Query AND the engine "WP Query: Post Type" failed to found a similar Post inside it.
+     * If the engine "WP Query: Post Type" failed, it will set a Query Var 'wp404arsp_engine_wpq_pt'. This engine will use it to fallback to the Post Type Archive.
+     *
+     * @param $result
+     * @param $query
+     * @param $group
+     *
+     * @return array|string
+     */
     function engine_default_post_fallback($result, $query, $group){
         
         // Query Var: 'wp404arsp_engine_default_post' set by the engine "Default: WP Query" because it failed.
@@ -440,8 +527,9 @@ class WP_404_Auto_Redirect_Engines {
             
             // Get Post Type Archive Link
             $url = get_post_type_archive_link($post_type);
-            if(empty($url))
+            if(empty($url)){
                 $url = home_url();
+            }
             
             return array(
                 'url'   => $url,
@@ -453,10 +541,9 @@ class WP_404_Auto_Redirect_Engines {
         
         // No Query Var. Stop.
         else{
-            
             return "No Post Type in the WP Query.";
-            
         }
+        
     }
     
 }
@@ -465,26 +552,50 @@ wp404arsp()->engines = new WP_404_Auto_Redirect_Engines();
 
 }
 
+
+/**
+ * wp404arsp_register_engine
+ *
+ * @param $engine
+ *
+ * @return mixed
+ */
 function wp404arsp_register_engine($engine){
-    
 	return wp404arsp()->engines->register_engine($engine);
-    
 }
 
+
+/**
+ * wp404arsp_deregister_engine
+ *
+ * @param $slug
+ *
+ * @return mixed
+ */
 function wp404arsp_deregister_engine($slug){
-    
 	return wp404arsp()->engines->deregister_engine($slug);
-    
 }
 
+
+/**
+ * wp404arsp_get_engine_by_slug
+ *
+ * @param $slug
+ *
+ * @return mixed
+ */
 function wp404arsp_get_engine_by_slug($slug){
-    
 	return wp404arsp()->engines->get_engine_by_slug($slug);
-    
 }
 
+
+/**
+ * wp404arsp_engine_exists
+ *
+ * @param $slug
+ *
+ * @return mixed
+ */
 function wp404arsp_engine_exists($slug){
-    
 	return wp404arsp()->engines->engine_exists($slug);
-    
 }

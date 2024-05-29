@@ -80,8 +80,13 @@ class FormHandler {
 
 		if ( isset( $_POST['return_request'], $_POST['email'], $_POST['order_id'] ) && wp_verify_nonce( $nonce_value, 'woocommerce-gzd-return-request' ) ) {
 			try {
-				$email       = sanitize_email( wp_unslash( $_POST['email'] ) );
-				$order_id    = wc_clean( wp_unslash( $_POST['order_id'] ) );
+				$email    = sanitize_email( wp_unslash( $_POST['email'] ) );
+				$order_id = wc_clean( wp_unslash( $_POST['order_id'] ) );
+
+				if ( empty( $email ) || empty( $order_id ) ) {
+					throw new Exception( '<strong>' . _x( 'Error:', 'shipments', 'woocommerce-germanized' ) . '</strong> ' . _x( 'Please fill out all required fields.', 'shipments', 'woocommerce-germanized' ) );
+				}
+
 				$db_order_id = self::find_order( $order_id, $email );
 
 				if ( ! $db_order_id || ( ! $order = wc_get_order( $db_order_id ) ) ) {

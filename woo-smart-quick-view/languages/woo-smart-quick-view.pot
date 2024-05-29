@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPC Smart Quick View for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPC Smart Quick View for WooCommerce 4.0.4\n"
+"Project-Id-Version: WPC Smart Quick View for WooCommerce 4.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-smart-quick-view\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-07T14:53:37+00:00\n"
+"POT-Creation-Date: 2024-05-28T18:55:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woo-smart-quick-view\n"
@@ -75,12 +75,12 @@ msgid "Additional information"
 msgstr ""
 
 #: wpc-smart-quick-view.php:450
-#: wpc-smart-quick-view.php:1113
+#: wpc-smart-quick-view.php:1097
 msgid "View product details"
 msgstr ""
 
 #: wpc-smart-quick-view.php:501
-#: wpc-smart-quick-view.php:1073
+#: wpc-smart-quick-view.php:1057
 msgid "Quick view"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgid "Settings"
 msgstr ""
 
 #: wpc-smart-quick-view.php:575
-#: wpc-smart-quick-view.php:1064
+#: wpc-smart-quick-view.php:1048
 msgid "Localization"
 msgstr ""
 
@@ -479,7 +479,7 @@ msgid "Choose the functionally for the add to cart button."
 msgstr ""
 
 #: wpc-smart-quick-view.php:999
-#: wpc-smart-quick-view.php:1102
+#: wpc-smart-quick-view.php:1086
 msgid "Suggested products"
 msgstr ""
 
@@ -507,50 +507,46 @@ msgstr ""
 msgid "View details button"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1038
-msgid "Suggestion"
-msgstr ""
-
-#: wpc-smart-quick-view.php:1066
+#: wpc-smart-quick-view.php:1050
 msgid "Leave blank to use the default text and its equivalent translation in multiple languages."
 msgstr ""
 
-#: wpc-smart-quick-view.php:1070
+#: wpc-smart-quick-view.php:1054
 msgid "Button text"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1078
+#: wpc-smart-quick-view.php:1062
 msgid "Close"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1081
+#: wpc-smart-quick-view.php:1065
 #: wpc-smart-quick-view.php:1217
 msgid "Close (Esc)"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1086
+#: wpc-smart-quick-view.php:1070
 msgid "Next"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1089
+#: wpc-smart-quick-view.php:1073
 #: wpc-smart-quick-view.php:1219
 msgid "Next (Right arrow key)"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1094
+#: wpc-smart-quick-view.php:1078
 msgid "Previous"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1097
+#: wpc-smart-quick-view.php:1081
 #: wpc-smart-quick-view.php:1220
 msgid "Previous (Left arrow key)"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1105
+#: wpc-smart-quick-view.php:1089
 msgid "You may also like&hellip;"
 msgstr ""
 
-#: wpc-smart-quick-view.php:1110
+#: wpc-smart-quick-view.php:1094
 msgid "View details text"
 msgstr ""
 

@@ -31,7 +31,7 @@ class CMB2_Type_File_List extends CMB2_Type_File_Base {
 			'value'  => '',
 			'data-previewsize' => sprintf( '[%d,%d]', $img_size_data['width'], $img_size_data['height'] ),
 			'data-sizename'    => $img_size_data['name'],
-			'data-queryargs'   => ! empty( $query_args ) ? json_encode( $query_args ) : '',
+			'data-queryargs'   => ! empty( $query_args ) ? wp_json_encode( $query_args ) : '',
 			'js_dependencies'  => 'media-editor',
 		) );
 

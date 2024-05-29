@@ -1,0 +1,139 @@
+/**
+ * Edit Component.
+ * 
+ */
+
+.Edit___DsDI3 {
+	background: #fff;
+	padding: 15px;
+	margin: 0 0 7% 0;
+}
+
+.Edit___DsDI3 h3 {
+	text-transform: uppercase;
+}
+
+.attribute___ouspy,
+.row___I0yGU {
+	display: flex;
+	box-sizing: border-box;
+	justify-content: space-around;
+}
+
+.label___mfZTQ {
+	width: 35%;
+	font-weight: 600;
+}
+
+.label___mfZTQ > label {
+	display: inline-block;
+	margin-top: 5px;
+}
+
+.value___Z--gA {
+	width: 65%;
+}
+
+.label___mfZTQ, 
+.value___Z--gA {
+	margin: 7px 0;
+}
+
+.value___Z--gA select[name="cf7TagType"] { /* for number tag, to make 'required' under it */
+	display: block;
+	margin-bottom: 5px;
+}
+
+.value___Z--gA input[type="text"], 
+.value___Z--gA input[type="date"], 
+.value___Z--gA input[type="number"], 
+.value___Z--gA input[type="email"], 
+.value___Z--gA input[type="url"], 
+.value___Z--gA input[type="tel"], 
+.value___Z--gA textarea {
+	width: 100%;
+	font-size: inherit;
+}
+
+.value___Z--gA .dashicons {
+	border: 1px solid #ddd;
+	width: 18px;
+	height: 18px !important; /* overwrite CF7 Skins styling */
+	line-height: 19px !important; /* overwrite CF7 Skins styling */
+	font-size: 14px;
+	border-radius: 2px;
+	cursor: pointer;
+	background: #f2f2f2;
+}
+
+.row___I0yGU {
+	margin: 0 0 4px -15px;
+}
+
+.row___I0yGU input[type=radio],
+.row___I0yGU input[type=checkbox],
+.row___I0yGU .dashicons-no {
+	margin-top: 4px;
+}
+
+.row___I0yGU .control___\+YNEW,
+.row___I0yGU .default___cYs1M,
+.row___I0yGU .range___wsPe8,
+.row___I0yGU .option___\+t59z { 
+	padding-left: 15px;
+	box-sizing: border-box;
+}
+
+.row___I0yGU .default___cYs1M {
+	text-align: center;
+}
+
+.row___I0yGU .control___\+YNEW {
+	text-align: right;
+}
+
+.row___I0yGU .control___\+YNEW { width: 15%; }
+.row___I0yGU .default___cYs1M { width: 25%; }
+.row___I0yGU .range___wsPe8 { width: 50%; }
+.row___I0yGU .option___\+t59z { width: 60%; }
+
+.description___CvqdB {
+	font-size: 12px;
+	line-height: 15px;
+	color: #898989;
+	margin-bottom: 0;
+}
+
+/* Edit Field Type drop-down menu*/
+
+select.EditTypeSelect___rae3d { /* overide 'wp-admin select' */
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 1em 0;
+	
+	/* override .wp-core-ui select */
+	padding: 2px;
+	line-height: 28px;
+	height: 28px;
+}
+
+/* Visual Data component */
+
+.visualData___oRYfW {
+	width:100%;
+	margin: 7px 0;
+}
+
+.visualData___oRYfW textarea {
+	width: 100%;
+}
+.textareaData___aBaoO {
+	width: 100%;
+}
+.buttonWrapper___FLNPs,
+.cf7modal-button___WKEBM {
+	display: block;
+	margin-top:18px;
+	text-align: right;
+}

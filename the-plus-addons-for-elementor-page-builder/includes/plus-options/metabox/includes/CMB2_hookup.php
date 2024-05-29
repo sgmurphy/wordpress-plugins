@@ -458,12 +458,13 @@ class CMB2_hookup extends CMB2_Hookup_Base {
 		$page = get_current_screen()->id;
 		add_filter( "postbox_classes_{$page}_{$this->cmb->cmb_id}", array( $this, 'postbox_classes' ) );
 
-		echo '<div id="' . $this->cmb->cmb_id . '" class="' . postbox_classes( $this->cmb->cmb_id, $page ) . '">' . "\n";
+		echo '<div id="' . esc_attr( $this->cmb->cmb_id ) . '" class="' . postbox_classes( $this->cmb->cmb_id, $page ) . '">' . "\n";
 
 		if ( $add_handle ) {
 
 			echo '<button type="button" class="handlediv button-link" aria-expanded="true">';
-				echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s','tpebl' ), $title ) . '</span>';
+				// translators: %s: Panel title.
+				echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s','tpebl' ), esc_html( $title ) ) . '</span>';
 				echo '<span class="toggle-indicator" aria-hidden="true"></span>';
 			echo '</button>';
 

@@ -906,17 +906,17 @@
         },
         {
             "name": "vendidero/woocommerce-germanized-shipments",
-            "version": "3.3.0",
-            "version_normalized": "3.3.0.0",
+            "version": "3.3.1",
+            "version_normalized": "3.3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vendidero/woocommerce-germanized-shipments.git",
-                "reference": "ff15b621281f6f54d34fc7633b5d6f1c30fa7814"
+                "reference": "6fb58e7f870e8691a7b2c2041d2f523fd0b486ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vendidero/woocommerce-germanized-shipments/zipball/ff15b621281f6f54d34fc7633b5d6f1c30fa7814",
-                "reference": "ff15b621281f6f54d34fc7633b5d6f1c30fa7814",
+                "url": "https://api.github.com/repos/vendidero/woocommerce-germanized-shipments/zipball/6fb58e7f870e8691a7b2c2041d2f523fd0b486ad",
+                "reference": "6fb58e7f870e8691a7b2c2041d2f523fd0b486ad",
                 "shasum": ""
             },
             "require": {
@@ -930,7 +930,7 @@
                 "woocommerce/woocommerce-sniffs": "^0.1.3",
                 "yoast/phpunit-polyfills": "^1.1.0"
             },
-            "time": "2024-05-27T09:00:05+00:00",
+            "time": "2024-05-29T12:34:49+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
@@ -961,7 +961,7 @@
             "description": "The Germanized Shipments implementation.",
             "homepage": "https://github.com/vendidero/woocommerce-germanized-shipments",
             "support": {
-                "source": "https://github.com/vendidero/woocommerce-germanized-shipments/tree/v3.3.0",
+                "source": "https://github.com/vendidero/woocommerce-germanized-shipments/tree/v3.3.1",
                 "issues": "https://github.com/vendidero/woocommerce-germanized-shipments/issues"
             },
             "install-path": "../../packages/woocommerce-germanized-shipments"

@@ -22,7 +22,9 @@ abstract class WP_REST_Controller {
 	 */
 	public function register_routes() {
 		/* translators: %s: register_routes() */
-		_doing_it_wrong( 'WP_REST_Controller::register_routes', sprintf( __( "Method '%s' must be overridden.",'tpebl' ), __METHOD__ ), '4.7' );
+
+		_doing_it_wrong( 'WP_REST_Controller::register_routes', sprintf( esc_html__( "Method '%s' must be overridden.", 'tpebl' ), __METHOD__ ), '4.7' );
+
 	}
 
 	/**
@@ -32,6 +34,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function get_items_permissions_check( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -44,6 +47,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -56,6 +60,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function get_item_permissions_check( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -68,6 +73,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -80,6 +86,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function create_item_permissions_check( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -92,6 +99,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -104,6 +112,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function update_item_permissions_check( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -116,6 +125,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_item( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -128,6 +138,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function delete_item_permissions_check( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -140,6 +151,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function delete_item( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -152,6 +164,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_Error|object $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );
@@ -165,6 +178,7 @@ abstract class WP_REST_Controller {
 	 * @return WP_REST_Response $response
 	 */
 	public function prepare_item_for_response( $item, $request ) {
+		// Translators: %s is the method name.
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.",'tpebl' ), __METHOD__ ), array(
 			'status' => 405,
 		) );

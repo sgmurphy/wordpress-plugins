@@ -67,7 +67,7 @@ $url = plugin_dir_url( dirname(__FILE__) ) . 'media';
 						<h3 class="hndle"><span>About</span></h3>
 						<div class="inside">
 							<?php if ($this->status != 4) { ?>
-								<p>This plugin is designed to inter-operate with the supported themes to enable their advanced theme settings pages:</p>
+								<p>This plugin is designed to inter-operate with the supported themes to enable their classic theme settings pages:</p>
 								<ul>	<li><a href="http://wordpress.org/themes/mantra" target="_blank"><img src="<?php echo $url . '/mantra.jpg'; ?>" /><span>Mantra</span></a> version 2.5 and newer</li>
 								<li><a href="http://wordpress.org/themes/nirvana" target="_blank"><img src="<?php echo $url . '/nirvana.jpg'; ?>" /><span>Nirvana</span></a> version 1.2 and newer</li>
 								<li><a href="http://wordpress.org/themes/parabola" target="_blank"><img src="<?php echo $url . '/parabola.jpg'; ?>" /><span>Parabola</span></a> version 1.6 and newer</li>

@@ -67,6 +67,10 @@ class bt_bb_latest_posts extends BT_BB_Element {
 		$posts = bt_bb_get_posts( $number, 0, $category );
 		
 		$output = '';
+		
+		if ( count( $posts ) == 0 ) {
+			$output = esc_html__( 'No posts found.', 'bold-builder' );
+		}
 
 		foreach( $posts as $post_item ) {
 

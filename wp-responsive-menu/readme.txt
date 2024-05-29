@@ -1,19 +1,20 @@
+
 === WP Responsive Menu ===
-Contributors: sagarseth9,magnigenie,kshirod-patel
-Tags: menu, responsive, responsive menu, mobile, mobile responsive, mobile menu, Wordpress Responsive Menu, Genesis responsive menu, Genesis Mobile Menu, Thesis Mobile Menu, Thesis Responsive Menu,  Mobile Menu, Responsive Menu Plugin, WP Responsive Menu, WordPress mobile menu
+Contributors: sagarseth9, magnigenie, kshirod-patel
+Tags: menu, responsive, responsive menu, mobile, mobile responsive, mobile menu, WordPress Responsive Menu, Genesis responsive menu, Genesis Mobile Menu, Thesis Mobile Menu, Thesis Responsive Menu, Mobile Menu, Responsive Menu Plugin, WP Responsive Menu, WordPress mobile menu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=pay@magnigeeks.com&item_name=wp-responsive-menu%20WordPress&return=http://wordpress.org/extend/plugins/wp-responsive-menu/
 Requires at least: 3.0
 Requires PHP: 5.4
-Tested up to: 6.4.1
+Tested up to: 6.5.3
 Stable tag: 3.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WP Responsive Menu turns your WordPress menu to a highly customizable sliding responsive menu.
+WP Responsive Menu turns your WordPress menu into a highly customizable sliding responsive menu.
 
 == Description ==
 
-WP Responsive Menu is a simple plugin that lets you add a highly customizable responsive menu to any WordPress site in no time at all and customization can all be done directly from the setting page, with no coding needed at all.
+WP Responsive Menu is a simple plugin that lets you add a highly customizable responsive menu to any WordPress site in no time at all, and customization can all be done directly from the settings page, with no coding needed at all.
 
 = See it in action: =
 [Live Preview](http://demo.magnigenie.com/wp-responsive-menu-pro/menu-demo/)
@@ -23,161 +24,134 @@ WP Responsive Menu is a simple plugin that lets you add a highly customizable re
 * Makes your site menu work better on mobile devices.
 * Easy to customize without any coding skills.
 * Allows you to set the menu open direction to top/bottom/left/right to match your needs.
-* Option to chnage menu icon animation to match your site.
-* Add your logo to menu bar and easily specify a link to it.
+* Option to change menu icon animation to match your site.
+* Add your logo to the menu bar and easily specify a link to it.
 * Comes in two different display options to match your taste.
-* Quickly hide the unwanted elements when the responsive menu is active.
-* Provides better option to open/close menu with simple swipe gestures.
+* Quickly hide unwanted elements when the responsive menu is active.
+* Provides better options to open/close the menu with simple swipe gestures.
 * Easily configure font sizes and styles from the settings.
-* Gives you flexibility to add a search box inside menu.
-* Option to display the search option on menu bar(PRO).
-* Integrates flawlessly with WooCommerce(PRO).
-* Better support for RTL sites(PRO).
-* Allows to add social media icons to menu(PRO).
-* You can easily change the menu fonts with any custom/google fonts(PRO).
-* Change the sub menu and menu icons easily(PRO).
-* Plugin has the functionality where you can easily import predefined demo by doing a single click.
+* Gives you the flexibility to add a search box inside the menu.
+* Option to display the search option on the menu bar (PRO).
+* Integrates flawlessly with WooCommerce (PRO).
+* Better support for RTL sites (PRO).
+* Allows you to add social media icons to the menu (PRO).
+* You can easily change the menu fonts with any custom/Google fonts (PRO).
+* Change the sub-menu and menu icons easily (PRO).
+* The plugin has functionality where you can easily import predefined demos with a single click.
 * And much more coming soon...
 
-This plugin works out of box with any theme frameworks like genesis or thesis or any theme and it also works fine with multisite setups.
+This plugin works out of the box with any theme frameworks like Genesis or Thesis or any theme and it also works fine with multisite setups.
 
-= WP Responsive Menu Pro In action =
+= WP Responsive Menu Pro In Action =
 [youtube https://www.youtube.com/watch?v=6_XqAfZoRJ8]
 
 = Important Notes =
 [Upgrade to PRO](http://magnigenie.com/wp-responsive-menu-pro/) to avail better support and unrestricted access to WP Responsive Menu.
 
-If you have any  suggestions for a new plugin, feel free to email us at info@magnigenie.com.
+If you have any suggestions for a new plugin, feel free to email us at info@magnigenie.com.
 
-[Click here](https://www.magnigenie.com/wp-responsive-menu-mobile-menu-plugin-wordpress/) to check the demo for free and pro version.
+[Click here](https://www.magnigenie.com/wp-responsive-menu-mobile-menu-plugin-wordpress/) to check the demo for free and pro versions.
 
 == Installation ==
 1. Go to your admin area and select Plugins -> Add new from the menu.
 2. Search for "WP Responsive Menu".
 3. Click install.
 4. Click activate.
-5. Once the plugin is installed then you can see WPR Menu on the left navigation bar of WordPress Dashboard.
+5. Once the plugin is installed, you can see WPR Menu on the left navigation bar of the WordPress Dashboard.
 
 == Screenshots ==
 
 1. General settings.
-
 2. Appearance settings.
-
 3. Widget Menu settings.
-
 4. Colors settings.
-
 5. Fonts settings.
-
 6. Icons settings.
-
 7. Social settings.
-
 8. Demo import settings.
+9. Live Preview.
+10. Predefined demo.
+11. Frontend screen view.
+12. Frontend menu screen view.
 
-9. Live Preview 
-
-10. Predefined demo
-
-11. Frontend screen view
-
-12. Frontend menu screen view
-
-
-== ChangeLog ==
+== Changelog ==
 
 = Version 3.1.8 =
-
 * Updated: Custom menu icon default position value.
 * Fixed: Swipe functionality issue.
 * Fixed: Open Submenu On Parent Click issue.
-* Fixed: Borders For Menu Items functionality issue and Css issue.
+* Fixed: Borders For Menu Items functionality issue and CSS issue.
 * Updated: Removed Unused option for custom menu.
 * Fixed: Menu Title Font Size, Menu Title Font Weight issue.
 
 = Version 3.1.7.4 =
-
-* Pro-plugin feature options added
-* Code cleanup
+* Pro-plugin feature options added.
+* Code cleanup.
 
 = Version 3.1.7.3 =
-
-* Fixed select option values save issues 
-* Removed unused setting options for "Custom menu"
-* Code cleanup
+* Fixed select option values save issues.
+* Removed unused setting options for "Custom menu".
+* Code cleanup.
 
 = Version 3.1.7.2 =
-
-* Fixed security issues
-* Code cleanup
+* Fixed security issues.
+* Code cleanup.
 
 = Version 3.1.7.1 =
-
-* Security updates
-* Code cleanup
+* Security updates.
+* Code cleanup.
 
 = Version 3.1.7 =
-
 * Fixed security issues.
-* Tested with latest WordPress and fixed required things.
+* Tested with the latest WordPress and fixed required things.
 * Added filters for before and after menu content.
 
 = Version 3.1.6 =
-
-* Removed unused files
-* Admin settings Checkbox Enable/Disable issue fixed
-* Fixed blank value saving issue
+* Removed unused files.
+* Admin settings Checkbox Enable/Disable issue fixed.
+* Fixed blank value saving issue.
 
 = Version 3.1.5 =
-
-* Tested with latest WordPress and PHP.
-* Fixed issues related PHP 8.0
+* Tested with the latest WordPress and PHP.
+* Fixed issues related to PHP 8.0.
 
 = Version 3.1.4 =
-
-* Changed core structure
-* Admin ui changed
-* css and js optimized
-* Changed live preview functionality
-* Fixed issue with demo import
+* Changed core structure.
+* Admin UI changed.
+* CSS and JS optimized.
+* Changed live preview functionality.
+* Fixed issue with demo import.
 
 = Version 3.1.3 =
-
-* Fixed css issue for html overflow property
+* Fixed CSS issue for HTML overflow property.
 
 = Version 3.1.2 =
-
-* Fixed issue for filter
-* Fixed iPhone issue for not showing menus
+* Fixed issue for filter.
+* Fixed iPhone issue for not showing menus.
 
 = Version 3.1.1 =
-
-* Fixed issue for constant
+* Fixed issue for constant.
 
 = Version 3.1 =
-
-* Added developer hooks for before menu element and after menu element
-* Added custom css editor
-* Added WYSIWYG editor for before menu content and after menu content
-* Option added for menu bar height
-* Fixed option issue for push menu
-* Code optimized
-* Css optimized
+* Added developer hooks for before menu element and after menu element.
+* Added custom CSS editor.
+* Added WYSIWYG editor for before menu content and after menu content.
+* Option added for menu bar height.
+* Fixed option issue for push menu.
+* Code optimized.
+* CSS optimized.
 
 = Version 3.0.4 =
-
-* WPML Support added(PRO).
+* WPML Support added (PRO).
 * Polylang support added.
-* Added option to hide menu on specific pages(PRO.)
+* Added option to hide menu on specific pages (PRO).
 * Added option for menu title link.
 * Added alt tag to logo image.
-* Fixed compatibility issues with divi theme.
+* Fixed compatibility issues with Divi theme.
 * Code optimization.
 * Bug fixes.
 
 = Version 3.0.3 =
-
 * Removed large screen option.
 * Fixed push menu width issue for large screens.
 * Fixed logo click open menu and then reloads.
@@ -188,20 +162,17 @@ If you have any  suggestions for a new plugin, feel free to email us at info@mag
 * Fixed issues when upgrading from 2.0.x to 3.0.x.
 * Added ability to automatically close the menu when user clicks outside the menu area.
 * Added ability to auto close menu when clicking on any menu item.
-* Fixed cart number auto update when adding/updating/deleting items from cart using ajax(PRO).
+* Fixed cart number auto update when adding/updating/deleting items from cart using ajax (PRO).
 
 = Version 3.0.2 =
-
 * Fixed problem with text selection.
 * Fixed notice errors when upgrading to 3.0.
 * Fixed issue with menu bar display when upgrading to 3.0.
 
 = Version 3.0.1 =
-
 * Fixed issue with hide elements on mobile.
 
 = Version 3.0.0 =
-
 * Updated admin and frontend UI.
 * Added option for Large screen view.
 * Added live preview option.
@@ -215,52 +186,42 @@ If you have any  suggestions for a new plugin, feel free to email us at info@mag
 * Fixed issues with swipe gesture.
 
 = Version 2.0.7 =
-
 * Fixed conflict custom post type and contact form 7 menu.
 * Added option to change the search box placeholder text.
 * Tested with WordPress 4.4 and added support for it.
 
 = Version 2.0.6 =
-
 * Fixed nesting icon issue.
 * Added WordPress 4.3 support.
 
 = Version 2.0.5 =
-
 * Updated google font loading method so that it would adapt to the protocol of the website.
 
 = Version 2.0.4 =
-
 * Fixed browser javascript issue for lower versions of IE.
 
 = Version 2.0.3 =
-
 * Fixed the submenu icon not showing error.
 * Fixed menu spacing issue.
 
 = Version 2.0.2 =
-
 * Fixed jquery sidr issue for the top menu.
-* Fixed menu scroll issue when there is more items inside menu.
+* Fixed menu scroll issue when there are more items inside the menu.
 * Fixed top menu z-index issue.
 
 = Version 2.0.1 =
-
 * Fixed plugin conflict with the themes already using options framework for their theme configuration.
 
 = Version 2.0 =
-
 * Completely removed plugin settings page and used options framework for admin settings of the plugin.
 * Fixed admin bar issue when user is logged in.
-* Add option to disable swipe.
+* Added option to disable swipe.
 * Added admin option to add search box to menu.
 
 = Version 1.0 =
-
 * Initial public release.
 
 == Upgrade Notice ==
 
 = Version 3.1.8 =
-
 * New update for WP Responsive Menu is available. Please take a backup before the update.

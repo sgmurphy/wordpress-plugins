@@ -2,8 +2,8 @@
 /*
     Plugin Name: Cryout Serious Theme Settings
     Plugin URI: https://www.cryoutcreations.eu/wordpress-plugins/serious-theme-settings
-    Description: This plugin is designed to enable the themes' settings page functionality. It will work with the following themes: Nirvana, Parabola, Tempera or Mantra.
-    Version: 0.5.14
+    Description: This plugin is designed to enable the themes' classic settings page functionality. It works with the following themes: Nirvana, Parabola, Tempera or Mantra.
+    Version: 0.5.15
     Author: Cryout Creations
     Author URI: https://www.cryoutcreations.eu
 	License: GPLv3
@@ -14,7 +14,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 class Cryout_Theme_Settings {
-	public $version = "0.5.14";
+	public $version = "0.5.15";
 	public $settings = array();
 
 	private $status = 0; // 0 = inactive, 1 = active, 2 = good theme, wrong version, 3 = wrong theme, 4 = compatibility for wp4.4, 5 = theme requires update
@@ -57,6 +57,7 @@ class Cryout_Theme_Settings {
 				case 1: // restore theme settings
 
 					include_once( plugin_dir_path( __FILE__ ) . 'inc/' . strtolower($this->current_theme['slug']) . '.php' );
+					add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
 
 				break;
 				case 4: // repair wrong headings
@@ -153,13 +154,13 @@ class Cryout_Theme_Settings {
 	} // supported_theme()
 
 	public function enqueue_script($hook) {
-		if ( strpos( $hook, $this->current_theme['slug'] ) !== false ) {
+		if ( strpos( $hook, $this->current_theme['slug'] . '-page' ) !== false ) {
 			wp_enqueue_script( 'cryout-theme-settings-code', plugins_url( 'code.js', __FILE__ ), NULL, $this->version );
 		}
 	} // enqueue_script()
 
 	public function enqueue_style($hook) {
-		if ( $hook == $this->plugin_page ) {
+		if ( ( strpos( $hook, $this->current_theme['slug'] . '-page' ) !== false ) || ( $hook == $this->plugin_page ) ) {
 			wp_enqueue_style( 'cryout-theme-settings-style', plugins_url( 'style.css', __FILE__ ), NULL, $this->version );
 		}
 	}

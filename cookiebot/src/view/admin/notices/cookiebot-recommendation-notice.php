@@ -3,7 +3,7 @@
 ?>
 <div class="cookiebot-admin-notice-container">
 	<div class="update-nag cookiebot-admin-notice">
-		<div class="cookiebot-notice-logo"></div>
+		<div class="cookiebot-notice-icon cookiebot-notice-review"></div>
 		<p class="cookiebot-notice-title"><?php echo esc_html( $notice['title'] ); ?></p>
 		<p class="cookiebot-notice-body"><?php echo esc_html( $notice['msg'] ); ?></p>
         <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

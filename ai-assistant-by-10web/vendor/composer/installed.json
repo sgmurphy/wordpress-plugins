@@ -1,0 +1,37 @@
+{
+    "packages": [
+        {
+            "name": "10web/authorization",
+            "version": "dev-dev",
+            "version_normalized": "dev-dev",
+            "source": {
+                "type": "git",
+                "url": "ssh://git@gitlab.10web.io:6202/10web-utils/tenweb-authorization.git",
+                "reference": "945dd2017e7669fa8c3c6fb21f63c3c9e9db1e1c"
+            },
+            "time": "2023-05-24T14:35:20+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "Tenweb_Authorization\\": "src/"
+                },
+                "files": [
+                    "src/config/constants.php"
+                ]
+            },
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Serine",
+                    "email": "serine@10web.io"
+                }
+            ],
+            "install-path": "../10web/authorization"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

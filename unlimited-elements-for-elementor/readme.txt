@@ -23,43 +23,43 @@ Browse our extensive collection of free widgets or upgrade to our pro version fo
 <h3>Plugin Features</h3>
 
 
--  <a href="https://unlimited-elements.com/elementor-widgets/"><strong>Widget Library</strong></a> – Enhance the popular Elementor page builder with our user-friendly and innovative widget library. Simplify your website by finding everything you need in one place, without the need for multiple plugins.
+-  <a href="https://unlimited-elements.com/elementor-widgets/"><strong>Widget Library</strong></a> вЂ“ Enhance the popular Elementor page builder with our user-friendly and innovative widget library. Simplify your website by finding everything you need in one place, without the need for multiple plugins.
 
-- <a href="https://unlimited-elements.com/widget-creator/"><strong>Widget Creator</strong></a> – Save valuable time by eliminating the need to search for numerous plugins and add-ons. Instead, create customized, professional widgets that perfectly align with your website requirements.
+- <a href="https://unlimited-elements.com/widget-creator/"><strong>Widget Creator</strong></a> вЂ“ Save valuable time by eliminating the need to search for numerous plugins and add-ons. Instead, create customized, professional widgets that perfectly align with your website requirements.
 
-- <a href="https://unlimited-elements.com/elementor-widgets/"><strong>Elementor Templates</strong></a> – Effortlessly kickstart your web project with pre-designed templates. Say goodbye to endless searches for inspiration or starting from scratch. Get your project up and running in seconds with our collection of template kits.
+- <a href="https://unlimited-elements.com/elementor-widgets/"><strong>Elementor Templates</strong></a> вЂ“ Effortlessly kickstart your web project with pre-designed templates. Say goodbye to endless searches for inspiration or starting from scratch. Get your project up and running in seconds with our collection of template kits.
 
-- <a href="https://unlimited-elements.com/elementor-templates/"><strong>Elementor Templates</strong></a> – Effortlessly kickstart your web project with pre-designed templates. Say goodbye to endless searches for inspiration or starting from scratch. Get your project up and running in seconds with our collection of template kits.
+- <a href="https://unlimited-elements.com/elementor-templates/"><strong>Elementor Templates</strong></a> вЂ“ Effortlessly kickstart your web project with pre-designed templates. Say goodbye to endless searches for inspiration or starting from scratch. Get your project up and running in seconds with our collection of template kits.
 
-- <a href="https://unlimited-elements.com/loop-builder-for-elementor/"><strong>Loop Builder</strong></a> – Easily create dynamic Loop Items within the Elementor Theme Builder by utilizing any loop widget layout of your preference. Effortlessly populate the chosen widget with dynamic content to craft versatile and engaging Loop Items.
+- <a href="https://unlimited-elements.com/loop-builder-for-elementor/"><strong>Loop Builder</strong></a> вЂ“ Easily create dynamic Loop Items within the Elementor Theme Builder by utilizing any loop widget layout of your preference. Effortlessly populate the chosen widget with dynamic content to craft versatile and engaging Loop Items.
 
-- <a href="https://unlimited-elements.com/background-widgets-for-elementor/"><strong>Background Widgets</strong></a> – Elevate your web designs instantly with our user-friendly animated backgrounds available in our extensive widget library. Experience seamless integration and unleash your creativity like never before.
+- <a href="https://unlimited-elements.com/background-widgets-for-elementor/"><strong>Background Widgets</strong></a> вЂ“ Elevate your web designs instantly with our user-friendly animated backgrounds available in our extensive widget library. Experience seamless integration and unleash your creativity like never before.
 
-- <a href="https://unlimited-elements.com/post-widgets-filters-tools/"><strong>Post Widgets & Filters</strong></a> – Easily create stunning post layouts with real-time filters. Improve the browsing experience for website visitors by helping them find the content they're looking for. Effortlessly display posts using advanced criteria on your entire website. 
+- <a href="https://unlimited-elements.com/post-widgets-filters-tools/"><strong>Post Widgets & Filters</strong></a> вЂ“ Easily create stunning post layouts with real-time filters. Improve the browsing experience for website visitors by helping them find the content they're looking for. Effortlessly display posts using advanced criteria on your entire website. 
 
-- <a href="https://unlimited-elements.com/woo/"><strong>WooCommerce Widgets & Filters</strong></a> – Create stunning product layouts with dynamic real-time filters. Showcase your products and categories in a wide array of interactive formats, such as grids, carousels, sliders, and more.
+- <a href="https://unlimited-elements.com/woo/"><strong>WooCommerce Widgets & Filters</strong></a> вЂ“ Create stunning product layouts with dynamic real-time filters. Showcase your products and categories in a wide array of interactive formats, such as grids, carousels, sliders, and more.
 
-- <a href="https://unlimited-elements.com/remote-control-widgets/"><strong>Woo Widgets & Filters</strong></a> – Unleash your creativity with advanced and customizable layouts. Take full control of your designs and make them truly unique using the remote controls. Stand out from the crowd with layouts that are both eye-catching and distinctive.
+- <a href="https://unlimited-elements.com/remote-control-widgets/"><strong>Woo Widgets & Filters</strong></a> вЂ“ Unleash your creativity with advanced and customizable layouts. Take full control of your designs and make them truly unique using the remote controls. Stand out from the crowd with layouts that are both eye-catching and distinctive.
 
-- <a href="https://unlimited-elements.com/sync-widgets/"><strong>Sync Between Widgets</strong></a> – Elevate your web designs to new heights by seamlessly synchronizing multiple item-based widgets. This powerful feature empowers you to effortlessly create intricate and personalized layouts, taking your designs to the next level of sophistication.
+- <a href="https://unlimited-elements.com/sync-widgets/"><strong>Sync Between Widgets</strong></a> вЂ“ Elevate your web designs to new heights by seamlessly synchronizing multiple item-based widgets. This powerful feature empowers you to effortlessly create intricate and personalized layouts, taking your designs to the next level of sophistication.
 
-- <a href="https://unlimited-elements.com/multi-source-galleries/"><strong>Multi-Source Galleries</strong></a> – Empower your gallery showcase by effortlessly featuring Woo products, WordPress posts, Instagram feeds, and a variety of other sources, including various API integrations.
+- <a href="https://unlimited-elements.com/multi-source-galleries/"><strong>Multi-Source Galleries</strong></a> вЂ“ Empower your gallery showcase by effortlessly featuring Woo products, WordPress posts, Instagram feeds, and a variety of other sources, including various API integrations.
 
-- <a href="https://unlimited-elements.com/live-copy-paste/"><strong>Live Copy Paste</strong></a> – Copy and paste fully designed sections from the Unlimited Elements website directly to your website, saving you time and ensuring you can finish your web project as soon as possible.
+- <a href="https://unlimited-elements.com/live-copy-paste/"><strong>Live Copy Paste</strong></a> вЂ“ Copy and paste fully designed sections from the Unlimited Elements website directly to your website, saving you time and ensuring you can finish your web project as soon as possible.
 
-- <a href="https://unlimited-elements.com/mega-menu-widget-for-elementor/"><strong>Mega Menu Builder</strong></a> – Easily craft a distinctive Mega Menu for your website navigation by incorporating images, icons, links, and various Elementor widgets into unique menu layouts. 
+- <a href="https://unlimited-elements.com/mega-menu-widget-for-elementor/"><strong>Mega Menu Builder</strong></a> вЂ“ Easily craft a distinctive Mega Menu for your website navigation by incorporating images, icons, links, and various Elementor widgets into unique menu layouts. 
 
-- <a href="https://unlimited-elements.com/mega-slider-widget-for-elementor/"><strong>Mega Slider Builder</strong></a> – Easily turn any Elementor sections into slider slides. Now you can amaze your website visitors with jaw-dropping slider designs that look amazing on any device.
+- <a href="https://unlimited-elements.com/mega-slider-widget-for-elementor/"><strong>Mega Slider Builder</strong></a> вЂ“ Easily turn any Elementor sections into slider slides. Now you can amaze your website visitors with jaw-dropping slider designs that look amazing on any device.
 
-- <a href="https://unlimited-elements.com/multi-source/"><strong>Multi-Source Widgets</strong></a> – Add content dynamically to item-based widgets effortlessly with support for ACF repeaters, JSON/CSV files, Woo Products, WordPress posts, users, menus, and a range of API integrations.
+- <a href="https://unlimited-elements.com/multi-source/"><strong>Multi-Source Widgets</strong></a> вЂ“ Add content dynamically to item-based widgets effortlessly with support for ACF repeaters, JSON/CSV files, Woo Products, WordPress posts, users, menus, and a range of API integrations.
 
-- <a href="https://unlimited-elements.com/dynamic-post-popup-widget-for-elementor/"><strong>Dynamic Popup Builder</strong></a> – Dynamically create a popup to add a quick view of the post without leaving the page. Use an Elementor single post template to create the layout of the dynamic popup.
+- <a href="https://unlimited-elements.com/dynamic-post-popup-widget-for-elementor/"><strong>Dynamic Popup Builder</strong></a> вЂ“ Dynamically create a popup to add a quick view of the post without leaving the page. Use an Elementor single post template to create the layout of the dynamic popup.
 
-- <a href="https://unlimited-elements.com/form-builder/"><strong>Elementor Form Builder</strong></a> – Build advanced forms effortlessly using the drag-and-drop form builder. Whether it’s a simple or complex form, our straightforward form widgets make it quick and easy to create forms, improving your workflow.
+- <a href="https://unlimited-elements.com/form-builder/"><strong>Elementor Form Builder</strong></a> вЂ“ Build advanced forms effortlessly using the drag-and-drop form builder. Whether itвЂ™s a simple or complex form, our straightforward form widgets make it quick and easy to create forms, improving your workflow.
 
-- <a href="https://unlimited-elements.com/calculators/"><strong>Calculator Builder</strong></a> – Easily design professional calculators for any type of industry. Whether you need a loan calculator, mortgage calculator or business calculator, our powerful and intuitive drag and drop builder makes it easy to create complex calculators with ease.
+- <a href="https://unlimited-elements.com/calculators/"><strong>Calculator Builder</strong></a> вЂ“ Easily design professional calculators for any type of industry. Whether you need a loan calculator, mortgage calculator or business calculator, our powerful and intuitive drag and drop builder makes it easy to create complex calculators with ease.
 
-- <a href="https://unlimited-elements.com/filters/"><strong>Elementor Filter Widgets</strong></a> – Unlock the potential of the AJAX-based faceted filter system, seamlessly empowering you to craft diverse layouts with ease. Take control by applying multiple filters, ensuring a super-fast and dynamic filtering experience tailored to your website needs.
+- <a href="https://unlimited-elements.com/filters/"><strong>Elementor Filter Widgets</strong></a> вЂ“ Unlock the potential of the AJAX-based faceted filter system, seamlessly empowering you to craft diverse layouts with ease. Take control by applying multiple filters, ensuring a super-fast and dynamic filtering experience tailored to your website needs.
 
 
 === Widget Library ===
@@ -131,7 +131,7 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 5. [Image Tooltip Widget for Elementor (Free)](https://unlimited-elements.com/image-tooltip-widget-for-elementor/)  The Image Tooltip widget provides a simple way to add tooltips to images on a webpage, allowing for additional information or call-to-action text. It also supports linking the image to another page.
 
-6. [360° Product Viewer Widget for Elementor (Pro)](https://unlimited-elements.com/360-product-viewer-widget-for-elementor/)  Present your product from all perspectives using the immersive 360° Product Viewer widget for Elementor. This powerful tool allows customers to interact with and examine every intricate detail, giving them a complete understanding of your product.
+6. [360В° Product Viewer Widget for Elementor (Pro)](https://unlimited-elements.com/360-product-viewer-widget-for-elementor/)  Present your product from all perspectives using the immersive 360В° Product Viewer widget for Elementor. This powerful tool allows customers to interact with and examine every intricate detail, giving them a complete understanding of your product.
 
 7. [Currency Converter Widget for Elementor (Pro)](https://unlimited-elements.com/currency-converter-widget-for-elementor/)  Easily convert currencies with our intuitive Currency Converter widget. Stay updated on real-time exchange rates and effortlessly calculate conversions on your website.
 
@@ -326,7 +326,7 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 26. [WhatsApp Chat Widget for Elementor (Pro)](https://unlimited-elements.com/whatsapp-chat-widget-for-elementor)  Implement a floating WhatsApp button enabling your website visitors to initiate a chat directly to your WhatsApp phone number with a single click.
 
-27. [Product Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/product-carousel-widget-for-elementor)  Showcase your products with style using the Product Carousel widget. Elevate your display to captivate your audience with an interactive experience. 
+27. [Product Carousel Widget for Elementor (Pro)](https://unlimited-elements.com/product-carousel-widget-for-elementor)  Showcase your products with style using the Product Carousel widget. Elevate your display to captivate your audience with an interactive experience.В 
 
 
 === Loop Builder for Elementor ===
@@ -369,11 +369,11 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 1. [WordPress Menu Widget for Elementor (Free)](https://unlimited-elements.com/wordpress-menu-widget-for-elementor/)  The WordPress Menu Widget is a helpful tool that allows you to easily create navigation menus for your Elementor websites. It offers advanced styling options and mobile-friendly behavior, enabling you to create multi-level menus quickly.
 
-2. [Fullscreen Menu Widget for Elementor (Free)](https://unlimited-elements.com/fullscreen-menu-widget-for-elementor/)  Create an awesome Elementor Full-Screen Menu​ easily using this widget.  The easiest way to add a hamburger icon that triggers a fullscreen menu overlay with a close button.
+2. [Fullscreen Menu Widget for Elementor (Free)](https://unlimited-elements.com/fullscreen-menu-widget-for-elementor/)  Create an awesome Elementor Full-Screen MenuвЂ‹ easily using this widget.  The easiest way to add a hamburger icon that triggers a fullscreen menu overlay with a close button.
 
 3. [List Menu Widget for Elementor (Free)](https://unlimited-elements.com/simple-list-menu-widget-for-elementor)  The List Menu widget is a responsive and free WordPress menu for Elementor. You can easily use the widget to add an awesome menu to your website and improve website navigation. It is easy to customize and configure.
 
-4. [Mega Menu Widget for Elementor (Pro)](https://unlimited-elements.com/mega-menu-widget-for-elementor/)  Create a unique Mega Menu on your website by adding images, icons, maps, or any other Elementor widget to your menu. Create any sort of Mega Menu layout directly inside of the Elementor page builder. Use sections as menu items and design with no limits. Use the Mega Menu Inner Links widget to create the layouts for your Mega Menu items easily with maximum design flexibility. We made it easy to design your Mega Menu item dropdowns just drag and drop widgets to your section and connect to a menu item using an ID. The Mega Menu widget is simple to use and doesn’t require any technical expertise. With just a few quick clicks, you can modify the widget to fit your needs using our straightforward settings.
+4. [Mega Menu Widget for Elementor (Pro)](https://unlimited-elements.com/mega-menu-widget-for-elementor/)  Create a unique Mega Menu on your website by adding images, icons, maps, or any other Elementor widget to your menu. Create any sort of Mega Menu layout directly inside of the Elementor page builder. Use sections as menu items and design with no limits. Use the Mega Menu Inner Links widget to create the layouts for your Mega Menu items easily with maximum design flexibility. We made it easy to design your Mega Menu item dropdowns just drag and drop widgets to your section and connect to a menu item using an ID. The Mega Menu widget is simple to use and doesnвЂ™t require any technical expertise. With just a few quick clicks, you can modify the widget to fit your needs using our straightforward settings.
 
 5. [Mega Menu Inner Links Widget for Elementor (Pro)](https://unlimited-elements.com/mega-menu-inner-links-widget-for-elementor/)  The ultimate widget for adding Inner Links into your Mega Menu.  Use the Mega Menu Inner Links widget to create the layouts for your Mega Menu items easily with maximum design flexibility. Each link can have an icon or image, title and description.
 
@@ -390,9 +390,9 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 === Content Widgets for Elementor ===
 
-1. [Content Accordion Widget for Elementor (Free)](https://unlimited-elements.com/content-accordion-widget-for-elementor/)  Display your website content in an interactive accordion widget. Load Elementor templates into your accordion items to create advanced accordion layouts. Each accordion-item can be assigned its own template to create a versatile design. Sync together two or more item-based widgets to create advanced creative layouts that will blow your website visitor’s minds. Create the layouts you have always dreamt of without needing a single line of code. Use remote control widgets to let users navigate between different accordion items. The remote controls will make the user experience on your Elementor website more unique and more friendly.
+1. [Content Accordion Widget for Elementor (Free)](https://unlimited-elements.com/content-accordion-widget-for-elementor/)  Display your website content in an interactive accordion widget. Load Elementor templates into your accordion items to create advanced accordion layouts. Each accordion-item can be assigned its own template to create a versatile design. Sync together two or more item-based widgets to create advanced creative layouts that will blow your website visitorвЂ™s minds. Create the layouts you have always dreamt of without needing a single line of code. Use remote control widgets to let users navigate between different accordion items. The remote controls will make the user experience on your Elementor website more unique and more friendly.
 
-2. [Simple Popup Widget for Elementor (Free)](https://unlimited-elements.com/simple-popup-widget-for-elementor/)  Simple Popup Widget for Elementor is designed to help you create stunning popups and increase your website’s engagement. Easily create custom popups on the fly right within the Elementor page builder.
+2. [Simple Popup Widget for Elementor (Free)](https://unlimited-elements.com/simple-popup-widget-for-elementor/)  Simple Popup Widget for Elementor is designed to help you create stunning popups and increase your websiteвЂ™s engagement. Easily create custom popups on the fly right within the Elementor page builder.
 
 3. [Content Tabs Widget for Elementor (Free)](https://unlimited-elements.com/content-tabs-widget-for-elementor/)  The Content Tabs widget allows users to navigate various types of content on your website in an interactive tabs layout. Create a collection of headings in one content area, each connected header in the list can activate a different content area associated with it by click. Use tabs to break your content down into multiple parts that may be collapsed and expanded to make the page more tidy and user-friendly.
 
@@ -783,9 +783,9 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 9. [Diamond Pattern Widget for Elementor (Free)](https://unlimited-elements.com/diamond-pattern-background-for-elementor/) 
 
-10. [Masks & Patterns Background Widget for Elementor (Pro)](https://unlimited-elements.com/mask-and-pattern-background-widget-for-elementor/)  Create a huge variety of new visual effects by combining masks and patterns with background images, videos, gradients, and slideshows. The Mask and Pattern Background widget is simple to use and doesn’t require any technical expertise. You can modify the widget to fit your needs using our straightforward settings. Each of the masks and patterns can be combined with other background elements like gradients, slideshow images, and, video to create countless unique combinations in just a few clicks.
+10. [Masks & Patterns Background Widget for Elementor (Pro)](https://unlimited-elements.com/mask-and-pattern-background-widget-for-elementor/)  Create a huge variety of new visual effects by combining masks and patterns with background images, videos, gradients, and slideshows. The Mask and Pattern Background widget is simple to use and doesnвЂ™t require any technical expertise. You can modify the widget to fit your needs using our straightforward settings. Each of the masks and patterns can be combined with other background elements like gradients, slideshow images, and, video to create countless unique combinations in just a few clicks.
 
-11. [Stars Background Widget for Elementor (Pro)](https://unlimited-elements.com/star-particles-background-for-elementor/)  Add stunning Stars background effects to your Elementor pages in a matter of seconds, allowing you to make your section’s background pop in just a few clicks. The Stars Background widget is customizable with many options to create amazing interactive backgrounds that suits your Elementor page design the best. Customize the star movement, speed and direction.
+11. [Stars Background Widget for Elementor (Pro)](https://unlimited-elements.com/star-particles-background-for-elementor/)  Add stunning Stars background effects to your Elementor pages in a matter of seconds, allowing you to make your sectionвЂ™s background pop in just a few clicks. The Stars Background widget is customizable with many options to create amazing interactive backgrounds that suits your Elementor page design the best. Customize the star movement, speed and direction.
 
 12. [Animated Squares Widget for Elementor (Pro)](https://unlimited-elements.com/elementor-animated-squares-background/) 
 
@@ -799,7 +799,7 @@ Find everything you need in one convenient package and supercharge your <strong>
 
 17. [Smoke Background Effect Widget for Elementor (Pro)](https://unlimited-elements.com/smoke-background-effect-widget-for-elementor/)  The smoke Background Effect Widget for Elementor is a smoke animation effect that helps you bring life to your website. It provides an eye-catching liquid animation effect that draws attention and adds a unique touch to your site. WebGL-Fluid-Simulation.
 
-18. [Snow Background Widget for Elementor (Pro)](https://unlimited-elements.com/snow-background-widget-for-elementor/)  Add stunning Snow background effects to your Elementor pages in a matter of seconds, allowing you to make your section’s background pop in a few clicks. The Snow Background widget is customizable with many options to create a amazing snow background that suits your Elementor page the best. Create an amazing interactive Snow Background effect on your Elementor website.
+18. [Snow Background Widget for Elementor (Pro)](https://unlimited-elements.com/snow-background-widget-for-elementor/)  Add stunning Snow background effects to your Elementor pages in a matter of seconds, allowing you to make your sectionвЂ™s background pop in a few clicks. The Snow Background widget is customizable with many options to create a amazing snow background that suits your Elementor page the best. Create an amazing interactive Snow Background effect on your Elementor website.
 
 19. [Fireworks Background Widget for Elementor (Pro)](https://unlimited-elements.com/fireworks-background-widget-for-elementor/)  The Fireworks background widget will help you create stunning sections with awesome styles on your Elementor website. Use the advanced customization options to edit the widget: Firework Color Range, Firework Emitter Range, Delay Between Fireworks, Firework Explosion Size, Trace Length, Firework Speed, Firework Sound,  and the Brightness Range.
 
@@ -866,6 +866,40 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 
 == Changelog ==
+
+
+version 1.5.109: 2024-05-29
+
+Plugin Changes:
+
+* Feature: added option to get page views of some post using WPP plugin
+* Feature: added option for "show db tables" in troubleshooting
+* Fix: fixed form editor form validation, excluded placeholders
+* Fix: fixed get filters based on wpml language with post count
+* Fix: Fixed some remote connection code items click code
+* Fix: Fixed clear all filters button not working bug
+* Fix: fixed multisource acf repeater checkboxes type get
+
+Widgets Changes: 
+ 
+* Feature: Email Field (Pro) - Added validation function for the email field to ensure correct email format and improve data accuracy.
+* Feature: Number Field (Pro) - ​Introduced the "Disable Calculation in Editor" debug option to prevent the page from crashing or becoming unresponsive when multiple fields are set to calculation mode, enhancing stability during editing.​
+* Feature: AJAX Search (Pro) - Added Show Post Image option to enable or disable the display of images in posts, providing more control over post appearance
+* Feature: Submit Button (Free) - Added validation function for the email field to ensure correct email format and improve data accuracy.
+* Feature: Team Member Card (Free) - Added Icon Size Inner option to adjust the height of the icon itself, providing more precise control over icon dimensions.
+* Feature: Slider Field (Pro) - Added Accent Color option to highlight changing value of Slider Field widget.
+* Feature: Unlimited Carousel (Pro) - Added option to open images in Lightbox, enhancing the viewing experience with a full-screen display of images.
+* Change: Expanding Content Cards (Pro) - Added title as CSS ID for Widgets Items to allow using them as anchors.
+* Fix: Mega Menu (Pro) - Fixed issue where the Clickable Link option was disabled but the link was still added, ensuring links are only added when the option is enabled
+* Fix: Icon Accordion (Pro) - Fixed issue where Override Color Options were not working, ensuring color customizations are applied correctly.
+* Fix: Fullscreen Menu (Free) - Fixed issue where menu wasn't opening, ensuring proper functionality and user access.
+* Fix: Expanding Content Cards (Pro) - Resolved issue where CSS filters were not working in Safari browser, ensuring consistent styling across all browsers.
+* Fix: Block Quote Card (Free) - Fixed issue where reserved space was still taken up even when no icon was selected, ensuring proper layout and space utilization.
+* Fix: Unfold Content (Pro) - Added support for carousel widgets, enabling enhanced content display through interactive sliding elements.
+* Fix: Instagram Feed (Pro) - Added 'aria-label' attribute to links to fix the 'Links do not have a discernible name' error, improving accessibility and compliance with web standards.
+* Fix: Woo Mini Cart (Pro) - Fixed issue where URL was changed after page load, ensuring stable and consistent URLs for better navigation and user experience.
+* Fix: Age Verification (Pro) - Fixed issue where popup still opened even after cookie was set, ensuring popups respect cookie settings for user preferences.
+ 
 
 version 1.5.108: 2024-05-21
 
@@ -1240,7 +1274,7 @@ Widgets Updates:
 * Feature: Swipe Carousel (Pro) - Introduced additional styling options. This new set of functionalities allows users to further customize and refine the visual appearance of the widget, providing enhanced styling possibilities.
 * Feature: Mega Menu (Pro) - Implemented 'Close Transition Speed' option. This new functionality enables users to set the speed of close animations for the dropdown, enhancing visual transitions and customization.
 * Feature: Unlimited Carousel (Pro) - Added 'Image Position' option, allowing users to customize the position of the image above or below the content for enhanced layout flexibility.
-* Feature: Layers (Pro) - Implemented motion effects—now elements can bounce up and down and move left to right for a livelier interface.
+* Feature: Layers (Pro) - Implemented motion effectsвЂ”now elements can bounce up and down and move left to right for a livelier interface.
 * Feature: Unlimited Google Maps (Pro) - Implemented 'Center Info Window' option. This new functionality allows users to center the info window on the map, providing enhanced visibility and focus on the selected location.
 * Feature: Unlimited Google Maps (Pro) - Implemented 'Close After Outside Info Window Click' option. This new functionality allows users to close the info window after clicking outside of it on the map, enhancing user interaction and control.
 * Feature: Layers (Pro) - Implemented responsive settings for individual layers, allowing users to toggle each layer on or off based on the specific device requirements.
@@ -3261,7 +3295,7 @@ Absolutely! The plugin will work with any theme where Elementor works.
 
 = What if I update to the Premium version after using the Free version? =
 
-Your existing elements/content will work with the premium version. So you wonâ€™t lose your any of your hard work.
+Your existing elements/content will work with the premium version. So you wonГўв‚¬в„ўt lose your any of your hard work.
 
 = Can I get a refund? =
 

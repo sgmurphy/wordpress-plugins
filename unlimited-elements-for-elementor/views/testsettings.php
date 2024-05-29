@@ -32,15 +32,6 @@ function ueCheckCatalog(){
 
 function checkSomeFunc(){
 	
-$operations = new ProviderOperationsUC();
-
-$data = array();
-$data["post_ids"] = array("0=0)UNION+SELECT+NULL,NULL,SLEEP(10)+--+");
-
-
-$arrData = $operations->getSelect2PostTitles($data);
-	
-dmp($arrData);
 	
 }
 

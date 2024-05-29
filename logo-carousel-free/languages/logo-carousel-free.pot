@@ -1,0 +1,2478 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Logo Carousel v3.5.0\n"
+"POT-Creation-Date: 2024-01-18 11:46+0600\n"
+"PO-Revision-Date: 2024-01-18 11:46+0600\n"
+"Last-Translator: \n"
+"Language-Team: ShapedPlugin <support@shapedplugin.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_x;_n;_nx;_n_noop;esc_html__;esc_html_e;"
+"esc_html_x;esc_attr__;esc_attr_e;esc_attr_x;number_format_i18n;date_i18n\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/ElementBlock/Logo_Carousel_Free_Element_Shortcode_Widget.php:40
+msgid "Logo Carousel Free"
+msgstr ""
+
+#: admin/ElementBlock/Logo_Carousel_Free_Element_Shortcode_Widget.php:99
+#: admin/ElementBlock_Deprecated/Logo_Carousel_Free_Element_Shortcode_Widget_Deprecated.php:99
+msgid "Content"
+msgstr ""
+
+#: admin/ElementBlock/Logo_Carousel_Free_Element_Shortcode_Widget.php:107
+#: admin/ElementBlock_Deprecated/Logo_Carousel_Free_Element_Shortcode_Widget_Deprecated.php:107
+msgid "Logo Carousel Free Shortcode(s)"
+msgstr ""
+
+#: admin/ElementBlock_Deprecated/Logo_Carousel_Free_Element_Shortcode_Widget_Deprecated.php:40
+msgid "Logo Carousel Free Deprecated"
+msgstr ""
+
+#: admin/GutenbergBlock/src/index.js:18 admin/GutenbergBlock/src/index.js:79
+#: admin/GutenbergBlock/src/index.js:111 class/logo.php:86
+#: includes/free/loader.php:107 includes/free/loader.php:122
+msgid "Logo Carousel"
+msgstr ""
+
+#: admin/GutenbergBlock/src/index.js:19
+msgid "Use Logo Carousel Pro to insert a carousel (shortcode) in your page."
+msgstr ""
+
+#: admin/GutenbergBlock/src/index.js:82
+msgid "No logo carousel found. "
+msgstr ""
+
+#: admin/GutenbergBlock/src/index.js:84
+msgid "Create a carousel (shortcode) now!"
+msgstr ""
+
+#: admin/GutenbergBlock/src/index.js:113
+msgid "Select a carousel (shortcode)"
+msgstr ""
+
+#: admin/GutenbergBlock/src/shortcode/dynamicShortcode.js:13
+msgid "-- Select a carousel (shortcode) --"
+msgstr ""
+
+#: admin/views/notices/review.php:127
+#: admin/views/sp-framework/functions/actions.php:25
+#: admin/views/sp-framework/functions/actions.php:74
+#: admin/views/sp-framework/functions/actions.php:98
+msgid "Error: Invalid nonce verification."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:331
+msgid "Error while saving the changes."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:407
+msgid "Settings successfully imported."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:419
+#: admin/views/sp-framework/classes/admin-options.class.php:434
+msgid "Default settings restored."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:495
+msgid "Settings saved."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:698
+msgid "show all settings"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:700
+msgid "Search..."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:703
+msgid "Save Settings"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:703
+#: admin/views/sp-framework/classes/admin-options.class.php:822
+msgid "Saving..."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:704
+msgid "Reset Tab"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:704
+msgid "Are you sure to reset all the settings of this tab?"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:705
+#: admin/views/sp-framework/classes/admin-options.class.php:824
+msgid "Reset All"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:705
+#: admin/views/sp-framework/classes/admin-options.class.php:824
+#: admin/views/sp-framework/classes/metabox-options.class.php:462
+msgid "Reset"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:705
+#: admin/views/sp-framework/classes/admin-options.class.php:824
+msgid "Are you sure you want to reset all settings to default values?"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:800
+#: admin/views/sp-framework/classes/metabox-options.class.php:446
+#: admin/views/sp-framework/fields/button_set/button_set.php:85
+#: admin/views/sp-framework/fields/checkbox/checkbox.php:101
+#: admin/views/sp-framework/fields/radio/radio.php:105
+#: admin/views/sp-framework/fields/select/select.php:143
+#: admin/views/sp-framework/functions/actions.php:48
+msgid "No data available."
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:822
+msgid "Save"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:823
+msgid "Reset Section"
+msgstr ""
+
+#: admin/views/sp-framework/classes/admin-options.class.php:823
+msgid "Are you sure to reset this section options?"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:352 main.php:374
+msgid "Shortcode"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:353
+msgid "Copy and paste this shortcode into your posts or pages:"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:355
+#: admin/views/sp-framework/classes/metabox-options.class.php:370
+msgid "Shortcode  Copied to Clipboard! "
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:361
+msgid "Page Builders"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:362
+msgid ""
+"Logo Carousel has seamless integration with Gutenberg, Classic Editor, "
+"Elementor, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc."
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:367
+msgid "Template Include"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:368
+msgid "Paste the PHP code into your template file:"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:463
+msgid "update post"
+msgstr ""
+
+#: admin/views/sp-framework/classes/metabox-options.class.php:463
+msgid "Cancel"
+msgstr ""
+
+#: admin/views/sp-framework/classes/setup.class.php:477
+msgid "Are you sure?"
+msgstr ""
+
+#: admin/views/sp-framework/classes/setup.class.php:478
+msgid "Please enter or more characters"
+msgstr ""
+
+#: admin/views/sp-framework/classes/setup.class.php:479
+msgid "Searching..."
+msgstr ""
+
+#: admin/views/sp-framework/classes/setup.class.php:480
+msgid "No results found."
+msgstr ""
+
+#: admin/views/sp-framework/classes/setup.class.php:602
+msgid "Oops! Not allowed."
+msgstr ""
+
+#: admin/views/sp-framework/classes/setup.class.php:671
+#: admin/views/sp-framework/classes/setup.class.php:674
+msgid "Field not found!"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:21
+msgid "Shortcode Options"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:34
+msgid "General Settings"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:41
+msgid "Layout Preset"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:42
+msgid "Select your layout to display the logos."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:43
+msgid ""
+"Want to unleash your creativity with <strong class=\"lcp-pro-text\">10+ "
+"exclusive <a href=\"https://logocarousel.com/carousel/\" "
+"target=\"_blank\">layouts</a></strong> and design freedom? <b><a "
+"href=\"https://logocarousel.com/pricing/?ref=1\" target=\"_blank\"> Get Pro "
+"Now!</a></b>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:47
+msgid "Carousel"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:51
+msgid "Grid"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:56
+msgid "Masonry"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:61
+msgid "Isotope"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:66
+msgid "List"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:71
+msgid "Inline"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:80
+msgid "Carousel Mode"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:81
+msgid "Select a carousel mode."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:85
+msgid "Standard"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:89
+msgid "Ticker"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:94
+#: admin/views/sp-framework/fields/typography/typography.php:222
+msgid "Center"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:100
+msgid ""
+"<div class=\"splogocarousel-info-label\">Carousel Mode</div> <div "
+"class=\"splogocarousel-short-content\">This feature allows you to select the "
+"most suitable carousel mode between Standard, Ticker (continuous scrolling), "
+"or Center.</div><div class=\"info-button\"><a class=\"splogocarousel-open-"
+"live-demo\" href=\"https://logocarousel.com/carousel-modes/\" "
+"target=\"_blank\">Live Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:105
+msgid "Space"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:106
+msgid "Set a margin or space between the logos."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:108
+#: admin/views/sp-framework/config/metabox.config.php:536
+#: admin/views/sp-framework/config/metabox.config.php:851
+#: admin/views/sp-framework/config/metabox.config.php:864
+msgid "px"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:119
+msgid "Space Between Logos"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:124
+msgid "Logo Column(s)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:125
+msgid "Set number of column(s) in different devices for responsive view."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:140
+msgid "Filter Logos"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:141
+msgid "Select an option to display by filtering logos."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:143
+msgid "All"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:145
+msgid "Category (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:149
+msgid "Specific (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:153
+msgid ""
+"<div class=\"splogocarousel-info-label\">Filter Logos</div> <div "
+"class=\"splogocarousel-short-content\">This option allows you to choose how "
+"many logos are displayed by applying filters. You can choose to show all "
+"logos, filter by categories, or select specific logos.</div><div "
+"class=\"info-button\"><a class=\"splogocarousel-open-docs\" href=\"https://"
+"docs.shapedplugin.com/docs/logo-carousel-pro/configurations/how-to-filter-"
+"logos/\" target=\"_blank\">Open Docs</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:160
+#: admin/views/sp-framework/config/metabox.config.php:414
+msgid "Limit"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:161
+msgid "Number of total logos to show."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:162
+msgid "Leave it empty to show all logos."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:176
+msgid "Click Action Type"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:177
+msgid "Set logo detail link type."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:179
+#: admin/views/sp-framework/config/metabox.config.php:874
+msgid "Link"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:180
+msgid "Popup"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:181
+#: admin/views/sp-framework/config/metabox.config.php:211
+#: admin/views/sp-framework/config/metabox.config.php:250
+#: admin/views/sp-framework/config/metabox.config.php:261
+#: admin/views/sp-framework/config/metabox.config.php:271
+#: admin/views/sp-framework/config/metabox.config.php:313
+#: admin/views/sp-framework/config/metabox.config.php:674
+#: admin/views/sp-framework/config/metabox.config.php:996
+#: admin/views/sp-framework/config/metabox.config.php:1011
+#: admin/views/sp-framework/config/metabox.config.php:1072
+#: admin/views/sp-framework/config/metabox.config.php:1129
+#: admin/views/sp-framework/config/metabox.config.php:1186
+#: admin/views/sp-framework/config/metabox.config.php:1231
+#: admin/views/sp-framework/config/metabox.config.php:1247
+#: admin/views/sp-framework/config/metabox.config.php:1279
+#: admin/views/sp-framework/config/metabox.config.php:1520
+#: admin/views/sp-framework/config/metabox.config.php:1531
+#: admin/views/sp-framework/config/metabox.config.php:1543
+#: admin/views/sp-framework/config/metabox.config.php:1553
+#: admin/views/sp-framework/config/metabox.config.php:1564
+#: admin/views/sp-framework/config/metabox.config.php:1575
+msgid "Disabled"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:184
+msgid ""
+"<div class=\"splogocarousel-info-label\">Click Action Type</div> <div "
+"class=\"splogocarousel-short-content\">This feature allows you to choose "
+"between directing to a link, opening a popup, or disabling the link entirely."
+"</div><div class=\"info-button\"><a class=\"splogocarousel-open-docs\" "
+"href=\"https://docs.shapedplugin.com/docs/logo-carousel-pro/configurations/"
+"how-to-select-click-action-type/\" target=\"_blank\">Open Docs</a><a "
+"class=\"splogocarousel-open-live-demo\" href=\"https://logocarousel.com/"
+"popup-with-logo-details/\" target=\"_blank\">Live Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:190
+msgid "Open a New Tab"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:197
+msgid "Multiple Popup with Nav"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:208
+msgid "Random Order"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:209
+msgid "Enable/Disable logo random order."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:210
+#: admin/views/sp-framework/config/metabox.config.php:249
+#: admin/views/sp-framework/config/metabox.config.php:260
+#: admin/views/sp-framework/config/metabox.config.php:270
+#: admin/views/sp-framework/config/metabox.config.php:312
+#: admin/views/sp-framework/config/metabox.config.php:673
+#: admin/views/sp-framework/config/metabox.config.php:995
+#: admin/views/sp-framework/config/metabox.config.php:1010
+#: admin/views/sp-framework/config/metabox.config.php:1071
+#: admin/views/sp-framework/config/metabox.config.php:1128
+#: admin/views/sp-framework/config/metabox.config.php:1185
+#: admin/views/sp-framework/config/metabox.config.php:1230
+#: admin/views/sp-framework/config/metabox.config.php:1246
+#: admin/views/sp-framework/config/metabox.config.php:1278
+#: admin/views/sp-framework/config/metabox.config.php:1519
+#: admin/views/sp-framework/config/metabox.config.php:1530
+#: admin/views/sp-framework/config/metabox.config.php:1542
+#: admin/views/sp-framework/config/metabox.config.php:1552
+#: admin/views/sp-framework/config/metabox.config.php:1563
+#: admin/views/sp-framework/config/metabox.config.php:1574
+msgid "Enabled"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:214
+msgid ""
+"<div class=\"splogocarousel-info-label\">Random Order</div> <div "
+"class=\"splogocarousel-short-content\">If you enable this option, logos will "
+"be displayed randomly without following a particular order or sequence.</div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:221
+msgid "Order By"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:222
+msgid "Select an order by option."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:224
+#: includes/functions.php:20
+msgid "Title"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:225
+#: includes/functions.php:22 main.php:376
+msgid "Date"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:226
+msgid "Drag & Drop (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:233
+msgid "Order"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:234
+msgid "Select an order option."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:236
+msgid "Ascending"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:237
+msgid "Descending"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:245
+msgid "Scheduling"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:246
+msgid "Enable to schedule the display of logos at specific time intervals."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:247
+msgid "Set a time according to your website time zone."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:252
+msgid ""
+"<div class=\"splogocarousel-info-label\">Scheduling</div> <div "
+"class=\"splogocarousel-short-content\">This option allows you to schedule "
+"the display of logos at specific time intervals easily.</div><div "
+"class=\"info-button\"><a class=\"splogocarousel-open-live-demo\" "
+"href=\"https://logocarousel.com/scheduling/\" target=\"_blank\">Live Demo</"
+"a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:257
+msgid "Preloader"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:258
+msgid "Carousel will be hidden until page load completed."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:268
+msgid "Ajax Logo Live Filters"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:269
+msgid ""
+"Enable Ajax live filter to navigate through the logo categories and A-Z "
+"alphabetical filters."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:274
+msgid ""
+"<div class=\"splogocarousel-info-label\">Ajax Logo Live Filters</div> <div "
+"class=\"splogocarousel-short-content\">Make your visitor's logo search "
+"easier by enabling the Ajax live filter. This powerful feature allows "
+"effortless navigation through logo categories, while the A-Z alphabetical "
+"filters ensure that they can easily find exactly what they're looking for.</"
+"div><div class=\"info-button\"><a class=\"splogocarousel-open-docs\" "
+"href=\"https://docs.shapedplugin.com/docs/logo-carousel-pro/configurations/"
+"how-to-enable-ajax-logo-live-filters/\" target=\"_blank\">Open Docs</a><a "
+"class=\"splogocarousel-open-live-demo\" href=\"https://logocarousel.com/ajax-"
+"logo-live-filters/\" target=\"_blank\">Live Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:285
+msgid "Display Settings"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:293
+msgid "Basic Styles"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:299
+msgid "Section Title"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:300
+msgid "Display logo section title."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:302
+#: admin/views/sp-framework/config/metabox.config.php:390
+#: admin/views/sp-framework/config/metabox.config.php:401
+#: admin/views/sp-framework/config/metabox.config.php:440
+#: admin/views/sp-framework/config/metabox.config.php:497
+#: admin/views/sp-framework/config/metabox.config.php:787
+#: admin/views/sp-framework/config/metabox.config.php:942
+#: admin/views/sp-framework/config/metabox.config.php:1332
+#: admin/views/sp-framework/config/metabox.config.php:1433
+msgid "Show"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:303
+#: admin/views/sp-framework/config/metabox.config.php:391
+#: admin/views/sp-framework/config/metabox.config.php:402
+#: admin/views/sp-framework/config/metabox.config.php:441
+#: admin/views/sp-framework/config/metabox.config.php:498
+#: admin/views/sp-framework/config/metabox.config.php:788
+#: admin/views/sp-framework/config/metabox.config.php:943
+#: admin/views/sp-framework/config/metabox.config.php:1333
+#: admin/views/sp-framework/config/metabox.config.php:1434
+msgid "Hide"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:310
+msgid "Ajax Logo Search"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:311
+msgid "Enable/Disable ajax search for logo."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:316
+msgid ""
+"<div class=\"splogocarousel-info-label\">Ajax Logo Search</div> <div "
+"class=\"splogocarousel-short-content\">With this feature, your website's "
+"visitors can easily search for the exact logo they are looking for. It "
+"provides a convenient way for them to find what they need quickly.</div><div "
+"class=\"info-button\"><a class=\"splogocarousel-open-live-demo\" "
+"href=\"https://logocarousel.com/ajax-logo-search/\" target=\"_blank\">Live "
+"Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:322
+msgid "Logo Position"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:323
+msgid "Choose your logo position to display the logos."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:327
+#: admin/views/sp-framework/fields/typography/typography.php:166
+#: admin/views/sp-framework/fields/typography/typography.php:192
+#: admin/views/sp-framework/fields/typography/typography.php:208
+#: admin/views/sp-framework/fields/typography/typography.php:228
+#: admin/views/sp-framework/fields/typography/typography.php:246
+#: admin/views/sp-framework/fields/typography/typography.php:265
+#: admin/views/sp-framework/fields/typography/typography.php:288
+msgid "Default"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:331
+#: admin/views/sp-framework/config/metabox.config.php:377
+#: admin/views/sp-framework/config/metabox.config.php:511
+msgid "Top"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:336
+#: admin/views/sp-framework/config/metabox.config.php:372
+#: admin/views/sp-framework/config/metabox.config.php:515
+msgid "Bottom"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:341
+#: admin/views/sp-framework/config/metabox.config.php:519
+#: admin/views/sp-framework/fields/typography/typography.php:221
+msgid "Left"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:346
+#: admin/views/sp-framework/config/metabox.config.php:523
+#: admin/views/sp-framework/fields/typography/typography.php:223
+msgid "Right"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:351
+msgid "Overlay"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:355
+msgid ""
+"<div class=\"splogocarousel-info-label\">Logo Position</div> <div "
+"class=\"splogocarousel-short-content\">This feature allows you to select the "
+"placement of logos.</div><div class=\"info-button\"><a "
+"class=\"splogocarousel-open-live-demo\" href=\"https://logocarousel.com/5-"
+"logo-caption-positions/\" target=\"_blank\">Live Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:356
+msgid ""
+"To create a <strong class=\"lcp-pro-text\">professional-looking logo "
+"showcase</strong> with flexible <a href=\"https://logocarousel.com/5-logo-"
+"caption-positions/\" target=\"_blank\">content positions</a> and boost "
+"engagement, <a href=\"https://logocarousel.com/pricing/?ref=1\" "
+"target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:363
+msgid "Vertical Alignment"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:364
+msgid "Select vertical alignment type."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:368
+msgid "Middle"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:387
+msgid "Logo Title"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:388
+msgid "Show/Hide logo title."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:398
+msgid "Description"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:399
+msgid "Show/Hide the logo description."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:409
+msgid "Content Display Type"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:410
+msgid "Choose the description display type."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:413
+msgid "Full"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:426
+msgid "Words Limit"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:427
+msgid "Set description words limit."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:437
+msgid "Read More Button"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:438
+msgid "Show/Hide description read more button."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:482
+msgid "Tooltips"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:488
+msgid ""
+"Want to enhance your users' experience with <strong class=\"lcp-pro-"
+"text\">eye-catching <a href=\"https://logocarousel.com/active-tooltips/\" "
+"target=\"_blank\">logo tooltips</a>?</strong> <a href=\"https://logocarousel."
+"com/pricing/?ref=1\" target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:494
+msgid "Tooltip"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:495
+msgid "Show/Hide logo tooltip on hover."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:500
+msgid ""
+"<div class=\"splogocarousel-info-label\">Tooltip</div> <div "
+"class=\"splogocarousel-short-content\">This feature enables your website "
+"visitors to receive information about logos by simply hovering over them.</"
+"div><div class=\"info-button\"><a class=\"splogocarousel-open-live-demo\" "
+"href=\"https://logocarousel.com/active-tooltips/\" target=\"_blank\">Live "
+"Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:506
+#: admin/views/sp-framework/config/metabox.config.php:1353
+msgid "Position"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:507
+msgid "Select the tooltip position."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:533
+msgid "Tooltip Width"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:534
+msgid "Maximum width of the tooltip."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:539
+msgid "Tooltip Max Width"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:545
+msgid "Tooltip Effect"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:546
+msgid "Choose an effect for the tooltip."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:548
+msgid "Grow"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:549
+msgid "Fade"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:550
+msgid "Swing"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:551
+msgid "Slide"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:552
+msgid "Fall"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:553
+#: admin/views/sp-framework/config/metabox.config.php:592
+#: admin/views/sp-framework/config/metabox.config.php:649
+#: admin/views/sp-framework/config/metabox.config.php:1021
+#: admin/views/sp-framework/fields/border/border.php:94
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:98
+#: admin/views/sp-framework/fields/typography/typography.php:259
+#: admin/views/sp-framework/fields/typography/typography.php:278
+msgid "None"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:562
+msgid "Tooltip Color"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:563
+msgid "Set tooltip color."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:565
+#: admin/views/sp-framework/config/metabox.config.php:750
+#: admin/views/sp-framework/config/metabox.config.php:754
+#: admin/views/sp-framework/config/metabox.config.php:830
+#: admin/views/sp-framework/config/metabox.config.php:833
+#: admin/views/sp-framework/config/metabox.config.php:1376
+#: admin/views/sp-framework/config/metabox.config.php:1379
+#: admin/views/sp-framework/config/metabox.config.php:1486
+#: admin/views/sp-framework/config/metabox.config.php:1489
+msgid "Color"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:566
+#: admin/views/sp-framework/config/metabox.config.php:756
+#: admin/views/sp-framework/config/metabox.config.php:835
+#: admin/views/sp-framework/config/metabox.config.php:1381
+msgid "Background"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:577
+msgid "BG, Border & Shadow"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:583
+msgid ""
+"Want to make your logo showcase <strong class=\"lcp-pro-text\"><a "
+"href=\"https://logocarousel.com/box-highlight-style/\" "
+"target=\"_blank\">visually impressive</a>?</strong> <a href=\"https://"
+"logocarousel.com/pricing/?ref=1\" target=\"_blank\"><b>Upgrade To Pro!</b></"
+"a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:589
+msgid "Logo Background Type"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:590
+msgid "Choose a logo background type."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:593
+#: admin/views/sp-framework/fields/border/border.php:86
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:90
+#: admin/views/sp-framework/fields/typography/typography.php:279
+msgid "Solid"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:594
+msgid "Gradient"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:601
+msgid "Logo Border"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:602
+msgid "Set border for logo image."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:615
+#: admin/views/sp-framework/config/metabox.config.php:849
+msgid "Border Radius"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:616
+msgid "Set logo border radius."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:634
+msgid "BoxShadow"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:635
+msgid "Set boxshadow for the logo."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:639
+#: admin/views/sp-framework/fields/border/border.php:90
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:94
+msgid "Inset"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:644
+#: admin/views/sp-framework/fields/border/border.php:91
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:95
+msgid "Outset"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:653
+msgid ""
+"<div class=\"splogocarousel-info-label\">BoxShadow</div> <div "
+"class=\"splogocarousel-short-content\">The BoxShadow option allows you to "
+"apply a box shadow effect to logos, providing a way to enhance their "
+"aesthetics with shadow effects.</div><div class=\"info-button\"><a "
+"class=\"splogocarousel-open-live-demo\" href=\"https://logocarousel.com/box-"
+"highlight-style/\" target=\"_blank\">Live Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:658
+msgid "Ajax Pagination"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:664
+msgid ""
+"Do you want to enhance your <strong><a href=\"https://logocarousel.com/"
+"multiple-ajax-paginations/\" target=\"_blank\">logo pagination</a></strong> "
+"experience with <strong class=\"lcp-pro-text\">10+ advanced</strong> "
+"settings? <a href=\"https://logocarousel.com/pricing/?ref=1\" "
+"target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:670
+#: admin/views/sp-framework/config/metabox.config.php:1419
+#: admin/views/sp-framework/config/metabox.config.php:1430
+msgid "Pagination"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:671
+msgid "Enable/Disable pagination."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:681
+msgid "Pagination Type"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:682
+msgid "Choose a pagination type."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:684
+msgid "Ajax Number Pagination"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:685
+msgid "Load More Button (Ajax)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:686
+msgid "Infinite Scroll (Ajax)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:687
+msgid "No Ajax (Normal Pagination)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:690
+msgid ""
+"<div class=\"splogocarousel-info-label\">Pagination Type</div> <div "
+"class=\"splogocarousel-short-content\">This option lets you choose the best "
+"pagination style for your website visitors.</div><div class=\"info-"
+"button\"><a class=\"splogocarousel-open-live-demo\" href=\"https://"
+"logocarousel.com/multiple-ajax-paginations/\" target=\"_blank\">Live Demo</"
+"a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:695
+msgid "Logo(s) To Show Per Page/Click"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:697
+msgid "Set number of logo(s) to show per page or click."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:705
+msgid "Logo(s) To Show Per Click"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:707
+msgid "Set number of logo(s) to show per click."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:715
+msgid "Load More Button Label"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:716
+msgid "Change load more button label text."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:723
+msgid "Alignment"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:724
+msgid "Choose pagination alignment."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:737
+msgid "Margin"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:738
+msgid "Set pagination margin."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:752
+msgid "Set pagination color."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:755
+#: admin/views/sp-framework/config/metabox.config.php:1380
+msgid "Hover Color"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:757
+msgid "Hover BG"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:758
+#: admin/views/sp-framework/config/metabox.config.php:814
+#: admin/views/sp-framework/config/metabox.config.php:1399
+msgid "Border"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:759
+msgid "Hover Border"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:773
+msgid "CTA Button"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:779
+msgid ""
+"Want to get a customized <strong class=\"lcp-pro-text\"><a href=\"https://"
+"logocarousel.com/cta-button/\" target=\"_blank\">CTA button</a></strong> "
+"below your logo showcase to boost engagement? <a href=\"https://logocarousel."
+"com/pricing/?ref=1\" target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:784
+msgid "Contact Us Button"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:786
+msgid "Show/Hide call to action button below logo showcase."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:791
+msgid ""
+"<div class=\"splogocarousel-info-label\">Contact Us Button</div> <div "
+"class=\"splogocarousel-short-content\">This feature allows you to display a "
+"\"Contact Us\" call-to-action button below the logo showcase so that "
+"interested individuals to easily can reach out to the website owner.</"
+"div><div class=\"info-button\"><a class=\"splogocarousel-open-live-demo\" "
+"href=\"https://logocarousel.com/cta-button/\" target=\"_blank\">Live Demo</"
+"a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:796
+msgid "Button Style"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:798
+msgid "Choose a call to action button style."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:802
+msgid "Filled"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:806
+msgid "Outline"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:816
+msgid "Set a call to action button border."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:831
+msgid "Set a call to action button color."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:834
+msgid "Hover"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:836
+msgid "BG Hover"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:850
+msgid "Set a border radius for the button shape."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:861
+#: admin/views/sp-framework/fields/typography/typography.php:301
+msgid "Font Size"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:862
+msgid "Set font size for the call to action button."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:870
+msgid "Link Type"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:872
+msgid "Choose a link type."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:875
+#: admin/views/sp-framework/config/metabox.config.php:893
+msgid "Email"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:876
+msgid "Phone"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:883
+msgid "Link URL"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:885
+msgid "Type custom URL for the call to action button."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:887
+#: admin/views/sp-framework/config/metabox.config.php:897
+msgid "Open a New Tab "
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:895
+msgid "Type custom email for the call to action button."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:904
+msgid "Phone Number"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:906
+msgid "Type your phone number for the call to action button."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:908
+msgid "Open a Popup "
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:916
+msgid "Text Label"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:917
+msgid "Change call to action button text."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:933
+msgid "Logo Image Settings"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:939 class/logo.php:99
+#: includes/functions.php:56
+msgid "Logo Image"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:940
+msgid "Show/Hide logo image."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:950
+msgid "Logo Image Dimensions"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:952
+msgid "Set a size for logo image."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:958
+msgid "Custom Logo Size"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:959
+msgid "Set width and height of the logo image."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:988
+msgid "Load 2x Resolution Image in Retina Display"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:990
+msgid ""
+"You should upload 2x sized images for the retina display.\n"
+"\t\t\t\t"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1004
+msgid "Lazy Load"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1006
+msgid "Enable to activate lazy loading for logo images."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1017
+msgid "Hover Animation"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1018
+msgid "Select a hover animation effect for the logo image."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1022
+msgid "Zoom In (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1023
+msgid "Zoom Out (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1024
+msgid "Bounce (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1025
+msgid "Flash (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1026
+msgid "Pulse (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1027
+msgid "RubberBand (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1028
+msgid "ShakeY (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1029
+msgid "Swing (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1030
+msgid "Tada (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1031
+msgid "HeartBeat (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1032
+msgid "BackInDown (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1033
+msgid "BackInLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1034
+msgid "BackInRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1035
+msgid "BounceIn (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1036
+msgid "BounceInLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1037
+msgid "BounceInRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1038
+msgid "FadeIn (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1039
+msgid "FadeInDown (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1040
+msgid "FadeInUp (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1041
+msgid "FadeInTopLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1042
+msgid "FadeInTopRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1043
+msgid "FadeInBottomLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1044
+msgid "FadeInBottomRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1045
+msgid "Flip (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1046
+msgid "FlipInX (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1047
+msgid "FlipInY (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1048
+msgid "LightSpeedInRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1049
+msgid "LightSpeedInLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1050
+msgid "RotateIn (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1051
+msgid "RotateInDownLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1052
+msgid "RotateInDownRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1053
+msgid "RotateInUpRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1054
+msgid "JackInTheBox (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1055
+msgid "SlideInDown (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1056
+msgid "SlideInLeft (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1057
+msgid "SlideInRight (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1058
+msgid "SlideInUp (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1061
+msgid ""
+"<div class=\"splogocarousel-info-label\">Hover Animation</div> <div "
+"class=\"splogocarousel-short-content\">This feature lets you choose a "
+"specific animation effect when hovering over the logo image.</div><div "
+"class=\"info-button\"><a class=\"splogocarousel-open-live-demo\" "
+"href=\"https://logocarousel.com/logo-animations/\" target=\"_blank\">Live "
+"Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1068
+msgid "Blur"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1069
+msgid "Enable/Disable loge image blur effect."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1081
+msgid "Opacity"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1082
+msgid "Set opacity for the logo images."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1094
+msgid "Logo Image Mode"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1095
+msgid "Set a mode for logo images."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1097
+msgid "Original"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1098
+msgid "Grayscale"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1099
+msgid "Custom color"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1101
+msgid ""
+"<div class=\"splogocarousel-info-label\">Logo Image Mode</div> <div "
+"class=\"splogocarousel-short-content\">This feature allows you to select the "
+"visual style or image mode that aligns with your design preferences for logo "
+"presentation.</div><div class=\"info-button\"><a class=\"splogocarousel-open-"
+"live-demo\" href=\"https://logocarousel.com/grayscale-style/\" "
+"target=\"_blank\">Live Demo</a></div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1109
+msgid "Grayscale on Hover"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1110
+msgid "Check to grayscale logo image on hover."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1117
+msgid "Normal on Hover"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1118
+msgid "Check to normal grayscale logo image on hover."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1125
+msgid "Grayscale on Tablet & Mobile"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1127
+msgid ""
+"Enable/Disable grayscale effect on table and mobile screen. Screen smaller "
+"than 736px."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1137
+msgid "Logo Title Attribute"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1138
+msgid "Check to add logo title attribute."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1146
+msgid ""
+"Ready to fascinate your audience with <strong class=\"lcp-pro-text\">30+ "
+"stunning <a href=\"https://logocarousel.com/logo-animations/\" "
+"target=\"_blank\">logo hover effects</a>, lazy load, blur, <a href=\"https://"
+"logocarousel.com/grayscale-style/\" target=\"_blank\">grayscale</a>, <a "
+"href=\"https://logocarousel.com/custom-logo-color/\" "
+"target=\"_blank\">custom logo colors</a>, dimensions,</strong> and "
+"<strong>retina readiness?</strong> <a href=\"https://logocarousel.com/"
+"pricing/?ref=1\" target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1156
+msgid "Carousel Settings"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1164
+msgid "Carousel Basics"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1171
+msgid "Carousel Orientation"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1172
+msgid "Choose a carousel orientation."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1174
+msgid "Horizontal"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1175
+msgid "Vertical"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1183
+msgid "AutoPlay"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1184
+msgid "Enable/Disable autoplay for the carousel."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1194
+msgid "AutoPlay Delay Time"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1195
+msgid "Set autoplay delay time in millisecond."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1197
+#: admin/views/sp-framework/config/metabox.config.php:1217
+msgid "ms"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1208
+msgid ""
+"<div class=\"splogocarousel-info-label\">AutoPlay Delay Time</div> <div "
+"class=\"splogocarousel-short-content\">Set autoplay delay or interval time. "
+"The amount of time to delay between automatically cycling a weather item. e."
+"g. 1000 milliseconds(ms) = 1 second.</div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1215
+msgid "Carousel Speed"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1216
+msgid "Set carousel scroll speed in millisecond."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1223
+msgid ""
+"<div class=\"splogocarousel-info-label\">Carousel Speed</div> <div "
+"class=\"splogocarousel-short-content\">Set carousel scrolling speed. e.g. "
+"1000 milliseconds(ms) = 1 second.</div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1228
+msgid "Pause on Hover"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1229
+msgid "Enable/Disable pause on hover carousel."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1244
+msgid "Carousel Starts on Screen"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1245
+msgid ""
+"Enable the option to start the carousel when the carousel comes on screen."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1261
+msgid "Slide To Scroll"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1262
+msgid "Set number of slide to scroll on devices."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1276
+msgid "Infinite Loop"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1277
+msgid "Enable/Disable infinite looping for the carousel."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1286
+msgid "Carousel Direction"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1287
+msgid "Set carousel direction as you need."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1289
+msgid "Right to Left"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1290
+msgid "Left to Right"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1297
+msgid "Row"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1298
+msgid "Set number of row on devices."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1308
+msgid "Multi Row"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1313
+msgid ""
+"To create engaging logo slideshows with intuitive scrolling, <a "
+"href=\"https://logocarousel.com/multi-row-carousel/\" "
+"target=\"_blank\">multi-row</a>, <a href=\"https://logocarousel.com/ticker-"
+"carousel-with-infinite-loop/\" target=\"_blank\">ticker</a>, <a "
+"href=\"https://logocarousel.com/center-mode-carousel/\" "
+"target=\"_blank\">center mode</a>, and <a href=\"https://logocarousel.com/"
+"widget-example/\" target=\"_blank\">vertical</a> carousels, <a "
+"href=\"https://logocarousel.com/pricing/?ref=1\" "
+"target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1318
+#: admin/views/sp-framework/config/metabox.config.php:1329
+msgid "Navigation"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1331
+#: admin/views/sp-framework/config/metabox.config.php:1432
+msgid "Show/hide navigation."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1342
+#: admin/views/sp-framework/config/metabox.config.php:1443
+msgid "Hide on Mobile"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1354
+msgid "Select a position of the navigation arrows."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1356
+msgid "Top Right"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1357
+msgid "Top Center"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1358
+msgid "Top Left"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1359
+msgid "Bottom Left"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1360
+msgid "Bottom Center"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1361
+msgid "Bottom Right"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1362
+msgid "Vertical Center Inner"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1363
+msgid "Vertical Outer"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1364
+msgid "Vertical Center"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1377
+msgid "Set navigation color."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1382
+msgid "Hover Background"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1400
+msgid "Set border for navigation."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1452
+msgid "Pagination Style"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1453
+msgid "Select a style for pagination."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1457
+msgid "Bullets"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1461
+msgid "Dynamic"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1466
+msgid "Strokes"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1471
+msgid "Scrollbar"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1476
+msgid "Numbers"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1487
+msgid "Set pagination dots color."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1490
+msgid "Active Color"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1505
+msgid ""
+"Want even more fine-tuned control over your <strong class=\"lcp-pro-"
+"text\">Carousel Pagination</strong> display? <a href=\"https://logocarousel."
+"com/pricing/?ref=1\" target=\"_blank\"><b>Upgrade To Pro!</b></a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1511
+msgid "Miscellaneous"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1517
+msgid "Adaptive Height"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1518
+msgid "Enable/Disable adaptive height to set fixed height for the carousel."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1528
+msgid "Tab & Key Navigation"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1529
+msgid "Enable/Disable carousel scroll with tab and keyboard."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1539
+msgid "Touch Swipe"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1540
+msgid "Enable/Disable touch swipe mode."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1550
+msgid "Mouse Draggable"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1551
+msgid "Enable/Disable mouse draggable mode."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1561
+msgid "Free Mode"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1562
+msgid "Enable/Disable carousel free mode."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1572
+msgid "Swipe To Slide"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1573
+msgid ""
+"Allow users to drag or swipe directly to a slide irrespective of slides to "
+"scroll."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1593
+msgid "Typography"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1600
+msgid ""
+"Want to customize everything <strong class=\"lcp-pro-text\">(Colors and "
+"Typography)</strong> easily? <b><a href=\"https://logocarousel.com/pricing/?"
+"ref=1\" target=\"_blank\">Upgrade To Pro</a></b>!"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1606
+msgid "Section Title Font"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1607
+msgid "Set section title font properties."
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1628
+msgid "Logo Title Font"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1629
+msgid "Set logo title font properties"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1648
+msgid "Logo Body/Description Font"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1649
+msgid "Set logo description font properties"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1669
+msgid "Read More Font"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1670
+msgid "Set description read more font properties"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1687
+msgid "Popup Title Font"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1688
+msgid "Set logo popup title font properties"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1707
+msgid "Popup Description Font"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1708
+msgid "Set logo popup description font properties"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1738
+msgid "Logo Link URL"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1754
+msgid "Custom URL"
+msgstr ""
+
+#: admin/views/sp-framework/config/metabox.config.php:1755
+msgid ""
+" To add a link URL for the logo, <a href=\"https://logocarousel.com/pricing/?"
+"ref=1\" target=\"_blank\">Upgrade to Pro!</a>"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:20
+#: admin/views/sp-framework/config/settings.config.php:31
+msgid "Settings"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:41
+msgid "Advanced"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:47
+msgid "Clean-up Data on Deletion"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:48
+msgid ""
+"Check this box if you would like Logo Carousel to completely remove all of "
+"its data when the plugin is deleted."
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:55
+msgid "Google Fonts"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:56
+#: admin/views/sp-framework/config/settings.config.php:87
+#: admin/views/sp-framework/config/settings.config.php:88
+#: admin/views/sp-framework/config/settings.config.php:96
+#: admin/views/sp-framework/config/settings.config.php:97
+#: admin/views/sp-framework/config/settings.config.php:105
+#: admin/views/sp-framework/config/settings.config.php:106
+msgid "Enqueued"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:57
+msgid "Dequeued"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:65
+msgid "Logo Analytics"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:66
+msgid ""
+"<div class=\"splogocarousel-info-label\">Logo Analytics</div> <div "
+"class=\"splogocarousel-short-content\">If you turned off this Logo Analytics "
+"(performance tracking) option, neither tracking data will appear in "
+"Analytics nor be saved in the database.</div>"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:79
+msgid "Control Assets"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:85
+msgid "FontAwesome CSS"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:94
+msgid "Swiper CSS"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:103
+msgid "Swiper JS"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:117
+msgid "Additional CSS"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:128
+msgid "Custom CSS"
+msgstr ""
+
+#: admin/views/sp-framework/config/settings.config.php:137
+msgid "License Key"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:24
+#: admin/views/sp-framework/config/tools.config.php:36
+msgid "Tools"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:44
+msgid "Export"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:50
+msgid "Choose What To Export"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:53 class/logo.php:84
+#: class/logo.php:94
+msgid "All Logos"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:54
+msgid "All Logo Carousels (Shortcodes)"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:55
+msgid "Selected Logo Carousels (Shortcodes)"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:68
+msgid "Choose shortcode(s)"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:79
+msgid "Export File Type"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:82
+msgid "CSV File (Pro)"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:83
+msgid "JSON File"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:103
+msgid "Import"
+msgstr ""
+
+#: admin/views/sp-framework/config/tools.config.php:108
+msgid "Import JSON File To Upload"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:53
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:60
+#: admin/views/sp-framework/fields/spacing/spacing.php:53
+msgid "top"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:54
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:61
+#: admin/views/sp-framework/fields/spacing/spacing.php:54
+msgid "right"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:55
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:62
+#: admin/views/sp-framework/fields/spacing/spacing.php:55
+msgid "bottom"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:56
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:63
+#: admin/views/sp-framework/fields/spacing/spacing.php:56
+msgid "left"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:57
+#: admin/views/sp-framework/fields/column/column.php:62
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:64
+#: admin/views/sp-framework/fields/spacing/spacing.php:57
+msgid "all"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:87
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:91
+#: admin/views/sp-framework/fields/typography/typography.php:282
+msgid "Dashed"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:88
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:92
+#: admin/views/sp-framework/fields/typography/typography.php:281
+msgid "Dotted"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:89
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:93
+#: admin/views/sp-framework/fields/typography/typography.php:280
+msgid "Double"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:92
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:96
+msgid "Groove"
+msgstr ""
+
+#: admin/views/sp-framework/fields/border/border.php:93
+#: admin/views/sp-framework/fields/dimensions_advanced/dimensions_advanced.php:97
+msgid "ridge"
+msgstr ""
+
+#: admin/views/sp-framework/fields/column/column.php:57
+msgid "Large Desktop"
+msgstr ""
+
+#: admin/views/sp-framework/fields/column/column.php:58
+msgid "Desktop"
+msgstr ""
+
+#: admin/views/sp-framework/fields/column/column.php:59
+msgid "Tablet"
+msgstr ""
+
+#: admin/views/sp-framework/fields/column/column.php:60
+msgid "Mobile Landscape"
+msgstr ""
+
+#: admin/views/sp-framework/fields/column/column.php:61
+msgid "Mobile"
+msgstr ""
+
+#: admin/views/sp-framework/fields/image_sizes/image_sizes.php:84
+msgid "Original uploaded image"
+msgstr ""
+
+#: admin/views/sp-framework/fields/image_sizes/image_sizes.php:85
+msgid "Set custom size"
+msgstr ""
+
+#: admin/views/sp-framework/fields/image_sizes/image_sizes.php:131
+msgid "No image sizes found."
+msgstr ""
+
+#: admin/views/sp-framework/fields/license/license.php:50
+msgid "You're using Logo Carousel Lite - No License Needed. Enjoy"
+msgstr ""
+
+#: admin/views/sp-framework/fields/license/license.php:51
+msgid "To get access to more premium features, consider"
+msgstr ""
+
+#: admin/views/sp-framework/fields/license/license.php:51
+msgid "Upgrade to Pro!"
+msgstr ""
+
+#: admin/views/sp-framework/fields/license/license.php:56
+#: includes/free/loader.php:236
+msgid "Activate"
+msgstr ""
+
+#: admin/views/sp-framework/fields/switcher/switcher.php:45
+msgid "On"
+msgstr ""
+
+#: admin/views/sp-framework/fields/switcher/switcher.php:46
+msgid "Off"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:136
+msgid "Font Family"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:137
+msgid "Select a font"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:145
+msgid "Backup Font Family"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:178
+msgid "Font Style"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:191
+#: admin/views/sp-framework/fields/typography/typography.php:192
+msgid "Load Extra Styles"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:206
+msgid "Subset"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:216
+msgid "Text Align"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:220
+msgid "Inherit"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:224
+msgid "Justify"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:225
+msgid "Initial"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:237
+msgid "Font Variant"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:241
+msgid "Normal"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:242
+msgid "Small Caps"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:243
+msgid "All Small Caps"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:255
+msgid "Text Transform"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:260
+msgid "Capitalize"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:261
+msgid "Uppercase"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:262
+msgid "Lowercase"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:274
+msgid "Text Decoration"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:283
+msgid "Wavy"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:284
+msgid "Overline"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:285
+msgid "Line-through"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:313
+msgid "Line Height"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:325
+msgid "Letter Spacing"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:337
+msgid "Word Spacing"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:352
+msgid "Font Color"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:363
+msgid "Margin Bottom"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:375
+msgid "Custom Style"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:456
+msgid "Custom Web Fonts"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:462
+msgid "Safe Web Fonts"
+msgstr ""
+
+#: admin/views/sp-framework/fields/typography/typography.php:485
+msgid "Google Web Fonts"
+msgstr ""
+
+#: admin/views/sp-framework/functions/actions.php:105
+msgid "Error: Invalid term ID."
+msgstr ""
+
+#: admin/views/sp-framework/functions/actions.php:111
+msgid "Error: You do not have permission to do that."
+msgstr ""
+
+#: admin/views/sp-framework/functions/validate.php:24
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: admin/views/sp-framework/functions/validate.php:41
+msgid "Please enter a valid number."
+msgstr ""
+
+#: admin/views/sp-framework/functions/validate.php:58
+msgid "This field is required."
+msgstr ""
+
+#: admin/views/sp-framework/functions/validate.php:75
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: class/logo.php:64 class/logo.php:85 includes/functions.php:21
+msgid "Logo"
+msgstr ""
+
+#: class/logo.php:65
+msgid "Logo carousel post type"
+msgstr ""
+
+#: class/logo.php:87 class/logo.php:88 main.php:286
+msgid "Add New"
+msgstr ""
+
+#: class/logo.php:89 class/logo.php:90 class/shortcode.php:68
+msgid "Edit"
+msgstr ""
+
+#: class/logo.php:91
+msgid "New Logo"
+msgstr ""
+
+#: class/logo.php:92 class/logo.php:93
+msgid "View Logo"
+msgstr ""
+
+#: class/logo.php:95
+msgid "Search Logo"
+msgstr ""
+
+#: class/logo.php:96
+msgid "No Logo Found"
+msgstr ""
+
+#: class/logo.php:97
+msgid "No Logo Found in Trash"
+msgstr ""
+
+#: class/logo.php:98
+msgid "Parent Logos"
+msgstr ""
+
+#: class/logo.php:100
+msgid "Set Logo"
+msgstr ""
+
+#: class/logo.php:101
+msgid "Remove logo image"
+msgstr ""
+
+#: class/logo.php:102
+msgid "Use as logo image"
+msgstr ""
+
+#: class/shortcode.php:53
+msgid "Logo Carousel Shortcode"
+msgstr ""
+
+#: class/shortcode.php:54
+msgid "Generate Shortcode for Logo Carousel"
+msgstr ""
+
+#: class/shortcode.php:63
+msgid "Manage Logo Views"
+msgstr ""
+
+#: class/shortcode.php:64
+msgid "Logo View"
+msgstr ""
+
+#: class/shortcode.php:65
+msgid "Manage Views"
+msgstr ""
+
+#: class/shortcode.php:66 class/shortcode.php:67
+msgid "Add New View"
+msgstr ""
+
+#: class/shortcode.php:69
+msgid "Edit View"
+msgstr ""
+
+#: class/shortcode.php:70
+msgid "New View"
+msgstr ""
+
+#: class/shortcode.php:71 class/shortcode.php:72
+msgid "View Logo View"
+msgstr ""
+
+#: class/shortcode.php:73
+msgid "Search Carousel"
+msgstr ""
+
+#: class/shortcode.php:74
+msgid "No Logo View Found"
+msgstr ""
+
+#: class/shortcode.php:75
+msgid "No Logo View Found in Trash"
+msgstr ""
+
+#: class/shortcode.php:76
+msgid "Parent Logo View"
+msgstr ""
+
+#: class/shortcode.php:91
+msgid "Shortcode updated."
+msgstr ""
+
+#: class/shortcode.php:92
+msgid "Shortcode published."
+msgstr ""
+
+#: class/shortcode.php:94
+msgid "Logo updated."
+msgstr ""
+
+#: class/shortcode.php:95
+msgid "Logo published."
+msgstr ""
+
+#: includes/class-logo-carousel-import-export.php:78
+#: includes/class-logo-carousel-import-export.php:240
+msgid "Authorization failed!"
+msgstr ""
+
+#: includes/class-logo-carousel-import-export.php:252
+msgid "Nothing to import."
+msgstr ""
+
+#: includes/free/loader.php:75
+msgid "Logo Carousel Analytics"
+msgstr ""
+
+#: includes/free/loader.php:76
+msgid "Analytics"
+msgstr ""
+
+#: includes/free/loader.php:76
+msgid "  NEW!"
+msgstr ""
+
+#: includes/free/loader.php:90
+msgid "Logo Carousel Help"
+msgstr ""
+
+#: includes/free/loader.php:91
+msgid "Get Help"
+msgstr ""
+
+#: includes/free/loader.php:108
+msgid "Recommended"
+msgstr ""
+
+#: includes/free/loader.php:123
+msgid "Lite vs Pro"
+msgstr ""
+
+#: includes/free/loader.php:243
+msgid "Install Now"
+msgstr ""
+
+#: includes/free/loader.php:248
+#, php-format
+msgid "More information about %s"
+msgstr ""
+
+#: includes/free/loader.php:249
+msgid "More Details"
+msgstr ""
+
+#: includes/free/loader.php:281
+msgid "Version:"
+msgstr ""
+
+#: includes/free/loader.php:290
+msgid "+ Active Installations"
+msgstr ""
+
+#: includes/free/loader.php:298
+msgid "Last Updated:"
+msgstr ""
+
+#: includes/free/loader.php:299
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: includes/functions.php:71
+#, php-format
+msgid ""
+"If you like <strong>Logo Carousel</strong> please leave us a <a href=\"%s\" "
+"target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> rating. Your "
+"Review is very important to us as it helps us to grow more. "
+msgstr ""
+
+#: includes/functions.php:84 includes/functions.php:101
+msgid "No shortcode to duplicate has been supplied!"
+msgstr ""
+
+#: includes/functions.php:151
+msgid "Shortcode creation failed, could not find original post: "
+msgstr ""
+
+#: includes/functions.php:167
+msgid "Duplicate"
+msgstr ""
+
+#: main.php:290
+msgid "Go Pro!"
+msgstr ""
+
+#: main.php:308
+msgid "Live Demo"
+msgstr ""
+
+#: main.php:373
+msgid "Carousel Title"
+msgstr ""
+
+#: main.php:394
+msgid "Shortcode Copied to Clipboard! "
+msgstr ""

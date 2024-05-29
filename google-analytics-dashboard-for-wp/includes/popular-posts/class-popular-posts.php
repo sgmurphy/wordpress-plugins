@@ -196,8 +196,8 @@ class ExactMetrics_Popular_Posts {
 		exactmetrics_localize_script( 'exactmetrics-popular-posts-js', 'exactmetrics_pp', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			'post_id' => get_the_ID(),
+			'nonce'   => wp_create_nonce('mi-popular-posts'),
 		) );
-
 	}
 
 	/**

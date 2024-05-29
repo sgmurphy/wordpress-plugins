@@ -1,23 +1,32 @@
 ﻿==== Starbox - the Author Box for Humans ==== 
 Contributors: cifi, calinvingan, florinmuresan
-Tags: author,author box,author profile fields,author social icons,bio,profile fields,
-Requires at least: 4.3
-Tested up to: 6.4
+Tags: author,author box,users,multiple authors,author bio
+Requires at least: 4.6
+Tested up to: 6.5
 Requires PHP: 7.0
 Stable tag: trunk
 Donate link:  http://starbox.squirrly.co/starbox-the-author-box-for-humans/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
- 
-Starbox is the Author Box for Humans. Professional Themes to choose from, HTML5, Social Media Profiles, Google Authorship   
-        
-== Description ==            
- **How Do I Get Support For This Plugin?**   
+
+Starbox is the Author Box for Humans. Professional Themes to choose from, HTML5, Social Media Profiles, Google Authorship
+
+== Description ==
+ **How Do I Get Support For This Plugin?**
 If you want more Social Icons and Premium Support, that also comes with High Priority, go to:
-http://starbox.squirrly.co/product/starbox-the-author-box-for-humans/
-We added new features in the PRO version like: keep the user custom image in all the site
-  
-**Starbox is the Author Box for Humans** 
+
+<a title="Support and PRO for Starbox" href="https://starbox.squirrly.co/">SUPPORT for Starbox Plugin</a>
+
+We added new features in the PRO version (see in the videos):
+
+https://www.youtube.com/watch?v=7LkqPPQ6gaM
+https://www.youtube.com/watch?v=4_xSLNBCb90
+https://www.youtube.com/watch?v=uUP1rtQu5is
+https://www.youtube.com/watch?v=lYXSl09qzCw
+
+We've added many options for our PRO users and the new highly visual themes will be the game changers you've waited for.
+
+**Starbox is the Author Box for Humans**
 While search engines and other software that read your site care about files like robots.txt, you need Human readers to actually engage with your content and fall in love with it.
 
 Humans look at beauty more than anything else (as you most probably already know, men and women alike). That's why you'll get an <strong>Author Box that's gorgeous to look at and it makes your readers click all the way through</strong> to see more about the Authors.
@@ -25,7 +34,7 @@ Humans look at beauty more than anything else (as you most probably already know
 Now, if you have just yourself as an Author on your site, or a super-star team of Authors, you'll love Starbox. You can <strong>choose from the professionaly built themes and landscaping</strong>. If you are the super-star type, or want to boost social proof, place your Author Box on top of the page, so that your Human readers will know that they're reading stuff that a real awesome person has written.
 
 You want the classy, bottom-of-the-page Author Box? You can choose that one as well.
- 
+
 And if your star Authors want different things, satisfy their needs by allowing them to place their Author Box at the top or bottom, with the default theme, or a better looking one. You can make each of them shine in their own way.
 
 The <strong>Social Profiles</strong> of your writers will be obvious and clickable, getting you Humans that will engage with content on your blog and also on your social media streams.
@@ -103,6 +112,10 @@ Download it from the Wordpress directory and try it out. Having an author box af
 16. Author Box with Drop-Down Theme
 
 == Changelog ==
+= 3.5.1 =
+* Update compatibility with WP 6.5
+* Fixed PHP error when $post is not found
+
 = 3.5.0 =
 * Update security on User setting
 * Fixed Small Bugs
@@ -270,52 +283,6 @@ Download it from the Wordpress directory and try it out. Having an author box af
 = 3.0.0 =
 * Made changed according to GPL 2.0
 
-= 2.2.0 =
-* Compatible with WP 4.0
-* Fixed various bugs
-
-= 2.1.4 =
-* Compatible with WP 3.9.2
-
-= 2.1.3 =
-* Fixed css and js loading issues for many different themes
-* Fixed repeated header section
-
-= 2.1.2 =
-* Compatible with WP 3.9.1
-
-= 2.1.1 =
-* Removed Author Box from products that you may have in Woocommerce when only posts are set to have the author box displayed (you can do this in settings)
-
-= 2.1.0 =
-* Compatible with WP 3.9
-
-= 2.0.5 =
-* Fixed Klout score issue
-
-= 2.0.4 =
-* Fixed hook bugs for preview and frontend
-* Update css on the author box plugin for some themes
-* Fixed small bugs for Font size option
-* Works with W3 Total Cache and Super Cache
-
-= 2.0.3 =
-* Added Font Size option for the name and description
-
-= 2.0.2 =
-* fixed show latest posts for shortcodes
-* added show latest posts from specific category in shortcode [starbox lpc="category id"] or [starbox lpc="category name"]
-
-= 2.0.1 =
-* Fixed css for more themes
-* Fixed hide from all posts in WP 3.8.1 issue
-* Added French Translation by D SIGNED
-
-= 2.0.0 =
-* Fixed loading issues
-* Compatible with Wordpress 3.8
-* Fixed css for different themes and for Wordpress 3.8
-
 == Frequently Asked Questions ==
 = Why is there no meta for google and facebook authorship? =
 You have to fill the google and facebook social accounts in your profile and it will show up.
@@ -340,7 +307,7 @@ You can use startbox shortcode at the bottom of the content like this:
 
 or
 
-[starbox id="1,2,3..n"] where 1,2,3 .. n are the ID of the authors 
- 
-= Is your team dedicated to this plugin? = 
-You can count on it :-) Our team of 8 people over at Squirrly (registered in the UK) are focused on making both our wordpress seo plugin and our author box plugin the best there are. So far we succeeded in making them one of the most popular, because we listen to your feedback and you're the reason for their success.     
+[starbox id="1,2,3..n"] where 1,2,3 .. n are the ID of the authors
+
+= Is your team dedicated to this plugin? =
+You can count on it :-) Our team of 8 people over at Squirrly (registered in the UK) are focused on making both our wordpress seo plugin and our author box plugin the best there are. So far we succeeded in making them one of the most popular, because we listen to your feedback and you're the reason for their success.

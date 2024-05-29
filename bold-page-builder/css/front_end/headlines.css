@@ -38,6 +38,9 @@
 		.bt_bb_text_transform_uppercase& { text-transform: uppercase; }
 		.bt_bb_text_transform_lowercase& { text-transform: lowercase; }
 		.bt_bb_text_transform_capitalize& { text-transform: capitalize; }
+		.bt_bb_text_transform_initial& { text-transform: initial; }
+		.bt_bb_text_transform_inherit& { text-transform: inherit; }
+		.bt_bb_text_transform_none& { text-transform: none; }
 
 	}
 	.bt_bb_headline_content {
@@ -113,6 +116,9 @@
 		.bt_bb_superheadline_text_transform_uppercase& { text-transform: uppercase; }
 		.bt_bb_superheadline_text_transform_lowercase& { text-transform: lowercase; }
 		.bt_bb_superheadline_text_transform_capitalize& { text-transform: capitalize; }
+		.bt_bb_superheadline_text_transform_initial& { text-transform: initial; }
+		.bt_bb_superheadline_text_transform_inherit& { text-transform: inherit; }
+		.bt_bb_superheadline_text_transform_none& { text-transform: none; }
 	}
 	&:after {
 		clear: both;
@@ -140,12 +146,12 @@
 		.bt_bb_subheadline_text_transform_uppercase& { text-transform: uppercase; }
 		.bt_bb_subheadline_text_transform_lowercase& { text-transform: lowercase; }
 		.bt_bb_subheadline_text_transform_capitalize& { text-transform: capitalize; }
+		.bt_bb_subheadline_text_transform_initial& { text-transform: initial; }
+		.bt_bb_subheadline_text_transform_inheri& { text-transform: inherit; }
+		.bt_bb_subheadline_text_transform_none& { text-transform: none; }
 	}
 	color: var(--primary-color);
 	.bt_bb_headline_superheadline {
 		color: var(--secondary-color);
 	}
-
 }
-
-

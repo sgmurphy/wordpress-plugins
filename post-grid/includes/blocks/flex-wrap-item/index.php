@@ -46,6 +46,8 @@ class PGBlockFlexWrapItem
     $blockId = isset($attributes['blockId']) ? $attributes['blockId'] : '';
     $blockAlign = isset($attributes['align']) ? 'align' . $attributes['align'] : '';
 
+    $post_ID = isset($block->context['postId']) ? $block->context['postId'] : '';
+
 
     $wrapper = isset($attributes['wrapper']) ? $attributes['wrapper'] : [];
     $wrapperOptions = isset($wrapper['options']) ? $wrapper['options'] : [];
@@ -102,21 +104,17 @@ class PGBlockFlexWrapItem
     ob_start();
 
     if ($wrapperTag == 'a') { ?>
-      <a id="<?php echo esc_attr($wrapperID); ?>"
-        class="<?php echo esc_attr($wrapperClass); ?> <?php echo esc_attr($blockId); ?> <?php echo esc_attr($blockAlign); ?>"
-        target="<?php echo esc_attr($wrapperLinkTarget); ?>" rel="<?php echo esc_attr($wrapperRel); ?>"
-        href="<?php echo esc_url_raw($linkUrl); ?>">
+      <a id="<?php echo esc_attr($wrapperID); ?>" class="<?php echo esc_attr($wrapperClass); ?> <?php echo esc_attr($blockId); ?> <?php echo esc_attr($blockAlign); ?>" target="<?php echo esc_attr($wrapperLinkTarget); ?>" rel="<?php echo esc_attr($wrapperRel); ?>" href="<?php echo esc_url_raw($linkUrl); ?>">
         <?php echo $content ?>
       </a>
-      <?php
+    <?php
 
     } else { ?>
-      <<?php echo esc_attr($wrapperTag); ?> id="
-              <?php echo esc_attr($wrapperID); ?>"
-        class="<?php echo esc_attr($wrapperClass); ?> <?php echo esc_attr($blockId); ?> <?php echo esc_attr($blockAlign); ?>">
+      <<?php echo tag_escape($wrapperTag); ?> id="
+              <?php echo esc_attr($wrapperID); ?>" class="<?php echo esc_attr($wrapperClass); ?> <?php echo esc_attr($blockId); ?> <?php echo esc_attr($blockAlign); ?>">
         <?php echo $content ?>
-      </<?php echo esc_attr($wrapperTag); ?>>
-      <?php
+      </<?php echo tag_escape($wrapperTag); ?>>
+<?php
     }
     return ob_get_clean();
   }

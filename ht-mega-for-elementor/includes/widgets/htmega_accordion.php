@@ -156,20 +156,8 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                 'label'     => __( 'Accordion Items', 'htmega-addons' ),
                 'type'      => Controls_Manager::REPEATER,
                 'fields'    => $repeater->get_controls(),
-                'conditions' => [
-                    'relation' => 'or',
-                    'terms' => [
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                            ]
-                        ],
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                            ]
-                        ],
-                    ]
+                'condition' => [
+                    'accordiantstyle' => ['five','one'],
                 ],
                 'default' => [
                     [
@@ -320,19 +308,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                     'options' => htmega_html_tag_lists(),
                     'default' => 'h2',
                     'condition' => [
-                        'relation' => 'or',
-                        'terms' => [
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                                ]
-                            ],
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                                ]
-                            ],
-                        ]
+                        'accordiantstyle' => ['five','one'],
                     ],
                 ]
             );
@@ -346,20 +322,8 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                         'value' => 'fas fa-plus',
                         'library' => 'solid',
                     ],
-                    'conditions' => [
-                        'relation' => 'or',
-                        'terms' => [
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                                ]
-                            ],
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                                ]
-                            ],
-                        ]
+                    'condition' => [
+                        'accordiantstyle' => ['five','one'],
                     ],
                 ]
             );
@@ -373,20 +337,8 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                         'value' => 'fas fa-minus',
                         'library' => 'solid',
                     ],
-                    'conditions' => [
-                        'relation' => 'or',
-                        'terms' => [
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                                ]
-                            ],
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                                ]
-                            ],
-                        ]
+                    'condition' => [
+                        'accordiantstyle' => ['five','one'],
                     ],
                 ]
             );
@@ -411,24 +363,11 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                     'type'    => Controls_Manager::SWITCHER,
                     'default' => 'yes',
                     'return_value' => 'yes',
-                    'conditions' => [
-                        'relation' => 'or',
-                        'terms' => [
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                                ]
-                            ],
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                                ]
-                            ],
-                        ]
+                    'condition' => [
+                        'accordiantstyle' => ['five','one'],
                     ],
                 ]
             );
-
             $this->add_control(
                 'accordion_multiple',
                 [
@@ -436,19 +375,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                     'type'  => Controls_Manager::SWITCHER,
                     'return_value' => 'yes',
                     'condition' => [
-                        'relation' => 'or',
-                        'terms' => [
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                                ]
-                            ],
-                            [
-                            'terms' => [
-                                    ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                                ]
-                            ],
-                        ]
+                        'accordiantstyle' => ['five','one'],
                     ],
                 ]
             );
@@ -551,20 +478,8 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
             [
                 'label' => __( 'Accordion Item', 'htmega-addons' ),
                 'tab' => Controls_Manager::TAB_STYLE,
-                'conditions' => [
-                    'relation' => 'or',
-                    'terms' => [
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                            ]
-                        ],
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                            ]
-                        ],
-                    ]
+                'condition' => [
+                    'accordiantstyle' => ['five','one'],
                 ],
             ]
         );
@@ -596,20 +511,8 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
             [
                 'label'     => __( 'Accordion Title', 'htmega-addons' ),
                 'tab'       => Controls_Manager::TAB_STYLE,
-                'conditions' => [
-                    'relation' => 'or',
-                    'terms' => [
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                            ]
-                        ],
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                            ]
-                        ],
-                    ]
+                'condition' => [
+                    'accordiantstyle' => ['five','one'],
                 ],
             ]
         );
@@ -1122,20 +1025,8 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
             [
                 'label'     => __( 'Accordion Icon', 'htmega-addons' ),
                 'tab'       => Controls_Manager::TAB_STYLE,
-                'conditions' => [
-                    'relation' => 'or',
-                    'terms' => [
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'one']
-                            ]
-                        ],
-                        [
-                        'terms' => [
-                                ['name' => 'accordiantstyle', 'operator' => '===', 'value' => 'five'],
-                            ]
-                        ],
-                    ]
+                'condition' => [
+                    'accordiantstyle' => ['five','one'],
                 ],
             ]
         );

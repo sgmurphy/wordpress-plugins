@@ -8,8 +8,8 @@ class bt_bb_row_inner extends BT_BB_Element {
 			'row_width'     	=> ''
 		) ), $atts, $this->shortcode ) );
 
-		$class = array( $this->shortcode );
-		$outer_class = array( 'bt_bb_row_wrapper' );
+		$class = array( 'bt_bb_row_inner' );
+		$outer_class = array( '' );
 		$data_override_class = array();
 
 		if ( $el_class != '' ) {
@@ -20,34 +20,33 @@ class bt_bb_row_inner extends BT_BB_Element {
 		if ( $el_id != '' ) {
 			$id_attr = 'id="' . esc_attr( $el_id ) . '"';
 		}
+		
+		$el_style = apply_filters( $this->shortcode . '_style', $el_style, $atts );
+		$el_inner_style = apply_filters( $this->shortcode . '_fix_inner_style', '', $atts );
 
 		$style_attr = '';
-		$el_style = apply_filters( $this->shortcode . '_style', $el_style, $atts );
 		if ( $el_style != '' ) {
 			$style_attr = 'style="' . esc_attr( $el_style ) . '"';
+		}
+		
+		$style_inner_attr = '';
+		if ( $el_inner_style != '' ) {
+			$style_inner_attr = 'style="' . esc_attr( $el_inner_style ) . '"';
 		}
 
 		if ( $column_gap != '' ) {
 			$class[] = $this->prefix . 'column_inner_gap' . '_' . $column_gap;
 		}
 
-		if ( $row_width != '' && $row_width != 'default' ) {
-			// $outer_class[] = $this->prefix . 'row_width' . '_' . $row_width;
+		/*if ( $row_width != '' && $row_width != 'default' ) {
 			$outer_class_1200_base = $this->prefix . 'row_width' . '_' . 'boxed_1200';
 			if ( $row_width == 'boxed_1200' ) { $outer_class[] = $outer_class_1200_base; }
-			/*if ( $row_width == 'boxed_1200_left' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_left_content_wide' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1200_base; }
-			if ( $row_width == 'boxed_1200_left_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1200_base; }*/
-			
 			$outer_class_1400_base = $this->prefix . 'row_width' . '_' . 'boxed_1400';
 			if ( $row_width == 'boxed_1400' ) { $outer_class[] = $outer_class_1400_base; }
-			/*if ( $row_width == 'boxed_1400_left' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_left_content_wide' ) { $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_right_content_wide' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_content_wide'; $outer_class[] = $outer_class_1400_base; }
-			if ( $row_width == 'boxed_1400_left_right' ) { $outer_class[] = 'bt_bb_row_push_right'; $outer_class[] = 'bt_bb_row_push_left'; $outer_class[] = $outer_class_1400_base; }*/
+		}*/
+		
+		if ( $row_width != '' && $row_width != 'default' ) {
+			$class[] = $this->prefix . 'row_width' . '_' . $row_width;
 		}
 
 		do_action( $this->shortcode . '_before_extra_responsive_param' );
@@ -67,8 +66,8 @@ class bt_bb_row_inner extends BT_BB_Element {
 		$class_attr = implode( ' ', $class );
 		$outer_class_attr = implode( ' ', $outer_class );
 
-		$output = '<div class="' . esc_attr( $outer_class_attr ) . '">';	
-			$output .= '<div ' . $id_attr . ' class="' . esc_attr( $class_attr ) . '" ' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
+		$output = '<div class="' . esc_attr( $outer_class_attr ) . ' ' . esc_attr( $class_attr ) . '" ' . $style_attr . ' ' . $id_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';	
+			$output .= '<div class="bt_bb_row_inner_holder" ' . $style_inner_attr . ' >';
 				$output .= do_shortcode( $content );
 			$output .= '</div>';
 		$output .= '</div>';
@@ -119,17 +118,7 @@ class bt_bb_row_inner extends BT_BB_Element {
 						'value' => array(
 							esc_html__( 'Wide', 'bold-builder' ) => 'default',
 							esc_html__( 'Boxed 1200px', 'bold-builder' ) => 'boxed_1200',
-							/*esc_html__( 'Boxed left 1200px', 'bold-builder' ) => 'boxed_1200_left',
-							esc_html__( 'Boxed left 1200px, wide content', 'bold-builder' ) => 'boxed_1200_left_content_wide',
-							esc_html__( 'Boxed right 1200px', 'bold-builder' ) => 'boxed_1200_right',
-							esc_html__( 'Boxed right 1200px, wide content', 'bold-builder' ) => 'boxed_1200_right_content_wide',
-							esc_html__( 'Boxed left and right 1200px', 'bold-builder' ) => 'boxed_1200_left_right',*/
 							esc_html__( 'Boxed 1400px', 'bold-builder' ) => 'boxed_1400',
-							/*esc_html__( 'Boxed left 1400px', 'bold-builder' ) => 'boxed_1400_left',
-							esc_html__( 'Boxed left 1400px, wide content', 'bold-builder' ) => 'boxed_1400_left_content_wide',
-							esc_html__( 'Boxed right 1400px', 'bold-builder' ) => 'boxed_1400_right',
-							esc_html__( 'Boxed right 1400px, wide content', 'bold-builder' ) => 'boxed_1400_right_content_wide',
-							esc_html__( 'Boxed left and right 1400px', 'bold-builder' ) => 'boxed_1400_left_right',*/
 						)
 					)
 				)

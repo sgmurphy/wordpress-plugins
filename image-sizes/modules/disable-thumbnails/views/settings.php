@@ -70,6 +70,16 @@ $enables_count 			= count( $image_sizes ) - $disables_count;
                             endforeach; ?>
                         </ul>
                     </div>
+
+                    <?php 
+                    $thumbpress_modules = Helper::get_option( 'thumbpress_modules', 'regenerate-thumbnails' );
+
+                    if ( $thumbpress_modules == 'on' ) {
+                        ?>
+                        <a href="<?php echo get_site_url() . '/wp-admin/admin.php?page=thumbpress-regenerate-thumbnails' ; ?>" class="imgs-thumb-size-back">&#10550; <?php _e( 'Go to Regenerate Thumbnails Settings','image-sizes' ) ?></a>
+                        <?php 
+                    }
+                    ?>                    
 			</div>
 
 			<div class="image_sizes-disable-thumbnails">

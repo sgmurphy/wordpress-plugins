@@ -4,6 +4,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 
 	function __construct() {
 		parent::__construct();
+
 		add_action( 'wp_ajax_bt_bb_get_css_grid', array( __CLASS__, 'bt_bb_get_css_grid_callback' ) );
 		add_action( 'wp_ajax_nopriv_bt_bb_get_css_grid', array( __CLASS__, 'bt_bb_get_css_grid_callback' ) );
 	}
@@ -16,7 +17,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 				sanitize_text_field( urldecode( $_POST['category'] ) ),
 				$_POST['show'],
 				$_POST['show_superheadline'],
-				$_POST['show_subheadline'], 
+				$_POST['show_subheadline'],
 				$_POST['post-type'],
 				$_POST['format'],
 				$_POST['title_html_tag'],
@@ -41,7 +42,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		
 		$n = 0;
 
-		foreach( $posts as $item ) { 
+		foreach( $posts as $item ) {
 			$post_thumbnail_id = get_post_thumbnail_id( $item['ID'] ); 
 			$img = wp_get_attachment_image_src( $post_thumbnail_id, $img_base_size );
 			$img_src = isset( $img[0] ) ? $img[0] : '';
@@ -62,7 +63,6 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 					$tile_format .= '_11';
 				}
 			}
-			// $img_src = $img_base_size;
 
 			$output .= '<div class="bt_bb_grid_item ' . $tile_format . '" data-hw="' . esc_attr( $hw ) . '" data-src="' . esc_url_raw( $img_src ) . '" data-alt="' . esc_attr( $alt ) . '" data-post-format="' . esc_attr( $item['format'] ) . '"><div class="bt_bb_grid_item_inner">';
 				$output .= '<div class="bt_bb_grid_item_post_thumbnail"><a href="' . esc_url_raw( $item['permalink'] ) . '" title="' . esc_attr( $item['title'] ) . '"></a></div>';
@@ -205,7 +205,6 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		echo wp_kses( $output, $allowed );
 	}
 
-
 	function handle_shortcode( $atts, $content ) {
 		extract( shortcode_atts( apply_filters( 'bt_bb_extract_atts_' . $this->shortcode, array(
 			'post_type'					=> 'post',
@@ -238,7 +237,6 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		);
 
 		wp_localize_script( 'bt_bb_css_post_grid', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
-
 
 		$class = array( $this->shortcode, 'bt_bb_grid_container' );
 		$data_override_class = array();
@@ -383,7 +381,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		
 		$output .= '<div class="bt_bb_css_post_grid_content bt_bb_grid_hide" data-bt-bb-css-post-grid-nonce="' . esc_attr( $bt_bb_css_post_grid_nonce ) . '" data-number="' . esc_attr( $initial_items_number ) . '" data-category="' . esc_attr( $category ) . '" data-show="' . esc_attr( urlencode( json_encode( $show ) ) ) . '" data-show-superheadline="' . esc_attr( urlencode( json_encode( $show_superheadline ) ) ) . '" 
 		data-title-html-tag="' . esc_attr( $title_html_tag ) . '" 
-		data-img-base-size="' . esc_attr( $img_base_size ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '"  data-format="' . esc_attr( $format ) . '" data-post-type="' . esc_attr( $post_type ) . '" data-auto-loading="' . esc_attr( $auto_loading ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">
+		data-img-base-size="' . esc_attr( $img_base_size ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '"  data-format="' . esc_attr( $format ) . '" data-post-type="' . esc_attr( $post_type ) . '" data-auto-loading="' . esc_attr( $auto_loading ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '" data-no-posts-text="' . esc_html__( 'No posts found.', 'bold-builder' ) . '">
 		</div>';
 
 		$output .= '<div class="bt_bb_post_grid_loader"></div>';
@@ -397,6 +395,19 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 	}
 
 	function map_shortcode() {
+		
+		if ( BT_BB_FE::$editor_active ) {
+			wp_enqueue_script( 'jquery-masonry' );
+
+			wp_enqueue_script( 
+				'bt_bb_css_post_grid',
+				plugin_dir_url( __FILE__ ) . 'bt_bb_css_post_grid.js',
+				array( 'jquery' ),
+				BT_BB_VERSION
+			);
+
+			wp_localize_script( 'bt_bb_css_post_grid', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+		}
 
 		$array = array();
 		

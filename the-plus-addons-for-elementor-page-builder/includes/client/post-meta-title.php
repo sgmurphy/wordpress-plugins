@@ -21,7 +21,7 @@ if ( 'clrepeater' === $content_from ) {
 
 ?>
 
-<<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?> class="post-title">	
+<<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?> class="post-title">	
 	<a href="<?php echo esc_url( $client_url ); ?>" target="_blank" rel="noopener noreferrer">
 		<?php
 		if ( 'clrepeater' === $content_from ) {
@@ -31,4 +31,4 @@ if ( 'clrepeater' === $content_from ) {
 		}
 		?>
 	</a>
-</<?php echo l_theplus_validate_html_tag( $post_title_tag ); ?>>
+</<?php echo esc_attr( l_theplus_validate_html_tag( $post_title_tag ) ); ?>>

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Visual Footer Credit Remover
-Version: 1.3
+Version: 1.5
 Plugin URI: https://upwerd.com/visual-footer-credit-remover
 Description: Visually remove or replace footer credits
 Author: Upwerd LLC
@@ -84,18 +84,27 @@ function jabvfcr_options_page() {
 //Add left menu item in admin
 add_action( 'admin_menu', 'jabvfcr_admin_menu' );
 
+function jabvfcr_escape_css($css) {
+    $escaped_css = strtr(wp_filter_nohtml_kses($css),
+            [                '&gt;' => '>',                "\'"   => "'",                '\"'   => '"',    ]);
+    return $escaped_css;
+}
+
 function jabvfcr_script() {
 	$data = get_option( 'jabvfcr_data' );
-	$html = $data['content'];
+	$html = str_replace("\n", "\\n", $data['content']);
+	$html = str_replace("\r", "\\r", $html);
 	$selector = $data['selector'];
 	$manipulation = $data['manipulation'];
+
+
 	if (strlen($selector) > 0) {
 		?>
 		<script>
 			var jabvfcr = {
 				selector: "<?php echo esc_attr($selector) ?>",
 				manipulation: "<?php echo esc_attr($manipulation); ?>",
-				html: "<?php echo wp_kses_data(preg_replace("/[\n\r]/","",str_replace('"', '\"', $html))) ?>"
+				html: '<?php echo wp_kses_data($html) ?>'
 			};
 		</script>
 		<?php

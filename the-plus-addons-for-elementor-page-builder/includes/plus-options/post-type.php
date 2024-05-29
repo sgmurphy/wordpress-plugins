@@ -18,8 +18,10 @@ function l_theplus_ele_clients_function() {
 	}
 	
 	$labels = array(
-		'name'                  => _x( $client_post_title, 'Post Type General Name', 'tpebl' ),
-		'singular_name'         => _x( $client_post_title, 'Post Type Singular Name', 'tpebl' ),
+		// Translators: %s is the post type general name.
+		'name'                  => sprintf( _x( '%s', 'Post Type General Name', 'tpebl' ), $client_post_title ),
+		// Translators: %s is the post type singular name.
+		'singular_name'         => sprintf( _x( '%s', 'Post Type Singular Name', 'tpebl' ), $client_post_title ),
 		'menu_name'             => esc_html( $client_post_title ),
 		'name_admin_bar'        => esc_html( $client_post_title ),
 		'archives'              => esc_html__( 'Item Archives', 'tpebl' ),
@@ -143,8 +145,10 @@ $post_name=l_theplus_get_option('post_type','testimonial_plugin_name');
 	}
 	
 	$labels = array(
-		'name'                  => _x( $tp_testimonial_post_title, 'Post Type General Name', 'tpebl' ),
-		'singular_name'         => _x( $tp_testimonial_post_title, 'Post Type Singular Name', 'tpebl' ),
+		// Translators: %s is the post type general name.
+		'name'                  => sprintf( _x( '%s', 'Post Type General Name', 'tpebl' ), $tp_testimonial_post_title ),
+		// Translators: %s is the post type singular name.
+		'singular_name'         => sprintf( _x( '%s', 'Post Type Singular Name', 'tpebl' ), $tp_testimonial_post_title ),
 		'menu_name'             => esc_html( $tp_testimonial_post_title ),
 		'name_admin_bar'        => esc_html( $tp_testimonial_post_title ),
 		'archives'              => esc_html__( 'Item Archives', 'tpebl' ),
@@ -252,21 +256,23 @@ add_action( 'init', 'theplus_ele_testimonial_category', 0 );
 $team_member_post=l_theplus_get_option('post_type','team_member_post_type');
 if(isset($team_member_post) && !empty($team_member_post) && $team_member_post=='plugin'){
 function l_theplus_ele_team_member_function() {
-$post_name=l_theplus_get_option('post_type','team_member_plugin_name');	
+	$post_name=l_theplus_get_option('post_type','team_member_plugin_name');	
 	if(isset($post_name) && !empty($post_name)){
 		$post_name=l_theplus_get_option('post_type','team_member_plugin_name');
 	}else{
 		$post_name='theplus_team_member';
 	}
-	
+
 	$team_member_plugin_title=l_theplus_get_option('post_type','team_member_plugin_title');		
 	$team_member_title='TP Team Member';
 	if(isset($team_member_plugin_title) && !empty($team_member_plugin_title)){
 		$team_member_title=l_theplus_get_option('post_type','team_member_plugin_title');
 	}
 	$labels = array(
-		'name'                  => _x( $team_member_title, 'Post Type General Name', 'tpebl' ),
-		'singular_name'         => _x( $team_member_title, 'Post Type Singular Name', 'tpebl' ),
+		// Translators: %s is the post type general name.
+		'name'                  => sprintf( _x( '%s', 'Post Type General Name', 'tpebl' ), $team_member_title ),
+		// Translators: %s is the post type singular name.
+		'singular_name'         => sprintf( _x( '%s', 'Post Type Singular Name', 'tpebl' ), $team_member_title ),
 		'menu_name'             => esc_html( $team_member_title ),
 		'name_admin_bar'        => esc_html( $team_member_title ),
 		'archives'              => esc_html__( 'Item Archives', 'tpebl' ),
@@ -293,6 +299,7 @@ $post_name=l_theplus_get_option('post_type','team_member_plugin_name');
 		'items_list_navigation' => esc_html__( 'Items list navigation', 'tpebl' ),
 		'filter_items_list'     => esc_html__( 'Filter items list', 'tpebl' ),
 	);
+
 	$args = array(
 		'label'                 => esc_html__( 'TP Team Member', 'tpebl' ),
 		'description'           => esc_html__( 'Post Type Description', 'tpebl' ),

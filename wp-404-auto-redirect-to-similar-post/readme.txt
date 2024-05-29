@@ -3,9 +3,9 @@ Contributors: hwk-fr
 Donate link: https://hwk.fr/
 Tags: SEO, 404, Redirect, 301, Similar, Related, Search, Broken Link, Webmaster Tools, Google
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.0.3
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,7 @@ WP 404 Auto Redirect to Similar Post is 100% compatible with all popular manual 
 
 * [Redirection](https://wordpress.org/plugins/redirection/)
 * [Simple 301 Redirects](https://wordpress.org/plugins/simple-301-redirects/)
+* [RankMath Redirections](https://wordpress.org/plugins/seo-by-rank-math/)
 * [Yoast Redirections](https://yoast.com/wordpress/plugins/seo/redirects-manager/)
 * etc...
 
@@ -325,8 +326,9 @@ function my_404_no_init($init, $query){
     
     // Developers: Print $query array for more request context
     
-    if(preg_match('#/calendar/(.+?)/?$#i', $query['request']['url']))
+    if(preg_match('#/calendar/(.+?)/?$#i', $query['request']['url'])){
         $init = false;
+    }
         
     return $init;
     
@@ -359,7 +361,7 @@ function my_404_after_redirect($query){
 
 == Installation ==
 
-= Wordpress Install =
+= WordPress Install =
 
 1. Upload the plugin files to the `/wp-content/plugins/wp-404-auto-redirect-similar-post` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
@@ -375,6 +377,17 @@ function my_404_after_redirect($query){
 5. Front: Debug Console
 
 == Changelog ==
+
+= 1.0.5 =
+* Fix: Escaping URL in Debug Console
+* General: Bumped WordPress version to 6.5
+
+= 1.0.4 =
+* Fix: Security issue
+* Fix: Fallback & Preview inputs sanitization
+* Improvement: Code formatting and comments
+* Improvement: Readme typo, code example formatting and RankMath compatibility
+* General: Bumped WordPress version to 6.4
 
 = 1.0.3 =
 * Improvement: Enhanced search algorithm & matching

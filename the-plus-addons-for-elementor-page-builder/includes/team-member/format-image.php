@@ -40,6 +40,6 @@ if ( 'repeater' === $selct_source ) {
 ?>
 
 <div class="team-profile">
-	<span class="thumb-wrap"><?php echo $featured_image; ?></span>
+	<span class="thumb-wrap"><?php echo wp_kses_post( $featured_image ); ?></span>
 	<div class="tp-image-overlay"></div>
 </div>

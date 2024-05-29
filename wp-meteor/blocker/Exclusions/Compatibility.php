@@ -39,7 +39,8 @@ class Compatibility extends \WP_Meteor\Blocker\Base
                 'lazyLoadThumb', // rocket lazy load
                 'eio_lazy_vars', // easy image optimizer
                 'ewww_webp_supported', // ewww image optimizer
-                'lazyload\.min\.js', // most of the lazyloaders
+                '(?<!wpsol-addon-)lazyload\.min\.js', // most of the lazyloaders
+                '(?<!wpsol-addon-ajax-)lazyload\.min\.js', // most of the lazyloaders
                 '(?<!Avada/includes/lib/assets/min/js/library/)lazysizes\.min\.js',  // most of the lazyloaders
                 '(?<!Avada/includes/lib/assets/min/js/library/)lazysizes\.js',  // most of the lazyloaders
                 'wp-rocket/assets/js/lazyload/(.*)', // wp rocket
@@ -49,6 +50,7 @@ class Compatibility extends \WP_Meteor\Blocker\Base
                 'window.\$us === undefined',
                 'fusionNavIsCollapsed', // Avada
                 'smush-lazy-load\.min\.js', // smush
+                'smush-lazy-load-native\.min\.js', // smush
                 'jetpack-lazy-images-js-enabled', // Jetpack Lazy Images
                 'lazy-images\.js', // Jetpack Lazy Images
                 'document\.body\.classList\.remove\("no-js"\)',

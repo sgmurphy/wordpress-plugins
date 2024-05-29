@@ -26,7 +26,6 @@
 			var $elm = $(this);
 			if ( isOnScreen( $elm, -200 ) ) {
 				$elm.addClass( 'btLazyLoaded' );
-				// console.log($elm.data( 'image_src' ));
 				$elm.attr( 'src', $elm.data( 'image_src' ));
 			}
 		});
@@ -35,7 +34,6 @@
 			var $elm = $(this);
 			if ( isOnScreen( $elm, -200 ) ) {
 				$elm.addClass( 'btLazyLoaded' );
-				// console.log($elm.data( 'image_src' ));
 				$elm.attr( 'xlink:href', $elm.data( 'image_src' ));
 			}
 		});
@@ -47,6 +45,40 @@
 				$elm.css( 'background-image', 'url(' + $elm.data( 'background_image_src' ) + ')' );
 			}
 		});
+	}
+	
+	// css image grid lighbox
+	
+	window.bt_bb_init_css_image_grid_lightbox = function() {
+		$( '.bt_bb_css_image_grid' ).not( '.bt_bb_no_lightbox' ).each(function() {
+			$( this ).magnificPopup({
+				delegate: '.bt_bb_css_image_grid_item',
+				type: 'image',
+				gallery:{
+					enabled: true
+				},
+				callbacks: {
+					elementParse: function( item ) { item.src = item.el.data( 'src-full' ); }
+				},
+				closeBtnInside: false,
+				fixedContentPos: false
+			});
+		});		
+	}
+	
+	// tabs
+	
+	window.bt_bb_init_tabs = function() {
+		$( '.bt_bb_tabs' ).not( '.bt_bb__inited' ).each(function() {
+			$( this ).addClass( 'bt_bb__inited' );
+			$( this ).find( '.bt_bb_tabs_header' ).on( 'click', 'li', function() {
+				$( this ).siblings().removeClass( 'on' );
+				$( this ).addClass( 'on' );
+				$( this ).closest( '.bt_bb_tabs' ).children('.bt_bb_tabs_tabs').children( '.bt_bb_tab_item' ).removeClass( 'on' );
+				$( this ).closest( '.bt_bb_tabs' ).children('.bt_bb_tabs_tabs').children( '.bt_bb_tab_item' ).eq( $( this ).index() ).addClass( 'on' );
+			});
+			$( this ).find( 'li' ).first().trigger( 'click' );
+		});	
 	}
 	
 	// isOnScreen fixed
@@ -159,7 +191,6 @@
 						var ZOOM_END = parseFloat( $( this ).attr( 'data-parallax-zoom-end' ) );
 						
 						if ( ZOOM_START >= 1 && ZOOM_END >= 1 && ( ZOOM_START != 1 || ZOOM_END != 1 )  ) {
-							// console.log( ZOOM_START );
 							var zoom = ZOOM_START + ( ZOOM_END - ZOOM_START ) * ( 1 - scroll_distance );
 							$( this )[0].style.transform = ' scale(' + zoom + ')';								
 						}							
@@ -180,13 +211,6 @@
 							$( this )[0].style.opacity = opacity;								
 						}
 					}
-					
-					/*console.log( "bounds.top: " + bounds.top );	
-					console.log( "bounds.bottom: " + bounds.bottom );
-					console.log( "win_h: " + win_h );	
-					console.log( "scroll_distance: " + scroll_distance );
-					console.log( "ypos: " + ypos );	*/	
-
 				}				
 			}
 		});
@@ -291,15 +315,10 @@
 	
 	window.bt_bb_countdown_output = function( elem ) {
 		
-		var s = elem.data( 'init-seconds' );
-		if ( elem.data( 'init-target-seconds' ) ) {
-			var now_utc_seconds = Math.floor( new Date().getTime() / 1000 );
-			var s = elem.data( 'init-target-seconds' ) - now_utc_seconds;
-			if ( s < 0 ) {
-				s = 0;
-			}
+		var s = elem.attr( 'data-init-seconds' );
+		if ( isNaN( s ) ) {
+			s = 0;
 		}
-		
 		var delta = s;
 		
 		var days = Math.floor( delta / 86400 );
@@ -369,23 +388,16 @@
 			bt_bb_countdown( elem, '.hours .n' + i, i, hours_arr, hours_arr_prev );
 		}
 		
-		var days_prev = 0;
+		var days_arr = days.toString().split( '' );
 		
-		if ( days != days_prev ) {
-			var days_arr = days.toString().split( '' );
-			
-			var days_html = '';
-			for ( var i = 0; i < days_arr.length; i++ ) {
-				days_html += '<span>' + days_arr[ i ] + '</span>';
-			}
-
-			elem.find( '.days' ).html( days_html + '<span class="days_text"><span>' + elem.find( '.days' ).data( 'text' ) + '</span></span>' );
+		var days_html = '';
+		for ( var i = 0; i < days_arr.length; i++ ) {
+			days_html += '<span>' + days_arr[ i ] + '</span>';
 		}
-		
-		days_prev = days;
 
-		elem.data( 'init-seconds', s );		
-		// elem.data( 'init-target-seconds', s );		
+		elem.find( '.days' ).html( days_html + '<span class="days_text"><span>' + elem.find( '.days' ).data( 'text' ) + '</span></span>' );
+
+		elem.attr( 'data-init-seconds', s );
 
 	}
 	
@@ -466,20 +478,7 @@
 		
 		// css image grid lighbox
 		
-		$( '.bt_bb_css_image_grid' ).not( '.bt_bb_no_lightbox' ).each(function() {
-			$( this ).magnificPopup({
-				delegate: '.bt_bb_css_image_grid_item',
-				type: 'image',
-				gallery:{
-					enabled: true
-				},
-				callbacks: {
-					elementParse: function( item ) { item.src = item.el.data( 'src-full' ); }
-				},
-				closeBtnInside: false,
-				fixedContentPos: false
-			});
-		});
+		window.bt_bb_init_css_image_grid_lightbox();
 		
 		// image lightbox
 		
@@ -553,17 +552,8 @@
 		});
 
 		// tabs
-		$( '.bt_bb_tabs .bt_bb_tabs_header' ).on( 'click', 'li', function() {
-			$( this ).siblings().removeClass( 'on' );
-			$( this ).addClass( 'on' );
-			$( this ).closest( '.bt_bb_tabs' ).children('.bt_bb_tabs_tabs').children( '.bt_bb_tab_item' ).removeClass( 'on' );
-			$( this ).closest( '.bt_bb_tabs' ).children('.bt_bb_tabs_tabs').children( '.bt_bb_tab_item' ).eq( $( this ).index() ).addClass( 'on' );
-			
-
-		});
-		$( '.bt_bb_tabs' ).each(function() {
-			$( this ).find( 'li' ).first().trigger( 'click' );
-		});
+		
+		window.bt_bb_init_tabs();
 		
 		// Detect touch
 		
@@ -578,7 +568,6 @@
 		bt_bb_check_fixed_background();
 		
 		if ( $( 'html.bt_bb_backgroud_fixed_supported .bt_bb_parallax' ).length > 0 ) {
-
 
 			window.bt_bb_raf_lock = false;
 
@@ -601,17 +590,44 @@
 
 		// Countdown
 		
-		$( '.btCountdownHolder' ).each(function() {
+		setInterval(function() { // temporary put outside to enable adding new elements on FE
+			$( '.btCountdownHolder' ).each(function() {
+				bt_bb_countdown_output( $( this ) );
+			});
+		}, 1000 );
+		
+		// Accordion
+		
+		$( '.bt_bb_wrapper' ).on( 'click', '.bt_bb_accordion_item_title', function() {
+			var $item = $( this ).closest( '.bt_bb_accordion_item' );
+			if ( ! $item.hasClass('on') ) {
+				$( this ).closest( '.bt_bb_accordion' ).find( '.bt_bb_accordion_item.on' ).removeClass( 'on' );
+				$item.addClass( 'on' );
+				if( ! window.bt_bb_initialaccordion ) { 
+					var top_of_element = $item.offset().top;
+					var bottom_of_element = $item.offset().top + $("#element").outerHeight();
+					var bottom_of_screen = $( window ).scrollTop() + $(window).innerHeight();
+					var top_of_screen = $( window ).scrollTop();
+					var diff = top_of_screen - top_of_element;
+					if( diff > 0 ) {
+						$( 'html' ).scrollTop( $( 'html' ).scrollTop() - diff - 15 );
+					}
 
-			var cd = $( this );
-			var s = cd.data( 'init-seconds' );
-
-			bt_bb_countdown_output( cd );
-
-			setInterval(function() {
-				bt_bb_countdown_output( cd );
-			}, 1000 );
-		});		
+				} else {
+					window.bt_bb_initialaccordion = false;
+				}
+			
+			} else {
+				$( this ).closest( '.bt_bb_accordion_item' ).removeClass( 'on' );
+			}
+		});
+		$( '.bt_bb_accordion' ).each(function() {
+			if ( $( this ).data( 'closed' ) != 'closed' ) {
+				window.bt_bb_initialaccordion = true;
+				$( this ).find( '.bt_bb_accordion_item_title' ).first().click();
+			}
+		});
+		
 	}
 
 	// google maps
@@ -620,7 +636,7 @@
 		var mapElement_jQuery = jQuery( '#' + map_id );
 		if ( mapElement_jQuery.data( 'init-finished' ) == true ) return false;
 		var zoom = ( typeof mapElement_jQuery.data( 'zoom' ) !== 'undefined' ) ? mapElement_jQuery.data( 'zoom' ) : 8;
-		var custom_style = ( typeof mapElement_jQuery.data( 'custom-style' ) !== 'undefined' ) ? mapElement_jQuery.data( 'custom-style' ) : '';
+		var custom_style = ( typeof mapElement_jQuery.data( 'custom-style' ) !== 'undefined' ) ? mapElement_jQuery.data( 'custom-style' ).trim() : '';
 		var api_key = ( typeof mapElement_jQuery.data( 'api-key' ) !== 'undefined' ) ? mapElement_jQuery.data( 'api-key' ) : '';
 		var height = ( typeof mapElement_jQuery.data( 'height' ) !== 'undefined' ) ? mapElement_jQuery.data( 'height' ) : 0;
 		bt_bb_gmap_init_static( map_id, zoom, custom_style, height, api_key );
@@ -632,7 +648,7 @@
 		var mapElement_jQuery = jQuery( '#' + map_id );
 		if ( mapElement_jQuery.data( 'init-finished' ) == true ) return false;
 		var zoom = ( typeof mapElement_jQuery.data( 'zoom' ) !== 'undefined' ) ? mapElement_jQuery.data( 'zoom' ) : 8;
-		var custom_style = ( typeof mapElement_jQuery.data( 'custom-style' ) !== 'undefined' ) ? mapElement_jQuery.data( 'custom-style' ) : '';
+		var custom_style = ( typeof mapElement_jQuery.data( 'custom-style' ) !== 'undefined' ) ? mapElement_jQuery.data( 'custom-style' ).trim() : '';
 		bt_bb_gmap_init( map_id, zoom, custom_style );
 		mapElement_jQuery.data( 'init-finished', true );
 	}
@@ -677,7 +693,9 @@
 		var lng_sum = 0;
 		var markerStr = '';
 		var n = 0;
-		var colors = ['blue', 'green', 'red', 'purple', 'yellow', 'gray', 'orange', 'white', 'black', 'brown' ]
+		var colors = ['blue', 'green', 'red', 'purple', 'yellow', 'gray', 'orange', 'white', 'black', 'brown' ];
+		
+		var centerLatLng;
 	
 		locations.each(function() {
 			
@@ -690,17 +708,18 @@
 			
 			markerStr += '&markers=' + iconStr + '%7C' + lat + ',' + lng;
 
-			var centerLatLng = [ lat, lng ];
+			centerLatLng = [ lat, lng ];
 
 			n++;
 		});
-		
 
 		if ( center_map ) {
-			var centerLatLng = [ lat_sum / n, lng_sum / n ];
+			centerLatLng = [ lat_sum / n, lng_sum / n ];
 		}
 		
-		var img_src = 'aaa<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + centerLatLng.toString() + '&zoom=' + zoom + markerStr + '&size=640x' + height + '&scale=2&style=' + atob( custom_style ) + '&key=' + api_key + '">';
+		if ( atob( custom_style ).startsWith( '[' ) ) custom_style = '';
+		
+		var img_src = '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + centerLatLng.toString() + '&zoom=' + zoom + markerStr + '&size=640x' + height + '&scale=2&style=' + atob( custom_style ) + '&key=' + api_key + '">';
 		container.find( '.bt_bb_google_maps_map.bt_bb_map_map' ).append( img_src ).on('click', function(){ $( '.bt_bb_map_location_show' ).removeClass( 'bt_bb_map_location_show' ).nextOrFirst().addClass( 'bt_bb_map_location_show' ) });
 		
 		locations.eq( 0 ).addClass( 'bt_bb_map_location_show' );
@@ -714,7 +733,7 @@
 	  return ( next.length ) ? next : this.prevAll( selector ).last();
 	};
 	
-	window.bt_bb_gmap_init = function ( map_id, zoom, custom_style ) {
+	window.bt_bb_gmap_init = function( map_id, zoom, custom_style ) {
 
 		var mapElement = document.getElementById( map_id );
 		
@@ -740,9 +759,9 @@
 		if ( mapElement )
 		{
 			var map = new google.maps.Map( mapElement, mapOptions );
-
-			if ( custom_style != '' ) {
-				
+		
+			if ( custom_style != '' && atob( custom_style ).startsWith( '[' ) ) {
+					
 				var style_array = [];
 				
 				if ( custom_style != '' ) {
@@ -756,6 +775,8 @@
 				var customMapTypeId = 'custom_style';
 				map.mapTypes.set( customMapTypeId, customMapType );
 				map.setMapTypeId( customMapTypeId );
+			} else {
+				
 			}
 
 			var n = 0;
@@ -831,6 +852,12 @@
 
 	}
 	
+	window.bt_bb_leaflet_init_late_all = function() {
+		jQuery( '.bt_bb_leaflet_map_map' ).not( '.leaflet-container' ).each(function() {
+			window.bt_bb_leaflet_init_late( jQuery( this ).attr( 'id' ), jQuery( this ).data( 'zoom' ), jQuery( this ).data( 'max_zoom' ), jQuery( this ).data( 'predefined_style' ), jQuery( this ).data( 'custom_style' ), jQuery( this ).data( 'scroll_wheel' ), jQuery( this ).data( 'zoom_control' ) );
+		});
+	}
+	
 	window.bt_bb_leaflet_init_late = function ( map_id, zoom, max_zoom, predefined_style, custom_style, scroll_wheel, zoom_control ) {
 		
 		var lat_center     = 0;
@@ -875,8 +902,7 @@
 				iconAnchor: [22, 58],
 				popupAnchor: [0, -14]
 			  });
-			// console.log(lat);
-			// console.log(lng);
+			  
 			var m = L.marker( [ lat, lng ], { icon: myIcon, id: n,  lat: lat, lng:lng } ).on("click", markerOnClick);
 			markerClusters.addLayer( m );  
 			
@@ -929,9 +955,7 @@
 				 position:'topright'
 			}).addTo(map);		
 		}
-		
 
-	   
 		function markerOnClick( e ) {
 			var attributes = e.target.options;
 			var id = attributes.id;
@@ -1007,7 +1031,40 @@
 		}
 
 	}, false);
-
 	
+	// magnificPopup swipe
+	
+	function mfp_swipe() {
+		var touch_start = false;
+		var touch_end = false;
+		var one_finger = true;
+		$( document ).on( 'touchstart', '.mfp-figure figure', function( e ) {
+			const touches = e.changedTouches;
+			if ( touches.length == 1 ) {
+				touch_start = touches[0].clientX;
+			} else {
+				one_finger = false;
+			}
+		});
+		$( document ).on( 'touchmove', '.mfp-figure figure', function( e ) {
+			const touches = e.changedTouches;
+			if ( touches.length > 1 ) {
+				one_finger = false;
+			}
+		});
+		$( document ).on( 'touchend', '.mfp-figure figure', function( e ) {
+			const touches = e.changedTouches;
+			if ( touches.length == 1 && one_finger ) {
+				touch_end = touches[0].clientX;
+				if ( touch_start - touch_end < -50 ) {
+					$( '.mfp-arrow-left' ).click();
+				} else if ( touch_start - touch_end > 50 ) {
+					$( '.mfp-arrow-right' ).click();
+				}
+			}
+			one_finger = true;
+		});
+	}
+	mfp_swipe();
 
 }( jQuery ));

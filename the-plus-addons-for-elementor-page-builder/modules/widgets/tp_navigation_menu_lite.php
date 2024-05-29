@@ -2343,7 +2343,7 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 		?>
 
 		<div class="plus-navigation-wrap <?php echo esc_attr( $nav_alignment ); ?> <?php echo esc_attr( $uid ); ?>">
-			<div class="plus-navigation-inner <?php echo esc_attr( $menu_hover_click ); ?> <?php echo esc_attr( $main_menu_indicator_style ); ?> <?php echo esc_attr( $sub_menu_indicator_style ); ?> " <?php echo $menu_attr; ?>>
+			<div class="plus-navigation-inner <?php echo ( $menu_hover_click ); ?> <?php echo esc_attr( $main_menu_indicator_style ); ?> <?php echo esc_attr( $sub_menu_indicator_style ); ?> " <?php echo $menu_attr; ?>>
 				<div id="theplus-navigation-normal-menu" class="collapse navbar-collapse navbar-ex1-collapse">
 	
 					<div class="plus-navigation-menu <?php echo esc_attr( $navbar_menu_type ); ?>">
@@ -2353,8 +2353,7 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 
 							wp_nav_menu( $nav_menu_args );
 						} elseif ( ! empty( $TypeMenu ) && $TypeMenu == 'custom' ) {
-
-							echo $this->tp_mega_menu( $settings );
+							echo wp_kses_post( $this->tp_mega_menu( $settings ) );
 						} else {
 							wp_nav_menu( apply_filters( 'widget_nav_menu_args', $nav_menu_args, $nav_menu, $settings ) );
 						}
@@ -2387,7 +2386,7 @@ class L_ThePlus_Navigation_Menu_Lite extends Widget_Base {
 								wp_nav_menu( apply_filters( 'widget_nav_menu_args', $mobile_nav_menu_args, $nav_menu, $settings ) );
 							}
 						} elseif ( ! empty( $TypeMenu ) && $TypeMenu == 'custom' ) {
-							echo $this->tp_mega_menu( $settings );
+							echo wp_kses_post($this->tp_mega_menu( $settings ));
 						}
 						?>
 						<?php
