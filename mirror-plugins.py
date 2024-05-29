@@ -72,7 +72,7 @@ def download_file(url, filepath):
             print(f'Could not extract zip {filepath}')
 
 if __name__ == '__main__':
-    plugins = [plugin for plugin in get_plugins() if plugin['active_installs'] >= 50000]
+    plugins = [plugin for plugin in get_plugins() if plugin['active_installs'] >= 15000]
 
     with ThreadPoolExecutor(max_workers=20) as executor:
         running_tasks = [executor.submit(download_file(plugin['download_link'], f'{plugin["slug"]}.{plugin["version"]}.zip')) for plugin in plugins]
