@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd8ae20ecf8d6e3d7d5eecc3a49f98ac4
+class ComposerStaticInitd25962abd6c4887a991417e435ce744c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1217,6 +1217,7 @@ class ComposerStaticInitd8ae20ecf8d6e3d7d5eecc3a49f98ac4
         'MailOptin\\NinjaFormsConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Connect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\ActiveCampaignConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\AweberConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/AweberConnect.php',
+        'MailOptin\\NinjaFormsConnect\\Integrations\\BeehiivConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\BenchmarkEmailConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\CampaignMonitorConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\CleverReachConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php',
@@ -1581,9 +1582,9 @@ class ComposerStaticInitd8ae20ecf8d6e3d7d5eecc3a49f98ac4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd8ae20ecf8d6e3d7d5eecc3a49f98ac4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd8ae20ecf8d6e3d7d5eecc3a49f98ac4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd8ae20ecf8d6e3d7d5eecc3a49f98ac4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd25962abd6c4887a991417e435ce744c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd25962abd6c4887a991417e435ce744c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd25962abd6c4887a991417e435ce744c::$classMap;
 
         }, null, ClassLoader::class);
     }

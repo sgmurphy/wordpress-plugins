@@ -137,7 +137,6 @@ function loginizer_page_recaptcha(){
 			
 			// Checkboxes
 			$option['captcha_user_hide'] = (int) lz_optpost('captcha_user_hide');
-			$option['captcha_no_css_login'] = (int) lz_optpost('captcha_no_css_login');
 			$option['captcha_login'] = (int) lz_optpost('captcha_login');
 			$option['captcha_lostpass'] = (int) lz_optpost('captcha_lostpass');
 			$option['captcha_resetpass'] = (int) lz_optpost('captcha_resetpass');
@@ -603,12 +602,6 @@ input[type="text"], textarea, select {
 				<td scope="row" valign="top"><label for="captcha_user_hide"><b><?php echo __('Hide CAPTCHA for logged in Users', 'loginizer'); ?></b></label></td>
 				<td>
 					<input type="checkbox" value="1" name="captcha_user_hide" id="captcha_user_hide" <?php echo lz_POSTchecked('captcha_user_hide', (empty($loginizer['captcha_user_hide']) ? false : true)); ?> />
-				</td>
-			</tr>
-			<tr class="lz_google_cap">
-				<td scope="row" valign="top"><label for="captcha_no_css_login"><b><?php echo __('Disable CSS inserted on Login Page', 'loginizer'); ?></b></label></td>
-				<td>
-					<input type="checkbox" value="1" name="captcha_no_css_login" id="captcha_no_css_login" <?php echo lz_POSTchecked('captcha_no_css_login', (empty($loginizer['captcha_no_css_login']) ? false : true)); ?> />
 				</td>
 			</tr>
 		</table><br />

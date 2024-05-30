@@ -154,6 +154,7 @@ function get_settings(): array
     $default_settings = array(
         'use_cookie' => 1,
         'exclude_user_roles' => array(),
+        'exclude_ip_addresses' => array(),
         'prune_data_after_months' => 5 * 12, // 5 years
         'default_view' => 'last_28_days',
         'is_dashboard_public' => 0,
@@ -176,11 +177,12 @@ function get_most_viewed_posts(array $args = array()): array
             'days'    => 30,
         ), $args);
 
-        $args['days']      = (int) $args['days'];
+        $args['days']      = abs((int) $args['days']);
         $args['post_type'] = is_array($args['post_type']) ? $args['post_type'] : explode(',', $args['post_type']);
         $args['post_type'] = array_map('trim', $args['post_type']);
 
-        $start_date = create_local_datetime("-{$args['days']} days")->format('Y-m-d');
+        $start_date_str = $args['days'] === 0 ? 'today midnight' : "-{$args['days']} days";
+        $start_date = create_local_datetime($start_date_str)->format('Y-m-d');
         $end_date = create_local_datetime('tomorrow midnight')->format('Y-m-d');
 
         // build query
@@ -251,9 +253,18 @@ function widgets_init()
     register_widget('KokoAnalytics\Widget_Most_Viewed_Posts');
 }
 
-function get_realtime_pageview_count($since = null): int
+/**
+ * @param int|string $since Either an integer timestamp (in seconds since Unix epoch) or a relative time string that strtotime understands.
+ * @return int
+ */
+function get_realtime_pageview_count($since = '-5 minutes'): int
 {
-    $since  = $since !== null ? $since : strtotime('-5 minutes');
+    if (is_numeric($since)) {
+        $since = (int) $since;
+    } else {
+        // $since is relative time string
+        $since = strtotime($since);
+    }
     $counts = (array) get_option('koko_analytics_realtime_pageview_count', array());
     $sum    = 0;
     foreach ($counts as $timestamp => $pageviews) {
@@ -275,12 +286,12 @@ function using_custom_endpoint(): bool
 
 function fmt_large_number(float $number): string
 {
-    if ($number < 10000) {
+    if ($number < 10000.0) {
         return $number;
     }
 
-    $number /= 1000;
-    if ($number > 100) {
+    $number /= 1000.0;
+    if ($number > 100.0) {
         $number = round($number);
     }
     return rtrim(rtrim(number_format($number, 1), '0'), '.')  . 'K';
@@ -295,10 +306,14 @@ function test_custom_endpoint(): void
 function create_local_datetime($timestr): \DateTimeImmutable
 {
     $offset = (float) get_option('gmt_offset', 0.0);
-    if ($offset >= 0) {
+    if ($offset >= 0.00) {
         $offset = "+$offset";
     }
 
-    $now_local = (new \DateTimeImmutable('now'))->modify($offset . ' hours');
+    $now_local = (new \DateTimeImmutable('now'));
+    if ($offset > 0.00 || $offset < 0.00) {
+        $now_local = $now_local->modify($offset . ' hours');
+    }
+
     return $now_local->modify($timestr);
 }

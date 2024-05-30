@@ -1974,47 +1974,83 @@ class HMWP_Models_Rewrite
 
                     /////////////////////////////////////////////////////
                     //Protect lost password and register
+                    //If POST process
                     if ($http_post) {
+
+                        //if password reset, allow access
                         if (HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') <> '') {
                             if (strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_lostpassword_url')) !== false) {
                                 $_REQUEST['action'] = 'lostpassword';
                             }
                         }
 
+                        //if register, allow access
                         if (HMWP_Classes_Tools::getOption('hmwp_register_url') <> '') {
                             if (strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_register_url')) !== false) {
                                 $_REQUEST['action'] = 'register';
                             }
                         }
+
+                        //if there is a different login path
+                        if (defined('HMWP_DEFAULT_LOGIN') ) {
+
+                            //when submit on password protect page on wp-login.php
+                            //allow access to submit the password
+                            if ($url == site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative')) {
+                                if ('postpass' == HMWP_Classes_Tools::getValue('action')) {
+                                    return $url;
+                                }
+                            }
+
+                        }
+
+                    }elseif (defined('HMWP_DEFAULT_LOGIN') ) {
+
+                        //when logout process on wp-login.php
+                        //allow access
+                        if ($url == site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative')) {
+                            if ('true' == HMWP_Classes_Tools::getValue('loggedout')) {
+                                return $url;
+                            }
+                        }
+
                     }
 
                     /////////////////////////////////////////////////////
                     //Hide Login URL when changed
                     if (HMWP_Classes_Tools::getOption('hmwp_hide_wplogin') || HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
 
+                        //if the wp-login path is changed
                         if (HMWP_Classes_Tools::getDefault('hmwp_login_url') <> HMWP_Classes_Tools::getOption('hmwp_login_url')) {
 
-	                        $paths = array(
+                            //get the relative login path
+                            $paths = array(
 		                        home_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
 		                        site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
 	                        );
 
-	                        if (!HMWP_Classes_Tools::isCloudPanel() && !HMWP_Classes_Tools::isWpengine() && $_SERVER['REQUEST_METHOD'] <> 'POST' && HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
+                            //if there is a POST on login when it's hidden
+                            //allow access on CloudPanel and WP Engine to prevent errors
+                            if ($http_post && HMWP_Classes_Tools::getOption('hmwp_hide_login') &&
+                                !HMWP_Classes_Tools::isCloudPanel() && !HMWP_Classes_Tools::isWpengine() ) {
 
-		                        $paths[] = home_url('login', 'relative');
-		                        $paths[] = site_url('login', 'relative');
-
-	                        }
-
-	                        $paths = array_unique($paths);
-
-                            if (HMWP_Classes_Tools::searchInString($url, $paths)) {
-
-                                if (site_url(HMWP_Classes_Tools::getOption('hmwp_login_url'), 'relative') <> $url) {
-                                    $this->getNotFound($url);
+                                if (defined('HMWP_DEFAULT_LOGIN') && HMWP_DEFAULT_LOGIN <> 'login' ) {
+                                    $paths[] = home_url('login', 'relative');
+                                    $paths[] = site_url('login', 'relative');
                                 }
 
                             }
+
+                            //remove duplicate paths in array
+                            $paths = array_unique($paths);
+
+                            //search the paths in URL and show not found
+                            if (HMWP_Classes_Tools::searchInString($url, $paths)) {
+                                if (site_url(HMWP_Classes_Tools::getOption('hmwp_login_url'), 'relative') <> $url) {
+                                    $this->getNotFound($url);
+                                }
+                            }
+
                         } elseif (defined('HMWP_DEFAULT_LOGIN') && HMWP_DEFAULT_LOGIN <> HMWP_Classes_Tools::getDefault('hmwp_login_url')) {
 
 	                        $paths = array(

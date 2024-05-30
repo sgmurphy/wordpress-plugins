@@ -695,6 +695,7 @@ return array(
     'MailOptin\\NinjaFormsConnect\\Connect' => $baseDir . '/src/connections/NinjaFormsConnect/Connect.php',
     'MailOptin\\NinjaFormsConnect\\Integrations\\ActiveCampaignConnect' => $baseDir . '/src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php',
     'MailOptin\\NinjaFormsConnect\\Integrations\\AweberConnect' => $baseDir . '/src/connections/NinjaFormsConnect/Integrations/AweberConnect.php',
+    'MailOptin\\NinjaFormsConnect\\Integrations\\BeehiivConnect' => $baseDir . '/src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php',
     'MailOptin\\NinjaFormsConnect\\Integrations\\BenchmarkEmailConnect' => $baseDir . '/src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php',
     'MailOptin\\NinjaFormsConnect\\Integrations\\CampaignMonitorConnect' => $baseDir . '/src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php',
     'MailOptin\\NinjaFormsConnect\\Integrations\\CleverReachConnect' => $baseDir . '/src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php',

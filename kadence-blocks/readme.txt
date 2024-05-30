@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, page builder, editor, gutenberg blocks
 Donate link: https://www.kadencewp.com/about-us/
 Requires at least: 6.3
 Tested up to: 6.5
-Stable tag: 3.2.39
+Stable tag: 3.2.40
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -174,12 +174,20 @@ Please report security bugs found in the Kadence Blocks plugin's source code thr
 
 == Changelog ==
 
+= 3.2.40 =
+Release Date: May 29th 2024
+* Add: Option for full height in infobox.
+* Fix: Issue with industry search in ai wizard.
+* Fix: Advanced form message padding unit on front end
+* Fix: Advanced form input padding unit on front end
+* Fix: Sanitize custom snazzy maps styles in Google Maps block.
+
 = 3.2.39 =
 Release Date: May 22nd 2024
 * Fix: Using Google fonts for captions in advanced gallery block.
 * Fix: Issue with columns preview in testimonial.
 * Fix: Issue with escaping attribute in testimonial block.
-* Fix: Issue with escaping attribute in countdown block. 
+* Fix: Issue with escaping attribute in countdown block.
 
 = 3.2.38 =
 Release Date: May 10th 2024

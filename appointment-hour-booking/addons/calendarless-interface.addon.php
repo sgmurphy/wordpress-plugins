@@ -288,7 +288,7 @@ jQuery(document).one('showHideDepEvent', function(){
             var c = $("."+cal);
             var f = c.find(".slots").attr("d").split("-");
             c.find("#ahb_links_"+calendarCSSClass+" div").removeClass("activelink");
-            var selectedDate = c.find("#ahb_links_"+calendarCSSClass+" div[d='"+f[2]+"'][m='"+f[0]+"-"+f[1]+"']");
+            var selectedDate = c.find("#ahb_links_"+calendarCSSClass+" div[d='"+parseInt(f[2])+"'][m='"+f[0]+"-"+f[1]+"']");
             selectedDate.addClass("activelink");
             var element = c.find('.slotsCalendar');
             selectedDate.append(element);

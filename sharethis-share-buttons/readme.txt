@@ -6,8 +6,8 @@ Author URI: https://sharethis.com/
 Author: ShareThis
 Requires at least: 5.5
 Tested up to: 6.5.3
-Stable tag: 2.3.1
-Version: 2.3.1
+Stable tag: 2.3.2
+Version: 2.3.2
 
 License: GPLv2 or later
 
@@ -72,6 +72,9 @@ Questions? Submit an inquiry through our support forum and our team will be happ
 We cache your ShareThis platform button configurations (social networks, button size, labels etc.) to optimize their performance. Sometimes changes you make on the ShareThis platform take a couple minutes to update on your site. Also, if you activate a new button type from the settings page you may experience a similar lag.
 
 == Changelog ==
+
+= 2.3.2 =
+* Additional security checks.
 
 = 2.3.1 =
 * Fix XSS security hole in shortcode

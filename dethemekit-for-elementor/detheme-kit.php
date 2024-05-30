@@ -3,7 +3,7 @@
  * Plugin Name:         DethemeKit for Elementor
  * Plugin URI:          https://vastthemes.com
  * Description:         Detheme Widgets for elementor.
- * Version:             2.1.4
+ * Version:             2.1.5
  * Author:              deTheme
  * Author URI:          https://detheme.com
  * Requires at least:   5.2
@@ -17,13 +17,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Define Constants
-define('DETHEMEKIT_ADDONS_VERSION', '2.1.4');
+define('DETHEMEKIT_ADDONS_VERSION', '2.1.5');
 define('DETHEMEKIT_ADDONS_URL', plugins_url( '/', __FILE__ ) );
 define('DETHEMEKIT_ADDONS_PATH', plugin_dir_path( __FILE__ ) );
 define('DETHEMEKIT_ADDONS_FILE', __FILE__);
 define('DETHEMEKIT_ADDONS_BASENAME', plugin_basename( DETHEMEKIT_ADDONS_FILE ) );
 define('DETHEMEKIT_ADDONS_DIR_URL', plugin_dir_url( __FILE__ ));
-define('DETHEMEKIT_ADDONS_STABLE_VERSION', '2.1.4');
+define('DETHEMEKIT_ADDONS_STABLE_VERSION', '2.1.5');
 
 define('DETHEMEKIT_ADDONS_DIR', __DIR__);
 define('DETHEMEKIT_ADDONS_DIRNAME', dirname(DETHEMEKIT_ADDONS_BASENAME));

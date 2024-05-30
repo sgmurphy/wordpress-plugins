@@ -5,7 +5,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('LOGINIZER_VERSION', '1.8.4');
+define('LOGINIZER_VERSION', '1.8.5');
 define('LOGINIZER_DIR', dirname(LOGINIZER_FILE));
 define('LOGINIZER_URL', plugins_url('', LOGINIZER_FILE));
 define('LOGINIZER_PRO_URL', 'https://loginizer.com/features#compare');
@@ -404,7 +404,6 @@ $site_name';
 	$loginizer['turn_captcha_size'] = empty($options['turn_captcha_size']) ? 'normal' : $options['turn_captcha_size'];
 	$loginizer['turn_captcha_lang'] = empty($options['turn_captcha_lang']) ? '' : $options['turn_captcha_lang'];
 	$loginizer['captcha_user_hide'] = !isset($options['captcha_user_hide']) ? 0 : $options['captcha_user_hide'];
-	$loginizer['captcha_no_css_login'] = !isset($options['captcha_no_css_login']) ? 0 : $options['captcha_no_css_login'];
 	$loginizer['captcha_no_js'] = 1;
 	$loginizer['captcha_login'] = !isset($options['captcha_login']) ? 1 : $options['captcha_login'];
 	$loginizer['captcha_lostpass'] = !isset($options['captcha_lostpass']) ? 1 : $options['captcha_lostpass'];
@@ -842,12 +841,23 @@ Loginizer';
 }
 
 function loginizer_login_success($user_login, $user) {
-	global $loginizer;
+	global $wp_version, $loginizer;
 
 	loginizer_update_attempt_stats(1);
+	
+	if(empty($loginizer['login_mail'])){
+		return;
+	}
 
 	if(empty($loginizer['login_mail']['enable'])){
 		return;
+	}
+
+	if(!empty($loginizer['login_mail']['disable_whitelist'])){
+		// Check its whitelist ip
+		if(loginizer_is_whitelisted()){
+			return;
+		}
 	}
 
 	if(empty($user_login) && empty($user)){
@@ -873,8 +883,20 @@ function loginizer_login_success($user_login, $user) {
 		return;
 	}
 
-	// Setting up data variables.
-	$date = date("Y-m-d H:i:s", time()) . ' ' . date_default_timezone_get();
+	// current_datetime & wp_timezone_string were introduced in WordPress 5.3
+	if(!empty($wp_version) && version_compare($wp_version, '5.3', '>') && function_exists('current_datetime')){
+		$time_zone = wp_timezone_string();
+
+		if(!empty($time_zone) && isset($time_zone[1]) && is_numeric($time_zone[1])){
+			$time_zone = 'UTC'.$time_zone;
+		}
+
+		// Setting up data variables.
+		$date = current_datetime()->format('Y-m-d H:i:s') .' '. $time_zone;
+	} else {
+		$date = date("Y-m-d H:i:s", time()) . ' ' . date_default_timezone_get();
+	}
+
 	$sitename = lz_is_multisite() ? get_site_option('site_name') : get_option('blogname');
 	$email = $user->data->user_email;
 

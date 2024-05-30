@@ -324,7 +324,7 @@ class Helper {
 	public static function yaymail_is_date( $value ) {
 		$is_date = false;
 
-		if ( ! $value ) {
+		if ( ! $value || self::yaymail_is_time( $value ) || self::yaymail_is_time_range( $value ) ) {
 			return $is_date;
 		}
 
@@ -361,6 +361,20 @@ class Helper {
 		foreach ( $time_formats as $format ) {
 			$time = \DateTime::createFromFormat( $format, $value );
 			if ( false !== $time ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static function yaymail_is_time_range( $value ) {
+		$regex = '/^(\d{1,2}:\d{2}\s?(AM|PM|am|pm)?)\s?-\s?(\d{1,2}:\d{2}\s?(AM|PM|am|pm)?)$/';
+
+		if ( preg_match( $regex, $value ) ) {
+			list($start_time, $end_time) = explode( '-', $value );
+
+			if ( self::yaymail_is_time( $start_time ) && self::yaymail_is_time( $end_time ) ) {
 				return true;
 			}
 		}

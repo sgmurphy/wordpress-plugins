@@ -156,6 +156,11 @@ class Admin_Page {
 
 <!-- start markdowntohtml.com -->
 
+<p>= 1.4.1, May 30 2024 =</p>
+<ul>
+<li>Improved compatibility with WPML plugin.</li>
+</ul>
+
 <p>= 1.4.0, Mar 25 2024 =</p>
 <ul>
 <li>Added Instagram Access Token encryption.</li>

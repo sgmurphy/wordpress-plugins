@@ -3,7 +3,7 @@ $pathImg = '';
 if ( '' != $attrs['pathImg'] ) {
 	$pathImg = $attrs['pathImg'];
 } else {
-	if (empty($attrs['alt'])) {
+	if ( empty( $attrs['alt'] ) ) {
 		$pathImg = YAYMAIL_PLUGIN_URL . 'assets/dist/images/woocommerce-logo.png';
 	}
 }
@@ -38,7 +38,7 @@ if ( '' != $attrs['pathImg'] ) {
 			  src="<?php echo esc_attr( $pathImg ); ?>"
 			  width="<?php echo esc_attr( $attrs['width'] ); ?>"
 			  height="auto"
-			  alt="<?php echo esc_attr( $attrs['alt'] ); ?>"
+			  alt="<?php echo esc_attr( isset( $attrs['alt'] ) ? $attrs['alt'] : null ); ?>"
 			/>
 		  </a>
 		</td>

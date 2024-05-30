@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-29 16:08+0200\n"
+"POT-Creation-Date: 2024-05-30 15:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: D:/WP/BoldBuilder/trunk/admin-notice-rating.php:12
-msgid "Do you like Bold Builder?"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/admin-notice-rating.php:12
-msgid "You can contribute by leaving us a"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/admin-notice-rating.php:12
-msgid "review"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/admin-notice-rating.php:12
-msgid "Thanks!"
+#: D:/WP/BoldBuilder/trunk/admin-notice-rating.php:14
+msgid ""
+"<b>IMPORTANT!</b> This version of Bold Builder may cause layout issues with "
+"older theme versions. Please ensure that your theme is updated to the latest "
+"version."
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/admin-notice.php:12

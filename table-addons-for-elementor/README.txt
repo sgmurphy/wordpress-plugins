@@ -4,7 +4,7 @@ Plugin Name: Table Addons For Elementor
 Tags: elementor table, table, elementor table addons, table for elementor, table builder, table plugin
 Requires at least: 3.0.1
 Tested up to: 6.5.3
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires PHP: 7.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,8 @@ Our Pro plugin supports a variety of field types, including icons, images, butto
 
 == Changelog ==
 
+= 2.1.2 =
+* Fixed: Word-breaking issue
 = 2.1.1 =
 * Fixed: Icon fill color issue
 = 2.1.0 =

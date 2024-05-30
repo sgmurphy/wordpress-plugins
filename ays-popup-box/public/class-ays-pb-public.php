@@ -1366,12 +1366,15 @@ class Ays_Pb_Public {
             // Notification type | Button 1 border width
             $notification_button_1_border_width = (isset($options['notification_button_1_border_width']) && $options['notification_button_1_border_width'] != '') ? absint( esc_attr($options['notification_button_1_border_width']) ) : 0;
 
-            $notification_button_1_border_style = 'none';
+            $notification_button_1_border = 'none';
             if ($notification_button_1_border_width > 0) {
+                // Notification type | Button 1 border style
+                $notification_button_1_border_style = (isset($options['notification_button_1_border_style']) && $options['notification_button_1_border_style'] != '') ? stripslashes( esc_attr($options['notification_button_1_border_style']) ) : 'solid';
+
                 // Notification type | Button 1 border color
                 $notification_button_1_border_color = (isset($options['notification_button_1_border_color']) && $options['notification_button_1_border_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_border_color']) ) : '#FFFFFF';
 
-                $notification_button_1_border_style = $notification_button_1_border_width . 'px solid ' . $notification_button_1_border_color;
+                $notification_button_1_border = $notification_button_1_border_width . 'px ' . $notification_button_1_border_style . ' ' . $notification_button_1_border_color;
             }
 
             $popupbox_view .= "$screen_shade
@@ -1400,7 +1403,7 @@ class Ays_Pb_Public {
                             color: " . $notification_button_1_text_color . ";
                             font-size: " . $notification_button_1_font_size . ";
                             border-radius: " . $notification_button_1_border_radius . ";
-                            border: " . $notification_button_1_border_style . ";
+                            border: " . $notification_button_1_border . ";
                         }
                         
                         .ays_cmd_window {

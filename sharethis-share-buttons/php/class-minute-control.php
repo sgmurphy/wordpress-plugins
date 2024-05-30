@@ -197,14 +197,14 @@ class Minute_Control {
 	public function inline_shortcode( $atts ) {
 		global $post;
 
-		$data_url = isset( $atts['url'] ) ? esc_attr( 'data-url=' . esc_url( $atts['url'] ) ) : '';
+		$data_url = isset( $atts['url'] ) ? $atts['url'] : '';
 
 		if ( is_archive() || is_front_page() || is_tag() ) {
-			$data_url = esc_attr( 'data-url=' . get_permalink( $post->ID ) );
+			$data_url = get_permalink( $post->ID );
 		}
 
 		// Build container.
-		return '<div class="sharethis-inline-share-buttons" ' . $data_url . '></div>';
+		return '<div class="sharethis-inline-share-buttons" ' . ( false === empty( $data_url ) ? 'data-url="' . esc_url( $data_url ) . '"' : '' ) . '></div>';
 	}
 
 	/**

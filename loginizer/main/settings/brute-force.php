@@ -56,9 +56,10 @@ function loginizer_page_brute_force(){
 	if(isset($_POST['save_lz_login_email'])){
 	
 		$login_email['enable'] = (int) lz_optpost('loginizer_login_mail_enable');
+		$login_email['disable_whitelist'] = (int) lz_optpost('loginizer_login_mail_disable_whitelist');
 		$login_email['subject'] = sanitize_textarea_field($_POST['loginizer_login_mail_subject']);
 		$login_email['body'] = sanitize_textarea_field($_POST['loginizer_login_mail_body']);
-		$login_email['roles'] = map_deep($_POST['loginizer_login_mail_roles'], 'sanitize_text_field');
+		$login_email['roles'] = !empty($_POST['loginizer_login_mail_roles']) ? map_deep($_POST['loginizer_login_mail_roles'], 'sanitize_text_field') : [];
 
 		// Save the options
 		update_option('loginizer_login_mail', $login_email);
@@ -1126,6 +1127,17 @@ function lz_shift_check_all(check_class){
 
 					</td>
 				</tr>
+
+				<tr>
+					<td scope="row" valign="top" style="width:350px !important">
+						<label for="loginizer_notify_disable_whitelist"><?php echo __('Disable for whitelisted IPs', 'loginizer'); ?></label>
+						<p class="description"><?php echo __("If checked, don't notify whitelisted IPs.", 'loginizer'); ?></p>
+					</td>
+					<td>
+						<input type="checkbox" value="1" name="loginizer_login_mail_disable_whitelist" id="loginizer_login_mail_disable_whitelist" <?php echo lz_POSTchecked('loginizer_login_mail_disable_whitelist', (empty($loginizer['login_mail']['disable_whitelist']) ? false : true)); ?> />
+					</td>
+				</tr>
+
 				<tr>
 					<td scope="row" valign="top">
 						<label for="loginizer_login_mail_subject"><?php echo __('Email Subject', 'loginizer'); ?></label><br>
@@ -1134,6 +1146,9 @@ function lz_shift_check_all(check_class){
 					</td>
 					<td valign="top">
 						<input type="text" size="40" value="<?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_subject']) ? $_POST['loginizer_login_mail_subject'] : (empty($loginizer['login_mail']['subject']) ? '' : $loginizer['login_mail']['subject'])); ?>" name="loginizer_login_mail_subject" id="loginizer_login_mail_subject" />
+						<br />Variables :
+						<br />$sitename - The Site Name
+						<br />$user_login - User Name
 					</td>
 				</tr>
 
@@ -1144,7 +1159,7 @@ function lz_shift_check_all(check_class){
 						<br />Default : <pre style="font-size:10px"><?php echo esc_html($loginizer['login_mail_default_msg']); ?></pre>
 					</td>
 					<td valign="top">
-						<textarea rows="10" style="width:55%" name="loginizer_login_mail_body" id="loginizer_login_mail_body"><?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_body']) ? $_POST['loginizer_login_mail_body'] : (empty($loginizer['login_mail']['body']) ? '' : $loginizer['login_mail']['body'])); ?></textarea>
+						<textarea rows="10" style="width:70%" name="loginizer_login_mail_body" id="loginizer_login_mail_body"><?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_body']) ? $_POST['loginizer_login_mail_body'] : (empty($loginizer['login_mail']['body']) ? '' : $loginizer['login_mail']['body'])); ?></textarea>
 						<br />Variables :
 						<br />$sitename - The Site Name
 						<br />$user_login - User Name
@@ -1154,7 +1169,7 @@ function lz_shift_check_all(check_class){
 						
 					</td>
 				</tr>
-				<tr>
+				<tr><br>
 					<td scope="row" valign="top" style="width:350px !important">
 						<label for="loginizer_login_mail_roles"><?php echo __('Select Roles', 'loginizer'); ?></label><br/>
 						<span class="exp"><?php echo __('Select the user roles for whom you want to send successful login notification.', 'loginizer'); ?></span>

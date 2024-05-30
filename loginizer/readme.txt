@@ -4,7 +4,7 @@ Tags: security, access, admin, Loginizer, login, logs, ban ip, failed login, ip,
 Requires at least: 3.0
 Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 License: LGPLv2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -82,6 +82,13 @@ That's it. You're done!
 3. Loginizer Brute Force Settings page
 
 == Changelog ==
+
+= 1.8.5 =
+* [Feature] Added Option to disable Login notification for whitelisted IPs.
+* [Improvement] We have added variables for custom subject in Login notification.
+* [Bug-Fix] Now the time shown in the Login Notification email, will respect the timezone set in the WordPress settings.
+* [Bug-Fix] Error notice when 2FA fails had some CSS issue which has been fixed.
+* [Task] We have remove unwanted code in reCAPTCHA.
 
 = 1.8.4 =
 * [Feature] Block Page, now instead of showing error on the Login page of user being blacklisted, you can just show a page with error, reducing the resource being used to show the error.

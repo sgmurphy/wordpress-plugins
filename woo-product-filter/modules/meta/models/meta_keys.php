@@ -102,6 +102,7 @@ class Meta_KeysModelWpf extends ModelWpf {
 		if (!is_array($filterKeys)) {
 			return false;
 		}
+		$filterKeys = array_unique($filterKeys);
 		$valuesMeta = FrameWpf::_()->getModule('meta')->getModel('meta_values');
 
 		$allKeys = $this->getAllKeys();

@@ -3,7 +3,7 @@
 /*
 Plugin Name: Koko Analytics
 Plugin URI: https://www.kokoanalytics.com/#utm_source=wp-plugin&utm_medium=koko-analytics&utm_campaign=plugins-page
-Version: 1.3.7
+Version: 1.3.8
 Description: Privacy-friendly analytics for your WordPress site.
 Author: ibericode
 Author URI: https://www.ibericode.com/
@@ -34,15 +34,12 @@ phpcs:disable PSR1.Files.SideEffects
 
 namespace KokoAnalytics;
 
-\define('KOKO_ANALYTICS_VERSION', '1.3.7');
+\define('KOKO_ANALYTICS_VERSION', '1.3.8');
 \define('KOKO_ANALYTICS_PLUGIN_FILE', __FILE__);
 \define('KOKO_ANALYTICS_PLUGIN_DIR', __DIR__);
 
-// Conditionally load our autoloader
-// This allows people to install the plugin through wpackagist and use a site-wide autoloader
-if (!class_exists('KokoAnalytics\Plugin')) {
-    require __DIR__ . '/vendor/autoload.php';
-}
+// Load the Koko Analytics autoloader
+require __DIR__ . '/autoload.php';
 
 if (\defined('DOING_AJAX') && DOING_AJAX) {
     maybe_collect_request();

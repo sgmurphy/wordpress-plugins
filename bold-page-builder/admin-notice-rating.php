@@ -7,11 +7,13 @@ function bt_bb_rating_notice() {
 	
 	$user_id = $current_user->ID;
 
-	if ( ! get_user_meta( $user_id, 'bt_bb_rating_notice_ignore' ) && get_user_meta( $user_id, 'bt_bb_rating_notice_enable' ) ) {
+	//if ( ! get_user_meta( $user_id, 'bt_bb_rating_notice_ignore' ) && get_user_meta( $user_id, 'bt_bb_rating_notice_enable' ) ) {
 		
-		echo '<div class="notice notice-info is-dismissible bt_bb_rating_notice" style="background:#f2f8ff;"><p>'. esc_html__( 'Do you like Bold Builder?', 'bold-builder' ) . ' ' . esc_html__( 'You can contribute by leaving us a', 'bold-builder' ) . ' ' . ' <a href="https://wordpress.org/support/plugin/bold-page-builder/reviews/?filter=5" target="_blank">'. esc_html__( 'review', 'bold-builder' ) . '</a>' . '. ' . esc_html__( 'Thanks!', 'bold-builder' ) . ' 🙂</p></div>';
+		//echo '<div class="notice notice-info is-dismissible bt_bb_rating_notice" style="background:#f2f8ff;"><p>'. esc_html__( 'Do you like Bold Builder?', 'bold-builder' ) . ' ' . esc_html__( 'You can contribute by leaving us a', 'bold-builder' ) . ' ' . ' <a href="https://wordpress.org/support/plugin/bold-page-builder/reviews/?filter=5" target="_blank">'. esc_html__( 'review', 'bold-builder' ) . '</a>' . '. ' . esc_html__( 'Thanks!', 'bold-builder' ) . ' 🙂</p></div>';
 		
-	}
+		echo '<div class="notice notice-warning is-dismissible bt_bb_rating_notice"><p>'. __( '<b>IMPORTANT!</b> This version of Bold Builder may cause layout issues with older theme versions. Please ensure that your theme is updated to the latest version.', 'bold-builder' ) . '</div>';
+		
+	//}
 	
 }
 

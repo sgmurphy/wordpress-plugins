@@ -126,6 +126,7 @@ class Meta_ValuesModelWpf extends ModelWpf {
 		/*if (empty($value) && '' === $value) {
 			return false;
 		}*/
+		$value = trim($value);
 		$key = implode('|', $keys) . '|' . $value;
 		if (!isset($this->keyValueIds[$key])) {
 			$id = $this->insert(array_merge($keys, array('key_id' => $keyId, 'value' => $value)));

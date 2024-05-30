@@ -341,6 +341,7 @@ class Ays_Pb_Activator {
             'notification_button_1_border_radius' => 6,
             'notification_button_1_border_width' => 0,
             'notification_button_1_border_color' => '',
+            'notification_button_1_border_style' => '',
             'except_post_types' => array(),
             'except_posts' => array(),
             'show_on_home_page' => 'off',

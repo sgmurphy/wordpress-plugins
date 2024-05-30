@@ -7,6 +7,7 @@ use MailOptin\Core\AjaxHandler;
 use MailOptin\Core\Connections\ConnectionFactory;
 use MailOptin\Core\OptinForms\ConversionDataBuilder;
 use MailOptin\Core\Repositories\ConnectionsRepository;
+
 use function MailOptin\Core\moVar;
 
 class CF7
@@ -45,24 +46,35 @@ class CF7
 
         $required_acceptance = moVar($mocf7_settings, 'require_acceptance');
 
-        if ( ! empty($required_acceptance) && moVar($posted_data, $required_acceptance) != '1') return;
+        $acceptance_field_data = moVar($posted_data, $required_acceptance);
+
+        // empty array [] if acceptance field not checked or [0 => "1"] if checked
+        // old version prior to 5.9 was 1 if checked or otherwise (0 or empty) if not checked.
+        if (
+            ! empty($required_acceptance) && (
+                $acceptance_field_data != '1' &&
+                empty($acceptance_field_data)
+            )
+        ) {
+            return;
+        }
 
         $field_mapping = moVar($mocf7_settings, 'custom_fields');
 
-        $name = $posted_data[moVar($field_mapping, 'moName')];
-        $first_name = $posted_data[moVar($field_mapping, 'moFirstName')];
-        $last_name = $posted_data[moVar($field_mapping, 'moLastName')];
+        $name               = $posted_data[moVar($field_mapping, 'moName')];
+        $first_name         = $posted_data[moVar($field_mapping, 'moFirstName')];
+        $last_name          = $posted_data[moVar($field_mapping, 'moLastName')];
         $connection_service = moVar($mocf7_settings, 'integration');
 
         $double_optin = false;
-        if(in_array($connection_service, Init::double_optin_support_connections(true))) {
+        if (in_array($connection_service, Init::double_optin_support_connections(true))) {
             $double_optin = moVar($mocf7_settings, 'is_double_optin') === "true";
         }
 
         $optin_data = new ConversionDataBuilder();
         // since it's non mailoptin form, set it to zero.
-        $optin_data->optin_campaign_id   = 0;
-        $optin_data->payload             = $posted_data;
+        $optin_data->optin_campaign_id = 0;
+        $optin_data->payload           = $posted_data;
 
         //check if the full name moName is empty, else join both the first name and last name
         $optin_data->name                = Init::return_name($name, $first_name, $last_name);
@@ -74,11 +86,11 @@ class CF7
 
         $optin_data->user_agent                = esc_html($_SERVER['HTTP_USER_AGENT']);
         $optin_data->is_timestamp_check_active = false;
-        $optin_data->is_double_optin      = $double_optin;
+        $optin_data->is_double_optin           = $double_optin;
 
         $container_post_id = $obj->get_meta('container_post_id');
 
-        if (!empty($container_post_id)) {
+        if ( ! empty($container_post_id)) {
             $optin_data->conversion_page = get_permalink(intval($container_post_id));
         }
 
@@ -164,9 +176,9 @@ class CF7
         }
 
         $custom_fields = [
-            'moEmail' => esc_html__('Email Address', 'mailoptin'),
-            'moName'  => esc_html__('Full Name', 'mailoptin'),
-            'moFirstName'  => esc_html__('First Name', 'mailoptin'),
+            'moEmail'     => esc_html__('Email Address', 'mailoptin'),
+            'moName'      => esc_html__('Full Name', 'mailoptin'),
+            'moFirstName' => esc_html__('First Name', 'mailoptin'),
             'moLastName'  => esc_html__('Last Name', 'mailoptin'),
         ];
 
@@ -191,10 +203,10 @@ class CF7
         }
 
         $default_double_optin = false;
-        if(! empty($saved_integration) && defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+        if ( ! empty($saved_integration) && defined('MAILOPTIN_DETACH_LIBSODIUM')) {
             $double_optin_connections = Init::double_optin_support_connections();
-            foreach($double_optin_connections as $key => $value) {
-                if($saved_integration === $key) {
+            foreach ($double_optin_connections as $key => $value) {
+                if ($saved_integration === $key) {
                     $default_double_optin = $value;
                 }
             }

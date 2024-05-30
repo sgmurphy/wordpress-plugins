@@ -60,6 +60,7 @@ $options = array(
     'notification_button_1_border_radius' => 6,
     'notification_button_1_border_width' => 0,
     'notification_button_1_border_color' => '#FFFFFF',
+    'notification_button_1_border_style' => 'solid',
     'except_post_types' => array(),
     'except_posts' => array(),
     'show_on_home_page' => 'off',
@@ -406,6 +407,9 @@ $notification_button_1_border_width = (isset($options['notification_button_1_bor
 
 // Notification type | Button 1 border color
 $notification_button_1_border_color = (isset($options['notification_button_1_border_color']) && $options['notification_button_1_border_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_border_color']) ) : '#FFFFFF';
+
+// Notification type | Button 1 border style
+$notification_button_1_border_style = (isset($options['notification_button_1_border_style']) && $options['notification_button_1_border_style'] != '') ? stripslashes( esc_attr($options['notification_button_1_border_style']) ) : 'solid';
 
 // Popup description
 $description = (isset($popupbox['description']) && $popupbox['description'] != '') ? stripslashes($popupbox['description']) : '';
@@ -1818,6 +1822,37 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="ays_pb_notification_button_1_border_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_border_color" value="<?php echo $notification_button_1_border_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_button_1_border_style">
+                                        <span>
+                                            <?php echo  __('Border style',"ays-popup-box") ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Choose your preferred style of the border.", "ays-popup-box"); ?>">
+                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                            </a>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select name="ays_pb_notification_button_1_border_style" id="ays_pb_notification_button_1_border_style" class="ays_pb_aysDropdown">
+                                        <?php
+                                            $selected = "";
+                                            foreach ($border_styles as $key => $border_style) {
+                                                $selected = "";
+                                                if ($key == $notification_button_1_border_style) {
+                                                    $selected = "selected";
+                                                }
+                                        ?>
+                                        <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
+                                            <?php echo $border_style; ?>
+                                        </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>

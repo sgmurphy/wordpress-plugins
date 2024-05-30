@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.69.0\n"
+"Project-Id-Version: MailOptin - Lite 1.2.69.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-08T13:54:02+00:00\n"
+"POT-Creation-Date: 2024-05-30T15:51:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: mailoptin\n"
@@ -93,7 +93,7 @@ msgstr ""
 
 #: src/connections/ActiveCampaignConnect/Connect.php:248
 #: src/connections/CleverReachConnect/Connect.php:196
-#: src/connections/ContactForm7Connect/CF7.php:132
+#: src/connections/ContactForm7Connect/CF7.php:144
 #: src/connections/ContactForm7Connect/panel-settings-view.php:47
 #: src/connections/EasyDigitalDownloadsConnect/EDDInit.php:544
 #: src/connections/EgoiConnect/ConnectSettingsPage.php:23
@@ -531,6 +531,7 @@ msgstr ""
 #: src/connections/NinjaFormsConnect/Connect.php:33
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:231
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:231
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:231
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:231
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:231
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:231
@@ -627,6 +628,10 @@ msgstr ""
 
 #: src/connections/BeehiivConnect/Connect.php:125
 msgid "Name Custom Field"
+msgstr ""
+
+#: src/connections/BeehiivConnect/Connect.php:150
+msgid "Free Tier"
 msgstr ""
 
 #: src/connections/BeehiivConnect/ConnectSettingsPage.php:30
@@ -765,6 +770,7 @@ msgstr ""
 #: src/connections/MemberPressConnect/Membership.php:53
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:170
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:170
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:170
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:170
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:170
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:170
@@ -984,6 +990,7 @@ msgstr ""
 #: src/connections/MemberPressConnect/MemberPressInit.php:330
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:194
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:194
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:194
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:194
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:194
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:194
@@ -1066,6 +1073,7 @@ msgstr ""
 #: src/connections/MemberPressConnect/MemberPressInit.php:330
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:196
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:196
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:196
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:196
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:196
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:196
@@ -1357,7 +1365,7 @@ msgid "Nickname"
 msgstr ""
 
 #: src/connections/CommentOptinConnect/Init.php:225
-#: src/connections/ContactForm7Connect/CF7.php:169
+#: src/connections/ContactForm7Connect/CF7.php:181
 #: src/connections/EasyDigitalDownloadsConnect/EDDInit.php:613
 #: src/connections/FluentFormConnect/FluentForms.php:154
 #: src/connections/FormidableFormConnect/FormidableForm.php:75
@@ -1368,6 +1376,7 @@ msgstr ""
 #: src/connections/MemberPressConnect/MemberPressInit.php:412
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:113
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:113
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:113
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:113
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:113
@@ -1425,7 +1434,7 @@ msgid "First Name"
 msgstr ""
 
 #: src/connections/CommentOptinConnect/Init.php:226
-#: src/connections/ContactForm7Connect/CF7.php:170
+#: src/connections/ContactForm7Connect/CF7.php:182
 #: src/connections/EasyDigitalDownloadsConnect/EDDInit.php:614
 #: src/connections/FluentFormConnect/FluentForms.php:159
 #: src/connections/FormidableFormConnect/FormidableForm.php:76
@@ -1436,6 +1445,7 @@ msgstr ""
 #: src/connections/MemberPressConnect/MemberPressInit.php:413
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:117
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:117
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:117
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:117
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:117
@@ -1506,7 +1516,7 @@ msgid "Biographical Info "
 msgstr ""
 
 #: src/connections/CommentOptinConnect/Init.php:241
-#: src/connections/ContactForm7Connect/CF7.php:114
+#: src/connections/ContactForm7Connect/CF7.php:126
 #: src/connections/EasyDigitalDownloadsConnect/EDDInit.php:630
 #: src/connections/EasyDigitalDownloadsConnect/Settings.php:265
 #: src/connections/ElementorConnect/Elementor.php:44
@@ -1530,7 +1540,7 @@ msgstr ""
 msgid "MailOptin Leads"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/CF7.php:167
+#: src/connections/ContactForm7Connect/CF7.php:179
 #: src/connections/FluentFormConnect/FluentForms.php:143
 #: src/connections/FormidableFormConnect/FormidableForm.php:73
 #: src/connections/ForminatorFormConnect/ModuleSettingsPageTrait.php:365
@@ -1540,13 +1550,14 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/CF7.php:168
+#: src/connections/ContactForm7Connect/CF7.php:180
 #: src/connections/FluentFormConnect/FluentForms.php:149
 #: src/connections/FormidableFormConnect/FormidableForm.php:74
 #: src/connections/ForminatorFormConnect/ModuleSettingsPageTrait.php:366
 #: src/connections/GravityFormsConnect/GFMailOptin.php:168
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:109
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:109
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:109
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:109
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:109
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:109
@@ -1671,6 +1682,7 @@ msgstr ""
 #: src/connections/GravityFormsConnect/GFMailOptin.php:420
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:169
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:169
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:169
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:169
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:169
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:169
@@ -1727,6 +1739,7 @@ msgstr ""
 #: src/connections/GravityFormsConnect/GFMailOptin.php:422
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:171
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:171
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:171
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:171
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:171
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:171
@@ -4389,6 +4402,7 @@ msgstr ""
 
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:103
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:103
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:103
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:103
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:103
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:103
@@ -4440,6 +4454,7 @@ msgstr ""
 
 #: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:234
 #: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:234
+#: src/connections/NinjaFormsConnect/Integrations/BeehiivConnect.php:234
 #: src/connections/NinjaFormsConnect/Integrations/BenchmarkEmailConnect.php:234
 #: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:234
 #: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:234

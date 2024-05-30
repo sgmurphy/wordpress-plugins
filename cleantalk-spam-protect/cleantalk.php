@@ -4,7 +4,7 @@
   Plugin Name: Anti-Spam by CleanTalk
   Plugin URI: https://cleantalk.org
   Description: Max power, all-in-one, no Captcha, premium anti-spam plugin. No comment spam, no registration spam, no contact spam, protects any WordPress forms.
-  Version: 6.32.1
+  Version: 6.33
   Author: СleanTalk - Anti-Spam Protection <welcome@cleantalk.org>
   Author URI: https://cleantalk.org
   Text Domain: cleantalk-spam-protect
@@ -347,7 +347,7 @@ $apbct_active_integrations = array(
         'ajax'    => true
     ),
     'FluentForm'          => array(
-        'hook'    => array('fluentform/before_insert_submission', 'fluentform_before_insert_submission'),
+        'hook' => array('fluentform/before_insert_submission', 'fluentform_before_insert_submission'),
         'setting' => 'forms__contact_forms_test',
         'ajax'    => false
     ),
@@ -620,7 +620,14 @@ $apbct_active_integrations = array(
         'ajax_and_post' => true
     ),
 );
-new  \Cleantalk\Antispam\Integrations($apbct_active_integrations, (array)$apbct->settings);
+add_action('plugins_loaded', function () use ($apbct_active_integrations, $apbct) {
+    if ( defined('FLUENTFORM_VERSION') ) {
+        $apbct_active_integrations['FluentForm']['hook'] = version_compare(FLUENTFORM_VERSION, '4.3.22') > 0
+            ? 'fluentform/before_insert_submission'
+            : 'fluentform_before_insert_submission';
+    }
+    new  \Cleantalk\Antispam\Integrations($apbct_active_integrations, (array)$apbct->settings);
+});
 
 // WP Delicious integration
 add_filter('delicious_recipes_process_registration_errors', 'apbct_wp_delicious', 10, 4);
@@ -659,6 +666,15 @@ function apbct_write_js_errors($data)
     }
 
     return update_option(APBCT_JS_ERRORS, $exist_errors);
+}
+
+// LearnPress
+if (
+    apbct_is_plugin_active('learnpress/learnpress.php') &&
+    apbct_is_in_uri('lp-ajax=checkout') &&
+    sizeof($_POST) > 0
+) {
+    apbct_form__learnpress__testSpam();
 }
 
 // OptimizePress

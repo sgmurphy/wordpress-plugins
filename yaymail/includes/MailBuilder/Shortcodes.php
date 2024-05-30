@@ -361,7 +361,7 @@ class Shortcodes {
 			return $style_css;
 		} else {
 			$additional_allowed_css_attributes = array( 'display' );
-			return array_merge( $array, $additional_allowed_css_attributes );
+			return is_array( $array ) ? array_merge( $array, $additional_allowed_css_attributes ) : $array;
 		}
 
 	}
@@ -1386,7 +1386,7 @@ class Shortcodes {
 							);
 
 							$value   = $meta->get_data()['value'];
-							$is_date = ! $isSpecialNumberName && ! Helper::yaymail_is_time( $value ) && Helper::yaymail_is_date( $value );
+							$is_date = ! $isSpecialNumberName && Helper::yaymail_is_date( $value );
 
 							if ( $is_date ) {
 								$default_timezon = date_default_timezone_get();
@@ -1650,7 +1650,7 @@ class Shortcodes {
 		} else {
 			ob_start();
 			$path = YAYMAIL_PLUGIN_PATH . 'views/templates/emails/email-order-details-border.php';
-			include $path;
+			include apply_filters( 'yaymail_get_template', $path );
 			$html = ob_get_contents();
 			ob_end_clean();
 			return $html;
@@ -1769,7 +1769,7 @@ class Shortcodes {
 		if ( ! empty( $order ) ) {
 			ob_start();
 			$path = YAYMAIL_PLUGIN_PATH . 'views/templates/emails/email-order-details-border-content.php';
-			include $path;
+			include apply_filters( 'yaymail_get_template', $path );
 			$html = ob_get_contents();
 			ob_end_clean();
 			return $html;

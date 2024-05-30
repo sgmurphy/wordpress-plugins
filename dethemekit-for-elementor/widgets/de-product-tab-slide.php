@@ -1295,15 +1295,14 @@ class De_Product_Tabs_Widget extends Widget_Base {
         ];
 
         $slider_responsive_settings = [
-            'product_items' => $settings['slitems'],
-            'scroll_columns' => $settings['slscroll_columns'],
-            'tablet_width' => $settings['sltablet_width'],
-            'tablet_display_columns' => $settings['sltablet_display_columns'],
-            'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-            'mobile_width' => $settings['slmobile_width'],
-            'mobile_display_columns' => $settings['slmobile_display_columns'],
-            'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
-
+            'product_items' => is_int( $settings['slitems'] ) ? $settings['slitems'] : 4,
+            'scroll_columns' => is_int( $settings['slscroll_columns'] ) ? $settings['slscroll_columns'] : 3,
+            'tablet_width' => is_numeric( $settings['sltablet_width'] ) ? $settings['sltablet_width'] : 750,
+            'tablet_display_columns' => is_int( $settings['sltablet_display_columns'] ) ? $settings['sltablet_display_columns'] : 2,
+            'tablet_scroll_columns' => is_int( $settings['sltablet_scroll_columns'] ) ? $settings['sltablet_scroll_columns'] : 2,
+            'mobile_width' => is_numeric( $settings['slmobile_width'] ) ? $settings['slmobile_width'] : 480,
+            'mobile_display_columns' => is_int( $settings['slmobile_display_columns'] ) ? $settings['slmobile_display_columns'] : 1,
+            'mobile_scroll_columns' => is_int( $settings['slmobile_scroll_columns'] ) ? $settings['slmobile_scroll_columns'] : 1,
         ];
 
         $slider_settings = array_merge($slider_settings, $slider_responsive_settings);

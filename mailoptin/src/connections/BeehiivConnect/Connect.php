@@ -147,7 +147,7 @@ class Connect extends AbstractBeehiivConnect implements ConnectionInterface
      */
     public function get_email_list()
     {
-        $lists = [];
+        $lists = ['all' => __('Free Tier', 'mailoptin')];
 
         try {
 

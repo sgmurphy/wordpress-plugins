@@ -291,6 +291,7 @@ Fixed - Prevent firewall to record all triggered filters as fail attempts
 Fixed - Remove filter on robots when 8G firewall is active
 Fixed - Frontend Login Check popup to prevent any redirect to admin panel in popup test
 Fixed - Prevent redirect the wp-admin to new login when wp-admin path is hidden
+Fixed - Prevent blocking login page on password protection page when the login path is set by another plugin
 
 = 5.1.02 (30 Apr 2024) =
 Update - Security Check verifies the firewall against SQL & Script injection and weak usernames

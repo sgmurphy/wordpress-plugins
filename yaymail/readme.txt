@@ -4,24 +4,22 @@ Donate link: https://yaycommerce.com/yaymail-woocommerce-email-customizer/
 Tags: email customizer, email designer, email templates, marketing, woocommerce emails
 Requires at least: 3.0
 Tested up to: 6.5.3
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Customize WooCommerce email templates with an advanced drag and drop email builder. Works great with 70+ WooCommerce Email Customizer Addons.
 
-
 == Description ==
 
 **The best WooCommerce Email Customizer with custom blocks and visual designer**
 
-[DEMO](https://demo.yaycommerce.com/try-yaymail/) | [**YAYMAIL PRO**](https://yaycommerce.com/yaymail-woocommerce-email-customizer/) 💎
+[**QUICK ADMIN DEMO**](https://demo.yaycommerce.com/try-yaymail/) | [**YAYMAIL PRO**](https://yaycommerce.com/yaymail-woocommerce-email-customizer/) 💎
  
 [youtube https://youtu.be/sfVwCGV5RBQ]
 
 [Free vs Pro](https://docs.yaycommerce.com/yaymail/compare-yaymail-free-and-pro) | [YayMail Addons](https://yaycommerce.com/yaymail-addons/)
-
 
 YayMail is a free **WooCommerce email template customizer** with a drag-and-drop interface. When combined with [**YayMail Premium Addons**](https://yaycommerce.com/yaymail-addons/), you will unlock the visual email designer integration to go with 70+ third-party WooCommerce plugins.
 
@@ -34,13 +32,16 @@ Exclusively, you can also send personalized email templates using shortcodes, pl
 The YayMail free version allows you to add **unlimited elements** to create html email template:
 
 **Custom WooCommerce Email Templates**
-Unlike Kadence woocommerce email designer, this email customizer allows you to create extra blocks to add to your email templates to make a unique and memorable brand identity for your store.
+Unlike Kadence Woo Commerce email designer, this email customizer allows you to create extra blocks to add to your email templates, creating a unique and memorable brand identity for your store.
 
 **Drag and Drop Interface**
 Easy to navigate between the element sidebar and the editing area to customise email block elements.
 
 **Edit Everything**
 You can edit content, layout, and design of email header, email body, visual footer, signature, social follow module, and more. It means that all your communication with your customers will finally match the rest of your branding.
+
+**Stylish Social Icons**
+It comes with predesigned icons for your chosen social media platforms, including Facebook, Twitter/X, Instagram, Threads, TikTok, YouTube, Pinterest, website, and more!
 
 **Visual Email Editor**
 Design HTML email and live preview on the same screen. Apart from the full window view, you can take a look on desktop and mobile view.
@@ -49,7 +50,7 @@ Design HTML email and live preview on the same screen. Apart from the full windo
 The built-in previewer allows you to view a mockup order email, and also pick an *existing order placed in your store* to view its actual email.
 
 **Powerful Shortcodes**
-You have a variety of placeholders for order details, customer details, billing info, shipping, payment, new user info, additional order metadata, etc. Literally, everything you need to establish a strong brand impression!
+You have a variety of placeholders for order details, customer details, billing info, shipping, payment, new user info, additional [order metadata](https://yaycommerce.com/how-to-add-custom-fields-to-woocommerce-order-emails/), etc. Literally, everything you need to establish a strong brand impression!
 
 **Send Test Email**
 One-click to send a test email template to make sure it looks good on different email clients & devices.
@@ -133,27 +134,14 @@ That said, if you're using one of the extensions below, you have to buy its YayM
 - WooCommerce Pre-Orders ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-woocommerce-pre-order))
 - Germanized ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-woocommerce-germanized))
 - German Market ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-german-market))
-- YITH WooCommerce Subscription ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-yith-woocommerce-subscription))
-- YITH WooCommerce Wishlist ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-yith-woocommerce-wishlist))
-- YITH WooCommerce Multi Vendor ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-yith-woocommerce-multi-vendor))
-- YITH Booking ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-yith-booking-and-appointment-for-woocommerce))
 - YITH Gift Cards ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-yith-woocommerce-gift-cards))
 - YITH Membership ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-yith-woocommerce-membership))
-- YITH WooCommerce Stripe ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-addon-for-yith-woocommerce-stripe))
-- WooCommerce B2B ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-woocommerce-b2b))
-- B2B & Wholesale Suite ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-b2b-wholesale-suite))
-- Appointments for WooCommerce ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-woocommerce-appointments))
+- WooCommerce Stripe Payment Gateway ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-woocommerce-stripe-payment-gateway))
+- B2BKing ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-addon-for-b2bking))
 - [WholesaleX](https://wordpress.org/plugins/wholesalex/) – WooCommerce Wholesale Plugin ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-addon-for-wholesalex/))
-- Order Approval for WooCommerce by Sevengits ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-sg-woocommerce-order-approval)
-- Order Delivery Date for WooCommerce by Tyche Softwares ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-woocommerce-order-delivery-date/))
-- Order Delivery for WooCommerce by Themesquad ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-order-delivery-for-woocommerce/))
-- Points and Rewards for WooCommerce by WP Swings ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-points-and-rewards-for-woocommerce/))
 - Dokan Multivendor Marketplace Solution ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-dokan))
-- WC Vendors Marketplace ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-wcvendors))
-- WCFM Marketplace ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-wcfm-marketplace))
-- WP Crowdfunding ([Get Addon](https://yaycommerce.com/yaymail-addons/yaymail-premium-addon-for-wp-crowdfunding))
 
-
+[View all YayMail Addons →](https://yaycommerce.com/yaymail-addons/?category=marketing)
 
 Happy Customizing! 💛 
 
@@ -172,6 +160,9 @@ Happy Customizing! 💛
 
 = How do I customize a WooCommerce email template? =
 From YayMail user interface, select an email template from the dropdown list of WooCommerce workflows. For instance, if you've chosen **Completed order** template, you'll get its related sample content loaded in the editing section. Then you will be able to start editing using the custom email blocks.
+
+= I want to setup the next order coupon in WooCommerce emails. How to do that? =
+Yes, with YayMail, you can deploy a next-order coupon strategy and build a loyal customer base. Here's a step-by-step guide to creating [next-order coupon in WooCommerce emails](https://yaycommerce.com/how-to-setup-next-order-coupon-in-woocommerce-emails/).
 
 = How do I change the email content in WooCommerce? =
 To change the email content in a WooCommerce email, just select an email element, you will see its text editor on the left panel. From there, you can edit the text, images, and other media content in your emails.
@@ -206,6 +197,15 @@ We offer single-site licenses and also unlimited site licenses to better support
 5. Easily copy your favorite content blocks over to another Woo email template to reuse the design that’s paying off
 
 == Changelog ==
+
+= May 30, 2024 - Version 3.5.2 =
+- Fixed: Date and time validation logic
+- Fixed: Integrations WPML
+- Released: YayMail Addon for RMA Return Refund & Exchange for WooCommerce Pro v1.1
+-- Fixed: Add checking for 3rd-party installation 
+- Released: YayMail Addon for ShopMagic v1.1
+-- Fixed: Update code to integrate with ShopMagic's new logic 
+- Released: YayMail Addon for Dokan v2.7
 
 = May 9, 2024 - Version 3.5.1 =
 - Fixed: Order meta displaying incorrect date/time value

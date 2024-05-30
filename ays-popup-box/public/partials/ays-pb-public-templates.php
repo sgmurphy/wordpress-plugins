@@ -42,7 +42,8 @@ class Ays_Pb_Public_Templates {
 
     private $close_circle_icon='<svg class="ays_pb_material_close_circle_icon" xmlns="https://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" alt="Pop-up Close"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg>';
     private $volume_up_icon='<svg class="ays_pb_fa_volume" xmlns="https://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="36"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
-    
+    private static $facebook_scripts_enqueued = false;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -3776,7 +3777,14 @@ class Ays_Pb_Public_Templates {
         return $popupbox_view;
     }
 
-    public function ays_pb_template_facebook( $attr ){
+    public function ays_pb_template_facebook($attr) {
+        // check for enqueuing only one time if there is more than one fb type popups
+        if (!self::$facebook_scripts_enqueued) {
+            wp_enqueue_script( $this->plugin_name . '-facebook-type', AYS_PB_PUBLIC_URL . '/js/partials/ays-pb-public-facebook-type.js', array( 'jquery' ), $this->version, false );
+
+            self::$facebook_scripts_enqueued = true;
+        }
+
         $popup = $this->ays_pb_set_popup_options($attr);
         $options = $popup['options'];
 

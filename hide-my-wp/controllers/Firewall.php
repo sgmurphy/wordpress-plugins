@@ -302,7 +302,7 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/^(\/)(123|backup|bak|beta|bkp|default|demo|dev(new|old)?|home|new-?site|null|old|old_files|old1)(\/)?$/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)?j((\s)+)?a((\s)+)?v((\s)+)?a((\s)+)?s((\s)+)?c((\s)+)?r((\s)+)?i((\s)+)?p((\s)+)?t((\s)+)?(%3a|:)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/^(\/)(old-?site(back)?|old(web)?site(here)?|sites?|staging|undefined|wordpress([0-9]+)|wordpress-old)(\/)?$/i', $_SERVER['REQUEST_URI']) ||
-                        preg_match('/(\/)(filemanager|htdocs|httpdocs|https?|login|mailman|mailto|msoffice|undefined|usage|var|vhosts|webmaster|www)(\/)/i', $_SERVER['REQUEST_URI']) ||
+                        preg_match('/(\/)(filemanager|htdocs|httpdocs|https?|mailman|mailto|msoffice|undefined|usage|var|vhosts|webmaster|www)(\/)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\(null\)|\{\$itemURL\}|cast\(0x|echo(.*)kae|etc\/passwd|eval\(|null(.*)null|open_basedir|self\/environ|\+union\+all\+select)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)(db-?|j-?|my(sql)?-?|setup-?|web-?|wp-?)?(admin-?)?(setup-?)?(conf\b|conf(ig)?)(uration)?(\.?bak|\.inc)?(\.inc|\.old|\.php|\.txt)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)((.*)crlf-?injection|(.*)xss-?protection|__(inc|jsc)|administrator|author-panel|database|downloader|(db|mysql)-?admin)(\/)/i', $_SERVER['REQUEST_URI']) ||

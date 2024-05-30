@@ -2356,7 +2356,7 @@ class WoofiltersWpf extends ModuleWpf {
 	public function render( $params ) {
 		$p = array(
 			'id' => ( isset($params['id']) ? (int) $params['id'] : 0 ),
-			'mode' => ( 'widget' == $params['mode'] ? 'widget' : '' ),
+			'mode' => ( isset($params['mode']) && 'widget' == $params['mode'] ? 'widget' : '' ),
 		);
 		return $this->getView()->renderHtml( $p );
 	}

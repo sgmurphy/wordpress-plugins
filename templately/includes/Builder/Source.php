@@ -26,7 +26,7 @@ class Source {
 	}
 
 	private function add_actions() {
-		add_filter( 'views_edit-' . self::CPT, [ $this, 'admin_print_tabs' ] );
+		add_filter( 'views_edit-' . self::CPT, [ $this, 'admin_print_tabs' ], 100 );
 		add_action( 'in_admin_header', [ $this, 'in_admin_header' ] );
 		if ( is_admin() ) {
 			// add_action( 'manage_posts_extra_tablenav', [ $this, 'extra_table_nav' ] );
@@ -235,6 +235,7 @@ class Source {
 		}
 
 		$this->builder::$views->get( 'builder/tabs', [ 'tabs' => $tabs, 'template_types' => $template_types ] );
+		return [];
 	}
 
 	/**

@@ -4,7 +4,7 @@ Donate link: https://woobewoo.com/product/woocommerce-filter/
 Tags: product filter, WooCommerce product filter, shop filter, e-commerce filter, WooCommerce filter
 Requires at least: 3.4.0
 Tested up to: 6.5
-Stable tag: 2.6.1
+Stable tag: 2.6.2
  
 Filter products by categories, attributes, prices, and more. Elementor Compatibility. Shoppers easily find products with WooCommerce Product Filter
 
@@ -147,6 +147,10 @@ You may help us translate the plugin into your language and get the PRO version 
 
 == Changelog ==
 
+= 2.6.2 =
+ * Render fix
+ * Missing meta fix
+ 
 = 2.6.1 =
  * Fixed fatal by deactivation and uninstall
  * Added option Keep Min/Max Price By Reload

@@ -272,7 +272,7 @@ body.post-type-ufaq .ewd-ufaq-admin-header-menu {
   display: none;
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1500px) {
   .ewd-ufaq-admin-header-menu .nav-tab {
     padding: 12px 32px;
   }

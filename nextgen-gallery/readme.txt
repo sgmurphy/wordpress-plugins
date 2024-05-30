@@ -1,8 +1,8 @@
-=== NextGEN Gallery - Create an Amazing Photo Gallery in Seconds ===
+=== Photo Gallery, Sliders, Proofing and Themes - NextGEN Gallery ===
 Contributors: photocrati, imagely
 Tags: gallery, wordpress gallery plugin, photo gallery, image gallery, slideshow
 Requires at least: 5.5.4
-Stable tag: 3.59.2
+Stable tag: 3.59.3
 Tested up to: 6.5
 License: GPLv3
 Requires PHP: 7.0
@@ -19,15 +19,15 @@ NextGEN Gallery offers complete WordPress gallery management with the ability to
 
 But our gallery plugin doesn't stop there!
 
-> <strong>NextGEn Pro</strong><br/>
-> This plugin is the lite version of the NextGen Gallery plugin, which offers all the gallery features you'll need like albums, lightboxes, backups, search, sharing, print fulfillment, eCommerce, and tons more. [Click here to purchase the best photo gallery plugin for WordPress now!](https://www.imagely.com?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+> <strong>NextGEN Pro</strong><br/>
+> This plugin is the lite version of the NextGEN Gallery plugin, which offers all the gallery features you'll need like albums, lightboxes, backups, search, sharing, print fulfillment, eCommerce, and tons more. [Click here to purchase the best photo gallery plugin for WordPress now!](https://www.imagely.com?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
 The free version of NextGEN gallery provides three main gallery styles (slideshow, thumbnail, and imagebrowser galleries) and two album styles (compact and extended), all of which come with a wide array of options for controlling size, style, timing, transitions, controls, lightbox effects, and more. Learn more about <a href="https://www.imagely.com/wordpress-gallery-plugin?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" target="_blank">NextGEN WordPress Gallery Plugin features.</a>
 
 The best gets better with full support for the Gutenberg block editor. Now you can add a photo gallery or album anywhere on your site, with a page builder type feel directly in the WordPress editor.
 
 = Feature List =
-We've built NextGen Gallery to be extremely powerful and full of features.
+We've built NextGEN Gallery to be extremely powerful and full of features.
 
 * **Albums** Organize multiple galleries into albums for easy sorting and viewing
 * **Tags** Group multiple images together with tags, with easy-to-update renaming and management
@@ -195,6 +195,13 @@ For more information, feel free to visit the official website for the NextGEN Ga
 
 
 == Changelog ==
+= V3.59.3 - 05.29.2024 =
+* Fixed: Improved transient registration.
+* Fixed: Rendering shortcodes on rest endpoints.
+* Fixed: Album name sanitization.
+* Removed: Deprecated admin notices.
+* Fixed: PHP 8.2 warnings
+
 = V3.59.2 - 04.10.2024 =
 * Fixed: Various bugs and improved UI/UX in various places.
 
@@ -257,7 +264,7 @@ For more information, feel free to visit the official website for the NextGEN Ga
 * Fixed:   Users of PHP 7 and WordPress 5.8 or older could experience a fatal error due to the use of str_contains().
 
 = V3.50  - 11.29.2023 =
-* IMPORTANT: Support for PHP 5.6 and lower has been discontinued. If you are running PHP 5.6 or lower, you MUST upgrade PHP before installing NextGen 3.5.0. Failure to do that will disable NextGen core functionality.
+* IMPORTANT: Support for PHP 5.6 and lower has been discontinued. If you are running PHP 5.6 or lower, you MUST upgrade PHP before installing NextGEN 3.5.0. Failure to do that will disable NextGEN core functionality.
 * Updated: Major refactor of the plugin to support future improvements! Note: This release Requires at least PHP 7.0.
 * Fixed:   We closed some issues affecting Lightroom users
 

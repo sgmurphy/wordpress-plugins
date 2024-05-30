@@ -509,14 +509,14 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'solution' => sprintf(esc_html__("Switch on %s %s > Change Paths > Hide RSD Endpoint%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=api').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a>'),
                 'javascript' => "pro",
             ),
-            'checkMysqlPermissions' => array(
-                'name' => esc_html__("MySql Grant All Permissions", 'hide-my-wp'),
-                'value' => false,
-                'valid' => false,
-                'warning' => false,
-                'message' => __("If an attacker gains access to your wp-config.php file and gets the MySQL username and password, he'll be able to login to that database and do whatever that account allows. <br /><br />That's why it's important to keep the account's privileges to a bare minimum.<br /><br />For instance, if you're not installing any new plugins or updating WP, that account doesn't need the CREATE or DROP table privileges.<br /><br />For regular, day-to-day usage these are the recommended privileges: SELECT, INSERT, UPDATE and DELETE.", 'hide-my-wp'),
-                'solution' => sprintf(esc_html__("To learn how to revoke permissions from PhpMyAdmin %sClick here%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-grant-and-revoke-permissions-to-database-using-phpmyadmin/" target="_blank">', '</a>'),
-            ),
+//            'checkMysqlPermissions' => array(
+//                'name' => esc_html__("MySql Grant All Permissions", 'hide-my-wp'),
+//                'value' => false,
+//                'valid' => false,
+//                'warning' => false,
+//                'message' => __("If an attacker gains access to your wp-config.php file and gets the MySQL username and password, he'll be able to login to that database and do whatever that account allows. <br /><br />That's why it's important to keep the account's privileges to a bare minimum.<br /><br />For instance, if you're not installing any new plugins or updating WP, that account doesn't need the CREATE or DROP table privileges.<br /><br />For regular, day-to-day usage these are the recommended privileges: SELECT, INSERT, UPDATE and DELETE.", 'hide-my-wp'),
+//                'solution' => sprintf(esc_html__("To learn how to revoke permissions from PhpMyAdmin %sClick here%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-grant-and-revoke-permissions-to-database-using-phpmyadmin/" target="_blank">', '</a>'),
+//            ),
             'checkUsersById' => array(
                 'name' => esc_html__("Author URL by ID access", 'hide-my-wp'),
                 'value' => false,

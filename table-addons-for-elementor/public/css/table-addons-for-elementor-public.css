@@ -11,6 +11,11 @@ table.tafe-table td, table.tafe-table th {
 	border: 1px solid #767676;
 	word-break: break-all; 
 }
+@media only screen and (max-width: 767px){
+	table.tafe-table td, table.tafe-table th {
+		word-break: normal; 
+	}
+}
 
 table td.td-content-type-image {
 	line-height: 0;

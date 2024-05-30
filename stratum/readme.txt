@@ -3,9 +3,9 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: elementor, elementor addons, elementor plugins, elementor widgets, elementor extras, elementor essential addons, page builder, accordion, google map, slider, tabs, instagram, timeline, lottie, countdown, table
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ Stratum plugin is distributed under the terms of the GNU GPL.
 3. Find Stratum widgets in Elementor.
 
 == Changelog ==
+
+= 1.4.1, May 30 2024 =
+* Improved compatibility with WPML plugin.
 
 = 1.4.0, Mar 25 2024 =
 * Added Instagram Access Token encryption.

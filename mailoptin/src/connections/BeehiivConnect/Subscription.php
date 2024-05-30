@@ -31,7 +31,7 @@ class Subscription extends AbstractBeehiivConnect
         $name_custom_field     = $this->get_integration_data('BeehiivConnect_name_field_key');
         $is_send_welcome_email = $this->get_integration_data('BeehiivConnect_enable_welcome_email');
 
-        $db_tags = $this->get_integration_data('BeehiivConnect_lead_tags');
+        $db_tags = $this->get_integration_tags('BeehiivConnect_lead_tags');
         $tags    = ! empty($db_tags) ? array_map('trim', explode(',', $db_tags)) : [];
 
         try {
@@ -41,7 +41,7 @@ class Subscription extends AbstractBeehiivConnect
                 'email'              => $this->email
             ];
 
-            if ( ! empty($this->list_id)) {
+            if ( ! empty($this->list_id) && $this->list_id != 'all') {
 
                 $lead_data['tier'] = 'premium';
 

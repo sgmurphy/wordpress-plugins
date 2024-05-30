@@ -5,7 +5,7 @@ Tags: popup, popup maker, popups, newsletter, mailchimp
 Requires at least: 4.9
 Requires PHP: 7.3
 Tested up to: 6.5
-Stable tag: 1.2.69.0
+Stable tag: 1.2.69.1
 License: GPL-2.0+
 
 Create popup, optin forms using easy form builder & popup maker. Send automated email to subscribers — Mailchimp, ActiveCampaign, Campaign Monitor etc
@@ -183,6 +183,11 @@ Yes, MailOptin has complete translation and localization support. All .mo and .p
 10. Elementor form integration with MailOptin
 
 == Changelog ==
+
+= 1.2.69.1 =
+* Fixed bug where Beehiiv integration without selected tier didn't work.
+* Fixed bug where Contact Form 7 integration with acceptance checkbox didn’t work.
+* Fixed bug where popup triggered JS error.
 
 = 1.2.69.0 =
 * Added [Beehiiv integration](https://mailoptin.io/article/connect-wordpress-beehiiv/).

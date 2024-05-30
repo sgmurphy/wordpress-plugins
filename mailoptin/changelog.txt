@@ -1,5 +1,10 @@
 ﻿== Changelog ==
 
+= 1.2.69.1 =
+* Fixed bug where Beehiiv integration without selected tier didn't work.
+* Fixed bug where Contact Form 7 integration with acceptance checkbox didn’t work.
+* Fixed bug where popup triggered JS error.
+
 = 1.2.69.0 =
 * Added [Beehiiv integration](https://mailoptin.io/article/connect-wordpress-beehiiv/).
 * Added compatibility support for Forminator 1.31
