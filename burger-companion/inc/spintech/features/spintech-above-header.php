@@ -283,7 +283,11 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				
 			<?php }elseif ( 'SpinSoft' == $theme->name){ ?>	
 			
-				<a class="customizer_spintech_social_upgrade_section up-to-pro" href="https://burgerthemes.com/spinsoft-pro/" target="_blank" style="display: none;"><?php _e('More Icons Available in SpinSoft Pro','spintech'); ?></a>	
+				<a class="customizer_spintech_social_upgrade_section up-to-pro" href="https://burgerthemes.com/spinsoft-pro/" target="_blank" style="display: none;"><?php _e('More Icons Available in SpinSoft Pro','spintech'); ?></a>
+
+				<?php }elseif ( 'Maxtech' == $theme->name){ ?>	
+			
+				<a class="customizer_spintech_social_upgrade_section up-to-pro" href="https://burgerthemes.com/maxtech-pro/" target="_blank" style="display: none;"><?php _e('More Icons Available in Maxtech Pro','spintech'); ?></a>	
 				
 			<?php }else{ ?>	
 				<a class="customizer_spintech_social_upgrade_section up-to-pro" href="https://burgerthemes.com/spintech-pro/" target="_blank" style="display: none;"><?php _e('More Icons Available in Spintech Pro','spintech'); ?></a>

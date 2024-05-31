@@ -726,7 +726,10 @@
     }
 
     wc_stripe.BaseGateway.prototype.create_setup_intent = function (data) {
-        return new Promise(function (resolve, reject) {
+        if (this.creating_setup_intent) {
+            return this.creating_setup_intent;
+        }
+        this.creating_setup_intent = new Promise(function (resolve, reject) {
             $.ajax({
                 method: 'POST',
                 dataType: 'json',
@@ -741,8 +744,12 @@
                 }
             }.bind(this)).fail(function (xhr, textStatus, errorThrown) {
                 this.submit_error(errorThrown);
+            }.bind(this)).always(function () {
+                this.creating_setup_intent = null;
             }.bind(this));
         }.bind(this))
+
+        return this.creating_setup_intent;
     }
 
     wc_stripe.BaseGateway.prototype.serialize_form = function ($form) {

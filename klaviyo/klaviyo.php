@@ -8,7 +8,6 @@
  * Author URI: https://www.klaviyo.com
  * Requires at least: 4.4
  * Requires PHP: 7.0
- * Tested up to: 5.8
  * WC requires at least: 2.0
  * WC tested up to: 5.5.2
  * Text Domain: woocommerce-klaviyo

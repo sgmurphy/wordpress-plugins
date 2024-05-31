@@ -19,8 +19,8 @@ class WC_Payment_Gateway_Stripe_Revolut extends WC_Payment_Gateway_Stripe_Local_
 
 	public function __construct() {
 		$this->local_payment_type = 'revolut_pay';
-		$this->currencies         = array( 'GBP' );
-		$this->countries          = array( 'GB' );
+		$this->currencies         = array( 'GBP', 'EUR' );
+		$this->countries          = array();
 		$this->id                 = 'stripe_revolut';
 		$this->tab_title          = __( 'Revolut', 'woo-stripe-payment' );
 		$this->method_title       = __( 'Revolut (Stripe) by Payment Plugins', 'woo-stripe-payment' );

@@ -79,7 +79,6 @@ class DSM_Button extends ET_Builder_Module {
 				),
 			),
 		);
-
 	}
 
 	public function get_advanced_fields_config() {
@@ -231,7 +230,7 @@ class DSM_Button extends ET_Builder_Module {
 			'fade-in-direction' => esc_html__( 'Fade In Direction', 'dsm-supreme-modules-for-divi' ),
 		);
 		return array(
-			'button_one_id'                     => array(
+			'button_one_id'                      => array(
 				'label'           => esc_html__( 'Button #1 ID', 'dsm-supreme-modules-for-divi' ),
 				'type'            => 'text',
 				'option_category' => 'configuration',
@@ -249,7 +248,7 @@ class DSM_Button extends ET_Builder_Module {
 				'toggle_slug'     => 'classes',
 				'option_class'    => 'et_pb_custom_css_regular',
 			),
-			'button_two_id'                     => array(
+			'button_two_id'                      => array(
 				'label'           => esc_html__( 'Button #2 ID', 'dsm-supreme-modules-for-divi' ),
 				'type'            => 'text',
 				'option_category' => 'configuration',
@@ -1886,7 +1885,7 @@ class DSM_Button extends ET_Builder_Module {
 				$add_class,
 				( 'download' === $button_one_url_type ? ' download' : '' ),
 				isset( $button_one_css ) && '' !== $button_one_css ? esc_attr( $button_one_css ) : '',
-				isset( $button_one_id ) && '' !== $button_one_id ? esc_attr( " id=$button_one_id" ) : ''
+				isset( $button_one_id ) && '' !== $button_one_id ? sprintf( ' id="%1$s"', esc_attr( $button_one_id ) ) : ''
 			);
 			if ( 'on' === $button_one_tooltip ) {
 				$button_output .= '</div>';
@@ -1930,7 +1929,7 @@ class DSM_Button extends ET_Builder_Module {
 				$add_class,
 				( 'download' === $button_two_url_type ? ' download' : '' ),
 				isset( $button_two_css ) && '' !== $button_two_css ? esc_attr( $button_two_css ) : '',
-				isset( $button_two_id ) && '' !== $button_two_id ? esc_attr( " id=$button_two_id" ) : ''
+				isset( $button_two_id ) && '' !== $button_two_id ? sprintf( ' id="%1$s"', esc_attr( $button_two_id ) ) : ''
 			);
 			if ( 'on' === $button_two_tooltip ) {
 				$button_output .= '</div>';
@@ -1974,7 +1973,7 @@ class DSM_Button extends ET_Builder_Module {
 		if ( isset( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && ! empty( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && 'on' === get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) {
 			if ( isset( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets_compatibility'] ) && ! empty( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && 'on' === get_option( 'dsm_settings_misc' )['dsm_dynamic_assets_compatibility'] ) {
 				add_filter( 'et_global_assets_list', array( $this, 'dsm_load_magnific_popup_assets' ), 10, 3 );
-				add_filter( 'et_late_global_assets_list', array( $this, 'dsm_load_magnific_popup_assets' ), 10, 3 );			
+				add_filter( 'et_late_global_assets_list', array( $this, 'dsm_load_magnific_popup_assets' ), 10, 3 );
 				wp_enqueue_style( 'dsm-button-hover', plugin_dir_url( __DIR__ ) . 'Buttons/hover.css', array(), DSM_VERSION, 'all' );
 				wp_enqueue_style( 'dsm-button', plugin_dir_url( __DIR__ ) . 'Buttons/style.css', array(), DSM_VERSION, 'all' );
 			} else {
@@ -2052,7 +2051,7 @@ class DSM_Button extends ET_Builder_Module {
 
 		// Buttons.
 		if ( ! isset( $assets_list['dsm_button'] ) ) {
-			$assets_list['dsm_button']       = array(
+			$assets_list['dsm_button'] = array(
 				'css' => plugin_dir_url( __DIR__ ) . 'Buttons/style.css',
 			);
 		}

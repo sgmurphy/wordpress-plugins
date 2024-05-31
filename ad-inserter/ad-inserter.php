@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Ad Inserter
-Version: 2.7.34
+Version: 2.7.35
 Description: Ad management with many advanced advertising features to insert ads at optimal positions
 Author: Igor Funa
 Author URI: http://igorfuna.com/
@@ -16,6 +16,11 @@ Requires PHP: 7.2
 /*
 
 Change Log
+
+Ad Inserter 2.7.35 - 2024-04-23
+- Added support for "Simple History – user activity log, audit tool" plugin
+- Added support for external tracking for Google Tag Manager code (Pro only)
+- Few minor bug fixes, cosmetic changes and code improvements
 
 Ad Inserter 2.7.34 - 2024-03-14
 - Added support for ^ character to invert viewports in the VIEWPORT separator
@@ -7832,10 +7837,16 @@ function ai_settings () {
         $invalid_blocks []= 0;
         $settings_ok = false;
         $settings_errors []= 'Import plugin settings: unserialize failed';
-      } else $ai_options = wp_slash ($ai_options);
+      } else {
+          $ai_options = wp_slash ($ai_options);
+
+          $history_string = __('plugin settings imported', 'ad-inserter');
+        }
     } else {
         // Try to import individual settings
         $ai_options = array ();
+
+        $history_string = sprintf (__('blocks %d to %d', 'ad-inserter'), $start, $end);
 
         $default_block = new ai_Block (1);
         for ($block = 1; $block <= 96; $block ++) {
@@ -7855,6 +7866,8 @@ function ai_settings () {
             $exported_settings = ai_unserialize (base64_decode (str_replace (array ("\\\""), array ("\""), $_POST ["export_settings_" . $block])));
 
             if ($exported_settings !== false) {
+              $history_string = sprintf (__('block %d settings imported', 'ad-inserter'), $block);
+
               $exported_settings = wp_slash ($exported_settings);
               foreach (array_keys ($default_block->wp_options) as $key){
                 if ($key == AI_OPTION_BLOCK_NAME && isset ($_POST [$import_name_switch_name]) && $_POST [$import_name_switch_name] != "1") {
@@ -8110,6 +8123,8 @@ function ai_settings () {
       }
 
       echo '<div class="notice notice-success is-dismissible" style="margin: 5px 15px 2px 0px;"><p>' . __('Settings saved.', 'ad-inserter') . '</p></div>';
+
+      apply_filters ('simple_history_log', AD_INSERTER_NAME . ' ' . __('settings saved', 'ad-inserter') . ' (' . $history_string . ')');
     } else {                                                                                                    // translators: %s: Ad Inserter
         echo '<div class="notice notice-error is-dismissible" style="margin: 5px 15px 2px 0px;"><p>' . sprintf (__('Invalid data received - %s settings not saved.', 'ad-inserter'), AD_INSERTER_NAME) . '</p>';
         if (!empty ($settings_errors)) {
@@ -8132,6 +8147,8 @@ function ai_settings () {
       }
 
       echo '<div class="notice notice-warning is-dismissible" style="margin: 5px 15px 2px 0px;"><p><strong>' . __('Settings cleared.', 'ad-inserter') . '</strong></p></div>';
+
+      apply_filters ('simple_history_log', AD_INSERTER_NAME . ' ' . __('settings cleared', 'ad-inserter'));
   } elseif (isset ($_POST [AI_FORM_CLEAR_EXCEPTIONS]) && $settings_data_valid) {
 
       check_admin_referer ('save_adinserter_settings');
@@ -11029,7 +11046,8 @@ function get_paragraph_start_positions ($content, $multibyte, $paragraph_end_pos
   }
 
   // Consistency check
-  if (count ($paragraph_end_positions) != 0) {
+  // Not possible when there is more than one tag - the second and next tag positions are counting content from the beginning
+  if (count ($paragraph_start_strings) == 1 && count ($paragraph_end_positions) != 0) {
     foreach ($paragraph_end_positions as $index => $paragraph_end_position) {
       if ($index == 0) {
         if (!isset ($paragraph_positions [$index]) || $paragraph_positions [$index] >= $paragraph_end_position) {
@@ -11073,6 +11091,13 @@ function get_paragraph_end_positions ($content, $multibyte, $paragraph_start_pos
     }
     elseif ($paragraph_end_string == "#") {
       $paragraph_end = "\r\n\r\n";
+
+      if ($multibyte) {
+        $last_content_position = mb_strlen ($content) - 1;
+      } else {
+          $last_content_position = strlen ($content) - 1;
+        }
+
       if (!in_array ($last_content_position, $paragraph_positions)) {
         $paragraph_positions [] = $last_content_position;
         $active_paragraph_positions [$last_content_position] = 1;
@@ -11105,7 +11130,8 @@ function get_paragraph_end_positions ($content, $multibyte, $paragraph_start_pos
   }
 
   // Consistency check
-  if (count ($paragraph_start_positions) != 0) {
+  // Not possible when there is more than one tag - the second and next tag positions are counting content from the beginning
+  if (count ($paragraph_end_strings) == 1 && count ($paragraph_start_positions) != 0) {
     foreach ($paragraph_start_positions as $index => $paragraph_start_position) {
       if ($index == count ($paragraph_start_positions) - 1) {
         if (!isset ($paragraph_positions [$index]) || $paragraph_positions [$index] <= $paragraph_start_position) {

@@ -15,9 +15,10 @@
             * Gravity Forms (For Ajax enabled and multi page form) and more..
         </li>
 
+        <!-- 
         <li><label>2 Level Spam Check</label>
             Our lite version should block most of the spam bot submission. But if you are still getting spam submission, you can enable 2 level spam check in Extended version from Extended Settings tab.
-        </li>
+        </li> -->
 
         <li><label>Record Spammer IP</label>
             Record spammers' IPs to block them from future submissions.

@@ -6742,6 +6742,15 @@ echo '</body>
 
     get_paragraph_start_positions ($content, $multibyte, $dummy, $paragraph_start_strings, $paragraph_positions, $active_paragraph_positions);
 
+    if (!isset ($paragraph_end_positions)) {
+      // Prepare end positions and sort them before sorting start positions
+      $paragraph_end_positions = array ();
+      $dummy = array ();
+      get_paragraph_end_positions ($content, $multibyte, $paragraph_positions, $paragraph_start_strings, $paragraph_end_positions, $dummy);
+
+      sort ($paragraph_end_positions);
+    }
+
     // Nothing to do
     $ai_last_check = AI_CHECK_PARAGRAPHS_WITH_TAGS;
     if (array_sum ($active_paragraph_positions) == 0) return $content;
@@ -7824,6 +7833,15 @@ echo '</body>
 
     $dummy = array ();
     get_paragraph_end_positions ($content, $multibyte, $dummy, $paragraph_end_strings, $paragraph_positions, $active_paragraph_positions);
+
+    if (!isset ($paragraph_start_positions)) {
+      // Prepare start positions and sort them before sorting end positions
+      $paragraph_start_positions = array ();
+      $dummy = array ();
+      get_paragraph_start_positions ($content, $multibyte, $paragraph_positions, $paragraph_end_strings, $paragraph_start_positions, $dummy);
+
+      sort ($paragraph_start_positions);
+    }
 
     // Nothing to do
     $ai_last_check = AI_CHECK_PARAGRAPHS_WITH_TAGS;
@@ -10095,7 +10113,8 @@ class ai_code_generator {
             $code = '';
             break;
           default:
-              $code = '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
+//              $code = '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
+              $code = '<script async src="' . $data ['adsense-script'] . '" crossorigin="anonymous"></script>';
               if ($data ['adsense-comment']) $code .= "\n<!-- " . $data ['adsense-comment'] . " -->";
 
               $adsense_full_width_responsive = $data ['adsense-full-width-responsive'] != '' ? "\n".'     data-full-width-responsive="' . esc_html ($data ['adsense-full-width-responsive']) . '"' : '';
@@ -10472,6 +10491,9 @@ class ai_code_generator {
 
     // AdSense
     if (strpos ($code, 'data-ad-client') !== false) {
+      $adsense_script = $dom->getElementsByTagName ('script');
+      $adsense_script_src = $adsense_script->item (0) != null && $adsense_script->item (0)->getAttribute ('src') != null ? $adsense_script->item (0)->getAttribute ('src') : '';
+
       $adsense_code     = $dom->getElementsByTagName ('ins');
       $adsense_code_amp = $dom->getElementsByTagName ('amp-ad');
       $adsense_code_amp_sticky = $dom->getElementsByTagName ('amp-sticky-ad');
@@ -10519,6 +10541,7 @@ class ai_code_generator {
       if ($adsense_code->length != 0) {
         $data = array (
           'type' => AI_CODE_ADSENSE,
+          'adsense-script' => $adsense_script_src,
           'adsense-publisher-id' => '',
           'adsense-ad-slot-id' => '',
           'adsense-type' => AI_ADSENSE_STANDARD,

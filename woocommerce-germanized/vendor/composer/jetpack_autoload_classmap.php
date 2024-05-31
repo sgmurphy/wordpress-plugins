@@ -691,219 +691,219 @@ return array(
 		'path'    => $baseDir . '/packages/woocommerce-germanized-shipments/src/Caches/ShipmentCache.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Blocks\\PreferredServices' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Blocks/PreferredServices.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Blocks\\Integrations\\PreferredServices' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Blocks/Integrations/PreferredServices.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Blocks\\Assets' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Blocks/Assets.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\PickupLocation' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/PickupLocation.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\DeutschePost' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/DeutschePost.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\PickupDeliveryTrait' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/PickupDeliveryTrait.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\DHL' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/DHL.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\IdentCheck' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/IdentCheck.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\PreferredDay' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/PreferredDay.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\PreferredNeighbour' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/PreferredNeighbour.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\ClosestDropPoint' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/ClosestDropPoint.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\CashOnDelivery' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/CashOnDelivery.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\VisualCheckOfAge' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/VisualCheckOfAge.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\PreferredLocation' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/PreferredLocation.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ShippingProvider\\Services\\DHLRetoure' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ShippingProvider/Services/DHLRetoure.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Install' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Install.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Package' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Package.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Product' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Product.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Order' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Order.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Ajax' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Ajax.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ParcelServices' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ParcelServices.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Admin\\Importer\\Internetmarke' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Admin/Importer/Internetmarke.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Admin\\Importer\\DHL' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Admin/Importer/DHL.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Admin\\Status' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Admin/Status.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Admin\\Admin' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Admin/Admin.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\DHLInlayReturn' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/DHLInlayReturn.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\Label' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/Label.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\DHLReturn' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/DHLReturn.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\ReturnLabel' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/ReturnLabel.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\DeutschePost' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/DeutschePost.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\DHL' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/DHL.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Label\\DeutschePostReturn' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Label/DeutschePostReturn.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Legacy\\LabelQuery' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Legacy/LabelQuery.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Legacy\\DataStores\\Label' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Legacy/DataStores/Label.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Legacy\\DownloadHandler' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Legacy/DownloadHandler.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Legacy\\Helper' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Legacy/Helper.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Legacy\\LabelFactory' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Legacy/LabelFactory.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Bootstrap' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Bootstrap.php'
 	),
 	'Vendidero\\Germanized\\DHL\\ParcelLocator' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/ParcelLocator.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ReturnRest' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ReturnRest.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\Paket' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/Paket.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\LabelSoap' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/LabelSoap.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ImProductList' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ImProductList.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\LabelRest' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/LabelRest.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\AuthSoap' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/AuthSoap.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\Internetmarke' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/Internetmarke.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\LocationFinder' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/LocationFinder.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ParcelRest' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ParcelRest.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ImPartnerInformation' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ImPartnerInformation.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\Soap' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/Soap.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\Rest' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/Rest.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ImProductsSoap' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ImProductsSoap.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ImRefundSoap' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ImRefundSoap.php'
 	),
 	'Vendidero\\Germanized\\DHL\\Api\\ImWarenpostIntRest' => array(
-		'version' => '3.1.5.0',
+		'version' => '3.1.6.0',
 		'path'    => $baseDir . '/packages/woocommerce-germanized-dhl/src/Api/ImWarenpostIntRest.php'
 	),
 	'Vendidero\\Germanized\\Blocks\\Cart' => array(

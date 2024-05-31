@@ -3274,6 +3274,17 @@ function ai_tracking () {
     }
 //    else
 
+    if (typeof window.dataLayer == 'object') {
+      window.dataLayer.push ({
+          'event': 'tracking',
+          'eventCategory': category,
+          'eventAction': action,
+          'eventLabel': label
+      });
+
+      if (ai_debug) console.log ("AI TRACKING Google Tag Manager:", non_interaction);
+    }
+
     if (typeof _gaq == 'object') {
 //      _gaq.push (['_trackEvent', category, action, label]);
       _gaq.push (['_trackEvent', category, action, label, undefined, non_interaction]);
@@ -8294,8 +8305,8 @@ const alLoad = function (element, env) {
         else console.log ('AI LAZY LOADING', classes);
       }
 
-      element.removeAttribute("data-class");
-      element.removeAttribute("class");
+      element.removeAttribute ("data-class");
+      element.removeAttribute ("class");
 
       if (typeof ai_process_lists == 'function') {
         // ***
@@ -10127,6 +10138,10 @@ if (typeof ai_selection_block != 'undefined') {
   }
 
   function getElementSelector (el) {
+    if (! (el instanceof HTMLElement)) {
+      return '';
+    }
+
     var selector = el.nodeName.toLowerCase ();
 
     if (el.hasAttribute ('id') && el.id != '') {

@@ -5,28 +5,64 @@ Requires at least: 4.4
 Tested up to: 6.5
 Stable tag: 3.3.5
 
-Easily integrate Klaviyo with your WooCommerce stores. Makes it simple to send abandoned cart emails, add a newsletter sign up to your site and more.
+Klaviyo for WooCommerce
 
 == Description ==
 
-[Klaviyo](https://www.klaviyo.com) is a unified customer platform that gives your online brand direct ownership of your consumer data and interactions, empowering you to turn transactions with customers into productive long-term relationships—at scale. Because the Klaviyo database integrates seamlessly with your tech stack, you can get the full story on every customer that visits, and then—from the same platform—use those insights to automate personalized email and SMS communications that make people feel seen. With Klaviyo, it’s easy to talk to every customer like you know them, and grow your business—on your own terms.
+https://www.youtube.com/watch?v=sxdiLB58bSo
 
-Talk to customers like you know them. Because you do.
+Grow faster and more efficiently with personalized email and SMS. Powered by your own customer data.
 
-####Sync all your store data with a single click
-Our seamless one-click ecommerce integration allows you to sync all your historical and real-time data, so you can stay on top of every single interaction people have with your brand.
+Over 13,000 WooCommerce brands use Klaviyo to power smarter digital relationships. Klaviyo unlocks data across 300+ integrations to drive increased revenue and lifetime value across channels –– email, SMS, mobile push, paid ads, and web –– to drive 46x ROI for our most successful brands.
 
-####Automations help you make money while you sleep
-Dozens of built-in automations are fully customizable, like welcome emails, happy birthday, or abandon cart. Each can have any mix of emails and texts. So while you’re dreaming up your next big idea, customers are automatically getting timely, actionable info.
 
-####Smarter targeting. Deeper personalization. Bigger payoff.
-Drive more sales with powerful personalization. Whether you’re sending a drip campaign, a transactional email, or a special holiday campaign, ultra-relevant content can help you boost engagement—and earn more revenue.
+####Use omnichannel templates for Welcome, Back in Stock, Abandon, Price Drop & more
+
+Build email and SMS journeys triggered by specific customer behaviors with a library of high-converting templates built for WooCommerce. These templates include browse abandonment, price drop, canceled order, abandoned checkout, and more, that can be triggered by real-time event-level data.
+
+Personalize your messages further with customization for triggers, branches / splits, personalized offers, and A/B testing. Send cart reminders by order value, upsell based on order frequency, or send post-purchase email and SMS based on new vs existing customers.
+
+- Use single-use, dynamic coupons for targeted offers
+- Add dynamic product recommendations based on browsing history, past purchases, and other behaviors
+- Smart sending allows you to limit the number of emails, SMS, and push notifications customers receive
+- Reusable sections that stay consistent across all templates, for consistency and easy mass-updates
+- Custom HTML/CSS to upload existing templates or code new ones from scratch
+
+####Sync your WooCommerce store data within minutes
+
+As a WooCommerce strategic partner, our direct extension takes only minutes to integrate and is pre-built right out of the box.  This allows you to sync all your historical and real-time data, plus utilize metadata (like value, variant name, quantity, and discount codes), so you can stay on top of every single interaction buyers have with your brand.
+
+Every event and metadata can be used to build segments and campaigns, send automated flows, and use in reporting, all with no coding required.
+
+- Active on site
+- Ordered product
+- Fulfilled order
+- Placed order
+- Refunded orders
+- Started checkout
+
+####Use complete historical and real-time data for precise segmentation
+
+Build precise groups of segmented audiences using any combination of event data (e.g. browsing behavior), behavior data (e.g. placed order and refunded orders) and predictive data (e.g. predicted next order date) to target paid ads, email, SMS, and web forms.
+
+Klaviyo segments update in real-time any time a profile meets segment criteria––no manual tagging required.
+
+- Build unlimited segment parameters using all-time data (e.g. your first 100 customers, last year’s BFCM shoppers, engaged subscribers in the last 90 days, etc)
+- Use segments to target signup forms on your WooCommerce store (e.g. customers who have looked at a product page over 5 times but haven’t purchased)
+- Connect Klaviyo with Facebook, Google Ads, and Criteo for retargeting and lookalike segmentation
+- Use our segment growth report to spot any trends and track the performance of specific segments week by week
+- Segment AI uses generative AI to create a segment based on your description
 
 ####Get more answers out of your data
-Data is powerful—but only if you can find it, understand it, and act on it. With Klaviyo, performance is clear. Pre-built reports answer the marketing questions that matter most. Go beyond vanity metrics and understand what’s driving sales. (Really.)
 
-####Benchmarks
-See how your performance stacks up against peers. With Klaviyo, you get relevant, real-life benchmarks based on real-time data from 90,000+ brands. See how you compare to businesses of your size and scope, and to your overall industry. You always know what to do to improve.
+With Klaviyo’s reporting tool for data analysis, you can track metrics and benchmarks through dashboards you can share and customize to spot new areas of opportunity and improvement.
+- Use Klaviyo AI to write SMS and subject lines, design email sections, optimize forms display timing, build predictive analytics, and more
+- Get real-time revenue data and analytics per automation, campaign, segment, and channel
+- Benchmark your performance across key metrics with 100 brands in your category
+- Get account-level email deliverability reporting within our deliverability hub
+- Manage multiple global accounts with a single login
+
+See why 13,000 WooCommerce brands choose to [grow with Klaviyo](https://www.klaviyo.com/platform-integrations/woocommerce).
 
 == Installation ==
 
@@ -37,6 +73,14 @@ Integrating Klaviyo and your WooCommerce store is a simple process:
 3. Click through two screens to approve access and finish setting up your integration.
 
 For detailed instructions on integrating Klaviyo and WooCommerce please visit our [Help Center](https://help.klaviyo.com/hc/en-us/articles/115005255808-Integrate-with-WooCommerce).
+
+
+== Screenshots ==
+1. Use omnichannel templates for Welcome, Back in Stock, Abandon, Price Drop & more
+2. Sync your WooCommerce store data within minutes
+3. Use complete historical and real-time data for precise segmentation
+4. Get more answers out of your data
+
 
 == Changelog ==
 = 3.3.5 2024-03-25 =

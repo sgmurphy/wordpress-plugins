@@ -19,6 +19,12 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
      */
     public function run()
     {
+
+        //If firewall process is activated
+        if(!HMWP_Classes_Tools::doFirewall()){
+            return;
+        }
+
         //If block detectors is activated
         if (HMWP_Classes_Tools::getOption('hmwp_detectors_block')) {
             if (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] <> '') {
@@ -336,6 +342,350 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
 
             }
         }
+    }
+
+    /**
+     * Check if there are whitelisted IPs for accessing the hidden paths
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function checkWhitelistIPs(){
+
+        if (!HMWP_Classes_Tools::getValue('hmwp_preview') && isset($_SERVER['REMOTE_ADDR']) && strpos($_SERVER['REMOTE_ADDR'], '.') !== false ) {
+
+            //get caller server ips
+            $server = $this->getServerVariableIPs();
+
+            if(isset($server['REMOTE_ADDR'])){
+
+                //get only the remote address for whitelist
+                $ip = $server['REMOTE_ADDR'];
+
+                //for each IP found on the caller
+                if(HMWP_Classes_Tools::isWhitelistedIP($ip)){
+                    $this->whitelistLevel(HMWP_Classes_Tools::getOption('whitelist_level'));
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Check if there are whitelisted paths for the current path
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function checkWhitelistPaths(){
+
+        if(isset($_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_URI"] <> ''){
+            $url = untrailingslashit(strtok($_SERVER["REQUEST_URI"], '?'));
+
+            //check the whitelist URLs
+            $whitelist_urls = HMWP_Classes_Tools::getOption('whitelist_urls');
+            if (!empty($whitelist_urls)) {
+                //unpack whitelist urls
+                $whitelist_urls = json_decode($whitelist_urls, true);
+                //remove empty data
+                $whitelist_urls = array_filter($whitelist_urls);
+            }
+
+            if(!empty($whitelist_urls)){
+                foreach ($whitelist_urls as $path){
+                    if(strpos($path, ',')){
+                        $paths = explode(',', $path);
+
+                        foreach ($paths as $spath){
+                            if (HMWP_Classes_Tools::searchInString($spath, array($url))) {
+                                $this->whitelistLevel(HMWP_Classes_Tools::getOption('whitelist_level'));
+                            }
+                        }
+
+                    }else{
+                        if (HMWP_Classes_Tools::searchInString($path, array($url))) {
+                            $this->whitelistLevel(HMWP_Classes_Tools::getOption('whitelist_level'));
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+    }
+
+    /**
+     * Check if the IP is in blacklist
+     * Include also the theme detectors
+     * @return void
+     * @throws Exception
+     */
+    public function checkBlacklistIPs(){
+
+        if (!HMWP_Classes_Tools::getValue('hmwp_preview')) {
+
+            //get caller server ips
+            $server = $this->getServerVariableIPs();
+
+            if(!empty($server)){
+                //for each IP found on the caller
+                foreach ($server as $ip){
+                    if(!HMWP_Classes_Tools::isWhitelistedIP($ip) && HMWP_Classes_Tools::isBlacklistedIP($ip)){
+                        HMWP_Classes_ObjController::getClass('HMWP_Models_Brute')->brute_kill_login();
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Whitelist features based on whitelist level
+     *
+     * @param $level
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function whitelistLevel($level) {
+
+        //whitelist_level == 0
+        if($level == 0){
+            add_filter('hmwp_process_hide_urls', '__return_false');
+        }
+
+        //whitelist_level == 1
+        if($level > 0){
+            add_filter('hmwp_process_hide_urls', '__return_false');
+            add_filter('hmwp_process_find_replace', '__return_false');
+        }
+
+        //whitelist_level == 2
+        if($level > 1){
+            add_filter('hmwp_process_init', '__return_false');
+            add_filter('hmwp_process_buffer', '__return_false');
+            add_filter('hmwp_process_hide_disable', '__return_false');
+        }
+    }
+
+    /**
+     * Get validated IPs from caller server
+     * @return array
+     */
+    public function getServerVariableIPs()
+    {
+        $variables = array('REMOTE_ADDR', 'HTTP_CF_CONNECTING_IP', 'HTTP_X_REAL_IP', 'HTTP_X_FORWARDED_FOR');
+        $ips = array();
+
+        foreach ($variables as $variable) {
+            $ip = isset($_SERVER[$variable]) ? $_SERVER[$variable] : false;
+
+            if ($ip && strpos($ip, ',') !== false) {
+                $ip = preg_replace('/[\s,]/', '', explode(',', $ip));
+                if($clean_ip = $this->getCleanIp($ip)){
+                    $ips[$variable] = $clean_ip;
+                }
+            } else {
+                if($clean_ip = $this->getCleanIp($ip)){
+                    $ips[$variable] = $clean_ip;
+                }
+            }
+        }
+
+        return $ips;
+    }
+
+    /**
+     * Return the verified IP
+     * @param $ip
+     *
+     * @return array|bool|mixed|string|string[]|null
+     */
+    public function getCleanIp($ip) {
+
+        if (!$this->isValidIP($ip)) {
+            $ip = preg_replace('/:\d+$/', '', $ip);
+        }
+
+        if($this->isValidIP($ip)){
+            if (!$this->isIPv6MappedIPv4($ip)) {
+                $ip = $this->inetNtop($this->inetPton($ip));
+            }
+
+            return $ip;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * @param $ip
+     *
+     * @return bool
+     */
+    private function isIPv6MappedIPv4($ip) {
+        return preg_match('/^(?:\:(?:\:0{1,4}){0,4}\:|(?:0{1,4}\:){5})ffff\:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/i', $ip) > 0;
+    }
+
+    private function inetNtop($ip) {
+        if (strlen($ip) == 16 && substr($ip, 0, 12) == "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff") {
+            $ip = substr($ip, 12, 4);
+        }
+        return self::isIPv6Support() ? @inet_ntop($ip) : $this->_inetNtop($ip);
+    }
+
+    private function _inetNtop($ip) {
+        // IPv4
+        if (strlen($ip) === 4) {
+            return ord($ip[0]) . '.' . ord($ip[1]) . '.' . ord($ip[2]) . '.' . ord($ip[3]);
+        }
+
+        // IPv6
+        if (strlen($ip) === 16) {
+
+            // IPv4 mapped IPv6
+            if (substr($ip, 0, 12) == "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff") {
+                return "::ffff:" . ord($ip[12]) . '.' . ord($ip[13]) . '.' . ord($ip[14]) . '.' . ord($ip[15]);
+            }
+
+            $hex = bin2hex($ip);
+            $groups = str_split($hex, 4);
+            $in_collapse = false;
+            $done_collapse = false;
+            foreach ($groups as $index => $group) {
+                if ($group == '0000' && !$done_collapse) {
+                    if ($in_collapse) {
+                        $groups[$index] = '';
+                        continue;
+                    }
+                    $groups[$index] = ':';
+                    $in_collapse = true;
+                    continue;
+                }
+                if ($in_collapse) {
+                    $done_collapse = true;
+                }
+                $groups[$index] = ltrim($groups[$index], '0');
+                if (strlen($groups[$index]) === 0) {
+                    $groups[$index] = '0';
+                }
+            }
+            $ip = join(':', array_filter($groups, 'strlen'));
+            $ip = str_replace(':::', '::', $ip);
+            return $ip == ':' ? '::' : $ip;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the packed binary string of an IPv4 or IPv6 address.
+     *
+     * @param string $ip
+     * @return string
+     */
+    private function inetPton($ip) {
+        $pton = str_pad(self::isIPv6Support() ? @inet_pton($ip) : $this->_inetPton($ip), 16,
+            "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\x00\x00\x00\x00", STR_PAD_LEFT);
+
+        return $pton;
+    }
+
+    private function _inetPton($ip) {
+        // IPv4
+        if (preg_match('/^(?:\d{1,3}(?:\.|$)){4}/', $ip)) {
+            $octets = explode('.', $ip);
+            $bin = chr($octets[0]) . chr($octets[1]) . chr($octets[2]) . chr($octets[3]);
+            return $bin;
+        }
+
+        // IPv6
+        if (preg_match('/^((?:[\da-f]{1,4}(?::|)){0,8})(::)?((?:[\da-f]{1,4}(?::|)){0,8})$/i', $ip)) {
+            if ($ip === '::') {
+                return "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+            }
+            $colon_count = substr_count($ip, ':');
+            $dbl_colon_pos = strpos($ip, '::');
+            if ($dbl_colon_pos !== false) {
+                $ip = str_replace('::', str_repeat(':0000',
+                        (($dbl_colon_pos === 0 || $dbl_colon_pos === strlen($ip) - 2) ? 9 : 8) - $colon_count) . ':', $ip);
+                $ip = trim($ip, ':');
+            }
+
+            $ip_groups = explode(':', $ip);
+            $ipv6_bin = '';
+            foreach ($ip_groups as $ip_group) {
+                $ipv6_bin .= pack('H*', str_pad($ip_group, 4, '0', STR_PAD_LEFT));
+            }
+
+            return strlen($ipv6_bin) === 16 ? $ipv6_bin : false;
+        }
+
+        // IPv4 mapped IPv6
+        if (preg_match('/^(?:\:(?:\:0{1,4}){0,4}\:|(?:0{1,4}\:){5})ffff\:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i', $ip, $matches)) {
+            $octets = explode('.', $matches[1]);
+            return "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff" . chr($octets[0]) . chr($octets[1]) . chr($octets[2]) . chr($octets[3]);
+        }
+
+        return false;
+    }
+
+    /**
+     * Verify PHP was compiled with IPv6 support.
+     *
+     * @return bool
+     */
+    private function isIPv6Support() {
+        return defined('AF_INET6');
+    }
+
+    /**
+     * Check and validate IP
+     *
+     * @param $ip
+     *
+     * @return bool
+     */
+    private function isValidIP($ip) {
+        return filter_var($ip, FILTER_VALIDATE_IP) !== false;
+    }
+
+    /**
+     * Get Hostname from IP
+     * @param $ip
+     *
+     * @return array|false|mixed|string
+     */
+    private function getHostname($ip) {
+        $host = false;
+
+        // This function works for IPv4 or IPv6
+        if (function_exists('gethostbyaddr')) {
+            $host = @gethostbyaddr($ip);
+        }
+
+        if (!$host) {
+            $ptr = false;
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
+                $ptr = implode(".", array_reverse(explode(".", $ip))) . ".in-addr.arpa";
+            } else if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+                $ptr = implode(".", array_reverse(str_split(bin2hex($ip)))) . ".ip6.arpa";
+            }
+
+            if ($ptr && function_exists('dns_get_record')) {
+                $host = @dns_get_record($ptr, DNS_PTR);
+
+                if ($host) {
+                    $host = $host[0]['target'];
+                }
+
+            }
+        }
+
+        return $host;
     }
 
 }

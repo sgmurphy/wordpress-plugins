@@ -18,7 +18,7 @@ class Burger_Companion_Activator {
 		$theme = wp_get_theme(); // gets the current theme
 		if(!$item_details_page){
 			
-			if ( 'Spintech' == $theme->name || 'ITpress' == $theme->name || 'Burgertech' == $theme->name || 'KitePress' == $theme->name  || 'SpinSoft' == $theme->name){
+			if ( 'Spintech' == $theme->name || 'ITpress' == $theme->name || 'Burgertech' == $theme->name || 'KitePress' == $theme->name  || 'SpinSoft' == $theme->name || 'Maxtech' == $theme->name){
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/spintech/default-pages/upload-media.php';
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/spintech/default-pages/home-page.php';
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/spintech/default-widgets/default-widget.php';

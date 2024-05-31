@@ -196,6 +196,10 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			<?php }elseif ( 'KitePress' == $theme->name){ ?>	
 			
 				<a class="customizer_spintech_design_upgrade_section up-to-pro"  href="https://burgerthemes.com/kitepress-pro/" target="_blank" style="display: none;"><?php _e('More Designs Available in KitePress Pro','spintech'); ?></a>
+
+				<?php }elseif ( 'Maxtech' == $theme->name){ ?>	
+			
+				<a class="customizer_spintech_design_upgrade_section up-to-pro"  href="https://burgerthemes.com/maxtech-pro/" target="_blank" style="display: none;"><?php _e('More Designs Available in Maxtech Pro','spintech'); ?></a>
 			
 			<?php }else{ ?>		
 				

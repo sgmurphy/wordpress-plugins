@@ -117,11 +117,13 @@ function wpa_unqiue_field_name(){
 }
 
 function wpa_unqiue_field_value(){
+	/* DEPRECATED LEVEL 2 
 	if (function_exists('wpae_unqiue_field_value')){ // IF EXTENDED VERSION AVAILABLE
 		return wpae_unqiue_field_value();
 	} else {
 		return rand(1111, 999999);
-	}	
+	}*/	
+	return rand(1111, 999999);
 }
 
 function wpa_check_is_spam($form_data){
@@ -131,11 +133,13 @@ function wpa_check_is_spam($form_data){
 			(empty($form_data['alt_s']))
 
 		){
+		/* DEPRECATED LEVEL 2 
 		if (function_exists('wpae_2level_spam_check')){ 
 			return wpae_2level_spam_check($form_data[$GLOBALS['wpa_field_name']]);
 		} else {
 			return false; // FALSE MEANS NOT SPAM
-		}		
+		}*/
+		return false; // FALSE MEANS NOT SPAM
 	} else {
 		return true; // TRUE MEANS SPAM
 	}

@@ -55,6 +55,7 @@ $see_result_button      = (isset($buttons_texts['see_result_button']) && $button
 $restart_quiz_button    = (isset($buttons_texts['restart_quiz_button']) && $buttons_texts['restart_quiz_button'] != '') ? stripslashes( esc_attr( $buttons_texts['restart_quiz_button'] ) ) : 'Restart quiz';
 $send_feedback_button   = (isset($buttons_texts['send_feedback_button']) && $buttons_texts['send_feedback_button'] != '') ? esc_attr(stripslashes($buttons_texts['send_feedback_button'])) : 'Send feedback';
 $load_more_button       = (isset($buttons_texts['load_more_button']) && $buttons_texts['load_more_button'] != '') ? esc_attr(stripslashes($buttons_texts['load_more_button'])) : 'Load more';
+$gen_exit_button        = (isset($buttons_texts['exit_button']) && $buttons_texts['exit_button'] != '') ? esc_attr(stripslashes($buttons_texts['exit_button'])) : 'Exit';
 
 // Enable custom texts for buttons
 $quiz_custom_texts_start_button = (isset($options['quiz_custom_texts_start_button']) && $options['quiz_custom_texts_start_button'] != '') ? stripslashes( esc_attr( $options['quiz_custom_texts_start_button'] ) ) : $start_button;
@@ -74,6 +75,8 @@ $quiz_custom_texts_restart_quiz_button = (isset($options['quiz_custom_texts_rest
 $quiz_custom_texts_send_feedback_button = (isset($options['quiz_custom_texts_send_feedback_button']) && $options['quiz_custom_texts_send_feedback_button'] != '') ? stripslashes( esc_attr( $options['quiz_custom_texts_send_feedback_button'] ) ) : $send_feedback_button;
 
 $quiz_custom_texts_load_more_button = (isset($options['quiz_custom_texts_load_more_button']) && $options['quiz_custom_texts_load_more_button'] != '') ? stripslashes( esc_attr( $options['quiz_custom_texts_load_more_button'] ) ) : $load_more_button;
+
+$quiz_custom_texts_exit_button = (isset($options['quiz_custom_texts_exit_button']) && $options['quiz_custom_texts_exit_button'] != '') ? stripslashes( esc_attr( $options['quiz_custom_texts_exit_button'] ) ) : $gen_exit_button;
 ?>
 
 <div class="wrap ays-quiz-list-table ays_quizzes_list_table">
@@ -598,6 +601,17 @@ $quiz_custom_texts_load_more_button = (isset($options['quiz_custom_texts_load_mo
                                             </div>
                                             <div class="col-sm-8">
                                                 <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_load_more_button" id="ays_quick_quiz_custom_texts_load_more_button" value="<?php echo esc_attr($quiz_custom_texts_load_more_button); ?>"/>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_custom_texts_exit_button">
+                                                    <?php echo __('Exit button',$this->plugin_name); ?>
+                                                </label> 
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_exit_button" id="ays_quick_quiz_custom_texts_exit_button" value="<?php echo esc_attr($quiz_custom_texts_exit_button); ?>"/>
                                             </div>
                                         </div>
                                     </div>

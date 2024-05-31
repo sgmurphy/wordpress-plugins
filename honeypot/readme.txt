@@ -4,7 +4,7 @@ Donate link: https://www.patreon.com/wp_armour
 Tags: anti spam, spam protection, comment spam , contact form spam, akismet
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 2.1.23
+Stable tag: 2.2.01
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,9 @@ This plugins block spam submissions using honeypot anti spam technic. No Captcha
 
 <strong>WP Armour Extended (Paid Version) supports additional anti spam protection and features.</strong>
 
-* Level 2 spam check. If you are still getting spam submission, you can enable Level 2 spam check in Extended version from Extended Settings tab.
+* Record Spam Submission, view what spam bot are trying to submit 
+* Logs spam bot IPs.
+* Block spam bot IPs if multiple spam is submitted. Add extra level of anti spam filter based on IPs. Stops spam bot from using unwanted bandwidth and save valuable server resource.
 * WooCommerce Checkout & Registration (<a href="https://woocommerce.com">woocommerce.com</a>)
 * Easy Digital Downloads Checkout and Registration (<a href="https://easydigitaldownloads.com">easydigitaldownloads.com</a>)
 * QuForm Contact Form (<a href="https://www.quform.com">quform.com</a>)
@@ -46,14 +48,13 @@ This plugins block spam submissions using honeypot anti spam technic. No Captcha
 * Strong Testimonials (<a href="https://wordpress.org/plugins/strong-testimonials/">wordpress.org/plugins/strong-testimonials</a>)
 * Formcraft Form (<a href="https://formcraft-wp.com/">formcraft-wp.com</a>)
 * Forminator Form (<a href="https://wordpress.org/plugins/forminator/">wordpress.org/plugins/forminator</a>)
+* WS Form ( Lite & Pro )
+* YITH Easy Login & Register Popup for WooCommerce
 * JetForm Builder (<a href="https://jetformbuilder.com/">jetformbuilder.com</a>)
 * HTMLform plugin (<a href="https://www.htmlformsplugin.com">htmlformsplugin.com</a>)
 * Avia Enfold Theme (<a href="https://kriesi.at/themes/enfold">kriesi.at/themes/enfold</a>)
 * BuddyPress (<a href="https://buddypress.org">buddypress.org</a>)
 * BuddyBoss (<a href="https://www.buddyboss.com">buddyboss.com</a>)
-* Logs spam bot IPs.
-* Block spam bot IPs if multiple spam is submitted. Add extra level of anti spam filter based on IPs. Stops spam bot from using unwanted bandwidth and save valuable server resource.
-* View what spam bot are trying to submit, so that you are sure our plugin is blocking legit spam bots.
 
 You can get the WP Armour - Anti Spam Extended from <a title="WP Armour Extended - Anti Spam" href="https://dineshkarki.com.np/buy-wp-armour-extended">here</a>
 
@@ -71,9 +72,6 @@ You can get the WP Armour - Anti Spam Extended from <a title="WP Armour Extended
 <strong>Support</strong>
 
 If you have any issue, you can write to using <a title="WP Armour - Honeypot Anti Spam Forum" href="https://wordpress.org/support/plugin/honeypot/" target="_blank">support forum.</a>
-
-<strong>Want itegration for other plugins for anti spam support ? </strong>
-You can fill this form and we will start working for it. <a href="https://forms.gle/VFhrQRtkjbwZ4Pbe9">https://forms.gle/VFhrQRtkjbwZ4Pbe9</a>
 
 <strong>Support Us at Patreon</strong>
 
@@ -100,10 +98,6 @@ We have used the honeypot technic differently in this plugin to make it work bet
 = Will it block all the spam submission ? =
 
 Spam submission are either created by spam bot or by manual submission from users. Honeypot trap is for spam bots only. So there won't be submission from spam bots. So you get rid of around 98% of spam. And ya, it can block russian spam, chinese spam effectively. 
-
-= Forms i am using is not supported. Can you help ? =
-
-Ya, Please write to us using <a href="https://forms.gle/VFhrQRtkjbwZ4Pbe9">https://forms.gle/VFhrQRtkjbwZ4Pbe9</a> and we will try to add anti spam protection support to it. 
 
 = How can i verify that honeypot anti spam protection is enabled ? =
 
@@ -141,6 +135,10 @@ With WP Armour - Honeypot Anti Spam plugin it is No. But if you want you can use
 1. Screenshot #11. Anti Spam for Fluent Forms
 
 == Changelog ==
+
+= = 2.2.01 =
+
+* Removed Level 2 anti spam check as it is no more needed. 
 
 = = 2.1.23 =
 

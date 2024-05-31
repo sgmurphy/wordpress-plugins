@@ -160,29 +160,39 @@ if ( ! class_exists( 'WC_Product_Woosb' ) && class_exists( 'WC_Product' ) ) {
 				$exclude_unpurchasable = $this->exclude_unpurchasable();
 
 				if ( $items = $this->items ) {
-					$stock_status = 'instock';
+					$stock_status     = 'instock';
+					$all_out_of_stock = true;
 
 					foreach ( $items as $item ) {
 						$_qty      = (float) $item['qty'];
 						$_optional = ! empty( $item['optional'] );
 						$_min      = ! empty( $item['min'] ) ? (float) $item['min'] : 0;
-						$_product  = wc_get_product( $item['id'] );
 
-						if ( ! $_product || $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
-							continue;
-						}
+						if ( $_product = wc_get_product( $item['id'] ) ) {
+							if ( $_optional ) {
+								$_qty = $_min;
+							}
 
-						if ( $_optional ) {
-							$_qty = $_min;
-						}
+							if ( $_product->is_in_stock() && $_product->has_enough_stock( $_qty ) ) {
+								$all_out_of_stock = false;
+							}
 
-						if ( $_qty && ( ( $_product->get_stock_status( $context ) === 'outofstock' ) || ! $_product->has_enough_stock( $_qty ) ) ) {
-							return 'outofstock';
-						}
+							if ( $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
+								continue;
+							}
 
-						if ( $_product->get_stock_status( $context ) === 'onbackorder' || ( $_product->get_stock_quantity() < $_qty && $_product->backorders_allowed() ) ) {
-							$stock_status = 'onbackorder';
+							if ( $_qty && ( ( $_product->get_stock_status( $context ) === 'outofstock' ) || ! $_product->has_enough_stock( $_qty ) ) ) {
+								return 'outofstock';
+							}
+
+							if ( $_product->get_stock_status( $context ) === 'onbackorder' || ( $_product->get_stock_quantity() < $_qty && $_product->backorders_allowed() ) ) {
+								$stock_status = 'onbackorder';
+							}
 						}
+					}
+
+					if ( $all_out_of_stock ) {
+						return 'outofstock';
 					}
 
 					if ( $this->is_manage_stock() ) {

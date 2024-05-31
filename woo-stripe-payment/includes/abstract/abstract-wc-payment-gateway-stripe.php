@@ -1993,7 +1993,7 @@ abstract class WC_Payment_Gateway_Stripe extends WC_Payment_Gateway {
 		if ( $this->get_payment_method_type() ) {
 			$options = array_merge(
 				array( 'paymentMethodTypes' => array( $this->get_payment_method_type() ) ),
-				$options,
+				$options
 			);
 		}
 

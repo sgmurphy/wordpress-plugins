@@ -661,6 +661,40 @@ class HMWP_Classes_Tools
     }
 
     /**
+     * Check if it's valid to load firewall on the page
+     *
+     * @return bool
+     */
+    public static function doFirewall()
+    {
+
+        //If allways change paths admin & frontend
+        if (defined('HMW_ALWAYS_RUN_FIREWALL') && HMW_ALWAYS_RUN_FIREWALL ) {
+            return true;
+        }
+
+        //If firewall process is activated
+        if(!apply_filters('hmwp_process_firewall', true)){
+            return false;
+        }
+
+        if(HMWP_Classes_Tools::isApi()){
+            return false;
+        }
+
+        //If not admin
+        if (!is_admin() && !is_network_admin()) {
+            //if user is not logged in
+            if (function_exists('is_user_logged_in') && !is_user_logged_in()) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    /**
      * Check if it's valid for changing the paths
      * Change the paths in admin, logged users or visitors
      *

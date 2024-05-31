@@ -6,7 +6,7 @@ Tags: ads, adsense, amp, ad rotation, ad manager
 Requires at least: 4.9
 Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 2.7.34
+Stable tag: 2.7.35
 License: GPLv3
 
 Manage Google AdSense, Media.net, Amazon banners, ads.txt, ad rotation, sticky widgets, AMP ads, DFP, tracking, AdSense header and footer code
@@ -362,6 +362,11 @@ If you are not happy to reveal this information and you have opted in, simply di
 
 == Changelog ==
 
+= 2.7.35 =
+- Added support for "Simple History – user activity log, audit tool" plugin
+- Added support for external tracking for Google Tag Manager code (Pro only)
+- Few minor bug fixes, cosmetic changes and code improvements
+
 = 2.7.34 =
 - Added support for ^ character to invert viewports in the VIEWPORT separator
 - Added support for index parameter for counter shortcodes
@@ -567,6 +572,11 @@ If you are not happy to reveal this information and you have opted in, simply di
 For the changelog of earlier versions, please refer to the separate changelog.txt file.
 
 == Upgrade Notice ==
+
+= 2.7.35 =
+Added support for "Simple History – user activity log, audit tool" plugin;
+Added support for external tracking for Google Tag Manager code (Pro only);
+Few minor bug fixes, cosmetic changes and code improvements;
 
 = 2.7.34 =
 Added support for ^ character to invert viewports in the VIEWPORT separator;

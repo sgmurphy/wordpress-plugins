@@ -1047,6 +1047,7 @@ class Quiz_Maker_Admin
         $gen_restart_quiz_button    = (isset($buttons_texts['restart_quiz_button']) && $buttons_texts['restart_quiz_button'] != '') ? stripslashes( esc_attr( $buttons_texts['restart_quiz_button'] ) ) : 'Restart quiz';
         $gen_send_feedback_button   = (isset($buttons_texts['send_feedback_button']) && $buttons_texts['send_feedback_button'] != '') ? stripslashes(esc_attr($buttons_texts['send_feedback_button'])) : 'Send feedback';
         $gen_load_more_button       = (isset($buttons_texts['load_more_button']) && $buttons_texts['load_more_button'] != '') ? esc_attr(stripslashes($buttons_texts['load_more_button'])) : 'Load more';
+        $gen_exit_button            = (isset($buttons_texts['exit_button']) && $buttons_texts['exit_button'] != '') ? esc_attr(stripslashes($buttons_texts['exit_button'])) : 'Exit';
 
         // Enable Quiz Options
         $quiz_enable_options = (isset( $_REQUEST['ays_quick_quiz_enable_options'] ) && $_REQUEST['ays_quick_quiz_enable_options'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_options'] ) ) : "off";
@@ -1086,6 +1087,7 @@ class Quiz_Maker_Admin
         $quick_quiz_custom_texts_restart_button             = $gen_restart_quiz_button;
         $quick_quiz_custom_texts_send_feedback_button       = $gen_send_feedback_button;
         $quick_quiz_custom_texts_load_more_button           = $gen_load_more_button;
+        $quick_quiz_custom_texts_exit_button                = $gen_exit_button;
 
         // Results Settings
         $quick_quiz_hide_score                              = 'off';
@@ -1154,11 +1156,17 @@ class Quiz_Maker_Admin
             // See results button
             $quick_quiz_custom_texts_see_results_button  = (isset($_REQUEST['ays_quick_quiz_custom_texts_see_results_button']) && $_REQUEST['ays_quick_quiz_custom_texts_see_results_button'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_custom_texts_see_results_button'] ) ) : $gen_see_result_button;
 
+            // Restart button
             $quick_quiz_custom_texts_restart_button  = (isset($_REQUEST['ays_quick_quiz_custom_texts_restart_quiz_button']) && $_REQUEST['ays_quick_quiz_custom_texts_restart_quiz_button'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_custom_texts_restart_quiz_button'] ) ) : $gen_see_result_button;
 
+            // Send feedback button
             $quick_quiz_custom_texts_send_feedback_button  = (isset($_REQUEST['ays_quick_quiz_custom_texts_send_feedback_button']) && $_REQUEST['ays_quick_quiz_custom_texts_send_feedback_button'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_custom_texts_send_feedback_button'] ) ) : $gen_send_feedback_button;
 
+            // Load more button
             $quick_quiz_custom_texts_load_more_button  = (isset($_REQUEST['ays_quick_quiz_custom_texts_load_more_button']) && $_REQUEST['ays_quick_quiz_custom_texts_load_more_button'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_custom_texts_load_more_button'] ) ) : $gen_send_feedback_button;
+
+            // Exit button
+            $quick_quiz_custom_texts_exit_button = (isset($_REQUEST['ays_quick_quiz_custom_texts_exit_button']) && $_REQUEST['ays_quick_quiz_custom_texts_exit_button'] != '') ? stripslashes( esc_attr( $_REQUEST['ays_quick_quiz_custom_texts_exit_button'] ) ) : $gen_exit_button;
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1415,7 +1423,7 @@ class Quiz_Maker_Admin
             'quiz_custom_texts_restart_quiz_button'     => $quick_quiz_custom_texts_restart_button,
             'quiz_custom_texts_send_feedback_button'    => $quick_quiz_custom_texts_send_feedback_button,
             'quiz_custom_texts_load_more_button'        => $quick_quiz_custom_texts_load_more_button,
-            'quiz_custom_texts_exit_button'             => "Exit",
+            'quiz_custom_texts_exit_button'             => $quick_quiz_custom_texts_exit_button,
             'quiz_display_messages_before_buttons'      => $quick_quiz_display_messages_before_buttons,
         );
 

@@ -2,7 +2,7 @@
 Contributors: wponlinesupport, anoopranawat, pratik-jain, piyushpatel123, ridhimashukla, patelketan, mehulwpos, jahnavwponlinesupport
 Tags: post slider, posts slider, recent post slider, recent posts slider, slider, responsive post slider, responsive posts slider, responsive recent post slider, responsive recent posts slider, WordPress posts slider, post slideshow, posts slideshow, recent posts slideshow, shortcodes, wponlinesupport
 Requires at least: 4.0
-Tested up to: 6.4.2
+Tested up to: 6.5.3
 Stable tag: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -671,22 +671,6 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
                                             </select> </label>
                                     </td>
                                 </tr>
-                                <tr class="heading">
-                                    <th colspan="2"><?php esc_html_e( 'Suggestion', 'woo-product-bundle' ); ?></th>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        To display custom engaging real-time messages on any wished positions, please install
-                                        <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        Wanna save your precious time working on variations? Try our brand-new free plugin
-                                        <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
-                                        <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
-                                    </td>
-                                </tr>
                                 <tr class="submit show_if_section_all">
                                     <th colspan="2">
 										<?php settings_fields( 'woosb_settings' ); ?><?php submit_button(); ?>
@@ -983,6 +967,22 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
                             </ul>
                         </div>
 					<?php } ?>
+                </div><!-- /.wpclever_settings_page_content -->
+                <div class="wpclever_settings_page_suggestion">
+                    <div class="wpclever_settings_page_suggestion_label">
+                        <span class="dashicons dashicons-yes-alt"></span> Suggestion
+                    </div>
+                    <div class="wpclever_settings_page_suggestion_content">
+                        <div>
+                            To display custom engaging real-time messages on any wished positions, please install
+                            <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
+                        </div>
+                        <div>
+                            Wanna save your precious time working on variations? Try our brand-new free plugin
+                            <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
+                            <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
+                        </div>
+                    </div>
                 </div>
             </div>
 			<?php

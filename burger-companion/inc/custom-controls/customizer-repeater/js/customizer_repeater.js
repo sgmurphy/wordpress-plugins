@@ -250,42 +250,42 @@ jQuery(document).ready(function () {
 
         if(split_add_more_button_split=="Add New Slid")
         {
-            if(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider').val()>=3)
+            if(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider, #exist_burger_companion_Maxtech_Slider').val()>=3)
             {
                 jQuery(".customizer_Spintech_slider_upgrade_section").show();
                 return false;   
             }
-            if(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider').val()<3)
+            if(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider,#exist_burger_companion_Maxtech_Slider').val()<3)
             {
              var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider').val())+1;
-             jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider').val(new_service_add_val);  
+             jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider,#exist_burger_companion_Maxtech_Slider').val(new_service_add_val);  
          }
      }
 
      if(split_add_more_button_split=="Add New Serv")
      {
-        if(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service').val()>=3)
+        if(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service,#exist_burger_companion_Maxtech_Service').val()>=3)
         {
             jQuery(".customizer_spintech_service_upgrade_section").show();
             return false;   
         }
-        if(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service').val()<3)
+        if(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service,#exist_burger_companion_Maxtech_Service').val()<3)
         {
-         var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service').val())+1;
-         jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service').val(new_service_add_val);  
+         var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service,#exist_burger_companion_Maxtech_Service').val())+1;
+         jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service,#exist_burger_companion_Maxtech_Service').val(new_service_add_val);  
      }
  }
  if(split_add_more_button_split=="Add New Info")
  {
-    if(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information').val()>=4)
+    if(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information,#exist_burger_companion_Maxtech_Information').val()>=4)
     {
         jQuery(".customizer_spintech_info_upgrade_section").show();
         return false;   
     }
-    if(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information').val()<4)
+    if(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information,#exist_burger_companion_Maxtech_Information').val()<4)
     {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information').val())+1;
-     jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information,#exist_burger_companion_Maxtech_Information').val())+1;
+     jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information,#exist_burger_companion_Maxtech_Information').val(new_service_add_val);  
  }
 }
 
@@ -320,29 +320,29 @@ if(split_add_more_button_split=="Add New Test")
 
 if(split_add_more_button_split=="Add New Soci")
 {
-    if(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social').val()>=3)
+    if(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social,#exist_burger_companion_Maxtech_Social').val()>=3)
     {
         jQuery(".customizer_spintech_social_upgrade_section").show();
         return false;   
     }
-    if(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social').val()<3)
+    if(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social,#exist_burger_companion_Maxtech_Social').val()<3)
     {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social').val())+1;
-     jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social,#exist_burger_companion_Maxtech_Social').val())+1;
+     jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social,#exist_burger_companion_Maxtech_Social').val(new_service_add_val);  
  }
 }
 
 if(split_add_more_button_split=="Add New Desi")
 {
-    if(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design').val()>=8)
+    if(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design,#exist_burger_companion_Maxtech_Design').val()>=8)
     {
         jQuery(".customizer_spintech_design_upgrade_section").show();
         return false;   
     }
-    if(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design').val()<8)
+    if(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design,#exist_burger_companion_Maxtech_Design').val()<8)
     {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design').val())+1;
-     jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design,#exist_burger_companion_Maxtech_Design').val())+1;
+     jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design,#exist_burger_companion_Maxtech_Design').val(new_service_add_val);  
  }
 }
 
@@ -1243,15 +1243,15 @@ burger_companion_theme_controls.on('click', '.social-repeater-general-control-re
 
         if(split_delete_button_split=="Delete Slide")
         {
-            jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider').val(parseInt(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider').val())-1);  
+            jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider,#exist_burger_companion_Maxtech_Slider').val(parseInt(jQuery('#exist_burger_companion_Spintech_Slider,#exist_burger_companion_ITpress_Slider,#exist_burger_companion_Burgertech_Slider,#exist_burger_companion_KitePress_Slider,#exist_burger_companion_SpinSoft_Slider,#exist_burger_companion_Maxtech_Slider').val())-1);  
         }
         if(split_delete_button_split=="Delete Servi")
         {
-            jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service').val(parseInt(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service').val())-1);  
+            jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service,#exist_burger_companion_Maxtech_Service').val(parseInt(jQuery('#exist_burger_companion_Spintech_Service,#exist_burger_companion_ITpress_Service,#exist_burger_companion_Burgertech_Service,#exist_burger_companion_KitePress_Service,#exist_burger_companion_SpinSoft_Service,#exist_burger_companion_Maxtech_Service').val())-1);  
         }
         if(split_delete_button_split=="Delete Infor")
         {
-            jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information').val(parseInt(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information').val())-1); 
+            jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information,#exist_burger_companion_Maxtech_Information').val(parseInt(jQuery('#exist_burger_companion_Spintech_Information,#exist_burger_companion_ITpress_Information,#exist_burger_companion_KitePress_Information,#exist_burger_companion_SpinSoft_Information,#exist_burger_companion_Maxtech_Information').val())-1); 
         }
 
         if(split_delete_button_split=="Delete Funfa")
@@ -1266,11 +1266,11 @@ burger_companion_theme_controls.on('click', '.social-repeater-general-control-re
 
         if(split_delete_button_split=="Delete Socia")
         {
-            jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social').val(parseInt(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social').val())-1); 
+            jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social,#exist_burger_companion_Maxtech_Social').val(parseInt(jQuery('#exist_burger_companion_Spintech_Social,#exist_burger_companion_ITpress_Social,#exist_burger_companion_Burgertech_Social,#exist_burger_companion_KitePress_Social,#exist_burger_companion_SpinSoft_Social,#exist_burger_companion_Maxtech_Social').val())-1); 
         }
         if(split_delete_button_split=="Delete Desig")
         {
-            jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design').val(parseInt(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design').val())-1); 
+            jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design,#exist_burger_companion_Maxtech_Design').val(parseInt(jQuery('#exist_burger_companion_Spintech_Design,#exist_burger_companion_ITpress_Design,#exist_burger_companion_Burgertech_Design,#exist_burger_companion_KitePress_Design,#exist_burger_companion_Maxtech_Design').val())-1); 
         }
 
 

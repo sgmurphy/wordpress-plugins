@@ -1,5 +1,5 @@
 #ai-data {
-  font-family: "2.7.34"; /* Used for version number of the file */
+  font-family: "2.7.35"; /* Used for version number of the file */
 }
 
 #blocked-warning {
@@ -71,6 +71,10 @@ hr {
   background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
   color: #666;
   cursor: pointer;
+}
+
+input.ai-button-exception.ui-button.ui-corner-all.ui-widget[type=submit] {
+  padding: 1px 3px !important;
 }
 
 /*.ai-button.ui-button.ui-corner-all.ui-widget {*/
@@ -155,7 +159,7 @@ a.clear-link, a.clear-link:hover, a.clear-link:focus {
 
 .ai-settings-table.left {
   float: left;
-  width: 63%
+  width: 70%
 }
 
 .ai-settings-table.left td.label {
@@ -164,7 +168,7 @@ a.clear-link, a.clear-link:hover, a.clear-link:focus {
 
 .ai-settings-table.right {
   float: right;
-  width: 37%
+  width: 30%
 }
 
 .ai-settings-table.ai-values td:first-child {

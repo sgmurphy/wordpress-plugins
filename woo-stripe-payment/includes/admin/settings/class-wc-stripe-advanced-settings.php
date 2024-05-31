@@ -105,6 +105,13 @@ class WC_Stripe_Advanced_Settings extends WC_Stripe_Settings_API {
 				'desc_tip'    => true,
 				'description' => __( 'If enabled, the plugin will process a payment cancellation or refund within Stripe when the order\'s status is set to cancelled.', 'woo-stripe-payment' )
 			),
+			'extended_authorization' => array(
+				'title'       => __( 'Extended Authorization', 'woo-stripe-payment' ),
+				'type'        => 'checkbox',
+				'default'     => 'no',
+				'desc_tip'    => true,
+				'description' => __( 'If enabled, eligible card authorizations can be extended for up to 30 days. Make sure this feature is enabled on your Stripe account before enabling.', 'woo-stripe-payment' )
+			),
 			'link_title'             => array(
 				'type'  => 'title',
 				'title' => __( 'Link Settings', 'woo-stripe-payment' ),

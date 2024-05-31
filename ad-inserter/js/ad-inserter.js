@@ -1,4 +1,4 @@
-var javascript_version = "2.7.34"
+var javascript_version = "2.7.35"
 var ignore_key = true;
 var start = 1;
 var end = 16;
@@ -3509,6 +3509,7 @@ jQuery(document).ready (function($) {
                 $("#open-new-tab-" + block).prop ('checked', code_data ['target'] == '_blank');
                 break;
               case AI_CODE_ADSENSE:
+                $("#adsense-script-" + block).val (code_data ['adsense-script']);
                 $("#adsense-comment-" + block).val (code_data ['adsense-comment']);
                 $("#adsense-publisher-id-" + block).val (code_data ['adsense-publisher-id']);
                 $("#adsense-ad-slot-id-" + block).val (code_data ['adsense-ad-slot-id']);
@@ -3596,6 +3597,7 @@ jQuery(document).ready (function($) {
           break;
         case AI_CODE_ADSENSE:
           code_data ['block']                 = block;
+          code_data ['adsense-script']        = $("#adsense-script-" + block).val ();
           code_data ['adsense-comment']       = $("#adsense-comment-" + block).val ();
           code_data ['adsense-publisher-id']  = $("#adsense-publisher-id-" + block).val ();
           code_data ['adsense-ad-slot-id']    = $("#adsense-ad-slot-id-"   + block).val ();

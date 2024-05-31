@@ -49,4 +49,24 @@ class WC_Payment_Gateway_Stripe_MobilePay extends WC_Payment_Gateway_Stripe_Loca
 		);
 	}
 
+	public function get_local_payment_settings() {
+		return wp_parse_args(
+			array(
+				'charge_type' => array(
+					'type'        => 'select',
+					'title'       => __( 'Charge Type', 'woo-stripe-payment' ),
+					'default'     => 'capture',
+					'class'       => 'wc-enhanced-select',
+					'options'     => array(
+						'capture'   => __( 'Capture', 'woo-stripe-payment' ),
+						'authorize' => __( 'Authorize', 'woo-stripe-payment' ),
+					),
+					'desc_tip'    => true,
+					'description' => __( 'This option determines whether the customer\'s funds are captured immediately or authorized and can be captured at a later date.',
+						'woo-stripe-payment' ),
+				),
+			),
+			parent::get_local_payment_settings() );
+	}
+
 }

@@ -249,6 +249,9 @@ class WC_Payment_Gateway_Stripe_CC extends WC_Payment_Gateway_Stripe {
 		if ( $this->is_active( 'force_3d_secure' ) && is_checkout() && ! doing_action( 'woocommerce_scheduled_subscription_payment_' . $this->id ) ) {
 			$args['payment_method_options']['card']['request_three_d_secure'] = 'any';
 		}
+		if ( stripe_wc()->advanced_settings && wc_string_to_bool( stripe_wc()->advanced_settings->get_option( 'extended_authorization', 'no' ) ) ) {
+			$args['payment_method_options']['card']['request_extended_authorization'] = 'if_available';
+		}
 	}
 
 	public function has_enqueued_scripts( $scripts ) {
