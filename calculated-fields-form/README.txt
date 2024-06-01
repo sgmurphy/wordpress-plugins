@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.9
+Stable tag: 5.2.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -446,6 +446,11 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.10 =
+
+* Modifies the Default settings section to activate/deactivate the Submit button by default or change its status in the existing forms.
+* Modifies the CFF - WooCommerce add-on to preserve the summary format in the WooCommerce cart when it uses the new Gutenberg block for the WooCommerce cart (Developer and Platinum plugin versions).
+
 = 5.2.9 =
 
 * Allows access to the form settings sections from the form builder in fullscreen mode.
@@ -472,11 +477,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.5 =
 
 * Includes a new section in the fields settings to allow customizing the fields desings directly.
-
-= 5.2.4 =
-
-* Allows to assign developer notes to the calculated fields.
-* Assign a top margin to the button controls to align the form fields.
-* Modifies the Calculated Fields Form Gutenberg block to make it responsive.
-* Modifies the export forms and CSV files modules to prevent third-party plugin warnings and notices messages affecting the files generated (Professional, Developer, and Platinum versions).
-* Prevents accidental deletion of submissions by modifying the position of the Delete All submissions button in the entries section (Professional, Developer, and Platinum versions).

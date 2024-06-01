@@ -21,6 +21,7 @@ return array(
     'QuadLayers\\WOOCCM\\Controller\\Field_Additional' => $baseDir . '/lib/controller/class-field-additional.php',
     'QuadLayers\\WOOCCM\\Controller\\Field_Billing' => $baseDir . '/lib/controller/class-field-billing.php',
     'QuadLayers\\WOOCCM\\Controller\\Field_Shipping' => $baseDir . '/lib/controller/class-field-shipping.php',
+    'QuadLayers\\WOOCCM\\Controller\\My_Account' => $baseDir . '/lib/controller/class-my-account.php',
     'QuadLayers\\WOOCCM\\Controller\\Order' => $baseDir . '/lib/controller/class-order.php',
     'QuadLayers\\WOOCCM\\Controller\\Premium' => $baseDir . '/lib/controller/class-premium.php',
     'QuadLayers\\WOOCCM\\Controller\\Suggestions' => $baseDir . '/lib/controller/class-suggestions.php',

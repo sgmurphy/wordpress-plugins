@@ -127,6 +127,16 @@ class Load {
 			)
 		);
 
+		global $wp_version;
+
+		wp_localize_script(
+			'qligg-store',
+			'qligg_store',
+			array(
+				'WP_VERSION' => $wp_version,
+			)
+		);
+
 		wp_register_style(
 			'qligg-backend',
 			plugins_url( '/build/backend/css/style.css', QLIGG_PLUGIN_FILE ),
@@ -193,7 +203,7 @@ class Load {
 			)
 		);
 
-		//TODO: improve loading
+		// TODO: improve loading
 		wp_enqueue_script( 'masonry' );
 		wp_enqueue_style( 'qligg-swiper' );
 		wp_enqueue_style( 'qligg-frontend' );

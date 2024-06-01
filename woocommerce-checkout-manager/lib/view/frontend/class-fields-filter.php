@@ -161,10 +161,9 @@ class Fields_Filter {
 
 			case 'file':
 				$field = '';
-
 				$field .= '<button style="width:100%" class="wooccm-file-button button alt" type="button" class="button alt" id="' . esc_attr( $key ) . '_button">' . esc_html( $args['placeholder'] ) . '</button>';
 				// $field .= '<input class="wooccm-file-field" type="text" name="' . esc_attr($key) . '" id="' . esc_attr($key) . '" value="test" />';
-				$field .= '<input class="wooccm-file-field" type="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="" ' . implode( ' ', $custom_attributes ) . ' />';
+				$field .= '<input class="wooccm-file-field" type="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="'. $value .'" ' . implode( ' ', $custom_attributes ) . ' />';
 				$field .= '<input style="display:none;" class="fileinput-button" type="file" name="' . esc_attr( $key ) . '_file" id="' . esc_attr( $key ) . '_file" multiple="multiple" />';
 				$field .= '<span style="display:none;" class="wooccm-file-list"></span>';
 

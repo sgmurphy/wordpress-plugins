@@ -61,6 +61,7 @@ class ComposerStaticInit9d2147291d87314461e0dfd3c1cc37d1
         'QuadLayers\\WOOCCM\\Controller\\Field_Additional' => __DIR__ . '/../..' . '/lib/controller/class-field-additional.php',
         'QuadLayers\\WOOCCM\\Controller\\Field_Billing' => __DIR__ . '/../..' . '/lib/controller/class-field-billing.php',
         'QuadLayers\\WOOCCM\\Controller\\Field_Shipping' => __DIR__ . '/../..' . '/lib/controller/class-field-shipping.php',
+        'QuadLayers\\WOOCCM\\Controller\\My_Account' => __DIR__ . '/../..' . '/lib/controller/class-my-account.php',
         'QuadLayers\\WOOCCM\\Controller\\Order' => __DIR__ . '/../..' . '/lib/controller/class-order.php',
         'QuadLayers\\WOOCCM\\Controller\\Premium' => __DIR__ . '/../..' . '/lib/controller/class-premium.php',
         'QuadLayers\\WOOCCM\\Controller\\Suggestions' => __DIR__ . '/../..' . '/lib/controller/class-suggestions.php',

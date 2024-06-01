@@ -68,6 +68,6 @@ function su_shortcode_lightbox( $atts = null, $content = null ) {
 	su_query_asset( 'js', 'magnific-popup' );
 	su_query_asset( 'js', 'su-shortcodes' );
 
-	return '<span class="su-lightbox' . su_get_css_class( $atts ) . '" data-mfp-src="' . su_do_attribute( $atts['src'] ) . '" data-mfp-type="' . sanitize_key( $atts['type'] ) . '" data-mobile="' . sanitize_key( $atts['mobile'] ) . '">' . do_shortcode( $content ) . '</span>';
+	return '<span class="su-lightbox' . su_get_css_class( $atts ) . '" data-mfp-src="' . str_replace( 'javascript', '', su_do_attribute( $atts['src'] ) ) . '" data-mfp-type="' . sanitize_key( $atts['type'] ) . '" data-mobile="' . sanitize_key( $atts['mobile'] ) . '">' . do_shortcode( $content ) . '</span>';
 
 }

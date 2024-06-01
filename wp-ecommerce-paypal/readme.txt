@@ -4,7 +4,7 @@ Donate link: https://wpplugin.org/donate/
 Tags: PayPal, gateway, paypal button, ecommerce, shop
 Author URI: https://wpplugin.org
 Requires at least: 3.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.4
 Stable tag: 1.9
 License: GPLv2 or later
@@ -17,11 +17,15 @@ Add a PayPal Buy Now Button to your website and start selling with PayPal and St
 
 This PayPal plugin will allow you to sell products or services on your website using a PayPal and / or Stripe Buy Now Button.
 
+Official PayPal & Stripe Partner.
+
 Watch this 1 minute video of how the plugin works:
 
 [youtube https://www.youtube.com/watch?v=lWlAmYeoP68]
 
 You can place a PayPal / Stripe Buy Now button anywhere on your site where you want to sell something. Your customers can then pay for your products or services or they can pay by Debit or Credit Card or PayPal account.
+
+>**[Check out our demos & Pro version](https://wpplugin.org/downloads/easy-paypal-buy-now-button/)**
 
 What makes this PayPal / Stripe plugin powerful is its simplicity. You don't have to spend days setting up an eCommerce Solution. Just install this PayPal / Stripe plugin and in just a few minutes customers from around the world can start buying products or services from your website using PayPal / Stripe.
 

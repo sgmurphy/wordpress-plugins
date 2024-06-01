@@ -42,6 +42,7 @@ final class Plugin {
 			Controller\Advanced::instance();
 			Controller\Premium::instance();
 			Controller\Suggestions::instance();
+			Controller\My_Account::instance();
 
 			/**
 			 * Load checkout fields models

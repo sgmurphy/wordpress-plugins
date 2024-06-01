@@ -18,7 +18,6 @@ class Upload {
 		add_action( 'wp_ajax_wooccm_checkout_attachment_upload', array( $this, 'ajax_checkout_attachment_upload' ) );
 		add_action( 'wp_ajax_nopriv_wooccm_checkout_attachment_upload', array( $this, 'ajax_checkout_attachment_upload' ) );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_attachment_ids' ), 99 );
-		// }
 	}
 
 	public static function instance() {
@@ -142,7 +141,6 @@ class Upload {
 	}
 
 	public function ajax_checkout_attachment_upload() {
-
 		if ( check_admin_referer( 'wooccm_upload', 'nonce' ) && isset( $_FILES['wooccm_checkout_attachment_upload'] ) ) {
 
 			// It cannot be wp_unslash becouse it has images paths

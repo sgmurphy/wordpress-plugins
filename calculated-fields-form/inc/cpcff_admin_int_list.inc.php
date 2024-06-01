@@ -23,14 +23,19 @@ if ( isset( $_GET['orderby'] ) ) {
 }
 
 $cp_default_template = CP_CALCULATEDFIELDSF_DEFAULT_template;
+$cp_default_submit   = CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button;
 
-if ( isset( $_REQUEST['cp_default_template'] ) && 'none' != $_REQUEST['cp_default_template'] ) {
+if ( isset( $_REQUEST['cp_default_template'] ) ) { // I don't need to check for the submit button at this moment.
 	check_admin_referer( 'cff-default-settings', '_cpcff_nonce' );
 
-	$cp_default_template = sanitize_text_field( wp_unslash( $_REQUEST['cp_default_template'] ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	if ( 'none' != $_REQUEST['cp_default_template'] ) {
+		$cp_default_template = sanitize_text_field( wp_unslash( $_REQUEST['cp_default_template'] ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	}
+	$cp_default_submit = isset( $_REQUEST['cp_default_submit'] ) ? '' : 'no';
 
 	// Update default settings.
 	update_option( 'CP_CALCULATEDFIELDSF_DEFAULT_template', $cp_default_template );
+	update_option( 'CP_CALCULATEDFIELDSF_DEFAULT_display_submit_button', $cp_default_submit );
 
 	if ( isset( $_REQUEST['cp_default_existing_forms'] ) ) {
 		$myrows = $wpdb->get_results( 'SELECT id,form_structure,enable_submit,cv_enable_captcha FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -41,11 +46,12 @@ if ( isset( $_REQUEST['cp_default_template'] ) && 'none' != $_REQUEST['cp_defaul
 				$wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE,
 				array(
 					'form_structure' => $form_structure,
+					'enable_submit' => $cp_default_submit,
 				),
 				array(
 					'id' => $item->id,
 				),
-				array( '%s' ),
+				array( '%s', '%s' ),
 				array( '%d' )
 			);
 		}
@@ -484,6 +490,7 @@ function cp_update_default_settings(e)
 					<select name="cp_default_template" id="cp_default_template"class="width50" onchange="cp_select_template();"><?php print $template_options; // phpcs:ignore WordPress.Security.EscapeOutput ?></select><br />
 					<?php print $template_information; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<br /><br />
+					<input type="checkbox" aria-label="<?php esc_attr_e('Display Submit Button by Default', 'calculated-fields-form'); ?>" name="cp_default_submit" <?php print( '' == $cp_default_submit ? 'CHECKED' : ''); ?> /> <?php esc_html_e( 'Display Submit Button by Default', 'calculated-fields-form' ); ?><br /><br />
 					<div style="border:1px solid #DADADA; padding:10px;" class="width50">
 						<input type="checkbox" aria-label="<?php esc_attr_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?>" name="cp_default_existing_forms" /> <?php esc_html_e( 'Apply To Existing Forms', 'calculated-fields-form' ); ?> (<i><?php esc_html_e( 'It will modify the settings of existing forms', 'calculated-fields-form' ); ?></i>)
 					</div>

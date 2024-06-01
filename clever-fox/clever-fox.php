@@ -2,7 +2,7 @@
 /*
 Plugin Name: Clever Fox
 Description: Clever Fox plugin to enhance the functionality of free themes made by Nayra Themes. More than 60000+ trusted websites with Nayra Themes. It provides intuitive features to your website. 42+ Themes compatible with Clever Fox. See below free themes listed here. Avril, Gradiant, Flavita, Fiona Blog, MetaSoft, Conceptly & ColorPress is one of highest installations themes in our collections. Visit our website and find theme as you need. https://www.nayrathemes.com/themes/
-Version: 25.2.0
+Version: 25.2.1
 Author: nayrathemes
 Author URI: https://nayrathemes.com
 Text Domain: clever-fox
@@ -286,11 +286,62 @@ if( 'Renoval' == $theme->name ){
 		 */
 		 public function __construct() {
 			add_action( 'admin_menu', array($this, 'clever_fox_setup_menu') );
-			add_action( 'wp_ajax_clever-fox-activate-theme', array( $this, 'activate_theme' ),2 );
+			add_action( 'wp_ajax_clever_fox_activate_theme', array( $this, 'activate_theme' ),2 );
+			add_action('wp_ajax_nopriv_clever_fox_activate_theme', 'activate_theme');
 			// add_action( 'wp_ajax_clever-fox-activate-theme', array( $this, 'activate_theme' ),1 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'clever_fox_enqueue_scripts' ) );
 		}
 		
+		public function activate_theme() {
+			// Check nonce for security
+			check_ajax_referer('clever_fox_nonce', 'security');
+
+			// Ensure the request came from a logged-in user with appropriate permissions
+			if (!current_user_can('manage_options')) {
+				wp_send_json_error(array(
+					'success' => false,
+					'message' => __('You do not have permission to activate themes.', 'clever-fox')
+				));
+			}
+
+			// Validate and sanitize the theme name
+			$theme_name = isset($_POST['theme_name']) ? sanitize_text_field($_POST['theme_name']) : '';
+
+			if (empty($theme_name)) {
+				wp_send_json_error(array(
+					'success' => false,
+					'message' => __('Invalid theme name.', 'clever-fox')
+				));
+			}
+
+			/**
+		 * Activate theme
+		 *
+		 * @since 1.0
+		 * @return void
+		 */
+		function activate_theme_once() {
+			// Check if the theme activation mode is set
+			if (get_option('theme_activation_mode') !== 'activated') {
+				// Set the theme activation mode to prevent running this code again
+				update_option('theme_activation_mode', 'activated');
+
+				$specia_current_theme = strtolower($_POST['specia_current_theme']);
+				switch_theme($specia_current_theme);
+
+				wp_send_json_success(
+					array(
+						'success' => true,
+						'message' => __('Theme Successfully Activated', 'clever-fox'),
+					)
+				);
+
+				wp_die();
+			}
+		}
+		
+			add_action('after_switch_theme', 'activate_theme_once');		
+		}
 		
 		public function clever_fox_enqueue_scripts() {
 			wp_enqueue_style('clever-fox-admin',CLEVERFOX_PLUGIN_URL .'inc/assets/css/admin.css');
@@ -522,7 +573,7 @@ if( 'Renoval' == $theme->name ){
 											$specia_btn_value= 'Install & Activate Now';
 										endif;
 										$theme_status = 'clever-fox-theme-' . $get_theme_staus;
-										echo sprintf( __( '<a href="#" class="%3$s xl-btn-active clever-fox-btn-outline xl-install-action clever-fox-btn" data-theme-slug="%1$s">%4$s</a>', 'clever-fox' ), esc_html($themes->name),esc_url( admin_url( 'themes.php?theme=%1$s' ) ), $theme_status, $specia_btn_value );
+										echo sprintf( esc_html__( '<a href="#" class="%3$s xl-btn-active clever-fox-btn-outline xl-install-action clever-fox-btn" data-theme-slug="%1$s">%4$s</a>', 'clever-fox' ), esc_html($themes->name),esc_url( admin_url( 'themes.php?theme=%1$s' ) ), esc_html($theme_status), esc_html($specia_btn_value) );
 										//switch_theme( $themes->name );
 										?>
 									</div>
@@ -539,27 +590,8 @@ if( 'Renoval' == $theme->name ){
 			</div>
 		
 		<?php
-}
-
-
-		/**
-		 * Activate theme
-		 *
-		 * @since 1.0
-		 * @return void
-		 */
-		function activate_theme() { 
-			 $specia_current_theme =  strtolower($_POST['specia_current_theme']);
-			switch_theme(  $specia_current_theme );
-			wp_send_json_success(
-				array(
-					'success' => true,
-					'message' => __( 'Theme Successfully Activated', 'clever-fox' ),
-				)
-			);
-			wp_die(); 
 		}
-		
+			
 	}
 }// End if().
 

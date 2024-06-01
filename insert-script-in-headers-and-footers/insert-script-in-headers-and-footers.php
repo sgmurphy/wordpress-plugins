@@ -1,30 +1,24 @@
 <?php
- 
 /*
 Plugin Name: Insert Script In Headers And Footers
 Description: A plugin to insert script in headers and footers
 Author: Geek Code Lab
-Version: 2.4
+Version: 2.4.1
 Author URI: https://geekcodelab.com/
 Text Domain: insert-script-in-headers-and-footers
 */
 
 if( !defined( 'ABSPATH' ) ) exit;
 
-define("ISHF_BUILD", '2.4');
+define("ISHF_BUILD", '2.4.1');
 
 require_once( plugin_dir_path (__FILE__) .'functions.php' );
 
 add_action('admin_menu', 'ishf_admin_menu_header_footer_script' );
-
-add_action( 'admin_init', 'ishf_registerSettings' );
-
-add_action( 'admin_enqueue_scripts', 'ishf_enqueue_styles_scripts_header_footer_script' );
-
+add_action('admin_init', 'ishf_registerSettings' );
+add_action('admin_enqueue_scripts', 'ishf_enqueue_styles_scripts_header_footer_script' );
 add_action('wp_head', 'ishf_frontendHeaderScript',100);
-
 add_action('wp_body_open', 'ishf_frontendBodyScript',100);
-
 add_action('wp_footer', 'ishf_frontendFooterScript',100);
 
 register_activation_hook( __FILE__, 'ishf_plugin_activation' );
@@ -58,7 +52,6 @@ function ishf_registerSettings() {
 	register_setting( $plugin_name, 'insert_footer_script_gk', 'trim' );
 }
 
-
 function ishf_frontendHeaderScript(){
 	ishf_output('insert_header_script_gk');
 }
@@ -88,4 +81,3 @@ function ishf_enqueue_styles_scripts_header_footer_script()
         wp_enqueue_style( 'main-header-footer-script-css', $css, array(), ISHF_BUILD );
     }
 }
-?>

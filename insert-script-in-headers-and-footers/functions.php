@@ -16,11 +16,11 @@ function ishf_get_option_footer_script()
 
 function ishf_failure_option_msg($msg)
 {
-	_e('<div class="notice notice-error ishf-error-msg is-dismissible"><p>' . $msg . '</p></div>','insert-script-in-headers-and-footers');	
+	printf('<div class="notice notice-error ishf-error-msg is-dismissible"><p>%s</p></div>',$msg);
 }
 function ishf_success_option_msg($msg)
 {
-	_e('<div class="notice notice-success ishf-success-msg is-dismissible"><p>'. $msg . '</p></div>','insert-script-in-headers-and-footers');
+	printf('<div class="notice notice-success ishf-success-msg is-dismissible"><p>%s</p></div>',$msg);
 }
 
 function ishf_output($setting){

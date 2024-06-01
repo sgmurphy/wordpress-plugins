@@ -17,11 +17,15 @@ Add a PayPal or Stripe Donation Button to your website and start collecting dona
 
 This plugin will allow you to collect PayPal and Stripe donations on your website.
 
+Official PayPal & Stripe Partner.
+
 Watch this 1 minute video of how the plugin works:
 
 [youtube https://www.youtube.com/watch?v=YYUsrfnjNN0]
 
 You can place a PayPal or Stripe Donation button anywhere on your site where you want to collect money. Your customers can use their PayPal account or Credit Card (via Stripe) to donate money to you.
+
+>**[Check out our demos & Pro version](https://wpplugin.org/downloads/paypal-donation-pro/)**
 
 What makes this donation plugin powerful is its simplicity. Just install the plugin and in just a few minutes customers from around the world can start donating to you.
 

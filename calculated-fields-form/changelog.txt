@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.2.10 =
+
+* Modifies the Default settings section to activate/deactivate the Submit button by default or change its status in the existing forms.
+* Modifies the CFF - WooCommerce add-on to preserve the summary format in the WooCommerce cart when it uses the new Gutenberg block for the WooCommerce cart (Developer and Platinum plugin versions).
+
 = 5.2.9 =
 
 * Allows access to the form settings sections from the form builder in fullscreen mode.

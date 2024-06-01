@@ -22,17 +22,17 @@ $footer_script	= ishf_get_option_footer_script();
 ?>
 
 <div class="wrap ishf-script-wrap">
-	<h2><?php _e('Insert Script In Headers And Footers &raquo; Settings','insert-script-in-headers-and-footers'); ?></h2>
+	<h2><?php esc_html_e('Insert Script In Headers And Footers &raquo; Settings','insert-script-in-headers-and-footers'); ?></h2>
 
 	<?php
 	if ( isset( $successmsg ) ) {
 		?>
-		<div class="ishf_updated fade"><p><?php _e($successmsg,'insert-script-in-headers-and-footers'); ?></p></div>
+		<div class="ishf_updated fade"><p><?php esc_html_e($successmsg); ?></p></div>
 		<?php
 	}
 	if ( isset( $errormsg ) ) {
 		?>
-		<div class="error fade"><p><?php _e($errormsg,'insert-script-in-headers-and-footers'); ?></p></div>
+		<div class="error fade"><p><?php esc_html_e($errormsg); ?></p></div>
 		<?php
 	}
 	$nonce= wp_create_nonce('insert_script_option_nonce');
@@ -40,23 +40,23 @@ $footer_script	= ishf_get_option_footer_script();
 	<div class="ishf-row">
 		<div class='ishf-col-6'>
 		<div class="ishf-inner">
-			<h4 class="heading-h4"><?php _e('Settings','insert-script-in-headers-and-footers'); ?></h4>
+			<h4 class="heading-h4"><?php esc_html_e('Settings','insert-script-in-headers-and-footers'); ?></h4>
 			
 			<form method="post">
 				<p>
-					<label for="script_in_header"> <?php _e('Scripts in Header','insert-script-in-headers-and-footers'); ?> </label>
+					<label for="script_in_header"> <?php esc_html_e('Scripts in Header','insert-script-in-headers-and-footers'); ?> </label>
 					<textarea name="header_script" rows="8" class="ishf-header-footer-textarea" ><?php _e($header_script); ?></textarea>
-					<?php _e('These scripts will be printed in the <code>&lt;head&gt;</code> section.','insert-script-in-headers-and-footers'); ?>
+					<?php esc_html_e('These scripts will be printed in the <code>&lt;head&gt;</code> section.','insert-script-in-headers-and-footers'); ?>
 				</p>
 				<p>
-					<label for="script_in_body"> <?php _e('Scripts in Body','insert-script-in-headers-and-footers'); ?> </label>
+					<label for="script_in_body"> <?php esc_html_e('Scripts in Body','insert-script-in-headers-and-footers'); ?> </label>
 					<textarea name="body_script" rows="8" class="ishf-header-footer-textarea" ><?php _e($body_script); ?></textarea>
-					<?php _e('These scripts will be printed below the <code>&lt;body&gt;</code> section.','insert-script-in-headers-and-footers'); ?>
+					<?php esc_html_e('These scripts will be printed below the <code>&lt;body&gt;</code> section.','insert-script-in-headers-and-footers'); ?>
 				</p>
 				<p>
-					<label for="script_in_footer"> <?php _e('Scripts in Footer','insert-script-in-headers-and-footers'); ?> </label>
+					<label for="script_in_footer"> <?php esc_html_e('Scripts in Footer','insert-script-in-headers-and-footers'); ?> </label>
 					<textarea name="footer_script" rows="8" class="ishf-header-footer-textarea" ><?php _e($footer_script); ?></textarea>
-					<?php _e('These scripts will be printed above the <code>&lt;body&gt;</code> section.','insert-script-in-headers-and-footers'); ?>
+					<?php esc_html_e('These scripts will be printed above the <code>&lt;body&gt;</code> section.','insert-script-in-headers-and-footers'); ?>
 				</p>
 				<input type="hidden" name="insert_script_wpnonce" value="<?php esc_attr_e($nonce); ?>">
 				<input type="submit" class="button button-primary " name="submit_option" value="Save">
