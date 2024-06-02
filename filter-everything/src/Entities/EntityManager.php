@@ -934,7 +934,9 @@ class EntityManager
                     }
                 }
 
-                if ( $filter['orderby'] !== 'default' ) {
+                if( $filter['orderby'] === 'default' ) {
+                    $entity->items = apply_filters( 'wpc_default_sorting_terms', $entity->items, $filter );
+                } else {
                     $entity->items = $this->sortTerms( $entity->items, $filter['orderby'] );
                 }
 

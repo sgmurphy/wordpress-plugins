@@ -32,6 +32,7 @@ class Filter
                     'label'      => '',
                     'slug'       => '',
                     'view'       => '',
+                    'dropdown_label' => '',
                     'date_type'  => '',
                     'date_format'  => '',
                     'show_term_names' => '',
@@ -49,9 +50,12 @@ class Filter
                     'search'     => '',
                     'parent_filter' => '',
                     'hide_until_parent' => '',
+                    'min_num_label' => '',
+                    'max_num_label' => '',
                     'tooltip'    => '',
                     'more_less'  => '',
-                    'show_chips' => ''
+                    'show_chips' => '',
+                    'acf_fields'  => '',
             )
         );
     }

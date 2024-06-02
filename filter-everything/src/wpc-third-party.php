@@ -12,6 +12,14 @@ function flrt_is_woocommerce()
     return false;
 }
 
+function flrt_is_acf()
+{
+    if( class_exists( 'ACF' ) ){
+        return true;
+    }
+    return false;
+}
+
 function flrt_get_mobile_width(){
     return apply_filters( 'wpc_mobile_width', 768 );
 }
@@ -378,6 +386,12 @@ if( ! function_exists('flrt_init') ){
 
         // Set correct theme color
         add_filter('wpc_theme_color', 'flrt_set_theme_color');
+
+        //
+        if( flrt_is_acf() ) {
+            add_filter( 'wpc_pre_save_filter', 'flrt_maybe_acf_field' );
+            add_filter( 'wpc_default_sorting_terms', 'flrt_acf_terms_order', 10, 2 );
+        }
     }
 }
 add_action('init', 'flrt_init');
@@ -450,9 +464,10 @@ function flrt_pll_init(){
 
 function flrt_add_cpt_to_pll( $post_types, $is_settings ) {
     if ( $is_settings ) {
-        unset( $post_types[ FLRT_FILTERS_SET_POST_TYPE ] );
+        unset( $post_types[ FLRT_FILTERS_SET_POST_TYPE ], $post_types[ FLRT_SEO_RULES_POST_TYPE ] );
     } else {
         $post_types[ FLRT_FILTERS_SET_POST_TYPE ] = FLRT_FILTERS_SET_POST_TYPE;
+        $post_types[ FLRT_SEO_RULES_POST_TYPE ] = FLRT_SEO_RULES_POST_TYPE;
     }
     return $post_types;
 }
@@ -582,6 +597,91 @@ function flrt_remove_product_query_post_clauses( $wp_query, $WC_query ) {
 
 function flrt_is_dokan() {
     return function_exists('dokan');
+}
+
+function flrt_maybe_acf_field( $filter ){
+    if( $filter['entity'] === 'post_meta' ) {
+        global $wpdb;
+        // Try to check if this is ACF field
+        $sql[] = "SELECT {$wpdb->posts}.ID FROM {$wpdb->posts}";
+        $sql[] = "WHERE {$wpdb->posts}.post_excerpt = %s";
+        $sql[] = "AND {$wpdb->posts}.post_type = %s";
+        $sql[] = "ORDER BY {$wpdb->posts}.ID ASC";
+
+        $sql     = implode(' ', $sql );
+        $sql     = $wpdb->prepare( $sql, $filter['e_name'], 'acf-field' );
+        $results = $wpdb->get_results( $sql, ARRAY_A );
+
+        if ( ! empty( $results ) ) {
+            $ids = [];
+            foreach ( $results as $single_result ) {
+                if( isset( $single_result['ID'] ) ){
+                    $ids[] = $single_result['ID'];
+                }
+            }
+            $acf_field_ids = implode( ',', $ids );
+
+            if( ! empty( $acf_field_ids ) ){
+                $filter['acf_fields'] = $acf_field_ids;
+            }
+        }
+    }
+
+    return $filter;
+}
+
+function flrt_acf_terms_order( $entity_items, $filter ){
+
+    if( isset( $filter['acf_fields'] ) && $filter['acf_fields'] !== '' ) {
+        global $wpdb;
+        // Here we have to get ACF fields by their IDs and sort terms in according to
+        // the order in the field.
+        $sql = [];
+        $acf_field_ids = preg_replace( '/^[\d]\,/', '', $filter['acf_fields'] );
+        $sql[] = "SELECT {$wpdb->posts}.post_content FROM {$wpdb->posts}";
+        $sql[] = "WHERE {$wpdb->posts}.ID IN( {$acf_field_ids} )";
+        $sql[] = "ORDER BY {$wpdb->posts}.ID ASC";
+        $sql   = implode(' ', $sql );
+
+        $results = $wpdb->get_results( $sql, ARRAY_A );
+
+        if( empty( $results ) ) {
+            return $entity_items;
+        }
+
+        $field_terms = [];
+        foreach ( $results as $acf_field ){
+            if( isset( $acf_field['post_content'] ) ) {
+                $field_options = maybe_unserialize( $acf_field['post_content'] );
+                if( isset( $field_options['choices'] ) ){
+                    $field_terms = array_merge( $field_terms, $field_options['choices'] );
+                }
+            }
+        }
+
+        $current_items = $entity_items;
+        $sorted_items  = [];
+
+        foreach ( $field_terms as $tslug => $tvalue ) {
+            $tslug = sanitize_title( $tslug );
+
+            if( isset( $current_items[ $tslug ] ) ) {
+                $term_object = $current_items[ $tslug ];
+                $term_object->name = $tvalue;
+                $sorted_items[ $tslug ] = $term_object;
+                unset( $current_items[ $tslug ] );
+            }
+        }
+
+        if( ! empty( $current_items ) ){
+            foreach ( $current_items as $slug => $item ){
+                $sorted_items[$slug] = $item;
+            }
+        }
+        $entity_items = $sorted_items;
+    }
+
+    return $entity_items;
 }
 
 //@todo check this with PLL support

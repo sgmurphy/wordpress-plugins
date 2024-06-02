@@ -2329,3 +2329,30 @@ msgstr ""
 
 msgid "More PHP date formats can be found on <a href=\"%1$s\" target=\"_blank\">this page</a>."
 msgstr ""
+
+msgid "ACF Fields"
+msgstr ""
+
+msgid "Contains the IDs of ACF fields that are related to the Custom Field"
+msgstr ""
+
+msgid "Labels for Chips"
+msgstr ""
+
+msgid "e.g. From {value}"
+msgstr ""
+
+msgid "e.g. To {value}"
+msgstr ""
+
+msgid "Dropdown Label"
+msgstr ""
+
+msgid "e.g. - Select color -"
+msgstr ""
+
+msgid "Label for the default dropdown option"
+msgstr ""
+
+msgid "For example, \"Price from <span class=\"wpc-variable-inserter\" data-field=\"%s\" title=\"Click to insert the variable\">{value}</span> $\" will be displayed as \"Price from 150 $\""
+msgstr ""

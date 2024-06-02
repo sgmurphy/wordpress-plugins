@@ -73,7 +73,7 @@ class FilterFields
                 'options'       => $this->em->getPossibleEntities(),
                 'default'       => 'taxonomy_category',
                 'instructions'  => esc_html__(  'A thing by which posts will be filtered', 'filter-everything' ),
-            'required'          => true
+                'required'      => true
             ),
             'e_name' => array(
                 'type'          => 'Text',
@@ -107,6 +107,14 @@ class FilterFields
                 'options'       => $this->getViewOptions(),
                 'default'       => 'checkboxes',
                 'instructions'  => '',
+            ),
+            'dropdown_label' => array(
+                'type'          => 'Text',
+                'label'         => esc_html__( 'Dropdown Label', 'filter-everything' ),
+                'class'         => 'wpc-field-dropdown-label',
+                'default'       => '',
+                'placeholder'   => esc_html__( 'e.g. - Select color -', 'filter-everything' ),
+                'instructions'  => esc_html__( 'Label for the default dropdown option', 'filter-everything' ),
             ),
             'date_type'         => array(
                 'type'          => 'Select',
@@ -246,6 +254,24 @@ class FilterFields
                 'default'       => 'no',
                 'instructions'  => esc_html__( 'Do not show this Filter until a parent is selected. Useful for step-by-step filtering', 'filter-everything' )
             ),
+            'min_num_label' => array(
+                'type'          => 'Text',
+                'label'         => esc_html__( 'Labels for Chips', 'filter-everything' ),
+                'class'         => 'wpc-field-min-num-label',
+                'default'       => '',
+                'placeholder'   => esc_html__( 'e.g. From {value}', 'filter-everything' ),
+                'instructions'  => '',
+                'skip_view'     => true,
+            ),
+            'max_num_label' => array(
+                'type'          => 'Text',
+                'label'         => '',
+                'class'         => 'wpc-field-max-num-label',
+                'default'       => '',
+                'placeholder'   => esc_html__( 'e.g. To {value}', 'filter-everything' ),
+                'instructions'  => '',
+                'skip_view'     => true,
+            ),
             'tooltip' => array(
                 'type'          => 'Text',
                 'label'         => esc_html__( 'Tooltip', 'filter-everything' ),
@@ -266,6 +292,13 @@ class FilterFields
                 'class'         => 'wpc-field-show-chips',
                 'default'       => 'yes',
                 'instructions'  => esc_html__( 'Show filter selected terms in the list of all chosen items', 'filter-everything' )
+            ),
+            'acf_fields' => array(
+                'type'          => 'Text',
+                'label'         => esc_html__( 'ACF Fields', 'filter-everything' ),
+                'class'         => 'wpc-field-acf',
+                'default'       => '',
+                'instructions'  => esc_html__( 'Contains the IDs of ACF fields that are related to the Custom Field', 'filter-everything' )
             )
         );
 
@@ -718,13 +751,10 @@ class FilterFields
     public function validateTheFilter( $filter, $id = false ) {
 
         $valid          = true;
-        $newFilter      = false;
-        $filterID       = false;
         $validEntity    = true;
         $validator      = new Validator();
 
-        if( $filter['ID'] === self::FLRT_NEW_FILTER_ID ){
-            $newFilter = true;
+        if( $filter['ID'] === self::FLRT_NEW_FILTER_ID ) {
             $filterID  = $id;
         }else{
             $filterID  = $filter['ID'];

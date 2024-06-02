@@ -41,11 +41,15 @@
                     $('.jltma-enable-switcher, .jltma_hfc_type, .jltma_hf_modal-jltma_hf_conditions, .jltma_hf_modal-jltma_hfc_singular')
                         .trigger('change');
 
-                    var el = $('.jltma_hf_modal-jltma_hfc_singular_id');
+                    var el = $('.jltma_hf_modal-jltma_hfc_singular_id'),
+                        jltma_hfc_nonce = $("#jltma_hf_modal_form").attr("data-nonce");
 
                     $.ajax({
                         url: window.masteraddons.resturl + 'select2/singular_list',
                         dataType: 'json',
+                        headers: {
+                            "X-WP-Nonce": jltma_hfc_nonce
+                        },
                         data: {
                             ids: String(data.jltma_hfc_singular_id)
                         }
@@ -103,6 +107,7 @@
 
                         var form_data = $(this).serialize(),
                             id = $(this).attr('data-jltma-hf-id'),
+                            jltma_hfc_nonce = $(this).attr("data-nonce"),
                             open_editor = $(this).attr('data-open-editor'),
                             admin_url = $(this).attr('data-editor-url');
 
@@ -111,8 +116,11 @@
                             data: form_data,
                             type: 'get',
                             dataType: 'json',
+                            headers: {
+                                "X-WP-Nonce": jltma_hfc_nonce
+                            },
                             success: function (output) {
-
+                                console.log('submit ecicked');
                                 setTimeout(function () {
                                     modal.removeClass('loading');
                                 }, 1500);
@@ -242,6 +250,7 @@
                         e.preventDefault();
                         var id = 0,
                             modal = $('#jltma_hf_modal'),
+                            jltma_hfc_nonce = $("#jltma_hf_modal_form").attr("data-nonce");
                             parent = $(this).parents('.column-title');
 
                         modal.addClass('loading');
@@ -254,6 +263,17 @@
                                 Master_Header_Footer.JLTMA_Template_Editor( data );
                                 modal.removeClass('loading');
                             });
+
+                            // $.ajax({
+                            //     url: window.masteraddons.resturl + "ma-template/get/" + id,
+                            //     type: "get",
+                            //     headers: { "X-WP-Nonce": jltma_hfc_nonce},
+                            //     dataType: "json",
+                            //     success: function (e) {
+                            //         Master_Header_Footer.JLTMA_Template_Editor( data );
+                            //         modal.removeClass("loading");
+                            //     }
+                            // });
 
                         } else {
                             var data = {

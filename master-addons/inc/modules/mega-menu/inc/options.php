@@ -183,6 +183,11 @@ class JLTMA_Megamenu_Options
 
     public function jltma_save_megamenu_options()
     {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        check_ajax_referer('jltma_megamenu_nonce');
 
         $menu_id = $this->current_menu_id();
         $is_enabled = isset($_REQUEST['is_enabled']) ? sanitize_key($_REQUEST['is_enabled']) : 0;

@@ -53,7 +53,7 @@ $rowClass           = ( $filterID === \FilterEverything\Filter\FilterFields::FLR
                     foreach( $first_filters as $field_key => $field_attributes ){
 
                         if( isset( $field_attributes['skip_view'] ) && $field_attributes['skip_view'] ){
-                            do_action_ref_array( 'wpc_cycle_filter_fields', array( &$first_filters ) );
+                            do_action_ref_array( 'wpc_cycle_filter_fields', array( &$first_filters, $field_key ) );
                         } else {
                             flrt_include_admin_view('filter-field', array(
                                     'field_key' => $field_key,
@@ -73,7 +73,7 @@ $rowClass           = ( $filterID === \FilterEverything\Filter\FilterFields::FLR
                     foreach( $filter as $field_key => $field_attributes ) {
 
                         if( isset( $field_attributes['skip_view'] ) && $field_attributes['skip_view'] ) {
-                            do_action_ref_array( 'wpc_cycle_filter_fields', array( &$filter ) );
+                            do_action_ref_array( 'wpc_cycle_filter_fields', array( &$filter, $field_key ) );
                         } else {
                             flrt_include_admin_view('filter-field', array(
                                     'field_key' => $field_key,

@@ -63,7 +63,7 @@ class Chips
                     'class' => 'wpc-chip-reset-all'
                 );
 
-                if (!in_array($toAdd, $this->chips)) {
+                if (!in_array($toAdd, $this->chips) ) {
                     $this->chips[$this->counter] = $toAdd;
                     $this->counter++;
                 }
@@ -92,8 +92,8 @@ class Chips
                             $termSlug = $key;
                         }
 
-                        $termId = $entityObj->getTermId($termSlug);
-                        $term = $entityObj->getTerm($termId);
+                        $termId = $entityObj->getTermId( $termSlug );
+                        $term = $entityObj->getTerm( $termId );
 
                         // In case if we have no terms for this post type
                         if (!$term) {
@@ -101,8 +101,8 @@ class Chips
                         }
 
                         $toAdd = array(
-                            'link' => $urlManager->getTermUrl( $termSlug, $filter['e_name'], $filter['entity'] ),
-                            'name' => apply_filters('wpc_chips_term_name', $term->name, $term, $filter),
+                            'link'  => $urlManager->getTermUrl( $termSlug, $filter['e_name'], $filter['entity'] ),
+                            'name'  => apply_filters( 'wpc_chips_term_name', $term->name, $term, $filter ),
                             'class' => 'wpc-chip-' . $filter['e_name'] . '-' . $termId,
                             'label' => $filter['label']
                         );

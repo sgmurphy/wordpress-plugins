@@ -307,7 +307,7 @@ class TaxonomyEntity implements Entity
             if( ! empty( $result ) && ! is_wp_error( $result ) ) {
 
                 foreach ($result as $i => $termObject) {
-                    $termObject->name = apply_filters('wpc_filter_' . $this->getName() . '_term_name', $termObject->name, $termObject);
+                    $termObject->name = apply_filters( 'wpc_filter_' . $this->getName() . '_term_name', $termObject->name, $termObject );
                     $termObject->cross_count = 0;
                     $termObject->posts = [];
                     $termObject->wp_queried  = false;

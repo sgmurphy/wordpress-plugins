@@ -270,7 +270,11 @@ function flrt_hierarchy_opened() {
  * @since 1.7.1
  */
 function flrt_dropdown_default_option( $filter ) {
-    return apply_filters( 'wpc_dropdown_default_option', sprintf( __( '- Select %s -', 'filter-everything' ),  $filter['label'] ), $filter );
+    $label = sprintf( __( '- Select %s -', 'filter-everything' ),  $filter['label'] );
+    if( isset( $filter['dropdown_label'] ) && $filter['dropdown_label'] ){
+        $label = $filter['dropdown_label'];
+    }
+    return apply_filters( 'wpc_dropdown_default_option', $label, $filter );
 }
 
 function flrt_brand_filter_entities(){
@@ -344,4 +348,36 @@ function flrt_bricks_builder_category_compat( $set_wp_query, $setId ){
     }
 
     return $set_wp_query;
+}
+
+add_filter( 'wpc_chips_term_name', 'flrt_chips_labels', 10, 3 );
+function flrt_chips_labels( $term_name, $term, $filter ) {
+    if ( in_array( $filter['entity'], ['post_meta_num', 'tax_numeric', 'post_date'] ) ) {
+        // 'min_num_label'
+        // 'max_num_label'
+
+        if( $filter['min_num_label'] !== '' ){
+            if( ! is_null( $term ) && property_exists( $term, 'slug' ) && in_array( $term->slug, ['min', 'from'] ) ){
+                if( strpos( $filter['min_num_label'], '{value}' ) !== false ){
+                    $term_name = str_replace( '{value}', $filter['values'][$term->slug], $filter['min_num_label'] );
+                }else {
+                    $term_name = $filter['min_num_label'] .' '.$filter['values'][$term->slug];
+                }
+
+            }
+        }
+
+        if( $filter['max_num_label'] !== '' ){
+            if( ! is_null( $term ) && property_exists( $term, 'slug' ) && in_array( $term->slug, ['max', 'to'] ) ){
+                if( strpos( $filter['max_num_label'], '{value}' ) !== false ){
+                    $term_name = str_replace( '{value}', $filter['values'][$term->slug], $filter['max_num_label'] );
+                }else {
+                    $term_name = $filter['max_num_label'] .' '.$filter['values'][$term->slug];
+                }
+            }
+        }
+
+    }
+
+    return $term_name;
 }

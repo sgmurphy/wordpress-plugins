@@ -6,6 +6,7 @@ jQuery(document).ready(function (e) {
     var megamenu_enable = 'megamenu_enable',
         enable_megamenu = jQuery("#jltma-menu-metabox-input-is-enabled").is(":checked") ? 1 : 0,
         t = e(".icon-picker").iconPicker(),
+        jltma_megamenu_nonce = window.jltma_megamenu_nonce,
 
         JLTMA_Mega_Menu = {
 
@@ -27,6 +28,7 @@ jQuery(document).ready(function (e) {
                         action: 'jltma_save_megamenu_options',
                         is_enabled: enable_megamenu
                     },
+                    headers: { "X-WP-Nonce": jltma_megamenu_nonce },
                 }).done(function (response) {
                     i.removeClass("loading");
                     response = jQuery.parseJSON(response);
@@ -93,10 +95,22 @@ jQuery(document).ready(function (e) {
                         }
                     };
 
+                t.addClass("loading"),
+                    e.ajax({
+                        url: window.masteraddons.resturl + "megamenu/jltma_save_menuitem_settings",
+                        type: "get",
+                        data: n,
+                        headers: { "X-WP-Nonce": jltma_megamenu_nonce },
+                        dataType: "json",
+                        success: function (n) {
+                            t.removeClass("loading"), e("#jltma-menu-item-settings-modal").modal("hide");
+                        },
+                    });
 
-                t.addClass("loading"), e.get(window.masteraddons.resturl + "megamenu/jltma_save_menuitem_settings", n).done(function (n) {
-                    t.removeClass("loading"), e("#jltma-menu-item-settings-modal").modal("hide");
-                });
+
+                // t.addClass("loading"), e.get(window.masteraddons.resturl + "megamenu/jltma_save_menuitem_settings", n).done(function (n) {
+                //     t.removeClass("loading"), e("#jltma-menu-item-settings-modal").modal("hide");
+                // });
             },
 
             Menu_Trigger: function () {
@@ -135,9 +149,23 @@ jQuery(document).ready(function (e) {
 
                 }
             };
-        t.addClass("loading"), e.get(window.masteraddons.resturl + "megamenu/jltma_save_menuitem_settings", n).done(function (n) {
-            t.removeClass("loading"), e("#jltma-menu-item-settings-modal").modal("hide");
-        });
+
+            t.addClass("loading"),
+                e.ajax({
+                    url: window.masteraddons.resturl + "megamenu/jltma_save_menuitem_settings",
+                    type: "get",
+                    data: n,
+                    headers: { "X-WP-Nonce": jltma_megamenu_nonce },
+                    dataType: "json",
+                    success: function (n) {
+                        t.removeClass("loading"), e("#jltma-menu-item-settings-modal").modal("hide");
+                    }
+            });
+
+
+            // t.addClass("loading"), e.get(window.masteraddons.resturl + "megamenu/jltma_save_menuitem_settings", n).done(function (n) {
+            //     t.removeClass("loading"), e("#jltma-menu-item-settings-modal").modal("hide");
+            // });
     }),
 
     e("#jltma-menu-builder-trigger").on("click", () => JLTMA_Mega_Menu.Menu_Trigger(e));
@@ -226,6 +254,7 @@ jQuery(document).ready(function (e) {
         data: {
             action: 'jltma_get_megamenu_options'
         },
+        headers: { "X-WP-Nonce": jltma_megamenu_nonce },
     }).done(function (response) {
         response = jQuery.parseJSON(response);
         if (enable_megamenu && localStorage.getItem('megamenu_enable') == "1") {

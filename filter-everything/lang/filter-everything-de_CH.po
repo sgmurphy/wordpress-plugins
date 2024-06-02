@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: Filter Everything PRO\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-23 21:45+0000\n"
-"PO-Revision-Date: 2024-01-12 13:47+0000\n"
-"Last-Translator: \n"
-"Language-Team: German (Switzerland)\n"
+"PO-Revision-Date: 2024-05-15 18:44+0000\n"
+"Last-Translator: Administrator\n"
+"Language-Team: Deutsch (Schweiz)\n"
 "Language: de_CH\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.6; wp-6.4.2\n"
+"X-Loco-Version: 2.6.6; wp-6.5.3\n"
 "X-Domain: filter-everything"
 
 msgid "%s #%s"
@@ -203,6 +203,9 @@ msgstr "Es werden nur a-z, 0-9, \"_\" und \"-\" Symbole unterstützt"
 
 msgid "About PRO"
 msgstr "Über PRO"
+
+msgid "ACF Fields"
+msgstr "ACF-Felder"
 
 msgid "Activate License"
 msgstr "Lizenz aktivieren"
@@ -553,6 +556,11 @@ msgstr "Allgemeine Wordpress Seiten"
 msgid "Compatibility with Page builders"
 msgstr "Kompatibilität mit Seitenerstellungsprogrammen"
 
+msgid "Contains the IDs of ACF fields that are related to the Custom Field"
+msgstr ""
+"Enthält die ID der ACF-Felder, die mit dem benutzerdefinierten Feld dieses "
+"Filters verbunden sind."
+
 msgid "Count, dynamic recount in terms"
 msgstr "Zählen, dynamisches Nachzählen in Begriffen"
 
@@ -783,6 +791,9 @@ msgstr "Dokan-Verkäufer"
 msgid "Dropdown"
 msgstr "Dropdown"
 
+msgid "Dropdown Label"
+msgstr "Name der Dropdown-Liste"
+
 #: src/Settings/Tabs/PermalinksTab.php:180
 msgid "Duplicate prefixes. Prefixes should be unique."
 msgstr "Doppelte Präfixe. Präfixe sollten eindeutig sein."
@@ -790,11 +801,20 @@ msgstr "Doppelte Präfixe. Präfixe sollten eindeutig sein."
 msgid "e.g. #primary or .main-content"
 msgstr "z.B. #primary oder .main-content"
 
+msgid "e.g. - Select color -"
+msgstr "z.B. - Farbe wählen -"
+
 msgid "e.g. 2745, 324"
 msgstr "z.B. 2745, 324"
 
+msgid "e.g. From {value}"
+msgstr "z.B. Von {Wert}"
+
 msgid "e.g. Search products, Search posts"
 msgstr "z.B. Produkte suchen, Beiträge suchen"
+
+msgid "e.g. To {value}"
+msgstr "z.B. An {Wert}"
 
 #: src/PostTypes.php:48
 msgid "Edit Filter"
@@ -1303,6 +1323,15 @@ msgstr "Filtert Wordpress Dinge"
 msgid "Folding"
 msgstr "Einklappen"
 
+msgid ""
+"For example, \"Price from <span class=\"wpc-variable-inserter\" data-"
+"field=\"%s\" title=\"Click to insert the variable\">{value}</span> $\" will "
+"be displayed as \"Price from 150 $\""
+msgstr ""
+"Zum Beispiel wird \"Preis ab <span class=\"wpc-variable-inserter\" data-"
+"field=\"%s\" title=\"Klicken Sie, um die Variable einzufügen\">{value}</span>"
+" $\" als \"Preis ab 150 $\" angezeigt"
+
 #: pro/Settings/Tabs/IndexingDepth.php:71
 #| msgid ""
 #| "For example for Post Type Products Indexing depth is 2. It means the page "
@@ -1551,6 +1580,12 @@ msgstr "Element #"
 #: src/wpc-helpers.php:492
 msgid "items"
 msgstr "Elemente"
+
+msgid "Label for the default dropdown option"
+msgstr "Name der Standardoption in der Dropdown-Liste"
+
+msgid "Labels for Chips"
+msgstr "Namen für Chips"
 
 #: src/Admin/FilterFields.php:246
 msgid "Labels list"

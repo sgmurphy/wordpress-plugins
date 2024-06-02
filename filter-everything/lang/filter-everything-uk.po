@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Filter Everything PRO\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-23 21:45+0000\n"
-"PO-Revision-Date: 2024-01-12 10:41+0000\n"
+"PO-Revision-Date: 2024-05-15 19:17+0000\n"
 "Last-Translator: Administrator\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.6; wp-6.4.2\n"
+"X-Loco-Version: 2.6.6; wp-6.5.3\n"
 "X-Domain: filter-everything"
 
 msgid "%s #%s"
@@ -205,6 +205,9 @@ msgstr "дозволені символи a-z, 0-9, \"_\" та \"-\""
 
 msgid "About PRO"
 msgstr "Деталі PRO"
+
+msgid "ACF Fields"
+msgstr "Поля ACF"
 
 msgid "Activate License"
 msgstr "Активувати ліцензію"
@@ -543,6 +546,9 @@ msgstr "Загальні сторінки WordPress"
 msgid "Compatibility with Page builders"
 msgstr "Сумісність з будь-яким Page builder"
 
+msgid "Contains the IDs of ACF fields that are related to the Custom Field"
+msgstr "Містить ID полів ACF пов'язаних з Мета полем даного фільтра"
+
 msgid "Count, dynamic recount in terms"
 msgstr "Перерахунок кількості дописів в термах"
 
@@ -772,6 +778,9 @@ msgstr "Продавці Dokan"
 msgid "Dropdown"
 msgstr "Випадаючий список"
 
+msgid "Dropdown Label"
+msgstr "Назва списку"
+
 #: src/Settings/Tabs/PermalinksTab.php:180
 msgid "Duplicate prefixes. Prefixes should be unique."
 msgstr "Дублювання URL префіксів. Префікси повинні бути унікальними."
@@ -779,11 +788,20 @@ msgstr "Дублювання URL префіксів. Префікси повин
 msgid "e.g. #primary or .main-content"
 msgstr "напр. #primary або .main-content"
 
+msgid "e.g. - Select color -"
+msgstr "напр. - Виберіть колір -"
+
 msgid "e.g. 2745, 324"
 msgstr "напр. 2745, 324"
 
+msgid "e.g. From {value}"
+msgstr "напр. Від {value}"
+
 msgid "e.g. Search products, Search posts"
 msgstr "напр. Шукайте товари, Шукайте дописи"
+
+msgid "e.g. To {value}"
+msgstr "напр. До {value}"
 
 #: src/PostTypes.php:48
 msgid "Edit Filter"
@@ -1282,6 +1300,15 @@ msgstr "Фільтрує будь-які дописи у WordPress."
 msgid "Folding"
 msgstr "Згортання"
 
+msgid ""
+"For example, \"Price from <span class=\"wpc-variable-inserter\" data-"
+"field=\"%s\" title=\"Click to insert the variable\">{value}</span> $\" will "
+"be displayed as \"Price from 150 $\""
+msgstr ""
+"Наприклад, \"Ціна від <span class=\"wpc-variable-inserter\" data-"
+"field=\"%s\" title=\"Натисніть, щоб вставити змінну\">{value}</span> $\" "
+"буде відображатися як \"Ціна від 150 $\""
+
 #: pro/Settings/Tabs/IndexingDepth.php:71
 #| msgid ""
 #| "For example for Post Type Products Indexing depth is 2. It means the page "
@@ -1520,6 +1547,12 @@ msgstr "Параметр №"
 #: src/wpc-helpers.php:492
 msgid "items"
 msgstr "дописів"
+
+msgid "Label for the default dropdown option"
+msgstr "Назва дефолтної опції у випадаючому списку"
+
+msgid "Labels for Chips"
+msgstr "Назви для Чіпсів"
 
 #: src/Admin/FilterFields.php:246
 msgid "Labels list"

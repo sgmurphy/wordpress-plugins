@@ -155,20 +155,20 @@ class RequestParser
             // Matches numbers and decimal separator
             $regexp = '/^([\-]?\d+(?:[\.\,]\d{1,})?)$/';
 
-            if( $this->extractQueryStringTheParamValues( 'max_' . $slug ) !== false ){
-                /**
-                 * Safely extract only allowed in numeric filters characters
-                 */
-                preg_match($regexp, $this->extractQueryStringTheParamValues( 'max_' . $slug ), $output);
-                $values['max'] = isset( $output[1] ) ? $output[1] : false;
-            }
-
             if( $this->extractQueryStringTheParamValues( 'min_' . $slug ) !== false ){
                 /**
                  * Safely extract only allowed in numeric filters characters
                  */
                 preg_match($regexp, $this->extractQueryStringTheParamValues( 'min_' . $slug ), $output);
                 $values['min'] = isset( $output[1] ) ? $output[1] : false;
+            }
+
+            if( $this->extractQueryStringTheParamValues( 'max_' . $slug ) !== false ){
+                /**
+                 * Safely extract only allowed in numeric filters characters
+                 */
+                preg_match($regexp, $this->extractQueryStringTheParamValues( 'max_' . $slug ), $output);
+                $values['max'] = isset( $output[1] ) ? $output[1] : false;
             }
         }
 

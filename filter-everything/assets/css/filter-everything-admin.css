@@ -1,5 +1,5 @@
 /*!
- * Filter Everything admin 1.8.4
+ * Filter Everything admin 1.8.5
  */
 #filters-seo-rules .inside,
 #filters-set-items .inside{
@@ -430,7 +430,11 @@ label[for="wpc_seo_rules-wp_entity"],
 .wpc-field-for-variations-tr,
 .wpc-field-hierarchy-tr,
 .wpc-field-entity-tr,
-.wpc-field-ename-tr{
+.wpc-field-ename-tr,
+.wpc-field-acf-tr,
+.wpc-field-show-chips-tr,
+.wpc-field-min-num-label-tr,
+.wpc-field-dropdown-label-tr{
     display: none;
 }
 #wpc-filters-list[data-posttype="product"] .wpc-filter-post_meta_exists .wpc-field-for-variations-tr,
@@ -440,9 +444,13 @@ label[for="wpc_seo_rules-wp_entity"],
 .wpc-filter-taxonomy.taxonomy-hierarchical.wpc-view-checkboxes .wpc-field-hierarchy-tr,
 .wpc-filter-post_meta_exists .wpc-field-ename-tr,
 .wpc-filter-post_meta_num .wpc-field-ename-tr,
+.wpc-filter-post_meta_num .wpc-field-min-num-label-tr,
+.wpc-filter-post_date .wpc-field-min-num-label-tr,
+.wpc-filter-tax_numeric .wpc-field-min-num-label-tr,
 .wpc-filter-post_meta .wpc-field-ename-tr,
 .wpc-new-filter-item .wpc-field-entity-tr,
-.wpc-filter-tax_numeric .wpc-field-ename-tr{
+.wpc-filter-tax_numeric .wpc-field-ename-tr,
+.wpc-view-dropdown .wpc-field-dropdown-label-tr{
     display: table-row;
 }
 .wpc-belongs-not,
@@ -1071,11 +1079,20 @@ body #tiptip_content a:hover{
     padding: 9px 12px;
     text-align: left;
 }
+.wpc-filter-field-min-max-labels-wrap,
 .wpc-filter-field-include-exclude-wrap,
 .wpc-filter-field-apply-button-location-td,
 .wpc-filter-field-location-td{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+.wpc-filter-field-min-max-labels-wrap p.description{
+    flex: 0 0 100%;
+}
+div.wpc-field-min_num_label-wrap,
+div.wpc-field-max_num_label-wrap{
+    width: 49%;
 }
 div.wpc_set_fields-apply_button_page_type-wrap,
 div.wpc_set_fields-wp_page_type-wrap{
@@ -1319,6 +1336,16 @@ a#wpc-get-license-key:hover::after {
 .wpc-text-input-search{
     width: 100%;
     max-width: 200px;
+}
+.wpc-variable-inserter{
+    font-family: Consolas, Monaco, monospace;
+    padding: 3px 0 2px;
+    margin: 0 1px;
+    background: #f0f0f1;
+    background: rgba(0, 0, 0, 0.07);
+    border-bottom: 1px dashed #646970;
+    cursor: pointer;
+    font-size: 12px;
 }
 @media screen and (max-width: 1200px) {
     #wpc-intersections-table .wpc-filter-field-td{

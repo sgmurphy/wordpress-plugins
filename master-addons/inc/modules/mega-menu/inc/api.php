@@ -21,6 +21,12 @@ class JLTMA_Megamenu_Api
 
     public function get_jltma_save_menuitem_settings()
     {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        check_ajax_referer('jltma_megamenu_nonce');
+
         $menu_item_id = $this->request['settings']['menu_id'];
         $menu_item_settings = json_encode($this->request['settings']);
 

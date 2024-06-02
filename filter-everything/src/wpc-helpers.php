@@ -763,11 +763,13 @@ if ( ! function_exists('flrt_filter_header') ) {
         $closeButton    = ($filter['collapse'] === 'yes') ? '</span><span class="wpc-open-icon"></span></button>' : '';
         $tooltip        = '';
 
-        if ($filter['collapse'] === 'yes' && !empty($filter['values']) && !empty($terms)) {
+        if ( $filter['collapse'] === 'yes' && !empty($filter['values']) && !empty($terms) ) {
             $selected = [];
             $list = '<div class="wpc-filter-selected-values">&mdash; ';
-
+            // Does not work for numeric filters
+            // @todo
             foreach ( $terms as $id => $term_object ) {
+
                 if ( in_array( $term_object->slug, $filter['values'] ) ) {
                     $selected[] = $term_object->name;
                 }

@@ -594,6 +594,11 @@ if ( ! class_exists( __NAMESPACE__ . 'SocialShare' ) ) {
 				wp_send_json_error( __( 'Invalid nonce', 'wp-dark-mode' ) );
 			}
 
+			// Bail, if not admin.
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( __( 'Permission denied', 'wp-dark-mode' ) );
+			}
+
 			$options = $inputs['options'];
 
 			foreach ( $options as $key => $value ) {

@@ -329,34 +329,6 @@ Current list of supported CDN servers:
 * `[Added]` Expert settings to overwrite paths for rewrite rules
 * `[Added]` Improvement in verifying operation of redirections
 
-= 5.11.5 (2023-12-07) =
-* `[Added]` Compatibility with PHP 8.3
-* `[Changed]` Error message for rewrites_not_executed error in server configuration
-* `[Changed]` Error message for bypassing_apache error in server configuration
-
-= 5.11.4 (2023-11-13) =
-* `[Fixed]` Removing WebP files converted for AVIF format from /uploads-webpc directory after uninstalling plugin
-* `[Fixed]` Statistics of conversion progress in WP-CLI
-* `[Changed]` Error message for rewrites_not_executed error in server configuration
-* `[Changed]` Error message for bypassing_apache error in server configuration
-* `[Changed]` Error message for rewrites_cached error in server configuration
-
-= 5.11.3 (2023-11-09) =
-* `[Fixed]` Automatically conversion of images from /uploads directory, but not from Media Library
-* `[Added]` Support for WordPress 6.4
-
-= 5.11.2 (2023-10-16) =
-* `[Added]` Button to expand/collapse list of directories to optimize in Bulk Optimization of Images section
-* `[Added]` Notification about plugin requirements in WordPress Playground environment
-
-= 5.11.1 (2023-10-02) =
-* `[Fixed]` Duplicated rewrite rules for .jpeg files
-* `[Changed]` Error message for rewrites_not_executed error in server configuration
-
-= 5.11.0 (2023-09-27) =
-* `[Added]` Ability to manually optimize selected images in Media Library
-* `[Added]` Ability to manually undo optimization of selected images in Media Library
-
 See [changelog.txt](https://url.mattplugins.com/converter-readme-changelog) for previous versions.
 
 == Upgrade Notice ==

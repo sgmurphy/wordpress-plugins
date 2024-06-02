@@ -4,7 +4,6 @@ namespace MasterHeaderFooter;
 
 class JLTMA_Header_Footer_CPT_API extends JLTMA_Header_Footer_Rest_API
 {
-
     public function __construct()
     {
         $this->config("ma-template", "/(?P<id>\w+)/");
@@ -13,9 +12,14 @@ class JLTMA_Header_Footer_CPT_API extends JLTMA_Header_Footer_Rest_API
 
     public function get_update()
     {
-        check_ajax_referer('jltma_megamenu_modal_rest', 'nonce', false);
+        if (!current_user_can('edit_posts')) {
+            return;
+        }
+
+        check_ajax_referer('wp_rest');
 
         $id = $this->request['id'];
+
         $open_editor = $this->request['open_editor'];
 
         $title = ($this->request['title'] == '') ? ('Master Addons Template #' . time()) : $this->request['title'];
@@ -49,7 +53,7 @@ class JLTMA_Header_Footer_CPT_API extends JLTMA_Header_Footer_Rest_API
         update_post_meta($id, 'master_template_jltma_hfc_singular_id', implode(", ", $jltma_hfc_singular_id));
 
         if ($open_editor == 'true') {
-            $url = get_admin_url() . '/post.php?post=' . $builder_post_id . '&action=elementor';
+            $url = get_admin_url() . '/post.php?post=' . $id . '&action=elementor';
             wp_redirect($url);
             exit;
         } else {

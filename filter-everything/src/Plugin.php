@@ -107,7 +107,7 @@ class Plugin
         add_action( 'wpc_before_filter_set_settings_fields', [$this, 'removeApplyButtonOrderField'] );
         add_filter( 'wpc_filter_set_prepared_values', [$this, 'handleFilterSetFieldsVisibility'] );
 
-        add_action( 'wpc_cycle_filter_fields', [$this, 'showIncludeExcludeFields'] );
+        add_action( 'wpc_cycle_filter_fields', [$this, 'showCombinedFields'], 10, 2 );
 
         $woo_shortcodes = array(
             'products',
@@ -1300,7 +1300,7 @@ class Plugin
         return $out;
     }
 
-    public function showIncludeExcludeFields( &$filter )
+    public function showCombinedFields( &$filter, $field_key )
     {
         $includeExclude = flrt_extract_vars( $filter, array('exclude', 'include') );
         if( $includeExclude ):
@@ -1328,6 +1328,60 @@ class Plugin
             </tr><?php
 
         endif;
+
+        if ( $field_key === 'min_num_label' ) {
+            $min_max_num_labels = flrt_extract_vars( $filter, array( 'min_num_label', 'max_num_label' ) );
+
+            if( $min_max_num_labels ) :
+                $min_field_id = $max_field_id = '';
+
+                if (isset($min_max_num_labels['min_num_label']['id'])) {
+                    $min_field_id = esc_attr($min_max_num_labels['min_num_label']['id']);
+                }
+                if( isset( $min_max_num_labels['max_num_label']['id'] ) ){
+                    $max_field_id =  esc_attr( $min_max_num_labels['max_num_label']['id'] );
+                }
+
+                if( isset($min_max_num_labels['min_num_label']['value']) ){
+                    $min_max_num_labels['min_num_label']['data-caret'] = mb_strlen( $min_max_num_labels['min_num_label']['value'] ) + 1;
+                }
+
+                if( isset($min_max_num_labels['max_num_label']['value']) ){
+                    $min_max_num_labels['max_num_label']['data-caret'] = mb_strlen( $min_max_num_labels['max_num_label']['value'] ) + 1;
+                }
+
+                ?><tr class="<?php echo esc_attr( flrt_filter_row_class( $min_max_num_labels['min_num_label'] ) ); ?>"<?php flrt_maybe_hide_row( $min_max_num_labels['min_num_label'] ); ?>><?php
+
+                flrt_include_admin_view('filter-field-label', array(
+                        'field_key'  => 'min_num_label',
+                        'attributes' => $min_max_num_labels['min_num_label']
+                    )
+                );
+                ?>
+                <td class="wpc-filter-field-td wpc-filter-field-min-max-labels-td">
+                    <div class="wpc-filter-field-min-max-labels-wrap">
+                        <div class="wpc-field-wrap wpc-field-min_num_label-wrap <?php echo $min_field_id; ?>-wrap">
+                            <?php echo flrt_render_input( $min_max_num_labels['min_num_label'] ); // Already escaped in function ?>
+                            <?php do_action('wpc_after_filter_input', $min_max_num_labels['min_num_label'] ); ?>
+                        </div>
+                        <div class="wpc-field-wrap wpc-field-max_num_label-wrap <?php echo $max_field_id; ?>-wrap">
+                            <?php echo flrt_render_input( $min_max_num_labels['max_num_label'] ); // Already escaped in function ?>
+                            <?php do_action('wpc_after_filter_input', $min_max_num_labels['max_num_label'] ); ?>
+                        </div>
+                        <p class="description"><?php echo wp_kses(
+                                sprintf( __('For example, "Price from <span class="wpc-variable-inserter" data-field="%s" title="Click to insert the variable">{value}</span> $" will be displayed as "Price from 150 $"', 'filter-everything'), $min_field_id ),
+                                array( 'span' => array(
+                                        'class' => true,
+                                        'data-field' => true,
+                                        'title' => true,
+                                ) )
+                            ) ?></p>
+                    </div>
+                </td>
+                </tr><?php
+
+            endif;
+        }
     }
 
     public function addSearchArgsToWpQuery( $wp_query )

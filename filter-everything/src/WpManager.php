@@ -352,6 +352,8 @@ class WpManager
                 $queriedValuesWithLogic[$slug]['in_path']       = $filter['in_path'];
                 $queriedValuesWithLogic[$slug]['label']         = $filter['label'];
                 $queriedValuesWithLogic[$slug]['used_for_variations'] = $filter['used_for_variations'];
+                $queriedValuesWithLogic[$slug]['min_num_label'] = $filter['min_num_label'];
+                $queriedValuesWithLogic[$slug]['max_num_label'] = $filter['max_num_label'];
 
                 if ( in_array( $filter['entity'], [ 'post_meta_num', 'tax_numeric' ] ) ) {
                     $queriedValuesWithLogic[$slug]['step']      = $filter['step'];
@@ -523,7 +525,7 @@ class WpManager
             }
 
             // When single page is front page
-            if( isset( $wp_queried_object['post_id'] ) && get_option( 'page_on_front' ) === $wp_queried_object['post_id'] ){
+            if( isset( $wp_queried_object['post_id'] ) && get_option( 'page_on_front' ) == $wp_queried_object['post_id'] ){
                 $wp_queried_object['common'][] = 'page_on_front';
                 unset($wp_queried_object['post_id']);
             }

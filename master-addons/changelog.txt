@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.0.6.2 (02-06-2024) =
+* Updated: Security Bugs fixed
+
 = 2.0.6.1 (15-05-2024) =
 * Updated: Security Bugs fixed
 

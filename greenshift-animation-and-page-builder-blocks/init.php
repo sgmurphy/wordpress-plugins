@@ -157,7 +157,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gs-accordion',
 		GREENSHIFT_DIR_URL . 'libs/accordion/index.js',
 		array(),
-		'1.5',
+		'1.6',
 		true
 	);
 
@@ -1972,8 +1972,27 @@ function gspb_register_route()
 				'args'                => array(),
 			),
 			array(
+				'methods'             => 'GET',
+				'callback'            => 'gspb_get_license_settings',
+				'permission_callback' => 'greenshift_app_pass_validation',
+				'args'                => array(),
+			),
+			array(
 				'methods'             => 'POST',
 				'callback'            => 'gspb_update_global_settings',
+				'permission_callback' => 'greenshift_app_pass_validation',
+				'args'                => array(),
+			),
+		)
+	);
+
+	register_rest_route(
+		'greenshift/v1',
+		'/license_settings/',
+		array(
+			array(
+				'methods'             => 'GET',
+				'callback'            => 'gspb_get_license_settings',
 				'permission_callback' => 'greenshift_app_pass_validation',
 				'args'                => array(),
 			),
@@ -2028,16 +2047,31 @@ function gspb_register_route()
 
 }
 
+function gspb_get_license_settings()
+{
+
+	try {
+		$licenses = greenshift_edd_check_all_licenses();
+		return array(
+			'success'  => true,
+			'license' => $licenses
+		);
+	} catch (Exception $e) {
+		return array(
+			'success' => false,
+			'message' => $e->getMessage(),
+		);
+	}
+}
+
 function gspb_get_global_settings()
 {
 
 	try {
-
 		$settings = get_option('gspb_global_settings');
-
 		return array(
 			'success'  => true,
-			'settings' => $settings,
+			'settings' => $settings
 		);
 	} catch (Exception $e) {
 		return array(

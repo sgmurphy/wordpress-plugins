@@ -1,9 +1,9 @@
 === Filter Everything&nbsp;— Product Filter & WordPress Filter ===
 Contributors: stepasyuk
 Tags: woocommerce product filter, woocommerce filter, product filter, post filter, ajax filter
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.5.3
 Requires PHP: 5.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -167,6 +167,15 @@ Uploading via FTP
 
 == Changelog ==
 
+= 1.8.5 =
+*Release Date - 15 May 2024*
+* Dev   - Added "Labels for Chips" option to configure chip labels
+* Dev   - Added "Dropdown Label" option
+* Tweak - The "Show in Chips" option was hidden due to lack of demand
+* Tweak - Now default terms order in a Custom Field is the same as in ACF field
+* Tweak - If ACF field terms have labels, they displays in the Filters widget instead of values
+* Fix   - Fixed issue with WPML and Homepage in different languages
+
 = 1.8.4 =
 *Release Date - 08 April 2024*
 * Dev   - Tested and improved compatibility with WordPress 6.5
@@ -296,9 +305,11 @@ Uploading via FTP
 
 == Upgrade Notice ==
 
-= 1.8.4 =
-*Release Date - 08 April 2024*
-* Dev   - Tested and improved compatibility with WordPress 6.5
-* Fix   - Fixed issue with preview products in draft status and PHP > 8.2
-* Fix   - Fixed JS error occurred on type in the Search field input
-* Fix   - Issue with incorrect attribute 'for' in the Filters Widget title label
+= 1.8.5 =
+*Release Date - 15 May 2024*
+* Dev   - Added "Labels for Chips" option to configure chip labels
+* Dev   - Added "Dropdown Label" option
+* Tweak - The "Show in Chips" option was hidden due to lack of demand
+* Tweak - Now default terms order in a Custom Field is the same as in ACF field
+* Tweak - If ACF field terms have labels, they displays in the Filters widget instead of values
+* Fix   - Fixed issue with WPML and Homepage in different languages

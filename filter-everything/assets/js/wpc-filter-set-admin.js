@@ -1,5 +1,5 @@
 /*!
- * Filter Everything set admin 1.8.4
+ * Filter Everything set admin 1.8.5
  */
 (function($) {
     "use strict";
@@ -297,6 +297,22 @@
             setTimeout( function(){ setAvailableEntities( select, noChange ); }, time);
             time += 100;
         });
+    }
+
+    $.fn.getCursorPosition = function() {
+        var input = this.get(0);
+        if (!input) return; // No (input) element found
+        if ('selectionStart' in input) {
+            // Standard-compliant browsers
+            return input.selectionStart;
+        } else if (document.selection) {
+            // IE
+            input.focus();
+            var sel = document.selection.createRange();
+            var selLen = document.selection.createRange().text.length;
+            sel.moveStart('character', -input.value.length);
+            return sel.text.length - selLen;
+        }
     }
 
     $(document).ready(function (){
@@ -639,10 +655,16 @@
                 $divFilterItem.find('.wpc-field-more-less-tr').hide();
             }
 
+            let $fieldsTable = $divFilterItem.find('.wpc-form-fields-table');
             if( optionVal === 'checkboxes' ) {
-                $divFilterItem.find('.wpc-form-fields-table').addClass('wpc-view-checkboxes');
+                $fieldsTable.addClass('wpc-view-checkboxes');
+                $fieldsTable.removeClass('wpc-view-dropdown');
+            } else if( optionVal === 'dropdown' ){
+                $fieldsTable.addClass('wpc-view-dropdown');
+                $fieldsTable.removeClass('wpc-view-checkboxes');
             } else {
-                $divFilterItem.find('.wpc-form-fields-table').removeClass('wpc-view-checkboxes');
+                $fieldsTable.removeClass('wpc-view-checkboxes');
+                $fieldsTable.removeClass('wpc-view-dropdown');
             }
 
         });
@@ -659,11 +681,10 @@
                 renderMenuOrder();
             },
             start: function ( event, ui ){
-                var height, $this = $(this), // .wpc-filters-list
-                    head = ui.item.children('.wpc-filter-head'),
+                let head = ui.item.children('.wpc-filter-head'),
                     inside = ui.item.children('.wpc-filter-body');
 
-                if (inside.hasClass('wpc-opened') ) {
+                if ( inside.hasClass('wpc-opened') ) {
                     inside.removeClass('wpc-opened')
                         .hide();
                     head.removeClass('wpc-opened');
@@ -893,6 +914,32 @@
                     $('.wpc-no-filters').show();
                 }
             }
+        });
+
+        $('body').on('focus keypress blur', '.wpc-field-min-num-label, .wpc-field-max-num-label', function (e){
+            let wpcPosition = $(this).getCursorPosition();
+            $(this).data('caret', wpcPosition);
+        });
+
+        $('body').on('click', '.wpc-variable-inserter', function (e){
+            let wrapper = $(this).parents('.wpc-filter-field-min-max-labels-wrap');
+            $.each( wrapper.find('input[type="text"]'), function( i, field ){
+                let inputField =  $( field );
+                let valueVar = '{value}';
+                let caretPos   = inputField.data('caret');
+
+                if( caretPos === 0 ){
+                    valueVar = valueVar+' ';
+                }else if( caretPos === inputField.val().length ){
+                    valueVar = ' '+valueVar;
+                }else{
+                    // Undefined or position in the end
+                    valueVar = ' '+valueVar+' ';
+                }
+
+                insertAtCaret( inputField, valueVar, caretPos );
+            } );
+
         });
 
         let filterPagelink = $('option:selected', $('#wpc_set_fields-post_name')).data('link');
@@ -1457,6 +1504,16 @@
     }
 
 })(jQuery);
+
+function insertAtCaret( target, text, caretPos )
+{
+    let textAreaTxt = target.val();
+    let result = textAreaTxt.substring(0, caretPos) + text + textAreaTxt.substring(caretPos);
+    result = result.replace(/ +(?= )/g,'');
+    target.val(result);
+
+    return true;
+}
 
 // Important!!!
 // When field Filter by is selected, it is required to make AJAX request to find the same

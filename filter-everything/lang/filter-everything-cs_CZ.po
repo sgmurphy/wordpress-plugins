@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Filter Everything PRO\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-23 21:45+0000\n"
-"PO-Revision-Date: 2024-01-12 12:39+0000\n"
+"PO-Revision-Date: 2024-05-15 19:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.6; wp-6.4.2\n"
+"X-Loco-Version: 2.6.9; wp-6.5.3\n"
 "X-Domain: filter-everything"
 
 msgid "%s #%s"
@@ -205,6 +205,9 @@ msgstr "podporovány jsou pouze symboly a-z, 0-9, \"_\" a \"-\""
 
 msgid "About PRO"
 msgstr "O verzi PRO"
+
+msgid "ACF Fields"
+msgstr "Pole ACF"
 
 msgid "Activate License"
 msgstr "Aktivovat Licenci"
@@ -541,6 +544,9 @@ msgstr "Běžné stránky WordPress"
 msgid "Compatibility with Page builders"
 msgstr "Kompatibilita s jakýmkoli nástrojem pro tvorbu stránek"
 
+msgid "Contains the IDs of ACF fields that are related to the Custom Field"
+msgstr "Obsahuje ID polí ACF přidružených k Vlastnímu Poli tohoto filtru"
+
 msgid "Count, dynamic recount in terms"
 msgstr "Počítání, dynamický přepočet v termínech"
 
@@ -767,6 +773,9 @@ msgstr "Dokan prodejci"
 msgid "Dropdown"
 msgstr "Rozbalovací nabídka"
 
+msgid "Dropdown Label"
+msgstr "Název rozevíracího seznamu"
+
 #: src/Settings/Tabs/PermalinksTab.php:180
 msgid "Duplicate prefixes. Prefixes should be unique."
 msgstr "Duplicitní předpony. Předpony by měly být jedinečné."
@@ -774,11 +783,20 @@ msgstr "Duplicitní předpony. Předpony by měly být jedinečné."
 msgid "e.g. #primary or .main-content"
 msgstr "např. #primary nebo .main-content"
 
+msgid "e.g. - Select color -"
+msgstr "např. - Vyberte barvu -"
+
 msgid "e.g. 2745, 324"
 msgstr "např. 2745, 324"
 
+msgid "e.g. From {value}"
+msgstr "např. Od {hodnota}"
+
 msgid "e.g. Search products, Search posts"
 msgstr "např. Hledat produkty, Hledat příspěvky"
+
+msgid "e.g. To {value}"
+msgstr "např. Do {hodnota}"
 
 #: src/PostTypes.php:48
 msgid "Edit Filter"
@@ -1278,6 +1296,15 @@ msgstr "Filtry Wordpress věci."
 msgid "Folding"
 msgstr "Sbalitelný"
 
+msgid ""
+"For example, \"Price from <span class=\"wpc-variable-inserter\" data-"
+"field=\"%s\" title=\"Click to insert the variable\">{value}</span> $\" will "
+"be displayed as \"Price from 150 $\""
+msgstr ""
+"Například \"Cena od <span class=\"wpc-variable-inserter\" data-field=\"%s\" "
+"title=\"Kliknutím vložíte proměnnou\">{value}</span> $\" se zobrazí jako "
+"\"Cena od 150 $\""
+
 #: pro/Settings/Tabs/IndexingDepth.php:71
 #| msgid ""
 #| "For example for Post Type Products Indexing depth is 2. It means the page "
@@ -1517,6 +1544,12 @@ msgstr "Položka č"
 #: src/wpc-helpers.php:492
 msgid "items"
 msgstr "položky"
+
+msgid "Label for the default dropdown option"
+msgstr "Název výchozí možnosti v rozevíracím seznamu"
+
+msgid "Labels for Chips"
+msgstr "Názvy pro Chips"
 
 #: src/Admin/FilterFields.php:246
 msgid "Labels list"

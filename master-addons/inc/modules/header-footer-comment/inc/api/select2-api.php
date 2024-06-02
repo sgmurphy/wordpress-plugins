@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace MasterHeaderFooter;
 use MasterHeaderFooter\Handler_Api;
 
@@ -43,10 +43,10 @@ class JLTMA_Ajax_Select2_Api extends Handler_Api {
         return ['results' => $options];
         wp_reset_postdata();
     }
-    
+
     public function get_page_list(){
         if(!current_user_can('edit_posts')){
-            return;   
+            return;
            }
         $query_args = [
             'post_type'         => 'page',
@@ -76,6 +76,12 @@ class JLTMA_Ajax_Select2_Api extends Handler_Api {
     }
 
     public function get_singular_list(){
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        check_ajax_referer('jltma_hfc_nonce');
+
         $query_args = [
             'post_status'       => 'publish',
             'posts_per_page'    => 15,
@@ -108,7 +114,7 @@ class JLTMA_Ajax_Select2_Api extends Handler_Api {
         $taxonomy	 = 'category';
         $query_args = [
             'taxonomy'      => ['category'], // taxonomy name
-            'orderby'       => 'name', 
+            'orderby'       => 'name',
             'order'         => 'DESC',
             'hide_empty'    => true,
             'number'        => 6
@@ -131,7 +137,7 @@ class JLTMA_Ajax_Select2_Api extends Handler_Api {
             foreach ($terms as $term) {
                 $options[] = [ 'id' => $term->term_id, 'text' => $term->name ];
             }
-        endif;      
+        endif;
         return ['results' => $options];
     }
 
@@ -166,7 +172,7 @@ class JLTMA_Ajax_Select2_Api extends Handler_Api {
     public function get_product_cat(){
         $query_args = [
             'taxonomy'      => ['product_cat'], // taxonomy name
-            'orderby'       => 'name', 
+            'orderby'       => 'name',
             'order'         => 'DESC',
             'hide_empty'    => false,
             'number'        => 6
@@ -189,9 +195,9 @@ class JLTMA_Ajax_Select2_Api extends Handler_Api {
             foreach ($terms as $term) {
                 $options[] = [ 'id' => $term->term_id, 'text' => $term->name ];
             }
-        endif;      
+        endif;
         return ['results' => $options];
     }
-    
+
 }
 new JLTMA_Ajax_Select2_Api();

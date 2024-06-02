@@ -244,6 +244,7 @@ class PostMetaEntity implements Entity
             $sql    = $wpdb->prepare( $sql, $e_name );
 
             $result = $wpdb->get_results( $sql, ARRAY_A );
+
             $result = $this->convertSelectResult( $result );
 
             set_transient( $transient_key, $result, FLRT_TRANSIENT_PERIOD_HOURS * HOUR_IN_SECONDS );
@@ -272,6 +273,7 @@ class PostMetaEntity implements Entity
             return $return;
         }
         $customIndex = 1;
+
         // To make standard format for terms array;
         foreach ( $result as $index => $post_meta_row ){
 
@@ -279,11 +281,11 @@ class PostMetaEntity implements Entity
                 $data = maybe_unserialize( $post_meta_row['meta_value'] );
                 foreach ( $data as $i => $meta_value ){
                     // For multidimensional arrays stored in post meta
-                    if( is_array($meta_value) ){
+                    if( is_array( $meta_value ) ){
                         continue;
                     }
                     $customIndex++;
-                    $slug = sanitize_title($meta_value); //strtolower( $value );
+                    $slug = sanitize_title( $meta_value );
                     if( $this->hasRestrictedSymbols( $slug ) ){
                         continue;
                     }

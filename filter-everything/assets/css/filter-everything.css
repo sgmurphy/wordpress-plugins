@@ -1,5 +1,5 @@
 /*!
- * Filter Everything admin 1.8.4
+ * Filter Everything admin 1.8.5
  */
 .rtl .wpc-filter-layout-dropdown .select2-container--default .select2-selection--single .select2-selection__arrow b,
 .rtl .wpc-filter-search-wrapper button.wpc-search-clear,
@@ -7,6 +7,7 @@
     left: 10px;
     right: auto;
 }
+/*.wpc-filter-post_meta_num .wpc-filter-selected-values,*/
 .theme-flatsome li.wpc-term-item > button.toggle,
 .woocommerce-page .content .h-section .wpc-filters-labels li.wpc-term-item input[type="checkbox"],
 .wpc-checkbox-item.wpc-opened > .wpc-term-item-content-wrapper > i.wpc-toggle-children-list:before,
