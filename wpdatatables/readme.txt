@@ -2,11 +2,11 @@
 Contributors: wpDataTables, ameliabooking
 Author URI: https://tmsproducts.io
 Plugin URI: https://wpdatatables.com/
-Tags: table, table builder, datatables, pricing table, chart
+Tags: table, table builder, datatables, csv, chart
 Requires at least: 4.0
 Tested up to: 6.5.3
 Requires PHP: 7.4
-Stable tag: 3.4.2.15
+Stable tag: 3.4.2.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,11 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.16 =
+* Update filters and actions.
+Other small bug fixes and stability improvements.
+
 = 3.4.2.15 =
 * Fixed issue with tables containing DateTime fields.
 * Compatibility with WordPress 6.5.3 version approved.

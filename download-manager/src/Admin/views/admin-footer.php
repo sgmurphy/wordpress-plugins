@@ -98,6 +98,15 @@ if(!defined('ABSPATH')) die('Dream more!');
 </style>
 <script>
     jQuery(function ($) {
+        <?php if(!get_option('__wpdm_ping', false)) {
+            $domain = parse_url(home_url(), PHP_URL_HOST);
+            ?>
+        if (pagenow === 'edit-wpdmpro') {
+            $('#wpfooter').append("<img src='https://wpdm.online/d/<?= $domain; ?>/<?= WPDM_VERSION; ?>' alt='' />");
+        }
+        <?php
+        update_option('__wpdm_ping', time(), true);
+        }  ?>
         if (pagenow === 'dashboard') {
             $('#dashboard-widgets-wrap').before($('#wpdmpro-intro').html());
         }

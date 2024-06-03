@@ -88,9 +88,16 @@ class Change_Login_URL {
      * 
      * @since 5.8.0
      */
-    public function customize_login_url( $lostpassword_url ) {
+    public function customize_login_url( $login_url, $redirect, $force_reauth ) {
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
+        $login_url = home_url( '/' . $custom_login_slug . '/' );
+        if ( !empty( $redirect ) ) {
+            $login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
+        }
+        if ( $force_reauth ) {
+            $login_url = add_query_arg( 'reauth', '1', $login_url );
+        }
         return home_url( '/' . $custom_login_slug . '/' );
     }
 
@@ -142,7 +149,7 @@ class Change_Login_URL {
             // When landing on the login page
             // At this point /admin, /wp-admin/, /login redirects to /wp-login.php
             if ( false !== strpos( $url_input, 'wp-login' ) ) {
-                if ( isset( $_GET['action'] ) && ('logout' == $_GET['action'] || 'rp' == $_GET['action'] || 'resetpass' == $_GET['action']) || isset( $_GET['checkemail'] ) && ('confirm' == $_GET['checkemail'] || 'registered' == $_GET['checkemail']) || isset( $_GET['interim-login'] ) && '1' == $_GET['interim-login'] || 'success' == $interim_login ) {
+                if ( isset( $_GET['action'] ) && ('logout' == $_GET['action'] || 'rp' == $_GET['action'] || 'resetpass' == $_GET['action']) || isset( $_GET['checkemail'] ) && ('confirm' == $_GET['checkemail'] || 'registered' == $_GET['checkemail']) || isset( $_GET['interim-login'] ) && '1' == $_GET['interim-login'] || 'success' == $interim_login || isset( $_GET['redirect_to'] ) && isset( $_GET['reauth'] ) && false !== strpos( $url_input, 'comment' ) ) {
                     // When we're logging out, inside the reset password flow, inside the registration flow or within the interim login flow
                     // e.g. https://www.example.com/wp-login.php?action=logout&_wpnonce=49bb818269
                     // e.g. https://www.example.com/wp-login.php?action=rp --> reset password
@@ -150,6 +157,7 @@ class Change_Login_URL {
                     // e.g. https://www.example.com/wp-login.php?checkmail=confirm --> reset password
                     // e.g. https://www.example.com/wp-login.php?checkmail=registered --> register account
                     // e.g. https://www.example.com/wp-login.php?interim-login=1&wp_lang=en_US
+                    // e.g. https://www.example.com/wp-admin/comment.php?action=approve&c=14#wpbody-content --> https://www.example.com/wp-login.php?redirect_to=https%3A%2F%2Fwww.example.com%2Fwp-admin%2Fcomment.php%3Faction%3Dapprove%26c%3D14&reauth=1#wpbody-content --> comment approve
                     // Do nothing.. proceed...
                 } elseif ( isset( $_GET['action'] ) && ('lostpassword' == $_GET['action'] || 'register' == $_GET['action']) ) {
                     // When resetting password or registering an account

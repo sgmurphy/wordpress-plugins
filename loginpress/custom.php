@@ -51,6 +51,7 @@ class LoginPress_Entities {
 		add_action( 'login_footer',			array( $this, 'login_page_custom_footer' ) );
 		add_filter( 'site_icon_meta_tags',  array( $this, 'login_page_custom_favicon' ), 1, 1 );
 		add_action( 'login_head',			array( $this, 'login_page_custom_head' ) );
+		add_action( 'woocommerce_login_form', array( $this, 'loginpress_wc_login_page_url_redirection' ) );
 		add_action( 'init',					array( $this, 'redirect_to_custom_page' ) );
 		add_action( 'admin_menu',			array( $this, 'menu_url' ), 10 );
 		add_filter( 'wp_login_errors',    	array( $this, 'remove_error_messages_in_wp_customizer' ), 10, 2 );
@@ -1860,8 +1861,8 @@ class LoginPress_Entities {
 	/**
 	 * Manage the Login Head
 	 *
-	 * @since	1.0.0
-	 * @version	1.6.4
+	 * @since 1.0.0
+	 * @version	3.0.8
 	 */
 	public function login_page_custom_head() {
 
@@ -1891,8 +1892,9 @@ class LoginPress_Entities {
 		do_action( 'loginpress_header_menu' );
 		// do_action( 'loginpress_header_wrapper' );
 
-		if ( 'on' == $lostpassword_url ) {
-			remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
+		// If user click on the default WP lost password url, it'll not be redirect on the WC lost URL.
+		if ( 'on' == $lostpassword_url ) {	
+			remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );	
 		}
 
 		/**
@@ -1913,6 +1915,21 @@ class LoginPress_Entities {
 			if ( 'off' != $login_favicon && function_exists('login_header') ) {
 				echo '<link rel="shortcut icon" href="' . $login_favicon . '" />';
 			}
+		}
+	}
+
+	/**
+	 * Redirecting the WooCommerce lost password url to default WP lost password url.
+	 *
+	 * @since 3.0.8
+	 */
+	function loginpress_wc_login_page_url_redirection() {
+
+		$loginpress_setting = get_option( 'loginpress_setting' );
+		$lostpassword_url   = isset( $loginpress_setting['lostpassword_url'] ) ? $loginpress_setting['lostpassword_url'] : 'off';
+
+		if ( 'on' == $lostpassword_url ) {
+			remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 		}
 	}
 

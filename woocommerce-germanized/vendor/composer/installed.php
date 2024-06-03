@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b4f49bb28904a267b568b0800d564d041985607d',
+        'reference' => '924b13a981d6594a03bc730dd446d425c5dbac94',
         'name' => 'vendidero/woocommerce-germanized',
         'dev' => false,
     ),
@@ -145,7 +145,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b4f49bb28904a267b568b0800d564d041985607d',
+            'reference' => '924b13a981d6594a03bc730dd446d425c5dbac94',
             'dev_requirement' => false,
         ),
         'vendidero/woocommerce-germanized-dhl' => array(

@@ -11,7 +11,7 @@
 
                     <div id="text" class="card col-sm-12 p-0 m-0 tab-panel tab-panel-first">
                         <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Text Mapping', 'hide-my-wp'); ?>
-                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/url-mapping-text-mapping/#text_mapping') ?>" target="_blank" class="d-inline-block ml-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/url-mapping-text-mapping/#text_mapping') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
                         </h3>
                         <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                             <div class="card-body">
@@ -124,7 +124,7 @@
                     </div>
                     <div id="url" class="card col-sm-12 p-0 m-0 tab-panel">
                             <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('URL Mapping', 'hide-my-wp'); ?>
-                                <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/url-mapping-text-mapping/#url_mapping') ?>" target="_blank" class="d-inline-block ml-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                                <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/url-mapping-text-mapping/#url_mapping') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
                             </h3>
                             <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                                 <div class="card-body">
@@ -196,7 +196,7 @@
                         </div>
                     <div id="cdn" class="card col-sm-12 p-0 m-0 tab-panel">
                         <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('CDN URLs', 'hide-my-wp'); ?>
-                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/url-mapping-text-mapping/#cdn_urls') ?>" target="_blank" class="d-inline-block ml-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/url-mapping-text-mapping/#cdn_urls') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
                         </h3>
                         <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                             <div class="card-body">

@@ -342,6 +342,99 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
 
             }
         }
+
+        //check and allow search engine bots
+        if($this->isSearchEngineBot()){
+            return;
+        }
+
+        //If user_agent blocking is activated
+        if ($banlist = HMWP_Classes_Tools::getOption('banlist_user_agent')){
+            if(!empty($banlist)) {
+                //unpack $banlist
+                $banlist = json_decode($banlist, true);
+                //remove empty data
+                $banlist = array_filter($banlist);
+            }
+
+            if(!empty($banlist)){
+                if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] <> ''){
+
+                    //set user agent
+                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+                    //check if the current item is in the blocked list
+                    foreach ($banlist as $item){
+                        if(preg_match('/'.$item.'/', $user_agent)){
+                            header('HTTP/1.1 403 Forbidden');
+                            exit();
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        //If referrer blocking is activated
+        if ($banlist = HMWP_Classes_Tools::getOption('banlist_referrer')){
+            if(!empty($banlist)) {
+                //unpack $banlist
+                $banlist = json_decode($banlist, true);
+                //remove empty data
+                $banlist = array_filter($banlist);
+            }
+
+            if(!empty($banlist)) {
+                if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] <> '') {
+
+                    //set user agent
+                    $referrer = $_SERVER['HTTP_REFERER'];
+
+                    //check if the current item is in the blocked list
+                    foreach ($banlist as $item) {
+                        if (preg_match('/' . $item . '/', $referrer)) {
+                            header('HTTP/1.1 403 Forbidden');
+                            exit();
+                        }
+                    }
+
+                }
+            }
+        }
+
+        //If hostname blocking is activated
+        if ($banlist = HMWP_Classes_Tools::getOption('banlist_hostname')){
+            if(!empty($banlist)) {
+                //unpack $banlist
+                $banlist = json_decode($banlist, true);
+                //remove empty data
+                $banlist = array_filter($banlist);
+            }
+
+            if(!empty($banlist)) {
+                //get caller server ips
+                $server = $this->getServerVariableIPs();
+
+                if (!empty($server)) {
+
+                    //for each IP found on the caller
+                    foreach ($server as $ip) {
+                        //get the hostname from the IP is possible
+                        $hostname = $this->getHostname($ip);
+
+                        //check if the current item is in the blocked list
+                        foreach ($banlist as $item) {
+                            if (preg_match('/' . $item . '/', $hostname)) {
+                                header('HTTP/1.1 403 Forbidden');
+                                exit();
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -686,6 +779,93 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
         }
 
         return $host;
+    }
+
+    /**
+     * Check if google bot
+     *
+     * @return bool
+     */
+    public static function isSearchEngineBot(){
+
+        if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] <> ''){
+            $googleUserAgent = array(
+                '@^Mozilla/5.0 (.*Google Keyword Tool.*)$@',
+                '@^Mozilla/5.0 (.*Feedfetcher-Google.*)$@',
+                '@^Feedfetcher-Google-iGoogleGadgets.*$@',
+                '@^searchbot admin@google.com$@',
+                '@^Google-Site-Verification.*$@',
+                '@^Google OpenSocial agent.*$@',
+                '@^.*Googlebot-Mobile/2..*$@',
+                '@^AdsBot-Google-Mobile.*$@',
+                '@^google (.*Enterprise.*)$@',
+                '@^Mediapartners-Google.*$@',
+                '@^GoogleFriendConnect.*$@',
+                '@^googlebot-urlconsole$@',
+                '@^.*Google Web Preview.*$@',
+                '@^Feedfetcher-Google.*$@',
+                '@^AppEngine-Google.*$@',
+                '@^Googlebot-Video.*$@',
+                '@^Googlebot-Image.*$@',
+                '@^Google-Sitemaps.*$@',
+                '@^Googlebot/Test.*$@',
+                '@^Googlebot-News.*$@',
+                '@^.*Googlebot/2.1;.*google.com/bot.html.*$@',
+                '@^AdsBot-Google.*$@',
+                '@^Google$@',
+            );
+
+            $yandexUserAgent = array(
+                '@^.*YandexAccessibilityBot/3.0.*yandex.com/bots.*@',
+                '@^.*YandexBot/3.0.*yandex.com/bots.*@',
+                '@^.*YandexFavicons/1.0.*yandex.com/bots.*@',
+                '@^.*YandexImages/3.0.*yandex.com/bots.*@',
+                '@^.*YandexMobileScreenShotBot/1.0.*yandex.com/bots.*@',
+                '@^.*YandexNews/4.0.*yandex.com/bots.*@',
+                '@^.*YandexSearchShop/1.0.*yandex.com/bots.*@',
+                '@^.*YandexSpravBot/1.0.*yandex.com/bots.*@',
+                '@^.*YandexVertis/3.0.*yandex.com/bots.*@',
+                '@^.*YandexVideo/3.0.*yandex.com/bots.*@',
+                '@^.*YandexVideoParser/1.0.*yandex.com/bots.*@',
+                '@^.*YandexWebmaster/2.0.*yandex.com/bots.*@',
+                '@^.*YandexMobileBot/3.0.*yandex.com/bots.*@',
+                '@^.*YandexCalendar/1.0.*yandex.com/bots.*@',
+            );
+
+            $moreUserAgent = array(
+                '@^.*bingbot/2.0;.*bing.com/bingbot.htm.*@',
+                '@^.*AdIdxBot.*@',
+                '@^.*DuckDuckGo/.*@',
+                '@^.*Baiduspider.*@',
+                '@^.*Yahoo! Slurp.*@',
+                '@^.*grapeshot.*@',
+                '@^.*proximic.*@',
+                '@^.*GPTBot.*@',
+            );
+
+            $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+            foreach ($googleUserAgent as $pat) {
+                if (preg_match($pat . 'i', $userAgent)) {
+                    return true;
+                }
+            }
+
+            foreach ($yandexUserAgent as $pat) {
+                if (preg_match($pat . 'i', $userAgent)) {
+                    return true;
+                }
+            }
+
+            foreach ($moreUserAgent as $pat) {
+                if (preg_match($pat . 'i', $userAgent)) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
     }
 
 }

@@ -3,7 +3,7 @@ Contributors: daanvm, danielhuesken, davdebcom, dinamiko, inpsyde, l.vangunst, n
 Tags: mollie, payments, payment gateway, woocommerce, credit card, apple pay, ideal, bancontact, klarna, sofort, giropay, woocommerce subscriptions 
 Requires at least: 3.8
 Tested up to: 6.5
-Stable tag: 7.5.3
+Stable tag: 7.5.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -219,6 +219,16 @@ Please contact info@mollie.com if you need help installing the Mollie WooCommerc
 Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
 
 == Changelog ==
+
+= 7.5.4 - 03-06-2024 =
+
+* Feature - Initiative - Alma for WooCommerce Integration - under flag add_filter('inpsyde.feature-flags.mollie-woocommerce.alma_enabled', false);
+* Feature - Add WooCommerce as required plugin in header
+* Fix - Display error for Apple Pay Validation Error in Woocommerce
+* Fix - TypeError when WooCommerce Analytics is disabled
+* Fix - In3 - payment successful with date in the future
+* Fix - Ensure Smooth Order Processing Despite Rounding Differences
+* FIx - Rebrand from Inpsyde to Syde
 
 = 7.5.3 - 22-05-2024 =
 

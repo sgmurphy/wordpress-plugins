@@ -6099,27 +6099,11 @@ input[type=radio]:nth-child(19):checked ~ .switch-btn:nth-child(20)::before {
 #popup-header .course-title a:hover {
   color: var(--lp-primary-color);
 }
-@media (max-width: 768px) {
-  #popup-header .course-title {
-    flex: 1;
-  }
-}
 #popup-header .items-progress {
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 10px;
-}
-@media (max-width: 768px) {
-  #popup-header .items-progress {
-    flex: 1;
-  }
-}
-@media (max-width: 767px) {
-  #popup-header .items-progress {
-    padding-bottom: 20px;
-    justify-content: end;
-  }
 }
 #popup-header .number {
   padding-right: 10px;
@@ -6654,6 +6638,7 @@ input[type=radio]:nth-child(19):checked ~ .switch-btn:nth-child(20)::before {
 #sidebar-toggle {
   display: inline-block;
   width: 32px;
+  min-width: 32px;
   line-height: 70px;
   height: unset;
   margin: 0;
@@ -6717,7 +6702,6 @@ body.lp-sidebar-toggle__close #popup-header, body.lp-sidebar-toggle__close #popu
   }
   #popup-header, #popup-footer {
     left: 300px;
-    width: 100%;
   }
 }
 @media screen and (max-width: 782px) {
@@ -6736,7 +6720,6 @@ body.lp-sidebar-toggle__close #popup-header, body.lp-sidebar-toggle__close #popu
   #popup-header,
   #popup-footer {
     left: 300px;
-    width: 100%;
   }
 }
 .content-item-wrap {

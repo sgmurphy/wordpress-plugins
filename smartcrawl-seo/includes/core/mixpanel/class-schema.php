@@ -31,7 +31,7 @@ class Schema extends Events {
 		add_action( 'smartcrawl_after_delete_schema_types', array( $this, 'intercept_schema_types_delete' ), 10, 2 );
 		add_action( 'smartcrawl_after_add_schema_types', array( $this, 'intercept_schema_types_add' ), 10, 3 );
 		// Schema general settings are stored in different options. Handle it properly.
-		add_action( 'update_option_wds_social_options', array( $this, 'intercept_social_settings_update' ), 10, 2 );
+		//add_action( 'update_option_wds_social_options', array( $this, 'intercept_social_settings_update' ), 10, 2 );
 		add_action( 'update_option_wds_schema_options', array( $this, 'intercept_general_settings_update' ), 10, 2 );
 		add_action( 'shutdown', array( $this, 'track_general_settings_update' ) );
 	}
@@ -81,7 +81,9 @@ class Schema extends Events {
 	 * @return void
 	 */
 	public function intercept_schema_types_add( $new_types, $previous_types, $current_types ) {
-		if ( ! $this->is_tracking_active() ) {
+		if ( ! $this->is_tracking_active() || empty( $_POST['option_page'] )
+		     || 'wds_schema_options' !== $_POST['option_page']
+		) {
 			return;
 		}
 
@@ -115,7 +117,9 @@ class Schema extends Events {
 	 * @return void
 	 */
 	public function intercept_social_settings_update( $old_value, $new_value ) {
-		if ( ! $this->is_tracking_active() ) {
+		if ( ! $this->is_tracking_active() || empty( $_POST['option_page'] )
+		     || 'wds_social_options' !== $_POST['option_page']
+		) {
 			return;
 		}
 

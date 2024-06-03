@@ -2,21 +2,19 @@
 # This file is distributed under the same license as the SmartCrawl Pro plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: SmartCrawl Pro 3.10.6\n"
+"Project-Id-Version: SmartCrawl Pro 3.10.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/build\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-10T16:18:20+00:00\n"
+"POT-Creation-Date: 2024-06-03T05:15:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
 #: wpmu-dev-seo.php
-#: includes/core/admin/pages/class-upgrade-free.php:29
-#: includes/core/admin/pages/class-upgrade-free.php:30
 #: includes/core/admin/settings/class-dashboard.php:218
 #: includes/core/admin/templates/dashboard/dashboard-widget-upgrade.php:21
 msgid "SmartCrawl Pro"
@@ -197,6 +195,7 @@ msgstr ""
 #: includes/core/admin/templates/schema/schema-settings.php:122
 #: includes/core/admin/templates/schema/schema-sidenav.php:23
 #: includes/core/admin/templates/settings/settings-section-data.php:19
+#: includes/core/admin/templates/settings/settings.php:15
 #: includes/core/admin/templates/sitemap/sitemap-settings.php:100
 #: includes/core/admin/templates/sitemap/sitemap-side-nav.php:50
 #: includes/core/admin/templates/social/social-settings.php:104
@@ -216,19 +215,24 @@ msgstr ""
 msgid "Configure Main Site"
 msgstr ""
 
+#: includes/core/admin/pages/class-upgrade-free.php:39
+#: includes/core/admin/pages/class-upgrade-free.php:40
+msgid "Upgrade for 80% Off!"
+msgstr ""
+
 #: includes/core/admin/settings/class-admin-settings.php:264
 #: includes/core/admin/templates/floating-notices.php:13
-#: includes/core/controllers/class-module-controller.php:337
+#: includes/core/controllers/class-module-controller.php:338
 msgid "Settings updated"
 msgstr ""
 
 #: includes/core/admin/settings/class-admin-settings.php:268
-#: includes/core/controllers/class-module-controller.php:341
+#: includes/core/controllers/class-module-controller.php:342
 msgid " &amp; W3 Total Cache Page Cache flushed"
 msgstr ""
 
 #: includes/core/admin/settings/class-admin-settings.php:271
-#: includes/core/controllers/class-module-controller.php:344
+#: includes/core/controllers/class-module-controller.php:345
 msgid " &amp; WP Super Cache flushed"
 msgstr ""
 
@@ -877,7 +881,7 @@ msgid "View report"
 msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-mini-lighthouse-report.php:63
-#: includes/modules/advanced/seomoz/class-controller.php:330
+#: includes/modules/advanced/seomoz/class-controller.php:332
 msgid "View Report"
 msgstr ""
 
@@ -890,7 +894,7 @@ msgid "Automatic audits are enabled"
 msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-reports-free.php:17
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:36
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:38
 msgid "Emails & Report"
 msgstr ""
 
@@ -921,12 +925,12 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-reports-free.php:35
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:41
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:43
 msgid "Manage your email notifications and report schedules."
 msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-reports-free.php:39
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:49
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:51
 #: includes/core/admin/templates/dashboard/dashboard-top-lighthouse.php:92
 #: includes/core/admin/templates/dashboard/dashboard-widget-lighthouse.php:41
 #: includes/core/admin/templates/emails/lighthouse-email.php:198
@@ -935,8 +939,8 @@ msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-reports-free.php:42
 #: includes/core/admin/templates/dashboard/dashboard-reports-free.php:51
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:56
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:85
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:58
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:87
 #: includes/core/admin/templates/dashboard/dashboard-widget-schema.php:64
 #: includes/core/configs/class-model.php:106
 #: includes/core/configs/class-model.php:113
@@ -947,7 +951,7 @@ msgid "Inactive"
 msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-reports-free.php:48
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:78
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:80
 msgid "Sitemap Crawler"
 msgstr ""
 
@@ -955,20 +959,20 @@ msgstr ""
 msgid "Schedule automatic reports and get them emailed direct to your inbox to stay on top of potential SEO issues. Get Reports as part of a WPMU DEV membership."
 msgstr ""
 
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:63
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:65
 msgid "Configure SEO audit reports"
 msgstr ""
 
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:92
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:94
 msgid "Configure crawler reports"
 msgstr ""
 
 #. translators: %s: Link linked to PDF reports in Hub
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:109
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:115
 msgid "You can also set up scheduled PDF reports for your clients via %s."
 msgstr ""
 
-#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:111
+#: includes/core/admin/templates/dashboard/dashboard-reports-full.php:117
 #: includes/core/admin/templates/footer.php:25
 #: includes/core/admin/templates/footer.php:94
 msgid "The Hub"
@@ -1132,7 +1136,7 @@ msgstr ""
 #: includes/modules/advanced/breadcrumbs/class-controller.php:488
 #: includes/modules/advanced/redirects/class-controller.php:472
 #: includes/modules/advanced/robots/class-controller.php:345
-#: includes/modules/advanced/seomoz/class-controller.php:356
+#: includes/modules/advanced/seomoz/class-controller.php:358
 msgid "Activate"
 msgstr ""
 
@@ -1458,7 +1462,7 @@ msgid "Connect to pinterest"
 msgstr ""
 
 #: includes/core/admin/templates/dashboard/dashboard-widget-social.php:102
-#: includes/modules/advanced/seomoz/class-controller.php:342
+#: includes/modules/advanced/seomoz/class-controller.php:344
 #: includes/assets/js/modules/advanced/seomoz/connect.js:143
 msgid "Connect"
 msgstr ""
@@ -1933,7 +1937,7 @@ msgstr ""
 
 #: includes/core/admin/templates/metabox/metabox-dummy-preview.php:2
 #: includes/core/admin/templates/term/term-google-preview.php:22
-#: includes/assets/js/modules/metabox/seo/google-preview.js:223
+#: includes/assets/js/modules/metabox/seo/google-preview.js:196
 msgid "Google Preview"
 msgstr ""
 
@@ -1955,7 +1959,7 @@ msgstr ""
 #: includes/core/admin/templates/schema/schema-organization-settings.php:43
 #: includes/core/admin/templates/term/term-meta-edit-form.php:95
 #: includes/assets/js/modules/metabox/readability/readability-analysis-content.js:128
-#: includes/assets/js/modules/metabox/seo/google-preview.js:305
+#: includes/assets/js/modules/metabox/seo/google-preview.js:280
 #: includes/assets/js/modules/metabox/social/social-item.js:55
 msgid "Description"
 msgstr ""
@@ -2080,7 +2084,7 @@ msgstr ""
 
 #: includes/core/admin/templates/onpage/onpage-general-settings-inner.php:32
 #: includes/core/admin/templates/term/term-meta-edit-form.php:61
-#: includes/assets/js/modules/metabox/seo/google-preview.js:275
+#: includes/assets/js/modules/metabox/seo/google-preview.js:249
 msgid "SEO Title"
 msgstr ""
 
@@ -2217,7 +2221,7 @@ msgid "Enable or disable support for social platforms when this content is share
 msgstr ""
 
 #: includes/core/admin/templates/onpage/onpage-preview.php:29
-#: includes/assets/js/modules/metabox/seo/google-preview.js:254
+#: includes/assets/js/modules/metabox/seo/google-preview.js:227
 msgid "A preview of how your title and meta will appear in Google Search."
 msgstr ""
 
@@ -3389,10 +3393,6 @@ msgstr ""
 msgid "Accessibility"
 msgstr ""
 
-#: includes/core/admin/templates/settings/settings.php:15
-msgid "SmartCrawl Settings"
-msgstr ""
-
 #: includes/core/admin/templates/settings/settings.php:118
 msgid "Control what to do with your settings and data. Settings are each module’s configuration options, Data includes the stored information like logs, SEO audit results and other bits of information stored over time."
 msgstr ""
@@ -3926,7 +3926,7 @@ msgid "Enter the full canonical URL including http:// or https://"
 msgstr ""
 
 #: includes/core/admin/templates/term/term-meta-edit-form.php:46
-#: includes/assets/js/modules/metabox/seo/google-preview.js:265
+#: includes/assets/js/modules/metabox/seo/google-preview.js:238
 msgid "Edit Meta"
 msgstr ""
 
@@ -6716,7 +6716,7 @@ msgstr ""
 
 #: includes/modules/advanced/redirects/class-controller.php:450
 #: includes/modules/advanced/redirects/class-controller.php:464
-#: includes/modules/advanced/seomoz/class-controller.php:349
+#: includes/modules/advanced/seomoz/class-controller.php:351
 msgid "Automatically redirect traffic from one URL to another."
 msgstr ""
 
@@ -6733,78 +6733,78 @@ msgstr ""
 msgid "Please use our new hook `smartcrawl_after_sanitize_%s` in SmartCrawl."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:843
+#: includes/modules/advanced/redirects/class-controller.php:845
 msgid "Please use our new filter `smartcrawl_process_redirect` in SmartCrawl."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:894
+#: includes/modules/advanced/redirects/class-controller.php:896
 msgid "There is no data to proceed with your request."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:906
+#: includes/modules/advanced/redirects/class-controller.php:908
 msgid "The redirect from URL is empty."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:913
+#: includes/modules/advanced/redirects/class-controller.php:915
 msgid "The redirect from/to URL is empty."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1003
-#: includes/modules/advanced/redirects/class-controller.php:1020
+#: includes/modules/advanced/redirects/class-controller.php:1005
+#: includes/modules/advanced/redirects/class-controller.php:1022
 msgid "Url"
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1050
+#: includes/modules/advanced/redirects/class-controller.php:1052
 msgid "Request data is not valid."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1061
+#: includes/modules/advanced/redirects/class-controller.php:1063
 msgid "Something was wrong."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1074
+#: includes/modules/advanced/redirects/class-controller.php:1076
 msgid "Failed to retrieve data."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1082
+#: includes/modules/advanced/redirects/class-controller.php:1084
 msgid "Not found redirects."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1091
+#: includes/modules/advanced/redirects/class-controller.php:1093
 msgid "Failed to get redirects by given IDs."
 msgstr ""
 
 #. translators: %s: Redirect id
-#: includes/modules/advanced/redirects/class-controller.php:1109
+#: includes/modules/advanced/redirects/class-controller.php:1111
 msgid "Failed to get redirect by given ID: %s."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1140
+#: includes/modules/advanced/redirects/class-controller.php:1142
 #: includes/assets/js/modules/advanced/redirects/redirect-table.js:756
 msgid "Failed to update redirects."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1169
+#: includes/modules/advanced/redirects/class-controller.php:1171
 msgid "Please select a file under 1MB."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1188
+#: includes/modules/advanced/redirects/class-controller.php:1190
 msgid "Only JSON or CSV files are supported."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1196
+#: includes/modules/advanced/redirects/class-controller.php:1198
 msgid "Some entries have invalid values. Please try again!"
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1204
+#: includes/modules/advanced/redirects/class-controller.php:1206
 msgid "No valid redirects were found, please check your file."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1213
+#: includes/modules/advanced/redirects/class-controller.php:1215
 msgid "An error occurred while inserting CSV data into the database."
 msgstr ""
 
-#: includes/modules/advanced/redirects/class-controller.php:1346
+#: includes/modules/advanced/redirects/class-controller.php:1348
 msgid "Please save some redirects first."
 msgstr ""
 
@@ -6839,23 +6839,23 @@ msgstr ""
 msgid "Moz URL Metrics - SmartCrawl"
 msgstr ""
 
-#: includes/modules/advanced/seomoz/class-controller.php:185
+#: includes/modules/advanced/seomoz/class-controller.php:187
 msgid "We were unable to retrieve data from the Moz API."
 msgstr ""
 
-#: includes/modules/advanced/seomoz/class-controller.php:240
+#: includes/modules/advanced/seomoz/class-controller.php:242
 msgid "If you've recently created an account, allow 24 hours for your first data to arrive. If you are an existing user, please reset your Moz API credentials to fix this issue."
 msgstr ""
 
-#: includes/modules/advanced/seomoz/class-controller.php:319
+#: includes/modules/advanced/seomoz/class-controller.php:321
 msgid "Moz Integration"
 msgstr ""
 
-#: includes/modules/advanced/seomoz/class-controller.php:335
+#: includes/modules/advanced/seomoz/class-controller.php:337
 msgid "Moz provides reports that tell you how your site stacks up against the competition with all of the important SEO measurement tools."
 msgstr ""
 
-#: includes/modules/advanced/seomoz/class-controller.php:339
+#: includes/modules/advanced/seomoz/class-controller.php:341
 msgid "Connect your Moz account"
 msgstr ""
 
@@ -8507,8 +8507,8 @@ msgid "Added keywords"
 msgstr ""
 
 #. translators: 1, 2: Min/max length
-#: includes/assets/js/modules/metabox/seo/google-preview.js:279
-#: includes/assets/js/modules/metabox/seo/google-preview.js:309
+#: includes/assets/js/modules/metabox/seo/google-preview.js:253
+#: includes/assets/js/modules/metabox/seo/google-preview.js:284
 msgid " - Include your focus keywords. %1$d-%2$d characters recommended."
 msgstr ""
 

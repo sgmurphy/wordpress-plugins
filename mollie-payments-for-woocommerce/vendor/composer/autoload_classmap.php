@@ -195,6 +195,7 @@ return array(
     'Mollie\\WooCommerce\\Notice\\NoticeInterface' => $baseDir . '/src/Notice/NoticeInterface.php',
     'Mollie\\WooCommerce\\Notice\\NoticeModule' => $baseDir . '/src/Notice/NoticeModule.php',
     'Mollie\\WooCommerce\\PaymentMethods\\AbstractPaymentMethod' => $baseDir . '/src/PaymentMethods/AbstractPaymentMethod.php',
+    'Mollie\\WooCommerce\\PaymentMethods\\Alma' => $baseDir . '/src/PaymentMethods/Alma.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Applepay' => $baseDir . '/src/PaymentMethods/Applepay.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Bancomatpay' => $baseDir . '/src/PaymentMethods/Bancomatpay.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Bancontact' => $baseDir . '/src/PaymentMethods/Bancontact.php',

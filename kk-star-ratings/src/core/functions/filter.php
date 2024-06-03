@@ -18,6 +18,8 @@ if (! defined('KK_STAR_RATINGS')) {
     exit();
 }
 
+
+// alias for apply_filters
 function filter(string $tag, ...$args)
 {
     return base_filter('Bhittani\StarRating\core\filters', $tag, ...$args);

@@ -18,6 +18,8 @@ if ( ! class_exists( 'QiAddonsForElementor_Contact_Form_7' ) ) {
 		}
 
 		/**
+		 * Instance of module class
+		 *
 		 * @return QiAddonsForElementor_Contact_Form_7
 		 */
 		public static function get_instance() {

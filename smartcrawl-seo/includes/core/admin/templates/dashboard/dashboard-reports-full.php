@@ -24,6 +24,8 @@ $crawler_cron_enabled  = ! empty( $_view['options']['crawler-cron-enable'] );
 $crawler_reporting_url = Admin_Settings::admin_url( Settings::TAB_SITEMAP ) . '&tab=tab_url_crawler_reporting';
 $crawler_freq          = empty( $_view['options']['crawler-frequency'] ) ? false : $_view['options']['crawler-frequency'];
 $crawler_freq_readable = \smartcrawl_get_array_value( $frequencies, $crawler_freq );
+
+$site_id = Services\Service::get( Services\Service::SERVICE_SITE )->get_dashboard_site_id();
 ?>
 
 <section
@@ -104,13 +106,18 @@ $crawler_freq_readable = \smartcrawl_get_array_value( $frequencies, $crawler_fre
 
 		<p class="sui-description wds-documentation-link">
 			<?php
-			echo \smartcrawl_format_link(
+			$hub_url = 'https://wpmudev.com/hub2/';
+			if ( $site_id ) {
+				$hub_url .= 'site/' . $site_id . '/reports';
+			}
+			$hub_link = \smartcrawl_format_link(
 				/* translators: %s: Link linked to PDF reports in Hub */
 				esc_html__( 'You can also set up scheduled PDF reports for your clients via %s.', 'smartcrawl-seo' ),
-				'https://wpmudev.com/hub2/',
+				$hub_url,
 				esc_html__( 'The Hub', 'smartcrawl-seo' ),
 				'_blank'
 			);
+			echo wp_kses_post( $hub_link );
 			?>
 		</p>
 	</div>

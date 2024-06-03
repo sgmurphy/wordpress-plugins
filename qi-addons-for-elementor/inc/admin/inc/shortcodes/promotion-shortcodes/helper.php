@@ -9,7 +9,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_promotion_shortcodes_list' ) ) 
 	/**
 	 * Function that return array of promotion shortcodes
 	 *
-	 *
 	 * @return array
 	 */
 	function qi_addons_for_elementor_promotion_shortcodes_list() {
@@ -565,7 +564,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_promotion_shortcodes_list' ) ) 
 				'new'           => true,
 			),
 		);
-		
+
 		if ( qi_addons_for_elementor_framework_is_installed( 'woocommerce' ) ) {
 			$woo_shortcodes = array(
 				'qi_addons_for_elementor_premium_product_comparison' => array(
@@ -666,19 +665,18 @@ if ( ! function_exists( 'qi_addons_for_elementor_promotion_shortcodes_list' ) ) 
 					'new'           => true,
 				),
 			);
-			
+
 			$shortcodes = array_merge( $shortcodes, $woo_shortcodes );
 		}
-		
+
 		$shortcodes = apply_filters( 'qi_addons_for_elementor_filter_promotion_shortcodes_list', $shortcodes );
-		
+
 		return $shortcodes;
 	}
 }
 if ( ! function_exists( 'qi_addons_for_elementor_promotion_shortcodes_inline_style' ) ) {
 	/**
 	 * Function that return array of promotion shortcodes
-	 *
 	 *
 	 * @return string
 	 */

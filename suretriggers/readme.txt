@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.0.47
+Stable tag: 1.0.48
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -324,6 +324,9 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.48 - Monday, 3rd June 2024 =
+* Improvement: Unnecessary code removal, Plugin Code Optimization
 
 = Version 1.0.47 - Wednesday, 29th May 2024 =
 * New: Added "Sensei LMS" Integration

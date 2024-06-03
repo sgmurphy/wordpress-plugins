@@ -351,6 +351,9 @@ class Sonaar_Music_Public {
 		if ( !function_exists('run_sonaar_music_pro') || !get_site_option( 'sonaar_music_licence', '' )){
 			return;
 		}
+		if (get_site_option('SRMP3_License_Status') != 'active') {
+            return;
+        }
 		//Hook name: sonaar_podcast_import
 
 		// Debugging purpose :

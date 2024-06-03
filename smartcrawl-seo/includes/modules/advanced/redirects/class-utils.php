@@ -253,8 +253,8 @@ class Utils {
 		$url = preg_replace( "/[\r\n\t].*?$/s", '', $url );
 		// Remove control codes.
 		$url = preg_replace( '/[^\PC\s]/u', '', $url );
-		// Decode.
-		$url = rawurldecode( $url );
+		// Escape.
+		$url = esc_url_raw( $url );
 
 		return $this->is_url_absolute( $url )
 			? $url

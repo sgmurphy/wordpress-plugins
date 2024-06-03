@@ -1014,6 +1014,10 @@ function wpdm_sanitize_var($value, $sanitize = 'kses')
     return __::sanitize_var($value, $sanitize);
 }
 
+function wpdm_tzoffset() {
+	return __::timezoneOffset();
+}
+
 /**
  * @param $total
  * @param $item_per_page

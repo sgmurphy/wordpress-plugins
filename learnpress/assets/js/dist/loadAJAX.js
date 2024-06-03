@@ -246,6 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./assets/src/js/utils.js");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ "./assets/src/js/api.js");
+var _apiData$apiAJAX;
 /**
  * Load all you need via AJAX
  *
@@ -261,7 +262,7 @@ let apiData = _api__WEBPACK_IMPORTED_MODULE_1__["default"].admin;
 if ('undefined' === typeof apiData) {
   apiData = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend;
 }
-const urlAPI = apiData.apiAJAX;
+const urlAPI = (_apiData$apiAJAX = apiData.apiAJAX) !== null && _apiData$apiAJAX !== void 0 ? _apiData$apiAJAX : '';
 let lpSettings = {};
 if ('undefined' !== typeof lpDataAdmin) {
   lpSettings = lpDataAdmin;

@@ -2,7 +2,9 @@
 
 class SRMP3_ShortcodeBuilder {
     public function __construct() {
-        add_action(  'srmp3_register_shortcodebuilder_options', array($this, 'srmp3_register_shortcodebuilder_options'));
+        add_filter( 'admin_body_class', array($this, 'srmp3_admin_dark_mode_body_class'));
+        add_action( 'srmp3_register_shortcodebuilder_options', array($this, 'srmp3_register_shortcodebuilder_options'));
+        add_action( 'wp_ajax_srmp3_toggle_dark_mode', array($this, 'srmp3_toggle_dark_mode'));
         add_action( 'wp_ajax_update_shortcode', array($this, 'update_shortcodeBuilder_callback') );
         add_action( 'wp_ajax_reset_shortcode', array($this, 'reset_shortcodeBuilder_callback') );
         add_action( 'wp_ajax_load_srmp3_template',  array($this, 'load_shortcodebuilder_template'));
@@ -12,9 +14,30 @@ class SRMP3_ShortcodeBuilder {
         add_action( 'cmb2_save_options-page_fields', array($this, 'save_shortcodebuilder_template'),10, 3);
         add_action( 'current_screen', array( $this, 'srmp3_disable_admin_notices_on_shortcode_builder') );
         //add_action( 'admin_menu', array( $this, 'srmp3_remove_footer_on_shortcode_builder') );
-
         require_once SRMP3_DIR_PATH . '/includes/queries.php';
     
+    }
+    public function srmp3_admin_dark_mode_body_class($classes) {
+        $user_id = get_current_user_id();
+        $dark_mode = get_user_meta($user_id, 'sonaar_mp3_darkmode', true);
+    
+        if ($dark_mode === 'true') {
+            $classes .= ' dark-mode';
+        }
+    
+        return $classes;
+    }
+    function srmp3_toggle_dark_mode() {
+        check_ajax_referer('sonaar_music_admin_ajax_nonce', 'nonce');
+        $user_id = get_current_user_id();
+        $dark_mode = sanitize_text_field($_POST['dark_mode']);
+    
+        if ($user_id > 0 && ($dark_mode === 'true' || $dark_mode === 'false')) {
+            update_user_meta($user_id, 'sonaar_mp3_darkmode', $dark_mode);
+            wp_send_json_success();
+        } else {
+            wp_send_json_error();
+        }
     }
 
     /*public function srmp3_remove_footer_on_shortcode_builder() {
@@ -94,6 +117,9 @@ class SRMP3_ShortcodeBuilder {
         if (!function_exists('run_sonaar_music_pro') || empty(get_site_option('sonaar_music_licence'))) {
             return;
         }
+        if (get_site_option('SRMP3_License_Status') != 'active') {
+            return;
+        }
         if ('srmp3_settings_shortcodebuilder' == $object_id && isset($_POST['save_template_name']) && !empty($_POST['save_template_name'])) {
             // Sanitize the template name
             $templateName = sanitize_text_field($_POST['save_template_name']);
@@ -162,13 +188,15 @@ class SRMP3_ShortcodeBuilder {
         }
     }
     public static function import_shortcodebuilder_template($templateSettings = null) {
-        // This function is an ajax callback from shortcode builde AND also used in the big template importer
+        // This function is an ajax callback from shortcode builder AND also used in the big template importer
         check_ajax_referer('sonaar_music_admin_ajax_nonce', 'nonce');
     
         if (!function_exists('run_sonaar_music_pro') || empty(get_site_option('sonaar_music_licence'))) {
             return;
         }
-    
+        if (get_site_option('SRMP3_License_Status') != 'active') {
+            return;
+        }
         function sanitize_recursive($value) {
             if (is_array($value)) {
                 // Recursively apply to each element if it's an array
@@ -1111,6 +1139,18 @@ class SRMP3_ShortcodeBuilder {
             'before'        => array('Sonaar_Music_Admin', 'promo_ad_text_cb'),
         ));
         $shortcode_options->add_field( array(
+            'name'          => esc_html__('Preview Page Background', 'sonaar-music'),
+            'id'            => 'preview_bg_color',
+            'type'          => 'colorpicker',
+            'options'       => array(
+                'alpha'         => false,
+            ),
+            'attributes'  => array(
+                //'data-target-selector' => '.control div, .control i, .srp-play-button .sricon-play, .srp_noteButton{color:{{VALUE}}; } .control .play, .srp-play-circle, .sr_speedRate div{ border-color:{{VALUE}}; }',
+                'data-colorpicker' => setDefaultColorPalettes(),
+            ),
+        ) );
+        $shortcode_options->add_field( array(
             'before_row'    => '<br>',
             'name'          => esc_html__('Show Player Widget', 'sonaar-music'),
             'id'            => 'show_mini_player',
@@ -1774,8 +1814,11 @@ class SRMP3_ShortcodeBuilder {
             'id'      => 'player_background_color',
             'type'    => 'colorpicker',
             'default' => '',
+            'options'       => array(
+                'alpha'         => true,
+            ),
             'attributes'  => array(
-                'data-target-selector' => '.srp_player_boxed, .album-player {background-color:{{VALUE}};}',
+                'data-target-selector' => '.srp_player_boxed, .skin_floated .album-player {background-color:{{VALUE}};}',
                 'data-conditional-id'    => 'show_mini_player',
                 'data-conditional-value' => 'true',
                 'data-colorpicker' => setDefaultColorPalettes(),
@@ -2582,7 +2625,7 @@ class SRMP3_ShortcodeBuilder {
             'id'            => 'tracklist_type_bg_color',
             'type'          => 'colorpicker',
             'options'       => array(
-                'alpha'         => false,
+                'alpha'         => true,
             ),
             'attributes'  => array(
                 'data-target-selector' => '.sr-playlist-item{ background:{{VALUE}}; }',
@@ -2612,7 +2655,7 @@ class SRMP3_ShortcodeBuilder {
             'id'            => 'tracklist_type_bg_color_hover',
             'type'          => 'colorpicker',
             'options'       => array(
-                'alpha'         => false,
+                'alpha'         => true,
             ),
             'attributes'  => array(
                 'data-target-selector' => '.sr-playlist-item:hover{ background:{{VALUE}}; }',
@@ -2643,7 +2686,7 @@ class SRMP3_ShortcodeBuilder {
             'id'            => 'tracklist_type_bg_color_active',
             'type'          => 'colorpicker',
             'options'       => array(
-                'alpha'         => false,
+                'alpha'         => true,
             ),
             'attributes'  => array(
                 'data-target-selector' => '.audio-playing .current.sr-playlist-item{ background:{{VALUE}}; }',
@@ -2657,6 +2700,9 @@ class SRMP3_ShortcodeBuilder {
             'name'          => esc_html__('Tracklist Container Background', 'sonaar-music'),
             'id'            => 'tracklist_bg',
             'type'          => 'colorpicker',
+            'options'       => array(
+                'alpha'         => true,
+            ),
             'attributes'  => array(
                 'data-target-selector' => '.playlist, .skin_floated:not(.sonaar-no-artwork) .sonaar-grid{ background: {{VALUE}}; }',
                 'data-conditional-id'    => 'scbuilder_show_playlist',

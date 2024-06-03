@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 6.5
-Stable tag: 11.9
+Stable tag: 11.9.1
 Donate link: https://blubrry.com/services/podcast-hosting/
 License: GPLv2 or later
 
@@ -162,6 +162,10 @@ If you are a fan of PowerPress, we would greatly appreciate it if you could take
 
 
 == Changelog ==
+= 11.9.1 =
+* Released on 06/03/2024
+* Changed alternate enclosure type for YouTube URLs
+
 = 11.9 =
 * Released on 05/20/2024
 * Added support for one alternate enclosure in feed

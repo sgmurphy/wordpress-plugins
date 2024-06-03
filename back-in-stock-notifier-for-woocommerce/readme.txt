@@ -5,7 +5,7 @@ Donate link: [https://codewoogeek.online/product-category/back-in-stock-notifier
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.3.2
+Stable tag: 5.4.0
 License: GPL-3.0+
 License URI: [https://www.gnu.org/licenses/gpl-3.0.txt](https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -228,6 +228,10 @@ You can contact us via the support Forum of WordPress or by creating a support t
 
 
 == Changelog ==
+= 5.4.0 2024-06-03 =
+* New: Added a new setting "Keep Subscription Entry to Subscribed Status even Instock Email Sent (Unless it is Unsubscribed)".
+* Tweak:Tested with WooCommerce 8.9.1
+
 = 5.3.2 2024-05-03 =
 * Fix: Vulnerability Unauthenticated Arbitrary Shortcode Execution reported by WordFence
 * Tweak: Tested with WooCommerce 8.8.3

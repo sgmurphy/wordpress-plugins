@@ -3,16 +3,16 @@
  * Plugin Name: Simple Banner
  * Plugin URI: https://github.com/rpetersen29/simple-banner
  * Description: Display a simple banner at the top or bottom of your website.
- * Version: 2.17.1
+ * Version: 2.17.2
  * Author: Ryan Petersen
  * Author URI: http://rpetersen29.github.io/
  * License: GPL2
  *
  * @package Simple Banner
- * @version 2.17.1
+ * @version 2.17.2
  * @author Ryan Petersen <rpetersen.dev@gmail.com>
  */
-define ('SB_VERSION', '2.17.1');
+define ('SB_VERSION', '2.17.2');
 
 register_activation_hook( __FILE__, 'simple_banner_activate' );
 function simple_banner_activate() {
@@ -250,11 +250,6 @@ add_action('admin_menu', 'simple_banner_menu');
 function simple_banner_menu() {
 	$manage_simple_banner = 'manage_simple_banner';
 	$manage_options = 'manage_options';
-	// Add admin access
-	$admin = get_role( 'administrator' );
-	if ($admin) {
-		$admin->add_cap( $manage_simple_banner );
-	}
 
 	$permissions_array = get_option('permissions_array');
 
@@ -276,7 +271,7 @@ function simple_banner_menu() {
 		}
 	}
 
-	add_menu_page('Simple Banner Settings', 'Simple Banner', $manage_simple_banner, 'simple-banner-settings', 'simple_banner_settings_page', 'dashicons-admin-generic');
+	add_menu_page('Simple Banner Settings', 'Simple Banner', $manage_options, 'simple-banner-settings', 'simple_banner_settings_page', 'dashicons-megaphone');
 }
 
 

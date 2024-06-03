@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/wp-whatsapp-chat',
-        'pretty_version' => 'v7.3.8',
-        'version' => '7.3.8.0',
-        'reference' => 'bce870cf6e3f911a734c490c37f60dd015006b23',
+        'pretty_version' => 'v7.3.9',
+        'version' => '7.3.9.0',
+        'reference' => '9d6f68c332ffe812e986bd1963a3e098303a382a',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'automattic/jetpack-assets' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'f307257aa14bd52b15d35e6c35d759542a2accb7',
+            'reference' => '048e87828ef10942db0d2eef59fa5e69122b8603',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(
@@ -24,7 +24,7 @@
         'automattic/jetpack-composer-plugin' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => '892e9ccbe63e18b1e6247618a3f4040b17b6a632',
+            'reference' => 'aef6bd44ad1a6870f7afcc1891d5f228d3afde2c',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../automattic/jetpack-composer-plugin',
             'aliases' => array(
@@ -35,7 +35,7 @@
         'automattic/jetpack-constants' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'f2b9478cef864b7a4fb23a50c3cf3c591afc8b69',
+            'reference' => '728763b8c0bcddc34918d6a52fafc12328b7f2ab',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-constants',
             'aliases' => array(
@@ -121,9 +121,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/wp-whatsapp-chat' => array(
-            'pretty_version' => 'v7.3.8',
-            'version' => '7.3.8.0',
-            'reference' => 'bce870cf6e3f911a734c490c37f60dd015006b23',
+            'pretty_version' => 'v7.3.9',
+            'version' => '7.3.9.0',
+            'reference' => '9d6f68c332ffe812e986bd1963a3e098303a382a',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

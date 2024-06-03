@@ -10,7 +10,7 @@
  * Author URI:      https://feedbackwp.com
  * Text Domain:     kk-star-ratings
  * Domain Path:     /languages
- * Version:         5.4.7
+ * Version:         5.4.8
  * License:         GPLv2 or later
  */
 

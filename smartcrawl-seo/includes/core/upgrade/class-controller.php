@@ -7,6 +7,7 @@
 
 namespace SmartCrawl\Upgrade;
 
+use SmartCrawl\Configs\Collection;
 use SmartCrawl\Controllers;
 use SmartCrawl\Singleton;
 use SmartCrawl\Settings;
@@ -266,6 +267,17 @@ class Controller extends Controllers\Controller {
 			$modules[ Settings::ADVANCED_MODULE ] = $modules['wds_autolinks'];
 
 			update_site_option( 'wds_blog_tabs', $modules );
+		}
+		// Update config options wds_blog_tabs with new advanced tool changes.
+		$configs = Collection::get()->get_deflated_configs();
+		if ( ! empty( $configs ) ) {
+			foreach ( $configs as $config ) {
+				$wds_blog_tabs = $config['configs']['options']['wds_blog_tabs'] ?? array();
+				if ( isset( $wds_blog_tabs['wds_autolinks'] ) ) {
+					$config['configs']['options']['wds_blog_tabs'][ Settings::ADVANCED_MODULE ] = $wds_blog_tabs['wds_autolinks'];
+					Collection::get()->update_config_blog_tabs_settings( $config['id'], $config );
+				}
+			}
 		}
 	}
 

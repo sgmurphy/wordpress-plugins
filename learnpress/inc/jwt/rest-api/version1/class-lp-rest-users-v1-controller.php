@@ -128,14 +128,6 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 	}
 
 	public function get_items_permissions_check( $request ) {
-		if ( ! empty( $request['roles'] ) && ! ( in_array( 'lp_teacher', $request['roles'] ) || in_array( 'subscriber', $request['roles'] ) ) && ! current_user_can( 'list_users' ) ) {
-			return new WP_Error(
-				'rest_user_cannot_view',
-				__( 'Sorry, you are not allowed to filter users by role.' ),
-				array( 'status' => rest_authorization_required_code() )
-			);
-		}
-
 		return true;
 	}
 
@@ -1018,7 +1010,9 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 					$data['id'] = $user->ID;
 					break;
 				case 'username':
-					$data['username'] = $user->user_login;
+					if ( current_user_can( 'list_users' ) || current_user_can( 'edit_user', $user->ID ) ) {
+						$data['username'] = $user->user_login;
+					}
 					break;
 				case 'name':
 					$data['name'] = $user->display_name;
@@ -1030,7 +1024,9 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 					$data['last_name'] = $user->last_name;
 					break;
 				case 'email':
-					$data['email'] = $user->user_email;
+					if ( current_user_can( 'list_users' ) || current_user_can( 'edit_user', $user->ID ) ) {
+						$data['email'] = $user->user_email;
+					}
 					break;
 				case 'url':
 					$data['url'] = $user->user_url;

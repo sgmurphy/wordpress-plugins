@@ -52,6 +52,10 @@ if ( !function_exists( 'sliFreemius' ) ) {
     sliFreemius()->add_filter( 'deactivate_on_activation', '__return_false' );
     // Disable redirect on activation
     sliFreemius()->add_filter( 'redirect_on_activation', '__return_false' );
+    // New Freemius beta pricing page
+    sliFreemius()->add_filter( 'freemius_pricing_js_path', function () {
+        return plugin_dir_path( SL_INSTA_FILE ) . '/ui/freemius-pricing/freemius-pricing.js';
+    } );
     // Signal that SDK was initiated.
     do_action( 'sli_freemius_loaded' );
 }

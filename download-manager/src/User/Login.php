@@ -288,7 +288,7 @@ class Login
         if ((int)get_option('__wpdm_modal_login', 0) !== 1) return "";
         $defaults = array('class' => '', 'redirect' => '', 'logo' => '', 'label' => __('Login', 'download-manager'), 'id' => 'wpdmmodalloginbtn');
         $params = shortcode_atts($defaults, $params, 'wpdm_modal_login_form');
-        $redirect = isset($params['redirect']) && $params['redirect'] !== '' ? "data-redirect='".esc_attr($params['redirect'])."'" : '';
+        $redirect = isset($params['redirect']) && $params['redirect'] !== '' ? "data-redirect='".esc_url($params['redirect'])."'" : '';
         $logo = isset($params['logo']) && $params['logo'] !== '' ? "data-logo='{".esc_attr($params['logo'])."}'" : '';
         ob_start();
         ?>

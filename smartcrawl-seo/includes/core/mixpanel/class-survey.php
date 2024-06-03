@@ -94,8 +94,10 @@ class Survey extends Events {
 				$props['other_message'] = $message;
 			}
 			$props['usage_tracking'] = Settings::get_value( 'usage_tracking', Settings::get_options() );
-			if ( get_site_option( 'wds-free-install-date' ) ) {
-				$props['activation_date'] = date_i18n( 'Y-m-d H:i:s', get_site_option( 'wds-free-install-date' ) );
+
+			$install_option_name = \smartcrawl_is_build_type_full() ? 'wds-pro-install-date' : 'wds-free-install-date';
+			if ( get_site_option( $install_option_name ) ) {
+				$props['activation_date'] = date_i18n( 'Y-m-d H:i:s', get_site_option( $install_option_name ) );
 			}
 		}
 

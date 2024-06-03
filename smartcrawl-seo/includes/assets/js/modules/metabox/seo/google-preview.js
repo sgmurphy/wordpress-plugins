@@ -80,46 +80,19 @@ export default class GooglePreview extends React.Component {
 	}
 
 	refresh() {
+		const post = this.editor.get_data();
 		// Check if Gutenberg editor is active.
 		if (window._wpLoadBlockEditor) {
 			wp.data.subscribe(() => {
-				const post = this.editor.get_data();
-
 				this.setState({
 					editorTitle: post.get_title(),
 					editorDesc: post.get_content(),
 				});
 			});
 		} else {
-			$('#title').on('input', () => {
-				const post = this.editor.get_data();
-
-				this.setState({
-					editorTitle: post.get_title(),
-				});
-			});
-
-			$(document).on('tinymce-editor-init', (event, editor) => {
-				if (editor.id !== 'content') {
-					return;
-				}
-
-				editor.on(
-					'input keyup',
-					_.debounce(() => {
-						let text;
-
-						if (!editor || editor.isHidden()) {
-							text = $('#content').val();
-						} else {
-							text = editor.getContent({ format: 'raw' });
-						}
-
-						this.setState({
-							editorDesc: text,
-						});
-					}, 1500)
-				);
+			this.setState({
+				editorTitle: post.get_title(),
+				editorDesc: post.get_content(),
 			});
 		}
 	}
@@ -270,6 +243,7 @@ export default class GooglePreview extends React.Component {
 						<div className="sui-border-frame">
 							<OptimumIndicatorField
 								control={InsertVariables}
+								dropdownWrapper="#wds-metabox-container"
 								label={
 									<>
 										{__('SEO Title', 'smartcrawl-seo')}
@@ -300,6 +274,7 @@ export default class GooglePreview extends React.Component {
 
 							<OptimumIndicatorField
 								control={InsertVariables}
+								dropdownWrapper="#wds-metabox-container"
 								label={
 									<>
 										{__('Description', 'smartcrawl-seo')}

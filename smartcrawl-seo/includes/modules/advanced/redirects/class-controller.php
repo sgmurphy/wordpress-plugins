@@ -548,11 +548,13 @@ class Controller extends Controllers\Submodule_Controller {
 			return false;
 		}
 
-		$url  = is_ssl() ? 'https://' : 'http://';
-		$url .= sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+		// We don't need to escape here as we are using esc_url_raw later.
+		$url = is_ssl() ? 'https://' : 'http://';
+		$url .= wp_unslash( $_SERVER['HTTP_HOST'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-			$url .= rawurldecode( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			// We don't need to escape here as we are using esc_url_raw later.
+            $url .= wp_unslash( $_SERVER['REQUEST_URI'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 
 		return esc_url_raw( $url );

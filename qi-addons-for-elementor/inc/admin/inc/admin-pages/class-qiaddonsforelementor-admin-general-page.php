@@ -30,11 +30,13 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 			add_filter( 'admin_body_class', array( $this, 'add_admin_body_classes' ) );
 
 			add_filter( 'elementor/admin-top-bar/is-active', array( $this, 'remove_elementor_admin_top_bar' ), 10, 2 );
-			
+
 			add_action( 'admin_init', array( $this, 'fix_missing_title' ) );
 		}
 
 		/**
+		 * Instance of module class
+		 *
 		 * @return QiAddonsForElementor_Admin_General_Page
 		 */
 		public static function get_instance() {
@@ -63,7 +65,6 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 		}
 
 		public function dashboard_add_page() {
-
 			$page = add_menu_page(
 				$this->get_title(),
 				$this->get_title(),
@@ -100,7 +101,6 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 		}
 
 		public function get_header( $object = null, $params = array() ) {
-
 			$object = ! empty( $object ) ? $object : $this;
 
 			$args = array(
@@ -123,13 +123,11 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 		}
 
 		public function get_content() {
-
 			$args = array();
 			qi_addons_for_elementor_framework_template_part( QI_ADDONS_FOR_ELEMENTOR_ADMIN_PATH . '/inc', 'admin-pages', 'templates/general', '', $args );
 		}
 
 		public function render_holder() {
-
 			$args = array(
 				'this_object' => $this,
 			);
@@ -229,11 +227,12 @@ if ( ! class_exists( 'QiAddonsForElementor_Admin_General_Page' ) ) {
 
 			return $value;
 		}
-		
+
 		public function fix_missing_title() {
 			global $title;
-			
+
 			if ( empty( $title ) ) {
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				$title = '';
 			}
 		}

@@ -1,6 +1,6 @@
 === Ultimate FAQ Accordion Plugin ===
 Contributors: rustaurius
-Tags: faq, accordion, documentation, woocommerce faq, knowledgebase
+Tags: faq, faqs, woocommerce faq, faq block, faq shortcode, accordion, documentation, knowledge base
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4

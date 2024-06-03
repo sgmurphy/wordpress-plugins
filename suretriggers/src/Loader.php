@@ -17,7 +17,6 @@ use DirectoryIterator;
 use SureTriggers\Controllers\AuthController;
 use SureTriggers\Controllers\AutomationController;
 use SureTriggers\Controllers\EventController;
-use SureTriggers\Controllers\EventHelperController;
 use SureTriggers\Controllers\GlobalSearchController;
 use SureTriggers\Controllers\IntegrationsController;
 use SureTriggers\Controllers\OptionController;
@@ -178,8 +177,8 @@ class Loader {
 		define( 'SURE_TRIGGERS_BASE', plugin_basename( SURE_TRIGGERS_FILE ) );
 		define( 'SURE_TRIGGERS_DIR', plugin_dir_path( SURE_TRIGGERS_FILE ) );
 		define( 'SURE_TRIGGERS_URL', plugins_url( '/', SURE_TRIGGERS_FILE ) );
-		define( 'SURE_TRIGGERS_VER', '1.0.47' );
-		define( 'SURE_TRIGGERS_DB_VER', '1.0.47' );
+		define( 'SURE_TRIGGERS_VER', '1.0.48' );
+		define( 'SURE_TRIGGERS_DB_VER', '1.0.48' );
 		define( 'SURE_TRIGGERS_REST_NAMESPACE', 'sure-triggers/v1' );
 		define( 'SURE_TRIGGERS_SASS_URL', $sass_url . '/wp-json/wp-plugs/v1/' );
 		define( 'SURE_TRIGGERS_SITE_URL', $sass_url );
@@ -367,7 +366,6 @@ class Loader {
 		IntegrationsController::load_event_files();
 
 		EventController::get_instance();
-		EventHelperController::get_instance();
 		IntegrationsController::get_instance();
 		GlobalSearchController::get_instance();
 		RestController::get_instance();

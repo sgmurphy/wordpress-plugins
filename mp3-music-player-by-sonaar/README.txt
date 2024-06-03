@@ -1,11 +1,11 @@
-=== MP3 Audio Player for Music, Radio & Podcast by Sonaar ===
+=== MP3 Audio Player – Music Player, Podcast Player & Radio by Sonaar ===
 Contributors: sonaar, eduplessis
 Tags: MP3, music player, podcast player, audio player, woocommerce
 Donate link: https://sonaar.io
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 5.4.0.2
+Stable tag: 5.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,7 +95,7 @@ This professional audio player has been designed by our design experts. With ove
 * Upload unlimited MP3/M4A files
 * Support MP3, Audio streaming, Radio streaming, RSS Feed, CSV File, and all major podcast distributors
 * Upload audio tracks from any posts, custom posts or pages
-* Import Podcast Episodes and Podcast Show from any podcast distributor in 1-click and presto ... you are ready to go! (NEW!). You can also simply input your RSS Feed into the player and we will display all your episodes.
+* Import Podcast Episodes and Podcast Show from any podcast distributor in 1-click and presto player is there... you are ready to go! (NEW!). You can also simply input your RSS Feed into the player and we will display all your episodes.
 * Add subscribe buttons for your podcast
 * Embed audio players using shortcodes with our Shortcode Player Builder
 * Embed audio players using our Elementor Widget
@@ -135,6 +135,8 @@ We support any MP3 files and these streaming platforms:
 - CastBox
 - Pippa.io
 - Anchor
+- Seriously Simple Podcasting
+- PowerPress Podcasting plugin by Blubrry
 - And MANY more
 
 You cannot stream directly from these services:
@@ -337,6 +339,18 @@ Yes, with the pro version, you can click on the 'Add to Favorite' icon to store 
 10. Shortcode Builder: Create, Import and Customize audio players using shortcodes in real-time
 
 == Changelog ==
+= 5.5 =
+- New: Dark mode for the admin settings and shortcode builder
+- New: Shortcode Builder. Add option to set a preview background color in the builder
+- New: Option to set filename as tracktitle in the main admin page
+- Tweak: Optimized admin speed and prevent useless API Check
+- Tweak: Shortcode Builder UI. No admin notice + Use scrollbars in the builder for better UI
+- Tweak: Admin CSS now use SCSS
+- Fix: When using audio spectrum, the browser memory pilled up even if the track was not playing
+- Fix: PHP error when "this widget" is selected as source and no artwork is set
+- Fix: Set the carousel to Track when current post is used in the player source
+- Fix: Shortcode Builder. The category multicheck was always visible when no category is available
+
 = 5.4.0.2 =
 - Fix: Shortcode builder not loading under certain conditions
 - Fix: Elementor Updater causing error under certain conditions

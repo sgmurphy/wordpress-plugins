@@ -5,13 +5,13 @@ Donate link: https://meowapps.com/donation/
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.9
+Stable tag: 2.2.0
 
-Gallery Custom Links allows you to link images from galleries to a specified URL. Tested with WordPress Gallery, Gutenberg, the Meow Gallery and others.
+Gallery Custom Links allows you to link images to a specified URL. Tested with WordPress Gallery, Gutenberg, the Meow Gallery and others.
 
 == Description ==
 
-Gallery Custom Links allows you to link images from galleries to a specified URL. Tested with WordPress Gallery, Gutenberg, the Meow Gallery and others. The official page is here: [Gallery Custom Links](https://meowapps.com/gallery-custom-links/).
+Gallery Custom Links allows you to link images from galleries to a specified URL. Tested with WordPress Gallery, Gutenberg, the [Meow Gallery](https://wordpress.org/plugins/meow-gallery/) and others. The official page is here: [Gallery Custom Links](https://meowapps.com/gallery-custom-links/).
 
 === Usage ===
 
@@ -48,9 +48,12 @@ Replace all the files. Nothing else to do.
 
 == Changelog ==
 
+= 2.2.0 (2024/06/03) =
+* Add: Updated to the latest libs.
+* Info: If you like the plugin, your reviews are welcome [here](https://wordpress.org/support/plugin/gallery-custom-links/reviews/?rate=5#new-post). Thank you :)
+
 = 2.1.9 (2024/04/06) =
 * Add: Javascript method to rewrite the links. It is the fastest method, but the links won't be hardcoded. Only the visitor will experience the links.
-* Info: If you like the plugin, your reviews are welcome [here](https://wordpress.org/support/plugin/gallery-custom-links/reviews/?rate=5#new-post). Thank you :)
 
 = 2.1.8 (2023/10/23) =
 * Fix: Addressed and prevented timeouts caused by infinite loops associated with ob levels.

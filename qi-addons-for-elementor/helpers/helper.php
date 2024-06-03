@@ -76,7 +76,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_template_part' ) ) {
 	 * @param string $template full path of the template to load
 	 * @param string $slug
 	 * @param array $params array of parameters to pass to template
-	 *
 	 */
 	function qi_addons_for_elementor_template_part( $module, $template, $slug = '', $params = array() ) {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -285,7 +284,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_get_variations_options_map' ) )
 if ( ! function_exists( 'qi_addons_for_elementor_get_select_type_options_pool' ) ) {
 	/**
 	 * Function that returns array with pool of options for select fields in framework
-	 *
 	 *
 	 * @param string $type - type of select field
 	 * @param bool $enable_default - add first element empty for default value
@@ -594,7 +592,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_is_widget_disabled' ) ) {
 
 	/**
 	 * Function that returns array with disabled widgets
-	 *
 	 *
 	 * @param string $type - type of select field
 	 * @param bool $enable_default - add first element empty for default value

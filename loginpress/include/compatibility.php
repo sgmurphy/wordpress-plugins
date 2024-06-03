@@ -123,6 +123,15 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 			 * @since 1.4.0
 			 */
 			add_action( 'init', array( $this, 'aiowps_login_init_remove_action' ) );
+
+			/**
+			 * WPS Hide Login Fix.
+			 *
+			 * @version 3.0.8
+			 */
+			add_filter( 'whl_logged_in_redirect', array( $this, 'wps_hide_login_compatibility'), 10, 3 );
+			add_filter( 'wps_hide_login_before_redirect', array( $this,  'wps_hide_login_redirect' ) );
+
 		}
 
 		/**
@@ -465,6 +474,38 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 			$logo_title = $this->loginpress_key && isset( $this->loginpress_key['customize_logo_hover_title'] ) && ! empty( $this->loginpress_key['customize_logo_hover_title'] ) ? $this->loginpress_key['customize_logo_hover_title'] : get_bloginfo( 'name' );
 
 			return $logo_title;
+		}
+
+		/**
+		 * The redirect of Hide Login compatibility with LoginPress.
+		 *
+		 * @version 3.0.8
+		 */
+		function wps_hide_login_redirect() {
+			return wp_login_url();
+		}
+
+		/**
+		 * Filters the “Go to site” link displayed in the login page footer.
+		 *
+		 * @param string $redirect_to The page where it will be redirected to.
+		 * @param string $requested_redirect_to The requested page to redirect.
+		 * @param object $user The user object.
+		 * @var $user_login passes the user_login element of user to be used in wp-login
+		 * @var $error passes the error element of user to be used in wp-login
+		 *
+		 * @since 3.0.8
+		 */
+		function wps_hide_login_compatibility( $redirect_to, $requested_redirect_to, $user ) {
+			if ( ! headers_sent() ) {
+				// Create these variables to overcome couple PHP Warnings in customizer while calling wp-login.php
+				$user_login = $user->user_login;
+				$error = $user->error;
+				
+				require_once ABSPATH . 'wp-login.php';
+				die();
+			}
+			return false;
 		}
 	}
 endif;

@@ -43,6 +43,10 @@ class Sonaar_Music_Admin {
     
     public $plugin_basename;
 
+    // Global variables to temporarily store the transient value and expiration
+    private $sonaar_music_licence_transient = null;
+    private $sonaar_music_licence_transient_expiration = null;
+
     /**
     * Initialize the class and set its properties.
     *
@@ -86,24 +90,25 @@ class Sonaar_Music_Admin {
         }
         
         if ( is_admin() ) {
-            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/cmb2-post-search-field/cmb2_post_search_field.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/cmb2/init.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/cmb2-post-search-field/cmb2_post_search_field.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/cmb-field-select2-master/cmb-field-select2.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/Shortcode_Button/shortcode-button.php';  
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/Shortcode_Builder/shortcode_builder.php';
-
             if (did_action('elementor/loaded')) {
                 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/srmp3_templates_importer.php';
             }
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/srmp3_templates_shortcode_importer.php';
+            
+            add_action( 'plugins_loaded', array( $this, 'srmp3_addon_api_check' ) );
             add_action( 'wp_ajax_copy_SR_theme_playlist_to_MP3AudioPlayer_playlist', array($this, 'copy_SR_theme_playlist_to_MP3AudioPlayer_playlist'));
             
         }
      
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-sonaar-music-widget.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-sonaar-music-block.php';
-
     }
-
+    
     public function save_cmb2_defaults_on_first_load() {
         /* If main settings are not saved yet, save them with default values */
         $option_keys = [
@@ -166,6 +171,105 @@ class Sonaar_Music_Admin {
 
         return $title;
 
+    }
+    public function prepare_request($action, $args) {
+        global $wp_version;
+        return array(
+            'body' => array(
+                'update_action' => $action, 
+                'request' 		=> $args,
+                'licence' 		=> get_site_option('sonaar_music_licence'),
+                'siteurl' 		=> $_SERVER['SERVER_NAME']
+            ),
+            'user-agent' => 'SRMP3PRO/' . SRMP3PRO_VERSION . ' WordPress/' . $wp_version . '; ' . get_bloginfo('url')
+        );	
+    }
+    public function srp_check_for_plugin_update($checked_data) {
+        if ( !defined( 'SRMP3PRO_VERSION' ) || !defined( 'PLUGIN_INSTALLATION_NAME' ) ) {
+            return $checked_data;
+        }
+
+        $sonaar_music_licence = get_site_option('sonaar_music_licence');
+        
+        if ($sonaar_music_licence == '' ) {
+            return $checked_data;
+        }		
+    
+        if (empty($checked_data->checked)) {
+            return $checked_data;
+        }
+    
+        if ( !empty($checked_data->response) && array_key_exists(PLUGIN_INSTALLATION_NAME, $checked_data->response)){			
+            return $checked_data;
+        }
+
+        $plugin_version = SRMP3PRO_VERSION;
+       
+        // Check for cached update data
+        $cache_key = 'SRMP3_plugin_update_transient';
+        $cached_response = get_site_transient($cache_key);
+        if ($cached_response !== false) {
+            $response = $cached_response;
+        } else {
+            $request_args = array(
+                'slug' => 'sonaar-music-pro',
+                'version' => $plugin_version
+            );
+    
+            $request_string = $this->prepare_request('basic_check', $request_args);
+    
+            //$api_url = 'https://sonaar.io/api/';
+            $api_url = 'https://sonaar.io/wp-json/wp/v2/sonaar-api/version-check/';
+            $raw_response = wp_remote_post($api_url, $request_string);
+    
+            if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200)) {
+                $response = json_decode($raw_response['body']);
+                //cache for 8 hours
+                set_site_transient($cache_key, $response, 8 * HOUR_IN_SECONDS);
+            } else {
+                return $checked_data;
+            }
+        }
+    
+        if (!empty($response)){ // Feed the update data into WP updater            
+            if (version_compare($plugin_version, $response->new_version, '<')) {
+                $checked_data->response[PLUGIN_INSTALLATION_NAME] = $response;
+                $checked_data->checked[PLUGIN_INSTALLATION_NAME] = $response->new_version;
+            } else {
+                $checked_data->no_update[PLUGIN_INSTALLATION_NAME] = $response;
+                $checked_data->checked[PLUGIN_INSTALLATION_NAME] = $plugin_version;
+            }
+        }
+    
+        return $checked_data;
+    }
+    public function capture_sonaar_music_licence_transient($transient) {
+        //Called when our transient is deleted (by old plugin version), we want to save and recreate it to prevent API Check.
+        if ($transient === 'sonaar_music_licence') {
+            // Retrieve the transient value before it is deleted
+            $this->sonaar_music_licence_transient = get_site_transient($transient);
+            // Retrieve the expiration time
+            $option_timeout = '_site_transient_timeout_' . $transient;
+            $expiration_timestamp = get_site_option($option_timeout);
+            // Calculate the remaining time until expiration
+            $this->sonaar_music_licence_transient_expiration = $expiration_timestamp - time();
+        }
+    }
+    public function reset_sonaar_music_licence_transient($transient) {
+        if ($transient === 'sonaar_music_licence') {
+            // Reset the transient with the previously captured value and remaining expiration time to prevent API Check
+            set_site_transient('sonaar_music_licence', $this->sonaar_music_licence_transient, $this->sonaar_music_licence_transient_expiration);
+        }
+    }
+    public function srmp3_addon_api_check(){
+        if( function_exists('run_sonaar_music_pro') ){ 
+            add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'srp_check_for_plugin_update'),99);
+            //Before version 5.4 or lower, the pro version deleted the transient on every admin page load. We want to prevent this with a hook, so we get less call to the API.
+            if ( defined( 'SRMP3PRO_VERSION' ) && version_compare( SRMP3PRO_VERSION, '5.4', '<=' ) ) {   
+                add_action('delete_site_transient_sonaar_music_licence', array($this, 'capture_sonaar_music_licence_transient'));
+                add_action('deleted_site_transient', array($this, 'reset_sonaar_music_licence_transient'), 10, 1);             
+            }        
+        }
     }
 
     public function srmp3_load_plugin_action() {
@@ -327,6 +431,7 @@ class Sonaar_Music_Admin {
                     'reset_shortcode' => esc_html__('Are you sure you want to start with a new shortcode? This will reset the shortcode to its initial state.', 'sonaar-music'),
                     'shortcode_template_imported' => esc_html__('Template imported successfully!', 'sonaar-music'),
                     'notice_from_current_post' => esc_html__('This is a dynamic shortcode and will fetch your single post\'s track(s).', 'sonaar-music'),
+                    'category_not_found' => esc_html__('Category is empty. Please assign a track\'s post to a category first.', 'sonaar-music'),
                 ),
                 'ajax' => array(
                     'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -884,17 +989,6 @@ class Sonaar_Music_Admin {
                     'data-conditional-value' => wp_json_encode( array( 'mediaElement' ) ),
                 ),
             ) ); 
-            
-            $general_options->add_field( array(
-                'name'          => esc_html__('Remember Track Progress', 'sonaar-music'),
-                'id'            => 'track_memory',
-                'type'          => 'switch',
-                'label_cb'      => 'srmp3_add_tooltip_to_label',
-                'tooltip'       => array(
-                    'title'     => '',
-                    'text'      => __('Enable this feature on your player widget to have tracks resume from where the user last stopped listening. Useful for Audio Books, Podcasts and eLearning.', 'sonaar-music'),
-                ),
-            ) ); 
             $general_options->add_field( array(
                 'name'          => esc_html__( 'Playback Speed', 'sonaar-music'),
                 'id'            => 'playback_speed',
@@ -941,6 +1035,37 @@ class Sonaar_Music_Admin {
                 ),
             ) );
             if ( function_exists( 'run_sonaar_music_pro' ) ){
+                $general_options->add_field( array(
+                    'name'          => esc_html__('Remember Track Progress', 'sonaar-music'),
+                    'id'            => 'track_memory',
+                    'type'          => 'switch',
+                    'label_cb'      => 'srmp3_add_tooltip_to_label',
+                    'tooltip'       => array(
+                        'title'     => '',
+                        'text'      => __('Enable this feature on your player widget to have tracks resume from where the user last stopped listening. Useful for Audio Books, Podcasts and eLearning.', 'sonaar-music'),
+                    ),
+                ) ); 
+                $general_options->add_field( array(
+                    'name'          => esc_html__('Use Filenames for Track Titles', 'sonaar-music'),
+                    'id'            => 'use_filenames',
+                    'type'          => 'switch',
+                    'label_cb'      => 'srmp3_add_tooltip_to_label',
+                    'tooltip'       => array(
+                        'title'     => '',
+                        'text'      => __('We will display filenames as track title when this option is enabled.', 'sonaar-music'),
+                    ),
+                ) );
+                $general_options->add_field( array(
+                    'name'          => esc_html__('Remove File extension (eg: .mp3) in the track titles', 'sonaar-music'),
+                    'classes'       => 'srmp3-settings--subitem',
+                    'id'            => 'hide_extension',
+                    'type'          => 'switch',
+                    'label_cb'      => 'srmp3_add_tooltip_to_label',
+                    'attributes'    => array(
+                        'data-conditional-id'    => 'use_filenames',
+                        'data-conditional-value' => 'true',
+                    ),
+                ) ); 
                 $general_options->add_field( array(
                     'name'          => esc_html__('Download Buttons', 'sonaar-music'),
                     'type'          => 'title',
@@ -3497,7 +3622,7 @@ class Sonaar_Music_Admin {
                         'id'            => 'fav_enable_contextual_menu',
                         'type'          => 'switch',
                         'label_cb'      => 'srmp3_add_tooltip_to_label',
-                        'default'       => 'true',
+                        'default'       => 0,
                         'tooltip'       => array(
                             'title'     => '',
                             'text'      => esc_html__('When enabled, the user can hold down the Shift or Command key to select multiple tracks. They can then right-click to remove these selected tracks.', 'sonaar-music'),
@@ -5302,7 +5427,7 @@ class Sonaar_Music_Admin {
                     </div>
                     <div id="srmp3-admin-shortcode-container">
                         <pre id="srmp3-admin-shortcode"></pre>
-                        <button id="srmp3-reset-shortcode" class="button button-primary"><?php echo esc_html__('Create New Shortcode', 'sonaar-music');?></button>
+                        <button id="srmp3-reset-shortcode" class="button button-primary srmp3-admin-button"><?php echo esc_html__('Create New Shortcode', 'sonaar-music');?></button>
                         <button id="srmp3-copy-shortcode" class="button button-primary srmp3-admin-button"><span class="dashicons dashicons-admin-page"></span><span class="srmp3-copy-shortcode-text"><?php echo esc_html__('Copy to Clipboard', 'sonaar-music');?></span></button>
                     </div>
                 </div>

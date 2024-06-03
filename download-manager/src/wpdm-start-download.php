@@ -50,7 +50,7 @@ $files = array_values($files);
 $fileCount = count($files) && $files[0] !== '' ? 1 : 0;
 
 if($fileCount === 0){
-    Messages::fullPage(__( "No Files", "download-manager" ),  __( "No file is attached with this package!", "download-manager" ));
+    Messages::fullPage(__( "No Files", "download-manager" ),  \WPDM\__\UI::div(__( "No file is attached with this package!", "download-manager" ), "alert alert-danger d-inline-block"));
 }
 
 //$idvdl = Individual file download status

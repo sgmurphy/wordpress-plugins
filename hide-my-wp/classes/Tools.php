@@ -170,11 +170,25 @@ class HMWP_Classes_Tools
             'hmwp_activity_log_roles' => array(),
             'hmwp_email_address' => '',
 
+            //-- Firewall
+            'whitelist_ip' => array(),
+            'whitelist_paths' => 0,
+            'whitelist_urls' => array(),
+            'banlist_ip' => array(),
+            'banlist_hostname' => array(),
+            'banlist_user_agent' => array(),
+            'banlist_referrer' => array(),
+
             //Temporary Login
             'hmwp_templogin' => 0,
             'hmwp_templogin_role' => 'administrator',
             'hmwp_templogin_redirect' => false,
             'hmwp_templogin_delete_uninstal' => false,
+
+            //Geoblock Login
+            'hmwp_geoblock' => 0,
+            'hmwp_geoblock_countries' => array(),
+            'hmwp_geoblock_urls' => array(),
 
             //2FA Login
             'hmwp_2falogin' => 0,
@@ -191,10 +205,6 @@ class HMWP_Classes_Tools
             'hmwp_bruteforce_register' => 0,
             'hmwp_bruteforce_lostpassword' => 0,
             'hmwp_brute_message' => esc_html__('Your IP has been flagged for potential security violations. Please try again in a little while...', 'hide-my-wp'),
-            'whitelist_ip' => array(),
-            'whitelist_urls' => array(),
-            'whitelist_level' => 0,
-            'banlist_ip' => array(),
             'hmwp_hide_classes' => json_encode(array()),
             'trusted_ip_header' => '',
 
@@ -2197,22 +2207,28 @@ class HMWP_Classes_Tools
     }
 
     /**
-     * Search part of string in array
+     * Search path in array of paths
      *
      * @param string $needle
      * @param array $haystack
      *
      * @return bool
      */
-    public static function searchInString( $string, $haystack )
+    public static function searchInString( $needle, $haystack )
     {
         foreach ( $haystack as $value ) {
-            if($string && $value && $string <> '' && $value <> '') {
+            if($needle && $value && $needle <> '' && $value <> '') {
+
+                //add trail slash to make sure the path matches entirely
+                $needle = trailingslashit($needle);
+                $value = trailingslashit($value);
+
+                //use mb_stripos is possible
                 if (function_exists('mb_stripos')) {
-                    if (mb_stripos($string, $value) !== false) {
+                    if (mb_stripos($needle, $value) !== false) {
                         return true;
                     }
-                } elseif (stripos($string, $value) !== false) {
+                } elseif (stripos($needle, $value) !== false) {
                     return true;
                 }
             }

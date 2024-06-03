@@ -168,6 +168,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_generate_elementor_templates_co
 if ( ! function_exists( 'qi_addons_for_elementor_explode_link_custom_attributes' ) ) {
 	/**
 	 * Function that explodes custom_attributes string into an array
+	 *
 	 * @param string $custom_attributes
 	 *
 	 * @return array

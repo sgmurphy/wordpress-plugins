@@ -8,7 +8,7 @@ Author: WPMU DEV
 Requires at least: 5.5
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 3.10.6
+Stable tag: 3.10.8
 
 SEO checker, content analysis & SEO optimizer. Rank higher on search engines with 301 redirects, XML sitemaps & one-click setup.
 
@@ -19,6 +19,11 @@ SEO checker, content analysis & SEO optimizer. Rank higher on search engines wit
 If you're looking for the best SEO plugin for WordPress, you need to give SmartCrawl a try. With SmartCrawl, there's no more juggling settings, making guesses, and wondering if your SEO is properly optimized. Use SmartCrawl’s one-click setup, automatic XML sitemaps, improved social sharing, real-time keyword and content analysis, and scans and reports.
 
 Create clear, bold, targeted content and rank at the top of your favorite search engine – from Google to Bing.
+
+**Access the complete SEO tool suite from the start with [SmartCrawl Pro](https://wpmudev.com/project/smartcrawl-wordpress-seo/).**
+
+Level up immediately with exclusive Pro features like scheduled SEO audits & URL crawls, automatic linking, and location based redirects. [Learn more about Pro](https://wpmudev.com/project/smartcrawl-wordpress-seo/). 
+
 
 ### SmartCrawl’s SEO Tools for WordPress Include:
 * One-Click Setup Wizard – Activate settings to boost your reach – no more guesswork!
@@ -143,6 +148,14 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 4. Use OpenGraph and Twitter Cards to optimize social sharing.
 
 == Changelog ==
+
+= 3.10.8 ( 2024-06-03 ) =
+
+- Enhance: Data tracking improvements
+- Fix: Advanced Tools missing from modules and sub menu when applied from configs
+- Fix: Redirect from URL adds a space when "%20" is used
+- Fix: Incorrect URL in Content Analysis when duplicate primary focus keyword is used
+- Fix: Auto generate SEO Title and Meta Description not appearing
 
 = 3.10.6 ( 2024-05-10 ) =
 

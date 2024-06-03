@@ -213,15 +213,15 @@ class Templates
 	    die("Done!");
     }
 
-    function updateTemplateStatus(){
+	function updateTemplateStatus(){
 		__::isAuthentic('tsnonce', WPDM_PRI_NONCE, WPDM_ADMIN_CAP);
-        $type = wpdm_query_var('type');
-        $tpldata = maybe_unserialize(get_option("_fm_{$type}_template_status"));
-        $tpldata[wpdm_query_var('template')] = wpdm_query_var('status');
-        update_option("_fm_{$type}_template_status", $tpldata, false);
-        echo "OK";
-        die();
-    }
+		$type = wpdm_query_var('type', 'txt');
+		$tpldata = maybe_unserialize(get_option("_fm_{$type}_template_status"));
+		$tpldata[wpdm_query_var('template')] = wpdm_query_var('status', 'int');
+		update_option("_fm_{$type}_template_status", $tpldata, false);
+		echo "OK";
+		die();
+	}
 
     function introduceCustomTags($vars, $template, $type){
         $upload_dir = wp_upload_dir();

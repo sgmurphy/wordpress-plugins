@@ -429,4 +429,16 @@ class Collection {
 
 		return true;
 	}
+
+	/**
+	 * Update config option wds_blog_tabs settings.
+	 *
+	 * @param $config_id
+	 * @param $config_data
+	 *
+	 * @return void
+	 */
+	public function update_config_blog_tabs_settings( $config_id, $config_data ): void {
+		update_option( $this->config_option_id( $config_id ), $config_data, false );
+	}
 }

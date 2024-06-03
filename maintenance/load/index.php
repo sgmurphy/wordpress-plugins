@@ -68,6 +68,14 @@ $bunny_fonts = mtnc_add_bunny_fonts();
 	<link rel="pingback" href="<?php esc_url( bloginfo( 'pingback_url' ) ); ?>" />
 	<?php do_action( 'load_custom_style' ); ?>
 	<?php do_action( 'add_gg_analytics_code' ); ?>
+
+    <?php
+    if (mtnc_is_weglot_setup()) {
+        echo '<link rel="stylesheet" href="' . esc_url(WEGLOT_URL_DIST . '/css/front-css.css?v=' . WEGLOT_VERSION) . '" type="text/css">';
+        echo '<script src="' . esc_url(WEGLOT_URL_DIST . '/front-js.js?v=' . WEGLOT_VERSION) . '"></script>';
+    }
+    ?>
+
 	<!--[if IE]>
 	<style type="text/css">
 

@@ -27,12 +27,15 @@ class Helpers {
 			true
 		);
 
+		global $wp_version;
+
 		wp_localize_script(
 			'qlwapp-helpers',
 			'qlwappHelpers',
 			array(
 				'WP_LANGUAGE'                 => get_locale(),
 				'WP_STATUSES'                 => get_post_statuses(),
+				'WP_VERSION'                  => $wp_version,
 				'QLWAPP_PLUGIN_URL'           => plugins_url( '/', QLWAPP_PLUGIN_FILE ),
 				'QLWAPP_PLUGIN_NAME'          => QLWAPP_PLUGIN_NAME,
 				'QLWAPP_PLUGIN_VERSION'       => QLWAPP_PLUGIN_VERSION,

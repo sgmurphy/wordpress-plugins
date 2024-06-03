@@ -686,18 +686,6 @@ class GlobalSearchController {
 	}
 
 	/**
-	 * Fetch operators.
-	 *
-	 * @return array
-	 */
-	public function search_condition_operators() {
-		return [
-			'options' => EventHelperController::get_instance()->prepare_operators(),
-			'hasMore' => false,
-		];
-	}
-
-	/**
 	 * Prepare post types.
 	 *
 	 * @param array $data data.

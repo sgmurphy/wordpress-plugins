@@ -42,6 +42,7 @@ class Sonaar_Music_Widget extends WP_Widget{
         
             
         );
+        add_filter( 'srmp3_track_title', array($this, 'srmp3_track_title' ), 10, 3);
         add_action('srmp3player_after_register_post_type', function () {
             $this->sr_playlist_cpt =  (defined( 'SR_PLAYLIST_CPT' )) ? SR_PLAYLIST_CPT : 'sr_playlist';
             if ( isset($_GET['load']) && $_GET['load'] == 'playlist.json' ) {     
@@ -51,7 +52,17 @@ class Sonaar_Music_Widget extends WP_Widget{
         parent::__construct('sonaar-music', esc_html_x('Sonaar: Music Player', 'Widget', 'sonaar-music'), $widget_ops);
         
     }
-    
+    public function srmp3_track_title($track_title, $mp3_id, $audioSrc){
+        if (Sonaar_Music::get_option('use_filenames', 'srmp3_settings_general') === 'true') {
+            if (Sonaar_Music::get_option('hide_extension', 'srmp3_settings_general') === 'true') {
+                $track_title = pathinfo($audioSrc, PATHINFO_FILENAME);
+            } else {
+                $track_title = basename($audioSrc);
+            }
+        }
+        //add filter to filter the track_title
+        return $track_title;
+    }
     /**
     * Front-end display of widget.
     */
@@ -750,6 +761,9 @@ class Sonaar_Music_Widget extends WP_Widget{
         
         foreach( $playlist['tracks'] as $key1 => $track){
             $allAlbums = explode(', ', $albums);
+            if(! isset( $track['poster'] ) || $track['poster'] === null){
+                $track['poster'] = '';
+            }
             if( $playlistID == $track['sourcePostID'] ){
                 $trackCountFromPlaylist++;
             }else{
@@ -816,11 +830,12 @@ class Sonaar_Music_Widget extends WP_Widget{
             }
             
             $imageFormat = ( isset( $this->shortcodeParams['track_artwork_format'] ) )? $this->shortcodeParams['track_artwork_format'] : 'thumbnail' ;
+
             $track_image_url = (($track_artwork && isset($track['track_image_id'])) && ($track['track_image_id'] != 0)) ? wp_get_attachment_image_src($track['track_image_id'], $imageFormat, true)[0] : $track['poster'] ;
             $coverSpacer = ($custom_fields_columns && $track_artwork)? '<span class="sr_track_cover srp_spacer"></span>': '';
 
             $track_artwork_container = ( $this->getOptionValue('track_artwork_play_button') ) ? '<div class="sr_track_cover"><div class="srp_play"><i class="sricon-play"></i></div><img src=' . esc_url( $track_image_url ) . ' alt="track-artwork" /></div>' : '<img src=' . esc_url( $track_image_url ) . ' alt="track-artwork" class="sr_track_cover" />' ;
-            $track_artwork_value = ($track_artwork && $track_image_url) ? $track_artwork_container : $coverSpacer ;
+            $track_artwork_value = ($track_artwork && $track_image_url != '') ? $track_artwork_container : $coverSpacer ;
             
             if(isset($track['published_date']) ){
                 $date_obj = new DateTime($track['published_date']); 
@@ -3512,7 +3527,7 @@ class Sonaar_Music_Widget extends WP_Widget{
 
     private function get_playlist($album_ids = array(), $category = null, $posts_not_in = null, $category_not_in = null, $title = null, $feed_title = null, $feed = null, $feed_img = null, $el_widget_id = null, $artwork = null, $posts_per_pages = null, $all_category = null, $single_playlist = false, $reverse_tracklist = false, $audio_meta_field = null, $repeater_meta_field = null, $player = 'widget', $track_desc_postcontent  = null, $import_file = null, $rss_items = -1, $rss_item_title = null, $isPlayer_Favorite = null, $isPlayer_recentlyPlayed = null) {
         // Capture the start time
-   // $start_time = microtime(true);
+        // $start_time = microtime(true);
         global $post;
         $playlist = array();
         $tracks = array();
@@ -3666,10 +3681,16 @@ class Sonaar_Music_Widget extends WP_Widget{
                         if (!in_array('product', $args['post_type'])) {
                             $args['post_type'][] = 'product';
                         }
-                    } 
-                }
+                    }
 
+                }
             }
+            if ( isset($audio_meta_field) && $audio_meta_field != '' && count($album_ids) == 1){ // If the source is the currentPost add the current post type to the query
+                $postTypeFromTheCurrentPost = get_post_type(intval($album_ids[0])); 
+                if($postTypeFromTheCurrentPost !== false && !in_array($postTypeFromTheCurrentPost, $args['post_type']) ){
+                    $args['post_type'][] = $postTypeFromTheCurrentPost;
+                }
+            }   
             $albums = get_posts($args);
         }else{
             // retrieve albums from category
@@ -3745,6 +3766,7 @@ class Sonaar_Music_Widget extends WP_Widget{
                     }
                     $track_title = ( get_the_title( $mp3_id ) !== '' && $track_title !== get_the_title( $mp3_id ) ) ? get_the_title( $mp3_id ) : $track_title;
                     $track_title = html_entity_decode( $track_title, ENT_COMPAT, 'UTF-8' );
+                    $track_title = apply_filters('srmp3_track_title', $track_title, $mp3_id, $audioSrc);
 
 
                 }else if( isset( $album_tracks[$i]['feed_source_external_url']['url'] ) ){
@@ -3824,7 +3846,6 @@ class Sonaar_Music_Widget extends WP_Widget{
                 $num = 1;
                 for($i = 0 ; $i < count($feed_ar) ; $i++) {
                     $track_title = ( isset( $feed_title_ar[$i] )) ? $feed_title_ar[$i] : false;
-
                     if ( isset($feed_img_ar[$i]) ){
                         $thumb_url = $feed_img_ar[$i];
                     }else{
@@ -3837,11 +3858,13 @@ class Sonaar_Music_Widget extends WP_Widget{
                     $audioSrc = trim($audioSrc);
                     $showLoading = true;
                     ////////
+                    $track_title = apply_filters('srmp3_track_title', $track_title, null, $audioSrc);
+
                     $album_tracks[$i] = array();
                     $album_tracks[$i]["id"] = '';
                     $album_tracks[$i]["mp3"] = $audioSrc;
                     $album_tracks[$i]["loading"] = $showLoading;
-                    $album_tracks[$i]["track_title"] = ( $track_title )? $track_title : "Track ". $num;
+                    $album_tracks[$i]["track_title"] = ( $track_title )? $track_title : pathinfo($audioSrc, PATHINFO_FILENAME);
                     $album_tracks[$i]["track_artist"] = ( isset( $track_artist ) && $track_artist != '' )? $track_artist : '';
                     $album_tracks[$i]["length"] = false;
                     $album_tracks[$i]["peak_allow_frontend"] = 'name';
@@ -3897,7 +3920,7 @@ class Sonaar_Music_Widget extends WP_Widget{
                 }else{
                     array_push($album_tracks, $audio_meta_field);
                 }
-                
+
                 $wc_add_to_cart = $this->wc_add_to_cart($a->ID);
                 $wc_buynow_bt =  $this->wc_buynow_bt($a->ID);
                 $is_variable_product = ($wc_add_to_cart == 'true' || $wc_buynow_bt == 'true' ) ? $this->is_variable_product($a->ID) : '';
@@ -3980,13 +4003,16 @@ class Sonaar_Music_Widget extends WP_Widget{
                                         }
                                     break;
                                 }
+
+                                    $audioSrc = ($audioSrc == '') ? wp_get_attachment_url($mp3_id) : $audioSrc ;
                                     $track_title = ( isset( $mp3_metadata["title"] ) && $mp3_metadata["title"] !== '' )? $mp3_metadata["title"] : '' ;
                                     $track_title = ($track_title == '') ? get_the_title($a) : $track_title;
                                     $track_title = html_entity_decode($track_title, ENT_COMPAT, 'UTF-8');
+                                    $track_title = apply_filters('srmp3_track_title', $track_title, $mp3_id, $audioSrc);
+
                                     $track_artist = ( isset( $mp3_metadata['artist'] ) && $mp3_metadata['artist'] !== '' )? $mp3_metadata['artist'] : false;
                                     $album_title = ( isset( $mp3_metadata['album'] ) && $mp3_metadata['album'] !== '' )? $mp3_metadata['album'] : get_the_title($a->ID);
                                     $track_length = ( isset( $mp3_metadata['length_formatted'] ) && $mp3_metadata['length_formatted'] !== '' )? $mp3_metadata['length_formatted'] : false;
-                                    $audioSrc = ($audioSrc == '') ? wp_get_attachment_url($mp3_id) : $audioSrc ;
                                     $showLoading = true;
                                 break;
                         }
@@ -4164,17 +4190,21 @@ class Sonaar_Music_Widget extends WP_Widget{
                             case 'mp3':
                                 if ( isset( $album_tracks[$i]["track_mp3"] ) ) {
                                     $mp3_id = $album_tracks[$i]["track_mp3_id"];
+                                    $audioSrc = wp_get_attachment_url($mp3_id);
                                     $mp3_metadata = wp_get_attachment_metadata( $mp3_id );
                                     $track_title = ( isset( $mp3_metadata["title"] ) && $mp3_metadata["title"] !== '' )? $mp3_metadata["title"] : false ;
                                     $track_title = ( get_the_title($mp3_id) !== '' && $track_title !== get_the_title($mp3_id))? get_the_title($mp3_id): $track_title;
                                     $track_title = html_entity_decode($track_title, ENT_COMPAT, 'UTF-8');
+                                    $track_title = apply_filters('srmp3_track_title', $track_title, $mp3_id, $audioSrc);
                                     $track_artist = ( isset( $mp3_metadata['artist'] ) && $mp3_metadata['artist'] !== '' )? $mp3_metadata['artist'] : false;
                                     $album_title = ( isset( $mp3_metadata['album'] ) && $mp3_metadata['album'] !== '' )? $mp3_metadata['album'] : false;
                                     $track_length = ( isset( $mp3_metadata['length_formatted'] ) && $mp3_metadata['length_formatted'] !== '' )? $mp3_metadata['length_formatted'] : false;
                                     $media_post = get_post( $mp3_id );
                                     $track_description = ( isset ($album_tracks[$i]["track_description"]) && $album_tracks[$i]["track_description"] !== '' )? $album_tracks[$i]["track_description"] : false;
-                                    $audioSrc = wp_get_attachment_url($mp3_id);
                                     $showLoading = true;
+                                    
+                                    
+
                                 }
                                 break;
 
@@ -4182,6 +4212,8 @@ class Sonaar_Music_Widget extends WP_Widget{
                                 
                                 $audioSrc = ( array_key_exists ( "stream_link" , $album_tracks[$i] ) && $album_tracks[$i]["stream_link"] !== '' )? $album_tracks[$i]["stream_link"] : false;
                                 $track_title = (  array_key_exists ( 'stream_title' , $album_tracks[$i] ) && $album_tracks[$i]["stream_title"] !== '' )? $album_tracks[$i]["stream_title"] : false;
+                                $track_title = apply_filters('srmp3_track_title', $track_title, null, $audioSrc);
+
                                 $album_title = ( isset ($album_tracks[$i]["stream_album"]) && $album_tracks[$i]["stream_album"] !== '' )? $album_tracks[$i]["stream_album"] : false;
                                 $track_artist = ( isset ($album_tracks[$i]["artist_name"]) && $album_tracks[$i]["artist_name"] !== '' )? $album_tracks[$i]["artist_name"] : false;
                                 $track_description = ( isset ($album_tracks[$i]["track_description"]) && $album_tracks[$i]["track_description"] !== '' )? $album_tracks[$i]["track_description"] : false;
@@ -4483,7 +4515,9 @@ public function importFile($import_file, $a = null, $combinedtracks = false, $rs
                     }
                 }
                 $audioSrc = isset($data_row['track_url']) ? $data_row['track_url'] : '';
-                
+                $track_title = isset($data_row['track_title']) ? $data_row['track_title'] : '';
+                $track_title = apply_filters('srmp3_track_title', $track_title, null, $audioSrc);
+
                 $track = [
                     'id' => '',
                     'playlist_name' => isset($data_row['playlist_name']) ? $data_row['playlist_name'] : '',
@@ -4491,7 +4525,7 @@ public function importFile($import_file, $a = null, $combinedtracks = false, $rs
                     'mp3' => $audioSrc,
                     'loading' => true,
                     'category_slug' => isset($data_row['playlist_category']) ? $data_row['playlist_category'] : '',
-                    'track_title' => isset($data_row['track_title']) ? $data_row['track_title'] : '',
+                    'track_title' => $track_title,
                     'track_artist' => isset($data_row['track_artist']) ? $data_row['track_artist'] : '',
                     'length' => isset($data_row['track_length']) ? $data_row['track_length'] : '',
                     'album_title' => isset($data_row['album_title']) ? $data_row['album_title'] : '',

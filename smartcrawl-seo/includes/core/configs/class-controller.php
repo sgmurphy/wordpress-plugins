@@ -183,8 +183,12 @@ class Controller extends Controllers\Controller {
 		if ( ! $config_json ) {
 			wp_send_json_error();
 		}
-
-		$config = Model::inflate( json_decode( $config_json, true ) );
+		$config_json   = json_decode( $config_json, true );
+		$wds_blog_tabs = $config_json['configs']['options']['wds_blog_tabs'] ?? array();
+		if ( isset( $wds_blog_tabs['wds_autolinks'] ) ) {
+			$config_json['configs']['options']['wds_blog_tabs'][ Settings::ADVANCED_MODULE ] = $wds_blog_tabs['wds_autolinks'];
+		}
+		$config = Model::inflate( $config_json );
 		if ( ! $config->get_id() ) {
 			wp_send_json_error();
 		}

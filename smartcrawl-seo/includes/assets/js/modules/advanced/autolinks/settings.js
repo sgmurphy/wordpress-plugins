@@ -183,7 +183,6 @@ class Settings extends React.Component {
 										onChange={(val) =>
 											updateOption(key, val)
 										}
-										disabled={loading}
 									/>
 								</div>
 							</div>

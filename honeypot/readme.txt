@@ -45,6 +45,7 @@ This plugins block spam submissions using honeypot anti spam technic. No Captcha
 * S2 Members (<a href="https://s2member.com">s2member.com</a>)
 * Ulimate Members (<a href="https://ultimatemember.com/">ultimatemember.com</a>)
 * Bricks Builder Form (<a href="https://bricksbuilder.io/">bricksbuilder.io</a>)
+* BricksForge Pro Form (<a href="https://bricksforge.io/">bricksforge.io</a>)
 * Strong Testimonials (<a href="https://wordpress.org/plugins/strong-testimonials/">wordpress.org/plugins/strong-testimonials</a>)
 * Formcraft Form (<a href="https://formcraft-wp.com/">formcraft-wp.com</a>)
 * Forminator Form (<a href="https://wordpress.org/plugins/forminator/">wordpress.org/plugins/forminator</a>)

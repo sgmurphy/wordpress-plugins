@@ -1223,6 +1223,9 @@ class Quiz_Maker_Public
         // Right answer transform size
         $quiz_right_answer_text_transform = (isset($options[ 'quiz_right_answer_text_transform' ]) && $options[ 'quiz_right_answer_text_transform' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_right_answer_text_transform' ] ) ) : 'none';
 
+        // Right answer text decoration
+        $quiz_right_answers_text_decoration = (isset($options[ 'quiz_right_answers_text_decoration' ]) && $options[ 'quiz_right_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_right_answers_text_decoration' ] ) ) : 'none';
+
         // Font size for the Note text | PC
         $note_text_font_size = (isset($options['note_text_font_size']) && $options['note_text_font_size'] != '') ? absint(esc_attr($options['note_text_font_size'])) : '14';
 
@@ -3377,11 +3380,12 @@ class Quiz_Maker_Public
 
             #ays-quiz-container-" . $id . " .ays_questtion_explanation * {
                 text-transform:" . $quiz_quest_explanation_text_transform . ";
-                text-decoration: ". $quiz_quest_explanation_text_decoration ."
+                text-decoration: ". $quiz_quest_explanation_text_decoration .";
             }
 
             #ays-quiz-container-" . $id . " .right_answer_text * {
                 text-transform:" . $quiz_right_answer_text_transform . ";
+                text-decoration: ". $quiz_right_answers_text_decoration .";
             }
 
             #ays-quiz-container-" . $id . " .right_answer_text p {
@@ -3394,7 +3398,7 @@ class Quiz_Maker_Public
 
             #ays-quiz-container-" . $id . " .ays-quiz-question-note-message-box * {
                 text-transform:" . $quiz_admin_note_text_transform . ";
-                text-decoration: ". $quiz_admin_note_text_decoration ."
+                text-decoration: ". $quiz_admin_note_text_decoration .";
             }
             
             #ays-quiz-container-" . $id . " .ays_cb_and_a,

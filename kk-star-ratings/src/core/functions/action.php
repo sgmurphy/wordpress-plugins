@@ -18,6 +18,7 @@ if (! defined('KK_STAR_RATINGS')) {
     exit();
 }
 
+// alias for do_action
 function action(string $tag, ...$args): void
 {
     base_action('Bhittani\StarRating\core\actions', $tag, ...$args);

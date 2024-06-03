@@ -123,8 +123,7 @@ if ( ! class_exists( 'Shortcode_Button_107', false ) ) {
 			}
 			
 			$link = 'https://sonaar.io/docs/how-to-update-mp3-audio-player-pro/';
-
-			$message = '<p>' . __( 'MP3 Audio Player <strong>PRO Addon</strong> must be updated to <strong>v.' . SRMP3_PRO_MIN_VERSION . '</strong> or higher. You are currently using v.' . SRMP3PRO_VERSION . '. Your audio player might not be working properly.', 'sonaar-music' ) . '</p>';
+			$message = '<p>' . __( '<strong>Take action now</strong> to ensure your MP3 Audio Player continues to work. Your player is currently <strong>NOT working properly</strong>. MP3 Audio Player by Sonaar - Pro Addon <strong>must be updated</strong> to <strong>v.' . SRMP3_PRO_MIN_VERSION . '</strong>. You are currently using v.' . SRMP3PRO_VERSION . '.', 'sonaar-music' ) . '</p>';
 			$message .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $link, __( 'Learn how to update', 'sonaar-music-pro' ) ) . '</p>';
 			
 		

@@ -179,6 +179,19 @@ abstract class Service {
 	}
 
 	/**
+	 * Get Dashboard site ID
+	 *
+	 * @return int|bool
+	 */
+	public function get_dashboard_site_id() {
+		if ( $this->has_dashboard() ) {
+			return \WPMUDEV_Dashboard::$api->get_site_id();
+		}
+
+		return false;
+	}
+
+	/**
 	 * Check if the user can install dashboard
 	 *
 	 * @return bool

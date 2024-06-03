@@ -1,10 +1,10 @@
 === WP Chat App ===
 Contributors: ninjateam
-Donate link: https://codecanyon.net/item/whatsapp-chat-wordpress/22800580
+Donate link: https://1.envato.market/WP-WhatsApp
 Tags: whatsapp, whatsapp chat, woocommerce whatsapp, click to chat, whatsapp business, whats app, wame, wp social chat, join chat, wp whatsapp
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 3.6.5
+Stable tag: 3.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,7 +105,7 @@ It's perfect to combine WhatsApp customer support plugin with [WooCommerce plugi
 - WP Chat App plugin is optimized for WooCommerce product pages.
  
 == Installation ==
-Manual installation is easy and takes fewer than one minute.
+Manual installation is easy and takes less than one minute.
 
 1. Download the plugin from wordpress.org, unpack it and upload the <strong>[WP WhatsApp]</strong> folder to your <strong>wp-content/plugins/</strong> directory.
 2. Activate the plugin through the ‘Plugins‘ menu in WordPress.
@@ -120,14 +120,14 @@ Enjoy conversations with your customers anytime & anywhere! It's never been easi
 Definitely yes! You can enable built-in GDPR cookie notice checkbox so that the visitors have to tick to agree with your terms and conditions before sending messages. 
 
 = Does it work with multi-language site? =
-Yes, You can use translation plugins like WPML to translate any languages on your site easily and quickly.
+Yes, You can use translation plugins like [WPML](https://ninjateam.gitbook.io/whatsapp-for-wordpress/integrations/wpml) to translate any languages on your site easily and quickly.
 
 = I have some issues. How can I find help? =
 Check out our [tutorial](https://ninjateam.org/wordpress-whatsapp-chat-tutorial/) to see all the setup guide. 
 Wanna get in touch? Drop us an email or message [here](https://ninjateam.org/support/).
 
 = Should I buy the premium WhatsApp plugin? =
-Definitely yes! The pro version comes with cutting edge features and performance. Backed by VIP chat support, you will get it done in no time. [Go pro today](https://1.envato.market/WP-WhatsApp) with one-time payment and lifetime updates!
+Definitely yes! The pro version comes with cutting-edge features and performance. Backed by VIP chat support, you will get it done in no time. [Go pro today](https://1.envato.market/WP-WhatsApp) with one-time payment and lifetime updates!
 
 == Screenshots ==
 1. Allows you to integrate your WhatsApp experience directly into your WordPress website
@@ -135,6 +135,10 @@ Definitely yes! The pro version comes with cutting edge features and performance
 3. WhatsApp Gutenberg Block Demo
 
 == Changelog ==
+
+= Jun 3, 2024 – Version 3.6.6 =
+- Improved: Web accessibility (using Tab and Shift + Tab to navigate the chat modal)
+- Fixed: Missing text
 
 = May 10, 2024 – Version 3.6.5 =
 - Fixed: CleanTalk security report

@@ -2,11 +2,11 @@
 === kk Star Ratings - Rate Post & Collect User Feedbacks ===
 Contributors: bhittani, collizo4sky
 Donate link: https://feedbackwp.com/
-Tags: star ratings, voting, rate post, ajax ratings, feedback, unlimited stars, google rich snippets, structured data, SEO, SERP
+Tags: star ratings, voting, rate post, ajax ratings, feedback
 Requires at least: 5.0
 Requires PHP: 7.2
-Tested up to: 6.5
-Stable tag: 5.4.7
+Tested up to: 6.4
+Stable tag: 5.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,13 +106,14 @@ The source of this plugin is located at [Github](https://github.com/kamalkhan/kk
 
 == Changelog ==
 
-= 5.4.7 =
+= 5.4.8 =
+* Fixed bug where rating didn't work with posts with quotation mark in title.
 
+= 5.4.7 =
 * Upgraded Freemius to 2.6.2
 * Improved PHP 8 compatibility.
 
 = 5.x =
-
 - [View Changelog](https://github.com/kamalkhan/kk-star-ratings/blob/master/CHANGELOG.md)
 
 = 4.x =

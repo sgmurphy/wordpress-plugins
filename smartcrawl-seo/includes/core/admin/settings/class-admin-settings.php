@@ -185,7 +185,7 @@ abstract class Admin_Settings extends Settings {
 
 		$this->smartcrawl_page_hook = add_submenu_page(
 			'wds_wizard',
-			$this->page_title,
+			$this->get_page_title(),
 			$title,
 			$this->capability,
 			$this->slug,
@@ -377,5 +377,14 @@ abstract class Admin_Settings extends Settings {
 	 */
 	protected function get_active_tab( $default_tab = '' ) {
 		return empty( $_GET['tab'] ) ? $default_tab : sanitize_text_field( wp_unslash( $_GET['tab'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+
+	/**
+	 * Get page Title
+	 *
+	 * @return string
+	 */
+	public function get_page_title() {
+		return str_replace( 'SmartCrawl', \smartcrawl_get_plugin_title(), $this->page_title );
 	}
 }

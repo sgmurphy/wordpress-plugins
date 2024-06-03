@@ -10,8 +10,8 @@ namespace SmartCrawl\Mixpanel;
 
 use SmartCrawl\Logger;
 use SmartCrawl\Singleton;
-use Smartcrawl_Vendor\Mixpanel as Mixpanel_Lib;
 use Smartcrawl_Vendor\Detection\MobileDetect;
+use WPMUDEV_Analytics;
 
 /**
  * Mixpanel main class.
@@ -28,7 +28,7 @@ class Mixpanel {
 	/**
 	 * Mixpanel instance.
 	 *
-	 * @var Mixpanel_Lib
+	 * @var WPMUDEV_Analytics
 	 */
 	private $mixpanel = null;
 
@@ -38,22 +38,14 @@ class Mixpanel {
 	 * @since 3.7.0
 	 */
 	protected function __construct() {
-		if ( null === $this->mixpanel ) {
-			// Create new mixpanel instance.
-			$this->mixpanel = Mixpanel_Lib::getInstance(
-				self::TOKEN,
-				array(
-					'error_callback' => array( $this, 'handle_error' ),
-					// Fix class name error due to dynamic class names are not available on prefixed lib.
-					'consumers'      => array(
-						'file'   => '\Smartcrawl_Vendor\ConsumerStrategies_FileConsumer',
-						'curl'   => '\Smartcrawl_Vendor\ConsumerStrategies_CurlConsumer',
-						'socket' => '\Smartcrawl_Vendor\ConsumerStrategies_SocketConsumer',
-					),
-					'consumer'       => 'socket',
-				)
-			);
-
+		if ( is_null( $this->mixpanel ) ) {
+			if ( ! class_exists( 'WPMUDEV_Analytics' ) ) {
+				require_once SMARTCRAWL_PLUGIN_DIR . 'external/wpmudev-analytics/autoload.php';
+			}
+			$extra_options  = [
+				'consumer'  => 'socket',
+			];
+			$this->mixpanel = new WPMUDEV_Analytics( 'smartcrawl', 'SmartCrawl', 55, self::TOKEN, $extra_options );
 			// Configure mixpanel.
 			$this->mixpanel->identify( $this->identity() );
 			$this->mixpanel->registerAll( $this->super_properties() );
@@ -67,7 +59,7 @@ class Mixpanel {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @return Mixpanel_Lib
+	 * @return WPMUDEV_Analytics
 	 */
 	public function tracker() {
 		return $this->mixpanel;

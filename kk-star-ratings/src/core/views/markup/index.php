@@ -26,7 +26,7 @@
 ?>
 
 <div class="<?php echo implode(' ', array_filter(array_map('esc_attr', $class))); ?>"
-    data-payload='<?php echo esc_attr(json_encode(array_map('esc_attr', $__payload))); ?>'>
+    data-payload='<?php echo esc_attr(json_encode(array_map('esc_attr', $__payload), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)); ?>'>
     <?php if (! $legendonly) { ?>
         <?php echo $__view('markup/stars.php'); ?>
     <?php } ?>

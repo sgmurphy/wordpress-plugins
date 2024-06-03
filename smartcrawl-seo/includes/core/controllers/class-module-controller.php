@@ -234,10 +234,11 @@ abstract class Module_Controller extends Controller {
 	public function admin_menu() {
 		$menu_title = apply_filters( 'smartcrawl_admin_settings_submenu_title', $this->module_title, $this->module_name );
 		$menu_title = wp_kses( $menu_title, array( 'span' => array( 'class' => array() ) ) );
+		$page_title = Admin_Settings::get()->get_page_title();
 
 		$this->hook_suffix = add_submenu_page(
 			'wds_wizard',
-			$this->page_title,
+			$page_title,
 			$menu_title,
 			$this->capability,
 			$this->module_name,

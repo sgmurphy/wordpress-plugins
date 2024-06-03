@@ -87,73 +87,79 @@ function printImportCTA($block){
 function srmp3_get_json_url() {
   $SRMP3_plan = get_site_option('SRMP3_purchased_plan');
   
-  if( !is_admin() ) return false;
+  if (!is_admin()) return false;
   
   ?>
-   <div class="srmp3_wrap_templates">
+  <div class="srmp3_wrap_templates">
     <h1 class="srmp3_import_head">Import Player Templates<div class="srmp3_pro_badge"><i class="sricon-Sonaar-symbol">&nbsp;</i>Pro feature</div></h1>
     <div class="srmp3_import_subtitle">Save time and effort with our pre-designed MP3 Audio Player Pro skin templates for Elementor. To get access, you need either the Player Elementor Templates access, the Unlimited or the Lifetime Plan or <a href="https://sonaar.io/mp3-audio-player-pro/pricing/?utm_source=Sonaar+Music+Free+Plugin&utm_medium=plugin" target="_blank">MP3 Audio Player Pro</a>. Imported templates will be available in your Templates section and will be editable with Elementor.</div>  
-    <?php if ( function_exists( 'printPurchasedPlan' ) ){ ?>
-      <div class="srmp3_import_license-msg">You are currently on the <span class="srmp3_import_license-msg--plan"><?php echo esc_html( printPurchasedPlan() ) ?> plan. </span><?php echo wp_kses_post(printImportCTA('heading')) ?></div>
-    <?php }else{ ?>
+    <?php if (function_exists('printPurchasedPlan')) { ?>
+      <div class="srmp3_import_license-msg">You are currently on the <span class="srmp3_import_license-msg--plan"><?php echo esc_html(printPurchasedPlan()) ?> plan. </span><?php echo wp_kses_post(printImportCTA('heading')) ?></div>
+    <?php } else { ?>
       <div class="srmp3_import_license-msg">You are currently on the <span class="srmp3_import_license-msg--plan">free version. </span><?php echo wp_kses_post(printImportCTA('heading')) ?></div>
+    <?php }
 
-    <?php } 
   $licence = get_site_option('sonaar_music_licence');
-  
-  $demo_folder = 'http://assets.sonaar.io/import/';
+  $transient_key = 'SRMP3_elementor_templates_json_url';
+  $templates_json_url = get_site_transient($transient_key);
 
-  $api_url = 'https://sonaar.io/wp-json/wp/v2/sonaar-api/srmp3-templates/?licence=' . $licence;
-  $templates_json_url = wp_remote_get( $api_url );
-  if ( !$templates_json_url ) {
-    $templates_json_url = new WP_Error( 'Error 6721', "Please contact Sonaar.io support team with Error Code 6721" );
+  if (false === $templates_json_url) {
+    $api_url = 'https://sonaar.io/wp-json/wp/v2/sonaar-api/srmp3-templates/?licence=' . $licence;
+    $response = wp_remote_get($api_url);
+
+    if (is_wp_error($response) || $response['response']['code'] !== 200 || $response['headers']['content-type'] !== 'application/json; charset=UTF-8') {
+      echo '<br>';
+      echo '<div class="notice notice-error is-dismissible"><p>Please contact Sonaar.io support team with Error Code 6723</p></div>';
+      echo '</div>'; // close srmp3_wrap_templates div
+      return;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $templates_json_url = json_decode($body, true);
+
+    if (is_wp_error($templates_json_url) || empty($templates_json_url)) {
+      echo '<br>';
+      echo '<div class="notice notice-error is-dismissible"><p>Please contact Sonaar.io support team with Error Code 6729</p></div>';
+      echo '</div>'; // close srmp3_wrap_templates div
+      return;
+    }
+
+    set_site_transient($transient_key, $templates_json_url, WEEK_IN_SECONDS);
   }
 
-  if ( is_wp_error( $templates_json_url ) ) {
-    new WP_Error( 'Error 6722', "Please contact Sonaar.io support team with Error Code 6722" );
-  }
-
-  if ( is_wp_error( $templates_json_url ) || $templates_json_url['response']['code'] !== 200 || $templates_json_url['headers']['content-type'] !== 'application/json; charset=UTF-8' ){
-    new WP_Error( 'Error 6723', "Please contact Sonaar.io support team with Error Code 6723" );
-  }
-
-  if ( is_wp_error( $templates_json_url )) {
-    echo '<br>';
-    $message = $templates_json_url->get_error_message();
-    echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($message) . '</p></div>';
-    echo '</div>'; // close srmp3_wrap_templates div
-    return;
-  }
-
-  $url = json_decode( wp_remote_retrieve_body( $templates_json_url ) , true);
+  $url = $templates_json_url; // The URL is now stored in the transient directly
 
   $relativeurl = $url;
   $filename = basename($relativeurl);
   $dirname = str_replace($filename, '', $relativeurl) . '/templates/';
   $templatesList = srmp3_getTemplatesList($url);
+  if($templatesList === null){
+    echo '<br>';
+    echo '<div class="notice notice-error is-dismissible"><p>Error: Unable to fetch JSON data. Please contact Sonaar.io support team with Error Code 6621</p></div>';
+    echo '</div>'; // close srmp3_wrap_templates div
+    return;
+  }
   $canImport = true;
   srmp3_outputTemplates($templatesList, $dirname, $canImport);
-
 }
 
+
 function srmp3_getTemplatesList($url){
-  $data = file_get_contents($url);
+  $data = @file_get_contents($url);
 
   if ($data === false) {
-      // Handle error - unable to fetch JSON data
-      echo "Error: Unable to fetch JSON data.\n";
-      exit();
+      return; 
   }
 
   $jsonData = json_decode($data);
 
   if ($jsonData === null) {
-      // Handle error - unable to parse JSON data
-      echo "Error: Unable to parse JSON data.\n";
-      exit();
+      return; 
   }
+  
   return $jsonData;
 }
+
 
 function srmp3_outputTemplates($templatesList, $dirname) {
   

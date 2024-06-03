@@ -1560,10 +1560,11 @@ class PackageController extends PackageTemplate {
 	 * @return bool
 	 */
 	public function validateMasterKey( $ID, $Key ) {
-		if ( $Key === '' || (int)get_option('__wpdm_mdl_off') === 0) {
+		if ( $Key === '' || (int)get_option('__wpdm_mdl_off') === 1) {
 			return false;
 		}
 		$masterKey = get_post_meta( $ID, '__wpdm_masterkey', true );
+
 		if ( $masterKey === '' ) {
 			return false;
 		}
@@ -2416,6 +2417,16 @@ class PackageController extends PackageTemplate {
 			foreach ( $new_meta as $key => $value ) {
 				update_post_meta( $new_ID, $key, maybe_unserialize( $value ) );
 			}
+		}
+
+		$terms = get_the_terms( $ID, 'wpdmcategory' );
+		foreach ( $terms as $term ) {
+			wp_set_post_terms( $new_ID, (int)$term->term_id, 'wpdmcategory', true );
+		}
+
+		$terms = get_the_terms( $ID, 'wpdmtag' );
+		foreach ( $terms as $term ) {
+			wp_set_post_terms( $new_ID, $term->name, 'wpdmtag', true );
 		}
 
 		return $new_ID;

@@ -50,11 +50,11 @@ $afile = wpdm_valueof($afiles, 0);
         <div id="plupload-upload-ui" class="hide-if-no-js">
             <div id="drag-drop-area">
                 <div class="drag-drop-inside" style="margin-top: 40px">
-                    <p class="drag-drop-info" style="letter-spacing: 1px;font-size: 10pt"><?php _e('Drop file here'); ?><p>
-                    <p>&mdash; <?php _ex('or', 'Uploader: Drop file here - or - Select File'); ?> &mdash;</p>
+                    <p class="drag-drop-info" style="letter-spacing: 1px;font-size: 10pt"><?php _e('Drop file here','download-manager'); ?><p>
+                    <p>&mdash; <?php _ex('or', 'Uploader: Drop file here - or - Select File','download-manager'); ?> &mdash;</p>
                     <p class="drag-drop-buttons">
-                        <button id="plupload-browse-button" type="button" class="btn btn-sm btn-success wpdm-whatsapp"><i class="fa fa-file"></i> <?php esc_attr_e('Select File'); ?></button><br/>
-                        <small style="margin-top: 15px;display: block">[ Max: <?php echo get_option('__wpdm_chunk_upload',0) == 1?'No Limit':(int)(wp_max_upload_size()/1048576).' MB'; ?> ]</small>
+                        <button id="plupload-browse-button" type="button" class="btn btn-sm btn-success wpdm-whatsapp"><i class="fa fa-file"></i> <?php esc_attr_e('Select File','download-manager'); ?></button><br/>
+                        <small style="margin-top: 15px;display: block">[ <?php _e('Max', 'download-manager'); ?>: <?php echo get_option('__wpdm_chunk_upload',0) == 1?'No Limit':(int)(wp_max_upload_size()/1048576).' MB'; ?> ]</small>
                     </p>
                 </div>
             </div>

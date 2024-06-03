@@ -32,8 +32,8 @@ if (!defined('ABSPATH')) die();
         .middle {
             display: table-cell;
             vertical-align: middle;
+            text-align: center;
         }
-
 
 
         .w3eden .panel .panel-heading{

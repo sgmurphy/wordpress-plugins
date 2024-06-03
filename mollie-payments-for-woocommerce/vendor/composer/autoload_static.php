@@ -244,6 +244,7 @@ class ComposerStaticInit99dd93462bdd098a3d12154b8e71b543
         'Mollie\\WooCommerce\\Notice\\NoticeInterface' => __DIR__ . '/../..' . '/src/Notice/NoticeInterface.php',
         'Mollie\\WooCommerce\\Notice\\NoticeModule' => __DIR__ . '/../..' . '/src/Notice/NoticeModule.php',
         'Mollie\\WooCommerce\\PaymentMethods\\AbstractPaymentMethod' => __DIR__ . '/../..' . '/src/PaymentMethods/AbstractPaymentMethod.php',
+        'Mollie\\WooCommerce\\PaymentMethods\\Alma' => __DIR__ . '/../..' . '/src/PaymentMethods/Alma.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Applepay' => __DIR__ . '/../..' . '/src/PaymentMethods/Applepay.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Bancomatpay' => __DIR__ . '/../..' . '/src/PaymentMethods/Bancomatpay.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Bancontact' => __DIR__ . '/../..' . '/src/PaymentMethods/Bancontact.php',

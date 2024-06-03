@@ -25,11 +25,14 @@ export default class InsertVariables extends React.Component {
 
 	componentDidMount() {
 		if (this.refVars && this.refVars.current) {
+			const { dropdownWrapper } = this.props;
 			const $select = $(this.refVars.current),
 				$parentModal = $select.closest('.sui-modal-content'),
-				$parent = $parentModal.length
-					? $('#' + $parentModal.attr('id'))
-					: $(`.sui-${window.Wds.version}`),
+				$parent =
+					dropdownWrapper ||
+					($parentModal.length
+						? $('#' + $parentModal.attr('id'))
+						: $(`.sui-${window.Wds.version}`)),
 				hasSearch = 'true' === $select.attr('data-search') ? 0 : -1;
 
 			$select

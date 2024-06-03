@@ -22,7 +22,9 @@ if (function_exists('wp_roles') ) {
                 <input type="hidden" name="action" value="hmwp_tweakssettings"/>
 
                 <div id="redirects" class="card col-sm-12 p-0 m-0 tab-panel tab-panel-first">
-                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Redirects', 'hide-my-wp'); ?></h3>
+                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Redirects', 'hide-my-wp'); ?>
+                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/activate-security-tweaks/#redirects') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                    </h3>
                     <div class="card-body">
                         <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
                             <div class="col-sm-4 p-1">
@@ -163,7 +165,9 @@ if (function_exists('wp_roles') ) {
                 </div>
 
                 <div id="sitemap" class="card col-sm-12 p-0 m-0 tab-panel">
-                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Feed & Sitemap', 'hide-my-wp'); ?></h3>
+                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Feed & Sitemap', 'hide-my-wp'); ?>
+                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/activate-security-tweaks/#feed_sitemap') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                    </h3>
                     <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                         <div class="card-body">
                             <div class="col-sm-12 border-0 py-3 mx-0 my-3 text-black-50 text-center">
@@ -245,7 +249,9 @@ if (function_exists('wp_roles') ) {
                 </div>
 
                 <div id="changes" class="card col-sm-12 p-0 m-0 tab-panel">
-                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Change Options', 'hide-my-wp'); ?></h3>
+                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Change Options', 'hide-my-wp'); ?>
+                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/activate-security-tweaks/#change_options') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                    </h3>
                     <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                         <div class="card-body">
                             <div class="col-sm-12 border-0 py-3 mx-0 my-3 text-black-50 text-center">
@@ -286,7 +292,9 @@ if (function_exists('wp_roles') ) {
                 </div>
 
                 <div id="hide" class="card col-sm-12 p-0 m-0 tab-panel">
-                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Hide Options', 'hide-my-wp'); ?></h3>
+                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Hide Options', 'hide-my-wp'); ?>
+                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/activate-security-tweaks/#hide_options') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                    </h3>
                     <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                         <div class="card-body">
                             <div class="col-sm-12 border-0 py-3 mx-0 my-3 text-black-50 text-center">
@@ -441,6 +449,7 @@ if (function_exists('wp_roles') ) {
                 <div id="disable" class="card col-sm-12 p-0 m-0 tab-panel">
                     <h3 class="card-title hmwp_header p-2 m-0">
                         <?php echo esc_html__('Disable Options', 'hide-my-wp'); ?>
+                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/activate-security-tweaks/#disable_options') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
                         <div class="col-sm-12 border-0 p-0 mx-0 text-black-50 text-left small">
                             <?php echo esc_html__('This feature requires jQuery library on frontend.', 'hide-my-wp') ?>
                         </div>

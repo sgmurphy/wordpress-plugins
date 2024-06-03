@@ -9,7 +9,9 @@
                     <input type="hidden" name="action" value="hmwp_advsettings"/>
 
                     <div id="rollback" class="card col-sm-12 p-0 m-0 tab-panel tab-panel-first">
-                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Rollback Settings', 'hide-my-wp'); ?></h3>
+                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Rollback Settings', 'hide-my-wp'); ?>
+                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/advanced-wp-security/#rollback') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                        </h3>
                         <div class="card-body">
 
                             <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -44,7 +46,9 @@
                         </div>
                     </div>
                     <div id="compatibility" class="card col-sm-12 p-0 m-0 tab-panel">
-                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Compatibility Settings', 'hide-my-wp'); ?></h3>
+                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Compatibility Settings', 'hide-my-wp'); ?>
+                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/advanced-wp-security/#compatibility') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                        </h3>
                         <div class="card-body">
 
                             <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -132,7 +136,9 @@
                     </div>
 
                     <div id="notification" class="card col-sm-12 p-0 m-0 tab-panel">
-                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Notification Settings', 'hide-my-wp'); ?></h3>
+                        <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Notification Settings', 'hide-my-wp'); ?>
+                            <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/advanced-wp-security/#email_notification') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                        </h3>
                         <div class="card-body">
 
                             <div class="col-sm-12 row mb-1 ml-1 p-2">

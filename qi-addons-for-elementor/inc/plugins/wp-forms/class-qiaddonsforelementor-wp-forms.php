@@ -18,6 +18,8 @@ if ( ! class_exists( 'QiAddonsForElementor_Wp_Forms' ) ) {
 		}
 
 		/**
+		 * Instance of module class
+		 *
 		 * @return QiAddonsForElementor_Wp_Forms
 		 */
 		public static function get_instance() {

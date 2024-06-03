@@ -243,6 +243,7 @@ $options = array(
     'quiz_wrong_answer_text_transform'          => "none",
     'quiz_admin_note_text_decoration'           => "none",
     'quiz_quest_explanation_text_decoration'    => "none",
+    'quiz_right_answers_text_decoration'        => "none",
 );
 
 $quiz_intervals_default = array(
@@ -1302,6 +1303,9 @@ $quiz_admin_note_text_decoration = (isset($options[ 'quiz_admin_note_text_decora
 
 // Question Explanation text decoration
 $quiz_quest_explanation_text_decoration = (isset($options[ 'quiz_quest_explanation_text_decoration' ]) && $options[ 'quiz_quest_explanation_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_quest_explanation_text_decoration' ] ) ) : 'none';
+
+// Right answer text decoration
+$quiz_right_answers_text_decoration = (isset($options[ 'quiz_right_answers_text_decoration' ]) && $options[ 'quiz_right_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_right_answers_text_decoration' ] ) ) : 'none';
 
 ?>
 <style id="ays_live_custom_css"></style>
@@ -3391,6 +3395,33 @@ $quiz_quest_explanation_text_decoration = (isset($options[ 'quiz_quest_explanati
                                     </select>
                                 </div>
                             </div><!-- Right answer text transform -->
+                            <hr/>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="ays_quiz_right_answers_text_decoration">
+                                        <?php echo __('Text decoration',$this->plugin_name); ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Choose the line position for the Right answer on the front end. Note: It is set as None by default.',$this->plugin_name); ?>">
+                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-7 ays_divider_left">
+                                    <select class="ays-text-input ays-text-input-short" id="ays_quiz_right_answers_text_decoration" name="ays_quiz_right_answers_text_decoration">
+                                        <option value="none" <?php echo ($quiz_right_answers_text_decoration == 'none') ? 'selected' : ''; ?>>
+                                            <?php echo __('None',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="overline" <?php echo ($quiz_right_answers_text_decoration == 'overline') ? 'selected' : ''; ?>>
+                                            <?php echo __('Overline',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="line-through" <?php echo ($quiz_right_answers_text_decoration == 'line-through')  ? 'selected' : ''; ?>>
+                                            <?php echo __('Line through',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="underline" <?php echo ($quiz_right_answers_text_decoration == 'underline') ? 'selected' : ''; ?>>
+                                            <?php echo __('Underline',$this->plugin_name); ?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div><!-- Right answer text decoration -->
                         </div>
                         <hr/>
                         <div class="col-lg-5 col-sm-12 ays_divider_left" style="position:relative;"></div>

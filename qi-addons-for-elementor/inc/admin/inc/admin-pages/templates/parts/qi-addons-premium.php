@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( ! function_exists( 'qi_addons_for_elementor_premium_is_plugin_activated' ) || ( function_exists( 'qi_addons_for_elementor_premium_is_plugin_activated' ) && ! qi_addons_for_elementor_premium_is_plugin_activated() ) ) {
+if ( ! function_exists( 'qi_addons_for_elementor_premium_is_plugin_activated' ) || ( function_exists( 'qi_addons_for_elementor_premium_is_plugin_activated' ) && ! qi_addons_for_elementor_premium_is_plugin_activated() ) ) {
 	$button_text = apply_filters( 'qi_addons_for_elementor_filter_welcome_premium_box_link_text', esc_html__( 'Upgrade Now', 'qi-addons-for-elementor' ) );
 	$button_link = apply_filters( 'qi_addons_for_elementor_filter_welcome_premium_box_link', 'https://qodeinteractive.com/pricing/' );
 	$button_link = add_query_arg(
@@ -32,4 +32,5 @@ if( ! function_exists( 'qi_addons_for_elementor_premium_is_plugin_activated' ) |
 			<img src="<?php echo esc_url( QI_ADDONS_FOR_ELEMENTOR_ADMIN_URL_PATH . '/inc/admin-pages/assets/img/qi-addons-premium.png' ); ?>" alt="<?php esc_attr_e( 'Free Demos', 'qi-addons-for-elementor' ); ?>" />
 		</div>
 	</div>
-<?php }
+	<?php
+}

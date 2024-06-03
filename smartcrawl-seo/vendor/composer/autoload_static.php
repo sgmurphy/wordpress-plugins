@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita18cc27ab7e21f0782a23db7750c371a
+class ComposerStaticInit422be7a6b4fdc2d592752312c6eddc86
 {
     public static $classMap = array (
         'SmartCrawl\\Admin\\Admin' => __DIR__ . '/../..' . '/includes/core/admin/class-admin.php',
@@ -280,22 +280,12 @@ class ComposerStaticInita18cc27ab7e21f0782a23db7750c371a
         'SmartCrawl\\WPML\\Controller' => __DIR__ . '/../..' . '/includes/core/wpml/class-controller.php',
         'SmartCrawl\\Work_Unit' => __DIR__ . '/../..' . '/includes/core/class-work-unit.php',
         'SmartCrawl\\Youtube_Data_Fetcher' => __DIR__ . '/../..' . '/includes/core/class-youtube-data-fetcher.php',
-        'Smartcrawl_Vendor\\Base_MixpanelBase' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/Base/MixpanelBase.php',
-        'Smartcrawl_Vendor\\ConsumerStrategies_AbstractConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/ConsumerStrategies/AbstractConsumer.php',
-        'Smartcrawl_Vendor\\ConsumerStrategies_CurlConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/ConsumerStrategies/CurlConsumer.php',
-        'Smartcrawl_Vendor\\ConsumerStrategies_FileConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/ConsumerStrategies/FileConsumer.php',
-        'Smartcrawl_Vendor\\ConsumerStrategies_SocketConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/ConsumerStrategies/SocketConsumer.php',
         'Smartcrawl_Vendor\\Detection\\MobileDetect' => __DIR__ . '/../..' . '/vendor_prefixed/mobiledetect/mobiledetectlib/src/MobileDetect.php',
         'Smartcrawl_Vendor\\MaxMind\\Db\\Reader' => __DIR__ . '/../..' . '/vendor_prefixed/maxmind-db/reader/src/MaxMind/Db/Reader.php',
         'Smartcrawl_Vendor\\MaxMind\\Db\\Reader\\Decoder' => __DIR__ . '/../..' . '/vendor_prefixed/maxmind-db/reader/src/MaxMind/Db/Reader/Decoder.php',
         'Smartcrawl_Vendor\\MaxMind\\Db\\Reader\\InvalidDatabaseException' => __DIR__ . '/../..' . '/vendor_prefixed/maxmind-db/reader/src/MaxMind/Db/Reader/InvalidDatabaseException.php',
         'Smartcrawl_Vendor\\MaxMind\\Db\\Reader\\Metadata' => __DIR__ . '/../..' . '/vendor_prefixed/maxmind-db/reader/src/MaxMind/Db/Reader/Metadata.php',
         'Smartcrawl_Vendor\\MaxMind\\Db\\Reader\\Util' => __DIR__ . '/../..' . '/vendor_prefixed/maxmind-db/reader/src/MaxMind/Db/Reader/Util.php',
-        'Smartcrawl_Vendor\\Mixpanel' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/Mixpanel.php',
-        'Smartcrawl_Vendor\\Producers_MixpanelBaseProducer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/Producers/MixpanelBaseProducer.php',
-        'Smartcrawl_Vendor\\Producers_MixpanelEvents' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/Producers/MixpanelEvents.php',
-        'Smartcrawl_Vendor\\Producers_MixpanelGroups' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/Producers/MixpanelGroups.php',
-        'Smartcrawl_Vendor\\Producers_MixpanelPeople' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/mixpanel-php/lib/Producers/MixpanelPeople.php',
         'Smartcrawl_Vendor\\Vanderlee\\Syllable\\Cache\\Cache' => __DIR__ . '/../..' . '/vendor_prefixed/vanderlee/syllable/src/Cache/Cache.php',
         'Smartcrawl_Vendor\\Vanderlee\\Syllable\\Cache\\File' => __DIR__ . '/../..' . '/vendor_prefixed/vanderlee/syllable/src/Cache/File.php',
         'Smartcrawl_Vendor\\Vanderlee\\Syllable\\Cache\\Json' => __DIR__ . '/../..' . '/vendor_prefixed/vanderlee/syllable/src/Cache/Json.php',
@@ -314,7 +304,7 @@ class ComposerStaticInita18cc27ab7e21f0782a23db7750c371a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInita18cc27ab7e21f0782a23db7750c371a::$classMap;
+            $loader->classMap = ComposerStaticInit422be7a6b4fdc2d592752312c6eddc86::$classMap;
 
         }, null, ClassLoader::class);
     }

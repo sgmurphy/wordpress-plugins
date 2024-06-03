@@ -123,7 +123,7 @@ class Keywords_Used extends Post_Check {
 					'title'     => get_the_title( $post_id ),
 					'type'      => esc_html( get_post_type_object( get_post_type( $post_id ) )->labels->singular_name ),
 					'permalink' => esc_html( get_permalink( $post_id ) ),
-					'edit_link' => esc_attr( get_edit_post_link( $post_id ) ),
+					'edit_link' => esc_url_raw( get_edit_post_link( $post_id, 'url' ) ),
 				);
 			}
 		}

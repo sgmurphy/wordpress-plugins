@@ -2020,61 +2020,52 @@ class HMWP_Models_Rewrite
                     //Hide Login URL when changed
                     if (HMWP_Classes_Tools::getOption('hmwp_hide_wplogin') || HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
 
-                        //if the wp-login path is changed
-                        if (HMWP_Classes_Tools::getDefault('hmwp_login_url') <> HMWP_Classes_Tools::getOption('hmwp_login_url')) {
+                        //initiate paths
+                        $paths = array();
+
+                        //if the current path is not the custom login path & wp-login path is changed in HMWP
+                        if (site_url(HMWP_Classes_Tools::getOption('hmwp_login_url'), 'relative') <> $url &&
+                            HMWP_Classes_Tools::getDefault('hmwp_login_url') <> HMWP_Classes_Tools::getOption('hmwp_login_url')) {
 
                             //get the relative login path
                             $paths = array(
-		                        home_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
-		                        site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
-	                        );
+                                home_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
+                                site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
+                            );
 
                             //if there is a POST on login when it's hidden
                             //allow access on CloudPanel and WP Engine to prevent errors
-                            if ($http_post && HMWP_Classes_Tools::getOption('hmwp_hide_login') &&
-                                !HMWP_Classes_Tools::isCloudPanel() && !HMWP_Classes_Tools::isWpengine() ) {
+                            if (!$http_post && HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
 
-                                if (defined('HMWP_DEFAULT_LOGIN') && HMWP_DEFAULT_LOGIN <> 'login' ) {
-                                    $paths[] = home_url('login', 'relative');
-                                    $paths[] = site_url('login', 'relative');
-                                }
+                                $paths[] = home_url('login', 'relative');
+                                $paths[] = site_url('login', 'relative');
 
                             }
 
-                            //remove duplicate paths in array
-                            $paths = array_unique($paths);
+                        } elseif (defined('HMWP_DEFAULT_LOGIN') && //custom login is set in other plugins
+                            site_url(HMWP_DEFAULT_LOGIN, 'relative') <> $url && //current paths is different from login
+                            HMWP_DEFAULT_LOGIN <> HMWP_Classes_Tools::getDefault('hmwp_login_url')) {
 
-                            //search the paths in URL and show not found
-                            if (HMWP_Classes_Tools::searchInString($url, $paths)) {
-                                if (site_url(HMWP_Classes_Tools::getOption('hmwp_login_url'), 'relative') <> $url) {
-                                    $this->getNotFound($url);
-                                }
+                            $paths = array(
+                                home_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
+                                site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
+                            );
+
+                            if (HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
+                                $paths[] = home_url('login', 'relative');
+                                $paths[] = site_url('login', 'relative');
                             }
 
-                        } elseif (defined('HMWP_DEFAULT_LOGIN') && HMWP_DEFAULT_LOGIN <> HMWP_Classes_Tools::getDefault('hmwp_login_url')) {
-
-	                        $paths = array(
-		                        home_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
-		                        site_url(HMWP_Classes_Tools::getDefault('hmwp_login_url'), 'relative'),
-	                        );
-
-	                        if (HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
-
-		                        $paths[] = home_url('login', 'relative');
-		                        $paths[] = site_url('login', 'relative');
-
-	                        }
-
-	                        $paths = array_unique($paths);
-
-	                        if (HMWP_Classes_Tools::searchInString($url, $paths)) {
-
-		                        if (site_url(HMWP_DEFAULT_LOGIN, 'relative') <> $url) {
-			                        $this->getNotFound($url);
-		                        }
-
-	                        }
                         }
+
+                        //remove duplicate paths in array
+                        $paths = array_unique($paths);
+
+                        //search the paths in URL and show not found
+                        if (HMWP_Classes_Tools::searchInString($url, $paths)) {
+                            $this->getNotFound($url);
+                        }
+
                     }
 
                     /////////////////////////////////////////////////////

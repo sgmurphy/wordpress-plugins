@@ -118,11 +118,7 @@ class NewsletterSubscription extends NewsletterModule {
             case 'profile-change':
                 if ($this->antibot_form_check()) {
 
-                    if (!$user || $user->status != TNP_user::STATUS_CONFIRMED) {
-                        $this->dienow('Subscriber not found or not confirmed.', 'Even the wrong subscriber token can lead to this error.', 404);
-                    }
-
-                    if (!isset($user->editable) || !$user->editable) {
+                    if (!$user || $user->status != TNP_user::STATUS_CONFIRMED || !$user->_trusted) {
                         $this->dienow('Subscriber not found or not confirmed.', 'Even the wrong subscriber token can lead to this error.', 404);
                     }
 
@@ -158,11 +154,6 @@ class NewsletterSubscription extends NewsletterModule {
 
                 die();
 
-            case 'm':
-            case 'message':
-                include __DIR__ . '/page.php';
-                die();
-
             // normal subscription
             case 's':
             case 'subscribe':
@@ -183,7 +174,7 @@ class NewsletterSubscription extends NewsletterModule {
 
                     if (is_wp_error($user)) {
                         if ($user->get_error_code() === 'exists') {
-                            $this->show_message('error');
+                            $this->redirect($this->build_message_url('', 'error'));
                         }
                         $this->dienow(__('Registration failed.', 'newsletter'), $user->get_error_message(), 400);
                     }
@@ -193,13 +184,13 @@ class NewsletterSubscription extends NewsletterModule {
                     // or just using its email. If not confirmed (from the activation email) it cannot
                     // perform other actions. In this cases, the show message will use a low
                     // privilege token.
-                    $user->editable = $user->is_new && $user->status == TNP_User::STATUS_CONFIRMED;
+                    $user->_trusted = $user->is_new && $user->status == TNP_User::STATUS_CONFIRMED;
 
                     if ($user->status == TNP_User::STATUS_CONFIRMED) {
-                        $this->show_message('confirmed', $user);
+                        $this->redirect_to_confirmed($user);
                     }
                     if ($user->status == TNP_User::STATUS_NOT_CONFIRMED) {
-                        $this->show_message('confirmation', $user);
+                        $this->redirect_to_confirmation($user);
                     }
                 } else {
                     $language = $this->sanitize_language($_REQUEST['nlang'] ?? '');
@@ -229,7 +220,7 @@ class NewsletterSubscription extends NewsletterModule {
                     }
                 } else {
 
-                    $user->editable = $user->is_new && $user->status == TNP_User::STATUS_CONFIRMED;
+                    $user->_trusted = $user->is_new && $user->status == TNP_User::STATUS_CONFIRMED;
 
                     if ($user->status == TNP_User::STATUS_CONFIRMED) {
                         $key = 'confirmed';
@@ -248,26 +239,18 @@ class NewsletterSubscription extends NewsletterModule {
 
             case 'c':
             case 'confirm':
-                if (!$user) {
-                    $this->dienow(__('Subscriber not found.', 'newsletter'), 'Or it is not present or the secret key does not match.', 404);
-                }
-
-                if (!isset($user->editable) || !$user->editable) {
+                if (!$user || !$user->_trusted) {
                     $this->dienow(__('Subscriber not found.', 'newsletter'), 'Or it is not present or the secret key does not match.', 404);
                 }
 
                 if ($this->antibot_form_check()) {
                     $user = $this->confirm($user);
                     $this->set_user_cookie($user);
-                    $this->show_message('confirmed', $user);
+                    $this->redirect_to_confirmed($user);
                 } else {
                     $this->antibot_subscription('Confirm');
                 }
                 die();
-                break;
-
-            default:
-                return;
         }
     }
 
@@ -845,6 +828,50 @@ class NewsletterSubscription extends NewsletterModule {
 
         return $this->send_message('confirmation', $user, true);
     }
+
+    function redirect_to_confirmed($user) {
+        if (!$user) {
+            die('Subscriber not found.');
+        }
+        $url = '';
+        $this->switch_language($user->language);
+        $welcome_page_id = $this->get_user_meta($user->id, 'welcome_page_id');
+        if ($welcome_page_id) {
+            $url = get_permalink($welcome_page_id);
+        } else {
+            if (isset($_REQUEST['ncu'])) {
+                // Custom URL from the form
+                $url = sanitize_url($_REQUEST['ncu']);
+            } else {
+                // Per message custom URL from configuration (language variants could not be supported)
+                $page_id = $this->get_option('confiormed_id');
+                if (!empty($page_id)) {
+                    if ($page_id === 'url') {
+                        $url = trim($this->get_option('confirmed_url'));
+                    } else {
+                        $url = get_permalink((int) $page_id);
+                    }
+                }
+            }
+        }
+        $url = apply_filters('newsletter_welcome_url', $url, $user);
+        $url = Newsletter::instance()->build_message_url($url, 'confirmed', $user);
+        $this->redirect($url);
+    }
+
+    function redirect_to_confirmation($user) {
+        $url = '';
+        if (isset($_REQUEST['ncu'])) {
+            // Custom URL from the form
+            $url = $_REQUEST['ncu'];
+        } else {
+            // Per message custom URL from configuration (language variants could not be supported)
+            $url = $this->get_option('confirmation_url');
+        }
+        $url = $this->build_message_url($url, 'confirmation', $user);
+        $this->redirect($url);
+    }
+
 
     /**
      * Finds the right way to show the message identified by $key (welcome, unsubscription, ...) redirecting the user to the

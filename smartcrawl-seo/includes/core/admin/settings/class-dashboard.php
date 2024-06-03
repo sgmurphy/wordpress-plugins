@@ -182,7 +182,7 @@ class Dashboard extends Admin_Settings {
 		$title = wp_kses( $title, array( 'span' => array( 'class' => array() ) ) );
 
 		$this->smartcrawl_page_hook = add_menu_page(
-			$this->page_title,
+			$this->get_page_title(),
 			$title,
 			$this->capability,
 			$this->slug,
@@ -192,7 +192,7 @@ class Dashboard extends Admin_Settings {
 
 		$this->smartcrawl_page_hook = add_submenu_page(
 			$this->slug,
-			$this->page_title,
+			$this->get_page_title(),
 			$this->get_sub_title(),
 			$this->capability,
 			$this->slug,

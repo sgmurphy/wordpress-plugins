@@ -2669,6 +2669,11 @@ function powerpress_edit_post($post_ID, $post)
                             }
                         }
 
+                        $youtube_regexp = "/^https?:\/\/(?:www\.)?(?:youtube.com|youtu.be)\/(?:watch\?(?=.*v=([\w\-]+))(?:\S+)?|([\w\-]+))$/i";
+
+                        if (preg_match($youtube_regexp, $MediaURL))
+                            $ContentType = 'video/youtube';
+
                         if (!empty($MediaURL)) {
                             $AltEnclosureData[] = array('url' => $MediaURL, 'size' => $FileSize, 'type' => $ContentType, 'hosting' => $alt_enclosure_data['hosting']);
                         }

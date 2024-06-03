@@ -125,17 +125,15 @@ class Advanced extends Events {
 		$old_status = $this->get_value( 'active', $old_values );
 		$new_status = $this->get_value( 'active', $new_values );
 
-		if ( $old_status === $new_status ) {
-			return;
+		if ( $old_status !== $new_status ) {
+			$this->tracker()->track(
+				$new_status ? 'SMA - Advanced Tool Activated' : 'SMA - Advanced Tool Deactivated',
+				array(
+					'advanced_tool'  => \SmartCrawl\Modules\Advanced\Autolinks\Controller::get()->event_name,
+					'triggered_from' => \SmartCrawl\Modules\Advanced\Autolinks\Controller::get()->event_name,
+				)
+			);
 		}
-
-		$this->tracker()->track(
-			$new_status ? 'SMA - Advanced Tool Activated' : 'SMA - Advanced Tool Deactivated',
-			array(
-				'advanced_tool'  => \SmartCrawl\Modules\Advanced\Autolinks\Controller::get()->event_name,
-				'triggered_from' => \SmartCrawl\Modules\Advanced\Autolinks\Controller::get()->event_name,
-			)
-		);
 
 		$old_fields = array();
 		$new_fields = array();

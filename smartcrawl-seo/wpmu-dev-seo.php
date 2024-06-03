@@ -3,7 +3,7 @@
  * Plugin Name: SmartCrawl
  * Plugin URI: https://wpmudev.com/project/smartcrawl-wordpress-seo/
  * Description: Every SEO option that a site requires, in one easy bundle.
- * Version: 3.10.6
+ * Version: 3.10.8
  * Network: true
  * Text Domain: smartcrawl-seo
  * Author: WPMU DEV
@@ -78,23 +78,21 @@ if ( ! class_exists( '\SmartCrawl\SmartCrawl' ) ) {
 			Settings\Sitemap::get()->defaults();
 			Settings\Settings::get()->defaults();
 
-			self::save_free_installation_timestamp();
+			self::save_installation_timestamp();
 		}
 
 		/**
-		 * Save timestamp for free version.
+		 * Save timestamp on Install.
 		 *
 		 * @return void
 		 */
-		private static function save_free_installation_timestamp() {
-			$service = self::get_service();
-			if ( $service->is_member() ) {
-				return;
-			}
+		private static function save_installation_timestamp() {
+			$service     = self::get_service();
+			$option_name = $service->is_member() ? 'wds-pro-install-date' : 'wds-free-install-date';
 
-			$free_install_date = get_site_option( 'wds-free-install-date' );
-			if ( empty( $free_install_date ) ) {
-				update_site_option( 'wds-free-install-date', current_time( 'timestamp' ) ); // phpcs:ignore
+			$install_date = get_site_option( $option_name );
+			if ( empty( $install_date ) ) {
+				update_site_option( $option_name, current_time( 'timestamp' ) ); // phpcs:ignore
 			}
 		}
 

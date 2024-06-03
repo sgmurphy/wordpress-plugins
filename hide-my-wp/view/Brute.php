@@ -7,7 +7,7 @@
 
             <div id="blocked" class="card col-sm-12 p-0 m-0 tab-panel tab-panel-first">
                 <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Blocked IPs', 'hide-my-wp'); ?>
-                    <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/#block_ip_report') ?>" target="_blank" class="d-inline-block ml-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
+                    <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/#block_ip_report') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
                 </h3>
                 <div class="card-body">
                     <?php if (HMWP_Classes_Tools::getOption('hmwp_bruteforce') ) { ?>
@@ -43,7 +43,9 @@
                 <input type="hidden" name="action" value="hmwp_brutesettings"/>
 
                 <div id="brute" class="card col-sm-12 p-0 m-0 tab-panel ">
-                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Brute Force', 'hide-my-wp'); ?></h3>
+                    <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Brute Force', 'hide-my-wp'); ?>
+                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/') ?>" target="_blank" class="d-inline-block float-right mr-2" ><i class="dashicons dashicons-editor-help"></i></a>
+                    </h3>
                     <div class="card-body">
                         <div class="col-sm-12 row mb-1 py-1 mx-2 ">
                             <div class="checker col-sm-12 row my-2 py-1">
@@ -294,39 +296,10 @@
                                 </div>
                             </div>
 
-                            <div class="border-top">
-                                <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
-                                    <div class="col-md-4 p-0 font-weight-bold">
-                                        <?php echo esc_html__('Whitelist IPs', 'hide-my-wp'); ?>:
-                                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/#whitelist_ip_address') ?>" target="_blank" class="d-inline-block ml-2" ><i class="dashicons dashicons-editor-help"></i></a>
-                                        <div class="small text-black-50"><?php echo sprintf(esc_html__('You can white-list a single IP like 192.168.0.1 or a range of 245 IPs like 192.168.0.*. Find your IP with %s', 'hide-my-wp'), '<a href="https://whatismyipaddress.com/" target="_blank">https://whatismyipaddress.com/</a>') ?></div>
-                                    </div>
-                                    <div class="col-md-8 p-0 input-group input-group">
-                                        <?php
-                                        $ips = array();
-                                        if (HMWP_Classes_Tools::getOption('whitelist_ip')) {
-                                            $ips = json_decode(HMWP_Classes_Tools::getOption('whitelist_ip'), true);
-                                        }
-                                        ?>
-                                        <textarea type="text" class="form-control bg-input" name="whitelist_ip" style="height: 100px"><?php echo(!empty($ips) ? implode(PHP_EOL, $ips) : '') ?></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
-                                    <div class="col-md-4 p-0 font-weight-bold">
-                                        <?php echo esc_html__('Ban IPs', 'hide-my-wp'); ?>:
-                                        <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/#ban_ip_address') ?>" target="_blank" class="d-inline-block ml-2" ><i class="dashicons dashicons-editor-help"></i></a>
-                                        <div class="small text-black-50"><?php echo esc_html__('You can ban a single IP like 192.168.0.1 or a range of 245 IPs like 192.168.0.*. These IPs will not be able to access the login page.', 'hide-my-wp') ?></div>
-                                    </div>
-                                    <div class="col-md-8 p-0 input-group input-group">
-                                        <?php
-                                        $ips = array();
-                                        if (HMWP_Classes_Tools::getOption('banlist_ip')) {
-                                            $ips = json_decode(HMWP_Classes_Tools::getOption('banlist_ip'), true);
-                                        }
-                                        ?>
-                                        <textarea type="text" class="form-control bg-input" name="banlist_ip" style="height: 100px"><?php echo(!empty($ips) ? implode(PHP_EOL, $ips) : '') ?></textarea>
-                                    </div>
-                                </div>
+                            <div class="col-sm-12 text-center border-light py-2 m-0">
+                                <a href="<?php echo HMWP_Classes_Tools::getSettingsUrl('hmwp_firewall#tab=whitelist', true) ?>" target="_blank">
+                                    <?php echo esc_html__('Manage whitelist & blacklist IP addresses', 'hide-my-wp'); ?>
+                                </a>
                             </div>
                         </div>
 

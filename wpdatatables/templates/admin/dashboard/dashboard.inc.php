@@ -337,13 +337,12 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                                  </span>
                         </p>
                         <p class="wpdt-text wpdt-font m-b-18">
-                            New update with bug fixes:
+                            New update with improvements:
                         </p>
                         <div class="alert alert-info m-b-0" role="alert">
                             <i class="wpdt-icon-info-circle-full"></i>
                             <ul>
-                                <li><strong>BugFix:</strong> Fixed issue with tables containing DateTime fields.</li>
-                                <li>Compatibility with WordPress 6.5.3 version approved.</li>
+                                <li>Update filters and actions</li>
                                 <li>Other small bug fixes and stability improvements</li>
                             </ul>
                         </div>

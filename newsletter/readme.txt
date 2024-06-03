@@ -1,7 +1,7 @@
 === Newsletter - Send awesome emails from WordPress ===
 Tags: newsletter, subscription, email marketing, welcome email, signup forms
 Tested up to: 6.5.3
-Stable tag: 8.3.5
+Stable tag: 8.3.6
 Contributors: satollo,webagile
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -128,6 +128,16 @@ Thank you, The Newsletter Team
 3. The Reports extension
 
 == Changelog ==
+
+= 8.3.6 =
+
+* Improved security
+* Removed obsolete code
+* Two steps unsubscription now mandatory (old links continue to work)
+* Fixed the page or url selector for the welcome page
+* Added per-status filter on export
+* Fixed internal delivery engine stats (not the subscriber or newsletter stats!)
+* Export feature moved to the Import/Export addon for improvements
 
 = 8.3.5 =
 

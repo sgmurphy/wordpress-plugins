@@ -4,6 +4,13 @@
 	http://jedwatson.github.io/classnames
 */
 
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
 /*! Conditions:: INITIAL */
 
 /*! Production::    $accept : expression $end */
@@ -149,6 +156,8 @@
 /*! Rule::       \s+ */
 
 /*! decimal.js-light v2.5.1 https://github.com/MikeMcl/decimal.js-light/LICENCE */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
  * @remix-run/router v1.6.3

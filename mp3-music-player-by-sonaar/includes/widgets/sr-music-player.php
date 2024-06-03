@@ -11879,9 +11879,10 @@ class SR_Audio_Player extends Widget_Base {
 				$breakpoints = \Elementor\Plugin::$instance->breakpoints->get_breakpoints();
 				$breakpointMobile = $breakpoints['mobile']->get_value();
 				$breakpointTablet = $breakpoints['tablet']->get_value();
-
 				if (isset($settings['slide_source'])){
 					$shortcode .= 'slide_source="'. $settings['slide_source'] .'" ';
+				}else if( $settings['playlist_source']== 'from_current_post'){
+					$shortcode .= 'slide_source="track" ';
 				}
 				if (isset($settings['slider_play_on_hover']) && $settings['slider_play_on_hover'] == 'yes'){
 					$shortcode .= 'slider_play_on_hover="true" ';

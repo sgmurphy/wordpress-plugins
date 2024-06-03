@@ -81,14 +81,21 @@
 	}
 	function init_shortcodeBuilder() {
 		if(!$('#cmb2-metabox-srmp3_settings_shortcodebuilder').length) return;
-		
+
+		var notices = $('#wpbody-content .wrap').find('.notice, .update-nag');
+		if (notices.length) {
+			$('#cmb2-metabox-srmp3_settings_shortcodebuilder').prepend(notices);
+			//show the notice
+			notices.show();
+			
+		}
 		// Run once when the page loads
 		init_shortcodeBuilder_ResponsiveUI();
 		init_shortcodeBuilder_Accordeons();
 		init_shortcodeBuilder_colorPicker();
 		init_shortcodeBuilder_copyShortcode();
 		init_shortcodeBuilder_buttons();
-
+		
 		// Bind to window resize event with debounce
 		$(window).resize(debounce_shortcodeBuilder_UI(init_shortcodeBuilder_ResponsiveUI, 250)); // 250 ms debounce period
 	
@@ -116,7 +123,7 @@
 			$('#shortcode-delete-template-bt').show();
 			$('#shortcode-export-template-bt').show();
 		}
-		
+
 		const fields = ['save_template_name', 'player_class', 'id'];
 		fields.forEach(function(fieldId) {
 			const field = document.getElementById(fieldId);
@@ -136,6 +143,10 @@
 			}
 		});
 
+		//If Category is empty, hide the category mutilcheck
+		if(! $('#category1').length ){
+			$('.cmb2-id-category').hide();
+		}
 		
 		function init_JSFields_Handles() {
 			  $('#source').each(function() {
@@ -146,8 +157,11 @@
 					var text = sonaar_admin_ajax.translations.notice_from_current_post;
 					const $newTextElement = $('<p style="color:green;">' + text + '</p>');
 					$(this).after($newTextElement);
-				}else{
-
+				}
+				if (selectedValue === 'from_cat' && !$('#category1').length) { //If Category is empty, display notification
+					var text = sonaar_admin_ajax.translations.category_not_found;
+					const $newTextElement = $('<p style="color:red;">' + text + '</p>');
+					$(this).after($newTextElement);
 				}
 			  });
 			  
@@ -273,10 +287,33 @@
 			suppressScrollX: true,
 			maxScrollbarLength: 350,
 		});
-
-		
+		// Initialize the PerfectScrollbar
+		var pss = new PerfectScrollbar( document.querySelector('#shortcode_builder'), {
+			wheelSpeed: 1.25,
+			swipeEasing: false,
+			wheelPropagation: false,
+			minScrollbarLength: 20,
+			suppressScrollX: true,
+			maxScrollbarLength: 100,
+		});
+		var psss = new PerfectScrollbar( document.querySelector('#srmp3-admin-shortcode'), {
+			wheelSpeed: 1.25,
+			swipeEasing: false,
+			wheelPropagation: false,
+			minScrollbarLength: 20,
+			suppressScrollX: true,
+			maxScrollbarLength: 50,
+		});
 		// Initial AJAX call
 		sendAjaxRequest_for_builder();
+
+
+
+
+		//set time out 2000ms
+		setTimeout(function(){
+			setBuilderBackgroundColor();
+		}, 100);
 	}
 	function init_shortcodeBuilder_buttons() {
 		$('#shortcode-delete-template-bt').on('click', function(e) {
@@ -494,8 +531,81 @@
 			});
 		});
 	}
-	
+	function setBuilderBackgroundColor() {
+        var bgColor = $('.cmb2-id-preview-bg-color .wp-color-result').css('background-color');
+		document.getElementById('shortcode_builder').style.setProperty('background-color', bgColor, 'important');
+		if (bgColor !== 'rgb(246, 247, 247)'){
+			// This is a user input color and not the default one. Do the magic
+			document.getElementById('shortcode_builder').style.setProperty('background-image', 'unset', 'important');
+		}else{
+			document.getElementById('shortcode_builder').style.removeProperty('background-image');
+		}
+    }
 	function init_shortcodeBuilder_colorPicker() {
+		let debounceTimer;
+		var container = $('#cmb2-metabox-srmp3_settings_shortcodebuilder');
+	
+		// Helper function to manage opacity and class
+		function manageOpacityAndClass(element) {
+			const parentElement = $(element).closest('.wp-picker-container');
+			const inputElement = parentElement.find('input.wp-color-picker').not('[data-alpha="true"]');;
+			const inputVal = inputElement.val();
+			
+			if (inputVal === '' || inputVal === '#') {
+				$(element).addClass('srp-colopicker-no-background-color');
+			} else {
+				$(element).removeClass('srp-colopicker-no-background-color');
+			}
+		}
+	
+		// Handle dynamically added color pickers
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.type === 'childList') {
+					$(mutation.addedNodes).find('.wp-color-result, .color-alpha').each(function() {
+						styleObserver.observe(this, { attributes: true, attributeFilter: ['style'] });
+						
+						if (!$(this).find('.srp-colopicker-inner-wrapper').length) {
+							//so we can apply a checkergrid withut affecting the select color button
+							$(this).find('span.wp-color-result-text').wrap('<span class="srp-colopicker-inner-wrapper"></span>');
+						}
+
+						manageOpacityAndClass(this);
+					});
+				}
+			});
+		});
+
+		observer.observe(container[0], { childList: true, subtree: true });
+	
+		// Handle style changes on existing and dynamically added elements
+		const styleObserver = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.attributeName === 'style') {
+					clearTimeout(debounceTimer);
+					debounceTimer = setTimeout(() => {
+						manageOpacityAndClass(mutation.target);
+
+						// If it's from cmb2-id-preview-bg-color, change the background color of the builder, else refresh shortcode
+						if ($(mutation.target).closest('.cmb2-id-preview-bg-color').length) {
+							setBuilderBackgroundColor();
+						} else {
+							isSaving = false;
+							sendAjaxRequest_for_builder();
+						}
+					}, 250); // Debounce AJAX calls by 250ms
+				}
+			});
+		});
+	
+		// Initially observe all existing .wp-color-result elements
+		$('.wp-color-result').each(function() {
+			styleObserver.observe(this, { attributes: true, attributeFilter: ['style'] });
+		});
+	}
+	
+	
+	function iinit_shortcodeBuilder_colorPicker() {
 		let debounceTimer;
 		var container = $('#cmb2-metabox-srmp3_settings_shortcodebuilder');
 	
@@ -504,9 +614,20 @@
 			mutations.forEach(function(mutation) {
 				if (mutation.type === 'childList') {
 					mutation.addedNodes.forEach(function(node) {
-						if ($(node).is('.wp-color-result') || $(node).find('.wp-color-result').length > 0) {
-							$(node).find('.wp-color-result').each(function() {
+						if ($(node).is('.wp-color-result') || $(node).find('.wp-color-result').length > 0){
+							$(node).find('.wp-color-result, .color-alpha').each(function() {
 								styleObserver.observe(this, { attributes: true, attributeFilter: ['style'] });
+
+								if ($(this).find('.srp-colopicker-inner-wrapper').length === 0) {
+									$(this).find('span.wp-color-result-text').wrap('<span class="srp-colopicker-inner-wrapper"></span>');
+								}
+								if($(node).find('input.wp-color-picker').val() === '' || $(node).find('input.wp-color-picker').val() === '#'){
+									$(this).css('opacity', '0.8');
+									$(this).addClass('srp-colopicker-no-background-color');
+								}else{
+									$(this).removeClass('srp-colopicker-no-background-color');
+									$(this)[0].style.removeProperty('opacity');
+								}
 							});
 						}
 					});
@@ -519,11 +640,26 @@
 		// Observer for style changes on existing and dynamically added .wp-color-result elements
 		var styleObserver = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
+				console.log($(mutation.target));
 				if (mutation.attributeName === 'style') {
 					clearTimeout(debounceTimer);
 					debounceTimer = setTimeout(() => {
-						isSaving = false;
-						sendAjaxRequest_for_builder();
+						let styleAttr = $(mutation.target).attr('style');
+						if (styleAttr === undefined || styleAttr === '' || !styleAttr.includes('background-color')) {
+								$(mutation.target).addClass('srp-colopicker-no-background-color');
+								$(mutation.target).css('opacity', '0.8');
+						}else{
+							$(mutation.target).removeClass('srp-colopicker-no-background-color');
+							$(mutation.target)[0].style.removeProperty('opacity');
+						}
+
+						//if its from cmb2-id-preview-bg-color, change the background color of the builder only else refresh shortcode
+						if (mutation.target.closest('.cmb2-id-preview-bg-color')) {
+							setBuilderBackgroundColor();
+						}else{
+							isSaving = false;
+							sendAjaxRequest_for_builder();
+						}
 					}, 250); // Debounce AJAX calls by 250ms
 				}
 			});
@@ -772,12 +908,79 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
+
+	function init_lightDarkmodeSwitch() {
+		// Append the toggle switch container to .srmp3-settings-topbar
+		let toggleContainer = document.createElement("div");
+		toggleContainer.id = "toggle-container";
+		toggleContainer.className = "srmp3darkmode-toggle-container";
+		//topBar.appendChild(toggleContainer);
+	  
+		// Function to create a toggle switch
+		function createToggle(dashiconClass, positionClass) {
+			let toggle = document.createElement("div");
+			toggle.className = "srmp3darkmode-toggle-switch";
+		  
+			let knob = document.createElement("div");
+			knob.className = "srmp3darkmode-toggle-knob";
+		  
+			let iconElem = document.createElement("span");
+			iconElem.className = "dashicons " + dashiconClass + " srmp3darkmode-toggle-icon " + positionClass;
+
+			toggle.appendChild(iconElem);
+			toggle.appendChild(knob);
+
+			toggle.addEventListener("click", () => {
+				const isDarkMode = document.body.classList.contains("dark-mode");
+		
+				if (isDarkMode) {
+					iconElem.className = "fas fa-moon srmp3darkmode-toggle-icon srmp3darkmode-toggle-icon-right"; // Sun icon
+					knob.style.transform = "translateX(0)";
+					document.body.classList.remove("dark-mode");
+				} else {
+					iconElem.className = "fas fa-sun srmp3darkmode-toggle-icon srmp3darkmode-toggle-icon-left"; // Moon icon
+					knob.style.transform = "translateX(20px)";
+					document.body.classList.add("dark-mode");
+				}
+		
+				// AJAX request to update user meta
+				fetch(sonaar_admin_ajax.ajax.ajax_url, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+					},
+					body: new URLSearchParams({
+						action: 'srmp3_toggle_dark_mode',
+						nonce: sonaar_admin_ajax.ajax.ajax_nonce,
+						dark_mode: isDarkMode ? 'false' : 'true'
+					})
+				});
+			});
+			
+			
+		  
+			return toggle;
+		}
+		
+		// Create and append toggles
+		let darkModeToggle = createToggle("dashicons-visibility", "srmp3darkmode-toggle-icon-left");
+		
+		if (document.body.classList.contains("dark-mode")) {
+			darkModeToggle.firstChild.className = "fas fa-sun srmp3darkmode-toggle-icon srmp3darkmode-toggle-icon-left";
+			darkModeToggle.lastChild.style.transform = "translateX(20px)";
+		} else {
+			darkModeToggle.firstChild.className = "fas fa-moon srmp3darkmode-toggle-icon srmp3darkmode-toggle-icon-right";
+			darkModeToggle.lastChild.style.transform = "translateX(0)";
+		}
+		
+		toggleContainer.appendChild(darkModeToggle);
+		// Insert the toggleContainer before the button
+		let topBar = document.querySelector(".srmp3-settings-topbar");
+		let saveButton = document.getElementById("srmp3-settings-save-bt");
+		topBar.insertBefore(toggleContainer, saveButton);
+	}
+	  
+	  
 	function init_srmp3_fixed_ui(){
 		//if option-srmp3_settings_ * wildcard is present
 		
@@ -790,7 +993,9 @@
 			return;
 		}
 
-		
+		init_lightDarkmodeSwitch();
+ 
+	 
 		
 		/**
 		 * Add a new div with 100% width to prevent notices from third parties to break the layout

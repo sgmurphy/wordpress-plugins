@@ -398,9 +398,9 @@ class Shortcodes
 
 	    $params = __::a($params, ['items_per_page' => 20]);
 
-        $items = isset($params['items_per_page']) && $params['items_per_page'] > 0 ? $params['items_per_page'] : 20;
+        $items = isset($params['items_per_page']) && $params['items_per_page'] > 0 ? (int)$params['items_per_page'] : 20;
         $offset = $cp = 0;
-        if (isset($params['jstable']) && $params['jstable'] == 1) {
+        if (isset($params['jstable']) && (int)$params['jstable'] === 1) {
             $items = 2000;
         } else {
             $cp = wpdm_query_var('cp', ['validate' => 'int', 'default' => 1]);

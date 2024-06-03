@@ -640,7 +640,7 @@ if(is_admin()){
                                         <div class="panel panel-default" style="margin-top: 15px;margin-bottom: 0;" v-if="asset.type === 'file'">
                                             <div class="input-group" style="border: 0 !important;">
                                                 <input type="text" readonly="readonly" id="sharecode" class="form-control form-control-lg" v-bind:value="asset.sharecode" />
-                                                <div onclick="jQuery('#sharecode').select();document.execCommand('copy');" class="input-group-addon ttip" title="<?php echo __( "Copy Shortcode", "download-manager" ) ?>" style="border: 0 !important;background: #ffffff;cursor: pointer;"><i class="fa fa-copy color-purple"></i></div>
+                                                <div onclick="WPDM.copy('sharecode');" class="input-group-addon ttip" title="<?php echo __( "Copy Shortcode", "download-manager" ) ?>" style="border: 0 !important;background: #ffffff;cursor: pointer;"><i class="fa fa-copy color-purple"></i></div>
                                             </div>
                                             <div class="panel-footer text-center">
                                                 <?php echo  esc_attr__( 'Use the shortcode to embed this asset on any page or post', "download-manager" ); ?>

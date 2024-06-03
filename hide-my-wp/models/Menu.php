@@ -51,6 +51,13 @@ class HMWP_Models_Menu
                 'parent' => 'hmwp_settings',
                 'function' => array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Settings'), 'init'),
             ),
+            'hmwp_firewall' => array(
+                'name' => esc_html__("Firewall", 'hide-my-wp'),
+                'title' => esc_html__("Headers & Firewall", 'hide-my-wp'),
+                'capability' => 'hmwp_manage_settings',
+                'parent' => 'hmwp_settings',
+                'function' => array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Settings'), 'init'),
+            ),
             'hmwp_brute' => array(
                 'name' => esc_html__("Brute Force", 'hide-my-wp'),
                 'title' => esc_html__("Brute Force", 'hide-my-wp'),
@@ -216,6 +223,28 @@ class HMWP_Models_Menu
                 array(
                     'title' => esc_html__("Disable Options", 'hide-my-wp'),
                     'tab' =>'disable',
+                ),
+            ),
+            'hmwp_firewall' => array(
+                array(
+                    'title' => esc_html__("Firewall", 'hide-my-wp'),
+                    'tab' =>'firewall',
+                ),
+                array(
+                    'title' => esc_html__("Header Security", 'hide-my-wp'),
+                    'tab' =>'header',
+                ),
+                array(
+                    'title' => esc_html__("Geo Security", 'hide-my-wp'),
+                    'tab' =>'geoblock',
+                ),
+                array(
+                    'title' => esc_html__("Whitelist", 'hide-my-wp'),
+                    'tab' =>'whitelist',
+                ),
+                array(
+                    'title' => esc_html__("Blacklist", 'hide-my-wp'),
+                    'tab' =>'blacklist',
                 ),
             ),
             'hmwp_brute' => array(

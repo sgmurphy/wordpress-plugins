@@ -179,8 +179,10 @@ class Controller extends Controllers\Submodule_Controller {
 		if ( $data ) {
 			Module_Settings::get()->output_view( $view, $data );
 		} else {
-			$error   = $this->get_specific_error( $urlmetrics );
-			$message = sprintf(
+			$api        = new API( $this->options['access_id'], $this->options['secret_key'] );
+			$urlmetrics = $api->urlmetrics( $target_url );
+			$error      = $this->get_specific_error( $urlmetrics );
+			$message    = sprintf(
 				'%s %s',
 				esc_html__( 'We were unable to retrieve data from the Moz API.', 'smartcrawl-seo' ),
 				$error

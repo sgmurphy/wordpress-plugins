@@ -5,10 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$sub_pages    = QiAddonsForElementor_Admin_General_Page::get_instance()->get_sub_pages();
+$sub_pages = QiAddonsForElementor_Admin_General_Page::get_instance()->get_sub_pages();
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $current_page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
-if ( is_array( $sub_pages ) && count( $sub_pages ) > 0 ) { ?>
+if ( is_array( $sub_pages ) && count( $sub_pages ) > 0 ) {
+	?>
 	<ul class="qodef-tabs-nav">
 	<?php
 	foreach ( $sub_pages as $sub_page ) {

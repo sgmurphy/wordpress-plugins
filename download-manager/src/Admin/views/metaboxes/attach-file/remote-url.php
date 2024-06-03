@@ -8,7 +8,6 @@ if(!defined("ABSPATH")) die("Shit happens!");
 <script>
 
     jQuery(function($){
-        //jQuery( "#ftabs" ).tabs();
 
         $('#rmta').click(function(){
             var d = new Date();

@@ -20,7 +20,7 @@ if (HMWP_Classes_Tools::getOption('hmwp_security_alert')) {
         <div class="hmwp_col flex-grow-1 m-0">
             <div class="card col-sm-12 p-0 m-0" style="max-width: 100%">
                 <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('WordPress Security Check', 'hide-my-wp'); ?>:
-                    <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/website-security-check/') ?>" target="_blank" class="d-inline-block ml-2" style="color: white"><i class="dashicons dashicons-editor-help" style=" vertical-align: top; padding: 5px 0 !important;"></i></a>
+                    <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/website-security-check/') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help" style=" vertical-align: top; padding: 5px 0 !important;"></i></a>
                 </h3>
                 <div class="card-body">
 

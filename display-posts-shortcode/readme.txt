@@ -2,7 +2,7 @@
 Contributors: cultivatewp, billerickson
 Tags: shortcode, pages, posts, page, query, display, list
 Requires at least: 3.0
-Tested up to: 6.3
+Tested up to: 6.5
 Stable tag: 3.0.2
 
 Add a listing of content on your website using a simple shortcode. Filter the results by category, author, and more.

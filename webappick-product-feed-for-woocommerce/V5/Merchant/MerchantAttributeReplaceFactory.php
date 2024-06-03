@@ -812,6 +812,7 @@ class MerchantAttributeReplaceFactory {
 						false,
 					),
 				],
+				'CSV'  => [],
 			],
 
 		];
