@@ -61,7 +61,7 @@ class WOOMULTI_CURRENCY_F_Admin_Product {
 				'currencies' => array_values( $currencies )
 			);
 			wp_localize_script( 'wc-admin-variation-meta-boxes', 'wmc_params', $params );
-			wp_enqueue_script( 'woo-multi-currency-bulk-actions', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency-bulk-actions.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION );
+			wp_enqueue_script( 'woo-multi-currency-bulk-actions', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency-bulk-actions.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION, false );
 		}
 	}
 
@@ -188,12 +188,12 @@ class WOOMULTI_CURRENCY_F_Admin_Product {
 
 		if ( isset( $_POST['_regular_price_wmcp'] ) ) {
 			$_regular_price_wmcp = wmc_adjust_fixed_price( wc_clean( $_POST['_regular_price_wmcp'] ) );
-			$simple_product->update_meta_data('_regular_price_wmcp', json_encode( $_regular_price_wmcp ) );
+			$simple_product->update_meta_data('_regular_price_wmcp', wp_json_encode( $_regular_price_wmcp ) );
 			$update_meta = true;
 		}
 		if ( isset( $_POST['_sale_price_wmcp'] ) && ! empty( $_POST['_sale_price'] ) ) {
 			$_sale_price_wmcp = wmc_adjust_fixed_price( wc_clean( $_POST['_sale_price_wmcp'] ) );
-			$simple_product->update_meta_data('_sale_price_wmcp', json_encode( $_sale_price_wmcp ) );
+			$simple_product->update_meta_data('_sale_price_wmcp', wp_json_encode( $_sale_price_wmcp ) );
 			$update_meta = true;
 		} else {
 			$simple_product->update_meta_data('_sale_price_wmcp', '' );
@@ -231,12 +231,12 @@ class WOOMULTI_CURRENCY_F_Admin_Product {
 
 		if ( isset( $_POST['variable_regular_price_wmc'] ) ) {
 			$_regular_price_wmcp = wmc_adjust_fixed_price( wc_clean( $_POST['variable_regular_price_wmc'] ) );
-			$variation_product->update_meta_data('_regular_price_wmcp', json_encode( $_regular_price_wmcp[ $i ] ) );
+			$variation_product->update_meta_data('_regular_price_wmcp', wp_json_encode( $_regular_price_wmcp[ $i ] ) );
 			$update_meta = true;
 		}
 		if ( isset( $_POST['variables_sale_price_wmc'] ) && ! empty( $_POST['variable_sale_price'][ $i ] ) ) {
 			$_sale_price_wmcp = wmc_adjust_fixed_price( wc_clean( $_POST['variables_sale_price_wmc'] ) );
-			$variation_product->update_meta_data('_sale_price_wmcp', json_encode( $_sale_price_wmcp[ $i ] ) );
+			$variation_product->update_meta_data('_sale_price_wmcp', wp_json_encode( $_sale_price_wmcp[ $i ] ) );
 			$update_meta = true;
 		} else {
 			$variation_product->update_meta_data('_sale_price_wmcp', '' );

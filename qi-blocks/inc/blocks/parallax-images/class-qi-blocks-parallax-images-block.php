@@ -30,6 +30,8 @@ if ( ! class_exists( 'Qi_Blocks_Parallax_Images_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Parallax_Images_Block
 		 */
 		public static function get_instance() {

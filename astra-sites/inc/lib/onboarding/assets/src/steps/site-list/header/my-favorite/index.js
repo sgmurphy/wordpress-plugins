@@ -35,7 +35,10 @@ const MyFavorite = () => {
 			className={ `st-my-favorite ${ onMyFavorite ? 'active' : '' }` }
 			onClick={ handleClick }
 		>
-			<Tooltip content={ __( 'My Favorite', 'astra-sites' ) }>
+			<Tooltip
+				content={ __( 'My Favorite', 'astra-sites' ) }
+				offset={ [ 5, 20 ] }
+			>
 				{ ICONS.favorite }
 			</Tooltip>
 		</div>

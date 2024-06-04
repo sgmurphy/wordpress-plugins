@@ -21,6 +21,8 @@ if ( ! class_exists( 'Qi_Blocks_Global_Settings_Typography' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Global_Settings_Typography
 		 */
 		public static function get_instance() {
@@ -31,15 +33,15 @@ if ( ! class_exists( 'Qi_Blocks_Global_Settings_Typography' ) ) {
 			return self::$instance;
 		}
 
-		function sanitize_typography_array( $value ) {
+		public function sanitize_typography_array( $value ) {
 			return ! is_array( $value ) ? array( array() ) : $value;
 		}
 
-		function sanitize_typography_string( $value ) {
+		public function sanitize_typography_string( $value ) {
 			return ! is_string( $value ) ? '' : $value;
 		}
 
-		function add_options() {
+		public function add_options() {
 			$typography_schema = array(
 				'type'       => 'object',
 				'properties' => array(
@@ -238,7 +240,7 @@ if ( ! class_exists( 'Qi_Blocks_Global_Settings_Typography' ) ) {
 			);
 		}
 
-		function get_typography_styles_fonts() {
+		public function get_typography_styles_fonts() {
 			$options = get_option( 'qi_blocks_global_settings_typography' );
 			$fonts   = array(
 				'family' => array(),
@@ -266,7 +268,7 @@ if ( ! class_exists( 'Qi_Blocks_Global_Settings_Typography' ) ) {
 			return $fonts;
 		}
 
-		function set_global_typography_styles() {
+		public function set_global_typography_styles() {
 			$styles = get_option( 'qi_blocks_global_settings_typography_styles' );
 
 			if ( ! empty( $styles ) ) {
@@ -282,7 +284,7 @@ if ( ! class_exists( 'Qi_Blocks_Global_Settings_Typography' ) ) {
 			}
 		}
 
-		function set_global_typography_editor_styles() {
+		public function set_global_typography_editor_styles() {
 			$styles = get_option( 'qi_blocks_global_settings_typography_styles' );
 
 			if ( ! empty( $styles ) ) {

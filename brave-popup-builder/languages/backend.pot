@@ -2280,7 +2280,7 @@ msgstr ""
 
 #: src/admin/popups/Presets/Presets.js:128
 #: src/admin/popups/editor/fields/FontPicker.js:150
-#: src/admin/popups/editor/visibility/PlacementSettings.js:99
+#: src/admin/popups/editor/visibility/PlacementSettings.js:116
 msgid "All"
 msgstr ""
 
@@ -3618,7 +3618,7 @@ msgstr ""
 
 #: src/admin/popups/editor/builder/Sidebar/Settings/PostSettings.js:107
 #: src/admin/popups/editor/builder/Sidebar/Settings/ProductSettings.js:131
-#: src/admin/popups/editor/visibility/PlacementSettings.js:215
+#: src/admin/popups/editor/visibility/PlacementSettings.js:232
 msgid "No Categories Found"
 msgstr ""
 
@@ -3629,7 +3629,7 @@ msgstr ""
 
 #: src/admin/popups/editor/builder/Sidebar/Settings/PostSettings.js:119
 #: src/admin/popups/editor/builder/Sidebar/Settings/ProductSettings.js:143
-#: src/admin/popups/editor/visibility/PlacementSettings.js:146
+#: src/admin/popups/editor/visibility/PlacementSettings.js:163
 msgid "No Tags Found"
 msgstr ""
 
@@ -3638,7 +3638,7 @@ msgid "Select Posts"
 msgstr ""
 
 #: src/admin/popups/editor/builder/Sidebar/Settings/PostSettings.js:131
-#: src/admin/popups/editor/visibility/PlacementSettings.js:140
+#: src/admin/popups/editor/visibility/PlacementSettings.js:157
 #: src/admin/popups/editor/visibility/WooSettings.js:97
 msgid "No Posts Found"
 msgstr ""
@@ -3794,7 +3794,7 @@ msgid "Select Products"
 msgstr ""
 
 #: src/admin/popups/editor/builder/Sidebar/Settings/ProductSettings.js:155
-#: src/admin/popups/editor/visibility/PlacementSettings.js:177
+#: src/admin/popups/editor/visibility/PlacementSettings.js:194
 msgid "No Products Found"
 msgstr ""
 
@@ -4789,7 +4789,7 @@ msgid "Advanced Filters"
 msgstr ""
 
 #: src/admin/popups/editor/visibility/FilterSettings.js:130
-#: src/admin/popups/editor/visibility/PlacementSettings.js:97
+#: src/admin/popups/editor/visibility/PlacementSettings.js:114
 msgid "Pages"
 msgstr ""
 
@@ -5184,111 +5184,115 @@ msgid ""
 "these settings, logout first."
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:100
+#: src/admin/popups/editor/visibility/PlacementSettings.js:111
+msgid "Show on Selected Pages:"
+msgstr ""
+
+#: src/admin/popups/editor/visibility/PlacementSettings.js:117
 msgid "Archives"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:101
+#: src/admin/popups/editor/visibility/PlacementSettings.js:118
 msgid "Custom Posts"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:107
+#: src/admin/popups/editor/visibility/PlacementSettings.js:124
 msgid "All Pages"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:111
+#: src/admin/popups/editor/visibility/PlacementSettings.js:128
 msgid "No Pages Found"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:115
+#: src/admin/popups/editor/visibility/PlacementSettings.js:132
 msgid "Display on All Pages Except the below Pages:"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:135
+#: src/admin/popups/editor/visibility/PlacementSettings.js:152
 msgid "All Posts"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:151
+#: src/admin/popups/editor/visibility/PlacementSettings.js:168
 msgid "Display on All Posts Except the below Posts:"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:166
+#: src/admin/popups/editor/visibility/PlacementSettings.js:183
 msgid "Categories"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:167
+#: src/admin/popups/editor/visibility/PlacementSettings.js:184
 msgid "Tags"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:172
+#: src/admin/popups/editor/visibility/PlacementSettings.js:189
 msgid "All Products"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:180
+#: src/admin/popups/editor/visibility/PlacementSettings.js:197
 msgid "No Product Categories Found"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:183
+#: src/admin/popups/editor/visibility/PlacementSettings.js:200
 msgid "No Product Tags Found"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:188
+#: src/admin/popups/editor/visibility/PlacementSettings.js:205
 msgid "Display on All Products Pages Except the below Products:"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:201
+#: src/admin/popups/editor/visibility/PlacementSettings.js:218
 #: src/admin/popups/utils/elementlist.js:21
 msgid "Products"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:205
+#: src/admin/popups/editor/visibility/PlacementSettings.js:222
 msgid "All Category Pages"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:217
+#: src/admin/popups/editor/visibility/PlacementSettings.js:234
 msgid "Popup will be displayed on all Posts Category Pages."
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:218
+#: src/admin/popups/editor/visibility/PlacementSettings.js:235
 msgid "Popup will be displayed on all Product Category Pages."
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:226
+#: src/admin/popups/editor/visibility/PlacementSettings.js:243
 msgid "Post Types"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:227
+#: src/admin/popups/editor/visibility/PlacementSettings.js:244
 #: src/admin/popups/utils/elementlist.js:18
 msgid "Posts"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:228
+#: src/admin/popups/editor/visibility/PlacementSettings.js:245
 msgid "Taxonomies"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:231
+#: src/admin/popups/editor/visibility/PlacementSettings.js:248
 msgid "Select Custom Post Types where the Popup should be visible"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:232
+#: src/admin/popups/editor/visibility/PlacementSettings.js:249
 msgid ""
 "Select Custom Post Taxonomies (category, tags etc) where the Popup should "
 "be visible"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:233
+#: src/admin/popups/editor/visibility/PlacementSettings.js:250
 msgid "No Custom Post Types Found"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:234
+#: src/admin/popups/editor/visibility/PlacementSettings.js:251
 msgid "No Custom Post Taxonomies Found"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:242
+#: src/admin/popups/editor/visibility/PlacementSettings.js:259
 msgid "Custom URLs"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:244
+#: src/admin/popups/editor/visibility/PlacementSettings.js:261
 msgid "Add/Edit Custom URLs"
 msgstr ""
 
@@ -5308,8 +5312,14 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: src/admin/popups/editor/visibility/PlacementSettings.js:94
-msgid "Show on Selected Pages:"
+#: src/admin/popups/editor/visibility/PlacementSettings.js:98
+msgid "Select Custom Post Types where the Popup should NOT be visible"
+msgstr ""
+
+#: src/admin/popups/editor/visibility/PlacementSettings.js:99
+msgid ""
+"Select Custom Post Taxonomies (category, tags etc) where the Popup should "
+"NOT be visible"
 msgstr ""
 
 #: src/admin/popups/editor/visibility/TriggerSettings.js:112

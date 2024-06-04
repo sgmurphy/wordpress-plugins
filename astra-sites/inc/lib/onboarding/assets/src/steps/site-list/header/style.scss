@@ -19,6 +19,19 @@
 		.st-header-right {
 			pointer-events: auto;
 		}
+
+		#st-whats-new {
+			pointer-events: auto;
+			margin: 0 20px 5px 0;
+
+			.whats-new-rss-trigger-button {
+				padding: 0;
+
+				svg path {
+					fill: var( --st-color-placeholder );
+				}
+			}
+		}
 	}
 
 	.st-exit-to-dashboard {

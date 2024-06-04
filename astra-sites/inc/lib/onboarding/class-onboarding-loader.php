@@ -181,7 +181,7 @@ class Intelligent_Starter_Templates_Loader {
 		
 		wp_enqueue_style( 'starter-templates-onboarding', INTELLIGENT_TEMPLATES_URI . 'assets/dist/onboarding/style-main.css', array(), $asset['version'] );
 		wp_style_add_data( 'starter-templates-onboarding', 'rtl', 'replace' );
-		
+
 		// Load fonts from Google.
 		wp_enqueue_style( 'starter-templates-onboarding-google-fonts', $this->google_fonts_url(), array( 'starter-templates-onboarding' ), 'all' );
 	}

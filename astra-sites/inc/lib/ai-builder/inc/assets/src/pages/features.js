@@ -16,6 +16,7 @@ import { classNames } from '../helpers';
 import NavigationButtons from '../components/navigation-buttons';
 import { useNavigateSteps } from '../router';
 import PreBuildConfirmModal from '../components/pre-build-confirm-modal';
+import PremiumConfirmModal from '../components/premium-confirm-modal';
 
 const fetchStatus = {
 	fetching: 'fetching',
@@ -52,6 +53,8 @@ const Features = () => {
 			businessContact,
 			selectedTemplate,
 			siteLanguage,
+			selectedTemplateIsPremium,
+			templateList,
 		},
 		loadingNextStep,
 	} = useSelect( ( select ) => {
@@ -72,6 +75,11 @@ const Features = () => {
 		open: false,
 		skipFeature: false,
 	} );
+	const [ premiumModal, setPremiumModal ] = useState( false );
+	const selectedTemplateData = templateList.find(
+			( item ) => item.uuid === selectedTemplate
+		),
+		isEcommarceSite = selectedTemplateData?.features?.ecommerce === 'yes';
 
 	const handleClosePreBuildModal = ( value = false ) => {
 		setPreBuildModal( ( prev ) => {
@@ -86,6 +94,14 @@ const Features = () => {
 		( skipFeature = false ) =>
 		() => {
 			if ( isInProgress ) {
+				return;
+			}
+
+			if (
+				aiBuilderVars?.zip_plans?.active_plan?.slug === 'free' &&
+				selectedTemplateIsPremium
+			) {
+				setPremiumModal( true );
 				return;
 			}
 
@@ -176,6 +192,18 @@ const Features = () => {
 				'social_profiles',
 				JSON.stringify( businessContact?.socialMedia || [] )
 			);
+
+			const enabledFeatures = skip
+				? []
+				: siteFeatures
+						.filter( ( feature ) => feature.enabled )
+						.map( ( feature ) => feature.id );
+
+			// Add ecommerce feature if selected template is ecommerce.
+			if ( isEcommarceSite ) {
+				enabledFeatures.push( 'ecommerce' );
+			}
+
 			const response = await apiFetch( {
 				path: 'zipwp/v1/site',
 				method: 'POST',
@@ -191,11 +219,7 @@ const Features = () => {
 					social_profiles: businessContact?.socialMedia,
 					language: siteLanguage,
 					images: selectedImages,
-					site_features: skip
-						? []
-						: siteFeatures
-								.filter( ( feature ) => feature.enabled )
-								.map( ( feature ) => feature.id ),
+					site_features: enabledFeatures,
 				},
 			} );
 
@@ -352,6 +376,10 @@ const Features = () => {
 				startBuilding={ handleGenerateContent(
 					preBuildModal.skipFeature
 				) }
+			/>
+			<PremiumConfirmModal
+				open={ premiumModal }
+				setOpen={ setPremiumModal }
 			/>
 		</div>
 	);

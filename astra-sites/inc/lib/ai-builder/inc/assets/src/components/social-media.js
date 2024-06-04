@@ -407,9 +407,9 @@ const SocialMediaAdd = ( { list, onChange } ) => {
 
 	return (
 		<div>
-			<div className="text-base font-medium leading-[21px] mb-5 text-heading-text">
+			<h5 className="text-base font-semibold mb-5">
 				{ __( 'Social Media', 'ai-builder' ) }
-			</div>
+			</h5>
 
 			<div className="flex items-start gap-4 flex-wrap">
 				{ updatedList?.length > 0 && (

@@ -77,6 +77,7 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
 	}
 
 
+    //Hook wordfence plugin schedule scan
     public function witelistWordfence() {
         set_transient('hmwp_disable_hide_urls', 1, 300);
     }

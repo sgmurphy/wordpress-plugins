@@ -920,6 +920,8 @@ select {
   margin-top: 0.75rem !important;
 }.\!mt-5 {
   margin-top: 1.25rem !important;
+}.\!mt-8 {
+  margin-top: 2rem !important;
 }.-ml-px {
   margin-left: -1px;
 }.mb-10 {
@@ -1811,6 +1813,8 @@ select {
   background-color: rgb(var(--zip-dark-theme-content-background) / var(--tw-bg-opacity));
 }.bg-opacity-75 {
   --tw-bg-opacity: 0.75;
+}.bg-gradient-1 {
+  background-image: linear-gradient(90deg, #B809A7 0%, #E90B76 46.88%, #FC8536 100%);
 }.bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }.bg-gradient-to-l {

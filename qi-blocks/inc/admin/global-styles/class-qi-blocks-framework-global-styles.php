@@ -27,6 +27,8 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Framework_Global_Styles
 		 */
 		public static function get_instance() {
@@ -37,14 +39,14 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			return self::$instance;
 		}
 
-		function localize_script( $global ) {
+		public function localize_script( $global ) {
 			$global['currentPageID']     = 0;
 			$global['currentPageStyles'] = array();
 
 			return $global;
 		}
 
-		function add_options() {
+		public function add_options() {
 			if ( ! get_option( 'qi_blocks_global_styles' ) ) {
 				add_option(
 					'qi_blocks_global_styles',
@@ -58,7 +60,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			}
 		}
 
-		function add_rest_api_routes( $routes ) {
+		public function add_rest_api_routes( $routes ) {
 			$routes['get-global-styles'] = array(
 				'route'               => 'get-styles',
 				'methods'             => WP_REST_Server::READABLE,
@@ -89,7 +91,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			return $routes;
 		}
 
-		function get_global_styles_callback() {
+		public function get_global_styles_callback() {
 
 			if ( empty( $_GET ) ) {
 				qi_blocks_get_ajax_status( 'error', esc_html__( 'Get method is invalid', 'qi-blocks' ), array() );
@@ -114,7 +116,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			}
 		}
 
-		function update_global_styles_callback( $response ) {
+		public function update_global_styles_callback( $response ) {
 
 			if ( ! isset( $response ) || empty( $response->get_body() ) ) {
 				qi_blocks_get_ajax_status( 'error', esc_html__( 'Options can\'t be updated', 'qi-blocks' ) );
@@ -145,11 +147,11 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			}
 		}
 
-		function add_page_inline_style() {
+		public function add_page_inline_style() {
 			$global_styles = get_option( 'qi_blocks_global_styles' );
 
 			if ( ! empty( $global_styles ) ) {
-				$page_id = get_queried_object_id();
+				$page_id = apply_filters( 'qi_blocks_filter_page_inline_style_page_id', get_queried_object_id() );
 				$styles  = array();
 				$fonts   = array(
 					'family' => array(),
@@ -344,7 +346,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			}
 		}
 
-		function include_google_fonts( $fonts, $include_italic_fonts = false ) {
+		public function include_google_fonts( $fonts, $include_italic_fonts = false ) {
 			$general_options      = get_option( QI_BLOCKS_GENERAL_OPTIONS, array() );
 			$disable_google_fonts = ! empty( $general_options ) && isset( $general_options['disable_google_fonts'] );
 
@@ -390,7 +392,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			}
 		}
 
-		function set_themes_gutenberg_styles() {
+		public function set_themes_gutenberg_styles() {
 			$upload_dir = wp_upload_dir( null, false );
 
 			if ( ! empty( $upload_dir ) && ini_get( 'allow_url_fopen' ) ) {

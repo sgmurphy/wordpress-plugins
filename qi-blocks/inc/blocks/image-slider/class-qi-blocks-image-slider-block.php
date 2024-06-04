@@ -35,6 +35,8 @@ if ( ! class_exists( 'Qi_Blocks_Image_Slider_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Image_Slider_Block
 		 */
 		public static function get_instance() {

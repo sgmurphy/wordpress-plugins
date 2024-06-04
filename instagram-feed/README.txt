@@ -1,4 +1,4 @@
-=== Smash Balloon Social Photo Feed - Best Social Feed Plugin for WordPress ===
+=== Smash Balloon Social Photo Feed - Easy Social Feeds Plugin ===
 Contributors: smashballoon, craig-at-smash-balloon, am, smub
 Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 4.1

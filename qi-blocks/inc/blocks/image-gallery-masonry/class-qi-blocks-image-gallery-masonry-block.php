@@ -38,6 +38,8 @@ if ( ! class_exists( 'Qi_Blocks_Image_Gallery_Masonry_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Image_Gallery_Masonry_Block
 		 */
 		public static function get_instance() {

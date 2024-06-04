@@ -796,7 +796,7 @@ function CacheOpUrl_ParseUrl( $url, &$siteAddr, &$siteSubId, &$path, &$query )
 		Net::GetUrlWithoutProtoEx( Wp::GetSiteRootUrl(), $urlComps[ 'scheme' ] );
 
 	$host = Net::GetSiteAddrFromUrl( Net::UrlDeParse( $urlComps, 0, array(), array( PHP_URL_SCHEME, PHP_URL_HOST, PHP_URL_PORT ) ) );
-	$path = CachePathNormalize( $urlComps[ 'path' ], $pathIsDir );
+	$path = CachePathNormalize( $urlComps[ 'path' ], $pathIsDir, false );
 	$query = (isset($urlComps[ 'query' ])?$urlComps[ 'query' ]:null);
 	$siteId = GetCacheSiteIdAdjustPath( $seraph_accel_sites, $host, $siteSubId, $path );
 	$siteAddr = $urlComps[ 'scheme' ] . '://' . $host;
@@ -949,7 +949,7 @@ function CacheOpGetViewsHeaders( $settCache, $viewId = null )
 	$res = array();
 
 	if( $viewId === null || $viewId === 'cmn' )
-		$res[ 'cmn' ] = array( 'User-Agent' => 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.10' );
+		$res[ 'cmn' ] = array( 'User-Agent' => 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.11' );
 
 	if( !(isset($settCache[ 'views' ])?$settCache[ 'views' ]:null) )
 		return( $res );

@@ -93,30 +93,16 @@ class GlobalsUnlimitedElements{
 	public static $isImporting = false;
 	public static $pluginTitleCurrent;
 	
+	public static $pathPlugin;
+	public static $pathPluginSettings;
+	
 	
 	/**
 	 * init globals
 	 */
 	public static function initGlobals(){
-
-		if(defined("UE_ENABLE_GUTENBERG_SUPPORT")){
-			self::$enableGutenbergSupport = true;
-		}
-		
-		if(GlobalsUC::$inDev == true && defined("UE_DISABLE_ELEMENTOR_SUPPORT")){
-			self::$enableElementorSupport = false;
-						
-			if(self::$enableElementorSupport == false && self::$enableGutenbergSupport == true)
-				self::$isGutenbergOnly = true;
-						
-		}
 		
 		self::$pluginTitleCurrent = self::PLUGIN_TITLE;
-		
-		if(self::$isGutenbergOnly == true){
-			
-			self::$pluginTitleCurrent = self::PLUGIN_TITLE_GUTENBERG;
-		}
 		
 		self::$urlTemplatesList = admin_url("edit.php?post_type=elementor_library&tabs_group=library");
 
@@ -124,14 +110,47 @@ class GlobalsUnlimitedElements{
 
 		UniteProviderFunctionsUC::addAction('admin_init', array("GlobalsUnlimitedElements", 'initAdminNotices'));
 
-		if(self::$enableGutenbergSupport == true)
-			self::initGutenbergIntegration();
-
 		if(GlobalsUC::$is_admin == true && HelperUC::hasPermissionsFromQuery("showadminnotices"))
 			self::$debugAdminNotices = true;
 
+		//set paths
+
+		self::$pathPlugin = dirname(__FILE__)."/";
+
+		self::$pathPlugin = UniteFunctionsUC::pathToUnix(self::$pathPlugin);
+		
+		self::$pathPluginSettings = self::$pathPlugin."settings/";
+		
 	}
 
+	
+	/**
+	 * init after loaded
+	 */
+	public static function initAfterPluginsLoaded(){
+
+		if(defined("UE_ENABLE_GUTENBERG_SUPPORT")){
+			self::$enableGutenbergSupport = true;
+		}
+		
+		if(GlobalsUC::$inDev == true && defined("UE_DISABLE_ELEMENTOR_SUPPORT")){
+			self::$enableElementorSupport = false;
+			
+			if(self::$enableElementorSupport == false && self::$enableGutenbergSupport == true)
+				self::$isGutenbergOnly = true;
+		}
+		
+		if(self::$isGutenbergOnly == true){
+			
+			self::$pluginTitleCurrent = self::PLUGIN_TITLE_GUTENBERG;
+		}
+		
+		if(self::$enableGutenbergSupport == true)
+			self::initGutenbergIntegration();
+		
+	}
+	
+	
 	/**
 	 * init the admin notices
 	 */

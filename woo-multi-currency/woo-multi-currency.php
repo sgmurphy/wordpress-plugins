@@ -3,32 +3,25 @@
  * Plugin Name: CURCY - Multi Currency for WooCommerce
  * Plugin URI: https://villatheme.com/extensions/woo-multi-currency/
  * Description: Allows you to display prices and accepts payments in multiple currencies. Working only with WooCommerce.
- * Version: 2.2.2
+ * Version: 2.2.3
  * Author: VillaTheme
  * Author URI: https://villatheme.com
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Copyright 2016-2024 VillaTheme.com. All rights reserved.
  * Text Domain: woo-multi-currency
  * Requires Plugins: woocommerce
  * Tested up to: 6.5
  * WC requires at least: 7.0
- * WC tested up to: 8.7
+ * WC tested up to: 8.9
  * Elementor tested up to: 3.6.5
  * Requires PHP: 7.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-define( 'WOOMULTI_CURRENCY_F_VERSION', '2.2.2' );
+define( 'WOOMULTI_CURRENCY_F_VERSION', '2.2.3' );
 define( 'WOOMULTI_CURRENCY_F_FILE', __FILE__ );
-
-/**
- * Detect plugin. For use on Front End only.
- */
-
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-if ( is_plugin_active( 'woocommerce-multi-currency/woocommerce-multi-currency.php' ) ) {
-	return;
-}
 
 /**
  * Class WOOMULTI_CURRENCY_F
@@ -44,6 +37,13 @@ class WOOMULTI_CURRENCY_F {
 	}
 
 	public function init() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		if ( is_plugin_active( 'woocommerce-multi-currency/woocommerce-multi-currency.php' ) ) {
+			return;
+		}
+
 		if ( ! class_exists( 'VillaTheme_Require_Environment' ) ) {
 			require_once WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . "woo-multi-currency" . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "support.php";
 		}
@@ -98,6 +98,12 @@ class WOOMULTI_CURRENCY_F {
 	 * When active plugin Function will be call
 	 */
 	public function install() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		if ( is_plugin_active( 'woocommerce-multi-currency/woocommerce-multi-currency.php' ) ) {
+			return;
+		}
 		global $wp_version;
 		if ( version_compare( $wp_version, "5.0", "<" ) ) {
 //			deactivate_plugins( basename( __FILE__ ) ); // Deactivate our plugin

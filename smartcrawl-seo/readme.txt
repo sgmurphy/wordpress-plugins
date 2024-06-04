@@ -20,9 +20,9 @@ If you're looking for the best SEO plugin for WordPress, you need to give SmartC
 
 Create clear, bold, targeted content and rank at the top of your favorite search engine – from Google to Bing.
 
-**Access the complete SEO tool suite from the start with [SmartCrawl Pro](https://wpmudev.com/project/smartcrawl-wordpress-seo/).**
+**Access the complete SEO tool suite from the start with [SmartCrawl Pro](https://wpmudev.com/project/smartcrawl-wordpress-seo/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=smartcrawl-readme-above-the-fold&utm_content=smartcrawl-pro).**
 
-Level up immediately with exclusive Pro features like scheduled SEO audits & URL crawls, automatic linking, and location based redirects. [Learn more about Pro](https://wpmudev.com/project/smartcrawl-wordpress-seo/). 
+Level up immediately with exclusive Pro features like scheduled SEO audits & URL crawls, automatic linking, and location based redirects. [Learn more about Pro](https://wpmudev.com/project/smartcrawl-wordpress-seo/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=smartcrawl-readme-above-the-fold&utm_content=learn-more-about-pro). 
 
 
 ### SmartCrawl’s SEO Tools for WordPress Include:

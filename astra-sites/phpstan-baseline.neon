@@ -856,11 +856,6 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Call to static method instance\\(\\) on an unknown class Elementor\\\\Plugin\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Constant ASTRA_PRO_SITES_DIR not found\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
@@ -1131,7 +1126,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$deps of function wp_enqueue_style expects array\\<string\\>, string given\\.$#"
-			count: 5
+			count: 4
 			path: inc/classes/class-astra-sites.php
 
 		-

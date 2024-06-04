@@ -3,7 +3,7 @@ Contributors: oscargare
 Tags:  woocommerce, price based country, price by country, geoip, woocommerce-multi-currency
 Requires at least: 3.8
 Tested up to: 6.5
-Stable tag: 3.4.5
+Stable tag: 3.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,10 @@ You should do the test in a private browsing window to prevent data stored in th
 7. Includes a country selector widget.
 
 == Changelog ==
+
+= 3.4.6 (2024-06-04) =
+* Added: Tested up WooCommerce 8.9+.
+* Fixed: Compatibility issue with "Variation Swatches For WooCommerce PRO By Emran Ahmed".
 
 = 3.4.5 (2024-05-08) =
 * Added: Tested up WooCommerce 8.8+.

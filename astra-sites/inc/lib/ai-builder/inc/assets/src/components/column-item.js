@@ -7,8 +7,9 @@ import { addHttps, sendPostMessage } from '../utils/helpers';
 import TemplateInfo from './template-info';
 import DotsLoader from './dots-loader';
 import { siteLogoDefault } from '../store/reducer';
+import { GemIcon } from '../ui/icons';
 
-export const ColumnItem = ( { template, isRecommended, position } ) => {
+export const ColumnItem = ( { template, position } ) => {
 	const { businessName, selectedImages, templateList, businessContact } =
 		useSelect( ( select ) => {
 			const { getAIStepData } = select( STORE_KEY );
@@ -20,6 +21,7 @@ export const ColumnItem = ( { template, isRecommended, position } ) => {
 		setWebsiteColorPalette,
 		setWebsiteTypography,
 		setWebsiteLogo,
+		setSelectedTemplateIsPremium,
 	} = useDispatch( STORE_KEY );
 	const containerRef = useRef( null );
 	const loadingSkeleton = useRef( null );
@@ -153,18 +155,20 @@ export const ColumnItem = ( { template, isRecommended, position } ) => {
 							id={ template.uuid }
 						/>
 					</div>
-					{ isRecommended && (
+					{ template.is_premium && (
 						<div
-							className="absolute top-3 right-5 h-6 zw-xs-semibold text-white flex items-center
-                        justify-center rounded-3xl bg-outline-color px-3 pointer-events-none"
+							className="absolute top-4 right-5 text-xs font-semibold text-white flex items-center
+                        justify-center rounded-3xl bg-gradient-1 py-1 pr-3 pl-2 pointer-events-none gap-1"
 						>
-							{ __( 'Recommended', 'ai-builder' ) }
+							<GemIcon className="w-3 h-3" />
+							{ __( 'Premium', 'ai-builder' ) }
 						</div>
 					) }
 					<div
 						className="absolute inset-0 w-full h-full bg-transparent cursor-pointer"
 						onClick={ () => {
 							setWebsiteSelectedTemplateAIStep( template.uuid );
+							setSelectedTemplateIsPremium( template.is_premium );
 							setWebsiteLogo( siteLogoDefault );
 							setWebsiteTypography( null );
 							setWebsiteColorPalette( null );

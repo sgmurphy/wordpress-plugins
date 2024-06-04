@@ -1177,7 +1177,7 @@ function auxin_widget_column_callback( $atts, $shortcode_content = null ){
                 <?php } if( ! empty( $content ) ) { ?>
                 <div class="widget-content">
                     <?php $encoding_flag =  defined('ENT_HTML401') ? ENT_HTML401 : ENT_QUOTES; ?>
-                    <?php echo do_shortcode( html_entity_decode( $content, $encoding_flag, 'UTF-8') ); ?>
+                    <?php echo wp_kses_post( do_shortcode( html_entity_decode( $content, $encoding_flag, 'UTF-8') ) ); ?>
                 </div>
                 <?php } if ( auxin_is_true( $display_button ) ) {
                     echo auxin_widget_button_callback( $btn_atts );

@@ -35,6 +35,7 @@ if(!isset($type)) {
 	$type = 'button';
 }
 $reportButton = '';
+$newIdeas = '';
 $proClassWrapper = '';
 if(YRM_PKG == YRM_FREE_PKG) {
 	$proClassWrapper = 'yrm-pro-option';
@@ -42,6 +43,7 @@ if(YRM_PKG == YRM_FREE_PKG) {
 					<i class="glyphicon glyphicon-alert"></i>
 					
 					Report issue</button></a>';
+    $newIdeas = ReadMoreAdminHelper::newIdeasButton();
 }
 $allowedTag = ReadMoreAdminHelper::getAllowedTags();
 ?>
@@ -62,7 +64,7 @@ $allowedTag = ReadMoreAdminHelper::getAllowedTags();
 
 		<div class="expm-wrapper">
 			<div class="titles-wrapper">
-				<h2 class="expander-page-title">Change settings <?php echo wp_kses($reportButton, $allowedTag); ?></h2>
+				<h2 class="expander-page-title">Change settings <?php echo wp_kses($reportButton, $allowedTag);echo wp_kses($newIdeas, $allowedTag); ?></h2>
 				<div class="button-wrapper">
 					<p class="submit">
 						<?php if(YRM_PKG == YRM_FREE_PKG): ?>

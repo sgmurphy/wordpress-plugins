@@ -634,6 +634,10 @@ class WOOMULTI_CURRENCY_F_Data {
 	 * @return array
 	 */
 	public function get_links() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_data' ) ) {
+			return array();
+		}
+
 		$links               = array();
 		$selected_currencies = $this->get_list_currencies();
 		$current_currency    = $this->get_current_currency();
@@ -1059,7 +1063,7 @@ class WOOMULTI_CURRENCY_F_Data {
 	 * @param string $path
 	 */
 	public function setcookie( $name, $value, $time = 86400, $path = '/' ) {
-		setcookie( $name, $value, $time, $path );
+		@setcookie( $name, $value, $time, $path );
 		$_COOKIE[ $name ] = $value;
 	}
 

@@ -4,13 +4,13 @@ Donate link: http://www.villatheme.com/donate
 Tags: ecommerce, multi currency for woo, woocommerce, woocommerce currency switcher, woocommerce multi currency
 Requires at least: 6.0
 Tested up to: 6.5
-WC tested up to: 8.7
+WC tested up to: 8.9
 Requires PHP: 7.0
-License: GPLv2 or later
+License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 2.2.2
+Stable tag: trunk
 
-Allows you to display prices and accepts payments in multiple currencies. Working only with WooCommerce.
+Show multi-currency pricing and dual-currency display, accept multi-currency payment, support IP detection, custom/global rate, fixed price and more
 
 == Description ==
 
@@ -204,6 +204,9 @@ Check screenshots at https://villatheme.com/woo-multi-currency/ or https://villa
 4. Design tab in setting page
 
 == Changelog ==
+/*2.2.3 - 2024.06.04*/
+- Update: Add filter wmc_switcher_display_currency_name to change display currency name
+
 /*2.2.2 - 2024.04.13*/
 - Fixed: Shipping issue with MyFatoorah
 - Fixed: Conflict shipping price with Envia Shipping and Fulfillment

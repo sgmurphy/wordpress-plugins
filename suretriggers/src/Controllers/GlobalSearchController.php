@@ -17067,8 +17067,13 @@ class GlobalSearchController {
 		global $wpdb;
 		$context = [];
 		$term    = $data['search_term'];
-		if ( 'order_placed' === $term || 'order_canceled' === $term || 'refund_requested' === $term || 'payment_authorized' === $term ) {
-			if ( 'order_placed' === $term || 'refund_requested' === $term || 'payment_authorized' === $term ) {
+
+		if ( ! class_exists( 'Voxel\Product_Types\Orders\Order' ) ) {
+			return [];
+		}
+
+		if ( 'order_placed' === $term || 'order_canceled' === $term ) {
+			if ( 'order_placed' === $term ) {
 				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders ORDER BY id DESC LIMIT 1";
 			} elseif ( 'order_canceled' === $term ) {
 				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE status = 'canceled' ORDER BY id DESC LIMIT 1";
@@ -17076,43 +17081,81 @@ class GlobalSearchController {
 			
 			$results      = $wpdb->get_results(  $sql, ARRAY_A );// @phpcs:ignore
 			if ( ! empty( $results ) ) {
+				// Get Order.
 				$context['pluggable_data']['id']             = $results[0]['id'];
-				$context['pluggable_data']['post_id']        = $results[0]['post_id'];
-				$context['pluggable_data']['product_type']   = $results[0]['product_type'];
 				$context['pluggable_data']['vendor_id']      = $results[0]['vendor_id'];
 				$context['pluggable_data']['details']        = json_decode( $results[0]['details'], true );
+				$context['pluggable_data']['payment_method'] = $results[0]['payment_method'];
 				$context['pluggable_data']['status']         = $results[0]['status'];
-				$context['pluggable_data']['mode']           = $results[0]['mode'];
-				$context['pluggable_data']['object_id']      = $results[0]['object_id'];
-				$context['pluggable_data']['object_details'] = $results[0]['object_details'];
 				$context['pluggable_data']['created_at']     = $results[0]['created_at'];
-				$context['pluggable_data']['customer']       = WordPress::get_user_context( $results[0]['customer_id'] );
-				$context['response_type']                    = 'live';
+				// Get order items.
+				$order                                        = \Voxel\Product_Types\Orders\Order::find(
+					[
+						'id' => $results[0]['id'],
+					] 
+				);
+				$order_items                                  = $order->get_items();
+				$context['pluggable_data']['tax_amount']      = $order->get_tax_amount();
+				$context['pluggable_data']['discount_amount'] = $order->get_discount_amount();
+				$context['pluggable_data']['shipping_amount'] = $order->get_shipping_amount();
+				$context['pluggable_data']['order_item_count'] = $order->get_item_count();
+				foreach ( $order_items as $item ) {
+					$context['pluggable_data']['order_items'][] = [
+						'type'                  => $item->get_type(),
+						'quantity'              => $item->get_quantity(),
+						'product_label'         => $item->get_product_label(),
+						'product_thumbnail_url' => $item->get_product_thumbnail_url(),
+						'product_link'          => $item->get_product_link(),
+					];
+				}
+				// Get Customer.
+				$context['pluggable_data']['customer'] = WordPress::get_user_context( $results[0]['customer_id'] );
+				$context['response_type']              = 'live';
 			} else {
-				$context = json_decode( '{"pluggable_data":{"id": "11","post_id": "8401","product_type": "clothing","vendor_id": "1","details": {"fields": {"text": "test","email": "johnd@yopmail.com"},"pricing": {"base_price": 10,"total": 10,"currency": "USD"}},"status": "pending_approval","mode": "payment","object_id": null,"object_details": null,"created_at": "2024-03-18 10:08:25","customer": {"wp_user_id": 1,"user_login": "johnd","display_name": "johnd","user_firstname": "johnd","user_lastname": "johnd","user_email": "johnd@yopmail.com","user_role": {"0": "administrator","7": "academy_instructor","8": "tutor_instructor"}}},"response_type":"sample"}', true );// @phpcs:ignore
+				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"type": "regular","quantity": 1,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/product-1\/"}],"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
 			}
 		} elseif ( 'order_approved' === $term || 'order_declined' === $term ) {
 			if ( 'order_approved' === $term ) {
 				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE status = 'completed' ORDER BY id DESC LIMIT 1";
 			} elseif ( 'order_declined' === $term ) {
-				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE status = 'declined' ORDER BY id DESC LIMIT 1";
+				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE status = 'canceled' ORDER BY id DESC LIMIT 1";
 			}
 			$results      = $wpdb->get_results(  $sql, ARRAY_A );// @phpcs:ignore
 			if ( ! empty( $results ) ) {
+				// Get Order.
 				$context['pluggable_data']['id']             = $results[0]['id'];
-				$context['pluggable_data']['post_id']        = $results[0]['post_id'];
-				$context['pluggable_data']['product_type']   = $results[0]['product_type'];
+				$context['pluggable_data']['vendor_id']      = $results[0]['vendor_id'];
 				$context['pluggable_data']['details']        = json_decode( $results[0]['details'], true );
+				$context['pluggable_data']['payment_method'] = $results[0]['payment_method'];
 				$context['pluggable_data']['status']         = $results[0]['status'];
-				$context['pluggable_data']['mode']           = $results[0]['mode'];
-				$context['pluggable_data']['object_id']      = $results[0]['object_id'];
-				$context['pluggable_data']['object_details'] = $results[0]['object_details'];
 				$context['pluggable_data']['created_at']     = $results[0]['created_at'];
-				$context['pluggable_data']['vendor']         = WordPress::get_user_context( $results[0]['vendor_id'] );
-				$context['pluggable_data']['customer']       = WordPress::get_user_context( $results[0]['customer_id'] );
-				$context['response_type']                    = 'live';
+				// Get order items.
+				$order                                        = \Voxel\Product_Types\Orders\Order::find(
+					[
+						'id' => $results[0]['id'],
+					] 
+				);
+				$order_items                                  = $order->get_items();
+				$context['pluggable_data']['tax_amount']      = $order->get_tax_amount();
+				$context['pluggable_data']['discount_amount'] = $order->get_discount_amount();
+				$context['pluggable_data']['shipping_amount'] = $order->get_shipping_amount();
+				$context['pluggable_data']['order_item_count'] = $order->get_item_count();
+				foreach ( $order_items as $item ) {
+					$context['pluggable_data']['order_items'][] = [
+						'type'                  => $item->get_type(),
+						'quantity'              => $item->get_quantity(),
+						'product_label'         => $item->get_product_label(),
+						'product_thumbnail_url' => $item->get_product_thumbnail_url(),
+						'product_link'          => $item->get_product_link(),
+					];
+				}
+				// Get Customer.
+				$context['pluggable_data']['customer'] = WordPress::get_user_context( $results[0]['customer_id'] );
+				// Get Vendor.
+				$context['pluggable_data']['vendor'] = WordPress::get_user_context( $results[0]['vendor_id'] );
+				$context['response_type']            = 'live';
 			} else {
-				$context = json_decode( '{"pluggable_data":{"id": "2","post_id": "8395","product_type": "clothing","details": {"fields": {"text": "new","email": "johnd@gmail.com"},"pricing": {"base_price": 10,"total": 10,"currency": "USD"}},"status": "completed","mode": "payment","object_id": null,"object_details": null,"created_at": "2024-03-18 09:25:19","vendor": {"wp_user_id": 1,"user_login": "admin","display_name": "Arian","user_firstname": "arian","user_lastname": "d","user_email": "johnd@gmail.com","user_role": {"0": "administrator","7": "academy_instructor","8": "tutor_instructor"}},"customer": {"wp_user_id": 1,"user_login": "admin","display_name": "Arian","user_firstname": "arian","user_lastname": "d","user_email": "johnd@gmail.com","user_role": {"0": "administrator"}}},"response_type":"sample"}', true );// @phpcs:ignore
+				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"type": "regular","quantity": 1,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/product-1\/"}],"vendor": {"wp_user_id": 1,"user_login": "admin","display_name": "Arian","user_firstname": "arian","user_lastname": "d","user_email": "johnd@gmail.com","user_role": {"0": "administrator","7": "academy_instructor","8": "tutor_instructor"}},"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
 			}
 		}
 		return $context;

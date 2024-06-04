@@ -14,6 +14,8 @@ class Qi_Blocks_Comments_Rest_API {
 	}
 
 	/**
+	 * Instance of module class
+	 *
 	 * @return Qi_Blocks_Comments_Rest_API
 	 */
 	public static function get_instance() {
@@ -24,7 +26,7 @@ class Qi_Blocks_Comments_Rest_API {
 		return self::$instance;
 	}
 
-	function add_rest_api_routes( $routes ) {
+	public function add_rest_api_routes( $routes ) {
 		$routes['render-comments'] = array(
 			'route'               => 'render-comments',
 			'methods'             => WP_REST_Server::CREATABLE,
@@ -51,7 +53,7 @@ class Qi_Blocks_Comments_Rest_API {
 		return $routes;
 	}
 
-	function render_comments_callback( $response ) {
+	public function render_comments_callback( $response ) {
 
 		if ( ! isset( $response ) || empty( $response->get_body() ) ) {
 			qi_blocks_get_ajax_status( 'error', esc_html__( 'Rest is invalid', 'qi-blocks' ), array() );

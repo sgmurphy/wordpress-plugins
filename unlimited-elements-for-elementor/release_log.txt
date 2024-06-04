@@ -1,5 +1,12 @@
 
 
+version 1.5.110:
+
+* Fix: remote arrows was sendin next/prev commands twice
+* Fix: fix some password protected content related security issue
+* Fix: fix some sql security small issue 
+
+
 version 1.5.109:
 
 * Feature: added option to get page views of some post using WPP plugin

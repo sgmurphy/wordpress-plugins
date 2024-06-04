@@ -721,9 +721,10 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 		$addons = array();
 
 		foreach($arrAddons as $key => $addonID){
+			
 			$addon = new UniteCreatorAddon();
 			$addon->initByID($addonID);
-
+			
 			$addons[] = $addon;
 			$arrAddons[$key] = $addon->getID();
 		}
@@ -995,15 +996,19 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 * delete addon from imput data
 	 */
 	public function deleteAddonFromData($data){
-
+		
 		$addonID = UniteFunctionsUC::getVal($data, "addonID");
 		UniteFunctionsUC::validateNotEmpty($addonID, "Widget ID");
 
+		UniteFunctionsUC::validateNumeric($addonID,"widget id");
+		
 		$addon = new UniteCreatorAddon();
 		$addon->initByID($addonID);
-
+		
+		$addonID = (int)$addonID;
+		
 		$this->db->delete(GlobalsUC::$table_addons, "id={$addonID}");
-
+		
 		$addon->triggerAfterDeleteAction();
 	}
 

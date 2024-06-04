@@ -1176,13 +1176,13 @@ class ModernHeading extends Widget_Base {
 
                     printf( '<a %1$s><%2$s class="aux-modern-heading-primary">%3$s</%2$s></a>',
                         $this->get_render_attribute_string( 'link-primary' ),
-                        esc_attr( $settings['title_tag'] ),
+                        tag_escape( $settings['title_tag'] ),
                         wp_kses_post( $settings['title'] )
                     );
 
                 } else {
                     printf( '<%1$s class="aux-modern-heading-primary">%2$s</%1$s>',
-                        esc_attr( $settings['title_tag'] ),
+                        tag_escape( $settings['title_tag'] ),
                         wp_kses_post( $settings['title'] )
                     );
                 }
@@ -1213,14 +1213,14 @@ class ModernHeading extends Widget_Base {
 
                         printf( '<a %1$s><%2$s class="aux-modern-heading-secondary">%3$s%4$s%5$s</%2$s></a>',
                             $this->get_render_attribute_string( 'link-secondary' ),
-                            esc_attr( $settings['title_tag_secondary'] ),
+                            tag_escape( $settings['title_tag_secondary'] ),
                             wp_kses_post( $before_heading ),
                             wp_kses_post( $highlight_heading ),
                             wp_kses_post( $after_heading ) 
                         );
                     } else {
                         printf( '<%1$s class="aux-modern-heading-secondary">%2$s%3$s%4$s</%1$s>',
-                            esc_attr( $settings['title_tag_secondary'] ),
+                            tag_escape( $settings['title_tag_secondary'] ),
                             wp_kses_post( $before_heading ),
                             wp_kses_post( $highlight_heading ),
                             wp_kses_post( $after_heading ) 

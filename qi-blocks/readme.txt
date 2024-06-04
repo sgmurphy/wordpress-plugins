@@ -4,7 +4,7 @@ Tags: gutenberg block, blocks, patterns, wireframes, gutenberg templates
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.2.9
+Stable tag: 1.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -276,6 +276,13 @@ From wordpress.org
 12.	Device Frame Slider Block.
 
 == Changelog ==
+
+= 1.3 - 04-06-2024 =
+- Improved WordPress coding standards
+- Improved WooCommerce helper functions
+- Updated languages file
+- Fixed Qi Blocks styles on WooCommerce Shop page
+- Fixed Cross Site Scripting (XSS) vulnerability
 
 = 1.2.9 - 29-05-2024 =
 - Improved Qi Global Settings button styles

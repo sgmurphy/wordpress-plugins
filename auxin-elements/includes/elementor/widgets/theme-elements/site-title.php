@@ -508,9 +508,9 @@ class SiteTitle extends Widget_Base {
         $site_title  = $link_output;
     }
 
-    echo $settings['title_before'] !== '' ? sprintf('<%1$s class ="aux-site-title-before-heading">%2$s</%1$s>', esc_attr( $settings['title_before_tag'] ), esc_html( $settings['title_before'] ) ) : '';
-    echo sprintf('<%1$s class="aux-site-title-heading">%2$s</%1$s>', esc_attr( $settings['title_tag'] ), wp_kses_post( $site_title ) );
-    echo $settings['title_after'] !== '' ? sprintf('<%1$s class ="aux-site-title-after-heading">%2$s</%1$s>', esc_attr( $settings['title_after_tag'] ), esc_html( $settings['title_after'] ) ) : '';
+    echo $settings['title_before'] !== '' ? sprintf('<%1$s class ="aux-site-title-before-heading">%2$s</%1$s>', tag_escape( $settings['title_before_tag'] ), esc_html( $settings['title_before'] ) ) : '';
+    echo sprintf('<%1$s class="aux-site-title-heading">%2$s</%1$s>', tag_escape( $settings['title_tag'] ), wp_kses_post( $site_title ) );
+    echo $settings['title_after'] !== '' ? sprintf('<%1$s class ="aux-site-title-after-heading">%2$s</%1$s>', tag_escape( $settings['title_after_tag'] ), esc_html( $settings['title_after'] ) ) : '';
 
     echo '</div>';
   }

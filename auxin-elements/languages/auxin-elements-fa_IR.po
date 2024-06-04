@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Auxin Essential Elements\n"
 "Report-Msgid-Bugs-To: http://averta.net/phlox/wordpress-theme/\n"
-"POT-Creation-Date: 2024-01-20 09:18:10+00:00\n"
+"POT-Creation-Date: 2024-05-19 07:51:03+00:00\n"
 "PO-Revision-Date: 2016-11-09 12:50+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -117,6 +117,10 @@ msgstr ""
 
 #: admin/includes/admin-ajax.php:452
 msgid "Successfully Imported."
+msgstr ""
+
+#: admin/includes/admin-ajax.php:467 admin/includes/admin-the-functions.php:179
+msgid "Sorry. You don't have sufficient permission to import a template!"
 msgstr ""
 
 #: admin/includes/admin-hooks.php:52
@@ -247,35 +251,35 @@ msgstr "دسته"
 msgid "a long time"
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:182
+#: admin/includes/admin-the-functions.php:191
 msgid "Template ID or type is required."
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:195
+#: admin/includes/admin-the-functions.php:204
 msgid "An error occurred while updating templates library."
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:214
+#: admin/includes/admin-the-functions.php:223
 msgid "Template Not Found."
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:230
+#: admin/includes/admin-the-functions.php:239
 msgid "Template is already imported."
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:246
+#: admin/includes/admin-the-functions.php:255
 msgid "Connection error, please check your connection."
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:263
+#: admin/includes/admin-the-functions.php:272
 msgid "Template ID must be numeric or valid filepath."
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:323
+#: admin/includes/admin-the-functions.php:332
 msgid "Template Imported Successfully"
 msgstr ""
 
-#: admin/includes/admin-the-functions.php:335
+#: admin/includes/admin-the-functions.php:344
 msgid "Error while saving the template."
 msgstr ""
 
@@ -461,17 +465,17 @@ msgstr ""
 "برای تعریف جاوااسکریپت های سراسری، لطفا از فیلد جاوااسکریپت سفارشی در پنل "
 "تنظیمات استفاده کنید."
 
-#: admin/includes/metaboxes/metabox-fields-general-advanced.php:53
+#: admin/includes/metaboxes/metabox-fields-general-advanced.php:54
 msgid "Extra Google Font1"
 msgstr ""
 
-#: admin/includes/metaboxes/metabox-fields-general-advanced.php:54
-#: admin/includes/metaboxes/metabox-fields-general-advanced.php:62
+#: admin/includes/metaboxes/metabox-fields-general-advanced.php:55
+#: admin/includes/metaboxes/metabox-fields-general-advanced.php:63
 #, fuzzy
 msgid "Load an extra Google font for this page."
 msgstr "در صفحه جدید یا در همین صفحه باز شود."
 
-#: admin/includes/metaboxes/metabox-fields-general-advanced.php:61
+#: admin/includes/metaboxes/metabox-fields-general-advanced.php:62
 msgid "Extra Google Font2"
 msgstr ""
 
@@ -1957,7 +1961,7 @@ msgid "Importing Media"
 msgstr ""
 
 #: includes/classes/class-auxin-demo-importer.php:294
-#: includes/classes/class-auxin-demo-importer.php:1346
+#: includes/classes/class-auxin-demo-importer.php:1395
 msgid "Importing Users"
 msgstr ""
 
@@ -1972,7 +1976,7 @@ msgid "Importing Options"
 msgstr "تنظیمات طراحی"
 
 #: includes/classes/class-auxin-demo-importer.php:346
-#: includes/classes/class-auxin-demo-importer.php:566
+#: includes/classes/class-auxin-demo-importer.php:579
 msgid "Importing Menus"
 msgstr ""
 
@@ -1984,15 +1988,15 @@ msgstr ""
 msgid "Retrieve Body Fails"
 msgstr ""
 
-#: includes/classes/class-auxin-demo-importer.php:641
+#: includes/classes/class-auxin-demo-importer.php:654
 msgid "Importing Sliders"
 msgstr ""
 
-#: includes/classes/class-auxin-demo-importer.php:1423
+#: includes/classes/class-auxin-demo-importer.php:1472
 msgid "Preparing Site ..."
 msgstr ""
 
-#: includes/classes/class-auxin-demo-importer.php:1467
+#: includes/classes/class-auxin-demo-importer.php:1516
 msgid "All steps are successful"
 msgstr ""
 
@@ -12864,7 +12868,8 @@ msgstr ""
 "ابزارک ها و تنظیمات افزایش می دهد."
 
 #. Author of the plugin/theme
-msgid "averta"
+#, fuzzy
+msgid "By Averta"
 msgstr "اورتا"
 
 #. Author URI of the plugin/theme

@@ -154,11 +154,11 @@ const DescribeBusiness = () => {
 		}
 
 		return (
-			<h1>
+			<>
 				{ strings[ 0 ] }
 				<StyledText text={ businessName } />
 				{ strings[ 1 ] }
-			</h1>
+			</>
 		);
 	};
 

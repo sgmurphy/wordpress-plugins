@@ -259,7 +259,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'1.1',
 		true
 	);
-	wp_register_style('gslightbox', GREENSHIFT_DIR_URL . 'libs/lightbox/simpleLightbox.min.css', array(), '1.2');
+	wp_register_style('gslightbox', GREENSHIFT_DIR_URL . 'libs/lightbox/simpleLightbox.min.css', array(), '1.3');
 
 	// counter
 	wp_register_script(

@@ -20,6 +20,7 @@ const ClassicPreview = () => {
 			selectedTemplateType,
 			templateId,
 			currentIndex,
+			builder,
 		},
 		dispatch,
 	] = useStateValue();
@@ -87,7 +88,7 @@ const ClassicPreview = () => {
 				{ templateResponse ? (
 					<>
 						<FontSelector />
-						<ColorPalettes />
+						{ builder !== 'beaver-builder' && <ColorPalettes /> }
 					</>
 				) : (
 					<div className="space-y-5 mt-5">
@@ -95,10 +96,12 @@ const ClassicPreview = () => {
 							data-placeholder
 							className="relative animate-pulse overflow-hidden bg-gray-300 h-[50px] w-full rounded-md"
 						/>
-						<div
-							data-placeholder
-							className="relative animate-pulse overflow-hidden bg-gray-300 h-[50px] w-full rounded-md"
-						/>
+						{ builder !== 'beaver-builder' && (
+							<div
+								data-placeholder
+								className="relative animate-pulse overflow-hidden bg-gray-300 h-[50px] w-full rounded-md"
+							/>
+						) }
 					</div>
 				) }
 			</div>

@@ -307,7 +307,7 @@ function auxin_shortcode_timeline( $atts, $content = null ) {
 
 ?>
 
-                    <article class="aux-block <?php echo "date-type-".$date_type." "; echo ($thumb_mode != "top")? $thumb_mode : "thumb_top" ; ?>">
+                    <article class="aux-block <?php echo "date-type-". esc_attr( $date_type ) ." "; echo ($thumb_mode != "top")? esc_attr( $thumb_mode ) : "thumb_top" ; ?>">
                        <figure>
                            <?php if ( $has_attach  && ($view_thumb == "yes") ) {
                                 echo wp_kses_post( $the_media );

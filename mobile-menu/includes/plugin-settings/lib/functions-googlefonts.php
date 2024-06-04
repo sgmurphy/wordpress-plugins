@@ -375,6 +375,7 @@ if ( ! function_exists( 'mobmenu_get_googlefonts' ) ) {
 			array( 'name' => 'Jolly Lodger', 'subsets' => array( 'latin-ext', 'latin' ), 'variants' => array( '400' ) ),
 			array( 'name' => 'Josefin Sans', 'subsets' => array( 'latin-ext', 'latin' ), 'variants' => array( '100', '100italic', '300', '300italic', '400', 'italic', '600', '600italic', '700', '700italic' ) ),
 			array( 'name' => 'Josefin Slab', 'subsets' => array( 'latin' ), 'variants' => array( '100', '100italic', '300', '300italic', '400', 'italic', '600', '600italic', '700', '700italic' ) ),
+			array( 'name' => 'Jost', 'subsets' => array( 'latin' ), 'variants' => array( '100', '100italic', '300', '300italic', '400', 'italic', '600', '600italic', '700', '700italic' ) ),
 			array( 'name' => 'Joti One', 'subsets' => array( 'latin-ext', 'latin' ), 'variants' => array( '400' ) ),
 			array( 'name' => 'Judson', 'subsets' => array( 'latin-ext', 'latin', 'vietnamese' ), 'variants' => array( '400', 'italic', '700' ) ),
 			array( 'name' => 'Julee', 'subsets' => array( 'latin' ), 'variants' => array( '400' ) ),

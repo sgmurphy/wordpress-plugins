@@ -61,6 +61,8 @@ $options = array(
     'notification_button_1_border_width' => 0,
     'notification_button_1_border_color' => '#FFFFFF',
     'notification_button_1_border_style' => 'solid',
+    'notification_button_1_padding_left_right' => 32,
+    'notification_button_1_padding_top_bottom' => 12,
     'except_post_types' => array(),
     'except_posts' => array(),
     'show_on_home_page' => 'off',
@@ -410,6 +412,12 @@ $notification_button_1_border_color = (isset($options['notification_button_1_bor
 
 // Notification type | Button 1 border style
 $notification_button_1_border_style = (isset($options['notification_button_1_border_style']) && $options['notification_button_1_border_style'] != '') ? stripslashes( esc_attr($options['notification_button_1_border_style']) ) : 'solid';
+
+// Notification type | Button 1 padding left/right
+$notification_button_1_padding_left_right = (isset($options['notification_button_1_padding_left_right']) && $options['notification_button_1_padding_left_right'] !== '') ? absint( esc_attr($options['notification_button_1_padding_left_right']) ) : 32;
+
+// Notification type | Button 1 padding top/bottom
+$notification_button_1_padding_top_bottom = (isset($options['notification_button_1_padding_top_bottom']) && $options['notification_button_1_padding_top_bottom'] !== '') ? absint( esc_attr($options['notification_button_1_padding_top_bottom']) ) : 12;
 
 // Popup description
 $description = (isset($popupbox['description']) && $popupbox['description'] != '') ? stripslashes($popupbox['description']) : '';
@@ -1853,6 +1861,29 @@ $ays_users_roles = $wp_roles->roles;
                                             }
                                         ?>
                                     </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_button_1_padding_left_right">
+                                        <span>
+                                            <?php echo  __('Padding',"ays-popup-box") ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Padding of button.", "ays-popup-box"); ?>">
+                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                            </a>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="col-sm-4" style="display: inline-block;">
+                                        <span class="ays-pb-small-hint-text"><?php echo  __('Left / Right',"ays-popup-box") ?></span>
+                                        <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_left_right" name="ays_pb_notification_button_1_padding_left_right" style="width: 100px;" value="<?php echo $notification_button_1_padding_left_right; ?>">
+                                    </div>
+                                    <div class="col-sm-4 ays_divider_left" style="display: inline-block;">
+                                        <span class="ays-pb-small-hint-text"><?php echo  __('Top / Bottom',"ays-popup-box") ?></span>
+                                        <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_top_bottom" name="ays_pb_notification_button_1_padding_top_bottom" style="width: 100px;" value="<?php echo $notification_button_1_padding_top_bottom; ?>">
+                                    </div>
                                 </div>
                             </div>
                         </div>

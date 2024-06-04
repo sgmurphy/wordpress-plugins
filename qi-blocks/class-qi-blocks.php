@@ -5,11 +5,17 @@ Description: A collection of blocks for the Gutenberg block editor, developed by
 Author: Qode Interactive
 Author URI: https://qodeinteractive.com/
 Plugin URI: https://qodeinteractive.com/qi-blocks-for-gutenberg/
-Version: 1.2.9
+Version: 1.3
 Requires at least: 5.8
 Requires PHP: 7.0
 Text Domain: qi-blocks
 */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! class_exists( 'Qi_Blocks' ) ) {
 	class Qi_Blocks {
 		private static $instance;
@@ -34,6 +40,7 @@ if ( ! class_exists( 'Qi_Blocks' ) ) {
 
 				// Allow SVG MIME Type in Media Upload.
 				add_filter( 'upload_mimes', array( $this, 'allow_svg_media_files' ) );
+				add_filter( 'wp_handle_upload_prefilter', array( $this, 'handle_svg_wp_media_upload' ) );
 				add_filter( 'wp_check_filetype_and_ext', array( $this, 'check_svg_upload' ), 10, 4 );
 
 				// Enqueue plugin's assets.
@@ -56,6 +63,8 @@ if ( ! class_exists( 'Qi_Blocks' ) ) {
 		}
 
 		/**
+		 * Instance of module class
+		 *
 		 * @return Qi_Blocks
 		 */
 		public static function get_instance() {
@@ -88,6 +97,47 @@ if ( ! class_exists( 'Qi_Blocks' ) ) {
 			$mimes['svgz'] = 'image/svg+xml';
 
 			return $mimes;
+		}
+
+		/*
+		 * @param array $file {
+			 *     Reference to a single element from `$_FILES`.
+			 *
+			 *     @type string $name     The original name of the file on the client machine.
+			 *     @type string $type     The mime type of the file, if the browser provided this information.
+			 *     @type string $tmp_name The temporary filename of the file in which the uploaded file was stored on the server.
+			 *     @type int    $size     The size, in bytes, of the uploaded file.
+			 *     @type int    $error    The error code associated with this file upload.
+			 * }
+		 */
+		public function handle_svg_wp_media_upload( $file ) {
+
+			if ( ! empty( $file ) && isset( $file['type'] ) && 'image/svg+xml' === $file['type'] ) {
+				// Load the svg file.
+				$get_svg_content = @file_get_contents( $file['tmp_name'] );
+
+				if ( ! empty( $get_svg_content ) ) {
+
+					if ( class_exists( 'enshrined\svgSanitize\Sanitizer' ) ) {
+						// Create a new sanitizer instance.
+						$sanitizer = new enshrined\svgSanitize\Sanitizer();
+
+						// Pass it to the sanitizer and get it back clean.
+						$clean_svg_content = $sanitizer->sanitize( $get_svg_content );
+
+						if ( empty( $clean_svg_content ) ) {
+							$clean_svg_content = '';
+						}
+
+						// Update clean SVG/XML data.
+						@file_put_contents( $file['tmp_name'], $clean_svg_content );
+					}
+				} else {
+					$file['error'] = esc_html__( 'Please upload a valid SVG file.', 'qi-blocks' );
+				}
+			}
+
+			return $file;
 		}
 
 		public function check_svg_upload( $checked, $file, $filename, $mimes ) {

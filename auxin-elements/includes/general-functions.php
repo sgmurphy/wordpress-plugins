@@ -2579,3 +2579,14 @@ function auxin_escape_json( $json_array ) {
 
     return wp_json_encode( $json_array );
 }
+
+/**
+ * Check if a string is in json format or not
+ * 
+ * $param string $json
+ * @return bool
+ */
+function auxin_is_json( $json ) {
+    json_decode( $json );
+    return json_last_error() === JSON_ERROR_NONE;
+}

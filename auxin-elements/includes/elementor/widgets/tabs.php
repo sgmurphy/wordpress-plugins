@@ -563,7 +563,15 @@ class Tabs extends Widget_Base {
     protected function content_template() {
         ?>
         <section class="widget-container aux-widget-tabs">
-            <div class="widget-container widget-tabs {{{ settings.style }}}">
+            <#
+            view.addRenderAttribute(
+                'widgetTabs',
+                {
+                    'class': [ 'widget-container', 'widget-tabs', settings.style ],
+                }
+            );
+            #>
+            <div {{{ view.getRenderAttributeString('widgetTabs') }}}>
                 <div class="widget-inner">
                     <ul class="tabs">
                     <#

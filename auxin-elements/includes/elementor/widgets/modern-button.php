@@ -1077,9 +1077,9 @@ class ModernButton extends Widget_Base {
                 <?php };?>
                 <div class="aux-text">
 <?php
-    if( ! empty( $settings['label']  ) ){ printf( '<span class="aux-text-before">%s</span>', do_shortcode( $settings['label'] ) ); }
-    if( ! empty( $settings['label2'] ) ){ printf( '<span class="aux-text-highlighted">%s</span>', do_shortcode( $settings['label2'] ) ); }
-    if( ! empty( $settings['label3'] ) ){ printf( '<span class="aux-text-after">%s</span>', do_shortcode( $settings['label3'] ) ); }
+    if( ! empty( $settings['label']  ) ){ printf( '<span class="aux-text-before">%s</span>', wp_kses_post( do_shortcode( $settings['label'] ) ) ); }
+    if( ! empty( $settings['label2'] ) ){ printf( '<span class="aux-text-highlighted">%s</span>', wp_kses_post( do_shortcode( $settings['label2'] ) ) ); }
+    if( ! empty( $settings['label3'] ) ){ printf( '<span class="aux-text-after">%s</span>', wp_kses_post( do_shortcode( $settings['label3'] ) ) ); }
 ?>
                 </div>
             </a>

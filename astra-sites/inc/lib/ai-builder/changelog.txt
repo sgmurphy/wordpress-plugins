@@ -1,3 +1,12 @@
+v1.0.34 - 29-May-2024
+- Improvement: Pass `ecommerce` to the features array if ecommerce is enabled for the selected template.
+
+v1.0.33 - 29-May-2024
+- New: Premium template feature implemented.
+
+v1.0.32 - 28-May-2024
+- Fix: Inconsistent font sizes and line height
+
 v1.0.31 - 27-May-2024
 - Improvement: Added compatibility for classic templates sites options.
 

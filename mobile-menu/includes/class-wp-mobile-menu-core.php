@@ -9,28 +9,33 @@ if ( !class_exists( 'WP_Mobile_Menu' ) ) {
  *
  * @since 2.0.0
  */
-class WP_Mobile_Menu_Core
-{
+class WP_Mobile_Menu_Core {
     /**
      * @var object
      */
-    public  $plugin_settings ;
+    public $plugin_settings;
+
     /**
      * @var String
      */
-    public  $menu_display_type ;
-    private  $close_icon ;
-    private  $mobmenu_parent_link ;
-    private  $search_form ;
-    private  $logo_content ;
-    private  $mobmenu_depth ;
+    public $menu_display_type;
+
+    private $close_icon;
+
+    private $mobmenu_parent_link;
+
+    private $search_form;
+
+    private $logo_content;
+
+    private $mobmenu_depth;
+
     /**
      * Add Body Class
      *
      * @since 2.8.1.3
      */
-    private function get_menu_display_type( $display_type )
-    {
+    private function get_menu_display_type( $display_type ) {
         $menu_display_type = '';
         // Add the class of the animation display type.
         switch ( $display_type ) {
@@ -49,14 +54,13 @@ class WP_Mobile_Menu_Core
         }
         return $menu_display_type;
     }
-    
+
     /**
      * Add Body Class
      *
      * @since 2.0
      */
-    public function mobmenu_add_body_class( $classes )
-    {
+    public function mobmenu_add_body_class( $classes ) {
         $plugin_settings = MobileMenuOptions::getInstance( 'mobmenu' );
         $display_type = $plugin_settings->getOption( 'menu_display_type' );
         $lpanel_elements = $plugin_settings->getOption( 'left_menu_content_position' );
@@ -91,28 +95,26 @@ class WP_Mobile_Menu_Core
         }
         return $classes;
     }
-    
+
     /**
      * Frontend Scripts.
      */
-    public function frontend_enqueue_scripts()
-    {
-        global  $mm_fs ;
+    public function frontend_enqueue_scripts() {
+        global $mm_fs;
         // Enqueue the common free scripts.
         $this->frontend_free_enqueue_scripts();
     }
-    
+
     /**
      * Frontend Free version Scripts.
      */
-    public function frontend_free_enqueue_scripts()
-    {
-        global  $mm_fs ;
+    public function frontend_free_enqueue_scripts() {
+        global $mm_fs;
         // Load the Free assets.
         wp_register_script(
             'mobmenujs',
             plugins_url( 'js/mobmenu.js', __FILE__ ),
-            array( 'jquery' ),
+            array('jquery'),
             WP_MOBILE_MENU_VERSION
         );
         wp_enqueue_script( 'mobmenujs' );
@@ -124,12 +126,11 @@ class WP_Mobile_Menu_Core
             WP_MOBILE_MENU_VERSION
         );
     }
-    
+
     /**
      * Build the icons HTML.
      */
-    public function get_icons_html()
-    {
+    public function get_icons_html() {
         $menu_title = '';
         if ( isset( $_POST['menu_item_id'] ) ) {
             $menu_item_id = absint( $_POST['menu_item_id'] );
@@ -144,15 +145,12 @@ class WP_Mobile_Menu_Core
             $full_content = sanitize_text_field( $_POST['full_content'] );
         }
         $seleted_icon = sanitize_text_field( get_post_meta( $menu_item_id, '_mobmenu_icon', true ) );
-        
-        if ( !empty($seleted_icon) ) {
+        if ( !empty( $seleted_icon ) ) {
             $selected = ' data-selected-icon="' . $seleted_icon . '" ';
         } else {
             $selected = '';
         }
-        
         $icons = $this->get_icons_list();
-        
         if ( 'yes' === $full_content ) {
             $output = '<div class="mobmenu-icons-overlay"></div><div class="mobmenu-icons-content" data-menu-id="' . $menu_id . '" data-menu-item-id="' . $menu_item_id . '">';
             $output .= '<div id="mobmenu-modal-header"><h2>' . $menu_title . ' - Menu Item Icon</h2><div class="mobmenu-icons-close-overlay"><span class="mobmenu-item mobmenu-close-overlay mob-icon-cancel"></span></div>';
@@ -167,17 +165,14 @@ class WP_Mobile_Menu_Core
         } else {
             $output = '<div class="mobmenu-icons-holder" ' . $selected . ' data-title="' . esc_attr( $menu_title ) . '" - Menu Item Icon" >';
         }
-        
-        echo  $output ;
+        echo $output;
         wp_die();
     }
-    
+
     /**
      * Add the plugin page row links.
      */
-    public function add_plugin_row_meta( $links, $file )
-    {
-        
+    public function add_plugin_row_meta( $links, $file ) {
         if ( 'mobile-menu-premium/mobmenu.php' == $file || 'mobile-menu-premium/mobmenu.php' == $file ) {
             $row_meta = array(
                 'docs'    => '<a href="' . esc_url( 'https://www.wpmobilemenu.com/knowledgebase/' ) . '" aria-label="' . esc_attr__( 'Documentation', 'mobile-menu' ) . '">' . esc_html__( 'Docs', 'mobile-menu' ) . '</a>',
@@ -187,9 +182,8 @@ class WP_Mobile_Menu_Core
         } else {
             return $links;
         }
-    
     }
-    
+
     /**
      * Build the WP Mobile Menu Html Markup.
      */
@@ -204,35 +198,28 @@ class WP_Mobile_Menu_Core
         $icon_new,
         $hamburger_animation,
         $close_icon
-    )
-    {
+    ) {
         $menu_content = '';
         //$menu_text    = '';
         if ( '' !== $menu_text ) {
             $menu_text = '<span class="' . $type . '-menu-icon-text">' . __( $menu_text, 'mobile-menu' ) . '</span>';
         }
-        
         if ( $icon_action ) {
             $menu_content .= '<a href="#" class="mobmenu-' . $type . '-bt mobmenu-trigger-action" data-panel-target="mobmenu-' . $type . '-panel" aria-label="' . __( ucfirst( $type ) . ' Menu Button', 'mobile-menu' ) . '">';
         } else {
-            
             if ( $icon_target ) {
                 $icon_url_target = '_self';
             } else {
                 $icon_url_target = '_blank';
             }
-            
             $menu_content .= '<a href="' . $icon_url . '" target="' . $icon_url_target . '" id="mobmenu-center">';
         }
-        
         $icon_image = wp_get_attachment_image_src( $icon );
-        
         if ( $icon_image ) {
             $icon_image = $icon_image[0];
         } else {
             $icon_image = '';
         }
-        
         $menu_icon = $icon_new;
         switch ( $menu_icon ) {
             case 'image':
@@ -250,14 +237,13 @@ class WP_Mobile_Menu_Core
         $menu_content = apply_filters( 'mm_' . $type . '_menu_filter', $menu_content );
         return $menu_content;
     }
-    
+
     /**
      * Build the WP Mobile Menu Html Markup.
      */
-    public function load_menu_html_markup()
-    {
-        global  $mm_fs ;
-        global  $woocommerce ;
+    public function load_menu_html_markup() {
+        global $mm_fs;
+        global $woocommerce;
         $upload_dir = wp_upload_dir();
         $uploadsFolder = $upload_dir['basedir'] . '/';
         $url = trailingslashit( $upload_dir['baseurl'] ) . 'search.svg';
@@ -307,7 +293,6 @@ class WP_Mobile_Menu_Core
         $menu_display_class = ' data-menu-display="' . $menu_display_type . '"';
         $output .= '<div class="mob-menu-header-holder mobmenu" ' . $menu_display_class . $sticky_el_data_detach . $autoclose_menus_el_data . $mm_open_cart_menu . ' data-open-icon="' . $submenu_open_icon_font . '" data-close-icon="' . $submenu_close_icon_font . '">';
         // Left Menu Content.
-        
         if ( $plugin_settings->getOption( 'enable_left_menu' ) && !$left_logged_in_user ) {
             $menu_text = $plugin_settings->getOption( 'left_menu_text' );
             $icon_action = $plugin_settings->getOption( 'left_menu_icon_action' );
@@ -330,13 +315,11 @@ class WP_Mobile_Menu_Core
                 $close_icon
             );
         }
-        
         if ( !$plugin_settings->getOption( 'disabled_logo_text' ) ) {
             // Format the Header Branding.
             $this->logo_content = $this->format_header_branding( $plugin_settings, $header_text );
         }
         // Right Menu Content.
-        
         if ( $plugin_settings->getOption( 'enable_right_menu' ) && !$right_logged_in_user ) {
             $menu_text = $plugin_settings->getOption( 'right_menu_text' );
             $icon_action = $plugin_settings->getOption( 'right_menu_icon_action' );
@@ -359,14 +342,13 @@ class WP_Mobile_Menu_Core
                 $close_icon
             );
         }
-        
         $language_selector = '';
-        $header_elements_order = array( 'left-menu', 'logo', 'right-menu' );
+        $header_elements_order = array('left-menu', 'logo', 'right-menu');
         $header_output = '';
         if ( $plugin_settings->getOption( 'enable_left_menu' ) ) {
             $header_output = '<div  class="mobmenul-container">';
         }
-        if ( !empty($header_elements_order) ) {
+        if ( !empty( $header_elements_order ) ) {
             foreach ( $header_elements_order as $element ) {
                 switch ( $element ) {
                     case 'left-menu':
@@ -382,13 +364,11 @@ class WP_Mobile_Menu_Core
                         $header_output .= $header_shop_filter;
                         break;
                     case 'logo':
-                        
                         if ( $plugin_settings->getOption( 'enable_left_menu' ) ) {
                             $header_output .= '</div>' . $this->logo_content . '<div class="mobmenur-container">';
                         } else {
                             $header_output .= $this->logo_content . '<div class="mobmenur-container">';
                         }
-                        
                         break;
                     case 'search':
                         $header_output .= $header_search;
@@ -403,12 +383,11 @@ class WP_Mobile_Menu_Core
         $output .= $header_output;
         $output .= '</div>';
         // Echo the Header HTML.
-        echo  $output ;
+        echo $output;
         // Build the left menu panel.
         if ( $plugin_settings->getOption( 'enable_left_menu' ) && !$left_logged_in_user ) {
             $this->build_left_menu_content();
         }
-        
         if ( $plugin_settings->getOption( 'enable_right_menu' ) && !$right_logged_in_user ) {
             $this->mobmenu_parent_link = '';
             if ( $plugin_settings->getOption( 'right_menu_parent_link_submenu' ) ) {
@@ -416,18 +395,17 @@ class WP_Mobile_Menu_Core
             }
             ?>
 				<div class="mobmenu-right-alignment mobmenu-panel mobmenu-right-panel <?php 
-            echo  $this->mobmenu_parent_link ;
+            echo $this->mobmenu_parent_link;
             ?> ">
 				<a href="#" class="mobmenu-right-bt" aria-label="<?php 
             _e( 'Right Menu Button', 'mobile-menu' );
             ?>"><?php 
-            echo  $this->mobmenu_close_button( $close_icon ) ;
+            echo $this->mobmenu_close_button( $close_icon );
             ?></a>
 					<div class="mobmenu-content">
 			<?php 
             do_action( 'mobmenu_right_top_content' );
             // Check if the Right Menu Top Widget has any content.
-            
             if ( is_active_sidebar( 'mobmrighttop' ) ) {
                 ?>
 				<ul class="rightmtop">
@@ -437,20 +415,17 @@ class WP_Mobile_Menu_Core
 				</ul>
 			<?php 
             }
-            
-            $right_panel_elements_order = array( 'right-menu' );
+            $right_panel_elements_order = array('right-menu');
             $right_menu_panel_content = '';
-            if ( !empty($right_panel_elements_order) ) {
+            if ( !empty( $right_panel_elements_order ) ) {
                 foreach ( $right_panel_elements_order as $element ) {
                     switch ( $element ) {
                         case 'right-menu':
-                            
                             if ( $this->plugin_settings->getOption( 'right_menu_tabbed_menus', false ) ) {
                                 $right_menu = $this->display_tabbed_menu( 'right' );
                             } else {
                                 $right_menu = $this->display_menu( 'right' );
                             }
-                            
                             $right_menu_panel_content .= $right_menu;
                             break;
                         case 'user-profile':
@@ -465,9 +440,8 @@ class WP_Mobile_Menu_Core
                     }
                 }
             }
-            echo  $right_menu_panel_content ;
+            echo $right_menu_panel_content;
             // Check if the Right Menu Bottom Widget has any content.
-            
             if ( is_active_sidebar( 'mobmrightbottom' ) ) {
                 ?>
 				<ul class="rightmbottom">
@@ -477,22 +451,19 @@ class WP_Mobile_Menu_Core
 				</ul>
 			<?php 
             }
-            
             ?>
 
 			</div><div class="mob-menu-right-bg-holder"></div></div>
 
 		<?php 
         }
-    
     }
-    
+
     /**
      * Build Menu Content
      */
-    public function build_left_menu_content()
-    {
-        global  $mm_fs ;
+    public function build_left_menu_content() {
+        global $mm_fs;
         // Build the left menu panel.
         $this->mobmenu_parent_link = '';
         if ( $this->plugin_settings->getOption( 'left_menu_parent_link_submenu' ) ) {
@@ -501,18 +472,17 @@ class WP_Mobile_Menu_Core
         ?>
 
 		<div class="mobmenu-left-alignment mobmenu-panel mobmenu-left-panel <?php 
-        echo  $this->mobmenu_parent_link ;
+        echo $this->mobmenu_parent_link;
         ?> ">
 		<a href="#" class="mobmenu-left-bt" aria-label="<?php 
         _e( 'Left Menu Button', 'mobile-menu' );
         ?>"><?php 
-        echo  $this->mobmenu_close_button( $this->close_icon ) ;
+        echo $this->mobmenu_close_button( $this->close_icon );
         ?></a>
 
 		<div class="mobmenu-content">
 		<?php 
         do_action( 'mobmenu_left_top_content' );
-        
         if ( is_active_sidebar( 'mobmlefttop' ) ) {
             ?>
 			<ul class="leftmtop">
@@ -522,20 +492,17 @@ class WP_Mobile_Menu_Core
 			</ul>
 		<?php 
         }
-        
-        $left_panel_elements_order = array( 'left-menu' );
+        $left_panel_elements_order = array('left-menu');
         $left_menu_panel_content = '';
-        if ( !empty($left_panel_elements_order) ) {
+        if ( !empty( $left_panel_elements_order ) ) {
             foreach ( $left_panel_elements_order as $element ) {
                 switch ( $element ) {
                     case 'left-menu':
-                        
                         if ( $this->plugin_settings->getOption( 'left_menu_tabbed_menus', false ) ) {
                             $left_menu = $this->display_tabbed_menu( 'left' );
                         } else {
                             $left_menu = $this->display_menu( 'left' );
                         }
-                        
                         $left_menu_panel_content .= $left_menu;
                         break;
                     case 'user-profile':
@@ -550,9 +517,8 @@ class WP_Mobile_Menu_Core
                 }
             }
         }
-        echo  $left_menu_panel_content ;
+        echo $left_menu_panel_content;
         // Check if the Left Menu Bottom Widget has any content.
-        
         if ( is_active_sidebar( 'mobmleftbottom' ) ) {
             ?>
 				<ul class="leftmbottom">
@@ -562,36 +528,31 @@ class WP_Mobile_Menu_Core
 				</ul>
 		<?php 
         }
-        
         ?>
 
 		</div><div class="mob-menu-left-bg-holder"></div></div>
 
 		<?php 
     }
-    
+
     /**
      * Display Left Menu.
      */
-    public function display_menu( $menu )
-    {
-        global  $mm_fs ;
+    public function display_menu( $menu ) {
+        global $mm_fs;
         $plugin_settings = MobileMenuOptions::getInstance( 'mobmenu' );
         $current_menu = $plugin_settings->getOption( $menu . '_menu' );
         if ( !is_nav_menu( $current_menu ) ) {
             $current_menu = '';
         }
-        
         if ( has_nav_menu( $menu . '-wp-mobile-menu' ) && $current_menu === '' ) {
             $current_menu = $menu . '-wp-mobile-menu';
             $menu_param = 'theme_location';
         } else {
             $menu_param = 'menu';
         }
-        
         $output = '';
         // Only build the menu it there is a menu assigned to it.
-        
         if ( '' !== $current_menu ) {
             $current_menu = apply_filters( 'wp_mobile_menu_current_menu', $current_menu, $menu );
             // Display the menu.
@@ -600,32 +561,28 @@ class WP_Mobile_Menu_Core
                 'items_wrap'  => '<ul id="mobmenu' . $menu . '" class="wp-mobile-menu" role="menubar" aria-label="' . __( 'Main navigation for mobile devices', 'mobile-menu' ) . '">%3$s</ul>',
                 'fallback_cb' => false,
                 'depth'       => $this->mobmenu_depth,
-                'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu( $menu, '' ),
+                'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu($menu, ''),
                 'echo'        => false,
             ) );
         } else {
-            
             if ( current_user_can( 'administrator' ) ) {
                 ?>
 				<h4 class='no-mobile-menu'><a href='<?php 
-                echo  get_site_url() ;
+                echo get_site_url();
                 ?>/wp-admin/nav-menus.php?action=locations'><?php 
                 _e( 'Assign a menu to the ' . $menu . ' Mobile Menu location in the Appearance-> Menus-> Manage Locations.' );
                 ?></a></h4>
 			<?php 
             }
-        
         }
-        
         return $output;
     }
-    
+
     /**
      * Display Tabbed Menu.
      */
-    public function display_tabbed_menu( $menu )
-    {
-        global  $mm_fs ;
+    public function display_tabbed_menu( $menu ) {
+        global $mm_fs;
         $tab_title_1 = $this->plugin_settings->getOption( $menu . '_tab_title_1' );
         $tab_title_2 = $this->plugin_settings->getOption( $menu . '_tab_title_2' );
         $output = '<div class="mobmenu-tabs-container"><ul class="mobmenu-tabs-header"><li class="active-tab" data-tab-id="mobmenu-tab-1">' . $tab_title_1 . '</li><li data-tab-id="mobmenu-tab-2">' . $tab_title_2 . '</li></ul>';
@@ -636,7 +593,7 @@ class WP_Mobile_Menu_Core
             'items_wrap'  => '<ul id="mobmenu' . $menu . '" class="wp-mobile-menu" role="menubar" aria-label="' . __( 'Main navigation for mobile devices', 'mobile-menu' ) . '">%3$s</ul>',
             'fallback_cb' => false,
             'depth'       => $this->mobmenu_depth,
-            'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu( $menu, '' ),
+            'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu($menu, ''),
             'echo'        => false,
         ) );
         $current_menu = $this->plugin_settings->getOption( $menu . '_menu_tab_2' );
@@ -646,7 +603,7 @@ class WP_Mobile_Menu_Core
             'items_wrap'  => '<ul id="mobmenu' . $menu . '" class="wp-mobile-menu" role="menubar" aria-label="' . __( 'Main navigation for mobile devices', 'mobile-menu' ) . '">%3$s</ul>',
             'fallback_cb' => false,
             'depth'       => $this->mobmenu_depth,
-            'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu( $menu, '' ),
+            'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu($menu, ''),
             'echo'        => false,
         ) );
         $output .= "</div></div>";
@@ -655,17 +612,14 @@ class WP_Mobile_Menu_Core
         if ( !is_nav_menu( $current_menu ) ) {
             $current_menu = '';
         }
-        
         if ( has_nav_menu( $menu . '-wp-mobile-menu' ) ) {
             $current_menu = $menu . '-wp-mobile-menu';
             $menu_param = 'theme_location';
         } else {
             $menu_param = 'menu';
         }
-        
         $output = '';
         // Only build the menu it there is a menu assigned to it.
-        
         if ( '' !== $current_menu ) {
             // Display the menu.
             $output = wp_nav_menu( array(
@@ -673,55 +627,60 @@ class WP_Mobile_Menu_Core
                 'items_wrap'  => '<ul id="mobmenu' . $menu . '" class="wp-mobile-menu" role="menubar" aria-label="' . __( 'Main navigation for mobile devices', 'mobile-menu' ) . '">%3$s</ul>',
                 'fallback_cb' => false,
                 'depth'       => $this->mobmenu_depth,
-                'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu( $menu, '' ),
+                'walker'      => new WP_Mobile_Menu_Walker_Nav_Menu($menu, ''),
                 'echo'        => false,
             ) );
         } else {
-            
             if ( current_user_can( 'administrator' ) ) {
                 ?>
 				<h4 class='no-mobile-menu'><a href='<?php 
-                echo  get_site_url() ;
+                echo get_site_url();
                 ?>/wp-admin/nav-menus.php?action=locations'><?php 
                 _e( 'Assign a menu to the ' . $menu . ' Mobile Menu location in the Appearance-> Menus-> Manage Locations.' );
                 ?></a></h4>
 			<?php 
             }
-        
         }
-        
         return $output;
     }
-    
+
     /**
      * Load the Finde elements tool.
      */
-    public function find_elements_mobmenu()
-    {
-        
+    public function find_elements_mobmenu() {
         if ( isset( $_GET['mobmenu-action'] ) ) {
             $mobmenu_action = $_GET['mobmenu-action'];
             if ( $mobmenu_action == 'find-element' ) {
                 add_filter( 'show_admin_bar', '__return_false' );
             }
         }
-    
     }
-    
-    
+
+    /**
+     *
+     * Register Mobile Menu Elementor Widget.
+     *
+     * @since 1.0.1
+     */
+    public function mobmenu_el_init_widgets() {
+        // Include Widget files
+        require_once __DIR__ . '/widgets/mobile-menu.php';
+        // Register widget
+        \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Mobile_Menu_El_Menu_Widget() );
+    }
+
     /**
      * Register the Mobile Menus.
      */
-    public function register_menus()
-    {
-        global  $mm_fs ;
+    public function register_menus() {
+        global $mm_fs;
         $menu_locations = array(
             'left-wp-mobile-menu'  => __( 'Left Mobile Menu', 'mobile-menu' ),
             'right-wp-mobile-menu' => __( 'Right Mobile Menu', 'mobile-menu' ),
         );
         register_nav_menus( $menu_locations );
     }
-    
+
     /**
      *
      * Format Header Branding (Logo + Text).
@@ -730,18 +689,11 @@ class WP_Mobile_Menu_Core
      * @var $plugin_settings
      * @var $header_text
      */
-    public function format_header_branding( $plugin_settings, $header_text )
-    {
-        global $mm_fs ;
+    public function format_header_branding( $plugin_settings, $header_text ) {
+        global $mm_fs;
         global $post_id;
-
         $logo = $plugin_settings->getOption( 'logo_img' );
-        $alternative_logo_img = $plugin_settings->getOption( 'alternative_logo_img', $post_id );
-        if ( $alternative_logo_img != null ) {
-            $logo = $alternative_logo_img;
-        }
         // Translate Logo with WPML.
-        
         if ( class_exists( 'SitePress' ) ) {
             $current_language = apply_filters( 'wpml_current_language', NULL );
             $logo = apply_filters(
@@ -752,15 +704,12 @@ class WP_Mobile_Menu_Core
                 $current_language
             );
         }
-        
         $logo_img = wp_get_attachment_image_src( $logo, 'full' );
-        
         if ( $logo_img == null ) {
             $logo_img = '';
         } else {
             $logo_img = $logo_img[0];
         }
-        
         $logo_img = apply_filters( 'wp_mobile_menu_logo_img', $logo_img );
         $logo_output = '';
         $logo_url = '';
@@ -768,13 +717,8 @@ class WP_Mobile_Menu_Core
         $logo_alt = get_post_meta( intval( $plugin_settings->getOption( 'logo_img' ) ), '_wp_attachment_image_alt', true );
         $logo_img_retina = $plugin_settings->getOption( 'logo_img_retina' );
         // Retina Logo.
-        
         if ( $logo_img_retina ) {
-            if ( $alternative_logo_img != null ) {
-                $logo_img_retina = $alternative_logo_img;
-            }
             $logo_img_retina = wp_get_attachment_image_src( $logo_img_retina, 'full' );
-            
             if ( $logo_img_retina == null || !$logo_img_retina ) {
                 $logo_img_retina = $logo_img;
             } else {
@@ -785,54 +729,43 @@ class WP_Mobile_Menu_Core
                     $logo_img = $logo_img_retina;
                 }
             }
-        
         }
-        
-        
         if ( $plugin_settings->getOption( 'disabled_logo_url' ) ) {
             $logo_url = '<h3 class="headertext">';
             $logo_url_end = '</h3>';
         } else {
-            
             if ( '' === $plugin_settings->getOption( 'logo_url' ) ) {
-                
                 if ( function_exists( 'pll_home_url' ) ) {
                     $logo_url = pll_home_url();
                 } else {
                     $logo_url = get_bloginfo( 'url' );
                 }
-            
             } else {
                 $logo_url = $plugin_settings->getOption( 'logo_url' );
             }
-            
             $logo_url_end = '</a>';
             $logo_url = apply_filters( 'wp_mobile_menu_logo_url', $logo_url );
             $logo_url = '<a href="' . $logo_url . '" class="headertext">';
         }
-        
         $output = '<div class="mob-menu-logo-holder">' . $logo_url;
         $header_branding = $plugin_settings->getOption( 'header_branding' );
         // Assign the image alt valude with the blog title in case it's not provided on the image. It the blog title also doesn't exist default it to Organization Logo.
         if ( '' === $logo_alt ) {
-            
             if ( '' === get_bloginfo( 'name' ) ) {
                 $logo_alt = __( 'Organization Logo', 'mobile-menu' );
             } else {
                 $logo_alt = get_bloginfo( 'name' );
             }
-        
         }
-        
         if ( ('logo' === $header_branding || 'logo-text' === $header_branding || 'text-logo' === $header_branding) && '' !== $logo_img ) {
-            
-            $logo_output .= '<img class="mob-standard-logo"   src="' . $logo_img . '"  alt="' . $logo_alt . '">';
+            $plugin_settings = MobileMenuOptions::getInstance( 'mobmenu' );
+            $logo_height = $plugin_settings->getOption( 'logo_height' );
+            $logo_output .= '<img class="mob-standard-logo" height="' . $logo_height . '"  src="' . $logo_img . '"  alt="' . esc_attr( $logo_alt ) . '">';
             // If there is a retina logo.
             if ( isset( $logo_img_retina ) ) {
                 $logo_output .= '<img class="mob-retina-logo" src="' . $logo_img_retina . '"  alt="' . __( 'Logo Header Menu', 'mobile-menu' ) . '">';
             }
         }
-        
         $header_text = '<span>' . $header_text . '</span>';
         if ( $header_branding ) {
             switch ( $header_branding ) {
@@ -855,28 +788,25 @@ class WP_Mobile_Menu_Core
         $output .= $logo_url_end . '</div>';
         return $output;
     }
-    
+
     /**
      *
      * Close button Content.
      *
      * @since 2.7
      */
-    public function mobmenu_close_button( $icon )
-    {
+    public function mobmenu_close_button( $icon ) {
         $close_button = apply_filters( 'mm_close_button_filter', '<i class="mob-icon-' . $icon . ' mob-cancel-button"></i>' );
         return $close_button;
     }
-    
+
     /**
      *
      * Save Menu Item Icon.
      *
      * @since 2.0
      */
-    public function save_menu_item_icon()
-    {
-        
+    public function save_menu_item_icon() {
         if ( isset( $_POST['menu_item_id'] ) ) {
             $menu_item_id = absint( esc_attr( $_POST['menu_item_id'] ) );
             $menu_item_icon = esc_attr( $_POST['menu_item_icon'] );
@@ -885,15 +815,13 @@ class WP_Mobile_Menu_Core
             }
             wp_send_json_success();
         }
-    
     }
-    
+
     /*
      * Register Sidebar Menu Widgets.
      *
      */
-    public function register_sidebar()
-    {
+    public function register_sidebar() {
         // Register the Mobile Menu Left Menu Top Widget.
         $args = array(
             'name'          => __( 'Left Menu Top', 'mobile-menu' ),
@@ -950,13 +878,12 @@ class WP_Mobile_Menu_Core
         );
         register_sidebar( $args );
     }
-    
+
     /** 
      * Get the Icon Font list.
      */
-    public function get_icons_list()
-    {
-        global  $mm_fs ;
+    public function get_icons_list() {
+        global $mm_fs;
         $icons_base = array(
             'menu',
             'menu-2',
@@ -1005,15 +932,14 @@ class WP_Mobile_Menu_Core
         );
         return $icons_base;
     }
-    
+
     /**
      *
      * Mobile Menu Export Settings.
      *
      * @since 2.7
      */
-    public function mobile_menu_export_settings()
-    {
+    public function mobile_menu_export_settings() {
         ob_clean();
         $date = date( 'Y-m-d' );
         $filename = 'mobile-menu-settings-' . $date . '.txt';
@@ -1021,52 +947,44 @@ class WP_Mobile_Menu_Core
         header( 'Content-Description: File Transfer' );
         header( 'Content-Disposition: attachment; filename=' . $filename );
         header( 'Content-Type: text/html; charset=utf-8' );
-        echo  $output ;
+        echo $output;
         die;
     }
-    
+
     /**
      *
      * Mobile Menu Import Settings.
      *
      * @since 2.7
      */
-    public function mobile_menu_import_settings( $settings_id )
-    {
-        global  $mm_fs ;
-        global  $message ;
-        global  $message_code ;
+    public function mobile_menu_import_settings( $settings_id ) {
+        global $mm_fs;
+        global $message;
+        global $message_code;
         $message = '';
         $message_code = '';
         $plugin_settings = MobileMenuOptions::getInstance( 'mobmenu' );
         $left_menu = $plugin_settings->getOption( 'left_menu' );
         // If we are importing an oficial demo.
-        
         if ( isset( $_REQUEST['demo'] ) ) {
             $file = $_REQUEST['demo'] . '.txt';
             $file_content = file_get_contents( WP_MOBILE_MENU_PLUGIN_PATH . 'includes/demo-content/' . $file );
         } else {
             // If we are importing a settings file from the user.
-            
             if ( isset( $_FILES['upload_mobmenu_settings'] ) && '' !== $_FILES['upload_mobmenu_settings']['tmp_name'] ) {
                 $file = $_FILES['upload_mobmenu_settings'];
                 $file_content = file_get_contents( $file['tmp_name'] );
             }
-        
         }
-        
         if ( (isset( $_FILES['upload_mobmenu_settings'] ) || isset( $_REQUEST['demo'] )) && 'error' != $message_code ) {
             // If the file is empty.
-            
             if ( !$file_content ) {
                 $message = __( 'The file is empty. Upload a new file and try again.', 'mobile-menu' );
                 $message_code = 'error';
             } else {
                 // Update the Mobile Menu Settings.
-                
                 if ( get_option( 'mobmenu_options' ) !== $file_content ) {
                     $result = update_option( 'mobmenu_options', $file_content );
-                    
                     if ( $result ) {
                         $message = __( 'Settings Imported successfully.', 'mobile-menu' );
                         $message_code = 'success';
@@ -1075,14 +993,11 @@ class WP_Mobile_Menu_Core
                         $message = __( 'Something went wrong. Upload a new file and try again.', 'mobile-menu' );
                         $message_code = 'error';
                     }
-                
                 } else {
                     $message = __( 'The settings are exactly the same has the current ones. Nothing was imported.', 'mobile-menu' );
                     $message_code = 'warning';
                 }
-            
             }
-        
         }
         $version_class = 'mm-free-version';
         ?>
@@ -1105,22 +1020,20 @@ class WP_Mobile_Menu_Core
         esc_html_e( 'Import Demo', 'mobile-menu' );
         ?></button>
 						<?php 
-        
         if ( isset( $_REQUEST['demo'] ) && 'free-demo' === $_REQUEST['demo'] ) {
             ?>
 								<h4 class="<?php 
-            echo  $message_code ;
+            echo $message_code;
             ?>"><?php 
             _e( $message, 'mobile-menu' );
             ?></h4>
 						<?php 
         }
-        
         ?>
 					</div>
 					<a href="https://demo.wpmobilemenu.com/?utm_source=wprepo-dash&utm_medium=user%20website&utm_campaign=import-demo" target="_blank">
 						<img src="<?php 
-        echo  plugins_url( 'demo-content/assets/freedemo-mobile-menu.png', __FILE__ ) ;
+        echo plugins_url( 'demo-content/assets/freedemo-mobile-menu.png', __FILE__ );
         ?>">
 						<span><?php 
         esc_html_e( 'See Demo Site', 'mobile-menu' );
@@ -1133,29 +1046,27 @@ class WP_Mobile_Menu_Core
         esc_html_e( 'WooCommerce Shop Demo (Business)', 'mobile-menu' );
         ?></h4>
 						<button type="submit" class="button button-secondary button-next mobile-menu-import-demo <?php 
-        echo  $version_class ;
+        echo $version_class;
         ?>" data-demo-id="shop-demo" value="<?php 
         esc_attr_e( 'Import Demo', 'mobile-menu' );
         ?>"><?php 
         esc_html_e( 'Import Demo', 'mobile-menu' );
         ?></button>
 						<?php 
-        
         if ( isset( $_REQUEST['demo'] ) && 'shop-demo' === $_REQUEST['demo'] ) {
             ?>
 								<h4 class="<?php 
-            echo  $message_code ;
+            echo $message_code;
             ?>"><?php 
             _e( $message, 'mobile-menu' );
             ?></h4>
 						<?php 
         }
-        
         ?>
 					</div>
 					<a href="https://shopdemo.wpmobilemenu.com/?utm_source=wprepo-dash&utm_medium=user%20website&utm_campaign=demo_importer_option" target="_blank">
 						<img src="<?php 
-        echo  plugins_url( 'demo-content/assets/shopdemo-mobile-menu.png', __FILE__ ) ;
+        echo plugins_url( 'demo-content/assets/shopdemo-mobile-menu.png', __FILE__ );
         ?>">
 						<span><?php 
         esc_html_e( 'See Demo Site', 'mobile-menu' );
@@ -1168,29 +1079,27 @@ class WP_Mobile_Menu_Core
         esc_html_e( 'Professional Demo', 'mobile-menu' );
         ?></h4>
 						<button type="submit" class="button button-secondary button-next mobile-menu-import-demo <?php 
-        echo  $version_class ;
+        echo $version_class;
         ?>" data-demo-id="professional-demo" value="<?php 
         esc_attr_e( 'Import Demo', 'mobile-menu' );
         ?>"><?php 
         esc_html_e( 'Import Demo', 'mobile-menu' );
         ?></button>
 						<?php 
-        
         if ( isset( $_REQUEST['demo'] ) && 'professional-demo' === $_REQUEST['demo'] ) {
             ?>
 								<h4 class="<?php 
-            echo  $message_code ;
+            echo $message_code;
             ?>"><?php 
             _e( $message, 'mobile-menu' );
             ?></h4>
 						<?php 
         }
-        
         ?>
 					</div>
 					<a href="https://prodemo.wpmobilemenu.com/?utm_source=wprepo-dash&utm_medium=user%20website&utm_campaign=demo_importer_option" target="_blank">
 						<img src="<?php 
-        echo  plugins_url( 'demo-content/assets/prodemo-mobile-menu.png', __FILE__ ) ;
+        echo plugins_url( 'demo-content/assets/prodemo-mobile-menu.png', __FILE__ );
         ?>">
 						<span><?php 
         esc_html_e( 'See Demo Site', 'mobile-menu' );
@@ -1216,19 +1125,17 @@ class WP_Mobile_Menu_Core
         ?></p>
 			</header>
 			<?php 
-        
         if ( '' !== $message && !isset( $_REQUEST['demo'] ) ) {
             ?>
 			<div class="mobmenu-message-holder">
 				<h4 class="<?php 
-            echo  $message_code ;
+            echo $message_code;
             ?>"><?php 
             _e( $message, 'mobile-menu' );
             ?></h4>
 			</div>
 			<?php 
         }
-        
         ?>
 			<section>
 				<table class="mm-form-table">

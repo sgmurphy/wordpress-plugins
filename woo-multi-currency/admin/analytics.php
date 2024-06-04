@@ -140,7 +140,7 @@ class WOOMULTI_CURRENCY_F_Admin_Analytics {
 			$shipping_amount     = $order->get_item_shipping_amount( $order_item ) / $rate;
 			$shipping_tax_amount = $order->get_item_shipping_tax_amount( $order_item ) / $rate;
 
-			$wpdb->update( $table_name,
+			$wpdb->update( $table_name,// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				[
 					'product_net_revenue'   => $net_revenue,
 					'coupon_amount'         => $coupon_amount,
@@ -182,7 +182,7 @@ class WOOMULTI_CURRENCY_F_Admin_Analytics {
 
 			$discount_amount = $discount_amount / $rate;
 
-			$wpdb->update( $table_name, [ 'discount_amount' => $discount_amount, ], [ 'order_id' => $order_id ], [ '%f', ] );
+			$wpdb->update( $table_name, [ 'discount_amount' => $discount_amount, ], [ 'order_id' => $order_id ], [ '%f', ] );// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		}
 	}
 
@@ -207,7 +207,7 @@ class WOOMULTI_CURRENCY_F_Admin_Analytics {
 				}
 			}
 
-			$wpdb->update( $table_name,
+			$wpdb->update( $table_name,// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				[
 					'shipping_tax' => $shipping_tax,
 					'order_tax'    => $order_tax,

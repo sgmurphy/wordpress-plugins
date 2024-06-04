@@ -531,6 +531,19 @@ class Auxin_Demo_Importer {
                         $value['wishlist'] = $this->get_meta_post_id( 'auxin_import_post', $value['wishlist'] );
                     }
                 }
+
+                if ( $plugin == 'dzs-zoomsounds' && false !== strpos( $option, 'taxonomy_') ) {
+					if ( strpos( $option, 'taxonomy_') !== 0 ) {
+						continue;
+					}
+						
+                    preg_match_all( '/taxonomy_(\d*)/', $option, $zoomsounds_playlist_config, PREG_SET_ORDER );
+                    if ( !empty( $zoomsounds_playlist_config ) ) {
+                        $new_config_id = auxin_get_transient( 'auxin_category_new_id_of' . $zoomsounds_playlist_config[0][1] );
+                        $option = $new_config_id ? 'taxonomy_' . $new_config_id : $option;
+                    }
+                }
+
                 update_option( $option, maybe_unserialize( $value ) );
             }
         }
@@ -1100,6 +1113,8 @@ class Auxin_Demo_Importer {
         if ( $query->have_posts() ) {
             while( $query->have_posts() ) {
                 $query->the_post();
+
+                global $post;
                 $post_ID = get_the_ID();
 
                 if ( get_post_type( $post_ID ) == 'product_variation' ) {
@@ -1114,6 +1129,15 @@ class Auxin_Demo_Importer {
                         );
                     }
                     continue;
+                } elseif ( get_post_type( $post_ID ) == 'page' && $post->post_parent ) {
+                    $parentID = $post->post_parent;
+                    $convertedParentID = auxin_get_transient( "aux-page-{$parentID}-changs-to" );
+                    if ( $convertedParentID ) {
+                        wp_update_post([
+                            'ID' => $post_ID,
+                            'post_parent' => $convertedParentID
+                        ]);
+                    }
                 }
 
                 $elementor_data = get_post_meta( $post_ID , '_elementor_data', true );
@@ -1306,7 +1330,7 @@ class Auxin_Demo_Importer {
             $url_filenames = basename( parse_url( $import_url['url'], PHP_URL_PATH ) );
 
             if ( ! isset( $tmpname[$import_url['url']] ) ) {
-                $tmpname[$import_url['url']] = wp_tempnam( $url_filenames );
+                $tmpname[$import_url['url']] = ! defined('WP_PROXY_HOST') ? wp_tempnam( $url_filenames ) : '';
             }
 
             $requests[$import_url['url']] = array( 'url' => $import_url['url'], 'options' => array( 'timeout' => 300, 'stream' => true, 'filename' => $tmpname[$import_url['url']] ) );
@@ -1323,9 +1347,34 @@ class Auxin_Demo_Importer {
 
     public function download( array $requests ) {
 
-        if( ! empty( $requests ) ) {
+        if( ! empty( $requests ) && ! defined('WP_PROXY_HOST') ) {
             // Split requests
             return Requests::request_multiple( $requests );
+        }
+
+        if (  ! empty( $requests ) && defined('WP_PROXY_HOST') ) {
+            $request_url = array_key_first( $requests );
+            if ( ! function_exists('download_url') ) {
+                // Include necessary functions
+                require_once(ABSPATH . 'wp-admin/includes/file.php');
+            }
+
+            $args = get_option( 'auxin_demo_media_args', false );
+            // Process moving temp files and insert attachments
+            foreach ( $args as $import_id => $import_url ) {
+                if ( $import_url['url'] != $request_url ) {
+                    continue;
+                }
+
+                $downloaded_file = download_url( $import_url['url'] );
+                if ( !is_wp_error( $downloaded_file ) ) {
+                    $args[$import_id]['tmp_name'] = $downloaded_file;
+                    update_option( 'auxin_demo_media_args', $args, false );
+                }
+                return;
+            }
+
+           
         }
 
     }

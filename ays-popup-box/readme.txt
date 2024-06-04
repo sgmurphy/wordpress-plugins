@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
 Tested up to: 6.5.3
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,15 @@ https://www.youtube.com/watch?v=Ofk1mxUF-9g
 Create newsletter subscription forms and collect your target audience for the next marketing campaign. Impressive, right? Moreover, you can add popup videos, yes no popups, iframe elements and so much more using this modal survey plugin. [Export and import](https://ays-pro.com/blog/how-to-export-import-existing-popups-in-wordpress) your popups in seconds. 
 
 You can have an unlimited number of popups on your website and there can be different popups on different pages of your website. Use [pop-up custom HTML](https://ays-pro.com/blog/how-to-create-a-cta-on-custom-content-popup-with-basic-html) and add new opportunities to your WordPress modal. Other benefits are animation effects and you can have your favorite popup animation effect. And one more great thing! You control every single feature taking into account what you and your website visitors want! This Popup maker plugin is free for a lifetime and comfortable for usage.
+
+= 3RD PARTY OR EXTERNAL SERVICE DISCLAIMER =
+
+The plugin uses the Facebook SDK (https://developers.facebook.com/docs/javascript) to display Facebook-type popups.
+
+IT DOES NOT SEND ANY DATA AND WE DO NOT COLLECT INFORMATION FROM THE REQUEST
+
+The privacy policy for Facebook can be found at this URL: https://www.facebook.com/policy.php
+
 
 **Popup Box Free Features**
 
@@ -325,6 +334,9 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.5.1 =
+* Added: Button padding option for notification popup type
 
 = 4.5.0 =
 * Added: Button border style option for notification popup type

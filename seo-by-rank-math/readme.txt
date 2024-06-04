@@ -1,4 +1,4 @@
-=== Rank Math SEO with AI Best SEO Tools ===
+=== Rank Math SEO with AI SEO Tools ===
 Contributors: rankmath
 Plugin link: https://rankmath.com/?utm_source=LP&utm_campaign=WP
 Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO

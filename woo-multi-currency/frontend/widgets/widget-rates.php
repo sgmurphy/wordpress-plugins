@@ -28,14 +28,14 @@ if ( ! class_exists( 'WMC_Widget_Rates' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 			if ( $this->settings->get_enable() ) {
-				echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $args['before_widget'] );
+				echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $args['before_widget'] );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				if ( ! empty( $instance['title'] ) ) {
-					echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'] );
+					echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'] );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 
-				echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( do_shortcode( apply_filters( 'wmc_shortcode', "[woo_multi_currency_rates]", $instance ) ) );
+				echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( do_shortcode( apply_filters( 'wmc_shortcode', "[woo_multi_currency_rates]", $instance ) ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-				echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $args['after_widget'] );
+				echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $args['after_widget'] );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WMC_Widget_Rates' ) ) {
 		 */
 		public function update( $new_instance, $old_instance ) {
 			$instance          = array();
-			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 
 			return apply_filters( 'wmc_save_widget_data', $instance, $new_instance, $old_instance );
 		}

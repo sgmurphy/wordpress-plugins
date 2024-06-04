@@ -79,12 +79,13 @@ class CreateGroup extends AutomateAction {
 		$privacy_options   = $selected_options['bp_group_status'];
 		$add_other_users   = $selected_options['add_user_repeater'];
 		$grp_creator_email = $selected_options['group_creator_email'];
+		$group_type        = $selected_options['bp_group_type'];
 		$add_user          = $selected_options['add_user'];
 
 		if ( ! function_exists( 'groups_create_group' ) || ! function_exists( 'groups_join_group' ) || 
 		! function_exists( 'groups_get_group' ) || ! function_exists( 'bp_groups_get_group_type' ) || 
 			! function_exists( 'bp_get_group_cover_url' ) || ! function_exists( 'bp_get_group_avatar_url' ) ||
-			! function_exists( 'groups_get_group_members' ) || ! function_exists( 'groups_get_invites' ) ) {
+			! function_exists( 'groups_get_group_members' ) || ! function_exists( 'groups_get_invites' ) || ! function_exists( 'bp_groups_set_group_type' ) ) {
 			return;
 		}
 
@@ -105,6 +106,10 @@ class CreateGroup extends AutomateAction {
 				} elseif ( ! $group ) {
 					throw new Exception( 'There is an error on creating group.' );
 				} else {
+					// set group type.
+					if ( isset( $group_type ) && ! empty( $group_type ) ) {
+						bp_groups_set_group_type( $group, $group_type );
+					}
 					// Adding other users.
 					if ( ! empty( $add_other_users ) ) {
 						foreach ( $add_other_users as $key => $user_selector ) {

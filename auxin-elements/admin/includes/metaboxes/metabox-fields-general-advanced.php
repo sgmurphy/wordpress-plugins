@@ -46,7 +46,8 @@ function auxin_metabox_fields_general_advanced(){
             'id'            => 'aux_page_custom_js',
             'type'          => 'code',
             'mode'          => 'javascript',
-            'default'       => ''
+            'default'       => '',
+            'required_capability' => 'manage_options'
         ),
 
         array(

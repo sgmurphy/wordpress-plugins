@@ -253,6 +253,10 @@ class WOOMULTI_CURRENCY_F_Frontend_Symbol {
 	 * @return int
 	 */
 	public function set_decimals( $decimal ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_symbol' ) ) {
+			return (int) $decimal;
+		}
+
 		global $pagenow;
 		if ( $pagenow === 'admin-ajax.php' && isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'generate_wpo_wcpdf' && isset( $_REQUEST['order_ids'] ) && $_REQUEST['order_ids'] ) {
 			$order_id       = intval( $_REQUEST['order_ids'] );

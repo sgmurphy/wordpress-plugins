@@ -1808,7 +1808,7 @@ function UERemoteWidgets(){
 	* objElement can be jQuery object or selector
 	*/
 	this.setAction = function(action, objElement, allowMultiple){
-
+		
 		if(g_vars.trace_debug == true){
 			trace("set action: "+action);
 		}
@@ -1833,8 +1833,12 @@ function UERemoteWidgets(){
 		var linkedAction = objElement.data("uc-action");
 
 		if(allowMultiple !== true)
-			if(linkedAction)
+			if(linkedAction){
+				
+				trace("not allow multiple action: "+action);
+				
 				return(false);
+			}
 
 		objElement.data("uc-action", action);
 
@@ -1860,7 +1864,7 @@ function UERemoteWidgets(){
 		checkWidgetDebug();
 
 		var isEditorMode = isInsideEditor();
-
+		
 		//in editor mode check debug every second
 
 		if(isEditorMode == true){
@@ -2355,9 +2359,17 @@ function UERemoteWidgets(){
 	 * check if inside editor
 	 */
 	function isInsideEditor(){
-
+		
 		if(g_vars.is_editor !== null)
 			return g_vars.is_editor;
+		
+		//check for gutenberg
+		
+		if(typeof g_ucAdmin !== "undefined"){
+			g_vars.is_editor = true;
+			return(true);
+		}
+		
 		
 		if (window.parent === window.top) {
 			g_vars.is_editor = false;
@@ -2369,12 +2381,6 @@ function UERemoteWidgets(){
 		if (typeof window.parent.elementor !== "undefined") {
 			g_vars.is_editor = true;
 
-			return true;
-		}
-		
-		// check for gutenberg
-		if (typeof window.parent.wp !== "undefined" && typeof window.parent.wp.blocks !== "undefined") {
-			g_vars.is_editor = true;
 			return true;
 		}
 		
@@ -2399,7 +2405,7 @@ function UERemoteWidgets(){
 	 * check widget inside editor
 	 */
 	function checkWidgetInsideEditor(){
-
+				
 		//check for disconnect
 		try{
 
@@ -2454,9 +2460,11 @@ function UERemoteWidgets(){
 	*/
 	this.onWidgetInit = function(widgetID, func, options){
 		
-		
 		try{
-
+			
+			if(g_vars.is_inited == true)
+				return(false);
+			
 			if(g_vars.trace_debug == true){
 				trace("on widget init");
 			}
@@ -2478,7 +2486,7 @@ function UERemoteWidgets(){
 			initGlobal(widgetID, t.onWidgetInit);
 
 			if(g_vars.is_inited == false){
-
+				
 				if(g_vars.trace_debug == true){
 					trace(widgetID+" not inited yet, waiting for parent init");
 				}
@@ -2508,9 +2516,13 @@ function UERemoteWidgets(){
 			//widget is inited
 
 			onWidgetReady();
-
-			g_vars.funcOnInit(g_objWidget);
-
+					
+			if(g_vars.funcOnInit){
+				
+				g_vars.is_inited = true;
+				g_vars.funcOnInit(g_objWidget);				
+			}
+				
 		}catch(message){
 
 
@@ -2537,7 +2549,7 @@ function UERemoteWidgets(){
 		var syncID = g_objParent.data("syncid");
 
 		//if under template switcher - modify sync id
-				
+			
 		if(g_vars.trace_debug == true){
 			trace("Start parent sync");
 			trace(g_objParent);
@@ -2555,7 +2567,7 @@ function UERemoteWidgets(){
 		var objSync = g_remoteConnection.getSyncObject(syncID);
 		
 		var isEditorMode = isInsideEditor();
-
+				
 		objSync.setOptions(syncID, isEditorMode);
 
 		var isInited = initAPI();
@@ -2762,10 +2774,10 @@ function UERemoteConnection(){
 //body init
 
 jQuery(document).on("uc-remote-parent-init",function(event, objParent, optionsAPI){
-
+	
 	var objRemote = new UERemoteWidgets();
 	objRemote.onParentInit(objParent, optionsAPI);
-
+	
 });
 
 window.ueRemoteConnection = new UERemoteConnection();

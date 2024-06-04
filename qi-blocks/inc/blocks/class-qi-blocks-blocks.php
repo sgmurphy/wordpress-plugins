@@ -175,7 +175,7 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 			$this->block_options = $block_options;
 		}
 
-		function register_block() {
+		public function register_block() {
 			$disabled_blocks = get_option( QI_BLOCKS_DISABLED_BLOCKS );
 			$block_status    = apply_filters( 'qi_blocks_filter_block_status', false );
 
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 			);
 		}
 
-		function set_blocks_scripts() {
+		public function set_blocks_scripts() {
 			$block_type   = $this->get_block_type();
 			$block_name   = $this->get_block_name();
 			$block_status = apply_filters( 'qi_blocks_filter_block_status', false );
@@ -378,15 +378,15 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 			}
 		}
 
-		function enqueue_3rd_party_scripts() {
+		public function enqueue_3rd_party_scripts() {
 			$this->enqueue_3rd_party_scripts_logic();
 		}
 
-		function enqueue_3rd_party_editor_scripts() {
+		public function enqueue_3rd_party_editor_scripts() {
 			$this->enqueue_3rd_party_scripts_logic( true );
 		}
 
-		function enqueue_3rd_party_scripts_logic( $editor_mode = false ) {
+		public function enqueue_3rd_party_scripts_logic( $editor_mode = false ) {
 			$block_3rd_party_scripts = $this->get_block_3rd_party_scripts();
 
 			if ( ! empty( $block_3rd_party_scripts ) && is_array( $block_3rd_party_scripts ) ) {

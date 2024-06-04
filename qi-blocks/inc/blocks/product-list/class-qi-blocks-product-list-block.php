@@ -2515,6 +2515,8 @@ if ( ! class_exists( 'Qi_Blocks_Product_List_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Product_List_Block
 		 */
 		public static function get_instance() {
@@ -2525,7 +2527,7 @@ if ( ! class_exists( 'Qi_Blocks_Product_List_Block' ) ) {
 			return self::$instance;
 		}
 
-		function register_block() {
+		public function register_block() {
 			if ( qi_blocks_is_installed( 'woocommerce' ) ) {
 				parent::register_block();
 			}

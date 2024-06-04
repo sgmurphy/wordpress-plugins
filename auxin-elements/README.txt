@@ -3,11 +3,11 @@ Contributors: averta, averta_support
 Donate link: http://phlox.pro/go/?utm_medium=donate-phlox&ref=averta&utm_source=wporg-auxin-elements
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
-Tags: phlox, gallery, elementor, auxin, averta, auxin-elements, framework, widget, fullwidth, masonry, timeline, parallax
+Tags: phlox, elementor, auxin, averta, fullwidth
 Requires PHP: 5.4
-Requires at least: 4.6
-Tested up to: 6.4.2
-Stable tag: 2.15.5
+Requires at least: 5.0
+Tested up to: 6.5.3
+Stable tag: 2.15.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -154,7 +154,8 @@ Bugs can be reported in our [support forums](https://docs.phlox.pro).
 
 == Changelog ==
 
-= Version 2.15.4 / (20.12.2023) =
+= Version 2.15.9 / (19.05.2024) =
+- [Improvement]: Compatibility with latest version of WooCommerce applied.
 - [Improvement]: Security improvements applied.
 
 = Version 2.15.0 / (23.11.2023) =

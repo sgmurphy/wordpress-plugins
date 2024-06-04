@@ -15,6 +15,8 @@ class Qi_Blocks_Blog_Rest_API {
 	}
 
 	/**
+	 * Instance of module class
+	 *
 	 * @return Qi_Blocks_Blog_Rest_API
 	 */
 	public static function get_instance() {

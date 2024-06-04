@@ -96,6 +96,18 @@ $copyright_include_url = (isset($data["options"]["copyright_include_url"]) &&  $
 // Bg image positioning
 $tooltip_bg_image_position = (isset($data["styles"]["tooltip_bg_image_position"]) && $data["styles"]["tooltip_bg_image_position"] != '') ? $data["styles"]["tooltip_bg_image_position"] : "center center";
 
+$sccp_message_vars = array(  
+    '%%user_first_name%%'               => __("User's First Name", $this->plugin_name),
+    '%%user_last_name%%'                => __("User's Last Name", $this->plugin_name),
+    '%%user_wordpress_email%%'          => __("User's WordPress profile email", $this->plugin_name),
+    '%%user_display_name%%'             => __("User's Display Name", $this->plugin_name),
+    '%%user_nickname%%'                 => __("User's Nickname", $this->plugin_name),
+    '%%user_wordpress_roles%%'          => __("User's Wordpress Roles", $this->plugin_name),
+    '%%user_id%%'                       => __("User's ID", $this->plugin_name),
+    '%%current_user_ip%%'               => __("User's IP address", $this->plugin_name),    
+);
+
+$sccp_message_vars_html = $this->ays_sccp_generate_message_vars_html( $sccp_message_vars );
 
 $sccp_settings = new Sccp_Settings_Actions($this->plugin_name);
 
@@ -317,7 +329,7 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                             </div>
                         </div>
                         <hr>
-                        <div class="copy_protection_container form-group row">
+                        <div class="copy_protection_container form-group row ays-sccp-desc-message-vars-parent">
                             <div class="col-sm-4">
                                 <label for="sccp_notification_text"><?= __("Notification text", $this->plugin_name); ?></label>
                                 <a class="ays_help" data-toggle="tooltip"
@@ -331,9 +343,14 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                             </div>
                             <div class="col-sm-8">
                                 <?php
-                                $content   = $data["protection_text"];
+                                echo $sccp_message_vars_html;
+                                $content   = stripslashes(wpautop($data["protection_text"]));
                                 $editor_id = 'sccp_notification_text';
-                                $settings = array('editor_height' => $sccp_wp_editor_height);
+                                $settings = array(
+                                    'editor_height' => $sccp_wp_editor_height,
+                                    'editor_class' => 'ays-textarea', 
+                                    'media_buttons' => true
+                                );
                                 wp_editor($content, $editor_id, $settings);
                                 ?>
                             </div>

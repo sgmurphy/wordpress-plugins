@@ -461,6 +461,13 @@ add_action( 'wp_ajax_auxin_customizer_import', 'auxin_customizer_import' );
  * @return json
  */
 function auxin_template_control_importer() {
-    wp_send_json( auxin_template_importer( sanitize_text_field( $_POST['id'] ), sanitize_text_field( $_POST['template_type'] ), 'update_menu' ) );
+    $template_type = sanitize_text_field( $_POST['template_type'] );
+    if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'customizer-template-library-' .  $template_type ) ) {
+        wp_send_json_error([
+            'message' => __( 'Sorry. You don\'t have sufficient permission to import a template!', 'auxin-elements')
+        ]);
+    }
+
+    wp_send_json( auxin_template_importer( sanitize_text_field( $_POST['id'] ), $template_type, 'update_menu' ) );
 }
 add_action( 'wp_ajax_auxin_template_control_importer', 'auxin_template_control_importer' );

@@ -77,11 +77,12 @@ class WOOMULTI_CURRENCY_F_Admin_System {
             <tr>
                 <td data-export-label="<?php esc_html_e( 'Session path', 'woo-multi-currency' ) ?>"><?php esc_html_e( 'Session path', 'woo-multi-currency' ) ?></td>
                 <td><?php
-					$check_session = @fopen( session_save_path() . 'test-log.log', 'a' ) ? true : false;
+					$check_session = @fopen( session_save_path() . 'test-log.log', 'a' ) ? true : false;// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 					if ( $check_session ) {
 						echo '<mark class="yes"><span class="dashicons dashicons-yes"></span> <code class="private">' . esc_html( session_save_path() ) . '</code></mark> ';
 					} else {
-						echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( __( 'To allow logging, make %1$s writable.', 'woo-multi-currency' ), '<code>' . esc_html( session_save_path() ) . '</code>' ) . '</mark>';
+						/* translators: %1$s: logging file path */
+						echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'To allow logging, make %1$s writable.', 'woo-multi-currency' ), '<code>' . esc_html( session_save_path() ) . '</code>' ) . '</mark>';
 					}
 					?></td>
             </tr>
@@ -99,7 +100,7 @@ class WOOMULTI_CURRENCY_F_Admin_System {
                         <li><strong>
 								<?php
 								esc_html_e( '[WooCommerce] Your GEO IP', 'woo-multi-currency' )
-								?> : <?php echo esc_html( json_encode( $ip->geolocate_ip() ) ) ?>
+								?> : <?php echo esc_html( wp_json_encode( $ip->geolocate_ip() ) ) ?>
                             </strong>
                         </li>
                         <li><h3>

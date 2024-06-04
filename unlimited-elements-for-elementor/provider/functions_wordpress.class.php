@@ -2779,21 +2779,16 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 		if(empty($post))
 			return ("");
-
-		//UniteFunctionsUC::showTrace();
-		//dmp($post);
-
+		
 		$postID = $post->ID;
 
 		//protection against infinate loops
 
 		if(isset(self::$cachePostContent[$postID]))
 			return (self::$cachePostContent[$postID]);
-
-		self::$cachePostContent[$postID] = $post->post_content;
-
+				
 		$isEditMode = GlobalsProviderUC::$isInsideEditor;
-
+		
 		if($isEditMode == false)
 			$content = get_the_content(null, false, $post);
 		else

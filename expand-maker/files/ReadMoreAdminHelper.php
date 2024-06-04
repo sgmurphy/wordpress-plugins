@@ -160,6 +160,17 @@ class ReadMoreAdminHelper {
 		return $button;
 	}
 
+    public static function newIdeasButton() {
+        $button = '<a href="'.esc_attr(YRM_SUPPORT_URL).'" target="_blank">
+                    <button type="button" id="yrm-submit-idea-button" class="yrm-button-blue">
+                        <i class="glyphicon glyphicon-comment"></i>
+                        Submit New Idea
+                    </button>
+                </a>';
+
+        return $button;
+    }
+
 	public static function upgradeButton($customText = '') {
 		$buttonDefaultTex = '<b class="h2">Upgrade</b><br><span class="h5">to PRO version</span>';
 		$buttonTex = $customText ? $customText: $buttonDefaultTex;

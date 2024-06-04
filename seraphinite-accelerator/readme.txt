@@ -5,7 +5,7 @@ Tags: optimize,pagespeed,performance,speed up,cache
 Requires PHP: 7.1
 Requires at least: 4.5
 Tested up to: 6.5
-Stable tag: 2.21.10
+Stable tag: 2.21.11
 License: GPLv2 or later (if another license is not provided)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Privacy policy: https://www.s-sols.com/privacy-policy
@@ -161,6 +161,28 @@ We kindly ask you to [post reviews](https://wordpress.org/support/plugin/seraphi
 17. Settings - Advanced.
 
 == Changelog ==
+
+= 2.21.11 =
+
+Improvements:
+
+* Custom cache directory via SERAPH_ACCEL_CACHE_DIR.
+* Possibility using scripts inside 'fresh' parts blocks.
+* Self-diagnosis: Checking getting data from the vendor's server.
+* Stopping removing 'loading%3D"lazy"' attribute from 'img' tags.
+* Support for 'WP Hide & Security Enhancer' plugin.
+* Support for Slider Revolution.
+* Support for updating URLs with different case.
+
+Fixes:
+
+* AMP pages contain custom scripts that fails validation.
+* Caching directives don't contain 'no-store'.
+* Import in CSS can be separated incorrectly.
+* PHP warnings while CSS processing.
+* Paths to assets are wrong if site WP root path hooked on some sites.
+* Settings are not shown on PHP 8.2.x and higher.
+* URL with redirection to itself can stuck the queue.
 
 = 2.21.10 =
 

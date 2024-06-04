@@ -15,11 +15,14 @@ class WOOMULTI_CURRENCY_F_Frontend_Location {
 		if ( $this->settings->get_enable() ) {
 			/*Check change currency. Can not code in init function because Widget price can not get symbol.*/
 			$list_currencies = $this->settings->get_list_currencies();
-			if ( isset( $_GET['wmc-currency'] ) ) {
-				$target_currency = str_replace( '/', '', sanitize_text_field( $_GET['wmc-currency'] ) );
-				if ( ! empty( $list_currencies[ $target_currency ] ) ) {
-					if ( $list_currencies[ $target_currency ]['hide'] !== '1' ) {
-						$this->settings->set_current_currency( $target_currency );
+
+			if ( ! isset( $_GET['wmc_location_nonce'] ) || wp_verify_nonce( wc_clean( wp_unslash( $_GET['wmc_location_nonce'] ) ), 'wmc_location_nonce' ) ) {
+				if ( isset( $_GET['wmc-currency'] ) ) {
+					$target_currency = str_replace( '/', '', sanitize_text_field( $_GET['wmc-currency'] ) );
+					if ( ! empty( $list_currencies[ $target_currency ] ) ) {
+						if ( $list_currencies[ $target_currency ]['hide'] !== '1' ) {
+							$this->settings->set_current_currency( $target_currency );
+						}
 					}
 				}
 			}
@@ -29,6 +32,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Location {
 
 	public function init() {
 		if ( is_admin() && ! wp_doing_ajax() ) {
+			return;
+		}
+		if ( isset( $_GET['wmc_location_nonce'] ) && ! wp_verify_nonce( wc_clean( wp_unslash( $_GET['wmc_location_nonce'] ) ), 'wmc_location_nonce' ) ) {
 			return;
 		}
 		$action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
@@ -60,7 +66,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Location {
 									$server_detect = self::get_country_code_from_headers();
 									if ( $server_detect && $ip_info['country'] !== $server_detect ) {
 										$ip_info['country'] = $server_detect;
-										$this->settings->setcookie( 'wmc_ip_info', base64_encode( json_encode( $ip_info ) ), time() + 86400 );
+										$this->settings->setcookie( 'wmc_ip_info', base64_encode( wp_json_encode( $ip_info ) ), time() + 86400 );
 										$return = false;
 									}
 								}
@@ -171,7 +177,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Location {
 			}
 
 			if ( $geoplugin_arg['country'] ) {
-				$this->settings->setcookie( 'wmc_ip_info', base64_encode( json_encode( $geoplugin_arg ) ), time() + 86400 );
+				$this->settings->setcookie( 'wmc_ip_info', base64_encode( wp_json_encode( $geoplugin_arg ) ), time() + 86400 );
 			} else {
 				return array();
 			}

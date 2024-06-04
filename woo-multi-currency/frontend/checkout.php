@@ -30,6 +30,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Checkout {
 	 * @param $data
 	 */
 	public function woocommerce_checkout_update_order_review( $data ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_checkout' ) ) {
+			return;
+		}
 		$payment_method   = isset( $_POST['payment_method'] ) ? wc_clean( wp_unslash( $_POST['payment_method'] ) ) : '';
 		$current_currency = $this->settings->get_current_currency();
 		if ( $payment_method === 'ppcp-gateway' ) {
@@ -94,6 +97,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Checkout {
 	 * @return mixed
 	 */
 	public function woocommerce_paypal_args( $payment_args, $order ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_checkout' ) ) {
+			return $payment_args;
+		}
 		if ( ! empty( $_GET['pay_for_order'] ) ) {
 			$payment_args['currency_code'] = $order->get_currency();
 		}
@@ -109,6 +115,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Checkout {
 	 * @return mixed
 	 */
 	public function woocommerce_twoco_args( $payment_args ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_checkout' ) ) {
+			return $payment_args;
+		}
 		if ( ! empty( $_GET['pay_for_order'] ) ) {
 			$order_id = isset( $payment_args['merchant_order_id'] ) ? $payment_args['merchant_order_id'] : '';
 			if ( $order_id ) {

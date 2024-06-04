@@ -104,7 +104,7 @@ class My_Calendar_Mini_Widget extends WP_Widget {
 			'above'    => $above,
 			'below'    => $below,
 			'site'     => $site,
-			'month'    => $months,
+			'months'   => $months,
 			'source'   => 'widget',
 			'json'     => 'false',
 		);

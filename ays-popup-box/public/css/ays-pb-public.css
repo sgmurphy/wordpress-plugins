@@ -895,7 +895,6 @@ div[class*=ays-pb-modal_].ays_minimal_window {
 .ays_pb_notification_button_1 button {
     display: flex;
     align-items: center;
-    padding: 12px 32px;
     font-style: normal;
     line-height: normal;
     margin: 0;

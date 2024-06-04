@@ -119,15 +119,17 @@ class WOOMULTI_CURRENCY_F_Admin_Admin {
 		if ( ! wp_doing_ajax() ) {
 			$frontend_call_admin = false;
 			//Fix with Jetpack stats request from frontend
-			if ( isset( $_GET['page'], $_GET['chart'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) === 'stats' && in_array( sanitize_text_field( $_GET['chart'] ), array(
-					'admin-bar-hours-scale',
-					'admin-bar-hours-scale-2x'
-				) ) ) {
-				$frontend_call_admin = true;
-			}
-			if ( ! $frontend_call_admin ) {
-				$current_currency = get_option( 'woocommerce_currency' );
-				$this->settings->set_current_currency( $current_currency );
+			if ( ! isset( $_GET['wmc_admin_nonce'] ) || wp_verify_nonce( wc_clean( wp_unslash( $_GET['wmc_admin_nonce'] ) ), 'wmc_admin_nonce' ) ) {
+				if ( isset( $_GET['page'], $_GET['chart'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) === 'stats' && in_array( sanitize_text_field( $_GET['chart'] ), array(
+						'admin-bar-hours-scale',
+						'admin-bar-hours-scale-2x'
+					) ) ) {
+					$frontend_call_admin = true;
+				}
+				if ( ! $frontend_call_admin ) {
+					$current_currency = get_option( 'woocommerce_currency' );
+					$this->settings->set_current_currency( $current_currency );
+				}
 			}
 		}
 	}
@@ -137,6 +139,9 @@ class WOOMULTI_CURRENCY_F_Admin_Admin {
 	 * Init Script in Admin
 	 */
 	public function admin_enqueue_scripts() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_settings' ) ) {
+			return;
+		}
 		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
 		if ( $page == 'woo-multi-currency' ) {
 			global $wp_scripts;
@@ -152,30 +157,30 @@ class WOOMULTI_CURRENCY_F_Admin_Admin {
 			}
 			wp_dequeue_style( 'eopa-admin-css' );
 			/*Stylesheet*/
-			wp_enqueue_style( 'semantic-ui-button', WOOMULTI_CURRENCY_F_CSS . 'button.min.css' );
-			wp_enqueue_style( 'semantic-ui-table', WOOMULTI_CURRENCY_F_CSS . 'table.min.css' );
-			wp_enqueue_style( 'semantic-ui-transition', WOOMULTI_CURRENCY_F_CSS . 'transition.min.css' );
-			wp_enqueue_style( 'semantic-ui-form', WOOMULTI_CURRENCY_F_CSS . 'form.min.css' );
-			wp_enqueue_style( 'semantic-ui-icon', WOOMULTI_CURRENCY_F_CSS . 'icon.min.css' );
-			wp_enqueue_style( 'semantic-ui-dropdown', WOOMULTI_CURRENCY_F_CSS . 'dropdown.min.css' );
-			wp_enqueue_style( 'semantic-ui-checkbox', WOOMULTI_CURRENCY_F_CSS . 'checkbox.min.css' );
-			wp_enqueue_style( 'semantic-ui-segment', WOOMULTI_CURRENCY_F_CSS . 'segment.min.css' );
-			wp_enqueue_style( 'semantic-ui-menu', WOOMULTI_CURRENCY_F_CSS . 'menu.min.css' );
-			wp_enqueue_style( 'semantic-ui-tab', WOOMULTI_CURRENCY_F_CSS . 'tab.css' );
-			wp_enqueue_style( 'semantic-ui-input', WOOMULTI_CURRENCY_F_CSS . 'input.min.css' );
-			wp_enqueue_style( 'semantic-ui-popup', WOOMULTI_CURRENCY_F_CSS . 'popup.min.css' );
-			wp_enqueue_style( 'semantic-ui-message', WOOMULTI_CURRENCY_F_CSS . 'message.min.css' );
-			wp_enqueue_style( 'woo-multi-currency', WOOMULTI_CURRENCY_F_CSS . 'woo-multi-currency-admin.css' );
-			wp_enqueue_style( 'select2', WOOMULTI_CURRENCY_F_CSS . 'select2.min.css' );
+			wp_enqueue_style( 'semantic-ui-button', WOOMULTI_CURRENCY_F_CSS . 'button.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-table', WOOMULTI_CURRENCY_F_CSS . 'table.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-transition', WOOMULTI_CURRENCY_F_CSS . 'transition.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-form', WOOMULTI_CURRENCY_F_CSS . 'form.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-icon', WOOMULTI_CURRENCY_F_CSS . 'icon.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-dropdown', WOOMULTI_CURRENCY_F_CSS . 'dropdown.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-checkbox', WOOMULTI_CURRENCY_F_CSS . 'checkbox.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-segment', WOOMULTI_CURRENCY_F_CSS . 'segment.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-menu', WOOMULTI_CURRENCY_F_CSS . 'menu.min.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-tab', WOOMULTI_CURRENCY_F_CSS . 'tab.css', [], '2.1.7' );
+			wp_enqueue_style( 'semantic-ui-input', WOOMULTI_CURRENCY_F_CSS . 'input.min.css', [], '2.2.12' );
+			wp_enqueue_style( 'semantic-ui-popup', WOOMULTI_CURRENCY_F_CSS . 'popup.min.css', [], '2.3.1' );
+			wp_enqueue_style( 'semantic-ui-message', WOOMULTI_CURRENCY_F_CSS . 'message.min.css', [], '2.3.1' );
+			wp_enqueue_style( 'woo-multi-currency', WOOMULTI_CURRENCY_F_CSS . 'woo-multi-currency-admin.css', [], WOOMULTI_CURRENCY_F_VERSION );
+			wp_enqueue_style( 'select2', WOOMULTI_CURRENCY_F_CSS . 'select2.min.css', [], '4.0.3' );
 
 			wp_enqueue_script( 'select2' );
-			wp_enqueue_script( 'semantic-ui-transition', WOOMULTI_CURRENCY_F_JS . 'transition.min.js', array( 'jquery' ) );
-			wp_enqueue_script( 'semantic-ui-dropdown', WOOMULTI_CURRENCY_F_JS . 'dropdown.js', array( 'jquery' ) );
-			wp_enqueue_script( 'semantic-ui-checkbox', WOOMULTI_CURRENCY_F_JS . 'checkbox.js', array( 'jquery' ) );
-			wp_enqueue_script( 'semantic-ui-tab', WOOMULTI_CURRENCY_F_JS . 'tab.js', array( 'jquery' ) );
-			wp_enqueue_script( 'woo-multi-currency-address', WOOMULTI_CURRENCY_F_JS . 'jquery.address-1.6.min.js', array( 'jquery' ) );
+			wp_enqueue_script( 'semantic-ui-transition', WOOMULTI_CURRENCY_F_JS . 'transition.min.js', array( 'jquery' ), '2.1.7', false );
+			wp_enqueue_script( 'semantic-ui-dropdown', WOOMULTI_CURRENCY_F_JS . 'dropdown.js', array( 'jquery' ), '2.1.7', false );
+			wp_enqueue_script( 'semantic-ui-checkbox', WOOMULTI_CURRENCY_F_JS . 'checkbox.js', array( 'jquery' ), '2.1.7', false );
+			wp_enqueue_script( 'semantic-ui-tab', WOOMULTI_CURRENCY_F_JS . 'tab.js', array( 'jquery' ), '2.4.2', false );
+			wp_enqueue_script( 'woo-multi-currency-address', WOOMULTI_CURRENCY_F_JS . 'jquery.address-1.6.min.js', array( 'jquery' ), '1.6', false );
 			wp_enqueue_script( 'jquery-ui-sortable' );
-			wp_enqueue_script( 'woo-multi-currency', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency-admin.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION );
+			wp_enqueue_script( 'woo-multi-currency', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency-admin.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION, false );
 			/*Color picker*/
 			wp_enqueue_script( 'iris' );
 

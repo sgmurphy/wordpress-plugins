@@ -48,14 +48,14 @@ class WOOMULTI_CURRENCY_F_Frontend_Filter_Price {
 
 	public function wp_enqueue_scripts() {
 		if ( is_shop() || is_post_type_archive( 'product' ) ) {
-			wp_enqueue_script( 'woocommerce-multi-currency-filter-price', WOOMULTI_CURRENCY_F_JS . 'filter-price.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION );
+			wp_enqueue_script( 'woocommerce-multi-currency-filter-price', WOOMULTI_CURRENCY_F_JS . 'filter-price.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION, false );
 		}
 	}
 
 	public function woocommerce_price_filter_sql( $sql ) {
 		global $wpdb;
 		if ( $this->step !== null ) {
-			$prices    = $wpdb->get_row( $sql );
+			$prices    = $wpdb->get_row( $sql );// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 			$min_price = $prices->min_price;
 			$max_price = $prices->max_price;
 
@@ -150,6 +150,10 @@ class WOOMULTI_CURRENCY_F_Frontend_Filter_Price {
 	 * @return mixed
 	 */
 	public function reset_price( $args, $wp_query ) {
+		if ( isset( $_GET['wmc_filter_nonce'] ) && ! wp_verify_nonce( wc_clean( wp_unslash( $_GET['wmc_filter_nonce'] ) ), 'wmc_filter_nonce' ) ) {
+			return $args;
+		}
+
 		if ( ! $wp_query->is_main_query() || ( ! isset( $_GET['max_price'] ) && ! isset( $_GET['min_price'] ) ) ) {
 			return $args;
 		}
@@ -173,6 +177,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Filter_Price {
 	 * @return mixed
 	 */
 	public function return_price( $args, $wp_query ) {
+		if ( isset( $_GET['wmc_filter_nonce'] ) && ! wp_verify_nonce( wc_clean( wp_unslash( $_GET['wmc_filter_nonce'] ) ), 'wmc_filter_nonce' ) ) {
+			return $args;
+		}
 
 		if ( ! $wp_query->is_main_query() || ( ! isset( $_GET['max_price'] ) && ! isset( $_GET['min_price'] ) ) ) {
 			return $args;
@@ -213,29 +220,29 @@ class WOOMULTI_CURRENCY_F_Frontend_Filter_Price {
 
 
 		if ( wc_tax_enabled() && 'incl' === get_option( 'woocommerce_tax_display_shop' ) && ! wc_prices_include_tax() ) {
-			$data_query = $wpdb->get_results(
+			$data_query = $wpdb->get_results(// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"SELECT DISTINCT ID, post_parent, post_type FROM {$wpdb->posts}
 						INNER JOIN {$wpdb->postmeta} pm1 ON ID = pm1.post_id
 						INNER JOIN {$wpdb->postmeta} pm2 ON ID = pm2.post_id
 						WHERE post_type IN ( 'product', 'product_variation' )
 						AND post_status = 'publish'
-						AND pm1.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "')
-						AND pm1.meta_value BETWEEN %f AND %f
+						AND pm1.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "')" .// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						" AND pm1.meta_value BETWEEN %f AND %f
 						AND pm2.meta_key = '_tax_class'
 						AND pm2.meta_value = %s
 					", $min_class, $max_class, sanitize_title( $tax_class )
 				), OBJECT_K
 			);
 		} else {
-			$data_query = $wpdb->get_results(
+			$data_query = $wpdb->get_results(// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"SELECT DISTINCT ID, post_parent, post_type FROM {$wpdb->posts}
 					INNER JOIN {$wpdb->postmeta} pm1 ON ID = pm1.post_id
 					WHERE post_type IN ( 'product', 'product_variation' )
 					AND post_status = 'publish'
-					AND pm1.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "')
-					AND pm1.meta_value BETWEEN %d AND %d
+					AND pm1.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "')" .// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					" AND pm1.meta_value BETWEEN %d AND %d
 				", $min_class, $max_class
 				), OBJECT_K
 			);

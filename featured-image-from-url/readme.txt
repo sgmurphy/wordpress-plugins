@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=KY7MRYTANZN9A
 Tags: featured, image, url, video, woocommerce
 Requires at least: 5.6
 Tested up to: 6.5.3
-Stable tag: 4.7.8
+Stable tag: 4.7.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -269,14 +269,14 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 == Changelog ==
 
+= 4.7.9 =
+* Fix: incompatibility with WooCommerce HPOS; fix: CDN + Optimized Thumbnails (not serving images from CloudFront); deprecated: integration with WordPress Importer plugin.
+
 = 4.7.8 =
 * Fix: Clear Metadata (Apache/Nginx timeout, fatal error due to excessive memory usage, counter not working, slow queries).
 
 = 4.7.7 =
 * Enhancement: integration with Yoast (JSON-LD schema); enhancement: WP All Import add-on (easier usage).
-
-= 4.7.6 =
-* Enhancement: Featured audio (you can change its behavior through the Featured Video settings now); fix: database error (Missing DB alias).
 
 = others =
 * [more](https://fifu.app/changelog)
@@ -284,5 +284,5 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 == Upgrade Notice ==
 
-= 4.7.8 =
-* Fix: Clear Metadata (Apache/Nginx timeout, fatal error due to excessive memory usage, counter not working, slow queries).
+= 4.7.9 =
+* Fix: incompatibility with WooCommerce HPOS; fix: CDN + Optimized Thumbnails (not serving images from CloudFront); deprecated: integration with WordPress Importer plugin.

@@ -239,6 +239,14 @@ const reducer = ( state = initialState, action ) => {
 					selectedTemplate: action.payload,
 				},
 			};
+		case actionTypes.SET_SELECTED_TEMPLATE_IS_PREMIUM:
+			return {
+				...state,
+				stepData: {
+					...state.stepData,
+					selectedTemplateIsPremium: action.payload,
+				},
+			};
 		case actionTypes.SET_WEBSITE_DATA_AI_STEP:
 			return {
 				...state,

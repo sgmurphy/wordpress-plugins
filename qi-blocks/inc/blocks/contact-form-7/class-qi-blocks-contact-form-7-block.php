@@ -2322,6 +2322,8 @@ if ( ! class_exists( 'Qi_Blocks_Contact_Form_7_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Contact_Form_7_Block
 		 */
 		public static function get_instance() {
@@ -2332,13 +2334,13 @@ if ( ! class_exists( 'Qi_Blocks_Contact_Form_7_Block' ) ) {
 			return self::$instance;
 		}
 
-		function register_block() {
+		public function register_block() {
 			if ( qi_blocks_is_installed( 'contact_form_7' ) ) {
 				parent::register_block();
 			}
 		}
 
-		function override_templates() {
+		public function override_templates() {
 			// Remove <p> and <br/> from Contact Form 7.
 			add_filter( 'wpcf7_autop_or_not', '__return_false' );
 		}

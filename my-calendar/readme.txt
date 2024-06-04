@@ -2,11 +2,11 @@
 Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: event manager, event calendar, venue, location, accessibility
-Requires at least: 4.7
+Requires at least: 4.9
 Tested up to: 6.5
 Requires PHP: 7.4
 Text domain: my-calendar
-Stable tag: 3.5.5
+Stable tag: 3.5.7
 License: GPLv2 or later
 
 Accessible WordPress event calendar plugin. Manage single or recurring events, event venues, and display your calendar anywhere on your site.
@@ -94,6 +94,18 @@ Translating my plugins is always appreciated. Visit <a href="https://translate.w
 4. Visit My Calendar -> Help for assistance with shortcode options or widget configuration.
 
 == Changelog ==
+
+= 3.5.7 =
+
+* Bug fix: PHP 8.2 deprecated error in `mc_ordinal`.
+* Bug fix: Category dropdown navigation element should limit categories shown.
+* Bug fix: Export dropdown button broken.
+* Bug fix: Export/Subscribe dropdowns duplicated if multiple calendars present. Props @mikeknappe.
+* Bug fix: Incorrect argument passed to mini widget ignored months setting.
+* Bug fix: Reset styles didn't handle Mini calendar widget disclosure properly.
+* Feature: Add setting to change subscribe and export button text. Props @mikeknappe.
+* Docs: Fix incorrect docs on `mc_category_key`.
+* I18n: Missing translator function. Props @DAnn2012.
 
 = 3.5.6 =
 

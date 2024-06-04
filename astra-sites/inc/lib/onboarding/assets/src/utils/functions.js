@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -214,3 +216,5 @@ export const saveGutenbergAsDefaultBuilder = ( pageBuilder = 'gutenberg' ) => {
 		body: content,
 	} );
 };
+
+export const classNames = ( ...classes ) => twMerge( clsx( classes ) );

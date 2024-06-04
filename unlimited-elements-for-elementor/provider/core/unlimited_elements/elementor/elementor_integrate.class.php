@@ -1703,7 +1703,7 @@ class UniteCreatorElementorIntegrate{
     	$isEnabled = UniteFunctionsUC::strToBool($isEnabled);
     	if($isEnabled == false)
     		return(false);
-		
+
     	$isPreviewOption = UniteFunctionsUC::getGetVar("elementor-preview", "", UniteFunctionsUC::SANITIZE_KEY);
 
     	if(!empty($isPreviewOption))

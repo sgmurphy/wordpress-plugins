@@ -172,6 +172,15 @@ function auxin_set_uncategorized_term ( $post_id, $post ) {
 if ( ! function_exists('auxin_template_importer') ) {
     function auxin_template_importer( $template_ID = '', $template_type = '', $action = '' ) {
 
+        if ( ! user_can( wp_get_current_user(), 'manage_options' ) ) {
+            return [
+                'success'   => false,
+                'data'      => [
+                    'message' => __( 'Sorry. You don\'t have sufficient permission to import a template!', 'auxin-elements')
+                ]
+            ];
+        }
+
         $template_ID = sanitize_text_field( trim( $template_ID ) );
         $template_type = sanitize_text_field( trim( $template_type ) );
 

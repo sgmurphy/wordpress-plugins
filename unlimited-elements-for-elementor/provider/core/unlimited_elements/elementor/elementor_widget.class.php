@@ -2091,7 +2091,7 @@ class UniteCreatorElementorWidget extends Widget_Base {
     	$arrItems = $this->objAddon->getProcessedItemsData(UniteCreatorParamsProcessor::PROCESS_TYPE_OUTPUT);
     	if(empty($arrItems))
     		$arrItems = array();
-
+		
     	$arrDefaults = array();
 
     	$urlAssets = $this->objAddon->getUrlAssets();

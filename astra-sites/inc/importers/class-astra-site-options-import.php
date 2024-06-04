@@ -53,7 +53,7 @@ class Astra_Site_Options_Import {
 	/**
 	 * Classic templates options.
 	 *
-	 * @since x.x.x
+	 * @since 4.3.0
 	 * @param array<int, string> $default_options List of defined array.
 	 * @return array<int, string> List of defined array.
 	 */
@@ -140,7 +140,7 @@ class Astra_Site_Options_Import {
 	/**
 	 * Import Classic Templates Options.
 	 *
-	 * @since x.x.x
+	 * @since 4.3.0
 	 * 
 	 * @param array<string, mixed> $options List of default options.
 	 * @param array<int, string>   $site_options List of site options.

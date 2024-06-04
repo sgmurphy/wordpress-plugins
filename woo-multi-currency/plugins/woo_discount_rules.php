@@ -82,7 +82,8 @@ class WOOMULTI_CURRENCY_F_Plugin_Woo_Discount_Rules {
 				?>
                 <div class="notice notice-error">
                     <p>
-						<?php printf( WOOMULTI_CURRENCY_F_Data::wp_kses_post( __( '<strong>Multi Currency for WooCommerce and Woo Discount Rules compatibility issue</strong>: To make the two plugins work properly, please go to <a href="%s">Woo Discount Rules/Settings/Third party plugin conflict fixes & options</a> and check the "No" checkbox next to "Do you have custom prices set using another plugin or custom code?"', 'woo-multi-currency' ) ), esc_url( admin_url( 'admin.php?page=woo_discount_rules&tab=settings#wdr_override_custom_price_1' ) ) ) ?>
+						<?php /* translators: %s: Woo Discount Rule settings link */
+                        printf( WOOMULTI_CURRENCY_F_Data::wp_kses_post( esc_html__( '<strong>Multi Currency for WooCommerce and Woo Discount Rules compatibility issue</strong>: To make the two plugins work properly, please go to <a href="%s">Woo Discount Rules/Settings/Third party plugin conflict fixes & options</a> and check the "No" checkbox next to "Do you have custom prices set using another plugin or custom code?"', 'woo-multi-currency' ) ), esc_url( admin_url( 'admin.php?page=woo_discount_rules&tab=settings#wdr_override_custom_price_1' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </p>
                 </div>
 				<?php
@@ -94,8 +95,8 @@ class WOOMULTI_CURRENCY_F_Plugin_Woo_Discount_Rules {
 		$subtotal_additional_text = '<span class="wdr_you_saved_con">';
 		$config                   = new FlycartWooDiscountBase();
 		$display_you_saved_string = $config->getConfigData( 'display_you_saved_text_value', " You saved: {{total_discount_price}}" );
-		$display_you_saved_string = str_replace( '{{total_discount_price}}', '%s', $display_you_saved_string );
-		$subtotal_additional_text .= sprintf( esc_html__( $display_you_saved_string, 'woo-discount-rules' ), $total_discounted_price );
+		$display_you_saved_string = str_replace( '{{total_discount_price}}', '%s', $display_you_saved_string );// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+		$subtotal_additional_text .= sprintf( esc_html__( $display_you_saved_string, 'woo-discount-rules' ), $total_discounted_price );// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 		$subtotal_additional_text .= '</span>';
 
 		return $subtotal_additional_text;

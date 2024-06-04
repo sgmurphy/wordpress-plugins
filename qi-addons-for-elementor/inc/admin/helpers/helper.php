@@ -306,23 +306,14 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_inline_attr' ) ) 
 	 * @return string generated html attribute
 	 */
 	function qi_addons_for_elementor_framework_get_inline_attr( $value, $attr, $glue = '', $allow_zero_values = false ) {
+		$properties = '';
 
 		// Leave only allowed characters.
 		preg_match( '/[-_a-z0-9]+/', $attr, $attr_matches );
-		preg_match( '/[-_a-z0-9]+/', $value, $value_matches );
 
-		if ( empty( $value_matches[0] ) || empty( $attr_matches[0] ) ) {
-			return '';
-		}
+		$single_attr_key = $attr_matches[0];
 
-		$single_attr_key  = $attr_matches[0];
-		$single_value_key = $value_matches[0];
-
-		// Remove not allowed js events.
-		if ( 'on' === substr( $single_attr_key, 0, 2 ) || 'href' === $single_attr_key || 'on' === substr( $single_value_key, 0, 2 ) || 'href' === $single_value_key ) {
-			return '';
-		}
-
+		// Concatenate values in one variable and check for zero values.
 		if ( $allow_zero_values ) {
 			if ( '' !== $value ) {
 
@@ -331,8 +322,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_inline_attr' ) ) 
 				} else {
 					$properties = $value;
 				}
-
-				return $attr . '="' . esc_attr( $properties ) . '"';
 			}
 		} else {
 			if ( ! empty( $value ) ) {
@@ -344,9 +333,25 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_inline_attr' ) ) 
 				} else {
 					return '';
 				}
-
-				return $attr . '="' . esc_attr( $properties ) . '"';
 			}
+		}
+
+		// Leave only allowed characters.
+		preg_match( '/[-_a-z0-9]+/', $properties, $value_matches );
+
+		if ( empty( $value_matches[0] ) || empty( $attr_matches[0] ) ) {
+			return '';
+		}
+
+		$single_value_key = $value_matches[0];
+
+		// Remove not allowed js events.
+		if ( 'on' === substr( $single_attr_key, 0, 2 ) || 'href' === $single_attr_key || 'on' === substr( $single_value_key, 0, 2 ) || 'href' === $single_value_key ) {
+			return '';
+		}
+
+		if ( '' !== $properties ) {
+			return $attr . '="' . esc_attr( $properties ) . '"';
 		}
 
 		return '';

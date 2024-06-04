@@ -3,7 +3,7 @@ Contributors: edmon.parker
 Tags: read more ,expander, Accordion, show more
 Requires at least: 3.8
 Tested up to: 6.5
-Stable tag: 3.3.8.4
+Stable tag: 3.3.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,9 @@ Shortcode example:
 We do web development and if you need a developer or if you think you have found a bug in Read more plugin, if you have any question, please feel free to contact us by this email <b>edmon.parker@gmail.com</b>.
 
 == Changelog ==
+= 3.3.8.5 =
+* Added submit New idea button
+
 = 3.3.8.4 =
 * Fixed Accordions list sql
 

@@ -776,10 +776,15 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$arrData["author_id"] = UniteFunctionsUC::getVal($arrPost, "post_author");
 			$arrData["post_type"] = UniteFunctionsUC::getVal($arrPost, "post_type");
 
-			$content = UniteFunctionsWPUC::getPostContent($post);
-
+			$password = $post->post_password;
+			if(!empty($password))
+				$content = "";
+			else
+				$content = UniteFunctionsWPUC::getPostContent($post);
+			
+			
 			$arrData["content"] = $content;
-
+			
 			$link = UniteFunctionsWPUC::getPermalink($post);
 			
 			//post link addition
@@ -862,7 +867,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			//get intro, intro from excerpt - tags not stripped
 
 			$exceprt = UniteFunctionsUC::getVal($arrPost, "post_excerpt");
-
+			
 			$intro = $exceprt;
 			$introFull = "";
 
@@ -882,7 +887,7 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$arrData["excerpt"] = $exceprt;
 			$arrData["intro"] = $intro;
 			$arrData["intro_full"] = $introFull;
-
+			
 			//put data
 			$strDate = UniteFunctionsUC::getVal($arrPost, "post_date");
 			$arrData["date"] = !empty($strDate)?strtotime($strDate):"";

@@ -430,6 +430,26 @@ function bravepop_exclude_pages($popups, $currentPageType, $currentSingleType, $
             }
          }
 
+         //IF is Custom Post Type
+         if(isset($exclude->post_types) && is_array($exclude->post_types) && count($exclude->post_types) > 0 && is_singular($exclude->post_types)){
+            unset($fit_popups[$key]);
+         }
+         //IF is Custom Post Type Taxonomy
+         if(isset($exclude->post_types_taxes) && $currentPageType === 'tax' && in_array($currentSingleType, $exclude->post_types_taxes)){
+            unset($fit_popups[$key]);
+         }
+         //IF is Custom Posts
+         if(isset($exclude->cpt_posts) && ($currentPageType === 'single')){
+            global $post;
+            if(isset($post->ID)){
+               foreach ($exclude->cpt_posts as $key => $selectedCPT) {
+                  if(isset($selectedCPT->ID) && isset($selectedCPT->type) && $post->ID === $selectedCPT->ID && $selectedCPT->type === $currentSingleType){
+                     unset($fit_popups[$key]);
+                  }
+               }
+            }
+         }
+
       }
 
    }

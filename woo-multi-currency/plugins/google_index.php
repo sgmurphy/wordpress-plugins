@@ -52,6 +52,10 @@ class WOOMULTI_CURRENCY_F_Plugin_Google_Index {
 	}
 
 	private function get_bot_currency() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_plugin' ) ) {
+			return '';
+		}
+
 		$bot_currency    = $this->settings->get_params( 'bot_currency' );
 		$list_currencies = $this->settings->get_list_currencies();
 		if ( $bot_currency === 'default_currency' ) {

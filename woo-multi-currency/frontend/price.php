@@ -329,6 +329,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Price {
 	 * Check on checkout page
 	 */
 	public function init() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_price' ) ) {
+			return;
+		}
 
 		if ( is_admin() && ! wp_doing_ajax() ) {
 			return;
@@ -688,6 +691,10 @@ class WOOMULTI_CURRENCY_F_Frontend_Price {
 	 * @return mixed
 	 */
 	protected function set_cache( $price, $id, $key ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_price' ) ) {
+			return $price;
+		}
+
 		$ajax = isset( $_GET['wc-ajax'] ) ? sanitize_text_field( $_GET['wc-ajax'] ) : '';
 		if ( $ajax === 'ppc-create-order' ) {
 			/**

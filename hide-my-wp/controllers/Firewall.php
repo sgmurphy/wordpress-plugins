@@ -793,7 +793,7 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                 '@^Mozilla/5.0 (.*Google Keyword Tool.*)$@',
                 '@^Mozilla/5.0 (.*Feedfetcher-Google.*)$@',
                 '@^Feedfetcher-Google-iGoogleGadgets.*$@',
-                '@^searchbot admin@google.com$@',
+                '@^searchbot admin\@google.com$@',
                 '@^Google-Site-Verification.*$@',
                 '@^Google OpenSocial agent.*$@',
                 '@^.*Googlebot-Mobile/2..*$@',

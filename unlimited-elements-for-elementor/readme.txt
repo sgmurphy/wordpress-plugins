@@ -3,7 +3,7 @@ Contributors: unitecms, valiano, iritmega, amitkeren, axmusic
 Donate link: http://unlimited-elements.com/
 Tags: elementor, elements, addons, elementor addons, elementor widget, page builder, builder, visual editor, wordpress page builder, elementor
 Requires at least: 3.5
-Tested up to: 6.5
+Tested up to: 6.5.3
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -866,6 +866,33 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 
 == Changelog ==
+
+version 1.5.110: 2024-06-04
+
+Plugin Changes:
+
+* Fix: remote arrows was sendin next/prev commands twice
+* Fix: fix some password protected content related security issue
+* Fix: fix some sql security small issue 
+
+
+Widgets Changes:
+
+* Feature: Email Field (Pro) - Added Asterisk Size option, allowing customization of asterisk size for better design flexibility and emphasis.
+* Feature: Phone Field (Pro) - Added Asterisk Size option, allowing customization of asterisk size for better design flexibility and emphasis.
+* Feature: Event List (Pro) - Added Timezone option, ensuring that expired and upcoming events are counted according to the specified timezone for accurate event scheduling and display.
+* Feature: Number Field (Pro) - Added "Limit Number of Digits" option, allowing users to restrict the number of digits displayed for better control and readability of numerical data.
+* Feature: Phone Field (Pro) - Added "Limit Number of Digits" option, allowing users to restrict the number of digits displayed for better control and readability of numerical data.
+* Feature: Transparent Split Hero (Free) - Added options to enable or disable widget contents like title, subtitle, etc., and introduced an option to add an image or logo for greater customization and flexibility.
+* Feature: Unlimited Charts (Pro) - Added Line Chart Background Color option, allowing customization of the background color for line charts to enhance visual appeal.
+* Fix: Submit Button (Free) - Added validation function for the phone field to ensure correct email format and improve data accuracy.
+* Fix: Mega Menu (Pro) - Added fix for layout issue that sometimes occurs after page load, ensuring consistent and stable page rendering.
+* Fix: Post Carousel (Pro) - Set padding to 0 in Nav Dots to avoid default CSS overrides, ensuring consistent and desired styling.
+* Fix: Semi Circle Progress Bar (Pro) - Added support for Mega Slider widget, enabling the creation and display of Semi Circle Progress Bar widget in interactive sliders for enhanced content presentation.
+* Fix: Floating Chat Buttons (Pro) - Fixed Pulse Animation Grabber Type issue, ensuring correct animation behavior and improved visual effects.
+* Fix: Content Tabs (Free) - Added a small delay before widget initialization to ensure the Content Tabs widget works properly within other widgets, improving overall functionality and integration.
+* Fix: Remote Tabs (Pro) - Changed selector for padding option to resolve issue where link was not clicked when tab was clicked, improving click response accuracy.
+
 
 
 version 1.5.109: 2024-05-29

@@ -44,6 +44,10 @@ class WOOMULTI_CURRENCY_F_Plugin_Catna {
 	 * @param $post_id
 	 */
 	public function vicatna_woocommerce_process_product_meta_simple( $post_id ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_catna' ) ) {
+			return;
+		}
+
 		$type = isset( $_POST['vicatna_type'] ) ? wc_clean( $_POST['vicatna_type'] ) : '';
 		if ( $type === '' ) {
 			return;

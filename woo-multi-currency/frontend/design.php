@@ -32,13 +32,13 @@ class WOOMULTI_CURRENCY_F_Frontend_Design {
 	public function front_end_script() {
 		if ( WP_DEBUG ) {
 			wp_enqueue_style( 'woo-multi-currency', WOOMULTI_CURRENCY_F_CSS . 'woo-multi-currency.css', array(), WOOMULTI_CURRENCY_F_VERSION );
-			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css' );
+			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css', [], WOOMULTI_CURRENCY_F_VERSION );
 			if ( is_rtl() ) {
 				wp_enqueue_style( 'woo-multi-currency-rtl', WOOMULTI_CURRENCY_F_CSS . 'woo-multi-currency-rtl.css', array(), WOOMULTI_CURRENCY_F_VERSION );
 			}
 		} else {
 			wp_enqueue_style( 'woo-multi-currency', WOOMULTI_CURRENCY_F_CSS . 'woo-multi-currency.min.css', array(), WOOMULTI_CURRENCY_F_VERSION );
-			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css' );
+			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css', [], WOOMULTI_CURRENCY_F_VERSION );
 			if ( is_rtl() ) {
 				wp_enqueue_style( 'woo-multi-currency-rtl', WOOMULTI_CURRENCY_F_CSS . 'woo-multi-currency-rtl.min.css', array(), WOOMULTI_CURRENCY_F_VERSION );
 			}
@@ -68,9 +68,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Design {
 		wp_add_inline_style( 'woo-multi-currency', $custom );
 		/*Multi currency JS*/
 		if ( WP_DEBUG ) {
-			wp_enqueue_script( 'woo-multi-currency', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION );
+			wp_enqueue_script( 'woo-multi-currency', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION, false );
 		} else {
-			wp_enqueue_script( 'woo-multi-currency', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency.min.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION );
+			wp_enqueue_script( 'woo-multi-currency', WOOMULTI_CURRENCY_F_JS . 'woo-multi-currency.min.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION, false );
 		}
 
 		wp_localize_script( 'woo-multi-currency', 'wooMultiCurrencyParams', array(
@@ -94,7 +94,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Design {
 				$logic_value = "return (" . $logic_value . ");";
 			}
 			try {
-				if ( ! eval( $logic_value ) ) {
+				if ( ! eval( $logic_value ) ) {// phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
 					return;
 				}
 			} catch ( Error $e ) {

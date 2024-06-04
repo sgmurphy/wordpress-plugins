@@ -13,7 +13,7 @@ const Input = (
 		label,
 		noBorder,
 		height = '[42px]',
-		labelColorClassName = 'text-heading-text',
+		labelColorClassName = '',
 		enableDebounce,
 		onChange,
 		prefixIcon,
@@ -36,7 +36,7 @@ const Input = (
 				<label
 					htmlFor={ name }
 					className={ classNames(
-						'sp-text-base font-medium text-heading-text',
+						'text-base font-semibold leading-6 items-center !mb-2',
 						labelColorClassName
 					) }
 				>

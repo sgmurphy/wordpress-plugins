@@ -1586,6 +1586,36 @@
             $(document).find('.ays-dashicons').removeClass('ays-dashicons-star-filled').addClass('ays-dashicons-star-empty');                
         });
 
+        // Select message vars sccp page | Start
+        $(document).find('.ays-sccp-message-vars-icon').on('click', function(e){
+            $(this).parents(".ays-sccp-message-vars-box").find(".ays-sccp-message-vars-data").toggle('fast');
+        });
+        
+        $(document).on( "click" , function(e){
+            if($(e.target).closest('.ays-sccp-message-vars-box').length != 0){
+            } 
+            else{
+                $(document).find(".ays-sccp-message-vars-box .ays-sccp-message-vars-data").hide('fast');
+            }
+        });
+
+        $(document).find('.ays-sccp-message-vars-each-data').on('click', function(e){
+            var _this  = $(this);
+            var parent = _this.parents('.ays-sccp-desc-message-vars-parent');
+
+            var textarea   = parent.find('textarea.ays-textarea');
+            var textareaID = textarea.attr('id');
+
+            var messageVar = _this.find(".ays-sccp-message-vars-each-var").val();
+            
+            if ( parent.find("#wp-"+ textareaID +"-wrap").hasClass("tmce-active") ){
+                window.tinyMCE.get(textareaID).setContent( window.tinyMCE.get(textareaID).getContent() + messageVar + " " );
+            }else{
+                $(document).find('#'+textareaID).append( " " + messageVar + " ");
+            }
+        });
+        /* Select message vars sccp page | End */
+
         $(document).on("click", "#ays-sccp-dismiss-buttons-content .ays-button, #ays-sccp-dismiss-buttons-content-black-friday .ays-button-black-friday, #ays-sccp-dismiss-buttons-content-helloween .ays-button-helloween", function(e){
             e.preventDefault();
 

@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.0.48
+Stable tag: 1.0.49
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -325,8 +325,13 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 
 == Changelog ==
 
+= Version 1.0.49 - Tuesday, 4th June 2024 =
+* Improvement: "Voxel" - Enhanced Order related Triggers
+* Improvement: "BuddyBoss" - Enhanced "Create Group" Action with Group Type support
+* Improvement: "AffiliateWP" - Fixed the issue in "WooCommerce Product Purchased using Affiliate Referral" Trigger
+
 = Version 1.0.48 - Monday, 3rd June 2024 =
-* Improvement: Unnecessary code removal, Plugin Code Optimization
+* Fix: This update addressed a security bug. Props to Krzysztof Zając for privately reporting it to our team. Please make sure you are using the latest version on your website.
 
 = Version 1.0.47 - Wednesday, 29th May 2024 =
 * New: Added "Sensei LMS" Integration

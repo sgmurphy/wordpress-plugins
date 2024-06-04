@@ -2,9 +2,9 @@
 Contributors: wp_media, danielhuesken, Bueltge, nullbyte, wido, dinamiko, cocreation, krafit
 Tags: backup, database backup, cloud backup, restore, wordpress backup
 Requires at least: 3.9
-Tested up to: 6.4
+Tested up to: 6.5.3
 Requires PHP: 7.2
-Stable tag: 4.0.4
+Stable tag: 4.1.0
 License: GPLv2+
 
 Schedule complete automatic backups of your WordPress installation. Decide which content will be stored (Dropbox, S3…). This is the free version
@@ -164,6 +164,14 @@ Yes. You need to have writing access to the wp-config.php file (usually residing
 [You can find a detailed tutorial in the BackWPup documentation.](https://backwpup.com/docs/install-backwpup-pro-activate-licence/)
 
 == Changelog ==
+
+= 4.1.0 =
+Release date: Jun 4, 2024
+
+* Changed: Add Restore to the free version
+* Fixed: Improved checking of encrypted archives
+* Added (pro): decryption and encryption with WP-CLI of archives
+* Fixed (pro): Problems with Asymmetric encryption on restarts
 
 = 4.0.4 =
 Release date: March 12, 2024

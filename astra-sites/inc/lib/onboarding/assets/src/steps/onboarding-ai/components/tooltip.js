@@ -8,6 +8,7 @@ const Tooltip = ( {
 	offset,
 	placement = 'top',
 	interactive = false,
+	delay = [ 300, 0 ],
 } ) => {
 	return content ? (
 		<Tippy
@@ -17,6 +18,7 @@ const Tooltip = ( {
 			offset={ offset } // [x,y]
 			placement={ placement }
 			interactive={ interactive }
+			delay={ delay }
 		>
 			{ children }
 		</Tippy>

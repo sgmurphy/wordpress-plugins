@@ -10,7 +10,8 @@ if (YRM_PKG == YRM_FREE_PKG) {
 $allowedTag = ReadMoreAdminHelper::getAllowedTags();
 ?>
 <div class="ycf-bootstrap-wrapper">
-	<h3>Add New Read More Type <?php echo wp_kses($upgradeButton, $allowedTag); ?></h3>
+	<h3>Add New Read More Type <?php echo wp_kses($upgradeButton, $allowedTag); ?>  <?php echo wp_kses(ReadMoreAdminHelper::newIdeasButton(), ReadMoreAdminHelper::getAllowedTags())?></h3>
+
     <?php echo TypesNavBar::render(); ?>
     <?php if (ReadMoreAdminHelper::allowToShowType('button')): ?>
 	<div class="product-banner" onclick="location.href = '<?php echo admin_url();?>admin.php?page=button&yrm_type=button'">

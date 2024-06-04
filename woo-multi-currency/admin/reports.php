@@ -38,6 +38,9 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	 * @return string
 	 */
 	public function get_current_range() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_reports' ) ) {
+			return '7day';
+		}
 		if ( $this->current_range === null ) {
 			$this->current_range = ! empty( $_GET['range'] ) ? sanitize_text_field( wp_unslash( $_GET['range'] ) ) : '7day';
 			if ( ! in_array( $this->current_range, array(
@@ -55,6 +58,9 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	}
 
 	public function admin_enqueue_scripts() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_reports' ) ) {
+			return;
+		}
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 		if ( 'woocommerce_page_wc-reports' == $screen_id ) {
@@ -64,7 +70,7 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 			$view_default = isset( $_GET['wmc-view-default-currency'] ) ? sanitize_text_field( wp_unslash( $_GET['wmc-view-default-currency'] ) ) : '';
 			if ( ( $tab === 'orders' && $report !== 'coupon_usage' ) || ( $tab === 'customers' && $report === 'customers' ) ) {
 				wp_enqueue_style( 'woocommerce-multi-currency-admin-reports', WOOMULTI_CURRENCY_F_CSS . 'reports.css', '', WOOMULTI_CURRENCY_F_VERSION );
-				wp_enqueue_script( 'woocommerce-multi-currency-admin-reports', WOOMULTI_CURRENCY_F_JS . 'reports.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION );
+				wp_enqueue_script( 'woocommerce-multi-currency-admin-reports', WOOMULTI_CURRENCY_F_JS . 'reports.js', array( 'jquery' ), WOOMULTI_CURRENCY_F_VERSION, false );
 				wp_localize_script( 'woocommerce-multi-currency-admin-reports', 'woocommerce_multi_currency_admin_reports', array(
 					'currency' => $currency ? $currency : 'all-currencies'
 				) );
@@ -110,10 +116,8 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 											'relation' => 'OR',
 											array(
 												'type'       => 'order_item_meta',
-												'meta_key'   => array( '_product_id', '_variation_id' ),
-												// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-												'meta_value' => $report->product_ids,
-												// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+												'meta_key'   => array( '_product_id', '_variation_id' ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+												'meta_value' => $report->product_ids, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 												'operator'   => 'IN',
 											),
 										),
@@ -282,10 +286,8 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 									'relation' => 'OR',
 									array(
 										'type'       => 'order_item_meta',
-										'meta_key'   => array( '_product_id', '_variation_id' ),
-										// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-										'meta_value' => $report->product_ids,
-										// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+										'meta_key'   => array( '_product_id', '_variation_id' ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+										'meta_value' => $report->product_ids, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 										'operator'   => 'IN',
 									),
 								),
@@ -379,6 +381,9 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	 *
 	 */
 	public function admin_footer() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_reports' ) ) {
+			return;
+		}
 		$currency          = isset( $_GET['wmc-currency'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_GET['wmc-currency'] ) ) ) : '';
 		$view_default      = isset( $_GET['wmc-view-default-currency'] ) ? sanitize_text_field( wp_unslash( $_GET['wmc-view-default-currency'] ) ) : '';
 		$request_uri       = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
@@ -425,8 +430,8 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	 */
 	public function report_by_currency_for_all( $args ) {
 		$args['where_meta'][]           = array(
-			'meta_key'   => '_order_currency',
-			'meta_value' => $this->currency,
+			'meta_key'   => '_order_currency',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			'meta_value' => $this->currency,// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 			'operator'   => '=',
 		);
 		$args['where_meta']['relation'] = 'AND';
@@ -647,6 +652,9 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	 * @return int
 	 */
 	public function wc_get_price_decimals( $decimal ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_reports' ) ) {
+			return $decimal;
+		}
 		$view_default = isset( $_GET['wmc-view-default-currency'] ) ? sanitize_text_field( wp_unslash( $_GET['wmc-view-default-currency'] ) ) : '';
 		if ( is_admin() && ! empty( $_GET['wmc-currency'] ) && $view_default !== 'yes' ) {
 			$currency = strtoupper( sanitize_text_field( wp_unslash( $_GET['wmc-currency'] ) ) );
@@ -665,6 +673,9 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	 * @return string
 	 */
 	public function woocommerce_currency( $woocommerce_currency ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_reports' ) ) {
+			return $woocommerce_currency;
+		}
 		$view_default = isset( $_GET['wmc-view-default-currency'] ) ? sanitize_text_field( wp_unslash( $_GET['wmc-view-default-currency'] ) ) : '';
 		$currency     = isset( $_GET['wmc-currency'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_GET['wmc-currency'] ) ) ) : '';
 		if ( is_admin() && ! empty( $_GET['wmc-currency'] ) && $view_default !== 'yes' ) {
@@ -683,6 +694,9 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 	 * @return mixed
 	 */
 	public function report_by_currency( $args ) {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_reports' ) ) {
+			return $args;
+		}
 		global $pagenow;
 		if ( $pagenow === 'index.php' ) {
 			/**
@@ -708,8 +722,8 @@ class WOOMULTI_CURRENCY_F_Admin_Reports {
 				}
 				if ( ( $tab === 'orders' && $report !== 'coupon_usage' ) || ( $tab === 'customers' && $report === 'customers' ) ) {
 					$args['where_meta'][]           = array(
-						'meta_key'   => '_order_currency',
-						'meta_value' => $currency,
+						'meta_key'   => '_order_currency',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+						'meta_value' => $currency,// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 						'operator'   => '=',
 					);
 					$args['where_meta']['relation'] = 'AND';

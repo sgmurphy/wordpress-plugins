@@ -39,7 +39,7 @@ class WOOMULTI_CURRENCY_F_Plugin_Woo_Product_Bundle {
 		if ( self::$end_ob ) {
 			$discount_amount = $product->get_discount_amount();
 			$html            = ob_get_clean();
-			echo str_replace( 'data-discount-amount="' . esc_attr( $discount_amount ) . '"', 'data-discount-amount="' . esc_attr( wmc_get_price( $discount_amount ) ) . '"', $html );
+			echo str_replace( 'data-discount-amount="' . esc_attr( $discount_amount ) . '"', 'data-discount-amount="' . esc_attr( wmc_get_price( $discount_amount ) ) . '"', $html );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			self::$end_ob = false;
 		}
 	}

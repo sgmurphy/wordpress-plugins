@@ -27,6 +27,8 @@ if ( ! class_exists( 'Qi_Blocks_Page_Templates' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Page_Templates
 		 */
 		public static function get_instance() {

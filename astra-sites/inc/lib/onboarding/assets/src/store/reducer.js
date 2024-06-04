@@ -111,6 +111,9 @@ export const initialState = {
 	searchTermsWithCount: [],
 	enabledFeatureIds: [],
 	dismissAINotice: astraSitesVars.dismiss_ai_notice,
+
+	// Sync Library.
+	bgSyncInProgress: !! astraSitesVars.bgSyncInProgress,
 };
 
 const reducer = ( state = initialState, { type, ...rest } ) => {

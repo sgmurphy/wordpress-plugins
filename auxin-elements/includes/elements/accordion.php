@@ -179,9 +179,9 @@ function auxin_widget_accordion_callback( $atts, $shortcode_content = null ){
 
             $title_tag = strtolower( $title_tag ) == 'script' ? 'h6' : $title_tag;
             $output .= sprintf( '<%1$s %2$s>%3$s</%1$s>',
-                $title_tag,
+                tag_escape( $title_tag ),
                 auxin_make_html_attributes( $header_attrs ),
-                $value['accordion_label']
+                wp_kses_post( $value['accordion_label'] )
             );
 
 
@@ -195,7 +195,7 @@ function auxin_widget_accordion_callback( $atts, $shortcode_content = null ){
             );
             $output .= sprintf( '<div %s><p>%s</p></div>',
                 auxin_make_html_attributes( $content_attrs ),
-                preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $value['content'])
+                preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', wp_kses_post( $value['content'] ))
             );
 
             $output .= '</section>';

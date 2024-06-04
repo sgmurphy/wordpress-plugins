@@ -12,9 +12,17 @@ class Qi_Blocks_Woocommerce_Rest_API {
 
 		// Extend main rest api routes with new case.
 		add_filter( 'qi_blocks_filter_rest_api_routes', array( $this, 'add_rest_api_routes' ) );
+
+		// Set page ID if WooCommerce page is.
+		add_filter( 'qi_blocks_filter_page_inline_style_page_id', array( $this, 'set_page_inline_style_page_id' ) );
+
+		// Add plugin's body classes.
+		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
 	}
 
 	/**
+	 * Instance of module class
+	 *
 	 * @return Qi_Blocks_Woocommerce_Rest_API
 	 */
 	public static function get_instance() {
@@ -177,6 +185,28 @@ class Qi_Blocks_Woocommerce_Rest_API {
 				wp_reset_postdata();
 			}
 		}
+	}
+
+	public function set_page_inline_style_page_id( $page_id ) {
+
+		if ( qi_blocks_is_woo_page( 'shop' ) ) {
+			$page_id = qi_blocks_woo_get_main_shop_page_id( $page_id );
+		}
+
+		return $page_id;
+	}
+
+	public function add_body_classes( $classes ) {
+
+		if ( qi_blocks_is_woo_page( 'shop' ) ) {
+			$shop_id = qi_blocks_woo_get_main_shop_page_id();
+
+			if ( ! empty( $shop_id ) ) {
+				$classes[] = 'woocommerce-page-' . esc_attr( $shop_id );
+			}
+		}
+
+		return $classes;
 	}
 }
 

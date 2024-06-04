@@ -3211,7 +3211,7 @@ function UEDynamicFilters(){
 		var urlFilterString = "";
 
 		var urlAddition = "ucfrontajaxaction=getfiltersdata&layoutid="+layoutID+"&elid="+widgetID;
-				
+		
 		urlAjax = addUrlParam(urlAjax, urlAddition);
 		
 		if(g_isGutenberg == true)

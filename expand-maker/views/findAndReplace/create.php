@@ -17,14 +17,16 @@ if (!empty($_GET['farId'])) {
 			wp_nonce_field('read_more_save');
 		}
 		$reportButton = '';
+        $newIdeasButton = '';
 		if(YRM_PKG == YRM_FREE_PKG) {
 			$proClassWrapper = 'yrm-pro-option';
 			$reportButton = ReadMoreAdminHelper::reportIssueButton();
+			$newIdeasButton = ReadMoreAdminHelper::newIdeasButton();
 		}
 		$allowedTag = ReadMoreAdminHelper::getAllowedTags();
 		?>
         <div class="titles-wrapper">
-            <h2 class="expander-page-title">Change settings <?php echo wp_kses($reportButton, $allowedTag); ?></h2>
+            <h2 class="expander-page-title">Change settings <?php echo wp_kses($reportButton, $allowedTag); echo wp_kses($newIdeasButton, $allowedTag); ?></h2>
             <div class="button-wrapper">
                 <p class="submit">
                     <?php if(YRM_PKG == YRM_FREE_PKG): ?>

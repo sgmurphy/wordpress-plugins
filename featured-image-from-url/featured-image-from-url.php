@@ -4,7 +4,7 @@
  * Plugin Name: Featured Image from URL (FIFU)
  * Plugin URI: https://fifu.app/
  * Description: Use an external image/video/audio as featured image of a post or WooCommerce product.
- * Version: 4.7.8
+ * Version: 4.7.9
  * Author: fifu.app
  * Author URI: https://fifu.app/
  * WC requires at least: 4.0
@@ -160,9 +160,9 @@ function fifu_uninstall() {
 
 add_action('admin_footer', 'fifu_uninstall');
 
-// https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book
+// https://developer.woocommerce.com/docs/hpos-extension-recipe-book/
 add_action('before_woocommerce_init', function () {
-    if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
+    if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
     }
 });

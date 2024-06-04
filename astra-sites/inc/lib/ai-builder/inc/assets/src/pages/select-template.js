@@ -42,6 +42,7 @@ const SelectTemplate = () => {
 		setWebsiteTemplatesAIStep,
 		setWebsiteSelectedTemplateAIStep,
 		setWebsiteTemplateSearchResultsAIStep,
+		setSelectedTemplateIsPremium,
 	} = useDispatch( STORE_KEY );
 
 	const {
@@ -365,6 +366,7 @@ const SelectTemplate = () => {
 	const onChangeKeyword = ( value = '' ) => {
 		fetchTemplates( value );
 		setWebsiteSelectedTemplateAIStep( '' );
+		setSelectedTemplateIsPremium( '' );
 	};
 
 	const renderTemplates = useMemo( () => {
@@ -383,7 +385,6 @@ const SelectTemplate = () => {
 						<ColumnItem
 							key={ template.uuid }
 							template={ template }
-							isRecommended
 							position={ index + 1 }
 						/>
 					)

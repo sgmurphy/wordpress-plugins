@@ -4,7 +4,7 @@ Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.1.03
+Stable tag: 5.2.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,8 @@ Hide My WP Ghost is packed with awesome security features:
 > *   Change paths in Sitemap.xml
 > *   Change paths in Robots.txt
 >
+> <strong>Hide Options:</strong>
+>
 > *   Security Headers against XSS & Code Injections
 > *   Security Header Strict-Transport-Security
 > *   Security Header Content-Security-Policy
@@ -102,6 +104,10 @@ Hide My WP Ghost is packed with awesome security features:
 > *   Firewall against Script Injections and SQL Injection
 > *   7G Firewall Security Filter
 > *   8G Firewall Security Filter
+> *   Block by IP Addresses
+> *   Block by User Agents
+> *   Block by Referrers
+> *   Block by Hostnames
 >
 > <strong>Hide Options:</strong>
 >
@@ -202,11 +208,15 @@ Hide My WP Ghost is packed with awesome security features:
 
 > <strong>See All Premium Security Features (over 70):</strong>
 > * All the Hide My WP Ghost Free Features
-> * Cloud Events Monitoring
 > * Hide Old WordPress Common Paths by Extension
+> * Cloud Events Monitoring
+> * Cloud Brute Force Monitoring
 > * Temporary Logins Without Password
+> * Magic Link Login Without Password
 > * Two-factor Authentication By Code (2FA)
 > * Two-factor Authentication By Email (2FA)
+> * Country Blocking
+> * Security Fix
 > * and more
 > <a href="https://hidemywpghost.com/hide-my-wp-ghost-security-features/">Hide My WP Premium Feature</a>
 
@@ -282,6 +292,18 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.2.01 (04 June 2024) =
+Update - Added Firewall blacklist by User Agent
+Update - Added Firewall blacklist by Referrer
+Update - Added Firewall blacklist by Hostname
+Update - Added the option to select the level of access for an IP address in whitelist
+Removed - Mysql database permission check as WordPress 6.5 handles DB permissions more secure
+Moved - Firewall section was moved to the main menu as includes more subsections
+Fixed - 8G Firewall compatibility with all page builder plugins
+Fixed - preg_match warning on firewall.php when checking search engine bots
+Fixed - Firewall saving process for Whitelist and Blacklist features
+Fixed - Login access when member plugins are used for login process
+
 = 5.1.03 (20 May 2024) =
 Update - Compatibility with WP 6.5.3
 Update - Compatibility with WPEngine rules on wp-admin and wp-login.php

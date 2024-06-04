@@ -55,6 +55,7 @@ $allowedTag = ReadMoreAdminHelper::getAllowedTags();
 				<?php _e('Delete')?>
 			</button>
 		<?php endif;?>
+        <?php echo wp_kses(ReadMoreAdminHelper::newIdeasButton(), ReadMoreAdminHelper::getAllowedTags())?>
 		<table class="table table-bordered expm-table">
 			<tr class="yrm-manage-col">
 				<td class="manage-column column-id sortable">

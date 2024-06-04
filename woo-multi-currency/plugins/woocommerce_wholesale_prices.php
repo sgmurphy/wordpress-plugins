@@ -52,7 +52,7 @@ if ( is_plugin_active( 'woocommerce-wholesale-prices/woocommerce-wholesale-price
             $wc_product = wc_get_product( $post_id );
 			if ( isset( $_POST['_wholesale_prices_wmcp'] ) ) {
 				$_wholesale_prices_wmcp = wc_clean( $_POST['_wholesale_prices_wmcp'] );
-				$wc_product->update_meta_data('_wholesale_prices_wmcp', json_encode( $_wholesale_prices_wmcp ) );
+				$wc_product->update_meta_data('_wholesale_prices_wmcp', wp_json_encode( $_wholesale_prices_wmcp ) );
 				$wc_product->save_meta_data();
 			}
 		}
@@ -91,7 +91,8 @@ if ( is_plugin_active( 'woocommerce-wholesale-prices/woocommerce-wholesale-price
 							$field_id        = "_wholesale_prices_wmcp_variable_{$loop}_{$key}_{$role_key}_";
 							$field_name      = "_wholesale_prices_wmcp_variable[$loop][$key][$role_key]";
 							$field_label     = $role['roleName'] . " (" . $currency_symbol . ")";
-							$field_desc      = sprintf( __( 'Only applies to users with the role of %1$s', 'woocommerce-wholesale-prices' ), $role['roleName'] );
+							/* translators: %1$s: user role name */
+							$field_desc      = sprintf( esc_html__( 'Only applies to users with the role of %1$s', 'woocommerce-wholesale-prices' ), $role['roleName'] );
 
 							woocommerce_wp_text_input( array(
 								'id'          => $field_id,
@@ -128,7 +129,7 @@ if ( is_plugin_active( 'woocommerce-wholesale-prices/woocommerce-wholesale-price
 			if ( isset( $_POST['_wholesale_prices_wmcp_variable'] ) ) {
 				$_regular_price_wmcp = wc_clean( $_POST['_wholesale_prices_wmcp_variable'] );
 				$variation_product = wc_get_product( $variation_id );
-				$variation_product->update_meta_data('_wholesale_prices_wmcp', json_encode( $_regular_price_wmcp[ $i ] ) );
+				$variation_product->update_meta_data('_wholesale_prices_wmcp', wp_json_encode( $_regular_price_wmcp[ $i ] ) );
 				$variation_product->save_meta_data();
 			}
 		}
@@ -172,7 +173,8 @@ if ( is_plugin_active( 'woocommerce-wholesale-prices/woocommerce-wholesale-price
 							$field_id        = "_wholesale_prices_wmcp_{$key}_{$role_key}_";
 							$field_name      = "_wholesale_prices_wmcp[$key][$role_key]";
 							$field_label     = $role['roleName'] . " (" . $currency_symbol . ")";
-							$field_desc      = sprintf( __( 'Only applies to users with the role of %1$s', 'woocommerce-wholesale-prices' ), $role['roleName'] );
+							/* translators: %1$s: user role name */
+							$field_desc      = sprintf( esc_html__( 'Only applies to users with the role of %1$s', 'woocommerce-wholesale-prices' ), $role['roleName'] );
 
 							woocommerce_wp_text_input( array(
 								'id'          => $field_id,

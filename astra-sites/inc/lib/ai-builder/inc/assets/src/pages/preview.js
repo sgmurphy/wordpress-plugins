@@ -56,7 +56,8 @@ const SitePreview = () => {
 		RESPONSIVE_MODES.desktop
 	);
 	const [ collapsed, setCollapsed ] = useState( window.innerWidth < 1024 );
-	const { setWebsiteSelectedTemplateAIStep } = useDispatch( STORE_KEY );
+	const { setWebsiteSelectedTemplateAIStep, setSelectedTemplateIsPremium } =
+		useDispatch( STORE_KEY );
 	const previewAnimationControl = useAnimation();
 
 	const previewContainer = useRef( null );
@@ -360,6 +361,7 @@ const SitePreview = () => {
 								variant="blank"
 								onClick={ () => {
 									setWebsiteSelectedTemplateAIStep( '' );
+									setSelectedTemplateIsPremium( '' );
 								} }
 							>
 								<span>

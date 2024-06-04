@@ -1,69 +1,4 @@
 jQuery(document).ready(function ($) {
-    // Cookies
-    // Cookie Getter/Setter
-    function setCookie(cname,cvalue,expiration) {
-        var d;
-        if (expiration === '' || expiration === '0' || parseFloat(expiration)) {
-            var exdays = parseFloat(expiration) || 0;
-            d = new Date();
-            d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        } else {
-            d = new Date(expiration);
-        }
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    // Add close button function to close button and close if cookie found
-    function closeBanner() {
-        if (!simpleBannerScriptParams.keep_site_custom_css && document.getElementById('simple-banner-site-custom-css')) document.getElementById('simple-banner-site-custom-css').remove();
-        if (!simpleBannerScriptParams.keep_site_custom_js && document.getElementById('simple-banner-site-custom-js')) document.getElementById('simple-banner-site-custom-js').remove();
-        if (document.getElementById('simple-banner-header-margin')) document.getElementById('simple-banner-header-margin').remove();
-        if (document.getElementById('simple-banner-header-padding')) document.getElementById('simple-banner-header-padding').remove();
-        if (document.getElementById('simple-banner')) document.getElementById('simple-banner').remove();
-    }
-
-    var isCookieSet = false;
-    
-    if (isSimpleBannerVisible) {
-        var sbCookie = "simplebannerclosed";
-
-        if (simpleBannerScriptParams.close_button_enabled){
-            if (getCookie(sbCookie) === "true") {
-                isCookieSet = true;
-                closeBanner();
-                // Set cookie again here in case the expiration has changed
-                setCookie(sbCookie, "true", simpleBannerScriptParams.close_button_expiration);
-            } else {
-                document.getElementById("simple-banner-close-button").onclick = function() {
-                    closeBanner();
-                    setCookie(sbCookie, "true", simpleBannerScriptParams.close_button_expiration);
-                };
-            }
-        } else {
-            // disable cookie if it exists
-            if (getCookie(sbCookie) === "true") {
-                document.cookie = "simplebannerclosed=true; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            }
-        }
-    }
-    
-    // Simple banner
     var isSimpleBannerTextSet = simpleBannerScriptParams.simple_banner_text != "";
     var isDisabledByPagePath = simpleBannerScriptParams.simple_banner_disabled_page_paths ? simpleBannerScriptParams.simple_banner_disabled_page_paths.split(',')
         .filter(Boolean)
@@ -82,8 +17,7 @@ jQuery(document).ready(function ($) {
         }) : false;
     var isSimpleBannerEnabledOnPage = !simpleBannerScriptParams.pro_version_enabled || 
         (simpleBannerScriptParams.pro_version_enabled && !simpleBannerScriptParams.disabled_on_current_page && !isDisabledByPagePath);
-
-    var isSimpleBannerVisible = isSimpleBannerTextSet && isSimpleBannerEnabledOnPage && !isCookieSet;
+    var isSimpleBannerVisible = isSimpleBannerTextSet && isSimpleBannerEnabledOnPage;
 
     if (isSimpleBannerVisible) {
         if (!simpleBannerScriptParams.wp_body_open || !simpleBannerScriptParams.wp_body_open_enabled) {
@@ -115,6 +49,66 @@ jQuery(document).ready(function ($) {
             }
         }
         document.addEventListener("scroll", scrollClass);
+    }
+
+    // Add close button function to close button and close if cookie found
+    function closeBanner() {
+        if (!simpleBannerScriptParams.keep_site_custom_css && document.getElementById('simple-banner-site-custom-css')) document.getElementById('simple-banner-site-custom-css').remove();
+        if (!simpleBannerScriptParams.keep_site_custom_js && document.getElementById('simple-banner-site-custom-js')) document.getElementById('simple-banner-site-custom-js').remove();
+        if (document.getElementById('simple-banner-header-margin')) document.getElementById('simple-banner-header-margin').remove();
+        if (document.getElementById('simple-banner-header-padding')) document.getElementById('simple-banner-header-padding').remove();
+        if (document.getElementById('simple-banner')) document.getElementById('simple-banner').remove();
+    }
+    
+    if (isSimpleBannerVisible) {
+        var sbCookie = "simplebannerclosed";
+
+        if (simpleBannerScriptParams.close_button_enabled){
+            if (getCookie(sbCookie) === "true") {
+                closeBanner();
+                // Set cookie again here in case the expiration has changed
+                setCookie(sbCookie, "true", simpleBannerScriptParams.close_button_expiration);
+            } else {
+                document.getElementById("simple-banner-close-button").onclick = function() {
+                    closeBanner();
+                    setCookie(sbCookie, "true", simpleBannerScriptParams.close_button_expiration);
+                };
+            }
+        } else {
+            // disable cookie if it exists
+            if (getCookie(sbCookie) === "true") {
+                document.cookie = "simplebannerclosed=true; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+        }
+    }
+
+    // Cookie Getter/Setter
+    function setCookie(cname,cvalue,expiration) {
+        var d;
+        if (expiration === '' || expiration === '0' || parseFloat(expiration)) {
+            var exdays = parseFloat(expiration) || 0;
+            d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        } else {
+            d = new Date(expiration);
+        }
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 
     // Debug Mode

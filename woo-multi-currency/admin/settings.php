@@ -179,32 +179,32 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tbody>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable' ) ) ?>">
 									<?php esc_html_e( 'Enable', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_fixed_price' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_fixed_price' ) ) ?>">
 									<?php esc_html_e( 'Fixed Price', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_fixed_price' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_fixed_price' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_fixed_price' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_fixed_price' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_fixed_price' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Set up product price in each currency manually, this price will overwrite the calculated price.', 'woo-multi-currency' ) ?></p>
@@ -212,7 +212,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'use_session' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'use_session' ) ) ?>">
 									<?php esc_html_e( 'Use SESSION', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
@@ -225,13 +225,13 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'price_switcher' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'price_switcher' ) ) ?>">
 									<?php esc_html_e( 'Currency Price Switcher', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
 								<?php $price_switcher = self::get_field( 'price_switcher', 0 ) ?>
-                                <select name="<?php echo self::set_field( 'price_switcher' ) ?>">
+                                <select name="<?php echo esc_attr( self::set_field( 'price_switcher' ) ) ?>">
                                     <option <?php selected( $price_switcher, 0 ) ?>
                                             value="0"><?php esc_html_e( 'Not Show', 'woo-multi-currency' ) ?></option>
                                     <option <?php selected( $price_switcher, 1 ) ?>
@@ -246,7 +246,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_switch_currency_by_js' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_switch_currency_by_js' ) ) ?>">
 									<?php esc_html_e( 'Switch Currency by JS', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
@@ -259,16 +259,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'cache_compatible' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'cache_compatible' ) ) ?>">
 									<?php esc_html_e( 'Use cache plugin', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'cache_compatible' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'cache_compatible' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'cache_compatible' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'cache_compatible' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'cache_compatible' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description">
@@ -278,16 +278,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'loading_price_mask' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'loading_price_mask' ) ) ?>">
 			                        <?php esc_html_e( 'Loading price mask', 'woocommerce-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'loading_price_mask' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'loading_price_mask' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'loading_price_mask' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'loading_price_mask' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'loading_price_mask' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Add loading layer when loading price via AJAX', 'woocommerce-multi-currency' );//Now It is not compatible with Caching plugins.?></p>
@@ -295,7 +295,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th colspan="2">
-                                <label for="<?php echo self::set_field( 'enable_mobile' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_mobile' ) ) ?>">
 									<?php esc_html_e( 'Currency Options', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
@@ -360,14 +360,14 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                                     <input type="radio" <?php checked( self::get_field( 'currency_default', get_option( 'woocommerce_currency' ) ), $currency ) ?>
                                                            tabindex="0" class="hidden"
                                                            value="<?php echo esc_attr( $currency ) ?>"
-                                                           name="<?php echo self::set_field( 'currency_default' ) ?>"/>
+                                                           name="<?php echo esc_attr( self::set_field( 'currency_default' ) ) ?>"/>
                                                     <label></label>
                                                 </div>
                                             </td>
                                             <td class="collapsing"
                                                 title="<?php esc_attr_e( 'Hidden currencies on widget, shortcode and sidebar', 'woo-multi-currency' ) ?>"
                                                 data-tooltip="<?php esc_attr_e( 'Hidden currencies on widget, shortcode and sidebar', 'woo-multi-currency' ) ?>">
-                                                <select name="<?php echo self::set_field( 'currency_hidden', 1 ) ?>">
+                                                <select name="<?php echo esc_attr( self::set_field( 'currency_hidden', 1 ) ) ?>">
                                                     <option <?php selected( self::data_isset( $currency_hidden, $key, 0 ), 0 ) ?>
                                                             value="0"><?php esc_html_e( 'No', 'woo-multi-currency' ) ?></option>
                                                     <option <?php selected( self::data_isset( $currency_hidden, $key ), 1 ) ?>
@@ -375,15 +375,15 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="<?php echo self::set_field( 'currency', 1 ) ?>"
+                                                <select name="<?php echo esc_attr( self::set_field( 'currency', 1 ) ) ?>"
                                                         class="vi-ui select2">
 													<?php foreach ( $wc_currencies as $k => $wc_currency ) { ?>
                                                         <option <?php selected( $currency, $k ) ?>
-                                                                value="<?php echo esc_attr( $k ) ?>"><?php echo esc_attr( $k ) . '-' . esc_html( $wc_currency ) . ' (' . get_woocommerce_currency_symbol( $k ) . ')' ?></option>
+                                                                value="<?php echo esc_attr( $k ) ?>"><?php echo esc_attr( $k ) . '-' . esc_html( $wc_currency ) . ' (' . esc_html( get_woocommerce_currency_symbol( $k ) ) . ')' ?></option>
 													<?php } ?>
                                                 </select>
                                             <td>
-                                                <select name="<?php echo self::set_field( 'currency_pos', 1 ) ?>">
+                                                <select name="<?php echo esc_attr( self::set_field( 'currency_pos', 1 ) ) ?>">
                                                     <option <?php selected( self::data_isset( $currency_pos, $key ), 'left' ) ?>
                                                             value="left"><?php esc_html_e( 'Left $99', 'woo-multi-currency' ) ?></option>
                                                     <option <?php selected( self::data_isset( $currency_pos, $key ), 'right' ) ?>
@@ -397,8 +397,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                             <td>
 
                                                 <input <?php echo esc_attr( $disabled ) ?> type="text"
-                                                                                           name="<?php echo self::set_field( 'currency_rate', 1 ) ?>"
-                                                                                           value="<?php echo self::data_isset( $currency_rate, $key, '1' ) ?>"/>
+                                                                                           name="<?php echo esc_attr( self::set_field( 'currency_rate', 1 ) ) ?>"
+                                                                                           value="<?php echo esc_attr( self::data_isset( $currency_rate, $key, '1' ) ) ?>"/>
 
                                             </td>
                                             <td>
@@ -406,20 +406,20 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                                      data-tooltip="<?php esc_attr_e( 'It is fixed rate. Eg: (Original rate)1.62 + 0.1(Exchange fee rate) = 1.72(End rate)', 'woo-multi-currency' ) ?>">
                                                     <i class="vi-ui icon plus"></i>
                                                     <input <?php echo esc_attr( $disabled ) ?> type="number"
-                                                                                               name="<?php echo self::set_field( 'currency_rate_fee', 1 ) ?>"
-                                                                                               value="<?php echo self::data_isset( $currency_rate_fee, $key, '0.0000' ) ?>"
+                                                                                               name="<?php echo esc_attr( self::set_field( 'currency_rate_fee', 1 ) ) ?>"
+                                                                                               value="<?php echo esc_attr( self::data_isset( $currency_rate_fee, $key, '0.0000' ) ) ?>"
                                                                                                step="any"/>
                                                 </div>
                                             </td>
                                             <td>
                                                 <input type="text"
-                                                       name="<?php echo self::set_field( 'currency_decimals', 1 ) ?>"
-                                                       value="<?php echo self::data_isset( $currency_decimals, $key, '2' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'currency_decimals', 1 ) ) ?>"
+                                                       value="<?php echo esc_attr( self::data_isset( $currency_decimals, $key, '2' ) ) ?>"/>
                                             </td>
                                             <td>
                                                 <input type="text" placeholder="eg: CAD $"
-                                                       name="<?php echo self::set_field( 'currency_custom', 1 ) ?>"
-                                                       value="<?php echo self::data_isset( $currency_custom, $key ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'currency_custom', 1 ) ) ?>"
+                                                       value="<?php echo esc_attr( self::data_isset( $currency_custom, $key ) ) ?>"/>
                                             </td>
                                             <td>
                                                 <div class="vi-ui buttons">
@@ -475,12 +475,12 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tr>
 
                             <th>
-                                <label for="<?php echo self::set_field( 'auto_detect' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'auto_detect' ) ) ?>">
 									<?php esc_html_e( 'Auto Detect', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'auto_detect' ) ?>">
+                                <select name="<?php echo esc_attr( self::set_field( 'auto_detect' ) ) ?>">
                                     <option <?php selected( self::get_field( 'auto_detect' ), 0 ) ?>
                                             value="0"><?php esc_html_e( 'No', 'woo-multi-currency' ) ?></option>
                                     <option <?php selected( self::get_field( 'auto_detect' ), 1 ) ?>
@@ -495,12 +495,12 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tr>
 
                             <th>
-                                <label for="<?php echo self::set_field( 'geo_api' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'geo_api' ) ) ?>">
 									<?php esc_html_e( 'Geo API', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'geo_api' ) ?>">
+                                <select name="<?php echo esc_attr( self::set_field( 'geo_api' ) ) ?>">
                                     <option <?php selected( self::get_field( 'geo_api' ), 0 ) ?>
                                             value="0"><?php esc_html_e( 'WooCommerce', 'woo-multi-currency' ) ?></option>
                                     <option <?php selected( self::get_field( 'geo_api' ), 1 ) ?>
@@ -512,16 +512,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_currency_by_country' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_currency_by_country' ) ) ?>">
 									<?php esc_html_e( 'Currency by Country', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_currency_by_country' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_currency_by_country' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_currency_by_country' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_currency_by_country' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_currency_by_country' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Only working with AUTO SELECT CURRENCY feature. Currency will be selected base on country.', 'woo-multi-currency' ) ?></p>
@@ -548,7 +548,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                             <td><?php echo esc_html( '(' . get_woocommerce_currency_symbol( $currency ) . ') ' . $currency ) ?></td>
                                             <td>
                                                 <select multiple="multiple"
-                                                        name="<?php echo self::set_field( $currency . '_by_country', 1 ) ?>"
+                                                        name="<?php echo esc_attr( self::set_field( $currency . '_by_country', 1 ) ) ?>"
                                                         class="vi-ui select2-multiple"
                                                         data-placeholder="<?php esc_attr_e( 'Please select countries', 'woo-multi-currency' ) ?>">
 													<?php
@@ -557,7 +557,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
 													foreach ( $wc_countries as $k => $wc_country ) {
 														$selected = '';
 
-														if ( in_array( $k, $countries_assign ) ) {
+														if ( is_array( $countries_assign ) && in_array( $k, $countries_assign ) ) {
 															$selected = 'selected="selected"';
 														}
 
@@ -620,11 +620,11 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                 <td>
                                     <div class="vi-ui toggle checkbox">
                                         <!--                                        <input id="-->
-										<?php //echo self::set_field( 'enable_wpml' ) ?><!--"-->
+										<?php //echo esc_attr( self::set_field( 'enable_wpml' ) ) ?><!--"-->
                                         <!--                                               type="checkbox" --><?php //checked( self::get_field( 'enable_wpml' ), 1 ) ?>
                                         <!--                                               tabindex="0" class="hidden" value="1"-->
                                         <!--                                               name="-->
-										<?php //echo self::set_field( 'enable_wpml' ) ?><!--"/>-->
+										<?php //echo esc_attr( self::set_field( 'enable_wpml' ) ) ?><!--"/>-->
                                         <!--                                        <label></label>-->
                                         <a class="vi-ui button yellow"
                                            href="https://1.envato.market/jABDP"
@@ -656,16 +656,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tbody>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_design' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_design' ) ) ?>">
 									<?php esc_html_e( 'Enable', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_design' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_design' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_design' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_design' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_design' ) ) ?>"/>
                                     <label></label>
                                 </div>
                             </td>
@@ -675,13 +675,13 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                 <label><?php esc_html_e( 'Title', 'woo-multi-currency' ) ?></label>
                             </th>
                             <td>
-                                <input type="text" name="<?php echo self::set_field( 'design_title' ) ?>"
-                                       value="<?php echo self::get_field( 'design_title' ) ?>"/>
+                                <input type="text" name="<?php echo esc_attr( self::set_field( 'design_title' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'design_title' ) ) ?>"/>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'position' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'position' ) ) ?>">
 									<?php esc_html_e( 'Position', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
@@ -693,10 +693,10 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                                  class="vi-ui centered medium image middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'design_position' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'design_position' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'design_position', 0 ), 0 ) ?>
                                                        tabindex="0" class="hidden" value="0"
-                                                       name="<?php echo self::set_field( 'design_position' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'design_position' ) ) ?>"/>
                                                 <label><?php esc_attr_e( 'Left', 'woo-multi-currency' ) ?></label>
                                             </div>
 
@@ -709,10 +709,10 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                                  class="vi-ui centered medium image middle aligned "/>
 
                                             <div class="vi-ui toggle checkbox center aligned segment">
-                                                <input id="<?php echo self::set_field( 'design_position' ) ?>"
+                                                <input id="<?php echo esc_attr( self::set_field( 'design_position' ) ) ?>"
                                                        type="radio" <?php checked( self::get_field( 'design_position' ), 1 ) ?>
                                                        tabindex="0" class="hidden" value="1"
-                                                       name="<?php echo self::set_field( 'design_position' ) ?>"/>
+                                                       name="<?php echo esc_attr( self::set_field( 'design_position' ) ) ?>"/>
                                                 <label><?php esc_attr_e( 'Right', 'woo-multi-currency' ) ?></label>
                                             </div>
                                         </div>
@@ -722,16 +722,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_collapse' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_collapse' ) ) ?>">
 									<?php esc_html_e( 'Desktop', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_collapse' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_collapse' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_collapse' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_collapse' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_collapse' ) ) ?>"/>
                                     <label><?php esc_html_e( 'Enable Collapse', 'woo-multi-currency' ) ?></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Sidebar will collapse if you have many currencies.', 'woo-multi-currency' ) ?></p>
@@ -743,8 +743,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'text_color' ) ?>"
-                                       value="<?php echo self::get_field( 'text_color', '#fff' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'text_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'text_color', '#fff' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'text_color', '#fff' ) ) ?>"/>
                             </td>
                         </tr>
@@ -753,7 +753,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                 <label><?php esc_html_e( 'Style', 'woo-multi-currency' ) ?></label>
                             </th>
                             <td>
-                                <select name="<?php echo self::set_field( 'sidebar_style' ) ?>">
+                                <select name="<?php echo esc_attr( self::set_field( 'sidebar_style' ) ) ?>">
                                     <option <?php selected( self::get_field( 'sidebar_style' ), 0 ) ?>
                                             value="0"><?php esc_html_e( 'Default', 'woo-multi-currency' ) ?></option>
                                     <option <?php selected( self::get_field( 'sidebar_style' ), 1 ) ?>
@@ -773,8 +773,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'main_color' ) ?>"
-                                       value="<?php echo self::get_field( 'main_color', '#f78080' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'main_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'main_color', '#f78080' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'main_color', '#f78080' ) ) ?>"/>
                             </td>
                         </tr>
@@ -784,8 +784,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'background_color' ) ?>"
-                                       value="<?php echo self::get_field( 'background_color', '#212121' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'background_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'background_color', '#212121' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'background_color', '#212121' ) ) ?>"/>
                             </td>
                         </tr>
@@ -796,16 +796,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tbody>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'is_checkout' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'is_checkout' ) ) ?>">
 									<?php esc_html_e( 'Checkout page', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'is_checkout' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'is_checkout' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'is_checkout' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'is_checkout' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'is_checkout' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class=""><?php esc_html_e( 'Enable to hide Currencies Bar on Checkout page.', 'woo-multi-currency' ) ?></p>
@@ -813,16 +813,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'is_cart' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'is_cart' ) ) ?>">
 									<?php esc_html_e( 'Cart page', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'is_cart' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'is_cart' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'is_cart' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'is_cart' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'is_cart' ) ) ?>"/>
                                     <label></label>
                                 </div>
                                 <p class=""><?php esc_html_e( 'Enable to hide Currencies Bar on Cart page.', 'woo-multi-currency' ) ?></p>
@@ -830,15 +830,15 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'conditional_tags' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'conditional_tags' ) ) ?>">
 									<?php esc_html_e( 'Other pages', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <input placeholder="<?php esc_html_e( 'eg: !is_page(array(34,98,73))', 'woo-multi-currency' ) ?>"
                                        type="text"
-                                       value="<?php echo htmlentities( self::get_field( 'conditional_tags' ) ) ?>"
-                                       name="<?php echo self::set_field( 'conditional_tags' ) ?>"/>
+                                       value="<?php echo esc_attr( htmlentities( self::get_field( 'conditional_tags' ) ) ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'conditional_tags' ) ) ?>"/>
 
                                 <p class="description"><?php esc_html_e( 'Let you adjust which pages will appear using WP\'s conditional tags.', 'woo-multi-currency' ) ?></p>
                             </td>
@@ -854,7 +854,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <textarea placeholder="Example:&#x0a;EUR,ES&#x0a;USD,VN"
-                                          name="<?php echo self::set_field( 'flag_custom' ) ?>"><?php echo self::get_field( 'flag_custom', '' ) ?></textarea>
+                                          name="<?php echo esc_attr( self::set_field( 'flag_custom' ) ) ?>"><?php echo esc_attr( self::get_field( 'flag_custom', '' ) ) ?></textarea>
                                 <p class="description"><?php esc_html_e( 'Some countries use the same currency. You can choice flag correctly. Each line is the flag. Structure [currency_code,country_code]. Example: EUR,ES', 'woo-multi-currency' ) ?></p>
                             </td>
                         </tr>
@@ -869,8 +869,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'shortcode_color' ) ?>"
-                                       value="<?php echo self::get_field( 'shortcode_color', '#212121' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'shortcode_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'shortcode_color', '#212121' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'shortcode_color', '#474747' ) ) ?>"/>
                             </td>
                         </tr>
@@ -880,8 +880,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'shortcode_bg_color' ) ?>"
-                                       value="<?php echo self::get_field( 'shortcode_bg_color', '#fff' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'shortcode_bg_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'shortcode_bg_color', '#fff' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'shortcode_bg_color', '#fff' ) ) ?>"/>
                             </td>
                         </tr>
@@ -891,8 +891,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'shortcode_active_color' ) ?>"
-                                       value="<?php echo self::get_field( 'shortcode_active_color', '#212121' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'shortcode_active_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'shortcode_active_color', '#212121' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'shortcode_active_color', '#212121' ) ) ?>"/>
                             </td>
                         </tr>
@@ -902,8 +902,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <input type="text" class="color-picker"
-                                       name="<?php echo self::set_field( 'shortcode_active_bg_color' ) ?>"
-                                       value="<?php echo self::get_field( 'shortcode_active_bg_color', '#fff' ) ?>"
+                                       name="<?php echo esc_attr( self::set_field( 'shortcode_active_bg_color' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'shortcode_active_bg_color', '#fff' ) ) ?>"
                                        style="background-color: <?php echo esc_attr( self::get_field( 'shortcode_active_bg_color', '#fff' ) ) ?>"/>
                             </td>
                         </tr>
@@ -914,16 +914,16 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tbody>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'rel_nofollow' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'rel_nofollow' ) ) ?>">
 									<?php esc_html_e( 'Use rel="nofollow"', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'rel_nofollow' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'rel_nofollow' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'rel_nofollow' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'rel_nofollow' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'rel_nofollow' ) ) ?>"/>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Enable this if you want rel="nofollow" to be added to currency switcher buttons', 'woo-multi-currency' ) ?></p>
                             </td>
@@ -934,8 +934,8 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                             </th>
                             <td>
                                 <textarea placeholder=".woo-multi-currency{}"
-                                          name="<?php echo self::set_field( 'custom_css' ) ?>"
-                                ><?php echo self::get_field( 'custom_css', '' ) ?></textarea>
+                                          name="<?php echo esc_attr( self::set_field( 'custom_css' ) ) ?>"
+                                ><?php echo esc_attr( self::get_field( 'custom_css', '' ) ) ?></textarea>
                             </td>
                         </tr>
                         </tbody>
@@ -948,23 +948,23 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         <tbody>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_multi_payment' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_multi_payment' ) ) ?>">
 									<?php esc_html_e( 'Enable', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
                             <td>
                                 <div class="vi-ui toggle checkbox">
-                                    <input id="<?php echo self::set_field( 'enable_multi_payment' ) ?>"
+                                    <input id="<?php echo esc_attr( self::set_field( 'enable_multi_payment' ) ) ?>"
                                            type="checkbox" <?php checked( self::get_field( 'enable_multi_payment' ), 1 ) ?>
                                            tabindex="0" class="hidden" value="1"
-                                           name="<?php echo self::set_field( 'enable_multi_payment' ) ?>"/>
+                                           name="<?php echo esc_attr( self::set_field( 'enable_multi_payment' ) ) ?>"/>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Pay in many currencies', 'woo-multi-currency' ) ?></p>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_cart_page' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_cart_page' ) ) ?>">
 									<?php esc_html_e( 'Enable Cart Page', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
@@ -979,7 +979,7 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'checkout_currency' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'checkout_currency' ) ) ?>">
 									<?php esc_html_e( 'Checkout currency', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>
@@ -1047,13 +1047,13 @@ class WOOMULTI_CURRENCY_F_Admin_Settings {
                                 <label><?php esc_html_e( 'Rate Decimals', 'woo-multi-currency' ) ?></label>
                             </th>
                             <td>
-                                <input type="text" name="<?php echo self::set_field( 'rate_decimals' ) ?>"
-                                       value="<?php echo self::get_field( 'rate_decimals', 5 ) ?>"/>
+                                <input type="text" name="<?php echo esc_attr( self::set_field( 'rate_decimals' ) ) ?>"
+                                       value="<?php echo esc_attr( self::get_field( 'rate_decimals', 5 ) ) ?>"/>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                <label for="<?php echo self::set_field( 'enable_send_email' ) ?>">
+                                <label for="<?php echo esc_attr( self::set_field( 'enable_send_email' ) ) ?>">
 									<?php esc_html_e( 'Send Email', 'woo-multi-currency' ) ?>
                                 </label>
                             </th>

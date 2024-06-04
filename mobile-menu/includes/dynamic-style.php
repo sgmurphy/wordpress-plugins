@@ -8,7 +8,7 @@
  * Copyright WP Mobile Menu 2019 - http://www.wpmobilemenu.com/
  * CUSTOM CSS OUTPUT
  */
-global  $mm_fs ;
+global $mm_fs;
 $plugin_settings = MobileMenuOptions::getInstance( 'mobmenu' );
 $default_elements = '';
 $logo_height = '';
@@ -52,7 +52,6 @@ if ( in_array( '9', $def_el_arr, true ) ) {
 }
 $default_elements .= '.hide';
 // Check if the Naked Header is enabled.
-
 if ( $plugin_settings->getOption( 'enabled_naked_header' ) ) {
     $header_bg_color = 'transparent';
     $wrap_padding_top = '0';
@@ -65,31 +64,24 @@ if ( $plugin_settings->getOption( 'enabled_naked_header' ) ) {
     $header_bg_color = $plugin_settings->getOption( 'header_bg_color' );
     $wrap_padding_top = $plugin_settings->getOption( 'header_height' );
 }
-
 // Determine the Width of the Left menu panel.
-
 if ( $plugin_settings->getOption( 'left_menu_width_units' ) ) {
     $left_menu_width = $plugin_settings->getOption( 'left_menu_width' ) . 'px';
     $left_menu_width_translate = $plugin_settings->getOption( 'left_menu_width' ) - 1 . 'px';
 } else {
     $left_menu_width = $plugin_settings->getOption( 'left_menu_width_percentage' ) . '%';
 }
-
 // Determine the Width of the Right menu panel.
-
 if ( $plugin_settings->getOption( 'right_menu_width_units' ) ) {
     $right_menu_width = $plugin_settings->getOption( 'right_menu_width' ) . 'px';
 } else {
     $right_menu_width = $plugin_settings->getOption( 'right_menu_width_percentage' ) . '%';
 }
-
-
 if ( $plugin_settings->getOption( 'logo_height' ) > 0 ) {
     $logo_height = $plugin_settings->getOption( 'logo_height' );
 } else {
     $logo_height = $plugin_settings->getOption( 'header_height' );
 }
-
 $logo_height = 'height:' . $logo_height . 'px!important;';
 $header_height = $plugin_settings->getOption( 'header_height' );
 $total_header_height = $header_height;
@@ -126,20 +118,16 @@ $header_text_position = 'absolute';
 $border_menu_size = $plugin_settings->getOption( 'menu_items_border_size' );
 $submenu_open_icon_font = $plugin_settings->getOption( 'submenu_open_icon_font' );
 // Sticky Header.
-
 if ( $plugin_settings->getOption( 'enabled_sticky_header' ) ) {
     $header_position = 'fixed';
 } else {
     $header_position = 'absolute';
 }
-
-
 if ( 'center' === $plugin_settings->getOption( 'header_text_align' ) ) {
     $logo_header_position = 'absolute';
 } else {
     $logo_header_position = 'relative';
 }
-
 // Header Text alignment.
 if ( 'center' === $plugin_settings->getOption( 'header_text_align' ) ) {
     $header_text_position = 'initial';
@@ -174,7 +162,7 @@ $admin_bar_height = '32';
 ?>
 		body.admin-bar .mobmenu-search-holder {
 				top: <?php 
-echo  $total_header_height + $admin_bar_height ;
+echo $total_header_height + $admin_bar_height;
 ?>px!important;
 		}
 }
@@ -186,7 +174,7 @@ echo  $total_header_height + $admin_bar_height ;
 
 	body.admin-bar .mob-menu-header-banner {
 		top: <?php 
-echo  $header_banner_padding_top ;
+echo $header_banner_padding_top;
 ?>px!important;
 	}
 	<?php 
@@ -194,12 +182,12 @@ $admin_bar_height = '46';
 ?>
 	body.admin-bar .mobmenu-search-holder {
 		top: <?php 
-echo  $total_header_height + $admin_bar_height ;
+echo $total_header_height + $admin_bar_height;
 ?>px!important;
 	}
 	body.admin-bar  .mob-menu-slideout .mobmenu-search-holder {
 		top: <?php 
-echo  $header_height ;
+echo $header_height;
 ?>px!important;
 	}
 
@@ -219,14 +207,13 @@ echo  $header_height ;
 
 
 @media only screen and (min-width:<?php 
-echo  $trigger_res + 1 ;
+echo $trigger_res + 1;
 ?>px){
 	.mob_menu, .mobmenu-panel, .mobmenu, .mobmenu-cart-panel, .mobmenu-footer-menu-holder, .mobmenu-right-panel, .mobmenu-left-panel  {
 		display: none!important;
 	}
 }
 <?php 
-
 if ( 0 < $border_menu_size ) {
     $border_menu_color = $plugin_settings->getOption( 'menu_items_border_color' );
     $border_style = $border_menu_size . 'px solid ' . $border_menu_color;
@@ -234,14 +221,12 @@ if ( 0 < $border_menu_size ) {
 
 		.mobmenu-content li {
 			border-bottom: <?php 
-    echo  $border_style ;
+    echo $border_style;
     ?>;
 		}
 
 <?php 
 }
-
-
 if ( $plugin_settings->getOption( 'left_menu_tabbed_menus', false ) ) {
     $border_menu_color = $plugin_settings->getOption( 'menu_items_border_color' );
     $border_style = '2px solid ' . $border_menu_color;
@@ -249,14 +234,12 @@ if ( $plugin_settings->getOption( 'left_menu_tabbed_menus', false ) ) {
 
 		.mobmenu-left-panel .mobmenu-tabs-header .active-tab {
 			border-bottom: <?php 
-    echo  $border_style ;
+    echo $border_style;
     ?>;
 		}
 
 <?php 
 }
-
-
 if ( $plugin_settings->getOption( 'right_menu_tabbed_menus', false ) ) {
     $border_menu_color = $plugin_settings->getOption( 'menu_items_border_color' );
     $border_style = '2px solid ' . $border_menu_color;
@@ -264,22 +247,20 @@ if ( $plugin_settings->getOption( 'right_menu_tabbed_menus', false ) ) {
 
 		.mobmenu-right-panel .mobmenu-tabs-header .active-tab {
 			border-bottom: <?php 
-    echo  $border_style ;
+    echo $border_style;
     ?>;
 		}
 
 <?php 
 }
-
-
 if ( '' !== $plugin_settings->getOption( 'hide_elements' ) ) {
     ?>
 /* Our css Custom Options values */
 @media only screen and (max-width:<?php 
-    echo  $trigger_res ;
+    echo $trigger_res;
     ?>px){
 	<?php 
-    echo  $plugin_settings->getOption( 'hide_elements' ) ;
+    echo $plugin_settings->getOption( 'hide_elements' );
     ?> {
 		display:none !important;
 	}
@@ -287,11 +268,10 @@ if ( '' !== $plugin_settings->getOption( 'hide_elements' ) ) {
 
 <?php 
 }
-
 ?>
 
 @media only screen and (max-width:<?php 
-echo  $trigger_res ;
+echo $trigger_res;
 ?>px) {
 
 		<?php 
@@ -299,75 +279,75 @@ echo  $trigger_res ;
 	
 	.mobmenur-container i {
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_menu_icon_color' ) ;
+echo $plugin_settings->getOption( 'right_menu_icon_color' );
 ?>;
 	}
 	.mobmenul-container i {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_menu_icon_color' ) ;
+echo $plugin_settings->getOption( 'left_menu_icon_color' );
 ?>;
 	}
 	.mobmenul-container img {
 		max-height:  <?php 
-echo  $plugin_settings->getOption( 'header_height' ) - $plugin_settings->getOption( 'logo_top_margin' ) * 2 - $plugin_settings->getOption( 'left_icon_top_margin' ) ;
+echo $plugin_settings->getOption( 'header_height' ) - $plugin_settings->getOption( 'logo_top_margin' ) * 2 - $plugin_settings->getOption( 'left_icon_top_margin' );
 ?>px;
 		float: left;
 	}
 	.mobmenur-container img {
 		max-height:  <?php 
-echo  $plugin_settings->getOption( 'header_height' ) - $plugin_settings->getOption( 'logo_top_margin' ) * 2 - $plugin_settings->getOption( 'right_icon_top_margin' ) ;
+echo $plugin_settings->getOption( 'header_height' ) - $plugin_settings->getOption( 'logo_top_margin' ) * 2 - $plugin_settings->getOption( 'right_icon_top_margin' );
 ?>px;
 		float: right;
 	}
 	.mob-expand-submenu i {
 		font-size: <?php 
-echo  $plugin_settings->getOption( 'submenu_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'submenu_icon_font_size' );
 ?>px;
 	}
 	#mobmenuleft li a , #mobmenuleft li a:visited, .mobmenu-content h2, .mobmenu-content h3, .show-nav-left .mob-menu-copyright, .show-nav-left .mob-expand-submenu i {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_text_color' ) ;
+echo $plugin_settings->getOption( 'left_panel_text_color' );
 ?>;
 
 	}
 	.mob-cancel-button {
 		font-size: <?php 
-echo  $plugin_settings->getOption( 'close_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'close_icon_font_size' );
 ?>px!important;
 	}
 
 	/* 3rd Level Left Menu Items Background color on Hover*/
 	.mobmenu-content #mobmenuleft .sub-menu  .sub-menu li a:hover {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_3rd_menu_text_color_hover' ) ;
+echo $plugin_settings->getOption( 'left_panel_3rd_menu_text_color_hover' );
 ?>;
 	}
 	/* 3rd Level Left Menu Items Background color on Hover*/
 	.mobmenu-content #mobmenuleft .sub-menu .sub-menu li:hover {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_3rd_menu_bg_color_hover' ) ;
+echo $plugin_settings->getOption( 'left_panel_3rd_menu_bg_color_hover' );
 ?>;
 	}
 	.mobmenu-content #mobmenuleft li:hover, .mobmenu-content #mobmenuright li:hover  {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_hover_bgcolor' ) ;
+echo $plugin_settings->getOption( 'left_panel_hover_bgcolor' );
 ?>;
 	}
 	.mobmenu-content #mobmenuright li:hover  {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_hover_bgcolor' ) ;
+echo $plugin_settings->getOption( 'right_panel_hover_bgcolor' );
 ?> ;
 	}
 	/* 3rd Level Right Menu Items Background color on Hover*/
 	.mobmenu-content #mobmenuright .sub-menu .sub-menu li:hover {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_3rd_menu_bg_color_hover' ) ;
+echo $plugin_settings->getOption( 'right_panel_3rd_menu_bg_color_hover' );
 ?>;
 	}
 	/* 3rd Level Right Menu Items Background color on Hover*/
 	.mobmenu-content #mobmenuright .sub-menu  .sub-menu li a:hover {
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_3rd_menu_text_color_hover' ) ;
+echo $plugin_settings->getOption( 'right_panel_3rd_menu_text_color_hover' );
 ?>;
 	}
 
@@ -382,11 +362,11 @@ if ( $plugin_settings->getOption( 'header_shadow' ) && !$plugin_settings->getOpt
 ?>
 	.mobmenu-content #mobmenuleft .sub-menu {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_submenu_bgcolor' ) ;
+echo $plugin_settings->getOption( 'left_panel_submenu_bgcolor' );
 ?> ;
 		margin: 0;
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_submenu_text_color' ) ;
+echo $plugin_settings->getOption( 'left_panel_submenu_text_color' );
 ?> ;
 		width: 100%;
 		position: initial;
@@ -394,68 +374,64 @@ echo  $plugin_settings->getOption( 'left_panel_submenu_text_color' ) ;
 	}
 	.mob-menu-left-bg-holder {
 		<?php 
-
 if ( $left_menu_bg_image ) {
     ?>
 			background: url(<?php 
-    echo  wp_get_attachment_url( $left_menu_bg_image ) ;
+    echo wp_get_attachment_url( $left_menu_bg_image );
     ?>);
 		<?php 
 }
-
 ?>
 		opacity: <?php 
-echo  $plugin_settings->getOption( 'left_menu_bg_opacity' ) / 100 ;
+echo $plugin_settings->getOption( 'left_menu_bg_opacity' ) / 100;
 ?>;
 		background-attachment: fixed ;
 		background-position: center top ;
 		-webkit-background-size:  <?php 
-echo  $left_menu_bg_image_size ;
+echo $left_menu_bg_image_size;
 ?>;
 		-moz-background-size: <?php 
-echo  $left_menu_bg_image_size ;
+echo $left_menu_bg_image_size;
 ?>;
 		background-size: <?php 
-echo  $left_menu_bg_image_size ;
+echo $left_menu_bg_image_size;
 ?>;
 	}
 	.mob-menu-right-bg-holder { 
 		<?php 
-
 if ( $plugin_settings->getOption( 'right_menu_bg_image' ) ) {
     ?>
 			background: url(<?php 
-    echo  wp_get_attachment_url( $plugin_settings->getOption( 'right_menu_bg_image' ) ) ;
+    echo wp_get_attachment_url( $plugin_settings->getOption( 'right_menu_bg_image' ) );
     ?>);
 		<?php 
 }
-
 ?>
 		opacity: <?php 
-echo  $plugin_settings->getOption( 'right_menu_bg_opacity' ) / 100 ;
+echo $plugin_settings->getOption( 'right_menu_bg_opacity' ) / 100;
 ?>;
 		background-attachment: fixed ;
 		background-position: center top ;
 		-webkit-background-size: <?php 
-echo  $plugin_settings->getOption( 'right_menu_bg_image_size' ) ;
+echo $plugin_settings->getOption( 'right_menu_bg_image_size' );
 ?>;
 		-moz-background-size: <?php 
-echo  $plugin_settings->getOption( 'right_menu_bg_image_size' ) ;
+echo $plugin_settings->getOption( 'right_menu_bg_image_size' );
 ?>;
 		background-size:  <?php 
-echo  $plugin_settings->getOption( 'right_menu_bg_image_size' ) ;
+echo $plugin_settings->getOption( 'right_menu_bg_image_size' );
 ?>;
 	}
 	<?php 
 ?>
 	.mobmenu-content #mobmenuleft .sub-menu a {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_submenu_text_color' ) ;
+echo $plugin_settings->getOption( 'left_panel_submenu_text_color' );
 ?> ;
 	}
 	.mobmenu-content #mobmenuright .sub-menu  a {
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_submenu_text_color' ) ;
+echo $plugin_settings->getOption( 'right_panel_submenu_text_color' );
 ?> ;
 	}
 	.mobmenu-content #mobmenuright .sub-menu .sub-menu {
@@ -463,54 +439,54 @@ echo  $plugin_settings->getOption( 'right_panel_submenu_text_color' ) ;
 	}
 	.mobmenu-content #mobmenuright .sub-menu {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_submenu_bgcolor' ) ;
+echo $plugin_settings->getOption( 'right_panel_submenu_bgcolor' );
 ?> ;
 		margin: 0;
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_submenu_text_color' ) ;
+echo $plugin_settings->getOption( 'right_panel_submenu_text_color' );
 ?> ;
 		position: initial;
 		width: 100%;
 	}
 	#mobmenuleft li:hover a, #mobmenuleft li:hover i {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_hover_text_color' ) ;
+echo $plugin_settings->getOption( 'left_panel_hover_text_color' );
 ?>;
 	}
 	#mobmenuright li a , #mobmenuright li a:visited, .show-nav-right .mob-menu-copyright, .show-nav-right .mob-expand-submenu i {
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_text_color' ) ;
+echo $plugin_settings->getOption( 'right_panel_text_color' );
 ?> ;
 	}
 	#mobmenuright li a:hover {
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_hover_text_color' ) ;
+echo $plugin_settings->getOption( 'right_panel_hover_text_color' );
 ?> ;
 	}
 	.mobmenul-container {
 		top: <?php 
-echo  $plugin_settings->getOption( 'left_icon_top_margin' ) ;
+echo $plugin_settings->getOption( 'left_icon_top_margin' );
 ?>px;
 		margin-left: <?php 
-echo  $plugin_settings->getOption( 'left_icon_left_margin' ) ;
+echo $plugin_settings->getOption( 'left_icon_left_margin' );
 ?>px;
 		margin-top: <?php 
-echo  $header_margin_top ;
+echo $header_margin_top;
 ?>;
 		height: <?php 
-echo  $header_height ;
+echo $header_height;
 ?>px;
 		float: left;
 	}
 	.mobmenur-container {
 		top: <?php 
-echo  $plugin_settings->getOption( 'right_icon_top_margin' ) ;
+echo $plugin_settings->getOption( 'right_icon_top_margin' );
 ?>px;
 		margin-right: <?php 
-echo  $plugin_settings->getOption( 'right_icon_right_margin' ) ;
+echo $plugin_settings->getOption( 'right_icon_right_margin' );
 ?>px;
 		margin-top: <?php 
-echo  $header_margin_top ;
+echo $header_margin_top;
 ?>;
 	}
 	<?php 
@@ -528,94 +504,88 @@ switch ( $plugin_settings->getOption( 'header_text_align' ) ) {
 ?>
 	.mob-menu-logo-holder {
 		margin-top:   <?php 
-echo  $header_margin_top ;
+echo $header_margin_top;
 ?>;
 		text-align:   <?php 
-echo  $plugin_settings->getOption( 'header_text_align' ) ;
+echo $plugin_settings->getOption( 'header_text_align' );
 ?>;
 		margin-left:  <?php 
-echo  $header_margin_left ;
+echo $header_margin_left;
 ?>;
 		margin-right: <?php 
-echo  $header_margin_right ;
+echo $header_margin_right;
 ?>;
 		height:       <?php 
-echo  $header_height ;
+echo $header_height;
 ?>px;
 		<?php 
-echo  $header_logo_float ;
+echo $header_logo_float;
 ?>
 	}
 	.mob-menu-header-holder {
 		width:  <?php 
-echo  $header_width ;
+echo $header_width;
 ?> ;
 		background-color: <?php 
-echo  $header_bg_color ;
+echo $header_bg_color;
 ?> ;
 		height: <?php 
-echo  $total_header_height ;
+echo $total_header_height;
 ?>px ;
 		position:<?php 
-echo  $header_position ;
+echo $header_position;
 ?>;
 	}
 	body.mob-menu-overlay, body.mob-menu-slideout, body.mob-menu-slideout-over, body.mob-menu-slideout-top {
 		padding-top: <?php 
-echo  $wrap_padding_top ;
+echo $wrap_padding_top;
 ?>px;
 	}
 	<?php 
-
 if ( '' !== $plugin_settings->getOption( 'left_menu_bg_gradient' ) ) {
     $left_panel_bg_color = $plugin_settings->getOption( 'left_menu_bg_gradient' ) . ';';
 } else {
     $left_panel_bg_color = 'background-color:' . $plugin_settings->getOption( 'left_panel_bg_color' ) . ';';
 }
-
-
 if ( '' !== $plugin_settings->getOption( 'right_menu_bg_gradient' ) ) {
     $right_panel_bg_color = $plugin_settings->getOption( 'right_menu_bg_gradient' ) . ';';
 } else {
     $right_panel_bg_color = 'background-color:' . $plugin_settings->getOption( 'right_panel_bg_color' ) . ';';
 }
-
 $mm_woo_menu_panel_bg_color = '#CCC';
 if ( $plugin_settings->getOption( 'mm_woo_menu_panel_bg_color' ) ) {
     $mm_woo_menu_panel_bg_color = $plugin_settings->getOption( 'mm_woo_menu_panel_bg_color' );
 }
-
 if ( $plugin_settings->getOption( 'mm_woo_menu_bg_gradient' ) ) {
     $cart_panel_bg_color = $plugin_settings->getOption( 'mm_woo_menu_bg_gradient' ) . ';';
 } else {
     $cart_panel_bg_color = 'background-color:' . $mm_woo_menu_panel_bg_color . ';';
 }
-
 ?>
 	.mobmenul-container, .mobmenur-container{
 		position: <?php 
-echo  $logo_header_position ;
+echo $logo_header_position;
 ?>; 
 	}
 	.mobmenu-left-panel {
 		<?php 
-echo  $left_panel_bg_color ;
+echo $left_panel_bg_color;
 ?>;
 		width:  <?php 
-echo  $left_menu_width ;
+echo $left_menu_width;
 ?>;  
 	}
 	.mobmenu-right-panel {
 		<?php 
-echo  $right_panel_bg_color ;
+echo $right_panel_bg_color;
 ?>
 		width:  <?php 
-echo  $right_menu_width ;
+echo $right_menu_width;
 ?>; 
 	}
 	.show-nav-left .mobmenu-overlay, .show-nav-right .mobmenu-overlay, .show-mob-menu-search .mobmenu-overlay  {
 		background: <?php 
-echo  $plugin_settings->getOption( 'overlay_bg_color' ) ;
+echo $plugin_settings->getOption( 'overlay_bg_color' );
 ?>;
 	}
 	.mob-menu-slideout-top .mobmenu-overlay {
@@ -623,64 +593,64 @@ echo  $plugin_settings->getOption( 'overlay_bg_color' ) ;
 	}
 	.mob-menu-slideout.show-nav-left .mobmenu-push-wrap, .mob-menu-slideout.show-nav-left .mob-menu-header-holder {
 		-webkit-transform: translateX(<?php 
-echo  $left_menu_width ;
+echo $left_menu_width;
 ?>);
 		-moz-transform: translateX(<?php 
-echo  $left_menu_width ;
+echo $left_menu_width;
 ?>);
 		-ms-transform: translateX(<?php 
-echo  $left_menu_width ;
+echo $left_menu_width;
 ?>);
 		-o-transform: translateX(<?php 
-echo  $left_menu_width ;
+echo $left_menu_width;
 ?>);
 		transform: translateX(<?php 
-echo  $left_menu_width ;
+echo $left_menu_width;
 ?>);
 	}
 	.mob-menu-slideout.show-nav-right .mobmenu-push-wrap, .mob-menu-slideout.show-nav-right .mob-menu-header-holder {
 		-webkit-transform: translateX(-<?php 
-echo  $right_menu_width ;
+echo $right_menu_width;
 ?>);
 		-moz-transform: translateX(-<?php 
-echo  $right_menu_width ;
+echo $right_menu_width;
 ?>);
 		-ms-transform: translateX(-<?php 
-echo  $right_menu_width ;
+echo $right_menu_width;
 ?>);
 		-o-transform: translateX(-<?php 
-echo  $right_menu_width ;
+echo $right_menu_width;
 ?>);
 		transform: translateX(-<?php 
-echo  $right_menu_width ;
+echo $right_menu_width;
 ?>);
 	}
 	.mob-menu-slideout-top .mobmenu-panel {
 		width:  100%;
 		height: <?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>;
 		z-index: 1;
 		position: fixed;
 		left: 0px;
 		top: 0px;
 		max-height: <?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>;
 		-webkit-transform: translateY(-<?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>);
 		-moz-transform: translateY(-<?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>);
 		-ms-transform: translateY(-<?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>);
 		-o-transform: translateY(-<?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>);
 		transform: translateY(-<?php 
-echo  $left_menu_height_translate ;
+echo $left_menu_height_translate;
 ?>);
 	}
 	.mob-menu-slideout-top.show-nav-left .show-panel, .mob-menu-slideout-top.show-nav-right .show-panel  {
@@ -710,21 +680,21 @@ echo  $left_menu_height_translate ;
 	/*End of Mobmenu Slide Over */
 	.mobmenu .headertext { 
 		color: <?php 
-echo  $plugin_settings->getOption( 'header_text_color' ) ;
+echo $plugin_settings->getOption( 'header_text_color' );
 ?> ;
 		text-decoration: none;
 	}
 	.headertext span {
 		position: <?php 
-echo  $header_text_position ;
+echo $header_text_position;
 ?>;
 		line-height: <?php 
-echo  $header_height ;
+echo $header_height;
 ?>px;
 	}
 	.mobmenu-search-holder {
 		top: <?php 
-echo  $total_header_height ;
+echo $total_header_height;
 ?>px;
 	}
 	/*Premium options  */
@@ -738,69 +708,69 @@ echo  $total_header_height ;
 	
 	.mobmenu-left-panel li a, .leftmbottom, .leftmtop{
 		padding-left: <?php 
-echo  $plugin_settings->getOption( 'left_menu_content_padding' ) ;
+echo $plugin_settings->getOption( 'left_menu_content_padding' );
 ?>%;
 		padding-right: <?php 
-echo  $plugin_settings->getOption( 'left_menu_content_padding' ) ;
+echo $plugin_settings->getOption( 'left_menu_content_padding' );
 ?>%;
 	}
 	.mobmenu-content li > .sub-menu li {
 		padding-left: calc(<?php 
-echo  $plugin_settings->getOption( 'left_menu_content_padding' ) ;
+echo $plugin_settings->getOption( 'left_menu_content_padding' );
 ?>*1%);
 	}
 
 	.mobmenu-right-panel li, .rightmbottom, .rightmtop{
 		padding-left: <?php 
-echo  $plugin_settings->getOption( 'right_menu_content_padding' ) ;
+echo $plugin_settings->getOption( 'right_menu_content_padding' );
 ?>%;
 		padding-right: <?php 
-echo  $plugin_settings->getOption( 'right_menu_content_padding' ) ;
+echo $plugin_settings->getOption( 'right_menu_content_padding' );
 ?>%;
 	}
 	.mobmenul-container i {
 		line-height: <?php 
-echo  $plugin_settings->getOption( 'left_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'left_icon_font_size' );
 ?>px;
 		font-size: <?php 
-echo  $plugin_settings->getOption( 'left_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'left_icon_font_size' );
 ?>px;
 		float: left;
 	}
 	.left-menu-icon-text {
 		float: left;
 		line-height: <?php 
-echo  $plugin_settings->getOption( 'left_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'left_icon_font_size' );
 ?>px;
 		color: <?php 
-echo  $plugin_settings->getOption( 'header_text_after_icon' ) ;
+echo $plugin_settings->getOption( 'header_text_after_icon' );
 ?>;
 	}
 	.mobmenu-left-panel .mobmenu-display-name {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_text_color' ) ;
+echo $plugin_settings->getOption( 'left_panel_text_color' );
 ?>;
 	}
 	.right-menu-icon-text {
 		float: right;
 		line-height: <?php 
-echo  $plugin_settings->getOption( 'right_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'right_icon_font_size' );
 ?>px;
 		color: <?php 
-echo  $plugin_settings->getOption( 'header_text_before_icon' ) ;
+echo $plugin_settings->getOption( 'header_text_before_icon' );
 ?>;
 	}
 	.mobmenur-container i {
 		line-height: <?php 
-echo  $plugin_settings->getOption( 'right_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'right_icon_font_size' );
 ?>px;
 		font-size: <?php 
-echo  $plugin_settings->getOption( 'right_icon_font_size' ) ;
+echo $plugin_settings->getOption( 'right_icon_font_size' );
 ?>px;
 		float: right;
 	}
 	<?php 
-echo  $default_elements ;
+echo $default_elements;
 ?> {
 		display: none!important;
 	}
@@ -808,33 +778,33 @@ echo  $default_elements ;
 	.mob-standard-logo {
 		display: inline-block;
 		<?php 
-echo  $logo_height ;
+echo $logo_height;
 ?>
 	}
 	.mob-retina-logo {
 		<?php 
-echo  $logo_height ;
+echo $logo_height;
 ?>
 	}
 	.mobmenu-content #mobmenuleft > li > a:hover {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_hover_bgcolor' ) ;
+echo $plugin_settings->getOption( 'left_panel_hover_bgcolor' );
 ?>;
 	}
 
 	.mobmenu-content #mobmenuright > li > a:hover {
 		background-color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_hover_bgcolor' ) ;
+echo $plugin_settings->getOption( 'right_panel_hover_bgcolor' );
 ?>;
 	}
 	.mobmenu-left-panel .mob-cancel-button {
 		color: <?php 
-echo  $plugin_settings->getOption( 'left_panel_cancel_button_color' ) ;
+echo $plugin_settings->getOption( 'left_panel_cancel_button_color' );
 ?>;
 	}
 	.mobmenu-right-panel .mob-cancel-button {
 		color: <?php 
-echo  $plugin_settings->getOption( 'right_panel_cancel_button_color' ) ;
+echo $plugin_settings->getOption( 'right_panel_cancel_button_color' );
 ?>;
 	}	
 	
@@ -852,118 +822,118 @@ $right_menu_font = $plugin_settings->getOption( 'right_menu_font' );
 
 .mob-menu-logo-holder > .headertext span,.mobmenu input.mob-menu-search-field {
 	font-family:<?php 
-echo  $header_menu_font['font-family'] ;
+echo $header_menu_font['font-family'];
 ?>;
 	font-size:<?php 
-echo  $header_menu_font['font-size'] ;
+echo $header_menu_font['font-size'];
 ?>;
 	font-weight:<?php 
-echo  $header_menu_font['font-weight'] ;
+echo $header_menu_font['font-weight'];
 ?>;
 	font-style:<?php 
-echo  $header_menu_font['font-style'] ;
+echo $header_menu_font['font-style'];
 ?>;
 	letter-spacing:<?php 
-echo  $header_menu_font['letter-spacing'] ;
+echo $header_menu_font['letter-spacing'];
 ?>;
 	text-transform:<?php 
-echo  $header_menu_font['text-transform'] ;
+echo $header_menu_font['text-transform'];
 ?>;
 }
 
 .left-menu-icon-text {
 	font-family:<?php 
-echo  $text_after_left_icon_font['font-family'] ;
+echo $text_after_left_icon_font['font-family'];
 ?>;
 	font-size:<?php 
-echo  $text_after_left_icon_font['font-size'] ;
+echo $text_after_left_icon_font['font-size'];
 ?>;
 	font-weight:<?php 
-echo  $text_after_left_icon_font['font-weight'] ;
+echo $text_after_left_icon_font['font-weight'];
 ?>;
 	font-style:<?php 
-echo  $text_after_left_icon_font['font-style'] ;
+echo $text_after_left_icon_font['font-style'];
 ?>;
 	line-height:<?php 
-echo  $text_after_left_icon_font['line-height'] ;
+echo $text_after_left_icon_font['line-height'];
 ?>;
 	letter-spacing:<?php 
-echo  $text_after_left_icon_font['letter-spacing'] ;
+echo $text_after_left_icon_font['letter-spacing'];
 ?>;
 	text-transform:<?php 
-echo  $text_after_left_icon_font['text-transform'] ;
+echo $text_after_left_icon_font['text-transform'];
 ?>;
 }
 
 #mobmenuleft .mob-expand-submenu,#mobmenuleft > .widgettitle,#mobmenuleft li a,#mobmenuleft li a:visited,#mobmenuleft .mobmenu-content h2,#mobmenuleft .mobmenu-content h3,.mobmenu-left-panel .mobmenu-display-name, .mobmenu-content .mobmenu-tabs-header li {
 	font-family:<?php 
-echo  $left_menu_font['font-family'] ;
+echo $left_menu_font['font-family'];
 ?>;
 	font-size:<?php 
-echo  $left_menu_font['font-size'] ;
+echo $left_menu_font['font-size'];
 ?>;
 	font-weight:<?php 
-echo  $left_menu_font['font-weight'] ;
+echo $left_menu_font['font-weight'];
 ?>;
 	font-style:<?php 
-echo  $left_menu_font['font-style'] ;
+echo $left_menu_font['font-style'];
 ?>;
 	line-height:<?php 
-echo  $left_menu_font['line-height'] ;
+echo $left_menu_font['line-height'];
 ?>;
 	letter-spacing:<?php 
-echo  $left_menu_font['letter-spacing'] ;
+echo $left_menu_font['letter-spacing'];
 ?>;
 	text-transform:<?php 
-echo  $left_menu_font['text-transform'] ;
+echo $left_menu_font['text-transform'];
 ?>;
 }
 
 .right-menu-icon-text {
 	font-family:<?php 
-echo  $text_before_right_icon_font['font-family'] ;
+echo $text_before_right_icon_font['font-family'];
 ?>;
 	font-size:<?php 
-echo  $text_before_right_icon_font['font-size'] ;
+echo $text_before_right_icon_font['font-size'];
 ?>;
 	font-weight:<?php 
-echo  $text_before_right_icon_font['font-weight'] ;
+echo $text_before_right_icon_font['font-weight'];
 ?>;
 	font-style:<?php 
-echo  $text_before_right_icon_font['font-style'] ;
+echo $text_before_right_icon_font['font-style'];
 ?>;
 	line-height:<?php 
-echo  $text_before_right_icon_font['line-height'] ;
+echo $text_before_right_icon_font['line-height'];
 ?>;
 	letter-spacing:<?php 
-echo  $text_before_right_icon_font['letter-spacing'] ;
+echo $text_before_right_icon_font['letter-spacing'];
 ?>;
 	text-transform:<?php 
-echo  $text_before_right_icon_font['text-transform'] ;
+echo $text_before_right_icon_font['text-transform'];
 ?>;
 }
 
 #mobmenuright li a,#mobmenuright li a:visited,#mobmenuright .mobmenu-content h2,#mobmenuright .mobmenu-content h3,.mobmenu-left-panel .mobmenu-display-name {
 	font-family:<?php 
-echo  $right_menu_font['font-family'] ;
+echo $right_menu_font['font-family'];
 ?>;
 	font-size:<?php 
-echo  $right_menu_font['font-size'] ;
+echo $right_menu_font['font-size'];
 ?>;
 	font-weight:<?php 
-echo  $right_menu_font['font-weight'] ;
+echo $right_menu_font['font-weight'];
 ?>;
 	font-style:<?php 
-echo  $right_menu_font['font-style'] ;
+echo $right_menu_font['font-style'];
 ?>;
 	line-height:<?php 
-echo  $right_menu_font['line-height'] ;
+echo $right_menu_font['line-height'];
 ?>;
 	letter-spacing:<?php 
-echo  $right_menu_font['letter-spacing'] ;
+echo $right_menu_font['letter-spacing'];
 ?>;
 	text-transform:<?php 
-echo  $right_menu_font['text-transform'] ;
+echo $right_menu_font['text-transform'];
 ?>;
 }
 

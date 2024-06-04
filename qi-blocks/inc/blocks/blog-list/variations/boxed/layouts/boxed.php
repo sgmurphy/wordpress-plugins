@@ -6,6 +6,7 @@
 				// Include post media.
 				qi_blocks_template_part( 'blog', 'templates/parts/post-info/media', '', $params );
 
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 				if ( 'no' !== $showDate ) {
 					// Include post date info.
 					qi_blocks_template_part( 'blog', 'templates/parts/post-info/date', 'boxed', $params );
@@ -14,14 +15,19 @@
 			</div>
 		<?php } ?>
 		<div class="qodef-e-content">
-			<?php if ( 'no' !== $showCategory || 'no' !== $showAuthor ) { ?>
+			<?php
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			if ( 'no' !== $showCategory || 'no' !== $showAuthor ) {
+				?>
 				<div class="qodef-e-info qodef-info--top">
 					<?php
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 					if ( 'no' !== $showCategory ) {
 						// Include post category info.
 						qi_blocks_template_part( 'blog', 'templates/parts/post-info/category', '', $params );
 					}
 
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 					if ( 'no' !== $showAuthor ) {
 						// Include post author info.
 						qi_blocks_template_part( 'blog', 'templates/parts/post-info/author', '', $params );

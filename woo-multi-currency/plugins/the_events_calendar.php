@@ -29,8 +29,8 @@ class WOOMULTI_CURRENCY_F_Plugin_The_Events_Calendar {
 				'post_type'      => 'product',
 				'post_status'    => 'publish',
 				'posts_per_page' => - 1,
-				'meta_key'       => '_tribe_wooticket_for_event',
-				'meta_value'     => $post_id,
+				'meta_key'       => '_tribe_wooticket_for_event',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $post_id,// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'order'          => 'ASC',
 				'orderby'        => 'menu_order',
 			);

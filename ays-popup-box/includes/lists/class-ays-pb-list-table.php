@@ -951,6 +951,12 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 border style
         $notification_button_1_border_style = (isset($data['ays_pb_notification_button_1_border_style']) && $data['ays_pb_notification_button_1_border_style'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_border_style']) ) : 'solid';
 
+        // Notification type | Button 1 padding left/right
+        $notification_button_1_padding_left_right = (isset($data['ays_pb_notification_button_1_padding_left_right']) && $data['ays_pb_notification_button_1_padding_left_right'] !== '') ? absint( intval($data['ays_pb_notification_button_1_padding_left_right']) ) : 32;
+
+        // Notification type | Button 1 padding top/bottom
+        $notification_button_1_padding_top_bottom = (isset($data['ays_pb_notification_button_1_padding_top_bottom']) && $data['ays_pb_notification_button_1_padding_top_bottom'] !== '') ? absint( intval($data['ays_pb_notification_button_1_padding_top_bottom']) ) : 12;
+
         // Min Height
         $pb_min_height = (isset($data['ays_pb_min_height']) && $data['ays_pb_min_height'] != '') ? absint(intval($data['ays_pb_min_height'])) : '';
 
@@ -1254,6 +1260,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_button_1_border_width' => $notification_button_1_border_width,
             'notification_button_1_border_color' => $notification_button_1_border_color,
             'notification_button_1_border_style' => $notification_button_1_border_style,
+            'notification_button_1_padding_left_right' => $notification_button_1_padding_left_right,
+            'notification_button_1_padding_top_bottom' => $notification_button_1_padding_top_bottom,
             'pb_max_height' => $pb_max_height,
             'popup_max_height_by_percentage_px' => $popup_max_height_by_percentage_px,
             'pb_max_height_mobile' => $pb_max_height_mobile,

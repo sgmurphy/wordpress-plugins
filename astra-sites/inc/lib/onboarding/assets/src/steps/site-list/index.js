@@ -29,6 +29,11 @@ import SiteSearch from './search-filter';
 import FavoriteSites from './favorite-sites';
 import RelatedSites from './related-sites';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
+import {
+	SyncAndGetAllCategories,
+	SyncAndGetAllCategoriesAndTags,
+	SyncImportAllSites,
+} from './header/sync-library/utils';
 
 export const useFilteredSites = () => {
 	const [ { builder, siteType, siteOrder, allSitesData } ] = useStateValue();
@@ -84,6 +89,7 @@ const SiteList = () => {
 		siteBusinessType,
 		selectedMegaMenu,
 		allSitesData,
+		bgSyncInProgress,
 	} = storedState;
 
 	useEffect( () => {
@@ -152,6 +158,46 @@ const SiteList = () => {
 		}
 	};
 
+	const fetchSitesAndCategories = async () => {
+		try {
+			const formData = new FormData();
+			formData.append( 'action', 'astra-sites-update-library' );
+			formData.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+			const response = await fetch( ajaxurl, {
+				method: 'post',
+				body: formData,
+			} );
+			const jsonData = await response.json();
+
+			if ( jsonData.data === 'updated' ) {
+				const sites = await SyncImportAllSites();
+				const categories = await SyncAndGetAllCategories();
+				const categoriesAndTags =
+					await SyncAndGetAllCategoriesAndTags();
+				dispatch( {
+					type: 'set',
+					bgSyncInProgress: false,
+					allSitesData: sites,
+					categories,
+					categoriesAndTags,
+				} );
+				return;
+			}
+
+			await fetchSitesAndCategories();
+		} catch ( error ) {
+			console.error( error );
+		}
+	};
+
+	useEffect( () => {
+		if ( ! bgSyncInProgress ) {
+			return;
+		}
+
+		fetchSitesAndCategories();
+	}, [] );
+
 	useEffect( () => {
 		const contentWrapper = document.querySelector( '.step-content ' );
 		if ( ! contentWrapper ) {
@@ -162,6 +208,8 @@ const SiteList = () => {
 			contentWrapper.removeEventListener( 'scroll', handleShowBackToTop );
 		};
 	}, [] );
+
+	const showSkeleton = siteData.gridSkeleton || bgSyncInProgress;
 
 	return (
 		<DefaultStep
@@ -253,7 +301,8 @@ const SiteList = () => {
 										<FavoriteSites />
 									) : (
 										<>
-											{ siteCount ? (
+											{ ( !! siteCount ||
+												showSkeleton ) && (
 												<>
 													<div className="st-sites-grid">
 														{ siteSearchTerm ? (
@@ -271,7 +320,7 @@ const SiteList = () => {
 															</div>
 														) : null }
 
-														{ siteData.gridSkeleton ? (
+														{ showSkeleton ? (
 															<GridSkeleton />
 														) : (
 															<SiteGrid
@@ -282,7 +331,9 @@ const SiteList = () => {
 														) }
 													</div>
 												</>
-											) : (
+											) }
+
+											{ ! siteCount && ! showSkeleton && (
 												<>
 													<NoResultFound
 														searchTerm={

@@ -583,12 +583,6 @@ class UniteCreatorActions{
 						HelperUC::ajaxResponseSuccess(esc_html__("Widget Updated", "unlimited-elements-for-elementor"));
 
 				break;
-				case "get_shapes_css":
-
-					$objShapes = new UniteShapeManagerUC();
-					$objShapes->outputCssShapes();
-					exit;
-				break;
 				case "save_screenshot":
 
 					$response = $operations->saveScreenshotFromData($data);

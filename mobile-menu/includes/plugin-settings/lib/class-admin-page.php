@@ -4,10 +4,8 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
     // Exit if accessed directly
 }
-
-class MobileMenuAdminPage
-{
-    private  $defaultSettings = array(
+class MobileMenuAdminPage {
+    private $defaultSettings = array(
         'name'       => '',
         'title'      => '',
         'parent'     => null,
@@ -17,49 +15,53 @@ class MobileMenuAdminPage
         'position'   => null,
         'use_form'   => true,
         'desc'       => '',
-    ) ;
-    private  $alert_messages = array() ;
-    public  $options = array() ;
-    public  $tabs = array() ;
-    private static  $idsUsed = array() ;
-    private  $activeTab = null ;
-    public  $settings = array() ;
-    public  $owner ;
-    public  $panelID ;
-    function __construct( $settings, $owner )
-    {
+    );
+
+    private $alert_messages = array();
+
+    public $options = array();
+
+    public $tabs = array();
+
+    private static $idsUsed = array();
+
+    private $activeTab = null;
+
+    public $settings = array();
+
+    public $owner;
+
+    public $panelID;
+
+    function __construct( $settings, $owner ) {
         $this->owner = $owner;
         if ( !is_admin() ) {
             return;
         }
         $this->settings = array_merge( $this->defaultSettings, $settings );
         // $this->options = $options;
-        if ( empty($this->settings['name']) ) {
+        if ( empty( $this->settings['name'] ) ) {
             return;
         }
-        if ( empty($this->settings['title']) ) {
+        if ( empty( $this->settings['title'] ) ) {
             $this->settings['title'] = $this->settings['name'];
         }
-        
-        if ( empty($this->settings['id']) ) {
+        if ( empty( $this->settings['id'] ) ) {
             $prefix = '';
-            if ( !empty($this->settings['parent']) ) {
+            if ( !empty( $this->settings['parent'] ) ) {
                 $prefix = str_replace( ' ', '-', trim( strtolower( $this->settings['parent'] ) ) ) . '-';
             }
             $this->settings['id'] = $prefix . str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
             $this->settings['id'] = str_replace( '&', '-', $this->settings['id'] );
         }
-        
         // make sure all our IDs are unique
         $suffix = '';
         while ( in_array( $this->settings['id'] . $suffix, self::$idsUsed ) ) {
-            
             if ( $suffix == '' ) {
                 $suffix = 2;
             } else {
                 $suffix++;
             }
-        
         }
         $this->settings['id'] .= $suffix;
         // keep track of all IDs used
@@ -68,28 +70,25 @@ class MobileMenuAdminPage
         if ( $this->settings['parent'] ) {
             $priority = intval( $this->settings['position'] );
         }
-        add_action( 'admin_menu', array( $this, 'register' ), $priority );
+        add_action( 'admin_menu', array($this, 'register'), $priority );
     }
-    
-    public function createAdminPanel( $settings )
-    {
+
+    public function createAdminPanel( $settings ) {
         if ( !isset( $this->settings['id'] ) ) {
             $settings['parent'] = null;
         }
         return $this->owner->createAdminPanel( $settings );
     }
-    
-    public function register()
-    {
+
+    public function register() {
         // Parent menu
-        
-        if ( empty($this->settings['parent']) ) {
+        if ( empty( $this->settings['parent'] ) ) {
             $this->panelID = add_menu_page(
                 $this->settings['name'],
                 $this->settings['title'],
                 $this->settings['capability'],
                 $this->settings['id'],
-                array( $this, 'createAdminPage' ),
+                array($this, 'createAdminPage'),
                 $this->settings['icon'],
                 $this->settings['position']
             );
@@ -101,47 +100,40 @@ class MobileMenuAdminPage
                 $this->settings['title'],
                 $this->settings['capability'],
                 $this->settings['id'],
-                array( $this, 'createAdminPage' )
+                array($this, 'createAdminPage')
             );
         }
-        
-        add_action( 'load-' . $this->panelID, array( $this, 'saveOptions' ) );
+        add_action( 'load-' . $this->panelID, array($this, 'saveOptions') );
     }
-    
-    public function getOptionNamespace()
-    {
+
+    public function getOptionNamespace() {
         return $this->owner->optionNamespace;
     }
-    
-    public function save_single_option( $option )
-    {
-        if ( empty($option->settings['id']) ) {
+
+    public function save_single_option( $option ) {
+        if ( empty( $option->settings['id'] ) ) {
             return;
         }
-        
         if ( isset( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
             $value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
         } else {
             $value = '';
         }
-        
         $option->setValue( $value );
     }
-    
-    public function saveOptions()
-    {
+
+    public function saveOptions() {
         if ( !$this->verifySecurity() ) {
             return;
         }
         $message = '';
         $activeTab = $this->getActiveTab();
-        
         if ( 'save' === $_POST['action'] ) {
             // we are in a tab.
-            if ( !empty($activeTab) ) {
+            if ( !empty( $activeTab ) ) {
                 foreach ( $activeTab->options as $option ) {
                     $this->save_single_option( $option );
-                    if ( !empty($option->options) ) {
+                    if ( !empty( $option->options ) ) {
                         foreach ( $option->options as $group_option ) {
                             $this->save_single_option( $group_option );
                         }
@@ -150,7 +142,7 @@ class MobileMenuAdminPage
             }
             foreach ( $this->options as $option ) {
                 $this->save_single_option( $option );
-                if ( !empty($option->options) ) {
+                if ( !empty( $option->options ) ) {
                     foreach ( $option->options as $group_option ) {
                         $this->save_single_option( $group_option );
                     }
@@ -160,32 +152,31 @@ class MobileMenuAdminPage
             $this->owner->saveInternalAdminPageOptions();
             $message = 'saved';
         } else {
-            
             if ( 'reset' === $_POST['action'] ) {
-                if ( !empty($activeTab) ) {
+                if ( !empty( $activeTab ) ) {
                     foreach ( $activeTab->options as $option ) {
-                        if ( !empty($option->options) ) {
+                        if ( !empty( $option->options ) ) {
                             foreach ( $option->options as $group_option ) {
-                                if ( !empty($group_option->settings['id']) ) {
+                                if ( !empty( $group_option->settings['id'] ) ) {
                                     $group_option->setValue( $group_option->settings['default'] );
                                 }
                             }
                         }
-                        if ( empty($option->settings['id']) ) {
+                        if ( empty( $option->settings['id'] ) ) {
                             continue;
                         }
                         $option->setValue( $option->settings['default'] );
                     }
                 }
                 foreach ( $this->options as $option ) {
-                    if ( !empty($option->options) ) {
+                    if ( !empty( $option->options ) ) {
                         foreach ( $option->options as $group_option ) {
-                            if ( !empty($group_option->settings['id']) ) {
+                            if ( !empty( $group_option->settings['id'] ) ) {
                                 $group_option->setValue( $group_option->settings['default'] );
                             }
                         }
                     }
-                    if ( empty($option->settings['id']) ) {
+                    if ( empty( $option->settings['id'] ) ) {
                         continue;
                     }
                     $option->setValue( $option->settings['default'] );
@@ -193,17 +184,14 @@ class MobileMenuAdminPage
                 $this->owner->saveInternalAdminPageOptions();
                 $message = 'reset';
             }
-        
         }
-        
         if ( 'import_mobmenu_settings' !== sanitize_text_field( $_POST['action'] ) ) {
             do_action( 'mm_admin_options_saved_mobmenu' );
         }
     }
-    
-    private function verifySecurity()
-    {
-        if ( empty($_POST) || empty($_POST['action']) ) {
+
+    private function verifySecurity() {
+        if ( empty( $_POST ) || empty( $_POST['action'] ) ) {
             return false;
         }
         $screen = get_current_screen();
@@ -218,20 +206,17 @@ class MobileMenuAdminPage
         }
         return true;
     }
-    
-    public function getActiveTab()
-    {
+
+    public function getActiveTab() {
         $this->activeTab = $this->tabs[0];
         return $this->activeTab;
     }
-    
-    public function get_alert_messages()
-    {
+
+    public function get_alert_messages() {
         return $this->alert_messages;
     }
-    
-    private function check_left_menu_assignment()
-    {
+
+    private function check_left_menu_assignment() {
         if ( $this->owner->getOption( 'enable_left_menu' ) ) {
             if ( $this->owner->getOption( 'left_menu', '' ) == '' ) {
                 if ( !has_nav_menu( 'left-wp-mobile-menu' ) ) {
@@ -240,16 +225,14 @@ class MobileMenuAdminPage
             }
         }
     }
-    
-    private function check_incorrect_url_settings()
-    {
+
+    private function check_incorrect_url_settings() {
         if ( get_option( 'siteurl' ) != get_option( 'home' ) ) {
             array_push( $this->alert_messages, 'You may have incorrect settings in your Site URL option in Settings -> General' );
         }
     }
-    
-    private function check_right_menu_assignment()
-    {
+
+    private function check_right_menu_assignment() {
         if ( $this->owner->getOption( 'enable_right_menu' ) ) {
             if ( $this->owner->getOption( 'right_menu', '' ) == '' ) {
                 if ( !has_nav_menu( 'right-wp-mobile-menu' ) ) {
@@ -258,9 +241,8 @@ class MobileMenuAdminPage
             }
         }
     }
-    
-    private function check_footer_menu_assignment()
-    {
+
+    private function check_footer_menu_assignment() {
         if ( $this->owner->getOption( 'enable_footer_icons' ) ) {
             if ( $this->owner->getOption( 'footer_menu', '' ) == '' ) {
                 if ( !has_nav_menu( 'footer-wp-mobile-menu' ) ) {
@@ -269,10 +251,9 @@ class MobileMenuAdminPage
             }
         }
     }
-    
-    private function mm_scan_alert()
-    {
-        global  $mm_fs ;
+
+    private function mm_scan_alert() {
+        global $mm_fs;
         // Left Menu Enabled without menu.
         $this->check_left_menu_assignment();
         // Right Menu Enabled without menu.
@@ -281,24 +262,23 @@ class MobileMenuAdminPage
         $this->check_incorrect_url_settings();
         return count( $this->alert_messages );
     }
-    
-    public function createAdminPage()
-    {
-        global  $mm_fs ;
+
+    public function createAdminPage() {
+        global $mm_fs;
         $alert_number = $this->mm_scan_alert();
         ?>
 		<div class="wrap">
 		<div class="mobmenu-header-wrap">
 			<h2 class="mobmenu-title-h2"><?php 
-        echo  $this->settings['title'] ;
+        echo $this->settings['title'];
         ?></h2>
 			<div class="mobmenu-header-wrap-inner">
 				<!--<h2><?php 
-        echo  $this->settings['title'] ;
+        echo $this->settings['title'];
         ?></h2>-->
 				<div class="mobile-menu-logo">
 					<img src="<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL . 'includes/assets/logo_mobile_menu.png' ;
+        echo WP_MOBILE_MENU_PLUGIN_URL . 'includes/assets/logo_mobile_menu.png';
         ?>">
 				</div>
 				<div class='mm-panel-search-bar'>
@@ -311,9 +291,9 @@ class MobileMenuAdminPage
 						<span><?php 
         _e( "Alerts", 'mobile-menu' );
         ?><span class="mm-alerts-bubble alert-number-<?php 
-        echo  $alert_number ;
+        echo $alert_number;
         ?>"><?php 
-        echo  $alert_number ;
+        echo $alert_number;
         ?></span></span>
 					</a>
 				</div>
@@ -334,68 +314,63 @@ class MobileMenuAdminPage
 			</div>
 		</div>
 		<?php 
-        
-        if ( !empty($this->settings['desc']) ) {
+        if ( !empty( $this->settings['desc'] ) ) {
             ?>
 				<p class='description'><?php 
-            echo  $this->settings['desc'] ;
+            echo $this->settings['desc'];
             ?></p>
 			<?php 
         }
-        
         ?>
 
 		<style>
 			.mm-sortable .mm-lang-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/language-icon.png) no-repeat center top;
 			}
 			.mm-sortable .mm-cart-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/cart-icon.png) no-repeat center top;
 			}
 			.mm-sortable .mm-search-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/search-icon.png) no-repeat center top;
 			}
 			.mm-sortable .mm-left-menu-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/left-menu-icon.png) no-repeat center top;
 			}
 			.mm-sortable .mm-right-menu-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/right-menu-icon.png) no-repeat center top;
 			}
 			.mm-sortable .mm-logo-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/logo-icon.png) no-repeat center top;
 			}
 			.mm-sortable .mm-shop-filter-selector {
 				background: url(<?php 
-        echo  WP_MOBILE_MENU_PLUGIN_URL ;
+        echo WP_MOBILE_MENU_PLUGIN_URL;
         ?>/includes/assets/product-filter-icon.png) no-repeat center top;
 			}
 		</style>
 		<?php 
-        
         if ( !$mm_fs->is_premium() ) {
             $plan = 'mobmenu-standard';
         } else {
             $plan = 'mobmenu-premium';
         }
-        
         ?>
 		<div class='mobmenu-settings-panel-wrap <?php 
-        echo  $plan ;
+        echo $plan;
         ?>' >
 		<?php 
-        
         if ( count( $this->tabs ) ) {
             ?>
 			<h2 class="nav-tab-wrapper">
@@ -407,27 +382,23 @@ class MobileMenuAdminPage
 			</h2>
 			<?php 
         }
-        
-        
         if ( !isset( $_GET['mobmenu-action'] ) || isset( $_GET['mobmenu-action'] ) && 'import-settings' !== $_GET['mobmenu-action'] ) {
             $activeTab = $this->getActiveTab();
             ?>
 		
 		<div class='options-container active-tab-<?php 
-            echo  $activeTab->settings['id'] ;
+            echo $activeTab->settings['id'];
             ?>'>
 		<?php 
             // Display notification if we did something.
-            if ( !empty($_GET['message']) ) {
-                
+            if ( !empty( $_GET['message'] ) ) {
                 if ( 'saved' === $_GET['message'] ) {
-                    echo  MobileMenuAdminNotification::formNotification( __( 'Settings saved.', 'mobile-menu' ), esc_html( $_GET['message'] ) ) ;
+                    echo MobileMenuAdminNotification::formNotification( __( 'Settings saved.', 'mobile-menu' ), esc_html( $_GET['message'] ) );
                 } else {
                     if ( 'reset' === $_GET['message'] ) {
-                        echo  MobileMenuAdminNotification::formNotification( __( 'Settings reset to default.', 'mobile-menu' ), esc_html( $_GET['message'] ) ) ;
+                        echo MobileMenuAdminNotification::formNotification( __( 'Settings reset to default.', 'mobile-menu' ), esc_html( $_GET['message'] ) );
                     }
                 }
-            
             }
             if ( $this->settings['use_form'] ) {
                 ?>
@@ -443,20 +414,16 @@ class MobileMenuAdminPage
 			<tbody>
 		<?php 
             $activeTab = $this->getActiveTab();
-            
-            if ( !empty($activeTab) ) {
-                
-                if ( !empty($activeTab->settings['desc']) ) {
+            if ( !empty( $activeTab ) ) {
+                if ( !empty( $activeTab->settings['desc'] ) ) {
                     ?>
 					<p class='description'><?php 
-                    echo  $activeTab->settings['desc'] ;
+                    echo $activeTab->settings['desc'];
                     ?></p>
 				<?php 
                 }
-                
                 $activeTab->displayOptions();
             }
-            
             foreach ( $this->options as $option ) {
                 $option->display();
             }
@@ -471,7 +438,7 @@ class MobileMenuAdminPage
             }
             ?>
 		<div class='options-container active-tab-<?php 
-            echo  $activeTab->settings['id'] ;
+            echo $activeTab->settings['id'];
             ?>'>
 		</div>
 		</div>
@@ -482,18 +449,15 @@ class MobileMenuAdminPage
         } else {
             do_action( 'mobile_menu_importer_page', $this->settings['id'] );
         }
-    
     }
-    
-    public function createTab( $settings )
-    {
-        $obj = new MobileMenuAdminTab( $settings, $this );
+
+    public function createTab( $settings ) {
+        $obj = new MobileMenuAdminTab($settings, $this);
         $this->tabs[] = $obj;
         return $obj;
     }
-    
-    public function createOption( $settings )
-    {
+
+    public function createOption( $settings ) {
         $obj = MobileMenuOption::factory( $settings, $this );
         $this->options[] = $obj;
         do_action( 'mm_create_option_mobmenu', $obj );

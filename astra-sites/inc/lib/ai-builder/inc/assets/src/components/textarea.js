@@ -25,7 +25,7 @@ const TextArea = (
 			{ label && (
 				<label
 					htmlFor={ name }
-					className="sp-text-base font-medium text-heading-text"
+					className="text-base flex font-semibold leading-6 items-center !mb-2"
 				>
 					{ label }
 				</label>

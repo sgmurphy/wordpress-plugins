@@ -2376,7 +2376,7 @@ function auxels_add_blog_archive_custom_template_layouts( $result, $template_typ
 
     // Use taxonomy template option if is category or tag archive page
 
-    if( is_category() || is_tag() ){
+    if( is_category() || is_tag() || is_author() ){
         $author_or_readmore      = auxin_get_option( 'display_post_taxonomy_author_readmore', 'readmore');
         $post_loadmore_type      = auxin_get_option( 'post_taxonomy_loadmore_type', '' );
         $excerpt_len             = auxin_get_option( 'post_taxonomy_archive_on_listing_length', '' );

@@ -134,7 +134,7 @@ class WOOMULTI_CURRENCY_F_Admin_Order {
 		ob_start();
 		?>
         <div class="wmc-order-currency">
-			<?php echo esc_html__( 'Currency: ', 'woocommerce-multi-currency' ) . $order_currency; ?>
+			<?php echo esc_html__( 'Currency: ', 'woocommerce-multi-currency' ) . esc_html( $order_currency ); ?>
         </div>
 		<?php
 		$order_custom_text = ob_get_clean();
@@ -148,9 +148,9 @@ class WOOMULTI_CURRENCY_F_Admin_Order {
 						ob_start();
 						?>
                         <p class="wmc-order-base-currency" style="color:red">
-							<?php echo $code . ': ' ?>
+							<?php echo esc_html( $code ) . ': ' ?>
                             <span>
-                                <?php echo wc_price( $price_in_base_currency, array(
+                                <?php echo wc_price( $price_in_base_currency, array(// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     'currency' => $code,
                                     'decimals' => ! empty( $wmc_order_info[ $code ]['decimals'] ) ? (int) $wmc_order_info[ $code ]['decimals'] : 0
                                 ) ) ?>

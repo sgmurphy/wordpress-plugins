@@ -19,6 +19,8 @@ if ( ! class_exists( 'Qi_Blocks_Clients_List_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Clients_List_Block
 		 */
 		public static function get_instance() {

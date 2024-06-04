@@ -119,17 +119,17 @@ zh-CN
 		if ( function_exists('curl_init') ) {
 						
 			//use cURL to fetch data
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $host);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_USERAGENT, 'geoPlugin PHP Class v1.1');
-			$response = curl_exec($ch);
-			curl_close ($ch);
+			$ch = curl_init();// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_init
+			curl_setopt($ch, CURLOPT_URL, $host);// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+			curl_setopt($ch, CURLOPT_USERAGENT, 'geoPlugin PHP Class v1.1');// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+			$response = curl_exec($ch);// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_exec
+			curl_close ($ch);// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_close
 			
 		} else if ( ini_get('allow_url_fopen') ) {
 			
 			//fall back to fopen()
-			$response = file_get_contents($host, 'r');
+			$response = file_get_contents($host, 'r');// phpcs:ignore 	WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			
 		} else {
 

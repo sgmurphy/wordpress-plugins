@@ -20,6 +20,8 @@ if ( ! class_exists( 'Qi_Blocks_Counter_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Counter_Block
 		 */
 		public static function get_instance() {

@@ -47,6 +47,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Cache {
 	 * Clear cache browser
 	 */
 	public function clear_browser_cache() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_cache' ) ) {
+			return;
+		}
 		if ( isset( $_GET['wmc-currency'] ) ) {
 			header( "Cache-Control: no-cache, must-revalidate" );
 			header( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
@@ -55,6 +58,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Cache {
 	}
 
 	public function get_products_price() {
+		if ( isset( $_REQUEST['_woo_multi_currency_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_cache' ) ) {
+			return;
+		}
 		do_action( 'wmc_get_products_price_ajax_handle_before' );
 		$pids             = ! empty( $_POST['pids'] ) ? wc_clean( $_POST['pids'] ) : [];
 		$shortcodes       = ! empty( $_POST['shortcodes'] ) ? wc_clean( $_POST['shortcodes'] ) : array();

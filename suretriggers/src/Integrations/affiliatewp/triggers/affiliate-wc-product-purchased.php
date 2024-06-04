@@ -98,10 +98,6 @@ if ( ! class_exists( 'AffiliateWcProductPurchased' ) ) :
 				return;
 			}
 
-			if ( ! is_array( $referral->products ) ) {
-				return;
-			}
-
 			$order_id = $referral->reference;
 			$order    = wc_get_order( $order_id );
 			if ( ! $order instanceof \WC_Order ) {

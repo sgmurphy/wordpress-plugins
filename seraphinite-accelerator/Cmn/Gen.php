@@ -308,7 +308,10 @@ class Gen
 		if( isset( $cached_salts[ $scheme ] ) )
 			return( $cached_salts[ $scheme ] );
 
-		$key = get_option( 'seraph_secretKey' );
+		if( defined( 'SERAPH_SECRET_KEY' ) )
+			$key = SERAPH_SECRET_KEY;
+		else
+			$key = get_option( 'seraph_secretKey' );
 		if( !$key )
 			update_option( 'seraph_secretKey', $key = wp_generate_password( 64, true, true ) );
 

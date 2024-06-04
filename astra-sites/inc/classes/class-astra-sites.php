@@ -117,13 +117,17 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @since  1.0.0
 		 */
 		private function __construct() {
+			if ( ! class_exists( 'XMLReader' ) ) {
+				add_action( 'admin_notices', array( $this, 'xml_reader_notice' ) );
+				add_filter( 'ai_builder_load_library', '__return_false' );
+				return;
+			}
 
 			$this->set_api_url();
 			$this->includes();
 			add_action( 'plugin_action_links_' . ASTRA_SITES_BASE, array( $this, 'action_links' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue' ), 99 );
-			add_action( 'wp_enqueue_scripts', array( $this, 'image_search_scripts' ) );
 			add_action( 'elementor/editor/footer', array( $this, 'insert_templates' ) );
 			add_action( 'admin_footer', array( $this, 'insert_image_templates' ) );
 			add_action( 'customize_controls_print_footer_scripts', array( $this, 'insert_image_templates' ) );
@@ -167,6 +171,25 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_filter( 'zip_ai_modules', array( $this, 'enable_zip_ai_copilot' ), 20, 1 );
 		}
 
+		/**
+		 * Display notice if XML Class Reader is not Available.
+		 *
+		 * @return void
+		 */
+		public function xml_reader_notice() {
+			$plugin_name = defined( 'ASTRA_PRO_SITES_NAME' ) ? 'Premium Starter Templates' : 'Starter Templates';
+			?>
+			<div class="error">	
+			<p>
+			<?php
+			/* Translators: %s Plugin Name. */ 
+			echo esc_html( sprintf( __( '%s: XMLReader extension is missing! To import templates, please get in touch with your hosting provider to enable this extension.', 'astra-sites' ), $plugin_name ) );
+			?>
+			</p>
+			</div>
+			<?php
+		}
+		
 		/**
 		 * Set reset data
 		 * Note: This function can be deleted after a few releases since we are performing the delete operation in chunks.
@@ -534,29 +557,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				$flag_arr = array( $astra_image_flag );
 				$saved_images = array_diff( $saved_images, $flag_arr );
 				update_option( 'astra-sites-saved-images', $saved_images, 'no' );
-			}
-		}
-
-		/**
-		 * Enqueue Image Search scripts into Beaver Builder Editor.
-		 *
-		 * @since  2.0.0
-		 * @return void
-		 */
-		public function image_search_scripts() {
-
-			if (
-				class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() // BB Builder is on?
-				||
-				(
-					class_exists( 'Brizy_Editor_Post' ) && // Brizy Builder is on?
-					( isset( $_GET['brizy-edit'] ) || isset( $_GET['brizy-edit-iframe'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching GET parameter, no nonce associated with this action.
-				)
-				||
-				is_customize_preview() // Is customizer on?
-			) {
-				// Image Search assets.
-				$this->image_search_assets();
 			}
 		}
 
@@ -1437,95 +1437,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		}
 
 		/**
-		 * Enqueue Image Search scripts.
-		 *
-		 * @since  2.0.0
-		 * @return void
-		 */
-		public function image_search_assets() {
-
-			wp_enqueue_script( 'masonry' );
-			wp_enqueue_script( 'imagesloaded' );
-
-			wp_enqueue_script(
-				'astra-sites-images-common',
-				ASTRA_SITES_URI . 'inc/assets/js/common.js',
-				array( 'jquery', 'wp-util' ), // Dependencies, defined above.
-				ASTRA_SITES_VER,
-				true
-			);
-
-			$data = apply_filters(
-				'astra_sites_images_common',
-				array(
-					'ajaxurl'             => esc_url( admin_url( 'admin-ajax.php' ) ),
-					'asyncurl'            => esc_url( admin_url( 'async-upload.php' ) ),
-					'is_bb_active'        => ( class_exists( 'FLBuilderModel' ) ),
-					'is_brizy_active'     => ( class_exists( 'Brizy_Editor_Post' ) ),
-					'is_elementor_active' => ( did_action( 'elementor/loaded' ) ),
-					'is_elementor_editor' => ( did_action( 'elementor/loaded' ) ) ? Elementor\Plugin::instance()->editor->is_edit_mode() : false,
-					'is_bb_editor'        => ( class_exists( 'FLBuilderModel' ) ) ? ( FLBuilderModel::is_builder_active() ) : false,
-					'is_brizy_editor'     => ( class_exists( 'Brizy_Editor_Post' ) ) ? ( isset( $_GET['brizy-edit'] ) || isset( $_GET['brizy-edit-iframe'] ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching GET parameter, no nonce associated with this action.
-					'saved_images'        => get_option( 'astra-sites-saved-images', array() ),
-					'pixabay_category'    => array(
-						'all'            => __( 'All', 'astra-sites' ),
-						'animals'        => __( 'Animals', 'astra-sites' ),
-						'buildings'      => __( 'Architecture/Buildings', 'astra-sites' ),
-						'backgrounds'    => __( 'Backgrounds/Textures', 'astra-sites' ),
-						'fashion'        => __( 'Beauty/Fashion', 'astra-sites' ),
-						'business'       => __( 'Business/Finance', 'astra-sites' ),
-						'computer'       => __( 'Computer/Communication', 'astra-sites' ),
-						'education'      => __( 'Education', 'astra-sites' ),
-						'feelings'       => __( 'Emotions', 'astra-sites' ),
-						'food'           => __( 'Food/Drink', 'astra-sites' ),
-						'health'         => __( 'Health/Medical', 'astra-sites' ),
-						'industry'       => __( 'Industry/Craft', 'astra-sites' ),
-						'music'          => __( 'Music', 'astra-sites' ),
-						'nature'         => __( 'Nature/Landscapes', 'astra-sites' ),
-						'people'         => __( 'People', 'astra-sites' ),
-						'places'         => __( 'Places/Monuments', 'astra-sites' ),
-						'religion'       => __( 'Religion', 'astra-sites' ),
-						'science'        => __( 'Science/Technology', 'astra-sites' ),
-						'sports'         => __( 'Sports', 'astra-sites' ),
-						'transportation' => __( 'Transportation/Traffic', 'astra-sites' ),
-						'travel'         => __( 'Travel/Vacation', 'astra-sites' ),
-					),
-					'pixabay_order'       => array(
-						'popular'  => __( 'Popular', 'astra-sites' ),
-						'latest'   => __( 'Latest', 'astra-sites' ),
-						'upcoming' => __( 'Upcoming', 'astra-sites' ),
-						'ec'       => __( 'Editor\'s Choice', 'astra-sites' ),
-					),
-					'pixabay_orientation' => array(
-						'any'        => __( 'Any Orientation', 'astra-sites' ),
-						'vertical'   => __( 'Vertical', 'astra-sites' ),
-						'horizontal' => __( 'Horizontal', 'astra-sites' ),
-					),
-					'title'               => __( 'Free Images', 'astra-sites' ),
-					'search_placeholder'  => __( 'Search - Ex: flowers', 'astra-sites' ),
-					'downloading'         => __( 'Downloading...', 'astra-sites' ),
-					'validating'          => __( 'Validating...', 'astra-sites' ),
-					'empty_api_key'       => __( 'Please enter an API key.', 'astra-sites' ),
-					'error_api_key'       => __( 'An error occured with code ', 'astra-sites' ),
-					'_ajax_nonce'         => current_user_can( 'edit_posts' ) ? wp_create_nonce( 'astra-sites' ) : '',
-				)
-			);
-			wp_localize_script( 'astra-sites-images-common', 'astraImages', $data );
-
-			wp_enqueue_script(
-				'astra-sites-images-script',
-				ASTRA_SITES_URI . 'inc/assets/js/dist/main.js',
-				array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-components', 'wp-api-fetch', 'astra-sites-images-common' ), // Dependencies, defined above.
-				ASTRA_SITES_VER,
-				true
-			);
-
-			wp_enqueue_style( 'astra-sites-images', ASTRA_SITES_URI . 'inc/assets/css/images.css', ASTRA_SITES_VER, true );
-			wp_set_script_translations( 'astra-sites-images', 'astra-sites' );
-			wp_style_add_data( 'astra-sites-images', 'rtl', 'replace' );
-		}
-
-		/**
 		 * Getter for $api_url
 		 *
 		 * @since  1.0.0
@@ -1548,11 +1459,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * @return void
 		 */
 		public function admin_enqueue( $hook = '' ) {
-
-			// Image Search assets.
-			if ( 'post-new.php' === $hook || 'post.php' === $hook || 'widgets.php' === $hook ) {
-				$this->image_search_assets();
-			}
 
 			// Avoid scripts from customizer.
 			if ( is_customize_preview() ) {
@@ -1801,6 +1707,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'get_more_credits_url' => $credit_purchase_url,
 					'dismiss_ai_notice' => Astra_Sites_Page::get_instance()->get_setting( 'dismiss_ai_promotion' ),
 					'showClassicTemplates' => apply_filters( 'astra_sites_show_classic_templates', true ),
+					'bgSyncInProgress' => 'in-process' === get_site_option( 'astra-sites-batch-status', '' ),
 				)
 			);
 
@@ -2109,9 +2016,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			wp_enqueue_script( 'masonry' );
 			wp_enqueue_script( 'imagesloaded' );
 
-			// Image Search assets.
-			$this->image_search_assets();
-
 			wp_enqueue_script( 'astra-sites-elementor-admin-page', ASTRA_SITES_URI . 'inc/assets/js/elementor-admin-page.js', array( 'jquery', 'wp-util', 'updates', 'masonry', 'imagesloaded' ), ASTRA_SITES_VER, true );
 			wp_add_inline_script( 'astra-sites-elementor-admin-page', sprintf( 'var pagenow = "%s";', ASTRA_SITES_NAME ), 'after' );
 			wp_enqueue_style( 'astra-sites-admin', ASTRA_SITES_URI . 'inc/assets/css/admin.css', ASTRA_SITES_VER, true );
@@ -2267,7 +2171,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-wp-cli.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-ast-block-templates.php';
+			require_once ASTRA_SITES_DIR . 'inc/lib/whats-new/class-astra-sites-whats-new.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-zip-ai.php';
+			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-zipwp-images.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/onboarding/class-onboarding.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-file-system.php';
 		}

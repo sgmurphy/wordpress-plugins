@@ -17,7 +17,10 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
 		$this->price_args = array();
 		add_action( 'init', array( $this, 'shortcode_init' ) );
 		add_filter( 'wmc_shortcode', array( $this, 'replace_shortcode' ), 10, 2 );
-		$this->current_url = ! empty( $_POST['wmc_current_url'] ) ? sanitize_text_field( $_POST['wmc_current_url'] ) : remove_query_arg( 'wmc-currency' );
+
+		if ( ! isset( $_REQUEST['_woo_multi_currency_nonce'] ) || wp_verify_nonce( sanitize_text_field( $_REQUEST['_woo_multi_currency_nonce'] ), 'woo_multi_currency_shortcode' ) ) {
+			$this->current_url = ! empty( $_POST['wmc_current_url'] ) ? sanitize_text_field( $_POST['wmc_current_url'] ) : remove_query_arg( 'wmc-currency' );
+		}
 	}
 
 	public static function get_shortcode_id() {
@@ -63,16 +66,16 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
 			$country          = $this->settings->get_country_data( $current_currency );
 			$list_currencies  = $this->settings->get_list_currencies();
 			$class            = array( 'wmc-price-switcher' );
-			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css' );
+			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css', [], WOOMULTI_CURRENCY_F_VERSION );
 			ob_start();
 			?>
-            <div class="woo-multi-currency <?php echo implode( ' ', $class ) ?>"
+            <div class="woo-multi-currency <?php echo esc_attr( implode( ' ', $class ) ) ?>"
                  id="<?php echo esc_attr( self::get_shortcode_id() ) ?>"
                  title="<?php esc_attr_e( 'Please select your currency', 'woo-multi-currency' ) ?>">
                 <div class="wmc-currency-wrapper">
                         <span class="wmc-current-currency">
                           <i style="transform: scale(0.8);"
-                             class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "></i>
+                             class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "></i>
                         </span>
                     <div class="wmc-sub-currency">
 						<?php
@@ -90,7 +93,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
                                         href="<?php echo esc_url( $link ) ?>"
                                         class="wmc-currency-redirect" data-currency="<?php echo esc_attr( $k ) ?>">
                                     <i style="transform: scale(0.8);"
-                                       class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "></i>
+                                       class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "></i>
 									<?php
 									switch ( $this->settings->get_price_switcher() ) {
 										case 2:
@@ -514,7 +517,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
                             title="<?php echo esc_attr( $country['name'] ) ?>"
                             href="<?php echo $class ? '#' : esc_url( $link ) ?>">
                         <i style="<?php echo esc_attr( $this->fix_style( $flag_size ) ) ?>"
-                           class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "></i>
+                           class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "></i>
                     </a>
                 </div>
 			<?php } ?>
@@ -528,9 +531,9 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
 
 	public function enqueue_flag_css() {
 		if ( WP_DEBUG ) {
-			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.css' );
+			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.css', [], WOOMULTI_CURRENCY_F_VERSION );
 		} else {
-			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css' );
+			wp_enqueue_style( 'wmc-flags', WOOMULTI_CURRENCY_F_CSS . 'flags-64.min.css', [], WOOMULTI_CURRENCY_F_VERSION );
 		}
 	}
 
@@ -576,7 +579,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
 				<span class="wmc-current-currency">
 				  <i style="<?php echo esc_attr( $this->fix_style( $flag_size ) ) ?>"
                      data-flag_size="<?php echo esc_attr( $flag_size ) ?>"
-                     class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "> </i>
+                     class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "> </i>
                     <span class="wmc-current-currency-arrow"></span>
 				</span>
                 <div class="wmc-sub-currency">
@@ -595,7 +598,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
 
                                 <i style="<?php echo esc_attr( $this->fix_style( $flag_size ) ) ?>"
                                    alt="<?php echo esc_attr( $country['name'] ) ?>"
-                                   class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "> </i>
+                                   class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "> </i>
                             </a>
                         </div>
 					<?php } ?>
@@ -642,7 +645,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
             <div class="wmc-currency-wrapper" onclick="">
 				<span class="wmc-current-currency" style="line-height: <?php echo esc_attr( $flag_size * 40 ) ?>px">
                        <i style="<?php echo esc_attr( $this->fix_style( $flag_size ) ) ?>"
-                          class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "> </i>
+                          class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "> </i>
                       <span>
                         <?php echo esc_html( $current_currency ) ?>
                     </span>
@@ -664,7 +667,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
                                     title="<?php echo esc_attr( $country['name'] ) ?>"
                                     href="<?php echo esc_url( $link ) ?>">
                                 <i style="<?php echo esc_attr( $this->fix_style( $flag_size ) ) ?>"
-                                   class="vi-flag-64 flag-<?php echo strtolower( $country['code'] ) ?> "> </i>
+                                   class="vi-flag-64 flag-<?php echo esc_attr( strtolower( $country['code'] ) ) ?> "> </i>
                                 <span>
 									<?php echo esc_html( $k ) ?>
 								</span>
@@ -773,7 +776,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
                             <a <?php echo esc_attr( WOOMULTI_CURRENCY_F_Data::get_rel_nofollow() ); ?>
                                     href="<?php echo esc_url( $link ) ?>">
 
-								<?php echo get_woocommerce_currency_symbol( $k ); ?></a>
+								<?php echo esc_attr( get_woocommerce_currency_symbol( $k ) ); ?></a>
                         </div>
 					<?php } ?>
                 </div>
@@ -936,7 +939,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shortcode {
 							$html   .= sprintf( "<span class='wmc-sub-currency-name'>%1s</span>", esc_html( $countries[ $k ] ) );
 							$html   .= sprintf( "<span class='wmc-sub-currency-symbol'>(%1s)</span>", esc_html( $symbol ) );
 							$html   .= '</a>';
-							echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $html );
+							echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $html );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							?>
                         </div>
 						<?php

@@ -236,7 +236,7 @@ function auxin_widget_testimonial_callback( $atts, $shortcode_content = null ){
         <div class="aux-testimonial-content">
             <div class="entry-content">
                 <?php $encoding_flag =  defined('ENT_HTML401') ? ENT_HTML401 : ENT_QUOTES; ?>
-                <?php echo do_shortcode( html_entity_decode( $content, $encoding_flag, 'UTF-8') ); ?>
+                <?php echo wp_kses_post( do_shortcode( html_entity_decode( $content, $encoding_flag, 'UTF-8') ) ); ?>
             </div>
         </div>
         <?php } ?>
@@ -266,7 +266,7 @@ function auxin_widget_testimonial_callback( $atts, $shortcode_content = null ){
         <div class="aux-testimonial-content">
             <div class="entry-content">
                 <?php $encoding_flag =  defined('ENT_HTML401') ? ENT_HTML401 : ENT_QUOTES; ?>
-                <?php echo do_shortcode( html_entity_decode( $content, $encoding_flag, 'UTF-8') ); ?>
+                <?php echo wp_kses_post( do_shortcode( html_entity_decode( $content, $encoding_flag, 'UTF-8') ) ); ?>
             </div>
         </div>
         <?php } ?>

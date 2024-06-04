@@ -22,6 +22,7 @@ $currency_name    = get_woocommerce_currencies();
 			foreach ( $links as $code => $link ) {
 				$value = esc_url( $link );
 				$name  = $shortcode == 'default' ? $currency_name[ $code ] : ( $shortcode == 'listbox_code' ? $code : '' );
+				$name  = apply_filters('wmc_shortcode_currency_display_text', $name, $code);
 				?>
                 <option <?php selected( $current_currency, $code ) ?> value="<?php echo esc_attr( $value ) ?>"
                                                                       data-currency="<?php echo esc_attr( $code ) ?>">

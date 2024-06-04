@@ -218,7 +218,9 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 	public function initByID($id){
 
 		UniteFunctionsUC::validateNotEmpty($id, "widget id");
-
+		
+		UniteFunctionsUC::validateNumeric($id,"widget id");
+		
 		$id = (int)$id;
 
 		try{

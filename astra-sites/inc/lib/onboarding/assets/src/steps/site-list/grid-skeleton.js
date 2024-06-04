@@ -4,6 +4,8 @@ import { Skeleton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
+const ROW_COUNT = 2;
+
 const GridSkeleton = () => {
 	const [ columns, setColumns ] = useState( 4 ); // Default number of columns
 
@@ -31,7 +33,7 @@ const GridSkeleton = () => {
 
 	// Create an array of Skeleton components based on the number of columns
 	const skeletonItems = [];
-	for ( let i = 0; i < columns; i++ ) {
+	for ( let i = 0; i < columns * ROW_COUNT; i++ ) {
 		skeletonItems.push(
 			<Skeleton
 				key={ i }

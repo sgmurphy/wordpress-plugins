@@ -17,7 +17,7 @@ class WC_Product_Price_Based_Country {
 	 *
 	 * @var string
 	 */
-	public $version = '3.4.5';
+	public $version = '3.4.6';
 
 	/**
 	 * The front-end pricing zone
@@ -459,6 +459,7 @@ class WC_Product_Price_Based_Country {
 		$rest_api_routes = [
 			'wc/store/',
 			'elementor-pro/v\d+/refresh-loop',
+			'woo-variation-swatches',
 		] +
 		apply_filters( 'wc_price_based_country_frontend_rest_routes', [] );
 

@@ -259,12 +259,12 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		public function get_settings() {
 
 			$defaults = array(
-				'page_builder' => '',
+				'page_builder' => 'gutenberg',
 			);
 
 			$stored_data = get_option( 'astra_sites_settings', $defaults );
 
-			return wp_parse_args( $stored_data, $defaults );
+			return wp_parse_args( $defaults, $stored_data );
 		}
 
 		/**

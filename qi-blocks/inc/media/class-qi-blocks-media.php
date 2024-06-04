@@ -21,6 +21,8 @@ if ( ! class_exists( 'Qi_Blocks_Media' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Media
 		 */
 		public static function get_instance() {

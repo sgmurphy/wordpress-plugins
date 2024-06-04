@@ -20,7 +20,7 @@ class UniteProviderCoreAdminUC_Elementor extends UniteProviderAdminUC{
 		$this->defaultView = (GlobalsUnlimitedElements::$enableDashboard === true)
 			? GlobalsUnlimitedElements::VIEW_DASHBOARD
 			: GlobalsUnlimitedElements::VIEW_ADDONS_ELEMENTOR;
-
+	
 		$this->arrAllowedViews = array(
 			"addons_elementor",
 			"licenseelementor",

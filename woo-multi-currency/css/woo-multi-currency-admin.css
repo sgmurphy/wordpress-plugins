@@ -1,3 +1,12 @@
+.vi-ui.form select {
+    max-width: 100%;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1.21428571em;
+    padding: .67857143em 1em;
+    height: auto;
+}
+
 .select2-container {
     max-width: 100% !important;
 }

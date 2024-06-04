@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 $icon = ! empty( $navigationNextIcon ) ? $navigationNextIcon : '';
 
 if ( ! empty( $icon['html'] ) ) {

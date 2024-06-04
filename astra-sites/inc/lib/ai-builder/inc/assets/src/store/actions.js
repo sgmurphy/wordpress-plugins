@@ -119,6 +119,13 @@ const actions = {
 		};
 	},
 
+	setSelectedTemplateIsPremium( selectedTemplateIsPremium ) {
+		return {
+			type: actionsTypes.SET_SELECTED_TEMPLATE_IS_PREMIUM,
+			payload: selectedTemplateIsPremium,
+		};
+	},
+
 	setWebsiteInfoAIStep( websiteInfo ) {
 		return {
 			type: actionsTypes.SET_WEBSITE_DATA_AI_STEP,

@@ -264,6 +264,7 @@ function auxin_widget_gmaps_callback( $atts, $shortcode_content = null ){
     } elseif ( base64_decode( $style, true ) === false) {
     } else {
         $style = rawurldecode( base64_decode( strip_tags( $style ) ) );
+        $style = auxin_is_json( $style ) ? $style : auxin_get_gmap_style();
     }
 
     $zoom_wheel = auxin_is_true( $zoom_wheel ) ? 'true' : 'false';

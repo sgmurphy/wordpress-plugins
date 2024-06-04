@@ -17,7 +17,7 @@ class WOOMULTI_CURRENCY_Elementor_Widget extends Widget_Base {
 	}
 
 	public function enqueue() {
-		wp_register_style( 'wmc-elementor-style', false );
+		wp_register_style( 'wmc-elementor-style', false, [], WOOMULTI_CURRENCY_F_VERSION );
 		wp_enqueue_style( 'wmc-elementor-style' );
 		$css = ".wmc-multi-currency-icon{
 				display:block;height:28px;background-image: url('" . WOOMULTI_CURRENCY_F_IMAGES . "icon_elementor.svg');
@@ -94,7 +94,7 @@ class WOOMULTI_CURRENCY_Elementor_Widget extends Widget_Base {
 		$settings  = $this->get_settings_for_display();
 		$layout    = $settings['layout'] ? '_' . $settings['layout'] : '';
 		$flag_size = $settings['flag_size'] ? 'flag_size=' . $settings['flag_size'] : '';
-		echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( do_shortcode( "[woo_multi_currency{$layout} $flag_size]" ) );
+		echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( do_shortcode( "[woo_multi_currency{$layout} $flag_size]" ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function render_plain_content() {
@@ -102,6 +102,6 @@ class WOOMULTI_CURRENCY_Elementor_Widget extends Widget_Base {
 		$layout    = $settings['layout'] ? '_' . $settings['layout'] : '';
 		$flag_size = $settings['flag_size'] ? 'flag_size=' . $settings['flag_size'] : '';
 		$shortcode = "[woo_multi_currency{$layout} $flag_size]";
-		echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $shortcode );
+		echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( $shortcode );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

@@ -1418,6 +1418,8 @@ function OnOptGetDef_Sett()
 				'clk' => array(
 					'delay' => 250,
 					'excl' => array(
+						'.//*[contains(concat(" ",normalize-space(@class)," ")," cpel-switcher__lang ")]',
+						'.//*[contains(concat(" ",normalize-space(@class)," ")," cpel-switcher__lang ")]//a',
 					),
 
 					'exclDef' => array(
@@ -1425,7 +1427,7 @@ function OnOptGetDef_Sett()
 
 						'.//*[starts-with(@href,"#elementor-action")]',
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," mobile-menu ")]',
-						'.//a[contains(concat(" ",normalize-space(@class)," ")," elementor-button ")]',
+						'.//a[contains(concat(" ",normalize-space(@class)," ")," elementor-button ")][not(self::node()[contains(concat(" ",normalize-space(@class)," ")," elementor-button-link ")])]',
 						'.//a[@e-action-hash]',
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," elementor-toggle-title ")]',
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," sby_video_thumbnail ")]',
@@ -1451,6 +1453,7 @@ function OnOptGetDef_Sett()
 
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," et_pb_video_play ")]',
 						'.//*[contains(concat(" ",normalize-space(@class)," ")," et-menu ")]/li/a[starts-with(@href,"#")]',
+						'.//a[contains(concat(" ",normalize-space(@class)," ")," et_pb_button ")]',
 
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," meanmenu-reveal ")]',
 
@@ -1471,6 +1474,10 @@ function OnOptGetDef_Sett()
 						'.//a[contains(concat(" ",normalize-space(@class)," ")," searchOpen ")]',
 
 						'.//button[contains(concat(" ",normalize-space(@class)," ")," uicore-toggle ")]',
+
+						'.//a[contains(concat(" ",normalize-space(@class)," ")," bricks-button ")]',
+
+						'.//button[contains(concat(" ",normalize-space(@class)," ")," e-n-menu-toggle ")]',
 					),
 				),
 
@@ -1801,7 +1808,7 @@ function GetBlogIdFromSiteId( $siteId )
 
 function GetCacheDir()
 {
-	return( WP_CONTENT_DIR . '/cache/seraphinite-accelerator' );
+	return( defined( 'SERAPH_ACCEL_CACHE_DIR' ) ? SERAPH_ACCEL_CACHE_DIR : ( WP_CONTENT_DIR . '/cache/seraphinite-accelerator' ) );
 }
 
 function GetCacheDataDir( $siteCacheRootPath )
@@ -2509,7 +2516,7 @@ function GetSiteIds()
 	return( $aIds = array_keys( $aIds ) );
 }
 
-function CachePathNormalize( $path, &$pathIsDir )
+function CachePathNormalize( $path, &$pathIsDir, $bLwr = true )
 {
 	if( $path == '/' )
 	{
@@ -2518,7 +2525,10 @@ function CachePathNormalize( $path, &$pathIsDir )
 	}
 	else
 	{
-		$path = strtolower( ltrim( $path, '/' ) );
+		$path = ltrim( $path, '/' );
+		if( $bLwr )
+			$path = strtolower( $path );
+
 		if( substr( $path, -1 ) == '/' )
 		{
 			$pathIsDir = true;
@@ -3060,7 +3070,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.10 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.11 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -3736,7 +3746,7 @@ function OnAsyncTask_CacheProcessItem( $args )
 	if( !$urlRedir && $skipStatus && preg_match( '@^httpCode\\:(?:301|302|307|308)\\:@', $skipStatus ) )
 		$urlRedir = rawurldecode( substr( $skipStatus, 13 ) );
 
-	if( $urlRedir )
+	if( $urlRedir && $urlRedir != (isset($data[ 'u' ])?$data[ 'u' ]:null) )
 	{
 		$urlRedir = remove_query_arg( array( 'seraph_accel_prep' ), $urlRedir );
 		if( Gen::StrStartsWith( $urlRedir, '//' ) )
@@ -4112,7 +4122,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.10';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.11';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 
@@ -4250,6 +4260,7 @@ function _DelExpiredOption( $option )
 
 function GetCountryCodeByIp( $settCache, &$ip_address )
 {
+
 	$country_code = '^';
 
 	return( $country_code );

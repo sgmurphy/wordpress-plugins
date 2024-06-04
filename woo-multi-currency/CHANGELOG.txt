@@ -1,3 +1,6 @@
+/*2.2.3 - 2024.06.04*/
+- Update: Add filter wmc_switcher_display_currency_name to change display currency name
+
 /*2.2.2 - 2024.04.13*/
 - Fixed: Shipping issue with MyFatoorah
 - Fixed: Conflict shipping price with Envia Shipping and Fulfillment

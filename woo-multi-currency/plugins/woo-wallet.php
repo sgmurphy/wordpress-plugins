@@ -104,9 +104,9 @@ class WOOMULTI_CURRENCY_F_Plugin_Woo_Wallet {
                 <td class="via-wallet">
 					<?php
 					if ( $rate ) {
-						echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( wc_price( $total_cashback_amount * $rate, array( 'currency' => $order->get_currency() ) ) );
+						echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( wc_price( $total_cashback_amount * $rate, array( 'currency' => $order->get_currency() ) ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					} else {
-						echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( wc_price( $total_cashback_amount, woo_wallet_wc_price_args( $order->get_customer_id() ) ) );
+						echo WOOMULTI_CURRENCY_F_Data::wp_kses_post( wc_price( $total_cashback_amount, woo_wallet_wc_price_args( $order->get_customer_id() ) ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					?>
                 </td>
@@ -253,9 +253,11 @@ class WOOMULTI_CURRENCY_F_Plugin_Woo_Wallet {
 	public function woo_wallet_cashback_notice_text( $text, $cashback_amount ) {
 		$cashback_amount = wmc_get_price( $cashback_amount );
 		if ( is_user_logged_in() ) {
-			$text = sprintf( __( 'Upon placing this order a cashback of %s will be credited to your wallet.', 'woo-wallet' ), wc_price( $cashback_amount, woo_wallet_wc_price_args() ) );
+			/* translators: %s: cashback value */
+			$text = sprintf( esc_html__( 'Upon placing this order a cashback of %s will be credited to your wallet.', 'woo-wallet' ), wc_price( $cashback_amount, woo_wallet_wc_price_args() ) );
 		} else {
-			$text = sprintf( __( 'Please <a href="%s">log in</a> to avail %s cashback from this order.', 'woo-wallet' ), esc_url( get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) ), wc_price( $cashback_amount, woo_wallet_wc_price_args() ) );
+			/* translators: %1$s: login url, %2$s: cashback value */
+			$text = sprintf( esc_html__( 'Please <a href="%1$s">log in</a> to avail %2$s cashback from this order.', 'woo-wallet' ), esc_url( get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) ), wc_price( $cashback_amount, woo_wallet_wc_price_args() ) );
 		}
 
 		return $text;

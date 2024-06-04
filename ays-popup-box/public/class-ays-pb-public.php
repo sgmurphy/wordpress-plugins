@@ -1377,6 +1377,14 @@ class Ays_Pb_Public {
                 $notification_button_1_border = $notification_button_1_border_width . 'px ' . $notification_button_1_border_style . ' ' . $notification_button_1_border_color;
             }
 
+            // Notification type | Button 1 padding left/right
+            $notification_button_1_padding_left_right = (isset($options['notification_button_1_padding_left_right']) && $options['notification_button_1_padding_left_right'] !== '') ? absint( esc_attr($options['notification_button_1_padding_left_right']) ) . 'px' : '32px';
+
+            // Notification type | Button 1 padding top/bottom
+            $notification_button_1_padding_top_bottom = (isset($options['notification_button_1_padding_top_bottom']) && $options['notification_button_1_padding_top_bottom'] !== '') ? absint( esc_attr($options['notification_button_1_padding_top_bottom']) ) . 'px' : '12px';
+
+            $notification_button_1_padding = $notification_button_1_padding_top_bottom . ' ' . $notification_button_1_padding_left_right;
+
             $popupbox_view .= "$screen_shade
                         <input type='hidden' class='ays_pb_delay_".$id."' value='".$ays_pb_delay."'/>
                         <input type='hidden' class='ays_pb_delay_mobile_".$id."' value='".$ays_pb_open_delay_mobile."'/>
@@ -1404,6 +1412,7 @@ class Ays_Pb_Public {
                             font-size: " . $notification_button_1_font_size . ";
                             border-radius: " . $notification_button_1_border_radius . ";
                             border: " . $notification_button_1_border . ";
+                            padding: " . $notification_button_1_padding . ";
                         }
                         
                         .ays_cmd_window {

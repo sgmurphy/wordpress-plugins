@@ -8,7 +8,7 @@ Requires at least: 6.3
 Tested up to: 6.6
 Requires PHP: 7.0
 License: GPLv2 or later
-Stable tag: 8.9.1
+Stable tag: 8.9.4
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 More than 20 special blocks for Gutenberg to build complex pages and animations with highest possible web vitals score.
@@ -107,6 +107,10 @@ Yes, we guarantee that Greenshift is built on top of google recommendations and 
 7. **Sliding panels, popups.** Build custom sliding panels, add any block, use for mega menus
 
 == Changelog ==
+
+= 8.9.4 =
+
+* Added: Lighbox improvements and security improvements for social share block, typography options
 
 = 8.9 =
 
@@ -789,151 +793,3 @@ Yes, we guarantee that Greenshift is built on top of google recommendations and 
 * Added: Default button styles and icon colors are inherited from Blocksy theme (if you use it)
 * Added: Fix for Animated shape dividers
 * Added: Custom cursor option for typography panel
-
-= 4.6 =
-* Added: New Reusable styles system [Please, check demo](https://www.facebook.com/groups/greenshiftwp/posts/853701682735772)
-* Added: Alt for Svg images
-* Added: More options for Accordion block
-* Added: Content background for Tab block
-* Added: Fix for Animated headings with loader type
-* Added: Transformation from core list to Advanced list
-* Added: AOS animation library was replaced by extra light Intersection Observer library
-* Added: Exit intent popup has option to show it only once
-
-= 4.5 =
-* Added: Figma Css to Attribute Converter (Find it in Toolbar - Style icon - Convert css to attributes)
-* Added: Separate Row and Column Gap for Flexbox
-* Added: More units to line height
-* Added: Lazy load for heading and text Image mask
-* Added: Option to disable background image on separate resolutions
-
-= 4.3.1 =
-* Added: Addons page and some slider improvements
-
-= 4.3 =
-* Added: Localization files + improvements for margin, gap in Flexbox
-* Added: Background Lazy Load option for Containers, Rows and Columns
-* Added: parent hover class for icon picker, border, sub title in heading, improved detection of parent container class
-* Updated: Freemius framework is removed. [Please, check important message about addon update](https://www.facebook.com/groups/greenshiftwp/posts/842042560568351)
-* Fix: responsive options of Shape divider
-
-
-= 4.2.2 =
-* Added: Breakpoint option for smart scroll in container
-* Added: Removing default color from Icon will set currentColor value which allows to inherit color from parent container
-
-= 4.2 =
-* Added: Dynamic Link option to Container Link
-* Added: Parent Hover class option to shadow
-
-= 4.0.9 =
-* Column order option for CSS grid and some fixes
-
-= 4.0 =
-* Added distributed gap option for custom column gap
-* Cleaning repeated body tag from styles
-* Added Reset button for Panels
-* Added option to select ul li tags for advanced lists
-* Added name options for links in Container and Video Iframe for screen readers
-* Dynamic fields for Text, Heading, Button, Video and Background options (Required to have Query addon)
-* Improved Meta getter block and Query Loop Builder (Required to have Query addon)
-* Slider Query block (Required to have Query addon)
-* Counter block starts to count only when element is in view
-* Lazy load option for Overlay image and Video Overlay
-* Option to disable lazy load for image block
-* Option for sliding panels and popup to place panel block in footer to fix z-index problems
-
-= 3.9.3 =
-* Added stretch option to tabs
-* Added button for quick parent class detector for hover transitions
-* Mobile options shows details of desktop options in scenarios when they are empty
-
-= 3.9.2 =
-* Added variable width option for Content width in Row
-* Added auto inheritance for Content Width of Row from themes (Blocksy, Kadence, Astra). GeneratePress, Rehub, BlockPress have the same default width as Row so they don't need inheritance
-
-= 3.9 =
-* New block - SVG Path Text
-* Ability to change size by simple drag in toolbar
-* Css styling compatibility with theme's custom elements and content hooks (for Kadence Pro)
-
-= 3.8.5 =
-* Option to set decimal points for Advanced slider option "number per row" 
-
-= 3.8.4 =
-* Added [Smooth scroll option for anchors in button block](https://greenshiftwp.com/how-to-add-smooth-scroll-to-anchor-on-wordpress/)
-* Added Background filters
-* Added support for Page templates editor
-
-= 3.8.3 =
-* Option to convert Container with inner containers to Slider and back. 
-* Drag position fix
-
-= 3.8 =
-* Container width and height can be oversized
-* Better scroller for sticky panel TOC
-* Icon spacing for info and title boxes
-* New workflow to add position, spacing, transformations to blocks from toolbar
-
-= 3.7.4 =
-* Gradient Animate for text, overlay. [Gradient Fluid effects](https://greenshiftwp.com/how-to-animate-gradient-for-text-and-background/)
-* Fix for Advanced slider script
-
-= 3.7.3 =
-* New video for animation addon. [Pin Scroll effects](https://youtu.be/wfVdOGd9U8s)
-* Added option to make custom prev, next buttons for Advanced slider
-
-= 3.7.1 =
-* New video for animation addon. [SVG and vector animations](https://www.youtube.com/watch?v=Pd28u8K4Fe4)
-* Added ESC button close popups and sliding panels
-
-= 3.7 =
-* Added Cookie saving option for Button block. [Example how to use for collapsible panels](https://greenshiftwp.com/how-to-make-cross-site-collapsible-panels-with-saved-user-choice/) or [Example how to use button for making night mode](https://greenshiftwp.com/how-to-add-night-mode-in-blockpress-theme-with-button-and-cookie-option/)
-
-= 3.6 =
-* Added Telegram share button
-* Added Popup/Sliding panel is closed by clicking on background and some fixes
-
-= 3.5 =
-* Clip path ID for images
-* New features for overlay hover effects for containers, buttons (circle clip, delays, custom hover classes). [Explanation](https://greenshiftwp.com/understanding-overlay-hover-effects-and-custom-hover-class/)
-* Video block has updates with Background options, cover options, Mix blend features
-* Animation addon has new series of video tutorials. Added in Get Started section
-* Support for Blocksy theme Content block ecosystem
-* Global styles for presets are loading inline for better web vitals
-
-= 3.4.2 =
-* More options for video block - object fit, background, mix blend
-* Margins can have decimal values
-
-= 3.4.1 =
-* Fix for wrong styles on mobile preview for heading
-* Added option for toggle hotspot in SEO addon + ability to rewrite affiliate links in SEO addon
-
-= 3.4 =
-* Added Typography styling compatibility with Astra, Kadence themes
-* Added Row variation - Section
-* Added text decoration parameters for Additional letter options
-* Added indicators for hidden parameters (overlay, text shadow, letter options)
-* Added new Experimental category to Ready library where we will add interesting complex layouts
-
-= 3.3 =
-* Added sub headings to TOC
-* Added text border option to Advanced Letter options for typography
-* Added Mask text effects and skew options for Animation addon
-
-= 3.2.2 =
-* Added Mix blend option (in Background section)
-
-= 3.2 =
-* Removed extra spacing in blocks for Classic themes which have no 100% support for Gutenberg
-
-= 3.1.1 =
-* Added new premium chat addon and some fixes
-
-= 3.1 =
-* Added Advanced Text block
-* Added FlexBox variation for container
-* Added padding top option for smart scroll
-* Added Option for Close Intent for popup/slide block
-* Added Css transformation can have separate transition time for each transition option

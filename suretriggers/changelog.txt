@@ -1,5 +1,10 @@
+Version 1.0.49 - Tuesday, 4th June 2024
+- Improvement: "Voxel" - Enhanced Order related Triggers
+- Improvement: "BuddyBoss" - Enhanced "Create Group" Action with Group Type support
+- Improvement: "AffiliateWP" - Fixed the issue in "WooCommerce Product Purchased using Affiliate Referral" Trigger
+
 Version 1.0.48 - Monday, 3rd June 2024
-- Improvement: Unnecessary code removal, Plugin Code Optimization
+- Fix: This update addressed a security bug. Props to Krzysztof Zając for privately reporting it to our team. Please make sure you are using the latest version on your website.
 
 Version 1.0.47 - Wednesday, 29th May 2024
 - New: Added "Sensei LMS" Integration

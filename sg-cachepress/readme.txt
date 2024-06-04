@@ -1,4 +1,4 @@
-=== Speed Optimizer - The All-In-One WordPress Performance-Boosting Plugin ===
+=== Speed Optimizer - The All-In-One Performance-Boosting Plugin ===
 Contributors: Hristo Sg, siteground, sstoqnov, stoyangeorgiev, elenachavdarova, ignatggeorgiev
 Tags: nginx, caching, speed, memcache, memcached, performance, siteground, free, supercacher
 Requires at least: 4.7

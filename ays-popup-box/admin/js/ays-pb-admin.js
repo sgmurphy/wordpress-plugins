@@ -654,7 +654,7 @@
         // Close cache note start
         $(document).on('click', '.ays-pb-cache-warning-note-close-container img.ays-pb-cache-warning-note-close', function() {
             closeWarningNotePermanently(this);
-        })
+        });
         // Close cache note start
 
         // Toggle mobile settings start
@@ -809,13 +809,13 @@
         // Change popup trigger end
 
         // Toggle hide close button cb start
-        $(document).find('#ays-pb-close-button').on('change',function() {
+        $(document).find('#ays-pb-close-button').on('change', function() {
             var closeBttnOptions = $(document).find('.ays_pb_close_bttn_option');
             var livePreviewCloseBttns = $(document).find('.ays-close-button-on-off');
 
             closeBttnOptions.toggleClass('display_none');
             livePreviewCloseBttns.toggleClass('display_none_important');
-        })
+        });
         // Toggle hide close button cb end
 
         // Toggle autoclose delay start
@@ -992,7 +992,7 @@
 
                 $(document).find('.ays-pb-title-shadow-small-hint').css('display', 'block');
             }
-        })
+        });
         // Toggle show title end
 
         // Toggle show description start
@@ -1006,7 +1006,7 @@
                 $(document).find('.ays-pb-description-small-hint').removeClass('display_none');
                 $(document).find('.desc').css({'display':'none'});
             }
-        })
+        });
         // Toggle show description end
 
         // Popup fullscreen cb toggle start
@@ -1020,7 +1020,7 @@
                 $(document).find('.ays_pb_width').prop('readonly', false);
                 $(document).find('.ays_pb_height').prop('readonly', false);
             }
-        })
+        });
         // Popup fullscreen cb toggle end
 
         // Popop padding start
@@ -1030,7 +1030,7 @@
             if (paddingContent.hasClass('ays-pb-padding-content-default')) {
                 paddingContent.removeClass('ays-pb-padding-content-default');
             }
-        })
+        });
         // Popop padding end
 
         // Toggle title text shadow start
@@ -1152,6 +1152,344 @@
         });
         // Close button | Remove background image end
 
+        // Reset styles start
+        $(document).on('click', '.ays-pb-reset-styles', function() {
+            var defaultValues = {
+                displayTitle: false,
+                displayTitleMobile: false,
+                displayDesc: false,
+                displayDescMobile: false,
+                width: '400',
+                percentPixel: 'px',
+                percentPixelMobile: 'percentage',
+                percentPixelMobileText: '%',
+                mobileWidth: '',
+                maxWidthMobile: '',
+                height: '500',
+                maxHeight: '',
+                maxHeightMobile: '',
+                mobileHeight: '',
+                popupMinHeight: '',
+                fullScreen: false,
+                padding: '20',
+                textColor: '#000',
+                fontFamily: 'Inherit',
+                descPC: '13',
+                descMobile: '13',
+                textShadow: false,
+                textShColor: 'rgba(255,255,255,0)',
+                textShX: '2',
+                textShY: '2',
+                textShZ: '0',
+                textShadowMobile: false,
+                textShColorMobile: 'rgba(255,255,255,0)',
+                textShXMobile: '2',
+                textShYMobile: '2',
+                textShZMobile: '0',
+                openAnimSpeed: '1',
+                enableAnimSpeedMobile: false,
+                openAnimSpeedMobile: '1',
+                closeAnimSpeed: '1',
+                enableCloseAnimSpeedMobile: false,
+                closeAnimSpeedMobile: '1',
+                closeAnim: 'fadeOut',
+                closeAnimText: 'Fade Out',
+                enableCloseAnimMobile: false,
+                closeAnimMobile: 'fadeOut',
+                closeAnimTextMobile: 'Fade Out',
+                openAnim: 'fadeIn',
+                openAnimText: 'Fade In',
+                enableOpenAnimMobile: false,
+                openAnimMobile: 'fadeIn',
+                openAnimTextMobile: 'Fade In',
+                bgColor: '#fff',
+                enablebgColorMobile: false,
+                bgColorMobile: '#fff',
+                bgImg: '',
+                bgImgAddBttnText: pb.addImage,
+                bgImgRemoveBttnDisplay: 'none',
+                bgImgMobile: '',
+                bgImgAddBttnTextMobile: pb.addImage,
+                bgImgRemoveBttnDisplayMobile: 'none',
+                bgImgSizing: 'cover',
+                bgImgSizingText: 'Cover',
+                bgImgSizingMobile: 'cover',
+                bgImgSizingTextMobile: 'Cover',
+                bgGrad: false,
+                bgGradC1: '#000',
+                bgGradC2: '#fff',
+                bgGradDir: 'vertical',
+                bgGradDirText: 'Vertical',
+                bgGradMobile: false,
+                bgGradC1Mobile: '#000',
+                bgGradC2Mobile: '#fff',
+                bgGradDirMobile: 'vertical',
+                bgGradDirTextMobile: 'Vertical',
+                headerBgColor: '#fff',
+                overlayColor: '#000',
+                enableOverlayColorMobile: false,
+                overlayColorMobile: '#000',
+                borderWidth: '1',
+                enableBorderWidthMobile: false,
+                borderWidthMobile: '1',
+                borderStyle: 'Solid',
+                enableBorderStyleMobile: false,
+                borderStyleMobile: 'Solid',
+                borderColor: '#fff',
+                enableBorderColorMobile: false,
+                borderColorMobile: '#fff',
+                borderRadius: '4',
+                enableBorderRadiusMobile: false,
+                borderRadiusMobile: '4',
+                closeBtnImg: '',
+                closeBtnColor: '#000',
+                closeBtnColorHover: '#000',
+                closeBtnSize: '1',
+                boxShadow: false,
+                boxShadowColor: '#000',
+                boxShadowX: '0',
+                boxShadowY: '0',
+                boxShadowZ: '15',
+                boxShadowMobile: false,
+                boxShadowColorMobile: '#000',
+                boxShadowXMobile: '0',
+                boxShadowYMobile: '0',
+                boxShadowZMobile: '15',
+                bgImgStleOnMobile: true,
+                bgImgPosition: 'center-center',
+                bgImgPositionMobile: 'center-center',
+            }
+
+            var $form = $(this).parents('form#ays_pb_form');
+
+            var checkedTheme = $('input[name="ays-pb[view_type]"]:checked').val();
+            if (checkedTheme == 'image' || checkedTheme == 'template') {
+                var templateDefaultBgImg = 'https://quiz-plugin.com/wp-content/uploads/2020/02/girl-scaled.jpg';
+                var imageDefaultBgImg = 'https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg';
+                $form.find('footer.ays_template_footer .ays_bg_image_box').css({'background-image': 'url("' + templateDefaultBgImg + '")'});
+                $form.find('div#ays-image-window.ays-pb-live-container').css({'background-image': 'url("' + imageDefaultBgImg + '")'});
+
+                defaultValues.bgImgAddBttnText = pb.editImage;
+                defaultValues.bgImgAddBttnTextMobile = pb.editImage;
+                defaultValues.bgImgRemoveBttnDisplay = 'block';
+                defaultValues.bgImgRemoveBttnDisplayMobile = 'block';
+                defaultValues.bgImg = imageDefaultBgImg;
+
+                if (checkedTheme == 'template') {
+                    defaultValues.bgImg = templateDefaultBgImg;
+                }
+            }
+
+            $form.find('input.ays_pb_title').prop('checked', defaultValues.displayTitle).change();
+            $form.find('input.ays_pb_title_mobile').prop('checked', defaultValues.displayTitleMobile).change();
+            $form.find('input.ays_pb_desc').prop('checked', defaultValues.displayDesc).change();
+            $form.find('input.ays_pb_desc_mobile').prop('checked', defaultValues.displayDescMobile).change();
+            $form.find('input#ays_pb_enable_display_content_mobile').prop('checked', defaultValues.displayDescMobile).change();
+            $form.find('div.ays_pb_display_content_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays-pb-width').val(defaultValues.width).change();
+            $form.find('input#ays-pb-width').prop('readonly', false).change();
+
+            $form.find('select#ays_popup_width_by_percentage_px').val(defaultValues.percentPixel).change();
+            $form.find('select#ays_popup_width_by_percentage_px').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
+            $form.find('select#ays_popup_width_by_percentage_px_mobile').val(defaultValues.percentPixelMobile).change();
+            $form.find('select#ays_popup_width_by_percentage_px_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixelMobileText).change();
+
+            $form.find('input#ays-pb-mobile-width').val(defaultValues.mobileWidth).change();
+
+            $form.find('input#ays-pb-mobile-max-width').val(defaultValues.maxWidthMobile).change();
+
+            $form.find('input#ays-pb-height').val(defaultValues.height).change();
+            $form.find('input#ays-pb-height').prop('readonly', false).change();
+
+            $form.find('input#ays_pb_mobile_height').val(defaultValues.mobileHeight).change();
+
+            $form.find('input#ays-pb-max-height').val(defaultValues.maxHeight).change();
+            $form.find('input#ays-pb-max-height-mobile').val(defaultValues.maxHeightMobile).change();
+            $form.find('select#ays_popup_max_height_by_percentage_px').val(defaultValues.percentPixel).change();
+            $form.find('select#ays_popup_max_height_by_percentage_px_mobile').val(defaultValues.percentPixel).change();
+            $form.find('select#ays_popup_max_height_by_percentage_px').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
+            $form.find('select#ays_popup_max_height_by_percentage_px_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
+
+            $form.find('input#ays_pb_min_height').val(defaultValues.popupMinHeight).change();
+
+            $form.find('input#open_pb_fullscreen').prop('checked', defaultValues.fullScreen).change();
+
+            $form.find('input#ays_popup_content_padding').val(defaultValues.padding).change();
+            $form.find('div.ays-pb-padding-content').addClass('ays-pb-padding-content-default').change();
+            $form.find('select#ays_popup_padding_by_percentage_px').val(defaultValues.percentPixel).change();
+            $form.find('select#ays_popup_padding_by_percentage_px').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
+
+            $form.find('input#ays-pb-ays_pb_textcolor').wpColorPicker('color', defaultValues.textColor).change();
+
+            $form.find('select#ays_pb_font_family').val(defaultValues.fontFamily).change();
+            $form.find('select#ays_pb_font_family').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.fontFamily).change();
+
+            $form.find('input#ays_pb_font_size_for_pc').val(defaultValues.descPC).change();
+
+            $form.find('input#ays_pb_font_size_for_mobile').val(defaultValues.descMobile).change();
+
+            $form.find('input#ays_enable_title_text_shadow').prop('checked', defaultValues.textShadow).change();
+            $form.find('input#ays_title_text_shadow_color').wpColorPicker('color', defaultValues.textShColor).change();
+            $form.find('input#ays_pb_title_text_shadow_x_offset').val(defaultValues.textShX).change();
+            $form.find('input#ays_pb_title_text_shadow_y_offset').val(defaultValues.textShY).change();
+            $form.find('input#ays_pb_title_text_shadow_z_offset').val(defaultValues.textShZ).change();
+
+            $form.find('input#ays_enable_title_text_shadow_mobile').prop('checked', defaultValues.textShadowMobile).change();
+            $form.find('input#ays_title_text_shadow_color_mobile').wpColorPicker('color', defaultValues.textShColorMobile).change();
+            $form.find('input#ays_pb_title_text_shadow_x_offset_mobile').val(defaultValues.textShXMobile).change();
+            $form.find('input#ays_pb_title_text_shadow_y_offset_mobile').val(defaultValues.textShYMobile).change();
+            $form.find('input#ays_pb_title_text_shadow_z_offset_mobile').val(defaultValues.textShZMobile).change();
+
+            $form.find('div.ays-pb-title-shadow div.ays_toggle_target').css('display', 'none').change();
+
+            $form.find('input#ays_pb_animation_speed').val(defaultValues.openAnimSpeed).prop('disabled', false).change();
+            $form.find('input#ays_pb_enable_animation_speed_mobile').prop('checked', defaultValues.enableAnimSpeedMobile).change();
+            $form.find('input#ays_pb_animation_speed_mobile').val(defaultValues.openAnimSpeedMobile).prop('disabled', false).change();
+            $form.find('div.ays_pb_animation_speed_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays_pb_close_animation_speed').val(defaultValues.closeAnimSpeed).prop('disabled', false).change();
+            $form.find('input#ays_pb_enable_close_animation_speed_mobile').prop('checked', defaultValues.enableCloseAnimSpeedMobile).change();
+            $form.find('input#ays_pb_close_animation_speed_mobile').val(defaultValues.closeAnimSpeedMobile).prop('disabled', false).change();
+            $form.find('div.ays_pb_close_animation_speed_mobile_container').css('display', 'none').change();
+
+            $form.find('select#ays-pb-animate_out').val(defaultValues.closeAnim).change();
+            $form.find('select#ays-pb-animate_out').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.closeAnimText).change();
+
+            $form.find('select#ays-pb-animate_out_mobile').val(defaultValues.closeAnimMobile).change();
+            $form.find('input#ays_pb_enable_animate_out_mobile').prop('checked', defaultValues.enableCloseAnimMobile).change();
+            $form.find('select#ays-pb-animate_out_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.closeAnimTextMobile).change();
+            $form.find('div.ays_pb_animate_out_mobile_container').css('display', 'none').change();
+
+            $form.find('select#ays-pb-animate_in').val(defaultValues.openAnim).change();
+            $form.find('select#ays-pb-animate_in').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.openAnimText).change();
+
+            $form.find('select#ays-pb-animate_in_mobile').val(defaultValues.openAnimMobile).change();
+            $form.find('input#ays_pb_enable_animate_in_mobile').prop('checked', defaultValues.enableOpenAnimMobile).change();
+            $form.find('select#ays-pb-animate_in_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.openAnimTextMobile).change();
+            $form.find('div.ays_pb_animate_in_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays-pb-bgcolor').wpColorPicker('color', defaultValues.bgColor).change();
+            $form.find('input#ays_pb_enable_bgcolor_mobile').prop('checked', defaultValues.enablebgColorMobile).change();
+            $form.find('input#ays-pb-bgcolor-mobile').wpColorPicker('color', defaultValues.bgColorMobile).change();
+            $form.find('div.ays_pb_bgcolor_mobile_container').css('display', 'none').change();
+
+            $form.find('img#ays-pb-bg-img').attr('src', defaultValues.bgImg).change();
+            $form.find('input#ays-pb-bg-image').val(defaultValues.bgImg).change();
+            $form.find('a.ays-pb-add-bg-image').text(defaultValues.bgImgAddBttnText).change();
+            $form.find('span.ays-remove-bg-img').css('display', defaultValues.bgImgRemoveBttnDisplay).change();
+            $form.find('img#ays-pb-bg-img-mobile').attr('src', defaultValues.bgImg).change();
+            $form.find('input#ays-pb-bg-image-mobile').val(defaultValues.bgImg).change();
+            $form.find('a.ays-pb-add-bg-image-mobile').text(defaultValues.bgImgAddBttnTextMobile).change();
+            $form.find('span.ays-remove-bg-img-mobile').css('display', defaultValues.bgImgRemoveBttnDisplayMobile).change();
+            $form.find('a.ays-pb-add-bg-image').attr('data-add', false).change();
+            $form.find('a.ays-pb-add-bg-image-mobile').attr('data-add', false).change();
+            $form.find('input#ays_pb_enable_bg_image_mobile').prop('checked', false).change();
+            $form.find('div.ays_pb_bg_image_mobile_container').css('display', 'none').change();
+
+            $form.find('.pb_position_block').find('.ays-pb-position-val-class').val(defaultValues.bgImgPosition).change();
+            $form.find('.pb_position_block').find('.ays-pb-position-val-class-mobile').val(defaultValues.bgImgPositionMobile).change();
+            $(document).find('table#ays_pb_bg_image_position_table td').removeAttr('style').change();
+            $(document).find('table#ays_pb_bg_image_position_table tr td[data-id=5]').css('background-color', '#3d89e0').change();
+            $(document).find('table#ays_pb_bg_image_position_table_mobile td').removeAttr('style').change();
+            $(document).find('table#ays_pb_bg_image_position_table_mobile tr td[data-id=5]').css('background-color', '#9964b3').change();
+            $form.find('input#ays_pb_enable_bg_image_position_mobile').prop('checked', false).change();
+            $form.find('div.ays_pb_bg_image_position_mobile_container').css('display', 'none').change();
+
+            $form.find('select#ays_pb_bg_image_sizing').val(defaultValues.bgImgSizing).change();
+            $form.find('select#ays_pb_bg_image_sizing').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgImgSizingText).change();
+            $form.find('select#ays_pb_bg_image_sizing_mobile').val(defaultValues.bgImgSizing).change();
+            $form.find('select#ays_pb_bg_image_sizing_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgImgSizingText).change();
+            $form.find('input#ays_pb_enable_bg_image_sizing_mobile').prop('checked', false).change();
+            $form.find('div.ays_pb_bg_image_sizing_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays-enable-background-gradient').prop('checked', defaultValues.bgGrad).change();
+            $form.find('input#ays-enable-background-gradient-mobile').prop('checked', defaultValues.bgGradMobile).change();
+            $form.find('div.ayspb-enable-background-gradient div.ays_toggle_target').css('display', 'none').change();
+            $form.find('input#ays-background-gradient-color-1').wpColorPicker('color', defaultValues.bgGradC1).change();
+            $form.find('input#ays-background-gradient-color-2').wpColorPicker('color', defaultValues.bgGradC2).change();
+            $form.find('input#ays-background-gradient-color-1-mobile').wpColorPicker('color', defaultValues.bgGradC1Mobile).change();
+            $form.find('input#ays-background-gradient-color-2-mobile').wpColorPicker('color', defaultValues.bgGradC2Mobile).change();
+            $form.find('select#ays_pb_gradient_direction').val(defaultValues.bgGradDir).change();
+            $form.find('select#ays_pb_gradient_direction').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgGradDirText).change();
+            $form.find('select#ays_pb_gradient_direction_mobile').val(defaultValues.bgGradDirMobile).change();
+            $form.find('select#ays_pb_gradient_direction_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgGradDirTextMobile).change();
+
+            $form.find('input#ays-pb-header_bgcolor').wpColorPicker('color', defaultValues.headerBgColor).change();
+
+            $form.find('input.ays_pb_overlay_color_change').wpColorPicker('color', defaultValues.overlayColor).change();
+            $form.find('input#ays_pb_enable_overlay_color_mobile').prop('checked', defaultValues.enableOverlayColorMobile).change();
+            $form.find('input#ays-pb-overlay_color_mobile').wpColorPicker('color', defaultValues.overlayColorMobile).change();
+            $form.find('div.ays_pb_overlay_color_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays-pb-ays_pb_bordersize').val(defaultValues.borderWidth).change();
+            $form.find('input#ays_pb_enable_bordersize_mobile').prop('checked', defaultValues.enableBorderWidthMobile).change();
+            $form.find('input#ays-pb-ays_pb_bordersize_mobile').val(defaultValues.borderWidthMobile).change();
+            $form.find('div.ays_pb_bordersize_mobile_container').css('display', 'none').change();
+
+            $form.find('select#ays_pb_border_style').val(defaultValues.borderStyle).change();
+            $form.find('select#ays_pb_border_style').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.borderStyle).change();
+            $form.find('input#ays_pb_enable_border_style_mobile').prop('checked', defaultValues.enableBorderStyleMobile).change();
+            $form.find('select#ays_pb_border_style_mobile').val(defaultValues.borderStyleMobile).change();
+            $form.find('select#ays_pb_border_style_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.borderStyleMobile).change();
+            $form.find('div.ays_pb_border_style_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays-pb-bordercolor').wpColorPicker('color', defaultValues.borderColor).change();
+            $form.find('input#ays_pb_enable_bordercolor_mobile').prop('checked', defaultValues.enableBorderColorMobile).change();
+            $form.find('input#ays-pb-bordercolor-mobile').wpColorPicker('color', defaultValues.borderColorMobile).change();
+            $form.find('div.ays_pb_bordercolor_mobile_container').css('display', 'none').change();
+
+            $form.find('input#ays-pb-ays_pb_border_radius').val(defaultValues.borderRadius).change();
+            $form.find('input#ays_pb_enable_border_radius_mobile').prop('checked', defaultValues.enableBorderRadiusMobile).change();
+            $form.find('input#ays-pb-ays_pb_border_radius_mobile').val(defaultValues.borderRadiusMobile).change();
+            $form.find('div.ays_pb_border_radius_mobile_container').css('display', 'none').change();
+
+            $form.find('img#ays_close_btn_bg_img').attr('src', '').change();
+            $form.find('input#close_btn_bg_img').val('').change();
+            $form.find('a.ays_pb_add_close_btn_bg_image').text('Add Image').change();
+            $form.find('div.ays_pb_close_btn_bg_img span.ays_remove_bg_img').css('display', 'none').change();
+            $form.find('div.ays_pb_close_btn_bg_img_container').css('display', 'none').change();
+
+            $form.find('input#ays_pb_close_button_color').wpColorPicker('color', defaultValues.closeBtnColor).change();
+
+            $form.find('input#ays_pb_close_button_hover_color').wpColorPicker('color', defaultValues.closeBtnColorHover).change();
+
+            $form.find('#ays_pb_close_button_size').val(defaultValues.closeBtnSize).change();
+
+            $form.find('input#ays_pb_enable_box_shadow').prop('checked', defaultValues.boxShadow).change();
+            $form.find('input#ays_pb_box_shadow_color').wpColorPicker('color', defaultValues.boxShadowColor).change();
+            $form.find('input#ays_pb_box_shadow_x_offset').val(defaultValues.boxShadowX).change();
+            $form.find('input#ays_pb_box_shadow_y_offset').val(defaultValues.boxShadowY).change();
+            $form.find('input#ays_pb_box_shadow_z_offset').val(defaultValues.boxShadowZ).change();
+
+            $form.find('input#ays_pb_enable_box_shadow_mobile').prop('checked', defaultValues.boxShadowMobile).change();
+            $form.find('input#ays_pb_box_shadow_color_mobile').wpColorPicker('color', defaultValues.boxShadowColorMobile).change();
+            $form.find('input#ays_pb_box_shadow_x_offset_mobile').val(defaultValues.boxShadowXMobile).change();
+            $form.find('input#ays_pb_box_shadow_y_offset_mobile').val(defaultValues.boxShadowYMobile).change();
+            $form.find('input#ays_pb_box_shadow_z_offset_mobile').val(defaultValues.boxShadowZMobile).change();
+
+            $form.find('div.ays-pb-box-shadow div.ays_toggle_target').css('display', 'none').change();
+
+            $form.find('#ays_pb_bg_image_direction_on_mobile').prop('checked', defaultValues.bgImgStleOnMobile).change();
+
+            $form.find('div.ays_bg_image_box').css({'background-size': defaultValues.bgImgSizing}).change();
+            $form.find('div.ays_bg_image_box label.ays-pb-modal-close img.close_btn_img').css('display', 'none').change();
+            $form.find('div.ays_bg_image_box label.ays-pb-modal-close img.close_btn_text').css('display', 'block').change();
+            $form.find('div.ays-pb-live-container').css({'font-family': defaultValues.fontFamily}).change();
+
+            $form.find('div.ays_pb_aysDropdown div.menu div.item').removeClass('active selected').change();
+            $form.find('div.ays_pb_aysDropdown div.menu').each(function() {
+                $(this).find('div.item:first-child').addClass('active selected').change();
+            }).change();
+
+            $form.find('div.ays_pb_current_device_name_pc').fadeOut().change();
+
+            setTimeout(function() {
+                $(document).find('div.ays-pb-top-menu').scrollToElementTop();
+            }, 100);
+        });
+        // Reset styles end
+
         // Add default title to popup if not exist on save start
         $(document).find('#ays_pb_form').on('submit', function(e) {
             if ($(document).find('#ays-pb-popup_title').val() == '') {
@@ -1191,6 +1529,47 @@
             $('.ays_pb_sound_closing_btn').hide();
         });
         // Background music | Remove music end
+
+        // Pro features start
+        $(document).find('.ays-pro-features-v2-upgrade-button:not(.ays-pro-features-v2-upgrade-button-view-demo)').hover(
+            function() {
+                var unlockedImg = 'Unlocked_24_24.svg';
+                var imgBox = $(this).find('.ays-pro-features-v2-upgrade-icon');
+                var imgUrl = imgBox.attr('data-img-src');
+                var newString = imgUrl.replace('Locked_24x24.svg', unlockedImg);
+
+                imgBox.css('background-image', 'url(' + newString + ')');
+                imgBox.attr('data-img-src', newString);
+            },
+
+            function() {
+                var lockedImg = 'Locked_24x24.svg';
+                var imgBox = $(this).find('.ays-pro-features-v2-upgrade-icon');
+                var imgUrl = imgBox.attr('data-img-src');
+                var newString = imgUrl.replace('Unlocked_24_24.svg', lockedImg);
+
+                imgBox.css('background-image', 'url(' + newString + ')');
+                imgBox.attr('data-img-src', newString);
+            }
+        );
+        // Pro features end
+
+        // Footer start
+        $(document).on('mouseover', '.ays-dashicons', function() {
+            var allRateStars = $(document).find('.ays-dashicons');
+            var index = allRateStars.index(this);
+
+            allRateStars.removeClass('ays-dashicons-star-filled').addClass('ays-dashicons-star-empty');
+
+            for (var i = 0; i <= index; i++) {
+                allRateStars.eq(i).removeClass('ays-dashicons-star-empty').addClass('ays-dashicons-star-filled');
+            }
+        });
+
+        $(document).on('mouseleave', '.ays-rated-link', function() {
+            $(document).find('.ays-dashicons').removeClass('ays-dashicons-star-filled').addClass('ays-dashicons-star-empty');
+        });
+        // Footer end
 
         function searchForPage(params, data) {
             // If there are no search terms, return all of the data
@@ -1427,393 +1806,8 @@
 
             return false;
         }
-
-        $(document).on('click', '.ays-pb-reset-styles', function(){
-            var defaultValues = {
-                'displayTitle': false,
-                'displayTitleMobile': false,
-                'displayDesc': false,
-                'displayDescMobile': false,
-                'width': '400',
-                'percentPixel': 'px',
-                'percentPixelMobile': 'percentage',
-                'percentPixelMobileText': '%',
-                'mobileWidth': '',
-                'maxWidthMobile': '',
-                'height': '500',
-                'maxHeight': '',
-                'maxHeightMobile': '',
-                'mobileHeight': '',
-                'popupMinHeight': '',
-                'fullScreen': false,
-                'padding': '20',
-                'textColor': '#000',
-                'fontFamily': 'Inherit',
-                'descPC': '13',
-                'descMobile': '13',
-                'textShadow': false,
-                'textShColor': 'rgba(255,255,255,0)',
-                'textShX': '2',
-                'textShY': '2',
-                'textShZ': '0',
-                'textShadowMobile': false,
-                'textShColorMobile': 'rgba(255,255,255,0)',
-                'textShXMobile': '2',
-                'textShYMobile': '2',
-                'textShZMobile': '0',
-                'openAnimSpeed': '1',
-                'enableAnimSpeedMobile': false,
-                'openAnimSpeedMobile': '1',
-                'closeAnimSpeed': '1',
-                'enableCloseAnimSpeedMobile': false,
-                'closeAnimSpeedMobile': '1',
-                'closeAnim': 'fadeOut',
-                'closeAnimText': 'Fade Out',
-                'enableCloseAnimMobile': false,
-                'closeAnimMobile': 'fadeOut',
-                'closeAnimTextMobile': 'Fade Out',
-                'openAnim': 'fadeIn',
-                'openAnimText': 'Fade In',
-                'enableOpenAnimMobile': false,
-                'openAnimMobile': 'fadeIn',
-                'openAnimTextMobile': 'Fade In',
-                'bgColor': '#fff',
-                'enablebgColorMobile': false,
-                'bgColorMobile': '#fff',
-                'bgImg': '',
-                'bgImgAddBttnText': pb.addImage,
-                'bgImgRemoveBttnDisplay': 'none',
-                'bgImgMobile': '',
-                'bgImgAddBttnTextMobile': pb.addImage,
-                'bgImgRemoveBttnDisplayMobile': 'none',
-                'bgImgSizing': 'cover',
-                'bgImgSizingText': 'Cover',
-                'bgImgSizingMobile': 'cover',
-                'bgImgSizingTextMobile': 'Cover',
-                'bgGrad': false,
-                'bgGradC1': '#000',
-                'bgGradC2': '#fff',
-                'bgGradDir': 'vertical',
-                'bgGradDirText': 'Vertical',
-                'bgGradMobile': false,
-                'bgGradC1Mobile': '#000',
-                'bgGradC2Mobile': '#fff',
-                'bgGradDirMobile': 'vertical',
-                'bgGradDirTextMobile': 'Vertical',
-                'headerBgColor': '#fff',
-                'overlayColor': '#000',
-                'enableOverlayColorMobile': false,
-                'overlayColorMobile': '#000',
-                'borderWidth': '1',
-                'enableBorderWidthMobile': false,
-                'borderWidthMobile': '1',
-                'borderStyle': 'Solid',
-                'enableBorderStyleMobile': false,
-                'borderStyleMobile': 'Solid',
-                'borderColor': '#fff',
-                'enableBorderColorMobile': false,
-                'borderColorMobile': '#fff',
-                'borderRadius': '4',
-                'enableBorderRadiusMobile': false,
-                'borderRadiusMobile': '4',
-                'closeBtnImg': '',
-                'closeBtnColor': '#000',
-                'closeBtnColorHover': '#000',
-                'closeBtnSize': '1',
-                'boxShadow': false,
-                'boxShadowColor': '#000',
-                'boxShadowX': '0',
-                'boxShadowY': '0',
-                'boxShadowZ': '15',
-                'boxShadowMobile': false,
-                'boxShadowColorMobile': '#000',
-                'boxShadowXMobile': '0',
-                'boxShadowYMobile': '0',
-                'boxShadowZMobile': '15',
-                'bgImgStleOnMobile': true,
-                'bgImgPosition': 'center-center',
-                'bgImgPositionMobile': 'center-center',
-            }
-
-            var $form = $(this).parents('form#ays_pb_form');
-
-            var checkedTheme = $("input[name='ays-pb[view_type]']:checked").val();
-            if (checkedTheme == 'image' || checkedTheme == 'template') {
-                var templateDefaultBgImg = "https://quiz-plugin.com/wp-content/uploads/2020/02/girl-scaled.jpg";
-                var imageDefaultBgImg = "https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg";
-                'url("https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg'
-                $form.find('footer.ays_template_footer .ays_bg_image_box').css({'background-image': 'url("' + templateDefaultBgImg + '")'})
-                $form.find('div#ays-image-window.ays-pb-live-container').css({'background-image': 'url("' + imageDefaultBgImg + '")'})
-
-                defaultValues.bgImgAddBttnText = pb.editImage;
-                defaultValues.bgImgAddBttnTextMobile = pb.editImage;
-                defaultValues.bgImgRemoveBttnDisplay = 'block';
-                defaultValues.bgImgRemoveBttnDisplayMobile = 'block';
-                defaultValues.bgImg = imageDefaultBgImg;
-
-                if (checkedTheme == 'template') {
-                    defaultValues.bgImg = templateDefaultBgImg;
-                }
-            }
-
-            $form.find('input.ays_pb_title').prop('checked', defaultValues.displayTitle).change();
-            $form.find('input.ays_pb_title_mobile').prop('checked', defaultValues.displayTitleMobile).change();
-            $form.find('input.ays_pb_desc').prop('checked', defaultValues.displayDesc).change();
-            $form.find('input.ays_pb_desc_mobile').prop('checked', defaultValues.displayDescMobile).change();
-            $form.find('input#ays_pb_enable_display_content_mobile').prop('checked', defaultValues.displayDescMobile).change();
-            $form.find('div.ays_pb_display_content_mobile_container').css('display', 'none').change();
-
-            $form.find('input#ays-pb-width').val(defaultValues.width).change();
-            $form.find('input#ays-pb-width').prop('readonly', false).change();
-
-            $form.find('select#ays_popup_width_by_percentage_px').val(defaultValues.percentPixel).change();
-            $form.find('select#ays_popup_width_by_percentage_px').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
-            $form.find('select#ays_popup_width_by_percentage_px_mobile').val(defaultValues.percentPixelMobile).change();
-            $form.find('select#ays_popup_width_by_percentage_px_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixelMobileText).change();
-
-            $form.find('input#ays-pb-mobile-width').val(defaultValues.mobileWidth).change();
-
-            $form.find('input#ays-pb-mobile-max-width').val(defaultValues.maxWidthMobile).change();
-
-            $form.find('input#ays-pb-height').val(defaultValues.height).change();
-            $form.find('input#ays-pb-height').prop('readonly', false).change();
-
-            $form.find('input#ays_pb_mobile_height').val(defaultValues.mobileHeight).change();
-
-            $form.find('input#ays-pb-max-height').val(defaultValues.maxHeight).change();
-            $form.find('input#ays-pb-max-height-mobile').val(defaultValues.maxHeightMobile).change();
-            $form.find('select#ays_popup_max_height_by_percentage_px').val(defaultValues.percentPixel).change();
-            $form.find('select#ays_popup_max_height_by_percentage_px_mobile').val(defaultValues.percentPixel).change();
-            $form.find('select#ays_popup_max_height_by_percentage_px').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
-            $form.find('select#ays_popup_max_height_by_percentage_px_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
-
-            $form.find('input#ays_pb_min_height').val(defaultValues.popupMinHeight).change();
-
-            $form.find('input#open_pb_fullscreen').prop('checked', defaultValues.fullScreen).change();
-
-            $form.find('input#ays_popup_content_padding').val(defaultValues.padding).change();
-            $form.find('div.ays-pb-padding-content').addClass('ays-pb-padding-content-default').change();
-            $form.find('select#ays_popup_padding_by_percentage_px').val(defaultValues.percentPixel).change();
-            $form.find('select#ays_popup_padding_by_percentage_px').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.percentPixel).change();
-
-            $form.find('input#ays-pb-ays_pb_textcolor').wpColorPicker('color', defaultValues.textColor).change();
-
-            $form.find('select#ays_pb_font_family').val(defaultValues.fontFamily).change();
-            $form.find('select#ays_pb_font_family').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.fontFamily).change();
-
-            $form.find('input#ays_pb_font_size_for_pc').val(defaultValues.descPC).change();
-
-            $form.find('input#ays_pb_font_size_for_mobile').val(defaultValues.descMobile).change();
-
-            $form.find('input#ays_enable_title_text_shadow').prop('checked', defaultValues.textShadow).change();
-            $form.find('input#ays_title_text_shadow_color').wpColorPicker('color', defaultValues.textShColor).change();
-            $form.find('input#ays_pb_title_text_shadow_x_offset').val(defaultValues.textShX).change();
-            $form.find('input#ays_pb_title_text_shadow_y_offset').val(defaultValues.textShY).change();
-            $form.find('input#ays_pb_title_text_shadow_z_offset').val(defaultValues.textShZ).change();
-
-            $form.find('input#ays_enable_title_text_shadow_mobile').prop('checked', defaultValues.textShadowMobile).change();
-            $form.find('input#ays_title_text_shadow_color_mobile').wpColorPicker('color', defaultValues.textShColorMobile).change();
-            $form.find('input#ays_pb_title_text_shadow_x_offset_mobile').val(defaultValues.textShXMobile).change();
-            $form.find('input#ays_pb_title_text_shadow_y_offset_mobile').val(defaultValues.textShYMobile).change();
-            $form.find('input#ays_pb_title_text_shadow_z_offset_mobile').val(defaultValues.textShZMobile).change();
-
-            $form.find('div.ays-pb-title-shadow div.ays_toggle_target').css('display', 'none').change();
-
-            $form.find('input#ays_pb_animation_speed').val(defaultValues.openAnimSpeed).prop('disabled', false).change();
-            $form.find('input#ays_pb_enable_animation_speed_mobile').prop('checked', defaultValues.enableAnimSpeedMobile).change();
-            $form.find('input#ays_pb_animation_speed_mobile').val(defaultValues.openAnimSpeedMobile).prop('disabled', false).change();
-            $form.find('div.ays_pb_animation_speed_mobile_container').css('display', 'none').change();
-
-            $form.find('input#ays_pb_close_animation_speed').val(defaultValues.closeAnimSpeed).prop('disabled', false).change();
-            $form.find('input#ays_pb_enable_close_animation_speed_mobile').prop('checked', defaultValues.enableCloseAnimSpeedMobile).change();
-            $form.find('input#ays_pb_close_animation_speed_mobile').val(defaultValues.closeAnimSpeedMobile).prop('disabled', false).change();
-            $form.find('div.ays_pb_close_animation_speed_mobile_container').css('display', 'none').change();
-
-            $form.find('select#ays-pb-animate_out').val(defaultValues.closeAnim).change();
-            $form.find('select#ays-pb-animate_out').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.closeAnimText).change();
-
-            $form.find('select#ays-pb-animate_out_mobile').val(defaultValues.closeAnimMobile).change();
-            $form.find('input#ays_pb_enable_animate_out_mobile').prop('checked', defaultValues.enableCloseAnimMobile).change();
-            $form.find('select#ays-pb-animate_out_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.closeAnimTextMobile).change();
-            $form.find('div.ays_pb_animate_out_mobile_container').css('display', 'none').change();
-
-            $form.find('select#ays-pb-animate_in').val(defaultValues.openAnim).change();
-            $form.find('select#ays-pb-animate_in').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.openAnimText).change();
-
-            $form.find('select#ays-pb-animate_in_mobile').val(defaultValues.openAnimMobile).change();
-            $form.find('input#ays_pb_enable_animate_in_mobile').prop('checked', defaultValues.enableOpenAnimMobile).change();
-            $form.find('select#ays-pb-animate_in_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.openAnimTextMobile).change();
-            $form.find('div.ays_pb_animate_in_mobile_container').css('display', 'none').change();
-
-            $form.find('input#ays-pb-bgcolor').wpColorPicker('color', defaultValues.bgColor).change();
-            $form.find('input#ays_pb_enable_bgcolor_mobile').prop('checked', defaultValues.enablebgColorMobile).change();
-            $form.find('input#ays-pb-bgcolor-mobile').wpColorPicker('color', defaultValues.bgColorMobile).change();
-            $form.find('div.ays_pb_bgcolor_mobile_container').css('display', 'none').change();
-
-            $form.find('img#ays-pb-bg-img').attr('src', defaultValues.bgImg).change();
-            $form.find('input#ays-pb-bg-image').val(defaultValues.bgImg).change();
-            $form.find('a.ays-pb-add-bg-image').text(defaultValues.bgImgAddBttnText).change();
-            $form.find('span.ays-remove-bg-img').css('display', defaultValues.bgImgRemoveBttnDisplay).change();
-            $form.find('img#ays-pb-bg-img-mobile').attr('src', defaultValues.bgImg).change();
-            $form.find('input#ays-pb-bg-image-mobile').val(defaultValues.bgImg).change();
-            $form.find('a.ays-pb-add-bg-image-mobile').text(defaultValues.bgImgAddBttnTextMobile).change();
-            $form.find('span.ays-remove-bg-img-mobile').css('display', defaultValues.bgImgRemoveBttnDisplayMobile).change();
-            $form.find('a.ays-pb-add-bg-image').attr('data-add', false).change();
-            $form.find('a.ays-pb-add-bg-image-mobile').attr('data-add', false).change();
-            $form.find('input#ays_pb_enable_bg_image_mobile').prop('checked', false).change();
-            $form.find('div.ays_pb_bg_image_mobile_container').css('display', 'none').change();
-
-            $form.find('.pb_position_block').find('.ays-pb-position-val-class').val(defaultValues.bgImgPosition).change();
-            $form.find('.pb_position_block').find('.ays-pb-position-val-class-mobile').val(defaultValues.bgImgPositionMobile).change();
-            $(document).find('table#ays_pb_bg_image_position_table td').removeAttr('style').change();
-            $(document).find('table#ays_pb_bg_image_position_table tr td[data-id=5]').css('background-color','#3d89e0').change();
-            $(document).find('table#ays_pb_bg_image_position_table_mobile td').removeAttr('style').change();
-            $(document).find('table#ays_pb_bg_image_position_table_mobile tr td[data-id=5]').css('background-color','#9964b3').change();
-            $form.find('input#ays_pb_enable_bg_image_position_mobile').prop('checked', false).change();
-            $form.find('div.ays_pb_bg_image_position_mobile_container').css('display', 'none').change();
-
-            $form.find('select#ays_pb_bg_image_sizing').val(defaultValues.bgImgSizing).change();
-            $form.find('select#ays_pb_bg_image_sizing').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgImgSizingText).change();
-            $form.find('select#ays_pb_bg_image_sizing_mobile').val(defaultValues.bgImgSizing).change();
-            $form.find('select#ays_pb_bg_image_sizing_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgImgSizingText).change();
-            $form.find('input#ays_pb_enable_bg_image_sizing_mobile').prop('checked', false).change();
-            $form.find('div.ays_pb_bg_image_sizing_mobile_container').css('display', 'none').change();
-
-            $form.find('input#ays-enable-background-gradient').prop('checked', defaultValues.bgGrad).change();
-            $form.find('input#ays-enable-background-gradient-mobile').prop('checked', defaultValues.bgGradMobile).change();
-            $form.find('div.ayspb-enable-background-gradient div.ays_toggle_target').css('display', 'none').change();
-            $form.find('input#ays-background-gradient-color-1').wpColorPicker('color', defaultValues.bgGradC1).change();
-            $form.find('input#ays-background-gradient-color-2').wpColorPicker('color', defaultValues.bgGradC2).change();
-            $form.find('input#ays-background-gradient-color-1-mobile').wpColorPicker('color', defaultValues.bgGradC1Mobile).change();
-            $form.find('input#ays-background-gradient-color-2-mobile').wpColorPicker('color', defaultValues.bgGradC2Mobile).change();
-            $form.find('select#ays_pb_gradient_direction').val(defaultValues.bgGradDir).change();
-            $form.find('select#ays_pb_gradient_direction').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgGradDirText).change();
-            $form.find('select#ays_pb_gradient_direction_mobile').val(defaultValues.bgGradDirMobile).change();
-            $form.find('select#ays_pb_gradient_direction_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgGradDirTextMobile).change();
-
-            $form.find('input#ays-pb-header_bgcolor').wpColorPicker('color', defaultValues.headerBgColor).change();
-
-            $form.find('input.ays_pb_overlay_color_change').wpColorPicker('color', defaultValues.overlayColor).change();
-            $form.find('input#ays_pb_enable_overlay_color_mobile').prop('checked', defaultValues.enableOverlayColorMobile).change();
-            $form.find('input#ays-pb-overlay_color_mobile').wpColorPicker('color', defaultValues.overlayColorMobile).change();
-            $form.find('div.ays_pb_overlay_color_mobile_container').css('display', 'none').change();
-
-            $form.find('input#ays-pb-ays_pb_bordersize').val(defaultValues.borderWidth).change();
-            $form.find('input#ays_pb_enable_bordersize_mobile').prop('checked', defaultValues.enableBorderWidthMobile).change();
-            $form.find('input#ays-pb-ays_pb_bordersize_mobile').val(defaultValues.borderWidthMobile).change();
-            $form.find('div.ays_pb_bordersize_mobile_container').css('display', 'none').change();
-
-            $form.find('select#ays_pb_border_style').val(defaultValues.borderStyle).change();
-            $form.find('select#ays_pb_border_style').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.borderStyle).change();
-            $form.find('input#ays_pb_enable_border_style_mobile').prop('checked', defaultValues.enableBorderStyleMobile).change();
-            $form.find('select#ays_pb_border_style_mobile').val(defaultValues.borderStyleMobile).change();
-            $form.find('select#ays_pb_border_style_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.borderStyleMobile).change();
-            $form.find('div.ays_pb_border_style_mobile_container').css('display', 'none').change();
-            
-            $form.find('input#ays-pb-bordercolor').wpColorPicker('color', defaultValues.borderColor).change();
-            $form.find('input#ays_pb_enable_bordercolor_mobile').prop('checked', defaultValues.enableBorderColorMobile).change();
-            $form.find('input#ays-pb-bordercolor-mobile').wpColorPicker('color', defaultValues.borderColorMobile).change();
-            $form.find('div.ays_pb_bordercolor_mobile_container').css('display', 'none').change();
-
-            $form.find('input#ays-pb-ays_pb_border_radius').val(defaultValues.borderRadius).change();
-            $form.find('input#ays_pb_enable_border_radius_mobile').prop('checked', defaultValues.enableBorderRadiusMobile).change();
-            $form.find('input#ays-pb-ays_pb_border_radius_mobile').val(defaultValues.borderRadiusMobile).change();
-            $form.find('div.ays_pb_border_radius_mobile_container').css('display', 'none').change();
-
-            $form.find('img#ays_close_btn_bg_img').attr('src', '').change();
-            $form.find('input#close_btn_bg_img').val('').change();
-            $form.find('a.ays_pb_add_close_btn_bg_image').text('Add Image').change();
-            $form.find('div.ays_pb_close_btn_bg_img span.ays_remove_bg_img').css('display', 'none').change();
-            $form.find('div.ays_pb_close_btn_bg_img_container').css('display', 'none').change();
-
-            $form.find('input#ays_pb_close_button_color').wpColorPicker('color', defaultValues.closeBtnColor).change();
-
-            $form.find('input#ays_pb_close_button_hover_color').wpColorPicker('color', defaultValues.closeBtnColorHover).change();
-
-            $form.find('#ays_pb_close_button_size').val(defaultValues.closeBtnSize).change();
-
-            $form.find('input#ays_pb_enable_box_shadow').prop( 'checked', defaultValues.boxShadow).change();
-            $form.find('input#ays_pb_box_shadow_color').wpColorPicker('color', defaultValues.boxShadowColor).change();
-            $form.find('input#ays_pb_box_shadow_x_offset').val(defaultValues.boxShadowX).change();
-            $form.find('input#ays_pb_box_shadow_y_offset').val(defaultValues.boxShadowY).change();
-            $form.find('input#ays_pb_box_shadow_z_offset').val(defaultValues.boxShadowZ).change();
-
-            $form.find('input#ays_pb_enable_box_shadow_mobile').prop( 'checked', defaultValues.boxShadowMobile).change();
-            $form.find('input#ays_pb_box_shadow_color_mobile').wpColorPicker('color', defaultValues.boxShadowColorMobile).change();
-            $form.find('input#ays_pb_box_shadow_x_offset_mobile').val(defaultValues.boxShadowXMobile).change();
-            $form.find('input#ays_pb_box_shadow_y_offset_mobile').val(defaultValues.boxShadowYMobile).change();
-            $form.find('input#ays_pb_box_shadow_z_offset_mobile').val(defaultValues.boxShadowZMobile).change();
-
-            $form.find('div.ays-pb-box-shadow div.ays_toggle_target').css('display', 'none').change();
-
-            $form.find('#ays_pb_bg_image_direction_on_mobile').prop('checked', defaultValues.bgImgStleOnMobile).change();
-
-            $form.find('div.ays_bg_image_box').css( {'background-size': defaultValues.bgImgSizing}).change();
-            $form.find('div.ays_bg_image_box label.ays-pb-modal-close img.close_btn_img').css('display', 'none').change();
-            $form.find('div.ays_bg_image_box label.ays-pb-modal-close img.close_btn_text').css('display', 'block').change();
-            $form.find('div.ays-pb-live-container').css( {'font-family': defaultValues.fontFamily}).change();
-
-            $form.find('div.ays_pb_aysDropdown div.menu div.item').removeClass('active selected').change();
-            $form.find('div.ays_pb_aysDropdown div.menu').each(function() {
-                $(this).find('div.item:first-child').addClass('active selected').change();
-            }).change();
-
-            $form.find('div.ays_pb_current_device_name_pc').fadeOut().change();
-
-            setTimeout(function(){
-                $(document).find('div.ays-pb-top-menu').scrollToElementTop();
-            }, 100 );
-        });
-
-        $(document).on('mouseover', '.ays-dashicons', function() {
-            var allRateStars = $(document).find('.ays-dashicons');
-            var index = allRateStars.index(this);
-
-            allRateStars.removeClass('ays-dashicons-star-filled').addClass('ays-dashicons-star-empty');
-
-            for (var i = 0; i <= index; i++) {
-                allRateStars.eq(i).removeClass('ays-dashicons-star-empty').addClass('ays-dashicons-star-filled');
-            }
-        });
-    
-        $(document).on('mouseleave', '.ays-rated-link', function() {
-            $(document).find('.ays-dashicons').removeClass('ays-dashicons-star-filled').addClass('ays-dashicons-star-empty');
-        });
-            
-        // Pro features start
-        $(document).find(".ays-pro-features-v2-upgrade-button:not(.ays-pro-features-v2-upgrade-button-view-demo)").hover(function() {
-            // Code to execute when the mouse enters the element
-            var unlockedImg = "Unlocked_24_24.svg";
-            var imgBox = $(this).find(".ays-pro-features-v2-upgrade-icon");
-            var imgUrl = imgBox.attr("data-img-src");
-            var newString = imgUrl.replace("Locked_24x24.svg", unlockedImg);
-            
-            imgBox.css("background-image", 'url(' + newString + ')');
-            imgBox.attr("data-img-src", newString);
-        }, function() {
-            
-            var lockedImg = "Locked_24x24.svg";
-            var imgBox = $(this).find(".ays-pro-features-v2-upgrade-icon");
-            var imgUrl = imgBox.attr("data-img-src");
-            var newString = imgUrl.replace("Unlocked_24_24.svg", lockedImg);
-            
-            imgBox.css("background-image", 'url(' + newString + ')');
-            imgBox.attr("data-img-src", newString);
-        });
-        // Pro features end
-
-        $(document).on('change', '#ays-pb-close-button', function(){
-            var thisChecked = $(this).prop('checked');
-            if( thisChecked ){
-                $(document).find('#ays_pb_close_hover').prev('hr').css('display', 'none');
-                $(document).find('#ays_pb_close_hover').css('display', 'none');
-            }else{
-                $(document).find('#ays_pb_close_hover').css('display', 'flex');
-                $(document).find('#ays_pb_close_hover').prev('hr').css('display', 'block');
-            }
-        })
-
     });
+
     $(document).on('click', 'a.ays-pb-add-bg-image, a.ays-pb-add-bg-image-mobile', function (e) {
         openMediaUploaderBg(e, $(this));
     });

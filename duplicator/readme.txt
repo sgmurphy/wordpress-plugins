@@ -1,4 +1,4 @@
-=== Duplicator - WordPress Migration & Backup Plugin ===
+=== Duplicator - Migration & Backup Plugin ===
 Contributors: seedprod, smub, andreamk
 Tags: migration, backup, duplicate, move, migrate, restore, transfer, clone, automate, copy site, migrator
 Requires at least: 4.9

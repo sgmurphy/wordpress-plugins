@@ -605,7 +605,7 @@ class HelperProviderCoreUC_EL{
 	 * put post content, or render with elementor
 	 */
 	public static function getPostContent($postID, $content=""){
-
+		
 		if(empty($postID))
 			return(false);
 
@@ -1249,7 +1249,7 @@ class HelperProviderCoreUC_EL{
 		$pathRelative = str_replace(GlobalsUC::$pathPlugin, "", self::$pathCore);
 
 		self::$urlCore = GlobalsUC::$urlPlugin.$pathRelative;
-
+		
 		self::$filepathGeneralSettings = self::$pathCore."settings/general_settings_el.xml";
 				
 		//add_action("init", array("HelperProviderCoreUC_EL", "onInitAction"));

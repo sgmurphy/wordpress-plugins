@@ -740,9 +740,18 @@ class Accordion extends Widget_Base {
      */
     protected function content_template() {
         ?>
-        <# var typeClass = settings.type == 'true' ? 'aux-type-toggle' : 'aux-type-accordion'; #>
+        <# 
+        var typeClass = settings.type == 'true' ? 'aux-type-toggle' : 'aux-type-accordion'; 
+        view.addRenderAttribute(
+            'widgetInner',
+            {
+                'class': [ 'widget-inner', typeClass ],
+                'data-toggle': settings.type
+            }
+        );
+        #>
         <section class="widget-container aux-widget-accordion widget-toggle">
-            <div class="widget-inner {{{ typeClass }}}" data-toggle="{{{ settings.type }}}">
+            <div {{{ view.getRenderAttributeString('widgetInner') }}}>
             <#
             if ( settings.tab_items ) {
                 var tabindex = view.getIDInt().toString().substr( 0, 3 );

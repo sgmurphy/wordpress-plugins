@@ -319,5 +319,5 @@ function auxin_widget_list_callback( $atts, $shortcode_content = null ){
 
     // widget footer ------------------------------
 
-    return $output;
+    return wp_kses_post( $output );
 }

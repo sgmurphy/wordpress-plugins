@@ -1,12 +1,15 @@
 <?php
 $type = @esc_attr($_GET['yrm_type']);
+$allowedTags = ReadMoreAdminHelper::getAllowedTags();
 
 if(!isset($type)) {
 	$type = 'button';
 }
 $proClassWrapper = '';
+$newIdeas = '';
 if(YRM_PKG == YRM_FREE_PKG) {
 	$proClassWrapper = 'yrm-pro-option';
+    $newIdeas = ReadMoreAdminHelper::newIdeasButton();
 }
 ?>
 <?php if(!empty($_GET['saved'])) : ?>
@@ -26,6 +29,7 @@ if(YRM_PKG == YRM_FREE_PKG) {
 				<h2 class="expander-page-title"><?php _e('Change settings', YRM_LANG); ?></h2>
 				<div class="button-wrapper">
 					<p class="submit">
+                        <?php echo wp_kses($newIdeas, $allowedTags)?>
 						<?php if(YRM_PKG == YRM_FREE_PKG): ?>
 							<input type="button" class="yrm-upgrade-button-orange yrm-link-button" value="Upgrade to PRO version" onclick="window.open('<?php echo YRM_PRO_URL; ?>');">
 						<?php endif;?>

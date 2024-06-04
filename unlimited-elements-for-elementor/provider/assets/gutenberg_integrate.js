@@ -181,7 +181,9 @@
 				}
 			}
 
-			if (!settingsContent)
+			var settings = getSettings();
+
+			if (!settings)
 				return; // wait for the settings
 
 			if (widgetRequestRef.current !== null)
@@ -194,7 +196,7 @@
 			widgetRequestRef.current = g_ucAdmin.ajaxRequest("get_addon_output_data", {
 				id: props.attributes._id,
 				root_id: props.attributes._rootId,
-				settings: getSettings(),
+				settings: settings,
 				selectors: true,
 			}, function (response) {
 				var html = g_ucAdmin.getVal(response, "html");

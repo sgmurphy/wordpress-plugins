@@ -20,42 +20,38 @@ if ( !class_exists( 'WP_Mobile_Menu' ) ) {
  *
  * @since 2.0
  */
-class WP_Mobile_Menu_Options
-{
+class WP_Mobile_Menu_Options {
     /**
      *
      * Class Constructor.
      *
      * @since 2.0
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->init_options();
     }
-    
+
     /**
      *
      * Initiliaze the Options.
      *
      * @since 2.0
      */
-    private function init_options()
-    {
-        add_action( 'init', array( $this, 'create_plugin_options' ) );
+    private function init_options() {
+        add_action( 'init', array($this, 'create_plugin_options') );
     }
-    
+
     /**
      *
      * Create Plugin options.
      *
      * @since 2.0
      */
-    public function create_plugin_options()
-    {
-        global  $mm_fs ;
-        global  $general_tab ;
-        global  $message_code ;
-        global  $message ;
+    public function create_plugin_options() {
+        global $mm_fs;
+        global $general_tab;
+        global $message_code;
+        global $message;
         $prefix = '';
         $menus = get_terms( 'nav_menu', array(
             'hide_empty' => true,
@@ -98,7 +94,6 @@ class WP_Mobile_Menu_Options
             'icon'  => 'dashicons-smartphone',
         ) );
         // Only proceed if we are in the plugin page.
-        
         if ( !is_admin() || isset( $_GET['page'] ) && 'mobile-menu-options' === sanitize_text_field( $_GET['page'] ) ) {
             // Create General Options panel.
             $general_tab2 = $panel->createTab( array(
@@ -144,7 +139,7 @@ class WP_Mobile_Menu_Options
 				<li>
 					<a href="https://demo.wpmobilemenu.com/?utm_source=wprepo-dash&utm_medium=user%20website&utm_campaign=import-demo" target="_blank">
 						<img src="<?php 
-            echo  plugins_url( 'demo-content/assets/freedemo-mobile-menu.png', __FILE__ ) ;
+            echo plugins_url( 'demo-content/assets/freedemo-mobile-menu.png', __FILE__ );
             ?>">
 						<span><?php 
             esc_html_e( 'See Demo Site', 'mobile-menu' );
@@ -160,17 +155,15 @@ class WP_Mobile_Menu_Options
             esc_html_e( 'Import Demo', 'mobile-menu' );
             ?></button>
 						<?php 
-            
             if ( isset( $_REQUEST['demo'] ) && 'free-demo' === $_REQUEST['demo'] ) {
                 ?>
 								<h4 class="<?php 
-                echo  $message_code ;
+                echo $message_code;
                 ?>"><?php 
                 _e( $message, 'mobile-menu' );
                 ?></h4>
 						<?php 
             }
-            
             ?>
 					</div>
 					
@@ -178,7 +171,7 @@ class WP_Mobile_Menu_Options
 				<li>
 					<a href="https://shopdemo.wpmobilemenu.com/?utm_source=wprepo-dash&utm_medium=user%20website&utm_campaign=demo_importer_option" target="_blank">
 						<img src="<?php 
-            echo  plugins_url( 'demo-content/assets/shopdemo-mobile-menu.png', __FILE__ ) ;
+            echo plugins_url( 'demo-content/assets/shopdemo-mobile-menu.png', __FILE__ );
             ?>">
 						<span><?php 
             esc_html_e( 'See Demo Site', 'mobile-menu' );
@@ -189,31 +182,29 @@ class WP_Mobile_Menu_Options
             esc_html_e( 'WooCommerce Shop Demo (Business)', 'mobile-menu' );
             ?></h4>
 						<button type="submit" class="button button-secondary button-next mobile-menu-import-demo <?php 
-            echo  $version_class ;
+            echo $version_class;
             ?>" data-demo-id="shop-demo" value="<?php 
             esc_attr_e( 'Import Demo', 'mobile-menu' );
             ?>"><?php 
             esc_html_e( 'Import Demo', 'mobile-menu' );
             ?></button>
 						<?php 
-            
             if ( isset( $_REQUEST['demo'] ) && 'shop-demo' === $_REQUEST['demo'] ) {
                 ?>
 								<h4 class="<?php 
-                echo  $message_code ;
+                echo $message_code;
                 ?>"><?php 
                 _e( $message, 'mobile-menu' );
                 ?></h4>
 						<?php 
             }
-            
             ?>
 					</div>
 				</li>
 				<li>
 					<a href="https://prodemo.wpmobilemenu.com/?utm_source=wprepo-dash&utm_medium=user%20website&utm_campaign=demo_importer_option" target="_blank">
 						<img src="<?php 
-            echo  plugins_url( 'demo-content/assets/prodemo-mobile-menu.png', __FILE__ ) ;
+            echo plugins_url( 'demo-content/assets/prodemo-mobile-menu.png', __FILE__ );
             ?>">
 						<span><?php 
             esc_html_e( 'See Demo Site', 'mobile-menu' );
@@ -224,24 +215,22 @@ class WP_Mobile_Menu_Options
             esc_html_e( 'Professional Demo', 'mobile-menu' );
             ?></h4>
 						<button type="submit" class="button button-secondary button-next mobile-menu-import-demo <?php 
-            echo  $version_class ;
+            echo $version_class;
             ?>" data-demo-id="professional-demo" value="<?php 
             esc_attr_e( 'Import Demo', 'mobile-menu' );
             ?>"><?php 
             esc_html_e( 'Import Demo', 'mobile-menu' );
             ?></button>
 						<?php 
-            
             if ( isset( $_REQUEST['demo'] ) && 'professional-demo' === $_REQUEST['demo'] ) {
                 ?>
 								<h4 class="<?php 
-                echo  $message_code ;
+                echo $message_code;
                 ?>"><?php 
                 _e( $message, 'mobile-menu' );
                 ?></h4>
 						<?php 
             }
-            
             ?>
 					</div>
 				</li>
@@ -384,43 +373,43 @@ class WP_Mobile_Menu_Options
                 'type'    => 'multicheck',
                 'desc'    => __( 'Check the desired elements', 'mobile-menu' ),
                 'options' => array(
-                '1'  => '.nav',
-                '2'  => '.main-navigation',
-                '3'  => '.genesis-nav-menu',
-                '4'  => '#main-header',
-                '5'  => '#et-top-navigation',
-                '6'  => '.site-header',
-                '7'  => '.site-branding',
-                '8'  => '.ast-mobile-menu-buttons',
-                '9'  => '.storefront-handheld-footer-bar',
-                '10' => '.elementor-menu-toggle',
-                '11' => '#site-header-inner',
-                '12' => '#sq-masthead',
-                '13' => '.menu-toggle',
-                '14' => '.fusion-header',
-                '15' => '#site-header',
-                '16' => '.elementor-widget-nav-menu',
-                '17' => '.fl-nav',
-            ),
+                    '1'  => '.nav',
+                    '2'  => '.main-navigation',
+                    '3'  => '.genesis-nav-menu',
+                    '4'  => '#main-header',
+                    '5'  => '#et-top-navigation',
+                    '6'  => '.site-header',
+                    '7'  => '.site-branding',
+                    '8'  => '.ast-mobile-menu-buttons',
+                    '9'  => '.storefront-handheld-footer-bar',
+                    '10' => '.elementor-menu-toggle',
+                    '11' => '#site-header-inner',
+                    '12' => '#sq-masthead',
+                    '13' => '.menu-toggle',
+                    '14' => '.fusion-header',
+                    '15' => '#site-header',
+                    '16' => '.elementor-widget-nav-menu',
+                    '17' => '.fl-nav',
+                ),
                 'default' => array(
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                '10',
-                '11',
-                '12',
-                '13',
-                '14',
-                '15',
-                '16',
-                '17'
-            ),
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    '10',
+                    '11',
+                    '12',
+                    '13',
+                    '14',
+                    '15',
+                    '16',
+                    '17'
+                ),
                 'class'   => 'general-visibility-options hide',
             ) );
             // Automatically Close Sub Menus.
@@ -622,10 +611,10 @@ class WP_Mobile_Menu_Options
                 'type'    => 'select',
                 'desc'    => 'Chose the header Logo/Text alignment.',
                 'options' => array(
-                'left'   => __( 'Left', 'mobile-menu' ),
-                'center' => __( 'Center', 'mobile-menu' ),
-                'right'  => __( 'Right', 'mobile-menu' ),
-            ),
+                    'left'   => __( 'Left', 'mobile-menu' ),
+                    'center' => __( 'Center', 'mobile-menu' ),
+                    'right'  => __( 'Right', 'mobile-menu' ),
+                ),
                 'default' => 'center',
                 'class'   => 'header-options',
             ) );
@@ -657,13 +646,11 @@ class WP_Mobile_Menu_Options
                 'logo' => __( 'Image', 'mobile-menu' ),
                 'text' => __( 'Text', 'mobile-menu' ),
             );
-            
             if ( $plugin_settings->getOption( 'enabled_logo' ) ) {
                 $default_header_branding = 'logo';
             } else {
                 $default_header_branding = 'text';
             }
-            
             // Use the page title in the Header or Header Banner(global Option).
             $general_tab->createOption( array(
                 'name'    => __( 'Site Logo', 'mobile-menu' ),
@@ -737,13 +724,11 @@ class WP_Mobile_Menu_Options
                 'class'   => 'logo-options',
             ) );
             $def_value = $plugin_settings->getOption( 'header_font_size' );
-            
             if ( $def_value > 0 ) {
                 $def_value .= 'px';
             } else {
                 $def_value = '';
             }
-            
             $general_tab->createOption( array(
                 'name'                => __( 'Header Menu Font', 'mobile-menu' ),
                 'id'                  => 'header_menu_font',
@@ -758,9 +743,9 @@ class WP_Mobile_Menu_Options
                 'show_color'          => false,
                 'show_line_height'    => false,
                 'default'             => array(
-                'font-family' => 'Dosis',
-                'font-size'   => $def_value,
-            ),
+                    'font-family' => 'Dosis',
+                    'font-size'   => $def_value,
+                ),
                 'class'               => 'font-options',
             ) );
             // Click Menu Parent link to open Sub menu.
@@ -774,13 +759,11 @@ class WP_Mobile_Menu_Options
                 'disabled' => __( 'No', 'mobile-menu' ),
                 'class'    => 'left-menu-options',
             ) );
-            
             if ( true === $plugin_settings->getOption( 'left_menu_icon_opt' ) ) {
                 $icon_type = 'image';
             } else {
                 $icon_type = 'icon';
             }
-            
             // Icon Image/text Option.
             $general_tab->createOption( array(
                 'name'    => __( 'Icon Type', 'mobile-menu' ),
@@ -877,9 +860,9 @@ class WP_Mobile_Menu_Options
                 'show_text_shadow'    => false,
                 'show_color'          => true,
                 'default'             => array(
-                'line-height' => '1.5em',
-                'font-family' => 'Dosis',
-            ),
+                    'line-height' => '1.5em',
+                    'font-family' => 'Dosis',
+                ),
                 'class'               => 'font-options',
             ) );
             // Left Menu Icon Top Margin.
@@ -935,13 +918,13 @@ class WP_Mobile_Menu_Options
                 'type'    => 'select',
                 'desc'    => __( 'Select the Background image size type. <a href="https://www.w3schools.com/cssref/css3_pr_background-size.asp" target="_blank">See the CSS Documentation</a>', 'mobile-menu' ),
                 'options' => array(
-                'auto'    => __( 'Auto', 'mobile-menu' ),
-                'contain' => __( 'Contain', 'mobile-menu' ),
-                'cover'   => __( 'Cover', 'mobile-menu' ),
-                'inherit' => __( 'Inherit', 'mobile-menu' ),
-                'initial' => __( 'Initial', 'mobile-menu' ),
-                'unset'   => __( 'Unset', 'mobile-menu' ),
-            ),
+                    'auto'    => __( 'Auto', 'mobile-menu' ),
+                    'contain' => __( 'Contain', 'mobile-menu' ),
+                    'cover'   => __( 'Cover', 'mobile-menu' ),
+                    'inherit' => __( 'Inherit', 'mobile-menu' ),
+                    'initial' => __( 'Initial', 'mobile-menu' ),
+                    'unset'   => __( 'Unset', 'mobile-menu' ),
+                ),
                 'default' => 'cover',
                 'class'   => 'left-panel-options',
             ) );
@@ -1017,9 +1000,9 @@ class WP_Mobile_Menu_Options
                 'show_text_shadow'    => false,
                 'show_color'          => false,
                 'default'             => array(
-                'line-height' => '1.5em',
-                'font-family' => 'Dosis',
-            ),
+                    'line-height' => '1.5em',
+                    'font-family' => 'Dosis',
+                ),
                 'class'               => 'font-options',
             ) );
             // Click Menu Parent link to open Sub menu.
@@ -1033,13 +1016,11 @@ class WP_Mobile_Menu_Options
                 'disabled' => __( 'No', 'mobile-menu' ),
                 'class'    => 'right-menu-options',
             ) );
-            
             if ( true === $plugin_settings->getOption( 'right_menu_icon_opt' ) ) {
                 $icon_type = 'image';
             } else {
                 $icon_type = 'icon';
             }
-            
             // Icon Image/text Option.
             $general_tab->createOption( array(
                 'name'    => __( 'Icon Type', 'mobile-menu' ),
@@ -1136,9 +1117,9 @@ class WP_Mobile_Menu_Options
                 'show_text_shadow'    => false,
                 'show_color'          => false,
                 'default'             => array(
-                'line-height' => '1.5em',
-                'font-family' => 'Dosis',
-            ),
+                    'line-height' => '1.5em',
+                    'font-family' => 'Dosis',
+                ),
                 'class'               => 'font-options',
             ) );
             // Right Menu Icon Top Margin.
@@ -1193,13 +1174,13 @@ class WP_Mobile_Menu_Options
                 'type'    => 'select',
                 'desc'    => __( 'Select the Background image size type. <a href="https://www.w3schools.com/cssref/css3_pr_background-size.asp" target="_blank">See the CSS Documentation</a>', 'mobile-menu' ),
                 'options' => array(
-                'auto'    => __( 'Auto', 'mobile-menu' ),
-                'contain' => __( 'Contain', 'mobile-menu' ),
-                'cover'   => __( 'Cover', 'mobile-menu' ),
-                'inherit' => __( 'Inherit', 'mobile-menu' ),
-                'initial' => __( 'Initial', 'mobile-menu' ),
-                'unset'   => __( 'Unset', 'mobile-menu' ),
-            ),
+                    'auto'    => __( 'Auto', 'mobile-menu' ),
+                    'contain' => __( 'Contain', 'mobile-menu' ),
+                    'cover'   => __( 'Cover', 'mobile-menu' ),
+                    'inherit' => __( 'Inherit', 'mobile-menu' ),
+                    'initial' => __( 'Initial', 'mobile-menu' ),
+                    'unset'   => __( 'Unset', 'mobile-menu' ),
+                ),
                 'default' => 'cover',
                 'class'   => 'right-panel-options',
             ) );
@@ -1276,9 +1257,9 @@ class WP_Mobile_Menu_Options
                 'show_text_shadow'    => false,
                 'show_color'          => false,
                 'default'             => array(
-                'line-height' => '1.5em',
-                'font-family' => 'Dosis',
-            ),
+                    'line-height' => '1.5em',
+                    'font-family' => 'Dosis',
+                ),
                 'class'               => 'font-options',
             ) );
             // Overlay Background color.
@@ -1590,9 +1571,8 @@ class WP_Mobile_Menu_Options
                 'type' => 'save',
             ) );
         }
-    
     }
-    
+
     /**
      *
      * Create Woocommerce options upsell.
@@ -1602,10 +1582,9 @@ class WP_Mobile_Menu_Options
      * @param type   $panel Panel Options.
      * @param Object $plugin_settings plugin settings object that is being edited.
      */
-    public function create_woocommerce_options_upsell( $panel, $plugin_settings )
-    {
-        global  $mm_fs ;
-        global  $general_tab ;
+    public function create_woocommerce_options_upsell( $panel, $plugin_settings ) {
+        global $mm_fs;
+        global $general_tab;
         $custom_html = '<div class="mm-business-features-holder"><div class="mm-bussiness-features"><h3>' . __( 'Increase your shop revenue (Business Version)', 'mobile-menu' ) . '</h3>';
         $custom_html .= '<p><span class="dashicons dashicons-yes"></span><strong>Menu Cart Icon</strong> - Product counter notification buble, upload the desired icon.</p>';
         $custom_html .= '<p><span class="dashicons dashicons-yes"></span><strong>Mobile Product Filter</strong> - Advanced product filter for mobile users.</p>';
@@ -1626,7 +1605,7 @@ class WP_Mobile_Menu_Options
             'class'  => 'woocommerce-options',
         ) );
     }
-    
+
     /**
      *
      * Create Footer options upsell.
@@ -1636,10 +1615,9 @@ class WP_Mobile_Menu_Options
      * @param type   $panel Panel Options.
      * @param Object $plugin_settings plugin settings object that is being edited.
      */
-    public function create_footer_options_upsell( $panel, $plugin_settings )
-    {
-        global  $mm_fs ;
-        global  $general_tab ;
+    public function create_footer_options_upsell( $panel, $plugin_settings ) {
+        global $mm_fs;
+        global $general_tab;
         $custom_html = '<div class="mm-business-features-holder"><div class="mm-bussiness-features"><h3>' . __( 'Give your Website an App look and feel', 'mobile-menu' ) . '</h3>';
         $custom_html .= '<p><span class="dashicons dashicons-yes"></span><strong>Fixed Footer Bar</strong></p>';
         $custom_html .= '<p><span class="dashicons dashicons-yes"></span><strong>Auto-hide on Scroll</strong></p>';

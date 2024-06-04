@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 $icon = ! empty( $paginationArrowPrevIcon ) && isset( $paginationArrowPrevIcon['html'] ) ? $paginationArrowPrevIcon['html'] : '';
 
 if ( ! empty( $icon ) ) {

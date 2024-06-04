@@ -1064,5 +1064,39 @@ class Secure_Copy_Content_Protection_Admin {
         return $get_ays_sccp_banner_time;
     }
 
+    public function ays_sccp_generate_message_vars_html( $sccp_message_vars ) {
+        $content = array();
+        $var_counter = 0; 
+
+        $content[] = '<div class="ays-sccp-message-vars-box">';
+            $content[] = '<div class="ays-sccp-message-vars-icon">';
+                $content[] = '<div>';
+                    $content[] = '<i class="ays_fa ays_fa_link"></i>';
+                $content[] = '</div>';
+                $content[] = '<div>';
+                    $content[] = '<span>'. __("Message Variables" , $this->plugin_name) .'</span>';
+                    $content[] = '<a class="ays_help" data-toggle="tooltip" data-html="true" title="'. __("Insert your preferred message variable into the editor by clicking." , $this->plugin_name) .'">';
+                        $content[] = '<i class="ays_fa ays_fa_info_circle"></i>';
+                    $content[] = '</a>';
+                $content[] = '</div>';
+            $content[] = '</div>';
+            $content[] = '<div class="ays-sccp-message-vars-data">';
+                foreach($sccp_message_vars as $var => $var_name){
+                    $var_counter++;
+                    $content[] = '<label class="ays-sccp-message-vars-each-data-label">';
+                        $content[] = '<input type="radio" class="ays-sccp-message-vars-each-data-checker" hidden id="ays_sccp_message_var_count_'. $var_counter .'" name="ays_sccp_message_var_count">';
+                        $content[] = '<div class="ays-sccp-message-vars-each-data">';
+                            $content[] = '<input type="hidden" class="ays-sccp-message-vars-each-var" value="'. $var .'">';
+                            $content[] = '<span>'. $var_name .'</span>';
+                        $content[] = '</div>';
+                    $content[] = '</label>';
+                }
+            $content[] = '</div>';
+        $content[] = '</div>';
+
+        $content = implode( '', $content );
+
+        return $content;
+    }
 
 }

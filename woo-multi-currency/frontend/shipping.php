@@ -15,7 +15,7 @@ class WOOMULTI_CURRENCY_F_Frontend_Shipping {
 		if ( $this->settings->get_enable() ) {
 			global $wpdb;
 			$raw_methods_sql = "SELECT method_id, method_order, instance_id, is_enabled FROM {$wpdb->prefix}woocommerce_shipping_zone_methods WHERE method_id = 'betrs_shipping' AND is_enabled = 1 order by instance_id ASC;";
-			$raw_methods     = $wpdb->get_results( $raw_methods_sql );
+			$raw_methods     = $wpdb->get_results( $raw_methods_sql );// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 			if ( count( $raw_methods ) ) {
 				foreach ( $raw_methods as $method ) {
 					add_filter( 'option_betrs_shipping_options-' . intval( $method->instance_id ), array(

@@ -67,7 +67,7 @@ Our exit intent trigger is included in the free plan. Create any type of exit po
 
 * Landing page link - collect emails and leads using our simple landing page link. Each popup and contact form has it own landing page link that can be sent via email, message or post it on social media
 
-* Draft and Autosaving - when you design a popup or form and the process stops in the middle (internet issues, your kid spilled water on your laptop etc), your popup or form is saved as draft. You can go back to it whenever you want from the Popups and Forms tab
+* Draft and Autosaving - when you design a popup or form and the process stops in the middle (internet issues, your kid spilled water on your laptop etc), your popup or form is saved as draft. You can go back to it from the Popups and Forms tab
 
  All your changes will be saved periodically if you work on an existing popup or form. Once you go back to the editing of the popup or form you changed, choose if you want to load the last changes or work on the current version
 

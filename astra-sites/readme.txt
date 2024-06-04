@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.2.6
+Stable tag: 4.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,15 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.3.0 - 04-June-2024
+- New: What's New - Ability to see the new updates for Starter Templates plugin in the form of feed.
+- New: Free Images - Added all new library for Free Images with new free image search engines like Pexels and Pixabay.
+- Improvement: Added Admin Notice if Required XML Reader Class Not Found.
+- Improvement: Consistent UI Changes for AI Builder.
+- Improvement: UI - Improved the tooltip UI.
+- Fix: Classic Templates Not Showing for New Sites During Sync.
+- Fix: AI Builder - Fixed an issue with inconsistent font sizes and line height in the onboarding process.
 
 v4.2.6 - 27-May-2024
 - Improvement: AI Builder - Added a pre-installation confirmation modal before building the site.

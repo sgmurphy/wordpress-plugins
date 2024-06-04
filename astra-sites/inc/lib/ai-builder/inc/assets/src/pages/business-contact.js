@@ -11,6 +11,7 @@ import NavigationButtons from '../components/navigation-buttons';
 import StyledText from '../components/styled-text';
 import { useNavigateSteps } from '../router';
 import { z as zod } from 'zod';
+import Heading from '../components/heading';
 
 const PHONE_VALIDATION_REGEX = /^\+?[0-9()\s-]{6,20}$/,
 	EMAIL_VALIDATION_REGEX =
@@ -137,29 +138,32 @@ const BusinessContact = () => {
 		( item ) => ! item.valid
 	);
 
+	const getTitle = () => {
+		return (
+			<div>
+				{ __( 'How can people get in touch with ', 'ai-builder' ) }
+				<StyledText text={ businessName } />
+			</div>
+		);
+	};
 	return (
 		<form
 			className="w-full max-w-container flex flex-col gap-8 pb-10"
 			action="#"
 			onSubmit={ handleSubmit( handleSubmitForm ) }
 		>
-			{ /* Heading */ }
-			<div className="text-[2rem] font-semibold leading-[140%]">
-				{ __( 'How can people get in touch with ', 'ai-builder' ) }
-				<StyledText text={ businessName } />?
-			</div>
-			{ /* Subheading */ }
-			<div className="text-zip-body-text text-[16px] font-normal leading-6">
-				{ __(
+			<Heading
+				heading={ getTitle() }
+				subHeading={ __(
 					'Please provide the contact information details below. These will be used on the website.',
 					'ai-builder'
 				) }
-			</div>
+			/>
 
 			<div className="space-y-5">
 				<div className="flex justify-between gap-x-8 items-start w-full h-[76px]">
 					<Input
-						className="w-full h-[48px]"
+						className="w-full h-[48px] text-zip-app-heading"
 						type="text"
 						name="email"
 						id="email"
@@ -179,7 +183,7 @@ const BusinessContact = () => {
 						height="[48px]"
 					/>
 					<Input
-						className="w-full h-[48px]"
+						className="w-full h-[48px] text-zip-app-heading"
 						type="text"
 						name="phone"
 						id="phone"
@@ -200,10 +204,11 @@ const BusinessContact = () => {
 					/>
 				</div>
 				<Textarea
+					className="text-zip-app-heading !mt-8"
 					rows={ 4 }
 					name="address"
 					id="address"
-					label={ __( 'Address', 'ai-builder' ) }
+					label="Address"
 					placeholder=""
 					register={ register }
 					error={ errors.address }

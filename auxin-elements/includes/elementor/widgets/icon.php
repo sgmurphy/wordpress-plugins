@@ -444,8 +444,16 @@ class Icon extends Widget_Base {
             <{{{ iconTag }}} class="elementor-icon elementor-animation-{{ settings.hover_animation }}" {{{ link }}}>
                 <# if ( iconHTML && iconHTML.rendered && settings.aux_new_icon.value !== '' ) { #>
 					{{{ iconHTML.value }}}
-				<# } else if ( settings.icon !== '' ) { #>
-					<i class="{{ settings.icon }}" aria-hidden="true"></i>
+				<# 
+                } else if ( settings.icon !== '' ) { 
+                    view.addRenderAttribute(
+                        'iconClass',
+                        {
+                            'class': [ settings.icon ],
+                        }
+                    );
+                #>
+					<i {{{ view.getRenderAttributeString('iconClass') }}} aria-hidden="true"></i>
 				<# } #>
             </{{{ iconTag }}}>
         </div>

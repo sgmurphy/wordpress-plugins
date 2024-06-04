@@ -3,7 +3,7 @@ Contributors: getbrave
 Tags: popup, wordpress popup, popups, woocommerce popup, lead generation
 Requires at least: 5.2
 Tested up to: 6.5.2
-Stable tag: 0.6.8
+Stable tag: 0.6.9
 Requires PHP: 5.6.20
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -118,6 +118,11 @@ The PRO version lets you create unlimited steps that you can link to each other 
 
 
 == Changelog ==
+= 0.6.9 - 04 Jun 2024. =
+* Added: Ability to exclude Custom Posts.
+* Fixed: XSS Security vulnerablity (Medium severity).
+
+
 = 0.6.8 - 21 Apr 2024. =
 * Added: WeGlot Integration.
 

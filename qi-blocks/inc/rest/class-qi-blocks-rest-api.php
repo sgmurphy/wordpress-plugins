@@ -25,6 +25,8 @@ if ( ! class_exists( 'Qi_Blocks_Rest_API' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Rest_API
 		 */
 		public static function get_instance() {

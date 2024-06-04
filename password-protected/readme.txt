@@ -1,5 +1,5 @@
-=== Password Protected - WordPress Plugin to Password Protect Site, Pages, & WooCommerce Store ===
-Contributors: wpexperts.io
+=== Password Protected – Password Protect your WordPress Site, Pages, & WooCommerce Products - Restrict Content, Protect WooCommerce Category, and more ===
+Contributors: wpexpertsio
 Tags: password, maintenance mode, password protect page, password protect, restrict content
 Requires at least: 4.6
 Tested up to: 6.5.3
@@ -90,7 +90,7 @@ Extend your site's security beyond standard posts and pages. The Password Protec
 
 **✅ Category/Taxonomy Protection**
 
-Password protect WordPress categories to take control of your site's organization and access. Using single or multiple passwords, you can lock specific categories or taxonomies, along with related post tags.
+Password protect categories to take control of your site's organization and access. Using single or multiple passwords, you can lock specific WordPress categories or taxonomies, along with related post tags.
 
 This functionality is ideal for websites with diverse content categories or membership tiers. By restricting access to certain categories, you can create exclusive areas for different user groups or offer premium/restricted content to subscribers.
 

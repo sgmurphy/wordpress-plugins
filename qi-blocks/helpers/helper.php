@@ -80,6 +80,8 @@ if ( ! function_exists( 'qi_blocks_is_installed' ) ) {
 				return defined( 'WPFORMS_VERSION' );
 			case 'full_site_editing':
 				return get_theme_support( 'block-templates' );
+			case 'wpml':
+				return defined( 'ICL_SITEPRESS_VERSION' );
 			default:
 				return apply_filters( 'qi_blocks_is_plugin_installed', false, $plugin );
 
@@ -1829,7 +1831,6 @@ if ( ! function_exists( 'qi_blocks_main_editor_additional_dependencies' ) ) {
 	 * @param array $dependency
 	 *
 	 * @return array
-	 *
 	 */
 	function qi_blocks_main_editor_additional_dependencies( $dependency ) {
 		global $pagenow;

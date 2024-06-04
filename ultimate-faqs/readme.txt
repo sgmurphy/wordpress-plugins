@@ -3,7 +3,6 @@ Contributors: rustaurius
 Tags: faq, faqs, woocommerce faq, faq block, faq shortcode, accordion, documentation, knowledge base
 Requires at least: 6.0
 Tested up to: 6.5
-Requires PHP: 7.4
 Stable tag: 2.2.14
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html

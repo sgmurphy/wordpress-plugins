@@ -69,6 +69,8 @@ if ( ! class_exists( 'Qi_Blocks_Post_Date_Block' ) ) {
 		}
 
 		/**
+		 * Module class instance
+		 *
 		 * @return Qi_Blocks_Post_Date_Block
 		 */
 		public static function get_instance() {
