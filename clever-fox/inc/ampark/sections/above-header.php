@@ -27,8 +27,8 @@
 													<i class="fa <?php echo  esc_attr($tlh_email_icon); ?>"></i>
 												</div>
 												<a href="mailto:<?php echo esc_attr($tlh_email_sbtitle); ?>" class="contact-info">
-													<span class="text"><?php esc_html_e($tlh_email_title, 'clever-fox'); ?></span>
-													<span class="title"><?php esc_html_e($tlh_email_sbtitle, 'clever-fox'); ?></span>
+													<span class="text"><?php /* translators: %s: Email Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($tlh_email_title)); ?></span>
+													<span class="title"><?php /* translators: %s: Email Subtitle */printf( esc_html__('%s.', 'clever-fox'), esc_html($tlh_email_sbtitle)); ?></span>
 												</a>
 											</div>
 										</aside>
@@ -46,8 +46,8 @@
 													<i class="fa <?php echo  esc_attr($tlh_mobile_icon); ?>"></i>
 												</div>
 												<a href="tel:<?php echo esc_attr($tlh_mobile_sbtitle); ?>" class="contact-info">
-													<span class="text"><?php esc_html_e($tlh_mobile_title, 'clever-fox'); ?></span>
-													<span class="title"><?php esc_html_e($tlh_mobile_sbtitle, 'clever-fox'); ?></span>
+													<span class="text"><?php /* translators: %s: Mobile title */printf( esc_html__('%s.', 'clever-fox'), esc_html($tlh_mobile_title)); ?></span>
+													<span class="title"><?php /* translators: %s: Mobile Subtitle */printf( esc_html__('%s.', 'clever-fox'), esc_html($tlh_mobile_sbtitle)); ?></span>
 												</a>
 											</div>
 										</aside>

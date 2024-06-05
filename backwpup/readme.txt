@@ -10,10 +10,11 @@ License: GPLv2+
 Schedule complete automatic backups of your WordPress installation. Decide which content will be stored (Dropbox, S3…). This is the free version
 
 == Description ==
-The **backup plugin** **[BackWPup](https://backwpup.com/)** can be used to save your complete installation including /wp-content/ and push them to an external Backup Service, like **Dropbox**, **S3**, **FTP** and many more, see list below. With a single backup .zip file you are able to easily restore an installation. 
+The **backup plugin** **[BackWPup](https://backwpup.com/)** can be used to save your complete installation including /wp-content/ and push them to an external Backup Service, like **Dropbox**, **S3**, **FTP** and many more, see list below. With a single backup .zip file you are able to easily restore an installation.
 
 Please understand: this free version will not be supported as well as the [BackWPup Pro version](https://backwpup.com). With our premium version you get first class support and more features.
 
+* Restore your backups with only a few clicks from your WordPress backend.
 * Database Backup  *(needs mysqli)*
 * WordPress XML Export
 * Generate a file with installed plugins
@@ -35,7 +36,7 @@ Please understand: this free version will not be supported as well as the [BackW
 * Send logs and backups by email
 * Multi-site support only as network admin
 * Pro version and support available - [BackWPup Pro](https://backwpup.com)
-* NEW - PRO: Restore your backups with only a few clicks from your WordPress backend. Also available as Standalone App.
+* NEW - PRO: Restore your backup with the Standalone App.
 * NEW - PRO: Encrypt backup archives and restore from encrypted backups.
 
 In case you need to comply with the new GDPR regulation, check out our post [BacKWPup, Backups and GDPR](https://backwpup.com/docs/backwpup-backups-and-gdpr/).
@@ -868,4 +869,3 @@ Release Date: May 16, 2018
 * Use your own API keys for Dropbox and SugarSync
 * Premium Support
 * Automatic updates
-

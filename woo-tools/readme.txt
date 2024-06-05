@@ -2,7 +2,7 @@
 Contributors: ThemeFarmer
 Tags: Free Quick View, Advance Quick View,products quick view, compare, product compare, Wishlist, woocommrece wishlist,  single product, woocommerce, woocommerce extension, WooCommerce Plugin, ThemeFarmer
 Requires at least: 4.0
-Tested up to: 6.0
+Tested up to: 6.5
 Stable tag: trunk
 License: GPLv2 or later
 Requires PHP: 5.4

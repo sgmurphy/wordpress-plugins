@@ -203,7 +203,7 @@ $get_date_format  = get_option( 'date_format' );
 						<div class="calc-subtotal-list">
 							<?php if ( ccb_pro_active() ) : ?>
 								<cost-pro-features inline-template :settings="content.settings">
-									<?php echo \cBuilder\Classes\CCBProTemplate::load( 'frontend/pro-features', array( 'settings' => array(), 'general_settings' => array(), 'invoice' => $general_settings['invoice'] ) ); // phpcs:ignore ?>
+									<?php echo \cBuilder\Classes\CCBProTemplate::load( 'frontend/pro-features', array( 'settings' => array(), 'general_settings' => array(), 'invoice' => $general_settings['invoice'] ?? array() ) ); // phpcs:ignore ?>
 								</cost-pro-features>
 							<?php endif; ?>
 						</div>

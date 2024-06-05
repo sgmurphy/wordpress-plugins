@@ -146,9 +146,17 @@ class Change_Login_URL {
             // upon successful login, redirection to logged-in view of /wp-admin/ happens.
             // Without this condition, login attempt will redirect to /not_found/
         } else {
-            // When landing on the login page
-            // At this point /admin, /wp-admin/, /login redirects to /wp-login.php
-            if ( false !== strpos( $url_input, 'wp-login' ) ) {
+            // e.g. /wp-admin/index.php?page=page-slug
+            $request_uri = sanitize_text_field( $_SERVER['REQUEST_URI'] );
+            $request_uri_parts = explode( '/', $request_uri );
+        
+            if ( isset( $request_uri_parts[1] ) 
+                && in_array( $request_uri_parts[1], array( 'admin', 'wp-admin', 'login', 'wp-login' ) )
+            ) {
+                // Redirect to /not_found/ or custom redirect slug
+                wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
+                exit();
+            } elseif ( false !== strpos( $url_input, 'wp-login.php' ) ) {
                 if ( isset( $_GET['action'] ) && ('logout' == $_GET['action'] || 'rp' == $_GET['action'] || 'resetpass' == $_GET['action']) || isset( $_GET['checkemail'] ) && ('confirm' == $_GET['checkemail'] || 'registered' == $_GET['checkemail']) || isset( $_GET['interim-login'] ) && '1' == $_GET['interim-login'] || 'success' == $interim_login || isset( $_GET['redirect_to'] ) && isset( $_GET['reauth'] ) && false !== strpos( $url_input, 'comment' ) ) {
                     // When we're logging out, inside the reset password flow, inside the registration flow or within the interim login flow
                     // e.g. https://www.example.com/wp-login.php?action=logout&_wpnonce=49bb818269

@@ -2,8 +2,8 @@
 Contributors: pandaboxwp
 Tags: lightbox, photo, image, gallery
 Requires at least: 5.0
-Tested up to: 6.5.2
-Stable tag: 1.5.4
+Tested up to: 6.5.3
+Stable tag: 1.5.5
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -111,6 +111,11 @@ Lastly:
 Still have problems? Post a link and describe what issue you're having, and tell us what of these steps you've already tried.
 
 == Changelog ==
+
+= 1.5.5 (2024-06-03) =
+* Update WP tested version
+* Improve JS enqueueing
+* Minor security fix (issue only affected authenticated users)
 
 = 1.5.4 (2024-05-03) =
 * Add plugin timestamp

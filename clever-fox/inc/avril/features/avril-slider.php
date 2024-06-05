@@ -69,23 +69,23 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme	
 				if ( 'Axtia' == $theme->name){	
 			?>
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/axtia-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/axtia-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif( 'Avtari' == $theme->name){ ?>
 
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/avtari-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/avtari-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif( 'Aviser' == $theme->name){ ?>
 
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/aviser-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/aviser-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 				
 			<?php }elseif( 'Ampark' == $theme->name){ ?>
 
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/ampark-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>		
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/ampark-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>		
 			
 			<?php }else{ ?>	
 				
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/avril-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/avril-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php
 				}

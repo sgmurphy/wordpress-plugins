@@ -1,14 +1,14 @@
-=== Carousel, Slider, Gallery by WP Carousel - Image Carousel & Photo Gallery, Post Carousel & Post Grid, Product Carousel & Product Grid for WooCommerce ===
+=== Carousel, Slider, Gallery by WP Carousel – Image Carousel & Photo Gallery, Post Carousel & Post Grid, Product Carousel & Product Grid for WooCommerce ===
 Contributors: shapedplugin, khalilu, shamimmiashuhagh, rubel_miah
-Tags: wordpress carousel, best carousel plugin, image carousel, image slider, post carousel, custom post carousel, custom taxonomy carousel, woocommerce product carousel, content carousel, video carousel, video slider, video lightbox, youtube carousel, video gallery, carousel, slider, responsive slider, responsive carousel, carousel slider, ticker carousel, center mode carousel, slide anything, image gallery, image lightbox, wordpress image gallery, photo gallery, gallery slider, wordpress gallery plugin, gallery, post slider, vimeo slider, self hosted video carousel, content slider, wordpress slider, featured content slider, html slider, horizontal carousel slider, posts content slider, product carousel, woocommerce slider, woocommerce product slider
+Tags: slider, carousel, slideshow, gallery, video slider
 Requires at least: 5.0
 Tested up to: 6.5.2
-Stable tag: 2.6.5
+Stable tag: 2.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-The Most Powerful and User-friendly Carousel & Gallery plugin. Create beautiful carousel and gallery in minutes using Images, Posts, WooCommerce Products, etc.
+The most powerful carousel, slider, and gallery plugin. Responsive carousel and gallery with images, posts, products, videos, content, and more.
 
 
 == Description ==
@@ -325,6 +325,9 @@ Thank you!
 
 
 == Changelog ==
+
+= 2.6.6 – Jun 05, 2024 =
+* Tested: WooCommerce 8.9.2 compatibility.
 
 = 2.6.5 – May 02, 2024 =
 * Fix: The AutoPlay Delay Time and Speed options were not working from v2.6.0.

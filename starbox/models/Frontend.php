@@ -11,11 +11,9 @@ class ABH_Models_Frontend {
 
     /**
      * Get the html author box
-     * @global object $wp_query
      * @return string
      */
     public function getAuthorBox() {
-        global $wp_query;
 
         if (!isset($this->author))
             return;
@@ -74,6 +72,7 @@ class ABH_Models_Frontend {
 
             return $this->clearTags($content);
         }
+
         return '';
     }
 

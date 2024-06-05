@@ -16,7 +16,7 @@ $activate = array(
    update_option('widget_text', array(
         1 => array('title' => '',
         'text'=>'<div class="footer-logo"><img src="'.CLEVERFOX_PLUGIN_URL.'inc/ameya/images/footer-logo.png" alt=""></div>
-                        <p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p>
+                        <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
                         <ul class="widget-social">
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>

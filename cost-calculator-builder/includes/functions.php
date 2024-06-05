@@ -355,15 +355,19 @@ function sanitize_without_tag_clean( $json_string ) {
  * @return array
  */
 function ccb_sync_settings_from_general_settings( $settings, $general_settings, $render = false ) {
+	$general_settings_cloned = $general_settings;
+
 	if ( ! empty( $general_settings['currency']['use_in_all'] ) ) {
 		$settings['currency'] = $general_settings['currency'];
 		unset( $settings['currency']['use_in_all'] );
 	}
 
-	if ( ! empty( $general_settings['form_fields']['use_in_all'] ) ) {
-		unset( $general_settings['form_fields']['use_in_all'] );
-		foreach ( $general_settings['form_fields'] as $form_field_key => $form_field_value ) {
-			$settings['formFields'][ $form_field_key ] = $form_field_value;
+	if ( ! empty( $general_settings_cloned['form_fields']['use_in_all'] ) ) {
+		unset( $general_settings_cloned['form_fields']['use_in_all'] );
+		foreach ( $general_settings_cloned['form_fields'] as $form_field_key => $form_field_value ) {
+			if ( ! in_array( $form_field_key, array( 'terms_and_conditions', 'summary_display' ), true ) ) {
+				$settings['formFields'][ $form_field_key ] = $form_field_value;
+			}
 		}
 	}
 

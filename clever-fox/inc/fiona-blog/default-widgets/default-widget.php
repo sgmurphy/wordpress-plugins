@@ -26,7 +26,7 @@ $activate = array(
    update_option('widget_text', array(
         1 => array('title' => '',
         'text'=>'<div class="footer-logo"><img src="'.$img_path.'" alt=""></div>
-                        <p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p>
+                        <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
 		'),        
 		2 => array('title' => 'Recent Posts'),
 		3 => array('title' => 'Categories'), 

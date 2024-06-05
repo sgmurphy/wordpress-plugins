@@ -82,8 +82,8 @@ class SocialShare
 
         $wrapper_attributes = get_block_wrapper_attributes(
             array(
-                'class' => 'gspb-social-sharebox gspb_id-' . $id,
-                'id' => 'gspb_id-' . $id
+                'class' => 'gspb-social-sharebox gspb_id-' . esc_attr($id),
+                'id' => 'gspb_id-' . esc_attr($id)
             )
         );
 
@@ -137,7 +137,7 @@ class SocialShare
         if($socialEnabledStatus['copy']){
             wp_enqueue_script('gssnack');
             wp_enqueue_style('gssnack');
-            $res .= '<span tabindex="0" role="button" aria-label="' . esc_attr($socialLabelsDef['copy']) . '" title="' . esc_attr($socialLabelsDef['copy']) . '" data-snackbar="snack-'.$id.'" data-href="' . esc_url($link) . '" class="copylink gs-share-link" data-service="copy"><span class="social-share-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.88"><path d="M60.54,34.07A7.65,7.65,0,0,1,49.72,23.25l13-12.95a35.38,35.38,0,0,1,49.91,0l.07.08a35.37,35.37,0,0,1-.07,49.83l-13,12.95A7.65,7.65,0,0,1,88.81,62.34l13-13a20.08,20.08,0,0,0,0-28.23l-.11-.11a20.08,20.08,0,0,0-28.2.07l-12.95,13Zm14,3.16A7.65,7.65,0,0,1,85.31,48.05L48.05,85.31A7.65,7.65,0,0,1,37.23,74.5L74.5,37.23ZM62.1,89.05A7.65,7.65,0,0,1,72.91,99.87l-12.7,12.71a35.37,35.37,0,0,1-49.76.14l-.28-.27a35.38,35.38,0,0,1,.13-49.78L23,50A7.65,7.65,0,1,1,33.83,60.78L21.12,73.49a20.09,20.09,0,0,0,0,28.25l0,0a20.07,20.07,0,0,0,28.27,0L62.1,89.05Z"/></svg></span><span class="social-share-label"><span>' . esc_attr($socialLabelsDef['copy']) . '</span><span class="dark-bg"></span></span><span class="gs-snackbar" id="snack-'.esc_attr($id).'">'.esc_attr($socialLabelsDef['copydone']).'</span></span>';
+            $res .= '<span tabindex="0" role="button" aria-label="' . esc_attr($socialLabelsDef['copy']) . '" title="' . esc_attr($socialLabelsDef['copy']) . '" data-snackbar="snack-'.esc_attr($id).'" data-href="' . esc_url($link) . '" class="copylink gs-share-link" data-service="copy"><span class="social-share-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.88"><path d="M60.54,34.07A7.65,7.65,0,0,1,49.72,23.25l13-12.95a35.38,35.38,0,0,1,49.91,0l.07.08a35.37,35.37,0,0,1-.07,49.83l-13,12.95A7.65,7.65,0,0,1,88.81,62.34l13-13a20.08,20.08,0,0,0,0-28.23l-.11-.11a20.08,20.08,0,0,0-28.2.07l-12.95,13Zm14,3.16A7.65,7.65,0,0,1,85.31,48.05L48.05,85.31A7.65,7.65,0,0,1,37.23,74.5L74.5,37.23ZM62.1,89.05A7.65,7.65,0,0,1,72.91,99.87l-12.7,12.71a35.37,35.37,0,0,1-49.76.14l-.28-.27a35.38,35.38,0,0,1,.13-49.78L23,50A7.65,7.65,0,1,1,33.83,60.78L21.12,73.49a20.09,20.09,0,0,0,0,28.25l0,0a20.07,20.07,0,0,0,28.27,0L62.1,89.05Z"/></svg></span><span class="social-share-label"><span>' . esc_attr($socialLabelsDef['copy']) . '</span><span class="dark-bg"></span></span><span class="gs-snackbar" id="snack-'.esc_attr($id).'">'.esc_attr($socialLabelsDef['copydone']).'</span></span>';
         }
 
         // mail

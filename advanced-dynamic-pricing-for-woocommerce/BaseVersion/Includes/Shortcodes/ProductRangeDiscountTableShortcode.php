@@ -91,6 +91,8 @@ class ProductRangeDiscountTableShortcode
 
         $tableDisplay->hookLoadAssets();
 
-        return $tableDisplay->getProductTableContent($productForTable);
+        $ruleId = ! empty($args['rule_id']) ? intval($args['rule_id']) : null;
+
+        return $tableDisplay->getProductTableContent($productForTable, $ruleId);
     }
 }

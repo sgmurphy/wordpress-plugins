@@ -40,14 +40,11 @@ if ( ! class_exists( 'WCDN_Settings' ) ) {
 			$this->id = 'wcdn-settings';
 
 			// Load the hooks.
+			add_action( 'admin_menu', array( $this, 'menu' ), 999 ); // Add menu.
 			add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 200 );
 			add_action( 'woocommerce_settings_start', array( $this, 'add_assets' ) );
 			add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
-			add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
-
-			add_action( 'woocommerce_admin_field_wcdn_image_select', array( $this, 'output_image_select' ) );
-			add_action( 'wp_ajax_wcdn_settings_load_image', array( $this, 'load_image_ajax' ) );
-			add_filter( 'wcdn_get_settings', array( $this, 'generate_template_type_fields' ), 10, 2 );
+			add_action( 'wp_ajax_wcdn_remove_shoplogo', array( $this, 'wcdn_remove_shoplogo' ) );
 			add_action( 'woocommerce_admin_field_link', array( &$this, 'wcdn_add_admin_field_reset_button' ) );
 		}
 
@@ -69,12 +66,390 @@ if ( ! class_exists( 'WCDN_Settings' ) ) {
 		 */
 		public function add_assets() {
 			// Styles.
-			wp_enqueue_style( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'css/admin.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+			wp_enqueue_style( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'assets/css/admin.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+
+			if ( isset( $_GET['tab'] ) && 'wcdn-settings' === $_GET['tab'] ) { // phpcs:ignore
+				wp_enqueue_style( 'woocommerce-delivery-notes-bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+				wp_enqueue_style( 'woocommerce-delivery-notes-select2-style', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+			}
 
 			// Scripts.
 			wp_enqueue_media();
-			wp_enqueue_script( 'woocommerce-delivery-notes-print-link', WooCommerce_Delivery_Notes::$plugin_url . 'js/jquery.print-link.js', array( 'jquery' ), WooCommerce_Delivery_Notes::$plugin_version, false );
-			wp_enqueue_script( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'js/admin.js', array( 'jquery', 'custom-header', 'woocommerce-delivery-notes-print-link' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+			wp_enqueue_script( 'woocommerce-delivery-notes-print-link', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/jquery.print-link.js', array( 'jquery' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+			wp_enqueue_script( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/admin.js', array( 'jquery', 'custom-header', 'woocommerce-delivery-notes-print-link' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+			wp_enqueue_script( 'woocommerce-delivery-notes-bootstrap', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/bootstrap.min.js', array(), WooCommerce_Delivery_Notes::$plugin_version, false );
+			wp_enqueue_script( 'woocommerce-delivery-notes-vue', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/vue.js', array(), WooCommerce_Delivery_Notes::$plugin_version, false );
+			if ( isset( $_GET['wdcn_setting'] ) && 'wcdn_invoice' === $_GET['wdcn_setting'] ) { // phpcs:ignore
+				wp_enqueue_script( 'woocommerce-delivery-notes-edit-invoice', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/wdne-invoice-add-edit.js', array(), WooCommerce_Delivery_Notes::$plugin_version, false );
+				wp_enqueue_style( 'woocommerce-delivery-notes-adminstyle', WooCommerce_Delivery_Notes::$plugin_url . 'assets/css/adminstyle.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+			}
+			if ( isset( $_GET['wdcn_setting'] ) && 'wcdn_receipt' === $_GET['wdcn_setting'] ) { // phpcs:ignore
+				wp_enqueue_script( 'woocommerce-delivery-notes-edit-receipt', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/wdne-receipt-add-edit.js', array(), WooCommerce_Delivery_Notes::$plugin_version, false );
+				wp_enqueue_style( 'woocommerce-delivery-notes-adminstyle', WooCommerce_Delivery_Notes::$plugin_url . 'assets/css/adminstyle.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+			}
+			if ( isset( $_GET['wdcn_setting'] ) && 'wcdn_deliverynote' === $_GET['wdcn_setting'] ) { // phpcs:ignore
+				wp_enqueue_script( 'woocommerce-delivery-notes-edit-deliverynote', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/wdne-deliverynote-add-edit.js', array(), WooCommerce_Delivery_Notes::$plugin_version, false );
+				wp_enqueue_style( 'woocommerce-delivery-notes-adminstyle', WooCommerce_Delivery_Notes::$plugin_url . 'assets/css/adminstyle.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+			}
+			wp_enqueue_script( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/admin.js', array( 'jquery', 'custom-header', 'woocommerce-delivery-notes-print-link' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+			$template_save = get_option( 'wcdn_template_type' );
+			wp_localize_script(
+				'woocommerce-delivery-notes-admin',
+				'admin_object',
+				array(
+					'ajax_url'      => admin_url( 'admin-ajax.php' ),
+					'admin_url'     => admin_url(),
+					'template_save' => $template_save,
+				)
+			);
+			// Preview data for invoice.
+			$invoice_data = get_option( 'wcdn_invoice_customization' );
+			if ( false === $invoice_data ) {
+				$invoice_data = array();
+			}
+			$invoice_defaults = array(
+				'document_setting'    => array(
+					'active'                       => '',
+					'document_setting_title'       => 'Invoice',
+					'document_setting_font_size'   => 25,
+					'document_setting_text_align'  => 'right',
+					'document_setting_text_colour' => '#000000',
+				),
+				'company_logo'        => array(
+					'active' => '',
+				),
+				'email_address'       => array(
+					'active' => '',
+				),
+				'phone_number'        => array(
+					'active' => '',
+				),
+				'company_name'        => array(
+					'active'                   => '',
+					'company_name_font_size'   => 15,
+					'company_name_text_align'  => 'left',
+					'company_name_text_colour' => '#000000',
+				),
+				'company_address'     => array(
+					'active'                      => '',
+					'company_address_text_align'  => 'left',
+					'company_address_font_size'   => 20,
+					'company_address_text_colour' => '#000000',
+				),
+				'billing_address'     => array(
+					'active'                      => '',
+					'billing_address_title'       => 'Billing Address',
+					'billing_address_text_align'  => 'left',
+					'billing_address_text_colour' => '#000000',
+				),
+				'shipping_address'    => array(
+					'active'                       => '',
+					'shipping_address_title'       => 'Shipping Address',
+					'shipping_address_text_align'  => 'left',
+					'shipping_address_text_colour' => '#000000',
+				),
+				'invoice_number'      => array(
+					'active'                     => '',
+					'invoice_number_text'        => 'Invoice Number',
+					'invoice_number_font_size'   => 15,
+					'invoice_number_style'       => 'bold',
+					'invoice_number_text_colour' => '#000000',
+				),
+				'order_number'        => array(
+					'active'                   => '',
+					'order_number_text'        => 'Order Number',
+					'order_number_font_size'   => 15,
+					'order_number_style'       => 'bold',
+					'order_number_text_colour' => '#000000',
+				),
+				'order_date'          => array(
+					'active'                 => '',
+					'order_date_text'        => 'Order Date',
+					'order_date_font_size'   => 15,
+					'order_date_style'       => 'bold',
+					'order_date_text_colour' => '#000000',
+				),
+				'payment_method'      => array(
+					'active'                     => '',
+					'payment_method_text'        => 'Payment Method',
+					'payment_method_font_size'   => 15,
+					'payment_method_style'       => 'bold',
+					'payment_method_text_colour' => '#000000',
+				),
+				'customer_note'       => array(
+					'active'                    => '',
+					'customer_note_title'       => 'Customer Notes',
+					'customer_note_font_size'   => 13,
+					'customer_note_text_colour' => '#000000',
+				),
+				'complimentary_close' => array(
+					'active'                          => '',
+					'complimentary_close_font_size'   => 15,
+					'complimentary_close_text_colour' => '#000000',
+				),
+				'policies'            => array(
+					'active'               => '',
+					'policies_font_size'   => 15,
+					'policies_text_colour' => '#000000',
+				),
+				'footer'              => array(
+					'active'             => '',
+					'footer_font_size'   => 15,
+					'footer_text_colour' => '#000000',
+				),
+			);
+
+			foreach ( $invoice_defaults as $parent_key => $invoice_default_values ) {
+				foreach ( $invoice_default_values as $key => $invoice_default_value ) {
+					if ( ! isset( $invoice_data[ $parent_key ][ $key ] ) || empty( $invoice_data[ $parent_key ][ $key ] ) ) {
+						$invoice_data[ $parent_key ][ $key ] = $invoice_default_value;
+					}
+				}
+			}
+
+			wp_localize_script(
+				'woocommerce-delivery-notes-edit-invoice',
+				'settings_object',
+				$invoice_data
+			);
+			// Preview data for receipt.
+			$receipt_data = get_option( 'wcdn_receipt_customization' );
+			if ( false === $receipt_data ) {
+				$receipt_data = array();
+			}
+			$receipt_defaults = array(
+				'document_setting'       => array(
+					'active'                       => '',
+					'document_setting_title'       => 'Receipt',
+					'document_setting_font_size'   => 25,
+					'document_setting_text_align'  => 'right',
+					'document_setting_text_colour' => '#000000',
+				),
+				'company_logo'           => array(
+					'active' => '',
+				),
+				'email_address'          => array(
+					'active' => '',
+				),
+				'phone_number'           => array(
+					'active' => '',
+				),
+				'company_name'           => array(
+					'active'                   => '',
+					'company_name_font_size'   => 15,
+					'company_name_text_align'  => 'left',
+					'company_name_text_colour' => '#000000',
+				),
+				'company_address'        => array(
+					'active'                      => '',
+					'company_address_text_align'  => 'left',
+					'company_address_font_size'   => 20,
+					'company_address_text_colour' => '#000000',
+				),
+				'billing_address'        => array(
+					'active'                      => '',
+					'billing_address_title'       => 'Billing Address',
+					'billing_address_text_align'  => 'left',
+					'billing_address_text_colour' => '#000000',
+				),
+				'shipping_address'       => array(
+					'active'                       => '',
+					'shipping_address_title'       => 'Shipping Address',
+					'shipping_address_text_align'  => 'left',
+					'shipping_address_text_colour' => '#000000',
+				),
+				'invoice_number'         => array(
+					'active'                     => '',
+					'invoice_number_text'        => 'Invoice Number',
+					'invoice_number_font_size'   => 15,
+					'invoice_number_style'       => 'bold',
+					'invoice_number_text_colour' => '#000000',
+				),
+				'order_number'           => array(
+					'active'                   => '',
+					'order_number_text'        => 'Order Number',
+					'order_number_font_size'   => 15,
+					'order_number_style'       => 'bold',
+					'order_number_text_colour' => '#000000',
+				),
+				'order_date'             => array(
+					'active'                 => '',
+					'order_date_text'        => 'Order Date',
+					'order_date_font_size'   => 15,
+					'order_date_style'       => 'bold',
+					'order_date_text_colour' => '#000000',
+				),
+				'payment_method'         => array(
+					'active'                     => '',
+					'payment_method_text'        => 'Payment Method',
+					'payment_method_font_size'   => 15,
+					'payment_method_style'       => 'bold',
+					'payment_method_text_colour' => '#000000',
+				),
+				'payment_date'           => array(
+					'active'                   => '',
+					'payment_date_text'        => 'Payment Date',
+					'payment_date_font_size'   => 15,
+					'payment_date_style'       => 'bold',
+					'payment_date_text_colour' => '#000000',
+				),
+				'customer_note'          => array(
+					'active'                    => '',
+					'customer_note_title'       => 'Customer Notes',
+					'customer_note_font_size'   => 13,
+					'customer_note_text_colour' => '#000000',
+				),
+				'complimentary_close'    => array(
+					'active'                          => '',
+					'complimentary_close_font_size'   => 15,
+					'complimentary_close_text_colour' => '#000000',
+				),
+				'policies'               => array(
+					'active'               => '',
+					'policies_font_size'   => 15,
+					'policies_text_colour' => '#000000',
+				),
+				'footer'                 => array(
+					'active'             => '',
+					'footer_font_size'   => 15,
+					'footer_text_colour' => '#000000',
+				),
+				'payment_received_stamp' => array(
+					'active'                      => '',
+					'payment_received_stamp_text' => 'Payment Stamp',
+				),
+			);
+
+			foreach ( $receipt_defaults as $parent_key => $receipt_default_values ) {
+				foreach ( $receipt_default_values as $key => $receipt_default_value ) {
+					if ( ! isset( $receipt_data[ $parent_key ][ $key ] ) || empty( $receipt_data[ $parent_key ][ $key ] ) ) {
+						$receipt_data[ $parent_key ][ $key ] = $receipt_default_value;
+					}
+				}
+			}
+			wp_localize_script(
+				'woocommerce-delivery-notes-edit-receipt',
+				'settings_object_receipt',
+				$receipt_data
+			);
+
+			// Preview data for deliverynotes.
+			$deliverynote_data = get_option( 'wcdn_deliverynote_customization' );
+			if ( false === $deliverynote_data ) {
+				$deliverynote_data = array();
+			}
+			$deliverynote_defaults = array(
+				'document_setting'            => array(
+					'active'                       => '',
+					'document_setting_title'       => 'Delivery Notes',
+					'document_setting_font_size'   => 25,
+					'document_setting_text_align'  => 'right',
+					'document_setting_text_colour' => '#000000',
+				),
+				'company_logo'                => array(
+					'active' => '',
+				),
+				'email_address'               => array(
+					'active' => '',
+				),
+				'phone_number'                => array(
+					'active' => '',
+				),
+				'company_name'                => array(
+					'active'                   => '',
+					'company_name_font_size'   => 15,
+					'company_name_text_align'  => 'left',
+					'company_name_text_colour' => '#000000',
+				),
+				'company_address'             => array(
+					'active'                      => '',
+					'company_address_text_align'  => 'left',
+					'company_address_font_size'   => 20,
+					'company_address_text_colour' => '#000000',
+				),
+				'billing_address'             => array(
+					'active'                      => '',
+					'billing_address_title'       => 'Billing Address',
+					'billing_address_text_align'  => 'left',
+					'billing_address_text_colour' => '#000000',
+				),
+				'shipping_address'            => array(
+					'active'                       => '',
+					'shipping_address_title'       => 'Shipping Address',
+					'shipping_address_text_align'  => 'left',
+					'shipping_address_text_colour' => '#000000',
+				),
+				'invoice_number'              => array(
+					'active'                     => '',
+					'invoice_number_text'        => 'Invoice Number',
+					'invoice_number_font_size'   => 15,
+					'invoice_number_style'       => 'bold',
+					'invoice_number_text_colour' => '#000000',
+				),
+				'order_number'                => array(
+					'active'                   => '',
+					'order_number_text'        => 'Order Number',
+					'order_number_font_size'   => 15,
+					'order_number_style'       => 'bold',
+					'order_number_text_colour' => '#000000',
+				),
+				'order_date'                  => array(
+					'active'                 => '',
+					'order_date_text'        => 'Order Date',
+					'order_date_font_size'   => 15,
+					'order_date_style'       => 'bold',
+					'order_date_text_colour' => '#000000',
+				),
+				'payment_method'              => array(
+					'active'                     => '',
+					'payment_method_text'        => 'Payment Method',
+					'payment_method_font_size'   => 15,
+					'payment_method_style'       => 'bold',
+					'payment_method_text_colour' => '#000000',
+				),
+				'display_price_product_table' => array(
+					'active' => '',
+				),
+				'customer_note'               => array(
+					'active'                    => '',
+					'customer_note_title'       => 'Customer Notes',
+					'customer_note_font_size'   => 13,
+					'customer_note_text_colour' => '#000000',
+				),
+				'complimentary_close'         => array(
+					'active'                          => '',
+					'complimentary_close_font_size'   => 15,
+					'complimentary_close_text_colour' => '#000000',
+				),
+				'policies'                    => array(
+					'active'               => '',
+					'policies_font_size'   => 15,
+					'policies_text_colour' => '#000000',
+				),
+				'footer'                      => array(
+					'active'             => '',
+					'footer_font_size'   => 15,
+					'footer_text_colour' => '#000000',
+				),
+			);
+
+			foreach ( $deliverynote_defaults as $parent_key => $deliverynote_default_values ) {
+				foreach ( $deliverynote_default_values as $key => $deliverynote_default_value ) {
+					if ( ! isset( $deliverynote_data[ $parent_key ][ $key ] ) || empty( $deliverynote_data[ $parent_key ][ $key ] ) ) {
+						$deliverynote_data[ $parent_key ][ $key ] = $deliverynote_default_value;
+					}
+				}
+			}
+			wp_localize_script(
+				'woocommerce-delivery-notes-edit-deliverynote',
+				'settings_object_deliverynotes',
+				$deliverynote_data
+			);
+
+			if ( isset( $_GET['tab'] ) && 'wcdn-settings' == $_GET['tab'] ) { // phpcs:ignore
+				wp_enqueue_script( 'woocommerce-delivery-notes-bootstrap-script', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', array( 'jquery' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+				wp_enqueue_script( 'woocommerce-delivery-notes-select2-script', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js', array( 'jquery' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+			}
 
 			// Localize the script strings.
 			$translation = array( 'resetCounter' => __( 'Do you really want to reset the counter to zero? This process can\'t be undone.', 'woocommerce-delivery-notes' ) );
@@ -87,262 +462,48 @@ if ( ! class_exists( 'WCDN_Settings' ) ) {
 		 * @param array $settings_tabs Add settings tab in WooCommerce->Settings page.
 		 */
 		public function add_settings_page( $settings_tabs ) {
-			$settings_tabs[ $this->id ] = __( 'Print', 'woocommerce-delivery-notes' );
+			$settings_tabs[ $this->id ] = __( 'Invoice', 'woocommerce-delivery-notes' );
 			return $settings_tabs;
+		}
+
+		/**
+		 * Set Invoice menu in woocomerece setting.
+		 */
+		public function menu() {
+			$parent_slug = 'woocommerce';
+			add_submenu_page(
+				$parent_slug,
+				esc_html__( 'Invoice', 'woocommerce-delivery-notes' ),
+				esc_html__( 'Invoice', 'woocommerce-delivery-notes' ),
+				'manage_options',
+				'wcdn-settings',
+				array( $this, 'redirect_to_wcdn_settings' )
+			);
+		}
+
+		/**
+		 * Set genral setting page.
+		 */
+		public function redirect_to_wcdn_settings() {
+			wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=wcdn-settings' ) ); // phpcs:ignore
+			exit;
 		}
 
 		/**
 		 * Output the settings fields into the tab.
 		 */
 		public function output() {
-			global $current_section;
-			$settings = $this->get_settings( $current_section );
-			woocommerce_admin_fields( $settings );
+			include_once __DIR__ . '/admin/views/wcdn-header.php';
 		}
 
 		/**
-		 * Save the settings
+		 * Ajax Call For remove shop logo.
 		 */
-		public function save() {
-			global $current_section;
-			set_transient( 'wcdn_flush_rewrite_rules', true );
-			$settings = $this->get_settings( $current_section );
-			woocommerce_update_options( $settings );
-		}
-
-		/**
-		 * Get the settings fields
-		 *
-		 * @param string $section Section name.
-		 */
-		public function get_settings( $section = '' ) {
-			$wcdn_faq_url = admin_url( 'index.php?page=wcdn_faq_page' );
-			$settings     = apply_filters(
-				'wcdn_get_settings_no_section',
-				array(
-					array(
-						'title' => __( 'Template', 'woocommerce-delivery-notes' ),
-						'type'  => 'title',
-						'desc'  => $this->get_template_description(),
-						'id'    => 'general_options',
-					),
-
-					array(
-						'title'    => __( 'Style', 'woocommerce-delivery-notes' ),
-						/* translators: %s: link to faq */
-						'desc'     => sprintf( __( 'The default print style. Read the <a href="%1$s">FAQ</a> to learn how to customize it.', 'woocommerce-delivery-notes' ), $wcdn_faq_url, '#' ),
-						'id'       => 'wcdn_template_style',
-						'class'    => 'wc-enhanced-select',
-						'default'  => '',
-						'type'     => 'select',
-						'options'  => $this->get_options_styles(),
-						'desc_tip' => false,
-					),
-
-					array(
-						'title'    => __( 'Shop Logo', 'woocommerce-delivery-notes' ),
-						'desc'     => '',
-						'id'       => 'wcdn_company_logo_image_id',
-						'css'      => '',
-						'default'  => '',
-						'type'     => 'wcdn_image_select',
-						'desc_tip' => __( 'A shop logo representing your business. When the image is printed, its pixel density will automatically be eight times higher than the original. This means, 1 printed inch will correspond to about 288 pixels on the screen.', 'woocommerce-delivery-notes' ),
-					),
-
-					array(
-						'title'    => __( 'Shop Name', 'woocommerce-delivery-notes' ),
-						'desc'     => '',
-						'id'       => 'wcdn_custom_company_name',
-						'css'      => 'min-width:100%;',
-						'default'  => '',
-						'type'     => 'text',
-						'desc_tip' => __( 'The shop name. Leave blank to use the default Website or Blog title defined in WordPress settings. The name will be ignored when a Logo is set.', 'woocommerce-delivery-notes' ),
-					),
-
-					array(
-						'title'    => __( 'Shop Address', 'woocommerce-delivery-notes' ),
-						'desc'     => __( 'The postal address of the shop or even e-mail or telephone.', 'woocommerce-delivery-notes' ),
-						'id'       => 'wcdn_company_address',
-						'css'      => 'min-width:100%;min-height:100px;',
-						'default'  => '',
-						'type'     => 'textarea',
-						'desc_tip' => true,
-					),
-
-					array(
-						'title'    => __( 'Complimentary Close', 'woocommerce-delivery-notes' ),
-						'desc'     => __( 'Add a personal close, notes or season greetings.', 'woocommerce-delivery-notes' ),
-						'id'       => 'wcdn_personal_notes',
-						'css'      => 'min-width:100%;min-height:100px;',
-						'default'  => '',
-						'type'     => 'textarea',
-						'desc_tip' => true,
-					),
-
-					array(
-						'title'    => __( 'Policies', 'woocommerce-delivery-notes' ),
-						'desc'     => __( 'Add the shop policies, conditions, etc.', 'woocommerce-delivery-notes' ),
-						'id'       => 'wcdn_policies_conditions',
-						'css'      => 'min-width:100%;min-height:100px;',
-						'default'  => '',
-						'type'     => 'textarea',
-						'desc_tip' => true,
-					),
-
-					array(
-						'title'    => __( 'Footer', 'woocommerce-delivery-notes' ),
-						'desc'     => __( 'Add a footer imprint, instructions, copyright notes, e-mail, telephone, etc.', 'woocommerce-delivery-notes' ),
-						'id'       => 'wcdn_footer_imprint',
-						'css'      => 'min-width:100%;min-height:100px;',
-						'default'  => '',
-						'type'     => 'textarea',
-						'desc_tip' => true,
-					),
-
-					array(
-						'type' => 'sectionend',
-						'id'   => 'general_options',
-					),
-
-					array(
-						'title' => __( 'Pages & Buttons', 'woocommerce-delivery-notes' ),
-						'type'  => 'title',
-						'desc'  => '',
-						'id'    => 'display_options',
-					),
-
-					array(
-						'title'    => __( 'Print Page Endpoint', 'woocommerce-delivery-notes' ),
-						'desc'     => '',
-						'id'       => 'wcdn_print_order_page_endpoint',
-						'css'      => '',
-						'default'  => 'print-order',
-						'type'     => 'text',
-						'desc_tip' => __( 'The endpoint is appended to the accounts page URL to print the order. It should be unique.', 'woocommerce-delivery-notes' ),
-					),
-
-					array(
-						'title'         => __( 'Email', 'woocommerce-delivery-notes' ),
-						'desc'          => __( 'Show print link in customer emails', 'woocommerce-delivery-notes' ),
-						'id'            => 'wcdn_email_print_link',
-						'default'       => 'no',
-						'type'          => 'checkbox',
-						'checkboxgroup' => 'start',
-					),
-
-					array(
-						'desc'          => __( 'Show print link in Admin emails', 'woocommerce-delivery-notes' ),
-						'id'            => 'wcdn_admin_email_print_link',
-						'default'       => 'no',
-						'type'          => 'checkbox',
-						'desc_tip'      => __( 'This includes the emails for a new, processing and completed order. On top of that the customer and admin invoice emails will also include the link.', 'woocommerce-delivery-notes' ),
-						'checkboxgroup' => 'end',
-					),
-
-					array(
-						'title'         => __( 'My Account', 'woocommerce-delivery-notes' ),
-						'desc'          => __( 'Show print button on the "View Order" page', 'woocommerce-delivery-notes' ),
-						'id'            => 'wcdn_print_button_on_view_order_page',
-						'default'       => 'no',
-						'type'          => 'checkbox',
-						'checkboxgroup' => 'start',
-					),
-
-					array(
-						'desc'          => __( 'Show print buttons on the "My Account" page', 'woocommerce-delivery-notes' ),
-						'id'            => 'wcdn_print_button_on_my_account_page',
-						'default'       => 'no',
-						'type'          => 'checkbox',
-						'checkboxgroup' => 'end',
-					),
-
-					array(
-						'title'    => __( 'Text Direction', 'woocommerce-delivery-notes' ),
-						'desc'     => __( 'Print Text from Right to left', 'woocommerce-delivery-notes' ),
-						'id'       => 'wcdn_rtl_invoice',
-						'default'  => 'no',
-						'type'     => 'checkbox',
-						'desc_tip' => __( 'Show text in right to left direction in Invoice, Print Receipt & Delivery note if you are using languages such as Hebrew, Arabic, etc.', 'woocommerce-delivery-notes' ),
-					),
-					array(
-						'type' => 'sectionend',
-						'id'   => 'display_options',
-					),
-
-					array(
-						'title' => __( 'Invoice', 'woocommerce-delivery-notes' ),
-						'type'  => 'title',
-						'desc'  => '',
-						'id'    => 'invoice_options',
-					),
-
-					array(
-						'title'    => __( 'Numbering', 'woocommerce-delivery-notes' ),
-						'desc'     => __( 'Create invoice numbers', 'woocommerce-delivery-notes' ),
-						'id'       => 'wcdn_create_invoice_number',
-						'default'  => 'no',
-						'type'     => 'checkbox',
-						'desc_tip' => '',
-					),
-
-					array(
-						'title'    => __( 'Next Number', 'woocommerce-delivery-notes' ),
-						'desc'     => '',
-						'id'       => 'wcdn_invoice_number_count',
-						'class'    => 'create-invoice',
-						'css'      => '',
-						'default'  => 1,
-						'type'     => 'number',
-						'desc_tip' => __( 'The next invoice number.', 'woocommerce-delivery-notes' ),
-					),
-
-					array(
-						'title'    => __( 'Number Prefix', 'woocommerce-delivery-notes' ),
-						'desc'     => '',
-						'id'       => 'wcdn_invoice_number_prefix',
-						'class'    => 'create-invoice',
-						'css'      => '',
-						'default'  => '',
-						'type'     => 'text',
-						'desc_tip' => __( 'This text will be prepended to the invoice number.', 'woocommerce-delivery-notes' ),
-					),
-
-					array(
-						'title'    => __( 'Number Suffix', 'woocommerce-delivery-notes' ),
-						'desc'     => '',
-						'id'       => 'wcdn_invoice_number_suffix',
-						'class'    => 'create-invoice',
-						'css'      => '',
-						'default'  => '',
-						'type'     => 'text',
-						'desc_tip' => __( 'This text will be appended to the invoice number.', 'woocommerce-delivery-notes' ),
-					),
-					apply_filters( 'wcdn_add_settings_field', '' ),
-					array(
-						'type' => 'sectionend',
-						'id'   => 'invoice_options',
-					),
-				)
-			);
-
-			return apply_filters( 'wcdn_get_settings', $settings, $section );
-		}
-
-		/**
-		 * Get the position of a setting inside the array.
-		 *
-		 * @param int    $id Setting ID.
-		 * @param array  $settings Setting details.
-		 * @param string $type Type.
-		 */
-		public function get_setting_position( $id, $settings, $type = null ) {
-			foreach ( $settings as $key => $value ) {
-				if ( isset( $value['id'] ) && $value['id'] === $id ) {
-					return $key;
-				}
+		public function wcdn_remove_shoplogo() {
+			if ( ! empty( $_POST['shop_logoid'] ) ) { // phpcs:ignore
+				update_option( 'wcdn_company_logo_image_id', '' );
+				wp_delete_attachment( $_POST['shop_logoid'] ); // phpcs:ignore
 			}
-
-			return false;
 		}
 
 		/**
@@ -407,7 +568,7 @@ if ( ! class_exists( 'WCDN_Settings' ) ) {
 
 			// show template preview links when an order is available.
 			if ( is_array( $results ) && count( $results ) > 0 ) {
-				$test_id           = $results[0]->get_id();
+				$test_id           = $results[0]->ID;
 				$invoice_url       = wcdn_get_print_link( $test_id, 'invoice' );
 				$delivery_note_url = wcdn_get_print_link( $test_id, 'delivery-note' );
 				$receipt_url       = wcdn_get_print_link( $test_id, 'receipt' );

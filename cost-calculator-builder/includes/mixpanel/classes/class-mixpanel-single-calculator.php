@@ -99,16 +99,18 @@ class Mixpanel_Single_Calculator extends Mixpanel {
 		$ids             = is_array( self::$calculators_id ) ? self::$calculators_id : array();
 
 		foreach ( $ids as $calculator_id ) {
-			$settings         = CCBSettingsData::get_calc_single_settings( $calculator_id );
-			$settings_array[] = $settings[ key( $query_settings ) ];
+			$settings = CCBSettingsData::get_calc_single_settings( $calculator_id );
+			if ( isset( $settings[ key( $query_settings ) ] ) ) {
+				$settings_array[] = $settings[ key( $query_settings ) ];
+			}
 		}
 
 		if ( ! empty( $settings_array ) ) {
 			foreach ( $settings_array as $setting_array ) {
 				$general_settings = CCBSettingsData::get_calc_global_settings();
-				if ( 'woo_checkout' === key( $query_settings ) ) {
+				if ( 'woo_checkout' === key( $query_settings ) && isset( $query_settings['woo_checkout'] ) ) {
 					$chosen_settings[] = ( ! empty( $setting_array['product_id'] ) && ! empty( $setting_array[ current( $query_settings ) ] ) && false !== $setting_array[ current( $query_settings ) ] && '' !== $setting_array[ current( $query_settings ) ] ) ? 'true' : 'false';
-				} elseif ( 'currency' === key( $query_settings ) && false === $general_settings['currency']['use_in_all'] ) {
+				} elseif ( 'currency' === key( $query_settings ) && isset( $query_settings['currency'] ) && ! empty( $general_settings['currency']['use_in_all'] ) ) {
 					$chosen_settings['currency'][] = $setting_array[ key( $query_settings ) ];
 				} else {
 					$chosen_settings[] = ( ! empty( $setting_array[ current( $query_settings ) ] ) && false !== $setting_array[ current( $query_settings ) ] && '' !== $setting_array[ current( $query_settings ) ] ) ? 'true' : 'false';
@@ -153,8 +155,8 @@ class Mixpanel_Single_Calculator extends Mixpanel {
 		$ids                = is_array( self::$calculators_id ) ? self::$calculators_id : array();
 		foreach ( $ids as $calculator_id ) {
 			$settings      = CCBSettingsData::get_calc_single_settings( $calculator_id );
-			$form_settings = $settings['formFields'];
-			if ( '' === $form_settings['allowContactForm'] ) {
+			$form_settings = $settings['formFields'] ?? array();
+			if ( empty( $form_settings['allowContactForm'] ) ) {
 				$default_form_count ++;
 			}
 		}
@@ -167,8 +169,8 @@ class Mixpanel_Single_Calculator extends Mixpanel {
 		$ids       = is_array( self::$calculators_id ) ? self::$calculators_id : array();
 		foreach ( $ids as $calculator_id ) {
 			$settings      = CCBSettingsData::get_calc_single_settings( $calculator_id );
-			$form_settings = $settings['formFields'];
-			if ( '' !== $form_settings['allowContactForm'] ) {
+			$form_settings = $settings['formFields'] ?? array();
+			if ( ! empty( $form_settings['allowContactForm'] ) ) {
 				$cf7_count ++;
 			}
 		}

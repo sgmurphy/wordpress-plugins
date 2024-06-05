@@ -5,7 +5,7 @@ Tags: woocommerce, dynamic pricing, discount, pricing rule, bulk discount
 Requires PHP: 7.0
 Requires at least: 4.8
 Tested up to: 6.5
-Stable tag: 4.8.0
+Stable tag: 4.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,14 @@ You should be PHP programmer to do it. [Please, review sample addon and adapt it
 
 
 == Changelog ==
+
+= 4.8.1 - 2024-06-05 =
+* Fixed bug - option "Add products to cart at normal cost" added coupon with 0 amount if product has sale price
+* Fixed bug - option "Combine multiple fixed discounts" added coupon with 0 amount
+* Fixed bug - option "Don't recalculate cart on page load" worked incorrectly for products which have non-empty sale price
+* Fixed bug - option "Don't recalculate cart on page load" displayed an error if cart discount applied
+* Fixed bug - php warnings for undefined variables in StructuredData.php
+* Updated compatibility with "YITH WooCommerce Gift Cards"
 
 = 4.8.0 - 2024-05-29 =
 * Added option "Don't recalculate cart on page load" (>Settings>Calculation, default OFF)

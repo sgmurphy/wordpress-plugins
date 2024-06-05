@@ -14,6 +14,8 @@ const {
     duplicateBlockIdFix,
     filterBlocksByName,
     getBlockParentClientId,
+    DynamicInputValueHandler,
+    DynamicFormFieldValueHandler,
     BlockProps
 } = EBControls;
 
@@ -44,6 +46,9 @@ export default function Edit(props) {
         isRequired,
         validationMessage,
         validationRules,
+        dynamicValue,
+        dynamicOptionType,
+        dynamicValueLoader
     } = attributes;
 
     // you must declare this variable
@@ -86,14 +91,20 @@ export default function Edit(props) {
                         {showLabel && (
                             <>
                                 <label htmlFor={fieldName}>
-                                    {labelText}{" "}
+                                    <DynamicInputValueHandler
+                                        value={labelText}
+                                        onChange={(labelText) =>
+                                            setAttributes({ labelText })
+                                        }
+                                        readOnly={true}
+                                    />{" "}
                                     {isRequired && (
                                         <span className="eb-required">*</span>
                                     )}
                                 </label>
                             </>
                         )}
-                        {options.length > 0 &&
+                        {/* {options.length > 0 &&
                             options.map((option) => (
                                 <div className="eb-radio-inputarea">
                                     <label htmlFor={option.value}>
@@ -107,7 +118,18 @@ export default function Edit(props) {
                                         {option.name}
                                     </label>
                                 </div>
-                            ))}
+                            ))} */}
+
+                        <DynamicFormFieldValueHandler
+                            type="radio"
+                            fieldName={fieldName}
+                            defaultValue={defaultValue}
+                            options={options}
+                            dynamicValue={dynamicValue}
+                            dynamicOptionType={dynamicOptionType}
+                            dynamicValueLoader={dynamicValueLoader}
+                            setAttributes={setAttributes}
+                        />
                         {isRequired && (
                             <>
                                 <div

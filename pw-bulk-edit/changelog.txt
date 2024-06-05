@@ -1,3 +1,6 @@
+= 2.125 =
+* Compatibility for WooCommerce v9.0
+
 = 2.124 =
 * Revised tags in readme.txt
 

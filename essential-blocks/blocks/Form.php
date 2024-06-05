@@ -118,10 +118,20 @@ class Form extends Block {
             'data-error'             => esc_html( $_essential_attributes['errorMessage'] )
         ], $attributes );
 
+        $attributes_html = '';
+        foreach ($confirmation_div_attr as $key => $value) {
+            $attributes_html .= sprintf('%s="%s" ', esc_attr($key), esc_attr($value));
+        }
+
         $confirmation_div_html = sprintf(
             '<div class="eb_form_submit_response" %1$s></div>',
-            http_build_query( $confirmation_div_attr, '', ' ' )
+            trim($attributes_html)
         );
+
+        // $confirmation_div_html = sprintf(
+        //     '<div class="eb_form_submit_response" %1$s></div>',
+        //     http_build_query( $confirmation_div_attr, '', ' ' )
+        // );
 
         ob_start();
         Helper::views( 'form-block', array_merge( $attributes, [

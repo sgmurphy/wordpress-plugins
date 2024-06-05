@@ -16,7 +16,7 @@ $activate = array(
    update_option('widget_text', array(
         1 => array('title' => '',
         'text'=>'<div class="footer-logo"><img src="'.CLEVERFOX_PLUGIN_URL.'inc/aera/images/logo-2.png" alt=""></div>
-                        <p>'.esc_html__(CLEVERFOX_FOOTER_ABOUT,'clever-fox').'</p>
+                 <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
 		'),        
 		2 => array('title' => 'Recent Posts'),
 		3 => array('title' => 'Categories'), 

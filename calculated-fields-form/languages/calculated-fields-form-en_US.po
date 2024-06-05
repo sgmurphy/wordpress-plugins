@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-06-01 01:01+0200\n"
-"PO-Revision-Date: 2024-06-01 01:01+0200\n"
+"POT-Creation-Date: 2024-06-05 03:03+0200\n"
+"PO-Revision-Date: 2024-06-05 03:03+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -756,7 +756,7 @@ msgstr ""
 msgid "Troubleshoot settings updated"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:158 inc/cpcff_page_builders.inc.php:162
+#: inc/cpcff_admin_int_list.inc.php:158 inc/cpcff_page_builders.inc.php:170
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:9
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:11
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:12
@@ -1165,26 +1165,30 @@ msgid ""
 "your API Key."
 msgstr ""
 
-#: inc/cpcff_page_builders.inc.php:88
+#: inc/cpcff_page_builders.inc.php:89
 #: pagebuilders/elementor/elementor.pb.php:58
 msgid "Select a form"
 msgstr ""
 
-#: inc/cpcff_page_builders.inc.php:89
+#: inc/cpcff_page_builders.inc.php:90
 msgid "Forms"
 msgstr ""
 
-#: inc/cpcff_page_builders.inc.php:90
+#: inc/cpcff_page_builders.inc.php:91
+msgid "Templates"
+msgstr ""
+
+#: inc/cpcff_page_builders.inc.php:92
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:39
 #: pagebuilders/divi/cff.pb.php:49 pagebuilders/elementor/elementor.pb.php:69
 msgid "Additional attributes"
 msgstr ""
 
-#: inc/cpcff_page_builders.inc.php:91
+#: inc/cpcff_page_builders.inc.php:93
 msgid "Load form into an iframe"
 msgstr ""
 
-#: inc/cpcff_page_builders.inc.php:92
+#: inc/cpcff_page_builders.inc.php:94
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:44
 #: pagebuilders/elementor/elementor.pb.php:83
 #: pagebuilders/siteorigin/siteorigin-cpcff/fields/cff-button.class.php:14

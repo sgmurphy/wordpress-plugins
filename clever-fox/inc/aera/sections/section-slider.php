@@ -43,24 +43,24 @@ if ( ! function_exists( 'avril_lite_slider' ) ) :
                             		<div class="av-column-12">
                             		<?php } ?>
 										<?php if ( ! empty( $avril_slide_title ) ) : ?>
-											<h3 data-animation="fadeInUp" data-delay="150ms"><?php esc_html_e( $avril_slide_title , 'clever-fox'); ?></h3>
+											<h3 data-animation="fadeInUp" data-delay="150ms"><?php /* translators: %s: Slide Title */printf(esc_html__('%s.', 'clever-fox'), esc_html($avril_slide_title)); ?></h3>
 										<?php endif; ?>
 										
 										<?php if ( ! empty( $subtitle ) ) : ?>
-											<h1 data-animation="fadeInUp" data-delay="200ms"><span><?php esc_html_e( $subtitle , 'clever-fox'); ?></span></h1>
+											<h1 data-animation="fadeInUp" data-delay="200ms"><span><?php /* translators: %s: Subtitle */printf(esc_html__('%s.', 'clever-fox'), esc_html($subtitle)); ?></h1>
 	                                    <?php endif; ?>
 										
 										<?php if ( ! empty( $text ) ) : ?>
-											<p data-animation="fadeInUp" data-delay="500ms"><?php esc_html_e( $text , 'clever-fox'); ?></p>
+											<p data-animation="fadeInUp" data-delay="500ms"><?php /* translators: %s: Text */printf(esc_html__('%s.', 'clever-fox'), esc_html($text)); ?></p>
 										<?php endif; ?>	
 										<?php if ( ! empty( $button ) ) : ?>
-											<a data-animation="fadeInUp" data-delay="800ms" href="<?php echo esc_url( $link ); ?>" <?php if($open_new_tab== 'yes' || $open_new_tab== '1') { echo "target='_blank'"; } ?> class="av-btn av-btn-primary"><?php esc_html_e( $button , 'clever-fox'); ?></a>
+											<a data-animation="fadeInUp" data-delay="800ms" href="<?php echo esc_url( $link ); ?>" <?php if($open_new_tab== 'yes' || $open_new_tab== '1') { echo "target='_blank'"; } ?> class="av-btn av-btn-primary"><?php /* translators: %s: Button Text */printf(esc_html__('%s.', 'clever-fox'), esc_html($button)); ?></a>
 										<?php endif; ?>
 									</div>
 									<?php if ( ! empty( $image2 ) ) : ?>
 									<div class="av-column-5 mb-av-0 mx-auto my-auto">
 										<div class="aera-img">
-											<img src="<?php echo esc_url( $image2 ); ?>" data-img-url="<?php echo esc_url( $image2 ); ?>" <?php if ( ! empty( $avril_slide_title ) ) : ?> alt="<?php esc_attr_e( $avril_slide_title , 'clever-fox'); ?>" title="<?php esc_attr_e( $avril_slide_title , 'clever-fox' ); ?>" <?php endif; ?> />
+											<img src="<?php echo esc_url( $image2 ); ?>" data-img-url="<?php echo esc_url( $image2 ); ?>" <?php if ( ! empty( $avril_slide_title ) ) : ?> alt="<?php /* translators: %s: Slide Title */printf(esc_attr__('%s.', 'clever-fox'), esc_attr($avril_slide_title)); ?>" title="<?php /* translators: %s: Subtitle */printf(esc_attr__('%s.', 'clever-fox'), esc_attr($subtitle)); ?>" <?php endif; ?> />
 										</div>
 									</div>
 									<?php endif; ?>

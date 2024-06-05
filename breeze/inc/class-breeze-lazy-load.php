@@ -172,7 +172,7 @@ class Breeze_Lazy_Load {
 					$current_src = ! empty( $src_value[1] ) ? $src_value[1] : '';
 					if ( true !== $this->excluded_images( $current_src ) ) {
 						// Add lazy-load data attribute.
-						$img_match_new = preg_replace( '/(<img\s+)/', '$1data-breeze="' . $current_src . '" ', $img_match );
+						$img_match_new = preg_replace( '/(<img\s+)/', '$1data-breeze="' . trim($current_src) . '" ', $img_match );
 
 						// Remove the current image source.
 						$img_match_new = preg_replace( '/(<img.+)(src=(?:"|\').+?(?:"|\'))(.+?>)/', '$1$3', $img_match_new );

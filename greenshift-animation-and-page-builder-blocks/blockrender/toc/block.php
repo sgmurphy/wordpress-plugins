@@ -68,8 +68,8 @@ class GSToc{
         if($dynamicTOC){
             global $post;
             if(!is_object($post)) return;
-            $blockId = 'gspb_toc-id-'.$id;
-            $blockClassName = 'gs-toc '.$blockId.' '.(!empty($className) ? $className : '').' ';
+            $blockId = 'gspb_toc-id-'.esc_attr($id);
+            $blockClassName = 'gs-toc '.$blockId.' '.(!empty($className) ? esc_attr($className) : '').' ';
             $seotype = ($seoschema) ? ' itemType="https://schema.org/ItemList" itemscope=""' : '';
     
             $headings = self::get_headings($post->post_content, $settings);
@@ -85,16 +85,16 @@ class GSToc{
                             if(!empty($heading['classes']) && in_array('remove-from-toc', $heading['classes'])) continue;
                             if('h'.$heading['tag'] == $headingTag || 'h'.$heading['tag'] == $headingSecTag){
                                 $subheadingclass = ($headingSecTag == 'h'.$heading['tag']) ? " gs_sub_heading": "";
-                                $out .= '<div class="gs-autolist-item'.$subheadingclass.'"'.($seoschema ? $schematype : "").'>';
+                                $out .= '<div class="gs-autolist-item'.esc_attr($subheadingclass).'"'.($seoschema ? $schematype : "").'>';
                                     if($enablenumbers) {
                                         $out .= '<span class="gs-autolist-number">'.($key+1).'</span>';
                                     }
                                     $out .= '<span class="gs-autolist-title">';
                                         if($seoschema){
-                                            $out .= '<meta itemProp="name" content="'.$heading['name'].'" />';
+                                            $out .= '<meta itemProp="name" content="'.esc_attr($heading['name']).'" />';
                                         }
-                                        $out .= '<a class="gs-scrollto" href="#'.$heading['id'].'">';
-                                            $out .= $heading['name'];
+                                        $out .= '<a class="gs-scrollto" href="#'.esc_attr($heading['id']).'">';
+                                            $out .= esc_attr($heading['name']);
                                         $out .='</a>';
                                     $out .='</span>';
                                 $out .= '</div>';
@@ -109,13 +109,13 @@ class GSToc{
                             if(!empty($heading['classes']) && in_array('remove-from-toc', $heading['classes'])) continue;
                             if('h'.$heading['tag'] == $headingTag || 'h'.$heading['tag'] == $headingSecTag){
                                 $subheadingclass = ($headingSecTag == 'h'.$heading['tag']) ? " gs_sub_heading": "";
-                                $out .= '<li class="'.$subheadingclass.'"'.(($seoschema && $stickyPanelOnly) ? $schematype : "").'>';
+                                $out .= '<li class="'.esc_attr($subheadingclass).'"'.(($seoschema && $stickyPanelOnly) ? $schematype : "").'>';
                                     $out .= '<span class="gs-autolist-title">';
                                         if($seoschema && $stickyPanelOnly){
-                                            $out .= '<meta itemProp="name" content="'.$heading['name'].'" />';
+                                            $out .= '<meta itemProp="name" content="'.esc_attr($heading['name']).'" />';
                                         }
-                                        $out .= '<a class="gs-scrollto" href="#'.$heading['id'].'">';
-                                            $out .= $heading['name'];
+                                        $out .= '<a class="gs-scrollto" href="#'.esc_attr($heading['id']).'">';
+                                            $out .= esc_attr($heading['name']);
                                         $out .='</a>';
                                     $out .='</span>';
                                 $out .= '</li>';

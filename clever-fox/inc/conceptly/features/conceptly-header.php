@@ -261,7 +261,6 @@ function conceptly_lite_header_setting( $wp_customize ){
 		    'label'   		=> __('Ask Your Question','clever-fox'),
 		    'section' 		=> 'header_contact',
 			'settings' 		 => 'header_faq',
-			'description'   => __( '', 'clever-fox' ),
 			'type'		 =>	'textarea'
 		)  
 	);

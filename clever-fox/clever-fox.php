@@ -2,7 +2,7 @@
 /*
 Plugin Name: Clever Fox
 Description: Clever Fox plugin to enhance the functionality of free themes made by Nayra Themes. More than 60000+ trusted websites with Nayra Themes. It provides intuitive features to your website. 42+ Themes compatible with Clever Fox. See below free themes listed here. Avril, Gradiant, Flavita, Fiona Blog, MetaSoft, Conceptly & ColorPress is one of highest installations themes in our collections. Visit our website and find theme as you need. https://www.nayrathemes.com/themes/
-Version: 25.2.1
+Version: 25.2.2
 Author: nayrathemes
 Author URI: https://nayrathemes.com
 Text Domain: clever-fox
@@ -10,7 +10,7 @@ Requires PHP: 5.6
 */
 define( 'CLEVERFOX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'CLEVERFOX_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'CLEVERFOX_FOOTER_ABOUT', 'There are many variations of dummy passages of Lorem Ipsum a available, but the majority have suffered that is alteration in some that form  injected humour or randomised.' );
+define( 'CLEVERFOX_FOOTER_ABOUT', 'There are many variations of dummy passages of Lorem Ipsum a available, but the majority have suffered that is alteration in some that form  injected humour or randomised' );
 
 function cleverfox_activate() {
 	
@@ -293,6 +293,13 @@ if( 'Renoval' == $theme->name ){
 		}
 		
 		public function activate_theme() {
+			/**
+		 * Activate theme
+		 *
+		 * @since 1.0
+		 * @return void
+		 */
+		function activate_theme_once() {
 			// Check nonce for security
 			check_ajax_referer('clever_fox_nonce', 'security');
 
@@ -314,13 +321,7 @@ if( 'Renoval' == $theme->name ){
 				));
 			}
 
-			/**
-		 * Activate theme
-		 *
-		 * @since 1.0
-		 * @return void
-		 */
-		function activate_theme_once() {
+			
 			// Check if the theme activation mode is set
 			if (get_option('theme_activation_mode') !== 'activated') {
 				// Set the theme activation mode to prevent running this code again
@@ -344,27 +345,27 @@ if( 'Renoval' == $theme->name ){
 		}
 		
 		public function clever_fox_enqueue_scripts() {
-			wp_enqueue_style('clever-fox-admin',CLEVERFOX_PLUGIN_URL .'inc/assets/css/admin.css');
+			wp_enqueue_style('clever-fox-admin',CLEVERFOX_PLUGIN_URL .'inc/assets/css/admin.css','','0.0');
 			wp_enqueue_script( 'jquery-ui-core' );
-					wp_enqueue_script( 'jquery-ui-dialog' );
-					wp_enqueue_style( 'wp-jquery-ui-dialog' );	
-					
-					wp_enqueue_script( 'clever-fox-install-theme', CLEVERFOX_PLUGIN_URL . 'inc/assets/js/install-theme.js', array( 'jquery' ) );
-					
-					wp_enqueue_script( 'clever-fox-filter-tabs', CLEVERFOX_PLUGIN_URL . 'inc/assets/js/filter-tabs.js', array( 'jquery' ) );
-					
-					$data = apply_filters(
-						'clever_fox_install_theme_localize_vars',
-						array(
-							'installed'  => __( 'Installed! Activating..', 'clever-fox' ),
-							'activating' => __( 'Activating..', 'clever-fox' ),
-							'activated'  => __( 'Activated! Reloading..', 'clever-fox' ),
-							'installing' => __( 'Installing..', 'clever-fox' ),
-							'ajaxurl'    => esc_url( admin_url( 'admin-ajax.php' ) ),
-							'security' => wp_create_nonce( 'my-special-string' )
-						)
-					);
-					wp_localize_script( 'clever-fox-install-theme', 'CleverFoxInstallThemeVars', $data );
+			wp_enqueue_script( 'jquery-ui-dialog' );
+			wp_enqueue_style( 'wp-jquery-ui-dialog' );	
+			
+			wp_enqueue_script( 'clever-fox-install-theme', CLEVERFOX_PLUGIN_URL . 'inc/assets/js/install-theme.js', array( 'jquery' ),'0.0',true );
+			
+			wp_enqueue_script( 'clever-fox-filter-tabs', CLEVERFOX_PLUGIN_URL . 'inc/assets/js/filter-tabs.js', array( 'jquery' ),'0.0',true );
+			
+			$data = apply_filters(
+				'clever_fox_install_theme_localize_vars',
+				array(
+					'installed'  => __( 'Installed! Activating..', 'clever-fox' ),
+					'activating' => __( 'Activating..', 'clever-fox' ),
+					'activated'  => __( 'Activated! Reloading..', 'clever-fox' ),
+					'installing' => __( 'Installing..', 'clever-fox' ),
+					'ajaxurl'    => esc_url( admin_url( 'admin-ajax.php' ) ),
+					'security' => wp_create_nonce( 'my-special-string' )
+				)
+			);
+			wp_localize_script( 'clever-fox-install-theme', 'CleverFoxInstallThemeVars', $data );
 		}
 
 		public function clever_fox_setup_menu() {
@@ -397,7 +398,13 @@ if( 'Renoval' == $theme->name ){
 		$api_url = 'https://api.wordpress.org/themes/info/1.1/?action=query_themes&request[author]=nayrathemes&request[per_page]=40';
 
 		// Read JSON file
-		$json_data = file_get_contents($api_url);
+		$response = wp_remote_get( $api_url );
+
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+		} else {
+			$json_data = wp_remote_retrieve_body( $response );
+		}
 
 		// Decode JSON data into PHP array
 		$response_data = json_decode($json_data);
@@ -573,7 +580,7 @@ if( 'Renoval' == $theme->name ){
 											$specia_btn_value= 'Install & Activate Now';
 										endif;
 										$theme_status = 'clever-fox-theme-' . $get_theme_staus;
-										echo sprintf( esc_html__( '<a href="#" class="%3$s xl-btn-active clever-fox-btn-outline xl-install-action clever-fox-btn" data-theme-slug="%1$s">%4$s</a>', 'clever-fox' ), esc_html($themes->name),esc_url( admin_url( 'themes.php?theme=%1$s' ) ), esc_html($theme_status), esc_html($specia_btn_value) );
+										echo sprintf(/* translators: 1: Theme Slug 3:Anchor Class 4: Text */ esc_html__( '<a href="#" class="%3$s xl-btn-active clever-fox-btn-outline xl-install-action clever-fox-btn" data-theme-slug="%1$s">%4$s</a>', 'clever-fox' ), esc_html($themes->name),esc_url( admin_url( 'themes.php?theme=%1$s' ) ), esc_html($theme_status), esc_html($specia_btn_value) );
 										//switch_theme( $themes->name );
 										?>
 									</div>

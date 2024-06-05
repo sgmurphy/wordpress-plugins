@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.2.11 =
+
+* Modifies the Date control to prevent the date selection from closing the Elementor popups when it contains a form.
+* Modifies the predefined template 09.
+* The form shortcode supports the template attribute to allow modifying and applying different templates to the same form via shortcode.
+* Modifies the Gutenberg editor block for form insertion to support the new template attribute.
+
 = 5.2.10 =
 
 * Modifies the Default settings section to activate/deactivate the Submit button by default or change its status in the existing forms.

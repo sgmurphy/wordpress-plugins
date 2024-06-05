@@ -105,7 +105,12 @@ function one_page_express_contact_form( $attrs = array() ) {
 	// compatibility with free //
 	$contact_shortcode = get_theme_mod( 'one_page_express_contact_form_shortcode', '' );
 	if ( $atts['shortcode'] ) {
-		$contact_shortcode = '[' . html_entity_decode( html_entity_decode( $atts['shortcode'] ) ) . ']';
+		$decoded_shortcode   = html_entity_decode( html_entity_decode( $atts['shortcode'] ) ); // backward compatibility reason
+		$sanitized_shortcode = sanitize_text_field( $decoded_shortcode );
+
+		$contact_shortcode = '[' . $sanitized_shortcode . ']';
+	} else if ( $contact_shortcode !== "" ) {
+		$contact_shortcode = sanitize_text_field( $contact_shortcode );
 	}
 	ob_start();
 	if ( $contact_shortcode !== '' ) {

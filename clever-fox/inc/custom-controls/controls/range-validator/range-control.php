@@ -19,8 +19,8 @@
 		}
 
 		public function enqueue() {
-			wp_enqueue_script( 'cleverfox-range-slider', CLEVERFOX_DIRECTORY_URI . 'controls/range-validator/assets/js/range-control.js', array( 'jquery' ), '', true );
-			wp_enqueue_style( 'cleverfox-range-slider', CLEVERFOX_DIRECTORY_URI . 'controls/range-validator/assets/css/range-control.css' );
+			wp_enqueue_script( 'cleverfox-range-slider', CLEVERFOX_DIRECTORY_URI . 'controls/range-validator/assets/js/range-control.js', array( 'jquery' ), '0.0', true );
+			wp_enqueue_style( 'cleverfox-range-slider', CLEVERFOX_DIRECTORY_URI . 'controls/range-validator/assets/css/range-control.css','','0.0' );
 		}
 
 		public function render_content() {
@@ -37,7 +37,7 @@
 						<input class="cleverfox-range-slider-range" type="range" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->input_attrs(); $this->link(); ?> />
 						<input class="cleverfox-range-slider-value" type="number" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->input_attrs(); $this->link(); ?> />
 						<?php if ( ! empty( $this->setting->default ) ) : ?>
-							<span class="cleverfox-range-reset-slider" title="<?php _e( 'Reset', 'cleverfox' ); ?>"><span class="dashicons dashicons-image-rotate"></span></span>
+							<span class="cleverfox-range-reset-slider" title="<?php esc_attr_e( 'Reset', 'cleverfox' ); ?>"><span class="dashicons dashicons-image-rotate"></span></span>
 						<?php endif;?>
 					</div>
 				</div>

@@ -1,5 +1,15 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.22 - 2024-05-28
+
+### Fixes
+
+- Optimize how checkboxes are spaced when the text wraps
+- Fix date format in upcoming appointments module
+- Remove stuck error notice around Stripe web-hook setup being incorrect
+- Prevent double clicks on buttons where relevant
+- Not able to book after "Uh Oh" error - fix handling on new booking app not working
+
 ## SSA-VERSION-PREFIX.6.7.20 - 2024-05-21
 
 ### Fixes

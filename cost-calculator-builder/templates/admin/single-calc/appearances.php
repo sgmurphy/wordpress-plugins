@@ -117,7 +117,7 @@ $hide_notice = get_option( 'ccb_appearance_hide_notice', false );
 								<div class="ccb-appearance-notice">
 									<span class="ccb-appearance-notice-text">
 										<span style="font-weight: 700">NOTE: </span>
-										<?php esc_html_e( 'For Mobile  some of settings are inherited from desktop view:  Colors, Borders & shadows, Spacing & positions,  and Others', 'cost-calculator-builder' ); ?>
+										<?php esc_html_e( 'Some of the following settings for the mobile view are inherited from the desktop view: Colors, Borders & shadows, Spacing & positions and Others.', 'cost-calculator-builder' ); ?>
 									</span>
 									<span class="ccb-appearance-notice-action" @click="gotIt">
 										<?php esc_html_e( 'Got it', 'cost-calculator-builder' ); ?>

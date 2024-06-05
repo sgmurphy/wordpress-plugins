@@ -5,7 +5,7 @@
  */
  function conceptly_get_social_icon_default() {
 	return apply_filters(
-		'conceptly_get_social_icon_default', json_encode(
+		'conceptly_get_social_icon_default', wp_json_encode(
 			array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -42,7 +42,7 @@
 	 $theme = wp_get_theme(); // gets the current theme
 		if ( 'Azwa' == $theme->name){
 			return apply_filters(
-			'conceptly_get_slides_default', json_encode(
+			'conceptly_get_slides_default', wp_json_encode(
 			 array(
 				  
 				/*Repeater's first item*/
@@ -58,7 +58,7 @@
 		);
 	}else{
 			return apply_filters(
-			'conceptly_get_slides_default', json_encode(
+			'conceptly_get_slides_default', wp_json_encode(
 			 array(
 				 
 				/*Repeater's first item*/
@@ -82,7 +82,7 @@
  */
 function conceptly_get_service_default() {
 	return apply_filters(
-		'conceptly_get_service_default', json_encode(
+		'conceptly_get_service_default', wp_json_encode(
 			 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/conceptly/images/service/service02.jpg',
@@ -128,7 +128,7 @@ function conceptly_get_service_default() {
  */
 function conceptly_get_feature_default() {
 	return apply_filters(
-		'conceptly_get_feature_default', json_encode(
+		'conceptly_get_feature_default', wp_json_encode(
 			 array(
 				array(
 					'title'           => esc_html__( 'Business Growth', 'clever-fox' ),
@@ -184,7 +184,7 @@ function conceptly_get_feature_default() {
  */
  function conceptly_get_sponsers_default() {
 	return apply_filters(
-		'conceptly_get_sponsers_default', json_encode(
+		'conceptly_get_sponsers_default', wp_json_encode(
 			 array(
 				array(
 					'link'            => esc_html__( '#', 'clever-fox' ),

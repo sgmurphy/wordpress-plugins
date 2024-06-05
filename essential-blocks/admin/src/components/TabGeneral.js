@@ -277,21 +277,51 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.6.1", "essential-blocks")}
+                                    {__("Version: 4.7.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("23/05/2024", "essential-blocks")}
+                                        {__("05/06/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Error: EBDisplayIcon is not defined",
+                                            "Added: Global Typography Control",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: ReferenceError: ShapeDividerContent is not defined",
+                                            "Added: Theme font support in Essential Blocks Typography Picker",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Added: Save & Insert button in block default control",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Improved: Reduce Google font request in Editor",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Google font weight issue",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Global Font reset not working",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Improved: Security enhancement",
                                             "essential-blocks"
                                         )}
                                     </li>

@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.5
-Stable tag:        1.6.7.20
+Stable tag:        1.6.7.22
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -233,6 +233,16 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.22 - 2024-05-28 ==
+
+= Fixes =
+
+- Optimize how checkboxes are spaced when the text wraps
+- Fix date format in upcoming appointments module
+- Remove stuck error notice around Stripe web-hook setup being incorrect
+- Prevent double clicks on buttons where relevant
+- Not able to book after "Uh Oh" error - fix handling on new booking app not working
+
 == 1.6.7.20 - 2024-05-21 ==
 
 = Fixes =
@@ -290,16 +300,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 - Added the new booking app banner alerts.
 - Adding Booking Flows new Sidecards.
 - Expose rescheduling history using twig variables
-
-== 1.6.7.12 - 2024-04-02 ==
-
-= Fixes =
-
-- Improve phone number validation
-- Next dates button disabled when it should not be
-- Fixing new booking app phone field.
-
-= Features and Improvements =
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

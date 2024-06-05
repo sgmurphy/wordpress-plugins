@@ -557,6 +557,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				}
 				$atts['id'] = $myrow->id; // If was not passed the form's id, uses the if of first form.
 				$id         = $atts['id']; // Alias for the $atts[ 'id' ] variable.
+				$form_template = ! empty( $atts[ 'template' ] ) ? trim( $atts[ 'template' ] ) : '';
 
 				if ( ! empty( $atts['iframe'] ) ) {
 					if ( ! isset( $this->_iframe_nonces[ $id ] ) ) {
@@ -564,12 +565,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					}
 					$form_obj = $this->get_form( $id );
 					$url  = CPCFF_AUXILIARY::site_url( true );
-					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff-form=' . $id . '&cff-form-target=_top&_nonce=' . $this->_iframe_nonces[ $id ];
+					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff-form=' . $id . '&cff-form-target=_top&_nonce=' . $this->_iframe_nonces[ $id ] . ( ! empty( $form_template ) ? '&template=' . urlencode( $form_template ) : '' );
 
-					// The attributes excepting "id", "iframe", and "asynchronous" are converted in javascript variables with global scope.
+					// The attributes excepting "id", "iframe", "template", and "asynchronous" are converted in javascript variables with global scope
 					if ( count( $atts ) > 1 ) {
 						foreach ( $atts as $i => $v ) {
-							if ( ! in_array( $i, array( 'id', 'iframe', 'class', 'asynchronous' ) ) && ! is_numeric( $i ) ) {
+							if ( ! in_array( $i, array( 'id', 'iframe', 'class', 'asynchronous', 'template' ) ) && ! is_numeric( $i ) ) {
 								$nV   = ( is_numeric( $v ) ) ? $v : sanitize_text_field( wp_unslash( $v ) ); // Sanitizing the attribute's value.
 								$url .= '&' . urlencode( $i ) . '=' . urlencode( $nV );
 							}

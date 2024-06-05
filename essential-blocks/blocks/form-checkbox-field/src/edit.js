@@ -14,6 +14,8 @@ const {
     duplicateBlockIdFix,
     filterBlocksByName,
     getBlockParentClientId,
+    DynamicInputValueHandler,
+    DynamicFormFieldValueHandler,
     BlockProps
 } = EBControls;
 
@@ -46,6 +48,9 @@ export default function Edit(props) {
         isRequired,
         validationRules,
         validationMessage,
+        dynamicValue,
+        dynamicOptionType,
+        dynamicValueLoader
     } = attributes;
 
     // you must declare this variable
@@ -98,14 +103,21 @@ export default function Edit(props) {
                                     htmlFor={fieldName}
                                     className="eb-field-label"
                                 >
-                                    {labelText}{" "}
+                                    <DynamicInputValueHandler
+                                        value={labelText}
+                                        onChange={(labelText) =>
+                                            setAttributes({ labelText })
+                                        }
+                                        readOnly={true}
+                                    />
+                                    {" "}
                                     {isRequired && (
                                         <span className="eb-required">*</span>
                                     )}
                                 </label>
                             </>
                         )}
-                        {options.length > 0 &&
+                        {/* {options.length > 0 &&
                             options.map((option) => (
                                 <div className="eb-checkbox-inputarea">
                                     <label htmlFor={option.value}>
@@ -119,13 +131,29 @@ export default function Edit(props) {
                                         {option.name}
                                     </label>
                                 </div>
-                            ))}
+                            ))} */}
+                        <DynamicFormFieldValueHandler
+                            type="checkbox"
+                            fieldName={fieldName}
+                            defaultValue={defaultValue}
+                            options={options}
+                            dynamicValue={dynamicValue}
+                            dynamicOptionType={dynamicOptionType}
+                            dynamicValueLoader={dynamicValueLoader}
+                            setAttributes={setAttributes}
+                        />
                         {isRequired && (
                             <>
                                 <div
                                     className={`eb-form-validation eb-validate-${fieldName}`}
                                 >
-                                    {validationMessage}
+                                    <DynamicInputValueHandler
+                                        value={validationMessage}
+                                        onChange={(validationMessage) =>
+                                            setAttributes({ validationMessage })
+                                        }
+                                        readOnly={true}
+                                    />
                                 </div>
                             </>
                         )}

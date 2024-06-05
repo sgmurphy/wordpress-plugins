@@ -1,4 +1,4 @@
-=== Product Feed PRO for WooCommerce by AdTribes – WooCommerce Product Feeds for Google, Facebook/Meta, Bing, & More ===
+=== Product Feed PRO for WooCommerce by AdTribes – WooCommerce Product Feeds ===
 Contributors: jkohlbach, RymeraWebCo, Rymera01, smub
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -7,7 +7,7 @@ Requires at least: 5.4
 Tested up to: 6.5
 Stable tag: 13.3.2
 
-Most popular WooCommerce product feeds plugin. Google shopping feed, meta/facebook feed, bing product feed and more.
+Most popular WooCommerce product feed plugin supporting Google shopping feed, meta/facebook feed, bing product feed & more.
 
 == DESCRIPTION ==
 
@@ -15,15 +15,18 @@ Most popular WooCommerce product feeds plugin. Google shopping feed, meta/facebo
 
 Create XML feeds, CSV feeds, TXT feeds, and YML feeds for Google Shopping feed (merchant center), Meta feed, Facebook feed, Remarketing product feed, Bing product feed (for Bing Shopping & Bing Ads), Billiger.de feed, Pricerunner feed, Skroutz, Catch.com.au feed, and many more. 
 
-We include over 100 pre-defined templates included for marketplaces, comparison shopping engines and search engines. Or, if you want, create a custom feed to your exact needs. 
+We include over 100+ pre-defined templates included for marketplaces, comparison shopping engines and search engines. Or, if you want, create a custom feed to your exact needs. 
 
-If you're looking for a high-quality product feed for Google Shopping and many more, this is the plugin you've been looking for.
+If you're looking for a high-quality product feed for Google Shopping, Meta Facebook Catalog and many more, this is the plugin you've been looking for.
 
 = Why choose this plugin? =
 This is the most complete free feed plugin offering support for an unlimited number of products and feeds, including features such as category & field mapping and advanced, rule-based, filtering and product variables support. Next to creating product feeds this plugin also add's pixels and conversion API (CAPI) and Google Dynamic Remarketing pixel to your website and makes sure they are aligned with your feeds.
 
 = Best Free Plugin Product Feeds for WooCommerce =
 We're offering the best free yet advanced WooCommerce feed plugin for website owners and marketers to easily set-up and manage their product feeds for online marketing campaigns.
+
+> <strong>Get More With Product Feed ELITE</strong><br />
+> This plugin is the free version of the highly rated AdTribes Product Feed plugin. If you want more extended features to take your product feeds to the next level get ELITE!<br /><br />Click here to compare features and purchase the <a href="https://adtribes.io/?utm_source=wprepo&utm_medium=link&utm_campaign=pfp" rel="friend">AdTribes Product Feed ELITE version</a>.
 
 == Plugin Features ==
 

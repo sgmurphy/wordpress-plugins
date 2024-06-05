@@ -4,7 +4,7 @@ Tags: cache,caching, performance, wp-cache, cdn
 Requires at least: 6.0
 Tested up to: 6.5.2
 Requires PHP: 7.4
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,10 @@ Using Gzip, Breeze compresses the request files, further reducing the size of th
 
 == Changelog ==
 
+= 2.1.9 =
+
+* Fix: Resolved an issue where images already in the viewport were not loading when JavaScript lazy-load was enabled.
+
 = 2.1.8 =
 
 * Add: Users now have the ability to roll back the plugin to previous versions.
@@ -271,7 +275,7 @@ Using Gzip, Breeze compresses the request files, further reducing the size of th
 
 * Fix: Handling of the 'WP_Upgrader_Skin' class for seamless update functionality via wp-cli.
 
-= 2.0.23=
+= 2.0.23 =
 
 * Add: Smart Cache Purge Configuration for Cloudflare is now available for Flexible Platform for Cloudways users.
 * Add: Environment detection is now available for Cloudways users to automatically detect the platform, e.g., Flexible or Autoscale.

@@ -71,6 +71,7 @@ class AutoAddCartItemChoicesSuitability
 
             if ($qtyToAdd === (float)0) {
                 unset($products[$currentIndex]);
+                $products = array_values($products);
                 continue;
             }
 

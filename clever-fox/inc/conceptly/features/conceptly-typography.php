@@ -127,7 +127,7 @@ $wp_customize->add_section(
 		$wp_customize->add_section(
 			'H' . $i . '_typography' ,
 				array(
-				'title'      => __('H' . $i .'','clever-fox'),
+				'title'      => sprintf(/* Translators: Heading */__('H%s' ,'clever-fox'), $i),
 				'panel' => 'conceptly_typography_setting',
 				'priority'       => 3,
 			) 

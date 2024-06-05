@@ -5,10 +5,10 @@ Description: Advance tools for WooCommerce by ThemeFarmer, this tool can be used
 Author: ThemeFarmer
 Author URI: https://www.themefarmer.com/
 Domain Path: /language/
-Version: 1.2.9
+Version: 1.2.10
 Text Domain: woocommerce-tools
 WC requires at least: 3.0
-WC tested up to: 6.8.2
+WC tested up to: 8.9.2
 
 WooCommerce Tools is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -147,13 +147,31 @@ function wcdn_navigation() {
 
 /**
  * Output template stylesheet
+ *
+ * @param string $template_type Template type.
  */
-function wcdn_template_stylesheet() {
+function wcdn_template_stylesheet( $template_type ) {
 	global $wcdn;
 	$name = apply_filters( 'wcdn_template_stylesheet_name', 'style.css' );
 	// phpcs:disable
+
+	if ( 'delivery-note' === $template_type ) {
+		$template_type = 'deliverynote';
+	}
+	$setting = get_option( 'wcdn_' . $template_type . '_customization' );
+	$setting['template_setting']['template_setting_template'] = get_option( 'wcdn_template_type' );
+	if ( isset( $setting['template_setting']['template_setting_template'] ) && 'simple' == $setting['template_setting']['template_setting_template'] ) {
+		?>
+		<link rel="stylesheet" href="<?php echo esc_url( $wcdn->print->get_template_file_location( $name, true ) ) . 'simple/' . esc_html( $name ); ?>" type="text/css" media="screen,print" />
+		<?php
+	} else {
+		?>
+		<link rel="stylesheet" href="<?php echo esc_url( $wcdn->print->get_template_file_location( $name, true ) ) . esc_html( $name ); ?>" type="text/css" media="screen,print" />
+		<?php
+	}
+
 	?>
-	<link rel="stylesheet" href="<?php echo esc_url( $wcdn->print->get_template_file_location( $name, true ) ) . esc_html( $name ); ?>" type="text/css" media="screen,print" />
+	
 	<?php
 	// phpcs:enable
 }
@@ -172,9 +190,25 @@ function wcdn_content( $order, $template_type ) {
 	add_filter( 'woocommerce_get_order_item_totals', 'wcdn_remove_payment_method_from_totals', 20, 2 );
 	add_filter( 'woocommerce_get_order_item_totals', 'wcdn_add_refunded_order_totals', 30, 2 );
 
+	if ( 'delivery-note' === $template_type ) {
+		$template_type = 'deliverynote';
+	}
+	$setting = get_option( 'wcdn_' . $template_type . '_customization' );
+	$setting['template_setting']['template_setting_template'] = get_option( 'wcdn_template_type' );
+
+	if ( isset( $setting['template_setting']['template_setting_template'] ) && 'simple' == $setting['template_setting']['template_setting_template'] ) {
+		if ( 'order' === $template_type ) {
+			$turl = 'print-content.php'; // Apply this for 'order' template if it's 'simple'.
+		} else {
+			$turl = 'simple/' . $template_type . '/print-content.php';
+		}
+	} else {
+		$turl = 'print-content.php';
+	}
+
 	// Load the template.
 	wcdn_get_template_content(
-		'print-content.php',
+		$turl,
 		array(
 			'order'         => $order,
 			'template_type' => $template_type,
@@ -199,34 +233,69 @@ function wcdn_company_logo() {
 	$company       = get_option( 'wcdn_custom_company_name' );
 	if ( $attachment_id ) {
 		$attachment_src = wp_get_attachment_image_src( $attachment_id, 'full', false );
+		// resize the image to a 1/4 of the original size to have a printing point density of about 288ppi.
+		?>
+		<div class="logo">
+			<img src="<?php echo esc_url( $attachment_src[0] ); ?>"  class="desktop"  width="<?php echo esc_attr( round( $attachment_src[1] / 4 ) ); ?>" height="<?php echo esc_attr( round( $attachment_src[2] / 4 ) ); ?>" alt="<?php echo esc_attr( $company ); ?>" />
+			<img src="<?php echo esc_url( $attachment_src[0] ); ?>" class="mobile" width="<?php echo esc_attr( round( $attachment_src[1] / 4 ) ); ?>" height="<?php echo esc_attr( round( $attachment_src[2] / 4 ) ); ?>" alt="<?php echo esc_attr( $company ); ?>" />
+		</div>
+		<?php
+	}
+}
 
-	  	// resize the image to a 1/4 of the original size to have a printing point density of about 288ppi.
+/**
+ * Show pdf logo html
+ *
+ * @param string $type pdf type.
+ */
+function wcdn_pdf_company_logo( $ttype ) {
+	global $wcdn;
+	$attachment_id = wcdn_get_company_logo_id();
+	$company       = get_option( 'wcdn_custom_company_name' );
+	$sizeh         = get_option( 'wcdn_general_settings' )['logo_size']['sizeh'];
+	$sizew         = get_option( 'wcdn_general_settings' )['logo_size']['sizew'];
+	if ( $attachment_id ) {
+		$attachment_src = wp_get_attachment_image_src( $attachment_id, 'full', false );
+		$upload_dir     = wp_upload_dir();
+		$typei          = pathinfo( $attachment_src[0], PATHINFO_EXTENSION );
+		$data           = file_get_contents( $attachment_src[0] );
+		$data_uri       = 'data:image/' . $typei . ';base64,' . base64_encode( $data );
+		if ( 'default' === $ttype ) {
+			?>
+			<img src="<?php echo esc_url( $attachment_src[0] ); ?>"  class="desktop"  width="<?php echo esc_attr( round( $attachment_src[1] / 4 ) ); ?>" height="<?php echo esc_attr( round( $attachment_src[2] / 4 ) ); ?>" alt="<?php echo esc_attr( $company ); ?>" />
+			<?php
+		} else {
+			?>
+			<img src="<?php echo $data_uri; // phpcs:ignore ?>" width="<?php echo esc_attr( $sizew ); ?>px" height="<?php echo esc_attr( $sizeh ); ?>px" alt="<?php echo esc_attr( $company ); ?>" />
+			<?php
+		}
+	}
+}
+
+/**
+ * Apply css if RTL is active.
+ */
+function wcdn_rtl() {
+	if ( 'yes' === get_option( 'wcdn_rtl_invoice', 'no' ) ) {
 		?>
 		<style>
-         /* hide mobile version by default */
-        .logo .mobile {
-         display: none;
-        }
-         /* when screen is less than 600px wide show mobile version and hide desktop */
-        @media ( max-width: 600px ) {
-         .logo .mobile {
-           display: block;
-        }
-         .logo .desktop {
-           display: none;
-       }
-     }
-       </style>
-
-      <div class="logo">
-        <img src="<?php echo esc_url( $attachment_src[0] ); ?>"  class="desktop"  width="<?php echo esc_attr( round( $attachment_src[1] / 4 ) ); ?>" height="<?php echo esc_attr( round( $attachment_src[2] / 4 ) ); ?>" alt="<?php echo esc_attr( $company ); ?>" />
-        <img src="<?php echo esc_url( $attachment_src[0] ); ?>" class="mobile" width="<?php echo esc_attr( round( $attachment_src[1] / 4 ) ); ?>" height="<?php echo esc_attr( round( $attachment_src[2] / 4 ) ); ?>" alt="<?php echo esc_attr( $company ); ?>" />
-      </div>
-		
+			body {
+				direction: rtl;
+			}
+			.order-items dt,
+			.order-items dd {
+				float: right;
+			}
+			.content{
+				text-align:right;	
+			}
+			th {
+				text-align:right;
+			}
+		</style>
 		<?php
-		
 	}
-}  
+}
 
 /**
  * Return default title name of Delivery Note
@@ -272,12 +341,18 @@ function wcdn_get_order( $order_id ) {
  * Get the order info fields
  *
  * @param object $order Order object.
+ * @param string $type  Document type.
  */
-function wcdn_get_order_info( $order ) {
+function wcdn_get_order_info( $order, $type = '' ) {
 	global $wcdn;
 	$fields                = array();
 	$create_invoice_number = get_option( 'wcdn_create_invoice_number' );
+	$data                  = get_option( 'wcdn_' . $type . '_customization' );
+	$invoice_data          = get_option( 'wcdn_invoice_customization' );
 
+	$data['template_setting']['template_setting_template'] = get_option( 'wcdn_template_type' );
+
+	$template     = isset( $data['template_setting']['template_setting_template'] ) ? $data['template_setting']['template_setting_template'] : 'default';
 	$wdn_order_id = ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) ? $order->get_id() : $order->id;
 	$order_post   = wc_get_order( $wdn_order_id );
 
@@ -285,13 +360,32 @@ function wcdn_get_order_info( $order ) {
 	$wdn_order_payment_method_title = ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) ? $order->get_payment_method_title() : $order->payment_method_title;
 	$wdn_order_billing_id           = ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) ? $order->get_billing_email() : $order->billing_email;
 	$wdn_order_billing_phone        = ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) ? $order->get_billing_phone() : $order->billing_phone;
+	$date_formate                   = get_option( 'date_format' );
+	$wdn_order_payment_date         = $order->get_date_paid();
 
-	if ( ( 'invoice' === wcdn_get_template_type() || 'order' === wcdn_get_template_type() ) && ! empty( $create_invoice_number ) && 'yes' === $create_invoice_number ) {
-
-		$fields['invoice_number'] = array(
-			'label' => __( 'Invoice Number', 'woocommerce-delivery-notes' ),
-			'value' => wcdn_get_order_invoice_number( $wdn_order_id ),
-		);
+	if ( 'on' === $invoice_data['numbering']['active'] ) {
+		if ( isset( $data['invoice_number']['active'] ) ) {
+			if ( isset( $data['invoice_number']['invoice_number_text'] ) && ! empty( $data['invoice_number']['invoice_number_text'] ) ) {
+				$label = $data['invoice_number']['invoice_number_text'];
+			} else {
+				$label = __( 'Invoice Number', 'woocommerce-delivery-notes' );
+			}
+			$fields['invoice_number'] = array(
+				'label'       => __( $label, 'woocommerce-delivery-notes' ), // phpcs:ignore
+				'value'       => wcdn_get_order_invoice_number( $wdn_order_id ),
+				'font-size'   => $data['invoice_number']['invoice_number_font_size'],
+				'font-weight' => $data['invoice_number']['invoice_number_style'],
+				'color'       => $data['invoice_number']['invoice_number_text_colour'],
+				'active'      => 'yes',
+			);
+		} else {
+			if ( 'invoice' === wcdn_get_template_type() || 'order' === wcdn_get_template_type() ) {
+				$fields['invoice_number'] = array(
+					'label' => __( 'Invoice Number', 'woocommerce-delivery-notes' ),
+					'value' => wcdn_get_order_invoice_number( $wdn_order_id ),
+				);
+			}
+		}
 	}
 
 	if ( 'invoice:' === wcdn_get_template_type() ) {
@@ -301,21 +395,90 @@ function wcdn_get_order_info( $order ) {
 		);
 	}
 
-	$fields['order_number'] = array(
-		'label' => __( 'Order Number', 'woocommerce-delivery-notes' ),
-		'value' => $order->get_order_number(),
-	);
+	if ( isset( $data['order_number']['active'] ) ) {
+		if ( isset( $data['order_number']['order_number_text'] ) && ! empty( $data['order_number']['order_number_text'] ) ) {
+			$label = $data['order_number']['order_number_text'];
+		} else {
+			$label = __( 'Order Number', 'woocommerce-delivery-notes' );
+		}
+		$fields['order_number'] = array(
+			'label'       => __( $label, 'woocommerce-delivery-notes' ), // phpcs:ignore
+			'value'       => $order->get_order_number(),
+			'font-size'   => $data['order_number']['order_number_font_size'],
+			'font-weight' => $data['order_number']['order_number_style'],
+			'color'       => $data['order_number']['order_number_text_colour'],
+			'active'      => 'yes',
+		);
+	} else {
+		$fields['order_number'] = array(
+			'label' => __( 'Order Number', 'woocommerce-delivery-notes' ),
+			'value' => $order->get_order_number(),
+		);
+	}
 
-	$fields['order_date'] = array(
-		'label' => __( 'Order Date', 'woocommerce-delivery-notes' ),
-		'value' => date_i18n( get_option( 'date_format' ), $wdn_order_order_date ),
-	);
+	if ( isset( $data['order_date']['active'] ) ) {
+		if ( isset( $data['order_date']['order_date_text'] ) && ! empty( $data['order_date']['order_date_text'] ) ) {
+			$label = $data['order_date']['order_date_text'];
+		} else {
+			$label = __( 'Order Date', 'woocommerce-delivery-notes' );
+		}
+		$fields['order_date'] = array(
+			'label'       => __( $label, 'woocommerce-delivery-notes' ), // phpcs:ignore
+			'value'       => date_i18n( get_option( 'date_format' ), $wdn_order_order_date ),
+			'font-size'   => $data['order_date']['order_date_font_size'],
+			'font-weight' => $data['order_date']['order_date_style'],
+			'color'       => $data['order_date']['order_date_text_colour'],
+			'active'      => 'yes',
+		);
+	} else {
+		$fields['order_date'] = array(
+			'label' => __( 'Order Date', 'woocommerce-delivery-notes' ),
+			'value' => date_i18n( get_option( 'date_format' ), $wdn_order_order_date ),
+		);
+	}
 
-	$fields['payment_method'] = array(
-		'label' => __( 'Payment Method', 'woocommerce-delivery-notes' ),
-		// phpcs:ignore
-		'value' => __( $wdn_order_payment_method_title, 'woocommerce' ),
-	);
+	if ( isset( $data['payment_method']['active'] ) ) {
+		if ( isset( $data['payment_method']['payment_method_text'] ) && ! empty( $data['payment_method']['payment_method_text'] ) ) {
+			$label = $data['payment_method']['payment_method_text'];
+		} else {
+			$label = __( 'Payment Method', 'woocommerce-delivery-notes' );
+		}
+		$fields['payment_method'] = array(
+			'label'       => __( 'Payment Method', 'woocommerce-delivery-notes' ),
+			// phpcs:ignore
+			'value'       => __( $wdn_order_payment_method_title, 'woocommerce' ),
+			'font-size'   => $data['payment_method']['payment_method_font_size'],
+			'font-weight' => $data['payment_method']['payment_method_style'],
+			'color'       => $data['payment_method']['payment_method_text_colour'],
+			'active'      => 'yes',
+		);
+	} else {
+		$fields['payment_method'] = array(
+			'label' => __( 'Payment Method', 'woocommerce-delivery-notes' ),
+			'value' => __( $wdn_order_payment_method_title, 'woocommerce' ), // phpcs:ignore
+		);
+	}
+
+	if ( $wdn_order_payment_date ) {
+		if ( 'receipt' === wcdn_get_template_type() && 'simple' === $template ) {
+			if ( isset( $data['payment_date']['active'] ) ) {
+				if ( isset( $data['payment_date']['payment_date_text'] ) && ! empty( $data['payment_date']['payment_date_text'] ) ) {
+					$label = $data['payment_date']['payment_date_text'];
+				} else {
+					$label = __( 'Payment date', 'woocommerce-delivery-notes' );
+				}
+				$fields['payment_date'] = array(
+					'label'       => __( 'Payment Date', 'woocommerce-delivery-notes' ),
+					// phpcs:ignore
+					'value'       => __( date( $date_formate, strtotime( $wdn_order_payment_date ) ), 'woocommerce' ),
+					'font-size'   => $data['payment_date']['payment_date_font_size'],
+					'font-weight' => $data['payment_date']['payment_date_style'],
+					'color'       => $data['payment_date']['payment_date_text_colour'],
+					'active'      => 'yes',
+				);
+			}
+		}
+	}
 
 	if ( $wdn_order_billing_id ) {
 		$fields['billing_email'] = array(
@@ -550,7 +713,10 @@ function wcdn_get_customer_notes( $order ) {
 	global $wcdn;
 
 	$wdn_order_customer_notes = ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) ? $order->get_customer_note() : $order->customer_note;
-	return stripslashes( wpautop( wptexturize( $wdn_order_customer_notes ) ) );
+	$customer_notes           = stripslashes( wpautop( wptexturize( $wdn_order_customer_notes ) ) );
+	// Strip HTML tags.
+	$customer_notes_content = wp_strip_all_tags( $customer_notes );
+	return $customer_notes_content;
 }
 
 /**
@@ -582,7 +748,10 @@ function wcdn_has_customer_notes( $order ) {
  */
 function wcdn_get_personal_notes() {
 	global $wcdn;
-	return stripslashes( wpautop( wptexturize( get_option( 'wcdn_personal_notes' ) ) ) );
+	$personal_notes = stripslashes( wpautop( wptexturize( get_option( 'wcdn_personal_notes' ) ) ) );
+	// Strip HTML tags.
+	$plain_text_content = wp_strip_all_tags( $personal_notes );
+	return $plain_text_content;
 }
 
 /**
@@ -598,7 +767,10 @@ function wcdn_personal_notes() {
  */
 function wcdn_get_policies_conditions() {
 	global $wcdn;
-	return stripslashes( wpautop( wptexturize( get_option( 'wcdn_policies_conditions' ) ) ) );
+	$policies_conditions = stripslashes( wpautop( wptexturize( get_option( 'wcdn_policies_conditions' ) ) ) );
+	// Strip HTML tags.
+	$policies_conditions_content = wp_strip_all_tags( $policies_conditions );
+	return $policies_conditions_content;
 }
 
 /**
@@ -614,7 +786,9 @@ function wcdn_policies_conditions() {
  */
 function wcdn_get_imprint() {
 	global $wcdn;
-	return wp_kses_post( stripslashes( wpautop( wptexturize( get_option( 'wcdn_footer_imprint' ) ) ) ) );
+	$footer         = wp_kses_post( stripslashes( wpautop( wptexturize( get_option( 'wcdn_footer_imprint' ) ) ) ) );
+	$footer_content = wp_strip_all_tags( $footer );
+	return $footer_content;
 }
 
 /**
@@ -626,13 +800,15 @@ function wcdn_imprint() {
 }
 
 /**
- * Show PIF Fileds in the invoice
+ * Show PIF Fileds in the invoice.
+ *
+ * @param array $item Cart item array.
  */
 function wcdn_print_extra_fields( $item ) {
 	// Check if Product Input Field Pro is active.
 	$product_input_field_pro = 'product-input-fields-for-woocommerce-pro/product-input-fields-for-woocommerce-pro.php';
 	// Check if Product Input Field Lite is active.
-	$product_input_field     = 'product-input-fields-for-woocommerce/product-input-fields-for-woocommerce.php';
+	$product_input_field = 'product-input-fields-for-woocommerce/product-input-fields-for-woocommerce.php';
 
 	if ( ( in_array( $product_input_field_pro, apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ) ) || ( is_multisite() && array_key_exists( $product_input_field_pro, get_site_option( 'active_sitewide_plugins', array() ) ) )
 	) || ( in_array( $product_input_field, apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ) ) || ( is_multisite() && array_key_exists( $product_input_field, get_site_option( 'active_sitewide_plugins', array() ) ) )
@@ -641,8 +817,8 @@ function wcdn_print_extra_fields( $item ) {
 		$pif_global_fields = $item->get_meta( '_alg_wc_pif_global', true );
 		$pif_local_fields  = $item->get_meta( '_alg_wc_pif_local', true );
 
-		if( $pif_global_fields ) {
-			foreach( $pif_global_fields as $pif_global_field ) {
+		if ( $pif_global_fields ) {
+			foreach ( $pif_global_fields as $pif_global_field ) {
 				$key   = $pif_global_field['title'];
 				$value = $pif_global_field['_value'];
 				?>
@@ -650,8 +826,8 @@ function wcdn_print_extra_fields( $item ) {
 				<?php
 			}
 		}
-		if( $pif_local_fields ) {
-			foreach( $pif_local_fields as $pif_local_field ) {
+		if ( $pif_local_fields ) {
+			foreach ( $pif_local_fields as $pif_local_field ) {
 				$key   = $pif_local_field['title'];
 				$value = $pif_local_field['_value'];
 				?>
@@ -660,7 +836,6 @@ function wcdn_print_extra_fields( $item ) {
 			}
 		}
 	}
-
 }
 
 /**
@@ -686,4 +861,109 @@ function wcdn_order_item_count( $count, $type, $order ) {
 	return $count;
 }
 add_filter( 'woocommerce_get_item_count', 'wcdn_order_item_count', 20, 3 );
+
+
+/**
+ * Function to pass product name in PDFs.
+ *
+ * @param object   $product product array.
+ * @param WC_Order $order Order object.
+ * @param object   $item Item Type.
+ */
+function get_product_name( $product, $order, $item ) {
+	echo '<div class="name">';
+	$addon_name  = $item->get_meta( '_wc_pao_addon_name', true );
+	$addon_value = $item->get_meta( '_wc_pao_addon_value', true );
+	$is_addon    = ! empty( $addon_value );
+	if ( $is_addon ) { // Displaying options of product addon.
+		$addon_html = '<div class="wc-pao-order-item-name">' . esc_html( $addon_name ) . '</div><div class="wc-pao-order-item-value">' . esc_html( $addon_value ) . '</div></div>';
+		echo wp_kses_post( $addon_html );
+	} else {
+		$product_id   = $item['product_id'];
+		$prod_name    = get_post( $product_id );
+		$product_name = $prod_name->post_title;
+		echo wp_kses_post( apply_filters( 'wcdn_order_item_name', $product_name, $item ) );
+		echo '</div>';
+		$item_meta_fields          = apply_filters( 'wcdn_product_meta_data', $item['item_meta'], $item );
+		$product_addons            = array();
+		$woocommerce_product_addon = 'woocommerce-product-addons/woocommerce-product-addons.php';
+		if ( in_array( $woocommerce_product_addon, apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ), true ) ) {
+			$product_id = $item['product_id'];
+			if ( class_exists( 'WC_Product_Addons_Helper' ) ) {
+				$product_addons = WC_Product_Addons_Helper::get_product_addons( $product_id );
+			}
+		}
+		if ( version_compare( get_option( 'woocommerce_version' ), '3.0.0', '>=' ) ) {
+			if ( isset( $item['variation_id'] ) && 0 !== $item['variation_id'] ) {
+				$variation = wc_get_product( $item['product_id'] );
+				foreach ( $item_meta_fields as $key => $value ) {
+					if ( ! ( 0 === strpos( $key, '_' ) ) ) {
+						if ( is_array( $value ) ) {
+							continue;
+						}
+						$term_wp        = get_term_by( 'slug', $value, $key );
+						$attribute_name = wc_attribute_label( $key, $variation );
+						if ( ! empty( $product_addons ) ) {
+							foreach ( $product_addons as $addon ) {
+								if ( 'file_upload' === $addon['type'] ) {
+									if ( $key === $addon['name'] ) {
+										$value = wp_basename( $value );
+									}
+								}
+							}
+						}
+						if ( isset( $term_wp->name ) ) {
+							echo '<br>' . wp_kses_post( $attribute_name . ':' . $term_wp->name );
+						} else {
+							echo '<br>' . wp_kses_post( $attribute_name . ':' . $value );
+						}
+					}
+				}
+			} else {
+				foreach ( $item_meta_fields as $key => $value ) {
+					if ( ! ( 0 === strpos( $key, '_' ) ) ) {
+						if ( is_array( $value ) ) {
+							continue;
+						}
+						if ( ! empty( $product_addons ) ) {
+							foreach ( $product_addons as $addon ) {
+								if ( 'file_upload' === $addon['type'] ) {
+									if ( $key === $addon['name'] ) {
+										$value = wp_basename( $value );
+									}
+								}
+							}
+						}
+						echo '<br>' . wp_kses_post( $key . ':' . $value );
+					}
+				}
+			}
+		} else {
+			$item_meta_new = new WC_Order_Item_Meta( $item_meta_fields, $product );
+			$item_meta_new->display();
+		}
+		echo '<dl class="extras">';
+		if ( $product && $product->exists() && $product->is_downloadable() && $order->is_download_permitted() ) :
+			echo '<dt>';
+			esc_attr_e( 'Download:', 'woocommerce-delivery-notes' );
+			echo '</dt>';
+			echo '<dd>';
+			// translators: files count.
+			printf( esc_attr__( '%s Files', 'woocommerce-delivery-notes' ), count( $item->get_item_downloads() ) );
+			echo '</dd>';
+
+		endif;
+		wcdn_print_extra_fields( $item );
+		$fields = apply_filters( 'wcdn_order_item_fields', array(), $product, $order, $item );
+		foreach ( $fields as $field ) :
+			echo '<dt>';
+			echo esc_html( $field['label'] );
+			echo '</dt>';
+			echo '<dd>';
+			echo esc_html( $field['value'] );
+			echo '</dd>';
+		endforeach;
+		echo '</dl>';
+	}
+}
 ?>

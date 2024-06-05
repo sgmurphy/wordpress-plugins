@@ -3,10 +3,10 @@
 Contributors: ashokrane, tychesoftwares
 Donate link: https://www.paypal.me/TycheSoftwares
 Tags: packing slips, invoice, pdf invoice, delivery notes, woocommerce print invoice, print, pdf, invoices
-Requires at least: 4.0
-Tested up to: 6.4.3
+Requires at least: 4.4
+Tested up to: 6.5.3
 Author URI: https://www.tychesoftwares.com/
-Stable tag: trunk
+Stable tag: 5.0.0
 License: GPLv3 or later
 License URI: http://www.opensource.org/licenses/gpl-license.php
 
@@ -100,7 +100,7 @@ When your language is missing you can contribute a translation to the [GitHub re
 = Minimum Requirements =
 
 * WooCommerce 2.2 or later
-* WordPress 4.0 or later
+* WordPress 4.4 or later
 
 = Automatic installation =
 
@@ -335,9 +335,23 @@ Please [contribute your translation](https://github.com/TycheSoftwares/woocommer
 4. Bulk print orders.
 5. Enter company and contact information.
 6. Customers can also print the order.
-7. The clean Delivery note view.
 
 == Changelog ==
+
+= 5.0.0 (05.06.2024) =
+This release contains a major update for the plugin, focusing primarily on the all-new backend user interface, along with several bug fixes.
+Major Updates:
+* Changed the UI of plugin settings page.
+* Added a setting for template type, and now customize your template with different settings.
+* Added a template setting page to customize the template.
+* Added live preview for customization of the template.
+* Added size setting for the company logo.
+* Added setting To store PDF files for a specific duration.
+* Added email attachment with template PDF files.
+* Added Invoice menu in the WooCommerce menu.
+Bug fixes :
+* Fix - Bulk printing being initiated multiple times
+* Fix - Translations for the print link in emails do not work.
 
 = 4.9.0 (27.02.2024) =
 * Fix - Cross-site request forgery vulnerability in the plugin.

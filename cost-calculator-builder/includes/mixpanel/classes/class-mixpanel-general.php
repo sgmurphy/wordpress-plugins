@@ -46,25 +46,25 @@ class Mixpanel_General extends Mixpanel {
 
 	public static function pdf_entries_used() {
 		$general_settings = CCBSettingsData::get_calc_global_settings();
-		return $general_settings['invoice']['use_in_all'];
+		return $general_settings['invoice']['use_in_all'] ?? '';
 	}
 
 	public static function contact_form_used() {
 		$general_settings      = CCBSettingsData::get_calc_global_settings();
-		$contact_form_settings = $general_settings['form_fields'];
+		$contact_form_settings = $general_settings['form_fields'] ?? array();
 
-		return ( true === $contact_form_settings['use_in_all'] && ! empty( $contact_form_settings['adminEmailAddress'] ) );
+		return ( ! empty( $contact_form_settings['use_in_all'] ) && ! empty( $contact_form_settings['adminEmailAddress'] ) );
 	}
 
 	protected static function get_general_payment_settings() {
 		$general_settings = CCBSettingsData::get_calc_global_settings();
-		return $general_settings['payment_gateway'];
+		return $general_settings['payment_gateway'] ?? array();
 	}
 
 	public static function paypal_used() {
 		$payment_gateway = self::get_general_payment_settings();
 		if ( isset( $payment_gateway['paypal'] ) ) {
-			$paypal_settings = $payment_gateway['paypal'];
+			$paypal_settings = $payment_gateway['paypal'] ?? array();
 			return ( ! empty( $paypal_settings['use_in_all'] ) && ! empty( $paypal_settings['paypal_mode'] ) && 'live' === $paypal_settings['paypal_mode'] && ! empty( $paypal_settings['paypal_email'] ) );
 		}
 
@@ -103,8 +103,8 @@ class Mixpanel_General extends Mixpanel {
 
 	public static function captcha_used() {
 		$general_settings = CCBSettingsData::get_calc_global_settings();
-		$captcha_settings = $general_settings['recaptcha'];
-		if ( isset( $captcha_settings[ $captcha_settings['type'] ] ) ) {
+		$captcha_settings = $general_settings['recaptcha'] ?? array();
+		if ( isset( $captcha_settings['type'] ) && isset( $captcha_settings[ $captcha_settings['type'] ] ) ) {
 			$current_captcha_settings = $captcha_settings[ $captcha_settings['type'] ];
 			return ( ! empty( $current_captcha_settings['siteKey'] ) && ! empty( $current_captcha_settings['secretKey'] ) );
 		}
@@ -114,8 +114,8 @@ class Mixpanel_General extends Mixpanel {
 
 	public static function global_currency() {
 		$general_settings  = CCBSettingsData::get_calc_global_settings();
-		$currency_settings = $general_settings['currency'];
-		return ( true === $currency_settings['use_in_all'] ) ? $currency_settings['currency'] : false;
+		$currency_settings = $general_settings['currency'] ?? array();
+		return ( isset( $currency_settings['use_in_all'] ) && true === $currency_settings['use_in_all'] ) ? $currency_settings['currency'] : false;
 	}
 
 	public static function get_calculator_titles() {

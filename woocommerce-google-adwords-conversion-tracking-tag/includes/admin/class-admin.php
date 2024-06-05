@@ -1088,6 +1088,14 @@ class Admin {
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
+        // Add field for the Twitter event add_payment_info
+        add_settings_field(
+            'pmw_setting_twitter_add_payment_info',
+            esc_html__( 'Add Payment Info Event ID', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+            [$this, 'setting_twitter_add_payment_info'],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
         // Add field for the Twitter event purchase
         add_settings_field(
             'pmw_setting_twitter_purchase',
@@ -1903,7 +1911,7 @@ class Admin {
         ?></h2>
 			<div>
 				<input type="file" id="json-settings-file-input"/>
-				<pre id="upload-status-success" style="display: none; white-space: pre-line;">
+				<pre id="settings-upload-status-success" style="display: none; white-space: pre-line;">
 					<span style="color: green; font-weight: bold">
 						<?php 
         esc_html_e( 'Settings imported successfully!', 'woocommerce-google-adwords-conversion-tracking-tag' );
@@ -1916,12 +1924,13 @@ class Admin {
 					</span>
 				</pre>
 
-				<pre id="upload-status-error" style="display: none; white-space: pre-line;">
+				<pre id="settings-upload-status-error" style="display: none; white-space: pre-line;">
 					<span style="color: red; font-weight: bold">
 						<?php 
         esc_html_e( 'There was an error importing that file! Please try again.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 					</span>
+					<span id="settings-upload-status-error-message" style="color: red; font-weight: bold"></span>
 				</pre>
 			</div>
 		</div>
@@ -2637,6 +2646,32 @@ class Admin {
 		/>
 		<?php 
         self::display_status_icon( Options::get_twitter_event_id( 'initiate_checkout' ), Options::is_twitter_active() );
+        self::get_documentation_html_by_key( 'twitter_event_ids' );
+        self::html_pro_feature();
+    }
+
+    public function setting_twitter_add_payment_info() {
+        $text_length = max( strlen( Options::get_twitter_event_id( 'add_payment_info' ) ), 14 );
+        ?>
+		<input class="pmw mono"
+			   id="pmw_setting_twitter_add_payment_info"
+			   name="wgact_plugin_options[twitter][event_ids][add_payment_info]"
+			   size="<?php 
+        esc_html_e( $text_length );
+        ?>"
+			   type="text"
+			   value="<?php 
+        esc_html_e( Options::get_twitter_event_id( 'add_payment_info' ) );
+        ?>"
+			   style="width:<?php 
+        esc_html_e( $text_length );
+        ?>ch"
+			<?php 
+        esc_html_e( self::disable_if_demo() );
+        ?>
+		/>
+		<?php 
+        self::display_status_icon( Options::get_twitter_event_id( 'add_payment_info' ), Options::is_twitter_active() );
         self::get_documentation_html_by_key( 'twitter_event_ids' );
         self::html_pro_feature();
     }
@@ -3514,7 +3549,7 @@ class Admin {
         esc_html_e( 'There was an error importing that file! Please try again.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 					</span>
-					<span id="ga4-api-credentials-upload-status-error-message"></span>
+					<span id="ga4-api-credentials-upload-status-error-message" style="color: red; font-weight: bold"></span>
 				</pre>
 			</div>
 		</div>

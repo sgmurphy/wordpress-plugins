@@ -32,10 +32,10 @@ if($hs_cta == '1') {
 						</div>
 						<div class="cta-btn-wrap text-av-right text-center">
 							<?php if ( ! empty( $cta_btn_lbl2 ) ) : ?>
-							<a class="cta-more" href="<?php echo esc_url($cta_btn_link2); ?>"><div class="cta-icon"><i class="fa fa-phone"></i></div><div class="cta-label"><span class="cta-label-title"><?php if ( ! empty( $cta_btn_second_ttl ) ) :  esc_html_e($cta_btn_second_ttl, 'clever-fox'); endif; ?></span><span class="cta-label-dis"><?php esc_html_e($cta_btn_lbl2, 'clever-fox'); ?></span></div></a>
+							<a class="cta-more" href="<?php echo esc_url($cta_btn_link2); ?>"><div class="cta-icon"><i class="fa fa-phone"></i></div><div class="cta-label"><span class="cta-label-title"><?php if ( ! empty( $cta_btn_second_ttl ) ) :  /* translators: %s: Button2 Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($cta_btn_second_ttl)); endif; ?></span><span class="cta-label-dis"><?php /* translators: %s: Button Label2 */printf( esc_html__('%s.', 'clever-fox'), esc_html($cta_btn_lbl2)); ?></span></div></a>
 							<?php endif;?>
 							<?php if ( ! empty( $cta_btn_lbl1 ) ) : ?>
-								<a href="<?php echo esc_url($cta_btn_link1); ?>" class="av-btn av-btn-white" data-text="Contact With Us"><?php esc_html_e($cta_btn_lbl1, 'clever-fox'); ?></a>
+								<a href="<?php echo esc_url($cta_btn_link1); ?>" class="av-btn av-btn-white" data-text="Contact With Us"><?php /* translators: %s: Button Label1 */printf( esc_html__('%s.', 'clever-fox'), esc_html($cta_btn_lbl1)); ?></a>
 							<?php endif;?>
 						</div>
 					</div>

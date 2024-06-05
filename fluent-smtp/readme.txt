@@ -1,6 +1,6 @@
 === FluentSMTP - WP SMTP Plugin with Amazon SES, SendGrid, MailGun, Postmark, Google and Any SMTP Provider ===
 Contributors: techjewel, wpmanageninja, heera, adreastrian
-Tags: smtp, amazon ses, wordpress smtp, mail, wp mail smtp
+Tags: smtp, amazon ses, wordpress smtp, mail, mail smtp
 Requires at least: 5.5
 Tested up to: 6.5
 Stable tag: 2.2.73

@@ -7,7 +7,7 @@
 *  Plugin Name: StarBox
 *  Author: Squirrly UK
 *  Description: Starbox is the Author Box for Humans. Professional Themes to choose from, HTML5, Social Media Profiles, Google Authorship
-*  Version: 3.5.1
+*  Version: 3.5.2
 *  Author URI: https://www.squirrly.co/wordpress-seo-by-squirrly
 *  License:     GPLv2 or later
 *  License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -26,7 +26,7 @@
 */
 
 /* SET THE CURRENT VERSION ABOVE AND BELOW */
-define('ABH_VERSION', '3.5.1');
+define('ABH_VERSION', '3.5.2');
 
 if (!defined('ABHP_VERSION')) {
 

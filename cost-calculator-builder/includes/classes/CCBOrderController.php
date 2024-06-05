@@ -477,22 +477,19 @@ class CCBOrderController {
 					$order['currency_position']   = $general_settings['currency']['currencyPosition'];
 					$order['paymentCurrency']     = $general_settings['currency']['currency'];
 				} else {
-					if ( empty( $settings ) ) {
-						$settings = CCBSettingsData::settings_data();
-						update_option( 'stm_ccb_form_settings_' . $order['calc_id'], $settings );
-					}
-
-					if ( array_key_exists( 'decimal_separator', $settings['currency'] ) ) {
-						$order['decimal_separator'] = $settings['currency']['decimal_separator'];
-					}
-					if ( array_key_exists( 'thousands_separator', $settings['currency'] ) ) {
-						$order['thousands_separator'] = $settings['currency']['thousands_separator'];
-					}
-					if ( array_key_exists( 'num_after_integer', $settings['currency'] ) ) {
-						$order['num_after_integer'] = $settings['currency']['num_after_integer'];
-					}
-					if ( array_key_exists( 'currencyPosition', $settings['currency'] ) ) {
-						$order['currency_position'] = $settings['currency']['currencyPosition'];
+					if ( ! empty( $settings['currency'] ) ) {
+						if ( array_key_exists( 'decimal_separator', $settings['currency'] ) ) {
+							$order['decimal_separator'] = $settings['currency']['decimal_separator'];
+						}
+						if ( array_key_exists( 'thousands_separator', $settings['currency'] ) ) {
+							$order['thousands_separator'] = $settings['currency']['thousands_separator'];
+						}
+						if ( array_key_exists( 'num_after_integer', $settings['currency'] ) ) {
+							$order['num_after_integer'] = $settings['currency']['num_after_integer'];
+						}
+						if ( array_key_exists( 'currencyPosition', $settings['currency'] ) ) {
+							$order['currency_position'] = $settings['currency']['currencyPosition'];
+						}
 					}
 				}
 

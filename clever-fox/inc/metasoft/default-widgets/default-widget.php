@@ -21,7 +21,7 @@ $activate = array(
     /* the default titles will appear */
    update_option('widget_text', array(
         1 => array('title' => '',
-        'text'=>'<div class="logo"><a href="javascript:void(0);"><img src="'.$img_path.'" alt="Metrico "></a></div><p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p><div class="theme-link"><a href="javascript:void(0);" class="read-link">Read More</a></div>'),        
+        'text'=>'<div class="logo"><a href="javascript:void(0);"><img src="'.$img_path.'" alt="Metrico "></a></div><p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p><div class="theme-link"><a href="javascript:void(0);" class="read-link">Read More</a></div>'),        
 		2 => array('title' => 'Recent Posts'),
 		3 => array('title' => 'Categories'), 
         ));

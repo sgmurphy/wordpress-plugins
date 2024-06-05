@@ -6,7 +6,7 @@ $theme = wp_get_theme(); // gets the current theme
  */
 function avril_get_social_icon_default() {
 	return apply_filters(
-		'avril_get_social_icon_default', json_encode(
+		'avril_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -47,7 +47,7 @@ function avril_get_social_icon_default() {
  if( 'Avitech' == $theme->name  || 'Varuda' == $theme->name){
 	 function avril_get_slider_default() {
 		return apply_filters(
-			'avril_get_slider_default', json_encode(
+			'avril_get_slider_default', wp_json_encode(
 					 array(
 					array(
 						'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/avril/images/slider/img02.jpg',
@@ -96,7 +96,7 @@ function avril_get_social_icon_default() {
  }else{
 	 function avril_get_slider_default() {
 		return apply_filters(
-			'avril_get_slider_default', json_encode(
+			'avril_get_slider_default', wp_json_encode(
 					 array(
 					array(
 						'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/avril/images/slider/img01.jpg',
@@ -147,7 +147,7 @@ function avril_get_social_icon_default() {
  */
  function avril_get_service_default() {
 	return apply_filters(
-		'avril_get_service_default', json_encode(
+		'avril_get_service_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Well Documented', 'clever-fox' ),
@@ -180,7 +180,7 @@ function avril_get_social_icon_default() {
  */
  function avril_get_features_default() {
 	return apply_filters(
-		'avril_get_features_default', json_encode(
+		'avril_get_features_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Business Growth', 'clever-fox' ),
@@ -231,7 +231,7 @@ function avril_get_social_icon_default() {
  */
  function avril_get_team_default() {
 	return apply_filters(
-		'avril_get_team_default', json_encode(
+		'avril_get_team_default', wp_json_encode(
 					  array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/axtria/images/team/img01.jpg',
@@ -239,7 +239,7 @@ function avril_get_social_icon_default() {
 					'subtitle'        => esc_html__( 'Support','clever-fox' ),
 					'text'            => esc_html__( 'Many variations of passages of a Lorem Ipsum available alteration.', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0001',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_001',
@@ -280,7 +280,7 @@ function avril_get_social_icon_default() {
 					'subtitle'        => esc_html__( 'Management', 'clever-fox' ),
 					'text'            => esc_html__( 'Many variations of passages of a Lorem Ipsum available alteration.', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0002',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0011',
@@ -321,7 +321,7 @@ function avril_get_social_icon_default() {
 					'subtitle'        => esc_html__( 'Marketing', 'clever-fox' ),
 					'text'            => esc_html__( 'Many variations of passages of a Lorem Ipsum available alteration.', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0003',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0021',
@@ -362,7 +362,7 @@ function avril_get_social_icon_default() {
 					'subtitle'        => esc_html__( 'Founder', 'clever-fox' ),
 					'text'            => esc_html__( 'Many variations of passages of a Lorem Ipsum available alteration.', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0004',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0031',
@@ -410,7 +410,7 @@ function avril_get_social_icon_default() {
  */
  function avril_get_funfact_default() {
 	return apply_filters(
-		'avril_get_funfact_default', json_encode(
+		'avril_get_funfact_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( '254', 'clever-fox' ),
@@ -449,7 +449,7 @@ function avril_get_social_icon_default() {
  
  function avril_get_testimonial_default() {
 	return apply_filters(
-		'avril_get_testimonial_default', json_encode(
+		'avril_get_testimonial_default', wp_json_encode(
 			array(
 				array(
 					'title'           => esc_html__( 'Jack Semper', 'clever-fox' ),

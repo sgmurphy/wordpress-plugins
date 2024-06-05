@@ -252,14 +252,14 @@ class CartCouponsProcessorMerge implements ICartCouponsProcessor
 
             if ($coupon instanceof CouponCart && $coupon->getValue()) {
                 if ($coupon->isType($coupon::TYPE_FIXED_VALUE) && $context->isCombineMultipleDiscounts()) {
-                    $coupon->setCode($context->getOption('default_discount_name'));
+                    $coupon->setCode(strtolower($context->getOption('default_discount_name')));
                 }
 
                 $this->addToMerged($coupon->getCode(), $coupon);
                 $this->addExternalWcCouponWithSameCodeIfPossible($cart, $wcCart, $coupon->getCode());
             } elseif ($coupon instanceof CouponCartItem && $coupon->getValue()) {
                 if ($context->isCombineMultipleDiscounts()) {
-                    $coupon->setCode($context->getOption('default_discount_name'));
+                    $coupon->setCode(strtolower($context->getOption('default_discount_name')));
                 }
 
                 $this->addToMerged($coupon->getCode(), $coupon);

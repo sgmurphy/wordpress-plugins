@@ -171,7 +171,7 @@ class CartProcessor
      * @var YoastSEOCmp
      */
     protected $yoastSEOCmp;
-    
+
     /**
      * @var WcFreeGiftCouponsCmp
      */
@@ -258,7 +258,7 @@ class CartProcessor
         if ($this->wcchainprCmp->isActive()) {
             $this->wcchainprCmp->applyCompatibility();
         }
-     
+
         $this->cartItemConverter = new CartItemConverter();
     }
 
@@ -332,6 +332,7 @@ class CartProcessor
 
         $optionDontProcessCart = $this->context->getOption("dont_recalculate_cart_on_page_load", true);
         if( $first AND apply_filters('adp_dont_process_cart_on_page_load', $optionDontProcessCart) ) {
+            $this->cartCouponsProcessor->applyCouponsToWcCart($cart, $wcCart);
             return $cart;
         }
 
@@ -429,7 +430,7 @@ class CartProcessor
 
                 $productExt = new ProductExtension($this->context, $product);
 
-                if ($first) {
+                if ($first || $optionDontProcessCart) {
                     $facade->setInitialCustomPrice(null);
 
                     if ( $facade->isContainerType() ) {

@@ -59,12 +59,14 @@ function tfwctool_register_options(){
 }
 
 function tfwctool_woocommerce_tool_toggle_module(){
-    $modules_optins = get_option('woocommerce_tools_module_options');
-    $module_id = sanitize_text_field($_POST['id']);
-    $module_val = sanitize_text_field($_POST['value']);
-    $modules_optins[$module_id] = ($module_val == 'on')?true:false;
-    update_option('woocommerce_tools_module_options', $modules_optins);
-    echo json_encode(get_option('woocommerce_tools_module_options'));
+    if (current_user_can('manage_options')) {
+        $modules_optins = get_option('woocommerce_tools_module_options');
+        $module_id = sanitize_text_field($_POST['id']);
+        $module_val = sanitize_text_field($_POST['value']);
+        $modules_optins[$module_id] = ($module_val == 'on')?true:false;
+        update_option('woocommerce_tools_module_options', $modules_optins);
+        echo json_encode(get_option('woocommerce_tools_module_options'));
+    }
     wp_die();
 }
 add_action('wp_ajax_woocommerce_tool_toggle_module', 'tfwctool_woocommerce_tool_toggle_module');

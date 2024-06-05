@@ -791,7 +791,6 @@ class Pixel_Manager {
                     'page_load_time_tracking' => Options::is_ga4_page_load_time_tracking_active(),
                 ],
                 'id_type' => Google_Helpers::get_ga_id_type(),
-                'eec'     => wpm_fs()->can_use_premium_code__premium_only() && Options::is_google_analytics_active(),
             ];
         }
         $data['tcf_support'] = Options::is_google_tcf_support_active();
@@ -1386,7 +1385,7 @@ class Pixel_Manager {
         $data['order_duplication_prevention'] = Shop::is_order_duplication_prevention_active();
         $data['view_item_list_trigger'] = Shop::view_item_list_trigger_settings();
         $data['variations_output'] = Options::is_shop_variations_output_active();
-        $data['session_active'] = Helpers::is_woocommerce_session_active();
+        $data['session_active'] = Shop::is_woocommerce_session_active();
         return $data;
     }
 

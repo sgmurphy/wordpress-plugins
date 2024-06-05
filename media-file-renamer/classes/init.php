@@ -9,7 +9,6 @@ if ( class_exists( 'MeowPro_MFRH_Core' ) && class_exists( 'Meow_MFRH_Core' ) ) {
 }
 
 spl_autoload_register(function ( $class ) {
-  $necessary = true;
   $file = null;
   if ( strpos( $class, 'Meow_MFRH' ) !== false ) {
     $file = MFRH_PATH . '/classes/' . str_replace( 'meow_mfrh_', '', strtolower( $class ) ) . '.php';
@@ -18,17 +17,12 @@ spl_autoload_register(function ( $class ) {
     $file = MFRH_PATH . '/common/' . str_replace( 'meowcommon_', '', strtolower( $class ) ) . '.php';
   }
   else if ( strpos( $class, 'MeowCommonPro_' ) !== false ) {
-    $necessary = false;
     $file = MFRH_PATH . '/common/premium/' . str_replace( 'meowcommonpro_', '', strtolower( $class ) ) . '.php';
   }
   else if ( strpos( $class, 'MeowPro_MFRH' ) !== false ) {
-    $necessary = false;
     $file = MFRH_PATH . '/premium/' . str_replace( 'meowpro_mfrh_', '', strtolower( $class ) ) . '.php';
   }
-  if ( $file ) {
-    if ( !$necessary && !file_exists( $file ) ) {
-      return;
-    }
+  if ( $file && file_exists( $file ) ) {
     require( $file );
   }
 });

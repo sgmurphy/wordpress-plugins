@@ -135,7 +135,7 @@ class ProductFiltering
 
         static $cached_results = array();
         $func_name = "compareProductWith" . ucfirst($this->type);
-        $key = md5($func_name . json_encode($product->get_data()). json_encode($cartItem) . json_encode($this->values). $this->method);
+        $key = md5($func_name . $product->get_id() . json_encode($cartItem) . json_encode($this->values). $this->method);
         if(isset($cached_results[$key]))
             return $cached_results[$key];
 

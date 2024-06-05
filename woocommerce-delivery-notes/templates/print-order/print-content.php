@@ -15,8 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="company-logo">
 			<?php
 			if ( wcdn_get_company_logo_id() ) :
-				?>
-				<?php wcdn_company_logo(); ?><?php endif; ?>
+				$template_save = get_option( 'wcdn_template_type' );
+				if ( 'default' === $template_save ) {
+					wcdn_company_logo();
+				} elseif ( 'simple' === $template_save ) {
+					wcdn_pdf_company_logo( $ttype = 'simple' );
+				}
+			endif;
+			?>
 		</div>
 
 		<div class="company-info">
@@ -36,7 +42,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<address>
 
 				<?php
-				
 				if ( ! $order->get_formatted_billing_address() ) {
 					esc_attr_e( 'N/A', 'woocommerce-delivery-notes' );
 				} else {
@@ -144,7 +149,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 									if ( null === $item_meta_fields ) {
 										$item_meta_fields = array();
 									}
-
 									$product_addons            = array();
 									$woocommerce_product_addon = 'woocommerce-product-addons/woocommerce-product-addons.php';
 									if ( in_array( $woocommerce_product_addon, apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ), true ) ) {

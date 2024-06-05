@@ -192,6 +192,10 @@ class Meow_WPMC_Support {
       array_push( $unsupported, 'Breakdance Builder' );
 		}
 
+		if ( defined( 'BRICKS_VERSION' ) ) {
+      array_push( $unsupported, 'Bricks Builder' );
+		}
+
     return $unsupported;
   }
 }

@@ -84,9 +84,11 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 				'is_admin' => current_user_can( 'manage_options' ),
 				'editor'   => CPCFF_AUXILIARY::editor_url(),
 				'forms'    => array(),
+				'templates' => array(),
 				'labels'   => array(
 					'required_form' => __( 'Select a form', 'calculated-fields-form' ),
 					'forms'         => __( 'Forms', 'calculated-fields-form' ),
+					'templates'		=> __('Templates', 'calculated-fields-form'),
 					'attributes'    => __( 'Additional attributes', 'calculated-fields-form' ),
 					'iframe'        => __( 'Load form into an iframe', 'calculated-fields-form' ),
 					'edit_form'     => __( 'Edit form', 'calculated-fields-form' ),
@@ -97,6 +99,12 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 
 			foreach ( $forms as $form ) {
 				$config['forms'][ $form->id ] = esc_attr( '(' . $form->id . ') ' . $form->form_name );
+			}
+
+			require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/inc/cpcff_templates.inc.php';
+			$templates_list = CPCFF_TEMPLATES::load_templates();
+			foreach ( $templates_list as $template_item ) {
+				$config['templates'][$template_item['prefix']] = esc_html($template_item['title']);
 			}
 
 			return $config;

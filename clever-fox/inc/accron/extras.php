@@ -13,7 +13,7 @@
 		 $slide_image = 'slider-img1.jpg';
 	 }
 	return apply_filters(
-		'accron_get_slider_default', json_encode(
+		'accron_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/accron/images/slider/'.$slide_image),
@@ -34,7 +34,7 @@
 */
 function accron_get_service_default() {
 	return apply_filters(
-		'accron_get_service_default', json_encode(
+		'accron_get_service_default',wp_json_encode(
 			array(
 				array(
 					'image_url2'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img1.jpg'),	
@@ -85,7 +85,7 @@ function accron_get_service_default() {
  */
 function accron_get_features_default() {
 	return apply_filters(
-		'accron_get_features_default', json_encode(
+		'accron_get_features_default',wp_json_encode(
 				 array(
 				array(
 					'icon_value'        => 'fa-laptop',	
@@ -176,7 +176,7 @@ add_action( 'accron_abv_hdr_social', 'accron_abv_hdr_social' );
  */
 function accron_get_social_icon_default() {
 	return apply_filters(
-		'accron_get_social_icon_default', json_encode(
+		'accron_get_social_icon_default',wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),

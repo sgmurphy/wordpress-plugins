@@ -5,7 +5,8 @@
 $upcoming_appointments = ssa()->appointment_model->query( $atts );
 
 $settings    = ssa()->settings->get();
-$date_format = 'l, ' . SSA_Utils::localize_default_date_strings('F j, Y \a\t g:i a') . ' (T)';
+$date_format = SSA_Utils::localize_default_date_strings($settings['global']['date_format']);
+$time_format = SSA_Utils::localize_default_date_strings($settings['global']['time_format']);
 ?>
 <div class="ssa-upcoming-appointments-container" role="region" aria-labelledby="appointments-heading">
 	<div class="ssa-upcoming-appointments">
@@ -112,16 +113,21 @@ $date_format = 'l, ' . SSA_Utils::localize_default_date_strings('F j, Y \a\t g:i
 									<div class="appointment-header">
 										<?php
 											$upcoming_appointment_datetime = ssa_datetime( $upcoming_appointment['start_date'] );
+
 											if ( ! empty( $upcoming_appointment['customer_timezone'] ) ) {
 												$customer_timezone_string = $upcoming_appointment['customer_timezone'];
 											} else {
 												$customer_timezone_string = 'UTC';
 											}
 											$customer_timezone = new DateTimezone( $customer_timezone_string );
-											$localized_string  = $upcoming_appointment_datetime->setTimezone( $customer_timezone )->format( $date_format );
-											$localized_string  = SSA_Utils::translate_formatted_date( $localized_string );
+											$localized_date = $upcoming_appointment_datetime->setTimezone($customer_timezone)->format($date_format);
+											$localized_time = $upcoming_appointment_datetime->setTimezone($customer_timezone)->format($time_format. ' (T)');
 
-											echo '<p>' . esc_html__($localized_string, 'simply-schedule-appointments') . '</p>';
+											$localized_date = SSA_Utils::translate_formatted_date($localized_date);
+
+											echo '<p><span class="appointment-date">' . esc_html__($localized_date, 'simply-schedule-appointments') . 
+											'</span> <span class="appointment-time">' . esc_html__('at', 'simply-schedule-appointments') . ' ' . esc_html__($localized_time, 'simply-schedule-appointments') . '</span></p>';
+
 											$upcoming_appointment_type = new SSA_Appointment_Type_Object( $upcoming_appointment['appointment_type_id'] );
 											$upcoming_appointment_title = $upcoming_appointment_type->get_title();
 

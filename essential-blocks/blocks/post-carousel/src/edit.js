@@ -3,8 +3,7 @@
  */
 import { __ } from "@wordpress/i18n";
 import { useEffect, useState, createRef } from "@wordpress/element";
-import { useBlockProps } from "@wordpress/block-editor";
-import { select } from "@wordpress/data";
+import { safeHTML } from "@wordpress/dom";
 import { doAction, applyFilters } from "@wordpress/hooks";
 import { dateI18n, format, getSettings } from "@wordpress/date";
 
@@ -207,13 +206,13 @@ export default function Edit(props) {
                                                 const title = post?.title?.rendered;
                                                 const titleWithLimitWords =
                                                     titleLength >= 0 ? title.trim().split(" ", titleLength).join(" ") : title;
-                                                const titleHTML = `
+                                                const titleHTML = safeHTML(`
 						<${titleTag} class="ebpg-entry-title">
 							<a class="ebpg-carousel-post-link" href="#" title="${titleWithLimitWords}">
 								${titleWithLimitWords}
 							</a>
 						</${titleTag}>
-					`;
+					`);
 
                                                 //Generate Excerpt & Read More
                                                 let excerpt = post?.excerpt ? post?.excerpt?.rendered : post?.content?.rendered;

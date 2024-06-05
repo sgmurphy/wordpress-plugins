@@ -30,23 +30,26 @@ jQuery(function()
 					}
 				},
 				edit: function( props ) {
-
 					function generate_shortcode()
 					{
-						props.setAttributes({'shortcode' : '[CP_CALCULATED_FIELDS id="'+id+'" '+additional+(iframe ? ' iframe="1"' : '')+']'});
+						props.setAttributes({'shortcode' : '[CP_CALCULATED_FIELDS id="'+id+'" '+additional+(iframe ? ' iframe="1"' : '')+(template.length ? ' template="'+template+'"' : '' )+']'});
 					};
 
 					function set_attributes(evt)
 					{
-						if(evt.target.tagName == 'SELECT') // Form id
+						if(evt.target.id == 'cpcff_inspector_forms_list') // Form id
 						{
 							id = evt.target.value;
+						}
+						else if(evt.target.id == 'cpcff_inspector_templates_list') // Template id
+						{
+							template = evt.target.value;
 						}
 						else if(evt.target.tagName == 'INPUT' && evt.target.type == 'checkbox') // iFrame
 						{
 							iframe = evt.target.checked;
 						}
-						else // Additional attributes
+						else if(evt.target.tagName == 'INPUT') // Additional attributes
 						{
 							additional = evt.target.value;
 						}
@@ -71,10 +74,19 @@ jQuery(function()
 						return output;
 					};
 
+					function get_template()
+					{
+						var output = '',
+							shortcode = props.attributes.shortcode,
+							m = shortcode.match(/\btemplate\s*=\s*['"]([^'"]*)['"]/i);
+						if(m) output = String(m[1]).trim();
+						return output;
+					};
+
 					function get_additional_atts()
 					{
 						var output = props.attributes.shortcode;
-						output = output.replace(/^\s*\[\s*CP_CALCULATED_FIELDS\s+id\s*=\s*['"][^'"]*['"]\s*/i, '').replace(/\]\s*$/,'').replace(/\s?iframe\s*=\s*"1"\s?/ig, '');
+						output = output.replace(/^\s*\[\s*CP_CALCULATED_FIELDS\s+id\s*=\s*['"][^'"]*['"]\s*/i, '').replace(/\]\s*$/,'').replace(/\s?iframe\s*=\s*"1"\s?/ig, '').replace(/\s?template\s*=\s*"[^"]*"\s?/ig, '');
 						return output;
 					};
 
@@ -91,18 +103,27 @@ jQuery(function()
 							output  = attrs['id'];
 						for (var i in attrs) {
 							if(i == 'id') continue;
-							output += '&'+encodeURIComponent(i)+'='+encodeURIComponent(attrs[i]);
+							output += '&'+encodeURIComponent( 'template' == i ? 'cff-form-attr-template' : i )+'='+encodeURIComponent(attrs[i]);
 						}
 						return output;
 					};
 
 					// Main function code
-					var focus = props.isSelected,
-						options = [],
-						id = get_id(),
-						additional = get_additional_atts(),
-						iframe = get_iframe(),
-						children = [];
+					var focus 		= props.isSelected,
+						options 	= [],
+						templates_options = [
+							el(
+								'option',
+								{key: 'cpcff_inspector_option_templates_', value: ''},
+								'-'
+							)
+						],
+						id 			= get_id(),
+						first_time  = id == '',
+						template 	= get_template(),
+						additional 	= get_additional_atts(),
+						iframe 		= get_iframe(),
+						children 	= [];
 
                     if(
                         'url' in cpcff_gutenberg_editor_config &&
@@ -121,16 +142,28 @@ jQuery(function()
                         );
                     }
 
-					// Creates the options for the forms list
-					for( var form_id in cpcff_gutenberg_editor_config['forms'])
-					{
-						var key = 'cpcff_inspector_option_'+form_id,
-							config = {key: key, value: form_id};
+					// Creates options for forms list
+					if ( 'forms' in cpcff_gutenberg_editor_config ) {
+						for( var form_id in cpcff_gutenberg_editor_config['forms'])
+						{
+							let config = {key: 'cpcff_inspector_option_'+form_id, value: form_id};
 
-						if( /^\s*$/.test(id)) id = form_id;
-						options.push(el('option', config, cpcff_gutenberg_editor_config['forms'][form_id]));
+							if( /^\s*$/.test(id)) id = form_id;
+							options.push(el('option', config, cpcff_gutenberg_editor_config['forms'][form_id]));
+						}
 					}
-					generate_shortcode();
+
+					// Creates options for templates list
+					if ( 'templates' in cpcff_gutenberg_editor_config ) {
+						for( var template_id in cpcff_gutenberg_editor_config['templates'])
+						{
+							let config = {key: 'cpcff_inspector_option_templates_'+template_id, value: template_id};
+
+							templates_options.push(el('option', config, cpcff_gutenberg_editor_config['templates'][template_id]));
+						}
+					}
+
+					if(first_time && options.length) generate_shortcode();
 
 					if(!/^\s*$/.test(id))
 					{
@@ -209,6 +242,7 @@ jQuery(function()
 										el(
 											'select',
 											{
+												id  : 'cpcff_inspector_forms_list',
 												key : 'cpcff_inspector_forms_list',
 												style : {width: '100%'},
 												onChange : set_attributes,
@@ -267,6 +301,25 @@ jQuery(function()
 												},
 												cpcff_gutenberg_editor_config['labels']['iframe']
 											)
+										),
+										el(
+											'label',
+											{
+												key : 'cpcff_inspector_templates_label',
+												style: { paddingTop:'20px', display:'block' }
+											},
+											cpcff_gutenberg_editor_config['labels']['templates']
+										),
+										el(
+											'select',
+											{
+												id  : 'cpcff_inspector_templates_list',
+												key : 'cpcff_inspector_templates_list',
+												style : {width: '100%'},
+												onChange : set_attributes,
+												value: template
+											},
+											templates_options
 										),
 										el(
 											'div',

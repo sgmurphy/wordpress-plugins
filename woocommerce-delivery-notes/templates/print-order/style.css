@@ -191,6 +191,11 @@ h2 {
 	padding-right: 0.35em;
 }
 
+.order-info li span {
+    display: inline-block;
+	overflow: hidden;
+}
+
 /* Order Items */
 .order-items {
 	margin-bottom: 1em;
@@ -311,5 +316,19 @@ h2 {
 	.content {
 		/* Remove padding to not generate empty follow up pages */
 		padding-bottom: 0;
+	}
+}
+
+/* hide mobile version by default */
+.logo .mobile {
+	display: none;
+}
+/* when screen is less than 600px wide show mobile version and hide desktop */
+@media ( max-width: 600px ) {
+	.logo .mobile {
+		display: block;
+	}
+	.logo .desktop {
+		display: none;
 	}
 }

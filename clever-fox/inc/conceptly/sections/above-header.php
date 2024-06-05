@@ -33,19 +33,19 @@
 	                    <ul class="header-info d-inline-block">
 							<?php if($hide_show_contact_infot =='1'){ ?>
 								<?php if($header_phone_number) {?>
-									<li class="tlh-phone"><a href="tel:<?php echo esc_html($header_phone_number); ?>"><i class="fa <?php echo esc_attr($header_phone_icon); ?>"></i><?php echo esc_html($header_phone_number); ?></a></li>
+									<li class="tlh-phone"><a href="tel:<?php echo esc_html($header_phone_number); ?>"><i class="fa <?php echo esc_attr($header_phone_icon); ?>"></i><?php /* translators: %s: Phone Number */printf( esc_html__('%s.', 'clever-fox'), esc_html($header_phone_number)); ?></a></li>
 								<?php 
 										} 
 									}
 								?>
 							<?php if($hide_show_email_infot =='1'){ ?>
 								<?php if($header_email) {?>
-									<li class="tlh-email"><a href="mailto:<?php echo esc_html($header_email); ?>"><i class="fa <?php  echo esc_attr( $header_email_icon ); ?>"></i><?php echo $header_email; ?></a></li>
+									<li class="tlh-email"><a href="mailto:<?php echo esc_html($header_email); ?>"><i class="fa <?php  echo esc_attr( $header_email_icon ); ?>"></i><?php /* translators: %s: Email */printf( esc_html__('%s.', 'clever-fox'), esc_html($header_email)); ?></a></li>
 								<?php } ?>	
 							<?php } ?>
 							<?php if($hide_show_faq =='1'){ ?>
 								<?php if($header_faq) {?>
-									<li class="tlh-faq"><a href="#"><i class="fa <?php echo esc_attr($header_faq_icon); ?>"></i><?php echo $header_faq; ?></a></li>
+									<li class="tlh-faq"><a href="#"><i class="fa <?php echo esc_attr($header_faq_icon); ?>"></i><?php /* translators: %s: FAQ */printf( esc_html__('%s.', 'clever-fox'), esc_html($header_faq)); ?></a></li>
 								<?php } ?>
 							<?php } ?>						
 	                    </ul>

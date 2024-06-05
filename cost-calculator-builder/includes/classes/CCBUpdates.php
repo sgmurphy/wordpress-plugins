@@ -96,6 +96,9 @@ class CCBUpdates {
 		'3.1.93' => array(
 			'ccb_sync_calc_settings',
 		),
+		'3.2.6'  => array(
+			'ccb_add_summary_display',
+		),
 	);
 
 	public static function init() {

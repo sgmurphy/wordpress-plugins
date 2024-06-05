@@ -88,6 +88,12 @@ class CCBSettingsData {
 					'link'      => '',
 					'link_text' => '',
 				),
+				'summary_display'      => array(
+					'enable'              => false,
+					'form_title'          => 'You will get a quote and invoice after submitting the form',
+					'submit_btn_text'     => 'Get a quote',
+					'action_after_submit' => 'send_to_email', // show_summary_block
+				),
 			),
 			'woo_products'    => array(
 				'enable'        => false,
@@ -265,6 +271,12 @@ class CCBSettingsData {
 					'page_id'   => '',
 					'link'      => '',
 					'link_text' => '',
+				),
+				'summary_display'      => array(
+					'use_in_all'          => false,
+					'form_title'          => 'You will get a quote and invoice after submitting the form',
+					'submit_btn_text'     => 'Get a quote',
+					'action_after_submit' => 'send_to_email', // show_summary_block
 				),
 			),
 			'backup_settings' => array(
@@ -524,8 +536,8 @@ class CCBSettingsData {
 				'general_settings' => $general_settings,
 			);
 		}
-		$settings = self::get_calc_single_settings( $calc_id );
 
+		$settings             = self::get_calc_single_settings( $calc_id );
 		$is_need_product_data = self::is_have_woo_product_meta_links( $settings['woo_products'] );
 
 		if ( function_exists( 'is_product' ) && $is_need_product_data ) {
@@ -563,7 +575,7 @@ class CCBSettingsData {
 	}
 
 	public static function get_calc_global_settings() {
-		$global_settings = get_option( 'ccb_general_settings', array() );
+		$global_settings = get_option( 'ccb_general_settings', '' );
 		if ( empty( $global_settings ) ) {
 			$global_settings = self::general_settings_data();
 		}
@@ -576,7 +588,7 @@ class CCBSettingsData {
 	}
 
 	public static function get_calc_single_settings( $calc_id ) {
-		$settings = get_option( 'stm_ccb_form_settings_' . $calc_id, array() );
+		$settings = get_option( 'stm_ccb_form_settings_' . $calc_id, '' );
 
 		if ( empty( $settings ) ) {
 			return self::settings_data();

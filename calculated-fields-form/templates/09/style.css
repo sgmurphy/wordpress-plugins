@@ -49,6 +49,7 @@ body{
     font-size: 16px;
     line-height: 16px;
     overflow: hidden;
+	max-width: calc( 100% - 5px );
 }
 *[dir="rtl"] .cp_cff_box #fbuilder .top_aligned .fields>label{float:right;}
 .cp_cff_box #fbuilder span.uh{color: #C0C0C0;font-size: 11px;}

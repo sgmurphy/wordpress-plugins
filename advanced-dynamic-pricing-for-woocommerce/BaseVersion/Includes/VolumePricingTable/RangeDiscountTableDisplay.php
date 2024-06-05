@@ -86,16 +86,16 @@ class RangeDiscountTableDisplay
         echo $this->getProductTableContent($product);
     }
 
-    public function getProductTableContent($product): string
+    public function getProductTableContent($product, $ruleId = null): string
     {
         if ($product instanceof \WC_Product_Variable) {
-            return $this->getTableContentWithDefaultVariation($product);
+            return $this->getTableContentWithDefaultVariation($product, $ruleId);
         } else {
-            return $this->rangeDiscountTable->getProductTableContent($product);
+            return $this->rangeDiscountTable->getProductTableContent($product, [], $ruleId);
         }
     }
 
-    protected function getTableContentWithDefaultVariation(\WC_Product_Variable $product): string
+    protected function getTableContentWithDefaultVariation(\WC_Product_Variable $product, $ruleId = null): string
     {
         $attributes = [];
         foreach ($product->get_variation_attributes() as $attrName => $options) {
@@ -104,7 +104,7 @@ class RangeDiscountTableDisplay
 
         $variationId = \WC_Data_Store::load('product')->find_matching_product_variation($product, $attributes);
 
-        return $this->rangeDiscountTable->getProductTableContent($variationId, $attributes);
+        return $this->rangeDiscountTable->getProductTableContent($variationId, $attributes, $ruleId);
     }
 
     public function echoCategoryTableContent()

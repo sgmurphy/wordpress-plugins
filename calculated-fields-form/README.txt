@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.10
+Stable tag: 5.2.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,8 @@ Advanced Operations:
 And the best part? All resulting forms are **mobile responsive**, ensuring a seamless experience across devices.
 
 The most remarkable aspect is that you don’t need to hire a developer to create forms. With basic knowledge, you can have professional forms in minutes.
+
+[youtube https://www.youtube.com/watch?v=R8hEbD8w2RM]
 
 The form builder is entirely visual, offering a wide selection of controls (Text fields, Numbers, Currency, Date/time, Slider control, Email, Radio buttons, Checkboxes, Container fields, Multi-page control, QR code reader, Recording, Calculated fields, and many others). This versatile toolkit empowers you to create customized forms effortlessly.
 
@@ -446,6 +448,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.11 =
+
+* Modifies the Date control to prevent the date selection from closing the Elementor popups when it contains a form.
+* Modifies the predefined template 09.
+* The form shortcode supports the template attribute to allow modifying and applying different templates to the same form via shortcode.
+* Modifies the Gutenberg editor block for form insertion to support the new template attribute.
+
 = 5.2.10 =
 
 * Modifies the Default settings section to activate/deactivate the Submit button by default or change its status in the existing forms.
@@ -473,7 +482,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Includes new form templates.
 * Modifies the styles applied to the Phone field.
 * Implements minor modifications in the forms builder.
-
-= 5.2.5 =
-
-* Includes a new section in the fields settings to allow customizing the fields desings directly.

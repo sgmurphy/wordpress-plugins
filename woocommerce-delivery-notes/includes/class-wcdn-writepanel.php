@@ -53,7 +53,7 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 		public function add_styles() {
 			if ( $this->is_order_edit_page() || $this->is_order_post_page() ) {
 				wp_enqueue_style( 'thickbox' );
-				wp_enqueue_style( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'css/admin.css', '', WooCommerce_Delivery_Notes::$plugin_version );
+				wp_enqueue_style( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'assets/css/admin.css', '', WooCommerce_Delivery_Notes::$plugin_version );
 			}
 		}
 
@@ -63,8 +63,8 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 		public function add_scripts() {
 			if ( $this->is_order_edit_page() || $this->is_order_post_page() ) {
 				wp_enqueue_script( 'thickbox' );
-				wp_enqueue_script( 'woocommerce-delivery-notes-print-link', WooCommerce_Delivery_Notes::$plugin_url . 'js/jquery.print-link.js', array( 'jquery' ), WooCommerce_Delivery_Notes::$plugin_version, false );
-				wp_enqueue_script( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'js/admin.js', array( 'jquery', 'woocommerce-delivery-notes-print-link' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+				wp_enqueue_script( 'woocommerce-delivery-notes-print-link', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/jquery.print-link.js', array( 'jquery' ), WooCommerce_Delivery_Notes::$plugin_version, false );
+				wp_enqueue_script( 'woocommerce-delivery-notes-admin', WooCommerce_Delivery_Notes::$plugin_url . 'assets/js/admin.js', array( 'jquery', 'woocommerce-delivery-notes-print-link' ), WooCommerce_Delivery_Notes::$plugin_version, false );
 			}
 		}
 
@@ -144,7 +144,6 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 			if ( empty( $post_ids ) ) {
 				return $redirect_to;
 			}
-
 			// stop if the action is not of bulk printing.
 			if ( ! in_array( $_REQUEST['action'], array( 'wcdn_print_invoice', 'wcdn_print_delivery-note', 'wcdn_print_receipt' ) ) ) { // phpcs:ignore
 				return $redirect_to;
@@ -214,7 +213,6 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 				$args
 			);
 			$sendback = add_query_arg( $args, '' );
-
 			wp_safe_redirect( $sendback );
 			exit;
 		}
@@ -224,10 +222,9 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 		 */
 		public function confirm_bulk_actions() {
 			if ( $this->is_order_edit_page() ) {
-
 				foreach ( WCDN_Print::$template_registrations as $template_registration ) {
 					if ( isset( $_REQUEST[ 'printed_' . $template_registration['type'] ] ) ) {
-
+						
 						// use singular or plural form.
 						$total   = isset( $_REQUEST['total'] ) ? absint( $_REQUEST['total'] ) : 0;
 						$message = $total <= 1 ? $message = $template_registration['labels']['message'] : $template_registration['labels']['message_plural'];
@@ -259,7 +256,6 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 			} else {
 				$screen = 'shop_order';
 			}
-
 			add_meta_box( 'woocommerce-delivery-notes-box', __( 'Order Printing', 'woocommerce-delivery-notes' ), array( $this, 'create_box_content' ), $screen, 'side', 'low' );
 		}
 
@@ -283,9 +279,9 @@ if ( ! class_exists( 'WCDN_Writepanel' ) ) {
 				<span class="print-preview-loading spinner"></span>
 			</div>
 			<?php
-			$create_invoice_number = get_option( 'wcdn_create_invoice_number' );
-			$has_invoice_number    = $order->get_meta( '_wcdn_invoice_number', true );
-			if ( ! empty( $create_invoice_number ) && 'yes' === $create_invoice_number && $has_invoice_number ) :
+			$invoice_data       = get_option( 'wcdn_invoice_customization' );
+			$has_invoice_number = $order->get_meta( '_wcdn_invoice_number', true );
+			if ( 'on' === $invoice_data['numbering']['active'] && $has_invoice_number ) :
 				$invoice_number = wcdn_get_order_invoice_number( $order_id );
 				$invoice_date   = wcdn_get_order_invoice_date( $order_id );
 				?>

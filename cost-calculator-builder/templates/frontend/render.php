@@ -79,6 +79,15 @@ if ( ! empty( $settings['sendFormFields'] ) && ! empty( $settings['formFields'] 
 	$settings['texts']['form_fields'] = apply_filters( 'ccb_contact_form_add_text_form_fields', $settings['texts']['form_fields'] );
 }
 
+if ( ! empty( $general_settings['form_fields']['use_in_all'] ) && ! empty( $general_settings['form_fields']['summary_display']['use_in_all'] ) ) {
+	$settings['formFields']['summary_display']           = $general_settings['form_fields']['summary_display'];
+	$settings['formFields']['summary_display']['enable'] = true;
+}
+
+if ( ! empty( $settings['formFields']['accessEmail'] ) && ! empty( $settings['formFields']['contactFormId'] ) ) {
+	$settings['formFields']['summary_display']['enable'] = '';
+}
+
 if ( ! empty( $settings['formFields']['submitBtnText'] ) ) {
 	$settings['formFields']['submitBtnText'] = apply_filters( 'ccb_contact_form_submit_label', $settings['formFields']['submitBtnText'], $calc_id );
 }
@@ -321,7 +330,8 @@ $get_date_format = get_option( 'date_format' );
 				<div class="calc-subtotal calc-list" :id="getTotalStickyId" :class="{loaded: !loader}">
 					<div class="calc-subtotal-wrapper">
 						<div class="calc-list-inner">
-							<div class="calc-item-title calc-accordion">
+
+							<div class="calc-item-title calc-accordion" v-show="!summaryDisplay || showAfterSubmit">
 								<div class="ccb-calc-heading">
 									<?php echo isset( $settings['general']['header_title'] ) ? esc_html( $settings['general']['header_title'] ) : ''; ?>
 								</div>
@@ -332,7 +342,11 @@ $get_date_format = get_option( 'date_format' );
 								<?php endif; ?>
 							</div>
 
-							<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }">
+							<div class="calc-item-title calc-accordion" style="margin: 0 !important;" v-show="summaryDisplay && !showAfterSubmit">
+								<div class="ccb-calc-heading" style="text-transform: none !important; padding-bottom: 15px" v-text="summaryDisplaySettings?.form_title"></div>
+							</div>
+
+							<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }" v-show="!summaryDisplay || showAfterSubmit">
 								<transition>
 									<div :class="{close: !accordionState}" class="calc-subtotal-list-accordion">
 										<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
@@ -376,7 +390,7 @@ $get_date_format = get_option( 'date_format' );
 								</transition>
 							</div>
 
-							<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}">
+							<div class="calc-subtotal-list totals" style="margin-top: 20px; padding-top: 10px;" ref="calcTotals" :class="{'unit-enable': showUnitInSummary}" v-show="!summaryDisplay || showAfterSubmit">
 								<template v-for="item in getRepeaterTotals">
 									<cost-total :value="item.total" :discount="item.discount" :field="item.data" :id="calc_data.id" @condition-apply="renderCondition"></cost-total>
 								</template>
@@ -390,7 +404,7 @@ $get_date_format = get_option( 'date_format' );
 								</template>
 							</div>
 
-							<div class="calc-subtotal-list" v-if="getWooProductName">
+							<div class="calc-subtotal-list" v-if="getWooProductName" v-show="!summaryDisplay || showAfterSubmit">
 								<div class="calc-woo-product">
 									<div class="calc-woo-product__info">
 										"{{getWooProductName}}"<?php echo esc_html__( ' has been added to your cart', 'cost-calculator-builder' ); ?>
@@ -403,7 +417,7 @@ $get_date_format = get_option( 'date_format' );
 								</div>
 							</div>
 
-							<div class="calc-promocode-wrapper" v-if="hasPromocode">
+							<div class="calc-promocode-wrapper" v-if="hasPromocode" v-show="!summaryDisplay || showAfterSubmit">
 								<div class="promocode-header"></div>
 								<div class="promocode-body">
 									<div class="calc-have-promocode">
@@ -431,10 +445,10 @@ $get_date_format = get_option( 'date_format' );
 											<div class="calc-applied" v-if="usedPromocodes?.length">
 												<span class="calc-applied-title"><?php esc_html_e( 'Applied promocodes:', 'cost-calculator-builder' ); ?></span>
 												<div class="ccb-promocodes-list">
-													<span v-for="promocode in usedPromocodes" class="ccb-promocode">
-														{{ promocode }}
-														<i @click.stop="removePromocode(promocode)" class="remove ccb-icon-close"></i>
-													</span>
+												<span v-for="promocode in usedPromocodes" class="ccb-promocode">
+													{{ promocode }}
+													<i @click.stop="removePromocode(promocode)" class="remove ccb-icon-close"></i>
+												</span>
 												</div>
 											</div>
 										</template>
@@ -444,7 +458,7 @@ $get_date_format = get_option( 'date_format' );
 
 							<div class="calc-subtotal-list calc-buttons">
 								<?php if ( ccb_pro_active() ) : ?>
-									<cost-pro-features inline-template :settings="content.settings">
+									<cost-pro-features inline-template :settings="content.settings" @submit="submitForm" @reset="resetForm">
 										<?php echo \cBuilder\Classes\CCBProTemplate::load( 'frontend/pro-features', array( 'settings' => $settings, 'general_settings' => $general_settings, 'invoice' => $general_settings['invoice'] ) ); // phpcs:ignore ?>
 									</cost-pro-features>
 								<?php endif; ?>

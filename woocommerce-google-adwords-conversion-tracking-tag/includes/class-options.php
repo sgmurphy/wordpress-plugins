@@ -159,8 +159,8 @@ class Options {
 			'snapchat'   => [
 				'pixel_id'          => '',
 				'advanced_matching' => false,
-				'capi' 			=> [
-					'token'             => '',
+				'capi'              => [
+					'token' => '',
 				],
 			],
 			'tiktok'     => [
@@ -180,7 +180,7 @@ class Options {
 					'add_to_cart'       => '',
 					'add_to_wishlist'   => '',
 					'initiate_checkout' => '',
-					//					'add_payment_info'      => '',
+					'add_payment_info'  => '',
 					'purchase'          => '',
 				],
 			],

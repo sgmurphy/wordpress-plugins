@@ -23,15 +23,14 @@ import { createBlocksFromInnerBlocksTemplate } from "@wordpress/blocks";
  */
 import { getValidationRules, getFormFields } from "./helpers";
 const {
-    duplicateBlockIdFix,
     fetchFormBlockData,
     saveFormBlockData,
+    DynamicInputValueHandler,
     getAllBlockClientIds,
     EBDisplayIcon,
     BlockProps
 } = EBControls;
 
-import classnames from "classnames";
 
 import {
     CONTACT_FORM_TEMPLATE_1,
@@ -538,7 +537,13 @@ export default function Edit(props) {
                                                 ) : (
                                                     ""
                                                 )}
-                                                {buttonText}
+                                                <DynamicInputValueHandler
+                                                    value={buttonText}
+                                                    onChange={(buttonText) =>
+                                                        setAttributes({ buttonText })
+                                                    }
+                                                    readOnly={true}
+                                                />
                                                 {btnAddIcon && iconPosition === "right" ? (
                                                     <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
                                                 ) : (

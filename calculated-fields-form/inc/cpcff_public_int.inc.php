@@ -55,6 +55,10 @@ if ( ! empty( $form_data ) ) {
 		$form_data[1] = (array) $form_data[1];
 	}
 	if ( isset( $form_data[1] ) && isset( $form_data[1][0] ) ) {
+		if( !empty( $form_template ) ) {
+			$form_data[ 1 ][ 0 ]->formtemplate = $form_template;
+		}
+
 		if ( ! empty( $form_data[1][0]->formtemplate ) ) {
 			CPCFF_TEMPLATES::enqueue_template_resources( $form_data[1][0]->formtemplate );
 		}

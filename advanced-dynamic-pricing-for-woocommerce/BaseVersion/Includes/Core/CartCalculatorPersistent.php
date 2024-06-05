@@ -66,7 +66,7 @@ class CartCalculatorPersistent implements ICartCalculator
                 $newItems = array();
                 foreach ($cart->getItems() as $item) {
                     $productPrice = $item->getOriginalPrice();
-                    foreach ($item->getDiscounts() as $ruleId => $amounts) {
+                    foreach ($item->getDiscounts(true) as $ruleId => $amounts) {
                         $productPrice -= array_sum($amounts);
                     }
                     if ($this->context->getOption('is_calculate_based_on_wc_precision')) {

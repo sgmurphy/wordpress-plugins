@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Advanced Dynamic Pricing for WooCommerce (Pro)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-29 06:10+0000\n"
+"POT-Creation-Date: 2024-06-05 06:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -2227,7 +2227,7 @@ msgstr ""
 msgid "Remove rule?"
 msgstr ""
 
-#: BaseVersion/Includes/CartProcessor/CartProcessor.php:1046
+#: BaseVersion/Includes/CartProcessor/CartProcessor.php:1047
 msgid "Removed {{qty}} free {{product_name}}"
 msgstr ""
 

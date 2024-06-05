@@ -112,6 +112,10 @@ Download it from the Wordpress directory and try it out. Having an author box af
 16. Author Box with Drop-Down Theme
 
 == Changelog ==
+= 3.5.2 =
+* Update plugin style and layouts
+* Fixed compatibility with default WP Themes like Twenty Twenty-Four
+
 = 3.5.1 =
 * Update compatibility with WP 6.5
 * Fixed PHP error when $post is not found

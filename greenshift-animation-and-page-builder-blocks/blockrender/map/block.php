@@ -82,9 +82,9 @@ class GspbMap
 	{
 		extract($settings);
 
-		$blockId = 'gspb_id-' . $id;
+		$blockId = 'gspb_id-' . esc_attr($id);
 		$blockClassName = $blockId;
-		$blockMapId = 'gspb_map-' . $id;
+		$blockMapId = 'gspb_map-' . esc_attr($id);
 
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
@@ -109,27 +109,27 @@ class GspbMap
 					}
 					if (is_array($result)) {
 						if (isset($result['location']) && isset($result['location']['lat']) && isset($result['location']['lng'])) {
-							$markers[$key]['lat'] = $result['location']['lat'];
-							$markers[$key]['lng'] = $result['location']['lng'];
-							$markers[$key]['lang'] = $result['location']['lng'];
-							$markers[$key]['title'] = !empty($result['title']) ? $result['title'] : '';
-							$description = !empty($result['description']) ? $result['description'] : '';
-							$address = !empty($result['address']) ? $result['address'] : '';
-							$markers[$key]['description'] = $description ? $result['description'] : $address;
+							$markers[$key]['lat'] = esc_attr($result['location']['lat']);
+							$markers[$key]['lng'] = esc_attr($result['location']['lng']);
+							$markers[$key]['lang'] = esc_attr($result['location']['lng']);
+							$markers[$key]['title'] = !empty($result['title']) ? esc_attr($result['title']) : '';
+							$description = !empty($result['description']) ? wp_strip_all_tags($result['description']) : '';
+							$address = !empty($result['address']) ? wp_strip_all_tags($result['address']) : '';
+							$markers[$key]['description'] = $description ? $description : $address;
 						} else if (isset($result['lat']) && isset($result['lng'])) {
-							$markers[$key]['lat'] = $result['lat'];
-							$markers[$key]['lng'] = $result['lng'];
-							$markers[$key]['lang'] = $result['lng'];
-							$description = !empty($result['description']) ? $result['description'] : '';
-							$address = !empty($result['address']) ? $result['address'] : '';
-							$markers[$key]['description'] = $description ? $result['description'] : $address;
+							$markers[$key]['lat'] = esc_attr($result['lat']);
+							$markers[$key]['lng'] = esc_attr($result['lng']);
+							$markers[$key]['lang'] = esc_attr($result['lng']);
+							$description = !empty($result['description']) ? wp_strip_all_tags($result['description']) : '';
+							$address = !empty($result['address']) ? wp_strip_all_tags($result['address']) : '';
+							$markers[$key]['description'] = $description ? $description : $address;
 						} else if (isset($result['latitude']) && isset($result['longitude'])) {
-							$markers[$key]['lat'] = $result['latitude'];
-							$markers[$key]['lng'] = $result['longitude'];
-							$markers[$key]['lang'] = $result['longitude'];
-							$description = !empty($result['description']) ? $result['description'] : '';
-							$address = !empty($result['address']) ? $result['address'] : '';
-							$markers[$key]['description'] = $description ? $result['description'] : $address;
+							$markers[$key]['lat'] = esc_attr($result['latitude']);
+							$markers[$key]['lng'] = esc_attr($result['longitude']);
+							$markers[$key]['lang'] = esc_attr($result['longitude']);
+							$description = !empty($result['description']) ? wp_strip_all_tags($result['description']) : '';
+							$address = !empty($result['address']) ? wp_strip_all_tags($result['address']) : '';
+							$markers[$key]['description'] = $description ? $description : $address;
 						}
 					}
 				}

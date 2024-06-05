@@ -1,4 +1,4 @@
-=== All in One SEO – Most Powerful SEO Plugin to Boost SEO Rankings & Increase Traffic ===
+=== All in One SEO – Powerful SEO Plugin to Boost SEO Rankings & Increase Traffic ===
 Contributors: aioseo, smub, benjaminprojas
 Tags: SEO, Google Search Console, XML Sitemap, meta description, schema
 Tested up to: 6.5.3

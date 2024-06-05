@@ -34,8 +34,8 @@ if($hs_info == '1') {
                                         <i class="fa <?php echo esc_attr( $info_first_icon_setting ); ?>"></i>
                                     </div>
                                     <a href="<?php echo esc_url( $info_link ); ?>" class="contact-info">
-                                        <span class="text"><?php esc_html_e($info_title, 'clever-fox'); ?></span>
-                                        <span class="title"><?php esc_html_e($info_description, 'clever-fox'); ?></span>
+                                        <span class="text"><?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_title)); ?></span>
+                                        <span class="title"><?php /* translators: %s: Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_description)); ?></span>
                                     </a>
 									<?php if ( ! empty( $info_link ) ) : ?>
 										<div class="contact-more">
@@ -52,8 +52,8 @@ if($hs_info == '1') {
                                         <i class="fa <?php echo esc_attr( $info_second_icon_setting ); ?>"></i>
                                     </div>
                                     <a href="<?php echo esc_url( $info_link2 ); ?>" class="contact-info">
-                                         <span class="text"><?php esc_html_e($info_title2, 'clever-fox'); ?></span>
-                                        <span class="title"><?php esc_html_e($info_description2, 'clever-fox'); ?></span>
+                                        <span class="text"><?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_title2)); ?></span>
+                                        <span class="title"><?php /* translators: %s: Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_description2)); ?></span>
                                     </a>
 									<?php if ( ! empty( $info_link2 ) ) : ?>
 										<div class="contact-more">
@@ -70,8 +70,8 @@ if($hs_info == '1') {
                                         <i class="fa <?php echo esc_attr( $info_third_icon_setting ); ?>"></i>
                                     </div>
                                     <a href="<?php echo esc_url( $info_link3 ); ?>" class="contact-info">
-                                        <span class="text"><?php esc_html_e($info_title3, 'clever-fox'); ?></span>
-                                        <span class="title"><?php esc_html_e($info_description3, 'clever-fox'); ?></span>
+                                        <span class="text"><?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_title3)); ?></span>
+                                        <span class="title"><?php /* translators: %s: Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_description3)); ?></span>
                                     </a>
 									<?php if ( ! empty( $info_link3 ) ) : ?>
 										<div class="contact-more">

@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Zapier for WordPress
  * Description:       Zapier enables you to automatically share your posts to social media, create WordPress posts from Mailchimp newsletters, and much more. Visit https://zapier.com/apps/wordpress/integrations for more details.
- * Version:           1.4.0
+ * Version:           1.5.0
  * Author:            Zapier
  * Author URI:        https://zapier.com
  * License:           Expat (MIT License)
@@ -80,7 +80,10 @@ class Zapier_Auth
         $this->loader->add_plugin_action('rest_api_init', $this, 'add_api_routes');
         $this->loader->add_plugin_filter('rest_pre_dispatch', $this, 'rest_pre_dispatch');
         $this->loader->add_plugin_filter('determine_current_user', $this, 'determine_current_user');
+
+        // Webhooks
         $this->loader->add_plugin_action('wp_update_user', $this, 'updated_user');
+        $this->loader->add_plugin_action('post_updated', $this, 'updated_post', 10, 3);
     }
 
     public function run()
@@ -216,7 +219,7 @@ class Zapier_Auth
             );
         }
 
-        $ALLOWED_ACTIONS = array('wp_update_user');
+        $ALLOWED_ACTIONS = array('wp_update_user','post_updated');
 
         $action = $request->get_param("action");
         $endpoint_url = $request->get_param("endpoint_url");
@@ -292,6 +295,28 @@ class Zapier_Auth
         }
     }
 
+    public function updated_post($post_id, $post_after, $post_before) {
+        $option_key = "zapier_hooks_post_updated";
+        
+        $rest_base = get_post_type_object($post_after->post_type)->rest_base;
+        $changed_properties = $this->compareObjects($post_after, $post_before);
+        
+        $hooks = get_option($option_key, []);
+
+        foreach($hooks as $hook) {
+            $response = wp_remote_post($hook, array(
+                'body' => json_encode(array(
+                    'post_id' => $post_id,
+                    'rest_base' => $rest_base,
+                    'post_after_status' => $post_after->post_status,
+                    'post_before_status' => $post_before->post_status,
+                    'post_changed_properties' => $changed_properties
+                )),
+                'headers' => array('Content-Type' => 'application/json'),
+            ));
+        }
+    }
+
     public function get_user_from_token()
     {
         try {
@@ -354,6 +379,32 @@ class Zapier_Auth
             return $this->error;
         }
         return $request;
+    }
+
+    private function compareObjects($obj1, $obj2) {
+        $reflect1 = new ReflectionClass($obj1);
+        $reflect2 = new ReflectionClass($obj2);
+
+        if ($reflect1->getName() !== $reflect2->getName()) {
+            throw new Exception('Objects must be instances of the same class');
+        }
+
+        $properties1 = $reflect1->getProperties();
+        $changed_properties = [];
+
+        foreach ($properties1 as $property) {
+            // Make property accessible if it's private or protected
+            $property->setAccessible(true);
+
+            $value1 = $property->getValue($obj1);
+            $value2 = $property->getValue($obj2);
+
+            if ($value1 !== $value2) {
+                $changed_properties[] = str_replace('post_', '', $property->getName());
+            }
+        }
+
+        return $changed_properties;
     }
 }
 

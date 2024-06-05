@@ -14,6 +14,8 @@ class Shop {
 
     private static $order;
 
+    private static $transient_identifiers;
+
     public static function track_user( $user_id = null ) {
         $user = null;
         if ( 0 === $user_id ) {
@@ -741,6 +743,41 @@ class Shop {
             '1.30.3',
             'Use the woocommerce_order_is_paid_statuses filter instead'
         );
+    }
+
+    public static function is_woocommerce_session_active() {
+        // If WC() not available, return false
+        if ( !function_exists( 'WC' ) ) {
+            return false;
+        }
+        // If WC()->session not available, return false
+        if ( !isset( WC()->session ) ) {
+            return false;
+        }
+        // If WC()->session->has_session() not available, return false
+        if ( !method_exists( WC()->session, 'has_session' ) ) {
+            return false;
+        }
+        return WC()->session->has_session();
+    }
+
+    public static function get_value_from_woocommerce_session( $key, $default = null ) {
+        if ( !self::is_woocommerce_session_active() ) {
+            return $default;
+        }
+        return WC()->session->get( $key, $default );
+    }
+
+    public static function get_transient_identifiers_from_session() {
+        if ( self::$transient_identifiers ) {
+            return self::$transient_identifiers;
+        }
+        self::$transient_identifiers = self::get_value_from_woocommerce_session( self::get_transient_identifiers_key(), [] );
+        return self::$transient_identifiers;
+    }
+
+    public static function get_transient_identifiers_key() {
+        return 'pmw_transient_session_identifiers';
     }
 
 }

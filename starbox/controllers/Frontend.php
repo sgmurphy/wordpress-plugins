@@ -291,6 +291,7 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
                 (is_page() && ABH_Classes_Tools::getOption('abh_inpages') == 1)) {
                 $this->model->single = true;
                 $this->box = $this->getBox();
+
             }
 
             switch ($this->model->position) {
@@ -494,6 +495,7 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
                     ABH_Classes_ObjController::getController('ABH_Classes_DisplayController')
                         ->loadMedia(_ABH_ALL_THEMES_URL_ . 'admin/css/hidedefault' . (ABH_DEBUG ? '' : '.min') . '.css'); //load the css and js for frontend
                 }
+
             }
         }
     }
@@ -505,30 +507,39 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
      * @return string
      */
     public function hookFrontcontent($content) {
-        global $post, $wp_query;
+        global $post;
 
-        //make sure the header was called before content
-        if(!did_action('wp_head') && !is_author()){
-            if ((ABH_Classes_Tools::getOption('abh_ineachpost') == 1 && count($wp_query->posts) > 1)) {
-                $this->show = true;
-            } elseif (!isset($this->model->details['abh_use']) || $this->model->details['abh_use']) {
-                $this->show = true;
+        $header = '';
+
+        //if the header was not yet shown, load the starbox header and add it to the content
+        //only if the shortcode is not added in the content. Let shortcode to load the header
+        if(!did_action('wp_head')){
+            //
+            if (preg_match($this->shortcode, $content)) {
+                return $content;
             }
+
+            ob_start();
+            $this->hookFronthead();
+            $header = ob_get_clean();
         }
 
         //get the current post ID or 0
         $post_id = (isset($post->ID) ? (int)isset($post->ID) : 0);
 
-        if (!$this->show || (isset($this->custom[$post_id]) && $this->custom[$post_id] == true))
+        if (!$this->show || (isset($this->custom[$post_id]) && $this->custom[$post_id] == true)){
             return $content;
+        }
 
-        if (ABH_Classes_Tools::getOption('abh_shortcode') == 1)
+        if (ABH_Classes_Tools::getOption('abh_shortcode') == 1){
             if (preg_match($this->shortcode, $content)) {
                 $this->custom[$post_id] = true;
                 return $content;
             }
+        }
 
         $content = $this->showAuthorBox($content);
+        $content = $header . $content;
 
         if (ABH_Classes_Tools::getOption('abh_ineachpost') == 1 && $this->box == '' && $post_id > 0) {
             $post = get_post($post_id);
@@ -547,8 +558,10 @@ class ABH_Controllers_Frontend extends ABH_Classes_FrontController {
             $this->model->details = ABH_Classes_Tools::getOption('abh_author' . $this->model->author->ID);
 
             if (!isset($this->model->details['abh_use']) || $this->model->details['abh_use'] == 1) {
-                $this->model->single = false;
-                echo $this->model->getAuthorBox();
+                if(did_action('wp_head')){
+                    $this->model->single = false;
+                    echo $this->model->getAuthorBox();
+                }
             }
         }
 

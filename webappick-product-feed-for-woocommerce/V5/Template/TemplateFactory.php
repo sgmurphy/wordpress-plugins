@@ -80,17 +80,15 @@ class TemplateFactory {
 
 		$method    = 'get_' . $config->feedType . '_structure';
 
-		$structure = [];
-
-		if ('Googlereview' === $template && class_exists($class) && method_exists($class, $method)) {
-			$structure =  (new $class($config, $ids))->$method();
+		if ( 'Googlereview' === $template && class_exists( $class ) && method_exists( $class, $method ) ) {
+			return ( new $class( $config, $ids ) )->$method();
 		}
 
-		if (class_exists($class) && method_exists($class, $method)) {
-			$structure =  (new $class($config))->$method();
-		}else{
-			$structure = (new CustomStructure($config))->$method();
+		if ( class_exists( $class ) && method_exists( $class, $method ) ) {
+			return ( new $class( $config ) )->$method();
 		}
+
+		$structure = (new CustomStructure($config))->$method();
 
 		set_transient('ctx_feed_structure_transient', $structure, HOUR_IN_SECONDS);
 

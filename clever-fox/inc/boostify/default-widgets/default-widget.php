@@ -16,7 +16,7 @@ $activate = array(
    update_option('widget_text', array(
         1 => array('title' => '',
         'text'=>'<div class="widget_about"><div class="footer-logo"><img src="'.CLEVERFOX_PLUGIN_URL.'inc/boostify/images/logo.png" alt=""></div>
-                        <p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p><ul class="widget-info">
+                        <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p><ul class="widget-info">
                             <li><i class="fa fa-phone"></i>012-345-789</li>
                             <li><i class="fa fa-globe"></i>www.yourdomain.com</li>
                             <li><i class="fa fa-envelope"></i>yourmail@gmail.com</li>

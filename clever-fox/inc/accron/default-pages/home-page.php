@@ -1,15 +1,16 @@
 <?php
 	//post status and options
 	$post = array(
-		  'comment_status' => 'closed',
-		  'ping_status' =>  'closed' ,
-		  'post_author' => 1,
-		  'post_date' => date('Y-m-d H:i:s'),
-		  'post_name' => 'Home',
-		  'post_status' => 'publish' ,
-		  'post_title' => 'Home',
-		  'post_type' => 'page',
-	);  
+		'comment_status' => 'closed',
+		'ping_status' =>  'closed' ,
+		'post_author' => 1,
+		'post_date' => gmdate('Y-m-d H:i:s'),
+		'post_name' => 'Home',
+		'post_status' => 'publish' ,
+		'post_title' => 'Home',
+		'post_type' => 'page',
+	);
+  
 	//insert page and save the id
 	$newvalue = wp_insert_post( $post, false );
 	if ( $newvalue && ! is_wp_error( $newvalue ) ){

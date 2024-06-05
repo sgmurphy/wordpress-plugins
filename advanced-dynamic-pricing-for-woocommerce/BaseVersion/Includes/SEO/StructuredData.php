@@ -55,18 +55,18 @@ class StructuredData
             return $data;
         }
 
+        if ( ! $this->context->getOption('is_calculate_based_on_wc_precision')) {
+            $decimals = $this->context->getPriceDecimals() - 2;
+        } else {
+            $decimals = $this->context->getPriceDecimals();
+        }
+
         if (is_object($product) && $product->get_price()) {
             $productProcessor = $this->globalEngine->getProductProcessor();
             $processedProduct = $productProcessor->calculateProduct($product, 1);
 
             if (is_null($processedProduct)) {
                 return $data;
-            }
-
-            if ( ! $this->context->getOption('is_calculate_based_on_wc_precision')) {
-                $decimals = $this->context->getPriceDecimals() - 2;
-            } else {
-                $decimals = $this->context->getPriceDecimals();
             }
 
             if ($processedProduct instanceof ProcessedVariableProduct || $processedProduct instanceof ProcessedGroupedProduct) {
@@ -103,10 +103,10 @@ class StructuredData
             $data['priceCurrency'] = $this->context->getCurrencyCode();
         }
 
-        do_action("adp_schema_data_ready", $data, $processedProduct, $decimals);
+        do_action("adp_schema_data_ready", $data, $processedProduct ?? null, $decimals);
 
         return $data;
     }
 
-    
+
 }

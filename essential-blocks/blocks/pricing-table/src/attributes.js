@@ -187,7 +187,7 @@ const attributes = {
     buttonIcon: {
         type: "attribute",
         selector: ".eb-pricing .eb-pricing-footer",
-        attribute: "data-icon",
+        attribute: "data-icon"
     },
     buttonIconPosition: {
         type: "string",

@@ -1,13 +1,13 @@
-=== Logo Carousel – Logo Slider, Logo Showcase, and Clients Logo Gallery ===
+=== Logo Carousel – Responsive Logo Slider, Logo Showcase, and Clients Logo Gallery ===
 Contributors: shapedplugin, shamimmiashuhagh, rubel_miah, khalilu
-Tags: logo carousel, logo slider, carousel slider, carousel, logo showcase, logo gallery, clients logo gallery, best WordPress logo showcase, carousel, responsive logo carousel, clients logo carousel, logo carousel slider, logo slide show, vertical logo carousel, logo grid showcase, logo list, brands logo carousel, partners, supporters, sponsors, affiliates
+Tags: logo carousel, logo slider, logo gallery, logo showcase, display logo
 Requires at least: 4.7
 Tested up to: 6.5
 Stable tag: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add, display and manage clients, partners, sponsors, brands logos with multiple slideshows on your site. Customizable. No coding required!
+Add, display, and manage clients, partners, sponsors, and brand logos with multiple slideshows on your site. Customizable – No coding required!
 
 == Description ==
 

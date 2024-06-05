@@ -39,7 +39,7 @@ class YithGiftCardsCmp
             return $priority - 1;
         });
 
-        $instance = YITH_YWGC_Cart_Checkout();
+        $instance = function_exists('YITH_YWGC_Cart_Checkout') ? YITH_YWGC_Cart_Checkout() : \YITH_YWGC_Cart_Checkout::get_instance();
         if (false === ($priority = has_action('woocommerce_after_calculate_totals',
                 [$instance, 'apply_gift_cards_discount']))) {
             return;

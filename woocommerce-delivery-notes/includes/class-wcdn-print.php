@@ -397,7 +397,7 @@ if ( ! class_exists( 'WCDN_Print' ) ) {
 		 */
 		public function generate_template( $order_ids, $template_type = 'order', $order_email = null ) {
 			global $post, $wp;
-			
+
 			// Explode the ids when needed.
 			if ( ! is_array( $order_ids ) ) {
 				$this->order_ids = array_filter( explode( '-', $order_ids ) );

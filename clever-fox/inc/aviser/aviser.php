@@ -29,9 +29,9 @@ if ( ! function_exists( 'cleverfox_avril_frontpage_sections' ) ) :
 endif;
 
 function cleverfox_avril_enqueue_scripts() {
-	wp_enqueue_script( 'counterup', CLEVERFOX_PLUGIN_URL .'/inc/assets/js/jquery.counterup.min.js', array('jquery'), false, true);
-	wp_enqueue_style('animate',CLEVERFOX_PLUGIN_URL .'/inc/assets/css/animate.css');
-	wp_enqueue_style('owl-carousel-min',CLEVERFOX_PLUGIN_URL .'/inc/assets/css/owl.carousel.min.css');
-	wp_enqueue_script( 'owl-carousel', CLEVERFOX_PLUGIN_URL . 'inc/assets/js/owl.carousel.min.js', array('jquery'), false, true);
+	wp_enqueue_script( 'counterup', CLEVERFOX_PLUGIN_URL .'/inc/assets/js/jquery.counterup.min.js', array('jquery'), '4.0.0', true);
+	wp_enqueue_style('animate',CLEVERFOX_PLUGIN_URL .'/inc/assets/css/animate.css','','3.5.2');
+	wp_enqueue_style('owl-carousel-min',CLEVERFOX_PLUGIN_URL .'/inc/assets/css/owl.carousel.min.css','','2.2.1');
+	wp_enqueue_script( 'owl-carousel', CLEVERFOX_PLUGIN_URL . 'inc/assets/js/owl.carousel.min.js', array('jquery'), '2.2.1', true);
 }
 add_action( 'wp_enqueue_scripts', 'cleverfox_avril_enqueue_scripts' );

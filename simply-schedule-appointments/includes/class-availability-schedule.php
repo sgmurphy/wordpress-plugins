@@ -820,10 +820,12 @@ class SSA_Availability_Schedule implements Countable, Iterator {
 		$this->position = 0;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function current() {
 		return $this->blocks[$this->position];
 	}
 
+	#[\ReturnTypeWillChange]
 	public function key() {
 		return $this->position;
 	}

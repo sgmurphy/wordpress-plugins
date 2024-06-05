@@ -676,6 +676,7 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
          */
         public function eb_show_admin_menu_notice()
         {
+            $get_option = get_option( 'eb_admin_menu_notice' );
             if ( get_option( 'eb_admin_menu_notice' ) < EB_ADMIN_MENU_FLAG ) {
                 update_option( 'eb_admin_menu_notice', EB_ADMIN_MENU_FLAG, 'no' );
             }
@@ -703,8 +704,9 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
     <div id="eb-admin-promotion-message" class="eb-admin-promotion-message">
         <span class="e-notice__dismiss eb-admin-promotion-close dashicons dashicons-no-alt" role="button" aria-label="Dismiss" tabindex="0"></span>
         <?php printf(
-                        __( "<p> <i>📣</i> NEW: Essential Blocks 4.5.0 is here, with new '<a target='_blank' href='%s'>Responsive Breakpoints </a>' settings & more! Check out the <a target='_blank' href='%s'>Changelog</a> for more details 🎉</p>", "essential-blocks" ),
-                        esc_url( 'https://essential-blocks.com/docs/customize-website-responsive-breakpoints/' ),
+                        __( "<p> <i>📣</i> NEW: Essential Blocks 4.7.0 is here, with new '<a target='_blank' href='%s'>Global Typography</a>', new options in '<a target='_blank' href='%s'>Dynamic Tags</a>' & more! Check out the <a target='_blank' href='%s'>Changelog</a> for more details 🎉</p>", "essential-blocks" ),
+                        esc_url( 'https://essential-blocks.com/docs/configure-global-typography/' ),
+                        esc_url( 'https://essential-blocks.com/docs/dynamic-tags-support/' ),
                         esc_url( 'https://essential-blocks.com/changelog' )
                 );?>
     </div>

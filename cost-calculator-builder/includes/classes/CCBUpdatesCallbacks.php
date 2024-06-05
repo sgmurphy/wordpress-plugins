@@ -964,4 +964,25 @@ class CCBUpdatesCallbacks {
 		\cBuilder\Classes\Database\Promocodes::create_table();
 		\cBuilder\Classes\Database\Condition::create_table();
 	}
+
+	public static function ccb_add_summary_display() {
+		$calculators     = self::get_calculators();
+		$settings        = CCBSettingsData::settings_data();
+		$summary_display = $settings['formFields']['summary_display'];
+
+		foreach ( $calculators as $calculator ) {
+			$calc_settings = get_option( 'stm_ccb_form_settings_' . $calculator->ID );
+			if ( empty( $calc_settings['formFields']['summary_display'] ) ) {
+				$calc_settings['formFields']['summary_display'] = $summary_display;
+				update_option( 'stm_ccb_form_settings_' . sanitize_text_field( $calculator->ID ), apply_filters( 'stm_ccb_sanitize_array', $calc_settings ) );
+			}
+		}
+
+		$static_general_data = CCBSettingsData::general_settings_data();
+		$general_settings    = get_option( 'ccb_general_settings' );
+		if ( empty( $general_settings['form_fields']['summary_display'] ) ) {
+			$general_settings['form_fields']['summary_display'] = $static_general_data['form_fields']['summary_display'];
+			update_option( 'ccb_general_settings', apply_filters( 'calc_update_options', $general_settings ) );
+		}
+	}
 }

@@ -39,20 +39,20 @@ if ( ! function_exists( 'cleverfox_ampark_lite_testimonial' ) ) :
 					<div class="testimonial-content">
 						<div class="testimonial-title">
 							<?php if ( ! empty( $avril_test_title ) ) : ?>
-								<h6 class="service-title"><?php esc_html_e( $avril_test_title ,'clever-fox'); ?></h6>
+								<h6 class="service-title"><?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($avril_test_title)); ?></h6>
 							<?php endif; ?>
 							<?php if ( ! empty( $subtitle ) ) : ?>
-								<p><?php esc_html_e( $subtitle ,'clever-fox'); ?></p>
+								<p><?php /* translators: %s: Subtitle */printf( esc_html__('%s.', 'clever-fox'), esc_html($subtitle)); ?></p>
 							<?php endif; ?>
 						</div>  
 						<?php if ( ! empty( $text ) ) : ?>
-							<blockquote><?php esc_html_e( $text ,'clever-fox'); ?></blockquote>
+							<blockquote><?php /* translators: %s: Text */printf( esc_html__('%s.', 'clever-fox'), esc_html($text)); ?></blockquote>
 						<?php endif; ?>	
 					</div>
 					<div class="testimonial-icon">
 						<div class="image-box">
 							<?php if ( ! empty( $image ) ) : ?>
-								<img src="<?php echo esc_url( $image ); ?>" data-img-url="<?php echo esc_url( $image ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php esc_attr_e( $title ,'clever-fox'); ?>" title="<?php esc_attr_e( $title ,'clever-fox'); ?>" <?php endif; ?> />
+								<img src="<?php echo esc_url( $image ); ?>" data-img-url="<?php echo esc_url( $image ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" title="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" <?php endif; ?> />
 							<?php endif; ?>
 						</div>
 					</div>

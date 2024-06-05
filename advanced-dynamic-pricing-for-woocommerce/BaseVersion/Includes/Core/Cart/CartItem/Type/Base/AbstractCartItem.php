@@ -246,11 +246,11 @@ abstract class AbstractCartItem
     /**
      * @return array<int, array<int, float>>
      */
-    public function getDiscounts(): array
+    public function getDiscounts(bool $adjustAmountsForCouponMode = false): array
     {
         $discounts = [];
         foreach ($this->priceAdjustments as $adjustment) {
-            if (!$adjustment->getType()->equals(CartItemPriceUpdateTypeEnum::DEFAULT())) {
+            if (!$adjustAmountsForCouponMode && !$adjustment->getType()->equals(CartItemPriceUpdateTypeEnum::DEFAULT())) {
                 continue;
             }
 

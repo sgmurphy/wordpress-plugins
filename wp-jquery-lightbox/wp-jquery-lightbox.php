@@ -3,7 +3,7 @@
  * Plugin Name: WP Lightbox
  * Plugin URI: http://wordpress.org/extend/plugins/wp-jquery-lightbox/
  * Description: A simple, fast, and responsive lightbox for WordPress galleries and images.
- * Version: 1.5.4
+ * Version: 1.5.5
  * Text Domain: wp-jquery-lightbox
  * Author: PandaboxWP
  * Author URI: https://pandaboxwp.com
@@ -12,7 +12,7 @@
 add_action( 'plugins_loaded', 'jqlb_init' );
 global $jqlb_group;
 $jqlb_group = -1;
-define( 'JQLB_VERSION', '1.5.4' );
+define( 'JQLB_VERSION', '1.5.5' );
 function jqlb_init() {
 	if(!defined('ULFBEN_DONATE_URL')){
 		define('ULFBEN_DONATE_URL', 'http://www.amazon.com/gp/registry/wishlist/2QB6SQ5XX2U0N/105-3209188-5640446?reveal=unpurchased&filter=all&sort=priority&layout=standard&x=21&y=17');
@@ -20,6 +20,7 @@ function jqlb_init() {
 	define('JQLB_SCRIPT', 'jquery.lightbox.js');
 	define('JQLB_TOUCH_SCRIPT', 'jquery.touchwipe.min.js');
 	define('JQLB_PANZOOM_SCRIPT', 'panzoom.min.js');
+	define('JQLB_PURIFY_SCRIPT', 'inc/purify.min.js');
 	load_plugin_textdomain('wp-jquery-lightbox', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 	add_action('admin_init', 'jqlb_register_settings');
 	add_action('admin_menu', 'jqlb_register_menu_item');
@@ -169,16 +170,48 @@ function jqlb_css(){
 
 function jqlb_js() {
 	if(is_admin() || is_feed()){return;}
+	$script_version = defined( 'WP_DEBUG' ) && WP_DEBUG === true ? time() : JQLB_VERSION;
 	$enqueInFooter = get_option('jqlb_enqueue_in_footer') ? true : false;
 
 	wp_enqueue_script('jquery', '', array(), false, $enqueInFooter);
-	wp_enqueue_script('wp-jquery-lightbox-swipe', plugins_url(JQLB_TOUCH_SCRIPT, __FILE__),  Array('jquery'), JQLB_VERSION, $enqueInFooter);
+	wp_enqueue_script(
+		'wp-jquery-lightbox-swipe',
+		plugins_url(JQLB_TOUCH_SCRIPT, __FILE__),
+		array('jquery'),
+		$script_version,
+		$enqueInFooter
+	);
+	wp_enqueue_script(
+		'wp-jquery-lightbox-purify',
+		plugins_url(JQLB_PURIFY_SCRIPT, __FILE__),
+		array(),
+		$script_version,
+		$enqueInFooter
+	);
 
 	if ( get_option( 'jqlb_pinchzoom' ) === '1' ) {
-		wp_enqueue_script('wp-jquery-lightbox-panzoom', plugins_url(JQLB_PANZOOM_SCRIPT, __FILE__),  Array('jquery'), JQLB_VERSION, $enqueInFooter);
-		wp_enqueue_script('wp-jquery-lightbox', plugins_url(JQLB_SCRIPT, __FILE__),  Array('jquery', 'wp-jquery-lightbox-panzoom'), time(), $enqueInFooter);
+		wp_enqueue_script(
+			'wp-jquery-lightbox-panzoom',
+			plugins_url(JQLB_PANZOOM_SCRIPT, __FILE__),
+			Array('jquery'),
+			$script_version,
+			$enqueInFooter
+		);
+		wp_enqueue_script(
+			'wp-jquery-lightbox',
+			plugins_url( JQLB_SCRIPT, __FILE__),
+			Array('jquery', 'wp-jquery-lightbox-panzoom', 'wp-jquery-lightbox-purify'),
+			$script_version,
+			$enqueInFooter
+		);
 	} else {
-		wp_enqueue_script('wp-jquery-lightbox', plugins_url(JQLB_SCRIPT, __FILE__),  Array('jquery'), time(), $enqueInFooter);
+		wp_enqueue_script(
+			'wp-jquery-lightbox',
+			plugins_url(JQLB_SCRIPT, __FILE__),
+			array('jquery', 'wp-jquery-lightbox-purify'),
+			$script_version,
+			$enqueInFooter
+		);
 	}
 
 	wp_localize_script('wp-jquery-lightbox', 'JQLBSettings', array(

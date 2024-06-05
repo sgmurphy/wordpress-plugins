@@ -55,7 +55,7 @@ interface ICartItem
     /**
      * @return array<int, array<int, float>>
      */
-    public function getDiscounts(): array;
+    public function getDiscounts(bool $adjustAmountsForCouponMode): array;
 
     public function getHash(): string;
 

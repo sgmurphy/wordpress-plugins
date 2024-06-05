@@ -6,8 +6,6 @@ import { useEffect } from "@wordpress/element";
 import {
     BlockControls,
     AlignmentToolbar,
-    RichText,
-    useBlockProps,
 } from "@wordpress/block-editor";
 import { select } from "@wordpress/data";
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
@@ -15,15 +13,12 @@ import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 /**
  * Internal depencencies
  */
-import classnames from "classnames";
-
 import Inspector from "./inspector";
 
 /**
  * External depencencies
  */
 const {
-    duplicateBlockIdFix,
     DynamicInputValueHandler,
     EBDisplayIcon,
     BlockProps
@@ -35,15 +30,10 @@ export default function Edit(props) {
     const {
         attributes,
         setAttributes,
-        className,
-        clientId,
         isSelected,
-        name
     } = props;
     const {
-        resOption,
         blockId,
-        blockMeta,
         preset,
         align,
         tagName,
@@ -68,6 +58,12 @@ export default function Edit(props) {
         blockPrefix: 'eb-advance-heading',
         style: <Style {...props} />
     };
+
+    useEffect(() => {
+        if(source == undefined) {
+            setAttributes({source: 'custom'})
+        }
+    },[])
 
     useEffect(() => {
         const postId = select("core/editor")?.getCurrentPostId();

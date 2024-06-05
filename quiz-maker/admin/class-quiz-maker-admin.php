@@ -1048,6 +1048,7 @@ class Quiz_Maker_Admin
         $gen_send_feedback_button   = (isset($buttons_texts['send_feedback_button']) && $buttons_texts['send_feedback_button'] != '') ? stripslashes(esc_attr($buttons_texts['send_feedback_button'])) : 'Send feedback';
         $gen_load_more_button       = (isset($buttons_texts['load_more_button']) && $buttons_texts['load_more_button'] != '') ? esc_attr(stripslashes($buttons_texts['load_more_button'])) : 'Load more';
         $gen_exit_button            = (isset($buttons_texts['exit_button']) && $buttons_texts['exit_button'] != '') ? esc_attr(stripslashes($buttons_texts['exit_button'])) : 'Exit';
+        $gen_check_button           = (isset($buttons_texts['check_button']) && $buttons_texts['check_button'] != '') ? esc_attr(stripslashes($buttons_texts['check_button'])) : 'Check';
 
         // Enable Quiz Options
         $quiz_enable_options = (isset( $_REQUEST['ays_quick_quiz_enable_options'] ) && $_REQUEST['ays_quick_quiz_enable_options'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_options'] ) ) : "off";
@@ -1088,6 +1089,7 @@ class Quiz_Maker_Admin
         $quick_quiz_custom_texts_send_feedback_button       = $gen_send_feedback_button;
         $quick_quiz_custom_texts_load_more_button           = $gen_load_more_button;
         $quick_quiz_custom_texts_exit_button                = $gen_exit_button;
+        $quick_quiz_custom_texts_check_button               = $gen_check_button;
 
         // Results Settings
         $quick_quiz_hide_score                              = 'off';
@@ -1167,6 +1169,9 @@ class Quiz_Maker_Admin
 
             // Exit button
             $quick_quiz_custom_texts_exit_button = (isset($_REQUEST['ays_quick_quiz_custom_texts_exit_button']) && $_REQUEST['ays_quick_quiz_custom_texts_exit_button'] != '') ? stripslashes( esc_attr( $_REQUEST['ays_quick_quiz_custom_texts_exit_button'] ) ) : $gen_exit_button;
+
+            // Check button
+            $quick_quiz_custom_texts_check_button = (isset($_REQUEST['ays_quick_quiz_custom_texts_check_button']) && $_REQUEST['ays_quick_quiz_custom_texts_check_button'] != '') ? stripslashes( esc_attr( $_REQUEST['ays_quick_quiz_custom_texts_check_button'] ) ) : $gen_check_button;
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1425,6 +1430,16 @@ class Quiz_Maker_Admin
             'quiz_custom_texts_load_more_button'        => $quick_quiz_custom_texts_load_more_button,
             'quiz_custom_texts_exit_button'             => $quick_quiz_custom_texts_exit_button,
             'quiz_display_messages_before_buttons'      => $quick_quiz_display_messages_before_buttons,
+            'quiz_custom_texts_check_button'            => $quick_quiz_custom_texts_check_button,
+            'quiz_custom_texts_login_button'            => "Log In",
+            'quiz_enable_quiz_category_description'     => "off",
+            'quiz_admin_note_text_transform'            => "none",
+            'quiz_quest_explanation_text_transform'     => "none",
+            'quiz_right_answer_text_transform'          => "none",
+            'quiz_wrong_answer_text_transform'          => "none",
+            'quiz_admin_note_text_decoration'           => "none",
+            'quiz_quest_explanation_text_decoration'    => "none",
+            'quiz_right_answers_text_decoration'        => "none",
         );
 
 

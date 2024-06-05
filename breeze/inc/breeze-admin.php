@@ -234,7 +234,7 @@ class Breeze_Admin {
 		// Fix viewport images when lazy-load is active.
 		if ( true === $is_lazy_load_enabled ) {
 			if ( false === $is_lazy_load_native ) {
-				$data = 'document.querySelectorAll("img[data-breeze]").forEach((e=>{e.getBoundingClientRect().top<=window.innerHeight&&(e.removeAttribute("data-breeze"),e.src=e.getAttribute("data-breeze"))}));';
+				$data = "document.querySelectorAll('img[data-breeze]').forEach(img=>{if(img.getBoundingClientRect().top<=window.innerHeight){img.src=img.getAttribute('data-breeze');img.removeAttribute('data-breeze')}});";
 				wp_add_inline_script( 'breeze-lazy', $data, 'after' );
 			} else {
 				$inline_js = <<<INLINEJS

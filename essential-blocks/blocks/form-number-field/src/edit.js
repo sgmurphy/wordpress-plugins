@@ -15,6 +15,7 @@ const {
     filterBlocksByName,
     getBlockParentClientId,
     EBDisplayIcon,
+    DynamicInputValueHandler,
     BlockProps
 } = EBControls;
 
@@ -99,7 +100,13 @@ export default function Edit(props) {
                         {showLabel && formStyle != "form-style-modern" && (
                             <>
                                 <label htmlFor={fieldName}>
-                                    {labelText}{" "}
+                                    <DynamicInputValueHandler
+                                        value={labelText}
+                                        onChange={(labelText) =>
+                                            setAttributes({ labelText })
+                                        }
+                                        readOnly={true}
+                                    />{" "}
                                     {isRequired && (
                                         <span className="eb-required">*</span>
                                     )}

@@ -22,6 +22,7 @@ import Typed from "typed.js";
 import classnames from "classnames";
 import Inspector from "./inspector";
 import Style from "./style";
+import { safeHTML } from "@wordpress/dom";
 
 export default function Edit(props) {
     const {
@@ -88,7 +89,7 @@ export default function Edit(props) {
     const getStrings = (typedText) => {
         let strings = [];
         if (typeof typedText === "object" && typedText.length > 0) {
-            typedText.map((item) => strings.push(item.text));
+            typedText.map((item) => strings.push(safeHTML(item.text)));
         } else {
             strings = ["first string", "second string"];
         }

@@ -3,11 +3,10 @@
  */
 import { __ } from "@wordpress/i18n";
 import { useEffect, useState } from "@wordpress/element";
-import { useBlockProps } from "@wordpress/block-editor";
-import { select } from "@wordpress/data";
 import { applyFilters } from "@wordpress/hooks";
 import { dateI18n, format, getSettings } from "@wordpress/date";
 import { isEmpty } from "lodash";
+import { safeHTML } from "@wordpress/dom";
 
 /**
  * Externnal depencencies
@@ -17,15 +16,12 @@ import parse from "html-react-parser";
 /**
  * Internal depencencies
  */
-import classnames from "classnames";
-
 import Inspector from "./inspector";
 import Style from "./style";
 import PostGridIcon from "./icon";
 import { Templates } from './templates/templates'
 
 const {
-    duplicateBlockIdFix,
     ebJsonStringCheck,
     CustomQuery,
     DynamicInputValueHandler,
@@ -111,7 +107,7 @@ export default function Edit(props) {
         const totalPages = Math.floor(options.totalPosts / perPage);
         let html = "";
         html += `<button class="ebpg-pagination-item-previous">${options.prevTxt}</button>`;
-        for (let i = 1;i <= totalPages;i++) {
+        for (let i = 1; i <= totalPages; i++) {
             if (i === 1) {
                 html += `<button class="ebpg-pagination-item active">${i}</button>`;
             } else if (i <= 3) {
@@ -281,6 +277,7 @@ export default function Edit(props) {
                                                     {JSON.parse(selectedTaxonomyItems).length > 0 &&
                                                         JSON.parse(selectedTaxonomyItems).map((catItem, catIndex) => (
                                                             <li
+                                                                key={catIndex}
                                                                 className={`ebpg-category-filter-list-item ${catItem.value === "all" ? "active" : ""
                                                                     }`}
                                                             >
@@ -323,13 +320,13 @@ export default function Edit(props) {
                                                 const title = post?.title?.rendered;
                                                 const titleWithLimitWords =
                                                     titleLength >= 0 ? title.trim().split(" ", titleLength).join(" ") : title;
-                                                const titleHTML = `
+                                                const titleHTML = safeHTML(`
 								<${titleTag} class="ebpg-entry-title">
 									<a class="ebpg-grid-post-link" href="#" title="">
 										${titleWithLimitWords}
 									</a>
 								</${titleTag}>
-							`;
+							`);
 
                                                 //Generate Excerpt & Read More
                                                 let excerpt = post?.excerpt?.rendered;
@@ -478,8 +475,8 @@ export default function Edit(props) {
 
                                                 const tags = postTermsVal.post_tag ? (
                                                     <div className="ebpg-meta ebpg-tags-meta">
-                                                        {Object.keys(postTermsVal.post_tag).map((item) => (
-                                                            <a href={"#"} title={postTermsVal.post_tag[item].name}>
+                                                        {Object.keys(postTermsVal.post_tag).map((item, index) => (
+                                                            <a key={index} href={"#"} title={postTermsVal.post_tag[item].name}>
                                                                 {postTermsVal.post_tag[item].name}
                                                             </a>
                                                         ))}
@@ -872,8 +869,8 @@ export default function Edit(props) {
 
                                         const tags = postTermsVal.post_tag ? (
                                             <div className="ebpg-meta ebpg-tags-meta">
-                                                {Object.keys(postTermsVal.post_tag).map((item) => (
-                                                    <a href={"#"} title={postTermsVal.post_tag[item].name}>
+                                                {Object.keys(postTermsVal.post_tag).map((item, index) => (
+                                                    <a key={index} href={"#"} title={postTermsVal.post_tag[item].name}>
                                                         {postTermsVal.post_tag[item].name}
                                                     </a>
                                                 ))}

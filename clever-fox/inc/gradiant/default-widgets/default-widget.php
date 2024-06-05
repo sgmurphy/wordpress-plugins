@@ -19,7 +19,7 @@ $activate = array(
    update_option('widget_text', array(  
 		1 => array('title' => 'About Gradiant',
         'text'=>'<div class="textwidget">
-				<p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p>
+				<p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
 				<div class="footer-badge">
 					<img src="'.CLEVERFOX_PLUGIN_URL.'inc/gradiant/images/footer/about-01.png" alt="">
 					<img src="'.CLEVERFOX_PLUGIN_URL.'inc/gradiant/images/footer/about-02.png" alt="">

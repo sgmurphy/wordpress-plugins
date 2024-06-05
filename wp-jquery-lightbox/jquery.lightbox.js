@@ -228,7 +228,7 @@
 					title = jqImg.attr('alt'); //if neither link nor image have a title attribute
 				}
 			}
-      		return title.trim();
+			return DOMPurify.sanitize(title);
 		}
 		function getCaption(jqLink){
 			var caption = {html:'',text:''};

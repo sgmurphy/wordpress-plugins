@@ -5,7 +5,7 @@ Donate link: https://meowapps.com/donation/
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 5.9.2
+Stable tag: 5.9.3
 
 Rename filenames and media metadata for SEO and tidyness. Using AI, manually, in bulk, or in so many other ways!
 
@@ -54,12 +54,16 @@ If you only need an simple field in order to modify the filename, you can also t
 
 == Changelog ==
 
+= 5.9.3 (2024/06/05) =
+* Update: Refresh the UI, and the common librairies.
+* Fix: Potential issue during the plugin's initialization.
+* ⭐️ Don't hesitate to join our [Discord Channel](https://discord.gg/bHDGh38).
+* 🌴 Please share some love [here](https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post). Thank you!
+
 = 5.9.2 (2024/05/24) =
 * Fix: Many fixes behind the scene, and how the filters are used.
 * Update: Maintain casing on sync by Post Title and Alt.
 * Update: Better logs.
-* ⭐️ Don't hesitate to join our [Discord Channel](https://discord.gg/bHDGh38).
-* 🌴 Please share some love [here](https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post). Thank you!
 
 = 5.9.1 (2024/04/27) =
 * Fix: Corrected metadata display issue when using AI suggest all feature.

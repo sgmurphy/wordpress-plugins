@@ -124,7 +124,7 @@ class RangeDiscountTable
      *
      * @return string
      */
-    public function getProductTableContent($productId = null, $attributes = array())
+    public function getProductTableContent($productId = null, $attributes = array(), $ruleId = null)
     {
         if ( ! $productId) {
             global $product;
@@ -194,7 +194,7 @@ class RangeDiscountTable
 
         $content = '<span class="wdp_bulk_table_content" ' . $tableAttr . '> ';
         try {
-            $table = $this->getProductTable( $product );
+            $table = $this->getProductTable( $product, $ruleId );
             if ( $table ) {
                 $content .= $table->getHtml();
             }
@@ -395,14 +395,20 @@ class RangeDiscountTable
      * @return Table|null
      * @throws Exception
      */
-    public function getProductTable($product)
+    public function getProductTable($product, $ruleId = null)
     {
         $contextOptions = $this->buildProductContextOptions();
         $contextOptions = $this->applyCurrentProductTableProperties($contextOptions);
 
         $context = $this->context;
 
-        $rule = $this->findRuleForProductTable($product);
+        if(!is_null($ruleId)) {
+            $rules = CacheHelper::loadRules([$ruleId], $context);
+            $rule = reset($rules);
+        } else {
+            $rule = $this->findRuleForProductTable($product);
+        }
+
         if ( ! $rule) {
             return null;
         }

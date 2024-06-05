@@ -386,7 +386,7 @@ if (false === class_exists('WF_Licensing')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
       
-      if (false === current_user_can('administrator')) {
+      if (false === current_user_can('manage_options')) {
         wp_die('Sorry, you have to be an admin to run this action.');
       }
 
@@ -415,7 +415,7 @@ if (false === class_exists('WF_Licensing')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
 
-      if (false === current_user_can('administrator')) {
+      if (false === current_user_can('manage_options')) {
         wp_die('Sorry, you have to be an admin to run this action.');
       }
       
@@ -430,7 +430,7 @@ if (false === class_exists('WF_Licensing')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
 
-      if (false === current_user_can('administrator')) {
+      if (false === current_user_can('manage_options')) {
         wp_die('Sorry, you have to be an admin to run this action.');
       }
 

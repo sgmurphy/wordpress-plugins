@@ -16,7 +16,7 @@ $activate = array(
    update_option('widget_text', array(
         1 => array('title' => '',
         'text'=>'<div class="footer-logo"><img src="'.CLEVERFOX_PLUGIN_URL.'inc/hantus/images/logo.png" alt=""></div>
-                        <p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p>
+                        <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
                         <ul class="widget-info">
                             <li><i class="fa fa-map-marker"></i>198 Collins St, Melbourne, NY</li>
                             <li><i class="fa fa-phone"></i>12) 345 678 910</li>

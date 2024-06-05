@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.43.0
+Stable tag: 1.43.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,7 +30,7 @@ The Pixel Manager integrates smoothly with platforms like Google Analytics, Goog
 
 [youtube https://www.youtube.com/watch?v=BW0Tzyu2HaU]
 
-<strong>Key features</strong>
+<strong>Key Benefits</strong>
 
 &#9989; User-friendly and intuitive.
 &#9989; Customizable filters for even more precise tracking.
@@ -216,6 +216,7 @@ The Pixel Manager is compatible with the following third-party plugins:
 * CartFlows
 * Cloudflare Plugin
 * Cost of Goods for WooCommerce (WPFactory)
+* Doofinder for WooCommerce
 * FlyingPress
 * Hummingbird
 * Litespeed Cache
@@ -292,6 +293,23 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.43.2  =
+*Release date - 05.06.2024*
+
+* Tweak: Refactored directory structure.
+* Tweak: Updated Google's IP ranges in ip_services.js
+* Tweak: Added add_shipping_info event processing for GA4.
+* Tweak: Added add_payment_info event processing for GA4, Facebook (Meta).
+* Tweak: Added a safeguard and an error message when trying to upload invalid JSON settings files.
+* Tweak: Added a safeguard to REST API endpoint tester to not follow redirects. Also added a proper check for the response message.
+* Tweak: Removed Partytown Web Worker experiment.
+* Tweak: Added add-to-cart event listener for Doofinder add-to-cart buttons.
+* Fix: Fixed a bug that would prevent consent from being processed immediately after consent was given through Cookiebot (only worked on page reload).
+
+= 1.43.1  =
+*Release date - 21.05.2024*
+
 
 = 1.43.0  =
 *Release date - 21.05.2024*

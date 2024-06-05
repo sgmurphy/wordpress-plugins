@@ -666,22 +666,6 @@ class Helpers {
         return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 );
     }
 
-    public static function is_woocommerce_session_active() {
-        // If WC() not available, return false
-        if ( !function_exists( 'WC' ) ) {
-            return false;
-        }
-        // If WC()->session not available, return false
-        if ( !isset( WC()->session ) ) {
-            return false;
-        }
-        // If WC()->session->has_session() not available, return false
-        if ( !method_exists( WC()->session, 'has_session' ) ) {
-            return false;
-        }
-        return WC()->session->has_session();
-    }
-
     /**
      * Check if the WP_DEBUG constant is defined and set to true or false.
      *

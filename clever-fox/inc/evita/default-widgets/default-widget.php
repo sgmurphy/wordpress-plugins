@@ -20,7 +20,7 @@ $activate = array(
                                 <div class="logo">
                                     <a href=""><img src="'.CLEVERFOX_PLUGIN_URL.'inc/evita/images/logo.png"></a>
                                 </div>
-                                <p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p>
+                                <p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
                             </div>
 		'),        
 		2 => array('title' => 'Recent Posts'),

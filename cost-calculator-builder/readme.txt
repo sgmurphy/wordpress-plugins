@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.3
-Stable tag: 3.2.5
+Stable tag: 3.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,10 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.6 =
+- Enhancement: Added a setting to show calculations after the visitor has entered all form contact details in the Order form(Pro).
+- Fix: The view inside Preview and Appearance on mobile is not displayed correctly.
 
 = 3.2.5 =
 - Fix: When you delete one of the products on the “Orders” page after reloading the page, the price of the remaining product is assigned to the product and not to the calculation(Pro).

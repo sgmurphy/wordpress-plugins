@@ -471,6 +471,42 @@ class Meow_WPMC_Rest
 			);
 		}
 
+		foreach ( $entries as $entry ) {
+			//Try and get a Post Title
+			$originType = $entry->originType;
+			preg_match( '/\[(.*?)\]/', $originType, $matches );
+			if ( isset( $matches[1] ) && is_numeric( $matches[1] ) ){
+				$id = $matches[1];
+				$post_title = get_the_title( $id );
+				if( $post_title ) {
+					$entry->post_title = $post_title;
+				}
+			}
+
+			// Try and get a Media URL (thumbnail)
+			$mediaId = $entry->mediaId;
+			if ( $mediaId ) {
+				$media = wp_get_attachment_image_src( $mediaId, 'thumbnail' );
+				if ( $media ) {
+					$entry->thumbnail = $media[0];
+				}
+			}
+
+			// Same but from MediaUrl if we didn't get one yet
+			$mediaUrl = $entry->mediaUrl;
+			if( $mediaUrl && empty( $entry->thumbnail ) ) {
+				// Get the ID of the attachment from its URL
+				$attachmentId = attachment_url_to_postid( $mediaUrl );
+
+				// Get the thumbnail of the attachment
+				$media = wp_get_attachment_image_src( $attachmentId, 'thumbnail' );
+				if ( $media ) {
+					$entry->thumbnail = $media[0];
+				}
+			}
+		}
+
+
 		return new WP_REST_Response( [ 'success' => true, 'data' => $entries, 'total' => $total ], 200 );
 	}
 

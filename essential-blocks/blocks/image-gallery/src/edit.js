@@ -15,8 +15,6 @@ import {
     Button,
 } from "@wordpress/components";
 import { Fragment, useEffect, useState, useRef } from "@wordpress/element";
-import { select } from "@wordpress/data";
-
 /**
  * Internal depencencies
  */
@@ -26,7 +24,6 @@ import Inspector from "./inspector";
 import Style from "./style";
 
 const {
-    duplicateBlockIdFix,
     BlockProps
 } = window.EBControls;
 
@@ -35,9 +32,7 @@ export default function Edit(props) {
         attributes,
         setAttributes,
         className,
-        clientId,
         isSelected,
-        name
     } = props;
     const {
         resOption,
@@ -320,7 +315,8 @@ export default function Edit(props) {
                                     {() => (
                                         <MediaUpload
                                             value={images.map((img) => img.id)}
-                                            onSelect={(newImages) => {
+                                            onSelect={(...images) => {
+                                                const newImages = images[0]
                                                 const mergedArray = new Map(images.map(item => [item.id, item]));
                                                 newImages.forEach(item => {
                                                     const correspondingItem = mergedArray.get(item.id);

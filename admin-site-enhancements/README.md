@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.3  
-Stable tag: 7.0.2  
+Stable tag: 7.0.2.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -181,11 +181,15 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **98 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **99 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.0.2.1 (2024.06.05) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed an issue where default login URLs does not redirect to the not_found page after v7.0.2 update. Props to [@megacelik](https://wordpress.org/support/users/megacelik/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-not-work/).
 
 ### 7.0.2 (2024.06.03) - ASE Free and Pro
 

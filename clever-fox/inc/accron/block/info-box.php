@@ -32,8 +32,8 @@ add_action( 'enqueue_block_assets', 'accron_enqueue_block_assets' );
 
 function accron_register() {
     // Resister script in editor
-	 wp_register_script( 'accron_editor_script', CLEVERFOX_PLUGIN_URL . '/inc/accron/block/dist/editor.js', array( 'wp-blob', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-rich-text', 'font-awesome-kit' ), '1.0', false ); 
-    wp_register_style( 'accron_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/accron/block/dist/editor.css', array( 'wp-edit-blocks'), null );
+	wp_register_script( 'accron_editor_script', CLEVERFOX_PLUGIN_URL . 'inc/accron/block/dist/editor.js', array( 'wp-blob', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-rich-text', 'font-awesome-kit' ), '1.0', false ); 
+    wp_register_style( 'accron_editor_style', CLEVERFOX_PLUGIN_URL . 'inc/accron/block/dist/editor.css', array( 'wp-edit-blocks'), filemtime(CLEVERFOX_PLUGIN_DIR . 'inc/accron/block/dist/editor.css') );
 
     // Register Blocks
     accron_wp_register_script( 'infos', array( 'render_callback' => 'render_accron_infos' ) );

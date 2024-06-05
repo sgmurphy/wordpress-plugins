@@ -6,7 +6,7 @@
  *
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
- * Version: 1.6.37
+ * Version: 1.6.38
  */
 
 // Makse sure that the companion is not already active from another theme
