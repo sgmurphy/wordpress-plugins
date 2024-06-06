@@ -2,7 +2,7 @@
 /**
  * Init
  *
- * @since x.x.x
+ * @since 4.3.1
  * @package Whats New library
  */
 
@@ -20,7 +20,7 @@ if ( ! class_exists( 'Astra_Sites_Whats_New' ) ) :
 		/**
 		 * Instance
 		 *
-		 * @since x.x.x
+		 * @since 4.3.1
 		 * @var (Object) Astra_Sites_Whats_New
 		 */
 		private static $instance = null;
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Astra_Sites_Whats_New' ) ) :
 		/**
 		 * Get Instance
 		 *
-		 * @since x.x.x
+		 * @since 4.3.1
 		 *
 		 * @return self Class object.
 		 */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Astra_Sites_Whats_New' ) ) :
 		/**
 		 * Constructor.
 		 *
-		 * @since x.x.x
+		 * @since 4.3.1
 		 */
 		private function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );

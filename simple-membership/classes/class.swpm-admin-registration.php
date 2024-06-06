@@ -90,6 +90,13 @@ class SwpmAdminRegistration extends SwpmRegistration {
 		SwpmTransfer::get_instance()->set( 'status', $message );
 	}
 
+    /**
+     * Edit member profile handler of admin side.
+     *
+     * @param $id Member's ID (member_id) in 'swpm_members_tbl' table.
+     *
+     * @return void
+     */
 	public function edit_admin_end( $id ) {
 		//Check we are on the admin end and user has management permission
 		SwpmMiscUtils::check_user_permission_and_is_admin( 'member edit by admin' );
@@ -100,6 +107,7 @@ class SwpmAdminRegistration extends SwpmRegistration {
 			wp_die( SwpmUtils::_( 'Error! Nonce verification failed for user edit from admin end.' ) );
 		}
 
+		$id_of_profile_being_edited = intval( $id );
 		global $wpdb;
 		$query  = $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'swpm_members_tbl WHERE member_id = %d', $id );
 		$member = $wpdb->get_row( $query, ARRAY_A );
@@ -109,16 +117,35 @@ class SwpmAdminRegistration extends SwpmRegistration {
 			$prev_level = $member['membership_level'];
 		}
 		$email_address = $member['email'];
-		$user_name     = $member['user_name'];
+		$user_name = $member['user_name'];
 		unset( $member['member_id'] );
 		unset( $member['user_name'] );
 		$form = new SwpmForm( $member );
 		if ( $form->is_valid() ) {
 			$member         = $form->get_sanitized_member_form_data();
 			$plain_password = isset( $member['plain_password'] ) ? $member['plain_password'] : '';
-			SwpmUtils::update_wp_user( $user_name, $member );
+
+            // Important: Get the currently logged in member's ID before calling the update_wp_user() function (since this function can invalidate the auth cookie if password is updated).
+            $currently_logged_in_member_id = SwpmMemberUtils::get_logged_in_members_id();
+
+            SwpmUtils::update_wp_user( $user_name, $member );
 			unset( $member['plain_password'] );
 			$wpdb->update( $wpdb->prefix . 'swpm_members_tbl', $member, array( 'member_id' => $id ) );
+
+            // Check if the password has been updated and the profile being edited is the logged-in user's own profile.
+			// If so, then we need to reset/update the auth cookies to keep the user logged in.
+            if( !empty($plain_password) && ($currently_logged_in_member_id == $id_of_profile_being_edited) ){
+				//The password has been updated and the profile being edited is the logged-in user's own profile.
+				$auth_object = SwpmAuth::get_instance();
+				$user_info_params = array(
+					'member_id' => $id_of_profile_being_edited,
+					'user_name' => $user_name,
+					'new_enc_password' => $member['password'],
+				);
+				$auth_object->reset_auth_cookies_after_pass_change($user_info_params);
+                SwpmLog::log_auth_debug( 'Profile edit from admin dashboard - The authentication cookies have been reset since the password was changed by the user (member_id: '. $id . ').', true );
+            }
+
 			// set previous membership level
 			$member['prev_membership_level'] = $prev_level;
 			$member['member_id'] = $id;

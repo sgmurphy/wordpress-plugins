@@ -20,12 +20,12 @@ function fileorganizer_page_header($title = 'FileOrganizer'){
 		<table class="fileorganizer-settings-header" cellpadding="2" cellspacing="1" width="100%" class="fixed" border="0">
 			<tr>
 				<td class="fileorganizer-td" valign="top">
-					<img src="'.FILEORGANIZER_URL .'/images/logo.png">
-					<h3 class="fileorganizer-heading">'.$title.'</h3>
+					<img src="'.esc_url(FILEORGANIZER_URL) .'/images/logo.png">
+					<h3 class="fileorganizer-heading">'.esc_html($title).'</h3>
 				</td>
 				<td align="right"><a target="_blank" class="button button-primary" href="https://wordpress.org/support/view/plugin-reviews/fileorganizer">Review FileOrganizer</a></td>
-				<td align="right" width="40"><a target="_blank" href="https://twitter.com/fileorganizer"><img src="'.FILEORGANIZER_URL.'/images/twitter.png" /></a></td>
-				<td align="right" width="40"><a target="_blank" href="https://www.facebook.com/fileorganizer/"><img src="'.FILEORGANIZER_URL.'/images/facebook.png" /></a></td>
+				<td align="right" width="40"><a target="_blank" href="https://twitter.com/fileorganizer"><img src="'.esc_url(FILEORGANIZER_URL).'/images/twitter.png" /></a></td>
+				<td align="right" width="40"><a target="_blank" href="https://www.facebook.com/fileorganizer/"><img src="'.esc_url(FILEORGANIZER_URL).'/images/facebook.png" /></a></td>
 			</tr>
 		</table>
 	</div>';
@@ -42,7 +42,7 @@ function fileorganizer_page_footer($no_twitter = 0){
 		<div class="fileorganizer-promotion" style="width:100%;" >
 			<div class="fileorganizer-promotion-content">
 				<h2 class="fileorganizer-promotion-logo">
-					<span><a target="_blank" href="https://pagelayer.com/?from=fileorganizer-plugin"><img src="'. FILEORGANIZER_URL.'/images/pagelayer_product.png" width="100%"></a></span>
+					<span><a target="_blank" href="https://pagelayer.com/?from=fileorganizer-plugin"><img src="'. esc_url(FILEORGANIZER_URL).'/images/pagelayer_product.png" width="100%"></a></span>
 				</h2>
 				<div>
 					<em>The Best WordPress <b>Site Builder</b> </em>:<br>
@@ -62,7 +62,7 @@ function fileorganizer_page_footer($no_twitter = 0){
 
 			<div class="fileorganizer-promotion-content">
 				<h2 class="fileorganizer-promotion-logo">
-					<span><a target="_blank" href="https://loginizer.com/?from=fileorganizer-plugin"><img src="'.FILEORGANIZER_URL.'/images/loginizer_product.png" width="100%"></a></span>
+					<span><a target="_blank" href="https://loginizer.com/?from=fileorganizer-plugin"><img src="'.esc_url(FILEORGANIZER_URL).'/images/loginizer_product.png" width="100%"></a></span>
 				</h2>
 				<div>
 					<em>Protect your WordPress website from <b>unauthorized access and malware</b> </em>:<br>
@@ -89,9 +89,9 @@ function fileorganizer_page_footer($no_twitter = 0){
 	if(empty($no_twitter)){
 		echo '
 		<div style="width:45%;background:#FFF;padding:15px; margin:40px auto">
-			<b>'. __('Let your followers know that you use FileOrganizer to manage your wordpress files :').'</b>
+			<b>'. esc_html__('Let your followers know that you use FileOrganizer to manage your wordpress files :').'</b>
 			<form method="get" action="https://twitter.com/intent/tweet" id="tweet" onsubmit="return dotweet(this);">
-				<textarea name="text" cols="45" row="3" style="resize:none;">'. __('I easily manage my #WordPress #files using @fileorganizer').'</textarea>
+				<textarea name="text" cols="45" row="3" style="resize:none;">'. esc_html__('I easily manage my #WordPress #files using @fileorganizer').'</textarea>
 				&nbsp; &nbsp; <input type="submit" value="Tweet!" class="button button-primary" onsubmit="return false;" id="twitter-btn" style="margin-top:20px;">
 			</form>	
 		</div>';
@@ -155,29 +155,29 @@ function fileorganizer_settings_page(){
 			<?php wp_nonce_field('fileorganizer_settings'); ?>
 			<div class="tabs-wrapper">
 				<h2 class="nav-tab-wrapper fileorganizer-wrapper">
-					<a href="#fileorganizer-general" class="fileorganizer-nav-tab nav-tab nav-tab-active"><?php _e('General'); ?></a>
-					<a href="#fileorganizer-advanced" class="fileorganizer-nav-tab nav-tab"><?php _e('Advanced'); ?></a>
-					<a href="#fileorganizer-support" class="fileorganizer-nav-tab nav-tab "><?php _e('Support'); ?></a>
+					<a href="#fileorganizer-general" class="fileorganizer-nav-tab nav-tab nav-tab-active"><?php esc_html_e('General'); ?></a>
+					<a href="#fileorganizer-advanced" class="fileorganizer-nav-tab nav-tab"><?php esc_html_e('Advanced'); ?></a>
+					<a href="#fileorganizer-support" class="fileorganizer-nav-tab nav-tab "><?php esc_html_e('Support'); ?></a>
 				</h2>
 
 				<!-- General settings start -->
 				<div class="fileorganizer-tab-panel" id="fileorganizer-general" style="display:block;">
 					<table class="form-table">
 						<tr>
-							<th scope="row"><?php _e('File Manager Path'); ?></th>
+							<th scope="row"><?php esc_html_e('File Manager Path'); ?></th>
 							<td>
 								<div class="fileorganizer-form-input">
-									<input name="root_path" type="text" class="regular-text always_active" placeholder="<?php echo fileorganizer_cleanpath(ABSPATH); ?>"  value="<?php if(!empty($settings['root_path'])){
+									<input name="root_path" type="text" class="regular-text always_active" placeholder="<?php echo esc_attr(fileorganizer_cleanpath(ABSPATH)); ?>"  value="<?php if(!empty($settings['root_path'])){
 										echo esc_attr($settings['root_path']);
 									}?>"> 
 									<p class="description">
-										<?php echo __( 'Set file manager root path.<br> Default path is:').'<code>'.fileorganizer_cleanpath(ABSPATH).__('</code><br>Please change the path carefully. an incorrect path can cause the FileOrganizer plugin to goes down.');
+										<?php echo wp_kses_post(__( 'Set file manager root path.<br> Default path is:').'<code>'.fileorganizer_cleanpath(ABSPATH).__('</code><br>Please change the path carefully. an incorrect path can cause the FileOrganizer plugin to goes down.'));
 										?>
 									</p>
 									<?php 
 									if(!defined('FILEORGANIZER_PRO')){
 										echo '<p class="description"><b>';
-										_e('Note: The free version does not allow setting a path outside your WordPress installation!');
+										esc_html_e('Note: The free version does not allow setting a path outside your WordPress installation!');
 										echo '</b></p>';
 									} ?>
 								</div>
@@ -187,7 +187,7 @@ function fileorganizer_settings_page(){
 						if( defined('FILEORGANIZER_PRO') && (!is_multisite() || is_super_admin())){
 						?>
 						<tr>
-							<th scope="row"><?php _e('File Manager Path Restriction'); ?></th>
+							<th scope="row"><?php esc_html_e('File Manager Path Restriction'); ?></th>
 							<td>
 								<div class="fileorganizer-form-input">
 									<label class="fileorganizer-switch">
@@ -198,8 +198,8 @@ function fileorganizer_settings_page(){
 									</label>
 									<p class="description">
 										<?php 
-											_e('Disable root path restriction.');
-											echo '<br>'.__('Allow FileOrganizer to set a path outside of your WordPress installation.');
+											esc_html_e('Disable root path restriction.');
+											echo '<br>'.esc_html__('Allow FileOrganizer to set a path outside of your WordPress installation.');
 										?>
 									</p>
 								</div>
@@ -209,20 +209,20 @@ function fileorganizer_settings_page(){
 						}
 						?>
 						<tr>
-							<th scope="row"><?php _e('Files View'); ?></th>
+							<th scope="row"><?php esc_html_e('Files View'); ?></th>
 							<td>
 								<div class="fileorganizer-form-input">
 									<?php $view = empty($settings['default_view']) ? '' : $settings['default_view']; ?>
 									<select name='default_view'>
-										<option <?php selected( $view , 'icons'); ?> value="icons"><?php _e('Icons'); ?></option>
-										<option <?php selected( $view , 'list'); ?> value="list"><?php _e('List'); ?></option>
+										<option <?php selected( $view , 'icons'); ?> value="icons"><?php esc_html_e('Icons'); ?></option>
+										<option <?php selected( $view , 'list'); ?> value="list"><?php esc_html_e('List'); ?></option>
 									</select>
-									<p class="description"><?php _e( "Set default folder view." ); ?></p>
+									<p class="description"><?php esc_html_e( "Set default folder view." ); ?></p>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><?php _e('Select Language'); ?></th>
+							<th scope="row"><?php esc_html_e('Select Language'); ?></th>
 							<td>
 								<?php
 									$fileman_languages = [
@@ -271,16 +271,16 @@ function fileorganizer_settings_page(){
 									<select name='default_lang'>
 										<?php 
 											foreach( $fileman_languages as $lang => $code ){
-												echo '<option '.(selected( $curlang , $code)).' value="'.$code.'">'.$lang.'</option>';
+												echo '<option '.(selected( $curlang , $code)).' value="'.esc_attr($code).'">'.esc_html($lang).'</option>';
 											}
 										?>
 									</select>
-									<p class="description"><?php _e( "Change the FileOrganizer default language." ); ?></p>
+									<p class="description"><?php esc_html_e( "Change the FileOrganizer default language." ); ?></p>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><?php _e('Hide .htaccess?'); ?></th>
+							<th scope="row"><?php esc_html_e('Hide .htaccess?'); ?></th>
 							<td>
 								<div class="fileorganizer-form-input">
 									<label class="fileorganizer-switch">
@@ -289,12 +289,12 @@ function fileorganizer_settings_page(){
 										}?>>
 										<span class="fileorganizer-slider fileorganizer-round"></span>
 									</label>
-									<p class="description"><?php _e( "Hide .htaccess file if exists." ); ?></p>
+									<p class="description"><?php esc_html_e( "Hide .htaccess file if exists." ); ?></p>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><?php _e('Enable Trash?'); ?></th>
+							<th scope="row"><?php esc_html_e('Enable Trash?'); ?></th>
 							<td>
 								<div class="fileorganizer-form-input">
 									<label class="fileorganizer-switch">
@@ -305,8 +305,8 @@ function fileorganizer_settings_page(){
 									</label>
 									<p class="description">
 										<?php 
-										_e( "Enable trash to temporary  store files after deletion." );
-										echo '<br>'.__('The trash files are saved in the following path.').'<br><code>'.fileorganizer_cleanpath(wp_upload_dir()['basedir'].'/fileorganizer/.trash/').'</code>'; 
+										esc_html_e( "Enable trash to temporary  store files after deletion." );
+										echo '<br>'.esc_html__('The trash files are saved in the following path.').'<br><code>'.esc_html(fileorganizer_cleanpath(wp_upload_dir()['basedir'].'/fileorganizer/.trash/')).'</code>'; 
 										?>
 									</p>
 								</div>
@@ -326,14 +326,14 @@ function fileorganizer_settings_page(){
 							<div class="fileorganizer-pro-overlay">
 								<div class="fileorganizer-lock-content">
 									<span class="dashicons dashicons-lock fileorganizer-lock-icon"></span>
-									<label class="fileorganizer-lock-text">'. __("Available in Pro version!") .'</label>
+									<label class="fileorganizer-lock-text">'. esc_html__("Available in Pro version!") .'</label>
 								</div>
 							</div>';
 						} ?>
 					<div class="fileorganizer-tab-panel-wrap">
 						<table class="form-table">
 							<tr>
-								<th scope="row"><?php _e('Allowed User Roles'); ?></th>
+								<th scope="row"><?php esc_html_e('Allowed User Roles'); ?></th>
 								<td>
 									<?php $roles = !empty($settings['user_roles']) ? $settings['user_roles'] : ''; ?>
 									<div class="fileorganizer-form-input">
@@ -341,57 +341,57 @@ function fileorganizer_settings_page(){
 										<input name="user_roles[]" type="checkbox" value="administrator" <?php if(is_array($roles) && in_array('administrator', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Administrator" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Administrator" ); ?></span>&nbsp;&nbsp;
 									<?php } ?>
 										<input name="user_roles[]" type="checkbox" value="editor" <?php if(is_array($roles) && in_array('editor', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Editor" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Editor" ); ?></span>&nbsp;&nbsp;
 
 										<input name="user_roles[]" type="checkbox" value="author" <?php if(is_array($roles) && in_array('author', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Author" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Author" ); ?></span>&nbsp;&nbsp;
 
 										<input name="user_roles[]" type="checkbox" value="contributor" <?php if(is_array($roles) && in_array('contributor', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Contributor" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Contributor" ); ?></span>&nbsp;&nbsp;
 
 										<input name="user_roles[]" type="checkbox" value="subscriber" <?php if(is_array($roles) && in_array('subscriber', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Subscriber" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Subscriber" ); ?></span>&nbsp;&nbsp;
 
 										<input name="user_roles[]" type="checkbox" value="customer" <?php if(is_array($roles) && in_array('customer', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Customer" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Customer" ); ?></span>&nbsp;&nbsp;
 
 										<input name="user_roles[]" type="checkbox" value="shop_manager" <?php if(is_array($roles) && in_array('shop_manager', $roles)){
 											echo "checked";
 										}?>>
-										<span class="description"><?php _e( "Shop Manager" ); ?></span>&nbsp;&nbsp;
+										<span class="description"><?php esc_html_e( "Shop Manager" ); ?></span>&nbsp;&nbsp;
 
 										<p class="description">
-											<?php echo __( 'Enabling access to the FileOrganizer for User Roles'); ?>
+											<?php echo esc_html__( 'Enabling access to the FileOrganizer for User Roles'); ?>
 										</p>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php _e('Maximum Upload Size'); ?></th>
+								<th scope="row"><?php esc_html_e('Maximum Upload Size'); ?></th>
 								<td>
 									<div class="fileorganizer-form-input">
 										<input name="max_upload_size" type="number" class="regular-text always_active" placeholder="0"  value="<?php  if(!empty($settings['max_upload_size'])){
 											echo esc_attr($settings['max_upload_size']);
-										}?>"> <?php _e('MB');  ?>
-										<p class="description"><?php _e( "Increase the maximum upload size if you are getting errors while uploading files.<br> Default: 0 means unlimited upload." ); ?></p>
+										}?>"> <?php esc_html_e('MB');  ?>
+										<p class="description"><?php echo wp_kses_post( "Increase the maximum upload size if you are getting errors while uploading files.<br> Default: 0 means unlimited upload." ); ?></p>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php _e('Enable Network Volume'); ?></th>
+								<th scope="row"><?php esc_html_e('Enable Network Volume'); ?></th>
 								<td>
 									<div class="fileorganizer-form-input">
 										<label class="fileorganizer-switch">
@@ -400,7 +400,7 @@ function fileorganizer_settings_page(){
 											}?>>
 											<span class="fileorganizer-slider fileorganizer-round"></span>
 										</label>
-										<p class="description"><?php _e( "Enable network volume." ); ?></p>
+										<p class="description"><?php esc_html_e( "Enable network volume." ); ?></p>
 									</div>
 								</td>
 							</tr>
@@ -421,7 +421,7 @@ function fileorganizer_settings_page(){
 								<img src="<?php echo esc_url(FILEORGANIZER_URL) .'/images/logo.png'?>" width="60"/>
 								<span style="font-size:30px;font-weight:600;margin:auto;color:var(--primary)">FileOrganizer</span>
 							</div>
-							<h2><?php esc_html_e('You can contact the FileOrganizer Team via email. Our email address is', 'fileorganizer'); ?> <a href="mailto:support@fileorganizer.net">support@fileorganizer.net</a> <?php esc_html_e('or through Our Premium Support Ticket System at', 'fileorganizer'); ?> <a href="https://softaculous.deskuss.com" target="_blank"><?php _e('here'); ?></a></h2>
+							<h2><?php esc_html_e('You can contact the FileOrganizer Team via email. Our email address is', 'fileorganizer'); ?> <a href="mailto:support@fileorganizer.net">support@fileorganizer.net</a> <?php esc_html_e('or through Our Premium Support Ticket System at', 'fileorganizer'); ?> <a href="https://softaculous.deskuss.com" target="_blank"><?php esc_html_e('here'); ?></a></h2>
 						</div>
 					</div>
 				</div>

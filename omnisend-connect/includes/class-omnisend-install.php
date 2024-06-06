@@ -124,11 +124,9 @@ class Omnisend_Install {
 		delete_metadata( 'post', '0', Omnisend_Sync::FIELD_NAME, '', true );
 		delete_metadata( 'term', '0', Omnisend_Sync::FIELD_NAME, '', true );
 
-		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( class_exists( OrderUtil::class ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->query(
-				$wpdb->prepare( "DELETE FROM {$wpdb->prefix}wc_orders_meta WHERE meta_key LIKE %s", Omnisend_Sync::FIELD_NAME )
-			);
+			$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_orders_meta WHERE meta_key LIKE 'omnisend_%'" );
 		}
 	}
 

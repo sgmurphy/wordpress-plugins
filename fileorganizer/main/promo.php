@@ -107,7 +107,7 @@ jQuery(document).ready( function() {
 			$("#fileorganizer_promo").hide();
 			
 			// Save this preference
-			$.get("'.admin_url('admin-ajax.php?action=fileorganizer_hide_promo').'&security='.wp_create_nonce('fileorganizer_promo_nonce').'", data, function(response) {
+			$.get("'.esc_url(admin_url('admin-ajax.php?action=fileorganizer_hide_promo')).'&security='.esc_html(wp_create_nonce('fileorganizer_promo_nonce')).'", data, function(response) {
 				//alert(response);
 			});
 		});
@@ -123,7 +123,7 @@ function fileorganizer_base_promo(){
 	<table>
 	<tr>
 		<th>
-			<img src="'.FILEORGANIZER_URL.'/images/logo.png" style="float:left; margin:10px 20px 10px 10px" width="100" />
+			<img src="'.esc_url(FILEORGANIZER_URL).'/images/logo.png" style="float:left; margin:10px 20px 10px 10px" width="100" />
 		</th>
 		<td>
 			<p style="font-size:16px;">You have been using FileOrganizer for few days and we hope FileOrganizer is able to help you to manage files from your Website.<br/>

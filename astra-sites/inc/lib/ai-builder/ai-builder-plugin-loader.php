@@ -12,6 +12,7 @@ use AiBuilder\Inc\Api\ApiInit;
 use AiBuilder\Inc\Ajax\AjaxInit;
 use AiBuilder\Inc\Classes\Zipwp\Ai_Builder_ZipWP_Api;
 use AiBuilder\Inc\Traits\Helper;
+use AiBuilder\Inc\Classes\Zipwp\Ai_Builder_ZipWP_Integration;
 use STImporter\Importer\ST_Importer_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -362,10 +363,6 @@ class Ai_Builder_Plugin_Loader {
 	 */
 	public function get_localize_variable() {
 		$theme_status = ST_Importer_Helper::get_instance()->get_theme_status();
-		// Theme installed and activate.
-		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
-			$theme_status = 'installed-and-active';
-		}
 
 		$plans = Ai_Builder_ZipWP_Api::Instance()->get_zip_plans();
 
@@ -392,6 +389,7 @@ class Ai_Builder_Plugin_Loader {
 			'zip_plans'          => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),
 			'dashboard_url'      => admin_url(),
 			'migrateSvg'         => apply_filters( 'ai_builder_migrate_svg', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/migrate.svg' ),
+			'business_details'   => Ai_Builder_ZipWP_Integration::get_business_details(),
 		);
 	}
 

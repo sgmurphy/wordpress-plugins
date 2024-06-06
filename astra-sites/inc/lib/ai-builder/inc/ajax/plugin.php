@@ -197,14 +197,32 @@ class Plugin extends AjaxBase {
 		$post_id           = ( isset( $_POST['id'] ) ) ? intval( $_POST['id'] ) : 0;
 		$user_agent_string = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : '';
 
+		$ai_import_logger = get_option( 'ai_import_logger', array() );
+		$ai_import_logger = is_array( $ai_import_logger ) ? $ai_import_logger : array();
+
+		$ai_import_logger[] = array(
+			'time' => current_time( 'mysql' ),
+			'data' => array(
+				'post_id'    => $post_id,
+				'user_agent' => $user_agent_string,
+			),
+		);
+
+		$last_index = count( $ai_import_logger ) - 1;
+
 		if ( 0 === $post_id ) {
+			$error = sprintf(
+				/* translators: %d is the post ID */
+				__( 'Invalid Post ID - %d', 'ai-builder', 'astra-sites' ),
+				$post_id
+			);
+
+			$ai_import_logger[ $last_index ]['error'] = $error;
+			update_option( 'ai_import_logger', $ai_import_logger );
+
 			wp_send_json_error(
 				array(
-					'message' => sprintf(
-						/* translators: %d is the post ID */
-						__( 'Invalid Post ID - %d', 'ai-builder', 'astra-sites' ),
-						$post_id
-					),
+					'message' => $error,
 					'code'    => 'Error',
 				)
 			);
@@ -239,6 +257,8 @@ class Plugin extends AjaxBase {
 		do_action( 'st_after_sending_error_report', $api_args['body'], $request );
 
 		if ( is_wp_error( $request ) ) {
+			$ai_import_logger[ $last_index ]['error'] = $request;
+			update_option( 'ai_import_logger', $ai_import_logger );
 			wp_send_json_error( $request );
 		}
 

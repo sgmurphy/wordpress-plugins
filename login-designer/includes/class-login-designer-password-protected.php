@@ -153,7 +153,7 @@ if ( ! class_exists( 'Login_Designer_Password_Protected' ) ) {
 				}';
 
 				if ( $logo ) {
-					$logo = wp_get_attachment_image_url( $logo );
+					$logo = wp_get_attachment_image_url( $logo, 'full' );
 					$css .= '#password-protected-logo a {
 						background-image: url("' . esc_attr( $logo ) . '");
 					}';

@@ -363,12 +363,8 @@ class NewsletterSubscription extends NewsletterModule {
 
         // Fill in optional data
 
-        if (empty($data->ip)) {
+        if (empty($subscription->data->ip)) {
             $subscription->data->ip = $this->get_remote_ip();
-        }
-
-        if (empty($data->language)) {
-            $subscription->data->language = $this->language();
         }
 
         // Spam check before sanitization: we could remove relevant information to evaluate spam
@@ -844,7 +840,7 @@ class NewsletterSubscription extends NewsletterModule {
                 $url = sanitize_url($_REQUEST['ncu']);
             } else {
                 // Per message custom URL from configuration (language variants could not be supported)
-                $page_id = $this->get_option('confiormed_id');
+                $page_id = $this->get_option('confirmed_id');
                 if (!empty($page_id)) {
                     if ($page_id === 'url') {
                         $url = trim($this->get_option('confirmed_url'));
@@ -871,7 +867,6 @@ class NewsletterSubscription extends NewsletterModule {
         $url = $this->build_message_url($url, 'confirmation', $user);
         $this->redirect($url);
     }
-
 
     /**
      * Finds the right way to show the message identified by $key (welcome, unsubscription, ...) redirecting the user to the
@@ -1770,7 +1765,16 @@ class NewsletterSubscription extends NewsletterModule {
 
         $admin_notice = '';
         if (current_user_can('administrator')) {
-            $admin_notice = '<p style="background-color: #eee; color: #000; padding: 1rem; margin: 1rem 0"><strong>Visible only to administrators</strong>. <a href="' . admin_url('admin.php?page=newsletter_subscription_options') . '" target="_blank">Edit this content</a>.</p>';
+            if ($this->is_multilanguage()) {
+                $language = $this->language();
+                if (empty($language)) {
+                    $language = 'all';
+                }
+                $admin_notice = '<p style="background-color: #eee; color: #000; padding: 1rem; margin: 1rem 0"><strong>Visible only to administrators</strong>. <a href="' . admin_url('admin.php?page=newsletter_subscription_options&lang=' . urlencode($language)) . '" target="_blank">Edit this content</a>.</p>';
+            } else {
+                $admin_notice = '<p style="background-color: #eee; color: #000; padding: 1rem; margin: 1rem 0"><strong>Visible only to administrators</strong>. <a href="' . admin_url('admin.php?page=newsletter_subscription_options') . '" target="_blank">Edit this content</a>.</p>';
+
+            }
         }
 
         return $admin_notice . $text;

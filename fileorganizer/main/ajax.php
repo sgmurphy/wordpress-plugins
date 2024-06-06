@@ -83,20 +83,34 @@ function fileorganizer_ajax_handler(){
 
 	// Is trash enabled?
 	if (!empty($fileorganizer->options['enable_trash'])) {
-		
 		$uploads_dir = wp_upload_dir();
+
 		$trash_dir = fileorganizer_cleanpath($uploads_dir['basedir'].'/fileorganizer/.trash');
-	
-		if(!file_exists($trash_dir)){
-			mkdir($trash_dir.'/.tmb', 0755, true);
+		$trash_glob = glob($trash_dir . '-*/', GLOB_ONLYDIR);
+
+		if(!empty($trash_glob) && !empty($trash_glob[0])){
+			$trash_dir = $trash_glob[0];
+			$trash_name = basename($trash_dir);
 		}
-	
+
+		if(empty($trash_name) || !file_exists($trash_dir)){
+			$randomness = wp_generate_password(12, false);
+			$trash_dir .= '-' . $randomness;
+			$trash_name = basename($trash_dir);
+			mkdir($trash_dir . '/.tmb', 0755, true);
+		}
+
+		if(!file_exists($trash_dir . '/index.php')){
+			file_put_contents($trash_dir . '/index.php', '<?php //Silence is golden');
+			chmod($trash_dir . '/index.php', 0444);
+		}
+
 		// Configure trash
 		$config[1] = array(
 			'id' => '1',
 			'driver' => 'Trash',
 			'path' => $trash_dir,
-			'tmbURL' => $uploads_dir['baseurl'].'/fileorganizer/.trash/.tmb/',
+			'tmbURL' => $uploads_dir['baseurl'].'/fileorganizer/'.$trash_name.'/.tmb/',
 			'winHashFix' => DIRECTORY_SEPARATOR !== '/',
 			'uploadDeny' => array(''),
 			'uploadAllow' => array(''),
@@ -115,8 +129,27 @@ function fileorganizer_ajax_handler(){
 		'debug' => false,
 		'roots' => $config,
 		'bind' => array(
+			'mkdir' => function(&$path, &$name, $src, $elfinder, $volume){
+				global $fileorganizer;
+
+				if(empty($fileorganizer->options['enable_trash']) || empty($name['added']) || !is_array($name['added']) || empty($volume)){
+					return;
+				}
+
+				foreach($name['added'] as $added){
+					$dir_path = $volume->realpath($added['hash']);
+
+					if(empty($dir_path) || strpos($dir_path, '.trash-') === FALSE){
+						return;
+					}
+
+					if(!file_exists($dir_path . '/index.php')){
+						file_put_contents($dir_path . '/index.php', '<?php //Silence is golden');
+						chmod($dir_path . '/index.php', 0444);
+					}
+				}
+			},
 			'upload.presave' => function(&$path, &$name, $src, $elfinder, $volume) {
-								
 				// Check if the file is an SVG
 				if(
 					mime_content_type($src) == 'image/svg+xml' ||

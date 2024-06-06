@@ -28,7 +28,7 @@ abstract class BEW_Settings extends Widget_Base {
 		return [ 'bosa-elementor-for-woocommerce' ];
 	}
 
-	public function get_items_no_res( $id = null, $label = null, $max = 4, $desktop_default = 3 ) {
+	public function get_items_no_res( $id = null, $label = null, $max = 4, $desktop_default = 3, $tablet_default = 3, $mobile_default = 1  ) {
 		$this->add_responsive_control(
 			$id,
 			[
@@ -45,10 +45,10 @@ abstract class BEW_Settings extends Widget_Base {
 					'size' => $desktop_default,
 				],
 				'tablet_default' => [
-					'size' => 3,
+					'size' => $tablet_default,
 				],
 				'mobile_default' => [
-					'size' => 1
+					'size' => $mobile_default
 				],
 			]
 		);
@@ -218,22 +218,22 @@ abstract class BEW_Settings extends Widget_Base {
 		);
 	}
 
-    public function get_column_attr($settings){
+    public function get_column_attr($settings, $desktop_default = 3, $tablet_default = 3, $mobile_default = 1 ){ 
 
         if(isset($settings['column_no']['size']) && !empty($settings['column_no']['size'])) {
 			$desktop_col_no			= $settings['column_no']['size'];
 		} else {
-			$desktop_col_no			= '3';
+			$desktop_col_no			= $desktop_default;
 		}
 		if(isset($settings['column_no_tablet']['size']) && !empty($settings['column_no_tablet']['size'])) {
 			$tablet_col_no          = $settings['column_no_tablet']['size'];
 		} else {
-			$tablet_col_no          = '3';
+			$tablet_col_no          = $tablet_default;
 		}
 		if(isset($settings['column_no_mobile']['size']) && !empty($settings['column_no_mobile']['size'])) {
 			$mobile_col_no          = $settings['column_no_mobile']['size'];
 		} else {
-			$mobile_col_no          = '1';
+			$mobile_col_no          = $mobile_default;
 		}
 
         return 'desktop-col="'.esc_attr( $desktop_col_no ).'" tablet-col="'.esc_attr( $tablet_col_no ).'" mobile-col="'. esc_attr( $mobile_col_no ).'"';
@@ -756,4 +756,18 @@ abstract class BEW_Settings extends Widget_Base {
 		];
 	}
 
+	public function get_product_image_position( $id, $label = "Image Position", $default = 'left' ) {
+		$this->add_control(
+			$id,
+			[
+				'label' => esc_html__( $label, 'bosa-elementor-for-woocommerce' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => $default,
+				'options' => [
+					'left' => esc_html__( 'Left', 'bosa-elementor-for-woocommerce' ),
+					'right' => esc_html__( 'Right', 'bosa-elementor-for-woocommerce' ),
+				],
+			]
+		);
+	}
 }

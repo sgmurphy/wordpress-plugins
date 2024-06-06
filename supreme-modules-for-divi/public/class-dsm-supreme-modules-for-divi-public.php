@@ -50,7 +50,6 @@ class Dsm_Supreme_Modules_For_Divi_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
 	}
 
 	/**
@@ -118,7 +117,6 @@ class Dsm_Supreme_Modules_For_Divi_Public {
 
 			wp_add_inline_style( 'dsm-easy-theme-builder-style', $dsm_tb_header_css );
 		}
-
 	}
 
 	/**
@@ -180,8 +178,8 @@ class Dsm_Supreme_Modules_For_Divi_Public {
 		wp_register_script( 'dsm-twitter-embed', 'https://platform.twitter.com/widgets.js', array(), DSM_VERSION, true );
 		wp_register_script( 'dsm-popper', plugin_dir_url( __FILE__ ) . 'js/popper.min.js', array(), DSM_VERSION, true );
 		wp_register_script( 'dsm-tippy', plugin_dir_url( __FILE__ ) . 'js/tippy-bundle.iife.min.js', array( 'dsm-popper' ), DSM_VERSION, true );
-		wp_register_script( 'dsm-magnific-popup-image', plugin_dir_url( __FILE__ ) . 'js/dsm-magnific-popup-image.js', array( 'magnific-popup' ), DSM_VERSION, true );
-		wp_register_script( 'dsm-magnific-popup-video', plugin_dir_url( __FILE__ ) . 'js/dsm-magnific-popup-video.js', array( 'magnific-popup' ), DSM_VERSION, true );
+		wp_register_script( 'dsm-magnific-popup-image', plugin_dir_url( __FILE__ ) . 'js/dsm-magnific-popup-image.js', array( 'dsm-magnific-popup' ), DSM_VERSION, true );
+		wp_register_script( 'dsm-magnific-popup-video', plugin_dir_url( __FILE__ ) . 'js/dsm-magnific-popup-video.js', array( 'dsm-magnific-popup' ), DSM_VERSION, true );
 		wp_register_script( 'dsm-lottie', plugin_dir_url( __FILE__ ) . 'js/lottie.min.js', array(), DSM_VERSION, true );
 		wp_register_script( 'dsm-facebook', esc_url( 'https://connect.facebook.net/' . $facebook_lang . '/sdk.js#xfbml=1&version=v15.0' . $facebook_app_id ), array(), false, true );
 
@@ -196,8 +194,6 @@ class Dsm_Supreme_Modules_For_Divi_Public {
 		wp_register_script( 'dsm-menu', plugin_dir_url( __DIR__ ) . 'includes/modules/Menu/frontend.min.js', array( 'jquery' ), DSM_VERSION, true );
 
 		// Divi Assets.
-		$et_builder_uri = defined( 'ET_BUILDER_PLUGIN_URI' ) ? ET_BUILDER_PLUGIN_URI : get_template_directory_uri();
-		wp_register_script( 'magnific-popup', $et_builder_uri . '/includes/builder/feature/dynamic-assets/assets/js/magnific-popup.js', array( 'jquery' ), DSM_VERSION, true );
+		wp_register_script( 'dsm-magnific-popup', plugin_dir_url( __FILE__ ) . 'js/jquery.magnific-popup.js', array( 'jquery' ), DSM_VERSION, true );
 	}
-
 }

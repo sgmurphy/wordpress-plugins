@@ -1,17 +1,15 @@
-=== Post Grid, Post Carousel, & List Category Posts – by Smart Post Show ===
+=== Smart Post Show – Post Grid, Post Carousel, Post Slider, Post Timeline, Post Table, and List Category Posts, Latest Posts, Recent Posts, Popular Posts and More ===
 Contributors: shapedplugin, rubel_miah, shamimmiashuhagh, khalilu
-Tags: smart post show, post grid, post carousel, list category post, posts list, query posts, recent posts carousel, popular posts, latest posts, category posts widget, recent posts widget, WordPress post carousel, slider, carousel, grid, post slider, content views, wp post show, wp show posts, display posts, post content carousel, smart post slider, smart slider, featured post slider, custom post carousel, custom post slider, related posts carousel, latest posts slider, category posts slider, display posts from taxonomy, pages carousel, specific post slider, specific post carousel, responsive post slider, best responsive post carousel, show post grid, specific post, post gallery, best post slider, posts rotator, news carousel, best post grid plugin, best best posts carousel plugin
+Tags: post slider, news carousel, post grid, latest post slider, post timeline
 Requires at least: 4.7
 Tested up to: 6.5
 WC requires at least: 5.0
-WC tested up to: 8.7.0
-Stable tag: 2.4.28
+WC tested up to: 8.9.2
+Stable tag: 2.4.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-
-
-Smart Post Show allows you to filter and display posts, pages, taxonomy (categories, tags, & post formats) in the beautiful carousel and grid layout easily without coding!
+Filter and display posts, pages, and taxonomy in the beautiful carousel, slider, and grid layout easily – highly customizable and developer-friendly.
 
 == Description ==
 
@@ -186,6 +184,9 @@ Thank you!
 
 
 == Changelog ==
+
+= 2.4.29 - Jun 06, 2024 =
+* Tested: WooCommerce 8.9.2 compatibility.
 
 = 2.4.28 - Apr 08, 2024 =
 * Improved: The plugin security improved.

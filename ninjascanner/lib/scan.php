@@ -1033,7 +1033,7 @@ GSB_SAVE_SNAPSHOT:
 
 function nscan_get_plugins_list( $lock_status ) {
 
-	global $snapshot;
+	global $snapshot, $ignored_files;
 
 	$nscan_options = get_option( 'nscan_options' );
 
@@ -1074,6 +1074,12 @@ function nscan_get_plugins_list( $lock_status ) {
 		// Check if there is any MU plugins too:
 		$mu_plugins = get_mu_plugins();
 		foreach( $mu_plugins as $k => $v ) {
+
+			if (! empty( $ignored_files[ WPMU_PLUGIN_DIR ."/$k"] ) ) {
+				// It's in our ignored list, skip it
+				continue;
+			}
+
 			if ( $slug = substr( $k, 0, strpos( $k, '/' ) ) ) {
 				// Plugin with a folder/slug:
 				$snapshot['mu_plugins'][$slug] = $v['Version'];

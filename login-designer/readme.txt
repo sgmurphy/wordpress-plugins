@@ -5,9 +5,9 @@ Contributors: wpexpertsio
 Donate link: https://logindesigner.com
 Tags: login, custom login, customize wordpress login, wordpress login, customizer, custom admin, login logo, logo, login customizer
 Requires at least: 4.7
-Tested up to: 6.3.2
+Tested up to: 6.5.3
 Requires PHP: 5.2.4
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPL-3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -154,6 +154,10 @@ Yes! Login Design is deployed with full translation and localization support via
 Please reach out via the official [plugin support forum](https://wordpress.org/support/plugin/login-designer).
 
 == Changelog ==
+= 1.6.4 06/06/2024 =
+### Update
+* Update tested up to value to WordPress 6.5.3
+* Fixed logo resolution issue on the password protected customizer screen.
 
 = 1.6.3 25/10/2023 =
 ### Enhancements 

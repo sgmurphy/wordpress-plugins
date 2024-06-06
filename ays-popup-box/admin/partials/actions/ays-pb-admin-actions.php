@@ -1875,12 +1875,12 @@ $ays_users_roles = $wp_roles->roles;
                                         </span>
                                     </label>
                                 </div>
-                                <div class="col-sm-9">
-                                    <div class="col-sm-4" style="display: inline-block;">
+                                <div class="col-sm-9 ays_pb_notification_button_paddings_container">
+                                    <div class="col-sm-4">
                                         <span class="ays-pb-small-hint-text"><?php echo  __('Left / Right',"ays-popup-box") ?></span>
                                         <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_left_right" name="ays_pb_notification_button_1_padding_left_right" style="width: 100px;" value="<?php echo $notification_button_1_padding_left_right; ?>">
                                     </div>
-                                    <div class="col-sm-4 ays_divider_left" style="display: inline-block;">
+                                    <div class="col-sm-4 ays_divider_left">
                                         <span class="ays-pb-small-hint-text"><?php echo  __('Top / Bottom',"ays-popup-box") ?></span>
                                         <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_top_bottom" name="ays_pb_notification_button_1_padding_top_bottom" style="width: 100px;" value="<?php echo $notification_button_1_padding_top_bottom; ?>">
                                     </div>

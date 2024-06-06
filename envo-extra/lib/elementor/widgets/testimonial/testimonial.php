@@ -971,8 +971,7 @@ class Testimonial extends Widget_Base {
 			<?php if ( $settings[ 'name' ] || $settings[ 'designation' ] ) { ?>
 				<div class="envo-extra-testimonial-author-bio">
 					<?php if ( $settings[ 'name' ] ) : ?>
-						<<?php echo esc_attr( $title_tag ); ?><?php echo wp_kses_data( $title_attr ); ?>
-						class="envo-extra-testimonial-title"><?php echo esc_attr( $settings[ 'name' ] ); ?></<?php echo esc_attr( $title_tag ); ?>>
+						<<?php echo esc_attr( $title_tag ); ?><?php echo wp_kses_data( $title_attr ); ?> class="envo-extra-testimonial-title"><?php echo esc_attr( $settings[ 'name' ] ); ?></<?php echo esc_attr( $title_tag ); ?>>
 					<?php endif; ?>
 					<?php if ( $settings[ 'designation' ] ) : ?>
 						<h4 class="envo-extra-testimonial-designation"><?php echo esc_attr( $settings[ 'designation' ] ); ?></h4>

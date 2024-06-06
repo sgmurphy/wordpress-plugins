@@ -175,48 +175,27 @@ class Ays_Pb_Data {
     ==========================================
     */
 
-    public function ays_pb_sale_baner(){
-        // if(isset($_POST['ays_pb_sale_btn'])){
-        //     update_option('ays_pb_sale_btn', 1); 
-        //     update_option('ays_pb_sale_date', current_time( 'mysql' ));
-        // }
-
+    public function ays_pb_sale_baner() {
         // Check for permissions.
-        if ( current_user_can( 'manage_options' ) ) {
-
-            if(isset($_POST['ays_pb_sale_btn_spring_for_two_months'])){
-                update_option('ays_pb_sale_dismiss_for_two_month_spring', 1);
-                update_option('ays_pb_sale_date', current_time( 'mysql' ));
-            }
-
+        if (current_user_can('manage_options')) {
             $ays_pb_sale_date = get_option('ays_pb_sale_date');
-            $ays_pb_sale_two_months = get_option('ays_pb_sale_dismiss_for_two_month_spring');
 
             $val = 60*60*24*5;
-            if($ays_pb_sale_two_months == 1){
-                $val = 60*60*24*61;
-            }
 
             $current_date = current_time( 'mysql' );
-            $date_diff = strtotime($current_date) -  intval(strtotime($ays_pb_sale_date)) ;
-            // $val = 60*60*24*5;
+            $date_diff = strtotime($current_date) - intval(strtotime($ays_pb_sale_date));
             $days_diff = $date_diff / $val;
 
-            if(intval($days_diff) > 0 ){
-                update_option('ays_pb_sale_btn', 0); 
-                update_option('ays_pb_sale_dismiss_for_two_month_spring', 0);
+            if (intval($days_diff) > 0) {
+                update_option('ays_pb_sale_btn', 0);
             }
 
             $ays_popup_box_flag = intval(get_option('ays_pb_sale_btn'));
-            $ays_popup_box_flag += intval(get_option('ays_pb_sale_dismiss_for_two_month_spring'));
-            if($ays_popup_box_flag == 0 ){
+            if ($ays_popup_box_flag == 0 ) {
                 if (isset($_GET['page']) && strpos($_GET['page'], AYS_PB_NAME) !== false) {
                     $this->ays_pb_new_banner_message($ays_popup_box_flag);
-                    // $this->ays_pb_helloween_message($ays_popup_box_flag);
-                    // $this->ays_pb_black_friday_message($ays_popup_box_flag);
                 }
             }
-
         }
     }
 

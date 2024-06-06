@@ -1,4 +1,4 @@
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useReducer, useState } from '@wordpress/element';
 import {
 	FunnelIcon,
 	HeartIcon,
@@ -17,6 +17,7 @@ import NavigationButtons from '../components/navigation-buttons';
 import { useNavigateSteps } from '../router';
 import PreBuildConfirmModal from '../components/pre-build-confirm-modal';
 import PremiumConfirmModal from '../components/premium-confirm-modal';
+import InformPrevErrorModal from '../components/inform-prev-error-modal';
 
 const fetchStatus = {
 	fetching: 'fetching',
@@ -76,6 +77,15 @@ const Features = () => {
 		skipFeature: false,
 	} );
 	const [ premiumModal, setPremiumModal ] = useState( false );
+	const [ prevErrorAlert, setPrevErrorAlert ] = useReducer(
+			( state, action ) => ( {
+				...state,
+				...action,
+			} ),
+			{ open: false, error: {}, requestData: {} }
+		),
+		setPrevErrorAlertOpen = ( value ) =>
+			setPrevErrorAlert( { open: value } );
 	const selectedTemplateData = templateList.find(
 			( item ) => item.uuid === selectedTemplate
 		),
@@ -158,6 +168,93 @@ const Features = () => {
 		return false;
 	};
 
+	const createSite = async ( {
+		template,
+		email,
+		description,
+		name,
+		phone,
+		address,
+		category,
+		imageKeyword,
+		socialProfiles,
+		language,
+		images,
+		features,
+	} ) =>
+		await apiFetch( {
+			path: 'zipwp/v1/site',
+			method: 'POST',
+			data: {
+				template,
+				business_email: email,
+				business_description: description,
+				business_name: name,
+				business_phone: phone,
+				business_address: address,
+				business_category: category,
+				image_keyword: imageKeyword,
+				social_profiles: socialProfiles,
+				language,
+				images,
+				site_features: features,
+			},
+		} );
+
+	const previousErrors = async () => {
+		try {
+			const response = await apiFetch( {
+				path: 'zipwp/v1/import-error-log',
+				method: 'GET',
+			} );
+			if ( response.success ) {
+				const errorData = response.data.data;
+				if ( errorData && Object.values( errorData ).length > 0 ) {
+					return errorData;
+				}
+			}
+
+			return {};
+		} catch ( error ) {
+			return {};
+		}
+	};
+
+	const handleCreateSiteResponse = async ( requestData ) => {
+		if ( isInProgress ) {
+			return;
+		}
+		// Start the process.
+		setIsInProgress( true );
+
+		const response = await createSite( requestData );
+
+		if ( response.success ) {
+			const websiteData = response.data.data.site;
+			// Close the onboarding screen on success.
+			setWebsiteInfoAIStep( websiteData );
+			updateImportAiSiteData( {
+				templateId: websiteData.uuid,
+				importErrorMessages: {},
+				importErrorResponse: [],
+				importError: false,
+			} );
+			nextStep();
+		} else {
+			// Handle error.
+			const message = response?.data?.data;
+			if (
+				typeof message === 'string' &&
+				message.includes( 'Usage limit' )
+			) {
+				setLimitExceedModal( {
+					open: true,
+				} );
+			}
+			setIsInProgress( false );
+		}
+	};
+
 	const handleGenerateContent =
 		( skip = false ) =>
 		async () => {
@@ -171,27 +268,6 @@ const Features = () => {
 				} );
 				return;
 			}
-			setIsInProgress( true );
-
-			const formData = new window.FormData();
-
-			formData.append( 'action', 'ast-block-templates-ai-content' );
-			formData.append( 'security', aiBuilderVars.ai_content_ajax_nonce );
-			formData.append( 'business_name', businessName );
-			formData.append( 'business_desc', businessDetails );
-			formData.append( 'business_category', businessType );
-			formData.append( 'images', JSON.stringify( selectedImages ) );
-			formData.append( 'image_keywords', JSON.stringify( keywords ) );
-			formData.append(
-				'business_address',
-				businessContact?.address || ''
-			);
-			formData.append( 'business_phone', businessContact?.phone || '' );
-			formData.append( 'business_email', businessContact?.email || '' );
-			formData.append(
-				'social_profiles',
-				JSON.stringify( businessContact?.socialMedia || [] )
-			);
 
 			const enabledFeatures = skip
 				? []
@@ -204,50 +280,38 @@ const Features = () => {
 				enabledFeatures.push( 'ecommerce' );
 			}
 
-			const response = await apiFetch( {
-				path: 'zipwp/v1/site',
-				method: 'POST',
-				data: {
-					template: selectedTemplate,
-					business_email: businessContact?.email,
-					business_description: businessDetails,
-					business_name: businessName,
-					business_phone: businessContact?.phone,
-					business_address: businessContact?.address,
-					business_category: businessType,
-					image_keyword: keywords,
-					social_profiles: businessContact?.socialMedia,
-					language: siteLanguage,
-					images: selectedImages,
-					site_features: enabledFeatures,
-				},
-			} );
+			const requestData = {
+				template: selectedTemplate,
+				email: businessContact?.email,
+				description: businessDetails,
+				name: businessName,
+				phone: businessContact?.phone,
+				address: businessContact?.address,
+				category: businessType,
+				imageKeyword: keywords,
+				socialProfiles: businessContact?.socialMedia,
+				language: siteLanguage,
+				images: selectedImages,
+				features: enabledFeatures,
+			};
 
-			if ( response.success ) {
-				const websiteData = response.data.data.site;
-				// Close the onboarding screen on success.
-				setWebsiteInfoAIStep( websiteData );
-				updateImportAiSiteData( {
-					templateId: websiteData.uuid,
-					importErrorMessages: {},
-					importErrorResponse: [],
-					importError: false,
+			const previousError = await previousErrors();
+			if ( previousError && Object.values( previousError ).length > 0 ) {
+				setPrevErrorAlert( {
+					open: true,
+					error: previousError,
+					requestData,
 				} );
-				nextStep();
-			} else {
-				// Handle error.
-				const message = response?.data?.data;
-				if (
-					typeof message === 'string' &&
-					message.includes( 'Usage limit' )
-				) {
-					setLimitExceedModal( {
-						open: true,
-					} );
-				}
-				setIsInProgress( false );
+				return;
 			}
+
+			await handleCreateSiteResponse( requestData );
 		};
+
+	const onConfirmErrorAlert = async () => {
+		setPrevErrorAlert( { open: false, error: {}, requestData: {} } );
+		await handleCreateSiteResponse( prevErrorAlert.requestData );
+	};
 
 	useEffect( () => {
 		if ( isFetchingStatus === fetchStatus.fetching ) {
@@ -380,6 +444,12 @@ const Features = () => {
 			<PremiumConfirmModal
 				open={ premiumModal }
 				setOpen={ setPremiumModal }
+			/>
+			<InformPrevErrorModal
+				open={ prevErrorAlert.open }
+				setOpen={ setPrevErrorAlertOpen }
+				onConfirm={ onConfirmErrorAlert }
+				errorString={ JSON.stringify( prevErrorAlert.error ) }
 			/>
 		</div>
 	);

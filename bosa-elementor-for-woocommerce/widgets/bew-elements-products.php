@@ -9,7 +9,7 @@ class BEW_Products extends BEW_Settings {
 	}
 	
 	public function get_title() {
-		return __( 'Woo - Products', 'bosa-elementor-for-woocommerce' );
+		return __( 'Woo - Archive Products', 'bosa-elementor-for-woocommerce' );
 	}
 	
 	public function get_icon() {
@@ -17,7 +17,7 @@ class BEW_Products extends BEW_Settings {
 	}
 
 	public function get_keywords() {
-		return [ 'bew', 'product', 'products', 'bew products', 'woo', 'woo products', 'bosa' ];
+		return [ 'bew', 'product', 'products', 'bew products', 'woo', 'woo products', 'archive', 'bosa' ];
 	}
 	
     protected function register_controls() {
@@ -736,7 +736,7 @@ class BEW_Products extends BEW_Settings {
 			]
 		);
 
-		$this->get_normal_color( 'product_icon_group_bg_color', esc_html__( 'Background Color', 'bosa-elementor-for-woocommerce' ), '.bew-elements-products-container ul.products li .product-compare-wishlist a i', 'background-color' );
+		$this->get_normal_color( 'product_icon_group_bg_color', esc_html__( 'Background Color', 'bosa-elementor-for-woocommerce' ), '.bew-elements-products-container ul.products li .product-compare-wishlist a', 'background-color' );
 
 		$this->get_normal_color( 'product_icon_group_color', esc_html__( 'Color', 'bosa-elementor-for-woocommerce' ), '.bew-elements-products-container ul.products li .product-compare-wishlist a i', 'color' );
 

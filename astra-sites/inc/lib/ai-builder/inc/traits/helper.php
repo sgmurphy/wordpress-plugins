@@ -636,6 +636,7 @@ class Helper {
 		$demo_data = ST_Importer_File_System::get_instance()->get_demo_content();
 		// Set permalink structure to use post name.
 		update_option( 'permalink_structure', '/%postname%/' );
+		update_option( 'astra-site-permalink-update-status', 'no' );
 
 		do_action( 'astra_sites_import_complete', $demo_data );
 

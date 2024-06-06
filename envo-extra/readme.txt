@@ -4,7 +4,7 @@ Author URI: https://envothemes.com/
 Plugin URL: https://envothemes.com/
 Requires at Least: 4.9
 Tested Up To: 6.5
-Stable tag: 1.8.23
+Stable tag: 1.8.25
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,12 @@ Add one click demo import for [EnvoThemes](https://envothemes.com/) WooCommerce 
 This plugin will only function with the [Enwoo](https://enwoo-wp.com/) or [Envo Royal](https://envothemes.com/envo-royal-free-wp-theme/) theme and WooCommerce themes created by [EnvoThemes](https://envothemes.com/)
 
 == Changelog ==
+
+= 1.8.25 =
+* Security update
+
+= 1.8.24 =
+* Tested with WooCommerce 9.0
 
 = 1.8.23 =
 * Added new demos

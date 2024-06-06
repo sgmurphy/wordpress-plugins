@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.3  
-Stable tag: 7.0.2.1  
+Stable tag: 7.0.2.3  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -181,11 +181,19 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **99 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **101 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.0.2.3 (2024.06.06) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: Fixed an additional, related issue where clicking on the logout link redirects to /wp-admin/ (dashboard) and logout fails. Also checked to ensure logging in with the custom login URL works. Props to [@plwillover](https://wordpress.org/support/users/plwillover/), [@sardelich](https://wordpress.org/support/users/sardelich/) and Georgios K. for reporting these issues.
+
+### 7.0.2.2 (2024.06.06) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix attempt on an issue where frontend functionality breaks when this module is activated (since v7.0.2). Props to [@dcnz](https://wordpress.org/support/users/dcnz/), [@vanektomas](https://wordpress.org/support/users/vanektomas/) and [@okparfait](https://wordpress.org/support/users/okparfait/) for reporting the issue with some very helpful details.
 
 ### 7.0.2.1 (2024.06.05) - ASE Free and Pro
 

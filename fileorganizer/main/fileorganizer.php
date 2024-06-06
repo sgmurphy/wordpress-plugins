@@ -26,7 +26,7 @@ function fileorganizer_page_header($title = 'FILE ORGANIZER'){
 		<tr>
 			<td>
 				<div class="fileorganizer-td">
-					<img src="<?php echo FILEORGANIZER_URL ?>/images/logo.png" />
+					<img src="<?php echo esc_url(FILEORGANIZER_URL); ?>/images/logo.png" />
 					<h3 class="fileorganizer-heading"><?php echo esc_html($title)?></h3>
 				</div>
 			</td>
@@ -37,14 +37,14 @@ function fileorganizer_page_header($title = 'FILE ORGANIZER'){
 			?>
 			<td class="fileorganizer-options">
 				<div class="fileorganizer-td">
-					<label><?php _e('Theme'); ?></label>
+					<label><?php esc_html_e('Theme'); ?></label>
 					<select id="fileorganizer-theme-switcher"> 
-						<option <?php  selected($theme, 'default'); ?> value=""><?php _e('Default'); ?></option>
-						<option <?php  selected($theme, 'dark'); ?>  value="dark"><?php _e('Dark'); ?></option>
-						<option <?php  selected($theme, 'material'); ?>  value="material"><?php _e('Material'); ?></option>
-						<option <?php  selected($theme, 'material-dark'); ?>  value="material-dark"><?php _e('Material Dark'); ?></option>
-						<option <?php  selected($theme, 'material-gray'); ?>  value="material-gray"><?php _e('Material Light'); ?></option>
-						<option <?php selected($theme, 'windows10'); ?>  value="windows10"><?php _e('Windows 10'); ?></option>
+						<option <?php  selected($theme, 'default'); ?> value=""><?php esc_html_e('Default'); ?></option>
+						<option <?php  selected($theme, 'dark'); ?>  value="dark"><?php esc_html_e('Dark'); ?></option>
+						<option <?php  selected($theme, 'material'); ?>  value="material"><?php esc_html_e('Material'); ?></option>
+						<option <?php  selected($theme, 'material-dark'); ?>  value="material-dark"><?php esc_html_e('Material Dark'); ?></option>
+						<option <?php  selected($theme, 'material-gray'); ?>  value="material-gray"><?php esc_html_e('Material Light'); ?></option>
+						<option <?php selected($theme, 'windows10'); ?>  value="windows10"><?php esc_html_e('Windows 10'); ?></option>
 					</select>
 				</div>
 			</td>
@@ -62,7 +62,7 @@ function fileorganizer_page_footer($no_twitter = 0){
 	
 	echo '</div>
 	<div class="fileorganizer_footer_wrap">
-		<a href="https://fileorganizer.net" target="_blank">'.__('FileOrganizer').'</a><span> v'.FILEORGANIZER_VERSION.' You can report any bugs </span><a href="https://wordpress.org/support/plugin/fileorganizer" target="_blank">here</a>.
+		<a href="https://fileorganizer.net" target="_blank">'.esc_html__('FileOrganizer').'</a><span> v'.esc_html(FILEORGANIZER_VERSION).' You can report any bugs </span><a href="https://wordpress.org/support/plugin/fileorganizer" target="_blank">here</a>.
 	</div>';
 	
 }
@@ -84,7 +84,7 @@ function fileorganizer_render_page(){
 			action: "fileorganizer_file_folder_manager",
 			fileorganizer_nonce: fileorganizer_ajax_nonce,
 		},
-		defaultView: "'.(!empty($fileorganizer->options['default_view']) ? $fileorganizer->options['default_view'] : 'list').'",
+		defaultView: "'.(!empty($fileorganizer->options['default_view']) ? esc_html($fileorganizer->options['default_view']) : 'list').'",
 		height: 500,
 		lang: fileorganizer_lang,
 		soundPath: fileorganizer_url+"/sounds/",
@@ -143,10 +143,10 @@ function fileorganizer_render_page(){
 ?>
 <script>
 	
-	var fileorganizer_ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";
-	var fileorganizer_ajax_nonce = "<?php echo wp_create_nonce( 'fileorganizer_ajax' ); ?>";
-	var fileorganizer_url = "<?php echo FILEORGANIZER_URL; ?>/manager/";
-	var fileorganizer_lang = "<?php echo !empty($fileorganizer->options['default_lang']) ? $fileorganizer->options['default_lang'] : 'en' ?>";
+	var fileorganizer_ajaxurl = "<?php echo esc_url(admin_url( 'admin-ajax.php' )); ?>";
+	var fileorganizer_ajax_nonce = "<?php echo esc_html(wp_create_nonce('fileorganizer_ajax')); ?>";
+	var fileorganizer_url = "<?php echo esc_url(FILEORGANIZER_URL); ?>/manager/";
+	var fileorganizer_lang = "<?php echo !empty($fileorganizer->options['default_lang']) ? esc_html($fileorganizer->options['default_lang']) : 'en' ?>";
 	
 	jQuery(document).ready(function() {
 

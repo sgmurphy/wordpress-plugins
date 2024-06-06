@@ -4,7 +4,7 @@ Tags: elementor, elementor addons, elementor widgets, elementor elements, addons
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -218,10 +218,17 @@ https://www.youtube.com/watch?v=WT8ngVYlJ_0&list=PLNypD600o6nK_5QYh--5K6B0ObmgVt
     <li><a href="#" target="_blank">Gravity Forms</a> - Display all types of custom forms, powered by Gravity Forms</li>
 </ul>
 
-
 = Documentation & Support =
 - Check out our step-by-step <a href="https://qodeinteractive.com/qi-addons-for-elementor/documentation/" target="_blank">user guide</a> on how to install and use Qi Addons For Elementor.
 - You can also submit a topic to the <a href="https://wordpress.org/support/plugin/qi-addons-for-elementor/">support forum</a> at and our support team will be glad to help you out.
+
+= Looking for more? =
+Feel free to try out some of our other products:
+
+<a href="https://wordpress.org/themes/qi/">Qi Theme</a>
+<a href="https://wordpress.org/plugins/qi-blocks/">Qi Blocks for Gutenberg</a>
+<a href="https://wordpress.org/plugins/qode-wishlist-for-woocommerce/">QODE Wishlist for WooCommerce</a>
+<a href="https://wordpress.org/plugins/qode-quick-view-for-woocommerce/">QODE Quick View for WooCommerce</a>
 
 == Frequently Asked Questions ==
 
@@ -330,6 +337,10 @@ From wordpress.org
 
 
 == Changelog ==
+
+= 1.7.5 - 06-06-2024 =
+- Fixed special character labels rendering
+- Fixed 'Disable partial columns under' option for sliders
 
 = 1.7.4 - 04-06-2024 =
 - Fixed issue for XSS escaping causing potential error

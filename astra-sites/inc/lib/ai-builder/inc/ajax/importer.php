@@ -51,6 +51,7 @@ class Importer extends AjaxBase {
 
 		if ( 'ai' === get_transient( 'astra_sites_current_import_template_type' ) ) {
 			update_option( 'astra_sites_batch_process_complete', 'yes' );
+			delete_option( 'ai_import_logger' );
 		} else {
 			update_option( 'astra_sites_batch_process_complete', 'no' );
 		}

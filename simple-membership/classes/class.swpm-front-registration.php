@@ -342,44 +342,57 @@ class SwpmFrontRegistration extends SwpmRegistration {
 		//Check nonce
 		if ( ! isset( $_POST['swpm_profile_edit_nonce_val'] ) || ! wp_verify_nonce( $_POST['swpm_profile_edit_nonce_val'], 'swpm_profile_edit_nonce_action' ) ) {
 			//Nonce check failed.
-			wp_die( SwpmUtils::_( 'Error! Nonce verification failed for front end profile edit.' ) );
+			wp_die( __( 'Error! Nonce verification failed for front end profile edit.', 'simple-membership' ) );
 		}
                 
-                //Trigger action hook
-                do_action( 'swpm_front_end_edit_profile_form_submitted' );
+        //Trigger action hook
+        do_action( 'swpm_front_end_edit_profile_form_submitted' );
                 
 		$user_data = (array) $auth->userData;
 		unset( $user_data['permitted'] );
 		$form = new SwpmForm( $user_data );
 		if ( $form->is_valid() ) {
+			//Successful form submission. Proceed with the profile update.
+			
+			/********************************
+			//Profile update sequence:
+			1) Update the WP user entry with the new data.
+			2) Update the SWPM member entry with the new data.
+			3) Reload the user data so the profile page reflects the new data.
+			4) Reset the auth cookies (if the password was updated).
+			*********************************/
+
 			global $wpdb;
-			$msg_str = '<div class="swpm-profile-update-success">' . SwpmUtils::_( 'Profile updated successfully.' ) . '</div>';
+			$msg_str = '<div class="swpm-profile-update-success">' . __( 'Profile updated successfully.', 'simple-membership' ) . '</div>';
 			$message = array(
 				'succeeded' => true,
 				'message'   => $msg_str,
 			);
 
+			//Get the sanitized member form data.
 			$member_info = $form->get_sanitized_member_form_data();
 
-                        //Check if membrship_level value has been posted.
-                        if ( isset( $member_info['membership_level'] ) ){
-                            //For edit profile, remove the membership level from the array (because we don't allow level updating in profile edit)
-                            unset( $member_info['membership_level'] );
-                        }
+            //Check if membrship_level value has been posted.
+            if ( isset( $member_info['membership_level'] ) ){
+                //For edit profile, remove the membership level from the array (because we don't allow level updating in profile edit)
+                unset( $member_info['membership_level'] );
+            }
 
-			SwpmUtils::update_wp_user( $auth->get( 'user_name' ), $member_info ); //Update corresponding wp user record.
+			//Update the corresponding wp user record.
+			SwpmUtils::update_wp_user( $auth->get( 'user_name' ), $member_info ); 
 
 			//Lets check if password was also changed.
 			$password_also_changed = false;
 			if ( isset( $member_info['plain_password'] ) ) {
 				//Password was also changed.
-				$msg_str = '<div class="swpm-profile-update-success">' . SwpmUtils::_( 'Profile updated successfully. You will need to re-login since you changed your password.' ) . '</div>';
+				$msg_str = '<div class="swpm-profile-update-success">' . __( 'Profile updated successfully.', 'simple-membership') . '</div>';
 				$message = array(
 					'succeeded' => true,
 					'message'   => $msg_str,
 				);
+				//unset the plain password from the member info array so it doesn't try to save it in the database.
 				unset( $member_info['plain_password'] );
-				//Set the password chagned flag.
+				//Set the password changed flag.
 				$password_also_changed = true;
 			}
 
@@ -388,20 +401,42 @@ class SwpmFrontRegistration extends SwpmRegistration {
 			//SwpmLog::log_simple_debug("Updating member profile data with SWPM ID: " . $swpm_id, true);
 			$member_info = array_filter( $member_info );//Remove any null values.
 			$wpdb->update( $wpdb->prefix . 'swpm_members_tbl', $member_info, array( 'member_id' => $swpm_id ) );
-			$auth->reload_user_data();//Reload user data after update so the profile page reflects the new data.
 
+			//Reload user data after update so the profile page reflects the new data.
+			$auth->reload_user_data();
+
+			//Check if password was also changed.
 			if ( $password_also_changed ) {
-				//Password was also changed. Clear the user's auth cookies.
+				//Password was also changed. Clear and reset the user's auth cookies so they can stay logged in.
+				SwpmLog::log_simple_debug( 'Member has updated the password from the profile edit page. Member ID: ' . $swpm_id, true );
+
 				$auth_object = SwpmAuth::get_instance();
-				$auth_object->clear_wp_user_auth_cookies(); //Clear the wp user auth cookies and destroy session.
-				$auth_object->swpm_clear_auth_cookies(); //Clear the swpm auth cookies. The user will be forced to login on the next page load.
-				SwpmLog::log_simple_debug( 'Member has updated the password from profile edit page. Logging the user out so he can re-login using the new password.', true );
+				$swpm_user_name = $auth_object->get( 'user_name' );
+				$user_info_params = array(
+					'member_id' => $swpm_id,
+					'user_name' => $swpm_user_name,
+					'new_enc_password' => $member_info['password'],
+				);
+				$auth_object->reset_auth_cookies_after_pass_change($user_info_params);
+
+				//Trigger action hook
+				do_action( 'swpm_front_end_profile_password_changed', $member_info );
 			}
 
+			//This message will be persistent (for this user's session) until the message is displayed.
 			SwpmTransfer::get_instance()->set( 'status', $message );
 
+			//Trigger action hook
 			do_action( 'swpm_front_end_profile_edited', $member_info );
-			return true; //Successful form submission.
+
+			//Do a page refresh to reflect the new data.
+			//This is specially useful when the user changes their password which will invalidate the current auth cookies and the nonce values. 
+			//A page refresh will generate new nonce values (using the new auth cookies) and the user can submit the profile form again without any issues.		
+			$current_page_url = SwpmMiscUtils::get_current_page_url();
+			SwpmMiscUtils::redirect_to_url( $current_page_url );
+
+			//Success. Profile updated.
+			return true; 
 		} else {
 			$msg_str = '<div class="swpm-profile-update-error">' . SwpmUtils::_( 'Please correct the following.' ) . '</div>';
 			$message = array(

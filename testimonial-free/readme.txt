@@ -1,14 +1,13 @@
-=== Real Testimonials – Best Testimonial Slider, Carousel, Grid, Testimonial Form, Video Testimonial, and Social Proof Reviews for WordPress ===
+=== Real Testimonials – Testimonial Slider, Carousel, Grid | Collect Customer Reviews and Video Testimonial with Testimonial Form | Social Proof Reviews and Review Slider ===
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
-Tags: testimonial, testimonials, testimonial showcase, testimonials showcase, testimonial slider, testimonials slider, testimonial carousel, testimonial front-end submission form, testimonials widget, easy testimonial, testimonial rotator, random testimonials, custom testimonial, collect testimonials, social proof, simple testimonial plugin, best testimonials showcase plugin, free testimonial, customers reviews, real testimonials
+Tags: testimonials, testimonial slider, customer reviews, social proof, review form
 Requires at least: 4.7
 Tested up to: 6.5.2
 Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Most customizable. Developer-friendly. Active support. Manage and display testimonials with an easy and simple Shortcode Generator.
-
+Collect, manage, and display customer testimonials effortlessly and boost sales – highly customizable, developer-friendly, and with active support.
 
 == Description ==
 

@@ -17,15 +17,6 @@ $fta_settings = $FTA->fta_get_settings();
 					<p><?php esc_html_e( 'Select posts to hide or show from feed' ); ?>.</p>
 					<div class="efbl-moderate-fields-wrap">
 						<div class="input-field col s12 efbl_fields">
-							<label><?php esc_html_e( 'Feed type', 'easy-facebook-likebox' ); ?></label>
-							<select id="efbl_moderate_feed_type"
-									class="icons efbl_moderate_feed_type">
-								<option value="" ><?php esc_html_e( 'Select one', 'easy-facebook-likebox' ); ?></option>
-								<option value="page" ><?php esc_html_e( 'Page', 'easy-facebook-likebox' ); ?></option>
-								<option value="group" ><?php esc_html_e( 'Group', 'easy-facebook-likebox' ); ?></option>
-							</select>
-						</div>
-						<div class="input-field col s12 efbl_fields efbl-moderate-page-id-wrap">
 							<label><?php esc_html_e( 'Select Page', 'easy-facebook-likebox' ); ?></label>
 							<select id="efbl_moderate_page_id"
 									class="icons efbl_moderate_page_id">
@@ -64,41 +55,6 @@ $fta_settings = $FTA->fta_get_settings();
 								?>
 							</select>
 						</div>
-						<?php if ( isset( $fta_settings['plugins']['facebook']['approved_groups'] ) && ! empty( $fta_settings['plugins']['facebook']['approved_groups'] ) ) { ?>
-							<div class="input-field col s12 efbl_fields efbl-group-id-wrap">
-								<label><?php esc_html_e( 'Select Group', 'easy-facebook-likebox' ); ?></label>
-								<select id="efbl_moderate_group_id"
-										class="icons efbl_moderate_group_id">
-									<?php
-									if ( $fta_settings['plugins']['facebook']['approved_groups'] ) {
-										$i = 0;
-										foreach ( $fta_settings['plugins']['facebook']['approved_groups'] as $efbl_group ) {
-											$i++;
-											if ( $efbl_group->id ) {
-												if ( $i == 1 ) {
-													$first_page_id = $efbl_group->id;
-													$type          = 'group';
-												}
-												?>
-												<option value="<?php esc_attr_e( $efbl_group->id ); ?>"
-														data-icon="<?php echo efbl_get_page_logo( $efbl_group->id ); ?>" 
-																			  <?php
-																				if ( $i == 1 ) {
-																					?>
-															 selected <?php } ?>><?php esc_html_e( $efbl_group->name ); ?></option>
-
-												<?php
-											}
-										}
-									} else {
-										?>
-										<option value="" disabled selected><?php esc_html_e( 'No group(s) found, Please connect your Facebook group with plugin first from authenticate tab', 'easy-facebook-likebox' ); ?></option>
-										<?php
-									}
-									?>
-								</select>
-							</div>
-						<?php } ?>
 						<div class="efbl-moderate-type-wrap">
 							<div class="efbl-moderate-type">
 								<input name="efbl_moderate_type"

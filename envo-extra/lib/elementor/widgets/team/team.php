@@ -1254,7 +1254,7 @@ class Team extends Widget_Base {
 								$html_tag	 = $icon[ 'icon_link' ][ 'url' ] ? 'a' : 'span';
 								$attr		 = $icon[ 'icon_link' ][ 'is_external' ] ? ' target="_blank"' : '';
 								$attr .= $icon[ 'icon_link' ][ 'nofollow' ] ? ' rel="nofollow"' : '';
-								$attr .= $icon[ 'icon_link' ][ 'url' ] ? ' href="' . $icon[ 'icon_link' ][ 'url' ] . '"' : '';
+								$attr .= $icon[ 'icon_link' ][ 'url' ] ? ' href="' . esc_url($icon[ 'icon_link' ][ 'url' ]) . '"' : '';
 								?>
 								<li class="elementor-repeater-item-<?php echo esc_attr( $icon[ '_id' ] ); ?>">
 									<<?php echo esc_attr( $html_tag ); ?> <?php echo wp_kses_data( $attr ); ?> class="envo-extra-team-social-icon">
@@ -1287,7 +1287,7 @@ class Team extends Widget_Base {
 							$html_tag	 = $icon[ 'icon_link' ][ 'url' ] ? 'a' : 'span';
 							$attr		 = $icon[ 'icon_link' ][ 'is_external' ] ? ' target="_blank"' : '';
 							$attr .= $icon[ 'icon_link' ][ 'nofollow' ] ? ' rel="nofollow"' : '';
-							$attr .= $icon[ 'icon_link' ][ 'url' ] ? ' href="' . $icon[ 'icon_link' ][ 'url' ] . '"' : '';
+							$attr .= $icon[ 'icon_link' ][ 'url' ] ? ' href="' . esc_url($icon[ 'icon_link' ][ 'url' ]) . '"' : '';
 							?>
 							<li class="elementor-repeater-item-<?php echo esc_attr( $icon[ '_id' ] ); ?>">
 								<<?php echo esc_attr( $html_tag ); ?> <?php echo wp_kses_data( $attr ); ?> class="envo-extra-team-social-icon">

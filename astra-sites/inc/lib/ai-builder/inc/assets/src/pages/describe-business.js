@@ -24,14 +24,18 @@ const DescribeBusiness = () => {
 	const { nextStep, previousStep } = useNavigateSteps();
 
 	const {
-		businessDetails,
-		businessType,
-		businessName,
-		descriptionListStore,
-	} = useSelect( ( select ) => {
-		const { getAIStepData } = select( STORE_KEY );
-		return getAIStepData();
-	} );
+			businessDetails,
+			businessType,
+			businessName,
+			descriptionListStore,
+		} = useSelect( ( select ) => {
+			const { getAIStepData } = select( STORE_KEY );
+			return getAIStepData();
+		} ),
+		categoryKey = ( businessType ?? '' )
+			?.trim()
+			?.replaceAll( ' ', '-' )
+			?.toLowerCase();
 
 	const aiOnboardingDetails = useSelect( ( select ) => {
 			const { getOnboardingAI } = select( STORE_KEY );
@@ -320,12 +324,10 @@ const DescribeBusiness = () => {
 		>
 			<Heading
 				heading={
-					CATEGORY_DATA[ businessType ]?.question ??
+					CATEGORY_DATA[ categoryKey ]?.question ??
 					CATEGORY_DATA.unknown.question
 				}
-				subHeading={ getDescription(
-					businessType?.replaceAll( ' ', '-' )?.toLowerCase()
-				) }
+				subHeading={ getDescription( categoryKey ) }
 			/>
 			<div>
 				<Textarea

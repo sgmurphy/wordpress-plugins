@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 6.3
+Tested up to: 6.5.4
 Requires PHP: 7.2
 Stable tag: 4.6.1
 
@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.6.1 =
-Release Date: tbd
+Release Date: March 14th, 2023
 
 * [Added] Integration for Media Library Assistant
 

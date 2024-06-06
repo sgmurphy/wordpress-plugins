@@ -73,6 +73,16 @@ window.onclick = function(event) {
 	}
 }
 
+/**
+ * Strip the script tags from the code
+ * @since 6.5.8
+ * @param {*} code 
+ * @returns 
+ */
+function esf_strip_js_code( code ) {
+	return code.replace( /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '' );
+}
+
 jQuery( document ).ready(
 	function($) {
 

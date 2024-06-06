@@ -421,7 +421,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			);
 
 			// Strips all not allowed characters from input.
-			$available_characters = '/[^\w\_\-\'\"]/u';
+			$available_characters = '/[^\w\s\_\-\'\"]/u';
 			foreach ( $date_formats as $key => $value ) {
 				if ( ! empty( $atts[ $key . '_label' ] ) ) {
 					$data[ 'data-' . $key . '-label' ] = preg_replace( $available_characters, '', $atts[ $key . '_label' ] );

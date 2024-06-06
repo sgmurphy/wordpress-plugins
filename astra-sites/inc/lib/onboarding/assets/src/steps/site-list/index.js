@@ -170,30 +170,34 @@ const SiteList = () => {
 			const jsonData = await response.json();
 
 			if ( jsonData.data === 'updated' ) {
-				const sites = await SyncImportAllSites();
-				const categories = await SyncAndGetAllCategories();
-				const categoriesAndTags =
-					await SyncAndGetAllCategoriesAndTags();
 				dispatch( {
 					type: 'set',
 					bgSyncInProgress: false,
-					allSitesData: sites,
-					categories,
-					categoriesAndTags,
 				} );
 				return;
 			}
 
-			await fetchSitesAndCategories();
+			const sites = await SyncImportAllSites();
+			const categories = await SyncAndGetAllCategories();
+			const categoriesAndTags = await SyncAndGetAllCategoriesAndTags();
+			dispatch( {
+				type: 'set',
+				bgSyncInProgress: false,
+				allSitesData: sites,
+				categories,
+				categoriesAndTags,
+			} );
+
+			// await fetchSitesAndCategories();
 		} catch ( error ) {
 			console.error( error );
 		}
 	};
 
 	useEffect( () => {
-		if ( ! bgSyncInProgress ) {
-			return;
-		}
+		// if ( ! bgSyncInProgress ) {
+		// 	return;
+		// }
 
 		fetchSitesAndCategories();
 	}, [] );

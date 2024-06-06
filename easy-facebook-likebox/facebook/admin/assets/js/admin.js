@@ -64,44 +64,6 @@ jQuery( document ).ready(
 		);
 
 		/*
-		* Display lists on feed type change
-		*/
-		jQuery( 'select#efbl_feed_type' ).on(
-			'change',
-			function() {
-
-				if ( this.value === 'group' ) {
-					jQuery( '.efbl-page-releated-field' ).slideUp(
-						'slow',
-						function() {
-							$( this ).css( 'display', 'none' );
-						}
-					);
-					jQuery( '.efbl-group-id-wrap' ).slideDown(
-						'slow',
-						function() {
-							$( this ).css( 'display', 'flex' );
-						}
-					);
-				} else {
-					jQuery( '.efbl-page-releated-field' ).slideDown(
-						'slow',
-						function() {
-							$( this ).css( 'display', 'flex' );
-						}
-					);
-					jQuery( '.efbl-group-id-wrap' ).slideUp(
-						'slow',
-						function() {
-							$( this ).css( 'display', 'none' );
-						}
-					);
-				}
-
-			}
-		);
-
-		/*
 		* Display lists on moderate feed type change
 		*/
 		jQuery( 'select#efbl_moderate_feed_type' ).on(
@@ -330,24 +292,10 @@ jQuery( document ).ready(
 					efbl_page_id_attr = ' user_id="' + efbl_page_id + '"';
 				}
 
-				var efbl_feed_type = $( '.efbl-shortcode-fields-wrap .efbl_selected_type' ).val();
-
-				if ( efbl_feed_type === 'group' ) {
-					var efbl_group_id     = $( '.efbl-shortcode-fields-wrap #efbl_group_id' ).val();
-					efbl_page_id_attr     = 'fanpage_id="' + efbl_group_id + '" ';
-					efbl_filter           = '';
-					efbl_album_id         = '';
-					efbl_live_stream_only = '';
-					efbl_filter_events    = '';
-					efbl_show_likebox     = '';
-				}
-
-				efbl_feed_type = ' type="' + efbl_feed_type + '"';
-
-				var shortcode_html = '[efb_feed ' + efbl_page_id_attr + ' ' + efbl_feed_type + ' ' + efbl_access_token +
-				'' + efbl_filter + '' + efbl_album_id + '' + efbl_filter_events + '' + efbl_caption_words +
-				'' + efbl_post_limit + '' + efbl_skin_id + '' + efbl_cache_unit + '' +
-				efbl_cache_duration + ' ' + efbl_live_stream_only + ' ' + efbl_load_more + ' ' + efbl_link_new_tab + '' + efbl_show_likebox +
+				var shortcode_html = '[efb_feed ' + esf_strip_js_code(efbl_page_id_attr) + ' ' + esf_strip_js_code(efbl_access_token) +
+					'' + esf_strip_js_code(efbl_filter) + '' + esf_strip_js_code(efbl_album_id) + '' + esf_strip_js_code(efbl_filter_events) + '' + esf_strip_js_code( efbl_caption_words ) +
+					'' + esf_strip_js_code(efbl_post_limit) + '' + esf_strip_js_code(efbl_skin_id) + '' + esf_strip_js_code(efbl_cache_unit) + '' +
+					esf_strip_js_code(efbl_cache_duration) + ' ' + esf_strip_js_code(efbl_live_stream_only) + ' ' + esf_strip_js_code(efbl_load_more) + ' ' + esf_strip_js_code(efbl_link_new_tab) + '' + esf_strip_js_code(efbl_show_likebox) +
 				']';
 
 				esfShowNotification(efbl.generating, 400000);
@@ -382,16 +330,12 @@ jQuery( document ).ready(
 		);
 
 		function efbl_get_moderate_feed(){
-			var feed_type = $( '#efbl_moderate_feed_type' ).val();
 			var page_id   = $( '#efbl_moderate_page_id' ).val();
-			var group_id  = $( '#efbl_moderate_group_id' ).val();
 			esfShowNotification( efbl.moderate_wait, 400000 );
 
 			var data = {
 				action: 'efbl_get_moderate_feed',
 				feed_type: feed_type,
-				page_id: page_id,
-				group_id: group_id,
 				nonce: efbl.nonce,
 			};
 
@@ -433,51 +377,6 @@ jQuery( document ).ready(
 		);
 
 		
-
-		jQuery( document ).on(
-			'click',
-			'.efbl-save-groups-list',
-			function(event) {
-
-				event.preventDefault();
-				var groups_id = [];
-				jQuery( "#efbl-selected-groups-list li" ).each(
-					function( index ) {
-						if ( jQuery( this ).hasClass( 'selected' ) ) {
-							groups_id.push( jQuery( this ).data( 'id' ) );
-						}
-					}
-				);
-
-				const data = {
-					action: 'efbl_save_groups_list',
-					groups_id: groups_id,
-					nonce: efbl.nonce,
-				};
-
-				jQuery.ajax(
-					{
-						url: efbl.ajax_url,
-						type: 'post',
-						data: data,
-						dataType: 'json',
-						success: function(response) {
-							if (response.success) {
-								esfShowNotification( response.data[0], 4000 );
-								jQuery( '.efbl_tab_c_holder .efbl_all_pages' ).append( response.data['1'] );
-								location.reload();
-							} else {
-								esfShowNotification( response.data, 4000 );
-								jQuery( '#toast-container' ).addClass( 'esf-failed-notification' );
-							}
-
-						},
-
-					}
-				);/* Ajax func ends here. */
-
-			}
-		);
 
 		jQuery( document ).on(
 			'click',

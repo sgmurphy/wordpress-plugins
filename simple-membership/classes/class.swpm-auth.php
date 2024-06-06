@@ -309,7 +309,7 @@ class SwpmAuth {
 		}
 		if( function_exists('wp_clear_auth_cookie') ){
 			wp_clear_auth_cookie();
-		}		
+		}
 	}
 	
 	private function set_cookie( $remember = '', $secure = '' ) {
@@ -359,6 +359,63 @@ class SwpmAuth {
 		setcookie( $auth_cookie_name, $auth_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure, true );
 	}
 
+	/*
+	 * This function is used to reset the auth cookies after the user changes their password (from the profile page).
+	 */
+	public function reset_auth_cookies_after_pass_change($user_info, $remember='', $secure=''){
+		// First clear the old auth cookies for WP user and SWPM.
+		$this->clear_wp_user_auth_cookies(); //Clear the wp user auth cookies and destroy session. New auth cookies will generate below.
+		$this->swpm_clear_auth_cookies(); //Clear the swpm auth cookies. New auth cookies will generate below.
+
+		// Next, assign new cookies, so the user doesn't have to login again.
+		// Set new auth cookies for SWPM user
+        if ( $remember ) {
+            $expiration = time() + 1209600; //14 days
+            $expire = $expiration + 43200; //12 hours grace period
+        } else {
+            $expiration = time() + 259200; //3 days.
+            $expire = $expiration; //The minimum cookie expiration should be at least a few days.
+            $force_wp_user_sync = SwpmSettings::get_instance()->get_value( 'force-wp-user-sync' );
+            if ( !empty( $force_wp_user_sync ) ) {
+                //Set the expire to 0 to match with WP's cookie expiration (when "remember me" is not checked).
+                SwpmLog::log_auth_debug( 'The force_wp_user_sync option is enabled. Setting the cookie expiration to 0 to match with WP\'s cookie expiration (when "remember me" is not checked).', true );
+                $expire = 0;
+            }
+        }
+        $expire = apply_filters( 'swpm_auth_cookie_expiry_value', $expire );
+
+        if ( SwpmUtils::is_multisite_install() ) {
+            //Defines cookie-related WordPress constants on a multi-site setup (if not defined already).
+            wp_cookie_constants();
+        }
+
+        $expiration_timestamp = SwpmUtils::get_expiration_timestamp( $this->userData );
+        $enable_expired_login = SwpmSettings::get_instance()->get_value( 'enable-expired-account-login', '' );
+        // Make sure cookie doesn't live beyond account expiration date.
+        // However, if expired account login is enabled then ignore if account is expired.
+        $expiration = empty( $enable_expired_login ) ? min( $expiration, $expiration_timestamp ) : $expiration;
+        $pass_frag = substr( $user_info['new_enc_password'], 8, 4 );
+        $scheme = 'auth';
+        if ( !$secure ) {
+            $secure = is_ssl();
+        }
+
+		$swpm_username = $user_info['user_name'];
+        $key = self::b_hash( $swpm_username . $pass_frag . '|' . $expiration, $scheme );
+        $hash = hash_hmac( 'md5', $swpm_username . '|' . $expiration, $key );
+        $auth_cookie = $swpm_username . '|' . $expiration . '|' . $hash;
+        $auth_cookie_name = $secure ? SIMPLE_WP_MEMBERSHIP_SEC_AUTH : SIMPLE_WP_MEMBERSHIP_AUTH;
+        setcookie( $auth_cookie_name, $auth_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure, true );		
+
+		// Set new auth cookies for WP user
+		$swpm_id = $user_info['member_id'];
+		$wp_user = SwpmMemberUtils::get_wp_user_from_swpm_user_id( $swpm_id );
+		$wp_user_id = $wp_user->ID;
+		wp_set_auth_cookie( $wp_user_id, true ); // Set new auth cookies (second parameter true means "remember me")
+		wp_set_current_user( $wp_user_id ); // Set the current user object
+		SwpmLog::log_auth_debug( 'Authentication cookies have been reset after the password update.', true );
+	}
+
 	private function validate() {
 		$auth_cookie_name = is_ssl() ? SIMPLE_WP_MEMBERSHIP_SEC_AUTH : SIMPLE_WP_MEMBERSHIP_AUTH;
 		if ( ! isset( $_COOKIE[ $auth_cookie_name ] ) || empty( $_COOKIE[ $auth_cookie_name ] ) ) {
@@ -396,10 +453,14 @@ class SwpmAuth {
 		$hash      = hash_hmac( 'md5', $username . '|' . $expiration, $key );
 		if ( $hmac != $hash ) {
 			$this->lastStatusMsg = SwpmUtils::_( 'Please login again.' );
-			SwpmLog::log_auth_debug( 'Validate() - Bad hash. Going to clear the auth cookies to clear the bad hash.', true );
+			SwpmLog::log_auth_debug( 'Validate() function - Bad hash. Going to clear the auth cookies to clear the bad hash.', true );
+			SwpmLog::log_auth_debug( 'Validate() function - The user profile with the username: ' . $username . ' will be logged out.', true );
+			
             do_action('swpm_validate_login_hash_mismatch');
-			//Clear the auth cookies to clear the bad hash.
-			SwpmAuth::get_instance()->swpm_clear_auth_cookies();
+			//Clear the auth cookies of SWPM to clear the bad hash. This will log out the user.
+			$this->swpm_clear_auth_cookies();
+			//Clear the wp user auth cookies and destroy session as well.
+			$this->clear_wp_user_auth_cookies();
 			return false;
 		}
 

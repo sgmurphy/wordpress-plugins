@@ -9,7 +9,7 @@ class BEW_Carousel_Products extends BEW_Settings {
 	}
 	
 	public function get_title() {
-		return __( 'Woo - Carousel', 'bosa-elementor-for-woocommerce' );
+		return __( 'Woo - Archive Carousel', 'bosa-elementor-for-woocommerce' );
 	}
 	
 	public function get_icon() {
@@ -17,7 +17,7 @@ class BEW_Carousel_Products extends BEW_Settings {
 	}
 
 	public function get_keywords() {
-		return [ 'bew', 'carousel', 'bew carousel', 'woo', 'woo carousel', 'bosa' ];
+		return [ 'bew', 'carousel', 'bew carousel', 'woo', 'woo carousel', 'archive', 'bosa' ];
 	}
 	
     protected function register_controls() {

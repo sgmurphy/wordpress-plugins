@@ -33,17 +33,12 @@ if ( is_customize_preview() && isset( $post->ID ) && $post->ID == $efbl_demo_pag
     $instance['fanpage_id'] = $page_id;
     $instance['skin_id'] = $skin_id;
 }
-if ( class_exists( 'Esf_Multifeed_Facebook_Frontend' ) && isset( $type ) && $type !== 'group' && $is_multifeed ) {
+if ( class_exists( 'Esf_Multifeed_Facebook_Frontend' ) && isset( $type ) && $is_multifeed ) {
     $efbl_queried_data = apply_filters( 'efbl_filter_queried_data', $instance );
     $efbl_multifeed = true;
 } else {
-    if ( isset( $type ) && $type == 'group' ) {
-        $efbl_queried_data = $this->query_group_feed( sanitize_text_field( $fanpage_id ), $instance );
-        $efbl_multifeed = false;
-    } else {
-        $efbl_queried_data = $this->query_posts( sanitize_text_field( $fanpage_id ), $instance );
-        $efbl_multifeed = false;
-    }
+    $efbl_queried_data = $this->query_posts( sanitize_text_field( $fanpage_id ), $instance );
+    $efbl_multifeed = false;
 }
 if ( isset( $efbl_queried_data['posts'] ) && !empty( $efbl_queried_data['posts'] ) ) {
     $efbl_posts = apply_filters( 'efbl_pre_feeds_show', $efbl_queried_data['posts'] );
@@ -111,11 +106,7 @@ do_action( 'efbl_feed_wrapper_custom_attrs' );
 
 	<?php 
 if ( !empty( $cache_seconds ) ) {
-    if ( $type == 'group' ) {
-        $efbl_bio_data = efbl_get_group_bio( $fanpage_id, $cache_seconds );
-    } else {
-        $efbl_bio_data = efbl_get_page_bio( $fanpage_id, $cache_seconds );
-    }
+    $efbl_bio_data = efbl_get_page_bio( $fanpage_id, $cache_seconds );
 }
 $auth_img_src = efbl_get_page_logo( $fanpage_id );
 // Load Header
@@ -181,9 +172,7 @@ if ( isset( $efbl_posts ) && !empty( $efbl_posts ) ) {
                 $id_exploded = explode( '_', $story_id );
             }
             $page_id = $id_exploded[0];
-            if ( isset( $type ) && $type == 'group' ) {
-                $page_id = $fanpage_id;
-            }
+            $page_id = $fanpage_id;
             if ( 'events' == $filter ) {
                 $page_id = $story->owner->id;
             }
@@ -192,9 +181,6 @@ if ( isset( $efbl_posts ) && !empty( $efbl_posts ) ) {
                 $feed_type = $story->status_type;
             } else {
                 $feed_type = '';
-            }
-            if ( $feed_type == '' && $type == 'group' ) {
-                $feed_type = 'mobile_status_update';
             }
             if ( efl_fs()->is_plan( 'facebook_premium', true ) or efl_fs()->is_plan( 'combo_premium', true ) ) {
             } else {
@@ -483,34 +469,10 @@ if ( isset( $efbl_posts ) && !empty( $efbl_posts ) ) {
     // If no posts found
 } else {
     if ( isset( $efbl_queried_data['error'] ) && !empty( $efbl_queried_data['error'] ) ) {
-        if ( $efbl_queried_data['error'] == 'group_err_msg_empty' ) {
-            ?>
-						<div class="efbl_error_msg">
-							<strong><?php 
-            esc_html_e( 'We are unable to fetch the group’s feed due to one of the following possible reasons', 'easy-facebook-likebox' );
-            ?>.</strong>
-							<ol>
-								<li><?php 
-            esc_html_e( 'You have not authenticated the plugin with your Facebook group. Please go to Easy Social Feed -> Facebook -> Authenticate -> click on “Connect My Facebook Account” button and make sure  you select Groups from the popup', 'easy-facebook-likebox' );
-            ?>.</li>
-								<li><?php 
-            esc_html_e( 'You have not added Easy Social Feed (A) or Easy Social Feed (A)/(B) App in your groups settings. Please follow the steps on Easy Social Feed -> Facebook -> Authenticate -> Approved Group(s) -> Important notice to add the app in the group', 'easy-facebook-likebox' );
-            ?>.</li>
-								<li><?php 
-            esc_html_e( 'Please clear the cache, reconnect the plugin and then try again', 'easy-facebook-likebox' );
-            ?>.</li>
-							</ol>
-						</div>
-				    <?php 
-        } else {
-            ?>
-						<p class="efbl_error_msg"> <?php 
-            esc_html_e( $efbl_queried_data['error'] );
-            ?> </p>
-				    <?php 
-        }
         ?>
-
+					<p class="efbl_error_msg"> <?php 
+        esc_html_e( $efbl_queried_data['error'] );
+        ?> </p>
 				<?php 
     } else {
         if ( $filter ) {

@@ -1,10 +1,18 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **98 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **100 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.0.2.2 (2024.06.06) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix attempt on an issue where frontend functionality breaks when this module is activated (since v7.0.2). Props to [@dcnz](https://wordpress.org/support/users/dcnz/), [@vanektomas](https://wordpress.org/support/users/vanektomas/) and [@okparfait](https://wordpress.org/support/users/okparfait/) for reporting the issue with some very helpful details.
+
+### 7.0.2.1 (2024.06.05) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed an issue where default login URLs does not redirect to the not_found page after v7.0.2 update. Props to [@megacelik](https://wordpress.org/support/users/megacelik/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-not-work/).
 
 ### 7.0.2 (2024.06.03) - ASE Free and Pro
 

@@ -508,6 +508,48 @@ class Ai_Builder_ZipWP_Api {
 				),
 			)
 		);
+
+		register_rest_route(
+			$namespace,
+			'/import-error-log/',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_error_log' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Get the error log details
+	 *
+	 * @param \WP_REST_Request $request Full details about the request.
+	 * @return mixed
+	 *
+	 * @since 1.0.36
+	 */
+	public function get_error_log( $request ) {
+
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
+		// Verify the nonce.
+		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
+			wp_send_json_error(
+				array(
+					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'status' => false,
+
+				)
+			);
+		}
+
+		wp_send_json_success(
+			array(
+				'data'   => get_option( 'ai_import_logger', array() ),
+				'status' => true,
+			)
+		);
 	}
 
 	/**

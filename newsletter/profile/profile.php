@@ -86,7 +86,6 @@ class NewsletterProfile extends NewsletterModule {
                 $alert = is_wp_error($res) ? $res->get_error_message() : $this->get_text('saved');
 
                 $this->redirect($this->get_profile_page_url($user, $alert));
-
         }
     }
 
@@ -142,8 +141,24 @@ class NewsletterProfile extends NewsletterModule {
             if (!$user->_trusted || $user->status === TNP_User::STATUS_UNSUBSCRIBED || $user->status === TNP_User::STATUS_COMPLAINED) {
                 return __('Subscriber not found.', 'newsletter');
             }
-        } else {
-            $admin_notice = '<p style="background-color: #eee; color: #000; padding: 1rem; margin: 1rem 0"><strong>Visible only to administrators</strong>. Preview of the content with a dummy subscriber. <a href="' . admin_url('admin.php?page=newsletter_profile_index') . '" target="_blank">Edit this content</a>.</p>';
+        }
+
+        $admin_notice = '';
+        if (current_user_can('administrator')) {
+            $edit_url = admin_url('admin.php?page=newsletter_profile_index');
+
+            if ($this->is_multilanguage()) {
+                $language = $this->language();
+                if (empty($language)) {
+                    $language = 'all';
+                }
+                $edit_url .= '&lang=' . urldecode($language);
+            }
+            $admin_notice = '<p style="background-color: #eee; color: #000; padding: 1rem; margin: 1rem 0"><strong>Visible only to administrators</strong>. ';
+            if ($user->_dummy) {
+                $admin_notice .= 'Preview of the content with a dummy subscriber. ';
+            }
+            $admin_notice .= '<a href="' . esc_attr($edit_url) . '" target="_blank">Edit this content</a>.</p>';
         }
 
         $text = $this->get_text('text');

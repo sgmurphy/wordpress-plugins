@@ -29,7 +29,7 @@ class Easy_Facebook_Likebox {
      *
      * @var     string
      */
-    const VERSION = '6.5.7';
+    const VERSION = '6.5.8';
 
     /**
      *
@@ -537,76 +537,6 @@ class Easy_Facebook_Likebox {
             'public_page'    => $public_page,
         ) );
         return $returner;
-    }
-
-    /**
-     * Get group feed by ID
-     *
-     * @param       $group_id
-     * @param array $instance
-     *
-     * @return mixed|void
-     *
-     * @since 6.2.3
-     */
-    public function query_group_feed( $group_id, $instance = array() ) {
-        if ( $group_id ) {
-            $FTA = new Feed_Them_All();
-            $fta_settings = $FTA->fta_get_settings();
-            $fb_settings = $fta_settings['plugins']['facebook'];
-            $access_token = $fb_settings['access_token'];
-            $duration = $instance['cache_unit'] . '-' . substr( $instance['cache_duration'], 0, 1 );
-            $transient_name = 'efbl_group_' . $group_id . '_feed-' . $instance['post_limit'] . '-' . $duration;
-            $group_json_data = get_transient( $transient_name );
-            $group_feed = json_decode( $group_json_data );
-            $test_mode = false;
-            if ( isset( $instance['test_mode'] ) ) {
-                $test_mode = $instance['test_mode'];
-            } else {
-                $test_mode = false;
-            }
-            $error_message = '';
-            if ( !$group_json_data ) {
-                $efbl_api_url = add_query_arg( apply_filters( 'efbl_group_feed_api_url_params', array(
-                    'fields'       => 'status_type,permalink_url,full_picture,from,created_time,message,message_tags,shares,attachments,picture,story,story_tags,comments,reactions{type,pic_crop,pic,username,picture}',
-                    'access_token' => $access_token,
-                    'limit'        => $instance['post_limit'],
-                ), $instance ), apply_filters( 'efbl_group_feed_api_url_base', 'https://graph.facebook.com/v1.0/' . $group_id . '/feed', $instance ) );
-                $group_json_data = jws_fetchUrl( $efbl_api_url );
-                $group_feed = json_decode( $group_json_data );
-                $cache_seconds = efbl_get_cache_seconds( $instance );
-                if ( isset( $group_feed->data ) && !empty( $group_feed->data ) && !$test_mode ) {
-                    set_transient( $transient_name, $group_json_data, $cache_seconds );
-                } else {
-                    if ( isset( $group_feed->error->message ) ) {
-                        $error_message = $group_feed->error->message;
-                    } else {
-                        $error_message = 'group_err_msg_empty';
-                    }
-                }
-            }
-            if ( isset( $group_feed->paging->next ) ) {
-                $next_post_url = $group_feed->paging->next;
-            } else {
-                $next_post_url = '';
-            }
-            if ( isset( $group_feed->data ) && !empty( $group_feed->data ) ) {
-                $group_feed_data = $group_feed->data;
-            } else {
-                $group_feed_data = null;
-            }
-        } else {
-            $group_feed_data = null;
-            $error_message = __( 'Please enter a valid Group ID in the shortcode', 'easy-facebook-likebox' );
-        }
-        return apply_filters( 'efbl_query_group_feed_return', array(
-            'posts'          => $group_feed_data,
-            'error'          => $error_message,
-            'next_posts_url' => $next_post_url,
-            'transient_name' => $transient_name,
-            'is_saved_posts' => true,
-            'has_album_data' => false,
-        ) );
     }
 
 }

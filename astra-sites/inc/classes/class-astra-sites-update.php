@@ -97,6 +97,14 @@ if ( ! class_exists( 'Astra_Sites_Update' ) ) :
 				delete_site_transient( 'astra-sites-import-check' );
 			}
 
+			if ( version_compare( $saved_version, '4.3.1', '<' ) ) {
+				if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
+					delete_site_option( 'astra-sites-fresh-site' );
+					delete_site_option( 'astra-sites-batch-status' );
+					delete_site_transient( 'astra-sites-import-check' );            
+				}
+			}
+			
 			// Auto update product latest version.
 			update_option( 'astra-sites-auto-version', ASTRA_SITES_VER, 'no' );
 

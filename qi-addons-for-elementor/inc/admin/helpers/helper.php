@@ -308,7 +308,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_inline_attr' ) ) 
 	function qi_addons_for_elementor_framework_get_inline_attr( $value, $attr, $glue = '', $allow_zero_values = false ) {
 		$properties = '';
 
-		// Leave only allowed characters.
+		// Leave only allowed characters in attr.
 		preg_match( '/[-_a-z0-9]+/', $attr, $attr_matches );
 
 		$single_attr_key = $attr_matches[0];
@@ -336,17 +336,19 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_inline_attr' ) ) 
 			}
 		}
 
-		// Leave only allowed characters.
-		preg_match( '/[-_a-z0-9]+/', $properties, $value_matches );
+		var_dump($properties);
 
-		if ( empty( $value_matches[0] ) || empty( $attr_matches[0] ) ) {
+		var_dump('------------');
+
+		// Leave only allowed characters in value, everything that is not a number, char, space or dash will be removed.
+		preg_replace( '/[^\p{L}\p{N}\s\-_]+/u', '', $properties );
+
+		if ( empty( $properties ) || empty( $attr_matches[0] ) ) {
 			return '';
 		}
 
-		$single_value_key = $value_matches[0];
-
 		// Remove not allowed js events.
-		if ( 'on' === substr( $single_attr_key, 0, 2 ) || 'href' === $single_attr_key || 'on' === substr( $single_value_key, 0, 2 ) || 'href' === $single_value_key ) {
+		if ( 'on' === substr( $single_attr_key, 0, 2 ) || 'href' === $single_attr_key || 'on' === substr( $properties, 0, 2 ) || 'href' === $properties ) {
 			return '';
 		}
 

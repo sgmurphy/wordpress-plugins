@@ -1662,12 +1662,49 @@ ul.ays_notification_type_components_sortable {
     background-color: #ccc;
 }
 
+.ays_pb_notification_button_paddings_container {
+    padding-left: 0;
+}
+
+.ays_pb_notification_button_paddings_container .col-sm-4 {
+    display: inline-block;
+}
+
 .ays_pb_component_option {
     width: 90%;
 }
 
 span.ays-pb-small-hint-text.ays-pb-show-only-for-author-hint-text {
     display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .ays_pb_notification_button_paddings_container,
+    .ays_pb_notification_button_paddings_container .col-sm-4 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ays_pb_notification_button_paddings_container {
+        gap: 20px;
+    }
+
+    .ays_pb_notification_button_paddings_container .ays_divider_left {
+        border: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    ul.ays_notification_type_components_sortable {
+        display: flex;
+        gap: 10px;
+    }
+
+    .ays_notification_type_components_sortable li {
+        margin-right: 0;
+        min-width: 115px;
+        padding: 12px 20px;
+    }
 }
 /* Popups page | General tab styles end */
 
@@ -2257,10 +2294,11 @@ label.ays_switch_toggle:hover:after {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.ays-pb-prev-next-button-content {
-    margin-right: 100px;
+.ays-pb-bottom-buttons-content h1 {
+    padding: 0;
 }
 
 .form-group.row.ays-pb-button-box .ays-pb-button-first-row,

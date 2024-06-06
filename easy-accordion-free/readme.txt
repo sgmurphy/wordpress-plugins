@@ -1,13 +1,13 @@
-﻿=== Easy Accordion - Best Accordion FAQ Plugin for WordPress ===
+﻿=== Easy Accordion – Responsive Accordion FAQ Builder and Product FAQ ===
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
-Tags: accordion, accordions, accordion faq, vertical accordion, faq, faqs, faq widget, accordion widget, accordion menu, wordpress faq plugin, easy accordion, premium accordion, bootstrap accordion, horizontal accordion, responsive accordion, accordion jquery, css3 accordion, accordion shortcode, collapsible content, toggle, toggle accordion, wordpress accordion plugin, wordpress accordion, bootstrap collapse, post accordion, post faq, custom post accordion, accordion grid, accordion bar, product faq, woocommerce product accordion, woocommerce accordion, wordpress post accordion, content hide, hidden content, expand content
+Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
 Tested up to: 6.5
 Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The best responsive and drag & drop Accordion FAQ builder plugin. User-friendly, Highly Customizable & Intuitive Shortcode Generator.
+Easily create professional Accordion FAQs with this powerful and easy-to-use FAQ builder plugin. Fully drag & drop interface and highly customizable!
 
 
 == Description ==

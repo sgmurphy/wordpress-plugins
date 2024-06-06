@@ -14,7 +14,7 @@ define('FILEORGANIZER_BASE', plugin_basename(FILEORGANIZER_FILE));
 define('FILEORGANIZER_PRO_BASE', 'fileorganizer-pro/fileorganizer-pro.php');
 define('FILEORGANIZER_URL', plugins_url('', FILEORGANIZER_FILE));
 define('FILEORGANIZER_BASE_NAME', basename(FILEORGANIZER_DIR));
-define('FILEORGANIZER_VERSION', '1.0.7');
+define('FILEORGANIZER_VERSION', '1.0.8');
 define('FILEORGANIZER_WP_CONTENT_DIR', defined('WP_CONTENT_FOLDERNAME') ? WP_CONTENT_FOLDERNAME : 'wp-content');
 define('FILEORGANIZER_DEV', file_exists(dirname(__FILE__).'/dev.php') ? 1 : 0);
 define('FILEORGANIZER_API', 'https://api.fileorganizer.net/');
@@ -66,30 +66,80 @@ function fileorganizer_activation(){
 
 // Looks if FileOrganizer just got updated
 function fileorganizer_update_check(){
-	
+
 	$sql = array();
 	$current_version = get_option('fileorganizer_version');	
 	$version = (int) str_replace('.', '', $current_version);
-	
+
 	// No update required
 	if($current_version == FILEORGANIZER_VERSION){
 		return true;
 	}
-	
+
 	// Is it first run ?
 	if(empty($current_version)){
-		
+
 		// Reinstall
 		fileorganizer_activation();
 
 		// Trick the following if conditions to not run
 		$version = (int) str_replace('.', '', FILEORGANIZER_VERSION);
-		
+
 	}
-	
+
+	// Adding index.php to trash folder, if it already exists.
+	if(version_compare($current_version, '1.0.7', '<=')){
+		$uploads_dir = wp_upload_dir();
+		$trash_dir = fileorganizer_cleanpath($uploads_dir['basedir'].'/fileorganizer/.trash');
+
+		if(file_exists($trash_dir)){
+			fileorganizer_recursive_indexphp($trash_dir, 8); // Adding index.php files
+
+			$randomness = wp_generate_password(12, false);
+			$new_dir_name = $trash_dir . '-' . $randomness;
+
+			rename($trash_dir, $new_dir_name);
+		}
+	}
+
 	// Save the new Version
 	update_option('fileorganizer_version', FILEORGANIZER_VERSION);
 	
+}
+
+// Creates index.php file recursively
+// This is needed only if user upgrades from any version below 1.0.8
+// NOTE: So remove when not needed.
+function fileorganizer_recursive_indexphp($trash_dir, $depth){
+
+	if($depth <= 0){
+		return;
+	}
+
+	if(!is_dir($trash_dir)){
+		return;
+	}
+
+	$sub_dirs = scandir($trash_dir);
+
+	if(empty($sub_dirs)){
+		return false;
+	}
+
+	foreach($sub_dirs as $file){
+		$file_path = $trash_dir . '/' . $file;
+		if(!is_dir($file_path) || in_array($file, ['..', '.'])){
+			continue;
+		}
+
+		$depth--;
+		fileorganizer_recursive_indexphp($file_path, $depth);
+	}
+
+	if(!file_exists($trash_dir . '/index.php')){
+		file_put_contents($trash_dir . '/index.php', '<?php //Silence is golden');
+		chmod($trash_dir . '/index.php', 0444);
+	}
 }
 
 // Add action to load FileOrganizer
@@ -120,7 +170,6 @@ function fileorganizer_load_plugin(){
 			add_action('admin_notices', 'fileorganizer_promo');
 		}
 	}
-
 }
 
 // This adds the left menu in WordPress Admin page
@@ -243,10 +292,12 @@ function fileorganizer_optreq($name, $default = ''){
 function fileorganizer_clean($var){
 	
 	if(is_array($var) || is_object($var)){
+		$var = map_deep($var, 'wp_unslash');
 		return map_deep($var, 'sanitize_text_field');
 	}
 	
 	if(is_scalar($var)){
+		$var = wp_unslash($var);
 		return sanitize_text_field($var);
 	}
 
@@ -292,8 +343,8 @@ function fileorganizer_notify($message, $type = 'updated', $dismissible = true){
 	}
 	
 	if(!empty($message)){
-		echo '<div class="'.$type.' '.$dismissible.' notice">
-			<p>'.$message.'</p>
+		echo '<div class="'.esc_attr($type).' '.esc_attr($dismissible).' notice">
+			<p>'.wp_kses_post($message).'</p>
 		</div>';
 	}
 }

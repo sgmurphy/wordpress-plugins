@@ -22,13 +22,10 @@ export const defaultOnboardingAIState = {
 		siteLanguage: 'en',
 		businessName: aiStepValues?.business_name || '',
 		businessDetails: aiStepValues?.business_description || '',
-		keywords: aiStepValues?.image_keywords || [],
+		keywords: aiStepValues?.image_keyword || [],
 		selectedImages: !! selectedImages?.length
 			? selectedImages
-			: [
-					...( aiStepValues?.images?.landscape ?? [] ),
-					...( aiStepValues?.images?.portrait ?? [] ),
-			  ],
+			: aiStepValues.images || [],
 		imagesPreSelected:
 			!! aiStepValues?.images?.landscape?.length ||
 			!! aiStepValues?.images?.portrait?.length ||

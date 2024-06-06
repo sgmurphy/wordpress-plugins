@@ -135,13 +135,12 @@ class Omnisend_Helper {
 	}
 
 	public static function omnisend_plugin_version(): string {
-		$file      = OMNISEND_WOO_ABSPATH . 'omnisend-woocommerce.php';
-		$file_data = get_file_data( $file, array( 'ver' => 'Version' ) );
+		$file_data = get_file_data( OMNISEND_WOO_PLUGIN_FILE, array( 'ver' => 'Version' ) );
 		return $file_data['ver'] ?? '0.0.0';
 	}
 
 	public static function get_account_info() {
-		global $omnisend_plugin_version;
+		$omnisend_plugin_version = self::omnisend_plugin_version();
 		preg_match( '#^\d+(\.\d+)*#', defined( 'PHP_VERSION' ) ? PHP_VERSION : phpversion(), $phpver );
 		$web_server = null;
 		if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {

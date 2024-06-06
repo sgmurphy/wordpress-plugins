@@ -5,7 +5,7 @@ Tags: Email Marketing, SMS, Marketing, Newsletter, WooCommerce
 Requires at least: 4.7.0
 Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.15.7
+Stable tag: 1.15.8
 License: GPLv3 or later License
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -306,9 +306,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 1.15.8 =
+
+* Fix incorrect plugin version update check, which caused unnecessary API requests to the store in some cases.
+
 = 1.15.7 =
 
-* Introduced `_omnisend_contact_cache` table to store data which replace `wp_options` table for contactID.
+* Introduce `_omnisend_contact_cache` table to store data which replace `wp_options` table for contactID.
 
 = 1.15.6 =
 
@@ -316,7 +320,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 1.15.5 =
 
-* Fixed an issue where in the plugin would sometimes disconnect from Omnisend automatically.
+* Fix an issue where in the plugin would sometimes disconnect from Omnisend automatically.
 
 = 1.15.4 =
 

@@ -3,10 +3,12 @@ Contributors: nintechnet, bruandet
 Tags: malware, virus, security, protection, scanner
 Requires at least: 4.7.0
 Tested up to: 6.5
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv3 or later
 Requires PHP: 7.1
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+A lightweight, fast and powerful antivirus scanner for WordPress.
 
 == Description ==
 
@@ -104,6 +106,10 @@ Check out our [NinjaScanner Premium Edition](https://nintechnet.com/ninjascanner
 9. Integration with NinjaFirewall.
 
 == Changelog ==
+
+= 3.2.2 =
+
+* Fixed a bug where MU plugins added to the list of ignored files were still displaying a warning in the report sent by email.
 
 = 3.2.1 =
 

@@ -2,8 +2,8 @@
 Contributors: DaNish Ali, maltathemes, sjaved
 Tags: Instagram feed, Instagram photos, Instagram gallery, Facebook feed, Facebook posts
 Requires at least: 3.3
-Tested up to: 6.4
-Stable tag: 6.5.7
+Tested up to: 6.5
+Stable tag: 6.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,10 @@ http://wordpress.org/support/topic/need-feed-back-on-plugin-feature/
 23. Instagram skins/layouts panel
 
 == Changelog ==
+= 6.5.8 =
+* Removed: Group feed feature
+* Fixed: Minor issues
+
 = 6.5.7 =
 * Fixed: Security issue
 * Fixed: Minor issues

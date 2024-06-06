@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.12.0\n"
+"Project-Id-Version: Give - Donation Plugin 3.12.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-15T15:11:52+00:00\n"
+"POT-Creation-Date: 2024-06-05T19:30:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -862,10 +862,10 @@ msgstr ""
 #: includes/admin/forms/dashboard-columns.php:35
 #: includes/admin/import-functions.php:439
 #: includes/admin/reports/class-donor-reports-table.php:218
-#: includes/admin/tools/export/export-functions.php:152
+#: includes/admin/tools/export/export-functions.php:153
 #: includes/admin/tools/views/html-admin-page-system-info.php:1001
 #: src/DonationForms/V2/ListTable/Columns/TitleColumn.php:37
-#: src/Exports/DonorsExport.php:165
+#: src/Exports/DonorsExport.php:168
 #: assets/dist/js/give-admin-event-tickets-details.js:825
 #: assets/dist/js/give-admin-event-tickets-details.js:962
 msgid "Name"
@@ -877,8 +877,8 @@ msgstr ""
 #: includes/admin/emails/class-email-setting-field.php:326
 #: includes/admin/import-functions.php:475
 #: includes/admin/reports/class-donor-reports-table.php:219
-#: includes/admin/tools/export/export-functions.php:153
-#: src/Exports/DonorsExport.php:166
+#: includes/admin/tools/export/export-functions.php:154
+#: src/Exports/DonorsExport.php:169
 #: templates/shortcode-register.php:39
 #: assets/dist/js/give-admin-event-tickets-details.js:826
 #: build/formBuilderRegistrars.js:1
@@ -913,8 +913,8 @@ msgstr ""
 #: includes/admin/donors/class-donor-table.php:300
 #: includes/admin/reports/class-donor-reports-table.php:221
 #: includes/admin/reports/class-gateways-reports-table.php:147
-#: includes/admin/tools/export/export-functions.php:158
-#: src/Exports/DonorsExport.php:178
+#: includes/admin/tools/export/export-functions.php:160
+#: src/Exports/DonorsExport.php:182
 msgid "Total Donated"
 msgstr ""
 
@@ -1227,7 +1227,7 @@ msgstr ""
 
 #: includes/admin/donors/donors.php:385
 #: includes/admin/import-functions.php:438
-#: includes/admin/tools/export/give-export-donations-exporter.php:183
+#: includes/admin/tools/export/give-export-donations-exporter.php:184
 #: includes/admin/tools/import/class-give-import-donations.php:501
 #: includes/forms/template.php:821
 #: includes/forms/template.php:837
@@ -1238,7 +1238,7 @@ msgstr ""
 
 #: includes/admin/donors/donors.php:394
 #: includes/admin/import-functions.php:444
-#: includes/admin/tools/export/give-export-donations-exporter.php:186
+#: includes/admin/tools/export/give-export-donations-exporter.php:187
 #: includes/forms/template.php:849
 #: includes/forms/template.php:868
 #: templates/shortcode-profile-editor.php:60
@@ -1392,7 +1392,7 @@ msgstr ""
 
 #: includes/admin/donors/donors.php:869
 #: includes/admin/import-functions.php:476
-#: includes/admin/tools/export/give-export-donations-exporter.php:189
+#: includes/admin/tools/export/give-export-donations-exporter.php:190
 #: includes/admin/tools/import/class-give-import-donations.php:491
 #: includes/forms/template.php:966
 #: includes/forms/template.php:981
@@ -2159,7 +2159,7 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:172
 #: includes/admin/forms/class-metabox-form-data.php:210
 #: includes/admin/import-functions.php:183
-#: includes/admin/tools/export/give-export-donations-exporter.php:428
+#: includes/admin/tools/export/give-export-donations-exporter.php:437
 #: includes/forms/template.php:532
 #: includes/payments/functions.php:1542
 #: build/formBuilderRegistrars.js:1
@@ -2688,8 +2688,8 @@ msgid "Do not import"
 msgstr ""
 
 #: includes/admin/import-functions.php:410
-#: includes/admin/tools/export/give-export-donations-exporter.php:174
-#: includes/admin/tools/export/give-export-donations-functions.php:256
+#: includes/admin/tools/export/give-export-donations-exporter.php:175
+#: includes/admin/tools/export/give-export-donations-functions.php:257
 #: templates/shortcode-receipt.php:100
 msgid "Donation ID"
 msgstr ""
@@ -2706,8 +2706,8 @@ msgid "Donation Amount"
 msgstr ""
 
 #: includes/admin/import-functions.php:414
-#: includes/admin/tools/export/give-export-donations-exporter.php:206
-#: includes/admin/tools/export/give-export-donations-functions.php:278
+#: includes/admin/tools/export/give-export-donations-exporter.php:210
+#: includes/admin/tools/export/give-export-donations-functions.php:279
 #: src/DonationSummary/resources/views/summary.php:109
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:161
 #: src/Receipt/DonationReceipt.php:144
@@ -2733,8 +2733,8 @@ msgid "Currencies Code"
 msgstr ""
 
 #: includes/admin/import-functions.php:421
-#: includes/admin/tools/export/give-export-donations-exporter.php:209
-#: includes/admin/tools/export/give-export-donations-functions.php:286
+#: includes/admin/tools/export/give-export-donations-exporter.php:213
+#: includes/admin/tools/export/give-export-donations-functions.php:287
 #: includes/admin/tools/views/html-admin-page-system-info.php:623
 msgid "Currency Code"
 msgstr ""
@@ -2744,14 +2744,14 @@ msgid "Code"
 msgstr ""
 
 #: includes/admin/import-functions.php:425
-#: includes/admin/tools/export/give-export-donations-exporter.php:236
-#: includes/admin/tools/export/give-export-donations-functions.php:310
+#: includes/admin/tools/export/give-export-donations-exporter.php:240
+#: includes/admin/tools/export/give-export-donations-functions.php:311
 msgid "Donation Date"
 msgstr ""
 
 #: includes/admin/import-functions.php:429
-#: includes/admin/tools/export/give-export-donations-exporter.php:239
-#: includes/admin/tools/export/give-export-donations-functions.php:318
+#: includes/admin/tools/export/give-export-donations-exporter.php:243
+#: includes/admin/tools/export/give-export-donations-functions.php:319
 msgid "Donation Time"
 msgstr ""
 
@@ -2761,7 +2761,7 @@ msgstr ""
 
 #: includes/admin/import-functions.php:433
 #: includes/admin/import-functions.php:545
-#: includes/admin/tools/export/give-export-donations-exporter.php:180
+#: includes/admin/tools/export/give-export-donations-exporter.php:181
 msgid "Title Prefix"
 msgstr ""
 
@@ -2787,8 +2787,8 @@ msgid "Last"
 msgstr ""
 
 #: includes/admin/import-functions.php:448
-#: includes/admin/tools/export/give-export-donations-exporter.php:192
-#: includes/admin/tools/export/give-export-donations-functions.php:463
+#: includes/admin/tools/export/give-export-donations-exporter.php:193
+#: includes/admin/tools/export/give-export-donations-functions.php:464
 #: includes/forms/template.php:929
 #: includes/forms/template.php:944
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:39
@@ -2813,7 +2813,7 @@ msgid "Company"
 msgstr ""
 
 #: includes/admin/import-functions.php:454
-#: includes/admin/tools/export/give-export-donations-exporter.php:195
+#: includes/admin/tools/export/give-export-donations-exporter.php:196
 #: includes/forms/template.php:1283
 #: build/formBuilderRegistrars.js:1
 msgid "Address 1"
@@ -2821,26 +2821,26 @@ msgstr ""
 
 #: includes/admin/import-functions.php:455
 #: includes/admin/tools/export/class-batch-export-donors.php:187
-#: includes/admin/tools/export/export-functions.php:154
-#: src/Exports/DonorsExport.php:168
+#: includes/admin/tools/export/export-functions.php:155
+#: src/Exports/DonorsExport.php:171
 msgid "Address"
 msgstr ""
 
 #: includes/admin/import-functions.php:457
 #: includes/admin/tools/export/class-batch-export-donors.php:188
-#: includes/admin/tools/export/give-export-donations-exporter.php:196
+#: includes/admin/tools/export/give-export-donations-exporter.php:197
 #: includes/forms/template.php:1306
-#: src/Exports/DonorsExport.php:169
+#: src/Exports/DonorsExport.php:172
 #: build/formBuilderRegistrars.js:1
 msgid "Address 2"
 msgstr ""
 
 #: includes/admin/import-functions.php:458
 #: includes/admin/tools/export/class-batch-export-donors.php:189
-#: includes/admin/tools/export/give-export-donations-exporter.php:197
+#: includes/admin/tools/export/give-export-donations-exporter.php:198
 #: includes/forms/template.php:1327
 #: includes/forms/template.php:1339
-#: src/Exports/DonorsExport.php:170
+#: src/Exports/DonorsExport.php:173
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:91
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:92
 #: src/Framework/FieldsAPI/BillingAddress.php:66
@@ -2851,13 +2851,13 @@ msgstr ""
 #: includes/admin/import-functions.php:460
 #: includes/admin/settings/class-settings-general.php:312
 #: includes/admin/tools/export/class-batch-export-donors.php:190
-#: includes/admin/tools/export/give-export-donations-exporter.php:198
+#: includes/admin/tools/export/give-export-donations-exporter.php:199
 #: includes/ajax-functions.php:208
 #: includes/country-functions.php:502
 #: includes/country-functions.php:552
 #: includes/country-functions.php:810
 #: includes/forms/template.php:1349
-#: src/Exports/DonorsExport.php:171
+#: src/Exports/DonorsExport.php:174
 #: build/donationFormRegistrars.js:1
 msgid "State"
 msgstr ""
@@ -2891,9 +2891,9 @@ msgstr ""
 
 #: includes/admin/import-functions.php:465
 #: includes/admin/tools/export/class-batch-export-donors.php:192
-#: includes/admin/tools/export/give-export-donations-exporter.php:200
+#: includes/admin/tools/export/give-export-donations-exporter.php:201
 #: includes/forms/template.php:1258
-#: src/Exports/DonorsExport.php:173
+#: src/Exports/DonorsExport.php:176
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:85
 #: src/Framework/FieldsAPI/BillingAddress.php:54
 #: assets/dist/js/admin-onboarding-wizard.js:5031
@@ -2907,8 +2907,8 @@ msgstr ""
 
 #: includes/admin/import-functions.php:468
 #: includes/admin/tools/export/class-batch-export-donors.php:191
-#: includes/admin/tools/export/give-export-donations-exporter.php:199
-#: src/Exports/DonorsExport.php:172
+#: includes/admin/tools/export/give-export-donations-exporter.php:200
+#: src/Exports/DonorsExport.php:175
 #: build/formBuilderRegistrars.js:1
 msgid "Zip"
 msgstr ""
@@ -2930,8 +2930,8 @@ msgid "Donor Email"
 msgstr ""
 
 #: includes/admin/import-functions.php:479
-#: includes/admin/tools/export/give-export-donations-exporter.php:215
-#: includes/admin/tools/export/give-export-donations-functions.php:302
+#: includes/admin/tools/export/give-export-donations-exporter.php:219
+#: includes/admin/tools/export/give-export-donations-functions.php:303
 #: templates/shortcode-receipt.php:94
 msgid "Donation Status"
 msgstr ""
@@ -2949,8 +2949,8 @@ msgid "Method"
 msgstr ""
 
 #: includes/admin/import-functions.php:485
-#: includes/admin/tools/export/give-export-donations-exporter.php:218
-#: includes/admin/tools/export/give-export-donations-functions.php:326
+#: includes/admin/tools/export/give-export-donations-exporter.php:222
+#: includes/admin/tools/export/give-export-donations-functions.php:327
 msgid "Payment Gateway"
 msgstr ""
 
@@ -2962,8 +2962,8 @@ msgid "Gateway"
 msgstr ""
 
 #: includes/admin/import-functions.php:490
-#: includes/admin/tools/export/give-export-donations-exporter.php:221
-#: includes/admin/tools/export/give-export-donations-functions.php:334
+#: includes/admin/tools/export/give-export-donations-exporter.php:225
+#: includes/admin/tools/export/give-export-donations-functions.php:335
 msgid "Payment Mode"
 msgstr ""
 
@@ -2978,8 +2978,8 @@ msgid "Test Mode"
 msgstr ""
 
 #: includes/admin/import-functions.php:494
-#: includes/admin/tools/export/give-export-donations-exporter.php:248
-#: includes/admin/tools/export/give-export-donations-functions.php:503
+#: includes/admin/tools/export/give-export-donations-exporter.php:252
+#: includes/admin/tools/export/give-export-donations-functions.php:512
 msgid "Donor IP Address"
 msgstr ""
 
@@ -2989,22 +2989,22 @@ msgid "Import as Meta"
 msgstr ""
 
 #: includes/admin/import-functions.php:516
-#: includes/admin/tools/export/give-export-donations-exporter.php:245
-#: includes/admin/tools/export/give-export-donations-functions.php:495
+#: includes/admin/tools/export/give-export-donations-exporter.php:249
+#: includes/admin/tools/export/give-export-donations-functions.php:504
 #: build/adminBlocks.js:1
 msgid "Donor ID"
 msgstr ""
 
 #: includes/admin/import-functions.php:517
-#: includes/admin/tools/export/export-functions.php:155
-#: includes/admin/tools/export/give-export-donations-exporter.php:242
-#: includes/admin/tools/export/give-export-donations-functions.php:487
-#: src/Exports/DonorsExport.php:175
+#: includes/admin/tools/export/export-functions.php:156
+#: includes/admin/tools/export/give-export-donations-exporter.php:246
+#: includes/admin/tools/export/give-export-donations-functions.php:496
+#: src/Exports/DonorsExport.php:178
 msgid "User ID"
 msgstr ""
 
 #: includes/admin/import-functions.php:539
-#: includes/admin/tools/export/give-export-donations-functions.php:387
+#: includes/admin/tools/export/give-export-donations-functions.php:388
 msgid "Donation Form Title"
 msgstr ""
 
@@ -3028,17 +3028,17 @@ msgid "Form Name"
 msgstr ""
 
 #: includes/admin/import-functions.php:543
-#: includes/admin/tools/export/give-export-donations-exporter.php:227
+#: includes/admin/tools/export/give-export-donations-exporter.php:231
 msgid "Form Title"
 msgstr ""
 
 #: includes/admin/import-functions.php:550
-#: includes/admin/tools/export/give-export-donations-functions.php:379
+#: includes/admin/tools/export/give-export-donations-functions.php:380
 msgid "Donation Form ID"
 msgstr ""
 
 #: includes/admin/import-functions.php:551
-#: includes/admin/tools/export/give-export-donations-exporter.php:224
+#: includes/admin/tools/export/give-export-donations-exporter.php:228
 #: build/adminBlocks.js:1
 #: build/formBuilderApp.js:13
 msgid "Form ID"
@@ -3049,7 +3049,7 @@ msgid "Level"
 msgstr ""
 
 #: includes/admin/import-functions.php:556
-#: includes/admin/tools/export/give-export-donations-exporter.php:233
+#: includes/admin/tools/export/give-export-donations-exporter.php:237
 msgid "Level Title"
 msgstr ""
 
@@ -3519,7 +3519,7 @@ msgid "Add Note"
 msgstr ""
 
 #: includes/admin/payments/view-payment-details.php:949
-#: includes/admin/tools/export/give-export-donations-exporter.php:203
+#: includes/admin/tools/export/give-export-donations-exporter.php:207
 msgid "Donor Comment"
 msgstr ""
 
@@ -5572,100 +5572,110 @@ msgstr ""
 msgid "Batch Processing Complete"
 msgstr ""
 
-#: includes/admin/tools/export/export-functions.php:156
+#: includes/admin/tools/export/export-functions.php:157
 msgid "Donor Created Date"
 msgstr ""
 
-#: includes/admin/tools/export/export-functions.php:157
-#: src/Exports/DonorsExport.php:177
+#: includes/admin/tools/export/export-functions.php:158
+#: includes/admin/tools/export/give-export-donations-exporter.php:204
+#: src/Exports/DonorsExport.php:180
+msgid "Donor Phone Number"
+msgstr ""
+
+#: includes/admin/tools/export/export-functions.php:159
+#: src/Exports/DonorsExport.php:181
 msgid "Number of donations"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-exporter.php:177
-#: includes/admin/tools/export/give-export-donations-functions.php:267
+#: includes/admin/tools/export/give-export-donations-exporter.php:178
+#: includes/admin/tools/export/give-export-donations-functions.php:268
 msgid "Donation Number"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-exporter.php:212
-#: includes/admin/tools/export/give-export-donations-functions.php:294
+#: includes/admin/tools/export/give-export-donations-exporter.php:216
+#: includes/admin/tools/export/give-export-donations-functions.php:295
 msgid "Currency Symbol"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-exporter.php:230
+#: includes/admin/tools/export/give-export-donations-exporter.php:234
 msgid "Level ID"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-exporter.php:251
-#: includes/admin/tools/export/give-export-donations-functions.php:342
+#: includes/admin/tools/export/give-export-donations-exporter.php:255
+#: includes/admin/tools/export/give-export-donations-functions.php:343
 msgid "Donation Note (private)"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-exporter.php:254
-#: includes/admin/tools/export/give-export-donations-functions.php:350
+#: includes/admin/tools/export/give-export-donations-exporter.php:258
+#: includes/admin/tools/export/give-export-donations-functions.php:351
 msgid "Donation Note (to donor)"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:238
+#: includes/admin/tools/export/give-export-donations-functions.php:239
 msgid "Standard Columns:"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:248
+#: includes/admin/tools/export/give-export-donations-functions.php:249
 msgid "Donation Payment Fields"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:370
+#: includes/admin/tools/export/give-export-donations-functions.php:371
 msgid "Donation Form Fields"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:395
+#: includes/admin/tools/export/give-export-donations-functions.php:396
 msgid "Donation Form Level ID"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:403
+#: includes/admin/tools/export/give-export-donations-functions.php:404
 msgid "Donation Form Level Title"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:423
+#: includes/admin/tools/export/give-export-donations-functions.php:424
 msgid "Donor Fields"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:431
+#: includes/admin/tools/export/give-export-donations-functions.php:432
 msgid "Donor's Title Prefix"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:439
+#: includes/admin/tools/export/give-export-donations-functions.php:440
 msgid "Donor's First Name"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:447
+#: includes/admin/tools/export/give-export-donations-functions.php:448
 msgid "Donor's Last Name"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:455
+#: includes/admin/tools/export/give-export-donations-functions.php:456
 msgid "Donor's Email"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:471
+#: includes/admin/tools/export/give-export-donations-functions.php:472
 msgid "Donor's Billing Address"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:479
+#: includes/admin/tools/export/give-export-donations-functions.php:480
+msgid "Donor's Phone Number"
+msgstr ""
+
+#: includes/admin/tools/export/give-export-donations-functions.php:488
 msgid "Donor's Comment"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:545
+#: includes/admin/tools/export/give-export-donations-functions.php:554
 msgid "Custom Field Columns:"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:550
+#: includes/admin/tools/export/give-export-donations-functions.php:559
 msgid "The following fields may have been created by custom code, or another plugin."
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:570
+#: includes/admin/tools/export/give-export-donations-functions.php:579
 msgid "Hidden Custom Field Columns:"
 msgstr ""
 
-#: includes/admin/tools/export/give-export-donations-functions.php:575
+#: includes/admin/tools/export/give-export-donations-functions.php:584
 msgid "The following hidden custom fields contain data created by GiveWP Core, a GiveWP Add-on, another plugin, etc.<br/>Hidden fields are generally used for programming logic, but may contain data you would like to export."
 msgstr ""
 
@@ -15602,7 +15612,7 @@ msgstr ""
 msgid "You don't have permission to view Events"
 msgstr ""
 
-#: src/Exports/DonorsExport.php:176
+#: src/Exports/DonorsExport.php:179
 msgid "Donor Created"
 msgstr ""
 

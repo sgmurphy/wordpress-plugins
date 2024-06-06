@@ -434,6 +434,7 @@ add_action( 'omnisend_plugin_updated', 'omnisend_setup_omnisend_tables' );
 add_action( 'omnisend_wordpress_updated', 'omnisend_update_plugin_information' );
 
 function omnisend_notify_about_plugin_update() {
+	Omnisend_Logger::info( 'notifying about update' );
 	Omnisend_Install::notify_about_plugin_update();
 }
 
@@ -482,17 +483,22 @@ function omnisend_detect_domain_change() {
 
 add_action( 'plugins_loaded', 'detect_omnisend_plugin_updates' );
 function detect_omnisend_plugin_updates() {
-	global $omnisend_plugin_version;
 
-	$version_db = get_option( 'omnisend_plugin_version', '0.0.0' );
+	$omnisend_plugin_version = Omnisend_Helper::omnisend_plugin_version();
+	$version_db              = get_option( 'omnisend_plugin_version', '0.0.0' );
+
+	if ( ! $omnisend_plugin_version ) {
+		Omnisend_Logger::warning( "Cannot get Omnisend plugin version from file - version db: $version_db" );
+		return;
+	}
 
 	if ( $omnisend_plugin_version != $version_db ) {
 		update_option( 'omnisend_plugin_version', $omnisend_plugin_version );
-		Omnisend_Logger::info( "Omnisend plugin updated $version_db  -> $omnisend_plugin_version" );
+		Omnisend_Logger::info( "Omnisend plugin updated - version db: $version_db  -> plugin version: $omnisend_plugin_version" );
 	}
 
 	if ( version_compare( $version_db, $omnisend_plugin_version, '<' ) ) {
-		do_action( 'omnisend_plugin_updated', $version_db, $omnisend_plugin_version );
+		wp_schedule_single_event( time() + 60, 'omnisend_plugin_updated', array( $version_db, $omnisend_plugin_version ) );
 	}
 }
 

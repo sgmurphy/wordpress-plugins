@@ -1,10 +1,10 @@
 === Hide Admin Menu ===
-Contributors: Bhavin Thummar & Maulik Patel
+Contributors: bhavinthummar
 Donate link: https://www.paypal.me/BThummar
-Tags: WordPress, admin, menu hide, admin menu, admin menu hide, admin menu show, admin menu plugin, user role
+Tags:  menu hide, admin menu hide, admin menu show, admin menu plugin, user role
 Requires at least: 4.6
-Tested up to: 6.2
-Stable tag: 1.1.1
+Tested up to: 6.5.4
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: 
  
@@ -53,6 +53,7 @@ Update the necessary setting to show any menu again by this URL.
 6. Removed the use of the $_SESSION of PHP and used the wp_session in version 1.0.9 to solve the session-related warning in the website. 
 7. In version 1.1.0, solved the issue of not hiding the customized menu. Also removed unnecessary CSS for one class from the CSS file which conflicts with other CSS.
 8. In version 1.1.1, Tested with WordPress 6.2 and solved the warning related to the already sent content during the updating of the form.
+9. Version 1.1.2 is tested with WordPress 6.5.4.
 
 == Upgrade Notice ==
 1. This new version is where you can also hide the sub-menu of the sidebar of admin. 

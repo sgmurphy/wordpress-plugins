@@ -206,13 +206,10 @@
 				switch ( disablePartialValue ) {
 					case 1024:
 						slidesPerView1024 = Math.floor( slidesPerView1024 );
-						break;
 					case 768:
 						slidesPerView768 = Math.floor( slidesPerView768 );
-						break;
 					case 680:
 						slidesPerView680 = Math.floor( slidesPerView680 );
-						break;
 					case 480:
 						slidesPerView480 = Math.floor( slidesPerView480 );
 						break;
@@ -986,48 +983,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_banner = {};
-
-	$( document ).ready(
-		function () {
-			qodefInitBanner.init();
-		}
-	);
-
-	var qodefInitBanner = {
-		init: function () {
-			this.holder = $( '.qodef-qi-banner' );
-
-			if ( this.holder.length ) {
-				this.holder.each(
-					function () {
-						qodefInitBanner.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function ( $currentItem ) {
-			var $buttonItem = $currentItem.find( '.qodef-qi-button' );
-
-			if ( $buttonItem.hasClass( 'qodef-type--icon-boxed' ) ) {
-				var $buttonIcon = $buttonItem.find( '.qodef-m-icon' ),
-					height      = $buttonItem.find( '.qodef-m-text' ).outerHeight();
-
-				$buttonIcon.css(
-					'width',
-					height
-				);
-			}
-		}
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_banner.qodefInitBanner = qodefInitBanner;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text = {};
 
 	$( document ).ready(
@@ -1081,6 +1036,48 @@
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text.qodefAppear       = qodefAddonsCore.qodefAppear;
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_animated_text.qodefAnimatedText = qodefAnimatedText;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_banner = {};
+
+	$( document ).ready(
+		function () {
+			qodefInitBanner.init();
+		}
+	);
+
+	var qodefInitBanner = {
+		init: function () {
+			this.holder = $( '.qodef-qi-banner' );
+
+			if ( this.holder.length ) {
+				this.holder.each(
+					function () {
+						qodefInitBanner.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $currentItem ) {
+			var $buttonItem = $currentItem.find( '.qodef-qi-button' );
+
+			if ( $buttonItem.hasClass( 'qodef-type--icon-boxed' ) ) {
+				var $buttonIcon = $buttonItem.find( '.qodef-m-icon' ),
+					height      = $buttonItem.find( '.qodef-m-text' ).outerHeight();
+
+				$buttonIcon.css(
+					'width',
+					height
+				);
+			}
+		}
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_banner.qodefInitBanner = qodefInitBanner;
 
 })( jQuery );
 
@@ -1217,15 +1214,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action = {};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action.qodefButton = qodefAddonsCore.qodefButton;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_gallery = {};
 
 	$( document ).ready(
@@ -1308,6 +1296,15 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_cards_gallery.qodefCardsGallery = qodefCardsGallery;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action = {};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_call_to_action.qodefButton = qodefAddonsCore.qodefButton;
 
 })( jQuery );
 
@@ -2344,15 +2341,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_banner = {};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_banner.qodefButton = qodefAddonsCore.qodefButton;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_link_showcase = {};
 
 	$( document ).ready(
@@ -2407,6 +2395,15 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_link_showcase.qodefInteractiveLinkShowcase = qodefInteractiveLinkShowcase;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_banner = {};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_interactive_banner.qodefButton = qodefAddonsCore.qodefButton;
 
 })( jQuery );
 
@@ -2774,191 +2771,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_horizontal = {};
-
-	$( document ).ready(
-		function () {
-			qodefProgressBar.init();
-		}
-	);
-
-	/**
-	 * Init progress bar - horizontal shortcode functionality
-	 */
-	var qodefProgressBar = {
-		init: function () {
-			this.holder = $( '.qodef-qi-progress-bar-horizontal' );
-
-			if ( this.holder.length ) {
-				this.holder.each(
-					function () {
-						qodefProgressBar.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function ( $currentItem ) {
-
-			qodefAddonsCore.qodefIsInViewport.check(
-				$currentItem,
-				function () {
-					$currentItem.addClass( 'qodef--init' );
-
-					var $container = $currentItem.find( '.qodef-m-canvas' ),
-						data       = qodefProgressBar.generateBarData( $currentItem ),
-						number     = $currentItem.data( 'number' ) / 100;
-
-					qodefProgressBar.initHorizontalBar(
-						$container,
-						data,
-						number,
-						$currentItem
-					);
-				}
-			);
-		},
-		generateBarData: function ( $thisBar ) {
-			var activeWidth    = $thisBar.data( 'active-line-width' );
-			var activeColor    = $thisBar.data( 'active-line-color' );
-			var inactiveWidth  = $thisBar.data( 'inactive-line-width' );
-			var inactiveColor  = $thisBar.data( 'inactive-line-color' );
-			var easing         = 'easeInOut';
-			var duration       = typeof $thisBar.data( 'duration' ) !== 'undefined' && $thisBar.data( 'duration' ) !== '' ? parseInt(
-				$thisBar.data( 'duration' ),
-				10
-			) : 1200;
-			var percentageType = $thisBar.data( 'percentage-type' );
-			var progressWidth  = $thisBar.width();
-
-			return {
-				color: activeColor,
-				strokeWidth: activeWidth * 100 / progressWidth,
-				trailColor: inactiveColor,
-				trailWidth: inactiveWidth * 100 / progressWidth,
-				svgStyle: {
-					display: 'block',
-					width: '100%',
-				},
-				easing: easing,
-				duration: duration,
-				from: {
-					color: inactiveColor
-				},
-				to: {
-					color: activeColor
-				},
-				step: function ( state, bar ) {
-					var val = Math.round( bar.value() * 100 );
-					$thisBar.find( '.qodef-m-value-inner' ).html( val + '<span class="qodef-m-percentage">%</span>' );
-
-					if ( 'floating-above' === percentageType || 'floating-on' === percentageType ) {
-						$thisBar.find( '.qodef-m-value' )[0].style.left = (val + '%');
-					}
-				},
-			};
-		},
-		initHorizontalBar: function ( $container, data, number, thisBar ) {
-			if ( qodefProgressBar.checkBar( $container ) ) {
-
-				var $bar = new ProgressBar.Line(
-					$container[0],
-					data
-				);
-
-				var enableGradient = thisBar.data( 'gradient-fill' );
-				if ( enableGradient === 'yes' ) {
-					qodefProgressBar.generateGradient( thisBar );
-				}
-
-				var patternImage = thisBar.data( 'pattern' );
-				if ( undefined !== patternImage ) {
-					thisBar.find( 'svg' ).css(
-						'background-image',
-						'url("' + patternImage + '")'
-					);
-				}
-
-				$bar.animate( number );
-			}
-		},
-		checkBar: function ( $container ) {
-			// check if svg is already in container, elementor fix.
-			if ( $container.find( 'svg' ).length ) {
-				return false;
-			}
-
-			return true;
-		},
-		generateGradient: function ( thisBar ) {
-
-			var svgns    = 'http://www.w3.org/2000/svg';
-			var defs     = document.createElementNS(
-				svgns,
-				'defs'
-			);
-			var gradient = document.createElementNS(
-				svgns,
-				'linearGradient'
-			);
-			var stops    = [
-				{ 'color': thisBar.data( 'gradient-start' ), 'offset': '0%', },
-				{ 'color': thisBar.data( 'gradient-end' ), 'offset': '100%', },
-			];
-
-			for ( var i = 0, length = stops.length; i < length; i++ ) {
-				var stop = document.createElementNS(
-					svgns,
-					'stop'
-				);
-				stop.setAttribute(
-					'offset',
-					stops[i].offset
-				);
-				stop.setAttribute(
-					'stop-color',
-					stops[i].color
-				);
-				gradient.appendChild( stop );
-			}
-
-			gradient.id = 'Gradient-' + thisBar.data( 'rand-id' );
-			gradient.setAttribute(
-				'gradientUnits',
-				'userSpaceOnUse'
-			);
-			gradient.setAttribute(
-				'x1',
-				'0'
-			);
-			gradient.setAttribute(
-				'x2',
-				thisBar.data( 'number' ) + '%'
-			);
-			gradient.setAttribute(
-				'y1',
-				'0'
-			);
-			gradient.setAttribute(
-				'y2',
-				'0'
-			);
-			defs.appendChild( gradient );
-
-			thisBar[0].querySelector( '.qodef-m-canvas svg' ).appendChild( defs );
-			thisBar[0].querySelector( '.qodef-m-canvas svg path:nth-child(2)' ).setAttribute(
-				'stroke',
-				'url(#Gradient-' + thisBar.data( 'rand-id' ) + ')'
-			);
-		},
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_horizontal.qodefProgressBar = qodefProgressBar;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_vertical = {};
 
 	$( document ).ready(
@@ -3163,6 +2975,191 @@
 	};
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_vertical.qodefProgressBar = qodefProgressBar;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_horizontal = {};
+
+	$( document ).ready(
+		function () {
+			qodefProgressBar.init();
+		}
+	);
+
+	/**
+	 * Init progress bar - horizontal shortcode functionality
+	 */
+	var qodefProgressBar = {
+		init: function () {
+			this.holder = $( '.qodef-qi-progress-bar-horizontal' );
+
+			if ( this.holder.length ) {
+				this.holder.each(
+					function () {
+						qodefProgressBar.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $currentItem ) {
+
+			qodefAddonsCore.qodefIsInViewport.check(
+				$currentItem,
+				function () {
+					$currentItem.addClass( 'qodef--init' );
+
+					var $container = $currentItem.find( '.qodef-m-canvas' ),
+						data       = qodefProgressBar.generateBarData( $currentItem ),
+						number     = $currentItem.data( 'number' ) / 100;
+
+					qodefProgressBar.initHorizontalBar(
+						$container,
+						data,
+						number,
+						$currentItem
+					);
+				}
+			);
+		},
+		generateBarData: function ( $thisBar ) {
+			var activeWidth    = $thisBar.data( 'active-line-width' );
+			var activeColor    = $thisBar.data( 'active-line-color' );
+			var inactiveWidth  = $thisBar.data( 'inactive-line-width' );
+			var inactiveColor  = $thisBar.data( 'inactive-line-color' );
+			var easing         = 'easeInOut';
+			var duration       = typeof $thisBar.data( 'duration' ) !== 'undefined' && $thisBar.data( 'duration' ) !== '' ? parseInt(
+				$thisBar.data( 'duration' ),
+				10
+			) : 1200;
+			var percentageType = $thisBar.data( 'percentage-type' );
+			var progressWidth  = $thisBar.width();
+
+			return {
+				color: activeColor,
+				strokeWidth: activeWidth * 100 / progressWidth,
+				trailColor: inactiveColor,
+				trailWidth: inactiveWidth * 100 / progressWidth,
+				svgStyle: {
+					display: 'block',
+					width: '100%',
+				},
+				easing: easing,
+				duration: duration,
+				from: {
+					color: inactiveColor
+				},
+				to: {
+					color: activeColor
+				},
+				step: function ( state, bar ) {
+					var val = Math.round( bar.value() * 100 );
+					$thisBar.find( '.qodef-m-value-inner' ).html( val + '<span class="qodef-m-percentage">%</span>' );
+
+					if ( 'floating-above' === percentageType || 'floating-on' === percentageType ) {
+						$thisBar.find( '.qodef-m-value' )[0].style.left = (val + '%');
+					}
+				},
+			};
+		},
+		initHorizontalBar: function ( $container, data, number, thisBar ) {
+			if ( qodefProgressBar.checkBar( $container ) ) {
+
+				var $bar = new ProgressBar.Line(
+					$container[0],
+					data
+				);
+
+				var enableGradient = thisBar.data( 'gradient-fill' );
+				if ( enableGradient === 'yes' ) {
+					qodefProgressBar.generateGradient( thisBar );
+				}
+
+				var patternImage = thisBar.data( 'pattern' );
+				if ( undefined !== patternImage ) {
+					thisBar.find( 'svg' ).css(
+						'background-image',
+						'url("' + patternImage + '")'
+					);
+				}
+
+				$bar.animate( number );
+			}
+		},
+		checkBar: function ( $container ) {
+			// check if svg is already in container, elementor fix.
+			if ( $container.find( 'svg' ).length ) {
+				return false;
+			}
+
+			return true;
+		},
+		generateGradient: function ( thisBar ) {
+
+			var svgns    = 'http://www.w3.org/2000/svg';
+			var defs     = document.createElementNS(
+				svgns,
+				'defs'
+			);
+			var gradient = document.createElementNS(
+				svgns,
+				'linearGradient'
+			);
+			var stops    = [
+				{ 'color': thisBar.data( 'gradient-start' ), 'offset': '0%', },
+				{ 'color': thisBar.data( 'gradient-end' ), 'offset': '100%', },
+			];
+
+			for ( var i = 0, length = stops.length; i < length; i++ ) {
+				var stop = document.createElementNS(
+					svgns,
+					'stop'
+				);
+				stop.setAttribute(
+					'offset',
+					stops[i].offset
+				);
+				stop.setAttribute(
+					'stop-color',
+					stops[i].color
+				);
+				gradient.appendChild( stop );
+			}
+
+			gradient.id = 'Gradient-' + thisBar.data( 'rand-id' );
+			gradient.setAttribute(
+				'gradientUnits',
+				'userSpaceOnUse'
+			);
+			gradient.setAttribute(
+				'x1',
+				'0'
+			);
+			gradient.setAttribute(
+				'x2',
+				thisBar.data( 'number' ) + '%'
+			);
+			gradient.setAttribute(
+				'y1',
+				'0'
+			);
+			gradient.setAttribute(
+				'y2',
+				'0'
+			);
+			defs.appendChild( gradient );
+
+			thisBar[0].querySelector( '.qodef-m-canvas svg' ).appendChild( defs );
+			thisBar[0].querySelector( '.qodef-m-canvas svg path:nth-child(2)' ).setAttribute(
+				'stroke',
+				'url(#Gradient-' + thisBar.data( 'rand-id' ) + ')'
+			);
+		},
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_progress_bar_horizontal.qodefProgressBar = qodefProgressBar;
 
 })( jQuery );
 
@@ -3684,81 +3681,6 @@
 (function ( $ ) {
 	'use strict';
 
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_typeout_text = {};
-
-	$( document ).ready(
-		function () {
-			qodefTypeoutText.init();
-		}
-	);
-
-	$( window ).on(
-		'elementor/frontend/init',
-		function () {
-			if ( elementorFrontend.isEditMode() ) {
-				elementor.channels.editor.on(
-					'change',
-					function () {
-						qodefTypeoutText.init();
-					}
-				);
-			}
-		}
-	);
-
-	/**
-	 * Init charts shortcode functionality
-	 */
-	var qodefTypeoutText = {
-		init: function () {
-			this.holder = $( '.qodef-qi-typeout-text' );
-
-			if ( this.holder.length ) {
-				this.holder.each(
-					function () {
-						qodefTypeoutText.initItem( $( this ) );
-					}
-				);
-			}
-		},
-		initItem: function ( $currentItem ) {
-			var $qodefTypeout = $currentItem.find( '.qodef-typeout' ),
-				strings       = $currentItem.data( 'strings' ),
-				cursor        = typeof $currentItem.data( 'cursor' ) !== 'undefined' ? $currentItem.data( 'cursor' ) : '';
-
-			$qodefTypeout.each(
-				function () {
-					var $this   = $( this ),
-						options = {
-							strings: strings,
-							typeSpeed: 90,
-							backDelay: 700,
-							loop: true,
-							contentType: 'text',
-							loopCount: false,
-							cursorChar: cursor
-					};
-
-					if ( ! $this.hasClass( 'qodef--initialized' ) ) {
-
-						var typed = new Typed(
-							$this[0],
-							options
-						);
-						$this.addClass( 'qodef--initialized' );
-					}
-				}
-			);
-		}
-	};
-
-	qodefAddonsCore.shortcodes.qi_addons_for_elementor_typeout_text.qodefTypeoutText = qodefTypeoutText;
-
-})( jQuery );
-
-(function ( $ ) {
-	'use strict';
-
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline = {};
 
 	$( document ).ready(
@@ -3899,6 +3821,81 @@
 
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline.qodefTimeline = qodefTimeline;
 	qodefAddonsCore.shortcodes.qi_addons_for_elementor_timeline.qodefAppear   = qodefAddonsCore.qodefAppear;
+
+})( jQuery );
+
+(function ( $ ) {
+	'use strict';
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_typeout_text = {};
+
+	$( document ).ready(
+		function () {
+			qodefTypeoutText.init();
+		}
+	);
+
+	$( window ).on(
+		'elementor/frontend/init',
+		function () {
+			if ( elementorFrontend.isEditMode() ) {
+				elementor.channels.editor.on(
+					'change',
+					function () {
+						qodefTypeoutText.init();
+					}
+				);
+			}
+		}
+	);
+
+	/**
+	 * Init charts shortcode functionality
+	 */
+	var qodefTypeoutText = {
+		init: function () {
+			this.holder = $( '.qodef-qi-typeout-text' );
+
+			if ( this.holder.length ) {
+				this.holder.each(
+					function () {
+						qodefTypeoutText.initItem( $( this ) );
+					}
+				);
+			}
+		},
+		initItem: function ( $currentItem ) {
+			var $qodefTypeout = $currentItem.find( '.qodef-typeout' ),
+				strings       = $currentItem.data( 'strings' ),
+				cursor        = typeof $currentItem.data( 'cursor' ) !== 'undefined' ? $currentItem.data( 'cursor' ) : '';
+
+			$qodefTypeout.each(
+				function () {
+					var $this   = $( this ),
+						options = {
+							strings: strings,
+							typeSpeed: 90,
+							backDelay: 700,
+							loop: true,
+							contentType: 'text',
+							loopCount: false,
+							cursorChar: cursor
+					};
+
+					if ( ! $this.hasClass( 'qodef--initialized' ) ) {
+
+						var typed = new Typed(
+							$this[0],
+							options
+						);
+						$this.addClass( 'qodef--initialized' );
+					}
+				}
+			);
+		}
+	};
+
+	qodefAddonsCore.shortcodes.qi_addons_for_elementor_typeout_text.qodefTypeoutText = qodefTypeoutText;
 
 })( jQuery );
 

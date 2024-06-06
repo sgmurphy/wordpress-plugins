@@ -1745,11 +1745,6 @@ parameters:
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
-			message: "#^Method Astra_Sites_Batch_Processing\\:\\:get_default_assets\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
-
-		-
 			message: "#^Method Astra_Sites_Batch_Processing\\:\\:get_pages\\(\\) has parameter \\$post_types with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php

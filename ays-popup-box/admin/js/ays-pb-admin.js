@@ -204,6 +204,7 @@
         var menuItemWidths0 = [];
         var menuItemWidths = [];
         var menuItemWidth = 0;
+        var subButtons = '.button#ays-button-top, .button#ays-button-top-apply, .button#ays-button, .button#ays-button-apply, .button#ays_submit_settings';
         // Starter variables declare end
 
         // Set wpeditor height start
@@ -413,11 +414,22 @@
         })
         // List table | Filter end
 
-        // List table | Bulk delete confirm start
+        // List table | Delete confiramtions start
         $(document).find('input[type="submit"]#doaction, input[type="submit"]#doaction2').on('click', function(e) {
             showConfirmationIfDelete(e);
         })
-        // List table | Bulk delete confirm end
+
+        $(document).on('click', '.ays_pb_confirm_del', function(e) {
+            e.preventDefault();
+
+            var message = $(this).attr('data-message');
+            var confirm = window.confirm('Are you sure you want to delete ' + message + '?');
+
+            if (confirm === true) {
+                window.location.replace($(this).attr('href'));
+            }
+        });
+        // List table | Delete confiramtions end
 
         // Choose popup type start
         $(document).find('.ays_pb_layer_box_blocks .ays-pb-dblclick-layer').on('click',function(e) {
@@ -548,6 +560,19 @@
             $(document).find('.ays-pb-subtitle-main-box .ays-pb-popups-data').hide('fast');
         });
         // Close popup list end
+
+        // Ctrl + S save start
+        $(document).keydown(function(event) {
+            if (!(event.which == 83 && event.ctrlKey) && !(event.which == 19)) {
+                return true;
+            }
+    
+            var editButton = $(document).find('input#ays-button-top-apply , input#ays-cat-button-apply , input#ays-button-apply, input#ays_submit_settings');
+            editButton.trigger('click');
+            event.preventDefault();
+            return false;
+        });
+        // Ctrl + S save end
 
         // Redirect to another popup start
         $(document).find('.ays-pb-go-to-popups').on('click' , function(e) {
@@ -877,7 +902,7 @@
             } else {
                 $(document).find('.ays_pb_timer').css({'visibility':'visible'});
             }
-        })
+        });
         // Toggle hide timer cb end
 
         // Toggle enable overlay cb start
@@ -1048,6 +1073,12 @@
         });
         // Toggle title text shadow end
 
+        // Background image | Add start
+        $(document).on('click', 'a.ays-pb-add-bg-image, a.ays-pb-add-bg-image-mobile', function(e) {
+            openMediaUploaderBg(e, $(this));
+        });
+        // Background image | Add end
+
         // Background image | Remove start
         $(document).on('click', '.ays-remove-bg-img, .ays-remove-bg-img-mobile', function() {
             var bgImageTag = $('img#ays-pb-bg-img-mobile');
@@ -1140,7 +1171,13 @@
         });
         // Toggle box shadow end
 
-        // Close button | Remove background image start
+        // Close button image | Add start
+        $(document).on('click', 'a.ays_pb_add_close_btn_bg_image', function(e) {
+            openMediaUploaderCloseBtn(e, $(this));
+        });
+        // Close button image | Add end
+
+        // Close button image | Remove start
         $(document).on('click', '.ays_remove_bg_img', function() {
             $('img#ays_close_btn_bg_img').attr('src', '');
             $('input#close_btn_bg_img').val('');
@@ -1150,7 +1187,7 @@
             $(document).find('img.close_btn_img').css('display','none');
             $(document).find('label.close_btn_label > .close_btn_text').css('display','block');
         });
-        // Close button | Remove background image end
+        // Close button image | Remove end
 
         // Reset styles start
         $(document).on('click', '.ays-pb-reset-styles', function() {
@@ -1571,63 +1608,41 @@
         });
         // Footer end
 
-        function searchForPage(params, data) {
-            // If there are no search terms, return all of the data
-            if ($.trim(params.term) === '') {
-              return data;
+        // Popup save start
+        $(document).on('click', subButtons, function() {
+            var $this = $(this);
+    
+            $this.addClass('ays-save-button-clicked');
+            submitOnce($this);
+        });
+        // Popup save end
+
+        // Popup category save start
+        $(document).on('click', '.button#ays-cat-button-apply, .button#ays-cat-button', function() {
+            var catTitle = $(document).find('#ays-title').val();
+    
+            if (catTitle != '') {
+                var $this = $(this);
+                subButtons += ', .button#ays-cat-button-apply';
+    
+                $this.addClass('ays-save-button-clicked');
+                submitOnce($this);
             }
+        });
+        // Popup category save end
 
-            // Do not display the item if there is no 'text' property
-            if (typeof data.text === 'undefined') {
-              return null;
+        // Go to next/prev popup confirmation end
+        $(document).on('click', '#ays-popups-next-button, #ays-popups-prev-button, .ays-pb-next-prev-button-class', function(e) {
+            e.preventDefault();
+    
+            var message = $(this).attr('data-message');
+            var confirm = window.confirm(message);
+    
+            if (confirm === true) {
+                window.location.replace($(this).attr('href'));
             }
-            var searchText = data.text.toLowerCase();
-            // `params.term` should be the term that is used for searching
-            // `data.text` is the text that is displayed for the data object
-            if (searchText.indexOf(params.term) > -1) {
-              var modifiedData = $.extend({}, data, true);
-              modifiedData.text += ' (matched)';
-
-              // You can return modified objects from here
-              // This includes matching the `children` how you want in nested data sets
-              return modifiedData;
-            }
-
-            // Return `null` if the term should not be displayed
-            return null;
-        }
-
-        function catFilterForListTable(link, options) {
-            if (options.value != '') {
-                options.value = '&' + options.what + '=' + options.value;
-                var linkModifiedStart = link.split('?')[0];
-                var linkModified = link.split('?')[1].split('&');
-
-                for (var i = 0; i < linkModified.length; i++) {
-                    if (linkModified[i].split('=')[0] == 'ays_result_tab' ) {
-                        linkModified.splice(i, 1, 'ays_result_tab=poststuff');
-                    }
-                    if (linkModified[i].split('=')[0] == options.what) {
-                        linkModified.splice(i, 1);
-                    }
-                }
-
-                linkModified = linkModified.join('&');
-                return linkModifiedStart + '?' + linkModified + options.value;
-            } else {
-                var linkModifiedStart = link.split('?')[0];
-                var linkModified = link.split('?')[1].split('&');
-
-                for (var i = 0; i < linkModified.length; i++) {
-                    if (linkModified[i].split('=')[0] == options.what) {
-                        linkModified.splice(i, 1);
-                    }
-                }
-
-                linkModified = linkModified.join('&');
-                return linkModifiedStart + '?' + linkModified;
-            }
-        }
+        });
+        // Go to next/prev popup confirmation end
 
         function showConfirmationIfDelete(e) {
             var $el = $(e.target);
@@ -1656,14 +1671,6 @@
                     warningNoteContainer.fadeOut('slow');
                 }
             });
-        }
-
-        function aysPopupstripHTML(dirtyString) {
-            var container = document.createElement('div');
-            var text = document.createTextNode(dirtyString);
-            container.appendChild(text);
-
-            return container.innerHTML; // innerHTML will be a xss safe string
         }
 
         function toggleMobileSettings() {
@@ -1786,44 +1793,88 @@
             }
         }
 
-        function openMusicMediaUploader(e, element) {
-            e.preventDefault();
-            let aysUploader = wp.media({
-                title: 'Upload music',
-                button: {
-                    text: 'Upload'
-                },
-                library: {
-                    type: 'audio'
-                },
-                multiple: false
-            }).on('select', function() {
-                let attachment = aysUploader.state().get('selection').first().toJSON();
-                element.next().attr('src', attachment.url);
-                element.parent().find('input.ays_pb_bg_music').val(attachment.url).trigger('change');
-                element.parent().find('.ays_pb_sound_close_btn').show();
-            }).open();
-
-            return false;
+        function submitOnce(subButton) {
+            var subLoader = subButton.siblings('.display_none');
+    
+            subLoader.removeClass('display_none');
+            subLoader.css('padding-left', '8px');
+            subLoader.css('display', 'inline-flex');
+    
+            setTimeout(function() {
+                $(subButtons).attr('disabled', true);
+            }, 50);
+            setTimeout(function() {
+                $(subButtons).attr('disabled', false);
+                subLoader.addClass('display_none');
+            }, 5000);
         }
     });
 
-    $(document).on('click', 'a.ays-pb-add-bg-image, a.ays-pb-add-bg-image-mobile', function (e) {
-        openMediaUploaderBg(e, $(this));
-    });
-    $(document).on('click', 'a.ays_pb_add_close_btn_bg_image', function (e) {
-        openMediaUploaderCloseBtn(e, $(this));
-    });
+    function aysPopupstripHTML(dirtyString) {
+        var container = document.createElement('div');
+        var text = document.createTextNode(dirtyString);
+        container.appendChild(text);
 
-    $(document).keydown(function(event) {
-        var editButton = $(document).find("input#ays-button-top-apply , input#ays-cat-button-apply , input#ays-button-apply, input#ays_submit_settings");
-        if (!(event.which == 83 && event.ctrlKey) && !(event.which == 19)){
-            return true;  
+        return container.innerHTML; // innerHTML will be a xss safe string
+    }
+
+    function catFilterForListTable(link, options) {
+        if (options.value != '') {
+            options.value = '&' + options.what + '=' + options.value;
+            var linkModifiedStart = link.split('?')[0];
+            var linkModified = link.split('?')[1].split('&');
+
+            for (var i = 0; i < linkModified.length; i++) {
+                if (linkModified[i].split('=')[0] == 'ays_result_tab' ) {
+                    linkModified.splice(i, 1, 'ays_result_tab=poststuff');
+                }
+                if (linkModified[i].split('=')[0] == options.what) {
+                    linkModified.splice(i, 1);
+                }
+            }
+
+            linkModified = linkModified.join('&');
+            return linkModifiedStart + '?' + linkModified + options.value;
+        } else {
+            var linkModifiedStart = link.split('?')[0];
+            var linkModified = link.split('?')[1].split('&');
+
+            for (var i = 0; i < linkModified.length; i++) {
+                if (linkModified[i].split('=')[0] == options.what) {
+                    linkModified.splice(i, 1);
+                }
+            }
+
+            linkModified = linkModified.join('&');
+            return linkModifiedStart + '?' + linkModified;
         }
-        editButton.trigger("click");
-        event.preventDefault();
-        return false;
-    });
+    }
+
+    function searchForPage(params, data) {
+        // If there are no search terms, return all of the data
+        if ($.trim(params.term) === '') {
+          return data;
+        }
+
+        // Do not display the item if there is no 'text' property
+        if (typeof data.text === 'undefined') {
+          return null;
+        }
+        var searchText = data.text.toLowerCase();
+        // `params.term` should be the term that is used for searching
+        // `data.text` is the text that is displayed for the data object
+        if (searchText.indexOf(params.term) > -1) {
+          var modifiedData = $.extend({}, data, true);
+          modifiedData.text += ' (matched)';
+
+          // You can return modified objects from here
+          // This includes matching the `children` how you want in nested data sets
+          return modifiedData;
+        }
+
+        // Return `null` if the term should not be displayed
+        return null;
+    }
 
     function openComponentOptions(e) {
         let el = $(e.target.closest('div.open_component_options'));
@@ -1856,76 +1907,9 @@
         optionsWrapper.find('div.ays_pb_component_option').slideUp();
     }
 
-    function openMediaUploaderBg(e, element) {
-        e.preventDefault();
-        let aysUploader = wp.media({
-            title: 'Upload',
-            button: {
-                text: 'Upload'
-            },
-            library: {
-                type: 'image'
-            },
-            multiple: false
-        }).on('select', function () {
-            let attachment = aysUploader.state().get('selection').first().toJSON();
-            element.text(pb.editImage);
-            element.attr('data-add', true);
-
-            var bgImageContainer = $('.ays-pb-bg-image-container-mobile')
-            var bgImageTag = $('img#ays-pb-bg-img-mobile');
-            var bgImageInp = $('input#ays-pb-bg-image-mobile');
-            if( !element.hasClass('ays-pb-add-bg-image-mobile') ) {
-                bgImageContainer = $('.ays-pb-bg-image-container');
-                bgImageTag = $('img#ays-pb-bg-img');
-                bgImageInp = $('input#ays-pb-bg-image');
-
-                $('.box-apm').css('background-image', `url('${attachment.url}')`);
-                $('.ays_bg_image_box').css({
-                    'background-image' : `url('${attachment.url} ')`,
-                    'background-repeat' : 'no-repeat',
-                    'background-size' : 'cover',
-                });
-            }
-
-            bgImageContainer.parent().fadeIn();
-            bgImageTag.attr('src', attachment.url);
-            bgImageInp.val(attachment.url).trigger('change');
-        }).open();
-        return false;
-    }
-    function openMediaUploaderCloseBtn(e, element) {
-        e.preventDefault();
-        let aysUploader = wp.media({
-            title: 'Upload',
-            button: {
-                text: 'Upload'
-            },
-            library: {
-                type: 'image'
-            },
-            multiple: false
-        }).on('select', function () {
-            let attachment = aysUploader.state().get('selection').first().toJSON();
-            
-            element.text(pb.editImage);
-            
-            $('.ays_pb_close_btn_bg_img').parent().fadeIn();
-            $('img#ays_close_btn_bg_img').attr('src', attachment.url);
-            $('input#close_btn_bg_img').val(attachment.url).trigger('change');
-            
-            $('img.close_btn_img').attr('src', attachment.url);
-            $(document).find('img.close_btn_img').css('display','block');
-
-            $(document).find('label.close_btn_label > .close_btn_text').css('display','none');
-
-            ////
-        }).open();
-        return false;
-    }
-
     function openMediaUploaderVideo(e, element) {
         e.preventDefault();
+
         let aysUploader = wp.media({
             title: 'Upload',
             button: {
@@ -1935,19 +1919,23 @@
                 type: 'video'
             },
             multiple: false
-        }).on('select', function () {
+        }).on('select', function() {
             let attachment = aysUploader.state().get('selection').first().toJSON();
+
             element.text(pb.editVideo);
+
             $('.ays-pb-bg-video-container-main').fadeIn();
             $('video#ays_pb_video_theme_video').attr('src', attachment.url);
             $('input#ays_pb_video_theme').val(attachment.url);
             $(document).find('video.video_theme').attr('src',attachment.url);
         }).open();
+
         return false;
     }
 
     function openMediaUploaderImageTypeImg(e, element) {
         e.preventDefault();
+
         let aysUploader = wp.media({
             title: 'Upload',
             button: {
@@ -1959,65 +1947,110 @@
             multiple: false
         }).on('select', function () {
             let attachment = aysUploader.state().get('selection').first().toJSON();
+
             element.text(pb.editImage);
+
             $('.ays-pb-image-type-img-container-main').fadeIn();
             $('img#ays_pb_image_type_img').attr('src', attachment.url);
             $('.ays-pb-image-type-img-settings-container').removeClass('display_none');
             $('input#ays_pb_image_type_img_src').val(attachment.url);
             $('img.image_type_img_live').attr('src', attachment.url);
         }).open();
+
         return false;
     }
 
-    // Delete confirmation
-    $(document).on('click', '.ays_pb_confirm_del', function(e){            
+    function openMediaUploaderBg(e, element) {
         e.preventDefault();
-        var message = $(this).data('message');
-        var confirm = window.confirm('Are you sure you want to delete '+message+'?');
-        if(confirm === true){
-            window.location.replace($(this).attr('href'));
-        }
-    });
 
-    // Submit buttons disableing with loader
-    var subButtons = '.button#ays-button-top,.button#ays-button-top-apply,.button#ays-button,.button#ays-button-apply,.button#ays_submit_settings';
-    $(document).on('click', subButtons ,function () {
-        var $this = $(this);
+        let aysUploader = wp.media({
+            title: 'Upload',
+            button: {
+                text: 'Upload'
+            },
+            library: {
+                type: 'image'
+            },
+            multiple: false
+        }).on('select', function() {
+            let attachment = aysUploader.state().get('selection').first().toJSON();
+            element.text(pb.editImage);
+            element.attr('data-add', true);
 
-        $this.addClass('ays-save-button-clicked');
-        submitOnce($this);
-    });
-    $(document).on("click" ,".button#ays-cat-button-apply, .button#ays-cat-button", function(){
-        var catTitle = $(document).find("#ays-title").val();
-        if(catTitle != ''){
-            var $this = $(this);
-            subButtons += ',.button#ays-cat-button-apply';
+            var bgImageContainer = $('.ays-pb-bg-image-container-mobile')
+            var bgImageTag = $('img#ays-pb-bg-img-mobile');
+            var bgImageInp = $('input#ays-pb-bg-image-mobile');
 
-            $this.addClass('ays-save-button-clicked');
-            submitOnce($this);
-        }
-    });
-    function submitOnce(subButton){
-        var subLoader = subButton.siblings(".display_none");
-        subLoader.removeClass("display_none");
-        subLoader.css("padding-left" , "8px");
-        subLoader.css("display" , "inline-flex");
-        setTimeout(function() {
-            $(subButtons).attr('disabled', true);
-        }, 50);
-        setTimeout(function() {
-            $(subButtons).attr('disabled', false);
-            subLoader.addClass("display_none");
-        }, 5000);
+            if (!element.hasClass('ays-pb-add-bg-image-mobile')) {
+                bgImageContainer = $('.ays-pb-bg-image-container');
+                bgImageTag = $('img#ays-pb-bg-img');
+                bgImageInp = $('input#ays-pb-bg-image');
+
+                $('.box-apm').css('background-image', `url('${attachment.url}')`);
+                $('.ays_bg_image_box').css({
+                    'background-image': `url('${attachment.url}')`,
+                    'background-repeat': 'no-repeat',
+                    'background-size': 'cover',
+                });
+            }
+
+            bgImageContainer.parent().fadeIn();
+            bgImageTag.attr('src', attachment.url);
+            bgImageInp.val(attachment.url).trigger('change');
+        }).open();
+
+        return false;
     }
 
-    $(document).on('click', '#ays-popups-next-button, #ays-popups-prev-button, .ays-pb-next-prev-button-class', function(e){
+    function openMediaUploaderCloseBtn(e, element) {
         e.preventDefault();
-        var message = $(this).data('message');
-        var confirm = window.confirm( message );
-        if(confirm === true){
-            window.location.replace($(this).attr('href'));
-        }
-    });
+
+        let aysUploader = wp.media({
+            title: 'Upload',
+            button: {
+                text: 'Upload'
+            },
+            library: {
+                type: 'image'
+            },
+            multiple: false
+        }).on('select', function() {
+            let attachment = aysUploader.state().get('selection').first().toJSON();
+
+            element.text(pb.editImage);
+
+            $('.ays_pb_close_btn_bg_img').parent().fadeIn();
+            $('img#ays_close_btn_bg_img').attr('src', attachment.url);
+            $('input#close_btn_bg_img').val(attachment.url).trigger('change');
+            $('img.close_btn_img').attr('src', attachment.url);
+            $(document).find('img.close_btn_img').css('display','block');
+            $(document).find('label.close_btn_label > .close_btn_text').css('display','none');
+        }).open();
+
+        return false;
+    }
+
+    function openMusicMediaUploader(e, element) {
+        e.preventDefault();
+
+        let aysUploader = wp.media({
+            title: 'Upload music',
+            button: {
+                text: 'Upload'
+            },
+            library: {
+                type: 'audio'
+            },
+            multiple: false
+        }).on('select', function() {
+            let attachment = aysUploader.state().get('selection').first().toJSON();
+
+            element.next().attr('src', attachment.url);
+            element.parent().find('input.ays_pb_bg_music').val(attachment.url).trigger('change');
+            element.parent().find('.ays_pb_sound_close_btn').show();
+        }).open();
+
+        return false;
+    }
 
 })( jQuery );
