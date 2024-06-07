@@ -281,6 +281,7 @@
 				} else {
 					data[ i ].name = parent.data( 'name' );
 					data[ i ].type = 'module';
+					data[ i ].moduleType = parent.data( 'type' );
 				}
 			} );
 

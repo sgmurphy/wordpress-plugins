@@ -13,7 +13,7 @@
 
 		<div class="select-holder">
 			<select id="platform-select" name="blossomthemes_email_newsletter_settings[platform]">
-				<option value="sendinblue" <?php selected( $platform, 'sendinblue' ); ?>><?php _e( 'Sendinblue', 'blossomthemes-email-newsletter' ); ?></option>
+				<option value="sendinblue" <?php selected( $platform, 'sendinblue' ); ?>><?php _e( 'Brevo (formerly Sendinblue)', 'blossomthemes-email-newsletter' ); ?></option>
 				  <option value="mailchimp" <?php selected( $platform, 'mailchimp' ); ?>><?php _e( 'Mailchimp', 'blossomthemes-email-newsletter' ); ?></option>
 				  <option value="mailerlite" <?php selected( $platform, 'mailerlite' ); ?>><?php _e( 'Mailerlite', 'blossomthemes-email-newsletter' ); ?></option>
 				  <option value="convertkit" <?php selected( $platform, 'convertkit' ); ?>><?php _e( 'ConvertKit', 'blossomthemes-email-newsletter' ); ?></option>

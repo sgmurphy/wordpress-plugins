@@ -245,7 +245,7 @@ if (!defined('WPINC')) {
                     echo '<br>To start using the PRO version, please follow these steps:</p>';
                     echo '<ol>';
                     echo '<li><a href="https://dashboard.comingsoonwp.com/pro-download/" target="_blank">Download</a> the latest version of the PRO plugin or grab it from the purchase confirmation email we sent you.</li>';
-                    echo '<li>Go to <a href="' . admin_url('plugin-install.php') . '">Plugins - Add New - Upload Plugin</a> and upload the ZIP you just downloaded.</li>';
+                    echo '<li>Go to <a href="' . esc_url(admin_url('plugin-install.php')) . '">Plugins - Add New - Upload Plugin</a> and upload the ZIP you just downloaded.</li>';
                     echo '<li>If asked to replace (overwrite) the free version - confirm it.</li>';
                     echo '<li>Activate the plugin.</li>';
                     echo '<li>That\'s it, no more steps.</li>';

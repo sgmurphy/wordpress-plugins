@@ -2,7 +2,7 @@
 namespace FLCacheClear;
 class Autooptimize {
 
-	var $name = 'AutoOptimize';
+	var $name = 'Autoptimize';
 	var $url  = 'https://wordpress.org/plugins/autoptimize/';
 
 	var $filters = array( 'init' );

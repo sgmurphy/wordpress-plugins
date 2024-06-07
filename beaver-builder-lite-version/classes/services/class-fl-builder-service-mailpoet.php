@@ -89,7 +89,7 @@ final class FLBuilderServiceMailPoet extends FLBuilderService {
 
 			$response['html'] = self::render_list_field( $lists, $settings );
 		} catch ( Exception $e ) {
-			$response['error'] = __( 'There was an error retrieveing your lists.', 'fl-builder' );
+			$response['error'] = __( 'There was an error retrieving your lists.', 'fl-builder' );
 		}
 
 		return $response;

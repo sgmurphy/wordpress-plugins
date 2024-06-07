@@ -1033,7 +1033,7 @@ function mtnc_check_exclude()
   global $mt_options, $post;
   $mt_options = mtnc_get_plugin_options(true);
   $is_skip    = false;
-  $cur_url    = mtnc_cur_page_url();
+  
   if (is_page() || is_single()) {
     $curr_id = $post->ID;
   } else {
@@ -1052,7 +1052,7 @@ function mtnc_check_exclude()
     }
   }
 
-  if (isset($mt_options['exclude_pages']) && !empty($mt_options['exclude_pages'])) {
+  if (isset($curr_id) && isset($mt_options['exclude_pages']) && !empty($mt_options['exclude_pages'])) {
     $exlude_objs = $mt_options['exclude_pages'];
     foreach ($exlude_objs as $objs_id) {
       foreach ($objs_id as $obj_id) {

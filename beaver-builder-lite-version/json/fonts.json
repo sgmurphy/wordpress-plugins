@@ -1089,11 +1089,6 @@
     "fallback": "sans-serif"
   }
 }, {
-  "Briem Hand": {
-    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900"],
-    "fallback": "cursive"
-  }
-}, {
   "Bruno Ace": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -1182,6 +1177,11 @@
   "Cabin Sketch": {
     "variants": ["regular", "700"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Cactus Classical Serif": {
+    "variants": ["regular"],
+    "fallback": "serif"
   }
 }, {
   "Caesar Dressing": {
@@ -1442,6 +1442,11 @@
   "Chivo Mono": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "monospace"
+  }
+}, {
+  "Chocolate Classical Sans": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
   }
 }, {
   "Chokokutai": {
@@ -1717,6 +1722,11 @@
   "Dancing Script": {
     "variants": ["regular", "500", "600", "700"],
     "fallback": "cursive"
+  }
+}, {
+  "Danfo": {
+    "variants": ["regular"],
+    "fallback": "serif"
   }
 }, {
   "Dangrek": {
@@ -3049,6 +3059,11 @@
     "fallback": "cursive"
   }
 }, {
+  "Jacquard 12": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Jacquard 12 Charted": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -3507,6 +3522,16 @@
   "Kurale": {
     "variants": ["regular"],
     "fallback": "serif"
+  }
+}, {
+  "LXGW WenKai Mono TC": {
+    "variants": ["300", "regular", "700"],
+    "fallback": "monospace"
+  }
+}, {
+  "LXGW WenKai TC": {
+    "variants": ["300", "regular", "700"],
+    "fallback": "cursive"
   }
 }, {
   "La Belle Aurore": {
@@ -5495,12 +5520,12 @@
   }
 }, {
   "Noto Serif JP": {
-    "variants": ["200", "300", "regular", "500", "600", "700", "900"],
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "serif"
   }
 }, {
   "Noto Serif KR": {
-    "variants": ["200", "300", "regular", "500", "600", "700", "900"],
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "serif"
   }
 }, {
@@ -5565,7 +5590,7 @@
   }
 }, {
   "Noto Serif SC": {
-    "variants": ["200", "300", "regular", "500", "600", "700", "900"],
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "serif"
   }
 }, {
@@ -5575,7 +5600,7 @@
   }
 }, {
   "Noto Serif TC": {
-    "variants": ["200", "300", "regular", "500", "600", "700", "900"],
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "serif"
   }
 }, {

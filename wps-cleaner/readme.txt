@@ -3,8 +3,8 @@ Contributors: WPServeur, NicolasKulka, wpformation
 Donate link: https://www.paypal.me/donateWPServeur
 Tags: nettoyage, database, security, WPS Cleaner, wps-cleaner, sweep, clean, cleanup, clean up, optimize, orphan, unused, duplicated, posts, post meta, comments, comment meta, users, user meta, terms, term meta, term relationships, revisions, auto drafts, transient, tables, oembed, cleaner, wpserveur
 Requires at least: 4.2
-Tested up to: 6.3
-Stable tag: 1.6.9
+Tested up to: 6.5
+Stable tag: 1.6.10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,13 @@ This plugin is only maintained, which means we do not guarantee free support. Co
 8. Cleaning files
 
 == Changelog ==
+
+= 1.6.10.1 =
+* Fix Fatal error
+
+= 1.6.10 =
+* Tested up to 6.5
+* Add pub WPBoutik
 
 = 1.6.9 =
 * Tested up to 6.3

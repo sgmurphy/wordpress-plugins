@@ -4,7 +4,7 @@ Tags: captcha, hcaptcha, antispam, abuse, protect form
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 7.0.0
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -559,6 +559,10 @@ Instructions for popular native integrations are below:
 * [WPForms native integration: instructions to enable hCaptcha](https://wpforms.com/docs/how-to-set-up-and-use-hcaptcha-in-wpforms)
 
 == Changelog ==
+
+= 4.2.1 =
+* Fixed message layout on the General and Integrations pages.
+* Fixed processing of WooCommerce Register form.
 
 = 4.2.0 =
 * The minimum required WordPress version is now 5.3.

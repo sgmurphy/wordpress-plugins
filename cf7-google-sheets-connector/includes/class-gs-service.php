@@ -40,17 +40,18 @@ class Gs_Connector_Service {
       add_action( 'wpcf7_before_send_mail', array( $this, 'save_uploaded_files_local' ) );
       add_action( 'wpcf7_mail_sent', array( $this, 'cf7_save_to_google_sheets' ) );
 
-      add_action( 'admin_init', array( $this, 'execute_post_data_cg7_free' ) );
+      add_action( 'admin_init', array( $this, 'execute_post_data_cf7_free' ) );
 
-
-      //add_action( 'admin_notices', array( $this, 'display_upgrade_notice' ) );
-      
-      //add_action( 'wp_ajax_set_upgrade_notification_interval', array( $this, 'set_upgrade_notification_interval' ) );
-      //add_action( 'wp_ajax_close_upgrade_notification_interval', array( $this, 'close_upgrade_notification_interval' ) );
    }
 
-    public function execute_post_data_cg7_free() {
+    public function execute_post_data_cf7_free() {
         try {
+          // Check if the current user has the 'manage_options' capability
+          if (!current_user_can('manage_options')) {
+            // If the user doesn't have the required capability, show an error message or redirect
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+           }
+
             // save debug logs
             if(isset($_POST['gs_cf7free_debug_settings'])) {
                 // Open the wp-config.php file for writing
@@ -843,6 +844,8 @@ class Gs_Connector_Service {
       
         include( GS_CONNECTOR_PATH . "includes/pages/gs-custom-mail-tags.php" );
 
+        include( GS_CONNECTOR_PATH . "includes/pages/gs-conditional-logic.php" );
+
         include( GS_CONNECTOR_PATH . "includes/pages/gs-custom-ordering.php");
       
         include( GS_CONNECTOR_PATH . "includes/pages/gs-miscellaneous-features.php" );
@@ -1074,6 +1077,30 @@ class Gs_Connector_Service {
       } else {
          echo '<p><span class="gs-info">' . __( 'No custom mail tags available.','gsconnector' ) . '</span></p>';
       } 	   
+   }
+
+   function display_form_conditional_logic( $form_id, $post ){ ?>
+         <div class="misc-conditional-row">
+                <div class="misc-options-wrapper">
+
+                    <label for="enable-conditional-logic">
+                        <input type="checkbox" name="cf7-gs[enable_conditional_logic]" id="enable-conditional-logic" value="1"
+                             style="display: none;">
+                        <label for="enable-conditional-logic" class="button-woo-toggle-cf7" id="conditional-toggle"></label>
+                        <?php echo __('Conditional Logic', 'gsconnector'); ?>
+                    </label>
+
+                    <span class="tooltip" style="display: inline !important;">
+                        <img src="<?php echo GS_CONNECTOR_URL; ?>assets/img/help.png" class="help-icon">
+                        <span
+                            class="tooltiptext tooltip-right-msg"><?php echo __("The Enable Conditional Logic option in the field settings allows you to create rules to dynamically display or hide the submission to google sheet based on values.", "gsconnector"); ?>
+                              
+                      </span>
+                    </span>
+                </div>
+        <?php
+
+
    }
    
    public function display_upgrade_notice() {

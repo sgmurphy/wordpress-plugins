@@ -164,6 +164,32 @@
 															<?php printf( __( 'Remove %s', 'fl-builder' ), '{{data.parentMenu[i].name}}' ); ?>
 														</a>
 													</li>
+													<li class="fl-builder-submenu-sep">
+														<div></div>
+													</li>
+													<li>
+														<a class="fl-builder-submenu-link fl-{{data.parentMenu[i].type}}-quick-copy" data-target-node="{{data.parentMenu[i].node}}" href="javascript:void(0);">
+															<?php printf( __( 'Copy %s Settings', 'fl-builder' ), '{{data.parentMenu[i].name}}' ); ?>
+														</a>
+													</li>
+													<#
+
+													var pasteActive = false;
+
+													if ( data.parentMenu[i].type === FLBuilderSettingsCopyPaste._getClipboardType() ) {
+														pasteActive = true;
+													} else if ( 'col' === data.parentMenu[i].type && 'column' === FLBuilderSettingsCopyPaste._getClipboardType() ) {
+														pasteActive = true;
+													} else if ( data.parentMenu[i].moduleType === FLBuilderSettingsCopyPaste._getClipboardType() ) {
+														pasteActive = true;
+													}
+
+													#>
+													<li>
+														<a class="fl-builder-submenu-link fl-{{data.parentMenu[i].type}}-quick-paste <# if ( pasteActive ) { #>fl-quick-paste-active<# } #>" data-target-node="{{data.parentMenu[i].node}}" href="javascript:void(0);">
+															<?php printf( __( 'Paste %s Settings', 'fl-builder' ), '{{data.parentMenu[i].name}}' ); ?>
+														</a>
+													</li>
 												</ul>
 											</li>
 										<# } #>
@@ -336,6 +362,32 @@
 													<a class="fl-builder-submenu-link fl-block-remove" data-target-node="{{data.parentMenu[i].node}}" href="javascript:void(0);">
 														<?php /* translators: %s: Node type */ ?>
 														<?php printf( __( 'Remove %s', 'fl-builder' ), '{{data.parentMenu[i].name}}' ); ?>
+													</a>
+												</li>
+												<li class="fl-builder-submenu-sep">
+													<div></div>
+												</li>
+												<li>
+													<a class="fl-builder-submenu-link fl-{{data.parentMenu[i].type}}-quick-copy" data-target-node="{{data.parentMenu[i].node}}" href="javascript:void(0);">
+														<?php printf( __( 'Copy %s Settings', 'fl-builder' ), '{{data.parentMenu[i].name}}' ); ?>
+													</a>
+												</li>
+												<#
+
+												var pasteActive = false;
+
+												if ( data.parentMenu[i].type === FLBuilderSettingsCopyPaste._getClipboardType() ) {
+													pasteActive = true;
+												} else if ( 'col' === data.parentMenu[i].type && 'column' === FLBuilderSettingsCopyPaste._getClipboardType() ) {
+													pasteActive = true;
+												} else if ( data.parentMenu[i].moduleType === FLBuilderSettingsCopyPaste._getClipboardType() ) {
+													pasteActive = true;
+												}
+
+												#>
+												<li>
+													<a class="fl-builder-submenu-link fl-{{data.parentMenu[i].type}}-quick-paste <# if ( pasteActive ) { #>fl-quick-paste-active<# } #>" data-target-node="{{data.parentMenu[i].node}}" href="javascript:void(0);">
+														<?php printf( __( 'Paste %s Settings', 'fl-builder' ), '{{data.parentMenu[i].name}}' ); ?>
 													</a>
 												</li>
 											</ul>

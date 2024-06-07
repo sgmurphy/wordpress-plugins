@@ -72,9 +72,9 @@ if (!isset($signals_csmm_options['mail_system_to_use'])) {
                         } // if success
 
 						if ( ! $signals_lists ) {
-							echo '<p class="signals-form-help-block">' . __( '<b>Error</b> fetching mailing lists. Please make sure that the API key you entered is correct and try again.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
+							echo '<p class="signals-form-help-block">' . esc_html__( '<b>Error</b> fetching mailing lists. Please make sure that the API key you entered is correct and try again.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
 						} else if ( count($signals_lists) == 0 ) {
-							echo '<p class="signals-form-help-block">' . __( 'It seems that there is no list created for this account. Create one on the MailChimp website and then try again.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
+							echo '<p class="signals-form-help-block">' . esc_html__( 'It seems that there is no list created for this account. Create one on the MailChimp website and then try again.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
 						} else {
 							echo '<select name="signals_csmm_list" id="signals_csmm_list">';
               echo '<option value="">- select a mailing list -</option>';
@@ -83,10 +83,10 @@ if (!isset($signals_csmm_options['mail_system_to_use'])) {
 							}
 
 							echo '</select>';
-							echo '<p class="signals-form-help-block">' . __( 'Select the MailChimp list in which you want to store the subscriber data.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
+							echo '<p class="signals-form-help-block">' . esc_html__( 'Select the MailChimp list in which you want to store the subscriber data.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
 						}
 					} else {
-						echo '<p class="signals-form-help-block">' . __( 'Enter your MailChimp API key in the field above and click "Save API key". Your lists will refresh and appear here.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
+						echo '<p class="signals-form-help-block">' . esc_html__( 'Enter your MailChimp API key in the field above and click "Save API key". Your lists will refresh and appear here.', 'minimal-coming-soon-maintenance-mode' ) . '</p>';
 					}
 
 				?>

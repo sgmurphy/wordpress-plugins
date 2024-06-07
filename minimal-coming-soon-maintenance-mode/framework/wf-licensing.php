@@ -562,6 +562,10 @@ if (false === class_exists('WF_Licensing_CSMM')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
 
+      if (false === current_user_can('manage_options')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+      }
+
       $license_key = trim($_REQUEST['license_key']);
       if (empty($license_key)) {
         $this->update_license(false);
@@ -586,6 +590,10 @@ if (false === class_exists('WF_Licensing_CSMM')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
 
+      if (false === current_user_can('manage_options')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+      }
+
       $old_license = $this->get_license();
       $result = $this->deactivate();
       do_action('wf_licensing_' . $this->prefix . 'deactivate_ajax', $old_license, $result);
@@ -597,6 +605,10 @@ if (false === class_exists('WF_Licensing_CSMM')) {
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
 
+      if (false === current_user_can('manage_options')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+      }
+      
       $out['license_key'] = trim(sanitize_text_field($_POST['license_key']));
 
       if (sanitize_text_field($_POST['success']) == 'true') {

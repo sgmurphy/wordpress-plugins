@@ -20,8 +20,8 @@ jQuery(document).ready(function ($) {
                 //declare the input
                 var originalText = input;
                 //check to see if a span exists as this means there's a number
-                if(originalText !== null){
-                    if(originalText.indexOf('<span') !== -1) {
+                // if(originalText !== null){
+                    if(originalText && originalText.indexOf('<span') !== -1) {
                         //find the position of the span and lets get just the content before the span
                         var positionOfSpan = originalText.indexOf('<span');
                         return originalText.substr(0,positionOfSpan-1); 
@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
                         //otherwise just leave the text how it is
                         return originalText;
                     }
-                }
+                // }
             }
             
             //the item isn't a separator so let's output a visual representation of the main menu
@@ -168,7 +168,7 @@ jQuery(document).ready(function ($) {
                     //declare the input
                     var originalText = input;
                     //check to see if a span exists as this means there's a number
-                    if(originalText.indexOf('<span') !== -1) {
+                    if(originalText && originalText.indexOf('<span') !== -1) {
                         //find the position of the span and lets get just the content before the span
                         var positionOfSpan = originalText.indexOf('<span');
                         return originalText.substr(0,positionOfSpan-1); 

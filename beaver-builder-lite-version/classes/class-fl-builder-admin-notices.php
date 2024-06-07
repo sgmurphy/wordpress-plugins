@@ -34,11 +34,19 @@ final class FLBuilderAdminNotices {
 			'content' => '',
 			'class'   => 'notice-info',
 			'only'    => 'options-general.php?page=fl-builder-settings',
+			'delay'   => false,
 		);
 
 		$notice = wp_parse_args( $args, $defaults );
 
 		if ( $notice['id'] ) {
+			if ( $notice['delay'] ) {
+				$delayed_notices = get_option( 'fl_delayed_notices', array() );
+				if ( ! isset( $delayed_notices[ $notice['id'] ] ) ) {
+					$delayed_notices[ $notice['id'] ] = time() + $notice['delay'];
+					update_option( 'fl_delayed_notices', $delayed_notices );
+				}
+			}
 			self::$notices[] = $notice;
 		}
 	}
@@ -83,7 +91,12 @@ final class FLBuilderAdminNotices {
 			if ( ! current_user_can( $notice['cap'] ) || self::is_dismissed( $notice['id'] ) ) {
 				continue;
 			}
-
+			if ( $notice['delay'] ) {
+				$delayed_notices = get_option( 'fl_delayed_notices', array() );
+				if ( $delayed_notices[ $notice['id'] ] - time() > 0 ) {
+					continue;
+				}
+			}
 			if ( $notice['only'] && basename( home_url( $_SERVER['REQUEST_URI'] ) ) !== $notice['only'] ) {
 				continue;
 			}

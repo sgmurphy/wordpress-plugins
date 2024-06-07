@@ -1636,14 +1636,14 @@ body .fl-theme-builder-preview-select-item-child:hover {
 
 /* Panel CTAs */
 .fl-builder--panel-cta {
-	margin: 0 20px 20px 20px !important;
-	padding: 10px 30px 30px;
+	margin: 0 20px 40px 20px !important;
 	font-size:16px;
 	text-align: center;
 }
 .fl-builder--panel-cta a {
 	color:inherit;
 	text-decoration: none;
+	line-height: 1.6;
 }
 .fl-builder--panel-cta a:hover {
 	text-decoration: none;
@@ -1656,8 +1656,8 @@ body .fl-theme-builder-preview-select-item-child:hover {
 	right: 8px;
 }
 .fl-builder--panel-cta button {
-	display: inline;
-	margin-top: 25px;
+	display: block;
+	margin: 20px auto;
 }
 
 /* Panel Messages */
@@ -3073,11 +3073,11 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
     opacity: 1;
 	text-decoration: none;
 }
-.fl-builder-has-submenu > ul.fl-builder-submenu > li:first-child a {
+.fl-builder-has-submenu > ul.fl-builder-submenu > li:first-child > a {
 	border-top-right-radius: var(--radius);
 	padding-top: 12px;
 }
-.fl-builder-has-submenu > ul.fl-builder-submenu > li:last-child a {
+.fl-builder-has-submenu > ul.fl-builder-submenu > li:last-child > a {
 	border-bottom-left-radius: var(--radius);
 	border-bottom-right-radius: var(--radius);
 	padding-bottom: 12px;
@@ -3151,7 +3151,7 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
 .fl-builder-has-submenu > ul.fl-builder-submenu li a.fl-row-quick-paste.fl-quick-paste-active,
 .fl-builder-has-submenu > ul.fl-builder-submenu li a.fl-col-quick-paste.fl-quick-paste-active,
 .fl-builder-has-submenu > ul.fl-builder-submenu li a.fl-module-quick-paste.fl-quick-paste-active {
-	opacity: 0.8;
+	opacity: 1;
 	pointer-events: initial;
 }
 

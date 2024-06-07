@@ -18,7 +18,7 @@
 ?>
 
 <?php
-  $feedback = $this->feedbacks();
+  $feedback = Rate_My_Post_Admin::feedbacks();
   $max_rating = Rate_My_Post_Common::max_rating();
 ?>
 
@@ -34,7 +34,7 @@
       type="number"
       class="rmp-meta-box__vote-count__input js-rmp-mb-vote-count"
       id="rmp-votes"
-      value="<?php echo intval( get_post_meta( get_the_id(), 'rmp_vote_count', true ) ); ?>"
+      value="<?php echo absint( get_post_meta( get_the_id(), 'rmp_vote_count', true ) ); ?>"
     >
   </div>
 

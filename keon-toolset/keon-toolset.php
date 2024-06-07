@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 Plugin Name: Keon Toolset
 Plugin URI:  
 Description: A easy plugin to import dummy data for themes by Keon Themes.
-Version:     1.8.0
+Version:     1.8.1
 Author:      Keon Themes
 Author URI:  https://keonthemes.com
 License:     GPLv3 or later
@@ -69,5 +69,4 @@ add_action( 'advanced_import_replace_post_ids', array( $plugin_admin, 'replace_a
 if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' ){
     add_action('advanced_import_after_complete_screen', array( $plugin_admin, 'kt_advance_import' ));
     add_action('advanced_import_after_content_screen', array( $plugin_admin, 'kt_advance_import_transient' ));
- 
 }

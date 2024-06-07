@@ -360,7 +360,7 @@ class FLMenuModule extends FLBuilderModule {
 			$items = $this->render_menu_woo_cart( $items );
 		}
 
-		if ( isset( $settings->menu_search ) && 'show' == $settings->menu_search ) {
+		if ( isset( $settings->menu_search ) && 'show' == $settings->menu_search && ! FL_BUILDER_LITE ) {
 			$items = $this->render_menu_search( $items );
 		}
 

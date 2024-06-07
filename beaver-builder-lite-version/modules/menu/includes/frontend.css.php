@@ -1093,7 +1093,7 @@ endif;
 /**
  * Search Menu
  */
-if ( isset( $settings->menu_search ) && 'show' == $settings->menu_search ) :
+if ( isset( $settings->menu_search ) && 'show' == $settings->menu_search && ! FL_BUILDER_LITE ) :
 
 	if ( isset( $settings->show_separator ) && 'yes' == $settings->show_separator && ! empty( $settings->separator_color ) ) {
 		FLBuilderCSS::rule( array(

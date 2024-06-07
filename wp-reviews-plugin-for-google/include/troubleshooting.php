@@ -2,6 +2,7 @@
 defined('ABSPATH') or die('No script kiddies please!');
 $dir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $pluginManagerInstance->get_plugin_slug() .'.php';
 $pluginData = get_plugin_data($dir);
+
 $reviews = [];
 if ($pluginManagerInstance->is_noreg_linked()) {
 $reviews = $wpdb->get_results('SELECT * FROM `'. $pluginManagerInstance->get_tablename('reviews') .'` ORDER BY date DESC');
@@ -69,6 +70,7 @@ echo esc_html($option);
 }
 ?>
 <?php
+
 if (!is_null($reviews)) {
 echo "\n\n" . esc_html('Reviews: '. trim(str_replace("\n", "\n\t", print_r($reviews, true))));
 }

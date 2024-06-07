@@ -78,7 +78,7 @@ if (!defined('WPINC')) {
 
 							// Loading font sizes with the help of a loop
 							for ( $i = 11; $i < 41; $i++ ) {
-								echo '<option value="' . esc_attr($i) . '"' . selected( $signals_csmm_options['input_font_size'], $i ) . '>' . esc_attr($i) . __( 'px', 'minimal-coming-soon-maintenance-mode' ) . '</option>';
+								echo '<option value="' . esc_attr($i) . '"' . selected( $signals_csmm_options['input_font_size'], $i ) . '>' . esc_attr($i) . esc_html__( 'px', 'minimal-coming-soon-maintenance-mode' ) . '</option>';
 							}
 
 						?>
@@ -95,7 +95,7 @@ if (!defined('WPINC')) {
 
 							// Loading font sizes with the help of a loop
 							for ( $i = 11; $i < 41; $i++ ) {
-								echo '<option value="' . esc_attr($i) . '"' . selected( $signals_csmm_options['button_font_size'], $i ) . '>' . esc_attr($i) . __( 'px', 'minimal-coming-soon-maintenance-mode' ) . '</option>';
+								echo '<option value="' . esc_attr($i) . '"' . selected( $signals_csmm_options['button_font_size'], $i ) . '>' . esc_attr($i) . esc_html__( 'px', 'minimal-coming-soon-maintenance-mode' ) . '</option>';
 							}
 
 						?>

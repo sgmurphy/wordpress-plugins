@@ -159,7 +159,7 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.4" />
+<input type="hidden" id="ti-noreg-version" value="11.8.5" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));
@@ -172,8 +172,8 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <?php endif; ?>
 <div class="ti-upgrade-notice">
 <strong><?php echo __('UPGRADE to PRO Features', 'trustindex-plugin'); ?></strong>
-<p><?php echo sprintf(__('Automatic review update, creating unlimited review widgets, downloading and displaying all reviews, %d review platforms available!', 'trustindex-plugin'), 131); ?></p>
-<a href="https://www.trustindex.io/ti-redirect.php?a=sys&c=wp-google-pro" class="ti-btn"><?php echo __('Create a Free Account for More Features', 'trustindex-plugin'); ?></a>
+<p><?php echo sprintf(__('Automatic review update, creating unlimited review widgets, downloading and displaying all reviews, %d review platforms available!', 'trustindex-plugin'), 133); ?></p>
+<a href="https://www.trustindex.io/ti-redirect.php?a=sys&c=wp-google-pro" class="ti-btn"><?php echo sprintf(__('Try Pro Features for Free for %d Days', 'trustindex-plugin'), 7); ?></a>
 </div>
 
 <?php if (!count($reviews)): ?>
@@ -206,6 +206,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <td>
 <div class="ti-review-content"><?php echo $reviewText; ?></div>
 <?php
+
 $state = 'reply';
 if ($review->reply) {
 $state = 'replied';
@@ -248,6 +249,7 @@ $hideReplyButton = get_option($pluginManagerInstance->get_option_name('review-do
 <a href="<?php echo esc_attr($review->id); ?>" data-nonce="<?php echo wp_create_nonce('ti-save-reply'); ?>" class="ti-btn ti-btn-sm btn-post-reply"><?php echo sprintf(__('Upload reply to %s', 'trustindex-plugin'), 'Google'); ?></a>
 <a href="#" class="ti-btn ti-btn-sm ti-btn-no-background btn-hide-ai-reply"><?php echo __('Cancel', 'trustindex-plugin'); ?></a>
 </div>
+
 <div class="ti-reply-box-state state-replied">
 <div class="ti-button-dropdown-title">
 <strong><?php echo sprintf(__('Reply by %s', 'trustindex-plugin'), $pageDetails['name']); ?></strong>
@@ -258,6 +260,7 @@ $hideReplyButton = get_option($pluginManagerInstance->get_option_name('review-do
 <a href="<?php echo esc_attr($review->id); ?>" class="ti-btn ti-btn-sm ti-btn-white btn-show-edit-reply"><?php echo __('Edit reply', 'trustindex-plugin'); ?></a>
 <?php endif; ?>
 </div>
+
 <div class="ti-reply-box-state state-edit-reply">
 <div class="ti-button-dropdown-title">
 <strong><?php echo __('Edit reply', 'trustindex-plugin'); ?></strong>

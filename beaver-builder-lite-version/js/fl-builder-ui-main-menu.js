@@ -441,6 +441,10 @@
 		 * @return void
 		 */
 		toggleMediaLibrary: function() {
+			if ( ! FLBuilderConfig.userCaps.canUpload ) {
+				FLBuilder.alert( FLBuilderStrings.uploadBlocked );
+				return false;
+			}
 			var mediaLibrary = wp.media( {
 				multiple: false
 			});

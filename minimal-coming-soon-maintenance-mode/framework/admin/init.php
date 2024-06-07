@@ -14,7 +14,7 @@ if (!defined('WPINC')) {
 
 function csmm_add_menu()
 {
-    if (current_user_can('administrator')) {
+    if (current_user_can('manage_options')) {
         // Adding to the plugin panel link to the settings menu
         $signals_csmm_menu = add_options_page(
             __('Minimal Coming Soon & Maintenance Mode', 'minimal-coming-soon-maintenance-mode'),
@@ -240,7 +240,7 @@ function csmm_create_select_options($options, $selected = null, $output = true)
 
 function csmm_activate_theme()
 {
-    if (!current_user_can('administrator')) {
+    if (!current_user_can('manage_options')) {
         wp_die('You don\'t have privileges to run this action.');
     }
 

@@ -49,7 +49,7 @@ final class FLBuilderUpdate {
 		}
 
 		// Only run on the main site for multisite installs.
-		if ( is_multisite() && ! is_main_site() ) {
+		if ( is_multisite() && ! is_network_admin() ) {
 			return;
 		}
 
@@ -114,6 +114,10 @@ final class FLBuilderUpdate {
 
 		if ( version_compare( $saved_version, '2.8', '<' ) ) {
 			self::v_28();
+		}
+
+		if ( version_compare( $saved_version, '2.8.2', '<' ) ) {
+			self::v_282();
 		}
 
 		// Clear all asset cache.
@@ -617,6 +621,29 @@ final class FLBuilderUpdate {
 			$enabled[] = 'numbers';
 		}
 		FLBuilderModel::update_admin_settings_option( '_fl_builder_enabled_modules', $enabled, true );
+	}
+
+	/**
+	 * Fix global colors duplicate id.
+	 */
+	static public function v_282() {
+
+		$settings = get_option( '_fl_builder_styles' );
+
+		if ( ! empty( $settings->colors ) ) {
+			$unique_ids = array();
+
+			foreach ( $settings->colors as $i => $color ) {
+				if ( ! empty( $color['uid'] ) ) {
+					if ( in_array( $color['uid'], $unique_ids ) ) {
+						$settings->colors[ $i ]['uid'] = substr( md5( mt_rand() ), 0, 9 );
+					} else {
+						$unique_ids[] = $color['uid'];
+					}
+				}
+			}
+		}
+		update_option( '_fl_builder_styles', $settings );
 	}
 }
 

@@ -6,7 +6,7 @@ Donate link:
 Tags: WooCommerce custom checkout fields, WooCommerce Checkout field editor, WooCommerce Checkout Manager, WooCommerce Checkout Field Manager, checkout field customizer, checkout form editor, checkout form customizer, WooCommerce checkout, checkout form designer, woocommerce checkout addons, checkout manager, checkout field editor
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 2.2.21
+Stable tag: 2.2.22
 
 WooCommerce checkout field editor and manager helps to manage checkout fields in WooCommerce
 
@@ -194,6 +194,8 @@ Yes, you can duplicate a default section on a single click with pro version of o
 Yes it is possible with pro version of our plugin, but not with free version.
 
 == Changelog ==
+= 2.2.22 =
+* Support for WooCommerce 8.9
 = 2.2.21 =
 * Support for WordPress 6.5
 = 2.2.20 =

@@ -1,12 +1,12 @@
-=== Product Slider for WooCommerce ===
+=== Product Carousel, Product Slider, Product Grid Gallery, and Product Table for WooCommerce – WooProduct Slider ===
 Contributors: shapedplugin, rubel_miah, shamimmiashuhagh, khalilu
-Tags: woocommerce product slider, woocommerce products carousel, woocommerce product grid, woocommerce product table, woocommerce product carousel slider, woocommerce widget product slider, product carousel, product slider, product grid, product table, best woocommerce product slider, best product slider, product slider for woocommerce, product carousel for woocommerce, woocommerce category slider, woocommerce child category, woocommerce best selling products slider, upsells products, cross-sells, related products, related products slider, specific products slider, on sale products display, woocommerce featured products carousel, woocommerce free products, woocommerce out of stock products, woocommerce products from category, woocommerce to rated products, woocommerce most viewed products, woocommerce products from attributes,simple product, grouped product, external/affiliate product, variable product, woo product slider
+Tags: woocommerce product slider, woocommerce product grid, woocommerce product carousel, product table, product gallery
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 5.6
 WC requires at least: 4.5
-WC tested up to: 8.7.0
-Stable tag: 2.7.1
+WC tested up to: 8.9.2
+Stable tag: 2.7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -165,6 +165,9 @@ Thanks!
 
 
 == Changelog ==
+
+= 2.7.2 - Jun 07, 2024 =
+* Tested: WooCommerce 8.9.2 compatibility.
 
 = 2.7.1 - Apr 01, 2024 =
 * Fix: The warning was found when the plugin was activated via the WP-Cli command.

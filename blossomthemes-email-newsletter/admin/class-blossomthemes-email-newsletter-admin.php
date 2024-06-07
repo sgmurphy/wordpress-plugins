@@ -51,7 +51,6 @@ class Blossomthemes_Email_Newsletter_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = BLOSSOMTHEMES_EMAIL_NEWSLETTER_VERSION;
-
 	}
 
 	/**
@@ -107,16 +106,16 @@ class Blossomthemes_Email_Newsletter_Admin {
 				$this->plugin_name,
 				'bten_uploader',
 				array(
-					'upload' => __( 'Upload', 'blossomthemes-email-newsletter' ),
-					'change' => __( 'Change', 'blossomthemes-email-newsletter' ),
-					'msg'    => __( 'Please upload valid image file.', 'blossomthemes-email-newsletter' ),
+					'upload'     => __( 'Upload', 'blossomthemes-email-newsletter' ),
+					'change'     => __( 'Change', 'blossomthemes-email-newsletter' ),
+					'msg'        => __( 'Please upload valid image file.', 'blossomthemes-email-newsletter' ),
+					'bten_nonce' => wp_create_nonce( 'bten_admin_settings' ),
 				)
 			);
 
 			wp_enqueue_script( 'bten-aweber', plugin_dir_url( __FILE__ ) . 'js/bten-aweber.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_script( 'bten-mailing-platform-lists', plugin_dir_url( __FILE__ ) . 'js/bten-mailing-platform-lists.js', array( 'jquery' ), $this->version, true );
 		}
-
 	}
 
 	/**
@@ -187,7 +186,6 @@ class Blossomthemes_Email_Newsletter_Admin {
 				echo '—';
 			}
 		}
-
 	}
 
 	/**
@@ -211,8 +209,11 @@ class Blossomthemes_Email_Newsletter_Admin {
 
 	public function bten_platform_field_settings_validate( $option = '' ) {
 
-		if ( isset( $_POST['blossomthemes_email_newsletter_settings'] ) ) {
-			$new_data     = $_POST['blossomthemes_email_newsletter_settings'];
+		$bten_settings                           = new Blossomthemes_Email_Newsletter_Functions();
+		$blossomthemes_email_newsletter_settings = isset( $_POST['blossomthemes_email_newsletter_settings'] ) ? $bten_settings::bten_clean( wp_unslash( $_POST['blossomthemes_email_newsletter_settings'] ) ) : array();
+
+		if ( isset( $blossomthemes_email_newsletter_settings ) ) {
+			$new_data     = $blossomthemes_email_newsletter_settings;
 			$old_settings = get_option( 'blossomthemes_email_newsletter_settings', true );
 
 			if ( is_array( $old_settings ) ) {
@@ -222,8 +223,9 @@ class Blossomthemes_Email_Newsletter_Admin {
 
 			return $option;
 		}
-
 	}
+
+
 
 	/**
 	 *

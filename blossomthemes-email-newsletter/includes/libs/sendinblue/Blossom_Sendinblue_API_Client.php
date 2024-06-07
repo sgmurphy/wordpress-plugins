@@ -22,10 +22,16 @@ class Blossom_Sendinblue_API_Client {
      */
     public function __construct()
     {
-        $blossomthemes_email_newsletter_settings = get_option( 'blossomthemes_email_newsletter_settings', false );
+        $blossomthemes_email_newsletter_settings = get_option('blossomthemes_email_newsletter_settings', false);
 
-        $this->apiKey = isset( $blossomthemes_email_newsletter_settings['sendinblue']['api-key'] ) ? esc_attr( $blossomthemes_email_newsletter_settings['sendinblue']['api-key'] ) : '';
+        // Check for POST value and sanitize, else use settings value
+        $this->apiKey = isset($_POST['bten_sendin_api_key'])
+            ? sanitize_text_field($_POST['bten_sendin_api_key'])
+            : (isset($blossomthemes_email_newsletter_settings['sendinblue']['api-key'])
+                ? esc_attr($blossomthemes_email_newsletter_settings['sendinblue']['api-key'])
+                : '');
     }
+
 
     /**
      * @return mixed

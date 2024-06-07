@@ -17,7 +17,7 @@ WP Responsive Menu turns your WordPress menu into a highly customizable sliding 
 WP Responsive Menu is a simple plugin that lets you add a highly customizable responsive menu to any WordPress site in no time at all, and customization can all be done directly from the settings page, with no coding needed at all.
 
 = See it in action: =
-[Live Preview](http://demo.magnigenie.com/wp-responsive-menu-pro/menu-demo/)
+[View Demo](https://demo.magnigenie.com/wp-responsive-menu-pro/)
 
 = Benefits: =
 * Get a nice looking slide menu in less than a minute.
@@ -46,11 +46,9 @@ This plugin works out of the box with any theme frameworks like Genesis or Thesi
 [youtube https://www.youtube.com/watch?v=6_XqAfZoRJ8]
 
 = Important Notes =
-[Upgrade to PRO](http://magnigenie.com/wp-responsive-menu-pro/) to avail better support and unrestricted access to WP Responsive Menu.
+[Upgrade to PRO](https://www.magnigenie.com/downloads/wp-responsive-menu-pro/) to avail better support and unrestricted access to WP Responsive Menu.
 
 If you have any suggestions for a new plugin, feel free to email us at info@magnigenie.com.
-
-[Click here](https://www.magnigenie.com/wp-responsive-menu-mobile-menu-plugin-wordpress/) to check the demo for free and pro versions.
 
 == Installation ==
 1. Go to your admin area and select Plugins -> Add new from the menu.

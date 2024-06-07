@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPS Cleaner\n"
-"POT-Creation-Date: 2020-06-18 09:36+0200\n"
-"PO-Revision-Date: 2020-06-18 09:37+0200\n"
+"POT-Creation-Date: 2024-05-13 16:14+0200\n"
+"PO-Revision-Date: 2024-05-13 16:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: wps-cleaner.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -136,6 +136,99 @@ msgstr "Installer"
 #: blocks/pub.php:45
 msgid "Enable"
 msgstr "Activer"
+
+#: blocks/pub_wpboutik.php:18
+msgid "Install WPBoutik"
+msgstr "Installer WPBoutik"
+
+#: blocks/pub_wpboutik.php:30
+msgid "Enable WPBoutik"
+msgstr "Activer WPBoutik"
+
+#: blocks/pub_wpboutik.php:191
+msgid ""
+"Say goodbye to complications! WPBoutik simplifies online sales with "
+"WordPress."
+msgstr ""
+"Dites adieu aux complications ! WPBoutik simplifie la vente en ligne avec "
+"WordPress."
+
+#: blocks/pub_wpboutik.php:192
+msgid ""
+"Lightness and efficiency: discover the WPBoutik e-commerce plugin for "
+"WordPress."
+msgstr ""
+"Légèreté et efficacité : découvrez le plugin e-commerce WPBoutik pour "
+"WordPress."
+
+#: blocks/pub_wpboutik.php:193
+msgid ""
+"Transform your WordPress site into a seamless sales platform with WPBoutik."
+msgstr ""
+"Transformez votre site WordPress en une plateforme de vente fluide avec "
+"WPBoutik."
+
+#: blocks/pub_wpboutik.php:194
+msgid ""
+"Maximum simplicity, optimal results: adopt WPBoutik for your WordPress e-"
+"commerce."
+msgstr ""
+"Simplicité maximale, résultats optimaux : adoptez WPBoutik pour votre e-"
+"commerce WordPress."
+
+#: blocks/pub_wpboutik.php:195
+msgid ""
+"Your online store deserves the best: choose WPBoutik for a hassle-free "
+"experience."
+msgstr ""
+"Votre boutique en ligne mérite le meilleur : choisissez WPBoutik pour une "
+"expérience sans tracas."
+
+#: blocks/pub_wpboutik.php:196
+msgid ""
+"Ditch the bulky plugins! WPBoutik gives you the simplicity you need to sell "
+"online on WordPress."
+msgstr ""
+"Laissez tomber les plugins encombrants ! WPBoutik vous offre la simplicité "
+"dont vous avez besoin pour vendre en ligne sur WordPress."
+
+#: blocks/pub_wpboutik.php:197
+msgid ""
+"WPBoutik: the lightweight and efficient solution for your WordPress e-"
+"commerce"
+msgstr ""
+"WPBoutik : la solution légère et performante pour votre e-commerce WordPress"
+
+#: blocks/pub_wpboutik.php:198
+msgid ""
+"Save time and energy with WPBoutik: the obvious choice for a stress-free "
+"online store."
+msgstr ""
+"Gagnez du temps et de l’énergie avec WPBoutik : le choix évident pour une "
+"boutique en ligne sans stress."
+
+#: blocks/pub_wpboutik.php:199
+msgid ""
+"Online sales without complications? It's possible with WPBoutik on WordPress."
+msgstr ""
+"Des ventes en ligne sans complications ? C’est possible avec WPBoutik sur "
+"WordPress."
+
+#: blocks/pub_wpboutik.php:200
+msgid ""
+"Your online store deserves a simple and effective solution: discover "
+"WPBoutik today."
+msgstr ""
+"Votre boutique en ligne mérite une solution simple et efficace : découvrez "
+"WPBoutik dès aujourd’hui."
+
+#: blocks/pub_wpboutik.php:210
+msgid "Discover WPBoutik"
+msgstr "Découvrir WPBoutik"
+
+#: blocks/pub_wpboutik.php:211
+msgid "More about WPBoutik"
+msgstr "En savoir plus sur WPBoutik"
 
 #: blocks/settings.php:26
 msgid "Posts: are articles, pages, and all types of content."
@@ -402,8 +495,8 @@ msgstr "Dossier / Fichier"
 msgid "Information"
 msgstr "Information"
 
-#: blocks/settings_files.php:147 blocks/settings_plugin.php:54
-#: blocks/settings_plugin.php:102 blocks/settings_plugin.php:159
+#: blocks/settings_files.php:147 blocks/settings_plugin.php:102
+#: blocks/settings_plugin.php:159
 msgid "Action"
 msgstr "Action"
 
@@ -609,7 +702,7 @@ msgstr "Vous avez %s medias dans la liste d'exclusion"
 msgid "Empty the list"
 msgstr "Vider la liste"
 
-#: blocks/settings_media.php:819 classes/plugin.php:1021
+#: blocks/settings_media.php:819 classes/plugin.php:1022
 msgid "See the list"
 msgstr "Voir la liste"
 
@@ -673,36 +766,10 @@ msgstr "Cet outil va nettoyer TOUTES les extensions inutilisées de WordPress."
 msgid "Delete plugins unuse"
 msgstr "Effacer les extensions inutilisées"
 
-#: blocks/settings_plugin.php:53 blocks/settings_plugin.php:101
-#: blocks/settings_plugin.php:158
+#: blocks/settings_plugin.php:101 blocks/settings_plugin.php:158
 #, php-format
 msgid "The %s plugin is present"
 msgstr "L’extension %s est présente"
-
-#: blocks/settings_plugin.php:59 blocks/settings_plugin.php:164
-msgid "Logs"
-msgstr "Logs"
-
-#: blocks/settings_plugin.php:62 blocks/settings_plugin.php:167
-#, php-format
-msgid "This tool will clean up ALL logs from %s plugin."
-msgstr "Cet outil va nettoyer TOUS les logs de l'extension %s."
-
-#: blocks/settings_plugin.php:66 blocks/settings_plugin.php:171
-msgid "Delete logs"
-msgstr "Effacer les logs"
-
-#: blocks/settings_plugin.php:72
-msgid "404 log"
-msgstr "Logs de 404"
-
-#: blocks/settings_plugin.php:75
-msgid "This tool will clean up ALL 404 logs from redirection plugin."
-msgstr "Cet outil va nettoyer TOUS les logs de 404 de l'extension Redirection."
-
-#: blocks/settings_plugin.php:79
-msgid "Delete 404 logs"
-msgstr "Effacer les logs de 404"
 
 #: blocks/settings_plugin.php:107
 msgid "Woocommerce Transient"
@@ -747,6 +814,19 @@ msgstr ""
 #: blocks/settings_plugin.php:140
 msgid "Delete all sessions"
 msgstr "Effacer toutes les sessions"
+
+#: blocks/settings_plugin.php:164
+msgid "Logs"
+msgstr "Logs"
+
+#: blocks/settings_plugin.php:167
+#, php-format
+msgid "This tool will clean up ALL logs from %s plugin."
+msgstr "Cet outil va nettoyer TOUS les logs de l'extension %s."
+
+#: blocks/settings_plugin.php:171
+msgid "Delete logs"
+msgstr "Effacer les logs"
 
 #: blocks/settings_plugin.php:204
 #, php-format
@@ -900,7 +980,7 @@ msgid "WPS Cleaner cleans your WordPress site as well as your database."
 msgstr ""
 "WPS Cleaner vous permet de nettoyer intégralement votre site WordPress."
 
-#: classes/helpers.php:851
+#: classes/helpers.php:871
 #, php-format
 msgid "%s other"
 msgid_plural "%s others"
@@ -912,32 +992,32 @@ msgid "Every 1 Minute"
 msgstr "Toute les minutes"
 
 #. Plugin Name of the plugin/theme
-#: classes/plugin.php:180 classes/plugin.php:181 classes/plugin.php:1249
-#: classes/plugin.php:1396
+#: classes/plugin.php:181 classes/plugin.php:182 classes/plugin.php:1250
+#: classes/plugin.php:1397
 msgid "WPS Cleaner"
 msgstr "WPS Cleaner"
 
-#: classes/plugin.php:1017
+#: classes/plugin.php:1018
 msgid "Cleaning in progress .."
 msgstr "Nettoyage en cours .."
 
-#: classes/plugin.php:1018
+#: classes/plugin.php:1019
 msgid "Removing .."
 msgstr "Supression .."
 
-#: classes/plugin.php:1019
+#: classes/plugin.php:1020
 msgid "Downloading .."
 msgstr "Téléchargement en cours .."
 
-#: classes/plugin.php:1020
+#: classes/plugin.php:1021
 msgid "Analysis completed"
 msgstr "Analyse terminée"
 
-#: classes/plugin.php:1022
+#: classes/plugin.php:1023
 msgid "Hide the list"
 msgstr "Cacher la liste"
 
-#: classes/plugin.php:1248
+#: classes/plugin.php:1249
 #, php-format
 msgid ""
 "If you like %1$s please leave us a %2$s rating. A huge thanks in advance!"
@@ -945,15 +1025,15 @@ msgstr ""
 "Si vous aimez %1$s, n&rsquo;hésitez pas à nous laisser une note de %2$s. Un "
 "grand merci par avance&nbsp;!"
 
-#: classes/plugin.php:1250
+#: classes/plugin.php:1251
 msgid "Thanks :)"
 msgstr "Merci :-)"
 
-#: classes/plugin.php:1281
+#: classes/plugin.php:1282
 msgid "Tools"
 msgstr "Outils"
 
-#: classes/plugin.php:1397
+#: classes/plugin.php:1398
 #, php-format
 msgid ""
 "If you want to completely clean your WordPress site use <a href=\"%s\">WPS "
@@ -962,58 +1042,6 @@ msgstr ""
 "Si vous voulez nettoyer intégralement votre site WordPress utilisez <a href="
 "\"%s\">WPS Cleaner</a>."
 
-#: vendor/NicolasKulka/wp-review-me/review.php:112
-msgid ""
-"Hey! It&#039;s been a little while that you&#039;ve been using this product. "
-"You might not realize it, but user reviews are such a great help to us. We "
-"would be so grateful if you could take a minute to leave a review on "
-"WordPress.org. Many thanks in advance :)"
-msgstr ""
-
-#: vendor/NicolasKulka/wp-review-me/review.php:113
-msgid "Click here to leave your review"
-msgstr ""
-
-#: vendor/NicolasKulka/wp-review-me/review.php:167
-#, php-format
-msgid "Dependencies are missing. Please run a %s."
-msgstr ""
-
-#: vendor/NicolasKulka/wp-review-me/review.php:228
-msgid "WP Review Me Error:"
-msgstr ""
-
-#: vendor/julien731/wp-dismissible-notices-handler/handler.php:97
-#, php-format
-msgid ""
-"The library can not be used because your version of WordPress is too old. "
-"You need version %s at least."
-msgstr ""
-
-#: vendor/julien731/wp-dismissible-notices-handler/handler.php:110
-#, php-format
-msgid ""
-"The library can not be used because your version of PHP is too old. You need "
-"version %s at least."
-msgstr ""
-
-#: vendor/julien731/wp-dismissible-notices-handler/handler.php:230
-msgid "Dismissible Notices Handler Error:"
-msgstr ""
-
-#: vendor/julien731/wp-dismissible-notices-handler/handler.php:317
-#, php-format
-msgid "A notice with the ID %s has already been registered."
-msgstr ""
-
-#: wps-cleaner.php:49
-msgid ""
-"Do you like plugin WPS Cleaner? <br> Thank you for taking a few seconds to "
-"note us on"
-msgstr ""
-"Aimez-vous le plugin WPS Cleaner? <br> Merci de prendre quelques secondes "
-"pour nous noter sur"
-
 #. Description of the plugin/theme
 msgid "WPS Cleaner permet de nettoyer la base de données et le WordPress."
 msgstr "WPS Cleaner permet de nettoyer la base de données et le WordPress."
@@ -1021,12 +1049,29 @@ msgstr "WPS Cleaner permet de nettoyer la base de données et le WordPress."
 #. Author of the plugin/theme
 #, fuzzy
 #| msgid "WPServeur, NicolasKulka, benoitgeek,"
-msgid "WPServeur, NicolasKulka"
+msgid "WPServeur, NicolasKulka, wpformation"
 msgstr "WPServeur, NicolasKulka, benoitgeek,"
 
 #. Author URI of the plugin/theme
 msgid "https://wpserveur.net"
 msgstr "https://wpserveur.net"
+
+#~ msgid "404 log"
+#~ msgstr "Logs de 404"
+
+#~ msgid "This tool will clean up ALL 404 logs from redirection plugin."
+#~ msgstr ""
+#~ "Cet outil va nettoyer TOUS les logs de 404 de l'extension Redirection."
+
+#~ msgid "Delete 404 logs"
+#~ msgstr "Effacer les logs de 404"
+
+#~ msgid ""
+#~ "Do you like plugin WPS Cleaner? <br> Thank you for taking a few seconds "
+#~ "to note us on"
+#~ msgstr ""
+#~ "Aimez-vous le plugin WPS Cleaner? <br> Merci de prendre quelques secondes "
+#~ "pour nous noter sur"
 
 #~ msgid "Install WPS Hide Login"
 #~ msgstr "Installer WPS Hide Login"
@@ -1052,21 +1097,12 @@ msgstr "https://wpserveur.net"
 #~ msgid "More about WPS Limit Login"
 #~ msgstr "Plus d’infos sur WPS Limit Login"
 
-#~ msgid "Install WPS Bidouille"
-#~ msgstr "Installer WPS Bidouille"
-
-#~ msgid "Enable WPS Bidouille"
-#~ msgstr "Activer WPS Bidouille"
-
 #~ msgid ""
 #~ "WPS Bidouille provides information about your WordPress and contains "
 #~ "optimization tools."
 #~ msgstr ""
 #~ "WPS Bidouille fournit des informations sur votre WordPress et contient "
 #~ "des outils d'optimisation."
-
-#~ msgid "More about WPS Bidouille"
-#~ msgstr "Plus d’infos sur WPS Bidouille"
 
 #~ msgid "More about Migrate guru"
 #~ msgstr "Plus d'infos sur Migrate Guru"

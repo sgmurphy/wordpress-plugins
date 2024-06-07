@@ -78,11 +78,10 @@ class Blossomthemes_Email_Newsletter {
 
 		add_action(
 			'wp_enqueue_scripts',
-			function() {
+			function () {
 				wp_enqueue_script( 'jquery' );
 			}
 		);
-
 	}
 
 	/**
@@ -106,36 +105,36 @@ class Blossomthemes_Email_Newsletter {
 		/**
 		 * Add autoloader
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
+		require_once plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blossomthemes-email-newsletter-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-blossomthemes-email-newsletter-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blossomthemes-email-newsletter-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-blossomthemes-email-newsletter-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-blossomthemes-email-newsletter-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-blossomthemes-email-newsletter-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-blossomthemes-email-newsletter-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-blossomthemes-email-newsletter-public.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blossomthemes-email-newsletter-settings.php';
+		require plugin_dir_path( __DIR__ ) . 'includes/class-blossomthemes-email-newsletter-settings.php';
 
 		/**
 		 * The class responsible for general functions.
@@ -225,7 +224,6 @@ class Blossomthemes_Email_Newsletter {
 		require BLOSSOMTHEMES_EMAIL_NEWSLETTER_BASE_PATH . '/includes/class-blossomthemes-email-newsletter-popup-functions.php';
 
 		$this->loader = new Blossomthemes_Email_Newsletter_Loader();
-
 	}
 
 	/**
@@ -242,7 +240,6 @@ class Blossomthemes_Email_Newsletter {
 		$plugin_i18n = new Blossomthemes_Email_Newsletter_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -268,7 +265,6 @@ class Blossomthemes_Email_Newsletter {
 		$this->loader->add_action( 'manage_subscribe-form_posts_custom_column', $plugin_admin, 'set_subscribe_form_columns_content', 10, 2 );
 		$this->loader->add_action( 'admin_notices', $plugin_admin, 'bten_api_update_notice' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bten_ignore_admin_notice' );
-
 	}
 
 	/**
@@ -285,7 +281,6 @@ class Blossomthemes_Email_Newsletter {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		// $this->loader->add_filter( 'script_loader_tag', $plugin_public, 'blossom_email_newsletter_js_defer_files', 10 );
-
 	}
 
 	/**
@@ -327,5 +322,4 @@ class Blossomthemes_Email_Newsletter {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

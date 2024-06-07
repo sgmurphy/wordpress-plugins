@@ -50,6 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="wps-autopromo" id="plugin-filter">
 					<?php include( WPS_CLEANER_DIR . '/blocks/pub-wpserveur.php' ); ?>
 					<?php include( WPS_CLEANER_DIR . '/blocks/pub.php' ); ?>
+					<?php include( WPS_CLEANER_DIR . '/blocks/pub_wpboutik.php' ); ?>
 				</div>
 			</div>
 		</div>

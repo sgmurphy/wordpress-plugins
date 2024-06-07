@@ -4627,7 +4627,7 @@ final class FLBuilderModel {
 		// remove old global settings.
 		self::$global_settings = null;
 
-		// apply filter beofre update.
+		// apply filter before update.
 		$new_settings = apply_filters( 'fl_builder_before_save_global_settings', $new_settings );
 
 		// update db with new settings.
@@ -7213,7 +7213,7 @@ final class FLBuilderModel {
 	static public function get_help_button_defaults() {
 		$defaults = array(
 			'enabled'            => true,
-			'tour'               => true,
+			'tour'               => apply_filters( 'fl_builder_tour_enabled', true ),
 			'video'              => true,
 			'video_embed'        => '<iframe src="https://player.vimeo.com/video/240550556?autoplay=1" width="420" height="315" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>',
 			'knowledge_base'     => true,

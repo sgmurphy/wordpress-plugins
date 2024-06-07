@@ -41,12 +41,10 @@ class Blossomthemes_Email_Newsletter_Shortcodes {
 				$image_array             = wp_get_attachment_image_src( $attachment_id, $newsletter_bio_img_size );
 				$rrsb_bg                 = 'url(' . $image_array[0] . ') no-repeat';
 			}
-		} else {
-			if ( isset( $blossomthemes_email_newsletter_setting['appearance']['bgcolor'] ) && $blossomthemes_email_newsletter_setting['appearance']['bgcolor'] != '' ) {
+		} elseif ( isset( $blossomthemes_email_newsletter_setting['appearance']['bgcolor'] ) && $blossomthemes_email_newsletter_setting['appearance']['bgcolor'] != '' ) {
 				$rrsb_bg = ! empty( $blossomthemes_email_newsletter_setting['appearance']['bgcolor'] ) ? sanitize_text_field( $blossomthemes_email_newsletter_setting['appearance']['bgcolor'] ) : apply_filters( 'bt_newsletter_bg_color', '#ffffff' );
-			} elseif ( isset( $settings['appearance']['bgcolor'] ) && $settings['appearance']['bgcolor'] != '' ) {
-				$rrsb_bg = ! empty( $settings['appearance']['bgcolor'] ) ? sanitize_text_field( $settings['appearance']['bgcolor'] ) : apply_filters( 'bt_newsletter_bg_color', '#ffffff' );
-			}
+		} elseif ( isset( $settings['appearance']['bgcolor'] ) && $settings['appearance']['bgcolor'] != '' ) {
+			$rrsb_bg = ! empty( $settings['appearance']['bgcolor'] ) ? sanitize_text_field( $settings['appearance']['bgcolor'] ) : apply_filters( 'bt_newsletter_bg_color', '#ffffff' );
 		}
 		if ( isset( $blossomthemes_email_newsletter_setting['appearance']['fontcolor'] ) && $blossomthemes_email_newsletter_setting['appearance']['fontcolor'] != '' ) {
 			$rrsb_font = ! empty( $blossomthemes_email_newsletter_setting['appearance']['fontcolor'] ) ? sanitize_text_field( $blossomthemes_email_newsletter_setting['appearance']['fontcolor'] ) : apply_filters( 'bt_newsletter_font_color_setting', '#ffffff' );
@@ -61,7 +59,7 @@ class Blossomthemes_Email_Newsletter_Shortcodes {
 				if ( isset( $rrsb_option ) && $rrsb_option == 'image' ) {
 					echo ' bg-img', $overlay;}
 				?>
-				 <?php echo esc_attr( $atts['html_class'] ); ?>" id="boxes-<?php echo esc_attr( $atts['id'] ); ?>" style="background: <?php echo esc_attr( $rrsb_bg ); ?>; color: <?php echo esc_attr( $rrsb_font ); ?> ">
+				<?php echo esc_attr( $atts['html_class'] ); ?>" id="boxes-<?php echo esc_attr( $atts['id'] ); ?>" style="background: <?php echo esc_attr( $rrsb_bg ); ?>; color: <?php echo esc_attr( $rrsb_font ); ?> ">
 
 					<?php
 					$inner_wrap = apply_filters( 'bt_newsletter_shortcode_inner_wrap_display', false );
@@ -392,7 +390,7 @@ class Blossomthemes_Email_Newsletter_Shortcodes {
 					exit;
 				} else {
 					$result['type']    = 'error';
-					$result['message'] = __( 'Error in subscription.', 'blossomthemes-email-newsletter' );
+					$result['message'] = $response['log']['errorMessage'] ?? __( 'Error in subscription.', 'blossomthemes-email-newsletter' );
 					echo json_encode( $result );
 					exit;
 				}

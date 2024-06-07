@@ -184,10 +184,10 @@ if (!defined('WPINC')) {
     if (@$options['show_login_button'] == '1') {
         if (is_user_logged_in()) {
             echo '<div id="login-button" class="loggedin">';
-            echo '<a title="' . __('Open WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" href="' . esc_url(get_site_url()) . '/wp-admin/"><img src="' . esc_url(CSMM_URL) . '/framework/public/img/wp-logo-white.png" alt="' . __('Open WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" title="' . __('Open WordPress admin', 'minimal-coming-soon-maintenance-mode') . '"></a>';
+            echo '<a title="' . esc_html__('Open WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" href="' . esc_url(get_site_url()) . '/wp-admin/"><img src="' . esc_url(CSMM_URL) . '/framework/public/img/wp-logo-white.png" alt="' . esc_html__('Open WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" title="' . esc_html__('Open WordPress admin', 'minimal-coming-soon-maintenance-mode') . '"></a>';
         } else {
             echo '<div id="login-button" class="loggedout">';
-            echo '<a title="' . __('Log in to WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" href="' . esc_url(get_site_url()) . '/wp-login.php"><img src="' . esc_url(CSMM_URL) . '/framework/public/img/wp-logo-white.png" alt="' . __('Log in to WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" title="' . __('Log in to WordPress admin', 'minimal-coming-soon-maintenance-mode') . '"></a>';
+            echo '<a title="' . esc_html__('Log in to WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" href="' . esc_url(get_site_url()) . '/wp-login.php"><img src="' . esc_url(CSMM_URL) . '/framework/public/img/wp-logo-white.png" alt="' . esc_html__('Log in to WordPress admin', 'minimal-coming-soon-maintenance-mode') . '" title="' . esc_html__('Log in to WordPress admin', 'minimal-coming-soon-maintenance-mode') . '"></a>';
         }
         echo '</div>';
     }

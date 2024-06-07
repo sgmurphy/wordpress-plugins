@@ -6,6 +6,9 @@
  * @subpackage Blossomthemes_Email_Newsletter/includes
  * @author    blossomthemes
  */
+use MailerLiteApi\MailerLite;
+use GuzzleHttp\Client as GuzzleClient;
+use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
 class Blossomthemes_Email_Newsletter_Mailerlite {
 
 	/*Function to add main mailchimp action*/
@@ -16,9 +19,24 @@ class Blossomthemes_Email_Newsletter_Mailerlite {
 			$apiKey                                 = $blossomthemes_email_newsletter_setting['mailerlite']['api-key'];
 
 			if ( ! empty( $apiKey ) ) {
-				$groupsApi = ( new \MailerLiteApi\MailerLite( $apiKey ) )->groups();
+				// Check if server is local.
+				$is_local = ( $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === '::1' );
 
-				$subscriber = array(
+				// Create an options array for the Guzzle HTTP client. If the server is localhost, disable SSL verification by setting 'verify' to false.
+				$guzzle_client_options = array(
+					'verify' => ! $is_local,
+				);
+
+				// Instantiate a new Guzzle HTTP client with the specified options.
+				$guzzle_client = new GuzzleClient( $guzzle_client_options );
+
+				// Create a new Guzzle adapter. This adapter allows the MailerLite client to send HTTP requests using the Guzzle HTTP client.
+				$http_adapter = new GuzzleAdapter( $guzzle_client );
+
+				// Instantiate a new MailerLite client with the provided API key and the Guzzle adapter.
+				$mailer_lite_client = new MailerLite( $apiKey, $http_adapter );
+				$groupsApi          = $mailer_lite_client->groups();
+				$subscriber         = array(
 					'email' => $email,
 					'name'  => $fname,
 				);
@@ -32,7 +50,7 @@ class Blossomthemes_Email_Newsletter_Mailerlite {
 					if ( ! isset( $listids['mailerlite']['list-id'] ) ) {
 						$listid          = $blossomthemes_email_newsletter_setting['mailerlite']['list-id'];
 						$addedSubscriber = $groupsApi->addSubscriber( $listid, $subscriber, 1 ); // returns added subscriber
-						$response = isset( $addedSubscriber->error ) ? $addedSubscriber->error->message : '200';
+						$response        = isset( $addedSubscriber->error ) ? $addedSubscriber->error->message : '200';
 
 					} else {
 						foreach ( $listids['mailerlite']['list-id'] as $key => $value ) {

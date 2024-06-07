@@ -1,6 +1,4 @@
 <div id="opener">
- 
- 
 <form d="gs_cf7db_setting" method="post">
 				<div class="wrap gs-form opacity-down">
                 <div class="gs-card">
@@ -18,9 +16,6 @@
 				</div>
 			</form>
  
-
-
-
 <div class="wrap"  style="opeacity:0.75; margin-top:30px;">
 			<div id="icon-users" class="icon32"></div>
 			<h2><?php echo esc_html( __('Contact Forms List', 'gsconnector' ) ); ?></h2>
@@ -42,22 +37,19 @@
 	</tfoot>
 
 </table>
-			<div class="tablenav bottom">
+<div class="tablenav bottom">
 
-				<div class="alignleft actions bulkactions">
+<div class="alignleft actions bulkactions">
 					</div>
-			<div class="tablenav-pages one-page"><span class="displaying-num">1 item</span>
+<div class="tablenav-pages one-page"><span class="displaying-num">1 item</span>
 <span class="pagination-links"><span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
 <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
 <span class="screen-reader-text">Current Page</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">1 of <span class="total-pages">1</span></span></span>
 <span class="tablenav-pages-navspan button disabled" aria-hidden="true">›</span>
 <span class="tablenav-pages-navspan button disabled" aria-hidden="true">»</span></span></div>
 		<br class="clear">
-	</div>
-				</div>
-
-
-
+</div>
+</div>
 </div>
 
 

@@ -94,11 +94,9 @@ class Blossomthemes_Email_Newsletter_Sendinblue {
 
 		if ( 'subscribe' == $type ) {
 			$info['DOUBLE_OPT-IN'] = '1'; // Yes.
-		} else {
-			if ( 'double-optin' == $type ) {
-				if ( ( 'new' == $response['code'] && ! $response['isDopted'] ) || ( 'update' == $response['code'] && ! $response['isDopted'] ) ) {
-					$info['DOUBLE_OPT-IN'] = '2'; // No.
-				}
+		} elseif ( 'double-optin' == $type ) {
+			if ( ( 'new' == $response['code'] && ! $response['isDopted'] ) || ( 'update' == $response['code'] && ! $response['isDopted'] ) ) {
+				$info['DOUBLE_OPT-IN'] = '2'; // No.
 			}
 		}
 
@@ -318,8 +316,6 @@ class Blossomthemes_Email_Newsletter_Sendinblue {
 		}
 
 		return $attrs;
-
 	}
-
 }
 new Blossomthemes_Email_Newsletter_Sendinblue();

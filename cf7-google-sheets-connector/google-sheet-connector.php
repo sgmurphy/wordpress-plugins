@@ -3,7 +3,7 @@
   * Plugin Name: CF7 Google Sheet Connector
   * Plugin URI: https://wordpress.org/plugins/cf7-google-sheets-connector/
   * Description: Send your Contact Form 7 data to your Google Sheets spreadsheet.
-  * Version: 5.0.9
+  * Version: 5.0.10
   * Author: GSheetConnector
   * Author URI: https://www.gsheetconnector.com/
   * Text Domain: gsconnector
@@ -15,8 +15,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Declare some global constants
-define('GS_CONNECTOR_VERSION', '5.0.9');
-define('GS_CONNECTOR_DB_VERSION', '5.0.9');
+define('GS_CONNECTOR_VERSION', '5.0.10');
+define('GS_CONNECTOR_DB_VERSION', '5.0.10');
 define('GS_CONNECTOR_ROOT', dirname(__FILE__));
 define('GS_CONNECTOR_URL', plugins_url('/', __FILE__));
 define('GS_CONNECTOR_BASE_FILE', basename(dirname(__FILE__)) . '/google-sheet-connector.php');
@@ -417,13 +417,7 @@ class Gs_Connector_Free_Init {
          
     </div>
     <!-- display content error logs -->
-    
-    
-    
-    
-    
-    
-      <div class="system-error-cf7free-logs" style="display:none;">
+    <div class="system-error-cf7free-logs" style="display:none;">
        <div class="display-cf7free-logs">
             <?php
             $existDebugFile = get_option('gs_debug_log_file');

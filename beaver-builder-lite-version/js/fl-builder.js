@@ -3512,7 +3512,11 @@
 		 */
 		_rowCopySettingsClicked: function () {
 			const menuEl = $(this);
-			const nodeId = menuEl.closest('.fl-row').data('node');
+			let nodeId = menuEl.data('target-node');
+
+			if ( ! nodeId ) {
+				nodeId = menuEl.closest('.fl-row').data('node');
+			}
 
 			// bind copy to the el
 			FLBuilderSettingsCopyPaste._bindCopyToElement(menuEl, 'row', nodeId, true);
@@ -3528,7 +3532,12 @@
 		_rowPasteSettingsClicked: function () {
 			const menuEl   = $(this);
 			const menuText = menuEl.text();
-			const nodeId   = menuEl.closest('.fl-row').data('node');
+			let nodeId = menuEl.data('target-node');
+
+			if ( ! nodeId ) {
+				nodeId = menuEl.closest('.fl-row').data('node');
+			}
+
 			const success  = FLBuilderSettingsCopyPaste._importFromClipboard('row', nodeId);
 
 			if (!success) {
@@ -4129,7 +4138,11 @@
 		 */
 		_colCopySettingsClicked: function () {
 			const menuEl = $(this);
-			const nodeId = menuEl.closest('.fl-col').data('node');
+			let nodeId = menuEl.data('target-node');
+
+			if ( ! nodeId ) {
+				nodeId = menuEl.closest('.fl-col').data('node');
+			}
 
 			// bind copy to the el
 			FLBuilderSettingsCopyPaste._bindCopyToElement(menuEl, 'column', nodeId);
@@ -4145,7 +4158,12 @@
 		_colPasteSettingsClicked: function () {
 			const menuEl   = $(this);
 			const menuText = menuEl.text();
-			const nodeId   = menuEl.closest('.fl-col').data('node');
+			let nodeId = menuEl.data('target-node');
+
+			if ( ! nodeId ) {
+				nodeId = menuEl.closest('.fl-col').data('node');
+			}
+
 			const success  = FLBuilderSettingsCopyPaste._importFromClipboard('column', nodeId);
 
 			if (!success) {
@@ -5116,7 +5134,7 @@
 			var newParent = module.parents('.fl-row, .fl-col, .fl-module').eq(0).attr('data-node'),
 				oldParent = module.attr('data-parent'),
 				nodeId    = module.attr('data-node'),
-				position  = module.index();
+				position  = module.parent().find( '> .fl-col-group, > .fl-module' ).index( module );
 
 			if(newParent == oldParent) {
 				FLBuilder._reorderNode( nodeId, position );
@@ -5299,8 +5317,14 @@
 		 */
 		_moduleCopySettingsClicked: function () {
 			const menuEl = $(this);
-			const nodeId = menuEl.closest('.fl-module').data('node');
-			const type   = menuEl.closest('.fl-module').data('type');
+			let nodeId = menuEl.data('target-node');
+
+			if ( ! nodeId ) {
+				nodeId = menuEl.closest('.fl-module').data('node');
+			}
+
+			const module = $( '.fl-node-' + nodeId );
+			const type = module.data('type');
 
 			// bind copy to the el
 			FLBuilderSettingsCopyPaste._bindCopyToElement(menuEl, type, nodeId);
@@ -5316,8 +5340,14 @@
 		_modulePasteSettingsClicked: function () {
 			const menuEl   = $(this);
 			const menuText = menuEl.text();
-			const nodeId   = menuEl.closest('.fl-module').data('node');
-			const type     = menuEl.closest('.fl-module').data('type');
+			let nodeId = menuEl.data('target-node');
+
+			if ( ! nodeId ) {
+				nodeId = menuEl.closest('.fl-module').data('node');
+			}
+
+			const module = $( '.fl-node-' + nodeId );
+			const type = module.data('type');
 			const success  = FLBuilderSettingsCopyPaste._importFromClipboard(type, nodeId);
 
 			if (!success) {
@@ -5389,6 +5419,7 @@
 						type     : 'module',
 						layout   : data.layout,
 						callback : function() {
+							FLBuilder._initModuleMarginPlaceholders();
 							FLBuilder.triggerHook( 'didAddModule', {
 								nodeId: data.nodeId,
 								moduleType: settings.type,
@@ -5487,7 +5518,7 @@
 			// Setup a preview layout if we have one.
 			if ( data.layout ) {
 				if ( FLBuilder._newModuleParent ) {
-					FLBuilder._newModuleParent.find( '.fl-builder-node-loading-placeholder' ).hide();
+					FLBuilder._newModuleParent.find( '.fl-builder-node-loading-placeholder' ).remove();
 				}
 				data.layout.nodeParent 	 = FLBuilder._newModuleParent;
 				data.layout.nodePosition = FLBuilder._newModulePosition;
@@ -5577,7 +5608,7 @@
 			var form = $( '.fl-builder-module-settings:visible', window.parent.document );
 			var nodeId = form.data( 'node' );
 			var node = $( '.fl-node-' + nodeId );
-			var content = node.find( '.fl-node-content' );
+			var content = node.find( '> .fl-node-content' );
 			var sides = [ 'top', 'right', 'bottom', 'left' ];
 
 			if ( ! form.length ) {
@@ -7632,6 +7663,12 @@
 
 			clone.find('th label span.fl-builder-field-index').html(index);
 			row.after(clone);
+
+			// global color - remove input id for cloned field
+			if ( row.find('.fl-global-color-field-uid') ) {
+				row.find('.fl-global-color-field-uid').val('');
+			}
+
 			parent.find('input').trigger('change');
 			FLBuilder._renumberFields(row.parent());
 			FLBuilder._initMultipleFields();
@@ -8134,6 +8171,10 @@
 		 */
 		_selectSinglePhoto: function()
 		{
+			if ( ! FLBuilderConfig.userCaps.canUpload ) {
+				FLBuilder.alert( FLBuilderStrings.uploadBlocked );
+				return false;
+			}
 			FLBuilder._initSinglePhotoSelector();
 			FLBuilder._singlePhotoSelector.once('open', $.proxy(FLBuilder._singlePhotoOpened, this));
 			FLBuilder._singlePhotoSelector.once('select', $.proxy(FLBuilder._singlePhotoSelected, this));
@@ -8374,6 +8415,11 @@
 				i              = null,
 				ids            = [];
 
+			if ( ! FLBuilderConfig.userCaps.canUpload ) {
+				FLBuilder.alert( FLBuilderStrings.uploadBlocked );
+				return false;
+			}
+
 			// Builder the gallery shortcode.
 			if ( 'object' == typeof parsedVal ) {
 				for ( i in parsedVal ) {
@@ -8505,6 +8551,10 @@
 		 */
 		_selectSingleVideo: function()
 		{
+			if ( ! FLBuilderConfig.userCaps.canUpload ) {
+				FLBuilder.alert( FLBuilderStrings.uploadBlocked );
+				return false;
+			}
 			FLBuilder._initSingleVideoSelector();
 			FLBuilder._singleVideoSelector.once('select', $.proxy(FLBuilder._singleVideoSelected, this));
 			FLBuilder._singleVideoSelector.open();
@@ -8583,6 +8633,10 @@
 
 			if(_.isUndefined(shortcode.get('id')) && !_.isUndefined(defaultPostId)) {
 				shortcode.set('id', defaultPostId);
+			}
+			if ( ! FLBuilderConfig.userCaps.canUpload ) {
+				FLBuilder.alert( FLBuilderStrings.uploadBlocked );
+				return false;
 			}
 
 			attachments = wp.media.playlist.attachments(shortcode);
@@ -10802,6 +10856,49 @@
 			try {
 					data = JSON.parse( data );
 					} catch (e) {
+						if ( data.indexOf('</b> on line ') > 0 || data.indexOf( ' in <b>') > 0 ) {
+							type  = 'Unknown';
+							regex = new RegExp( '<b>(Notice|Warning|Fatal error)<\/b>:(.*) in <b>', 'm');
+							error = regex.exec(data);
+
+							if ( ! FLBuilder.isUndefined( error[1] ) ) {
+								type = error[1]
+							}
+
+							if ( ! FLBuilder.isUndefined( error[2] ) ) {
+								error = error[2]
+							} else {
+								error = 'Unknown PHP error';
+							}
+							// handle fatal first
+							if ( data.indexOf('Fatal error') > 0 ) {
+								regex = new RegExp('<b>Fatal error<\\\/b>:\\s+Allowed\\smemory\\ssize of\\s([0-9]+)', 'gm');
+								m = regex.exec(data);
+								if ( ! FLBuilder.isUndefined( m[1] ) ) {
+									ram = m[1] / 1024 / 1024;
+									msg = '<p style="font-weight:bold;text-align:center;"><strong>PHP ' + type + ' detected in AJAX response</strong></p>';
+									msg += '<p>' + window.crash_vars.strings.fatal.content.replace('[MEM]', ram ) + '</p>';
+									msg += '<p>' + window.crash_vars.strings.fatal.footer + '</p>';
+									FLLightbox.closeAll();
+									FLBuilder.alert(msg);
+									return false;
+								} else {
+									msg = '<p style="font-weight:bold;text-align:center;"><strong>PHP ' + type + ' detected in AJAX response</strong></p>';
+									msg += '<p>' + error + '</p>';
+									msg += '<p>' + window.crash_vars.strings.fatal.footer + '</p>';
+									FLLightbox.closeAll();
+									FLBuilder.alert(msg);
+									return false;
+								}
+							} else {
+								msg = '<p style="font-weight:bold;text-align:center;"><strong>PHP ' + type + ' detected in AJAX response</strong></p>';
+								msg += '<p>' + error + '</p>';
+								msg += '<p>' + window.crash_vars.strings.fatal.footer + '</p>';
+								FLLightbox.closeAll();
+								FLBuilder.alert(msg);
+								return false;
+							}
+						}
 						FLBuilder.logError( e, FLBuilder._parseError( data ) );
 					}
 					return data;

@@ -4,6 +4,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 <h1 class="ti-header-title"><?php echo __('Get Reviews', 'trustindex-plugin'); ?></h1>
 <div class="ti-box">
 <div class="ti-box-header"><?php echo sprintf(__('Want more %s reviews?', 'trustindex-plugin'), 'Google'); ?></div>
+
 <p><?php echo __('Get 100+ REAL Google reviews, with only 3 minutes of work, without developer knowledge...', 'trustindex-plugin'); ?></p>
 <a href="https://wordpress.trustindex.io/collect-google-reviews/?source=wpcs-google" target="_blank" class="ti-btn"><?php echo __('DOWNLOAD OUR FREE GUIDE', 'trustindex-plugin'); ?></a>
 </div>

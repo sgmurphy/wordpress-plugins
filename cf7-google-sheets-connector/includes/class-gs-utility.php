@@ -83,7 +83,7 @@ class Gs_Connector_Utility {
             break;
       }
 
-      $admin_notice .= "    <p>" . $message . "</p>\n";
+      $admin_notice .= "    <p>" . __($message, 'gsconnector') . "</p>\n";
       $admin_notice .= "</div>\n";
       return $admin_notice;
    }

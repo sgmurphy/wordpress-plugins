@@ -390,9 +390,14 @@ final class FL_Debug {
 		);
 		self::register( 'bb', $args );
 
+		$info = get_option( '_fl_builder_update_info', array() );
+		$from = '';
+		if ( isset( $info['from'] ) && ! empty( $info['from'] ) ) {
+			$from = ' - Previous ' . $info['from'];
+		}
 		$args = array(
 			'name' => 'Beaver Builder',
-			'data' => FL_BUILDER_VERSION,
+			'data' => FL_BUILDER_VERSION . $from,
 		);
 		self::register( 'bb_version', $args );
 
@@ -407,6 +412,38 @@ final class FL_Debug {
 			'data' => ( defined( 'FL_THEME_VERSION' ) ) ? FL_THEME_VERSION : 'Not active/installed.',
 		);
 		self::register( 'theme_version', $args );
+
+		$args = array(
+			'name' => 'Modules',
+			'data' => self::divider(),
+		);
+		self::register( 'modules', $args );
+
+		$enabled_modules = FLBuilderModel::get_enabled_modules();
+		sort( $enabled_modules );
+
+		$all_modules      = FLBuilderModel::get_uncategorized_modules( true );
+		$all_modules_list = array();
+
+		foreach ( $all_modules as $module ) {
+			if ( isset( $module->slug ) ) {
+				array_push( $all_modules_list, $module->slug );
+			}
+		}
+
+		$disabled_modules = array_filter( array_diff( $all_modules_list, $enabled_modules ) );
+
+		$args = array(
+			'name' => 'Disabled Modules',
+			'data' => $disabled_modules,
+		);
+		self::register( 'disabled_modules', $args );
+
+		$args = array(
+			'name' => 'Enabled Modules',
+			'data' => $enabled_modules,
+		);
+		self::register( 'enabled_modules', $args );
 
 		$args = array(
 			'name' => 'Cache Folders',

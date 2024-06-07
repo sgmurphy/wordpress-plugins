@@ -59,6 +59,8 @@ final class FLBuilderCompatibility {
 		add_action( 'wp_print_scripts', array( __CLASS__, 'convert_box_bb' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'yith_woocommerce_affiliates' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_jquery_dialog' ) );
+		add_action( 'wp_tiny_mce_init', array( __CLASS__, 'fix_gf_tinymce' ), 9 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'remove_tour_fix' ) );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -1327,6 +1329,18 @@ final class FLBuilderCompatibility {
 			}
 		}
 		return $edit;
+	}
+
+	public static function fix_gf_tinymce() {
+		if ( isset( $_REQUEST['fl_builder'] ) ) {
+			remove_action( 'wp_tiny_mce_init', array( 'GF_Field_Textarea', 'start_wp_tiny_mce_init_buffer' ) );
+		}
+	}
+
+	public static function remove_tour_fix() {
+		if ( ! FLBuilder::is_tour_enabled() ) {
+			remove_filter( 'fl_theme_framework_enqueue', array( 'FLLayout', 'fl_theme_framework_enqueue' ) );
+		}
 	}
 }
 FLBuilderCompatibility::init();

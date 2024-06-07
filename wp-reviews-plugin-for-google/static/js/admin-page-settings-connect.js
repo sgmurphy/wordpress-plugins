@@ -71,7 +71,8 @@ jQuery(document).ready(function($) {
 		}
 	};
 
-			$('.btn-connect-public').click(function(event) {
+	
+		$('.btn-connect-public').click(function(event) {
 			event.preventDefault();
 
 			let button = $(this);
@@ -119,7 +120,8 @@ jQuery(document).ready(function($) {
 			}, 1000);
 		});
 
-			// try reply again
+	
+		// try reply again
 		jQuery(document).on('click', '.btn-try-reply-again', function(event) {
 			event.preventDefault();
 

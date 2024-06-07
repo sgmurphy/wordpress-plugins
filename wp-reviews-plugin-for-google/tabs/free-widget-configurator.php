@@ -445,7 +445,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <input type="hidden" id="ti-noreg-connect-token" name="ti-noreg-connect-token" value="<?php echo $reviewDownloadToken; ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.4" />
+<input type="hidden" id="ti-noreg-version" value="11.8.5" />
 <input type="hidden" id="ti-noreg-review-download" name="review_download" value="0" />
 <input type="hidden" id="ti-noreg-review-request-id" name="review_request_id" value="" />
 <input type="hidden" id="ti-noreg-manual-download" name="manual_download" value=0 />
@@ -453,6 +453,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <div class="ti-notice ti-notice-info ti-d-none" id="ti-connect-info">
 <p><?php echo __("A popup window should be appear! Please, go to there and continue the steps! (If there is no popup window, you can check the the browser's popup blocker)", 'trustindex-plugin'); ?></p>
 </div>
+
 <a href="#" class="ti-btn btn-connect-public"><?php echo __('Connect', 'trustindex-plugin'); ?></a>
 
 

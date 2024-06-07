@@ -60,8 +60,6 @@
 					'scroll load',
 					function () {
 						if ( qodefFramework.scroll >= qodefAdminOptionsPanel.adminHeaderTopPosition ) {
-							console.log( wpContentMarginLeft );
-							console.log( wpContentPaddingLeft );
 							qodefAdminOptionsPanel.adminHeader.addClass( 'qodef-fixed' ).css(
 								{
 									'top': parseInt( qodefAdminOptionsPanel.adminBarHeight ),

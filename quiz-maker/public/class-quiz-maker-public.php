@@ -1202,6 +1202,9 @@ class Quiz_Maker_Public
         // Wrong answer transform size
         $quiz_wrong_answer_text_transform = (isset($options[ 'quiz_wrong_answer_text_transform' ]) && $options[ 'quiz_wrong_answer_text_transform' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_wrong_answer_text_transform' ] ) ) : 'none';
 
+        // Wrong answer text decoration
+        $quiz_wrong_answers_text_decoration = (isset($options[ 'quiz_wrong_answers_text_decoration' ]) && $options[ 'quiz_wrong_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_wrong_answers_text_decoration' ] ) ) : 'none';
+
         // Font size for the question explanation
         $quest_explanation_font_size = (isset($options['quest_explanation_font_size']) && $options['quest_explanation_font_size'] != '') ? absint(sanitize_text_field($options['quest_explanation_font_size'])) : '16';
 
@@ -3376,6 +3379,7 @@ class Quiz_Maker_Public
 
             #ays-quiz-container-" . $id . " .wrong_answer_text * {
                 text-transform:" . $quiz_wrong_answer_text_transform . ";
+                text-decoration: ". $quiz_wrong_answers_text_decoration .";
             }
 
             #ays-quiz-container-" . $id . " .ays_questtion_explanation * {

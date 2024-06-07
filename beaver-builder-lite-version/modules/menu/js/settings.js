@@ -18,7 +18,7 @@
 
 		init: function() {
 			var form = $( '.fl-builder-menu-settings:visible' ),
-			    submenuLinkColor = form.find( 'input[name=submenu_link_color]' ),
+				submenuLinkColor = form.find( 'input[name=submenu_link_color]' ),
 				submenuBg = form.find( 'input[name=submenu_bg_color]' ),
 				submenuShadow = form.find( 'select[name=drop_shadow]' ),
 				submenuSpacing = form.find( '#fl-field-submenu_spacing input' ),
@@ -47,6 +47,9 @@
 			mobileToggle.on( 'change', this._mobileToggle );
 			this._mobileToggle();
 			this._removeWooSections();
+			if ( FLBuilderConfig.lite ) {
+				$('#fl-builder-settings-section-search').remove();
+			}
 		},
 
 		_previewSubmenu: function() {

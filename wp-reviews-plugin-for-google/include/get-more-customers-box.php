@@ -4,7 +4,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 <h1 class="ti-header-title ti-mt-2"><?php echo __('Want to get more customers?', 'trustindex-plugin'); ?></h1>
 <div class="ti-box">
 <div class="ti-box-header"><?php echo __('Increase SEO, trust and sales using customer reviews.', 'trustindex-plugin'); ?></div>
-<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c=<?php echo $tiCampaign1; ?>" target="_blank"><?php echo __('Create a Free Account for More Features', 'trustindex-plugin'); ?></a>
+<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c=<?php echo $tiCampaign1; ?>" target="_blank"><?php echo sprintf(__('Try Pro Features for Free for %d Days', 'trustindex-plugin'), 7); ?></a>
 <ul class="ti-seo-list">
 <li>
 <strong><?php echo __('Display unlimited number of reviews', 'trustindex-plugin'); ?></strong><br />
@@ -15,7 +15,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 <?php echo __('Use the widgets matching your page the best to build trust.', 'trustindex-plugin'); ?>
 </li>
 <li>
-<strong><?php echo sprintf(__("%d review platforms", 'trustindex-plugin'), 131); ?></strong><br />
+<strong><?php echo sprintf(__("%d review platforms", 'trustindex-plugin'), 133); ?></strong><br />
 <?php echo sprintf(__("Add more reviews to your widget from %s, etc. to enjoy more trust, and to keep customers on your site.", 'trustindex-plugin'), 'Google, Facebook, Yelp, Amazon, Tripadvisor, Booking.com, Airbnb, Hotels.com, Capterra, Foursquare, Opentable'); ?><br />
 <img src="<?php echo $pluginManagerInstance->get_plugin_file_url('static/img/platforms.png'); ?>" alt="" style="margin-top: 5px" />
 </li>
@@ -36,7 +36,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 <?php echo __('Wordpress cannot update reviews, but Trustindex can! As soon as you get a new review, Trustindex Business can automatically add it to your website. Customers love fresh reviews!', 'trustindex-plugin'); ?>
 </li>
 </ul>
-<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c=<?php echo $tiCampaign2; ?>" target="_blank"><?php echo __('Create a Free Account for More Features', 'trustindex-plugin'); ?></a>
+<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c=<?php echo $tiCampaign2; ?>" target="_blank"><?php echo sprintf(__('Try Pro Features for Free for %d Days', 'trustindex-plugin'), 7); ?></a>
 <div class="ti-special-offer">
 <img src="<?php echo $pluginManagerInstance->get_plugin_file_url('static/img/special_30.jpg'); ?>">
 <p><?php echo __('Now we offer you a 30%% discount off your subscription! Create your free account and benefit from the onboarding discount now!', 'trustindex-plugin'); ?></p>

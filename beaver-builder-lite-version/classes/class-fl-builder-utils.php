@@ -387,6 +387,7 @@ final class FLBuilderUtils {
 
 	/**
 	 * is_post_publicly_viewable was added in 5.7 so need a pollyfill
+	 *
 	 * @since 2.8
 	 */
 	public static function is_post_publicly_viewable( $post ) {
@@ -473,5 +474,14 @@ final class FLBuilderUtils {
 			}
 		}
 		return $default;
+	}
+
+	/**
+	 * Returns the column width when set to blank or zero and allows it to be overridden.
+	 *
+	 * @since 2.8.2
+	 */
+	public static function get_empty_column_width() {
+		return apply_filters( 'fl_builder_empty_column_width', '0%' );
 	}
 }

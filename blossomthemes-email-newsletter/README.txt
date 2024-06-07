@@ -5,7 +5,7 @@ Tags: subscribe, newsletter, email
 Requires at least: 4.3
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.2.6
+Stable tag: 2.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,17 @@ Once installed, the plugin page will appear on the Admin dashboard.
 
 
 == Changelog ==
+
+= 2.2.7 =
+
+Released on: 7th June, 2024
+
+Fixes:
+* Fixed minor issue with Sendinblue platform.
+* Fixed issue with MailerLite.
+
+Enhancement:
+* Improved integration of ActiveCampaign.
 
 = 2.2.6 =
 

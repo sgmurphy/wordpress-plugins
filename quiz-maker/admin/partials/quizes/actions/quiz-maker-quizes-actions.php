@@ -244,6 +244,7 @@ $options = array(
     'quiz_admin_note_text_decoration'           => "none",
     'quiz_quest_explanation_text_decoration'    => "none",
     'quiz_right_answers_text_decoration'        => "none",
+    'quiz_wrong_answers_text_decoration'        => "none",
 );
 
 $quiz_intervals_default = array(
@@ -562,23 +563,23 @@ $quiz_message_vars_password_for_passing_quiz = array(
 );
 
 $quiz_message_vars_rating_form_title = array(
-    "%%quiz_name%%"                             => __("Quiz Title", $this->plugin_name),
-    "%%user_first_name%%"                       => __("User's First Name", $this->plugin_name),
-    "%%user_last_name%%"                        => __("User's Last Name", $this->plugin_name),
-    "%%questions_count%%"                       => __("Questions count", $this->plugin_name),
-    "%%user_nickname%%"                         => __("User's Nick Name", $this->plugin_name),
-    "%%user_display_name%%"                     => __("User's Display Name", $this->plugin_name),
-    "%%user_wordpress_email%%"                  => __("User's WordPress profile email", $this->plugin_name),
-    "%%user_wordpress_roles%%"                  => __("User's WordPress Roles", $this->plugin_name),
-    "%%quiz_creation_date%%"                    => __("Quiz creation date", $this->plugin_name),
-    "%%current_quiz_author%%"                   => __("Quiz Author", $this->plugin_name),
-    "%%current_user_ip%%"                       => __("User's IP Address", $this->plugin_name),
-    "%%current_quiz_author_email%%"             => __("Quiz Author Email", $this->plugin_name),
-    "%%current_quiz_author_nickname%%"          => __("Quiz Author Nickname", $this->plugin_name),
-    "%%admin_email%%"                           => __("Admin Email", $this->plugin_name),
-    "%%home_page_url%%"                         => __("Home page URL", $this->plugin_name),
-    "%%quiz_id%%"                               => __("Quiz ID", $this->plugin_name),
-    "%%user_id%%"                               => __("User ID", $this->plugin_name),
+    "%%quiz_name%%"                                 => __("Quiz Title", $this->plugin_name),
+    "%%user_first_name%%"                           => __("User's First Name", $this->plugin_name),
+    "%%user_last_name%%"                            => __("User's Last Name", $this->plugin_name),
+    "%%questions_count%%"                           => __("Questions count", $this->plugin_name),
+    "%%user_nickname%%"                             => __("User's Nick Name", $this->plugin_name),
+    "%%user_display_name%%"                         => __("User's Display Name", $this->plugin_name),
+    "%%user_wordpress_email%%"                      => __("User's WordPress profile email", $this->plugin_name),
+    "%%user_wordpress_roles%%"                      => __("User's WordPress Roles", $this->plugin_name),
+    "%%quiz_creation_date%%"                        => __("Quiz creation date", $this->plugin_name),
+    "%%current_quiz_author%%"                       => __("Quiz Author", $this->plugin_name),
+    "%%current_user_ip%%"                           => __("User's IP Address", $this->plugin_name),
+    "%%current_quiz_author_email%%"                 => __("Quiz Author Email", $this->plugin_name),
+    "%%current_quiz_author_nickname%%"              => __("Quiz Author Nickname", $this->plugin_name),
+    "%%admin_email%%"                               => __("Admin Email", $this->plugin_name),
+    "%%home_page_url%%"                             => __("Home page URL", $this->plugin_name),
+    "%%quiz_id%%"                                   => __("Quiz ID", $this->plugin_name),
+    "%%user_id%%"                                   => __("User ID", $this->plugin_name),
 );
 
 $quiz_message_vars_schedule_pre_start_message = array(
@@ -1306,6 +1307,9 @@ $quiz_quest_explanation_text_decoration = (isset($options[ 'quiz_quest_explanati
 
 // Right answer text decoration
 $quiz_right_answers_text_decoration = (isset($options[ 'quiz_right_answers_text_decoration' ]) && $options[ 'quiz_right_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_right_answers_text_decoration' ] ) ) : 'none';
+
+// Wrong answer text decoration
+$quiz_wrong_answers_text_decoration = (isset($options[ 'quiz_wrong_answers_text_decoration' ]) && $options[ 'quiz_wrong_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_wrong_answers_text_decoration' ] ) ) : 'none';
 
 ?>
 <style id="ays_live_custom_css"></style>
@@ -3506,6 +3510,33 @@ $quiz_right_answers_text_decoration = (isset($options[ 'quiz_right_answers_text_
                                     </select>
                                 </div>
                             </div><!-- Wrong answer text transform -->
+                            <hr/>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="ays_quiz_wrong_answers_text_decoration">
+                                        <?php echo __('Text decoration',$this->plugin_name); ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Choose the line position for the Wrong answer on the front end. Note: It is set as None by default.',$this->plugin_name); ?>">
+                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-7 ays_divider_left">
+                                    <select class="ays-text-input ays-text-input-short" id="ays_quiz_wrong_answers_text_decoration" name="ays_quiz_wrong_answers_text_decoration">
+                                        <option value="none" <?php echo ($quiz_wrong_answers_text_decoration == 'none') ? 'selected' : ''; ?>>
+                                            <?php echo __('None',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="overline" <?php echo ($quiz_wrong_answers_text_decoration == 'overline') ? 'selected' : ''; ?>>
+                                            <?php echo __('Overline',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="line-through" <?php echo ($quiz_wrong_answers_text_decoration == 'line-through')  ? 'selected' : ''; ?>>
+                                            <?php echo __('Line through',$this->plugin_name); ?>
+                                        </option>
+                                        <option value="underline" <?php echo ($quiz_wrong_answers_text_decoration == 'underline') ? 'selected' : ''; ?>>
+                                            <?php echo __('Underline',$this->plugin_name); ?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div><!-- Wrong answer text decoration -->
                         </div>
                         <hr/>
                         <div class="col-lg-5 col-sm-12 ays_divider_left" style="position:relative;"></div>

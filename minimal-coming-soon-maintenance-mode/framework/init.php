@@ -23,7 +23,7 @@ class CSMM {
     }
 
     // admin bar has to be anabled, user an admin and custom filter true
-    if ($options['disable_adminbar'] || false === is_admin_bar_showing() || false === current_user_can('administrator') || false === apply_filters('csmm_show_admin_bar', true)) {
+    if ($options['disable_adminbar'] || false === is_admin_bar_showing() || false === current_user_can('manage_options') || false === apply_filters('csmm_show_admin_bar', true)) {
       return;
     }
 
@@ -44,7 +44,7 @@ class CSMM {
     }
 
     // only show to admins
-    if ($options['disable_adminbar'] || false === current_user_can('administrator') || false === apply_filters('csmm_show_admin_bar', true)) {
+    if ($options['disable_adminbar'] || false === current_user_can('manage_options') || false === apply_filters('csmm_show_admin_bar', true)) {
       return;
     }
 

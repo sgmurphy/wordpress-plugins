@@ -301,7 +301,7 @@ final class FLBuilderAdmin {
 		$installed_plugins = get_plugins();
 		$installed         = array_key_exists( $plugin_slug, $installed_plugins ) || in_array( $plugin_slug, $installed_plugins, true );
 		$plugins_link      = sprintf( "<a href='%s'>%s</a>", admin_url( 'plugins.php' ), __( 'Plugins Page', 'fl-builder' ) );
-		$docs_link         = sprintf( "<a target='_blank' href='%s'>%s</a>", 'https://docs.wpbeaverbuilder.com/beaver-builder/getting-started/install-beaver-builder', __( 'Documentation', 'fl-builder' ) );
+		$docs_link         = sprintf( "<a target='_blank' href='%s'>%s</a>", 'https://docs.wpbeaverbuilder.com/beaver-builder/getting-started/install/', __( 'Documentation', 'fl-builder' ) );
 		?>
 		<div id="fl-upgrade-lite-form" class="fl-upgrade-page-content">
 

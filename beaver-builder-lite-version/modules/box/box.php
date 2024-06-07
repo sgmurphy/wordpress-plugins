@@ -405,63 +405,19 @@ FLBuilder::register_module( 'FLBuilderBoxModule', [
 									],
 								],
 
-								// Vertical Grid
-								[
-									'property'  => 'justify-content',
-									'sub_value' => 'horizontal',
-									'enabled'   => [
-										'layout'         => [ 'nearest_value' => 'grid' ],
-										'grid_auto_flow' => [
-											'nearest_value' => [ '', 'column', 'dense', 'column dense' ],
-										],
-									],
-								],
-								[
-									'property'  => 'align-content',
-									'sub_value' => 'vertical',
-									'enabled'   => [
-										'layout'         => [ 'nearest_value' => 'grid' ],
-										'grid_auto_flow' => [
-											'nearest_value' => [ '', 'column', 'dense', 'column dense' ],
-										],
-									],
-								],
-
-								// Horizontal Grid
-								[
-									'property'  => 'justify-content',
-									'sub_value' => 'horizontal',
-									'enabled'   => [
-										'layout'         => [ 'nearest_value' => 'grid' ],
-										'grid_auto_flow' => [
-											'nearest_value' => [ 'row', 'row dense' ],
-										],
-									],
-								],
-								[
-									'property'  => 'align-content',
-									'sub_value' => 'vertical',
-									'enabled'   => [
-										'layout'         => [ 'nearest_value' => 'grid' ],
-										'grid_auto_flow' => [
-											'nearest_value' => [ 'row', 'row dense' ],
-										],
-									],
-								],
-
-								// Layered Z-Stack Grid
+								// Grid Or Layered (z_stack)
 								[
 									'property'  => 'justify-items',
 									'sub_value' => 'horizontal',
 									'enabled'   => [
-										'layout' => [ 'nearest_value' => 'z_stack' ],
+										'layout'         => [ 'nearest_value' => [ 'grid', 'z_stack' ] ],
 									],
 								],
 								[
 									'property'  => 'align-items',
 									'sub_value' => 'vertical',
 									'enabled'   => [
-										'layout' => [ 'nearest_value' => 'z_stack' ],
+										'layout'         => [ 'nearest_value' => [ 'grid', 'z_stack' ] ],
 									],
 								],
 							],

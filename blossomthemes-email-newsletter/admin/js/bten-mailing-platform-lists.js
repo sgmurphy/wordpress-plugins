@@ -180,10 +180,13 @@ jQuery(document).ready(function () {
 
   //ActiveCampaign Lists
   jQuery("body").on("click", ".bten_get_activecampaign_lists", function (e) {
-    ListsSelect = jQuery("#" + jQuery(this).attr("rel-id"));
+    var ListsSelect = jQuery("#" + jQuery(this).attr("rel-id"));
     ListsSelect.find("option").remove();
     var nonce = jQuery(this).data("nonce");
+    var settingsErrorDiv = jQuery("#setting-error-settings_updated");
+
     jQuery("<option/>").val(0).text("Loading...").appendTo(ListsSelect);
+
     jQuery.ajax({
       url: ajaxurl,
       data: {
@@ -196,19 +199,25 @@ jQuery(document).ready(function () {
       dataType: "JSON",
       type: "POST",
       success: function (response) {
-        ListsSelect.find("option").remove();
+        settingsErrorDiv.remove();
+        ListsSelect.empty();
+
         jQuery.each(response, function (i, option) {
           jQuery("<option/>").val(i).text(option.name).appendTo(ListsSelect);
         });
       },
       error: function (errorThrown) {
-        ListsSelect.find("option").remove();
-        jQuery("<option/>")
-          .val("-")
-          .text("No Lists Found")
-          .appendTo(ListsSelect);
-        alert("Error: Invalid API key or Url");
-      },
+        var message = errorThrown?.responseText?.replace(/0$/, '');
+        var errorMessage = message ? JSON.parse(message)?.errorMessage : null;
+
+        if (errorMessage) {
+          settingsErrorDiv.remove();
+          jQuery(".btnb-header").after('<div id="setting-error-settings_updated" class="error settings-error notice is-dismissible"><p><strong>' + errorMessage + '</strong></p></div>');
+        } else {
+          ListsSelect.empty().append(jQuery("<option/>").val("-").text("No Lists Found"));
+          alert("Error: Invalid API key or Url");
+        }
+      }
     });
   });
 });

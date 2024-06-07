@@ -124,7 +124,7 @@ final class FLBuilderPopupMaker {
 	}
 
 	/**
-	 * Allow disabled popups to be editible
+	 * Allow disabled popups to be editable
 	 */
 	static public function pum_disabled_overide( $metadata, $object_id, $meta_key, $single ) {
 		if ( 'enabled' === $meta_key && isset( $_GET['fl_builder'] ) ) {

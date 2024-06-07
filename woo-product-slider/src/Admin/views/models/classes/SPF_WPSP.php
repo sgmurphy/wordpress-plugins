@@ -32,7 +32,7 @@ class SPF_WPSP {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.7.1';
+	public static $version = '2.7.2';
 	/**
 	 * Dir.
 	 *

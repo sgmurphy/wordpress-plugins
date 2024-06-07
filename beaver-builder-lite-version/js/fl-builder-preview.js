@@ -2666,6 +2666,7 @@
 					return
 				}
 			}
+
 			/**
 			 * Support for enabled property
 			 * Meant to closely match FLBuilderCSS::is_rule_enabled()
@@ -2720,7 +2721,7 @@
 			const isDefault = '' === currentBreakpoint || 'default' === currentBreakpoint
 			let name = isDefault ? settingBaseName : `${settingBaseName}_${currentBreakpoint}`
 
-			if ( undefined !== settings[name] ) {
+			if ( undefined !== settings[name] && '' !== settings[name] ) {
 				return settings[name]
 			}
 
@@ -2736,6 +2737,7 @@
 			for( let i in breakpoints ) {
 				const breakpoint = breakpoints[i]
 				name = '' === breakpoint ? settingBaseName : `${settingBaseName}_${breakpoint}`
+
 				if ( undefined !== settings[name] && '' !== settings[name] ) {
 					return settings[name]
 				}

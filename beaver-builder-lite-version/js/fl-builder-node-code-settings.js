@@ -16,7 +16,16 @@
         settingsFormInit: function() {
             var style = $( 'style.fl-builder-node-preview' );
             var form = $( '.fl-builder-settings[data-node]' );
-            var cssInput = $( '#fl-field-bb_css_code textarea' );
+            var cssInput = form.find( 'textarea[name=bb_css_code]' );
+            var jsInput = form.find( 'textarea[name=bb_js_code]' );
+
+            if ( cssInput.length > 0 && '' !== cssInput.val() ) {
+              form.find('#fl-builder-settings-section-bb_css_code').find('.fl-builder-settings-title').append('<span style="padding-left:5px;color:green!important;">&bull;</span>');
+            }
+
+            if ( jsInput.length > 0 && '' !== jsInput.val() ) {
+              form.find('#fl-builder-settings-section-bb_js_code').find('.fl-builder-settings-title').append('<span style="padding-left:5px;color:green!important;">&bull;</span>');
+            }
 
             if ( form.length ) {
                 CodeSettings.currentNodeId = form.attr( 'data-node' );

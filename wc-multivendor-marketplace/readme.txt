@@ -1,21 +1,21 @@
-﻿=== WCFM Marketplace - Best Multivendor Marketplace for WooCommerce ===
+﻿=== WCFM Marketplace - Multivendor Marketplace for WooCommerce ===
 Contributors: wclovers
 Tags: woocommerce marketplace, multivendor marketplace, multi vendor, multi seller, woocommerce product vendors 
 Donate link: https://www.paypal.me/wclovers/25usd
 Requires at least: 4.4
-Tested up to: 6.4
+Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.7.0
+WC tested up to: 8.9.0
 Requires PHP: 5.6
-Stable tag: 3.6.8
+Stable tag: 3.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The most featured and powerful multi vendor plugin for WordPress, setup best woocommerce marketplace store in minutes. More flexible than WC Markerplace, WC Vendors Marketplace and Dokan Multivendor.
+The most featured and powerful multi vendor plugin for WordPress, setup fantastic woocommerce marketplace store in minutes. More flexible than WC Markerplace, WC Vendors Marketplace and Dokan Multivendor.
 
 == Description ==
 
-### Best multivendor marketplace solution for WordPress and WooCommerce
+### Magnificent multivendor marketplace solution for WordPress and WooCommerce
 
 WooCommerce Multivendor Marketplace (WCFM Marketplace) is the best free front end multi-vendor marketplace plugin on WordPress, powered by WooCommerce. It helps you to build your own dream marketplace like Amazon, eBay, etsy, AirBnB or Flipkart within minutes, with minimal setup. 
 
@@ -254,6 +254,12 @@ NONE.
 
 
 == Changelog ==
+
+= 3.6.9 =
+*Updated - 07/06/2024*
+
+* Enhanced – WordPress 6.5+ compatibility added
+* Enhanced – WooCommerce 8.9+ compatibility added
 
 = 3.6.8 =
 *Updated - 23/03/2024*
@@ -1686,7 +1692,6 @@ NONE.
 
 == Upgrade Notice ==
 
-= 3.6.8 =
-* Enhanced – WooCommerce 8.7+ compatibility added
-* Fixed    - Menu Manager Label changed after settings update
-* Fixed    - Staff can not see orders in order-list page
+= 3.6.9 =
+* Enhanced – WordPress 6.5+ compatibility added
+* Enhanced – WooCommerce 8.9+ compatibility added

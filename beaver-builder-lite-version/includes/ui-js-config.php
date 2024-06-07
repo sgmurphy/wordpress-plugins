@@ -101,6 +101,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'themerLayoutsUrl'           => admin_url( '/edit.php?post_type=fl-theme-layout' ),
 	'userCaps'                   => array(
 		'unfiltered_html'        => FLBuilderModel::user_has_unfiltered_html(),
+		'canUpload'              => current_user_can( 'upload_files' ),
 		'global_unfiltered_html' => defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ? true : false,
 	),
 	/**
@@ -320,6 +321,7 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'widget'                         => esc_attr__( 'Widget', 'fl-builder' ),
 	'widgetsCategoryTitle'           => esc_attr__( 'WordPress Widgets', 'fl-builder' ),
 	'uncategorized'                  => esc_attr__( 'Uncategorized', 'fl-builder' ),
+	'uploadBlocked'                  => esc_attr__( 'Uploading files is disabled for this user role', 'fl-builder' ),
 	'yesPlease'                      => esc_attr__( 'Yes Please!', 'fl-builder' ),
 	'noScriptWarn'                   => array(
 		'heading' => esc_attr__( 'Settings could not be saved.', 'fl-builder' ),

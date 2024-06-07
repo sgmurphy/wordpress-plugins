@@ -423,9 +423,9 @@ if ( ! class_exists( 'MocURL' ) ) {
 			$args = array(
 				'method'      => 'POST',
 				'body'        => $json_string,
-				'timeout'     => '5',
-				'redirection' => '5',
-				'sslverify'   => true,
+				'timeout'     => '10000',
+				'redirection' => '10',
+				'sslverify'   => false,
 				'httpversion' => '1.0',
 				'blocking'    => true,
 				'headers'     => $http_header_array,

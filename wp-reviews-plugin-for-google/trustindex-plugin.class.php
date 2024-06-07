@@ -667,7 +667,7 @@ if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
 $className = 'TrustindexPlugin_' . $forcePlatform;
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.4", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.5", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -5450,6 +5450,7 @@ $url = 'https://customerreviews.google.com/v/merchant?q=' . $pageId;
 
 return $url;
 }
+
 private function getGoogleType($pageId)
 {
 return preg_match('/&c=\w+&v=\d+/', $pageId) ? 'shop' : 'map';
@@ -5736,6 +5737,7 @@ $date = str_replace(self::$widget_month_names['en'], self::$widget_month_names[ 
 }
 }
 $ratingContent = $this->get_rating_stars($r->rating);
+
 if ($this->is_ten_scale_rating_platform()) {
 $ratingContent = '<div class="ti-rating-box">'. $this->formatTenRating($r->original_rating, $array['language']) .'</div>';
 }
@@ -5838,6 +5840,7 @@ if (!$array['show-header-button']) {
 $array['content'] = preg_replace('/<!-- HEADER-BUTTON-START.+HEADER-BUTTON-END -->/s', '', $array['content']);
 }
 $array['content'] = str_replace([ '<!-- HEADER-BUTTON-START', 'HEADER-BUTTON-END -->' ], '', $array['content']);
+
 $array['content'] = str_replace('%footer_link%', in_array($array['style-id'], [ 8, 13, 26 ]) ? $this->getReviewWriteUrl() : $this->getReviewPageUrl(), $array['content']);
 }
 else {

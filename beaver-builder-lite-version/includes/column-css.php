@@ -68,7 +68,7 @@ $reverse_stack      = explode( ',', $col->settings->responsive_order );
 FLBuilderCSS::rule( array(
 	'selector' => ".fl-node-$id",
 	'props'    => array(
-		'width' => "{$settings->size}%",
+		'width' => empty( $settings->size ) ? FLBuilderUtils::get_empty_column_width() : "{$settings->size}%",
 	),
 ) );
 

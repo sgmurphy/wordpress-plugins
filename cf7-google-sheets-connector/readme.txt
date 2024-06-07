@@ -6,7 +6,7 @@ Tags: cf7, contact form 7, contact form 7 integrations, contact forms, google sh
 Tested up to: 6.5
 Requires at least: 3.6
 Requires PHP: 7.4
-Stable tag: 5.0.9
+Stable tag: 5.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,9 @@ Please double-check those items and hopefully getting them right will fix the is
 * Now you can paste this code back on the `Admin Panel > Contact form 7 > Google Sheets` screen. 
 
 == Changelog ==
+
+= 5.0.10 = (07-06-2024)
+* Fixed: Vulnerabilities issues.
 
 = 5.0.9 = (09-04-2024)
 * Added: UI changes.

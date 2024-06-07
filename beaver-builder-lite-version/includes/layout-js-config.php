@@ -15,5 +15,6 @@ var FLBuilderLayoutConfig = {
 	},
 	waypoint: {
 		offset: 80
-	}
+	},
+	emptyColWidth: '<?php echo FLBuilderUtils::get_empty_column_width(); ?>'
 };

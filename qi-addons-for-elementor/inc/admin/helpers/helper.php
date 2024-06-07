@@ -336,10 +336,6 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_inline_attr' ) ) 
 			}
 		}
 
-		var_dump($properties);
-
-		var_dump('------------');
-
 		// Leave only allowed characters in value, everything that is not a number, char, space or dash will be removed.
 		preg_replace( '/[^\p{L}\p{N}\s\-_]+/u', '', $properties );
 

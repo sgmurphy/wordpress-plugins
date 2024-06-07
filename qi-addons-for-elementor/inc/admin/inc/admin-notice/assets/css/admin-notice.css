@@ -16,14 +16,32 @@
 	font-weight: 500;
 }
 
+@font-face {
+	font-family: 'DM Sans';
+	src: url("../../../admin-pages/assets/fonts/DMSans-Regular.ttf") format("truetype");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'DM Sans';
+	src: url("../../../admin-pages/assets/fonts/DMSans-SemiBold.ttf") format("truetype");
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'DM Sans';
+	src: url("../../../admin-pages/assets/fonts/DMSans-Bold.ttf") format("truetype");
+	font-weight: 700;
+}
+
 .qodef-admin-notice p,
 .qodef-admin-review-notice p,
 #qi-addons-for-elementor-deactivation-modal p {
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
-	font-size: 15px;
-	line-height: 1.6em;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 14px;
+	line-height: 1.43em;
 	font-weight: 400;
 }
 
@@ -34,13 +52,13 @@
 	vertical-align: middle;
 	width: auto;
 	margin: 0;
-	font-family: 'Heebo', sans-serif;
-	font-size: 12px;
+	font-family: 'DM Sans', sans-serif;
+	font-size: 13px;
 	line-height: 2em;
-	font-weight: 500;
+	font-weight: 700;
 	text-transform: uppercase;
-	border-radius: 30px;
-	letter-spacing: 0.13em;
+	border-radius: 5px;
+	letter-spacing: 0.02em;
 	outline: none;
 	box-sizing: border-box;
 	transition: color .2s ease-in-out, background-color .2s ease-in-out, border-color .2s ease-in-out;
@@ -48,7 +66,7 @@
 	text-decoration: none;
 	box-shadow: none;
 	display: inline-block;
-	padding: 9px 30px;
+	padding: 8px 20px;
 }
 
 .qodef-admin-notice .qodef-btn.qodef-btn-solid,
@@ -117,44 +135,62 @@
 	background-color: #fff;
 	padding: 0;
 	border: none;
+	border-radius: 5px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
 }
 
 .qodef-admin-notice .qodef-admin-notice-inner,
 .qodef-admin-review-notice .qodef-admin-notice-inner {
-	padding: 44px 22% 55px 42px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 75px;
+	padding: 40px 5px 34px 25px;
+}
+
+.qodef-admin-notice .qodef-admin-notice-inner .qodef-admin-notice-right-holder,
+.qodef-admin-review-notice .qodef-admin-notice-inner .qodef-admin-notice-right-holder {
+	flex-shrink: 0;
+}
+
+@media only screen and (max-width: 1440px) {
+	.qodef-admin-notice .qodef-admin-notice-inner,
+	.qodef-admin-review-notice .qodef-admin-notice-inner {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 25px;
+	}
 }
 
 .qodef-admin-notice .qodef-admin-notice-title,
 .qodef-admin-review-notice .qodef-admin-notice-title {
 	margin: 0 0 10px;
-	font-family: 'Heebo', Sans-serif;
-	font-size: 22px;
-	font-weight: 400;
+	font-family: 'DM Sans', Sans-serif;
+	font-size: 18px;
+	font-weight: 600;
 	color: #000;
 }
 
 .qodef-admin-notice .qodef-admin-notice-description,
 .qodef-admin-review-notice .qodef-admin-notice-description {
-	font-family: Roboto, sans-serif;
+	font-family: 'DM Sans', sans-serif;
 	font-size: 15px;
 	line-height: 1.6em;
 }
 
 .qodef-admin-notice .qodef-admin-notice-submit,
 .qodef-admin-review-notice .qodef-admin-notice-submit {
-	margin: 13px 0 0;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 20px;
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 600px) {
 	.qodef-admin-notice .qodef-admin-notice-submit,
 	.qodef-admin-review-notice .qodef-admin-notice-submit {
-		display: inline-flex;
 		flex-direction: column;
-		align-items: flex-start;
-	}
-	.qodef-admin-notice .qodef-admin-notice-submit .qodef-btn,
-	.qodef-admin-review-notice .qodef-admin-notice-submit .qodef-btn {
-		margin: 0 0 10px;
 	}
 }
 
@@ -166,51 +202,26 @@
 .qodef-admin-notice .qodef-admin-notice-dismiss,
 .qodef-admin-review-notice .qodef-admin-notice-dismiss {
 	position: absolute;
-	right: 18px;
-	top: 16px;
+	right: 20px;
+	top: 18px;
 }
 
 .qodef-admin-notice .notice-dismiss,
 .qodef-admin-review-notice .notice-dismiss {
-	top: 14px;
-	right: 14px;
+	top: 16px;
+	right: 16px;
 	padding: 0;
 	opacity: 0;
 }
 
 .qodef-admin-review-notice {
 	margin-top: 15px;
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.09);
 }
 
 @media only screen and (max-width: 768px) {
 	.qodef-admin-review-notice.notice.is-dismissible {
 		padding-right: 0;
 	}
-}
-
-.qodef-admin-review-notice .qodef-admin-notice-inner {
-	padding: 30px 30% 33px 42px;
-}
-
-@media only screen and (max-width: 1280px) {
-	.qodef-admin-review-notice .qodef-admin-notice-inner {
-		padding-right: 20%;
-	}
-}
-
-@media only screen and (max-width: 1024px) {
-	.qodef-admin-review-notice .qodef-admin-notice-inner {
-		padding-right: 42px;
-	}
-}
-
-.qodef-admin-review-notice .qodef-admin-notice-submit {
-	margin: 18px 0 0;
-}
-
-.qodef-admin-review-notice .qodef-admin-notice-submit .qodef-review-button {
-	margin-right: 7px;
 }
 
 #qi-addons-for-elementor-deactivation-modal {
@@ -252,10 +263,10 @@
 }
 
 #qi-addons-for-elementor-deactivation-modal .qodef-deactivation-modal-content .qodef-deactivation-modal-title {
-	font-family: 'Heebo', sans-serif;
+	font-family: 'DM Sans', sans-serif;
 	font-size: 32px;
 	line-height: 1.25em;
-	font-weight: 500;
+	font-weight: 600;
 	margin: 0 0 19px;
 }
 
@@ -295,7 +306,7 @@
 
 #qi-addons-for-elementor-deactivation-modal .qodef-deactivation-modal-content .qodef-deactivation-modal-form-options .qodef-deactivation-modal-form-option .qodef-deactivation-modal-form-option-label {
 	display: block;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'DM Sans', sans-serif;
 	font-size: 15px;
 	line-height: 1.6em;
 }
@@ -303,7 +314,7 @@
 #qi-addons-for-elementor-deactivation-modal .qodef-deactivation-modal-content .qodef-deactivation-modal-form-options .qodef-deactivation-modal-form-option .qodef-deactivation-modal-form-option-text {
 	margin: 6px 0 10px 26px;
 	width: calc(100% - 32px);
-	font-family: 'Roboto', sans-serif;
+	font-family: 'DM Sans', sans-serif;
 	color: #696969;
 	font-size: 13px;
 	border-radius: 5em;

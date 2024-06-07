@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: FeedbackWP - Rate My Post - WP Rating System 4.0.2\n"
+"Project-Id-Version: FeedbackWP - Rate My Post - WP Rating System 4.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rate-my-post\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-19T08:53:02+00:00\n"
+"POT-Creation-Date: 2024-06-07T14:58:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: rate-my-post\n"
@@ -34,113 +34,247 @@ msgstr ""
 msgid "https://feedbackwp.com/"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:80
-msgid "Saving"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:81
-msgid "Are your sure you want to reset the settings?"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:122
-#: admin/class-rate-my-post-admin.php:168
-#: admin/class-rate-my-post-admin.php:390
-#: admin/class-rate-my-post-admin.php:483
-#: admin/class-rate-my-post-admin.php:592
-msgid "Successfully Saved!"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:134
-#: admin/class-rate-my-post-admin.php:178
-#: admin/class-rate-my-post-admin.php:221
-#: admin/class-rate-my-post-admin.php:263
-#: admin/class-rate-my-post-admin.php:356
-#: admin/class-rate-my-post-admin.php:401
-#: admin/class-rate-my-post-admin.php:450
-#: admin/class-rate-my-post-admin.php:494
-#: admin/class-rate-my-post-admin.php:559
-#: admin/class-rate-my-post-admin.php:603
-#: admin/class-rate-my-post-admin.php:686
-#: admin/class-rate-my-post-admin.php:738
-#: admin/class-rate-my-post-admin.php:783
-msgid "You do not have adequate permissions for this action!"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:142
-#: admin/class-rate-my-post-admin.php:186
-#: admin/class-rate-my-post-admin.php:228
-#: admin/class-rate-my-post-admin.php:271
-#: admin/class-rate-my-post-admin.php:409
-#: admin/class-rate-my-post-admin.php:458
-#: admin/class-rate-my-post-admin.php:502
-#: admin/class-rate-my-post-admin.php:567
-#: admin/class-rate-my-post-admin.php:611
-#: admin/class-rate-my-post-admin.php:694
-#: admin/class-rate-my-post-admin.php:746
-#: admin/class-rate-my-post-admin.php:791
-msgid "Invalid nonce!"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:212
-msgid "Feedback successfully deleted!"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:315
-#: admin/templates/menu.php:35
-msgid "Settings"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:323
-msgid "Stats"
-msgstr ""
-
-#: admin/class-rate-my-post-admin.php:332
+#: admin/analytics/analytics.php:17
+#: admin/class-rate-my-post-admin.php:465
 msgid "Analytics"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:341
-#: admin/class-rate-my-post-admin.php:342
-msgid "Custom Rating Widgets"
+#: admin/analytics/analytics.php:34
+msgid "Here you can see the details about the recent votes on your website."
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:442
-#: admin/class-rate-my-post-admin.php:551
-msgid "Settings Reset Done"
+#: admin/analytics/analytics_list.php:62
+msgid "Date"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:527
-#: admin/class-rate-my-post-admin.php:632
-msgid "Settings Partially Saved. Unable to save: "
+#: admin/analytics/analytics_list.php:63
+msgid "IP Address"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:530
-#: admin/class-rate-my-post-admin.php:635
-msgid "Try clearing all caches, especially your browser cache!"
+#: admin/analytics/analytics_list.php:64
+#: admin/templates/meta-box.php:97
+msgid "User"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:713
-msgid "All data deleted"
+#: admin/analytics/analytics_list.php:65
+msgid "Post"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:810
-msgid "No rating plugin found! Migration is not possible!"
+#: admin/analytics/analytics_list.php:66
+msgid "Duration"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:821
-msgid "Migration successful! Number of posts affected"
+#: admin/analytics/analytics_list.php:67
+#: admin/stats/stats_list.php:77
+#: admin/templates/meta-box.php:45
+msgid "Average Rating"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:826
-msgid "No existing ratings found! Nothing to migrate!"
+#: admin/analytics/analytics_list.php:68
+msgid "Total Votes"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:957
-#: admin/class-rate-my-post-admin.php:972
+#: admin/analytics/analytics_list.php:69
+msgid "Rating"
+msgstr ""
+
+#: admin/analytics/analytics_list.php:77
+msgid "No analytics found."
+msgstr ""
+
+#: admin/analytics/analytics_list.php:98
+#: admin/analytics/analytics_list.php:113
 msgid "Tracking Disabled"
 msgstr ""
 
-#: admin/class-rate-my-post-admin.php:967
+#: admin/analytics/analytics_list.php:128
 msgid "Not logged in"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:74
+msgid "Custom post types support"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:75
+msgid "Support for different rating icons"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:76
+msgid "Robust structured data for rich snippets"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:77
+msgid "Create custom rating widgets"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:78
+msgid "Bulk rate existing posts"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:79
+msgid "Premium support"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:86
+msgid "Enhance the power of FeedbackWP with the premium version that include more features. %sLearn more%s"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:99
+msgid "Get FeedbackWP Premium →"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:111
+msgid "Whether you need help or have a new feature request, let us know. %sRequest Support%s"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:119
+msgid "Detailed documentation is also available on the plugin website. %sView Knowledge Base%s"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:127
+msgid "If you are enjoying FeedbackWP and find it useful, please consider leaving a ★★★★★ review on WordPress.org. %sLeave a Review%s"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:148
+msgid "Upgrade to Premium"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:161
+msgid "Docs & Support"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:213
+msgid "Saving"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:214
+msgid "Are your sure you want to reset the settings?"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:255
+#: admin/class-rate-my-post-admin.php:301
+#: admin/class-rate-my-post-admin.php:505
+#: admin/class-rate-my-post-admin.php:598
+#: admin/class-rate-my-post-admin.php:707
+msgid "Successfully Saved!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:267
+#: admin/class-rate-my-post-admin.php:311
+#: admin/class-rate-my-post-admin.php:354
+#: admin/class-rate-my-post-admin.php:396
+#: admin/class-rate-my-post-admin.php:493
+#: admin/class-rate-my-post-admin.php:516
+#: admin/class-rate-my-post-admin.php:565
+#: admin/class-rate-my-post-admin.php:609
+#: admin/class-rate-my-post-admin.php:674
+#: admin/class-rate-my-post-admin.php:718
+#: admin/class-rate-my-post-admin.php:801
+#: admin/class-rate-my-post-admin.php:853
+#: admin/class-rate-my-post-admin.php:898
+msgid "You do not have adequate permissions for this action!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:275
+#: admin/class-rate-my-post-admin.php:319
+#: admin/class-rate-my-post-admin.php:361
+#: admin/class-rate-my-post-admin.php:404
+#: admin/class-rate-my-post-admin.php:524
+#: admin/class-rate-my-post-admin.php:573
+#: admin/class-rate-my-post-admin.php:617
+#: admin/class-rate-my-post-admin.php:682
+#: admin/class-rate-my-post-admin.php:726
+#: admin/class-rate-my-post-admin.php:809
+#: admin/class-rate-my-post-admin.php:861
+#: admin/class-rate-my-post-admin.php:906
+msgid "Invalid nonce!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:345
+msgid "Feedback successfully deleted!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:448
+#: admin/templates/menu.php:44
+msgid "Settings"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:456
+#: admin/stats/stats.php:17
+msgid "Stats"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:478
+#: admin/class-rate-my-post-admin.php:479
+msgid "Custom Rating Widgets"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:557
+#: admin/class-rate-my-post-admin.php:666
+msgid "Settings Reset Done"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:642
+#: admin/class-rate-my-post-admin.php:747
+msgid "Settings Partially Saved. Unable to save: "
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:645
+#: admin/class-rate-my-post-admin.php:750
+msgid "Try clearing all caches, especially your browser cache!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:828
+msgid "All data deleted"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:925
+msgid "No rating plugin found! Migration is not possible!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:936
+msgid "Migration successful! Number of posts affected"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:941
+msgid "No existing ratings found! Nothing to migrate!"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:1348
+msgid "Review"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:1353
+msgid "Documentation"
+msgstr ""
+
+#: admin/class-rate-my-post-admin.php:1360
+msgid "Get Help"
+msgstr ""
+
+#: admin/stats/stats.php:40
+msgid "List of rated posts and pages! To see feedback or change ratings click on a post/page title below and find the FeedbackWP Metabox at the bottom."
+msgstr ""
+
+#: admin/stats/stats_list.php:75
+#: admin/templates/menu-customize.php:36
+#: admin/templates/menu-customize.php:225
+#: admin/templates/menu-customize.php:259
+msgid "Title"
+msgstr ""
+
+#: admin/stats/stats_list.php:76
+msgid "Votes"
+msgstr ""
+
+#: admin/stats/stats_list.php:78
+#: admin/templates/meta-box.php:75
+#: admin/templates/meta-box.php:105
+msgid "Feedback"
+msgstr ""
+
+#: admin/stats/stats_list.php:84
+msgid "No stats found."
 msgstr ""
 
 #: admin/templates/admin-notices.php:23
@@ -168,88 +302,6 @@ msgstr ""
 msgid "See FeedbackWP Premium"
 msgstr ""
 
-#: admin/templates/analytics.php:26
-msgid "FeedbackWP Analytics"
-msgstr ""
-
-#: admin/templates/analytics.php:29
-msgid "Here you can see the details about the last 100 votes on your website."
-msgstr ""
-
-#: admin/templates/analytics.php:36
-#: admin/templates/meta-box.php:87
-msgid "ID"
-msgstr ""
-
-#: admin/templates/analytics.php:39
-#: admin/templates/meta-box.php:82
-msgid "Time"
-msgstr ""
-
-#: admin/templates/analytics.php:44
-msgid "IP"
-msgstr ""
-
-#: admin/templates/analytics.php:47
-msgid "Shows IP address if enabled in the security options."
-msgstr ""
-
-#: admin/templates/analytics.php:54
-#: admin/templates/meta-box.php:97
-msgid "User"
-msgstr ""
-
-#: admin/templates/analytics.php:57
-#: admin/templates/meta-box.php:100
-msgid "Shows username if visitor was logged in and tracking is enabled in the security options."
-msgstr ""
-
-#: admin/templates/analytics.php:61
-msgid "Post"
-msgstr ""
-
-#: admin/templates/analytics.php:65
-msgid "Duration"
-msgstr ""
-
-#: admin/templates/analytics.php:68
-msgid "Shows time spent on page before the rating was submitted."
-msgstr ""
-
-#: admin/templates/analytics.php:73
-#: admin/templates/meta-box.php:45
-#: admin/templates/stats.php:34
-msgid "Average Rating"
-msgstr ""
-
-#: admin/templates/analytics.php:76
-msgid "Total Votes"
-msgstr ""
-
-#: admin/templates/analytics.php:79
-msgid "Rated"
-msgstr ""
-
-#: admin/templates/menu-about.php:28
-msgid "About Plugin"
-msgstr ""
-
-#: admin/templates/menu-about.php:33
-msgid "Hi there,%s Thank you for installing FeedbackWP plugin. If you like the plugin please rate it %shere%s - it will take you 5 minutes (less if you are already registered on WordPress) and it means a lot to me since I made this plugin completely for free. If you encounter problems with the plugin, let me know in the %ssupport forum%s. I hope you will enjoy the plugin."
-msgstr ""
-
-#: admin/templates/menu-about.php:38
-msgid "Website"
-msgstr ""
-
-#: admin/templates/menu-about.php:41
-msgid "Documentation"
-msgstr ""
-
-#: admin/templates/menu-about.php:44
-msgid "Please do read the documentation before posting in the support forum."
-msgstr ""
-
 #: admin/templates/menu-alerts.php:30
 msgid "You need to be logged in as administrator to save settings for FeedbackWP plugin"
 msgstr ""
@@ -272,13 +324,6 @@ msgstr ""
 
 #: admin/templates/menu-customize.php:29
 msgid "Strings - Rating Widget"
-msgstr ""
-
-#: admin/templates/menu-customize.php:36
-#: admin/templates/menu-customize.php:225
-#: admin/templates/menu-customize.php:259
-#: admin/templates/stats.php:32
-msgid "Title"
 msgstr ""
 
 #: admin/templates/menu-customize.php:39
@@ -930,31 +975,23 @@ msgstr ""
 msgid "Save Security Options"
 msgstr ""
 
-#: admin/templates/menu.php:19
-msgid "About"
-msgstr ""
-
 #: admin/templates/menu.php:20
 msgid "Premium Version"
 msgstr ""
 
-#: admin/templates/menu.php:23
-msgid "Support"
-msgstr ""
-
-#: admin/templates/menu.php:24
+#: admin/templates/menu.php:27
 msgid "License"
 msgstr ""
 
-#: admin/templates/menu.php:38
+#: admin/templates/menu.php:46
 msgid "Customize"
 msgstr ""
 
-#: admin/templates/menu.php:41
+#: admin/templates/menu.php:48
 msgid "Security"
 msgstr ""
 
-#: admin/templates/menu.php:44
+#: admin/templates/menu.php:50
 msgid "Tools"
 msgstr ""
 
@@ -974,14 +1011,20 @@ msgstr ""
 msgid "Average rating will be rounded to the nearest mathematically valid average rating!"
 msgstr ""
 
-#: admin/templates/meta-box.php:75
-#: admin/templates/meta-box.php:105
-#: admin/templates/stats.php:35
-msgid "Feedback"
+#: admin/templates/meta-box.php:82
+msgid "Time"
+msgstr ""
+
+#: admin/templates/meta-box.php:87
+msgid "ID"
 msgstr ""
 
 #: admin/templates/meta-box.php:90
 msgid "Rating ID to which the feedback is associated. You can find details about the action in the analytics section."
+msgstr ""
+
+#: admin/templates/meta-box.php:100
+msgid "Shows username if visitor was logged in and tracking is enabled in the security options."
 msgstr ""
 
 #: admin/templates/meta-box.php:108
@@ -997,64 +1040,52 @@ msgstr ""
 msgid "No feedback so far!"
 msgstr ""
 
-#: admin/templates/pro-version.php:27
+#: admin/templates/pro-version.php:29
 msgid "FeedbackWP Premium"
 msgstr ""
 
-#: admin/templates/pro-version.php:32
+#: admin/templates/pro-version.php:34
 msgid "FeedbackWP Premium includes the following features:"
 msgstr ""
 
-#: admin/templates/pro-version.php:36
+#: admin/templates/pro-version.php:38
 msgid "Add rating widget to custom post types."
 msgstr ""
 
-#: admin/templates/pro-version.php:39
+#: admin/templates/pro-version.php:41
 msgid "Support for different rating icons other than Stars."
 msgstr ""
 
-#: admin/templates/pro-version.php:42
+#: admin/templates/pro-version.php:44
 msgid "Add structured data for rich snippets with not only the required fields but also the optional fields."
 msgstr ""
 
-#: admin/templates/pro-version.php:45
+#: admin/templates/pro-version.php:47
 msgid "Create custom rating widgets which work independently of posts. "
 msgstr ""
 
-#: admin/templates/pro-version.php:48
+#: admin/templates/pro-version.php:50
 msgid "Add ratings to existing posts, pages and custom post types without any votes and ratings."
 msgstr ""
 
-#: admin/templates/pro-version.php:51
+#: admin/templates/pro-version.php:53
 msgid "Each custom widget is customizable, including structured data for rich snippets."
 msgstr ""
 
-#: admin/templates/pro-version.php:54
+#: admin/templates/pro-version.php:56
 msgid "Shortcode generator."
 msgstr ""
 
-#: admin/templates/pro-version.php:57
+#: admin/templates/pro-version.php:59
 msgid "Read-only ratings with structured data for reviews (review rating)."
 msgstr ""
 
-#: admin/templates/pro-version.php:60
+#: admin/templates/pro-version.php:62
 msgid "Email support"
 msgstr ""
 
-#: admin/templates/pro-version.php:65
-msgid "Read More"
-msgstr ""
-
-#: admin/templates/stats.php:22
-msgid "FeedbackWP Stats"
-msgstr ""
-
-#: admin/templates/stats.php:26
-msgid "Displaying only rated posts and pages! To see feedback or change ratings click on a post/page title below and find the FeedbackWP meta box at the bottom."
-msgstr ""
-
-#: admin/templates/stats.php:33
-msgid "Votes"
+#: admin/templates/pro-version.php:67
+msgid "Get FeedbackWP Premium"
 msgstr ""
 
 #: common/class-rate-my-post-common.php:104
@@ -1062,108 +1093,108 @@ msgid "Invalid vote count or average rating!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:112
-#: public/class-rate-my-post-public.php:1862
+#: public/class-rate-my-post-public.php:1860
 msgid "How useful was this post?"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:113
-#: public/class-rate-my-post-public.php:1863
+#: public/class-rate-my-post-public.php:1861
 msgid "Click on a star to rate it!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:114
-#: public/class-rate-my-post-public.php:1864
+#: public/class-rate-my-post-public.php:1862
 msgid "Average rating"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:115
-#: public/class-rate-my-post-public.php:1865
+#: public/class-rate-my-post-public.php:1863
 msgid "Vote count:"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:116
-#: public/class-rate-my-post-public.php:1866
+#: public/class-rate-my-post-public.php:1864
 msgid "You already voted! This vote will not be counted!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:117
-#: public/class-rate-my-post-public.php:1867
+#: public/class-rate-my-post-public.php:1865
 msgid "No votes so far! Be the first to rate this post."
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:118
-#: public/class-rate-my-post-public.php:1868
+#: public/class-rate-my-post-public.php:1866
 msgid "Thank you for rating this post!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:119
-#: public/class-rate-my-post-public.php:1869
+#: public/class-rate-my-post-public.php:1867
 msgid "Not at all useful"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:120
-#: public/class-rate-my-post-public.php:1870
+#: public/class-rate-my-post-public.php:1868
 msgid "Somewhat useful"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:121
-#: public/class-rate-my-post-public.php:1871
+#: public/class-rate-my-post-public.php:1869
 msgid "Useful"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:122
-#: public/class-rate-my-post-public.php:1872
+#: public/class-rate-my-post-public.php:1870
 msgid "Fairly useful"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:123
-#: public/class-rate-my-post-public.php:1873
+#: public/class-rate-my-post-public.php:1871
 msgid "Very useful"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:124
-#: public/class-rate-my-post-public.php:1874
+#: public/class-rate-my-post-public.php:1872
 msgid "As you found this post useful..."
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:125
-#: public/class-rate-my-post-public.php:1875
+#: public/class-rate-my-post-public.php:1873
 msgid "Follow us on social media!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:126
-#: public/class-rate-my-post-public.php:1876
+#: public/class-rate-my-post-public.php:1874
 msgid "We are sorry that this post was not useful for you!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:127
-#: public/class-rate-my-post-public.php:1877
+#: public/class-rate-my-post-public.php:1875
 msgid "Let us improve this post!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:128
-#: public/class-rate-my-post-public.php:1878
+#: public/class-rate-my-post-public.php:1876
 msgid "Tell us how we can improve this post?"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:129
-#: public/class-rate-my-post-public.php:1879
+#: public/class-rate-my-post-public.php:1877
 msgid "Thanks for your feedback!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:130
-#: public/class-rate-my-post-public.php:1880
+#: public/class-rate-my-post-public.php:1878
 msgid "Submit Feedback"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:137
-#: public/class-rate-my-post-public.php:1358
-#: public/class-rate-my-post-public.php:1881
+#: public/class-rate-my-post-public.php:1356
+#: public/class-rate-my-post-public.php:1879
 msgid "Please insert your feedback in the box above!"
 msgstr ""
 
 #: common/class-rate-my-post-settings.php:149
-#: public/class-rate-my-post-public.php:1882
+#: public/class-rate-my-post-public.php:1880
 msgid "Submit Rating"
 msgstr ""
 
@@ -1175,77 +1206,77 @@ msgstr ""
 msgid "Go Premium"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:279
-#: public/class-rate-my-post-public.php:1340
+#: public/class-rate-my-post-public.php:277
+#: public/class-rate-my-post-public.php:1338
 msgid "You cannot rate a web page without an id!"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:318
+#: public/class-rate-my-post-public.php:316
 msgid "Ajax rating fail"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:439
+#: public/class-rate-my-post-public.php:437
 msgid "AMP ajax rating fail"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:559
+#: public/class-rate-my-post-public.php:557
 msgid "Ajax feedback fail"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:777
+#: public/class-rate-my-post-public.php:775
 msgid "Somebody rated"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:779
+#: public/class-rate-my-post-public.php:777
 msgid "was rated"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:780
+#: public/class-rate-my-post-public.php:778
 msgid "and now has an average rating of"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:781
+#: public/class-rate-my-post-public.php:779
 msgid "based on"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:782
+#: public/class-rate-my-post-public.php:780
 msgid "vote(s)"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:783
+#: public/class-rate-my-post-public.php:781
 msgid "See the post: "
 msgstr ""
 
-#: public/class-rate-my-post-public.php:831
+#: public/class-rate-my-post-public.php:829
 msgid "Somebody left feedback on"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:832
+#: public/class-rate-my-post-public.php:830
 msgid "Feedback on"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:1152
-#: public/class-rate-my-post-public.php:1156
+#: public/class-rate-my-post-public.php:1150
+#: public/class-rate-my-post-public.php:1154
 msgid "Invalid Token"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:1207
+#: public/class-rate-my-post-public.php:1205
 msgid "Wrong reCAPTCHA keys"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:1212
+#: public/class-rate-my-post-public.php:1210
 msgid "Blocked by reCAPTCHA"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:1232
+#: public/class-rate-my-post-public.php:1230
 msgid "You need to be logged in to rate!"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:1318
+#: public/class-rate-my-post-public.php:1316
 msgid "Invalid WP token!"
 msgstr ""
 
-#: public/class-rate-my-post-public.php:1344
+#: public/class-rate-my-post-public.php:1342
 msgid "No rating submitted!"
 msgstr ""
 

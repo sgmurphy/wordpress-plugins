@@ -48,7 +48,7 @@ function csmm_plugin_init() {
 		$signals_csmm_options['custom_login_url'] = NULL;
 	}
 
-    if(isset($_GET['preview_coming_soon']) && current_user_can('administrator')){
+    if(isset($_GET['preview_coming_soon']) && current_user_can('manage_options')){
         csmm_render_template( $signals_csmm_options );
     }
 

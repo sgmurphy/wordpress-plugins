@@ -1,12 +1,14 @@
 jQuery(document).ready(function(){
 	
 	jQuery('body').on('click', '.bten_aweber_auth', function(e){
+		var nonce = jQuery(this).data("nonce");
 		jQuery.ajax({
 			url: ajaxurl,
 			data:{
 				'action': 'bten_get_mailing_list',
 				'calling_action': 'bten_aweber_auth',
-				'bten_aw_auth_code': jQuery('#bten_aweber_auth_code').val()
+				'bten_aw_auth_code': jQuery('#bten_aweber_auth_code').val(),
+				nonce: nonce
 			},
 			dataType: 'JSON',
 			type: 'POST',
@@ -29,11 +31,13 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery('body').on('click', '.bten_aweber_remove_auth', function(e){
+		var nonce = jQuery(this).data("nonce");
 		jQuery.ajax({
 			url: ajaxurl,
 			data:{
 				'action': 'bten_get_mailing_list',
-				'calling_action': 'bten_aweber_remove_auth'
+				'calling_action': 'bten_aweber_remove_auth',
+				nonce: nonce
 			},			
 			dataType: 'JSON',
 			type: 'POST',
@@ -58,12 +62,14 @@ jQuery(document).ready(function(){
 	jQuery('body').on('click', '.bten_get_aweber_lists', function(e){
 		ListsSelect=jQuery('#'+jQuery(this).attr('rel-id'));
 		ListsSelect.find('option').remove();
+		var nonce = jQuery(this).data("nonce");
 		jQuery("<option/>").val(0).text('Loading...').appendTo(ListsSelect);
 		jQuery.ajax({
 			url: ajaxurl,
 			data:{
 				'action': 'bten_get_mailing_list',
-				'calling_action': 'bten_aweber_list'
+				'calling_action': 'bten_aweber_list',
+				nonce: nonce
 			},
 			dataType: 'JSON',
 			type: 'POST',

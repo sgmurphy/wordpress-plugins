@@ -1,3 +1,51 @@
+<h4>2.8.2.2 - 06/6/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fix Global Styles being reset or replaced during upgrade process on Multi-Site installations (#3420)</li>
+	<li>Fix YUI loading an unload listener (#2791)</li>
+	<li>Fix incorrect module position when dropping into a container module (#3383)</li>
+</ul>
+
+<h4>2.8.2.1 - 05/30/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Revert: Photo Module fix caption not aligning with image when using a custom width (#2295) as it was causing photo module alignment not to work responsively</li>
+	<li>Dark Mode: Fixed CSS/JS advanced indicator (#3417)</li>
+	<li>Tools: Fixed branding typo for Autoptimize (#3416)</li>
+	<li>Docs: fixed a 404 documentation link (#3398)</li>
+	<li>Menu Module: Fixed fatal error when search is enabled and using Lite version (#3409)</li>
+</ul>
+
+<h4>2.8.2 - 05/23/2024</h4>
+
+<strong>Enhancements</strong>
+<ul>
+	<li>Add copy/paste to parent menu (#3380)</li>
+	<li>Show color value in color picker when clicking a Global connected color (#3367)</li>
+	<li>Photo Module: Add new filter to change the photo link (#356)</li>
+	<li>Add filter to disable the tour option (#1104)</li>
+	<li>Post Module: Add option to disable paged autoscroll (#2219)</li>
+	<li>Add an indicator to Node CSS/JS tabs (#3331)</li>
+	<li>Debug Mode: Add enabled/disabled modules section and previous version info (#3233 & 3314)</li>
+	<li>Add version info to body tag for easier discovery (#2740)</li>
+	<li>Try to detect PHP Memory Limit errors (#3196)</li>
+</ul>
+
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Accordion Module: Fix redundant link and ARIA failure A11y issues (#3333 & #2676)</li>
+	<li>Box Module: Fix Grid Alignment not always working properly (#3250)</li>
+	<li>Box Module: Fix incorrect module margin placeholders (#3367)</li>
+	<li>Login Module: Fix sanitization of password field so special characters are not removed (#2480)</li>
+	<li>Fix issue with a duplicated Global Color still using the original color (#3351)</li>
+	<li>Fix Header Themer Layout showing nodes that should be hidden at the breakpoint when editing pages (#3280)</li>
+	<li>Fix saving issue when multiple Gravity Forms forms are on the page (#3105)</li>
+	<li>Fix Column Margins/Padding not live previewing (#3170)</li>
+	<li>Gallery Module: Fix photos overflowing when you resize column (#2991)</li>
+	<li>Photo Module: Fix caption not aligning with image when using a custom width (#2295)</li>
+	<li>Media: Show alert when Media uploader is blocked for the user role (#3317)</li>
+</ul>
+
 <h4>2.8.1.3 - 05/08/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

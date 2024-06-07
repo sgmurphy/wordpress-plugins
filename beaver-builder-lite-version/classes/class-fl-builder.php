@@ -898,7 +898,9 @@ final class FLBuilder {
 			wp_enqueue_style( 'jquery-nanoscroller', $css_url . 'jquery.nanoscroller.css', array(), $ver );
 			wp_enqueue_style( 'jquery-autosuggest', $css_url . 'jquery.autoSuggest.min.css', array(), $ver );
 			wp_enqueue_style( 'fl-jquery-tiptip', $css_url . 'jquery.tiptip.css', array(), $ver );
-			wp_enqueue_style( 'bootstrap-tour', $css_url . 'bootstrap-tour-standalone.min.css', array(), $ver );
+			if ( FLBuilder::is_tour_enabled() ) {
+				wp_enqueue_style( 'bootstrap-tour', $css_url . 'bootstrap-tour-standalone.min.css', array(), $ver );
+			}
 			if ( true === apply_filters( 'fl_select2_enabled', true ) ) {
 				wp_enqueue_style( 'select2', $css_url . 'select2.min.css', array(), $ver );
 			}
@@ -969,8 +971,11 @@ final class FLBuilder {
 			wp_enqueue_script( 'jquery-simulate', $js_url . 'jquery.simulate.js', array(), $ver );
 			wp_enqueue_script( 'jquery-validate', $js_url . 'jquery.validate.min.js', array(), $ver );
 			wp_enqueue_script( 'clipboard', $js_url . 'clipboard.min.js', array(), $ver );
-			wp_enqueue_script( 'bootstrap-tour', $js_url . 'bootstrap-tour-standalone.min.js', array(), $ver );
-			wp_enqueue_script( 'fl-builder-tour', $js_url . 'fl-builder-tour.js', array(), $ver );
+			if ( FLBuilder::is_tour_enabled() ) {
+				wp_enqueue_script( 'bootstrap-tour', $js_url . 'bootstrap-tour-standalone.min.js', array(), $ver );
+				wp_enqueue_script( 'fl-builder-tour', $js_url . 'fl-builder-tour.js', array(), $ver );
+			}
+
 			wp_enqueue_script( 'ace', $js_url . 'ace/ace.js', array(), $ver );
 			wp_enqueue_script( 'ace-language-tools', $js_url . 'ace/ext-language_tools.js', array(), $ver );
 			wp_enqueue_script( 'mousetrap', $js_url . 'mousetrap-custom.js', array(), $ver );
@@ -1073,6 +1078,18 @@ final class FLBuilder {
 					/* translators: %s: link to support form */
 					'contact'      => sprintf( __( 'Copy the errors you find there and submit them with your %s. It saves us having to ask you that as a second step.', 'fl-builder' ), $support ),
 					'hand'         => __( 'Need a helping hand?', 'fl-builder' ),
+
+					'fatal'        => array(
+						'heading' => __( 'PHP Fatal Error Detected', 'fl-builder' ),
+						/* translators: [MEM]: Do not translate word [mem] */
+						'content' => __( 'Memory exhausted ([MEM]Mb) unable to continue', 'fl-builder' ),
+						/* translators: %s: link to support form */
+						'footer'  => sprintf( __( 'Please see %s for more information', 'fl-builder' ),
+							sprintf( '<a style="color: #428bca;font-size:inherit" target="_blank" href="https://docs.wpbeaverbuilder.com">%s</a>',
+								__( 'Documentation', 'fl-builder' )
+							)
+						),
+					),
 				),
 			);
 
@@ -1219,7 +1236,36 @@ final class FLBuilder {
 			$classes[] = 'fl-builder-draft-preview';
 		}
 
-		return $classes;
+		//versions
+		$builder = FL_BUILDER_VERSION;
+
+		if ( '{FL_BUILDER_VERSION}' === $builder ) {
+			$classes[] = 'fl-builder-git';
+		} else {
+			$classes[] = 'fl-builder-' . sanitize_title( $builder );
+		}
+
+		if ( defined( 'FL_THEME_BUILDER_VERSION' ) ) {
+			$themer = FL_THEME_BUILDER_VERSION;
+
+			if ( '{FL_THEME_BUILDER_VERSION}' === $themer ) {
+				$classes[] = 'fl-themer-git';
+			} else {
+				$classes[] = 'fl-themer-' . sanitize_title( $themer );
+			}
+		}
+
+		if ( defined( 'FL_THEME_VERSION' ) ) {
+			$theme = FL_THEME_VERSION;
+
+			if ( '{FL_THEME_VERSION}' === $theme ) {
+				$classes[] = 'fl-theme-git';
+			} else {
+				$classes[] = 'fl-theme-' . sanitize_title( $theme );
+			}
+		}
+
+		return apply_filters( 'fl_builder_body_classes', $classes );
 	}
 
 	/**
@@ -1449,13 +1495,14 @@ final class FLBuilder {
 				'eventName' => 'showGlobalSettings',
 				'accessory' => isset( $key_shortcuts['showGlobalSettings'] ) ? $key_shortcuts['showGlobalSettings']['keyLabel'] : null,
 			);
-
-			$tools_view['items'][61] = array(
-				'label'     => __( 'Global Styles', 'fl-builder' ) . ( $is_lite ? '<span class="fl-builder-pro-badge">PRO</span>' : '' ),
-				'type'      => 'event',
-				'eventName' => 'showGlobalStyles',
-				'accessory' => isset( $key_shortcuts['showGlobalStyles'] ) ? $key_shortcuts['showGlobalStyles']['keyLabel'] : null,
-			);
+			if ( defined( 'FL_BUILDER_GLOBAL_STYLES_DIR' ) ) {
+				$tools_view['items'][61] = array(
+					'label'     => __( 'Global Styles', 'fl-builder' ) . ( $is_lite ? '<span class="fl-builder-pro-badge">PRO</span>' : '' ),
+					'type'      => 'event',
+					'eventName' => 'showGlobalStyles',
+					'accessory' => isset( $key_shortcuts['showGlobalStyles'] ) ? $key_shortcuts['showGlobalStyles']['keyLabel'] : null,
+				);
+			}
 		}
 
 		if ( $is_lite || defined( 'FL_THEME_BUILDER_VERSION' ) ) {
@@ -4483,6 +4530,14 @@ final class FLBuilder {
 
 	static public function plugin_url( $path = '/' ) {
 		return esc_url( plugins_url( $path, FL_BUILDER_FILE ) );
+	}
+
+	/**
+	 * @since 2.8.2
+	 */
+	static public function is_tour_enabled() {
+		$settings = FLBuilderModel::get_help_button_settings();
+		return $settings['tour'];
 	}
 
 	/**
