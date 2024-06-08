@@ -120,7 +120,11 @@ $this->wp_blog_admin_url = admin_url(); // A contribution from Abland: http://th
 global $wp_version;
 global $blog_id;
 $this->multisite_blog_id = $blog_id;
-if ($wp_version >= 3 and is_multisite()) {
+$root = \Microthemer\Helper::getMicroRoot($wp_content_dir, $wp_content_url);
+$this->micro_root_dir = $root['dir'];
+$this->micro_root_url = $root['url'];
+
+/*if ($wp_version >= 3 and is_multisite()) {
 	$filename = $wp_content_dir . "/blogs.dir/";
 	if(file_exists($filename)){
 		if ($blog_id == '1') {
@@ -142,7 +146,7 @@ if ($wp_version >= 3 and is_multisite()) {
 } else {
 	$this->micro_root_dir = $wp_content_dir . '/micro-themes/';
 	$this->micro_root_url = $wp_content_url . '/micro-themes/';
-}
+}*/
 
 // quick path debug
 $tvr_debug_paths = false;

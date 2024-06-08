@@ -34,7 +34,9 @@ $taxonomies = (!empty($taxonomies)) ? array_keys($taxonomies): array();
                     <?php endforeach; ?>
                 </td>
                 <td style="width: 50px">
-                    <a title="Copy link" href="javascript:void(0)" data-link="<?php echo esc_attr($phrase->suggestions[0]->post->getLinks()->view); ?>" class="link_copy wpil_link_copy_button"><img src="<?php echo esc_url(trailingslashit(WP_INTERNAL_LINKING_PLUGIN_URL) . 'images/icon_copy.png'); ?>"></a>
+                    <?php if(!empty($suggestion) && isset($suggestion->post) && !empty($suggestion->post)){ ?>
+                    <a title="Copy link" href="javascript:void(0)" data-link="<?php echo esc_attr($suggestion->post->getLinks()->view); ?>" class="link_copy wpil_link_copy_button"><img src="<?php echo esc_url(trailingslashit(WP_INTERNAL_LINKING_PLUGIN_URL) . 'images/icon_copy.png'); ?>"></a>
+                    <?php } ?>
                 </td>
                 <td class="suggestions">
                     <?php if (count($phrase->suggestions) > 1) : ?>

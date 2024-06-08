@@ -4,7 +4,7 @@ Tags: pdf, pdf viewer, embed pdf, pdf document, pdf block
 Requires at least: 5.8
 Requires PHP: 7.0
 Tested up to: 6.5
-Stable tag: 4.8.0
+Stable tag: 4.8.1
 License: GPL-2.0-or-later
 
 Seamlessly embed PDFs into your content, with customizations and intelligent responsive resizing, and no third-party services or iframes.
@@ -13,7 +13,7 @@ Seamlessly embed PDFs into your content, with customizations and intelligent res
 
 Upload PDF files and embed them directly into your site's posts and pages. It works as simple as adding images! Your PDF files will be automatically sized to their natural size and shape. You can also specify a width and the correct height will be calculated automatically. Our PDF Embedder plugin is fully responsive, so the embedded PDF will also look perfect, on any device. Additionally, the pdf embedder will automatically resize whenever the browser dimensions change.
 
-The plugin has a unique method for embedding PDF files, using Javascript only, and _not_ iframes or third-party services. This offers immense flexibility over the appearance of your document.
+The plugin has a unique method for embedding PDF files with the immense flexibility over the appearance of your document.
 
 The PDF viewer has Next and Previous buttons to navigate the document, and zoom buttons if some areas of a PDF file are too small for your screen.
 
@@ -180,6 +180,9 @@ If you cannot install from the WordPress plugins directory for any reason, and n
 1. Click Activate on the "Plugins" screen.
 
 == Changelog ==
+
+= 4.8.1 =
+* Fixed: Make sure that when `width` and `height` shortcode/option values have an incorrect value, the plugin does not generate a fatal error.
 
 = 4.8.0 =
 * Changed: Compatibility with WordPress 6.5.

@@ -3,7 +3,7 @@ Contributors: linkwhspr
 Tags: links, SEO, internal linking, link building, orphan content
 Requires at least: 4.6
 Tested up to: 6.5
-Stable Tag: 0.7.3
+Stable Tag: 0.7.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -158,6 +158,15 @@ We are confident that you’ll be happy with Link Whisper Premium. However, if y
 15. [Premium] The URL Changer allows you to update old links to point to new URLs.
 
 == Changelog ==
+= 0.7.4 =
+* [NEW FEATURE] Adding support for YooTheme builder content!
+* [IMPROVEMENT] Automatically updating inbound internal link stats for posts when a post that was linking to them is deleted.
+* [IMPROVEMENT] Improving the screen option saving to avoid server blocks.
+* [IMPROVEMENT] Making the search on the Internal Links Report always diacritic and accent insensitive.
+* [IMPROVEMENT] Improving Internal Links Report's abilty to handle database tables with differing collations. (If the category and post tables had different collations, the Internal Links Report wouldn't be able to list any results and would show the "No Items Found" message.)
+* [IMPROVEMENT] Improving the post searching to speed up the suggestion process!
+* [BUGFIX] Fixing error notice when loading editing posts with no suggestions.
+
 = 0.7.3 =
 * [IMPROVEMENT] Expanding the Spanish ignore word list to remove more common words from Suggestions. (To use the new words, switch to a different language like `English` in the Link Whisper Settings and save. Then once the page reloads, switch back to Spanish and save the settings again.)
 * [BUGFIX] Fixing "Unknown column" error when running a Link Scan.

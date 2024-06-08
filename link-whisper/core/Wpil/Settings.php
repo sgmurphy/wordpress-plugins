@@ -1189,6 +1189,48 @@ class Wpil_Settings
     }
 
     /**
+     * Gets a list of the available roles
+     **/
+    public static function get_available_roles($format = false){
+        $roles = apply_filters('wpil_filter_available_roles', wp_roles()->roles);
+
+        // if we're supposed to format them for display
+        if($format){
+            $formatted = array();
+            foreach($roles as $role => $data){
+                $formatted[$role] = $data['name'];
+            }
+
+            return $formatted;
+        }
+
+        return $roles;
+    }
+
+    /**
+     * Gets the list of roles that the user has selected.
+     * For the time being, I'm going to make it so that admins are always in the list.
+     **/
+    public static function get_ignore_linking_roles(){
+        $roles = get_option('wpil_ignore_linking_roles', array());
+        $possible_roles = self::get_available_roles();
+
+        // if there are stored roles
+        if(!empty($roles)){
+            // make sure that the stored roles are still valid
+            $confirmed = array();
+            foreach($roles as $role){
+                if(isset($possible_roles[$role])){
+                    $confirmed[$role] = $possible_roles[$role]['name'];
+                }
+            }
+            $roles = $confirmed;
+        }
+
+        return $roles;
+    }
+
+    /**
      * Gets all of the shortcodes that we don't want to/can't process
      **/
     public static function get_default_ignored_shortcodes(){
@@ -1260,10 +1302,13 @@ class Wpil_Settings
                     $redirection_ids[] = $dat->id;
                 }
 
+                // filter the destination urls to pull the post ids
+                $ignore_ids = (!empty($dest_url_cache) && !empty(array_filter(array_values($dest_url_cache)))) ? array_filter(array_values($dest_url_cache)): array();
+
                 // if there are posts with updated urls, get the ids so we can ignore them
                 $ignore_posts = '';
-                if(!empty($dest_url_cache) && !empty(array_filter(array_values($dest_url_cache)))){
-                    $ignore_posts = "AND `object_id` NOT IN (" . implode(', ',array_filter(array_values($dest_url_cache))) . ")";
+                if($ignore_ids){
+                    $ignore_posts = "AND `object_id` NOT IN (" . implode(', ', $ignore_ids) . ")";
                 }
 
                 $redirection_ids = implode(', ', $redirection_ids);
@@ -1295,6 +1340,11 @@ class Wpil_Settings
                     // query the post table with them to get the post ids
                     $post_names = implode('\', \'', $post_names);
                     $ids = $wpdb->get_col("SELECT `ID` FROM {$wpdb->posts} WHERE `post_name` IN ('{$post_names}')");
+
+                    // remove any ids that are supposed to be ignored, but were accidentally included
+                    if(!empty($ignore_ids)){
+                        $ids = array_diff($ids, $ignore_ids);
+                    }
 
                     // if there's ids
                     if(!empty($ids)){

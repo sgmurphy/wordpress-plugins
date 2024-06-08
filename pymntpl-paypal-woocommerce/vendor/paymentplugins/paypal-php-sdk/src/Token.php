@@ -12,6 +12,8 @@ class Token extends AbstractObject {
 
 	const PAYMENT_METHOD_TOKEN = 'PAYMENT_METHOD_TOKEN';
 
+	const PAYPAL = 'paypal';
+
 	/**
 	 * @return string
 	 */

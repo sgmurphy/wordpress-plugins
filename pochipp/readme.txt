@@ -3,7 +3,7 @@ Contributors: wppochipp
 Tags: affiliate, block
 Requires at least: 5.6
 Tested up to: 6.5
-Stable tag: 1.14.0
+Stable tag: 1.14.1
 Requires PHP: 7.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -64,6 +64,11 @@ Terms: https://af.moshimo.com/af/www/terms/shop
 
 
 == Changelog ==
+
+= 1.14.1 =
+
+- 使用ページにインラインリンク・インライン画像の使用ページを表示する
+- インラインリンクでカスタムリンクのテキストを任意に変更できるようにする
 
 = 1.14.0 =
 

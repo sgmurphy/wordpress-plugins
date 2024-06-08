@@ -148,6 +148,7 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
         'PaymentPlugins\\PayPalSDK\\Service\\PaymentCaptureService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentCaptureService.php',
         'PaymentPlugins\\PayPalSDK\\Service\\PaymentService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentService.php',
         'PaymentPlugins\\PayPalSDK\\Service\\PaymentTokenService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentTokenService.php',
+        'PaymentPlugins\\PayPalSDK\\Service\\PaymentTokenServiceV3' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/PaymentTokenServiceV3.php',
         'PaymentPlugins\\PayPalSDK\\Service\\TrackingService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/TrackingService.php',
         'PaymentPlugins\\PayPalSDK\\Service\\WebhookService' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Service/WebhookService.php',
         'PaymentPlugins\\PayPalSDK\\Shipping' => __DIR__ . '/..' . '/paymentplugins/paypal-php-sdk/src/Shipping.php',

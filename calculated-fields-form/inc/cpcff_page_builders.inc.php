@@ -88,7 +88,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 				'labels'   => array(
 					'required_form' => __( 'Select a form', 'calculated-fields-form' ),
 					'forms'         => __( 'Forms', 'calculated-fields-form' ),
-					'templates'		=> __('Templates', 'calculated-fields-form'),
+					'templates'		=> __('Templates (form design)', 'calculated-fields-form'),
 					'attributes'    => __( 'Additional attributes', 'calculated-fields-form' ),
 					'iframe'        => __( 'Load form into an iframe', 'calculated-fields-form' ),
 					'edit_form'     => __( 'Edit form', 'calculated-fields-form' ),
@@ -104,7 +104,7 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 			require_once CP_CALCULATEDFIELDSF_BASE_PATH.'/inc/cpcff_templates.inc.php';
 			$templates_list = CPCFF_TEMPLATES::load_templates();
 			foreach ( $templates_list as $template_item ) {
-				$config['templates'][$template_item['prefix']] = esc_html($template_item['title']);
+				$config['templates'][ $template_item['prefix'] ] = [ 'title' => esc_html( $template_item['title'] ), 'thumbnail' => esc_attr( ! empty( $template_item['thumbnail'] ) ? $template_item['thumbnail'] : '' ) ];
 			}
 
 			return $config;

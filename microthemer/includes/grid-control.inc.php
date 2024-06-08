@@ -87,16 +87,19 @@ $grid_control = '
 			
 			<div class="mt-grid-areas"></div>
 			
-			<div class="implicit-grid"></div>
-		
-			
 			<div class="grid-canvas grid-stack"></div>
+			
+			<div class="implicit-grid"></div>
 			
 			<div class="explicit-grid">
 				<div class="explicit-grid-toggle" title="'.esc_attr__('Drag grid template', 'microthemer').'"></div>
 			</div>
 			
-			<div class="mt-lookup-grid"></div>
+			
+			<div class="mt-lookup-grid-wrap">
+				<div class="mt-lookup-grid"></div>
+			</div>
+			
 	
 		</div>
 		

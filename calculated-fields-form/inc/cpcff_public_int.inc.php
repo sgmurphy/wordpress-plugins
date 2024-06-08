@@ -131,15 +131,6 @@ if ( property_exists( $form_data[1][0], 'direction' ) ) {
 	if ( isset( $_REQUEST['cff-form-target'] ) ) :
 		?>
 	<style>.cff-form{width:100%;overflow-x:auto;box-sizing: border-box;}</style>
-	<pre style="display:none;"><code><script>
-		window.addEventListener('load', function(){
-			try{
-				(new ResizeObserver(function() {
-					frameElement.height = fbuilderjQuery('form').outerHeight()+40;
-				})).observe(fbuilderjQuery('form')[0]);
-			} catch(err){}
-		});
-	</script></code></pre>
-		<?php
+	<?php
 	endif;
 }

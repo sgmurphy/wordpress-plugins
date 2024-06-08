@@ -1905,7 +1905,8 @@ require_once('common-inline-assets.php');
 
 							// combobox for previously entered stylesheets and suggest theme/MT stylesheets.
 							$default_sheet = !empty($this->preferences['viewed_import_stylesheets'][0])
-								? $this->preferences['viewed_import_stylesheets'][0] : '';
+								? $this->preferences['viewed_import_stylesheets'][0]
+                                : '';
 							?>
 							<p>
 							</p>

@@ -98,12 +98,16 @@ $this->display_log();
 		            ),
 		            'admin_asset_loading' => array(
 			            'label' => __('Support admin area style loading', 'microthemer'),
-			            'explain' => __('Individual MT folders can load on admin pages', 'microthemer')
+			            'explain' => __('Individual folders can load on admin pages, including Gutenberg pages', 'microthemer')
 		            ),
 		            'admin_asset_editing' => array(
 			            'label' => __('Support admin area point and click editing', 'microthemer'),
 			            'explain' => __('Customise the design of the admin area just like on the frontend', 'microthemer')
 		            ),
+                    'add_block_classes_all' => array(
+	                    'label' => __('Add classes to Gutenberg blocks even when editing outside of MT', 'microthemer'),
+	                    'explain' => __('When loading Gutenberg inside Microthemer, it adds a unique class (e.g. "mctr-e5i34p") to all  blocks to make styling easier. You can also have this happen outside of Microthemer if you prefer using separate tabs with synced CSS and content changes.', 'microthemer')
+                    ),
 	            )
             ),
             'fonts' => array(
@@ -252,6 +256,10 @@ $this->display_log();
 		            'manual_recompile_all_css' => array(
 			            'label' => __('Regenerate all CSS (can fix certain issues)', 'microthemer'),
 			            'explain' => __('If Microthemer encounters an error, this can sometimes fix the issue', 'microthemer')
+		            ),
+		            'refresh_template_map' => array(
+			            'label' => __('Regenerate Gutenberg template cache', 'microthemer'),
+			            'explain' => __('Do this if you\'ve uploaded new block template/part/pattern files to your theme directory', 'microthemer')
 		            ),
 		            'edge_mode' => array(
 			            'label' => __('Enable edge mode. ', 'microthemer'),

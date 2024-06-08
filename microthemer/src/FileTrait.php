@@ -15,7 +15,8 @@ trait FileTrait {
 			$this->micro_root_dir . 'mt/',
 			$this->micro_root_dir . 'mt/conditional/',*/
 			$this->micro_root_dir . 'mt/conditional/draft/',
-			$this->micro_root_dir . 'mt/conditional/active/'
+			$this->micro_root_dir . 'mt/conditional/active/',
+			$this->micro_root_dir . 'mt/cache/themes/' . get_stylesheet() . '/'
 		);
 
 		foreach ($directories as $path){
@@ -49,6 +50,9 @@ trait FileTrait {
 		if (!$this->maybe_copy_to_micro_root($activated)) {
 			return false;
 		};
+
+		// update the template cache for the current theme if not created yet
+		Common::maybeUpdateTemplateCache($this->micro_root_dir);
 
 		// also create blank active-styles else 404 before user adds styles
 		/*$prime_files = array(
@@ -134,6 +138,7 @@ trait FileTrait {
 			'/stock/stock.zip',
 			'/src/AssetLoad.php',
 			'/src/Logic.php',
+			'/src/Helper.php',
 			'/includes/animation/animation-code.inc.php'
 		);
 		$new_files = array(
@@ -141,6 +146,7 @@ trait FileTrait {
 			'stock.zip',
 			'AssetLoad.php',
 			'Logic.php',
+			'Helper.php',
 			'animation-code.inc.php'
 		);
 		$i = 0;
@@ -500,6 +506,8 @@ trait FileTrait {
 		
 		return true;
 	}
+
+
 
 
 }

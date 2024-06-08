@@ -23,8 +23,6 @@
 
 			if(urlParams.type && 'outbound_suggestions_ajax' === urlParams.type[0]){
 				ajaxGetSuggestionsOutbound($el, url, count);
-			}else if(urlParams.type && 'inbound_suggestions_page_container' === urlParams.type[0]){
-				ajaxGetSuggestionsInbound($el, url, count);
 			}
 
 			setupProcessingError();
@@ -34,92 +32,6 @@
 	getSuggestions();
 
 	$(document).on('click', '#wpil-get-manual-suggestions', function(e){e.preventDefault(); getSuggestions(true)});
-
-	function ajaxGetSuggestionsInbound($el, url, count, lastPost = 0, processedPostCount = 0, key = null)
-	{
-		var urlParams = parseURLParams(url);
-		var post_id = (urlParams.post_id) ? urlParams.post_id[0] : null;
-		var term_id = (urlParams.term_id) ? urlParams.term_id[0] : null;
-		var keywords = (urlParams.keywords) ? urlParams.keywords[0] : '';
-		var sameParent = (urlParams.same_parent) ? urlParams.same_parent[0] : null;
-		var sameCategory = (urlParams.same_category) ? urlParams.same_category[0] : '';
-		var selectedCategory = (urlParams.selected_category) ? urlParams.selected_category[0].split(',') : '';
-		var sameTag = (urlParams.same_tag) ? urlParams.same_tag[0] : '';
-		var selectedTag = (urlParams.selected_tag) ? urlParams.selected_tag[0].split(',') : '';
-		var selectPostTypes = (urlParams.select_post_types) ? urlParams.select_post_types[0] : '';
-		var selectedPostTypes = (urlParams.selected_post_types) ? urlParams.selected_post_types[0].split(',') : '';
-        var nonce = (urlParams.nonce) ? urlParams.nonce[0]: '';
-
-        if(!nonce){
-            return;
-        }
-
-		// start the clock on the error notice
-		setupProcessingError();
-
-        // if there isn't a key set, make one
-        if(!key){
-            while(true){
-                key = Math.round(Math.random() * 1000000000);
-                if(key > 999999){break;}
-            }
-        }
-
-		jQuery.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: {
-				action: 'get_post_suggestions',
-                nonce: nonce,
-				count: count,
-				post_id: post_id,
-                term_id: term_id,
-				type: 'inbound_suggestions',
-				keywords: keywords,
-				same_parent: sameParent,
-				same_category: sameCategory,
-				selected_category: selectedCategory,
-				same_tag: sameTag,
-				selected_tag: selectedTag,
-				last_post: lastPost,
-                completed_processing_count: processedPostCount,
-				select_post_types: selectPostTypes,
-				selected_post_types: selectedPostTypes,
-                key: key,
-			},
-			success: function(response){
-				console.log(response);
-
-				// stop the error clock and hide any visible message
-				setupProcessingError(true);
-				hideProcessingError();
-
-                // if there was an error
-                if(response.error){
-                    // output the error message
-                    wpil_swal(response.error.title, response.error.text, 'error');
-                    // and exit
-                    return;
-                }
-
-				count = parseInt(count) + 1;
-				var progress = Math.floor(response.completed_processing_count / (response.post_count + 0.1) * 100);
-				if (progress > 100) {
-					progress = 100;
-				}
-                $('.progress_count').html(progress + '%');
-				if(!response.completed){
-					ajaxGetSuggestionsInbound($el, url, count, response.last_post, response.completed_processing_count, key);
-				}else{
-					return updateSuggestionDisplay(post_id, term_id, nonce, $el, 'inbound_suggestions', false, sameParent, sameCategory, key, selectedCategory, sameTag, selectedTag, selectPostTypes, selectedPostTypes);
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-                console.log({jqXHR, textStatus, errorThrown});
-//				setupProcessingError(true);
-            }
-		});
-	}
 
 	function ajaxGetSuggestionsOutbound($el, url, count, post_count = 0, key = null)
 	{
@@ -353,8 +265,6 @@
 
 			if(urlParams.type && 'outbound_suggestions_ajax' === urlParams.type[0]){
 				ajaxGetSuggestionsOutbound(container, url, 0);
-			}else if(urlParams.type && 'inbound_suggestions_page_container' === urlParams.type[0]){
-				ajaxGetSuggestionsInbound(container, url, 0);
 			}
 
 			same_category_loading = false;
@@ -770,6 +680,49 @@
     }
 
     /**
+     * Runs Tippy and generates the standard tooltips for a page
+     **/
+    function runStandardTippy(){
+        var toTip = $('.wpil-tippy-tooltipped');
+        if(toTip.length < 1){
+            return;
+        }
+
+        toTip.each(function(index, element){
+            var el = $(element);
+            if(el.data('wpilTooltipContent')){
+                var args = {
+                    content: el.data('wpilTooltipContent'),
+                    onShow(instance){
+                        var target = $(instance.reference);
+                        if(target.attr('data-wpil-tooltip-theme') === 'delete-post'){
+                            target.parents('span.delete').css({'display': 'inline-block', 'margin-right': '4px'});
+                        }
+                    }
+                };
+
+                if(el.data('wpilTooltipInteractive')){
+                    args['interactive'] = true;
+                }
+
+                if(el.data('wpilTooltipAllowhtml')){
+                    args['allowHTML'] = true;
+                }
+
+                if(el.data('wpilTooltipMaxwidth')){
+                    args['maxWidth'] = parseInt(el.data('wpilTooltipMaxwidth'));
+                }
+
+                if(el.data('wpilTooltipTheme')){
+                    args['theme'] = el.data('wpilTooltipTheme');
+                }
+
+                tippy(element, args);
+            }
+        });
+    }
+
+    /**
      * Updates the loading bars for linked sites during the link scan.
      * Increases the length of the loading bars and the text content contained in the bar as the data is downloaded.
 	 * 
@@ -887,37 +840,52 @@
 			return;
 		}
 
-		wpil_swal({
-			title: 'Notice:',
-			text: 'Please confirm that you want to put this page in the trash. This will remove the page from your site and put it in the trash, not just remove it from the report.',
-			icon: 'info',
-			buttons: {
-				cancel: true,
-				confirm: true,
-			},
-			}).then((trash) => {
-			  if (trash) {
-				rowItem.closest('tr').css({'opacity': 0.4});
-				$.post(trashLink, function(){
-					rowItem.closest('tr').fadeOut(300);
-				});
-			  }
-		});
+        if ((wpil_ajax.dismissed_popups && wpil_ajax.dismissed_popups['link_report_trash_post'] !== 1)) {
+            var popupWrapper = document.createElement('div');
+            $(popupWrapper).append('Please confirm that you want to put this page in the trash. This will remove the page from your site and put it in the trash, not just remove it from the report. <br><br> <input type="checkbox" id="wpil-perma-dismiss-popup" data-wpil-popup-name="link_report_trash_post"><span style="font-size: 12px;">(Don\'t show this again)</span>');
+            wpil_swal({
+                'title': 'Notice:', 
+                content: popupWrapper, 
+                'icon': 'info',
+                buttons: {
+                    cancel: true,
+                    confirm: true,
+                }
+            }).then((trash) => {
+                if (trash) {
+                    rowItem.closest('tr').css({'opacity': 0.4});
+                    $.post(trashLink, function(){
+                        rowItem.closest('tr').fadeOut(300);
+                    });
+                  }
+
+                var checkbox = $('#wpil-perma-dismiss-popup');
+                if(checkbox.is(':checked') && wpil_ajax.dismiss_popup_nonce){
+                    $.ajax({
+                        type: 'POST',
+                        url: ajaxurl,
+                        data: {
+                            action: 'wpil_dismiss_popup_notice',
+                            popup_name: checkbox.data('wpil-popup-name'),
+                            nonce: wpil_ajax.dismiss_popup_nonce,
+                        },
+                        complete: function (data) {
+                            console.log('ignoring complete!');
+                            wpil_ajax.dismissed_popups['link_report_trash_post'] = 1;
+                        }
+                    })
+                }
+            });
+        }else{
+            rowItem.closest('tr').css({'opacity': 0.4});
+            $.post(trashLink, function(){
+                rowItem.closest('tr').fadeOut(300);
+            });
+        }
 	});
 
 	$(document).ready(function(){
 		var saving = false;
-
-		if ($('#inbound_suggestions_page').length) {
-			var id  = $('#inbound_suggestions_page').data('id');
-			var type  = $('#inbound_suggestions_page').data('type');
-
-			$.post( ajaxurl, {action: 'wpil_is_inbound_links_added', id: id, type: type}, function(data) {
-				if (data == 'success') {
-					wpil_swal('Success', 'Links have been added successfully', 'success');
-				}
-			});
-		}
 
 		$(document).on('click', '#select_all', function () {
 			if ($(this).prop('checked')) {
@@ -1563,4 +1531,61 @@
 
 
 	/** /Lazyload the dropdowns */
+
+	/** Ajax saving for Screen Options **/
+	var savingScreenOptions = false;
+	$(document).on('submit', '#adv-settings', ajaxSaveScreenOptions);
+	function ajaxSaveScreenOptions(e){
+		// exit if this is not a Link Whisper page
+		if($('body').find('.wpil_styles').length < 1 || savingScreenOptions){
+			return;
+		}
+		// stop the form submit
+		e.preventDefault();
+
+		// get the form
+		var form = $(this);
+
+		// get the values from the screen options
+		var saveOptions = {};
+
+		$(this).find('input').each(function(index, element){
+			if(!element.id){
+				return;
+			}
+
+			var el = $(element);
+			if(el.attr('type') === 'checkbox'){
+				saveOptions[element.id] = el.is(':checked') ? 'on': 'off';
+			}else{
+				saveOptions[element.id] = $(element).val();
+			}
+		});
+
+		if(Object.keys(saveOptions).length > 0){
+			$.ajax({
+				type: "POST",
+				url: ajaxurl,
+				data: {
+					action: 'wpil_save_screen_options',
+					nonce: $(this).find('#screenoptionnonce').val(),
+					options: saveOptions,
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.log(textStatus);
+				},
+				success: function(response){
+					if(response.success){
+						window.location.reload();
+					}else{
+						savingScreenOptions = true;
+						form.submit();
+					}
+					console.log(response);
+				}
+			});
+		}
+	}
+
+	/** /Ajax saving for Screen Options **/
 })(jQuery);

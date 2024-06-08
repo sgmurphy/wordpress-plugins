@@ -116,6 +116,12 @@ class Wpil_Editor_Elementor
                     }
                 }
 
+            }elseif(isset($item->settings) && isset($item->settings->shortcode) && !empty($item->settings->shortcode)){
+                try {
+                    $content .= "\n" . do_shortcode($item->settings->shortcode);
+                } catch (Throwable $t) {
+                } catch (Exception $e) {
+                }
             }else{
                 foreach (['editor', 'title', 'caption', 'text', 'description_text', 'testimonial_content', 'html', 'alert_title', 'alert_description', 'description', 'faq_answer', 'accordion_content', 'protected_content_text', 'blockquote_content'] as $key) {
                     if (!empty($item->settings->$key)) {

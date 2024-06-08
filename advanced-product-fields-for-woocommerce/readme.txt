@@ -3,11 +3,11 @@ Contributors: studiowombat,maartenbelmans
 Tags: woocommerce product addons, woocommerce, woocommerce product options, product addons, product fields
 Tags: woocommerce product addons, woocommerce product options, woocommerce custom fields, woocommerce product fields, woo product options
 Requires at least: 4.5
-Tested up to: 6.5.2
+Tested up to: 6.5.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.6.7
+Stable tag: 1.6.8
 
 Add options (addons) to your WooCommerce products so your customers can personalize their products. Product forms for everyone!
 
@@ -165,8 +165,12 @@ From your WordPress dashboard
 
 == Changelog ==
 
+= 1.6.8 =
+ * Improvement: removed outdated code.
+ * Other: test compatibility with Woo & WP.
+
 = 1.6.7 =
- * Other: pumped minimum required WooCommerce version to 3.8.
+ * Other: bumped minimum required WooCommerce version to 3.8.
  * Other: test compatibility with Woo 8.8 (beta).
 
 = 1.6.6 =

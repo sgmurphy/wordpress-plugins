@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.11';
+	$.fbuilder['version'] = '5.2.12';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -812,6 +812,16 @@
 						    }
 
 							$(document).on('formReady', 'form#'+this.formId, ( function( opt, fid ){
+								function resizeIframe(f) {
+									let h = f.outerHeight()+40
+									if (frameElement) {
+										frameElement.height = h;
+									}
+									// Update iframe height
+									if( 'parent' in window ) {
+										parent.postMessage({cff_height: h, cff_iframe: getURLParameter('cff_iframe', 0)}, '*');
+									}
+								};
 								return function(evt,fid2){
 									if ( fid == fid2 ){
 										let f = $('#'+fid);
@@ -828,16 +838,26 @@
 										);
 
 										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
-										$.post(
-											document.location.href,
-											{
-												'cffaction'     : 'cff_register_height',
-												'form_height'	: f.height(),
-												'screen_width'	: $(window).width(),
-												'form'	 		: f.find('[name="cp_calculatedfieldsf_id"]').val(),
-												'_nonce'		: f.attr('data-nonce') || ''
-											}
-										);
+										try {
+											$.post(
+												document.location.href,
+												{
+													'cffaction'     : 'cff_register_height',
+													'form_height'	: f.height(),
+													'screen_width'	: $(window).width(),
+													'form'	 		: f.find('[name="cp_calculatedfieldsf_id"]').val(),
+													'_nonce'		: f.attr('data-nonce') || ''
+												}
+											);
+										} catch(err){}
+
+										// Resize iframe when form or window resize
+										resizeIframe(f);
+										(new ResizeObserver(function() {
+											try {
+												resizeIframe(f);
+											} catch(err){}
+										})).observe(f[0]);
 									}
 								};
 							} )( opt, this.formId ) );

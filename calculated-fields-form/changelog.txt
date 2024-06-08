@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.12 =
+
+* Improves the Gutenberg block displaying the templates' thumbnails and reducing the code required for rendering the forms.
+* Fixes some issues with the AMP support.
+* Improves the feature to load the form into iframe tags.
+
 = 5.2.11 =
 
 * Modifies the Date control to prevent the date selection from closing the Elementor popups when it contains a form.

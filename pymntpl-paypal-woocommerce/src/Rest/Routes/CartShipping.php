@@ -59,7 +59,10 @@ class CartShipping extends AbstractCart {
 
 		// check if there are any shipping rates available.
 		if ( ! $this->validate_shipping_methods( WC()->shipping()->get_packages() ) ) {
-			throw new \Exception( __( 'There are no shipping options available for the provided address.', 'pymntpl-paypal-woocommerce' ), 200 );
+			if ( $this->is_intermediate_address_complete( $request->get_param( 'address' ) ) ) {
+				// only throw exception if this is a complete intermediary address
+				throw new \Exception( __( 'There are no shipping options available for the provided address.', 'pymntpl-paypal-woocommerce' ), 200 );
+			}
 		}
 
 		// fetch the paypal order
@@ -136,6 +139,39 @@ class CartShipping extends AbstractCart {
 
 	private function add_shipping_hooks() {
 		add_filter( 'woocommerce_cart_ready_to_calc_shipping', '__return_true', 1000 );
+	}
+
+	private function is_intermediate_address_complete( $address ) {
+		if ( ! $address ) {
+			return false;
+		}
+		$address = array_merge(
+			array(
+				'country'  => '',
+				'state'    => '',
+				'postcode' => '',
+				'city'     => ''
+			),
+			$address
+		);
+		if ( ! $address['country'] ) {
+			return false;
+		}
+		$fields = WC()->countries->get_address_fields( $address['country'], 'shipping_' );
+		foreach ( $address as $key => $value ) {
+			$key2 = 'shipping_' . $key;
+			if ( isset( $fields[ $key2 ] ) ) {
+				if ( array_key_exists( 'required', $fields[ $key2 ] ) ) {
+					if ( $fields[ $key2 ]['required'] ) {
+						if ( empty( $address[ $key ] ) ) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 }

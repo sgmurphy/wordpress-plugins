@@ -9,6 +9,7 @@ namespace PaymentPlugins\PayPalSDK;
  * @package PaymentPlugins\PayPalSDK
  *
  * @property \PaymentPlugins\PayPalSDK\Token $token
+ * @property \PaymentPlugins\PayPalSDK\Token $paypal
  */
 class PaymentSource extends AbstractObject {
 
@@ -26,6 +27,14 @@ class PaymentSource extends AbstractObject {
 		$this->token = $token;
 
 		return $this;
+	}
+
+	public function setPayPal( $token ) {
+		$this->paypal = $token;
+	}
+
+	public function getPayPal() {
+		return $this->paypal;
 	}
 
 }

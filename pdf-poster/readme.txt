@@ -1,4 +1,4 @@
-=== PDF Poster- Best PDF Embedder Plugin for WordPress ===
+=== PDF Poster- PDF Embedder Plugin ===
 Contributors: abuhayat, shehabulislam, freemius,bplugins
 Tags: PDF Embedder, embed pdf, pdf viewer, pdf, pdf plugin
 Donate link: https://www.buymeacoffee.com/abuhayat/

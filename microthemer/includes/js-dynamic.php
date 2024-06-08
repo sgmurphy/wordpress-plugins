@@ -50,10 +50,12 @@ $data.= 'var TvrMQsCombined = ' . json_encode($this->combined_devices()) . ';' .
 
 // available builder integrations
 $data.= 'TvrMT.data.dyn.integrations = ' . json_encode($this->integrations) . ';' . "\n\n";
+$data.= 'TvrMT.data.dyn.blockBuilders = ' . json_encode($this->blockBuilders) . ';' . "\n\n";
 
 // the full ui options in JS form. Later, this will be used for speed optimisations
 $data.= 'TvrMT.data.dyn.builder_breakpoints = ' . json_encode(
 	array(
+		'gutenberg' => $this->gutenberg_breakpoints,
 		'elementor' => $this->elementor_breakpoints,
 		'oxygen' => $this->oxygen_breakpoints
 	)

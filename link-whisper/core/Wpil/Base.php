@@ -59,7 +59,11 @@ class Wpil_Base
                 case 'wpil_excel_export':
                     $post = self::getPost();
                     if (!empty($post)) {
-                        Wpil_Excel::exportPost($post);
+                        try {
+                            Wpil_Excel::exportPost($post);
+                        } catch (Throwable $t) {
+                        } catch (Exception $e) {
+                        }
                     }
                     break;
             }
@@ -303,20 +307,15 @@ class Wpil_Base
             wp_enqueue_style('wpil_admin_fonts');
         }
 
-        // if we're on a post edit screen
-        if (!empty($current_screen) && ('post' === $current_screen->base || 'page' === $current_screen->base)){
-            wp_register_style('wpil_select2_css', WP_INTERNAL_LINKING_PLUGIN_URL . 'css/select2.min.css');
-            wp_enqueue_style('wpil_select2_css');
-            wp_register_script('wpil_select2', WP_INTERNAL_LINKING_PLUGIN_URL . 'js/select2.full.min.js', array('jquery'), $ver, true);
-            wp_enqueue_script('wpil_select2');
-        }
-
+        $dismissedPopups = get_user_meta(get_current_user_id(), 'wpil_dismissed_popups', true);
+        $dismissedPopups = (!empty($dismissedPopups)) ? $dismissedPopups: array();
         $ajax_url = admin_url('admin-ajax.php');
 
         $script_params = array();
         $script_params['ajax_url'] = $ajax_url;
         $script_params['completed'] = __('completed', 'wpil');
-        $script_params['site_linking_enabled'] = 0;
+        $script_params['dismissed_popups'] = $dismissedPopups;
+        $script_params['dismiss_popup_nonce'] = wp_create_nonce(get_current_user_id() . 'dismiss-popup-nonce');
 
         $script_params["WPIL_OPTION_REPORT_LAST_UPDATED"] = get_option(WPIL_OPTION_REPORT_LAST_UPDATED);
 

@@ -119,7 +119,7 @@ button.wpil_licensing_activation_button:nth-child(n):hover,
 .wpil_styles a:hover {
 	color: #b63ef8;
 }
-.wpil_styles .search-box input:not([type="radio"]),
+.wpil_styles .search-box input:not([type="radio"]):not([type="checkbox"]),
 .wpil_styles #wpil_report_reset_data_form {
 	height: 41px;
 }
@@ -690,9 +690,20 @@ button.wpil_licensing_activation_button:nth-child(n):hover,
 .swal-text {
 	text-align: center !important;
 }
-.swal-button.swal-button--confirm {
+.swal-button.swal-button--confirm,
+.swal-button.swal-button--deleteRuleOnly,
+.swal-button.swal-button--deleteRuleAndLinks
+{
 	background-color: #33c7fd;
 	border-radius: 3px;
+}
+
+.link-whisper_page_link_whisper_keywords .swal-modal{
+	min-width: 530px;
+}
+
+.link-whisper_page_link_whisper_keywords .swal-footer{
+	text-align: center;
 }
 
 table.tbl_keywords_x {
@@ -1215,7 +1226,7 @@ ul.report_links {
 	display: flex;
 	align-items: center;
 	padding: 13px 20px 13px 13px;
-	background: #6b3da7;
+	background: #4c1c8b;
 	border-radius: 3px;
 	overflow: hidden;
 	color: #fff;
@@ -1238,6 +1249,9 @@ ul.report_links {
 }
 #report_stats > a:nth-child(5) {
 	background: #a81ec1;
+}
+#report_stats > a:nth-child(6) {
+	background: #6b3da7;
 }
 /* Icons */
 #report_stats > a i:before {
@@ -1266,6 +1280,13 @@ ul.report_links {
 }
 #report_stats > a i.dashicons-search:before {
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDM1MiwgMjAyMC8wMS8zMC0xNTo1MDozOCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjEgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTk2Nzg5NTU2Q0Q3MTFFQUI2RTRGRDI5NkRCNzNDMTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTk2Nzg5NTY2Q0Q3MTFFQUI2RTRGRDI5NkRCNzNDMTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDYyN0VDNjZDRDcxMUVBQjZFNEZEMjk2REI3M0MxOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFOTY3ODk1NDZDRDcxMUVBQjZFNEZEMjk2REI3M0MxOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjKF5nUAAADkSURBVHja7NfRCYMwEAbg06fiDK7SEdoduli7Q1foCj744INb6FOv/8EFAo2aCMkVauCHICEfiWdUYuYGuSMT52+TWk0lHSK6Udn2EHhC54RckVdm8Iw8kVlglisVWu5lghLjLf265P5ibez6NRm1A/4qBqRDeqSNKJ5Wx3YxlcaushfgXocMa7iig47tN701ODBhEI8ZkwxvTZyCJsNLQCq6Cw7goyYa3Q17+Oi9ccZY1IfNnuPf32qT4jJ5nEwOELMjM8dLwnlFP30cfHwI/A88602/FCgsZ8xmvzBk9dP2EWAAEI9sWZZPYD8AAAAASUVORK5CYII=);
+}
+#report_stats > a i.dashicons-video-alt3:before {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiIHdpZHRoPSIzMHB4IiBoZWlnaHQ9IjMwcHgiPjxwYXRoIGQ9Ik0xNywxMC41VjdjMC0xLjEtMC45LTItMi0ySDNjLTEuMSwwLTIsMC45LTIsMnYxMGMwLDEuMSwwLjksMiwyLDJoMTJjMS4xLDAsMi0wLjksMi0ydi0zLjVsNSw0VjYuNUwxNywxMC41eiBNMTYsMTdIM1Y3aDEzVjE3eiIvPjwvc3ZnPg==);
+    fill: #ffffff;
+    width: 35px;
+    height: 33px;
+    background-size: 35px;
 }
 /* Icons */
 #report_stats i {
@@ -1590,29 +1611,7 @@ ul.report_links {
 .linkingstats th a{
 	overflow: visible;
 }
-/*
-.link-whisper_page_link_whisper_target_keywords .wpil-target-keyword-header-tooltip{
-	display: inline-block;
-	position: relative;
-}
 
-.wpil-target-keyword-header-tooltip .wpil_help{
-	position: absolute;
-    top: -5px;
-    left: -35px;
-}
-
-.wpil-target-keyword-header-tooltip .wpil_help i::before{
-	font-size: 18px;
-}
-
-.wpil-target-keyword-header-tooltip .wpil_help .wpil-help-text{
-	font-size: 14px;
-	margin: 0px;
-	top: 40px;
-	left: 0px;
-}
-*/
 .link-whisper_page_link_whisper_target_keywords .column-check{
 	width: 85px;
 }
@@ -1993,6 +1992,9 @@ li.wpil-target-keyword-active-kywrd {
 	position: absolute;
 	display: none;
 	z-index: 999999999999;
+}
+#frmSaveSettings .wpil_help > div{
+    width: 350px;
 }
 .block-editor-page #wpil_target-keywords .wpil_help > div{
 	right: 0px;

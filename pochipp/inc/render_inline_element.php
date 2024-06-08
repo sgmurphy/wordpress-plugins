@@ -146,14 +146,14 @@ function render_pochipp_element( $btn_data = [] ) {
 	if ( 'custom1' === $shop ) {
 		$url = $custom_btn_url;
 		// ボタンテキスト
-		$btn_text = $custom_btn_text;
+		$btn_text = $content ?? esc_html( $custom_btn_text );
 		// 追加クラス
 		$add_class = 'pochipp-inline__btnwrap -custom';
 	}
 	if ( 'custom2' === $shop ) {
 		$url = $custom_btn_url_2;
 		// ボタンテキスト
-		$btn_text = $custom_btn_text_2;
+		$btn_text = $content ?? esc_html( $custom_btn_text_2 );
 		// 追加クラス
 		$add_class = 'pochipp-inline__btnwrap -custom_2';
 	}

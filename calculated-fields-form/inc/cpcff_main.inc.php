@@ -542,6 +542,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$atts = array();
 			}
 			if ( ! $this->_is_admin && $this->_amp->is_amp() ) {
+				$atts['iframe'] = 1;
 				$content = $this->_amp->get_iframe( $atts );
 			} else {
 				global $wpdb, $cpcff_default_texts_array;
@@ -558,7 +559,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$atts['id'] = $myrow->id; // If was not passed the form's id, uses the if of first form.
 				$id         = $atts['id']; // Alias for the $atts[ 'id' ] variable.
 				$form_template = ! empty( $atts[ 'template' ] ) ? trim( $atts[ 'template' ] ) : '';
-
 				if ( ! empty( $atts['iframe'] ) ) {
 					if ( ! isset( $this->_iframe_nonces[ $id ] ) ) {
 						$this->_iframe_nonces[ $id ] = wp_create_nonce( 'cff-iframe-nonce-' . $id );
@@ -578,18 +578,20 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					}
 
 					$iframe_id  = uniqid( 'cff-iframe-' );
-					$iframe_tag = '<iframe ' . ' id="' . $iframe_id . '"';
+					$iframe_tag = '<script type="text/javascript">window.addEventListener("message", function(e) { if ( "data" in e && "cff_height" in e.data && "cff_iframe" in e.data) {try{ let el = document.getElementById(e.data.cff_iframe); el.style.height = e.data.cff_height + "px";el.style.minHeight="auto"; if( "parent" in window ) parent.postMessage({sentinel: "amp",type:"embed-size",height: e.data.cff_height+25}, "*"); }catch(err){}}}, false);</script><iframe ' . ' id="' . $iframe_id . '"';
 
 					if ( ! empty( $form_obj ) ) {
 						$iframe_tag = $form_obj->get_height( '#' . $iframe_id ) . $iframe_tag;
 					}
+
+					$url .= ( strpos( $url, '?' ) === false ? '?' : '&' ) . 'cff_iframe=' . $iframe_id;
 
 					if ( ! empty( $atts['asynchronous'] ) ) {
 						$iframe_tag = '<script>window.addEventListener("load", function(){let el = document.getElementById("' . $iframe_id . '"); if(el) el.setAttribute("src", el.getAttribute("data-cff-src"));});</script>' . $iframe_tag . ' src="about:blank" data-cff-src="' . esc_attr( $url ) . '"';
 					} else {
 						$iframe_tag .= ' src="' . esc_attr( $url ) . '"';
 					}
-					$iframe_tag .= ' style="border:none;width:100%;overflow-y:hidden;" onload="this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;this.style.minHeight=\'auto\';" scrolling="no"></iframe>';
+					$iframe_tag .= ' style="border:none;width:100%;overflow-y:hidden;" onload="try{this.width=this.contentWindow.document.body.scrollWidth;this.height=this.contentWindow.document.body.scrollHeight+40;this.style.minHeight=\'auto\';}catch(err){}" scrolling="no"></iframe>';
 
 					return $iframe_tag;
 				}

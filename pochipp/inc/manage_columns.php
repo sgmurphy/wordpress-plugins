@@ -65,14 +65,16 @@ function output_custom_post_columns( $column_name, $post_id ) {
 		echo \POCHIPP::get_item_image( $image_id, $image_url, $searched_at );
 
 	} elseif ( 'used_at' === $column_name ) {
-		$args                     = [
-			'post_type'              => [ 'post', 'page' ],
-			'no_found_rows'          => true,
-			'posts_per_page'         => -1,
+		$args                          = [
+			'post_type'      => [ 'post', 'page' ],
+			'no_found_rows'  => true,
+			'posts_per_page' => -1,
 		];
-		$pattern_block            = "/wp:pochipp\/linkbox.+\"pid\":$post_id/";
-		$pattern_shortcode        = "/pochipp id=\"$post_id\"/";
-		$pattern_inline_shortcode = "/pochipp_btn id=\"$post_id\"/";
+		$pattern_block                 = "/wp:pochipp\/linkbox.+\"pid\":$post_id/";
+		$pattern_shortcode             = "/pochipp id=\"$post_id\"/";
+		$pattern_inline_shortcode      = "/pochipp_btn id=\"$post_id\"/";
+		$pattern_inline_link_shortcode = "/pochipp_link id=\"$post_id\"/";
+		$pattern_inline_img_shortcode  = "/pochipp_img id=\"$post_id\"/";
 
 		$used_count = get_post_meta( $post_id, 'used_count', true ) ?: 0;
 
@@ -86,6 +88,8 @@ function output_custom_post_columns( $column_name, $post_id ) {
 				! preg_match( $pattern_block, $the_content )
 				&& ! preg_match( $pattern_shortcode, $the_content )
 				&& ! preg_match( $pattern_inline_shortcode, $the_content )
+				&& ! preg_match( $pattern_inline_link_shortcode, $the_content )
+				&& ! preg_match( $pattern_inline_img_shortcode, $the_content )
 			) {
 				continue;
 			}

@@ -24,6 +24,8 @@ class Wpil_Report
         add_filter('screen_settings', [ $this, 'showScreenOptions' ], 10, 2);
         add_filter('set_screen_option_report_options', [$this, 'saveOptions'], 12, 3);
         add_action('wp_ajax_get_link_report_dropdown_data', array(__CLASS__, 'ajax_assemble_link_report_dropdown_data'));
+        add_action('wp_ajax_wpil_save_screen_options', array(__CLASS__, 'ajax_save_screen_options'));
+        add_action('wp_ajax_wpil_dismiss_popup_notice', array(__CLASS__, 'ajax_dismiss_popup_notice'));
     }
 
     /**
@@ -60,6 +62,11 @@ class Wpil_Report
         global $wpdb;
         $links_table = $wpdb->prefix . "wpil_report_links";
         Wpil_Base::verify_nonce('wpil_reset_report_data');
+
+        // say that we're processing report data if we haven't already
+        if(!defined('WPIL_RUNNING_LINK_SCAN')){
+            define('WPIL_RUNNING_LINK_SCAN', true);
+        }
 
         // be sure to ignore any external object caches
         Wpil_Base::ignore_external_object_cache();
@@ -126,6 +133,11 @@ class Wpil_Report
         global $wpdb;
         $links_table = $wpdb->prefix . "wpil_report_links";
         Wpil_Base::verify_nonce('wpil_reset_report_data');
+
+        // say that we're processing report data if we haven't already
+        if(!defined('WPIL_RUNNING_LINK_SCAN')){
+            define('WPIL_RUNNING_LINK_SCAN', true);
+        }
 
         // be sure to ignore any external object caches
         Wpil_Base::ignore_external_object_cache();
@@ -1483,10 +1495,10 @@ class Wpil_Report
                 }
             } else {
                 $search = $wpdb->prepare("%s", Wpil_Toolbox::esc_like($search));
-                $term_title_search = ", IF(t.name LIKE {$search}, 1, 0) as title_search ";
-                $title_search = ", IF(p.post_title LIKE {$search}, 1, 0) as title_search ";
-                $term_search = " AND (t.name LIKE {$search} OR tt.description LIKE {$search}) ";
-                $search = " AND (p.post_title LIKE {$search} OR p.post_content LIKE {$search}) ";
+                $term_title_search = ", IF(CONVERT(t.name USING utf8mb4) COLLATE utf8mb4_unicode_ci LIKE {$search}, 1, 0) as title_search ";
+                $title_search = ", IF(CONVERT(p.post_title USING utf8mb4) COLLATE utf8mb4_unicode_ci LIKE {$search}, 1, 0) as title_search ";
+                $term_search = " AND (CONVERT(t.name USING utf8mb4) COLLATE utf8mb4_unicode_ci LIKE {$search} OR CONVERT(tt.description USING utf8mb4) COLLATE utf8mb4_unicode_ci LIKE {$search}) ";
+                $search = " AND (CONVERT(p.post_title USING utf8mb4) COLLATE utf8mb4_unicode_ci LIKE {$search} OR CONVERT(p.post_content USING utf8mb4) COLLATE utf8mb4_unicode_ci LIKE {$search}) ";
             }
         }
 
@@ -1539,9 +1551,13 @@ class Wpil_Report
             if(!empty($table_data) && isset($table_data->table_collation)){
                 // go with it's collation
                 $collation = "COLLATE " . $table_data->table_collation;
+                // set the charset for the benefit of the terms check
+                $post_charset = $table_data->character_set;
             }else{
                 // if we have no data, guess that using utf8mb4_unicode_ci will be alright
                 $collation = "COLLATE utf8mb4_unicode_ci";
+                // set the charset for the benefit of the terms check
+                $post_charset = 'utf8mb4';
             }
         }
 
@@ -1554,7 +1570,7 @@ class Wpil_Report
             if ($processing_terms) {
                 $taxonomies = Wpil_Settings::getTermTypes();
                 $query .= " UNION
-                            SELECT tt.term_id as `ID`, t.name {$collation} as `post_title`, tt.taxonomy {$collation} as `post_type`, '1970-01-01 00:00:00' as `post_date`, 'term' as `type` $term_title_search  
+                            SELECT tt.term_id as `ID`, CONVERT(t.name USING {$post_charset}) {$collation} as `post_title`, CONVERT(tt.taxonomy USING {$post_charset}) {$collation} as `post_type`, '1970-01-01 00:00:00' as `post_date`, 'term' as `type` $term_title_search  
                             FROM {$wpdb->term_taxonomy} tt INNER JOIN {$wpdb->terms} t ON tt.term_id = t.term_id 
                             WHERE t.term_id in ($report_term_ids) $ignored_terms AND tt.taxonomy IN ('" . implode("', '", $taxonomies) . "') $term_search ";
             }
@@ -1570,7 +1586,7 @@ class Wpil_Report
             if ($processing_terms) {
                 $taxonomies = Wpil_Settings::getTermTypes();
                 $query .= " UNION
-                            SELECT t.term_id as `ID`, t.name {$collation} as `post_title`, tt.taxonomy {$collation} as `post_type`, '1970-01-01 00:00:00' as `post_date`, m.meta_value {$collation} AS 'meta_value', 'term' as `type` $term_title_search  
+                            SELECT t.term_id as `ID`, CONVERT(t.name USING {$post_charset}) {$collation} as `post_title`, CONVERT(tt.taxonomy USING {$post_charset}) {$collation} as `post_type`, '1970-01-01 00:00:00' as `post_date`, m.meta_value {$collation} AS 'meta_value', 'term' as `type` $term_title_search  
                             FROM {$wpdb->prefix}termmeta m INNER JOIN {$wpdb->prefix}terms t ON m.term_id = t.term_id INNER JOIN {$wpdb->prefix}term_taxonomy tt ON t.term_id = tt.term_id
                             WHERE t.term_id in ($report_term_ids) $ignored_terms AND tt.taxonomy IN ('" . implode("', '", $taxonomies) . "') AND m.meta_key LIKE '$orderby' $term_search";
             }
@@ -1823,6 +1839,110 @@ class Wpil_Report
         }
 
         wp_send_json(array('success' => array('item_data' => $rep, 'item_count' => $count)));
+    }
+
+    /**
+     * Saves the screen options via ajax
+     **/
+    public static function ajax_save_screen_options(){
+        if(!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'screen-options-nonce')){
+            wp_send_json(
+                array(
+                    'error' => array(
+                        'title' => __('Data Error', 'wpil'),
+                        'text'  => __('There was an error in processing the data, please reload the page and try again.', 'wpil'),
+                    )
+                )
+            );
+        }
+
+        $return = array('error' => 'this is an error!');
+
+        $report_types = array('report_options', 'wpil_keyword_options', 'target_keyword_options');
+
+        if( isset($_POST['options']) && !empty(($_POST['options'])) && is_array(($_POST['options'])) &&
+            isset($_POST['options']['wp_screen_options_name']) && 
+            in_array($_POST['options']['wp_screen_options_name'], $report_types, true) 
+        ){
+            $report = $_POST['options']['wp_screen_options_name'];
+            $index = array(
+                // links report
+                'show_categories' => 'on/off',
+                'show_type' => 'on/off',
+                'show_date' => 'on/off',
+                'show_traffic' => 'on/off',
+                'hide_ignore' => 'on/off',
+                'hide_noindex' => 'on/off',
+                'show_link_attrs' => 'on/off',
+                'show_click_traffic' => 'on/off',
+
+                // autolinking report
+                'hide_select_links_column' => 'on/off',
+
+                // target keywords
+                'show_date' => 'on/off',
+                'show_traffic' => 'on/off',
+                'remove_obviated_keywords' => 'on/off',
+
+                // general
+                'per_page' => 'int',
+            );
+
+            $user_id = get_current_user_id();
+            $options = get_user_meta($user_id, $report, true);
+
+            foreach($_POST['options'] as $key => $value){
+                if(!isset($index[$key])){
+                    continue;
+                }
+
+                if($index[$key] === 'on/off' && ($value === 'on' || $value === 'off')){
+                    $options[$key] = $value;
+                }elseif($index[$key] === 'int'){
+                    $options[$key] = (int) $value;
+                }
+            }
+
+            update_user_meta($user_id, $report, $options);
+
+            $return = array('success' => 'this is success!');
+        }
+
+        wp_send_json($return);
+    }
+
+    /**
+     * Permanently dismisses the suggestion popup notifications
+     **/
+    public static function ajax_dismiss_popup_notice(){
+        Wpil_Base::verify_nonce('dismiss-popup-nonce');
+
+        $user_id = get_current_user_id();
+        $ignore_popups = get_user_meta($user_id, 'wpil_dismissed_popups', true);
+        $ignore_popups = (!empty($ignore_popups)) ? $ignore_popups: array();
+
+        if(isset($_POST['popup_name']) && !empty($_POST['popup_name'])){
+            switch ($_POST['popup_name']) {
+                case 'suggestions':
+                    $ignore_popups['suggestions'] = 1;
+                    break;
+                case 'target_keyword_create':
+                    $ignore_popups['target_keyword_create'] = 1;
+                    break;
+                case 'target_keyword_delete':
+                    $ignore_popups['target_keyword_delete'] = 1;
+                    break;
+                case 'target_keyword_update':
+                    $ignore_popups['target_keyword_update'] = 1;
+                    break;
+                case 'link_report_trash_post':
+                    $ignore_popups['link_report_trash_post'] = 1;
+                    break;
+            }
+        }
+
+        update_user_meta($user_id, 'wpil_dismissed_popups', $ignore_popups);
+        wp_send_json(array('success' => 'Yay!'));
     }
 
     /**

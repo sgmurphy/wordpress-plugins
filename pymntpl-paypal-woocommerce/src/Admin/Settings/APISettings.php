@@ -268,6 +268,10 @@ class APISettings extends AbstractSettings {
 		return $this->get_option( 'environment' );
 	}
 
+	public function is_sandbox() {
+		return $this->get_environment() === 'sandbox';
+	}
+
 	public function get_client_id( $environment = '' ) {
 		$environment = ! $environment ? $this->get_environment() : $environment;
 
@@ -329,6 +333,7 @@ class APISettings extends AbstractSettings {
 									'features'     => [
 										'PAYMENT',
 										'REFUND',
+										'VAULT',
 										'TRACKING_SHIPMENT_READWRITE'
 									],
 									'seller_nonce' => $sellar_nonce

@@ -561,10 +561,12 @@ $this->min_and_max_mqs = array(
 	$this->unq_base.'3' => array(
 		"label" => __('< 768', 'microthemer'),
 		"query" => "@media (max-width: 767.98px)",
+		"site_preview_width" => "builder.gutenberg.tablet"
 	),
 	$this->unq_base.'4' => array(
 		"label" => __('< 480', 'microthemer'),
 		"query" => "@media (max-width: 479.98px)",
+		"site_preview_width" => "builder.gutenberg.mobile"
 	),
 	$this->unq_base.'7' => array(
 		"label" => __('768 >', 'microthemer'),
@@ -672,7 +674,8 @@ $this->default_preferences = array(
 	"autofocus_editor" => 0,
 	"wireframe_mode" => 0,
 	"allow_scss" => 0, // if enabled by default, invalid css/scss will prevent stylesheet update.
-	"sync_browser_tabs" => 0,
+	"add_block_classes_all" => 0,
+	"sync_browser_tabs" => 1, // change for Gutenberg
 	"specificity_preference" => 1, // 1 = high, 0 = low
 	"wp55_jquery_version" => 0,
 	"bricks_container_hack" => 0, // no longer necessary since Bricks 1.4
@@ -697,7 +700,7 @@ $this->default_preferences = array(
 	"auto_publish_mode" => 0, // maybe don't launch beta with this, but add if requested
 	"color_as_hex" => 0,
 	"admin_bar_preview" => 1, // because WP jumps out of iframe now
-	"admin_asset_loading" => 0,
+	"admin_asset_loading" => 1, // change for Gutenberg integration
 	"admin_asset_editing" => 0,
 	"admin_bar_shortcut" => 1,
 	"top_level_shortcut" => 1, // with auto referrer this is more useful and should be on by default
@@ -958,9 +961,11 @@ $this->default_preferences_dont_reset_or_export = array(
 
 	// Data processing/conversion contingent
 	"units_added_to_suggestions" => 0,
+	"subgrid_added_to_suggestions" => 0,
 	"default_sug_values_set" => 0,
 	"default_sug_variables_set" => 0,
 	"manual_recompile_all_css" => 0,
+	"refresh_template_map" => 0,
 	"show_setup_screen" => 1,
 	"show_setup_screen_first_time" => 1,
 );
@@ -1399,6 +1404,15 @@ $this->menu = array(
 				'data-neg' => esc_attr__('Disable synced browser tabs', 'microthemer'),
 			),
 
+			'activate_gutenberg' => array(
+				'icon_title' => 'Ctrl + Alt + B',
+				'name' => esc_html__('Enable Gutenberg', 'microthemer'),
+				'title' => esc_attr__("Make page editable with Gutenberg", 'microthemer'),
+				'class' => 'toggle-elementor',
+				'toggle' => strpos($this->preferences['preview_url'], 'post.php?post='),
+				'data-pos' => esc_attr__('Enable Gutenberg', 'microthemer'),
+				'data-neg' => esc_attr__('Save & Exit Gutenberg', 'microthemer'),
+			),
 
 			// autoload feature should only autoload if the page has already been edited
 			// set an option on preferences "Only autoload builder if previously launched manually" : "Yes"
@@ -1884,9 +1898,20 @@ $this->menu = array(
 				'icon_name' => 'wordpress',
 				'item_link' => $this->wp_blog_admin_url
 			),
+			'outside' => array(
+				'name' => esc_html__('Edit page directly', 'microthemer'),
+				'title' => esc_attr__("Edit the page outside of Microthemer", 'microthemer'),
+				'class' => 'edit-page-directly',
+				'icon_name' => 'wordpress',
+				'item_link' => $this->preferences['preview_url'],
+				'link_id' => 'edit-page-directly',
+				'text_data_attr' => array(
+					'draft-status' => esc_attr__('draft', 'microthemer'),
+				),
+			),
 			'frontend' => array(
 				'name' => esc_html__('Site frontend', 'microthemer'),
-				'title' => esc_attr__("Go to your website", 'microthemer'),
+				'title' => esc_attr__("View the frontend page", 'microthemer'),
 				'class' => 'back-to-frontend',
 				'icon_name' => 'site-frontend',
 				'item_link' => $this->preferences['preview_url'],

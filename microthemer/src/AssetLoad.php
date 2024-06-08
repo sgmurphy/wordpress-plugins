@@ -23,6 +23,9 @@ if (!class_exists('\Microthemer\AssetLoad')){
 		protected $context = 'load';
 		protected $isFrontend = true;
 		protected $isAdminArea = false;
+		protected $isBlockEditorScreen;
+		protected $deferredHandles = array();
+		var $logicSettings = array();
 
 		var $preferences = array();
 		var $assetLoadingKey = 'asset_loading_published';
@@ -72,8 +75,10 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			$this->cacheParam = $this->getCacheParam();
 			$this->getPaths();
 
-			// hook asset loading into WordPress callback actions
-			$this->hookCSS($p);
+			$this->hookCaptureTemplate($p);
+
+			// if admin, delay hook until current screen can be checked
+			$this->deferHookIfAdmin('current_screen', 'hookCSS');
 
 			if ($this->isFrontend){
 				$this->hookJS($p);
@@ -83,6 +88,42 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			}
 
 		}
+
+		// For admin, we need to use enqueue_block_assets on block editor pages
+		// so defer setting CSS hook until the necessary WP functions are available to check that
+		function deferHookIfAdmin($hookAction, $hookMethod){
+			if ($this->isAdminArea){
+
+				add_action($hookAction, array(&$this, $hookMethod));
+
+				// bizare, but it seems I don't need this now. What happened?
+				//add_action('admin_enqueue_scripts', array(&$this, 'printDeferredHandles'));
+
+			} else {
+				$this->$hookMethod();
+			}
+		}
+
+		// Fix for an issue where do_item() echos code before the <html> tag when used with the enqueue_block_assets hooks
+		// when editing a regular post or page with Gutenberg (the issue doesn't affect the FSE editor)
+		// bizare, but it seems I don't need this now. What happened?
+		/*function printDeferredHandles(){
+
+			if (isset($this->deferredHandles['css'])){
+
+				$wp_styles = $this->deferredHandles['wp_styles'];
+
+				//wp_die('here <pre>'.print_r($this->deferredHandles['css'], 1).'</pre>');
+
+				foreach ($this->deferredHandles['css'] as $handle => $data){
+					if (empty($this->deferredHandles['cssDone'][$handle])){
+						$wp_styles->do_item($handle);
+						$wp_styles->done[] = $handle;
+						$this->deferredHandles['cssDone'][$handle] = 1;
+					}
+				}
+			}
+		}*/
 
 		// get the directory path for /wp-content/micro-themes/, accounting for multisite
 		function getPaths(){
@@ -125,6 +166,26 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			}
 		}
 
+		function checkBlockEditorScreen(){
+
+			if ($this->isAdminArea){
+
+				global $pagenow;
+
+				$screen = function_exists('get_current_screen')
+					? get_current_screen()
+					: null;
+
+				$this->isBlockEditorScreen = !empty($screen->is_block_editor) || $pagenow === 'site-editor.php';
+
+				//wp_die('bastyscreen: <pre>'.print_r([$this->isBlockEditorScreen, $pagenow, $screen], 1).'</pre>');
+
+				return $this->isBlockEditorScreen;
+			}
+
+			return false;
+		}
+
 		function supportAdminAssets(){
 			$p = $this->preferences;
 			return !empty($p['admin_asset_loading']) || !empty($p['admin_asset_editing']);
@@ -142,7 +203,11 @@ if (!class_exists('\Microthemer\AssetLoad')){
 				// with test_logic, we want logic checked before output buffer HTML in head screws up JSON
 				: (!empty($p['stylesheet_order']) && !$logic_test
 					? $this->hooks['head']
-					: $this->hooks['enqueue_scripts']);
+					: ($this->checkBlockEditorScreen()
+						? 'enqueue_block_assets'
+						: $this->hooks['enqueue_scripts']
+					)
+				);
 		}
 
 		function getCSSActionOrder($p){
@@ -151,7 +216,9 @@ if (!class_exists('\Microthemer\AssetLoad')){
 				: $this->defaultActionHookOrder;
 		}
 
-		function hookCSS($p){
+		function hookCSS(){
+
+			$p = $this->preferences;
 
 			// do not load assets when a builder has replaced the frontend with a UI
 			if ($this->isBricksUi()){
@@ -215,7 +282,14 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		function addCSS(){
 
-			$p = $this->preferences;
+			// ensure that do_item() doesn't echo immediately as this could echo styles before the <html>
+			// When using enqueue_block_assets on the Gutenberg Edit Post/Page screen
+			// The code below means we shouldn't need the deferredHandles workaround
+			global $wp_styles, $pagenow;
+			$origConcatSettings = $wp_styles->do_concat;
+			$wp_styles->do_concat = true;
+
+			$p = &$this->preferences;
 			$asset_loading = !empty($p[$this->assetLoadingKey])
 				? $p[$this->assetLoadingKey]
 				: array();
@@ -227,7 +301,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			$this->addMTPlaceholder();
 
 			// Global CSS is just for the frontend
-			if ($this->isFrontend){
+			if ($this->isFrontend || $this->isBlockEditorScreen){
 
 				// enqueue any Google Fonts
 				$this->addGlobalGoogleFonts($p, $add);
@@ -243,6 +317,9 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 			// insert MT interface CSS here if AssetAuth child class is running
 			$this->addMTCSS();
+
+			// restore the default do_concat setting
+			$wp_styles->do_concat = $origConcatSettings;
 		}
 
 		function supportLogicTest(){
@@ -276,7 +353,9 @@ if (!class_exists('\Microthemer\AssetLoad')){
 					$fileExists = file_exists($dir . $cssFileName);
 
 					$this->folderLoading[$slug] = $result
-						? ($fileExists ? 1 : 'empty')
+						? ($fileExists
+							? (is_string($result) ? $result : 1) // preserve string result like 'blocksOnly'
+							: 'empty')
 						: 0;
 
 					// load content if true and the file exists
@@ -313,6 +392,8 @@ if (!class_exists('\Microthemer\AssetLoad')){
 				$foldersDone[$folder['slug']] = 1;
 			}
 
+			//wp_die('<pre>loading: '.print_r($this->folderLoading, true).'</pre>');
+
 		}
 
 		function asyncStyleTag($html, $handle, $href, $media){
@@ -339,9 +420,11 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 			if (!class_exists('Microthemer\Logic')){
 				require_once dirname(__FILE__) . '/Logic.php';
+			} if (!class_exists('Microthemer\Helper')){
+				require_once dirname(__FILE__) . '/Helper.php';
 			}
 
-			$logic = new Logic();
+			$logic = new Logic($this->logicSettings);
 
 			if ($this->supportLogicTest()){
 				$this->doLogicTest($folders, $logic);
@@ -414,6 +497,26 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		}
 
+		function hookCaptureTemplate(){
+			add_filter( 'template_include', array(&$this, 'captureTemplate'), 9999999);
+		}
+
+		function captureTemplate($template){
+
+			global $_wp_current_template_id;
+
+			$themeSlug = get_stylesheet();
+
+			// cache the current template slug for later logic comparison
+			$this->logicSettings['currentTemplate'] = !empty($_wp_current_template_id)
+				? Helper::removeRedundantThemePrefix(
+					Helper::maybeMakeNumber($_wp_current_template_id), $themeSlug
+				)
+				: basename($template); // probably a classic .php template file
+
+			return $template;
+		}
+
 		function hookJS($p){
 
 			add_action($this->hooks['enqueue_scripts'], array(&$this, 'addJS'), $this->defaultActionHookOrder);
@@ -432,7 +535,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		function addJS() {
 
-			$p = $this->preferences;
+			$p = &$this->preferences;
 
 			$deps = !empty($p['active_scripts_deps'])
 				? preg_split("/[\s,]+/", $p['active_scripts_deps'])
@@ -472,13 +575,13 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		function enqueueOrAdd($add, $handle, $url, $config = array()){
 
-			global $wp_styles;
+			global $wp_styles, $pagenow;
 
 			// Allow for dependencies to be passed in - this doesn't work if do_item is run, but we need that
 			$deps = isset($config['deps']) ? $config['deps'] : array();
 
 			// add to $wp_styles
-			if ($add){
+			if ($add){ // && !$this->isBlockEditorScreen
 
 				// add content as inline style
 				if (!empty($config['inline'])){
@@ -504,9 +607,23 @@ if (!class_exists('\Microthemer\AssetLoad')){
 					}
 				}
 
-				// do_item not do_items, otherwise it renders other stylesheets in the queue before they might be ready
+				// For some reason do_item() outputs styles before the <html> tag on the regular Gutenberg editor page
+				// My hacky workaround defers the do_item() until admin_enqueue_scripts - see printDeferredHandles()
+				// bizare, but it seems I don't need this now. What happened?
+				/*if (false && $this->isBlockEditorScreen && $pagenow === 'post.php'){
+					$this->deferredHandles['css'][$handle] = array($handle, $url, $deps, $config);
+					if (!isset($this->deferredHandles['wp_styles'])){
+						$this->deferredHandles['wp_styles'] = &$wp_styles;
+					}
+				} else {
+					$wp_styles->do_item($handle);
+					$wp_styles->done[] = $handle;
+				}*/
+
 				$wp_styles->do_item($handle);
 				$wp_styles->done[] = $handle;
+
+
 			}
 
 			// or enqueue normally
@@ -520,7 +637,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			
 			global $post;
 
-			$p = $this->preferences;
+			$p = &$this->preferences;
 			
 			if (isset($post)) {
 

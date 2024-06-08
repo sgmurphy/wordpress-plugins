@@ -155,9 +155,9 @@ class Wpil_Model_Post
             }
 
             // if the post isn't published yet
-            if(in_array($this->getStatus(), array('draft', 'pending', 'future'))){
+            if(in_array($this->getStatus(), array('draft', 'pending', 'future', 'trash'))){
                 // get the sample permalink
-                if(function_exists('get_sample_permalink')){
+                if(function_exists('get_sample_permalink') && $this->getStatus() !== 'trash'){
                     $url_data = get_sample_permalink($this->id);
                 }else{
                     $url_data = $this->get_sample_permalink($this->id);
@@ -167,6 +167,10 @@ class Wpil_Model_Post
                     $view_link = $url_data[0];
                 }else{
                     $view_link = str_replace(array('%pagename%', '%postname%'), $url_data[1], $url_data[0]);    
+                }
+
+                if(false !== strpos($view_link, '__trashed')){
+                    $view_link = str_replace('__trashed', '', $view_link);
                 }
 
                 // check to see if WPML is active
@@ -332,6 +336,10 @@ class Wpil_Model_Post
                         unset($beaver);
                         $this->editor = !empty($content) ? 'beaver': null;
                     }
+                }
+
+                if(empty($content) && Wpil_Editor_YooTheme::yoo_active()){
+                    $content = Wpil_Editor_YooTheme::getContent($this->id, $remove_unprocessable);
                 }
 
                 if(empty($content)){
@@ -716,6 +724,25 @@ class Wpil_Model_Post
     }
 
     /**
+     * Gets the word sfrom the slug/post name and formats gently so we can use them in place of the title
+     *
+     * @return string|null
+     */
+    function getSlugWords()
+    {
+        $slug = $this->getSlug(false);
+
+        if(!empty($slug)){
+            // decode the slug just in case it's encoded
+            $slug = urldecode($slug);
+            // replace the hyphens so get individual words
+            $slug = str_replace('-', ' ', $slug);
+        }
+
+        return !empty($slug) ? $slug : '';
+    }
+
+    /**
      * Gets odd and one-off content elements that we want to support, but aren't big enough for a more dedicated system
      **/
     function getAddonContent(){
@@ -987,14 +1014,19 @@ class Wpil_Model_Post
 
     /**
      * Borrowed from WP without changing except for restricting when the 'get_sample_permalink' filter is called.
+     * Also setting a check to pull the object's ID if the $id isn't supplied
      * From V 5.5.1
      **/
-    function get_sample_permalink( $id, $title = null, $name = null ) {
+    function get_sample_permalink( $id = null, $title = null, $name = null ) {
+        if($id === null){
+            $id = $this->id;
+        }
+
         $post = get_post( $id );
         if ( ! $post ) {
             return array( '', '' );
         }
-     
+
         $ptype = get_post_type_object( $post->post_type );
      
         $original_status = $post->post_status;
@@ -1002,7 +1034,7 @@ class Wpil_Model_Post
         $original_name   = $post->post_name;
      
         // Hack: get_permalink() would return ugly permalink for drafts, so we will fake that our post is published.
-        if ( in_array( $post->post_status, array( 'draft', 'pending', 'future' ), true ) ) {
+        if ( in_array( $post->post_status, array( 'draft', 'pending', 'future', 'trash' ), true ) ) {
             $post->post_status = 'publish';
             $post->post_name   = sanitize_title( $post->post_name ? $post->post_name : $post->post_title, $post->ID );
         }

@@ -1,5 +1,6 @@
 jQuery(function()
 	{
+		var $ = jQuery;
 		(function( blocks, element ) {
 			var el 			= element.createElement,
 				InspectorControls = ('blockEditor' in wp) ? wp.blockEditor.InspectorControls : wp.editor.InspectorControls,
@@ -44,6 +45,9 @@ jQuery(function()
 						else if(evt.target.id == 'cpcff_inspector_templates_list') // Template id
 						{
 							template = evt.target.value;
+
+							// Display thumbnail
+							update_template_thumbnail( template );
 						}
 						else if(evt.target.tagName == 'INPUT' && evt.target.type == 'checkbox') // iFrame
 						{
@@ -63,6 +67,14 @@ jQuery(function()
 							window.open(cpcff_gutenberg_editor_config.editor+id, '_blank');
 						}
 						catch(err){}
+					};
+
+					function update_template_thumbnail( template ) {
+						// Display thumbnail
+						$('[id="cpcff_inspector_templates_list"]').next('img').remove();
+						if ( template in templates && 'thumbnail' in templates[ template ] && templates[ template ]['thumbnail'] !== '' ) {
+							$('[id="cpcff_inspector_templates_list"]').after( '<img src="'+templates[ template ]['thumbnail']+'" style="margin-top:10px;margin-left:50%; transform:translateX(-50%);" />');
+						}
 					};
 
 					function get_id()
@@ -121,6 +133,7 @@ jQuery(function()
 						id 			= get_id(),
 						first_time  = id == '',
 						template 	= get_template(),
+						templates   = {},
 						additional 	= get_additional_atts(),
 						iframe 		= get_iframe(),
 						children 	= [];
@@ -133,7 +146,7 @@ jQuery(function()
                         cff_gutenberg_editor_config_interval = setInterval(
                             function(){
                                 $cff_backend_url = cpcff_gutenberg_editor_config['url'].split('?')[0];
-                                jQuery.getJSON($cff_backend_url, {'cff-action': 'cff-gutenberg-editor-config'}, function(data){
+                                $.getJSON($cff_backend_url, {'cff-action': 'cff-gutenberg-editor-config'}, function(data){
                                     if(typeof data == 'object' && 'url' in data)
                                         cpcff_gutenberg_editor_config = data;
                                 });
@@ -155,11 +168,11 @@ jQuery(function()
 
 					// Creates options for templates list
 					if ( 'templates' in cpcff_gutenberg_editor_config ) {
-						for( var template_id in cpcff_gutenberg_editor_config['templates'])
+						templates = cpcff_gutenberg_editor_config['templates'];
+						for( var template_id in templates)
 						{
 							let config = {key: 'cpcff_inspector_option_templates_'+template_id, value: template_id};
-
-							templates_options.push(el('option', config, cpcff_gutenberg_editor_config['templates'][template_id]));
+							templates_options.push(el('option', config, cpcff_gutenberg_editor_config['templates'][template_id]['title']));
 						}
 					}
 
@@ -347,7 +360,7 @@ jQuery(function()
 							)
 						);
 					}
-
+					setTimeout(function(){update_template_thumbnail(template);}, 10);
 					return [
 						children
 					];

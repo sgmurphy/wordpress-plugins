@@ -183,6 +183,23 @@ class Wpil_Link
     }
 
     /**
+     * Processes and formats urls for comparative purposes inside of Link Whisper.
+     * That way, we have a nice standard for comparing if links are basicalls the same, even if there's a few differences in text.
+     * Not intended for use when inserting links, its just for when checking to see if two links are the same
+     **/
+    public static function normalize_url($url){
+        // first clean the url
+        $url = self::clean($url);
+        // decode the double encoded & signs
+        $url = str_replace(array('&#038;', '&&amp;'), '&', $url);
+        // decode the normally encoded & signs
+        $url = str_replace(array('#038;', '&amp;'), '&', $url);
+
+        // and return the url
+        return $url;
+    }
+
+    /**
      * Checks to see if the supplied text contains a link.
      * The check is pretty simple at this point, just seeing if the form of an opening tag or a closing tag is present in the text
      * 

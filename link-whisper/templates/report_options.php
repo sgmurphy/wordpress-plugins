@@ -1,4 +1,4 @@
-<input type="hidden" name="wp_screen_options[option]" value="report_options" />
+<input type="hidden" id="wp_screen_options_name" name="wp_screen_options[option]" value="report_options" />
 <input type="hidden" name="wp_screen_options[value]" value="yes" />
 <fieldset class="screen-options">
     <legend><?php _e('Options', 'wpil'); ?></legend>

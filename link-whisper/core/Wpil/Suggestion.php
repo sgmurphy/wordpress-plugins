@@ -254,13 +254,16 @@ class Wpil_Suggestion
 
             $selected_categories = self::get_selected_categories();
             $taxes = get_object_taxonomies(get_post($post_id));
-            $query_taxes = array();
+            $query_cats = array();
+            $query_tags = array();
             foreach($taxes as $tax){
                 if(get_taxonomy($tax)->hierarchical){
-                    $query_taxes[] = $tax;
+                    $query_cats[] = $tax;
+                }else{
+                    $query_tags[] = $tax;
                 }
             }
-            $categories = wp_get_object_terms($post_id, $query_taxes, ['fields' => 'all_with_object_id']);
+            $categories = wp_get_object_terms($post_id, $query_cats, ['fields' => 'all_with_object_id']);
             if (empty($categories) || is_a($categories, 'WP_Error')) {
                 $categories = [];
             }
@@ -269,16 +272,9 @@ class Wpil_Suggestion
                 $selected_categories = array_map(function($cat){ return $cat->term_taxonomy_id; }, $categories);
             }
 
-            $same_tag = !empty(Wpil_Settings::get_suggestion_filter('same_tag'));
             $selected_tags = self::get_selected_tags();
-            $taxes = get_object_taxonomies(get_post($post_id));
-            $query_taxes = array();
-            foreach($taxes as $tax){
-                if(empty(get_taxonomy($tax)->hierarchical)){
-                    $query_taxes[] = $tax;
-                }
-            }
-            $tags = wp_get_object_terms($post_id, $query_taxes, ['fields' => 'all_with_object_id']);
+
+            $tags = wp_get_object_terms($post_id, $query_tags, ['fields' => 'all_with_object_id']);
             if (empty($tags) || is_a($tags, 'WP_Error')) {
                 $tags = [];
             }
@@ -551,7 +547,8 @@ class Wpil_Suggestion
 
                 sort($suggestion['words']);
 
-                $close_words = self::getMaxCloseWords($suggestion['words'], $suggestion['post']->getTitle());
+                $title_words = $suggestion['post']->getTitle();
+                $close_words = self::getMaxCloseWords($suggestion['words'], $title_words);
 
                 if ($close_words > 1) {
                     $suggestion['post_score'] += $close_words;
@@ -683,6 +680,11 @@ class Wpil_Suggestion
             $content = mb_ereg_replace('<script(?:[^>]*)>(.*?)<\/script>', '', $content);
         }
 
+        // remove any YooTheme JSON that's in the content
+        if( false !== strpos($content, '<!--more-->') && (false !== strpos($content, '<!--') || false !== strpos($content, '<!-- ')) && Wpil_Editor_YooTheme::yoo_active()){
+            $content = mb_ereg_replace('<!--\s*?(\{(?:.*?)\})\s*?-->', '', $content);
+        }
+
         // if there happen to be any css tags, remove them too
         if(false !== strpos($content, '<style')){
             $content = mb_ereg_replace('<style(?:[^>]*)>(.*?)<\/style>', '', $content);
@@ -764,7 +766,7 @@ class Wpil_Suggestion
         $phrases = [];
         foreach ($list as $item) {
             $item = trim($item);
-
+/* TODO: Review and see if this is still needed
             if(!empty($word_segments)){
                 // check if the phrase contains 2 title words
                 $wcount = 0;
@@ -779,7 +781,7 @@ class Wpil_Suggestion
                 if($wcount < 2){
                     continue;
                 }
-            }
+            }*/
 
             if (in_array(substr($item, -1), ['.', ',', '!', '?', '。'])) {
                 $item = substr($item, 0, -1);
@@ -1207,12 +1209,14 @@ class Wpil_Suggestion
 
             if(!empty($process_ids)){
                 $process_ids = implode("', '", $process_ids);
-                $result = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->prefix}posts WHERE ID IN ('{$process_ids}')");
+                $result = $wpdb->get_results("SELECT ID, post_title, post_name FROM {$wpdb->posts} WHERE ID IN ('{$process_ids}')");
 
                 foreach ($result as $item) {
                     if (!in_array('post_' . $item->ID, $ignore_posts) && !in_array($item->ID, $ignore_categories_posts)) {
                         $post_obj = new Wpil_Model_Post($item->ID);
                         $post_obj->title = $item->post_title;
+                        $post_obj->slug = $item->post_name;
+
                         $posts[] = $post_obj;
                     }
                 }
@@ -1283,7 +1287,7 @@ class Wpil_Suggestion
                 }
             }
 
-            if ($key % 100 == 0 && microtime(true) - $start > 10) {
+            if ($key % 100 == 0 && microtime(true) - $start > 20) {
                 break;
             }
         }
@@ -1400,7 +1404,8 @@ class Wpil_Suggestion
         }
 
         // next get the matched title words
-        $stemmed_title_words = Wpil_Word::getStemmedWords(Wpil_Word::strtolower($suggestion['post']->getTitle()));
+        $title_words = $suggestion['post']->getTitle();
+        $stemmed_title_words = Wpil_Word::getStemmedWords(Wpil_Word::strtolower($title_words));
         $title_count = count($stemmed_title_words);
         $position_count = count($word_positions);
 
@@ -1703,7 +1708,7 @@ class Wpil_Suggestion
                 $max = $anchor_indexes['max'];
 
                 // check to see if we can get a link in this suggestion
-                $has_words = array_slice($words_real, $min, $max - $min + 1);
+                $has_words = array_slice($words_real, $min, $max - $min + 1); // TODO: CHECK THIS AND MAKE SURE I DON"T HAVE IT BACKWARDS AND I SHOULD BE CHECKING MIN SIZE!
                 if(empty($has_words) || ($max - $min) > Wpil_Settings::getSuggestionMaxAnchorSize()){
                     // if it can't, remove it from the list
                     unset($phrase->suggestions[$suggestion_key]);

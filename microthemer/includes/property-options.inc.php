@@ -224,6 +224,7 @@ $grid_special = array(
 	'fit-content(50%)',
 	'min-content',
 	'max-content',
+
 );
 
 // sizes that are valid for both auto and template
@@ -231,6 +232,7 @@ $grid_sizes = array_merge($grid_special, array('auto', '1fr', '2fr',  '100px', '
 
 // add in options that are only valid for grid-template
 $grid_template_sizes = array_merge($grid_sizes, array(
+	'subgrid',
 	'none',
 	'repeat(2, 1fr)',
 	'repeat(auto-fit, minmax(320px, 1fr))'
@@ -4802,6 +4804,7 @@ $propertyOptions['flexbox']['column_gap_flex'] = array_merge($column_gap_config,
 	'tutorials' => '',
 	'icon-name' => 'column-gap',
 ));
+unset($propertyOptions['flexbox']['column_gap_flex']['sh']);
 
 // row-gap
 $propertyOptions['flexbox']['row_gap_flex'] = array_merge($row_gap_config, array(
@@ -4811,6 +4814,7 @@ $propertyOptions['flexbox']['row_gap_flex'] = array_merge($row_gap_config, array
 	'tutorials' => '',
 	'icon-name' => 'row-gap',
 ));
+unset($propertyOptions['flexbox']['row_gap_flex']['sh']);
 
 
 // Flexbox (item) ***/

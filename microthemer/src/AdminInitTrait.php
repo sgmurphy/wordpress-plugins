@@ -15,10 +15,6 @@ trait AdminInitTrait {
 			return;
 		}
 
-		// we use a session to hold unsaved draft folder logic across frontend page navigation
-		// that way, the folder loading status remains accurate until it is saved
-		//$this->supportSessions();
-
 		// setup text domain
 		$this->loadTextDomain();
 
@@ -38,7 +34,6 @@ trait AdminInitTrait {
 		$this->hookAdminBarShortcut();
 		$this->hookPluginUpdate();
 		$this->hookActivation();
-
 
 		// Load additional functionality on MT admin pages
 		if (in_array($page, $this->getAllPluginPages()) ) {
@@ -191,7 +186,6 @@ trait AdminInitTrait {
 			}
 		}
 	}
-
 
 
 	// user's subscription has expired and they are capped at a version

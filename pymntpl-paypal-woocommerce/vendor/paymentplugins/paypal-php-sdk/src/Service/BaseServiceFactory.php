@@ -21,6 +21,7 @@ class BaseServiceFactory extends AbstractServiceFactory {
 		'billingAgreementTokens' => BillingAgreementTokenService::class,
 		'webhooks'               => WebhookService::class,
 		'paymentTokens'          => PaymentTokenService::class,
+		'paymentTokensV3'        => PaymentTokenServiceV3::class,
 		'tracking'               => TrackingService::class
 	);
 

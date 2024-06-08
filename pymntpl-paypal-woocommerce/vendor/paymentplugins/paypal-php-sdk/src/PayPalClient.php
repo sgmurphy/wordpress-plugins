@@ -12,6 +12,7 @@ use PaymentPlugins\PayPalSDK\Service\PartnerService;
 use PaymentPlugins\PayPalSDK\Service\PaymentAuthorizationService;
 use PaymentPlugins\PayPalSDK\Service\PaymentCaptureService;
 use PaymentPlugins\PayPalSDK\Service\PaymentService;
+use PaymentPlugins\PayPalSDK\Service\PaymentTokenServiceV3;
 use PaymentPlugins\PayPalSDK\Service\TrackingService;
 use PaymentPlugins\PayPalSDK\Service\WebhookService;
 use PaymentPlugins\PayPalSDK\Service\PaymentTokenService;
@@ -30,6 +31,7 @@ use PaymentPlugins\PayPalSDK\Service\PaymentTokenService;
  * @property BillingAgreementTokenService $billingAgreementTokens
  * @property WebhookService $webhooks
  * @property PaymentTokenService $paymentTokens
+ * @property PaymentTokenServiceV3 $paymentTokensV3
  * @property TrackingService $tracking
  */
 class PayPalClient extends Client\BaseHttpClient {

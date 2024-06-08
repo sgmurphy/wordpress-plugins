@@ -4,7 +4,7 @@ Tags: paypal, paylater, venmo, credit cards
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.0.47
+Stable tag: 1.0.48
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,12 @@ Our documentation has a step-by-step guide on how to connect the plugin to your 
 Payment Plugins is the team behind several of the highest reviewed and installed Payment integrations for WooCommerce.
 
 == Changelog ==
+= 1.0.48 - 06/08/24 =
+* Added - ca_CA and fr_FR translation files added
+* Fixed - Notice "Your order can't be shipped to this address." when paying as a guest with card and address hadn't been fully filled out. Notice will only show once address has been
+completely filled out by the customer and the store doesn't ship to that location.
+* Added - VAULT permission to connection process. If you have switched to this plugin from a PayPal plugin that used VAULT, you can disconnect and re-connect and that permission will be added. That
+allows this plugin to make API requests to PayPal's vault API.
 = 1.0.47 - 04/30/24 =
 * Added - Integration with [Advanced Product Fields (Product Addons) for WooCommerce](https://wordpress.org/plugins/advanced-product-fields-for-woocommerce/)
 = 1.0.46 - 03/18/24 =

@@ -635,7 +635,12 @@ trait SettingsTrait {
 		}
 
 		// transition to more solid system for connecting MT tabs with page builder device views
-		if (empty($this->preferences['builder_site_preview_width_conversion_done'])){
+		if (empty($this->preferences['builder_site_preview_width_conversion_done'])
+
+		    // run this again if Gutenberg site device preview sync has not been setup
+		    || $this->preferences['builder_site_preview_width_conversion_done'] !== 2
+		)
+		{
 
 			$m_queries = $this->preferences['m_queries'];
 
@@ -650,6 +655,8 @@ trait SettingsTrait {
 				"oxy_tablet" => "builder.oxygen.tablet",
 				"oxy_phone_landscape" => "builder.oxygen.phone-landscape",
 				"oxy_phone_portrait" => "builder.oxygen.phone-portrait",
+				"gutenberg2" => "builder.gutenberg.tablet",
+				"gutenberg3" => "builder.gutenberg.mobile",
 			);
 
 			// remove keys that were hack for non-queued settings save
@@ -657,7 +664,13 @@ trait SettingsTrait {
 
 				foreach ($map as $key_suffix => $site_preview_width){
 
-					if ( preg_match('/'.$key_suffix.'$/', $mq_key) ){
+					$keySuffixMatch = preg_match('/'.$key_suffix.'$/', $mq_key);
+					$defaultMobOrTablet = !isset($m_queries[$mq_key]['site_preview_width']) &&
+					                      isset($m_query['max']) &&
+					                      ($key_suffix === 'gutenberg2' && $m_query['max'] == '767') ||
+					                      ($key_suffix === 'gutenberg3' && $m_query['max'] == '479');
+
+					if ( $keySuffixMatch || $defaultMobOrTablet ){
 						$m_queries[$mq_key]['site_preview_width'] = $site_preview_width;
 					}
 				}
@@ -969,6 +982,8 @@ trait SettingsTrait {
 		$recent_logic = array();
 		$max = 8; // let there be lots
 
+		//$this->log('recent logic issue', 'updateRecentLogic: <pre>'.print_r($adjusted_logic, 1).'</pre>');
+
 		foreach ($prev_recent_logic as $i => $array){
 
 			//echo 'compare: ' . trim($array['logic']) . ' with: ' . $adjusted_expr . "\n";
@@ -1055,6 +1070,10 @@ trait SettingsTrait {
 		$global_scss =  $root . 'draft-styles.scss';
 		$global_js =  $root . 'draft-scripts.js';
 
+		// The Gutenberg FSE editor will not load CSS in the iframe if the file does not contain
+		// .wp-block. So ensure all MT CSS has this.
+		$fseFix = '.wp-block {} /*  Ensures MT files load in FSE */' . "\n";
+
 		// we only minified published assets, if that preferences is set (on by default)
 		/*$minifyCSS = !empty($this->preferences['minify_css']);
 		$minifyJS = !empty($this->preferences['minify_js']);*/
@@ -1063,7 +1082,7 @@ trait SettingsTrait {
 
 		// write any global styles
 		if ($globalStylesheetRequired){
-			$this->write_file($global_css, $asset['global']['data'], $minifyCSS, 'css');
+			$this->write_file($global_css, $fseFix . $asset['global']['data'], $minifyCSS, 'css');
 		} elseif (file_exists($global_css)) {
 			unlink($global_css);
 		}
@@ -1104,7 +1123,7 @@ trait SettingsTrait {
 				$file = $conditionalDir . $name;
 				$currentFiles[] = $name;
 
-				$this->write_file($file, $condSty['data'], $minifyCSS, 'css');
+				$this->write_file($file, $fseFix . $condSty['data'], $minifyCSS, 'css');
 			}
 
 			// clean up any files that are no longer conditional / renamed

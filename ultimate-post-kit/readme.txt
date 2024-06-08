@@ -2,13 +2,14 @@
 Contributors: bdthemes, selimmw, mohammaadfarid, bdkoder, abutalib, maudud, sohanurrahman, rakibulpk, muhammadasik, tauhidalam
 Donate link: http://bdthemes.com/
 Tags: elementor, posts, post grid, post carousel, post archive
-Stable tag: 3.11.6
+Stable tag: 3.11.7
 Requires at least: 5.0.0
 Requires PHP: 7.0.0
-Tested up to: 6.5.2
+Tested up to: 6.5.4
+License: GPL3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.21.3
+Elementor tested up to: 3.21.8
 
 Best Post Addon for Elementor WordPress Plugin with 75+ Most Popular Elements that need your everyday blog website building.
 
@@ -35,35 +36,35 @@ https://www.youtube.com/watch?v=er0uGv1yjig
 
 = Grid 🧊 =
 
-[Alex Grid](https://postkit.pro/demo/alex-grid/) | [Alice Grid](https://postkit.pro/demo/alice-grid/) | [Alter Grid](https://postkit.pro/demo/alter-grid/) | [Amox Grid](https://postkit.pro/demo/amox-grid/) | [Elite Grid](https://postkit.pro/demo/elite-grid/) | [Gratis Grid](https://postkit.pro/demo/gratis-grid/) | [Hazel Grid](https://postkit.pro/demo/hazel-grid/) | [Maple Grid](https://postkit.pro/demo/maple-grid/) | [Ramble Grid](https://postkit.pro/demo/ramble-grid/)
+**[Alex Grid](https://postkit.pro/demo/alex-grid/)** | **[Alice Grid](https://postkit.pro/demo/alice-grid/)** | **[Alter Grid](https://postkit.pro/demo/alter-grid/)** | **[Amox Grid](https://postkit.pro/demo/amox-grid/)** | **[Elite Grid](https://postkit.pro/demo/elite-grid/)** | **[Gratis Grid](https://postkit.pro/demo/gratis-grid/)** | **[Hazel Grid](https://postkit.pro/demo/hazel-grid/)** | **[Maple Grid](https://postkit.pro/demo/maple-grid/)** | **[Ramble Grid](https://postkit.pro/demo/ramble-grid/)**
 
 = List 🔢 =
 
-[Buzz List](https://postkit.pro/demo/buzz-list/) | [Exotic List](https://postkit.pro/demo/exotic-list/) | [Fanel List](https://postkit.pro/demo/fanel-list/) | [Featured List](https://postkit.pro/demo/featured-list/) | [Harold List](https://postkit.pro/demo/harold-list/) | [Scott List](https://postkit.pro/demo/scott-list/) | [Tiny List](https://postkit.pro/demo/tiny-list/) 
+**[Buzz List](https://postkit.pro/demo/buzz-list/)** | **[Exotic List](https://postkit.pro/demo/exotic-list/)** | **[Fanel List](https://postkit.pro/demo/fanel-list/)** | **[Featured List](https://postkit.pro/demo/featured-list/)** | **[Harold List](https://postkit.pro/demo/harold-list/)** | **[Scott List](https://postkit.pro/demo/scott-list/)** | **[Tiny List](https://postkit.pro/demo/tiny-list/)** 
 
 = Carousel 🌅 =
 
-[Alex Carousel](https://postkit.pro/demo/alex-carousel/) | [Alice Carousel](https://postkit.pro/demo/alice-carousel/) | [Alter Carousel](https://postkit.pro/demo/alter-carousel/) | [Amox Carousel](https://postkit.pro/demo/amox-carousel/) | [Buzz List Carousel](https://postkit.pro/demo/buzz-list-carousel/) | [Category Carousel](https://postkit.pro/demo/category-carousel/) | [Elite Carousel](https://postkit.pro/demo/elite-carousel/) | [Harold List Carousel](https://postkit.pro/demo/harold-list-carousel/) | [Hazel Carousel](https://postkit.pro/demo/hazel-carousel/) | [Maple Carousel](https://postkit.pro/demo/maple-carousel/) | [Ramble Carousel](https://postkit.pro/demo/ramble-carousel/) 
+**[Alex Carousel](https://postkit.pro/demo/alex-carousel/)** | **[Alice Carousel](https://postkit.pro/demo/alice-carousel/)** | **[Alter Carousel](https://postkit.pro/demo/alter-carousel/)** | **[Amox Carousel](https://postkit.pro/demo/amox-carousel/)** | **[Buzz List Carousel](https://postkit.pro/demo/buzz-list-carousel/)** | **[Category Carousel](https://postkit.pro/demo/category-carousel/)** | **[Elite Carousel](https://postkit.pro/demo/elite-carousel/)** | **[Harold List Carousel](https://postkit.pro/demo/harold-list-carousel/)** | **[Hazel Carousel](https://postkit.pro/demo/hazel-carousel/)** | **[Maple Carousel](https://postkit.pro/demo/maple-carousel/)** | **[Ramble Carousel](https://postkit.pro/demo/ramble-carousel/)** 
 
 = Slider 🎴 =
 
-[Camux Slider](https://postkit.pro/demo/camux-slider/) | [Carbon Slider](https://postkit.pro/demo/carbon-slider/) | [Crystal Slider](https://postkit.pro/demo/crystal-slider/) | [Noxe Slider](https://postkit.pro/demo/noxe-slider/) | [Paradox Slider](https://postkit.pro/demo/paradox-slider/) | [Pholox Slider](https://postkit.pro/demo/pholox-slider/) | [Skide Slider](https://postkit.pro/demo/skide-slider/) | [Snog Slider](https://postkit.pro/demo/snog-slider/) 
+**[Camux Slider](https://postkit.pro/demo/camux-slider/)** | **[Carbon Slider](https://postkit.pro/demo/carbon-slider/)** | **[Crystal Slider](https://postkit.pro/demo/crystal-slider/)** | **[Noxe Slider](https://postkit.pro/demo/noxe-slider/)** | **[Paradox Slider](https://postkit.pro/demo/paradox-slider/)** | **[Pholox Slider](https://postkit.pro/demo/pholox-slider/)** | **[Skide Slider](https://postkit.pro/demo/skide-slider/)** | **[Snog Slider](https://postkit.pro/demo/snog-slider/)** 
 
 = Timeline 🎏 =
 
-[Oras Timeline](https://postkit.pro/demo/timeline/) 
+**[Oras Timeline](https://postkit.pro/demo/timeline/)** 
 
 = Others 💠 =
 
-[Author](https://postkit.pro/demo/author/) | [Banner](https://postkit.pro/demo/banner/) | [News Ticker](https://postkit.pro/demo/news-ticker/) | [Newsletter](https://postkit.pro/demo/newsletter/) | [Post Accordion](https://postkit.pro/demo/post-accordion/) | [Post Category](https://postkit.pro/demo/post-category/) | [Reading Progress Bar](https://postkit.pro/demo/reading-progress/) | [Recent Comments](https://postkit.pro/demo/recent-comments/) | [Social share](https://postkit.pro/demo/social-share/) | [Social Count - Static](https://postkit.pro/demo/static-social-count/) | [Tag Cloud](https://postkit.pro/demo/tag-cloud/) 
+**[Author](https://postkit.pro/demo/author/)** | **[Banner](https://postkit.pro/demo/banner/)** | **[News Ticker](https://postkit.pro/demo/news-ticker/)** | **[Newsletter](https://postkit.pro/demo/newsletter/)** | **[Post Accordion](https://postkit.pro/demo/post-accordion/)** | **[Post Category](https://postkit.pro/demo/post-category/)** | **[Reading Progress Bar](https://postkit.pro/demo/reading-progress/)** | **[Recent Comments](https://postkit.pro/demo/recent-comments/)** | **[Social share](https://postkit.pro/demo/social-share/)** | **[Social Count - Static](https://postkit.pro/demo/static-social-count/)** | **[Tag Cloud](https://postkit.pro/demo/tag-cloud/)** 
 
 == Free Extensions for Lifetime 🔥 ==
 
-[Animations](https://postkit.pro/demo/alter-grid/) 
+**[Animations](https://postkit.pro/demo/alter-grid/)** 
 
 == Free Features for Lifetime 🔥 ==
 
-[Live Copy or Paste](https://www.elementpack.pro/knowledge-base/how-to-use-live-copy-option/) | [Duplicator](https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-duplicator/) 
+**[Live Copy or Paste](https://www.elementpack.pro/knowledge-base/how-to-use-live-copy-option/)** | **[Duplicator](https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-duplicator/)** 
 
 More widgets & extensions are coming soon...
 
@@ -71,43 +72,43 @@ More widgets & extensions are coming soon...
 
 = Grid 🧊 =
 
-[Kalon Grid](https://postkit.pro/demo/kalon-grid/) | [Pixina Grid](https://postkit.pro/demo/pixina-grid/) | [Wixer Grid](https://postkit.pro/demo/wixer-grid/) 
+**[Kalon Grid](https://postkit.pro/demo/kalon-grid/)** | **[Pixina Grid](https://postkit.pro/demo/pixina-grid/)** | **[Wixer Grid](https://postkit.pro/demo/wixer-grid/)** 
 
 = List 🔢 =
 
-[Classic List](https://postkit.pro/demo/classic-list/) | [Candy List](https://postkit.pro/demo/candy-list/) | [Welsh List](https://postkit.pro/demo/welsh-list/) 
+**[Classic List](https://postkit.pro/demo/classic-list/)** | **[Candy List](https://postkit.pro/demo/candy-list/)** | **[Welsh List](https://postkit.pro/demo/welsh-list/)** 
 
 = Gallery 💠 =
 
-[Featured Gallery](https://postkit.pro/demo/featured-gallery/) 
+**[Featured Gallery](https://postkit.pro/demo/featured-gallery/)** 
 
 = Carousel 🌅 =
 
-[Eldora Carousel](https://postkit.pro/demo/eldora-carousel/) | [Gratis Carousel](https://postkit.pro/demo/gratis-carousel/) | [Kalon Carousel](https://postkit.pro/demo/kalon-carousel/) | [Pixina Carousel](https://postkit.pro/demo/pixina-carousel/) | [Wixer Carousel](https://postkit.pro/demo/wixer-carousel/) 
+**[Eldora Carousel](https://postkit.pro/demo/eldora-carousel/)** | **[Gratis Carousel](https://postkit.pro/demo/gratis-carousel/)** | **[Kalon Carousel](https://postkit.pro/demo/kalon-carousel/)** | **[Pixina Carousel](https://postkit.pro/demo/pixina-carousel/)** | **[Wixer Carousel](https://postkit.pro/demo/wixer-carousel/)** 
 
 = Slider 🎴 =
 
-[Atlas Slider](https://postkit.pro/demo/atlas-slider/) | [Berlin Slider](https://postkit.pro/demo/berlin-slider/) | [Foxico Slider](https://postkit.pro/demo/foxico-slider/) | [Hansel Slider](https://postkit.pro/demo/hansel-slider/) | [Iconic Slider](https://postkit.pro/demo/iconic-slider/) | [Optick Slider](https://postkit.pro/demo/optick-slider/) | [Sline Slider](https://postkit.pro/demo/sline-slider/) 
+**[Atlas Slider](https://postkit.pro/demo/atlas-slider/)** | **[Berlin Slider](https://postkit.pro/demo/berlin-slider/)** | **[Foxico Slider](https://postkit.pro/demo/foxico-slider/)** | **[Hansel Slider](https://postkit.pro/demo/hansel-slider/)** | **[Iconic Slider](https://postkit.pro/demo/iconic-slider/)** | **[Optick Slider](https://postkit.pro/demo/optick-slider/)** | **[Sline Slider](https://postkit.pro/demo/sline-slider/)** 
 
 = Tabs 🧀 =
 
-[Forbes Tabs](https://postkit.pro/demo/forbes-tabs/) | [Holux Tabs](https://postkit.pro/demo/holux-tabs/) 
+**[Forbes Tabs](https://postkit.pro/demo/forbes-tabs/)** | **[Holux Tabs](https://postkit.pro/demo/holux-tabs/)** 
 
 = Timeline 🎏 =
 
-[Grove Timeline](https://postkit.pro/demo/grove-timeline/) | [Snap Timeline](https://postkit.pro/demo/snap-timeline/) | [Soft Timeline](https://postkit.pro/demo/soft-timeline/) | [Checkerboard](https://postkit.pro/demo/checkerboard/) 
+**[Grove Timeline](https://postkit.pro/demo/grove-timeline/)** | **[Snap Timeline](https://postkit.pro/demo/snap-timeline/)** | **[Soft Timeline](https://postkit.pro/demo/soft-timeline/)** | **[Checkerboard](https://postkit.pro/demo/checkerboard/)** 
 
 = Others 💠 =
 
-[Post Calendar](https://postkit.pro/demo/post-calendar/) | [Reading Progress Circle](https://postkit.pro/demo/reading-progress-circle/) | [Social Link](https://postkit.pro/demo/social-link/) | [Stone Hover](https://postkit.pro/demo/stone-hover/) | [Instagram Gallery](https://postkit.pro/demo/instagram-gallery/) 
+**[Post Calendar](https://postkit.pro/demo/post-calendar/)** | **[Reading Progress Circle](https://postkit.pro/demo/reading-progress-circle/)** | **[Social Link](https://postkit.pro/demo/social-link/)** | **[Stone Hover](https://postkit.pro/demo/stone-hover/)** | **[Instagram Gallery](https://postkit.pro/demo/instagram-gallery/)** 
 
 == Pro Extensions 🔥 ==
 
-[MultiColor Item](https://postkit.pro/demo/multicolor-item/) 
+**[MultiColor Item](https://postkit.pro/demo/multicolor-item/)** 
 
 == Template Builder 🧊 ==
 
-[Post Title](https://postkit.pro/archive/) | [Post Content](https://postkit.pro/archive/) | [Post Info](https://postkit.pro/archive/) | [Post Featured Image](https://postkit.pro/archive/) 
+**[Post Title](https://postkit.pro/archive/)** | **[Post Content](https://postkit.pro/archive/)** | **[Post Info](https://postkit.pro/archive/)** | **[Post Featured Image](https://postkit.pro/archive/)** 
 
 == Template Shortcode 🌅 ==
 
@@ -164,6 +165,11 @@ https://www.youtube.com/watch?v=kVUWaMvZN9s
 
 
 == Changelog ==
+
+= 3.11.7 [8th June 2024] =
+
+* Fixed: Deprecation issue fixed in Tag Cloud widget (Thanks to dzoidberg)
+* Updated: System improved
 
 = 3.11.6 [30th April 2024] =
 

@@ -103,9 +103,12 @@ class ReviewManager
     public function createRaw(CreateReview $command)
     {
         $values = glsr()->args($command->toArray()); // this filters the values
-        $postValues = [
+        $metaInput = [
+            '_submitted' => $command->request->toArray(), // save the original submitted request in metadata
+        ];
+        $values = [
             'comment_status' => 'closed',
-            'meta_input' => ['_submitted' => $command->request->toArray()], // save the original submitted request in metadata
+            'meta_input' => $metaInput,
             'ping_status' => 'closed',
             'post_author' => $values->author_id,
             'post_content' => $values->content,
@@ -118,9 +121,10 @@ class ReviewManager
             'post_title' => $values->title,
             'post_type' => glsr()->post_type,
         ];
-        $postId = wp_insert_post($postValues, true);
+        $values = glsr()->filterArray('review/create/post_data', $values, $command);
+        $postId = wp_insert_post($values, true);
         if (is_wp_error($postId)) {
-            glsr_log()->error($postId->get_error_message())->debug($postValues);
+            glsr_log()->error($postId->get_error_message())->debug($values);
             return false;
         }
         glsr()->action('review/create', $postId, $command);
@@ -254,6 +258,7 @@ class ReviewManager
 
     public function updateRating(int $reviewId, array $data = []): int
     {
+        $review = $this->get($reviewId);
         glsr(Cache::class)->delete($reviewId, 'reviews');
         $sanitized = glsr(RatingDefaults::class)->restrict($data);
         $data = array_intersect_key($sanitized, $data);
@@ -265,6 +270,10 @@ class ReviewManager
         ]);
         if (false === $result) {
             return -1;
+        }
+        $rating = $data['rating'] ?? '';
+        if (is_numeric($rating) && $review->rating !== $data['rating']) {
+            glsr(CountManager::class)->recalculate();
         }
         return Cast::toInt($result);
     }
@@ -278,11 +287,13 @@ class ReviewManager
         $response = Cast::toString($response);
         $response = glsr(Sanitizer::class)->sanitizeTextHtml($response);
         $review = glsr_get_review($reviewId);
-        glsr()->action('review/responded', $review, $response); // run before adding "response_by" meta_value!
         if (empty($response) && empty($review->response)) {
             return 0;
         }
         glsr(Database::class)->metaSet($review->ID, 'response', $response); // prefixed metakey
+        // This should run immediately after saving the response
+        // but before adding the "response_by" meta_value!
+        glsr()->action('review/responded', $review, $response);
         glsr(Database::class)->metaSet($review->ID, 'response_by', get_current_user_id()); // prefixed metakey
         glsr(Cache::class)->delete($review->ID, 'reviews');
         return 1;

@@ -6,12 +6,34 @@ const shops = {
 	rakuten: '楽天',
 	yahoo: 'Yahoo',
 	mercari: 'メルカリ',
+	custom1: 'カスタムボタン',
+	custom2: 'カスタムボタン2',
 };
 
 const shortcodes = {
 	button: 'pochipp_btn',
 	link: 'pochipp_link',
 	img: 'pochipp_img',
+};
+
+const showBtn = (shop, hasAffi, item) => {
+	if (shop === 'custom1') {
+		return item.customBtnText && item.customBtnUrl;
+	}
+	if (shop === 'custom2') {
+		return item.customBtnText2 && item.customBtnUrl2;
+	}
+	return hasAffi && hasAffi[shop];
+};
+
+const label = (shop, item) => {
+	if (shop === 'custom1') {
+		return item.customBtnText;
+	}
+	if (shop === 'custom2') {
+		return item.customBtnText2;
+	}
+	return shops[shop];
 };
 
 const generateCvkey = () => {
@@ -65,14 +87,12 @@ export default ({
 							から、各ショップの「アフィリエイト設定」を行ってください。
 						</div>
 					)}
-					{Object.entries(shops).map(([shop, label]) => {
-						const showBtn = hasAffi && hasAffi[shop];
-
+					{Object.keys(shops).map((shop) => {
 						return (
-							showBtn && (
+							showBtn(shop, hasAffi, item) && (
 								<Button
 									key={`btn-${shop}`}
-									text={label}
+									text={label(shop, item)}
 									isSecondary
 									onClick={() => {
 										closePopover();
@@ -89,40 +109,6 @@ export default ({
 							)
 						);
 					})}
-					{item.customBtnText && item.customBtnUrl && (
-						<Button
-							text={item.customBtnText}
-							isSecondary
-							onClick={() => {
-								closePopover();
-								onChange(
-									insert(
-										value,
-										generateShortcode(selectedType, item.pid, item.title, cvKeyTag, 'custom1'),
-										value.start,
-										value.end
-									)
-								);
-							}}
-						/>
-					)}
-					{item.customBtnText2 && item.customBtnUrl2 && (
-						<Button
-							text={item.customBtnText2}
-							isSecondary
-							onClick={() => {
-								closePopover();
-								onChange(
-									insert(
-										value,
-										generateShortcode(selectedType, item.pid, item.title, cvKeyTag, 'custom2'),
-										value.start,
-										value.end
-									)
-								);
-							}}
-						/>
-					)}
 				</div>
 			</div>
 		</div>

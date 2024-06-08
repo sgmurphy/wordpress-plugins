@@ -29,10 +29,6 @@ class AssetAuth extends AssetLoad {
 			return;
 		}
 
-        // we use a session to hold unsaved draft folder logic across frontend page navigation
-        // that way, the folder loading status remains accurate until it is saved
-        //$this->supportSessions();
-
         // run common init with standalone asset loader
 		parent::__construct();
 
@@ -53,8 +49,8 @@ class AssetAuth extends AssetLoad {
         // determine if we're displaying draft or actively published content
         $this->getFileStub();
 
-        // hook actions for editing
-	    $this->hookFrontendData();
+		// hook save post
+	    $this->hookPostSaved();
 
         if ($this->isFrontend){
 	        $this->hookRedirect();
@@ -69,10 +65,13 @@ class AssetAuth extends AssetLoad {
             $exclude = isset($_GET['et_fb']);
 
             if (!$exclude){
-	            $this->hookMTJS();
+	            $this->deferHookIfAdmin('current_screen', 'hookMTJS');
             }
 
         }
+
+        // note, must come after hookMTJS as inline data is attached to the tvr_mcth_frontend handle
+	    //$this->deferHookIfAdmin('current_screen', 'hookFrontendData');
     }
 
     // support viewing the frontend as a logged-out user
@@ -92,25 +91,37 @@ class AssetAuth extends AssetLoad {
 	    }
     }
 
+	// add_action( 'save_post', 'set_private_categories' );
+	function hookPostSaved(){
+		add_action('save_post', array(&$this, 'postSaved'));
+	}
+
 	// add frontend JS data (inc the login page)
-	function hookFrontendData(){
+	/*function hookFrontendData(){
 
-        $p = $this->preferences;
+        $p = &$this->preferences;
 
-        // load this data in the footer on admin pages so that get_current_screen has all the info
-        // but keep in head on frontend as it was a breaking change, for themes not calling wp_footer hook
-        $action_hook = $this->isAdminArea ? 'admin_footer' : $this->getCSSActionHook($p);
+		$action_hook = $this->getCSSActionHook($p);
 
         // determine the action execution order
 		$action_order = $this->getCSSActionOrder($p);
 
+		//wp_die('$action_hook: ' . $action_hook);
+
+		// load on login page too
+		if ($this->isFrontend){
+			add_action( 'login_head', array(&$this, 'addFrontendData'), $action_order);
+		}
+
         // add the frontend data script
         add_action( $action_hook, array(&$this, 'addFrontendData'), $action_order);
 
-        // load on login page too
-        if ($this->isFrontend){
-	        add_action( 'login_head', array(&$this, 'addFrontendData'), $action_order);
-        }
+	}*/
+
+	// action hook when a post is saved
+	// we need to update the theme template map as the arrangement of patterns and template parts may have changed
+	function postSaved($post_id){
+		Common::maybeUpdateTemplateCache($this->micro_root_dir, null, true);
 	}
 
 	function addMTPlaceholder(){
@@ -124,7 +135,7 @@ class AssetAuth extends AssetLoad {
 		        '',
 		        array(
 			        'inline' => true,
-			        'code' => ' '
+			        'code' => '.wp-block {}'
 		        )
 	        );
         }
@@ -133,27 +144,29 @@ class AssetAuth extends AssetLoad {
 
 	function addMTCSS(){
 
-        if ($this->context === 'edit'){
+		// use the $wp_styles->add() method rather than enqueue if order is specified
+		// or loading stylesheets in footer which only works if using $wp_styles->add()
+		$add = $this->addInsteadOfEnqueue();
 
-	        // use the $wp_styles->add() method rather than enqueue if order is specified
-	        // or loading stylesheets in footer which only works if using $wp_styles->add()
-            $add = $this->addInsteadOfEnqueue();
+		// dev vs production stylesheet
+		$min = !TVR_DEV_MODE ? '.min' : '';
 
-	        // dev vs production stylesheet
-	        $min = !TVR_DEV_MODE ? '.min' : '';
-
-	        // load file
-	        $this->enqueueOrAdd(
-		        $add,
-		        'microthemer-overlay',
-		        $this->thispluginurl.'css/frontend'.$min.'.css?v='.$this->version
-	        );
-        }
+		// load file
+		$this->enqueueOrAdd(
+			$add,
+			'microthemer-overlay',
+			$this->thispluginurl.'css/frontend'.$min.'.css?v='.$this->version
+		);
 
 	}
 
 	function hookMTJS(){
-		add_action($this->hooks['enqueue_scripts'], array(&$this, 'addMTJS'), $this->defaultActionHookOrder);
+
+        $action_hook = $this->checkBlockEditorScreen()
+	        ? 'enqueue_block_assets'
+	        : $this->hooks['enqueue_scripts'];
+
+	   add_action($action_hook, array(&$this, 'addMTJS'), $this->defaultActionHookOrder);
 	}
 
 	function addMTJS(){
@@ -164,8 +177,22 @@ class AssetAuth extends AssetLoad {
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-tooltip');
 
+        // load mt-block.js on block editor pages
+        if ($this->isBlockEditorScreen){
+
+            $js_path = 'js' . (TVR_DEV_MODE ? '/mod/' : '-min/') . 'mt-block.js';
+
+            wp_enqueue_script(
+		        'tvr_block_classes',
+		        $this->thispluginurl . $js_path,
+		        array( 'wp-blocks', 'wp-element', 'wp-compose', 'lodash' ),
+		        filemtime($this->thisplugindir . $js_path),
+		        false // Set it to true if you want it to be loaded in the footer
+	        );
+        }
+
 		// MT preview script
-		// For editing styles on the frontend and possibly the admin area
+		// For editing styles on the frontend and the admin area
 		// But also for the Microthemer interface to receive a response from the admin area without editing
 		// e.g. Frontend loaded, Folder loading config
 		wp_register_script(
@@ -175,13 +202,19 @@ class AssetAuth extends AssetLoad {
 		);
 
 		wp_enqueue_script( 'tvr_mcth_frontend');
+
+		// the previous system of hooking this separately did not work on the wp-login.php page
+		// And I think it added unnecessary complexity too
+		$this->addFrontendData();
 	}
 
-	function addFrontendData() {
+	function addFrontendData($returnData = false) {
 
 		if ( is_user_logged_in() || isset($_GET['mt_nonlog']) ) {
 
-			$min = !TVR_DEV_MODE ? '-min' : '/mod';
+			$p = &$this->preferences;
+            $min = !TVR_DEV_MODE ? '-min' : '/mod';
+			global $wp_version;
 
             // Get the folder loading status of any draft folder too
 			$eligibleForLoading = !$this->isAdminArea || $this->supportAdminAssets();
@@ -191,7 +224,7 @@ class AssetAuth extends AssetLoad {
 
             // if we need to test draft folder logic that hasn't been saved
 			if ($draftFolder && $eligibleForLoading){
-				$logic = new Logic();
+				$logic = new Logic($this->logicSettings);
 				$this->folderLoading[$draftFolder['slug']] = $logic->result($draftFolder['expr'])
                     ? 'empty'
                     : 0;
@@ -207,23 +240,35 @@ class AssetAuth extends AssetLoad {
 							'read'
 						)
 					),
-					'mt-show-admin-bar' => !empty($this->preferences['admin_bar_preview'])
-						? intval($this->preferences['admin_bar_preview'])
+					'mt-show-admin-bar' => !empty($p['admin_bar_preview'])
+						? intval($p['admin_bar_preview'])
 						: 1,
 
 					// note: folderLoading may need to hook this data to wp_footer if stylesheet_in_footer
 					'folderLoading' => $this->folderLoading,
+					'assetLoadingLogic' => !empty($p['asset_loading']['logic'])
+						? $p['asset_loading']['logic']
+						: array(),
 					'builderBlockedEdit' => $this->builderBlockedEdit,
-					'broadcast' => !empty($this->preferences['sync_browser_tabs'])
+					'broadcast' => !empty($p['sync_browser_tabs'])
 						? $this->thispluginurl . 'js'.$min.'/mt-broadcast.js?v='.$this->version
 						: false,
 					'isAdminArea' => $this->isAdminArea,
+
+                    'add_block_classes_all' => !empty($p['add_block_classes_all']),
 
 					// Flag to the frontend script that asset editing is / isn't supported
 					'interactions' => $this->context === 'edit',
 
 					// flag if bricks builder is active
-					'bricksBuilderActive' => $this->isBricksUi()
+					'bricksBuilderActive' => $this->isBricksUi(),
+
+					// WordPress info
+                    'wp_version' => $wp_version,
+                    'theme' => get_stylesheet(),
+                    'template' => Helper::getCurrentTemplateSlug(),
+					'home_url' => $this->home_url
+
 				),
                 $this->pageMeta()
             );
@@ -236,16 +281,29 @@ class AssetAuth extends AssetLoad {
 				);
 			}
 
-			?>
-            <script> window.MTDynFrontData = <?php echo json_encode( $MTDynFrontData ); ?>; </script>
-			<?php
+			wp_add_inline_script(
+				'tvr_mcth_frontend',
+				'window.MTDynFrontData = '. json_encode( $MTDynFrontData ) .';',
+				'before'
+			);
+
+			if ($returnData){
+				return $MTDynFrontData;
+			}
+
+			//wp_die('$returnData: <pre>'.print_r(['$MTDynFrontData' => wp_scripts()], 1).'</pre>' );
+
 		}
 	}
 
     // return logic for targeting the current page or type of page
     function pageMeta(){
 
-	    global $wp_query, $post;
+	    global $wp_query, $post, $pagenow;
+
+	    //$header_template = get_post_meta( $post->ID);
+
+	    //wp_die('<pre>The $wp_query'.print_r($header_template, true).'</pre>');
 
 	    $logic = null;
         $alt = array();
@@ -253,45 +311,79 @@ class AssetAuth extends AssetLoad {
         $type = null;
         $id = null;
         $post_id = 0;
+	    $isFSE = $pagenow === 'site-editor.php';
+	    $permalink = home_url(); // default to the home page
 	    $post_title = '';
         $slug = null;
 	    $isAdminPostPageEdit = ($this->isAdminArea && !empty($_GET['post']) && isset($post->post_name));
         $screen = $this->isAdminArea && function_exists('get_current_screen')
             ? get_current_screen()
             : null;
-        $adminPrefix = esc_html__('Admin ', 'microthemer');
-
-	    //wp_die('<pre>$wp_query: '.print_r($wp_query, 1).' </pre>');
+        $adminPrefix = esc_html__('Admin - ', 'microthemer');
+	    $blockPrefix = '';
+        $isBlockEditorScreen = $this->isBlockEditorScreen;
+	    //wp_die('<pre>$post: '.print_r($post, 1).' </pre>');
+	    //wp_die('<pre>$current_screen: '.print_r($screen, 1).' </pre>');
 
         // single post/page on frontend or admin side
 	    if ( $wp_query->is_page || $wp_query->is_single || $isAdminPostPageEdit ) {
 		    $post_id = $id = $post->ID;
             $slug = $post->post_name ?: $post_id; // with certain previews the slug might not be set so default to the id
 		    $type = $wp_query->is_page ? 'page' : 'single';
-		    $logic = $isAdminPostPageEdit
-                ? '\Microthemer\is_public_or_admin("'.$slug.'")'
-                : 'is_'.$type.'("'.$slug.'")';
-
+		    $blockPrefix = esc_html__('Blocks - ', 'microthemer');
 		    $post_title = $title = ($this->isAdminArea ? $adminPrefix : '') .  $post->post_title;
 
+            // general page logic
+            $pageLogic = $isAdminPostPageEdit
+                ? '\Microthemer\is_public_or_admin("'.$slug.'")'
+                :  '\Microthemer\is_post_or_page('.$post_id.', "'.$post->post_title.'")'; // 'is_'.$type.'("'.$slug.'")';
+
+		    $logic = $pageLogic;
+
+            // more alt logic for admin side
             if ($isAdminPostPageEdit && $screen){
 	            $alt[] = array(
                         'logic' => '\Microthemer\query_admin_screen("base", "'.$screen->base.'")',
                         'title' => $adminPrefix . ucwords($screen->base)
                 );
             }
+
+            // Save the permalink, for turning off Gutenberg
+		    $permalink = get_permalink($post_id);
+
 		    //wp_die('<pre>$current_screen: '.print_r($screen, 1).' </pre>');
 	    }
 
+        // todo has_template() when using site editor templates, patterns, template parts,
+
         // any other admin screen that isn't edit post/page
         elseif ($this->isAdminArea && $screen) {
-	        $logic = '\Microthemer\query_admin_screen("base", "'.$screen->base.'")';
-	        $title = $adminPrefix . $screen->base;
-	        $alt[] = array(
-		        'logic' => '\Microthemer\query_admin_screen("parent_base", "'.$screen->parent_base.'")',
-		        'title' => $adminPrefix . ucwords($screen->parent_base)
-	        );
-	        
+
+            // Add Post/Page - need to convert the folder to page-specific if editor content items exist inside
+            // So flag with identifiable logic
+            if ($screen->action === 'add' && $screen->base === 'post'){
+	            $logic = '\Microthemer\query_admin_screen("action", "add") && \Microthemer\query_admin_screen("base", "post")';
+	            $title = $adminPrefix . $screen->action . ' ' . $screen->base;
+            }
+
+            else {
+	            $logic = '\Microthemer\query_admin_screen("base", "'.$screen->base.'")';
+	            $title = $adminPrefix . $screen->base;
+            }
+
+            if ($screen->parent_base){
+	            $alt[] = array(
+		            'logic' => '\Microthemer\query_admin_screen("parent_base", "'.$screen->parent_base.'")',
+		            'title' => $adminPrefix . ucwords($screen->parent_base)
+	            );
+            }
+
+			// It's a full site editor page, see if we can get a link for pages
+	        if ($isFSE){
+				$permalink = Helper::getFSEPermalink($permalink);
+				//wp_die('<pre>$permalink: '  . print_r([$permalink], true) . '</pre>');
+	        }
+
 		    //wp_die('<pre>$current_screen: '.print_r($screen, 1).' </pre>');
 	    } elseif ( $wp_query->is_home ) {
 		    $logic = 'is_home()';
@@ -340,6 +432,10 @@ class AssetAuth extends AssetLoad {
             );
         }
 
+        $min = !TVR_DEV_MODE ? '-min' : '/page';
+
+
+
 	    return array(
 		    'post_id' => $post_id,
 		    'post_title' => $post_title,
@@ -348,8 +444,17 @@ class AssetAuth extends AssetLoad {
             'title' => $title,
             'logic' => $logic,
             'alt_logic' => $alt,
-            'type' => $type
+            'type' => $type,
+            'isBlockEditorScreen' => $isBlockEditorScreen,
+            'adminPrefix' => $adminPrefix,
+            'blockPrefix' => $blockPrefix,
+            'permalink' => $permalink,
+            'pagenow' => $pagenow,
+		    'jQueryScript' => includes_url().'js/jquery/jquery.min.js?v='.$this->version,
+            'MTFscript' => $this->thispluginurl.'js'.$min.'/frontend.js?v='.$this->version
         );
+
+
 
     }
 
@@ -492,6 +597,9 @@ class AssetAuth extends AssetLoad {
 
 		$testFolder = $_GET['test_logic'];
 		$testAll = isset($_GET['test_all']);
+		$getStylesheets = isset($_GET['get_simple_stylesheets']);
+		$stylesheets = '';
+		$getFrontData = isset($_GET['get_front_data']);
         $defaultResponse = array(
 	        'result' => 1,
 	        'resultString' => 'true',
@@ -510,6 +618,12 @@ class AssetAuth extends AssetLoad {
 			'analysis' => 'CSS in the admin area has not been enabled, optionally do this via Settings > Preferences.',
 		));
 
+		// if Microthemer has provided live gutenberg HTML with new template-parts/patterns/navigation
+		// we need to update the map and possibly the post_content
+		if (Helper::isLiveContentTest()){
+			Common::updateLiveTemplateData($this->micro_root_dir);
+		}
+
         // set default evaluation response
 		$evaluation = $this->isAdminArea
             ? (
@@ -520,7 +634,6 @@ class AssetAuth extends AssetLoad {
             : $defaultResponse;
 
         $eligibleForLoading = !$this->isAdminArea || $this->supportAdminAssets();
-
 
         // 
 		foreach ($folders as $folder){
@@ -533,10 +646,17 @@ class AssetAuth extends AssetLoad {
 
 				// log all folders that load on the current page
 				if ($testAll){
-
-					$this->folderLoading[$slug] = $eligibleForLoading && $logic->result($folder['expr'])
-                        ? ($file_exists ? 1 : 'empty')
+					$result = $logic->result($folder['expr']);
+					$this->folderLoading[$slug] = $eligibleForLoading && $result
+                        ? ($file_exists
+							? (is_string($result) ? $result : 1) // preserve string result like 'blocksOnly'
+							: 'empty')
                         : 0;
+
+					// For FSE page changes (which only replaces inner content) we need to replace MT assets
+					if ($getStylesheets && $file_exists && $this->folderLoading[$slug]){
+						$stylesheets.= '<link rel="stylesheet" href="'.$this->micro_root_url.'mt/conditional/draft/'.$slug.'.css?'.$this->cacheParam.'" id="microthemer-'.$slug.'-css">' . "\n";
+					}
 				}
 
 				// test a single folder, and provide debug info
@@ -558,10 +678,22 @@ class AssetAuth extends AssetLoad {
 
 		}
 
-        //wp_die('Test all <pre>' . print_r($this->folderLoading, 1) . '</pre>');
+		$dataToReturn = $testAll
+			? ($getFrontData
+				? $this->addFrontendData(true)
+				: ($getStylesheets
+					// as array (not a string), so we can tease apart from any leading HTML before the json
+					? array('stylesheets' => $stylesheets)
+					: $this->folderLoading)
+			)
+			: $evaluation;
+
+		//$dataToReturn['debugOutput'] = Helper::$debugOutput;
+		//wp_die('Test all <pre>' . print_r($this->folderLoading, 1) . '</pre>');
+		//echo 'Helper::$debugOutput <pre>' . Helper::$debugOutput . '</pre>';
 
 		// return test folder result
-		$this->testResultResponse($testAll ? $this->folderLoading : $evaluation);
+		$this->testResultResponse($dataToReturn);
 
 	}
 

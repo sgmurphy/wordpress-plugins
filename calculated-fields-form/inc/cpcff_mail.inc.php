@@ -127,18 +127,8 @@ if ( ! class_exists( 'CPCFF_MAIL' ) ) {
 				$params['itemnumber']
 			);
 
-			$to = CPCFF_AUXILIARY::parsing_fields_on_text(
-				$fields,
-				$params,
-				preg_replace( '/(fieldname\d+)\s*%>/i', '$1_value%>', $form_obj->get_option( 'fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails ) ),
-				'',
-				'plain text',
-				$params['itemnumber']
-			);
-			$to = explode(
-				',',
-				$to['text']
-			);
+			$to = preg_replace( '/<%fieldname[^>]*>/i', '', $form_obj->get_option( 'fp_destination_emails', CP_CALCULATEDFIELDSF_DEFAULT_fp_destination_emails ) );
+			$to = explode( ',', $to );
 
 			$from = CPCFF_AUXILIARY::parsing_fields_on_text(
 				$fields,

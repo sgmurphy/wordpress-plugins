@@ -11,7 +11,8 @@ class Admin {
 	    AdminInitTrait,
         PreferencesTrait,
 	    SettingsTrait,
-	    FileTrait;
+	    FileTrait,
+	    BlockTrait;
 
 	var $locale = ''; // current language
 	var $lang = array(); // lang strings
@@ -49,6 +50,7 @@ class Admin {
 	var $imported_images = array();
 
 	var $integrations = array();
+    var $blockBuilders = array();
 	var $integrationsChecked = false;
 
 	var $version_is_capped = false;
@@ -108,6 +110,18 @@ class Admin {
 	var $default_mqs = array();
 	var $bb_mqs = array();
 	var $elementor_mqs = array();
+
+    // Hard code for now, until Gutenberg makes them editable
+    var $gutenberg_breakpoints = array(
+            'tablet' => array(
+                'newPreviewWidth' => 720,
+                'max' => 768
+            ),
+            'mobile' => array(
+	            'newPreviewWidth' => 360,
+	            'max' => 480
+            )
+    );
 	var $elementor_breakpoints = false;
 	var $oxygen_mqs = array();
 	var $oxygen_breakpoints = false;
@@ -169,7 +183,8 @@ class Admin {
         'top_level_shortcut',
         'sync_browser_tabs',
         'admin_bar_shortcut',
-	    'top_level_shortcut'
+	    'top_level_shortcut',
+	    'add_block_classes_all'
     );
 
 	private $reporting = array(
@@ -708,7 +723,8 @@ class Admin {
 			$this->savePreferences(
 				array(
 					'my_props' =>  $this->preferences['my_props'],
-					'units_added_to_suggestions' => $this->preferences['units_added_to_suggestions']
+					'units_added_to_suggestions' => $this->preferences['units_added_to_suggestions'],
+                    'subgrid_added_to_suggestions' => $this->preferences['subgrid_added_to_suggestions']
 				)
 			);
 
@@ -827,6 +843,19 @@ class Admin {
 					if (!isset($this->preferences['my_props']['sug_values'][$root_cat]['copiedSrc']) ){
 						$this->preferences['my_props']['sug_values'][$root_cat]['copiedSrc'] = $copiedSrc;
 						$log['update2'] = true;
+					}
+
+					// make sure grid-template-columns/rows have subgrid now it's widely supported
+					if ( $this->preferences['subgrid_added_to_suggestions'] < 2 ){
+                        if ($root_cat === 'grid_template_columns' || $root_cat === 'grid_template_rows'){
+                            $this->preferences['subgrid_added_to_suggestions']++;
+                            if (!in_array('subgrid', $copiedSrc)){
+	                            array_unshift($copiedSrc, "subgrid");
+	                            $this->preferences['my_props']['sug_values'][$root_cat]['copiedSrc'] = $copiedSrc;
+                            }
+
+	                        $log['update2'] = true;
+                        }
 					}
 
 					// ensure units have been explicitly added (this came later)
@@ -1449,17 +1478,29 @@ class Admin {
 				'FLBuilder' => 'bb-plugin/fl-builder.php',
 				'FLBuilder_lite' => 'beaver-builder-lite-version/fl-builder.php',
 				'elementor' => 'elementor/elementor.php',
-				'oxygen' => 'oxygen/functions.php'
+				'oxygen' => 'oxygen/functions.php',
 			);
+
+			// Block based builders
+            $checkBlockBuilders = array(
+	            'kadenceBlocks' => 'kadence-blocks/kadence-blocks.php',
+	            'generateBlocks' => 'generateblocks/plugin.php',
+	            'greenShift' => 'greenshift-animation-and-page-builder-blocks/plugin.php',
+	            'maxiBlocks' => 'maxi-blocks/plugin.php',
+            );
 
 			// set config
 			foreach ($check as $key => $plugin){
 				if ( is_plugin_active( $plugin ) ) {
-
 					// two versions of BB, try using same key
 					$key = ($key === 'FLBuilder_lite') ? 'FLBuilder' : $key;
+					$this->integrations[$key] =  1;
+				}
+			}
 
-					$this->integrations[$key] = 1;
+			foreach ($checkBlockBuilders as $key => $plugin){
+				if ( is_plugin_active( $plugin ) ) {
+					$this->blockBuilders[$key] =  1;
 				}
 			}
 
@@ -1506,7 +1547,7 @@ class Admin {
 				$this->mq_sets[esc_html__('Beaver Builder MQs', 'microthemer')] = $this->bb_mqs;
 			}
 
-			// if Elementor, provide way to load an Elementorbreakpoint set
+			// if Elementor, provide way to load an Elementor breakpoint set
 			if ( !empty($this->integrations['elementor']) ){
 
 				if (method_exists('\Elementor\Core\Responsive\Responsive', 'get_breakpoints')){
@@ -1624,7 +1665,9 @@ class Admin {
 	function concat_builder_sync_options($mqs){
 
 		foreach ($mqs as $array){
-			$this->builder_sync_tabs[] = $array['site_preview_width'];
+            if (isset($array['site_preview_width'])){
+	            $this->builder_sync_tabs[] = $array['site_preview_width'];
+            }
 		}
 	}
 
@@ -2674,7 +2717,9 @@ class Admin {
 
 		$combo['builder_sync_tabs'] = array_merge(
 			array(
-				'360', '568', '800'
+				'360', '568', '800',
+                'builder.gutenberg.mobile',
+                'builder.gutenberg.tablet'
 			),
 			$this->builder_sync_tabs
 		);
@@ -3192,7 +3237,7 @@ class Admin {
 			$gridlines.= '<div class="mtoc-line"></div>';
 		}
 
-		return '<div class="mt-oncanvas-grid">'.$gridlines.'</div>';
+		return '<div class="mt-oncanvas-grid-wrap"><div class="mt-oncanvas-grid">'.$gridlines.'</div></div>';
 	}
 
 	function oncanvas_feedback_template(){
@@ -4558,6 +4603,12 @@ class Admin {
 
 		if (empty($this->preferences['auto_publish_mode'])){
 			$pref_array['num_unpublished_saves'] = ++$this->preferences['num_unpublished_saves'];
+		}
+
+        // refresh the template map if set, then set that option back to off
+		if (!empty($pref_array['refresh_template_map'])){
+            Common::maybeUpdateTemplateCache($this->micro_root_dir, null, true);
+			$pref_array['refresh_template_map'] = 0;
 		}
 
 		// ensure that changing the default hover inspect setting takes effect immediately
@@ -5989,7 +6040,7 @@ class Admin {
 	// populate the default folders global array with translated strings
 	function set_default_folders() {
 
-		//$homePage = $this->homePageLogicLabel();
+		//$homePage = $this->homePageData();
 
         $folders = array(
 			'general' => __('General', 'microthemer'), // Auto-create General 2, 3 etc when +25 selectors
@@ -7510,7 +7561,7 @@ class Admin {
 	}
 
 	function format_posts_of_type(
-		$post_type, $category, $permalink_structure, $common_config, &$urls
+		$post_type, $category, $permalink_structure, $common_config, &$urls, $isBlockTheme = null
 	){
 
 		$isCustomPosts = ($post_type !== 'page' && $post_type !== 'post');
@@ -7589,6 +7640,9 @@ class Admin {
 				//'all' => $item, // debug
 				//'config' => array_merge($common_config, array('post_type'=> $post_type))
 			);
+
+			// todo maybe include Edit Post - xyz, Edit Page - xyz, Site Editor - xyz if it's a block theme
+
 		}
 
 		// sort alphabetically within category - actually no, have recently modified near top
@@ -7622,6 +7676,7 @@ class Admin {
                     : $this->home_url;*/
 
 		// get_the_title( get_option('page_on_front') )
+        $isBlockTheme = wp_is_block_theme();
 		$permalink_structure = get_option('permalink_structure');
 		$users_can_register = get_option('users_can_register');
 		$common_config = array(
@@ -7655,7 +7710,7 @@ class Admin {
 			if ($key === 'page' || $key === 'post'){
 				$post_type = $key;
 				$this->format_posts_of_type(
-					$post_type, $category, $permalink_structure, $common_config, $urls
+					$post_type, $category, $permalink_structure, $common_config, $urls, $isBlockTheme
 				);
 			}
 
@@ -7705,7 +7760,7 @@ class Admin {
 						? esc_html__('Blog home', 'microthemer')
 						: get_the_title( get_option('page_on_front') );*/
 
-                    $homePage = $this->homePageLogicLabel();
+                    $homePage = Helper::homePageData();
 
 					$custom_links[] = array(
 						'label' => $homePage['title'], // esc_html__('Home page', 'microthemer'),
@@ -7871,6 +7926,36 @@ class Admin {
 						);
 
 						$allLoginLabel.= esc_html__(' and Registration', 'microthemer');
+					}
+
+					if ($isBlockTheme){
+						$baseUrl = $this->root_rel(get_admin_url(null, 'site-editor.php'), false, true);
+						$custom_links[] = array(
+							'label' => esc_html__('Site Editor', 'microthemer'),
+							'value' => $baseUrl,
+						);
+						$custom_links[] = array(
+							'label' => esc_html__('Site Editor - Navigation', 'microthemer'),
+							'value' => $baseUrl . "?path=%2Fnavigation",
+						);
+						$custom_links[] = array(
+							'label' => esc_html__('Site Editor - Styles', 'microthemer'),
+							'value' => $baseUrl . "?path=%2Fwp_global_styles",
+						);
+						$custom_links[] = array(
+							'label' => esc_html__('Site Editor - Pages', 'microthemer'),
+							'value' => $baseUrl . "?path=%2Fpage",
+						);
+						$custom_links[] = array(
+							'label' => esc_html__('Site Editor - Templates', 'microthemer'),
+							'value' => $baseUrl . "?path=%2Fwp_template",
+						);
+						$custom_links[] = array(
+							'label' => esc_html__('Site Editor - Patterns', 'microthemer'),
+							'value' => $baseUrl . "?path=%2Fpatterns",
+						);
+
+						// markw@perfectbee.com
 					}
 
                     // When assigning conditional CSS it may be useful to target all WP login pages at once
@@ -8491,28 +8576,7 @@ class Admin {
 
     }
 
-    function homePageLogicLabel(){
 
-        // Blog posts on home
-        if (('posts' === get_option( 'show_on_front' ))){
-	        $title = esc_html__('Blog home', 'microthemer');
-            $logic = 'is_home()';
-        }
-
-        // Static page on home
-        else {
-            $homePageId = get_option('page_on_front');
-            $post = get_post($homePageId);
-	        $title = $post->post_title;
-	        $logic = 'is_page("'.$post->post_name.'")';
-        }
-
-        return array(
-            'title' => $title,
-            'logic' => $logic
-        );
-
-    }
 
 	function add_edit_selector_form($context){
 
@@ -10371,8 +10435,16 @@ class Admin {
 			// merge the arrays (recursively to avoid overwriting)
 			$merged_settings = $this->array_merge_recursive_distinct($orig_settings, $new_settings);
 
+			echo '<pre>custom_code debug: '  . print_r([
+                    'custom_code' => $this->custom_code,
+                    'new data non_section' => $new_settings['non_section']
+                ], true) . '</pre>';
+
 			// the hand-coded CSS of the imported settings needs to be appended to the original
 			foreach ($this->custom_code as $key => $arr){
+
+
+
 
 
 				$new_code = trim($new_settings['non_section'][$key]);

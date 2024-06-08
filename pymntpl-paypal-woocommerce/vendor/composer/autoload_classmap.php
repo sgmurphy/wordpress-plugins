@@ -68,6 +68,7 @@ return array(
     'PaymentPlugins\\PayPalSDK\\Service\\PaymentCaptureService' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Service/PaymentCaptureService.php',
     'PaymentPlugins\\PayPalSDK\\Service\\PaymentService' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Service/PaymentService.php',
     'PaymentPlugins\\PayPalSDK\\Service\\PaymentTokenService' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Service/PaymentTokenService.php',
+    'PaymentPlugins\\PayPalSDK\\Service\\PaymentTokenServiceV3' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Service/PaymentTokenServiceV3.php',
     'PaymentPlugins\\PayPalSDK\\Service\\TrackingService' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Service/TrackingService.php',
     'PaymentPlugins\\PayPalSDK\\Service\\WebhookService' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Service/WebhookService.php',
     'PaymentPlugins\\PayPalSDK\\Shipping' => $vendorDir . '/paymentplugins/paypal-php-sdk/src/Shipping.php',

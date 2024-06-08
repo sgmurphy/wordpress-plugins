@@ -5,6 +5,7 @@ $TvrLang = array(
 
 	'general' => esc_html__('General', 'microthemer'),
 	'admin_general' => esc_html__('Admin general', 'microthemer'),
+	'blocks_general' => esc_html__('Blocks general', 'microthemer'),
 	'google_font' => esc_html__('Google Font...', 'microthemer'),
 	'browse_gf' => esc_html__('Browse fonts...', 'microthemer'),
 

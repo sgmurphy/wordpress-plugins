@@ -16,9 +16,7 @@ class PaymentTokenService extends BaseService {
 	 * @return mixed|object|void
 	 */
 	public function all( $params = [], $options = [] ) {
-		$response = $this->get( $this->buildPath( '/payment-tokens' ), null, $params, $options );
-
-		return Utils::convertResponseToObject( Collection::class, $response->payment_tokens );
+		return $this->get( $this->buildPath( '/payment-tokens' ), \stdClass::class, $params, $options );
 	}
 
 }

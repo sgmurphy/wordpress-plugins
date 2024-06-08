@@ -136,7 +136,7 @@ class Wpil_Post
                     Wpil_Report::update_post_in_link_table($post);
                     // update the meta data for the post
                     Wpil_Report::statUpdate($post, true);
-                    // and update the link counts for the posts that this one links to
+                    // update the link counts for the posts that this one links to
                     Wpil_Report::updateReportInternallyLinkedPosts($post, $removed_links);
                 }
 
@@ -159,6 +159,60 @@ class Wpil_Post
             return;
         }
 
+        // get the inbound links from the post meta
+        $inbound = Wpil_Toolbox::get_encoded_post_meta($post_id, 'wpil_links_inbound_internal_count_data', true);
+        // if there are links
+        if(!empty($inbound)){
+            // remove each of the outbound links from the posts linking to this one
+            foreach($inbound as $link){
+                if(!isset($link->post) || empty($link->post)){
+                    continue;
+                }
+
+                if($link->post->type === 'post'){
+                    $stored_links = Wpil_Toolbox::get_encoded_post_meta($link->post->id, 'wpil_links_outbound_internal_count_data', true);
+                }else{
+                    $stored_links = Wpil_Toolbox::get_encoded_term_meta($link->post->id, 'wpil_links_outbound_internal_count_data', true);
+                }
+
+                // if the current post does have links
+                if(!empty($stored_links)){
+                    // count how many we're starting with
+                    $link_count = count($stored_links);
+                    // and go over all the links available
+                    foreach($stored_links as $key => $stored_link){
+                        if(!isset($stored_link->post) || empty($stored_link->post)){
+                            continue;
+                        }
+
+                        // if the other post has a link pointing to this one
+                        if(trailingslashit($stored_link->url) === trailingslashit($link->url)){
+                            // remove the link from the stored data
+                            unset($stored_links[$key]);
+                        }
+                    }
+
+                    // re-count the links so we can tell if we removed any
+                    $new_count = count($stored_links);
+
+                    // if we have removed links
+                    if($link_count > $new_count){
+                        // rekey the link array just in case something is index sensitive
+                        $stored_links = array_values($stored_links);
+                        // update the stored data and the stored link count
+                        if($link->post->type === 'post'){
+                            $stored_links = Wpil_Toolbox::update_encoded_post_meta($link->post->id, 'wpil_links_outbound_internal_count_data', $stored_links);
+                            $stored_links = Wpil_Toolbox::update_encoded_post_meta($link->post->id, 'wpil_links_outbound_internal_count', $new_count);
+                        }else{
+                            $stored_links = Wpil_Toolbox::update_encoded_post_meta($link->post->id, 'wpil_links_outbound_internal_count_data', $stored_links);
+                            $stored_links = Wpil_Toolbox::update_encoded_term_meta($link->post->id, 'wpil_links_outbound_internal_count', $new_count);
+                        }
+                    }
+                }
+            }
+        }
+
+        // remove the meta-based link data for this posts
         foreach (array_merge(Wpil_Report::$meta_keys, ['wpil_sync_report3', 'wpil_sync_report2_time']) as $key) {
             delete_post_meta($post_id, $key);
         }

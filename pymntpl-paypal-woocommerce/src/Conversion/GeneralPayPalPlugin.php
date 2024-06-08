@@ -2,6 +2,7 @@
 
 namespace PaymentPlugins\WooCommerce\PPCP\Conversion;
 
+use PaymentPlugins\PayPalSDK\PayPalClient;
 use PaymentPlugins\PayPalSDK\Token;
 use PaymentPlugins\WooCommerce\PPCP\Constants;
 use PaymentPlugins\WooCommerce\PPCP\PluginIntegrationController;
@@ -18,15 +19,19 @@ abstract class GeneralPayPalPlugin {
 	 */
 	protected $payment_token_id;
 
-	protected $is_plugin = false;
+	public $is_plugin = false;
 
-	public function __construct( PluginIntegrationController $plugin_controller ) {
-		$subscriptions = $plugin_controller->get_integration( 'woocommerce_subscriptions' );
-		if ( $subscriptions && $subscriptions->is_active() ) {
-			add_filter( 'woocommerce_subscription_get_payment_method', [ $this, 'get_payment_method' ], 10, 2 );
-			add_filter( 'wc_ppcp_payment_source_from_order', [ $this, 'get_payment_source_from_order' ], 10, 2 );
-			add_filter( 'wc_ppcp_add_subscription_payment_meta', [ $this, 'add_subscription_payment_meta' ], 10, 2 );
-		}
+	protected $client;
+
+	protected $label;
+
+	/**
+	 * @var \PaymentPlugins\PayPalSDK\PaymentSource
+	 */
+	protected $payment_source;
+
+	public function __construct( PayPalClient $client ) {
+		$this->client = $client;
 	}
 
 	/**
@@ -34,13 +39,12 @@ abstract class GeneralPayPalPlugin {
 	 * @param \WC_Order                               $order
 	 */
 	public function get_payment_source_from_order( $payment_source, $order ) {
-		if ( $this->is_plugin && $payment_source->getToken() && $payment_source->getToken()->getType() === Token::BILLING_AGREEMENT ) {
-			$token = $payment_source->getToken();
-			if ( ! $token->getId() ) {
-				$id = $order->get_meta( $this->payment_token_id );
-				if ( $id ) {
-					$token->setId( $id );
-				}
+		$token = $payment_source->getToken();
+		if ( ! $token->getId() ) {
+			$id = $order->get_meta( $this->payment_token_id );
+			if ( $id ) {
+				$token->setId( $id );
+				$this->payment_source = $payment_source;
 			}
 		}
 
@@ -66,15 +70,39 @@ abstract class GeneralPayPalPlugin {
 	 */
 	public function add_subscription_payment_meta( $payment_meta, $subscription ) {
 		if ( isset( $payment_meta['ppcp'] ) ) {
-			if ( empty( $payment_meta['ppcp']['post_meta'][ Constants::BILLING_AGREEMENT_ID ]['value'] ) ) {
-				$id = $subscription->get_meta( $this->payment_token_id );
-				if ( $id ) {
-					$payment_meta['ppcp']['post_meta'][ Constants::BILLING_AGREEMENT_ID ]['value'] = $id;
+			if ( $this->is_plugin ) {
+				if ( empty( $payment_meta['ppcp']['post_meta'][ $this->payment_token_id ]['value'] ) ) {
+					$id = $subscription->get_meta( $this->payment_token_id );
+					if ( $id ) {
+						$payment_meta['ppcp']['post_meta'][ $this->payment_token_id ]['value'] = $id;
+					}
 				}
+				$payment_meta['ppcp']['post_meta'][ $this->payment_token_id ]['label'] = $this->get_payment_meta_label();
 			}
 		}
 
 		return $payment_meta;
+	}
+
+	protected function get_payment_meta_label() {
+		return __( 'Billing Agreement ID', 'pymntpl-paypal-woocommerce' );
+	}
+
+	/**
+	 * @param \WC_Subscription $subscription
+	 *
+	 * @return void
+	 */
+	public function update_subscription_meta( \WC_Subscription $subscription ) {
+		if ( $this->payment_source ) {
+			if ( $this->payment_source->getToken() ) {
+				$subscription->update_meta_data( $this->payment_token_id, $this->payment_source->getToken()->getId() );
+				$subscription->save();
+			} elseif ( $this->payment_source->getPayPal() ) {
+				$subscription->update_meta_data( $this->payment_token_id, $this->payment_source->getPayPal()->vault_id );
+				$subscription->save();
+			}
+		}
 	}
 
 }

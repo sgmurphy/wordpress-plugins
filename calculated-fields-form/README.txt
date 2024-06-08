@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.11
+Stable tag: 5.2.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -448,6 +448,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.12 =
+
+* Improves the Gutenberg block displaying the templates' thumbnails and reducing the code required for rendering the forms.
+* Fixes some issues with the AMP support.
+* Improves the feature to load the form into iframe tags.
+
 = 5.2.11 =
 
 * Modifies the Date control to prevent the date selection from closing the Elementor popups when it contains a form.
@@ -475,10 +481,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.7 =
 
 * Removes non-essential information from the forms builder.
-
-= 5.2.6 =
-
-* Fixes an issue delaying the evaluation of the equations.
-* Includes new form templates.
-* Modifies the styles applied to the Phone field.
-* Implements minor modifications in the forms builder.

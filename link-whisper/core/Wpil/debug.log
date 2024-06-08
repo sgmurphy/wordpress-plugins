@@ -1,0 +1,462 @@
+[30-Apr-2024 23:13:57 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:13:57 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:13:58 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:00 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:01 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:02 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221
+[30-Apr-2024 23:14:02 UTC] Array
+(
+    [0] => <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+</body></html>
+
+    [1] => Array
+        (
+            [headers] => WpOrg\Requests\Utility\CaseInsensitiveDictionary Object
+                (
+                    [data:protected] => Array
+                        (
+                            [server] => nginx
+                            [date] => Tue, 30 Apr 2024 23:14:03 GMT
+                            [content-type] => text/html; charset=iso-8859-1
+                            [vary] => Accept-Encoding
+                            [content-encoding] => br
+                        )
+
+                )
+
+            [body] => <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+</body></html>
+
+            [response] => Array
+                (
+                    [code] => 404
+                    [message] => Not Found
+                )
+
+            [cookies] => Array
+                (
+                    [0] => WP_Http_Cookie Object
+                        (
+                            [name] => wpSGCacheBypass
+                            [value] => 1
+                            [expires] => 86400
+                            [path] => /
+                            [domain] => marinepartshop.com
+                            [port] => 
+                            [host_only] => 
+                        )
+
+                    [1] => WP_Http_Cookie Object
+                        (
+                            [name] => x-cache-nxaccel
+                            [value] => BYPASS
+                            [expires] => 86400
+                            [path] => /
+                            [domain] => marinepartshop.com
+                            [port] => 
+                            [host_only] => 
+                        )
+
+                )
+
+            [filename] => 
+            [http_response] => WP_HTTP_Requests_Response Object
+                (
+                    [data] => 
+                    [headers] => 
+                    [status] => 
+                    [response:protected] => WpOrg\Requests\Response Object
+                        (
+                            [body] => <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+</body></html>
+
+                            [raw] => HTTP/1.1 404 Not Found
+Server: nginx
+Date: Tue, 30 Apr 2024 23:14:03 GMT
+Content-Type: text/html; charset=iso-8859-1
+Transfer-Encoding: chunked
+Connection: close
+Vary: Accept-Encoding
+Content-Encoding: br
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+</body></html>
+
+                            [headers] => WpOrg\Requests\Response\Headers Object
+                                (
+                                    [data:protected] => Array
+                                        (
+                                            [server] => Array
+                                                (
+                                                    [0] => nginx
+                                                )
+
+                                            [date] => Array
+                                                (
+                                                    [0] => Tue, 30 Apr 2024 23:14:03 GMT
+                                                )
+
+                                            [content-type] => Array
+                                                (
+                                                    [0] => text/html; charset=iso-8859-1
+                                                )
+
+                                            [vary] => Array
+                                                (
+                                                    [0] => Accept-Encoding
+                                                )
+
+                                            [content-encoding] => Array
+                                                (
+                                                    [0] => br
+                                                )
+
+                                        )
+
+                                )
+
+                            [status_code] => 404
+                            [protocol_version] => 1.1
+                            [success] => 
+                            [redirects] => 0
+                            [url] => https://marinepartshop.com/product-category/water-sports/kayaking
+                            [history] => Array
+                                (
+                                )
+
+                            [cookies] => WpOrg\Requests\Cookie\Jar Object
+                                (
+                                    [cookies:protected] => Array
+                                        (
+                                            [wpSGCacheBypass] => WpOrg\Requests\Cookie Object
+                                                (
+                                                    [name] => wpSGCacheBypass
+                                                    [value] => 1
+                                                    [attributes] => Array
+                                                        (
+                                                            [expires] => 86400
+                                                            [path] => /
+                                                            [domain] => marinepartshop.com
+                                                        )
+
+                                                    [flags] => Array
+                                                        (
+                                                            [creation] => 1714518842
+                                                            [last-access] => 1714518842
+                                                            [persistent] => 
+                                                            [host-only] => 
+                                                        )
+
+                                                    [reference_time] => 1714518842
+                                                )
+
+                                            [x-cache-nxaccel] => WpOrg\Requests\Cookie Object
+                                                (
+                                                    [name] => x-cache-nxaccel
+                                                    [value] => BYPASS
+                                                    [attributes] => Array
+                                                        (
+                                                            [expires] => 86400
+                                                            [path] => /
+                                                            [domain] => marinepartshop.com
+                                                        )
+
+                                                    [flags] => Array
+                                                        (
+                                                            [creation] => 1714518842
+                                                            [last-access] => 1714518842
+                                                            [persistent] => 
+                                                            [host-only] => 
+                                                        )
+
+                                                    [reference_time] => 1714518842
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [filename:protected] => 
+                )
+
+        )
+
+)
+
+[30-Apr-2024 23:14:02 UTC] Array
+(
+    [0] => <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+</body></html>
+
+    [1] => Array
+        (
+            [url] => https://marinepartshop.com/wp-json/link-whisper/interlinking
+            [content_type] => text/html; charset=iso-8859-1
+            [http_code] => 404
+            [header_size] => 191
+            [request_size] => 842
+            [filetime] => -1
+            [ssl_verify_result] => 0
+            [redirect_count] => 0
+            [total_time] => 0.084301
+            [namelookup_time] => 0.000165
+            [connect_time] => 0.007224
+            [pretransfer_time] => 0.028989
+            [size_upload] => 372
+            [size_download] => 196
+            [speed_download] => 2333
+            [speed_upload] => 4428
+            [download_content_length] => 196
+            [upload_content_length] => 372
+            [starttransfer_time] => 0.028991
+            [redirect_time] => 0
+            [redirect_url] => 
+            [primary_ip] => 199.189.225.71
+            [certinfo] => Array
+                (
+                )
+
+            [primary_port] => 443
+            [local_ip] => 172.232.24.151
+            [local_port] => 36390
+            [http_version] => 2
+            [protocol] => 2
+            [ssl_verifyresult] => 0
+            [scheme] => HTTPS
+            [appconnect_time_us] => 28942
+            [connect_time_us] => 7224
+            [namelookup_time_us] => 165
+            [pretransfer_time_us] => 28989
+            [redirect_time_us] => 0
+            [starttransfer_time_us] => 28991
+            [total_time_us] => 84301
+        )
+
+)
+
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:04 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:05 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #2 ($replace) of type array|string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/woozone/melib/GeoLocation.php on line 1158
+[30-Apr-2024 23:14:06 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:14:07 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:07 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  urldecode(): Passing null to parameter #1 ($string) of type string is deprecated in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/litespeed-cache/src/control.cls.php on line 547
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:08 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221
+[30-Apr-2024 23:14:08 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:14:09 UTC] PHP Notice:  The Nexcess plugin may only be loaded on the Nexcess Managed Applications Platform platform. in /home/marinepartshop/staging.marinepartshop.com/wp-content/mu-plugins/nexcess-mapps.php on line 71
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:09 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetExists($offset) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 783
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetGet($offset) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 808
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetSet($offset, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 770
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of Aventura\Wprss\Core\DataObject::offsetUnset($offset) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/includes/Aventura/Wprss/Core/DataObject.php on line 795
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 24
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 44
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Entities\Collections\WpEntityCollection::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Entities/Collections/WpEntityCollection.php on line 97
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 60
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of RebelCode\Wpra\Core\Data\AbstractDataSet::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/src/Data/AbstractDataSet.php on line 76
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of Twig\Node\Node::count() should either be compatible with Countable::count(): int, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 213
+[30-Apr-2024 23:14:10 UTC] PHP Deprecated:  Return type of Twig\Node\Node::getIterator() should either be compatible with IteratorAggregate::getIterator(): Traversable, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/marinepartshop/staging.marinepartshop.com/wp-content/plugins/wp-rss-aggregator/vendor/twig/twig/src/Node/Node.php on line 221

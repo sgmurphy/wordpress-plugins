@@ -47,7 +47,8 @@ class Utils {
 			'paypal_fee'                  => Money::class,
 			'net_amount'                  => Money::class,
 			'receivable_amount'           => Money::class,
-			'tracker_identifiers'         => Tracker::class
+			'tracker_identifiers'         => Tracker::class,
+			'payment_tokens'              => Token::class
 		);
 
 	public static function isList( $value ) {
@@ -117,7 +118,11 @@ class Utils {
 	}
 
 	public static function convertResponseToObject( $clazz, $response, $params = null ) {
-		$object = new $clazz( $response );
+		if ( $clazz === \stdClass::class ) {
+			return (object) self::convertToPayPalObject( $response );
+		} else {
+			$object = new $clazz( $response );
+		}
 
 		return $object;
 	}

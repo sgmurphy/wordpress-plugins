@@ -1,0 +1,4 @@
+keyword,link,add_same_link,link_once,restrict_to_live,force_insert,limit_inserts,insert_limit,select_links,set_priority,priority_setting,prioritize_longtail,restrict_date,restricted_date,case_sensitive,same_lang,restrict_to_cats,restrict_term_
+Keyword,Link,Add Link if post already has link?,Only link once per post?,Only create internal links when target is published?,Override 'One link per sentence' rule?,Limit how many autolinks are created?,Link insertion limit,Select links before inserting?,Set priority for link insertion?,Link insertion priority,Prioritize long-tail keywords,Only add links to posts published after specific date?,Specific date,Make keyword case sensitive,Restrict autolinks to target page's language,Restrict autolinks to specific categories,Specific category ids
+"curly mullet","https://www.zohna.com/hair/curlyu2013mullet/",1,1,0,0,0,0,1,0,0,0,0,,0,0,0,""
+"potato","https://en.wikipedia.org/wiki/Potato",1,1,0,0,0,0,0,0,0,0,0,,0,0,0,""

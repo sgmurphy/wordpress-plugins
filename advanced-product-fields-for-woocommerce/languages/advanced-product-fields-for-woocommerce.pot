@@ -21,7 +21,7 @@ msgstr ""
 msgid "Field Group"
 msgstr ""
 
-#: dist/class-wapf.php:80, dist/views/admin/cpt-list-table.php:14
+#: dist/class-wapf.php:80, dist/views/admin/cpt-list-table.php:12
 msgid "Add New"
 msgstr ""
 
@@ -495,10 +495,6 @@ msgstr ""
 
 #: dist/views/admin/conditions.php:78, dist/views/admin/settings/conditionals.php:41
 msgid "And"
-msgstr ""
-
-#: dist/views/admin/cpt-list-table.php:32
-msgid "Sorry :( We can't add a new field group. You've reached the amount of field groups allowed in the free version. Consider removing an old field group or upgrading to premium for unlimited field groups."
 msgstr ""
 
 #: dist/views/admin/field.php:59

@@ -4,7 +4,7 @@ Contributors: bastywebb, joseluiscruz, ahrale
 Donate link: http://themeover.com/microthemer/
 Tags: css, customize, visual editor, google fonts, responsive
 Requires at least: 6.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -79,10 +79,87 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.0.6 (June 8th, 2024) =
+
+# Bugs fixed
+* The subgrid setting for grid-template-columns/rows could be lost in the previous update.
+* Grid items were not properly constrained by ancestor grid tracks when using subgrid.
+* Switching selectors to one that has the single grid item view could display the wrong grid fields.
+* Providing row/column line names reduced the maximum number of tracks to less than 24 in the grid controls.
+* Padding was not properly adjusted for when highlighting grid items.
+
+# Enhancement
+* A purple dashed line shows implicit grid lines and "subgrid" (if relevant) in the grid control area.
+
+= 7.3.0.5 beta (May 22nd, 2024) =
+
+# Change
+* Gutenberg block editor classes are whitelisted now, rather than admin only classes being blacklisted. This should greatly reduce the chance of styling working in the editor but not on the frontend.
+
+# Enhancement
+* CSS grid subgrid property value added to grid-template-columns and grid-template-rows.
+* Gutenberg integration extended to KadenceBlocks.
+
+# Bugs Fixed
+* Miscellaneous issues with Gutenberg integration when the blocks were not loaded in an iframe.
+* Unique classes were not added to all Gutenberg blocks e.g. blockquotes.
+* Microthemer element overlay highlighting did not scroll with the page under certain circumstances.
+* Option to view the block editor outside of Microthemer added to Exit options.
+
+= 7.3.0.4 beta (May 13th, 2024) =
+
+# Enhancement
+* Microthemer's responsive controls now sync with Generate Blocks' responsive controls.
+
+= 7.3.0.3 beta (May 8th, 2024) =
+
+# Bugs Fixed
+* The Gutenberg integration did work if the block editor was embedded directly into the page, rather than as an iframe. Direct embedding is a legacy method that is implemented when blocks using the old API are present: https://make.wordpress.org/core/2023/07/18/miscellaneous-editor-changes-in-wordpress-6-3/.
+
+= 7.3.0.2 beta (May 3rd, 2024) =
+
+# Enhancement
+* The element breadcrumbs reflect the class or id used in the current selector.
+
+# Bugs Fixed
+* Possible internal server error when importing CSS from a stylesheet into Microthemer.
+
+= 7.3.0.1 beta (April 23rd, 2024) =
+
+# Bugs Fixed
+* Microthemer did not live update CSS style loading when the page template was changed in the editor.
+* When first clicking on the page content in the Site Editor, the body element was selected in the process.
+* Unique classes added to blocks unable to accept them.
+* Editor only classes could be suggested when selecting blocks.
+
+= 7.3.0.0 beta (March 25th, 2024) =
+
+# Change
+* Sync browser tabs is enabled by default on new Microthemer installations.
+* Admin asset loading is enabled by default on new Microthemer installations.
+* Global styles also load in the block editor (if admin asset loading is enabled).
+* When Microthemer creates new page specific folders, they also load in the block editor (if admin asset loading is enabled).
+
+# Enhancement
+* Deep integration with Gutenberg and the Full Site Editor (FSE). Add content with Gutenberg and style it with Microthemer at the same time, from a single browser tab.
+* Consistent styling between the block editor and the site frontend.
+* Apply responsive styling to Gutenberg blocks. Microthemer tabs sync with the mobile and tablet preview options in the block editor.
+* When selecting block editor elements with Microthemer, the custom class input field is automatically scrolled into view. This makes it easier to add custom or utility classes provided by frameworks like Tailwind, CoreFramework, or ACSS.
+* When loading the Gutenberg editor inside Microthemer, unique classes in the format "mctr-e5i34p" will be added to elements you select (and ancestor elements) to help target blocks precisely and in a way that is consistent between the frontend and block editor. To ensure the HTML markup stays clean, these classes are automatically removed if you do not target them with Microthemer. But if you do reference these classes, Microthemer will auto-save the Gutenberg content to ensure they don't get lost if you forget to save manually.
+* There is a related option in MT's preferences to add unique classes to ALL Gutenberg blocks - even when editing outside Microthemer. It's disabled by default, but you may wish to enable this if you use Microthemer's full code editor with targeting disabled. Or, you prefer styling rendered Gutenberg blocks on the frontend but want to take advantage of block-specific CSS classes (akin to what page builders output).
+* When styling block theme templates, template parts, patterns, or navigation using the Full Site Editor MT will generate folder logic to ensure that the styles display wherever the content displays. For example, to ensure that MT's CSS styling for a reusable pricing table pattern is loaded whenever that block is added to a post or page, it will generate folder logic that looks something like this: \Microthemer\has_template("wp_pattern", 4654, "Pattern - Pricing"). This will even work if the pricing table is part of another pattern that is added to the page.
+* To ensure Microthemer can check for template/part/pattern/navigation usage reliably and quickly, it maintains a small cache file that can be efficiently checked on the frontend without having to parse blocks on the fly. This means Microthemer can keep CSS asset loading to an absolute minimum without incurring expensive overheads.
+* The "\Microthemer\user_has_role()" logic function for folder loading now accepts a user id as the first parameter, as an alternative to specifying a role name.
+
+# Bugs Fixed
+* "editor.session is not defined" JavaScript error that could sometimes display when first loading Microthemer.
+* CSS styling conflict with WP To Buffer Pro plugin where Microthemer select menus had a light background even if in dark theme mode.
+* CSS grid gap properties were not output using shorthand even if both row and column values were provided.
+
 = 7.2.4.9 (November 22nd, 2023) =
 
 # Enhancement
-* Browser tab syncing is supported for Gutenberg content changes. This means Microthemer will automatically reload the site preview after making saving a draft or publishing Gutenberg changes. CSS syncing is not supported as yet.
+* Browser tab syncing is supported for Gutenberg content changes. Go to Settings > Integrations > Sync browser tabs. This means Microthemer will automatically reload the site preview after making saving a draft or publishing Gutenberg changes. CSS syncing is not supported as yet.
 
 # Bugs Fixed
 * When auto-reloading the site to pull in new content from a synced tab, Microthemer was not always resuming the previous browser scroll position.

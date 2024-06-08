@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.9.8
+ * Version: 4.9.9
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.9.8' );
+define( 'BT_BB_VERSION', '4.9.9' );
 // VERSION --------------------------------------------------------- \\
  
 define( 'BT_BB_FEATURE_ADD_ELEMENTS', true );
@@ -37,11 +37,32 @@ function bt_bb_parse_content( $content ) {
 	}
 	
 	if ( bt_bb_active_for_post_type_fe() ) {
+		
 		$content = str_ireplace( array( '``', '`{`', '`}`' ), array( '&quot;', '&#91;', '&#93;' ), $content );
 		$content = str_ireplace( array( '*`*`*', '*`*{*`*', '*`*}*`*' ), array( '``', '`{`', '`}`' ), $content );
+		
 		if ( is_singular() ) {
+			
+			$data_templates_time = '';
+			if ( current_user_can( 'edit_pages' ) ) {
+				$files1 = glob( get_stylesheet_directory() . '/bold-page-builder/templates/*.txt' );
+				$files2 = glob( get_template_directory() . '/bold-page-builder/templates/*.txt' );
+				$files3 = glob( plugin_dir_path( __FILE__ ) . 'templates/*.txt' );
+				if ( count( $files1 ) > 0 ) {
+					$data_templates_time = max( array_map( 'filemtime', $files1 ) );
+				}
+				if ( count( $files2 ) > 0 ) {
+					$data_templates_time .= max( array_map( 'filemtime', $files2 ) );
+				}
+				if ( count( $files3 ) > 0 ) {
+					$data_templates_time .= max( array_map( 'filemtime', $files3 ) );
+				}
+			}
+			
+			$data_templates_time = ' ' . 'data-templates-time="' . $data_templates_time . '"';
+			
 			$_content = $content;
-			$content = '<div class="bt_bb_wrapper">' . $content;
+			$content = '<div class="bt_bb_wrapper"' . $data_templates_time . '>' . $content;
 			if ( current_user_can( 'edit_pages' ) && ( strpos( $_content, 'bt_bb_fe_wrap' ) || $_content == '' ) ) {
 				if ( ! class_exists( 'BoldThemes_BB_Settings' ) || ! BoldThemes_BB_Settings::$custom_content_elements ) { // only with native BB elements
 					if ( ! ( isset( $_GET['bt_bb_fe_preview'] ) && $_GET['bt_bb_fe_preview'] == 'true' ) ) {

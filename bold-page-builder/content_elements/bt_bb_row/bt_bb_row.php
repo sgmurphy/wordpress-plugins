@@ -160,6 +160,8 @@ class bt_bb_row extends BT_BB_Element {
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) 										=> 'default',
 						
+						esc_html__( 'Row width 1200px', 'bold-builder' )                                => '__text',
+						
 						esc_html__( 'First and last are boxed', 'bold-builder' ) 						=> 'boxed_1200',
 						esc_html__( 'First is wide (boxed content)', 'bold-builder' ) 					=> 'boxed_1200_left',
 						esc_html__( 'First is wide', 'bold-builder' ) 									=> 'boxed_1200_left_content_wide',
@@ -167,6 +169,8 @@ class bt_bb_row extends BT_BB_Element {
 						esc_html__( 'Last is wide', 'bold-builder' ) 									=> 'boxed_1200_right_content_wide',
 						esc_html__( 'First and last are wide (boxed content)', 'bold-builder' ) 		=> 'boxed_1200_left_right',
 						esc_html__( 'First and last are wide', 'bold-builder' ) 						=> 'boxed_1200_left_right_content_wide',
+						
+						esc_html__( 'Row width 1400px', 'bold-builder' )                                => '__text',
 						
 						esc_html__( 'First and last are boxed ', 'bold-builder' ) 						=> 'boxed_1400',
 						esc_html__( 'First is wide (boxed content) ', 'bold-builder' ) 					=> 'boxed_1400_left',

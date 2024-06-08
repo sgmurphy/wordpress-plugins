@@ -219,7 +219,7 @@ class WooCommerceSubscriptions implements PluginIntegrationType {
 		$payment_method = WC()->payment_gateways()->payment_gateways()[ $order->get_payment_method() ];
 		try {
 			$params       = apply_filters( 'wc_ppcp_renewal_order_params', $payment_handler->get_create_order_params( $order ), $order, $payment_handler );
-			$paypal_order = $this->client->orders->create( $params );
+			$paypal_order = $this->client->orderMode( $order )->orders->create( $params );
 			if ( is_wp_error( $paypal_order ) ) {
 				throw new \Exception( $paypal_order->get_error_message() );
 			}
@@ -245,6 +245,8 @@ class WooCommerceSubscriptions implements PluginIntegrationType {
 				}
 				$payment_handler->save_order_meta_data( $order, $paypal_order );
 				$payment_handler->add_payment_complete_message( $order, $result );
+
+				do_action( 'wc_ppcp_renewal_payment_processed', $order, $result );
 			} else {
 				throw new \Exception( $result->get_error_message() );
 			}

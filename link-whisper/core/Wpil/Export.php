@@ -236,6 +236,10 @@ class Wpil_Export
         $dir = false;
         $dir_url = false;
         if(is_writable(WP_INTERNAL_LINKING_PLUGIN_DIR)){
+            if(!is_dir(WP_INTERNAL_LINKING_PLUGIN_DIR . 'includes/exports/')){
+                wp_mkdir_p(WP_INTERNAL_LINKING_PLUGIN_DIR . 'includes/exports/');
+            }
+
             // if it's possible, write to the plugin directory
             $dir = WP_INTERNAL_LINKING_PLUGIN_DIR . 'includes/exports/';
             $dir_url = WP_INTERNAL_LINKING_PLUGIN_URL . 'includes/exports/';

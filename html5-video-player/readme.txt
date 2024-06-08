@@ -1,4 +1,4 @@
-=== HTML5 Video Player - Best WordPress Video Player Plugin and Block  ===
+=== HTML5 Video Player - mp4 Video Player Plugin and Block  ===
 Contributors: bplugins,shehabulislam, freemius, abuhayat
 Tags: HTML5 video player, plyr, video, video player, mp4 Player 
 Donate link: https://www.buymeacoffee.com/abuhayat

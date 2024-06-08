@@ -318,7 +318,7 @@
                                         <?php _e('One downside is that the Link Report\'s "Hidden by Redirect" icons may not be able to tell that the post is hidden, so the icons may fail to display on redirected posts.', 'wpil'); ?>
                                         <br />
                                         <br />
-                                        (<?php _e('This won\'t affect the inserted links or Suggestions, and it also won\'t change the links on the site itself. The "Ugly" permalinks will only be used for the Link Whisper "View" buttons in the Reports.', 'wpil'); ?>)</div>
+                                        (<?php _e('This won\'t affect the inserted links or Suggestions, and it also won\'t change the links on the site itself. The "Ugly" permalinks will only be used for the Link Whisper "View" buttons in the Reports.', 'wpil'); ?>)
                                     </div>
                                 </div>
                             </td>

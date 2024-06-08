@@ -40,6 +40,8 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				! empty( $_GET['cff-amp-form'] ) &&
 				get_option( 'CP_CALCULATEDFIELDSF_AMP', CP_CALCULATEDFIELDSF_AMP )
 			) {
+				error_reporting( E_ERROR|E_PARSE );
+
 				$atts       = $this->_params_to_attrs();
 				$page_title = ( ! empty( $atts['page_title'] ) ) ? $atts['page_title'] : '';
 				print '<!DOCTYPE html><html ' .
@@ -65,18 +67,6 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 					$wp_scripts->reset();
 				}
 				$message = $this->_main_obj->public_form( $atts );
-				// Patch for editor preview.
-				if ( empty( $_GET['cff-editor-preview'] ) ) {
-					$message = preg_replace( '/<form\s+/i', '<form target="_parent" ', $message, 1 );
-					$message = preg_replace(
-						'/<\/form>/i',
-						'</form><pre style="display:none !important;"><script>try{
-                        document.addEventListener("DOMContentLoaded",
-                        function(){fbuilderjQuery(document).one("showHideDepEvent", function(){window.parent.postMessage({sentinel: "amp",type:"embed-size",height: document.body.scrollHeight+25}, "*");});});}catch(err){console.log(err);}</script></pre>',
-						$message,
-						1
-					);
-				}
 				ob_start();
 				if ( ! empty( $wp_styles ) ) {
 					$wp_styles->do_items();
@@ -92,18 +82,6 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 				}
 				$message .= ob_get_contents();
 				ob_end_clean();
-
-				// Patch for editor preview.
-				if ( ! empty( $_GET['cff-editor-preview'] ) ) {
-					$message .= '<script type="text/javascript">
-					window.addEventListener("load",
-					function() {
-						var frameEl = window.frameElement;
-						if(frameEl && typeof fbuilderjQuery != "undefined")
-							frameEl.height = fbuilderjQuery("form").outerHeight(true) + 25;
-					}, false);
-					</script>';
-				}
 				print '</head>' .
 				'<body>' .
 				$message . // phpcs:ignore WordPress.Security.EscapeOutput
@@ -132,6 +110,8 @@ if ( ! class_exists( 'CPCFF_AMP' ) ) {
 			if ( empty( $_GET['non-amp'] ) ) {
 				if ( function_exists( 'ampforwp_is_amp_endpoint' ) ) {
 					return ampforwp_is_amp_endpoint();
+				} elseif( function_exists( 'amp_is_request' ) ) {
+					return amp_is_request();
 				} elseif ( function_exists( 'is_amp_endpoint' ) ) {
 					return is_amp_endpoint();
 				}
