@@ -14,6 +14,7 @@ function thumbpress_modules() {
             'desc'               => __( 'Delete and disable unnecessary thumbnails for all uploaded images in a flash.', 'image-sizes' ),
             'class'              => 'Disable_Thumbnails',
             'pro'                => false,
+            'url'                => esc_url( 'https://thumbpress.co/modules/disable-thumbnails/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Disable+Thumbnails/' )
         ],
         'regenerate-thumbnails'  => [
             'id'                 => 'regenerate-thumbnails',
@@ -21,12 +22,14 @@ function thumbpress_modules() {
             'desc'               => __( 'Regenerate previously deleted thumbnails anytime, no matter the size.', 'image-sizes' ),
             'class'              => 'Regenerate_Thumbnails',
             'pro'                => false,
+            'url'                => esc_url( 'https://thumbpress.co/modules/regenerate-thumbnails/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Regenerate+Thumbnails/' )
         ],
         'detect-unused-image'    => [
             'id'                 => 'detect-unused-image',
             'title'              => __( 'Detect Unused Images', 'image-sizes' ),
             'desc'               => __( 'Find unused images & delete them from your website anytime with just one click.', 'image-sizes' ),
             'class'              => 'Detect_Unused_Image',
+            'url'                => esc_url( 'https://thumbpress.co/modules/detect-unused-images/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Detect+Unused+Images/' ),
             'pro'                => true,
         ],
         'image-max-size'            => [
@@ -34,6 +37,7 @@ function thumbpress_modules() {
             'title'                 => __( 'Image Upload Limit', 'image-sizes' ),
             'desc'                  => __( 'Set a limit for maximum image upload size and resolution to speed up your website.', 'image-sizes' ),
             'class'                 => 'Image_Max_Size',
+            'url'                   => esc_url( 'https://thumbpress.co/modules/image-upload-limit/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Image+Upload+Limit/' ),
             'pro'                   => false,
         ],
         'detect-large-image'     => [
@@ -41,6 +45,7 @@ function thumbpress_modules() {
             'title'              => __( 'Detect Large Images', 'image-sizes' ),
             'desc'               => __( 'Identify and compress or delete large images to free up your website server space.', 'image-sizes' ),
             'class'              => 'Detect_Large_Image',
+            'url'                => esc_url( 'https://thumbpress.co/modules/detect-large-images/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Detect+Large+Images/' ),
             'pro'                => true,
         ],
         'image-optimizer'        => [
@@ -48,6 +53,7 @@ function thumbpress_modules() {
             'title'              => __( 'Compress Images', 'image-sizes' ),
             'desc'               => __( 'Compress your images to reduce image size, save server space, and boost page speed.', 'image-sizes' ),
             'class'              => 'Image_Optimizer',
+            'url'                => esc_url( 'https://thumbpress.co/modules/compress-images/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Compress+Images/' ),
             'pro'                => true,
         ],
         'image-download-disable' => [
@@ -55,6 +61,7 @@ function thumbpress_modules() {
             'title'              => __( 'Disable Right Click on Image', 'image-sizes' ),
             'desc'               => __( 'Prevent visitors from downloading your images by turning off the right-click option on your website.', 'image-sizes' ),
             'class'              => 'Image_Download_Disable',
+            'url'                => esc_url( 'https://thumbpress.co/modules/disable-right-click/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Disable+Right+Click+/' ),
             'pro'                => false,
         ],
         'image-replace'          => [
@@ -62,6 +69,7 @@ function thumbpress_modules() {
             'title'              => __( 'Replace Images With New Version', 'thumbpress' ),
             'desc'               => __( 'Upload new versions of images and replace the old ones without any issues.', 'codesigner' ),
             'class'              => 'Image_Replace',
+            'url'                => esc_url( 'https://thumbpress.co/modules/replace-image-with-new-version/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Replace+Images+/' ),
             'pro'                => true,
         ],
         'social-share'           => [
@@ -69,6 +77,7 @@ function thumbpress_modules() {
             'title'              => __( 'Social Media Thumbnails', 'image-sizes' ),
             'desc'               => __( 'Enjoy the freedom of setting separate thumbnails for different social media channels.', 'image-sizes' ),
             'class'              => 'Social_Share',
+            'url'                => esc_url( 'https://thumbpress.co/modules/set-social-media-thumbnails/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Social+Media+Thumbnails/' ),
             'pro'                => false,
         ], 
         'image-editor'           => [
@@ -76,6 +85,7 @@ function thumbpress_modules() {
             'title'              => __( 'Image Editor', 'image-sizes' ),
             'desc'               => __( 'Enhance images with filters and adjustments to showcase their best versions.', 'image-sizes' ),
             'class'              => 'Image_Editor',
+            'url'                => esc_url( 'https://thumbpress.co/modules/image-editor/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Image+Editor/' ),
             'pro'                => true,
         ],		               
         'convert-images'         => [
@@ -83,6 +93,7 @@ function thumbpress_modules() {
             'title'              => __( 'Convert Images to WebP', 'image-sizes' ),
             'desc'               => __( 'Convert images to WebP format to retain image quality without needing to compress.', 'image-sizes' ),
             'class'              => 'Convert_Images',
+            'url'                => esc_url( 'https://thumbpress.co/modules/convert-images-to-webp/?utm_source=in-plugin&utm_medium=Modules+Page+&utm_campaign=Convert+Images+to+WebP/' ),
             'pro'                => false,
         ],               
     ];

@@ -280,6 +280,8 @@ class Plugin {
 		) # @plugins
 		->call();
 
+		$user_consent = Libs\Framework\Classes\Utils::instance()->get_settings('ekit_user_consent_for_banner', 'yes') == 'yes';
+
 		/**
 		 * EmailKit Global Class initialization
 		 *
@@ -287,9 +289,29 @@ class Plugin {
 		if (
 			!did_action('edit_with_emailkit_loaded')
 			&& class_exists('\Wpmet\Libs\Emailkit')
-			&& Libs\Framework\Classes\Utils::instance()->get_settings('ekit_user_consent_for_banner', 'yes') == 'yes'
+			&& $user_consent
 		) {
 			new \Wpmet\Libs\Emailkit();
+		}
+
+		/**
+		 * Initializes the Template Library of the Gutenkit plugin
+		 * 
+		 * This code block checks if certain conditions are met and then initializes the Template Library of the Gutenkit plugin.
+		 * 
+		 * Conditions:
+		 * - The action 'edit_with_gutenkit_loaded' has not been performed yet.
+		 * - The class '\ElementsKit_Lite\Libs\Template_Library\Init' exists.
+		 * - The setting 'ekit_user_consent_for_banner' in the Utils class is set to 'yes'.
+		 * - The plugin 'gutenkit-blocks-addon' is not active or install.
+		 * 
+		 * If any of the above conditions are met, the Template Library is initialized by creating a new instance of 
+		 * the class '\ElementsKit_Lite\Libs\Template_Library\Init'.
+		 * 
+		 * @since 3.1.4
+		 */
+		if ($user_consent && class_exists('\ElementsKit_Lite\Libs\Template_Library\Init') && !did_action('gutenkit/init')) {
+			new \ElementsKit_Lite\Libs\Template_Library\Init();
 		}
 	}
 

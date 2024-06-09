@@ -9198,11 +9198,15 @@ msgstr ""
 msgid "Add your own custom JS here"
 msgstr ""
 
-#: ../includes/Extensions/Custom_JS.php:48
+#: ../includes/Extensions/Custom_JS.php:49
+msgid "<strong>Note:</strong> Only the Administrator can add/edit JavaScript code from here"
+msgstr ""
+
+#: ../includes/Extensions/Custom_JS.php:59
 msgid "You may use both jQuery selector e.g. $(‘.selector’) or Vanilla JS selector e.g. document.queryselector(‘.selector’)"
 msgstr ""
 
-#: ../includes/Extensions/Custom_JS.php:57
+#: ../includes/Extensions/Custom_JS.php:68
 msgid "For more information, <a href=\"https://essential-addons.com/elementor/docs/custom-js/\" target=\"_blank\">click here</a>"
 msgstr ""
 

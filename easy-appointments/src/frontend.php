@@ -706,23 +706,26 @@ class EAFrontend
 
         foreach ($rows as $row) {
             $name = esc_html($row->name);
-            $duration = (int) $row->duration;
-            $slot_step = (int) $row->slot_step;
-            $price_attr = !empty($row->price) ? " data-price='" . esc_attr($row->price) . "'" : '';
-            $price = esc_html($row->price);
+
+            // only in case of services
+            if ($type === 'services') {
+                $duration = (int)$row->duration;
+                $slot_step = (int)$row->slot_step;
+                $price_attr = !empty($row->price) ? " data-price='" . esc_attr($row->price) . "'" : '';
+                $price = esc_html($row->price);
+            }
 
             // case when we are hiding price
             if ($hide_price == '1') {
-
                 // for all other types
-                if ($type != 'services') {
+                if ($type !== 'services') {
                     echo "<option value='{$row->id}'>{$name}</option>";
                 } else if ($type == 'services') {
                     // for service
                     echo "<option data-duration='{$duration}' data-slot_step='{$slot_step}' value='{$row->id}'>{$name}</option>";
                 }
 
-            } else if ($type == 'services') {
+            } else if ($type === 'services') {
                 $price = ($before == '1') ? $currency . $price : $row->price . $currency;
                 $name_price = $name . ' ' . $price;
 

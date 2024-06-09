@@ -14,5 +14,5 @@ defined( 'ABSPATH' ) || exit;
  */
 class Controls_Manager extends \Elementor\Controls_Manager {
     const IMAGECHOOSE = 'imagechoose';
-    const AJAXSELECT2 = 'ajaxselect2';
+    const AJAXSELECT2 = 'shopengine_ajaxselect2';
 }

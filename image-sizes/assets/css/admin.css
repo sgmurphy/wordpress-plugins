@@ -1116,7 +1116,7 @@ input:checked + .thumb-toggle-slider:before {
     color: #ffaa48;
     font-size: 20px;
     right: 5px;
-    top: 3px;
+    top: -1px;
 }
 .cx-section .cx-toggle-switch {
     background: transparent;

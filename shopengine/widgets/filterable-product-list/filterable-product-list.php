@@ -60,7 +60,7 @@ class ShopEngine_Filterable_Product_List extends \ShopEngine\Base\Widget {
             [
                 'label' => esc_html__('Order', 'shopengine'),
                 'type' => Controls_Manager::SELECT,
-                'default'   => esc_html('DESC', 'shopengine'),
+                'default'   => esc_html__('DESC', 'shopengine'),
                 'options'   => [
                     'ASC'       => esc_html__('ASC', 'shopengine'),
                     'DESC'      => esc_html__('DESC', 'shopengine'),
@@ -73,7 +73,7 @@ class ShopEngine_Filterable_Product_List extends \ShopEngine\Base\Widget {
             [
                 'label' => esc_html__('Order By', 'shopengine'),
                 'type' => Controls_Manager::SELECT,
-                'default'   => esc_html('date', 'shopengine'),
+                'default'   => esc_html__('date', 'shopengine'),
                 'options'   => [
                     'ID'       => esc_html__('ID', 'shopengine'),
                     'title'     => esc_html__('Title', 'shopengine'),
@@ -101,7 +101,7 @@ class ShopEngine_Filterable_Product_List extends \ShopEngine\Base\Widget {
 				'label' =>esc_html__( 'Select Products', 'shopengine' ),
                 'label_block' => true,
 				'type' => ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'   =>'ajaxselect2/product_list',
+				'options'   =>'shopengine_ajaxselect2/product_list',
                 'multiple' => true
 			]
         );

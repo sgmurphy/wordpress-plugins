@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -526,6 +526,13 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+
+= Version 2.5.5 - Date: 2024-06-09 =
+* Added: Progress bar border radius option in Audio Player Widget.
+* Added: Volume bar border radius option in Audio Player Widget.
+* Fixed: settings_api deprecated issue.
+* Fixed: A few minor issues.
+
 = Version 2.5.4 - Date: 2024-05-29 =
 * Added: Audio Player Widget.
 * Added: Rating Inner spacing and font size options in Testimonial Widget.
@@ -1153,107 +1160,6 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 * Update: Timeline style option
 * Added:  Layout Five
 
-= Version: 1.7.3 - Date: 2022-01-16 =
-
-<strong>Progress Bar</strong>
-
-* Fixed: Circle layout inner border issue.
-* Update: Progress indicator global to repeater items.
-
-<strong>Scroll Image</strong>
-
-* Added: Custom link option for image.
-* Added: Insert a Badge.
-* Added: Scroll Image speed time.
-* Added: Some style for badge.
-
-<strong>Scroll Navigation</strong>
-
-* Added: Title Field name.
-
-<strong>MailChimp for WP</strong>
-
-* Added: Button Width option
-* Added: Button Position for Style layout Four.
-
-<strong>Accordion</strong>
-
-* Added: Accordion text Alignment change options.
-* Added: Icon Box Height And Margin Options
-* Remove: Icon Line Height and set auto control Icon Line Height
-* Update: CSS Issue Fixed
-
-<strong>Section Title</strong>
-
-* Added: Title Image position change options
-* Added: Section title font Stroke Color and Size
-* Added: Section advance title font Stroke Color and Size
-
-<strong>Double Button</strong>
-
-* Update: CSS Issue Fixed
-* Added: Button Icon Position Controller
-* Added: Middle Text Box size Controller Option
-
-<strong>Brand Logo</strong>
-
-* Update: CSS Issue Fixed
-* Added: Brand Logo background hover color and Image
-* Added: Logo Hover transition time controller
-* Added: Logo Box Shadow
-
-<strong>Counter</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: Alignment Style.
-* Improve: CSS Style.
-* Added: Counter Box & Counter Number Alignment Option.
-
-<strong>Gallery Justify</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Added: Box Shadow, Border Radius & Border Option.
-* Update: CSS Style.
-
-<strong>Image Grid</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: CSS Style.
-* Added: Image Grid Column Spacing Option.
-
-<strong>Image Masonry</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: CSS Style.
-* Added: Image Masonry Box style Option.
-
-<strong>Image Magnifier</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: Image Magnifier Style.
-
-<strong>Slider Thumbnail Gallery</strong>
-
-* Update: Pagination style option
-* Update: Arrow style option
-* Update: Thumbnail style option
-* Added:  Sub title option
-
-<strong>Popover</strong>
-
-* Fixed: Responsive issues
-* Update: Content style option
-
-<strong>Flip Box</strong>
-
-* Fixed: Alignment issues
-* Fixed: SVG icon issues
-* Update: Content style option
-* Added: Two new layout
-
-<strong>Instagram</strong>
-
-* Added: Switcher option to open Instagram image link in new tab
 
 
 == Installation ==

@@ -4,7 +4,7 @@ Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Te
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 4.7.0
+Stable tag: 4.7.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -226,6 +226,10 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 == Changelog ==
 
+= 4.7.1 - 09/06/2024 =
+- Fixed: Editor JavaScript error in WordPress 6.4 or lower
+- Fixed: Essential Blocks Admin Dashboard page not loading correctly
+
 = 4.7.0 - 05/06/2024 =
 - Added: Global Typography Control
 - Added: Theme font support in Essential Blocks Typography Picker
@@ -234,11 +238,6 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 - Fixed: Google font weight issue
 - Fixed: Global Font reset not working
 - Improved: Security enhancement
-- Minor bug fixes & improvements
-
-= 4.6.1 - 23/05/2024 =
-- Fixed: Error: EBDisplayIcon is not defined
-- Fixed: ReferenceError: ShapeDividerContent is not defined
 - Minor bug fixes & improvements
 
 [See changelog for all versions](https://essential-blocks.com/changelog).

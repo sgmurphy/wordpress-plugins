@@ -7,7 +7,7 @@ Donate link: https://paypal.me/designextreme
 Tags: google reviews, google rating, google my business, gmb reviews, structured data
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 5.3
+Stable tag: 5.4
 Requires PHP: 5.2.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -244,8 +244,14 @@ There’s a comprehensive list in the Shortcodes section in Dashboard→Settings
 
 == Changelog ==
 
+= 5.4 =
+
+* Fixed color replacement for 90% star (Thanks to @kennypurnomo)
+* Added sticky table headers throughout plugin’s settings
+
 = 5.3 =
 
+* Added file selection support for WEBP images
 * Removed support for uploading unsanitized SVG (Thanks to Tiffany Tyson, Wordfence)
 
 = 5.2 =

@@ -3,12 +3,14 @@
 namespace BitApps\FM\Views;
 
 use BitApps\FM\Config;
-use BitApps\WPKit\Hooks\Hooks;
-use BitApps\WPKit\Utils\Capabilities;
 
 use function BitApps\FM\Functions\view;
 
 use BitApps\FM\Plugin;
+
+use BitApps\WPKit\Hooks\Hooks;
+
+use BitApps\WPKit\Utils\Capabilities;
 
 /**
  * The admin Layout and page handler class.
@@ -19,12 +21,11 @@ class Admin
 
     public function __construct()
     {
-        Hooks::addAction('in_admin_header', [$this, 'removeAdminNotices']);
+        // Hooks::addAction('in_admin_header', [$this, 'removeAdminNotices']);
         Hooks::addAction('admin_menu', [$this, 'sideBarMenuItem']);
         Hooks::addAction('admin_notices', [$this, 'adminNotice']);
         Hooks::addFilter(Config::withPrefix('localized_script'), [$this, 'filterConfigVariable']);
         Hooks::addFilter('script_loader_tag', [$this, 'filterScriptTag'], 0, 3);
-
 
         /*
          * // For testing --
@@ -74,7 +75,7 @@ class Admin
     public function removeAdminNotices()
     {
         // phpcs:disable
-        global $plugin_page;
+        global $plugin_page, $wp_filter;
         if (empty($plugin_page) || strpos($plugin_page, Config::SLUG) === false) {
             return;
         }
@@ -119,6 +120,7 @@ class Admin
 
         wp_enqueue_style('bfm-jquery-ui-css');
         if (\in_array($preferences->getTheme(), ['default', 'bootstrap'])) {
+            wp_enqueue_style(Config::SLUG . 'elfinder-css');
             wp_enqueue_style(Config::SLUG . 'theme-css');
         }
 
@@ -197,7 +199,7 @@ class Admin
                 <b>DISALLOW_FILE_EDIT</b> <?php esc_html_e('is set to', 'file-manager'); ?>
                 <b>TRUE</b>.
                 <?php esc_html_e('You will not be able to edit files with', 'file-manager'); ?>
-                 <a href='admin.php?page=file-manager-settings'>Bit File Manager</a>.
+                 <a href='admin.php?page=file-manager#/settings'>Bit File Manager</a>.
                 <?php esc_html_e('Please set', 'file-manager'); ?>
                 <b>DISALLOW_FILE_EDIT</b> <?php esc_html_e('to', 'file-manager'); ?>
                 <b>FALSE</b>

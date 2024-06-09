@@ -3,7 +3,7 @@ Contributors: xpeedstudio, ataurr, emranio
 Tags: Form builder, contact form, Elementor contact form, contact form builder, Elementor forms builder, booking form builder, registration form builder, feedback form builder, drag and drop builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 3.8.8
+Stable tag: 3.8.9
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -225,6 +225,14 @@ Check out [Tutorials, Tips & Tricks](https://wpmet.com/blog)! 👌
 
 
 == Changelog ==
+
+Version: 3.8.9 // 2024-06-09
+Improved: Notify to admin on form submission feature.
+Improved: File uploading security.
+Fixed: Form required field auto scrolling issue.
+Fixed: .stl file type uploading not working.
+Fixed: Calculation widget is not working if toggle select widget has same value.
+Fixed: Translation issue.
 
 Version: 3.8.8 // 2024-05-13
 Improved: Dashboard user experience.

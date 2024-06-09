@@ -186,7 +186,7 @@ class Deactivator {
 		    'email'     	=> $user->user_email,
 		    'plugin'     	=> sanitize_text_field( $_POST['plugin'] ),
 		    'site_url'     	=> site_url( '/' ),
-		    'delay'     	=> date_i18n( 'U' ) - (int) get_option( 'codesigner_install_time' ),
+		    'delay'     	=> date_i18n( 'U' ) - (int) get_option( "{$this->slug}_install_time" ),
 		    'reason'     	=> serialize( $_POST['reason'] ),
 		    'explanation'	=> sanitize_textarea_field( $_POST['explanation'] ),
 		], wp_unslash( $this->server ) );

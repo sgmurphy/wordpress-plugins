@@ -1,8 +1,8 @@
 <?php /*
 Plugin Name: Cryout Serious Slider
 Plugin URI: https://www.cryoutcreations.eu/wordpress-plugins/cryout-serious-slider
-Description: A highly efficient SEO friendly fully translatable accessibility ready free image slider for WordPress. Seriously!
-Version: 1.2.4
+Description: A free highly efficient SEO friendly fully translatable accessibility ready image slider for WordPress. Seriously!
+Version: 1.2.5
 Author: Cryout Creations
 Author URI: https://www.cryoutcreations.eu
 Text Domain: cryout-serious-slider
@@ -15,7 +15,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 class Cryout_Serious_Slider {
 
-	public $version = "1.2.4";
+	public $version = "1.2.5";
 	public $options = array();
 	public $shortcode_tag = 'serious-slider';
 	public $mce_tag = 'serious_slider';
@@ -24,12 +24,13 @@ class Cryout_Serious_Slider {
 	public $posttype = 'cryout_serious_slide';  // 20 chars max!
 	public $taxonomy = 'cryout_serious_slider_category';
 
-	private $butts = 2;
+	private $butts = 4;
 	private $title = '';
 	private $thepage = '';
 	private $aboutpage = '';
 	private $addnewpage = '';
 	private $plugin_dir = '';
+	private $justsampled = false;
 
 	public $defaults = array(
 		'cryout_serious_slider_sort' => 'date', 		// date, order
@@ -125,8 +126,8 @@ class Cryout_Serious_Slider {
 	public function register(){
 
 		$this->title = __( 'Serious Slider', 'cryout-serious-slider' );
-		$this->aboutpage = 'edit.php?post_type=' . $this->posttype . '&page=' . $this->slug . '-about';
-		$this->addnewpage = 'post-new.php?post_type=' . $this->posttype;
+		$this->aboutpage = admin_url( 'edit.php?post_type=' . $this->posttype . '&page=' . $this->slug . '-about' );
+		$this->addnewpage = admin_url( 'post-new.php?post_type=' . $this->posttype );
 		
 		// slider buttons filter support
 		$this->butts = apply_filters( 'cryout_serious_slider_buttoncount', $this->butts );
@@ -238,8 +239,17 @@ class Cryout_Serious_Slider {
 
 	// about page callback
 	public function plugin_page() {
-		if (!empty($_GET['add_sample_content'])&&current_user_can('edit_others_posts'))
-			include_once( $this->plugin_dir . 'demo/demo-content.php' );
+		if (current_user_can('edit_others_posts')) {
+			if ( !empty( $_GET['add_sample_content'] ) && check_admin_referer( 'sampleslider' ) ) {
+				// skip creation if slider already exists
+				if ( function_exists( 'term_exists' ) ) $sample_slider_id = term_exists('Sample Slider'); // wp 6.0+
+												   else $sample_slider_id = is_term('Sample Slider'); // backwards compat
+				if ( empty( $sample_slider_id ) ) {
+					$this->justsampled = true;
+					include_once( $this->plugin_dir . 'demo/demo-content.php' );
+				}
+			}
+		}
 		require_once( $this->plugin_dir . 'inc/about.php' );
 	} // plugin_page()
 
@@ -714,12 +724,12 @@ class Cryout_Serious_Slider {
 	function metabox_main() {
 	    global $post;
 		$values = get_post_custom( $post->ID );
-		$text = isset( $values['cryout_serious_slider_link'] ) ? $values['cryout_serious_slider_link'][0] : '';
+		$text = isset( $values['cryout_serious_slider_link'] ) ? esc_url_raw( $values['cryout_serious_slider_link'][0] ) : '';
 		$check = isset( $values['cryout_serious_slider_target'] ) ? esc_attr( $values['cryout_serious_slider_target'][0] ) : '';
 
 		for ($i=1;$i<=$this->butts;$i++) {
 			${'button'.$i} = isset( $values['cryout_serious_slider_button'.$i] ) ? esc_attr( $values['cryout_serious_slider_button'.$i][0] ) : '';
-			${'button'.$i.'_url'} = isset( $values['cryout_serious_slider_button'.$i.'_url'] ) ? esc_attr( $values['cryout_serious_slider_button'.$i.'_url'][0] ) : '';
+			${'button'.$i.'_url'} = isset( $values['cryout_serious_slider_button'.$i.'_url'] ) ? esc_url_raw( $values['cryout_serious_slider_button'.$i.'_url'][0] ) : '';
 			${'button'.$i.'_target'} = isset( $values['cryout_serious_slider_button'.$i.'_target'] ) ? esc_attr( $values['cryout_serious_slider_button'.$i.'_target'][0] ) : '';
 		}
 
@@ -782,7 +792,7 @@ class Cryout_Serious_Slider {
 			$cat_keys = array_keys( $_POST['term_meta'] );
 			foreach ( $cat_keys as $key ) {
 				if ( isset ( $_POST['term_meta'][$key] ) ) {
-					$term_meta[$key] = sanitize_text_field($_POST['term_meta'][$key]);
+					$term_meta[$key] = sanitize_key($_POST['term_meta'][$key]);
 				}
 			}
 			// Save the option array.

@@ -25,8 +25,6 @@ $i18n_strings = array(
 
     'Path' => __('Path', 'file-manager'),
 
-    'Folder Path Must be within WordPress root directory' => __('Folder Path Must be within WordPress root directory', 'file-manager'),
-
     'Enabled Commands' => __('Enabled Commands', 'file-manager'),
 
     'Permissions by User' => __('Permissions by User', 'file-manager'),

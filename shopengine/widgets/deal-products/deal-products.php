@@ -45,7 +45,7 @@ class ShopEngine_Deal_Products extends \ShopEngine\Base\Widget {
 		[
 			 'label'=> esc_html__('Order By', 'shopengine'),
 			 'type' => Controls_Manager::SELECT,
-			 'default' => esc_html( 'date', 'shopengine' ),
+			 'default' => esc_html__( 'date', 'shopengine' ),
 			 'options' => [
 				  'ID'     => esc_html__('ID', 'shopengine'),
 				  'title'  => esc_html__('Title', 'shopengine'),

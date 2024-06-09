@@ -1,5 +1,5 @@
 <div class="wslu-onboard-main-header">
-    <h1 class="wslu-onboard-main-header--title"><?php echo wp_kses(__('Exclusive <strong>40% Discount</strong> Only for <br/> Next <strong>2 Hours</strong> - Grab It Now', 'wp-social'), \WP_Social\Helper\Helper::get_kses_array()); ?></h1>
+    <h1 class="wslu-onboard-main-header--title"><?php echo wp_kses(__('Exclusive <strong>20% Discount</strong> Only for <br/> Next <strong>2 Hours</strong> - Grab It Now', 'wp-social'), \WP_Social\Helper\Helper::get_kses_array()); ?></h1>
 </div>
 <div class="wslu-onboard-pro-features">
     <h2><?php echo esc_html__('WP Social', 'wp-social'); ?> <span><?php echo esc_html__('PRO', 'wp-social'); ?></span></h2>

@@ -66,6 +66,11 @@ $active_modules = get_option( 'thumbpress_modules', [] );
                         </div>
                     </div>
                     <p class="thumb-module-desc"><?php echo $module['desc']; ?></p>
+                    <div class="tp-button-details">
+                        <a class="tp-button-details" href="<?php echo esc_url( $module['url'] ); ?>" target="_blank">
+                            <?php esc_html_e( 'View Details', 'image-sizes' ); ?>
+                        </a>
+                    </div>
                 </div>
                 
             </div>

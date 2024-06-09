@@ -27,7 +27,7 @@ use Codexpert\ThumbPress\Helper;
 
 	        if ( $thumbpress_modules == 'on' ) {
 	            ?>
-	            <a href="<?php echo get_site_url() . '/wp-admin/admin.php?page=thumbpress-modules#prevent_image_sizes' ; ?>" class="prevent_image_sizes-back button-hero">&#10550; <?php _e( 'Go to Disable Thumbnails Settings','image-sizes' ) ?></a>
+	            <a href="<?php echo get_site_url() . '/wp-admin/admin.php?page=thumbpress#prevent_image_sizes' ; ?>" class="prevent_image_sizes-back button-hero">&#10550; <?php _e( 'Go to Disable Thumbnails Settings','image-sizes' ) ?></a>
 	            <?php 
 	        }
 		?>

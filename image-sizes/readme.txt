@@ -1,11 +1,11 @@
-=== ThumbPress - Disable Thumbnails, Regenerate Thumbnails, Optimize Images, Convert to WebP, Compress Images, Image Editor & More ===
+=== ThumbPress - Disable Thumbnails, Regenerate Thumbnails, Optimize Images, Convert to WebP, Disable Right Click, Compress Images, Image Editor & More ===
 Contributors: pluggable, codexpert, thumbpressco, mukto90
 Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&utm_campaign=image-sizes
 Tags: compress images, disable thumbnails, image editor, optimize images, regenerate thumbnails
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 5.2.4
-Requires PHP: 7.4
+Stable tag: 5.3
+Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,11 @@ Yes, you can. ThumbPress lets you replace images and thumbnails with new version
 Please post on our support forum here https://wordpress.org/support/plugin/image-sizes/
 
 == Changelog ==
+
+= 2024-05-31 – v5.3 =
+- [fix] fixed disable thumbnails drag-n-drop not working issue
+- [fix] fixed module interconnecting links not working issue
+- [imp] moved overview page contents to advanced features page
 
 = 2024-05-31 – v5.2.4 =
 - [imp] Removed unnecessary `wporg-assets` folder

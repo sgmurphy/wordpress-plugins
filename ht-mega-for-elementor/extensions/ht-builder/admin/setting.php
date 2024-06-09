@@ -3,7 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
 class HTMegaBuilder_Admin_Settings {
-
+    private $settings_api;
     function __construct() {
 
         $this->settings_api = new HTMega_Settings_API();

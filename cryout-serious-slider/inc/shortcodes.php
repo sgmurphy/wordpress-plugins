@@ -53,7 +53,7 @@ class Cryout_Serious_Slider_Shortcode {
 
 		global $cryout_serious_slider;
 
-		// exit silently if slider is is not defined
+		// exit silently if slider is not defined
 		if ( empty($attr['id'])) { return; }
 
 		$options = apply_filters('cryout_serious_slider_shortcode_attributes', $this->shortcode_options( $attr['id'] ), $attr, $attr['id']);
@@ -128,9 +128,9 @@ class Cryout_Serious_Slider_Shortcode {
 			.serious-slider-<?php echo $cid ?> .seriousslider-caption-inside { max-width: <?php echo intval($caption_width) ?>px;  font-size: <?php echo round($textsize,2) ?>em; }
 
 			.serious-slider-<?php echo $cid ?> .seriousslider-inner > .item {
-				-webkit-transition-duration: <?php echo round($transition/1000,2) ?>s;
-				-o-transition-duration: <?php echo round($transition/1000,2) ?>s;
-				transition-duration: <?php echo round($transition/1000,2) ?>s; }
+				-webkit-transition-duration: <?php echo round(intval($transition)/1000,2) ?>s;
+				-o-transition-duration: <?php echo round(intval($transition)/1000,2) ?>s;
+				transition-duration: <?php echo round(intval($transition)/1000,2) ?>s; }
 
 			.seriousslider-textstyle-bgcolor .seriousslider-caption-title span {
 				background-color: rgba( <?php echo $this->sanitizer->hex2rgb( $accent ); ?>, 0.6);
@@ -265,9 +265,9 @@ class Cryout_Serious_Slider_Shortcode {
 
 
 			jQuery('#serious-slider-<?php echo $cid ?>').carousel({
-				interval: <?php if ($autoplay) echo $delay; else echo 'false'; ?>,
-				pause: '<?php echo $hover ?>',
-				stransition: <?php echo $transition ?>
+				interval: <?php if ($autoplay) echo intval($delay); else echo 'false'; ?>,
+				pause: '<?php echo intval($hover) ?>',
+				stransition: <?php echo intval($transition) ?>
 			});
 
 		});

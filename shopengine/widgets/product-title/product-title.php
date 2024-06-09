@@ -42,6 +42,7 @@ class ShopEngine_Product_Title extends \ShopEngine\Base\Widget
 					'p'    => 'P',
 				],
 				'default'   => 'h1',
+				'prefix_class'     => 'shopengine_product_title_',
 				'selectors' => [
 					'{{WRAPPER}} .product-title' => 'margin: 0; padding: 0;',
 				],
@@ -138,7 +139,7 @@ class ShopEngine_Product_Title extends \ShopEngine\Base\Widget
 		shopengine_content_render(
 			sprintf(
 				'<div class="shopengine-product-title"><%1$s class="product-title">%2$s</%1$s></div>',
-				$settings['shopengine_product_title_header_size'],
+				isset( $settings['shopengine_product_title_header_size'] ) ? $settings['shopengine_product_title_header_size'] : 'h1',
 				get_the_title($product->get_id())
 			)
 		);

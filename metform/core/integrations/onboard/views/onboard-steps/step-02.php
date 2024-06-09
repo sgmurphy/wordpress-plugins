@@ -8,7 +8,7 @@
             <label for="signup"><i class="icon xs-onboard-mail"></i></label>
             <input name="settings[newsletter_email]" id="signup" type="email" placeholder="Enter your email address">
         </div>
-        <p class="mf-onboard-signup--helptext"><?php echo esc_html__('Submit Your Best Email.', 'metform'); ?> <span><?php echo esc_html('(We Never Spam)', 'metform'); ?></span></p>
+        <p class="mf-onboard-signup--helptext"><?php echo esc_html__('Submit Your Best Email.', 'metform'); ?> <span><?php echo esc_html__('(We Never Spam)', 'metform'); ?></span></p>
     </div>
 
 

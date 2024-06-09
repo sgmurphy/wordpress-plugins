@@ -4,12 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e
+class ComposerStaticInit3f0705ee3d6d07352f83ee9ad3f2c545
 {
     public static $prefixLengthsPsr4 = array (
         'B' => 
         array (
             'BitApps\\WPValidator\\' => 20,
+            'BitApps\\WPTelemetry\\' => 20,
             'BitApps\\WPKit\\' => 14,
             'BitApps\\WPDatabase\\' => 19,
             'BitApps\\FM\\' => 11,
@@ -24,6 +25,10 @@ class ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e
         'BitApps\\WPValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/bitapps/wp-validator/src',
+        ),
+        'BitApps\\WPTelemetry\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bitapps/wp-telemetry/src',
         ),
         'BitApps\\WPKit\\' => 
         array (
@@ -123,6 +128,11 @@ class ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e
         'BitApps\\WPKit\\Shortcode\\Shortcode' => __DIR__ . '/..' . '/bitapps/wp-kit/src/Shortcode/Shortcode.php',
         'BitApps\\WPKit\\Shortcode\\ShortcodeWrapper' => __DIR__ . '/..' . '/bitapps/wp-kit/src/Shortcode/ShortcodeWrapper.php',
         'BitApps\\WPKit\\Utils\\Capabilities' => __DIR__ . '/..' . '/bitapps/wp-kit/src/Utils/Capabilities.php',
+        'BitApps\\WPTelemetry\\Telemetry\\Feedback\\Feedback' => __DIR__ . '/..' . '/bitapps/wp-telemetry/src/Telemetry/Feedback/Feedback.php',
+        'BitApps\\WPTelemetry\\Telemetry\\Report\\Report' => __DIR__ . '/..' . '/bitapps/wp-telemetry/src/Telemetry/Report/Report.php',
+        'BitApps\\WPTelemetry\\Telemetry\\Report\\ReportInfo' => __DIR__ . '/..' . '/bitapps/wp-telemetry/src/Telemetry/Report/ReportInfo.php',
+        'BitApps\\WPTelemetry\\Telemetry\\Telemetry' => __DIR__ . '/..' . '/bitapps/wp-telemetry/src/Telemetry/Telemetry.php',
+        'BitApps\\WPTelemetry\\Telemetry\\TelemetryConfig' => __DIR__ . '/..' . '/bitapps/wp-telemetry/src/Telemetry/TelemetryConfig.php',
         'BitApps\\WPValidator\\ErrorBag' => __DIR__ . '/..' . '/bitapps/wp-validator/src/ErrorBag.php',
         'BitApps\\WPValidator\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/bitapps/wp-validator/src/Exception/InvalidArgumentException.php',
         'BitApps\\WPValidator\\Exception\\MethodNotFoundException' => __DIR__ . '/..' . '/bitapps/wp-validator/src/Exception/MethodNotFoundException.php',
@@ -164,9 +174,9 @@ class ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbc6786d309f362cf590e4a2b50baf02e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3f0705ee3d6d07352f83ee9ad3f2c545::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3f0705ee3d6d07352f83ee9ad3f2c545::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3f0705ee3d6d07352f83ee9ad3f2c545::$classMap;
 
         }, null, ClassLoader::class);
     }

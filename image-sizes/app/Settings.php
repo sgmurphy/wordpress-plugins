@@ -49,29 +49,6 @@ class Settings extends Base {
 			'icon'			=> 'dashicons-format-image',
 			'position'		=> 12,
 			'sections'      => [
-                'image-sizes_tools'	=> [
-                    'id'        => 'image-sizes_tools',
-					'label'     => __( 'Tools', 'image-sizes' ),
-					'icon'      => 'dashicons-hammer',
-                    'no_heading'=> true,
-                    'hide_form' => true,
-                    'template'  => THUMBPRESS_DIR . '/views/settings/dashboad.php',
-				],
-			],
-		];
-
-		new Settings_API( apply_filters( 'thumbpress-settings', $settings ) );
-		/**
-		 * Modules menu
-		 */
-		$modules_settings = [
-			'id'            => "thumbpress-modules",
-			'parent'        => 'thumbpress',
-			'label'         => __( 'Modules', 'image-sizes' ),
-			'title'         => __( 'Modules', 'image-sizes' ),
-			'header'        => __( 'Modules', 'image-sizes' ),
-			'icon'      	=> 'dashicons-image-filter',
-			'sections'      => [
 				'thumbpress_modules'	=> [
 					'id'        => 'thumbpress_modules',
 					'label'     => __( 'Modules', 'image-sizes' ),
@@ -93,16 +70,49 @@ class Settings extends Base {
 			],
 		];
 
-		new Settings_API( apply_filters( 'thumbpress-modules_settings_args', $modules_settings ) );
+		new Settings_API( apply_filters( 'thumbpress-modules_settings_args', $settings ) );
+		/**
+		 * Modules menu
+		 */
+		// $modules_settings = [
+		// 	'id'            => "thumbpress-modules",
+		// 	'parent'        => 'thumbpress',
+		// 	'label'         => __( 'Modules', 'image-sizes' ),
+		// 	'title'         => __( 'Modules', 'image-sizes' ),
+		// 	'header'        => __( 'Modules', 'image-sizes' ),
+		// 	'icon'      	=> 'dashicons-image-filter',
+		// 	'sections'      => [
+		// 		'thumbpress_modules'	=> [
+		// 			'id'        => 'thumbpress_modules',
+		// 			'label'     => __( 'Modules', 'image-sizes' ),
+		// 			'icon'      => 'dashicons-image-filter',
+		// 			'sticky'	=> false,
+		// 			'page_load'	=> true,
+		// 			'fields'	=> array_map( function( $_module ) {
+		// 				$module = [
+		// 					'id'	=> $_module['id'],
+		// 					'label'	=> $_module['title'],
+		// 					'desc'	=> $_module['desc'],
+		// 					'type'	=> 'switch'
+		// 				];
+
+		// 				return $module;
+		// 			}, thumbpress_modules() ),
+		// 			'template'  => THUMBPRESS_DIR . '/views/settings/dashboad.php',
+		// 		],           
+		// 	],
+		// ];
+
+		// new Settings_API( apply_filters( 'thumbpress-modules_settings_args', $modules_settings ) );
 
 		if( ! defined( 'THUMBPRESS_PRO' ) ) {
 
 			$upgrade_pro = [
 				'id'            => "upgrade-to-pro",
 				'parent'        => 'thumbpress',
-				'label'         => __( 'Pro Features', 'image-sizes' ),
-				'title'         => __( 'Pro Features', 'image-sizes' ),
-				'header'        => __( 'Pro Features', 'image-sizes' ),
+				'label'         => __( 'Advanced Features', 'image-sizes' ),
+				'title'         => __( 'Advanced Features', 'image-sizes' ),
+				'header'        => __( 'Advanced Features', 'image-sizes' ),
 				'priority'      => 100,
 				'sections'      => [
 					'upgrade-to-pro'=> [
@@ -124,8 +134,8 @@ class Settings extends Base {
 	public function admin_menu() {
 		add_submenu_page(
 			'thumbpress',
-			__( 'Overview', 'image-sizes' ),
-			__( 'Overview', 'image-sizes' ),
+			__( 'Modules', 'image-sizes' ),
+			__( 'Modules', 'image-sizes' ),
 			'manage_options',
 			'thumbpress',
 			function() {}

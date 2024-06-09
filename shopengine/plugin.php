@@ -106,7 +106,7 @@ final class Plugin {
 		 * EmailKit Global Class initialization
 		 *
 		 */
-		if( !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') ) {
+		if( !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') && \ShopEngine\Utils\Util::get_settings( 'shopengine_user_consent_for_banner', 'true' ) == 'true' ) {
 
 			new \Wpmet\Libs\Emailkit();
 		}

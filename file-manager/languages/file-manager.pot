@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-16T11:29:26+00:00\n"
+"POT-Creation-Date: 2024-06-09T16:07:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: file-manager\n"
@@ -21,11 +21,11 @@ msgid "Settings"
 msgstr ""
 
 #: app/Config.php:201
-#: app/Views/Admin.php:296
+#: app/Views/Admin.php:298
 msgid "Home"
 msgstr ""
 
-#: app/Http/Controllers/FileManagerController.php:86
+#: app/Http/Controllers/FileManagerController.php:85
 msgid "There is no readable volume. Please select an readable folder from settings"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Not Authorized to edit file"
 msgstr ""
 
-#: app/Providers/PermissionsProvider.php:136
+#: app/Providers/PermissionsProvider.php:139
 msgid "please check root folder for file manager, from file manager settings"
 msgstr ""
 
@@ -844,48 +844,48 @@ msgstr ""
 msgid "Zulu"
 msgstr ""
 
-#: app/Views/Admin.php:197
+#: app/Views/Admin.php:199
 msgid "is set to"
 msgstr ""
 
-#: app/Views/Admin.php:199
+#: app/Views/Admin.php:201
 msgid "You will not be able to edit files with"
 msgstr ""
 
-#: app/Views/Admin.php:201
+#: app/Views/Admin.php:203
 msgid "Please set"
 msgstr ""
 
-#: app/Views/Admin.php:202
+#: app/Views/Admin.php:204
 msgid "to"
 msgstr ""
 
-#: app/Views/Admin.php:284
-#: app/Views/Admin.php:295
+#: app/Views/Admin.php:286
+#: app/Views/Admin.php:297
 msgid "Dashboard | Bit File Manager"
 msgstr ""
 
-#: app/Views/Admin.php:285
+#: app/Views/Admin.php:287
 msgid "Bit File Manager"
 msgstr ""
 
-#: app/Views/Admin.php:305
+#: app/Views/Admin.php:307
 msgid "Logs | Bit File Manager"
 msgstr ""
 
-#: app/Views/Admin.php:313
+#: app/Views/Admin.php:315
 msgid "Settings | Bit File Manager"
 msgstr ""
 
-#: app/Views/Admin.php:321
+#: app/Views/Admin.php:323
 msgid "Permissions - Sets permission for specific user or by user role | Bit File Manager"
 msgstr ""
 
-#: app/Views/Admin.php:332
+#: app/Views/Admin.php:334
 msgid "Support | Bit File Manager"
 msgstr ""
 
-#: app/Views/Admin.php:343
+#: app/Views/Admin.php:345
 msgid "System Information | Bit File Manager"
 msgstr ""
 

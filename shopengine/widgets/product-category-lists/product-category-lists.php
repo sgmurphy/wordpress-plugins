@@ -47,7 +47,7 @@ class ShopEngine_Product_Category_Lists extends \ShopEngine\Base\Widget
 			[
 				'label' 		=> esc_html__('Select Category', 'shopengine'),
 				'type' 			=> ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'		=> 'ajaxselect2/product_cat',
+				'options'		=> 'shopengine_ajaxselect2/product_cat',
 				'multiple' 		=> true,
 				'label_block'	=> true,
 				'condition'     => [
@@ -125,7 +125,7 @@ class ShopEngine_Product_Category_Lists extends \ShopEngine\Base\Widget
 			[
 				'label'	=> esc_html__('Category', 'shopengine'),
 				'type' 	=> ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'		=> 'ajaxselect2/product_cat',
+				'options'		=> 'shopengine_ajaxselect2/product_cat',
 				'label_block' => true,
 			]
 		);

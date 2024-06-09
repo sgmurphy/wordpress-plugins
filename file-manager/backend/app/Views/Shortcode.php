@@ -26,10 +26,17 @@ class Shortcode
 
     public function filterConfigVariable($config)
     {
+        $options = Plugin::instance()->preferences()->finderOptions();
+        if (count($options['commands'])) {
+            $options['commands'][] = 'sort';
+            $options['commands'][] = 'fullscreen';
+            $options['commands'][] = 'view';
+        }
+
         return (array) $config + [
             'action'  => Config::withPrefix('connector_front'),
             'nonce'   => wp_create_nonce(Config::withPrefix('public_nonce')),
-            'options' => Plugin::instance()->preferences()->finderOptions(),
+            'options' => $options,
         ];
     }
 

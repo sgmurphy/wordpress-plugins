@@ -3,7 +3,7 @@ import { __ } from "@wordpress/i18n";
 import { applyFilters } from "@wordpress/hooks";
 import { useState, useEffect } from "@wordpress/element";
 import { PanelBody, Button, Popover, Dashicon, TabPanel } from "@wordpress/components";
-
+import { store as editorStore } from '@wordpress/editor';
 import { dispatch, useSelect, withSelect } from "@wordpress/data";
 import {
     BlockPreview,
@@ -493,10 +493,9 @@ function EBGlobalControls(props) {
 
     //Get Device type from "getDeviceType" Function
     const deviceType = useSelect((select) => {
-        if (select("core/editor").getDeviceType()) {
-            return select("core/editor").getDeviceType();
-        }
-        return "Desktop";
+        const { getDeviceType } = select(editorStore)
+        const { __experimentalGetPreviewDeviceType } = select("core/edit-post")
+        return getDeviceType ? getDeviceType() : __experimentalGetPreviewDeviceType ? __experimentalGetPreviewDeviceType() : "Desktop";
     });
 
     /**

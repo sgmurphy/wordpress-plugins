@@ -1,6 +1,6 @@
 jQuery(function ($) {
 	// drag and drop disable thumbnail sizes
-	if($('body').hasClass('thumbpress_page_thumbpress-modules')) {
+	if($('body').hasClass('toplevel_page_thumbpress')) {
 		init_draggable($(".draggable-item"));
 
 		$("#sortable2").sortable({

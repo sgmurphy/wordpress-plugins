@@ -94,7 +94,7 @@ function google_business_reviews_rating(e, i) {
 					jQuery('.all-stars', e).append('<span class="star gray temporary" style="display: none;">.</span>');
 				}
 				
-				if (typeof jQuery('.star.gray', e).css('color') == 'string' && !jQuery('.rating-stars', e).css('color').match(/^(?:#(?:F7B603|E7711B)|rgba?\s*\(23[12],\s*11[34],\s*2[78](?:,\s*1(?:\.0+)?)?\))$/i)) {
+				if (typeof jQuery('.star.gray', e).css('color') == 'string' && !jQuery('.rating-stars', e).css('color').match(/^(?:#(?:F7B\d0\d|E7711B)|rgba?\s*\(23[12],\s*11[34],\s*2[78](?:,\s*1(?:\.0+)?)?\))$/i)) {
 					jQuery(e).data('stars', jQuery('.rating-stars', e).css('color'));
 				}
 				
@@ -107,7 +107,7 @@ function google_business_reviews_rating(e, i) {
 				}
 			}
 
-			if (typeof jQuery(e).data('stars') == 'string' && jQuery(e).data('stars').length && !jQuery(e).data('stars').match(/^#(?:F7B603|E7711B)$/i) || typeof jQuery(e).data('stars-gray') == 'string' && jQuery(e).data('stars-gray').length && !jQuery(e).data('stars-gray').match(/^#(?:A4A4A4|C1C1C1|C9C9C9)$/i)) {
+			if (typeof jQuery(e).data('stars') == 'string' && jQuery(e).data('stars').length && !jQuery(e).data('stars').match(/^#(?:F7B\d0\d|E7711B)$/i) || typeof jQuery(e).data('stars-gray') == 'string' && jQuery(e).data('stars-gray').length && !jQuery(e).data('stars-gray').match(/^#(?:A4A4A4|C1C1C1|C9C9C9)$/i)) {
 				if (star_css && (typeof jQuery(e).data('stars-gray') != 'string' || typeof jQuery(e).data('stars-gray') == 'string' && jQuery(e).data('stars-gray') == 'css') && !jQuery('.star.gray', jQuery('.all-stars', e)).length) {
 					jQuery('.all-stars', e).append('<span class="temporary" style="display: none;">.</span>');
 				}
@@ -116,8 +116,8 @@ function google_business_reviews_rating(e, i) {
 					try {
 						star_image = atob(jQuery(this).css('background-image').replace(/^url\(["']data:image\/svg\+xml;charset=UTF-8;base64,(.+)["']\)$/, '$1'));
 						
-						if (typeof jQuery(e).data('stars') == 'string' && !jQuery(e).data('stars-gray').match(/^#(?:F7B603|E7711B)$/i)) {
-							star_image = star_image.replace(/#(?:F7B603|E7711B)/g, jQuery(e).data('stars'));
+						if (typeof jQuery(e).data('stars') == 'string' && !jQuery(e).data('stars-gray').match(/^#(?:F7B\d0\d|E7711B)$/i)) {
+							star_image = star_image.replace(/#(?:F7B\d0\d|E7711B)/g, jQuery(e).data('stars'));
 						}
 	
 						if (typeof jQuery(e).data('stars-gray') == 'string' && jQuery(e).data('stars-gray').length && !jQuery(e).data('stars-gray').match(/^#(?:A4A4A4|C1C1C1|C9C9C9)$/i)) {

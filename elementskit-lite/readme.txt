@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder,  header footer builder, elementor add
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.1.4
+Stable tag: 3.1.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -437,6 +437,14 @@ Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of W
 
 
 == Changelog ==
+ElementsKit Elementor Addons Version: 3.2.0 (2024-06-09)
+Improved: Enhanced security in dynamic content module
+Improved: Performance in dynamic content module
+Fixed: Missing string translation issue
+Fixed: Compatibility issue between team widget popup and elementor loop carousel
+Fixed: Template library button compatibility with container
+Fixed: Minor bugs & improvements
+
 ElementsKit Elementor Addons Version: 3.1.4 (2024-05-20)
 Improved: Social share widget `crawlable` for SEO
 Fixed: Page list widget 'nofollow' issue

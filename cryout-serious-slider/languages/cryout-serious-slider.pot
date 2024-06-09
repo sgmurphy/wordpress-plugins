@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cryout Serious Slider\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-03 21:07+0000\n"
+"POT-Creation-Date: 2024-06-09 18:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -19,25 +19,25 @@ msgstr ""
 msgid "&laquo; Manage Slides &raquo;"
 msgstr ""
 
-#: cryout-serious-slider.php:503
+#: cryout-serious-slider.php:520
 msgid "&larr; Back to Sliders"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
-"A highly efficient SEO friendly fully translatable accessibility ready free "
+"A free highly efficient SEO friendly fully translatable accessibility ready "
 "image slider for WordPress. Seriously!"
 msgstr ""
 
-#: cryout-serious-slider.php:229
+#: cryout-serious-slider.php:237
 msgid "About"
 msgstr ""
 
-#: cryout-serious-slider.php:241
+#: cryout-serious-slider.php:258
 msgid "About Plugin"
 msgstr ""
 
-#: inc/taxmeta.php:160
+#: inc/taxmeta.php:177
 msgid "Accent Color"
 msgstr ""
 
@@ -45,45 +45,45 @@ msgstr ""
 msgid "Adapt to images"
 msgstr ""
 
-#: cryout-serious-slider.php:455
+#: cryout-serious-slider.php:472
 msgctxt "add new on admin bar"
 msgid "Serious Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:457
+#: cryout-serious-slider.php:474
 msgid "Add New Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:498 inc/taxmeta.php:14
+#: cryout-serious-slider.php:515
 msgid "Add New Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:173 cryout-serious-slider.php:809
+#: cryout-serious-slider.php:175 cryout-serious-slider.php:826
 msgid "Add Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:454
+#: cryout-serious-slider.php:471
 msgctxt "admin menu"
 msgid "Serious Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:493
+#: cryout-serious-slider.php:510
 msgid "All Sliders"
 msgstr ""
 
-#: cryout-serious-slider.php:461
+#: cryout-serious-slider.php:478
 msgid "All Slides"
 msgstr ""
 
-#: inc/taxmeta.php:107
+#: inc/taxmeta.php:124
 msgid "Always hidden"
 msgstr ""
 
-#: inc/taxmeta.php:109
+#: inc/taxmeta.php:126
 msgid "Always visible"
 msgstr ""
 
-#: cryout-serious-slider.php:456
+#: cryout-serious-slider.php:473
 msgctxt "and new in menu"
 msgid "Add New Slide"
 msgstr ""
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Animation"
 msgstr ""
 
-#: inc/taxmeta.php:108
+#: inc/taxmeta.php:125
 msgid "Appear on hover"
 msgstr ""
 
@@ -100,23 +100,23 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: inc/taxmeta.php:175
+#: inc/taxmeta.php:192
 msgid "Autoplay"
 msgstr ""
 
-#: inc/taxmeta.php:150
+#: inc/taxmeta.php:167
 msgid "Background Color"
 msgstr ""
 
-#: inc/taxmeta.php:119
+#: inc/taxmeta.php:136
 msgid "Base Font Size"
 msgstr ""
 
-#: inc/taxmeta.php:225
+#: inc/taxmeta.php:242
 msgid "Blur"
 msgstr ""
 
-#: inc/taxmeta.php:112
+#: inc/taxmeta.php:129
 msgid "Bullets and Navigation"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Button %s Label:"
 msgstr ""
 
-#: inc/about.php:114
+#: inc/about.php:117
 msgid "by"
 msgstr ""
 
@@ -137,11 +137,11 @@ msgstr ""
 msgid "by order value"
 msgstr ""
 
-#: cryout-serious-slider.php:171
+#: cryout-serious-slider.php:173
 msgid "Cancel"
 msgstr ""
 
-#: inc/taxmeta.php:134
+#: inc/taxmeta.php:151
 msgid "Caption Alignment"
 msgstr ""
 
@@ -153,32 +153,32 @@ msgstr ""
 msgid "Caption Left"
 msgstr ""
 
-#: inc/taxmeta.php:230
+#: inc/taxmeta.php:247
 msgid "Caption Text Animation"
 msgstr ""
 
-#: inc/taxmeta.php:141
+#: inc/taxmeta.php:158
 msgid "Caption Width"
 msgstr ""
 
-#: inc/taxmeta.php:129
+#: inc/taxmeta.php:146
 msgid "Center"
 msgstr ""
 
-#: cryout-serious-slider.php:599
+#: cryout-serious-slider.php:616
 msgid "Change"
 msgstr ""
 
-#: cryout-serious-slider.php:363
+#: cryout-serious-slider.php:380
 msgid "Change Image"
 msgstr ""
 
-#: cryout-serious-slider.php:361 cryout-serious-slider.php:597
+#: cryout-serious-slider.php:378 cryout-serious-slider.php:614
 #, php-format
 msgid "Change image for \"%s\""
 msgstr ""
 
-#: cryout-serious-slider.php:252
+#: cryout-serious-slider.php:269
 msgid "Changelog"
 msgstr ""
 
@@ -186,7 +186,11 @@ msgstr ""
 msgid "Contain Images"
 msgstr ""
 
-#: inc/about.php:139
+#: inc/taxmeta.php:14
+msgid "Continue"
+msgstr ""
+
+#: inc/about.php:145
 msgid "Create Sample Slider"
 msgstr ""
 
@@ -195,7 +199,7 @@ msgid "Cryout Creations"
 msgstr ""
 
 #. Name of the plugin
-#: cryout-serious-slider.php:168 cryout-serious-slider.php:865
+#: cryout-serious-slider.php:170 cryout-serious-slider.php:882
 msgid "Cryout Serious Slider"
 msgstr ""
 
@@ -207,23 +211,27 @@ msgstr ""
 msgid "Dark"
 msgstr ""
 
-#: cryout-serious-slider.php:546
+#: cryout-serious-slider.php:563
 msgid "Date"
 msgstr ""
 
-#: inc/about.php:134
+#: inc/about.php:137
 msgid "Demo Content"
 msgstr ""
 
-#: cryout-serious-slider.php:439
+#: cryout-serious-slider.php:456
 msgid "Description."
 msgstr ""
 
-#: inc/taxmeta.php:173 inc/taxmeta.php:197
+#: inc/taxmeta.php:112
+msgid "Diffuse"
+msgstr ""
+
+#: inc/taxmeta.php:190 inc/taxmeta.php:214
 msgid "Disabled"
 msgstr ""
 
-#: inc/about.php:19 inc/about.php:24
+#: inc/about.php:28
 msgid "Dismiss this notice."
 msgstr ""
 
@@ -231,31 +239,35 @@ msgstr ""
 msgid "Displayed Slider"
 msgstr ""
 
-#: inc/about.php:125
+#: inc/about.php:128
 msgid "Documentation"
 msgstr ""
 
-#: cryout-serious-slider.php:459
+#: inc/taxmeta.php:113
+msgid "Dreamy"
+msgstr ""
+
+#: cryout-serious-slider.php:476
 msgid "Edit Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:496
+#: cryout-serious-slider.php:513
 msgid "Edit Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:570
+#: cryout-serious-slider.php:587
 msgid "Edit slider"
 msgstr ""
 
-#: inc/taxmeta.php:173 inc/taxmeta.php:197
+#: inc/taxmeta.php:190 inc/taxmeta.php:214
 msgid "Enabled"
 msgstr ""
 
-#: cryout-serious-slider.php:167
+#: cryout-serious-slider.php:169
 msgid "Error retrieving sliders"
 msgstr ""
 
-#: inc/taxmeta.php:182 inc/taxmeta.php:223
+#: inc/taxmeta.php:199 inc/taxmeta.php:240
 msgid "Fade"
 msgstr ""
 
@@ -279,7 +291,7 @@ msgstr ""
 msgid "Hide titles"
 msgstr ""
 
-#: inc/taxmeta.php:187
+#: inc/taxmeta.php:204
 msgid "Horizontal Flip"
 msgstr ""
 
@@ -291,20 +303,20 @@ msgstr ""
 msgid "https://www.cryoutcreations.eu/wordpress-plugins/cryout-serious-slider"
 msgstr ""
 
-#: cryout-serious-slider.php:807
+#: cryout-serious-slider.php:824
 msgid "Insert Serious Slider into post"
 msgstr ""
 
-#: cryout-serious-slider.php:170
+#: cryout-serious-slider.php:172
 msgid "Insert Slider"
 msgstr ""
 
 #. return error message to Ajax script
-#: cryout-serious-slider.php:379
+#: cryout-serious-slider.php:396
 msgid "Item not added."
 msgstr ""
 
-#: inc/taxmeta.php:131
+#: inc/taxmeta.php:148
 msgid "Justify"
 msgstr ""
 
@@ -312,12 +324,24 @@ msgstr ""
 msgid "Leave fields empty to disable elements."
 msgstr ""
 
-#: inc/taxmeta.php:128
+#: inc/taxmeta.php:145
 msgid "Left"
 msgstr ""
 
 #: inc/taxmeta.php:71
 msgid "Legacy Resize"
+msgstr ""
+
+#: inc/taxmeta.php:108
+msgid "Level 1"
+msgstr ""
+
+#: inc/taxmeta.php:109
+msgid "Level 2"
+msgstr ""
+
+#: inc/taxmeta.php:110
+msgid "Level 3"
 msgstr ""
 
 #: inc/taxmeta.php:91
@@ -332,55 +356,60 @@ msgstr ""
 msgid "Link URL:"
 msgstr ""
 
+#: inc/taxmeta.php:115
+msgid "Longer"
+msgstr ""
+
 #: inc/taxmeta.php:71
 msgid "Maintain Height"
 msgstr ""
 
-#: cryout-serious-slider.php:335 cryout-serious-slider.php:500
+#: cryout-serious-slider.php:352 cryout-serious-slider.php:517
 msgid "Manage Sliders"
 msgstr ""
 
-#: inc/about.php:122
+#: inc/about.php:125
 msgid "Need help?"
 msgstr ""
 
-#: cryout-serious-slider.php:458
+#: cryout-serious-slider.php:475
 msgid "New Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:499
+#: cryout-serious-slider.php:516
 msgid "New Slider"
 msgstr ""
 
-#: inc/shortcodes.php:360
+#: inc/shortcodes.php:361
 msgid "Next Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:502
+#: cryout-serious-slider.php:519
 msgid "No sliders"
 msgstr ""
 
-#: cryout-serious-slider.php:288
+#: cryout-serious-slider.php:305
 msgid "No sliders available. Create a slider first..."
 msgstr ""
 
-#: cryout-serious-slider.php:501
+#: cryout-serious-slider.php:518
 msgid "No sliders found"
 msgstr ""
 
-#: cryout-serious-slider.php:470
+#: cryout-serious-slider.php:487
 msgid "No slides found in Trash."
 msgstr ""
 
-#: cryout-serious-slider.php:469
+#: cryout-serious-slider.php:486
 #, php-format
 msgid ""
 "No slides found. Go ahead and <a href=\"%1$s\">add some</a> or <a "
 "href=\"%2$s\">load sample content</a>."
 msgstr ""
 
-#: cryout-serious-slider.php:404 cryout-serious-slider.php:579
-#: cryout-serious-slider.php:623 inc/taxmeta.php:148 inc/taxmeta.php:222
+#: cryout-serious-slider.php:421 cryout-serious-slider.php:596
+#: cryout-serious-slider.php:640 inc/taxmeta.php:107 inc/taxmeta.php:165
+#: inc/taxmeta.php:239
 msgid "None"
 msgstr ""
 
@@ -388,53 +417,53 @@ msgstr ""
 msgid "Open in New Window"
 msgstr ""
 
-#: cryout-serious-slider.php:547
+#: cryout-serious-slider.php:564
 msgid "Order"
 msgstr ""
 
-#: inc/taxmeta.php:184
+#: inc/taxmeta.php:201
 msgid "Overslide"
 msgstr ""
 
-#: inc/taxmeta.php:186
+#: inc/taxmeta.php:203
 msgid "Parallax"
 msgstr ""
 
-#: cryout-serious-slider.php:494
+#: cryout-serious-slider.php:511
 msgid "Parent Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:495
+#: cryout-serious-slider.php:512
 msgid "Parent Slider:"
 msgstr ""
 
-#: cryout-serious-slider.php:463
+#: cryout-serious-slider.php:480
 msgid "Parent Slides:"
 msgstr ""
 
-#: inc/about.php:115
+#: inc/about.php:118
 msgid "Plugin Homepage"
 msgstr ""
 
-#: cryout-serious-slider.php:250
+#: cryout-serious-slider.php:267
 msgid "Plugin homepage"
 msgstr ""
 
-#: cryout-serious-slider.php:452
+#: cryout-serious-slider.php:469
 msgctxt "post type general name"
 msgid "Slides"
 msgstr ""
 
-#: cryout-serious-slider.php:453
+#: cryout-serious-slider.php:470
 msgctxt "post type singular name"
 msgid "Slide"
 msgstr ""
 
-#: inc/shortcodes.php:356
+#: inc/shortcodes.php:357
 msgid "Previous Slide"
 msgstr ""
 
-#: inc/about.php:126
+#: inc/about.php:129
 msgid "Priority Support"
 msgstr ""
 
@@ -442,15 +471,15 @@ msgstr ""
 msgid "random"
 msgstr ""
 
-#: cryout-serious-slider.php:607
+#: cryout-serious-slider.php:624
 msgid "Remove"
 msgstr ""
 
-#: cryout-serious-slider.php:371
+#: cryout-serious-slider.php:388
 msgid "Remove Image"
 msgstr ""
 
-#: cryout-serious-slider.php:370 cryout-serious-slider.php:606
+#: cryout-serious-slider.php:387 cryout-serious-slider.php:623
 #, php-format
 msgid "Remove image from \"%s\""
 msgstr ""
@@ -459,29 +488,35 @@ msgstr ""
 msgid "Responsiveness"
 msgstr ""
 
-#: cryout-serious-slider.php:166
+#: cryout-serious-slider.php:168
 msgid "Retrieving sliders..."
 msgstr ""
 
-#: inc/taxmeta.php:130
+#: inc/taxmeta.php:147
 msgid "Right"
 msgstr ""
 
 #: inc/about.php:18
 msgid ""
-"Sample content added. Navigate to Slider and Slides sections to see the "
-"sample content."
+"Sample content added. Navigate to Manage Sliders section to see the sample "
+"content."
+msgstr ""
+
+#: inc/about.php:22
+msgid ""
+"Sample slider content already exists. Navigate to Manange Sliders section to "
+"see the existing sample content."
 msgstr ""
 
 #: inc/about.php:17
 msgid "Sample slider created."
 msgstr ""
 
-#: cryout-serious-slider.php:462
+#: cryout-serious-slider.php:479
 msgid "Search Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:492
+#: cryout-serious-slider.php:509
 msgid "Search Sliders"
 msgstr ""
 
@@ -489,41 +524,53 @@ msgstr ""
 msgid "Select Images"
 msgstr ""
 
-#: cryout-serious-slider.php:172
+#: cryout-serious-slider.php:174
 msgid "Select Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:329
+#: cryout-serious-slider.php:346
 msgid "Select slider"
 msgstr ""
 
-#: cryout-serious-slider.php:681
+#: cryout-serious-slider.php:698
 #, php-format
 msgctxt "select terms"
 msgid "Select %s"
 msgstr ""
 
-#: cryout-serious-slider.php:126 cryout-serious-slider.php:169
+#: cryout-serious-slider.php:128 cryout-serious-slider.php:171
 msgid "Serious Slider"
 msgstr ""
 
-#: cryout-serious-slider.php:403 cryout-serious-slider.php:622
+#: cryout-serious-slider.php:420 cryout-serious-slider.php:639
 msgid "Set Image"
 msgstr ""
 
-#: cryout-serious-slider.php:650 inc/right-column.php:14
+#: inc/taxmeta.php:118
+msgid "Shadow"
+msgstr ""
+
+#: inc/taxmeta.php:111
+msgid "Sharp"
+msgstr ""
+
+#: cryout-serious-slider.php:667 inc/right-column.php:14
 msgid "Shortcode"
+msgstr ""
+
+#: inc/taxmeta.php:114
+msgid "Shorter"
 msgstr ""
 
 #: inc/taxmeta.php:79
 msgid "Show titles"
 msgstr ""
 
-#: inc/taxmeta.php:183 inc/taxmeta.php:224
+#: inc/taxmeta.php:200 inc/taxmeta.php:241
 msgid "Slide"
 msgstr ""
 
-#: cryout-serious-slider.php:545
+#: cryout-serious-slider.php:562
 msgid "Slide Image"
 msgstr ""
 
@@ -531,31 +578,31 @@ msgstr ""
 msgid "Slide Image Link URL:"
 msgstr ""
 
-#: cryout-serious-slider.php:704
+#: cryout-serious-slider.php:721
 msgid "Slide Properties"
 msgstr ""
 
-#: cryout-serious-slider.php:465
+#: cryout-serious-slider.php:482
 msgid "Slide published privately."
 msgstr ""
 
-#: cryout-serious-slider.php:464
+#: cryout-serious-slider.php:481
 msgid "Slide published."
 msgstr ""
 
-#: cryout-serious-slider.php:466
+#: cryout-serious-slider.php:483
 msgid "Slide reverted to draft."
 msgstr ""
 
-#: cryout-serious-slider.php:467
+#: cryout-serious-slider.php:484
 msgid "Slide scheduled."
 msgstr ""
 
-#: cryout-serious-slider.php:468
+#: cryout-serious-slider.php:485
 msgid "Slide updated."
 msgstr ""
 
-#: cryout-serious-slider.php:544
+#: cryout-serious-slider.php:561
 msgid "Slider"
 msgstr ""
 
@@ -563,7 +610,7 @@ msgstr ""
 msgid "Slider Size"
 msgstr ""
 
-#: cryout-serious-slider.php:345 cryout-serious-slider.php:388
+#: cryout-serious-slider.php:362 cryout-serious-slider.php:405
 msgid "Sorry, you are not allowed to edit this item."
 msgstr ""
 
@@ -579,11 +626,11 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: inc/about.php:127
+#: inc/about.php:130
 msgid "Support Forum"
 msgstr ""
 
-#: cryout-serious-slider.php:251
+#: cryout-serious-slider.php:268
 msgid "Support forum"
 msgstr ""
 
@@ -591,12 +638,12 @@ msgstr ""
 msgid "Tall"
 msgstr ""
 
-#: cryout-serious-slider.php:490
+#: cryout-serious-slider.php:507
 msgctxt "taxonomy general name"
 msgid "Sliders"
 msgstr ""
 
-#: cryout-serious-slider.php:491
+#: cryout-serious-slider.php:508
 msgctxt "taxonomy singular name"
 msgid "Slider"
 msgstr ""
@@ -605,51 +652,51 @@ msgstr ""
 msgid "Template"
 msgstr ""
 
-#: inc/taxmeta.php:149
+#: inc/taxmeta.php:166
 msgid "Text Shadow"
 msgstr ""
 
-#: inc/taxmeta.php:153
+#: inc/taxmeta.php:170
 msgid "Text Style"
 msgstr ""
 
-#: cryout-serious-slider.php:866
+#: cryout-serious-slider.php:883
 msgid ""
 "This plugin doesn't collect any kind of data from either website visitors or "
 "administrators."
 msgstr ""
 
-#: inc/about.php:141
+#: inc/about.php:147
 msgid ""
 "This will create a sample slider with 3 slides which you can use as a basis "
 "for your own content."
 msgstr ""
 
-#: cryout-serious-slider.php:543
+#: cryout-serious-slider.php:560
 msgid "Title"
 msgstr ""
 
-#: inc/taxmeta.php:206
+#: inc/taxmeta.php:223
 msgid "Transition Delay"
 msgstr ""
 
-#: inc/taxmeta.php:214
+#: inc/taxmeta.php:231
 msgid "Transition Duration"
 msgstr ""
 
-#: inc/taxmeta.php:191
+#: inc/taxmeta.php:208
 msgid "Transition Effect"
 msgstr ""
 
-#: inc/taxmeta.php:199
+#: inc/taxmeta.php:216
 msgid "Transition Pause on Hover"
 msgstr ""
 
-#: inc/taxmeta.php:185
+#: inc/taxmeta.php:202
 msgid "Underslide"
 msgstr ""
 
-#: cryout-serious-slider.php:497
+#: cryout-serious-slider.php:514
 msgid "Update Slider"
 msgstr ""
 
@@ -661,16 +708,16 @@ msgstr ""
 msgid "Use the shortcode to include the slider in posts, pages or widgets"
 msgstr ""
 
-#: inc/about.php:113
+#: inc/about.php:116
 #, php-format
 msgid "version: %s"
 msgstr ""
 
-#: inc/taxmeta.php:188
+#: inc/taxmeta.php:205
 msgid "Vertical Flip"
 msgstr ""
 
-#: cryout-serious-slider.php:460
+#: cryout-serious-slider.php:477
 msgid "View Slide"
 msgstr ""
 
@@ -678,14 +725,14 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: inc/about.php:23
+#: inc/about.php:27
 msgid "You do not have sufficient permissions to create sample content."
 msgstr ""
 
-#: inc/taxmeta.php:226
+#: inc/taxmeta.php:243
 msgid "Zoom In"
 msgstr ""
 
-#: inc/taxmeta.php:227
+#: inc/taxmeta.php:244
 msgid "Zoom Out"
 msgstr ""

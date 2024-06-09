@@ -403,7 +403,7 @@ Class MetForm_Input_Simple_Captcha extends Widget_Base{
 			<?php if ( 'yes' == $mf_input_label_status ): ?>
 				<label class="mf-input-label" for="mf-input-captcha-<?php echo esc_attr( $this->get_id() ); ?>">
 					<?php echo esc_html(\MetForm\Utils\Util::react_entity_support($mf_input_label, $render_on_editor )); ?>
-					<span class="mf-input-required-indicator"><?php echo esc_html( '*', 'metform' );?></span>
+					<span class="mf-input-required-indicator"><?php echo esc_html__( '*', 'metform' );?></span>
 				</label>
 			<?php endif; ?>
 

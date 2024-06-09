@@ -1245,10 +1245,9 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px'],
 				'selectors' => [
-					'{{WRAPPER}} .htmega-audio-player .mejs-time-total' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-				'condition' => [
-					'audio_player_progress_handler!' => ['yes']
+					'{{WRAPPER}} .htmega-audio-player .mejs-time-total,
+					{{WRAPPER}} .htmega-audio-player .mejs-time-total .mejs-time-current,
+					{{WRAPPER}} .htmega-audio-player .mejs-time-total .mejs-time-loaded' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden',
 				],
 			]
 		);
@@ -1289,21 +1288,6 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .htmega-audio-player .mejs-time-total .mejs-time-current' => 'background: {{VALUE}}',
-				],
-			]
-		);
-
-		$this->add_control(
-			'audio_player_progress_bar_current_border_radius',
-			[
-				'label' => esc_html__('Border Radius (px)', 'htmega-addons'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px'],
-				'selectors' => [
-					'{{WRAPPER}} .htmega-audio-player .mejs-time-total .mejs-time-current' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-				'condition' => [
-					'audio_player_progress_handler!' => ['yes']
 				],
 			]
 		);
@@ -1738,7 +1722,8 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => ['px'],
 				'selectors' => [
-					'{{WRAPPER}} .htmega-audio-player .mejs-horizontal-volume-total' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .htmega-audio-player .mejs-horizontal-volume-total,
+					{{WRAPPER}} .htmega-audio-player .mejs-horizontal-volume-total .mejs-horizontal-volume-current' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
 				'condition' => [
 					'audio_player_volume_slider_layout' => ['horizontal']
@@ -1776,22 +1761,6 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .htmega-audio-player :is(.mejs-horizontal-volume-current, .mejs-volume-current)' => 'background: {{VALUE}}',
-				],
-			]
-		);
-
-		$this->add_control(
-			'audio_player_current_volume_bar_border_radius',
-			[
-				'label' => esc_html__('Border Radius (px)', 'htmega-addons'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px'],
-				'selectors' => [
-					'{{WRAPPER}} .htmega-audio-player .mejs-horizontal-volume-total .mejs-horizontal-volume-current' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-				'condition' => [
-					'audio_player_volume_slider_layout' => ['horizontal'],
-					'audio_player_progress_handler!' => ['yes']
 				],
 			]
 		);

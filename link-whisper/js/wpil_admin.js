@@ -111,7 +111,7 @@
 
 				if((count * response.batch_size) < response.post_count){
 					ajaxGetSuggestionsOutbound($el, url, response.count, response.post_count, key);
-				}else if( (sameCategory || sameTag) || (0 == wpil_ajax.site_linking_enabled) ){
+				}else{
 					// if we're doing same tag or cat matching, skip the external sites.
 					return updateSuggestionDisplay(post_id, term_id, nonce, $el, 'outbound_suggestions', linkOrphaned, sameParent, sameCategory, key, selectedCategory, sameTag, selectedTag, selectPostTypes, selectedPostTypes);
 				}

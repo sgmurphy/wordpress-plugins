@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Load general WP action hook
  */
 class Api {
-
+    protected $namespace;
 	/**
 	 * The Constructor.
 	 */

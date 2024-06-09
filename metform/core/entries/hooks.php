@@ -14,6 +14,7 @@ class Hooks
         add_action('manage_metform-entry_posts_custom_column', [$this, 'render_column'], 10, 2);
         add_filter('parse_query', [$this, 'query_filter']);
         add_filter('wp_mail_from_name', [$this, 'wp_mail_from']);
+        add_filter('upload_mimes', [$this, 'metfom_additional_upload_mimes']);
     }
 
     public function set_columns($columns)
@@ -124,12 +125,26 @@ class Hooks
         }
     }
 
-
-
-
     public function wp_mail_from($name)
     {
         return get_bloginfo('name');
     }
 
+    /**
+     * Metform Additional Upload Mimes
+     * 
+     * @since 3.8.9
+     * @access public
+     * @param array $mimes
+     * @return array
+     */
+    public function metfom_additional_upload_mimes( $mimes )
+    {
+        
+        $mimes['stl'] = 'application/octet-stream';
+        $mimes['psd'] = 'image/vnd.adobe.photoshop';
+        $mimes['stp'] = 'text/plain; charset=us-ascii';
+
+        return $mimes;
+    }
 }

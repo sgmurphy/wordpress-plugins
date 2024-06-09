@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
-            "version": "v3.0.3",
-            "version_normalized": "3.0.3.0",
+            "version": "v3.0.8",
+            "version_normalized": "3.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-autoloader.git",
-                "reference": "11466fe7fce66d30281d7402940969e673f545f2"
+                "reference": "1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/11466fe7fce66d30281d7402940969e673f545f2",
-                "reference": "11466fe7fce66d30281d7402940969e673f545f2",
+                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d",
+                "reference": "1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d",
                 "shasum": ""
             },
             "require": {
@@ -20,10 +20,11 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.1.1",
+                "automattic/jetpack-changelogger": "^4.2.4",
+                "composer/composer": "^1.1 || ^2.0",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
-            "time": "2024-03-14T20:43:03+00:00",
+            "time": "2024-05-29T09:45:26+00:00",
             "type": "composer-plugin",
             "extra": {
                 "autotagger": true,
@@ -62,23 +63,23 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.3"
+                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.8"
             },
             "install-path": "../automattic/jetpack-autoloader"
         },
         {
             "name": "bitapps/wp-database",
-            "version": "1.1",
-            "version_normalized": "1.1.0.0",
+            "version": "1.4",
+            "version_normalized": "1.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bit-Apps-Pro/wp-database.git",
-                "reference": "6ef42d9104208415cd00e64f152ec4119ed5173c"
+                "reference": "be9e80ca5e6c8b3ee13c98f160d4967b7b90a6ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-database/zipball/6ef42d9104208415cd00e64f152ec4119ed5173c",
-                "reference": "6ef42d9104208415cd00e64f152ec4119ed5173c",
+                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-database/zipball/be9e80ca5e6c8b3ee13c98f160d4967b7b90a6ca",
+                "reference": "be9e80ca5e6c8b3ee13c98f160d4967b7b90a6ca",
                 "shasum": ""
             },
             "require": {
@@ -90,7 +91,7 @@
                 "phpcompatibility/phpcompatibility-wp": "*",
                 "sirbrillig/phpcs-variable-analysis": "*"
             },
-            "time": "2024-03-11T13:00:06+00:00",
+            "time": "2024-03-23T08:24:01+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -127,17 +128,17 @@
         },
         {
             "name": "bitapps/wp-kit",
-            "version": "1.2",
-            "version_normalized": "1.2.0.0",
+            "version": "1.4",
+            "version_normalized": "1.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bit-Apps-Pro/wp-kit.git",
-                "reference": "c1b24a269b4482b8de903a2e965a5d6bf9a38258"
+                "reference": "3e0822c60bd05069949617cb3d05cd9e7e2fec22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-kit/zipball/c1b24a269b4482b8de903a2e965a5d6bf9a38258",
-                "reference": "c1b24a269b4482b8de903a2e965a5d6bf9a38258",
+                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-kit/zipball/3e0822c60bd05069949617cb3d05cd9e7e2fec22",
+                "reference": "3e0822c60bd05069949617cb3d05cd9e7e2fec22",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +150,7 @@
                 "phpcompatibility/phpcompatibility-wp": "*",
                 "sirbrillig/phpcs-variable-analysis": "*"
             },
-            "time": "2024-03-07T08:38:15+00:00",
+            "time": "2024-04-02T06:23:27+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -174,9 +175,64 @@
             ],
             "support": {
                 "issues": "https://github.com/Bit-Apps-Pro/wp-kit/issues",
-                "source": "https://github.com/Bit-Apps-Pro/wp-kit/tree/1.2"
+                "source": "https://github.com/Bit-Apps-Pro/wp-kit/tree/1.4"
             },
             "install-path": "../bitapps/wp-kit"
+        },
+        {
+            "name": "bitapps/wp-telemetry",
+            "version": "v0.0.8",
+            "version_normalized": "0.0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bit-Apps-Pro/wp-telemetry.git",
+                "reference": "efa19cfc72e6325889e6bcd78bdd45556f9aa1a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bit-Apps-Pro/wp-telemetry/zipball/efa19cfc72e6325889e6bcd78bdd45556f9aa1a8",
+                "reference": "efa19cfc72e6325889e6bcd78bdd45556f9aa1a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "dev-master",
+                "pestphp/pest": "3.x-dev",
+                "phpcompatibility/php-compatibility": "*",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "time": "2024-06-01T10:06:19+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "BitApps\\WPTelemetry\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "BitApps",
+                    "email": "developer@bitcode.pro"
+                }
+            ],
+            "description": "A simple telemetry library for WordPress.",
+            "homepage": "https://bitapps.pro",
+            "keywords": [
+                "telemetry",
+                "wordpress",
+                "wp"
+            ],
+            "support": {
+                "issues": "https://github.com/Bit-Apps-Pro/wp-telemetry/issues",
+                "source": "https://github.com/Bit-Apps-Pro/wp-telemetry"
+            },
+            "install-path": "../bitapps/wp-telemetry"
         },
         {
             "name": "bitapps/wp-validator",

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'BitApps\\WPValidator\\' => array($vendorDir . '/bitapps/wp-validator/src'),
+    'BitApps\\WPTelemetry\\' => array($vendorDir . '/bitapps/wp-telemetry/src'),
     'BitApps\\WPKit\\' => array($vendorDir . '/bitapps/wp-kit/src'),
     'BitApps\\WPDatabase\\' => array($vendorDir . '/bitapps/wp-database/src'),
     'BitApps\\FM\\' => array($baseDir . '/backend/app'),

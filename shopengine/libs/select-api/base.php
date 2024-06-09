@@ -12,7 +12,7 @@ class Base extends \ShopEngine\Base\Api {
 
 	public function config() {
 
-		$this->prefix = 'ajaxselect2';
+		$this->prefix = 'shopengine_ajaxselect2';
 	}
 
     public function get_post_list(){

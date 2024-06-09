@@ -6,7 +6,7 @@
 .wrap > .search-form { display: none; }
 
  /* About page */
-#serious-slider-about,
+#serious-slider-about #poststuff,
 #serious-slider-about p,
 #serious-slider-about ul {
 	font-size: 1.1em;

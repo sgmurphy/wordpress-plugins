@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MetForm 3.8.8\n"
+"Project-Id-Version: MetForm 3.8.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/metform\n"
-"POT-Creation-Date: 2024-05-13 05:39:56+00:00\n"
+"POT-Creation-Date: 2024-06-09 09:18:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Admin mail not found to send email."
 msgstr ""
 
-#: core/entries/action.php:1052
+#: core/entries/action.php:1054
 msgid "There was an error uploading your file."
 msgstr ""
 
@@ -1054,23 +1054,23 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: core/entries/hooks.php:26 core/forms/views/modal-add-new-form.php:13
+#: core/entries/hooks.php:27 core/forms/views/modal-add-new-form.php:13
 msgid "Form Name"
 msgstr ""
 
-#: core/entries/hooks.php:28
+#: core/entries/hooks.php:29
 msgid "Referral"
 msgstr ""
 
-#: core/entries/hooks.php:31
+#: core/entries/hooks.php:32
 msgid "Email Verified"
 msgstr ""
 
-#: core/entries/hooks.php:38
+#: core/entries/hooks.php:39
 msgid "Export Actions"
 msgstr ""
 
-#: core/entries/hooks.php:77 traits/common-controls.php:136
+#: core/entries/hooks.php:78 traits/common-controls.php:136
 #: traits/common-controls.php:977 traits/quiz-control.php:303
 #: traits/quiz-control.php:393 traits/quiz-control.php:476
 #: traits/quiz-control.php:619 widgets/checkbox/checkbox.php:141
@@ -1085,7 +1085,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: core/entries/hooks.php:79 traits/common-controls.php:137
+#: core/entries/hooks.php:80 traits/common-controls.php:137
 #: traits/common-controls.php:978 traits/quiz-control.php:304
 #: traits/quiz-control.php:394 traits/quiz-control.php:477
 #: traits/quiz-control.php:620 widgets/checkbox/checkbox.php:142
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: core/entries/hooks.php:86
+#: core/entries/hooks.php:87
 msgid "PDF Export"
 msgstr ""
 
@@ -1198,6 +1198,10 @@ msgstr ""
 
 #: core/forms/api.php:367
 msgid "Not Authorized"
+msgstr ""
+
+#: core/forms/builder.php:38 core/forms/views/modal-editor.php:44
+msgid "Thank you! Form submitted successfully."
 msgstr ""
 
 #: core/forms/cpt.php:483 core/forms/cpt.php:484 widgets/form.php:47
@@ -1322,10 +1326,6 @@ msgstr ""
 
 #: core/forms/views/modal-editor.php:43
 msgid "Success Message:"
-msgstr ""
-
-#: core/forms/views/modal-editor.php:44
-msgid "Thank you! Form submitted successfully."
 msgstr ""
 
 #: core/forms/views/modal-editor.php:45
@@ -2107,6 +2107,10 @@ msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-02.php:11
 msgid "Submit Your Best Email."
+msgstr ""
+
+#: core/integrations/onboard/views/onboard-steps/step-02.php:11
+msgid "(We Never Spam)"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-03.php:4
@@ -4451,6 +4455,10 @@ msgstr ""
 
 #: widgets/simple-captcha/simple-captcha.php:394
 msgid "Captcha didn't matched."
+msgstr ""
+
+#: widgets/simple-captcha/simple-captcha.php:406
+msgid "*"
 msgstr ""
 
 #: widgets/simple-captcha/simple-captcha.php:430

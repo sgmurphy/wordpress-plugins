@@ -1,5 +1,5 @@
 <?php
-$tpl = \WPDM\__\Email::template(wpdm_query_var('id'));
+$tpl = \WPDM\__\Email::getTemplate(wpdm_query_var('id'));
 $info = \WPDM\__\Email::info(wpdm_query_var('id'));
 ?>
 <div class="wrap w3eden">

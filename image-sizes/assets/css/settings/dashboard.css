@@ -147,7 +147,7 @@
 /*===START ALL IN ONE SECTION===*/
 /*==============================*/
 .tp-get-best-section {
-    margin-top: 120px;
+    margin-top: 100px;
     padding-left: 130px;
     padding-right: 130px;
 }
@@ -391,12 +391,33 @@
     margin-bottom: 12px;
     line-height: 26px;
 }
-.thumb-module-desc {
+.tp-button-details {
     color: #2c3855;
     font-size: 14px;
-    line-height: 26px;
+    line-height: 24px;
     font-weight: 400;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
+}
+.tp-button-details a {
+    text-decoration: none;
+    float: inline-end;
+    margin-right: 25px;
+    margin-top: 40px;
+    font-size: 13px;
+    color: #075bfe;
+    border: none;
+}
+.tp-button-details a:focus {
+    box-shadow: none;
+}
+.tp-button-details a::after {
+    content: '\f061';
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    padding-left: 5px;
+    vertical-align: middle;
 }
 .thumb-widget:hover {
     -webkit-box-shadow: 0px 21px 40px 0px rgba(203, 212, 255, 0.38);

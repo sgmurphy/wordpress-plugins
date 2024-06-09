@@ -241,7 +241,7 @@ if(!class_exists('\Wpmet\Libs\Pro_Awareness')) :
 				<div class="wpmet-products">
 					<div class="wpmet-products__header">
 						<h1><?php esc_html_e('Take your website to the next level','shopengine'); ?></h1>
-						<p><?php esc_html_e('We have some plugins you can install to get most from Wordpress.','shopengine'); ?><br> <?php echo esc_html('These are absolute FREE to use.','elementskit-lite'); ?></p>
+						<p><?php esc_html_e('We have some plugins you can install to get most from Wordpress.','shopengine'); ?><br> <?php echo esc_html('These are absolute FREE to use.','shopengine'); ?></p>
 					</div>
 					<div class="wpmet-products__content">
 						<?php foreach ( $this->products as $product ) : ?>

@@ -7,16 +7,16 @@ Tags: slider, slideshow, image slider, responsive slider, wordpress slider
 Text Domain: cryout-serious-slider
 Requires at least: 4.5
 Requires PHP: 5.6
-Tested up to: 6.1
-Stable tag: 1.2.4
+Tested up to: 6.5
+Stable tag: 1.2.5
 
-Serious Slider is a highly efficient SEO friendly fully translatable accessibility ready free image slider for WordPress. Seriously!
+Serious Slider is a free highly efficient SEO friendly fully translatable accessibility ready image slider for WordPress. Seriously!
 
 == Description ==
 
 = Overview =
 
-Serious Slider is a highly efficient SEO friendly fully translatable accessibility ready free image slider for WordPress. 
+Serious Slider is a free highly efficient SEO friendly fully translatable accessibility ready image slider for WordPress. 
 
 Create beautiful, responsive slideshows within seconds.  Use minimum styling and JavaScript with hardware accelerated CSS3 transitions to create a really fluid experience.
 
@@ -100,25 +100,45 @@ Serious Slider works with all WordPress themes and has been designed to integrat
 
 == Changelog ==
 
+= 1.2.5 =
+*Release date - 2024.06.09*
+
+* Added sanitization and additional existent content check to address CSRF vulnerability in sample slider generation - reported by [Steven Julian to patchstack.com](https://patchstack.com/database/vulnerability/cryout-serious-slider/wordpress-serious-slider-plugin-1-2-4-cross-site-request-forgery-csrf-vulnerability)
+* Strengthened sanitization to address CSRF vulnerability in slider option fields - reported by Steven Julian to patchstack.com
+* Added extra number format check for maltformed numbers on shortcode attributes
+* Incresed the number of supported caption buttons to four
+* Fixed deprecation warning about jQuery.fn.bind()
+* Confirmed compatibility with PHP 8.2
+
 = 1.2.4 =
+*Release date - 2022.12.09*
+
 * Fixed slide meta options not getting saved or updated with WordPress 6+
 
 = 1.2.3 =
+*Release date - 2022.01.02*
+
 * Added configurable slider shadow effect
 * Improved usability of the "Add new slider" functionality
 * Fixed incorrect RTL behaviour of next/previous slider buttons
 * Fixed notice displayed on frontent when running on PHP 8.0+
 
 = 1.2.2 =
+*Release date - 2021.04.28*
+
 * Fixed jQuery.mobile enqueued with the wrong URL since 1.2.1 on older WordPress releases
 * Fixed some deprecation notices about jQuery.fn.bind() with WordPress 5.7
 
 = 1.2.1 =
+*Release date - 2021.03.06*
+
 * Updated bundled jQuery-Mobile to 1.5-rc for WordPress 5.6+ without jQuery-Migrate and fixed JavaScript errors
 * Fixed panels overlapping on smaller screens on the edit slider screen
 * Fixed 'forced' size mode responsiveness to remove unwanted gap under the slider
 
 = 1.2.0 =
+*Release date - 2020.06.03*
+
 * Added the third 'forced' images size mode for sliders
 * Added forced support for Polylang multilingual plugin
 * Added privacy policy info

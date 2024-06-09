@@ -35,7 +35,7 @@ Class Builder{
             return '';
         }, \MetForm\Core\Forms\Base::instance()->form->get_form_settings_fields());
 
-        $default_settings['success_message'] = esc_html('Thank you! Form submitted successfully.');
+        $default_settings['success_message'] = esc_html__('Thank you! Form submitted successfully.', 'metform');
         $default_settings['store_entries'] = '1';
         $default_settings['form_title'] = $defaults['post_title'];
 

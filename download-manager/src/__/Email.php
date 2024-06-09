@@ -310,6 +310,7 @@ class Email {
         $params['img_logo']     = isset( $params['logo'] ) && $params['logo'] != '' ? "<img style='max-width: 70%;{$logo_wh}' src='{$logo}' alt='".esc_attr(get_option('blogname'))."' />" : get_bloginfo('name');
         $params['banner']       = isset( $params['banner'] ) && $params['banner'] != '' ? esc_url($params['banner']) : "";
         $params['banner_img']   = isset( $params['banner'] ) && $params['banner'] != '' ? "<img style='max-width: 100%;' src='{$banner}' alt='Banner Image' />" : "";
+		$params['images_dir'] = WPDM_BASE_URL.'src/__/views/email-templates/images/';
         $template_file          = get_option( "__wpdm_email_template", "default.html" );
         $emltpl = null;
         if ( isset( $params['template_file'] ) ) {

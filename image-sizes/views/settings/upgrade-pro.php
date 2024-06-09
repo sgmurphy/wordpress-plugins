@@ -1,7 +1,7 @@
 <div class="tp-pro-page-wrapper">
     
     <!-- START TITLE AND COUNTUP SECTION  -->
-    <div class="tp-count-up-section" style="background-image: url('<?php echo esc_url( THUMBPRESS_ASSET . '/img/upgrade-pro/update-header-bg.png' ); ?>')">
+    <!-- <div class="tp-count-up-section" style="background-image: url('<?php echo esc_url( THUMBPRESS_ASSET . '/img/upgrade-pro/update-header-bg.png' ); ?>')">
 
         <h2>
            <?php  _e( 'Upgrade to Manage Your WordPress Images & Thumbnails Like a Pro', 'image-sizes' ); ?>
@@ -48,7 +48,7 @@
                 <?php _e( 'Get ThumbPress Pro', 'image-sizes' ); ?>
             </a>
         </div>
-    </div>
+    </div> -->
     <!-- END TITLE AND COUNTUP SECTION  -->
 
     <!-- START PRO MOUDLES SECTION  -->
@@ -66,31 +66,31 @@
                 'icon'  => 'compress.png',
                 'title' => __( 'Compress Images', 'image-sizes' ),
                 'desc'  => __( 'Reduce image size and speed up your website with our built-in image compressor.', 'image-sizes' ),
-                'url'   => esc_url( 'https://thumbpress.co/modules/compress-images/' ),
+                'url'   => esc_url( 'https://thumbpress.co/modules/compress-images/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=Compress+Images/' ),
             ],
             [
                 'icon'  => 'edit-image.png',
                 'title' => __( 'Edit Images', 'image-sizes' ),
                 'desc'  => __( "Edit images directly within WordPress to fit your site's aesthetics perfectly.", 'image-sizes' ),
-                'url'   => esc_url( 'https://thumbpress.co/modules/image-editor/' ),
+                'url'   => esc_url( 'https://thumbpress.co/modules/image-editor/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=Edit+Images/' ),
             ],
             [
                 'icon'  => 'Unused.png',
                 'title' => __( 'Detect Unused Images', 'image-sizes' ),
                 'desc'  => __( 'Free up space by detecting and removing images not used anywhere on your website.', 'image-sizes' ),
-                'url'   => esc_url( 'https://thumbpress.co/modules/detect-unused-images/' ),
+                'url'   => esc_url( 'https://thumbpress.co/modules/detect-unused-images/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=Detect+Unused+Images/' ),
             ],
             [
                 'icon'  => 'large.png',
                 'title' => __( 'Detect Large Images', 'image-sizes' ),
                 'desc'  => __( 'Detect and delete large images that slow down your server and improve loading times.', 'image-sizes' ),
-                'url'   => esc_url( 'https://thumbpress.co/modules/detect-large-images/' ),
+                'url'   => esc_url( 'https://thumbpress.co/modules/detect-large-images/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=Detect+Large+Images/' ),
             ],
             [
                 'icon'  => 'replace.png',
                 'title' => __( 'Replace Images', 'image-sizes' ),
                 'desc'  => __( 'Update images with newer versions without changing their links on your site.', 'image-sizes' ),
-                'url'   => esc_url( 'https://thumbpress.co/modules/replace-image-with-new-version/' ),
+                'url'   => esc_url( 'https://thumbpress.co/modules/replace-image-with-new-version/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=Replace+Images/' ),
             ]
         ];
         ?>
@@ -113,6 +113,11 @@
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
+        <div class="tp-thumbpress-pro tp-thumbpress-pro-margin-top">
+            <a href="<?php echo esc_url( 'https://thumbpress.co/pricing/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=pricing+after+modules/' ); ?>">
+                <?php _e( 'Get ThumbPress Pro', 'image-sizes' ); ?>
+            </a>
         </div>
     </div>
     <!-- END PRO MOUDLES SECTION  -->
@@ -200,7 +205,7 @@
         </div>
     </div>
     <div class="tp-thumbpress-pro tp-thumbpress-pro-margin-top">
-        <a href="<?php echo esc_url( 'https://thumbpress.co/pricing/' ); ?>">
+        <a href="<?php echo esc_url( 'https://thumbpress.co/pricing/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=pricing+after+comparison/' ); ?>">
             <?php _e( 'Get ThumbPress Pro', 'image-sizes' ); ?>
         </a>
     </div>
@@ -310,6 +315,84 @@
     </div>
     <!-- END USER REVIEW SECTION  -->
 
+    <!-- STRAT BEST THUMBPRESS SECTION  -->
+    <div class="tp-get-best-section">
+        <h2><?php esc_html_e( 'Get Best Out of ThumbPress', 'image-sizes' ); ?></h2>
+        <div class="tp-best-out-of-thumbpress-wrap">
+        <?php
+            $options = [
+                [
+                    'color'     => 'tp-pink',
+                    'icon'      => 'how-your-love.png',
+                    'title'     => __( 'Show Your Love', 'image-sizes' ),
+                    'desc'      => __( 'Take 2 minutes to review ThumbPress and help us keep motivated.', 'image-sizes' ),
+                    'link_text' => __( 'Leave a review', 'image-sizes' ),
+                    'link_url'  => 'https://wordpress.org/support/plugin/image-sizes/reviews/?filter=5#new-post'
+                ],
+                [
+                    'color'     => 'tp-green',
+                    'icon'      => 'share-your-feedback.png',
+                    'title'     => __( 'Share Your Feedback', 'image-sizes' ),
+                    'desc'      => __( 'Share your ideas or suggestions to help make ThumbPress better. We would love to hear about them!', 'image-sizes' ),
+                    'link_text' => __( 'Share Feedback', 'image-sizes' ),
+                    'link_url'  => 'https://thumbpress.co/feedback/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=feedback/'
+                ],
+                [
+                    'color'     => 'tp-purple',
+                    'icon'      => 'read-our-blogs.png',
+                    'title'     => __( 'Read Our Blogs', 'image-sizes' ),
+                    'desc'      => __( 'Explore our blogs for fresh insights on WordPress images and Thumbnails. Join the conversation today!', 'image-sizes' ),
+                    'link_text' => __( 'Read Blogs', 'image-sizes' ),
+                    'link_url'  => 'https://thumbpress.co/blog/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=blog/'
+                ],
+            ];
+        ?>
+
+        <?php foreach ( $options as $option ) : ?>
+            <div class="tp-best-out-single-wrap <?php echo esc_attr( $option['color'] ); ?>">
+                <div class="tp-best-out-header">
+                    <img src="<?php echo esc_url( THUMBPRESS_ASSET . '/img/settings/dashboard/' . $option['icon'] ); ?>">
+                </div>
+                <div class="tp-best-out-container">
+                    <h3><?php echo esc_html( $option['title'] ); ?></h3>
+                    <p><?php echo esc_html( $option['desc'] ); ?></p>
+                    <a href="<?php echo esc_url( $option['link_url'] ); ?>"><?php echo esc_html( $option['link_text'] ); ?></a>
+                </div>
+                <div class="tp-circle"></div>
+            </div>
+        <?php endforeach; ?>
+
+        <!-- live support starts -->
+        <div class="tp-best-out-single-wrap tp-orange">
+            <div class="tp-best-out-header">
+                <img src="<?php echo esc_url( THUMBPRESS_ASSET . '/img/settings/dashboard/get-support.png' ); ?>">
+            </div>
+            <div class="tp-best-out-container">
+                <h3><?php esc_html_e( __( 'Get Support', 'image-sizes' ) ); ?></h3>
+                <p><?php esc_html_e( __( 'Stuck with something? Our support team is always ready to help you out.', 'image-sizes' ) ); ?></p>
+
+                <?php
+
+                if( isset( $_GET['live-chat'] ) && $_GET['live-chat'] == 'enable' ) {
+                    update_option( 'thumbpress_live_chat_enabled', 1 );
+                }
+
+                $enabled = get_option( 'thumbpress_live_chat_enabled' ) == 1;
+                printf(
+                    '<a href="%2$s" class="%3$s">%1$s</a>',
+                    $enabled ? __( 'Start Live Chat', 'image-sizes' ) : __( 'Enable Live Chat', 'image-sizes' ),
+                    $enabled ? '#' : add_query_arg( 'live-chat', 'enable', admin_url( 'admin.php?page=thumbpress' ) ),
+                    $enabled ? 'tp-live-chat' : ''
+                );
+                ?>
+
+            </div>
+            <div class="tp-circle"></div>
+            </div>
+        </div>
+    </div>
+    <!-- STRAT BEST THUMBPRESS SECTION  -->
+
     <!-- START BANNER SECTION  -->
     <section class="tp-banner-section">
         <div class="tp-banner-wrap">
@@ -320,7 +403,7 @@
                 <?php _e( 'Focus on crafting your blazing-fast WordPress site and leave the image & thumbnail management to ThumbPress!', 'image-sizes' ); ?>
             </p>
             <div class="tp-main-link">
-                <a href="<?php echo esc_url( 'https://thumbpress.co/pricing/' ); ?>" class="tp-btn">
+                <a href="<?php echo esc_url( 'https://thumbpress.co/pricing/?utm_source=in-plugin&utm_medium=Advance+Features+Page+&utm_campaign=pricing+in+footer/' ); ?>" class="tp-btn">
                     <?php _e( 'Get ThumbPress Pro', 'image-sizes' ); ?>
                     <span>
                         <img width="16" src="<?php echo esc_url( THUMBPRESS_ASSET . '/img/blue-right-arrow.png' ); ?>" alt="<?php _e( 'icon', 'image-sizes' ); ?>">
@@ -330,5 +413,4 @@
         </div>
     </section>
     <!-- END BANNER SECTION  -->
-
 </div>

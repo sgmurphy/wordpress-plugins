@@ -1,11 +1,11 @@
 === Bit File Manager – 100% Free & Open Source File Manager and Code Editor for WordPress ===
 
 Contributors: bitpressadmin, aihimel
-Tags: code editor, wp file manager, elfinder, File Explorer, manage files
+Tags: File Manager, Code Editor, Snippet, Code Snippet, Editor
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 6.5.1
+Stable tag: 6.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Best File manager and Code editor plugin for WordPress. You can edit, upload, de
 
 = Advance Plugin Of Your WordPress system =
 
-📢 **Join our new community [Bit Integrations](https://www.facebook.com/groups/bitapps) & get updates of our new plugin.**
+📢 **Join our new community [File Manager](https://www.facebook.com/groups/bitapps) & get updates of our new plugin.**
 
 📢 **We are open for freelance work/custom development for this plugin. [Connect](https://bitapps.pro/contact) with us for further information.**
 
@@ -51,7 +51,7 @@ Operation Control: Admin can control 13+ operations for specific user and user r
 = Key Features =
 
 ⭐ Operations (Edit, Upload, Download and Delete)
-⭐ Code Editor
+⭐ Code Editor to edit php, js, css and any type of text files
 ⭐ File manager plugin comes with light and elegant client UI
 ⭐ File manager support drag & drop file upload
 ⭐ List and Icons view available in File Manager Plugin
@@ -216,7 +216,9 @@ sparkles Overview of other products we are offering :
 
 🎉 [**Bit SMTP**](https://wordpress.org/plugins/bit-smtp/): The ultimate goal of Bit SMTP plugin to make your email deliverability more easy as well as secure.
 
-🎉 [**Bit ASSIST**](https://wordpress.org/plugins/bit-assist/): Connect your all support assistant in a single button. Floating Chat Widget, Contact Chat Icons, Telegram Chat, Line Messenger, WeChat, WhatsApp, Email, SMS, Call Button & more.
+🎉 [**Bit Assist**](https://wordpress.org/plugins/bit-assist/): Connect your all support assistant in a single button. Floating Chat Widget, Contact Chat Icons, Telegram Chat, Line Messenger, WeChat, WhatsApp, Email, SMS, Call Button & more.
+
+🎉 [**Bit Social**](https://wordpress.org/plugins/bit-social/): Connect your all support assistant in a single button. Floating Chat Widget, Contact Chat Icons, Telegram Chat, Line Messenger, WeChat, WhatsApp, Email, SMS, Call Button & more.
 
 loudspeaker **Join our community [Bit Apps](https://www.facebook.com/groups/bitapps) & get updates of our plugins.**
 
@@ -258,6 +260,12 @@ loudspeaker **Join our community [Bit Apps](https://www.facebook.com/groups/bita
 - Ukrainian
 - Vietnamese
 - Chinese
+
+= Telemetry Data =
+
+Bit Social uses [wp-telemetry](https://packagist.org/packages/bitapps/wp-telemetry) to collect some telemetry data upon user’s confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Wp-Telemetry **DOES NOT IMMEDIATELY** start gathering data, rather it will gather basic telemetry data when a user allows it. We collect the data to ensure great user experience for all our users.
 
 == Installation ==
 
@@ -317,11 +325,20 @@ Yes, It is possible to edit writeable files in the wordpress directory using cod
 
 == Upgrade Notice ==
 
-= 6.5 =
+= 6.5.3 =
 
 - No special requirements.
 
 == Changelog ==
+
+= 6.5.3 (9 Jun, 2024) =
+- Fix: pdf preview due to wrong file path
+
+= 6.5.2 (9 Jun, 2024) =
+- Fix: sort button in frontend
+- Fix: full screen button in frontend
+- Fix: view change button in frontend
+- Misc: Added wp-telemetry package to collect some insights from users
 
 = 6.5 (16 March, 2024) =
 - UI updated.

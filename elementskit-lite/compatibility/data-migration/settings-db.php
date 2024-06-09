@@ -14,6 +14,7 @@ class Settings_Db {
 
 		// TODO - remove this after 3.10.0 release
 		add_action( 'upgrader_process_complete', [$this, 'social_share_css_was_updated'], 10, 2 );
+		add_action( 'upgrader_process_complete', [$this, 'team_widget_css_was_updated'], 10, 2 );
 	}
 
 	private function migrate($list, $type) {
@@ -48,6 +49,19 @@ class Settings_Db {
 				if ($plugin == $our_plugin) {
 					if ( !get_transient('social_share_css_was_updated')) {
 						set_transient('social_share_css_was_updated', \ElementsKit_Lite::version());
+						\Elementor\Plugin::$instance->files_manager->clear_cache();
+					}
+				}
+			}
+		}
+	}
+	public function team_widget_css_was_updated($upgrader_object, $options){
+		$our_plugin = 'elementskit-lite/elementskit-lite.php';
+		if ($options['action'] == 'update' && $options['type'] == 'plugin' ) {
+			foreach($options['plugins'] as $plugin) {
+				if ($plugin == $our_plugin) {
+					if ( !get_transient('team_widget_css_was_updated')) {
+						set_transient('team_widget_css_was_updated', \ElementsKit_Lite::version());
 						\Elementor\Plugin::$instance->files_manager->clear_cache();
 					}
 				}

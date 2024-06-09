@@ -110,7 +110,7 @@ class ShopEngine_Product_List extends \ShopEngine\Base\Widget {
 			[
 				'label'       => esc_html__('Select Categories', 'shopengine'),
 				'type'        => ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'     => 'ajaxselect2/product_cat',
+				'options'     => 'shopengine_ajaxselect2/product_cat',
 				'multiple'    => true,
 				'label_block' => true,
 				'condition'   => [
@@ -124,7 +124,7 @@ class ShopEngine_Product_List extends \ShopEngine\Base\Widget {
 			[
 				'label'       => esc_html__('Select Tags', 'shopengine'),
 				'type'        => ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'     => 'ajaxselect2/product_tags',
+				'options'     => 'shopengine_ajaxselect2/product_tags',
 				'multiple'    => true,
 				'label_block' => true,
 				'condition'   => [
@@ -138,7 +138,7 @@ class ShopEngine_Product_List extends \ShopEngine\Base\Widget {
 			[
 				'label'       => esc_html__('Select Products', 'shopengine'),
 				'type'        => ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'     => 'ajaxselect2/product_list',
+				'options'     => 'shopengine_ajaxselect2/product_list',
 				'multiple'    => true,
 				'label_block' => true,
 				'condition'   => [
@@ -173,7 +173,7 @@ class ShopEngine_Product_List extends \ShopEngine\Base\Widget {
 			[
 				'label'       => esc_html__('Select Attributes', 'shopengine'),
 				'type'        => ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'     => 'ajaxselect2/product_pa_list',
+				'options'     => 'shopengine_ajaxselect2/product_pa_list',
 				'multiple'    => true,
 				'label_block' => true,
 				'condition'   => [
@@ -187,7 +187,7 @@ class ShopEngine_Product_List extends \ShopEngine\Base\Widget {
 			[
 				'label'       => esc_html__('Select Authors', 'shopengine'),
 				'type'        => ShopEngine_Controls_Manager::AJAXSELECT2,
-				'options'     => 'ajaxselect2/product_authors',
+				'options'     => 'shopengine_ajaxselect2/product_authors',
 				'multiple'    => true,
 				'label_block' => true,
 				'condition'   => [

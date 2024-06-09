@@ -287,9 +287,8 @@ class Rating
 
 			$not_good_enough_btn_id = ($this->never_show_triggered) ? '_btn_never_show' : '_btn_not_good';
 
-			$message = "Hello! Seems like you have used {$this->plugin_name} to build this website — Thanks a lot! <br>
-                            Could you please do us a <b>big favor</b> and give it a <b>5-star</b> rating on WordPress? 
-                            This would boost our motivation and help other users make a comfortable decision while choosing the {$this->plugin_name}";
+			$message = "Hey there! 👋 Thanks for using <strong>{$this->plugin_name}</strong> to build your ecommerce site! 🙌 <br>
+			Could you do us a solid and drop a <strong>review on WordPress.org...</strong> maybe with a <strong>5-star rating?</strong> 🤗";
 
 			Notice::instance()->set_config($this->text_domain, '_plugin_rating_msg_used_in_day')
 				->set_message($message)

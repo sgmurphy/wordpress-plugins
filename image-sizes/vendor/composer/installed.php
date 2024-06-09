@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3f7587e5bb02f1534475b1373a4dc39ba81fe9be',
+        'reference' => 'd3879a87cd3895638f397902dd2e67241dd21b13',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3f7587e5bb02f1534475b1373a4dc39ba81fe9be',
+            'reference' => 'd3879a87cd3895638f397902dd2e67241dd21b13',
             'dev_requirement' => false,
         ),
         'codexpert/plugin' => array(
@@ -38,7 +38,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '0a114f7a318bdf8d3b0bddef0174cbd831c2ea6a',
+            'reference' => 'e8fac0773b29907f0320b09ac625315479631c85',
             'dev_requirement' => false,
         ),
         'rosell-dk/exec-with-fallback' => array(

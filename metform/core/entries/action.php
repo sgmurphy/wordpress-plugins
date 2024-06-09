@@ -889,7 +889,7 @@ class Action
             'X-Mailer: PHP/' . phpversion();
 
         $mail = isset($this->form_settings['admin_email_to']) ? $this->form_settings['admin_email_to'] : null;
-
+        $mail = Metform_Shortcode::instance()->get_process_shortcode($mail); 
         if (!$mail) {
 		if(current_user_can( 'manage_options' )){
 			$this->response->status = 0;
@@ -1004,9 +1004,10 @@ class Action
         if (empty($file_data[$input_name])) {
             return;
         }
-
-         // need to require WordPress wp_handle_upload function
-         require_once ABSPATH . 'wp-admin/includes/file.php';
+        if(!function_exists('wp_handle_upload')){
+            // need to require WordPress wp_handle_upload function
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+        }
 
 
          
@@ -1022,8 +1023,9 @@ class Action
 
         for ($index = 0; $index < $total_files; $index++) {
             if (isset($files['name'][$index]) && $files['name'][$index] != '') {
+
                 $file = [
-                    'name' => "entry-file-".uniqid(microtime())."-".$files['name'][$index],
+                    'name' => "entry-file-".wp_hash(microtime(), 'secure_auth').'.'.pathinfo($files['name'][$index], PATHINFO_EXTENSION), 
                     'type' => $files['type'][$index],
                     'tmp_name' => $files['tmp_name'][$index],
                     'error' => isset($files['error'][$index]) ? $files['error'][$index] : null,

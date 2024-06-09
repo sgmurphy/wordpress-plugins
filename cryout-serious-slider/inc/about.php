@@ -9,22 +9,25 @@ if ( !defined( 'ABSPATH' ) ) exit;
 		<h2><?php //echo $this->title; ?></h2>
 		<?php
 		if ( ! isset( $_REQUEST['add_sample_content'] ) ) $_REQUEST['add_sample_content'] = false;
-
-		if ( $_REQUEST['add_sample_content'] ) {
-			if (current_user_can('edit_others_posts')) {
-				/* because wp doesn't auto display saved notice on non-options pages */ ?>
-				<div class="updated settings-error notice is-dismissible" id="setting-error-settings_updated">
-					<p><strong><?php _e('Sample slider created.', 'cryout-serious-slider');?></strong><br>
-					<?php _e('Sample content added. Navigate to Slider and Slides sections to see the sample content.', 'cryout-serious-slider') ?></p>
-					<button class="notice-dismiss" type="button"><span class="screen-reader-text"><?php _e('Dismiss this notice.', 'cryout-serious-slider' ) ?></span></button>
-				</div>
-			<?php } else { ?>
-				<div class="notice notice-warning is-dismissible">
-					<p><?php _e('You do not have sufficient permissions to create sample content.', 'cryout-serious-slider') ?></p>
-					<button class="notice-dismiss" type="button"><span class="screen-reader-text"><?php _e('Dismiss this notice.', 'cryout-serious-slider' ) ?></span></button>
-				</div>
-			<?php } 
-		} // endif ?>
+		
+		if (current_user_can('edit_others_posts')) {
+			if ( $_REQUEST['add_sample_content'] && !empty( $this->justsampled ) ) {
+					/* because wp doesn't auto display saved notice on non-options pages */ ?>
+					<div class="updated settings-error notice is-dismissible" id="notice-updated-seriousslider">
+						<p><strong><?php _e('Sample slider created.', 'cryout-serious-slider');?></strong><br>
+						<?php _e('Sample content added. Navigate to Manage Sliders section to see the sample content.', 'cryout-serious-slider') ?></p>
+					</div>
+			<?php } elseif ( $_REQUEST['add_sample_content'] && empty( $this->justsampled ) ) { ?>
+					<div class="notice-warning notice is-dismissible" id="notice-warning-seriousslider">
+						<p><?php _e('Sample slider content already exists. Navigate to Manange Sliders section to see the existing sample content.', 'cryout-serious-slider') ?></p>
+					</div>				
+			<?php } ?>
+		<?php } else { ?>
+			<div class="notice notice-warning is-dismissible">
+				<p><?php _e('You do not have sufficient permissions to create sample content.', 'cryout-serious-slider') ?></p>
+				<button class="notice-dismiss" type="button"><span class="screen-reader-text"><?php _e('Dismiss this notice.', 'cryout-serious-slider' ) ?></span></button>
+			</div>
+		<?php } // currentusercan ?>
 
 		<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
@@ -135,7 +138,10 @@ if ( !defined( 'ABSPATH' ) ) exit;
 								</h3>
 								<div class="inside">
 									<div style="text-align: center; margin: auto">
-										<a class="button button-secondary" href="<?php echo $this->aboutpage . '&add_sample_content=1' ?>">
+										<a class="button button-secondary" href="<?php echo add_query_arg( array(
+											'add_sample_content' => 1,
+											 '_wpnonce' => wp_create_nonce( 'sampleslider' )
+											), $this->aboutpage ) ?>">
 											<?php _e('Create Sample Slider', 'cryout-serious-slider');?>
 										</a>
 										<p class="description"><small><?php _e('This will create a sample slider with 3 slides which you can use as a basis for your own content.', 'cryout-serious-slider') ?></small></p>

@@ -4,7 +4,7 @@
             <?php echo esc_html__('Upgrade within the next','metform')?> <br/>
             <strong><?php echo esc_html__('2 hours', 'metform') ?></strong>
             <?php echo esc_html__(' and get a ','metform')?>
-            <strong><?php echo esc_html__('40% Discount', 'metform') ?></strong>
+            <strong><?php echo esc_html__('20% Discount', 'metform') ?></strong>
         
     </h1>
 </div>

@@ -356,7 +356,7 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
             }
 
             wpdev_essential_blocks()->assets->enqueue( 'admin', 'css/admin.css' );
-            wpdev_essential_blocks()->assets->enqueue( 'admin-custom', ESSENTIAL_BLOCKS_URL . 'admin/style.css' );
+            wpdev_essential_blocks()->assets->enqueue( 'admin-custom', '../admin/style.css' );
         }
 
         public function enqueue_scripts( $hook )

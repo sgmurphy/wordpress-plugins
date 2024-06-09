@@ -20,7 +20,7 @@ class Ajax_Select2 extends \Elementor\Base_Data_Control {
 	 * @return string Control type.
 	 */
 	public function get_type() {
-		return 'ajaxselect2';
+		return 'shopengine_ajaxselect2';
 	}
 
 	/**
@@ -74,8 +74,8 @@ class Ajax_Select2 extends \Elementor\Base_Data_Control {
 				<# var multiple = ( data.multiple ) ? 'multiple' : ''; #>
 				<select 
 					id="<?php echo esc_attr($control_uid); ?>" 
-					class="elementor-megamenuajaxselect2" 
-					type="megamenuajaxselect2" {{ multiple }} 
+					class="elementor-megamenushopengine_ajaxselect2" 
+					type="megamenushopengine_ajaxselect2" {{ multiple }} 
 					data-setting="{{ data.name }}"
 					data-ajax-url="<?php echo esc_attr($this->get_api_url() . '/{{data.options}}/'); ?>"
 				>
